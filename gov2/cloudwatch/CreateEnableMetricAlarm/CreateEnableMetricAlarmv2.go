@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
-// snippet-start:[cloudwatch.go-v2.EnableAlarm]
+// snippet-start:[cloudwatch.go-v2.CreateEnableMetricAlarm]
 package main
 
 import (

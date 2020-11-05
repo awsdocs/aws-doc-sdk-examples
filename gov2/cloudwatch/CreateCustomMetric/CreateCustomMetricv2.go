@@ -81,4 +81,4 @@ func main() {
 	fmt.Println("Created a custom metric")
 }
 
-// snippet-end:[cloudwatch.go-v2.create_custom_metric]
+// snippet-end:[cloudwatch.go-v2.CreateCustomMetric]

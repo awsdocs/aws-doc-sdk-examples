@@ -35,7 +35,6 @@ func DisableAlarm(c context.Context, api CWDisableAlarmAPI, input *cloudwatch.Di
 }
 
 func main() {
-	// snippet-start:[cloudwatch.go-v2.disable_args]
 	alarmName := flag.String("a", "", "The name of the alarm to disable")
 	flag.Parse()
 

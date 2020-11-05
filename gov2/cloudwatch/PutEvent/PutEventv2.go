@@ -136,4 +136,4 @@ func main() {
 	fmt.Println("Created event")
 }
 
-// snippet-end:[cloudwatch.go-v2.SendEvent]
+// snippet-end:[cloudwatch.go-v2.PutEvent]
