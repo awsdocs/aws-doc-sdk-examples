@@ -15,7 +15,7 @@ Inputs (replace in code):
 Running the code:
 ts-node transcribe_create_job.ts
  */
-// snippet-start:[transcribe.JavaScript.jobs.deleteJobsV3]
+// snippet-start:[transcribe.JavaScript.jobs.deleteJobV3]
 // Import the required AWS SDK clients and commands for Node.js
 const {
   TranscribeClient,
@@ -27,7 +27,7 @@ const REGION = "REGION"; // For example, "us-east-1"
 
 // Set the parameters
 const params = {
-  TranscriptionJobName: "JOB_NAME", // For example, 'transciption_demo'
+  TranscriptionJobName: "JOB_NAME", // Required. For example, 'transciption_demo'
 };
 
 // Create an Amazon Transcribe service client object
@@ -43,4 +43,4 @@ const run = async () => {
 };
 run();
 
-// snippet-end:[transcribe.JavaScript.jobs.deleteJobsV3]
+// snippet-end:[transcribe.JavaScript.jobs.deleteJobV3]

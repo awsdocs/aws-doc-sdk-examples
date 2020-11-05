@@ -36,7 +36,7 @@ const REGION = "REGION";
 // Set parameters
 let signedUrl;
 let response;
-const signatureVersion = "v4";
+
 // Create a random name for the Amazon Simple Storage Service (Amazon S3) bucket
 const BUCKET = `test-bucket-${Math.ceil(Math.random() * 10 ** 10)}`;
 // Create a random name for object to upload to S3 bucket

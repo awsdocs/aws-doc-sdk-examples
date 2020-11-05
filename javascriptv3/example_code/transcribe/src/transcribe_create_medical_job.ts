@@ -10,15 +10,17 @@ transcribe_create_medical_job.ts demonstrates how to create an Amazon Transcribe
 
 Inputs (replace in code):
 - REGION
-- JOB_NAME
+- MEDICAL_JOB_NAME
+- OUTPUT_BUCKET_NAME
+- JOB_TYPE
 - LANGUAGE_CODE
 - SOURCE_FILE_FORMAT
-- SOURCE_LOCATION
+- SOURCE_FILE_LOCATION
 
 Running the code:
 ts-node transcribe_create_medical_job.ts
  */
-// snippet-start:[transcribe.JavaScript.jobs.createJobsV3]
+// snippet-start:[transcribe.JavaScript.jobs.createMedicalJobV3]
 // Import the required AWS SDK clients and commands for Node.js
 const {
   TranscribeClient,
@@ -30,13 +32,18 @@ const REGION = "REGION"; // For example, "us-east-1"
 
 // Set the parameters
 const params = {
-  TranscriptionJobName: "JOB_NAME",
+  MedicalTranscriptionJobName: 'MEDICAL_JOB_NAME', // Required
+  OutputBucketName: 'OUTPUT_BUCKET_NAME', // Required
+  Specialty: "PRIMARYCARE", // Required. Possible values are 'PRIMARYCARE'
+  Type: "JOB_TYPE", // Required. Possible values are 'CONVERSATION' and 'DICTATION'
   LanguageCode: "LANGUAGE_CODE", // For example, 'en-US'
   MediaFormat: "SOURCE_FILE_FORMAT", // For example, 'wav'
   Media: {
-    MediaFileUri: "SOURCE_LOCATION",
-    // For example, "https://transcribe-demo.s3-REGION.amazonaws.com/hello_world.wav"
-  },
+    MediaFileUri: "SOURCE_FILE_LOCATION",
+    // The S3 object location of the input media file. The URI must be in the same region
+    // as the API endpoint that you are calling.For example,
+    // "https://transcribe-demo.s3-REGION.amazonaws.com/hello_world.wav"
+  }
 };
 
 // Create an Amazon Transcribe service client object
@@ -53,4 +60,4 @@ const run = async () => {
   }
 };
 run();
-// snippet-end:[transcribe.JavaScript.jobs.createJobsV3]
+// snippet-end:[transcribe.JavaScript.jobs.createMedicalJobV3]

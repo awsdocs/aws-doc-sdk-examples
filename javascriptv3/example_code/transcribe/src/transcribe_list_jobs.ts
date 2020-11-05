@@ -28,7 +28,8 @@ const REGION = "REGION"; // For example, "us-east-1"
 
 // Set the parameters
 const params = {
-  JobNameContains: "KEYWORD", // Returns only transcription job names containing this string
+  JobNameContains: "KEYWORD" // Not required. Returns only transcription
+  // job names containing this string
 };
 
 // Create an Amazon Transcribe service client object

@@ -10,13 +10,13 @@ transcribe_delete_medical_job.ts demonstrates how to delete an Amazon Transcribe
 
 Inputs (replace in code):
 - REGION
-- JOB_NAME
+- MEDICAL_JOB_NAME
 
 
 Running the code:
-ts-node transcribe_create_medical_job.ts
+ts-node transcribe_delete_medical_job.ts
  */
-// snippet-start:[transcribe.JavaScript.jobs.deleteJobsV3]
+// snippet-start:[transcribe.JavaScript.jobs.deleteMedicalJobV3]
 // Import the required AWS SDK clients and commands for Node.js
 const {
   TranscribeClient,
@@ -28,7 +28,7 @@ const REGION = "REGION"; // For example, "us-east-1"
 
 // Set the parameters
 const params = {
-  TranscriptionJobName: "JOB_NAME", // For example, 'transciption_demo'
+  MedicalTranscriptionJobName: "MEDICAL_JOB_NAME" // For example, 'medical_transciption_demo'
 };
 
 // Create an Amazon Transcribe service client object
@@ -46,4 +46,4 @@ const run = async () => {
 };
 run();
 
-// snippet-end:[transcribe.JavaScript.jobs.deleteJobsV3]
+// snippet-end:[transcribe.JavaScript.jobs.deleteMedicalJobV3]
