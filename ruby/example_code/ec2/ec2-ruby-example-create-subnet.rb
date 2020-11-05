@@ -1,36 +1,113 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Creates a public subnet with tags and attaches it to a VPC.]
-# snippet-keyword:[Amazon Elastic Compute Cloud]
-# snippet-keyword:[create_subnet method]
-# snippet-keyword:[Subnet.create_tags method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[ec2]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
+
+require 'aws-sdk-ec2'
+
+# Creates a subnet within a virtual private cloud (VPC) in 
+#   Amazon Virtual Private Cloud (Amazon VPC) and then tags
+#   the subnet.
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
+# Prerequisites:
 #
-# http://aws.amazon.com/apache2.0/
+# - A VPC in Amazon VPC.
 #
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# @param ec2_resource [Aws::EC2::Resource] An initialized
+#   Amazon Elastic Compute Cloud (Amazon EC2) resource object.
+# @param vpc_id [String] The ID of the VPC for the subnet.
+# @param cidr_block [String] The IPv4 CIDR block for the subnet.
+# @param availability_zone [String] The ID of the Availability Zone
+#   for the subnet.
+# @param tag_key [String] The key portion of the tag for the subnet. 
+# @param tag_vlue [String] The value portion of the tag for the subnet.
+# @return [Boolean] true if the subnet was created and tagged;
+#   otherwise, false.
+# @example
+#   exit 1 unless subnet_created_and_tagged?(
+#     Aws::EC2::Resource.new(region: 'us-east-1'),
+#     'vpc-6713dfEX',
+#     '10.0.0.0/24',
+#     'us-east-1a',
+#     'my-key',
+#     'my-value'
+#   )
+def subnet_created_and_tagged?(
+  ec2_resource,
+  vpc_id,
+  cidr_block,
+  availability_zone,
+  tag_key,
+  tag_value
+)
+  subnet = ec2_resource.create_subnet(
+    vpc_id: vpc_id,
+    cidr_block: cidr_block,
+    availability_zone: availability_zone
+  )
+  subnet.create_tags(
+    tags: [
+      {
+        key: tag_key,
+        value: tag_value
+      }
+    ]
+  )
+  puts "Subnet created with ID '#{subnet.id}' in VPC with ID '#{vpc_id}' " \
+    "and CIDR block '#{cidr_block}' in availability zone " \
+    "'#{availability_zone}' and tagged with key '#{tag_key}' and " \
+    "value '#{tag_value}'."
+  return true
+rescue StandardError => e
+  puts "Error creating or tagging subnet: #{e.message}"
+  return false
+end
 
-require 'aws-sdk-ec2'  # v2: require 'aws-sdk'
+# Full example call:
+def run_me
+  vpc_id = ''
+  cidr_block = ''
+  availability_zone = ''
+  tag_key = ''
+  tag_value = ''
+  region = ''
+  # Print usage information and then stop.
+  if ARGV[0] == '--help' || ARGV[0] == '-h'
+    puts 'Usage:   ruby ec2-ruby-example-create-subnet.rb ' \
+      'VPC_ID CIDR_BLOCK AVAILABILITY_ZONE TAG_KEY TAG_VALUE REGION'
+    puts 'Example: ruby ec2-ruby-example-create-subnet.rb ' \
+      'vpc-6713dfEX 10.0.0.0/24 us-east-1a my-key my-value us-east-1'
+    exit 1
+  # If no values are specified at the command prompt, use these default values.
+  elsif ARGV.count.zero?
+    vpc_id = 'vpc-6713dfEX'
+    cidr_block = '10.0.0.0/24'
+    availability_zone = 'us-east-1a'
+    tag_key = 'my-key'
+    tag_value = 'my-value'
+    region = 'us-east-1'
+  # Otherwise, use the values as specified at the command prompt.
+  else
+    vpc_id = ARGV[0]
+    cidr_block = ARGV[1]
+    availability_zone = ARGV[2]
+    tag_key = ARGV[3]
+    tag_value = ARGV[4]
+    region = ARGV[5]
+  end
 
-ec2 = Aws::EC2::Resource.new(region: 'us-west-2')
+  ec2_resource = Aws::EC2::Resource.new(region: region)
 
-subnet = ec2.create_subnet({
-  vpc_id: VPC_ID,
-  cidr_block: '10.200.10.0/24',
-  availability_zone: 'us-west-2a'
-})
+  if subnet_created_and_tagged?(
+    ec2_resource,
+    vpc_id,
+    cidr_block,
+    availability_zone,
+    tag_key,
+    tag_value
+  )
+    puts 'Subnet created and tagged.'
+  else
+    puts 'Subnet not created or not tagged.'
+  end
+end
 
-subnet.create_tags({ tags: [{ key: 'Name', value: 'MyGroovySubnet' }]})
-puts subnet.id
+run_me if $PROGRAM_NAME == __FILE__

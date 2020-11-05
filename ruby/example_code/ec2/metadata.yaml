@@ -33,4 +33,34 @@ files:
   - path: tests/test_ec2-ruby-example-create-security-group.rb
     services:
     - ec2
+  - path: ec2-ruby-example-create-subnet.rb
+    services: 
+    - ec2
+  - path: tests/test_ec2-ruby-example-create-subnet.rb
+    services:
+    - ec2
+  - path: ec2-ruby-example-create-vpc.rb
+    services: 
+    - ec2
+  - path: tests/test_ec2-ruby-example-create-vpc.rb
+    services:
+    - ec2
+  - path: ec2-ruby-example-elastic-ips.rb
+    services: 
+    - ec2
+  - path: tests/test_ec2-ruby-example-elastic-ips.rb
+    services:
+    - ec2
+  - path: ec2-ruby-example-get-all-instance-info.rb
+    services: 
+    - ec2
+  - path: tests/test_ec2-ruby-example-get-all-instance-info.rb
+    services:
+    - ec2
+  - path: ec2-ruby-example-get-instance-info-by-tag.rb
+    services: 
+    - ec2
+  - path: tests/test_ec2-ruby-example-get-instance-info-by-tag.rb
+    services:
+    - ec2
 ...

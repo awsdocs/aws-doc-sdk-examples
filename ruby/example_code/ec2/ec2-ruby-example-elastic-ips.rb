@@ -1,88 +1,219 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Allocates an Elastic IP address, associates the address with an Amazon EC2 instance, gets information about addresses associated with the instance, and release the address.]
-# snippet-keyword:[Amazon Elastic Compute Cloud]
-# snippet-keyword:[allocate_address method]
-# snippet-keyword:[associate_address method]
-# snippet-keyword:[describe_addresses method]
-# snippet-keyword:[release_address method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[ec2]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
+
+# This code example does the following:
+# 1. Displays information about any addresses associated with an
+#    Amazon Elastic Compute Cloud (Amazon EC2) instance.
+# 2. Creates an Elastic IP address in Amazon Virtual Private Cloud (Amazon VPC).
+# 3. Associates the address with the instance.
+# 4. Displays information again about addresses associated with the instance.
+#    This time, the new address association should display.
+# 5. Releases the address.
+# 6. Displays information again about addresses associated with the instance.
+#    This time, the released address should not display.
+
+require 'aws-sdk-ec2'
+
+# Checks whether the specified Amazon Elastic Compute Cloud
+#   (Amazon EC2) instance exists.
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
+# Prerequisites:
 #
-# http://aws.amazon.com/apache2.0/
+# - The Amazon EC2 instance.
 #
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
-
-# Demonstrates how to:
-# 1. Allocate an Elastic IP address.
-# 2. Associate the address with an Amazon EC2 instance.
-# 2. Get information about addresses associated with the instance. 
-# 4. Release the address.
-
-require 'aws-sdk-ec2'  # v2: require 'aws-sdk'
-
-ec2 = Aws::EC2::Client.new(region: 'us-east-1')
-
-instance_id = "INSTANCE-ID" # For example, "i-0a123456b7c8defg9"
-
-def display_addresses(ec2, instance_id)
-  describe_addresses_result = ec2.describe_addresses({
-    filters: [
-      {
-        name: "instance-id",
-        values: [ instance_id ]
-      },
-    ]
-  })
-  if describe_addresses_result.addresses.count == 0
-    puts "No addresses currently associated with the instance."
-  else
-    describe_addresses_result.addresses.each do |address|
-      puts "=" * 10
-      puts "Allocation ID: #{address.allocation_id}"
-      puts "Association ID: #{address.association_id}"
-      puts "Instance ID: #{address.instance_id}"
-      puts "Public IP: #{address.public_ip}"
-      puts "Private IP Address: #{address.private_ip_address}"
-    end
-  end
+# @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
+# @param instance_id [String] The ID of the instance.
+# @return [Boolean] true if the instance exists; otherwise, false.
+# @example
+#   exit 1 unless instance_exists?(
+#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     'i-033c48ef067af3dEX'
+#   )
+def instance_exists?(ec2_client, instance_id)
+  ec2_client.describe_instances(instance_ids: [instance_id])
+  return true
+rescue StandardError
+  return false
 end
 
-puts "Before allocating the address for the instance...."
-display_addresses(ec2, instance_id)
+# Creates an Elastic IP address in Amazon Virtual Private Cloud (Amazon VPC).
+#
+# @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
+# @return [String] The allocation ID corresponding to the Elastic IP address.
+# @example
+#   puts allocate_elastic_ip_address(Aws::EC2::Client.new(region: 'us-east-1'))
+def allocate_elastic_ip_address(ec2_client)
+  response = ec2_client.allocate_address(domain: 'vpc')
+  return response.allocation_id
+rescue StandardError => e
+  puts "Error allocating Elastic IP address: #{e.message}"
+  return 'Error'
+end
 
-puts "\nAllocating the address for the instance..."
-ec2.allocate_address({
-  domain: "vpc" 
-})
+# Associates an Elastic IP address with an Amazon Elastic Compute Cloud
+#   (Amazon EC2) instance.
+#
+# Prerequisites:
+#
+# - The allocation ID corresponding to the Elastic IP address.
+# - The Amazon EC2 instance.
+#
+# @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
+# @param allocation_id [String] The ID of the allocation corresponding to
+#   the Elastic IP address.
+# @param instance_id [String] The ID of the instance.
+# @return [String] The assocation ID corresponding to the association of the
+#   Elastic IP address to the instance.
+# @example
+#   puts allocate_elastic_ip_address(
+#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     'eipalloc-04452e528a66279EX',
+#     'i-033c48ef067af3dEX')
+def associate_elastic_ip_address_with_instance(
+  ec2_client,
+  allocation_id,
+  instance_id
+)
+  response = ec2_client.associate_address(
+    allocation_id: allocation_id,
+    instance_id: instance_id,
+  )
+  return response.association_id
+rescue StandardError => e
+  puts "Error associating Elastic IP address with instance: #{e.message}"
+  return 'Error'
+end
 
-puts "\nAfter allocating the address for instance, but before associating the address with the instance..."
-display_addresses(ec2, instance_id)
+# Gets information about addresses associated with an
+#   Amazon Elastic Compute Cloud (Amazon EC2) instance.
+#
+# Prerequisites:
+#
+# - The Amazon EC2 instance.
+#
+# @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
+# @param instance_id [String] The ID of the instance.
+# @example
+#   describe_addresses_for_instance(
+#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     'i-033c48ef067af3dEX'
+#   )
+def describe_addresses_for_instance(ec2_client, instance_id)
+  response = ec2_client.describe_addresses(
+    filters: [
+      {
+        name: 'instance-id',
+        values: [instance_id]
+      }
+    ]
+  )
+  addresses = response.addresses
+  if addresses.count.zero?
+    puts 'No addresses.'
+  else
+    addresses.each do |address|
+      puts '-' * 20
+      puts "Public IP:  #{address.public_ip}"
+      puts "Private IP: #{address.private_ip_address}"
+    end
+  end
+rescue StandardError => e
+  puts "Error getting address information for instance: #{e.message}"
+end
 
-puts "\nAssociating the address with the instance..."
-ec2.associate_address({
-  allocation_id: allocate_address_result.allocation_id, 
-  instance_id: instance_id, 
-})
+# Releases an Elastic IP address from an
+#   Amazon Elastic Compute Cloud (Amazon EC2) instance.
+#
+# Prerequisites:
+#
+# - An Amazon EC2 instance with an associated Elastic IP address.
+#
+# @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
+# @param allocation_id [String] The ID of the allocation corresponding to
+#   the Elastic IP address.
+# @return [Boolean] true if the Elastic IP address was released;
+#   otherwise, false.
+# @example
+#   exit 1 unless elastic_ip_address_released?(
+#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     'eipalloc-04452e528a66279EX'
+#   )
+def elastic_ip_address_released?(ec2_client, allocation_id)
+  ec2_client.release_address(allocation_id: allocation_id)
+  return true
+rescue StandardError => e
+  return "Error releasing Elastic IP address: #{e.message}"
+  return false
+end
 
-puts "\nAfter associating the address with the instance, but before releasing the address from the instance..."
-display_addresses(ec2, instance_id)
+# Full example call:
+def run_me
+  instance_id = ''
+  region = ''
+  # Print usage information and then stop.
+  if ARGV[0] == '--help' || ARGV[0] == '-h'
+    puts 'Usage:   ruby ec2-ruby-example-elastic-ips.rb ' \
+      'INSTANCE_ID REGION'
+    puts 'Example: ruby ec2-ruby-example-elastic-ips.rb ' \
+      'i-033c48ef067af3dEX us-east-1'
+    exit 1
+  # If no values are specified at the command prompt, use these default values.
+  elsif ARGV.count.zero?
+    instance_id = 'i-033c48ef067af3dEX'
+    region = 'us-east-1'
+  # Otherwise, use the values as specified at the command prompt.
+  else
+    instance_id = ARGV[0]
+    region = ARGV[1]
+  end
 
-puts "\nReleasing the address from the instance..."
-ec2.release_address({
-  allocation_id: allocate_address_result.allocation_id, 
-})
+  ec2_client = Aws::EC2::Client.new(region: region)
 
-puts "\nAfter releasing the address from the instance..."
-display_addresses(ec2, instance_id)
+  unless instance_exists?(ec2_client, instance_id)
+    puts "Cannot find instance with ID '#{instance_id}'. Stopping program."
+    exit 1
+  end
+
+  puts "Addresses for instance with ID '#{instance_id}' before allocating " \
+    'Elastic IP address:'
+  describe_addresses_for_instance(ec2_client, instance_id)
+
+  puts 'Allocating Elastic IP address...'
+  allocation_id = allocate_elastic_ip_address(ec2_client)
+  if allocation_id.start_with?('Error')
+    puts 'Stopping program.'
+    exit 1
+  else
+    puts "Elastic IP address created with allocation ID '#{allocation_id}'."
+  end
+
+  puts 'Associating Elastic IP address with instance...'
+  association_id = associate_elastic_ip_address_with_instance(
+    ec2_client,
+    allocation_id,
+    instance_id
+  )
+  if association_id.start_with?('Error')
+    puts 'Stopping program. You must associate the Elastic IP address yourself.'
+    exit 1
+  else
+    puts 'Elastic IP address associated with instance with association ID ' \
+      "'#{association_id}'."
+  end
+
+  puts 'Addresses for instance after allocating Elastic IP address:'
+  describe_addresses_for_instance(ec2_client, instance_id)
+
+  puts 'Releasing the Elastic IP address from the instance...'
+  if elastic_ip_address_released?(ec2_client, allocation_id) == false
+    puts 'Stopping program. You must release the Elastic IP address yourself.'
+    exit 1
+  else
+    puts 'Address released.'
+  end
+
+  puts 'Addresses for instance after releasing Elastic IP address:'
+  describe_addresses_for_instance(ec2_client, instance_id)
+end
+
+run_me if $PROGRAM_NAME == __FILE__
