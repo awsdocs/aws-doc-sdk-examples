@@ -19,9 +19,9 @@ type S3ListBucketsAPI interface {
 		optFns ...func(*s3.Options)) (*s3.ListBucketsOutput, error)
 }
 
-// GetAllBuckets retrieves a list of your Amazon S3 buckets.
+// GetAllBuckets retrieves a list of your Amazon Simple Storage Service (Amazon S3) buckets.
 // Inputs:
-//     c is the context of the method call, which includes the Region.
+//     c is the context of the method call, which includes the AWS Region.
 //     api is the interface that defines the method call.
 //     input defines the input arguments to the service call.
 // Output:

@@ -20,9 +20,9 @@ type S3GetObjectAclAPI interface {
 		optFns ...func(*s3.Options)) (*s3.GetObjectAclOutput, error)
 }
 
-// FindObjectAcl gets the ACL for a bucket object
+// FindObjectAcl gets the access control list (ACL) for an Amazon Simple Storage Service (Amazon S3) bucket object
 // Inputs:
-//     c is the context of the method call, which includes the Region
+//     c is the context of the method call, which includes the AWS Region
 //     api is the interface that defines the method call
 //     input defines the input arguments to the service call.
 // Output:
@@ -36,11 +36,11 @@ func FindObjectAcl(c context.Context, api S3GetObjectAclAPI, input *s3.GetObject
 
 func main() {
 	bucket := flag.String("b", "", "The bucket containing the object")
-	key := flag.String("i", "", "The bucket item to get ACL from")
+	objectName := flag.String("o", "", "The bucket object to get ACL from")
 	flag.Parse()
 
-	if *bucket == "" || *key == "" {
-		fmt.Println("You must supply a bucket (-b BUCKET) and item (-i ITEM)")
+	if *bucket == "" || *objectName == "" {
+		fmt.Println("You must supply a bucket (-b BUCKET) and object (-o OBJECT)")
 		return
 	}
 
@@ -53,12 +53,12 @@ func main() {
 
 	input := &s3.GetObjectAclInput{
 		Bucket: bucket,
-		Key:    key,
+		Key:    objectName,
 	}
 
 	result, err := FindObjectAcl(context.Background(), client, input)
 	if err != nil {
-		fmt.Println("Got an error getting ACL for " + *key)
+		fmt.Println("Got an error getting ACL for " + *objectName)
 		return
 	}
 

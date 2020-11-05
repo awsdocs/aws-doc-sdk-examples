@@ -20,9 +20,9 @@ type S3DeleteObjectAPI interface {
 		optFns ...func(*s3.Options)) (*s3.DeleteObjectOutput, error)
 }
 
-// DeleteItem deletes an item from a bucket
+// DeleteItem deletes an object from an Amazon Simple Storage Service (Amazon S3) bucket
 // Inputs:
-//     c is the context of the method call, which includes the Region
+//     c is the context of the method call, which includes the AWS Region
 //     api is the interface that defines the method call
 //     input defines the input arguments to the service call.
 // Output:
@@ -36,11 +36,11 @@ func DeleteItem(c context.Context, api S3DeleteObjectAPI, input *s3.DeleteObject
 
 func main() {
 	bucket := flag.String("b", "", "The bucket from which the object is deleted")
-	item := flag.String("i", "", "The object to delete")
+	objectName := flag.String("o", "", "The object to delete")
 	flag.Parse()
 
-	if *bucket == "" || *item == "" {
-		fmt.Println("You must supply the bucket (-b BUCKET), and item to delete (-i ITEM")
+	if *bucket == "" || *objectName == "" {
+		fmt.Println("You must supply the bucket (-b BUCKET), and object to delete (-o OBJECT")
 		return
 	}
 
@@ -53,7 +53,7 @@ func main() {
 
 	input := &s3.DeleteObjectInput{
 		Bucket: bucket,
-		Key:    item,
+		Key:    objectName,
 	}
 
 	_, err = DeleteItem(context.Background(), client, input)
@@ -63,7 +63,7 @@ func main() {
 		return
 	}
 
-	fmt.Println("Deleted " + *item + " from " + *bucket)
+	fmt.Println("Deleted " + *objectName + " from " + *bucket)
 }
 
 // snippet-end:[s3.go-v2.DeleteObject]

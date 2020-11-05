@@ -21,14 +21,14 @@ type S3PutObjectAPI interface {
 		optFns ...func(*s3.Options)) (*s3.PutObjectOutput, error)
 }
 
-// PutFile uploads a file to a bucket
+// PutFile uploads a file to an Amazon Simple Storage Service (Amazon S3) bucket
 // Inputs:
-//     c is the context of the method call, which includes the Region
+//     c is the context of the method call, which includes the AWS Region
 //     api is the interface that defines the method call
 //     input defines the input arguments to the service call.
 // Output:
 //     If success, a PutObjectOutput object containing the result of the service call and nil
-//     Otherwise, nil and an error from the call to Open or PutObject
+//     Otherwise, nil and an error from the call to PutObject
 func PutFile(c context.Context, api S3PutObjectAPI, input *s3.PutObjectInput) (*s3.PutObjectOutput, error) {
 	resp, err := api.PutObject(c, input)
 

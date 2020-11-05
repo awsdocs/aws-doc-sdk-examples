@@ -34,7 +34,7 @@ func (dt S3CopyObjectImpl) CopyObject(ctx context.Context,
 type Config struct {
 	SourceBucket      string `json:"SourceBucket"`
 	DestinationBucket string `json:"DestinationBucket"`
-	ItemKey           string `json:"ItemKey"`
+	ObjectKey         string `json:"ObjectKey"`
 }
 
 var configFileName = "config.json"
@@ -54,14 +54,14 @@ func populateConfiguration(t *testing.T) error {
 		return err
 	}
 
-	if globalConfig.SourceBucket == "" || globalConfig.DestinationBucket == "" || globalConfig.ItemKey == "" {
+	if globalConfig.SourceBucket == "" || globalConfig.DestinationBucket == "" || globalConfig.ObjectKey == "" {
 		msg := "Failed to find SourceBucket, DestinationBucket, or ItemKey value in " + configFileName
 		return errors.New(msg)
 	}
 
 	t.Log("Source bucket:      " + globalConfig.SourceBucket)
 	t.Log("Destination bucket: " + globalConfig.DestinationBucket)
-	t.Log("Item key:           " + globalConfig.ItemKey)
+	t.Log("Object key:         " + globalConfig.ObjectKey)
 
 	return nil
 }
@@ -80,7 +80,7 @@ func TestCopyObject(t *testing.T) {
 	input := s3.CopyObjectInput{
 		CopySource: &globalConfig.SourceBucket,
 		Bucket:     &globalConfig.DestinationBucket,
-		Key:        &globalConfig.ItemKey,
+		Key:        &globalConfig.ObjectKey,
 	}
 
 	api := &S3CopyObjectImpl{}
@@ -92,5 +92,5 @@ func TestCopyObject(t *testing.T) {
 		return
 	}
 
-	t.Log("Copied " + globalConfig.ItemKey + " from " + globalConfig.SourceBucket + " to " + globalConfig.DestinationBucket)
+	t.Log("Copied " + globalConfig.ObjectKey + " from " + globalConfig.SourceBucket + " to " + globalConfig.DestinationBucket)
 }

@@ -16,12 +16,6 @@ type S3DeleteBucketImpl struct{}
 func (dt S3DeleteBucketImpl) DeleteBucket(ctx context.Context,
 	params *s3.DeleteBucketInput,
 	optFns ...func(*s3.Options)) (*s3.DeleteBucketOutput, error) {
-	/*
-	   desc := &types.???{
-	       ARG:      VALUE,
-	       // ...
-	   }
-	*/
 
 	output := &s3.DeleteBucketOutput{}
 

@@ -20,9 +20,9 @@ type S3GetBucketAclAPI interface {
 		optFns ...func(*s3.Options)) (*s3.GetBucketAclOutput, error)
 }
 
-// FindBucketAcl retrieves the access control list (ACL) for an Amazon S3 bucket.
+// FindBucketAcl retrieves the access control list (ACL) for an Amazon Simple Storage Service (Amazon S3) bucket.
 // Inputs:
-//     c is the context of the method call, which includes the Region
+//     c is the context of the method call, which includes the AWS Region
 //     api is the interface that defines the method call
 //     input defines the input arguments to the service call.
 // Output:

@@ -24,7 +24,7 @@ func (dt S3DeleteObjectImpl) DeleteObject(ctx context.Context,
 
 type Config struct {
 	BucketName string `json:"BucketName"`
-	KeyName    string `json:"KeyName"`
+	ObjectName string `json:"ObjectName"`
 }
 
 var configFileName = "config.json"
@@ -44,8 +44,8 @@ func populateConfiguration(t *testing.T) error {
 		return err
 	}
 
-	if globalConfig.BucketName == "" || globalConfig.KeyName == "" {
-		msg := "You must specify a value for BucketName and KeyName in " + configFileName
+	if globalConfig.BucketName == "" || globalConfig.ObjectName == "" {
+		msg := "You must specify a value for BucketName and ObjectName in " + configFileName
 		return errors.New(msg)
 	}
 
@@ -65,7 +65,7 @@ func TestDeleteObject(t *testing.T) {
 	// Build the request with its input parameters
 	input := s3.DeleteObjectInput{
 		Bucket: &globalConfig.BucketName,
-		Key:    &globalConfig.KeyName,
+		Key:    &globalConfig.ObjectName,
 	}
 
 	api := &S3DeleteObjectImpl{}
@@ -77,5 +77,5 @@ func TestDeleteObject(t *testing.T) {
 		return
 	}
 
-	t.Log("Deleted " + globalConfig.KeyName + " from bucket " + globalConfig.BucketName)
+	t.Log("Deleted " + globalConfig.ObjectName + " from bucket " + globalConfig.BucketName)
 }
