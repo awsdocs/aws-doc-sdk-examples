@@ -24,7 +24,7 @@ public class CreateAccessPoint {
 
     public static void main(String[] args) {
 
-         final String USAGE = "\n" +
+        final String USAGE = "\n" +
                 "Usage:\n" +
                 "    CreateAccessPoint <accountId> <bucketName> <accessPointName>\n\n" +
                 "Where:\n" +
@@ -32,23 +32,22 @@ public class CreateAccessPoint {
                 "    bucketName - the Amazon S3 bucket name. \n" +
                 "    accessPointName - the access point name (for example, myaccesspoint). \n";
 
-        if (args.length < 3) {
+        if (args.length != 3) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        // Read the command line arguments
         String accountId = args[0];
         String bucketName = args[1];
         String accessPointName = args[2];
 
-        // Create the S3ControlClient object
         Region region = Region.US_EAST_1;
         S3ControlClient s3ControlClient = S3ControlClient.builder()
                 .region(region)
                 .build();
 
         createSpecificAccessPoint(s3ControlClient, accountId, bucketName, accessPointName );
+        s3ControlClient.close();;
     }
 
     // snippet-start:[s3.java2.create_access_point.main]
@@ -60,10 +59,10 @@ public class CreateAccessPoint {
 
         try {
             CreateAccessPointRequest accessPointRequest = CreateAccessPointRequest.builder()
-                .accountId(accountId)
-                .bucket(bucketName)
-                .name(accessPointName)
-                .build();
+                    .accountId(accountId)
+                    .bucket(bucketName)
+                    .name(accessPointName)
+                    .build();
 
             s3ControlClient.createAccessPoint(accessPointRequest);
             System.out.println("The access point was created" );

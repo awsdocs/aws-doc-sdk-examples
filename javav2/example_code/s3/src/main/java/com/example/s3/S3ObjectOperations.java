@@ -1,5 +1,5 @@
-//snippet-sourcedescription:[S3ObjectOperations.java demonstrates how to create an Amazon S3 bucket by using a S3Waiter object. In addition, this code example demonstrates how to perform other tasks such as uploading an object into an Amazon S3 bucket.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[S3ObjectOperations.java demonstrates how to create an Amazon Simple Storage Service (Amazon S3) bucket by using a S3Waiter object. In addition, this code example demonstrates how to perform other tasks such as uploading an object into an Amazon S3 bucket.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
@@ -7,19 +7,10 @@
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at:
- *
- *    http://aws.amazon.com/apache2.0
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
- * OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and
- * limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 package com.example.s3;
 // snippet-start:[s3.java2.s3_object_operations.complete]
 
@@ -62,20 +53,17 @@ public class S3ObjectOperations {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    S3ObjectOperations <bucket><key>\n\n" +
+                "    S3ObjectOperations <bucketName> <key>\n\n" +
                 "Where:\n" +
-                "    bucket - the bucket to create.\n\n" +
-                "    key - the key to use.\n\n" +
-                "Example:\n" +
-                "    S3ObjectOperations bucket1 key\n\n";
+                "    bucketName - the Amazon S3 bucket to create.\n\n" +
+                "    key - the key to use.\n\n" ;
 
-        if (args.length < 2) {
+        if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        /* Read the bucket name and key from command args*/
-        String bucket = args[0];
+        String bucketName = args[0];
         String key = args[1];
 
         // snippet-start:[s3.java2.s3_object_operations.upload]
@@ -84,10 +72,10 @@ public class S3ObjectOperations {
                 .region(region)
                 .build();
 
-        createBucket(s3, bucket, region);
+        createBucket(s3, bucketName, region);
 
         PutObjectRequest objectRequest = PutObjectRequest.builder()
-                .bucket(bucket)
+                .bucket(bucketName)
                 .key(key)
                 .build();
 
@@ -96,11 +84,11 @@ public class S3ObjectOperations {
 
         // Multipart upload example
         String multipartKey = "multiPartKey";
-        multipartUpload(bucket, multipartKey);
+        multipartUpload(bucketName, multipartKey);
 
         // snippet-start:[s3.java2.s3_object_operations.pagination]
         ListObjectsV2Request listObjectsReqManual = ListObjectsV2Request.builder()
-                .bucket(bucket)
+                .bucket(bucketName)
                 .maxKeys(1)
                 .build();
 
@@ -122,7 +110,7 @@ public class S3ObjectOperations {
         // snippet-end:[s3.java2.s3_object_operations.pagination]
         // snippet-start:[s3.java2.s3_object_operations.iterative]
         ListObjectsV2Request listReq = ListObjectsV2Request.builder()
-                .bucket(bucket)
+                .bucket(bucketName)
                 .maxKeys(1)
                 .build();
 
@@ -147,7 +135,7 @@ public class S3ObjectOperations {
 
          // snippet-start:[s3.java2.s3_object_operations.download]
         GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-                .bucket(bucket)
+                .bucket(bucketName)
                 .key(key)
                 .build();
 
@@ -156,7 +144,7 @@ public class S3ObjectOperations {
 
         // snippet-start:[s3.java2.s3_object_operations.delete]
         DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
-                .bucket(bucket)
+                .bucket(bucketName)
                 .key(key)
                 .build();
 
@@ -165,12 +153,12 @@ public class S3ObjectOperations {
 
         // Delete an object
         deleteObjectRequest = DeleteObjectRequest.builder()
-                .bucket(bucket)
+                .bucket(bucketName)
                 .key(multipartKey)
                 .build();
 
         s3.deleteObject(deleteObjectRequest);
-        deleteBucket(s3,bucket);
+        deleteBucket(s3,bucketName);
         System.out.println("Done");
     }
 

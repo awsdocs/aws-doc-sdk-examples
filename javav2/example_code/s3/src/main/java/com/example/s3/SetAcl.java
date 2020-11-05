@@ -1,19 +1,14 @@
-//snippet-sourcedescription:[SetAcl.java demonstrates how to set a new access control list (ACL) to an Amazon S3 bucket.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[SetAcl.java demonstrates how to set a new access control list (ACL) to an Amazon Simple Storage Service (Amazon S3) bucket.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon s3]
+//snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/6/2020]
+//snippet-sourcedate:[10/28/2020]
 //snippet-sourceauthor:[scmacdon-aws]
+
 /*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-This file is licensed under the Apache License, Version 2.0 (the "License").
-You may not use this file except in compliance with the License. A copy of
-the License is located at
-http://aws.amazon.com/apache2.0/
-This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-CONDITIONS OF ANY KIND, either express or implied. See the License for the
-specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
 package com.example.s3;
 
@@ -30,29 +25,19 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 // snippet-end:[s3.java2.set_acl.import]
-/**
- * Add an ACL to an existing S3 bucket object.
- *
- * This code expects that you have AWS credentials set up, as described here:
- * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
- */
 
 public class SetAcl {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "  SetAcl <bucket> [object] <email> <permission>\n\n" +
+                "  SetAcl <bucketName> <objectKey> <id> \n\n" +
                 "Where:\n" +
-                "  bucket     - the bucket to grant permissions on\n" +
-                "  object     - the object grant permissions on\n" +
-                " owner id      - The ID of the owner of this bucket (you can get this value from the AWS Console)\n" +
-                "  permission - The permission(s) to set. Can be one of:\n" +
-                "               FULL_CONTROL, READ, WRITE, READ_ACP, WRITE_ACP\n\n" +
-                "Examples:\n" +
-                "   SetAcl testbucket testobject <uda0cb5d2c39f310136ead6278...> WRITE\n\n";
+                    " bucketName - the Amazon S3 bucket to grant permissions on. \n" +
+                    " objectKey - the object to grant permissions on. \n" +
+                    " id - the ID of the owner of this bucket (you can get this value from the AWS Console).\n"  ;
 
-        if (args.length < 4) {
+        if (args.length != 3) {
              System.out.println(USAGE);
             System.exit(1);
         }
@@ -60,29 +45,26 @@ public class SetAcl {
         String bucketName = args[0];
         String objectKey = args[1];
         String id = args[2];
-        String access = args[3];
 
-        System.out.format("Setting %s access for %s\n", access, id);
+        System.out.format("Setting access \n");
         System.out.println("for object: " + objectKey);
         System.out.println(" in bucket: " + bucketName);
 
-        //Create the S3Client object
         Region region = Region.US_WEST_2;
-        S3Client s3 = S3Client.builder().region(region).build();
+        S3Client s3 = S3Client.builder()
+                .region(region)
+                .build();
 
-        setBucketAcl(s3, bucketName, id,access);
+        setBucketAcl(s3, bucketName, id);
         System.out.println("Done!");
+        s3.close();
     }
 
     // snippet-start:[s3.java2.set_acl.main]
-    public static void setBucketAcl(S3Client s3, String bucketName, String id, String access) {
+    public static void setBucketAcl(S3Client s3, String bucketName, String id) {
 
        try {
-            // set access for the grantee  in acl
-            Grantee grantee = Grantee.builder().emailAddress(id).build();
-            Permission permission = Permission.valueOf(access);
-
-            Grant ownerGrant = Grant.builder()
+             Grant ownerGrant = Grant.builder()
                     .grantee(builder -> {
                         builder.id(id)
                                 .type(Type.CANONICAL_USER);
@@ -93,12 +75,11 @@ public class SetAcl {
             List<Grant> grantList2 = new ArrayList<>();
             grantList2.add(ownerGrant);
 
-            //put the new acl
             AccessControlPolicy acl = AccessControlPolicy.builder()
                     .owner(builder -> builder.id(id))
                     .grants(grantList2)
                     .build();
-            //put the new acl
+
             PutBucketAclRequest putAclReq = PutBucketAclRequest.builder()
                     .bucket(bucketName)
                     .accessControlPolicy(acl)

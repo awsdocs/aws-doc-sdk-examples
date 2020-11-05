@@ -1,20 +1,14 @@
 //snippet-sourcedescription:[PutObjectRetention demonstrates how to place an object retention configuration on an object.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[7/13/2020]
+//snippet-sourcedate:[10/20/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.s3;
@@ -37,34 +31,32 @@ public class PutObjectRetention {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    PutObjectRetention <key> <bucket> \n\n" +
+                "    PutObjectRetention <key> <bucketName> \n\n" +
                 "Where:\n" +
-                "    key - the name of the object (i.e., book.pdf)\n\n" +
-                "    bucket - the bucket name that contains the object (i.e., bucket1)\n" +
-                "Example:\n" +
-                "    book.pdf bucket1\n";
+                "    key - the name of the object (for example, book.pdf). \n\n" +
+                "    bucketName - the Amazon S3 bucket name that contains the object (for example, bucket1). \n" ;
 
-        if (args.length < 2) {
+        if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
         String key = args[0];
-        String bucket = args[1];
+        String bucketName = args[1];
 
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder()
                 .region(region)
                 .build();
 
-        setRentionPeriod(s3, key, bucket) ;
+        setRentionPeriod(s3, key, bucketName) ;
+        s3.close();
     }
 
     // snippet-start:[s3.java2.retention_object.main]
     public static void setRentionPeriod(S3Client s3, String key, String bucket) {
 
         try{
-
             LocalDate localDate = LocalDate.parse("2020-07-17");
             LocalDateTime localDateTime = localDate.atStartOfDay();
             Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
@@ -82,7 +74,7 @@ public class PutObjectRetention {
                 .build();
 
             /**
-             * To set Retention on an object, the Bucket must support object locking, otherwise an exception is thrown
+             * To set Retention on an object, the Amazon S3 bucket must support object locking, otherwise an exception is thrown.
              */
             s3.putObjectRetention(retentionRequest);
             System.out.print("An object retention configuration was successfully placed on the object");
@@ -93,5 +85,6 @@ public class PutObjectRetention {
         }
         // snippet-end:[s3.java2.retention_object.main]
     }
-
 }
+
+
