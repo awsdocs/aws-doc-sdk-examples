@@ -23,7 +23,7 @@ For systems with Bash support, once you set the **CLASSPATH**, you can run a par
 
  ## Testing the Amazon S3 Java files
 
-You can test the Amazon S3 Java code examples by running a test file named **AmazonS3ServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Amazon S3 Java code examples by running a test file named **AmazonS3Test**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can execute the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is executed, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -91,7 +91,7 @@ You will see output from the JUnit tests, as shown here.
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
 	[INFO] -------------------------------------------------------
-	[INFO] Running AWSS3ServiceIntegrationTest
+	[INFO] Running AmazonS3Test
 	Running Amazon S3 Test 1
 	Running Amazon S3 Test 2
 	...
