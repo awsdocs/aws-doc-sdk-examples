@@ -34,8 +34,8 @@ This example enables the specified Amazon CloudWatch alarm.
 
 `go run CreateEnableMetricAlarmv2.go -n INSTANCE-NAME -i INSTANCE-ID -a ALARM-NAME`
 
-- _INSTANCE-NAME_ is the name of the EC2 instance for which the alarm is enabled.
-- _INSTANCE-ID_ is the ID of the EC2 instance for which the alarm is enabled.
+- _INSTANCE-NAME_ is the name of the Amazon Elastic Compute Cloud (Amazon EC2) instance for which the alarm is enabled.
+- _INSTANCE-ID_ is the ID of the Amazon EC2 instance for which the alarm is enabled.
 - _ALARM-NAME_ is the name of the alarm.
 
 The unit test accepts similar values in _config.json_.
@@ -68,7 +68,7 @@ This example sends an Amazon CloudWatch event to Amazon EventBridge.
 
 `go run PutEventv2.go -l LAMBDA-ARN -f EVENT-FILE`
 
-- _LAMBDA-ARN_ is the ARN of the Lambda function of which the event is concerned.
+- _LAMBDA-ARN_ is the ARN of the AWS Lambda function of which the event is concerned.
 - _EVENT-FILE_ is the local file specifying details of the event to send to Amazon EventBridge.
 
 The unit test accepts similar values in _config.json_.

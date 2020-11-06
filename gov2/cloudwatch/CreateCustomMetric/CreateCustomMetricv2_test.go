@@ -28,7 +28,7 @@ func (dt CWPutMetricDataImpl) PutMetricData(ctx context.Context,
 }
 
 type Config struct {
-	NameSpace      string `json:"NameSpace"`
+	Namespace      string `json:"Namespace"`
 	MetricName     string `json:"MetricName"`
 	MetricValueS   string `json:"MetricValue"`
 	MetricValue    float64
@@ -53,8 +53,8 @@ func populateConfiguration(t *testing.T) error {
 		return err
 	}
 
-	if globalConfig.NameSpace == "" || globalConfig.MetricName == "" || globalConfig.MetricValueS == "" || globalConfig.DimensionName == "" || globalConfig.DimensionValue == "" {
-		msg := "You must specify a value for NameSpace, MetricName, MetricValue, DimensionName, and DimensionValue in " + configFileName
+	if globalConfig.Namespace == "" || globalConfig.MetricName == "" || globalConfig.MetricValueS == "" || globalConfig.DimensionName == "" || globalConfig.DimensionValue == "" {
+		msg := "You must specify a value for Namespace, MetricName, MetricValue, DimensionName, and DimensionValue in " + configFileName
 		return errors.New(msg)
 	}
 
@@ -80,7 +80,7 @@ func TestCreateCustomMetric(t *testing.T) {
 	}
 
 	input := &cloudwatch.PutMetricDataInput{
-		Namespace: &globalConfig.NameSpace,
+		Namespace: &globalConfig.Namespace,
 		MetricData: []*types.MetricDatum{
 			&types.MetricDatum{
 				MetricName: &globalConfig.MetricName,

@@ -83,7 +83,7 @@ func CreateEvent(c context.Context, api CWEPutEventsAPI, input *cloudwatchevents
 }
 
 func main() {
-	lambdaARN := flag.String("l", "", "The ARN of the Lambda function")
+	lambdaARN := flag.String("l", "", "The ARN of the AWS Lambda function")
 	eventFile := flag.String("f", "", "The JSON file containing the event to send")
 	flag.Parse()
 
