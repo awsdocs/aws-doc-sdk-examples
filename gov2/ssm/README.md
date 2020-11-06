@@ -16,7 +16,7 @@ in the AWS SDK for Go Developer Guide.
 
 ### DeleteParameter/DeleteParameterv2.go
 
-This example deletes an Systems Manager string parameter.
+This example deletes a Systems Manager string parameter.
 
 `go run DeleteParameterv2.go -n NAME`
 
@@ -26,7 +26,7 @@ The unit test accepts a similar value in _config.json_.
 
 ### GetParameter/GetParameterv2.go
 
-This example retrieves an Systems Manager string parameter.
+This example retrieves a Systems Manager string parameter.
 
 `go run GetParameterv2.go -n NAME`
 
@@ -34,7 +34,7 @@ This example retrieves an Systems Manager string parameter.
 
 ### PutParameter/PutParameterv2.go
 
-This example creates an Systems Manager string parameter.
+This example creates a Systems Manager string parameter.
 
 `go run PutParameterv2.go -n NAME -v VALUE`
 
