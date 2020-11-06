@@ -4,8 +4,8 @@
 require 'aws-sdk-ec2'
 
 # Creates a key pair in Amazon Elastic Compute Cloud (Amazon EC2) and
-#   saves the resulting RSA private key file locally in the calling
-#   user's home directory.
+# saves the resulting RSA private key file locally in the calling
+# user's home directory.
 #
 # @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
 # @param key_pair_name [String] The name for the key pair and private

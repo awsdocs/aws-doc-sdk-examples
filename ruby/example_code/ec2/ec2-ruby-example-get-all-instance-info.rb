@@ -4,7 +4,7 @@
 require 'aws-sdk-ec2'
 
 # Lists the IDs and current states of available
-#   Amazon Elastic Compute Cloud (Amazon EC2) instances.
+# Amazon Elastic Compute Cloud (Amazon EC2) instances.
 #
 # @param ec2_resource [Aws::EC2::Resource] An initialized EC2 resource object.
 # @example

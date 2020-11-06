@@ -4,8 +4,8 @@
 require 'aws-sdk-ec2'
 
 # Creates a virtual private cloud (VPC) in
-#   Amazon Virtual Private Cloud (Amazon VPC) and then tags
-#   the VPC.
+# Amazon Virtual Private Cloud (Amazon VPC) and then tags
+# the VPC.
 #
 # @param ec2_resource [Aws::EC2::Resource] An initialized
 #   Amazon Elastic Compute Cloud (Amazon EC2) resource object.

@@ -4,7 +4,7 @@
 require 'aws-sdk-ec2'
 
 # Lists the IDs, current states, and tag keys/values of matching
-#   available Amazon Elastic Compute Cloud (Amazon EC2) instances.
+# available Amazon Elastic Compute Cloud (Amazon EC2) instances.
 #
 # @param ec2_resource [Aws::EC2::Resource] An initialized EC2 resource object.
 # @param tag_key [String] The key portion of the tag to search on.

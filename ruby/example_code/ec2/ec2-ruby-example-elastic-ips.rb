@@ -15,7 +15,7 @@
 require 'aws-sdk-ec2'
 
 # Checks whether the specified Amazon Elastic Compute Cloud
-#   (Amazon EC2) instance exists.
+# (Amazon EC2) instance exists.
 #
 # Prerequisites:
 #
@@ -51,7 +51,7 @@ rescue StandardError => e
 end
 
 # Associates an Elastic IP address with an Amazon Elastic Compute Cloud
-#   (Amazon EC2) instance.
+# (Amazon EC2) instance.
 #
 # Prerequisites:
 #
@@ -85,7 +85,7 @@ rescue StandardError => e
 end
 
 # Gets information about addresses associated with an
-#   Amazon Elastic Compute Cloud (Amazon EC2) instance.
+# Amazon Elastic Compute Cloud (Amazon EC2) instance.
 #
 # Prerequisites:
 #
@@ -122,7 +122,7 @@ rescue StandardError => e
 end
 
 # Releases an Elastic IP address from an
-#   Amazon Elastic Compute Cloud (Amazon EC2) instance.
+# Amazon Elastic Compute Cloud (Amazon EC2) instance.
 #
 # Prerequisites:
 #

@@ -4,7 +4,7 @@
 require 'aws-sdk-ec2'
 
 # Creates a route table in Amazon Virtual Private Cloud (Amazon VPC)
-#   and then associates the route table with a subnet in Amazon VPC.
+# and then associates the route table with a subnet in Amazon VPC.
 #
 # Prerequisites:
 #

@@ -4,8 +4,8 @@
 require 'aws-sdk-ec2'
 
 # Creates a subnet within a virtual private cloud (VPC) in 
-#   Amazon Virtual Private Cloud (Amazon VPC) and then tags
-#   the subnet.
+# Amazon Virtual Private Cloud (Amazon VPC) and then tags
+# the subnet.
 #
 # Prerequisites:
 #
