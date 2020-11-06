@@ -4,7 +4,7 @@
 require 'aws-sdk-ec2'
 
 # Creates an Amazon Elastic Compute Cloud (Amazon EC2) security group and
-#   then adds an outbound rule to that security group.
+# then adds an outbound rule to that security group.
 #
 # Prerequisites:
 #

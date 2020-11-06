@@ -4,7 +4,7 @@
 require 'aws-sdk-ec2'
 
 # Creates an internet gateway and then attaches it to a virtual private cloud
-#   (VPC) in Amazon Virtual Private Cloud (Amazon VPC).
+# (VPC) in Amazon Virtual Private Cloud (Amazon VPC).
 #
 # Prerequisites:
 #
