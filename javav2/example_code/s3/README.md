@@ -56,7 +56,18 @@ Define these values to successfully run the JUnit tests:
 
 - **id**  - The ID of the user who owns the bucket. You can get this value from the AWS Management Console. This value appears as a GUID value (choose the *Permissions* tab, and then the *Access Control List* tab).
 
-- **access** - The access level to test an ACL with. You can specify one of these values: **FULL_CONTROL**, **READ**, **WRITE**, **READ_ACP**, **WRITE_ACP**.
+- **accountId** - Your account id value required for the **CreateAccessPoint** test.
+
+- **accessPointName** - The name of the access point required for the **CreateAccessPoint** test.
+
+- **encryptObjectName** - The name of the object to encrypt required for the **KMSEncryptionExample** test.
+
+- **encryptObjectPath** - The path to a TXT file to encrypt and place into a Amazon S3 bucket. This value is required for the **KMSEncryptionExample** test.
+
+- **encryptOutPath** - The path where a text file is written to after it's decrypted. This value is required for the **KMSEncryptionExample** test.
+
+- **keyId** - The id of the AWS KMS key to use to encrpt/decrypt the data. You can obtain the key ID value from the AWS Management Console. This value is required for the **KMSEncryptionExample** test.
+
 
 ###  Sample policy text
 
