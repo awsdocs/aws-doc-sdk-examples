@@ -1,0 +1,55 @@
+files:
+  - path: CopyObject/CopyObject.go
+    services:
+      - s3
+  - path: CopyObject/CopyObject_test.go
+    services:
+      - s3
+  - path: CreateBucket/CreateBucket.go
+    services:
+      - s3
+  - path: CreateBucket/CreateBucket_test.go
+    services:
+      - s3
+  - path: DeleteBucket/DeleteBucket.go
+    services:
+      - s3
+  - path: DeleteBucket/DeleteBucket_test.go
+    services:
+      - s3
+  - path: DeleteObject/DeleteObject.go
+    services:
+      - s3
+  - path: DeleteObject/DeleteObject_test.go
+    services:
+      - s3
+  - path: GetBucketAcl/GetBucketAcl.go
+    services:
+      - s3
+  - path: GetBucketAcl/GetBucketAcl_test.go
+    services:
+      - s3
+  - path: GetObjectAcl/GetObjectAcl.go
+    services:
+      - s3
+  - path: GetObjectAcl/GetObjectAcl_test.go
+    services:
+      - s3
+  - path: ListBuckets/ListBuckets.go
+    services:
+      - s3
+  - path: ListBuckets/ListBuckets_test.go
+    services:
+      - s3
+  - path: ListObjects/ListObjects.go
+    services:
+      - s3
+  - path: ListObjects/ListObjects_test.go
+    services:
+      - s3
+  - path: PutObject/PutObject.go
+    services:
+      - s3
+  - path: PutObject/PutObject_test.go
+    services:
+      - s3

@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[KMSEncryptionExample.java demonstrates how to use the AWS Key Management Service (AWS KMS) service to encrypt data prior to placing the data into an Amazon Simple Storage Service (Amazon S3) bucket.]
+//snippet-sourcedescription:[KMSEncryptionExample.java demonstrates how to use the AWS Key Management Service(AWS KMS) service to encrypt data prior to placing the data into an Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
@@ -43,30 +43,27 @@ import java.io.FileInputStream;
 public class KMSEncryptionExample {
 
     public static void main(String[] args) {
-        
-       final String USAGE = "\n" +
+        final String USAGE = "\n" +
                 "Usage:\n" +
                 "    KMSEncryptionExample <objectName> <bucketName> <objectPath> <outPath> <keyId>\n\n" +
                 "Where:\n" +
                 "    objectName - the name of the object. \n\n" +
                 "    bucketName - the Amazon S3 bucket name that contains the object (for example, bucket1). \n" +
-                "    objectPath - the path to a TXT file to encrypt and place into an Amazon S3 bucket (for example, C:\\AWS\\test.txt).\n" +
-                "    outPath - the path where a text file is written to after it's decrypted (for example, C:\\AWS\\testPlain.txt).\n" +
-                "    keyId - the id of the AWS KMS key to use to encrpt/decrypt the data. You can obtain the key ID value from the AWS KMS console.\n";
+                "    objectPath - the path to a TXT file to encrypt and place into a Amazon S3 bucket (for example, C:/AWS/test.txt).\n" +
+                "    outPath - the path where a text file is written to after it's decrypted (for example, C:/AWS/testPlain.txt).\n" +
+                "    keyId - the id of the AWS KMS key to use to encrpt/decrypt the data. You can obtain the key ID value from the AWS Management Console.\n";
 
-         if (args.length < 5) {
+         if (args.length != 5) {
              System.out.println(USAGE);
              System.exit(1);
         }
 
-        // Read the command line arguments
         String objectName = args[0];
         String bucketName = args[1];
         String objectPath = args[2];
         String outPath = args[3];
         String keyId = args[4];
 
-        // Create the S3Client object
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder()
                 .region(region)
@@ -74,6 +71,7 @@ public class KMSEncryptionExample {
 
          putEncryptData(s3, objectName, bucketName, objectPath, keyId);
          getEncryptedData (s3, bucketName, objectName, outPath, keyId );
+         s3.close();
     }
 
     // snippet-start:[s3.java2.kms.main]
