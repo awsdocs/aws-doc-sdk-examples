@@ -36,7 +36,7 @@ public class SetBucketPolicy {
                 "    SetBucketPolicy <bucketName> <polFile>\n\n" +
                 "Where:\n" +
                 "    bucketName - the Amazon S3 bucket to set the policy on.\n" +
-                "    polFile - a JSON file containing the policy (see the S3 Readme for an example). \n" ;
+                "    polFile - a JSON file containing the policy (see the Amazon S3 Readme for an example). \n" ;
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -78,7 +78,7 @@ public class SetBucketPolicy {
         System.out.println("Done!");
     }
 
-    // Loads a JSON-formatted policy from a file, verifying it with the Policy
+    // Loads a JSON-formatted policy from a file
     public static String getBucketPolicyFromFile(String policyFile) {
 
         StringBuilder fileText = new StringBuilder();

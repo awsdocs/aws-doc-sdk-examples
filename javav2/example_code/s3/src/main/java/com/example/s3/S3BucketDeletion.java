@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[S3BucketDeletion.java demonstrates how to delete an empty Amazon S3 bucket.]
+//snippet-sourcedescription:[S3BucketDeletion.java demonstrates how to delete an empty Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]

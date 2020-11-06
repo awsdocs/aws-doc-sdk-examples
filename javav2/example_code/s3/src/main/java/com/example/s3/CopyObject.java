@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CopyObject.java demonstrates how to copy an object from one Amazon Simple Storage Service (Amazon S3) bucket to another.]
+//snippet-sourcedescription:[CopyObject.java demonstrates how to copy an object from one Amazon Simple Storage Service (Amazon S3) bucket to another]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
@@ -33,7 +33,7 @@ public class CopyObject {
                 "Where:\n" +
                 "    objectKey - the name of the object (for example, book.pdf).\n\n" +
                 "    fromBucket - the S3 bucket name that contains the object (for example, bucket1).\n" +
-                "    toBucket - the S3 bucket to copy the object to (for example, bucket2).\n" ;
+                "    toBucket - the S3 bucket to copy the object to (for example, bucket2).\n";
 
         if (args.length != 3) {
             System.out.println(USAGE);

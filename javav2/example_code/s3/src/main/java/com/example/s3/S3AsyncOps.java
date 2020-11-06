@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[S3AsyncOps.java demonstrates how to use the Asynchronous client to place an object into an Amazon Simple Storage Service (Amazon S3) bucket.]
+//snippet-sourcedescription:[S3AsyncOps.java demonstrates how to use the asynchronous client to place an object into an Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
@@ -34,7 +34,7 @@ public class S3AsyncOps {
                  "Where:\n" +
                  "    bucketName - the name of the Amazon S3 bucket (for example, bucket1). \n\n" +
                  "    key - the name of the object (for example, book.pdf). \n" +
-                 "    path - the local path to the file (for example, C:\\AWS\\book.pdf). \n" ;
+                 "    path - the local path to the file (for example, C:/AWS/book.pdf). \n" ;
 
         if (args.length != 3) {
             System.out.println(USAGE);

@@ -67,25 +67,25 @@ public class GeneratePresignedUrlAndUploadObject {
 
             PresignedPutObjectRequest presignedRequest = presigner.presignPutObject(presignRequest);
 
-            System.out.println("Pre-signed URL to upload a file to: " +
+            System.out.println("Presigned URL to upload a file to: " +
                     presignedRequest.url());
             System.out.println("Which HTTP method needs to be used when uploading a file: " +
                     presignedRequest.httpRequest().method());
 
-            // Upload content to the bucket by using this URL
+            // Upload content to the Amazon S3 bucket by using this URL
             URL url = presignedRequest.url();
 
-            // Create the connection and use it to upload the new object by using the pre-signed URL
+            // Create the connection and use it to upload the new object by using the presigned URL
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(true);
             connection.setRequestProperty("Content-Type","text/plain");
             connection.setRequestMethod("PUT");
             OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
-            out.write("This text uploaded as an object via presigned URL.");
+            out.write("This text was uploaded as an object by using a presigned URL.");
             out.close();
 
             connection.getResponseCode();
-            System.out.println("HTTP response code: " + connection.getResponseCode());
+            System.out.println("HTTP response code is " + connection.getResponseCode());
 
         } catch (S3Exception e) {
             e.getStackTrace();

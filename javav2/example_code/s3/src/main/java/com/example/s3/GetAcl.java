@@ -32,7 +32,7 @@ public class GetAcl {
                 "  bucketName - the Amazon S3 bucket to get the access control list (ACL) for.\n" +
                 "  objectKey - the object to get the ACL for. \n" ;
 
-        if (args.length < 2) {
+        if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
         }

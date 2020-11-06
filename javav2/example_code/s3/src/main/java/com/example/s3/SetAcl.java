@@ -35,7 +35,7 @@ public class SetAcl {
                 "Where:\n" +
                     " bucketName - the Amazon S3 bucket to grant permissions on. \n" +
                     " objectKey - the object to grant permissions on. \n" +
-                    " id - the ID of the owner of this bucket (you can get this value from the AWS Console).\n"  ;
+                    " id - the ID of the owner of this bucket (you can get this value from the AWS Management Console).\n"  ;
 
         if (args.length != 3) {
              System.out.println(USAGE);

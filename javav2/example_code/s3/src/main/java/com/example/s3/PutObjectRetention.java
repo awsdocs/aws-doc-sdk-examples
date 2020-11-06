@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[PutObjectRetention demonstrates how to place an object retention configuration on an object.]
+//snippet-sourcedescription:[PutObjectRetention demonstrates how to place an object retention configuration on an Amazon Simple Storage Service (Amazon S3) object.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]

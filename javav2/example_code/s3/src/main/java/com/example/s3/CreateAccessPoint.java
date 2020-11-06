@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateAccessPoint.java demonstrates how to create an access point for an Amazon Simple Storage Service (S3) bucket.]
+//snippet-sourcedescription:[CreateAccessPoint.java demonstrates how to create an access point for an Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
@@ -55,7 +55,7 @@ public class CreateAccessPoint {
     public static void createSpecificAccessPoint(S3ControlClient s3ControlClient,
                                                  String accountId,
                                                  String bucketName,
-                                                 String accessPointName ) {
+                                                 String accessPointName) {
 
         try {
             CreateAccessPointRequest accessPointRequest = CreateAccessPointRequest.builder()
