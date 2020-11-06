@@ -1,20 +1,14 @@
-//snippet-sourcedescription:[CopyObject.java demonstrates how to copy an object from one Amazon S3 bucket to another]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[CopyObject.java demonstrates how to copy an object from one Amazon Simple Storage Service (Amazon S3) bucket to another]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/6/2020]
+//snippet-sourcedate:[10/20/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.s3;
@@ -30,26 +24,18 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 // snippet-end:[s3.java2.copy_object.import]
 
-/**
- * Copies an object from one Amazon S3 bucket to another.
- *
- * This code expects that you have AWS credentials set up, as described here:
- * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
- */
 public class CopyObject {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CopyObject <objectname> <frombucket>  <tobucket>\n\n" +
+                "    CopyObject <objectKey> <fromBucket> <toBucket>\n\n" +
                 "Where:\n" +
-                "    objectname - the name of the object (i.e., book.pdf)\n\n" +
-                "    frombucket - the bucket name that contains the object (i.e., bucket1)\n" +
-                "    tobucket - the bucket to copy the object to (i.e., bucket2)\n" +
-                "Example:\n" +
-                "    book.pdf bucket1 bucket2 \n";
+                "    objectKey - the name of the object (for example, book.pdf).\n\n" +
+                "    fromBucket - the S3 bucket name that contains the object (for example, bucket1).\n" +
+                "    toBucket - the S3 bucket to copy the object to (for example, bucket2).\n";
 
-        if (args.length < 3) {
+        if (args.length != 3) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -61,10 +47,13 @@ public class CopyObject {
         System.out.format("Copying object %s from bucket %s to %s\n",
                 objectKey, fromBucket, toBucket);
 
-        //Create the S3Client object
         Region region = Region.US_WEST_2;
-        S3Client s3 = S3Client.builder().region(region).build();
+        S3Client s3 = S3Client.builder()
+                .region(region)
+                .build();
+
         copyBucketObject (s3, fromBucket, objectKey, toBucket);
+        s3.close();
     }
 
     // snippet-start:[s3.java2.copy_object.main]
@@ -78,8 +67,8 @@ public class CopyObject {
         }
         CopyObjectRequest copyReq = CopyObjectRequest.builder()
                 .copySource(encodedUrl)
-                .bucket(toBucket)
-                .key(objectKey)
+                .destinationBucket(toBucket)
+                .destinationKey(objectKey)
                 .build();
 
         try {
@@ -89,7 +78,7 @@ public class CopyObject {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        // snippet-end:[s3.java2.copy_object.main]
         return "";
     }
+    // snippet-end:[s3.java2.copy_object.main]
 }
