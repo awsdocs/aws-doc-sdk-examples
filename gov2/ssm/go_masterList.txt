@@ -1,6 +1,0 @@
-./DeleteParameter/DeleteParameterv2.go
-./DeleteParameter/DeleteParameterv2_test.go
-./GetParameter/GetParameterv2.go
-./GetParameter/GetParameterv2_test.go
-./PutParameter/PutParameterv2.go
-./PutParameter/PutParameterv2_test.go
