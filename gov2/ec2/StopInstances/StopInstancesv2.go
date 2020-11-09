@@ -4,22 +4,22 @@
 package main
 
 import (
-	"context"
-	"flag"
-	"fmt"
-	"strings"
+    "context"
+    "flag"
+    "fmt"
+    "strings"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/aws/aws-sdk-go-v2/service/ec2"
+    "github.com/aws/aws-sdk-go-v2/aws"
+    "github.com/aws/aws-sdk-go-v2/config"
+    "github.com/aws/aws-sdk-go-v2/service/ec2"
 )
 
 // EC2StopInstancesAPI defines the interface for the StopInstances function.
 // We use this interface to test the function using a mocked service.
 type EC2StopInstancesAPI interface {
-	StopInstances(ctx context.Context,
-		params *ec2.StopInstancesInput,
-		optFns ...func(*ec2.Options)) (*ec2.StopInstancesOutput, error)
+    StopInstances(ctx context.Context,
+        params *ec2.StopInstancesInput,
+        optFns ...func(*ec2.Options)) (*ec2.StopInstancesOutput, error)
 }
 
 // StopInstance stops an Amazon Elastic Compute Cloud (Amazon EC2) instance.
@@ -31,50 +31,49 @@ type EC2StopInstancesAPI interface {
 //     If success, a StopInstancesOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to StopInstances.
 func StopInstance(c context.Context, api EC2StopInstancesAPI, input *ec2.StopInstancesInput) (*ec2.StopInstancesOutput, error) {
-	resp, err := api.StopInstances(c, input)
+    resp, err := api.StopInstances(c, input)
 
-	if strings.Contains(err.Error(), "DryRunOperation") {
-		fmt.Println("User has permission to stop instances.")
-		input.DryRun = aws.Bool(false)
-		result, err := api.StopInstances(c, input)
+    if strings.Contains(err.Error(), "DryRunOperation") {
+        fmt.Println("User has permission to stop instances.")
+        input.DryRun = aws.Bool(false)
+        result, err := api.StopInstances(c, input)
 
-		return result, err
-	}
+        return result, err
+    }
 
-	return resp, err
+    return resp, err
 }
 
 func main() {
-	instanceID := flag.String("i", "", "The ID of the instance to stop")
-	flag.Parse()
+    instanceID := flag.String("i", "", "The ID of the instance to stop")
+    flag.Parse()
 
-	if *instanceID == "" {
-		fmt.Println("You must supply an instance ID (-i INSTANCE-ID")
-		return
-	}
+    if *instanceID == "" {
+        fmt.Println("You must supply an instance ID (-i INSTANCE-ID")
+        return
+    }
 
-	cfg, err := config.LoadDefaultConfig()
-	if err != nil {
-		panic("configuration error, " + err.Error())
-	}
+    cfg, err := config.LoadDefaultConfig()
+    if err != nil {
+        panic("configuration error, " + err.Error())
+    }
 
-	client := ec2.NewFromConfig(cfg)
+    client := ec2.NewFromConfig(cfg)
 
-	input := &ec2.StopInstancesInput{
-		InstanceIds: []*string{
-			instanceID,
-		},
-		DryRun: aws.Bool(true),
-	}
+    input := &ec2.StopInstancesInput{
+        InstanceIds: []*string{
+            instanceID,
+        },
+        DryRun: aws.Bool(true),
+    }
 
-	_, err = StopInstance(context.Background(), client, input)
-	if err != nil {
-		fmt.Println("Got an error stopping the instance")
-		fmt.Println(err)
-		return
-	}
+    _, err = StopInstance(context.Background(), client, input)
+    if err != nil {
+        fmt.Println("Got an error stopping the instance")
+        fmt.Println(err)
+        return
+    }
 
-	fmt.Println("Stopped instance with ID " + *instanceID)
+    fmt.Println("Stopped instance with ID " + *instanceID)
 }
-
 // snippet-end:[ec2.go-v2.StopInstances]
