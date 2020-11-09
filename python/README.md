@@ -220,6 +220,19 @@ following tasks:
 * Delete Lambda functions.
 * Empty and delete a versioned bucket.
 
+### [Amazon SES email and identity example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/ses/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Simple Email Service 
+(Amazon SES) to verify identities, send emails, and manage rules and templates.
+
+* Verify email address and domain identities.
+* Create and manage email templates that contain replaceable tags.
+* Send email by using the Amazon SES API or an Amazon SES SMTP server.
+* Create and manage rules to block, allow, or handle incoming emails. 
+* Copy email and domain identity configuration from one AWS Region to another.
+
 ### [Amazon SQS getting started examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/sqs/ReadMe.md)
 
 #### Purpose
