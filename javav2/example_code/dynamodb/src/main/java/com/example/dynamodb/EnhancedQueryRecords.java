@@ -1,20 +1,15 @@
 //snippet-sourcedescription:[EnhancedQueryRecords.java demonstrates how to query an Amazon DynamoDB table by using the enhanced client.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/20/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[10/30/2020]
+//snippet-sourceauthor:[scmacdon - aws]
+
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 package com.example.dynamodb;
 
@@ -35,44 +30,38 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 // snippet-end:[dynamodb.java2.mapping.query.import]
 
 /*
-    Before running this code example, create a table named Customer and populate it with data
+    Prior to running this code example, create an Amazon DynamoDB table named Customer with a key named id and populate it with data.
  */
 
 public class EnhancedQueryRecords {
 
+     public static void main(String[] args) {
 
-    // Query the Record table
-    public static void main(String[] args) {
-
-        // Create a DynamoDbClient object
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                 .region(region)
                 .build();
 
-        // Create a DynamoDbEnhancedClient and use the DynamoDbClient object
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(ddb)
                 .build();
 
         String result = queryTable(enhancedClient);
         System.out.println(result);
+        ddb.close();
     }
 
     // snippet-start:[dynamodb.java2.mapping.query.main]
     public static String queryTable(DynamoDbEnhancedClient enhancedClient) {
 
         try{
-            // Create a DynamoDbTable object
             DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
-
-            // Create a QueryConditional object that's used in the query operation
             QueryConditional queryConditional = QueryConditional
                     .keyEqualTo(Key.builder()
                             .partitionValue("id120")
                             .build());
 
-            // Get items in the Record table and write out the ID value
+            // Get items in the table and write out the ID value
             Iterator<Customer> results = mappedTable.query(queryConditional).items().iterator();
             String result="";
 
@@ -91,7 +80,7 @@ public class EnhancedQueryRecords {
         // snippet-end:[dynamodb.java2.mapping.query.main]
     }
 
-    // Create the Customer table
+    //Create the Customer table
     @DynamoDbBean
     public static class Customer {
 

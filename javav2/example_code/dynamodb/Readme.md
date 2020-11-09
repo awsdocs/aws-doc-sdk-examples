@@ -23,7 +23,7 @@ For systems with Bash support, once you set the **CLASSPATH**, you can run a par
 
  ## Testing the DynamoDB Java files
 
-You can test the Java code examples for Amazon DynamoDB by running a test file named **AWSDynamoServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for Amazon DynamoDB by running a test file named **DynamoDBTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is run, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -32,14 +32,14 @@ You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the comma
 **WARNING**: _Running these JUnit tests manipulates real Amazon DynamoDB resources and might incur charges on your account._
 
  ### Properties file
-Before running the DynamoDB JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a table name used for various tests. If you do not define all values, the JUnit tests fail.
+Before running the Amazon DynamoDB JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a table name used for various tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
-- **tableName** - The name of a table. For example, **Music3**.
-
+- **tableName** - The name of an Amazon DynamoDB table. For example, **Music3**.
+- **enhancedTableName** - the name of the DynamoDB table used with the enhanced client. For example, **Customer**.
 - **key** – The name of a key to use. For example, **Artist**.
-
+- **enhancedTableKey** the  name of a key to use for the enhanced client tests. For example, **Id**.
 - **keyValue** – The key value. For example, **Famous Band**.
 - **albumTitle** – An album title to use. For example, **AlbumTitle**.
 - **AlbumTitleValue** – An album title value. For example, **Songs About Life**.
@@ -58,14 +58,14 @@ You will see output from the JUnit tests, as shown here.
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
 	[INFO] -------------------------------------------------------
-	[INFO] Running AWSDynamoServiceIntegrationTest
+	[INFO] Running DynamoDBTest
 	Running Amazon DynamoDB   Test 1
 	Running Amazon DynamoDB  Test 2
 	...
 	Done!
 	[INFO] Results:
 	[INFO]
-	[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0
+	[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0
 	[INFO]
 	INFO] --------------------------------------------
 	[INFO] BUILD SUCCESS

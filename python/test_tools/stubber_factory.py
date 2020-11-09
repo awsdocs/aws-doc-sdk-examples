@@ -21,9 +21,11 @@ from test_tools.pinpoint_stubber import PinpointStubber
 from test_tools.rdsdata_stubber import RdsDataStubber
 from test_tools.rds_stubber import RdsStubber
 from test_tools.rekognition_stubber import RekognitionStubber
+from test_tools.route53_stubber import Route53Stubber
 from test_tools.s3_stubber import S3Stubber
 from test_tools.s3control_stubber import S3ControlStubber
 from test_tools.secretsmanager_stubber import SecretsManagerStubber
+from test_tools.ses_stubber import SesStubber
 from test_tools.sns_stubber import SnsStubber
 from test_tools.sqs_stubber import SqsStubber
 from test_tools.ssm_stubber import SsmStubber
@@ -62,12 +64,16 @@ def stubber_factory(service_name):
         return RdsDataStubber
     elif service_name == 'rekognition':
         return RekognitionStubber
+    elif service_name == 'route53':
+        return Route53Stubber
     elif service_name == 's3':
         return S3Stubber
     elif service_name == 's3control':
         return S3ControlStubber
     elif service_name == 'secretsmanager':
         return SecretsManagerStubber
+    elif service_name == 'ses':
+        return SesStubber
     elif service_name == 'sns':
         return SnsStubber
     elif service_name == 'sqs':
