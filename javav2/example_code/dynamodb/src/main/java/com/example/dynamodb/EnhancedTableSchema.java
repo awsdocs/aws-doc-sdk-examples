@@ -1,20 +1,14 @@
 //snippet-sourcedescription:[EnhancedTableSchema.java demonstrates how to use the Amazon DynamoDB enhanced client and a TableSchema to put an item into a table.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/20/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[10/30/2020]
+//snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 package com.example.dynamodb;
 
@@ -34,9 +28,9 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 
 
 /*
-    Before running this code example, create a table named Record with a PK named id
+    Prior to running this code example, create an Amazon DynamoDB table named Customer with a key named id.
  */
-// snippet-start:[dynamodb.java2.mapping.tableschema.main]
+
 public class EnhancedTableSchema {
 
     private static final TableSchema<Record> TABLE_SCHEMA =
@@ -65,29 +59,28 @@ public class EnhancedTableSchema {
 
     public static void main(String[] args) {
 
-        // Create a DynamoDbClient object
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                 .region(region)
                 .build();
 
-        // Create a DynamoDbEnhancedClient and use the DynamoDbClient object
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(ddb)
                 .build();
 
         putRecord(enhancedClient);
+        ddb.close();
     }
 
-
+    // snippet-start:[dynamodb.java2.mapping.tableschema.main]
     // Put an item into a DynamoDB table
     public static void putRecord(DynamoDbEnhancedClient enhancedClient){
 
         try {
-            // Create a DynamoDbTable object
+            //Create a DynamoDbTable object
             DynamoDbTable<Record> mappedTable = enhancedClient.table("Record", TABLE_SCHEMA);
 
-            // Populate the table
+            //Populate the Table
             Record record = new Record()
                     .setId("id-value")
                     .setSort("sort-value")
@@ -105,7 +98,7 @@ public class EnhancedTableSchema {
     }
     // snippet-end:[dynamodb.java2.mapping.tableschema.main]
 
-    // Define the Record class that's used to map to the DynamoDB table
+    // Define the Record class that is used to map to the DynamoDB table
     private static class Record {
         private String id;
         private String sort;

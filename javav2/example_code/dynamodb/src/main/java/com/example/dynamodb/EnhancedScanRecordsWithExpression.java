@@ -1,20 +1,15 @@
 //snippet-sourcedescription:[EnhancedScanRecordsWithExpression.java demonstrates how to scan an Amazon DynamoDB table by using the enhanced client and an Expression object.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/21/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[10/30/2020]
+//snippet-sourceauthor:[scmacdon - aws]
+
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 package com.example.dynamodb;
 
@@ -42,7 +37,6 @@ public class EnhancedScanRecordsWithExpression {
                 "Creating table \"%s\" with a simple primary key: \"Name\".\n",
                 tableName);
 
-        // Create the DynamoDbClient object
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                 .region(region)
@@ -51,10 +45,11 @@ public class EnhancedScanRecordsWithExpression {
         createTable(ddb, tableName);
         loadData(ddb, tableName);
         scanIndex(ddb, tableName, "CreateDateIndex");
+        ddb.close();
     }
 
     // snippet-start:[dynamodb.java2.mapping.scanEx.main]
-    // Scan the table and pull only items where createDate is 2013-11-15
+    // Scan the table and retrieve only items where createDate is 2013-11-15
     public static void scanIndex(DynamoDbClient ddb, String tableName, String indexName) {
 
         System.out.println("\n***********************************************************\n");
@@ -145,7 +140,6 @@ public class EnhancedScanRecordsWithExpression {
                                String dueDate,
                                Integer priority,
                                String status) {
-
 
         HashMap<String, AttributeValue> item = new HashMap<String, AttributeValue>();
 
