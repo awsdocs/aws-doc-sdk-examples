@@ -1,26 +1,13 @@
 //snippet-sourcedescription:[StopQueryExecutionExample.java demonstrates how to stop a query and check its status.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
-//snippet-service:[Amazon Athena]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/30/2020]
-//snippet-sourceauthor:[scmacdon AWS]
-
+//snippet-sourcedate:[11/02/2020]
+//snippet-sourceauthor:[scmacdon - aws]
 /*
-* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-*
-* Licensed under the Apache License, Version 2.0 (the "License").
-* You may not use this file except in compliance with the License.
-* A copy of the License is located at
-*
-*  http://aws.amazon.com/apache2.0
-*
-* or in the "license" file accompanying this file. This file is distributed
-* on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-* express or implied. See the License for the specific language governing
-* permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 //snippet-start:[athena.java2.StopQueryExecutionExample.complete]
@@ -42,37 +29,33 @@ import software.amazon.awssdk.services.athena.model.StartQueryExecutionRequest;
 import software.amazon.awssdk.services.athena.model.StartQueryExecutionResponse;
 //snippet-end:[athena.java2.StopQueryExecutionExample.import]
 
-/**
- * StopQueryExecutionExample
- * -------------------------------------
- * This code runs an example query, immediately stops the query, and checks the status of the query to
- * ensure that it was cancelled.
- */
 public class StopQueryExecutionExample {
     public static void main(String[] args) throws Exception {
 
-        // Build an Athena client
         AthenaClient athenaClient = AthenaClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
 
         String sampleQueryExecutionId = submitAthenaQuery(athenaClient);
         stopAthenaQuery(athenaClient, sampleQueryExecutionId);
+        athenaClient.close();
     }
 
     //snippet-start:[athena.java2.StopQueryExecutionExample.main]
     public static void stopAthenaQuery(AthenaClient athenaClient, String sampleQueryExecutionId){
 
        try {
-            // Submit the stop query Request
+            // Submit the stop query request
             StopQueryExecutionRequest stopQueryExecutionRequest = StopQueryExecutionRequest.builder()
-                .queryExecutionId(sampleQueryExecutionId).build();
+                    .queryExecutionId(sampleQueryExecutionId)
+                    .build();
 
             StopQueryExecutionResponse stopQueryExecutionResponse = athenaClient.stopQueryExecution(stopQueryExecutionRequest);
 
             // Ensure that the query was stopped
             GetQueryExecutionRequest getQueryExecutionRequest = GetQueryExecutionRequest.builder()
-                .queryExecutionId(sampleQueryExecutionId).build();
+                    .queryExecutionId(sampleQueryExecutionId)
+                    .build();
 
             GetQueryExecutionResponse getQueryExecutionResponse = athenaClient.getQueryExecution(getQueryExecutionRequest);
             if (getQueryExecutionResponse.queryExecution()
@@ -80,14 +63,13 @@ public class StopQueryExecutionExample {
                 .state()
                 .equals(QueryExecutionState.CANCELLED)) {
 
-                // Query was cancelled.
-                System.out.println("Query has been cancelled");
-        }
+                System.out.println("The Amazon Athena query has been cancelled!");
+            }
 
-       } catch (AthenaException e) {
-        e.printStackTrace();
-        System.exit(1);
-        }
+         } catch (AthenaException e) {
+            e.printStackTrace();
+            System.exit(1);
+         }
     }
 
     /**

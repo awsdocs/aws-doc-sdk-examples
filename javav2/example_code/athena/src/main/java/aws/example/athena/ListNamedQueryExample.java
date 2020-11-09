@@ -1,26 +1,15 @@
 //snippet-sourcedescription:[ListNamedQueryExample.java demonstrates how to obtain a list of named query IDs.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
-//snippet-service:[athena]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/10/2020]
-//snippet-sourceauthor:[scmacdon - AWS]
+//snippet-sourcedate:[11/02/2020]
+//snippet-sourceauthor:[scmacdon - aws]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 //snippet-start:[athena.java2.ListNamedQueryExample.complete]
 //snippet-start:[athena.java.ListNamedQueryExample.complete]
@@ -45,29 +34,27 @@ import java.util.List;
 public class ListNamedQueryExample {
 
     public static void main(String[] args) throws Exception {
-        // Build an Athena client
+
         AthenaClient athenaClient = AthenaClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
 
         listNamedQueries(athenaClient) ;
+        athenaClient.close();
     }
 
     //snippet-start:[athena.java2.ListNamedQueryExample.main]
     public static void listNamedQueries(AthenaClient athenaClient) {
 
        try{
+            ListNamedQueriesRequest listNamedQueriesRequest = ListNamedQueriesRequest.builder()
+                    .build();
 
-           // Build the request
-           ListNamedQueriesRequest listNamedQueriesRequest = ListNamedQueriesRequest.builder().build();
-
-           // Get the list results.
             ListNamedQueriesIterable listNamedQueriesResponses = athenaClient.listNamedQueriesPaginator(listNamedQueriesRequest);
 
             // Process the results.
             for (ListNamedQueriesResponse listNamedQueriesResponse : listNamedQueriesResponses) {
                 List<String> namedQueryIds = listNamedQueriesResponse.namedQueryIds();
-                // process named query IDs
                 System.out.println(namedQueryIds);
             }
 

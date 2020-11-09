@@ -1,26 +1,14 @@
-//snippet-sourcedescription:[CreateNamedQueryExample.java demonstrates how to create a named query]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
+//snippet-sourcedescription:[CreateNamedQueryExample.java demonstrates how to create a named query.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
-//snippet-service:[athena]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/15/2020]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[11/02/2020]
+//snippet-sourceauthor:[scmacdon - aws]
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 //snippet-start:[athena.java2.CreateNamedQueryExample.complete]
 //snippet-start:[athena.java.CreateNamedQueryExample.complete]
@@ -34,11 +22,6 @@ import software.amazon.awssdk.services.athena.model.CreateNamedQueryRequest;
 import software.amazon.awssdk.services.athena.model.CreateNamedQueryResponse;
 //snippet-end:[athena.java2.CreateNamedQueryExample.import]
 
-/**
- * CreateNamedQueryExample
- * -------------------------------------
- * This code shows how to create a named query.
- */
 public class CreateNamedQueryExample {
     public static void main(String[] args) throws Exception {
 
@@ -46,24 +29,20 @@ public class CreateNamedQueryExample {
                 "Usage:\n" +
                 "    CreateNamedQueryExample <name>\n\n" +
                 "Where:\n" +
-                "    name - the name of the query \n\n" +
-                "Example:\n" +
-                "    DescribeTable SampleQuery\n";
+                "    name - the name of the Amazon Athena query. \n\n" ;
 
-        if (args.length < 1) {
+        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        /* Read the name from command args */
         String name = args[0];
-
-        // Build an Athena client
-       AthenaClient athenaClient = AthenaClient.builder()
+        AthenaClient athenaClient = AthenaClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
 
         createNamedQuery(athenaClient, name);
+        athenaClient.close();
     }
 
     //snippet-start:[athena.java2.CreateNamedQueryExample.main]

@@ -1,26 +1,15 @@
-//snippet-sourcedescription:[StartQueryExample.java demonstrates how to submit a query to Athena for execution, wait till results are available, and then process the results.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
+//snippet-sourcedescription:[StartQueryExample.java demonstrates how to submit a query to Athena for execution, wait until the results are available, and then process the results.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
-//snippet-service:[Amazon Athena]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/30/2020]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[11/02/2020]
+//snippet-sourceauthor:[scmacdon - aws]
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 //snippet-start:[athena.java2.StartQueryExample.complete]
 //snippet-start:[athena.java.StartQueryExample.complete]
 package aws.example.athena;
@@ -45,26 +34,18 @@ import software.amazon.awssdk.services.athena.paginators.GetQueryResultsIterable
 import java.util.List;
 //snippet-end:[athena.java2.StartQueryExample.import]
 
-/**
- * StartQueryExample
- * -------------------------------------
- * This code shows how to submit a query to Athena for execution, wait till results
- * are available, and then process the results.
- */
 public class StartQueryExample {
     //snippet-start:[athena.java2.StartQueryExample.main]
     public static void main(String[] args) throws InterruptedException {
 
-        // Build an Athena client
         AthenaClient athenaClient = AthenaClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
 
         String queryExecutionId = submitAthenaQuery(athenaClient);
-
         waitForQueryToComplete(athenaClient, queryExecutionId);
-
         processResultRows(athenaClient, queryExecutionId);
+        athenaClient.close();
     }
 
     /**
@@ -80,15 +61,14 @@ public class StartQueryExample {
 
             // The result configuration specifies where the results of the query should go in S3 and encryption options
             ResultConfiguration resultConfiguration = ResultConfiguration.builder()
-                // You can provide encryption options for the output that is written.
-                // .withEncryptionConfiguration(encryptionConfiguration)
-                .outputLocation(ExampleConstants.ATHENA_OUTPUT_BUCKET).build();
+                    .outputLocation(ExampleConstants.ATHENA_OUTPUT_BUCKET)
+                    .build();
 
-            // Create the StartQueryExecutionRequest to send to Athena which will start the query.
             StartQueryExecutionRequest startQueryExecutionRequest = StartQueryExecutionRequest.builder()
-                .queryString(ExampleConstants.ATHENA_SAMPLE_QUERY)
-                .queryExecutionContext(queryExecutionContext)
-                .resultConfiguration(resultConfiguration).build();
+                    .queryString(ExampleConstants.ATHENA_SAMPLE_QUERY)
+                    .queryExecutionContext(queryExecutionContext)
+                .   resultConfiguration(resultConfiguration)
+                    .build();
 
             StartQueryExecutionResponse startQueryExecutionResponse = athenaClient.startQueryExecution(startQueryExecutionRequest);
             return startQueryExecutionResponse.queryExecutionId();
@@ -115,24 +95,22 @@ public class StartQueryExample {
             getQueryExecutionResponse = athenaClient.getQueryExecution(getQueryExecutionRequest);
             String queryState = getQueryExecutionResponse.queryExecution().status().state().toString();
             if (queryState.equals(QueryExecutionState.FAILED.toString())) {
-                throw new RuntimeException("Query Failed to run with Error Message: " + getQueryExecutionResponse
+                throw new RuntimeException("The Amazon Athena query failed to run with error message: " + getQueryExecutionResponse
                         .queryExecution().status().stateChangeReason());
             } else if (queryState.equals(QueryExecutionState.CANCELLED.toString())) {
-                throw new RuntimeException("Query was cancelled.");
+                throw new RuntimeException("The Amazon Athena query was cancelled.");
             } else if (queryState.equals(QueryExecutionState.SUCCEEDED.toString())) {
                 isQueryStillRunning = false;
             } else {
                 // Sleep an amount of time before retrying again.
                 Thread.sleep(ExampleConstants.SLEEP_AMOUNT_IN_MS);
             }
-            System.out.println("Current Status is: " + queryState);
+            System.out.println("The current status is: " + queryState);
         }
     }
 
     /**
      * This code calls Athena and retrieves the results of a query.
-     * The query must be in a completed state before the results can be retrieved and
-     * paginated. The first row of results are the column headers.
      */
     public static void processResultRows(AthenaClient athenaClient, String queryExecutionId) {
 
