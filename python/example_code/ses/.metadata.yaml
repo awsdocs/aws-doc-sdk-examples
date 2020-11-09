@@ -13,9 +13,6 @@ files:
   - path: ses_receipt_handler.py
     services:
       - ses
-  - path: ses_replicateidentities
-    services:
-      - ses
   - path: ses_replicate_identities.py
     services:
       - route53
