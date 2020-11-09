@@ -19,7 +19,6 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.model.AthenaException;
 import software.amazon.awssdk.services.athena.model.CreateNamedQueryRequest;
-import software.amazon.awssdk.services.athena.model.CreateNamedQueryResponse;
 //snippet-end:[athena.java2.CreateNamedQueryExample.import]
 
 public class CreateNamedQueryExample {
@@ -57,8 +56,7 @@ public class CreateNamedQueryExample {
                     .name(name)
                     .build();
 
-            // Call Athena to create the named query. If it fails, an exception is thrown.
-            CreateNamedQueryResponse createNamedQueryResult = athenaClient.createNamedQuery(createNamedQueryRequest);
+            athenaClient.createNamedQuery(createNamedQueryRequest);
             System.out.println("Done");
         } catch (AthenaException e) {
             e.printStackTrace();

@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[StartQueryExample.java demonstrates how to submit a query to Athena for execution, wait until the results are available, and then process the results.]
+//snippet-sourcedescription:[StartQueryExample.java demonstrates how to submit a query to Amazon Athena for execution, wait until the results are available, and then process the results.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
@@ -48,18 +48,16 @@ public class StartQueryExample {
         athenaClient.close();
     }
 
-    /**
-     * Submits a sample query to Athena and returns the execution ID of the query.
-     */
+    // Submits a sample query to Amazon Athena and returns the execution ID of the query
     public static String submitAthenaQuery(AthenaClient athenaClient) {
 
         try {
 
-            // The QueryExecutionContext allows us to set the Database.
+            // The QueryExecutionContext allows us to set the database
             QueryExecutionContext queryExecutionContext = QueryExecutionContext.builder()
                 .database(ExampleConstants.ATHENA_DEFAULT_DATABASE).build();
 
-            // The result configuration specifies where the results of the query should go in S3 and encryption options
+            // The result configuration specifies where the results of the query should go
             ResultConfiguration resultConfiguration = ResultConfiguration.builder()
                     .outputLocation(ExampleConstants.ATHENA_OUTPUT_BUCKET)
                     .build();
@@ -80,11 +78,7 @@ public class StartQueryExample {
         return "";
     }
 
-    /**
-     * Wait for an Athena query to complete, fail or to be cancelled. This is done by polling Athena over an
-     * interval of time. If a query fails or is cancelled, then it will throw an exception.
-     */
-
+    // Wait for an Amazon Athena query to complete, fail or to be cancelled
     public static void waitForQueryToComplete(AthenaClient athenaClient, String queryExecutionId) throws InterruptedException {
         GetQueryExecutionRequest getQueryExecutionRequest = GetQueryExecutionRequest.builder()
                 .queryExecutionId(queryExecutionId).build();
@@ -102,26 +96,23 @@ public class StartQueryExample {
             } else if (queryState.equals(QueryExecutionState.SUCCEEDED.toString())) {
                 isQueryStillRunning = false;
             } else {
-                // Sleep an amount of time before retrying again.
+                // Sleep an amount of time before retrying again
                 Thread.sleep(ExampleConstants.SLEEP_AMOUNT_IN_MS);
             }
             System.out.println("The current status is: " + queryState);
         }
     }
 
-    /**
-     * This code calls Athena and retrieves the results of a query.
-     */
+    // This code retrieves the results of a query
     public static void processResultRows(AthenaClient athenaClient, String queryExecutionId) {
 
        try {
 
+           // Max Results can be set but if its not set,
+           // it will choose the maximum page size
             GetQueryResultsRequest getQueryResultsRequest = GetQueryResultsRequest.builder()
-                // Max Results can be set but if its not set,
-                // it will choose the maximum page size
-                // As of the writing of this code, the maximum value is 1000
-                // .withMaxResults(1000)
-                .queryExecutionId(queryExecutionId).build();
+                    .queryExecutionId(queryExecutionId)
+                    .build();
 
             GetQueryResultsIterable getQueryResultsResults = athenaClient.getQueryResultsPaginator(getQueryResultsRequest);
 
@@ -139,7 +130,6 @@ public class StartQueryExample {
 
     private static void processRow(List<Row> row, List<ColumnInfo> columnInfoList) {
 
-        //Write out the data
         for (Row myRow : row) {
             List<Datum> allData = myRow.data();
             for (Datum data : allData) {
@@ -150,4 +140,5 @@ public class StartQueryExample {
     //snippet-end:[athena.java2.StartQueryExample.main]
 }
 //snippet-end:[athena.java.StartQueryExample.complete]
+
 //snippet-end:[athena.java2.StartQueryExample.complete]

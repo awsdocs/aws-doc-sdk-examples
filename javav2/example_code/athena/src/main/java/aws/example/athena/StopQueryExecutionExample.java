@@ -18,7 +18,6 @@ package aws.example.athena;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.model.StopQueryExecutionRequest;
-import software.amazon.awssdk.services.athena.model.StopQueryExecutionResponse;
 import software.amazon.awssdk.services.athena.model.GetQueryExecutionRequest;
 import software.amazon.awssdk.services.athena.model.GetQueryExecutionResponse;
 import software.amazon.awssdk.services.athena.model.QueryExecutionState;
@@ -45,12 +44,11 @@ public class StopQueryExecutionExample {
     public static void stopAthenaQuery(AthenaClient athenaClient, String sampleQueryExecutionId){
 
        try {
-            // Submit the stop query request
             StopQueryExecutionRequest stopQueryExecutionRequest = StopQueryExecutionRequest.builder()
                     .queryExecutionId(sampleQueryExecutionId)
                     .build();
 
-            StopQueryExecutionResponse stopQueryExecutionResponse = athenaClient.stopQueryExecution(stopQueryExecutionRequest);
+            athenaClient.stopQueryExecution(stopQueryExecutionRequest);
 
             // Ensure that the query was stopped
             GetQueryExecutionRequest getQueryExecutionRequest = GetQueryExecutionRequest.builder()
@@ -72,9 +70,7 @@ public class StopQueryExecutionExample {
          }
     }
 
-    /**
-     * Submits an example query and returns a query execution ID of a running query to stop.
-     */
+    // Submits an example query and returns a query execution Id value
     public static String submitAthenaQuery(AthenaClient athenaClient) {
 
         try {
@@ -90,7 +86,6 @@ public class StopQueryExecutionExample {
                 .resultConfiguration(resultConfiguration).build();
 
             StartQueryExecutionResponse startQueryExecutionResponse = athenaClient.startQueryExecution(startQueryExecutionRequest);
-
             return startQueryExecutionResponse.queryExecutionId();
 
         } catch (AthenaException e) {

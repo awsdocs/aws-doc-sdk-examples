@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListQueryExecutionsExample.java demonstrates how to obtain a list of query execution IDs.]
+//snippet-sourcedescription:[ListQueryExecutionsExample.java demonstrates how to obtain a list of query execution Id values.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]

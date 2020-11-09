@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListNamedQueryExample.java demonstrates how to obtain a list of named query IDs.]
+//snippet-sourcedescription:[ListNamedQueryExample.java demonstrates how to obtain a list of named query Id values.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
@@ -26,11 +26,6 @@ import software.amazon.awssdk.services.athena.paginators.ListNamedQueriesIterabl
 
 import java.util.List;
 
-/**
- * ListNamedQueryExample
- * -------------------------------------
- * This code shows how to obtain a list of named query IDs.
- */
 public class ListNamedQueryExample {
 
     public static void main(String[] args) throws Exception {
@@ -51,8 +46,6 @@ public class ListNamedQueryExample {
                     .build();
 
             ListNamedQueriesIterable listNamedQueriesResponses = athenaClient.listNamedQueriesPaginator(listNamedQueriesRequest);
-
-            // Process the results.
             for (ListNamedQueriesResponse listNamedQueriesResponse : listNamedQueriesResponses) {
                 List<String> namedQueryIds = listNamedQueriesResponse.namedQueryIds();
                 System.out.println(namedQueryIds);

@@ -19,7 +19,6 @@ package aws.example.athena;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.model.DeleteNamedQueryRequest;
-import software.amazon.awssdk.services.athena.model.DeleteNamedQueryResponse;
 import software.amazon.awssdk.services.athena.model.AthenaException;
 import software.amazon.awssdk.services.athena.model.CreateNamedQueryRequest;
 import software.amazon.awssdk.services.athena.model.CreateNamedQueryResponse;
@@ -35,7 +34,7 @@ public class DeleteNamedQueryExample {
                 "Where:\n" +
                 "    name - the name of the Amazon Athena query. \n\n" ;
 
-        if (args.length < 1) {
+        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -54,12 +53,11 @@ public class DeleteNamedQueryExample {
    public static void deleteQueryName(AthenaClient athenaClient, String sampleNamedQueryId) {
 
        try {
-            // Create the delete named query request
             DeleteNamedQueryRequest deleteNamedQueryRequest = DeleteNamedQueryRequest.builder()
                     .namedQueryId(sampleNamedQueryId)
                     .build();
 
-            DeleteNamedQueryResponse deleteNamedQueryResponse = athenaClient.deleteNamedQuery(deleteNamedQueryRequest);
+            athenaClient.deleteNamedQuery(deleteNamedQueryRequest);
 
        } catch (AthenaException e) {
            e.printStackTrace();
@@ -69,7 +67,6 @@ public class DeleteNamedQueryExample {
 
     public static String getNamedQueryId(AthenaClient athenaClient, String name) {
         try {
-            // Create the NameQuery Request.
             CreateNamedQueryRequest createNamedQueryRequest = CreateNamedQueryRequest.builder()
                     .database(ExampleConstants.ATHENA_DEFAULT_DATABASE)
                     .queryString(ExampleConstants.ATHENA_SAMPLE_QUERY)
@@ -77,7 +74,6 @@ public class DeleteNamedQueryExample {
                     .description("Sample description")
                     .build();
 
-            // Create the named query. If it fails, an exception is thrown.
             CreateNamedQueryResponse createNamedQueryResponse = athenaClient.createNamedQuery(createNamedQueryRequest);
             return createNamedQueryResponse.namedQueryId();
 
