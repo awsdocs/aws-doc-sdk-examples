@@ -24,6 +24,6 @@ files:
   - path: src/main/java/aws/example/athena/StopQueryExecutionExample.java
     services:
       - athena      
-  - path: src/test/java/AthenaTest.java
+  - path: src/test/java/AmazonAthenaTest.java
     services:
       - athena
