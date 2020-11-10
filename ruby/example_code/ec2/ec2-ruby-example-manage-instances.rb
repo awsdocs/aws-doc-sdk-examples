@@ -1,109 +1,219 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Stops, starts, and reboots an EC2 instance; monitors an instance, and displays information about the instances.]
-# snippet-keyword:[Amazon Elastic Compute Cloud]
-# snippet-keyword:[describe_instances method]
-# snippet-keyword:[monitor_instances method]
-# snippet-keyword:[reboot_instances method]
-# snippet-keyword:[start_instances method]
-# snippet-keyword:[stop_instances method]
-# snippet-keyword:[wait_until method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[ec2]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
+
+# This code example does the following:
+# 1. Stops an Amazon Elastic Compute Cloud (Amazon EC2) instance.
+# 2. Restarts the instance.
+# 3. Reboots the instance.
+# 4. Enables detailed monitoring for the instance.
+# 5. Displays information about available instances.
+
+require 'aws-sdk-ec2'
+
+# Waits for an Amazon Elastic Compute Cloud (Amazon EC2) instance
+# to reach the specified state.
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
+# Prerequisites:
 #
-# http://aws.amazon.com/apache2.0/
+# - The Amazon EC2 instance.
 #
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
-
-# Demonstrates how to:
-# 1. Stop an existing Amazon EC2 instance.
-# 2. Restart the instance.
-# 3. Reboot the instance.
-# 4. Enable detailed monitoring for the instance.
-# 5. Get information about available instances.
-
-require 'aws-sdk-ec2'  # v2: require 'aws-sdk'
-
-# Uncomment for Windows.
-# Aws.use_bundled_cert!
-
-def wait_for_instances(ec2, state, ids)
-  begin
-    ec2.wait_until(state, instance_ids: ids)
-    puts "Success: #{state}."
-  rescue Aws::Waiters::Errors::WaiterFailed => error
-    puts "Failed: #{error.message}"
-  end
+# @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
+# @param instance_state [Symbol] The desired instance state.
+# @param instance_id [String] The ID of the instance.
+# @example
+#   wait_for_instance(
+#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     :instance_stopped,
+#     'i-033c48ef067af3dEX'
+#   )
+def wait_for_instance(ec2_client, instance_state, instance_id)
+  ec2_client.wait_until(instance_state, instance_ids: [instance_id])
+  puts "Success: #{instance_state}."
+rescue Aws::Waiters::Errors::WaiterFailed => e
+  puts "Failed: #{e.message}"
 end
 
-ec2 = Aws::EC2::Client.new(region: 'us-east-1')
+# Attempts to stop an Amazon Elastic Compute Cloud (Amazon EC2) instance.
+#
+# Prerequisites:
+#
+# - The Amazon EC2 instance.
+#
+# @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
+# @param instance_id [String] The ID of the instance.
+# @return [Boolean] true if the instance was stopped; otherwise, false.
+# @example
+#   exit 1 unless instance_stopped?(
+#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     'i-033c48ef067af3dEX'
+#   )
+def instance_stopped?(ec2_client, instance_id)
+  ec2_client.stop_instances(instance_ids: [instance_id])
+  wait_for_instance(ec2_client, :instance_stopped, instance_id)
+  return true
+rescue StandardError => e
+  puts "Error stopping instance: #{e.message}"
+  return false
+end
 
-instance_id = "INSTANCE-ID" # For example, "i-0a123456b7c8defg9"
+# Attempts to restart an Amazon Elastic Compute Cloud (Amazon EC2) instance.
+#
+# Prerequisites:
+#
+# - The Amazon EC2 instance.
+#
+# @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
+# @param instance_id [String] The ID of the instance.
+# @return [Boolean] true if the instance was restarted; otherwise, false.
+# @example
+#   exit 1 unless instance_restarted?(
+#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     'i-033c48ef067af3dEX'
+#   )
+def instance_restarted?(ec2_client, instance_id)
+  ec2_client.start_instances(instance_ids: [instance_id])
+  wait_for_instance(ec2_client, :instance_running, instance_id)
+  return true
+rescue StandardError => e
+  puts "Error restarting instance: #{e.message}"
+  return false
+end
 
-puts "Attempting to stop instance '#{instance_id}'. This may take a few minutes..."
-ec2.stop_instances({ instance_ids: [instance_id] })
-wait_for_instances(ec2, :instance_stopped, [instance_id])
+# Attempts to reboot an Amazon Elastic Compute Cloud (Amazon EC2) instance.
+#
+# Prerequisites:
+#
+# - The Amazon EC2 instance.
+#
+# @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
+# @param instance_id [String] The ID of the instance.
+# @return [Boolean] true if the instance was rebooted; otherwise, false.
+# @example
+#   exit 1 unless instance_rebooted?(
+#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     'i-033c48ef067af3dEX'
+#   )
+def instance_rebooted?(ec2_client, instance_id)
+  ec2_client.reboot_instances(instance_ids: [instance_id])
+  wait_for_instance(ec2_client, :instance_status_ok, instance_id)
+  return true
+rescue StandardError => e
+  puts "Error rebooting instance: #{e.message}"
+  return false
+end
 
-puts "\nAttempting to restart instance '#{instance_id}'. This may take a few minutes..."
-ec2.start_instances({ instance_ids: [instance_id] })
-wait_for_instances(ec2, :instance_running, [instance_id])
-
-puts "\nAttempting to reboot instance '#{instance_id}'. This may take a few minutes..."
-ec2.reboot_instances({ instance_ids: [instance_id] })
-wait_for_instances(ec2, :instance_status_ok, [instance_id])
-
-# Enable detailed monitoring for the instance.
-puts "\nAttempting to enable detailed monitoring for instance '#{instance_id}'..."
-
-begin
-  monitor_instances_result = ec2.monitor_instances({
-    instance_ids: [instance_id]
-  })
-  puts "Detailed monitoring state for instance '#{instance_id}': #{monitor_instances_result.instance_monitorings[0].monitoring.state}"
+# Attempts to enabled detailed monitoring for an
+# Amazon Elastic Compute Cloud (Amazon EC2) instance.
+#
+# Prerequisites:
+#
+# - The Amazon EC2 instance.
+#
+# @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
+# @param instance_id [String] The ID of the instance.
+# @return [Boolean] true if detailed monitoring was enabled; otherwise, false.
+# @example
+#   exit 1 unless instance_detailed_monitoring_enabled?(
+#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     'i-033c48ef067af3dEX'
+#   )
+def instance_detailed_monitoring_enabled?(ec2_client, instance_id)
+  result = ec2_client.monitor_instances(instance_ids: [instance_id])
+  puts "Detailed monitoring state: #{result.instance_monitorings[0].monitoring.state}"
+  return true
 rescue Aws::EC2::Errors::InvalidState
-  puts "Instance '#{instance_id}' is not in a monitorable state. Continuing on..."
+  puts "The instance is not in a monitorable state. Continuing on..."
+  return false
+rescue StandardError => e
+  puts "Error enabling detailed monitoring: #{e.message}"
+  return false
 end
 
-# Get information about available instances.
-puts "\nAvailable instances:"
-
-describe_instances_result = ec2.describe_instances
-
-describe_instances_result.reservations.each do |reservation|
-  if reservation.instances.count > 0
-    reservation.instances.each do |instance|
-      puts "=" * (instance.instance_id.length + 13)
-      puts "Instance ID: #{instance.instance_id}"
-      puts "State: #{instance.state.name}"
-      puts "Image ID: #{instance.image_id}"
-      puts "Instance Type: #{instance.instance_type}"
-      puts "Architecture: #{instance.architecture}"
-      puts "IAM Instance Profile: #{instance.iam_instance_profile}"
-      puts "Key Name: #{instance.key_name}"
-      puts "Launch Time: #{instance.launch_time}"
-      puts "Detailed Monitoring State: #{instance.monitoring.state}"
-      puts "Public IP Address: #{instance.public_ip_address}"
-      puts "Public DNS Name: #{instance.public_dns_name}"
-      puts "VPC ID: #{instance.vpc_id}"
-      puts "Subnet ID: #{instance.subnet_id}"
-      if instance.tags.count > 0
-        puts "Tags:"
-        instance.tags.each do |tag|
-          puts "  #{tag.key} = #{tag.value}"
+# Displays information about available 
+# Amazon Elastic Compute Cloud (Amazon EC2) instances.
+#
+# @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
+# @example
+#   list_instances_information(Aws::EC2::Client.new(region: 'us-east-1'))
+def list_instances_information(ec2_client)
+  result = ec2_client.describe_instances
+  result.reservations.each do |reservation|
+    if reservation.instances.count.positive?
+      reservation.instances.each do |instance|
+        puts '-' * 12
+        puts "Instance ID:               #{instance.instance_id}"
+        puts "State:                     #{instance.state.name}"
+        puts "Image ID:                  #{instance.image_id}"
+        puts "Instance type:             #{instance.instance_type}"
+        puts "Architecture:              #{instance.architecture}"
+        puts "IAM instance profile ARN:  #{instance.iam_instance_profile.arn}"
+        puts "Key name:                  #{instance.key_name}"
+        puts "Launch time:               #{instance.launch_time}"
+        puts "Detailed monitoring state: #{instance.monitoring.state}"
+        puts "Public IP address:         #{instance.public_ip_address}"
+        puts "Public DNS name:           #{instance.public_dns_name}"
+        puts "VPC ID:                    #{instance.vpc_id}"
+        puts "Subnet ID:                 #{instance.subnet_id}"
+        if instance.tags.count.positive?
+          puts 'Tags:'
+          instance.tags.each do |tag|
+            puts "                           #{tag.key}/#{tag.value}"
+          end
         end
       end
     end
   end
-
 end
+
+# Full example call:
+def run_me
+  instance_id = ''
+  region = ''
+  # Print usage information and then stop.
+  if ARGV[0] == '--help' || ARGV[0] == '-h'
+    puts 'Usage:   ruby ec2-ruby-example-manage-instances.rb ' \
+      'INSTANCE_ID REGION'
+    puts 'Example: ruby ec2-ruby-example-manage-instances.rb ' \
+      'i-033c48ef067af3dEX us-east-1'
+    exit 1
+  # If no values are specified at the command prompt, use these default values.
+  elsif ARGV.count.zero?
+    instance_id = 'i-033c48ef067af3dEX'
+    region = 'us-east-1'
+  # Otherwise, use the values as specified at the command prompt.
+  else
+    instance_id = ARGV[0]
+    region = ARGV[1]
+  end
+
+  ec2_client = Aws::EC2::Client.new(region: region)
+
+  puts 'Attempting to stop the instance. ' \
+    'This might take a few minutes...'
+  unless instance_stopped?(ec2_client, instance_id)
+    puts 'Cannot stop the instance. Continuing anyway...'
+  end
+
+  puts "\nAttempting to restart the instance. " \
+    'This might take a few minutes...'
+  unless instance_restarted?(ec2_client, instance_id)
+    puts 'Cannot restart the instance. Continuing anyway...'
+  end
+
+  puts "\nAttempting to reboot the instance. " \
+    'This might take a few minutes...'
+  unless instance_rebooted?(ec2_client, instance_id)
+    puts 'Cannot reboot the instance. Continuing anyway...'
+  end
+
+  puts "\nAttempting to enable detailed monitoring for the instance..."
+  unless instance_detailed_monitoring_enabled?(ec2_client, instance_id)
+    puts 'Cannot enable detailed monitoring for the instance. ' \
+      'Continuing anyway...'
+  end
+
+  puts "\nInformation about available instances:"
+  list_instances_information(ec2_client)
+end
+
+run_me if $PROGRAM_NAME == __FILE__
