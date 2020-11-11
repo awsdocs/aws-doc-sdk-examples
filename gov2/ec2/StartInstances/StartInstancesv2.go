@@ -33,7 +33,7 @@ type EC2StartInstancesAPI interface {
 func StartInstance(c context.Context, api EC2StartInstancesAPI, input *ec2.StartInstancesInput) (*ec2.StartInstancesOutput, error) {
     resp, err := api.StartInstances(c, input)
 
-    if strings.Contains(err.Error(), "DryRunOperation") {
+    if strings.Contains(err.Error(), "api error DryRunOperation") {
         fmt.Println("User has permission to start an instance.")
         input.DryRun = aws.Bool(false)
         result, err := api.StartInstances(c, input)
