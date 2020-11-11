@@ -106,7 +106,7 @@ func main() {
 
 		result, err := EnableMonitoring(context.Background(), client, input)
 		if err != nil {
-			fmt.Println("Got an error enablying monitoring for instance:")
+			fmt.Println("Got an error enabling monitoring for instance:")
 			fmt.Println(err)
 			return
 		}
@@ -122,7 +122,7 @@ func main() {
 
 		result, err := DisableMonitoring(context.Background(), client, input)
 		if err != nil {
-			fmt.Println("Got an error disablying monitoring for instance:")
+			fmt.Println("Got an error disabling monitoring for instance:")
 			fmt.Println(err)
 			return
 		}
