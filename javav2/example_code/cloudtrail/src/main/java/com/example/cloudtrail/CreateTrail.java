@@ -1,27 +1,16 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[CreateTrail.java demonstrates how to create a trail.]
+//snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[AWS CloudTrail]
-// snippet-keyword:[Java]
-// snippet-keyword:[AWS CloudTrail]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-09-15]
+// snippet-sourcedate:[11/03/2020]
 // snippet-sourceauthor:[AWS - scmacdon]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.cloudtrail;
 
@@ -37,30 +26,32 @@ public class CreateTrail {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "To run this example, supply the name of the trail and an Amazon S3 bucket name.  \n" +
-                "\n" +
-                "Example: GetTrailStatus <trailName><s3BucketName>\n";
+         final String USAGE = "\n" +
+                "Usage:\n" +
+                "    CreateTrail <trailName> <s3BucketName> \n\n" +
+                "Where:\n" +
+                "    trailName - the name of the trail. \n" +
+                "    s3BucketName - the name of the Amazon S3 bucket designated for publishing log files. \n" ;
 
-         if (args.length < 2) {
+         if (args.length != 2) {
              System.out.println(USAGE);
              System.exit(1);
          }
 
-        /* Read the name from command args */
         String trailName = args[0] ;
         String s3BucketName = args[1] ;
 
         Region region = Region.US_EAST_1;
-        CloudTrailClient cloudTrailClientClient = CloudTrailClient.builder()
+        CloudTrailClient cloudTrailClient = CloudTrailClient.builder()
                 .region(region)
                 .build();
 
-        createNewTrail(cloudTrailClientClient, trailName, s3BucketName);
+        createNewTrail(cloudTrailClient, trailName, s3BucketName);
+        cloudTrailClient.close();
     }
 
     //snippet-start:[cloudtrail.java2.create_trail.main]
-    public static void createNewTrail(CloudTrailClient cloudTrailClientClient, String trailName, String s3BucketName) {
+    public static void createNewTrail(CloudTrailClient cloudTrailClient, String trailName, String s3BucketName) {
 
         try {
             CreateTrailRequest trailRequest = CreateTrailRequest.builder()
@@ -69,7 +60,7 @@ public class CreateTrail {
                 .isMultiRegionTrail(true)
                 .build();
 
-            CreateTrailResponse trailResponse = cloudTrailClientClient.createTrail(trailRequest);
+            CreateTrailResponse trailResponse = cloudTrailClient.createTrail(trailRequest);
             System.out.println("The Trail ARN is "+trailResponse.trailARN());
 
         } catch (CloudTrailException e) {
