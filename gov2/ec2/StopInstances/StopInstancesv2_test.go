@@ -33,7 +33,7 @@ func (dt EC2StopInstancesImpl) StopInstances(ctx context.Context,
     }
 
     if *params.DryRun {
-        return output, errors.New("DryRunOperation")
+        return output, errors.New("api error DryRunOperation")
     }
 
     return output, nil
