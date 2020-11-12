@@ -122,7 +122,7 @@ def instance_detailed_monitoring_enabled?(ec2_client, instance_id)
   puts "Detailed monitoring state: #{result.instance_monitorings[0].monitoring.state}"
   return true
 rescue Aws::EC2::Errors::InvalidState
-  puts "The instance is not in a monitorable state. Continuing on..."
+  puts "The instance is not in a monitorable state. Skipping this step."
   return false
 rescue StandardError => e
   puts "Error enabling detailed monitoring: #{e.message}"
@@ -191,25 +191,25 @@ def run_me
   puts 'Attempting to stop the instance. ' \
     'This might take a few minutes...'
   unless instance_stopped?(ec2_client, instance_id)
-    puts 'Cannot stop the instance. Continuing anyway...'
+    puts 'Cannot stop the instance. Skipping this step.'
   end
 
   puts "\nAttempting to restart the instance. " \
     'This might take a few minutes...'
   unless instance_restarted?(ec2_client, instance_id)
-    puts 'Cannot restart the instance. Continuing anyway...'
+    puts 'Cannot restart the instance. Skipping this step.'
   end
 
   puts "\nAttempting to reboot the instance. " \
     'This might take a few minutes...'
   unless instance_rebooted?(ec2_client, instance_id)
-    puts 'Cannot reboot the instance. Continuing anyway...'
+    puts 'Cannot reboot the instance. Skipping this step.'
   end
 
   puts "\nAttempting to enable detailed monitoring for the instance..."
   unless instance_detailed_monitoring_enabled?(ec2_client, instance_id)
     puts 'Cannot enable detailed monitoring for the instance. ' \
-      'Continuing anyway...'
+      'Skipping this step.'
   end
 
   puts "\nInformation about available instances:"

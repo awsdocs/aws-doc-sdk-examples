@@ -93,4 +93,20 @@ files:
   - path: tests/test_ec2-ruby-example-regions-availability-zones.rb
     services:
     - ec2
+  - path: ec2-ruby-example-security-group.rb
+    - ec2
+  - path: tests/test_ec2-ruby-example-security-group.rb
+    - ec2
+  - path: ec2-ruby-example-start-instance-i-123abc.rb
+    - ec2
+  - path: tests/test_ec2-ruby-example-start-instance-i-123abc.rb
+    - ec2
+  - path: ec2-ruby-example-stop-instance-i-123abc.rb
+    - ec2
+  - path: tests/test_ec2-ruby-example-stop-instance-i-123abc.rb
+    - ec2
+  - path: ec2-ruby-example-terminate-instance-i-123abc.rb
+    - ec2
+  - path: tests/test_ec2-ruby-example-terminate-instance-i-123abc.rb
+    - ec2
 ...
