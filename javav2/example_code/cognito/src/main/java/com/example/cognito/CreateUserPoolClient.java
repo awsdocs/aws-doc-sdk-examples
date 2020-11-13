@@ -1,26 +1,14 @@
 //snippet-sourcedescription:[CreateUserPoolClient.java demonstrates how to create a user pool client for Amazon Cognito.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
-//snippet-service:[cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[8/14/2020]
+//snippet-sourcedate:[11/04/2020]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.cognito;
 
@@ -39,17 +27,14 @@ public class CreateUserPoolClient {
                 "Usage:\n" +
                 "    CreateUserPoolClient <clientName> <userPoolId> \n\n" +
                 "Where:\n" +
-                "    clientName - The name for the user pool client to create.\n\n" +
-                "    userPoolId - The ID for the user pool where you want to create a user pool client.\n\n" +
-                "Example:\n" +
-                "    CreateUserPoolClient client1 client1IdNum\n";
+                "    clientName - the name for the user pool client to create.\n\n" +
+                "    userPoolId - the ID for the user pool.\n\n" ;
 
-        if (args.length < 2) {
+        if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
-       }
+        }
 
-        /* Read the name from command args */
         String clientName = args[0];
         String userPoolId = args[1];
 
@@ -58,6 +43,7 @@ public class CreateUserPoolClient {
                 .build();
 
         createPoolClient (cognitoclient, clientName, userPoolId) ;
+        cognitoclient.close();
     }
 
     //snippet-start:[cognito.java2.user_pool.create_user_pool_client.main]
@@ -68,11 +54,11 @@ public class CreateUserPoolClient {
         try {
 
             CreateUserPoolClientResponse repsonse = cognitoclient.createUserPoolClient(
-                CreateUserPoolClientRequest.builder()
-                        .clientName(clientName)
-                        .userPoolId(userPoolId)
-                        .build()
-        );
+                    CreateUserPoolClientRequest.builder()
+                            .clientName(clientName)
+                            .userPoolId(userPoolId)
+                            .build()
+            );
 
             System.out.println("User pool " + repsonse.userPoolClient().clientName() + " created. ID: " + repsonse.userPoolClient().clientId());
 

@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class CognitoServiceIntegrationTest {
+public class AmazonCognitoTest {
 
     private static CognitoIdentityProviderClient cognitoclient;
     private static  CognitoIdentityProviderClient cognitoIdentityProviderClient ;
@@ -46,7 +46,7 @@ public class CognitoServiceIntegrationTest {
                 .build();
 
 
-        try (InputStream input = CognitoServiceIntegrationTest.class.getClassLoader().getResourceAsStream("config.properties")) {
+        try (InputStream input = AmazonCognitoTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 
             Properties prop = new Properties();
 
@@ -70,7 +70,6 @@ public class CognitoServiceIntegrationTest {
             existingIdentityPoolId = prop.getProperty("existingIdentityPoolId");
             providerName = prop.getProperty("providerName");
             existingPoolName =  prop.getProperty("existingPoolName");
-
 
         } catch (IOException ex) {
             ex.printStackTrace();
