@@ -18,6 +18,6 @@ files:
   - path: src/main/java/com/example/eventbridge/PutEvents.java
     services:
       - eventbridge   
-  - path: src/test/java/AmazonEventBridgeServiceIntegrationTest.java
+  - path: src/test/java/EventBridgeTest.java
     services:
       - eventbridge      
