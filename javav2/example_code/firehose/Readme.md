@@ -21,9 +21,9 @@ For systems with Bash support, once you set the **CLASSPATH**, you can run a par
 	java com.example.eventbridge.ListRules
 
 
- ## Testing the EventBridge Java files
+ ## Testing the  Amazon Kinesis Date Firehose Java files
 
-You can test the Java code examples for EventBridge by running a test file named **AmazonEventBridgeServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for EventBridge by running a test file named **FirehoseTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -36,7 +36,11 @@ Before running the Amazon EventBridge tests, you must define values in the **con
 
 Define this value to successfully run the JUnit tests:
 
-- **ruleName** - The rule name.   
+- **bucketARN** - The ARN of the Amazon S3 bucket where the data stream is written.   
+-**roleARN** - The ARN of the IAM role that has the permissions that Kinesis Data Firehose needs.
+-**newStream** - The name of the delivery stream.
+- **existingStream** - The name of an existing stream. 
+- **textValue** - The text used as the data to write to the data stream.
 
 
 ### Command line
@@ -49,7 +53,7 @@ You will see output from the JUnit tests, as shown here.
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
 	[INFO] -------------------------------------------------------
-	[INFO] Running AmazonEventBridgeServiceIntegrationTest
+	[INFO] Running FirehoseTest
 	Test 1 passed
 	Test 2 passed
 	...
