@@ -94,19 +94,27 @@ files:
     services:
     - ec2
   - path: ec2-ruby-example-security-group.rb
+    services:
     - ec2
   - path: tests/test_ec2-ruby-example-security-group.rb
+    services:
     - ec2
   - path: ec2-ruby-example-start-instance-i-123abc.rb
+    services:
     - ec2
   - path: tests/test_ec2-ruby-example-start-instance-i-123abc.rb
+    services:
     - ec2
   - path: ec2-ruby-example-stop-instance-i-123abc.rb
+    services:
     - ec2
   - path: tests/test_ec2-ruby-example-stop-instance-i-123abc.rb
+    services:
     - ec2
   - path: ec2-ruby-example-terminate-instance-i-123abc.rb
+    services:
     - ec2
   - path: tests/test_ec2-ruby-example-terminate-instance-i-123abc.rb
+    services:
     - ec2
 ...
