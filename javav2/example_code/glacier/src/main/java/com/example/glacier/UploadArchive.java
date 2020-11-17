@@ -1,19 +1,13 @@
 //snippet-sourcedescription:[UploadArchive.java demonstrates how to upload an archive to an Amazon Glacier vault.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Glacier]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/17/2020]
+//snippet-sourcedate:[11/04/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.glacier;
@@ -40,13 +34,13 @@ public class UploadArchive {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "UploadArchive - uploads an archive to an Amazon Glacier vault\n\n" +
-                "Usage: UploadArchive <strPath> <vaultName> \n\n" +
+                 "Usage:" +
+                " UploadArchive <strPath> <vaultName> \n\n" +
                 "Where:\n" +
-                "  strPath - the path to the archive to upload (i.e., C:\\AWS\\test.pdf)\n" +
-                "  vaultName - the name of the vault\n\n";
+                "  strPath - the path to the archive to upload (for example, C:\\AWS\\test.pdf).\n" +
+                "  vaultName - the name of the vault.\n\n";
 
-        if (args.length < 2) {
+        if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -57,13 +51,13 @@ public class UploadArchive {
         File myFile = new File(strPath);
         Path path = Paths.get(strPath);
 
-        // Create a GlacierClient object
         GlacierClient glacier = GlacierClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
         String archiveId = uploadContent(glacier, path, vaultName, myFile );
         System.out.println("The ID of the archived item is " +archiveId);
+        glacier.close();
     }
 
     // snippet-start:[glacier.java2.upload.main]
@@ -119,14 +113,6 @@ public class UploadArchive {
     /**
      * Computes an SHA256 checksum for each 1 MB chunk of the input file. This
      * includes the checksum for the last chunk, even if it's smaller than 1 MB.
-     *
-     * @param file
-     *            A file to compute checksums on
-     * @return a byte[][] containing the checksums of each 1 MB chunk
-     * @throws IOException
-     *             Thrown if there's an IOException when reading the file
-     * @throws NoSuchAlgorithmException
-     *             Thrown if SHA-256 MessageDigest can't be found
      */
     public static byte[][] getChunkSHA256Hashes(File file) throws IOException,
             NoSuchAlgorithmException {
@@ -175,19 +161,6 @@ public class UploadArchive {
     /**
      * Computes the SHA-256 tree hash for the passed array of 1 MB chunk
      * checksums.
-     *
-     * This method uses a pair of arrays to iteratively compute the tree hash
-     * level by level. Each iteration takes two adjacent elements from the
-     * previous level source array, computes the SHA-256 hash on their
-     * concatenated value and places the result in the next level's destination
-     * array. At the end of an iteration, the destination array becomes the
-     * source array for the next level.
-     *
-     * @param chunkSHA256Hashes
-     *            An array of SHA-256 checksums
-     * @return A byte[] containing the SHA-256 tree hash for the input chunks
-     * @throws NoSuchAlgorithmException
-     *             Thrown if SHA-256 MessageDigest can't be found
      */
     public static byte[] computeSHA256TreeHash(byte[][] chunkSHA256Hashes)
             throws NoSuchAlgorithmException {
@@ -230,10 +203,6 @@ public class UploadArchive {
 
     /**
      * Returns the hexadecimal representation of the input byte array
-     *
-     * @param data
-     *            a byte[] to convert to hex characters
-     * @return A String containing hex characters
      */
     public static String toHex(byte[] data) {
         StringBuilder sb = new StringBuilder(data.length * 2);
