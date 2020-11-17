@@ -1,4 +1,4 @@
-# Amazon Glacier Java code examples 
+# Amazon S3 Glacier Java code examples 
 
 This README discusses how to run and test the Java code examples for Amazon Simple Storage Service Glacier (Amazon S3 Glacier).
 
