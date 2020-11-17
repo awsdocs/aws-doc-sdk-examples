@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteVault.java demonstrates how to delete an Amazon Glacier vault.]
+//snippet-sourcedescription:[DeleteVault.java demonstrates how to delete an Amazon Simple Storage Service Glacier (Amazon S3 Glacier) vault.]
 ///snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Glacier]
