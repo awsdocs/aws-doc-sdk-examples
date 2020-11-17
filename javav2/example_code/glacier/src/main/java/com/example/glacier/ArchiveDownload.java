@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[ArchiveDownload.java demonstrates how to create a job start to retrieve inventory for an Amazon Simple Storage Service Glacier (Amazon S3 Glacier) vault.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Glacier]
+//snippet-service:[Amazon S3 Glacier]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[11/04/2020]
 //snippet-sourceauthor:[scmacdon-aws]
