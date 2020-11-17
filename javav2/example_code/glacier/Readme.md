@@ -1,6 +1,6 @@
 # Amazon Glacier Java code examples 
 
-This README discusses how to run and test the Java code examples for Amazon Glacier.
+This README discusses how to run and test the Java code examples for Amazon Simple Storage Service Glacier (Amazon S3 Glacier).
 
 ## Running the Amazon Glacier Java files
 
@@ -8,7 +8,7 @@ This README discusses how to run and test the Java code examples for Amazon Glac
 
 The Java code examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting a Glacier vault. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
+Some of these examples perform *destructive* operations on AWS resources, such as deleting an Amazon S3 Glacier vault. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
 To run these examples, you'll need the AWS SDK for Java libraries in your **CLASSPATH**.
 
@@ -22,7 +22,7 @@ For systems with Bash support, once you set the **CLASSPATH**, you can run a par
 
  ## Testing the Amazon Glacier files
 
-You can test the Java code examples for Amazon Glacier by running a test file named **GlacierTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for Amazon S3 Glacier by running a test file named **GlacierTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is run, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -31,14 +31,14 @@ You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the comma
 **WARNING**: _Running these JUnit tests manipulates real Amazon resources and might incur charges on your account._
 
  ### Properties file
-Before running the Amazon Glacier JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a vault name used for various tests. If you do not define all values, the JUnit tests fail.
+Before running the Amazon S3 Glacier JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a vault name used for various tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
-- **vaultName** - The name of the vault.  
+- **vaultName** - The name of the Amazon S3 Glacier vault.  
 - **strPath** – The path to a file to use as an archive. For example, C:\\AWS\\test.pdf.
-- **downloadVault** - A vault that contains an archive to download.
-- **emptyVault** - An empty vault to delete.
+- **downloadVault** - An Amazon S3 Glacier vault that contains an archive to download.
+- **emptyVault** - An empty  Amazon S3 Glacier vault to delete.
 - **accountId** - Your account ID. You can obtain this value from the AWS Management Console.   
 
 ### Command line
