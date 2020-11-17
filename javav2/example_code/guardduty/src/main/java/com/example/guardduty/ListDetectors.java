@@ -1,27 +1,16 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[ListDetectors.java demonstrates how to list detector ID valuess of all the existing Amazon GuardDuty detector resources.]
-// snippet-service:[Amazon GuardDuty]
-// snippet-keyword:[Java]
+// snippet-sourcedescription:[ListDetectors.java demonstrates how to List detector id valuess of all the existing Amazon GuardDuty detector resources.]
+//snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[Amazon GuardDuty]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-09-17]
+// snippet-sourcedate:[11/04/2020]
 // snippet-sourceauthor:[AWS - scmacdon]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.guardduty;
 
@@ -43,6 +32,7 @@ public class ListDetectors {
                 .build();
 
         listAllDetectors(guardDutyClient);
+        guardDutyClient.close();
     }
 
     //snippet-start:[guard.java2.list_detectors.main]
@@ -53,7 +43,7 @@ public class ListDetectors {
             List<String> detectors = response.detectorIds();
 
             for (String detector: detectors) {
-                System.out.println("The detector ID is : "+detector);
+                System.out.println("The detector id is : "+detector);
             }
 
         } catch (GuardDutyException e) {
