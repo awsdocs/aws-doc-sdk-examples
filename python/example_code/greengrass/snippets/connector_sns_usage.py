@@ -29,7 +29,10 @@ def publish_basic_message():
     iot_client.publish(topic=send_topic, payload=json.dumps(message))
 
 
-# In this example, this dummy AWS Lambda handler is never called.
+publish_basic_message()
+
+
+# In this example, the required AWS Lambda handler is never called.
 def function_handler(event, context):
-    publish_basic_message()
+    pass
 # snippet-end:[greengrass.python.connector-sns-usage.complete]

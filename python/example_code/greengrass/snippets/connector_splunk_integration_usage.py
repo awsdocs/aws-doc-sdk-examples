@@ -32,7 +32,7 @@ def publish_basic_message():
 publish_basic_message()
 
 
-# In this example, this dummy AWS Lambda handler is never called.
+# In this example, the required AWS Lambda handler is never called.
 def function_handler(event, context):
     return
 # snippet-end:[greengrass.python.connector-splunk-integration-usage.complete]

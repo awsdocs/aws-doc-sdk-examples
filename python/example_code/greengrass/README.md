@@ -7,7 +7,7 @@ that publish MQTT messages, implement connectors, and retrieve secrets.
 
 These code examples are primarily code snippets that are used in the 
 [AWS Iot Greengrass developer guide](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html)
-are not intended to be used out of context.
+and are not intended to be used out of context.
 
 ## Prerequisites
 

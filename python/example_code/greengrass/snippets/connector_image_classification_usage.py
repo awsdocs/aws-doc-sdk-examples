@@ -15,7 +15,7 @@ import numpy
 
 import greengrass_machine_learning_sdk as gg_ml
 
-# Assume the inference input image is provided as a local file.
+# The inference input image.
 with open('/test_img/test.jpg', 'rb') as f:
     content = f.read()
 
@@ -58,7 +58,7 @@ def infer():
 infer()
 
 
-# In this example, this dummy AWS Lambda handler is never called.
+# In this example, the required AWS Lambda handler is never called.
 def function_handler(event, context):
     return
 # snippet-end:[greengrass.python.connector-image-classification-usage.complete]
