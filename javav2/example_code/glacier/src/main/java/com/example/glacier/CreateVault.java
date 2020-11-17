@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateVault.java demonstrates how to create an Amazon Glacier vault.]
+//snippet-sourcedescription:[CreateVault.java demonstrates how to create an Amazon Simple Storage Service Glacier (Amazon S3 Glacier) vault.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Glacier]
