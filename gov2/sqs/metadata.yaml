@@ -1,0 +1,34 @@
+files:
+  - path: ConfigureLPQueue/ConfigureLPQueuev2.go
+    services:
+      - sqs
+  - path: ConfigureLPQueue/ConfigureLPQueuev2_test.go
+    services:
+      - sqs
+  - path: CreateQueue/CreateQueuev2.go
+    services:
+      - sqs
+  - path: CreateQueue/CreateQueuev2_test.go
+    services:
+      - sqs
+  - path: CreateLPQueue/CreateLPQueuev2.go
+    services:
+      - sqs
+  - path: CreateLPQueue/CreateLPQueuev2_test.go
+    services:
+      - sqs
+  - path: DeadLetterQueue/DeadLetterQueuev2.go
+    services:
+      - sqs
+  - path: DeadLetterQueue/DeadLetterQueuev2_test.go
+    services:
+      - sqs
+  - path: ListQueues/ListQueuesv2.go
+    services:
+      - sqs
+  - path: ListQueues/ListQueuesv2_test.go
+    services:
+      - sqs
+  - path: 
+    services:
+      - sqs
