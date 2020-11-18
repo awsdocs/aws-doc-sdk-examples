@@ -68,5 +68,4 @@ func main() {
 
 	fmt.Println("URL: " + *result.QueueUrl)
 }
-
 // snippet-end:[sqs.go-v2.CreateQueue]

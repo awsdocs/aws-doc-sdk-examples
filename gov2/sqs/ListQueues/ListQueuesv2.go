@@ -54,5 +54,4 @@ func main() {
         fmt.Printf("%d: %s\n", i+1, *url)
     }
 }
-
 // snippet-end:[sqs.go-v2.ListQueues]

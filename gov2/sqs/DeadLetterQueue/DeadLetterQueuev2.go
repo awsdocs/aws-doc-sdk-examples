@@ -126,5 +126,4 @@ func main() {
 
 	fmt.Println("Created dead-letter queue")
 }
-
 // snippet-end:[sqs.go-v2.DeadLetterQueue]

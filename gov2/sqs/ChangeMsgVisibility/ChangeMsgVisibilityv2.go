@@ -109,5 +109,4 @@ func main() {
 
     fmt.Println("Changed the visibility of the message with the handle " + *handle + " in the " + *queue + " to " + strconv.Itoa(*visibility))
 }
-
 // snippet-end:[sqs.go-v2.ChangeMessageVisibility]

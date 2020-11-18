@@ -55,7 +55,6 @@ func GetMessages(c context.Context, api SQSReceiveMessageAPI, input *sqs.Receive
 }
 
 func main() {
-	// snippet-start:[sqs.go-v2.receive_messages.args]
 	queue := flag.String("q", "", "The name of the queue")
 	timeout := flag.Int("t", 5, "How long, in seconds, that the message is hidden from others")
 	flag.Parse()
@@ -113,5 +112,4 @@ func main() {
 	fmt.Println("Message ID:     " + *msgResult.Messages[0].MessageId)
 	fmt.Println("Message Handle: " + *msgResult.Messages[0].ReceiptHandle)
 }
-
 // snippet-end:[sqs.go-v2.ReceiveMessage]

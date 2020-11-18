@@ -95,5 +95,4 @@ func main() {
 
     fmt.Println("Deleted queue with URL " + *queueURL)
 }
-
 // snippet-end:[sqs.go-v2.DeleteQueue]

@@ -77,5 +77,4 @@ func main() {
 
     fmt.Println("URL for long polling queue " + *queue + ": " + *resp.QueueUrl)
 }
-
 // snippet-end:[sqs.go-v2.CreateLpQueue]

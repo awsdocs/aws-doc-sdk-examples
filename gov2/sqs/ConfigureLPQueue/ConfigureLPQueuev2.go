@@ -115,5 +115,4 @@ func main() {
 
     fmt.Println("Configured queue with URL " + *queueURL + " to use long polling")
 }
-
 // snippet-end:[sqs.go-v2.ConfigureLPQueue]

@@ -117,5 +117,4 @@ func main() {
         fmt.Println("    " + *msg.MessageId)
     }
 }
-
 // snippet-end:[sqs.go-v2.ReceiveLPMessage]

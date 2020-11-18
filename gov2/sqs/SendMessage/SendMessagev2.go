@@ -115,5 +115,4 @@ func main() {
 
     fmt.Println("Sent message with ID: " + *resp.MessageId)
 }
-
 // snippet-end:[sqs.go-v2.SendMessage]
