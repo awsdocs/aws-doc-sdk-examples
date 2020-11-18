@@ -18,6 +18,18 @@ For Boto3 and AWS documentation, see the following:
 
 ## Examples
 
+### [AWS Certificate Manager (ACM) basics example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/acm/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with AWS Certificate Manager (ACM)
+to request, import, and manage certificates.
+
+* Request a new certificate from ACM.
+* Import a self-signed certificate.
+* Retrieve certificate data.
+* Add custom tags to certificates.
+
 ### [Amazon DynamoDB batch examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/dynamodb/batching/README.md)
 
 #### Purpose
