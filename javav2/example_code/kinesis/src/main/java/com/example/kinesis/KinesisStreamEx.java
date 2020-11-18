@@ -181,7 +181,7 @@ public class KinesisStreamEx {
     // snippet-end:[kinesis.java2.stream_example.custom_handler]
 
     /**
-     * Using the SubscribeToShardResponseHandler.Builder and a traditional subscriber.
+     * Uses the SubscribeToShardResponseHandler.Builder and a traditional subscriber.
      */
     // snippet-start:[kinesis.java2.stream_example.subscribe]
     private static CompletableFuture<Void> responseHandlerBuilderSubscriber(KinesisAsyncClient client, SubscribeToShardRequest request) {
