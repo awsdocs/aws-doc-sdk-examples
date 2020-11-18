@@ -76,7 +76,7 @@ public class KinesisStreamEx {
     // snippet-end:[kinesis.java2.stream_example.lifecycle_callback]
 
     /**
-     * Using the SubscribeToShardResponseHandler.Builder and a simple Consumer of events to subscribe.
+     * Uses the SubscribeToShardResponseHandler.Builder and a simple Consumer of events to subscribe.
      */
     private static CompletableFuture<Void> responseHandlerBuilderConsumer(KinesisAsyncClient client, SubscribeToShardRequest request) {
         SubscribeToShardResponseHandler responseHandler = SubscribeToShardResponseHandler
