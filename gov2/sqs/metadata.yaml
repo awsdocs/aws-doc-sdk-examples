@@ -1,4 +1,10 @@
 files:
+  - path: ChangeMsgVisibility/ChangeMsgVisibilityv2.go
+    services:
+      - sqs
+  - path: ChangeMsgVisibility/ChangeMsgVisibilityv2_test.go
+    services:
+      - sqs
   - path: ConfigureLPQueue/ConfigureLPQueuev2.go
     services:
       - sqs
@@ -23,12 +29,45 @@ files:
   - path: DeadLetterQueue/DeadLetterQueuev2_test.go
     services:
       - sqs
+  - path: DeleteMessage/DeleteMessagev2.go
+    services:
+      - sqs
+  - path: DeleteMessage/DeleteMessagev2_test.go
+    services:
+      - sqs
+  - path: DeleteQueue/DeleteQueuev2.go
+    services:
+      - sqs
+  - path: DeleteQueue/DeleteQueuev2_test.go
+    services:
+      - sqs
+  - path: GetQueueURL/GetQueueURLv2.go
+    services:
+      - sqs
+  - path: GetQueueURL/GetQueueURLv2_test.go
+    services:
+      - sqs
   - path: ListQueues/ListQueuesv2.go
     services:
       - sqs
   - path: ListQueues/ListQueuesv2_test.go
     services:
       - sqs
-  - path: 
+- path: ReceiveLPMessage/ReceiveLPMessagev2.go
+    services:
+      - sqs
+  - path: ReceiveLPMessage/ReceiveLPMessagev2_test.go
+    services:
+      - sqs
+  - path: ReceiveMessage/ReceiveMessagev2.go
+    services:
+      - sqs
+  - path: ReceiveMessage/ReceiveMessagev2_test.go
+    services:
+      - sqs
+  - path: SendMessage/SendMessagev2.go
+    services:
+      - sqs
+  - path: SendMessage/SendMessagev2_test.go
     services:
       - sqs

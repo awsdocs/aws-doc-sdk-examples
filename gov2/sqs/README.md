@@ -15,6 +15,20 @@ in the AWS SDK for Go Developer Guide.
 
 ## Running the code
 
+### ChangeMsgVisibility/ChangeMsgVisibilityv2.go
+
+This example sets the visibility timeout for a message in an Amazon SQS queue.
+
+`go run ChangeMsgVisibilityv2.go -q QUEUE-NAME -h RECEIPT-HANDLE -v VISIBILITY`
+
+- _QUEUE-NAME_ is the name of the queue.
+- _RECEIPT-HANDLE_ is tThe name of the queue.
+- _VISIBILITY_ is the duration, in seconds, that the message is not visible to other consumers.
+  The example ensures the value is between 0 and 12 hours;
+  the default is 30 seconds.
+
+The unit test accepts similar values in _config.json_.
+
 ### ConfigureLPQueue/ConfigureLPQueuev2.go
 
 This example configures an Amazon SQS queue to use long polling.
@@ -63,13 +77,72 @@ that could not be delivered to another queue.
 
 The unit test accepts similar values in _config.json_.
 
+### DeleteMessage/DeleteMessagev2.go
+
+This example deletes a message from an Amazon SQS queue.
+
+`go run DeleteMessagev2.go -q QUEUE-NAME -m MESSAGE-HANDLE`
+
+- _QUEUE-NAME_ is the name of the queue from which the message is deleted.
+- _MESSAGE-HANDLE_ is the handle of the message to delete.
+
+The unit test accepts similar values in _config.json_.
+
+### DeleteQueue/DeleteQueuev2.go
+
+This example deletes an Amazon SQS queue.
+
+`go run DeleteQueuev2.go -q QUEUE-NAME`
+
+- _QUEUE-NAME_ is the name of the queue from which the message is deleted.
+
+The unit test accepts a similar value in _config.json_.
+
+### GetQueueURL/GetQueueURLv2.go
+
+This example 
+
+`go run GetQueueURLv2.go -q QUEUE-NAME`
+
+- _QUEUE-NAME_ is the name of the queue or which the URL is retrieved.
+
+The unit test accepts a similar value in _config.json_.
+
 ### ListQueues/ListQueuesv2.go
 
 This example retrieves a list of your Amazon SQS queues.
 
 `go run ListQueuesv2.go`
 
-### 
+### ReceiveLPMessage/ReceiveLPMessagev2.go
+
+This example gets the most recent message from a long-polling Amazon SQS queue.
+
+`go run ReceiveLPMessagev2.go -q QUEUE-NAME`
+
+- _QUEUE-NAME_ is the name of the queue from which the message is retrieved.
+
+The unit test accepts a similar value in _config.json_.
+
+### ReceiveMessage/ReceiveMessagev2.go
+
+This example gets the most recent message from an Amazon SQS queue.
+
+`go run ReceiveMessagev2.go -q QUEUE-NAME`
+
+- _QUEUE-NAME_ is the name of the queue from which the message is retrieved.
+
+The unit test accepts a similar value in _config.json_.
+
+### SendMessage/SendMessagev2.go
+
+This example sends a message to an Amazon SQS queue.
+
+`go run SendMessagev2.go -q QUEUE-NAME`
+
+- _QUEUE-NAME_ is the name of the queue to which the message is sent.
+
+The unit test accepts a similar value in _config.json_.
 
 ### Notes
 
