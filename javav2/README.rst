@@ -65,17 +65,8 @@ Build and run the service examples
 Build the examples from a Java IDE
 ----------------------------------
 
-You can build the examples in a Java IDE such as IntelliJ. Create a Maven project and be sure to include the POM file you locate in a service directory in your project. This is the easiest way to start building and running the AWS SDK for Java examples. The POM file ensures you have access to the Java dependencies.
-
-**To create an IntelliJ project**
-
-1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
-2. In the **New Project** dialog box, choose **Maven**.
-3. Choose **Next**.
-4. In **GroupId**, enter **aws-project**.
-5. In **ArtifactId**, enter **aws-project**.
-6. Choose **Next**.
-7. Choose **Finish**.
+You can build the examples in a Java IDE such as IntelliJ. Create a Maven project and be sure to include the POM file you locate in a service directory in your project. This is the easiest way to start building and running the AWS SDK for Java examples. The POM file ensures you have access to the Java dependencies. For more information, see 
+see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
 **Note:** Add the POM file you find in a service-specific folder to the POM file in the project. Then create a package that you find in the examples and you can start adding the Java classes to your project.
 
