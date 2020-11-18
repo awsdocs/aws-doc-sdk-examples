@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[UpdateUser.java demonstrates how to update the name of an AWS Identity and Access Management (IAM) user.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-service:[AWS IAM]
+//snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[11/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
@@ -34,10 +34,8 @@ public class UpdateUser {
             System.exit(1);
         }
 
-        // Read the command line arguments
         String curName = args[0];
         String newName = args[1];
-
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)

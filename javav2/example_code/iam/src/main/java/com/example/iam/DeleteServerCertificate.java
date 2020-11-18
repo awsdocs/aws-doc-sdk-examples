@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[DeleteServerCertificate.java demonstrates how to delete an AWS Identity and Access Management (IAM) server certificate.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-service:[AWS IAM]
+//snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[11/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
@@ -33,9 +33,7 @@ public class DeleteServerCertificate {
             System.exit(1);
         }
 
-        // Read the command line argument
         String certName = args[0];
-
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)

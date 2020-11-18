@@ -36,10 +36,8 @@ public class UpdateServerCertificate {
             System.exit(1);
         }
 
-        // Read the command line arguments
         String curName = args[0];
         String newName = args[1];
-
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)
