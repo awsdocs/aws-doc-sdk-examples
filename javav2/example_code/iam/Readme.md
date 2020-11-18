@@ -1,4 +1,4 @@
-# IAM Java code examples
+# AWS Identity and Access Management Java code examples
 
 This README discusses how to run and test the Java code examples for AWS Identity and Access Management (IAM).
 
@@ -15,7 +15,7 @@ To run these examples, you can setup your development environment to use Apache 
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
 
- ## Testing the IAM Java files
+ ## Testing the AWS Identity and Access Management Java files
 
 You can test the Java code examples for IAM by running a test file named **IAMServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
