@@ -36,7 +36,7 @@ public class KinesisStreamEx {
      */
 
     // Update to include a value CONSUMER_ARN - replace the following value
-    private static final String CONSUMER_ARN = "arn:aws:kinesis:us-east-1:000000047983:stream/StockTradeStream/consumer/StockApp:0000046130";
+    private static final String CONSUMER_ARN = "arn:aws:kinesis:us-east-1:111122223333:stream/StockTradeStream/consumer/StockApp:111122223333";
 
     public static void main(String[] args) {
 
@@ -48,7 +48,7 @@ public class KinesisStreamEx {
 
         SubscribeToShardRequest request = SubscribeToShardRequest.builder()
                 .consumerARN(CONSUMER_ARN)
-                .shardId("arn:aws:kinesis:us-east-1:000008047983:stream/StockTradeStream")
+                .shardId("arn:aws:kinesis:us-east-1:111122223333:stream/StockTradeStream")
                 .startingPosition(s -> s.type(ShardIteratorType.LATEST)).build();
 
         // snippet-end:[kinesis.java2.stream_example.setup]
