@@ -1,7 +1,7 @@
-//snippet-sourcedescription:[AttachRolePolicy.java demonstrates how to attach a policy to an existing AWS Identity and Access Management (AWS IAM) role.]
+//snippet-sourcedescription:[AttachRolePolicy.java demonstrates how to attach a policy to an existing AWS Identity and Access Management (IAM) role.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-service:[AWS IAM]
+//snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[11/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
@@ -33,8 +33,8 @@ public class AttachRolePolicy {
                 "Usage:\n" +
                 "    AttachRolePolicy <roleName> <policyArn> \n\n" +
                 "Where:\n" +
-                "    roleName - a role name that you can obtain from the AWS Console. \n\n" +
-                "    policyArn - a policy ARN that you can obtain from the AWS Console. \n\n" ;
+                "    roleName - a role name that you can obtain from the AWS Management Console. \n\n" +
+                "    policyArn - a policy ARN that you can obtain from the AWS Management Console. \n\n" ;
 
         if (args.length != 2) {
             System.out.println(USAGE);
