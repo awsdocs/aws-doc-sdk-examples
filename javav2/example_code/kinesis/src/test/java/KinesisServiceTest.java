@@ -1,3 +1,7 @@
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 import com.example.kinesis.CreateDataStream;
 import com.example.kinesis.DescribeLimits;
 import org.junit.jupiter.api.*;
