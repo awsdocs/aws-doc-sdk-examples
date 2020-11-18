@@ -35,10 +35,7 @@ public class DeletePolicy {
             System.exit(1);
         }
 
-        // Read the command line argument
         String policyARN = args[0];
-
-        // Create the IamClient object
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)

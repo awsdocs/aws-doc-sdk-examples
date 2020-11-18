@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[GetServerCertificate.java demonstrates how to get information about an AWS Identity and Access Management (IAM) server certificate.]
+//snippet-sourcedescription:[GetServerCertificate.java demonstrates how to get information about an AWS Identity and Access Management (AWS IAM) server certificate.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS IAM]
@@ -35,9 +35,7 @@ public class GetServerCertificate {
             System.exit(1);
         }
 
-        // Read the command line argument
         String certName = args[0];
-
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)

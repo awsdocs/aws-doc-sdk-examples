@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[AttachRolePolicy.java demonstrates how to attach a policy to an existing IAM role.]
+//snippet-sourcedescription:[AttachRolePolicy.java demonstrates how to attach a policy to an existing AWS Identity and Access Management (AWS IAM) role.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS IAM]

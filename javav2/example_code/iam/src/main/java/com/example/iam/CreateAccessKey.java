@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateAccessKey.java demonstrates how to create an access key for an AWS Identity and Access Management (IAM) user.]
+//snippet-sourcedescription:[CreateAccessKey.java demonstrates how to create an access key for an AWS Identity and Access Management (AWS IAM) user.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS IAM]
@@ -31,16 +31,14 @@ public class CreateAccessKey {
                 "Usage:\n" +
                 " CreateAccessKey <user> \n\n" +
                 "Where:\n" +
-                " user - an IAM user that you can obtain from the AWS Console.\n\n";
+                " user - an AWS IAM user that you can obtain from the AWS Management Console.\n\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        // Read the command line argument
         String user = args[0];
-
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient
                 .builder()

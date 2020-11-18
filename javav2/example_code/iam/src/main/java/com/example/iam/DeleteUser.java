@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteUser.java demonstrates how to delete an AWS Identity and Access Management (IAM) user. This is only possible for users with no associated resources.]
+//snippet-sourcedescription:[DeleteUser.java demonstrates how to delete an AWS Identity and Access Management (AWS IAM) user. This is only possible for users with no associated resources.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS IAM]
@@ -33,9 +33,7 @@ public class DeleteUser {
             System.exit(1);
         }
 
-        // Read the command line argument
         String userName = args[0];
-
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)

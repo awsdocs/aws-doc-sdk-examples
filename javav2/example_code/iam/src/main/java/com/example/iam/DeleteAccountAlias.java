@@ -33,9 +33,7 @@ public class DeleteAccountAlias {
             System.exit(1);
         }
 
-        // Read the command line argument
         String alias = args[0];
-
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)

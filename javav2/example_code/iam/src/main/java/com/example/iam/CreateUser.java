@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateUser.java demonstrates how to create an AWS Identity and Access Management (IAM) user by using waiters.]
+//snippet-sourcedescription:[CreateUser.java demonstrates how to create an AWS Identity and Access Management (AWS IAM) user by using waiters.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS IAM]
@@ -39,9 +39,7 @@ public class CreateUser {
             System.exit(1);
         }
 
-        // Read the command line argument
         String username = args[0];
-
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)

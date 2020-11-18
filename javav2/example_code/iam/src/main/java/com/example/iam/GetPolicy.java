@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[GetPolicy.java demonstrates how to get the details for an AWS Identity and Access Management (IAM) policy.]
+//snippet-sourcedescription:[GetPolicy.java demonstrates how to get the details for an AWS Identity and Access Management (AWS IAM) policy.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS IAM]
@@ -28,16 +28,14 @@ public class GetPolicy {
                 "Usage:\n" +
                 "    GetPolicy <policyArn> \n\n" +
                 "Where:\n" +
-                "    policyArn - a policy ARN that you can obtain from the AWS Console. \n\n" ;
+                "    policyArn - a policy ARN that you can obtain from the AWS Management Console. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        // Read the command line argument
         String policyArn = args[0];
-
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)

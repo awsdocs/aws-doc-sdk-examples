@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[UpdateAccessKey.java demonstrates how to update the status of an access key for an AWS Identity and Access Management (IAM) user.]
+//snippet-sourcedescription:[UpdateAccessKey.java demonstrates how to update the status of an access key for an AWS Identity and Access Management (AWS IAM) user.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS IAM]
@@ -39,7 +39,6 @@ public class UpdateAccessKey {
             System.exit(1);
        }
 
-        // Read the command line arguments
         String username = args[0];
         String accessId = args[1];
         String status = args[2];

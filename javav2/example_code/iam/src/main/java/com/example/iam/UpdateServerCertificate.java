@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[UpdateServerCertificate.java demonstrates how to update the name of an AWS Identity and Access Management (IAM) server certificate.]
+//snippet-sourcedescription:[UpdateServerCertificate.java demonstrates how to update the name of an AWS Identity and Access Management (AWS IAM) server certificate.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS IAM]
@@ -36,10 +36,8 @@ public class UpdateServerCertificate {
             System.exit(1);
         }
 
-        // Read the command line arguments
         String curName = args[0];
         String newName = args[1];
-
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)

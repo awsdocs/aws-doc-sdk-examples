@@ -21,9 +21,6 @@ import software.amazon.awssdk.services.iam.model.GetAccessKeyLastUsedResponse;
 import software.amazon.awssdk.services.iam.model.IamException;
 // snippet-end:[iam.java2.access_key_last_used.import]
 
-/**
- * Displays the time that an access key was last used.
- */
 public class AccessKeyLastUsed {
     public static void main(String[] args) {
 
@@ -31,17 +28,14 @@ public class AccessKeyLastUsed {
                 "Usage:\n" +
                 "    AccessKeyLastUsed <accessId> \n\n" +
                 "Where:\n" +
-                "    accessId - an access key id that you can obtain from the AWS Console. \n\n" ;
+                "    accessId - an access key id that you can obtain from the AWS Management Console. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        // Read the command line argument
         String accessId = args[0];
-
-        //Create an IamClient object
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)
