@@ -7,18 +7,21 @@
    This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
    either express or implied. See the License for the specific language governing permissions and
    limitations under the License.
+
 Welcome
 =======
 This is the repository for code examples used in the public 
-`AWS documentation <https://docs.aws.amazon.com>`_. The examples use the AWS SDKs for the supported programming languages. For more information, see `Tools to Build on 
-AWS <https://aws.amazon.com/getting-started/tools-sdks/>`_.
+`AWS documentation <https://docs.aws.amazon.com>`_. The examples use the AWS SDKs for the supported
+programming languages. For more information, see
+`Tools to Build on AWS <https://aws.amazon.com/getting-started/tools-sdks/>`_.
 
 Finding code examples
 =====================
 
-The code examples are organized by programming language. For example, all of the code examples for the V1 version of the
-`AWS SDK for Java Developer Guide <https://www.github.com/awsdocs/aws-java-developer-guide>`_ are
-kept in the `java <java>`_ directory (the V2 versions are in the `java2 <java2>`_ directory).
+The code examples are organized by programming language. For example, all of the code examples for
+the latest version of the `AWS SDK for Java 2.x Developer Guide <https://github.com/awsdocs/aws-java-developer-guide-v2>`_
+are kept in the `javav2 <javav2>`_ directory (the version 1.x examples are in the `java <java>`_
+directory).
 
 You can also try using the preview of our `use case index of examples <code-index.md>`_ (and let us
 know what you think about it).
@@ -42,11 +45,11 @@ request <https://github.com/awsdocs/aws-doc-sdk-examples/issues/new?assignees=&l
 The AWS documentation team wants to produce code examples that cover broader scenarios and use 
 cases, versus simple code snippets that cover only individual API calls.
 
-From time to time, the AWS documentation team will select some of these proposals to begin working on.
-To view their decisions, see the `code examples roadmap <https://github.com/awsdocs/aws-doc-sdk-examples/projects/2>`_. 
-If you feel strongly about wanting to accelerate the timeline of a particular proposal or expand or focus the scope of a 
-particular proposal, be sure to +1 the related issue, add comments to it, or both,
-and the team will consider it. 
+From time to time, the AWS documentation team will select some of these proposals to begin working
+on. To view their decisions, see the `code examples roadmap <https://github.com/awsdocs/aws-doc-sdk-examples/projects/2>`_. 
+If you feel strongly about wanting to accelerate the timeline of a particular proposal or expand
+or focus the scope of a particular proposal, be sure to +1 the related issue, add comments to it,
+or both, and the team will consider it. 
 
 The AWS documentation team typically moves accepted proposals in the roadmp from the **Wish List** 
 stage to the **Backlog** stage, then to **In Progress**, and finally to **Recently 
@@ -62,8 +65,9 @@ If you plan to contribute examples for use in the documentation (the purpose of 
 read this section carefully so that we can work together effectively. 
 For process instructions and additional guidance, see the `Guidelines for contributing <CONTRIBUTING.md>`_. 
 
-* **Make sure that the code you want to contribute builds and runs**. There's nothing more frustrating in developer
-  documentation than code examples that don't work. Build the code and test it before submitting it!
+* **Make sure that the code you want to contribute builds and runs**. There's nothing more
+  frustrating in developer documentation than code examples that don't work. Build the code and
+  test it before submitting it!
 
 * **Don't include personal account data, keys, or IDs in your examples**. Code should obtain access
   keys from the standard SDK credentials and config files, use environment variables or external
@@ -74,10 +78,10 @@ For process instructions and additional guidance, see the `Guidelines for contri
   unreadable. If your code includes long text strings, consider breaking these into smaller chunks
   and concatenating them.
 
-* **Use short(er) variable names**. To aid in readability and to help keep line length to 80 characters, use
-  *short yet descriptive* names for variables. Do *not* mimic class names when creating
-  variables that represent an object of that class. It nearly always results in excessively long
-  variable names, making it difficult to keep code lines to 80 characters.
+* **Use short(er) variable names**. To aid in readability and to help keep line length to 80
+  characters, use *short yet descriptive* names for variables. Do *not* mimic class names when
+  creating variables that represent an object of that class. It nearly always results in excessively
+  long variable names, making it difficult to keep code lines to 80 characters.
 
 * **Use spaces, not tabs, for indentation**. Tabs are variable length in most editors, but will
   usually render as 8 characters wide in printed documentation. *Always use spaces* to ensure
