@@ -23,7 +23,7 @@ You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the comma
 **WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
 
  ### Properties file
-Before running the Amazon Redshift JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a cluster id value used in the tests. If you do not define all values, the JUnit tests fail.
+Before running the Amazon Textract JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a cluster id value used in the tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
