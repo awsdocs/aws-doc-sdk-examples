@@ -14,13 +14,13 @@
 package com.example.mediaconvert;
 
 // snippet-start:[mediaconvert.java.get_job.import]
-import software.amazon.awssdk.core.exception.SdkException;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.mediaconvert.model.GetJobRequest;
-import software.amazon.awssdk.services.mediaconvert.MediaConvertClient;
-import software.amazon.awssdk.services.mediaconvert.model.DescribeEndpointsRequest;
 import software.amazon.awssdk.services.mediaconvert.model.DescribeEndpointsResponse;
+import software.amazon.awssdk.services.mediaconvert.model.GetJobRequest;
+import software.amazon.awssdk.services.mediaconvert.model.DescribeEndpointsRequest;
 import software.amazon.awssdk.services.mediaconvert.model.GetJobResponse;
+import software.amazon.awssdk.services.mediaconvert.model.MediaConvertException;
+import software.amazon.awssdk.services.mediaconvert.MediaConvertClient;
 import java.net.URI;
 // snippet-end:[mediaconvert.java.get_job.import]
 
@@ -74,9 +74,10 @@ public class GetJob {
         GetJobResponse response = emc.getJob(jobRequest);
         System.out.println("The ARN of the job is "+response.job().arn());
 
-    } catch (SdkException e) {
-        System.out.println(e.toString());
-    }
+        } catch (MediaConvertException e) {
+            System.out.println(e.toString());
+            System.exit(0);
+        }
     // snippet-end:[mediaconvert.java.get_job.main]
    }
 }
