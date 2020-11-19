@@ -19,7 +19,7 @@ Finding code examples
 =====================
 
 The code examples are organized by programming language. For example, all of the code examples for
-the latest version of the `AWS SDK for Java 2.x Developer Guide <https://github.com/awsdocs/aws-java-developer-guide-v2>`_
+the latest version of the `AWS SDK for Java 2.x Developer Guide <https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide>`_
 are kept in the `javav2 <javav2>`_ directory (the version 1.x examples are in the `java <java>`_
 directory).
 
