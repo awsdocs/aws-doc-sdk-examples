@@ -100,7 +100,7 @@ The unit test accepts a similar value in _config.json_.
 
 ### GetQueueURL/GetQueueURLv2.go
 
-This example 
+This example gets the URL of an Amazon SQS queue.
 
 `go run GetQueueURLv2.go -q QUEUE-NAME`
 
