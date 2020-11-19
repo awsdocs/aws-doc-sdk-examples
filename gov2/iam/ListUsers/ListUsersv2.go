@@ -4,21 +4,21 @@
 package main
 
 import (
-    "context"
-    "flag"
-    "fmt"
+	"context"
+	"flag"
+	"fmt"
 
-    "github.com/aws/aws-sdk-go-v2/config"
-    "github.com/aws/aws-sdk-go-v2/service/iam"
-    "github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/iam"
+	"github.com/aws/aws-sdk-go/aws"
 )
 
 // IAMListUsersAPI defines the interface for the METHOD function.
 // We use this interface to test the function using a mocked service.
 type IAMListUsersAPI interface {
-    ListUsers(ctx context.Context,
-        params *iam.ListUsersInput,
-        optFns ...func(*iam.Options)) (*iam.ListUsersOutput, error)
+	ListUsers(ctx context.Context,
+		params *iam.ListUsersInput,
+		optFns ...func(*iam.Options)) (*iam.ListUsersOutput, error)
 }
 
 // GetUsers retrieves a list of your AWS Identity and Access Management (IAM) users.
@@ -30,39 +30,44 @@ type IAMListUsersAPI interface {
 //     If success, a ListUsersOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to ListUsers.
 func GetUsers(c context.Context, api IAMListUsersAPI, input *iam.ListUsersInput) (*iam.ListUsersOutput, error) {
-    result, err := api.ListUsers(c, input)
+	result, err := api.ListUsers(c, input)
 
-    return result, err
+	return result, err
 }
 
 func main() {
-    maxUsers := flag.Int("m", 10, "The maximum number of users to return")
-    flag.Parse()
+	maxUsers := flag.Int("m", 10, "The maximum number of users to return")
+	flag.Parse()
 
-    if *maxUsers < 0 {
-        *maxUsers = 10
-    }
+	if *maxUsers < 0 {
+		*maxUsers = 10
+	}
 
-    cfg, err := config.LoadDefaultConfig()
-    if err != nil {
-        panic("configuration error, " + err.Error())
-    }
+	if *maxUsers > 100 {
+		*maxUsers = 1000
+	}
 
-    client := iam.NewFromConfig(cfg)
+	cfg, err := config.LoadDefaultConfig()
+	if err != nil {
+		panic("configuration error, " + err.Error())
+	}
 
-    input := &iam.ListUsersInput{
-        MaxItems: aws.Int32(int32((*maxUsers))),
-    }
+	client := iam.NewFromConfig(cfg)
 
-    result, err := GetUsers(context.Background(), client, input)
-    if err != nil {
-        fmt.Println("Got an error retrieving users:")
-        fmt.Println(err)
-        return
-    }
+	input := &iam.ListUsersInput{
+		MaxItems: aws.Int32(int32((*maxUsers))),
+	}
 
-    for _, user := range result.Users {
-        fmt.Println(*user.UserName+" created on", *user.CreateDate)
-    }
+	result, err := GetUsers(context.Background(), client, input)
+	if err != nil {
+		fmt.Println("Got an error retrieving users:")
+		fmt.Println(err)
+		return
+	}
+
+	for _, user := range result.Users {
+		fmt.Println(*user.UserName+" created on", *user.CreateDate)
+	}
 }
+
 // snippet-end:[iam.go-v2.ListUsers]

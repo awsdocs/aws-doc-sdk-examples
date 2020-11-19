@@ -1,0 +1,35 @@
+files:
+  - path: CreateUser/CreateUserv2.go
+    services:
+      - iam
+  - path: CreateUser/CreateUserv2_test.go
+    services:
+      - iam
+  - path: DeleteUser/DeleteUserv2.go
+    services:
+      - iam      
+  - path: DeleteUser/DeleteUserv2_test.go
+    services:
+      - iam
+  - path: ListAdmins/ListAdminsv2.go
+    services:
+      - iam      
+  - path: ListAdmins/ListAdminsv2_test.go
+    services:
+      - iam
+  - path: ListUsers/ListUsersv2.go
+    services:
+      - iam      
+  - path: ListUsers/ListUsersv2_test.go
+    services:
+      - iam
+  - path: UpdateUser/UpdateUserv2.go
+    services:
+      - iam
+  - path: UpdateUser/UpdateUserv2_test.go
+    services:
+      - iam
+
+  - path: 
+    services:
+      - iam

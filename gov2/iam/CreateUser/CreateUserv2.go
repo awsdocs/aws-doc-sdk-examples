@@ -4,20 +4,20 @@
 package main
 
 import (
-    "context"
-    "flag"
-    "fmt"
+	"context"
+	"flag"
+	"fmt"
 
-    "github.com/aws/aws-sdk-go-v2/config"
-    "github.com/aws/aws-sdk-go-v2/service/iam"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/iam"
 )
 
 // IAMCreateUserAPI defines the interface for the CreateUser function.
 // We use this interface to test the function using a mocked service.
 type IAMCreateUserAPI interface {
-    CreateUser(ctx context.Context,
-        params *iam.CreateUserInput,
-        optFns ...func(*iam.Options)) (*iam.CreateUserOutput, error)
+	CreateUser(ctx context.Context,
+		params *iam.CreateUserInput,
+		optFns ...func(*iam.Options)) (*iam.CreateUserOutput, error)
 }
 
 // MakeUser creates an AWS Identity and Access Management (IAM) user.
@@ -29,36 +29,37 @@ type IAMCreateUserAPI interface {
 //     If success, a CreateUserOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to CreateUser.
 func MakeUser(c context.Context, api IAMCreateUserAPI, input *iam.CreateUserInput) (*iam.CreateUserOutput, error) {
-    results, err := api.CreateUser(c, input)
+	results, err := api.CreateUser(c, input)
 
-    return results, err
+	return results, err
 }
 
 func main() {
-    userName := flag.String("u", "", "The name of the user")
-    flag.Parse()
+	userName := flag.String("u", "", "The name of the user to create.")
+	flag.Parse()
 
-    if *userName == "" {
-        fmt.Println("You must supply a user name (-u USERNAME)")
-        return
-    }
+	if *userName == "" {
+		fmt.Println("You must supply a user name (-u USERNAME)")
+		return
+	}
 
-    cfg, err := config.LoadDefaultConfig()
-    if err != nil {
-        panic("configuration error, " + err.Error())
-    }
+	cfg, err := config.LoadDefaultConfig()
+	if err != nil {
+		panic("configuration error, " + err.Error())
+	}
 
-    client := iam.NewFromConfig(cfg)
+	client := iam.NewFromConfig(cfg)
 
-    input := &iam.CreateUserInput{
-        UserName: userName,
-    }
+	input := &iam.CreateUserInput{
+		UserName: userName,
+	}
 
-    results, err := MakeUser(context.Background(), client, input)
-    if err != nil {
-        fmt.Println("Got an error creating user " + *userName)
-    }
+	results, err := MakeUser(context.Background(), client, input)
+	if err != nil {
+		fmt.Println("Got an error creating user " + *userName)
+	}
 
-    fmt.Println("Created user " + *results.User.UserName)
+	fmt.Println("Created user " + *results.User.UserName)
 }
+
 // snippet-end:[iam.go-v2.CreateUser]
