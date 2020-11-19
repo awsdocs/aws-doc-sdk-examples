@@ -14,7 +14,6 @@
 package com.example.mediaconvert;
 
 // snippet-start:[mediaconvert.java.list_jobs.import]
-import software.amazon.awssdk.core.exception.SdkException;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediaconvert.MediaConvertClient;
 import software.amazon.awssdk.services.mediaconvert.model.ListJobsRequest;
@@ -22,6 +21,7 @@ import software.amazon.awssdk.services.mediaconvert.model.DescribeEndpointsRespo
 import software.amazon.awssdk.services.mediaconvert.model.DescribeEndpointsRequest;
 import software.amazon.awssdk.services.mediaconvert.model.ListJobsResponse;
 import software.amazon.awssdk.services.mediaconvert.model.Job;
+import software.amazon.awssdk.services.mediaconvert.model.MediaConvertException;
 import java.net.URI;
 import java.util.List;
 // snippet-end:[mediaconvert.java.list_jobs.import]
@@ -70,8 +70,9 @@ public class ListJobs {
             for (Job job: jobs) {
                 System.out.println("The JOB ARN is : "+job.arn());
             }
-        } catch (SdkException e) {
+        } catch (MediaConvertException e) {
             System.out.println(e.toString());
+            System.exit(0);
         }
         // snippet-end:[mediaconvert.java.list_jobs.main]
     }
