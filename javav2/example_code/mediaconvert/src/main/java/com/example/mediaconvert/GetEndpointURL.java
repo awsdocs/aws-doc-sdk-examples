@@ -13,6 +13,7 @@
 
 package com.example.mediaconvert;
 
+// snippet-start:[mediaconvert.java.getendpointurl.complete]
 // snippet-start:[mediaconvert.java.getendpointurl.import]
 import java.util.Iterator;
 import software.amazon.awssdk.core.exception.SdkException;
