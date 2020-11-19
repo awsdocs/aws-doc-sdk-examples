@@ -1,13 +1,35 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# Demonstrates how to:
-# 1. Create a rule in Amazon CloudWatch Events.
-# 2. Add a target to the rule.
-# 3. Send an event to Amazon CloudWatch Events so that it can be matched to the rule.
-# 4. View the results in Amazon CloudWatch Metrics and Logs.
+# The following code example shows how to create and trigger a rule in
+# Amazon CloudWatch Events. This rule sends a notification to the specified
+# topic in Amazon Simple Notification Service (Amazon SNS) whenever an
+# available instance in Amazon Elastic Compute Cloud (Amazon EC2) changes
+# to a running state. Also, related event information is logged to a log group
+# in Amazon CloudWatch Logs.
+#
+# This code example works with the following AWS resources through the
+# following functions:
+#
+# - A rule in Amazon CloudWatch Events. See the rule_exists?, rule_found?,
+#   create_rule functions, and display_rule_activity.
+# - A role in AWS Identity and Access Management (IAM) to allow the rule
+#   to work with Amazon CloudWatch Events. See role_exists?, role_found?,
+#   and create_role.
+# - An Amazon EC2 instance, which triggers the rule whenever it is restarted.
+#   See instance_restarted?.
+# - A topic and topic subscription in Amazon SNS for the rule to send event
+#   notifications to. See topic_exists?, topic_found?, and create_topic.
+# - A log group in Amazon CloudWatch Logs to capture related event information.
+#   See log_group_exists?, log_group_created?, log_event, and display_log_data.
+#
+# This code example requires the following AWS resources to exist in advance:
+#
+# - An Amazon EC2 instance to restart, which triggers the rule.
+#
+# The run_me function toward the end of this code example calls the
+# preceding functions in the correct order.
 
-# require 'aws-sts'
 require 'aws-sdk-sns'
 require 'aws-sdk-iam'
 require 'aws-sdk-cloudwatchevents'
@@ -16,7 +38,17 @@ require 'aws-sdk-cloudwatch'
 require 'aws-sdk-cloudwatchlogs'
 require 'securerandom'
 
-# TODO: Add documentation.
+# Checks whether the specified Amazon Simple Notification Service
+# (Amazon SNS) topic exists among those provided to this function.
+# This is a helper function that is called by the topic_exists? function.
+#
+# @param topics [Array] An array of Aws::SNS::Types::Topic objects.
+# @param topic_arn [String] The Amazon Resource Name (ARN) of the
+#   topic to find.
+# @return [Boolean] true if the topic ARN was found; otherwise, false.
+# @example
+#
+#
 def topic_found?(topics, topic_arn)
   topics.each do |topic|
     return true if topic.topic_arn == topic_arn
@@ -24,7 +56,15 @@ def topic_found?(topics, topic_arn)
   return false
 end
 
-# TODO: Add documentation.
+# Checks whether the specified topic exists among those available to the
+# caller in Amazon Simple Notification Service (Amazon SNS).
+#
+# @param sns_client [Aws::SNS::Client] An initialized Amazon SNS client.
+# @param topic_arn [String] The Amazon Resource Name (ARN) of the
+#   topic to find.
+# @return [Boolean] true if the topic ARN was found; otherwise, false.
+# @example
+#
 def topic_exists?(sns_client, topic_arn)
   puts "Searching for topic with ARN '#{topic_arn}'..."
   response = sns_client.list_topics
@@ -50,7 +90,16 @@ rescue StandardError => e
   return false
 end
 
-# TODO: Add documentation.
+# Creates a topic in Amazon Simple Notification Service (Amazon SNS)
+# and then subscribes an email address to receive notifications to that topic.
+#
+# @param sns_client [Aws::SNS::Client] An initialized Amazon SNS client.
+# @param topic_name [String] The name of the topic to create.
+# @param email_address [String] The email address of the recipient to notify.
+# @return [String] The Amazon Resource Name (ARN) of the topic that
+#   was created.
+# @example
+#
 def create_topic(sns_client, topic_name, email_address)
   puts "Creating the topic named '#{topic_name}'..."
   topic_response = sns_client.create_topic(name: topic_name)
@@ -71,7 +120,17 @@ rescue StandardError => e
   return 'Error'
 end
 
-# TODO: Add documentation.
+# Checks whether the specified AWS Identity and Access Management (IAM)
+# role exists among those provided to this function.
+# This is a helper function that is called by the role_exists? function.
+#
+# @param roles [Array] An array of Aws::IAM::Role objects.
+# @param role_arn [String] The Amazon Resource Name (ARN) of the
+#   role to find.
+# @return [Boolean] true if the role ARN was found; otherwise, false.
+# @example
+#
+#
 def role_found?(roles, role_arn)
   roles.each do |role|
     return true if role.arn == role_arn
@@ -79,7 +138,15 @@ def role_found?(roles, role_arn)
   return false
 end
 
-# TODO: Add documentation.
+# Checks whether the specified role exists among those available to the
+# caller in AWS Identity and Access Management (IAM).
+#
+# @param iam_client [Aws::IAM::Client] An initialized IAM client.
+# @param role_arn [String] The Amazon Resource Name (ARN) of the
+#   role to find.
+# @return [Boolean] true if the role ARN was found; otherwise, false.
+# @example
+#
 def role_exists?(iam_client, role_arn)
   puts "Searching for role with ARN '#{role_arn}'..."
   response = iam_client.list_roles
@@ -105,7 +172,17 @@ rescue StandardError => e
   return false
 end
 
-# TODO: Add documentation.
+# Creates a role in AWS Identity and Access Management (IAM).
+# This role is used by a rule in Amazon CloudWatch Events to allow
+# that rule to operate within the caller's account.
+# This role is designed to be used specifically by this code example.
+#
+# @param iam_client [Aws::IAM::Client] An initialized IAM client.
+# @param role_name [String] The name of the role to create.
+# @return [String] The Amazon Resource Name (ARN) of the role that
+#   was created.
+# @example
+#
 def create_role(iam_client, role_name)
   puts "Creating the role named '#{role_name}'..."
   response = iam_client.create_role(
@@ -157,7 +234,16 @@ rescue StandardError => e
   return 'Error'
 end
 
-# TODO: Add documentation.
+# Checks whether the specified AWS CloudWatch Events rule exists among
+# those provided to this function.
+# This is a helper function that is called by the rule_exists? function.
+#
+# @param rules [Array] An array of Aws::CloudWatchEvents::Types::Rule objects.
+# @param rule_arn [String] The name of the rule to find.
+# @return [Boolean] true if the name of the rule was found; otherwise, false.
+# @example
+#
+#
 def rule_found?(rules, rule_name)
   rules.each do |rule|
     return true if rule.name == rule_name
@@ -165,7 +251,15 @@ def rule_found?(rules, rule_name)
   return false
 end
 
-# TODO: Add documentation.
+# Checks whether the specified rule exists among those available to the
+# caller in AWS CloudWatch Events.
+#
+# @param cloudwatchevents_client [Aws::CloudWatchEvents::Client]
+#   An initialized AWS CloudWatch Events client.
+# @param rule_name [String] The name of the rule to find.
+# @return [Boolean] true if the rule name was found; otherwise, false.
+# @example
+#
 def rule_exists?(cloudwatchevents_client, rule_name)
   puts "Searching for rule with name '#{rule_name}'..."
   response = cloudwatchevents_client.list_rules
@@ -191,7 +285,30 @@ rescue StandardError => e
   return false
 end
 
-# TODO: Add documentation.
+# Creates a rule in AWS CloudWatch Events.
+# This rule is triggered whenever an available instance in
+# Amazon Elastic Compute Cloud (Amazon EC2) changes to the specified state.
+# This rule is designed to be used specifically by this code example.
+#
+# Prerequisites:
+#
+# - A role in AWS Identity and Access Management (IAM) that is designed
+#   to be used specifically by this code example.
+# - A topic in Amazon Simple Notification Service (Amazon SNS).
+#
+# @param cloudwatchevents_client [Aws::CloudWatchEvents::Client]
+#   An initialized AWS CloudWatch Events client.
+# @param rule_name [String] The name of the rule to create.
+# @param rule_description [String] Some description for this rule.
+# @param instance_state [String] The state that available instances in
+#   Amazon Elastic Compute Cloud (Amazon EC2) must change to, to
+#   trigger this rule.
+# @param role_arn [String] The Amazon Resource Name (ARN) of the IAM role.
+# @param target_id [String] Some identifying string for the rule's target.
+# @param topic_arn [String] The ARN of the Amazon SNS topic.
+# @return [Boolean] true if the rule was created; otherwise, false.
+# @example
+#
 def rule_created?(
   cloudwatchevents_client,
   rule_name,
@@ -245,11 +362,19 @@ def rule_created?(
 rescue StandardError => e
   puts "Error creating rule or adding target to rule: #{e.message}"
   puts 'If the rule was created, you must add the target ' \
-  'to the rule yourself, or delete the rule yourself and try again.'
+    'to the rule yourself, or delete the rule yourself and try again.'
   return false
 end
 
-# TODO: Add documentation.
+# Checks to see whether the specified log group exists among those available
+# to the caller in Amazon CloudWatch Logs.
+#
+# @param cloudwatchlogs_client [Aws::CloudWatchLogs::Client] An initialized
+#   Amazon CloudWatch Logs client.
+# @param log_group_name [String] The name of the log group to find.
+# @return [Boolean] true if the log group name was found; otherwise, false.
+# @example
+#
 def log_group_exists?(cloudwatchlogs_client, log_group_name)
   puts "Searching for log group with name '#{log_group_name}'..."
   response = cloudwatchlogs_client.describe_log_groups(
@@ -270,7 +395,14 @@ rescue StandardError => e
   return false
 end
 
-# TODO: Add documentation.
+# Creates a log group in Amazon CloudWatch Logs.
+#
+# @param cloudwatchlogs_client [Aws::CloudWatchLogs::Client] An initialized
+#   Amazon CloudWatch Logs client.
+# @param log_group_name [String] The name of the log group to create.
+# @return [Boolean] true if the log group name was created; otherwise, false.
+# @example
+#
 def log_group_created?(cloudwatchlogs_client, log_group_name)
   puts "Attempting to create log group with the name '#{log_group_name}'..."
   cloudwatchlogs_client.create_log_group(log_group_name: log_group_name)
@@ -281,7 +413,28 @@ rescue StandardError => e
   return false
 end
 
-# TODO: Add documentation.
+# Writes an event to a log stream in Amazon CloudWatch Logs.
+#
+# Prerequisites:
+#
+# - A log group in Amazon CloudWatch Logs.
+# - A log stream within the log group.
+#
+# @param cloudwatchlogs_client [Aws::CloudWatchLogs::Client] An initialized
+#   Amazon CloudWatch Logs client.
+# @param log_group_name [String] The name of the log group.
+# @param log_stream_name [String] The name of the log stream within
+#   the log group.
+# @param message [String] The message to write to the log stream.
+# @param sequence_token [String] If available, the sequence token from the
+#   message that was written immediately before this message. This sequence
+#   token is returned by Amazon CloudWatch Logs whenever you programmatically
+#   write a message to the log stream.
+# @return [String] The sequence token that is returned by
+#   Amazon CloudWatch Logs after successfully writing the message to the
+#   log stream.
+# @example
+#
 def log_event(
   cloudwatchlogs_client,
   log_group_name,
@@ -311,7 +464,12 @@ rescue StandardError => e
   puts "Message not logged: #{e.message}"
 end
 
-# TODO: Add documentation.
+#
+# @param []
+# @param []
+# @return []
+# @example
+#
 def instance_restarted?(
   ec2_client,
   cloudwatchlogs_client,
@@ -365,7 +523,12 @@ rescue StandardError => e
   return false
 end
 
-# TODO: Add documentation.
+#
+# @param []
+# @param []
+# @return []
+# @example
+#
 def display_rule_activity(
   cloudwatch_client,
   rule_name,
@@ -403,8 +566,15 @@ rescue StandardError => e
   puts "Error getting information about event rule activity: #{e.message}"
 end
 
-# TODO: Add documentation.
+#
+# @param []
+# @param []
+# @return []
+# @example
+#
 def display_log_data(cloudwatchlogs_client, log_group_name)
+  puts 'Attempting to display log stream data for the log group ' \
+    "named '#{log_group_name}'..."
   describe_log_streams_response = cloudwatchlogs_client.describe_log_streams(
     log_group_name: log_group_name,
     order_by: 'LastEventTime',
@@ -434,19 +604,35 @@ rescue StandardError => e
     "#{e.message}"
 end
 
+# TODO: Add documentation.
+def manual_cleanup_notice(
+  topic_name, role_name, rule_name, log_group_name, instance_id
+)
+  puts '-' * 10
+  puts 'Some of the following AWS resources might still exist in your account.'
+  puts 'If you no longer want to use this code example, then to clean up'
+  puts 'your AWS account and avoid unexpected costs, you might want to'
+  puts 'manually delete any of the following resources if they exist:'
+  puts "- The Amazon SNS topic named '#{topic_name}'."
+  puts "- The IAM role named '#{role_name}'."
+  puts "- The Amazon CloudWatch Events rule named '#{rule_name}'."
+  puts "- The Amazon CloudWatch Logs log group named '#{log_group_name}'."
+  puts "- The Amazon EC2 instance with the ID '#{instance_id}'."
+end
+
 # Full example call:
 def run_me
-  # Properties for the Amazon SNS topic to be created.
+  # Properties for the Amazon SNS topic.
   topic_name = 'aws-doc-sdk-examples-topic'
   email_address = 'pccornel@amazon.com' # mary@example.com
   # Properties for the IAM role.
   role_name = 'aws-doc-sdk-examples-cloudwatch-events-rule-role'
-  # Properties for the Amazon CloudWatch Events rule to be created.
+  # Properties for the Amazon CloudWatch Events rule.
   rule_name = 'aws-doc-sdk-examples-ec2-state-change'
   rule_description = 'Triggers when any available EC2 instance starts.'
   instance_state = 'running'
   target_id = 'sns-topic'
-  # Properties for the existing Amazon EC2 instance.
+  # Properties for the Amazon EC2 instance.
   instance_id = 'i-033c48ef067af3d13' # 'i-033c48ef067af3dEX'
   # Properties for displaying the event rule's activity.
   start_time = Time.now - 600 # Go back over the past 10 minutes
@@ -464,11 +650,9 @@ def run_me
   ec2_client = Aws::EC2::Client.new(region: region)
   cloudwatch_client = Aws::CloudWatch::Client.new(region: region)
   cloudwatchlogs_client = Aws::CloudWatchLogs::Client.new(region: region)
-  # Change the following variable to false if you don't want to
-  # clean up resources afterward.
-  clean_up = true
 
-  # Get caller's account ID for use in forming ARNs later.
+  # Get the caller's account ID for use in forming
+  # Amazon Resource Names (ARNs) that this code relies on later.
   account_id = sts_client.get_caller_identity.account
 
   # If the Amazon SNS topic doesn't exist, create it.
@@ -477,6 +661,9 @@ def run_me
     topic_arn = create_topic(sns_client, topic_name, email_address)
     if topic_arn == 'Error'
       puts 'Could not create the Amazon SNS topic correctly. Program stopped.'
+      manual_cleanup_notice(
+        topic_name, role_name, rule_name, log_group_name, instance_id
+      )
       exit 1
     end
   end
@@ -487,7 +674,9 @@ def run_me
     role_arn = create_role(iam_client, role_name)
     if role_arn == 'Error'
       puts 'Could not create the IAM role correctly. Program stopped.'
-      exit 1
+      manual_cleanup_notice(
+        topic_name, role_name, rule_name, log_group_name, instance_id
+      )
     end
   end
 
@@ -504,7 +693,9 @@ def run_me
     )
       puts 'Could not create the Amazon CloudWatch Events rule correctly. ' \
         'Program stopped.'
-      exit 1
+      manual_cleanup_notice(
+        topic_name, role_name, rule_name, log_group_name, instance_id
+      )
     end
   end
 
@@ -513,12 +704,15 @@ def run_me
     unless log_group_created?(cloudwatchlogs_client, log_group_name)
       puts 'Could not create the Amazon CloudWatch Logs log group ' \
       'correctly. Program stopped.'
-      exit 1
+      manual_cleanup_notice(
+        topic_name, role_name, rule_name, log_group_name, instance_id
+      )
     end
   end
 
   # Restart the Amazon EC2 instance, which triggers the rule.
-  unless instance_restarted?(ec2_client,
+  unless instance_restarted?(
+    ec2_client,
     cloudwatchlogs_client,
     instance_id,
     log_group_name
@@ -538,6 +732,10 @@ def run_me
 
   # Display related log data in Amazon CloudWatch Logs.
   display_log_data(cloudwatchlogs_client, log_group_name)
+
+  manual_cleanup_notice(
+    topic_name, role_name, rule_name, log_group_name, instance_id
+  )
 end
 
 run_me if $PROGRAM_NAME == __FILE__
