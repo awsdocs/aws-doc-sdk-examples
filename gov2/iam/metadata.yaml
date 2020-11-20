@@ -1,4 +1,10 @@
 files:
+  - path: CreateAccessKey/CreateAccessKeyv2.go
+    services:
+      - iam
+  - path: CreateAccessKey/CreateAccessKeyv2_test.go
+    services:
+      - iam
   - path: CreateUser/CreateUserv2.go
     services:
       - iam
@@ -15,6 +21,12 @@ files:
     services:
       - iam      
   - path: ListAdmins/ListAdminsv2_test.go
+    services:
+      - iam
+  - path: ListAccessKeys/ListAccessKeysv2.go
+    services:
+      - iam
+  - path: ListAccessKeys/ListAccessKeysv2_test.go
     services:
       - iam
   - path: ListUsers/ListUsersv2.go

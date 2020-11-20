@@ -15,6 +15,14 @@ in the AWS SDK for Go Developer Guide.
 
 ## Running the code
 
+### CreateAccessKey/CreateAccessKeyv2.go
+
+This example creates a new IAM access key for a user.
+
+`go run CreateAccessKeyv2.go -u USER-NAME`
+
+- _USER-NAME_ is the name of the user for whom the new key is created.
+
 ### CreateUser/CreateUserv2.go
 
 This example creates an IAM user. 
@@ -34,6 +42,18 @@ This example deletes an IAM user.
 - _USER-NAME_ is the name of the user to delete.
 
 The unit test accepts a similar value in _config.json_.
+
+### ListAccessKeys/ListAccessKeysv2.go
+
+This example 
+
+`go run ListAccessKeysv2.go -u USER-NAME -m MAX-KEYS`
+
+- _USER-NAME_ is the name of the user for which the keys are listed.
+- _MAX-KEYS_ is the maximum number of keys to display.
+  If this value is negative, the code example sets it to 10. 
+
+The unit test accepts similar values in _config.json_.
 
 ### ListAdmins/ListAdminsv2.go
 
