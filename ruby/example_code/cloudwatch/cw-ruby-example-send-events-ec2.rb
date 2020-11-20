@@ -12,7 +12,7 @@
 # following functions:
 #
 # - A rule in Amazon CloudWatch Events. See the rule_exists?, rule_found?,
-#   create_rule functions, and display_rule_activity.
+#   create_rule, and display_rule_activity functions.
 # - A role in AWS Identity and Access Management (IAM) to allow the rule
 #   to work with Amazon CloudWatch Events. See role_exists?, role_found?,
 #   and create_role.
@@ -47,8 +47,14 @@ require 'securerandom'
 #   topic to find.
 # @return [Boolean] true if the topic ARN was found; otherwise, false.
 # @example
-#
-#
+#   sns_client = Aws::SNS::Client.new(region: 'us-east-1')
+#   response = sns_client.list_topics
+#   if topic_found?(
+#     response.topics,
+#     'arn:aws:sns:us-east-1:111111111111:aws-doc-sdk-examples-topic'
+#   )
+#     puts 'Topic found.'
+#   end
 def topic_found?(topics, topic_arn)
   topics.each do |topic|
     return true if topic.topic_arn == topic_arn
@@ -64,7 +70,10 @@ end
 #   topic to find.
 # @return [Boolean] true if the topic ARN was found; otherwise, false.
 # @example
-#
+#   exit 1 unless topic_exists?(
+#     Aws::SNS::Client.new(region: 'us-east-1'),
+#     'arn:aws:sns:us-east-1:111111111111:aws-doc-sdk-examples-topic'
+#   )
 def topic_exists?(sns_client, topic_arn)
   puts "Searching for topic with ARN '#{topic_arn}'..."
   response = sns_client.list_topics
@@ -99,7 +108,11 @@ end
 # @return [String] The Amazon Resource Name (ARN) of the topic that
 #   was created.
 # @example
-#
+#   puts create_topic(
+#     Aws::SNS::Client.new(region: 'us-east-1'),
+#     'aws-doc-sdk-examples-topic',
+#     'mary@example.com'
+#   )
 def create_topic(sns_client, topic_name, email_address)
   puts "Creating the topic named '#{topic_name}'..."
   topic_response = sns_client.create_topic(name: topic_name)
@@ -129,8 +142,14 @@ end
 #   role to find.
 # @return [Boolean] true if the role ARN was found; otherwise, false.
 # @example
-#
-#
+#   iam_client = Aws::IAM::Client.new(region: 'us-east-1')
+#   response = iam_client.list_roles
+#   if role_found?(
+#     response.roles,
+#     'arn:aws:iam::111111111111:role/aws-doc-sdk-examples-ec2-state-change'
+#   )
+#     puts 'Role found.'
+#   end
 def role_found?(roles, role_arn)
   roles.each do |role|
     return true if role.arn == role_arn
@@ -146,7 +165,10 @@ end
 #   role to find.
 # @return [Boolean] true if the role ARN was found; otherwise, false.
 # @example
-#
+#   exit 1 unless role_exists?(
+#     Aws::IAM::Client.new(region: 'us-east-1'),
+#     'arn:aws:iam::111111111111:role/aws-doc-sdk-examples-ec2-state-change'
+#   )
 def role_exists?(iam_client, role_arn)
   puts "Searching for role with ARN '#{role_arn}'..."
   response = iam_client.list_roles
@@ -182,7 +204,10 @@ end
 # @return [String] The Amazon Resource Name (ARN) of the role that
 #   was created.
 # @example
-#
+#   puts create_role(
+#     Aws::IAM::Client.new(region: 'us-east-1'),
+#     'aws-doc-sdk-examples-ec2-state-change'
+#   )
 def create_role(iam_client, role_name)
   puts "Creating the role named '#{role_name}'..."
   response = iam_client.create_role(
@@ -242,8 +267,11 @@ end
 # @param rule_arn [String] The name of the rule to find.
 # @return [Boolean] true if the name of the rule was found; otherwise, false.
 # @example
-#
-#
+#   cloudwatchevents_client = Aws::CloudWatch::Client.new(region: 'us-east-1')
+#   response = cloudwatchevents_client.list_rules
+#   if rule_found?(response.rules, 'aws-doc-sdk-examples-ec2-state-change')
+#     puts 'Rule found.'
+#   end
 def rule_found?(rules, rule_name)
   rules.each do |rule|
     return true if rule.name == rule_name
@@ -259,7 +287,10 @@ end
 # @param rule_name [String] The name of the rule to find.
 # @return [Boolean] true if the rule name was found; otherwise, false.
 # @example
-#
+#   exit 1 unless rule_exists?(
+#     Aws::CloudWatch::Client.new(region: 'us-east-1')
+#     'aws-doc-sdk-examples-ec2-state-change'
+#   )
 def rule_exists?(cloudwatchevents_client, rule_name)
   puts "Searching for rule with name '#{rule_name}'..."
   response = cloudwatchevents_client.list_rules
@@ -308,7 +339,15 @@ end
 # @param topic_arn [String] The ARN of the Amazon SNS topic.
 # @return [Boolean] true if the rule was created; otherwise, false.
 # @example
-#
+#   exit 1 unless rule_created?(
+#     Aws::CloudWatch::Client.new(region: 'us-east-1'),
+#     'aws-doc-sdk-examples-ec2-state-change',
+#     'Triggers when any available EC2 instance starts.',
+#     'running',
+#     'arn:aws:iam::111111111111:role/aws-doc-sdk-examples-ec2-state-change',
+#     'sns-topic',
+#     'arn:aws:sns:us-east-1:111111111111:aws-doc-sdk-examples-topic'
+#   )
 def rule_created?(
   cloudwatchevents_client,
   rule_name,
@@ -374,7 +413,10 @@ end
 # @param log_group_name [String] The name of the log group to find.
 # @return [Boolean] true if the log group name was found; otherwise, false.
 # @example
-#
+#   exit 1 unless log_group_exists?(
+#     Aws::CloudWatchLogs::Client.new(region: 'us-east-1'),
+#     'aws-doc-sdk-examples-cloudwatch-log'
+#   )
 def log_group_exists?(cloudwatchlogs_client, log_group_name)
   puts "Searching for log group with name '#{log_group_name}'..."
   response = cloudwatchlogs_client.describe_log_groups(
@@ -402,7 +444,10 @@ end
 # @param log_group_name [String] The name of the log group to create.
 # @return [Boolean] true if the log group name was created; otherwise, false.
 # @example
-#
+#   exit 1 unless log_group_created?(
+#     Aws::CloudWatchLogs::Client.new(region: 'us-east-1'),
+#     'aws-doc-sdk-examples-cloudwatch-log'
+#   )
 def log_group_created?(cloudwatchlogs_client, log_group_name)
   puts "Attempting to create log group with the name '#{log_group_name}'..."
   cloudwatchlogs_client.create_log_group(log_group_name: log_group_name)
@@ -434,7 +479,13 @@ end
 #   Amazon CloudWatch Logs after successfully writing the message to the
 #   log stream.
 # @example
-#
+#   puts log_event(
+#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     'aws-doc-sdk-examples-cloudwatch-log'
+#     '2020/11/19/53f985be-199f-408e-9a45-fc242df41fEX',
+#     "Instance 'i-033c48ef067af3dEX' restarted.",
+#     '495426724868310740095796045676567882148068632824696073EX'
+#   )
 def log_event(
   cloudwatchlogs_client,
   log_group_name,
@@ -464,12 +515,30 @@ rescue StandardError => e
   puts "Message not logged: #{e.message}"
 end
 
+# Restarts an Amazon Elastic Compute Cloud (Amazon EC2) instance
+# and adds information about the related activity to a log stream
+# in Amazon CloudWatch Logs.
 #
-# @param []
-# @param []
-# @return []
+# Prerequisites:
+#
+# - The Amazon EC2 instance to restart.
+# - The log group in Amazon CloudWatch Logs to add related activity
+#   information to.
+#
+# @param ec2_client [Aws::EC2::Client] An initialized Amazon EC2 client.
+# @param cloudwatchlogs_client [Aws::CloudWatchLogs::Client]
+#   An initialized Amazon CloudWatch Logs client.
+# @param instance_id [String] The ID of the instance.
+# @param log_group_name [String] The name of the log group.
+# @return [Boolean] true if the instance was restarted and the information
+#   was written to the log stream; otherwise, false.
 # @example
-#
+#   exit 1 unless instance_restarted?(
+#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     Aws::CloudWatchLogs::Client.new(region: 'us-east-1'),
+#     'i-033c48ef067af3dEX',
+#     'aws-doc-sdk-examples-cloudwatch-log'
+#   )
 def instance_restarted?(
   ec2_client,
   cloudwatchlogs_client,
@@ -523,12 +592,28 @@ rescue StandardError => e
   return false
 end
 
+# Displays information about activity for a rule in Amazon CloudWatch Events.
 #
-# @param []
-# @param []
-# @return []
+# Prerequisites:
+#
+# - A rule in Amazon CloudWatch Events.
+#
+# @param cloudwatch_client [Amazon::CloudWatch::Client] An initialized
+#   Amazon CloudWatch client.
+# @param rule_name [String] The name of the rule.
+# @param start_time [Time] The timestamp that determines the first datapoint
+#   to return. Can also be expressed as DateTime, Date, Integer, or String.
+# @param end_time [Time] The timestamp that determines the last datapoint
+#   to return. Can also be expressed as DateTime, Date, Integer, or String.
+# @param period [Integer] The interval, in seconds, to check for activity.
 # @example
-#
+#   display_rule_activity(
+#     Aws::CloudWatch::Client.new(region: 'us-east-1'),
+#     'aws-doc-sdk-examples-ec2-state-change',
+#     Time.now - 600, # Start checking from 10 minutes ago.
+#     Time.now, # Check up until now.
+#     60 # Check every minute during those 10 minutes.
+#   )
 def display_rule_activity(
   cloudwatch_client,
   rule_name,
@@ -566,12 +651,21 @@ rescue StandardError => e
   puts "Error getting information about event rule activity: #{e.message}"
 end
 
+# Displays log information for all of the log streams in a log group in
+# Amazon CloudWatch Logs.
 #
-# @param []
-# @param []
-# @return []
+# Prerequisites:
+#
+# - A log group in Amazon CloudWatch Logs.
+#
+# @param cloudwatchlogs_client [Amazon::CloudWatchLogs::Client] An initialized
+#   Amazon CloudWatch Logs client.
+# @param log_group_name [String] The name of the log group.
 # @example
-#
+#   display_log_data(
+#     Amazon::CloudWatchLogs::Client.new(region: 'us-east-1'),
+#     'aws-doc-sdk-examples-cloudwatch-log'
+#   )
 def display_log_data(cloudwatchlogs_client, log_group_name)
   puts 'Attempting to display log stream data for the log group ' \
     "named '#{log_group_name}'..."
@@ -604,7 +698,22 @@ rescue StandardError => e
     "#{e.message}"
 end
 
-# TODO: Add documentation.
+# Displays a reminder to the caller to manually clean up any associated
+# AWS resources that they no longer need.
+#
+# @param topic_name [String] The name of the Amazon SNS topic.
+# @param role_name [String] The name of the IAM role.
+# @param rule_name [String] The name of the Amazon CloudWatch Events rule.
+# @param log_group_name [String] The name of the Amazon CloudWatch Logs log group.
+# @param instance_id [String] The ID of the Amazon EC2 instance.
+# @example
+#   manual_cleanup_notice(
+#     'aws-doc-sdk-examples-topic',
+#     'aws-doc-sdk-examples-cloudwatch-events-rule-role',
+#     'aws-doc-sdk-examples-ec2-state-change',
+#     'aws-doc-sdk-examples-cloudwatch-log',
+#     'i-033c48ef067af3dEX'
+#   )
 def manual_cleanup_notice(
   topic_name, role_name, rule_name, log_group_name, instance_id
 )
@@ -624,7 +733,7 @@ end
 def run_me
   # Properties for the Amazon SNS topic.
   topic_name = 'aws-doc-sdk-examples-topic'
-  email_address = 'pccornel@amazon.com' # mary@example.com
+  email_address = 'mary@example.com'
   # Properties for the IAM role.
   role_name = 'aws-doc-sdk-examples-cloudwatch-events-rule-role'
   # Properties for the Amazon CloudWatch Events rule.
@@ -633,7 +742,7 @@ def run_me
   instance_state = 'running'
   target_id = 'sns-topic'
   # Properties for the Amazon EC2 instance.
-  instance_id = 'i-033c48ef067af3d13' # 'i-033c48ef067af3dEX'
+  instance_id = 'i-033c48ef067af3dEX'
   # Properties for displaying the event rule's activity.
   start_time = Time.now - 600 # Go back over the past 10 minutes
                               # (10 minutes * 60 seconds = 600 seconds).
@@ -733,6 +842,8 @@ def run_me
   # Display related log data in Amazon CloudWatch Logs.
   display_log_data(cloudwatchlogs_client, log_group_name)
 
+  # Reminder the caller to clean up any AWS resources that are used
+  # by this code example and are no longer needed.
   manual_cleanup_notice(
     topic_name, role_name, rule_name, log_group_name, instance_id
   )
