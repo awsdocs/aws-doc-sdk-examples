@@ -1,25 +1,15 @@
 // snippet-sourcedescription:[ListApplications.java demonstrates how to list applications.]
-// snippet-service:[Amazon Migration Hub]
-// snippet-keyword:[Java]
-// snippet-keyword:[Amazon Migration Hub]
+//snippet-keyword:[AWS SDK for Java v2]
+// snippet-service:[AWS Migration Hub]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[6-23-2020]
+// snippet-sourcedate:[11-05-2020]
 // snippet-sourceauthor:[scmacdon - AWS]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.migrationhub;
 
@@ -44,7 +34,7 @@ public class ListApplications {
                 .build();
 
         listApps(migrationClient);
-
+        migrationClient.close();
     }
 
     // snippet-start:[migration.java2.list_apps.main]
@@ -63,7 +53,7 @@ public class ListApplications {
 
         while(appIterator.hasNext()) {
             ApplicationState appState = appIterator.next();
-            System.out.println("App ID is " +appState.applicationId());
+            System.out.println("App Id is " +appState.applicationId());
             System.out.println("The status is " +appState.applicationStatus().toString());
         }
 
