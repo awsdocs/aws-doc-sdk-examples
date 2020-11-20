@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[GetJob.java demonstrates how to get information about a specific MediaConvert job.]
+//snippet-sourcedescription:[GetJob.java demonstrates how to get information about a specific AWS Elemental MediaConvert job.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaConvert]
@@ -52,27 +52,26 @@ public class GetJob {
     public static void getSpecificJob(MediaConvertClient mc, String jobId) {
 
         try {
-        DescribeEndpointsResponse res = mc.describeEndpoints(DescribeEndpointsRequest.builder()
+            DescribeEndpointsResponse res = mc.describeEndpoints(DescribeEndpointsRequest.builder()
                         .maxResults(20)
                         .build());
 
-        if (res.endpoints().size() <= 0) {
-            System.out.println("Cannot find MediaConvert service endpoint URL!");
-            System.exit(1);
-        }
-        String endpointURL = res.endpoints().get(0).url();
-
-        MediaConvertClient emc = MediaConvertClient.builder()
+            if (res.endpoints().size() <= 0) {
+                System.out.println("Cannot find MediaConvert service endpoint URL!");
+                System.exit(1);
+            }
+            String endpointURL = res.endpoints().get(0).url();
+            MediaConvertClient emc = MediaConvertClient.builder()
                 .region(Region.US_WEST_2)
                 .endpointOverride(URI.create(endpointURL))
                 .build();
 
-        GetJobRequest jobRequest = GetJobRequest.builder()
+            GetJobRequest jobRequest = GetJobRequest.builder()
                 .id(jobId)
                 .build();
 
-        GetJobResponse response = emc.getJob(jobRequest);
-        System.out.println("The ARN of the job is "+response.job().arn());
+            GetJobResponse response = emc.getJob(jobRequest);
+            System.out.println("The ARN of the job is "+response.job().arn());
 
         } catch (MediaConvertException e) {
             System.out.println(e.toString());

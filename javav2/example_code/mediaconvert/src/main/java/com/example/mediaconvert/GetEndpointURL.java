@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[getEndpointURL.java demonstrates how to get mediaconvert account endpoint URL.]
+//snippet-sourcedescription:[getEndpointURL.java demonstrates how to get an endpoint URL for an AWS Elemental MediaConvert account.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaConvert]
@@ -16,7 +16,6 @@ package com.example.mediaconvert;
 // snippet-start:[mediaconvert.java.getendpointurl.complete]
 // snippet-start:[mediaconvert.java.getendpointurl.import]
 import java.util.Iterator;
-import software.amazon.awssdk.core.exception.SdkException;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediaconvert.MediaConvertClient;
 import software.amazon.awssdk.services.mediaconvert.model.DescribeEndpointsRequest;

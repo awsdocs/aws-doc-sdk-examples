@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListJobs.java demonstrates how to get information about all completed MediaConvert job.]
+//snippet-sourcedescription:[ListJobs.java demonstrates how to get information about all completed AWS Elemental MediaConvert jobs.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaConvert]
