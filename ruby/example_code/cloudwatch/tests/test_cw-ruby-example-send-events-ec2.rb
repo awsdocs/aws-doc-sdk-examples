@@ -24,48 +24,50 @@ describe '#topic_exists?' do
   end
 end
 
-# TODO: Continue from here.
-=begin
 describe '#create_topic' do
   let(:topic_name) { 'aws-doc-sdk-examples-topic' }
   let(:email_address) { 'mary@example.com' }
+  let(:topic_arn) { "arn:aws:sns:us-east-1:111111111111:#{topic_name}" }
   let(:sns_client) do
     Aws::SNS::Client.new(
       stub_responses: {
-        do_something: {}
+        create_topic: {
+          topic_arn: topic_arn
+        },
+        subscribe: {
+          subscription_arn: "arn:aws:sns:us-east-1:111111111111:#{topic_name}:47301d57-8f71-4abd-958b-432ddEXAMPLE"
+        }
       }
     )
   end
 
-  it '' do
+  it 'creates a topic' do
     expect(
       create_topic(sns_client, topic_name, email_address)
-    ).to be(true)
-  end
-end
-
-describe '#role_found?' do
-  let(:roles) { '' }
-  let(:role_arn) { '' }
-
-  it '' do
-    expect(
-      role_found?(roles, role_arn)
-    ).to be(true)
+    ).to eq(topic_arn)
   end
 end
 
 describe '#role_exists?' do
-  let(:role_arn) { '' }
+  let(:role_name) { 'aws-doc-sdk-examples-cloudwatch-events-rule-role' }
+  let(:role_arn) { "arn:aws:iam::111111111111:role/#{role_name}" }
   let(:iam_client) do
     Aws::IAM::Client.new(
       stub_responses: {
-        do_something: {}
+        list_roles: {
+          roles: [
+            arn: role_arn,
+            path: '/',
+            role_name: role_name,
+            role_id: 'AIDAJQABLZS4A3EXAMPLE',
+            create_date: Time.iso8601('2020-11-17T14:19:00-08:00')
+          ]
+        }
       }
     )
   end
 
-  it '' do
+  it 'checks whether a role exists' do
     expect(
       role_exists?(iam_client, role_arn)
     ).to be(true)
@@ -73,44 +75,48 @@ describe '#role_exists?' do
 end
 
 describe '#create_role' do
-  let(:role_name) { '' }
+  let(:role_name) { 'aws-doc-sdk-examples-cloudwatch-events-rule-role' }
+  let(:role_arn) { "arn:aws:iam::111111111111:role/#{role_name}" }
   let(:iam_client) do
     Aws::IAM::Client.new(
       stub_responses: {
-        do_something: {}
+        create_role: {
+          role: {
+            arn: role_arn,
+            path: '/',
+            role_name: role_name,
+            role_id: 'AIDAJQABLZS4A3EXAMPLE',
+            create_date: Time.iso8601('2020-11-17T14:19:00-08:00')
+          }
+        }
       }
     )
   end
 
-  it '' do
+  it 'creates a role' do
     expect(
       create_role(iam_client, role_name)
-    ).to be(true)
-  end
-end
-
-describe '#rule_found?' do
-  let(:rules) { '' }
-  let(:rule_name) { '' }
-
-  it '' do
-    expect(
-      rule_found?(rules, rule_name)
-    ).to be(true)
+    ).to eq(role_arn)
   end
 end
 
 describe '#rule_exists?' do
-  let(:rule_name) { '' }
+  let(:rule_name) { 'aws-doc-sdk-examples-ec2-state-change' }
   let(:cloudwatchevents_client) do
     Aws::CloudWatchEvents::Client.new(
       stub_responses: {
-        do_something: {}
+        list_rules: {
+          rules: [
+            {
+              name: rule_name
+            }
+          ]
+        }
       }
     )
   end
 
-  it '' do
+  it 'checks whether a rule exists' do
     expect(
       rule_exists?(cloudwatchevents_client, rule_name)
     ).to be(true)
@@ -118,21 +124,24 @@ describe '#rule_exists?' do
 end
 
 describe '#rule_created?' do
-  let(:rule_name) { '' }
-  let(:rule_description) { '' }
-  let(:instance_state) { '' }
-  let(:role_arn) { '' }
-  let(:target_id) { '' }
-  let(:topic_arn) { '' }
+  let(:rule_name) { 'aws-doc-sdk-examples-ec2-state-change' }
+  let(:rule_description) { 'Triggers when any available EC2 instance starts.' }
+  let(:instance_state) { 'running' }
+  let(:role_arn) { 'arn:aws:iam::111111111111:role/aws-doc-sdk-examples-cloudwatch-events-rule-role' }
+  let(:target_id) { 'sns-topic' }
+  let(:topic_arn) { 'arn:aws:sns:us-east-1:111111111111:aws-doc-sdk-examples-topic' }
   let(:cloudwatchevents_client) do
     Aws::CloudWatchEvents::Client.new(
       stub_responses: {
-        do_something: {}
+        put_rule: {
+          rule_arn: "arn:aws:events:us-east-1:111111111111:rule/#{rule_name}"
+        },
+        put_targets: {}
       }
     )
   end
 
-  it '' do
+  it 'creates a rule' do
     expect(
       rule_created?(
         cloudwatchevents_client,
@@ -148,16 +157,20 @@ describe '#rule_created?' do
 end
 
 describe '#log_group_exists?' do
-  let(:log_group_name) { '' }
+  let(:log_group_name) { 'aws-doc-sdk-examples-cloudwatch-log' }
   let(:cloudwatchlogs_client) do
     Aws::CloudWatchLogs::Client.new(
       stub_responses: {
-        do_something: {}
+        describe_log_groups: {
+          log_groups: [
+            log_group_name: log_group_name
+          ]
+        }
       }
     )
   end
 
-  it '' do
+  it 'checks whether a log group exists' do
     expect(
       log_group_exists?(cloudwatchlogs_client, log_group_name)
     ).to be(true)
@@ -165,16 +178,16 @@ describe '#log_group_exists?' do
 end
 
 describe '#log_group_created?' do
-  let(:log_group_name) { '' }
+  let(:log_group_name) { 'aws-doc-sdk-examples-cloudwatch-log' }
   let(:cloudwatchlogs_client) do
     Aws::CloudWatchLogs::Client.new(
       stub_responses: {
-        do_something: {}
+        create_log_group: {}
       }
     )
   end
 
-  it '' do
+  it 'creates a log group' do
     expect(
       log_group_created?(cloudwatchlogs_client, log_group_name)
     ).to be(true)
@@ -182,19 +195,22 @@ describe '#log_group_created?' do
 end
 
 describe '#log_event' do
-  let(:log_group_name) { '' }
-  let(:log_stream_name) { '' }
-  let(:message) { '' }
-  let(:sequence_token) { '' }
+  let(:log_group_name) { 'aws-doc-sdk-examples-cloudwatch-log' }
+  let(:log_stream_name) { "#{Time.now.year}/#{Time.now.month}/#{Time.now.day}/" \
+    "#{SecureRandom.uuid}" }
+  let(:message) { "Instance 'i-033c48ef067af3dEX' restarted." }
+  let(:sequence_token) { '495426724868310740095796045676567882148068632824696073EX' }
   let(:cloudwatchlogs_client) do
     Aws::CloudWatchLogs::Client.new(
       stub_responses: {
-        do_something: {}
+        put_log_events: {
+          next_sequence_token: sequence_token
+        }
       }
     )
   end
 
-  it '' do
+  it 'logs an event' do
     expect(
       log_event(
         cloudwatchlogs_client,
@@ -203,29 +219,82 @@ describe '#log_event' do
         message,
         sequence_token
        )
-    ).to be(true)
+    ).to eq(sequence_token)
   end
 end
 
 describe '#instance_restarted?' do
-  let(:instance_id) { '' }
-  let(:log_group_name) { '' }
+  let(:instance_id) { 'i-033c48ef067af3dEX' }
+  let(:log_group_name) { 'aws-doc-sdk-examples-cloudwatch-log' }
   let(:ec2_client) do
     Aws::EC2::Client.new(
       stub_responses: {
-        do_something: {}
+        stop_instances: {
+          stopping_instances: [
+            {
+              current_state: {
+                code: 80,
+                name: 'stopped'
+              },
+              instance_id: instance_id,
+              previous_state: {
+                code: 16,
+                name: 'running'
+              }
+            }
+          ]
+        },
+        start_instances: {
+          starting_instances: [
+            {
+              current_state: {
+                code: 16,
+                name: 'running'
+              },
+              instance_id: instance_id,
+              previous_state: {
+                code: 80,
+                name: 'stopped'
+              }
+            }
+          ]
+        },
+        describe_instances: [
+          {
+            reservations: [
+              instances: [
+                instance_id: instance_id,
+                state: {
+                  code: 80,
+                  name: 'stopped'
+                }
+              ]
+            ]
+          },
+          {
+            reservations: [
+              instances: [
+                instance_id: instance_id,
+                state: {
+                  code: 16,
+                  name: 'running'
+                }
+              ]
+            ]
+          }
+        ]
       }
     )
   end
   let(:cloudwatchlogs_client) do
     Aws::CloudWatchLogs::Client.new(
       stub_responses: {
-        do_something: {}
+        create_log_stream: {}
       }
     )
   end
 
-  it '' do
+  it 'restarts an instance and logs related events' do
     expect(
       instance_restarted?(
         ec2_client,
@@ -238,20 +307,31 @@ describe '#instance_restarted?' do
 end
 
 describe '#display_rule_activity' do
-  let(:rule_name) { '' }
-  let(:start_time) { '' }
-  let(:end_time) { '' }
-  let(:period) { '' }
-  let(:cloudwatchlogs_client) do
-    Aws::CloudWatchLogs::Client.new(
+  let(:rule_name) { 'aws-doc-sdk-examples-ec2-state-change' }
+  let(:start_time) { Time.now - 600 }
+  let(:end_time) { Time.now }
+  let(:period) { 60 }
+  let(:cloudwatch_client) do
+    Aws::CloudWatch::Client.new(
       stub_responses: {
-        do_something: {}
+        get_metric_statistics: {
+          datapoints: [
+            {
+              sum: 1.0,
+              timestamp: Time.iso8601('2020-11-17T14:19:00-08:00')
+            },
+            {
+              sum: 2.0,
+              timestamp: Time.iso8601('2020-11-17T14:32:00-08:00')
+            }
+          ]
+        }
       }
     )
   end
 
-  it '' do
-    expect(
+  it 'displays activity for a rule' do
+    expect {
       display_rule_activity(
         cloudwatch_client,
         rule_name,
@@ -259,24 +339,41 @@ describe '#display_rule_activity' do
         end_time,
         period
       )
-    ).to be(true)
+    }.not_to raise_error
   end
 end
 
 describe '#display_log_data' do
-  let(:log_group_name) { '' }
+  let(:log_group_name) { 'aws-doc-sdk-examples-cloudwatch-log' }
+  let(:log_stream_name) { "#{Time.now.year}/#{Time.now.month}/#{Time.now.day}/" \
+    "#{SecureRandom.uuid}" }
   let(:cloudwatchlogs_client) do
     Aws::CloudWatchLogs::Client.new(
       stub_responses: {
-        do_something: {}
+        describe_log_streams: {
+          log_streams: [
+            {
+              log_stream_name: log_stream_name
+            }
+          ]
+        },
+        get_log_events: {
+          events: [
+            {
+              message: "Instance 'i-033c48ef067af3dEX' stopped."
+            },
+            {
+              message: "Instance 'i-033c48ef067af3dEX' restarted."
+            }
+          ]
+        }
       }
     )
   end
 
-  it '' do
-    expect(
+  it 'displays log streams data' do
+    expect {
       display_log_data(cloudwatchlogs_client, log_group_name)
-    ).to be(true)
+    }.not_to raise_error
   end
 end
-=end
