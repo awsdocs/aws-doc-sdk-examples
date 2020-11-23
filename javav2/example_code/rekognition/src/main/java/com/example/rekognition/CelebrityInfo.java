@@ -66,6 +66,6 @@ public class CelebrityInfo {
            System.out.println(e.getMessage());
            System.exit(1);
        }
-       // snippet-end [rekognition.java2.celebrityInfo.main]
+        // snippet-end:[rekognition.java2.celebrityInfo.main]
     }
 }
