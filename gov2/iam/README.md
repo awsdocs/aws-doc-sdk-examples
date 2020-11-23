@@ -15,6 +15,27 @@ in the AWS SDK for Go Developer Guide.
 
 ## Running the code
 
+### AccessKeyLastUsed/AccessKeyLastUsedv2.go
+
+This example retrieves when an IAM access key was last used, 
+including the AWS Region and with which service.
+
+`go run AccessKeyLastUsed/AccessKeyLastUsedv2.go -k KeyID`
+
+- _KeyID_ is the ID of the access key.
+
+The unit test accepts a similar value in _config.json_.
+
+### AttachUserPolicy/AttachUserPolicyv2.go
+
+This example attaches an Amazon DynamoDB full-access policy to an IAM role.
+
+`go run AttachUserPolicyv2.go -n ROLE-NAME`
+
+- _ROLE-NAME_ is the name of the role to which the policy is attached.
+
+The unit test accepts a similar value in _config.json_.
+
 ### CreateAccessKey/CreateAccessKeyv2.go
 
 This example creates a new IAM access key for a user.
@@ -23,6 +44,26 @@ This example creates a new IAM access key for a user.
 
 - _USER-NAME_ is the name of the user for whom the new key is created.
 
+### CreateAccountAlias/CreateAccountAliasv2.go
+
+This example creates an alias for your IAM account.
+
+`go run CreateAccountAlias/CreateAccountAliasv2.go -a ALIAS`
+
+- _ALIAS_ is the alias created for your account.
+
+The unit test accepts a similar value in _config.json_.
+
+### CreatePolicy/CreatePolicyv2.go
+
+This example creates an IAM policy.
+
+`go run CreatePolicy/CreatePolicyv2.go -n POLICY-NAME`
+
+- _POLICY-NAME_ is the name of the policy to create.
+
+The unit test accepts a similar value in _config.json_.
+
 ### CreateUser/CreateUserv2.go
 
 This example creates an IAM user. 
@@ -30,6 +71,27 @@ This example creates an IAM user.
 `go run CreateUserv2.go -u USER-NAME`
 
 - _USER-NAME_ is the name of the user to create.
+
+The unit test accepts a similar value in _config.json_.
+
+### DeleteAccessKey/DeleteAccessKeyv2.go
+
+This example deletes an IAM access key.
+
+`go run DeleteAccessKeyv2.go -k KeyID -u USER-NAME`
+
+- _KEYID_ is the access key to delete.
+- _USER-NAME_ is the name of the user deleting the key.
+
+The unit test accepts similar values in _config.json_.
+
+### DeleteAccountAlias/DeleteAccountAliasv2.go
+
+This example deletes an alias for your IAM account.
+
+`go run DeleteAccountAlias/DeleteAccountAliasv2.go -a ALIAS`
+
+- _ALIAS_ is the account alias to delete.
 
 The unit test accepts a similar value in _config.json_.
 
@@ -43,9 +105,29 @@ This example deletes an IAM user.
 
 The unit test accepts a similar value in _config.json_.
 
+### DetachUserPolicy/DetachUserPolicyv2.go
+
+This example detaches an Amazon DynamoDB full-access policy from an IAM role.
+
+`go run DetachUserPolicy/DetachUserPolicyv2.go -r ROLE-NAME`
+
+- _ROLE-NAME_ is the name of the role from which the policy is detached.
+
+The unit test accepts a similar value in _config.json_.
+
+### GetPolicy/GetPolicyv2.go
+
+This example retrieves the description of the IAM policy with the specified ARN.
+
+`go run GetPolicy/GetPolicyv2.go -p POLICY-ARN`
+
+- _POLICY-ARN_ is the ARN of the policy.
+
+The unit test accepts a similar value in _config.json_.
+
 ### ListAccessKeys/ListAccessKeysv2.go
 
-This example 
+This example retrieves the access keys for your IAM account.
 
 `go run ListAccessKeysv2.go -u USER-NAME -m MAX-KEYS`
 
@@ -54,6 +136,17 @@ This example
   If this value is negative, the code example sets it to 10. 
 
 The unit test accepts similar values in _config.json_.
+
+### ListAccountAliases/ListAccountAliasesv2.go
+
+This example retrieves the aliases for your IAM account.
+
+`go run ListAccountAliases/ListAccountAliasesv2.go [-m MAX-ITEMS]`
+
+- _MAX-ITEMS_ is the maximum number of aliases to show.
+  If this value is less than zero, the code example sets it to 10.
+  
+The unit test accepts a similar value in _config.json_.
 
 ### ListAdmins/ListAdminsv2.go
 
@@ -74,6 +167,17 @@ This example retrieves a list of your IAM users.
 - _MAX-USERS_ is the maximum number of users to list.
   The code example restricts this to the range of 0 to 100.
   The default value is 10.
+  
+### UpdateAccessKey/UpdateAccessKeyv2.go
+
+This example 
+
+`go run UpdateAccessKeyv2.go -k KeyID -u USER-NAME`
+
+- _KEYID_ is the access key to activate.
+- _USER-NAME_ is the name of the user activating the key.
+
+The unit test accepts similar values in _config.json_.
   
 ### UpdateUser/UpdateUserv2.go
 

@@ -1,8 +1,32 @@
 files:
+  - path: AccessKeyLastUsed/AccessKeyLastUsedv2.go
+    services:
+      - iam
+  - path: AccessKeyLastUsed/AccessKeyLastUsedv2_test.go
+    services:
+      - iam
+  - path: AttachUserPolicy/AttachUserPolicyv2.go
+    services:
+      - iam
+  - path: AttachUserPolicy/AttachUserPolicyv2_test.go
+    services:
+      - iam
   - path: CreateAccessKey/CreateAccessKeyv2.go
     services:
       - iam
   - path: CreateAccessKey/CreateAccessKeyv2_test.go
+    services:
+      - iam
+  - path: CreateAccountAlias/CreateAccountAliasv2.go
+    services:
+      - iam
+  - path: CreateAccountAlias/CreateAccountAliasv2_test.go
+    services:
+      - iam
+  - path: CreatePolicy/CreatePolicyv2.go
+    services:
+      - iam
+  - path: CreatePolicy/CreatePolicyv2_test.go
     services:
       - iam
   - path: CreateUser/CreateUserv2.go
@@ -11,12 +35,36 @@ files:
   - path: CreateUser/CreateUserv2_test.go
     services:
       - iam
+  - path: DeleteAccountAlias/DeleteAccountAliasv2.go
+    services:
+      - iam      
+  - path: DeleteAccountAlias/DeleteAccountAliasv2_test.go
+    services:
+      - iam      
+  - path: DeleteAccessKey/DeleteAccessKeyv2.go
+    services:
+      - iam      
+  - path: DeleteAccessKey/DeleteAccessKeyv2_test.go
+    services:
+      - iam      
   - path: DeleteUser/DeleteUserv2.go
     services:
       - iam      
   - path: DeleteUser/DeleteUserv2_test.go
     services:
       - iam
+  - path: DetachUserPolicy/DetachUserPolicyv2.go
+    services:
+      - iam      
+  - path: DetachUserPolicy/DetachUserPolicyv2_test.go
+    services:
+      - iam      
+  - path: GetPolicy/GetPolicyv2.go
+    services:
+      - iam      
+  - path: GetPolicy/GetPolicyv2_test.go
+    services:
+      - iam      
   - path: ListAdmins/ListAdminsv2.go
     services:
       - iam      
@@ -29,10 +77,22 @@ files:
   - path: ListAccessKeys/ListAccessKeysv2_test.go
     services:
       - iam
+  - path: ListAccountAliases/ListAccountAliasesv2.go
+    services:
+      - iam
+  - path: ListAccountAliases/ListAccountAliasesv2_test.go
+    services:
+      - iam
   - path: ListUsers/ListUsersv2.go
     services:
       - iam      
   - path: ListUsers/ListUsersv2_test.go
+    services:
+      - iam
+  - path: UpdateAccessKey/UpdateAccessKeyv2.go
+    services:
+      - iam
+  - path: UpdateAccessKey/UpdateAccessKeyv2_test.go
     services:
       - iam
   - path: UpdateUser/UpdateUserv2.go
