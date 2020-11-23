@@ -1,20 +1,14 @@
 //snippet-sourcedescription:[FindReservedNodeOffer.java demonstrates how to find additional Amazon Redshift nodes for purchase.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Redshift]
+//snippet-service:[Amazon Redshift ]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[7/6/2020]
+//snippet-sourcedate:[11/05/2020]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.redshift;
@@ -46,6 +40,7 @@ public class FindReservedNodeOffer {
 
         listReservedNodes(redshiftClient);
         findReservedNodeOffer(redshiftClient);
+        redshiftClient.close();
     }
 
     // snippet-start:[redshift.java2._nodes.main]
@@ -98,23 +93,23 @@ public class FindReservedNodeOffer {
     }
 
     private static void printReservedNodeDetails(ReservedNode node) {
-        System.out.println("\nPurchased node details:");
+        System.out.println("\nPurchased Node Details:");
         System.out.format("Id: %s\n", node.reservedNodeOfferingId());
         System.out.format("State: %s\n", node.state());
-        System.out.format("Node type: %s\n", node.nodeType());
-        System.out.format("Start time: %s\n", node.startTime());
-        System.out.format("Fixed price: %s\n", node.fixedPrice());
-        System.out.format("Offering type: %s\n", node.offeringType());
+        System.out.format("Node Type: %s\n", node.nodeType());
+        System.out.format("Start Time: %s\n", node.startTime());
+        System.out.format("Fixed Price: %s\n", node.fixedPrice());
+        System.out.format("Offering Type: %s\n", node.offeringType());
         System.out.format("Duration: %s\n", node.duration());
     }
 
     private static void printOfferingDetails(
             ReservedNodeOffering offering) {
-        System.out.println("\nOffering match:");
-        System.out.format("ID: %s\n", offering.reservedNodeOfferingId());
-        System.out.format("Node type: %s\n", offering.nodeType());
-        System.out.format("Fixed price: %s\n", offering.fixedPrice());
-        System.out.format("Offering type: %s\n", offering.offeringType());
+        System.out.println("\nOffering Match:");
+        System.out.format("Id: %s\n", offering.reservedNodeOfferingId());
+        System.out.format("Node Type: %s\n", offering.nodeType());
+        System.out.format("Fixed Price: %s\n", offering.fixedPrice());
+        System.out.format("Offering Type: %s\n", offering.offeringType());
         System.out.format("Duration: %s\n", offering.duration());
     }
     // snippet-end:[redshift.java2._nodes.main]

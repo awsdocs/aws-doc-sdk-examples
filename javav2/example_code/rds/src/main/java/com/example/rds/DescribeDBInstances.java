@@ -1,5 +1,5 @@
-//snippet-sourcedescription:[DescribeDBInstances.java demonstrates how to describe Amazon RDS instances.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[DescribeDBInstances.java demonstrates how to describe Amazon Relational Database Service (RDS) instances.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
 //snippet-sourcetype:[full-example]
@@ -8,13 +8,7 @@
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.rds;
@@ -38,6 +32,7 @@ public class DescribeDBInstances {
                 .build();
 
         describeInstances(rdsClient) ;
+        rdsClient.close();
     }
 
     // snippet-start:[rds.java2.describe_instances.main]
@@ -50,8 +45,8 @@ public class DescribeDBInstances {
             List<DBInstance> instanceList = response.dbInstances();
 
             for (DBInstance instance: instanceList) {
-                System.out.println("Instance identifier is: "+instance.dbInstanceIdentifier());
-                System.out.println("The engine is " +instance.engine());
+                System.out.println("Instance Identifier is: "+instance.dbInstanceIdentifier());
+                System.out.println("The Engine is " +instance.engine());
                 System.out.println("Connection endpoint is" +instance.endpoint().address());
             }
 
@@ -62,3 +57,4 @@ public class DescribeDBInstances {
         // snippet-end:[rds.java2.describe_instances.main]
     }
 }
+

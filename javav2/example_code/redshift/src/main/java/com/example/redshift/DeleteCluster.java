@@ -1,20 +1,14 @@
 //snippet-sourcedescription:[DeleteCluster.java demonstrates how to delete an Amazon Redshift cluster.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Redshift]
+//snippet-service:[Amazon Redshift ]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[7/6/2020]
+//snippet-sourcedate:[11/05/2020]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.redshift;
@@ -35,21 +29,21 @@ public class DeleteCluster {
                 "Usage:\n" +
                 "    DeleteCluster <clusterId> \n\n" +
                 "Where:\n" +
-                "    clusterId - The ID of the cluster to delete \n";
+                "    clusterId - the id of the cluster to delete. \n";
 
-        if (args.length < 1) {
+        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
         String clusterId = args[0];
-
         Region region = Region.US_WEST_2;
         RedshiftClient redshiftClient = RedshiftClient.builder()
                 .region(region)
                 .build();
 
         deleteRedshiftCluster(redshiftClient, clusterId) ;
+        redshiftClient.close();
     }
 
     // snippet-start:[redshift.java2.delete_cluster.main]
@@ -61,7 +55,7 @@ public class DeleteCluster {
                     .skipFinalClusterSnapshot(true)
                     .build();
 
-            // Delete the cluster
+            // Delete the Cluster
             DeleteClusterResponse response = redshiftClient.deleteCluster(deleteClusterRequest);
             System.out.println("The status is "+response.cluster().clusterStatus());
 
