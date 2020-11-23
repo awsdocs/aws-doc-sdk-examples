@@ -1,26 +1,15 @@
 //snippet-sourcedescription:[SendMessage.java demonstrates how to send a SMS message.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
-//snippet-service:[pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/02/2020]
+//snippet-sourcedate:[11/05/2020]
 //snippet-sourceauthor:[scmacdon-aws]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.pinpoint;
 
@@ -45,16 +34,16 @@ public class SendMessage {
     // The phone number or short code to send the message from. The phone number
     // or short code that you specify has to be associated with your Amazon Pinpoint
     // account. For best results, specify long codes in E.164 format.
-    public static String originationNumber = "enter an origination number";
+    public static String originationNumber = "+12048179095";
 
     // The recipient's phone number.  For best results, you should specify the
     // phone number in E.164 format.
-    public static String destinationNumber = "enter a destination number";
+    public static String destinationNumber = "+1-819-576-5654";
 
     // The Pinpoint project/application ID to use when you send this message.
     // Make sure that the SMS channel is enabled for the project or application
     // that you choose.
-    public static String appId = "enter an appId value";
+    public static String appId = "2fdc4442c6a2483f85eaf7a943054815";
 
     // The type of SMS message that you want to send. If you plan to send
     // time-sensitive content, specify TRANSACTIONAL. If you plan to send
@@ -71,12 +60,12 @@ public class SendMessage {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "SendMessage -sends a message\n\n" +
-                "Usage: SendMessage <message>\n\n" +
+                "Usage: " +
+                "SendMessage <message>\n\n" +
                 "Where:\n" +
                 "  message - the body of the message to send.\n\n";
 
-        if (args.length < 1) {
+        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -89,6 +78,7 @@ public class SendMessage {
                 .build();
 
         sendSMSMessage(pinpoint, appId) ;
+        pinpoint.close();
     }
 
     //snippet-start:[pinpoint.java2.sendmsg.main]
@@ -138,7 +128,8 @@ public class SendMessage {
         map1.forEach((k, v) -> System.out.println((k + ":" + v)));
 
     } catch (PinpointException e) {
-        e.getStackTrace();
+        System.err.println(e.awsErrorDetails().errorMessage());
+        System.exit(1);
     }
   }
     //snippet-end:[pinpoint.java2.sendmsg.main]
