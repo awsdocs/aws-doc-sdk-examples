@@ -35,7 +35,6 @@ func AttachDynamoFullPolicy(c context.Context, api IAMAttachRolePolicyAPI, input
 }
 
 func main() {
-	// snippet-start:[iam.go-v2.attach_user_policy.args]
 	roleName := flag.String("r", "", "The name of the IAM role")
 	flag.Parse()
 
@@ -43,9 +42,7 @@ func main() {
 		fmt.Println("You must supply a role name (-r ROLE)")
 		return
 	}
-	// snippet-end:[iam.go-v2.attach_user_policy.args]
 
-	// snippet-start:[iam.go-v2.attach_user_policy.config]
 	cfg, err := config.LoadDefaultConfig()
 	if err != nil {
 		panic("configuration error, " + err.Error())
