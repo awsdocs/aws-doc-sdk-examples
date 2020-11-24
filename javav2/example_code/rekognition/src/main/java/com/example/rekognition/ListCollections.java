@@ -1,25 +1,14 @@
 // snippet-sourcedescription:[ListCollections.java demonstrates how to list the available Amazon Rekognition collections.]
+//snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
-// snippet-keyword:[Java]
-// snippet-keyword:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[6-10-2020]
+// snippet-sourcedate:[11-03-2020]
 // snippet-sourceauthor:[scmacdon - AWS]
-
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.rekognition;
 
@@ -43,6 +32,7 @@ public class ListCollections {
 
         System.out.println("Listing collections");
         listAllCollections(rekClient);
+        rekClient.close();
     }
 
     // snippet-start:[rekognition.java2.list_collections.main]

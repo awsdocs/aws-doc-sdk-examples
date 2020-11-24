@@ -1,28 +1,16 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[ListHealthChecks.java demonstrates how to list health checks.]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Route 53]
-// snippet-keyword:[Java]
-// snippet-keyword:[Amazon Route 53]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2020-09-28]
 // snippet-sourceauthor:[AWS - scmacdon]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
-
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 package com.example.route;
 
 // snippet-start:[route53.java2.list_health_checks.import]
@@ -44,6 +32,7 @@ public class ListHealthChecks {
                 .build();
 
         listAllHealthChecks(route53Client);
+        route53Client.close();
     }
 
     // snippet-start:[route53.java2.list_health_checks.main]
@@ -54,7 +43,7 @@ public class ListHealthChecks {
             List<HealthCheck> checklist = checksResponse.healthChecks();
 
             for (HealthCheck check: checklist) {
-                System.out.println("The health check ID is: "+check.id());
+                System.out.println("The health check id is: "+check.id());
                 System.out.println("The health threshold is: "+check.healthCheckConfig().healthThreshold());
                 System.out.println("The type is: "+check.healthCheckConfig().typeAsString());
             }

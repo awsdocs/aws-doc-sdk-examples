@@ -39,6 +39,6 @@ files:
  - path: src/main/java/com/example/pinpoint/UpdateChannel.java
    services:
      - pinpoint
- - path: src/test/java/AmazonPinpointServiceIntegrationTest.java
+ - path: src/test/java/AmazonPinpointTest.java
    services:
      - pinpoint

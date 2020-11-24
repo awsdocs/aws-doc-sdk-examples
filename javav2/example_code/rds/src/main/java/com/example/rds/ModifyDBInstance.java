@@ -1,5 +1,5 @@
-//snippet-sourcedescription:[ModifyDBInstance.java demonstrates how to modify an Amazon RDS instance.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[ModifyDBInstance.java demonstrates how to modify a RDS instance.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
 //snippet-sourcetype:[full-example]
@@ -8,13 +8,7 @@
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.rds;
@@ -34,12 +28,12 @@ public class ModifyDBInstance {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    ModifyDBInstance <dbInstanceIdentifier><dbSnapshotIdentifier> \n\n" +
+                "    ModifyDBInstance <dbInstanceIdentifier> <dbSnapshotIdentifier> \n\n" +
                 "Where:\n" +
-                "    dbInstanceIdentifier - The database instance identifier \n" +
-                "    masterUserPassword - The updated password that corresponds to the master user name \n";
+                "    dbInstanceIdentifier - the database instance identifier. \n" +
+                "    masterUserPassword - the updated password that corresponds to the master user name. \n";
 
-        if (args.length < 3) {
+        if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -53,6 +47,7 @@ public class ModifyDBInstance {
                 .build();
 
         updateIntance(rdsClient, dbInstanceIdentifier, masterUserPassword);
+        rdsClient.close();
     }
 
     public static void updateIntance(RdsClient rdsClient, String dbInstanceIdentifier, String masterUserPassword) {
@@ -74,3 +69,4 @@ public class ModifyDBInstance {
 
     }
 }
+

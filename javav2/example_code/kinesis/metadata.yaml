@@ -39,6 +39,6 @@ files:
   - path: src/main/java/com/example/kinesis/StockTradesWriter.java
     services:
       - kinesis
-  - path: src/test/java/KinesisServiceIntegrationTest.java
+  - path: src/test/java/KinesisServiceTest.java
     services:
       - kinesis  

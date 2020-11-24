@@ -18,6 +18,18 @@ For Boto3 and AWS documentation, see the following:
 
 ## Examples
 
+### [AWS Certificate Manager (ACM) basics example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/acm/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with AWS Certificate Manager (ACM)
+to request, import, and manage certificates.
+
+* Request a new certificate from ACM.
+* Import a self-signed certificate.
+* Retrieve certificate data.
+* Add custom tags to certificates.
+
 ### [Amazon DynamoDB batch examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/dynamodb/batching/README.md)
 
 #### Purpose
@@ -83,6 +95,17 @@ and manage clusters and job steps. Learn to accomplish the following tasks:
 * Run commands on cluster instances, such as EMRFS configuration and shell scripts
   to install additional libraries. 
 * Query clusters for status and terminate them using the API.
+
+### [AWS IoT Greengrass code snippets](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/greengrass/README.md)
+
+#### Purpose
+
+Shows how to use the AWS IoT Greengrass Core SDK to create AWS Lambda functions
+that publish MQTT messages, implement connectors, and retrieve secrets.
+
+These code examples are primarily code snippets that are used in the 
+[AWS Iot Greengrass developer guide](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html)
+and are not intended to be used out of context.
 
 ### [AWS IAM getting started examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/iam/iam_basics/README.md)
 
