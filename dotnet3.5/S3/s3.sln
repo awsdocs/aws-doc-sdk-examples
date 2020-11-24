@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreateBucketTest", "CreateB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeleteBucket", "DeleteBucket\DeleteBucket.csproj", "{50728D77-D550-4CBD-A915-57BAA96918E4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeleteBucketTest", "DeletebucketText\DeleteBucketTest.csproj", "{3DD198B4-A891-4353-83D2-8021CD729285}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeleteBucketTest", "DeletebucketTest\DeleteBucketTest.csproj", "{3DD198B4-A891-4353-83D2-8021CD729285}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

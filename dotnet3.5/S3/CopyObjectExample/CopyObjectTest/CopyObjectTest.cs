@@ -14,6 +14,8 @@ namespace CopyObjectTest
 {
     public class CopyObjectTest
     {
+        // This application uses XUnit and moq to test the CopyObject Example.
+
         private string _SourceBucket;
         private string _DestinationBucket;
         private string _SourceObjectKey;
@@ -47,9 +49,8 @@ namespace CopyObjectTest
         {
             IAmazonS3 client = CreateMockS3Client();
 
-            // Set field values
-            _SourceBucket = "CopyObjectSampleSource";
-            _DestinationBucket = "CopyObjectSampleDestination";
+            _SourceBucket = "doc-example-bucket1";
+            _DestinationBucket = "doc-example-bucket2";
             _SourceObjectKey = "cute_photo.jpg";
             _DestinationObjectKey = "even_cuter_copy.jpg";
 

@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
+
 using Amazon.S3;
 using Amazon.S3.Model;
 using Moq;
@@ -13,6 +14,8 @@ namespace CreateBucketTest
 {
     public class CreateBucketTest
     {
+        // This application uses XUnit and moq to test the CreateBucket Example.
+
         private string _NewBucketName;
 
         private IAmazonS3 CreateMockS3Client()
@@ -43,8 +46,7 @@ namespace CreateBucketTest
         {
             IAmazonS3 client = CreateMockS3Client();
 
-            // Set field values
-            _NewBucketName = "anewbucketname";
+            _NewBucketName = "doc-example-bucket";
 
             var putBucketRequest = new PutBucketRequest
             {
