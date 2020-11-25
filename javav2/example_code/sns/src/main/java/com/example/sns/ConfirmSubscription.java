@@ -1,26 +1,15 @@
-//snippet-sourcedescription:[ConfirmSubscription.java demonstrates how to retrieve the defaults for an Amazon SNS topic.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
+//snippet-sourcedescription:[ConfirmSubscription.java demonstrates how to confirm a subscription for Amazon Simple Notification Service (Amazon SNS).]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/6/2020]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[11/06/2020]
+//snippet-sourceauthor:[scmacdon- AWS]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.sns;
 
@@ -34,14 +23,15 @@ import software.amazon.awssdk.services.sns.model.SnsException;
 
 public class ConfirmSubscription {
     public static void main(String[] args) {
-        final String USAGE = "\n" +
-                "ConfirmSubscription - confirm a subscription to an Amazon SNS topic\n" +
-                "Usage: ConfirmSubscription <subscriptionToken> <topicArn>\n\n" +
-                "Where:\n" +
-                "  subscriptionToken - endpoint token from Subscribe action.\n\n" +
-                "  topicArn - the ARN of the topic to delete.\n\n";
 
-        if (args.length < 2) {
+        final String USAGE = "\n" +
+                "Usage: " +
+                "ConfirmSubscription <subscriptionToken> <topicArn>\n\n" +
+                "Where:\n" +
+                "  subscriptionToken - a short-lived token sent to an endpoint during the Subscribe action.\n\n" +
+                "  topicArn - the ARN of the topic. \n\n";
+
+        if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -54,6 +44,7 @@ public class ConfirmSubscription {
                 .build();
 
         confirmSub(snsClient, subscriptionToken, topicArn ) ;
+        snsClient.close();
     }
 
     //snippet-start:[sns.java2.ConfirmSubscription.main]

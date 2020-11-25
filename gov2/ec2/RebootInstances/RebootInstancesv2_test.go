@@ -21,7 +21,7 @@ func (dt EC2RebootInstancesImpl) RebootInstances(ctx context.Context,
     output := &ec2.RebootInstancesOutput{}
 
     if *params.DryRun {
-        return output, errors.New("DryRunOperation")
+        return output, errors.New("api error DryRunOperation")
     }
 
     return output, nil

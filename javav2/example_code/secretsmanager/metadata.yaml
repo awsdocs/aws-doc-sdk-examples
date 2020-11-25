@@ -18,6 +18,6 @@ files:
  - path: src/main/java/com/example/secrets/UpdateSecret.java
    services:
      - secretsmanager
- - path: src/test/java/SecretManagerIntegrationTest.java
+ - path: src/test/java/SecretManagerTest.java
    services:
      - secretsmanager

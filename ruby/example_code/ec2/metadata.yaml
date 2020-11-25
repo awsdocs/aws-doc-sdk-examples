@@ -63,4 +63,58 @@ files:
   - path: tests/test_ec2-ruby-example-get-instance-info-by-tag.rb
     services:
     - ec2
+  - path: ec2-ruby-example-key-pairs.rb
+    services:
+    - ec2
+  - path: tests/test_ec2-ruby-example-key-pairs.rb
+    services:
+    - ec2
+  - path: ec2-ruby-example-list-state-instance-i-123abc.rb
+    services:
+    - ec2
+  - path: tests/test_ec2-ruby-example-list-state-instance-i-123abc.rb
+    services:
+    - ec2
+  - path: ec2-ruby-example-manage-instances.rb
+    services:
+    - ec2
+  - path: tests/test_ec2-ruby-example-manage-instances.rb
+    services:
+    - ec2
+  - path: ec2-ruby-example-reboot-instance-i-123abc.rb
+    services:
+    - ec2
+  - path: tests/test_ec2-ruby-example-reboot-instance-i-123abc.rb
+    services:
+    - ec2
+  - path: ec2-ruby-example-regions-availability-zones.rb
+    services:
+    - ec2
+  - path: tests/test_ec2-ruby-example-regions-availability-zones.rb
+    services:
+    - ec2
+  - path: ec2-ruby-example-security-group.rb
+    services:
+    - ec2
+  - path: tests/test_ec2-ruby-example-security-group.rb
+    services:
+    - ec2
+  - path: ec2-ruby-example-start-instance-i-123abc.rb
+    services:
+    - ec2
+  - path: tests/test_ec2-ruby-example-start-instance-i-123abc.rb
+    services:
+    - ec2
+  - path: ec2-ruby-example-stop-instance-i-123abc.rb
+    services:
+    - ec2
+  - path: tests/test_ec2-ruby-example-stop-instance-i-123abc.rb
+    services:
+    - ec2
+  - path: ec2-ruby-example-terminate-instance-i-123abc.rb
+    services:
+    - ec2
+  - path: tests/test_ec2-ruby-example-terminate-instance-i-123abc.rb
+    services:
+    - ec2
 ...

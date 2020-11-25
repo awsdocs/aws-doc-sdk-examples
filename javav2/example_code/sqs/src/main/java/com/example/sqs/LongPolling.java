@@ -1,24 +1,16 @@
-//snippet-sourcedescription:[LongPolling.java demonstrates how to enable long polling on a queue.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[LongPolling.java demonstrates how to enable long polling on an Amazon Simple Queue Service (Amazon SQS) queue.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/20/2020]
+//snippet-sourcedate:[11/06/2020]
 //snippet-sourceauthor:[scmacdon-aws]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at:
- *
- *    http://aws.amazon.com/apache2.0
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
- * OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and
- * limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 // snippet-start:[sqs.java2.long_polling.complete]
 package com.example.sqs;
 
@@ -27,18 +19,13 @@ import java.util.Date;
 import java.util.HashMap;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
-import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
-import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
-import software.amazon.awssdk.services.sqs.model.QueueAttributeName;
-import software.amazon.awssdk.services.sqs.model.SetQueueAttributesRequest;
-import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
-import software.amazon.awssdk.services.sqs.model.QueueNameExistsException;
+import software.amazon.awssdk.services.sqs.model.*;
 // snippet-end:[sqs.java2.long_polling.import]
 
 /*
- Although the regular short polling returns immediately,
+ While the regular short polling returns immediately,
  long polling doesn't return a response until a message arrives
- in the message queue, or the long polling times out.
+ in the message queue, or the long poll times out.
  */
 public class LongPolling {
 
@@ -46,12 +33,13 @@ public class LongPolling {
 
     public static void main(String[] args) {
 
-        // Create an SqsClient object
+        // Create a SqsClient object
         SqsClient sqsClient = SqsClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
 
         setLongPoll(sqsClient) ;
+        sqsClient.close();
     }
 
     // snippet-start:[sqs.java2.long_polling.main]
@@ -91,8 +79,9 @@ public class LongPolling {
 
             sqsClient.receiveMessage(receiveRequest);
 
-        } catch (QueueNameExistsException e) {
-            throw e;
+        } catch (SqsException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
     }
 }

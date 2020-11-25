@@ -33,7 +33,7 @@ type EC2StopInstancesAPI interface {
 func StopInstance(c context.Context, api EC2StopInstancesAPI, input *ec2.StopInstancesInput) (*ec2.StopInstancesOutput, error) {
     resp, err := api.StopInstances(c, input)
 
-    if strings.Contains(err.Error(), "DryRunOperation") {
+    if strings.Contains(err.Error(), "api error DryRunOperation") {
         fmt.Println("User has permission to stop instances.")
         input.DryRun = aws.Bool(false)
         result, err := api.StopInstances(c, input)

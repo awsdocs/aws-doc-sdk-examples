@@ -33,7 +33,7 @@ type EC2RebootInstancesAPI interface {
 func RebootInstance(c context.Context, api EC2RebootInstancesAPI, input *ec2.RebootInstancesInput) (*ec2.RebootInstancesOutput, error) {
     resp, err := api.RebootInstances(c, input)
 
-    if strings.Contains(err.Error(), "DryRunOperation") {
+    if strings.Contains(err.Error(), "api error DryRunOperation") {
         fmt.Println("User has permission to reboot instances.")
         input.DryRun = aws.Bool(false)
         result, err := api.RebootInstances(c, input)

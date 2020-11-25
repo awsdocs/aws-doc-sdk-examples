@@ -1,27 +1,16 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[DeleteBranch.java demonstrates how to delete a branch.]
+//snippet-keyword:[AWS SDK for Java v2]
+//snippet-keyword:[Code Sample]
 // snippet-service:[AWS CodeCommit]
-// snippet-keyword:[Java]
-// snippet-keyword:[AWS CodeCommit]
-// snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-09-30]
+//snippet-sourcedate:[11/03/2020]
 // snippet-sourceauthor:[AWS - scmacdon]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.commit;
 
@@ -40,15 +29,14 @@ public class DeleteBranch {
                 "Usage:\n" +
                 "    DeleteBranch <repoName> <branchName> \n\n" +
                 "Where:\n" +
-                "    repoName - the name of the repository,\n" +
-                "    branchName -  the name of the branch \n" ;
+                "    repoName - the name of the repository.\n" +
+                "    branchName - the name of the branch. \n" ;
 
-        if (args.length < 3) {
+        if (args.length != 2) {
               System.out.println(USAGE);
               System.exit(1);
          }
 
-        /* Read the name from command args*/
         String repoName = args[0];
         String branchName = args[1];
 
@@ -58,6 +46,7 @@ public class DeleteBranch {
                 .build();
 
         deleteSpecificBranch(codeCommitClient, repoName, branchName);
+        codeCommitClient.close();
     }
 
     // snippet-start:[codecommit.java2.del_branch.main]

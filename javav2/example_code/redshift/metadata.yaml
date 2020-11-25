@@ -18,6 +18,6 @@ files:
   - path: src/main/java/com/example/redshift/ListEvents.java
     services:
       - redshift      
-  - path: src/test/java/AmazonRedshiftServiceIntegrationTest.java
+  - path: src/test/java/AmazonRedshiftTest.java
     services:
       - redshift  

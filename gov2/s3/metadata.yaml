@@ -1,55 +1,55 @@
 files:
-  - path: CopyObject/CopyObject.go
+  - path: CopyObject/CopyObjectv2.go
     services:
       - s3
-  - path: CopyObject/CopyObject_test.go
+  - path: CopyObject/CopyObjectv2_test.go
     services:
       - s3
-  - path: CreateBucket/CreateBucket.go
+  - path: CreateBucket/CreateBucketv2.go
     services:
       - s3
-  - path: CreateBucket/CreateBucket_test.go
+  - path: CreateBucket/CreateBucketv2_test.go
     services:
       - s3
-  - path: DeleteBucket/DeleteBucket.go
+  - path: DeleteBucket/DeleteBucketv2.go
     services:
       - s3
-  - path: DeleteBucket/DeleteBucket_test.go
+  - path: DeleteBucket/DeleteBucketv2_test.go
     services:
       - s3
-  - path: DeleteObject/DeleteObject.go
+  - path: DeleteObject/DeleteObjectv2.go
     services:
       - s3
-  - path: DeleteObject/DeleteObject_test.go
+  - path: DeleteObject/DeleteObjectv2_test.go
     services:
       - s3
-  - path: GetBucketAcl/GetBucketAcl.go
+  - path: GetBucketAcl/GetBucketAclv2.go
     services:
       - s3
-  - path: GetBucketAcl/GetBucketAcl_test.go
+  - path: GetBucketAcl/GetBucketAclv2_test.go
     services:
       - s3
-  - path: GetObjectAcl/GetObjectAcl.go
+  - path: GetObjectAcl/GetObjectAclv2.go
     services:
       - s3
-  - path: GetObjectAcl/GetObjectAcl_test.go
+  - path: GetObjectAcl/GetObjectAclv2_test.go
     services:
       - s3
-  - path: ListBuckets/ListBuckets.go
+  - path: ListBuckets/ListBucketsv2.go
     services:
       - s3
-  - path: ListBuckets/ListBuckets_test.go
+  - path: ListBuckets/ListBucketsv2_test.go
     services:
       - s3
-  - path: ListObjects/ListObjects.go
+  - path: ListObjects/ListObjectsv2.go
     services:
       - s3
-  - path: ListObjects/ListObjects_test.go
+  - path: ListObjects/ListObjectsv2_test.go
     services:
       - s3
-  - path: PutObject/PutObject.go
+  - path: PutObject/PutObjectv2.go
     services:
       - s3
-  - path: PutObject/PutObject_test.go
+  - path: PutObject/PutObjectv2_test.go
     services:
       - s3

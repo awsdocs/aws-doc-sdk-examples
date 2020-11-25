@@ -1,26 +1,15 @@
-//snippet-sourcedescription:[CheckOptOut.java demonstrates how to determine whether the user of the phone number has chosen to no longer receive future text messages.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
+//snippet-sourcedescription:[CheckOptOut.java demonstrates how to determine whether the user of the phone number has selected to no longer receive future Amazon Simple Notification Service (Amazon SNS) text messages.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/6/2020]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[11/06/2020]
+//snippet-sourceauthor:[scmacdon- AWS]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 package com.example.sns;
 
 //snippet-start:[sns.java2.CheckOptOut.import]
@@ -33,24 +22,25 @@ import software.amazon.awssdk.services.sns.model.SnsException;
 
 public class CheckOptOut {
     public static void main(String[] args) {
-        final String USAGE = "\n" +
-                "CheckOptOut - look if phone number owner has opted out of receiving messages\n" +
-                "Usage: CheckOptOut <phoneNumber>\n\n" +
-                "Where:\n" +
-                "  phoneNumber - phone number to look up. Example: +1XXX5550100\n\n";
 
-        if (args.length < 1) {
+        final String USAGE = "\n" +
+                "Usage: " +
+                "CheckOptOut <phoneNumber>\n\n" +
+                "Where:\n" +
+                "  phoneNumber - the mobile phone number to look up (for example, +1XXX5550100).\n\n";
+
+        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
-        
-        String phoneNumber = args[0];
 
+        String phoneNumber = args[0];
         SnsClient snsClient = SnsClient.builder()
                     .region(Region.US_EAST_1)
                     .build();
 
         checkPhone(snsClient, phoneNumber);
+        snsClient.close();
         }
 
         //snippet-start:[sns.java2.CheckOptOut.main]

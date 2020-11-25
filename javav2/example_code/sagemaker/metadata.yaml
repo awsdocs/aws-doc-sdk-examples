@@ -24,6 +24,6 @@ files:
  - path: src/main/java/com/example/sage/ListTrainingJobs.java
    services:
      - sagemaker
- - path: src/test/java/SageMakerServiceIntegrationTest.java
+ - path: src/test/java/SageMakerTest.java
    services:
      - sagemaker

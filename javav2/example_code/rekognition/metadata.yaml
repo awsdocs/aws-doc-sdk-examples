@@ -36,7 +36,7 @@ files:
  - path: src/main/java/com/example/rekognition/SearchFaceMatchingImageCollection.java
    services:
      - rekognition      
- - path: src/test/java/RekognitionServiceIntegrationTest.java
+ - path: src/test/java/RekognitionTest.java
    services:
      - rekognition
  

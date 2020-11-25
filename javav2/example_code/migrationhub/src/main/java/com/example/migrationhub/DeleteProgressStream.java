@@ -1,25 +1,15 @@
 // snippet-sourcedescription:[DeleteProgressStream.java demonstrates how to delete a progress stream.]
-// snippet-service:[Amazon Migration Hub]
-// snippet-keyword:[Java]
-// snippet-keyword:[Amazon Migration Hub]
+//snippet-keyword:[AWS SDK for Java v2]
+// snippet-service:[AWS Migration Hub]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[6-23-2020]
+// snippet-sourcedate:[11-05-2020]
 // snippet-sourceauthor:[scmacdon - AWS]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.migrationhub;
 
@@ -34,25 +24,25 @@ public class DeleteProgressStream {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-        "To run this example, supply the name of a progress stream\n" +
-                "\n" +
-                "Ex: DeleteProgressStream ProgressStream\n";
+      final String USAGE = "\n" +
+                "Usage:\n" +
+                "    DeleteProgressStream <progressStream> \n\n" +
+                "Where:\n" +
+                "    progressStream - the name of a progress stream to delete. \n";
 
-        if (args.length < 2) {
+        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-       String progressStream = args[0];
-
-
+        String progressStream = args[0];
         Region region = Region.US_WEST_2;
         MigrationHubClient migrationClient = MigrationHubClient.builder()
                 .region(region)
                 .build();
 
        deleteStream(migrationClient,progressStream ) ;
+       migrationClient.close();
     }
 
     // snippet-start:[migration.java2.delete_progress_stream.main]

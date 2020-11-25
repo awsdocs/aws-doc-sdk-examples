@@ -1,37 +1,61 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Reboots an instance.]
-# snippet-keyword:[Amazon Elastic Compute Cloud]
-# snippet-keyword:[instance method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[ec2]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
 
-require 'aws-sdk-ec2'  # v2: require 'aws-sdk'
+require 'aws-sdk-ec2'
 
-ec2 = Aws::EC2::Resource.new(region: 'us-west-2')
-      
-i = ec2.instance('i-123abc')
-    
-if i.exists?
-  case i.state.code
-  when 48  # terminated
-    puts "#{id} is terminated, so you cannot reboot it"
+# Reboots an Amazon Elastic Compute Cloud (Amazon EC2) instance.
+#
+# Prerequisites:
+#
+# - An Amazon EC2 instance.
+#
+# @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
+# @param instance_id [String] The ID of the instance.
+# @example
+#   request_instance_reboot(
+#     Aws::EC2::Resource.new(region: 'us-east-1'),
+#     'i-123abc'
+#   )
+def request_instance_reboot(ec2_client, instance_id)
+  response = ec2_client.describe_instances(instance_ids: [instance_id])
+  if response.count.zero?
+    puts 'Error requesting reboot: no matching instance found.'
   else
-    i.reboot
+    instance = response.reservations[0].instances[0]
+    if instance.state.name == 'terminated'
+      puts 'Error requesting reboot: the instance is already terminated.'
+    else
+      ec2_client.reboot_instances(instance_ids: [instance_id])
+      puts 'Reboot request sent.'
+    end
   end
+rescue StandardError => e
+  puts "Error requesting reboot: #{e.message}"
 end
+
+# Full example call:
+def run_me
+  instance_id = ''
+  region = ''
+  # Print usage information and then stop.
+  if ARGV[0] == '--help' || ARGV[0] == '-h'
+    puts 'Usage:   ruby ec2-ruby-example-reboot-instance-i-123abc.rb ' \
+      'INSTANCE_ID REGION'
+    puts 'Example: ruby ec2-ruby-example-reboot-instance-i-123abc.rb ' \
+      'i-123abc us-east-1'
+    exit 1
+  # If no values are specified at the command prompt, use these default values.
+  elsif ARGV.count.zero?
+    instance_id = 'i-123abc'
+    region = 'us-east-1'
+  # Otherwise, use the values as specified at the command prompt.
+  else
+    instance_id = ARGV[0]
+    region = ARGV[1]
+  end
+
+  ec2_client = Aws::EC2::Client.new(region: region)
+  request_instance_reboot(ec2_client, instance_id)
+end
+
+run_me if $PROGRAM_NAME == __FILE__

@@ -29,7 +29,7 @@ func (dt EC2MonitorInstancesImpl) MonitorInstances(ctx context.Context,
     }
 
     if *params.DryRun {
-        return output, errors.New("DryRunOperation")
+        return output, errors.New("api error DryRunOperation")
     }
 
     return output, nil
@@ -48,7 +48,7 @@ func (dt EC2MonitorInstancesImpl) UnmonitorInstances(ctx context.Context,
     }
 
     if *params.DryRun {
-        return output, errors.New("DryRunOperation")
+        return output, errors.New("api error DryRunOperation")
     }
 
     return output, nil

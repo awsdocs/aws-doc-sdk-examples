@@ -21,7 +21,7 @@ This folder contains code examples that demonstrate how to use the AWS SDK for R
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
+  [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
   in the *AWS Identity and Access Management User Guide*.
 - This code has not been tested in all AWS Regions. Some AWS services are 
   available only in specific AWS Regions. For more information, see the 
@@ -37,7 +37,7 @@ Most of these code example files can be run with very little to no modification.
 ruby s3/create_bucket_snippet.rb
 ```
 
-Most of these files have been refactored into reusable functions that can be copied into your own code. You can then call those functions directly from your own code without modifying the copied function code itself. For example, you could copy the `list_bucket_objects?` function code from the `s3/auth_request_object_keys.rb` file into your own code. You could then adapt the code in the `run_me` function in that same file as a basis to write your own code to call the copied `list_bucket_objects?` function.
+Most of these files have been refactored into reusable functions that can be copied into your own code. You can then call those functions directly from your own code without modifying the copied function code itself. For example, you could copy the `bucket_created?` function code from the `s3/create_bucket_snippet.rb` file into your own code. You could then adapt the code in the `run_me` function in that same file as a basis to write your own code to call the copied `bucket_created?` function.
 
 ## Running the tests
 
@@ -46,7 +46,7 @@ Most of these code example files have accompanying tests that are written to wor
 To use RSpec to run all tests within a file, specify the path to that file, for example:
 
 ```
-rspec s3/tests/test_auth_request_test.rb
+rspec s3/tests/test_create_bucket_snippet.rb
 ```
 
 To explore additional options for using RSpec to run tests, run the `rspec --help` command. 
@@ -56,7 +56,7 @@ Most of these tests are designed to use stubs, to avoid generating unnecessary c
 
 ## Additional information
 
-- [Amazon S3 Developer Guide](https://docs.aws.amazon.com/AmazonS3/latest/dev)
+- [AWS Documentation](https://docs.aws.amazon.com)
 - [AWS SDK for Ruby Documentation](https://docs.aws.amazon.com/sdk-for-ruby)
 - [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs)
 - [RSpec Documentation](https://rspec.info/documentation)
