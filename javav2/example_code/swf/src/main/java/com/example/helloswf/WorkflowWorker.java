@@ -10,7 +10,7 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-
+// snippet-start:[swf.java2.task_request.complete]
 package com.example.helloswf;
 
 // snippet-start:[swf.java2.task_request.import]
