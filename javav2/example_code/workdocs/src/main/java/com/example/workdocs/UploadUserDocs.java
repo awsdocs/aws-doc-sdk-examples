@@ -1,10 +1,16 @@
-//snippet-sourcedescription:[UploadUserDocs.java demonstrates how to upload a document to Amazon WorkDocs.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[UploadUserDocs.java demonstrates how to upload a document to Amazon Workdocs.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon WorkDocs]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[6/30/2020]
+//snippet-sourcedate:[11/06/2020]
 //snippet-sourceauthor:[scmacdon - aws]
+
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 // snippet-start:[workdocs.java2.upload_user_doc.complete]
 
 package com.example.workdocs;
@@ -41,19 +47,23 @@ import software.amazon.awssdk.services.workdocs.model.DocumentVersionStatus;
 public class UploadUserDocs {
 
     public static void main(String[] args) {
-        // Based on Amazon WorkDocs Developer Guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/upload-documents.html
+        // Based on WorkDocs dev guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/upload-documents.html
 
         final String USAGE = "\n" +
-                " To run this example, supply your organization ID, a user email, the document name, and the path where the document is located \n" +
-                "\n" +
-                "Ex: list_user_docs <organizationId> <useremail> <filename> <filepath>\n";
+                "Usage:\n" +
+                "    UploadUserDocs <organizationId> <userEmail> <docName> <docPath> \n\n" +
+                "Where:\n" +
+                "    organizationId - your organization Id value. You can obtain this value from the AWS Management Console. \n"+
+                "    userEmail - a user email. \n"+
+                "    docName - the name of the document (for example, book.pdf). \n"+
+                "    docPath - the path where the document is located (for example, C:/AWS/book.pdf). \n";
 
-        if (args.length < 4) {
+        if (args.length != 4) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        String orgId = args[0];
+        String organizationId = args[0];
         String userEmail = args[1];
         String docName = args[2];
         String docPath = args[3];
@@ -63,7 +73,8 @@ public class UploadUserDocs {
                 .region(region)
                 .build();
 
-        uploadDoc(workDocs, orgId, userEmail, docName, docPath) ;
+        uploadDoc(workDocs, organizationId, userEmail, docName, docPath) ;
+        workDocs.close();
     }
 
     // snippet-start:[workdocs.java2.upload_user_doc.main]
@@ -83,7 +94,7 @@ public class UploadUserDocs {
         if (statusValue != 200) {
              System.out.println("Error code uploading: " + statusValue);
         } else {
-             System.out.println("Success uploading document " + docName);
+             System.out.println("Success uploading doc " + docName);
         }
 
         completeUpload(workDocs, docId, versionId);
