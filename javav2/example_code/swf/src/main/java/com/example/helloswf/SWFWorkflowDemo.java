@@ -1,24 +1,15 @@
-//snippet-sourcedescription:[SWFWorkflowDemo.java demonstrates how to register a domain, an activity type, and a workflow type.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[SWFWorkflowDemo.java demonstrates how to register a domain, activity type, and a workflow type.]
+//snippet-keyword:[AWS SDK for Java v2]
+//snippet-service:[Amazon Simple Workflow Service (Amazon SWF)]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Simple Workflow Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[8/4/2020]
+//snippet-sourcedate:[11/06/2020]
 //snippet-sourceauthor:[scmacdon-aws]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.*
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
-// snippet-start:[swf.java2.activity_types.complete]
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 package com.example.helloswf;
 
 // snippet-start:[swf.java2.activity_types.import]
@@ -40,16 +31,16 @@ public class SWFWorkflowDemo {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    HelloTypes <domain><taskList><workflow><workflowVersion><activity><activityVersion> \n\n" +
+                "    SWFWorkflowDemo <domain> <taskList> <workflow> <workflowVersion> <activity> <activityVersion> \n\n" +
                 "Where:\n" +
-                "    domain - The domain to use (i.e., mydomain) \n" +
-                "    taskList - The task list to use (i.e., HelloTasklist)  \n" +
-                "    workflow - The name of the workflow (i.e., myworkflow)\n" +
-                "    workflowVersion - The workflow version \n" +
-                "    activity - The activity to use (i.e., GrayscaleTransform)  \n" +
-                "    activityVersion - The activity version\n";
+                "    domain - the domain to use (for example, mydomain). \n" +
+                "    taskList - the task list to use (for example, HelloTasklist).  \n" +
+                "    workflow - the name of the workflow (for example, myworkflow).\n" +
+                "    workflowVersion - the workflow version. \n" +
+                "    activity - the activity to use (for example, GrayscaleTransform).  \n" +
+                "    activityVersion - the activity version.\n";
 
-        if (args.length < 6) {
+        if (args.length != 6) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -62,11 +53,14 @@ public class SWFWorkflowDemo {
         String activityVersion = args[5];
 
         Region region = Region.US_EAST_1;
-        SwfClient swf = SwfClient.builder().region(region).build();
+        SwfClient swf = SwfClient.builder()
+                .region(region)
+                .build();
 
         registerDomain(swf, domain);
         registerWorkflowType(swf, domain, workflow, workflowVersion, taskList);
         registerActivityType(swf, domain, activity, activityVersion, taskList);
+        swf.close();
     }
 
     // snippet-start:[swf.java2.activity_types.main]
