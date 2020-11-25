@@ -40,6 +40,7 @@ public class ListTextTranslationJobs {
                 .build();
 
         getTranslationJobs(translateClient);
+        translateClient.close();
     }
 
     // snippet-start:[translate.java2._list_jobs.main]
@@ -54,7 +55,7 @@ public class ListTextTranslationJobs {
 
         for (TextTranslationJobProperties prop: props) {
             System.out.println("The job name is: "+prop.jobName());
-            System.out.println("The job ID is: "+prop.jobId());
+            System.out.println("The job id is: "+prop.jobId());
         }
 
     } catch (TranslateException e) {

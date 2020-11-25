@@ -15,7 +15,7 @@ see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-
 
 ## Testing the Amazon WorkDocs Java files
 
-You can test the Java code examples for Amazon WorkDocs by running a test file named **WorkdocsServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for Amazon WorkDocs by running a test file named **WorkdocsTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can execute the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is executed, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -45,7 +45,7 @@ You will see output from the JUnit tests, as shown here.
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
 	[INFO] -------------------------------------------------------
-	[INFO] Running WorkdocsServiceIntegrationTest
+	[INFO] Running WorkdocsTest
 	Test 1 passed
 	Test 2 passed
 	...
