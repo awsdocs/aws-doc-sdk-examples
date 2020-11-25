@@ -12,6 +12,7 @@
 */
 package com.example.helloswf;
 
+// snippet-start:[swf.java2.activity_types.complete]
 // snippet-start:[swf.java2.activity_types.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.swf.SwfClient;
