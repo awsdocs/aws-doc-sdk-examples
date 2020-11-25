@@ -20,7 +20,7 @@ in the AWS SDK for Go Developer Guide.
 This example retrieves when an IAM access key was last used, 
 including the AWS Region and with which service.
 
-`go run AccessKeyLastUsed/AccessKeyLastUsedv2.go -k KeyID`
+`go run AccessKeyLastUsedv2.go -k KeyID`
 
 - _KeyID_ is the ID of the access key.
 
@@ -48,7 +48,7 @@ This example creates a new IAM access key for a user.
 
 This example creates an alias for your IAM account.
 
-`go run CreateAccountAlias/CreateAccountAliasv2.go -a ALIAS`
+`go run CreateAccountAliasv2.go -a ALIAS`
 
 - _ALIAS_ is the alias created for your account.
 
@@ -58,7 +58,7 @@ The unit test accepts a similar value in _config.json_.
 
 This example creates an IAM policy.
 
-`go run CreatePolicy/CreatePolicyv2.go -n POLICY-NAME`
+`go run CreatePolicyv2.go -n POLICY-NAME`
 
 - _POLICY-NAME_ is the name of the policy to create.
 
@@ -89,9 +89,19 @@ The unit test accepts similar values in _config.json_.
 
 This example deletes an alias for your IAM account.
 
-`go run DeleteAccountAlias/DeleteAccountAliasv2.go -a ALIAS`
+`go run DeleteAccountAliasv2.go -a ALIAS`
 
 - _ALIAS_ is the account alias to delete.
+
+The unit test accepts a similar value in _config.json_.
+
+### DeleteServerCert/DeleteServerCertv2.go
+
+This example deletes an IAM server certificate.
+
+`go run DeleteServerCertv2.go -c CERTIFICATE-NAME`
+
+- _CERTIFICATE-NAME_ is the name of the server certificate to delete.
 
 The unit test accepts a similar value in _config.json_.
 
@@ -109,7 +119,7 @@ The unit test accepts a similar value in _config.json_.
 
 This example detaches an Amazon DynamoDB full-access policy from an IAM role.
 
-`go run DetachUserPolicy/DetachUserPolicyv2.go -r ROLE-NAME`
+`go run DetachUserPolicyv2.go -r ROLE-NAME`
 
 - _ROLE-NAME_ is the name of the role from which the policy is detached.
 
@@ -119,9 +129,19 @@ The unit test accepts a similar value in _config.json_.
 
 This example retrieves the description of the IAM policy with the specified ARN.
 
-`go run GetPolicy/GetPolicyv2.go -p POLICY-ARN`
+`go run GetPolicyv2.go -p POLICY-ARN`
 
 - _POLICY-ARN_ is the ARN of the policy.
+
+The unit test accepts a similar value in _config.json_.
+
+### GetServerCert/GetServerCertv2.go
+
+This example retrieves an IAM server certificate.
+
+`go run GetServerCertv2.go -c CERTIFICATE`
+
+- _CERTIFICATE_ is the name of the server certificate.
 
 The unit test accepts a similar value in _config.json_.
 
@@ -141,7 +161,7 @@ The unit test accepts similar values in _config.json_.
 
 This example retrieves the aliases for your IAM account.
 
-`go run ListAccountAliases/ListAccountAliasesv2.go [-m MAX-ITEMS]`
+`go run ListAccountAliasesv2.go [-m MAX-ITEMS]`
 
 - _MAX-ITEMS_ is the maximum number of aliases to show.
   If this value is less than zero, the code example sets it to 10.
@@ -158,6 +178,12 @@ This example lists the number IAM users and those who have administrative privil
 
 The unit test accepts a similar value in _config.json_.
 
+### ListServerCerts/ListServerCertsv2.go
+
+This example retrieves the server certificates.
+
+`go run ListServerCertsv2.go`
+
 ### ListUsers/ListUsersv2.go
 
 This example retrieves a list of your IAM users.
@@ -170,12 +196,23 @@ This example retrieves a list of your IAM users.
   
 ### UpdateAccessKey/UpdateAccessKeyv2.go
 
-This example 
+This example sets the status of an IAM access key to active.
 
 `go run UpdateAccessKeyv2.go -k KeyID -u USER-NAME`
 
 - _KEYID_ is the access key to activate.
 - _USER-NAME_ is the name of the user activating the key.
+
+The unit test accepts similar values in _config.json_.
+
+### UpdateServerCert/UpdateServerCertv2.go
+
+This example renames an IAM server certificate.
+
+`go run UpdateServerCert/UpdateServerCertv2.go -c CERTIFICATE-NAME -n NEW-NAME`
+
+- _CERTIFICATE-NAME_ is the original name of the server certificate.
+- _NEW-NAME_ is the new name of the server certificate.
 
 The unit test accepts similar values in _config.json_.
   

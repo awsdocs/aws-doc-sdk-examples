@@ -26,7 +26,7 @@ type IAMDeleteUserAPI interface {
 //     api is the interface that defines the method call.
 //     input defines the input arguments to the service call.
 // Output:
-//     If success, a DeleteUserOutput object containing the result of the service call and nil.
+//     If successful, a DeleteUserOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to DeleteUser.
 func RemoveUser(c context.Context, api IAMDeleteUserAPI, input *iam.DeleteUserInput) (*iam.DeleteUserOutput, error) {
     result, err := api.DeleteUser(c, input)

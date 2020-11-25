@@ -26,7 +26,7 @@ type IAMUpdateUserAPI interface {
 //     api is the interface that defines the method call.
 //     input defines the input arguments to the service call.
 // Output:
-//     If success, a UpdateUserOutput object containing the result of the service call and nil.
+//     If successful, a UpdateUserOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to UpdateUser.
 func RenameUser(c context.Context, api IAMUpdateUserAPI, input *iam.UpdateUserInput) (*iam.UpdateUserOutput, error) {
     result, err := api.UpdateUser(c, input)

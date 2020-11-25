@@ -26,7 +26,7 @@ type IAMDeleteAccessKeyAPI interface {
 //     api is the interface that defines the method call.
 //     input defines the input arguments to the service call.
 // Output:
-//     If success, a DeleteAccessKeyOutput object containing the result of the service call and nil.
+//     If successful, a DeleteAccessKeyOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to DeleteAccessKey.
 func RemoveAccessKey(c context.Context, api IAMDeleteAccessKeyAPI, input *iam.DeleteAccessKeyInput) (*iam.DeleteAccessKeyOutput, error) {
     results, err := api.DeleteAccessKey(c, input)

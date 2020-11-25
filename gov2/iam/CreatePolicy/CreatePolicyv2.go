@@ -73,7 +73,7 @@ func CreatePolicyDoc() ([]byte, error) {
 //     api is the interface that defines the method call.
 //     input defines the input arguments to the service call.
 // Output:
-//     If success, a CreatePolicyOutput object containing the result of the service call and nil.
+//     If successful, a CreatePolicyOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to CreatePolicy.
 func MakePolicy(c context.Context, api IAMCreatePolicyAPI, input *iam.CreatePolicyInput) (*iam.CreatePolicyOutput, error) {
     result, err := api.CreatePolicy(c, input)

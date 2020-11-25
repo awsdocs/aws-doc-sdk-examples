@@ -26,7 +26,7 @@ type IAMDetachRolePolicyAPI interface {
 //     api is the interface that defines the method call.
 //     input defines the input arguments to the service call.
 // Output:
-//     If success, a DetachRolePolicyOutput object containing the result of the service call and nil.
+//     If successful, a DetachRolePolicyOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to DetachRolePolicy.
 func DetachDynamoFullPolicy(c context.Context, api IAMDetachRolePolicyAPI, input *iam.DetachRolePolicyInput) (*iam.DetachRolePolicyOutput, error) {
     result, err := api.DetachRolePolicy(c, input)

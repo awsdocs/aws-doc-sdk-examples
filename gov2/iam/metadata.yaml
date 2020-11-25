@@ -47,6 +47,12 @@ files:
   - path: DeleteAccessKey/DeleteAccessKeyv2_test.go
     services:
       - iam      
+  - path: DeleteServerCert/DeleteServerCertv2.go
+    services:
+      - iam      
+  - path: DeleteServerCert/DeleteServerCertv2_test.go
+    services:
+      - iam      
   - path: DeleteUser/DeleteUserv2.go
     services:
       - iam      
@@ -57,6 +63,12 @@ files:
     services:
       - iam      
   - path: DetachUserPolicy/DetachUserPolicyv2_test.go
+    services:
+      - iam      
+  - path: GetServerCert/GetServerCertv2.go
+    services:
+      - iam      
+  - path: GetServerCert/GetServerCertv2_test.go
     services:
       - iam      
   - path: GetPolicy/GetPolicyv2.go
@@ -83,6 +95,12 @@ files:
   - path: ListAccountAliases/ListAccountAliasesv2_test.go
     services:
       - iam
+  - path: ListServerCerts/ListServerCertsv2.go
+    services:
+      - iam      
+  - path: ListServerCerts/ListServerCertsv2_test.go
+    services:
+      - iam      
   - path: ListUsers/ListUsersv2.go
     services:
       - iam      
@@ -93,6 +111,12 @@ files:
     services:
       - iam
   - path: UpdateAccessKey/UpdateAccessKeyv2_test.go
+    services:
+      - iam
+  - path: UpdateServerCert/UpdateServerCertv2.go
+    services:
+      - iam
+  - path: UpdateServerCert/UpdateServerCertv2_test.go
     services:
       - iam
   - path: UpdateUser/UpdateUserv2.go

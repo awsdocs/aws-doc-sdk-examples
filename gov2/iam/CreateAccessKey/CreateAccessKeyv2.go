@@ -26,7 +26,7 @@ type IAMCreateAccessKeyAPI interface {
 //     api is the interface that defines the method call.
 //     input defines the input arguments to the service call.
 // Output:
-//     If success, a CreateAccessKeyOutput object containing the result of the service call and nil.
+//     If successful, a CreateAccessKeyOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to CreateAccessKey.
 func MakeAccessKey(c context.Context, api IAMCreateAccessKeyAPI, input *iam.CreateAccessKeyInput) (*iam.CreateAccessKeyOutput, error) {
     result, err := api.CreateAccessKey(c, input)

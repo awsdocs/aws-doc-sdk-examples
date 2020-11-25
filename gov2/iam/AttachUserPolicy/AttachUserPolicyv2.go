@@ -26,7 +26,7 @@ type IAMAttachRolePolicyAPI interface {
 //     api is the interface that defines the method call.
 //     input defines the input arguments to the service call.
 // Output:
-//     If success, an AttachRolePolicyOutput object containing the result of the service call and nil.
+//     If successful, an AttachRolePolicyOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to AttachRolePolicy.
 func AttachDynamoFullPolicy(c context.Context, api IAMAttachRolePolicyAPI, input *iam.AttachRolePolicyInput) (*iam.AttachRolePolicyOutput, error) {
 	result, err := api.AttachRolePolicy(c, input)

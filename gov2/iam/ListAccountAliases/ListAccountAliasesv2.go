@@ -27,7 +27,7 @@ type IAMListAccountAliasesAPI interface {
 //     api is the interface that defines the method call.
 //     input defines the input arguments to the service call.
 // Output:
-//     If success, a ListAccountAliasesOutput object containing the result of the service call and nil.
+//     If successful, a ListAccountAliasesOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to ListAccountAliases.
 func GetAccountAliases(c context.Context, api IAMListAccountAliasesAPI, input *iam.ListAccountAliasesInput) (*iam.ListAccountAliasesOutput, error) {
     result, err := api.ListAccountAliases(c, input)
