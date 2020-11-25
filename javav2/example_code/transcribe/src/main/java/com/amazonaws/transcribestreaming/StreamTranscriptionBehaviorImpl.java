@@ -18,6 +18,7 @@ import software.amazon.awssdk.services.transcribestreaming.model.TranscriptEvent
 import software.amazon.awssdk.services.transcribestreaming.model.TranscriptResultStream;
 import java.util.List;
 
+// snippet-start:[transcribe.java-streaming-client-behavior-imp]
 public class StreamTranscriptionBehaviorImpl implements StreamTranscriptionBehavior {
 
 
