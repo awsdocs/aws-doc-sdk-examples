@@ -18,6 +18,12 @@ files:
   - path: src/main/java/com/example/s3/DeleteWebsiteConfiguration.java
     services:
       - s3
+  - path: src/main/java/com/example/s3/GeneratePresignedUrlMetadata.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/PutObjectMetadata.java
+    services:
+      - s3
   - path: src/main/java/com/example/s3/GeneratePresignedUrlAndUploadObject.java
     services:
       - s3
@@ -74,4 +80,4 @@ files:
       - s3
   - path: src/test/java/AmazonS3Test.java
     services:
-      - s3     
+      - s3 

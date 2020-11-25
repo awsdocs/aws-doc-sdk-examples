@@ -1,27 +1,16 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[ListIdentities.java demonstrates how to obtain a list of identities for your AWS account.]
-// snippet-service:[ses]
-// snippet-keyword:[Java]
+//snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[Amazon Simple Email Service]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-10-02]
+// snippet-sourcedate:[11/06/2020]
 // snippet-sourceauthor:[AWS-scmacdon]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.ses;
 
@@ -30,7 +19,6 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ses.SesClient;
 import software.amazon.awssdk.services.ses.model.ListIdentitiesResponse;
 import software.amazon.awssdk.services.ses.model.SesException;
-
 import java.io.IOException;
 import java.util.List;
 // snippet-end:[ses.java2.identities.import]

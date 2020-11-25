@@ -12,6 +12,6 @@ files:
   - path: src/main/java/com/example/workdocs/UploadUserDocs.java
     services:
       - workdocs
-  - path: src/test/java/WorkdocsServiceIntegrationTest.java
+  - path: src/test/java/WorkdocsTest.java
     services:
       - workdocs

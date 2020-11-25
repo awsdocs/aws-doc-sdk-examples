@@ -1,26 +1,16 @@
 //snippet-sourcedescription:[CreateJob.java demonstrates how to create AWS Elemental MediaConvert jobs.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaConvert]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[7/30/2020]
+//snippet-sourcedate:[11/05/2020]
 //snippet-sourceauthor:[smacdon - AWS ]
-// snippet-start:[mediaconvert.java.createjob.complete]
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at:
- *
- *    http://aws.amazon.com/apache2.0
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
- * OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and
- * limitations under the License.
- */
 
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+// snippet-start:[mediaconvert.java.createjob.complete]
 package com.example.mediaconvert;
 
 // snippet-start:[mediaconvert.java.createjob.import]
@@ -123,34 +113,36 @@ import software.amazon.awssdk.services.mediaconvert.model.HlsSettings;
 import software.amazon.awssdk.services.mediaconvert.model.M3u8Scte35Source;
 // snippet-end:[mediaconvert.java.createjob.import]
 
+/**
+ * Create a MediaConvert job. Must supply MediaConvert access role Amazon Resource Name (ARN), and a
+ * valid video input file via Amazon S3 URL.
+ */
 public class CreateJob {
 
-    /**
-     * Create a MediaConvert job. Must supply a MediaConvert access role Amazon Resource Name (ARN), and a
-     * valid video input file via an Amazon S3 URL.
-     */
-    public static void main(String[] args) {
+   public static void main(String[] args) {
 
-        final String USAGE = "\n" + "Usage:\n" + "    CreateJob <role arn> <S3 input file>\n\n"
-                + "Where:\n" + "    " +
-                "      --roleArn - The MediaConvert role ARN.\n"
-                + "    --inputFile - The input file S3 URL.\n\n" ;
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    CreateJob <mcRoleARN> <fileInput> \n\n" +
+                "Where:\n" +
+                "    mcRoleARN - the MediaConvert Role ARN. \n"+
+                "    fileInput -  the URL of an Amazon S3 bucket where the input file is located. \n";
 
-        if (args.length < 2) {
+        if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
         String mcRoleARN = args[0];
         String fileInput = args[1];
-
         Region region = Region.US_WEST_2;
         MediaConvertClient mc = MediaConvertClient.builder()
                 .region(region)
                 .build();
 
        String id = createMediaJob(mc, mcRoleARN, fileInput);
-       System.out.println("MediaConvert job created. Job ID = " +id );
+       System.out.println("MediaConvert job created. Job Id = " +id );
+       mc.close();
     }
 
     public static String createMediaJob(MediaConvertClient mc, String mcRoleARN, String fileInput) {
@@ -171,7 +163,7 @@ public class CreateJob {
             }
             String endpointURL = res.endpoints().get(0).url();
             System.out.println("MediaConvert service URL: " + endpointURL);
-            System.out.println("MediaConvert role ARN: " + mcRoleARN);
+            System.out.println("MediaConvert role arn: " + mcRoleARN);
             System.out.println("MediaConvert input file: " + fileInput);
             System.out.println("MediaConvert output path: " + s3path);
             // snippet-end:[mediaconvert.java.createjob.getendpointurl]
@@ -181,11 +173,11 @@ public class CreateJob {
                     .endpointOverride(URI.create(endpointURL))
                     .build();
 
-            // output group preset HLS low profile
+            // output group Preset HLS low profile
             Output hlsLow = createOutput("hls_low", "_low", "_$dt$", 750000, 7, 1920, 1080, 640);
-            // output group preset HLS media profile
+            // output group Preset HLS media profile
             Output hlsMedium = createOutput("hls_medium", "_medium", "_$dt$", 1200000, 7, 1920, 1080, 1280);
-            // output group preset HLS high profile
+            // output group Preset HLS high profole
             Output hlsHigh = createOutput("hls_high", "_high", "_$dt$", 3500000, 8, 1920, 1080, 1920);
             // snippet-start:[mediaconvert.java.createjob.create_hls_output]
             OutputGroup appleHLS = OutputGroup.builder().name("Apple HLS").customName("Example")

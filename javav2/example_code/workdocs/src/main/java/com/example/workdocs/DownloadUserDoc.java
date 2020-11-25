@@ -1,10 +1,16 @@
 //snippet-sourcedescription:[DownloadUserDoc.java demonstrates how to download a document from Amazon WorkDocs.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon WorkDocs]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[6/30/2020]
+//snippet-sourcedate:[11/06/2020]
 //snippet-sourceauthor:[scmacdon - aws]
+
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 // snippet-start:[workdocs.java2.download_user_docs.complete]
 
 package com.example.workdocs;
@@ -40,39 +46,48 @@ import software.amazon.awssdk.services.workdocs.model.DocumentSourceType;
 public class DownloadUserDoc {
 
     public static void main(String[] args) throws Exception {
-        final String USAGE = "\n" +
-                "To run this example, supply your organization ID, a user email, the document name, and path to save the document to\n" +
-                "\n" +
-                "Ex: download_user_doc <organizationId> <useremail><workdocsName><saveDocFullName>\n";
 
-        if (args.length < 4) {
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    DownloadUserDoc <organizationId> <userEmail> <workdocsName> <saveDocFullName> \n\n" +
+                "Where:\n" +
+                "    organizationId - your organization Id value. You can obtain this value from the AWS Management Console. \n"+
+                "    userEmail - a user email. \n"+
+                "    workdocsName - the name of the document (for example, book.pdf). \n"+
+                "    saveDocFullName - the path to save document (for example, C:/AWS/book2.pdf). \n";
+
+        if (args.length != 4) {
               System.out.println(USAGE);
               System.exit(1);
         }
 
-        String orgId = args[0];
+        String organizationId = args[0];
         String userEmail = args[1];
         String workdocsName = args[2];
         String saveDocFullName = args[3];
 
-        // Create a service client
         Region region = Region.US_WEST_2;
         WorkDocsClient workDocs = WorkDocsClient.builder()
                 .region(region)
                 .build();
 
-        downloadDoc(workDocs, orgId, userEmail, workdocsName, saveDocFullName );
+        downloadDoc(workDocs, organizationId, userEmail, workdocsName, saveDocFullName );
+        workDocs.close();
     }
 
     // snippet-start:[workdocs.java2.download_user_docs.main]
-    public static void downloadDoc(WorkDocsClient workDocs, String orgId, String userEmail, String workdocsName, String saveDocFullName ){
+    public static void downloadDoc(WorkDocsClient workDocs,
+                                   String orgId,
+                                   String userEmail,
+                                   String workdocsName,
+                                   String saveDocFullName ){
 
         try {
 
              Map<String, String> map = getDocInfo(workDocs, orgId, userEmail, workdocsName);
 
             if (map.isEmpty()) {
-                System.out.println("Could not get information about the document " + workdocsName);
+                System.out.println("Could not get info about workdoc " + workdocsName);
                 return;
             }
 
@@ -80,7 +95,7 @@ public class DownloadUserDoc {
             String versionId = map.get("version_id");
 
             if (docId.isEmpty() || versionId.isEmpty()) {
-                System.out.println("Could not get information about the document " + workdocsName);
+                System.out.println("Could not get info about workdoc " + workdocsName);
                 return;
             }
 
@@ -133,7 +148,7 @@ public class DownloadUserDoc {
             }
 
             for (User wdUser : wdUsers) {
-                // DescribeFolderContentsRequest dfc_request = new DescribeFolderContentsRequest();
+                //DescribeFolderContentsRequest dfc_request = new DescribeFolderContentsRequest();
                 userFolder = wdUser.rootFolderId();
             }
 
@@ -194,7 +209,7 @@ public class DownloadUserDoc {
             Map<DocumentSourceType,String> sourceDoc = response.metadata().source();
             Map.Entry<DocumentSourceType,String> entry = sourceDoc.entrySet().iterator().next();
             DocumentSourceType key = entry.getKey();
-            String docUrl = entry.getValue(); // Stores the URL of this document
+            String docUrl = entry.getValue(); // stores the URL of this document
 
             return docUrl;
 

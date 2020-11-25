@@ -1,11 +1,18 @@
-//snippet-sourcedescription:[ListUserDocs.java demonstrates how to list user documents for the current user.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[ListUserDocs.java demonstrates how to list user docs for the current user.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon WorkDocs]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[6/30/2020]
+//snippet-sourcedate:[11/06/2020]
 //snippet-sourceauthor:[scmacdon - aws]
+
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 // snippet-start:[workdocs.java2.list_user_docs.complete]
+
 package com.example.workdocs;
 
 // snippet-start:[workdocs.java2.list_user_docs.import]
@@ -25,16 +32,17 @@ import software.amazon.awssdk.services.workdocs.model.User;
 
 public class ListUserDocs {
 
-
     public static void main(String[] args) throws Exception {
-        // Based on Amazon WorkDocs Developer Guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/connect-workdocs-role.html
+        // Based on WorkDocs dev guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/connect-workdocs-role.html
 
         final String USAGE = "\n" +
-                "To run this example, supply your organization ID and a user email\n" +
-                "\n" +
-                "Ex: list_user_docs <organizationId> <useremail>\n";
+                "Usage:\n" +
+                "    ListUserDocs <organizationId> <userEmail>  \n\n" +
+                "Where:\n" +
+                "    organizationId - your organization Id value. You can obtain this value from the AWS Management Console. \n"+
+                "    userEmail - a user email. \n" ;
 
-        if (args.length < 2) {
+        if (args.length != 2) {
              System.out.println(USAGE);
              System.exit(1);
          }
@@ -42,13 +50,13 @@ public class ListUserDocs {
         String orgId = args[0];
         String userEmail = args[1];
 
-        // Create a service client
         Region region = Region.US_WEST_2;
         WorkDocsClient workDocs = WorkDocsClient.builder()
                 .region(region)
                 .build();
 
         listDocs(workDocs, orgId, userEmail );
+        workDocs.close();
     }
 
     // snippet-start:[workdocs.java2.list_user_docs.main]
@@ -75,7 +83,7 @@ public class ListUserDocs {
             System.out.println("Name:          " + md.name());
             System.out.println("Size (bytes):  " + md.size());
             System.out.println("Last modified: " + md.modifiedTimestamp());
-            System.out.println("Document ID:        " + doc.id());
+            System.out.println("Doc ID:        " + doc.id());
             System.out.println("");
         }
 

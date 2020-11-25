@@ -1,7 +1,7 @@
 //snippet-sourcedescription:[DeletePolicy.java demonstrates how to delete a fixed policy with a provided policy name.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-service:[AWS IAM]
+//snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[11/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
@@ -35,10 +35,7 @@ public class DeletePolicy {
             System.exit(1);
         }
 
-        // Read the command line argument
         String policyARN = args[0];
-
-        // Create the IamClient object
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
                 .region(region)

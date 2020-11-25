@@ -1,25 +1,16 @@
-//snippet-sourcedescription:[WorkflowStarter.java demonstrates how to start a workflow.]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-keyword:[Code Sample]
+//snippet-sourcedescription:[WorkflowStarter.java demonstrates how to how to start an Amazon Simple Workflow Service (Amazon SWF) workflow.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon Simple Workflow Service]
+//snippet-keyword:[Code Sample]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[8/4/2020]
+//snippet-sourcedate:[11/06/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.*
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
-// snippet-start:[swf.java2.start_workflow.complete]
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 package com.example.helloswf;
 // snippet-start:[swf.java2.start_workflow.import]
 import software.amazon.awssdk.regions.Region;
@@ -40,10 +31,10 @@ public class WorkflowStarter {
                 "Usage:\n" +
                 "    WorkflowStarter <domain><workflowInput><workflow><workflowVersion> \n\n" +
                 "Where:\n" +
-                "    domain - The domain to use (i.e., mydomain) \n" +
-                "    workflowInput - The input to the workflow (i.e., ProcessFile)  \n" +
-                "    workflow - the name of the workflow (i.e., myworkflow)\n" +
-                "    workflowVersion - The workflow version \n" ;
+                "    domain - the domain to use (ie, mydomain). \n" +
+                "    workflowInput - the input to the workflow (ie, ProcessFile).  \n" +
+                "    workflow - the name of the workflow (ie, myworkflow).\n" +
+                "    workflowVersion - the workflow version. \n" ;
 
         if (args.length < 4) {
             System.out.println(USAGE);
@@ -65,6 +56,7 @@ public class WorkflowStarter {
                 "' with input '" + workflowInput + "'.");
 
         startWorkflow(swf, workflowInput, domain, workflow,workflowVersion) ;
+        swf.close();
     }
 
     // snippet-start:[swf.java2.start_workflow.main]
@@ -88,7 +80,7 @@ public class WorkflowStarter {
                     .executionStartToCloseTimeout("90")
                     .build());
 
-            System.out.println("Workflow execution started with the run ID '" +
+            System.out.println("Workflow execution started with the run id '" +
                     run.runId() + "'.");
 
         } catch (SwfException e){
@@ -98,4 +90,3 @@ public class WorkflowStarter {
     }
 }
 // snippet-end:[swf.java2.start_workflow.main]
-// snippet-end:[swf.java2.start_workflow.complete]

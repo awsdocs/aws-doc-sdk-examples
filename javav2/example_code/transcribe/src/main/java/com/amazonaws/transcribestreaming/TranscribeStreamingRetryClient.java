@@ -1,31 +1,15 @@
-// snippet-sourcedescription:[RetryClient.java is an example that manages the connection to Amazon Transcribe and retries sending data when there are errors on the connection.]
-// snippet-service:[transcribe]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon Transcribe]
+// snippet-sourcedescription:[RetryClient.java is a client that manages the connection to Amazon Transcribe and retries sending data when there are errors on the connection.]
+// snippet-keyword:[AWS SDK for Java v2]
+//snippet-keyword:[Amazon Transcribe]
 // snippet-keyword:[Code Sample]
-// snippet-keyword:[TranscribeStreamingRetryClient]
-// snippet-keyword:[TranscribeStreamingAsyncClient]
-// snippet-sourcetype:[snippet]
-// snippet-sourcedate:[2019-01-10]
-// snippet-sourceauthor:[AWS]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[11/06/2020]
+// snippet-sourceauthor:[scmacdon - AWS]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
-
-// snippet-start:[transcribe.java-streaming-retry-client]
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 package com.amazonaws.transcribestreaming;
 
 import org.reactivestreams.Publisher;
@@ -51,6 +35,7 @@ import java.util.concurrent.CompletableFuture;
  * Build a client wrapper around the Amazon Transcribe client to retry
  * on an exception that can be retried.
  */
+// snippet-start:[transcribe.java-streaming-retry-client]
 public class TranscribeStreamingRetryClient {
 
     private static final int DEFAULT_MAX_RETRIES = 10;
@@ -62,7 +47,7 @@ public class TranscribeStreamingRetryClient {
     private int sleepTime = DEFAULT_MAX_SLEEP_TIME_MILLS;
 
     /**
-     * Create a TranscribeStreamingRetryClient.
+     * Create a TranscribeStreamingRetryClient with given credential and configuration
      */
     public TranscribeStreamingRetryClient(AwsCredentialsProvider creds,
                                           String endpoint, Region region) throws URISyntaxException {
@@ -78,7 +63,7 @@ public class TranscribeStreamingRetryClient {
     }
 
     /**
-     * Initiate TranscribeStreamingRetryClient with TranscribeStreamingAsyncClient.
+     * Initiate TranscribeStreamingRetryClient with TranscribeStreamingAsyncClient
      */
 
     public TranscribeStreamingRetryClient(TranscribeStreamingAsyncClient client) {
@@ -86,28 +71,28 @@ public class TranscribeStreamingRetryClient {
     }
 
     /**
-     * Get Max retries.
+     * Get Max retries
      */
     public int getMaxRetries() {
         return maxRetries;
     }
 
     /**
-     * Set Max retries.
+     * Set Max retries
      */
     public void setMaxRetries(int maxRetries) {
         this.maxRetries = maxRetries;
     }
 
     /**
-     * Get sleep time.
+     * Get sleep time
      */
     public int getSleepTime() {
         return sleepTime;
     }
 
     /**
-     * Set sleep time between retries.
+     * Set sleep time between retries
      */
     public void setSleepTime(int sleepTime) {
         this.sleepTime = sleepTime;
@@ -177,7 +162,7 @@ public class TranscribeStreamingRetryClient {
 
     /**
      * StartStreamTranscriptionResponseHandler implements subscriber of transcript stream
-     * Output is printed to standard output.
+     * Output is printed to standard output
      */
     private StartStreamTranscriptionResponseHandler getResponseHandler(
             StreamTranscriptionBehavior transcriptionBehavior) {
