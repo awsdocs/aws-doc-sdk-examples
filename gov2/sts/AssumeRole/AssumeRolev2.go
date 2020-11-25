@@ -26,7 +26,7 @@ type STSAssumeRoleAPI interface {
 //     api is the interface that defines the method call.
 //     input defines the input arguments to the service call.
 // Output:
-//     If success, a AssumeRoleOutput object containing the result of the service call and nil.
+//     If successful, an AssumeRoleOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to AssumeRole.
 func TakeRole(c context.Context, api STSAssumeRoleAPI, input *sts.AssumeRoleInput) (*sts.AssumeRoleOutput, error) {
 	result, err := api.AssumeRole(c, input)
