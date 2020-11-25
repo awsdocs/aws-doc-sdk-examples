@@ -53,7 +53,7 @@ files:
   - path: ListQueues/ListQueuesv2_test.go
     services:
       - sqs
-- path: ReceiveLPMessage/ReceiveLPMessagev2.go
+  - path: ReceiveLPMessage/ReceiveLPMessagev2.go
     services:
       - sqs
   - path: ReceiveLPMessage/ReceiveLPMessagev2_test.go

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrates how to perform several
+These examples demonstrate how to perform several
 Amazon Simple Queue Service (Amazon SQS)
 operations using version 2 of the AWS SDK for Go.
 
@@ -22,7 +22,7 @@ This example sets the visibility timeout for a message in an Amazon SQS queue.
 `go run ChangeMsgVisibilityv2.go -q QUEUE-NAME -h RECEIPT-HANDLE -v VISIBILITY`
 
 - _QUEUE-NAME_ is the name of the queue.
-- _RECEIPT-HANDLE_ is tThe name of the queue.
+- _RECEIPT-HANDLE_ is the receipt handle of the message.
 - _VISIBILITY_ is the duration, in seconds, that the message is not visible to other consumers.
   The example ensures the value is between 0 and 12 hours;
   the default is 30 seconds.
@@ -94,7 +94,7 @@ This example deletes an Amazon SQS queue.
 
 `go run DeleteQueuev2.go -q QUEUE-NAME`
 
-- _QUEUE-NAME_ is the name of the queue from which the message is deleted.
+- _QUEUE-NAME_ is the name of the queue to delete.
 
 The unit test accepts a similar value in _config.json_.
 

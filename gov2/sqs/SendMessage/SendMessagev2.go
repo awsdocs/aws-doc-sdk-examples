@@ -102,7 +102,7 @@ func main() {
                 StringValue: aws.String("6"),
             },
         },
-        MessageBody: aws.String("Information about current NY Times fiction bestseller for week of 12/11/2016."),
+        MessageBody: aws.String("Information about the NY Times fiction bestseller for the week of 12/11/2016."),
         QueueUrl:    queueURL,
     }
 

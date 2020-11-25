@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX - License - Identifier: Apache - 2.0
 package main
 
 import (
@@ -28,7 +30,7 @@ func (dt SQSListQueuesImpl) ListQueues(ctx context.Context,
     return output, nil
 }
 
-func TestMETHOD(t *testing.T) {
+func TestListQueues(t *testing.T) {
     thisTime := time.Now()
     nowString := thisTime.Format("2006-01-02 15:04:05 Monday")
     t.Log("Starting unit test at " + nowString)

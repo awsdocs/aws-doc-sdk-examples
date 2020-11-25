@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX - License - Identifier: Apache - 2.0
 package main
 
 import (
@@ -18,16 +20,6 @@ type SQSCreateQueueImpl struct{}
 func (dt SQSCreateQueueImpl) CreateQueue(ctx context.Context,
     params *sqs.CreateQueueInput,
     optFns ...func(*sqs.Options)) (*sqs.CreateQueueOutput, error) {
-
-    /*
-        buckets := make([]*types.Bucket, 2)
-        buckets[0] = &types.Bucket{Name: aws.String("bucket1")}
-        buckets[1] = &types.Bucket{Name: aws.String("bucket2")}
-
-        output := &s3.ListBucketsOutput{
-            Buckets: buckets,
-        }
-    */
 
     output := &sqs.CreateQueueOutput{
         QueueUrl: aws.String("aws-docs-example-queue-url"),

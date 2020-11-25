@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX - License - Identifier: Apache - 2.0
 package main
 
 import (
@@ -48,7 +50,7 @@ func populateConfiguration() error {
     }
 
     if globalConfig.QueueName == "" {
-        msg := "You musts supply a value for QueueName in " + configFileName
+        msg := "You must supply a value for QueueName in " + configFileName
         return errors.New(msg)
     }
 

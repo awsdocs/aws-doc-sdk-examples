@@ -14,7 +14,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/sqs/types"
 )
 
-// SQSReceiveMessageAPI defines the interface for the METHOD function.
+// SQSReceiveMessageAPI defines the interface for the GetQueueUrl function.
 // We use this interface to test the function using a mocked service.
 type SQSReceiveMessageAPI interface {
 	GetQueueUrl(ctx context.Context,
