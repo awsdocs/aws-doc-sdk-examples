@@ -35,6 +35,7 @@ import java.util.concurrent.CompletableFuture;
  * Build a client wrapper around the Amazon Transcribe client to retry
  * on an exception that can be retried.
  */
+// snippet-start:[transcribe.java-streaming-retry-client]
 public class TranscribeStreamingRetryClient {
 
     private static final int DEFAULT_MAX_RETRIES = 10;
