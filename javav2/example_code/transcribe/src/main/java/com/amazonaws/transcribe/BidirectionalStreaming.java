@@ -10,7 +10,7 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-
+//snippet-start:[transcribe.java2.bidir_streaming.complete]
 package com.amazonaws.transcribe;
 
 //snippet-start:[transcribe.java2.bidir_streaming.import]
@@ -83,3 +83,4 @@ public class BidirectionalStreaming {
         return dataLine;
     }
 }
+//snippet-end:[transcribe.java2.bidir_streaming.complete]
