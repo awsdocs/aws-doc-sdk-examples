@@ -121,6 +121,25 @@ Management (IAM) resources. Learn to accomplish the following tasks:
 * Create and manage IAM roles, including how to attach and detach policies.
 * Create and manage IAM users, including how to attach a policy to a user.
 
+### [Amazon Kinesis Data Streams and Data Analytics examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/kinesis/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Kinesis and version 2 of
+the Amazon Kinesis Data Analytics API to create an application that reads data from
+an input stream, uses SQL code to transform the data, and writes it to an output
+stream.
+
+* Create and manage Kinesis streams.
+* Create and manage Kinesis Data Analytics applications.
+* Create an AWS Identity and Access Management (IAM) role and policy that lets 
+an application read from an input stream and write to an output stream.
+* Add input and output streams to an application.
+* Upload SQL code that runs in an application and transforms data from an input
+stream to data in an output stream.
+* Run a data generator that puts records into an input stream.
+* Read transformed records from an output stream.
+
 ### [AWS Lambda examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/lambda/boto_client_examples/README.md)
 
 #### Purpose
