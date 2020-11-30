@@ -11,6 +11,7 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
+//snippet-start:[transcribe.java2.bidir_streaming_audiopublisher.complete]
 package com.amazonaws.transcribe;
 
 //snippet-start:[transcribe.java2.bidir_streaming_audiopublisher.import]
@@ -116,3 +117,4 @@ public class AudioStreamPublisher implements Publisher<AudioStream> {
     }
 }
 //snippet-end:[transcribe.java2.bidir_streaming_audiopublisher.class]
+//snippet-end:[transcribe.java2.bidir_streaming_audiopublisher.complete]

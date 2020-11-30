@@ -16,6 +16,8 @@ from test_tools.ec2_stubber import Ec2Stubber
 from test_tools.emr_stubber import EmrStubber
 from test_tools.eventbridge_stubber import EventBridgeStubber
 from test_tools.iam_stubber import IamStubber
+from test_tools.kinesis_stubber import KinesisStubber
+from test_tools.kinesis_analytics_v2_stubber import KinesisAnalyticsV2Stubber
 from test_tools.lambda_stubber import LambdaStubber
 from test_tools.organizations_stubber import OrganizationsStubber
 from test_tools.pinpoint_stubber import PinpointStubber
@@ -55,6 +57,10 @@ def stubber_factory(service_name):
         return EventBridgeStubber
     elif service_name == 'iam':
         return IamStubber
+    elif service_name == 'kinesis':
+        return KinesisStubber
+    elif service_name == 'kinesisanalyticsv2':
+        return KinesisAnalyticsV2Stubber
     elif service_name == 'lambda':
         return LambdaStubber
     elif service_name == 'organizations':
