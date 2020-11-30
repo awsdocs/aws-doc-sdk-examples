@@ -7,7 +7,9 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"net/url"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
@@ -53,7 +55,7 @@ func main() {
 	client := s3.NewFromConfig(cfg)
 
 	input := &s3.CopyObjectInput{
-		Bucket:     sourceBucket,
+		Bucket:     aws.String(url.PathEscape(*sourceBucket)),
 		CopySource: destinationBucket,
 		Key:        objectName,
 	}

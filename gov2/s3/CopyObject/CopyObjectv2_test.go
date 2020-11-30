@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"errors"
 	"io/ioutil"
+	"net/url"
 	"testing"
 	"time"
 
@@ -78,7 +79,7 @@ func TestCopyObject(t *testing.T) {
 
 	// Build the request with its input parameters
 	input := s3.CopyObjectInput{
-		CopySource: &globalConfig.SourceBucket,
+		CopySource: aws.String(url.PathEscape(globalConfig.SourceBucket)),
 		Bucket:     &globalConfig.DestinationBucket,
 		Key:        &globalConfig.ObjectKey,
 	}
