@@ -14,8 +14,6 @@ namespace ListObjectsTest
 {
     public class ListObjectsTest
     {
-        // This application uses XUnit and moq to test the CreateBucket Example.
-
         private string _BucketName;
 
         private IAmazonS3 CreateMockS3Client()
@@ -57,7 +55,7 @@ namespace ListObjectsTest
             var response = await client.ListObjectsV2Async(request);
 
             bool gotResult = response != null;
-            Assert.True(gotResult, "Copy operation failed.");
+            Assert.True(gotResult, "List bucket objects failed.");
 
             bool ok = response.HttpStatusCode == HttpStatusCode.OK;
             Assert.True(ok, $"Could NOT list objects in bucket: {_BucketName}.");

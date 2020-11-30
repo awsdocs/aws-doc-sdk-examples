@@ -1,5 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
+
 // snippet-start:[S3.dotnet35.ListObjects]
 
 using Amazon;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ListObjects
 {
-    // The following example will list the objects in an Amazon Simple Storage
+    // The following example lists objects in an Amazon Simple Storage
     // Service (Amazon S3) bucket. It was created using AWS SDK for .NET 3.5
     // and .NET 5.0.
     public class ListObjects
@@ -19,7 +20,6 @@ namespace ListObjects
         private static readonly RegionEndpoint BUCKET_REGION = RegionEndpoint.USWest2;
         private static IAmazonS3 _s3Client;
 
-        // Specify the name of the new bucket
         private const string BUCKET_NAME = "doc-example-bucket";
 
         static void Main()
@@ -54,7 +54,7 @@ namespace ListObjects
             }
             catch (AmazonS3Exception ex)
             {
-                Console.WriteLine($"S3 error occurred. Exception: {ex.ToString()}");
+                Console.WriteLine($"Error listing bucket objects. Exception: {ex.ToString()}");
                 Console.ReadKey();
             }
 
