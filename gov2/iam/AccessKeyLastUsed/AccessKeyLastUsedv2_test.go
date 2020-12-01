@@ -59,7 +59,7 @@ func populateConfiguration() error {
     }
 
     if globalConfig.KeyID == "" {
-        msg := "You musts supply a value for KeyID in " + configFileName
+        msg := "You must supply a value for KeyID in " + configFileName
         return errors.New(msg)
     }
 

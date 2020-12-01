@@ -49,7 +49,7 @@ func populateConfiguration() error {
     }
 
     if globalConfig.Alias == "" {
-        msg := "You musts supply a value for Alias in " + configFileName
+        msg := "You must supply a value for Alias in " + configFileName
         return errors.New(msg)
     }
 

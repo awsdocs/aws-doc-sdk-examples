@@ -45,7 +45,7 @@ func populateConfiguration() error {
     }
 
     if globalConfig.PolicyName == "" {
-        msg := "You musts supply a value for PolicyName in " + configFileName
+        msg := "You must supply a value for PolicyName in " + configFileName
         return errors.New(msg)
     }
 

@@ -51,7 +51,7 @@ func populateConfiguration() error {
 	}
 
 	if globalConfig.RoleName == "" {
-		msg := "You musts supply a value for RoleName in " + configFileName
+		msg := "You must supply a value for RoleName in " + configFileName
 		return errors.New(msg)
 	}
 

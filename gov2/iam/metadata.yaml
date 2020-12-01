@@ -125,7 +125,3 @@ files:
   - path: UpdateUser/UpdateUserv2_test.go
     services:
       - iam
-
-  - path: 
-    services:
-      - iam

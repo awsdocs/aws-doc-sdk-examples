@@ -14,15 +14,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/iam/types"
 )
 
-// Determines whether user
-// Inputs:
-//     c is the context of the method call, which includes the AWS Region.
-//     api is the interface that defines the method call.
-//     input defines the input arguments to the service call.
-// Output:
-//     If successful, a METHODOutput object containing the result of the service call and nil.
-//     Otherwise, nil and an error from the call to METHOD.
-
 func userPolicyHasAdmin(user *types.UserDetail, admin string) bool {
 	for _, policy := range user.UserPolicyList {
 		if *policy.PolicyName == admin {
@@ -33,16 +24,6 @@ func userPolicyHasAdmin(user *types.UserDetail, admin string) bool {
 	return false
 }
 
-// Documentation for func FUNCTION(c context.Context, api SERVICEMETHODAPI, input *SERVICE.METHODInput) (*SERVICE.METHODOutput, error)
-// FUNCTION VERBs an Amazon/AWS SERVICE RESOURCE.
-// Inputs:
-//     c is the context of the method call, which includes the AWS Region.
-//     api is the interface that defines the method call.
-//     input defines the input arguments to the service call.
-// Output:
-//     If success, a METHODOutput object containing the result of the service call and nil.
-//     Otherwise, nil and an error from the call to METHOD.
-
 func attachedUserPolicyHasAdmin(user *types.UserDetail, admin string) bool {
 	for _, policy := range user.AttachedManagedPolicies {
 		if *policy.PolicyName == admin {
@@ -52,16 +33,6 @@ func attachedUserPolicyHasAdmin(user *types.UserDetail, admin string) bool {
 
 	return false
 }
-
-// Documentation for func FUNCTION(c context.Context, api SERVICEMETHODAPI, input *SERVICE.METHODInput) (*SERVICE.METHODOutput, error)
-// FUNCTION VERBs an Amazon/AWS SERVICE RESOURCE.
-// Inputs:
-//     c is the context of the method call, which includes the AWS Region.
-//     api is the interface that defines the method call.
-//     input defines the input arguments to the service call.
-// Output:
-//     If success, a METHODOutput object containing the result of the service call and nil.
-//     Otherwise, nil and an error from the call to METHOD.
 
 func groupPolicyHasAdmin(c context.Context, client *iam.Client, group *types.Group, admin string) (bool, error) {
 	input := &iam.ListGroupPoliciesInput{
@@ -83,16 +54,6 @@ func groupPolicyHasAdmin(c context.Context, client *iam.Client, group *types.Gro
 	return false, nil
 }
 
-// Documentation for func FUNCTION(c context.Context, api SERVICEMETHODAPI, input *SERVICE.METHODInput) (*SERVICE.METHODOutput, error)
-// FUNCTION VERBs an Amazon/AWS SERVICE RESOURCE.
-// Inputs:
-//     c is the context of the method call, which includes the AWS Region.
-//     api is the interface that defines the method call.
-//     input defines the input arguments to the service call.
-// Output:
-//     If success, a METHODOutput object containing the result of the service call and nil.
-//     Otherwise, nil and an error from the call to METHOD.
-
 func attachedGroupPolicyHasAdmin(c context.Context, client *iam.Client, group *types.Group, admin string) (bool, error) {
 	input := &iam.ListAttachedGroupPoliciesInput{
 		GroupName: group.GroupName,
@@ -111,16 +72,6 @@ func attachedGroupPolicyHasAdmin(c context.Context, client *iam.Client, group *t
 
 	return false, nil
 }
-
-// Documentation for func FUNCTION(c context.Context, api SERVICEMETHODAPI, input *SERVICE.METHODInput) (*SERVICE.METHODOutput, error)
-// FUNCTION VERBs an Amazon/AWS SERVICE RESOURCE.
-// Inputs:
-//     c is the context of the method call, which includes the AWS Region.
-//     api is the interface that defines the method call.
-//     input defines the input arguments to the service call.
-// Output:
-//     If success, a METHODOutput object containing the result of the service call and nil.
-//     Otherwise, nil and an error from the call to METHOD.
 
 func usersGroupsHaveAdmin(c context.Context, client *iam.Client, user *types.UserDetail, admin string) (bool, error) {
 	input := &iam.ListGroupsForUserInput{
@@ -160,8 +111,8 @@ func usersGroupsHaveAdmin(c context.Context, client *iam.Client, user *types.Use
 //     client is the AWS Identity and Access Management (IAM) service client.
 //     c is the context of the method call, which includes the AWS Region.
 // Output:
-//     If success, the list of users and admins, and nil
-//     Otherwise, "", "" and an error
+//     If success, the list of users and admins, and nil.
+//     Otherwise, "", "" and an error.
 func GetNumUsersAndAdmins(c context.Context, client *iam.Client) (string, string, error) {
 	users := ""
 	admins := ""

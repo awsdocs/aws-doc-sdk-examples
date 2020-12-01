@@ -51,7 +51,7 @@ func populateConfiguration() error {
     }
 
     if globalConfig.CertificateName == "" || globalConfig.NewName == "" {
-        msg := "You musts supply a value for CertificateName and NewName in " + configFileName
+        msg := "You must supply a value for CertificateName and NewName in " + configFileName
         return errors.New(msg)
     }
 

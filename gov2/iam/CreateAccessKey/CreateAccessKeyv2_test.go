@@ -51,7 +51,7 @@ func populateConfiguration() error {
     }
 
     if globalConfig.UserName == "" {
-        msg := "You musts supply a value for UserName in " + configFileName
+        msg := "You must supply a value for UserName in " + configFileName
         return errors.New(msg)
     }
 

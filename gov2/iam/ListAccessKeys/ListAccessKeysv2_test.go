@@ -61,7 +61,7 @@ func populateConfiguration() error {
     }
 
     if globalConfig.UserName == "" || globalConfig.MaxKeysString == "" {
-        msg := "You musts supply a value for UserName and MaxKeys in " + configFileName
+        msg := "You must supply a value for UserName and MaxKeys in " + configFileName
         return errors.New(msg)
     }
 

@@ -65,7 +65,7 @@ func populateConfiguration() error {
 	}
 
 	if globalConfig.PolicyARN == "" {
-		msg := "You musts supply a value for PolicyARN in " + configFileName
+		msg := "You must supply a value for PolicyARN in " + configFileName
 		return errors.New(msg)
 	}
 
