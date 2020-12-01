@@ -29,7 +29,7 @@ type StatementEntry struct {
     Resource string
 }
 
-// PolicyDocument is our definition of our policies to be uploaded to IAM.
+// PolicyDocument is our definition of our policies to be uploaded to AWS Identity and Access Management (IAM).
 type PolicyDocument struct {
     Version   string
     Statement []StatementEntry

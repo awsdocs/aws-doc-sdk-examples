@@ -20,7 +20,7 @@ type IAMCreateAccessKeyAPI interface {
         optFns ...func(*iam.Options)) (*iam.CreateAccessKeyOutput, error)
 }
 
-// MakeAccessKey creates a new IAM access key for a user.
+// MakeAccessKey creates a new AWS Identity and Access Management (IAM) access key for a user.
 // Inputs:
 //     c is the context of the method call, which includes the AWS Region.
 //     api is the interface that defines the method call.

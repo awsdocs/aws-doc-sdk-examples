@@ -20,7 +20,7 @@ type IAMDeleteAccessKeyAPI interface {
         optFns ...func(*iam.Options)) (*iam.DeleteAccessKeyOutput, error)
 }
 
-// RemoveAccessKey deletes an IAM access key.
+// RemoveAccessKey deletes an AWS Identity and Access Management (IAM) access key.
 // Inputs:
 //     c is the context of the method call, which includes the AWS Region.
 //     api is the interface that defines the method call.

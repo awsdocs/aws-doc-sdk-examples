@@ -20,7 +20,7 @@ type IAMGetPolicyAPI interface {
 		optFns ...func(*iam.Options)) (*iam.GetPolicyOutput, error)
 }
 
-// GetPolicyDescription retrieves the description of the IAM policy with the specified ARN.
+// GetPolicyDescription retrieves the description of the AWS Identity and Access Management (IAM) policy with the specified ARN.
 // Inputs:
 //     c is the context of the method call, which includes the AWS Region.
 //     api is the interface that defines the method call.

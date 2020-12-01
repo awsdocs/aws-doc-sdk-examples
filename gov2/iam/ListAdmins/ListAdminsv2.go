@@ -157,7 +157,7 @@ func usersGroupsHaveAdmin(c context.Context, client *iam.Client, user *types.Use
 
 // GetNumUsersAndAdmins determines how many users have administrator privileges.
 // Inputs:
-//     client is the IAM service client.
+//     client is the AWS Identity and Access Management (IAM) service client.
 //     c is the context of the method call, which includes the AWS Region.
 // Output:
 //     If success, the list of users and admins, and nil

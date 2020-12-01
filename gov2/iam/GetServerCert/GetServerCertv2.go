@@ -20,7 +20,7 @@ type IAMGetServerCertificateAPI interface {
 		optFns ...func(*iam.Options)) (*iam.GetServerCertificateOutput, error)
 }
 
-// FindServerCert retrieves an IAM server certificate.
+// FindServerCert retrieves an AWS Identity and Access Management (IAM) server certificate.
 // Inputs:
 //     c is the context of the method call, which includes the AWS Region.
 //     api is the interface that defines the method call.

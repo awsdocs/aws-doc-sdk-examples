@@ -20,7 +20,7 @@ type IAMDetachRolePolicyAPI interface {
         optFns ...func(*iam.Options)) (*iam.DetachRolePolicyOutput, error)
 }
 
-// DetachDynamoFullPolicy detaches an Amazon DynamoDB full-access policy from an IAM role.
+// DetachDynamoFullPolicy detaches an Amazon DynamoDB full-access policy from an AWS Identity and Access Management (IAM) role.
 // Inputs:
 //     c is the context of the method call, which includes the AWS Region.
 //     api is the interface that defines the method call.

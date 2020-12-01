@@ -21,7 +21,7 @@ type IAMListAccessKeysAPI interface {
         optFns ...func(*iam.Options)) (*iam.ListAccessKeysOutput, error)
 }
 
-//  GetAccessKeys retrieves up to the IAM access keys for a user.
+//  GetAccessKeys retrieves up to the AWS Identity and Access Management (IAM) access keys for a user.
 // Inputs:
 //     c is the context of the method call, which includes the AWS Region.
 //     api is the interface that defines the method call.

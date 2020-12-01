@@ -20,7 +20,7 @@ type IAMDeleteAccountAliasAPI interface {
 		optFns ...func(*iam.Options)) (*iam.DeleteAccountAliasOutput, error)
 }
 
-// RemoveAccountAlias deletes an alias for your IAM account.
+// RemoveAccountAlias deletes an alias for your AWS Identity and Access Management (IAM) account.
 // Inputs:
 //     c is the context of the method call, which includes the AWS Region.
 //     api is the interface that defines the method call.

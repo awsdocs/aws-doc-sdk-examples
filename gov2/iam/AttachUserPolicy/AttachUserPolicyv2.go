@@ -20,7 +20,7 @@ type IAMAttachRolePolicyAPI interface {
 		optFns ...func(*iam.Options)) (*iam.AttachRolePolicyOutput, error)
 }
 
-// AttachDynamoFullPolicy attaches an Amazon DynamoDB full-access policy to an IAM role.
+// AttachDynamoFullPolicy attaches an Amazon DynamoDB full-access policy to an AWS Identity and Access Management (IAM) role.
 // Inputs:
 //     c is the context of the method call, which includes the AWS Region.
 //     api is the interface that defines the method call.

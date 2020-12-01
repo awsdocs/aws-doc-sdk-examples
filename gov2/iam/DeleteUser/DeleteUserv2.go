@@ -20,7 +20,7 @@ type IAMDeleteUserAPI interface {
         optFns ...func(*iam.Options)) (*iam.DeleteUserOutput, error)
 }
 
-// RemoveUser deletes an IAM user.
+// RemoveUser deletes an AWS Identity and Access Management (IAM) user.
 // Inputs:
 //     c is the context of the method call, which includes the AWS Region.
 //     api is the interface that defines the method call.

@@ -21,7 +21,7 @@ type IAMListAccountAliasesAPI interface {
         optFns ...func(*iam.Options)) (*iam.ListAccountAliasesOutput, error)
 }
 
-// GetAccountAliases retrieves the aliases for your IAM account.
+// GetAccountAliases retrieves the aliases for your AWS Identity and Access Management (IAM) account.
 // Inputs:
 //     c is the context of the method call, which includes the AWS Region.
 //     api is the interface that defines the method call.
