@@ -14,7 +14,7 @@ import (
     "github.com/aws/aws-sdk-go-v2/service/sqs/types"
 )
 
-// SQSGetLPMsgAPI defines the interface for the GetQueueUrl and  functions.
+// SQSGetLPMsgAPI defines the interface for the GetQueueUrl and ReceiveMessage functions.
 // We use this interface to test the functions using a mocked service.
 type SQSGetLPMsgAPI interface {
     GetQueueUrl(ctx context.Context,
