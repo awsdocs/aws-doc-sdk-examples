@@ -1,5 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
+
 // snippet-start:[S3.dotnet35.CopyObject]
 
 using Amazon;
@@ -12,7 +13,7 @@ namespace CopyObject
 {
     // This example uses Amazon Simple Storage Service (Amazon S3) to copy
     // an object from one Amazon S3 bucket to another. It uses the AWS SDK for .NET 3.5
-    // and .NET 5.0
+    // and .NET 5.0.
 
     public class CopyObject
     {
@@ -33,8 +34,6 @@ namespace CopyObject
             Console.WriteLine($"Copying {SOURCE_OBJ_KEY} from {SOURCE_BUCKET_NAME} to ");
             Console.WriteLine($"{DESTINATION_BUCKET_NAME} as {DESTINATION_OBJ_KEY}");
 
-            // The method CopyingObjectAsync calls the AWS .NET SDK
-            // CopyObjectAsync method of the S3 client.
             var response = CopyingObjectAsync(
                 _s3Client,
                 SOURCE_OBJ_KEY,
@@ -50,14 +49,14 @@ namespace CopyObject
 
         /// <summary>
         /// This method calls the AWS SDK for .NET to copy an
-        /// object from one bucket to another.
+        /// object from one S3 bucket to another.
         /// </summary>
         /// <param name="client">The S3 client object.</param>
         /// <param name="sourceKey">The name of the object to be copied.</param>
         /// <param name="destinationKey">The name under which to save the copy.</param>
-        /// <param name="sourceBucketName">The name of the S3 Bucket where the
+        /// <param name="sourceBucketName">The name of the S3 bucket where the
         /// file is located now.</param>
-        /// <param name="destinationBucketName">The name of the S3 Bucket where
+        /// <param name="destinationBucketName">The name of the S3 bucket where
         /// the copy should be saved.</param>
         /// <returns>Returns a CopyObjectResponse object with the results from
         /// the async call.</returns>

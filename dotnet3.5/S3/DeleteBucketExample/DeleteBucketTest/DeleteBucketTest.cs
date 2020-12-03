@@ -14,8 +14,6 @@ namespace DeleteBucketText
 {
     public class DeleteBucketTest
     {
-        // This application uses XUnit and moq to test the DeleteBucket Example.
-
         private string _BucketName;
 
         private IAmazonS3 CreateMockS3Client()

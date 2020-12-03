@@ -1,5 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
+
 // snippet-start:[S3.dotnet35.DeleteBucket]
 
 using Amazon;
@@ -12,7 +13,7 @@ namespace DeleteBucket
     class DeleteBucket
     {
         // This example shows how to delete an existing and empty bucket.
-        //  The examples uses AWS .NET SDK 3.5 and .NET 5.0
+        //  The examples uses AWS SDK for .NET 3.5 and .NET 5.0
 
         // Change the name of the following constant to the AWS Region containing your bucket
         // The value below is just an example.
@@ -33,11 +34,11 @@ namespace DeleteBucket
         }
 
         /// <summary>
-        /// 
+        /// DeletingBucketAsync calls the DeleteBucketAsync method
+        /// to delete bucketName.
         /// </summary>
-        /// <param name="client"></param>
-        /// <param name="bucketName"></param>
-        /// <returns></returns>
+        /// <param name="client">The Amazon S3 client object.</param>
+        /// <param name="bucketName">The name of the bucket to be deleted.</param>
         static async Task DeletingBucketAsync(IAmazonS3 client, string bucketName)
         {
             try

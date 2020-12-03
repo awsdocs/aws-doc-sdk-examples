@@ -1,5 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
+
 // snippet-start:[S3.dotnet35.CreateBucket]
 
 using Amazon;
@@ -14,7 +15,7 @@ namespace CreateBucket
     public class CreateBucket
     {
         // This example shows how to use Amazon Simple Storage Service (Amazon S3)
-        // to reate a new Amazon S3 bucket. The examples uses AWS .NET SDK 3.5 and
+        // to reate a new Amazon S3 bucket. The examples uses AWS SDK for .NET 3.5 and
         // .NET 5.0
 
         // Specify your AWS Region (an example Region is shown).
