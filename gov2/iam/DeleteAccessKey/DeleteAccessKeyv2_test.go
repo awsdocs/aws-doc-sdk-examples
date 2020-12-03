@@ -52,7 +52,7 @@ func populateConfiguration() error {
     return nil
 }
 
-func TestMETHOD(t *testing.T) {
+func TestDeleteAccessKey(t *testing.T) {
     thisTime := time.Now()
     nowString := thisTime.Format("2006-01-02 15:04:05 Monday")
     t.Log("Starting unit test at " + nowString)

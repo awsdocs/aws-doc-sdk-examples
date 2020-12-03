@@ -13,7 +13,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 )
 
-// IAMListUsersAPI defines the interface for the METHOD function.
+// IAMListUsersAPI defines the interface for the ListUsers function.
 // We use this interface to test the function using a mocked service.
 type IAMListUsersAPI interface {
 	ListUsers(ctx context.Context,

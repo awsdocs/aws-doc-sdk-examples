@@ -26,8 +26,8 @@ type IAMDeleteAccountAliasAPI interface {
 //     api is the interface that defines the method call.
 //     input defines the input arguments to the service call.
 // Output:
-//     If successful, a METHODOutput object containing the result of the service call and nil.
-//     Otherwise, nil and an error from the call to METHOD.
+//     If successful, a DeleteAccountAliasOutput object containing the result of the service call and nil.
+//     Otherwise, nil and an error from the call to DeleteAccountAlias.
 func RemoveAccountAlias(c context.Context, api IAMDeleteAccountAliasAPI, input *iam.DeleteAccountAliasInput) (*iam.DeleteAccountAliasOutput, error) {
 	result, err := api.DeleteAccountAlias(c, input)
 

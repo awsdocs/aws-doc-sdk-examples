@@ -19,7 +19,7 @@ func (dt IAMCreateUserImpl) CreateUser(ctx context.Context,
     params *iam.CreateUserInput,
     optFns ...func(*iam.Options)) (*iam.CreateUserOutput, error) {
 
-    // Create dummy user
+    // Create an example user.
     user := &types.User{
         Arn:        aws.String("aws-docs-example-user1-arn"),
         CreateDate: aws.Time(time.Now()),

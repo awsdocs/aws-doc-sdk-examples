@@ -72,7 +72,7 @@ func TestDetachRolePolicy(t *testing.T) {
 
     _, err = DetachDynamoFullPolicy(context.Background(), api, input)
     if err != nil {
-        fmt.Println("Unable to detach DynamoDB full-access role policy to role")
+        fmt.Println("Unable to detach DynamoDB full-access role policy from role")
         return
     }
 
