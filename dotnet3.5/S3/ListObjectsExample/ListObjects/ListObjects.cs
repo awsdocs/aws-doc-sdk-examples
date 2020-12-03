@@ -17,47 +17,30 @@ namespace ListObjects
     public class ListObjects
     {
         // Specify your AWS Region (an example Region is shown).
-        private static readonly RegionEndpoint BUCKET_REGION = RegionEndpoint.USWest2;
+        private static readonly RegionEndpoint BUCKET_REGION = RegionEndpoint.USEast2; //RegionEndpoint.USWest2;
         private static IAmazonS3 _s3Client;
 
-        private const string BUCKET_NAME = "doc-example-bucket";
+        private const string BUCKET_NAME = "igsmiths3photos"; // "doc-example-bucket";
 
-        static void Main()
+        static async Task Main()
         {
             _s3Client = new AmazonS3Client(BUCKET_REGION);
 
             Console.WriteLine($"Listing the objects contained in {BUCKET_NAME}:\n");
-            ListingObjectsAsync(_s3Client, BUCKET_NAME).Wait();
+            await ListingObjectsAsync(_s3Client, BUCKET_NAME);
         }
 
         static async Task ListingObjectsAsync(IAmazonS3 client, string bucketName)
         {
-            try
+            var listObjectsV2Paginator = client.Paginators.ListObjectsV2(new ListObjectsV2Request
             {
-                ListObjectsV2Request request = new ListObjectsV2Request
-                {
-                    BucketName = bucketName,
-                    MaxKeys = 10
-                };
-                ListObjectsV2Response response;
-                do
-                {
-                    response = await client.ListObjectsV2Async(request);
+                BucketName = bucketName
+            });
 
-                    // Process the response.
-                    foreach (S3Object entry in response.S3Objects)
-                    {
-                        Console.WriteLine($"key = {entry.Key} size = {entry.Size}");
-                    }
-                    request.ContinuationToken = response.NextContinuationToken;
-                } while (response.IsTruncated);
-            }
-            catch (AmazonS3Exception ex)
+            await foreach(var entry in listObjectsV2Paginator.S3Objects)
             {
-                Console.WriteLine($"Error listing bucket objects. Exception: {ex.ToString()}");
-                Console.ReadKey();
+                Console.WriteLine($"key = {entry.Key} size = {entry.Size}");
             }
-
         }
     }
 }

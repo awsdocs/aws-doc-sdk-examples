@@ -49,7 +49,6 @@ namespace ListObjectsTest
             var request = new ListObjectsV2Request
             {
                 BucketName = _BucketName,
-                MaxKeys = 10
             };
 
             var response = await client.ListObjectsV2Async(request);
