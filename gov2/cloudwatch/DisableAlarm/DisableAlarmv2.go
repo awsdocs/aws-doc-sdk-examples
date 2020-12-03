@@ -26,7 +26,7 @@ type CWDisableAlarmAPI interface {
 //     api is the interface that defines the method call
 //     input defines the input arguments to the service call.
 // Output:
-//     If success, a METHODOutput object containing the result of the service call and nil
+//     If success, a DisableAlarmActionsOutput object containing the result of the service call and nil
 //     Otherwise, nil and the error from the call to DisableAlarmActions
 func DisableAlarm(c context.Context, api CWDisableAlarmAPI, input *cloudwatch.DisableAlarmActionsInput) (*cloudwatch.DisableAlarmActionsOutput, error) {
 	resp, err := api.DisableAlarmActions(c, input)
