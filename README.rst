@@ -10,9 +10,8 @@
 
 Welcome
 =======
-This is the repository for code examples used in the public 
-`AWS documentation <https://docs.aws.amazon.com>`_. The examples use the AWS SDKs for the supported
-programming languages. For more information, see
+This is the repository for various code examples used in the public 
+`AWS documentation <https://docs.aws.amazon.com>`_. For more information, see
 `Tools to Build on AWS <https://aws.amazon.com/getting-started/tools-sdks/>`_.
 
 Finding code examples
