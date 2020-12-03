@@ -26,7 +26,7 @@ type KMSDecryptAPI interface {
 //     api is the interface that defines the method call.
 //     input defines the input arguments to the service call.
 // Output:
-//     If success, a METHODOutput object containing the result of the service call and nil.
+//     If success, a DecryptOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to Decrypt.
 func DecodeData(c context.Context, api KMSDecryptAPI, input *kms.DecryptInput) (*kms.DecryptOutput, error) {
     result, err := api.Decrypt(c, input)
