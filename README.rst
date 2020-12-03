@@ -18,7 +18,7 @@ programming languages. For more information, see
 Finding code examples
 =====================
 
-The code examples are organized by AWS SDK or AWS programming tool. For example:
+The code examples are organized by AWS SDK or AWS programming tool. For example, among the top-level folders:
 
 * **cpp** for the latest version of the AWS SDK for C++ (version 1)
 * **dotnet3.5** for the latest version of the AWS SDK for .NET (version 3.5)
@@ -36,7 +36,17 @@ Code examples for older AWS SDK versions will be archived in this repository but
 * **java** for AWS SDK for Java version 1
 * **javascript** for AWS SDK for JavaScript version 2
 
-As AWS SDK major version numbers increment, this repository will begin to more consistently reflect their version numbers among these folders to make these distinctions clearer. For example, if and when the AWS SDK for Ruby moves to a version 4, a new **rubyv4** folder will be added. Then when the AWS SDK for Ruby version 3 is officially deprecated, the **ruby** folder will be deleted.
+As AWS SDK major version numbers increment, this repository will begin to more consistently reflect their version numbers among these folders to make these distinctions clearer. For example, if and when the AWS SDK for Ruby moves to a version 4, a new **rubyv4** folder will be added. Then when AWS officially announces that AWS SDK for Ruby version 3 has been deprecated, the **ruby** folder will be deleted.
+
+Other top-level folders include:
+
+* **aws-cli** for script examples for use with the AWS Command Line Interface (AWS CLI).
+* **cloudformation** for example templates for use with AWS CloudFormation.
+* **iam_policies** for example policy documents for use with AWS Identity and Access Management (IAM).
+* **lambda_functions** for example function code for use with AWS Lambda.
+* **typescript** for TypeScript-based code examples for use with the AWS Cloud Development Kit (CDK), and other AWS services. (For TypeScript-based code examples for use with the AWS SDK for JavaScript, see the **javascriptv3** folder.)
+
+Note that the **scripts** folder contains scripts that the AWS documentation team uses internally to build the code examples into various AWS documentation sets.
 
 Building and running code examples
 ==================================
