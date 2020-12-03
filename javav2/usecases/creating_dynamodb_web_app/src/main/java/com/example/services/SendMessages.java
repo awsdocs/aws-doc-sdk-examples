@@ -38,7 +38,7 @@ import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.ses.model.SendRawEmailRequest;
 import software.amazon.awssdk.services.ses.model.RawMessage;
 import software.amazon.awssdk.services.ses.model.SesException;
-import import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Component;
 
 @Component
 public class SendMessages {

@@ -1,7 +1,9 @@
 files:
-  - path: TakeRole/TakeRolev2.go
+  - path: AssumeRole/AssumeRolev2.go
     services:
       - sts
-  - path: TakeRole/TakeRolev2_test.go
+    operations:
+      - AssumeRole
+  - path: AssumeRole/AssumeRolev2_test.go
     services:
       - sts
