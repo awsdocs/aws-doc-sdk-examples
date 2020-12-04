@@ -17,10 +17,10 @@ namespace ListObjects
     public class ListObjects
     {
         // Specify your AWS Region (an example Region is shown).
-        private static readonly RegionEndpoint BUCKET_REGION = RegionEndpoint.USEast2; //RegionEndpoint.USWest2;
+        private static readonly RegionEndpoint BUCKET_REGION = RegionEndpoint.USWest2;
         private static IAmazonS3 _s3Client;
 
-        private const string BUCKET_NAME = "igsmiths3photos"; // "doc-example-bucket";
+        private const string BUCKET_NAME = "doc-example-bucket";
 
         static async Task Main()
         {
@@ -30,6 +30,13 @@ namespace ListObjects
             await ListingObjectsAsync(_s3Client, BUCKET_NAME);
         }
 
+        /// <summary>
+        /// This method uses a paginator to retrieve the list of objects in an
+        /// an Amazon S3 bucket.
+        /// </summary>
+        /// <param name="client">An Amazon S3 client object.</param>
+        /// <param name="bucketName">The name of the S3 bucket whose objects
+        /// you want to list.</param>
         static async Task ListingObjectsAsync(IAmazonS3 client, string bucketName)
         {
             var listObjectsV2Paginator = client.Paginators.ListObjectsV2(new ListObjectsV2Request
