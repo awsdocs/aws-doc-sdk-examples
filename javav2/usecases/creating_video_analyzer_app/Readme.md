@@ -53,6 +53,8 @@ To generate a report, enter an email address and choose **Analyze Video**. A mas
 
 ![AWS Video Analyzer](images/pic2.png)
 
+**Note** Depending upon the size of the video, this may take a few minutes. To test this functionality, keep the video under 20 seconds. 
+
 ## Create an IntelliJ project named SpringVideoAnalyzer
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
