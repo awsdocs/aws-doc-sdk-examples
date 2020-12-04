@@ -10,21 +10,42 @@
 
 Welcome
 =======
-This is the repository for code examples used in the public 
-`AWS documentation <https://docs.aws.amazon.com>`_. The examples use the AWS SDKs for the supported
-programming languages. For more information, see
+This is the repository for various code examples used in the public 
+`AWS documentation <https://docs.aws.amazon.com>`_. For more information, see
 `Tools to Build on AWS <https://aws.amazon.com/getting-started/tools-sdks/>`_.
 
 Finding code examples
 =====================
 
-The code examples are organized by programming language. For example, all of the code examples for
-the latest version of the `AWS SDK for Java 2.x Developer Guide <https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide>`_
-are kept in the `javav2 <javav2>`_ directory (the version 1.x examples are in the `java <java>`_
-directory).
+The code examples are organized by AWS SDK or AWS programming tool. For example, among the top-level folders:
 
-You can also try using the preview of our `use case index of examples <code-index.md>`_ (and let us
-know what you think about it).
+* **cpp** for the latest version of the AWS SDK for C++ (version 1)
+* **dotnet3.5** for the latest version of the AWS SDK for .NET (version 3.5)
+* **gov2** for the latest version of the AWS SDK for Go (version 2)
+* **javav2** for the latest version of the AWS SDK for Java (version 2)
+* **javascriptv3** for the latest version of the AWS SDK for JavaScript (version 3)
+* **php** for the latest version of the AWS SDK for PHP (version 3)
+* **python** for the latest version of the AWS SDK for Python (Boto3 version 1)
+* **ruby** for the latest version of the AWS SDK for Ruby (version 3)
+
+Code examples for older AWS SDK versions will be archived in this repository but no longer maintained. These include:
+
+* **dotnet** for versions of the AWS SDK for .NET prior to version 3.5
+* **go** for AWS SDK for Go version 1
+* **java** for AWS SDK for Java version 1
+* **javascript** for AWS SDK for JavaScript version 2
+
+As AWS SDK major version numbers increment, this repository will begin to more consistently reflect their version numbers among these folders to make these distinctions clearer. For example, if and when the AWS SDK for Ruby moves to a version 4, a new **rubyv4** folder will be added. Then when AWS officially announces that AWS SDK for Ruby version 3 has been deprecated, the **ruby** folder will be deleted.
+
+Other top-level folders include:
+
+* **aws-cli** for script examples for use with the AWS Command Line Interface (AWS CLI).
+* **cloudformation** for example templates for use with AWS CloudFormation.
+* **iam_policies** for example policy documents for use with AWS Identity and Access Management (IAM).
+* **lambda_functions** for example function code for use with AWS Lambda.
+* **typescript** for TypeScript-based code examples for use with the AWS Cloud Development Kit (CDK), and other AWS services. (For TypeScript-based code examples for use with the AWS SDK for JavaScript, see the **javascriptv3** folder.)
+
+Note that the **scripts** folder contains scripts that the AWS documentation team uses internally to build the code examples into various AWS documentation sets.
 
 Building and running code examples
 ==================================
@@ -42,21 +63,8 @@ Proposing new code examples
 To propose a new code example for the AWS documentation team to consider working on, `create a 
 request <https://github.com/awsdocs/aws-doc-sdk-examples/issues/new?assignees=&labels=code+sample+request&template=request-new-code-example.md&title=%5BNEW+EXAMPLE+REQUEST%5D+%3C%3CProvide+a+title+for+this+proposal%3E%3E>`_.
 
-The AWS documentation team wants to produce code examples that cover broader scenarios and use 
+Note that the AWS documentation team prefers to produce code examples that cover broader scenarios and use 
 cases, versus simple code snippets that cover only individual API calls.
-
-From time to time, the AWS documentation team will select some of these proposals to begin working
-on. To view their decisions, see the `code examples roadmap <https://github.com/awsdocs/aws-doc-sdk-examples/projects/2>`_. 
-If you feel strongly about wanting to accelerate the timeline of a particular proposal or expand
-or focus the scope of a particular proposal, be sure to +1 the related issue, add comments to it,
-or both, and the team will consider it. 
-
-The AWS documentation team typically moves accepted proposals in the roadmp from the **Wish List** 
-stage to the **Backlog** stage, then to **In Progress**, and finally to **Recently 
-Completed**. The **Wish List** represents proposals that the team *might* begin working
-on sometime in the future, but with no expected timeline. The **Backlog** stage represents 
-proposals that the team will *likely* begin working on soon. To view the team's progress, see the 
-`code examples roadmap <https://github.com/awsdocs/aws-doc-sdk-examples/projects/2>`_.
 
 Submitting code examples for use in AWS documentation
 =====================================================
@@ -64,44 +72,6 @@ Submitting code examples for use in AWS documentation
 If you plan to contribute examples for use in the documentation (the purpose of this repository),
 read this section carefully so that we can work together effectively. 
 For process instructions and additional guidance, see the `Guidelines for contributing <CONTRIBUTING.md>`_. 
-
-* **Make sure that the code you want to contribute builds and runs**. There's nothing more
-  frustrating in developer documentation than code examples that don't work. Build the code and
-  test it before submitting it!
-
-* **Don't include personal account data, keys, or IDs in your examples**. Code should obtain access
-  keys from the standard SDK credentials and config files, use environment variables or external
-  data files, or query the user for this information.
-
-* **Format code lines to 80 characters**. Long lines can be enclosed in a scrollable box for HTML,
-  but in a PDF build, long lines often spill off the side of the page, making the code
-  unreadable. If your code includes long text strings, consider breaking these into smaller chunks
-  and concatenating them.
-
-* **Use short(er) variable names**. To aid in readability and to help keep line length to 80
-  characters, use *short yet descriptive* names for variables. Do *not* mimic class names when
-  creating variables that represent an object of that class. It nearly always results in excessively
-  long variable names, making it difficult to keep code lines to 80 characters.
-
-* **Use spaces, not tabs, for indentation**. Tabs are variable length in most editors, but will
-  usually render as 8 characters wide in printed documentation. *Always use spaces* to ensure
-  consistent formatting in printed code.
-
-  You can ignore this rule for makefiles, which might *require* the use of tabs. But these are
-  typically used only for building examples, and aren't  included in documentation.
-
-* **Minimize the use of comments**. Code is ignored for translation, so comments in code aren't
-  translated for the printed documentation's target language. Comments aren't needed in most
-  code used for documentation, because the goal is clarity and ease of understanding. By making code
-  self-explanatory, you make better code for documentation and reduce the need to add comments.
-
-* **Place comments on separate lines from code**. If you *must* add a comment for explanation or any
-  other reason, make sure that it's placed on a separate line from code (*not* inline). This
-  allows readers of the source file to read the comment, yet it can be stripped out when including
-  snippets from the file within documentation.
-
-* **All code must be submitted under the Apache 2.0 license**, as noted in the following **Copyright
-  and License** section.
 
 Copyright and License
 =====================

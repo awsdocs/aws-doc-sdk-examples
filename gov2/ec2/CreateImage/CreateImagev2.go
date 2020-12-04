@@ -28,7 +28,7 @@ type EC2CreateImageAPI interface {
 //     api is the interface that defines the method call.
 //     input defines the input arguments to the service call.
 // Output:
-//     If success, a METHODOutput object containing the result of the service call and nil.
+//     If success, a CreateImageOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to CreateImage.
 func MakeImage(c context.Context, api EC2CreateImageAPI, input *ec2.CreateImageInput) (*ec2.CreateImageOutput, error) {
     resp, err := api.CreateImage(c, input)
