@@ -49,7 +49,7 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 + **Creating AWS serverless workflows using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and AWS Step Functions to create a workflow that invokes AWS services. Each workflow step is implemented by using an AWS Lambda function.
 + **Creating a sample AWS photo analyzer application using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and various AWS services, such as the  Amazon Rekognition service, to analyze images. The application can analyze many images and generate a report that breaks down each image into a series of labels.
 + **Creating_message_application** - A tutorial that discusses using the AWS SDK for Java and the Simple Queue Service (SQS) to create a basic messaging web application.
-
++ **Creating an AWS video analyzer application using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and various AWS services, such as the  Amazon Rekognition service, to analyze a video. After the application completes analyzing the video, it generates a report and sends an email message with the report as an attachment.
 
 AWS service examples
 --------------------
