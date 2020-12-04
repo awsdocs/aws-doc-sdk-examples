@@ -793,23 +793,22 @@ The following Java code represents the **VideoDetectFaces** class. This class us
 
 You can get the results of the job by invoking the **GetFaceResults** method. Notice in this code example, a while loop is used to wait until the job is finished. This method returns a list where each element is a **FaceItems** object. 
 
-package com.example.video;
+    package com.example.video;
 
-import org.springframework.stereotype.Component;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.rekognition.RekognitionClient;
-import software.amazon.awssdk.services.rekognition.model.*;
-import software.amazon.awssdk.services.rekognition.model.S3Object;
-import java.util.ArrayList;
-import java.util.List;
+    import org.springframework.stereotype.Component;
+    import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+    import software.amazon.awssdk.regions.Region;
+    import software.amazon.awssdk.services.rekognition.RekognitionClient;
+    import software.amazon.awssdk.services.rekognition.model.*;
+    import software.amazon.awssdk.services.rekognition.model.S3Object;
+    import java.util.ArrayList;
+    import java.util.List;
 
-@Component
-public class VideoDetectFaces {
+    @Component
+    public class VideoDetectFaces {
 
     String topicArn = "<enter a topic ARN>";
     String roleArn = "<enter your role ARN>"
-
 
     private RekognitionClient getRecClient() {
         Region region = Region.US_EAST_1;
@@ -829,7 +828,7 @@ public class VideoDetectFaces {
         return channel;
     }
 
- public String StartFaceDetection(String bucket, String video) {
+    public String StartFaceDetection(String bucket, String video) {
 
      String startJobId="";
 
@@ -861,10 +860,10 @@ public class VideoDetectFaces {
             System.exit(1);
         }
         return "";
-    }
+     }
 
-    // Processes the Job and returns of List of labels
-    public List<FaceItems> GetFaceResults(String startJobId) {
+     // Processes the Job and returns of List of labels
+     public List<FaceItems> GetFaceResults(String startJobId) {
 
         List<FaceItems> items =new ArrayList<>();
         try {
@@ -937,16 +936,16 @@ public class VideoDetectFaces {
             System.exit(1);
         }
         return null;
-    }
-}
+       }
+      }
 
-NOTE: Besure to specifiy valid **topicArn** and **roleArn** values. See the **Prerequisites** section at the start of this tutorial. 
+NOTE: Specifiy valid **topicArn** and **roleArn** values. See the **Prerequisites** section at the start of this tutorial. 
 
 ### WriteExcel class
 
 The following Java code represents the **WriteExcel** class.
 
-    package com.example.photo;
+    package com.example.video;
 
     import jxl.CellView;
     import jxl.Workbook;
@@ -967,11 +966,11 @@ The following Java code represents the **WriteExcel** class.
     @Component
     public class WriteExcel {
 
-     private WritableCellFormat timesBoldUnderline;
-     private WritableCellFormat times;
+    private WritableCellFormat timesBoldUnderline;
+    private WritableCellFormat times;
 
-     // Returns an InputStream that represents the Excel report
-     public java.io.InputStream exportExcel( List<List> list) {
+    // Returns an InputStream that represents the Excel Report
+    public java.io.InputStream exportExcel( List<FaceItems> list) {
 
         try {
             java.io.InputStream is = write(list);
@@ -980,63 +979,52 @@ The following Java code represents the **WriteExcel** class.
             e.printStackTrace();
         }
         return null;
-     }
+    }
 
-     // Generates the report and returns an InputStream
-     public java.io.InputStream write( List<List> list) throws IOException, WriteException {
+    // Generates the report and returns an inputstream
+    public java.io.InputStream write( List<FaceItems> list) throws IOException, WriteException {
         java.io.OutputStream os = new java.io.ByteArrayOutputStream() ;
         WorkbookSettings wbSettings = new WorkbookSettings();
 
         wbSettings.setLocale(new Locale("en", "EN"));
 
-        // Create a workbook - pass the OutputStream
+        // Create a Workbook - pass the OutputStream
         WritableWorkbook workbook = Workbook.createWorkbook(os, wbSettings);
-        //Outer list
-        int size = list.size() ;
 
-        // Outer list
-        for (int i = 0; i < size; i++) {
-
-            // Need to get the WorkItem from each list
-            List innerList = (List) list.get(i);
-            WorkItem wi = (WorkItem)innerList.get(i);
-
-
-            workbook.createSheet(wi.getKey() +" Sheet ", 0);
-            WritableSheet excelSheet = workbook.getSheet(0);
-            createLabel(excelSheet);
-            createContent(excelSheet, innerList);
-        }
+        //Need to get the WorkItem from each list
+        workbook.createSheet("Video Analyzer Sheet", 0);
+        WritableSheet excelSheet = workbook.getSheet(0);
+        createLabel(excelSheet);
+        createContent(excelSheet, list);
 
         // Close the workbook
         workbook.write();
         workbook.close();
 
-        // Get an InputStream that represents the report
+        // Get an inputStram that represents the Report
         java.io.ByteArrayOutputStream stream = new java.io.ByteArrayOutputStream();
         stream = (java.io.ByteArrayOutputStream)os;
         byte[] myBytes = stream.toByteArray();
         java.io.InputStream is = new java.io.ByteArrayInputStream(myBytes) ;
 
         return is ;
-     }
+      }
 
-     // Create headings in the Excel sheet
+     // Create Headings in the Excel spreadsheet
      private void createLabel(WritableSheet sheet)
             throws WriteException {
         // Create a times font
         WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
-
-	  // Define the cell format
+        // Define the cell format
         times = new WritableCellFormat(times10pt);
         // Lets automatically wrap the cells
         times.setWrap(true);
 
-        // Create a bold font with underlining
+        // create create a bold font with unterlines
         WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false,
                 UnderlineStyle.SINGLE);
         timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
-        // Let's automatically wrap the cells
+        // Lets automatically wrap the cells
         timesBoldUnderline.setWrap(true);
 
         CellView cv = new CellView();
@@ -1045,39 +1033,43 @@ The following Java code represents the **WriteExcel** class.
         cv.setAutosize(true);
 
         // Write a few headers
-        addCaption(sheet, 0, 0, "Photo");
-        addCaption(sheet, 1, 0, "Label");
-        addCaption(sheet, 2, 0, "Confidence");
-       }
+        addCaption(sheet, 0, 0, "Age Range");
+        addCaption(sheet, 1, 0, "Beard");
+        addCaption(sheet, 2, 0, "Eye glasses");
+        addCaption(sheet, 3, 0, "Eyes open");
+        addCaption(sheet, 4, 0, "Mustache");
+        addCaption(sheet, 4, 0, "Smile");
+     }
 
-      // Write the WorkItem data to the Excel report
-      private int createContent(WritableSheet sheet, List<List> list) throws WriteException {
+     // Write the Work Item Data to the Excel Report
+     private int createContent(WritableSheet sheet, List<FaceItems> list) throws WriteException {
 
         int size = list.size() ;
 
-        //  List
+        //  list
         for (int i = 0; i < size; i++) {
 
-                WorkItem wi = (WorkItem)list.get(i);
+            FaceItems fi = (FaceItems)list.get(i);
 
-                // Get the work item values
-                String key = wi.getKey();
-                String label = wi.getName();
-                String confidence = wi.getConfidence();
+            //Get tne item values
+            String age = fi.getAgeRange();
+            String beard = fi.getBeard();
+            String eyeglasses = fi.getEyeglasses();
+            String eyesOpen = fi.getEyesOpen();
+            String mustache = fi.gettMustache();
+            String smile = fi.gettSmile();
 
-                // First column
-                addLabel(sheet, 0, i + 2, key);
-                // Second column
-                addLabel(sheet, 1, i + 2, label);
-
-                // Third column
-                addLabel(sheet, 2, i + 2, confidence);
-
-          }
-          return size;
+            addLabel(sheet, 0, i + 2, age);
+            addLabel(sheet, 1, i + 2, beard);
+            addLabel(sheet, 2, i + 2, eyeglasses);
+            addLabel(sheet, 3, i + 2, eyesOpen);
+            addLabel(sheet, 4, i + 2, mustache);
+            addLabel(sheet, 5, i + 2, smile);
          }
+        return size;
+       }
 
-       private void addCaption(WritableSheet sheet, int column, int row, String s)
+     private void addCaption(WritableSheet sheet, int column, int row, String s)
             throws WriteException {
         Label label;
         label = new Label(column, row, s, timesBoldUnderline);
@@ -1085,16 +1077,16 @@ The following Java code represents the **WriteExcel** class.
         int cc = countString(s);
         sheet.setColumnView(column, cc);
         sheet.addCell(label);
-      }
+     }
 
-      private void addNumber(WritableSheet sheet, int column, int row,
+    private void addNumber(WritableSheet sheet, int column, int row,
                            Integer integer) throws WriteException {
         Number number;
         number = new Number(column, row, integer, times);
         sheet.addCell(number);
-      }
+     }
 
-      private void addLabel(WritableSheet sheet, int column, int row, String s)
+    private void addLabel(WritableSheet sheet, int column, int row, String s)
             throws WriteException {
         Label label;
         label = new Label(column, row, s, times);
@@ -1105,19 +1097,19 @@ The following Java code represents the **WriteExcel** class.
             sheet.setColumnView(column, cc+6);
 
         sheet.addCell(label);
-       }
+
+     }
 
     private int countString (String ss) {
         int count = 0;
-
-	// Counts each character except spaces
+        //Counts each character except space
         for(int i = 0; i < ss.length(); i++) {
             if(ss.charAt(i) != ' ')
                 count++;
         }
         return count;
-       }
      }
+    }
 
 ## Create the HTML files
 
