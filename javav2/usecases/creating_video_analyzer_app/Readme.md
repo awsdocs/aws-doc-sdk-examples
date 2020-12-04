@@ -531,7 +531,7 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
 
 The following Java code represents the **SendMessage** class. This class uses the Amazon SES API to send an email message with an attachment that represents the report.
 
-   package com.example.photo;
+     package com.example.photo;
 
     import org.apache.commons.io.IOUtils;
     import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -947,7 +947,7 @@ You can get the results of the job by invoking the **GetFaceResults** method. No
 
 The following Java code represents the **WriteExcel** class.
 
-    package com.example.video;
+     package com.example.video;
 
     import jxl.CellView;
     import jxl.Workbook;
