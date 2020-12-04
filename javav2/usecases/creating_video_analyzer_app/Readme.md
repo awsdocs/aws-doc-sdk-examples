@@ -1444,7 +1444,7 @@ If this is your first time accessing this service, you will see a **Welcome to A
 9. In the **Platform** section, choose **Managed platform**.
 10. For **Platform**, choose **Java** (accept the default values for the other fields).
 
-![AWS Photo Analyzer](images/photo8.png)
+![AWS Photo Analyzer](images/photo9.png)
 
 11. In the **Application code** section, choose **Upload your code**.
 12. Choose **Local file**, and then select **Choose file**. Browse to the JAR file that you created.  
