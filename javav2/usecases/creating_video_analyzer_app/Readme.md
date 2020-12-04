@@ -190,7 +190,7 @@ Add the following dependencies for the Amazon services (AWS SDK for Java version
 
 Create a Java package in the **main/java** folder named **com.example.video**.
 
-![AWS Photo Analyzer](images/pic4.png)
+![AWS Photo Analyzer](images/pic4png.png)
 
 The Java files go into this package.
 
