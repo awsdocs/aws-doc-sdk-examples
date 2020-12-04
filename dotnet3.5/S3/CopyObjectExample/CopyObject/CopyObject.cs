@@ -27,19 +27,19 @@ namespace CopyObject
         private const string SOURCE_OBJ_KEY = "testfile.txt";
         private const string DESTINATION_OBJ_KEY = "testfilecopy.txt";
 
-        static void Main()
+        static async Task Main()
         {
             _s3Client = new AmazonS3Client(BUCKET_REGION);
 
             Console.WriteLine($"Copying {SOURCE_OBJ_KEY} from {SOURCE_BUCKET_NAME} to ");
             Console.WriteLine($"{DESTINATION_BUCKET_NAME} as {DESTINATION_OBJ_KEY}");
 
-            var response = CopyingObjectAsync(
+            var response = await CopyingObjectAsync(
                 _s3Client,
                 SOURCE_OBJ_KEY,
                 DESTINATION_OBJ_KEY,
                 SOURCE_BUCKET_NAME,
-                DESTINATION_BUCKET_NAME).Result;
+                DESTINATION_BUCKET_NAME);
 
             if(response.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {
