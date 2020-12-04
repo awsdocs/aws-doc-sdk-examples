@@ -939,7 +939,7 @@ You can get the results of the job by invoking the **GetFaceResults** method. No
        }
       }
 
-NOTE: Specifiy valid **topicArn** and **roleArn** values. See the **Prerequisites** section at the start of this tutorial. 
+**Note**: Specifiy valid **topicArn** and **roleArn** values. See the **Prerequisites** section at the start of this tutorial. 
 
 ### WriteExcel class
 
@@ -1113,21 +1113,21 @@ The following Java code represents the **WriteExcel** class.
 
 ## Create the HTML files
 
-At this point, you have created all of the Java files required for the AWS Photo Analyzer application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the **resource** folder, create a **template** folder, and then create the following HTML files:
+At this point, you have created all of the Java files required for the AWS Video Analyzer application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the **resource** folder, create a **templates** folder, and then create the following HTML files:
 
 + index.html
 + process.html
 + upload.html
 + layout.html
 
-The **index.html** file is the application's home view. The **process.html** file represents the view for creating a report. The **upload.html** file represents the view for uploading image files to an S3 bucket. The **layout.html** file represents the menu that's visible in all views.
+The **index.html** file is the application's home view. The **process.html** file represents the view for creating a report. The **upload.html** file represents the view for uploading a MP4 file to an Amazon S3 bucket. The **layout.html** file represents the menu that's visible in all views.
 
 ### index.html
 
 The following HTML represents the **index.html** file.
 
     <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <html xmlns:th="http://www.thymeleaf.org" >
 
     <head>
      <meta charset="utf-8" />
@@ -1139,26 +1139,26 @@ The following HTML represents the **index.html** file.
      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
      <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
 
-    <title>AWS Photo Analyzer</title>
+    <title>AWS Video Analyzer</title>
     </head>
     <body>
-    <header th:replace="layout :: site-header"/>
-    <div class="container">
+     <header th:replace="layout :: site-header"/>
+      <div class="container">
 
-    <h2>AWS Photo Analyzer application</h2>
+     <h2>AWS Video Analyzer application</h2>
 
-    <p>The AWS Photo Analyzer application is an example application that uses the Amazon Rekognition service and other AWS services, and the AWS SDK for Java version 2.
-        Analyzing nature photographs has never been easier! Just perform these steps:<p>
+     <p>The AWS Video Analyzer example application uses the Amazon Rekognition service and other AWS services, and the AWS SDK for Java version 2.
+        Analyzing your videos in real-time has never been easier! Just perform these steps:<p>
 
-    <ol>
-        <li>Upload a nature photograph to an Amazon S3 bucket by choosing the <b>Upload Photos</b> menu item.</li>
-        <li>Choose <b>Choose File</b> and browse to a nature image located on your desktop.</li>
-        <li>Choose <b>Upload</b> to upload your image to an S3 bucket.</li>
-        <li>Choose <b>Get Images</b> to view the images located in the S3 bucket. All images in the bucket are displayed in the table. </li>
-        <li>Analyze the photographs and produce a report by choosing the <b>Analyze Photos</b> menu item. </li>
-        <li>Enter an email address in the email field and choose <b>Analyze Photos</b>.  </li>
+     <ol>
+        <li>Upload a video (.MP4) to an Amazon S3 bucket by choosing the <b>Upload Video</b> menu item.</li>
+        <li>Choose <b>Choose Video File</b> and browse to a video located on your desktop.</li>
+        <li>Choose <b>Upload</b> to upload your video to an Amazon S3 bucket.</li>
+        <li>Choose <b>Get Video</b> to view the video located in the S3 bucket. Only 1 video can be in the bucket.</li>
+        <li>Analyze the video and produce a report by choosing the <b>Analyze Video</b> menu item. </li>
+        <li>Enter an email address in the email field and choose <b>Analyze Video</b>.  </li>
         <li>Amazon SES is used to send an email with an Excel report to the specified email recipient.</li>
-    </ol>
+     </ol>
     </div>
     </body>
     </html>
@@ -1168,15 +1168,17 @@ The following HTML represents the **index.html** file.
 The following HTML represents the **process.html** file.
 
     <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org">
-    <head>
+     <html xmlns:th="http://www.thymeleaf.org">
+     <head>
      <meta charset="utf-8" />
      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
      <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-     <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
+     <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
      <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
      <script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
+     <script th:src="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js|"></script>
+     <script th:src="|https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js|"></script>
      <script src="../public/js/message.js" th:src="@{/js/message.js}"></script>
 
      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
@@ -1188,57 +1190,55 @@ The following HTML represents the **process.html** file.
         function myFunction() {
             alert("The form was submitted");
         }
-     </script>
-
+    </script>
     </head>
-
     <body>
     <header th:replace="layout :: site-header"/>
 
     <div class="container">
 
-    <h2>AWS Photo Analyzer application</h2>
-    <p>You can generate a report that analyzes the images in the Amazon S3 bucket. You can send the report to the following email address. </p>
-    <label for="email">Email address:</label><br>
-    <input type="text" id="email" name="email" value=""><br>
+     <h2>AWS Video Analyzer Sample Application</h2>
+     <p>You can generate a report that analyzes a video in an Amazon S3 bucket. You can send the report to the following email address. </p>
+     <label for="email">Email address:</label><br>
+     <input type="text" id="email" name="email" value=""><br>
 
-    <div>
+      <div>
         <br>
-        <p>Choose the button to obtain a report.</p>
-        <button onclick="ProcessImages()">Analyze Photos</button>
-    </div>
-    </div>
-    </body>
-    </html>
+
+        <p>Click the following button to analyze the video and obtain a report</p>
+        <button id="button" onclick="ProcessImages()">Analyze Video</button>
+       </div>
+       <div id="spinner">
+        <p>Report is being generated:</p>
+        <div class="spinner-border"></div>
+       </div>
+      </div>
+     </body>
+     </html>
+
 
 ### upload.html
 
 The following HTML represents the **upload.html** file.
 
     <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <html xmlns:th="http://www.thymeleaf.org" >
+     <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
+     <script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
+     <script th:src="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js|"></script>
+     <script src="../public/js/items.js" th:src="@{/js/items.js}"></script>
 
-    <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
-    <script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
-    <script th:src="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js|"></script>
-    <script src="../public/js/items.js" th:src="@{/js/items.js}"></script>
+     <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
+     <link rel="stylesheet" th:href="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css|"/>
+     <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+     <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
 
-    <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
-    <link rel="stylesheet" th:href="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css|"/>
-    <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-    <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
+     <title>AWS Video Analyzer</title>
 
-
-    <title>AWS Photo Analyzer</title>
-
-    <script>
-        function myFunction() {
-            alert("The form was submitted");
-        }
+     <script>
+      function myFunction() {
+        alert("The video was submitted");
+       }
     </script>
     </head>
 
@@ -1246,82 +1246,77 @@ The following HTML represents the **upload.html** file.
     <header th:replace="layout :: site-header"/>
 
     <div class="container">
-     <h2>AWS Photo Analyzer application</h2>
-     <p>Upload images to an Amazon S3 bucket. Each image will be analyzed!</p>
+    <h2>AWS Video Analyzer application</h2>
+    <p>Upload a video to an Amazon S3 bucket that will be analyzed!</p>
 
-     <form method="POST" onsubmit="myFunction()" action="/upload" enctype="multipart/form-data">
-      <input type="file" name="file" /><br/><br/>
-      <input type="submit" value="Submit" />
-     </form>
+    <form method="POST" onsubmit="myFunction()" action="/upload" enctype="multipart/form-data">
+        <input type="file" name="file" /><br/><br/>
+        <input type="submit" value="Submit" />
+    </form>
     <div>
-    <br>
+        <br>
 
-    <p>Choose the following button to determine the number of images in the bucket.</p>
+        <p>Choose the following button to get information about the video to analyze.</p>
 
-    <button onclick="getImages()">Get Images</button>
-    <table id="myTable" class="display" style="width:100%">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Owner</th>
-            <th>Date</th>
-            <th>Size</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>No Data</td>
-            <td>No Data</td>
-            <td>No Data </td>
-            <td>No Data</td>
-        </tr>
-        </tbody>
-        <tfoot>
-        <tr>
-            <th>Name</th>
-            <th>Owner</th>
-            <th>Date</th>
-            <th>Size</th>
-        </tr>
-        </tfoot>
-        <div id="success3"></div>
-    </table>
-    </div>
-    </div>
-    </body>
-    </html>
+        <button onclick="getVideo()">Show Video</button>
+        <table id="myTable" class="display" style="width:100%">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Owner</th>
+                <th>Date</th>
+                <th>Size</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>No Data</td>
+                <td>No Data</td>
+                <td>No Data </td>
+                <td>No Data</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Owner</th>
+                <th>Date</th>
+                <th>Size</th>
+            </tr>
+            </tfoot>
+            <div id="success3"></div>
+        </table>
+       </div>
+      </div>
+     </body>
+     </html>
 
 ### layout.html
 
 The following HTML represents the **layout.html** file for the application's menu.
 
      <!DOCTYPE html>
-      <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-     <head th:fragment="site-head">
+      <html xmlns:th="http://www.thymeleaf.org">
+      <head th:fragment="site-head">
       <meta charset="UTF-8" />
-      <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
-      <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
+       <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
+       <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
        <meta th:include="this :: head" th:remove="tag"/>
-      </head>
-      <body>
+     </head>
+     <body>
       <!-- th:hef calls a controller method - which returns the view -->
-      <header th:fragment="site-header">
-      <a href="index.html" th:href="@{/}"><img src="../public/images/site-logo.png" th:src="@{/images/site-logo.png}" /></a>
-      <a href="#" style="color: white" th:href="@{/}">Home</a>
-      <a href="#" style="color: white" th:href="@{/photo}">Upload Photos</a>
-      <a href="#"  style="color: white" th:href="@{/process}">Analyze Photos</a>
-      <div id="logged-in-info">
+     <header th:fragment="site-header">
+     <a href="index.html" th:href="@{/}"><img src="../public/images/site-logo.png" th:src="@{/images/site-logo.png}" /></a>
+     <a href="#" style="color: white" th:href="@{/}">Home</a>
+     <a href="#" style="color: white" th:href="@{/video}">Upload Videos</a>
+     <a href="#"  style="color: white" th:href="@{/process}">Analyze Videos</a>
 
-        <form method="post" th:action="@{/logout}">
-            <input type="submit"  value="Logout"/>
-        </form>
-         </div>
-        </header>
-        <h1>Welcome</h1>
-        <body>
-        <p>Welcome to  AWS Photo Analyzer.</p>
-        </body>
-        </html>
+    </header>
+    <h1>Welcome</h1>
+    <body>
+    <p>Welcome to  AWS Video Analyzer.</p>
+    </body>
+    </html>
 
 ## Create script files
 
@@ -1348,18 +1343,18 @@ The following JavaScript represents the **items.js** file.
         ],
         fixedColumns: true
      } );
-    } );
+     } );
 
-     function getImages() {
 
-      var xhr = new XMLHttpRequest();
-      xhr.addEventListener("load", handleimages, false);
-      xhr.open("GET", "../getimages", true);   //buildFormit -- a Spring MVC controller
-      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-      xhr.send();
-     }
+    function getVideo() {
+     var xhr = new XMLHttpRequest();
+     xhr.addEventListener("load", handlevideo, false);
+     xhr.open("GET", "../getvideo", true);
+     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
+     xhr.send();
+    }
 
-     function handleimages() {
+    function handlevideo() {
 
      var xml = event.target.responseText;
      var oTable = $('#myTable').dataTable();
@@ -1372,39 +1367,48 @@ The following JavaScript represents the **items.js** file.
         var date = $field.find('Date').text();
         var size = $field.find('Size').text();
 
-        // Set the new data
+        //Set the new data
         oTable.fnAddData( [
             key,
             name,
             date,
             size,,]
-         );
-       });
-      }
+        );
+        });
+        }
+
 
 ### message.js
 
 The following JavaScript represents the **message.js** file. The **ProcessImages** function sends a request to the **/report** handler in the controller that generates a report. Notice that an email address is posted to the **Controller** method.
 
-    $(function() {
+   $(function() {
 
-     } );
+    $('#spinner').hide();
+
+   } );
 
     function ProcessImages() {
 
-     // Post the values to the controller
+     //Post the values to the controller
      var email =  $('#email').val();
+     $('#spinner').show();
+     $('#button').prop("disabled",true);
+
      var xhr = new XMLHttpRequest();
      xhr.addEventListener("load", handle, false);
      xhr.open("POST", "../report", true);   //buildFormit -- a Spring MVC controller
      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
      xhr.send("email=" + email);
-     }
+    }
 
-     function handle(event) {
-       var res = event.target.responseText;
-       alert(res) ;
-      }
+    function handle(event) {
+
+     var res = event.target.responseText;
+     $('#spinner').hide();
+     $('#button').prop("disabled",false);
+     alert(res) ;
+    }
 
 **Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.   
 
