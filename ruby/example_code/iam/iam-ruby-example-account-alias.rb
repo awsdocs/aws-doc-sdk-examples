@@ -36,8 +36,10 @@ end
 #   exit 1 unless alias_created?(Aws::IAM::Client.new, 'my-account-alias')
 def alias_created?(iam, account_alias)
   iam.create_account_alias(account_alias: account_alias)
+  return true
 rescue StandardError => e
   puts "Error creating account alias: #{e.message}"
+  return false
 end
 
 # Deletes an AWS account alias.
@@ -49,8 +51,10 @@ end
 #   exit 1 unless alias_deleted?(Aws::IAM::Client.new, 'my-account-alias')
 def alias_deleted?(iam, account_alias)
   iam.delete_account_alias(account_alias: account_alias)
+  return true
 rescue StandardError => e
   puts "Error deleting account alias: #{e.message}"
+  return false
 end
 
 # Full example call:

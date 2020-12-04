@@ -1,0 +1,36 @@
+# Disregard this file. AWS uses it internally to 
+# track code coverage and unit test coverage 
+# within this repository.
+---
+files:
+  - path: iam_ruby_example_show_admins.rb
+    services: 
+    - iam
+  - path: tests/test_iam_ruby_example_show_admins.rb
+    services:
+    - iam
+  - path: iam-ruby-example-access-keys.rb
+    services: 
+    - iam
+  - path: tests/test_iam-ruby-example-access-keys.rb
+    services:
+    - iam
+  - path: iam-ruby-example-account-alias.rb
+    services: 
+    - iam
+  - path: tests/test_iam-ruby-example-account-alias.rb
+    services:
+    - iam
+  - path: iam-ruby-example-add-managed-policy.rb
+    services: 
+    - iam
+  - path: tests/test_iam-ruby-example-add-managed-policy.rb
+    services:
+    - iam
+  - path: iam-ruby-example-add-new-user.rb
+    services: 
+    - iam
+  - path: tests/test_iam-ruby-example-add-new-user.rb
+    services:
+    - iam
+...
