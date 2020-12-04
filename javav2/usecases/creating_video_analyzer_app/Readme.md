@@ -24,7 +24,7 @@ This application uses the following AWS services:
 
 + Prerequisites
 + Understand the AWS Video Analyzer application
-+ Create an IntelliJ project named SprinVideoAnalyzer
++ Create an IntelliJ project named SpringVideoAnalyzer
 + Add the POM dependencies to your project
 + Create the Java classes
 + Create the HTML files
