@@ -41,6 +41,7 @@ To complete the tutorial, you need the following:
 + Java JDK 1.8
 + Maven 3.6 or later
 + An Amazon S3 bucket named **video[somevalue]**. Be sure to use this bucket name in your Amazon S3 Java code. For information, see [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html).
++ You must create an IAM role and a valid SNS topic ARN value. You need to reference these values in the **VideoDetectFaces**. If you do not set these values, this AWS tutorial does not work. For information, see see [Configuring Amazon Rekognition Video](https://docs.aws.amazon.com/rekognition/latest/dg/api-video-roles.html).  
 
 ## Understand the AWS Video Analyzer application
 
@@ -197,86 +198,14 @@ The Java files go into this package.
 
 Create these Java classes:
 
-+ **AnalyzePhotos** - Uses the Amazon Rekognition API to analyze the images.
 + **BucketItem** - Used as a model that stores Amazon S3 bucket information.   
-+ **PhotoApplication** - Used as the base class for the Spring Boot application.
-+ **PhotoController** - Used as the Spring Boot controller that handles HTTP requests.
-+ **SendMessages** - Uses the Amazon SES API to send an email message with an attachment.
++ **FaceItem** - Used as a model that stores details obtained by analyzing the video.
 + **S3Service** - Uses the Amazon S3 API to perform S3 operations.
-+ **WorkItem** - Used as a model that stores Amazon Rekognition data.
++ **SendMessages** - Uses the Amazon SES API to send an email message with an attachment.
++ **VideoApplication** - Used as the base class for the Spring Boot application.
++ **VideoController** - Used as the Spring Boot controller that handles HTTP requests.
++ **VideoDetectFaces** - Uses the Amazon Rekognition API to analyze the video.
 + **WriteExcel** – Uses the JXL API (this is not an AWS API) to dynamically generate a report.     
-
-### AnalyzePhotos class
-
-The following Java code represents the **AnalyzePhotos** class. This class uses the Amazon Rekognition API to analyze the images.
-
-    package com.example.photo;
-
-    import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-    import software.amazon.awssdk.core.SdkBytes;
-    import software.amazon.awssdk.regions.Region;
-    import software.amazon.awssdk.services.rekognition.RekognitionClient;
-    import software.amazon.awssdk.services.rekognition.model.Image;
-    import software.amazon.awssdk.services.rekognition.model.DetectLabelsRequest;
-    import software.amazon.awssdk.services.rekognition.model.DetectLabelsResponse;
-    import software.amazon.awssdk.services.rekognition.model.Label;
-    import software.amazon.awssdk.services.rekognition.model.RekognitionException;
-    import java.util.ArrayList;
-    import java.util.List;
-    import org.springframework.stereotype.Component;
-
-    @Component
-    public class AnalyzePhotos {
-
-    public ArrayList DetectLabels(byte[] bytes, String key) {
-
-        Region region = Region.US_EAST_2;
-        RekognitionClient rekClient = RekognitionClient.builder()
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .region(region)
-                .build();
-
-        try {
-
-            SdkBytes sourceBytes = SdkBytes.fromByteArray(bytes);
-
-            // Create an Image object for the source image
-            Image souImage = Image.builder()
-                    .bytes(sourceBytes)
-                    .build();
-
-            DetectLabelsRequest detectLabelsRequest = DetectLabelsRequest.builder()
-                    .image(souImage)
-                    .maxLabels(10)
-                    .build();
-
-            DetectLabelsResponse labelsResponse = rekClient.detectLabels(detectLabelsRequest);
-
-            // Write the results to a WorkItem instance
-            List<Label> labels = labelsResponse.labels();
-
-            System.out.println("Detected labels for the given photo");
-
-            ArrayList list = new ArrayList<WorkItem>();
-            WorkItem item ;
-            for (Label label: labels) {
-                item = new WorkItem();
-                item.setKey(key); // identifies the photo
-                item.setConfidence(label.confidence().toString());
-                item.setName(label.name());
-                list.add(item);
-            }
-            return list;
-
-        } catch (RekognitionException e) {
-            System.out.println(e.getMessage());
-            System.exit(1);
-        }
-        return null ;
-     }
-    }
-
-**Note:** In this example, an **EnvironmentVariableCredentialsProvider** is used for the credentials. This is because this application is deployed to Elastic Beanstalk where environment variables are set (shown later in this tutorial).
 
 ### BucketItem class
 
@@ -325,151 +254,84 @@ The following Java code represents the **BucketItem** class that stores S3 objec
         return this.key ;
     }
     }
+    
+### FaceItems class
 
-### PhotoApplication class
+The following Java code represents the **FaceItems** class that stores data returned by the Amazon Rekognition service.
 
-The following Java code represents the **PhotoApplication** class.
+    package com.example.video;
 
-    package com.example.photo;
+    // Represents a model that stores labels detected in a video
+    public class FaceItems {
 
-    import org.springframework.boot.SpringApplication;
-    import org.springframework.boot.autoconfigure.SpringBootApplication;
+    private String  ageRange;
+    private String beard;
+    private String eyeglasses;
+    private String eyesOpen;
+    private String mustache;
+    private String smile;
 
-    @SpringBootApplication
-    public class PhotoApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(PhotoApplication.class, args);
-      }
-     }
-
-### PhotoController class
-
-The following Java code represents the **PhotoController** class that handles HTTP requests. For example, when a new image is posted (uploaded to an S3 bucket), the **singleFileUpload** method handles the request.
-
-    package com.example.photo;
-
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.stereotype.Controller;
-    import org.springframework.web.bind.annotation.*;
-    import javax.servlet.http.HttpServletRequest;
-    import javax.servlet.http.HttpServletResponse;
-    import org.springframework.web.servlet.ModelAndView;
-    import org.springframework.web.multipart.MultipartFile;
-    import org.springframework.web.servlet.view.RedirectView;
-    import java.io.IOException;
-    import java.io.InputStream;
-    import java.util.*;
-
-    @Controller
-    public class PhotoController {
-
-    @Autowired
-    S3Service s3Client;
-
-    @Autowired
-    AnalyzePhotos photos;
-
-    @Autowired
-    WriteExcel excel ;
-
-    @Autowired
-    SendMessages sendMessage;
-
-    @GetMapping("/")
-    public String root() {
-        return "index";
+    public String getAgeRange() {
+        return this.ageRange ;
     }
 
-    @GetMapping("/process")
-    public String process() {
-        return "process";
+    public void setAgeRange(String age) {
+        this.ageRange = age ;
     }
 
-    @GetMapping("/photo")
-    public String photo() {
-        return "upload";
+    public String getBeard() {
+        return this.beard ;
     }
 
-    @RequestMapping(value = "/getimages", method = RequestMethod.GET)
-    @ResponseBody
-    String getImages(HttpServletRequest request, HttpServletResponse response) {
-
-    return s3Client.ListAllObjects("scottphoto");
+    public void setBeard(String beard) {
+             this.beard = beard ;
     }
 
-    // Generate a report that analyzes photos in a given bucket
-    @RequestMapping(value = "/report", method = RequestMethod.POST)
-    @ResponseBody
-    String report(HttpServletRequest request, HttpServletResponse response) {
-
-        String email = request.getParameter("email");
-
-       // Get a list of key names in the given bucket
-       List myKeys =  s3Client.ListBucketObjects("scottphoto");
-
-       // Create a list to store the data
-       List myList = new ArrayList<List>();
-
-       // Loop through each element in the List
-       int len = myKeys.size();
-       for (int z=0 ; z < len; z++) {
-
-           String key = (String) myKeys.get(z);
-           byte[] keyData = s3Client.getObjectBytes ("scottphoto", key);
-           //myMap.put(key, keyData);
-
-           // Analyze the photo
-          ArrayList item =  photos.DetectLabels(keyData, key);
-          myList.add(item);
-       }
-
-       // Now we have a list of WorkItems that have all of the analytical data describing the photos in the S3 bucket
-       InputStream excelData = excel.exportExcel(myList);
-
-       try {
-           // Email the report
-           sendMessage.sendReport(excelData, email);
-
-       } catch (Exception e) {
-
-           e.printStackTrace();
-       }
-        return "The photos have been analyzed and the report is sent.";
+    public String getEyesOpen() {
+        return this.eyesOpen ;
     }
 
-    // Upload an image to send to an S3 bucket
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    @ResponseBody
-    public ModelAndView singleFileUpload(@RequestParam("file") MultipartFile file) {
+    public void setEyesOpen(String eyesOpen) {
+        this.eyesOpen = eyesOpen ;
+    }
 
-        try {
+    public String getEyeglasses() {
+        return this.eyeglasses ;
+    }
 
-            // Now you can add this to an S3 bucket
-            byte[] bytes = file.getBytes();
-            String name =  file.getOriginalFilename() ;
+    public void setEyeglasses(String eyeglasses) {
+        this.eyeglasses = eyeglasses ;
+    }
 
-           // Put the file into the bucket
-            s3Client.putObject(bytes, "scottphoto", name);
+    public String gettMustache() {
+        return this.mustache ;
+    }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return new ModelAndView(new RedirectView("photo"));
-        }
-       }
+    public void setMustache(String mustache) {
+
+        this.mustache = mustache ;
+    }
+
+    public String gettSmile() {
+        return this.smile ;
+    }
+
+    public void setSmile(String smile) {
+        this.smile = smile ;
+    }
+   }
+
 
 ### S3Service class
 
-The following class uses the Amazon S3 API to perform S3 operations. For example, the **getObjectBytes** method returns a byte array that represents the image. Be sure to replace the bucket name in this code example with your bucket name.
+The following class uses the Amazon S3 API to perform S3 operations. For example, the **putObject** method places the video into the specified Amazon S3 bucket. Be sure to replace the bucket name in this code example with your bucket name.
 
-    package com.example.photo;
+    package com.example.video;
 
     import org.springframework.stereotype.Component;
     import org.w3c.dom.Document;
     import org.w3c.dom.Element;
     import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-    import software.amazon.awssdk.core.ResponseBytes;
     import software.amazon.awssdk.core.sync.RequestBody;
     import software.amazon.awssdk.regions.Region;
     import software.amazon.awssdk.services.s3.S3Client;
@@ -491,44 +353,40 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
     @Component
     public class S3Service {
 
-    S3Client s3 ;
+    private  S3Client s3 ;
 
     private S3Client getClient() {
-        // Create the S3Client object
-        Region region = Region.US_WEST_2;
+
+        Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .region(region)
                 .build();
-
         return s3;
-      }
+    }
 
-    public byte[] getObjectBytes (String bucketName, String keyName) {
+    // Places a video into an Amazon S3 bucket
+    public String putObject(byte[] data, String bucketName, String objectKey) {
 
         s3 = getClient();
 
         try {
-            // Create a GetObjectRequest instance
-            GetObjectRequest objectRequest = GetObjectRequest
-                    .builder()
-                    .key(keyName)
-                    .bucket(bucketName)
-                    .build();
+            //Put a file into the bucket
+            PutObjectResponse response = s3.putObject(PutObjectRequest.builder()
+                            .bucket(bucketName)
+                            .key(objectKey)
+                            .build(),
+                    RequestBody.fromBytes(data));
 
-            // Get the byte[] from this S3 object
-            ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
-            byte[] data = objectBytes.asByteArray();
-            return data;
+            return response.eTag();
 
         } catch (S3Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
+            System.err.println(e.getMessage());
             System.exit(1);
         }
-        return null;
-     }
+        return "";
+    }
 
-    // Return the names of all images and data within an XML document
     public String ListAllObjects(String bucketName) {
 
         s3 = getClient();
@@ -567,65 +425,38 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
             System.exit(1);
         }
         return null ;
-      }
-
-    // Return the names of all images in the given bucket
-    public List ListBucketObjects(String bucketName) {
-
-        s3 = getClient();
-        String keyName ;
-
-        List keys = new ArrayList<String>();
-
-        try {
-            ListObjectsRequest listObjects = ListObjectsRequest
-                    .builder()
-                    .bucket(bucketName)
-                    .build();
-
-            ListObjectsResponse res = s3.listObjects(listObjects);
-            List<S3Object> objects = res.contents();
-
-            for (ListIterator iterVals = objects.listIterator(); iterVals.hasNext(); ) {
-                S3Object myValue = (S3Object) iterVals.next();
-                keyName = myValue.key();
-                keys.add(keyName);
-            }
-
-           return keys;
-
-        } catch (S3Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        return null ;
-    }
-
-
-    // Place an image into an S3 bucket
-    public String putObject(byte[] data, String bucketName, String objectKey) {
-
-        s3 = getClient();
-
-        try {
-            // Put a file into the bucket
-            PutObjectResponse response = s3.putObject(PutObjectRequest.builder()
-                            .bucket(bucketName)
-                            .key(objectKey)
-                            .build(),
-                    RequestBody.fromBytes(data));
-
-            return response.eTag();
-
-        } catch (S3Exception e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-        return "";
      }
 
-    // Convert bucket item data into XML to pass back to the view
-    private Document toXml(List<BucketItem> itemList) {
+    public String getKeyName(String bucketName) {
+
+            s3 = getClient();
+            String keyName="";
+
+            try {
+                ListObjectsRequest listObjects = ListObjectsRequest
+                        .builder()
+                        .bucket(bucketName)
+                        .build();
+
+                ListObjectsResponse res = s3.listObjects(listObjects);
+                List<S3Object> objects = res.contents();
+
+                for (ListIterator iterVals = objects.listIterator(); iterVals.hasNext(); ) {
+                    S3Object myValue = (S3Object) iterVals.next();
+                    keyName = myValue.key();
+                }
+
+                return keyName;
+
+            } catch (S3Exception e) {
+                System.err.println(e.awsErrorDetails().errorMessage());
+                System.exit(1);
+            }
+            return null ;
+        }
+
+     // Convert Bucket item data into XML to pass back to the view
+     private Document toXml(List<BucketItem> itemList) {
 
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -667,16 +498,16 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
                 Element desc = doc.createElement( "Size" );
                 desc.appendChild( doc.createTextNode(myItem.getSize() ) );
                 item.appendChild( desc );
-          }
+            }
 
             return doc;
         } catch(ParserConfigurationException e) {
             e.printStackTrace();
         }
         return null;
-      }
+       }
 
-    private String convertToString(Document xml) {
+      private String convertToString(Document xml) {
         try {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             StreamResult result = new StreamResult(new StringWriter());
@@ -688,8 +519,11 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
             ex.printStackTrace();
         }
         return null;
-        }
+       }
+
       }
+
+**Note**: In this example, an **EnvironmentVariableCredentialsProvider** is used for the credentials. This is because this application is deployed to Elastic Beanstalk where environment variables are set (shown later in this tutorial).
 
 ### SendMessage class
 
@@ -727,15 +561,15 @@ The following Java code represents the **SendMessage** class. This class uses th
 
     private String sender = "<enter email address>";
 
-    // The subject line for the email
-    private String subject = "Analyzed photos report";
+    // The subject line for the email.
+    private String subject = "Analyzed Video report";
 
-    // The email body for recipients with non-HTML email clients
-    private String bodyText = "Hello,\r\n" + "See the attached file for the analyzed photos report.";
+    // The email body for recipients with non-HTML email clients.
+    private String bodyText = "Hello,\r\n" + "Please see the attached file for the analyzed video report.";
 
-    // The HTML body of the email
+    // The HTML body of the email.
     private String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-            + "<p>Please see the attached file for the report that analyzed photos in the S3 bucket.</p>" + "</body>" + "</html>";
+            + "<p>Please see the attached file for the report that analyzed a video in the Amazon S3 bucket.</p>" + "</body>" + "</html>";
 
     public void sendReport(InputStream is, String emailAddress ) throws IOException {
 
@@ -797,7 +631,7 @@ The following Java code represents the **SendMessage** class. This class uses th
         DataSource fds = new ByteArrayDataSource(attachment, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         att.setDataHandler(new DataHandler(fds));
 
-        String reportName = "PhotoReport.xls";
+        String reportName = "VideoReport.xls";
         att.setFileName(reportName);
 
         // Add the attachment to the message
@@ -838,42 +672,275 @@ The following Java code represents the **SendMessage** class. This class uses th
         }
        }
 
- ### WorkItem class
+ ### VideoApplication class
 
- The following Java code represents the **WorkItem** class.
+ The following Java code represents the **VideoApplication** class.
 
-     package com.example.photo;
+     package com.example.video;
 
-    public class WorkItem {
+    import org.springframework.boot.SpringApplication;
+    import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-     private String key;
-     private String name;
-     private String confidence ;
+    @SpringBootApplication
+    public class VideoApplication {
 
-     public void setKey (String key) {
-        this.key = key;
+    public static void main(String[] args) {
+        SpringApplication.run(VideoApplication.class, args);
+     }
+    }
+
+### VideoController class
+
+The following Java code represents the **VideoController** class that handles HTTP requests. For example, when a new video is uploaded to an Amazon S3 bucket, the **singleFileUpload** method handles the request.
+
+     package com.example.video;
+
+     import org.springframework.beans.factory.annotation.Autowired;
+     import org.springframework.stereotype.Controller;
+     import org.springframework.web.bind.annotation.*;
+     import javax.servlet.http.HttpServletRequest;
+     import javax.servlet.http.HttpServletResponse;
+     import org.springframework.web.servlet.ModelAndView;
+     import org.springframework.web.multipart.MultipartFile;
+     import org.springframework.web.servlet.view.RedirectView;
+     import java.io.IOException;
+     import java.io.InputStream;
+     import java.util.*;
+
+     @Controller
+     public class VideoController {
+
+     @Autowired
+     S3Service s3Client;
+
+     @Autowired
+     WriteExcel excel ;
+
+     @Autowired
+     SendMessages sendMessage;
+
+     @Autowired
+     VideoDetectFaces detectFaces;
+
+     @GetMapping("/")
+     public String root() {
+        return "index";
      }
 
-     public String getKey() {
-        return this.key;
+     @GetMapping("/video")
+     public String photo() {
+        return "upload";
      }
 
-     public void setName (String name) {
-        this.name = name;
+     @GetMapping("/process")
+     public String process() {
+        return "process";
      }
 
-     public String getName() {
-        return this.name;
-     }
+    @RequestMapping(value = "/getvideo", method = RequestMethod.GET)
+    @ResponseBody
+    String getImages(HttpServletRequest request, HttpServletResponse response) {
 
-     public void setConfidence (String confidence) {
-        this.confidence = confidence;
-     }
+        return s3Client.ListAllObjects("scottexamplevideo");
+    }
 
-     public String getConfidence() {
-        return this.confidence;
+    // Upload a MP4 to an Amazon S3 bucket
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @ResponseBody
+    public ModelAndView singleFileUpload(@RequestParam("file") MultipartFile file) {
+
+        try {
+            byte[] bytes = file.getBytes();
+            String name =  file.getOriginalFilename() ;
+
+            // Put the MP4 file into an Amazon S3 bucket
+            int yy = 0;
+            s3Client.putObject(bytes, "scottexamplevideo", name);
+            // return "You have placed " +name + " into the S3 bucket";
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ModelAndView(new RedirectView("video"));
+      }
+
+     // generates a report after analyzing a video in an Amazon S3 bucket
+     @RequestMapping(value = "/report", method = RequestMethod.POST)
+     @ResponseBody
+     String report(HttpServletRequest request, HttpServletResponse response) {
+
+        String email = request.getParameter("email");
+        String myKey = s3Client.getKeyName("scottexamplevideo");
+        String jobNum = detectFaces.StartFaceDetection("scottexamplevideo", myKey);
+        List<FaceItems> items = detectFaces.GetFaceResults(jobNum);
+
+        InputStream excelData = excel.exportExcel(items);
+
+        try {
+            //email the report
+            sendMessage.sendReport(excelData, email);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+        return "The "+ myKey +" video has been successfully analyzed and the report is sent to "+email;
       }
      }
+
+
+### VideoDetectFaces class
+The following Java code represents the **VideoDetectFaces** class. This class uses the Amazon Rekognition API to analyze the video obtained from an Amazon S3 bucket. In this example, the video is analyzed by invoking the **RekognitionClient** object’s **startFaceDetection** method. This returns a **StartFaceDetectionResponse** object. You can get the job id number by invoking the **StartFaceDetectionResponse** object’s **jobId** method.
+
+You can get the results of the job by invoking the **GetFaceResults** method. Notice in this code example, a while loop is used to wait until the job is finished. This method returns a list where each element is a **FaceItems** object. 
+
+package com.example.video;
+
+import org.springframework.stereotype.Component;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.rekognition.RekognitionClient;
+import software.amazon.awssdk.services.rekognition.model.*;
+import software.amazon.awssdk.services.rekognition.model.S3Object;
+import java.util.ArrayList;
+import java.util.List;
+
+@Component
+public class VideoDetectFaces {
+
+    String topicArn = "<enter a topic ARN>";
+    String roleArn = "<enter your role ARN>"
+
+
+    private RekognitionClient getRecClient() {
+        Region region = Region.US_EAST_1;
+        RekognitionClient rekClient = RekognitionClient.builder()
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .region(region)
+                .build();
+        return rekClient;
+    }
+
+    private NotificationChannel getChannel() {
+
+        NotificationChannel channel = NotificationChannel.builder()
+                .snsTopicArn(topicArn)
+                .roleArn(roleArn)
+                .build();
+        return channel;
+    }
+
+ public String StartFaceDetection(String bucket, String video) {
+
+     String startJobId="";
+
+        try {
+
+            RekognitionClient rekClient = getRecClient();
+            software.amazon.awssdk.services.rekognition.model.S3Object s3Obj = S3Object.builder()
+                    .bucket(bucket)
+                    .name(video)
+                    .build();
+
+            Video vidOb = Video.builder()
+                    .s3Object(s3Obj)
+                    .build();
+
+            StartFaceDetectionRequest faceDetectionRequest = StartFaceDetectionRequest.builder()
+                    .jobTag("Faces")
+                    .notificationChannel(getChannel())
+                    .faceAttributes(FaceAttributes.ALL)
+                    .video(vidOb)
+                    .build();
+
+            StartFaceDetectionResponse startLabelDetectionResult = rekClient.startFaceDetection(faceDetectionRequest);
+            startJobId=startLabelDetectionResult.jobId();
+            return startJobId;
+
+        } catch(RekognitionException e) {
+            System.out.println(e.getMessage());
+            System.exit(1);
+        }
+        return "";
+    }
+
+    // Processes the Job and returns of List of labels
+    public List<FaceItems> GetFaceResults(String startJobId) {
+
+        List<FaceItems> items =new ArrayList<>();
+        try {
+            RekognitionClient rekClient = getRecClient();
+            String paginationToken=null;
+            GetFaceDetectionResponse faceDetectionResponse=null;
+            Boolean finished = false;
+            String status="";
+            int yy=0 ;
+
+            do{
+                if (faceDetectionResponse !=null)
+                    paginationToken = faceDetectionResponse.nextToken();
+
+                GetFaceDetectionRequest recognitionRequest = GetFaceDetectionRequest.builder()
+                        .jobId(startJobId)
+                        .nextToken(paginationToken)
+                        .maxResults(10)
+                        .build();
+
+                // Wait until the job succeeds
+                while (!finished) {
+
+                    faceDetectionResponse = rekClient.getFaceDetection(recognitionRequest);
+                    status = faceDetectionResponse.jobStatusAsString();
+
+                    if (status.compareTo("SUCCEEDED") == 0)
+                        finished = true;
+                    else {
+                        System.out.println(yy + " status is: " + status);
+                        Thread.sleep(1000);
+                    }
+                    yy++;
+                }
+
+                finished = false;
+
+                // Push face information to the list
+                List<FaceDetection> faces= faceDetectionResponse.faces();
+
+                FaceItems faceItem;
+                for (FaceDetection face: faces) {
+
+                    faceItem = new FaceItems();
+
+                    String age = face.face().ageRange().toString();
+                    String beard = face.face().beard().toString();
+                    String eyeglasses = face.face().eyeglasses().toString();
+                    String eyesOpen = face.face().eyesOpen().toString();
+                    String mustache = face.face().mustache().toString();
+                    String smile = face.face().smile().toString();
+
+                    faceItem.setAgeRange(age);
+                    faceItem.setBeard(beard);
+                    faceItem.setEyeglasses(eyeglasses);
+                    faceItem.setEyesOpen(eyesOpen);
+                    faceItem.setMustache(mustache);
+                    faceItem.setSmile(smile);
+
+                    items.add(faceItem);
+                   }
+
+            } while (faceDetectionResponse !=null && faceDetectionResponse.nextToken() != null);
+
+            return items;
+
+
+        } catch(RekognitionException | InterruptedException e) {
+            System.out.println(e.getMessage());
+            System.exit(1);
+        }
+        return null;
+    }
+}
+
+NOTE: Besure to specifiy valid **topicArn** and **roleArn** values. See the **Prerequisites** section at the start of this tutorial. 
 
 ### WriteExcel class
 
