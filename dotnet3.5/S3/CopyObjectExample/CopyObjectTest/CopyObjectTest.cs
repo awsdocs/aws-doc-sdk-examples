@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
+
 using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
@@ -14,8 +15,6 @@ namespace CopyObjectTest
 {
     public class CopyObjectTest
     {
-        // This application uses XUnit and moq to test the CopyObject Example.
-
         private string _SourceBucket;
         private string _DestinationBucket;
         private string _SourceObjectKey;

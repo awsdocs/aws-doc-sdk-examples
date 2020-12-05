@@ -14,6 +14,9 @@ namespace DeleteBucketText
 {
     public class DeleteBucketTest
     {
+        // This example deletes an existing Amazon Simple Storage Service (S3)
+        // bucket. It uses the AWS SDK for .NET 3.5 and .NET 5.0.
+
         private string _BucketName;
 
         private IAmazonS3 CreateMockS3Client()

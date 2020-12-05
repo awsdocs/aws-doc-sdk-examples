@@ -14,8 +14,6 @@ namespace CreateBucketTest
 {
     public class CreateBucketTest
     {
-        // This application uses XUnit and moq to test the CreateBucket Example.
-
         private string _NewBucketName;
 
         private IAmazonS3 CreateMockS3Client()

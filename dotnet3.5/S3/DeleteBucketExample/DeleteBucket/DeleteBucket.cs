@@ -12,7 +12,7 @@ namespace DeleteBucket
 {
     class DeleteBucket
     {
-        // This example shows how to delete an existing and empty bucket.
+        // This example shows how to delete an existing empty bucket.
         //  The examples uses AWS SDK for .NET 3.5 and .NET 5.0
 
         // Change the name of the following constant to the AWS Region containing your bucket
@@ -23,19 +23,19 @@ namespace DeleteBucket
         // Specify the name of the bucket to delete.
         private const string BUCKET_NAME = "doc-example-bucket";
 
-        static void Main()
+        static async Task Main()
         {
             _s3Client = new AmazonS3Client(BUCKET_REGION);
 
             // Now delete the bucket. If the bucket you are trying to
             // delete contains any objects, the call will raise an exception.
             Console.WriteLine($"\nDeleting bucket {BUCKET_NAME}...");
-            DeletingBucketAsync(_s3Client, BUCKET_NAME).Wait();
+            await DeletingBucketAsync(_s3Client, BUCKET_NAME);
         }
 
         /// <summary>
         /// DeletingBucketAsync calls the DeleteBucketAsync method
-        /// to delete bucketName.
+        /// to delete the S3 bucket bucketName.
         /// </summary>
         /// <param name="client">The Amazon S3 client object.</param>
         /// <param name="bucketName">The name of the bucket to be deleted.</param>
