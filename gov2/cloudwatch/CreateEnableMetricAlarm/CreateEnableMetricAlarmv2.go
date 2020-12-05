@@ -31,7 +31,7 @@ type CWEnableAlarmAPI interface {
 //     api is the interface that defines the method call
 //     input defines the input arguments to the service call.
 // Output:
-//     If success, a METHODOutput object containing the result of the service call and nil
+//     If success, a PutMetricAlarmOutput object containing the result of the service call and nil
 //     Otherwise, the error from a call to PutMetricAlarm
 func CreateMetricAlarm(c context.Context, api CWEnableAlarmAPI, input *cloudwatch.PutMetricAlarmInput) (*cloudwatch.PutMetricAlarmOutput, error) {
 	resp, err := api.PutMetricAlarm(c, input)

@@ -27,7 +27,7 @@ type CWPutMetricDataAPI interface {
 //     api is the interface that defines the method call
 //     input defines the input arguments to the service call.
 // Output:
-//     If success, a METHODOutput object containing the result of the service call and nil
+//     If success, a PutMetricDataOutput object containing the result of the service call and nil
 //     Otherwise, nil and an error from the call to PutMetricData
 func CreateCustomMetric(c context.Context, api CWPutMetricDataAPI, input *cloudwatch.PutMetricDataInput) (*cloudwatch.PutMetricDataOutput, error) {
 	resp, err := api.PutMetricData(c, input)

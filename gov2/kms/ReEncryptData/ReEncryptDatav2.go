@@ -26,7 +26,7 @@ type KMSReEncryptAPI interface {
 //     api is the interface that defines the method call.
 //     input defines the input arguments to the service call.
 // Output:
-//     If success, a METHODOutput object containing the result of the service call and nil.
+//     If success, a ReEncryptOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to ReEncrypt.
 func ReEncryptText(c context.Context, api KMSReEncryptAPI, input *kms.ReEncryptInput) (*kms.ReEncryptOutput, error) {
     result, err := api.ReEncrypt(c, input)

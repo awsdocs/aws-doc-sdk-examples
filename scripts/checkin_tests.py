@@ -60,6 +60,9 @@ DENY_LIST = {'alpha-docs-aws.amazon.com', 'integ-docs-aws.amazon.com'}
 
 # whitelist of 20- or 40-character strings to allow
 ALLOW_LIST = {
+    'AGPAIFFQAVRFFEXAMPLE',
+    'AKIA111111111EXAMPLE',
+    'AKIA6OHTTRXXTEXAMPLE',
     'AKIAEXAMPLEACCESSKEY',
     'AKIAIOSFODNN7EXAMPLE',
     'AppStreamUsageReportsCFNGlueAthenaAccess',
