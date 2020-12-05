@@ -109,7 +109,7 @@ end
 #   exit 1 unless access_key_deactivated?(
 #     Aws::IAM::Client.new,
 #     'my-user',
-#     'AKIA6OHTTRXXTEXAMPLE'
+#     'AKIAIOSFODNN7EXAMPLE'
 #   )
 def access_key_deactivated?(iam, user_name, access_key_id)
   iam.update_access_key(
@@ -138,7 +138,7 @@ end
 #   exit 1 unless access_key_deleted?(
 #     Aws::IAM::Client.new,
 #     'my-user',
-#     'AKIA6OHTTRXXTEXAMPLE'
+#     'AKIAIOSFODNN7EXAMPLE'
 #   )
 def access_key_deleted?(iam, user_name, access_key_id)
   iam.delete_access_key(

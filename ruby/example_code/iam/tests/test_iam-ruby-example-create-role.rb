@@ -26,7 +26,7 @@ describe '#create_role' do
     ]
   end
   let(:role_arn) { "arn:aws:iam::111111111111:role/#{role_name}" }
-  let(:role_id) { 'AROADBQP57FF2AEXAMPLE' }
+  let(:role_id) { 'AIDACKCEVSQ6C2EXAMPLE' }
   let(:iam_client) do
     Aws::IAM::Client.new(
       stub_responses: {

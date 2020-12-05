@@ -8,7 +8,7 @@ describe '#get_user_details' do
   let(:group_name) { 'my-group' }
   let(:policy_name) { 'my-policy' }
   let(:user_id) { 'AIDACKCEVSQ6C2EXAMPLE' }
-  let(:group_id) { 'AGPAIFFQAVRFFEXAMPLE' }
+  let(:group_id) { 'AIDACKCEVSQ6C2EXAMPLE' }
   let(:access_key_id) { 'AKIAIOSFODNN7EXAMPLE' }
 
   let(:iam_client) do
