@@ -25,7 +25,7 @@ The code examples are organized by AWS SDK or AWS programming tool. For example,
 * **javav2** for the latest version of the AWS SDK for Java (version 2)
 * **javascriptv3** for the latest version of the AWS SDK for JavaScript (version 3)
 * **php** for the latest version of the AWS SDK for PHP (version 3)
-* **python** for the latest version of the AWS SDK for Python (Boto3 version 1)
+* **python** for the latest version of the AWS SDK for Python (Boto3)
 * **ruby** for the latest version of the AWS SDK for Ruby (version 3)
 
 Code examples for older AWS SDK versions will be archived in this repository but no longer maintained. These include:
@@ -54,7 +54,7 @@ Inside each language-specific directory, we include a **README** file that expla
 build and run the examples in the directory.
 
 The example code in the language-specific directories is organized by
-the AWS service abbreviation (**s3** for `Amazon S3 <https://aws.amazon.com/s3>`_ examples, and so
+the AWS service command in the `AWS Command Line Interface (AWS CLI) Command Reference <https://awscli.amazonaws.com/v2/documentation/api/latest/index.html>`_ (**s3** for `Amazon S3 <https://aws.amazon.com/s3>`_ examples, and so
 on).
 
 Proposing new code examples

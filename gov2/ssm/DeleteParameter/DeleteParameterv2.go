@@ -26,7 +26,7 @@ type SSMDeleteParameterAPI interface {
 //     api is the interface that defines the method call.
 //     input defines the input arguments to the service call.
 // Output:
-//     If success, a METHODOutput object containing the result of the service call and nil.
+//     If success, a DeleteParameterOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to DeleteParameter.
 func RemoveParameter(c context.Context, api SSMDeleteParameterAPI, input *ssm.DeleteParameterInput) (*ssm.DeleteParameterOutput, error) {
     results, err := api.DeleteParameter(c, input)
