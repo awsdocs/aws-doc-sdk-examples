@@ -54,8 +54,8 @@ public class VideoDetect {
                 "VideoDetect <bucket> <video> <queueUrl> <topicArn> <roleArn>\n\n" +
                 "Where:\n" +
                 "bucket - the name of the bucket in which the video is located (for example, (for example, myBucket). \n\n"+
-                "video - the name of video (for example, people.mp4). \n\n" +
-                "queueUrl- the URL of a SQS queue \n\n" +
+                "video - the name of the video (for example, people.mp4). \n\n" +
+                "queueUrl- the URL of a SQS queue. \n\n" +
                 "topicArn - the ARN of the Amazon Simple Notification Service (Amazon SNS) topic. \n\n" +
                 "roleArn - the ARN of the AWS Identity and Access Management (IAM) role to use. \n\n" ;
 
@@ -162,7 +162,7 @@ public class VideoDetect {
                 for (Message message: messages) {
                     String notification = message.body();
 
-                    // Get status and job id from notification.
+                    // Get the status and job id from the notification
                     ObjectMapper mapper = new ObjectMapper();
                     JsonNode jsonMessageTree = mapper.readTree(notification);
                     JsonNode messageBodyText = jsonMessageTree.get("Message");
@@ -171,14 +171,12 @@ public class VideoDetect {
                     JsonNode operationJobId = jsonResultTree.get("JobId");
                     JsonNode operationStatus = jsonResultTree.get("Status");
                     System.out.println("Job found in JSON is " + operationJobId);
-                    // Found job. Get the results and display.
-
+           
                     DeleteMessageRequest deleteMessageRequest = DeleteMessageRequest.builder()
                             .queueUrl(queueUrl)
                             .build();
 
                     String jobId = operationJobId.textValue();
-
                     if (startJobId.compareTo(jobId)==0) {
 
                         System.out.println("Job id: " + operationJobId );
@@ -213,8 +211,7 @@ public class VideoDetect {
         }
     }
 
-    //Gets the results of labels detection by calling GetLabelDetection. Label
-    // detection is started by a call to StartLabelDetection.
+    // Gets the job results by calling GetLabelDetection 
     private static void GetResultsLabels(RekognitionClient rekClient) {
 
         int maxResults=10;
