@@ -33,7 +33,7 @@ import software.amazon.awssdk.services.rekognition.model.ShotSegment;
 import software.amazon.awssdk.services.rekognition.model.SegmentType;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import java.util.List;
-// snippet-start:[rekognition.java2.recognize_video_segments.import]
+// snippet-end:[rekognition.java2.recognize_video_segments.import]
 
 public class VideoDetectSegment {
 

@@ -47,7 +47,6 @@ public class DetectPPE {
 
         String sourceImage = args[0];
         String bucketName = args[1];
-
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .region(region)
@@ -177,5 +176,5 @@ public class DetectPPE {
         }
         System.out.println();
     }
-    // snippet-main:[rekognition.java2.detect_ppe.main]
+    // snippet-end:[rekognition.java2.detect_ppe.main]
 }

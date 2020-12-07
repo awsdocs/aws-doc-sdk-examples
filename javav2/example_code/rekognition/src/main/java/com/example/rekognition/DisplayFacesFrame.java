@@ -152,7 +152,6 @@ public class DisplayFacesFrame extends JPanel {
             System.exit(1);
         }
         return null;
-        // snippet-end:[s3.java2.getobjectdata.main]
     }
 
     public DisplayFacesFrame(BufferedImage bufImage) throws Exception {
