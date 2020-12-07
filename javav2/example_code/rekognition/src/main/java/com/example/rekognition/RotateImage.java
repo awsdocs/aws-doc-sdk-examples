@@ -107,7 +107,7 @@ public class RotateImage {
             System.out.println("No estimated estimated orientation. Check Exif data.");
             return;
         }
-        // Calculate face position based on image orientation.
+        // Calculate face position based on image orientation
         switch (rotation) {
             case "ROTATE_0":
                 left = imageWidth * box.left();
@@ -130,7 +130,7 @@ public class RotateImage {
                 return;
         }
 
-        // Display face location information.
+        // Display face location information retrieved from the image
         System.out.println("Left: " + String.valueOf((int) left));
         System.out.println("Top: " + String.valueOf((int) top));
         System.out.println("Face Width: " + String.valueOf((int)(imageWidth * box.width())));
