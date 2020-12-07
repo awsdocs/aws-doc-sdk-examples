@@ -20,6 +20,24 @@ We look forward to receiving your pull requests for:
 
 **Note:** We all write differently, and you might not like how we've written or organized something currently. We want that feedback. But please be sure that your request for a rewrite is supported by the previous criteria. If it isn't, we might decline to merge it.
 
+## Where to put a new code example
+
+If you are contributing a new, single-API code example,
+add it to the appropriate *language*/*service*/*action* directory,
+where *action* follows the naming convention in the service reference docs for that service's action.
+For example, a new code example that lists your Amazon ECS clusters using version 2 
+of the AWS SDK for Go would be
+**gov2/ecs/ListClusters/ListClusters.go**.
+
+If your example uses multiple APIs from a single service,
+use the action that you consider most important.
+For example, if you are listing resources, then adding a resource,
+and listing the resources once again, use the action that adds the resource.
+
+If your example uses multiple services and you aren't sure where to add it to the repo,
+create an issue and describe what your code example does. 
+One of the AWS SDK code example team members will follow up with you in that issue.
+
 ## How to contribute
 
 To contribute, send us a pull request. For small changes, such as fixing a typo or adding a link, you can use the [GitHub Edit Button](https://blog.github.com/2011-04-26-forking-with-the-edit-button/). For larger changes:
