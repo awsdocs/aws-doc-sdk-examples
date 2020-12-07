@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[DescribeCollection.java demonstrates how to describe an Amazon Rekognition collection.]
+// snippet-sourcedescription:[DescribeCollection.java demonstrates how to retrieve the description of an Amazon Rekognition collection.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
