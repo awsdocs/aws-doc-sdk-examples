@@ -367,13 +367,25 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
         return s3;
     }
 
-    // Places a video into an Amazon S3 bucket
-    public String putObject(byte[] data, String bucketName, String objectKey) {
+      // Places an image into a S3 bucket
+      public String putObject(byte[] data, String bucketName, String objectKey) {
 
         s3 = getClient();
 
+        // Delete the existing video - this use case can only have 1 MP4 file
+        String objectName= getKeyName(bucketName);
+        ArrayList<ObjectIdentifier> toDelete = new ArrayList<ObjectIdentifier>();
+        toDelete.add(ObjectIdentifier.builder().key(objectName).build());
+
         try {
-            //Put a file into the bucket
+
+            DeleteObjectsRequest objectsRequest = DeleteObjectsRequest.builder()
+                    .bucket(bucketName)
+                    .delete(Delete.builder().objects(toDelete).build())
+                    .build();
+            s3.deleteObjects(objectsRequest);
+
+            // Put a MP4 into the bucket
             PutObjectResponse response = s3.putObject(PutObjectRequest.builder()
                             .bucket(bucketName)
                             .key(objectKey)
@@ -388,7 +400,6 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
         }
         return "";
     }
-
     public String ListAllObjects(String bucketName) {
 
         s3 = getClient();
@@ -697,47 +708,49 @@ The following Java code represents the **VideoController** class that handles HT
 
      package com.example.video;
 
-     import org.springframework.beans.factory.annotation.Autowired;
-     import org.springframework.stereotype.Controller;
-     import org.springframework.web.bind.annotation.*;
-     import javax.servlet.http.HttpServletRequest;
-     import javax.servlet.http.HttpServletResponse;
-     import org.springframework.web.servlet.ModelAndView;
-     import org.springframework.web.multipart.MultipartFile;
-     import org.springframework.web.servlet.view.RedirectView;
-     import java.io.IOException;
-     import java.io.InputStream;
-     import java.util.*;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.stereotype.Controller;
+    import org.springframework.web.bind.annotation.*;
+    import javax.servlet.http.HttpServletRequest;
+    import javax.servlet.http.HttpServletResponse;
+    import org.springframework.web.servlet.ModelAndView;
+    import org.springframework.web.multipart.MultipartFile;
+    import org.springframework.web.servlet.view.RedirectView;
+    import java.io.IOException;
+    import java.io.InputStream;
+    import java.util.*;
 
-     @Controller
-     public class VideoController {
+    @Controller
+    public class VideoController {
 
-     @Autowired
-     S3Service s3Client;
+    @Autowired
+    S3Service s3Client;
 
-     @Autowired
-     WriteExcel excel ;
+    @Autowired
+    WriteExcel excel ;
 
-     @Autowired
-     SendMessages sendMessage;
+    @Autowired
+    SendMessages sendMessage;
 
-     @Autowired
-     VideoDetectFaces detectFaces;
+    @Autowired
+    VideoDetectFaces detectFaces;
 
-     @GetMapping("/")
-     public String root() {
+    @GetMapping("/")
+    public String root() {
         return "index";
-     }
+    }
 
-     @GetMapping("/video")
-     public String photo() {
+    @GetMapping("/video")
+    public String photo() {
         return "upload";
-     }
+    }
 
-     @GetMapping("/process")
-     public String process() {
+    @GetMapping("/process")
+    public String process() {
         return "process";
-     }
+    }
+    
+    private String bucketName = "<Enter your bucket name>";
 
     @RequestMapping(value = "/getvideo", method = RequestMethod.GET)
     @ResponseBody
@@ -757,13 +770,13 @@ The following Java code represents the **VideoController** class that handles HT
 
             // Put the MP4 file into an Amazon S3 bucket
             int yy = 0;
-            s3Client.putObject(bytes, "scottexamplevideo", name);
+            s3Client.putObject(bytes, bucketName, name);
             // return "You have placed " +name + " into the S3 bucket";
         } catch (IOException e) {
             e.printStackTrace();
         }
         return new ModelAndView(new RedirectView("video"));
-      }
+     }
 
      // generates a report after analyzing a video in an Amazon S3 bucket
      @RequestMapping(value = "/report", method = RequestMethod.POST)
@@ -771,10 +784,9 @@ The following Java code represents the **VideoController** class that handles HT
      String report(HttpServletRequest request, HttpServletResponse response) {
 
         String email = request.getParameter("email");
-        String myKey = s3Client.getKeyName("scottexamplevideo");
-        String jobNum = detectFaces.StartFaceDetection("scottexamplevideo", myKey);
+        String myKey = s3Client.getKeyName(bucketName);
+        String jobNum = detectFaces.StartFaceDetection(bucketName, myKey);
         List<FaceItems> items = detectFaces.GetFaceResults(jobNum);
-
         InputStream excelData = excel.exportExcel(items);
 
         try {
@@ -786,9 +798,10 @@ The following Java code represents the **VideoController** class that handles HT
             e.printStackTrace();
         }
         return "The "+ myKey +" video has been successfully analyzed and the report is sent to "+email;
-      }
+      } 
      }
 
+**Note**: Change the **bucketName** variable to match your bucket. 
 
 ### VideoDetectFaces class
 The following Java code represents the **VideoDetectFaces** class. This class uses the Amazon Rekognition API to analyze the video obtained from an Amazon S3 bucket. In this example, the video is analyzed by invoking the **RekognitionClient** object’s **startFaceDetection** method. This returns a **StartFaceDetectionResponse** object. You can get the job id number by invoking the **StartFaceDetectionResponse** object’s **jobId** method.
