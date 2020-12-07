@@ -41,7 +41,7 @@ To complete the tutorial, you need the following:
 + Java JDK 1.8
 + Maven 3.6 or later
 + An Amazon S3 bucket named **video[somevalue]**. Be sure to use this bucket name in your Amazon S3 Java code. For information, see [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html).
-+ You must create an IAM role and a valid SNS topic ARN value. You need to reference these values in the **VideoDetectFaces** class. If you do not set these values, this AWS tutorial does not work. For information, see [Configuring Amazon Rekognition Video](https://docs.aws.amazon.com/rekognition/latest/dg/api-video-roles.html).  
++ You must create an IAM role and a valid SNS topic. You need to reference these values in the **VideoDetectFaces** class. If you do not set these values, the application that you create does not work. For information, see [Configuring Amazon Rekognition Video](https://docs.aws.amazon.com/rekognition/latest/dg/api-video-roles.html).  
 
 ## Understand the AWS Video Analyzer application
 
