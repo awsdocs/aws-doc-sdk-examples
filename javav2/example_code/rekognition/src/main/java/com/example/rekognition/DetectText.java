@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[DetectLabels.java demonstrates how to capture labels (like water and mountains) in a given image.]
+// snippet-sourcedescription:[DetectText.java demonstrates how to display words that were detected in an image.]
 //snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
@@ -11,31 +11,32 @@
 */
 
 package com.example.rekognition;
-// snippet-start:[rekognition.java2.detect_labels.import]
+
+// snippet-start:[rekognition.java2.detect_text.import]
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
+import software.amazon.awssdk.services.rekognition.model.DetectTextRequest;
 import software.amazon.awssdk.services.rekognition.model.Image;
-import software.amazon.awssdk.services.rekognition.model.DetectLabelsRequest;
-import software.amazon.awssdk.services.rekognition.model.DetectLabelsResponse;
-import software.amazon.awssdk.services.rekognition.model.Label;
+import software.amazon.awssdk.services.rekognition.model.DetectTextResponse;
+import software.amazon.awssdk.services.rekognition.model.TextDetection;
 import software.amazon.awssdk.services.rekognition.model.RekognitionException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
-// snippet-end:[rekognition.java2.detect_labels.import]
+// snippet-end:[rekognition.java2.detect_text.import]
 
-public class DetectLabels {
+public class DetectText {
 
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "DetectLabels <sourceImage>\n\n" +
+                "DetectText <sourceImage>\n\n" +
                 "Where:\n" +
-                "sourceImage - the path to the image (for example, C:\\AWS\\pic1.png). \n\n";
+                "sourceImage - the path to the image that contains text (for example, C:\\AWS\\pic1.png). \n\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -48,14 +49,15 @@ public class DetectLabels {
                 .region(region)
                 .build();
 
-        detectImageLabels(rekClient, sourceImage );
+        detectTextLabels(rekClient, sourceImage );
         rekClient.close();
     }
 
-    // snippet-start:[rekognition.java2.detect_labels.main]
-    public static void detectImageLabels(RekognitionClient rekClient, String sourceImage) {
+    // snippet-start:[rekognition.java2.detect_text.main]
+    public static void detectTextLabels(RekognitionClient rekClient, String sourceImage) {
 
         try {
+
             InputStream sourceStream = new FileInputStream(new File(sourceImage));
             SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
 
@@ -64,23 +66,27 @@ public class DetectLabels {
                     .bytes(sourceBytes)
                     .build();
 
-            DetectLabelsRequest detectLabelsRequest = DetectLabelsRequest.builder()
+            DetectTextRequest textRequest = DetectTextRequest.builder()
                     .image(souImage)
-                    .maxLabels(10)
-                    .build();
+                   .build();
 
-            DetectLabelsResponse labelsResponse = rekClient.detectLabels(detectLabelsRequest);
-            List<Label> labels = labelsResponse.labels();
+            DetectTextResponse textResponse = rekClient.detectText(textRequest);
+            List<TextDetection> textCollection = textResponse.textDetections();
 
-            System.out.println("Detected labels for the given photo");
-            for (Label label: labels) {
-                System.out.println(label.name() + ": " + label.confidence().toString());
+            System.out.println("Detected lines and words");
+            for (TextDetection text: textCollection) {
+                System.out.println("Detected: " + text.detectedText());
+                System.out.println("Confidence: " + text.confidence().toString());
+                System.out.println("Id : " + text.id());
+                System.out.println("Parent Id: " + text.parentId());
+                System.out.println("Type: " + text.type());
+                System.out.println();
             }
 
-        } catch (RekognitionException | FileNotFoundException e) {
+           } catch (RekognitionException | FileNotFoundException e) {
             System.out.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[rekognition.java2.detect_labels.main]
     }
+    // snippet-end:[rekognition.java2.detect_text.main]
 }

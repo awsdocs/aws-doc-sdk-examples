@@ -55,7 +55,6 @@ public class DetectFaces {
         rekClient.close();
     }
 
-
     // snippet-start:[rekognition.java2.detect_faces.main]
     public static void detectFacesinImage(RekognitionClient rekClient,String sourceImage ) {
 
