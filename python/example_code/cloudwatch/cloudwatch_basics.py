@@ -79,7 +79,7 @@ class CloudWatchWrapper:
     def put_metric_data_set(self, namespace, name, timestamp, unit, data_set):
         """
         Sends a set of data to CloudWatch for a metric. All of the data in the set
-        has the same timestamp and unit.
+        have the same timestamp and unit.
 
         :param namespace: The namespace of the metric.
         :param name: The name of the metric.
@@ -106,14 +106,14 @@ class CloudWatchWrapper:
 
     def get_metric_statistics(self, namespace, name, start, end, period, stat_types):
         """
-        Gets statistics for a metric for a specified time span. Metrics are grouped
+        Gets statistics for a metric within a specified time span. Metrics are grouped
         into the specified period.
 
         :param namespace: The namespace of the metric.
         :param name: The name of the metric.
         :param start: The UTC start time of the time span to retrieve.
         :param end: The UTC end time of the time span to retrieve.
-        :param period: The period in which to group metrics, in seconds. The period
+        :param period: The period, in seconds, in which to group metrics. The period
                        must match the granularity of the metric, which depends on
                        the metric's age. For example, metrics that are older than
                        three hours have a one-minute granularity, so the period must

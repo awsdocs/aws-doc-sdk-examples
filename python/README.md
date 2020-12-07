@@ -35,8 +35,7 @@ to request, import, and manage certificates.
 #### Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) with Amazon CloudWatch to
-create a custom metric and alarm, send data for the metric, get statistics for the 
-metric, and check the alarm state.
+accomplish the following tasks:
 
 * Create a custom metric.
 * Create an alarm that watches a metric.
