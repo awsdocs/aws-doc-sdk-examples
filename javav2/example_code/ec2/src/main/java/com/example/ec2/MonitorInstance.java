@@ -1,24 +1,16 @@
-//snippet-sourcedescription:[MonitorInstance.java demonstrates how to toggle detailed monitoring for an Amazon EC2 instance.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[MonitorInstance.java demonstrates how to toggle detailed monitoring for an Amazon Elastic Compute Cloud (Amazon EC2) instance.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/12/2020]
-//snippet-sourceauthor:[scmacdon]
+//snippet-sourcedate:[11/01/2020]
+//snippet-sourceauthor:[scmacdon-aws]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 package com.example.ec2;
 
 // snippet-start:[ec2.java2.monitor_instance.import]
@@ -34,10 +26,13 @@ import software.amazon.awssdk.services.ec2.model.UnmonitorInstancesRequest;
 public class MonitorInstance {
 
     public static void main(String[] args) {
-        final String USAGE =
-                "To run this example, supply an instance id and a monitoring " +
-                        "status\n" +
-                        "Ex: MonitorInstance <instance-id> <true|false>\n";
+
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "MonitorInstance <instanceId> <monitor>\n\n" +
+                "Where:\n" +
+                "    instanceId - an instance id value that you can obtain from the AWS Console. \n\n" +
+                "    monitor - a monitoring status (true|false)";
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -47,7 +42,6 @@ public class MonitorInstance {
         String instanceId = args[0];
         boolean monitor = Boolean.valueOf(args[1]);
 
-        //Create an Ec2Client object
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
@@ -58,8 +52,8 @@ public class MonitorInstance {
         } else {
             unmonitorInstance(ec2, instanceId);
         }
+        ec2.close();
     }
-
 
     public static void monitorInstance( Ec2Client ec2, String instanceId) {
         // snippet-start:[ec2.java2.monitor_instance.main]
@@ -74,7 +68,7 @@ public class MonitorInstance {
                 instanceId);
     }
 
-    public static void unmonitorInstance( Ec2Client ec2, String instanceId) {
+    public static void unmonitorInstance(Ec2Client ec2, String instanceId) {
         // snippet-start:[ec2.java2.monitor_instance.stop]
         UnmonitorInstancesRequest request = UnmonitorInstancesRequest.builder()
                 .instanceIds(instanceId).build();

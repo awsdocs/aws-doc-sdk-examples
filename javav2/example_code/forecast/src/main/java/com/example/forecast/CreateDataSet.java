@@ -1,20 +1,14 @@
-//snippet-sourcedescription:[CreateDataSet.java demonstrates how to create a dataset for the Amazon Forecast service.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[CreateDataSet.java demonstrates how to create a data set for the Amazon Forecast service.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[5/4/2020]
+//snippet-sourcedate:[11/04/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.forecast;
@@ -39,34 +33,31 @@ public class CreateDataSet {
                 "Usage:\n" +
                 "    CreateDataSet <name> \n\n" +
                 "Where:\n" +
-                "    name - the name of the dataset \n\n" +
+                "    name - the name of the data set. \n\n" +
                 "Example:\n" +
                 "    CreateDataSet MyDataSet\n";
 
-       if (args.length < 1) {
+       if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
         String name = args[0];
-
-        // Create a Forecast client
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
                 .region(region)
                 .build();
 
         String myDataSetARN = createForecastDataSet(forecast, name);
-        System.out.println("The ARN of the new dataset is "+myDataSetARN) ;
+        System.out.println("The ARN of the new data set is "+myDataSetARN) ;
+        forecast.close();
     }
 
     // snippet-start:[forecast.java2.create_forecast_dataset.main]
     public static String createForecastDataSet(ForecastClient forecast, String name) {
 
        try {
-
-           // Create a Schema object, required for the dataset
-           Schema schema = Schema.builder()
+            Schema schema = Schema.builder()
                 .attributes(getSchema())
                 .build();
 
@@ -90,7 +81,7 @@ public class CreateDataSet {
       // snippet-end:[forecast.java2.create_forecast_dataset.main]
     }
 
-    // Create a SchemaAttribute list, required to create a dataset
+    // Create a SchemaAttribute list required to create a data set
     private static List<SchemaAttribute> getSchema() {
 
         List<SchemaAttribute> schemaList = new ArrayList();
@@ -110,7 +101,7 @@ public class CreateDataSet {
                 .attributeType("float")
                 .build();
 
-        // Push the SchemaAttribute objects to the List
+        //Push the SchemaAttribute objects to the List
         schemaList.add(att1);
         schemaList.add(att2);
         schemaList.add(att3);

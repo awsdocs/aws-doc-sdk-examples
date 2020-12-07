@@ -54,6 +54,6 @@ files:
   - path: src/main/java/com/example/sns/Unsubscribe.java
     services:
       - sns
-  - path: src/test/java/AWSSNSServiceIntegrationTest.java
+  - path: src/test/java/AWSSNSTest.java
     services:
       - sns

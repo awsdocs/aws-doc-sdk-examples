@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-sns/commands/GetSMSAttributesCommand", () => ({
 }));
 const { run } = require("../../sns/src/sns_getsmstype.js");
 
-//test function
 test("has to mock SNS#getsmstype", async (done) => {
   await run();
   expect(mockGetSMEAttributes).toHaveBeenCalled;

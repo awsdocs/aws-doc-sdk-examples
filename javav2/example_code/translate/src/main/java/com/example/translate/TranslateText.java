@@ -20,6 +20,7 @@
 package com.example.translate;
 
 // snippet-start:[translate.java2._text.import]
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.translate.TranslateClient;
 import software.amazon.awssdk.services.translate.model.TranslateTextRequest;
@@ -33,10 +34,12 @@ public class TranslateText {
 
         Region region = Region.US_WEST_2;
         TranslateClient translateClient = TranslateClient.builder()
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .region(region)
                 .build();
 
         textTranslate( translateClient);
+        translateClient.close();
     }
 
     // snippet-start:[translate.java2._text.main]
@@ -46,11 +49,12 @@ public class TranslateText {
             TranslateTextRequest textRequest = TranslateTextRequest.builder()
                 .sourceLanguageCode("en")
                 .targetLanguageCode("fr")
-                .text("It's a sunny day today")
+                .text("Its a sunny day today")
                 .build();
 
             TranslateTextResponse textResponse = translateClient.translateText(textRequest);
             System.out.println(textResponse.translatedText());
+
         } catch (TranslateException e) {
             System.err.println(e.getMessage());
             System.exit(1);

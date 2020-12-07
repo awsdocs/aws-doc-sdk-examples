@@ -1,5 +1,5 @@
-//snippet-sourcedescription:[DeleteDBInstance.java demonstrates how to delete an Amazon RDS snapshot.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[DeleteDBInstance.java demonstrates how to delete an Amazon Relational Database Service (RDS) snapshot.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
 //snippet-sourcetype:[full-example]
@@ -8,13 +8,7 @@
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.rds;
@@ -36,21 +30,21 @@ public class DeleteDBInstance {
                 "Usage:\n" +
                 "    DeleteDBInstance <dbInstanceIdentifier> \n\n" +
                 "Where:\n" +
-                "    dbInstanceIdentifier - The database instance identifier \n";
+                "    dbInstanceIdentifier - the database instance identifier \n";
 
-        if (args.length < 1) {
+        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
         String dbInstanceIdentifier = args[0];
-
         Region region = Region.US_WEST_2;
         RdsClient rdsClient = RdsClient.builder()
                 .region(region)
                 .build();
 
         deleteDatabaseInstance(rdsClient, dbInstanceIdentifier);
+        rdsClient.close();
     }
 
     // snippet-start:[rds.java2.delete_instance.main]

@@ -1,37 +1,49 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Attaches a policy to an IAM user.]
-# snippet-keyword:[AWS Identity and Access Management]
-# snippet-keyword:[attach_user_policy method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[iam]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
+
+require 'aws-sdk-iam'
+
+# Attaches a policy to a user in AWS Identity and Access Management (IAM).
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
+# Prerequisites:
+# - The user in IAM.
 #
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
-
-require 'aws-sdk-iam'  # v2: require 'aws-sdk'
-
-# Policy ARNs start with:
-prefix = 'arn:aws:iam::aws:policy/'
-
-policy_arn = prefix + 'AmazonS3FullAccess'
-
-# In case the policy or user does not exist
-begin
-  client.attach_user_policy({user_name: 'my_groovy_user', policy_arn: policy_arn})
-rescue Aws::IAM::Errors::NoSuchEntity => ex
-  puts "Error attaching policy '#{policy_arn}'"
-  puts ex.message
+# @param iam [Aws::IAM::Client] An initialized IAM client.
+# @param user_name [String] The name of the user.
+# @param policy_arn [String] The Amazon Resource Name (ARN) of the policy.
+# @return [Boolean] true if the policy was attached; otherwise, false.
+# @example
+#   exit 1 unless alias_created?(
+#     Aws::IAM::Client.new,
+#     'my-user',
+#     'arn:aws:iam::aws:policy/AmazonS3FullAccess'
+#   )
+def policy_attached_to_user?(iam_client, user_name, policy_arn)
+  iam_client.attach_user_policy(
+    user_name: user_name,
+    policy_arn: policy_arn
+  )
+  return true
+rescue StandardError => e
+  puts "Error attaching policy to user: #{e.message}"
+  return false
 end
+
+# Full example call:
+def run_me
+  user_name = 'my-user'
+  arn_prefix = 'arn:aws:iam::aws:policy/'
+  policy_arn = arn_prefix + 'AmazonS3FullAccess'
+  iam_client = Aws::IAM::Client.new
+
+  puts "Attempting to attach policy with ARN '#{policy_arn}' to " \
+    "user '#{user_name}'..."
+
+  if policy_attached_to_user?(iam_client, user_name, policy_arn)
+    puts 'Policy attached.'
+  else
+    puts 'Policy not attached.'
+  end
+end
+
+run_me if $PROGRAM_NAME == __FILE__

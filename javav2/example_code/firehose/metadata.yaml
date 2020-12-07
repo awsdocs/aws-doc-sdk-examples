@@ -21,6 +21,6 @@ files:
   - path: src/main/java/com/example/firehose/StockTradeGenerator.java
     services:
       - firehose
-  - path: src/test/java/AmazonFirehoseServiceIntegrationTest.java
+  - path: src/test/java/FirehoseTest.java
     services:
       - firehose

@@ -1,27 +1,16 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[DescribePullRequestEvents.java demonstrates how to obtain information about pull request events.]
+//snippet-keyword:[AWS SDK for Java v2]
+//snippet-keyword:[Code Sample]
 // snippet-service:[AWS CodeCommit]
-// snippet-keyword:[Java]
-// snippet-keyword:[AWS CodeCommit]
-// snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-09-30]
+//snippet-sourcedate:[11/03/2020]
 // snippet-sourceauthor:[AWS - scmacdon]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 package com.example.commit;
 
 // snippet-start:[codecommit.java2.describe_pr_events.import]
@@ -42,22 +31,21 @@ public class DescribePullRequestEvents {
                 "Usage:\n" +
                 "    DescribePullRequestEvents <prId> \n\n" +
                 "Where:\n" +
-                "    prId - the id of the pull request \n" ;
+                "    prId - the id of the pull request. \n" ;
 
-        if (args.length < 1) {
+        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        /* Read the name from command args*/
-       String prId = args[0];
-
+        String prId = args[0];
         Region region = Region.US_EAST_1;
         CodeCommitClient codeCommitClient = CodeCommitClient.builder()
                 .region(region)
                 .build();
 
         describePREvents(codeCommitClient, prId);
+        codeCommitClient.close();
     }
 
     // snippet-start:[codecommit.java2.describe_pr_events.main]

@@ -1,27 +1,16 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[CreateHealthCheck.java demonstrates how to create a new health check.]
+//snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Route 53]
-// snippet-keyword:[Java]
-// snippet-keyword:[Amazon Route 53]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2020-09-28]
 // snippet-sourceauthor:[AWS - scmacdon]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.route;
 
@@ -38,25 +27,25 @@ public class CreateHealthCheck {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "To run this example, supply the fully qualified domain name.  \n" +
-                "\n" +
-                "Example: CreateHealthCheck <domainName>\n";
+                "Usage:\n" +
+                "    CreateHealthCheck <domainName> \n\n" +
+                "Where:\n" +
+                "    domainName - the fully qualified domain name. \n";
 
-        if (args.length < 1) {
+        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        /* Read the name from command args */
         String domainName = args[0];
-
         Region region = Region.AWS_GLOBAL;
         Route53Client route53Client = Route53Client.builder()
                 .region(region)
                 .build();
 
         String id = createCheck(route53Client, domainName);
-        System.out.println("The health check ID is "+ id);
+        System.out.println("The health check id is "+ id);
+        route53Client.close();
     }
 
     // snippet-start:[route53.java2.create_health_check.main]
@@ -64,7 +53,7 @@ public class CreateHealthCheck {
 
         try {
 
-            // You must use a unique CallerReference string each time you submit a CreateHostedZone request
+            // You must use a unique CallerReference string every time you submit a CreateHostedZone request
             String callerReference = java.util.UUID.randomUUID().toString();
 
             HealthCheckConfig config = HealthCheckConfig.builder()
@@ -78,7 +67,7 @@ public class CreateHealthCheck {
                      .healthCheckConfig(config)
                      .build();
 
-            // Create the health check and return the ID value
+            // Create the Health Check and return the id value
             CreateHealthCheckResponse healthResponse = route53Client.createHealthCheck(healthCheckRequest);
             return healthResponse.healthCheck().id();
 
@@ -90,3 +79,5 @@ public class CreateHealthCheck {
     }
     // snippet-end:[route53.java2.create_health_check.main]
 }
+
+

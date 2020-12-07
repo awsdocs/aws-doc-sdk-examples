@@ -1,26 +1,16 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[FindRunningInstances.java demonstrates how to use a Filter to find running instances]
-// snippet-service:[Amazon EC2]
-// snippet-keyword:[Java]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2/12/2020]
-// snippet-sourceauthor:[AWS-scmacdon]
+//snippet-sourcedescription:[FindRunningInstances.java demonstrates how to find running Amazon Elastic Compute Cloud (Amazon EC2) instances by using a filter.]
+//snippet-keyword:[AWS SDK for Java v2]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon EC2]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[11/01/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.ec2;
 
@@ -35,9 +25,6 @@ import software.amazon.awssdk.services.ec2.model.Instance;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.running_instances.import]
 
-/**
- * Locates all running EC2 instances using a Filter
- */
 public class FindRunningInstances {
     public static void main(String[] args) {
 
@@ -47,34 +34,32 @@ public class FindRunningInstances {
                 .build();
 
         findRunningEC2Instances(ec2);
+        ec2.close();
     }
 
    // snippet-start:[ec2.java2.running_instances.main]
+   // This method creates a Filter to find all running instances
    public static void findRunningEC2Instances(Ec2Client ec2) {
 
        try {
-
            String nextToken = null;
 
            do {
-                // Create a Filter to find all running instances
                 Filter filter = Filter.builder()
                     .name("instance-state-name")
                     .values("running")
                     .build();
 
-                //Create a DescribeInstancesRequest
                 DescribeInstancesRequest request = DescribeInstancesRequest.builder()
                     .filters(filter)
                     .build();
 
-                // Find the running instances
                 DescribeInstancesResponse response = ec2.describeInstances(request);
 
                 for (Reservation reservation : response.reservations()) {
                     for (Instance instance : reservation.instances()) {
                     System.out.printf(
-                            "Found reservation with id %s, " +
+                            "Found Reservation with id %s, " +
                                     "AMI %s, " +
                                     "type %s, " +
                                     "state %s " +

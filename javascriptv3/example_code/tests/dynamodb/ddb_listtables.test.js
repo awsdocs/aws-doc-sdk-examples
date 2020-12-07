@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-dynamodb/commands/ListTablesCommand", () => ({
 }));
 const { params, run } = require("../../dynamodb/src/ddb_listtables");
 
-//test function
 test("has to mock db#listTables", async (done) => {
   await run();
   expect(mockListTables).toHaveBeenCalled;

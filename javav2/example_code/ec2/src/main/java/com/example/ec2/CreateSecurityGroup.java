@@ -1,25 +1,16 @@
-//snippet-sourcedescription:[CreateSecurityGroup.java demonstrates how to create an Amazon EC2 security group.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[CreateSecurityGroup.java demonstrates how to create an Amazon Elastic Compute Cloud (Amazon EC2) Security Group.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/11/2020]
-//snippet-sourceauthor:[scmacdon]
+//snippet-sourcedate:[11/01/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 package com.example.ec2;
 
 // snippet-start:[ec2.java2.create_security_group.import]
@@ -34,15 +25,17 @@ import software.amazon.awssdk.services.ec2.model.CreateSecurityGroupResponse;
 import software.amazon.awssdk.services.ec2.model.IpRange;
 // snippet-end:[ec2.java2.create_security_group.import]
 
-/**
- * Creates an EC2 security group.
- */
 public class CreateSecurityGroup {
 
     public static void main(String[] args) {
-        final String USAGE =
-                "To run this example, supply a group name, group description and vpc id\n" +
-                        "Ex: CreateSecurityGroup <group-name> <group-description> <vpc-id>\n";
+
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "CreateSecurityGroup <groupName> <groupDesc> <vpcId> \n\n" +
+                "Where:\n" +
+                "    groupName - a group name (for example, TestKeyPair). \n\n"  +
+                "    groupDesc - a group description  (for example, TestKeyPair). \n\n"  +
+                "    vpc-id - a VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f). \n\n"  ;
 
         if (args.length != 3) {
             System.out.println(USAGE);
@@ -53,7 +46,6 @@ public class CreateSecurityGroup {
         String groupDesc = args[1];
         String vpcId = args[2];
 
-        //Create an Ec2Client object
         // snippet-start:[ec2.java2.create_security_group.client]
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
@@ -61,11 +53,11 @@ public class CreateSecurityGroup {
                 .build();
         // snippet-end:[ec2.java2.create_security_group.client]
 
-
         String id = createEC2SecurityGroup(ec2, groupName, groupDesc, vpcId);
         System.out.printf(
-                "Successfully created security group with this ID %s",
+                "Successfully created Security Group with this ID %s",
                 id);
+        ec2.close();
     }
 
     // snippet-start:[ec2.java2.create_security_group.main]
@@ -112,7 +104,7 @@ public class CreateSecurityGroup {
 
             // snippet-end:[ec2.java2.create_security_group.main]
             System.out.printf(
-                "Successfully added ingress policy to security group %s",
+                "Successfully added ingress policy to Security Group %s",
                 groupName);
 
             return resp.groupId();

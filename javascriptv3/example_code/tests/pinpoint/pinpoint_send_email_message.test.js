@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-pinpoint/commands/SendMessagesCommand", () => ({
 }));
 const { run } = require("../../pinpoint/src/pinpoint_send_email_message");
 
-//test function
 test("has to mock pinpoint#sendEmail", async (done) => {
   await run();
   expect(mockSendEmail).toHaveBeenCalled;
