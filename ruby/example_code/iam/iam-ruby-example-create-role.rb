@@ -1,55 +1,103 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Creates an IAM role with full access to DynamoDB and S3.]
-# snippet-keyword:[AWS Identity and Access Management]
-# snippet-keyword:[create_role method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[iam]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
+
+require 'aws-sdk-iam'
+
+# Creates a role in AWS Access and Identity Management (IAM).
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# @param iam_client [Aws::IAM::Client] An initialized IAM client.
+# @param role_name [String] A name for the role.
+# @param assume_role_policy_document [String]
+# @param policy_arns [Array] An array of type String representing
+#   Amazon Resource Names (ARNs) corresponding to available
+#   IAM managed policies.
+# @return [String] The ARN of the new role; otherwise, the string 'Error'.
+# @example
+#   puts create_role(
+#     Aws::IAM::Client.new,
+#     'my-ec2-s3-dynamodb-full-access-role',
+#     {
+#       Version: '2012-10-17',
+#       Statement: [
+#         {
+#           Effect: 'Allow',
+#           Principal: {
+#             Service: 'ec2.amazonaws.com'
+#           },
+#           Action: 'sts:AssumeRole'
+#         }
+#       ]
+#     },
+#     [
+#       'arn:aws:iam::aws:policy/AmazonS3FullAccess',
+#       'arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess'
+#     ]
+#   )
+def create_role(
+  iam_client,
+  role_name,
+  assume_role_policy_document,
+  policy_arns
+)
+  iam_client.create_role(
+    role_name: role_name,
+    assume_role_policy_document: assume_role_policy_document.to_json
+  )
+  policy_arns.each do |policy_arn|
+    iam_client.attach_role_policy(
+      policy_arn: policy_arn,
+      role_name: role_name,
+    )
+  end
+  return iam_client.get_role(role_name: role_name).role.arn
+rescue StandardError => e
+  puts "Error creating role: #{e.message}"
+  return 'Error'
+end
 
-require 'aws-sdk-iam'  # v2: require 'aws-sdk'
+# Full example call:
+def run_me
+  role_name = 'my-ec2-s3-dynamodb-full-access-role'
 
-client = Aws::IAM::Client.new(region: 'us-west-2')
-iam = Aws::IAM::Resource.new(client: client)
+  # Allow the role to trust Amazon Elastic Compute Cloud (Amazon EC2)
+  # within the AWS account.
+  assume_role_policy_document = {
+    Version: '2012-10-17',
+    Statement: [
+      {
+        Effect: 'Allow',
+        Principal: {
+          Service: 'ec2.amazonaws.com'
+        },
+        Action: 'sts:AssumeRole'
+      }
+    ]
+  }
 
-# Let EC2 assume a role
-policy_doc = {
-  Version:"2012-10-17",
-  Statement:[
-    {
-      Effect:"Allow",
-      Principal:{
-        Service:"ec2.amazonaws.com"
-      },
-      Action:"sts:AssumeRole"
-  }]
-}
+  # Allow the role to take all actions within
+  # Amazon Simple Storage Service (Amazon S3)
+  # and Amazon DynamoDB across the AWS account.
+  policy_arns = [
+    'arn:aws:iam::aws:policy/AmazonS3FullAccess',
+    'arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess'
+  ]
 
-role = iam.create_role({
-  role_name: 'my_groovy_role',
-  assume_role_policy_document: policy_doc.to_json
-})
+  iam_client = Aws::IAM::Client.new
 
-# Give the role full access to S3
-role.attach_policy({
-  policy_arn: 'arn:aws:iam::aws:policy/AmazonS3FullAccess'
-})
+  puts "Attempting to create the role named '#{role_name}'..."
 
-# Give the role full access to DynamoDB
-role.attach_policy({
-  policy_arn: 'arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess'
-})
+  role_arn = create_role(
+    iam_client,
+    role_name,
+    assume_role_policy_document,
+    policy_arns
+  )
+
+  if role_arn == 'Error'
+    puts 'Could not create role.'
+  else
+    puts "Role created with ARN '#{role_arn}'."
+  end
+end
+
+run_me if $PROGRAM_NAME == __FILE__
