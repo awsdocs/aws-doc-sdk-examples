@@ -1,24 +1,16 @@
-//snippet-sourcedescription:[S3AsyncOps.java demonstrates how to use the S3 asynchronous client to place an object into a bucket.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[S3AsyncOps.java demonstrates how to use the asynchronous client to place an object into an Amazon Simple Storage Service (Amazon S3) bucket.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/6/2020]
+//snippet-sourcedate:[10/28/2020]
 //snippet-sourceauthor:[scmacdon-aws]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at:
- *
- *    http://aws.amazon.com/apache2.0
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
- * OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and
- * limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 package com.example.s3;
 // snippet-start:[s3.java2.async_ops.complete]
 // snippet-start:[s3.java2.async_ops.import]
@@ -36,22 +28,19 @@ public class S3AsyncOps {
 
      public static void main(String[] args) {
 
-
          final String USAGE = "\n" +
                  "Usage:\n" +
-                 "    S3AsyncOps <bucketname> <objectname> <path>\n\n" +
+                 "    S3AsyncOps <bucketName> <key> <path>\n\n" +
                  "Where:\n" +
-                 "    bucketname - the name of the bucket (i.e., bucket1)\n\n" +
-                 "    objectname - the name of the object (i.e., book.pdf)\n" +
-                 "    path - the local path to the file (i.e., C:\\AWS\\book.pdf)\n" +
-                 "Example:\n" +
-                 "    bucket1 book.pdf  C:\\AWS\\book.pdf\n";
+                 "    bucketName - the name of the Amazon S3 bucket (for example, bucket1). \n\n" +
+                 "    key - the name of the object (for example, book.pdf). \n" +
+                 "    path - the local path to the file (for example, C:/AWS/book.pdf). \n" ;
 
-         if (args.length < 3) {
-             System.out.println(USAGE);
+        if (args.length != 3) {
+            System.out.println(USAGE);
              System.exit(1);
-         }
-                
+        }
+
         String bucketName = args[0];
         String key = args[1];
         String path = args[2];
@@ -79,7 +68,7 @@ public class S3AsyncOps {
                     err.printStackTrace();
                 }
             } finally {
-                // Lets the application shut down. Only close the client when you are completely done with it.
+                // Only close the client when you are completely done with it
                 client.close();
             }
         });

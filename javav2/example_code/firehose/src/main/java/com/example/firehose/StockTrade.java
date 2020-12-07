@@ -1,25 +1,15 @@
 //snippet-sourcedescription:[StockTrade.java is a helper class]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kinesis Data Firehose]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[7/6/2020]
+//snippet-sourcedate:[11/04/2020]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.firehose;
 
@@ -30,8 +20,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Captures the key elements of a stock trade, such as the ticker symbol, price,
- * number of shares, the type of the trade (buy or sell), and a unique ID for
- * the trade
+ * number of shares, the type of the trade (buy or sell), and an id uniquely identifying
+ * the trade.
  */
 public class StockTrade {
 
@@ -41,7 +31,7 @@ public class StockTrade {
     }
 
     /**
-     * Represents the type of the stock trade, for example, buy or sell
+     * Represents the type of the stock trade eg buy or sell.
      */
     public enum TradeType {
         BUY,

@@ -1,0 +1,37 @@
+files:
+  - path: CreateCustomMetric/CreateCustomMetricv2.go
+    services:
+      - cloudwatch
+  - path: CreateCustomMetric/CreateCustomMetricv2_test.go
+    services:
+      - cloudwatch
+  - path: CreateEnableMetricAlarm/CreateEnableMetricAlarmv2.go
+    services:
+      - cloudwatch
+  - path: CreateEnableMetricAlarm/CreateEnableMetricAlarmv2_test.go
+    services:
+      - cloudwatch
+  - path: DescribeAlarms/DescribeAlarmsv2.go
+    services:
+      - cloudwatch
+  - path: DescribeAlarms/DescribeAlarmsv2_test.go
+    services:
+      - cloudwatch
+  - path: DisableAlarm/DisableAlarmv2.go
+    services:
+      - cloudwatch
+  - path: DisableAlarm/DisableAlarmv2_test.go
+    services:
+      - cloudwatch
+  - path: ListMetrics/ListMetricsv2.go
+    services:
+      - cloudwatch
+  - path: ListMetrics/ListMetricsv2_test.go
+    services:
+      - cloudwatch
+  - path: PutEvent/PutEventv2.go
+    services:
+      - cloudwatch
+  - path: PutEvent/PutEventv2_test.go
+    services:
+      - cloudwatch

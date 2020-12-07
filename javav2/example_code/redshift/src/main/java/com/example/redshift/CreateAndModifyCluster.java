@@ -1,20 +1,14 @@
 //snippet-sourcedescription:[CreateAndModifyCluster.java demonstrates how to create and modify an Amazon Redshift cluster.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Redshift ]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[7/6/2020]
+//snippet-sourcedate:[11/05/2020]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.redshift;
@@ -41,15 +35,13 @@ public class CreateAndModifyCluster {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateAndModifyCluster <clusterId><masterUsername><masterUserPassword> \n\n" +
+                "    CreateAndModifyCluster <clusterId> <masterUsername> <masterUserPassword> \n\n" +
                 "Where:\n" +
-                "    clusterId - The ID of the cluster to create \n" +
-                "    masterUsername - The master user name \n" +
-                "    masterUserPassword - The password that corresponds to the master user name \n" ;
+                "    clusterId - the id of the cluster to create. \n" +
+                "    masterUsername - the master user name. \n" +
+                "    masterUserPassword - the password that corresponds to the master user name. \n" ;
 
-
-
-        if (args.length < 3) {
+        if (args.length != 3) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -66,6 +58,7 @@ public class CreateAndModifyCluster {
         createCluster(redshiftClient,clusterId, masterUsername, masterUserPassword );
         waitForClusterReady(redshiftClient, clusterId);
         modifyCluster(redshiftClient, clusterId);
+        redshiftClient.close();
     }
 
     // snippet-start:[redshift.java2.create_cluster.main]
@@ -74,8 +67,8 @@ public class CreateAndModifyCluster {
        try {
         CreateClusterRequest clusterRequest = CreateClusterRequest.builder()
                 .clusterIdentifier(clusterId)
-                .masterUsername(masterUsername) // Set the user name here
-                .masterUserPassword(masterUserPassword) // Set the user password here
+                .masterUsername(masterUsername) // set the user name here
+                .masterUserPassword(masterUserPassword) // set the user password here
                 .nodeType("ds2.xlarge")
                 .numberOfNodes(2)
                 .build();
@@ -90,7 +83,7 @@ public class CreateAndModifyCluster {
        }
     }
 
-    // Wait until the cluster is available
+    // Waits until the cluster is available
     public static void waitForClusterReady(RedshiftClient redshiftClient, String clusterId) {
 
         Boolean clusterReady = false;

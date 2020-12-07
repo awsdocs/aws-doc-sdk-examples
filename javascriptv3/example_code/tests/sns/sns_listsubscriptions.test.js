@@ -9,7 +9,6 @@ jest.mock(
 );
 const { run } = require("../../sns/src/sns_listsubscriptions.js");
 
-//test function
 test("has to mock SNS#listsubscriptions", async (done) => {
   await run();
   expect(mockListSubscriptionsByTopic).toHaveBeenCalled;

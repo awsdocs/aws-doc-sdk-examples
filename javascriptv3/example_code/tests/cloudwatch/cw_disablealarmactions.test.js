@@ -9,7 +9,6 @@ jest.mock(
 );
 const { params, run } = require("../../cloudwatch/src/cw_disablealarmactions");
 
-//test function
 test("has to mock cloudwatch#deletealarms", async (done) => {
   await run();
   expect(mockDisableAlarms).toHaveBeenCalled;

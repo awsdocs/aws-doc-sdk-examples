@@ -1,25 +1,15 @@
 //snippet-sourcedescription:[CreateDeploymentGroup.java demonstrates how to create a deployment group.]
-//snippet-keyword:[Java]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS CodeDeploy
-//snippet-service:[AWS CodeDeploy]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/3/2020]
+//snippet-sourcedate:[11/3/2020]
 //snippet-sourceauthor:[scmacdon AWS]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.deploy;
 
@@ -44,33 +34,33 @@ public class CreateDeploymentGroup {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateDeploymentGroup <deploymentGroupName><appName><serviceRoleArn><tagKey><tagValue> \n\n" +
+                "    CreateDeploymentGroup <deploymentGroupName> <appName> <serviceRoleArn> <tagKey> <tagValue> \n\n" +
                 "Where:\n" +
-                "    deploymentGroupName - the name of the deployment group \n" +
-                "    appName - the name of the application \n" +
-                "    serviceRoleArn - a service role Amazon Resource Name (ARN) that allows AWS CodeDeploy to act on the user's behalf  \n" +
-                "    tagKey - the tag filter key (ie, AppName) \n"+
-                "    tagValue - the tag filter value (ie, mywebapp)\n";
+                "    deploymentGroupName - the name of the deployment group. \n" +
+                "    appName - the name of the application. \n" +
+                "    serviceRoleArn - a service role Amazon Resource Name (ARN) that allows AWS CodeDeploy to act on the user's behalf.  \n" +
+                "    tagKey - the tag filter key (ie, AppName). \n"+
+                "    tagValue - the tag filter value (ie, mywebapp).\n";
 
-        if (args.length < 5) {
+        if (args.length != 5) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        Region region = Region.US_EAST_1;
-        CodeDeployClient deployClient = CodeDeployClient.builder()
-                .region(region)
-                .build();
-
-        /* Read the name from command args*/
         String deploymentGroupName = args[0] ;
         String appName = args[1];
         String serviceRoleArn= args[2];
         String tagKey=args[3];
         String tagValue=args[4];
 
+        Region region = Region.US_EAST_1;
+        CodeDeployClient deployClient = CodeDeployClient.builder()
+                .region(region)
+                .build();
+
         String groupId = createNewDeploymentGroup(deployClient, deploymentGroupName, appName, serviceRoleArn, tagKey, tagValue );
         System.out.println("The group deployment ID is "+groupId);
+        deployClient.close();
     }
 
     // snippet-start:[codedeploy.java2.create_deployment_group.main]

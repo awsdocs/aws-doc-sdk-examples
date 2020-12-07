@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-s3/commands/DeleteBucketWebsiteCommand", () => ({
 }));
 const { bucketParams, run } = require("../../s3/s3_deletebucketwebsite");
 
-//test function
 test("has to mock S3#deleteBucketWebsite", async (done) => {
   await run();
   expect(mockDeleteBucketWebsite).toHaveBeenCalled;

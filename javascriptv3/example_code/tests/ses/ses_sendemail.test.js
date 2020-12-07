@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-ses/commands/SendEmailCommand", () => ({
 }));
 const { run } = require("../../ses/src/ses_sendemail.js");
 
-//test function
 test("has to mock SES#sendemail", async (done) => {
   await run();
   expect(mockSendEmail).toHaveBeenCalled;

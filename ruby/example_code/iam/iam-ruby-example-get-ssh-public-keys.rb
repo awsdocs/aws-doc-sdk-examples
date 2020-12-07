@@ -1,46 +1,43 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Lists the public keys for an IAM user.]
-# snippet-keyword:[AWS Identity and Access Management]
-# snippet-keyword:[list_ssh_public_keys method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[iam]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
+
+require 'aws-sdk-iam'
+
+# Gets information for up to the first 100 SSH public keys for the specified
+# user in AWS Identity and Access Management (IAM).
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
+# Prerequisites:
+# - The user in IAM.
 #
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
-
-require 'aws-sdk-iam'  # v2: require 'aws-sdk'
-
-user_name = 'your-name'
-iam = Aws::IAM::Client.new(region: 'us-west-2')
-
-begin
-  ssh_public_keys_response = iam.list_ssh_public_keys({
-    user_name: user_name,
-    max_items: 10,
-  })
-
-  ssh_public_keys_response.ssh_public_keys.each do |ssh_public_key|
-    ssh_public_key_response = iam.get_ssh_public_key({
-      user_name: user_name,
-      ssh_public_key_id: ssh_public_key.ssh_public_key_id,
-      encoding: "SSH",
-    })
-    puts ssh_public_key_response.ssh_public_key.ssh_public_key_body
+# @param iam_client [Aws::IAM::Client] An initialized IAM client.
+# @param user_name [String] The name of the user.
+# @example
+#   get_ssh_public_key_details(Aws::IAM::Client.new, 'my-user')
+def get_ssh_public_key_details(iam_client, user_name)
+  response = iam_client.list_ssh_public_keys(user_name: user_name)
+  if response.ssh_public_keys.count.positive?
+    puts 'SSH public key details (up to the first 100 SSH public keys) ' \
+      "for user '#{user_name}':"
+    response.ssh_public_keys.each do |ssh_public_key|
+      puts '-' * 36
+      puts "Key ID:      #{ssh_public_key.ssh_public_key_id}"
+      puts "Status:      #{ssh_public_key.status}"
+      puts "Upload date: #{ssh_public_key.upload_date}"
+    end
+  else
+    puts 'No SSH public keys found.'
   end
-
-rescue Aws::IAM::Errors::NoSuchEntity
-  puts 'User does not exist'
+rescue StandardError => e
+  puts "Error getting SSH public key details: #{e.message}"
 end
+
+# Full example call:
+def run_me
+  user_name = 'my-user'
+  iam_client = Aws::IAM::Client.new
+
+  puts "Attempting to get SSH public key details for user '#{user_name}'..."
+  get_ssh_public_key_details(iam_client, user_name)
+end
+
+run_me if $PROGRAM_NAME == __FILE__

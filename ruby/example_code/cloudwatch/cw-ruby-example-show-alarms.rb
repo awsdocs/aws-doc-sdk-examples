@@ -1,52 +1,90 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Describes your CloudWatch alarms.]
-# snippet-keyword:[Amazon CloudWatch]
-# snippet-keyword:[describe_alarms method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[cloudwatch]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+require 'aws-sdk-cloudwatch'
+
+# Displays information about available metric alarms in Amazon CloudWatch.
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# @param cloudwatch_client [Aws::CloudWatch::Client]
+#   An initialized CloudWatch client.
+# @example
+#   describe_metric_alarms(Aws::CloudWatch::Client.new(region: 'us-east-1'))
+def describe_metric_alarms(cloudwatch_client)
+  response = cloudwatch_client.describe_alarms
 
-require 'aws-sdk-cloudwatch'  # v2: require 'aws-sdk'
+  if response.metric_alarms.count.positive?
+    response.metric_alarms.each do |alarm|
+      puts '-' * 16
+      puts 'Name:           ' + alarm.alarm_name
+      puts 'State value:    ' + alarm.state_value
+      puts 'State reason:   ' + alarm.state_reason
+      puts 'Metric:         ' + alarm.metric_name
+      puts 'Namespace:      ' + alarm.namespace
+      puts 'Statistic:      ' + alarm.statistic
+      puts 'Period:         ' + alarm.period.to_s
+      puts 'Unit:           ' + alarm.unit.to_s
+      puts 'Eval. periods:  ' + alarm.evaluation_periods.to_s
+      puts 'Threshold:      ' + alarm.threshold.to_s
+      puts 'Comp. operator: ' + alarm.comparison_operator
 
-client = Aws::CloudWatch::Client.new(region: 'us-west-2')
+      if alarm.key?(:ok_actions) && alarm.ok_actions.count.positive?
+        puts 'OK actions:'
+        alarm.ok_actions.each do |a|
+          puts '  ' + a
+        end
+      end
 
-# use  client.describe_alarms({alarm_names: ['Name1', 'Name2']})
-# to get information about alarms Name1 and Name2
-resp = client.describe_alarms
+      if alarm.key?(:alarm_actions) && alarm.alarm_actions.count.positive?
+        puts 'Alarm actions:'
+        alarm.alarm_actions.each do |a|
+          puts '  ' + a
+        end
+      end
 
-resp.metric_alarms.each do |alarm|
-  puts 'Name:           ' + alarm.alarm_name
-  puts 'State:          ' + alarm.state_value
-  puts '  reason:       ' + alarm.state_reason
-  puts 'Metric:         ' + alarm.metric_name
-  puts 'Namespace:      ' + alarm.namespace
-  puts 'Statistic:      ' + alarm.statistic
-  puts 'Dimensions (' + alarm.dimensions.length.to_s + '):'
+      if alarm.key?(:insufficient_data_actions) &&
+          alarm.insufficient_data_actions.count.positive?
+        puts 'Insufficient data actions:'
+        alarm.insufficient_data_actions.each do |a|
+          puts '  ' + a
+        end
+      end
 
-  alarm.dimensions.each do |d|
-    puts '  Name:         ' + d.name
-    puts '  Value:        ' + d.value
+      puts 'Dimensions:'
+      if alarm.key?(:dimensions) && alarm.dimensions.count.positive?
+        alarm.dimensions.each do |d|
+          puts '  Name: ' + d.name + ', Value: ' + d.value
+        end
+      else
+        puts '  None for this alarm.'
+      end
+    end
+  else
+    puts 'No alarms found.'
+  end
+rescue StandardError => e
+  puts "Error getting information about alarms: #{e.message}"
+end
+
+# Full example call:
+def run_me
+  region = ''
+
+  # Print usage information and then stop.
+  if ARGV[0] == '--help' || ARGV[0] == '-h'
+    puts 'Usage:   ruby cw-ruby-example-show-alarms.rb REGION'
+    puts 'Example: ruby cw-ruby-example-show-alarms.rb us-east-1'
+    exit 1
+  # If no values are specified at the command prompt, use these default values.
+  elsif ARGV.count.zero?
+    region = 'us-east-1'
+  # Otherwise, use the values as specified at the command prompt.
+  else
+    region = ARGV[0]
   end
 
-  puts 'Period:         ' + alarm.period.to_s
-  puts 'Unit:           ' + alarm.unit.to_s
-  puts 'Eval periods:   ' + alarm.evaluation_periods.to_s
-  puts 'Threshold:      ' + alarm.threshold.to_s
-  puts 'Comp operator:  ' + alarm.comparison_operator
-  puts
+  cloudwatch_client = Aws::CloudWatch::Client.new(region: region)
+  puts 'Available alarms:'
+  describe_metric_alarms(cloudwatch_client)
 end
+
+run_me if $PROGRAM_NAME == __FILE__

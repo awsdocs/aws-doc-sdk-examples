@@ -1,26 +1,15 @@
 //snippet-sourcedescription:[LookUpEndpoint.java  demonstrates how to display information about an existing endpoint in Amazon Pinpoint.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
-//snippet-service:[pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/02/2020]
+//snippet-sourcedate:[11/05/2020]
 //snippet-sourceauthor:[scmacdon-aws]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.pinpoint;
 
@@ -40,13 +29,13 @@ public class LookUpEndpoint {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "LookUpEndpoint -  demonstrates how to display information about an existing endpoint in Amazon Pinpoint\n\n" +
-                "Usage: LookUpEndpoint <appId><endpointId>\n\n" +
+                "Usage: " +
+                "LookUpEndpoint <appId> <endpoint>\n\n" +
                 "Where:\n" +
                 "  appId - the ID of the application to delete.\n\n"+
                 "  endpoint - the ID of the endpoint. ";
 
-       if (args.length < 1) {
+       if (args.length != 2) {
           System.out.println(USAGE);
             System.exit(1);
         }
@@ -60,20 +49,19 @@ public class LookUpEndpoint {
                 .build();
 
         lookupPinpointEndpoint(pinpoint, appId, endpoint);
+        pinpoint.close();
     }
 
     //snippet-start:[pinpoint.java2.lookup.main]
     public static void lookupPinpointEndpoint(PinpointClient pinpoint, String appId, String endpoint ) {
 
         try {
-
             GetEndpointRequest appRequest = GetEndpointRequest.builder()
                     .applicationId(appId)
                     .endpointId(endpoint)
                     .build();
 
             GetEndpointResponse result = pinpoint.getEndpoint(appRequest);
-
             EndpointResponse endResponse = result.endpointResponse();
 
             // Uses the Google Gson library to pretty print the endpoint JSON.
@@ -81,8 +69,8 @@ public class LookUpEndpoint {
                     .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
                     .setPrettyPrinting()
                     .create();
-            String endpointJson = gson.toJson(endResponse);
 
+            String endpointJson = gson.toJson(endResponse);
             System.out.println(endpointJson);
 
         } catch (PinpointException e) {

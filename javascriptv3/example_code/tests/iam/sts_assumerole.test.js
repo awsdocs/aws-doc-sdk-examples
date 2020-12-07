@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-sts/commands/AssumeRoleCommand", () => ({
 }));
 const { params, run } = require("../../iam/src/sts_assumerole.js");
 
-//test function
 test("has to mock iam#assumerole", async (done) => {
   await run();
   expect(mockAssumeRole).toHaveBeenCalled;

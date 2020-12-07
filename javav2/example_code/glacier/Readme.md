@@ -1,6 +1,6 @@
-# Amazon Glacier Java code examples 
+# Amazon S3 Glacier Java code examples 
 
-This README discusses how to run and test the Java code examples for Amazon Glacier.
+This README discusses how to run and test the Java code examples for Amazon Simple Storage Service Glacier (Amazon S3 Glacier).
 
 ## Running the Amazon Glacier Java files
 
@@ -8,21 +8,14 @@ This README discusses how to run and test the Java code examples for Amazon Glac
 
 The Java code examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting a Glacier vault. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
+Some of these examples perform *destructive* operations on AWS resources, such as deleting an Amazon S3 Glacier vault. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
-To run these examples, you'll need the AWS SDK for Java libraries in your **CLASSPATH**.
-
-	export CLASSPATH=target/sdk-examples-1.0.jar:/path/to/aws-java-sdk/<jar-file-name>.jar
-
-Here **/path/to/aws-java-sdk/<jar-file-name>.jar** is the path to where you extracted or built the AWS SDK for Java JAR file.
-
-For systems with Bash support, once you set the **CLASSPATH**, you can run a particular example as follows.
-
-	java com.example.glacier.ListVaults
+To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
  ## Testing the Amazon Glacier files
 
-You can test the Java code examples for Amazon Glacier by running a test file named **AWSGlacierServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for Amazon S3 Glacier by running a test file named **GlacierTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is run, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -31,14 +24,14 @@ You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the comma
 **WARNING**: _Running these JUnit tests manipulates real Amazon resources and might incur charges on your account._
 
  ### Properties file
-Before running the Amazon Glacier JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a vault name used for various tests. If you do not define all values, the JUnit tests fail.
+Before running the Amazon S3 Glacier JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a vault name used for various tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
-- **vaultName** - The name of the vault.  
+- **vaultName** - The name of the Amazon S3 Glacier vault.  
 - **strPath** – The path to a file to use as an archive. For example, C:\\AWS\\test.pdf.
-- **downloadVault** - A vault that contains an archive to download.
-- **emptyVault** - An empty vault to delete.
+- **downloadVault** - An Amazon S3 Glacier vault that contains an archive to download.
+- **emptyVault** - An empty  Amazon S3 Glacier vault to delete.
 - **accountId** - Your account ID. You can obtain this value from the AWS Management Console.   
 
 ### Command line
@@ -51,7 +44,7 @@ You will see output from the JUnit tests, as shown here.
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
 	[INFO] -------------------------------------------------------
-	[INFO] Running AWSGlacierServiceIntegrationTest
+	[INFO] Running GlacierTest
 	Test 1 passed
 	Test 2 passed
 	...

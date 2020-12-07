@@ -1,51 +1,56 @@
 //snippet-sourcedescription:[ListUsers.java demonstrates how to list the users for an organization.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon WorkDocs]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[6/30/2020]
+//snippet-sourcedate:[11/06/2020]
 //snippet-sourceauthor:[scmacdon - aws]
 
-// snippet-start:[workdocs.java2.list_users.complete]
-// snippet-start:[workdocs.java2.list_users.import]
-package com.example.workdocs;
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
+// snippet-start:[workdocs.java2.list_users.complete]
+
+package com.example.workdocs;
+// snippet-start:[workdocs.java2.list_users.import]
 import java.util.ArrayList;
 import java.util.List;
-
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.workdocs.WorkDocsClient;
 import software.amazon.awssdk.services.workdocs.model.DescribeUsersRequest;
 import software.amazon.awssdk.services.workdocs.model.DescribeUsersResponse;
 import software.amazon.awssdk.services.workdocs.model.User;
 // snippet-end:[workdocs.java2.list_users.import]
-// snippet-start:[workdocs.java2.list_users.main]
+
 public class ListUsers {
 
     public static void main(String[] args) {
-        // Based on Amazon WorkDocs Developer Guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/connect-workdocs-iam.html
+        // Based on WorkDocs dev guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/connect-workdocs-iam.html
 
         final String USAGE = "\n" +
-                "To run this example, supply your organization ID\n" +
-                "\n" +
-                "Ex: list_users <organizationId>\n";
+                "Usage:\n" +
+                "    ListUsers <organizationId>   \n\n" +
+                "Where:\n" +
+                "    organizationId - your organization Id value. You can obtain this value from the AWS Management Console. \n" ;
 
-       if (args.length < 1) {
+       if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
         String orgId = args[0];
-
-        // Create a service client
         Region region = Region.US_WEST_2;
         WorkDocsClient workDocs = WorkDocsClient.builder()
                 .region(region)
                 .build();
 
         getAllUsers(workDocs, orgId);
+        workDocs.close();
     }
 
+    // snippet-start:[workdocs.java2.list_users.main]
     public static void getAllUsers(WorkDocsClient workDocs,String orgId) {
 
         List<User> wdUsers = new ArrayList<>();
