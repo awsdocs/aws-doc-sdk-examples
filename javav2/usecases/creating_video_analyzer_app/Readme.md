@@ -1,6 +1,6 @@
 #  Creating AWS video analyzer applications using the AWS SDK for Java
 
-You can create a Java web application that analyzes videos for label detection by using the Java SDK for Java version 2. In this use case, the videos are located in an Amazon Simple Storage Service (Amazon S3) bucket and the videos are analyzed by using the Amazon Rekognition service.
+You can create a Java web application that analyzes videos for label detection by using the Java SDK for Java version 2. The video that is analyzed is located in an Amazon Simple Storage Service (Amazon S3) bucket and it's analyzed by using the Amazon Rekognition service.
 
 The application created in this AWS tutorial lets you upload a video to an Amazon S3 bucket. Then the appliction uses the Amazon Rekognition service to analyze the video. The results are used to populate a data model and then a report is generated and emailed to a specific user by using the Amazon Simple Email Service (SES).
 
