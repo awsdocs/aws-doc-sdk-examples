@@ -38,13 +38,13 @@ Define these values to successfully run the JUnit tests:
 - **ppeImage** - An image that contains a person wearing a mask (for example, masks.png). 
 - **textImage** - An image that contains text (for example. myImage.png). 
 - **modImage** - An image that contains images that is used in the partental warning test and used in the **DetectModerationLabels** test.
-- **bucketName** - The name of the bucket in which videos used in these tests are located.
-- **faceVid** - The name of video that contains people (for example, people.mp4).
-- **modVid** - The name of a video that contains images that is used in the moderation test.
-- **textVid** - The name of a video that contains text.
-- **celVid** - The name of a video that contains celebrities.
+- **bucketName** - The name of the bucket in which the videos used in these tests are located.
+- **faceVid** - The name of the video that contains people (for example, people.mp4).
+- **modVid** - The name of the video that contains images that is used in the moderation test.
+- **textVid** - The name of the video that contains text.
+- **celVid** - The name of the video that contains celebrities.
 - **topicArn** - An ARN value of a SNS topic (you can obtain this value from the AWS Management Console).
-- **topicArn** - An ARN value of an IAM role (you can obtain this value from the AWS Management Console)..
+- **topicArn** - An ARN value of an IAM role (you can obtain this value from the AWS Management Console).
 
 **Note**: You must create an IAM role and a valid SNS topic. You need to reference these values in the properties file. If you do not set these values, the tests fail. For information, see [Configuring Amazon Rekognition Video](https://docs.aws.amazon.com/rekognition/latest/dg/api-video-roles.html).
 
