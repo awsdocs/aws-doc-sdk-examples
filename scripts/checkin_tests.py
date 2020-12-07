@@ -65,6 +65,7 @@ ALLOW_LIST = {
     'AKIA6OHTTRXXTEXAMPLE',
     'AKIAEXAMPLEACCESSKEY',
     'AKIAIOSFODNN7EXAMPLE',
+    'APKAEIBAERJR2EXAMPLE',
     'AppStreamUsageReportsCFNGlueAthenaAccess',
     'aws/acm/model/DescribeCertificateRequest',
     'aws/cloudtrail/model/LookupEventsRequest',

@@ -234,7 +234,7 @@ thread usage and time to transfer.
 
 #### Purpose
 
-Shows how to use the AWS SDK for Python (Boto3) to  get started using bucket and 
+Shows how to use the AWS SDK for Python (Boto3) to get started using bucket and 
 object operations in Amazon Simple Storage Service (Amazon S3). 
 Learn to create, get, remove, and configure buckets and objects.
 
@@ -243,7 +243,7 @@ Learn to create, get, remove, and configure buckets and objects.
 #### Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) to set up an Amazon S3 bucket for 
-versioning, and how to perform taks on a version-enabled bucket. Learn to 
+versioning, and how to perform tasks on a version-enabled bucket. Learn to 
 accomplish the following tasks:
 
 * Create a version-enabled bucket and apply revisions to its objects.
