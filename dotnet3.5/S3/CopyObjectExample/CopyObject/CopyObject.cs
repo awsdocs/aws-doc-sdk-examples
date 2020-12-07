@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 
 namespace CopyObject
 {
-    // This example uses Amazon Simple Storage Service (Amazon S3) to copy
-    // an object from one Amazon S3 bucket to another. It uses the AWS SDK for .NET 3.5
+    // This example copies an object from one Amazon Simple Storage Service
+    // (Amazon S3) bucket to another. It uses the AWS SDK for .NET 3.5
     // and .NET 5.0.
 
     public class CopyObject
