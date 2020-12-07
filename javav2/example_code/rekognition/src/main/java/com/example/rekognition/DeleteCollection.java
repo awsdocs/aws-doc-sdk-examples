@@ -64,7 +64,7 @@ public class DeleteCollection {
         System.out.println(e.getMessage());
         System.exit(1);
     }
-        // snippet-end:[rekognition.java2.delete_collection.main]
-   }
+  }
+    // snippet-end:[rekognition.java2.delete_collection.main]
  }
 

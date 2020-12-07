@@ -50,7 +50,6 @@ public class AddFacesToCollection {
 
         String collectionId = args[0];
         String sourceImage = args[1];
-
         Region region = Region.US_EAST_2;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
