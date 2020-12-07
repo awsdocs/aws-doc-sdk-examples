@@ -29,22 +29,22 @@ Before running the Amazon Rekognition JUnit tests, you must define values in the
 
 Define these values to successfully run the JUnit tests:
 
-- **facesImage** - The path to an image that contains faces.   
-- **faceImage2** – The path to an image that contains faces.   
-- **celebritiesImage** - The path to an image that contains famous people.
+- **facesImage** - The path to an image that contains faces (for example, C:\AWS\pic1.png).   
+- **faceImage2** – The path to an image that contains faces (for example, C:\AWS\pic1.png).   
+- **celebritiesImage** - The path to an image that contains famous people (for example, C:\AWS\pic1.png).
 - **celId** - The ID value of the celebrity. You can use the **RecognizeCelebrities** example to get the ID value.
-- **moutainImage** - The path to an image that contains mountains.
-- **collectionName** - A string value that represents the collection name.
-- **ppeImage** - An image that contains a person wearing a mask. 
-- **textImage** - An image that contains text. 
+- **moutainImage** - The path to an image that contains mountains (for example, C:\AWS\pic1.png).
+- **collectionName** - A string value that represents the collection name (for example, myCollection).
+- **ppeImage** - An image that contains a person wearing a mask (for example, masks.png). 
+- **textImage** - An image that contains text (for example. myImage.png). 
 - **modImage** - An image that contains images that is used in the partental warning test and used in the **DetectModerationLabels** test.
 - **bucketName** - The name of the bucket in which videos used in these tests are located.
 - **faceVid** - The name of video that contains people (for example, people.mp4).
-- **modVid** - The name of a video that contains images that is used in the partental warning test.
+- **modVid** - The name of a video that contains images that is used in the moderation test.
 - **textVid** - The name of a video that contains text.
 - **celVid** - The name of a video that contains celebrities.
-- **topicArn** - An ARN value of a SNS topic.
-- **topicArn** - An ARN value of an IAM role.
+- **topicArn** - An ARN value of a SNS topic (you can obtain this value from the AWS Management Console).
+- **topicArn** - An ARN value of an IAM role (you can obtain this value from the AWS Management Console)..
 
 **Note**: You must create an IAM role and a valid SNS topic. You need to reference these values in the properties file. If you do not set these values, the tests fail. For information, see [Configuring Amazon Rekognition Video](https://docs.aws.amazon.com/rekognition/latest/dg/api-video-roles.html).
 
