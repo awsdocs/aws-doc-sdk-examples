@@ -11,6 +11,7 @@
 */
 
 package com.example.rekognition;
+
 // snippet-start:[rekognition.java2.detect_labels.import]
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
@@ -43,7 +44,7 @@ public class DetectLabels {
         }
 
         String sourceImage = args[0] ;
-        Region region = Region.US_EAST_2;
+        Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
                 .build();

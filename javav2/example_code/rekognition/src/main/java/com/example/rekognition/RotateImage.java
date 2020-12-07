@@ -45,7 +45,7 @@ public class RotateImage {
        }
 
         String sourceImage = args[0];
-        Region region = Region.US_EAST_2;
+        Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
                 .build();
@@ -104,10 +104,10 @@ public class RotateImage {
         float top = 0;
 
         if(rotation==null){
-            System.out.println("No estimated estimated orientation. Check Exif data.");
+            System.out.println("No estimated estimated orientation.");
             return;
         }
-        // Calculate face position based on image orientation
+        // Calculate face position based on the image orientation
         switch (rotation) {
             case "ROTATE_0":
                 left = imageWidth * box.left();
@@ -130,7 +130,6 @@ public class RotateImage {
                 return;
         }
 
-        // Display face location information retrieved from the image
         System.out.println("Left: " + String.valueOf((int) left));
         System.out.println("Top: " + String.valueOf((int) top));
         System.out.println("Face Width: " + String.valueOf((int)(imageWidth * box.width())));

@@ -59,10 +59,10 @@ public class VideoDetect {
                 "topicArn - the ARN of the Amazon Simple Notification Service (Amazon SNS) topic. \n\n" +
                 "roleArn - the ARN of the AWS Identity and Access Management (IAM) role to use. \n\n" ;
 
-         if (args.length != 5) {
-             System.out.println(USAGE);
-             System.exit(1);
-         }
+        if (args.length != 5) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
 
         String bucket = args[0];
         String video = args[1];
@@ -158,7 +158,6 @@ public class VideoDetect {
             messages = sqs.receiveMessage(messageRequest).messages();
 
             if (!messages.isEmpty()) {
-                //Loop through messages received.
                 for (Message message: messages) {
                     String notification = message.body();
 
@@ -171,7 +170,7 @@ public class VideoDetect {
                     JsonNode operationJobId = jsonResultTree.get("JobId");
                     JsonNode operationStatus = jsonResultTree.get("Status");
                     System.out.println("Job found in JSON is " + operationJobId);
-           
+
                     DeleteMessageRequest deleteMessageRequest = DeleteMessageRequest.builder()
                             .queueUrl(queueUrl)
                             .build();
@@ -183,7 +182,7 @@ public class VideoDetect {
                         System.out.println("Status : " + operationStatus.toString());
 
                         if (operationStatus.asText().equals("SUCCEEDED"))
-                              GetResultsLabels(rekClient);
+                            GetResultsLabels(rekClient);
                         else
                             System.out.println("Video analysis failed");
 
@@ -192,8 +191,6 @@ public class VideoDetect {
 
                     else{
                         System.out.println("Job received was not job " +  startJobId);
-
-                        // Delete unknown message. Consider moving message to dead letter queue
                         sqs.deleteMessage(deleteMessageRequest);
                     }
                 }
@@ -211,7 +208,7 @@ public class VideoDetect {
         }
     }
 
-    // Gets the job results by calling GetLabelDetection 
+    // Gets the job results by calling GetLabelDetection
     private static void GetResultsLabels(RekognitionClient rekClient) {
 
         int maxResults=10;
@@ -225,11 +222,11 @@ public class VideoDetect {
 
 
                 GetLabelDetectionRequest labelDetectionRequest= GetLabelDetectionRequest.builder()
-                    .jobId(startJobId)
-                    .sortBy(LabelDetectionSortBy.TIMESTAMP)
-                    .maxResults(maxResults)
-                    .nextToken(paginationToken)
-                    .build();
+                        .jobId(startJobId)
+                        .sortBy(LabelDetectionSortBy.TIMESTAMP)
+                        .maxResults(maxResults)
+                        .nextToken(paginationToken)
+                        .build();
 
                 labelDetectionResult = rekClient.getLabelDetection(labelDetectionRequest);
                 VideoMetadata videoMetaData=labelDetectionResult.videoMetadata();
@@ -277,7 +274,6 @@ public class VideoDetect {
             e.getMessage();
             System.exit(1);
         }
-        }
+    }
     // snippet-end:[rekognition.java2.recognize_video_detect.main]
 }
-

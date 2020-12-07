@@ -40,7 +40,7 @@ public class SearchFaceMatchingIdCollection {
 
         String collectionId = args[0];
         String faceId = args[1];
-        Region region = Region.US_WEST_2;
+        Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
                 .build();

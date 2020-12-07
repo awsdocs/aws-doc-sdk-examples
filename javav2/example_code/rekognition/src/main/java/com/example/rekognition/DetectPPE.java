@@ -78,8 +78,6 @@ public class DetectPPE {
                     .build();
 
             SdkBytes sourceBytes = SdkBytes.fromInputStream(is);
-
-            // Create an Image object for the source image
             software.amazon.awssdk.services.rekognition.model.Image souImage = Image.builder()
                     .bytes(sourceBytes)
                     .build();

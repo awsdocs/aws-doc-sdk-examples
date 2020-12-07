@@ -53,9 +53,8 @@ public class PPEBoundingBoxFrame extends JPanel {
             System.exit(1);
         }
 
-        String sourceImage = "masks.png" ; // args[0];
-        String bucketName = "buckettestsept"; // args[1];
-
+        String sourceImage = args[0];
+        String bucketName = args[1];
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)

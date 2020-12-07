@@ -50,7 +50,7 @@ public class CompareFaces {
         String sourceImage = args[0];
         String targetImage = args[1];
 
-        Region region = Region.US_EAST_2;
+        Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
                 .build();
@@ -71,8 +71,8 @@ public class CompareFaces {
 
             // Create an Image object for the source image
             Image souImage = Image.builder()
-            .bytes(sourceBytes)
-            .build();
+               .bytes(sourceBytes)
+               .build();
 
             Image tarImage = Image.builder()
                     .bytes(targetBytes)
@@ -86,8 +86,6 @@ public class CompareFaces {
 
             // Compare the two images
             CompareFacesResponse compareFacesResult = rekClient.compareFaces(facesRequest);
-
-            // Display results
             List<CompareFacesMatch> faceDetails = compareFacesResult.faceMatches();
             for (CompareFacesMatch match: faceDetails){
                 ComparedFace face= match.face();

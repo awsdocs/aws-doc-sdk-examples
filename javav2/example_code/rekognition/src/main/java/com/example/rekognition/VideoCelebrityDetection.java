@@ -29,7 +29,10 @@ import software.amazon.awssdk.services.rekognition.model.GetCelebrityRecognition
 import java.util.List;
 // snippet-end:[rekognition.java2.recognize_video_celebrity.import]
 
-
+/**
+ *  To run this code example, ensure that you perform the Prerequisites as stated in the Amazon Rekognition Guide:
+ *  https://docs.aws.amazon.com/rekognition/latest/dg/video-analyzing-with-sqs.html
+ */
 public class VideoCelebrityDetection {
 
     private static String startJobId ="";

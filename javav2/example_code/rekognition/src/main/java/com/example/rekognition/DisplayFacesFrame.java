@@ -53,7 +53,6 @@ public class DisplayFacesFrame extends JPanel {
 
         String sourceImage = args[0];
         String bucketName = args[1];
-
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
@@ -76,7 +75,6 @@ public class DisplayFacesFrame extends JPanel {
         int height = 0;
         int width = 0;
 
-        // Create a BufferedImage object
         byte[] data = getObjectBytes (s3, bucketName, sourceImage);
         InputStream is = new ByteArrayInputStream(data);
 
@@ -115,7 +113,7 @@ public class DisplayFacesFrame extends JPanel {
             System.out.println();
         }
 
-        // Create frame and panel
+        // Create the frame and panel
         JFrame frame = new JFrame("RotateImage");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         DisplayFacesFrame panel = new DisplayFacesFrame(image);
@@ -160,20 +158,20 @@ public class DisplayFacesFrame extends JPanel {
         image = bufImage;
     }
 
-    // Draws the bounding box around the detected faces.
+    // Draws the bounding box around the detected faces
     public void paintComponent(Graphics g) {
         float left = 0;
         float top = 0;
         int height = image.getHeight(this);
         int width = image.getWidth(this);
 
-        Graphics2D g2d = (Graphics2D) g; // Create a Java2D version of g.
+        Graphics2D g2d = (Graphics2D) g; // Create a Java2D version of g
 
-        // Draw the image.
+        // Draw the image
         g2d.drawImage(image, 0, 0, width / scale, height / scale, this);
         g2d.setColor(new Color(0, 212, 0));
 
-        // Iterate through faces and display bounding boxes.
+        // Iterate through the faces and display bounding boxes
         List<FaceDetail> faceDetails = result.faceDetails();
         for (FaceDetail face : faceDetails) {
 
