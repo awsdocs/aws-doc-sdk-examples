@@ -38,7 +38,7 @@ Define these values to successfully run the JUnit tests:
 - **ppeImage** - An image that contains a person wearing a mask. 
 - **textImage** - An image that contains text. 
 - **modImage** - An image that contains images that is used in the partental warning test and used in the **DetectModerationLabels** test.
-- **bucketName** - The name of the bucket in which the video is located.
+- **bucketName** - The name of the bucket in which videos used in these tests are located.
 - **faceVid** - The name of video that contains people (for example, people.mp4).
 - **modVid** - The name of a video that contains images that is used in the partental warning test.
 - **textVid** - The name of a video that contains text.
