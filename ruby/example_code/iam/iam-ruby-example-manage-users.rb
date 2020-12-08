@@ -1,79 +1,132 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Lists your IAM users, creates an IAM user, updates the user's name, and deletes the user.]
-# snippet-keyword:[AWS Identity and Access Management]
-# snippet-keyword:[create_user method]
-# snippet-keyword:[delete_user method]
-# snippet-keyword:[list_users method]
-# snippet-keyword:[update_user method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[iam]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
 
-# Demonstrates how to:
-# 1. Get information about available AWS IAM users.
+# The following code example shows how to to:
+# 1. Get a list of user names in AWS Identity and Access Management (IAM).
 # 2. Create a user.
 # 3. Update the user's name.
 # 4. Delete the user.
 
-require 'aws-sdk-iam'  # v2: require 'aws-sdk'
+require 'aws-sdk-iam'
 
-iam = Aws::IAM::Client.new(region: 'us-east-1')
-
-user_name = "my-user"
-changed_user_name = "my-changed-user"
-
+# TODO: Add documentation.
 # Get information about available AWS IAM users.
-def list_user_names(iam)
-  list_users_response = iam.list_users
-  list_users_response.users.each do |user|
-    puts user.user_name
+# @param iam_client [Aws::IAM::Client] An initialized IAM client.
+# @example
+def list_user_names(iam_client)
+  response = iam_client.list_users
+  if response.key?('users') && response.users.count.positive?
+    response.users.each do |user|
+      puts user.user_name
+    end
+  else
+    puts 'No users found.'
+  end
+rescue StandardError => e
+  puts "Error listing user names: #{e.message}"
+end
+
+# TODO: Add documentation.
+# @param iam_client [Aws::IAM::Client] An initialized IAM client.
+# @example
+def user_created?(iam_client, user_name)
+  iam_client.create_user(user_name: user_name)
+  return true
+rescue Aws::IAM::Errors::EntityAlreadyExists
+  puts "Error creating user: user '#{user_name}' already exists."
+  return false
+rescue StandardError => e
+  puts "Error creating user: #{e.message}"
+  return false
+end
+
+# TODO: Add documentation.
+# @param iam_client [Aws::IAM::Client] An initialized IAM client.
+# @example
+def user_name_changed?(iam_client, user_current_name, user_new_name)
+  iam_client.update_user(
+    user_name: user_current_name,
+    new_user_name: user_new_name
+  )
+  return true
+rescue StandardError => e
+  puts "Error updating user name: #{e.message}"
+  return false
+end
+
+# TODO: Add documentation.
+# @param iam_client [Aws::IAM::Client] An initialized IAM client.
+# @example
+def user_deleted?(iam_client, user_name)
+  iam_client.delete_user(user_name: user_name)
+  return true
+rescue StandardError => e
+  puts "Error deleting user: #{e.message}"
+  return false
+end
+
+# Full example call:
+def run_me
+  user_name = 'my-user'
+  user_changed_name = 'my-changed-user'
+  delete_user = true
+  iam_client = Aws::IAM::Client.new
+
+  puts "Initial user names are:\n\n"
+  list_user_names(iam_client)
+
+  puts "\nAttempting to create user '#{user_name}'..."
+
+  if user_created?(iam_client, user_name)
+    puts 'User created.'
+  else
+    puts 'Could not create user. Stopping program.'
+    exit 1
+  end
+
+  puts "User names now are:\n\n"
+  list_user_names(iam_client)
+
+  puts "\nAttempting to change name of user '#{user_name}' " \
+    "to '#{user_changed_name}'..."
+
+  if user_name_changed?(iam_client, user_name, user_changed_name)
+    puts 'User name changed.'
+    puts "User names now are:\n\n"
+    list_user_names(iam_client)
+
+    if delete_user
+      # Delete user with changed name.
+      puts "\nAttempting to delete user '#{user_changed_name}'..."
+
+      if user_deleted?(iam_client, user_changed_name)
+        puts 'User deleted.'
+      else
+        puts 'Could not delete user. You must delete the user yourself.'
+      end
+
+      puts "User names now are:\n\n"
+      list_user_names(iam_client)
+    end
+  else
+    puts 'Could not change user name.'
+    puts "User names now are:\n\n"
+    list_user_names(iam_client)
+
+    if delete_user
+      # Delete user with initial name.
+      puts "\nAttempting to delete user '#{user_name}'..."
+
+      if user_deleted?(iam_client, user_name)
+        puts 'User deleted.'
+      else
+        puts 'Could not delete user. You must delete the user yourself.'
+      end
+
+      puts "User names now are:\n\n"
+      list_user_names(iam_client)
+    end
   end
 end
 
-puts "User names before creating user..."
-list_user_names(iam)
-
-# Create a user.
-puts "\nCreating user..."
-
-iam.create_user({ user_name: user_name })
-
-puts "\nUser names after creating user..."
-list_user_names(iam)
-
-# Update the user's name.
-puts "\nChanging user's name..."
-
-begin
-  iam.update_user({
-    user_name: user_name,
-    new_user_name: changed_user_name
-  })
-
-  puts "\nUser names after updating user's name..."
-  list_user_names(iam)
-rescue Aws::IAM::Errors::EntityAlreadyExists
-  puts "User '#{user_name}' already exists."
-end
-
-# Delete the user.
-puts "\nDeleting user..."
-iam.delete_user({ user_name: changed_user_name })
-
-puts "\nUser names after deleting user..."
-list_user_names(iam)
+run_me if $PROGRAM_NAME == __FILE__
