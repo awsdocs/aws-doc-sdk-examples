@@ -12,7 +12,7 @@ Inputs:
 - IDENTITY_POOL_ID
 
 Running the code:
-Refer to the example in the AWS SDK for JavaScript Developer Guide (https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-react.html.
+Refer to the topic in the AWS SDK for JavaScript Developer Guide (https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-react.html.
  */
 // snippet-start:[s3.JavaScript.react-native-example.codev3]
 import React, { useState } from "javascriptv3/example_code/reactnative/App";
