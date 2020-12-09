@@ -24,7 +24,7 @@ const { SNSClient, ListPhoneNumbersOptedOutCommand } = require("@aws-sdk/client-
 const REGION = "REGION"; //e.g. "us-east-1"
 
 // Create SNS service object
-const sns = new SNSClient(REGION);
+const sns = new SNSClient({ region: REGION });
 
 const run = async () => {
   try {

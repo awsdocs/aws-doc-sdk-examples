@@ -35,7 +35,7 @@ const staticHostParams = {
 };
 
 // Create S3 service object
-const s3 = new S3Client(REGION);
+const s3 = new S3Client({ region: REGION });
 
 const run = async () => {
   // Insert specified bucket name and index and error documents into params JSON

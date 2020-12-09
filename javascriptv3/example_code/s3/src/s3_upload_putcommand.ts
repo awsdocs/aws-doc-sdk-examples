@@ -27,7 +27,7 @@ const uploadParams = { Bucket: "BUCKET_NAME", Key: "KEY", Body: "BODY" }; //BUCK
 // BODY (the contents of the uploaded file)
 
 // Create S3 service object
-const s3 = new S3Client(REGION);
+const s3 = new S3Client({ region: REGION });
 
 // call S3 to retrieve upload file to specified bucket
 const run = async () => {
