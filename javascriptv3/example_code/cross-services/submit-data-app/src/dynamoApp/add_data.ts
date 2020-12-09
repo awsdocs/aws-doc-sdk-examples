@@ -39,7 +39,7 @@ const IDENTITY_POOL_ID = "IDENTITY_POOL_ID";
 const dbclient = new DynamoDB({
   region: REGION,
   credentials: fromCognitoIdentityPool({
-    client: new CognitoIdentityClient({ region }),
+    client: new CognitoIdentityClient({ region: REGION }),
     identityPoolId: IDENTITY_POOL_ID,
   }),
 });
@@ -47,7 +47,7 @@ const dbclient = new DynamoDB({
 const sns = new SNSClient({
   region: REGION,
   credentials: fromCognitoIdentityPool({
-    client: new CognitoIdentityClient({ region }),
+    client: new CognitoIdentityClient({ region: REGION }),
     identityPoolId: IDENTITY_POOL_ID,
   }),
 });

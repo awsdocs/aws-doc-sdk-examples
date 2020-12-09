@@ -31,7 +31,7 @@ const params = {
 };
 
 // Create SNS service object
-const sns = new SNSClient(REGION);
+const sns = new SNSClient({ region: REGION });
 
 const run = async () => {
   try {
