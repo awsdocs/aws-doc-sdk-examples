@@ -142,7 +142,7 @@ public class ExportEndpoints {
                     .prefix(endpointsKeyPrefix)
                     .build();
 
-            // Create a List of Object keys
+            // Create a list of object keys
             ListObjectsV2Response v2Response = s3Client.listObjectsV2(v2Request);
             List<S3Object> objects = v2Response.contents();
             for (S3Object object: objects) {
