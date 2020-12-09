@@ -30,6 +30,19 @@ to request, import, and manage certificates.
 * Retrieve certificate data.
 * Add custom tags to certificates.
 
+### [Amazon CloudWatch custom metrics and alarms example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/cloudwatch/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon CloudWatch to
+accomplish the following tasks:
+
+* Create a custom metric.
+* Create an alarm that watches a metric.
+* Send data to CloudWatch for a metric.
+* Get statistics for a metric.
+* Trigger an alarm and get its state.
+
 ### [Amazon DynamoDB batch examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/dynamodb/batching/README.md)
 
 #### Purpose
