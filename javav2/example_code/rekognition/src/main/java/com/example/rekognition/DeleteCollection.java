@@ -36,7 +36,7 @@ public class DeleteCollection {
         }
 
         String collectionId = args[0];
-        Region region = Region.US_EAST_2;
+        Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
                 .build();
@@ -64,7 +64,7 @@ public class DeleteCollection {
         System.out.println(e.getMessage());
         System.exit(1);
     }
-        // snippet-end:[rekognition.java2.delete_collection.main]
-   }
+  }
+    // snippet-end:[rekognition.java2.delete_collection.main]
  }
 
