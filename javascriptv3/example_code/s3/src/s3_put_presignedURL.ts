@@ -45,7 +45,7 @@ const BODY = "BODY";
 const EXPIRATION = 60 * 60 * 1000;
 
 // Create Amazon S3 client object
-const v3Client = new S3({ REGION });
+const v3Client = new S3({ region: REGION });
 
 const run = async () => {
   try {

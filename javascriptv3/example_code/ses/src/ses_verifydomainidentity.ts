@@ -30,7 +30,7 @@ const REGION = "REGION"; //e.g. "us-east-1"
 const params = { Domain: "DOMAIN_NAME" }; //DOMAIN_NAME
 
 // Create SES service object
-const ses = new SESClient(REGION);
+const ses = new SESClient({ region: REGION });
 
 const run = async () => {
   try {

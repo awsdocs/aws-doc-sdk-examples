@@ -28,7 +28,7 @@ const {
 const REGION = "REGION"; //e.g. "us-east-1"
 
 // Instantiate the IAM client
-const iam = new IAMClient(REGION);
+const iam = new IAMClient({ region: REGION });
 
 // Set the parameters
 const ROLE = "NEW_ROLENAME"; //NEW_ROLENAME

@@ -27,7 +27,7 @@ const {
 const REGION = "region"; //e.g. "us-east-1"
 
 // Create DynamoDB service object
-const dbclient = new DynamoDBClient(REGION);
+const dbclient = new DynamoDBClient({ region: REGION });
 
 const run = async () => {
   try {

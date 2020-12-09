@@ -31,7 +31,7 @@ const REGION = "REGION"; //e.g. "us-east-1"
 const paramsRoleList = { RoleName: "ROLE_NAME" }; //ROLE_NAME
 
 // Create IAM service object
-const iam = new IAMClient(REGION);
+const iam = new IAMClient({ region: REGION });
 
 const run = async () => {
   // Load the AWS SDK for Node.js
