@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
 //snippet-end:[pinpoint.java2.export_endpoint.import]
 
 /**
- *  To run this code example, you need to create an IAM role with the correct policy as described in this documentation:
+ *  To run this code example, you need to create an AWS Identity and Access Management (IAM) role with the correct policy as described in this documentation:
  *  https://docs.aws.amazon.com/pinpoint/latest/developerguide/audience-data-export.html
  */
 
