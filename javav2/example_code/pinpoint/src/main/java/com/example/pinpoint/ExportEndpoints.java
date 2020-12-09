@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ExportEndpoints.java demonstrates how to export endpoints to an Amazon S3 bucket.]
+//snippet-sourcedescription:[ExportEndpoints.java demonstrates how to export endpoints to an Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
