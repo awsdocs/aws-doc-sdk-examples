@@ -9,10 +9,12 @@
 
 require 'aws-sdk-iam'
 
-# TODO: Add documentation.
-# Get information about available AWS IAM users.
+# Gets a list of available user names in
+# AWS Identity and Access Management (IAM).
+#
 # @param iam_client [Aws::IAM::Client] An initialized IAM client.
 # @example
+#   list_user_names(Aws::IAM::Client.new)
 def list_user_names(iam_client)
   response = iam_client.list_users
   if response.key?('users') && response.users.count.positive?
@@ -26,9 +28,13 @@ rescue StandardError => e
   puts "Error listing user names: #{e.message}"
 end
 
-# TODO: Add documentation.
+# Creates a user in AWS Identity and Access Management (IAM).
+#
 # @param iam_client [Aws::IAM::Client] An initialized IAM client.
+# @param user_name [String] The name of the new user.
+# @return [Boolean] true if the user was created; otherwise, false.
 # @example
+#   exit 1 unless user_created?(Aws::IAM::Client.new, 'my-user')
 def user_created?(iam_client, user_name)
   iam_client.create_user(user_name: user_name)
   return true
@@ -40,9 +46,22 @@ rescue StandardError => e
   return false
 end
 
-# TODO: Add documentation.
+# Changes the name of a user in AWS Identity and Access Management (IAM).
+#
+# Prerequisites:
+# - The user in IAM.
+#
 # @param iam_client [Aws::IAM::Client] An initialized IAM client.
+# @param user_current_name [String] The current name of the user.
+# @param user_new_name [String] The new name for the user.
+# @return [Boolean] true if the name of the user was changed;
+#   otherwise, false.
 # @example
+#   exit 1 unless user_name_changed?(
+#     Aws::IAM::Client.new,
+#     'my-user',
+#     'my-changed-user'
+#   )
 def user_name_changed?(iam_client, user_current_name, user_new_name)
   iam_client.update_user(
     user_name: user_current_name,
@@ -54,9 +73,16 @@ rescue StandardError => e
   return false
 end
 
-# TODO: Add documentation.
+# Deletes a user in AWS Identity and Access Management (IAM).
+#
+# Prerequisites:
+# - The user in IAM.
+#
 # @param iam_client [Aws::IAM::Client] An initialized IAM client.
+# @param user_name [String] The name of the user.
+# @return [Boolean] true if the user was deleted; otherwise, false.
 # @example
+#   exit 1 unless user_deleted?(Aws::IAM::Client.new, 'my-user')
 def user_deleted?(iam_client, user_name)
   iam_client.delete_user(user_name: user_name)
   return true

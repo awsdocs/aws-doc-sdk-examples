@@ -8,9 +8,12 @@
 
 require 'aws-sdk-iam'
 
-# TODO: Add documentation.
+# Gets a list of available server certificate names in
+# AWS Identity and Access Management (IAM).
+#
 # @param iam_client [Aws::IAM::Client] An initialized IAM client.
 # @example
+#   list_server_certificate_names(Aws::IAM::Client.new)
 def list_server_certificate_names(iam_client)
   response = iam_client.list_server_certificates
 
@@ -18,7 +21,7 @@ def list_server_certificate_names(iam_client)
     response.server_certificate_metadata_list.count.positive?
 
     response.server_certificate_metadata_list.each do |certificate_metadata|
-      puts certificate_meatadata.server_certificate_name
+      puts certificate_metadata.server_certificate_name
     end
   else
     puts 'No server certificates found. Stopping program.'
@@ -28,10 +31,26 @@ rescue StandardError => e
   puts "Error getting server certificate names: #{e.message}"
 end
 
-# TODO: Add documentation.
-# Update a server certificate.
+# Changes the name of a server certificate in
+# AWS Identity and Access Management (IAM).
+#
+# Prerequisites:
+#
+# - The server certificate in IAM.
+#
 # @param iam_client [Aws::IAM::Client] An initialized IAM client.
+# @param server_certificate_current_name [String] The current name of
+#   the server certificate.
+# @param server_certificate_new_name [String] The new name for the
+#   the server certificate.
+# @return [Boolean] true if the name of the server certificate
+#   was changed; otherwise, false.
 # @example
+#   exit 1 unless server_certificate_name_changed?(
+#     Aws::IAM::Client.new,
+#     'my-server-certificate',
+#     'my-changed-server-certificate'
+#   )
 def server_certificate_name_changed?(
   iam_client,
   server_certificate_current_name,
@@ -47,10 +66,22 @@ rescue StandardError => e
   return false
 end
 
-# TODO: Add documentation.
-# Update a server certificate.
+# Deletes a server certificate in
+# AWS Identity and Access Management (IAM).
+#
+# Prerequisites:
+#
+# - The server certificate in IAM.
+#
 # @param iam_client [Aws::IAM::Client] An initialized IAM client.
+# @param server_certificate_name [String] The name of the server certificate.
+# @return [Boolean] true if the server certificate was deleted;
+#   otherwise, false.
 # @example
+#   exit 1 unless server certificate_deleted?(
+#     Aws::IAM::Client.new,
+#     'my-server-certificate'
+#   )
 def server_certificate_deleted?(iam_client, server_certificate_name)
   iam_client.delete_server_certificate(
     server_certificate_name: server_certificate_name
