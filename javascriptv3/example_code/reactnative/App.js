@@ -1,8 +1,8 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
-ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide (scheduled for release September 2020) top
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-react.html.
+ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Developer Guide
+topic https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-react.html.
 
 Purpose:
 App.js contains code enabling a React Native app to create and delete Amazon Simple Cloud Storage (Amazon S3) buckets.
