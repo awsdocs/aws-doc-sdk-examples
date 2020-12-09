@@ -33,7 +33,7 @@ Define these values to successfully run the JUnit tests:
 - **bucket** – The name of an Amazon S3 bucket to use for the **ImportSegments** test.
 - **path** – The path where the JSON file is located in the bucket for the **ImportSegments** test. For example, **imports/myjson.json**.
 - **roleArn** - The Amazon Resource Name (ARN) of the role for the **ImportSegments** test.
-- **existingApplicationId** - An existing applicaiton Id value used in various tests.
+- **existingApplicationId** - An existing application Id value used in various tests.
 - **userId** - An existing user Id value used in various tests.
 - **s3BucketName** - An Amazon S3 bucket that is used in the **ExportEndpoints** test.
 - **iamExportRoleArn** - The ARN of an IAM role that grants Amazon Pinpoint write permissions to the S3 bucket and used in the **ExportEndpoints** test.
