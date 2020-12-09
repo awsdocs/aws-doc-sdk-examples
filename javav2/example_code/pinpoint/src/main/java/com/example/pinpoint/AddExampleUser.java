@@ -55,7 +55,6 @@ public class AddExampleUser {
     //snippet-start:[pinpoint.java2.update_endpoint.main]
     public static void updatePinpointEndpoint(PinpointClient pinpoint,String applicationId, String endPointId) {
 
-
         try{
             List<String> wangXiList = new ArrayList<String>();
             wangXiList.add("cooking");

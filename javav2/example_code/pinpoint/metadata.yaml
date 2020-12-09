@@ -24,7 +24,13 @@ files:
  - path: src/main/java/com/example/pinpoint/DeleteEndpoint.java
    services:
      - pinpoint
+ - path: src/main/java/com/example/pinpoint/ExportEndpoints.java
+   services:
+     - pinpoint
  - path: src/main/java/com/example/pinpoint/ImportSegment.java
+   services:
+     - pinpoint
+ - path: src/main/java/com/example/pinpoint/ListEndpointIds.java
    services:
      - pinpoint
  - path: src/main/java/com/example/pinpoint/ListSegments.java
@@ -33,7 +39,13 @@ files:
  - path: src/main/java/com/example/pinpoint/LookUpEndpoint.java
    services:
      - pinpoint
+ - path: src/main/java/com/example/pinpoint/SendEmailMessage.java
+   services:
+     - pinpoint
  - path: src/main/java/com/example/pinpoint/SendMessage.java
+   services:
+     - pinpoint
+ - path: src/main/java/com/example/pinpoint/SendVoiceMessage.java
    services:
      - pinpoint
  - path: src/main/java/com/example/pinpoint/UpdateChannel.java
