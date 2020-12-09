@@ -25,7 +25,7 @@ public class ListCollections {
 
     public static void main(String[] args) {
 
-        Region region = Region.US_EAST_2;
+        Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
                 .build();
@@ -40,15 +40,11 @@ public class ListCollections {
 
         try {
 
-            // Create a ListCollectionsRequest object
             ListCollectionsRequest listCollectionsRequest = ListCollectionsRequest.builder()
                     .maxResults(10)
                     .build();
 
-            // Invoke the listCollections method
             ListCollectionsResponse response = rekClient.listCollections(listCollectionsRequest);
-
-            // Display the results
             List<String> collectionIds = response.collectionIds();
             for (String resultId : collectionIds) {
                 System.out.println(resultId);

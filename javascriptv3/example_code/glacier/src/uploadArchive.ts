@@ -32,7 +32,7 @@ const buffer = new Buffer.alloc(2.5 * 1024 * 1024); // 2.5MB buffer
 const params = { vaultName: vaultname, body: buffer };
 
 // Instantiate an S3 Glacier client
-const glacier = new GlacierClient(REGION);
+const glacier = new GlacierClient({ region: REGION });
 
 const run = async () => {
   try {

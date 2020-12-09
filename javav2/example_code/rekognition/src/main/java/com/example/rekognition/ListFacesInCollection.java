@@ -38,7 +38,7 @@ public class ListFacesInCollection {
         }
 
         String collectionId = args[0];
-        Region region = Region.US_EAST_2;
+        Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
                 .build();
@@ -59,10 +59,11 @@ public class ListFacesInCollection {
 
             ListFacesResponse facesResponse = rekClient.listFaces(facesRequest);
 
-            // For each face in the collection, print out the confidence level
+            // For each face in the collection, print out the confidence level and face id value
             List<Face> faces = facesResponse.faces();
             for (Face face: faces) {
                 System.out.println("Confidence level there is a face: "+face.confidence());
+                System.out.println("The face Id value is "+face.faceId());
             }
 
         } catch (RekognitionException e) {

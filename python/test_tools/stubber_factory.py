@@ -10,6 +10,7 @@ This factory is used by the make_stubber fixture found in the set of common fixt
 
 from test_tools.acm_stubber import AcmStubber
 from test_tools.apigateway_stubber import ApiGatewayStubber
+from test_tools.cloudwatch_stubber import CloudWatchStubber
 from test_tools.cloudwatch_logs_stubber import CloudWatchLogsStubber
 from test_tools.dynamodb_stubber import DynamoStubber
 from test_tools.ec2_stubber import Ec2Stubber
@@ -45,6 +46,8 @@ def stubber_factory(service_name):
         return AcmStubber
     elif service_name == 'apigateway':
         return ApiGatewayStubber
+    elif service_name == 'cloudwatch':
+        return CloudWatchStubber
     elif service_name == 'logs':
         return CloudWatchLogsStubber
     elif service_name == 'dynamodb':

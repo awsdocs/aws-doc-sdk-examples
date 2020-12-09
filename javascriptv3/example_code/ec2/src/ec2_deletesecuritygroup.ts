@@ -29,7 +29,7 @@ const REGION = "REGION"; //e.g. "us-east-1"
 const params = { GroupId: "SECURITY_GROUP_ID" }; //SECURITY_GROUP_ID
 
 // Create EC2 service object
-const ec2client = new EC2Client(REGION);
+const ec2client = new EC2Client({ region: REGION });
 
 const run = async () => {
   try {

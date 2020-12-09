@@ -48,7 +48,7 @@ const params = {
 };
 
 // Create an Amazon Redshift client service object
-const redshift = new RedshiftClient(REGION);
+const redshift = new RedshiftClient({ region: REGION });
 
 const run = async () => {
   try {

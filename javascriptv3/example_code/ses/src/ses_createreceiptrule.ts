@@ -51,7 +51,7 @@ const params = {
 };
 
 // Create SES service object
-const ses = new SESClient(REGION);
+const ses = new SESClient({ region: REGION });
 
 const run = async () => {
   try {

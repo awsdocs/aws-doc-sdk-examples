@@ -30,7 +30,7 @@ const REGION = "REGION"; //e.g. "us-east-1"
 const params = { phoneNumber: "PHONE_NUMBER" }; //PHONE_NUMBER, in the E.164 phone number structure
 
 // Create SNS service object
-const sns = new SNSClient(REGION);
+const sns = new SNSClient({ region: REGION });
 
 const run = async () => {
   try {
