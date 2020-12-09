@@ -5,10 +5,10 @@ ABOUT THIS NODE.JS EXAMPLE: This sample is part of the SDK for JavaScript Develo
 topic https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-react.html.
 
 Purpose:
-App.js contains code enabling a React Native app to create and delete Amazon Simple Cloud Storage (Amazon S3) buckets.
+App.js contains code enabling a React Native app to create and delete Amazon Simple Storage Service (Amazon S3) buckets.
 
 Inputs:
-- REGION
+- REGION 
 - IDENTITY_POOL_ID
 
 Running the code:
@@ -31,12 +31,12 @@ const App = () => {
     const [successMsg, setSuccessMsg] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
 
-    const region = "REGION"; // REGION
+    const region = "REGION"; // REGION; e.g.  "us-east-1"
     const client = new S3Client({
         region,
         credentials: fromCognitoIdentityPool({
             client: new CognitoIdentityClient({ region }),
-            identityPoolId: "IDENTITY_POOL_ID", // IDENTITY_POOL_ID
+            identityPoolId: "IDENTITY_POOL_ID", // IDENTITY_POOL_ID; e.g. us-east-1:xxxxxx-xxx-4103-9936-b52exxxxfd6
         }),
     });
 
