@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 // TODO: Customize this AWS CDK code for your specific AWS CDK solution.
 // For more information, see the AWS CDK Developer Guide at
 // https://docs.aws.amazon.com/cdk/latest/guide

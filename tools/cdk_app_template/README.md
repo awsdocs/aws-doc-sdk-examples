@@ -94,3 +94,9 @@ To delete the corresponding stack in the AWS CloudFormation Console, do the foll
 1. Choose **Delete**.
 1. Choose **Delete stack**.
 
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0
+
