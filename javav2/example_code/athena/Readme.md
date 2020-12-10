@@ -10,22 +10,15 @@ The Java code examples perform AWS operations for the account and AWS Region for
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting a named query example. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
-To run these examples, you'll need the AWS SDK for Java libraries in your **CLASSPATH**.
-
-	export CLASSPATH=target/sdk-examples-1.0.jar:/path/to/aws-java-sdk/<jar-file-name>.jar
-
-Here **/path/to/aws-java-sdk/<jar-file-name>.jar** is the path to where you extracted or built the AWS SDK for Java JAR file.
-
-For systems with Bash support, once you set the **CLASSPATH**, you can run a particular example as follows.
-
-	java aws.example.athena.ListNamedQueryExample
+To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
 
 **Note:** These code examples depend on values defined in the **ExampleConstants** Java file. Be sure to set values that are applicable to your environment. For example, specify the database that you created by following https://docs.aws.amazon.com/athena/latest/ug/work-with-data.html.
 
  ## Testing the Athena Java files
 
-You can test the Java code examples for Athena by running a test file named **AWSAthenaServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for Athena by running a test file named **AmazonAthenaTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -50,7 +43,7 @@ You will see output from the JUnit tests, as shown here.
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
 	[INFO] -------------------------------------------------------
-	[INFO] Running AWSAthenaServiceIntegrationTest
+	[INFO] Running AmazonAthenaTest
 	Test 1 passed
 	Test 2 passed
 	...

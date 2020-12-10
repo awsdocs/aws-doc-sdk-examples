@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-sns/commands/CreateTopicCommand", () => ({
 }));
 const { run } = require("../../sns/src/sns_createtopic.js");
 
-//test function
 test("has to mock SNS#createtopic", async (done) => {
   await run();
   expect(mockCreateTopic).toHaveBeenCalled;

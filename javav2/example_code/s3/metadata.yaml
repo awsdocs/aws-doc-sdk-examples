@@ -6,10 +6,22 @@ files:
   - path: src/main/java/com/example/s3/DeleteBucketPolicy.java
     services:
       - s3
+  - path: src/main/java/com/example/s3/CreateAccessPoint.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/KMSEncryptionExample.java
+    services:
+      - s3
   - path: src/main/java/com/example/s3/DeleteObjects.java
     services:
       - s3
   - path: src/main/java/com/example/s3/DeleteWebsiteConfiguration.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/GeneratePresignedUrlMetadata.java
+    services:
+      - s3
+  - path: src/main/java/com/example/s3/PutObjectMetadata.java
     services:
       - s3
   - path: src/main/java/com/example/s3/GeneratePresignedUrlAndUploadObject.java
@@ -66,6 +78,6 @@ files:
   - path: src/main/java/com/example/s3/SetWebsiteConfiguration.java
     services:
       - s3
-  - path: src/test/java/AmazonS3ServiceIntegrationTest.java
+  - path: src/test/java/AmazonS3Test.java
     services:
-      - s3     
+      - s3 

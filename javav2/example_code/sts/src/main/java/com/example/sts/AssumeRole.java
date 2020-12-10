@@ -1,27 +1,16 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[AssumeRole.java demonstrates how to obtain a set of temporary security credentials.]
-// snippet-service:[AWS Security Token Service]
-// snippet-keyword:[Java]
-// snippet-keyword:[AWS Security Token Service]
+// snippet-sourcedescription:[AssumeRole.java demonstrates how to obtain a set of temporary security credentials by using AWS Security Token Service (AWS STS).]
+// snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS Security Token Service (AWS STS)]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-09-21]
-// snippet-sourceauthor:[AWS-scmacdon]
+// snippet-sourcedate:[11/06/2020]
+// snippet-sourceauthor:[AWS - scmacdon]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.sts;
 
@@ -63,16 +52,17 @@ public class AssumeRole {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "To run this example, supply the role ARN value and the role session name.  \n" +
-                "\n" +
-                "Ex: AssumeRole <roleArn><roleSessionName>\n";
+                "Usage:\n" +
+                "    AssumeRole <roleArn> <roleSessionName> \n\n" +
+                "Where:\n" +
+                "    roleArn - the Amazon Resource Name (ARN) of the role to assume (for example, rn:aws:iam::000008047983:role/s3role). \n"+
+                "    roleSessionName - an identifier for the assumed role session (for example, mysession). \n";
 
-        if (args.length < 2) {
+        if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        /* Read the name from command args*/
         String roleArn = args[0];
         String roleSessionName = args[1];
 
@@ -82,6 +72,7 @@ public class AssumeRole {
                 .build();
 
         assumeGivenRole(stsClient, roleArn, roleSessionName);
+        stsClient.close();
     }
 
     // snippet-start:[sts.java2.assume_role.main]

@@ -1,20 +1,14 @@
 //snippet-sourcedescription:[DescribeClusters.java demonstrates how to describe Amazon Redshift clusters.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Redshift]
+//snippet-service:[Amazon Redshift ]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[7/6/2020]
+//snippet-sourcedate:[11/05/2020]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.redshift;
@@ -38,6 +32,7 @@ public class DescribeClusters {
                 .build();
 
         describeRedshiftClusters(redshiftClient) ;
+        redshiftClient.close();
     }
 
     // snippet-start:[redshift.java2.describe_cluster.main]

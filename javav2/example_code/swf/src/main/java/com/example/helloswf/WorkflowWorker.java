@@ -1,28 +1,20 @@
 //snippet-sourcedescription:[WorkflowWorker.java demonstrates how to poll for a decision task in a task list.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[AWS SDK for Java v2]
+//snippet-service:[Amazon Simple Workflow Service (Amazon SWF)]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Simple Workflow Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[8/4/2020]
+//snippet-sourcedate:[11/06/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.*
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 // snippet-start:[swf.java2.task_request.complete]
 package com.example.helloswf;
 
 // snippet-start:[swf.java2.task_request.import]
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.swf.SwfClient;
 import software.amazon.awssdk.services.swf.model.PollForDecisionTaskRequest;
 import software.amazon.awssdk.services.swf.model.TaskList;
@@ -33,7 +25,6 @@ import software.amazon.awssdk.services.swf.model.DecisionType;
 import software.amazon.awssdk.services.swf.model.CompleteWorkflowExecutionDecisionAttributes;
 import software.amazon.awssdk.services.swf.model.ScheduleActivityTaskDecisionAttributes;
 import software.amazon.awssdk.services.swf.model.ActivityType;
-import software.amazon.awssdk.services.swf.model.RespondDecisionTaskCompletedRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -47,12 +38,12 @@ public class WorkflowWorker {
                 "Usage:\n" +
                 "    WorkflowWorker <domain><taskList><activity><activityVersion> \n\n" +
                 "Where:\n" +
-                "    domain - The domain to use (i.e., mydomain) \n" +
-                "    taskList - The task list to use (i.e., HelloTasklist)  \n" +
-                "    activity - The activity to use (i.e., GrayscaleTransform)  \n" +
-                "    activityVersion - The activity version\n";
+                "    domain - the domain to use (ie, mydomain). \n" +
+                "    taskList - the taskList to use (ie, HelloTasklist).  \n" +
+                "    activity - the activity to use (ie, GrayscaleTransform).  \n" +
+                "    activityVersion - the activity version. \n";
 
-        if (args.length < 4) {
+        if (args.length != 4) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -62,8 +53,13 @@ public class WorkflowWorker {
         String activity = args[2];
         String activityVersion = args[3];
 
-        SwfClient swf = SwfClient.builder().build();
+        Region region = Region.US_EAST_1;
+        SwfClient swf = SwfClient.builder()
+                .region(region)
+                .build();
+
         pollADecision(swf, domain, taskList, activity, activityVersion);
+        swf.close();
     }
 
     // snippet-start:[swf.java2.task_request.main]
@@ -79,7 +75,7 @@ public class WorkflowWorker {
                         .taskList(TaskList.builder().name(taskList).build())
                         .build();
 
-           System.out.println("Polling for a decision task from the task list '" +
+           System.out.println("Polling for a decision task from the tasklist '" +
                             taskList + "' in the domain '" +
                             domain + "'.");
 
@@ -174,8 +170,8 @@ public class WorkflowWorker {
                                 .decisionType(DecisionType.SCHEDULE_ACTIVITY_TASK)
                                 .scheduleActivityTaskDecisionAttributes(attrs).build());
             } else {
-                // An instance of HelloActivity is already scheduled or running. Do nothing, another
-                // task will be scheduled after the activity completes, fails, or times out.
+                // an instance of HelloActivity is already scheduled or running. Do nothing, another
+                // task will be scheduled once the activity completes, fails or times out
             }
         }
 

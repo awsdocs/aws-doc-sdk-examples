@@ -1,25 +1,15 @@
-//snippet-sourcedescription:[ListObjects.java demonstrates how to list objects located in a given Amazon S3 bucket.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[ListObjects.java demonstrates how to list objects located in a given Amazon Simple Storage Service (Amazon S3) bucket.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/6/2020]
+//snippet-sourcedate:[10/28/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 package com.example.s3;
 
 // snippet-start:[s3.java2.list_objects.import]
@@ -37,8 +27,14 @@ public class ListObjects {
 
     public static void main(String[] args) {
 
-        if (args.length < 1) {
-           System.out.println("Please specify a bucket name");
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    ListObjects <bucketName> \n\n" +
+                "Where:\n" +
+                "    bucketName - the Amazon S3 bucket from which objects are read. \n\n" ;
+
+        if (args.length != 1) {
+           System.out.println(USAGE);
            System.exit(1);
          }
 
@@ -49,6 +45,7 @@ public class ListObjects {
                 .build();
 
         listBucketObjects(s3, bucketName);
+        s3.close();
     }
 
     // snippet-start:[s3.java2.list_objects.main]
@@ -68,7 +65,8 @@ public class ListObjects {
                 System.out.print("\n The name of the key is " + myValue.key());
                 System.out.print("\n The object is " + calKb(myValue.size()) + " KBs");
                 System.out.print("\n The owner is " + myValue.owner());
-                }
+             }
+
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);

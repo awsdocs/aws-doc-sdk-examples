@@ -1,26 +1,15 @@
 // snippet-sourcedescription:[DetectEntities demonstrates how to retrieve named entities.]
+//snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Comprehend Medical]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon Comprehend Medical]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[6/15/2020]
-// snippet-sourceauthor:[scmacdon AWS]
+// snippet-sourcedate:[11/04/2020]
+// snippet-sourceauthor:[scmacdon - AWS]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.comprehend.medical;
 
@@ -58,6 +47,7 @@ public class DetectMedicalEntities {
 
         System.out.println("Calling Detect Medical Entities");
         detectAllEntities(medClient, text) ;
+        medClient.close();
 
     }
     //snippet-start:[comprehendmed.java2.detect_entities.main]

@@ -1,27 +1,15 @@
 // snippet-sourcedescription:[PollyDemo demonstrates how to convert text into speech.]
+//snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Polly]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon Polly]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[5/7/2020]
+// snippet-sourcedate:[11/05/2020]
 // snippet-sourceauthor:[scmacdon AWS]
 
-
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.polly;
 
@@ -47,8 +35,8 @@ import javazoom.jl.player.advanced.PlaybackListener;
 public class PollyDemo {
 
     private static final String SAMPLE = "Congratulations. You have successfully built this working demo "+
-            " of Amazon Polly in the AWS SDK for Java version 2. Have fun building voice-enabled apps with Amazon Polly (that's me!), and always "+
-            " look at the AWS website for tips and tricks on using Amazon Polly and other great services from AWS.";
+            " of Amazon Polly in Java Version 2. Have fun building voice enabled apps with Amazon Polly (that's me!), and always "+
+            " look at the AWS website for tips and tricks on using Amazon Polly and other great services from AWS";
 
     public static void main(String args[]) {
 
@@ -58,6 +46,7 @@ public class PollyDemo {
                 .build();
 
         talkPolly(polly);
+        polly.close();
     }
 
     // snippet-start:[polly.java2.demo.main]
@@ -72,10 +61,7 @@ public class PollyDemo {
             Voice voice = describeVoicesResult.voices().get(26);
 
             InputStream stream = synthesize(polly, SAMPLE, voice, OutputFormat.MP3);
-
-            //create an MP3 player
             AdvancedPlayer player = new AdvancedPlayer(stream, javazoom.jl.player.FactoryRegistry.systemRegistry().createAudioDevice());
-
             player.setPlayBackListener(new PlaybackListener() {
 
                 public void playbackStarted(PlaybackEvent evt) {

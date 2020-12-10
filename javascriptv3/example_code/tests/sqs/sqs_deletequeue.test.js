@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-sqs/commands/DeleteQueueCommand", () => ({
 }));
 const { run } = require("../../sqs/src/sqs_deletequeue.js");
 
-//test function
 test("has to mock SQS#deletequeue", async (done) => {
   await run();
   expect(mockDeleteQueue).toHaveBeenCalled;

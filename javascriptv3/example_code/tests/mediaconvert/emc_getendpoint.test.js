@@ -9,7 +9,6 @@ jest.mock(
 );
 const { params, run } = require("../../mediaconvert/src/emc_getendpoint");
 
-//test function
 test("has to mock mediaconvert#describeendpoint", async (done) => {
   await run();
   expect(mockDescribeEndpoints).toHaveBeenCalled;

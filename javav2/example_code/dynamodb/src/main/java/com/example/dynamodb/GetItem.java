@@ -1,20 +1,14 @@
 //snippet-sourcedescription:[GetItem.java demonstrates how to retrieve an item from an Amazon DynamoDB table.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/5/2020]
+//snippet-sourcedate:[10/30/2020]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.dynamodb;
@@ -30,44 +24,36 @@ import java.util.Map;
 import java.util.Set;
 // snippet-end:[dynamodb.java2.get_item.import]
 
-/**
- * Gets an item from an Amazon DynamoDB table
- *
- * This code expects that you have AWS credentials set up, as described here:
- * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
- */
 public class GetItem {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    GetItem <table> <key> <keyVal>\n\n" +
+                "    GetItem <tableName> <key> <keyVal>\n\n" +
                 "Where:\n" +
-                "    table - the table from which an item is retrieved (i.e., Music3)\n" +
-                "    key -  the key used in the table (i.e., Artist) \n" +
-                "    keyval  - the key value that represents the item to get (i.e., Famous Band)\n" +
-                " Example:\n" +
-                "    Music3 Artist Famous Band\n" +
-                "  **Warning** This program will actually retrieve an item\n" +
-                "            that you specify!\n";
+                "    tableName - the Amazon DynamoDB table from which an item is retrieved (for example, Music3). \n" +
+                "    key - the key used in the Amazon DynamoDB table (for example, Artist). \n" +
+                "    keyval - the key value that represents the item to get (for example, Famous Band).\n" ;
 
-        if (args.length < 3) {
+        if (args.length != 3) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
         String tableName = args[0];
-        String key = args[1];
+        String key =  args[1];
         String keyVal = args[2];
 
         System.out.format("Retrieving item \"%s\" from \"%s\"\n",
                 keyVal, tableName);
 
-        // Create the DynamoDbClient object
         Region region = Region.US_WEST_2;
-        DynamoDbClient ddb = DynamoDbClient.builder().region(region).build();
+        DynamoDbClient ddb = DynamoDbClient.builder()
+                .region(region)
+                .build();
 
         getDynamoDBItem(ddb, tableName, key, keyVal);
+        ddb.close();
     }
 
     // snippet-start:[dynamodb.java2.get_item.main]
@@ -78,7 +64,6 @@ public class GetItem {
         keyToGet.put(key, AttributeValue.builder()
                 .s(keyVal).build());
 
-        // Create a GetItemRequest object
         GetItemRequest request = GetItemRequest.builder()
                 .key(keyToGet)
                 .tableName(tableName)
@@ -89,7 +74,7 @@ public class GetItem {
 
             if (returnedItem != null) {
                 Set<String> keys = returnedItem.keySet();
-                System.out.println("Table Attributes: \n");
+                System.out.println("Amazon DynamoDB table attributes: \n");
 
                 for (String key1 : keys) {
                     System.out.format("%s: %s\n", key1, returnedItem.get(key1).toString());

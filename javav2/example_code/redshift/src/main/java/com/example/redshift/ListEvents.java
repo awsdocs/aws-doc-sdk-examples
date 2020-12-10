@@ -1,20 +1,14 @@
-//snippet-sourcedescription:[ListEvents.java demonstrates how to list events for a given Amazon Redshift cluster.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[ListEvents.java demonstrates how to list events for a given cluster.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Redshift]
+//snippet-service:[Amazon Redshift ]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[7/6/2020]
+//snippet-sourcedate:[11/05/2020]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.redshift;
@@ -39,10 +33,10 @@ public class ListEvents {
                 "Usage:\n" +
                 "    ListEvents <clusterId><masterUsername><masterUserPassword> \n\n" +
                 "Where:\n" +
-                "    clusterId - The ID of the cluster \n" +
-                "    eventSourceType - The event type (i.e., cluster) \n" ;
+                "    clusterId - the id of the cluster. \n" +
+                "    eventSourceType - the event type (ie, cluster). \n" ;
 
-        if (args.length < 2) {
+        if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -56,6 +50,7 @@ public class ListEvents {
                 .build();
 
         listRedShiftEvents(redshiftClient, clusterId, eventSourceType) ;
+        redshiftClient.close();
     }
 
     // snippet-start:[redshift.java2._events.main]
@@ -88,4 +83,5 @@ public class ListEvents {
         }
     // snippet-end:[redshift.java2._events.main]
     }
+
 }

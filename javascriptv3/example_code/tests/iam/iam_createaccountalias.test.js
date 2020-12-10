@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-iam/commands/GetAccessKeyLastUsedCommand", () => ({
 }));
 const { params, run } = require("../../iam/src/iam_createaccountalias.js");
 
-//test function
 test("has to mock iam#createaccountalias", async (done) => {
   await run();
   expect(mockCreateAccountAlias).toHaveBeenCalled;

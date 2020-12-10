@@ -9,7 +9,6 @@ jest.mock(
 );
 const { params, run } = require("../../mediaconvert/src/emc_deletetemplate");
 
-//test function
 test("has to mock mediaconvert#deletejobtemplate", async (done) => {
   await run();
   expect(mockDeleteJobTemp).toHaveBeenCalled;
