@@ -8,7 +8,7 @@ Purpose:
 App.js contains code enabling a React Native app to create and delete Amazon Simple Storage Service (Amazon S3) buckets.
 
 Inputs:
-- REGION 
+- REGION
 - IDENTITY_POOL_ID
 
 Running the code:
@@ -31,12 +31,14 @@ const App = () => {
     const [successMsg, setSuccessMsg] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
 
-    const region = "REGION"; // REGION; e.g.  "us-east-1"
+    // Replace REGION with the appropriate AWS Region, such as 'us-east-1'.
+    const region = "REGION";
     const client = new S3Client({
         region,
         credentials: fromCognitoIdentityPool({
             client: new CognitoIdentityClient({ region }),
-            identityPoolId: "IDENTITY_POOL_ID", // IDENTITY_POOL_ID; e.g. us-east-1:xxxxxx-xxx-4103-9936-b52exxxxfd6
+            // Replace IDENTITY_POOL_ID with an appropriate Amazon Cognito Identity Pool ID for, such as 'us-east-1:xxxxxx-xxx-4103-9936-b52exxxxfd6'.
+            identityPoolId: "IDENTITY_POOL_ID",
         }),
     });
 
