@@ -163,11 +163,10 @@ def run_me
 
     if policy_detached_from_role?(iam_client, role_name, policy_arn)
       puts 'Policy detached.'
-      puts 'Policy not deleted. You must delete it yourself.'
     else
       puts 'Could not detach policy from role. You must detach it yourself.'
     end
-    
+
   end
 end
 

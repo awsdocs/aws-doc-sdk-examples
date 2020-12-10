@@ -113,7 +113,7 @@ def run_me
   puts "User names now are:\n\n"
   list_user_names(iam_client)
 
-  puts "\nAttempting to change name of user '#{user_name}' " \
+  puts "\nAttempting to change the name of the user '#{user_name}' " \
     "to '#{user_changed_name}'..."
 
   if user_name_changed?(iam_client, user_name, user_changed_name)
