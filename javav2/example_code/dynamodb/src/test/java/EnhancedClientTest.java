@@ -62,7 +62,7 @@ public class EnhancedClientTest {
     @Test
     @Order(2)
     public void CreateTable() {
-
+       CreateTable.createTable(ddb, enhancedTableName, enhancedTableKey);
        System.out.println("\n Test 2 passed");
     }
 
@@ -70,16 +70,9 @@ public class EnhancedClientTest {
     @Order(3)
     public void PutItem() {
 
-        try {
-            //Lets wait 20 secs for table to complete
-            TimeUnit.SECONDS.sleep(20);
-            EnhancedPutItem.putRecord(enhancedClient);
-
-        } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-        System.out.println("\n Test 3 passed");
+     //Table exists as we used Waiters
+     EnhancedPutItem.putRecord(enhancedClient);
+     System.out.println("\n Test 3 passed");
     }
 
     @Test
