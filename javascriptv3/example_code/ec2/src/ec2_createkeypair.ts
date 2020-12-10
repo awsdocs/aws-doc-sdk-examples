@@ -27,7 +27,7 @@ const REGION = "REGION"; //e.g. "us-east-1"
 const params = { KeyName: "MY_KEY_PAIR" }; //MY_KEY_PAIR
 
 // Create EC2 service object
-const ec2client = new EC2Client(REGION);
+const ec2client = new EC2Client({ region: REGION });
 
 const run = async () => {
   try {

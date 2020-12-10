@@ -30,7 +30,7 @@ const REGION = "REGION"; //e.g. "us-east-1"
 const params = { AccessKeyId: "ACCESS_KEY_ID" }; //ACCESS_KEY_ID
 
 // Create IAM service object
-const iam = new IAMClient(REGION);
+const iam = new IAMClient({ region: REGION });
 
 const run = async () => {
   try {

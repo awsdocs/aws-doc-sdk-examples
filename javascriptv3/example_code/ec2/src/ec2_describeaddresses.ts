@@ -29,7 +29,7 @@ const params = {
 };
 
 // Create EC2 service object
-const ec2client = new EC2Client(REGION);
+const ec2client = new EC2Client({ region: REGION });
 
 const run = async () => {
   try {

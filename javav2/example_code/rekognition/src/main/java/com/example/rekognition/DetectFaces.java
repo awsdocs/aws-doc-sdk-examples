@@ -46,7 +46,7 @@ public class DetectFaces {
         }
 
         String sourceImage = args[0];
-        Region region = Region.US_EAST_2;
+        Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
                 .build();
@@ -54,7 +54,6 @@ public class DetectFaces {
         detectFacesinImage(rekClient, sourceImage );
         rekClient.close();
     }
-
 
     // snippet-start:[rekognition.java2.detect_faces.main]
     public static void detectFacesinImage(RekognitionClient rekClient,String sourceImage ) {

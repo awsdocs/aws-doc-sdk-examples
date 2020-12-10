@@ -337,6 +337,10 @@ files:
     services:
       - pinpoint
 
+  - path: reactnative/app.test.js
+    services:
+      - s3
+
   - path: redshift/redshift-create-cluster.test.js
     services:
       - redshift

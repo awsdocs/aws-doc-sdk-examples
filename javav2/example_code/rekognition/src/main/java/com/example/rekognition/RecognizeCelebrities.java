@@ -44,7 +44,7 @@ public class RecognizeCelebrities {
         }
 
         String sourceImage = args[0];
-        Region region = Region.US_EAST_2;
+        Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
                 .build();
