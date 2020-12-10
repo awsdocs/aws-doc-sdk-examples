@@ -23,7 +23,7 @@ const REGION = "REGION"; //e.g. "us-east-1"
 const bucketParams = { Bucket: "BUCKET_NAME" };
 
 // Create S3 service object
-const s3 = new S3Client(REGION);
+const s3 = new S3Client({ region: REGION });
 
 async function run() {
   // Declare truncated as a flag that we will base our while loop on
