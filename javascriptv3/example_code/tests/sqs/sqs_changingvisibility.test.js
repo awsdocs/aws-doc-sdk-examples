@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-sqs/commands/ReceiveMessageCommand", () => ({
 }));
 const { run } = require("../../sqs/src/sqs_changingvisibility.js");
 
-//test function
 test("has to mock SQS#sqs_changingvisibility", async (done) => {
   await run();
   expect(mockChangingVisibility).toHaveBeenCalled;

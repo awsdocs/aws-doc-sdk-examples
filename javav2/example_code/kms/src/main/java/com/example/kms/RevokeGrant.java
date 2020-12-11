@@ -1,25 +1,15 @@
-//snippet-sourcedescription:[RevokeGrant.java demonstrates how to revoke a grant.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[RevokeGrant.java demonstrates how to revoke a grant for the specified customer master key (CMK).]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[8/10/2020]
+//snippet-sourcedate:[11/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.*
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
-
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 package com.example.kms;
 
 // snippet-start:[kms.java2_revoke_grant.import]
@@ -33,11 +23,12 @@ public class RevokeGrant {
 
     public static void main(String[] args) {
 
-        final String USAGE =
-                "To run this example, supply a key ID and a grant ID \n" +
-                        "Usage: CreateGrant <key-id> <grantee-id>\n" +
-                        "Example: RevokeGrant 1234abcd-12ab-34cd-56ef-1234567890ab " +
-                        "000998808f25a981d32a271f03d440dcdd3b7dda6257ba26c4864cb337b5adb0\n";
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    RevokeGrant <keyId> <grantId> \n\n" +
+                "Where:\n" +
+                "    keyId - a unique identifier for the customer master key associated with the grant (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" +
+                "    grantId - a grant id value of the grant revoke. \n\n" ;
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -53,6 +44,7 @@ public class RevokeGrant {
                 .build();
 
         revokeKeyGrant(kmsClient, keyId, grantId);
+        kmsClient.close();
     }
 
     // snippet-start:[kms.java2_revoke_grant.main]

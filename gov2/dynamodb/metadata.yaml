@@ -1,0 +1,7 @@
+files:
+  - path: DescribeTable/DescribeTable.go
+    services:
+      - dynamodb
+  - path: DescribeTable/DescribeTable_test.go
+    services:
+      - dynamodb

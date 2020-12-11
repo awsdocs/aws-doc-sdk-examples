@@ -1,24 +1,15 @@
-//snippet-sourcedescription:[DeleteAlias.java demonstrates how to delete an AWS KMS alias.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[DeleteAlias.java demonstrates how to delete an AWS Key Management Service (AWS KMS) alias.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[8/10/2020]
+//snippet-sourcedate:[11/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.*
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.kms;
 
@@ -33,10 +24,11 @@ public class DeleteAlias {
 
     public static void main(String[] args) {
 
-        final String USAGE =
-                "To run this example, supply an alias name\n" +
-                        "Usage: DeleteAlias <alias-name>\n" +
-                        "Example: DeleteAlias alias/myAlias\n";
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    DeleteAlias <aliasName> \n\n" +
+                "Where:\n" +
+                "    aliasName - an alias name to delete (for example, alias/myAlias). \n\n" ;
 
          if (args.length != 1) {
               System.out.println(USAGE);
@@ -44,13 +36,13 @@ public class DeleteAlias {
          }
 
         String aliasName = args[0];
-
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
                 .region(region)
                 .build();
 
         deleteSpecificAlias(kmsClient, aliasName );
+        kmsClient.close();
     }
 
     // snippet-start:[kms.java2_delete_alias.main]

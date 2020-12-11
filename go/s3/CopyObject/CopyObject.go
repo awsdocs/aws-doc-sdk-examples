@@ -18,6 +18,7 @@ package main
 import (
     "flag"
     "fmt"
+    "net/url"
 
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
@@ -42,7 +43,7 @@ func CopyItem(sess *session.Session, sourceBucket *string, targetBucket *string,
     // Copy the item
     _, err := svc.CopyObject(&s3.CopyObjectInput{
         Bucket:     targetBucket,
-        CopySource: aws.String(source),
+        CopySource: aws.String(url.PathEscape(source)),
         Key:        item,
     })
     // snippet-end:[s3.go.copy_object.call]

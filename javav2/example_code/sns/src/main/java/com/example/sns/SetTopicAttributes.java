@@ -1,26 +1,15 @@
-//snippet-sourcedescription:[SetTopicAttributes.java demonstrates how to update the defaults for an Amazon SNS topic.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
+//snippet-sourcedescription:[SetTopicAttributes.java demonstrates how to set attributes for an Amazon Simple Notification Service (Amazon SNS) topic.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/6/2020]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[11/06/2020]
+//snippet-sourceauthor:[scmacdon- AWS]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.sns;
 
@@ -36,18 +25,18 @@ public class SetTopicAttributes {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "SetTopicAttributes - update defaults from a topic.\n" +
-                "Usage: SetTopicAttributes <attribute> <topicArn> <value>\n\n" +
+
+                "Usage: " +
+                "SetTopicAttributes <attribute> <topicArn> <value>\n\n" +
                 "Where:\n" +
-                "  attribute - Attribute action to use. Valid parameters: Policy | DisplayName | DeliveryPolicy .\n" +
-                "  topicArn - The ARN of the topic to update. \n" +
-                "  value - New value for the attribute.\n\n";
+                "  attribute - the attribute action to use. Valid parameters are: Policy | DisplayName | DeliveryPolicy .\n" +
+                "  topicArn - The ARN of the topic. \n" +
+                "  value - the value for the attribute.\n\n";
 
         if (args.length < 3) {
             System.out.println(USAGE);
             System.exit(1);
         }
-
 
         String attribute = args[0];
         String topicArn = args[1];
@@ -58,6 +47,7 @@ public class SetTopicAttributes {
                 .build();
 
         setTopAttr(snsClient, attribute, topicArn, value);
+        snsClient.close();
 
     }
 

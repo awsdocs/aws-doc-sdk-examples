@@ -8,15 +8,8 @@ This README discusses how to run and test the Java code examples for Amazon Text
 
 The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
 
-To run these examples, you'll need the AWS SDK for Java libraries in your **CLASSPATH**.
-
-	export CLASSPATH=target/sdk-examples-1.0.jar:/path/to/aws-java-sdk/<jar-file-name>.jar
-
-Here **/path/to/aws-java-sdk/<jar-file-name>.jar** is the path to where you extracted or built the AWS SDK for Java JAR file.
-
-For systems with Bash support, once you set the **CLASSPATH**, you can run a particular example as follows.
-
-	java com.example.textract.AnalyzeDocument
+To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 
 
  ## Testing the Amazon Textract Java files
@@ -30,7 +23,7 @@ You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the comma
 **WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
 
  ### Properties file
-Before running the Amazon Redshift JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a cluster id value used in the tests. If you do not define all values, the JUnit tests fail.
+Before running the Amazon Textract JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a cluster id value used in the tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 

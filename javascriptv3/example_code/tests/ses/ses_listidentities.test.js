@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-ses/commands/ListIdentitiesCommand", () => ({
 }));
 const { run } = require("../../ses/src/ses_listidentities.js");
 
-//test function
 test("has to mock SES#listidentities", async (done) => {
   await run();
   expect(mockListIdentities).toHaveBeenCalled;

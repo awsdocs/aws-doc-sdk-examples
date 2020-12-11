@@ -1,26 +1,14 @@
-//snippet-sourcedescription:[ExampleConstants.java demonstrates how to query a table created by the "Getting Started" tutorial in Athena]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
-//snippet-service:[athena]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-04-15]
-//snippet-sourceauthor:[jschwarzwalder AWS]
+//snippet-sourcedate:[11/02/2020]
+//snippet-sourceauthor:[scmacdon - aws]
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 //snippet-start:[athena.java2.ExampleConstants.complete]
 //snippet-start:[athena.java.ExampleConstants.complete]
 package aws.example.athena;
@@ -28,12 +16,12 @@ package aws.example.athena;
 public class ExampleConstants {
 
     public static final int CLIENT_EXECUTION_TIMEOUT = 100000;
-    public static final String ATHENA_OUTPUT_BUCKET = "s3://mybucket"; //change the bucket name to match your environment
-    // This example demonstrates how to query a table with a CSV  For information, see
+    public static final String ATHENA_OUTPUT_BUCKET = "s3://bucketscott2"; // change the Amazon S3 bucket name to match your environment
+    //  Demonstrates how to query a table with a comma-separated value (CSV) table.  For information, see
     //https://docs.aws.amazon.com/athena/latest/ug/work-with-data.html
-    public static final String ATHENA_SAMPLE_QUERY = "SELECT * FROM mydb;"; //change the Query statement to match your environment
+    public static final String ATHENA_SAMPLE_QUERY = "SELECT * FROM scott2;"; // change the Query statement to match your environment
     public static final long SLEEP_AMOUNT_IN_MS = 1000;
-    public static final String ATHENA_DEFAULT_DATABASE = "mydatabase"; //Change the database to match your database
+    public static final String ATHENA_DEFAULT_DATABASE = "mydatabase"; // change the database to match your database
 
 }
 //snippet-end:[athena.java.ExampleConstants.complete]

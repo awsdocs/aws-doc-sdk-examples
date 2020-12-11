@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-s3/commands/ListObjectsCommand", () => ({
 }));
 const { listAlbums } = require("../../s3/photoViewer/s3_PhotoViewer");
 
-//test function
 test("has to mock S3#listAlbums", async (done) => {
   await listAlbums();
   expect(mockListObjects).toHaveBeenCalled;
@@ -21,7 +20,6 @@ jest.mock("@aws-sdk/client-s3/commands/ListObjectsCommand", () => ({
 }));
 const { viewAlbum } = require("../../s3/photoViewer/s3_PhotoViewer");
 
-//test function
 test("has to mock S3#viewAlbum", async (done) => {
   await viewAlbum();
   expect(mockViewAlbum).toHaveBeenCalled;

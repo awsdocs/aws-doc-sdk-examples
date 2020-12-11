@@ -12,7 +12,6 @@ const {
   run,
 } = require("../../cloudwatch/cwl_deletesubscriptionfilter");
 
-//test function
 test("has to mock cloudwatch-logs#deletesubscriptionfilter", async (done) => {
   await run();
   expect(mockDeletSubFilter).toHaveBeenCalled;

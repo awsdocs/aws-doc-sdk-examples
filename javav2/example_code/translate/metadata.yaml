@@ -12,6 +12,6 @@ files:
   - path: src/main/java/com/example/translate/TranslateText.java
     services:
       - translate
-  - path: src/test/java/AmazonTranslateServiceIntegrationTest.java
+  - path: src/test/java/AmazonTranslateTest.java
     services:
       - translate

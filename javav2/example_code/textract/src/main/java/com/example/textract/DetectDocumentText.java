@@ -1,25 +1,16 @@
 // snippet-sourcedescription:[DetectDocumentText.java demonstrates how to detect text in the input document.]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Textract]
-// snippet-keyword:[Java]
-// snippet-keyword:[mazon Textract]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[7-8-2020]
+// snippet-sourcedate:[11/06/2020]
 // snippet-sourceauthor:[scmacdon - AWS]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 
 package com.example.textract;
 
@@ -49,21 +40,21 @@ public class DetectDocumentText {
                 "Usage:\n" +
                 "    DetectDocumentText <sourceDoc> \n\n" +
                 "Where:\n" +
-                "    sourceDoc - The path where the document is located (must be an image, i.e., C:/AWS/book.png) \n";
+                "    sourceDoc - the path where the document is located (must be an image, for example, C:/AWS/book.png). \n";
 
-        if (args.length < 1) {
+        if (args.length !=  1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
         String sourceDoc = args[0];
-
         Region region = Region.US_EAST_2;
         TextractClient textractClient = TextractClient.builder()
                 .region(region)
                 .build();
 
         detectDocText(textractClient, sourceDoc);
+        textractClient.close();
     }
 
     // snippet-start:[textract.java2._detect_doc_text.main]

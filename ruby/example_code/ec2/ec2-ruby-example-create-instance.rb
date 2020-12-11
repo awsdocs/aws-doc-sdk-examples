@@ -1,60 +1,152 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Creates an EC2 instance and adds tags to it.]
-# snippet-keyword:[Amazon Elastic Compute Cloud]
-# snippet-keyword:[create_instances method]
-# snippet-keyword:[wait_until method]
-# snippet-keyword:[Instance.create_tags method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[ec2]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
 
-require 'aws-sdk-ec2'  # v2: require 'aws-sdk'
+require 'aws-sdk-ec2'
 require 'base64'
 
-# User code that's executed when the instance starts
-script = ''
+# Creates and tags an Amazon Elastic Compute Cloud (Amazon EC2) instance.
+#
+# Prerequisites:
+#
+# - An EC2 key pair.
+# - If you want to run any commands on the instance after it starts, a
+#   file containing those commands.
+#
+# @param ec2_resource [Aws::EC2::Resource] An initialized EC2 resource object.
+# @param image_id [String] The ID of the target Amazon Machine Image (AMI).
+# @param key_pair_name [String] The name of the existing EC2 key pair.
+# @param tag_key [String] The key portion of the tag for the instance.
+# @param tag_value [String] The value portion of the tag for the instance.
+# @param instance_type [String] The ID of the type of instance to create.
+#   If not specified, the default value is 't2.micro'.
+# @param user_data_file [String] The path to the file containing any commands
+#   to run on the instance after it starts. If not specified, the default
+#   value is an empty string.
+# @return [Boolean] true if the instance was created and tagged;
+#   otherwise, false.
+# @example
+#   exit 1 unless instance_created?(
+#     Aws::EC2::Resource.new(region: 'us-east-1'),
+#     'ami-0947d2ba12EXAMPLE',
+#     'my-key-pair',
+#     'my-key',
+#     'my-value',
+#     't2.micro',
+#     'my-user-data.txt'
+#   )
+def instance_created?(
+  ec2_resource,
+  image_id,
+  key_pair_name,
+  tag_key,
+  tag_value,
+  instance_type = 't2.micro',
+  user_data_file = ''
+)
+  encoded_script = ''
 
-encoded_script = Base64.encode64(script)
+  unless user_data_file == ''
+    script = File.read(user_data_file)
+    encoded_script = Base64.encode64(script)
+  end
 
-ec2 = Aws::EC2::Resource.new(region: 'us-west-2')
+  instance = ec2_resource.create_instances(
+    image_id: image_id,
+    min_count: 1,
+    max_count: 1,
+    key_name: key_pair_name,
+    instance_type: instance_type,
+    user_data: encoded_script
+  )
 
-instance = ec2.create_instances({
-  image_id: 'IMAGE_ID',
-  min_count: 1,
-  max_count: 1,
-  key_name: 'MyGroovyKeyPair',
-  security_group_ids: ['SECURITY_GROUP_ID'],
-  user_data: encoded_script,
-  instance_type: 't2.micro',
-  placement: {
-    availability_zone: 'us-west-2a'
-  },
-  subnet_id: 'SUBNET_ID',
-  iam_instance_profile: {
-    arn: 'arn:aws:iam::' + 'ACCOUNT_ID' + ':instance-profile/aws-opsworks-ec2-role'
-  }
-})
+  puts 'Creating instance...'
 
-# Wait for the instance to be created, running, and passed status checks
-ec2.client.wait_until(:instance_status_ok, {instance_ids: [instance.first.id]})
+  # Check whether the new instance is in the "running" state.
+  polls = 0
+  loop do
+    polls += 1
+    response = ec2_resource.client.describe_instances(
+      instance_ids: [
+        instance.first.id
+      ]
+    )
+    # Stop polling after 10 minutes (40 polls * 15 seconds per poll) if not running.
+    break if response.reservations[0].instances[0].state.name == 'running' || polls > 40
 
-# Name the instance 'MyGroovyInstance' and give it the Group tag 'MyGroovyGroup'
-instance.create_tags({ tags: [{ key: 'Name', value: 'MyGroovyInstance' }, { key: 'Group', value: 'MyGroovyGroup' }]})
+    sleep(15)
+  end
 
-puts instance.id
-puts instance.public_ip_address
+  puts "Instance created with ID '#{instance.first.id}'."
+
+  instance.batch_create_tags(
+    tags: [
+      {
+        key: tag_key,
+        value: tag_value
+      }
+    ]
+  )
+  puts 'Instance tagged.'
+
+  return true
+rescue StandardError => e
+  puts "Error creating or tagging instance: #{e.message}"
+  return false
+end
+
+# Full example call:
+def run_me
+  image_id = ''
+  key_pair_name = ''
+  tag_key = ''
+  tag_value = ''
+  instance_type = ''
+  region = ''
+  user_data_file = ''
+  # Print usage information and then stop.
+  if ARGV[0] == '--help' || ARGV[0] == '-h'
+    puts 'Usage: ruby ec2-ruby-example-create-instance.rb ' \
+      'IMAGE_ID KEY_PAIR_NAME TAG_KEY TAG_VALUE INSTANCE_TYPE ' \
+      'REGION [USER_DATA_FILE]'
+    puts 'Example: ruby ec2-ruby-example-create-instance.rb ' \
+      'ami-0947d2ba12EXAMPLE my-key-pair my-key my-value t2.micro ' \
+      'us-east-1 my-user-data.txt'
+    exit 1
+  # If no values are specified at the command prompt, use these default values.
+  elsif ARGV.count.zero?
+    image_id = 'ami-0947d2ba12EXAMPLE'
+    key_pair_name = 'my-key-pair'
+    tag_key = 'my-key'
+    tag_value = 'my-value'
+    instance_type = 't2.micro'
+    region = 'us-east-1'
+    user_data_file = 'my-user-data.txt'
+  # Otherwise, use the values as specified at the command prompt.
+  else
+    image_id = ARGV[0]
+    key_pair_name = ARGV[1]
+    tag_key = ARGV[2]
+    tag_value = ARGV[3]
+    instance_type = ARGV[4]
+    region = ARGV[5]
+    user_data_file = ARGV[6] if ARGV.count == 7 # If user data file specified.
+  end
+
+  ec2_resource = Aws::EC2::Resource.new(region: region)
+
+  if instance_created?(
+    ec2_resource,
+    image_id, 
+    key_pair_name,
+    tag_key,
+    tag_value,
+    instance_type,
+    user_data_file
+  )
+    puts 'Created and tagged instance.'
+  else
+    puts 'Could not create or tag instance.'
+  end
+end
+
+run_me if $PROGRAM_NAME == __FILE__

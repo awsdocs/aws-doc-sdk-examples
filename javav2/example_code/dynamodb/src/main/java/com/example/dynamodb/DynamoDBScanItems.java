@@ -1,25 +1,15 @@
-// snippet-sourcedescription:[DynamoDBScanItems demonstrates how to return one or more items and item attributes by accessing every item in an Amazon DynamoDB table.]
-// snippet-service:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-01-27]
-// snippet-sourceauthor:[AWS-scmacdon]
+// snippet-sourcedescription:[DynamoDBScanItems demonstrates how to return items from an Amazon DynamoDB table.]
+//snippet-keyword:[SDK for Java v2]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon DynamoDB]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[10/30/2020]
+//snippet-sourceauthor:[scmacdon - aws]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.dynamodb;
 
@@ -34,37 +24,29 @@ import java.util.Map;
 import java.util.Set;
 // snippet-end:[dynamodb.java2.dynamoDB_scan.import]
 
-/**
- * Scans information from an Amazon DynamoDB table
- *
- * Takes the name of the table as input
- *
- * This code expects that you have AWS credentials set up, as described here:
- * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
- */
-
 public class DynamoDBScanItems {
 
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DynamoDBScanItems <table>\n\n" +
+                "    DynamoDBScanItems <tableName>\n\n" +
                 "Where:\n" +
-                "    table - the table to get information from (i.e., Music3)\n\n" +
-                "Example:\n" +
-                "    DescribeTable Music3\n";
+                "    tableName - the Amazon DynamoDB table to get information from (for example, Music3).\n\n" ;
 
-        if (args.length < 1) {
+        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
-        String tableName = args[0];
 
-        // Create the DynamoDbClient object
+        String tableName = args[0];
         Region region = Region.US_EAST_1;
-        DynamoDbClient ddb = DynamoDbClient.builder().region(region).build();
+        DynamoDbClient ddb = DynamoDbClient.builder()
+                .region(region)
+                .build();
+
         scanItems(ddb,tableName);
+        ddb.close();
     }
 
     // snippet-start:[dynamodb.java2.dynamoDB_scan.main]
@@ -87,6 +69,7 @@ public class DynamoDBScanItems {
 
         } catch (DynamoDbException e) {
             e.printStackTrace();
+            System.exit(1);
         }
         // snippet-end:[dynamodb.java2.dynamoDB_scan.main]
     }
