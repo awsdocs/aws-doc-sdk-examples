@@ -10,6 +10,7 @@ To set up your development machine in order to customize and run this AWS CDK te
 
 This folder contains the following template files:
 
+* ``.gitignore``: A list of files and folders that are generated as you create your AWS CDK app but should not be checked in to the AWS Code Examples Repository.
 * ``cdk.json``: Information that the AWS CDK needs in order to find the corresponding AWS CDK app.
 * ``package.json``: Information that Node Package Manager (NPM) needs, such as package names, dependencies, scripts, and versions.
 * ``README.md``: This file.
@@ -59,7 +60,7 @@ To distribute your finished AWS CDK app, merge **only** the following files into
 * ``package-lock.json``
 * This version of the ``README.md`` file
 
-This is especially important for the ``node_modules/`` folder, as it could grow to several hundred megabytes or more in size during development.
+This is especially important for the ``node_modules/`` folder, as it could grow to several hundred megabytes or more in size during development. The ``.gitignore`` file in this folder contains a list of these folders and files.
 
 The caller can regenerate these unmerged folders and files on their own machine if desired by running the preceding ``npm`` and ``cdk`` commands on their own machine (after of course installing the AWS CDK prerequisites).
 
