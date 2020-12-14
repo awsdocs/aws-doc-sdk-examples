@@ -9,7 +9,6 @@ jest.mock(
 );
 const { params, run } = require("../../iam/src/iam_attachrolepolicy.js");
 
-//test function
 test("has to mock iam#listAttachedPolicies", async (done) => {
   await run();
   expect(mockListAttRolePolicies).toHaveBeenCalled;

@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-dynamodb/commands/DeleteTableCommand", () => ({
 }));
 const { params, run } = require("../../dynamodb/src/ddb_deletetable");
 
-//test function
 test("has to mock db#deleteTable", async (done) => {
   await run();
   expect(mockDeleteTable).toHaveBeenCalled;

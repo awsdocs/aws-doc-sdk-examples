@@ -1,21 +1,16 @@
 //snippet-sourcedescription:[DescribeTable.java demonstrates how to retrieve information about an Amazon DynamoDB table.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[[2/5/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[10/30/2020]
+//snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
+
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.describe_table.import]
@@ -29,40 +24,30 @@ import software.amazon.awssdk.services.dynamodb.model.TableDescription;
 import java.util.List;
 // snippet-end:[dynamodb.java2.describe_table.import]
 
-/**
- * Gets information about (describes) an Amazon DynamoDB table
- *
- * Takes the name of the table as input
- *
- * This code expects that you have AWS credentials set up, as described here:
- * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
- */
 public class DescribeTable {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DescribeTable <table>\n\n" +
+                "    DescribeTable <tableName>\n\n" +
                 "Where:\n" +
-                "    table - the table to get information about (i.e., Music3)\n\n" +
-                "Example:\n" +
-                "    DescribeTable Music3\n";
+                "    tableName - the Amazon DynamoDB table to get information about (for example, Music3).\n\n" ;
 
-        if (args.length < 1) {
+        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        /* Read the name from command args */
         String tableName = args[0];
         System.out.format("Getting description for %s\n\n", tableName);
 
-        // Create the DynamoDbClient object
         Region region = Region.US_EAST_1;
-        DynamoDbClient ddb = DynamoDbClient.builder().region(region).build();
+        DynamoDbClient ddb = DynamoDbClient.builder()
+                .region(region)
+                .build();
 
         describeDymamoDBTable(ddb,tableName);
-
+        ddb.close();
     }
 
     // snippet-start:[dynamodb.java2.describe_table.main]
@@ -113,3 +98,4 @@ public class DescribeTable {
         System.out.println("\nDone!");
     }
 }
+

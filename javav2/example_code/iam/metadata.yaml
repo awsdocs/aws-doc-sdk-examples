@@ -63,4 +63,4 @@ files:
   - path: src/main/java/com/example/iam/UpdateUser.java
     services:
       - iam
-  - path: src/test/java/IAMServiceIntegrationTest.java
+  - path: src/test/java/IAMServiceTest.java

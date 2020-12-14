@@ -1,27 +1,16 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[LambdaInvoke.java demonstrates how to invoke an AWS Lambda function by using the LambdaClient object]
-// snippet-service:[Lambda]
-// snippet-keyword:[Java]
-// snippet-keyword:[Amazon Lambda]
+//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS Lambda]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-10-02]
+// snippet-sourcedate:[05/11/2020]
 // snippet-sourceauthor:[AWS-scmacdon]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 // snippet-start:[lambda.java2.LambdaInvoke.complete]
 package com.example.lambda;
@@ -38,7 +27,7 @@ import software.amazon.awssdk.services.lambda.model.LambdaException;
 public class LambdaInvoke {
 
     /*
-     Function names appear as arn:aws:lambda:us-west-2:335556330391:function:HelloFunction
+     Function names appear as arn:aws:lambda:us-west-2:335556666777:function:HelloFunction
      you can retrieve the value by looking at the function in the AWS Console
    */
    public static void main(String[] args) {
@@ -63,6 +52,7 @@ public class LambdaInvoke {
                 .build();
 
         invokeFunction(awsLambda, functionName);
+        awsLambda.close();
     }
 
     // snippet-start:[lambda.java2.invoke.main]

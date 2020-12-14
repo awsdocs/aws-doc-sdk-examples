@@ -10,20 +10,13 @@ The Java examples perform AWS operations for the account and AWS Region for whic
 
 Some of these examples perform *destructive* operations on AWS resources. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
-To run these examples, you'll need the AWS SDK for Java libraries in your **CLASSPATH**.
-
-	export CLASSPATH=target/sdk-examples-1.0.jar:/path/to/aws-java-sdk/<jar-file-name>.jar
-
-Here **/path/to/aws-java-sdk/<jar-file-name>.jar** is the path to where you extracted or built the AWS SDK for Java JAR file.
-
-For systems with Bash support, once you set the **CLASSPATH**, you can run a particular example as follows.
-
-	java com.example.rekognition.ListCollections
+To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 
 
  ## Testing the Amazon Rekognition files
 
-You can test the Java code examples for Amazon Rekognition by running a test file named **RekognitionServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for Amazon Rekognition by running a test file named **RekognitionTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can execute the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is executed, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -36,12 +29,24 @@ Before running the Amazon Rekognition JUnit tests, you must define values in the
 
 Define these values to successfully run the JUnit tests:
 
-- **facesImage** - The path to an image that contains faces.   
-- **faceImage2** – The path to an image that contains faces.   
-- **celebritiesImage** - The path to an image that contains famous people.
+- **facesImage** - The path to an image that contains faces (for example, C:\AWS\pic1.png).   
+- **faceImage2** – The path to an image that contains faces (for example, C:\AWS\pic1.png).   
+- **celebritiesImage** - The path to an image that contains famous people (for example, C:\AWS\pic1.png).
 - **celId** - The ID value of the celebrity. You can use the **RecognizeCelebrities** example to get the ID value.
-- **moutainImage** - The path to an image that contains mountains.
-- **collectionName** - A string value that represents the collection name.
+- **moutainImage** - The path to an image that contains mountains (for example, C:\AWS\pic1.png).
+- **collectionName** - A string value that represents the collection name (for example, myCollection).
+- **ppeImage** - An image that contains a person wearing a mask (for example, masks.png). 
+- **textImage** - An image that contains text (for example. myImage.png). 
+- **modImage** - An image that contains images that is used in the partental warning test and used in the **DetectModerationLabels** test.
+- **bucketName** - The name of the bucket in which the videos used in these tests are located.
+- **faceVid** - The name of the video that contains people (for example, people.mp4).
+- **modVid** - The name of the video that contains images that is used in the moderation test.
+- **textVid** - The name of the video that contains text.
+- **celVid** - The name of the video that contains celebrities.
+- **topicArn** - An ARN value of a SNS topic (you can obtain this value from the AWS Management Console).
+- **topicArn** - An ARN value of an IAM role (you can obtain this value from the AWS Management Console).
+
+**Note**: You must create an IAM role and a valid SNS topic. You need to reference these values in the properties file. If you do not set these values, the tests fail. For information, see [Configuring Amazon Rekognition Video](https://docs.aws.amazon.com/rekognition/latest/dg/api-video-roles.html).
 
 ### Command line
 To execute the JUnit tests from the command line, you can use the following command.
@@ -53,7 +58,7 @@ You will see output from the JUnit tests, as shown here.
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
 	[INFO] -------------------------------------------------------
-	[INFO] Running RekognitionServiceIntegrationTest
+	[INFO] Running RekognitionTest
 	Test 1 passed
 	Test 2 passed
 	...

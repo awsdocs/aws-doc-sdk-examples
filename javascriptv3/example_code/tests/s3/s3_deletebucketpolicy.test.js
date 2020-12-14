@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-s3", () => ({
 }));
 const { bucketParams, run } = require("../../s3/s3_deleteBucketPolicy");
 
-//test function
 test("has to mock S3#deleteBucketPolicy", async (done) => {
   await run();
   expect(mockDeleteBucketPolicy).toHaveBeenCalledWith(bucketParams);

@@ -1,25 +1,16 @@
 //snippet-sourcedescription:[ActivityWorker.java demonstrates how to implement an activity worker that polls for tasks in a task list and executes its task.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[AWS SDK for Java v2]
+//snippet-service:[Amazon Simple Workflow Service (Amazon SWF)]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Simple Workflow Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[8/4/2020]
+//snippet-sourcedate:[11/06/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.*
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
-// snippet-start:[swf.java2.activity_worker.complete]
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 package com.example.helloswf;
 
 // snippet-start:[swf.java2.activity_worker.import]
@@ -39,12 +30,12 @@ public class ActivityWorker {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    HelloTypes <domain><taskList><workflow><workflowVersion><activity><activityVersion> \n\n" +
+                "    HelloTypes <domain> <taskList> \n\n" +
                 "Where:\n" +
-                "    domain - The domain to use (i.e., mydomain) \n" +
-                "    taskList - The taskList to use (i.e., HelloTasklist)  \n" ;
+                "    domain - The domain to use (for example, mydomain). \n" +
+                "    taskList - The taskList to use (for example, HelloTasklist).  \n" ;
 
-        if (args.length < 2) {
+        if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -58,11 +49,12 @@ public class ActivityWorker {
                 .build();
 
         getPollData(swf, domain, taskList) ;
+        swf.close();
     }
 
     public static void getPollData( SwfClient swf, String domain, String taskList) {
 
-        System.out.println("Polling for an activity task from the task list '"
+        System.out.println("Polling for an activity task from the tasklist '"
                     + taskList + "' in the domain '" +
                     domain + "'.");
 
@@ -108,4 +100,3 @@ public class ActivityWorker {
     }
 }
 // snippet-end:[swf.java2.activity_worker.main]
-// snippet-end:[swf.java2.activity_worker.complete]

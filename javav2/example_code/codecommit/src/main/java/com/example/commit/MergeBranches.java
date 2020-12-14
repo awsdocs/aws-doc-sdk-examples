@@ -1,27 +1,16 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[MergeBranches.java demonstrates how to merge two branches.]
+//snippet-keyword:[AWS SDK for Java v2]
+//snippet-keyword:[Code Sample]
 // snippet-service:[AWS CodeCommit]
-// snippet-keyword:[Java]
-// snippet-keyword:[AWS CodeCommit]
-// snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-09-30]
+//snippet-sourcedate:[11/03/2020]
 // snippet-sourceauthor:[AWS - scmacdon]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 package com.example.commit;
 
 // snippet-start:[codecommit.java2.merge.import]
@@ -40,17 +29,16 @@ public class MergeBranches {
                 "Usage:\n" +
                 "    MergeBranches <repoName> <targetBranch> <sourceReference> <destinationCommitId>\n\n" +
                 "Where:\n" +
-                "    repoName - the name of the repository,\n" +
-                "    targetBranch -  the branch where the merge is applied,\n" +
+                "    repoName - the name of the repository.\n" +
+                "    targetBranch -  the branch where the merge is applied.\n" +
                 "    sourceReference  - the branch of the repository that contains the changes.\n" +
                 "    destinationCommitId  - a full commit ID.\n" ;
 
-        if (args.length < 4) {
+        if (args.length != 4) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        /* Read the name from command args*/
         String repoName = args[0];
         String targetBranch = args[1];
         String sourceReference = args[2];
@@ -62,6 +50,7 @@ public class MergeBranches {
                 .build();
 
         merge(codeCommitClient, repoName, targetBranch, sourceReference, destinationCommitId) ;
+        codeCommitClient.close();
 
     }
 

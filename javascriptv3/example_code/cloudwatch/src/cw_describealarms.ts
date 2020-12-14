@@ -30,7 +30,7 @@ const REGION = "REGION"; //e.g. "us-east-1"
 const params = { StateValue: "INSUFFICIENT_DATA" };
 
 // Create CloudWatch service object
-const cw = new CloudWatchClient(REGION);
+const cw = new CloudWatchClient({ region: REGION });
 
 const run = async () => {
   try {

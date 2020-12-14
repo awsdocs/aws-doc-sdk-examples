@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-dynamodb/commands/ScanCommand", () => ({
 }));
 const {run} = require("../../dynamodb/ddb_scan");
 
-//test function
 test("has to mock db#Scan", async (done) => {
     await run();
     expect(mockScan).toHaveBeenCalled;

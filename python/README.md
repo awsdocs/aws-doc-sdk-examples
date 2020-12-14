@@ -18,6 +18,31 @@ For Boto3 and AWS documentation, see the following:
 
 ## Examples
 
+### [AWS Certificate Manager (ACM) basics example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/acm/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with AWS Certificate Manager (ACM)
+to request, import, and manage certificates.
+
+* Request a new certificate from ACM.
+* Import a self-signed certificate.
+* Retrieve certificate data.
+* Add custom tags to certificates.
+
+### [Amazon CloudWatch custom metrics and alarms example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/cloudwatch/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon CloudWatch to
+accomplish the following tasks:
+
+* Create a custom metric.
+* Create an alarm that watches a metric.
+* Send data to CloudWatch for a metric.
+* Get statistics for a metric.
+* Trigger an alarm and get its state.
+
 ### [Amazon DynamoDB batch examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/dynamodb/batching/README.md)
 
 #### Purpose
@@ -84,6 +109,17 @@ and manage clusters and job steps. Learn to accomplish the following tasks:
   to install additional libraries. 
 * Query clusters for status and terminate them using the API.
 
+### [AWS IoT Greengrass code snippets](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/greengrass/README.md)
+
+#### Purpose
+
+Shows how to use the AWS IoT Greengrass Core SDK to create AWS Lambda functions
+that publish MQTT messages, implement connectors, and retrieve secrets.
+
+These code examples are primarily code snippets that are used in the 
+[AWS Iot Greengrass developer guide](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html)
+and are not intended to be used out of context.
+
 ### [AWS IAM getting started examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/iam/iam_basics/README.md)
 
 #### Purpose
@@ -97,6 +133,25 @@ Management (IAM) resources. Learn to accomplish the following tasks:
 * Create and manage IAM policies, including versioned policies.
 * Create and manage IAM roles, including how to attach and detach policies.
 * Create and manage IAM users, including how to attach a policy to a user.
+
+### [Amazon Kinesis Data Streams and Data Analytics examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/kinesis/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Kinesis and version 2 of
+the Amazon Kinesis Data Analytics API to create an application that reads data from
+an input stream, uses SQL code to transform the data, and writes it to an output
+stream.
+
+* Create and manage Kinesis streams.
+* Create and manage Kinesis Data Analytics applications.
+* Create an AWS Identity and Access Management (IAM) role and policy that lets 
+an application read from an input stream and write to an output stream.
+* Add input and output streams to an application.
+* Upload SQL code that runs in an application and transforms data from an input
+stream to data in an output stream.
+* Run a data generator that puts records into an input stream.
+* Read transformed records from an output stream.
 
 ### [AWS Lambda examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/lambda/boto_client_examples/README.md)
 
@@ -192,7 +247,7 @@ thread usage and time to transfer.
 
 #### Purpose
 
-Shows how to use the AWS SDK for Python (Boto3) to  get started using bucket and 
+Shows how to use the AWS SDK for Python (Boto3) to get started using bucket and 
 object operations in Amazon Simple Storage Service (Amazon S3). 
 Learn to create, get, remove, and configure buckets and objects.
 
@@ -201,7 +256,7 @@ Learn to create, get, remove, and configure buckets and objects.
 #### Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) to set up an Amazon S3 bucket for 
-versioning, and how to perform taks on a version-enabled bucket. Learn to 
+versioning, and how to perform tasks on a version-enabled bucket. Learn to 
 accomplish the following tasks:
 
 * Create a version-enabled bucket and apply revisions to its objects.
@@ -219,6 +274,19 @@ following tasks:
 * Create batch jobs that invoke Lambda functions to update objects.
 * Delete Lambda functions.
 * Empty and delete a versioned bucket.
+
+### [Amazon SES email and identity example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/ses/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Simple Email Service 
+(Amazon SES) to verify identities, send emails, and manage rules and templates.
+
+* Verify email address and domain identities.
+* Create and manage email templates that contain replaceable tags.
+* Send email by using the Amazon SES API or an Amazon SES SMTP server.
+* Create and manage rules to block, allow, or handle incoming emails. 
+* Copy email and domain identity configuration from one AWS Region to another.
 
 ### [Amazon SQS getting started examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/sqs/ReadMe.md)
 

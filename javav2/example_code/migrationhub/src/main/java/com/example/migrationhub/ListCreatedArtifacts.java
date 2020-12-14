@@ -1,25 +1,16 @@
 // snippet-sourcedescription:[ListCreatedArtifacts.java demonstrates how to List the created artifacts attached to a given migration task.]
-// snippet-service:[Amazon Migration Hub]
-// snippet-keyword:[Java]
-// snippet-keyword:[Amazon Migration Hub]
+//snippet-keyword:[AWS SDK for Java v2]
+// snippet-service:[AWS Migration Hub]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[6-23-2020]
+// snippet-sourcedate:[11-05-2020]
 // snippet-sourceauthor:[scmacdon - AWS]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 
 package com.example.migrationhub;
 
@@ -44,6 +35,7 @@ public class ListCreatedArtifacts {
                 .build();
 
         listArtifacts(migrationClient);
+        migrationClient.close();
     }
 
     // snippet-start:[migration.java2.list_artifacts.main]
@@ -54,7 +46,7 @@ public class ListCreatedArtifacts {
             ListCreatedArtifactsRequest listCreatedArtifactsRequest = ListCreatedArtifactsRequest.builder()
                     .maxResults(10)
                     .migrationTaskName("SampleApp5")
-                    .progressUpdateStream("ProgressStreamB")
+                    .progressUpdateStream("ProgressSteamB")
                     .build();
 
             ListCreatedArtifactsResponse response = migrationClient.listCreatedArtifacts(listCreatedArtifactsRequest);
@@ -64,7 +56,7 @@ public class ListCreatedArtifacts {
 
             while(appIterator.hasNext()) {
                 CreatedArtifact artifact = appIterator.next();
-                System.out.println("App ID is " +artifact.description());
+                System.out.println("APp Id is " +artifact.description());
                 System.out.println("The name is " +artifact.name());
             }
 

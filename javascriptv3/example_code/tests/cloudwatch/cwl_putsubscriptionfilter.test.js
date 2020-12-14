@@ -9,7 +9,6 @@ jest.mock(
 );
 const { params, run } = require("../../cloudwatch/src/cwl_putsubscriptionfilter");
 
-//test function
 test("has to mock cloudwatch-logs#putsubscriptionfilter", async (done) => {
   await run();
   expect(mockPutSubFilter).toHaveBeenCalled;

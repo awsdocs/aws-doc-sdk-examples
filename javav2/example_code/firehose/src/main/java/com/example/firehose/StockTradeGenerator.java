@@ -1,20 +1,14 @@
 //snippet-sourcedescription:[StockTrade.java is a helper class]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kinesis Data Firehose]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[7/6/2020]
+//snippet-sourcedate:[11/04/2020]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.firehose;
@@ -78,24 +72,24 @@ public class StockTradeGenerator {
      *
      */
     public StockTrade getRandomTrade() {
-        // Pick a random stock
+        // pick a random stock
         StockPrice stockPrice = STOCK_PRICES.get(random.nextInt(STOCK_PRICES.size()));
-        // Pick a random deviation between -MAX_DEVIATION and +MAX_DEVIATION
+        // pick a random deviation between -MAX_DEVIATION and +MAX_DEVIATION
         double deviation = (random.nextDouble() - 0.5) * 2.0 * MAX_DEVIATION;
-        // Set the price using the deviation and mean price
+        // set the price using the deviation and mean price
         double price = stockPrice.price * (1 + deviation);
-        // Round price to 2 decimal places
+        // round price to 2 decimal places
         price = Math.round(price * 100.0) / 100.0;
 
-        // Set the trade type to buy or sell depending on the probability of sell
+        // set the trade type to buy or sell depending on the probability of sell
         StockTrade.TradeType tradeType = StockTrade.TradeType.BUY;
         if (random.nextDouble() < PROBABILITY_SELL) {
             tradeType = StockTrade.TradeType.SELL;
         }
 
-        // Randomly pick a quantity of shares
-        long quantity = random.nextInt(MAX_QUANTITY) + 1; // Add 1 because nextInt() will return between 0 (inclusive)
-        // and MAX_QUANTITY (exclusive). We want at least 1 share.
+        // randomly pick a quantity of shares
+        long quantity = random.nextInt(MAX_QUANTITY) + 1; // add 1 because nextInt() will return between 0 (inclusive)
+        // and MAX_QUANTITY (exclusive). we want at least 1 share.
 
         return new StockTrade(stockPrice.tickerSymbol, tradeType, price, quantity, id.getAndIncrement());
     }
@@ -109,5 +103,4 @@ public class StockTradeGenerator {
             this.price = price;
         }
     }
-
 }

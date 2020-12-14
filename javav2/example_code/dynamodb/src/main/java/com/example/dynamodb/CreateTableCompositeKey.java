@@ -1,20 +1,14 @@
 //snippet-sourcedescription:[CreateTableCompositeKey.java demonstrates how to create an Amazon DynamoDB table with a composite key.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/5/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[10/30/2020]
+//snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.dynamodb;
@@ -32,47 +26,37 @@ import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 // snippet-end:[dynamodb.java2.create_table_composite_key.import]
 
-/**
- * Create an Amazon DynamoDB table
- *
- * Takes the name of the table to create. The table will contain a single
- * primary key, "Name".
- *
- * This code expects that you have AWS credentials set up, as described here:
- * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
- */
 public class CreateTableCompositeKey {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateTable <table>\n\n" +
+                "    CreateTable <tableName>\n\n" +
                 "Where:\n" +
-                "    table - the table to create (i.e., Music3)\n\n" +
+                "    tableName - the Amazon DynamoDB table to create (for example, Music3).\n\n" +
                 "Example:\n" +
                 "    CreateTable Music3\n";
 
-       if (args.length < 1) {
+        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-
-        /* Read the table name from command args */
         String tableName = args[0];
-
-        // Create the DynamoDbClient object
         Region region = Region.US_EAST_1;
-        DynamoDbClient ddb = DynamoDbClient.builder().region(region).build();
+        DynamoDbClient ddb = DynamoDbClient.builder()
+                .region(region)
+                .build();
 
-        System.out.format("Creating table %s\n with a composite primary key:\n", tableName);
+        System.out.format("Creating Amazon DynamoDB table %s\n with a composite primary key:\n", tableName);
         System.out.format("* Language - partition key\n");
         System.out.format("* Greeting - sort key\n");
 
         String tableId =createTableComKey(ddb,tableName);
-        System.out.println("The table ID is "+tableId);
-
+        System.out.println("The Amazon DynamoDB table Id value is "+tableId);
+        ddb.close();
     }
+
     // snippet-start:[dynamodb.java2.create_table_composite_key.main]
     public static String createTableComKey(DynamoDbClient ddb, String tableName) {
         CreateTableRequest request = CreateTableRequest.builder()
@@ -100,7 +84,6 @@ public class CreateTableCompositeKey {
                                 .writeCapacityUnits(new Long(10)).build())
                 .tableName(tableName)
                 .build();
-
 
        String tableId = "";
 

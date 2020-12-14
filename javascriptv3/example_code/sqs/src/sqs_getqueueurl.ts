@@ -28,7 +28,7 @@ const REGION = "REGION"; //e.g. "us-east-1"
 const params = { QueueName: "SQS_QUEUE_NAME" }; //SQS_QUEUE_NAME
 
 // Create SQS service object
-const sns = new SQSClient(REGION);
+const sns = new SQSClient({ region: REGION });
 
 const run = async () => {
   try {

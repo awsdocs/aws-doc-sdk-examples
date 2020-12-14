@@ -1,25 +1,15 @@
 //snippet-sourcedescription:[DescribeAlarms.java demonstrates how to get information about Amazon CloudWatch alarms.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/02/2020]
-//snippet-sourceauthor:[scmacdon]
+//snippet-sourcedate:[11/02/2020]
+//snippet-sourceauthor:[scmacdon - aws]
 
 /*
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.describe_alarms.import]
@@ -31,9 +21,6 @@ import software.amazon.awssdk.services.cloudwatch.model.DescribeAlarmsResponse;
 import software.amazon.awssdk.services.cloudwatch.model.MetricAlarm;
 // snippet-end:[cloudwatch.java2.describe_alarms.import]
 
-/**
- * Lists all CloudWatch alarms
- */
 public class DescribeAlarms {
 
     public static void main(String[] args) {
@@ -44,7 +31,7 @@ public class DescribeAlarms {
                 .build();
 
         deleteCWAlarms(cw) ;
-
+        cw.close();
     }
 
     // snippet-start:[cloudwatch.java2.describe_alarms.main]

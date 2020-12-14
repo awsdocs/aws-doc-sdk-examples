@@ -21,6 +21,6 @@ files:
  - path: src/main/java/com/example/migrationhub/ListMigrationTasks.java
    services:
      - migrationhub
- - path: src/test/java/MigrationHubServiceIntegrationTest.java
+ - path: src/test/java/MigrationHubTest.java
    services:
      - migrationhub

@@ -67,7 +67,7 @@ async function run() {
   };
 
   // Create S3 service object
-  const s3 = new S3Client(REGION);
+  const s3 = new S3Client({ region: REGION });
 
   try {
     const data = await s3.send(new PutBucketCorsCommand(corsParams));
