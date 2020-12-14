@@ -1,31 +1,29 @@
 --- 
-files:
+files: 
   - path: src/main/java/com/aws/example/entities/WorkItem.java
-    services:
+    services: 
       - rds
   - path: src/main/java/com/aws/jdbc/ConnectionHelper.java
-    services:
+    services: 
       - rds
   - path: src/main/java/com/aws/jdbc/InjectWorkService.java
-    services:
+    services: 
       - rds
   - path: src/main/java/com/aws/jdbc/RetrieveItems.java
-    services:
+    services: 
       - rds
- - path: src/main/java/com/aws/securingweb/MainController.java
-    services:
+  - path: src/main/java/com/aws/securingweb/SecuringWebApplication.java
+    services: 
       - rds
- - path: src/main/java/com/aws/securingweb/SecuringWebApplication.java
-    services:
+  - path: src/main/java/com/aws/securingweb/MainController.java
+    services: 
       - rds
- - path: src/main/java/com/aws/securingweb/WebSecurityConfig.java
-    services:
+  - path: src/main/java/com/aws/securingweb/WebSecurityConfig.java
+    services: 
       - rds
   - path: src/main/java/com/aws/services/SendMessages.java
-    services:
+    services: 
       - ses
   - path: src/main/java/com/aws/services/WriteExcel.java
-    services:
+    services: 
       - ses
-
-  
