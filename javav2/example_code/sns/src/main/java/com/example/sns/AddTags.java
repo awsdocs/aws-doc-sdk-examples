@@ -33,12 +33,12 @@ public class AddTags {
                 "Where:\n" +
                 "  topicArn - the ARN of the topic to which tags are added.\n\n";
 
-        //if (args.length != 1) {
-        //    System.out.println(USAGE);
-        //    System.exit(1);
-        //}
+        if (args.length != 1) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
 
-        String topicArn = "arn:aws:sns:us-east-1:814548047983:video";// args[0];
+        String topicArn = args[0];
         SnsClient snsClient = SnsClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
