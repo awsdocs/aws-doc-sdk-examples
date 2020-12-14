@@ -1254,7 +1254,9 @@ The following Java code represents the **SendMessage** class. Notice that an **E
     import software.amazon.awssdk.services.ses.model.SendRawEmailRequest;
     import software.amazon.awssdk.services.ses.model.RawMessage;
     import software.amazon.awssdk.services.ses.model.SesException;
+    import org.springframework.stereotype.Component;
 
+    @Component
     public class SendMessages {
 
      private String sender = "tblue@nomailserver.com";
