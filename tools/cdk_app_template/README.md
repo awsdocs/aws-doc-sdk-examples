@@ -1,6 +1,6 @@
 # AWS Code Examples Repository - AWS CDK App Template
 
-Use the template files in this folder to create the source code for your finished AWS CDK app.
+Use the template files in this folder to create the unique source code and the associated AWS CloudFormation template file for your finished AWS CDK app.
 
 ## Prerequisites
 
@@ -43,12 +43,11 @@ To destroy the AWS CDK app, which deletes the corresponding stack from AWS Cloud
 
 ``cdk destroy``
 
-## Distribution
+## Merging
 
-To distribute your finished AWS CDK app, merge **only** the following files into the AWS Code Examples Repository:
+To merge your finished AWS CDK app's source code, merge **only** the following files from your development machine into the AWS Code Examples Repository:
 
 * ``cdk.json``
-* ``CloudFormation.yaml``
 * ``package.json``
 * ``setup.ts``
 * ``tsconfig.json``
@@ -62,11 +61,13 @@ To distribute your finished AWS CDK app, merge **only** the following files into
 
 This is especially important for the ``node_modules/`` folder, as it could grow to several hundred megabytes or more in size during development. The ``.gitignore`` file in this folder contains a list of these folders and files.
 
-The caller can regenerate these unmerged folders and files on their own machine if desired by running the preceding ``npm`` and ``cdk`` commands on their own machine (after of course installing the AWS CDK prerequisites).
+You can regenerate these unmerged folders and files on your development machine as needed by running the preceding ``npm`` and ``cdk`` commands on your development machine (after of course installing the AWS CDK prerequisites).
 
-## Using the AWS CLI or the AWS CloudFormation Console instead of the AWS CDK
+Merge the ``CloudFormation.yaml`` file into the same location(s) as any code example file(s) with which this ``CloudFormation.yaml`` file is intended to be used.
 
-Alternatively, callers can use the AWS Command Line Interface (AWS CLI) or the AWS CloudFormation Console to run your AWS CDK app.
+## Using the AWS CLI or the AWS CloudFormation Console
+
+Callers can use the AWS Command Line Interface (AWS CLI) or the AWS CloudFormation Console to run your AWS CloudFormation template file. (They can of course use the AWS CDK, but they would need to first install the AWS CDK prerequisites.)
 
 To use the AWS CLI, run the following command from within the same folder as the ``CloudFormation.yaml`` file to create the corresponding stack in AWS CloudFormation:
 
