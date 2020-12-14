@@ -45,7 +45,7 @@ To destroy the AWS CDK app, which deletes the corresponding stack from AWS Cloud
 
 ## Merging
 
-To merge your finished AWS CDK app's source code, merge **only** the following files from your development machine into the AWS Code Examples Repository:
+To merge your finished AWS CDK app's source code, merge **only** the following files from your development machine into its own self-contained folder within the AWS Code Examples Repository:
 
 * ``cdk.json``
 * ``package.json``
@@ -69,7 +69,7 @@ Merge the ``CloudFormation.yaml`` file into the same location(s) as any code exa
 
 Callers can use the AWS Command Line Interface (AWS CLI) or the AWS CloudFormation Console to run your AWS CloudFormation template file. (They can of course use the AWS CDK, but they would need to first install the AWS CDK prerequisites.)
 
-To use the AWS CLI, run the following command from within the same folder as the ``CloudFormation.yaml`` file to create the corresponding stack in AWS CloudFormation:
+To use the AWS CLI, run the following command from within the same folder as the ``CloudFormation.yaml`` file to create the corresponding stack in AWS CloudFormation, where ``SetupStack`` is some stack name that is unique within an individual AWS Region for the AWS account:
 
 ``aws cloudformation create-stack --stack-name SetupStack --template-body file://CloudFormation.yaml``
 
@@ -86,7 +86,7 @@ To use the AWS CloudFormation Console, do the following to create the correspond
 1. Choose **Choose file**.
 1. Browse to and open the ``CloudFormation.yaml`` file.
 1. Choose **Next**.
-1. On the **Specify stack details** page, for **Stack name**, type a unique name for the stack, and then choose **Next**.
+1. On the **Specify stack details** page, for **Stack name**, type a unique name for the stack, and then choose **Next**. (This stack name must be unique within an individual AWS Region for the AWS account.)
 1. On the **Configure stack options** page, choose **Next**.
 1. On the **Review** page, choose **Create stack**.
 
