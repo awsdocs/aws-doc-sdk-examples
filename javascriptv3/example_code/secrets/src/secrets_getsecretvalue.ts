@@ -32,7 +32,7 @@ const params = {
   SecretId: "SECRET_ID", //e.g. arn:aws:secretsmanager:REGION:XXXXXXXXXXXX:secret:mysecret-XXXXXX
 };
 // Create SES service object
-const secretsManagerClient = new SecretsManagerClient(REGION);
+const secretsManagerClient = new SecretsManagerClient({ region: REGION });
 
 const run = async () => {
   let data;

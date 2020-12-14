@@ -35,7 +35,7 @@ const keyName = "hello_world.txt";
 const objectParams = { Bucket: bucketName, Key: keyName, Body: "Hello World!" };
 
 // Create an S3 client service object
-const s3 = new S3Client(REGION);
+const s3 = new S3Client({ region: REGION });
 
 const run = async () => {
   // Create S3 bucket

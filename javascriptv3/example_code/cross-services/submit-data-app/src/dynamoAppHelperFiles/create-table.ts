@@ -55,7 +55,7 @@ const tableParams = {
 };
 
 // Create DynamoDB service object
-const dbclient = new DynamoDBClient(REGION);
+const dbclient = new DynamoDBClient({ region: REGION });
 
 const run = async () => {
   try {

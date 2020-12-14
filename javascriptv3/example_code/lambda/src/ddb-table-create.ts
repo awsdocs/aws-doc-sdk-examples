@@ -26,7 +26,7 @@ const {
 const REGION = "REGION"; //e.g. "us-east-1"
 
 // Instantiate a DynamoDB client
-const ddb = new DynamoDBClient(REGION);
+const ddb = new DynamoDBClient({ region: REGION });
 
 // Define the table schema
 const tableParams = {

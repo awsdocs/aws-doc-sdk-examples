@@ -30,12 +30,20 @@ Before running the JUnit tests, you must define values in the **config.propertie
 Define these values to successfully run the JUnit tests:
 
 - **appName** - The name of the Amazon Pinpoint application. For example, **TestApp2**.
-
 - **bucket** – The name of an Amazon S3 bucket to use for the **ImportSegments** test.
-
 - **path** – The path where the JSON file is located in the bucket for the **ImportSegments** test. For example, **imports/myjson.json**.
-
 - **roleArn** - The Amazon Resource Name (ARN) of the role for the **ImportSegments** test.
+- **existingApplicationId** - An existing application Id value used in various tests.
+- **userId** - An existing user Id value used in various tests.
+- **s3BucketName** - An Amazon S3 bucket that is used in the **ExportEndpoints** test.
+- **iamExportRoleArn** - The ARN of an IAM role that grants Amazon Pinpoint write permissions to the S3 bucket and used in the **ExportEndpoints** test.
+- **filePath** - The path where the files downloaded from the Amazon S3 bucket are written (for example, C:/AWS/).
+- **subject** - The email subject to use in the **SendEmailMessage** test.
+- **senderAddress** - The from address. This address has to be verified in Amazon Pinpoint in the region you're using to send email .
+- **senderAddress** - The to address. This address has to be verified in Amazon Pinpoint in the region you're using to send email .
+- **originationNumber** - The phone number or short code that you specify has to be associated with your Amazon Pinpoint account. For best results, specify long codes in E.164 format (for example, +1-555-555-5654).
+- **destinationNumber** - The phone number or short code that you specify has to be associated with your Amazon Pinpoint account. For best results, specify long codes in E.164 format (for example, +1-555-555-5654).
+- **message** - The message to use in the **SendMessage** test. 
 
 
 ###  Sample policy text
@@ -100,7 +108,7 @@ You will see output from the JUnit tests, as shown here.
 	 Done!
 	 [INFO] Results:
 	 [INFO]
-	 [INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0
+	 [INFO] Tests run: 17, Failures: 0, Errors: 0, Skipped: 0
 	 [INFO]
 	 INFO] --------------------------------------------
 	 [INFO] BUILD SUCCESS

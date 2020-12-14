@@ -37,7 +37,7 @@ const async = require("async"); // To call AWS operations asynchronously.
 const bucket_name = process.argv[2];
 const region = process.argv[3];
 
-const s3 = new S3Client({ region });
+const s3 = new S3Client({ region: REGION });
 
 const create_bucket_params = {
   Bucket: bucket_name,

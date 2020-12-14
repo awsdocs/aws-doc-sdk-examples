@@ -27,7 +27,7 @@ const {
 const REGION = "REGION"; //e.g. "us-east-1"
 
 // Create STS service object
-const sts = new STSClient(REGION);
+const sts = new STSClient({ region: REGION });
 
 // Set the parameters
 const roleToAssume = {

@@ -29,7 +29,7 @@ const REGION = "REGION"; //e.g. "us-east-1"
 const params = { TableName: "TABLE_NAME" }; //TABLE_NAME
 
 // Create DynamoDB service object
-const dbclient = new DynamoDBClient(REGION);
+const dbclient = new DynamoDBClient({ region: REGION });
 
 const run = async () => {
   try {

@@ -30,7 +30,7 @@ const REGION = "REGION"; //e.g. "us-east-1"
 const params = { AlarmNames: "ALARM_NAME" }; // e.g., "Web_Server_CPU_Utilization"
 
 // Create CloudWatch service object
-const cw = new CloudWatchClient(REGION);
+const cw = new CloudWatchClient({ region: REGION });
 
 const run = async () => {
   try {

@@ -33,7 +33,7 @@ const params = {
 };
 
 // Create CloudWatch service object
-const cwl = new CloudWatchLogsClient(REGION);
+const cwl = new CloudWatchLogsClient({ region: REGION });
 
 const run = async () => {
   try {

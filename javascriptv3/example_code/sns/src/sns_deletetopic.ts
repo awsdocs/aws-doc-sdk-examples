@@ -22,7 +22,7 @@ ts-node sns_deletetopic.ts
 const { SNSClient, DeleteTopicCommand } = require("@aws-sdk/client-sns");
 
 // Create SNS service object
-const sns = new SNSClient(REGION);
+const sns = new SNSClient({ region: REGION });
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

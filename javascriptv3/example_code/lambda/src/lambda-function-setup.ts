@@ -28,7 +28,7 @@ const {
 const REGION = "REGION"; //e.g. "us-east-1"
 
 // Instantiate a Lambda client
-const lambda = new LambdaClient(REGION);
+const lambda = new LambdaClient({ region: REGION });
 
 //Set the parameters
 const params = {

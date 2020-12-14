@@ -25,7 +25,7 @@ const {
 const REGION = "REGION"; //e.g. "us-east-1"
 
 // Create IAM service object
-const iam = new IAMClient(REGION);
+const iam = new IAMClient({ region: REGION });
 
 const run = async () => {
   try {

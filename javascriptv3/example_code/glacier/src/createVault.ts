@@ -28,7 +28,7 @@ const vaultname = "VAULT_NAME"; // VAULT_NAME
 const params = { vaultName: vaultname };
 
 // Instantiate an S3 Glacier client
-const glacier = new GlacierClient(REGION);
+const glacier = new GlacierClient({ region: REGION });
 
 const run = async () => {
   try {

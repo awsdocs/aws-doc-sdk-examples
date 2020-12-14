@@ -29,7 +29,7 @@ const {
 const REGION = "region"; //e.g. "us-east-1"
 
 // Create EC2 service object
-const ec2client = new EC2Client(REGION);
+const ec2client = new EC2Client({ region: REGION });
 
 // Set the parameters
 const params = { InstanceIds: "INSTANCE_ID" }; // INSTANCE_ID

@@ -33,10 +33,10 @@ const ROLENAME = "ROLE_NAME";
 const paramsRoleList = { RoleName: ROLENAME }; //ROLE_NAME
 
 // Create IAM service object
-const iam = new IAMClient(REGION);
+const iam = new IAMClient({ region: REGION });
 
 const run = async () => {
-  const iam = new IAMClient(REGION);
+  const iam = new IAMClient({ region: REGION });
   try {
     const data = await iam.send(
       new ListAttachedRolePoliciesCommand(paramsRoleList)

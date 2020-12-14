@@ -22,7 +22,7 @@ const { SQSClient, ListQueuesCommand } = require("@aws-sdk/client-sqs");
 const REGION = "region"; //e.g. "us-east-1"
 
 // Create SQS service object
-const sqs = new SQSClient(REGION);
+const sqs = new SQSClient({ region: REGION });
 
 const run = async () => {
   try {

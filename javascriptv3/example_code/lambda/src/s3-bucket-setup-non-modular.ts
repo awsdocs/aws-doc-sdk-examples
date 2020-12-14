@@ -42,7 +42,7 @@ const staticHostParams = {
 };
 
 // Instantiate the S3 client
-const s3 = new S3Client(REGION);
+const s3 = new S3Client({ region: REGION });
 
 const run = async () => {
   // Call S3 to create the bucket

@@ -26,7 +26,7 @@ const REGION = "REGION"; //e.g. "us-east-1"
 const params = { TemplateName: "TEMPLATE_NAME" };
 
 // Create SES service object
-const ses = new SESClient(REGION);
+const ses = new SESClient({ region: REGION });
 
 const run = async () => {
   try {

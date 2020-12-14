@@ -23,7 +23,7 @@ const { EC2Client, DescribeInstancesCommand } = require("@aws-sdk/client-ec2");
 const REGION = "REGION"; //e.g. "us-east-1"
 
 // Create EC2 service object
-const ec2client = new EC2Client(REGION);
+const ec2client = new EC2Client({ region: REGION });
 
 const run = async () => {
   try {

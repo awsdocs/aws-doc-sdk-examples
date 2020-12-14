@@ -26,7 +26,7 @@ const REGION = "region"; //e.g. "us-east-1"
 const params = { QueueUrl: "SQS_QUEUE_URL" }; //SQS_QUEUE_URL e.g., 'https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME'
 
 // Create SQS service object
-const sns = new SQSClient(REGION);
+const sns = new SQSClient({ region: REGION });
 
 const run = async () => {
   try {

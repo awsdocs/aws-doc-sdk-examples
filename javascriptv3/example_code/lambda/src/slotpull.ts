@@ -24,7 +24,7 @@ const { DynamoDBClient, GetItemCommand } = require("@aws-sdk/client-dynamodb");
 const REGION = "REGION"; //e.g. "us-east-1"
 
 // Instantiate a DynamoDB client
-const ddb = new DynamoDBClient(REGION);
+const ddb = new DynamoDBClient({ region: REGION });
 
 // Set the parameters
 const tableName = "TABLE_NAME";

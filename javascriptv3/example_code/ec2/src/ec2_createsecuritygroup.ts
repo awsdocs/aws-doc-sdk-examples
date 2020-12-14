@@ -36,7 +36,7 @@ const params = { KeyName: "KEY_PAIR_NAME" }; //KEY_PAIR_NAME
 const vpc = null;
 
 // Create EC2 service object
-const ec2client = new EC2Client(REGION);
+const ec2client = new EC2Client({ region: REGION });
 
 const run = async () => {
   try {

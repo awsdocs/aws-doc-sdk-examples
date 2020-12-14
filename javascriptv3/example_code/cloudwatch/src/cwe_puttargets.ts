@@ -38,7 +38,7 @@ const params = {
 };
 
 // Create CloudWatch service object
-const cwevents = new CloudWatchEventsClient(REGION);
+const cwevents = new CloudWatchEventsClient({ region: REGION });
 
 const run = async () => {
   try {
