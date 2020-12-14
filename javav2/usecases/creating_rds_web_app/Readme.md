@@ -32,7 +32,7 @@ The following figure shows you the structure of the Java project.
 + Create script files
 + Set up the RDS instance
 + Create a JAR file for the application
-+ Deploy the application to AWS Elastic Beanstalk.
++ Deploy the application to AWS Elastic Beanstalk
 
 ## Prerequisites
 
