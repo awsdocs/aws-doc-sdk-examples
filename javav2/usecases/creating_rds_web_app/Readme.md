@@ -6,9 +6,9 @@ You can develop a secure Spring application that tracks and reports on work item
 + Amazon Simple Email Service (the AWS SDK for Java SDK version 2 is used to access Amazon SES)
 + AWS Elastic Beanstalk
 
-The application you create is named *AWS Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. It’s a secure web application that requires a user to log into the application. For more information, see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
+The application you create is named *AWS Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. This application requires a user to log in. For more information, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
 
-This tutorial guides you through creating the AWS Tracker application. Once the application is developed, you'll learn how to deploy it to Elastic Beanstalk.
+This tutorial guides you through creating the AWS Tracker application. Once the application is developed, you'll learn how to deploy it to AWS Elastic Beanstalk.
 
 The following figure shows you the structure of the Java project.
 
@@ -52,6 +52,8 @@ The AWS Tracker application uses a model that is based on a work item and contai
 + **username** - The person who performs the work item.
 + **status** - The status of the item.
 + **archive** - Whether this item is completed or is still being worked on.
+
+**Note** - The username is the user who logs into this application. In this example, the username is named **user**. 
 
 The following figure shows the login page.
 
@@ -347,7 +349,7 @@ These packages contain the following:
 
 Create the Java classes, including the Spring security classes that secure the web application with a login form. In this application, a Java class sets up an in-memory user store that contains a single user (the user name is **user** and the password is **password**.)
 
-### Create the Spring security classes
+### Create the Spring classes
 
 Create a Java package named **com.aws.securingweb**. Next, create these classes in this package:
 
