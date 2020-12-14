@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[SNSMessageFilterPolicy.java stores the filterPolicy field as a map.]
+//snippet-sourcedescription:[SNSMessageFilterPolicy.java is used in the UseMessageFilterPolicy example.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
