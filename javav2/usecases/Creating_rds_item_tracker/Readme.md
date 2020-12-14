@@ -353,13 +353,13 @@ Create the Java classes, including the Spring classes. In this application, a Ja
 
 Create a Java package named **com.aws.securingweb**. Next, create these classes in this package:
 
-+ **SecuringWebApplication**
++ **MainController**
 + **WebSecurityConfig**
 
 #### SecuringWebApplication class
-The following Java code represents the **SecuringWebApplication** class. This is the entry point into a Spring boot application.
+The following Java code represents the **SecuringWebApplication** class. This is the entry point into a Spring boot application. Create this class in the **com.aws** package. 
 
-    package com.aws.securingweb;
+    package com.aws;
 
     import org.springframework.boot.SpringApplication;
     import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -373,7 +373,7 @@ The following Java code represents the **SecuringWebApplication** class. This is
     }
 
 #### WebSecurityConfig class
-The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application.
+The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application. Create this class in the **com.aws.securingweb** package. 
 
     package com.aws.securingweb;
 
@@ -432,20 +432,17 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
 
 **Note**: In this example, the user credentials to log into the application are **user** and **password**.  
 
-#### To create the SecuringWebApplication and WebSecurityConfig classes
+#### To create the WebSecurityConfig classes
 
 1. Create the **com.aws.securingweb** package.
-2. Create the **SecuringWebApplication** class and paste the code into it.
+2. Create the **MainController** class and paste the code into it.
 3. Create the **WebSecurityConfig** class and paste the code into it.
-
 
 ### Create the main controller class
 
 In the **com.aws.securingweb** package, create the controller class named **MainController**. This class handles the HTTP requests. For example, when a POST operation is made, the **MainController** handles the request and returns a dataset that is displayed in the view. The dataset is obtained from the MySQL database located in the AWS Cloud.
 
 **Note:** In this application, the **XMLHttpRequest** object's **send()** method is used to invoke controller methods. The syntax of the this method is shown later in this tutorial.
-
-#### MainController class
 
 The following Java code represents the **MainController** class.
 
