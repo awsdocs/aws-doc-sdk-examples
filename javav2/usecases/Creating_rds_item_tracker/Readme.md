@@ -1582,7 +1582,7 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
 
 ## Create the HTML files
 
-At this point, you have created all of the Java files required for the AWS Tracking application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the **resource** folder, create a **template** folder and then create the following HTML files:
+At this point, you have created all of the Java files required for the AWS Tracking application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the **resource** folder, create a **templates** folder and then create the following HTML files:
 
 + **login.html**
 + **index.html**
