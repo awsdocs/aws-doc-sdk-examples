@@ -8,7 +8,7 @@ You can develop a web application that tracks and reports on work items by using
 
 **Note:** In this tutorial, we use the AWS SDK for Java version 2 to access Amazon SES and DynamoDB.
 
-The application you create is named **DynamoDB Item Tracker**, and uses Spring Boot APIs to build a model, different views, and a controller. It’s a secure web application that requires a user to log into the application. For more information, see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
+The application you create is named **DynamoDB Item Tracker**, and uses Spring Boot APIs to build a model, different views, and a controller. It’s an application that requires a user to log in. For more information, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
 
 This tutorial guides you through creating the **DynamoDB Item Tracker** application. After the application is developed, you'll learn how to deploy it to Elastic Beanstalk.
 
