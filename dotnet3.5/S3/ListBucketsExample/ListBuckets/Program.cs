@@ -15,6 +15,7 @@ namespace ListBuckets
         // Specify your AWS Region (an example Region is shown).
         private static readonly RegionEndpoint BUCKET_REGION = RegionEndpoint.USWest2;
         private static IAmazonS3 _s3Client;
+        private 
 
         static async Task Main(string[] args)
         {
@@ -31,8 +32,7 @@ namespace ListBuckets
         /// list of the buckets owned by the default user.</returns>
         static public async Task<ListBucketsResponse> GetBuckets(IAmazonS3 client)
         {
-            var response = await client.ListBucketsAsync();
-            return response;
+            return await client.ListBucketsAsync();
         }
 
         /// <summary>
