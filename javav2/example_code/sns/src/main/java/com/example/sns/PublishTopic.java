@@ -38,7 +38,6 @@ public class PublishTopic {
 
         String message = args[0];
         String topicArn = args[1];
-
         SnsClient snsClient = SnsClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
