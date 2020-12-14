@@ -432,12 +432,6 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
 
 **Note**: In this example, the user credentials to log into the application are **user** and **password**.  
 
-#### To create the WebSecurityConfig classes
-
-1. Create the **com.aws.securingweb** package.
-2. Create the **MainController** class and paste the code into it.
-3. Create the **WebSecurityConfig** class and paste the code into it.
-
 ### Create the main controller class
 
 In the **com.aws.securingweb** package, create the controller class named **MainController**. This class handles the HTTP requests. For example, when a POST operation is made, the **MainController** handles the request and returns a dataset that is displayed in the view. The dataset is obtained from the MySQL database located in the AWS Cloud.
@@ -605,11 +599,6 @@ The following Java code represents the **MainController** class.
     }
     }
 
-#### To create the MainController class
-
-1. In the **com.aws.securingweb** package, create the **MainController** class.
-2. Copy the code from the **MainController** class and paste it into this class in your project.
-
 ### Create the WorkItem class
 
 Create a Java package named **com.aws.entities**. Next, create a class, named **WorkItem**, that represents the application model.  
@@ -676,11 +665,6 @@ The following Java code represents the **WorkItem** class.
       return this.guide;
       }
      }
-
-#### To create the WorkItem class
-1. In the **com.aws.entities** package, create the **WorkItem** class.
-2. Copy the code from the **WorkItem** class and paste it into this class in your project.
-
 
 ### Create the JDBC Classes
 
@@ -1233,13 +1217,6 @@ The following Java code represents the **RetrieveItems** class.
       }
      }
 
-#### To create the JDBC classes
-
-1. Create the **com.aws.jdbc** package.
-2. Create the **ConnectionHelper** class and paste the Java code into the class.  
-3. Create the **InjectWorkService** class and paste the Java code into the class.
-4. Create the **RetrieveItems** class and paste the Java code into the class.
-
 ### Create the service classes
 
 The service classes contain Java application logic that uses AWS services. In this section, you create these classes:
@@ -1572,12 +1549,6 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
         return count;
      }
     }
-
-#### To create the service classes
-
-1. Create the **com.aws.services** package.
-2. Create the **SendMessages** class and add the Java code to it.   
-3. Create the **WriteExcel** class and add the Java code to it.
 
 ## Create the HTML files
 
