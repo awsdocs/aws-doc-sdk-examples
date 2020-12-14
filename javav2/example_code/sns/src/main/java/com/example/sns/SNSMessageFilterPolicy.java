@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteTag.java demonstrates how to delete tags from an Amazon Simple Notification Service (Amazon SNS) topic.]
+//snippet-sourcedescription:[SNSMessageFilterPolicy.java stores the filterPolicy field as a map.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
@@ -22,16 +22,19 @@ import java.util.stream.Collectors;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.SetSubscriptionAttributesRequest;
 
-// The class stores the filterPolicy field as a map.
+/*
+  You can use the addAttribute(), addAttributePrefix(), and addAttributeAnythingBut()
+  methods to add attributes to your policy. These methods accept the attribute name as a string,
+  and they are specialized to accept different value types. You can pass values as strings,
+  lists of strings, numbers, or number ranges and you can also add the attributes anything-but
+  and prefix.
+ */
+
 public class SNSMessageFilterPolicy {
 
     private final Map<String, Attribute> filterPolicy = new HashMap<>();
 
-    // You can use the addAttribute(), addAttributePrefix(), and addAttributeAnythingBut()
-    // methods to add attributes to your policy. These methods accept the attribute name as a string,
-    // and they are specialized to accept different value types. You can pass values as strings,
-    // lists of strings, numbers, or number ranges and you can also add the attributes anything-but
-    // and prefix.
+   
     public void addAttribute(final String attributeName, final String attributeValue) {
         filterPolicy.put(attributeName, new Attribute<>(AttributeType.String, attributeValue));
     }
