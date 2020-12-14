@@ -5,6 +5,8 @@ The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aw
 
 The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples.html) contains these examples.
 
+The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-sns/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon SNS client module.
+
 Amazon SNS is a fully managed messaging service for both system-to-system and app-to-person (A2P) communication. 
 
 **NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).

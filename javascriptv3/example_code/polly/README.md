@@ -3,6 +3,9 @@ This is a workspace where you can find working AWS SDK for JavaScript version 3 
 
 The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
+The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-polly/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon Polly client module.
+
+
 Amazon Polly is a service that turns text into lifelike speech, allowing you to create applications that talk, 
 and build entirely new categories of speech-enabled products. 
  
