@@ -1399,7 +1399,7 @@ The following Java code represents the **SendMessage** class. Notice that an **E
       }
      }
 
-**Note:** Update the email **sender** address with a verified email address; otherwise, the email is not sent. For information, see [Verifying email addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html)       
+**Note:** Update the email **sender** address with a verified email address; otherwise, the email is not sent. For information, see [Verifying email addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).       
 
 #### WriteExcel class
 
