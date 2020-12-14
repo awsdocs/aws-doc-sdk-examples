@@ -32,7 +32,7 @@ The following figure shows you the structure of the Java project.
 + Create script files
 + Set up the RDS instance
 + Create a JAR file for the application
-+ Deploy the application to Elastic Beanstalk.
++ Deploy the application to AWS Elastic Beanstalk.
 
 ## Prerequisites
 
@@ -347,7 +347,7 @@ These packages contain the following:
 
 ## Create the Java classes
 
-Create the Java classes, including the Spring security classes that secure the web application with a login form. In this application, a Java class sets up an in-memory user store that contains a single user (the user name is **user** and the password is **password**.)
+Create the Java classes, including the Spring classes. In this application, a Java class sets up an in-memory user store that contains a single user (the user name is **user** and the password is **password**.)
 
 ### Create the Spring classes
 
@@ -2550,17 +2550,17 @@ The JAR file is located in the target folder.
 
 The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file which includes the dependencies. (Without the dependencies, the application does not run on Elastic Beanstalk.) For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
 
-## Deploy the application to Elastic Beanstalk
+## Deploy the application to AWS Elastic Beanstalk
 
-Sign in to the AWS Management Console, and then open the Elastic Beanstalk console. An application is the top-level container in Elastic Beanstalk that contains one or more application environments (for example prod, qa, and dev or prod-web, prod-worker, qa-web, qa-worker).
+Sign in to the AWS Management Console, and then open the AWS Elastic Beanstalk console. An application is the top-level container in Elastic Beanstalk that contains one or more application environments (for example prod, qa, and dev or prod-web, prod-worker, qa-web, qa-worker).
 
-If this is your first time accessing this service, you will see a **Welcome to AWS Elastic Beanstalk** page. Otherwise, you’ll land on the Elastic Beanstalk dashboard, which lists all of your applications.
+If this is your first time accessing this service, you will see a **Welcome to AWS Elastic Beanstalk** page. Otherwise, you’ll land on the AWS Elastic Beanstalk dashboard, which lists all of your applications.
 
 ![AWS Tracking Application](images/SpringBean.png)
 
-#### To deploy the AWS Tracker application to Elastic Beanstalk
+#### To deploy the AWS Tracker application to AWS Elastic Beanstalk
 
-1. Open the Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home.
+1. Open the AWS Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home.
 2. In the navigation pane, choose  **Applications**, and then choose **Create a new application**. This opens a wizard that creates your application and launches an appropriate environment.
 3. On the **Create New Application** page, enter the following values:
    + **Application Name** - AWS Tracker
@@ -2601,7 +2601,7 @@ To access the application, open your browser and enter the URL for your applicat
 ![AWS Blog Application](images/AWT11.png)
 
 ### Next steps
-Congratulations, you have created and deployed a secure Spring Boot application that interacts with AWS services. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
+Congratulations, you have created and deployed a Spring Boot application that interacts with Amazon RDS (and other AWS services). As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
 
 For more AWS multiservice examples,
 [usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).
