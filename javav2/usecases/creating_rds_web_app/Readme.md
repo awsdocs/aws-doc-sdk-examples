@@ -53,7 +53,7 @@ The AWS Tracker application uses a model that is based on a work item and contai
 + **status** - The status of the item.
 + **archive** - Whether this item is completed or is still being worked on.
 
-**Note** - The username is the user who logs into this application. In this example, the username is named **user**. 
+**Note**: The username is the user who logs into this application. In this example, the username is named **user**. 
 
 The following figure shows the login page.
 
