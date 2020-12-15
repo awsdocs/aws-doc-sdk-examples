@@ -16,42 +16,36 @@ namespace ListBucketsTest
 {
     public class ListBucketsTest
     {
-        private ListBucketsResponse _response = new ListBucketsResponse {
-            Buckets = new List<S3Bucket> {
-                new S3Bucket {
-                    BucketName = "doc-example-bucket1",
-                    CreationDate = new DateTime (2020,9,2,9,15,59)
-                },
-                new S3Bucket {
-                    BucketName = "doc-example-bucket2",
-                    CreationDate = new DateTime (2020, 11, 23, 6, 13, 0)
-                }
-            },
-            HttpStatusCode = HttpStatusCode.OK
-        };
+        private string _BucketName;
 
         private IAmazonS3 CreateMockS3Client()
         {
             var mockS3Client = new Mock<IAmazonS3>();
-            mockS3Client.Setup(client => client.ListBucketsAsync())
+            mockS3Client.Setup(client => client.ListBucketsAsync(
+                It.IsAny<CancellationToken>()
+            )).Returns((CancellationToken token) =>
             {
-                return _response;
+                return Task.FromResult(new ListBucketsResponse()
+                {
+                    HttpStatusCode = System.Net.HttpStatusCode.OK
+                });
             });
 
             return mockS3Client.Object;
         }
 
         [Fact]
-        public void CheckListBuckets()
+        public async Task ListBucketsAsyncTest()
         {
             IAmazonS3 client = CreateMockS3Client();
-            var response = client.ListBucketsAsync();
 
-            bool gotResult = response.Result != null;
-            Assert.True(gotResult, "List buckets failed.");
+            var response = await client.ListBucketsAsync();
 
-            bool ok = response.Result.HttpStatusCode == HttpStatusCode.OK;
-            Assert.True(ok, "Could NOT list buckets.");
+            bool gotResult = response != null;
+            Assert.True(gotResult, "List bucket objects failed.");
+
+            bool ok = response.HttpStatusCode == HttpStatusCode.OK;
+            Assert.True(ok, $"Could NOT list objects in bucket: {_BucketName}.");
 
         }
     }
