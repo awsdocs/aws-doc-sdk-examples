@@ -1,25 +1,14 @@
 // snippet-sourcedescription:[DeleteCollection.java demonstrates how to delete an Amazon Rekognition collection.]
+//snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
-// snippet-keyword:[Java]
-// snippet-keyword:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[6-10-2020]
+// snippet-sourcedate:[11-03-2020]
 // snippet-sourceauthor:[scmacdon - AWS]
-
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.rekognition;
 
@@ -36,19 +25,18 @@ public class DeleteCollection {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "DeleteCollection - deletes a collection\n\n" +
-                "Usage: DeleteCollection <collectionName> \n\n" +
+                "Usage: " +
+                "DeleteCollection <collectionId> \n\n" +
                 "Where:\n" +
-                "  collectionName - the name of the collection \n\n";
+                "  collectionId - the id of the collection to delete. \n\n";
 
-        if (args.length < 1) {
+        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
         String collectionId = args[0];
-
-        Region region = Region.US_EAST_2;
+        Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
                 .build();
@@ -57,6 +45,7 @@ public class DeleteCollection {
                 collectionId);
 
         deleteMyCollection(rekClient, collectionId);
+        rekClient.close();
     }
 
     // snippet-start:[rekognition.java2.delete_collection.main]
@@ -64,7 +53,6 @@ public class DeleteCollection {
 
     try {
 
-        // Create a DeleteCollectionRequest object
         DeleteCollectionRequest deleteCollectionRequest = DeleteCollectionRequest.builder()
                 .collectionId(collectionId)
                 .build();
@@ -76,7 +64,7 @@ public class DeleteCollection {
         System.out.println(e.getMessage());
         System.exit(1);
     }
-        // snippet-end:[rekognition.java2.delete_collection.main]
-   }
+  }
+    // snippet-end:[rekognition.java2.delete_collection.main]
  }
 

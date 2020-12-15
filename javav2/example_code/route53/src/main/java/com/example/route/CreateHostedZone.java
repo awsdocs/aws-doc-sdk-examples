@@ -1,27 +1,16 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[CreateHostedZone.java demonstrates how to create a new hosted zone.]
+// snippet-sourcedescription:[CreateHostedZone.java demonstrates how to create a hosted zone.]
+//snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Route 53]
-// snippet-keyword:[Java]
-// snippet-keyword:[Amazon Route 53]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2020-09-28]
 // snippet-sourceauthor:[AWS - scmacdon]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.route;
 
@@ -37,26 +26,26 @@ public class CreateHostedZone {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "To run this example, supply the fully qualified domain nName.  \n" +
-                "\n" +
-                "Example: CreateHostedZone <domainName>\n";
+       final String USAGE = "\n" +
+                "Usage:\n" +
+                "    CreateHostedZone <domainName> \n\n" +
+                "Where:\n" +
+                "    domainName - the fully qualified domain name. \n";
 
-        if (args.length < 1) {
+        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        /* Read the name from command args*/
         String domainName = args[0];
-
         Region region = Region.AWS_GLOBAL;
         Route53Client route53Client = Route53Client.builder()
                 .region(region)
                 .build();
 
         String zoneId = createZone(route53Client, domainName);
-        System.out.println("The hosted zone ID is "+zoneId);
+        System.out.println("The hosted zone id is "+zoneId);
+        route53Client.close();
     }
 
     // snippet-start:[route53.java2.create_hosted_zone.main]
@@ -64,7 +53,7 @@ public class CreateHostedZone {
 
         try {
 
-           // You must use a unique CallerReference string each time you submit a CreateHostedZone request
+           // You must use a unique CallerReference string every time you submit a CreateHostedZone request
           String callerReference = java.util.UUID.randomUUID().toString();
 
             CreateHostedZoneRequest zoneRequest = CreateHostedZoneRequest.builder()
@@ -72,7 +61,7 @@ public class CreateHostedZone {
                     .name(domainName)
                     .build();
 
-            // Create the hosted zone
+            // Create the Hosted Zone
             CreateHostedZoneResponse zoneResponse = route53Client.createHostedZone(zoneRequest);
             return zoneResponse.hostedZone().id();
 
@@ -84,3 +73,4 @@ public class CreateHostedZone {
     }
     // snippet-end:[route53.java2.create_hosted_zone.main]
 }
+

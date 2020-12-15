@@ -1,30 +1,24 @@
 //snippet-sourcedescription:[ActivityWorkerWithGracefulShutdown.java demonstrates how to implement an activity worker with a graceful shutdown.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[AWS SDK for Java v2]
+//snippet-service:[Amazon Simple Workflow Service (Amazon SWF)]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Simple Workflow Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[8/4/2020]
+//snippet-sourcedate:[11/06/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.*
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 // snippet-start:[swf.java2.poll_tasks.complete]
 package com.example.helloswf;
 
 // snippet-start:[swf.java2.poll_tasks.import]
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.swf.SwfClient;
 import software.amazon.awssdk.services.swf.model.PollForActivityTaskRequest;
 import software.amazon.awssdk.services.swf.model.PollForActivityTaskResponse;
@@ -45,8 +39,8 @@ public class ActivityWorkerWithGracefulShutdown {
                 "Usage:\n" +
                 "    ActivityWorkerWithGracefulShutdown <domain><taskList> \n\n" +
                 "Where:\n" +
-                "    domain - The domain to use (i.e., mydomain) \n" +
-                "    taskList - The taskList to use (i.e., HelloTasklist)  \n" ;
+                "    domain - The domain to use (ie, mydomain). \n" +
+                "    taskList - The taskList to use (ie, HelloTasklist).  \n" ;
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -56,7 +50,10 @@ public class ActivityWorkerWithGracefulShutdown {
         String domain = args[0];
         String taskList = args[1];
 
-        SwfClient swf = SwfClient.builder().build();
+        Region region = Region.US_EAST_1;
+        SwfClient swf = SwfClient.builder()
+                .region(region)
+                .build();
 
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
@@ -73,6 +70,7 @@ public class ActivityWorkerWithGracefulShutdown {
         });
         try {
             pollAndExecute(swf, domain, taskList);
+            swf.close();
         } finally {
             waitForTermination.countDown();
         }
@@ -80,7 +78,7 @@ public class ActivityWorkerWithGracefulShutdown {
 
     public static void pollAndExecute(SwfClient swf, String domain, String taskList ) {
         while (!terminate) {
-            System.out.println("Polling for an activity task from the task list '"
+            System.out.println("Polling for an activity task from the tasklist '"
                     + taskList + "' in the domain '" +
                     domain + "'.");
 

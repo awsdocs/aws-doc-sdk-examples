@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-iam/commands/ListAccountAliasesCommand", () => ({
 }));
 const { params, run } = require("../../iam/src/iam_listaccountaliases.js");
 
-//test function
 test("has to mock iam#listaccountaliases", async (done) => {
   await run();
   expect(mockListAccountAliases).toHaveBeenCalled;

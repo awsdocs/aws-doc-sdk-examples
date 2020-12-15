@@ -1,24 +1,15 @@
-//snippet-sourcedescription:[CreateAccessKey.java demonstrates how to create an access key for an IAM user.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[CreateAccessKey.java demonstrates how to create an access key for an AWS Identity and Access Management (IAM) user.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-service:[AWS IAM]
+//snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/02/2020]
+//snippet-sourcedate:[11/02/2020]
 //snippet-sourceauthor:[scmacdon-aws]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 package com.example.iam;
 
 // snippet-start:[iam.java2.create_access_key.import]
@@ -30,15 +21,17 @@ import software.amazon.awssdk.services.iam.model.IamException;
 // snippet-end:[iam.java2.create_access_key.import]
 
 /**
- * Creates an access key for an IAM user
+ * Creates an access key for an IAM user.
  */
 public class CreateAccessKey {
 
     public static void main(String[] args) {
 
-        final String USAGE =
-                "To run this example, supply an IAM user that you can obtain from the AWS Console\n" +
-                        "Ex: CreateAccessKey <user>\n";
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                " CreateAccessKey <user> \n\n" +
+                "Where:\n" +
+                " user - an AWS IAM user that you can obtain from the AWS Management Console.\n\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -46,7 +39,6 @@ public class CreateAccessKey {
         }
 
         String user = args[0];
-
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient
                 .builder()
@@ -55,6 +47,7 @@ public class CreateAccessKey {
 
         String keyId = createIAMAccessKey(iam, user);
         System.out.println("The Key Id is " +keyId);
+        iam.close();
     }
 
     // snippet-start:[iam.java2.create_access_key.main]

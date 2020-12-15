@@ -1,25 +1,15 @@
 //snippet-sourcedescription:[DescribeCampaign.java demonstrates how to describe an Amazon Personalize campaign.]
-//snippet-keyword:[Java]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Personalize]
 //snippet-service:[Amazon Personalize]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[8/21/2020]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[11/05/2020]
+//snippet-sourceauthor:[scmacdon - AWS]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.personalize;
 
@@ -40,7 +30,7 @@ public class DescribeCampaign {
                 "Usage:\n" +
                 "    DescribeCampaign <campaignArn>\n\n" +
                 "Where:\n" +
-                "    campaignArn - The Amazon Resource Name (ARN) of the campaign.\n\n" ;
+                "    campaignArn - The ARN of the campaign.\n\n" ;
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -56,6 +46,7 @@ public class DescribeCampaign {
                 .build();
 
         describeSpecificCampaign(personalizeClient, campaignArn);
+        personalizeClient.close();
     }
 
     //snippet-start:[personalize.java2.describe_campaign.main]
@@ -68,8 +59,8 @@ public class DescribeCampaign {
 
         DescribeCampaignResponse campaignResponse = personalizeClient.describeCampaign(campaignRequest);
         Campaign myCampaign = campaignResponse.campaign();
-        System.out.println("The campaign name is "+myCampaign.name());
-        System.out.println("The campaign status is "+myCampaign.status());
+        System.out.println("The Campaign name is "+myCampaign.name());
+        System.out.println("The Campaign status is "+myCampaign.status());
 
     } catch (PersonalizeException e) {
         System.err.println(e.awsErrorDetails().errorMessage());

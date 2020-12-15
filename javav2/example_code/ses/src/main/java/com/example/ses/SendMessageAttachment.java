@@ -1,27 +1,16 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[SendMessageAttachment.java demonstrates how to send an email message with an attachment by using a SesClient object]
-// snippet-service:[ses]
-// snippet-keyword:[Java]
+// snippet-sourcedescription:[SendMessageAttachment.java demonstrates how to send an email message with an attachment by using the Amazon Simple Email Service (Amazon SES).]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-keyword:[Amazon Simple Email Service]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-10-02]
+// snippet-sourcedate:[11/06/2020]
 // snippet-sourceauthor:[AWS-scmacdon]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 // snippet-start:[ses.java2.sendmessageattachment.complete]
 package com.example.ses;
@@ -59,14 +48,14 @@ public class SendMessageAttachment {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    SendMessage <sender><recipient><subject> \n\n" +
+                "    SendMessage <sender> <recipient> <subject> <fileLocation> \n\n" +
                 "Where:\n" +
-                "    sender - an email address that represents the sender \n"+
-                "    recipient -  an email address that represents the recipient \n"+
-                "    subject - the  subject line \n" +
-                "    fileLocation - the location of an Excel file to use as an attachment \n" ;
+                "    sender - an email address that represents the sender. \n"+
+                "    recipient -  an email address that represents the recipient. \n"+
+                "    subject - the  subject line. \n" +
+                "    fileLocation - the location of a Microsoft Excel file to use as an attachment (C:/AWS/customers.xls). \n" ;
 
-        if (args.length < 4) {
+        if (args.length != 4) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -92,7 +81,9 @@ public class SendMessageAttachment {
                 .build();
 
         try {
-            sendemailAttachment(client, sender,recipient, subject,bodyText,bodyHTML,fileLocation );
+            sendemailAttachment(client, sender, recipient, subject, bodyText, bodyHTML, fileLocation );
+            client.close();
+            System.out.println("Done");
 
         } catch (IOException | MessagingException e) {
             e.getStackTrace();
@@ -113,42 +104,42 @@ public class SendMessageAttachment {
 
        Session session = Session.getDefaultInstance(new Properties());
 
-        // Create a new MimeMessage object.
+        // Create a new MimeMessage object
         MimeMessage message = new MimeMessage(session);
 
-        // Add subject, from and to lines.
+        // Add subject, from and to lines
         message.setSubject(subject, "UTF-8");
         message.setFrom(new InternetAddress(sender));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
 
-        // Create a multipart/alternative child container.
+        // Create a multipart/alternative child container
         MimeMultipart msgBody = new MimeMultipart("alternative");
 
-        // Create a wrapper for the HTML and text parts.
+        // Create a wrapper for the HTML and text parts
         MimeBodyPart wrap = new MimeBodyPart();
 
-        // Define the text part.
+        // Define the text part
         MimeBodyPart textPart = new MimeBodyPart();
         textPart.setContent(bodyText, "text/plain; charset=UTF-8");
 
-        // Define the HTML part.
+        // Define the HTML part
         MimeBodyPart htmlPart = new MimeBodyPart();
         htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
 
-        // Add the text and HTML parts to the child container.
+        // Add the text and HTML parts to the child container
         msgBody.addBodyPart(textPart);
         msgBody.addBodyPart(htmlPart);
 
-        // Add the child container to the wrapper object.
+        // Add the child container to the wrapper object
         wrap.setContent(msgBody);
 
-        // Create a multipart/mixed parent container.
+        // Create a multipart/mixed parent container
         MimeMultipart msg = new MimeMultipart("mixed");
 
-        // Add the parent container to the message.
+        // Add the parent container to the message
         message.setContent(msg);
 
-        // Add the multipart/alternative part to the message.
+        // Add the multipart/alternative part to the message
         msg.addBodyPart(wrap);
 
         // Define the attachment

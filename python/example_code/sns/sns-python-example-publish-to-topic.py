@@ -27,7 +27,7 @@ print(response)
   
 # snippet-end:[sns.python.publish_to_topic.complete]
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourcedescription:[sns-python-example-publich-to-topic.py demonstrates how to publish a message to an AWS SNS topic.]
+# snippet-sourcedescription:[sns-python-example-publish-to-topic.py demonstrates how to publish a message to an AWS SNS topic.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
 # snippet-sourcesyntax:[python]

@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-ses/commands/UpdateTemplateCommand", () => ({
 }));
 const { run } = require("../../ses/src/ses_updatetemplate.js");
 
-//test function
 test("has to mock SES#updatetemplate", async (done) => {
   await run();
   expect(mockUpdateTemplate).toHaveBeenCalled;

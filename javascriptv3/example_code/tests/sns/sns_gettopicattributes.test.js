@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-sns/commands/GetTopicAttributesCommand", () => ({
 }));
 const { run } = require("../../sns/src/sns_gettopicattributes.js");
 
-//test function
 test("has to mock SNS#gettopicattributes", async (done) => {
   await run();
   expect(mockGetTopicAttributes).toHaveBeenCalled;

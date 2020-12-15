@@ -1,25 +1,16 @@
 // snippet-sourcedescription:[DetectDocumentText.java demonstrates how to detect text in the input document that is retrieved from an Amazon S3 bucket.]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Textract]
-// snippet-keyword:[Java]
-// snippet-keyword:[Amazon Textract]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[7-8-2020]
+// snippet-sourcedate:[11/06/2020]
 // snippet-sourceauthor:[scmacdon - AWS]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 
 package com.example.textract;
 
@@ -45,10 +36,10 @@ public class DetectDocumentTextS3 {
                 "Usage:\n" +
                 "    DetectDocumentTextS3 <bucketName> <docName> \n\n" +
                 "Where:\n" +
-                "    bucketName - The name of the Amazon S3 bucket that contains the document \n\n" +
-                "    docName - The document name (must be an image, i.e., book.png) \n";
+                "    bucketName - The name of the Amazon S3 bucket that contains the document. \n\n" +
+                "    docName - The document name (must be an image, i.e., book.png). \n";
 
-        if (args.length < 2) {
+        if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -62,7 +53,7 @@ public class DetectDocumentTextS3 {
                 .build();
 
         detectDocTextS3(textractClient, bucketName, docName);
-
+        textractClient.close();
     }
 
     // snippet-start:[textract.java2._detect_s3_text.main]

@@ -5,6 +5,8 @@ The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aw
 
 The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examples.html) contains these examples.
 
+The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon DynamoDB client module.
+
 Amazon DynamoDB is a key-value and document database that delivers single-digit millisecond performance at any scale. It's a fully managed, multiregion, multimaster, durable database with built-in security, backup and restore, and in-memory caching for internet-scale applications. 
 
 **NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
@@ -17,8 +19,8 @@ instructions.
 
 2. Install the dependencies listed in the package.json.
 
-**Note**: These include the client module for the AWS services required in these example, 
-which is *@aws-sdk/client-dynamodb*.
+**Note**: These include the client modules for the AWS services required in these example, 
+which are *@aws-sdk/client-dynamodb*, *@aws-sdk/util-dynamodb*.
 ```
 npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/dynamodb

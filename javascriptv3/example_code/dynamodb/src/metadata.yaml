@@ -34,6 +34,21 @@ files:
   - path: ddb_scan.ts
     services:
       - dynamodb
+  - path: ddbdoc_delete_item.ts
+    services:
+      - dynamodb
+  - path: ddbdoc_get_item.ts
+    services:
+      - dynamodb
+  - path: ddbdoc_put_item.ts
+    services:
+      - dynamodb
+  - path: ddbdoc_update_item.ts
+    services:
+      - dynamodb
+  - path: ddbdoc_query_item.ts
+    services:
+      - dynamodb
   - path: QueryExample/ddb_batchwriteitem_tv.ts
     services:
       - dynamodb

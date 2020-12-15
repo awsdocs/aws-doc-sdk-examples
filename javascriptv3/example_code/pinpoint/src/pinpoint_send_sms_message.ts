@@ -86,7 +86,7 @@ var params = {
 };
 
 //Create a new Pinpoint client object.
-const pinpointClient = new PinpointClient(REGION);
+const pinpointClient = new PinpointClient({ region: REGION });
 
 const run = async () => {
   try {

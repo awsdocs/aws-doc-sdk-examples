@@ -1,22 +1,15 @@
 //snippet-sourcedescription:[PutBatchRecords.java demonstrates how to write multiple data records into a delivery stream.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kinesis Data Firehose]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[7/6/2020]
+//snippet-sourcedate:[11/04/2020]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
-
 
 package com.example.firehose;
 
@@ -41,21 +34,21 @@ public class PutBatchRecords {
                 "Usage:\n" +
                 "    PutBatchRecords <streamName> \n\n" +
                 "Where:\n" +
-                "    streamName - The delivery stream name \n" ;
+                "    streamName - the data stream name \n" ;
 
-        if (args.length < 1) {
+        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
         String streamName = args[0];
-
         Region region = Region.US_WEST_2;
         FirehoseClient firehoseClient = FirehoseClient.builder()
                 .region(region)
                 .build();
 
         addStockTradeData(firehoseClient, streamName);
+        firehoseClient.close();
     }
 
     // snippet-start:[firehose.java2.put_batch_records.main]

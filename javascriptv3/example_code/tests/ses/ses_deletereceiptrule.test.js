@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-ses/commands/DeleteReceiptRuleCommand", () => ({
 }));
 const { run } = require("../../ses/src/ses_deletereceiptrule.js");
 
-//test function
 test("has to mock SES#deletereceiptrule", async (done) => {
   await run();
   expect(mockDeleteReceiptFilterRule).toHaveBeenCalled;

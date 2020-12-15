@@ -1,29 +1,15 @@
 // snippet-sourcedescription:[StreamingRetryApp.java is an application that demonstrates using the Amazon Transcribe retry client.]
-// snippet-service:[transcribe]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon Transcribe]
+// snippet-keyword:[AWS SDK for Java v2]
+//snippet-keyword:[Amazon Transcribe]
 // snippet-keyword:[Code Sample]
-// snippet-keyword:[TranscribeStreamingAsyncClient]
-// snippet-keyword:[StartStreamTranscriptionResponse]
-// snippet-sourcetype:[snippet]
-// snippet-sourcedate:[2019-01-10]
-// snippet-sourceauthor:[AWS]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[11/06/2020]
+// snippet-sourceauthor:[scmacdon - AWS]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 package com.amazonaws.transcribestreaming;
 
 import org.reactivestreams.Publisher;
@@ -81,12 +67,12 @@ public class StreamingRetryApp {
                 new AudioStreamPublisher(
                         new FileInputStream(new File("FileName"))),
                 /**
-                 * Object that defines the behavior on how to handle the stream.
+                 * Object that defines the behavior on how to handle the stream
                  */
                 new StreamTranscriptionBehaviorImpl());
 
         /**
-         * Synchronous wait for stream to close, and close client connection.
+         * Synchronous wait for stream to close, and close client connection
          */
         result.get();
         client.close();

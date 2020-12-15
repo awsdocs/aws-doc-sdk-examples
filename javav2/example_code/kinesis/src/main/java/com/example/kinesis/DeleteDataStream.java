@@ -1,27 +1,14 @@
 //snippet-sourcedescription:[DeleteDataStream.java demonstrates how to delete an Amazon Kinesis data stream.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Kinesis]
-//snippet-service:[kinesis]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[3/26/2020]
+//snippet-sourcedate:[11/04/2020]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.kinesis;
 
@@ -40,30 +27,30 @@ public class DeleteDataStream {
                 "Usage:\n" +
                 "    DeleteDataStream <streamName>\n\n" +
                 "Where:\n" +
-                "    streamName - The Kinesis data stream (i.e., StockTradeStream)\n\n" +
+                "    streamName - The Amazon Kinesis data stream (for example, StockTradeStream)\n\n" +
                 "Example:\n" +
                 "    DeleteDataStream StockTradeStream\n";
 
-        if (args.length < 1) {
+        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
         String streamName = args[0];
-
         Region region = Region.US_EAST_1;
         KinesisClient kinesisClient = KinesisClient.builder()
                 .region(region)
                 .build();
 
         deleteStream(kinesisClient, streamName);
+        kinesisClient.close();
+        System.out.println("Done");
     }
 
     // snippet-start:[kinesis.java2.delete.main]
     public static void deleteStream(KinesisClient kinesisClient, String streamName) {
 
            try {
-
                 DeleteStreamRequest delStream = DeleteStreamRequest.builder()
                         .streamName(streamName)
                         .build();
@@ -74,7 +61,6 @@ public class DeleteDataStream {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        System.out.println("Done");
     }
     // snippet-end:[kinesis.java2.delete.main]
 }

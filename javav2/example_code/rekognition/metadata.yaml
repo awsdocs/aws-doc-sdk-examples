@@ -15,6 +15,12 @@ files:
  - path: src/main/java/com/example/rekognition/DeleteCollection.java
    services:
      - rekognition
+ - path: src/main/java/com/example/rekognition/DeleteFacesFromCollection.java
+   services:
+     - rekognition
+ - path: src/main/java/com/example/rekognition/DescribeCollection.java
+   services:
+     - rekognition
  - path: src/main/java/com/example/rekognition/DetectFaces.java
    services:
      - rekognition
@@ -24,19 +30,58 @@ files:
  - path: src/main/java/com/example/rekognition/DetectModerationLabels.java
    services:
      - rekognition
+ - path: src/main/java/com/example/rekognition/DetectPPE.java
+   services:
+     - rekognition
+ - path: src/main/java/com/example/rekognition/DetectText.java
+   services:
+     - rekognition
+ - path: src/main/java/com/example/rekognition/DisplayFacesFrame.java
+   services:
+     - rekognition
  - path: src/main/java/com/example/rekognition/ListCollections.java
    services:
      - rekognition
  - path: src/main/java/com/example/rekognition/ListFacesInCollection.java
    services:
      - rekognition
+ - path: src/main/java/com/example/rekognition/PPEBoundingBoxFrame.java
+   services:
+     - rekognition
  - path: src/main/java/com/example/rekognition/RecognizeCelebrities.java
    services:
      - rekognition
+ - path: src/main/java/com/example/rekognition/RotateImage.java
+   services:
+     - rekognition
+ - path: src/main/java/com/example/rekognition/SearchFaceMatchingIdCollection.java
+   services:
+     - rekognition 
  - path: src/main/java/com/example/rekognition/SearchFaceMatchingImageCollection.java
    services:
      - rekognition      
- - path: src/test/java/RekognitionServiceIntegrationTest.java
+ - path: src/main/java/com/example/rekognition/VideoCelebrityDetection.java
+   services:
+     - rekognition 
+ - path: src/main/java/com/example/rekognition/VideoDetect.java
+   services:
+     - rekognition 
+ - path: src/main/java/com/example/rekognition/VideoDetectFaces.java
+   services:
+     - rekognition 
+ - path: src/main/java/com/example/rekognition/VideoDetectInappropriate.java
+   services:
+     - rekognition 
+ - path: src/main/java/com/example/rekognition/VideoDetectSegment.java
+   services:
+     - rekognition 
+ - path: src/main/java/com/example/rekognition/VideoDetectText.java
+   services:
+     - rekognition 
+ - path: src/main/java/com/example/rekognition/VideoPersonDetection.java
+   services:
+     - rekognition 
+ - path: src/test/java/RekognitionTest.java
    services:
      - rekognition
- 
+
