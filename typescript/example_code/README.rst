@@ -1,7 +1,7 @@
 ###############################
-TypeScript AWS SDK examples
+TypeScript code examples
 ###############################
-This repo contains TypeScript code examples for the following AWS Services:
+This repo contains TypeScript code examples for the following:
 
 - AWS Cloud Development Kit
 - Amazon CodePipeline
