@@ -1,6 +1,8 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
+
 // snippet-start:[S3.dotnet35.ListBuckets]
+
 using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
