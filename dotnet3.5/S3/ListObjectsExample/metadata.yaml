@@ -3,17 +3,8 @@
 # within this repository.
 ---
 files:
-  - path: ListObjectsExample.sln
-    services: 
-    - s3
-  - path: ListObjects/ListObjects.csproj
-    services:
-    - s3
   - path: ListObjects/ListObjects.cs
     services: 
-    - s3
-  - path: ListObjectsTest/ListObjectsTest.csproj
-    services:
     - s3
   - path: ListObjectsTest/ListObjectsTest.cs
     services: 
