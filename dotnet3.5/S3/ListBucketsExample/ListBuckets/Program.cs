@@ -49,3 +49,4 @@ namespace ListBuckets
         }
     }
 }
+// snippet-end:[S3.dotnet35.ListBuckets]
