@@ -1,19 +1,13 @@
-//snippet-sourcedescription:[ArchiveDownload.java demonstrates how to create a job start to retrieve inventory for an Amazon Glacier vault.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[ArchiveDownload.java demonstrates how to create a job start to retrieve inventory for an Amazon Simple Storage Service Glacier (Amazon S3 Glacier) vault.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Glacier]
+//snippet-service:[Amazon S3 Glacier]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/17/2020]
+//snippet-sourcedate:[11/04/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.glacier;
@@ -35,10 +29,10 @@ public class ArchiveDownload {
                 "ArchiveDownload - start a job to retrieve vault inventory\n\n" +
                 "Usage: ArchiveDownload <vaultName> <accountId>\n\n" +
                 "Where:\n" +
-                "  vaultName - the name of the vault\n" +
-                "  accountId - the account ID\n\n";
+                "  vaultName - the name of the vault.\n" +
+                "  accountId - the account ID value.\n\n";
 
-        if (args.length < 2) {
+        if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -46,12 +40,12 @@ public class ArchiveDownload {
         String vaultName = args[0];
         String accountId = args[1];
 
-        // Create a GlacierClient object
-        GlacierClient glacier = GlacierClient.builder()
+         GlacierClient glacier = GlacierClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
         createJob(glacier, vaultName, accountId) ;
+        glacier.close();
     }
 
     // snippet-start:[glacier.java2.download.main]

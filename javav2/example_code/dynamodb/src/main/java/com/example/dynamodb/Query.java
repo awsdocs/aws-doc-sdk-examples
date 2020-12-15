@@ -1,20 +1,14 @@
 //snippet-sourcedescription:[Query.java demonstrates how to query an Amazon DynamoDB table.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Dynamodb]
+//snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/5/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[10/30/2020]
+//snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 
  package com.example.dynamodb;
@@ -28,27 +22,19 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.regions.Region;
 // snippet-end:[dynamodb.java2.query.import]
 
-/**
- * Query an Amazon DynamoDB table
- *
- *
- * This code expects that you have AWS credentials set up, as described here:
- * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
- */
 public class Query {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    Query <table> <partitionkey> <partitionkeyvalue>\n\n" +
+                "    Query <tableName> <partitionKeyName> <partitionKeyVal>\n\n" +
                 "Where:\n" +
-                "    table - the table to put the item in (i.e., Music3)\n" +
-                "    partitionkey - the partition key name of the table (i.e., Artist)\n" +
-                "    partitionkeyvalue - the value of the partition key that should match (i.e., Famous Band)\n\n" +
-                "Example:\n" +
-                "    Query Music3 Artist Famous Band \n";
+                "    tableName - the Amazon DynamoDB table to put the item in (for example, Music3).\n" +
+                "    partitionKeyName - the partition key name of the Amazon DynamoDB table (for example, Artist).\n" +
+                "    partitionKeyVal - value of the partition key that should match (for example, Famous Band).\n\n" +
+                "Example:\n" ;
 
-        if (args.length < 3) {
+        if (args.length != 3) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -68,6 +54,7 @@ public class Query {
 
         int count = queryTable(ddb, tableName, partitionKeyName, partitionKeyVal,partitionAlias ) ;
         System.out.println("There were "+count + "record(s) returned");
+        ddb.close();
     }
 
     // snippet-start:[dynamodb.java2.query.main]
@@ -87,7 +74,6 @@ public class Query {
                 new HashMap<String,AttributeValue>();
         attrValues.put(":"+partitionKeyName, AttributeValue.builder().s(partitionKeyVal).build());
 
-        // Create a QueryRequest object
         QueryRequest queryReq = QueryRequest.builder()
                 .tableName(tableName)
                 .keyConditionExpression(partitionAlias + " = :" + partitionKeyName)

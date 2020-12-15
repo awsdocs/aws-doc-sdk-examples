@@ -1,26 +1,15 @@
-//snippet-sourcedescription:[Unsubscribe.java demonstrates how to remove an Amazon SNS subscription.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
+//snippet-sourcedescription:[Unsubscribe.java demonstrates how to remove an Amazon Simple Notification Service (Amazon SNS) subscription.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/6/2020]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[11/06/2020]
+//snippet-sourceauthor:[scmacdon- AWS]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.sns;
 
@@ -36,31 +25,31 @@ public class Unsubscribe {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "Unsubscribe - removes a subscription from a topic \n" +
-                "Usage: Unsubscribe <subscriptionToken>\n\n" +
+                "Usage: " +
+                "Unsubscribe <subscriptionArn>\n\n" +
                 "Where:\n" +
-                "  subscriptionToken - endpoint token from Subscribe action.\n\n";
+                "  subscriptionArn - the ARN of the subscription to delete.\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        String subscriptionToken = args[0];
-
+        String subscriptionArn = args[0];
         SnsClient snsClient = SnsClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
-        unSub(snsClient, subscriptionToken);
+        unSub(snsClient, subscriptionArn);
+        snsClient.close();
     }
 
     //snippet-start:[sns.java2.Unsubscribe.main]
-    public static void unSub(SnsClient snsClient, String subscriptionToken) {
+    public static void unSub(SnsClient snsClient, String subscriptionArn) {
 
         try {
             UnsubscribeRequest request = UnsubscribeRequest.builder()
-                .subscriptionArn(subscriptionToken)
+                .subscriptionArn(subscriptionArn)
                 .build();
 
             UnsubscribeResponse result = snsClient.unsubscribe(request);

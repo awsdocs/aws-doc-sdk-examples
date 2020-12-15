@@ -1,20 +1,14 @@
 //snippet-sourcedescription:[DescribeTextTranslationJob.java demonstrates how to describe a translation job.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Translate]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[7/20/2020]
+//snippet-sourcedate:[11/06/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.translate;
@@ -31,20 +25,26 @@ public class DescribeTextTranslationJob {
 
     public static void main(String[] args) {
 
-        if (args.length < 1) {
-            System.out.println("Specify a translation job ID value");
+
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    DescribeTextTranslationJob <id> \n\n" +
+                "Where:\n" +
+                "    id - a translation job ID value. You can obtain this value from the BatchTranslation example.\n";
+
+        if (args.length != 1) {
+            System.out.println(USAGE);
             System.exit(1);
         }
 
-        // Retrieve a translation job ID value - you can obtain this value from the BatchTranslation example
         String id = args[0];
-
         Region region = Region.US_WEST_2;
         TranslateClient translateClient = TranslateClient.builder()
                 .region(region)
                 .build();
 
         describeTextTranslationJob(translateClient, id);
+        translateClient.close();
     }
 
     // snippet-start:[translate.java2._describe_jobs.main]

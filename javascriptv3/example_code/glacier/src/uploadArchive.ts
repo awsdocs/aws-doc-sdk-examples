@@ -2,8 +2,7 @@
 SPDX-License-Identifier: Apache-2.0
 
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is pending release.  The preview version of the SDK is available
-at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
+which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/glacier-example-uploadarchive.html.
 
 Purpose:
@@ -32,7 +31,7 @@ const buffer = new Buffer.alloc(2.5 * 1024 * 1024); // 2.5MB buffer
 const params = { vaultName: vaultname, body: buffer };
 
 // Instantiate an S3 Glacier client
-const glacier = new GlacierClient(REGION);
+const glacier = new GlacierClient({ region: REGION });
 
 const run = async () => {
   try {

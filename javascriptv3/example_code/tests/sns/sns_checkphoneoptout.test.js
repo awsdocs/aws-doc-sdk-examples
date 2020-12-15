@@ -9,7 +9,6 @@ jest.mock(
 );
 const { run } = require("../../sns/src/sns_checkphoneoptout.js");
 
-//test function
 test("has to mock SNS#checkphoneoptout", async (done) => {
   await run();
   expect(mockCheckPhoneOptOut).toHaveBeenCalled;

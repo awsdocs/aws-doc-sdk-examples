@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-s3", () => ({
 }));
 const { deleteAlbum } = require("../../s3/photoExample/s3_PhotoExample");
 
-//test function
 test("has to mock S3#deleteAlbum", async (done) => {
     await deleteAlbum();
     expect(mockDeleteAlbum).toHaveBeenCalled;
@@ -20,7 +19,6 @@ jest.mock("@aws-sdk/client-s3/commands/ListObjectsCommand", () => ({
     },
 }));
 const { listAlbums } = require("../../s3/photoExample/s3_PhotoExample");
-//test function
 test("has to mock S3#listAlbums", async (done) => {
     await listAlbums();
     expect(mockListObjects).toHaveBeenCalled;
@@ -35,7 +33,6 @@ jest.mock("@aws-sdk/client-s3/commands/ListObjectsCommand", () => ({
 }));
 const { addPhoto } = require("../../s3/photoExample/s3_PhotoExample");
 
-//test function
 test("has to mock S3#addPhoto", async (done) => {
     await addPhoto();
     expect(mockAddPhoto).toHaveBeenCalled;
@@ -49,7 +46,6 @@ jest.mock("@aws-sdk/client-s3/commands/ListObjectsCommand", () => ({
     },
 }));
 const { viewAlbum } = require("../../s3/photoExample/s3_PhotoExample");
-//test function
 test("has to mock S3#viewAlbum", async (done) => {
     await viewAlbum();
     expect(mockViewAlbum).toHaveBeenCalled;
@@ -63,7 +59,6 @@ jest.mock("@aws-sdk/client-s3", () => ({
     },
 }));
 const { createAlbum } = require("../../s3/photoExample/s3_PhotoExample");
-//test function
 test("has to mock S3#createAlbum", async (done) => {
     await createAlbum();
     expect(mockCreateAlbum).toHaveBeenCalled;
@@ -79,7 +74,6 @@ jest.mock("@aws-sdk/client-s3", () => ({
 }));
 const { deletePhoto } = require("../../s3/photoExample/s3_PhotoExample");
 
-//test function
 test("has to mock S3#deletePhoto", async (done) => {
     await deletePhoto();
     expect(mockDeletePhoto).toHaveBeenCalled;

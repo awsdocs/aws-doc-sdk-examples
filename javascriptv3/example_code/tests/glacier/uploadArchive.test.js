@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-glacier/commands/UploadArchiveCommand", () => ({
 }));
 const { run } = require("../../glacier/src/uploadArchive");
 
-//test function
 test("has to mock glacier#uploadarchive", async (done) => {
     await run();
     expect(mockUploadArchive).toHaveBeenCalled;

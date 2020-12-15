@@ -1,24 +1,15 @@
-//snippet-sourcedescription:[EnableAlarmActions.java demonstrates how to enable actions on an Amazon CloudWatch alarm.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[EnableAlarmActions.java demonstrates how to enable actions on a CloudWatch alarm.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/02/2020]
-//snippet-sourceauthor:[scmacdon]
+//snippet-sourcedate:[11/02/2020]
+//snippet-sourceauthor:[scmacdon - aws]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.enable_alarm_actions.import]
@@ -29,16 +20,15 @@ import software.amazon.awssdk.services.cloudwatch.model.EnableAlarmActionsReques
 import software.amazon.awssdk.services.cloudwatch.model.EnableAlarmActionsResponse;
 // snippet-end:[cloudwatch.java2.enable_alarm_actions.import]
 
-/**
- * Enables actions on a CloudWatch alarm
- */
 public class EnableAlarmActions {
 
     public static void main(String[] args) {
 
-        final String USAGE =
-                "To run this example, supply an alarm name\n" +
-                        "Ex: EnableAlarmActions <alarm-name>\n";
+       final String USAGE = "\n" +
+                "Usage:\n" +
+                "  EnableAlarmActions <alarmName>\n\n" +
+                "Where:\n" +
+                "  alarmName - an alarm name to enable (for example, MyAlarm).\n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -46,13 +36,13 @@ public class EnableAlarmActions {
         }
 
         String alarm = args[0];
-
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
                 .region(region)
                 .build();
 
         enableActions(cw, alarm) ;
+        cw.close();
     }
 
     // snippet-start:[cloudwatch.java2.enable_alarm_actions.main]
@@ -62,7 +52,9 @@ public class EnableAlarmActions {
             EnableAlarmActionsRequest request = EnableAlarmActionsRequest.builder()
                 .alarmNames(alarm).build();
 
-            EnableAlarmActionsResponse response = cw.enableAlarmActions(request);
+           cw.enableAlarmActions(request);
+            System.out.printf(
+                    "Successfully enabled actions on alarm %s", alarm);
 
         } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -70,8 +62,6 @@ public class EnableAlarmActions {
         }
 
         // snippet-end:[cloudwatch.java2.enable_alarm_actions.main]
-        System.out.printf(
-                "Successfully enabled actions on alarm %s", alarm);
-    }
+   }
 }
 

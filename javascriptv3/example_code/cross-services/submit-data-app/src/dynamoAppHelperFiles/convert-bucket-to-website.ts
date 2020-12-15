@@ -2,8 +2,7 @@
 SPDX-License-Identifier: Apache-2.0
 
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is pending release.  The preview version of the SDK is available
-at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
+which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-dataupload.html.
 
 Purpose:
@@ -57,7 +56,7 @@ var bucketPolicyParams = {
 };
 
 // Instantiate an S3 client
-const s3 = new S3Client(REGION);
+const s3 = new S3Client({ region: REGION });
 
 const run = async () => {
   try {

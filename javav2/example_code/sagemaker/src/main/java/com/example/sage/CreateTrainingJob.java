@@ -1,25 +1,15 @@
 //snippet-sourcedescription:[CreateTrainingJob.java demonstrates how to start a model training job for Amazon SageMaker.]
-//snippet-keyword:[Java]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon SageMaker]
-//snippet-service:[SageMaker]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[8/18/2020]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[11/05/2020]
+//snippet-sourceauthor:[scmacdon - AWS]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.sage;
 
@@ -46,8 +36,8 @@ import java.util.Map;
 //snippet-end:[sagemaker.java2.train_job.import]
 
 /**
- *  To set up the model data and other requirements to make this AWS SDK for Java V2 example work, follow this AWS tutorial before running this Java code example:
- *  https://aws.amazon.com/getting-started/hands-on/build-train-deploy-machine-learning-model-sagemaker/.
+ *  To setup the model data and other requirements to make this Java V2 example work, follow this AWS tutorial prior to running this Java code example.
+ *  https://aws.amazon.com/getting-started/hands-on/build-train-deploy-machine-learning-model-sagemaker/
  */
 
 public class CreateTrainingJob {
@@ -56,22 +46,21 @@ public class CreateTrainingJob {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateTrainingJob <s3UriData><s3Uri><trainingJobName><roleArn><s3OutputPath><channelName><trainingImage>\n\n" +
+                "    CreateTrainingJob <s3UriData> <s3Uri> <trainingJobName> <roleArn> <s3OutputPath> <channelName> <trainingImage>\n\n" +
                 "Where:\n" +
-                "    s3UriData - The location of the training data (i.e, s3://trainbucket/train.csv).\n\n" +
-                "    s3Uri - The Amazon S3 path where you want Amazon SageMaker to store checkpoints (i.e., s3://trainbucket).\n\n" +
-                "    trainingJobName - The name of the training job. \n\n" +
-                "    roleArn  -  The Amazon Resource Name (ARN) of the IAM role that SageMaker uses.\n\n" +
-                "    s3OutputPath  - The output path located in an Amazon S3 bucket (i.e., s3://trainbucket/sagemaker).\n\n" +
-                "    channelName  - The channel name (i.e., s3://trainbucket/sagemaker).\n\n" +
-                "    trainingImage  - The training image (i.e.,  000007028032.bbb.zzz.us-west-2.amazonaws.com/xgboost:latest.\n\n";
+                "    s3UriData - the location of the training data (for example, s3://trainbucket/train.csv).\n\n" +
+                "    s3Uri - the Amazon S3 path where you want Amazon SageMaker to store checkpoints (for example, s3://trainbucket).\n\n" +
+                "    trainingJobName - the name of the training job. \n\n" +
+                "    roleArn - the Amazon Resource Name (ARN) of the IAM role that SageMaker uses.\n\n" +
+                "    s3OutputPath - the output path located in an Amazon S3 bucket (for example, s3://trainbucket/sagemaker).\n\n" +
+                "    channelName  - the channel name (for example, s3://trainbucket/sagemaker).\n\n" +
+                "    trainingImage  - the training image (for example, 000007028032.bbb.zzz.us-west-2.amazonaws.com/xgboost:latest.\n\n";
 
-       if (args.length < 7) {
+        if (args.length != 7) {
             System.out.println(USAGE);
             System.exit(1);
-       }
+         }
 
-        /* Read the name from command args */
         String s3UriData = args[0];
         String s3Uri = args[1];
         String trainingJobName = args[2];
@@ -86,6 +75,7 @@ public class CreateTrainingJob {
                 .build();
 
         trainJob(sageMakerClient, s3UriData, s3Uri, trainingJobName, roleArn, s3OutputPath, channelName, trainingImage);
+        sageMakerClient.close();
     }
 
     //snippet-start:[sagemaker.java2.train_job.main]

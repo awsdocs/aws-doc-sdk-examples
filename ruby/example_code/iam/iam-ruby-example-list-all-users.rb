@@ -1,51 +1,83 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Lists your IAM users and their groups, policies, and access keys.]
-# snippet-keyword:[AWS Identity and Access Management]
-# snippet-keyword:[list_access_keys method]
-# snippet-keyword:[list_groups_for_user method]
-# snippet-keyword:[list_user_policies method]
-# snippet-keyword:[list_users method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[iam]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
 
-require 'aws-sdk-iam'  # v2: require 'aws-sdk'
+require 'aws-sdk-iam'
 
-iam = Aws::IAM::Client.new(region: 'us-west-2')
+# Displays information about available users in
+# AWS Identity and Access Management (IAM) including users'
+# names, associated group names, inline embedded user policy names,
+# and access key IDs.
+#
+# @param iam_client [Aws::IAM::Client] An initialized IAM client.
+# @example
+#   get_user_details(Aws::IAM::Client.new)
+def get_user_details(iam_client)
+  users_response = iam_client.list_users
 
-iam.list_users.users.each do |user|
-  name = user.user_name
-  puts "For user #{name}"
-  puts "  In groups:"
-  
-  iam.list_groups_for_user({user_name: name}).groups.each do |group|
-    puts "    #{group.group_name}"
+  if users_response.key?('users') && users_response.users.count.positive?
+
+    # Are there more users available than can be displayed?
+    if users_response.key?('is_truncated') && users_response.is_truncated
+      puts '(Note: not all users are displayed here, ' \
+        "only the first #{users_response.users.count}.)"
+    else
+      puts "Found #{users_response.users.count} user(s):"
+    end
+
+    users_response.users.each do |user|
+      name = user.user_name
+      puts '-' * 30
+      puts "User name: #{name}"
+
+      puts "Groups:"
+      groups_response = iam_client.list_groups_for_user(user_name: name)
+      if groups_response.key?('groups') &&
+        groups_response.groups.count.positive?
+
+        groups_response.groups.each do |group|
+          puts "  #{group.group_name}"
+        end
+      else
+        puts '  None'
+      end
+
+      puts 'Inline embedded user policies:'
+      policies_response = iam_client.list_user_policies(user_name: name)
+      if policies_response.key?('policy_names') &&
+        policies_response.policy_names.count.positive?
+
+        policies_response.policy_names.each do |policy_name|
+          puts "  #{policy_name}"
+        end
+      else
+        puts '  None'
+      end
+
+      puts 'Access keys:'
+      access_keys_response = iam_client.list_access_keys(user_name: name)
+
+      if access_keys_response.key?('access_key_metadata') &&
+        access_keys_response.access_key_metadata.count.positive?
+
+        access_keys_response.access_key_metadata.each do |access_key|
+          puts "  #{access_key.access_key_id}"
+        end
+      else
+        puts '  None'
+      end
+    end
+  else
+    puts 'No users found.'
   end
-  
-  puts "  Policies:"
-  
-  iam.list_user_policies({user_name: name}).policy_names.each do |policy|
-    puts "    #{policy}"
-  end
-  
-  puts "  Access keys:"
-  
-  iam.list_access_keys({user_name: name}).access_key_metadata.each do |key|
-    puts "    #{key.access_key_id}"
-  end
+rescue StandardError => e
+  puts "Error getting user details: #{e.message}"
 end
+
+# Full example call:
+def run_me
+  iam_client = Aws::IAM::Client.new
+  puts 'Attempting to get details for available users...'
+  get_user_details(iam_client)
+end
+
+run_me if $PROGRAM_NAME == __FILE__

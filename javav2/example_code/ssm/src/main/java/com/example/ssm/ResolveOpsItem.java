@@ -1,27 +1,16 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[ResolveOpsItem.java demonstrates how to resolve an OpsItem.]
-// snippet-service:[ssm]
-// snippet-keyword:[Java]
-// snippet-keyword:[AWS Systems Manager]
+// snippet-sourcedescription:[ResolveOpsItem.java demonstrates how to resolve an OpsItem for Amazon Simple Systems Management (Amazon SSM).]
+//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[Amazon Simple Systems Management]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-09-10]
+// snippet-sourcedate:[11/06/2020]
 // snippet-sourceauthor:[AWS - scmacdon]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.ssm;
 
@@ -41,9 +30,9 @@ public class ResolveOpsItem {
                 "Usage:\n" +
                 "    ResolveOpsItem <opsID>\n\n" +
                 "Where:\n" +
-                "    opsID - The OpsItem ID value.\n";
+                "    opsID - the Ops item ID value.\n";
 
-        if (args.length < 1) {
+        if (args.length != 1) {
           System.out.println(USAGE);
           System.exit(1);
          }

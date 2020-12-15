@@ -1,20 +1,14 @@
 //snippet-sourcedescription:[CreateDeliveryStream.java demonstrates how to create a delivery stream.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kinesis Data Firehose]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[7/6/2020]
+//snippet-sourcedate:[11/04/2020]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.firehose;
@@ -36,11 +30,11 @@ public class CreateDeliveryStream {
                 "Usage:\n" +
                 "    CreateDeliveryStream <bucketARN> <roleARN> <streamName> \n\n" +
                 "Where:\n" +
-                "    bucketARN - The Amazon Resource Name (ARN) of the bucket where the delivery stream is written \n\n" +
-                "    roleARN - The ARN of the role that has the permissions that Amazon Kinesis Data Firehose needs \n" +
-                "    streamName - The delivery stream name \n";
+                "    bucketARN - the ARN of the Amazon S3 bucket where the data stream is written. \n\n" +
+                "    roleARN - the ARN of the IAM role that has the permissions that Kinesis Data Firehose needs. \n" +
+                "    streamName - the name of the delivery stream. \n";
 
-        if (args.length < 3) {
+        if (args.length != 3) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -55,6 +49,7 @@ public class CreateDeliveryStream {
                 .build();
 
         createStream(firehoseClient, bucketARN, roleARN, streamName) ;
+        firehoseClient.close();
     }
 
     // snippet-start:[firehose.java2.create_stream.main]
@@ -75,7 +70,7 @@ public class CreateDeliveryStream {
 
             CreateDeliveryStreamResponse streamResponse = firehoseClient.createDeliveryStream(deliveryStreamRequest);
 
-            System.out.println("Delivery stream ARN is "+streamResponse.deliveryStreamARN());
+            System.out.println("Delivery Stream ARN is "+streamResponse.deliveryStreamARN());
 
     } catch (FirehoseException e) {
         System.out.println(e.getLocalizedMessage());

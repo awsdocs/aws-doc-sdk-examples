@@ -10,7 +10,6 @@ const {
   run,
 } = require("../../lambda/tutorial/slotassets/s3-bucket-setup-non-modular");
 
-//test function
 test("has to mock s3#s3bucketsetupnonmod", async (done) => {
   await run();
   expect(mocksetUpBucketNonMod).toHaveBeenCalled;

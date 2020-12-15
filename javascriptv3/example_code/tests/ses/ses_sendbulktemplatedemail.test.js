@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-ses/commands/ListTemplatesCommand", () => ({
 }));
 const { run } = require("../../ses/src/ses_sendbulktemplatedemail.js");
 
-//test function
 test("has to mock SES#sendbulktemplatedemail", async (done) => {
   await run();
   expect(mockListTemplates).toHaveBeenCalled;

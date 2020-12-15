@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-iam/commands/GetPolicyCommand", () => ({
 }));
 const { params, run } = require("../../iam/src/iam_getpolicy.js");
 
-//test function
 test("has to mock iam#getpolicy", async (done) => {
   await run();
   expect(mockGetPolicy).toHaveBeenCalled;

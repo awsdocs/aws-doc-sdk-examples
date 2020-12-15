@@ -1,8 +1,7 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is pending release.  The preview version of the SDK is available
-at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
+which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-static-web-host.html.
 Purpose:
 s3_setbucketwebsite.ts applies a bucket website configuration to a selected bucket, and is part of an example
@@ -35,7 +34,7 @@ const staticHostParams = {
 };
 
 // Create S3 service object
-const s3 = new S3Client(REGION);
+const s3 = new S3Client({ region: REGION });
 
 const run = async () => {
   // Insert specified bucket name and index and error documents into params JSON

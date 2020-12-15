@@ -31,6 +31,7 @@ async function run() {
     ExposeHeaders: [],
     MaxAgeSeconds: 3000,
   };
+
   // Assemble the list of allowed methods based on command line parameters
   const allowedMethods = [];
   process.argv.forEach(function (val, index, array) {
@@ -67,7 +68,7 @@ async function run() {
   };
 
   // Create S3 service object
-  const s3 = new S3Client(REGION);
+  const s3 = new S3Client({ region: REGION });
 
   try {
     const data = await s3.send(new PutBucketCorsCommand(corsParams));

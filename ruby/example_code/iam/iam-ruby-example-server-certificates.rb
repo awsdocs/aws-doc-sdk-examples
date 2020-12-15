@@ -1,65 +1,153 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Updates a server certificate, deletes the server certificate, and lists information about the remaining server certificates.]
-# snippet-keyword:[AWS Identity and Access Management]
-# snippet-keyword:[delete_server_certificate method]
-# snippet-keyword:[get_server_certificate method]
-# snippet-keyword:[list_server_certificates method]
-# snippet-keyword:[update_server_certificate method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[iam]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
+
+# The following code example shows how to:
+# 1. Update a server certificate in AWS Identity and Access Management (IAM).
+# 2. List the names of available server certificates.
+# 3. Delete a server certificate.
+
+require 'aws-sdk-iam'
+
+# Gets a list of available server certificate names in
+# AWS Identity and Access Management (IAM).
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
+# @param iam_client [Aws::IAM::Client] An initialized IAM client.
+# @example
+#   list_server_certificate_names(Aws::IAM::Client.new)
+def list_server_certificate_names(iam_client)
+  response = iam_client.list_server_certificates
+
+  if response.key?('server_certificate_metadata_list') &&
+    response.server_certificate_metadata_list.count.positive?
+
+    response.server_certificate_metadata_list.each do |certificate_metadata|
+      puts certificate_metadata.server_certificate_name
+    end
+  else
+    puts 'No server certificates found. Stopping program.'
+    exit 1
+  end
+rescue StandardError => e
+  puts "Error getting server certificate names: #{e.message}"
+end
+
+# Changes the name of a server certificate in
+# AWS Identity and Access Management (IAM).
 #
-# http://aws.amazon.com/apache2.0/
+# Prerequisites:
 #
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# - The server certificate in IAM.
+#
+# @param iam_client [Aws::IAM::Client] An initialized IAM client.
+# @param server_certificate_current_name [String] The current name of
+#   the server certificate.
+# @param server_certificate_new_name [String] The new name for the
+#   the server certificate.
+# @return [Boolean] true if the name of the server certificate
+#   was changed; otherwise, false.
+# @example
+#   exit 1 unless server_certificate_name_changed?(
+#     Aws::IAM::Client.new,
+#     'my-server-certificate',
+#     'my-changed-server-certificate'
+#   )
+def server_certificate_name_changed?(
+  iam_client,
+  server_certificate_current_name,
+  server_certificate_new_name
+)
+  iam_client.update_server_certificate(
+    server_certificate_name: server_certificate_current_name,
+    new_server_certificate_name: server_certificate_new_name
+  )
+  return true
+rescue StandardError => e
+  puts "Error updating server certificate name: #{e.message}"
+  return false
+end
 
-# Demonstrates how to:
-# 1. Update a server certificate.
-# 2. Delete the server certificate.
-# 3. List information about any remaining server certificates.
+# Deletes a server certificate in
+# AWS Identity and Access Management (IAM).
+#
+# Prerequisites:
+#
+# - The server certificate in IAM.
+#
+# @param iam_client [Aws::IAM::Client] An initialized IAM client.
+# @param server_certificate_name [String] The name of the server certificate.
+# @return [Boolean] true if the server certificate was deleted;
+#   otherwise, false.
+# @example
+#   exit 1 unless server certificate_deleted?(
+#     Aws::IAM::Client.new,
+#     'my-server-certificate'
+#   )
+def server_certificate_deleted?(iam_client, server_certificate_name)
+  iam_client.delete_server_certificate(
+    server_certificate_name: server_certificate_name
+  )
+  return true
+rescue StandardError => e
+  puts "Error deleting server certificate: #{e.message}"
+  return false
+end
 
-require 'aws-sdk-iam'  # v2: require 'aws-sdk'
+# Full example call:
+def run_me
+  server_certificate_name = 'my-server-certificate'
+  server_certificate_changed_name = 'my-changed-server-certificate'
+  delete_server_certificate = true
+  iam_client = Aws::IAM::Client.new
 
-iam = Aws::IAM::Client.new(region: 'us-east-1')
+  puts "Initial server certificate names are:\n\n"
+  list_server_certificate_names(iam_client)
 
-server_certificate_name = "my-server-certificate"
-changed_server_certificate_name = "my-changed-server-certificate"
+  puts "\nAttempting to change name of server certificate " \
+    " '#{server_certificate_name}' " \
+    "to '#{server_certificate_changed_name}'..."
 
-# Update a server certificate.
-iam.update_server_certificate({
-  server_certificate_name: server_certificate_name,
-  new_server_certificate_name: changed_server_certificate_name
-})
+  if server_certificate_name_changed?(
+    iam_client,
+    server_certificate_name,
+    server_certificate_changed_name
+  )
+    puts 'Server certificate name changed.'
+    puts "Server certificate names now are:\n\n"
+    list_server_certificate_names(iam_client)
 
-# Delete the server certificate.
-iam.delete_server_certificate({
-  server_certificate_name: changed_server_certificate_name
-})
+    if delete_server_certificate
+      # Delete server certificate with changed name.
+      puts "\nAttempting to delete server certificate " \
+        "'#{server_certificate_changed_name}'..."
 
-# List information about any remaining server certificates.
-list_server_certificates_response = iam.list_server_certificates
+      if server_certificate_deleted?(iam_client, server_certificate_changed_name)
+        puts 'Server certificate deleted.'
+      else
+        puts 'Could not delete server certificate. You must delete it yourself.'
+      end
 
-if list_server_certificates_response.server_certificate_metadata_list.count == 0
-  puts "No server certificates."
-else
-  list_server_certificates_response.server_certificate_metadata_list.each do |certificate_metadata|
-    puts "-" * certificate_metadata.server_certificate_name.length
-    puts "Name: #{certificate_metadata.server_certificate_name}"
+      puts "Server certificate names now are:\n\n"
+      list_server_certificate_names(iam_client)
+    end
+  else
+    puts 'Could not change server certificate name.'
+    puts "Server certificate names now are:\n\n"
+    list_server_certificate_names(iam_client)
 
-    get_server_certificate_response = iam.get_server_certificate({ 
-      server_certificate_name: "certificate_metadata.server_certificate_name" 
-    })
-    puts "ID: #{get_server_certificate_response.server_certificate.server_certificate_metadata.server_certificate_id}"
+    if delete_server_certificate
+      # Delete server certificate with initial name.
+      puts "\nAttempting to delete server certificate '#{server_certificate_name}'..."
+
+      if server_certificate_deleted?(iam_client, server_certificate_name)
+        puts 'Server certificate deleted.'
+      else
+        puts 'Could not delete server certificate. You must delete it yourself.'
+      end
+
+      puts "Server certificate names now are:\n\n"
+      list_server_certificate_names(iam_client)
+    end
   end
 end
+
+run_me if $PROGRAM_NAME == __FILE__

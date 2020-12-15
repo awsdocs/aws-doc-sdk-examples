@@ -1,5 +1,8 @@
 --- 
 files:
+  - path: src/main/java/com/example/sns/AddTags.java
+    services:
+      - sns
   - path: src/main/java/com/example/sns/CheckOptOut.java
     services:
       - sns
@@ -7,6 +10,9 @@ files:
     services:
       - sns
   - path: src/main/java/com/example/sns/CreateTopic.java
+    services:
+      - sns
+  - path: src/main/java/com/example/sns/DeleteTag.java
     services:
       - sns
   - path: src/main/java/com/example/sns/DeleteTopic.java
@@ -24,6 +30,9 @@ files:
   - path: src/main/java/com/example/sns/ListSubscriptions.java
     services:
       - sns
+  - path: src/main/java/com/example/sns/ListTags.java
+    services:
+      - sns
   - path: src/main/java/com/example/sns/ListTopics.java
     services:
       - sns
@@ -37,6 +46,9 @@ files:
     services:
       - sns
   - path: src/main/java/com/example/sns/SetTopicAttributes.java
+    services:
+      - sns
+  - path: src/main/java/com/example/sns/SNSMessageFilterPolicy.java
     services:
       - sns
   - path: src/main/java/com/example/sns/SubscribeEmail.java
@@ -54,6 +66,9 @@ files:
   - path: src/main/java/com/example/sns/Unsubscribe.java
     services:
       - sns
-  - path: src/test/java/AWSSNSServiceIntegrationTest.java
+  - path: src/main/java/com/example/sns/UseMessageFilterPolicy.java
+    services:
+      - sns
+  - path: src/test/java/AWSSNSTest.java
     services:
       - sns

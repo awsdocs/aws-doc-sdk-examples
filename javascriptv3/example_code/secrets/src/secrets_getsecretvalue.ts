@@ -2,8 +2,7 @@
 SPDX-License-Identifier: Apache-2.0
 
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is pending release.  The preview version of the SDK is available
-at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for v3 is also
+which is available at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for v3 is also
 scheduled for release later in 2020.
 
 Purpose:
@@ -33,7 +32,7 @@ const params = {
   SecretId: "SECRET_ID", //e.g. arn:aws:secretsmanager:REGION:XXXXXXXXXXXX:secret:mysecret-XXXXXX
 };
 // Create SES service object
-const secretsManagerClient = new SecretsManagerClient(REGION);
+const secretsManagerClient = new SecretsManagerClient({ region: REGION });
 
 const run = async () => {
   let data;
