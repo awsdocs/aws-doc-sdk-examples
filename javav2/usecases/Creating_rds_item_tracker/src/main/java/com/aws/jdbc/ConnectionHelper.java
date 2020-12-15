@@ -16,7 +16,7 @@ public class ConnectionHelper {
     private static ConnectionHelper instance;
 
     private ConnectionHelper() {
-        url = "jdbc:mysql://localhost:3306/mydb";
+        url = "jdbc:mysql://localhost:3306/mydb?useSSL=false";
     }
 
 

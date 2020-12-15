@@ -12,7 +12,7 @@ files:
   - path: src/main/java/com/aws/jdbc/RetrieveItems.java
     services: 
       - rds
-  - path: src/main/java/com/aws/securingweb/SecuringWebApplication.java
+  - path: src/main/java/com/aws/SecuringWebApplication.java
     services: 
       - rds
   - path: src/main/java/com/aws/securingweb/MainController.java

@@ -12,7 +12,7 @@ This tutorial guides you through creating the AWS Tracker application. Once the 
 
 The following figure shows you the structure of the Java project.
 
-![AWS Tracking Application](images/newtrack3_1.png)
+![AWS Tracking Application](images/JavaProject.png)
 
 **Note:** All of the Java code required to complete this tutorial is located in this GitHub repository (or you can copy the code from this tutorial).  
 
@@ -353,13 +353,13 @@ Create the Java classes, including the Spring classes. In this application, a Ja
 
 Create a Java package named **com.aws.securingweb**. Next, create these classes in this package:
 
-+ **SecuringWebApplication**
++ **MainController**
 + **WebSecurityConfig**
 
 #### SecuringWebApplication class
-The following Java code represents the **SecuringWebApplication** class. This is the entry point into a Spring boot application.
+The following Java code represents the **SecuringWebApplication** class. This is the entry point into a Spring boot application. Create this class in the **com.aws** package. 
 
-    package com.aws.securingweb;
+    package com.aws;
 
     import org.springframework.boot.SpringApplication;
     import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -373,7 +373,7 @@ The following Java code represents the **SecuringWebApplication** class. This is
     }
 
 #### WebSecurityConfig class
-The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application.
+The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application. Create this class in the **com.aws.securingweb** package. 
 
     package com.aws.securingweb;
 
@@ -432,20 +432,11 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
 
 **Note**: In this example, the user credentials to log into the application are **user** and **password**.  
 
-#### To create the SecuringWebApplication and WebSecurityConfig classes
-
-1. Create the **com.aws.securingweb** package.
-2. Create the **SecuringWebApplication** class and paste the code into it.
-3. Create the **WebSecurityConfig** class and paste the code into it.
-
-
 ### Create the main controller class
 
 In the **com.aws.securingweb** package, create the controller class named **MainController**. This class handles the HTTP requests. For example, when a POST operation is made, the **MainController** handles the request and returns a dataset that is displayed in the view. The dataset is obtained from the MySQL database located in the AWS Cloud.
 
 **Note:** In this application, the **XMLHttpRequest** object's **send()** method is used to invoke controller methods. The syntax of the this method is shown later in this tutorial.
-
-#### MainController class
 
 The following Java code represents the **MainController** class.
 
@@ -608,11 +599,6 @@ The following Java code represents the **MainController** class.
     }
     }
 
-#### To create the MainController class
-
-1. In the **com.aws.securingweb** package, create the **MainController** class.
-2. Copy the code from the **MainController** class and paste it into this class in your project.
-
 ### Create the WorkItem class
 
 Create a Java package named **com.aws.entities**. Next, create a class, named **WorkItem**, that represents the application model.  
@@ -680,11 +666,6 @@ The following Java code represents the **WorkItem** class.
       }
      }
 
-#### To create the WorkItem class
-1. In the **com.aws.entities** package, create the **WorkItem** class.
-2. Copy the code from the **WorkItem** class and paste it into this class in your project.
-
-
 ### Create the JDBC Classes
 
 Create a Java package named **com.aws.jdbc**. Next, create these Java classes that are required to perform database operations:
@@ -711,7 +692,7 @@ The following Java code represents the **ConnectionHelper** class.
       private static ConnectionHelper instance;
 
       private ConnectionHelper() {
-          url = "jdbc:mysql://localhost:3306/mydb";
+          url = "jdbc:mysql://localhost:3306/mydb?useSSL=false";
        }
 
       public static Connection getConnection() throws SQLException {
@@ -1236,13 +1217,6 @@ The following Java code represents the **RetrieveItems** class.
       }
      }
 
-#### To create the JDBC classes
-
-1. Create the **com.aws.jdbc** package.
-2. Create the **ConnectionHelper** class and paste the Java code into the class.  
-3. Create the **InjectWorkService** class and paste the Java code into the class.
-4. Create the **RetrieveItems** class and paste the Java code into the class.
-
 ### Create the service classes
 
 The service classes contain Java application logic that uses AWS services. In this section, you create these classes:
@@ -1280,7 +1254,9 @@ The following Java code represents the **SendMessage** class. Notice that an **E
     import software.amazon.awssdk.services.ses.model.SendRawEmailRequest;
     import software.amazon.awssdk.services.ses.model.RawMessage;
     import software.amazon.awssdk.services.ses.model.SesException;
+    import org.springframework.stereotype.Component;
 
+    @Component
     public class SendMessages {
 
      private String sender = "tblue@nomailserver.com";
@@ -1575,12 +1551,6 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
         return count;
      }
     }
-
-#### To create the service classes
-
-1. Create the **com.aws.services** package.
-2. Create the **SendMessages** class and add the Java code to it.   
-3. Create the **WriteExcel** class and add the Java code to it.
 
 ## Create the HTML files
 
