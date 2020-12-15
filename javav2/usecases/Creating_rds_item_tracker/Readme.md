@@ -692,7 +692,7 @@ The following Java code represents the **ConnectionHelper** class.
       private static ConnectionHelper instance;
 
       private ConnectionHelper() {
-          url = "jdbc:mysql://localhost:3306/mydb";
+          url = "jdbc:mysql://localhost:3306/mydb?useSSL=false";
        }
 
       public static Connection getConnection() throws SQLException {
