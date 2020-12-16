@@ -1,3 +1,11 @@
+//snippet-sourcedescription:[EnhancedQueryRecordsWithSortKey.java demonstrates how to query a table with a sort key.]
+//snippet-keyword:[SDK for Java v2]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon DynamoDB]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[12/16/2020]
+//snippet-sourceauthor:[debito - aws]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -5,18 +13,14 @@
 package com.example.dynamodb;
 
 import java.time.Instant;
-import java.util.Map;
-import java.util.Iterator;
-import java.util.HashMap;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
-import software.amazon.awssdk.enhanced.dynamodb.Expression;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
-import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import software.amazon.awssdk.enhanced.dynamodb.model.PageIterable;
 import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
