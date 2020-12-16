@@ -57,6 +57,7 @@ public class EnhancedGetItem {
             //Create a KEY object
             Key key = Key.builder()
                     .partitionValue("id110")
+                    .sortValue("Fred Pink")
                     .build();
 
             // Get the item by using the key
