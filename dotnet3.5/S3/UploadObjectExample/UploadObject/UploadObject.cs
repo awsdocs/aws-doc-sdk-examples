@@ -1,7 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
-// SPDX-License-Identifier: MIT-0
-
-// snippet-start:[s3.dotNET.UploadObject]
+// SPDX-License-Identifier:  Apache - 2.0
 
 using Amazon;
 using Amazon.S3;
@@ -78,10 +76,10 @@ namespace UploadObject
         }
 
         /// <summary>
-        /// This method creates a file in an S3 bucket that contains the text
+        /// This method creates a file in an Amazon S3 bucket that contains the text
         /// passed to the method.
         /// </summary>
-        /// <param name="client">An initialized S3 client object</param>
+        /// <param name="client">An initialized S3 client object.</param>
         /// <param name="bucketName">The name of the bucket where the file will
         /// be created.</param>
         /// <param name="objectName">The name of the file that will be created.</param>
@@ -103,4 +101,3 @@ namespace UploadObject
         }
     }
 }
-// snippet-end:[s3.dotNET.UploadObject]
