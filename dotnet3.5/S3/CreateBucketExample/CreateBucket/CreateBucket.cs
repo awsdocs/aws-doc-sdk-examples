@@ -19,29 +19,20 @@ namespace CreateBucket
         // .NET 5.0.
 
         // Specify your AWS Region (an example Region is shown).
-        private static readonly RegionEndpoint BUCKET_REGION = RegionEndpoint.USWest2;
+        private static readonly RegionEndpoint BUCKET_REGION = RegionEndpoint.USEast1; // RegionEndpoint.USWest2;
         private static IAmazonS3 _s3Client;
 
         // Specify the name of the new bucket.
-        private const string NEW_BUCKET_NAME = "doc-example-bucket";
+        private const string NEW_BUCKET_NAME = "igsmith-bucket2"; // "doc-example-bucket";
 
         static async Task Main()
         {
+
             _s3Client = new AmazonS3Client(BUCKET_REGION);
             Console.WriteLine($"\nCreating a new bucket, named: {NEW_BUCKET_NAME}.");
 
             await CreatingBucketAsync(_s3Client, NEW_BUCKET_NAME);
 
-            var bucketLocation = FindBucketLocationAsync(_s3Client, NEW_BUCKET_NAME);
-
-            if(!String.IsNullOrEmpty(bucketLocation.ToString()))
-            {
-                Console.WriteLine($"\n\nBucket {NEW_BUCKET_NAME} successfully created.");
-            }
-            else
-            {
-                Console.WriteLine("The bucket does not exist.");
-            }
         }
 
         /// <summary>
@@ -54,54 +45,19 @@ namespace CreateBucket
         {
             try
             {
-                var bucketExists = AmazonS3Util.DoesS3BucketExistV2Async(client, bucketName).Result;
-                if (!bucketExists)
+                var putBucketRequest = new PutBucketRequest
                 {
-                    var putBucketRequest = new PutBucketRequest
-                    {
-                        BucketName = bucketName,
-                        UseClientRegion = true
-                    };
+                    BucketName = bucketName,
+                    UseClientRegion = true
+                };
 
-                    var putBucketResponse = await client.PutBucketAsync(putBucketRequest);
-                }
-                else
-                {
-                    Console.WriteLine($"A bucket with the name \"{bucketName}\" already exists.");
-                    return;
-                }
+                var putBucketResponse = await client.PutBucketAsync(putBucketRequest);
 
-            } catch(AmazonS3Exception ex)
+            }
+            catch (AmazonS3Exception ex)
             {
                 Console.WriteLine($"Error creating bucket: '{ex.Message}'");
             }
-        }
-
-        /// <summary>
-        /// This method finds the location for a bucketName.
-        /// </summary>
-        /// <param name="client">The Amazon S3 client used to connect to
-        /// Amazon S3.</param>
-        /// <param name="bucketName">The name of the bucket for which
-        /// we want to retrieve the location.</param>
-        /// <returns>Returns a string representing the location of the
-        /// bucket.</returns>
-        static async Task<string> FindBucketLocationAsync(IAmazonS3 client, string bucketName)
-        {
-            string bucketLocation = null;
-            try
-            {
-                var request = new GetBucketLocationRequest()
-                {
-                    BucketName = bucketName
-                };
-                GetBucketLocationResponse response = await client.GetBucketLocationAsync(request);
-                bucketLocation = response.Location.ToString();
-            } catch(AmazonS3Exception ex)
-            {
-                Console.WriteLine($"Error locating bucket: '{ex.Message}'");
-            }
-            return bucketLocation;
         }
     }
 }
