@@ -43,6 +43,19 @@ accomplish the following tasks:
 * Get statistics for a metric.
 * Trigger an alarm and get its state.
 
+### [Amazon Comprehend detection, classification, and topic modeling examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/comprehend/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Comprehend to inspect
+documents and discover information about them.
+
+* Detect elements of a document, such as languages used, key phrases, and personally
+identifiable information (PII).
+* Train a custom classifier that learns a set of labels on GitHub issues, and send 
+new issues to the classifer for labeling.
+* Detect common themes in a set of documents without the need for prior annotation.
+
 ### [Amazon DynamoDB batch examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/dynamodb/batching/README.md)
 
 #### Purpose
