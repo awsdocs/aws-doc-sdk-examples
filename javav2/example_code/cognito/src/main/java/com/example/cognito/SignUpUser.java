@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[SignUp.java demonstrates how to register a user in the specified user pool and creates a user name, password, and user attributes.]
+//snippet-sourcedescription:[SignUp.java demonstrates how to register a user in the specified Amazon Cognito user pool.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
