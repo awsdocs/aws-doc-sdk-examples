@@ -97,4 +97,172 @@ This tutorial uses the DynamoDB and Amazon SNS services. The **lambda-support** 
 
 6. Choose **Finish**.
 
+## Add the POM dependencies to your project
+
+At this point, you have a new project named **LambdaCronFunctions**.
+
+![AWS Tracking Application](images/pic4.png)
+
+Add the following dependency for the Amazon SNS API (AWS SDK for Java version 2).
+
+     <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>sns</artifactId>
+      <version>2.10.41</version>
+    </dependency>
+
+
+Add the following dependencies for the Amazon DynamoDB API (AWS SDK for Java version 2).
+
+     <dependency>
+       <groupId>software.amazon.awssdk</groupId>
+       <artifactId>dynamodb-enhanced</artifactId>
+       <version>2.11.4-PREVIEW</version>
+     </dependency>
+     <dependency>
+       <groupId>software.amazon.awssdk</groupId>
+       <artifactId>dynamodb</artifactId>
+       <version>2.5.10</version>
+     </dependency>
+
+The pom.xml file looks like the following.
+
+     <?xml version="1.0" encoding="UTF-8"?>
+      <project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+       <modelVersion>4.0.0</modelVersion>
+       <groupId>LambdaCronFunctions</groupId>
+       <artifactId>LambdaCronFunctions</artifactId>
+       <version>1.0-SNAPSHOT</version>
+       <packaging>jar</packaging>
+        <name>java-basic-function</name>
+        <properties>
+          <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+          <maven.compiler.source>1.8</maven.compiler.source>
+          <maven.compiler.target>1.8</maven.compiler.target>
+        </properties>
+        <dependencies>
+        <dependency>
+        <groupId>com.amazonaws</groupId>
+        <artifactId>aws-lambda-java-core</artifactId>
+        <version>1.2.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <version>2.8.6</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-api</artifactId>
+        <version>2.10.0</version>
+       </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>2.13.0</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-slf4j18-impl</artifactId>
+        <version>2.13.3</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>5.6.0</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>5.6.0</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.googlecode.json-simple</groupId>
+        <artifactId>json-simple</artifactId>
+        <version>1.1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>dynamodb-enhanced</artifactId>
+        <version>2.11.4-PREVIEW</version>
+      </dependency>
+      <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>dynamodb</artifactId>
+        <version>2.10.41</version>
+      </dependency>
+      <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>sns</artifactId>
+        <version>2.10.41</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.mail</groupId>
+        <artifactId>javax.mail-api</artifactId>
+        <version>1.5.5</version>
+      </dependency>
+      <dependency>
+        <groupId>com.sun.mail</groupId>
+        <artifactId>javax.mail</artifactId>
+        <version>1.5.5</version>
+      </dependency>
+    </dependencies>
+    <build>
+    <plugins>
+        <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.22.2</version>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>3.2.2</version>
+            <configuration>
+                <createDependencyReducedPom>false</createDependencyReducedPom>
+            </configuration>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>shade</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+            <configuration>
+                <source>1.8</source>
+                <target>1.8</target>
+            </configuration>
+        </plugin>
+    </plugins>
+    </build>
+    </project>
+    
+## Create Lambda functions by using the AWS Lambda runtime Java API
+
+Use the AWS Lambda runtime Java API to create the Java class that defines the Lamdba function. In this example, there is one Java class for the Lambda function and two extra classes required for this use case. The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **com.aws.example**. 
+
+The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **example**.
+
+![AWS Tracking Application](images/lambda9.png)
+
+To create a Lambda function by using the Lambda runtime API, you implement **com.amazonaws.services.lambda.runtime.RequestHandler**. The application logic that's executed when the workflow step is invoked is located in the **handleRequest** method. The return value of this method is passed to the next step in a workflow.
+
+Create these Java classes, which are described in the following sections:
++ **Handler** - Used as the first step in the workflow that processes the ticket ID value.  
++ **Handler2** - Used as the second step in the workflow that assigns the ticket to an employee and stores the data in a database.
++ **Handler3** - Used as the third step in the workflow that sends an email message to the employee to notify them about the ticket.
++ **PersistCase** - Uses the Amazon DynamoDB API to store the data in a DynamoDB table.
++ **SendMessage** - Uses the Amazon SES API to send an email message.
+
 
