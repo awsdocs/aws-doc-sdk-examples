@@ -16,3 +16,29 @@ This AWS tutorial uses an Amazon DynamoDB table named **Employee** that contains
 -	**first** – the employee’s first name.
 -	**phone** – the employee’s phone number.
 -	**startDate** – the employee’s start date.
+
+![AWS Tracking Application](images/pic0.png)
+
+**Cost to complete**: The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
+
+**Note**: Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
+
+#### Topics
++	Prerequisites
++	Create an IAM role that is used to execute Lambda functions
++	Create an IntelliJ project named **LambdaCronFunctions**
++	Add the POM dependencies to your project
++	Create Lambda functions by using the AWS Lambda runtime API
++	Package the project that contains the AWS Lambda function
++	Deploy the AWS Lambda function
++	Configure CloudWatch Events to use a Cron expression to invoke the AWS Lambda function
+
+## Prerequisites
+To follow along with the tutorial, you need the following:
++ An AWS Account.
++ A Java IDE (for this tutorial, the IntelliJ IDE is used).
++ Java 1.8 JDK.
++ Maven 3.6 or higher.
++ An Amazon DynamoDB table named **Employee** with a key named Id and the fields shown in the previous illustration. Make sure you enter the correct data, including a valid mobile phone that you want to test this use case with. To learn how to create a DynamoDB table, see Create a Table. To learn how to create a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+
+
