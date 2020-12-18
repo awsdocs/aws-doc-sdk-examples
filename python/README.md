@@ -301,6 +301,18 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Simple Email Service
 * Create and manage rules to block, allow, or handle incoming emails. 
 * Copy email and domain identity configuration from one AWS Region to another.
 
+### [Amazon Simple Notification Service topics and subscriptions example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/sns/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Simple Notification Service
+(Amazon SNS).
+
+* Create a notification topic.
+* Subscribe phone numbers and emails to the topic.
+* Publish messages to the topic and receive them at your subscribed endpoints.
+* Add filtering attributes to a subscription.
+
 ### [Amazon SQS getting started examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/sqs/ReadMe.md)
 
 #### Purpose
