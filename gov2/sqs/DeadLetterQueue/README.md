@@ -1,4 +1,4 @@
-### DeadLetterQueue/DeadLetterQueuev2.go
+### DeadLetterQueuev2.go
 
 This example configures an Amazon SQS queue for messages 
 that could not be delivered to another queue.

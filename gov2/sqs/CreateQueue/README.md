@@ -1,4 +1,4 @@
-### CreateQueue/CreateQueuev2.go
+### CreateQueuev2.go
 
 This example creates an Amazon SQS queue.
 

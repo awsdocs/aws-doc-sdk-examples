@@ -26,7 +26,7 @@ This example copies an Amazon S3 object from one bucket to another.
 
 The unit test accepts similar values in _config.json_.
 
-###  CreateBucket/CreateBucket.go
+### CreateBucket/CreateBucket.go
 
 This example creates an Amazon S3 bucket.
 

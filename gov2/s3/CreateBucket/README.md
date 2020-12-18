@@ -1,4 +1,4 @@
-###  CreateBucket.go
+### CreateBucket.go
 
 This example creates an Amazon S3 bucket.
 

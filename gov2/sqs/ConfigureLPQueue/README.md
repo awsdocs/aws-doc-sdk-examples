@@ -1,4 +1,4 @@
-### ConfigureLPQueue/ConfigureLPQueuev2.go
+### ConfigureLPQueuev2.go
 
 This example configures an Amazon SQS queue to use long polling.
 

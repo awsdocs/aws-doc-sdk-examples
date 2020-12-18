@@ -1,4 +1,4 @@
-### DeleteMessage/DeleteMessagev2.go
+### DeleteMessagev2.go
 
 This example deletes a message from an Amazon SQS queue.
 

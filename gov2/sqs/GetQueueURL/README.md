@@ -1,4 +1,4 @@
-### GetQueueURL/GetQueueURLv2.go
+### GetQueueURLv2.go
 
 This example gets the URL of an Amazon SQS queue.
 

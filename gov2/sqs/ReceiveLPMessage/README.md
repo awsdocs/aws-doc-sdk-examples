@@ -1,4 +1,4 @@
-### ReceiveLPMessage/ReceiveLPMessagev2.go
+### ReceiveLPMessagev2.go
 
 This example gets the most recent message from a long-polling Amazon SQS queue.
 

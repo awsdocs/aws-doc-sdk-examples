@@ -1,4 +1,4 @@
-### CreateLPQueue/CreateLPQueuev2.go
+### CreateLPQueuev2.go
 
 This example creates a long-polling Amazon SQS queue.
 
