@@ -252,17 +252,272 @@ The pom.xml file looks like the following.
 
 Use the AWS Lambda runtime Java API to create the Java class that defines the Lamdba function. In this example, there is one Java class for the Lambda function and two extra classes required for this use case. The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **com.aws.example**. 
 
-The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **example**.
+The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **com.aws.example**.
 
-![AWS Tracking Application](images/lambda9.png)
+![AWS Tracking Application](images/pic5.png)
 
-To create a Lambda function by using the Lambda runtime API, you implement **com.amazonaws.services.lambda.runtime.RequestHandler**. The application logic that's executed when the workflow step is invoked is located in the **handleRequest** method. The return value of this method is passed to the next step in a workflow.
+To create a Lambda function by using the Lambda runtime API, you implement **com.amazonaws.services.lambda.runtime.RequestHandler**. The application logic that's executed when the workflow step is invoked is located in the **handleRequest** method. Create these Java classes, which are described in the following sections:
 
-Create these Java classes, which are described in the following sections:
-+ **Handler** - Used as the first step in the workflow that processes the ticket ID value.  
-+ **Handler2** - Used as the second step in the workflow that assigns the ticket to an employee and stores the data in a database.
-+ **Handler3** - Used as the third step in the workflow that sends an email message to the employee to notify them about the ticket.
-+ **PersistCase** - Uses the Amazon DynamoDB API to store the data in a DynamoDB table.
-+ **SendMessage** - Uses the Amazon SES API to send an email message.
++ **Handler** - used as the Lambda function that performs the use case described in this AWS tutorial.
++ **ScanEmployees** - uses the Amazon DynamoDB API to query the **Employee** table. This class also uses the Amazon Simple Notification Service (Amazon SNS) Java API to send a message to a given employee.
++ **Employee** - A Java class that is used in the DynamoDB Enhanced class. The fields in this class match the columns in the **Employee** table. 
+
+### Handler class
+
+This Java code represents the **Handler** class. The class creates a **ScanEmployees** object and invokes the **sendEmployeMessage** method. Notice that you can log messages to Amazon CloudWatch logs by using a **LambdaLogger** object.
+
+     package com.aws.example;
+
+    import com.amazonaws.services.lambda.runtime.Context;
+    import com.amazonaws.services.lambda.runtime.RequestHandler;
+    import com.amazonaws.services.lambda.runtime.LambdaLogger;
+    import java.util.Map;
+
+    /**
+    *  This is the entry point for the Lambda function
+    */
+    public class Handler implements RequestHandler<Map<String,String>, Void>{
+
+     @Override
+     public Void handleRequest(Map<String,String> event, Context context) {
+        LambdaLogger logger = context.getLogger();
+        ScanEmployees val = new ScanEmployees();
+        Boolean ans = val.sendEmployeMessage();
+        if (ans)
+            logger.log("Messages sent: " + ans);
+
+        return null;
+      }
+     }
+
+### ScanEmployees class
+The **ScanEmployees** class uses both Amazon DynamoDB Java V2 API and the Amazon SNS Java V2 API. In the following code example, notice the use of an **Expression** object. This object is used to query employees that have a specific start date. For each employee that is queried, a text message is sent by using the **SnsClient** object’s **publish** method.  
+
+     package com.aws.example;
+
+     import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
+     import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+     import software.amazon.awssdk.enhanced.dynamodb.Expression;
+     import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+     import software.amazon.awssdk.enhanced.dynamodb.model.ScanEnhancedRequest;
+     import software.amazon.awssdk.regions.Region;
+     import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+     import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+     import software.amazon.awssdk.services.sns.SnsClient;
+     import software.amazon.awssdk.services.sns.model.PublishRequest;
+     import software.amazon.awssdk.services.sns.model.SnsException;
+     import java.text.DateFormat;
+     import java.text.SimpleDateFormat;
+     import java.time.LocalDateTime;
+     import java.time.ZoneId;
+     import java.time.format.DateTimeFormatter;
+     import java.util.*;
+
+    /*
+     Sends a text message to any employee that reached the one year anniversary mark
+    */
+
+    public class ScanEmployees {
+
+      public Boolean sendEmployeMessage() {
+
+         Boolean send = false;
+         String myDate = getDate();
+
+        Region region = Region.US_WEST_2;
+        DynamoDbClient ddb = DynamoDbClient.builder()
+                .region(region)
+                .build();
+
+        // Create a DynamoDbEnhancedClient and use the DynamoDbClient object
+        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+                .dynamoDbClient(ddb)
+                .build();
+
+        // Create a DynamoDbTable object based on Employee
+        DynamoDbTable<Employee> table = enhancedClient.table("Employee", TableSchema.fromBean(Employee.class));
+
+        AttributeValue attVal = AttributeValue.builder()
+                .s(myDate)
+                .build();
+
+        // Get only items in the Employee table that match the date
+        Map<String, AttributeValue> myMap = new HashMap<>();
+        myMap.put(":val1", attVal);
+
+        Map<String, String> myExMap = new HashMap<>();
+        myExMap.put("#startDate", "startDate");
+
+        Expression expression = Expression.builder()
+                .expressionValues(myMap)
+                .expressionNames(myExMap)
+                .expression("#startDate = :val1")
+                .build();
+
+        ScanEnhancedRequest enhancedRequest = ScanEnhancedRequest.builder()
+                .filterExpression(expression)
+                .limit(15) // you can increase this value
+                .build();
+
+        // Get items in the Employee table
+        Iterator<Employee> employees = table.scan(enhancedRequest).items().iterator();
+
+        while (employees.hasNext()) {
+            Employee employee = employees.next();
+            String first = employee.getFirst();
+            String phone = employee.getPhone();
+
+            // Send an anniversary message!
+            sentTextMessage(first, phone);
+
+            send = true;
+        }
+
+        return send;
+    }
 
 
+    // Use the Amazon SNS Service to send a text message
+    private void sentTextMessage(String first, String phone) {
+
+        SnsClient snsClient = SnsClient.builder()
+                .region(Region.US_WEST_2)
+                .build();
+        String message = first +" happy one year anniversary. We are very happy that you have been working here for a year! ";
+
+        try {
+            PublishRequest request = PublishRequest.builder()
+                    .message(message)
+                    .phoneNumber(phone)
+                    .build();
+
+            snsClient.publish(request);
+        } catch (SnsException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+    }
+
+    public String getDate() {
+
+        String DATE_FORMAT = "yyyy-MM-dd";
+        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        DateTimeFormatter dateFormat8 = DateTimeFormatter.ofPattern(DATE_FORMAT);
+
+        Date currentDate = new Date();
+        System.out.println("date : " + dateFormat.format(currentDate));
+        LocalDateTime localDateTime = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        System.out.println("localDateTime : " + dateFormat8.format(localDateTime));
+
+        localDateTime = localDateTime.minusYears(1);
+        String ann = dateFormat8.format(localDateTime);
+        return ann;
+     }
+    }
+
+### Employee class
+
+The **Employee** class is used with the DynamoDB enhanced client and maps the **Employee** data members to items in the **Employee** table. Notice that this class uses the **@DynamoDbBean** annotation.
+
+     package com.aws.example;
+
+     import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
+     import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
+     import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
+
+    @DynamoDbBean
+    public class Employee {
+
+     private String Id;
+     private String first;
+     private String phone;
+     private String startDate;
+
+     public void setId(String id) {
+        this.Id = id;
+     }
+
+     @DynamoDbPartitionKey
+     public String getId() {
+        return this.Id;
+     }
+
+     public void setStartDate(String startDate) {
+        this.startDate = startDate;
+     }
+
+     @DynamoDbSortKey
+     public String getStartDate() {
+        return this.startDate;
+     }
+
+     public void setPhone(String phone) {
+        this.phone = phone;
+     }
+    
+    public String getPhone() {
+        return this.phone;
+     }
+   
+     public void setFirst(String first) {
+        this.first = first;
+     }
+    
+     public String getFirst() {
+        return this.first;
+     }
+    }
+
+## Package the project that contains the Lambda functions
+
+Package up the project into a .jar (JAR) file that you can deploy as a Lambda function by using the following Maven command.
+
+    mvn package
+
+The JAR file is located in the **target** folder (which is a child folder of the project folder).
+
+![AWS Tracking Application](images/pic6.png)
+
+**Note**: Notice the use of the **maven-shade-plugin** in the project’s POM file. This plugin is responsible for creating a JAR that contains the required dependencies. If you attempt to package up the project without this plugin, the required dependences are not included in the JAR file and you will encounter a **ClassNotFoundException**. 
+
+## Deploy the Lambda functions
+
+1. Open the Lambda console at https://us-east-1.console.aws.amazon.com/lambda/home.
+
+2. Choose **Create Function**.
+
+3. Choose **Author from scratch**.
+
+4. In the **Basic** information section, enter **TicStep1** as the name.
+
+5. In the **Runtime**, choose **Java 8**.
+
+6. Choose **Use an existing role**, and then choose **lambda-support** (the IAM role that you created).
+
+![AWS Tracking Application](images/lambda20.png)
+
+7. Choose **Create function**.
+
+8. For **Code entry type**, choose **Upload a .zip or .jar file**.
+
+9. Choose **Upload**, and then browse to the JAR file that you created.  
+
+10. For **Handler**, enter the fully qualified name of the function, for example, **example.Handler::handleRequest** (**example.Handler** specifies the package and class followed by :: and method name).
+
+![AWS Tracking Application](images/lambda11.png)
+
+11. Choose **Save.**
+
+12. Repeat this procedure for the **Handler2** and **Handler3** classes. Name the corresponding Lambda functions **TicStep2** and **TicStep3**. When you finish, you will have three Lambda functions that you can reference in the Amazon States Language document.  
+
+## Add the Lambda functions to workflows
+
+Open the Lambda console. Notice that you can view the Lambda Amazon Resource Name (ARN) value in the upper-right corner.
+
+![AWS Tracking Application](images/lambda12A.png)
+
+Copy the value and then paste it into step 1 of the Amazon States Language document, located in the Step Functions console.
+
+![AWS Tracking Application](images/lambda13A.png)
+
+Update the Resource for the **Assign Case** and **Send Email** steps. This is how you hook in Lambda functions created by using the AWS SDK for Java into a workflow created by using Step Functions.
