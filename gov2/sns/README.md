@@ -14,44 +14,44 @@ in the AWS SDK for Go Developer Guide.
 
 ## Running the code
 
-### CreateTopic/CreateTopic.go
+### CreateTopic/CreateTopicv2.go
 
 This example creates an Amazon SNS topic.
 
-`go run CreateTopic.go -t TOPIC`
+`go run CreateTopicv2.go -t TOPIC`
 
 - _TOPIC_ is the name of the topic to create.
 
 The unit test accepts a similar value in _config.json_.
 
-### ListSubscriptions/ListSubscriptions.go
+### ListSubscriptions/ListSubscriptionsv2.go
 
 This example lists the topic and subscription Amazon Resource Names (ARNs) for your Amazon SNS subscriptions.
 
-`go run ListSubscriptions.go`
+`go run ListSubscriptionsv2.go`
 
-### ListTopics/ListTopics.go
+### ListTopics/ListTopicsv2.go
 
 This example lists the ARNs for your Amazon SNS topics.
 
-`go run ListTopics.go`
+`go run ListTopicsv2.go`
 
-### Publish/Publish.go
+### Publish/Publishv2.go
 
 This example publishes a message to an Amazon SNS topic.
 
-`go run Publish.go -m MESSAGE -t TOPIC-ARN`
+`go run Publishv2.go -m MESSAGE -t TOPIC-ARN`
 
 - _MESSAGE_ is the message to publish.
 - _TOPIC-ARN_ is the ARN of the topic to which the message is published.
 
 The unit test accepts similar values in _config.json_.
 
-### Subscribe/Subscribe.go
+### Subscribe/Subscribev2.go
 
 This example subscribes a user, by email address, to an Amazon SNS topic.
 
-`go run Subscribe.go -m EMAIL-ADDRESS -t TOPIC-ARN`
+`go run Subscribev2.go -m EMAIL-ADDRESS -t TOPIC-ARN`
 
 - _EMAIL-ADDRESS_ is the email address of the user subscribing to the topic.
 - _TOPIC-ARN_ is the ARN of the topic.

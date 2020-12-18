@@ -1,8 +1,8 @@
-### DeleteObject.go
+### DeleteObjectv2.go
 
 This example deletes an Amazon S3 bucket object.
 
-`go run DeleteObject.go -b BUCKET -o OBJECT`
+`go run DeleteObjectv2.go -b BUCKET -o OBJECT`
 
 - _BUCKET_ is the name of the bucket containing the item to delete.
 - _OBJECT_ is the name of the object to delete.
