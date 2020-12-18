@@ -81,6 +81,7 @@ Add the following dependency for the Amazon SQS API (AWS SDK for Java version 2)
 
   Add the Spring Boot dependencies. The **pom.xml** file looks like the following.
 
+```xml
     <?xml version="1.0" encoding="UTF-8"?>
     <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -159,6 +160,7 @@ Add the following dependency for the Amazon SQS API (AWS SDK for Java version 2)
         </plugins>
      </build>
     </project>
+```
 
 ## Create the Java classes
 
@@ -181,6 +183,7 @@ Create the following Java classes:
 
 The **Message** class represents the application’s model.
 
+```java
      package com.example;
 
     public class Message {
@@ -214,11 +217,13 @@ The **Message** class represents the application’s model.
         this.body = body;
      }
     }
+```
 
 ### MessageApplication class
 
 The following Java code represents the **MessageApplication** class. This class represents the entry point into the Spring Boot application.
 
+```java
      package com.example;
 
      import org.springframework.boot.SpringApplication;
@@ -231,11 +236,13 @@ The following Java code represents the **MessageApplication** class. This class 
         SpringApplication.run(MessageApplication.class, args);
      }
     }
+```
 
 ### MessageController class
 
 The following Java code represents the **MainController** class that handles HTTP requests. For example, when a new message is posted, the **addItems** method handles the request.  
 
+```java
      package com.example;
 
      import org.springframework.beans.factory.annotation.Autowired;
@@ -306,11 +313,13 @@ The following Java code represents the **MainController** class that handles HTT
         return "message";
        }
       }
+```
 
 ### SendReceiveMessages class
 
 The following class uses the Amazon SQS API to send and retrieve messages. For example, the **getMessages** method retrieves a message from the queue. Likewise, the **processMessage** method sends a message to a queue.
 
+```java
         package com.example;
 
         import org.springframework.stereotype.Component;
@@ -455,9 +464,6 @@ The following class uses the Amazon SQS API to send and retrieve messages. For e
         }
         }
 
-
-    }
-
         // Convert item data retrieved from the message queue
         // into XML to pass back to the view
         private Document toXml(List<com.example.Message> itemList) {
@@ -517,13 +523,14 @@ The following class uses the Amazon SQS API to send and retrieve messages. For e
         return null;
        }
      }
+```
 
 
 **Note:** The **EnvironmentVariableCredentialsProvider** is used to create an **SqsClient** because this application will be deployed to Elastic Beanstalk. You can set up environment variables on Elastic Beanstalk so that the **SqsClient** is successfully created.
 
 ## Create the HTML files
 
-At this point, you have created all of the Java files required for the AWS Messaging application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the **resource** folder, create a **template** folder, and then create the following HTML files:
+At this point, you have created all of the Java files required for the AWS Messaging application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the **resource** folder, create a **templates** folder, and then create the following HTML files:
 
 + index.html
 + message.html
@@ -535,6 +542,7 @@ The **index.html** file is the application's home view. The **message.html** fil
 
 The following HTML represents the **index.html** file.
 
+```html
      <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
      <head>
@@ -570,11 +578,12 @@ The following HTML represents the **index.html** file.
      <div>
     </body>
     </html>
-
+```
 ### message.html
 
 The following is the HTML for the **message.html** file.
 
+```html
      <!DOCTYPE HTML>
      <html xmlns:th="https://www.thymeleaf.org">
      <head>
@@ -658,11 +667,12 @@ The following is the HTML for the **message.html** file.
     </div>
     </body>
     </html>
-
+```
 ### layout.html
 
 The following is the HTML for the **layout.html** file that represents the application's menu.
 
+```html
      <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org">
      <head th:fragment="site-head">
@@ -683,7 +693,7 @@ The following is the HTML for the **layout.html** file that represents the appli
     <p>Welcome to the AWS Messaging example application that uses Amazon SQS.</p>
     </body>
     </html>
-
+```
 ## Create script files
 
 Create a script file named **message.js** that communicates with the Spring controller. This file is used by the **message.html** view. Place the script file in the following path.
@@ -692,6 +702,7 @@ Create a script file named **message.js** that communicates with the Spring cont
 
 The following code represents this **.js** file.
 
+```javascript
      $(function() {
 
      populateChat()
@@ -796,6 +807,7 @@ The following code represents this **.js** file.
         $("#messages").append(myTextNode);
         });
         }
+```
 
 **Note:** Be sure to include the CSS and image files located on the GitHub website in your project.
 
