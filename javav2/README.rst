@@ -49,7 +49,7 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 + **Creating AWS serverless workflows using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and AWS Step Functions to create a workflow that invokes AWS services. Each workflow step is implemented by using an AWS Lambda function.
 + **Creating a sample AWS photo analyzer application using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and various AWS services, such as the  Amazon Rekognition service, to analyze images. The application can analyze many images and generate a report that breaks down each image into a series of labels.
 + **Creating_message_application** - A tutorial that discusses using the AWS SDK for Java and the Simple Queue Service (SQS) to create a basic messaging web application.
-+ **Creating scheduled events to invoke  Lambda functions** - A tutorial that discusses using the Lambda Java runtime API to create a Lambda function that interacts with Amazon DynamoDB and the Amazon Simple Notification Service (Amazon SNS).In addition, this tutorials shows you how to create a scheduled event that invokes the Lambda functions by using an Amazon CloudWatch Event.
++ **Creating scheduled events to invoke  Lambda functions** - A tutorial that discusses using the Lambda Java runtime API to create a Lambda function that interacts with Amazon DynamoDB and the Amazon Simple Notification Service (Amazon SNS). In addition, this tutorials shows you how to create a scheduled event that invokes the Lambda functions by using an Amazon CloudWatch Event.
 
 
 AWS service examples
