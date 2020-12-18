@@ -9,3 +9,10 @@ In this tutorial, you create a Lambda function by using the AWS Lambda Java runt
 
 ![AWS Tracking Application](images/picPhone.png)
 
+This tutorial shows you how to use Java logic to create a solution that performs this use case.  For example, you'll learn how to read a database to determine which employees have reached the one year anniversary date, how to process the data, and send out a text message all by using a Lambda function. Then you’ll learn how to use a Cron expression to invoke the Lambda function every weekday. 
+
+This AWS tutorial uses an Amazon DynamoDB table named **Employee** that contains these fields. 
+-	**Id** – the key for the table.
+-	**first** – the employee’s first name.
+-	**phone** – the employee’s phone number.
+-	**startDate** – the employee’s start date.
