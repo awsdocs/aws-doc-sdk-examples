@@ -8,7 +8,7 @@ You can develop a web application that tracks and reports on work items by using
 
 **Note:** In this tutorial, we use the AWS SDK for Java version 2 to access Amazon SES and DynamoDB.
 
-The application you create is named **DynamoDB Item Tracker**, and uses Spring Boot APIs to build a model, different views, and a controller. It’s a secure web application that requires a user to log into the application. For more information, see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
+The application you create is named **DynamoDB Item Tracker**, and uses Spring Boot APIs to build a model, different views, and a controller. It’s an application that requires a user to log in. For more information, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
 
 This tutorial guides you through creating the **DynamoDB Item Tracker** application. After the application is developed, you'll learn how to deploy it to Elastic Beanstalk.
 
@@ -336,13 +336,13 @@ These packages contain the following:
 
 + **entities** - Contains Java files that represent the model. In this example, the model class is named **WorkItem**.
 + **services** - Contains Java files that invoke AWS services. For example, the **software.amazon.awssdk.services.dynamodb.DynamoDbClient** object is used to perform DynamoDB operations.
-+ **secureweb** - Contains a Java class for Spring security and the Java controller class.
++ **secureweb** - Contains the SpringJava classes.
 
 **Note:** The only class that is in **com.example** is **SecureWebApp**. All other classes are in the subpackages.
 
 ## Create the Java classes
 
-Create the Java classes, including the Spring security classes that secure the web application with a login form. In this application, a Java class sets up an in-memory user store that contains a single user (the user name is **user** and the password is **password**.)
+Create the Java classes, including the Spring classes. In this application, a Java class sets up an in-memory user store that contains a single user (the user name is **user** and the password is **password**.)
 
 ### Create the SecureWebApp class
 

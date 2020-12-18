@@ -10,7 +10,7 @@
     "@aws-sdk/client-cognito-identity": "^1.0.0-gamma.6",
     "@aws-sdk/credential-provider-cognito-identity":"^1.0.0-gamma.6",
     "@aws-sdk/client-polly":"^1.0.0-gamma.6",
-    "@aws-sdk/polly-request-presigner""^1.0.0-gamma.6"
+    "@aws-sdk/polly-request-presigner":"^1.0.0-gamma.6",
     "@aws-sdk/node-http-handler": "^1.0.0-gamma.5",
     "@aws-sdk/types": "^0.1.0-gamma.6",
     "ts-node": "^9.0.0"

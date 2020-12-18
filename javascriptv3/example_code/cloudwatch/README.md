@@ -5,6 +5,10 @@ The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aw
 
 The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples.html) contains these examples.
 
+The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-cloudwatch/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon Cloudwatch client module.
+The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-cloudwatch-events/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon Cloudwatch Events client module.
+The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-cloudwatch-logs/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon Cloudwatch Logs client module.
+
 Amazon Cloudwatch enables you to collect, access, and correlate this data on a single platform from across all your AWS resources, applications, and services.
 
 
