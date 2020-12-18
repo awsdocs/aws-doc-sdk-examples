@@ -55,7 +55,7 @@ public class RotateImage {
         rekClient.close();
     }
 
-    // snippet-start:[rekognition.java2.recognize_image orientation.main]
+    // snippet-start:[rekognition.java2.recognize_image_orientation.main]
     public static void recognizeAllCelebrities(RekognitionClient rekClient, String sourceImage) {
 
         try {
@@ -136,5 +136,5 @@ public class RotateImage {
         System.out.println("Face Height: " + String.valueOf((int)(imageHeight * box.height())));
     }
 
-    // snippet-end:[rekognition.java2.recognize_image orientation.main]
+    // snippet-end:[rekognition.java2.recognize_image_orientation.main]
 }
