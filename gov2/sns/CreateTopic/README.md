@@ -1,8 +1,8 @@
-### CreateTopic.go
+### CreateTopicv2.go
 
 This example creates an Amazon SNS topic.
 
-`go run CreateTopic.go -t TOPIC`
+`go run CreateTopicv2.go -t TOPIC`
 
 - _TOPIC_ is the name of the topic to create.
 

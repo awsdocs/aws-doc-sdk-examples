@@ -1,4 +1,4 @@
-### DeleteQueue/DeleteQueuev2.go
+### DeleteQueuev2.go
 
 This example deletes an Amazon SQS queue.
 

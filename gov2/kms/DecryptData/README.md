@@ -1,4 +1,4 @@
-### DecryptData/DecryptDatav2.go
+### DecryptDatav2.go
 
 This example decrypts some text that was encrypted with an AWS Key Management Service (AWS KMS) customer master key (CMK).
 
