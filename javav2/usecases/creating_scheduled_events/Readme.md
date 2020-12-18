@@ -41,4 +41,60 @@ To follow along with the tutorial, you need the following:
 + Maven 3.6 or higher.
 + An Amazon DynamoDB table named **Employee** with a key named Id and the fields shown in the previous illustration. Make sure you enter the correct data, including a valid mobile phone that you want to test this use case with. To learn how to create a DynamoDB table, see Create a Table. To learn how to create a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 
+## Create an IAM role that's used to execute Lambda functions
+
+Create the following IAM role:
+
++ **lambda-support** - Used to invoke Lamdba functions.
+
+This tutorial uses the DynamoDB and Amazon SNS services. The **lambda-support** role has to have policies that enable it to invoke these services from a Lambda function.  
+
+#### To create an IAM role
+
+1. Open the AWS Management Console. When the page loads, enter **IAM** in the search box, and then choose **IAM** to open the IAM console.
+
+2. In the navigation pane, choose **Roles**, and on the **Roles** page, choose **Create Role**.
+
+3. Choose **AWS service**, and then choose **Lambda**.
+
+![AWS Tracking Application](images/pic1.png)
+
+4. Choose **Permissions**.
+
+5. Search for **AWSLambdaBasicExecutionRole**.
+
+6. Choose **Next Tags**.
+
+7. Choose **Review**.
+
+8. Name the role **lambda-support**.
+
+![AWS Tracking Application](images/pic2.png)
+
+9. Choose **Create role**.
+
+10. Choose **lambda-support** to view the overview page.
+
+11. Choose **Attach Policies**.
+
+12. Search for **AmazonDynamoDBFullAccess**, and then choose **Attach policy**.
+
+13. Search for **AmazonSNSFullAccess**, and then choose **Attach policy**. When you're done, you can see the permissions.
+
+![AWS Tracking Application](images/pic3.png)
+
+## Create an IntelliJ project named LambdaCronFunctions
+
+1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
+
+2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**.
+
+3. For **GroupId**, enter **LambdaCronFunctions**.
+
+4. For **ArtifactId**, enter **LambdaCronFunctions**.
+
+5. Choose **Next**.
+
+6. Choose **Finish**.
+
 
