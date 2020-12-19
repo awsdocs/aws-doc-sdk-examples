@@ -26,9 +26,9 @@ To build and run these examples, you need the following:
   
   After you set your AWS credentails in the credentials file located in the .aws folder, you can create a Service Client like this.
   
-         Region region = Region.US_WEST_2;
+          Region region = Region.US_WEST_2;
          
-         S3Client s3 = S3Client.builder()
+          S3Client s3 = S3Client.builder()
              .region(region)
              .build();
 
@@ -49,6 +49,7 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 + **Creating AWS serverless workflows using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and AWS Step Functions to create a workflow that invokes AWS services. Each workflow step is implemented by using an AWS Lambda function.
 + **Creating a sample AWS photo analyzer application using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and various AWS services, such as the  Amazon Rekognition service, to analyze images. The application can analyze many images and generate a report that breaks down each image into a series of labels.
 + **Creating_message_application** - A tutorial that discusses using the AWS SDK for Java and the Simple Queue Service (SQS) to create a basic messaging web application.
++ **Creating scheduled events to invoke  Lambda functions** - A tutorial that discusses how to create a scheduled event that invokes an AWS Lambda function by using Amazon CloudWatch Events. In addition, the AWS Lambda function is created by using the AWS Lambda Java runtime API and invokes multiple AWS services to perform a specific use case. 
 
 
 AWS service examples
