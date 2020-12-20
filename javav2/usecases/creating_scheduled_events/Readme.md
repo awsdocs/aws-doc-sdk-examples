@@ -266,29 +266,26 @@ Create these Java classes:
 
 This Java code represents the **Handler** class. The class creates a **ScanEmployees** object and invokes the **sendEmployeMessage** method. Notice that you can log messages to Amazon CloudWatch logs by using a **LambdaLogger** object.
 
-     package com.aws.example;
+    package com.aws.example;
 
     import com.amazonaws.services.lambda.runtime.Context;
-    import com.amazonaws.services.lambda.runtime.RequestHandler;
     import com.amazonaws.services.lambda.runtime.LambdaLogger;
-    import java.util.Map;
 
     /**
     *  This is the entry point for the Lambda function
     */
-    public class Handler implements RequestHandler<Map<String,String>, Void>{
 
-     @Override
-     public Void handleRequest(Map<String,String> event, Context context) {
+    public class Handler {
+
+     public Void handleRequest(Context context) {
         LambdaLogger logger = context.getLogger();
         ScanEmployees val = new ScanEmployees();
-        Boolean ans = val.sendEmployeMessage();
+       Boolean ans =  val.sendEmployeMessage();
         if (ans)
             logger.log("Messages sent: " + ans);
-
         return null;
-      }
-     }
+    }
+}
 
 ### ScanEmployees class
 The **ScanEmployees** class uses both Amazon DynamoDB Java V2 API and the Amazon SNS Java V2 API. In the following code example, notice the use of an **Expression** object. This object is used to query employees that have a specific start date. For each employee that is queried, a text message is sent by using the **SnsClient** object’s **publish** method.  
