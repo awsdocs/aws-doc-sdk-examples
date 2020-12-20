@@ -44,13 +44,13 @@ const BODY = "BODY";
 const EXPIRATION = 60 * 60 * 1000;
 
 // Create Amazon S3 client object
-const v3Client = new S3({ region: REGION });
+const v3Client = new S3({ region:REGION });
 
 const run = async () => {
   try {
     //Create an S3 bucket
     console.log(`Creating bucket ${BUCKET}`);
-    await v3Client.send(new CreateBucketCommand(BUCKET));
+    await v3Client.send(new CreateBucketCommand({Bucket:BUCKET}));
     console.log(`Waiting for "${BUCKET}" bucket creation...`);
   } catch (err) {
     console.log("Error creating bucket", err);
@@ -61,9 +61,9 @@ const run = async () => {
     // Create request
     const request =
         await createRequest(
-      v3Client,
-      new PutObjectCommand({ KEY, BUCKET })
-    );
+            v3Client,
+            new PutObjectCommand({ Key:KEY, Bucket: BUCKET })
+        );
     // Define the duration until expiration of the presigned URL
     const expiration = new Date(Date.now() + EXPIRATION);
 
@@ -91,14 +91,14 @@ const run = async () => {
   try {
     // Delete the object
     console.log(`\nDeleting object "${KEY}" from bucket`);
-    await v3Client.send(new DeleteObjectCommand(BUCKET, KEY));
+    await v3Client.send(new DeleteObjectCommand({Bucket:BUCKET, Key:KEY}));
   } catch (err) {
     console.log("Error deleting object", err);
   }
   try {
     // Delete the bucket
     console.log(`\nDeleting bucket ${BUCKET}`);
-    await v3Client.send(new DeleteBucketCommand(BUCKET));
+    await v3Client.send(new DeleteBucketCommand({Bucket:BUCKET}));
   } catch (err) {
     console.log("Error deleting bucket", err);
   }
