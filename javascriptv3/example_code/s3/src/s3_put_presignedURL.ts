@@ -30,7 +30,7 @@ const { formatUrl } = require("@aws-sdk/util-format-url");
 const fetch = require("node-fetch");
 
 // Set the AWS Region
-const REGION = "eu-west-1";
+const REGION = "REGION";
 
 // Set parameters
 let signedUrl;
