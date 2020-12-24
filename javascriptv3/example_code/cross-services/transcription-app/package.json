@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:frontend": "webpack index.js --mode development --target web --devtool false -o main.js",
+    "build:frontend": "webpack index.ts --mode development --target web --devtool false -o main.js",
     "test": "exit 0"
   },
   "keywords": [],
