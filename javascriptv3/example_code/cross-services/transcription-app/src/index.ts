@@ -22,7 +22,6 @@ For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/deve
 [Outputs | Returns]:
 
 */
-// snippet-start:[transcribe.JavaScript.recording-app.complete]
 // snippet-start:[transcribe.JavaScript.recording-app.config]
 // Import the required AWS SDK clients and commands for Node.js
 const AWS = require("aws-sdk");
@@ -317,4 +316,4 @@ window.deleteRow = function (rowid) {
   const row = document.getElementById(rowid);
   row.parentNode.removeChild(row);
 };
-// snippet-start:[transcribe.JavaScript.recording-app.delete-transcriptions]
+// snippet-end:[transcribe.JavaScript.recording-app.delete-transcriptions]
