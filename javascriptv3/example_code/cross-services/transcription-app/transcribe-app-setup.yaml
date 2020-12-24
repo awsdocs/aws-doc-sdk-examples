@@ -65,7 +65,7 @@ Resources:
                   - /*
         Version: "2012-10-17"
     Metadata:
-      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack1/transciptions/Policy/Resource
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/transciptions/Policy/Resource
   appbucket8B6BC946:
     Type: AWS::S3::Bucket
     Properties:
@@ -75,7 +75,7 @@ Resources:
     UpdateReplacePolicy: Delete
     DeletionPolicy: Delete
     Metadata:
-      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack1/appbucket/Resource
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/appbucket/Resource
   appbucketPolicy820C1410:
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -105,7 +105,7 @@ Resources:
                   - /*
         Version: "2012-10-17"
     Metadata:
-      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack1/appbucket/Policy/Resource
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/appbucket/Policy/Resource
   exampleuserpoolid164CBD80:
     Type: AWS::Cognito::UserPool
     Properties:
@@ -133,7 +133,7 @@ Resources:
         EmailSubject: Verify your email for our awesome app!
         SmsMessage: Hello, Thanks for signing up to our awesome app! Your verification code is {####}
     Metadata:
-      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack1/exampleuserpoolid/Resource
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/exampleuserpoolid/Resource
   exampleuserpoolidCognitoDomain6126F7CC:
     Type: AWS::Cognito::UserPoolDomain
     Properties:
@@ -141,7 +141,7 @@ Resources:
       UserPoolId:
         Ref: exampleuserpoolid164CBD80
     Metadata:
-      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack1/exampleuserpoolid/CognitoDomain/Resource
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/exampleuserpoolid/CognitoDomain/Resource
   ExampleUserPoolClientA3BAC0B9:
     Type: AWS::Cognito::UserPoolClient
     Properties:
@@ -171,7 +171,7 @@ Resources:
       SupportedIdentityProviders:
         - COGNITO
     Metadata:
-      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack1/ExampleUserPoolClient/Resource
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/ExampleUserPoolClient/Resource
   ExampleIdentityPool:
     Type: AWS::Cognito::IdentityPool
     Properties:
@@ -184,7 +184,7 @@ Resources:
               - exampleuserpoolid164CBD80
               - ProviderName
     Metadata:
-      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack1/ExampleIdentityPool
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/ExampleIdentityPool
   ExampleCognitoDefaultAuthenticatedRole37F17AF0:
     Type: AWS::IAM::Role
     Properties:
@@ -202,7 +202,7 @@ Resources:
               Federated: cognito-identity.amazonaws.com
         Version: "2012-10-17"
     Metadata:
-      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack1/ExampleCognitoDefaultAuthenticatedRole/Resource
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/ExampleCognitoDefaultAuthenticatedRole/Resource
   ExampleCognitoDefaultAuthenticatedRoleDefaultPolicy7CE891FB:
     Type: AWS::IAM::Policy
     Properties:
@@ -227,7 +227,7 @@ Resources:
       Roles:
         - Ref: ExampleCognitoDefaultAuthenticatedRole37F17AF0
     Metadata:
-      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack1/ExampleCognitoDefaultAuthenticatedRole/DefaultPolicy/Resource
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/ExampleCognitoDefaultAuthenticatedRole/DefaultPolicy/Resource
   DefaultValid:
     Type: AWS::Cognito::IdentityPoolRoleAttachment
     Properties:
@@ -239,13 +239,13 @@ Resources:
             - ExampleCognitoDefaultAuthenticatedRole37F17AF0
             - Arn
     Metadata:
-      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack1/DefaultValid
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/DefaultValid
   CDKMetadata:
     Type: AWS::CDK::Metadata
     Properties:
       Modules: aws-cdk=1.78.0,@aws-cdk/assets=1.78.0,@aws-cdk/aws-applicationautoscaling=1.78.0,@aws-cdk/aws-autoscaling-common=1.78.0,@aws-cdk/aws-cloudwatch=1.78.0,@aws-cdk/aws-codeguruprofiler=1.78.0,@aws-cdk/aws-cognito=1.78.0,@aws-cdk/aws-ec2=1.78.0,@aws-cdk/aws-ecr=1.78.0,@aws-cdk/aws-ecr-assets=1.78.0,@aws-cdk/aws-events=1.78.0,@aws-cdk/aws-iam=1.78.0,@aws-cdk/aws-kms=1.78.0,@aws-cdk/aws-lambda=1.78.0,@aws-cdk/aws-logs=1.78.0,@aws-cdk/aws-s3=1.78.0,@aws-cdk/aws-s3-assets=1.78.0,@aws-cdk/aws-sqs=1.78.0,@aws-cdk/aws-ssm=1.78.0,@aws-cdk/cloud-assembly-schema=1.78.0,@aws-cdk/core=1.78.0,@aws-cdk/custom-resources=1.78.0,@aws-cdk/cx-api=1.78.0,@aws-cdk/region-info=1.78.0,jsii-runtime=node.js/v12.14.1
     Metadata:
-      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack1/CDKMetadata/Default
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/CDKMetadata/Default
     Condition: CDKMetadataAvailable
 Conditions:
   CDKMetadataAvailable:
