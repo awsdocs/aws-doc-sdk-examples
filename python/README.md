@@ -30,6 +30,17 @@ to request, import, and manage certificates.
 * Retrieve certificate data.
 * Add custom tags to certificates.
 
+### [Amazon API Gateway AWS service integration example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/apigateway/aws_service/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon API Gateway to
+create a REST API that integrates with Amazon DynamoDB.
+
+* Create a REST API served by API Gateway.
+* Define REST methods that call DynamoDB to store and access data.
+* Call the REST API with the Requests package.
+
 ### [Amazon CloudWatch custom metrics and alarms example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/cloudwatch/README.md)
 
 #### Purpose
