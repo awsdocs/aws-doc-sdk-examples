@@ -55,11 +55,12 @@ bool AwsDoc::S3::DeleteBucketPolicy(const Aws::String& bucketName,const Aws::Str
 int main()
 {
     Aws::String bucket_name = "my-bucket";
+    Aws::String region = "us-east-1";
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        if (AwsDoc::S3::DeleteBucketPolicy(bucket_name))
+        if (AwsDoc::S3::DeleteBucketPolicy(bucket_name, region))
         {
             std::cout << "Deleted bucket policy from '" << bucket_name <<
                 "'." << std::endl;

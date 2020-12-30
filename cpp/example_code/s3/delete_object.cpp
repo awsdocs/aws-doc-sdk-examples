@@ -61,11 +61,12 @@ int main()
 {
     Aws::String object_key = "my-key";
     Aws::String from_bucket = "my-bucket";
+    Aws::String region = "us-east-1";
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        if (AwsDoc::S3::DeleteObject(object_key, from_bucket))
+        if (AwsDoc::S3::DeleteObject(object_key, from_bucket, region))
         {
             std::cout << "Deleted object " << object_key <<
                 " from " << from_bucket << "." << std::endl;

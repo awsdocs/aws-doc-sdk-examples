@@ -75,8 +75,9 @@ int main()
     {
         const Aws::String bucket_name = "my-bucket";
         const Aws::String object_name = "my-file.txt";
+        const Aws::String region = "us-east-1";
 
-        if (!AwsDoc::S3::GetObject(object_name, bucket_name))
+        if (!AwsDoc::S3::GetObject(object_name, bucket_name, region))
         {
             return 1;
         }

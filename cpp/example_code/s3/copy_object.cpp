@@ -64,8 +64,9 @@ int main()
         Aws::String object_key = "my-file.txt";
         Aws::String from_bucket = "my-from-bucket";
         Aws::String to_bucket = "my-to-bucket";
+        Aws::String region = "us-east-1";
 
-        if (AwsDoc::S3::CopyObject(object_key, from_bucket, to_bucket))
+        if (AwsDoc::S3::CopyObject(object_key, from_bucket, to_bucket, region))
         {
             std::cout << "Copied object '" << object_key <<
                 "' from '" << from_bucket << "' to '" << to_bucket << "'." << 
