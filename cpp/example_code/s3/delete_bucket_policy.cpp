@@ -25,7 +25,14 @@
  // snippet-start:[s3.cpp.delete_bucket_policy.code]
 bool AwsDoc::S3::DeleteBucketPolicy(const Aws::String& bucketName,const Aws::String& region)
 {
-    Aws::S3::S3Client s3_client;
+    Aws::Client::ClientConfiguration config;
+
+    if (!region.empty())
+    {
+        config.region = region;
+    }
+
+    Aws::S3::S3Client s3_client(config);
 
     Aws::S3::Model::DeleteBucketPolicyRequest request;
     request.SetBucket(bucketName);

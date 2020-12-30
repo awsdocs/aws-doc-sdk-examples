@@ -17,6 +17,7 @@
  * Inputs:
  * - objectKey: The name of the object to delete.
  * - fromBucket: The name of the bucket to delete the object from.
+ * - region: The AWS Region to create the bucket in.
  *
  * Outputs: true if the object was deleted; otherwise, false.
  * ///////////////////////////////////////////////////////////////////////// */
@@ -25,7 +26,15 @@
 bool AwsDoc::S3::DeleteObject(const Aws::String& objectKey, 
     const Aws::String& fromBucket,const Aws::String& region)
 {
-    Aws::S3::S3Client s3_client;
+    Aws::Client::ClientConfiguration config;
+
+    if (!region.empty())
+    {
+        config.region = region;
+    }
+
+    Aws::S3::S3Client s3_client(config);
+
     Aws::S3::Model::DeleteObjectRequest request;
 
     request.WithKey(objectKey)
