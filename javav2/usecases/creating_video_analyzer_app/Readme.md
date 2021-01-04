@@ -1433,8 +1433,6 @@ Package up the project into a .jar (JAR) file that you can deploy to AWS Elastic
 
 The JAR file is located in the target folder.    
 
-![AWS Photo Analyzer](images/photo6.png)
-
 The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file which includes the dependencies. (Without the dependencies, the application does not run on Elastic Beanstalk.) For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
 
 ## Deploy to AWS Elastic Beanstalk
