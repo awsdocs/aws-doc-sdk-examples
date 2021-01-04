@@ -483,7 +483,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 3. Choose **Author from scratch**.
 
-4. In the **Basic** information section, enter **TicStep1** as the name.
+4. In the **Basic** information section, enter **employeemsg** as the name.
 
 5. In the **Runtime**, choose **Java 8**.
 
@@ -503,16 +503,31 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 11. Choose **Save.**
 
-12. Repeat this procedure for the **Handler2** and **Handler3** classes. Name the corresponding Lambda functions **TicStep2** and **TicStep3**. When you finish, you will have three Lambda functions that you can reference in the Amazon States Language document.  
 
-## Add the Lambda functions to workflows
+## Configure CloudWatch Events to invoke your function
 
-Open the Lambda console. Notice that you can view the Lambda Amazon Resource Name (ARN) value in the upper-right corner.
+1. Open the Functions page on the Lambda console.
 
-![AWS Tracking Application](images/lambda12A.png)
+2. Choose the **employeemsg** function.
 
-Copy the value and then paste it into step 1 of the Amazon States Language document, located in the Step Functions console.
+3. Under Designer, choose **Add trigger**.
 
-![AWS Tracking Application](images/lambda13A.png)
+4. Set the trigger type to **CloudWatch Events/EventBridge**.
 
-Update the Resource for the **Assign Case** and **Send Email** steps. This is how you hook in Lambda functions created by using the AWS SDK for Java into a workflow created by using Step Functions.
+5. For Rule, choose **Create a new rule**.
+
+6. Fill in the Rule name and Rule description. 
+
+7. For rule type, select **Schedule expression**.
+
+.8. In the **Schedule expression** field, enter a cron expression. For example, **cron(0 12 ? * MON-FRI *)**.
+
+7. Choose **Add**.
+
+**Note**: For more information, see [Using AWS Lambda with Amazon CloudWatch Events](https://docs.aws.amazon.com/lambda/latest/dg/services-cloudwatchevents.html). 
+
+### Next steps
+Congratulations, you have created a scheduled event that invokes an AWS Lambda function by using Amazon CloudWatch Events. As stated at the beginning of this tutorial, be sure to terminate all of the resources you created while going through this tutorial to ensure that you’re no longer charged.
+
+For more AWS multiservice examples, see
+[usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).
