@@ -286,7 +286,7 @@ This Java code represents the **Handler** class. The class creates a **ScanEmplo
     }
 
 ### ScanEmployees class
-The **ScanEmployees** class uses both Amazon DynamoDB Java V2 API and the Amazon SNS Java V2 API. In the following code example, notice the use of an **Expression** object. This object is used to query employees that have a start date one year ago. For each employee that is queried, a text message is sent by using the **SnsClient** object’s **publish** method.  
+The **ScanEmployees** class uses both Amazon DynamoDB Java V2 API and the Amazon SNS Java V2 API. In the following code example, notice the use of an **Expression** object. This object is used to query employees that have a start date one year ago. For each employee returned from the query, a text message is sent using the **SnsClient** object's **publish** method.  
 
      package com.aws.example;
 
