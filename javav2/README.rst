@@ -50,7 +50,6 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 + **Creating a sample AWS photo analyzer application using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and various AWS services, such as the  Amazon Rekognition service, to analyze images. The application can analyze many images and generate a report that breaks down each image into a series of labels.
 + **Creating_message_application** - A tutorial that discusses using the AWS SDK for Java and the Simple Queue Service (SQS) to create a basic messaging web application.
 + **Creating scheduled events to invoke  Lambda functions** - A tutorial that discusses how to create a scheduled event that invokes an AWS Lambda function by using Amazon CloudWatch Events. In addition, the AWS Lambda function is created by using the AWS Lambda Java runtime API and invokes multiple AWS services to perform a specific use case.
-+ **Creating AWS video analyzer applications using the AWS SDK for Java** -  A tutorial that discusses using the AWS SDK for Java and various AWS services, such as the Amazon Rekognition service, to analyze videos (MP4 files). The application can analyze a video and generate a report that breaks down the video into a series of labels.
 
 
 AWS service examples
