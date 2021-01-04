@@ -254,11 +254,9 @@ Use the AWS Lambda runtime Java API to create the Java class that defines the La
 
 ![AWS Tracking Application](images/pic5.png)
 
-To create a Lambda function by using the Lambda runtime API, you implement **com.amazonaws.services.lambda.runtime.RequestHandler**. The application logic that's executed when the workflow step is invoked is located in the **handleRequest** method. 
-
 Create these Java classes:
 
-+ **Handler** - used as the Lambda function that performs the use case described in this AWS tutorial.
++ **Handler** - used as the Lambda function that performs the use case described in this AWS tutorial. The application logic that's executed is located in the **handleRequest** method. 
 + **ScanEmployees** - uses the Amazon DynamoDB Java V2 API to query the **Employee** table. This class also uses the Amazon Simple Notification Service (Amazon SNS) Java V2 API to send a message to an employee.
 + **Employee** - a Java class that is used in the DynamoDB Enhanced class. The fields in this class match the columns in the **Employee** table. 
 
@@ -499,7 +497,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 9. Choose **Upload**, and then browse to the JAR file that you created.  
 
-10. For **Handler**, enter the fully qualified name of the function, for example, **example.Handler::handleRequest** (**example.Handler** specifies the package and class followed by :: and method name).
+10. For **Handler**, enter the fully qualified name of the function, for example, **com.aws.example.Handler::handleRequest** (**com.aws.example.Handler** specifies the package and class followed by :: and method name).
 
 ![AWS Tracking Application](images/lambda11.png)
 
