@@ -9,7 +9,7 @@ In this tutorial, you create a Lambda function by using the AWS Lambda Java runt
 
 ![AWS Tracking Application](images/picPhone.png)
 
-This tutorial shows you how to use Java logic to create a solution that performs this use case. For example, you'll learn how to read an Amazon DynamoDB table to determine which employees have reached the one year anniversary date, how to process the data, and send out a text message all by using an AWS Lambda function. Then you’ll learn how to use a cron expression to invoke the Lambda function every weekday. 
+This tutorial shows you how to use Java logic to create a solution that performs this use case. For example, you'll learn how to read an Amazon DynamoDB table to determine which employees have reached the one year anniversary date, how to process the data, and send out a text message all by using an AWS Lambda function. Then you’ll learn how to use a cron expression to invoke the AWS Lambda function every weekday. 
 
 This AWS tutorial uses an Amazon DynamoDB table named **Employee** that contains these fields. 
 -	**Id** – the key for the table.
@@ -28,10 +28,10 @@ This AWS tutorial uses an Amazon DynamoDB table named **Employee** that contains
 +	Create an IAM role that is used to execute Lambda functions
 +	Create an IntelliJ project named **LambdaCronFunctions**
 +	Add the POM dependencies to your project
-+	Create Lambda functions by using the AWS Lambda runtime API
++	Create an AWS Lambda function by using the AWS Lambda runtime API
 +	Package the project that contains the AWS Lambda function
 +	Deploy the AWS Lambda function
-+	Configure CloudWatch Events to use a Cron expression to invoke the AWS Lambda function
++	Configure CloudWatch Events to use a cron expression to invoke the AWS Lambda function
 
 ## Prerequisites
 To follow along with this tutorial, you need the following:
@@ -39,7 +39,7 @@ To follow along with this tutorial, you need the following:
 + A Java IDE (for this tutorial, the IntelliJ IDE is used).
 + Java 1.8 JDK.
 + Maven 3.6 or higher.
-+ An Amazon DynamoDB table named **Employee** with a key named Id and the fields shown in the previous illustration. Make sure you enter the correct data, including a valid mobile phone that you want to test this use case with. To learn how to create a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
++ An Amazon DynamoDB table named **Employee** with a key named **Id** and the fields shown in the previous illustration. Make sure you enter the correct data, including a valid mobile phone that you want to test this use case with. To learn how to create a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 
 ## Create an IAM role that's used to execute Lambda functions
 
