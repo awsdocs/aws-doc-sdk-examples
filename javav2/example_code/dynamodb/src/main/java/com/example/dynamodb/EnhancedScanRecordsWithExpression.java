@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[EnhancedScanRecordsWithExpression.java demonstrates how to scan an Amazon DynamoDB table by using the enhanced client and an Expression object.]
+//snippet-sourcedescription:[EnhancedScanRecordsWithExpression.java demonstrates how to scan and query an Amazon DynamoDB table by using the enhanced client and an Expression object.]
 //snippet-keyword:[SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -14,11 +14,12 @@
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.mapping.scanEx.import]
+import software.amazon.awssdk.core.pagination.sync.SdkIterable;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
-import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
-import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
-import software.amazon.awssdk.enhanced.dynamodb.Expression;
-import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+import software.amazon.awssdk.enhanced.dynamodb.*;
+import software.amazon.awssdk.enhanced.dynamodb.model.Page;
+import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
+import software.amazon.awssdk.enhanced.dynamodb.model.QueryEnhancedRequest;
 import software.amazon.awssdk.enhanced.dynamodb.model.ScanEnhancedRequest;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
@@ -26,6 +27,7 @@ import software.amazon.awssdk.services.dynamodb.model.*;
 import software.amazon.awssdk.services.dynamodb.model.Select;
 import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 // snippet-end:[dynamodb.java2.mapping.scanEx.import]
 
 public class EnhancedScanRecordsWithExpression {
@@ -45,8 +47,61 @@ public class EnhancedScanRecordsWithExpression {
         createTable(ddb, tableName);
         loadData(ddb, tableName);
         scanIndex(ddb, tableName, "CreateDateIndex");
+        queryIndex(ddb, tableName, "CreateDateIndex");
         ddb.close();
     }
+
+    // Query the table using a secondary index
+    public static void queryIndex(DynamoDbClient ddb, String tableName, String indexName) {
+
+        try {
+            // Create a DynamoDbEnhancedClient and use the DynamoDbClient object
+            DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+                    .dynamoDbClient(ddb)
+                    .build();
+
+            //Create a DynamoDbTable object based on Issues
+            DynamoDbTable<Issues> table = enhancedClient.table("Issues", TableSchema.fromBean(Issues.class));
+
+            String dateVal = "2013-11-19";
+
+            DynamoDbIndex<Issues> secIndex =
+                    enhancedClient.table("Issues",
+                            TableSchema.fromBean(Issues.class))
+                           .index("dueDateIndex");
+
+
+            AttributeValue attVal = AttributeValue.builder()
+                    .s(dateVal)
+                    .build();
+
+             // Create a QueryConditional object that's used in the query operation
+            QueryConditional queryConditional = QueryConditional
+                    .keyEqualTo(Key.builder().partitionValue(attVal)
+                            .build());
+
+                // Get items in the Issues table
+            SdkIterable<Page<Issues>> results =  secIndex.query(
+                    QueryEnhancedRequest.builder()
+                            .queryConditional(queryConditional)
+                            .build());
+
+            AtomicInteger atomicInteger = new AtomicInteger();
+            atomicInteger.set(0);
+            results.forEach(page -> {
+
+                Issues issue = (Issues) page.items().get(atomicInteger.get());
+                System.out.println("The issue title is "+issue.getTitle());
+                atomicInteger.incrementAndGet();
+            });
+
+
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+    }
+
 
     // snippet-start:[dynamodb.java2.mapping.scanEx.main]
     // Scan the table and retrieve only items where createDate is 2013-11-15
@@ -79,7 +134,6 @@ public class EnhancedScanRecordsWithExpression {
                 Map<String, String> myExMap = new HashMap<>();
                 myExMap.put("#createDate", "createDate");
 
-                // Set the Expression so only Closed items are queried from the Work table
                 Expression expression = Expression.builder()
                         .expressionValues(myMap)
                         .expressionNames(myExMap)
