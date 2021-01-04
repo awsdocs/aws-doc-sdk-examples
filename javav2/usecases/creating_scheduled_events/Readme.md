@@ -314,7 +314,7 @@ The **ScanEmployees** class uses both Amazon DynamoDB Java V2 API and the Amazon
 
     public class ScanEmployees {
 
-      public Boolean sendEmployeMessage() {
+       public Boolean sendEmployeMessage() {
 
          Boolean send = false;
          String myDate = getDate();
@@ -332,44 +332,47 @@ The **ScanEmployees** class uses both Amazon DynamoDB Java V2 API and the Amazon
         // Create a DynamoDbTable object based on Employee
         DynamoDbTable<Employee> table = enhancedClient.table("Employee", TableSchema.fromBean(Employee.class));
 
-        AttributeValue attVal = AttributeValue.builder()
+        try {
+            AttributeValue attVal = AttributeValue.builder()
                 .s(myDate)
                 .build();
 
-        // Get only items in the Employee table that match the date
-        Map<String, AttributeValue> myMap = new HashMap<>();
-        myMap.put(":val1", attVal);
+            // Get only items in the Employee table that match the date
+            Map<String, AttributeValue> myMap = new HashMap<>();
+            myMap.put(":val1", attVal);
 
-        Map<String, String> myExMap = new HashMap<>();
-        myExMap.put("#startDate", "startDate");
+            Map<String, String> myExMap = new HashMap<>();
+            myExMap.put("#startDate", "startDate");
 
-        Expression expression = Expression.builder()
+            Expression expression = Expression.builder()
                 .expressionValues(myMap)
                 .expressionNames(myExMap)
                 .expression("#startDate = :val1")
                 .build();
 
-        ScanEnhancedRequest enhancedRequest = ScanEnhancedRequest.builder()
+            ScanEnhancedRequest enhancedRequest = ScanEnhancedRequest.builder()
                 .filterExpression(expression)
                 .limit(15) // you can increase this value
                 .build();
 
-        // Get items in the Employee table
-        Iterator<Employee> employees = table.scan(enhancedRequest).items().iterator();
+            // Get items in the Employee table
+            Iterator<Employee> employees = table.scan(enhancedRequest).items().iterator();
 
-        while (employees.hasNext()) {
-            Employee employee = employees.next();
-            String first = employee.getFirst();
-            String phone = employee.getPhone();
+            while (employees.hasNext()) {
+                Employee employee = employees.next();
+                String first = employee.getFirst();
+                String phone = employee.getPhone();
 
-            // Send an anniversary message!
-            sentTextMessage(first, phone);
-
-            send = true;
+                // Send an anniversary message!
+                sentTextMessage(first, phone);
+                send = true;
+            }
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
-
         return send;
-    }
+      }
 
 
     // Use the Amazon SNS Service to send a text message
