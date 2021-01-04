@@ -17,7 +17,7 @@ This AWS tutorial uses an Amazon DynamoDB table named **Employee** that contains
 -	**phone** – the employee’s phone number.
 -	**startDate** – the employee’s start date.
 
-![AWS Tracking Application](images/pic0.png)
+![AWS Tracking Application](images/pic00.png)
 
 **Cost to complete**: The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
 
