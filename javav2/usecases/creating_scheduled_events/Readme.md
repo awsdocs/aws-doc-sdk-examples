@@ -489,7 +489,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 6. Choose **Use an existing role**, and then choose **lambda-support** (the IAM role that you created).
 
-![AWS Tracking Application](images/lambda20.png)
+![AWS Tracking Application](images/pic10.png)
 
 7. Choose **Create function**.
 
