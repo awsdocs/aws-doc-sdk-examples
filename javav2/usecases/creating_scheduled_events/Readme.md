@@ -523,9 +523,9 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 7. For rule type, select **Schedule expression**.
 
-.8. In the **Schedule expression** field, enter a cron expression. For example, **cron(0 12 ? * MON-FRI *)**.
+8. In the **Schedule expression** field, enter a cron expression. For example, **cron(0 12 ? * MON-FRI *)**.
 
-7. Choose **Add**.
+9. Choose **Add**.
 
 **Note**: For more information, see [Using AWS Lambda with Amazon CloudWatch Events](https://docs.aws.amazon.com/lambda/latest/dg/services-cloudwatchevents.html). 
 
