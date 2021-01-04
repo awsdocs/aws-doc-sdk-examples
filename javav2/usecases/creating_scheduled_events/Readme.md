@@ -478,7 +478,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 **Note**: Notice the use of the **maven-shade-plugin** in the project’s POM file. This plugin is responsible for creating a JAR that contains the required dependencies. If you attempt to package up the project without this plugin, the required dependences are not included in the JAR file and you will encounter a **ClassNotFoundException**. 
 
-## Deploy the Lambda functions
+## Deploy the Lambda function
 
 1. Open the Lambda console at https://us-east-1.console.aws.amazon.com/lambda/home.
 
