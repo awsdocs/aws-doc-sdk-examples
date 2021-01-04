@@ -277,13 +277,13 @@ This Java code represents the **Handler** class. The class creates a **ScanEmplo
 
      public Void handleRequest(Context context) {
         LambdaLogger logger = context.getLogger();
-        ScanEmployees val = new ScanEmployees();
-       Boolean ans =  val.sendEmployeMessage();
+        ScanEmployees scanEmployees = new ScanEmployees();
+       Boolean ans =  scanEmployees.sendEmployeMessage();
         if (ans)
             logger.log("Messages sent: " + ans);
         return null;
-     }
     }
+}
 
 ### ScanEmployees class
 The **ScanEmployees** class uses both Amazon DynamoDB Java V2 API and the Amazon SNS Java V2 API. In the following code example, notice the use of an **Expression** object. This object is used to return employees that have a start date one year ago. For each employee returned, a text message is sent using the **SnsClient** object's **publish** method.  
