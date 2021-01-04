@@ -530,7 +530,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 **Note**: For more information, see [Using AWS Lambda with Amazon CloudWatch Events](https://docs.aws.amazon.com/lambda/latest/dg/services-cloudwatchevents.html). 
 
 ### Next steps
-Congratulations, you have created a scheduled event that invokes an AWS Lambda function by using Amazon CloudWatch Events. As stated at the beginning of this tutorial, be sure to terminate all of the resources you created while going through this tutorial to ensure that you’re no longer charged.
+Congratulations, you have created a scheduled event that invokes an AWS Lambda function by using Amazon CloudWatch Events. As stated at the beginning of this tutorial, be sure to terminate all of the resources you created while going through this tutorial to ensure that you’re not charged.
 
 For more AWS multiservice examples, see
 [usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).
