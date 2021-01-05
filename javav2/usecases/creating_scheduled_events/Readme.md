@@ -25,7 +25,7 @@ This AWS tutorial uses an Amazon DynamoDB table named **Employee** that contains
 
 #### Topics
 +	Prerequisites
-+	Create an IAM role that is used to execute Lambda functions
++	Create an AWS Identity and Access Management (IAM) role that is used to execute Lambda functions
 +	Create an IntelliJ project named **LambdaCronFunctions**
 +	Add the POM dependencies to your project
 +	Create an AWS Lambda function by using the AWS Lambda runtime API
