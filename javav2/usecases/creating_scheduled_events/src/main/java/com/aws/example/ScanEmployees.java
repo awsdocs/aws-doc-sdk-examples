@@ -91,7 +91,7 @@ public class ScanEmployees {
     }
 
 
-    // Use the Amazon SNS Service to send a text message
+    // Use the Amazon Simple Notification Service (Amazon SNS) to send a text message
     private void sentTextMessage(String first, String phone) {
 
         SnsClient snsClient = SnsClient.builder()
