@@ -6,7 +6,6 @@
 //snippet-sourcedate:[10/30/2020]
 //snippet-sourceauthor:[scmacdon - aws]
 
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -62,14 +61,11 @@ public class EnhancedScanRecordsWithExpression {
 
             //Create a DynamoDbTable object based on Issues
             DynamoDbTable<Issues> table = enhancedClient.table("Issues", TableSchema.fromBean(Issues.class));
-
             String dateVal = "2013-11-19";
-
             DynamoDbIndex<Issues> secIndex =
                     enhancedClient.table("Issues",
                             TableSchema.fromBean(Issues.class))
                            .index("dueDateIndex");
-
 
             AttributeValue attVal = AttributeValue.builder()
                     .s(dateVal)
@@ -80,7 +76,7 @@ public class EnhancedScanRecordsWithExpression {
                     .keyEqualTo(Key.builder().partitionValue(attVal)
                             .build());
 
-                // Get items in the Issues table
+            // Get items in the Issues table
             SdkIterable<Page<Issues>> results =  secIndex.query(
                     QueryEnhancedRequest.builder()
                             .queryConditional(queryConditional)
@@ -95,13 +91,11 @@ public class EnhancedScanRecordsWithExpression {
                 atomicInteger.incrementAndGet();
             });
 
-
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
     }
-
 
     // snippet-start:[dynamodb.java2.mapping.scanEx.main]
     // Scan the table and retrieve only items where createDate is 2013-11-15
@@ -161,7 +155,6 @@ public class EnhancedScanRecordsWithExpression {
         }
     }
     // snippet-end:[dynamodb.java2.mapping.scanEx.main]
-
 
     // Load data into the table
     public static void loadData(DynamoDbClient ddb, String tableName) {
