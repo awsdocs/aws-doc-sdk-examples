@@ -33,7 +33,7 @@ To build and run these examples, you need the following:
              .build();
 
 
-**Note**: For more information about setting crenentials, see (Supplying and retrieving AWS credentials)[https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html].
+**Note**: For more information about setting crenentials, see [Supplying and retrieving AWS credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 
 AWS Java code examples
 ======================
