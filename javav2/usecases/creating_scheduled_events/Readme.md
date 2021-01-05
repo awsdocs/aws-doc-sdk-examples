@@ -258,7 +258,7 @@ Create these Java classes:
 
 + **Handler** - used as the Lambda function that performs the use case described in this AWS tutorial. The application logic that's executed is located in the **handleRequest** method. 
 + **ScanEmployees** - uses the Amazon DynamoDB Java V2 API to scan the **Employee** table using an **Expression** object. This class also uses the Amazon Simple Notification Service (Amazon SNS) Java V2 API to send a message to an employee.
-+ **Employee** - a Java class that is used in the DynamoDB Enhanced class. The fields in this class match the columns in the **Employee** table. 
++ **Employee** - a Java class that is used with the DynamoDB Enhanced client. The fields in this class match the columns in the **Employee** table. 
 
 ### Handler class
 
