@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 package main
 
 import (
@@ -20,25 +22,16 @@ func (dt S3PresignGetObjectImpl) PresignGetObject(
 	params *s3.GetObjectInput,
 	optFns ...func(*s3.PresignOptions)) (*v4.PresignedHTTPRequest, error) {
 
-	/* The URL looks like (all on one line, no spaces):
-	   https://BUCKET-NAME.s3.REGION.amazonaws.com/KEY?
-	   X-Amz-Algorithm=AWS4-HMAC-SHA256
-	   &X-Amz-Credential=CREDENTIALSREGION%2Fs3%2Faws4_request
-	   &X-Amz-Date=20210104T220556Z
-	   &X-Amz-Expires=900
-	   &X-Amz-SignedHeaders=host
-	   &x-id=GetObject
-	   &X-Amz-Signature=91cfe149f6457ca7622515c39259a93b62a8e04ab19e775792cbb8c37d13f025
-	*/
-
-	// So we can get the region:
+	// Get the region:
 	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
 
 	region := cfg.Region
+
 	string64 := "1234567890123456789012345678901234567890123456789012345678901234"
+
 	url := "https://" +
 		*params.Bucket +
 		".s3." + region +
@@ -78,7 +71,7 @@ func populateConfiguration() error {
 	}
 
 	if globalConfig.Bucket == "" || globalConfig.Key == "" {
-		msg := "You musts supply a value for Bucket and Key in " + configFileName
+		msg := "You must supply a value for Bucket and Key in " + configFileName
 		return errors.New(msg)
 	}
 
