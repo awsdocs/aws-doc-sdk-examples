@@ -35,7 +35,7 @@ This AWS tutorial uses an Amazon DynamoDB table named **Employee** that contains
 
 ## Prerequisites
 To follow along with this tutorial, you need the following:
-+ An AWS Account.
++ An AWS Account with proper credentials.
 + A Java IDE (for this tutorial, the IntelliJ IDE is used).
 + Java 1.8 JDK.
 + Maven 3.6 or higher.
