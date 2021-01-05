@@ -9,7 +9,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 
 /**
- *  This is the entry point for the Lambda function
+ *  This is the entry point for the Lambda function.
  */
 
 public class Handler {
