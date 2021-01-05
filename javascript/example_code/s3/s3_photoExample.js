@@ -187,8 +187,7 @@ function addPhoto(albumName) {
     params: {
       Bucket: albumBucketName,
       Key: photoKey,
-      Body: file,
-      ACL: "public-read"
+      Body: file
     }
   });
 
