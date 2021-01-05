@@ -11,8 +11,7 @@ Note: This example immediately deletes the object and bucket.
 
 Inputs (replace in code):
 - REGION
-- KEY
-- BODY
+
 
 Running the code:
 ts-node s3_put_presignedURL.ts
@@ -35,7 +34,7 @@ const { formatUrl } = require("@aws-sdk/util-format-url");
 const fetch = require("node-fetch");
 
 // Set the AWS Region
-const REGION = "eu-west-1";
+const REGION = "REGION";
 
 // Set parameters
 // Create a random names for the Amazon Simple Storage Service (Amazon S3) bucket and key
@@ -49,8 +48,8 @@ const clientParams = {
 const s3Client = new S3({ region: REGION });
 
 //Create an S3RequestPresigner object
-//To avoid redundant construction parameters when instantiating the s3 presigner,
-// spread the configuration of an existing s3 client and supply it to the
+//To avoid redundant construction parameters when instantiating the Amazon S3 presigner,
+// spread the configuration of an existing Amazon S3 client and supply it to the
 // presigner's constructor.
 const signedRequest = new S3RequestPresigner(s3Client.config);
 
