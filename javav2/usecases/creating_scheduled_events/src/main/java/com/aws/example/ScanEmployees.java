@@ -25,7 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /*
-    Sends a text message to any employee that reached the one year anniversary mark
+    Sends a text message to any employee that reached the one year anniversary mark.
  */
 
 public class ScanEmployees {
@@ -40,12 +40,12 @@ public class ScanEmployees {
                 .region(region)
                 .build();
 
-        // Create a DynamoDbEnhancedClient and use the DynamoDbClient object
+        // Create a DynamoDbEnhancedClient and use the DynamoDbClient object.
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(ddb)
                 .build();
 
-        // Create a DynamoDbTable object based on Employee
+        // Create a DynamoDbTable object based on Employee.
         DynamoDbTable<Employee> table = enhancedClient.table("Employee", TableSchema.fromBean(Employee.class));
 
         try {
@@ -53,7 +53,7 @@ public class ScanEmployees {
                     .s(myDate)
                     .build();
 
-            // Get only items in the Employee table that match the date
+            // Get only items in the Employee table that match the date.
             Map<String, AttributeValue> myMap = new HashMap<>();
             myMap.put(":val1", attVal);
 
@@ -68,10 +68,10 @@ public class ScanEmployees {
 
             ScanEnhancedRequest enhancedRequest = ScanEnhancedRequest.builder()
                     .filterExpression(expression)
-                    .limit(15) // you can increase this value
+                    .limit(15) // you can increase this value.
                     .build();
 
-            // Get items in the Employee table
+            // Get items in the Employee table.
             Iterator<Employee> employees = table.scan(enhancedRequest).items().iterator();
 
             while (employees.hasNext()) {
@@ -79,7 +79,7 @@ public class ScanEmployees {
                 String first = employee.getFirst();
                 String phone = employee.getPhone();
 
-                // Send an anniversary message!
+                // Send an anniversary message.
                 sentTextMessage(first, phone);
                 send = true;
             }
@@ -90,8 +90,7 @@ public class ScanEmployees {
         return send;
     }
 
-
-    // Use the Amazon Simple Notification Service (Amazon SNS) to send a text message
+    // Use the Amazon SNS Service to send a text message
     private void sentTextMessage(String first, String phone) {
 
         SnsClient snsClient = SnsClient.builder()
