@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[EnhancedScanRecordsWithExpression.java demonstrates how to scan and query an Amazon DynamoDB table by using the enhanced client and an Expression object.]
+//snippet-sourcedescription:[EnhancedScanRecordsWithExpression.java demonstrates how to scan and query an Amazon DynamoDB table by using the enhanced client and a software.amazon.awssdk.enhanced.dynamodb.Expression object.]
 //snippet-keyword:[SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -15,7 +15,12 @@ package com.example.dynamodb;
 // snippet-start:[dynamodb.java2.mapping.scanEx.import]
 import software.amazon.awssdk.core.pagination.sync.SdkIterable;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
-import software.amazon.awssdk.enhanced.dynamodb.*;
+import software.amazon.awssdk.enhanced.dynamodb.Expression;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbIndex;
+import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.model.Page;
 import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
 import software.amazon.awssdk.enhanced.dynamodb.model.QueryEnhancedRequest;
@@ -50,16 +55,16 @@ public class EnhancedScanRecordsWithExpression {
         ddb.close();
     }
 
-    // Query the table using a secondary index
+    // Query the table using a secondary index.
     public static void queryIndex(DynamoDbClient ddb, String tableName, String indexName) {
 
         try {
-            // Create a DynamoDbEnhancedClient and use the DynamoDbClient object
+            // Create a DynamoDbEnhancedClient and use the DynamoDbClient object.
             DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                     .dynamoDbClient(ddb)
                     .build();
 
-            //Create a DynamoDbTable object based on Issues
+            // Create a DynamoDbTable object based on Issues.
             DynamoDbTable<Issues> table = enhancedClient.table("Issues", TableSchema.fromBean(Issues.class));
             String dateVal = "2013-11-19";
             DynamoDbIndex<Issues> secIndex =
@@ -71,12 +76,12 @@ public class EnhancedScanRecordsWithExpression {
                     .s(dateVal)
                     .build();
 
-             // Create a QueryConditional object that's used in the query operation
+             // Create a QueryConditional object that's used in the query operation.
             QueryConditional queryConditional = QueryConditional
                     .keyEqualTo(Key.builder().partitionValue(attVal)
                             .build());
 
-            // Get items in the Issues table
+            // Get items in the Issues table.
             SdkIterable<Page<Issues>> results =  secIndex.query(
                     QueryEnhancedRequest.builder()
                             .queryConditional(queryConditional)
@@ -98,22 +103,22 @@ public class EnhancedScanRecordsWithExpression {
     }
 
     // snippet-start:[dynamodb.java2.mapping.scanEx.main]
-    // Scan the table and retrieve only items where createDate is 2013-11-15
+    // Scan the table and retrieve only items where createDate is 2013-11-15.
     public static void scanIndex(DynamoDbClient ddb, String tableName, String indexName) {
 
         System.out.println("\n***********************************************************\n");
         System.out.print("Select items for "+tableName +" where createDate is 2013-11-15!");
 
         try {
-            // Create a DynamoDbEnhancedClient and use the DynamoDbClient object
+            // Create a DynamoDbEnhancedClient and use the DynamoDbClient object.
             DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                     .dynamoDbClient(ddb)
                     .build();
 
-            //Create a DynamoDbTable object based on Issues
+            // Create a DynamoDbTable object based on Issues.
             DynamoDbTable<Issues> table = enhancedClient.table("Issues", TableSchema.fromBean(Issues.class));
 
-            // Setup the scan based on the index
+            // Setup the scan based on the index.
             if (indexName == "CreateDateIndex") {
                 System.out.println("Issues filed on 2013-11-15");
 
@@ -121,7 +126,7 @@ public class EnhancedScanRecordsWithExpression {
                         .s("2013-11-15")
                         .build();
 
-                // Get only items in the Issues table for 2013-11-15
+                // Get only items in the Issues table for 2013-11-15.
                 Map<String, AttributeValue> myMap = new HashMap<>();
                 myMap.put(":val1", attVal);
 
@@ -139,7 +144,7 @@ public class EnhancedScanRecordsWithExpression {
                         .limit(15)
                         .build();
 
-                // Get items in the Issues table
+                // Get items in the Issues table.
                 Iterator<Issues> results = table.scan(enhancedRequest).items().iterator();
 
                 while (results.hasNext()) {
@@ -156,7 +161,7 @@ public class EnhancedScanRecordsWithExpression {
     }
     // snippet-end:[dynamodb.java2.mapping.scanEx.main]
 
-    // Load data into the table
+    // Load data into the table.
     public static void loadData(DynamoDbClient ddb, String tableName) {
         System.out.println("Loading data into table " + tableName + "...");
 
@@ -176,7 +181,7 @@ public class EnhancedScanRecordsWithExpression {
                 "2013-11-16", "2013-11-19", 5, "Assigned");
     }
 
-    // Populate the table with data
+    // Populate the table with data.
     public static void putItem(DynamoDbClient ddb,
                                String tableName,
                                String issueId,
@@ -199,7 +204,6 @@ public class EnhancedScanRecordsWithExpression {
         item.put("priority", AttributeValue.builder().n(priority.toString()).build());
         item.put("status", AttributeValue.builder().s(status).build());
 
-        // Create a PutItemRequest object
         PutItemRequest request = PutItemRequest.builder()
                 .tableName(tableName)
                 .item(item)
@@ -215,7 +219,7 @@ public class EnhancedScanRecordsWithExpression {
         }
     }
 
-    // Create a table with indexes
+    // Create a table with indexes.
     public static void createTable(DynamoDbClient ddb, String tableName) {
 
         try {
@@ -243,9 +247,7 @@ public class EnhancedScanRecordsWithExpression {
                     .attributeType("S")
                     .build());
 
-            // Key schema for table
             ArrayList<KeySchemaElement> tableKey = new ArrayList<KeySchemaElement>();
-
             KeySchemaElement key = KeySchemaElement.builder()
                     .attributeName("issueId")
                     .keyType(KeyType.HASH)
@@ -256,17 +258,16 @@ public class EnhancedScanRecordsWithExpression {
                     .keyType(KeyType.RANGE) // Sort
                     .build();
 
-            // Add KeySchemaElement objects to the list
+            // Add KeySchemaElement objects to the list.
             tableKey.add(key);
             tableKey.add(key2);
 
-            // Create a ProvisionedThroughput object
+            // Create a ProvisionedThroughput object.
             ProvisionedThroughput ptIndex = ProvisionedThroughput.builder()
                     .readCapacityUnits(1L)
                     .writeCapacityUnits(1L)
                     .build();
 
-            // Build a Collection
             KeySchemaElement keyDate = KeySchemaElement.builder()
                     .attributeName("createDate")
                     .keyType(KeyType.HASH)
@@ -277,19 +278,16 @@ public class EnhancedScanRecordsWithExpression {
                     .keyType(KeyType.RANGE)
                     .build();
 
-            // Add KeySchemaElement objects to the list
             List<KeySchemaElement> keySchema = new ArrayList<KeySchemaElement>();
             keySchema.add(keyDate);
             keySchema.add(keyIssues);
 
-            //Create a Projection
             Projection projection =  Projection.builder()
                     .projectionType("INCLUDE")
                     .nonKeyAttributes("description", "status")
                     .projectionType("INCLUDE")
                     .build();
 
-            // Create a GlobalSecondaryIndex that represents CreateDateIndex
             GlobalSecondaryIndex createDateIndex = GlobalSecondaryIndex.builder()
                     .indexName("createDateIndex")
                     .provisionedThroughput(ptIndex)
@@ -297,7 +295,6 @@ public class EnhancedScanRecordsWithExpression {
                     .projection(projection)
                     .build();
 
-            // Build a Collection
             KeySchemaElement keySchemaTitle = KeySchemaElement.builder()
                     .attributeName("title")
                     .keyType(KeyType.HASH)
@@ -308,21 +305,18 @@ public class EnhancedScanRecordsWithExpression {
                     .keyType(KeyType.RANGE)
                     .build();
 
-            // Add KeySchemaElement objects to the list
             List<KeySchemaElement> keySchemaCol2 = new ArrayList<KeySchemaElement>();
             keySchemaCol2.add(keySchemaTitle);
             keySchemaCol2.add(keySchemaIssueId);
 
 
-            // Create a GlobalSecondaryIndex that represents TitleIndex
             GlobalSecondaryIndex titleIndex = GlobalSecondaryIndex.builder()
                     .indexName("titleIndex")
                     .provisionedThroughput(ptIndex)
-                    .keySchema(keySchemaCol2) // Sort
+                    .keySchema(keySchemaCol2) 
                     .projection(Projection.builder().projectionType("KEYS_ONLY").build())
                     .build();
 
-            // Build a Collection
             KeySchemaElement keySchemaDueDate = KeySchemaElement.builder()
                     .attributeName("dueDate")
                     .keyType(KeyType.HASH)
@@ -331,7 +325,6 @@ public class EnhancedScanRecordsWithExpression {
             List<KeySchemaElement> keySchemaCol3 = new ArrayList<KeySchemaElement>();
             keySchemaCol3.add(keySchemaDueDate);
 
-            // Create a GlobalSecondaryIndex that represents DueDateIndex
             GlobalSecondaryIndex dueDateIndex = GlobalSecondaryIndex.builder()
                     .indexName("dueDateIndex")
                     .provisionedThroughput(ptIndex)
@@ -339,13 +332,11 @@ public class EnhancedScanRecordsWithExpression {
                     .projection(projection)
                     .build();
 
-            // Add GlobalSecondaryIndex objects to the list
             List<GlobalSecondaryIndex> globalIndex = new ArrayList<>();
             globalIndex.add(createDateIndex);
             globalIndex.add(dueDateIndex);
             globalIndex.add(titleIndex);
 
-            // Create the CreateTableRequest object
             CreateTableRequest request = CreateTableRequest.builder()
                     .keySchema(tableKey)
                     .provisionedThroughput(ProvisionedThroughput.builder()
@@ -358,15 +349,12 @@ public class EnhancedScanRecordsWithExpression {
                     .build();
 
             System.out.println("Creating table " + tableName + "...");
-            // Create a waiter object
+           
             DynamoDbWaiter dbWaiter = ddb.waiter();
-
             CreateTableResponse response =  ddb.createTable(request);
 
-            // Wait until the table is created
+            // Wait until the table is created.
             WaiterResponse<DescribeTableResponse> waiterResponse =  dbWaiter.waitUntilTableExists(r -> r.tableName(tableName));
-
-            // print out the matched response with a tableStatus of ACTIVE
             waiterResponse.matched().response().ifPresent(System.out::println);
 
             String newTable = response.tableDescription().tableName();
