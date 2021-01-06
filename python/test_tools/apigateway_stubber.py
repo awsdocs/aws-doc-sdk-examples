@@ -8,6 +8,8 @@ When tests are run against an actual AWS account, the stubber class does not
 set up stubs and passes all calls through to the Boto3 client.
 """
 
+import json
+
 from test_tools.example_stubber import ExampleStubber
 
 
@@ -50,32 +52,49 @@ class ApiGatewayStubber(ExampleStubber):
         self._stub_bifurcator(
             'create_resource', expected_params, response, error_code=error_code)
 
-    def stub_put_method(self, api_id, resource_id, error_code=None):
+    def stub_put_method(
+            self, api_id, resource_id, error_code=None, http_method='ANY'):
         expected_params = {
-            'restApiId': api_id, 'resourceId': resource_id, 'httpMethod': 'ANY',
+            'restApiId': api_id, 'resourceId': resource_id, 'httpMethod': http_method,
             'authorizationType': 'NONE'}
         self._stub_bifurcator(
             'put_method', expected_params, error_code=error_code)
 
     def stub_put_method_response(
-            self, api_id, resource_id, response_models, error_code=None):
+            self, api_id, resource_id, response_models, error_code=None,
+            http_method='ANY'):
         expected_params = {
-            'restApiId': api_id, 'resourceId': resource_id, 'httpMethod': 'ANY',
+            'restApiId': api_id, 'resourceId': resource_id, 'httpMethod': http_method,
             'statusCode': '200', 'responseModels': response_models}
         self._stub_bifurcator(
             'put_method_response', expected_params, error_code=error_code)
 
-    def stub_put_integration(self, api_id, resource_id, uri, error_code=None):
+    def stub_put_integration(
+            self, api_id, resource_id, uri, error_code=None, http_method='ANY',
+            integ_type='AWS_PROXY', integ_method='POST', integ_role_arn=None,
+            integ_templates=None, passthrough=None):
         expected_params = {
-            'restApiId': api_id, 'resourceId': resource_id, 'httpMethod': 'ANY',
-            'type': 'AWS_PROXY', 'integrationHttpMethod': 'POST', 'uri': uri}
+            'restApiId': api_id,
+            'resourceId': resource_id,
+            'httpMethod': http_method,
+            'type': integ_type,
+            'integrationHttpMethod': integ_method,
+            'uri': uri}
+        if integ_role_arn is not None:
+            expected_params['credentials'] = integ_role_arn
+        if integ_templates is not None:
+            expected_params['requestTemplates'] = {
+                'application/json': json.dumps(integ_templates)}
+        if passthrough is not None:
+            expected_params['passthroughBehavior'] = passthrough
         self._stub_bifurcator(
             'put_integration', expected_params, error_code=error_code)
 
     def stub_put_integration_response(
-            self, api_id, resource_id, response_templates, error_code=None):
+            self, api_id, resource_id, response_templates, error_code=None,
+            http_method='ANY'):
         expected_params = {
-            'restApiId': api_id, 'resourceId': resource_id, 'httpMethod': 'ANY',
+            'restApiId': api_id, 'resourceId': resource_id, 'httpMethod': http_method,
             'statusCode': '200', 'responseTemplates': response_templates}
         self._stub_bifurcator(
             'put_integration_response', expected_params, error_code=error_code)
@@ -89,3 +108,9 @@ class ApiGatewayStubber(ExampleStubber):
         expected_params = {'restApiId': api_id}
         self._stub_bifurcator(
             'delete_rest_api', expected_params, error_code=error_code)
+
+    def stub_get_rest_apis(self, rest_apis, error_code=None):
+        expected_params = {}
+        response = {'items': rest_apis}
+        self._stub_bifurcator(
+            'get_rest_apis', expected_params, response, error_code=error_code)

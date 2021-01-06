@@ -1,634 +1,374 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourcedescription:[aws_service.py demonstrates how to create an API Gateway REST interface to an AWS service.]
-# snippet-service:[apigateway]
-# snippet-keyword:[API Gateway]
-# snippet-keyword:[Python]
-# snippet-sourcesyntax:[python]
-# snippet-sourcesyntax:[python]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[snippet]
-# snippet-sourcedate:[2019-08-14]
-# snippet-sourceauthor:[AWS]
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License"). You
-# may not use this file except in compliance with the License. A copy of
-# the License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# or in the "license" file accompanying this file. This file is
-# distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
-# ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+"""
+Purpose
 
+Shows how to use the AWS SDK for Python (Boto3) with Amazon API Gateway to
+create a REST API that uses Amazon DynamoDB to store user profiles.
+"""
 
 import argparse
 import json
 import logging
-import os
+from pprint import pprint
 import boto3
 from botocore.exceptions import ClientError
 import requests
 
-# Amazon Translate target language code
-# To translate text to another language, change this setting to the desired code
-TARGET_LANGUAGE_CODE = 'fr'
-
-# Configuration settings. Change as desired
-REGION = 'us-east-1'                # AWS region in which to create resources
-API_NAME = 'AmazonTranslateAPI'     # API name in API Gateway
-API_RESOURCE_NAME = 'translate'     # As in https:/my_api/translate
-API_STAGE = 'dev'                   # API Gateway stage
-API_QUERY_PARAM = 'text'            # Required query parameter
-API_TRANSLATE_IAM_ROLE = 'apigateway_translate_role'    # IAM role name
-CONFIG_FILENAME = 'config.txt'      # Disk file to store API settings
+logger = logging.getLogger(__name__)
 
 
-def create_iam_role_for_apigateway(iam_role_name):
-    """Create an IAM role to enable the API Gateway to call the
-    Amazon Translate service
-
-    :param iam_role_name: Name of IAM role
-    :return: ARN of IAM role. If error, returns None.
+class ApiGatewayToService:
     """
-
-    # API Gateway trusted relationship policy document
-    apigateway_assume_role = {
-        'Version': '2012-10-17',
-        'Statement': [
-            {
-                'Sid': '',
-                'Effect': 'Allow',
-                'Principal': {
-                    'Service': 'apigateway.amazonaws.com'
-                },
-                'Action': 'sts:AssumeRole'
-            }
-        ]
-    }
-    iam_client = boto3.client('iam')
-    try:
-        result = iam_client.create_role(RoleName=iam_role_name,
-                                        AssumeRolePolicyDocument=json.dumps(apigateway_assume_role))
-    except ClientError as e:
-        logging.error(e)
-        return None
-    apigateway_role_arn = result['Role']['Arn']
-
-    # Attach the AWS-managed TranslateReadOnly policy to the role
-    apigateway_policy_arn = 'arn:aws:iam::aws:policy/TranslateReadOnly'
-    try:
-        iam_client.attach_role_policy(RoleName=iam_role_name,
-                                      PolicyArn=apigateway_policy_arn)
-    except ClientError as e:
-        logging.error(e)
-        return None
-
-    '''
-    # Debug: Verify policy is attached to the role
-    try:
-        response = iam_client.list_attached_role_policies(RoleName=iam_role_name)
-    except ClientError as e:
-        logging.error(e)
-    else:
-        for policy in response['AttachedPolicies']:
-            logging.debug(f'Role: {iam_role_name}, '
-                          f'Attached Policy: {policy["PolicyName"]}, '
-                          f'ARN: {policy["PolicyArn"]}')
-    '''
-
-    # Return the ARN of the created IAM role
-    return apigateway_role_arn
-
-
-def delete_iam_role(role_name):
-    """Detach all managed policies from an IAM role and delete the role
-
-    :param role_name: String name of IAM role to delete
+    Encapsulates Amazon API Gateway functions that are used to create a REST API that
+    integrates with another AWS service.
     """
+    def __init__(self, apig_client):
+        """
+        :param apig_client: A Boto3 API Gateway client.
+        """
+        self.apig_client = apig_client
+        self.api_id = None
+        self.root_id = None
+        self.stage = None
 
-    # Retrieve all policies attached to the role
-    iam_client = boto3.client('iam')
-    try:
-        response = iam_client.list_attached_role_policies(RoleName=role_name)
-    except ClientError as e:
-        logging.error(e)
-        return
+    def create_rest_api(self, api_name):
+        """
+        Creates a REST API on API Gateway. The default API has only a root resource
+        and no HTTP methods.
 
-    # Detach each policy
-    while True:
-        for policy in response['AttachedPolicies']:
-            try:
-                iam_client.detach_role_policy(RoleName=role_name,
-                                              PolicyArn=policy['PolicyArn'])
-            except ClientError as e:
-                logging.error(e)
-                # Process next attached policy
-
-        # Is there another batch of policies?
-        if response['IsTruncated']:
-            # Get another batch
-            try:
-                response = iam_client.list_attached_role_policies(Marker=response['Marker'])
-            except ClientError as e:
-                logging.error(e)
-                break
-        else:
-            logging.info(f'Detached all policies from IAM role {role_name}')
-            break
-
-    # Delete the role
-    try:
-        iam_client.delete_role(RoleName=role_name)
-    except ClientError as e:
-        logging.error(e)
-    else:
-        logging.info(f'Deleted IAM role: {role_name}')
-
-
-def create_rest_api_for_aws_service(api_name, region):
-    """Create a REST API for the Amazon Translate service
-
-    The REST API defines a child called API_RESOURCE_NAME and a stage
-    called API_STAGE.
-
-    The service infrastructure creates an API key, which must be included in
-    an X-API-Key header of each API call.
-
-    :param api_name: Name of the REST API
-    :param region: Region in which to create the API resources
-    :return: URL of API. If error, returns None.
-    """
-
-    # Create initial REST API
-    api_client = boto3.client('apigateway', region_name=REGION)
-    try:
-        result = api_client.create_rest_api(name=api_name,
-                                            apiKeySource='HEADER')
-    except ClientError as e:
-        logging.error(e)
-        return None
-    api_id = result['id']
-    logging.info(f'Created REST API: {result["name"]}, ID: {api_id}')
-
-    # Get the ID of the API's root resource
-    try:
-        result = api_client.get_resources(restApiId=api_id)
-    except ClientError as e:
-        logging.error(e)
-        return None
-    root_id = None
-    for item in result['items']:
-        if item['path'] == '/':
-            root_id = item['id']
-            break
-    if root_id is None:
-        logging.error('Could not retrieve the ID of the API\'s root resource.')
-        return None
-
-    # Define a child resource called API_RESOURCE_NAME under the root resource
-    try:
-        result = api_client.create_resource(restApiId=api_id,
-                                            parentId=root_id,
-                                            pathPart=API_RESOURCE_NAME)
-    except ClientError as e:
-        logging.error(e)
-        return None
-    resource_id = result['id']
-
-    # Create a request validator to validate the query string parameters
-    # and headers
-    try:
-        result = api_client.create_request_validator(restApiId=api_id,
-                                                     name='TranslateAPIValidator',
-                                                     # validateRequestBody=False,
-                                                     validateRequestParameters=True)
-    except ClientError as e:
-        logging.error(e)
-        return None
-    validator_id = result['id']
-
-    # Define a GET method on the /API_RESOURCE_NAME resource
-    # The method accepts a required 'text' query parameter.
-    request_parameters = {f'method.request.querystring.{API_QUERY_PARAM}': True}
-    try:
-        api_client.put_method(restApiId=api_id,
-                              resourceId=resource_id,
-                              httpMethod='GET',
-                              authorizationType='NONE',
-                              apiKeyRequired=True,
-                              requestParameters=request_parameters,
-                              requestValidatorId=validator_id)
-    except ClientError as e:
-        logging.error(e)
-        return None
-
-    # Set the content-type of the API's GET method response to JSON
-    content_type = {'application/json': 'Empty'}
-    try:
-        api_client.put_method_response(restApiId=api_id,
-                                       resourceId=resource_id,
-                                       httpMethod='GET',
-                                       statusCode='200',
-                                       responseModels=content_type)
-    except ClientError as e:
-        logging.error(e)
-        return None
-
-    # Create IAM role with permissions to access the Amazon Translate service
-    iam_role_arn = create_iam_role_for_apigateway(API_TRANSLATE_IAM_ROLE)
-    if iam_role_arn is None:
-        return None
-
-    # Construct the URI for the Amazon Translate.TranslateText service
-    # Note: A bug exists in the processing of the Translate URI. Specifically,
-    # passing the correct service value of 'translate' to put_integration()
-    # does not link the integration to the Translate service. Instead, to link
-    # the integration, the service must be specified as 'Translate' (uppercase
-    # 'T'). However, having 'Translate' in the URI causes the subsequent call
-    # to create_deployment() to fail with an unrecognized service. The
-    # workaround is to use the 'translate' service in the URI for both
-    # put_integration() and create_deployment(). Then to link the integration
-    # to the service, call update_integration() to replace the URI to use
-    # 'Translate'. After this bug is fixed, the translate_uri_updated variable
-    # defined below can be removed, along with the call to update_integration()
-    # later in this function.
-    translate_uri = f'arn:aws:apigateway:{region}:translate:action/TranslateText'
-    translate_uri_updated = f'arn:aws:apigateway:{region}:Translate:action/TranslateText'
-
-    # Specify the request headers that the Translate service requires
-    # Other AWS services would have their own unique requirements
-    request_parameters = {'integration.request.header.Content-Type': "'application/x-amz-json-1.1'",
-                          'integration.request.header.X-Amz-Target': "'AWSShineFrontendService_20170701.TranslateText'"}
-
-    # Define the TranslateText arguments
-    translate_args = {
-        'SourceLanguageCode': 'auto',
-        'TargetLanguageCode': TARGET_LANGUAGE_CODE,
-        'Text': f"$input.params('{API_QUERY_PARAM}')"
-    }
-    request_templates = {'application/json': json.dumps(translate_args)}
-    try:
-        api_client.put_integration(restApiId=api_id,
-                                   resourceId=resource_id,
-                                   httpMethod='GET',
-                                   type='AWS',
-                                   integrationHttpMethod='POST',
-                                   credentials=iam_role_arn,
-                                   requestParameters=request_parameters,
-                                   requestTemplates=request_templates,
-                                   uri=translate_uri,
-                                   passthroughBehavior='WHEN_NO_TEMPLATES')
-    except ClientError as e:
-        logging.error(e)
-        return None
-
-    # Set the content-type of the TranslateText function to JSON
-    content_type = {'application/json': ''}
-    try:
-        api_client.put_integration_response(restApiId=api_id,
-                                            resourceId=resource_id,
-                                            httpMethod='GET',
-                                            statusCode='200',
-                                            responseTemplates=content_type)
-    except ClientError as e:
-        logging.error(e)
-        return None
-
-    # Deploy the API
-    try:
-        api_client.create_deployment(restApiId=api_id,
-                                     stageName=API_STAGE)
-    except ClientError as e:
-        logging.error(e)
-        return None
-
-    # Create an API key
-    try:
-        result = api_client.create_api_key(name='TranslateAPIKey',
-                                           description=f'API key for {API_NAME}',
-                                           enabled=True)
-    except ClientError as e:
-        logging.error(e)
-        return None
-    api_key_id = result['id']
-    api_key_value = result['value']
-
-    # Create a usage plan
-    api_stages = [
-        {
-            'apiId': api_id,
-            'stage': API_STAGE,
-            'throttle': {
-                f'/{API_RESOURCE_NAME}/GET': {
-                    'burstLimit': 100,
-                    'rateLimit': 10.0,
-                }
-            }
-        }
-    ]
-    throttle = {
-        'burstLimit': 100,
-        'rateLimit': 10.0,
-    }
-    quota = {
-        'limit': 100,
-        'period': 'DAY',
-    }
-    try:
-        result = api_client.create_usage_plan(name='TranslateAPIUsagePlan',
-                                              description=f'Usage plan for {API_NAME}',
-                                              apiStages=api_stages,
-                                              throttle=throttle,
-                                              quota=quota)
-    except ClientError as e:
-        logging.error(e)
-        return None
-    usage_plan_id = result['id']
-
-    # Attach the API key to the usage plan
-    try:
-        result = api_client.create_usage_plan_key(usagePlanId=usage_plan_id,
-                                                  keyId=api_key_id,
-                                                  keyType='API_KEY')
-    except ClientError as e:
-        logging.error(e)
-        return None
-
-    # Workaround for the 'translate/Translate' bug
-    patch_uri = [{
-        'path': '/uri',
-        'value': translate_uri_updated,
-        'op': 'replace'
-    }]
-    try:
-        api_client.update_integration(restApiId=api_id,
-                                      resourceId=resource_id,
-                                      httpMethod='GET',
-                                      patchOperations=patch_uri)
-    except ClientError as e:
-        logging.error(e)
-        # Note: When the bug is fixed, this operation will be unnecessary and
-        # will probably fail. Thus, in the case of failure, rather than
-        # returning None here, we instead continue program execution.
-
-    # Construct the API URL
-    api_url = f'https://{api_id}.execute-api.{region}.amazonaws.com/{API_STAGE}/{API_RESOURCE_NAME}'
-    logging.info(f'API base URL: {api_url}')
-
-    # Save the API settings for subsequent use and deletion
-    save_config_file(api_url, api_key_id, api_key_value, usage_plan_id)
-    return api_url
-
-
-def get_rest_api_id(api_name, region):
-    """Retrieve the ID of an API Gateway REST API
-
-    :param api_name: Name of API Gateway REST API
-    :param region: Region API is located
-    :return: Retrieved API ID. If API not found or error, returns None.
-    """
-
-    # Retrieve a batch of APIs
-    api_client = boto3.client('apigateway', region_name=region)
-    try:
-        apis = api_client.get_rest_apis()
-    except ClientError as e:
-        logging.error(e)
-        return None
-
-    # Search the batch
-    while True:
-        for api in apis['items']:
-            if api['name'] == api_name:
-                # Found the API we're searching for
-                return api['id']
-
-        # Is there another batch of APIs?
-        if 'position' in apis:
-            # Get another batch
-            try:
-                apis = api_client.get_rest_apis(position=apis['position'])
-            except ClientError as e:
-                logging.error(e)
-                return None
-        else:
-            # API not found
-            logging.error(f'API {api_name} was not found.')
-            return None
-
-
-def delete_rest_api(api_name, region):
-    """Delete an API Gateway API object, including all resources, stages, etc.
-
-    :param api_name: Name of API object to delete
-    :param region: Region API is located
-    """
-
-    # Delete all versions of the API Gateway object and associated resources
-    api_client = boto3.client('apigateway', region_name=region)
-    api_id = get_rest_api_id(api_name, region)
-    if api_id is not None:
+        :param api_name: The name of the API. This descriptive name is not used in
+                         the API path.
+        :return: The ID of the newly created API.
+        """
         try:
-            api_client.delete_rest_api(restApiId=api_id)
-        except ClientError as e:
-            logging.error(e)
+            result = self.apig_client.create_rest_api(name=api_name)
+            self.api_id = result['id']
+            logger.info("Created REST API %s with ID %s.", api_name, self.api_id)
+        except ClientError:
+            logger.exception("Couldn't create REST API %s.", api_name)
+            raise
 
-    # Delete the API Gateway-Translate IAM role
-    delete_iam_role(API_TRANSLATE_IAM_ROLE)
-
-    # Delete the usage plan and API key
-    config_settings = load_config_file()
-    if config_settings is not None:
         try:
-            api_client.delete_usage_plan_key(usagePlanId=config_settings['usagePlanId'],
-                                             keyId=config_settings['apiKeyId'])
-            api_client.delete_usage_plan(usagePlanId=config_settings['usagePlanId'])
-            api_client.delete_api_key(apiKey=config_settings['apiKeyId'])
-        except ClientError as e:
-            logging.error(e)
+            result = self.apig_client.get_resources(restApiId=self.api_id)
+            self.root_id = next(
+                item for item in result['items'] if item['path'] == '/')['id']
+        except ClientError:
+            logger.exception("Couldn't get resources for API %s.", self.api_id)
+            raise
+        except StopIteration as err:
+            logger.exception("No root resource found in API %s.", self.api_id)
+            raise ValueError from err
 
-    # Delete the configuration file
-    delete_config_file()
+        return self.api_id
 
+    def add_rest_resource(self, parent_id, resource_path):
+        """
+        Adds a resource to a REST API.
 
-def translate_text(text):
-    """Translate text
-
-    The translation is performed by making an HTTPS call. No need for AWS
-    credentials or an AWS SDK.
-
-    Uses the Python requests package (pip install requests)
-
-    :param text: Text to translate
-    :return: String of translated text. If error, returns None.
-    """
-
-    # Load the API URL and API key value from the config file
-    config_settings = load_config_file()
-    if config_settings is None:
-        logging.error('The Translate configuration settings do not exist')
-        return None
-
-    payload = {f'{API_QUERY_PARAM}': text}
-    headers = {'X-API-Key': config_settings['apiKeyValue']}
-    try:
-        response = requests.get(config_settings['url'],
-                                params=payload,
-                                headers=headers,
-                                timeout=30)
-    except requests.exceptions.RequestException as e:
-        logging.error(e)
-        return None
-
-    # Process the response
-    if response.status_code == 403:
-        logging.error('Access to the Translate API is forbidden')
-        return None
-
-    if response.status_code == 200:
-        # Decode the bytes content to a UTF-8 string and load into a dict
-        text_decoded = response.content.decode('utf-8')
-        translated_text = json.loads(text_decoded)
-        logging.debug(f'Translation Response: {text_decoded}')
-
-        # Return the translated text
-        if 'TranslatedText' in translated_text:
-            return translated_text['TranslatedText']
-
-        # Error occurred during translation
-        if '__type' in translated_text:
-            logging.error(translated_text['__type'])
+        :param parent_id: The ID of the parent resource.
+        :param resource_path: The path of the new resource, relative to the parent.
+        :return: The ID of the new resource.
+        """
+        try:
+            result = self.apig_client.create_resource(
+                restApiId=self.api_id, parentId=parent_id, pathPart=resource_path)
+            resource_id = result['id']
+            logger.info("Created resource %s.", resource_path)
+        except ClientError:
+            logger.exception("Couldn't create resource %s.", resource_path)
+            raise
         else:
-            logging.error('Unknown error occurred during translation')
-        return None
+            return resource_id
+
+    def add_integration_method(
+            self, resource_id, rest_method, service_endpoint_prefix, service_action,
+            service_method, role_arn, mapping_template):
+        """
+        Adds an integration method to a REST API. An integration method is a REST
+        resource, such as '/users', and an HTTP verb, such as GET. The integration
+        method is backed by an AWS service, such as Amazon DynamoDB.
+
+        :param resource_id: The ID of the REST resource.
+        :param rest_method: The HTTP verb used with the REST resource.
+        :param service_endpoint_prefix: The service endpoint that is integrated with
+                                        this method, such as 'dynamodb'.
+        :param service_action: The action that is called on the service, such as
+                               'GetItem'.
+        :param service_method: The HTTP method of the service request, such as POST.
+        :param role_arn: The Amazon Resource Name (ARN) of a role that grants API
+                         Gateway permission to use the specified action with the
+                         service.
+        :param mapping_template: A mapping template that is used to translate REST
+                                 elements, such as query parameters, to the request
+                                 body format required by the service.
+        """
+        service_uri = (f'arn:aws:apigateway:{self.apig_client.meta.region_name}'
+                       f':{service_endpoint_prefix}:action/{service_action}')
+        try:
+            self.apig_client.put_method(
+                restApiId=self.api_id,
+                resourceId=resource_id,
+                httpMethod=rest_method,
+                authorizationType='NONE')
+            self.apig_client.put_method_response(
+                restApiId=self.api_id,
+                resourceId=resource_id,
+                httpMethod=rest_method,
+                statusCode='200',
+                responseModels={'application/json': 'Empty'})
+            logger.info("Created %s method for resource %s.", rest_method, resource_id)
+        except ClientError:
+            logger.exception(
+                "Couldn't create %s method for resource %s.", rest_method, resource_id)
+            raise
+
+        try:
+            self.apig_client.put_integration(
+                restApiId=self.api_id,
+                resourceId=resource_id,
+                httpMethod=rest_method,
+                type='AWS',
+                integrationHttpMethod=service_method,
+                credentials=role_arn,
+                requestTemplates={'application/json': json.dumps(mapping_template)},
+                uri=service_uri,
+                passthroughBehavior='WHEN_NO_TEMPLATES')
+            self.apig_client.put_integration_response(
+                restApiId=self.api_id,
+                resourceId=resource_id,
+                httpMethod=rest_method,
+                statusCode='200',
+                responseTemplates={'application/json': ''})
+            logger.info(
+                "Created integration for resource %s to service URI %s.", resource_id,
+                service_uri)
+        except ClientError:
+            logger.exception(
+                "Couldn't create integration for resource %s to service URI %s.",
+                resource_id, service_uri)
+            raise
+
+    def deploy_api(self, stage_name):
+        """
+        Deploys a REST API. After a REST API is deployed, it can be called from any
+        REST client, such as the Python Requests package or Postman.
+
+        :param stage_name: The stage of the API to deploy, such as 'test'.
+        :return: The base URL of the deployed REST API.
+        """
+        try:
+            self.apig_client.create_deployment(
+                restApiId=self.api_id, stageName=stage_name)
+            self.stage = stage_name
+            logger.info("Deployed stage %s.", stage_name)
+        except ClientError:
+            logger.exception("Couldn't deploy stage %s.", stage_name)
+            raise
+        else:
+            return self.api_url()
+
+    def api_url(self, resource=None):
+        """
+        Builds the REST API URL from its parts.
+
+        :param resource: The resource path to append to the base URL.
+        :return: The REST URL to the specified resource.
+        """
+        url = (f'https://{self.api_id}.execute-api.{self.apig_client.meta.region_name}'
+               f'.amazonaws.com/{self.stage}')
+        if resource is not None:
+            url = f'{url}/{resource}'
+        return url
+
+    def get_rest_api_id(self, api_name):
+        """
+        Gets the ID of a REST API from its name by searching the list of REST APIs
+        for the current account. Because names need not be unique, this returns only
+        the first API with the specified name.
+
+        :param api_name: The name of the API to look up.
+        :return: The ID of the specified API.
+        """
+        try:
+            rest_api = None
+            paginator = self.apig_client.get_paginator('get_rest_apis')
+            for page in paginator.paginate():
+                rest_api = next(
+                    (item for item in page['items'] if item['name'] == api_name), None)
+                if rest_api is not None:
+                    break
+            self.api_id = rest_api['id']
+            logger.info("Found ID %s for API %s.", rest_api['id'], api_name)
+        except ClientError:
+            logger.exception("Couldn't find ID for API %s.", api_name)
+            raise
+        else:
+            return rest_api['id']
+
+    def delete_rest_api(self):
+        """
+        Deletes a REST API, including all of its resources and configuration.
+        """
+        try:
+            self.apig_client.delete_rest_api(restApiId=self.api_id)
+            logger.info("Deleted REST API %s.", self.api_id)
+            self.api_id = None
+        except ClientError:
+            logger.exception("Couldn't delete REST API %s.", self.api_id)
+            raise
 
 
-def save_config_file(api_url, api_key_id, api_key_value, usage_plan_id):
-    """Save the API's settings in a disk file
-
-    :param api_url: API URL
-    :param api_key_id: API key ID
-    :param api_key_value: Value of API key
-    :param usage_plan_id: Usage plan ID
+def deploy(stack_name, cf_resource):
     """
+    Deploys prerequisite resources used by the `usage_demo` script. The resources are
+    defined in the associated `setup.yaml` AWS CloudFormation script and are deployed
+    as a CloudFormation stack so they can be easily managed and destroyed.
 
-    # Store the API's configuration settings in a disk file
-    with open(CONFIG_FILENAME, 'w') as fp:
-        fp.write(api_url + '\n')
-        fp.write(api_key_id + '\n')
-        fp.write(api_key_value + '\n')
-        fp.write(usage_plan_id + '\n')
-
-
-def load_config_file():
-    """Read the Translate API's configuration settings from a disk file
-
-    :return: Dict of configuration settings. If error, return None.
+    :param stack_name: The name of the CloudFormation stack.
+    :param cf_resource: A Boto3 CloudFormation resource.
     """
-
-    # Does the URL file exist?
-    if not os.path.isfile(CONFIG_FILENAME):
-        logging.error(f'The {CONFIG_FILENAME} file does not exist')
-        return None
-
-    # Read the URL file
-    with open(CONFIG_FILENAME) as fp:
-        url = fp.readline().rstrip()
-        api_key_id = fp.readline().rstrip()
-        api_key_value = fp.readline().rstrip()
-        usage_plan_id = fp.readline().rstrip()
-
-    # Return config settings in a dict
-    config_settings = {
-        'url': url,
-        'apiKeyId': api_key_id,
-        'apiKeyValue': api_key_value,
-        'usagePlanId': usage_plan_id,
-    }
-    return config_settings
+    with open('setup.yaml') as setup_file:
+        setup_template = setup_file.read()
+    print(f"Creating {stack_name}.")
+    stack = cf_resource.create_stack(
+        StackName=stack_name,
+        TemplateBody=setup_template,
+        Capabilities=['CAPABILITY_NAMED_IAM'])
+    print("Waiting for stack to deploy.")
+    waiter = cf_resource.meta.client.get_waiter('stack_create_complete')
+    waiter.wait(StackName=stack.name)
+    stack.load()
+    print(f"Stack status: {stack.stack_status}")
+    print("Created resources:")
+    for resource in stack.resource_summaries.all():
+        print(f"\t{resource.resource_type}, {resource.physical_resource_id}")
 
 
-def delete_config_file():
-    """Delete the saved-URL disk file"""
-
-    if os.path.isfile(CONFIG_FILENAME):
-        os.remove(CONFIG_FILENAME)
-
-
-def load_src_text_file(src_text_file):
-    """Read a file containing text to translate
-
-    :param src_text_file: File with text to translate
-    :return: String of text to translate. If error, return None.
+def usage_demo(table_name, role_name, rest_api_name):
     """
+    Demonstrates how to used API Gateway to create and deploy a REST API, and how
+    to use the Requests package to call it.
 
-    # Does the file exist?
-    if not os.path.isfile(src_text_file):
-        logging.error(f'The {src_text_file} file does not exist')
-        return None
+    :param table_name: The name of the demo DynamoDB table.
+    :param role_name: The name of the demo role that grants API Gateway permission to
+                      call DynamoDB.
+    :param rest_api_name: The name of the demo REST API created by the demo.
+    """
+    gateway = ApiGatewayToService(boto3.client('apigateway'))
+    role = boto3.resource('iam').Role(role_name)
 
-    # Read the file
-    with open(src_text_file) as fp:
-        text = fp.read()
-    return text
+    print("Creating REST API in API Gateway.")
+    gateway.create_rest_api(rest_api_name)
+
+    print("Adding resources to the REST API.")
+    profiles_id = gateway.add_rest_resource(gateway.root_id, 'profiles')
+    username_id = gateway.add_rest_resource(profiles_id, '{username}')
+
+    # The DynamoDB service requires that all integration requests use POST.
+    print("Adding integration methods to read and write profiles in Amazon DynamoDB.")
+    gateway.add_integration_method(
+        profiles_id, 'GET', 'dynamodb', 'Scan', 'POST', role.arn,
+        {'TableName': table_name})
+    gateway.add_integration_method(
+        profiles_id, 'POST', 'dynamodb', 'PutItem', 'POST', role.arn, {
+            "TableName": table_name,
+            "Item": {
+                "username": {"S": "$input.path('$.username')"},
+                "name": {"S": "$input.path('$.name')"},
+                "title": {"S": "$input.path('$.title')"}}})
+    gateway.add_integration_method(
+        username_id, 'GET', 'dynamodb', 'GetItem', 'POST', role.arn, {
+            "TableName": table_name,
+            "Key": {"username": {"S": "$method.request.path.username"}}})
+
+    stage = 'test'
+    print(f"Deploying the {stage} stage.")
+    gateway.deploy_api(stage)
+
+    profiles_url = gateway.api_url('profiles')
+    print(f"Using the Requests package to post some people to the profiles REST API at "
+          f"{profiles_url}.")
+    requests.post(profiles_url, json={
+        'username': 'will', 'name': 'William Shakespeare', 'title': 'playwright'})
+    requests.post(profiles_url, json={
+        'username': 'ludwig', 'name': 'Ludwig van Beethoven', 'title': 'composer'})
+    requests.post(profiles_url, json={
+        'username': 'jane', 'name': 'Jane Austen', 'title': 'author'})
+    print("Getting the list of profiles from the REST API.")
+    profiles = requests.get(profiles_url).json()
+    pprint(profiles)
+    print(f"Getting just the profile for username 'jane' (URL: {profiles_url}/jane).")
+    jane = requests.get(f'{profiles_url}/jane').json()
+    pprint(jane)
+
+
+def destroy(rest_api_name, stack, cf_resource):
+    """
+    Destroys the REST API created by the demo, the resources managed by the
+    CloudFormation stack, and the CloudFormation stack itself.
+
+    :param rest_api_name: The name of the demo REST API.
+    :param stack: The CloudFormation stack that manages the demo resources.
+    :param cf_resource: A Boto3 CloudFormation resource.
+    """
+    print(f"Deleting REST API {rest_api_name}.")
+    gateway = ApiGatewayToService(boto3.client('apigateway'))
+    gateway.get_rest_api_id(rest_api_name)
+    gateway.delete_rest_api()
+
+    print(f"Deleting {stack.name}.")
+    stack.delete()
+    print("Waiting for stack removal.")
+    waiter = cf_resource.meta.client.get_waiter('stack_delete_complete')
+    waiter.wait(StackName=stack.name)
+    print("Stack delete complete.")
 
 
 def main():
-    """Exercise the module's API Gateway functions"""
+    parser = argparse.ArgumentParser(
+        description="Runs the Amazon API Gateway demo. Run this script with the "
+                    "'deploy' flag to deploy prerequisite resources, then with the "
+                    "'demo' flag to see example usage. Run with the 'destroy' flag to "
+                    "clean up all resources.")
+    parser.add_argument(
+        'action', choices=['deploy', 'demo', 'destroy'],
+        help="Indicates the action the script performs.")
+    args = parser.parse_args()
 
-    # Set up logging
-    logging.basicConfig(level=logging.DEBUG,
-                        format='%(levelname)s: %(asctime)s: %(message)s')
+    print('-'*88)
+    print("Welcome to the Amazon API Gateway AWS service demo!")
+    print('-'*88)
 
-    # Process command-line arguments
-    arg_parser = argparse.ArgumentParser(description='WebSocket Example')
-    arg_parser.add_argument('-d', '--delete', action='store_true',
-                            help='delete allocated resources')
-    arg_parser.add_argument('-f', '--file', help='file with text to translate')
-    arg_parser.add_argument('-t', '--text', help='text to translate')
-    args = arg_parser.parse_args()
-    delete_resources = args.delete
-    src_text_file = args.file
-    src_text = args.text
+    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 
-    # Delete the allocated API Gateway resources?
-    if delete_resources:
-        delete_rest_api(API_NAME, REGION)
-        logging.info(f'Deleted API: {API_NAME}')
-        exit(0)
+    cf_resource = boto3.resource('cloudformation')
+    rest_api_name = 'doc-example-apigateway-dynamodb-profiles'
+    stack = cf_resource.Stack('python-example-code-apigateway-dynamodb-profiles')
 
-    # File with text to translate?
-    if src_text_file is not None:
-        src_text = load_src_text_file(src_text_file)
-        if src_text is None:
-            exit(1)
-        # Else fall through to the next code block to translate the text
+    if args.action == 'deploy':
+        print("Deploying prerequisite resources for the demo.")
+        deploy(stack.name, cf_resource)
+        print("To see example usage, run the script again with the 'demo' flag.")
+    elif args.action == 'demo':
+        print("Demonstrating how to use API Gateway to set up a REST API and call it "
+              "with the Python Requests package.")
+        table_name = None
+        role_name = None
+        for resource in stack.resource_summaries.all():
+            if resource.resource_type == 'AWS::DynamoDB::Table':
+                table_name = resource.physical_resource_id
+            elif resource.resource_type == 'AWS::IAM::Role':
+                role_name = resource.physical_resource_id
+        usage_demo(table_name, role_name, rest_api_name)
+        print("To clean up all AWS resources created for the demo, run this script "
+              "again with the 'destroy' flag.")
+    elif args.action == 'destroy':
+        print("Destroying AWS resources created for the demo.")
+        destroy(rest_api_name, stack, cf_resource)
 
-    # Text to translate?
-    if src_text is not None:
-        # Pass the text to the API service
-        translated_text = translate_text(src_text)
-        if translated_text is not None:
-            logging.info(f'Translated Text: {translated_text}')
-
-            # If src_text was read from a file, write the translated text
-            # to a file
-            if src_text_file is not None:
-                filename = f'{src_text_file}.{TARGET_LANGUAGE_CODE}'
-                with open(filename, 'w') as fp:
-                    fp.write(translated_text)
-                logging.info(f'Saved translated text to {filename}')
-        exit(0)
-
-    # Create an API Gateway REST interface for the Amazon Translate service
-    api_url = create_rest_api_for_aws_service(API_NAME, REGION)
-    if api_url is None:
-        exit(1)
-    logging.info(f'Translate service TranslateText URL: {api_url}')
-    logging.info('To translate text with the API, run the program with the option -t "Text to translate"')
+    print('-'*88)
 
 
 if __name__ == '__main__':

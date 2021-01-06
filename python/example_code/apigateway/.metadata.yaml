@@ -1,0 +1,13 @@
+---
+# Amazon API Gateway AWS service integration example.
+files:
+  - path: aws_service/aws_service.py
+    services:
+      - apigateway
+  - path: aws_service/test/conftest.py
+    services:
+      - apigateway
+  - path: aws_service/test/test_aws_service.py
+    services:
+      - apigateway
+...
