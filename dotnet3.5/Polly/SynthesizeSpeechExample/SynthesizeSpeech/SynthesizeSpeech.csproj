@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.Core" Version="3.5.1.50" />
-    <PackageReference Include="AWSSDK.Polly" Version="3.5.1.14" />
+    <PackageReference Include="AWSSDK.Core" Version="3.5.1.57" />
+    <PackageReference Include="AWSSDK.Polly" Version="3.5.1.21" />
   </ItemGroup>
 
 </Project>
