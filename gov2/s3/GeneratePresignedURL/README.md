@@ -1,6 +1,6 @@
 ### GeneratePresignedURLv2.go
 
-This example retrieves a presigned URL for an Amazon S3 bucket object.
+This example retrieves a presigned URL for an Amazon Simple Storage Service (Amazon S3) bucket object.
 
 `go run GeneratePresignedURLv2.go -b BUCKET -k KEY`
 

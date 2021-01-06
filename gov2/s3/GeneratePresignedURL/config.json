@@ -1,4 +1,4 @@
 {
-    "Bucket": "mygroovybucket",
-    "Key": "mygroovykey"
+    "Bucket": "aws-docs-example-bucket",
+    "Key": "aws-docs-example-key"
 }
