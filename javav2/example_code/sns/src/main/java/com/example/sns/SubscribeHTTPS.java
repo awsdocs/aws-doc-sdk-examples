@@ -43,12 +43,12 @@ public class SubscribeHTTPS {
                 .region(Region.US_WEST_2)
                 .build();
 
-        subHTTS(snsClient, topicArn, url) ;
+        subHTTPS(snsClient, topicArn, url) ;
         snsClient.close();
     }
 
     //snippet-start:[sns.java2.SubscribeHTTPS.main]
-    public static void subHTTS(SnsClient snsClient, String topicArn, String url ) {
+    public static void subHTTPS(SnsClient snsClient, String topicArn, String url ) {
 
         try {
             SubscribeRequest request = SubscribeRequest.builder()
