@@ -45,7 +45,7 @@ Deploy prerequisite resources by running the example script with the `deploy` fl
 a command prompt.
 
 ```
-py aws_service.py deploy
+python aws_service.py deploy
 ```
 
 ### Run the usage demonstration
@@ -84,23 +84,13 @@ data.
 
 **setup.yaml**
 
-Contains a CloudFormation script that can be used to create the resources needed for 
-the demo. 
+Contains a CloudFormation script that is used to create the resources needed for 
+the demo. Pass the `deploy` or `destroy` flag to the `aws_service.py` script to 
+create or remove these resources:  
 
-*Resources*
-
-* A **DynamoDB table** that contains user profile information
-* An **IAM role** that grants API Gateway permission to read from and write to the 
+* A DynamoDB table that contains user profile information.
+* An IAM role that grants API Gateway permission to read from and write to the 
 table.
-
-*Deploy and destroy*
-
-* Pass the `deploy` or `destroy` flag to the `aws_service.py` script.
-* Or, use the [AWS Command Line Interface (AWS CLI)](https://docs.aws.amazon.com/cli/) 
-[cloudformation](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/index.html#cli-aws-cloudformation) 
-commands.
-
-*Source*
 
 The `setup.yaml` file was built from the 
 [AWS Cloud Development Kit (AWS CDK)](https://docs.aws.amazon.com/cdk/) 

@@ -5,7 +5,7 @@
 
 // Purpose
 //
-// Defines a CloudFormation stack that creates an Amazon DynamoDB table with a
+// Defines an AWS CloudFormation stack that creates an Amazon DynamoDB table with a
 // `username` partition key and an AWS Identity and Access Management (IAM) role
 // that lets Amazon API Gateway read from and write to the table.
 //
