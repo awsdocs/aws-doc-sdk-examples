@@ -72,7 +72,7 @@ func main() {
 		*timeout = 12 * 60 * 60
 	}
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}

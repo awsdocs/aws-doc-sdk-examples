@@ -37,7 +37,7 @@ func main() {
 	}
 
 	// Use the SDK's default configuration.
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("unable to load SDK config, " + err.Error())
 	}

@@ -34,7 +34,7 @@ func GetInstances(c context.Context, api EC2DescribeInstancesAPI, input *ec2.Des
 }
 
 func main() {
-    cfg, err := config.LoadDefaultConfig()
+    cfg, err := config.LoadDefaultConfig(context.TODO())
     if err != nil {
         panic("configuration error, " + err.Error())
     }

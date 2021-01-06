@@ -34,7 +34,7 @@ func ListAlarms(c context.Context, api CWDescribeAlarmsAPI, input *cloudwatch.De
 }
 
 func main() {
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
