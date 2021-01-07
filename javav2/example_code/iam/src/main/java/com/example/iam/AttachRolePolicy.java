@@ -22,7 +22,6 @@ import software.amazon.awssdk.services.iam.model.ListAttachedRolePoliciesRequest
 import software.amazon.awssdk.services.iam.model.ListAttachedRolePoliciesResponse;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 // snippet-end:[iam.java2.attach_role_policy.import]
 
 public class AttachRolePolicy {
@@ -56,57 +55,36 @@ public class AttachRolePolicy {
     }
 
     // snippet-start:[iam.java2.attach_role_policy.main]
-    public static void attachIAMRolePolicy(IamClient iam,String roleName, String policyArn ) {
+    public static void attachIAMRolePolicy(IamClient iam, String roleName, String policyArn ) {
 
         try {
 
             List<AttachedPolicy> matchingPolicies = new ArrayList<>();
+            ListAttachedRolePoliciesRequest request = ListAttachedRolePoliciesRequest.builder()
+                    .roleName(roleName)
+                    .build();
 
-            boolean done = false;
-            String newMarker = null;
+            ListAttachedRolePoliciesResponse  response = iam.listAttachedRolePolicies(request);
+            List<AttachedPolicy> attachedPolicies = response.attachedPolicies();
 
-            while(!done) {
+            // Ensure that the policy is not attached to this role
+            String polArn = "";
+            for (AttachedPolicy policy: attachedPolicies) {
 
-                ListAttachedRolePoliciesResponse response;
-
-                if (newMarker == null) {
-                    ListAttachedRolePoliciesRequest request =
-                        ListAttachedRolePoliciesRequest.builder()
-                                .roleName(roleName).build();
-                    response = iam.listAttachedRolePolicies(request);
-                } else {
-                    ListAttachedRolePoliciesRequest request =
-                        ListAttachedRolePoliciesRequest.builder()
-                                .roleName(roleName)
-                                .marker(newMarker).build();
-                    response = iam.listAttachedRolePolicies(request);
+                polArn = policy.policyArn();
+                if (polArn.compareTo(policyArn)==0) {
+                   System.out.println(roleName +
+                            " policy is already attached to this role.");
+                    return;
                 }
+          }
 
-                matchingPolicies.addAll(
-                    response.attachedPolicies()
-                            .stream()
-                            .filter(p -> p.policyName().equals(roleName))
-                            .collect(Collectors.toList()));
-
-                if(!response.isTruncated()) {
-                    done = true;
-
-                } else {
-                    newMarker = response.marker();
-                }
-            }
-
-                if (matchingPolicies.size() > 0) {
-                    System.out.println(roleName +
-                        " policy is already attached to this role.");
-                return;
-            }
-
-            // snippet-start:[iam.java2.attach_role_policy.attach]
+           // snippet-start:[iam.java2.attach_role_policy.attach]
             AttachRolePolicyRequest attachRequest =
                 AttachRolePolicyRequest.builder()
                         .roleName(roleName)
-                        .policyArn(policyArn).build();
+                        .policyArn(policyArn)
+                        .build();
 
             iam.attachRolePolicy(attachRequest);
 
