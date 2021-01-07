@@ -43,28 +43,6 @@ To destroy the AWS CDK app, which deletes the corresponding stack from AWS Cloud
 
 ``cdk destroy``
 
-## Merging
-
-To merge your finished AWS CDK app's source code, merge **only** the following files from your development machine into its own self-contained folder within the AWS Code Examples Repository:
-
-* ``cdk.json``
-* ``package.json``
-* ``setup.ts``
-* ``tsconfig.json``
-
-**Do not** merge the following folders or files from your development machine into the repository:
-
-* ``cdk.out/``
-* ``node_modules/``
-* ``package-lock.json``
-* This version of the ``README.md`` file
-
-This is especially important for the ``node_modules/`` folder, as it could grow to several hundred megabytes or more in size during development. The ``.gitignore`` file in this folder contains a list of these folders and files.
-
-You can regenerate these unmerged folders and files on your development machine as needed by running the preceding ``npm`` and ``cdk`` commands on your development machine (after of course installing the AWS CDK prerequisites).
-
-Merge the ``TranscribeApp.yaml`` file into the same location(s) as any code example file(s) with which this ``TranscribeApp.yaml`` file is intended to be used.
-
 ## Using the AWS CLI or the AWS CloudFormation Console
 
 Callers can use the AWS Command Line Interface (AWS CLI) or the AWS CloudFormation Console to run your AWS CloudFormation template file. (They can of course use the AWS CDK, but they would need to first install the AWS CDK prerequisites.)

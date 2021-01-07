@@ -1,3 +1,10 @@
+# This yaml file is an AWS CloudFormation template for the resources required to run a tutorial on how to build an transcription app
+# using the AWS SDK for JavaScript (V3). The tutorial is available here:
+# https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/transcribe-app.html.
+
+# You can explore the Cloud Development Kit (CDK) app used to build this template here:
+# https://github:com/awsdocs/aws-doc-sdk-examples/tree/master/resources/cdk/aws-doc-sdk-examples-javascriptv3-usecases-transcribe-demo.
+
 Resources:
   transciptions9A4F0BB8:
     Type: AWS::S3::Bucket

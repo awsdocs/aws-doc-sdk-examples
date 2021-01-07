@@ -58,14 +58,14 @@ const loginData = {
   [COGNITO_ID]: idToken,
 };
 
-// Create the parameters
+// Create the parameters.
 const params = {
-  Bucket: "BUCKET_NAME", // Amazon S3 Bucket to store transcriptions
+  Bucket: "BUCKET_NAME", // Amazon Simple Storage Service (Amazon S3) bucket to store transcriptions
   Region: "REGION", // AWS Region
   identityPoolID: "IDENTITY_POOL_ID", // IDENTITY_POOL_ID
 };
 
-// Create an Amazon Transcribe service client object
+// Create an Amazon Transcribe service client object.
 const client = new TranscribeClient({
   region: params.Region,
   credentials: fromCognitoIdentityPool({
@@ -75,7 +75,7 @@ const client = new TranscribeClient({
   }),
 });
 
-// Create Amazon S3 client object
+// Create and Amazon S3 client object.
 const s3Client = new S3Client({
   region: params.Region,
   credentials: fromCognitoIdentityPool({
@@ -88,7 +88,7 @@ const s3Client = new S3Client({
 // snippet-end:[transcribe.JavaScript.recording-app.config]
 // snippet-start:[transcribe.JavaScript.recording-app.onload]
 window.onload = getUserName = async () => {
-  // Create a CognitoIdentityServiceProvider client object. This is V2 of the SDK for JS
+  // Create a CognitoIdentityServiceProvider client object. This is V2 of the SDK for JS.
   const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider(
     { region: params.Region }
   );
@@ -108,10 +108,10 @@ window.onload = getUserName = async () => {
   });
 };
 
-// Updates the user interface with new transcriptions
+// Updates the user interface with new transcriptions.
 window.updateInterface = async function (username) {
   try {
-    // If this is user's first sign-in, create folder with user's name in bucket
+    // If this is user's first sign-in, create folder with user's name in bucket.
     const Key = `${username}/`;
     try {
       const data = await s3Client.send(
@@ -122,11 +122,11 @@ window.updateInterface = async function (username) {
       console.log("Error", err);
     }
     try {
-      // Get a list of the objects in the Amazon S3 bucket
+      // Get a list of the objects in the Amazon S3 bucket.
       const data = await s3Client.send(
         new ListObjectsCommand({ Bucket: params.Bucket, Prefix: username })
       );
-      // Create variable for the list of objects in the Amazon S3 bucket
+      // Create variable for the list of objects in the Amazon S3 bucket.
       const output = data.Contents;
       // Loop through the objects, populating a row on the user interface for each
       for (var i = 0; i < output.length; i++) {
@@ -135,7 +135,7 @@ window.updateInterface = async function (username) {
           Bucket: params.Bucket,
           Key: obj.Key,
         };
-        // Return the name of an object from the table
+        // Return the name of an object from the table.
         const data = await s3Client.send(new GetObjectCommand(objectParams));
         console.log("Success", data.Body);
         // Extract the body contents from the returned data. This is a readable stream.
@@ -145,9 +145,9 @@ window.updateInterface = async function (username) {
         for await (let chunk of yieldUint8Chunks(result)) {
           stringResult += String.fromCharCode.apply(null, chunk);
         }
-        // Wrap in setTimeout function to provide time for string to be parsed
+        // Wrap in setTimeout function to provide time for string to be parsed.
         setTimeout(function () {
-          //your code to be executed after 1 second
+          // Your code to be executed after 1 second
           const outputJSON = JSON.parse(stringResult).results.transcripts[0]
             .transcript;
           const outputJSONTime = JSON.parse(stringResult)
@@ -170,7 +170,7 @@ window.updateInterface = async function (username) {
   }
 };
 
-// Convert readable streams
+// Convert readable streams.
 async function* yieldUint8Chunks(data) {
   const reader = data.getReader();
   try {
@@ -191,14 +191,13 @@ window.upload = async function (blob, userName) {
   // Set parameters recording
   const Key = `${userName}/test-object-${Math.ceil(Math.random() * 10 ** 10)}`;
   try {
-    // Create a presigned URL to  upload the transcription to the Amazon S3 bucket when it is ready
-    // Create an Amazon S3RequestPresigner object
+    // Create a presigned URL to  upload the transcription to the Amazon S3 bucket when it is ready.
     const signer = new S3RequestPresigner({ ...s3Client.config });
     const request = await createRequest(
       s3Client,
       new PutObjectCommand({ Key, Bucket: params.Bucket })
     );
-    // Define the duration until expiration of the presigned URL
+    // Define the duration until expiration of the presigned URL.
     const expiration = new Date(Date.now() + 60 * 60 * 1000);
     // Create and format the presigned URL
     signedUrl = formatUrl(await signer.presign(request, expiration));
@@ -207,7 +206,7 @@ window.upload = async function (blob, userName) {
     console.log("Error creating presigned URL", err);
   }
   try {
-    // Upload the object to the Amazon S3 bucket using a presigned URL
+    // Upload the object to the Amazon S3 bucket using a presigned URL.
     response = await fetch(signedUrl, {
       method: "PUT",
       headers: {
@@ -215,7 +214,7 @@ window.upload = async function (blob, userName) {
       },
       body: blob,
     });
-    // Create the transcription job name. In this case, it's the current data and time
+    // Create the transcription job name. In this case, it's the current date and time.
     const today = new Date();
     const date =
       today.getFullYear() +
@@ -239,7 +238,7 @@ window.upload = async function (blob, userName) {
   }
 };
 
-// Create the transcription job
+// Create the transcription job.
 const createTranscriptionJob = async (recording, jobName, bucket, key) => {
   // Set the parameters for transcriptions job
   const params = {
@@ -261,7 +260,7 @@ const createTranscriptionJob = async (recording, jobName, bucket, key) => {
 };
 // snippet-end:[transcribe.JavaScript.recording-app.create-transcriptions]
 // snippet-start:[transcribe.JavaScript.recording-app.delete-transcriptions]
-// Delete a transcription
+// Delete a transcription.
 window.deleteJSON = async (jsonFileName) => {
   try {
     const data = await s3Client.send(
@@ -275,7 +274,7 @@ window.deleteJSON = async (jsonFileName) => {
     console.log("Error", err);
   }
 };
-// Delete a row from the user interface
+// Delete a row from the user interface.
 window.deleteRow = function (rowid) {
   const row = document.getElementById(rowid);
   row.parentNode.removeChild(row);

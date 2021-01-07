@@ -5,7 +5,7 @@ The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-
 
 # Getting started
 
-1. Clone the [AWS Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. 
+1. Clone the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. 
 See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for 
 instructions.
 
@@ -16,7 +16,7 @@ which are *@aws-sdk/client-iam*, *@aws-sdk/client-cognito-identity*, *@aws-sdk/c
 *@aws-sdk/client-dynamodb*, *@aws-sdk/util-create-request*, *@aws-sdk/util-format-url*, *@aws-sdk/client-transcribe* and *@aws-sdk/client-s3*.
 They also include third-party Node.js modules, path, node-fetch, and webpack.
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/cross-services/transcription-app 
 npm install
 ```

@@ -1,5 +1,5 @@
 #record {
-    background-color: red; /* Green */
+    background-color: red;
     border-width: medium;
     border-color: black;
     color: white;
@@ -18,7 +18,7 @@
     position: relative;
 }
 #stopRecord {
-    background-color: green; /* Green */
+    background-color: green;
     border-width: medium;
     border-color: black;
     color: white;

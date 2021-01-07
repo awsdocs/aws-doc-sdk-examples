@@ -21,7 +21,7 @@ instructions.
 **Note**: These dependencies include the client module for the AWS services that this example requires, 
 which is the *@aws-sdk/client-secrets-manager*.
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/secrets 
 npm install
 ```

@@ -13,13 +13,13 @@ Running the code:
 For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/transcribe-app.html.
 
 */
-// Functions for recording transcriptions
-// Enable microphone on browser
+// This file contains functions for recording transcriptions
+// Enable the microphone on your browser.
 navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
   handlerFunction(stream);
 });
 
-// Handler function to manage recordings
+// This is a handler function to manage recordings.
 function handlerFunction(stream) {
   rec = new MediaRecorder(stream);
   rec.ondataavailable = (e) => {
@@ -39,7 +39,6 @@ function handlerFunction(stream) {
         AccessToken: getAccessToken(),
       };
       cognitoidentityserviceprovider.getUser(userParams, function (err, data) {
-        // an error occurred
         if (err) console.log(err, err.stack);
         else console.log(data.Username);
         var username = data.Username;
@@ -57,7 +56,7 @@ function sendData(data) {
   console.log(recordedAudio.src.split("/", -1)[3]);
 }
 
-// Start recording
+// Start recording.
 window.startRecord = function () {
   console.log("Recording started");
   var record = document.getElementById("record");
@@ -69,7 +68,7 @@ window.startRecord = function () {
   rec.start();
 };
 
-// Stop recording
+// Stop recording.
 window.stopRecord = function () {
   console.log("Recording stopped");
   var record = document.getElementById("record");
