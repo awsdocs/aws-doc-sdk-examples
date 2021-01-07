@@ -42,7 +42,7 @@ func main() {
 		fmt.Println("You must supply an account alias (-a ALIAS)")
 	}
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}

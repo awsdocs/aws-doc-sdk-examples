@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX-License-Identifier: Apache-2.0
 // snippet-start:[kms.go-v2.EncryptData]
 package main
 
@@ -46,10 +46,10 @@ func main() {
 		return
 	}
 
-	cfg, err := config.LoadDefaultConfig(context.TODO())
-	if err != nil {
-		panic("configuration error, " + err.Error())
-	}
+  cfg, err := config.LoadDefaultConfig(context.TODO())
+  if err != nil {
+    panic("configuration error, " + err.Error())
+  }
 
 	client := kms.NewFromConfig(cfg)
 
@@ -69,5 +69,4 @@ func main() {
 
 	fmt.Println(blobString)
 }
-
 // snippet-end:[kms.go-v2.EncryptData]
