@@ -13,9 +13,7 @@ Running the code:
 For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/transcribe-app.html.
 
 */
-
 // Functions for recording transcriptions
-
 // Enable microphone on browser
 navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
   handlerFunction(stream);
@@ -41,8 +39,8 @@ function handlerFunction(stream) {
         AccessToken: getAccessToken(),
       };
       cognitoidentityserviceprovider.getUser(userParams, function (err, data) {
-        if (err) console.log(err, err.stack);
         // an error occurred
+        if (err) console.log(err, err.stack);
         else console.log(data.Username);
         var username = data.Username;
         console.log("the username", username);

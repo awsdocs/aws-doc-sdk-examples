@@ -13,9 +13,7 @@ Running the code:
 For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/transcribe-app.html.
 
 */
-
 // Vanilla JavaScript helper functions for user interface
-
 window.downloadInnerHtml = function (filename, elId, mimeType) {
   var elHtml = document.getElementById(elId).innerHTML;
   var link = document.createElement("a");
@@ -28,8 +26,19 @@ window.downloadInnerHtml = function (filename, elId, mimeType) {
   link.click();
 };
 
+// Delete a row from the user interface
+window.deleteRow = function (rowid) {
+  const row = document.getElementById(rowid);
+  row.parentNode.removeChild(row);
+};
+
 // Display transcription details on user interface
-window.displayTranscriptionDetails = function (i, outputJSONTime, outputJSON) {
+window.displayTranscriptionDetails = function (
+  i,
+  outputJSONTime,
+  jobName,
+  outputJSON
+) {
   var table = document.getElementById("myTable");
   var row = table.insertRow(1);
   var cell1 = row.insertCell(0);
@@ -53,14 +62,7 @@ window.displayTranscriptionDetails = function (i, outputJSONTime, outputJSON) {
     .getElementById("delete")
     .setAttribute(
       "onclick",
-      "deleteRow(" +
-        "'" +
-        "row" +
-        i +
-        "'); deleteJSON(" +
-        "'" +
-        outputJSONTime +
-        "-job.json')"
+      "deleteRow(" + "'" + "row" + i + "'); deleteJSON(" + "'" + jobName + "')"
     );
 };
 
@@ -74,8 +76,8 @@ window.getToken = function () {
 };
 
 window.getAccessToken = function () {
-  var idtoken = window.location.href;
-  var idtoken1 = idtoken.split("=")[2];
-  var idtoken2 = idtoken1.split("&")[0];
-  return idtoken2;
+  var accesstoken = window.location.href;
+  var accesstoken1 = accesstoken.split("=")[2];
+  var accesstoken2 = accesstoken1.split("&")[0];
+  return accesstoken2;
 };
