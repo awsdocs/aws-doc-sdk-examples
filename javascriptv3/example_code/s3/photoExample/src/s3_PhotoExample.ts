@@ -219,8 +219,7 @@ const addPhoto = async (albumName) => {
     const data = await s3.send(
       new ListObjectsCommand({
         Prefix: albumPhotosKey,
-        Bucket: albumBucketName,
-        ACL: "public-read",
+        Bucket: albumBucketName
       })
     );
     const file = files[0];
@@ -229,8 +228,7 @@ const addPhoto = async (albumName) => {
     const uploadParams = {
       Bucket: albumBucketName,
       Key: photoKey,
-      Body: file,
-      ACL: "public-read",
+      Body: file
     };
     try {
       const data = await s3.putObject(uploadParams);
