@@ -1,0 +1,35 @@
+# Disregard this file. AWS uses it internally to 
+# track code coverage and unit test coverage 
+# within this repository.
+---
+files:
+  - path: GettingStarted/MoviesCreateTable.rb
+    services:
+    - dynamodb
+  - path: GettingStarted/tests/test_MoviesCreateTable.rb
+    services:
+    - dynamodb
+  - path: GettingStarted/MoviesItemOps01.rb
+    services:
+    - dynamodb
+  - path: GettingStarted/tests/test_MoviesItemOps01.rb
+    services:
+    - dynamodb
+  - path: GettingStarted/MoviesItemOps02.rb
+    services:
+    - dynamodb
+  - path: GettingStarted/tests/test_MoviesItemOps02.rb
+    services:
+    - dynamodb
+  - path: GettingStarted/MoviesItemOps03.rb
+    services:
+    - dynamodb
+  - path: GettingStarted/tests/test_MoviesItemOps03.rb
+    services:
+    - dynamodb
+  - path: GettingStarted/MoviesLoadData.rb
+    services:
+    - dynamodb
+  - path: GettingStarted/tests/test_MoviesLoadData.rb
+    services:
+    - dynamodb
