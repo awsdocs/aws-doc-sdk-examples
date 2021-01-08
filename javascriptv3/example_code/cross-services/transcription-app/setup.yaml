@@ -3,8 +3,7 @@
 # https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/transcribe-app.html.
 
 # You can explore the Cloud Development Kit (CDK) app used to synthesize this template here:
-# https://github:com/awsdocs/aws-doc-sdk-examples/tree/master/resources/cdk/aws-doc-sdk-examples-javascriptv3-usecases-transcribe-demo.
-
+# https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/resources/cdk/aws-doc-sdk-examples-javascriptv3-usecases-transcribe-demo
 Resources:
   transciptions9A4F0BB8:
     Type: AWS::S3::Bucket
