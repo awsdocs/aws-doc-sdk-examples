@@ -21,7 +21,7 @@ Amazon EMC is a file-based video transcoding service with broadcast-grade featur
 **Note**: These include the client module for the AWS services required in these example, 
 which is *@aws-sdk/client-mediaconvert*.
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/mediaconvert
 npm install
 ```

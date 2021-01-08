@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Shows how to use the AWS SDK for Python (Boto3) to  get started using bucket and 
+Shows how to use the AWS SDK for Python (Boto3) to get started using bucket and 
 object operations in Amazon Simple Storage Service (Amazon S3). 
 Learn to create, get, remove, and configure buckets and objects.
 

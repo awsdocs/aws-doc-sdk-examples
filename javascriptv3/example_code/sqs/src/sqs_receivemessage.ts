@@ -50,7 +50,7 @@ const run = async () => {
         ReceiptHandle: data.Messages[0].ReceiptHandle,
       };
       try {
-        const data = await sqs.send(new DeleteMessageCommand({}));
+        const data = await sqs.send(new DeleteMessageCommand(deleteParams));
       } catch (err) {
         console.log("Message Deleted", data);
       }

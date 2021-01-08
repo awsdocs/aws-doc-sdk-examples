@@ -23,6 +23,12 @@ files:
   - path: DeleteObject/DeleteObjectv2_test.go
     services:
       - s3
+  - path: GeneratePresignedURL/GeneratePresignedURLv2.go
+    services:
+      - s3
+  - path: GeneratePresignedURL/GeneratePresignedURLv2_test.go
+    services:
+      - s3
   - path: GetBucketAcl/GetBucketAclv2.go
     services:
       - s3

@@ -22,7 +22,7 @@ This is a workspace where you can find working AWS SDK for JavaScript v3 SQS exa
 **Note**: These include the client module for the AWS services required in these example, 
 which is "@aws-sdk/client-sqs".
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/sqs
 npm install
 ```
