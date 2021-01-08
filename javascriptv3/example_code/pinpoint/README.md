@@ -19,7 +19,7 @@ Amazon Pinpoint is a flexible and scalable outbound and inbound marketing commun
 which is *@aws-sdk/client-pinpoint*.
 
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/pinpoint
 npm install
 ```

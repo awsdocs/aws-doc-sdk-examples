@@ -23,7 +23,7 @@ which is *@aws-sdk/client-s3*, *@aws-sdk/client-cognito-identity*,
 *@aws-sdk/credential-provider-cognito-identity*, *@aws-sdk/s3-request-presigner*, *@aws-sdk/util-create-request*, 
 *@aws-sdk/util-format-url*, and *node-fetch*.
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/s3
 npm install
 ```

@@ -20,7 +20,7 @@ Amazon SES is a cost-effective, flexible, and scalable email service that enable
 **Note**: These include the client module for the AWS services required in these example, 
 which is *@aws-sdk/client-ses*.
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/ses
 npm install
 ```

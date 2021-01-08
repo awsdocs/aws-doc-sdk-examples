@@ -22,7 +22,7 @@ instructions.
 **Note**: These include the client modules for the AWS services required in these example, 
 which are *@aws-sdk/client-dynamodb*, *@aws-sdk/util-dynamodb*.
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/dynamodb
 npm install
 ```
