@@ -18,11 +18,7 @@ in the AWS SDK for Go Developer Guide.
 
 This example creates an AWS KMS customer master key (CMK).
 
-`go run CreateKeyv2.go -k KEY -v VALUE`
-
-- _KEY_ is the name of the key to create.
-
-The unit test accepts similar values in _config.json_.
+`go run CreateKeyv2.go`
 
 ### DecryptData/DecryptDatav2.go
 
