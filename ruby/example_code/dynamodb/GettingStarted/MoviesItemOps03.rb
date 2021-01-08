@@ -37,9 +37,9 @@ def run_me
     expression_attribute_values: {
       ':r': 5.5,
       ':p': 'Everything happens all at once.',
-      ':a': [ "Larry", "Moe", "Curly" ]
+      ':a': [ 'Larry', 'Moe', 'Curly' ]
     },
-    return_values: "UPDATED_NEW"
+    return_values: 'UPDATED_NEW'
   }
 
   puts "Updating table '#{table_name}' with information about " \
