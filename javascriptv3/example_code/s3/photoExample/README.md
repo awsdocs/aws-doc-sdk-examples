@@ -13,7 +13,7 @@ This example demonstrates how to manipulate photos in albums stored in an Amazon
 such as *@aws-sdk/client-s3*, *@aws-sdk/client-cognito-identity*, and 
 *@aws-sdk/credential-provider-cognito-identity*.
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/s3/src/photoExample/src
 npm install
 ```

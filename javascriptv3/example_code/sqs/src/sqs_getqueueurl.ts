@@ -6,7 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-using-queues.html.
 
 Purpose:
-sqs_getqueueurl.ts demonstrates how to retrieve the URL of an Amazon SQS queue.
+sqs_getqueueurl.ts demonstrates how to retrieve the URL of an Amazon Simple Queue Service (Amazon SQS) queue.
 
 Inputs (replace in code):
 - REGION
@@ -24,14 +24,14 @@ const { SQSClient, GetQueueUrlCommand } = require("@aws-sdk/client-sqs");
 const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
-const params = { QueueName: "SQS_QUEUE_NAME" }; //SQS_QUEUE_NAME
+const params = { QueueName: "SQS_QUEUE_NAME" };
 
-// Create SQS service object
-const sns = new SQSClient({ region: REGION });
+// Create Amazon Simple Queue Service (Amazon SQS) service object
+const sqs = new SQSClient({ region: REGION });
 
 const run = async () => {
   try {
-    const data = await sns.send(new GetQueueUrlCommand(params));
+    const data = await sqs.send(new GetQueueUrlCommand(params));
     console.log("Success, SQS queue URL:", data.QueueUrl);
   } catch (err) {
     console.log("Error", err);

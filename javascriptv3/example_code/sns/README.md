@@ -21,7 +21,7 @@ Amazon SNS is a fully managed messaging service for both system-to-system and ap
 **Note**: These include the client module for the AWS services required in these example, 
 which is "@aws-sdk/client-sns".
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/sns
 npm install
 ```

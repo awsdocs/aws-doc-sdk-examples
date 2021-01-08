@@ -1,0 +1,41 @@
+{
+  "name": "recording_app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "build:frontend": "webpack index.ts --mode development --target web --devtool false -o main.js",
+    "test": "exit 0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "json-loader": "^0.5.7",
+    "raw-loader": "^4.0.2",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity": "1.0.0-rc.7",
+    "@aws-sdk/client-iam": "^1.0.0-rc.8",
+    "@aws-sdk/client-s3": "^1.0.0-rc.3",
+    "@aws-sdk/client-transcribe": "^1.0.0-rc.5",
+    "@aws-sdk/credential-provider-cognito-identity": "1.0.0-rc.7",
+    "@aws-sdk/s3-request-presigner": "^1.0.0-rc.5",
+    "@aws-sdk/util-create-request": "^1.0.0-rc.5",
+    "@aws-sdk/util-format-url": "^1.0.0-rc.5",
+    "aws-sdk": "^2.793.0",
+    "babel-cli": "6.24.1",
+    "babel-core": "6.25.0",
+    "babel-plugin-transform-class-properties": "6.24.1",
+    "babel-preset-env": "1.5.2",
+    "babel-preset-react": "6.24.1",
+    "fetch": "^1.1.0",
+    "file-system": "^2.2.2",
+    "node-fetch": "^2.6.1",
+    "stream": "0.0.2",
+    "stream-to-string": "^1.2.0",
+    "ts-node": "^9.0.0"
+  }
+}

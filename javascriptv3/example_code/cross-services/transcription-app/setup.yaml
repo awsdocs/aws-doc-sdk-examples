@@ -1,0 +1,336 @@
+# This file is an AWS CloudFormation template you can use to provision resources required to run a tutorial
+#  on how to build an transcription app using the AWS SDK for JavaScript (V3). The tutorial is available here:
+# https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/transcribe-app.html.
+
+# You can explore the Cloud Development Kit (CDK) app used to synthesize this template here:
+# https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/resources/cdk/aws-doc-sdk-examples-javascriptv3-usecases-transcribe-demo
+Resources:
+  transciptions9A4F0BB8:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: PublicRead
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders:
+              - "*"
+            AllowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+            AllowedOrigins:
+              - "*"
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/transciptions/Resource
+  transciptionsPolicy45A023FE:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket:
+        Ref: transciptions9A4F0BB8
+      PolicyDocument:
+        Statement:
+          - Action: s3:GetObject
+            Effect: Allow
+            Principal: "*"
+            Resource:
+              Fn::Join:
+                - ""
+                - - Fn::GetAtt:
+                      - transciptions9A4F0BB8
+                      - Arn
+                  - /*
+          - Action: "*"
+            Effect: Allow
+            Principal:
+              AWS:
+                Fn::Join:
+                  - ""
+                  - - "arn:"
+                    - Ref: AWS::Partition
+                    - ":iam::"
+                    - Ref: AWS::AccountId
+                    - :root
+            Resource:
+              Fn::Join:
+                - ""
+                - - Fn::GetAtt:
+                      - transciptions9A4F0BB8
+                      - Arn
+                  - /*
+          - Action: s3:PutObject
+            Effect: Allow
+            Principal: "*"
+            Resource:
+              Fn::Join:
+                - ""
+                - - Fn::GetAtt:
+                      - transciptions9A4F0BB8
+                      - Arn
+                  - /*
+          - Action: s3:DeleteObject
+            Effect: Allow
+            Principal: "*"
+            Resource:
+              Fn::Join:
+                - ""
+                - - Fn::GetAtt:
+                      - transciptions9A4F0BB8
+                      - Arn
+                  - /*
+        Version: "2012-10-17"
+    Metadata:
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/transciptions/Policy/Resource
+  appbucket8B6BC946:
+    Type: AWS::S3::Bucket
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: false
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        ErrorDocument: index.html
+        IndexDocument: index.html
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/appbucket/Resource
+  appbucketPolicy820C1410:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket:
+        Ref: appbucket8B6BC946
+      PolicyDocument:
+        Statement:
+          - Action: s3:GetObject
+            Effect: Allow
+            Principal: "*"
+            Resource:
+              Fn::Join:
+                - ""
+                - - Fn::GetAtt:
+                      - appbucket8B6BC946
+                      - Arn
+                  - /*
+          - Action: s3:PutObject
+            Effect: Allow
+            Principal: "*"
+            Resource:
+              Fn::Join:
+                - ""
+                - - Fn::GetAtt:
+                      - appbucket8B6BC946
+                      - Arn
+                  - /*
+        Version: "2012-10-17"
+    Metadata:
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/appbucket/Policy/Resource
+  exampleuserpoolid164CBD80:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      AccountRecoverySetting:
+        RecoveryMechanisms:
+          - Name: verified_phone_number
+            Priority: 1
+          - Name: verified_email
+            Priority: 2
+      AdminCreateUserConfig:
+        AllowAdminCreateUserOnly: false
+      AutoVerifiedAttributes:
+        - email
+      EmailVerificationMessage: Hello, Thanks for signing up to our awesome app! Your verification code is {####}
+      EmailVerificationSubject: Verify your email for our awesome app!
+      Schema:
+        - Mutable: false
+          Name: email
+          Required: true
+      SmsVerificationMessage: Hello, Thanks for signing up to our awesome app! Your verification code is {####}
+      UserPoolName: ExampleUserPoolName-4533197338
+      VerificationMessageTemplate:
+        DefaultEmailOption: CONFIRM_WITH_CODE
+        EmailMessage: Hello, Thanks for signing up to our awesome app! Your verification code is {####}
+        EmailSubject: Verify your email for our awesome app!
+        SmsMessage: Hello, Thanks for signing up to our awesome app! Your verification code is {####}
+    Metadata:
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/exampleuserpoolid/Resource
+  exampleuserpoolidCognitoDomain6126F7CC:
+    Type: AWS::Cognito::UserPoolDomain
+    Properties:
+      Domain: exampleuserpoolname-8779746581
+      UserPoolId:
+        Ref: exampleuserpoolid164CBD80
+    Metadata:
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/exampleuserpoolid/CognitoDomain/Resource
+  ExampleUserPoolClientA3BAC0B9:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      UserPoolId:
+        Ref: exampleuserpoolid164CBD80
+      AllowedOAuthFlows:
+        - implicit
+        - code
+      AllowedOAuthFlowsUserPoolClient: true
+      AllowedOAuthScopes:
+        - profile
+        - phone
+        - email
+        - openid
+        - aws.cognito.signin.user.admin
+      CallbackURLs:
+        - Fn::Join:
+            - ""
+            - - https://s3.
+              - Ref: AWS::Region
+              - "."
+              - Ref: AWS::URLSuffix
+              - /
+              - Ref: appbucket8B6BC946
+              - /index.html
+      ClientName: ExampleUserPoolName-184599961
+      SupportedIdentityProviders:
+        - COGNITO
+    Metadata:
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/ExampleUserPoolClient/Resource
+  ExampleIdentityPool:
+    Type: AWS::Cognito::IdentityPool
+    Properties:
+      AllowUnauthenticatedIdentities: false
+      CognitoIdentityProviders:
+        - ClientId:
+            Ref: ExampleUserPoolClientA3BAC0B9
+          ProviderName:
+            Fn::GetAtt:
+              - exampleuserpoolid164CBD80
+              - ProviderName
+    Metadata:
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/ExampleIdentityPool
+  ExampleCognitoDefaultAuthenticatedRole37F17AF0:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRoleWithWebIdentity
+            Condition:
+              StringEquals:
+                cognito-identity.amazonaws.com:aud:
+                  Ref: ExampleIdentityPool
+              ForAnyValue:StringLike:
+                cognito-identity.amazonaws.com:amr: authenticated
+            Effect: Allow
+            Principal:
+              Federated: cognito-identity.amazonaws.com
+        Version: "2012-10-17"
+    Metadata:
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/ExampleCognitoDefaultAuthenticatedRole/Resource
+  ExampleCognitoDefaultAuthenticatedRoleDefaultPolicy7CE891FB:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - mobileanalytics:PutEvents
+              - cognito-sync:*
+              - cognito-identity:*
+            Effect: Allow
+            Resource: "*"
+          - Action: sns:*
+            Effect: Allow
+            Resource: "*"
+          - Action:
+              - transcribe:StartTranscriptionJob
+              - transcribe:GetTranscriptionJob
+            Effect: Allow
+            Resource: "*"
+        Version: "2012-10-17"
+      PolicyName: ExampleCognitoDefaultAuthenticatedRoleDefaultPolicy7CE891FB
+      Roles:
+        - Ref: ExampleCognitoDefaultAuthenticatedRole37F17AF0
+    Metadata:
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/ExampleCognitoDefaultAuthenticatedRole/DefaultPolicy/Resource
+  DefaultValid:
+    Type: AWS::Cognito::IdentityPoolRoleAttachment
+    Properties:
+      IdentityPoolId:
+        Ref: ExampleIdentityPool
+      Roles:
+        authenticated:
+          Fn::GetAtt:
+            - ExampleCognitoDefaultAuthenticatedRole37F17AF0
+            - Arn
+    Metadata:
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/DefaultValid
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
+    Properties:
+      Modules: aws-cdk=1.78.0,@aws-cdk/assets=1.78.0,@aws-cdk/aws-applicationautoscaling=1.78.0,@aws-cdk/aws-autoscaling-common=1.78.0,@aws-cdk/aws-cloudwatch=1.78.0,@aws-cdk/aws-codeguruprofiler=1.78.0,@aws-cdk/aws-cognito=1.78.0,@aws-cdk/aws-ec2=1.78.0,@aws-cdk/aws-ecr=1.78.0,@aws-cdk/aws-ecr-assets=1.78.0,@aws-cdk/aws-events=1.78.0,@aws-cdk/aws-iam=1.78.0,@aws-cdk/aws-kms=1.78.0,@aws-cdk/aws-lambda=1.78.0,@aws-cdk/aws-logs=1.78.0,@aws-cdk/aws-s3=1.78.0,@aws-cdk/aws-s3-assets=1.78.0,@aws-cdk/aws-sqs=1.78.0,@aws-cdk/aws-ssm=1.78.0,@aws-cdk/cloud-assembly-schema=1.78.0,@aws-cdk/core=1.78.0,@aws-cdk/custom-resources=1.78.0,@aws-cdk/cx-api=1.78.0,@aws-cdk/region-info=1.78.0,jsii-runtime=node.js/v12.14.1
+    Metadata:
+      aws:cdk:path: AwsDocSdkExamplesJavascriptv3ScenariosTransciptionAppStack/CDKMetadata/Default
+    Condition: CDKMetadataAvailable
+Conditions:
+  CDKMetadataAvailable:
+    Fn::Or:
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ca-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-northwest-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-central-1
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-3
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - me-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - sa-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-2
+

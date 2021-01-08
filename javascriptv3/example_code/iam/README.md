@@ -21,7 +21,7 @@ Amazon IAM enables you to manage access to AWS services and resources securely.
 **Note**: These dependencies include the client modules for the AWS services that this example requires, 
 which are *@aws-sdk/client-iam* and *@aws-sdk/client-sts*.
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/iam
 npm install
 ```

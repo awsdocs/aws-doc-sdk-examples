@@ -25,12 +25,12 @@
 // snippet-start:[glacier.JavaScript.upload.uploadArchive]
 // Load the SDK for JavaScript
 var AWS = require('aws-sdk');
-// Set the region 
+// Set the region
 AWS.config.update({region: 'REGION'});
-            
+
 // Create a new service object and buffer
 var glacier = new AWS.Glacier({apiVersion: '2012-06-01'}),
-buffer = new Buffer(2.5 * 1024 * 1024); // 2.5MB buffer
+buffer = Buffer.alloc(2.5 * 1024 * 1024); // 2.5MB buffer
 
 var params = {vaultName: 'YOUR_VAULT_NAME', body: buffer};
 // Call Glacier to upload the archive.

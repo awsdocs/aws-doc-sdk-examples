@@ -24,7 +24,7 @@ It is designed to make web-scale cloud computing easier for developers.
 **Note**: These include the client module for the AWS services required in these example, 
 which is *@aws-sdk/client-ec2*.
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/ec2
 npm install
 ```
