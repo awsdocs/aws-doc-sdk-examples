@@ -1,73 +1,159 @@
-# AWS API Gateway WebSocket Chat Program
+# Amazon API Gateway websocket chat example
 
-## Repository files
+## Purpose
 
-* `websocket.py` : Main program source file
-* `lambda_util.py` : Utility functions to manage AWS Lambda functions
-* `websocket_connect.py` : AWS Lambda function to implement the WebSocket `$connect` route
-* `websocket_disconnect.py` : AWS Lambda function to implement the WebSocket `$disconnect` route
-* `websocket_send_msg.py` : AWS Lambda function to implement the WebSocket `sendmsg` custom route (Python)
-* `websocket_send_msg.js` : AWS Lambda function to implement the WebSocket `sendmsg` custom route (JavaScript)
+Shows how to use the AWS SDK for Python (Boto3) with Amazon API Gateway V2 to
+create a websocket API that integrates with AWS Lambda and Amazon DynamoDB.
 
-## AWS infrastructure resources
+* Create a websocket API served by API Gateway.
+* Define a Lambda handler that stores connections in DynamoDB and posts messages to
+other chat participants.
+* Connect to the websocket chat application and send messages with the Websockets
+package.
 
-* API Gateway WebSocket API
-* AWS Lambda functions for the WebSocket `$connect` and `$disconnect` routes and a WebSocket `sendmsg` custom route
-* AWS Identity and Access Management (IAM) role and policy for the AWS Lambda functions
-* Amazon DynamoDB table to store connection IDs and user names
+You can create a similar API Gateway websocket chat application by using 
+[AWS Chalice](https://github.com/aws/chalice).
+For a tutorial, see 
+[Chat Server Example](https://aws.github.io/chalice/tutorials/wschat.html).
 
 ## Prerequisites
 
-* Install Python 3.x.
-* Install the AWS SDK for Python `boto3`. Instructions are at https://github.com/boto/boto3.
-* Install the AWS CLI (Command Line Interface). Instructions are at 
-  https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html.
-* Configure the AWS CLI. Instructions are at 
-  https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html.
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.8.5 or later
+- Boto3 1.15.4 or later
+- Websockets 8.1 or later
+- PyTest 6.0.2 or later (to run unit tests)
 
-## Instructions
+## Cautions
 
-To create the WebSocket infrastructure:
+- As an AWS best practice, grant this code least privilege, or only the 
+  permissions required to perform a task. For more information, see 
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
+  in the *AWS Identity and Access Management 
+  User Guide*.
+- This code has not been tested in all AWS Regions. Some AWS services are 
+  available only in specific Regions. For more information, see the 
+  [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
+  on the AWS website.
+- Running this code might result in charges to your AWS account.
 
-    python websocket.py
+## Running the code
 
-To delete the WebSocket infrastructure:
+This example requires AWS resources that can be deployed by the 
+AWS CloudFormation stack that is defined in the accompanying `setup.yaml` file.
+This stack manages the following resources:
 
-    python websocket.py -d
-    OR
-    python websocket.py --delete
+* A DynamoDB table with a specific key schema.
+* A Lambda function that handles API Gateway websocket request events. 
+* An AWS Identity and Access Management (IAM) role that grants permission to let 
+Lambda run the function and perform actions on the table.  
 
-To use the WebSocket Chat Program:
+### Deploy resources
 
-1. Download and install `Node.js` from https://nodejs.org. `Node.js` includes the `npm` package manager.
-2. Use `npm` to globally install `wscat`.
+Deploy prerequisite resources by running the example script with the `deploy` flag at 
+a command prompt.
 
-        npm install -g wscat
+```
+python websocket_chat.py deploy
+```
 
-3. When the WebSocket infrastructure is created, the WebSocket WSS address is output.
-   Copy the output WebSocket WSS address and enter it on the `wscat` command line to open
-   a WebSocket connection. Open multiple connections by running `wscat` in separate
-   terminal windows.
-   
-        wscat -c WSS_ADDRESS
+### Run the usage demonstration
 
-   Example command line:
-   
-        wscat -c wss://123abc456def.execute-api.us-west-2.amazonaws.com/dev
+Create and deploy the API Gateway websocket API by running with the `demo` flag at 
+a command prompt.
 
-   Optional: Specify a user name as a query parameter in the WSS address (Used
-   by the Python version of `websocket_send_msg.py`)
-   
-        wscat -c wss://123abc456def.execute-api.us-west-2.amazonaws.com/dev?name=Steven
+```
+python websocket_chat.py demo
+``` 
 
-4. Send a chat message to all open connections:
+### Run the chat demonstration
 
-        {"action": "sendmsg", "msg": "Enter message text here"}
+See an automated demo of how to use the Websockets package to connect and send 
+messages to the chat application by running with the `chat` flag at a command prompt.
 
-   The `"action": "sendmsg"` pair invokes the WebSocket `sendmsg` custom route.
-   
-   The `"msg": "Enter message text here"` pair specifies the message text to send.
+```
+python websocket_chat.py chat
+``` 
 
-5. To close the WebSocket connection:
+*Note:* The Lambda handler for the chat application writes to an
+Amazon CloudWatch log. Checking this log can help you troubleshoot issues and give 
+additional insight into the application.
 
-        <Ctrl-C>
+### Destroy resources
+
+Destroy example resources by running the script with the `destroy` flag at a command 
+prompt.
+
+```
+python websocket_chat.py destroy
+``` 
+
+### Example structure
+
+The example contains the following files.
+
+**lambda_chat.py**
+
+Shows how to implement an AWS Lambda function as part of a websocket chat application.
+The function handles messages from an Amazon API Gateway websocket API and uses an
+Amazon DynamoDB table to track active connections by taking the following actions. 
+
+* A `$connect` request adds a connection ID and the associated user name to the
+DynamoDB table.
+* A `sendmessage` request scans the table for connections and uses the API 
+Gateway Management API to post the message to all other connections.
+* A `$disconnect` request removes the connection record from the table.
+
+**websocket_chat.py**
+
+Shows how to use API Gateway V2 to create a websocket API that is backed by a 
+Lambda function. The `usage_demo` and `chat_demo` scripts in this file show how to 
+accomplish the following actions.
+
+1. Create a websocket API served by API Gateway.
+1. Add resources to the websocket API that represent websocket connections and 
+chat messages.
+1. Add integration methods so the websocket API uses a Lambda function to handle 
+incoming requests. 
+1. Use the Websockets package to connect users to the chat application and send 
+messages to other chat participants.
+
+**setup.yaml**
+
+Contains a CloudFormation script that is used to create the resources needed for 
+the demo. Pass the `deploy` or `destroy` flag to the `websocket_chat.py` script to 
+create or remove these resources:  
+
+* A DynamoDB table
+* A Lambda function 
+* An IAM role
+
+The `setup.yaml` file was built from the 
+[AWS Cloud Development Kit (AWS CDK)](https://docs.aws.amazon.com/cdk/) 
+source script here: 
+[/resources/cdk/python_example_code_apigateway_websocket/setup.ts](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/resources/cdk/python_example_code_apigateway_websocket/setup.ts). 
+
+## Running the tests
+
+The unit tests in this module use the botocore Stubber. The Stubber captures requests 
+before they are sent to AWS, and returns a mocked response. To run all of the tests, 
+run the following command in your 
+[GitHub root]/python/example_code/apigateway/websocket folder.
+
+```    
+python -m pytest
+```
+
+## Additional information
+
+- [Boto3 Amazon API Gateway V2 service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/apigatewayv2.html)
+- [Boto3 Amazon API Gateway Management API service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/apigatewaymanagementapi.html)
+- [Amazon API Gateway documentation](https://docs.aws.amazon.com/apigateway/)
+- [AWS Lambda documentation](https://docs.aws.amazon.com/lambda/)
+
+---
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0
