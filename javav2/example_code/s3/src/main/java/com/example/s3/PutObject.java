@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/20/2020]
+//snippet-sourcedate:[01/07/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -22,6 +22,8 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 // snippet-end:[s3.java2.s3_object_upload.import]
 
 public class PutObject {
@@ -38,7 +40,7 @@ public class PutObject {
         if (args.length != 3) {
             System.out.println(USAGE);
             System.exit(1);
-       }
+        }
 
         String bucketName = args[0];
         String objectKey = args[1];
@@ -47,7 +49,7 @@ public class PutObject {
         System.out.println("Putting object " + objectKey +" into bucket "+bucketName);
         System.out.println("  in bucket: " + bucketName);
 
-        Region region = Region.US_WEST_2;
+        Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
                 .build();
@@ -64,10 +66,17 @@ public class PutObject {
                                      String objectPath) {
 
         try {
-           PutObjectResponse response = s3.putObject(PutObjectRequest.builder()
-                            .bucket(bucketName)
-                            .key(objectKey)
-                            .build(),
+
+            Map<String, String> metadata = new HashMap<>();
+            metadata.put("myVal", "test");
+
+            PutObjectRequest putOb = PutObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(objectKey)
+                    .metadata(metadata)
+                    .build();
+
+            PutObjectResponse response = s3.putObject(putOb,
                     RequestBody.fromBytes(getObjectFile(objectPath)));
 
            return response.eTag();
