@@ -1,5 +1,5 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GeneratePresignedUrlMetadata.java demonstrates how to use the S3Presigner client to create a presigned URL and upload an object that contains metadata to an Amazon Simple Storage Service (Amazon S3) bucket.]
+// snippet-sourcedescription:[GeneratePresignedUrlAndUploadObject.java demonstrates how to use the S3Presigner client to create a presigned URL and upload an object that contains metadata to an Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
