@@ -106,7 +106,7 @@ public class AmazonS3Test {
     @Order(2)
    public void createBucket() {
 
-      S3ObjectOperations.createBucket(s3,bucketName, region);
+        S3ObjectOperations.createBucket(s3,bucketName, region);
       System.out.println("Test 2 passed");
    }
 
@@ -201,7 +201,6 @@ public class AmazonS3Test {
     @Test
     @Order(13)
     public void ListObjects() {
-
         ListObjects.listBucketObjects(s3,bucketName);
         System.out.println("Test 13 passed");
     }
@@ -209,15 +208,14 @@ public class AmazonS3Test {
     @Test
     @Order(14)
     public void CreateAccessPoint() {
-
         CreateAccessPoint.createSpecificAccessPoint(s3ControlClient, accountId, bucketName, accessPointName);
+        CreateAccessPoint.deleteSpecificAccessPoint(s3ControlClient, accountId, accessPointName);
         System.out.println("Test 14 passed");
     }
 
     @Test
     @Order(15)
     public void KMSEncryptionExample() {
-
         KMSEncryptionExample.putEncryptData(s3, encryptObjectName, bucketName, encryptObjectPath, keyId );
         KMSEncryptionExample.getEncryptedData(s3, bucketName, encryptObjectName, encryptOutPath, keyId);
         System.out.println("Test 15 passed");
@@ -225,18 +223,42 @@ public class AmazonS3Test {
 
     @Test
     @Order(16)
-    public void deleteObjects() {
+    public void  LifecycleConfiguration() {
 
-        DeleteObjects.deleteBucketObjects(s3,bucketName,objectKey);
-        DeleteObjects.deleteBucketObjects(s3,bucketName,encryptObjectName);
+        LifecycleConfiguration.setLifecycleConfig(s3, bucketName, accountId);
+        LifecycleConfiguration.getLifecycleConfig(s3, bucketName, accountId);
+        LifecycleConfiguration.deleteLifecycleConfig(s3, bucketName, accountId);
         System.out.println("Test 16 passed");
     }
 
     @Test
     @Order(17)
-    public void deleteBucket() {
+    public void S3Cors() {
+        S3Cors.setCorsInformation(s3, bucketName, accountId);
+        S3Cors.getBucketCorsInformation(s3, bucketName, accountId);
+        S3Cors.deleteBucketCorsInformation(s3, bucketName, accountId);
+        System.out.println("Test 17 passed");
+    }
 
+    @Test
+    @Order(18)
+    public void DeleteMultiObjects() {
+        DeleteMultiObjects.deleteBucketObjects(s3, bucketName);
+        System.out.println("Test 18 passed");
+    }
+
+    @Test
+    @Order(19)
+    public void deleteObjects() {
+        DeleteObjects.deleteBucketObjects(s3,bucketName,objectKey);
+        DeleteObjects.deleteBucketObjects(s3,bucketName,encryptObjectName);
+        System.out.println("Test 19 passed");
+    }
+
+    @Test
+    @Order(20)
+    public void deleteBucket() {
     S3ObjectOperations.deleteBucket(s3,bucketName);
-    System.out.println("Test 17 passed");
+    System.out.println("Test 20 passed");
     }
 }
