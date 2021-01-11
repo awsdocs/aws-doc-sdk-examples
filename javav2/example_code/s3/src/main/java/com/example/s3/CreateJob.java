@@ -43,9 +43,9 @@ public class CreateJob {
                 "    CreateJob <accountId> <iamRoleArn> <manifestLocation> <reportBucketName>>\n\n" +
                 "Where:\n" +
                 "    accountId - the account id value that owns the Amazon S3 bucket.\n\n" +
-                "    iamRoleArn - the ARN of the IAM role that has permissions to create a batch job.\n" +
-                "    manifestLocation - the location where the manaifest required for the job is located (for example, arn:aws:s3:::<BUCKETNAME>/manifest.csv).\n" +
-                "    reportBucketName - the S3 bucket where the report is written to  (for example, arn:aws:s3:::<BUCKETNAME>).\n";
+                "    iamRoleArn - the ARN of the AWS Identity and Access Management (IAM) role that has permissions to create a batch job.\n" +
+                "    manifestLocation - the location where the manaifest file required for the job (for example, arn:aws:s3:::<BUCKETNAME>/manifest.csv).\n" +
+                "    reportBucketName - the Amazon S3 bucket where the report is written to  (for example, arn:aws:s3:::<BUCKETNAME>).\n";
 
         if (args.length != 4) {
             System.out.println(USAGE);

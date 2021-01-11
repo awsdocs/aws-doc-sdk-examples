@@ -63,7 +63,7 @@ public class LifecycleConfiguration {
     public static void setLifecycleConfig(S3Client s3, String bucketName, String accountId) {
 
         try {
-            // Create a rule to archive objects with the "glacierobjects/" prefix to Glacier immediately.
+            // Create a rule to archive objects with the "glacierobjects/" prefix to Amazon S3 Glacier.
             LifecycleRuleFilter ruleFilter = LifecycleRuleFilter.builder()
                     .prefix("glacierobjects/")
                     .build();
@@ -123,7 +123,7 @@ public class LifecycleConfiguration {
         }
     }
 
-    // Retrieve the configuration and add a new rule
+    // Retrieve the configuration and add a new rule.
     public static void getLifecycleConfig(S3Client s3, String bucketName, String accountId){
 
         try {
@@ -134,7 +134,7 @@ public class LifecycleConfiguration {
 
             GetBucketLifecycleConfigurationResponse response = s3.getBucketLifecycleConfiguration(getBucketLifecycleConfigurationRequest);
 
-            // Create a new List
+            // Create a new List.
             List<LifecycleRule> newList = new ArrayList<>();
             List<LifecycleRule> rules = response.rules();
             for (LifecycleRule rule: rules) {
@@ -178,7 +178,7 @@ public class LifecycleConfiguration {
         }
     }
 
-  // Delete the configuration from the Amazon S3 bucket
+  // Delete the configuration from the Amazon S3 bucket.
   public static void deleteLifecycleConfig(S3Client s3, String bucketName, String accountId) {
 
         try {
