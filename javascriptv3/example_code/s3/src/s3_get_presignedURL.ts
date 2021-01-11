@@ -36,7 +36,7 @@ const { formatUrl } = require("@aws-sdk/util-format-url");
 const fetch = require("node-fetch");
 
 // Set parameters
-// Create a random names for the Amazon Simple Storage Service (Amazon S3) bucket and key
+// Create random names for the Amazon Simple Storage Service (Amazon S3) bucket and key.
 const params = {
     Bucket: `test-bucket-${Math.ceil(Math.random() * 10 ** 10)}`,
     Key: `test-object-${Math.ceil(Math.random() * 10 ** 10)}`,
@@ -44,16 +44,16 @@ const params = {
     Region: "REGION"
 };
 
-// Create Amazon S3 client object
+// Create an Amazon S3 client object.
 const s3Client = new S3({ region: params.Region });
 
-// Create an S3RequestPresigner object
+// Create an S3RequestPresigner object.
 const signedRequest = new S3RequestPresigner(s3Client.config);
 
 const run = async () => {
     let signedUrl;
     let response;
-    // Create Amazon Simple Storage Service (Amazon S3) bucket
+    // Create an Amazon Simple Storage Service (Amazon S3) bucket.
     try {
         console.log(`Creating bucket ${params.Bucket}`);
         const data = await s3Client.send(
@@ -63,7 +63,7 @@ const run = async () => {
     } catch (err) {
         console.log("Error creating bucket", err);
     }
-    // Put object in Amazon S3 bucket
+    // Put the object in the Amazon S3 bucket.
     try {
         console.log(`Putting object "${params.Key}" in bucket`);
         const data = await s3Client.send(
@@ -72,9 +72,9 @@ const run = async () => {
     } catch (err) {
         console.log("Error putting object", err);
     }
-    // Create presigned URL
+    // Create a presigned URL.
     try {
-        // Create request
+        // Create a request.
         const request = await createRequest(s3Client, new GetObjectCommand(params));
         // Create and format presigned URL
         const signedUrl = formatUrl(
@@ -94,7 +94,7 @@ const run = async () => {
     } catch (err) {
         console.log("Error creating presigned URL", err);
     }
-    // Delete object
+    // Delete the object.
     try {
         console.log(`\nDeleting object "${params.Key}" from bucket`);
         const data = await s3Client.send(new
@@ -103,7 +103,7 @@ const run = async () => {
     } catch (err) {
         console.log("Error deleting object", err);
     }
-    // Delete bucket
+    // Delete the bucket.
     try {
         console.log(`\nDeleting bucket ${params.Bucket}`);
         const data = await s3Client.send(new
