@@ -192,7 +192,7 @@ In order for a Spring Boot application to use the log in form that is provided b
 
 Create a user that you can use to log into the application. In this example, the user has a user name and a password. 
 
-1. Choose Users and groups from the menu on the left side. 
+1. Choose **Users and groups** from the menu on the left side. 
 
 ![AWS Tracking Application](images/pic10.png)
 
