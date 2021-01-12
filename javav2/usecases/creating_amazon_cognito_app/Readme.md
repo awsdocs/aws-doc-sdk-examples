@@ -172,7 +172,7 @@ You must configure the client application. For example, you need to define the a
 
 3. For the **Sign out URL**, specify http://localhost:8080/logout. 
 
-4. Select **Authorization code grant** and allow **email** and **openid** scope (as shown in the previous illustration).
+4. Select **Authorization code grant** and allow **email** and **openid** scope (shown in the previous illustration).
 
 5. Choose **Save Changes**. 
 
