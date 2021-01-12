@@ -59,7 +59,7 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 
 + **Creating scheduled events to invoke  Lambda functions** - A tutorial that discusses how to create a scheduled event that invokes an AWS Lambda function by using Amazon CloudWatch Events. In addition, the AWS Lambda function is created by using the AWS Lambda Java runtime API and invokes multiple AWS services to perform a specific use case.
 
-+ **Using Amazon Cognito to require a user to log into a web application** - A tutorial that discusses how to use Amazon Cognito to require a web application to authenicate with users defined in an Amazon Cognito User Pool. 
++ **Using Amazon Cognito to require a user to log into a web application** - A tutorial that discusses how to use Amazon Cognito to require a web application to authenticate with users defined in an Amazon Cognito User Pool. 
 
 
 AWS service examples
