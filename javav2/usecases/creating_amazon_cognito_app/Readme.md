@@ -116,7 +116,7 @@ The first step in this AWS tutorial is to update the POM file in your project to
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-      </build>
+       </build>
      </project>
 
 
