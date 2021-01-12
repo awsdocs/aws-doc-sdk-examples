@@ -162,9 +162,9 @@ You must configure the client application. For example, you need to define the a
 
 ![AWS Tracking Application](images/pic8.png)
 
-1. Choose **Client app settings** from the menu on the left side. 
+1. Choose **App client settings** from the menu on the left side. 
 
-![AWS Tracking Application](images/pic9.png)
+![AWS Tracking Application](images/pic6a.png)
 
 2. Specify the correct callback URL. For example, with Spring Security, you can define the path as http://localhost:8080/login/oauth2/code/cognito. For local development, the localhost URL is all that is required. 
 
