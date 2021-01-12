@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace UploadObject
 {
-    // The following example uploads an object to an Amazon Simple Storage
-    // Service (Amazon S3) bucket in two different ways. First, it uploads
-    // an existing file from the supposed file path and then it creates an
-    // object in the example bucket by putting text into the named file. It
+    // The following example shows two different methods for uploading data to
+    // an Amazon Simple Storage Service (Amazon S3) bucket. The method,
+    // UploadObjectFromFileAsync, uploads an existing file to an Amazon S3
+    // bucket. The method, UploadObjectFromContentAsync, creates a new
+    // file containing the text supplied to the method. The application
     // was created using AWS SDK for .NET 3.5 and .NET 5.0.
 
     class UploadObject
@@ -39,7 +40,7 @@ namespace UploadObject
         }
 
         /// <summary>
-        /// This method uploads a single file to an Amazon S3 bucket. This
+        /// This method uploads a file to an Amazon S3 bucket. This
         /// example method also adds metadata for the uploaded file.
         /// </summary>
         /// <param name="client">An initialized Amazon S3 client object.</param>
