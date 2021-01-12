@@ -35,11 +35,11 @@ To complete the tutorial, you need the following:
 
 + Update the POM file
 + Create an Amazon Cognito User Pool
-+	Define a client application within the User Pool
-+	Configure the client application
-+	Configure a domain name
-+	Create a user
-+	Modify your web application
++ Define a client application within the User Pool
++ Configure the client application
++ Configure a domain name
++ Create a user
++ Modify your web application
 
 ## Update the POM file
 
