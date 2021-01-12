@@ -1,0 +1,12 @@
+# Disregard this file. AWS uses it internally to 
+# track code coverage and unit test coverage 
+# within this repository.
+---
+files:
+  - path: UploadObject/UploadObject.cs
+    services: 
+    - s3
+  - path: UploadObjectTest/UploadObjectTest.cs
+    services: 
+    - s3
+...
