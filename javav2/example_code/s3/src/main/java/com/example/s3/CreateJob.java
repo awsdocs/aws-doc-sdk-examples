@@ -55,7 +55,7 @@ public class CreateJob {
         String accountId = args[0];
         String iamRoleArn = args[1];
         String manifestLocation = args[2];
-        String reportBucketName = args[3];;
+        String reportBucketName = args[3];
         String uuid = java.util.UUID.randomUUID().toString();
 
         S3ControlClient s3ControlClient = S3ControlClient.builder()
