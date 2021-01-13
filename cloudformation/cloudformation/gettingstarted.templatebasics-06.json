@@ -1,0 +1,34 @@
+{
+  "Resources": {
+      "myBucket": {
+          "Type": "AWS::S3::Bucket"
+      },
+      "myDistribution": {
+          "Type": "AWS::CloudFront::Distribution",
+          "Properties": {
+              "DistributionConfig": {
+                  "Origins": [
+                      {
+                          "DomainName": {
+                              "Fn::GetAtt": [
+                                  "myBucket",
+                                  "DomainName"
+                              ]
+                          },
+                          "Id": "myS3Origin",
+                          "S3OriginConfig": {}
+                      }
+                  ],
+                  "Enabled": true,
+                  "DefaultCacheBehavior": {
+                      "TargetOriginId": "myS3Origin",
+                      "ForwardedValues": {
+                          "QueryString": false
+                      },
+                      "ViewerProtocolPolicy": "allow-all"
+                  }
+              }
+          }
+      }
+  }
+}

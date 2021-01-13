@@ -1,0 +1,22 @@
+Resources:
+  ElasticLoadBalancer:
+    Type: 'AWS::ElasticLoadBalancing::LoadBalancer'
+    Properties:
+      AvailabilityZones: !GetAZs ''
+      Instances:
+        - !Ref Ec2Instance1
+        - !Ref Ec2Instance2
+      Listeners:
+        - LoadBalancerPort: '80'
+          InstancePort: !Ref WebServerPort
+          Protocol: HTTP
+      HealthCheck:
+        Target: !Join 
+          - ''
+          - - 'HTTP:'
+            - !Ref WebServerPort
+            - /
+        HealthyThreshold: '3'
+        UnhealthyThreshold: '5'
+        Interval: '30'
+        Timeout: '5'

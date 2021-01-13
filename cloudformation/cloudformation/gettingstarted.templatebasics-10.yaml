@@ -1,0 +1,17 @@
+Outputs:
+  InstallURL:
+    Value: !Join 
+      - ''
+      - - 'http://'
+        - !GetAtt 
+          - ElasticLoadBalancer
+          - DNSName
+        - /wp-admin/install.php
+    Description: Installation URL of the WordPress website
+  WebsiteURL:
+    Value: !Join 
+      - ''
+      - - 'http://'
+        - !GetAtt 
+          - ElasticLoadBalancer
+          - DNSName

@@ -1,0 +1,24 @@
+{
+  "Parameters": {
+      "KeyName": {
+          "Description": "Name of an existing EC2 KeyPair to enable SSH access into the WordPress web server",
+          "Type": "AWS::EC2::KeyPair::KeyName"
+      },
+      "WordPressUser": {
+          "Default": "admin",
+          "NoEcho": "true",
+          "Description": "The WordPress database admin account user name",
+          "Type": "String",
+          "MinLength": "1",
+          "MaxLength": "16",
+          "AllowedPattern": "[a-zA-Z][a-zA-Z0-9]*"
+      },
+      "WebServerPort": {
+          "Default": "8888",
+          "Description": "TCP/IP port for the WordPress web server",
+          "Type": "Number",
+          "MinValue": "1",
+          "MaxValue": "65535"
+      }
+  }
+}

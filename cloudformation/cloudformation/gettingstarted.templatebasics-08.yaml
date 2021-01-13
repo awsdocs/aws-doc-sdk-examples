@@ -1,0 +1,26 @@
+Parameters:
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
+    Type: String
+Mappings:
+  RegionMap:
+    us-east-1:
+      AMI: ami-76f0061f
+    us-west-1:
+      AMI: ami-655a0a20
+    eu-west-1:
+      AMI: ami-7fd4e10b
+    ap-southeast-1:
+      AMI: ami-72621c20
+    ap-northeast-1:
+      AMI: ami-8e08a38f
+Resources:
+  Ec2Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      KeyName: !Ref KeyName
+      ImageId: !FindInMap 
+        - RegionMap
+        - !Ref 'AWS::Region'
+        - AMI
+      UserData: !Base64 '80'

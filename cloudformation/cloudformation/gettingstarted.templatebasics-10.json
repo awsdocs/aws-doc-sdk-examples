@@ -1,0 +1,38 @@
+{
+    "Outputs": {
+        "InstallURL": {
+            "Value": {
+                "Fn::Join": [
+                    "",
+                    [
+                        "http://",
+                        {
+                            "Fn::GetAtt": [
+                                "ElasticLoadBalancer",
+                                "DNSName"
+                            ]
+                        },
+                        "/wp-admin/install.php"
+                    ]
+                ]
+            },
+            "Description": "Installation URL of the WordPress website"
+        },
+        "WebsiteURL": {
+            "Value": {
+                "Fn::Join": [
+                    "",
+                    [
+                        "http://",
+                        {
+                            "Fn::GetAtt": [
+                                "ElasticLoadBalancer",
+                                "DNSName"
+                            ]
+                        }
+                    ]
+                ]
+            }
+        }
+    }
+}
