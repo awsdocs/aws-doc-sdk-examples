@@ -1,0 +1,4 @@
+Resources:
+  CFS42RHD:
+    Type: 'AWS::CloudFormation::Stack'
+    Properties: {}
