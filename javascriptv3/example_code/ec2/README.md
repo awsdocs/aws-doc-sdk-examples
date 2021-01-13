@@ -5,6 +5,8 @@ The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aw
 
 The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-examples.html) contains these examples.
  
+The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-ec2/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon EC2 client module.
+ 
 Amazon EC2 is a web service that provides secure, resizable compute capacity in the cloud. 
 It is designed to make web-scale cloud computing easier for developers.
 
@@ -22,7 +24,7 @@ It is designed to make web-scale cloud computing easier for developers.
 **Note**: These include the client module for the AWS services required in these example, 
 which is *@aws-sdk/client-ec2*.
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/ec2
 npm install
 ```

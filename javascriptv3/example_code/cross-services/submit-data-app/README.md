@@ -16,7 +16,7 @@ which are *@aws-sdk/client-cognito-identity*, *@aws-sdk/client-cognito-identity-
 *@aws-sdk/credential-provider-cognito-identity*, *@aws-sdk/client-sns*, *@aws-sdk/client-s3*, and *@aws-sdk/client-iam*.
 They also include third-party Node.js modules, fs (file-server), path, and webpack.
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/cross-services/submit-data-app 
 npm install
 ```

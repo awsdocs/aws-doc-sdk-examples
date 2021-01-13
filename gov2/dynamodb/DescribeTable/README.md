@@ -1,4 +1,4 @@
-### DescribeTable.go
+### DescribeTablev2.go
 
 This example lists the following properties of a DynamoDB table.
 
@@ -6,7 +6,7 @@ This example lists the following properties of a DynamoDB table.
 - Size, in bytes
 - Status, such as Active
 
-`go run DescribeTable.go -t TABLE`
+`go run DescribeTablev2.go -t TABLE`
 
 - _TABLE_ is the name of the table.
 

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/28/2020]
+//snippet-sourcedate:[01/06/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -32,13 +32,12 @@ public class GetBucketPolicy {
                 "    bucketName - the Amazon S3 bucket to get the policy from.\n\n" ;
 
           if (args.length != 1) {
-             System.out.println(USAGE);
+            System.out.println(USAGE);
             System.exit(1);
          }
 
         String bucketName = args[0];
         System.out.format("Getting policy for bucket: \"%s\"\n\n", bucketName);
-
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder()
                 .region(region)

@@ -1,8 +1,7 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is pending release.  The preview version of the SDK is available
-at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
+which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
 
 Purpose:
@@ -12,8 +11,7 @@ Note: This example immediately deletes the object and bucket.
 
 Inputs (replace in code):
 - REGION
-- KEY
-- BODY
+
 
 Running the code:
 ts-node s3_put_presignedURL.ts
@@ -23,8 +21,13 @@ Uploads the specified file to the specified bucket.
 
 // snippet-start:[s3.JavaScript.buckets.presignedurlv3]
 // Import the required AWS SDK clients and commands for Node.js
-
-const { S3, CreateBucketCommand, DeleteObjectCommand, PutObjectCommand, DeleteBucketCommand } = require("@aws-sdk/client-s3");
+const {
+  S3,
+  CreateBucketCommand,
+  DeleteObjectCommand,
+  PutObjectCommand,
+  DeleteBucketCommand,
+} = require("@aws-sdk/client-s3");
 const { S3RequestPresigner } = require("@aws-sdk/s3-request-presigner");
 const { createRequest } = require("@aws-sdk/util-create-request");
 const { formatUrl } = require("@aws-sdk/util-format-url");
@@ -34,72 +37,64 @@ const fetch = require("node-fetch");
 const REGION = "REGION";
 
 // Set parameters
-let signedUrl;
-let response;
-
-// Create a random name for the Amazon Simple Storage Service (Amazon S3) bucket
-const BUCKET = `test-bucket-${Math.ceil(Math.random() * 10 ** 10)}`;
-// Create a random name for object to upload to S3 bucket
-const KEY = `test-object-${Math.ceil(Math.random() * 10 ** 10)}`;
-const BODY = "BODY";
-const EXPIRATION = 60 * 60 * 1000;
+// Create a random names for the Amazon Simple Storage Service (Amazon S3) bucket and key
+const clientParams = {
+  Bucket: `test-bucket-${Math.ceil(Math.random() * 10 ** 10)}`,
+  Key: `test-object-${Math.ceil(Math.random() * 10 ** 10)}`,
+  Body: "BODY"
+};
 
 // Create Amazon S3 client object
-const v3Client = new S3({ region: REGION });
+const s3Client = new S3({ region: REGION });
+
+//Create an S3RequestPresigner object
+//To avoid redundant construction parameters when instantiating the Amazon S3 presigner,
+// spread the configuration of an existing Amazon S3 client and supply it to the
+// presigner's constructor.
+const signedRequest = new S3RequestPresigner(s3Client.config);
 
 const run = async () => {
   try {
     //Create an S3 bucket
-    console.log(`Creating bucket ${BUCKET}`);
-    await v3Client.send(new CreateBucketCommand(BUCKET));
-    console.log(`Waiting for "${BUCKET}" bucket creation...`);
+    console.log(`Creating bucket ${clientParams.Bucket}`);
+    await s3Client.send(
+        new CreateBucketCommand({ Bucket: clientParams.Bucket })
+    );
+    console.log(`Waiting for "${clientParams.Bucket}" bucket creation...`);
   } catch (err) {
     console.log("Error creating bucket", err);
   }
   try {
-    //Create an S3RequestPresigner object
-    const signer = new S3RequestPresigner({ ...v3Client.config });
     // Create request
-    const request =
-        await createRequest(
-      v3Client,
-      new PutObjectCommand({ KEY, BUCKET })
+    const request = await createRequest(
+        s3Client,
+        new PutObjectCommand(clientParams)
     );
-    // Define the duration until expiration of the presigned URL
-    const expiration = new Date(Date.now() + EXPIRATION);
-
     // Create and format presigned URL
-    signedUrl = formatUrl(await signer.presign(request, expiration));
-    console.log(`\nPutting "${KEY}" using signedUrl with body "${BODY}" in v3`);
+    const signedUrl = formatUrl(
+        await signedRequest.presign(request, {
+          // Supply expiration in second
+          expiresIn: 60 * 60 * 24
+        })
+    );
+    console.log(
+        `\nPutting "${clientParams.Key}" using signedUrl with body "${clientParams.Body}" in v3`
+    );
+    console.log(signedUrl);
   } catch (err) {
     console.log("Error creating presigned URL", err);
   }
   try {
-    // Upload the object to the Amazon S3 bucket using the presigned URL
-    // Use node-fetch to make the HTTP request to the presigend URL
-    // we use to upload the file
-
-    response = await fetch(signedUrl, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/octet-stream",
-      },
-      body: BODY,
-    });
-  } catch (err) {
-    console.log("Error uploading object", err);
-  }
-  try {
     // Delete the object
-    console.log(`\nDeleting object "${KEY}" from bucket`);
-    await v3Client.send(new DeleteObjectCommand(BUCKET, KEY));
+    console.log(`\nDeleting object "${clientParams.Key}" from bucket`);
+    await s3Client.send(new DeleteObjectCommand({Bucket:clientParams.Bucket, Key:clientParams.Key}));
   } catch (err) {
     console.log("Error deleting object", err);
   }
   try {
     // Delete the bucket
-    console.log(`\nDeleting bucket ${BUCKET}`);
-    await v3Client.send(new DeleteBucketCommand(BUCKET));
+    console.log(`\nDeleting bucket ${clientParams.Bucket}`);
+    await s3Client.send(new DeleteBucketCommand({Bucket:clientParams.Bucket}));
   } catch (err) {
     console.log("Error deleting bucket", err);
   }

@@ -1,4 +1,4 @@
-### AssumeRole/AssumeRolev2.go
+### AssumeRolev2.go
 
 This example gets temporary security credentials to access resources.
 

@@ -5,6 +5,8 @@ The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aw
 
 The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-examples.html) contains these examples.
 
+The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon S3 client module.
+
 Amazon S3 is an object storage service that offers industry-leading scalability, data availability, security, and performance.
 
 **NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
@@ -21,7 +23,7 @@ which is *@aws-sdk/client-s3*, *@aws-sdk/client-cognito-identity*,
 *@aws-sdk/credential-provider-cognito-identity*, *@aws-sdk/s3-request-presigner*, *@aws-sdk/util-create-request*, 
 *@aws-sdk/util-format-url*, and *node-fetch*.
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/s3
 npm install
 ```

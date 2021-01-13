@@ -35,8 +35,8 @@ The Node.js examples are all run from the command line.
 Documentation
 =============
 
-- Once it's released, you can find detailed documentation for the `AWS SDK for JavaScript v3 <http://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide>`_.
-- The latest version of `AWS SDK for JavaScript API Reference <http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/index.html>`_ is available.
+- You can find detailed documentation for the `AWS SDK for JavaScript v3 <http://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide>`_.
+- The latest version of `AWS SDK for JavaScript v3 API Reference <http://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/index.html>`_ is available.
 
 
 

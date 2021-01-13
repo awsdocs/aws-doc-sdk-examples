@@ -1,0 +1,11 @@
+---
+# Amazon Simple Notification Service (Amazon SNS) basics example
+files:
+  - path: sns_basics.py
+    services:
+      - sns
+  - path: test/conftest.py
+  - path: test/test_sns_basics.py
+    services:
+      - sns
+...

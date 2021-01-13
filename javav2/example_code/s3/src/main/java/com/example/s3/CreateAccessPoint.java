@@ -1,9 +1,9 @@
-//snippet-sourcedescription:[CreateAccessPoint.java demonstrates how to create an access point for an Amazon Simple Storage Service (Amazon S3) bucket.]
+//snippet-sourcedescription:[CreateAccessPoint.java demonstrates how to create and delete an access point for an Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/28/2020]
+//snippet-sourcedate:[01/08/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -18,6 +18,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3control.S3ControlClient;
 import software.amazon.awssdk.services.s3control.model.CreateAccessPointRequest;
 import software.amazon.awssdk.services.s3control.model.S3ControlException;
+import software.amazon.awssdk.services.s3control.model.DeleteAccessPointRequest;
 // snippet-end:[s3.java2.create_access_point.import]
 
 public class CreateAccessPoint {
@@ -47,11 +48,12 @@ public class CreateAccessPoint {
                 .build();
 
         createSpecificAccessPoint(s3ControlClient, accountId, bucketName, accessPointName );
+        deleteSpecificAccessPoint(s3ControlClient, accountId, accessPointName);
         s3ControlClient.close();;
     }
 
     // snippet-start:[s3.java2.create_access_point.main]
-    // This method creates an access point for the given Amazon S3 bucket
+    // This method creates an access point for the given Amazon S3 bucket.
     public static void createSpecificAccessPoint(S3ControlClient s3ControlClient,
                                                  String accountId,
                                                  String bucketName,
@@ -73,4 +75,26 @@ public class CreateAccessPoint {
         }
     }
     // snippet-end:[s3.java2.create_access_point.main]
+
+    public static void deleteSpecificAccessPoint(S3ControlClient s3ControlClient,
+                                                 String accountId,
+                                                 String accessPointName) {
+
+        try {
+            DeleteAccessPointRequest deleteAccessPointRequest = DeleteAccessPointRequest.builder()
+                .name(accessPointName)
+                .accountId(accountId)
+                .build();
+
+            s3ControlClient.deleteAccessPoint(deleteAccessPointRequest);
+
+        } catch (S3ControlException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+
+
+    }
+
+
 }

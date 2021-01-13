@@ -1,5 +1,5 @@
-### ListTopics.go
+### ListTopicsv2.go
 
 This example lists the ARNs for your Amazon SNS topics.
 
-`go run ListTopics.go`
+`go run ListTopicsv2.go`

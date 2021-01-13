@@ -14,7 +14,7 @@ in the AWS SDK for Go Developer Guide.
 
 ## Running the code
 
-### DescribeTable/DescribeTable.go
+### DescribeTable/DescribeTablev2.go
 
 This example lists the following properties of a DynamoDB table.
 
@@ -22,11 +22,24 @@ This example lists the following properties of a DynamoDB table.
 - Size, in bytes
 - Status, such as Active
 
-`go run DescribeTable.go -t TABLE`
+`go run DescribeTablev2.go -t TABLE`
 
 - _TABLE_ is the name of the table.
 
 The unit test accepts a similar value in _config.json_.
+
+### ScanItems/ScanItemsv2.go
+
+This example retrieves the Amazon DynamoDB items with a rating above a specified value
+in a specified year.
+
+`go run ScanItemsv2.go -t TABLE -r RATING -y YEAR`
+
+- _TABLE_ is the name of the table.
+- _RATING_ is the rating of the item, from 0.0 to 10.0.
+- _YEAR_ is the year of the item, which must be greater than 1900.
+
+The unit test accepts similar values in _config.json_.
 
 ### Notes
 

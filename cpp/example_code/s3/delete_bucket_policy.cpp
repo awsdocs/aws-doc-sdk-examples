@@ -25,7 +25,14 @@
  // snippet-start:[s3.cpp.delete_bucket_policy.code]
 bool AwsDoc::S3::DeleteBucketPolicy(const Aws::String& bucketName,const Aws::String& region)
 {
-    Aws::S3::S3Client s3_client;
+    Aws::Client::ClientConfiguration config;
+
+    if (!region.empty())
+    {
+        config.region = region;
+    }
+
+    Aws::S3::S3Client s3_client(config);
 
     Aws::S3::Model::DeleteBucketPolicyRequest request;
     request.SetBucket(bucketName);
@@ -48,11 +55,12 @@ bool AwsDoc::S3::DeleteBucketPolicy(const Aws::String& bucketName,const Aws::Str
 int main()
 {
     Aws::String bucket_name = "my-bucket";
+    Aws::String region = "us-east-1";
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        if (AwsDoc::S3::DeleteBucketPolicy(bucket_name))
+        if (AwsDoc::S3::DeleteBucketPolicy(bucket_name, region))
         {
             std::cout << "Deleted bucket policy from '" << bucket_name <<
                 "'." << std::endl;

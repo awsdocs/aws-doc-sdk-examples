@@ -1,8 +1,8 @@
-### CopyObject.go
+### CopyObjectv2.go
 
 This example copies an Amazon S3 object from one bucket to another.
 
-`go run CopyObject.go -s SOURCE -d DESTINATION -o OBJECT`
+`go run CopyObjectv2.go -s SOURCE -d DESTINATION -o OBJECT`
 
 - _SOURCE_ is the name of the bucket containing the item to copy.
 - _DESTINATION_ is the name of the bucket to which the item is copied.

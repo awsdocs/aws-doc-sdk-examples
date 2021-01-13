@@ -4,7 +4,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/28/2020]
+//snippet-sourcedate:[01/06/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -19,6 +19,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.Duration;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
@@ -44,8 +45,11 @@ public class GeneratePresignedUrlAndUploadObject {
 
         String bucketName = args[0];
         String keyName = args[1];
+        Region region = Region.US_EAST_1;
+        S3Presigner presigner = S3Presigner.builder()
+                .region(region)
+                .build();
 
-        S3Presigner presigner = S3Presigner.create();
         signBucket(presigner, bucketName, keyName);
         presigner.close();
     }

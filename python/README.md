@@ -30,6 +30,17 @@ to request, import, and manage certificates.
 * Retrieve certificate data.
 * Add custom tags to certificates.
 
+### [Amazon API Gateway AWS service integration example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/apigateway/aws_service/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon API Gateway to
+create a REST API that integrates with Amazon DynamoDB.
+
+* Create a REST API served by API Gateway.
+* Define REST methods that call DynamoDB to store and access data.
+* Call the REST API with the Requests package.
+
 ### [Amazon CloudWatch custom metrics and alarms example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/cloudwatch/README.md)
 
 #### Purpose
@@ -42,6 +53,19 @@ accomplish the following tasks:
 * Send data to CloudWatch for a metric.
 * Get statistics for a metric.
 * Trigger an alarm and get its state.
+
+### [Amazon Comprehend detection, classification, and topic modeling examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/comprehend/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Comprehend to inspect
+documents and discover information about them.
+
+* Detect elements of a document, such as languages used, key phrases, and personally
+identifiable information (PII).
+* Train a custom classifier that learns a set of labels on GitHub issues, and send 
+new issues to the classifer for labeling.
+* Detect common themes in a set of documents without the need for prior annotation.
 
 ### [Amazon DynamoDB batch examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/dynamodb/batching/README.md)
 
@@ -287,6 +311,18 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Simple Email Service
 * Send email by using the Amazon SES API or an Amazon SES SMTP server.
 * Create and manage rules to block, allow, or handle incoming emails. 
 * Copy email and domain identity configuration from one AWS Region to another.
+
+### [Amazon Simple Notification Service topics and subscriptions example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/sns/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Simple Notification Service
+(Amazon SNS).
+
+* Create a notification topic.
+* Subscribe phone numbers and emails to the topic.
+* Publish messages to the topic and receive them at your subscribed endpoints.
+* Add filtering attributes to a subscription.
 
 ### [Amazon SQS getting started examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/sqs/ReadMe.md)
 

@@ -31,6 +31,7 @@ async function run() {
     ExposeHeaders: [],
     MaxAgeSeconds: 3000,
   };
+
   // Assemble the list of allowed methods based on command line parameters
   const allowedMethods = [];
   process.argv.forEach(function (val, index, array) {

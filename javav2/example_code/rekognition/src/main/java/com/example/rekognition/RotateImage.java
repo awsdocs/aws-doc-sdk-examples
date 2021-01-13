@@ -12,7 +12,7 @@
 
 package com.example.rekognition;
 
-// snippet-start:[rekognition.java2.recognize_image orientation.import]
+// snippet-start:[rekognition.java2.recognize_image_orientation.import]
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
@@ -27,7 +27,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.List;
-// snippet-end:[rekognition.java2.recognize_image orientation.import]
+// snippet-end:[rekognition.java2.recognize_image_orientation.import]
 
 public class RotateImage {
 
@@ -55,7 +55,7 @@ public class RotateImage {
         rekClient.close();
     }
 
-    // snippet-start:[rekognition.java2.recognize_image orientation.main]
+    // snippet-start:[rekognition.java2.recognize_image_orientation.main]
     public static void recognizeAllCelebrities(RekognitionClient rekClient, String sourceImage) {
 
         try {
@@ -136,5 +136,5 @@ public class RotateImage {
         System.out.println("Face Height: " + String.valueOf((int)(imageHeight * box.height())));
     }
 
-    // snippet-end:[rekognition.java2.recognize_image orientation.main]
+    // snippet-end:[rekognition.java2.recognize_image_orientation.main]
 }

@@ -5,6 +5,8 @@ The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aw
 
 The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/mediaconvert-examples.html) contains these examples.
 
+The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-mediaconvert/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon EMC client module.
+
 Amazon EMC is a file-based video transcoding service with broadcast-grade features.
 
 **NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
@@ -19,7 +21,7 @@ Amazon EMC is a file-based video transcoding service with broadcast-grade featur
 **Note**: These include the client module for the AWS services required in these example, 
 which is *@aws-sdk/client-mediaconvert*.
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/mediaconvert
 npm install
 ```

@@ -60,7 +60,6 @@ public class PublishTextSMS {
             System.out.println(result.messageId() + " Message sent. Status was " + result.sdkHttpResponse().statusCode());
 
         } catch (SnsException e) {
-
         System.err.println(e.awsErrorDetails().errorMessage());
         System.exit(1);
         }

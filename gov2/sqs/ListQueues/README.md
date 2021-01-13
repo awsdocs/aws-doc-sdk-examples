@@ -1,4 +1,4 @@
-### ListQueues/ListQueuesv2.go
+### ListQueuesv2.go
 
 This example retrieves a list of your Amazon SQS queues.
 

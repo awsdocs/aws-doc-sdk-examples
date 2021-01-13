@@ -1,8 +1,7 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is pending release.  The preview version of the SDK is available
-at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
+which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-example-photo-album.html.
 Purpose:
 s3_PhotoExample.js demonstrates how to manipulate photos in albums stored in an Amazon S3 bucket.
@@ -220,8 +219,7 @@ const addPhoto = async (albumName) => {
     const data = await s3.send(
       new ListObjectsCommand({
         Prefix: albumPhotosKey,
-        Bucket: albumBucketName,
-        ACL: "public-read",
+        Bucket: albumBucketName
       })
     );
     const file = files[0];
@@ -230,8 +228,7 @@ const addPhoto = async (albumName) => {
     const uploadParams = {
       Bucket: albumBucketName,
       Key: photoKey,
-      Body: file,
-      ACL: "public-read",
+      Body: file
     };
     try {
       const data = await s3.putObject(uploadParams);

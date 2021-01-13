@@ -1,4 +1,4 @@
-### SendMessage/SendMessagev2.go
+### SendMessagev2.go
 
 This example sends a message to an Amazon SQS queue.
 

@@ -1,4 +1,4 @@
-### EncryptData/EncryptDatav2.go
+### EncryptDatav2.go
 
 This example encrypts some text using an AWS Key Management Service (AWS KMS) customer master key (CMK).
 
