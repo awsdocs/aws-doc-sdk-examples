@@ -2,9 +2,9 @@
 
 Use the template files in this folder to create the unique source code and the associated AWS CloudFormation template file for a AWS CDK app.
 
-Currently, the AWS CloudFormation template file generated using these files creates a stack to provision resources for the
+The AWS CloudFormation template file generated using this app creates a stack to provision resources for the
 [Polly Examples](https://docs.aws.amazon.com/cdk/latest/guide/polly-example-synthesize-to-s3.html) tutorial in the *AWS SDK for JavaScript Developer guide*, including:
-- An Amazon IAM unauthenticated role with full access to Amazon Polly. 
+- An AWS Identity and Access Management (AWS IAM) unauthenticated role with full access to Amazon Polly. 
 - An Amazon Cognito identity pool with the Amazon IAM unauthenticated role to it.
 
 ## Prerequisites
@@ -52,7 +52,7 @@ To destroy the AWS CDK app, which deletes the corresponding stack from AWS Cloud
 
 Callers can use the AWS Command Line Interface (AWS CLI) or the AWS CloudFormation Console to run your AWS CloudFormation template file. (They can of course use the AWS CDK, but they would need to first install the AWS CDK prerequisites.)
 
-To use the AWS CLI, run the following command from within the same folder as the ``TranscribeApp.yaml`` file to create the corresponding stack in AWS CloudFormation, where ``SetupStack`` is some stack name that is unique within an individual AWS Region for the AWS account:
+To use the AWS CLI, run the following command from within the same folder as the ``setup.yaml`` file to create the corresponding stack in AWS CloudFormation, where ``SetupStack`` is some stack name that is unique within an individual AWS Region for the AWS account:
 
 ``aws cloudformation create-stack --stack-name SetupStack --template-body file://TranscribeApp.yaml``
 

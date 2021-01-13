@@ -5,7 +5,9 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-browser.html.
 
 Purpose:
-polly.ts demonstrates how to convert text to speech using Amazon Polly.
+polly.ts demonstrates how to convert text to speech using Amazon Polly,
+and automatically uploadingan audio file of the speech to an
+Amazon Simple Storage Service (Amazon S3).
 
 Inputs (replace in code):
 - REGION
@@ -13,7 +15,7 @@ Inputs (replace in code):
 - IDENTITY_POOL_ID
 
 Running the code:
-Follow the steps in https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-browser.html.
+ts-node polly_synthesize_to_s3.ts
 */
 // snippet-start:[Polly.JavaScript.general-examples.synthesizetos3_V3]
 const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
@@ -25,7 +27,7 @@ const {
   StartSpeechSynthesisTaskCommand,
 } = require("@aws-sdk/client-polly");
 
-// Set the AWS Region
+// Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"
 
 // Create the parameters
@@ -37,7 +39,7 @@ var s3Params = {
   VoiceId: "Joanna",
   SampleRate: "22050",
 };
-// Create the Polly service client, assigning your credentials
+// Create the Polly service client, assigning your credentials.
 const polly = new Polly({
   region: REGION,
   credentials: fromCognitoIdentityPool({
@@ -51,7 +53,7 @@ const run = async () => {
     const data = await polly.send(
       new StartSpeechSynthesisTaskCommand(s3Params)
     );
-    console.log("Audio file added to " + s3Params.OutputS3BucketName);
+    console.log("Success, audio file added to " + s3Params.OutputS3BucketName);
   } catch (err) {
     console.log("Error putting object", err);
   }
