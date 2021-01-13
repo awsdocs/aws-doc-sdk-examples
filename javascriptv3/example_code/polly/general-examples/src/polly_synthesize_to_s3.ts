@@ -6,8 +6,8 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-starte
 
 Purpose:
 polly.ts demonstrates how to convert text to speech using Amazon Polly,
-and automatically uploadingan audio file of the speech to an
-Amazon Simple Storage Service (Amazon S3).
+and automatically upload an audio file of the speech to an
+Amazon Simple Storage Service (Amazon S3) bucket.
 
 Inputs (replace in code):
 - REGION
