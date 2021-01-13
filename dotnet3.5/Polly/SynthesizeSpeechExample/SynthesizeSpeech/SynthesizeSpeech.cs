@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
-// SPDX-License-Identifier:  Apache - 2.0
+// SPDX-License-Identifier:  Apache-2.0
 
 using Amazon;
 using Amazon.Polly;
@@ -11,9 +11,9 @@ namespace SynthesizeSpeech
 {
     class SynthesizeSpeech
     {
-        // The following example text to speech and saves it to an .mp3 file
-        // using Amazon Polly. It was created using the AWS SDK for .NET 3.5
-        // and .NET 5.0.
+        // This example uses the Amazon Polly service to convert text to
+        // speech. It then saves the converted text to an MP3 file. The
+        // code was written against the AWS SDK for .NET 3.5 and .NET 5.0.
 
         // Specify your AWS Region (an example Region is shown).
         private static readonly RegionEndpoint serviceRegion = RegionEndpoint.USEast2;
@@ -27,13 +27,11 @@ namespace SynthesizeSpeech
             polyClient = new AmazonPollyClient(serviceRegion);
             var response = await PollySynthesizeSpeech(polyClient, text);
             
-            if (response.ContentLength > 0) {
-                WriteSpeechToStream(response.AudioStream, outputFileName);
-            }
+            WriteSpeechToStream(response.AudioStream, outputFileName);
         }
 
         /// <summary>
-        /// Calls Amazon Polly SynthesizeSpeechAsync method to convert text
+        /// Calls the Amazon Polly SynthesizeSpeechAsync method to convert text
         /// to speech.
         /// </summary>
         /// <param name="client">The Amazon Polly client object used to connect
@@ -60,8 +58,8 @@ namespace SynthesizeSpeech
         /// Writes the AudioStream returned from the call to
         /// SynthesizeSpeechAsync to a file in MP3 format.
         /// </summary>
-        /// <param name="audioStream">The AudioStream returned from
-        /// SynthesizeSpeechAsync</param>
+        /// <param name="audioStream">The AudioStream returned from the
+        /// call to the SynthesizeSpeechAsync method.</param>
         /// <param name="outputFileName">The full path to the file in which to
         /// save the audio stream.</param>
         private static void WriteSpeechToStream(Stream audioStream, string outputFileName)
@@ -75,7 +73,7 @@ namespace SynthesizeSpeech
                 outputStream.Write(buffer, 0, readBytes);
 
             // If we don't flush the buffer, we lose the last second or so of
-            // the syntesized text.
+            // the synthesized text.
             outputStream.Flush();
         }
     }

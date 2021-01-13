@@ -54,10 +54,10 @@ namespace SynthesizeSpeechTest
 
             var result = await mockPollyClient.SynthesizeSpeechAsync(pollyRequest);
             bool gotResult = result != null;
-            Assert.True(gotResult, "Copy operation failed.");
+            Assert.True(gotResult, "Result returned successfully.");
 
             bool ok = result.HttpStatusCode == HttpStatusCode.OK;
-            Assert.True(ok, $"Text conversion failed.");
+            Assert.True(ok, $"Text conversion completed successfully.");
         }
     }
 }
