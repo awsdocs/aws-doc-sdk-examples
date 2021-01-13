@@ -1,12 +1,9 @@
 name: Lint CloudFormation Templates
 
 on:
-  # Trigger the workflow on push or pull request,
+  # Trigger the workflow on push,
   # but only for the main branch
   push:
-    branches:
-      - master
-  pull_request:
     branches:
       - master
     paths:
