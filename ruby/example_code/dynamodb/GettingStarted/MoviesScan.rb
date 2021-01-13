@@ -1,70 +1,79 @@
-# snippet-sourcedescription:[ ]
-# snippet-service:[dynamodb]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-keyword:[Amazon DynamoDB]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[ ]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[ ]
-# snippet-sourceauthor:[AWS]
-# snippet-start:[dynamodb.Ruby.CodeExample.MoviesScan] 
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-#
-#  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-#  This file is licensed under the Apache License, Version 2.0 (the "License").
-#  You may not use this file except in compliance with the License. A copy of
-#  the License is located at
-# 
-#  http://aws.amazon.com/apache2.0/
-# 
-#  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-#  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-#  specific language governing permissions and limitations under the License.
-#
-require "aws-sdk"
+# This code example demonstrates how to search for items in
+# an existing table in Amazon DynamoDB named 'Movies'.
+# If an item matches the specified search condition, then informaton about
+# that item is returned. In this example, a scan operation is performed. The
+# scan operation searches through the entire table, which can contain
+# thousands of items. In this example, matching items
+# must have a 'year' attribute value of 1950 through 1959; however,
+# this filter is applied only after the entire table has been
+# searched (making it slower than a query operation).
 
-Aws.config.update({
-  region: "us-west-2",
-  endpoint: "http://localhost:8000"
-})
+# snippet-start:[dynamodb.Ruby.CodeExample.MoviesScan]
+require 'aws-sdk-dynamodb'
 
-dynamodb = Aws::DynamoDB::Client.new
+def scan_for_items_from_table(dynamodb_client, scan_condition)
+  # To display the elapsed time for the query operation,
+  # uncomment the following three comments.
+  #start = Time.now
+  loop do
+    result = dynamodb_client.scan(scan_condition)
 
-table_name = "Movies"
+    if result.items.count.zero?
+      puts 'No matching movies found (yet)...'
+    else
+      puts "Found #{result.items.count} matching movies (so far):"
+      result.items.each do |movie|
+        puts "#{movie["title"]} (#{movie["year"].to_i}), " \
+          "Rating: #{movie["info"]["rating"].to_f}"
+      end
+        
+      break if result.last_evaluated_key.nil?
 
-params = {
+      puts "Searching for more movies..."
+      scan_condition[:exclusive_start_key] = result.last_evaluated_key
+    end
+  end
+  puts 'Finished searching.'
+  # finish = Time.now
+  # puts "Search took #{finish - start} seconds."
+rescue StandardError => e
+  puts "Error scanning for table items: #{e.message}"
+end
+
+def run_me
+  region = 'us-west-2'
+  table_name = 'Movies'
+  start_year = 1950
+  end_year = 1959
+
+  # To use the downloadable version of Amazon DynamoDB,
+  # uncomment the endpoint statement.
+  Aws.config.update(
+    # endpoint: 'http://localhost:8000',
+    region: region
+  )
+
+  dynamodb_client = Aws::DynamoDB::Client.new
+      
+  scan_condition = {
     table_name: table_name,
     projection_expression: "#yr, title, info.rating",
     filter_expression: "#yr between :start_yr and :end_yr",
-    expression_attribute_names: {"#yr"=> "year"},
+    expression_attribute_names: { "#yr"=> "year" },
     expression_attribute_values: {
-        ":start_yr" => 1950,
-        ":end_yr" => 1959
+      ":start_yr" => start_year,
+      ":end_yr" => end_year
     }
-}
+  }
 
-puts "Scanning Movies table."
+  puts "Searching for items in the '#{table_name}' table from #{start_year} " \
+    "through #{end_year}..."
 
-begin
-    loop do
-        result = dynamodb.scan(params)
-
-        result.items.each{|movie|
-            puts "#{movie["year"].to_i}: " +
-                "#{movie["title"]} ... " + 
-                "#{movie["info"]["rating"].to_f}"
-        }
-        
-        break if result.last_evaluated_key.nil?
-
-        puts "Scanning for more..."
-        params[:exclusive_start_key] = result.last_evaluated_key
-    end
-    
-rescue  Aws::DynamoDB::Errors::ServiceError => error
-    puts "Unable to scan:"
-    puts "#{error.message}"
+  scan_for_items_from_table(dynamodb_client, scan_condition)  
 end
+
+run_me if $PROGRAM_NAME == __FILE__
 # snippet-end:[dynamodb.Ruby.CodeExample.MoviesScan]

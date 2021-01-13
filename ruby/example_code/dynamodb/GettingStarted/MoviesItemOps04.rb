@@ -38,7 +38,7 @@ def run_me
   # To use the downloadable version of Amazon DynamoDB,
   # uncomment the endpoint statement.
   Aws.config.update(
-    # endpoint: "http://localhost:8000",
+    # endpoint: 'http://localhost:8000',
     region: region
   )
 

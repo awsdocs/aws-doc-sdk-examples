@@ -1,60 +1,61 @@
-# snippet-sourcedescription:[ ]
-# snippet-service:[dynamodb]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-keyword:[Amazon DynamoDB]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[ ]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[ ]
-# snippet-sourceauthor:[AWS]
-# snippet-start:[dynamodb.Ruby.CodeExample.MoviesItemOps06] 
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-#
-#  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-#  This file is licensed under the Apache License, Version 2.0 (the "License").
-#  You may not use this file except in compliance with the License. A copy of
-#  the License is located at
-# 
-#  http://aws.amazon.com/apache2.0/
-# 
-#  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-#  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-#  specific language governing permissions and limitations under the License.
-#
-require "aws-sdk"
+# This code example demonstrates how to delete an existing item in
+# an existing table in Amazon DynamoDB named 'Movies'.
+# If an item with the specified attributes exists in the table,
+# then that item is deleted. In this example, the item
+# must have a 'year' attribute value of 2015 and a 'title' attribute value
+# of 'The Big New Movie'. If so, and if the 'rating' value of the item's
+# 'info' attribute is less than or equal to 5, then that item is deleted.
 
-Aws.config.update({
-  region: "us-west-2",
-  endpoint: "http://localhost:8000"
-})
+# snippet-start:[dynamodb.Ruby.CodeExample.MoviesItemOps06]
+require 'aws-sdk-dynamodb'
 
-dynamodb = Aws::DynamoDB::Client.new
+def table_item_deleted?(dynamodb_client, table_item)
+  dynamodb_client.delete_item(table_item)
+  true
+rescue StandardError => e
+  puts "Error deleting item: #{e.message}"
+  false
+end
 
-table_name = 'Movies'
+def run_me
+  region = 'us-west-2'
+  table_name = 'Movies'
+  title = 'The Big New Movie'
+  year = 2015
 
-year = 2015
-title = "The Big New Movie"
+  # To use the downloadable version of Amazon DynamoDB,
+  # uncomment the endpoint statement.
+  Aws.config.update(
+    # endpoint: 'http://localhost:8000',
+    region: region
+  )
 
-params = {
+  dynamodb_client = Aws::DynamoDB::Client.new
+
+  table_item = {
     table_name: table_name,
     key: {
-        year: year,
-        title: title
+      year: year,
+      title: title
     },
     condition_expression: "info.rating <= :val",
     expression_attribute_values: {
-        ":val" => 5
+      ":val" => 5
     }
-}
+  }
 
-begin
-    dynamodb.delete_item(params)
-    puts "Deleted item."
+  puts "Deleting item from table '#{table_name}' matching " \
+    "'#{title} (#{year})' if specified criteria are met..."
 
-rescue  Aws::DynamoDB::Errors::ServiceError => error
-    puts "Unable to update item:"
-    puts "#{error.message}"
+  if table_item_deleted?(dynamodb_client, table_item)
+    puts 'Item deleted.'
+  else
+    puts 'Item not deleted.'
+  end
 end
+
+run_me if $PROGRAM_NAME == __FILE__
 # snippet-end:[dynamodb.Ruby.CodeExample.MoviesItemOps06]
