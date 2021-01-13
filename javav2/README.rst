@@ -61,6 +61,8 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 
 + **Using Amazon Cognito to require a user to log into a web application** - A tutorial that discusses how to use Amazon Cognito to require a web application to authenticate with users defined in an Amazon Cognito User Pool. 
 
++ **Creating AWS video analyzer applications using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and various AWS services, such as the  Amazon Rekognition service, to analyze videos. The application analyzes a video located in an Amazon S3 bucket and generate a report that breaks the video into a series of labels.
+
 
 AWS service examples
 --------------------
