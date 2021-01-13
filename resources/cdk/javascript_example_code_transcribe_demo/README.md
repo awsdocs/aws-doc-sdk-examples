@@ -1,6 +1,16 @@
 # AWS Code Examples Repository - AWS CDK App Template
 
-Use the template files in this folder to create the unique source code and the associated AWS CloudFormation template file for your finished AWS CDK app.
+Use the template files in this folder to create the unique source code and the associated AWS CloudFormation template file for a AWS CDK app.
+
+Currently, the AWS CloudFormation template file generated using these files will create a stack to provision resources for the
+[Build a transcription app with authenticated users](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html) tutorial in the *AWS SDK for JavaScript Developer guide*, including::
+- An Amazon Cognito identity pool with an authenticated user role.
+- An IAM policy with permissions for the Amazon S3 and Amazon Transcribe is attached to the authenticated user role.
+- An Amazon Cognito user pool that enables users to sign up and sign in to the app.
+- An Amazon S3 bucket to host the application files.
+- An Amazon S3 bucket to to store the transcriptions.
+
+
 
 ## Prerequisites
 
