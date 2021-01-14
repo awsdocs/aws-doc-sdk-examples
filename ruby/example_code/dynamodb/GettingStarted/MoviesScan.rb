@@ -60,12 +60,12 @@ def run_me
       
   scan_condition = {
     table_name: table_name,
-    projection_expression: "#yr, title, info.rating",
-    filter_expression: "#yr between :start_yr and :end_yr",
-    expression_attribute_names: { "#yr"=> "year" },
+    projection_expression: '#yr, title, info.rating',
+    filter_expression: '#yr between :start_yr and :end_yr',
+    expression_attribute_names: { '#yr' => 'year' },
     expression_attribute_values: {
-      ":start_yr" => start_year,
-      ":end_yr" => end_year
+      ':start_yr' => start_year,
+      ':end_yr' => end_year
     }
   }
 

@@ -41,9 +41,9 @@ def run_me
       year: year,
       title: title
     },
-    condition_expression: "info.rating <= :val",
+    condition_expression: 'info.rating <= :val',
     expression_attribute_values: {
-      ":val" => 5
+      ':val' => 5
     }
   }
 
