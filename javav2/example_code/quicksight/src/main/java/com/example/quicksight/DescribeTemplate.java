@@ -19,7 +19,7 @@ import software.amazon.awssdk.services.quicksight.QuickSightClient;
 import software.amazon.awssdk.services.quicksight.model.DescribeTemplateRequest;
 import software.amazon.awssdk.services.quicksight.model.DescribeTemplateResponse;
 import software.amazon.awssdk.services.quicksight.model.QuickSightException;
-// snippet-start:[quicksight.java2.describe_template.import]
+// snippet-end:[quicksight.java2.describe_template.import]
 
 public class DescribeTemplate {
 
