@@ -195,7 +195,7 @@ def verify_no_secret_keys(file_contents, file_location):
                       "and in src/allow.list.xml in the AWSDocsChecklistCodeSampleCatalog GitFarm repo.", {word[1:-1]}, file_location)
         error_count += 1
 
-     return error_count
+    return error_count
 
 
 def verify_snippet_start_end(file_contents, file_location):
