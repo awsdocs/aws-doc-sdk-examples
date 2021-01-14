@@ -4,21 +4,21 @@
 package main
 
 import (
-    "context"
-    "flag"
-    "fmt"
+	"context"
+	"flag"
+	"fmt"
 
-    "github.com/aws/aws-sdk-go-v2/config"
-    "github.com/aws/aws-sdk-go-v2/service/ssm"
-    "github.com/aws/aws-sdk-go-v2/service/ssm/types"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/ssm"
+	"github.com/aws/aws-sdk-go-v2/service/ssm/types"
 )
 
 // SSMPutParameterAPI defines the interface for the PutParameter function.
 // We use this interface to test the function using a mocked service.
 type SSMPutParameterAPI interface {
-    PutParameter(ctx context.Context,
-        params *ssm.PutParameterInput,
-        optFns ...func(*ssm.Options)) (*ssm.PutParameterOutput, error)
+	PutParameter(ctx context.Context,
+		params *ssm.PutParameterInput,
+		optFns ...func(*ssm.Options)) (*ssm.PutParameterOutput, error)
 }
 
 // AddStringParameter creates an AWS Systems Manager string parameter
@@ -30,45 +30,45 @@ type SSMPutParameterAPI interface {
 //     If success, a PutParameterOutput object containing the result of the service call and nil
 //     Otherwise, nil and an error from the call to PutParameter
 func AddStringParameter(c context.Context, api SSMPutParameterAPI, input *ssm.PutParameterInput) (*ssm.PutParameterOutput, error) {
-    return api.PutParameter(c, input)
+	return api.PutParameter(c, input)
 }
 
 func main() {
-    parameterName := flag.String("n", "", "The name of the parameter")
-    parameterValue := flag.String("v", "", "The value of the parameter")
-    flag.Parse()
+	parameterName := flag.String("n", "", "The name of the parameter")
+	parameterValue := flag.String("v", "", "The value of the parameter")
+	flag.Parse()
 
-    if *parameterName == "" {
-        fmt.Println("You must supply the name of the parameter")
-        fmt.Println("-n NAME")
-        return
-    }
+	if *parameterName == "" {
+		fmt.Println("You must supply the name of the parameter")
+		fmt.Println("-n NAME")
+		return
+	}
 
-    if *parameterValue == "" {
-        fmt.Println("You must supply the value of the parameter")
-        fmt.Println("-v VALUE")
-        return
-    }
+	if *parameterValue == "" {
+		fmt.Println("You must supply the value of the parameter")
+		fmt.Println("-v VALUE")
+		return
+	}
 
-    cfg, err := config.LoadDefaultConfig(context.TODO())
-    if err != nil {
-        panic("configuration error, " + err.Error())
-    }
+	cfg, err := config.LoadDefaultConfig(context.TODO())
+	if err != nil {
+		panic("configuration error, " + err.Error())
+	}
 
-    client := ssm.NewFromConfig(cfg)
+	client := ssm.NewFromConfig(cfg)
 
-    input := &ssm.PutParameterInput{
-        Name:  parameterName,
-        Value: parameterValue,
-        Type:  types.ParameterTypeString,
-    }
+	input := &ssm.PutParameterInput{
+		Name:  parameterName,
+		Value: parameterValue,
+		Type:  types.ParameterTypeString,
+	}
 
-    results, err := AddStringParameter(context.Background(), client, input)
-    if err != nil {
-        fmt.Println(err.Error())
-        return
-    }
+	results, err := AddStringParameter(context.TODO(), client, input)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 
-    fmt.Println("Parameter version:", *results.Version)
+	fmt.Println("Parameter version:", results.Version)
 }
 // snippet-end:[ssm.go-v2.PutParameter]

@@ -112,19 +112,19 @@ func main() {
 	myDetails = myDetails + " }"
 
 	input := &cloudwatchevents.PutEventsInput{
-		Entries: []*types.PutEventsRequestEntry{
-			&types.PutEventsRequestEntry{
+		Entries: []types.PutEventsRequestEntry{
+			{
 				Detail:     &myDetails,
 				DetailType: &event.DetailType,
-				Resources: []*string{
-					lambdaARN,
+				Resources: []string{
+					*lambdaARN,
 				},
 				Source: &event.Source,
 			},
 		},
 	}
 
-	_, err = CreateEvent(context.Background(), client, input)
+	_, err = CreateEvent(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Could not create event:")
 		fmt.Println(err)

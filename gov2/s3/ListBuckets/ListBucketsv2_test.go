@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
-	"github.com/aws/aws-sdk-go/aws"
 )
 
 type S3ListBucketsImpl struct{}
@@ -17,9 +17,10 @@ func (dt S3ListBucketsImpl) ListBuckets(ctx context.Context,
 	optFns ...func(*s3.Options)) (*s3.ListBucketsOutput, error) {
 
 	// Create a dummy list of two buckets
-	buckets := make([]*types.Bucket, 2)
-	buckets[0] = &types.Bucket{Name: aws.String("bucket1")}
-	buckets[1] = &types.Bucket{Name: aws.String("bucket2")}
+	buckets := []types.Bucket{
+		{Name: aws.String("bucket1")},
+		{Name: aws.String("bucket2")},
+	}
 
 	output := &s3.ListBucketsOutput{
 		Buckets: buckets,

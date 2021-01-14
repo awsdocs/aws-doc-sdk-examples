@@ -58,7 +58,7 @@ func main() {
 		Key:        objectName,
 	}
 
-	_, err = CopyItem(context.Background(), client, input)
+	_, err = CopyItem(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error copying item:")
 		fmt.Println(err)

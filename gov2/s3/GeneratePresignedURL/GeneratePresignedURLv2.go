@@ -59,7 +59,7 @@ func main() {
 
 	psClient := s3.NewPresignClient(client)
 
-	resp, err := GetPresignedURL(context.Background(), psClient, input)
+	resp, err := GetPresignedURL(context.TODO(), psClient, input)
 	if err != nil {
 		fmt.Println("Got an error retrieving pre-signed object:")
 		fmt.Println(err)

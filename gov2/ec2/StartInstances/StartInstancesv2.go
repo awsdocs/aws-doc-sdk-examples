@@ -4,22 +4,22 @@
 package main
 
 import (
-    "context"
-    "flag"
-    "fmt"
-    "strings"
+	"context"
+	"errors"
+	"flag"
+	"fmt"
 
-    "github.com/aws/aws-sdk-go-v2/aws"
-    "github.com/aws/aws-sdk-go-v2/config"
-    "github.com/aws/aws-sdk-go-v2/service/ec2"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/ec2"
+	"github.com/aws/smithy-go"
 )
 
 // EC2StartInstancesAPI defines the interface for the StartInstances function.
 // We use this interface to test the function using a mocked service.
 type EC2StartInstancesAPI interface {
-    StartInstances(ctx context.Context,
-        params *ec2.StartInstancesInput,
-        optFns ...func(*ec2.Options)) (*ec2.StartInstancesOutput, error)
+	StartInstances(ctx context.Context,
+		params *ec2.StartInstancesInput,
+		optFns ...func(*ec2.Options)) (*ec2.StartInstancesOutput, error)
 }
 
 // StartInstance starts an Amazon Elastic Compute Cloud (Amazon EC2) instance.
@@ -31,49 +31,49 @@ type EC2StartInstancesAPI interface {
 //     If success, a StartInstancesOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to StartInstances.
 func StartInstance(c context.Context, api EC2StartInstancesAPI, input *ec2.StartInstancesInput) (*ec2.StartInstancesOutput, error) {
-    resp, err := api.StartInstances(c, input)
+	resp, err := api.StartInstances(c, input)
 
-    if strings.Contains(err.Error(), "api error DryRunOperation") {
+    var apiErr smithy.APIError
+    if errors.As(err, &apiErr) && apiErr.ErrorCode() == "DryRunOperation" {
         fmt.Println("User has permission to start an instance.")
-        input.DryRun = aws.Bool(false)
-        result, err := api.StartInstances(c, input)
-
-        return result, err
+        input.DryRun = false
+        return api.StartInstances(c, input)
     }
 
-    return resp, err
+	return resp, err
 }
 
 func main() {
-    instanceID := flag.String("i", "", "The ID of the instance to start")
-    flag.Parse()
+	instanceID := flag.String("i", "", "The ID of the instance to start")
+	flag.Parse()
 
-    if *instanceID == "" {
-        fmt.Println("You must supply an instance ID (-i INSTANCE-ID")
-        return
-    }
+	if *instanceID == "" {
+		fmt.Println("You must supply an instance ID (-i INSTANCE-ID")
+		return
+	}
 
-    cfg, err := config.LoadDefaultConfig(context.TODO())
-    if err != nil {
-        panic("configuration error, " + err.Error())
-    }
+	cfg, err := config.LoadDefaultConfig(context.TODO())
+	if err != nil {
+		panic("configuration error, " + err.Error())
+	}
 
-    client := ec2.NewFromConfig(cfg)
+	client := ec2.NewFromConfig(cfg)
 
-    input := &ec2.StartInstancesInput{
-        InstanceIds: []*string{
-            instanceID,
-        },
-        DryRun: aws.Bool(true),
-    }
+	input := &ec2.StartInstancesInput{
+		InstanceIds: []string{
+			*instanceID,
+		},
+		DryRun: true,
+	}
 
-    _, err = StartInstance(context.Background(), client, input)
-    if err != nil {
-        fmt.Println("Got an error starting the instance")
-        fmt.Println(err)
-        return
-    }
+	_, err = StartInstance(context.TODO(), client, input)
+	if err != nil {
+		fmt.Println("Got an error starting the instance")
+		fmt.Println(err)
+		return
+	}
 
-    fmt.Println("Started instance with ID " + *instanceID)
+	fmt.Println("Started instance with ID " + *instanceID)
 }
+
 // snippet-end:[ec2.go-v2.StartInstances]

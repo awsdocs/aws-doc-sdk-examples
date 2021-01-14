@@ -54,7 +54,7 @@ func main() {
 		Key:    objectName,
 	}
 
-	_, err = DeleteItem(context.Background(), client, input)
+	_, err = DeleteItem(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error deleting item:")
 		fmt.Println(err)

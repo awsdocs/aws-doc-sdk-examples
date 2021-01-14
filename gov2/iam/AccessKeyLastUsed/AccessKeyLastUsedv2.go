@@ -52,7 +52,7 @@ func main() {
 		AccessKeyId: keyID,
 	}
 
-	result, err := WhenWasKeyUsed(context.Background(), client, input)
+	result, err := WhenWasKeyUsed(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error retrieving when access key was last used:")
 		fmt.Println(err)

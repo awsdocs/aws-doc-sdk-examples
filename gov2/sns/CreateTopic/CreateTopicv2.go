@@ -53,7 +53,7 @@ func main() {
 		Name: topic,
 	}
 
-	results, err := MakeTopic(context.Background(), client, input)
+	results, err := MakeTopic(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println(err.Error())
 		return
@@ -61,4 +61,5 @@ func main() {
 
 	fmt.Println(*results.TopicArn)
 }
+
 // snippet-end:[sns.go-v2.CreateTopic]

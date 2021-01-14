@@ -42,7 +42,7 @@ func main() {
 
 	input := &cloudwatch.ListMetricsInput{}
 
-	result, err := GetMetrics(context.Background(), client, input)
+	result, err := GetMetrics(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Could not get metrics")
 		return

@@ -52,7 +52,7 @@ func main() {
 		Bucket: bucket,
 	}
 
-	_, err = MakeBucket(context.Background(), client, input)
+	_, err = MakeBucket(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Could not create bucket " + *bucket)
 	}

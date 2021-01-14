@@ -7,7 +7,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
 )
@@ -18,8 +17,8 @@ func (dt DynamoDBDescribeTableImpl) DescribeTable(ctx context.Context,
 	params *dynamodb.DescribeTableInput,
 	optFns ...func(*dynamodb.Options)) (*dynamodb.DescribeTableOutput, error) {
 	desc := &types.TableDescription{
-		ItemCount:      aws.Int64(1),
-		TableSizeBytes: aws.Int64(64),
+		ItemCount:      1,
+		TableSizeBytes: 64,
 		TableStatus:    "Active",
 	}
 
@@ -84,7 +83,7 @@ func TestDescribeTable(t *testing.T) {
 	}
 
 	t.Log("Info about " + globalConfig.Table + ":")
-	t.Log("  #items:     ", *resp.Table.ItemCount)
-	t.Log("  Size (bytes)", *resp.Table.TableSizeBytes)
+	t.Log("  #items:     ", resp.Table.ItemCount)
+	t.Log("  Size (bytes)", resp.Table.TableSizeBytes)
 	t.Log("  Status:     ", string(resp.Table.TableStatus))
 }

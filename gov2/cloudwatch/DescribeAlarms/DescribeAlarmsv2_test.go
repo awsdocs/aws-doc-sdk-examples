@@ -16,14 +16,16 @@ func (dt CWDescribeAlarmsImpl) DescribeAlarms(ctx context.Context,
 	params *cloudwatch.DescribeAlarmsInput,
 	optFns ...func(*cloudwatch.Options)) (*cloudwatch.DescribeAlarmsOutput, error) {
 	// Create two dummy composite alarms
-	composites := make([]*types.CompositeAlarm, 2)
-	composites[0] = &types.CompositeAlarm{AlarmName: aws.String("dummycompositealarm1")}
-	composites[1] = &types.CompositeAlarm{AlarmName: aws.String("dummycompositealarm2")}
+	composites := []types.CompositeAlarm{
+		{AlarmName: aws.String("dummycompositealarm1")},
+		{AlarmName: aws.String("dummycompositealarm2")},
+	}
 
 	// Create two dummy metric alarms
-	metrics := make([]*types.MetricAlarm, 2)
-	metrics[0] = &types.MetricAlarm{AlarmName: aws.String("dummymetricalarm1")}
-	metrics[1] = &types.MetricAlarm{AlarmName: aws.String("dummymetricalarm2")}
+	metrics := []types.MetricAlarm{
+		{AlarmName: aws.String("dummymetricalarm1")},
+		{AlarmName: aws.String("dummymetricalarm2")},
+	}
 
 	output := &cloudwatch.DescribeAlarmsOutput{
 		CompositeAlarms: composites,

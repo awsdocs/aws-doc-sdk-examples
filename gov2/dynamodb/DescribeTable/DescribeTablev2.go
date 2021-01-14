@@ -48,14 +48,14 @@ func main() {
 		TableName: table,
 	}
 
-	resp, err := GetTableInfo(context.Background(), client, input)
+	resp, err := GetTableInfo(context.TODO(), client, input)
 	if err != nil {
 		panic("failed to describe table, " + err.Error())
 	}
 
 	fmt.Println("Info about " + *table + ":")
-	fmt.Println("  #items:     ", *resp.Table.ItemCount)
-	fmt.Println("  Size (bytes)", *resp.Table.TableSizeBytes)
+	fmt.Println("  #items:     ", resp.Table.ItemCount)
+	fmt.Println("  Size (bytes)", resp.Table.TableSizeBytes)
 	fmt.Println("  Status:     ", string(resp.Table.TableStatus))
 }
 

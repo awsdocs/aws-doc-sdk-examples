@@ -65,7 +65,7 @@ func main() {
 		Body:   file,
 	}
 
-	_, err = PutFile(context.Background(), client, input)
+	_, err = PutFile(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got error uploading file:")
 		fmt.Println(err)

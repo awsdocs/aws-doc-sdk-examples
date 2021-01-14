@@ -55,11 +55,11 @@ func main() {
 	input := &sns.SubscribeInput{
 		Endpoint:              email,
 		Protocol:              aws.String("email"),
-		ReturnSubscriptionArn: aws.Bool(true), // Return the ARN, even if user has yet to confirm
+		ReturnSubscriptionArn: true, // Return the ARN, even if user has yet to confirm
 		TopicArn:              topicARN,
 	}
 
-	result, err := SubscribeTopic(context.Background(), client, input)
+	result, err := SubscribeTopic(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error subscribing to the topic:")
 		fmt.Println(err)

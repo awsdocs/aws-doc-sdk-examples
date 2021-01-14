@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 package main
 
@@ -130,8 +130,8 @@ func TestDeadLetterQueue(t *testing.T) {
 
 	cQInput := &sqs.SetQueueAttributesInput{
 		QueueUrl: queueURL,
-		Attributes: map[string]*string{
-			"RedrivePolicy": aws.String(string(b)),
+		Attributes: map[string]string{
+			"RedrivePolicy": string(b),
 		},
 	}
 

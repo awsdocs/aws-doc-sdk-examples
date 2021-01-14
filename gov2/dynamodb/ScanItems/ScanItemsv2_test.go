@@ -57,9 +57,10 @@ func (dt DynamoDBScanImpl) Scan(ctx context.Context,
 		return nil, errors.New("Could not items")
 	}
 
-	avs := make([]map[string]types.AttributeValue, 2)
-	avs[0] = av1
-	avs[1] = av2
+	avs := []map[string]types.AttributeValue{
+		av1,
+		av2,
+	}
 
 	output := &dynamodb.ScanOutput{
 		Items: avs,

@@ -54,7 +54,7 @@ func main() {
 		Key:    objectName,
 	}
 
-	result, err := FindObjectAcl(context.Background(), client, input)
+	result, err := FindObjectAcl(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error getting ACL for " + *objectName)
 		return

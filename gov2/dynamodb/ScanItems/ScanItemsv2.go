@@ -91,7 +91,7 @@ func main() {
 
 	client := dynamodb.NewFromConfig(cfg)
 
-	resp, err := GetItems(context.Background(), client, input)
+	resp, err := GetItems(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error scanning the table:")
 		fmt.Println(err.Error())
