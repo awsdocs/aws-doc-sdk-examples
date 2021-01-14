@@ -1,3 +1,8 @@
+#!/usr/bin/env node
+
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import * as cdk from '@aws-cdk/core';
 import * as cognito from '@aws-cdk/aws-cognito';
 import * as iam from '@aws-cdk/aws-iam';
@@ -7,7 +12,7 @@ export class SetupStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-      const myIdentityPool = new cognito.CfnIdentityPool(this, "ExampleIdentityPool", {
+    const myIdentityPool = new cognito.CfnIdentityPool(this, "ExampleIdentityPool", {
       allowUnauthenticatedIdentities: true,
     });
     const unauthenticatedRole = new iam.Role(this, 'CognitoDefaultUnauthenticatedRole', {
@@ -39,3 +44,9 @@ export class SetupStack extends cdk.Stack {
     });
   }
 }
+
+const stackName = 'SetupStack'
+
+const app = new cdk.App();
+
+new SetupStack(app, stackName);
