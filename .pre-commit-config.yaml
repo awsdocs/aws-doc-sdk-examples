@@ -6,4 +6,4 @@ repos:
         name: AWS CloudFormation Linter
         entry: cfn-lint
         language: python
-        files: cloudformation/.*\.(json|yaml|yml)$
+        files: \.(json|yaml|yml)$
