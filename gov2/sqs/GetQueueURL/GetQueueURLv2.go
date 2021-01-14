@@ -4,20 +4,20 @@
 package main
 
 import (
-    "context"
-    "flag"
-    "fmt"
+	"context"
+	"flag"
+	"fmt"
 
-    "github.com/aws/aws-sdk-go-v2/config"
-    "github.com/aws/aws-sdk-go-v2/service/sqs"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/sqs"
 )
 
 // SQSGetQueueUrlAPI defines the interface for the GetQueueUrl function.
 // We use this interface to test the function using a mocked service.
 type SQSGetQueueUrlAPI interface {
-    GetQueueUrl(ctx context.Context,
-        params *sqs.GetQueueUrlInput,
-        optFns ...func(*sqs.Options)) (*sqs.GetQueueUrlOutput, error)
+	GetQueueUrl(ctx context.Context,
+		params *sqs.GetQueueUrlInput,
+		optFns ...func(*sqs.Options)) (*sqs.GetQueueUrlOutput, error)
 }
 
 // GetQueueURL gets the URL of an Amazon SQS queue.
@@ -29,36 +29,37 @@ type SQSGetQueueUrlAPI interface {
 //     If success, a GetQueueUrlOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to GetQueueUrl.
 func GetQueueURL(c context.Context, api SQSGetQueueUrlAPI, input *sqs.GetQueueUrlInput) (*sqs.GetQueueUrlOutput, error) {
-    return api.GetQueueUrl(c, input)
+	return api.GetQueueUrl(c, input)
 }
 
 func main() {
-    queue := flag.String("q", "", "The name of the queue")
-    flag.Parse()
+	queue := flag.String("q", "", "The name of the queue")
+	flag.Parse()
 
-    if *queue == "" {
-        fmt.Println("You must supply a queue name (-q QUEUE")
-        return
-    }
+	if *queue == "" {
+		fmt.Println("You must supply a queue name (-q QUEUE")
+		return
+	}
 
-    cfg, err := config.LoadDefaultConfig(context.TODO())
-    if err != nil {
-        panic("configuration error, " + err.Error())
-    }
+	cfg, err := config.LoadDefaultConfig(context.TODO())
+	if err != nil {
+		panic("configuration error, " + err.Error())
+	}
 
-    client := sqs.NewFromConfig(cfg)
+	client := sqs.NewFromConfig(cfg)
 
-    input := &sqs.GetQueueUrlInput{
-        QueueName: queue,
-    }
+	input := &sqs.GetQueueUrlInput{
+		QueueName: queue,
+	}
 
-    result, err := GetQueueURL(context.Background(), client, input)
-    if err != nil {
-        fmt.Println("Got an error getting the queue URL:")
-        fmt.Println(err)
-        return
-    }
+	result, err := GetQueueURL(context.TODO(), client, input)
+	if err != nil {
+		fmt.Println("Got an error getting the queue URL:")
+		fmt.Println(err)
+		return
+	}
 
-    fmt.Println("URL: " + *result.QueueUrl)
+	fmt.Println("URL: " + *result.QueueUrl)
 }
+
 // snippet-end:[sqs.go-v2.GetQueueUrl]

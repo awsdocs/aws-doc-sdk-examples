@@ -10,7 +10,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/sqs"
 )
@@ -82,7 +81,7 @@ func main() {
 		QueueName: queue,
 	}
 
-	result, err := GetQueueURL(context.Background(), client, gQInput)
+	result, err := GetQueueURL(context.TODO(), client, gQInput)
 	if err != nil {
 		fmt.Println("Got an error getting the queue URL:")
 		fmt.Println(err)
@@ -108,8 +107,8 @@ func main() {
 
 	cQInput := &sqs.SetQueueAttributesInput{
 		QueueUrl: dlQueueURL,
-		Attributes: map[string]*string{
-			"RedrivePolicy": aws.String(string(b)),
+		Attributes: map[string]string{
+			"RedrivePolicy": string(b),
 		},
 	}
 
@@ -122,4 +121,5 @@ func main() {
 
 	fmt.Println("Created dead-letter queue")
 }
+
 // snippet-end:[sqs.go-v2.DeadLetterQueue]

@@ -8,7 +8,6 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/sqs"
 	"github.com/aws/aws-sdk-go-v2/service/sqs/types"
@@ -80,7 +79,7 @@ func main() {
 	}
 
 	// Get URL of queue
-	urlResult, err := GetQueueURL(context.Background(), client, gQInput)
+	urlResult, err := GetQueueURL(context.TODO(), client, gQInput)
 	if err != nil {
 		fmt.Println("Got an error getting the queue URL:")
 		fmt.Println(err)
@@ -90,15 +89,15 @@ func main() {
 	queueURL := urlResult.QueueUrl
 
 	gMInput := &sqs.ReceiveMessageInput{
-		MessageAttributeNames: []*string{
-			aws.String(string(types.QueueAttributeNameAll)),
+		MessageAttributeNames: []string{
+			string(types.QueueAttributeNameAll),
 		},
 		QueueUrl:            queueURL,
-		MaxNumberOfMessages: aws.Int32(1),
-		VisibilityTimeout:   aws.Int32(int32(*timeout)),
+		MaxNumberOfMessages: 1,
+		VisibilityTimeout:   int32(*timeout),
 	}
 
-	msgResult, err := GetMessages(context.Background(), client, gMInput)
+	msgResult, err := GetMessages(context.TODO(), client, gMInput)
 	if err != nil {
 		fmt.Println("Got an error receiving messages:")
 		fmt.Println(err)
@@ -108,4 +107,5 @@ func main() {
 	fmt.Println("Message ID:     " + *msgResult.Messages[0].MessageId)
 	fmt.Println("Message Handle: " + *msgResult.Messages[0].ReceiptHandle)
 }
+
 // snippet-end:[sqs.go-v2.ReceiveMessage]

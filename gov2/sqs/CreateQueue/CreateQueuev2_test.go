@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 package main
 
@@ -71,9 +71,9 @@ func TestCreateQueue(t *testing.T) {
 
 	input := &sqs.CreateQueueInput{
 		QueueName: &globalConfig.QueueName,
-		Attributes: map[string]*string{
-			"DelaySeconds":           aws.String("60"),
-			"MessageRetentionPeriod": aws.String("86400"),
+		Attributes: map[string]string{
+			"DelaySeconds":           "60",
+			"MessageRetentionPeriod": "86400",
 		},
 	}
 
