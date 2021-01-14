@@ -52,7 +52,7 @@ func main() {
 		Bucket: bucket,
 	}
 
-	_, err = RemoveBucket(context.Background(), client, input)
+	_, err = RemoveBucket(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Could not delete bucket " + *bucket)
 	}

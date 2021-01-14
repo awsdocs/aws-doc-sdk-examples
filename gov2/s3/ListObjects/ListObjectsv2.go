@@ -52,7 +52,7 @@ func main() {
 		Bucket: bucket,
 	}
 
-	resp, err := GetObjects(context.Background(), client, input)
+	resp, err := GetObjects(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got error retrieving list of objects:")
 		fmt.Println(err)
@@ -64,8 +64,8 @@ func main() {
 	for _, item := range resp.Contents {
 		fmt.Println("Name:          ", *item.Key)
 		fmt.Println("Last modified: ", *item.LastModified)
-		fmt.Println("Size:          ", *item.Size)
-		fmt.Println("Storage class: ", string(item.StorageClass))
+		fmt.Println("Size:          ", item.Size)
+		fmt.Println("Storage class: ", item.StorageClass)
 		fmt.Println("")
 	}
 

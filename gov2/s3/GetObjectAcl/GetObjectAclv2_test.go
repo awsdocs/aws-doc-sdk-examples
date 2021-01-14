@@ -18,12 +18,11 @@ type S3GetObjectAclImpl struct{}
 func (dt S3GetObjectAclImpl) GetObjectAcl(ctx context.Context,
 	params *s3.GetObjectAclInput,
 	optFns ...func(*s3.Options)) (*s3.GetObjectAclOutput, error) {
-	grants := make([]*types.Grant, 1)
-	grantee := &types.Grantee{DisplayName: aws.String("theuser")}
-	grants[0] = &types.Grant{Grantee: grantee}
 
 	output := &s3.GetObjectAclOutput{
-		Grants: grants,
+		Grants: []types.Grant{
+			{Grantee: &types.Grantee{DisplayName: aws.String("theuser")}},
+		},
 	}
 
 	return output, nil
