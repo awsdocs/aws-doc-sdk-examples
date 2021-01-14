@@ -20,11 +20,8 @@ type CWPutMetricDataImpl struct{}
 
 func (dt CWPutMetricDataImpl) PutMetricData(ctx context.Context,
 	params *cloudwatch.PutMetricDataInput,
-	optFns ...func(*cloudwatch.Options)) (*cloudwatch.PutMetricDataOutput, error) {
-
-	output := &cloudwatch.PutMetricDataOutput{}
-
-	return output, nil
+	optFns ...func(*cloudwatch.Options)) (output *cloudwatch.PutMetricDataOutput, err error) {
+	return output, err
 }
 
 type Config struct {
@@ -81,13 +78,13 @@ func TestCreateCustomMetric(t *testing.T) {
 
 	input := &cloudwatch.PutMetricDataInput{
 		Namespace: &globalConfig.Namespace,
-		MetricData: []*types.MetricDatum{
-			&types.MetricDatum{
+		MetricData: []types.MetricDatum{
+			{
 				MetricName: &globalConfig.MetricName,
 				Unit:       types.StandardUnitSeconds,
 				Value:      &globalConfig.MetricValue,
-				Dimensions: []*types.Dimension{
-					&types.Dimension{
+				Dimensions: []types.Dimension{
+					{
 						Name:  &globalConfig.DimensionName,
 						Value: &globalConfig.DimensionValue,
 					},

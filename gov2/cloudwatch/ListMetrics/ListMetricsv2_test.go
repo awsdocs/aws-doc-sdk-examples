@@ -19,9 +19,7 @@ func (dt CWListMetricsImpl) ListMetrics(ctx context.Context,
 	optFns ...func(*cloudwatch.Options)) (*cloudwatch.ListMetricsOutput, error) {
 
 	// Create a list of two dummy metrics
-	metrics := make([]*types.Metric, 2)
-	metrics[0] = &types.Metric{}
-	metrics[1] = &types.Metric{}
+	metrics := make([]types.Metric, 2)
 
 	output := &cloudwatch.ListMetricsOutput{
 		Metrics: metrics,

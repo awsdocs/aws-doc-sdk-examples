@@ -29,13 +29,11 @@ type CWListMetricsAPI interface {
 //     If success, a METHODOutput object containing the result of the service call and nil
 //     Otherwise, nil and an error from the call to ListMetrics
 func GetMetrics(c context.Context, api CWListMetricsAPI, input *cloudwatch.ListMetricsInput) (*cloudwatch.ListMetricsOutput, error) {
-	result, err := api.ListMetrics(c, input)
-
-	return result, err
+	return api.ListMetrics(c, input)
 }
 
 func main() {
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -44,7 +42,7 @@ func main() {
 
 	input := &cloudwatch.ListMetricsInput{}
 
-	result, err := GetMetrics(context.Background(), client, input)
+	result, err := GetMetrics(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Could not get metrics")
 		return
