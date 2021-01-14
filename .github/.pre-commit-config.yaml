@@ -1,0 +1,7 @@
+# .pre-commit-config.yaml
+repos:
+-   repo: https://github.com/rachfop/aws-doc-sdk-examples/tree/master/cloudformation
+    rev: v0.15.0 # The version of cfn-lint to use
+    hooks:
+    -   id: cfn-python-lint
+        files: templates/.*\.(json|yml|yaml)$
