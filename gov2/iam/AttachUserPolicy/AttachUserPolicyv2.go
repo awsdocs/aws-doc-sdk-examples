@@ -29,9 +29,7 @@ type IAMAttachRolePolicyAPI interface {
 //     If successful, an AttachRolePolicyOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to AttachRolePolicy.
 func AttachDynamoFullPolicy(c context.Context, api IAMAttachRolePolicyAPI, input *iam.AttachRolePolicyInput) (*iam.AttachRolePolicyOutput, error) {
-	result, err := api.AttachRolePolicy(c, input)
-
-	return result, err
+	return api.AttachRolePolicy(c, input)
 }
 
 func main() {

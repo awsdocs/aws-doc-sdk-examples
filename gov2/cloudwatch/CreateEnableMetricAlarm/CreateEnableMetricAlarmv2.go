@@ -34,9 +34,7 @@ type CWEnableAlarmAPI interface {
 //     If success, a PutMetricAlarmOutput object containing the result of the service call and nil
 //     Otherwise, the error from a call to PutMetricAlarm
 func CreateMetricAlarm(c context.Context, api CWEnableAlarmAPI, input *cloudwatch.PutMetricAlarmInput) (*cloudwatch.PutMetricAlarmOutput, error) {
-	resp, err := api.PutMetricAlarm(c, input)
-
-	return resp, err
+	return api.PutMetricAlarm(c, input)
 }
 
 // EnableAlarm enables the specified Amazon CloudWatch alarm

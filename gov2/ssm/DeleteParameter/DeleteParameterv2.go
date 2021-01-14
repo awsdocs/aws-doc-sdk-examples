@@ -29,9 +29,7 @@ type SSMDeleteParameterAPI interface {
 //     If success, a DeleteParameterOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to DeleteParameter.
 func RemoveParameter(c context.Context, api SSMDeleteParameterAPI, input *ssm.DeleteParameterInput) (*ssm.DeleteParameterOutput, error) {
-    results, err := api.DeleteParameter(c, input)
-
-    return results, err
+    return api.DeleteParameter(c, input)
 }
 
 func main() {

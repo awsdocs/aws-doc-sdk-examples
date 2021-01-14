@@ -36,9 +36,7 @@ type SQSDeadLetterQueueAPI interface {
 //     If success, a GetQueueUrlOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to GetQueueUrl.
 func GetQueueURL(c context.Context, api SQSDeadLetterQueueAPI, input *sqs.GetQueueUrlInput) (*sqs.GetQueueUrlOutput, error) {
-	result, err := api.GetQueueUrl(c, input)
-
-	return result, err
+	return api.GetQueueUrl(c, input)
 }
 
 // GetQueueArn gets the ARN of a queue based on its URL
@@ -60,9 +58,7 @@ func GetQueueArn(queueURL *string) *string {
 //     If success, a SetQueueAttributesOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to SetQueueAttributes.
 func ConfigureDeadLetterQueue(c context.Context, api SQSDeadLetterQueueAPI, input *sqs.SetQueueAttributesInput) (*sqs.SetQueueAttributesOutput, error) {
-	result, err := api.SetQueueAttributes(c, input)
-
-	return result, err
+	return api.SetQueueAttributes(c, input)
 }
 
 func main() {

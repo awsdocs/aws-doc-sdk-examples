@@ -29,9 +29,7 @@ type SNSCreateTopicAPI interface {
 //     If success, a CreateTopicOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to CreateTopic.
 func MakeTopic(c context.Context, api SNSCreateTopicAPI, input *sns.CreateTopicInput) (*sns.CreateTopicOutput, error) {
-	results, err := api.CreateTopic(c, input)
-
-	return results, err
+	return api.CreateTopic(c, input)
 }
 
 func main() {

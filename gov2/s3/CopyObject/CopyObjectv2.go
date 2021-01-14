@@ -31,9 +31,7 @@ type S3CopyObjectAPI interface {
 //     If success, a CopyObjectOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to CopyObject.
 func CopyItem(c context.Context, api S3CopyObjectAPI, input *s3.CopyObjectInput) (*s3.CopyObjectOutput, error) {
-	resp, err := api.CopyObject(c, input)
-
-	return resp, err
+	return api.CopyObject(c, input)
 }
 
 func main() {

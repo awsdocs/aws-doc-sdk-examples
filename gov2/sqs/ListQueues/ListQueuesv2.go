@@ -28,9 +28,7 @@ type SQSListQueuesAPI interface {
 //     If success, a ListQueuesOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to ListQueues.
 func GetQueues(c context.Context, api SQSListQueuesAPI, input *sqs.ListQueuesInput) (*sqs.ListQueuesOutput, error) {
-    result, err := api.ListQueues(c, input)
-
-    return result, err
+    return api.ListQueues(c, input)
 }
 
 func main() {

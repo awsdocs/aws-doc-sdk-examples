@@ -30,9 +30,7 @@ type IAMUpdateAccessKeyAPI interface {
 //     If successful, a UpdateAccessKeyOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to UpdateAccessKey.
 func ActivateKey(c context.Context, api IAMUpdateAccessKeyAPI, input *iam.UpdateAccessKeyInput) (*iam.UpdateAccessKeyOutput, error) {
-    results, err := api.UpdateAccessKey(c, input)
-
-    return results, err
+    return api.UpdateAccessKey(c, input)
 }
 
 func main() {

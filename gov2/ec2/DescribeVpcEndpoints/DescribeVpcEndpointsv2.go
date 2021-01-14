@@ -32,8 +32,7 @@ type EC2DescribeVpcEndpointConnectionsAPI interface {
 func GetConnectionInfo(c context.Context,
 	api EC2DescribeVpcEndpointConnectionsAPI,
 	input *ec2.DescribeVpcEndpointConnectionsInput) (*ec2.DescribeVpcEndpointConnectionsOutput, error) {
-	resp, err := api.DescribeVpcEndpointConnections(context.Background(), input)
-	return resp, err
+	return api.DescribeVpcEndpointConnections(context.Background(), input)
 }
 
 func main() {

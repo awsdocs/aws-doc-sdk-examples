@@ -29,9 +29,7 @@ type S3ListObjectsAPI interface {
 //     If success, a ListObjectsV2Output object containing the result of the service call and nil
 //     Otherwise, nil and an error from the call to ListObjectsV2
 func GetObjects(c context.Context, api S3ListObjectsAPI, input *s3.ListObjectsV2Input) (*s3.ListObjectsV2Output, error) {
-	resp, err := api.ListObjectsV2(c, input)
-
-	return resp, err
+	return api.ListObjectsV2(c, input)
 }
 
 func main() {

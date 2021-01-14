@@ -30,9 +30,7 @@ type SNSSubscribeAPI interface {
 //     If success, a SubscribeOutput object containing the result of the service call and nil
 //     Otherwise, nil and an error from the call to Subscribe
 func SubscribeTopic(c context.Context, api SNSSubscribeAPI, input *sns.SubscribeInput) (*sns.SubscribeOutput, error) {
-	result, err := api.Subscribe(c, input)
-
-	return result, err
+	return api.Subscribe(c, input)
 }
 
 func main() {

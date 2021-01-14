@@ -28,9 +28,7 @@ type EC2DescribeInstancesAPI interface {
 //     If success, a DescribeInstancesOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to DescribeInstances.
 func GetInstances(c context.Context, api EC2DescribeInstancesAPI, input *ec2.DescribeInstancesInput) (*ec2.DescribeInstancesOutput, error) {
-    result, err := api.DescribeInstances(c, input)
-
-    return result, err
+    return api.DescribeInstances(c, input)
 }
 
 func main() {

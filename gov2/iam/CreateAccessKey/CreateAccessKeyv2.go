@@ -29,9 +29,7 @@ type IAMCreateAccessKeyAPI interface {
 //     If successful, a CreateAccessKeyOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to CreateAccessKey.
 func MakeAccessKey(c context.Context, api IAMCreateAccessKeyAPI, input *iam.CreateAccessKeyInput) (*iam.CreateAccessKeyOutput, error) {
-    result, err := api.CreateAccessKey(c, input)
-
-    return result, err
+    return api.CreateAccessKey(c, input)
 }
 
 func main() {

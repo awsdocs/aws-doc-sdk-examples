@@ -77,9 +77,7 @@ func getEventInfo(eventFile string) (Event, error) {
 //     If success, a PutEventsOutput object containing the result of the service call and nil
 //     Otherwise, nil and an error from the call to PutEvents
 func CreateEvent(c context.Context, api CWEPutEventsAPI, input *cloudwatchevents.PutEventsInput) (*cloudwatchevents.PutEventsOutput, error) {
-	resp, err := api.PutEvents(c, input)
-
-	return resp, err
+	return api.PutEvents(c, input)
 }
 
 func main() {

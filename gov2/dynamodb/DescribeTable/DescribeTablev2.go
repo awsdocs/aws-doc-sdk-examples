@@ -22,9 +22,7 @@ type DynamoDBDescribeTableAPI interface {
 
 // GetTableInfo retrieves information about the table.
 func GetTableInfo(c context.Context, api DynamoDBDescribeTableAPI, input *dynamodb.DescribeTableInput) (*dynamodb.DescribeTableOutput, error) {
-	resp, err := api.DescribeTable(c, input)
-
-	return resp, err
+	return api.DescribeTable(c, input)
 }
 
 func main() {

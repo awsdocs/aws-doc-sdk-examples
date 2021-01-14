@@ -35,9 +35,7 @@ type EC2CreateInstanceAPI interface {
 //     If success, a RunInstancesOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to RunInstances.
 func MakeInstance(c context.Context, api EC2CreateInstanceAPI, input *ec2.RunInstancesInput) (*ec2.RunInstancesOutput, error) {
-    result, err := api.RunInstances(c, input)
-
-    return result, err
+    return api.RunInstances(c, input)
 }
 
 // MakeTags creates tags for an Amazon Elastic Compute Cloud (Amazon EC2) instance.
@@ -49,9 +47,7 @@ func MakeInstance(c context.Context, api EC2CreateInstanceAPI, input *ec2.RunIns
 //     If success, a CreateTagsOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to CreateTags.
 func MakeTags(c context.Context, api EC2CreateInstanceAPI, input *ec2.CreateTagsInput) (*ec2.CreateTagsOutput, error) {
-    result, err := api.CreateTags(c, input)
-
-    return result, err
+    return api.CreateTags(c, input)
 }
 
 func main() {

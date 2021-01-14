@@ -35,9 +35,7 @@ type SQSReceiveMessageAPI interface {
 //     If success, a GetQueueUrlOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to GetQueueUrl.
 func GetQueueURL(c context.Context, api SQSReceiveMessageAPI, input *sqs.GetQueueUrlInput) (*sqs.GetQueueUrlOutput, error) {
-	result, err := api.GetQueueUrl(c, input)
-
-	return result, err
+	return api.GetQueueUrl(c, input)
 }
 
 // GetMessages gets the most recent message from an Amazon SQS queue.
@@ -49,9 +47,7 @@ func GetQueueURL(c context.Context, api SQSReceiveMessageAPI, input *sqs.GetQueu
 //     If success, a ReceiveMessageOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to ReceiveMessage.
 func GetMessages(c context.Context, api SQSReceiveMessageAPI, input *sqs.ReceiveMessageInput) (*sqs.ReceiveMessageOutput, error) {
-	result, err := api.ReceiveMessage(c, input)
-
-	return result, err
+	return api.ReceiveMessage(c, input)
 }
 
 func main() {

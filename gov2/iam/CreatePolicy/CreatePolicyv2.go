@@ -76,9 +76,7 @@ func CreatePolicyDoc() ([]byte, error) {
 //     If successful, a CreatePolicyOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to CreatePolicy.
 func MakePolicy(c context.Context, api IAMCreatePolicyAPI, input *iam.CreatePolicyInput) (*iam.CreatePolicyOutput, error) {
-    result, err := api.CreatePolicy(c, input)
-
-    return result, err
+    return api.CreatePolicy(c, input)
 }
 
 func main() {

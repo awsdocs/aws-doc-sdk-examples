@@ -29,9 +29,7 @@ type SNSPublishAPI interface {
 //     If success, a PublishOutput object containing the result of the service call and nil
 //     Otherwise, nil and an error from the call to Publish
 func PublishMessage(c context.Context, api SNSPublishAPI, input *sns.PublishInput) (*sns.PublishOutput, error) {
-	result, err := api.Publish(c, input)
-
-	return result, err
+	return api.Publish(c, input)
 }
 
 func main() {

@@ -30,9 +30,7 @@ type CWPutMetricDataAPI interface {
 //     If success, a PutMetricDataOutput object containing the result of the service call and nil
 //     Otherwise, nil and an error from the call to PutMetricData
 func CreateCustomMetric(c context.Context, api CWPutMetricDataAPI, input *cloudwatch.PutMetricDataInput) (*cloudwatch.PutMetricDataOutput, error) {
-	resp, err := api.PutMetricData(c, input)
-
-	return resp, err
+	return api.PutMetricData(c, input)
 }
 
 func main() {

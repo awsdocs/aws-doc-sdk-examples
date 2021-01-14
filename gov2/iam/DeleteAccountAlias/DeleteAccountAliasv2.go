@@ -29,9 +29,7 @@ type IAMDeleteAccountAliasAPI interface {
 //     If successful, a DeleteAccountAliasOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to DeleteAccountAlias.
 func RemoveAccountAlias(c context.Context, api IAMDeleteAccountAliasAPI, input *iam.DeleteAccountAliasInput) (*iam.DeleteAccountAliasOutput, error) {
-	result, err := api.DeleteAccountAlias(c, input)
-
-	return result, err
+	return api.DeleteAccountAlias(c, input)
 }
 
 func main() {

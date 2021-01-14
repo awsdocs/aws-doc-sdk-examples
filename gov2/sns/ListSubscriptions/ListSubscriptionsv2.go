@@ -28,9 +28,7 @@ type SNSListSubscriptionsAPI interface {
 //     If success, a ListSubscriptionsOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to ListSubscriptions.
 func GetSubscriptions(c context.Context, api SNSListSubscriptionsAPI, input *sns.ListSubscriptionsInput) (*sns.ListSubscriptionsOutput, error) {
-	result, err := api.ListSubscriptions(c, input)
-
-	return result, err
+	return api.ListSubscriptions(c, input)
 }
 
 func main() {

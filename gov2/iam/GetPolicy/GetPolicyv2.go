@@ -29,9 +29,7 @@ type IAMGetPolicyAPI interface {
 //     If successful, a GetPolicyOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to GetPolicy.
 func GetPolicyDescription(c context.Context, api IAMGetPolicyAPI, input *iam.GetPolicyInput) (*iam.GetPolicyOutput, error) {
-	result, err := api.GetPolicy(c, input)
-
-	return result, err
+	return api.GetPolicy(c, input)
 }
 
 func main() {

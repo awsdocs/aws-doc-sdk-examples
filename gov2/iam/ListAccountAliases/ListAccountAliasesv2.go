@@ -30,9 +30,7 @@ type IAMListAccountAliasesAPI interface {
 //     If successful, a ListAccountAliasesOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to ListAccountAliases.
 func GetAccountAliases(c context.Context, api IAMListAccountAliasesAPI, input *iam.ListAccountAliasesInput) (*iam.ListAccountAliasesOutput, error) {
-    result, err := api.ListAccountAliases(c, input)
-
-    return result, err
+    return api.ListAccountAliases(c, input)
 }
 
 func main() {

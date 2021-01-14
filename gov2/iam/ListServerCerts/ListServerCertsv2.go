@@ -29,9 +29,7 @@ type IAMListServerCertificatesAPI interface {
 //     If successful, a ListServerCertificatesOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to ListServerCertificates.
 func GetServerCerts(c context.Context, api IAMListServerCertificatesAPI, input *iam.ListServerCertificatesInput) (*iam.ListServerCertificatesOutput, error) {
-    result, err := api.ListServerCertificates(c, input)
-
-    return result, err
+    return api.ListServerCertificates(c, input)
 }
 
 func main() {

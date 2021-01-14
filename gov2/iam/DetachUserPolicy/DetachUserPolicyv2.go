@@ -29,9 +29,7 @@ type IAMDetachRolePolicyAPI interface {
 //     If successful, a DetachRolePolicyOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to DetachRolePolicy.
 func DetachDynamoFullPolicy(c context.Context, api IAMDetachRolePolicyAPI, input *iam.DetachRolePolicyInput) (*iam.DetachRolePolicyOutput, error) {
-    result, err := api.DetachRolePolicy(c, input)
-
-    return result, err
+    return api.DetachRolePolicy(c, input)
 }
 
 func main() {

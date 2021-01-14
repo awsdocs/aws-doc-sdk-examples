@@ -28,9 +28,7 @@ type KMSCreateKeyAPI interface {
 //     If success, a CreateKeyOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to CreateKey.
 func MakeKey(c context.Context, api KMSCreateKeyAPI, input *kms.CreateKeyInput) (*kms.CreateKeyOutput, error) {
-    result, err := api.CreateKey(c, input)
-
-    return result, err
+    return api.CreateKey(c, input)
 }
 
 func main() {

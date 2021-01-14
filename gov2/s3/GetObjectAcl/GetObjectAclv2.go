@@ -29,9 +29,7 @@ type S3GetObjectAclAPI interface {
 //     If success, a GetObjectAclOutput object containing the result of the service call and nil
 //     Otherwise, nil and an error from the call to GetObjectAcl
 func FindObjectAcl(c context.Context, api S3GetObjectAclAPI, input *s3.GetObjectAclInput) (*s3.GetObjectAclOutput, error) {
-	result, err := api.GetObjectAcl(c, input)
-
-	return result, err
+	return api.GetObjectAcl(c, input)
 }
 
 func main() {
