@@ -4,20 +4,20 @@
 package main
 
 import (
-    "context"
-    "flag"
-    "fmt"
+	"context"
+	"flag"
+	"fmt"
 
-    "github.com/aws/aws-sdk-go-v2/config"
-    "github.com/aws/aws-sdk-go-v2/service/ssm"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/ssm"
 )
 
 // SSMDeleteParameterAPI defines the interface for the DeleteParameter function.
 // We use this interface to test the function using a mocked service.
 type SSMDeleteParameterAPI interface {
-    DeleteParameter(ctx context.Context,
-        params *ssm.DeleteParameterInput,
-        optFns ...func(*ssm.Options)) (*ssm.DeleteParameterOutput, error)
+	DeleteParameter(ctx context.Context,
+		params *ssm.DeleteParameterInput,
+		optFns ...func(*ssm.Options)) (*ssm.DeleteParameterOutput, error)
 }
 
 // RemoveParameter deletes an AWS Systems Manager string parameter.
@@ -29,38 +29,37 @@ type SSMDeleteParameterAPI interface {
 //     If success, a METHODOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to DeleteParameter.
 func RemoveParameter(c context.Context, api SSMDeleteParameterAPI, input *ssm.DeleteParameterInput) (*ssm.DeleteParameterOutput, error) {
-    results, err := api.DeleteParameter(c, input)
-
-    return results, err
+	return api.DeleteParameter(c, input)
 }
 
 func main() {
-    parameterName := flag.String("n", "", "The name of the parameter")
-    flag.Parse()
+	parameterName := flag.String("n", "", "The name of the parameter")
+	flag.Parse()
 
-    if *parameterName == "" {
-        fmt.Println("You must supply the name of the parameter")
-        fmt.Println("-n NAME")
-        return
-    }
+	if *parameterName == "" {
+		fmt.Println("You must supply the name of the parameter")
+		fmt.Println("-n NAME")
+		return
+	}
 
-    cfg, err := config.LoadDefaultConfig()
-    if err != nil {
-        panic("configuration error, " + err.Error())
-    }
+	cfg, err := config.LoadDefaultConfig(context.TODO())
+	if err != nil {
+		panic("configuration error, " + err.Error())
+	}
 
-    client := ssm.NewFromConfig(cfg)
+	client := ssm.NewFromConfig(cfg)
 
-    input := &ssm.DeleteParameterInput{
-        Name: parameterName,
-    }
+	input := &ssm.DeleteParameterInput{
+		Name: parameterName,
+	}
 
-    _, err = RemoveParameter(context.Background(), client, input)
-    if err != nil {
-        fmt.Println(err.Error())
-        return
-    }
+	_, err = RemoveParameter(context.TODO(), client, input)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 
-    fmt.Println("Deleted parameter " + *parameterName)
+	fmt.Println("Deleted parameter " + *parameterName)
 }
+
 // snippet-end:[ssm.go-v2.DeleteParameter]
