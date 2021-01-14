@@ -30,9 +30,7 @@ type KMSEncryptAPI interface {
 //     If success, an EncryptOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to Encrypt.
 func EncryptText(c context.Context, api KMSEncryptAPI, input *kms.EncryptInput) (*kms.EncryptOutput, error) {
-	result, err := api.Encrypt(c, input)
-
-	return result, err
+	return api.Encrypt(c, input)
 }
 
 func main() {

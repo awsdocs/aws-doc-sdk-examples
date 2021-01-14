@@ -29,9 +29,7 @@ type IAMDeleteServerCertificateAPI interface {
 //     If successful, a DeleteServerCertificateOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to DeleteServerCertificate.
 func DeleteServerCert(c context.Context, api IAMDeleteServerCertificateAPI, input *iam.DeleteServerCertificateInput) (*iam.DeleteServerCertificateOutput, error) {
-    result, err := api.DeleteServerCertificate(c, input)
-
-    return result, err
+    return api.DeleteServerCertificate(c, input)
 }
 
 func main() {

@@ -30,9 +30,7 @@ type IAMListAccessKeysAPI interface {
 //     If successful, a ListAccessKeysOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to ListAccessKeys.
 func GetAccessKeys(c context.Context, api IAMListAccessKeysAPI, input *iam.ListAccessKeysInput) (*iam.ListAccessKeysOutput, error) {
-    result, err := api.ListAccessKeys(c, input)
-
-    return result, err
+    return api.ListAccessKeys(c, input)
 }
 
 func main() {

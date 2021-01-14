@@ -30,9 +30,7 @@ type S3PutObjectAPI interface {
 //     If success, a PutObjectOutput object containing the result of the service call and nil
 //     Otherwise, nil and an error from the call to PutObject
 func PutFile(c context.Context, api S3PutObjectAPI, input *s3.PutObjectInput) (*s3.PutObjectOutput, error) {
-	resp, err := api.PutObject(c, input)
-
-	return resp, err
+	return api.PutObject(c, input)
 }
 
 func main() {

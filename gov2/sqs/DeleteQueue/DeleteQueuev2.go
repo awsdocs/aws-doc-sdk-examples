@@ -33,9 +33,7 @@ type SQSDeleteQueueAPI interface {
 //     If success, a GetQueueUrlOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to GetQueueUrl.
 func GetQueueURL(c context.Context, api SQSDeleteQueueAPI, input *sqs.GetQueueUrlInput) (*sqs.GetQueueUrlOutput, error) {
-    result, err := api.GetQueueUrl(c, input)
-
-    return result, err
+    return api.GetQueueUrl(c, input)
 }
 
 // DeleteQueue deletes an Amazon SQS queue.
@@ -47,9 +45,7 @@ func GetQueueURL(c context.Context, api SQSDeleteQueueAPI, input *sqs.GetQueueUr
 //     If success, a DeleteQueueOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to DeleteQueue.
 func DeleteQueue(c context.Context, api SQSDeleteQueueAPI, input *sqs.DeleteQueueInput) (*sqs.DeleteQueueOutput, error) {
-    result, err := api.DeleteQueue(c, input)
-
-    return result, err
+    return api.DeleteQueue(c, input)
 }
 
 func main() {

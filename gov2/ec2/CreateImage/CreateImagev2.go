@@ -31,9 +31,7 @@ type EC2CreateImageAPI interface {
 //     If success, a CreateImageOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to CreateImage.
 func MakeImage(c context.Context, api EC2CreateImageAPI, input *ec2.CreateImageInput) (*ec2.CreateImageOutput, error) {
-    resp, err := api.CreateImage(c, input)
-
-    return resp, err
+    return api.CreateImage(c, input)
 }
 
 func main() {

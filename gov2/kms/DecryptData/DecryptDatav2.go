@@ -30,9 +30,7 @@ type KMSDecryptAPI interface {
 //     If success, a DecryptOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to Decrypt.
 func DecodeData(c context.Context, api KMSDecryptAPI, input *kms.DecryptInput) (*kms.DecryptOutput, error) {
-	result, err := api.Decrypt(c, input)
-
-	return result, err
+	return api.Decrypt(c, input)
 }
 
 func main() {

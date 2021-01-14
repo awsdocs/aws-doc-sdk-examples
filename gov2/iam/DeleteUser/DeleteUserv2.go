@@ -29,9 +29,7 @@ type IAMDeleteUserAPI interface {
 //     If successful, a DeleteUserOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to DeleteUser.
 func RemoveUser(c context.Context, api IAMDeleteUserAPI, input *iam.DeleteUserInput) (*iam.DeleteUserOutput, error) {
-    result, err := api.DeleteUser(c, input)
-
-    return result, err
+    return api.DeleteUser(c, input)
 }
 
 func main() {

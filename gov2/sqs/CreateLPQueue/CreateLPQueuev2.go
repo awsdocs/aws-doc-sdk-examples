@@ -31,9 +31,7 @@ type SQSCreateQueueAPI interface {
 //     If success, a CreateQueueOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to CreateQueue.
 func CreateLPQueue(c context.Context, api SQSCreateQueueAPI, input *sqs.CreateQueueInput) (*sqs.CreateQueueOutput, error) {
-    result, err := api.CreateQueue(c, input)
-
-    return result, err
+    return api.CreateQueue(c, input)
 }
 
 func main() {

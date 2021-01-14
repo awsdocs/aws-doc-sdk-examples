@@ -30,9 +30,7 @@ type IAMListUsersAPI interface {
 //     If successful, a ListUsersOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to ListUsers.
 func GetUsers(c context.Context, api IAMListUsersAPI, input *iam.ListUsersInput) (*iam.ListUsersOutput, error) {
-	result, err := api.ListUsers(c, input)
-
-	return result, err
+	return api.ListUsers(c, input)
 }
 
 func main() {

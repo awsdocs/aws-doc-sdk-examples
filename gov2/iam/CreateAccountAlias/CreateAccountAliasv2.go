@@ -29,9 +29,7 @@ type IAMCreateAccountAliasAPI interface {
 //     If successful, a CreateAccountAliasOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to CreateAccountAlias.
 func MakeAccountAlias(c context.Context, api IAMCreateAccountAliasAPI, input *iam.CreateAccountAliasInput) (*iam.CreateAccountAliasOutput, error) {
-    results, err := api.CreateAccountAlias(c, input)
-
-    return results, err
+    return api.CreateAccountAlias(c, input)
 }
 
 func main() {

@@ -29,9 +29,7 @@ type IAMCreateUserAPI interface {
 //     If successful, a CreateUserOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to CreateUser.
 func MakeUser(c context.Context, api IAMCreateUserAPI, input *iam.CreateUserInput) (*iam.CreateUserOutput, error) {
-	results, err := api.CreateUser(c, input)
-
-	return results, err
+	return api.CreateUser(c, input)
 }
 
 func main() {

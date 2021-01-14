@@ -37,9 +37,7 @@ type SQSSendMessageAPI interface {
 //     If success, a GetQueueUrlOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to GetQueueUrl.
 func GetQueueURL(c context.Context, api SQSSendMessageAPI, input *sqs.GetQueueUrlInput) (*sqs.GetQueueUrlOutput, error) {
-    result, err := api.GetQueueUrl(c, input)
-
-    return result, err
+    return api.GetQueueUrl(c, input)
 }
 
 // SendMsg sends a message to an Amazon SQS queue.
@@ -51,9 +49,7 @@ func GetQueueURL(c context.Context, api SQSSendMessageAPI, input *sqs.GetQueueUr
 //     If success, a SendMessageOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to SendMessage.
 func SendMsg(c context.Context, api SQSSendMessageAPI, input *sqs.SendMessageInput) (*sqs.SendMessageOutput, error) {
-    result, err := api.SendMessage(c, input)
-
-    return result, err
+    return api.SendMessage(c, input)
 }
 
 func main() {

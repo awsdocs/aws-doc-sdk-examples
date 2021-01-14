@@ -29,9 +29,7 @@ type IAMUpdateServerCertificateAPI interface {
 //     If successful, a (*iam.UpdateServerCertificateOutput, error)Output object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to (*iam.UpdateServerCertificateOutput, error).
 func RenameServerCert(c context.Context, api IAMUpdateServerCertificateAPI, input *iam.UpdateServerCertificateInput) (*iam.UpdateServerCertificateOutput, error) {
-    result, err := api.UpdateServerCertificate(c, input)
-
-    return result, err
+    return api.UpdateServerCertificate(c, input)
 }
 
 func main() {

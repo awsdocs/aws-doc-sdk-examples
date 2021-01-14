@@ -43,9 +43,7 @@ type Item struct {
 //     If successful, a ScanOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to Scan.
 func GetItems(c context.Context, api DynamoDBScanAPI, input *dynamodb.ScanInput) (*dynamodb.ScanOutput, error) {
-	resp, err := api.Scan(c, input)
-
-	return resp, err
+	return api.Scan(c, input)
 }
 
 // Get the items above a minimum rating in a specific year.

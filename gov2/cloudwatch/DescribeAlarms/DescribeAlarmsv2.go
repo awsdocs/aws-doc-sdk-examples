@@ -28,9 +28,7 @@ type CWDescribeAlarmsAPI interface {
 //     If success, a DescribeAlarmsOutput object containing the result of the service call and nil
 //     Otherwise, nil and an error from the call to DescribeAlarms
 func ListAlarms(c context.Context, api CWDescribeAlarmsAPI, input *cloudwatch.DescribeAlarmsInput) (*cloudwatch.DescribeAlarmsOutput, error) {
-	resp, err := api.DescribeAlarms(c, input)
-
-	return resp, err
+	return api.DescribeAlarms(c, input)
 }
 
 func main() {

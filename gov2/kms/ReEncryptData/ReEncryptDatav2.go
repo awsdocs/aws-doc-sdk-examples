@@ -29,9 +29,7 @@ type KMSReEncryptAPI interface {
 //     If success, a ReEncryptOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to ReEncrypt.
 func ReEncryptText(c context.Context, api KMSReEncryptAPI, input *kms.ReEncryptInput) (*kms.ReEncryptOutput, error) {
-    result, err := api.ReEncrypt(c, input)
-
-    return result, err
+    return api.ReEncrypt(c, input)
 }
 
 func main() {

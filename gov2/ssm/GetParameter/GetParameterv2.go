@@ -29,9 +29,7 @@ type SSMGetParameterAPI interface {
 //     If success, a GetParameterOutput object containing the result of the service call and nil
 //     Otherwise, nil and an error from the call to GetParameter
 func FindParameter(c context.Context, api SSMGetParameterAPI, input *ssm.GetParameterInput) (*ssm.GetParameterOutput, error) {
-    results, err := api.GetParameter(c, input)
-
-    return results, err
+    return api.GetParameter(c, input)
 }
 
 func main() {

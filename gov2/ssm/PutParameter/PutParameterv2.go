@@ -30,9 +30,7 @@ type SSMPutParameterAPI interface {
 //     If success, a PutParameterOutput object containing the result of the service call and nil
 //     Otherwise, nil and an error from the call to PutParameter
 func AddStringParameter(c context.Context, api SSMPutParameterAPI, input *ssm.PutParameterInput) (*ssm.PutParameterOutput, error) {
-    results, err := api.PutParameter(c, input)
-
-    return results, err
+    return api.PutParameter(c, input)
 }
 
 func main() {

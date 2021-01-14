@@ -28,9 +28,7 @@ type SNSListTopicsAPI interface {
 //     If success, a ListTopicsOutput object containing the result of the service call and nil
 //     Otherwise, nil and an error from the call to ListTopics
 func GetTopics(c context.Context, api SNSListTopicsAPI, input *sns.ListTopicsInput) (*sns.ListTopicsOutput, error) {
-	results, err := api.ListTopics(c, input)
-
-	return results, err
+	return api.ListTopics(c, input)
 }
 
 func main() {

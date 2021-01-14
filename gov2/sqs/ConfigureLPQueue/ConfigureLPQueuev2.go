@@ -35,9 +35,7 @@ type SQSConfigureLPQueueAPI interface {
 //     If success, a GetQueueUrlOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to GetQueueUrl.
 func GetQueueURL(c context.Context, api SQSConfigureLPQueueAPI, input *sqs.GetQueueUrlInput) (*sqs.GetQueueUrlOutput, error) {
-    result, err := api.GetQueueUrl(c, input)
-
-    return result, err
+    return api.GetQueueUrl(c, input)
 }
 
 // ConfigureLPQueue configures an Amazon SQS queue to use long polling.
@@ -49,9 +47,7 @@ func GetQueueURL(c context.Context, api SQSConfigureLPQueueAPI, input *sqs.GetQu
 //     If success, a SetQueueAttributesOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to MSetQueueAttributesETHOD.
 func ConfigureLPQueue(c context.Context, api SQSConfigureLPQueueAPI, input *sqs.SetQueueAttributesInput) (*sqs.SetQueueAttributesOutput, error) {
-    results, err := api.SetQueueAttributes(c, input)
-
-    return results, err
+    return api.SetQueueAttributes(c, input)
 }
 
 func main() {

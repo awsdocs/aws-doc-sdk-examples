@@ -29,8 +29,7 @@ type IAMUpdateUserAPI interface {
 //     If successful, a UpdateUserOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to UpdateUser.
 func RenameUser(c context.Context, api IAMUpdateUserAPI, input *iam.UpdateUserInput) (*iam.UpdateUserOutput, error) {
-    result, err := api.UpdateUser(c, input)
-    return result, err
+    return api.UpdateUser(c, input)
 }
 
 func main() {
