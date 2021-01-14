@@ -1,8 +1,8 @@
 {
-  "name": "aws-doc-sdk-examples-javascriptv3-transcribe-demo",
+  "name": "setup",
   "version": "0.1.0",
   "bin": {
-    "aws-doc-sdk-examples-javascriptv3-usecases-transciption-app": "bin/aws-doc-sdk-examples-javascriptv3-transcribe-demo.js"
+    "setup": "setup.js"
   },
   "scripts": {
     "build": "tsc",
@@ -11,18 +11,19 @@
     "cdk": "cdk"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "1.78.0",
+    "@aws-cdk/assert": "1.79.0",
     "@types/jest": "^26.0.10",
     "@types/node": "10.17.27",
+    "aws-cdk": "1.77.0",
     "jest": "^26.4.2",
     "ts-jest": "^26.2.0",
-    "aws-cdk": "1.78.0",
     "ts-node": "^9.0.0",
     "typescript": "~3.9.7"
   },
   "dependencies": {
-    "@aws-cdk/aws-cognito": "^1.78.0",
-    "@aws-cdk/core": "1.78.0",
+    "@aws-cdk/aws-cognito": "1.79.0",
+    "@aws-cdk/aws-iam": "1.79.0",
+    "@aws-cdk/core": "1.79.0",
     "source-map-support": "^0.5.16"
   }
 }

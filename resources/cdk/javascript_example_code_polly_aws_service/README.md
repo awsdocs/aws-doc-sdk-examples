@@ -24,7 +24,9 @@ This folder contains the following template files:
 
 ## Customization
 
-To use these template files to create your AWS CDK app, modify the ``setup.ts`` file to include the AWS resources that you want the AWS CDK to generate. For more information, see the [AWS CDK Developer Guide](https://docs.aws.amazon.com/cdk/latest/guide).
+To use these template files to create your AWS CDK app, modify the ``setup.ts`` file to include the AWS resources that you want the AWS CDK to generate, and 
+update the ``package.json`` to include all required Amazon S3 package from the AWS Construct Library. 
+To avoid errors, make sure all CDK dependencies have the same version. For example, ``"@aws-cdk/aws-s3: "1.79.0"``.  For more information, see the [AWS CDK Developer Guide](https://docs.aws.amazon.com/cdk/latest/guide).
 
 To download the necessary dependent packages in order to run your AWS CDK app, first run the following command from within this folder:
 
@@ -50,7 +52,7 @@ To destroy the AWS CDK app, which deletes the corresponding stack from AWS Cloud
 
 ## Using the AWS CLI or the AWS CloudFormation Console
 
-Callers can use the AWS Command Line Interface (AWS CLI) or the AWS CloudFormation Console to run your AWS CloudFormation template file. (They can of course use the AWS CDK, but they would need to first install the AWS CDK prerequisites.)
+Callers can use the AWS Command Line Interface (AWS CLI) or the AWS CloudFormation Console to run your AWS CloudFormation template file. (They can use the AWS CDK, but they would need to first install the AWS CDK prerequisites.)
 
 To use the AWS CLI, run the following command from within the same folder as the ``setup.yaml`` file to create the corresponding stack in AWS CloudFormation, where ``SetupStack`` is some stack name that is unique within an individual AWS Region for the AWS account:
 

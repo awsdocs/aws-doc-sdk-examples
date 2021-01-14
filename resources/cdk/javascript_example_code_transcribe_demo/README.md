@@ -1,14 +1,6 @@
 # AWS Code Examples Repository - AWS CDK App Template
 
-Use the template files in this folder to create the unique source code and the associated AWS CloudFormation template file for a AWS CDK app.
-
-The AWS CloudFormation template file generated using this app creates creates a stack to provision resources for the
-[Build a transcription app with authenticated users](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html) tutorial in the *AWS SDK for JavaScript Developer guide*, including::
-- An Amazon Cognito identity pool with an authenticated user role.
-- An AWS Identity and Access Management (AWS IAM) policy with permissions for Amazon S3 and Amazon Transcribe is attached to the authenticated user role.
-- An Amazon Cognito user pool that enables users to sign up and sign in to the app.
-- An Amazon Simple Storage Service (Amazon S3) bucket to host the application files.
-- An Amazon Simple Storage Service (Amazon S3) bucket to to store the transcriptions.
+Use the template files in this folder to create the unique source code and the associated AWS CloudFormation template file for your finished AWS CDK app.
 
 ## Prerequisites
 
@@ -41,7 +33,7 @@ For Mac/*nix: ``rm -rf cdk.out``
 
 (This makes sure that the ``cdk.out`` folder is regenerated when you run ``cdk synth`` in the next command)
 
-``cdk synth > TranscribeApp.yaml``
+``cdk synth > CloudFormation.yaml``
 
 To run the AWS CDK app, which creates a corresponding stack in AWS CloudFormation and which in turn creates the specified AWS resources, run the following command from within this folder:
 
@@ -51,13 +43,35 @@ To destroy the AWS CDK app, which deletes the corresponding stack from AWS Cloud
 
 ``cdk destroy``
 
+## Merging
+
+To merge your finished AWS CDK app's source code, merge **only** the following files from your development machine into its own self-contained folder within the AWS Code Examples Repository:
+
+* ``cdk.json``
+* ``package.json``
+* ``setup.ts``
+* ``tsconfig.json``
+
+**Do not** merge the following folders or files from your development machine into the repository:
+
+* ``cdk.out/``
+* ``node_modules/``
+* ``package-lock.json``
+* This version of the ``README.md`` file
+
+This is especially important for the ``node_modules/`` folder, as it could grow to several hundred megabytes or more in size during development. The ``.gitignore`` file in this folder contains a list of these folders and files.
+
+You can regenerate these unmerged folders and files on your development machine as needed by running the preceding ``npm`` and ``cdk`` commands on your development machine (after installing the AWS CDK prerequisites).
+
+Merge the ``CloudFormation.yaml`` file into the same location(s) as any code example file(s) with which this ``CloudFormation.yaml`` file is intended to be used.
+
 ## Using the AWS CLI or the AWS CloudFormation Console
 
-Callers can use the AWS Command Line Interface (AWS CLI) or the AWS CloudFormation Console to run your AWS CloudFormation template file. (They can of course use the AWS CDK, but they would need to first install the AWS CDK prerequisites.)
+Callers can use the AWS Command Line Interface (AWS CLI) or the AWS CloudFormation Console to run your AWS CloudFormation template file. (They can use the AWS CDK, but they would need to first install the AWS CDK prerequisites.)
 
-To use the AWS CLI, run the following command from within the same folder as the ``setup.yaml`` file to create the corresponding stack in AWS CloudFormation, where ``SetupStack`` is some stack name that is unique within an individual AWS Region for the AWS account:
+To use the AWS CLI, run the following command from within the same folder as the ``CloudFormation.yaml`` file to create the corresponding stack in AWS CloudFormation, where ``SetupStack`` is some stack name that is unique within an individual AWS Region for the AWS account:
 
-``aws cloudformation create-stack --stack-name SetupStack --template-body file://TranscribeApp.yaml``
+``aws cloudformation create-stack --stack-name SetupStack --template-body file://CloudFormation.yaml``
 
 To delete the corresponding stack in AWS CloudFormation, run the following command:
 
@@ -70,7 +84,7 @@ To use the AWS CloudFormation Console, do the following to create the correspond
 1. Choose **Create stack, With new resources (standard)**.
 1. On the **Create stack** page, for **Specify template**, choose **Upload a template file**.
 1. Choose **Choose file**.
-1. Browse to and open the ``TranscribeApp.yaml`` file.
+1. Browse to and open the ``CloudFormation.yaml`` file.
 1. Choose **Next**.
 1. On the **Specify stack details** page, for **Stack name**, type a unique name for the stack, and then choose **Next**. (This stack name must be unique within an individual AWS Region for the AWS account.)
 1. On the **Configure stack options** page, choose **Next**.
