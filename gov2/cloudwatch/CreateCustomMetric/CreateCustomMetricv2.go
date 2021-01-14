@@ -55,13 +55,13 @@ func main() {
 
 	input := &cloudwatch.PutMetricDataInput{
 		Namespace: namespace,
-		MetricData: []*types.MetricDatum{
-			&types.MetricDatum{
+		MetricData: []types.MetricDatum{
+			{
 				MetricName: metricName,
 				Unit:       types.StandardUnitSeconds,
 				Value:      value,
-				Dimensions: []*types.Dimension{
-					&types.Dimension{
+				Dimensions: []types.Dimension{
+					{
 						Name:  dimensionName,
 						Value: dimensionValue,
 					},
@@ -70,7 +70,7 @@ func main() {
 		},
 	}
 
-	_, err = CreateCustomMetric(context.Background(), client, input)
+	_, err = CreateCustomMetric(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println()
 		return

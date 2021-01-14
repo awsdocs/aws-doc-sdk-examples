@@ -20,20 +20,7 @@ type CWEPutEventsImpl struct{}
 func (dt CWEPutEventsImpl) PutEvents(ctx context.Context,
 	params *cloudwatchevents.PutEventsInput,
 	optFns ...func(*cloudwatchevents.Options)) (*cloudwatchevents.PutEventsOutput, error) {
-
-	/*
-		buckets := make([]*types.Bucket, 2)
-		buckets[0] = &types.Bucket{Name: aws.String("bucket1")}
-		buckets[1] = &types.Bucket{Name: aws.String("bucket2")}
-
-		output := &s3.ListBucketsOutput{
-			Buckets: buckets,
-		}
-	*/
-
-	output := &cloudwatchevents.PutEventsOutput{}
-
-	return output, nil
+	return &cloudwatchevents.PutEventsOutput{}, nil
 }
 
 type Config struct {
@@ -91,12 +78,12 @@ func TestPutEvents(t *testing.T) {
 	myDetails = myDetails + " }"
 
 	input := &cloudwatchevents.PutEventsInput{
-		Entries: []*types.PutEventsRequestEntry{
-			&types.PutEventsRequestEntry{
+		Entries: []types.PutEventsRequestEntry{
+			{
 				Detail:     &myDetails,
 				DetailType: &event.DetailType,
-				Resources: []*string{
-					&globalConfig.LambdaARN,
+				Resources: []string{
+					globalConfig.LambdaARN,
 				},
 				Source: &event.Source,
 			},

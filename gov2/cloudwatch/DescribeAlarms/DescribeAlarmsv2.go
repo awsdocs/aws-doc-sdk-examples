@@ -41,7 +41,7 @@ func main() {
 
 	input := &cloudwatch.DescribeAlarmsInput{}
 
-	resp, err := ListAlarms(context.Background(), client, input)
+	resp, err := ListAlarms(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error listing alarms:")
 		fmt.Println(err)

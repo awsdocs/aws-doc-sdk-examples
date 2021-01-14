@@ -49,12 +49,12 @@ func main() {
 	client := cloudwatch.NewFromConfig(cfg)
 
 	input := &cloudwatch.DisableAlarmActionsInput{
-		AlarmNames: []*string{
-			alarmName,
+		AlarmNames: []string{
+			*alarmName,
 		},
 	}
 
-	_, err = DisableAlarm(context.Background(), client, input)
+	_, err = DisableAlarm(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Could not disable alarm " + *alarmName)
 	} else {
