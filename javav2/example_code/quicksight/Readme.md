@@ -27,12 +27,14 @@ Before running the Amazon QuickSight JUnit tests, you must define values in the 
 
 Define these values to successfully run the JUnit tests:
 
-- **dbInstanceIdentifier** - The database instance identifier.   
-- **dbSnapshotIdentifier** - The snapshot identifier.
-- **dbName** - The database name.
-- **masterUsername** - The master user name .
-- **masterUserPassword** - The password that corresponds to the master user name.
-- **newMasterUserPassword** - The updated password that corresponds to the master user name.
+- **account** - the ID of the AWS account.   
+- **analysisId** - the ARN of an existing analysis.
+- **dashboardId** - the ID of the Amazon QuickSight Dashboard.
+- **templateId** - the ID of the Amazon QuickSight template.
+- **dataSetArn** - the ARN of the dataset.
+- **analysisArn** - the ARN of an existing analysis.
+
+**Note**: Before testing these Java code examples, follow the Getting Started with Data Analysis in Amazon QuickSight located here:  https://docs.aws.amazon.com/quicksight/latest/user/getting-started.html.
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
@@ -44,14 +46,14 @@ You will see output from the JUnit tests, as shown here.
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
 	[INFO] -------------------------------------------------------
-	[INFO] Running AmazonRDSTest
+	[INFO] Running QuickSightTest
 	Test 1 passed
 	Test 2 passed
 	...
 	Done!
 	[INFO] Results:
 	[INFO]
-	[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0
+	[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0
 	[INFO]
 	INFO] --------------------------------------------
 	[INFO] BUILD SUCCESS
