@@ -52,7 +52,7 @@ To destroy the AWS CDK app, which deletes the corresponding stack from AWS Cloud
 
 ## Using the AWS CLI or the AWS CloudFormation Console
 
-Callers can use the AWS Command Line Interface (AWS CLI) or the AWS CloudFormation Console to run your AWS CloudFormation template file. (They can of course use the AWS CDK, but they would need to first install the AWS CDK prerequisites.)
+Callers can use the AWS Command Line Interface (AWS CLI) or the AWS CloudFormation Console to run your AWS CloudFormation template file. (They can use the AWS CDK, but they would need to first install the AWS CDK prerequisites.)
 
 To use the AWS CLI, run the following command from within the same folder as the ``setup.yaml`` file to create the corresponding stack in AWS CloudFormation, where ``SetupStack`` is some stack name that is unique within an individual AWS Region for the AWS account:
 
