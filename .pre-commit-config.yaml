@@ -1,5 +1,6 @@
 repos:
 -   repo: https://github.com/rachfop/aws-doc-sdk-examples
+    rev: v1.0
     hooks:
     -   id: cfn-python-lint
         name: AWS CloudFormation Linter
