@@ -70,7 +70,7 @@ func TestCreateTopic(t *testing.T) {
 
 	api := &SNSCreateTopicImpl{}
 
-	resp, err := MakeTopic(context.Background(), *api, &input)
+	resp, err := MakeTopic(context.TODO(), *api, &input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)

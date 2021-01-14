@@ -76,7 +76,7 @@ func TestDescribeTable(t *testing.T) {
 
 	api := &DynamoDBDescribeTableImpl{}
 
-	resp, err := GetTableInfo(context.Background(), *api, &input)
+	resp, err := GetTableInfo(context.TODO(), *api, &input)
 	if err != nil {
 		t.Log("Got an error retrieving the table status:")
 		t.Log(err)

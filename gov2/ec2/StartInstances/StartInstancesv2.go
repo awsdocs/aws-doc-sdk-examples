@@ -67,7 +67,7 @@ func main() {
         DryRun: aws.Bool(true),
     }
 
-    _, err = StartInstance(context.Background(), client, input)
+    _, err = StartInstance(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Got an error starting the instance")
         fmt.Println(err)

@@ -84,7 +84,7 @@ func TestSubscribe(t *testing.T) {
 		TopicArn:              &globalConfig.TopicArn,
 	}
 
-	_, err = SubscribeTopic(context.Background(), *api, input)
+	_, err = SubscribeTopic(context.TODO(), *api, input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)

@@ -61,7 +61,7 @@ func main() {
 		TopicArn:              topicARN,
 	}
 
-	result, err := SubscribeTopic(context.Background(), client, input)
+	result, err := SubscribeTopic(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error subscribing to the topic:")
 		fmt.Println(err)

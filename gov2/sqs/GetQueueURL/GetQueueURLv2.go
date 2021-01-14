@@ -54,7 +54,7 @@ func main() {
         QueueName: queue,
     }
 
-    result, err := GetQueueURL(context.Background(), client, input)
+    result, err := GetQueueURL(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Got an error getting the queue URL:")
         fmt.Println(err)

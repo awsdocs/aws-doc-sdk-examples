@@ -43,7 +43,7 @@ func main() {
 
 	input := &sns.ListTopicsInput{}
 
-	results, err := GetTopics(context.Background(), client, input)
+	results, err := GetTopics(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error retrieving information about the SNS topics:")
 		fmt.Println(err)

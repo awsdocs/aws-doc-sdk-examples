@@ -90,7 +90,7 @@ func TestCreateInstance(t *testing.T) {
         MaxCount:     aws.Int32(1),
     }
 
-    result, err := MakeInstance(context.Background(), api, input)
+    result, err := MakeInstance(context.TODO(), api, input)
     if err != nil {
         t.Log("Got an error creating an instance:")
         t.Log(err)
@@ -107,7 +107,7 @@ func TestCreateInstance(t *testing.T) {
         },
     }
 
-    _, err = MakeTags(context.Background(), api, tagInput)
+    _, err = MakeTags(context.TODO(), api, tagInput)
     if err != nil {
         t.Log("Got an error tagging the instance:")
         t.Log(err)

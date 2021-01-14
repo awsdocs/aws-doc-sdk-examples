@@ -54,7 +54,7 @@ func main() {
         ServerCertificateName: certName,
     }
 
-    _, err = DeleteServerCert(context.Background(), client, input)
+    _, err = DeleteServerCert(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Got an error deleting the server certificate:")
         fmt.Println(err)

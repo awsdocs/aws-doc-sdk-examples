@@ -58,7 +58,7 @@ func main() {
 		TopicArn: topicARN,
 	}
 
-	result, err := PublishMessage(context.Background(), client, input)
+	result, err := PublishMessage(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error publishing the message:")
 		fmt.Println(err)

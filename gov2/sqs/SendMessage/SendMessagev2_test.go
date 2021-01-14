@@ -90,7 +90,7 @@ func TestSendMessage(t *testing.T) {
         QueueName: &globalConfig.QueueName,
     }
 
-    result, err := GetQueueURL(context.Background(), api, gQInput)
+    result, err := GetQueueURL(context.TODO(), api, gQInput)
     if err != nil {
         fmt.Println("Got an error getting the queue URL:")
         fmt.Println(err)
@@ -119,7 +119,7 @@ func TestSendMessage(t *testing.T) {
         QueueUrl:    queueURL,
     }
 
-    resp, err := SendMsg(context.Background(), api, sMInput)
+    resp, err := SendMsg(context.TODO(), api, sMInput)
     if err != nil {
         fmt.Println("Got an error sending the message:")
         fmt.Println(err)

@@ -58,7 +58,7 @@ func main() {
 		MaxItems: aws.Int32(int32((*maxUsers))),
 	}
 
-	result, err := GetUsers(context.Background(), client, input)
+	result, err := GetUsers(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error retrieving users:")
 		fmt.Println(err)

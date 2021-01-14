@@ -56,7 +56,7 @@ func main() {
         UserName:    userName,
     }
 
-    _, err = RemoveAccessKey(context.Background(), client, input)
+    _, err = RemoveAccessKey(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Error", err)
         return

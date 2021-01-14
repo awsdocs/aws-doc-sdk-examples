@@ -38,7 +38,7 @@ func TestListTopics(t *testing.T) {
 
 	api := &SNSListTopicsImpl{}
 
-	resp, err := GetTopics(context.Background(), *api, &input)
+	resp, err := GetTopics(context.TODO(), *api, &input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)

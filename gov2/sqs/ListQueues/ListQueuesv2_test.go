@@ -39,7 +39,7 @@ func TestListQueues(t *testing.T) {
 
     input := &sqs.ListQueuesInput{}
 
-    resp, err := GetQueues(context.Background(), *api, input)
+    resp, err := GetQueues(context.TODO(), *api, input)
     if err != nil {
         t.Log("Got an error ...:")
         t.Log(err)

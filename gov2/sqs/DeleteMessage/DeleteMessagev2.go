@@ -74,7 +74,7 @@ func main() {
     }
 
     // Get URL of queue
-    result, err := GetQueueURL(context.Background(), client, qUInput)
+    result, err := GetQueueURL(context.TODO(), client, qUInput)
     if err != nil {
         fmt.Println("Got an error getting the queue URL:")
         fmt.Println(err)
@@ -88,7 +88,7 @@ func main() {
         ReceiptHandle: messageHandle,
     }
 
-    _, err = RemoveMessage(context.Background(), client, dMInput)
+    _, err = RemoveMessage(context.TODO(), client, dMInput)
     if err != nil {
         fmt.Println("Got an error deleting the message:")
         fmt.Println(err)

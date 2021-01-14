@@ -106,7 +106,7 @@ func TestEnableAlarm(t *testing.T) {
 		},
 	}
 
-	_, err = CreateMetricAlarm(context.Background(), *api, putInput)
+	_, err = CreateMetricAlarm(context.TODO(), *api, putInput)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)
@@ -119,7 +119,7 @@ func TestEnableAlarm(t *testing.T) {
 		},
 	}
 
-	_, err = EnableAlarm(context.Background(), *api, enableInput)
+	_, err = EnableAlarm(context.TODO(), *api, enableInput)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)

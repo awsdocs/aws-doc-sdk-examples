@@ -56,7 +56,7 @@ func main() {
 		RoleSessionName: sessionName,
 	}
 
-	result, err := TakeRole(context.Background(), client, input)
+	result, err := TakeRole(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error assuming the role:")
 		fmt.Println(err)

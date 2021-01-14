@@ -53,7 +53,7 @@ func main() {
         AccountAlias: alias,
     }
 
-    _, err = MakeAccountAlias(context.Background(), client, input)
+    _, err = MakeAccountAlias(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Got an error creating an account alias")
         fmt.Println(err)

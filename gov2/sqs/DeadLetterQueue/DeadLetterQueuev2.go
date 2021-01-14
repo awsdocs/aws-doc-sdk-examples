@@ -86,7 +86,7 @@ func main() {
 		QueueName: queue,
 	}
 
-	result, err := GetQueueURL(context.Background(), client, gQInput)
+	result, err := GetQueueURL(context.TODO(), client, gQInput)
 	if err != nil {
 		fmt.Println("Got an error getting the queue URL:")
 		fmt.Println(err)
@@ -117,7 +117,7 @@ func main() {
 		},
 	}
 
-	_, err = ConfigureDeadLetterQueue(context.Background(), client, cQInput)
+	_, err = ConfigureDeadLetterQueue(context.TODO(), client, cQInput)
 	if err != nil {
 		fmt.Println("Got an error configuring the dead-letter queue:")
 		fmt.Println(err)

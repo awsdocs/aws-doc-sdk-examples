@@ -77,7 +77,7 @@ func TestListObjects(t *testing.T) {
 
 	api := &S3ListObjectsImpl{}
 
-	resp, err := GetObjects(context.Background(), *api, &input)
+	resp, err := GetObjects(context.TODO(), *api, &input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)

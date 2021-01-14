@@ -55,7 +55,7 @@ func main() {
         NewUserName: newName,
     }
 
-    _, err = RenameUser(context.Background(), client, input)
+    _, err = RenameUser(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Got an error updating user " + *userName)
     }

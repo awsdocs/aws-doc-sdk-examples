@@ -108,7 +108,7 @@ func TestMonitorInstances(t *testing.T) {
             DryRun: aws.Bool(true),
         }
 
-        result, err := EnableMonitoring(context.Background(), api, input)
+        result, err := EnableMonitoring(context.TODO(), api, input)
         if err != nil {
             fmt.Println("Got an error enablying monitoring for instance:")
             fmt.Println(err)
@@ -124,7 +124,7 @@ func TestMonitorInstances(t *testing.T) {
             DryRun: aws.Bool(true),
         }
 
-        result, err := DisableMonitoring(context.Background(), api, input)
+        result, err := DisableMonitoring(context.TODO(), api, input)
         if err != nil {
             fmt.Println("Got an error disablying monitoring for instance:")
             fmt.Println(err)

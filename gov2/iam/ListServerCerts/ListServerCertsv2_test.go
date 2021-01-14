@@ -50,7 +50,7 @@ func TestListServerCertificates(t *testing.T) {
 
     input := &iam.ListServerCertificatesInput{}
 
-    result, err := GetServerCerts(context.Background(), api, input)
+    result, err := GetServerCerts(context.TODO(), api, input)
     if err != nil {
         t.Log("Got an error retrieving the server certificates:")
         t.Log(err)

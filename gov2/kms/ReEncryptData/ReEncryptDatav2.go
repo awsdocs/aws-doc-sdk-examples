@@ -59,7 +59,7 @@ func main() {
         DestinationKeyId: keyID,
     }
 
-    result, err := ReEncryptText(context.Background(), client, input)
+    result, err := ReEncryptText(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Got error reencrypting data:")
         fmt.Println(err)

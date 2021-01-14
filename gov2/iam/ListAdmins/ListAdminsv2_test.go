@@ -60,7 +60,7 @@ func TestListAdmins(t *testing.T) {
 
 	client := iam.NewFromConfig(cfg)
 
-	users, admins, err := GetNumUsersAndAdmins(context.Background(), client)
+	users, admins, err := GetNumUsersAndAdmins(context.TODO(), client)
 	if err != nil {
 		t.Log("Got an error finding users who are admins:")
 		t.Log(err)

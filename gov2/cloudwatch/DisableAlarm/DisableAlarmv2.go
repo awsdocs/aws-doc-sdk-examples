@@ -56,7 +56,7 @@ func main() {
 		},
 	}
 
-	_, err = DisableAlarm(context.Background(), client, input)
+	_, err = DisableAlarm(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Could not disable alarm " + *alarmName)
 	} else {

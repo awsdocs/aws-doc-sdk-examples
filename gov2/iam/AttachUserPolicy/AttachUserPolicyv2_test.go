@@ -77,7 +77,7 @@ func TestAttachRolePolicy(t *testing.T) {
 		RoleName:  &globalConfig.RoleName,
 	}
 
-	_, err = AttachDynamoFullPolicy(context.Background(), api, input)
+	_, err = AttachDynamoFullPolicy(context.TODO(), api, input)
 	if err != nil {
 		t.Log("Unable to attach DynamoDB full-access role policy to role")
 		return

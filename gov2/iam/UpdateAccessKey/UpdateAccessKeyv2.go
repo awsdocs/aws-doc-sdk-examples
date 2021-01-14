@@ -58,7 +58,7 @@ func main() {
         UserName:    userName,
     }
 
-    _, err = ActivateKey(context.Background(), client, input)
+    _, err = ActivateKey(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Error", err)
         return

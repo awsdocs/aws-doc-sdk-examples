@@ -65,7 +65,7 @@ func TestDisableAlarm(t *testing.T) {
 
 	api := &CWDisableAlarmImpl{}
 
-	_, err = DisableAlarm(context.Background(), *api, &input)
+	_, err = DisableAlarm(context.TODO(), *api, &input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)

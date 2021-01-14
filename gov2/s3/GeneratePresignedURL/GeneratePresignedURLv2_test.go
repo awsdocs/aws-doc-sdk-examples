@@ -95,7 +95,7 @@ func TestPresignGetObject(t *testing.T) {
 		Key:    &globalConfig.Key,
 	}
 
-	resp, err := GetPresignedURL(context.Background(), *api, input)
+	resp, err := GetPresignedURL(context.TODO(), *api, input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)

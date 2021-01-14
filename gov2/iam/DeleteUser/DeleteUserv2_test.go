@@ -68,7 +68,7 @@ func TestDeleteUser(t *testing.T) {
         UserName: &globalConfig.UserName,
     }
 
-    _, err = RemoveUser(context.Background(), api, input)
+    _, err = RemoveUser(context.TODO(), api, input)
     if err != nil {
         fmt.Println("Got an error deleting user " + globalConfig.UserName)
     }

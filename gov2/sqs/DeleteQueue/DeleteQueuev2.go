@@ -73,7 +73,7 @@ func main() {
     }
 
     // Get the URL for the queue
-    result, err := GetQueueURL(context.Background(), client, qInput)
+    result, err := GetQueueURL(context.TODO(), client, qInput)
     if err != nil {
         fmt.Println("Got an error getting the queue URL:")
         fmt.Println(err)
@@ -86,7 +86,7 @@ func main() {
         QueueUrl: queueURL,
     }
 
-    _, err = DeleteQueue(context.Background(), client, dqInput)
+    _, err = DeleteQueue(context.TODO(), client, dqInput)
     if err != nil {
         fmt.Println("Got an error deleting the queue:")
         fmt.Println(err)

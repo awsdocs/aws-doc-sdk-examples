@@ -84,7 +84,7 @@ func main() {
 	}
 
 	// Get URL of queue
-	urlResult, err := GetQueueURL(context.Background(), client, gQInput)
+	urlResult, err := GetQueueURL(context.TODO(), client, gQInput)
 	if err != nil {
 		fmt.Println("Got an error getting the queue URL:")
 		fmt.Println(err)
@@ -102,7 +102,7 @@ func main() {
 		VisibilityTimeout:   aws.Int32(int32(*timeout)),
 	}
 
-	msgResult, err := GetMessages(context.Background(), client, gMInput)
+	msgResult, err := GetMessages(context.TODO(), client, gMInput)
 	if err != nil {
 		fmt.Println("Got an error receiving messages:")
 		fmt.Println(err)

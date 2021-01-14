@@ -54,7 +54,7 @@ func main() {
 		ServerCertificateName: certName,
 	}
 
-	result, err := FindServerCert(context.Background(), client, input)
+	result, err := FindServerCert(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error retrieving the server certificate:")
 		fmt.Println(err)

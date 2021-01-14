@@ -76,7 +76,7 @@ func TestUpdateAccessKey(t *testing.T) {
 		UserName:    &globalConfig.UserName,
 	}
 
-	_, err = ActivateKey(context.Background(), api, input)
+	_, err = ActivateKey(context.TODO(), api, input)
 	if err != nil {
 		t.Log("Error", err)
 		return

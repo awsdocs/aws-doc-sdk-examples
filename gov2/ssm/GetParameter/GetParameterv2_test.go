@@ -73,7 +73,7 @@ func TestGetParameter(t *testing.T) {
         Name: &globalConfig.ParameterName,
     }
 
-    resp, err := FindParameter(context.Background(), *api, input)
+    resp, err := FindParameter(context.TODO(), *api, input)
     if err != nil {
         t.Log("Got an error ...:")
         t.Log(err)

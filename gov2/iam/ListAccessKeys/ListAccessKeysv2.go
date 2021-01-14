@@ -61,7 +61,7 @@ func main() {
         UserName: userName,
     }
 
-    result, err := GetAccessKeys(context.Background(), client, input)
+    result, err := GetAccessKeys(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Got an error retrieving user access keys:")
         fmt.Println(err)

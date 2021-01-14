@@ -73,7 +73,7 @@ func TestPubObject(t *testing.T) {
 
 	api := &S3PutObjectImpl{}
 
-	resp, err := PutFile(context.Background(), *api, &input)
+	resp, err := PutFile(context.TODO(), *api, &input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)

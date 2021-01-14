@@ -54,7 +54,7 @@ func main() {
 		PolicyArn: policyArn,
 	}
 
-	result, err := GetPolicyDescription(context.Background(), client, input)
+	result, err := GetPolicyDescription(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error retrieving the description:")
 		fmt.Println(err)

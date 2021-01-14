@@ -74,7 +74,7 @@ func TestPutParameter(t *testing.T) {
         Type:  types.ParameterTypeString,
     }
 
-    resp, err := AddStringParameter(context.Background(), *api, input)
+    resp, err := AddStringParameter(context.TODO(), *api, input)
     if err != nil {
         t.Log("Got an error ...:")
         t.Log(err)

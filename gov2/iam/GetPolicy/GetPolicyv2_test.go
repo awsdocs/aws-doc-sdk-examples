@@ -88,7 +88,7 @@ func TestGetPolicy(t *testing.T) {
 		PolicyArn: &globalConfig.PolicyARN,
 	}
 
-	result, err := GetPolicyDescription(context.Background(), api, input)
+	result, err := GetPolicyDescription(context.TODO(), api, input)
 	if err != nil {
 		t.Log("Got an error retrieving the description:")
 		t.Log(err)

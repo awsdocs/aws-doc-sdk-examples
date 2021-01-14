@@ -96,7 +96,7 @@ func TestListUsers(t *testing.T) {
         MaxItems: aws.Int32(int32(maxUsers)),
     }
 
-    result, err := GetUsers(context.Background(), api, input)
+    result, err := GetUsers(context.TODO(), api, input)
     if err != nil {
         t.Log("Got an error retrieving users:")
         t.Log(err)

@@ -83,7 +83,7 @@ func main() {
         QueueName: queue,
     }
 
-    result, err := GetQueueURL(context.Background(), client, qInput)
+    result, err := GetQueueURL(context.TODO(), client, qInput)
     if err != nil {
         fmt.Println("Got an error getting the queue URL:")
         fmt.Println(err)
@@ -104,7 +104,7 @@ func main() {
         WaitTimeSeconds: aws.Int32(int32(*waitTime)),
     }
 
-    resp, err := GetLPMessages(context.Background(), client, mInput)
+    resp, err := GetLPMessages(context.TODO(), client, mInput)
     if err != nil {
         fmt.Println("Got an error receiving messages:")
         fmt.Println(err)

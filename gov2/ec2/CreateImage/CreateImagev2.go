@@ -75,7 +75,7 @@ func main() {
         },
     }
 
-    resp, err := MakeImage(context.Background(), client, input)
+    resp, err := MakeImage(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Got an error createing image:")
         fmt.Println(err)

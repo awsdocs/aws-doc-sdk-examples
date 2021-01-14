@@ -77,7 +77,7 @@ func main() {
         QueueName: queue,
     }
 
-    result, err := GetQueueURL(context.Background(), client, gQInput)
+    result, err := GetQueueURL(context.TODO(), client, gQInput)
     if err != nil {
         fmt.Println("Got an error getting the queue URL:")
         fmt.Println(err)
@@ -106,7 +106,7 @@ func main() {
         QueueUrl:    queueURL,
     }
 
-    resp, err := SendMsg(context.Background(), client, sMInput)
+    resp, err := SendMsg(context.TODO(), client, sMInput)
     if err != nil {
         fmt.Println("Got an error sending the message:")
         fmt.Println(err)

@@ -77,7 +77,7 @@ func TestGetObjectAcl(t *testing.T) {
 
 	api := &S3GetObjectAclImpl{}
 
-	resp, err := FindObjectAcl(context.Background(), *api, &input)
+	resp, err := FindObjectAcl(context.TODO(), *api, &input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)

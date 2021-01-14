@@ -155,7 +155,7 @@ func TestDescribeTable(t *testing.T) {
 
 	api := &DynamoDBScanImpl{}
 
-	resp, err := GetItems(context.Background(), *api, input)
+	resp, err := GetItems(context.TODO(), *api, input)
 	if err != nil {
 		t.Log("Got an error retrieving the table items:")
 		t.Log(err)

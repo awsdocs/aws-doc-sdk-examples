@@ -72,7 +72,7 @@ func TestDeleteServerCertificate(t *testing.T) {
         ServerCertificateName: &globalConfig.CertificateName,
     }
 
-    _, err = DeleteServerCert(context.Background(), api, input)
+    _, err = DeleteServerCert(context.TODO(), api, input)
     if err != nil {
         t.Log("Got an error deleting the server certificate:")
         t.Log(err)

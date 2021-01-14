@@ -95,7 +95,7 @@ func main() {
 		},
 	}
 
-	_, err = CreateMetricAlarm(context.Background(), client, putInput)
+	_, err = CreateMetricAlarm(context.TODO(), client, putInput)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -107,7 +107,7 @@ func main() {
 		},
 	}
 
-	_, err = EnableAlarm(context.Background(), client, enableInput)
+	_, err = EnableAlarm(context.TODO(), client, enableInput)
 	if err != nil {
 		fmt.Println(err)
 		return

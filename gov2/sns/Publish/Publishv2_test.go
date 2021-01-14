@@ -73,7 +73,7 @@ func TestPublish(t *testing.T) {
 
 	api := &SNSPublishImpl{}
 
-	resp, err := PublishMessage(context.Background(), api, &input)
+	resp, err := PublishMessage(context.TODO(), api, &input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)

@@ -86,7 +86,7 @@ func TestGetServerCertificate(t *testing.T) {
         ServerCertificateName: &globalConfig.Certificate,
     }
 
-    result, err := FindServerCert(context.Background(), api, input)
+    result, err := FindServerCert(context.TODO(), api, input)
     if err != nil {
         t.Log("Got an error retrieving the server certificate:")
         t.Log(err)

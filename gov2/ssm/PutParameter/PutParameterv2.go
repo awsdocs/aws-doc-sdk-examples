@@ -65,7 +65,7 @@ func main() {
         Type:  types.ParameterTypeString,
     }
 
-    results, err := AddStringParameter(context.Background(), client, input)
+    results, err := AddStringParameter(context.TODO(), client, input)
     if err != nil {
         fmt.Println(err.Error())
         return

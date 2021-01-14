@@ -76,7 +76,7 @@ func TestCreatePolicy(t *testing.T) {
         PolicyName:     &globalConfig.PolicyName,
     }
 
-    _, err = MakePolicy(context.Background(), api, input)
+    _, err = MakePolicy(context.TODO(), api, input)
     if err != nil {
         t.Log("Got an error creating the policy:")
         t.Log(err)

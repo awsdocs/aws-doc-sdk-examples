@@ -80,7 +80,7 @@ func TestCreateUser(t *testing.T) {
         UserName: &globalConfig.UserName,
     }
 
-    results, err := MakeUser(context.Background(), api, input)
+    results, err := MakeUser(context.TODO(), api, input)
     if err != nil {
         t.Log("Got an error creating user " + globalConfig.UserName)
     }

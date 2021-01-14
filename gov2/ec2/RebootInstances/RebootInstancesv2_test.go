@@ -75,7 +75,7 @@ func TestStopInstances(t *testing.T) {
 
     api := &EC2RebootInstancesImpl{}
 
-    _, err = RebootInstance(context.Background(), *api, input)
+    _, err = RebootInstance(context.TODO(), *api, input)
     if err != nil {
         t.Log("Got an error ...:")
         t.Log(err)

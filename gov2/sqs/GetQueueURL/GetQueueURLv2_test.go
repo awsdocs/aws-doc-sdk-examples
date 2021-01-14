@@ -73,7 +73,7 @@ func TestGetQueueUrl(t *testing.T) {
         QueueName: &globalConfig.QueueName,
     }
 
-    result, err := GetQueueURL(context.Background(), api, input)
+    result, err := GetQueueURL(context.TODO(), api, input)
     if err != nil {
         t.Log("Got an error getting the queue URL:")
         t.Log(err)

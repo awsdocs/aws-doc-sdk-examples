@@ -84,7 +84,7 @@ func TestCreateKey(t *testing.T) {
         },
     }
 
-    result, err := MakeKey(context.Background(), api, input)
+    result, err := MakeKey(context.TODO(), api, input)
     if err != nil {
         fmt.Println("Got error creating key:")
         fmt.Println(err)

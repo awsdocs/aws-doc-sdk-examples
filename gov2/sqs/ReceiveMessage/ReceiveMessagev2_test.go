@@ -103,7 +103,7 @@ func TestReceiveMessage(t *testing.T) {
     }
 
     // Get URL of queue
-    urlResult, err := GetQueueURL(context.Background(), api, gQInput)
+    urlResult, err := GetQueueURL(context.TODO(), api, gQInput)
     if err != nil {
         t.Log("Got an error getting the queue URL:")
         t.Log(err)
@@ -121,7 +121,7 @@ func TestReceiveMessage(t *testing.T) {
         VisibilityTimeout:   aws.Int32(int32(timeout)),
     }
 
-    msgResult, err := GetMessages(context.Background(), api, gMInput)
+    msgResult, err := GetMessages(context.TODO(), api, gMInput)
     if err != nil {
         t.Log("Got an error receiving messages:")
         t.Log(err)

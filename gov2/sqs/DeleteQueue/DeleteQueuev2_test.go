@@ -81,7 +81,7 @@ func TestDeleteQueue(t *testing.T) {
     }
 
     // Get the URL for the queue
-    result, err := GetQueueURL(context.Background(), api, qInput)
+    result, err := GetQueueURL(context.TODO(), api, qInput)
     if err != nil {
         t.Log("Got an error getting the queue URL:")
         t.Log(err)
@@ -94,7 +94,7 @@ func TestDeleteQueue(t *testing.T) {
         QueueUrl: queueURL,
     }
 
-    _, err = DeleteQueue(context.Background(), api, dqInput)
+    _, err = DeleteQueue(context.TODO(), api, dqInput)
     if err != nil {
         t.Log("Got an error deleting the queue:")
         t.Log(err)

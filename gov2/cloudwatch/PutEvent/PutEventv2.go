@@ -126,7 +126,7 @@ func main() {
 		},
 	}
 
-	_, err = CreateEvent(context.Background(), client, input)
+	_, err = CreateEvent(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Could not create event:")
 		fmt.Println(err)

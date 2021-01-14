@@ -77,7 +77,7 @@ func TestCreateQueue(t *testing.T) {
 		},
 	}
 
-	result, err := CreateQueue(context.Background(), api, input)
+	result, err := CreateQueue(context.TODO(), api, input)
 	if err != nil {
 		fmt.Println("Got an error creating the queue:")
 		fmt.Println(err)

@@ -80,7 +80,7 @@ func TestListAccountAliases(t *testing.T) {
         MaxItems: aws.Int32(int32(maxItems)),
     }
 
-    result, err := GetAccountAliases(context.Background(), api, input)
+    result, err := GetAccountAliases(context.TODO(), api, input)
     if err != nil {
         t.Log("Got an error retrieving account aliases")
         t.Log(err)

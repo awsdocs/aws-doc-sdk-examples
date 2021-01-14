@@ -55,7 +55,7 @@ func main() {
         Name: parameterName,
     }
 
-    results, err := FindParameter(context.Background(), client, input)
+    results, err := FindParameter(context.TODO(), client, input)
     if err != nil {
         fmt.Println(err.Error())
         return

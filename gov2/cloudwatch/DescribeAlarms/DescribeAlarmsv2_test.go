@@ -43,7 +43,7 @@ func TestDescribeAlarms(t *testing.T) {
 
 	api := &CWDescribeAlarmsImpl{}
 
-	resp, err := ListAlarms(context.Background(), *api, &input)
+	resp, err := ListAlarms(context.TODO(), *api, &input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)

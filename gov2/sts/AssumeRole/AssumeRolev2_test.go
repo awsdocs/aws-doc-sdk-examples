@@ -79,7 +79,7 @@ func TestAssumeRole(t *testing.T) {
 		RoleSessionName: &globalConfig.SessionName,
 	}
 
-	resp, err := TakeRole(context.Background(), api, input)
+	resp, err := TakeRole(context.TODO(), api, input)
 	if err != nil {
 		fmt.Println("Got an error assuming the role:")
 		fmt.Println(err)

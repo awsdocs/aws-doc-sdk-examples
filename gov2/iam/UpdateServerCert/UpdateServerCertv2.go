@@ -56,7 +56,7 @@ func main() {
         NewServerCertificateName: newName,
     }
 
-    _, err = RenameServerCert(context.Background(), client, input)
+    _, err = RenameServerCert(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Got an error renaming the server certificate:")
         fmt.Println(err)

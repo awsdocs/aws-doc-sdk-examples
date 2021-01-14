@@ -98,7 +98,7 @@ func TestCreateCustomMetric(t *testing.T) {
 
 	api := &CWPutMetricDataImpl{}
 
-	_, err = CreateCustomMetric(context.Background(), *api, input)
+	_, err = CreateCustomMetric(context.TODO(), *api, input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)

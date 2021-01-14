@@ -74,7 +74,7 @@ func TestCreateAccessKey(t *testing.T) {
         UserName: &globalConfig.UserName,
     }
 
-    result, err := MakeAccessKey(context.Background(), api, input)
+    result, err := MakeAccessKey(context.TODO(), api, input)
     if err != nil {
         t.Log("Got an error creating a new access key")
         t.Log(err)

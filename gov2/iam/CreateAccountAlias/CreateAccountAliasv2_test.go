@@ -72,7 +72,7 @@ func TestCreateAccountAlias(t *testing.T) {
         AccountAlias: &globalConfig.Alias,
     }
 
-    _, err = MakeAccountAlias(context.Background(), api, input)
+    _, err = MakeAccountAlias(context.TODO(), api, input)
     if err != nil {
         t.Log("Got an error creating an account alias")
         t.Log(err)

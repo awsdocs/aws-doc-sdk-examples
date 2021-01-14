@@ -61,7 +61,7 @@ func main() {
 		CiphertextBlob: blob,
 	}
 
-	result, err := DecodeData(context.Background(), client, input)
+	result, err := DecodeData(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got error decrypting data: ", err)
 		return

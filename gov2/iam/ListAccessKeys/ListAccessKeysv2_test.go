@@ -91,7 +91,7 @@ func TestListAccessKeys(t *testing.T) {
         UserName: &globalConfig.UserName,
     }
 
-    result, err := GetAccessKeys(context.Background(), api, input)
+    result, err := GetAccessKeys(context.TODO(), api, input)
     if err != nil {
         fmt.Println("Got an error retrieving user access keys:")
         fmt.Println(err)

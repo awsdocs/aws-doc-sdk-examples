@@ -72,7 +72,7 @@ func TestCreateBucket(t *testing.T) {
 
 	api := &S3CreateBucketImpl{}
 
-	resp, err := MakeBucket(context.Background(), *api, &input)
+	resp, err := MakeBucket(context.TODO(), *api, &input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)

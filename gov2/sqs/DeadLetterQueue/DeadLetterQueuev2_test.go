@@ -88,7 +88,7 @@ func TestDeadLetterQueue(t *testing.T) {
 		QueueName: &globalConfig.QueueName,
 	}
 
-	qResult, err := GetQueueURL(context.Background(), api, gQInput)
+	qResult, err := GetQueueURL(context.TODO(), api, gQInput)
 	if err != nil {
 		fmt.Println("Got an error getting the queue URL:")
 		fmt.Println(err)
@@ -102,7 +102,7 @@ func TestDeadLetterQueue(t *testing.T) {
 		QueueName: &globalConfig.DLQueueName,
 	}
 
-	dlResult, err := GetQueueURL(context.Background(), api, gDLQInput)
+	dlResult, err := GetQueueURL(context.TODO(), api, gDLQInput)
 	if err != nil {
 		t.Log("Got an error retrieving URL for dead letter queue:")
 		t.Log(err)
@@ -135,7 +135,7 @@ func TestDeadLetterQueue(t *testing.T) {
 		},
 	}
 
-	_, err = ConfigureDeadLetterQueue(context.Background(), api, cQInput)
+	_, err = ConfigureDeadLetterQueue(context.TODO(), api, cQInput)
 	if err != nil {
 		t.Log("Got an error configuring the dead-letter queue:")
 		t.Log(err)

@@ -43,7 +43,7 @@ func main() {
 
 	input := &s3.ListBucketsInput{}
 
-	result, err := GetAllBuckets(context.Background(), client, input)
+	result, err := GetAllBuckets(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error retrieving buckets:")
 		fmt.Println(err)

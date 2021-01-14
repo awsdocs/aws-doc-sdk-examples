@@ -54,7 +54,7 @@ func main() {
         UserName: userName,
     }
 
-    _, err = RemoveUser(context.Background(), client, input)
+    _, err = RemoveUser(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Got an error deleting user " + *userName)
     }

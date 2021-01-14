@@ -82,7 +82,7 @@ func TestGetAccessKeyLastUsed(t *testing.T) {
         AccessKeyId: &globalConfig.KeyID,
     }
 
-    result, err := WhenWasKeyUsed(context.Background(), api, input)
+    result, err := WhenWasKeyUsed(context.TODO(), api, input)
     if err != nil {
         t.Log("Got an error retrieving when access key was last used:")
         t.Log(err)

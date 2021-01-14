@@ -43,7 +43,7 @@ func main() {
 
     input := &ec2.DescribeInstancesInput{}
 
-    result, err := GetInstances(context.Background(), client, input)
+    result, err := GetInstances(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Got an error retrieving information about your Amazon EC2 instances:")
         fmt.Println(err)

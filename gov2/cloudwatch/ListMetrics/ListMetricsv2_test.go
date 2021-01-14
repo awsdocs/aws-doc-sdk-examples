@@ -40,7 +40,7 @@ func TestListMetrics(t *testing.T) {
 
 	api := &CWListMetricsImpl{}
 
-	resp, err := GetMetrics(context.Background(), *api, &input)
+	resp, err := GetMetrics(context.TODO(), *api, &input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)

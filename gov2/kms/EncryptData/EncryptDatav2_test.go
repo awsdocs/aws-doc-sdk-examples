@@ -73,7 +73,7 @@ func TestEncrypt(t *testing.T) {
         Plaintext: []byte(globalConfig.Text),
     }
 
-    resp, err := EncryptText(context.Background(), api, input)
+    resp, err := EncryptText(context.TODO(), api, input)
     if err != nil {
         t.Log("Got an error ...:")
         t.Log(err)

@@ -50,7 +50,7 @@ func main() {
 		TableName: table,
 	}
 
-	resp, err := GetTableInfo(context.Background(), client, input)
+	resp, err := GetTableInfo(context.TODO(), client, input)
 	if err != nil {
 		panic("failed to describe table, " + err.Error())
 	}

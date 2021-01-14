@@ -78,7 +78,7 @@ func main() {
         MaxCount:     aws.Int32(1),
     }
 
-    result, err := MakeInstance(context.Background(), client, input)
+    result, err := MakeInstance(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Got an error creating an instance:")
         fmt.Println(err)
@@ -95,7 +95,7 @@ func main() {
         },
     }
 
-    _, err = MakeTags(context.Background(), client, tagInput)
+    _, err = MakeTags(context.TODO(), client, tagInput)
     if err != nil {
         fmt.Println("Got an error tagging the instance:")
         fmt.Println(err)

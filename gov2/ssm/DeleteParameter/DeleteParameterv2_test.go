@@ -67,7 +67,7 @@ func TestDeleteParameter(t *testing.T) {
         Name: &globalConfig.ParameterName,
     }
 
-    _, err = RemoveParameter(context.Background(), *api, input)
+    _, err = RemoveParameter(context.TODO(), *api, input)
     if err != nil {
         t.Log("Got an error ...:")
         t.Log(err)

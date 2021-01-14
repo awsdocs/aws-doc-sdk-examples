@@ -43,7 +43,7 @@ func main() {
 
     input := &kms.CreateKeyInput{}
 
-    result, err := MakeKey(context.Background(), client, input)
+    result, err := MakeKey(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Got error creating key:")
         fmt.Println(err)

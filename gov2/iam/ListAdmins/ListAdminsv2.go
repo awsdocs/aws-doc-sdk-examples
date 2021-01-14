@@ -209,7 +209,7 @@ func main() {
 
 	client := iam.NewFromConfig(cfg)
 
-	users, admins, err := GetNumUsersAndAdmins(context.Background(), client)
+	users, admins, err := GetNumUsersAndAdmins(context.TODO(), client)
 	if err != nil {
 		fmt.Println("Got an error finding users who are admins:")
 		fmt.Println(err)

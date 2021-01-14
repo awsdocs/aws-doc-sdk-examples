@@ -67,7 +67,7 @@ func main() {
         DryRun: aws.Bool(true),
     }
 
-    _, err = RebootInstance(context.Background(), client, input)
+    _, err = RebootInstance(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Got an error rebooting the instance")
         fmt.Println(err)

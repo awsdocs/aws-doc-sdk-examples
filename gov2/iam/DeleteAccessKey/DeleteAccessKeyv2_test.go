@@ -69,7 +69,7 @@ func TestDeleteAccessKey(t *testing.T) {
         UserName:    &globalConfig.UserName,
     }
 
-    _, err = RemoveAccessKey(context.Background(), api, input)
+    _, err = RemoveAccessKey(context.TODO(), api, input)
     if err != nil {
         t.Log("Error", err)
         return

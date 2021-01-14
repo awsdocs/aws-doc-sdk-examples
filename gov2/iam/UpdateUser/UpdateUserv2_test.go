@@ -69,7 +69,7 @@ func TestUpdateUser(t *testing.T) {
         NewUserName: &globalConfig.NewName,
     }
 
-    _, err = RenameUser(context.Background(), api, input)
+    _, err = RenameUser(context.TODO(), api, input)
     if err != nil {
         t.Log("Got an error updating user " + globalConfig.UserName)
     }

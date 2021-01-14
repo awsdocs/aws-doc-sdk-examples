@@ -72,7 +72,7 @@ func main() {
 		},
 	}
 
-	_, err = CreateCustomMetric(context.Background(), client, input)
+	_, err = CreateCustomMetric(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println()
 		return

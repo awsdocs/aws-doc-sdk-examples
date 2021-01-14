@@ -96,7 +96,7 @@ func TestGetLPMsg(t *testing.T) {
         QueueName: &globalConfig.QueueName,
     }
 
-    result, err := GetQueueURL(context.Background(), api, qInput)
+    result, err := GetQueueURL(context.TODO(), api, qInput)
     if err != nil {
         t.Log("Got an error getting the queue URL:")
         t.Log(err)
@@ -117,7 +117,7 @@ func TestGetLPMsg(t *testing.T) {
         WaitTimeSeconds: aws.Int32(int32(waitTime)),
     }
 
-    resp, err := GetLPMessages(context.Background(), api, mInput)
+    resp, err := GetLPMessages(context.TODO(), api, mInput)
     if err != nil {
         t.Log("Got an error receiving messages:")
         t.Log(err)

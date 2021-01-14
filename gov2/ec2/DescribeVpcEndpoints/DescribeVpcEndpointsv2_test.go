@@ -70,7 +70,7 @@ func TestMETHOD(t *testing.T) {
 
 	input := &ec2.DescribeVpcEndpointConnectionsInput{}
 
-	resp, err := GetConnectionInfo(context.Background(), api, input)
+	resp, err := GetConnectionInfo(context.TODO(), api, input)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -77,7 +77,7 @@ func TestCreateQueue(t *testing.T) {
         }),
     }
 
-    resp, err := CreateLPQueue(context.Background(), api, input)
+    resp, err := CreateLPQueue(context.TODO(), api, input)
     if err != nil {
         fmt.Println("Got an error creating the long polling queue:")
         fmt.Println(err)

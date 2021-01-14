@@ -57,7 +57,7 @@ func main() {
 		RoleName:  roleName,
 	}
 
-	_, err = AttachDynamoFullPolicy(context.Background(), client, input)
+	_, err = AttachDynamoFullPolicy(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Unable to attach DynamoDB full-access role policy to role")
 		return

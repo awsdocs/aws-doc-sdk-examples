@@ -38,7 +38,7 @@ func TestListBuckets(t *testing.T) {
 
 	api := &S3ListBucketsImpl{}
 
-	resp, err := GetAllBuckets(context.Background(), *api, &input)
+	resp, err := GetAllBuckets(context.TODO(), *api, &input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)

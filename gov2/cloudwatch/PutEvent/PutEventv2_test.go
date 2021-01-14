@@ -105,7 +105,7 @@ func TestPutEvents(t *testing.T) {
 
 	api := &CWEPutEventsImpl{}
 
-	_, err = CreateEvent(context.Background(), *api, input)
+	_, err = CreateEvent(context.TODO(), *api, input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)

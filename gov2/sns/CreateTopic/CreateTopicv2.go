@@ -55,7 +55,7 @@ func main() {
 		Name: topic,
 	}
 
-	results, err := MakeTopic(context.Background(), client, input)
+	results, err := MakeTopic(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println(err.Error())
 		return

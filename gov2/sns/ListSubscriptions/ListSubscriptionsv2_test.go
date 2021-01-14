@@ -42,7 +42,7 @@ func TestListSubscriptions(t *testing.T) {
 
 	api := &SNSListSubscriptionsImpl{}
 
-	resp, err := GetSubscriptions(context.Background(), *api, &input)
+	resp, err := GetSubscriptions(context.TODO(), *api, &input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)

@@ -91,7 +91,7 @@ func TestChangeMsgVisibility(t *testing.T) {
 	}
 
 	// Get URL of queue
-	urlResult, err := GetQueueURL(context.Background(), api, gQInput)
+	urlResult, err := GetQueueURL(context.TODO(), api, gQInput)
 	if err != nil {
 		t.Log("Got an error getting the queue URL:")
 		t.Log(err)
@@ -106,7 +106,7 @@ func TestChangeMsgVisibility(t *testing.T) {
 		VisibilityTimeout: aws.Int32(int32(visibility)),
 	}
 
-	_, err = SetMsgVisibility(context.Background(), api, sVInput)
+	_, err = SetMsgVisibility(context.TODO(), api, sVInput)
 	if err != nil {
 		t.Log("Got an error setting the visibility of the message:")
 		t.Log(err)

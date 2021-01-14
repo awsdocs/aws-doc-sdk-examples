@@ -75,7 +75,7 @@ func TestUpdateServerCertificate(t *testing.T) {
         NewServerCertificateName: &globalConfig.NewName,
     }
 
-    _, err = RenameServerCert(context.Background(), api, input)
+    _, err = RenameServerCert(context.TODO(), api, input)
     if err != nil {
         fmt.Println("Got an error renaming the server certificate:")
         fmt.Println(err)

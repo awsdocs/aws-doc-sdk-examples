@@ -90,7 +90,7 @@ func TestCreateImage(t *testing.T) {
 
     api := &EC2CreateImageImpl{}
 
-    resp, err := MakeImage(context.Background(), api, input)
+    resp, err := MakeImage(context.TODO(), api, input)
     if err != nil {
         fmt.Println("Got an error createing image:")
         fmt.Println(err)

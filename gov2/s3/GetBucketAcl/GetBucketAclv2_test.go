@@ -76,7 +76,7 @@ func TestGetBucketAcl(t *testing.T) {
 
 	api := &S3GetBucketAclImpl{}
 
-	resp, err := FindBucketAcl(context.Background(), *api, &input)
+	resp, err := FindBucketAcl(context.TODO(), *api, &input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)

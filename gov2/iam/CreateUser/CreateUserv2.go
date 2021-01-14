@@ -54,7 +54,7 @@ func main() {
 		UserName: userName,
 	}
 
-	results, err := MakeUser(context.Background(), client, input)
+	results, err := MakeUser(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error creating user " + *userName)
 	}

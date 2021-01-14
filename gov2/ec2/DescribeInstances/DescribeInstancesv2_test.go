@@ -46,7 +46,7 @@ func TestDescribeInstances(t *testing.T) {
 
     input := &ec2.DescribeInstancesInput{}
 
-    result, err := GetInstances(context.Background(), api, input)
+    result, err := GetInstances(context.TODO(), api, input)
     if err != nil {
         t.Log("Got an error retrieving information about your Amazon EC2 instances:")
         t.Log(err)

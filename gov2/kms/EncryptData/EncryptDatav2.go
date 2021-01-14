@@ -58,7 +58,7 @@ func main() {
 		Plaintext: []byte(*text),
 	}
 
-	result, err := EncryptText(context.Background(), client, input)
+	result, err := EncryptText(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got error encrypting data:")
 		fmt.Println(err)

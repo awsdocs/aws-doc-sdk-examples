@@ -70,7 +70,7 @@ func TestDeleteBucket(t *testing.T) {
 
 	api := &S3DeleteBucketImpl{}
 
-	_, err = RemoveBucket(context.Background(), *api, &input)
+	_, err = RemoveBucket(context.TODO(), *api, &input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)

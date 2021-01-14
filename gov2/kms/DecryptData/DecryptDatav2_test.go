@@ -73,7 +73,7 @@ func TestDecrypt(t *testing.T) {
         CiphertextBlob: blob,
     }
 
-    resp, err := DecodeData(context.Background(), api, input)
+    resp, err := DecodeData(context.TODO(), api, input)
     if err != nil {
         t.Log("Got an error ...:")
         t.Log(err)

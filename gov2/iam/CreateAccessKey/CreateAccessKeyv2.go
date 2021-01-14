@@ -54,7 +54,7 @@ func main() {
         UserName: userName,
     }
 
-    result, err := MakeAccessKey(context.Background(), client, input)
+    result, err := MakeAccessKey(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Got an error creating a new access key")
         fmt.Println(err)

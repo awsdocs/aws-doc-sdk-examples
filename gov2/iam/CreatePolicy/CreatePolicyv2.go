@@ -109,7 +109,7 @@ func main() {
         PolicyName:     policyName,
     }
 
-    _, err = MakePolicy(context.Background(), client, input)
+    _, err = MakePolicy(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Got an error creating the policy:")
         fmt.Println(err)

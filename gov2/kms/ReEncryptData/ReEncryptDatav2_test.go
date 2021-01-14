@@ -75,7 +75,7 @@ func TestReEncrypt(t *testing.T) {
         DestinationKeyId: &globalConfig.KeyID,
     }
 
-    resp, err := ReEncryptText(context.Background(), api, input)
+    resp, err := ReEncryptText(context.TODO(), api, input)
     if err != nil {
         t.Log("Got an error ...:")
         t.Log(err)

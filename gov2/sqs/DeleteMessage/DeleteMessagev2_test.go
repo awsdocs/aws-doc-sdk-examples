@@ -83,7 +83,7 @@ func TestDeleteMessage(t *testing.T) {
 	}
 
 	// Get URL of queue
-	result, err := GetQueueURL(context.Background(), api, qUInput)
+	result, err := GetQueueURL(context.TODO(), api, qUInput)
 	if err != nil {
 		t.Log("Got an error getting the queue URL:")
 		t.Log(err)
@@ -97,7 +97,7 @@ func TestDeleteMessage(t *testing.T) {
 		ReceiptHandle: &globalConfig.MessageHandle,
 	}
 
-	_, err = RemoveMessage(context.Background(), api, dMInput)
+	_, err = RemoveMessage(context.TODO(), api, dMInput)
 	if err != nil {
 		t.Log("Got an error deleting the message:")
 		t.Log(err)

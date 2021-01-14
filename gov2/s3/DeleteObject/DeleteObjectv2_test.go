@@ -70,7 +70,7 @@ func TestDeleteObject(t *testing.T) {
 
 	api := &S3DeleteObjectImpl{}
 
-	_, err = DeleteItem(context.Background(), *api, &input)
+	_, err = DeleteItem(context.TODO(), *api, &input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)

@@ -68,7 +68,7 @@ func main() {
         }),
     }
 
-    resp, err := CreateLPQueue(context.Background(), client, input)
+    resp, err := CreateLPQueue(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Got an error creating the long polling queue:")
         fmt.Println(err)

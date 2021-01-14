@@ -59,7 +59,7 @@ func main() {
 		},
 	}
 
-	result, err := CreateQueue(context.Background(), client, input)
+	result, err := CreateQueue(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error creating the queue:")
 		fmt.Println(err)

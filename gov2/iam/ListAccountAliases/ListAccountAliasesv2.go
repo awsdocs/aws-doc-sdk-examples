@@ -54,7 +54,7 @@ func main() {
         MaxItems: aws.Int32(int32(*maxItems)),
     }
 
-    result, err := GetAccountAliases(context.Background(), client, input)
+    result, err := GetAccountAliases(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Got an error retrieving account aliases")
         fmt.Println(err)

@@ -67,7 +67,7 @@ func TestDeleteAccountAlias(t *testing.T) {
 		AccountAlias: &globalConfig.Alias,
 	}
 
-	_, err = RemoveAccountAlias(context.Background(), api, input)
+	_, err = RemoveAccountAlias(context.TODO(), api, input)
 	if err != nil {
 		t.Log("Got an error deleting an account alias")
 		t.Log(err)

@@ -32,7 +32,7 @@ type EC2DescribeVpcEndpointConnectionsAPI interface {
 func GetConnectionInfo(c context.Context,
 	api EC2DescribeVpcEndpointConnectionsAPI,
 	input *ec2.DescribeVpcEndpointConnectionsInput) (*ec2.DescribeVpcEndpointConnectionsOutput, error) {
-	resp, err := api.DescribeVpcEndpointConnections(context.Background(), input)
+	resp, err := api.DescribeVpcEndpointConnections(context.TODO(), input)
 	return resp, err
 }
 
@@ -53,7 +53,7 @@ func main() {
 
 	input := &ec2.DescribeVpcEndpointConnectionsInput{}
 
-	resp, err := GetConnectionInfo(context.Background(), client, input)
+	resp, err := GetConnectionInfo(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error retrieving information about your VPC endpoint:")
 		fmt.Println(err)

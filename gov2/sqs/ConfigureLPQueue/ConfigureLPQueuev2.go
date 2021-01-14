@@ -90,7 +90,7 @@ func main() {
         QueueName: queue,
     }
 
-    result, err := GetQueueURL(context.Background(), client, gQInput)
+    result, err := GetQueueURL(context.TODO(), client, gQInput)
     if err != nil {
         fmt.Println("Got an error getting the queue URL:")
         fmt.Println(err)
@@ -106,7 +106,7 @@ func main() {
         }),
     }
 
-    _, err = ConfigureLPQueue(context.Background(), client, cQInput)
+    _, err = ConfigureLPQueue(context.TODO(), client, cQInput)
     if err != nil {
         fmt.Println("Got an error configuring the queue:")
         fmt.Println(err)

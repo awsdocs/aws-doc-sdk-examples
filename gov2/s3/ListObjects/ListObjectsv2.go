@@ -54,7 +54,7 @@ func main() {
 		Bucket: bucket,
 	}
 
-	resp, err := GetObjects(context.Background(), client, input)
+	resp, err := GetObjects(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got error retrieving list of objects:")
 		fmt.Println(err)

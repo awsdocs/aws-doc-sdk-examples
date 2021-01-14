@@ -86,7 +86,7 @@ func TestCopyObject(t *testing.T) {
 
 	api := &S3CopyObjectImpl{}
 
-	_, err = CopyItem(context.Background(), *api, &input)
+	_, err = CopyItem(context.TODO(), *api, &input)
 	if err != nil {
 		t.Log("Got an error ...:")
 		t.Log(err)

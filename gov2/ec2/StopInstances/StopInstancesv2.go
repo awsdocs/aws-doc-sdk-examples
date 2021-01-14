@@ -67,7 +67,7 @@ func main() {
         DryRun: aws.Bool(true),
     }
 
-    _, err = StopInstance(context.Background(), client, input)
+    _, err = StopInstance(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Got an error stopping the instance")
         fmt.Println(err)

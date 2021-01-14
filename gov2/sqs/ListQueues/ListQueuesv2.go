@@ -43,7 +43,7 @@ func main() {
 
     input := &sqs.ListQueuesInput{}
 
-    result, err := GetQueues(context.Background(), client, input)
+    result, err := GetQueues(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Got an error retrieving queue URLs:")
         fmt.Println(err)

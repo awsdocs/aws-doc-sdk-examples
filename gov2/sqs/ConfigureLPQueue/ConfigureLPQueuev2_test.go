@@ -83,7 +83,7 @@ func TestConfigureLPQueue(t *testing.T) {
         QueueName: &globalConfig.QueueName,
     }
 
-    result, err := GetQueueURL(context.Background(), api, gQInput)
+    result, err := GetQueueURL(context.TODO(), api, gQInput)
     if err != nil {
         fmt.Println("Got an error getting the queue URL:")
         fmt.Println(err)
@@ -99,7 +99,7 @@ func TestConfigureLPQueue(t *testing.T) {
         }),
     }
 
-    _, err = ConfigureLPQueue(context.Background(), api, cQInput)
+    _, err = ConfigureLPQueue(context.TODO(), api, cQInput)
     if err != nil {
         fmt.Println("Got an error configuring the queue:")
         fmt.Println(err)

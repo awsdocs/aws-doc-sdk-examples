@@ -44,7 +44,7 @@ func main() {
 
     input := &iam.ListServerCertificatesInput{}
 
-    result, err := GetServerCerts(context.Background(), client, input)
+    result, err := GetServerCerts(context.TODO(), client, input)
     if err != nil {
         fmt.Println("Got an error retrieving the server certificates:")
         fmt.Println(err)

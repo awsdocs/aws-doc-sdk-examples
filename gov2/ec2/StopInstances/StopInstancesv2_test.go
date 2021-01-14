@@ -87,7 +87,7 @@ func TestStopInstances(t *testing.T) {
 
     api := &EC2StopInstancesImpl{}
 
-    resp, err := StopInstance(context.Background(), *api, input)
+    resp, err := StopInstance(context.TODO(), *api, input)
     if err != nil {
         t.Log("Got an error ...:")
         t.Log(err)

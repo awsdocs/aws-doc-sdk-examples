@@ -55,7 +55,7 @@ func main() {
         Name: parameterName,
     }
 
-    _, err = RemoveParameter(context.Background(), client, input)
+    _, err = RemoveParameter(context.TODO(), client, input)
     if err != nil {
         fmt.Println(err.Error())
         return

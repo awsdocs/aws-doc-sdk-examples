@@ -53,7 +53,7 @@ func main() {
 		AccountAlias: alias,
 	}
 
-	_, err = RemoveAccountAlias(context.Background(), client, input)
+	_, err = RemoveAccountAlias(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error deleting an account alias")
 		fmt.Println(err)
