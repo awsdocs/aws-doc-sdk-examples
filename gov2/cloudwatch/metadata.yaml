@@ -1,37 +1,50 @@
 files:
   - path: CreateCustomMetric/CreateCustomMetricv2.go
     services:
-      - cloudwatch
+      - service: cloudwatch
+        operations:
+        - PutMetricData
+        - DELETEME
   - path: CreateCustomMetric/CreateCustomMetricv2_test.go
     services:
-      - cloudwatch
+      - service: cloudwatch
   - path: CreateEnableMetricAlarm/CreateEnableMetricAlarmv2.go
     services:
-      - cloudwatch
+      - service: cloudwatch
+        operations:
+        - EnableAlarm
   - path: CreateEnableMetricAlarm/CreateEnableMetricAlarmv2_test.go
     services:
-      - cloudwatch
+      - service: cloudwatch
   - path: DescribeAlarms/DescribeAlarmsv2.go
     services:
-      - cloudwatch
+      - service: cloudwatch
+        operations:
+        - DescribeAlarms
   - path: DescribeAlarms/DescribeAlarmsv2_test.go
     services:
-      - cloudwatch
+      - service: cloudwatch
   - path: DisableAlarm/DisableAlarmv2.go
     services:
-      - cloudwatch
+      - service: cloudwatch
+        operations:
+        - DisableAlarm
   - path: DisableAlarm/DisableAlarmv2_test.go
     services:
-      - cloudwatch
+      - service: cloudwatch
   - path: ListMetrics/ListMetricsv2.go
     services:
-      - cloudwatch
+      - service: cloudwatch
+        operations:
+        - ListMetrics
   - path: ListMetrics/ListMetricsv2_test.go
     services:
-      - cloudwatch
+      - service: cloudwatch
   - path: PutEvent/PutEventv2.go
     services:
-      - cloudwatch
+      - service: cloudwatchevents
+        operations:
+        - PutEvents
   - path: PutEvent/PutEventv2_test.go
     services:
-      - cloudwatch
+      - service: cloudwatch
