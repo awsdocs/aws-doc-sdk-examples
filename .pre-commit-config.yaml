@@ -1,5 +1,9 @@
--   id: cfn-python-lint
-    name: AWS CloudFormation Linter
-    entry: cfn-lint
-    language: python
-    files: \.(json|yaml|yml)$
+repos:
+-   repo: https://github.com/rachfop/aws-doc-sdk-examples
+    rev: v0.44.3 # The version of cfn-lint to use
+    hooks:
+    -   id: cfn-python-lint
+        name: AWS CloudFormation Linter
+        entry: cfn-lint
+        language: python
+        files: cloudformation/.*\.(json|yml|yaml)$
