@@ -23,19 +23,6 @@ func (dt IAMGetPolicyImpl) GetPolicy(ctx context.Context,
 		Description: aws.String("aws-docs-example-policy-description"),
 	}
 
-	/*
-	   buckets := make([]*types.Bucket, 2)
-	   buckets[0] = &types.Bucket{Name: aws.String("bucket1")}
-	   buckets[1] = &types.Bucket{Name: aws.String("bucket2")}
-
-	   output := &s3.ListBucketsOutput{
-	       Buckets: buckets,
-	   }
-	*/
-
-	// result.Policy == nil {
-	// result.Policy.Description
-
 	output := &iam.GetPolicyOutput{
 		Policy: &policy,
 	}
