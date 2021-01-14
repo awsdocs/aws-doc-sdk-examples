@@ -68,7 +68,7 @@ class LambdaStubber(ExampleStubber):
             'invoke', expected_params, response, error_code=error_code)
 
     def stub_add_permission(
-            self, func_name, action, principal, source_arn,
+            self, func_name, action, principal, source_arn=ANY,
             error_code=None):
         expected_params = {
             'FunctionName': func_name, 'StatementId': ANY, 'Action': action,
