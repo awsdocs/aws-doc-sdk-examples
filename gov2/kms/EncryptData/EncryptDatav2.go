@@ -44,10 +44,10 @@ func main() {
 		return
 	}
 
-  cfg, err := config.LoadDefaultConfig(context.TODO())
-  if err != nil {
-    panic("configuration error, " + err.Error())
-  }
+	cfg, err := config.LoadDefaultConfig(context.TODO())
+	if err != nil {
+		panic("configuration error, " + err.Error())
+	}
 
 	client := kms.NewFromConfig(cfg)
 
@@ -56,15 +56,16 @@ func main() {
 		Plaintext: []byte(*text),
 	}
 
-	result, err := EncryptText(context.Background(), client, input)
+	result, err := EncryptText(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got error encrypting data:")
 		fmt.Println(err)
 		return
 	}
 
-	blobString := b64.StdEncoding.EncodeToString([]byte(result.CiphertextBlob))
+	blobString := b64.StdEncoding.EncodeToString(result.CiphertextBlob)
 
 	fmt.Println(blobString)
 }
+
 // snippet-end:[kms.go-v2.EncryptData]
