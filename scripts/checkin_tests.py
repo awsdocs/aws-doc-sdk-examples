@@ -119,7 +119,6 @@ ALLOW_LIST = {
     'ses/commands/VerifyDomainIdentityCommand',
     'ses/commands/VerifyDomainIdentityCommand',
     'com/amazondynamodb/latest/developerguide',
-    'SetupStack/transciptions/Policy/Resource'
 }
 
 
