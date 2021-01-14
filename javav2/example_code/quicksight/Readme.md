@@ -34,7 +34,7 @@ Define these values to successfully run the JUnit tests:
 - **dataSetArn** - the ARN of the dataset.
 - **analysisArn** - the ARN of an existing analysis.
 
-**Note**: Before testing these Java code examples, create these Amazon QuickSight resources by following [Getting Started with Data Analysis in Amazon QuickSight](https://docs.aws.amazon.com/quicksight/latest/user/getting-started.html).  .
+**Note**: Before testing these Java code examples, create these Amazon QuickSight resources by following [Getting Started with Data Analysis in Amazon QuickSight](https://docs.aws.amazon.com/quicksight/latest/user/getting-started.html).
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
