@@ -1,4 +1,4 @@
-# Amazon Amazon QuickSight Java code examples
+# Amazon QuickSight Java code examples
 
 This README discusses how to run and test the Java code examples for Amazon QuickSight.
 
