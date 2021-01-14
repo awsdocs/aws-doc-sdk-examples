@@ -20,7 +20,7 @@ import software.amazon.awssdk.services.quicksight.model.ListDataSetsResponse;
 import software.amazon.awssdk.services.quicksight.model.DataSetSummary;
 import software.amazon.awssdk.services.quicksight.model.QuickSightException;
 import java.util.List;
-// snippet-start:[quicksight.java2.list_datasets.import]
+// snippet-end:[quicksight.java2.list_datasets.import]
 
 public class ListDataSets {
 
