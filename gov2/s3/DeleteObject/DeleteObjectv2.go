@@ -29,9 +29,7 @@ type S3DeleteObjectAPI interface {
 //     If success, a DeleteObjectOutput object containing the result of the service call and nil
 //     Otherwise, an error from the call to DeleteObject
 func DeleteItem(c context.Context, api S3DeleteObjectAPI, input *s3.DeleteObjectInput) (*s3.DeleteObjectOutput, error) {
-	result, err := api.DeleteObject(c, input)
-
-	return result, err
+	return api.DeleteObject(c, input)
 }
 
 func main() {
@@ -44,7 +42,7 @@ func main() {
 		return
 	}
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -56,7 +54,7 @@ func main() {
 		Key:    objectName,
 	}
 
-	_, err = DeleteItem(context.Background(), client, input)
+	_, err = DeleteItem(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error deleting item:")
 		fmt.Println(err)

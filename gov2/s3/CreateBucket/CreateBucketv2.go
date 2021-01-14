@@ -29,9 +29,7 @@ type S3CreateBucketAPI interface {
 //     If success, a CreateBucketOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to CreateBucket.
 func MakeBucket(c context.Context, api S3CreateBucketAPI, input *s3.CreateBucketInput) (*s3.CreateBucketOutput, error) {
-	resp, err := api.CreateBucket(c, input)
-
-	return resp, err
+	return api.CreateBucket(c, input)
 }
 
 func main() {
@@ -43,7 +41,7 @@ func main() {
 		return
 	}
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -54,7 +52,7 @@ func main() {
 		Bucket: bucket,
 	}
 
-	_, err = MakeBucket(context.Background(), client, input)
+	_, err = MakeBucket(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Could not create bucket " + *bucket)
 	}

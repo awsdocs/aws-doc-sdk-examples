@@ -45,7 +45,7 @@ func main() {
 		return
 	}
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -67,7 +67,7 @@ func main() {
 		Body:   file,
 	}
 
-	_, err = PutFile(context.Background(), client, input)
+	_, err = PutFile(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got error uploading file:")
 		fmt.Println(err)

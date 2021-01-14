@@ -19,9 +19,9 @@ func (dt S3GetBucketAclImpl) GetBucketAcl(ctx context.Context,
 	params *s3.GetBucketAclInput,
 	optFns ...func(*s3.Options)) (*s3.GetBucketAclOutput, error) {
 
-	grants := make([]types.Grant, 1)
-	grantee := &types.Grantee{DisplayName: aws.String("theuser")}
-	grants[0] = types.Grant{Grantee: grantee}
+	grants := []types.Grant{
+		{Grantee: &types.Grantee{DisplayName: aws.String("theuser")}},
+	}
 
 	output := &s3.GetBucketAclOutput{
 		Grants: grants,

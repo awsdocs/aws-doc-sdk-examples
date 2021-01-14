@@ -34,7 +34,7 @@ func GetAllBuckets(c context.Context, api S3ListBucketsAPI, input *s3.ListBucket
 }
 
 func main() {
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -43,7 +43,7 @@ func main() {
 
 	input := &s3.ListBucketsInput{}
 
-	result, err := GetAllBuckets(context.Background(), client, input)
+	result, err := GetAllBuckets(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error retrieving buckets:")
 		fmt.Println(err)

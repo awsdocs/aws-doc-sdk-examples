@@ -43,7 +43,7 @@ func main() {
 		return
 	}
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -54,9 +54,10 @@ func main() {
 		Bucket: bucket,
 	}
 
-	result, err := FindBucketAcl(context.Background(), client, input)
+	result, err := FindBucketAcl(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error retrieving ACL for " + *bucket)
+		return
 	}
 
 	fmt.Println("Owner:", *result.Owner.DisplayName)
