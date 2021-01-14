@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Bad SubnetRouteTableAssociation'
+
+Parameters:
+  PublicRouteTable:
+    Type: String
+
+  PrivateRouteTable:
+    Type: String
+
+  PublicSubnet01:
+    Type: String
+
+  PrivateSubnet01:
+    Type: String
+
+
+Resources:
+  PublicSubnetRouteTableAssociation1:
+      Type: AWS::EC2::SubnetRouteTableAssociation
+      Properties:
+        RouteTableId: {Ref: PublicRouteTable}
+        SubnetId: {Ref: PublicSubnet01}
+
+  PrivateSubnetRouteTableAssociation1:
+      Type: AWS::EC2::SubnetRouteTableAssociation
+      Properties:
+        RouteTableId: {Ref: PrivateRouteTable}
+        SubnetId: {Ref: PublicSubnet01}
