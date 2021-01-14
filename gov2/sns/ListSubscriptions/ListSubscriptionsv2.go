@@ -41,7 +41,7 @@ func main() {
 
 	input := &sns.ListSubscriptionsInput{}
 
-	result, err := GetSubscriptions(context.Background(), client, input)
+	result, err := GetSubscriptions(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error retrieving the subscriptions:")
 		fmt.Println(err)
@@ -57,4 +57,5 @@ func main() {
 		fmt.Println("")
 	}
 }
+
 // snippet-end:[sns.go-v2.ListSubscriptions]
