@@ -34,9 +34,7 @@ type CWEnableAlarmAPI interface {
 //     If success, a PutMetricAlarmOutput object containing the result of the service call and nil
 //     Otherwise, the error from a call to PutMetricAlarm
 func CreateMetricAlarm(c context.Context, api CWEnableAlarmAPI, input *cloudwatch.PutMetricAlarmInput) (*cloudwatch.PutMetricAlarmOutput, error) {
-	resp, err := api.PutMetricAlarm(c, input)
-
-	return resp, err
+	return api.PutMetricAlarm(c, input)
 }
 
 // EnableAlarm enables the specified Amazon CloudWatch alarm
@@ -48,10 +46,7 @@ func CreateMetricAlarm(c context.Context, api CWEnableAlarmAPI, input *cloudwatc
 //     If success, a EnableAlarmActionsOutput object containing the result of the service call and nil
 //     Otherwise, the error from a call to PutMetricAlarm
 func EnableAlarm(c context.Context, api CWEnableAlarmAPI, input *cloudwatch.EnableAlarmActionsInput) (*cloudwatch.EnableAlarmActionsOutput, error) {
-	// Enable the alarm for the instance
-	resp, err := api.EnableAlarmActions(c, input)
-
-	return resp, err
+	return api.EnableAlarmActions(c, input)
 }
 
 func main() {
@@ -84,10 +79,10 @@ func main() {
 		ActionsEnabled:     aws.Bool(true),
 		AlarmDescription:   aws.String("Alarm when server CPU exceeds 70%"),
 		Unit:               types.StandardUnitSeconds,
-		AlarmActions: []*string{
-			aws.String(fmt.Sprintf("arn:aws:swf:"+cfg.Region+":%s:action/actions/AWS_EC2.InstanceId.Reboot/1.0", instanceName)),
+		AlarmActions: []string{
+			fmt.Sprintf("arn:aws:swf:"+cfg.Region+":%s:action/actions/AWS_EC2.InstanceId.Reboot/1.0", instanceName),
 		},
-		Dimensions: []*types.Dimension{
+		Dimensions: []types.Dimension{
 			{
 				Name:  aws.String("InstanceId"),
 				Value: instanceID,
@@ -95,19 +90,19 @@ func main() {
 		},
 	}
 
-	_, err = CreateMetricAlarm(context.Background(), client, putInput)
+	_, err = CreateMetricAlarm(context.TODO(), client, putInput)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
 	enableInput := &cloudwatch.EnableAlarmActionsInput{
-		AlarmNames: []*string{
-			instanceID,
+		AlarmNames: []string{
+			*instanceID,
 		},
 	}
 
-	_, err = EnableAlarm(context.Background(), client, enableInput)
+	_, err = EnableAlarm(context.TODO(), client, enableInput)
 	if err != nil {
 		fmt.Println(err)
 		return

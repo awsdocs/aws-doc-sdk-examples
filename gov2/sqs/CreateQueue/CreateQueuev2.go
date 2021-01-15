@@ -8,7 +8,6 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/sqs"
 )
@@ -30,9 +29,7 @@ type SQSCreateQueueAPI interface {
 //     If success, a CreateQueueOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to CreateQueue.
 func CreateQueue(c context.Context, api SQSCreateQueueAPI, input *sqs.CreateQueueInput) (*sqs.CreateQueueOutput, error) {
-	result, err := api.CreateQueue(c, input)
-
-	return result, err
+	return api.CreateQueue(c, input)
 }
 
 func main() {
@@ -53,13 +50,13 @@ func main() {
 
 	input := &sqs.CreateQueueInput{
 		QueueName: queue,
-		Attributes: map[string]*string{
-			"DelaySeconds":           aws.String("60"),
-			"MessageRetentionPeriod": aws.String("86400"),
+		Attributes: map[string]string{
+			"DelaySeconds":           "60",
+			"MessageRetentionPeriod": "86400",
 		},
 	}
 
-	result, err := CreateQueue(context.Background(), client, input)
+	result, err := CreateQueue(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error creating the queue:")
 		fmt.Println(err)
@@ -68,4 +65,5 @@ func main() {
 
 	fmt.Println("URL: " + *result.QueueUrl)
 }
+
 // snippet-end:[sqs.go-v2.CreateQueue]

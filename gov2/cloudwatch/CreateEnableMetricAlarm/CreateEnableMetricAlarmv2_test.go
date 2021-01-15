@@ -20,19 +20,13 @@ type CWEnableAlarmImpl struct{}
 func (dt CWEnableAlarmImpl) PutMetricAlarm(ctx context.Context,
 	params *cloudwatch.PutMetricAlarmInput,
 	optFns ...func(*cloudwatch.Options)) (*cloudwatch.PutMetricAlarmOutput, error) {
-
-	output := &cloudwatch.PutMetricAlarmOutput{}
-
-	return output, nil
+	return &cloudwatch.PutMetricAlarmOutput{}, nil
 }
 
 func (dt CWEnableAlarmImpl) EnableAlarmActions(ctx context.Context,
 	params *cloudwatch.EnableAlarmActionsInput,
 	optFns ...func(*cloudwatch.Options)) (*cloudwatch.EnableAlarmActionsOutput, error) {
-
-	output := &cloudwatch.EnableAlarmActionsOutput{}
-
-	return output, nil
+	return &cloudwatch.EnableAlarmActionsOutput{}, nil
 }
 
 type Config struct {
@@ -76,7 +70,7 @@ func TestEnableAlarm(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	cfg, err := config.LoadDefaultConfig(context.TODO())
+	cfg, err := config.LoadDefaultConfig(context.Background())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -95,10 +89,10 @@ func TestEnableAlarm(t *testing.T) {
 		ActionsEnabled:     aws.Bool(true),
 		AlarmDescription:   aws.String("Alarm when server CPU exceeds 70%"),
 		Unit:               types.StandardUnitSeconds,
-		AlarmActions: []*string{
-			aws.String(fmt.Sprintf("arn:aws:swf:"+cfg.Region+":%s:action/actions/AWS_EC2.InstanceId.Reboot/1.0", globalConfig.InstanceName)),
+		AlarmActions: []string{
+			fmt.Sprintf("arn:aws:swf:"+cfg.Region+":%s:action/actions/AWS_EC2.InstanceId.Reboot/1.0", globalConfig.InstanceName),
 		},
-		Dimensions: []*types.Dimension{
+		Dimensions: []types.Dimension{
 			{
 				Name:  aws.String("InstanceId"),
 				Value: &globalConfig.InstanceID,
@@ -114,8 +108,8 @@ func TestEnableAlarm(t *testing.T) {
 	}
 
 	enableInput := &cloudwatch.EnableAlarmActionsInput{
-		AlarmNames: []*string{
-			&globalConfig.InstanceID,
+		AlarmNames: []string{
+			globalConfig.InstanceID,
 		},
 	}
 

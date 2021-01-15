@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 package main
 
@@ -31,10 +31,7 @@ func (dt SQSSetMsgVisibilityImpl) GetQueueUrl(ctx context.Context,
 func (dt SQSSetMsgVisibilityImpl) ChangeMessageVisibility(ctx context.Context,
 	params *sqs.ChangeMessageVisibilityInput,
 	optFns ...func(*sqs.Options)) (*sqs.ChangeMessageVisibilityOutput, error) {
-
-	output := &sqs.ChangeMessageVisibilityOutput{}
-
-	return output, nil
+	return &sqs.ChangeMessageVisibilityOutput{}, nil
 }
 
 type Config struct {
@@ -103,7 +100,7 @@ func TestChangeMsgVisibility(t *testing.T) {
 	sVInput := &sqs.ChangeMessageVisibilityInput{
 		ReceiptHandle:     &globalConfig.Handle,
 		QueueUrl:          queueURL,
-		VisibilityTimeout: aws.Int32(int32(visibility)),
+		VisibilityTimeout: int32(visibility),
 	}
 
 	_, err = SetMsgVisibility(context.Background(), api, sVInput)

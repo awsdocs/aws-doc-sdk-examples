@@ -193,7 +193,9 @@ public class S3ObjectOperations {
     }
 
    public static void deleteBucket(S3Client client, String bucket) {
-        DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder().bucket(bucket).build();
+        DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder()
+                .bucket(bucket)
+                .build();
         client.deleteBucket(deleteBucketRequest);
     }
 

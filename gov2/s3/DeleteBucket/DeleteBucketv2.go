@@ -29,9 +29,7 @@ type S3DeleteBucketAPI interface {
 //     If success, a DeleteBucketOutput object containing the result of the service call and nil
 //     Otherwise, an error from the call to CreateBucket
 func RemoveBucket(c context.Context, api S3DeleteBucketAPI, input *s3.DeleteBucketInput) (*s3.DeleteBucketOutput, error) {
-	result, err := api.DeleteBucket(c, input)
-
-	return result, err
+	return api.DeleteBucket(c, input)
 }
 
 func main() {
@@ -54,7 +52,7 @@ func main() {
 		Bucket: bucket,
 	}
 
-	_, err = RemoveBucket(context.Background(), client, input)
+	_, err = RemoveBucket(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Could not delete bucket " + *bucket)
 	}

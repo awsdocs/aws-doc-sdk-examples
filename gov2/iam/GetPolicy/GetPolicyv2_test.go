@@ -8,9 +8,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/iam"
 	"github.com/aws/aws-sdk-go-v2/service/iam/types"
-	"github.com/aws/aws-sdk-go/aws"
 )
 
 type IAMGetPolicyImpl struct{}
@@ -22,19 +22,6 @@ func (dt IAMGetPolicyImpl) GetPolicy(ctx context.Context,
 	policy := types.Policy{
 		Description: aws.String("aws-docs-example-policy-description"),
 	}
-
-	/*
-	   buckets := make([]*types.Bucket, 2)
-	   buckets[0] = &types.Bucket{Name: aws.String("bucket1")}
-	   buckets[1] = &types.Bucket{Name: aws.String("bucket2")}
-
-	   output := &s3.ListBucketsOutput{
-	       Buckets: buckets,
-	   }
-	*/
-
-	// result.Policy == nil {
-	// result.Policy.Description
 
 	output := &iam.GetPolicyOutput{
 		Policy: &policy,

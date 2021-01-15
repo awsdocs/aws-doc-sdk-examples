@@ -30,9 +30,7 @@ type KMSDecryptAPI interface {
 //     If success, a DecryptOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to Decrypt.
 func DecodeData(c context.Context, api KMSDecryptAPI, input *kms.DecryptInput) (*kms.DecryptOutput, error) {
-	result, err := api.Decrypt(c, input)
-
-	return result, err
+	return api.Decrypt(c, input)
 }
 
 func main() {
@@ -45,10 +43,10 @@ func main() {
 		return
 	}
 
-  cfg, err := config.LoadDefaultConfig(context.TODO())
-  if err != nil {
-    panic("configuration error, " + err.Error())
-  }
+	cfg, err := config.LoadDefaultConfig(context.TODO())
+	if err != nil {
+		panic("configuration error, " + err.Error())
+	}
 
 	client := kms.NewFromConfig(cfg)
 
@@ -61,7 +59,7 @@ func main() {
 		CiphertextBlob: blob,
 	}
 
-	result, err := DecodeData(context.Background(), client, input)
+	result, err := DecodeData(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got error decrypting data: ", err)
 		return
@@ -69,4 +67,5 @@ func main() {
 
 	fmt.Println(string(result.Plaintext))
 }
+
 // snippet-end:[kms.go-v2.DecryptData]

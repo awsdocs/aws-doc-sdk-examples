@@ -4,19 +4,19 @@
 package main
 
 import (
-    "context"
-    "fmt"
+	"context"
+	"fmt"
 
-    "github.com/aws/aws-sdk-go-v2/config"
-    "github.com/aws/aws-sdk-go-v2/service/kms"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/kms"
 )
 
 // KMSCreateKeyAPI defines the interface for the CreateKey function.
 // We use this interface to test the function using a mocked service.
 type KMSCreateKeyAPI interface {
-    CreateKey(ctx context.Context,
-        params *kms.CreateKeyInput,
-        optFns ...func(*kms.Options)) (*kms.CreateKeyOutput, error)
+	CreateKey(ctx context.Context,
+		params *kms.CreateKeyInput,
+		optFns ...func(*kms.Options)) (*kms.CreateKeyOutput, error)
 }
 
 // MakeKey creates an AWS Key Management Service (AWS KMS) customer master key (CMK).
@@ -28,28 +28,27 @@ type KMSCreateKeyAPI interface {
 //     If success, a CreateKeyOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to CreateKey.
 func MakeKey(c context.Context, api KMSCreateKeyAPI, input *kms.CreateKeyInput) (*kms.CreateKeyOutput, error) {
-    result, err := api.CreateKey(c, input)
-
-    return result, err
+	return api.CreateKey(c, input)
 }
 
 func main() {
-    cfg, err := config.LoadDefaultConfig(context.TODO())
-    if err != nil {
-        panic("configuration error, " + err.Error())
-    }
+	cfg, err := config.LoadDefaultConfig(context.TODO())
+	if err != nil {
+		panic("configuration error, " + err.Error())
+	}
 
-    client := kms.NewFromConfig(cfg)
+	client := kms.NewFromConfig(cfg)
 
-    input := &kms.CreateKeyInput{}
+	input := &kms.CreateKeyInput{}
 
-    result, err := MakeKey(context.Background(), client, input)
-    if err != nil {
-        fmt.Println("Got error creating key:")
-        fmt.Println(err)
-        return
-    }
+	result, err := MakeKey(context.TODO(), client, input)
+	if err != nil {
+		fmt.Println("Got error creating key:")
+		fmt.Println(err)
+		return
+	}
 
-    fmt.Println(*result.KeyMetadata.KeyId)
+	fmt.Println(*result.KeyMetadata.KeyId)
 }
+
 // snippet-end:[kms-go-v2.CreateKey]

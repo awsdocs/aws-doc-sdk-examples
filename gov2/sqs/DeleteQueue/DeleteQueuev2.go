@@ -4,24 +4,24 @@
 package main
 
 import (
-    "context"
-    "flag"
-    "fmt"
+	"context"
+	"flag"
+	"fmt"
 
-    "github.com/aws/aws-sdk-go-v2/config"
-    "github.com/aws/aws-sdk-go-v2/service/sqs"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/sqs"
 )
 
 // SQSDeleteQueueAPI defines the interface for the GetQueueUrl and DeleteQueue functions.
 // We use this interface to test the functions using a mocked service.
 type SQSDeleteQueueAPI interface {
-    GetQueueUrl(ctx context.Context,
-        params *sqs.GetQueueUrlInput,
-        optFns ...func(*sqs.Options)) (*sqs.GetQueueUrlOutput, error)
+	GetQueueUrl(ctx context.Context,
+		params *sqs.GetQueueUrlInput,
+		optFns ...func(*sqs.Options)) (*sqs.GetQueueUrlOutput, error)
 
-    DeleteQueue(ctx context.Context,
-        params *sqs.DeleteQueueInput,
-        optFns ...func(*sqs.Options)) (*sqs.DeleteQueueOutput, error)
+	DeleteQueue(ctx context.Context,
+		params *sqs.DeleteQueueInput,
+		optFns ...func(*sqs.Options)) (*sqs.DeleteQueueOutput, error)
 }
 
 // GetQueueURL gets the URL of an Amazon SQS queue.
@@ -33,9 +33,7 @@ type SQSDeleteQueueAPI interface {
 //     If success, a GetQueueUrlOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to GetQueueUrl.
 func GetQueueURL(c context.Context, api SQSDeleteQueueAPI, input *sqs.GetQueueUrlInput) (*sqs.GetQueueUrlOutput, error) {
-    result, err := api.GetQueueUrl(c, input)
-
-    return result, err
+	return api.GetQueueUrl(c, input)
 }
 
 // DeleteQueue deletes an Amazon SQS queue.
@@ -47,52 +45,51 @@ func GetQueueURL(c context.Context, api SQSDeleteQueueAPI, input *sqs.GetQueueUr
 //     If success, a DeleteQueueOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to DeleteQueue.
 func DeleteQueue(c context.Context, api SQSDeleteQueueAPI, input *sqs.DeleteQueueInput) (*sqs.DeleteQueueOutput, error) {
-    result, err := api.DeleteQueue(c, input)
-
-    return result, err
+	return api.DeleteQueue(c, input)
 }
 
 func main() {
-    queue := flag.String("q", "", "The name of the queue")
-    flag.Parse()
+	queue := flag.String("q", "", "The name of the queue")
+	flag.Parse()
 
-    if *queue == "" {
-        fmt.Println("You must supply a queue name (-q QUEUE")
-        return
-    }
+	if *queue == "" {
+		fmt.Println("You must supply a queue name (-q QUEUE")
+		return
+	}
 
-    cfg, err := config.LoadDefaultConfig(context.TODO())
-    if err != nil {
-        panic("configuration error, " + err.Error())
-    }
+	cfg, err := config.LoadDefaultConfig(context.TODO())
+	if err != nil {
+		panic("configuration error, " + err.Error())
+	}
 
-    client := sqs.NewFromConfig(cfg)
+	client := sqs.NewFromConfig(cfg)
 
-    qInput := &sqs.GetQueueUrlInput{
-        QueueName: queue,
-    }
+	qInput := &sqs.GetQueueUrlInput{
+		QueueName: queue,
+	}
 
-    // Get the URL for the queue
-    result, err := GetQueueURL(context.Background(), client, qInput)
-    if err != nil {
-        fmt.Println("Got an error getting the queue URL:")
-        fmt.Println(err)
-        return
-    }
+	// Get the URL for the queue
+	result, err := GetQueueURL(context.TODO(), client, qInput)
+	if err != nil {
+		fmt.Println("Got an error getting the queue URL:")
+		fmt.Println(err)
+		return
+	}
 
-    queueURL := result.QueueUrl
+	queueURL := result.QueueUrl
 
-    dqInput := &sqs.DeleteQueueInput{
-        QueueUrl: queueURL,
-    }
+	dqInput := &sqs.DeleteQueueInput{
+		QueueUrl: queueURL,
+	}
 
-    _, err = DeleteQueue(context.Background(), client, dqInput)
-    if err != nil {
-        fmt.Println("Got an error deleting the queue:")
-        fmt.Println(err)
-        return
-    }
+	_, err = DeleteQueue(context.TODO(), client, dqInput)
+	if err != nil {
+		fmt.Println("Got an error deleting the queue:")
+		fmt.Println(err)
+		return
+	}
 
-    fmt.Println("Deleted queue with URL " + *queueURL)
+	fmt.Println("Deleted queue with URL " + *queueURL)
 }
+
 // snippet-end:[sqs.go-v2.DeleteQueue]

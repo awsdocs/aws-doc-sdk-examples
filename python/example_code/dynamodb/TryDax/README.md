@@ -20,7 +20,7 @@ information, see [In-Memory Acceleration with DynamoDB Accelerator (DAX)](https:
 - A DAX cluster set up in your VPC 
 - An Amazon Elastic Compute Cloud (Amazon EC2) instance running in your VPC with the
   following installed:
-    - Python 3.6 or later
+    - Python 3.7 or later
     - Boto3 1.11.10 or later
     - Amazon DAX Client for Python 1.1.7 or later
 - PyTest 5.3.5 or later (to run unit tests)

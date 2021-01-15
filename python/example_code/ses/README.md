@@ -16,7 +16,7 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Simple Email Service
 - You must have an AWS account, and have your default credentials and AWS Region
   configured as described in the [AWS Tools and SDKs Shared Configuration and
   Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.6 or later
+- Python 3.7 or later
 - Boto3 1.15.4 or later
 - PyTest 6.0.2 or later (to run unit tests)
 

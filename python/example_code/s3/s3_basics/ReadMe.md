@@ -11,7 +11,7 @@ Learn to create, get, remove, and configure buckets and objects.
 - You must have an AWS account, and have your default credentials and AWS Region
   configured as described in the [AWS Tools and SDKs Shared Configuration and
   Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.6 or later
+- Python 3.7 or later
 - Boto 3 1.11.10 or later
 - PyTest 5.3.5 or later (to run unit tests)
 

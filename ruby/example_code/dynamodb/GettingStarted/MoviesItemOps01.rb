@@ -1,6 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# This code example demonstrates how to add an item to an
+# existing table in Amazon DynamoDB named 'Movies'. The
+# item includes required values for the composite primary key
+# (also known as a hash-range key) consisting of a 'year'
+# hash/partition attribute and a 'title' range/sort
+# attribute. Attributes are also provided for 'info' consisting of
+# a 'plot' and 'rating'.
+
 # snippet-start:[dynamodb.Ruby.CodeExample.MoviesItemOps01]
 require 'aws-sdk-dynamodb'
 
