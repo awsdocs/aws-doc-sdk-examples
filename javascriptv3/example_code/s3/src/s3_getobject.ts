@@ -41,7 +41,7 @@ ts-node s3_getobject.ts
 [Outputs | Returns]:
 Returns the object from the Amazon S3 bucket.
 */
-// snippet-start:[s3.JavaScript.buckets.getobjectV3]
+// snippet-start:[s3.JavaScript.buckets.getAnobjectV3]
 // Import required AWS SDK clients and commands for Node.js
 const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
 
@@ -64,4 +64,4 @@ const run = async () => {
     }
 };
 run();
-// snippet-end:[s3.JavaScript.buckets.getobjectV3]
+// snippet-end:[s3.JavaScript.buckets.getAnobjectV3]
