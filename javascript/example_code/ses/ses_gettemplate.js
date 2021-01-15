@@ -29,10 +29,10 @@
 // snippet-start:[ses.JavaScript.templates.getTemplate]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
-// Set the region
+// Set the AWS region.
 AWS.config.update({region: 'REGION'});
 
-// Create the promise and SES service object
+// Create the promise and Amazon Simple Email Service (Amazon SES) service object.
 var templatePromise = new AWS.SES({apiVersion: '2010-12-01'}).getTemplate({TemplateName: 'TEMPLATE_NAME'}).promise();
 
 // Handle promise's fulfilled/rejected states

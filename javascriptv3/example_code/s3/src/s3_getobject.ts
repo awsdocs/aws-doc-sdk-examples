@@ -20,13 +20,13 @@ ts-node s3_getobject.ts
 Returns the object from the Amazon S3 bucket.
 */
 // snippet-start:[s3.JavaScript.buckets.getobjectV3]
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
 
 // Set the AWS region.
 const REGION = "REGION"; //e.g. "us-east-1"
 
-// Set the parameters
+// Set the parameters.
 // Specify the name of the bucket and the object to return.
 const params = { Bucket: "BUCKET_NAME", Key: "OBJECT" };
 
