@@ -4,20 +4,20 @@
 package main
 
 import (
-    "context"
-    "flag"
-    "fmt"
+	"context"
+	"flag"
+	"fmt"
 
-    "github.com/aws/aws-sdk-go-v2/config"
-    "github.com/aws/aws-sdk-go-v2/service/ssm"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/ssm"
 )
 
 // SSMGetParameterAPI defines the interface for the GetParameter function.
 // We use this interface to test the function using a mocked service.
 type SSMGetParameterAPI interface {
-    GetParameter(ctx context.Context,
-        params *ssm.GetParameterInput,
-        optFns ...func(*ssm.Options)) (*ssm.GetParameterOutput, error)
+	GetParameter(ctx context.Context,
+		params *ssm.GetParameterInput,
+		optFns ...func(*ssm.Options)) (*ssm.GetParameterOutput, error)
 }
 
 // FindParameter retrieves an AWS Systems Manager string parameter
@@ -29,38 +29,38 @@ type SSMGetParameterAPI interface {
 //     If success, a GetParameterOutput object containing the result of the service call and nil
 //     Otherwise, nil and an error from the call to GetParameter
 func FindParameter(c context.Context, api SSMGetParameterAPI, input *ssm.GetParameterInput) (*ssm.GetParameterOutput, error) {
-    results, err := api.GetParameter(c, input)
+	return api.GetParameter(c, input)
 
-    return results, err
+
 }
 
 func main() {
-    parameterName := flag.String("n", "", "The name of the parameter")
-    flag.Parse()
+	parameterName := flag.String("n", "", "The name of the parameter")
+	flag.Parse()
 
-    if *parameterName == "" {
-        fmt.Println("You must supply the name of the parameter")
-        fmt.Println("-n NAME")
-        return
-    }
+	if *parameterName == "" {
+		fmt.Println("You must supply the name of the parameter")
+		fmt.Println("-n NAME")
+		return
+	}
 
-    cfg, err := config.LoadDefaultConfig(context.TODO())
-    if err != nil {
-        panic("configuration error, " + err.Error())
-    }
+	cfg, err := config.LoadDefaultConfig(context.TODO())
+	if err != nil {
+		panic("configuration error, " + err.Error())
+	}
 
-    client := ssm.NewFromConfig(cfg)
+	client := ssm.NewFromConfig(cfg)
 
-    input := &ssm.GetParameterInput{
-        Name: parameterName,
-    }
+	input := &ssm.GetParameterInput{
+		Name: parameterName,
+	}
 
-    results, err := FindParameter(context.Background(), client, input)
-    if err != nil {
-        fmt.Println(err.Error())
-        return
-    }
+	results, err := FindParameter(context.TODO(), client, input)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 
-    fmt.Println(*results.Parameter.Value)
+	fmt.Println(*results.Parameter.Value)
 }
 // snippet-end:[ssm.go-v2.GetParameter]

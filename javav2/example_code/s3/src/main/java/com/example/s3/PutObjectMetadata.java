@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[PutObject.java demonstrates how to upload an object with metadata to an Amazon Simple Storage Service (Amazon S3) bucket.]
+//snippet-sourcedescription:[PutObjectMetadata.java demonstrates how to upload an object with metadata to an Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
@@ -31,7 +31,7 @@ public class PutObjectMetadata {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "  PutObject <bucketName> <objectKey> <objectPath> \n\n" +
+                "  PutObjectMetadata <bucketName> <objectKey> <objectPath> \n\n" +
                 "Where:\n" +
                 "  bucketName - the Amazon S3 bucket to upload an object into.\n" +
                 "  objectKey - the object to upload (for example, book.pdf).\n" +

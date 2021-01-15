@@ -60,7 +60,6 @@
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>s3control</artifactId>
-            <version>2.15.14</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>

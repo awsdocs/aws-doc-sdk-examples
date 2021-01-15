@@ -17,9 +17,10 @@ func (dt SNSListTopicsImpl) ListTopics(ctx context.Context,
 	optFns ...func(*sns.Options)) (*sns.ListTopicsOutput, error) {
 
 	// Create dummy list of two topics
-	topics := make([]*types.Topic, 2)
-	topics[0] = &types.Topic{TopicArn: aws.String("dummytopicarn1")}
-	topics[1] = &types.Topic{TopicArn: aws.String("dummytopicarn2")}
+	topics := []types.Topic{
+		{TopicArn: aws.String("dummytopicarn1")},
+		{TopicArn: aws.String("dummytopicarn2")},
+	}
 
 	output := &sns.ListTopicsOutput{
 		Topics: topics,

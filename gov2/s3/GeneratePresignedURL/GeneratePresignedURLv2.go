@@ -31,12 +31,7 @@ type S3PresignGetObjectAPI interface {
 //     If successful, the presigned URL for the object and nil.
 //     Otherwise, nil and an error from the call to PresignGetObject.
 func GetPresignedURL(c context.Context, api S3PresignGetObjectAPI, input *s3.GetObjectInput) (*v4.PresignedHTTPRequest, error) {
-	resp, err := api.PresignGetObject(c, input)
-	if err != nil {
-		return nil, err
-	}
-
-	return resp, nil
+	return api.PresignGetObject(c, input)
 }
 
 func main() {
@@ -64,7 +59,7 @@ func main() {
 
 	psClient := s3.NewPresignClient(client)
 
-	resp, err := GetPresignedURL(context.Background(), psClient, input)
+	resp, err := GetPresignedURL(context.TODO(), psClient, input)
 	if err != nil {
 		fmt.Println("Got an error retrieving pre-signed object:")
 		fmt.Println(err)

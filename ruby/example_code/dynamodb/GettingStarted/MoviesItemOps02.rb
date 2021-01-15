@@ -1,6 +1,13 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# This code example demonstrates how to get information about an
+# existing item in an existing table in Amazon DynamoDB named 'Movies'.
+# If an item with the specified attributes exists in the table,
+# information about that item is displayed. In this example, the item
+# must have a 'year' attribute value of 2015 and a 'title' attribute value
+# of 'The Big New Movie'.
+
 # snippet-start:[dynamodb.Ruby.CodeExample.MoviesItemOps02]
 require 'aws-sdk-dynamodb'
 

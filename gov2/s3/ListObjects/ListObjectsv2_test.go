@@ -8,9 +8,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
-	"github.com/aws/aws-sdk-go/aws"
 )
 
 type S3ListObjectsImpl struct{}
@@ -20,9 +20,10 @@ func (dt S3ListObjectsImpl) ListObjectsV2(ctx context.Context,
 	optFns ...func(*s3.Options)) (*s3.ListObjectsV2Output, error) {
 
 	// Create a dummy list of two objects
-	objects := make([]*types.Object, 2)
-	objects[0] = &types.Object{Key: aws.String("item1")}
-	objects[1] = &types.Object{Key: aws.String("item2")}
+	objects := []types.Object{
+		{Key: aws.String("item1")},
+		{Key: aws.String("item2")},
+	}
 
 	output := &s3.ListObjectsV2Output{
 		Contents: objects,

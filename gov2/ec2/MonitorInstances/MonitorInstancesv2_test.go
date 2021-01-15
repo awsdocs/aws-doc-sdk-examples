@@ -1,62 +1,73 @@
 package main
 
 import (
-    "context"
-    "encoding/json"
-    "errors"
-    "fmt"
-    "io/ioutil"
-    "testing"
-    "time"
+	"context"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io/ioutil"
+	"testing"
+	"time"
 
-    "github.com/aws/aws-sdk-go-v2/aws"
-    "github.com/aws/aws-sdk-go-v2/service/ec2"
-    "github.com/aws/aws-sdk-go-v2/service/ec2/types"
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/service/ec2"
+	"github.com/aws/aws-sdk-go-v2/service/ec2/types"
+	"github.com/aws/smithy-go"
 )
+
+type mockDryRunError struct {
+	smithy.APIError
+}
+
+func (mockDryRunError) ErrorCode() string {
+	return "DryRunOperation"
+}
 
 type EC2MonitorInstancesImpl struct{}
 
 func (dt EC2MonitorInstancesImpl) MonitorInstances(ctx context.Context,
-    params *ec2.MonitorInstancesInput,
-    optFns ...func(*ec2.Options)) (*ec2.MonitorInstancesOutput, error) {
+	params *ec2.MonitorInstancesInput,
+	optFns ...func(*ec2.Options)) (*ec2.MonitorInstancesOutput, error) {
 
-    // Create a dummy instance for output
-    instances := make([]*types.InstanceMonitoring, 1)
-    instances[0] = &types.InstanceMonitoring{InstanceId: aws.String("aws-docs-example-instanceID")}
+	// Create a dummy instance for output
+	instances := []types.InstanceMonitoring{
+		{InstanceId: aws.String("aws-docs-example-instanceID")},
+	}
 
-    output := &ec2.MonitorInstancesOutput{
-        InstanceMonitorings: instances,
-    }
+	output := &ec2.MonitorInstancesOutput{
+		InstanceMonitorings: instances,
+	}
 
-    if *params.DryRun {
-        return output, errors.New("api error DryRunOperation")
-    }
+	if params.DryRun {
+		return output, mockDryRunError{}
+	}
 
-    return output, nil
+	return output, nil
 }
 
 func (dt EC2MonitorInstancesImpl) UnmonitorInstances(ctx context.Context,
-    params *ec2.UnmonitorInstancesInput,
-    optFns ...func(*ec2.Options)) (*ec2.UnmonitorInstancesOutput, error) {
+	params *ec2.UnmonitorInstancesInput,
+	optFns ...func(*ec2.Options)) (*ec2.UnmonitorInstancesOutput, error) {
 
-    // Create a dummy instance for output
-    instances := make([]*types.InstanceMonitoring, 1)
-    instances[0] = &types.InstanceMonitoring{InstanceId: aws.String("aws-docs-example-instanceID")}
+	// Create a dummy instance for output
+	instances := []types.InstanceMonitoring{
+		{InstanceId: aws.String("aws-docs-example-instanceID")},
+	}
 
-    output := &ec2.UnmonitorInstancesOutput{
-        InstanceMonitorings: instances,
-    }
+	output := &ec2.UnmonitorInstancesOutput{
+		InstanceMonitorings: instances,
+	}
 
-    if *params.DryRun {
-        return output, errors.New("api error DryRunOperation")
-    }
+	if params.DryRun {
+		return output, mockDryRunError{}
+	}
 
-    return output, nil
+	return output, nil
 }
 
 type Config struct {
-    InstanceID string `json:"InstanceID"`
-    Monitor    string `json:"Monitor"`
+	InstanceID string `json:"InstanceID"`
+	Monitor    string `json:"Monitor"`
 }
 
 var configFileName = "config.json"
@@ -64,73 +75,73 @@ var configFileName = "config.json"
 var globalConfig Config
 
 func populateConfiguration(t *testing.T) error {
-    content, err := ioutil.ReadFile(configFileName)
-    if err != nil {
-        return err
-    }
+	content, err := ioutil.ReadFile(configFileName)
+	if err != nil {
+		return err
+	}
 
-    text := string(content)
+	text := string(content)
 
-    err = json.Unmarshal([]byte(text), &globalConfig)
-    if err != nil {
-        return err
-    }
+	err = json.Unmarshal([]byte(text), &globalConfig)
+	if err != nil {
+		return err
+	}
 
-    if globalConfig.InstanceID == "" || globalConfig.Monitor == "" {
-        msg := "You must specify a value for InstanceID and Monitor in " + configFileName
-        return errors.New(msg)
-    }
+	if globalConfig.InstanceID == "" || globalConfig.Monitor == "" {
+		msg := "You must specify a value for InstanceID and Monitor in " + configFileName
+		return errors.New(msg)
+	}
 
-    return nil
+	return nil
 }
 
 func TestMonitorInstances(t *testing.T) {
-    thisTime := time.Now()
-    nowString := thisTime.Format("2006-01-02 15:04:05 Monday")
-    t.Log("Starting unit test at " + nowString)
+	thisTime := time.Now()
+	nowString := thisTime.Format("2006-01-02 15:04:05 Monday")
+	t.Log("Starting unit test at " + nowString)
 
-    err := populateConfiguration(t)
-    if err != nil {
-        t.Fatal(err)
-    }
+	err := populateConfiguration(t)
+	if err != nil {
+		t.Fatal(err)
+	}
 
-    if globalConfig.Monitor != "ON" && globalConfig.Monitor != "OFF" {
-        t.Fatal("You must set Monitor to ON or OFF in " + configFileName)
-    }
+	if globalConfig.Monitor != "ON" && globalConfig.Monitor != "OFF" {
+		t.Fatal("You must set Monitor to ON or OFF in " + configFileName)
+	}
 
-    api := &EC2MonitorInstancesImpl{}
+	api := &EC2MonitorInstancesImpl{}
 
-    if globalConfig.Monitor == "ON" {
-        input := &ec2.MonitorInstancesInput{
-            InstanceIds: []*string{
-                &globalConfig.InstanceID,
-            },
-            DryRun: aws.Bool(true),
-        }
+	if globalConfig.Monitor == "ON" {
+		input := &ec2.MonitorInstancesInput{
+			InstanceIds: []string{
+				globalConfig.InstanceID,
+			},
+			DryRun: true,
+		}
 
-        result, err := EnableMonitoring(context.Background(), api, input)
-        if err != nil {
-            fmt.Println("Got an error enablying monitoring for instance:")
-            fmt.Println(err)
-            return
-        }
+		result, err := EnableMonitoring(context.Background(), api, input)
+		if err != nil {
+			fmt.Println("Got an error enablying monitoring for instance:")
+			fmt.Println(err)
+			return
+		}
 
-        fmt.Println("Success", result.InstanceMonitorings)
-    } else {
-        input := &ec2.UnmonitorInstancesInput{
-            InstanceIds: []*string{
-                &globalConfig.InstanceID,
-            },
-            DryRun: aws.Bool(true),
-        }
+		fmt.Println("Success", result.InstanceMonitorings)
+	} else {
+		input := &ec2.UnmonitorInstancesInput{
+			InstanceIds: []string{
+				globalConfig.InstanceID,
+			},
+			DryRun: true,
+		}
 
-        result, err := DisableMonitoring(context.Background(), api, input)
-        if err != nil {
-            fmt.Println("Got an error disablying monitoring for instance:")
-            fmt.Println(err)
-            return
-        }
+		result, err := DisableMonitoring(context.Background(), api, input)
+		if err != nil {
+			fmt.Println("Got an error disablying monitoring for instance:")
+			fmt.Println(err)
+			return
+		}
 
-        fmt.Println("Success", *result.InstanceMonitorings[0].InstanceId)
-    }
+		fmt.Println("Success", *result.InstanceMonitorings[0].InstanceId)
+	}
 }
