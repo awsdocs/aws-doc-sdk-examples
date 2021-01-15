@@ -4,7 +4,7 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript versi
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-nodejs.html.
 Purpose:
-s3_upload.ts uploads a file to an S3 bucket.
+s3_putobject.ts uploads a file to an S3 bucket.
 Inputs (in the commandline input below):
 - REGION
 - BUCKET_NAME

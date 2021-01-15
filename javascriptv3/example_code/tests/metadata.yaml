@@ -425,7 +425,7 @@ files:
     services:
       - s3
 
-  - path: s3/s3_upload.test.js
+  - path: s3/s3_putobject.test.js
     services:
       - s3
 x
