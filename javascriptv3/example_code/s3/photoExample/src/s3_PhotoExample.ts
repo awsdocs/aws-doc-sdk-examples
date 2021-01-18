@@ -77,7 +77,7 @@ const listAlbums = async () => {
             "<p>Click an album name to view it.</p>",
             "<p>Click the X to delete the album.</p>",
           ])
-          : "<p>You do not have any albums. You need to create an album";
+          : "<p>You do not have any albums. You need to create an album.";
       const htmlTemplate = [
         "<h2>Albums</h2>",
         message,
@@ -180,7 +180,7 @@ const viewAlbum = async (albumName) => {
         ]);
       });
       var message = photos.length
-          ? "<p>Click  the X to delete the photo</p>"
+          ? "<p>Click the X to delete the photo.</p>"
           : "<p>You don't have any photos in this album. You need to add photos.</p>";
       const htmlTemplate = [
         "<h2>",

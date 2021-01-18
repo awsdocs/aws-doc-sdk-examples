@@ -1,7 +1,7 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
 
@@ -23,8 +23,8 @@ Returns the object from the Amazon S3 bucket.
 // Import required AWS SDK clients and commands for Node.js.
 const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
 
-// Set the AWS region.
-const REGION = "REGION"; //e.g. "us-east-1"
+// Specify the AWS Region, such as "us-east-1".
+const REGION = "REGION";
 
 // Set the parameters.
 // Specify the name of the bucket and the object to return.
