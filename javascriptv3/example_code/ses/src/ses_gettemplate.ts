@@ -31,7 +31,7 @@ const ses = new SESClient({ region: REGION });
 const run = async () => {
   try {
     const data = await ses.send(new GetTemplateCommand(params));
-    console.log("Success. Template:", data.Template);
+    console.log("Success. Template:", data.Template.SubjectPart);
   } catch (err) {
     console.error(err, err.stack);
   }

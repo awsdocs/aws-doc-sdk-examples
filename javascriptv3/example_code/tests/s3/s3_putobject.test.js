@@ -1,7 +1,7 @@
 const mockPutObject = jest.fn();
-jest.mock("@aws-sdk/client-s3", () => ({
+jest.mock("@aws-sdk/client-s3/commands/PutObjectCommand", () => ({
   S3: function S3() {
-    this.putObject = mockPutObject;
+    this.PutObjectCommand = mockPutObject;
   },
 }));
 const { uploadParams, file, path, run } = require("../../s3/s3_upload");

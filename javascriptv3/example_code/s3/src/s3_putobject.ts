@@ -4,7 +4,7 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript versi
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
 Purpose:
-s3_upload.ts uploads a file to an S3 bucket.
+s3_putobject.ts uploads a file to an S3 bucket.
 Inputs (replace in code):
 - BUCKET_NAME
 - KEY
@@ -12,7 +12,7 @@ Inputs (replace in code):
 - FILE_NAME
 - REGION
 Running the code:
-ts-node s3_upload.ts
+ts-node s3_putobject.ts
 [Outputs | Returns]:
 Uploads the specified file to the specified bucket.
 */
