@@ -17,7 +17,7 @@ Resources:
     UpdateReplacePolicy: Delete
     DeletionPolicy: Delete
     Metadata:
-      aws:cdk:path: SetupStack/transciptions/Resource
+      aws:cdk:path: SetupStackTranscribe/transciptions/Resource
   transciptionsPolicy45A023FE:
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -75,7 +75,7 @@ Resources:
                   - /*
         Version: "2012-10-17"
     Metadata:
-      aws:cdk:path: SetupStack/transciptions/Policy/Resource
+      aws:cdk:path: SetupStackTranscribe/transciptions/Policy/Resource
   appbucket8B6BC946:
     Type: AWS::S3::Bucket
     Properties:
@@ -90,7 +90,7 @@ Resources:
     UpdateReplacePolicy: Delete
     DeletionPolicy: Delete
     Metadata:
-      aws:cdk:path: SetupStack/appbucket/Resource
+      aws:cdk:path: SetupStackTranscribe/appbucket/Resource
   appbucketPolicy820C1410:
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -120,7 +120,7 @@ Resources:
                   - /*
         Version: "2012-10-17"
     Metadata:
-      aws:cdk:path: SetupStack/appbucket/Policy/Resource
+      aws:cdk:path: SetupStackTranscribe/appbucket/Policy/Resource
   exampleuserpoolid164CBD80:
     Type: AWS::Cognito::UserPool
     Properties:
@@ -148,7 +148,7 @@ Resources:
         EmailSubject: Verify your email for our awesome app!
         SmsMessage: Hello, Thanks for signing up to our awesome app! Your verification code is {####}
     Metadata:
-      aws:cdk:path: SetupStack/exampleuserpoolid/Resource
+      aws:cdk:path: SetupStackTranscribe/exampleuserpoolid/Resource
   exampleuserpoolidCognitoDomain6126F7CC:
     Type: AWS::Cognito::UserPoolDomain
     Properties:
@@ -156,7 +156,7 @@ Resources:
       UserPoolId:
         Ref: exampleuserpoolid164CBD80
     Metadata:
-      aws:cdk:path: SetupStack/exampleuserpoolid/CognitoDomain/Resource
+      aws:cdk:path: SetupStackTranscribe/exampleuserpoolid/CognitoDomain/Resource
   ExampleUserPoolClientA3BAC0B9:
     Type: AWS::Cognito::UserPoolClient
     Properties:
@@ -186,7 +186,7 @@ Resources:
       SupportedIdentityProviders:
         - COGNITO
     Metadata:
-      aws:cdk:path: SetupStack/ExampleUserPoolClient/Resource
+      aws:cdk:path: SetupStackTranscribe/ExampleUserPoolClient/Resource
   ExampleIdentityPool:
     Type: AWS::Cognito::IdentityPool
     Properties:
@@ -199,7 +199,7 @@ Resources:
               - exampleuserpoolid164CBD80
               - ProviderName
     Metadata:
-      aws:cdk:path: SetupStack/ExampleIdentityPool
+      aws:cdk:path: SetupStackTranscribe/ExampleIdentityPool
   ExampleCognitoDefaultAuthenticatedRole37F17AF0:
     Type: AWS::IAM::Role
     Properties:
@@ -217,7 +217,7 @@ Resources:
               Federated: cognito-identity.amazonaws.com
         Version: "2012-10-17"
     Metadata:
-      aws:cdk:path: SetupStack/ExampleCognitoDefaultAuthenticatedRole/Resource
+      aws:cdk:path: SetupStackTranscribe/ExampleCognitoDefaultAuthenticatedRole/Resource
   ExampleCognitoDefaultAuthenticatedRoleDefaultPolicy7CE891FB:
     Type: AWS::IAM::Policy
     Properties:
@@ -242,7 +242,7 @@ Resources:
       Roles:
         - Ref: ExampleCognitoDefaultAuthenticatedRole37F17AF0
     Metadata:
-      aws:cdk:path: SetupStack/ExampleCognitoDefaultAuthenticatedRole/DefaultPolicy/Resource
+      aws:cdk:path: SetupStackTranscribe/ExampleCognitoDefaultAuthenticatedRole/DefaultPolicy/Resource
   DefaultValid:
     Type: AWS::Cognito::IdentityPoolRoleAttachment
     Properties:
@@ -254,13 +254,13 @@ Resources:
             - ExampleCognitoDefaultAuthenticatedRole37F17AF0
             - Arn
     Metadata:
-      aws:cdk:path: SetupStack/DefaultValid
+      aws:cdk:path: SetupStackTranscribe/DefaultValid
   CDKMetadata:
     Type: AWS::CDK::Metadata
     Properties:
       Modules: aws-cdk=1.84.0,@aws-cdk/assets=1.78.0,@aws-cdk/aws-applicationautoscaling=1.78.0,@aws-cdk/aws-autoscaling-common=1.78.0,@aws-cdk/aws-cloudwatch=1.78.0,@aws-cdk/aws-codeguruprofiler=1.78.0,@aws-cdk/aws-cognito=1.78.0,@aws-cdk/aws-ec2=1.78.0,@aws-cdk/aws-ecr=1.78.0,@aws-cdk/aws-ecr-assets=1.78.0,@aws-cdk/aws-events=1.78.0,@aws-cdk/aws-iam=1.78.0,@aws-cdk/aws-kms=1.78.0,@aws-cdk/aws-lambda=1.78.0,@aws-cdk/aws-logs=1.78.0,@aws-cdk/aws-s3=1.78.0,@aws-cdk/aws-s3-assets=1.78.0,@aws-cdk/aws-sqs=1.78.0,@aws-cdk/aws-ssm=1.78.0,@aws-cdk/cloud-assembly-schema=1.78.0,@aws-cdk/core=1.78.0,@aws-cdk/custom-resources=1.78.0,@aws-cdk/cx-api=1.78.0,@aws-cdk/region-info=1.78.0,jsii-runtime=node.js/v12.14.1
     Metadata:
-      aws:cdk:path: SetupStack/CDKMetadata/Default
+      aws:cdk:path: SetupStackTranscribe/CDKMetadata/Default
     Condition: CDKMetadataAvailable
 Conditions:
   CDKMetadataAvailable:

@@ -11,7 +11,7 @@ import * as s3 from '@aws-cdk/aws-s3';
 import {Bucket, BucketAccessControl, BlockPublicAccess, BlockPublicAccessOptions} from '@aws-cdk/aws-s3';
 
 
-export class  SetupStack extends cdk.Stack {
+export class  SetupStackTranscribe extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
@@ -147,7 +147,6 @@ export class  SetupStack extends cdk.Stack {
     });
   }
 };
-
 
 
 
