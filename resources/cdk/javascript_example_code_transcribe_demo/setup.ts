@@ -2,7 +2,6 @@
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-
 import * as cdk from '@aws-cdk/core';
 import * as cognito from '@aws-cdk/aws-cognito';
 import * as iam from '@aws-cdk/aws-iam';
@@ -11,7 +10,7 @@ import * as s3 from '@aws-cdk/aws-s3';
 import {Bucket, BucketAccessControl, BlockPublicAccess, BlockPublicAccessOptions} from '@aws-cdk/aws-s3';
 
 
-export class  SetupStackTranscribe extends cdk.Stack {
+export class  SetupStackTranscription extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
@@ -147,9 +146,6 @@ export class  SetupStackTranscribe extends cdk.Stack {
     });
   }
 };
-
-
-
 
 
 const stackName = 'SetupStack'
