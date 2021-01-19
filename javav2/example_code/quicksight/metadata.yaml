@@ -1,0 +1,32 @@
+--- 
+files:
+  - path: src/main/java/com/example/quicksight/DescribeAnalysis.java
+    services:
+      - kinesis
+  - path: src/main/java/com/example/quicksight/DescribeDashboard.java
+    services:
+      - kinesis
+  - path: src/main/java/com/example/quicksight/DescribeTemplate.java
+    services:
+      - kinesis
+  - path: src/main/java/com/example/quicksight/ListAnalyses.java
+    services:
+      - kinesis
+  - path: src/main/java/com/example/quicksight/ListDashboards.java
+    services:
+      - kinesis
+  - path: src/main/java/com/example/quicksight/ListDataSets.java
+    services:
+      - kinesis
+  - path: src/main/java/com/example/quicksight/ListTemplates.java
+    services:
+      - kinesis
+  - path: src/main/java/com/example/quicksight/ListThemes.java
+    services:
+      - kinesis
+  - path: src/main/java/com/example/quicksight/UpdateDashboard.java
+    services:
+      - kinesis
+  - path: src/test/java/QuickSightTest.java
+    services:
+      - kinesis      
