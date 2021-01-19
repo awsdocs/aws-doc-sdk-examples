@@ -29,9 +29,7 @@ type SNSPublishAPI interface {
 //     If success, a PublishOutput object containing the result of the service call and nil
 //     Otherwise, nil and an error from the call to Publish
 func PublishMessage(c context.Context, api SNSPublishAPI, input *sns.PublishInput) (*sns.PublishOutput, error) {
-	result, err := api.Publish(c, input)
-
-	return result, err
+	return api.Publish(c, input)
 }
 
 func main() {
@@ -46,7 +44,7 @@ func main() {
 		return
 	}
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -58,7 +56,7 @@ func main() {
 		TopicArn: topicARN,
 	}
 
-	result, err := PublishMessage(context.Background(), client, input)
+	result, err := PublishMessage(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error publishing the message:")
 		fmt.Println(err)

@@ -29,9 +29,7 @@ type CWDisableAlarmAPI interface {
 //     If success, a DisableAlarmActionsOutput object containing the result of the service call and nil
 //     Otherwise, nil and the error from the call to DisableAlarmActions
 func DisableAlarm(c context.Context, api CWDisableAlarmAPI, input *cloudwatch.DisableAlarmActionsInput) (*cloudwatch.DisableAlarmActionsOutput, error) {
-	resp, err := api.DisableAlarmActions(c, input)
-
-	return resp, err
+	return api.DisableAlarmActions(c, input)
 }
 
 func main() {
@@ -43,7 +41,7 @@ func main() {
 		return
 	}
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -51,12 +49,12 @@ func main() {
 	client := cloudwatch.NewFromConfig(cfg)
 
 	input := &cloudwatch.DisableAlarmActionsInput{
-		AlarmNames: []*string{
-			alarmName,
+		AlarmNames: []string{
+			*alarmName,
 		},
 	}
 
-	_, err = DisableAlarm(context.Background(), client, input)
+	_, err = DisableAlarm(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Could not disable alarm " + *alarmName)
 	} else {

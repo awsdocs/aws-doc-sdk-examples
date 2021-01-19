@@ -24,7 +24,7 @@ which are *@aws-sdk/client-cognito-identity*, *@aws-sdk/credential-provider-cogn
 *@aws-sdk/client-polly*, and *@aws-sdk/polly-request-presigner*.
 
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/polly
 npm install
 ```

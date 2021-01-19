@@ -29,9 +29,7 @@ type IAMGetServerCertificateAPI interface {
 //     If successful, a GetServerCertificateOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to GetServerCertificate.
 func FindServerCert(c context.Context, api IAMGetServerCertificateAPI, input *iam.GetServerCertificateInput) (*iam.GetServerCertificateOutput, error) {
-	result, err := api.GetServerCertificate(c, input)
-
-	return result, err
+	return api.GetServerCertificate(c, input)
 }
 
 func main() {
@@ -43,7 +41,7 @@ func main() {
 		return
 	}
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -54,7 +52,7 @@ func main() {
 		ServerCertificateName: certName,
 	}
 
-	result, err := FindServerCert(context.Background(), client, input)
+	result, err := FindServerCert(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error retrieving the server certificate:")
 		fmt.Println(err)

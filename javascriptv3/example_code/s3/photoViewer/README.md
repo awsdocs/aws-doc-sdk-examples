@@ -15,7 +15,7 @@ This is a workspace where you can find working AWS SDK for JavaScript v3 S3 exam
 such as *@aws-sdk/client-s3*, *@aws-sdk/client-cognito-identity*, and 
 *@aws-sdk/credential-provider-cognito-identity*.
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/s3/src/photoViewer/src
 npm install
 ```

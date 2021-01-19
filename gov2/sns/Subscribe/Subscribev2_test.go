@@ -18,16 +18,6 @@ func (dt SNSSubscribeImpl) Subscribe(ctx context.Context,
 	params *sns.SubscribeInput,
 	optFns ...func(*sns.Options)) (*sns.SubscribeOutput, error) {
 
-	/*
-		buckets := make([]*types.Bucket, 2)
-		buckets[0] = &types.Bucket{Name: aws.String("bucket1")}
-		buckets[1] = &types.Bucket{Name: aws.String("bucket2")}
-
-		output := &s3.ListBucketsOutput{
-			Buckets: buckets,
-		}
-	*/
-
 	output := &sns.SubscribeOutput{
 		SubscriptionArn: aws.String("dummysubscriptionarn"),
 	}
@@ -80,7 +70,7 @@ func TestSubscribe(t *testing.T) {
 	input := &sns.SubscribeInput{
 		Endpoint:              &globalConfig.EmailAddress,
 		Protocol:              aws.String("email"),
-		ReturnSubscriptionArn: aws.Bool(true), // Return the ARN, even if user has yet to confirm
+		ReturnSubscriptionArn: true, // Return the ARN, even if user has yet to confirm
 		TopicArn:              &globalConfig.TopicArn,
 	}
 

@@ -29,9 +29,7 @@ type S3GetBucketAclAPI interface {
 //     If success, a GetBucketAclOutput object containing the result of the service call and nil
 //     Otherwise, nil and an error from the call to GetBucketAcl
 func FindBucketAcl(c context.Context, api S3GetBucketAclAPI, input *s3.GetBucketAclInput) (*s3.GetBucketAclOutput, error) {
-	result, err := api.GetBucketAcl(c, input)
-
-	return result, err
+	return api.GetBucketAcl(c, input)
 }
 
 func main() {
@@ -43,7 +41,7 @@ func main() {
 		return
 	}
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -54,9 +52,10 @@ func main() {
 		Bucket: bucket,
 	}
 
-	result, err := FindBucketAcl(context.Background(), client, input)
+	result, err := FindBucketAcl(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error retrieving ACL for " + *bucket)
+		return
 	}
 
 	fmt.Println("Owner:", *result.Owner.DisplayName)

@@ -171,7 +171,8 @@ def verify_no_deny_list_words(file_contents, file_location):
 
 def verify_no_secret_keys(file_contents, file_location):
     """Verify the file does not contain 20- or 40- length character strings,
-    which may be secret keys. Allow strings in the allow list."""
+    which may be secret keys. Allow strings in the allow list in
+    https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/scripts/checkin_tests.py."""
     error_count = 0
     twenties = re.findall("[^A-Z0-9][A][ACGIKNPRS][A-Z]{2}[A-Z0-9]{16}[^A-Z0-9]",
                           file_contents)
@@ -179,7 +180,7 @@ def verify_no_secret_keys(file_contents, file_location):
         if word[1:-1] in ALLOW_LIST:
             continue
         logger.error("20 character string '%s' found in %s and might be a secret "
-                     "access key.", {word[1:-1]}, file_location)
+                     "access key. If not, add it to the allow list in https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/scripts/checkin_tests.py.", {word[1:-1]}, file_location)
         error_count += 1
 
     forties = re.findall("[^a-zA-Z0-9/+=][a-zA-Z0-9/+=]{40}[^a-zA-Z0-9/+=]",
@@ -188,8 +189,9 @@ def verify_no_secret_keys(file_contents, file_location):
         if word[1:-1] in ALLOW_LIST:
             continue
         logger.error("40 character string '%s' found in %s and might be a secret "
-                     "access key.", {word[1:-1]}, file_location)
+                     "access key. If not, add it to the allow list in https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/scripts/checkin_tests.py.", {word[1:-1]}, file_location)
         error_count += 1
+
     return error_count
 
 

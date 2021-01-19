@@ -53,7 +53,7 @@ func TestListAdmins(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.Background())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}

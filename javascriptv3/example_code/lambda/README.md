@@ -24,7 +24,7 @@ which are *@aws-sdk/client-dynamodb*, *@aws-sdk/client-lambda*, *@aws-sdk/client
 *@aws-sdk/client-s3*, *@aws-sdk/client-dynamoDB*, *@aws-sdk/client-cognito-identity*, 
 *@aws-sdk/credential-provider-cognito-identity*, and *@aws-sdk/client-lambda*.
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/lambda
 npm install
 ```

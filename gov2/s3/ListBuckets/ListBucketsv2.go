@@ -28,13 +28,11 @@ type S3ListBucketsAPI interface {
 //     If success, a ListBucketsOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to ListBuckets.
 func GetAllBuckets(c context.Context, api S3ListBucketsAPI, input *s3.ListBucketsInput) (*s3.ListBucketsOutput, error) {
-	result, err := api.ListBuckets(c, input)
-
-	return result, err
+	return api.ListBuckets(c, input)
 }
 
 func main() {
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -43,7 +41,7 @@ func main() {
 
 	input := &s3.ListBucketsInput{}
 
-	result, err := GetAllBuckets(context.Background(), client, input)
+	result, err := GetAllBuckets(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error retrieving buckets:")
 		fmt.Println(err)

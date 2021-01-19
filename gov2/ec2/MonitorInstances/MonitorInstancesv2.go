@@ -9,10 +9,9 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/ec2"
-	"github.com/awslabs/smithy-go"
+	"github.com/aws/smithy-go"
 )
 
 // EC2MonitorInstancesAPI defines the interface for the MonitorInstances and UnmonitorInstances functions.
@@ -42,10 +41,8 @@ func EnableMonitoring(c context.Context, api EC2MonitorInstancesAPI, input *ec2.
 	var apiErr smithy.APIError
 	if errors.As(err, &apiErr) && apiErr.ErrorCode() == "DryRunOperation" {
 		fmt.Println("User has permission to enable monitoring.")
-		input.DryRun = aws.Bool(false)
-		result, err := api.MonitorInstances(c, input)
-
-		return result, err
+		input.DryRun = false
+		return api.MonitorInstances(c, input)
 	}
 
 	return resp, err
@@ -66,10 +63,8 @@ func DisableMonitoring(c context.Context, api EC2MonitorInstancesAPI, input *ec2
 	var apiErr smithy.APIError
 	if errors.As(err, &apiErr) && apiErr.ErrorCode() == "DryRunOperation" {
 		fmt.Println("User has permission to disable monitoring.")
-		input.DryRun = aws.Bool(false)
-		result, err := api.UnmonitorInstances(c, input)
-
-		return result, err
+		input.DryRun = false
+		return api.UnmonitorInstances(c, input)
 	}
 
 	return resp, err
@@ -89,7 +84,7 @@ func main() {
 		return
 	}
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -98,13 +93,13 @@ func main() {
 
 	if *monitor == "ON" {
 		input := &ec2.MonitorInstancesInput{
-			InstanceIds: []*string{
-				instanceID,
+			InstanceIds: []string{
+				*instanceID,
 			},
-			DryRun: aws.Bool(true),
+			DryRun: true,
 		}
 
-		result, err := EnableMonitoring(context.Background(), client, input)
+		result, err := EnableMonitoring(context.TODO(), client, input)
 		if err != nil {
 			fmt.Println("Got an error enabling monitoring for instance:")
 			fmt.Println(err)
@@ -114,13 +109,13 @@ func main() {
 		fmt.Println("Successfully enabled monitoring for instance: " + *result.InstanceMonitorings[0].InstanceId)
 	} else if *monitor == "OFF" {
 		input := &ec2.UnmonitorInstancesInput{
-			InstanceIds: []*string{
-				instanceID,
+			InstanceIds: []string{
+				*instanceID,
 			},
-			DryRun: aws.Bool(true),
+			DryRun: true,
 		}
 
-		result, err := DisableMonitoring(context.Background(), client, input)
+		result, err := DisableMonitoring(context.TODO(), client, input)
 		if err != nil {
 			fmt.Println("Got an error disabling monitoring for instance:")
 			fmt.Println(err)

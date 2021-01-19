@@ -22,7 +22,7 @@ Amazon S3 Glacier and S3 Glacier Deep Archive are a secure, durable, and extreme
 **Note**: These include the client module for the AWS services required in these example, 
 which is *@aws-sdk/client-glacier*.
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/glacier
 npm install
 ```

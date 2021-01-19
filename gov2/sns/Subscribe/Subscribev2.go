@@ -30,9 +30,7 @@ type SNSSubscribeAPI interface {
 //     If success, a SubscribeOutput object containing the result of the service call and nil
 //     Otherwise, nil and an error from the call to Subscribe
 func SubscribeTopic(c context.Context, api SNSSubscribeAPI, input *sns.SubscribeInput) (*sns.SubscribeOutput, error) {
-	result, err := api.Subscribe(c, input)
-
-	return result, err
+	return api.Subscribe(c, input)
 }
 
 func main() {
@@ -47,7 +45,7 @@ func main() {
 		return
 	}
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -57,11 +55,11 @@ func main() {
 	input := &sns.SubscribeInput{
 		Endpoint:              email,
 		Protocol:              aws.String("email"),
-		ReturnSubscriptionArn: aws.Bool(true), // Return the ARN, even if user has yet to confirm
+		ReturnSubscriptionArn: true, // Return the ARN, even if user has yet to confirm
 		TopicArn:              topicARN,
 	}
 
-	result, err := SubscribeTopic(context.Background(), client, input)
+	result, err := SubscribeTopic(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error subscribing to the topic:")
 		fmt.Println(err)

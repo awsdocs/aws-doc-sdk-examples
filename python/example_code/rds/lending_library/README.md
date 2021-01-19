@@ -19,7 +19,7 @@ and out of the database.
 - You must have an AWS account, and have your default credentials and AWS Region
   configured as described in the [AWS Tools and SDKs Shared Configuration and
   Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.6 or later
+- Python 3.7 or later
 - Boto3 1.14.47 or later
 - Chalice 1.20.0 or later
 - AWS CLI 1.18.147 or later

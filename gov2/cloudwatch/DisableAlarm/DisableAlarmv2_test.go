@@ -16,10 +16,7 @@ type CWDisableAlarmImpl struct{}
 func (dt CWDisableAlarmImpl) DisableAlarmActions(ctx context.Context,
 	params *cloudwatch.DisableAlarmActionsInput,
 	optFns ...func(*cloudwatch.Options)) (*cloudwatch.DisableAlarmActionsOutput, error) {
-
-	output := &cloudwatch.DisableAlarmActionsOutput{}
-
-	return output, nil
+	return &cloudwatch.DisableAlarmActionsOutput{}, nil
 }
 
 type Config struct {

@@ -14,7 +14,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/iam/types"
 )
 
-func userPolicyHasAdmin(user *types.UserDetail, admin string) bool {
+func userPolicyHasAdmin(user types.UserDetail, admin string) bool {
 	for _, policy := range user.UserPolicyList {
 		if *policy.PolicyName == admin {
 			return true
@@ -24,7 +24,7 @@ func userPolicyHasAdmin(user *types.UserDetail, admin string) bool {
 	return false
 }
 
-func attachedUserPolicyHasAdmin(user *types.UserDetail, admin string) bool {
+func attachedUserPolicyHasAdmin(user types.UserDetail, admin string) bool {
 	for _, policy := range user.AttachedManagedPolicies {
 		if *policy.PolicyName == admin {
 			return true
@@ -34,7 +34,7 @@ func attachedUserPolicyHasAdmin(user *types.UserDetail, admin string) bool {
 	return false
 }
 
-func groupPolicyHasAdmin(c context.Context, client *iam.Client, group *types.Group, admin string) (bool, error) {
+func groupPolicyHasAdmin(c context.Context, client *iam.Client, group types.Group, admin string) (bool, error) {
 	input := &iam.ListGroupPoliciesInput{
 		GroupName: group.GroupName,
 	}
@@ -46,7 +46,7 @@ func groupPolicyHasAdmin(c context.Context, client *iam.Client, group *types.Gro
 
 	// Wade through policies
 	for _, policyName := range result.PolicyNames {
-		if *policyName == admin {
+		if policyName == admin {
 			return true, nil
 		}
 	}
@@ -54,7 +54,7 @@ func groupPolicyHasAdmin(c context.Context, client *iam.Client, group *types.Gro
 	return false, nil
 }
 
-func attachedGroupPolicyHasAdmin(c context.Context, client *iam.Client, group *types.Group, admin string) (bool, error) {
+func attachedGroupPolicyHasAdmin(c context.Context, client *iam.Client, group types.Group, admin string) (bool, error) {
 	input := &iam.ListAttachedGroupPoliciesInput{
 		GroupName: group.GroupName,
 	}
@@ -73,7 +73,7 @@ func attachedGroupPolicyHasAdmin(c context.Context, client *iam.Client, group *t
 	return false, nil
 }
 
-func usersGroupsHaveAdmin(c context.Context, client *iam.Client, user *types.UserDetail, admin string) (bool, error) {
+func usersGroupsHaveAdmin(c context.Context, client *iam.Client, user types.UserDetail, admin string) (bool, error) {
 	input := &iam.ListGroupsForUserInput{
 		UserName: user.UserName,
 	}
@@ -146,7 +146,7 @@ func GetNumUsersAndAdmins(c context.Context, client *iam.Client) (string, string
 		}
 	}
 
-	for *resp.IsTruncated {
+	for resp.IsTruncated {
 		input := &iam.GetAccountAuthorizationDetailsInput{
 			Filter: filters,
 			Marker: resp.Marker,
@@ -175,7 +175,7 @@ func GetNumUsersAndAdmins(c context.Context, client *iam.Client) (string, string
 	return users, admins, nil
 }
 
-func isUserAdmin(c context.Context, client *iam.Client, user *types.UserDetail, admin string) (bool, error) {
+func isUserAdmin(c context.Context, client *iam.Client, user types.UserDetail, admin string) (bool, error) {
 	// Check policy, attached policy, and groups (policy and attached policy)
 	policyHasAdmin := userPolicyHasAdmin(user, admin)
 	if policyHasAdmin {
@@ -202,14 +202,14 @@ func main() {
 	showDetails := flag.Bool("d", false, "Whether to print out names of users and admins")
 	flag.Parse()
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
 
 	client := iam.NewFromConfig(cfg)
 
-	users, admins, err := GetNumUsersAndAdmins(context.Background(), client)
+	users, admins, err := GetNumUsersAndAdmins(context.TODO(), client)
 	if err != nil {
 		fmt.Println("Got an error finding users who are admins:")
 		fmt.Println(err)

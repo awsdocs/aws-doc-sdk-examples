@@ -29,9 +29,7 @@ type IAMGetPolicyAPI interface {
 //     If successful, a GetPolicyOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to GetPolicy.
 func GetPolicyDescription(c context.Context, api IAMGetPolicyAPI, input *iam.GetPolicyInput) (*iam.GetPolicyOutput, error) {
-	result, err := api.GetPolicy(c, input)
-
-	return result, err
+	return api.GetPolicy(c, input)
 }
 
 func main() {
@@ -43,7 +41,7 @@ func main() {
 		return
 	}
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -54,7 +52,7 @@ func main() {
 		PolicyArn: policyArn,
 	}
 
-	result, err := GetPolicyDescription(context.Background(), client, input)
+	result, err := GetPolicyDescription(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error retrieving the description:")
 		fmt.Println(err)
