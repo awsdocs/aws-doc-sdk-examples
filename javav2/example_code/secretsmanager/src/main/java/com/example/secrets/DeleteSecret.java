@@ -20,6 +20,14 @@ import software.amazon.awssdk.services.secretsmanager.model.DeleteSecretRequest;
 import software.amazon.awssdk.services.secretsmanager.model.SecretsManagerException;
 //snippet-end:[secretsmanager.java2.delete_secret.import]
 
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ *https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class DeleteSecret {
 
     public static void main(String[] args) {
