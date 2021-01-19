@@ -1121,8 +1121,8 @@ The following Java code represents the **WriteExcel** class.
                 count++;
         }
         return count;
+      }
      }
-    }
 
 ## Create the HTML files
 
@@ -1424,6 +1424,17 @@ The following JavaScript represents the **message.js** file. The **ProcessImages
     }
 
 **Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.   
+
+## Set Timeout value for Elastic Beanstalk
+
+When a request is made by the application to analyze a video, it may take longer then the default timeout value. You can increase the timeout setting for Elastic Beanstalk by placing a .config file in a **.ebextensions** folder in the root of your project. The following file can be used to increase the timeout value.
+
+      option_settings:
+        - namespace: aws:elasticbeanstalk:command
+          option_name: Timeout
+          value: 1800
+
+For more information, see  [Advanced environment customization with configuration files](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/ebextensions.html).
 
 ## Package the project
 
