@@ -17,8 +17,8 @@ import java.util.List;
 @Component
 public class VideoDetectFaces {
 
-    String topicArn = "arn:aws:sns:us-east-1:814548047983:video";
-    String roleArn = "arn:aws:iam::814548047983:role/video";
+    String topicArn = "<ENTER TOPIC ARN VALUE>";
+    String roleArn = "<ENTER ROLE ARN VALUE>";
 
     private RekognitionClient getRecClient() {
         Region region = Region.US_EAST_1;
