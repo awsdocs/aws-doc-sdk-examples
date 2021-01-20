@@ -33,7 +33,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SendMessages {
 
-    private String sender = "<Enter Email Address";
+    private String sender = "<Enter Email Address>";
 
     // The subject line for the email.
     private String subject = "Analyzed Video report";
