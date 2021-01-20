@@ -1,37 +1,44 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Adds an item to a DynamoDB table.]
-# snippet-keyword:[Amazon DynamoDB]
-# snippet-keyword:[table method]
-# snippet-keyword:[table.put_item method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[dynamodb]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-require 'aws-sdk-dynamodb'  # v2: require 'aws-sdk'
+require 'aws-sdk-dynamodb'
 
-dynamoDB = Aws::DynamoDB::Resource.new(region: 'us-west-2')
+def item_added_to_table?(dynamodb_client, table_item)
+  dynamodb_client.put_item(table_item)
+  true
+rescue StandardError => e
+  puts "Error adding item: #{e.message}"
+  false
+end
 
-table = dynamoDB.table('Users')
+def run_me
+  region = 'us-west-2'
+  table_name = 'Users'
+  user_id = 123456
+  first_name = 'John'
+  last_name = 'Doe'
 
-table.put_item({
-  item:
-    {
-      "ID" => 123456,
-      "FirstName" => 'Snoop',
-      "LastName" => 'Doug'
-}})
+  dynamodb_client = Aws::DynamoDB::Client.new(region: region)
+
+  item = {
+    'ID': user_id,
+    'FirstName': first_name,
+    'LastName': last_name
+  }
+
+  table_item = {
+    table_name: table_name,
+    item: item
+  }
+
+  puts "Adding user '#{item[:FirstName]} #{item[:LastName]}' " \
+    "to table '#{table_name}'..."
+  
+  if item_added_to_table?(dynamodb_client, table_item)
+    puts 'Item added.'
+  else
+    puts 'Item not added.'
+  end
+end
+
+run_me if $PROGRAM_NAME == __FILE__
