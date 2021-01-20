@@ -47,8 +47,7 @@ public class VideoController {
         return "process";
     }
 
-    private String bucketName = "scottexamplevideo";
-
+    private String bucketName = "<Enter BUCKET NAME>";
 
     @RequestMapping(value = "/getvideo", method = RequestMethod.GET)
     @ResponseBody
@@ -67,9 +66,8 @@ public class VideoController {
             String name =  file.getOriginalFilename() ;
 
             // Put the MP4 file into an Amazon S3 bucket
-            int yy = 0;
-            s3Client.putObject(bytes, bucketName, name);
-            // return "You have placed " +name + " into the S3 bucket";
+             s3Client.putObject(bytes, bucketName, name);
+                      
         } catch (IOException e) {
             e.printStackTrace();
         }
