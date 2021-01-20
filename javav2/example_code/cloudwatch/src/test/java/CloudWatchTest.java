@@ -141,7 +141,7 @@ public class CloudWatchTest {
     @Order(8)
     public void GetLogEvents() {
 
-        GetLogEvents.getCWLogEvebts(cloudWatchLogsClient,logGroup,streamName);
+        GetLogEvents.getCWLogEvents(cloudWatchLogsClient,logGroup,streamName);
         System.out.println("\n Test 8 passed");
     }
 
