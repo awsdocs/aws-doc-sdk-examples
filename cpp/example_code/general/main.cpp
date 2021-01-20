@@ -11,10 +11,10 @@ using namespace Aws;
 int main()
 {
     //The Aws::SDKOptions struct contains SDK configuration options.
-    //An instance of Aws::SDKOptions is passed to the Aws::InitAPIand Aws::ShutdownAPI methods.The same instance should be sent to both methods.
+    //An instance of Aws::SDKOptions is passed to the Aws::InitAPI and Aws::ShutdownAPI methods.  The same instance should be sent to both methods.
     SDKOptions options;
     options.loggingOptions.logLevel = Utils::Logging::LogLevel::Debug;
-    //The AWS SDK for C++ must be initialized by calling Aws::InitAPI
+    //The AWS SDK for C++ must be initialized by calling Aws::InitAPI.
     InitAPI(options); 
     {
         S3::S3Client client;

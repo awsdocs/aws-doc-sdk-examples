@@ -12,7 +12,7 @@ list(APPEND CMAKE_PREFIX_PATH "C:\\Program Files (x86)\\aws-cpp-sdk-all\\lib\\cm
 list(APPEND CMAKE_PREFIX_PATH "C:\\Program Files (x86)\\aws-cpp-sdk-all\\lib\\aws-c-event-stream\\cmake")
 list(APPEND CMAKE_PREFIX_PATH "C:\\Program Files (x86)\\aws-cpp-sdk-all\\lib\\aws-c-common\\cmake")
 list(APPEND CMAKE_PREFIX_PATH "C:\\Program Files (x86)\\aws-cpp-sdk-all\\lib\\aws-checksums\\cmake")
-#Load required components: This basic example uses S3
+#Load required components: This basic example uses S3.
 find_package(AWSSDK CONFIG COMPONENTS s3 REQUIRED)
 # The executable name and its sourcefiles.
 add_executable(${PROJECT_NAME} "main.cpp")
@@ -23,11 +23,11 @@ if(MSVC AND BUILD_SHARED_LIBS)
     add_definitions(-DUSE_IMPORT_EXPORT)
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
     list(APPEND SERVICE_LIST s3)
-    #for IDE's like Xcode and Visual Studio this line will be ignored because Release/Debug switched internally, but necessary for non-IDE builds
+    #For IDE's like Xcode and Visual Studio this line will be ignored because Release/Debug switched internally, but necessary for non-IDE builds.
     set(CMAKE_BUILD_TYPE Debug)
     #Note:Choose appropriate one of the following two lines, based on your build output.
-    AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  #Choose this line if your .exe is in /build/Debug
-    #AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR})  #Choose this line for Visual Studio and possibly other IDEs
+    AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  #Choose this line if your .exe is in /build/Debug.
+    #AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR})  #Choose this line for Visual Studio and possibly other IDEs.
     message(STATUS ">>CMAKE_CURRENT_BINARY_DIR: ${CMAKE_CURRENT_BINARY_DIR}")
     message(STATUS ">>CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 endif()
