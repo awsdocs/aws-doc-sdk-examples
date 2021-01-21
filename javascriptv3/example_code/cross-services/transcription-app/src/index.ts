@@ -60,9 +60,9 @@ const loginData = {
 
 // Create the parameters.
 const params = {
-  Bucket: "BUCKET_NAME", // Amazon Simple Storage Service (Amazon S3) bucket to store transcriptions
-  Region: "REGION", // AWS Region
-  identityPoolID: "IDENTITY_POOL_ID", // IDENTITY_POOL_ID
+  Bucket: "transcriptionstack-transciptions9a4f0bb8-sfm8m1tdvo7k", // Amazon Simple Storage Service (Amazon S3) bucket to store transcriptions
+  Region: "eu-central-1", // AWS Region
+  identityPoolID: "eu-central-1:2312ffb5-11b4-4ceb-b1cd-cfd022953845", // IDENTITY_POOL_ID
 };
 
 // Create an Amazon Transcribe service client object.

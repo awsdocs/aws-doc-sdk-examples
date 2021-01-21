@@ -21,10 +21,10 @@
   },
   "homepage": "https://github.com/awsdocs/aws-doc-sdk-examples#readme",
   "dependencies": {
-    "@aws-sdk/client-cognito-identity": "^1.0.0-gamma.1",
-    "@aws-sdk/credential-provider-cognito-identity": "^1.0.0-gamma.2",
-    "@aws-sdk/client-lambda": "^1.0.0-gamma.2",
-    "@aws-sdk/client-s3": "^1.0.0-gamma.1",
+    "@aws-sdk/client-cognito-identity": "3.3.0",
+    "@aws-sdk/credential-provider-cognito-identity": "3.3.0",
+    "@aws-sdk/client-lambda": "3.3.0",
+    "@aws-sdk/client-s3": "3.3.0",
     "fs": "0.0.1-security"
   },
   "devDependencies": {
