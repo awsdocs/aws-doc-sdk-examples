@@ -1,0 +1,27 @@
+--- 
+files:
+  - path: src/main/java/com/example/video/BucketItem.java
+    services:
+      - S3
+  - path: src/main/java/com/example/video/FaceItems.java
+    services:
+      - S3
+  - path: src/main/java/com/example/video/S3Service.java
+    services:
+      - S3
+  - path: src/main/java/com/example/video/SendMessages.java
+    services:
+      - S3
+  - path: src/main/java/com/example/video/VideoApplication.java
+    services:
+      - S3
+  - path: src/main/java/com/example/video/VideoController.java
+    services:
+      - S3
+  - path: src/main/java/com/example/video/VideoDetectFaces.java
+    services:
+      - S3
+  - path: src/main/java/com/example/video/WriteExcel.java
+    services:
+      - S3
+    

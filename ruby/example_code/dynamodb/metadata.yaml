@@ -75,3 +75,33 @@ files:
   - path: GettingStarted/tests/test_MoviesScan.rb
     services:
     - dynamodb
+  - path: dynamodb_ruby_example_create_movies_item.rb
+    services:
+    - dynamodb
+  - path: tests/test_dynamodb_ruby_example_create_movies_item.rb
+    services:
+    - dynamodb
+  - path: dynamodb_ruby_example_create_movies_table.rb
+    services:
+    - dynamodb
+  - path: tests/test_dynamodb_ruby_example_create_movies_table.rb
+    services:
+    - dynamodb
+  - path: dynamodb_ruby_example_delete_movies_item.rb
+    services:
+    - dynamodb
+  - path: tests/test_dynamodb_ruby_example_delete_movies_item.rb
+    services:
+    - dynamodb
+  - path: dynamodb_ruby_example_delete_movies_table.rb
+    services:
+    - dynamodb
+  - path: tests/test_dynamodb_ruby_example_delete_movies_table.rb
+    services:
+    - dynamodb
+  - path: dynamodb_ruby_example_load_movies.rb
+    services:
+    - dynamodb
+  - path: tests/test_dynamodb_ruby_example_load_movies.rb
+    services:
+    - dynamodb
