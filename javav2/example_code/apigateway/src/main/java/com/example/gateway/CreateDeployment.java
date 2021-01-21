@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateDeployment.java demonstrates how to create a deployment.]
+//snippet-sourcedescription:[CreateDeployment.java demonstrates how to create a deployment resource.]
 //snippet-keyword:[SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon API Gateway]
@@ -12,37 +12,60 @@
 */
 package com.example.gateway;
 
+// snippet-start:[apigateway.java2.create_deployment.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.apigateway.ApiGatewayClient;
-import software.amazon.awssdk.services.apigateway.model.*;
+import software.amazon.awssdk.services.apigateway.model.CreateDeploymentRequest;
+import software.amazon.awssdk.services.apigateway.model.CreateDeploymentResponse;
+import software.amazon.awssdk.services.apigateway.model.ApiGatewayException;
+// snippet-end:[apigateway.java2.create_deployment.import]
 
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ *https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class CreateDeployment {
     public static void main(String[] args) {
 
-        Region region = Region.US_EAST_1;
-        ApiGatewayClient apiGateway = ApiGatewayClient.builder()
+      final String USAGE = "\n" +
+           "Usage:\n" +
+           "    CreateDeployment <restApiId>\n\n" +
+           "Where:\n" +
+           "    restApiId - The string identifier of the associated RestApi. (for example, xxxx99ewyg).\n" +
+           "    stageName - The name of the stage. \n" ;
+
+            if (args.length != 2) {
+                System.out.println(USAGE);
+                System.exit(1);
+            }
+
+            String restApiId = args[0];
+            String stageName = args[1];
+            Region region = Region.US_EAST_1;
+            ApiGatewayClient apiGateway = ApiGatewayClient.builder()
                 .region(region)
                 .build();
 
-        String restApiId = "inx399ewyg";
-        createNewDeployment(apiGateway, restApiId);
-        apiGateway.close();
-
+            createNewDeployment(apiGateway, restApiId, stageName);
+            apiGateway.close();
     }
 
-    public static String createNewDeployment(ApiGatewayClient apiGateway, String restApiId) {
+    // snippet-start:[apigateway.java2.create_deployment.main]
+    public static String createNewDeployment(ApiGatewayClient apiGateway, String restApiId, String stageName) {
 
         try {
             CreateDeploymentRequest request = CreateDeploymentRequest.builder()
                     .restApiId(restApiId)
                     .description("Created using the AWS API Gateway Java API")
-                    .stageName("MyStage")
+                    .stageName(stageName)
                     .build();
 
             CreateDeploymentResponse response = apiGateway.createDeployment(request);
             System.out.println("The id of the deployment is "+response.id());
             return response.id();
-
 
         } catch (ApiGatewayException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -50,4 +73,5 @@ public class CreateDeployment {
         }
         return ""  ;
     }
+    // snippet-end:[apigateway.java2.create_deployment.main]
 }

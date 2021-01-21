@@ -1,32 +1,48 @@
+//snippet-sourcedescription:[GetStages.java demonstrates how to get information about stages.]
+//snippet-keyword:[SDK for Java v2]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon API Gateway]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[01/21/2021]
+//snippet-sourceauthor:[scmacdon - aws]
+
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 package com.example.gateway;
 
+// snippet-start:[apigateway.java2.get_stages.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.apigateway.ApiGatewayClient;
 import software.amazon.awssdk.services.apigateway.model.*;
-
 import java.util.List;
+// snippet-end:[apigateway.java2.get_stages.import]
+
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ *https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 
 public class GetStages {
     public static void main(String[] args) {
+
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "  SetAcl <bucketName> <objectKey> <id> \n\n" +
+                "    GetStages <restApiId> \n\n" +
                 "Where:\n" +
-                " bucketName - the Amazon S3 bucket to grant permissions on. \n" +
-                " objectKey - the object to grant permissions on. \n" +
-                " id - the ID of the owner of this bucket (you can get this value from the AWS Management Console).\n";
+                "    restApiId - The string identifier of an existing RestApi. (for example, xxxx99ewyg).\n" ;
 
-        // if (args.length != 3) {
-        //     System.out.println(USAGE);
-        //     System.exit(1);
-        // }
+        if (args.length != 1) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
 
-        //String objectKey = args[1];
-        // String id = args[2];
-
-        System.out.format("Setting access \n");
-        String restApiId = "l7zhq4lbli";
-
+        String restApiId =  args[0];
         Region region = Region.US_EAST_1;
         ApiGatewayClient apiGateway = ApiGatewayClient.builder()
                 .region(region)
@@ -34,9 +50,9 @@ public class GetStages {
 
         getAllStages(apiGateway, restApiId);
         apiGateway.close();
-
     }
 
+    // snippet-start:[apigateway.java2.get_stages.main]
     public static void getAllStages(ApiGatewayClient apiGateway, String restApiId) {
 
         try {
@@ -57,11 +73,7 @@ public class GetStages {
             System.exit(1);
         }
 
-
-
-        System.out.println("Done!");
-        apiGateway.close();
     }
-
+    // snippet-end:[apigateway.java2.get_stages.main]
 }
 
