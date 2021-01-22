@@ -515,9 +515,9 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 You can use the Amazon Gateway API console to create a Rest endpoint for the Lambda function. Once done, you are able to invoke the Lambda function using a Restful call.
 
-1. Sign in to the Amazon API Gateway console at https://console.aws.amazon.com/apigateway..
+1. Sign in to the Amazon API Gateway console at https://console.aws.amazon.com/apigateway.
 
-2. Under Rest API, choose Build.
+2. Under Rest API, choose **Build**.
 
 ![AWS Tracking Application](images/picRest.png)
 
@@ -529,7 +529,7 @@ You can use the Amazon Gateway API console to create a Rest endpoint for the Lam
 
 ![AWS Tracking Application](images/picEmployeeAPI.png)
 
-5. Choose Create API. 
+5. Choose **Create API**. 
 
 6. Choose **Resources** under the **Employee** section. 
 
@@ -539,11 +539,11 @@ You can use the Amazon Gateway API console to create a Rest endpoint for the Lam
 
 8. In the name field, specify **employees**. 
 
-9. Choose Create Resources. 
+9. Choose **Create Resources**. 
 
 ![AWS Tracking Application](images/picCreateResources.png)
 
-10. Choose /employees and then select GET from the drop down. Choose the checkmark icon. 
+10. Choose **/employees** and then select GET from the drop down. Choose the checkmark icon. 
 
 ![AWS Tracking Application](images/picGet.png)
 
