@@ -14,6 +14,9 @@ For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/deve
 
 */
 // This file contains vanilla JavaScript helper functions for user interface.
+
+// snippet-start:[transcribe.JavaScript.recording-app.helper]
+
 window.downloadInnerHtml = function (filename, elId, mimeType) {
   var elHtml = document.getElementById(elId).innerHTML;
   var link = document.createElement("a");
@@ -81,3 +84,4 @@ window.getAccessToken = function () {
   var accesstoken2 = accesstoken1.split("&")[0];
   return accesstoken2;
 };
+// snippet-end:[transcribe.JavaScript.recording-app.helper]

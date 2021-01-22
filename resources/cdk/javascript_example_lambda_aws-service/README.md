@@ -2,14 +2,6 @@
 
 Use the template files in this folder to create the unique source code and the associated AWS CloudFormation template file for your finished AWS CDK app.
 
-The AWS CloudFormation template file generated using this app creates a stack to provision resources for the
-[Lambda Examples](https://docs.aws.amazon.com/cdk/latest/guide/lambda-create-table.html) tutorial in the *AWS SDK for JavaScript Developer guide*, including:
-- An Amazon Cognito identity pool with an authenticated user role.
-- An IAM policy with permissions for the Amazon S3 and Amazon Transcribe is attached to the authenticated user role.
-- An Amazon Cognito user pool that enables users to sign up and sign in to the app.
-- An Amazon S3 bucket to host the application files.
-- An Amazon S3 bucket to to store the transcriptions.
-
 ## Prerequisites
 
 To set up your development machine in order to customize and run this AWS CDK template app, following the instructions for TypeScript in the "Prerequisites" section of the [Getting started with the AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html) topic in the *AWS CDK Developer Guide*.
@@ -27,7 +19,9 @@ This folder contains the following template files:
 
 ## Customization
 
-To use these template files to create your AWS CDK app, modify the ``setup.ts`` file to include the AWS resources that you want the AWS CDK to generate. For more information, see the [AWS CDK Developer Guide](https://docs.aws.amazon.com/cdk/latest/guide).
+To use these template files to create your AWS CDK app, modify the ``setup.ts`` file to include the AWS resources that you want the AWS CDK to generate, and 
+update the ``package.json`` to include all required Amazon S3 package from the AWS Construct Library. 
+To avoid errors, make sure all CDK dependencies have the same version. For example, ``"@aws-cdk/aws-s3: "1.79.0"``.  For more information, see the [AWS CDK Developer Guide](https://docs.aws.amazon.com/cdk/latest/guide).
 
 To download the necessary dependent packages in order to run your AWS CDK app, first run the following command from within this folder:
 
@@ -69,13 +63,13 @@ To merge your finished AWS CDK app's source code, merge **only** the following f
 
 This is especially important for the ``node_modules/`` folder, as it could grow to several hundred megabytes or more in size during development. The ``.gitignore`` file in this folder contains a list of these folders and files.
 
-You can regenerate these unmerged folders and files on your development machine as needed by running the preceding ``npm`` and ``cdk`` commands on your development machine (after installing the AWS CDK prerequisites).
+You can regenerate these unmerged folders and files on your development machine as needed by running the preceding ``npm`` and ``cdk`` commands on your development machine (after of course installing the AWS CDK prerequisites).
 
 Merge the ``CloudFormation.yaml`` file into the same location(s) as any code example file(s) with which this ``CloudFormation.yaml`` file is intended to be used.
 
 ## Using the AWS CLI or the AWS CloudFormation Console
 
-Callers can use the AWS Command Line Interface (AWS CLI) or the AWS CloudFormation Console to run your AWS CloudFormation template file. (They can use the AWS CDK, but they would need to first install the AWS CDK prerequisites.)
+Callers can use the AWS Command Line Interface (AWS CLI) or the AWS CloudFormation Console to run your AWS CloudFormation template file. (They can of course use the AWS CDK, but they would need to first install the AWS CDK prerequisites.)
 
 To use the AWS CLI, run the following command from within the same folder as the ``CloudFormation.yaml`` file to create the corresponding stack in AWS CloudFormation, where ``SetupStack`` is some stack name that is unique within an individual AWS Region for the AWS account:
 
