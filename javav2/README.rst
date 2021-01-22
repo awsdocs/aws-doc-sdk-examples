@@ -63,6 +63,8 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 
 + **Creating AWS video analyzer applications using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and various AWS services, such as the  Amazon Rekognition service, to analyze videos. The application analyzes a video located in an Amazon S3 bucket and generates and emails a report that breaks the video into a series of labels.
 
++ **Using Amazon API Gateway to invoke Lambda functions** - A tutorial that discusses how to use Amazon API Gateway to invoke a Lambda function. In addition, the AWS Lambda function is created by using the AWS Lambda Java runtime API and invokes multiple AWS services to perform a specific use case.
+
 
 AWS service examples
 --------------------
