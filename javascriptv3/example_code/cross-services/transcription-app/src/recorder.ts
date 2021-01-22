@@ -7,56 +7,53 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/transcribe-app
 Purpose:
 recorder.ts is part of a tutorial demonstrating how to build and deploy an app that transcribes and displays
 voice recordings for authenticated users. To run the full tutorial, see
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/transcribe-app.html.
+https://docs.aws.amazon.comsdk-for-javascript/v3/developer-guide/transcribe-app.html.
 
 Running the code:
-For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/transcribe-app.html.
 
 */
-// This file contains functions for recording transcriptions
-// Enable the microphone on your browser.
+// Functions for recording transcriptions
+// Enable microphone on browser
+require("./helper.ts");
+const{username} =require("./index.ts");
+const{CognitoIdentityProviderClient, GetUserCommand} = require("@aws-sdk/client-cognito-identity-provider");
 navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
   handlerFunction(stream);
 });
 
-// This is a handler function to manage recordings.
-function handlerFunction(stream) {
-  rec = new MediaRecorder(stream);
-  rec.ondataavailable = (e) => {
-    audioChunks.push(e.data);
-    if (rec.state == "inactive") {
-      let blob = new Blob(audioChunks, { type: "audio/mpeg-3" });
-      var recordedAudio = document.getElementById("recordedAudio");
-      recordedAudio.src = URL.createObjectURL(blob);
-      recordedAudio.controls = true;
-      recordedAudio.autoplay = true;
-      sendData(blob);
-
-      const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider(
-        { region: "eu-west-1" }
-      );
-      const userParams = {
-        AccessToken: getAccessToken(),
-      };
-      cognitoidentityserviceprovider.getUser(userParams, function (err, data) {
-        if (err) console.log(err, err.stack);
-        else console.log(data.Username);
-        var username = data.Username;
-        console.log("the username", username);
+// Handler function to manage recordings
+function handlerFunction (stream) {
+    rec = new MediaRecorder(stream);
+    rec.ondataavailable = (e) => {
+        audioChunks.push(e.data);
+        if (rec.state == "inactive") {
+            let blob = new Blob(audioChunks, {type: "audio/mpeg-3"});
+            var recordedAudio = document.getElementById("recordedAudio");
+            recordedAudio.src = URL.createObjectURL(blob);
+            recordedAudio.controls = true;
+            recordedAudio.autoplay = true;
+            sendData(blob);
+            sendBlob(blob)
+        }
+    }
+};
+const sendBlob = async (blob) => {
+      try{
         upload(blob, username);
-      });
+      }
+      catch(err) {
+          console.log("Error", err)
+      };
       // Upload recording to Amazon S3 bucket
       alert("Refresh page in ~1 min to view your transcription.");
-    }
-  };
-}
+    };
 
 function sendData(data) {
   console.log("sent");
   console.log(recordedAudio.src.split("/", -1)[3]);
 }
 
-// Start recording.
+// Start recording
 window.startRecord = function () {
   console.log("Recording started");
   var record = document.getElementById("record");
@@ -68,15 +65,13 @@ window.startRecord = function () {
   rec.start();
 };
 
-// Stop recording.
+// Stop recording
 window.stopRecord = function () {
   console.log("Recording stopped");
   var record = document.getElementById("record");
   var stop = document.getElementById("stopRecord");
-  var audioDownload = document.getElementById("audioDownload");
   record.disabled = false;
   stop.disabled = true;
   record.style.backgroundColor = "red";
   rec.stop();
-  audioDownload.click();
 };

@@ -24,14 +24,17 @@ For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/deve
 */
 // snippet-start:[transcribe.JavaScript.recording-app.config]
 // Import the required AWS SDK clients and commands for Node.js
-const AWS = require("aws-sdk");
 require("./helper.ts");
 require("./recorder.ts");
-const { IAMClient, GetUserCommand } = require("@aws-sdk/client-iam");
+const { IAMClient } = require("@aws-sdk/client-iam");
 const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
 const {
   fromCognitoIdentityPool,
 } = require("@aws-sdk/credential-provider-cognito-identity");
+const {
+  CognitoIdentityProviderClient,
+  GetUserCommand,
+} = require("@aws-sdk/client-cognito-identity-provider");
 const { S3RequestPresigner } = require("@aws-sdk/s3-request-presigner");
 const { createRequest } = require("@aws-sdk/util-create-request");
 const { formatUrl } = require("@aws-sdk/util-format-url");
@@ -52,17 +55,21 @@ const {
 } = require("@aws-sdk/client-s3");
 const { path } = require("path");
 const fetch = require("node-fetch");
-let COGNITO_ID = "cognito-idp.eu-west-1.amazonaws.com/USER_POOL_ID";
-const idToken = getToken();
-const loginData = {
+
+// 'COGINTO_ID' has the format 'cognito-idp.eu-west-1.amazonaws.com/COGNITO_ID'.
+let COGNITO_ID = "COGNITO_ID";
+
+// Get the Amazon Cognito ID token for the user. 'getToken()' is in 'helper.ts'.
+let idToken = getToken();
+let loginData = {
   [COGNITO_ID]: idToken,
 };
 
 // Create the parameters.
 const params = {
-  Bucket: "transcriptionstack-transciptions9a4f0bb8-sfm8m1tdvo7k", // Amazon Simple Storage Service (Amazon S3) bucket to store transcriptions
-  Region: "eu-central-1", // AWS Region
-  identityPoolID: "eu-central-1:2312ffb5-11b4-4ceb-b1cd-cfd022953845", // IDENTITY_POOL_ID
+  Bucket: "BUCKET", // The Amazon Simple Storage Solution (S3) bucket to store the transcriptions.
+  Region: "REGION", // The AWS Region
+  identityPoolID: "IDENTITY_POOL_ID", // Amazon Cognito Identity Pool ID.
 };
 
 // Create an Amazon Transcribe service client object.
@@ -75,7 +82,7 @@ const client = new TranscribeClient({
   }),
 });
 
-// Create and Amazon S3 client object.
+// Create an Amazon S3 client object.
 const s3Client = new S3Client({
   region: params.Region,
   credentials: fromCognitoIdentityPool({
@@ -84,93 +91,88 @@ const s3Client = new S3Client({
     logins: loginData,
   }),
 });
-
 // snippet-end:[transcribe.JavaScript.recording-app.config]
 // snippet-start:[transcribe.JavaScript.recording-app.onload]
-window.onload = getUserName = async () => {
-  // Create a CognitoIdentityServiceProvider client object. This is V2 of the SDK for JS.
-  const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider(
-    { region: params.Region }
-  );
-  // Set the parameters
+window.onload = updateUserInterface = async () => {
+  // Set the parameters.
   const userParams = {
-    // Get the access token - see 'helper.ts'
+    // Get the access token. 'GetAccessToken()' is in 'helper.ts'.
     AccessToken: getAccessToken(),
   };
-  // Get the current username
-  cognitoidentityserviceprovider.getUser(userParams, function (err, data) {
-    if (err) console.log(err, err.stack);
-    // an error occurred
-    else console.log(data.Username);
-    var username = data.Username;
-    // Pass the user name to the 'updateInterface' function
-    updateInterface(username);
-  });
-};
-
-// Updates the user interface with new transcriptions.
-window.updateInterface = async function (username) {
+  // Create a CognitoIdentityProviderClient client object.
+  const client = new CognitoIdentityProviderClient({ region: params.Region });
   try {
-    // If this is user's first sign-in, create folder with user's name in bucket.
-    const Key = `${username}/`;
+    const data = await client.send(new GetUserCommand(userParams));
+    const username = data.Username;
     try {
-      const data = await s3Client.send(
-        new PutObjectCommand({ Key: Key, Bucket: params.Bucket })
-      );
-      console.log("Folder created");
-    } catch (err) {
-      console.log("Error", err);
-    }
-    try {
-      // Get a list of the objects in the Amazon S3 bucket.
-      const data = await s3Client.send(
-        new ListObjectsCommand({ Bucket: params.Bucket, Prefix: username })
-      );
-      // Create variable for the list of objects in the Amazon S3 bucket.
-      const output = data.Contents;
-      // Loop through the objects, populating a row on the user interface for each
-      for (var i = 0; i < output.length; i++) {
-        var obj = output[i];
-        const objectParams = {
-          Bucket: params.Bucket,
-          Key: obj.Key,
-        };
-        // Return the name of an object from the table.
-        const data = await s3Client.send(new GetObjectCommand(objectParams));
-        console.log("Success", data.Body);
-        // Extract the body contents from the returned data. This is a readable stream.
-        const result = data.Body;
-        // Create variable for the string version of the readable stream.
-        let stringResult = "";
-        for await (let chunk of yieldUint8Chunks(result)) {
-          stringResult += String.fromCharCode.apply(null, chunk);
+      // If this is user's first sign-in, create folder with user's name in bucket.
+      // Otherwise, no effect.
+      const Key = `${username}/`;
+      try {
+        const data = await s3Client.send(
+          new PutObjectCommand({ Key: Key, Bucket: params.Bucket })
+        );
+        console.log("Folder created for user ", data.Username);
+      } catch (err) {
+        console.log("Error", err);
+      }
+      try {
+        // Get a list of the objects in the Amazon S3 bucket.
+        const data = await s3Client.send(
+          new ListObjectsCommand({ Bucket: params.Bucket, Prefix: username })
+        );
+        // Create variable for the list of objects in the Amazon S3 bucket.
+        const output = data.Contents;
+        // Loop through the objects, populating a row on the user interface for each.
+        for (var i = 0; i < output.length; i++) {
+          var obj = output[i];
+          const objectParams = {
+            Bucket: params.Bucket,
+            Key: obj.Key,
+          };
+          // Get the name of the object from the Amazon S3 bucket.
+          const data = await s3Client.send(new GetObjectCommand(objectParams));
+          // Extract the body contents from the returned data. This is a readable stream.
+          const result = data.Body;
+          // Create variable for the string version of the readable stream.
+          let stringResult = "";
+          // Use 'yeidlUnit8Chunks' to convert readable streams into JSON.
+          for await (let chunk of yieldUint8Chunks(result)) {
+            stringResult += String.fromCharCode.apply(null, chunk);
+          }
+          // setTimeout function to wait while readable stream is converted into JSON.
+          setTimeout(function () {
+            // Parse JSON into human readable transcript, which will be displayed on user interface (UI).
+            const outputJSON = JSON.parse(stringResult).results.transcripts[0]
+              .transcript;
+            // Create name for transcript, which will be display on UI.
+            const outputJSONTime = JSON.parse(stringResult)
+              .jobName.split("/")[0]
+              .replace("-job", "");
+            i++;
+            //
+            // Display the details for the transcription on the UI.
+            // 'displayTranscriptionDetails()' is in 'helper.ts'.
+            displayTranscriptionDetails(
+              i,
+              outputJSONTime,
+              objectParams.Key,
+              outputJSON
+            );
+          }, 1000);
         }
-        // Wrap in setTimeout function to provide time for string to be parsed.
-        setTimeout(function () {
-          // Your code to be executed after 1 second
-          const outputJSON = JSON.parse(stringResult).results.transcripts[0]
-            .transcript;
-          const outputJSONTime = JSON.parse(stringResult)
-            .jobName.split("/")[0]
-            .replace("-job", "");
-          i++;
-          displayTranscriptionDetails(
-            i,
-            outputJSONTime,
-            objectParams.Key,
-            outputJSON
-          );
-        }, 1000);
+      } catch (err) {
+        console.log("Error", err);
       }
     } catch (err) {
-      console.log("Error", err);
+      console.log("Error creating presigned URL", err);
     }
   } catch (err) {
-    console.log("Error creating presigned URL", err);
+    console.log("Error", err);
   }
 };
 
-// Convert readable streams.
+// Convert readable streams
 async function* yieldUint8Chunks(data) {
   const reader = data.getReader();
   try {
@@ -188,18 +190,21 @@ async function* yieldUint8Chunks(data) {
 
 // Upload recordings to Amazon S3 bucket
 window.upload = async function (blob, userName) {
-  // Set parameters recording
+  // Set the parameters for the recording recording.
   const Key = `${userName}/test-object-${Math.ceil(Math.random() * 10 ** 10)}`;
+
+  // Create a presigned URL to upload the transcription to the Amazon S3 bucket when it is ready.
   try {
-    // Create a presigned URL to  upload the transcription to the Amazon S3 bucket when it is ready.
+    // Create an Amazon S3RequestPresigner object.
     const signer = new S3RequestPresigner({ ...s3Client.config });
+    // Create the request.
     const request = await createRequest(
       s3Client,
       new PutObjectCommand({ Key, Bucket: params.Bucket })
     );
     // Define the duration until expiration of the presigned URL.
     const expiration = new Date(Date.now() + 60 * 60 * 1000);
-    // Create and format the presigned URL
+    // Create and format the presigned URL.
     signedUrl = formatUrl(await signer.presign(request, expiration));
     console.log(`\nPutting "${Key}"`);
   } catch (err) {
@@ -214,7 +219,7 @@ window.upload = async function (blob, userName) {
       },
       body: blob,
     });
-    // Create the transcription job name. In this case, it's the current date and time.
+    // Create the transcription job name. In this case, it's the current data and time.
     const today = new Date();
     const date =
       today.getFullYear() +
@@ -226,7 +231,7 @@ window.upload = async function (blob, userName) {
       today.getHours() + "-" + today.getMinutes() + "-" + today.getSeconds();
     const jobName = date + "-time-" + time;
 
-    // Create the transcription job
+    // Call the "createTranscriptionJob()" .function.
     createTranscriptionJob(
       "s3://" + params.Bucket + "/" + Key,
       jobName,
@@ -238,7 +243,7 @@ window.upload = async function (blob, userName) {
   }
 };
 
-// Create the transcription job.
+// Create the AWS Transcribe transcription job.
 const createTranscriptionJob = async (recording, jobName, bucket, key) => {
   // Set the parameters for transcriptions job
   const params = {
@@ -251,7 +256,7 @@ const createTranscriptionJob = async (recording, jobName, bucket, key) => {
     },
   };
   try {
-    // Start the transcription job
+    // Start the transcription job.
     const data = await client.send(new StartTranscriptionJobCommand(params));
     console.log("Success - transcription submitted", data);
   } catch (err) {
@@ -260,7 +265,7 @@ const createTranscriptionJob = async (recording, jobName, bucket, key) => {
 };
 // snippet-end:[transcribe.JavaScript.recording-app.create-transcriptions]
 // snippet-start:[transcribe.JavaScript.recording-app.delete-transcriptions]
-// Delete a transcription.
+// Delete a transcription from the Amazon S3 bucket.
 window.deleteJSON = async (jsonFileName) => {
   try {
     const data = await s3Client.send(
