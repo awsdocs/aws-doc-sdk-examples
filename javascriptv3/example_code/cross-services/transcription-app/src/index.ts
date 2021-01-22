@@ -104,6 +104,9 @@ window.onload = updateUserInterface = async () => {
   try {
     const data = await client.send(new GetUserCommand(userParams));
     const username = data.Username;
+    var username = data.Username;
+    // Export username for use in 'recorder.ts'.
+    exports.username = username;
     try {
       // If this is user's first sign-in, create folder with user's name in bucket.
       // Otherwise, no effect.

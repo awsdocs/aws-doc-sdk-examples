@@ -20,8 +20,8 @@ window.downloadInnerHtml = function (filename, elId, mimeType) {
   mimeType = mimeType || "text/plain";
   link.setAttribute("download", filename);
   link.setAttribute(
-      "href",
-      "data:" + mimeType + ";charset=utf-8," + encodeURIComponent(elHtml)
+    "href",
+    "data:" + mimeType + ";charset=utf-8," + encodeURIComponent(elHtml)
   );
   link.click();
 };
@@ -33,7 +33,12 @@ window.deleteRow = function (rowid) {
 };
 
 // Display transcription details on user interface
-window.displayTranscriptionDetails = function (i, outputJSONTime, jobName, outputJSON) {
+window.displayTranscriptionDetails = function (
+  i,
+  outputJSONTime,
+  jobName,
+  outputJSON
+) {
   var table = document.getElementById("myTable");
   var row = table.insertRow(1);
   var cell1 = row.insertCell(0);
@@ -47,29 +52,22 @@ window.displayTranscriptionDetails = function (i, outputJSONTime, jobName, outpu
   document.getElementById(i).innerHTML = outputJSON;
   row.setAttribute("id", "row" + i);
   document
-      .getElementById("download")
-      .setAttribute(
-          "onclick",
-          "downloadInnerHtml('output.txt','" + i + "','text')"
-      );
+    .getElementById("download")
+    .setAttribute(
+      "onclick",
+      "downloadInnerHtml('output.txt','" + i + "','text')"
+    );
   document.getElementById("dateTime").innerHTML = outputJSONTime;
   document
-      .getElementById("delete")
-      .setAttribute(
-          "onclick",
-          "deleteRow(" +
-          "'" +
-          "row" +
-          i +
-          "'); deleteJSON(" +
-          "'" +
-          jobName +
-          "')"
-      );
+    .getElementById("delete")
+    .setAttribute(
+      "onclick",
+      "deleteRow(" + "'" + "row" + i + "'); deleteJSON(" + "'" + jobName + "')"
+    );
 };
 
 // Strips the token ID from the app URL after authentication
-window.getToken = function() {
+window.getToken = function () {
   var idtoken = window.location.href;
   var idtoken1 = idtoken.split("=")[1];
   var idtoken2 = idtoken1.split("&")[0];
@@ -77,11 +75,9 @@ window.getToken = function() {
   return idtoken3;
 };
 
-window.getAccessToken = function() {
+window.getAccessToken = function () {
   var accesstoken = window.location.href;
   var accesstoken1 = accesstoken.split("=")[2];
   var accesstoken2 = accesstoken1.split("&")[0];
   return accesstoken2;
 };
-
-

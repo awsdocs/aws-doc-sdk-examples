@@ -15,38 +15,43 @@ Running the code:
 // Functions for recording transcriptions
 // Enable microphone on browser
 require("./helper.ts");
-const{username} =require("./index.ts");
-const{CognitoIdentityProviderClient, GetUserCommand} = require("@aws-sdk/client-cognito-identity-provider");
+const index = require("./index.ts");
+const {
+  CognitoIdentityProviderClient,
+  GetUserCommand,
+} = require("@aws-sdk/client-cognito-identity-provider");
 navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
   handlerFunction(stream);
 });
 
 // Handler function to manage recordings
-function handlerFunction (stream) {
-    rec = new MediaRecorder(stream);
-    rec.ondataavailable = (e) => {
-        audioChunks.push(e.data);
-        if (rec.state == "inactive") {
-            let blob = new Blob(audioChunks, {type: "audio/mpeg-3"});
-            var recordedAudio = document.getElementById("recordedAudio");
-            recordedAudio.src = URL.createObjectURL(blob);
-            recordedAudio.controls = true;
-            recordedAudio.autoplay = true;
-            sendData(blob);
-            sendBlob(blob)
-        }
+function handlerFunction(stream) {
+  rec = new MediaRecorder(stream);
+  rec.ondataavailable = (e) => {
+    audioChunks.push(e.data);
+    if (rec.state == "inactive") {
+      let blob = new Blob(audioChunks, { type: "audio/mpeg-3" });
+      var recordedAudio = document.getElementById("recordedAudio");
+      recordedAudio.src = URL.createObjectURL(blob);
+      recordedAudio.controls = true;
+      recordedAudio.autoplay = true;
+      // Take username from 'index.ts'.
+      var username = index.username;
+      upload(blob, username);
+      sendData(blob);
+      sendBlob(blob);
     }
-};
+  };
+}
 const sendBlob = async (blob) => {
-      try{
-        upload(blob, username);
-      }
-      catch(err) {
-          console.log("Error", err)
-      };
-      // Upload recording to Amazon S3 bucket
-      alert("Refresh page in ~1 min to view your transcription.");
-    };
+  try {
+    upload(blob, username);
+  } catch (err) {
+    console.log("Error", err);
+  }
+  // Upload recording to Amazon S3 bucket
+  alert("Refresh page in ~1 min to view your transcription.");
+};
 
 function sendData(data) {
   console.log("sent");
