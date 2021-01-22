@@ -17,13 +17,15 @@ def run_me
   user_id = 123456
   first_name = 'John'
   last_name = 'Doe'
+  air_miles = 0
 
   dynamodb_client = Aws::DynamoDB::Client.new(region: region)
 
   item = {
     'ID': user_id,
     'FirstName': first_name,
-    'LastName': last_name
+    'LastName': last_name,
+    'AirMiles': air_miles
   }
 
   table_item = {

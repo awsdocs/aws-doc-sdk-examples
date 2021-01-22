@@ -1,39 +1,36 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Gets an item from a DynamoDB table.]
-# snippet-keyword:[Amazon DynamoDB]
-# snippet-keyword:[table method]
-# snippet-keyword:[table.get_item method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[dynamodb]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-require 'aws-sdk-dynamodb'  # v2: require 'aws-sdk'
+require 'aws-sdk-dynamodb'
 
-dynamoDB = Aws::DynamoDB::Resource.new(region: 'us-west-2')
+def get_item_from_table(dynamodb_client, table_item)
+  result = dynamodb_client.get_item(table_item)
+  if result.item.nil?
+    puts 'No matching item found.'
+  else
+    puts "User ID:    #{result.item['ID'].to_i}"
+    puts "First name: #{result.item['FirstName']}"
+    puts "Last name:  #{result.item['LastName']}"
+  end
+rescue StandardError => e
+  puts "Error getting item from table: #{e.message}"
+end
 
-table = dynamoDB.table('Users')
+def run_me
+  region = 'us-west-2'
+  table_name = 'Users'
+  user_id = 123456
 
-resp = table.get_item({
-  key: { 'ID' => 123456 }
-})
+  dynamodb_client = Aws::DynamoDB::Client.new(region: region)
 
-first_name = resp.item['FirstName']
-last_name = resp.item['LastName']
-         
-puts "First name: #{first_name}"
-puts "Last name:  #{last_name}"
+  table_item = {
+    table_name: table_name,
+    key: { 'ID': user_id }
+  }
+
+  puts "Getting information about user with ID '#{user_id}' " \
+    "from table '#{table_name}'..."
+  get_item_from_table(dynamodb_client, table_item)
+end
+
+run_me if $PROGRAM_NAME == __FILE__

@@ -1,58 +1,61 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Updates a DynamoDB table to include an index.]
-# snippet-keyword:[Amazon DynamoDB]
-# snippet-keyword:[update_table method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[dynamodb]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-require 'aws-sdk-dynamodb'  # v2: require 'aws-sdk'
+require 'aws-sdk-dynamodb'
 
-request = {
-  attribute_definitions: [
-    {
-      attribute_name: 'airmiles',
-      attribute_type: 'N',
-    },
-  ],
-  table_name: 'Users',
-  global_secondary_index_updates: [
-    {
-      create: {
-        index_name: 'air-mileage-index',
-        key_schema: [
-          {
-            attribute_name: 'airmiles',
-            key_type: 'HASH',
+def index_added?(dynamodb_client, index_definition)
+  dynamodb_client.update_table(index_definition)
+  true
+rescue StandardError => e
+  puts "Error creating index: #{e.message}"
+  false
+end
+
+def run_me
+  region = 'us-west-2'
+  table_name = 'Users'
+  index_name = 'AirMileageIndex'
+
+  dynamodb_client = Aws::DynamoDB::Client.new(region: region)
+
+  index_definition = {
+    table_name: table_name,
+    attribute_definitions: [
+      {
+        attribute_name: 'AirMiles',
+        attribute_type: 'N'
+      }
+    ],    
+    global_secondary_index_updates: [
+      {
+        create: {
+          index_name: index_name,
+          key_schema: [
+            {
+              attribute_name: 'AirMiles',
+              key_type: 'HASH'
+            }
+          ],
+          projection: {
+            projection_type: 'ALL'
           },
-        ],
-        projection: {
-          projection_type: 'ALL',
-        },
-        provisioned_throughput: {
-          read_capacity_units: 5,
-          write_capacity_units: 10,
-        },
-      },
-    },
-  ],
-}
+          provisioned_throughput: {
+            read_capacity_units: 5,
+            write_capacity_units: 10
+          }
+        }
+      }
+    ]
+  }
 
-dynamoDB = Aws::DynamoDB::Client.new(region: 'us-west-2')
+  puts "Adding index '#{index_name}' to table '#{table_name}'..."
 
-dynamoDB.update_table(request)
+  if index_added?(dynamodb_client, index_definition)
+    puts 'Index created.'
+  else
+    puts 'Index not created.'
+  end
+
+end
+
+run_me if $PROGRAM_NAME == __FILE__
