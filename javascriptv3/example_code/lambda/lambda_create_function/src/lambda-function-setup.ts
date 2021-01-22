@@ -21,7 +21,7 @@ Running the code:
 ts-node lambda-function-setup.ts
 */
 
-// snippet-start:[lambda.JavaScript.general-examples.LambdaFunctionSetUpV3]
+// snippet-start:[lambda.JavaScript.general-examples-lambda-create-function.LambdaFunctionSetUpV3]
 // Load the Lambda client.
 const {
     LambdaClient,
@@ -56,5 +56,5 @@ const run = async () => {
     }
 };
 run();
-// snippet-end:[lambda.JavaScript.general-examples.LambdaFunctionSetUpV3]
+// snippet-end:[lambda.JavaScript.general-examples-lambda-create-function.LambdaFunctionSetUpV3]
 

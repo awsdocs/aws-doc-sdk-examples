@@ -107,7 +107,7 @@ window.onload = updateUserInterface = async () => {
     // Export username for use in 'recorder.ts'.
     exports.username = username;
     try {
-      // If this is user's first sign-in, create folder with user's name in bucket.
+      // If this is user's first sign-in, create a folder with user's name in Amazon S3 bucket.
       // Otherwise, no effect.
       const Key = `${username}/`;
       try {
@@ -123,9 +123,9 @@ window.onload = updateUserInterface = async () => {
         const data = await s3Client.send(
           new ListObjectsCommand({ Bucket: params.Bucket, Prefix: username })
         );
-        // Create variable for the list of objects in the Amazon S3 bucket.
+        // Create a variable for the list of objects in the Amazon S3 bucket.
         const output = data.Contents;
-        // Loop through the objects, populating a row on the user interface for each.
+        // Loop through the objects, populating a row on the user interface for each object.
         for (var i = 0; i < output.length; i++) {
           var obj = output[i];
           const objectParams = {
@@ -134,20 +134,20 @@ window.onload = updateUserInterface = async () => {
           };
           // Get the name of the object from the Amazon S3 bucket.
           const data = await s3Client.send(new GetObjectCommand(objectParams));
-          // Extract the body contents from the returned data. This is a readable stream.
+          // Extract the body contents, a readable stream, from the returned data.
           const result = data.Body;
-          // Create variable for the string version of the readable stream.
+          // Create a variable for the string version of the readable stream.
           let stringResult = "";
-          // Use 'yeidlUnit8Chunks' to convert readable streams into JSON.
+          // Use 'yeidlUnit8Chunks' to convert the readable streams into JSON.
           for await (let chunk of yieldUint8Chunks(result)) {
             stringResult += String.fromCharCode.apply(null, chunk);
           }
-          // setTimeout function to wait while readable stream is converted into JSON.
+          // The setTimeout function waits while readable stream is converted into JSON.
           setTimeout(function () {
             // Parse JSON into human readable transcript, which will be displayed on user interface (UI).
             const outputJSON = JSON.parse(stringResult).results.transcripts[0]
               .transcript;
-            // Create name for transcript, which will be display on UI.
+            // Create name for transcript, which will be displayed.
             const outputJSONTime = JSON.parse(stringResult)
               .jobName.split("/")[0]
               .replace("-job", "");
@@ -174,7 +174,7 @@ window.onload = updateUserInterface = async () => {
   }
 };
 
-// Convert readable streams
+// Convert readable streams.
 async function* yieldUint8Chunks(data) {
   const reader = data.getReader();
   try {
@@ -221,7 +221,7 @@ window.upload = async function (blob, userName) {
       },
       body: blob,
     });
-    // Create the transcription job name. In this case, it's the current data and time.
+    // Create the transcription job name. In this case, it's the current date and time.
     const today = new Date();
     const date =
       today.getFullYear() +
@@ -233,7 +233,7 @@ window.upload = async function (blob, userName) {
       today.getHours() + "-" + today.getMinutes() + "-" + today.getSeconds();
     const jobName = date + "-time-" + time;
 
-    // Call the "createTranscriptionJob()" .function.
+    // Call the "createTranscriptionJob()" function.
     createTranscriptionJob(
       "s3://" + params.Bucket + "/" + Key,
       jobName,

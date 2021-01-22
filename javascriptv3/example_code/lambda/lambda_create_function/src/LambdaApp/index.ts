@@ -19,7 +19,7 @@ Inputs (replace in code):
 Running the code:
 ts-node ddb-table-create.ts
 */
-// snippet-start:[lambda.JavaScript.general-examples.indexV3]
+// snippet-start:[lambda.JavaScript.general-examples-lambda-create-function.indexV3]
 
 // Load the required clients and packages.
 const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
@@ -59,4 +59,4 @@ window.createTable = async () => {
   }
 };
 
-// snippet-end:[lambda.JavaScript.general-examples.indexV3]
+// snippet-end:[lambda.JavaScript.general-examples-lambda-create-function.indexV3]

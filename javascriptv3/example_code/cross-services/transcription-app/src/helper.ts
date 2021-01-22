@@ -13,7 +13,10 @@ Running the code:
 For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/transcribe-app.html.
 
 */
-// Vanilla JavaScript helper functions for user interface
+// This file contains vanilla JavaScript helper functions for user interface.
+
+// snippet-start:[transcribe.JavaScript.recording-app.helper]
+
 window.downloadInnerHtml = function (filename, elId, mimeType) {
   var elHtml = document.getElementById(elId).innerHTML;
   var link = document.createElement("a");
@@ -26,13 +29,13 @@ window.downloadInnerHtml = function (filename, elId, mimeType) {
   link.click();
 };
 
-// Delete a row from the user interface
+// Delete a row from the user interface.
 window.deleteRow = function (rowid) {
   const row = document.getElementById(rowid);
   row.parentNode.removeChild(row);
 };
 
-// Display transcription details on user interface
+// Display transcription details on user interface.
 window.displayTranscriptionDetails = function (
   i,
   outputJSONTime,
@@ -66,7 +69,7 @@ window.displayTranscriptionDetails = function (
     );
 };
 
-// Strips the token ID from the app URL after authentication
+// Strips the token ID from the app URL after authentication.
 window.getToken = function () {
   var idtoken = window.location.href;
   var idtoken1 = idtoken.split("=")[1];
@@ -81,3 +84,4 @@ window.getAccessToken = function () {
   var accesstoken2 = accesstoken1.split("&")[0];
   return accesstoken2;
 };
+// snippet-end:[transcribe.JavaScript.recording-app.helper]

@@ -14,10 +14,8 @@ Inputs (replace in code):
 - REGION
 - TABLE_NAME
 
-Running the code:
-For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-table-example.html.
 */
-// snippet-start:[lambda.JavaScript.general-examples.CreateTableV3]
+// snippet-start:[lambda.JavaScript.general-examples-lambda-create-function.CreateTableV3]
 "use strict";
 // Load the required clients and packages.
 const { DynamoDBClient, CreateTableCommand } = require("@aws-sdk/client-dynamodb");
@@ -68,5 +66,5 @@ exports.handler = async(event, context, callback) => {
         console.log("Error", err);
     }
 };
-// snippet-end:[lambda.JavaScript.general-examples.CreateTableV3]
+// snippet-end:[lambda.JavaScript.general-examples-lambda-create-function.CreateTableV3]
 

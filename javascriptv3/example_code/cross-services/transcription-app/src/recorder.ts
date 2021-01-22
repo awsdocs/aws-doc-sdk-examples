@@ -9,11 +9,12 @@ recorder.ts is part of a tutorial demonstrating how to build and deploy an app t
 voice recordings for authenticated users. To run the full tutorial, see
 https://docs.aws.amazon.comsdk-for-javascript/v3/developer-guide/transcribe-app.html.
 
-Running the code:
-
 */
-// Functions for recording transcriptions
-// Enable microphone on browser
+
+// snippet-start:[transcribe.JavaScript.recording-app.recorder]
+
+// Functions for recording transcriptions.
+// Enable microphone on browser.
 require("./helper.ts");
 const index = require("./index.ts");
 const {
@@ -24,7 +25,7 @@ navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
   handlerFunction(stream);
 });
 
-// Handler function to manage recordings
+// This is a handler function to manage recordings.
 function handlerFunction(stream) {
   rec = new MediaRecorder(stream);
   rec.ondataavailable = (e) => {
@@ -37,28 +38,14 @@ function handlerFunction(stream) {
       recordedAudio.autoplay = true;
       // Take username from 'index.ts'.
       var username = index.username;
+      // The upload function is in 'index.ts'.
       upload(blob, username);
-      sendData(blob);
-      sendBlob(blob);
+      alert("Refresh page in ~1 min to view your transcription.");
     }
   };
 }
-const sendBlob = async (blob) => {
-  try {
-    upload(blob, username);
-  } catch (err) {
-    console.log("Error", err);
-  }
-  // Upload recording to Amazon S3 bucket
-  alert("Refresh page in ~1 min to view your transcription.");
-};
 
-function sendData(data) {
-  console.log("sent");
-  console.log(recordedAudio.src.split("/", -1)[3]);
-}
-
-// Start recording
+// Start recording.
 window.startRecord = function () {
   console.log("Recording started");
   var record = document.getElementById("record");
@@ -70,7 +57,7 @@ window.startRecord = function () {
   rec.start();
 };
 
-// Stop recording
+// Stop recording.
 window.stopRecord = function () {
   console.log("Recording stopped");
   var record = document.getElementById("record");
@@ -80,3 +67,5 @@ window.stopRecord = function () {
   record.style.backgroundColor = "red";
   rec.stop();
 };
+
+// snippet-end:[transcribe.JavaScript.recording-app.recorder]
