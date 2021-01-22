@@ -1,0 +1,29 @@
+--- 
+files:
+  - path: src/main/java/com/example/gateway/CreateDeployment.java
+    services:
+      - apigateway
+  - path: src/main/java/com/example/gateway/CreateRestApi.java
+    services:
+      - apigateway
+  - path: src/main/java/com/example/gateway/DeleteDeployment.java
+    services:
+      - apigateway
+  - path: src/main/java/com/example/gateway/DeleteRestApi.java
+    services:
+      - apigateway
+  - path: src/main/java/com/example/gateway/GetAPIKeys.java
+    services:
+      - apigateway
+  - path: src/main/java/com/example/gateway/GetDeployments.java
+    services:
+      - apigateway
+  - path: src/main/java/com/example/gateway/GetMethod.java
+    services:
+      - apigateway
+  - path: src/main/java/com/example/gateway/GetStages.java
+    services:
+      - apigateway
+  - path: src/test/java/APIGatewayTest.java
+    services:
+      - apigateway    

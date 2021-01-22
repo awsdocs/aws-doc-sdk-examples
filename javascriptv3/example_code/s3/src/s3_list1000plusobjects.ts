@@ -41,6 +41,8 @@ async function run() {
       // If 'truncated' is true, assign the key of the final element in the response to our variable 'pageMarker'
       if (truncated) {
         pageMarker = response.Contents.slice(-1)[0].Key;
+        // Assign value of pageMarker to bucketParams so that the next iteration will start from the new pageMarker.
+        bucketParams.Marker = pageMarker;
       }
       // At end of the list, response.truncated is false and our function exits the while loop.
     } catch (err) {
