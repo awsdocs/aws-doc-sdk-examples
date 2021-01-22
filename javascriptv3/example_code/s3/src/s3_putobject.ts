@@ -40,6 +40,7 @@ const run = async () => {
   fileStream.on("error", function (err) {
     console.log("File Error", err);
   });
+  uploadParams.Body = fileStream;
   uploadParams.Key = path.basename(file);
   // call S3 to retrieve upload file to specified bucket
   try {
