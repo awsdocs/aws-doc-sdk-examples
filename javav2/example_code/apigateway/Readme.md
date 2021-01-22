@@ -29,8 +29,9 @@ Before running the  Amazon API Gateway JUnit tests, you must define values in th
 Define this value to successfully run the JUnit tests:
 
 - **restApiId** - The string identifier of an existing RestApi (for example, xxxx99ewyg).  
-- **deploymentId** - The string identifier of an existing deployment..
+- **deploymentId** - The string identifier of an existing deployment.
 - **httpMethod** - The HTTP method used in the **GetMethod** test (for example, GET).  
+- **restApiName** - The name to use for the new RestApi. 
 - **stageName** - The name of the stage used in the **CreateDeployment** test.  
 
 ### Command line
