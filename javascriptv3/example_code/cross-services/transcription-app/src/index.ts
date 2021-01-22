@@ -56,16 +56,15 @@ const {
 const { path } = require("path");
 const fetch = require("node-fetch");
 
+// Set the parameters.
 // 'COGINTO_ID' has the format 'cognito-idp.eu-west-1.amazonaws.com/COGNITO_ID'.
 let COGNITO_ID = "COGNITO_ID";
-
 // Get the Amazon Cognito ID token for the user. 'getToken()' is in 'helper.ts'.
 let idToken = getToken();
 let loginData = {
   [COGNITO_ID]: idToken,
 };
 
-// Create the parameters.
 const params = {
   Bucket: "BUCKET", // The Amazon Simple Storage Solution (S3) bucket to store the transcriptions.
   Region: "REGION", // The AWS Region

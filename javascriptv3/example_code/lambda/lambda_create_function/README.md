@@ -21,7 +21,8 @@ For more information, see [TypeScript homepage](https://www.typescriptlang.org/)
 2. Install the dependencies listed in the package.json.
 
 **Note**: These dependencies include the client module for the AWS services required in these example, 
-which are *@aws-sdk/client-cognito-identity*, *@aws-sdk/credential-provider-cognito-identity*, *@aws-sdk/client-dynamodb*, *@aws-sdk/client-iam*, and *@aws-sdk/client-lambda*
+which are *@aws-sdk/client-cognito-identity*, *@aws-sdk/credential-provider-cognito-identity*, *@aws-sdk/client-dynamodb*, 
+*@aws-sdk/client-iam*, and *@aws-sdk/client-lambda*.
 
 
 ```

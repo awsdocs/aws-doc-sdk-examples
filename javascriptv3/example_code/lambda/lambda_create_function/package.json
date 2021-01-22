@@ -4,7 +4,7 @@
   "description": "A simulated browser-based slot machine game demonstrating the AWS SDK for JavaScript V3.",
   "main": "index.js",
   "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/iam.git",
-  "author": "Doug-AWS, AllanFly120",
+  "author": "brmur",
   "license": "MIT",
   "scripts": {
     "build:frontend": "webpack LambdaApp/index.ts --mode development --target web --devtool false -o LambdaApp/main.js",

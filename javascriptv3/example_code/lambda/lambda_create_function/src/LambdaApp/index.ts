@@ -7,10 +7,9 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-
 
 Purpose:
 index.js is a browser script that executes a pre-existing Amazon Lambda function.
-It is part of a tutorial demonstrating how to build and deploy an app that transcribes and displays
-voice recordings for authenticated users. To run the full tutorial, see
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-table-example.html.
 
+It is part of a tutorial demonstrating how create and deploy an Amazon Lambda function. To run the full tutorial, see
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-table-example.html.
 
 Inputs (replace in code):
 - REGION

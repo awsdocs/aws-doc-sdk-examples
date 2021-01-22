@@ -1,0 +1,13 @@
+---
+# Amazon Lambda examples
+files:
+  - path: ../LambdaApp/index.ts
+    services:
+      - Lambda
+  - path: ../lambda-function-setup.ts
+    services:
+      - Lambda
+  - path: ../mylambdafunction.ts
+    services:
+      - DynamoDB
+...

@@ -7,8 +7,7 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-d
 
 Purpose:
 mylambdafunction.ts demonstrates how to create a Amazon Lambda function that creates an Amazon DynamoDB database table.
-It is part of a tutorial demonstrating how to build and deploy an app that transcribes and displays
-voice recordings for authenticated users. To run the full tutorial, see
+It is part of a tutorial demonstrating how create and deploy an Amazon Lambda function. To run the full tutorial, see
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-table-example.html.
 
 Inputs (replace in code):
@@ -19,15 +18,14 @@ Running the code:
 For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-table-example.html.
 */
 // snippet-start:[lambda.JavaScript.general-examples.CreateTableV3]
-// Load the required clients and packages
 "use strict";
-
-// Load the DynamoDB client
+// Load the required clients and packages.
 const { DynamoDBClient, CreateTableCommand } = require("@aws-sdk/client-dynamodb");
 
 //Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"
 
+// Set the parameters.
 const params = {
     AttributeDefinitions: [
         {
@@ -59,7 +57,7 @@ const params = {
     },
 };
 
-// Instantiate a DynamoDB client
+// Instantiate an Amazon DynamoDB client object.
 const ddb = new DynamoDBClient({ region: REGION });
 
 exports.handler = async(event, context, callback) => {
