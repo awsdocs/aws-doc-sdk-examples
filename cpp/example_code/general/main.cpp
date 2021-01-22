@@ -1,6 +1,8 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates.All Rights Reserved.
+﻿// Copyright Amazon.com, Inc. or its affiliates.All Rights Reserved. 
 // SPDX - License - Identifier: Apache - 2.0
+
 //  snippet - start: [general.cpp.starter.main]
+
 #include <aws/core/Aws.h>
 #include <aws/core/utils/logging/LogLevel.h>
 #include <aws/s3/S3Client.h>
@@ -11,9 +13,11 @@ using namespace Aws;
 int main()
 {
     //The Aws::SDKOptions struct contains SDK configuration options.
-    //An instance of Aws::SDKOptions is passed to the Aws::InitAPI and Aws::ShutdownAPI methods.  The same instance should be sent to both methods.
+    //An instance of Aws::SDKOptions is passed to the Aws::InitAPI and 
+    //Aws::ShutdownAPI methods.  The same instance should be sent to both methods.
     SDKOptions options;
     options.loggingOptions.logLevel = Utils::Logging::LogLevel::Debug;
+    
     //The AWS SDK for C++ must be initialized by calling Aws::InitAPI.
     InitAPI(options); 
     {
@@ -30,7 +34,8 @@ int main()
             std::cout << "Failed with error: " << outcome.GetError() << std::endl;
         }
     }
-    //Before the application terminates, the SDK must be shut down by calling Aws::ShutdownAPI. 
+
+    //Before the application terminates, the SDK must be shut down. 
     ShutdownAPI(options);
     return 0;
 }
