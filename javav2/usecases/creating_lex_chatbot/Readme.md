@@ -394,6 +394,8 @@ If the text was in another language, then the text is translated back into the o
       }
 
 
+**Note**: Ensure that you specify the bot alias when creating the **PostTextRequest** object.  
+
 ## Create the HTML file
 
 At this point, you have created all of the Java files required for this example Spring Boot application. Now you create a HTML file that are required for the application's view. Under the resource folder, create a **templates** folder, and then create the following HTML file:
