@@ -516,7 +516,7 @@ The **index.html** file is the application's home view that displays the Amazon 
             g_text = text
             var xhr = new XMLHttpRequest();
             xhr.addEventListener("load", loadNewItems, false);
-            xhr.open("POST", "../text", true);   //buildFormit -- a Spring MVC controller
+            xhr.open("POST", "../text", true);   // A Spring MVC controller
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
             xhr.send("text=" + text);
         }
