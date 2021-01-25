@@ -56,6 +56,8 @@ The first step is to create an Amazon Lex chatbot by using the AWS Management Co
 
 5. Test the bot in the test window. Start the test by typing *I want to book a hotel*. 
 
+![AWS Video Analyzer](images/ChatBotTest.png)
+
 6. Choose **Publish** and specify an alias name (you will need this value when using the AWS SDK for Java). 
 
 **Note**: You need to reference the **bot name** and the **bot alias** in your Java code. For more information about the Book Trip example, see [Book Trip](https://docs.aws.amazon.com/lex/latest/dg/ex-book-trip.html).
