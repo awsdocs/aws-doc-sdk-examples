@@ -2,7 +2,7 @@
 
 You can create an Amazon Lex Chatbot within a web application to engage your web site visitors. An Amazon Lex Chatbot is functionality that performs on-line chat conversation with users without providing direct contact with a person. For example, the following illustration shows an Amazon Lex Chatbot that engages a user about booking a hotel room. 
 
-![AWS Video Analyzer](images/pic1.png)
+![AWS Video Analyzer](images/chatintro)
 
 The Amazon Lex Chatbot created in this AWS tutorial is able to handle multiple languages. For example, a user who speaks French can enter French text and get back a response in French. 
 
