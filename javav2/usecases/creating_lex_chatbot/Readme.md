@@ -54,7 +54,7 @@ The first step is to create an Amazon Lex bot by using the AWS Management Consol
 
 ![AWS Video Analyzer](images/pic2.png)
 
-4. Choose **Create** (the console shows the **BookTrip** bot). On the Editor tab, review the details of the preconfigured intents (BookCar and BookHotel).
+4. Choose **Create** (the console shows the **BookTrip** bot). On the Editor tab, review the details of the preconfigured intents.
 
 5. Test the bot in the test window. Start the test by typing *I want to book a hotel*. 
 
