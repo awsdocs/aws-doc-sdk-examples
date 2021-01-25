@@ -12,7 +12,7 @@ Likewise, a user can communicate with the Amazon Lex chatbot in Italian.
 
 ![AWS Video Analyzer](images/LanChatBot3.png)
 
-This AWS tutorial guides you through creating an Amazon Lex box and integrating it into a Spring Boot web application. The AWS SDK for Java (version 2) is used to invoke these  AWS services:
+This AWS tutorial guides you through creating an Amazon Lex chatbot and integrating it into a Spring Boot web application. The AWS SDK for Java (version 2) is used to invoke these  AWS services:
 
 + Amazon Lex
 + Amazon Comprehend
@@ -20,18 +20,16 @@ This AWS tutorial guides you through creating an Amazon Lex box and integrating 
 
 **Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
 
-**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged for them.
+**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 #### Topics
 
 + Prerequisites
-+ Create an IntelliJ project named Greetings
-+ Add the Spring POM dependencies to your project
-+ Set up the Java packages in your project
-+ Create the Java logic for the main Boot class
++ Create an Amazon Lex bot
++ Create an IntelliJ project
++ Add POM dependencies to your project
++ Create the Java classes for your project
 + Create the HTML files
-+ Package the Greetings application into a JAR file
-
 
 ## Prerequisites
 
@@ -44,7 +42,7 @@ To complete the tutorial, you need the following:
 
 ## Create an Amazon Lex bot
 
-The first step is to create an Amazon Lex bot by using the AWS Management Console. In this example, the Amazon Lex **BookTrip** example is used.
+The first step is to create an Amazon Lex chatbot by using the AWS Management Console. In this example, the Amazon Lex **BookTrip** example is used.
 
 1. Sign in to the AWS Management Console and open the Amazon Lex console at https://console.aws.amazon.com/lex/.
 
@@ -54,7 +52,7 @@ The first step is to create an Amazon Lex bot by using the AWS Management Consol
 
 ![AWS Video Analyzer](images/pic2.png)
 
-4. Choose **Create** (the console shows the **BookTrip** bot). On the Editor tab, review the details of the preconfigured intents.
+4. Fill in the default settings and choose **Create** (the console shows the **BookTrip** bot). On the Editor tab, review the details of the preconfigured intents.
 
 5. Test the bot in the test window. Start the test by typing *I want to book a hotel*. 
 
@@ -64,7 +62,7 @@ The first step is to create an Amazon Lex bot by using the AWS Management Consol
 
 ## Create an IntelliJ project named SpringChatbot
 
-Create an IntelliJ project that is used to create a web site that uses the Amazon Lex bot.
+Create an IntelliJ project that is used to create a web site that uses the Amazon Lex chatbot.
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
 
@@ -76,13 +74,13 @@ Create an IntelliJ project that is used to create a web site that uses the Amazo
 
 5. In **ArtifactId**, enter **SpringChatbot**.
 
-6.	Choose **Next**.
+6. Choose **Next**.
 
-7.	Choose **Finish**.
+7. Choose **Finish**.
 
-## Add the Spring POM dependencies to your project
+## Add POM dependencies to your project
 
-At this point, you have a new project named SpringChatbot.
+At this point, you have a new project named **SpringChatbot**.
 
 ![AWS Lex](images/pic6.png)
 
@@ -172,7 +170,7 @@ Ensure that the pom.xml file resembles the following code.
  Create these Java classes:
 
 + **BotExample** - The base class for the Spring Boot application.
-+ **BotController** -The Spring Boot controller that handles HTTP requests.
++ **BotController** - The Spring Boot controller that handles HTTP requests.
 * **LexService** - The class that uses the AWS SDK for Java (V2) to invoke AWS Services to perform this use case. 
 
 ### BotExample class
