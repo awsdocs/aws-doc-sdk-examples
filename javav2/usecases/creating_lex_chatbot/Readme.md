@@ -1,4 +1,4 @@
-# Building an Amazon multiple language Chatbot that engages users within a web application
+# Building an Amazon Lex Chatbot that engages users in multiple languages
 
 You can create an Amazon Lex bot within a web application to engage your web site visitors. An Amazon Lex bot is functionality that performs on-line chat conversation with users without providing direct contact with a person. For example, the following illustration shows an Amazon Lex bot that engages a user about a hotel room. 
 
@@ -12,7 +12,11 @@ Likewise, a user can communicate with the Amazon Lex bot in Italian.
 
 ![AWS Video Analyzer](images/LanChatBot3.png)
 
-This AWS tutorial guides you through creating an Amazon Lex box and integrating it into a Spring Boot web application. 
+This AWS tutorial guides you through creating an Amazon Lex box and integrating it into a Spring Boot web application. The AWS SDK for Java (version 2) is used to invoke these  AWS services:
+
++ Amazon Lex
++ Amazon Comprehend
++ Amazon Translate
 
 **Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
 
