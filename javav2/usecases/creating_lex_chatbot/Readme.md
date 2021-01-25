@@ -165,13 +165,13 @@ Ensure that the pom.xml file resembles the following code.
  
  The Java files go into this package.
  
-  ![AWS Lex](images/pic8.png)
+  ![AWS Lex](images/chatproject.png)
  
  Create these Java classes:
 
 + **BotExample** - The base class for the Spring Boot application.
 + **BotController** - The Spring Boot controller that handles HTTP requests.
-* **LexService** - The class that uses the AWS SDK for Java (V2) to invoke AWS Services to perform this use case. 
++ **LexService** - The class that uses the AWS SDK for Java (V2) to invoke AWS Services to perform this use case. 
 
 ### BotExample class
 
