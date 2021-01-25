@@ -4,11 +4,11 @@ You can create an Amazon Lex bot within a web application to engage your web sit
 
 ![AWS Video Analyzer](images/pic1.png)
 
-The Amazon Lex bot created in this AWS tutorial is able to handle multiple languages. For example, a user who speaks french can enter french text and get back a response in French. 
+The Amazon Lex Chatbot created in this AWS tutorial is able to handle multiple languages. For example, a user who speaks French can enter French text and get back a response in French. 
 
 ![AWS Video Analyzer](images/LanChatBot2.png)
 
-Likewise, a user can communicate with the Amazon Lex bot in Italian.
+Likewise, a user can communicate with the Amazon Lex chatbot in Italian.
 
 ![AWS Video Analyzer](images/LanChatBot3.png)
 
