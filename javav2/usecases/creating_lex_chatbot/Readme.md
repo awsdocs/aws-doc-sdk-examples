@@ -181,16 +181,14 @@ The following Java code represents the **BotExample** class.
 
      package com.aws.spring;
 
-     import org.springframework.stereotype.Controller;
-     import org.springframework.ui.Model;
-     import org.springframework.web.bind.annotation.GetMapping;
+     import org.springframework.boot.SpringApplication;
+     import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-     @Controller
-     public class BotController {
+     @SpringBootApplication
+     public class BotExample {
 
-     @GetMapping("/")
-     public String greetingForm(Model model) {
-        return "index";
+     public static void main(String[] args) {
+        SpringApplication.run(BotExample.class, args);
      }
     }
 
