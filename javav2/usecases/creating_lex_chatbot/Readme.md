@@ -423,11 +423,11 @@ At this point, you have created all of the Java files required for this example 
 The **index.html** file is the application's home view that displays the Amazon Lex bot. The following HTML represents the **index.html** file. In the following code, ensure that you specify your **IdentityPoolId** value and bot alias value. 
 
      <!DOCTYPE html>
-     <html>
+     <html xmlns:th="https://www.thymeleaf.org">
 
      <head>
-     <title>Amazon Lex for JavaScript - Sample Application (BookTrip)</title>
-     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.41.0.min.js"></script>
+     <title>Amazon Lex - Sample Application (BookTrip)</title>
+      <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
      <style language="text/css">
         input#wisdom {
             padding: 4px;
@@ -475,34 +475,24 @@ The **index.html** file is the application's home view that displays the Amazon 
        </style>
        </head>
 
-       <body>
-        <h1 style="text-align:  left">Amazon Lex - BookTrip</h1>
-        <p style="width: 400px">
-         This little chatbot shows how easy it is to incorporate
-         <a href="https://aws.amazon.com/lex/" title="Amazon Lex (product)" target="_new">Amazon Lex</a> into your web pages.  Try it out.
-         </p>
-         <div id="conversation" style="width: 400px; height: 400px; border: 1px solid #ccc; background-color: #eee; padding: 4px; overflow: scroll"></div>
-         <form id="chatform" style="margin-top: 10px" onsubmit="return pushChat();">
-         <input type="text" id="wisdom" size="80" value="" placeholder="I need a hotel room">
-         </form>
+      <body>
+      <h1 style="text-align:  left">Amazon Lex - BookTrip</h1>
+      <p style="width: 400px">
+       This multiple language chatbot shows you how easy it is to incorporate
+       <a href="https://aws.amazon.com/lex/" title="Amazon Lex (product)" target="_new">Amazon Lex</a> into your web apps.  Try it out.
+       </p>
+      <div id="conversation" style="width: 400px; height: 400px; border: 1px solid #ccc; background-color: #eee; padding: 4px; overflow: scroll"></div>
+      <input type="text" id="wisdom" size="80" value="" placeholder="J'ai besoin d'une chambre d'hôtel">
+      <br>
+      <button onclick="pushChat()">Send Text</button>
 
       <script type="text/javascript">
+
+       var g_text = "";
        // set the focus to the input box
-        document.getElementById("wisdom").focus();
+       document.getElementById("wisdom").focus();
 
-       // Initialize the Amazon Cognito credentials provider
-        AWS.config.region = 'us-east-1'; // Region
-         AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-        
-        // Provide your Pool Id here
-        IdentityPoolId: '<IdentityPoolId>',
-        });
-
-      var lexruntime = new AWS.LexRuntime();
-      var lexUserId = 'chatbot-demo' + Date.now();
-      var sessionAttributes = {};
-
-      function pushChat() {
+       function pushChat() {
 
         // if there is text to be sent...
         var wisdomText = document.getElementById('wisdom');
@@ -512,80 +502,59 @@ The **index.html** file is the application's home view that displays the Amazon 
             var wisdom = wisdomText.value.trim();
             wisdomText.value = '...';
             wisdomText.locked = true;
-
-            // send it to the Lex runtime
-            var params = {
-                botAlias: '<Bot alias>',
-                botName: 'BookTrip',
-                inputText: wisdom,
-                userId: lexUserId,
-                sessionAttributes: sessionAttributes
-            };
-            showRequest(wisdom);
-            lexruntime.postText(params, function(err, data) {
-                if (err) {
-                    console.log(err, err.stack);
-                    showError('Error:  ' + err.message + ' (see console for details)')
-                }
-                if (data) {
-                    // capture the sessionAttributes for the next cycle
-                    sessionAttributes = data.sessionAttributes;
-                    // show response and/or error/dialog status
-                    showResponse(data);
-                }
-                // re-enable input
-                wisdomText.value = '';
-                wisdomText.locked = false;
-              });
-              }
-             // we always cancel form submission
-             return false;
-            }
-
-    
-        function showRequest(daText) {
-
-         var conversationDiv = document.getElementById('conversation');
-         var requestPara = document.createElement("P");
-         requestPara.className = 'userRequest';
-         requestPara.appendChild(document.createTextNode(daText));
-         conversationDiv.appendChild(requestPara);
-         conversationDiv.scrollTop = conversationDiv.scrollHeight;
-         }
-
-        function showError(daText) {
-
-         var conversationDiv = document.getElementById('conversation');
-         var errorPara = document.createElement("P");
-         errorPara.className = 'lexError';
-         errorPara.appendChild(document.createTextNode(daText));
-         conversationDiv.appendChild(errorPara);
-         conversationDiv.scrollTop = conversationDiv.scrollHeight;
+            handletext(wisdom);
+        }
        }
 
-       function showResponse(lexResponse) {
+      function showRequest(daText) {
 
-        var conversationDiv = document.getElementById('conversation');
-        var responsePara = document.createElement("P");
-        responsePara.className = 'lexResponse';
-        if (lexResponse.message) {
-            responsePara.appendChild(document.createTextNode(lexResponse.message));
-            responsePara.appendChild(document.createElement('br'));
+            var conversationDiv = document.getElementById('conversation');
+            var requestPara = document.createElement("P");
+            requestPara.className = 'userRequest';
+            requestPara.appendChild(document.createTextNode(g_text));
+            conversationDiv.appendChild(requestPara);
+            conversationDiv.scrollTop = conversationDiv.scrollHeight;
         }
-        if (lexResponse.dialogState === 'ReadyForFulfillment') {
-            responsePara.appendChild(document.createTextNode(
-                'Ready for fulfillment'));
-            // TODO:  show slot values
-         } else {
-            responsePara.appendChild(document.createTextNode(
-                '(' + lexResponse.dialogState + ')'));
-         }
-         conversationDiv.appendChild(responsePara);
-         conversationDiv.scrollTop = conversationDiv.scrollHeight;
+
+        function showResponse(lexResponse) {
+
+            var conversationDiv = document.getElementById('conversation');
+            var responsePara = document.createElement("P");
+            responsePara.className = 'lexResponse';
+
+
+           var lexTextResponse = lexResponse;
+
+           responsePara.appendChild(document.createTextNode(lexTextResponse));
+           responsePara.appendChild(document.createElement('br'));
+           conversationDiv.appendChild(responsePara);
+           conversationDiv.scrollTop = conversationDiv.scrollHeight;
         }
-      </script>
+
+        function handletext(text) {
+
+            g_text = text
+            var xhr = new XMLHttpRequest();
+            xhr.addEventListener("load", loadNewItems, false);
+            xhr.open("POST", "../text", true);   //buildFormit -- a Spring MVC controller
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
+            xhr.send("text=" + text);
+        }
+
+       function loadNewItems(event) {
+
+        var msg = event.target.responseText;
+        showRequest();
+        showResponse(msg);
+
+        // re-enable input
+        var wisdomText = document.getElementById('wisdom');
+        wisdomText.value = '';
+        wisdomText.locked = false;
+      }
+     </script>
      </body>
-     </html>
+</html>
 
 ### Next steps
 Congratulations! You have created a Spring Boot application that uses Amazon Lex to create an interactive user experience. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
