@@ -191,8 +191,9 @@ Ensure that the pom.xml file resembles the following code.
  
  Create these Java classes:
 
-+ **BotExample** - Used as the base class for the Spring Boot application..
-+ **BotController** - Used as the Spring Boot controller that handles HTTP requests.
++ **BotExample** - The base class for the Spring Boot application.
++ **BotController** -The Spring Boot controller that handles HTTP requests.
+* **LexService** - The class that uses the AWS SDK for Java (V2) to invoke AWS Services to perform this use case. 
 
 ### BotExample class
 
