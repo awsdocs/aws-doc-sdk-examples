@@ -65,6 +65,8 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 
 + **Using Amazon API Gateway to invoke Lambda functions** - A tutorial that discusses how to use Amazon API Gateway to invoke a Lambda function. In addition, the AWS Lambda function is created by using the AWS Lambda Java runtime API and invokes multiple AWS services to perform a specific use case.
 
++ **Building an Amazon multiple language Chatbot** - A tutorial that discusses how to create an Amazon Lex chatbot within a web application to engage your web site visitors. In addition, this chatbot supports multiple languages that lets users communiciate with the chatbot in the languages of their choice (for example, French).  
+
 
 AWS service examples
 --------------------
