@@ -392,7 +392,7 @@ If the text was in another language, then the text is translated back into the o
       }
 
 
-**Note**: Ensure that you specify the bot alias when creating the **PostTextRequest** object.  
+**Note**: Ensure that you specify the bot name and the bot alias when creating the **PostTextRequest** object.  
 
 ## Create the HTML file
 
