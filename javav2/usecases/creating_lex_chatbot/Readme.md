@@ -420,7 +420,7 @@ At this point, you have created all of the Java files required for this example 
 
 + index.html
 
-The **index.html** file is the application's home view that displays the Amazon Lex bot. The following HTML represents the **index.html** file. In the following code, ensure that you specify your **IdentityPoolId** value and bot alias value. 
+The **index.html** file is the application's home view that displays the Amazon Lex bot. The following HTML represents the **index.html** file. 
 
      <!DOCTYPE html>
      <html xmlns:th="https://www.thymeleaf.org">
