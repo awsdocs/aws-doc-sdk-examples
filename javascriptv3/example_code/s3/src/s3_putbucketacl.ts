@@ -42,8 +42,8 @@ const s3 = new S3Client({});
 
 const run = async () => {
     try {
-        const response = await s3.send(new PutBucketAclCommand(bucketParams));
-        console.log("Success, permissions added to bucket", response);
+        const data = await s3.send(new PutBucketAclCommand(bucketParams));
+        console.log("Success, permissions added to bucket", data);
     } catch (err) {
         console.log("Error", err);
     }
