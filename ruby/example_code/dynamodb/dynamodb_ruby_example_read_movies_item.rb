@@ -3,6 +3,22 @@
 
 require 'aws-sdk-dynamodb'
 
+# Gets an item from a table in Amazon DynamoDB.
+#
+# @param dynamodb_client [Aws::DynamoDB::Client] An initialized
+#   Amazon DynamoDB client.
+# @param table_item [Hash] The properties of the item, in the correct format.
+# @example
+#   get_item_from_table(
+#     Aws::DynamoDB::Client.new(region, 'us-west-2'),
+#     {
+#       table_name: 'Movies',
+#       item: {
+#         "year": 2015,
+#         "title": "The Big Movie"
+#       }
+#     }
+#   )
 def get_item_from_table(dynamodb_client, table_item)
   result = dynamodb_client.get_item(table_item)
   puts "#{result.item['title']} (#{result.item['year'].to_i}):"
@@ -13,6 +29,7 @@ rescue StandardError => e
         "(#{table_item[:key][:year]})': #{e.message}"
 end
 
+# Full example call:
 def run_me
   region = 'us-west-2'
   table_name = 'Movies'

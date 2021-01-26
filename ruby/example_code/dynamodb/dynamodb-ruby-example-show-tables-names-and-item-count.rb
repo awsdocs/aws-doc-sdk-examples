@@ -3,6 +3,18 @@
 
 require 'aws-sdk-dynamodb'
 
+# Gets a list of available table names in Amazon DynamoDB.
+#
+# @param dynamodb_client [Aws::DynamoDB::Client] An initialized
+#   Amazon DynamoDB client.
+# @return [Array] The list of available table names as an array of type String.
+# @example
+#   table_names = get_table_names(
+#     Aws::DynamoDB::Client.new(region, 'us-west-2')
+#   )
+#   table_names.each do |table_name|
+#     puts table_name
+#   end
 def get_table_names(dynamodb_client)
   result = dynamodb_client.list_tables
   result.table_names
@@ -11,6 +23,17 @@ rescue StandardError => e
   'Error'
 end
 
+# Gets a count of items in a table in Amazon DynamoDB.
+#
+# @param dynamodb_client [Aws::DynamoDB::Client] An initialized
+#   Amazon DynamoDB client.
+# @param table_name [String] The name of the table.
+# @return [Integer] The number of items in the table.
+# @example
+#   puts get_count_of_table_items(
+#     Aws::DynamoDB::Client.new(region, 'us-west-2'),
+#     'Movies'
+#   )
 def get_count_of_table_items(dynamodb_client, table_name)
   result = dynamodb_client.scan(table_name: table_name)
   result.items.count
@@ -19,6 +42,7 @@ rescue StandardError => e
   'Error'
 end
 
+# Full example call:
 def run_me
   region = 'us-west-2'
 

@@ -3,6 +3,25 @@
 
 require 'aws-sdk-dynamodb'
 
+# Adds an item to a table in Amazon DynamoDB.
+#
+# @param dynamodb_client [Aws::DynamoDB::Client] An initialized
+#   Amazon DynamoDB client.
+# @param table_item [Hash] The properties of the item, in the correct format.
+# @return [Boolean] true if the item was added; otherwise, false.
+# @example
+#   exit 1 unless item_added_to_table?(
+#     Aws::DynamoDB::Client.new(region, 'us-west-2'),
+#     {
+#       table_name: 'Users',
+#       item: {
+#         'ID': 123456,
+#         'FirstName': 'John',
+#         'LastName': 'Doe',
+#         'AirMiles': 0
+#       }
+#     }
+#   )
 def item_added_to_table?(dynamodb_client, table_item)
   dynamodb_client.put_item(table_item)
   true
@@ -11,6 +30,7 @@ rescue StandardError => e
   false
 end
 
+# Full example call:
 def run_me
   region = 'us-west-2'
   table_name = 'Users'

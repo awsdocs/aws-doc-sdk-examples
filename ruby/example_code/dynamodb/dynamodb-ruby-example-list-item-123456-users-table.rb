@@ -3,6 +3,20 @@
 
 require 'aws-sdk-dynamodb'
 
+# Gets an item from a table in Amazon DynamoDB.
+#
+# @param dynamodb_client [Aws::DynamoDB::Client] An initialized
+#   Amazon DynamoDB client.
+# @param table_item [Hash] The properties of the item to get,
+#   in the correct format.
+# @example
+#   get_item_from_table(
+#     Aws::DynamoDB::Client.new(region, 'us-west-2'),
+#     {
+#       table_name: 'Users',
+#       key: { 'ID': 123456 }
+#     }
+#   )
 def get_item_from_table(dynamodb_client, table_item)
   result = dynamodb_client.get_item(table_item)
   if result.item.nil?
@@ -16,6 +30,7 @@ rescue StandardError => e
   puts "Error getting item from table: #{e.message}"
 end
 
+# Full example call:
 def run_me
   region = 'us-west-2'
   table_name = 'Users'

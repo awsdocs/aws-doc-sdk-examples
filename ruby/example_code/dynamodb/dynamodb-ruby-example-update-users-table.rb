@@ -3,7 +3,27 @@
 
 require 'aws-sdk-dynamodb'
 
-def table_updated?(dynamodb_client,
+# Updates items in a table in Amazon DynamoDB.
+#
+# @param dynamodb_client [Aws::DynamoDB::Client] An initialized
+#   Amazon DynamoDB client.
+# @param table_name [String] The name of the table.
+# @param table_key_attribute [String] The primary key of the items to update.
+# @param update_expression [String] An expression that defines one or more
+#   attributes for the items to be updated, the action to be performed on them,
+#   and the new values for them.
+# @param expression_attribute_values [Hash] The values to be substituted in
+#   the update expression.
+# @return [Boolean] true if the items were updated; otherwise, false.
+# @example
+#   exit 1 unless table_items_updated?(
+#     Aws::DynamoDB::Client.new(region, 'us-west-2'),
+#     'Users',
+#     'ID',
+#     'SET AirMiles=:pVal',
+#     { ':pVal' => 10000 }
+#   )
+def table_items_updated?(dynamodb_client,
   table_name,
   table_key_attribute,
   update_expression,
@@ -31,6 +51,7 @@ rescue StandardError => e
   false
 end
 
+# Full example call:
 def run_me
   region = 'us-west-2'
   table_name = 'Users'
@@ -43,17 +64,17 @@ def run_me
   update_expression = "SET #{attribute_to_update}=:pVal"
   expression_attribute_values = { ':pVal' => new_attribute_value }
 
-  puts "Updating table '#{table_name}'..."
+  puts "Updating items in table '#{table_name}'..."
 
-  if table_updated?(dynamodb_client,
+  if table_items_updated?(dynamodb_client,
     table_name,
     table_key_attribute,
     update_expression,
     expression_attribute_values
   )
-    puts 'Table updated.'
+    puts 'Table items updated.'
   else
-    puts 'Table not updated.'
+    puts 'Table items not updated.'
   end
 end
 
