@@ -23,7 +23,6 @@ const REGION = "REGION";
 // Set parameters
 const params = {
   KeyConditionExpression: "Subtitle = :topic",
-  FilterExpression: "contains (Subtitle, :topic)",
   ExpressionAttributeValues: {
     ":topic": { S: "Sub" },
   },
