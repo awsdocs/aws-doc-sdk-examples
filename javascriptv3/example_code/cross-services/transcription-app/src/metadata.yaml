@@ -1,13 +1,13 @@
 ---
 # Transcribe app
 files:
-  - path: ../transcription-app/src/helper.ts
+  - path: helper.ts
     services:
       - S3
-  - path: ../transcription-app/src/index.ts
+  - path: index.ts
     services:
       - S3
-  - path: ../transcription-app/src/recorder.ts
+  - path: recorder.ts
     services:
       - S3
 ...
