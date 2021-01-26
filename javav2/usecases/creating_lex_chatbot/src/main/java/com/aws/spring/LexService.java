@@ -45,7 +45,7 @@ public class LexService {
             Map<String,String> sessionAttributes = new HashMap<>();
             PostTextRequest textRequest = PostTextRequest.builder()
                     .botName("BookTrip")
-                    .botAlias("scott")
+                    .botAlias("<ENTER YOUR ALIAS>")
                     .inputText(engMessage)
                     .userId(userId)
                     .sessionAttributes(sessionAttributes)
