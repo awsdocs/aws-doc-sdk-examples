@@ -54,7 +54,7 @@ The first step is to create an Amazon Lex chatbot by using the AWS Management Co
 
 4. Fill in the default settings and choose **Create** (the console shows the **BookTrip** bot). On the Editor tab, review the details of the preconfigured intents.
 
-5. Test the bot in the test window. Start the test by typing *I want to book a hotel*. 
+5. Test the bot in the test window. Start the test by typing *I want to book a hotel room*. 
 
 ![AWS Video Analyzer](images/ChatBotTest.png)
 
