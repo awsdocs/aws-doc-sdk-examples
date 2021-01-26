@@ -42,7 +42,7 @@ To complete the tutorial, you need the following:
 
 ## Create an Amazon Lex bot
 
-The first step is to create an Amazon Lex chatbot by using the AWS Management Console. In this example, the Amazon Lex **BookTrip** example is used.
+The first step is to create an Amazon Lex chatbot by using the AWS Management Console. In this example, the Amazon Lex **BookTrip** example is used. For more information, see [Book Trip](https://docs.aws.amazon.com/lex/latest/dg/ex-book-trip.html).
 
 1. Sign in to the AWS Management Console and open the Amazon Lex console at https://console.aws.amazon.com/lex/.
 
@@ -60,7 +60,7 @@ The first step is to create an Amazon Lex chatbot by using the AWS Management Co
 
 6. Choose **Publish** and specify an alias name (you will need this value when using the AWS SDK for Java). 
 
-**Note**: You need to reference the **bot name** and the **bot alias** in your Java code. For more information about the Book Trip example, see [Book Trip](https://docs.aws.amazon.com/lex/latest/dg/ex-book-trip.html).
+**Note**: You need to reference the **bot name** and the **bot alias** in your Java code. 
 
 ## Create an IntelliJ project named SpringChatbot
 
