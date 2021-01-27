@@ -48,6 +48,9 @@ files:
   - path: src/main/java/com/example/s3/GetObjectTags.java
     services:
       - s3
+  - path: src/main/java/com/example/s3/GetObjectUrl.java
+    services:
+      - s3    
   - path: src/main/java/com/example/s3/KMSEncryptionExample.java
     services:
       - s3
