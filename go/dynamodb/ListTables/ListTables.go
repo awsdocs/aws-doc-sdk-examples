@@ -50,6 +50,26 @@ func main() {
     }))
     // snippet-end:[dynamodb.go.list_all_tables.session]
 
+    // Connecting via hard-coded credentials
+    // Hard-Coded Credentials in an Application (Not Recommended)
+    // Do not embed credentials inside an application. 
+    // Use this method only for testing purposes.
+    // Make sure to import "github.com/aws/aws-sdk-go/aws/credentials"
+    // [Endpoint:optional] Mention the endpoint when connecting to local DynamoDB
+    /* 
+	sess, err := session.NewSession(&aws.Config{
+		Region:      aws.String("us-west-2"),
+		Endpoint:    aws.String("http://localhost:8000"),
+		Credentials: credentials.NewStaticCredentials("AKID", "SECRET_KEY", "TOKEN"),
+	})
+
+	if err != nil {
+		fmt.Println("Got an error fetching configurations")
+		fmt.Println(err)
+		return
+	}
+    */
+
     tables, err := GetTables(sess, limit)
     if err != nil {
         fmt.Println("Got an error retrieving table names:")
