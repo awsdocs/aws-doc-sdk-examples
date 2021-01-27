@@ -21,7 +21,7 @@ namespace SNSMessageExample
         {
             var snsMessage = new SNSMessage(_regionEndpoint);
 
-            string phoneNumber = "18456992258"; // "1xxxyyyzzzz";
+            string phoneNumber = "1xxxyyyzzzz";
             string message = "This is a test message.";
 
             Console.Write($"Sending: \"{message}\" to {phoneNumber}.");
