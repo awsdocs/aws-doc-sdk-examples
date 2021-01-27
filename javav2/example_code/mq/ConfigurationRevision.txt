@@ -1,0 +1,12 @@
+DescribeBrokerRequest brokerRequest = new DescribeBrokerRequest();
+brokerRequest.setBrokerId(brokerId);
+AmazonMQ mqClient = AmazonMQClientBuilder.defaultClient();
+DescribeBrokerResult brokerResult = mqClient.describeBroker(brokerRequest);
+ConfigurationId configurationId = brokerResult.getConfigurations().getCurrent();
+System.out.println("Configuration id : "+configurationId.getId());
+DescribeConfigurationRevisionRequest describeConfigurationRevisionRequest = new DescribeConfigurationRevisionRequest();
+describeConfigurationRevisionRequest.setConfigurationId(configurationId.getId());
+describeConfigurationRevisionRequest.setConfigurationRevision(configurationId.getRevision().toString());
+String base64Config=
+        mqClient.describeConfigurationRevision(describeConfigurationRevisionRequest).getData();
+byte[] decoded = Base64.getDecoder().decode(base64Config);
