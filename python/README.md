@@ -299,6 +299,18 @@ following tasks:
 * Delete Lambda functions.
 * Empty and delete a versioned bucket.
 
+### [AWS Secrets Manager example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/secretsmanager/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with AWS Secrets Manager to
+create, manage, and use secrets.
+
+* Create a new secret and update it with string and byte values.
+* Update the stage of a secret.
+* Use an existing secret with Amazon Relational Database Service (Amazon RDS) Data 
+Service to access a serverless Amazon Aurora cluster and database.
+
 ### [Amazon SES email and identity example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/ses/README.md)
 
 #### Purpose
