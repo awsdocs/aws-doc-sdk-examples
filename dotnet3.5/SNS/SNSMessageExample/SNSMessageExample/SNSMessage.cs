@@ -51,7 +51,7 @@ namespace SNSMessageExample
             {
                 var response = await snsClient.PublishAsync(request);
             }
-            catch (AmazonSimpleNotificationServiceException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine($"Error sending message: {ex}");
             }
