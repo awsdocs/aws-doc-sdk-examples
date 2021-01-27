@@ -333,6 +333,21 @@ message operations in Amazon Simple Queue Service (Amazon SQS). Learn how to
 create, get, and remove standard, FIFO, and dead-letter queues. Learn how to 
 send, receive, and delete messages from a queue.
 
+### [AWS Step Functions state machine example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/stepfunctions/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with AWS Step Functions to
+create and run state machines.
+
+* Create a state machine that retrieves and updates message records from an 
+Amazon DynamoDB table.
+* Update the state machine definition to also send messages to Amazon Simple Queue Service 
+(Amazon SQS).
+* Start and stop state machine runs.
+* Connect to AWS Lambda, DynamoDB, and Amazon SQS from a state machine by using service
+integrations.
+
 ### [AWS STS temporary credential examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/sts/sts_temporary_credentials/README.md)
 
 #### Purpose

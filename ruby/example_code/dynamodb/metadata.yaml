@@ -105,3 +105,57 @@ files:
   - path: tests/test_dynamodb_ruby_example_load_movies.rb
     services:
     - dynamodb
+  - path: dynamodb_ruby_example_read_movies_item.rb
+    services:
+    - dynamodb
+  - path: tests/test_dynamodb_ruby_example_read_movies_item.rb
+    services:
+    - dynamodb
+  - path: dynamodb_ruby_example_update_movies_item.rb
+    services:
+    - dynamodb
+  - path: tests/test_dynamodb_ruby_example_update_movies_item.rb
+    services:
+    - dynamodb
+  - path: dynamodb-ruby-example-add-index.rb
+    services:
+    - dynamodb
+  - path: tests/test_dynamodb-ruby-example-add-index.rb
+    services:
+    - dynamodb
+  - path: dynamodb-ruby-example-add-item-users-table.rb
+    services:
+    - dynamodb
+  - path: tests/test_dynamodb-ruby-example-add-item-users-table.rb
+    services:
+    - dynamodb
+  - path: dynamodb-ruby-example-create-users-table.rb
+    services:
+    - dynamodb
+  - path: tests/test_dynamodb-ruby-example-create-users-table.rb
+    services:
+    - dynamodb
+  - path: dynamodb-ruby-example-list-50-users-table-items.rb
+    services:
+    - dynamodb
+  - path: tests/test_dynamodb-ruby-example-list-50-users-table-items.rb
+    services:
+    - dynamodb
+  - path: dynamodb-ruby-example-list-item-123456-users-table.rb
+    services:
+    - dynamodb
+  - path: tests/test_dynamodb-ruby-example-list-item-123456-users-table.rb
+    services:
+    - dynamodb
+  - path: dynamodb-ruby-example-show-tables-names-and-item-count.rb
+    services:
+    - dynamodb
+  - path: tests/test_dynamodb-ruby-example-show-tables-names-and-item-count.rb
+    services:
+    - dynamodb
+  - path: dynamodb-ruby-example-update-users-table.rb
+    services:
+    - dynamodb
+  - path: tests/test_dynamodb-ruby-example-update-users-table.rb
+    services:
+    - dynamodb
