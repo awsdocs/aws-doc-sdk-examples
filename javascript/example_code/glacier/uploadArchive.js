@@ -29,7 +29,7 @@ var AWS = require('aws-sdk');
 AWS.config.update({region: 'REGION'});
 
 // Create a new service object and buffer
-var glacier = new AWS.Glacier({apiVersion: '2012-06-01'}),
+var glacier = new AWS.Glacier({apiVersion: '2012-06-01'});
 buffer = Buffer.alloc(2.5 * 1024 * 1024); // 2.5MB buffer
 
 var params = {vaultName: 'YOUR_VAULT_NAME', body: buffer};
