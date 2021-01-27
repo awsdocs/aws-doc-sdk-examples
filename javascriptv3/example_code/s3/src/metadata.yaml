@@ -22,6 +22,9 @@ files:
   - path: s3_getbucketacl.ts
     services:
       - s3
+  - path: s3_putbucketacl.ts
+    services:
+      - s3
   - path: s3_getbucketpolicy.ts
     services:
       - s3

@@ -1,41 +1,72 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Lists the items in a DynamoDB table.]
-# snippet-keyword:[Amazon DynamoDB]
-# snippet-keyword:[scan method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[dynamodb]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+require 'aws-sdk-dynamodb'
+
+# Searches for items in a table in Amazon DynamoDB by using a scan
+# operation, which reads every item in a table or a secondary index.
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# @param dynamodb_client [Aws::DynamoDB::Client] An initialized
+#   Amazon DynamoDB client.
+# @param scan_condition [Hash] The properties of the scan operation,
+#   in the correct format.
+# @example
+#   scan_for_items_from_table(
+#     Aws::DynamoDB::Client.new(region, 'us-west-2'),
+#     {
+#       table_name: 'Users',
+#       select: 'ALL_ATTRIBUTES',
+#       limit: 50
+#     }
+#   )
+def scan_for_items_from_table(dynamodb_client, scan_condition)
+  result = dynamodb_client.scan(scan_condition)
 
-require 'aws-sdk-dynamodb'  # v2: require 'aws-sdk'
-
-dynamoDB = Aws::DynamoDB::Resource.new(region: 'us-west-2')
-
-table = dynamoDB.table('Users')
-
-scan_output = table.scan({
-  limit: 50,
-  select: "ALL_ATTRIBUTES"
-})
-
-scan_output.items.each do |item|
-  keys = item.keys
-
-  keys.each do |k|
-    puts "#{k}: #{item[k]}"
+  if result.items.count.zero?
+    puts 'No matching items found.'
+  else
+    puts "Displaying #{result.items.count} matching items:"
+    result.items.each do |item|
+      puts '-' * 15
+      keys = item.keys
+      keys.each do |k|
+        case k
+        when 'AirMiles'
+          puts "Air miles:  #{item[k].to_i}"
+        when 'FirstName'
+          puts "First name: #{item[k]}"
+        when 'ID'
+          puts "User ID:    #{item[k].to_i}"
+        when 'LastName'
+          puts "Last name:  #{item[k]}"
+        else
+          puts "#{k}: #{item[k]}"
+        end
+      end
+    end
   end
+rescue StandardError => e
+  puts "Error getting items: #{e.message}"
 end
+
+# Full example call:
+def run_me
+  region = 'us-west-2'
+  table_name = 'Users'
+  selection_criteria = 'ALL_ATTRIBUTES'
+  items_limit = 50
+
+  dynamodb_client = Aws::DynamoDB::Client.new(region: region)
+
+  scan_condition = {
+    table_name: table_name,
+    select: selection_criteria,
+    limit: items_limit
+  }
+
+  puts "Getting up to the first #{items_limit} items from " \
+    "the '#{table_name}' table..."
+  scan_for_items_from_table(dynamodb_client, scan_condition)
+end
+
+run_me if $PROGRAM_NAME == __FILE__
