@@ -14,47 +14,57 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-
 */
 // snippet-start:[lambda.JavaScript.general-examples-lambda-create-function.describeResourcesV3]
 
-// Load the required Node.js packages and modules.
+// Load the AWS SDK for Node.js
 const {
   CloudFormationClient,
   DescribeStackResourcesCommand,
+  CreateStackCommand,
+  DescribeStacksCommand
 } = require("@aws-sdk/client-cloudformation");
 
-// Create an AWS CloudFormation service client object.
+// Create S3 service object
 const cloudformation = new CloudFormationClient();
 
-// Set the parameters.
 var params = {
-  StackName: process.argv[2],
-};
+  StackName: process.argv[2]
+}
 
 const getVariables = async () => {
-  try {
-    const data = await cloudformation.send(
-      new DescribeStackResourcesCommand(params)
-    );
-    for (var i = 0; i < data.StackResources.length; i++) {
-      var obj = data.StackResources[i].ResourceType;
-      if (obj == "AWS::IAM::Policy") {
-        const IDENTITY_POOL_ID = data.StackResources[i].LogicalResourceId;
-        console.log("IDENTITY_POOL_ID:", IDENTITY_POOL_ID);
-        var identity_pool_id = IDENTITY_POOL_ID;
-      }
-      if (obj == "AWS::S3::Bucket") {
-        const BUCKET_NAME = data.StackResources[i].PhysicalResourceId;
-        console.log("BUCKET_NAME:", BUCKET_NAME);
-        var bucket = BUCKET_NAME;
-      }
-      if (obj == "AWS::IAM::Role") {
-        const IAM_ROLE = data.StackResources[i].StackId;
-        console.log("IAM_ROLE:", IAM_ROLE);
-        var iam_role = IAM_ROLE;
+      try {
+        const data = await cloudformation.send(
+            new DescribeStacksCommand({StackName: params.StackName}));
+        console.log('Status: ', data.Stacks[0].StackStatus);
+        if (data.Stacks[0].StackStatus == "CREATE_COMPLETE") {
+          const data = await cloudformation.send(
+              new DescribeStackResourcesCommand({StackName: params.StackName})
+          );
+          for (var i = 0; i < data.StackResources.length; i++) {
+            var obj = data.StackResources[i].ResourceType;
+            if (obj == "AWS::IAM::Policy") {
+              const IDENTITY_POOL_ID = data.StackResources[i].LogicalResourceId;
+              console.log("IDENTITY_POOL_ID:", IDENTITY_POOL_ID);
+              var identity_pool_id = IDENTITY_POOL_ID;
+            }
+            if (obj == "AWS::S3::Bucket") {
+              const BUCKET_NAME = data.StackResources[i].PhysicalResourceId;
+              console.log("BUCKET_NAME:", BUCKET_NAME);
+              var bucket = BUCKET_NAME;
+            }
+            if (obj == "AWS::IAM::Role") {
+              const IAM_ROLE = data.StackResources[i].StackId;
+              console.log("IAM_ROLE:", IAM_ROLE);
+              var iam_role = IAM_ROLE;
+            }
+          }
+        }
+        else{
+          console.log('Stack not ready yet. Try again in a few minutes.')
+        }
+      }catch (err) {
+        console.log("Error listing resources", err);
       }
     }
-  } catch (err) {
-    console.log("Error", err);
-  }
-};
+;
 getVariables();
 // snippet-end:[lambda.JavaScript.general-examples-lambda-create-function.describeResourcesV3]
 
