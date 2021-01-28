@@ -1,5 +1,5 @@
 Resources:
-  docexamplesecretsmanagervpcC21928C9:
+  docexamplevpcforsecretsD64BC774:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: 10.0.0.0/16
@@ -8,15 +8,15 @@ Resources:
       InstanceTenancy: default
       Tags:
         - Key: Name
-          Value: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc
+          Value: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/Resource
-  docexamplesecretsmanagervpcPublicSubnet1SubnetD3711D20:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/Resource
+  docexamplevpcforsecretsPublicSubnet1Subnet7E4B5D6C:
     Type: AWS::EC2::Subnet
     Properties:
       CidrBlock: 10.0.0.0/18
       VpcId:
-        Ref: docexamplesecretsmanagervpcC21928C9
+        Ref: docexamplevpcforsecretsD64BC774
       AvailabilityZone:
         Fn::Select:
           - 0
@@ -28,69 +28,69 @@ Resources:
         - Key: aws-cdk:subnet-type
           Value: Public
         - Key: Name
-          Value: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PublicSubnet1
+          Value: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PublicSubnet1
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PublicSubnet1/Subnet
-  docexamplesecretsmanagervpcPublicSubnet1RouteTable35665FB3:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PublicSubnet1/Subnet
+  docexamplevpcforsecretsPublicSubnet1RouteTable2DE8CF61:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId:
-        Ref: docexamplesecretsmanagervpcC21928C9
+        Ref: docexamplevpcforsecretsD64BC774
       Tags:
         - Key: Name
-          Value: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PublicSubnet1
+          Value: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PublicSubnet1
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PublicSubnet1/RouteTable
-  docexamplesecretsmanagervpcPublicSubnet1RouteTableAssociation68DA8A50:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PublicSubnet1/RouteTable
+  docexamplevpcforsecretsPublicSubnet1RouteTableAssociation82793966:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       RouteTableId:
-        Ref: docexamplesecretsmanagervpcPublicSubnet1RouteTable35665FB3
+        Ref: docexamplevpcforsecretsPublicSubnet1RouteTable2DE8CF61
       SubnetId:
-        Ref: docexamplesecretsmanagervpcPublicSubnet1SubnetD3711D20
+        Ref: docexamplevpcforsecretsPublicSubnet1Subnet7E4B5D6C
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PublicSubnet1/RouteTableAssociation
-  docexamplesecretsmanagervpcPublicSubnet1DefaultRoute947932F1:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PublicSubnet1/RouteTableAssociation
+  docexamplevpcforsecretsPublicSubnet1DefaultRoute2E4AEC7C:
     Type: AWS::EC2::Route
     Properties:
       RouteTableId:
-        Ref: docexamplesecretsmanagervpcPublicSubnet1RouteTable35665FB3
+        Ref: docexamplevpcforsecretsPublicSubnet1RouteTable2DE8CF61
       DestinationCidrBlock: 0.0.0.0/0
       GatewayId:
-        Ref: docexamplesecretsmanagervpcIGWFEAD224F
+        Ref: docexamplevpcforsecretsIGW59E4EEF2
     DependsOn:
-      - docexamplesecretsmanagervpcVPCGW4CD76A93
+      - docexamplevpcforsecretsVPCGWC6D7B494
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PublicSubnet1/DefaultRoute
-  docexamplesecretsmanagervpcPublicSubnet1EIP2201FA57:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PublicSubnet1/DefaultRoute
+  docexamplevpcforsecretsPublicSubnet1EIP4D31CCA8:
     Type: AWS::EC2::EIP
     Properties:
       Domain: vpc
       Tags:
         - Key: Name
-          Value: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PublicSubnet1
+          Value: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PublicSubnet1
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PublicSubnet1/EIP
-  docexamplesecretsmanagervpcPublicSubnet1NATGateway243359AB:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PublicSubnet1/EIP
+  docexamplevpcforsecretsPublicSubnet1NATGatewayA480E9AC:
     Type: AWS::EC2::NatGateway
     Properties:
       AllocationId:
         Fn::GetAtt:
-          - docexamplesecretsmanagervpcPublicSubnet1EIP2201FA57
+          - docexamplevpcforsecretsPublicSubnet1EIP4D31CCA8
           - AllocationId
       SubnetId:
-        Ref: docexamplesecretsmanagervpcPublicSubnet1SubnetD3711D20
+        Ref: docexamplevpcforsecretsPublicSubnet1Subnet7E4B5D6C
       Tags:
         - Key: Name
-          Value: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PublicSubnet1
+          Value: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PublicSubnet1
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PublicSubnet1/NATGateway
-  docexamplesecretsmanagervpcPublicSubnet2SubnetA03A066D:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PublicSubnet1/NATGateway
+  docexamplevpcforsecretsPublicSubnet2Subnet31DA17DF:
     Type: AWS::EC2::Subnet
     Properties:
       CidrBlock: 10.0.64.0/18
       VpcId:
-        Ref: docexamplesecretsmanagervpcC21928C9
+        Ref: docexamplevpcforsecretsD64BC774
       AvailabilityZone:
         Fn::Select:
           - 1
@@ -102,69 +102,69 @@ Resources:
         - Key: aws-cdk:subnet-type
           Value: Public
         - Key: Name
-          Value: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PublicSubnet2
+          Value: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PublicSubnet2
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PublicSubnet2/Subnet
-  docexamplesecretsmanagervpcPublicSubnet2RouteTableE1DE5D00:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PublicSubnet2/Subnet
+  docexamplevpcforsecretsPublicSubnet2RouteTable7BE65324:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId:
-        Ref: docexamplesecretsmanagervpcC21928C9
+        Ref: docexamplevpcforsecretsD64BC774
       Tags:
         - Key: Name
-          Value: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PublicSubnet2
+          Value: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PublicSubnet2
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PublicSubnet2/RouteTable
-  docexamplesecretsmanagervpcPublicSubnet2RouteTableAssociationD48C74F5:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PublicSubnet2/RouteTable
+  docexamplevpcforsecretsPublicSubnet2RouteTableAssociationDA9F8D1D:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       RouteTableId:
-        Ref: docexamplesecretsmanagervpcPublicSubnet2RouteTableE1DE5D00
+        Ref: docexamplevpcforsecretsPublicSubnet2RouteTable7BE65324
       SubnetId:
-        Ref: docexamplesecretsmanagervpcPublicSubnet2SubnetA03A066D
+        Ref: docexamplevpcforsecretsPublicSubnet2Subnet31DA17DF
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PublicSubnet2/RouteTableAssociation
-  docexamplesecretsmanagervpcPublicSubnet2DefaultRoute1392C8A7:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PublicSubnet2/RouteTableAssociation
+  docexamplevpcforsecretsPublicSubnet2DefaultRoute515877E1:
     Type: AWS::EC2::Route
     Properties:
       RouteTableId:
-        Ref: docexamplesecretsmanagervpcPublicSubnet2RouteTableE1DE5D00
+        Ref: docexamplevpcforsecretsPublicSubnet2RouteTable7BE65324
       DestinationCidrBlock: 0.0.0.0/0
       GatewayId:
-        Ref: docexamplesecretsmanagervpcIGWFEAD224F
+        Ref: docexamplevpcforsecretsIGW59E4EEF2
     DependsOn:
-      - docexamplesecretsmanagervpcVPCGW4CD76A93
+      - docexamplevpcforsecretsVPCGWC6D7B494
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PublicSubnet2/DefaultRoute
-  docexamplesecretsmanagervpcPublicSubnet2EIP4FB919E2:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PublicSubnet2/DefaultRoute
+  docexamplevpcforsecretsPublicSubnet2EIPB5E1F8F4:
     Type: AWS::EC2::EIP
     Properties:
       Domain: vpc
       Tags:
         - Key: Name
-          Value: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PublicSubnet2
+          Value: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PublicSubnet2
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PublicSubnet2/EIP
-  docexamplesecretsmanagervpcPublicSubnet2NATGatewayCCD30B7E:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PublicSubnet2/EIP
+  docexamplevpcforsecretsPublicSubnet2NATGateway1B7BD5C7:
     Type: AWS::EC2::NatGateway
     Properties:
       AllocationId:
         Fn::GetAtt:
-          - docexamplesecretsmanagervpcPublicSubnet2EIP4FB919E2
+          - docexamplevpcforsecretsPublicSubnet2EIPB5E1F8F4
           - AllocationId
       SubnetId:
-        Ref: docexamplesecretsmanagervpcPublicSubnet2SubnetA03A066D
+        Ref: docexamplevpcforsecretsPublicSubnet2Subnet31DA17DF
       Tags:
         - Key: Name
-          Value: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PublicSubnet2
+          Value: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PublicSubnet2
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PublicSubnet2/NATGateway
-  docexamplesecretsmanagervpcPrivateSubnet1Subnet0509C3F4:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PublicSubnet2/NATGateway
+  docexamplevpcforsecretsPrivateSubnet1SubnetEF485B57:
     Type: AWS::EC2::Subnet
     Properties:
       CidrBlock: 10.0.128.0/18
       VpcId:
-        Ref: docexamplesecretsmanagervpcC21928C9
+        Ref: docexamplevpcforsecretsD64BC774
       AvailabilityZone:
         Fn::Select:
           - 0
@@ -176,44 +176,44 @@ Resources:
         - Key: aws-cdk:subnet-type
           Value: Private
         - Key: Name
-          Value: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PrivateSubnet1
+          Value: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PrivateSubnet1
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PrivateSubnet1/Subnet
-  docexamplesecretsmanagervpcPrivateSubnet1RouteTableE22283E4:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PrivateSubnet1/Subnet
+  docexamplevpcforsecretsPrivateSubnet1RouteTable7FFBF14E:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId:
-        Ref: docexamplesecretsmanagervpcC21928C9
+        Ref: docexamplevpcforsecretsD64BC774
       Tags:
         - Key: Name
-          Value: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PrivateSubnet1
+          Value: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PrivateSubnet1
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PrivateSubnet1/RouteTable
-  docexamplesecretsmanagervpcPrivateSubnet1RouteTableAssociation7992F15A:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PrivateSubnet1/RouteTable
+  docexamplevpcforsecretsPrivateSubnet1RouteTableAssociation8BCF3E79:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       RouteTableId:
-        Ref: docexamplesecretsmanagervpcPrivateSubnet1RouteTableE22283E4
+        Ref: docexamplevpcforsecretsPrivateSubnet1RouteTable7FFBF14E
       SubnetId:
-        Ref: docexamplesecretsmanagervpcPrivateSubnet1Subnet0509C3F4
+        Ref: docexamplevpcforsecretsPrivateSubnet1SubnetEF485B57
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PrivateSubnet1/RouteTableAssociation
-  docexamplesecretsmanagervpcPrivateSubnet1DefaultRoute5F784694:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PrivateSubnet1/RouteTableAssociation
+  docexamplevpcforsecretsPrivateSubnet1DefaultRoute651DB40F:
     Type: AWS::EC2::Route
     Properties:
       RouteTableId:
-        Ref: docexamplesecretsmanagervpcPrivateSubnet1RouteTableE22283E4
+        Ref: docexamplevpcforsecretsPrivateSubnet1RouteTable7FFBF14E
       DestinationCidrBlock: 0.0.0.0/0
       NatGatewayId:
-        Ref: docexamplesecretsmanagervpcPublicSubnet1NATGateway243359AB
+        Ref: docexamplevpcforsecretsPublicSubnet1NATGatewayA480E9AC
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PrivateSubnet1/DefaultRoute
-  docexamplesecretsmanagervpcPrivateSubnet2Subnet0088473A:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PrivateSubnet1/DefaultRoute
+  docexamplevpcforsecretsPrivateSubnet2Subnet7E1B553C:
     Type: AWS::EC2::Subnet
     Properties:
       CidrBlock: 10.0.192.0/18
       VpcId:
-        Ref: docexamplesecretsmanagervpcC21928C9
+        Ref: docexamplevpcforsecretsD64BC774
       AvailabilityZone:
         Fn::Select:
           - 1
@@ -225,62 +225,62 @@ Resources:
         - Key: aws-cdk:subnet-type
           Value: Private
         - Key: Name
-          Value: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PrivateSubnet2
+          Value: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PrivateSubnet2
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PrivateSubnet2/Subnet
-  docexamplesecretsmanagervpcPrivateSubnet2RouteTable1D15CC3F:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PrivateSubnet2/Subnet
+  docexamplevpcforsecretsPrivateSubnet2RouteTable5053DAA3:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId:
-        Ref: docexamplesecretsmanagervpcC21928C9
+        Ref: docexamplevpcforsecretsD64BC774
       Tags:
         - Key: Name
-          Value: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PrivateSubnet2
+          Value: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PrivateSubnet2
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PrivateSubnet2/RouteTable
-  docexamplesecretsmanagervpcPrivateSubnet2RouteTableAssociationB26DE275:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PrivateSubnet2/RouteTable
+  docexamplevpcforsecretsPrivateSubnet2RouteTableAssociationF26866C0:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       RouteTableId:
-        Ref: docexamplesecretsmanagervpcPrivateSubnet2RouteTable1D15CC3F
+        Ref: docexamplevpcforsecretsPrivateSubnet2RouteTable5053DAA3
       SubnetId:
-        Ref: docexamplesecretsmanagervpcPrivateSubnet2Subnet0088473A
+        Ref: docexamplevpcforsecretsPrivateSubnet2Subnet7E1B553C
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PrivateSubnet2/RouteTableAssociation
-  docexamplesecretsmanagervpcPrivateSubnet2DefaultRoute94E284B5:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PrivateSubnet2/RouteTableAssociation
+  docexamplevpcforsecretsPrivateSubnet2DefaultRoute090723E8:
     Type: AWS::EC2::Route
     Properties:
       RouteTableId:
-        Ref: docexamplesecretsmanagervpcPrivateSubnet2RouteTable1D15CC3F
+        Ref: docexamplevpcforsecretsPrivateSubnet2RouteTable5053DAA3
       DestinationCidrBlock: 0.0.0.0/0
       NatGatewayId:
-        Ref: docexamplesecretsmanagervpcPublicSubnet2NATGatewayCCD30B7E
+        Ref: docexamplevpcforsecretsPublicSubnet2NATGateway1B7BD5C7
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/PrivateSubnet2/DefaultRoute
-  docexamplesecretsmanagervpcIGWFEAD224F:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/PrivateSubnet2/DefaultRoute
+  docexamplevpcforsecretsIGW59E4EEF2:
     Type: AWS::EC2::InternetGateway
     Properties:
       Tags:
         - Key: Name
-          Value: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc
+          Value: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/IGW
-  docexamplesecretsmanagervpcVPCGW4CD76A93:
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/IGW
+  docexamplevpcforsecretsVPCGWC6D7B494:
     Type: AWS::EC2::VPCGatewayAttachment
     Properties:
       VpcId:
-        Ref: docexamplesecretsmanagervpcC21928C9
+        Ref: docexamplevpcforsecretsD64BC774
       InternetGatewayId:
-        Ref: docexamplesecretsmanagervpcIGWFEAD224F
+        Ref: docexamplevpcforsecretsIGW59E4EEF2
     Metadata:
-      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-secretsmanager-vpc/VPCGW
+      aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-vpc-for-secrets/VPCGW
   docexampledatabaseforsecretsmanagerSubnets23DD792A:
     Type: AWS::RDS::DBSubnetGroup
     Properties:
       DBSubnetGroupDescription: Subnets for doc-example-database-for-secretsmanager database
       SubnetIds:
-        - Ref: docexamplesecretsmanagervpcPrivateSubnet1Subnet0509C3F4
-        - Ref: docexamplesecretsmanagervpcPrivateSubnet2Subnet0088473A
+        - Ref: docexamplevpcforsecretsPrivateSubnet1SubnetEF485B57
+        - Ref: docexamplevpcforsecretsPrivateSubnet2Subnet7E1B553C
     Metadata:
       aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-database-for-secretsmanager/Subnets/Default
   docexampledatabaseforsecretsmanagerSecretFA2AEE0D:
@@ -317,7 +317,7 @@ Resources:
           Description: Allow all outbound traffic by default
           IpProtocol: "-1"
       VpcId:
-        Ref: docexamplesecretsmanagervpcC21928C9
+        Ref: docexamplevpcforsecretsD64BC774
     Metadata:
       aws:cdk:path: python-example-code-secretsmanager-demo/doc-example-database-for-secretsmanager/SecurityGroup/Resource
   docexampledatabaseforsecretsmanager06AF9BE3:

@@ -25,7 +25,7 @@ export class SetupStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const vpc = new Vpc(this, 'doc-example-secretsmanager-vpc')
+    const vpc = new Vpc(this, 'doc-example-vpc-for-secrets')
 
     const cluster = new ServerlessCluster(this, 'doc-example-database-for-secretsmanager', {
         engine: DatabaseClusterEngine.AURORA_MYSQL, vpc, enableDataApi: true
