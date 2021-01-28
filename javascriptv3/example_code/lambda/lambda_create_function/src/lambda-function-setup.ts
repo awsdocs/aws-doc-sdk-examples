@@ -6,8 +6,8 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-function-prep.html.
 
 Purpose:
-lambda-function-setup.ts demonstrates how to create an Amazon Lambda function.
-It is part of a tutorial demonstrating how create and deploy an Amazon Lambda function. To run the full tutorial, see
+lambda-function-setup.ts demonstrates how to create an AWS Lambda function.
+It is part of a tutorial demonstrating how create and deploy an AWS Lambda function. To run the full tutorial, see
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-table-example.html.
 
 Inputs (replace in code):
@@ -31,7 +31,7 @@ const {
 //Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"
 
-// Instantiate an Amazon Lambda client service object.
+// Instantiate an AWS Lambda client service object.
 const lambda = new LambdaClient({ region: REGION });
 
 // Set the parameters.

@@ -1,5 +1,5 @@
 ---
-# Amazon Lambda examples
+# AWS Lambda examples
 files:
   - path: ./src/LambdaApp/index.ts
     services:

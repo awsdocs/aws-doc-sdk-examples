@@ -6,9 +6,9 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-ddb-setup.html.
 
 Purpose:
-describe-stack-resources.ts demonstrates how display details for Amazon CloudFormation resources generated when you create an
+describe-stack-resources.ts demonstrates how display details for AWS CloudFormation resources generated when you create an
 Amazon CloudFormation stack using the Amazon Commmand Line Interface (CLI).
-It is part of a tutorial demonstrating how create and deploy an Amazon Lambda function. To run the full tutorial, see
+It is part of a tutorial demonstrating how create and deploy an AWS Lambda function. To run the full tutorial, see
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-table-example.html.
 
 */
@@ -20,7 +20,7 @@ const {
   DescribeStackResourcesCommand,
 } = require("@aws-sdk/client-cloudformation");
 
-// Create an Amazon CloudFormation service client object.
+// Create an AWS CloudFormation service client object.
 const cloudformation = new CloudFormationClient();
 
 // Set the parameters.
