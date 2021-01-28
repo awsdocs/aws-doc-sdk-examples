@@ -10,4 +10,7 @@ files:
   - path: ./src/mylamdbafunction.ts
     services:
       - DynamoDB
+  - path: ./describe-stack-resources.ts
+    services:
+      - CloudFormation
 ...
