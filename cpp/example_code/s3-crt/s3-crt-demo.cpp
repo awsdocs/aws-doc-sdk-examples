@@ -219,4 +219,4 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
-// snippet-end:[s3.cpp.bucket_operations.list_create_delete]
+// snippet-end:[s3-crt.cpp.bucket_operations.list_create_delete]
