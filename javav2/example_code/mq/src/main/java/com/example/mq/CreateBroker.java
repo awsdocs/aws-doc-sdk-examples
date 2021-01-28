@@ -4,50 +4,64 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mq.MqClient;
 import software.amazon.awssdk.services.mq.model.*;
 
-public class CreateBrokerActiveMQ {
+public class CreateBroker {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "CreateBrokerActiveMQ <brokerName>\n\n" +
+                "CreateBrokerActiveMQ <engineType> <brokerName>\n\n" +
                 "Where:\n" +
-                "  brokerName - the name of the Amazon MQ for ActiveMQ broker.\n\n" ;
-
+                "  engineType - Required. RABBITMQ or ACTIVEMQ for broker's engine type.\n" +
+                "  brokerName - Optional. The name of the Amazon MQ for ActiveMQ broker.\n\n";
+        
+        int argsLength = args.length;
         String brokerName = "";
-        if (args.length > 1) {
+        String engineType = "";
+
+        if (argsLength < 1 || argsLength > 2) {
             System.out.println(USAGE);
             System.exit(1);
-        } else if (args.length == 1) {
-            brokerName = args[0];
-        } else {
-            brokerName = "ActiveMQ-" + System.currentTimeMillis();
+        }  else {
+            engineType = args[0];
+            if (argsLength == 1) {
+                brokerName = engineType + " - " + System.currentTimeMillis(); 
+            } else {
+                brokerName = args[1];
+            }
         }
-        
+
         Region region = Region.US_WEST_2;
         
         MqClient mqClient = MqClient.builder()
                 .region(region)
                 .build();
         
-        createBrokerActiveMQ(mqClient, brokerName);
+        createBrokerActiveMQ(mqClient, engineType, brokerName);
         mqClient.close();
     }
-    public static void createBrokerActiveMQ(MqClient mqClient, String brokerName) {
+    public static void createBrokerActiveMQ(MqClient mqClient, String engineType, String brokerName) {
         
         try {
 
-            User activeMQUser = User.builder()
+            User user = User.builder()
             .username("testAdminUser")
             .password("testAdminPassword")
             .build();
 
+            String engineVersion = "";
+
+            if (engineType.equals("ACTIVEMQ")) {
+                engineVersion = "5.15.14";
+            } else {
+                engineVersion = "3.8.6";
+            }
             // Creates an ActiveMQ broker and a new configuration with default values.
             mqClient.createBroker(CreateBrokerRequest.builder()
                 .brokerName(brokerName)
-                .engineType("ACTIVEMQ")
-                .engineVersion("5.15.14")
+                .engineType(engineType)
+                .engineVersion(engineVersion)
                 .deploymentMode("SINGLE_INSTANCE")
-                .users(activeMQUser)
+                .users(user)
                 .publiclyAccessible(true)
                 .autoMinorVersionUpgrade(true)
                 .hostInstanceType("mq.t3.micro")
