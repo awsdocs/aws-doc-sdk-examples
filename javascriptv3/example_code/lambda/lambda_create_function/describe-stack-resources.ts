@@ -56,5 +56,5 @@ const getVariables = async () => {
   }
 };
 getVariables();
-// snippet-start:[lambda.JavaScript.general-examples-lambda-create-function.describeResourcesV3]
+// snippet-end:[lambda.JavaScript.general-examples-lambda-create-function.describeResourcesV3]
 
