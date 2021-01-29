@@ -22,7 +22,7 @@ You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the comma
 
 	Test 3 passed
 
-**WARNING**: _Running these JUnit tests manipulates real Amazon CloudWatch resources and may incur charges on your account._
+**WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
 
  ### Properties file
 Before running the AWS Step Functions JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define an alarm name for various tests. If you do not define all values, the JUnit tests fail.
