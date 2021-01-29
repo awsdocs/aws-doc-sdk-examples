@@ -27,32 +27,36 @@
 
 // snippet-start:[dynamodb.JavaScript.table.scan]
 // Load the AWS SDK for Node.js
-var AWS = require('aws-sdk');
+var AWS = require("aws-sdk");
 // Set the region
-AWS.config.update({region: 'REGION'});
+AWS.config.update({ region: "eu-west-1" });
 
 // Create DynamoDB service object
-var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
+var ddb = new AWS.DynamoDB({ apiVersion: "2012-08-10" });
 
-var params = {
+const params = {
+  FilterExpression: "Subtitle = :topic AND Season = :s AND Episode = :e",
   ExpressionAttributeValues: {
-    ':s': {N: '2'},
-    ':e' : {N: '09'},
-    ':topic' : {S: 'PHRASE'}
+    ":topic": { S: "SubTitle2" },
+    ":s": { N: "1" },
+    ":e": { N: "2" },
   },
-  ProjectionExpression: 'Episode, Title, Subtitle',
-  FilterExpression: 'contains (Subtitle, :topic)',
-  TableName: 'EPISODES_TABLE'
+  ProjectionExpression: "Season, Episode, Title, Subtitle",
+  TableName: "EPISODES_TABLE",
 };
 
-ddb.scan(params, function(err, data) {
+ddb.scan(params, function (err, data) {
   if (err) {
     console.log("Error", err);
   } else {
-    //console.log("Success", data.Items);
-    data.Items.forEach(function(element, index, array) {
-      console.log(element.Title.S + " (" + element.Subtitle.S + ")");
+    console.log("Success", data);
+    data.Items.forEach(function (element, index, array) {
+      console.log(
+          "printing",
+          element.Title.S + " (" + element.Subtitle.S + ")"
+      );
     });
   }
 });
+
 // snippet-end:[dynamodb.JavaScript.table.scan]
