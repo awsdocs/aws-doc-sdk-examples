@@ -24,7 +24,7 @@ const REGION = "REGION";
 const params = {
   // Specify which items in the results are returned.
   FilterExpression: "Subtitle = :topic AND Season = :s AND Episode = :e",
-  // Define expression attribute value, which are substitutes for the values you want to compare.
+  // Define the expression attribute value, which are substitutes for the values you want to compare.
   ExpressionAttributeValues: {
     ":topic": { S: "SubTitle2" },
     ":s": { N: "1" },
