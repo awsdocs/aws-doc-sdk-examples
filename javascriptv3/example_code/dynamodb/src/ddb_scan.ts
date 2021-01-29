@@ -20,11 +20,12 @@ ts-node ddb_scan.ts
 const { DynamoDBClient, ScanCommand } = require("@aws-sdk/client-dynamodb");
 const REGION = "REGION";
 
-// Set parameters
 const params = {
-  FilterExpression: "contains (Subtitle, :topic)",
+  FilterExpression: "Subtitle = :topic AND Season = :s AND Episode = :e",
   ExpressionAttributeValues: {
-    ":topic": { S: "Sub" },
+    ":topic": { S: "SubTitle2" },
+    ":s": { N: "1" },
+    ":e": { N: "2" }
   },
   ProjectionExpression: "Season, Episode, Title, Subtitle",
   TableName: "EPISODES_TABLE",
@@ -35,6 +36,7 @@ const dbclient = new DynamoDBClient({ region: REGION });
 
 async function run() {
   try {
+
     const data = await dbclient.send(new ScanCommand(params));
     data.Items.forEach(function (element, index, array) {
       console.log(element.Title.S + " (" + element.Subtitle.S + ")");
