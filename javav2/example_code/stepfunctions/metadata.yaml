@@ -1,0 +1,24 @@
+--- 
+files:
+  - path: src/main/java/com/example/stepfunctions/CreateStateMachine.java
+    services:
+      - stepfunctions
+  - path: src/main/java/com/example/stepfunctions/DeleteStateMachine.java
+    services:
+      - stepfunctions
+  - path: src/main/java/com/example/stepfunctions/GetExecutionHistory.java
+    services:
+      - stepfunctions
+  - path: src/main/java/com/example/stepfunctions/ListActivities.java
+    services:
+      - stepfunctions
+  - path: src/main/java/com/example/stepfunctions/ListStateMachines.java
+    services:
+      - stepfunctions
+  - path: src/main/java/com/example/stepfunctions/StartExecution.java
+    services:
+      - stepfunctions
+  - path: src/test/java/StepFunctionsTest.java
+    services:
+      - stepfunctions
+    
