@@ -26,21 +26,24 @@
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-query-scan.html
 
 // snippet-start:[dynamodb.JavaScript.table.scan]
-// Load the AWS SDK for Node.js
+    // Load the AWS SDK for Node.js.
 var AWS = require("aws-sdk");
-// Set the region
+// Set the AWS Region.
 AWS.config.update({ region: "eu-west-1" });
 
-// Create DynamoDB service object
+// Create DynamoDB service object.
 var ddb = new AWS.DynamoDB({ apiVersion: "2012-08-10" });
 
 const params = {
+  // Specify which items in the results are returned.
   FilterExpression: "Subtitle = :topic AND Season = :s AND Episode = :e",
+  // Define expression attribute value, which are substitutes for the values you want to compare.
   ExpressionAttributeValues: {
     ":topic": { S: "SubTitle2" },
     ":s": { N: "1" },
     ":e": { N: "2" },
   },
+  // Set the projection expression, which the the attributes that you want.
   ProjectionExpression: "Season, Episode, Title, Subtitle",
   TableName: "EPISODES_TABLE",
 };
