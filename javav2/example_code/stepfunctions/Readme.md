@@ -55,7 +55,7 @@ You will see output from the JUnit tests, as shown here.
 	Done!
 	[INFO] Results:
 	[INFO]
-	[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0
+	[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0
 	[INFO]
 	INFO] --------------------------------------------
 	[INFO] BUILD SUCCESS
