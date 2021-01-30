@@ -12,30 +12,51 @@ import * as cdk from '@aws-cdk/core';
 
 // Only include this import statement if your AWS CDK app needs to work
 // with Amazon Simple Storage Service (Amazon S3) buckets. This import
-// statement is included here only for this example.
+// statement is included here only for this example. If you use this
+// import statement, be sure to also run 'npm install @aws-cdk/aws-s3'.
 import { Bucket } from '@aws-cdk/aws-s3';
+
+// Only include this import statement if your AWS CDK app needs to get
+// input from the caller (such as the name of a new Amazon S3 bucket).
+import { CfnParameter } from '@aws-cdk/core';
 
 export class SetupStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     // TODO: Add the code that defines your stack here.
-
     // For this example, here's how to create a bucket in Amazon S3.
-    // Because S3 bucket names must be unique across AWS, this will generate
-    // a random bucket name such as 'setupstack-mybucket15d133bf-q458tvg2mp9x'.
+
+    // This example names the bucket based on the caller's input.
+    // Note that bucket names must be globally unique across all of AWS.
+    // The caller can specify the name of the bucket in several ways:
+    //
+    // 1. When using the AWS CLI, for example after running
+    //    'cdk synth > CloudFormation.yaml':
+    //
+    //    aws cloudformation create-stack \
+    //      --template-body file://CloudFormation.yaml \
+    //      --parameters ParameterKey=bucketName,ParameterValue=my-bucket-111111111111 \
+    //      --stack-name SetupStack
+    //
+    // 2. When using the AWS CloudFormation console, by typing a value
+    //    into the 'bucketName' field in the create stack wizard.
+    //
+    // 3. When using the AWS CDK after running 'cdk synth', for example:
+    //
+    //    cdk deploy --parameters bucketName=my-bucket-111111111111
+    //
+    const bucketName = new CfnParameter(this, 'bucketName', {
+      type: 'String',
+      description: 'The name of the Amazon S3 bucket to be created.'});
+
+    // Use the caller-provided bucket name to create the bucket.
     let mybucket: Bucket = new Bucket(this, 'mybucket', {
+      bucketName: bucketName.valueAsString,
       removalPolicy: cdk.RemovalPolicy.DESTROY
     });
   }
 }
 
-// TODO: Change 'SetupStack' to a unique value across AWS CloudFormation
-// across the caller's AWS account. Otherwise, attempting to deploying a
-// stack with this stack name multiple times within the caller's account
-// might fail.
-const stackName = 'SetupStack'
-
 const app = new cdk.App();
-
-new SetupStack(app, stackName);
+new SetupStack(app, 'SetupStack');

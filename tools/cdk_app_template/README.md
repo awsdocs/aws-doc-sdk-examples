@@ -41,6 +41,8 @@ To run the AWS CDK app, which creates a corresponding stack in AWS CloudFormatio
 
 ``cdk deploy``
 
+The ``setup.ts`` file within this folder contains instructions for getting any custom inputs from the caller as desired and using those inputs as part of the ``cdk deploy`` command.
+
 To destroy the AWS CDK app, which deletes the corresponding stack from AWS CloudFormation and which in turn deletes the specified AWS resources, run the following command from within this folder:
 
 ``cdk destroy``
@@ -75,6 +77,8 @@ To use the AWS CLI, run the following command from within the same folder as the
 
 ``aws cloudformation create-stack --stack-name SetupStack --template-body file://CloudFormation.yaml``
 
+The ``setup.ts`` file within this folder contains instructions for getting any custom inputs from the caller as desired and using those inputs as part of the ``aws cloudformation create-stack`` command.
+
 To delete the corresponding stack in AWS CloudFormation, run the following command:
 
 ``aws cloudformation delete-stack --stack-name SetupStack``
@@ -88,7 +92,8 @@ To use the AWS CloudFormation Console, do the following to create the correspond
 1. Choose **Choose file**.
 1. Browse to and open the ``CloudFormation.yaml`` file.
 1. Choose **Next**.
-1. On the **Specify stack details** page, for **Stack name**, type a unique name for the stack, and then choose **Next**. (This stack name must be unique within an individual AWS Region for the AWS account.)
+1. On the **Specify stack details** page, for **Stack name**, type a unique name for the stack. (This stack name must be unique within an individual AWS Region for the AWS account.)
+1. Specify any custom inputs, if required by the template's logic, and then choose **Next**. 
 1. On the **Configure stack options** page, choose **Next**.
 1. On the **Review** page, choose **Create stack**.
 
