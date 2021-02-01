@@ -20,28 +20,29 @@ export class GoLambdaCdkStack extends cdk.Stack {
     constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
       super(scope, id, props);
   
-      // Create DynamoDB table with primary key id (string)
+      // Create Amazon DynamoDB table with primary key id (string)
       const myTable = new dynamodb.Table(this, 'MyTable', {
         partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING },
         stream: StreamViewType.NEW_IMAGE,
       });
   
-      // Create S3 bucket 
-      const myBucket = new s3.Bucket(this, "MyBucket",);
+      // Create Amazon Simple Storage Service (Amazon S3) bucket and give it a tag
+      const myBucket = new s3.Bucket(this, "MyBucket",);      
+      cdk.Tags.of(myBucket).add('NameTag', 'MyBucket');
   
-      // Create SNS topic
+      // Create Amazon Simple Notification Service (Amazon SNS) topic
       const myTopic = new sns.Topic(this, 'MyTopic', {
         displayName: 'User subscription topic'
       });
   
-      // Create SQS queue
+      // Create Amazon Simple Queue Service (Amazon SQS) queue
       const myQueue = new sqs.Queue(this, 'MyQueue');
   
       // Subscribe a queue to the topic:
       const mySubscription = new subs.SqsSubscription(myQueue)
       myTopic.addSubscription(mySubscription);
   
-      /* Create Lambda functions for all sources:
+      /* Create AWS Lambda functions for all sources:
          Note that on Windows you'll have to replace the functions with a ZIP file you create by:
          1. Navigating to code location
          2. Running from a Windows command prompt (where main is your handler name):
@@ -62,7 +63,7 @@ export class GoLambdaCdkStack extends cdk.Stack {
         code: new lambda.AssetCode('src/dynamodb'), // Go source file is (relative to cdk.json): src/dynamodb/main.go
       });
   
-      // Set up dead-letter queue for failed DynamoDB or SNS events
+      // Set up dead-letter queue for failed DynamoDB or Amazon SNS events
       const dlQueue = new sqs.Queue(this, 'MyDLQueue');
   
       // See
@@ -78,14 +79,14 @@ export class GoLambdaCdkStack extends cdk.Stack {
         retryAttempts: 10
       }));
   
-      // S3 Lambda function
+      // Amazon S3 Lambda function
       const myS3Function = new lambda.Function(this, 'MyS3Function', {
         runtime: lambda.Runtime.GO_1_X,
         handler: 'main',
         code: new lambda.AssetCode('src/s3'), // Go source file is (relative to cdk.json): src/s3/main.go
       });
   
-      // Configure S3 bucket to send notification events to Lambda function.
+      // Configure Amazon S3 bucket to send notification events to Lambda function.
       myBucket.addEventNotification(EventType.OBJECT_CREATED, new nots.LambdaDestination(myS3Function))
   
       /* Test the function from the command line by sending a notification (this does not upload KEY-NAME to BUCKET-NAME) with:
@@ -99,14 +100,14 @@ export class GoLambdaCdkStack extends cdk.Stack {
            KEY-NAME is the name of the object uploaded to the bucket
       */
       
-      // SNS Lambda function:
+      // Amazon SNS Lambda function:
       const mySNSFunction = new lambda.Function(this, 'MySNSFunction', {
         runtime: lambda.Runtime.GO_1_X,
         handler: 'main',
         code: new lambda.AssetCode('src/sns'), // Go source file is (relative to cdk.json): src/sns/main.go
       });
   
-      // Configure Lambda function to handle events from SNS topic.
+      // Configure Lambda function to handle events from Amazon SNS topic.
       mySNSFunction.addEventSource(new SnsEventSource(myTopic, {
         filterPolicy: {
           Field: sns.SubscriptionFilter.stringFilter({  // See https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-sns.SubscriptionFilter.html
@@ -116,7 +117,7 @@ export class GoLambdaCdkStack extends cdk.Stack {
         deadLetterQueue: dlQueue,
       }));
      
-      // SQS Lambda function:
+      // Amazon SQS Lambda function:
       const mySQSFunction = new lambda.Function(this, 'MySQSFunction', {
         runtime: lambda.Runtime.GO_1_X,
         handler: 'main',
@@ -128,7 +129,7 @@ export class GoLambdaCdkStack extends cdk.Stack {
         batchSize: 10, // default
       }));
       
-      // Barf out info about the resources
+      // Display info about the resources.
       // You can see this information at any time by running:
       //   aws cloudformation describe-stacks --stack-name GoLambdaCdkStack --query Stacks[0].Outputs --output text
       new CfnOutput(this, 'Bucket name: ', {value: myBucket.bucketName});
