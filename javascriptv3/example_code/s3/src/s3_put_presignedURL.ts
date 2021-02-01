@@ -24,85 +24,66 @@ Uploads the specified file to the specified bucket.
 const {
   S3,
   CreateBucketCommand,
-  PutObjectCommand,
-  GetObjectCommand,
   DeleteObjectCommand,
+  PutObjectCommand,
   DeleteBucketCommand,
 } = require("@aws-sdk/client-s3");
-const { getSignedUrl  } = require("@aws-sdk/s3-request-presigner");
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
+// Set the AWS Region
+const REGION = "REGION";
 
 // Set parameters
-// Create random names for the Amazon Simple Storage Service (Amazon S3) bucket and key.
+// Create a random names for the Amazon Simple Storage Service (Amazon S3) bucket and key
 const params = {
   Bucket: `test-bucket-${Math.ceil(Math.random() * 10 ** 10)}`,
   Key: `test-object-${Math.ceil(Math.random() * 10 ** 10)}`,
   Body: "BODY",
-  Region: "eu-west-1",
 };
 
 // Create an Amazon S3 service client object.
-const s3Client = new S3({ region: params.Region });
+const s3Client = new S3({ region: REGION });
 
 const run = async () => {
-  // Create an Amazon S3 bucket.
   try {
+    // Create an Amazon S3 bucket.
     console.log(`Creating bucket ${params.Bucket}`);
-    const data = await s3Client.send(
-        new CreateBucketCommand({ Bucket: params.Bucket })
-    );
-    console.log(`Waiting for "${params.Bucket}" bucket creation...\n`);
+    await s3Client.send(new CreateBucketCommand({ Bucket: params.Bucket }));
+    console.log(`Waiting for "${params.Bucket}" bucket creation...`);
   } catch (err) {
     console.log("Error creating bucket", err);
   }
-  // Put the object in the Amazon S3 bucket.
-  try {
-    console.log(`Putting object "${params.Key}" in bucket`);
-    const data = await s3Client.send(
-        new PutObjectCommand({
-          Bucket: params.Bucket,
-          Key: params.Key,
-          Body: params.Body,
-        })
-    );
-  } catch (err) {
-    console.log("Error putting object", err);
-  }
-  // Create a presigned URL.
   try {
     // Create the command.
-    const command = new GetObjectCommand(params);
+    const command = new PutObjectCommand(params);
+
     // Create the presigned URL.
     const signedUrl = await getSignedUrl(s3Client, command, {
       expiresIn: 3600,
     });
     console.log(
-        `\nGetting "${params.Key}" using signedUrl with body "${params.Body}" in v3`
+      `\nPutting "${params.Key}" using signedUrl with body "${params.Body}" in v3`
     );
     console.log(signedUrl);
-  }
-  catch (err) {
+  } catch (err) {
     console.log("Error creating presigned URL", err);
   }
-  // Delete the object.
   try {
+    // Delete the object.
     console.log(`\nDeleting object "${params.Key}" from bucket`);
-    const data = await s3Client.send(
-        new DeleteObjectCommand({ Bucket: params.Bucket, Key: params.Key })
+    await s3Client.send(
+      new DeleteObjectCommand({ Bucket: params.Bucket, Key: params.Key })
     );
   } catch (err) {
     console.log("Error deleting object", err);
   }
-  // Delete the bucket.
   try {
+    // Delete the Amazon S3 bucket.
     console.log(`\nDeleting bucket ${params.Bucket}`);
-    const data = await s3Client.send(
-        new DeleteBucketCommand({ Bucket: params.Bucket, Key: params.Key })
-    );
+    await s3Client.send(new DeleteBucketCommand({ Bucket: params.Bucket }));
   } catch (err) {
-    console.log("Error deleting object", err);
+    console.log("Error deleting bucket", err);
   }
 };
 run();
-
 // snippet-end:[s3.JavaScript.buckets.presignedurlv3]
