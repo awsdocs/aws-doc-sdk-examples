@@ -26,3 +26,4 @@ vendor/
 main.zip
 node_modules/
 cdk.out/
+package-lock.json
