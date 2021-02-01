@@ -84,7 +84,8 @@ def usage_demo(state_machine_name, resources):
     for user_name, message in [
             ('wills', 'Brevity is the soul of wit.'),
             ('janea', 'Let us never underestimate the power of a well-written letter.'),
-            ('lewisc', "Why is a raven like a writing-desk?")]:
+            ('lewisc', "I have proved by actual trial that a letter, that takes an "
+                       "hour to write, takes only about 3 minutes to read!")]:
         table.put_item(Item={
             'user_name': user_name, 'message': message,
             'message_id': str(time.time_ns()), 'sent': False})
