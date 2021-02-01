@@ -26,7 +26,12 @@
 bool AwsDoc::S3::CreateBucket(const Aws::String& bucketName, 
     const Aws::S3::Model::BucketLocationConstraint& region)
 {
+    Aws::Client::ClientConfiguration config;
+
     Aws::S3::S3Client s3_client(config);
+
+    Aws::S3::Model::CreateBucketRequest request;
+    request.SetBucket(bucketName);
 
     // You only need to set the AWS Region for the bucket if it is 
     // other than US East (N. Virginia) us-east-1.
