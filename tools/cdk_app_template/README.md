@@ -58,14 +58,6 @@ To merge your finished AWS CDK app's source code, merge **only** the following f
 
 **Important**: Update the [README.md in the resources/cdk folder of the AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/resources/cdk) with a description of the resources that your AWS CDK app provisions.
 
-**Do not** merge the following folders or files from your development machine into the repository:
-
-* ``node_modules/``
-* ``package-lock.json``
-* This version of the ``README.md`` file
-
-This is especially important for the ``node_modules/`` folder, as it could grow to several hundred megabytes or more in size during development. The ``.gitignore`` file in this folder contains a list of these folders and files.
-
 You can regenerate these unmerged folders and files on your development machine as needed by running the preceding ``npm`` and ``cdk`` commands on your development machine (after of course installing the AWS CDK prerequisites).
 
 Merge the ``CloudFormation.yaml`` file into the same location(s) as any code example file(s) with which this ``CloudFormation.yaml`` file is intended to be used.
