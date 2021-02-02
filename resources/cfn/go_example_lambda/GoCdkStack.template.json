@@ -114,13 +114,13 @@
         "aws:cdk:path": "GoCdkStack/MyTopic/Resource"
       }
     },
-    "MyQueueE6CA6235": {
+    "MyNewQueue486005E3": {
       "Type": "AWS::SQS::Queue",
       "Metadata": {
-        "aws:cdk:path": "GoCdkStack/MyQueue/Resource"
+        "aws:cdk:path": "GoCdkStack/MyNewQueue/Resource"
       }
     },
-    "MyQueuePolicy6BBEDDAC": {
+    "MyNewQueuePolicy115B53FD": {
       "Type": "AWS::SQS::QueuePolicy",
       "Properties": {
         "PolicyDocument": {
@@ -140,7 +140,7 @@
               },
               "Resource": {
                 "Fn::GetAtt": [
-                  "MyQueueE6CA6235",
+                  "MyNewQueue486005E3",
                   "Arn"
                 ]
               }
@@ -150,15 +150,15 @@
         },
         "Queues": [
           {
-            "Ref": "MyQueueE6CA6235"
+            "Ref": "MyNewQueue486005E3"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "GoCdkStack/MyQueue/Policy/Resource"
+        "aws:cdk:path": "GoCdkStack/MyNewQueue/Policy/Resource"
       }
     },
-    "MyQueueGoCdkStackMyTopicC4A147EE8F169AC2": {
+    "MyNewQueueGoCdkStackMyTopicC4A147EED2DB26BD": {
       "Type": "AWS::SNS::Subscription",
       "Properties": {
         "Protocol": "sqs",
@@ -167,13 +167,13 @@
         },
         "Endpoint": {
           "Fn::GetAtt": [
-            "MyQueueE6CA6235",
+            "MyNewQueue486005E3",
             "Arn"
           ]
         }
       },
       "Metadata": {
-        "aws:cdk:path": "GoCdkStack/MyQueue/GoCdkStackMyTopicC4A147EE/Resource"
+        "aws:cdk:path": "GoCdkStack/MyNewQueue/GoCdkStackMyTopicC4A147EE/Resource"
       }
     },
     "MyDynamoDBFunctionServiceRole4D295727": {
@@ -842,7 +842,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "MyQueueE6CA6235",
+                  "MyNewQueue486005E3",
                   "Arn"
                 ]
               }
@@ -921,7 +921,7 @@
         "aws:asset:property": "Code"
       }
     },
-    "MySQSFunctionSqsEventSourceGoCdkStackMyQueue9883952B48BFF52A": {
+    "MySQSFunctionSqsEventSourceGoCdkStackMyNewQueueE4FEAF7ED885DDBD": {
       "Type": "AWS::Lambda::EventSourceMapping",
       "Properties": {
         "FunctionName": {
@@ -930,13 +930,13 @@
         "BatchSize": 10,
         "EventSourceArn": {
           "Fn::GetAtt": [
-            "MyQueueE6CA6235",
+            "MyNewQueue486005E3",
             "Arn"
           ]
         }
       },
       "Metadata": {
-        "aws:cdk:path": "GoCdkStack/MySQSFunction/SqsEventSource:GoCdkStackMyQueue9883952B/Resource"
+        "aws:cdk:path": "GoCdkStack/MySQSFunction/SqsEventSource:GoCdkStackMyNewQueueE4FEAF7E/Resource"
       }
     },
     "MySQSFunctionLogRetention1914FA38": {
@@ -1217,7 +1217,7 @@
     "Queuename": {
       "Value": {
         "Fn::GetAtt": [
-          "MyQueueE6CA6235",
+          "MyNewQueue486005E3",
           "QueueName"
         ]
       }
