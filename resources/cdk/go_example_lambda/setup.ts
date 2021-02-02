@@ -16,7 +16,7 @@ import { StreamViewType } from '@aws-cdk/aws-dynamodb';
 import { EventType } from '@aws-cdk/aws-s3';
 import { CfnOutput } from '@aws-cdk/core';
 
-export class GoLambdaCdkStack extends cdk.Stack {
+export class GoCdkStack extends cdk.Stack {
     constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
       super(scope, id, props);
   
@@ -151,4 +151,4 @@ export class GoLambdaCdkStack extends cdk.Stack {
 }
 
 const app = new cdk.App();
-new GoLambdaCdkStack(app, 'GoLambdaCdkStack');
+new GoCdkStack(app, 'GoCdkStack');
