@@ -1,6 +1,6 @@
 # Creating resources to run AWS Lambda functions in Go
 
-The AWS CloudFormation template **GoExamplleLambda.json**  
+The AWS CloudFormation template **GoCdkStack.template.json** 
 contains definitions that you can use to create the following resources:
 
 - An Amazon S3 bucket
@@ -32,7 +32,7 @@ To create these resources from this template:
    where *STACK-NAME* is the name of the CloudFormation stack to create.
    It displays the names of the resources when it finishes:
 
-   `aws cloudformation create-stack --stack-name STACK-NAME --template-body file://GoExamplleLambda.json`
+   `aws cloudformation create-stack --stack-name STACK-NAME --template-body file://GoCdkStack.template.json`
 
 If you forget any of the names of the resources, 
 you can use the AWS CLI to get information about the resources created by
