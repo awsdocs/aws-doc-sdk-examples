@@ -60,7 +60,6 @@ To merge your finished AWS CDK app's source code, merge **only** the following f
 
 **Do not** merge the following folders or files from your development machine into the repository:
 
-* ``cdk.out/``
 * ``node_modules/``
 * ``package-lock.json``
 * This version of the ``README.md`` file
