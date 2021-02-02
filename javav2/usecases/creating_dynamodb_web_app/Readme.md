@@ -538,7 +538,7 @@ The following Java code represents the **MainController** class.
      String archieveWorkItem(HttpServletRequest request, HttpServletResponse response) {
 
       String id = request.getParameter("id");
-      dbService.archiveItem(id );
+      dbService.archiveItemEC(id );
       return id ;
       }
 
@@ -856,6 +856,38 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
         return "";
         }
 
+    // Update the archive column by using the Enhanced Client
+    public String archiveItemEC(String id) {
+
+        DynamoDbClient ddb = getClient();
+
+        try {
+
+            DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+                    .dynamoDbClient(getClient())
+                    .build();
+
+            DynamoDbTable<Work> workTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+
+            //Get the WOrk object
+            Key key = Key.builder()
+                    .partitionValue(id)
+                    .build();
+
+            // Get the item by using the key
+            Work work = workTable.getItem(r->r.key(key));
+            work.setArchive("Closed");
+
+            workTable.updateItem(r->r.item(work));
+            return"The item was successfully archived";
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        return "";
+    }
+
+      
       // Updates items in the Work table
       public String UpdateItem(String id, String status){
          DynamoDbClient ddb = getClient();
