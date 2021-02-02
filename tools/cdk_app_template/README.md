@@ -49,21 +49,14 @@ To destroy the AWS CDK app, which deletes the corresponding stack from AWS Cloud
 
 ## Merging
 
-To merge your finished AWS CDK app's source code, merge **only** the following files from your development machine into its own self-contained folder within the AWS Code Examples Repository:
+To merge your finished AWS CDK app's source code, merge **only** the following files from your development machine into its own self-contained folder within the [resources/cdk folder in the AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/resources/cdk):
 
 * ``cdk.json``
 * ``package.json``
 * ``setup.ts``
 * ``tsconfig.json``
 
-**Do not** merge the following folders or files from your development machine into the repository:
-
-* ``cdk.out/``
-* ``node_modules/``
-* ``package-lock.json``
-* This version of the ``README.md`` file
-
-This is especially important for the ``node_modules/`` folder, as it could grow to several hundred megabytes or more in size during development. The ``.gitignore`` file in this folder contains a list of these folders and files.
+**Important**: Update the [README.md in the resources/cdk folder of the AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/resources/cdk) with a description of the resources that your AWS CDK app provisions.
 
 You can regenerate these unmerged folders and files on your development machine as needed by running the preceding ``npm`` and ``cdk`` commands on your development machine (after of course installing the AWS CDK prerequisites).
 
