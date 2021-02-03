@@ -201,7 +201,7 @@ Workflows can pass data between steps. For example, the **Determine the missing 
 
 9. Choose **Create state machine**. A message appears that states the state machine was successfully created.
 
-## Create an IntelliJ project named LambdaFunctions
+## Create an IntelliJ project named LambdaNotifications
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
 
