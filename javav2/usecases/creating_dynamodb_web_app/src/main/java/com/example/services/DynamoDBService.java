@@ -1,34 +1,17 @@
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
-
 package com.example.services;
 
 import com.example.entities.WorkItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import software.amazon.awssdk.enhanced.dynamodb.*;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
-import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
-import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+import software.amazon.awssdk.enhanced.dynamodb.model.UpdateItemEnhancedRequest;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.*;
 import software.amazon.awssdk.enhanced.dynamodb.model.ScanEnhancedRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import software.amazon.awssdk.enhanced.dynamodb.Expression;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -44,26 +27,25 @@ import java.time.ZoneOffset;
 import java.util.*;
 import org.springframework.stereotype.Component;
 
- /*
-    Before running this code example, create a table named Work with a PK named id
+/*
+ Before running this code example, create a table named Work with a PK named id
  */
 @Component
 public class DynamoDBService {
 
-   private DynamoDbClient getClient() {
+    private DynamoDbClient getClient() {
 
-       // Create a DynamoDbClient object
-       Region region = Region.US_EAST_1;
-       DynamoDbClient ddb = DynamoDbClient.builder()
-               .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-               .region(region)
-               .build();
+        // Create a DynamoDbClient object
+        Region region = Region.US_EAST_1;
+        DynamoDbClient ddb = DynamoDbClient.builder()
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .region(region)
+                .build();
 
-      return ddb;
-   }
+        return ddb;
+    }
 
-
-   // Get a single item from the Work table based on the Key
+    // Get a single item from the Work table based on the Key
     public String getItem(String idValue) {
 
         DynamoDbClient ddb = getClient();
@@ -104,7 +86,7 @@ public class DynamoDBService {
         return "";
     }
 
-   // Retrieves items from the DynamoDB table
+    // Retrieves items from the DynamoDB table
     public  ArrayList<WorkItem> getListItems() {
 
         // Create a DynamoDbEnhancedClient
@@ -112,7 +94,7 @@ public class DynamoDBService {
                 .dynamoDbClient(getClient())
                 .build();
 
-        try{
+        try {
             // Create a DynamoDbTable object
             DynamoDbTable<Work> custTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
 
@@ -136,8 +118,8 @@ public class DynamoDBService {
                 //Push the workItem to the list
                 itemList.add(workItem);
             }
-            return itemList;
 
+            return itemList;
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
@@ -147,12 +129,43 @@ public class DynamoDBService {
         return null ;
     }
 
+    // Update the archive column by using the Enhanced Client
+    public String archiveItemEC(String id) {
+
+        DynamoDbClient ddb = getClient();
+
+        try {
+
+            DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+                    .dynamoDbClient(getClient())
+                    .build();
+
+            DynamoDbTable<Work> workTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+
+            //Get the WOrk object
+            Key key = Key.builder()
+                    .partitionValue(id)
+                    .build();
+
+            // Get the item by using the key
+            Work work = workTable.getItem(r->r.key(key));
+            work.setArchive("Closed");
+
+            workTable.updateItem(r->r.item(work));
+            return"The item was successfully archived";
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        return "";
+    }
+
+
     // Archives an item based on the key
     public String archiveItem(String id){
         DynamoDbClient ddb = getClient();
 
         HashMap<String,AttributeValue> itemKey = new HashMap<String,AttributeValue>();
-
         itemKey.put("id", AttributeValue.builder()
                 .s(id)
                 .build());
@@ -186,7 +199,6 @@ public class DynamoDBService {
         return "";
     }
 
-
     // Updates items in the Work Table
     public String UpdateItem(String id, String status){
         DynamoDbClient ddb = getClient();
@@ -203,7 +215,7 @@ public class DynamoDBService {
         // Update the column specified by name with updatedVal
         updatedValues.put("status", AttributeValueUpdate.builder()
                 .value(AttributeValue.builder()
-                 .s(status).build())
+                        .s(status).build())
                 .action(AttributeAction.PUT)
                 .build());
 
@@ -226,77 +238,73 @@ public class DynamoDBService {
         return "";
     }
 
-   // Retrieves items from the DynamoDB table
-   // Get Open items from the DynamoDB table
-   public String getOpenItems() {
+    // Get Open items from the DynamoDB table
+    public String getOpenItems() {
 
-       // Create a DynamoDbEnhancedClient
-       DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-               .dynamoDbClient(getClient())
-               .build();
+        // Create a DynamoDbEnhancedClient
+        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+                .dynamoDbClient(getClient())
+                .build();
 
-       try{
-           // Create a DynamoDbTable object
-           DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+        try{
+            // Create a DynamoDbTable object
+            DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
 
-           AttributeValue attr = AttributeValue.builder()
-                   .s("Open")
-                   .build();
+            AttributeValue attr = AttributeValue.builder()
+                    .s("Open")
+                    .build();
 
-           Map<String, AttributeValue> myMap = new HashMap<>();
-           myMap.put(":val1",attr);
+            Map<String, AttributeValue> myMap = new HashMap<>();
+            myMap.put(":val1",attr);
 
-           Map<String, String> myExMap = new HashMap<>();
-           myExMap.put("#archive", "archive");
+            Map<String, String> myExMap = new HashMap<>();
+            myExMap.put("#archive", "archive");
 
-           // Set the Expression so only Closed items are queried from the Work table
-           Expression expression = Expression.builder()
-                   .expressionValues(myMap)
-                   .expressionNames(myExMap)
-                   .expression("#archive = :val1")
-                   .build();
+            // Set the Expression so only Closed items are queried from the Work table
+            Expression expression = Expression.builder()
+                    .expressionValues(myMap)
+                    .expressionNames(myExMap)
+                    .expression("#archive = :val1")
+                    .build();
 
-           ScanEnhancedRequest enhancedRequest = ScanEnhancedRequest.builder()
-                   .filterExpression(expression)
-                   .limit(15)
-                   .build();
+            ScanEnhancedRequest enhancedRequest = ScanEnhancedRequest.builder()
+                    .filterExpression(expression)
+                    .limit(15)
+                    .build();
 
-           // Scan items
-           Iterator<Work> results = table.scan(enhancedRequest).items().iterator();
-           WorkItem workItem ;
-           ArrayList<WorkItem> itemList = new ArrayList();
+            // Scan items
+            Iterator<Work> results = table.scan(enhancedRequest).items().iterator();
+            WorkItem workItem ;
+            ArrayList<WorkItem> itemList = new ArrayList();
 
-           while (results.hasNext()) {
+            while (results.hasNext()) {
 
-               // Populate a WorkItem
-               workItem = new WorkItem();
-               Work work = results.next();
-               workItem.setName(work.getName());
-               workItem.setGuide(work.getGuide());
-               workItem.setDescription(work.getDescription());
-               workItem.setStatus(work.getStatus());
-               workItem.setDate(work.getDate());
-               workItem.setId(work.getId());
+                // Populate a WorkItem
+                workItem = new WorkItem();
+                Work work = results.next();
+                workItem.setName(work.getName());
+                workItem.setGuide(work.getGuide());
+                workItem.setDescription(work.getDescription());
+                workItem.setStatus(work.getStatus());
+                workItem.setDate(work.getDate());
+                workItem.setId(work.getId());
 
-               //Push the workItem to the list
-               itemList.add(workItem);
-           }
+                // Push the workItem to the list
+                itemList.add(workItem);
+            }
 
-           return convertToString(toXml(itemList));
+            return convertToString(toXml(itemList));
 
-       } catch (DynamoDbException e) {
-           System.err.println(e.getMessage());
-           System.exit(1);
-       }
-       System.out.println("Done");
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        System.out.println("Done");
 
-       return "" ;
-   }
+        return "" ;
+    }
 
-
-
-    // Get Closed Items
-    // Retrieves items from the DynamoDB table
+    // Get Closed Items from the DynamoDB table
     public String getClosedItems() {
 
         // Create a DynamoDbEnhancedClient
@@ -330,7 +338,7 @@ public class DynamoDBService {
                     .limit(15)
                     .build();
 
-            // Get items in the Record table and write out the ID values
+            // Get items
             Iterator<Work> results = table.scan(enhancedRequest).items().iterator();
             WorkItem workItem ;
             ArrayList<WorkItem> itemList = new ArrayList();
@@ -358,25 +366,24 @@ public class DynamoDBService {
             System.exit(1);
         }
         System.out.println("Done");
-
         return "" ;
     }
 
     public void setItem(WorkItem item) {
 
         // Create a DynamoDbEnhancedClient
-         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(getClient())
                 .build();
 
         putRecord(enhancedClient, item) ;
     }
 
-
     // Put an item into a DynamoDB table
     public void putRecord(DynamoDbEnhancedClient enhancedClient, WorkItem item) {
 
         try {
+
             // Create a DynamoDbTable object
             DynamoDbTable<Work> workTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
 
@@ -404,9 +411,9 @@ public class DynamoDBService {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-  }
+    }
 
-    // Convert Work data into XML to pass back to the view
+    // Convert Work item data into XML to pass back to the view
     private Document toXml(List<WorkItem> itemList) {
 
         try {
@@ -481,6 +488,7 @@ public class DynamoDBService {
         }
         return null;
     }
+
     private String now() {
         String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
         Calendar cal = Calendar.getInstance();
@@ -488,7 +496,8 @@ public class DynamoDBService {
         return sdf.format(cal.getTime());
     }
 
-    // Convert Work data into an XML schema to pass back to client
+    // Convert Work item data retrieved from MySQL
+    // into an XML schema to pass back to client
     private Document toXmlItem(String id2, String desc2, String status2) {
 
         try {
@@ -526,8 +535,3 @@ public class DynamoDBService {
         return null;
     }
 }
-
-
-
-
-
