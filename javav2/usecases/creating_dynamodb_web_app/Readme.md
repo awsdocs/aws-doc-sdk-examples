@@ -869,7 +869,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
 
             DynamoDbTable<Work> workTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
 
-            //Get the WOrk object
+            //Get a Key object
             Key key = Key.builder()
                     .partitionValue(id)
                     .build();
