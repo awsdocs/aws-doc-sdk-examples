@@ -221,7 +221,7 @@ At this point, you have a new project named **LambdaNotifications**.
 
 ![AWS Tracking Application](images/Projet.png)
 
-The pom.xml file looks like the following.
+Add this code to your project's pom.xml file. 
 
       <?xml version="1.0" encoding="UTF-8"?>
       <project xmlns="http://maven.apache.org/POM/4.0.0"
