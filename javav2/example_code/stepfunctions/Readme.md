@@ -33,7 +33,7 @@ Define these values to successfully run the JUnit tests:
 
 - **jsonFileSM** – A JSON file that represents the Amazon States Language definition of the state machine and used in the **CreateStateMachine** test.
 
-- **roleARN** – The Amazon Resource Name (ARN) of the IAM role to use for this state machine and used in the **CreateStateMachine** test.
+- **roleARN** – The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role to use for this state machine and used in the **CreateStateMachine** test.
 
 - **stateMachineName** - The name of the state machine to create and used in the **CreateStateMachine** test.
 
