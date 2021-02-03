@@ -2,7 +2,7 @@
 
 This README discusses how to run and test the Java code examples for Step Functions.
 
-## Running the AWS Step Functions Java files
+## Running the Step Functions Java files
 
 **IMPORTANT**
 
