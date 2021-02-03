@@ -90,11 +90,9 @@ public class StepFunctionsTest {
     @Test
     @Order(5)
     public void ListActivities() {
-        ListActivities.getActivites(sfnClient);
+         ListActivities.listAllActivites(sfnClient);
         System.out.println("Test 5 passed");
-
     }
-
 
     @Test
     @Order(6)
