@@ -29,7 +29,8 @@ import java.io.IOException;
 /**
  * To run this example, you need a JSON file that represents the Amazon States Language definition for the state machine.
  *
- * For information, see "Getting started with AWS Step Functions" at https://docs.aws.amazon.com/step-functions/latest/dg/getting-started.html.
+ * To see an Amazon States Language definition example that you can use in this code example, see 
+ * "Getting started with AWS Step Functions" at https://docs.aws.amazon.com/step-functions/latest/dg/getting-started.html.
  */
 
 public class CreateStateMachine {
