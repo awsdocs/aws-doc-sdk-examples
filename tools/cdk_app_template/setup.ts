@@ -17,6 +17,10 @@ import * as cdk from '@aws-cdk/core';
 // import statement, be sure to also run 'npm install @aws-cdk/aws-s3'.
 import { Bucket } from '@aws-cdk/aws-s3';
 
+// If you need more than just the Bucket class,
+// you can import the entire Amazon S3 namespace as s3:
+//   import * as s3 from '@aws-cdk/aws-s3';
+
 // Only include this import statement if your AWS CDK app needs to get
 // input from the caller (such as the name of a new Amazon S3 bucket
 // to be created).
@@ -26,6 +30,10 @@ import { CfnParameter } from '@aws-cdk/core';
 // output to the caller (such as the name of a new Amazon S3 bucket that
 // was created).
 import { CfnOutput } from '@aws-cdk/core';
+
+// If you need both CfnParameter and CfnOutput,
+// you can combine them into one import statement:
+//   import { CfnOutput, CfnParameter } from '@aws-cdk/core';
 
 export class SetupStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -48,7 +56,7 @@ export class SetupStack extends cdk.Stack {
     //
     // 2. When using the AWS CloudFormation console along with the
     //    AWS CloudFormation template that was created after running
-    //    'cdk synth > CloudFormation.yaml', by typing a value
+    //    'cdk synth', by typing a value
     //    into the 'BucketName' field in the create stack wizard in the
     //    AWS CloudFormation console.
     //
