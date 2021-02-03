@@ -174,23 +174,21 @@ int main(int argc, char* argv[]) {
         return Aws::MakeShared<Aws::Utils::Logging::DefaultCRTLogSystem>(ALLOCATION_TAG, Aws::Utils::Logging::LogLevel::Warn);
     };
 
-#if 0
-    // Override default global client bootstrap for AWS common runtime libraries here.
-    options.ioOptions.clientBootstrap_create_fn = []() {
-        Aws::Crt::Io::EventLoopGroup eventLoopGroup(0 /* cpuGroup */, 18 /* threadCount */);
-        Aws::Crt::Io::DefaultHostResolver defaultHostResolver(eventLoopGroup, 8 /* maxHosts */, 300 /* maxTTL */);
-        auto clientBootstrap = Aws::MakeShared<Aws::Crt::Io::ClientBootstrap>(ALLOCATION_TAG, eventLoopGroup, defaultHostResolver);
-        clientBootstrap->EnableBlockingShutdown();
-        return clientBootstrap;
-    };
+    // Uncomment the following code to override default global client bootstrap for AWS common runtime libraries.
+    // options.ioOptions.clientBootstrap_create_fn = []() {
+    //     Aws::Crt::Io::EventLoopGroup eventLoopGroup(0 /* cpuGroup */, 18 /* threadCount */);
+    //     Aws::Crt::Io::DefaultHostResolver defaultHostResolver(eventLoopGroup, 8 /* maxHosts */, 300 /* maxTTL */);
+    //     auto clientBootstrap = Aws::MakeShared<Aws::Crt::Io::ClientBootstrap>(ALLOCATION_TAG, eventLoopGroup, defaultHostResolver);
+    //     clientBootstrap->EnableBlockingShutdown();
+    //     return clientBootstrap;
+    // };
 
-    // Override default global TLS connection options for AWS common runtime libraries here.
-    options.ioOptions.tlsConnectionOptions_create_fn = []() {
-        Aws::Crt::Io::TlsContextOptions tlsCtxOptions = Aws::Crt::Io::TlsContextOptions::InitDefaultClient();
-        Aws::Crt::Io::TlsContext tlsContext(tlsCtxOptions, Aws::Crt::Io::TlsMode::CLIENT);
-        return Aws::MakeShared<Aws::Crt::Io::TlsConnectionOptions>(ALLOCATION_TAG, tlsContext.NewConnectionOptions());
-    };
-#endif
+    // Uncomment the following code to override default global TLS connection options for AWS common runtime libraries.
+    // options.ioOptions.tlsConnectionOptions_create_fn = []() {
+    //     Aws::Crt::Io::TlsContextOptions tlsCtxOptions = Aws::Crt::Io::TlsContextOptions::InitDefaultClient();
+    //     Aws::Crt::Io::TlsContext tlsContext(tlsCtxOptions, Aws::Crt::Io::TlsMode::CLIENT);
+    //     return Aws::MakeShared<Aws::Crt::Io::TlsConnectionOptions>(ALLOCATION_TAG, tlsContext.NewConnectionOptions());
+    // };
 
     Aws::InitAPI(options);
     {
@@ -198,8 +196,8 @@ int main(int argc, char* argv[]) {
         Aws::String object_key = "my-object";
         Aws::String file_name = "my-file";
         Aws::String region = Aws::Region::US_EAST_1;
-        double throughput_target_gbps = 5;
-        uint64_t part_size = 8 * 1024 * 1024; // 8 MB.
+        const double throughput_target_gbps = 5;
+        const uint64_t part_size = 8 * 1024 * 1024; // 8 MB.
 
         Aws::S3Crt::ClientConfiguration config;
         config.region = region;

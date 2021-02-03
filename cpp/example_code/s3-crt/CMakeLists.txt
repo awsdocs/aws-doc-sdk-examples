@@ -21,7 +21,7 @@ endif()
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS s3-crt)
 
-# If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
+# If the compiler is some version of Microsoft Visual C++,
 # and building as shared libraries, then dynamically link to those shared libraries.
 if(MSVC AND BUILD_SHARED_LIBS)
     add_definitions(-DUSE_IMPORT_EXPORT)

@@ -83,8 +83,8 @@ int main()
         Aws::String file_name = "my-file-" + uuid + ".txt";
 
         Aws::String region = Aws::Region::US_EAST_1;
-        double throughput_target_gbps = 5;
-        uint64_t part_size = 5 * 1024 * 1024; // 5 MB.
+        const double throughput_target_gbps = 5;
+        const uint64_t part_size = 8 * 1024 * 1024; // 8 MB.
 
         Aws::S3Crt::ClientConfiguration config;
         config.region = region;

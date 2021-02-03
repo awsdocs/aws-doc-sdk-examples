@@ -8,7 +8,7 @@
 	#pragma warning (disable : 4503)
 #endif // _MSC_VER
 
-#if defined (_WIN32)
+#ifdef _WIN32
 	#ifdef _MSC_VER
 		#pragma warning (disable : 4251)
 	#endif // _MSC_VER
@@ -22,6 +22,6 @@
 	#else
 		#define AWSDOC_S3CRT_API
 	#endif // USE_IMPORT_EXPORT
-#else // defined (WIN32)
+#else // _WIN32
 	#define AWSDOC_S3CRT_API
-#endif // defined (WIN32)
+#endif // _WIN32
