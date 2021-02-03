@@ -4,6 +4,7 @@
 #include <awsdoc/s3-crt/s3-crt-demo.h>
 // snippet-start:[s3-crt.cpp.bucket_operations.list_create_delete]
 #include <iostream>
+#include <fstream>
 #include <aws/core/Aws.h>
 #include <aws/core/utils/memory/stl/AWSStringStream.h>
 #include <aws/core/utils/logging/CRTLogSystem.h>
@@ -84,15 +85,18 @@ bool DeleteBucket(const Aws::S3Crt::S3CrtClient& s3CrtClient, const Aws::String&
 }
 
 // Put an Amazon S3 object to the bucket.
-bool PutObject(const Aws::S3Crt::S3CrtClient& s3CrtClient, const Aws::String& bucketName, const Aws::String& objectKey) {
+bool PutObject(const Aws::S3Crt::S3CrtClient& s3CrtClient, const Aws::String& bucketName, const Aws::String& objectKey, const Aws::String& fileName) {
 
     std::cout << "Putting object: \"" << objectKey << "\" to bucket: \"" << bucketName << "\" ..." << std::endl;
 
     Aws::S3Crt::Model::PutObjectRequest request;
     request.SetBucket(bucketName);
     request.SetKey(objectKey);
-    auto bodyStream = Aws::MakeShared<Aws::StringStream>(ALLOCATION_TAG);
-    *bodyStream << "s3-crt-demo";
+    std::shared_ptr<Aws::IOStream> bodyStream = Aws::MakeShared<Aws::FStream>(ALLOCATION_TAG, fileName.c_str(), std::ios_base::in | std::ios_base::binary);
+    if (!bodyStream->good()) {
+        std::cout << "Failed to open file: \"" << fileName << "\"." << std::endl << std::endl;
+        return false;
+    }
     request.SetBody(bodyStream);
 
     Aws::S3Crt::Model::PutObjectOutcome outcome = s3CrtClient.PutObject(request);
@@ -192,9 +196,10 @@ int main(int argc, char* argv[]) {
     {
         Aws::String bucket_name = "my-bucket";
         Aws::String object_key = "my-object";
+        Aws::String file_name = "my-file";
         Aws::String region = Aws::Region::US_EAST_1;
         double throughput_target_gbps = 5;
-        uint64_t part_size = 5 * 1024 * 1024; // 5 MB.
+        uint64_t part_size = 8 * 1024 * 1024; // 8 MB.
 
         Aws::S3Crt::ClientConfiguration config;
         config.region = region;
@@ -207,7 +212,7 @@ int main(int argc, char* argv[]) {
 
         CreateBucket(s3_crt_client, bucket_name);
 
-        PutObject(s3_crt_client, bucket_name, object_key);
+        PutObject(s3_crt_client, bucket_name, object_key, file_name);
 
         GetObject(s3_crt_client, bucket_name, object_key);
 

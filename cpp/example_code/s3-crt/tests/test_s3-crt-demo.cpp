@@ -2,15 +2,63 @@
 // SPDX - License - Identifier: Apache - 2.0
 
 #include <iostream>
+#include <fstream>
 #include <aws/core/Aws.h>
 #include <aws/core/utils/UUID.h>
+#include <aws/core/utils/FileSystemUtils.h>
 #include <aws/s3-crt/S3CrtClient.h>
+#include <aws/s3-crt/model/ListObjectsRequest.h>
+#include <aws/s3-crt/model/DeleteObjectRequest.h>
+#include <aws/s3-crt/model/DeleteBucketRequest.h>
 #include <awsdoc/s3-crt/s3-crt-demo.h>
 
 static const char ALLOCATION_TAG[] = "test_s3-crt-demo";
 
+static void Cleanup(const Aws::S3Crt::S3CrtClient& s3CrtClient, const Aws::String& bucketName) {
+
+    std::cout << "Cleaning up bucket: \"" << bucketName << "\" ..." << std::endl;
+
+    Aws::S3Crt::Model::ListObjectsRequest listObjectsRequest;
+    listObjectsRequest.SetBucket(bucketName);
+
+    Aws::StringStream errorMessage;
+    errorMessage << "Cleanup failed. You will have to cleanup bucket: \"" << bucketName << "\" by yourself." << std::endl;
+
+    Aws::S3Crt::Model::ListObjectsOutcome listObjectsOutcome = s3CrtClient.ListObjects(listObjectsRequest);
+
+    // Empty bucket
+    if (!listObjectsOutcome.IsSuccess()) {
+        std::cout << errorMessage.str() << std::endl;
+        return;
+    }
+    for (const auto& object : listObjectsOutcome.GetResult().GetContents())
+    {
+        Aws::S3Crt::Model::DeleteObjectRequest deleteObjectRequest;
+        deleteObjectRequest.SetBucket(bucketName);
+        deleteObjectRequest.SetKey(object.GetKey());
+        Aws::S3Crt::Model::DeleteObjectOutcome deleteObjectOutcome = s3CrtClient.DeleteObject(deleteObjectRequest);
+        if (!deleteObjectOutcome.IsSuccess()) {
+            std::cout << errorMessage.str() << std::endl;
+            return;
+        }
+    }
+
+    // Delete bucket
+    Aws::S3Crt::Model::DeleteBucketRequest deleteBucketRequest;
+    deleteBucketRequest.SetBucket(bucketName);
+    Aws::S3Crt::Model::DeleteBucketOutcome deleteBucketOutcome = s3CrtClient.DeleteBucket(deleteBucketRequest);
+    if (deleteBucketOutcome.IsSuccess()) {
+        std::cout << "Bucket cleaned up." << std::endl;
+    }
+    else {
+        std::cout << errorMessage.str() << std::endl;
+    }
+}
+
 int main()
 {
+    bool success = true;
+
     Aws::SDKOptions options;
 
     options.loggingOptions.crt_logger_create_fn = []() {
@@ -32,6 +80,7 @@ int main()
         Aws::String uuid = Aws::Utils::StringUtils::ToLower(static_cast<Aws::String>(Aws::Utils::UUID::RandomUUID()).c_str());
         Aws::String bucket_name = "my-bucket-" + uuid;
         Aws::String object_key = "my-object-" + uuid;
+        Aws::String file_name = "my-file-" + uuid + ".txt";
 
         Aws::String region = Aws::Region::US_EAST_1;
         double throughput_target_gbps = 5;
@@ -45,30 +94,45 @@ int main()
         Aws::S3Crt::S3CrtClient s3_crt_client(config);
 
         if (!ListBuckets(s3_crt_client, bucket_name)) {
-            return 1;
+            success = false;
         }
 
-        if (!CreateBucket(s3_crt_client, bucket_name)) {
-            return 1;
+        if (success && !CreateBucket(s3_crt_client, bucket_name)) {
+            success = false;
         }
 
-        if (!PutObject(s3_crt_client, bucket_name, object_key)) {
-            return 1;
+        Aws::FStream myFile(file_name.c_str(), std::ios_base::out | std::ios_base::binary);
+        myFile << "s3-crt-demo";
+        myFile.close();
+
+        if (success && !PutObject(s3_crt_client, bucket_name, object_key, file_name)) {
+            Cleanup(s3_crt_client, bucket_name);
+            success = false;
         }
 
-        if (!GetObject(s3_crt_client, bucket_name, object_key)) {
-            return 1;
+        if (success && !GetObject(s3_crt_client, bucket_name, object_key)) {
+            Cleanup(s3_crt_client, bucket_name);
+            success = false;
         }
 
-        if (!DeleteObject(s3_crt_client, bucket_name, object_key)) {
-            return 1;
+        if (success && !DeleteObject(s3_crt_client, bucket_name, object_key)) {
+            Cleanup(s3_crt_client, bucket_name);
+            success = false;
         }
 
-        if (!DeleteBucket(s3_crt_client, bucket_name)) {
-            return 1;
+        if (success && !DeleteBucket(s3_crt_client, bucket_name)) {
+            Cleanup(s3_crt_client, bucket_name);
+            success = false;
         }
+
+        Aws::FileSystem::RemoveFileIfExists(file_name.c_str());
     }
     Aws::ShutdownAPI(options);
 
-    return 0;
+    if (success) {
+        return 0;
+    }
+    else {
+        return 1;
+    }
 }

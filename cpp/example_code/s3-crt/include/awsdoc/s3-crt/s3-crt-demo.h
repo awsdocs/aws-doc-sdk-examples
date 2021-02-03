@@ -16,7 +16,7 @@ AWSDOC_S3CRT_API bool CreateBucket(const Aws::S3Crt::S3CrtClient& s3CrtClient,
 AWSDOC_S3CRT_API bool DeleteBucket(const Aws::S3Crt::S3CrtClient& s3CrtClient,
     const Aws::String& bucketName);
 AWSDOC_S3CRT_API bool PutObject(const Aws::S3Crt::S3CrtClient& s3CrtClient,
-    const Aws::String& bucketName, const Aws::String& objectKey);
+    const Aws::String& bucketName, const Aws::String& objectKey, const Aws::String& fileName);
 AWSDOC_S3CRT_API bool GetObject(const Aws::S3Crt::S3CrtClient& s3CrtClient,
     const Aws::String& bucketName, const Aws::String& objectKey);
 AWSDOC_S3CRT_API bool DeleteObject(const Aws::S3Crt::S3CrtClient& s3CrtClient,
