@@ -1,5 +1,5 @@
 # Run bash script on push or pull request
-name: BashPushOrPR
+name: PushOrPR
 
 # Controls when the action will run. 
 on:
