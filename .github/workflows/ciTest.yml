@@ -1,5 +1,5 @@
 # Run bash script on push or pull request
-name: PushOrPR
+name: BashPushOrPR
 
 # Controls when the action will run. 
 on:
@@ -31,7 +31,7 @@ jobs:
         uses: jitterbit/get-changed-files@v1
       - run: |
           # make file runnable, might not be necessary
-          chmod +x scripts/run_go_tests.sh
+          # chmod +x scripts/run_go_tests.sh
 
           # run script
           scripts/run_go_tests.sh ${{ steps.files.outputs.all }}
