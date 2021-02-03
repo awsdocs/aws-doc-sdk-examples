@@ -1,18 +1,18 @@
-# Creating resources to run AWS Lambda functions in Go
+# Creating resources to run Lambda functions in Go
 
-The AWS CloudFormation template **GoCdkStack.template.json** 
+The AWS CloudFormation (CloudFormation) template **GoCdkStack.template.json** 
 contains definitions that you can use to create the following resources:
 
-- An Amazon S3 bucket
-- An Amazon DynamoDB table
-- An Amazon SNS topic
-- An Amazon SQS queue
+- An Amazon Simple Storage Service (Amazon S3) bucket
+- An Amazon DynamoDB (DynamoDB) table
+- An Amazon Simple Notification Service (Amazon SNS) topic
+- An Amazon Simple Queue Service (Amazon SQS) queue
 
-In addition, the template creates AWS Lambda functions,
+In addition, the template creates AWS Lambda (Lambda) functions,
 in Go, to detect the following events:
 
 - An object uploaded to the Amazon S3 bucket
-- An item added to the Amazon DynamoDB table
+- An item added to the DynamoDB table
 - A message sent to the Amazon SNS topic
 - A message sent to the Amazon SQS queue
 
@@ -54,5 +54,5 @@ See the **README.md** file in that directory for details.
 
 The [go_example_lambda](../../cdk/go_example_lambda) 
 project contains Windows batch and Bash script files that you can use 
-to test the AWS Lambda functions.
+to test the Lambda functions.
 See the **README.md** file in that project for details.
