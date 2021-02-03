@@ -33,12 +33,12 @@ public class ListActivities {
                 .region(region)
                 .build();
 
-        getActivites(sfnClient);
+        listAllActivites(sfnClient);
         sfnClient.close();
     }
 
     // snippet-start:[stepfunctions.java2.list_activities.main]
-    public static void getActivites(SfnClient sfnClient) {
+    public static void listAllActivites(SfnClient sfnClient) {
 
         try {
             ListActivitiesRequest activitiesRequest = ListActivitiesRequest.builder()
