@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
-// Enables test_s3-demo.pp to test the functionality in s3-demo.cpp.
+// Enables test_s3-crt-demo.cpp to test the functionality in s3-crt-demo.cpp.
 
 #pragma once
 
