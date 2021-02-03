@@ -41,16 +41,14 @@ public class StepFunctionsTest {
                 return;
             }
 
-            //load a properties file from class path, inside static method
+            // load the properties file.
             prop.load(input);
 
-            // Populate the data members required for all tests
+            // Populate the data members required for all tests.
             jsonFile = prop.getProperty("jsonFile");
             jsonFileSM = prop.getProperty("jsonFileSM");
             roleARN = prop.getProperty("roleARN");
             stateMachineName = prop.getProperty("stateMachineName");
-
-
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -90,9 +88,11 @@ public class StepFunctionsTest {
     @Test
     @Order(5)
     public void ListActivities() {
-         ListActivities.listAllActivites(sfnClient);
+        ListActivities.listAllActivites(sfnClient);
         System.out.println("Test 5 passed");
+
     }
+
 
     @Test
     @Order(6)
