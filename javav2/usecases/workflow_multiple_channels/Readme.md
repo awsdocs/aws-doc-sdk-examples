@@ -11,7 +11,7 @@ In this AWS tutorial, you create an AWS serverless workflow by using the AWS SDK
 
 To send notifications over multiple channels, you can use these AWS Services:
 
-+ Amazon Pinpoint service
++ Amazon Pinpoint Service
 + Amazon Simple Notification Service (SNS)
 + Amazon Simple Email Service (SES)
 
