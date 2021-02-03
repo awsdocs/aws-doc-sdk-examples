@@ -17,8 +17,8 @@ import java.util.*;
 public class StepFunctionsTest {
 
     private static  SfnClient sfnClient;
-    private static String stateMachineArn = ""; // gets dynamically set in a test
-    private static String exeArn = "";  // gets dynamically set in a test
+    private static String stateMachineArn = ""; // Gets dynamically set in a test.
+    private static String exeArn = "";  // Gets dynamically set in a test.
     private static String jsonFile = "";
     private static String jsonFileSM = "";
     private static String roleARN = "";
