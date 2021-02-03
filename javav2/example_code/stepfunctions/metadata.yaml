@@ -12,6 +12,9 @@ files:
   - path: src/main/java/com/example/stepfunctions/ListActivities.java
     services:
       - stepfunctions
+  - path: src/main/java/com/example/stepfunctions/GetFailedExecutions.java
+    services:
+      - stepfunctions
   - path: src/main/java/com/example/stepfunctions/ListStateMachines.java
     services:
       - stepfunctions
