@@ -223,23 +223,23 @@ At this point, you have a new project named **LambdaNotifications**.
 
 Add this code to your project's pom.xml file. 
 
-      <?xml version="1.0" encoding="UTF-8"?>
-      <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-      <modelVersion>4.0.0</modelVersion>
-     <groupId>LambdaNotifications</groupId>
-     <artifactId>LambdaNotifications</artifactId>
-     <version>1.0-SNAPSHOT</version>
-     <packaging>jar</packaging>
-     <name>java-basic-function</name>
-     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-     </properties>
-     <dependencyManagement>
-        <dependencies>
+          <?xml version="1.0" encoding="UTF-8"?>
+          <project xmlns="http://maven.apache.org/POM/4.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+          <modelVersion>4.0.0</modelVersion>
+          <groupId>LambdaNotifications</groupId>
+         <artifactId>LambdaNotifications</artifactId>
+         <version>1.0-SNAPSHOT</version>
+         <packaging>jar</packaging>
+         <name>java-basic-function</name>
+         <properties>
+         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+         <maven.compiler.source>1.8</maven.compiler.source>
+         <maven.compiler.target>1.8</maven.compiler.target>
+         </properties>
+          <dependencyManagement>
+            <dependencies>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
@@ -247,9 +247,9 @@ Add this code to your project's pom.xml file.
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-        </dependencies>
-     </dependencyManagement>
-     <dependencies>
+         </dependencies>
+        </dependencyManagement>
+        <dependencies>
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-lambda-java-core</artifactId>
@@ -274,10 +274,6 @@ Add this code to your project's pom.xml file.
             <version>1.5.5</version>
         </dependency>
         <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>s3</artifactId>
-        </dependency>
-         <dependency>
             <groupId>org.jdom</groupId>
             <artifactId>jdom</artifactId>
             <version>2.0.2</version>
@@ -301,7 +297,6 @@ Add this code to your project's pom.xml file.
             <artifactId>gson</artifactId>
             <version>2.8.6</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
@@ -338,32 +333,7 @@ Add this code to your project's pom.xml file.
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
-            <artifactId>dynamodb-enhanced</artifactId>
-            <version>2.11.4-PREVIEW</version>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>dynamodb</artifactId>
-            <version>2.10.41</version>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>ses</artifactId>
-            <version>2.10.41</version>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
             <artifactId>pinpoint</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>javax.mail-api</artifactId>
-            <version>1.5.5</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>1.5.5</version>
         </dependency>
      </dependencies>
      <build>
@@ -397,9 +367,9 @@ Add this code to your project's pom.xml file.
                     <target>1.8</target>
                 </configuration>
             </plugin>
-         </plugins>
-        </build>
-       </project>
+        </plugins>
+     </build>
+    </project>
 
 ## Create Lambda functions by using the AWS SDK for Java Lambda API
 
