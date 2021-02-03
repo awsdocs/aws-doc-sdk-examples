@@ -41,7 +41,7 @@ public class CreateStateMachine {
                 "    CreateStateMachine <jsonFile> <roleARN> <stateMachineName>\n\n" +
                 "Where:\n" +
                 "    jsonFile - A JSON file that represents the Amazon States Language definition of the state machine.\n\n" +
-                "    roleARN - The Amazon Resource Name (ARN) of the IAM role to use for this state machine.\n" +
+                "    roleARN - The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role to use for this state machine.\n" +
                 "    stateMachineName - The name of the state machine to create.\n";
 
         if (args.length != 3) {
