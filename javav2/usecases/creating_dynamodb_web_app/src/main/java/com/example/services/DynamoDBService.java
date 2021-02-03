@@ -33,7 +33,7 @@ import java.util.*;
 import org.springframework.stereotype.Component;
 
 /*
- Before running this code example, create a table named Work with a PK named id.
+ Before running this code example, create an Amazon DynamoDB table named Work with a primary key named id.
  */
 @Component
 public class DynamoDBService {
