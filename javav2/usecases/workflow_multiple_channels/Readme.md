@@ -48,10 +48,10 @@ The following figure shows the workflow you'll create with this tutorial that is
 
 ![AWS Tracking Application](images/workflowmodelA.png)
 
-The following is what happens at each step in the workflow:
-+ **Start** -  Initiates the workflow.
-+ **Determines the missing students** – Determines the students that are absent for that given day. For this AWS tutorial, a MySQL database is queried to track the students that are absent. This workflow step then creates XML that is passed to the next step. This example shows how a Lambda function can query data from an Amazon RDS table.
-+ **Send all notifications** – Parses the XML that contains all absent students. For each student, this step invokes the Amazon Simple Notification Service (SNS) to send a mobile text message, the Pinpoint Service to send a voice message, and the Amazon Simple Email Service (SES) to send an email message. This example shows how a single Lambda function can invoke multiple AWS Services. 
+The following describes each step in the workflow:
++ **Start** - Initiates the workflow and passes in a date value.
++ **Determines the missing students** – Determines the students that are absent for the given day. For this AWS tutorial, a MySQL database is queried to track the students that are absent. This workflow step dynamically creates XML that contains the students queried from the database and passes the XML to the next step. This example shows how a Lambda function can query data from an Amazon RDS table.
++ **Send all notifications** – Parses the XML that contains all absent students. For each student, this step invokes the Amazon Simple Notification Service (SNS) to send a mobile text message, the Pinpoint Service to send a voice message, and the Amazon Simple Email Service (SES) to send an email message.  
 + **End** - Stops the workflow.
 
 In this AWS tutorial, an Amazon RDS MySQL database is used to track the students who are absent. The MySQL table is named **students** and contains these fields:
@@ -60,11 +60,11 @@ In this AWS tutorial, an Amazon RDS MySQL database is used to track the students
 + **date** - A date value that specifies the date when the student was absent.
 + **first** - A VARCHAR(45) value that specifies the students first name.
 + **last** - A VARCHAR(45) value that specifies the students last name.
-+  **mobile** - A VARCHAR(45) value that specifies the mobile number.
++ **mobile** - A VARCHAR(45) value that specifies the mobile number.
 + **phone** - A VARCHAR(45) value that specifies the home phone number.
 + **email** - A VARCHAR(45) value that specifies the email address.
 
-The workflow starts by determining the absent students for the given day by querying the **students** table. Then the workflow dynamically creates XML that contains the absent students.  
+The workflow queries the **students** table to get all absent students and dynamically creates XML that contains the absent students.  
 
       <?xml version="1.0" encoding="UTF-8"?>
 	<Students>
