@@ -956,38 +956,33 @@ In this step, you create an Amazon RDS MySQL instance that is used by the Lambda
 
 ![AWS Tracking Application](images/TemplateRDS.png)
 
-7. In the Settings section, set these values:
+7. In the **Settings** section, set these values:
 
-	**DB instance identifier** – mydb
-	**Master username** – root
-	**Auto generate a password** – Disable the option
-	**Master password** – root1234
-	**Confirm password** – root1234
++ **DB instance identifier** – awstracker
++ **Master username** – root
++ **Auto generate a password** – Disable the option
++ **Master password** – root1234
++ **Confirm password** – root1234
 	
 ![AWS Tracking Application](images/RDSSettings.png)
 
-8. In the DB instance size section, set these values:
+8. In the **DB instance size** section, set these values:
 
-  + **DB instance performance type** – Burstable
-  +**DB instance class** – db.t2.micro
++ **DB instance performance type** – Burstable
++**DB instance class** – db.t2.micro
 
 9. In the **Storage** section, use the default values.
 
 10. In the **Connectivity** section, open **Additional connectivity configuration** and set these values:
 
 + **Virtual Private Cloud (VPC)** – Choose the default.
-
 + **Subnet group** – Choose the default.
-
 + **Publicly accessible** – Yes
-
 + **VPC security groups** – Choose an existing VPC security group that is configured for access.
-
 + **Availability Zone** – No Preference
-
 + **Database port** – 3306
 
-11. Open the **Additional configuration** section, and enter awstracker for the Initial database name. Keep the default settings for the other options.
+11. Open the **Additional configuration** section, and enter **awstracker** for the Initial database name. Keep the default settings for the other options.
 
 12. To create your Amazon RDS MySQL DB instance, choose **Create database**. Your new DB instance appears in the Databases list with the status **Creating**.
 
@@ -1007,7 +1002,7 @@ Modify the **ConnectionHelper** class by updating the url value with the endpoin
 
      url = "jdbc:mysql://awstracker.<url to rds>.amazonaws.com/awstracker";
 
-In the previous line of code, notice awstracker. This is the database schema. In addition, update this line of code with the correct user name and password.
+In the previous line of code, notice **awstracker**. This is the database schema. In addition, update this line of code with the correct user name and password.
 
       Class.forName("com.mysql.jdbc.Driver").newInstance();
          return DriverManager.getConnection(instance.url, "root","root1234");
