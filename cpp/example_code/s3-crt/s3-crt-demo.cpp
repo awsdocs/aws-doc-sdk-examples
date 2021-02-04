@@ -17,7 +17,7 @@
 
 static const char ALLOCATION_TAG[] = "s3-crt-demo";
 
-// List all Amazon S3 buckets under the account.
+// List all Amazon Simple Storage Service (Amazon S3) buckets under the account.
 bool ListBuckets(const Aws::S3Crt::S3CrtClient& s3CrtClient, const Aws::String& bucketName) {
 
     Aws::S3Crt::Model::ListBucketsOutcome outcome = s3CrtClient.ListBuckets();
