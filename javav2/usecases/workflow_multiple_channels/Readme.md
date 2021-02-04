@@ -374,11 +374,9 @@ Add this code to your project's pom.xml file.
      </build>
     </project>
 
-## Create Lambda functions by using the AWS SDK for Java Lambda API
+## Create Lambda functions by using the AWS SDK for Java
 
-Use the Lambda runtime API to create the Java classes that define the Lamdba functions. In this example, there are two workflow steps that each correspond to a Java class. There are also extra classes that invoke the AWS services.  
-
-The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **com.example.messages**.
+Use the Lambda runtime API to create the Java classes that define the Lamdba functions. In this example, there are two workflow steps that each correspond to a Java class. There are also extra classes that invoke the AWS services. The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **com.example.messages**.
 
 ![AWS Tracking Application](images/ProjectJava.png)
 
