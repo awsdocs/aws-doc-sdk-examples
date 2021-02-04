@@ -40,7 +40,7 @@ bool ListBuckets(const Aws::S3Crt::S3CrtClient& s3CrtClient, const Aws::String& 
     }
 }
 
-// Create an Amazon S3 bucket.
+// Create an Amazon Simple Storage Service (Amazon S3) bucket.
 bool CreateBucket(const Aws::S3Crt::S3CrtClient& s3CrtClient, const Aws::String& bucketName) {
 
     std::cout << "Creating bucket: \"" << bucketName << "\" ..." << std::endl;
