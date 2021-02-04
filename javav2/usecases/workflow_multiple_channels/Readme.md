@@ -438,28 +438,25 @@ The following Java code represents the **ConnectionHelper** class.
 
 ### Handler class
 
-This Java code represents the **Handler** class. The class creates a Lamdba function that reads the passed in date value and queries the student table using the date value.  The **handleRequest** method returns XML document that specifies all of the absent students. This XML is passed to the second step in the workflow.
+This Java code represents the **Handler** class. The class creates a Lamdba function that reads the passed in date value and queries the **student** table using the date value.  The **handleRequest** method returns XML that specifies all of the absent students. The XML is passed to the second step in the workflow.
 
-     package example;
+     package com.example.messages;
 
      import com.amazonaws.services.lambda.runtime.Context;
      import com.amazonaws.services.lambda.runtime.RequestHandler;
      import com.amazonaws.services.lambda.runtime.LambdaLogger;
-     import com.google.gson.Gson;
-     import com.google.gson.GsonBuilder;
      import java.util.Map;
-
-     // Handler value: example.Handler
-     public class Handler implements RequestHandler<Map<String,String>, String>{
+    
+     public class Handler implements RequestHandler<Map<String,String>, String> {
 
     @Override
-    public String handleRequest(Map<String,String> event, Context context)
-       {
-        LambdaLogger logger = context.getLogger();
+    public String handleRequest(Map<String,String> event, Context context) {
+        
+	LambdaLogger logger = context.getLogger();
         String date = event.get("date");
         logger.log("DATE: " + date);
 
-        // Query the student table and get back XML
+        // Query the student table and get back XML.
         RDSGetStudents students = new RDSGetStudents();
         String xml = students.getStudentsRDS(date);
         logger.log("XML: " + xml);
@@ -500,7 +497,7 @@ The following code represents the **HandlerVoiceNot** method. In this example, t
             sn.handleTextMessage(xml);
             sn.handleVoiceMessage(xml);
             num =  sn.handleEmailMessage(xml);
-           logger.log("NUMBER: " + num);
+            logger.log("email: " + num);
         } catch (JDOMException | IOException | MessagingException e) {
             e.printStackTrace();
         }
@@ -532,6 +529,7 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
        public class RDSGetStudents {
 
         public String getStudentsRDS(String date ) {
+
         Connection c = null;
         String query = "";
 
@@ -539,12 +537,9 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
 
             c = ConnectionHelper.getConnection();
             ResultSet rs = null;
-         
-            // Use prepared statements
-            PreparedStatement pstmt = null;
-            PreparedStatement ps = null;
 
-            // Specify the SQL Statement to query data
+            // Use prepared statements.
+            PreparedStatement pstmt = null;
             query = "Select first, phone, mobile, email FROM students where date = '" +date +"'";
             pstmt = c.prepareStatement(query);
             rs = pstmt.executeQuery();
@@ -568,7 +563,7 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
                 studentList.add(student);
             }
 
-                return convertToString(toXml(studentList));
+            return convertToString(toXml(studentList));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -593,7 +588,7 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
     }
 
 
-    // Convert Work item data retrieved from MySQL
+    // Convert the list to XML.
     private Document toXml(List<Student> itemList) {
 
         try {
@@ -601,42 +596,40 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 
-            // Start building the XML
+            // Start building the XML.
             Element root = doc.createElement( "Students" );
             doc.appendChild( root );
 
-            // Get the elements from the collection
+            // Get the elements from the collection.
             int studentCount = itemList.size();
 
-            // Iterate through the collection
+            // Iterate through the collection.
             for ( int index=0; index < studentCount; index++) {
 
-                // Get the WorkItem object from the collection
-                Student myStudent = itemList.get(index);
 
+                Student myStudent = itemList.get(index);
                 Element item = doc.createElement( "Student" );
                 root.appendChild( item );
 
-                // Set Name
+                // Set Name.
                 Element name = doc.createElement( "Name" );
-                name.appendChild( doc.createTextNode(myStudent.getFirstName()) );
+                name.appendChild( doc.createTextNode(myStudent.getFirstName()));
                 item.appendChild( name );
 
-                // Set Mobile
+                // Set Mobile.
                 Element mobile = doc.createElement( "Mobile" );
-                mobile.appendChild( doc.createTextNode(myStudent.getMobileNumber()) );
+                mobile.appendChild( doc.createTextNode(myStudent.getMobileNumber()));
                 item.appendChild( mobile );
 
-                // Set Phone
+                // Set Phone.
                 Element phone = doc.createElement( "Phone" );
-                phone.appendChild( doc.createTextNode(myStudent.getPhoneNunber() ) );
+                phone.appendChild( doc.createTextNode(myStudent.getPhoneNunber()));
                 item.appendChild( phone );
 
-                // Set Email
+                // Set Email.
                 Element email = doc.createElement( "Email" );
-                email.appendChild( doc.createTextNode(myStudent.getEmail() ) );
+                email.appendChild( doc.createTextNode(myStudent.getEmail()));
                 item.appendChild( email );
-
             }
 
          return doc;
@@ -647,9 +640,10 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
        }
       }
 
+
 ### SendNotifications class
 
-The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and the Amazom Pinpoint API to send messages. Each Student in the XML is sent a message. 
+The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and the Amazom Pinpoint API to send messages. Each student in the XML is sent a message. 
 
        package com.example.messages;
 
@@ -716,7 +710,7 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
         Document jdomDocument  = builder.build(new InputSource(new StringReader(myDom)));
         org.jdom2.Element root = jdomDocument.getRootElement();
 
-        // get the list of children agent elements
+        // get the list of children agent elements.
         List<org.jdom2.Element> students = root.getChildren("Student");
         for (org.jdom2.Element element : students) {
 
@@ -730,7 +724,8 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
     public String handleVoiceMessage(String myDom) throws JDOMException, IOException{
 
         String mobileNum = "";
-        // Set the content type to application/json
+        
+	// Set the content type to application/json.
         List<String> listVal = new ArrayList<>();
         listVal.add("application/json");
 
@@ -750,7 +745,7 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
         Document jdomDocument  = builder.build(new InputSource(new StringReader(myDom)));
         org.jdom2.Element root = jdomDocument.getRootElement();
 
-        // get the list of children agent elements
+        // get the list of children agent elements.
         List<org.jdom2.Element> students = root.getChildren("Student");
         for (org.jdom2.Element element : students) {
 
@@ -766,7 +761,7 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
         String languageCode = "en-US";
         String voiceName = "Matthew";
 
-        String originationNumber = "+1-204-817-9095";
+        String originationNumber = "<Enter a valid originationNumber number>";
         String destinationNumber = mobileNumber;
         String ssmlMessage = "<speak>Please be advised that your student was marked absent from school today.</speak>";
 
@@ -816,7 +811,7 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
 
     private void SendEmailMessage(SesClient client, String recipient) throws MessagingException, IOException {
 
-        // The email body for non-HTML email clients.
+            // The email body for non-HTML email clients.
             String bodyText = "Hello,\r\n" + "Please be advised that your student was marked absent from school today. ";
 
             // The HTML body of the email.
@@ -893,57 +888,57 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
     }
 
 
-**NOTE** Specified a valid email for the sender that has been validated.  For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html). 
+**NOTE** You need to specify a valid email for the sender that has been validated.  For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html). In addition, you need to assign the **originationNumber** variable a valid origination number associated with your AWS account. 
 
 ### Student class
 
 The following Java class represents the **Student** class. 
 
-       package com.example.messages;
+     package com.example.messages;
 
-public class Student {
+     public class Student {
 
-    private String firstName;
-    private String email;
-    private String mobileNumber ;
-    private String phoneNunber;
+      private String firstName;
+      private String email;
+      private String mobileNumber ;
+      private String phoneNunber;
 
-    public void setPhoneNunber(String phoneNunber) {
+      public void setPhoneNunber(String phoneNunber) {
         this.phoneNunber = phoneNunber;
-    }
+      }
 
-    public String getPhoneNunber() {
+      public String getPhoneNunber() {
         return this.phoneNunber;
-    }
+      }
 
-    public void setMobileNumber(String mobileNumber) {
+      public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
-    }
+      }
 
-    public String getMobileNumber() {
+      public String getMobileNumber() {
         return this.mobileNumber;
-    }
+      }
 
-    public void setEmail(String email) {
+      public void setEmail(String email) {
         this.email = email;
-    }
+      }
 
-    public String getEmail() {
+      public String getEmail() {
         return this.email;
-    }
+      }
 
-    public void setFirstName(String firstName) {
+      public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
+      }
 
-    public String getFirstName() {
+      public String getFirstName() {
         return this.firstName;
+      }
      }
-    }
 
 ## Set up the RDS instance
 
-In this step, you create an Amazon RDS MySQL DB instance that is used by the Lambda function.
+In this step, you create an Amazon RDS MySQL instance that is used by the Lambda function.
 
 1. Sign in to the AWS Management Console and open the Amazon RDS console at https://console.aws.amazon.com/rds/.
 
@@ -963,7 +958,7 @@ In this step, you create an Amazon RDS MySQL DB instance that is used by the Lam
 
 7. In the Settings section, set these values:
 
-	**DB instance identifier** – awstracker
+	**DB instance identifier** – mydb
 	**Master username** – root
 	**Auto generate a password** – Disable the option
 	**Master password** – root1234
