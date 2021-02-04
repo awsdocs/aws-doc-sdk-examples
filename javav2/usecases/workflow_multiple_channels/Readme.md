@@ -1085,11 +1085,9 @@ Open the Lambda console. Notice that you can view the Lambda Amazon Resource Nam
 
 ![AWS Tracking Application](images/LambdaEndpoint.png)
 
-Copy the value and then paste it into step 1 of the Amazon States Language document, located in the Step Functions console.
+Copy the Lambda ARN value and then paste it the **Determine the missing students** step of the Amazon States Language document that is located in the Step Functions console. Update the Lambda ARN value for the **Send All Nofications** step as well. This is how you hook in Lambda functions created by using the AWS SDK for Java into a workflow created by using Step Functions.
 
-![AWS Tracking Application](images/lambda13A.png)
-
-Update the Resource for the **Assign Case** and **Send Email** steps. This is how you hook in Lambda functions created by using the AWS SDK for Java into a workflow created by using Step Functions.
+![AWS Tracking Application](images/LambdaResources.png)
 
 ## Execute your workflow by using the Step Functions console
 
