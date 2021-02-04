@@ -155,9 +155,9 @@ To define a workflow that sends notifications over multiple channels by using AW
 
 ![AWS Tracking Application](images/workflowmodelA.png)
 
-Workflows can pass data between steps. For example, the **Determine the missing students** step queries the **students** table, dynamically create XML that specifies all of the absentstudents based on the date, and passes the XML to the **Send All Notifications** step. 
+Workflows can pass data between steps. For example, the **Determine the missing students** step queries the **students** table, dynamically creates XML, and passes the XML to the **Send All Notifications** step. 
 
-**Note**: Later in this tutorial, you'll create application logic in the Lambda function to read and process the data values.  
+**Note**: Later in this tutorial, you'll create application logic in the Lambda function to read data from the Amazon RDS table.  
 
 #### To create a workflow
 
@@ -192,7 +192,7 @@ Workflows can pass data between steps. For example, the **Determine the missing 
 
 5. Choose **Next**.
 
-6. In the name field, enter **SupportStateMachine**.
+6. In the name field, enter **NotificationsStateMachine**.
 
 7. In the **Permission** section, choose **Choose an existing role**.  
 
@@ -203,6 +203,8 @@ Workflows can pass data between steps. For example, the **Determine the missing 
 9. Choose **Create state machine**. A message appears that states the state machine was successfully created.
 
 ## Create an IntelliJ project named LambdaNotifications
+
+Create a Java project to develop Lambda functions by using the Lambda Java runtime API. 
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
 
