@@ -1116,7 +1116,7 @@ If the step turns red, an error occurred. You can click the step and view the lo
 
 
 ### Next steps
-Congratulations, you have created an AWS serverless workflow that send message over multiple channels. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
+Congratulations, you have created an AWS serverless workflow that sends messages over multiple channels. As stated at the beginning of this tutorial, be sure to terminate all of the resources you created while going through this tutorial to ensure that you’re not charged.
 
 For more AWS multiservice examples, see
 [usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).
