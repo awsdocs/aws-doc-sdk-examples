@@ -87,6 +87,7 @@ The second workflow step parses the XML and for each student invokes multiple AW
 ## Create an IAM role that's used to execute Lambda functions
 
 Create the following two IAM roles:
+
 + **lambda-support** - Used to invoke Lamdba functions.
 + **workflow-support** - Used to enable AWS Step Functions to invoke the workflow.
 
