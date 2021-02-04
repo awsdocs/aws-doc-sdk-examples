@@ -1,10 +1,17 @@
 # This AWS CloudFormation template creates the following AWS resources:
 #
-# * A bucket in Amazon S3.
+# * A bucket in Amazon Simple Storage Service (Amazon S3).
+#
+# You can run this app instead of running equivalent AWS SDK for Ruby
+# code examples elsewhere in this directory, such as:
+#
+# * create_bucket_snippet.rb
+# * s3_ruby_create_bucket.rb
+# * s3-ruby-example-create-bucket.rb
 #
 # You can run this template in a few different ways:
 #
-# 1. To run this template with the AWS Command Line Interface:
+# 1. To run this template with the AWS Command Line Interface (AWS CLI):
 #
 #    aws cloudformation create-stack --template-body file://s3-ruby-example-create-bucket.yaml --stack-name S3RubyExampleCreateBucketStack
 #

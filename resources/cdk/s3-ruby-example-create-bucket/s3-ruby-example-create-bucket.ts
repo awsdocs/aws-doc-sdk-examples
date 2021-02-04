@@ -6,7 +6,14 @@
 // Purpose: This AWS Cloud Development Kit (AWS CDK) app
 // creates the following AWS resources:
 //
-// * A bucket in Amazon S3.
+// * A bucket in Amazon Simple Storage Service (Amazon S3).
+//
+// You can run this app instead of running equivalent AWS SDK for Ruby
+// code examples elsewhere in this repository, such as:
+//
+// * create_bucket_snippet.rb
+// * s3_ruby_create_bucket.rb
+// * s3-ruby-example-create-bucket.rb
 //
 // You can run this app in several ways:
 //
@@ -17,7 +24,7 @@
 //
 //    The names of the generated AWS resources will display in the output.
 //
-// 2. To run this app with the AWS Command Line Interface:
+// 2. To run this app with the AWS Command Line Interface (AWS CLI):
 //
 //    a. If a cdk.out folder exists in this directory, delete it.
 //    b. Run the following command to create an AWS CloudFormation template:
@@ -60,20 +67,19 @@
 
 import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
-import { Bucket } from '@aws-cdk/aws-s3'; // npm install @aws-cdk/aws-s3
-import { CfnOutput } from '@aws-cdk/core';
+import * as s3 from '@aws-cdk/aws-s3'; // npm install @aws-cdk/aws-s3
 
 export class S3RubyExampleCreateBucketStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
   
     // Create the Amazon S3 bucket.
-    let myBucket: Bucket = new Bucket(this, 'bucket', {
+    let myBucket = new s3.Bucket(this, 'bucket', {
       removalPolicy: cdk.RemovalPolicy.DESTROY
     });
 
     // Output the name of the new bucket.
-    new CfnOutput(this, 'BucketName', {
+    new cdk.CfnOutput(this, 'BucketName', {
       value: myBucket.bucketName});
   }
 }
