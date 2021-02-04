@@ -42,7 +42,7 @@ export class SetupStack extends cdk.Stack {
     //
     // 2. When using the AWS CloudFormation console along with the
     //    AWS CloudFormation template that was created after running
-    //    'cdk synth > CloudFormation.yaml', by typing a value
+    //    'cdk synth', by typing a value
     //    into the 'BucketName' field in the create stack wizard in the
     //    AWS CloudFormation console.
     //
