@@ -1112,7 +1112,7 @@ You can invoke the workflow on the Step Functions console.  An execution receive
 
 If the step turns red, an error occurred. You can click the step and view the logs that are accessible from the right side.
 
-![AWS Tracking Application](images/workflowLogs.png)
+![AWS Tracking Application](images/workflowLogs2.png)
 
 
 ### Next steps
