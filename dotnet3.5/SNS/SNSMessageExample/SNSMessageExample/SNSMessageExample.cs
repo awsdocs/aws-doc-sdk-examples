@@ -14,7 +14,7 @@ namespace SNSMessageExample
         /// Service (Amazon SNS).
         /// </summary>
 
-        // Change the endpoint to match your own region. This is only an example endpoint.
+        // Change the endpoint to match your own AWS Region. This is only an example endpoint.
         private static readonly RegionEndpoint _regionEndpoint = RegionEndpoint.USWest2;
 
         static async Task Main()
