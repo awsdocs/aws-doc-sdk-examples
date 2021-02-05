@@ -16,7 +16,7 @@ import { StreamViewType } from '@aws-cdk/aws-dynamodb';
 import { EventType } from '@aws-cdk/aws-s3';
 import { CfnOutput } from '@aws-cdk/core';
 
-export class GoLambdaCdkStack extends cdk.Stack {
+export class GoCdkStack extends cdk.Stack {
     constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
       super(scope, id, props);
   
@@ -36,7 +36,7 @@ export class GoLambdaCdkStack extends cdk.Stack {
       });
   
       // Create Amazon Simple Queue Service (Amazon SQS) queue
-      const myQueue = new sqs.Queue(this, 'MyQueue');
+      const myQueue = new sqs.Queue(this, 'MyNewQueue');
   
       // Subscribe a queue to the topic:
       const mySubscription = new subs.SqsSubscription(myQueue)
@@ -131,7 +131,7 @@ export class GoLambdaCdkStack extends cdk.Stack {
       
       // Display info about the resources.
       // You can see this information at any time by running:
-      //   aws cloudformation describe-stacks --stack-name GoLambdaCdkStack --query Stacks[0].Outputs --output text
+      //   aws cloudformation describe-stacks --stack-name GoCdkStack --query Stacks[0].Outputs --output text
       new CfnOutput(this, 'Bucket name: ', {value: myBucket.bucketName});
       new CfnOutput(this, 'S3 function name: ', {value: myS3Function.functionName});
       new CfnOutput(this, 'S3 function CloudWatch log group: ', {value: myS3Function.logGroup.logGroupName});
@@ -151,4 +151,4 @@ export class GoLambdaCdkStack extends cdk.Stack {
 }
 
 const app = new cdk.App();
-new GoLambdaCdkStack(app, 'GoLambdaCdkStack');
+new GoCdkStack(app, 'GoCdkStack');

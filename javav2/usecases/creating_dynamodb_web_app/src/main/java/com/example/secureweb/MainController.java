@@ -49,19 +49,19 @@ public class MainController {
         return "items";
     }
 
-    // Adds a new item to the DynamoDB database
+    // Adds a new item to the DynamoDB database.
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     String addItems(HttpServletRequest request, HttpServletResponse response) {
 
-        //Get the Logged in User
+        //Get the Logged in User.
         String name = getLoggedUser();
 
         String guide = request.getParameter("guide");
         String description = request.getParameter("description");
         String status = request.getParameter("status");
 
-        // Create a WorkItem object 
+        // Create a Work Item object to pass to the injestNewSubmission method.
         WorkItem myWork = new WorkItem();
         myWork.setGuide(guide);
         myWork.setDescription(description);
@@ -72,7 +72,7 @@ public class MainController {
         return "Item added";
     }
 
-    // Builds and emails a report with all items
+    // Builds and emails a report with all items.
     @RequestMapping(value = "/report", method = RequestMethod.POST)
     @ResponseBody
     String getReport(HttpServletRequest request, HttpServletResponse response) {
@@ -89,17 +89,17 @@ public class MainController {
         return "Report is created";
     }
 
-    // Archives a work item
+    // Archives a work item.
     @RequestMapping(value = "/archive", method = RequestMethod.POST)
     @ResponseBody
     String archieveWorkItem(HttpServletRequest request, HttpServletResponse response) {
 
         String id = request.getParameter("id");
-        dbService.archiveItem(id );
+        dbService.archiveItemEC(id );
         return id ;
     }
 
-    // Modifies the value of a work item
+    // Modifies the value of a work item.
     @RequestMapping(value = "/changewi", method = RequestMethod.POST)
     @ResponseBody
     String changeWorkItem(HttpServletRequest request, HttpServletResponse response) {
@@ -110,14 +110,14 @@ public class MainController {
         return id;
     }
 
-    // Retrieve items
+    // Retrieve items.
     @RequestMapping(value = "/retrieve", method = RequestMethod.POST)
     @ResponseBody
     String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
 
        String type = request.getParameter("type");
 
-        // Pass back items from the DynamoDB table
+        // Pass back items from the DynamoDB table.
         String xml="";
 
         if (type.compareTo("archive") ==0)
@@ -129,7 +129,7 @@ public class MainController {
     }
 
 
-    // Returns a work item to modify
+    // Returns a work item to modify.
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
     @ResponseBody
     String modifyWork(HttpServletRequest request, HttpServletResponse response) {
@@ -141,7 +141,7 @@ public class MainController {
 
     private String getLoggedUser() {
 
-        // Get the logged-in user
+        // Get the logged-in Useruser.
         org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String name = user2.getUsername();
         return name;
