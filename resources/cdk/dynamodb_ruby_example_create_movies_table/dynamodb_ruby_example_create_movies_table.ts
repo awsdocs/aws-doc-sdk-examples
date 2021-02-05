@@ -22,6 +22,11 @@
 //
 //    The names of the generated AWS resources will display in the output.
 //
+//    To destroy the generated AWS resources after you are finished using them,
+//    run the following command:
+//
+//    cdk destroy
+//
 // 2. To run this app with the AWS Command Line Interface (AWS CLI):
 //
 //    a. If a cdk.out folder exists in this directory, delete it.
@@ -43,6 +48,11 @@
 //       Note that the generated resources might not be immediately available.
 //       You can keep running this command until you see their names.
 //
+//    e. To destroy the generated AWS resources after you are finished using them,
+//       run the following command:
+//
+//       aws cloudformation delete-stack --stack-name DynamodbRubyExampleCreateMoviesTableStack
+//
 // 3. To run this app with the AWS CloudFormation console:
 //
 //    a. If a cdk.out folder exists in this directory, delete it.
@@ -54,7 +64,7 @@
 //
 //       https://console.aws.amazon.com/cloudformation
 //
-//       Choose Create stack, and then follow
+//    d. Choose Create stack, and then follow
 //       the on-screen instructions to create a stack based on this 
 //       AWS CloudFormation template. This stack will create the specified
 //       AWS resources.
@@ -62,6 +72,10 @@
 //       The names of the generated resources will display on the stack's
 //       Outputs tab in the console after the stack's status displays as
 //       CREATE_COMPLETE.
+//
+//    e. To destroy the generated AWS resources after you are finished using them,
+//       choose the stack in the console, choose Delete, and then follow
+//       the on-screen instructions.
 
 import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
