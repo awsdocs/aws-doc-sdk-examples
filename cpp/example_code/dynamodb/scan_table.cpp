@@ -103,7 +103,7 @@ int main(int argc, char** argv)
 
             else
             {
-                std::cout << "No item found in table" << table << std::endl;
+                std::cout << "No item found in table: " << table << std::endl;
             }
         }
         else
