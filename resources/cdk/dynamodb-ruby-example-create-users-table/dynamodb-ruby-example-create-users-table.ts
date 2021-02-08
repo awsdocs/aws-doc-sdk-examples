@@ -38,12 +38,12 @@
 //       based on this AWS CloudFormation template. This stack
 //       will create the specified AWS resources.
 //
-//       aws cloudformation create-stack --template-body file://dynamodb-ruby-example-create-users-table.yaml --stack-name DynamodbRubyExampleCreateUsersTableStack
+//       aws cloudformation create-stack --template-body file://dynamodb-ruby-example-create-users-table.yaml --stack-name DynamodbRubyExampleCreateUserTableStack
 //
 //    d. To display the names of the generated resources, run the
 //       following command:
 //
-//       aws cloudformation describe-stacks --stack-name DynamodbRubyExampleCreateUsersTableStack --query Stacks[0].Outputs --output text
+//       aws cloudformation describe-stacks --stack-name DynamodbRubyExampleCreateUserTableStack --query Stacks[0].Outputs --output text
 //
 //       Note that the generated resources might not be immediately available.
 //       You can keep running this command until you see their names.
@@ -51,7 +51,7 @@
 //    e. To destroy the generated AWS resources after you are finished using them,
 //       run the following command:
 //
-//       aws cloudformation delete-stack --stack-name DynamodbRubyExampleCreateUsersTableStack
+//       aws cloudformation delete-stack --stack-name DynamodbRubyExampleCreateUserTableStack
 //
 // 3. To run this app with the AWS CloudFormation console:
 //
@@ -81,7 +81,7 @@ import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
 import * as dynamodb from '@aws-cdk/aws-dynamodb'; // npm install @aws-cdk/aws-dynamodb
 
-export class DynamodbRubyExampleCreateUsersTableStack extends cdk.Stack {
+export class DynamodbRubyExampleCreateUserTableStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
       
@@ -132,4 +132,4 @@ export class DynamodbRubyExampleCreateUsersTableStack extends cdk.Stack {
 }
 
 const app = new cdk.App();
-new DynamodbRubyExampleCreateUsersTableStack(app, 'DynamodbRubyExampleCreateUsersTableStack');
+new DynamodbRubyExampleCreateUserTableStack(app, 'DynamodbRubyExampleCreateUserTableStack');
