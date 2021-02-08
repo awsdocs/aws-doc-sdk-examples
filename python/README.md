@@ -225,6 +225,21 @@ tutorials in the
 Shows how to use the AWS SDK for Python (Boto3) to create and manage AWS Organizations
 policies.
 
+### [Amazon Polly lip-sync example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/polly/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Polly and Tkinter to
+create a lip-sync application that displays an animated face speaking along with the
+speech synthesized by Amazon Polly. Lip-sync is accomplished by requesting a list
+of visemes from Amazon Polly that match up with the synthesized speech.
+
+* Get voice metadata from Amazon Polly and display it in a Tkinter application.
+* Get synthesized speech audio and matching viseme speech marks from Amazon Polly.
+* Play the audio with synchronized mouth movements in an animated face.
+* Submit asynchronous synthesis tasks for long texts and retrieve the output from
+an Amazon Simple Storage Service (Amazon S3) bucket.
+
 ### [Amazon Aurora serverless REST API lending library example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/rds/lending_library/README.md)
 
 #### Purpose
