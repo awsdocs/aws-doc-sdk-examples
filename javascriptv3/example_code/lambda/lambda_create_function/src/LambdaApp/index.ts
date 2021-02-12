@@ -6,9 +6,9 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-table-example.html.
 
 Purpose:
-index.js is a browser script that executes a pre-existing Amazon Lambda function.
+index.js is a browser script that executes a pre-existing AWS Lambda function.
 
-It is part of a tutorial demonstrating how create and deploy an Amazon Lambda function. To run the full tutorial, see
+It is part of a tutorial demonstrating how create and deploy an AWS Lambda function. To run the full tutorial, see
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-table-example.html.
 
 Inputs (replace in code):
@@ -33,13 +33,13 @@ const REGION = "REGION"; // e.g., 'us-east-2'
 
 // Set the parmaeters.
 const params={
-  // The name of the Amazon Lambda function.
+  // The name of the AWS Lambda function.
   FunctionName: "LAMBDA_FUNCTION",
   InvocationType: "RequestResponse",
   LogType: "None"
 }
 
-// Create an Amazon Lambda client service object that initializes the Amazon Cognito credentials provider.
+// Create an AWS Lambda client service object that initializes the Amazon Cognito credentials provider.
 const lambda = new LambdaClient({
   region: REGION,
   credentials: fromCognitoIdentityPool({

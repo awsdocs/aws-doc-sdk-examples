@@ -52,10 +52,10 @@ files:
   - path: s3_list1000plusobjects.ts
     services:
       - s3
-  - path: s3_putobject.ts
+  - path: s3_create_and_upload_object.ts
     services:
       - s3
-  - path: s3_upload_putcommand.ts
+  - path: s3_upload_object.ts
     services:
       - s3
   - path: s3_put_presignedURL.ts
