@@ -32,7 +32,7 @@ public class CreateConfiguration {
         createNewConfigutation(mqClient, configurationName);
         mqClient.close();
     }
-    private static void createNewConfigutation(MqClient mqClient, String configurationName) {
+    public static String createNewConfigutation(MqClient mqClient, String configurationName) {
         try {
             CreateConfigurationRequest configurationRequest = CreateConfigurationRequest.builder()
                 .name(configurationName)
@@ -42,11 +42,13 @@ public class CreateConfiguration {
                 .build();
 
             CreateConfigurationResponse response = mqClient.createConfiguration(configurationRequest);
-            System.out.println(response);
+            System.out.println(response.id());
+            return response.id();
 
         } catch (MqException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+        return "";
     }
 }

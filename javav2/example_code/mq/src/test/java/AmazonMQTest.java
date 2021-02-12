@@ -5,6 +5,8 @@
 import com.example.mq.*;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mq.MqClient;
+import software.amazon.awssdk.services.mq.model.CreateConfigurationRequest;
+
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -19,6 +21,7 @@ public class AmazonMQTest {
     private static Region region;
     private static String engineType = "";
     private static String brokerName = "";
+    private static String configurationName = "";
 
     @BeforeAll
     public static void setUp() throws IOException {
@@ -43,6 +46,7 @@ public class AmazonMQTest {
             // Populate the data members required for all tests
             engineType = prop.getProperty("engineType");
             brokerName=prop.getProperty("brokerName");
+            configurationName= prop.getProperty("configurationName");
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -62,6 +66,15 @@ public class AmazonMQTest {
 
         String brokerId = CreateBroker.createBroker(mqClient, engineType, brokerName);
         assertTrue(!brokerId.isEmpty());
+        System.out.println("Test 2 passed");
+    }
+
+    @Test
+    @Order(3)
+    public void CreateConfiguration() {
+
+        String configurationId = CreateConfiguration.createNewConfigutation(mqClient, configurationName);
+        assertTrue(!configurationId.isEmpty());
         System.out.println("Test 2 passed");
     }
 }
