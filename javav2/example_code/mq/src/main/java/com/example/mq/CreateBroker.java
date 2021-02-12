@@ -36,10 +36,11 @@ public class CreateBroker {
                 .region(region)
                 .build();
         
-        createBrokerActiveMQ(mqClient, engineType, brokerName);
+        String brokerId = createBroker(mqClient, engineType, brokerName);
+        System.out.println("The broker ID is: " + brokerId);
         mqClient.close();
     }
-    public static void createBrokerActiveMQ(MqClient mqClient, String engineType, String brokerName) {
+    public static String createBroker(MqClient mqClient, String engineType, String brokerName) {
         
         try {
 
@@ -56,7 +57,7 @@ public class CreateBroker {
                 engineVersion = "3.8.6";
             }
             // Creates an ActiveMQ broker and a new configuration with default values.
-            mqClient.createBroker(CreateBrokerRequest.builder()
+            CreateBrokerResponse result = mqClient.createBroker(CreateBrokerRequest.builder()
                 .brokerName(brokerName)
                 .engineType(engineType)
                 .engineVersion(engineVersion)
@@ -67,9 +68,16 @@ public class CreateBroker {
                 .hostInstanceType("mq.t3.micro")
                 .build());
 
+            System.out.printf(
+                "Created a customer key with id \"%s",
+                result.brokerArn());
+
+            return result.brokerId();
+
         } catch (MqException e) {
                 System.err.println(e.awsErrorDetails().errorMessage());
                 System.exit(1);
         }
+        return "";
     }
 }
