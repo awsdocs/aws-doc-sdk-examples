@@ -4,7 +4,7 @@ TestGoFile () {
        return
     fi
 
-    pushd $1
+    pushd $1 > /dev/null 2>&1
 
     declare RESULT=(`go test`)  # (..) = array
     
@@ -15,7 +15,7 @@ TestGoFile () {
       echo 1
     fi
 
-    popd
+    popd > /dev/null 2>&1
 }
 
 for f in $@ ; do
