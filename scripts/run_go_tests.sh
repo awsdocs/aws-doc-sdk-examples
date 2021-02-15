@@ -1,21 +1,21 @@
 TestGoFile () {
     if [ "$1" == "" ]
     then
-       return
+       exit 1
     fi
 
-    pushd $1
+    pushd $1 > /dev/null 2>&1
 
     declare RESULT=(`go test`)  # (..) = array
     
     if [ "${RESULT[0]}" == "PASS" ]
     then
-      echo 0
+      exit 0
     else
-      echo 1
+      exit 1
     fi
 
-    popd
+    popd > /dev/null 2>&1
 }
 
 for f in $@ ; do
