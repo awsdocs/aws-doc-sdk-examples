@@ -26,11 +26,6 @@ npm install
 ```
 3. If you're using JavaScript, change the sample file extension from ```.ts``` to ```.js```.
 
+4. To run this code, follow the instructions for this example in the [AWS SDK for JavaScript v3](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/kinesis-examples-capturing-page-scrolling.html) developer guide. 
 
-4. In your text editor, update user variables specified in the ```Inputs``` section of the sample file.
 
-5. Run sample code:
-```
-cd src
-ts-node [example name].ts // e.g., ts-node kinesis-example.ts
-```
