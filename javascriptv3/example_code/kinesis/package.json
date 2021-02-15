@@ -7,7 +7,7 @@
     "test": "exit 0"
   },
   "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/kinesis.git",
-  "author": "Brian Murray <brmur@amazon.com>",
+  "author": "https://github.com/brmur",
   "license": "MIT",
   "dependencies": {
     "@aws-sdk/client-cognito-identity": "^3.3.0",

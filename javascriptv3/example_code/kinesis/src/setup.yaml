@@ -3,7 +3,7 @@ Resources:
     Type: AWS::Kinesis::Stream
     Properties:
       ShardCount: 1
-      Name: my-awesome-stream
+      Name: my-kinesis-stream
       RetentionPeriodHours: 24
       StreamEncryption:
         Fn::If:

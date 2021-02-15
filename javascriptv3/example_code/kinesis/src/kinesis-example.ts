@@ -14,6 +14,7 @@ Inputs:
 - REGION
 - IDENTITY_POOL_ID
 - PARTITION_KEY
+- STREAM_NAME
  */
 
 // snippet-start:[kinesis.JavaScript.kinesis-example_v3.complete]
@@ -79,7 +80,7 @@ const uploadData = async () => {
   try {
     const data = await client.send(new PutRecordsCommand({
       Records: recordData,
-      StreamName: 'brmur-data-stream'
+      StreamName: 'STREAM_NAME'
     }));
     console.log('data', data);
     console.log("Kinesis updated", data);

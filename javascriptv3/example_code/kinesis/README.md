@@ -1,9 +1,9 @@
 # TypeScript environment for Amazon Kinesis examples
 This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) Amazon Kinesis examples. 
 
-The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
+The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
-The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/kinesis-examples.html) contains these examples.
+[Amazon Kinesis Example](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/kinesis-examples.html) contains these examples.
 
 The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-kinesis/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon Kinesis client module.
 
@@ -26,6 +26,6 @@ npm install
 ```
 3. If you're using JavaScript, change the sample file extension from ```.ts``` to ```.js```.
 
-4. To run this code, follow the instructions for this example in the [AWS SDK for JavaScript v3](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/kinesis-examples-capturing-page-scrolling.html) developer guide. 
+4. To run this code, follow the instructions for this example in the [Capturing Web Page Scroll Progress with Amazon Kinesis](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/kinesis-examples-capturing-page-scrolling.html). 
 
 
