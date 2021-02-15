@@ -1,7 +1,7 @@
 TestGoFile () {
     if [ "$1" == "" ]
     then
-       return 1
+       exit 1
     fi
 
     pushd $1 > /dev/null 2>&1
@@ -10,9 +10,9 @@ TestGoFile () {
     
     if [ "${RESULT[0]}" == "PASS" ]
     then
-      return 0
+      exit 0
     else
-      return 1
+      exit 1
     fi
 
     popd > /dev/null 2>&1
