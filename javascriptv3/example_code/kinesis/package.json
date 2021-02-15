@@ -1,5 +1,5 @@
 {
-  "name": "aws-sdk-v3-kenesis-examples",
+  "name": "aws-sdk-v3-kinesis-examples",
   "version": "1.0.0",
   "main": "kinesis-example.ts",
   "scripts": {
