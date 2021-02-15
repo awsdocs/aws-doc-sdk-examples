@@ -80,4 +80,5 @@ func TestCreateBucket(t *testing.T) {
 	}
 
 	t.Log("Created bucket " + globalConfig.BucketName + " in " + *resp.Location)
+	t.Log("Extra line to trigger go action")
 }
