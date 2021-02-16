@@ -14,7 +14,7 @@ such as *@aws-sdk/client-s3*, *@aws-sdk/client-cognito-identity*, and
 *@aws-sdk/credential-provider-cognito-identity*.
 ```
 npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
-cd javascriptv3/example_code/s3/src/photoExample/src
+cd javascriptv3/example_code/s3/photoExample/src
 npm install
 ```
 

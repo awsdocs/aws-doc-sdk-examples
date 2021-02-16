@@ -1,3 +1,6 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
 # This AWS CloudFormation template creates the following AWS resources:
 #
 # * A table in Amazon DynamoDB.
@@ -11,17 +14,22 @@
 #
 # 1. To run this template with the AWS Command Line Interface (AWS CLI):
 #
-#    aws cloudformation create-stack --template-body file://dynamodb-ruby-example-create-users-table.yaml --stack-name DynamodbRubyExampleCreateUsersTableStack
+#    aws cloudformation create-stack --template-body file://dynamodb-ruby-example-create-users-table.yaml --stack-name DynamodbRubyExampleCreateUserTableStack
 #
 #    This will create a stack in AWS CloudFormation. This stack will create
 #    the specified AWS resources.
 #
 #    To display the names of the generated resources, run the following command:
 #
-#    aws cloudformation describe-stacks --stack-name DynamodbRubyExampleCreateUsersTableStack --query Stacks[0].Outputs --output text
+#    aws cloudformation describe-stacks --stack-name DynamodbRubyExampleCreateUserTableStack --query Stacks[0].Outputs --output text
 #
 #    Note that the generated resources might not be immediately available.
 #    You can keep running this command until their names are displayed.
+#
+#    To destroy the generated AWS resources after you are finished using them,
+#    run the following command:
+#
+#    aws cloudformation delete-stack --stack-name DynamodbRubyExampleCreateUserTableStack
 #
 # 2. To run this template with the AWS CloudFormation console, sign in at:
 #
@@ -34,6 +42,10 @@
 #    The names of the generated resources will display on the stack's
 #    Outputs tab in the console after the stack's status displays as
 #    CREATE_COMPLETE.
+#
+#    To destroy the generated AWS resources after you are finished using them,
+#    choose the stack in the console, choose Delete, and then follow
+#    the on-screen instructions.
 #
 # This file was generated from an AWS Cloud Development Kit (AWS CDK) app at:
 #
@@ -83,13 +95,13 @@ Resources:
     UpdateReplacePolicy: Delete
     DeletionPolicy: Delete
     Metadata:
-      aws:cdk:path: DynamodbRubyExampleCreateUsersTableStack/table/Resource
+      aws:cdk:path: DynamodbRubyExampleCreateUserTableStack/table/Resource
   CDKMetadata:
     Type: AWS::CDK::Metadata
     Properties:
       Modules: aws-cdk=1.87.1,@aws-cdk/assets=1.87.1,@aws-cdk/aws-applicationautoscaling=1.87.1,@aws-cdk/aws-autoscaling-common=1.87.1,@aws-cdk/aws-cloudwatch=1.87.1,@aws-cdk/aws-codeguruprofiler=1.87.1,@aws-cdk/aws-dynamodb=1.87.1,@aws-cdk/aws-ec2=1.87.1,@aws-cdk/aws-ecr=1.87.1,@aws-cdk/aws-ecr-assets=1.87.1,@aws-cdk/aws-events=1.87.1,@aws-cdk/aws-iam=1.87.1,@aws-cdk/aws-kms=1.87.1,@aws-cdk/aws-lambda=1.87.1,@aws-cdk/aws-logs=1.87.1,@aws-cdk/aws-s3=1.87.1,@aws-cdk/aws-s3-assets=1.87.1,@aws-cdk/aws-sqs=1.87.1,@aws-cdk/aws-ssm=1.87.1,@aws-cdk/cloud-assembly-schema=1.87.1,@aws-cdk/core=1.87.1,@aws-cdk/custom-resources=1.87.1,@aws-cdk/cx-api=1.87.1,@aws-cdk/region-info=1.87.1,jsii-runtime=node.js/v15.3.0
     Metadata:
-      aws:cdk:path: DynamodbRubyExampleCreateUsersTableStack/CDKMetadata/Default
+      aws:cdk:path: DynamodbRubyExampleCreateUserTableStack/CDKMetadata/Default
     Condition: CDKMetadataAvailable
 Outputs:
   TableName:

@@ -1,3 +1,6 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
 # This AWS CloudFormation template creates the following AWS resources:
 #
 # * A bucket in Amazon Simple Storage Service (Amazon S3).
@@ -23,6 +26,11 @@
 #    Note that the generated resources might not be immediately available.
 #    You can keep running this command until their names are displayed.
 #
+#    To destroy the generated AWS resources after you are finished using them,
+#    run the following command:
+#
+#    aws cloudformation delete-stack --stack-name DynamodbRubyExampleCreateMoviesTableStack
+#
 # 2. To run this template with the AWS CloudFormation console, sign in at:
 #
 #    https://console.aws.amazon.com/cloudformation
@@ -34,6 +42,10 @@
 #    The names of the generated resources will display on the stack's
 #    Outputs tab in the console after the stack's status displays as
 #    CREATE_COMPLETE.
+#
+#    To destroy the generated AWS resources after you are finished using them,
+#    choose the stack in the console, choose Delete, and then follow
+#    the on-screen instructions.
 #
 # This file was generated from an AWS Cloud Development Kit (AWS CDK) app at:
 #
