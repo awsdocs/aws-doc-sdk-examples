@@ -1065,7 +1065,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 11. Choose **Save.**
 
-12. Test your Lambda function. Pass in the JSON data that contains the date to query ("date": "2021-02-01"). Once successful, you see XML that is returned. 
+12. Test your Lambda function. Pass in the JSON data that contains the date to query ("date": "2021-02-01"). Once successful, you see XML that contains the data queried from the database.  
 
 ![AWS Tracking Application](images/testfunction3.png)
 
