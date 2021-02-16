@@ -1,4 +1,4 @@
-#  Building an AWS Workflow that sends notifications over multiple channels by using the AWS SDK for Java
+#  Using AWS Step Functions to build a workflow that sends notifications over multiple channels by using the AWS SDK for Java
 
 You can use Amazon Web Services to create a workflow that sends notifications over multiple channels. There are many practical business needs for this type of functionality. For example, a weather agency needs to warn many people about a storm, or a school wants to send parents alerts when kids are missing. 
 
