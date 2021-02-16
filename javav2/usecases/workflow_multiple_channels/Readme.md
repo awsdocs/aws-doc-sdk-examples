@@ -400,39 +400,27 @@ The following Java code represents the **ConnectionHelper** class.
      import java.sql.DriverManager;
      import java.sql.SQLException;
 
-    public class ConnectionHelper {
+     public class ConnectionHelper {
 
-     private String url;
-
-     private static ConnectionHelper instance;
-
-     private ConnectionHelper() {
+      private static ConnectionHelper instance;
+      private String url;
+      private ConnectionHelper() {
         url = "jdbc:mysql://localhost:3306/mydb?useSSL=false";
-    }
+      }
 
-    public static Connection getConnection() throws SQLException {
-        if (instance == null) {
+      public static Connection getConnection() throws SQLException {
+        if (instance == null)
             instance = new ConnectionHelper();
-        }
-        try {
 
+        try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            return DriverManager.getConnection(instance.url, "root","root1234");
+            return DriverManager.getConnection(instance.url, "root", "root1234");
         } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             e.getStackTrace();
         }
         return null;
-    }
-    public static void close(Connection connection) {
-        try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-       }
       }
+    }
 
 **Note**: The URL value is **localhost:3306**. This value is modified after the RDS instance is created. The Lambda function uses this URL to communicate with the database. You must also ensure that you specify the user name and password for your RDS instance.
 
@@ -458,12 +446,16 @@ This Java code represents the **Handler** class. The class creates a Lamdba func
 
         // Query the student table and get back XML.
         RDSGetStudents students = new RDSGetStudents();
-        String xml = students.getStudentsRDS(date);
+         String xml = null;
+        try {
+            xml = students.getStudentsRDS(date);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         logger.log("XML: " + xml);
         return xml;
      }
     }
-
 ### HandlerVoiceNot class
 
 The **HandlerVoiceNot** class is the second step in the workflow. It creates a **SendNotifications** object and passes the XML to the following methods: 
@@ -521,14 +513,17 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
        import javax.xml.transform.TransformerFactory;
        import javax.xml.transform.dom.DOMSource;
        import javax.xml.transform.stream.StreamResult;
-       import java.io.*;
-       import java.sql.*;
+       import java.io.StringWriter;
+       import java.sql.PreparedStatement;
+       import java.sql.Connection;
+       import java.sql.SQLException;
+       import java.sql.ResultSet;
        import java.util.ArrayList;
        import java.util.List;
 
        public class RDSGetStudents {
 
-        public String getStudentsRDS(String date ) {
+       public String getStudentsRDS(String date ) throws SQLException {
 
         Connection c = null;
         String query = "";
@@ -565,15 +560,15 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
 
             return convertToString(toXml(studentList));
 
-        } catch (SQLException e) {
+          } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            ConnectionHelper.close(c);
-        }
-        return null;
-    }
+         } finally {
+            c.close();
+         }
+         return null;
+       }
 
-    private String convertToString(Document xml) {
+      private String convertToString(Document xml) {
         try {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             StreamResult result = new StreamResult(new StringWriter());
@@ -585,11 +580,11 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
             ex.printStackTrace();
         }
         return null;
-    }
+       }
 
 
-    // Convert the list to XML.
-    private Document toXml(List<Student> itemList) {
+      // Convert the list to XML.
+      private Document toXml(List<Student> itemList) {
 
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -632,8 +627,8 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
             e.printStackTrace();
         }
         return null;
+       }  
       }
-     }
 
 
 ### SendNotifications class
