@@ -46,7 +46,7 @@ public class AmazonMQTest {
             // Populate the data members required for all tests
             engineType = prop.getProperty("engineType");
             brokerName=prop.getProperty("brokerName");
-            configurationName= prop.getProperty("configurationName");
+            configurationName= prop.getProperty("configurationName");We
 
         } catch (IOException ex) {
             ex.printStackTrace();
