@@ -1067,7 +1067,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 12. Test your Lambda function. Pass in the JSON data that contains the date to query ("date": "2021-02-01"). Once successful, you see XML that is returned. 
 
-![AWS Tracking Application](images/testfunction2.png)
+![AWS Tracking Application](images/testfunction3.png)
 
 **Note** Repeat this procedure for the **HandlerVoiceNot** class. Name the corresponding Lambda functions **HandlerVoice**. When you finish, you will have two Lambda functions that you can reference in the Amazon States Language document.  
 
