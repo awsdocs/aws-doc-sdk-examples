@@ -1,7 +1,7 @@
 TestGoFile () {
     if [ "$1" == "" ]
     then
-       exit 1
+       exit 0
     fi
 
     pushd $1 > /dev/null 2>&1
