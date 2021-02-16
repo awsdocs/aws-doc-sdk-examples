@@ -125,7 +125,7 @@ This tutorial uses the Amazon SNS, Amazon SES, and Amazon Pinpoint to send messa
 
 13. Search for **AmazonSNSFullAccess**, and then choose **Attach policy**. When you're done, you can see the permissions.
 
-![AWS Tracking Application](images/Policies.png)
+![AWS Tracking Application](images/Policies2.png)
 
 **Note**: Repeat this process to create **workflow-support**. For step three, instead of choosing **Lambda**, choose **Step Functions**. You don't need to perform steps 11-13.  
 
