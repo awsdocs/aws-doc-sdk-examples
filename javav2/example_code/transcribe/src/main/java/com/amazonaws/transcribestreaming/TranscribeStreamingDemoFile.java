@@ -31,30 +31,34 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
 
+import static javax.sound.sampled.AudioFormat.Encoding.PCM_SIGNED;
+import static javax.sound.sampled.AudioFormat.Encoding.PCM_UNSIGNED;
+
 
 public class TranscribeStreamingDemoFile {
     private static final Region REGION = Region.US_EAST_1;
     private static TranscribeStreamingAsyncClient client;
 
-    public static void main(String args[]) throws URISyntaxException, ExecutionException, InterruptedException, LineUnavailableException {
+    public static void main(String args[]) throws Exception {
 
-            final String USAGE = "\n" +
-                    "Usage:\n" +
-                    "    TranscribeStreamingDemoFile <file> \n\n" +
-                    "Where:\n" +
-                    "    file - the location of a WAV file to transcribe. In this example, ensure the WAV file is 16 hertz (Hz). \n" ;
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    TranscribeStreamingDemoFile <file> \n\n" +
+                "Where:\n" +
+                "    file - the location of a WAV file to transcribe. In this example, ensure the WAV file is 16 hertz (Hz). \n" ;
 
-            if (args.length != 1) {
-                System.out.println(USAGE);
-                System.exit(1);
-            }
+        if (args.length != 1) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
 
         String file = args[0];
+        File theFile = new File(file);
         client = TranscribeStreamingAsyncClient.builder()
                 .region(REGION)
                 .build();
 
-        CompletableFuture<Void> result = client.startStreamTranscription(getRequest(16_000),
+        CompletableFuture<Void> result = client.startStreamTranscription(getRequest(theFile),
                 new AudioStreamPublisher(getStreamFromFile(file)),
                 getResponseHandler());
 
@@ -68,17 +72,25 @@ public class TranscribeStreamingDemoFile {
             InputStream audioStream = new FileInputStream(inputFile);
             return audioStream;
 
-      } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * IMPORTANT: You must know the media encoding and sample hertz rate for your file.  If
+     * these values are wrong, then transcribe will not return an error.  It will return an
+     * incorrect transcript.
+     */
+    private static StartStreamTranscriptionRequest getRequest(File inputFile) throws IOException, UnsupportedAudioFileException {
+        //Too bad you can't read the input stream twice.  We read the file twice in this example.
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(inputFile);
+        AudioFormat audioFormat = audioInputStream.getFormat();
 
-  private static StartStreamTranscriptionRequest getRequest(Integer mediaSampleRateHertz) {
         return StartStreamTranscriptionRequest.builder()
                 .languageCode(LanguageCode.EN_US)
-                .mediaEncoding(MediaEncoding.PCM)
-                .mediaSampleRateHertz(mediaSampleRateHertz)
+                .mediaEncoding(getAwsMediaEncoding(audioFormat))
+                .mediaSampleRateHertz(getAwsSampleRate(audioFormat))
                 .build();
     }
 
@@ -197,5 +209,26 @@ public class TranscribeStreamingDemoFile {
                     .audioChunk(SdkBytes.fromByteBuffer(bb))
                     .build();
         }
+    }
+
+    private static MediaEncoding getAwsMediaEncoding(AudioFormat audioFormat) {
+        final String javaMediaEncoding = audioFormat.getEncoding().toString();
+
+        //TODO: Add support for MediaEncoding.OGG_OPUS and MediaEncoding.FLAC.
+        if (PCM_SIGNED.toString().equals(javaMediaEncoding)) {
+            return MediaEncoding.PCM;
+        } else if (PCM_UNSIGNED.toString().equals(javaMediaEncoding)){
+            return MediaEncoding.PCM;
+        } /*else if (ALAW.toString().equals(javaMediaEncoding)){
+                return MediaEncoding.OGG_OPUS;
+            } else if (ULAW.toString().equals(javaMediaEncoding)){
+                return MediaEncoding.FLAC;
+            }*/
+
+        throw new IllegalArgumentException("Not a recognized media encoding:" + javaMediaEncoding);
+    }
+
+    private static Integer getAwsSampleRate(AudioFormat audioFormat) {
+        return Math.round(audioFormat.getSampleRate());
     }
 }

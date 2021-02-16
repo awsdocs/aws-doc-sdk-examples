@@ -20,12 +20,17 @@ ts-node ddb_scan.ts
 const { DynamoDBClient, ScanCommand } = require("@aws-sdk/client-dynamodb");
 const REGION = "REGION";
 
-// Set parameters
+// Set the parameters.
 const params = {
-  KeyConditionExpression: "Subtitle = :topic",
+  // Specify which items in the results are returned.
+  FilterExpression: "Subtitle = :topic AND Season = :s AND Episode = :e",
+  // Define the expression attribute value, which are substitutes for the values you want to compare.
   ExpressionAttributeValues: {
-    ":topic": { S: "Sub" },
+    ":topic": { S: "SubTitle2" },
+    ":s": { N: "1" },
+    ":e": { N: "2" }
   },
+  // Set the projection expression, which the the attributes that you want.
   ProjectionExpression: "Season, Episode, Title, Subtitle",
   TableName: "EPISODES_TABLE",
 };
@@ -35,6 +40,7 @@ const dbclient = new DynamoDBClient({ region: REGION });
 
 async function run() {
   try {
+
     const data = await dbclient.send(new ScanCommand(params));
     data.Items.forEach(function (element, index, array) {
       console.log(element.Title.S + " (" + element.Subtitle.S + ")");

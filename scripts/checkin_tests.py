@@ -119,8 +119,8 @@ ALLOW_LIST = {
     'ses/commands/VerifyDomainIdentityCommand',
     'ses/commands/VerifyDomainIdentityCommand',
     'com/amazondynamodb/latest/developerguide',
+    'DynamodbRubyExampleCreateUsersTableStack'
 }
-
 
 def check_files(root, quiet):
     """

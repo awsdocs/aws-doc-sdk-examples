@@ -5,7 +5,7 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript versi
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-function-prep.html.
 Purpose:
-lambda-function-setup.ts demonstrates how to create an Amazon Lambda function.
+lambda-function-setup.ts demonstrates how to create an AWS Lambda function.
 
 Inputs (replace in code):
 - REGION

@@ -1,6 +1,6 @@
-# TypeScript environment for Amazon Lambda examples
+# TypeScript environment for AWS Lambda examples
 This is a workspace where you can find the files required for a tutorial that demonstrates how to use the 
-AWS SDK for JavaScript version 3 (v3) to create an Amazon Lambda function that creates an Amazon DynamoDB 
+AWS SDK for JavaScript version 3 (v3) to create an AWS Lambda function that creates an Amazon DynamoDB 
 table from the browser. You can find this example in the [AWS SDK for JavaScript v3 Developer Guide (v3)](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-table-provision-resources.html) 
 
 The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
@@ -22,7 +22,7 @@ For more information, see [TypeScript homepage](https://www.typescriptlang.org/)
 
 **Note**: These dependencies include the client module for the AWS services required in these example, 
 which are *@aws-sdk/client-cognito-identity*, *@aws-sdk/credential-provider-cognito-identity*, *@aws-sdk/client-dynamodb*, 
-*@aws-sdk/client-iam*, and *@aws-sdk/client-lambda*.
+*@aws-sdk/client-iam*, *@aws-sdk/client-cloudformation* and *@aws-sdk/client-lambda*.
 
 
 ```
