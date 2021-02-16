@@ -66,21 +66,21 @@ In this AWS tutorial, an Amazon RDS MySQL database is used to track the students
 
 The workflow queries the **students** table to get all absent students, and dynamically creates XML that contains the absent students.  
 
-      <?xml version="1.0" encoding="UTF-8"?>
-	<Students>
+       <?xml version="1.0" encoding="UTF-8"?>
+       <Students>
          <Student>
           <Name>Sam</Name>
           <Mobile>15558397418</Mobile>
           <Phone>155538397418</Phone>
           <Email>scmacdon@noserver.com</Email>
-        </Student>
-        <Student>
-         <Name>Laurie</Name>
+         </Student>
+         <Student>
+          <Name>Laurie</Name>
           <Mobile>15554621058</Mobile>
           <Phone>155558397418</Phone>
-         <Email>lmccue@cnoserver.com</Email>
-        </Student>
-      </Students>
+          <Email>lmccue@cnoserver.com</Email>
+         </Student>
+       </Students>
 
 The second workflow step parses the XML and for each student invokes multiple AWS services to send messages over different channels.   
 
