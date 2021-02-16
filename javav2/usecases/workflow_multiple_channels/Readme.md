@@ -1065,7 +1065,11 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 11. Choose **Save.**
 
-12. Repeat this procedure for the **HandlerVoiceNot** class. Name the corresponding Lambda functions **HandlerVoice**. When you finish, you will have two Lambda functions that you can reference in the Amazon States Language document.  
+12. Test your Lambda function. Pass in the JSON data that contains the date to query ("date": "2021-02-01"). Once successful, you see XML that is returned. 
+
+![AWS Tracking Application](images/testfunction.png)
+
+**Note** Repeat this procedure for the **HandlerVoiceNot** class. Name the corresponding Lambda functions **HandlerVoice**. When you finish, you will have two Lambda functions that you can reference in the Amazon States Language document.  
 
 **IMPORTANT**: To connect to the RDS instance from a Lambda function, you must set the inbound rules using the same security group as the RDS Instance. For details, [How do I configure a Lambda function to connect to an RDS instance?](https://aws.amazon.com/premiumsupport/knowledge-center/connect-lambda-to-an-rds-instance/).
 
