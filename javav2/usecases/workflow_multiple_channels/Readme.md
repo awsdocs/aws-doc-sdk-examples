@@ -133,10 +133,10 @@ This tutorial uses the Amazon SNS, Amazon SES, and Amazon Pinpoint to send messa
 
 Because the Lambda function invokes the Pinpoint service’s **sendVoiceMessage** method, the **lambda-support** role needs permission to invoke this operation. To perform this task, you need to create a custom policy using this JSON.
 
-     {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
+    {
+     "Version": "2012-10-17",
+     "Statement": [
+       {
             "Sid": "FullAccess",
             "Effect": "Allow",
             "Action": [
