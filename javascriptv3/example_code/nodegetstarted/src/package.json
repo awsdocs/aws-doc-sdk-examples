@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@aws-sdk/client-s3": "^1.0.0-gamma.5"
+    "@aws-sdk/client-s3": "^3.3.0"
   },
   "name": "aws-nodejs-sample",
   "description": "A simple Node.js application illustrating usage of the AWS SDK for Node.js.",

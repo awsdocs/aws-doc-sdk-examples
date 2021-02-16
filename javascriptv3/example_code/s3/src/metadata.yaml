@@ -22,6 +22,9 @@ files:
   - path: s3_getbucketacl.ts
     services:
       - s3
+  - path: s3_putbucketacl.ts
+    services:
+      - s3
   - path: s3_getbucketpolicy.ts
     services:
       - s3
@@ -49,16 +52,19 @@ files:
   - path: s3_list1000plusobjects.ts
     services:
       - s3
-  - path: s3_upload.ts
+  - path: s3_create_and_upload_object.ts
     services:
       - s3
-  - path: s3_upload_putcommand.ts
+  - path: s3_upload_object.ts
     services:
       - s3
   - path: s3_put_presignedURL.ts
     services:
       - s3
   - path: s3.ts
+    services:
+      - s3
+  - path: s3_getobject.ts
     services:
       - s3
 ...

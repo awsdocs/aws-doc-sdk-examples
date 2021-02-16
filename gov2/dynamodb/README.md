@@ -14,7 +14,7 @@ in the AWS SDK for Go Developer Guide.
 
 ## Running the code
 
-### DescribeTable/DescribeTable.go
+### DescribeTable/DescribeTablev2.go
 
 This example lists the following properties of a DynamoDB table.
 
@@ -22,11 +22,56 @@ This example lists the following properties of a DynamoDB table.
 - Size, in bytes
 - Status, such as Active
 
-`go run DescribeTable.go -t TABLE`
+`go run DescribeTablev2.go -t TABLE`
 
 - _TABLE_ is the name of the table.
 
 The unit test accepts a similar value in _config.json_.
+
+### ScanItems/ScanItemsv2.go
+
+This example retrieves the Amazon DynamoDB items with a rating above a specified value
+in a specified year.
+
+`go run ScanItemsv2.go -t TABLE -r RATING -y YEAR`
+
+- _TABLE_ is the name of the table.
+- _RATING_ is the rating of the item, from 0.0 to 10.0.
+- _YEAR_ is the year of the item, which must be greater than 1900.
+
+The unit test accepts similar values in _config.json_.
+
+### Using Amazon DynamoDB local
+
+You can test your Go code against a local version of Amazon DynamoDB.
+Doing so elimiates the possibility of incurring charges against your Amazon account.
+
+For information on installing the local version of Amazon DynamoDB, see
+[Setting Up DynamoDB Local (Downloadable Version)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html)
+in the Amazon DynamoDB Developer Guide.
+
+To run the local version of Amazon DynamoDB, perform the following steps:
+
+1. Navigate to where you've installed the local version of Amazon DynamoDB.
+1. Run the following command:
+   ```
+   java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
+   ```
+If you don't care whether any information is saved between session, add the **-inMemory** flag.  
+
+In your Go code, change the **config** object you create from:
+```
+cfg, err := config.LoadDefaultConfig(context.TODO())
+```
+to:
+```
+cfg, err := config.LoadDefaultConfig(context.TODO(),
+    config.WithEndpointResolver(aws.EndpointResolverFunc(
+        func(service, region string) (aws.Endpoint, error) {
+            return aws.Endpoint{URL: "https://localhost:8000"}, nil
+    })),
+)
+```
 
 ### Notes
 

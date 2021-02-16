@@ -13,6 +13,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.bucket_deletion.import]
+// snippet-start:[s3.java2.s3_bucket_ops.delete_bucket.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
@@ -21,6 +22,7 @@ import software.amazon.awssdk.services.s3.model.S3Object;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.model.DeleteBucketRequest;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+// snippet-end:[s3.java2.s3_bucket_ops.delete_bucket.import]
 // snippet-end:[s3.java2.bucket_deletion.import]
 // snippet-start:[s3.java2.bucket_deletion.main]
 public class S3BucketDeletion {
@@ -48,7 +50,7 @@ public class S3BucketDeletion {
         s3.close();
     }
 
-    // snippet-start:[s3.java2.bucket_deletion.delete_bucket]
+    // snippet-start:[s3.java2.s3_bucket_ops.delete_bucket]
     public static void listAllObjects(S3Client s3, String bucket) {
 
         try {
@@ -70,7 +72,7 @@ public class S3BucketDeletion {
                         .build();
 
             } while(listObjectsV2Response.isTruncated());
-            // snippet-end:[s3.java2.bucket_deletion.delete_bucket]
+            // snippet-end:[s3.java2.s3_bucket_ops.delete_bucket]
 
             DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder().bucket(bucket).build();
             s3.deleteBucket(deleteBucketRequest);

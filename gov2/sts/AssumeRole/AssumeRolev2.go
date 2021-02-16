@@ -29,9 +29,7 @@ type STSAssumeRoleAPI interface {
 //     If successful, an AssumeRoleOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to AssumeRole.
 func TakeRole(c context.Context, api STSAssumeRoleAPI, input *sts.AssumeRoleInput) (*sts.AssumeRoleOutput, error) {
-	result, err := api.AssumeRole(c, input)
-
-	return result, err
+	return api.AssumeRole(c, input)
 }
 
 func main() {
@@ -44,7 +42,7 @@ func main() {
 		return
 	}
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -56,7 +54,7 @@ func main() {
 		RoleSessionName: sessionName,
 	}
 
-	result, err := TakeRole(context.Background(), client, input)
+	result, err := TakeRole(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error assuming the role:")
 		fmt.Println(err)

@@ -10,7 +10,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/sqs"
 )
@@ -36,9 +35,7 @@ type SQSDeadLetterQueueAPI interface {
 //     If success, a GetQueueUrlOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to GetQueueUrl.
 func GetQueueURL(c context.Context, api SQSDeadLetterQueueAPI, input *sqs.GetQueueUrlInput) (*sqs.GetQueueUrlOutput, error) {
-	result, err := api.GetQueueUrl(c, input)
-
-	return result, err
+	return api.GetQueueUrl(c, input)
 }
 
 // GetQueueArn gets the ARN of a queue based on its URL
@@ -60,9 +57,7 @@ func GetQueueArn(queueURL *string) *string {
 //     If success, a SetQueueAttributesOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to SetQueueAttributes.
 func ConfigureDeadLetterQueue(c context.Context, api SQSDeadLetterQueueAPI, input *sqs.SetQueueAttributesInput) (*sqs.SetQueueAttributesOutput, error) {
-	result, err := api.SetQueueAttributes(c, input)
-
-	return result, err
+	return api.SetQueueAttributes(c, input)
 }
 
 func main() {
@@ -75,7 +70,7 @@ func main() {
 		return
 	}
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -86,7 +81,7 @@ func main() {
 		QueueName: queue,
 	}
 
-	result, err := GetQueueURL(context.Background(), client, gQInput)
+	result, err := GetQueueURL(context.TODO(), client, gQInput)
 	if err != nil {
 		fmt.Println("Got an error getting the queue URL:")
 		fmt.Println(err)
@@ -112,8 +107,8 @@ func main() {
 
 	cQInput := &sqs.SetQueueAttributesInput{
 		QueueUrl: dlQueueURL,
-		Attributes: map[string]*string{
-			"RedrivePolicy": aws.String(string(b)),
+		Attributes: map[string]string{
+			"RedrivePolicy": string(b),
 		},
 	}
 
@@ -126,4 +121,5 @@ func main() {
 
 	fmt.Println("Created dead-letter queue")
 }
+
 // snippet-end:[sqs.go-v2.DeadLetterQueue]

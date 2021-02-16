@@ -29,9 +29,7 @@ type S3GetObjectAclAPI interface {
 //     If success, a GetObjectAclOutput object containing the result of the service call and nil
 //     Otherwise, nil and an error from the call to GetObjectAcl
 func FindObjectAcl(c context.Context, api S3GetObjectAclAPI, input *s3.GetObjectAclInput) (*s3.GetObjectAclOutput, error) {
-	result, err := api.GetObjectAcl(c, input)
-
-	return result, err
+	return api.GetObjectAcl(c, input)
 }
 
 func main() {
@@ -44,7 +42,7 @@ func main() {
 		return
 	}
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -56,7 +54,7 @@ func main() {
 		Key:    objectName,
 	}
 
-	result, err := FindObjectAcl(context.Background(), client, input)
+	result, err := FindObjectAcl(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error getting ACL for " + *objectName)
 		return

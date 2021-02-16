@@ -4,19 +4,19 @@
 package main
 
 import (
-    "context"
-    "fmt"
+	"context"
+	"fmt"
 
-    "github.com/aws/aws-sdk-go-v2/config"
-    "github.com/aws/aws-sdk-go-v2/service/sqs"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/sqs"
 )
 
 // SQSListQueuesAPI defines the interface for the ListQueues function.
 // We use this interface to test the function using a mocked service.
 type SQSListQueuesAPI interface {
-    ListQueues(ctx context.Context,
-        params *sqs.ListQueuesInput,
-        optFns ...func(*sqs.Options)) (*sqs.ListQueuesOutput, error)
+	ListQueues(ctx context.Context,
+		params *sqs.ListQueuesInput,
+		optFns ...func(*sqs.Options)) (*sqs.ListQueuesOutput, error)
 }
 
 // GetQueues retrieves a list of your Amazon Simple Queue Service (Amazon SQS) queues.
@@ -28,30 +28,29 @@ type SQSListQueuesAPI interface {
 //     If success, a ListQueuesOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to ListQueues.
 func GetQueues(c context.Context, api SQSListQueuesAPI, input *sqs.ListQueuesInput) (*sqs.ListQueuesOutput, error) {
-    result, err := api.ListQueues(c, input)
-
-    return result, err
+	return api.ListQueues(c, input)
 }
 
 func main() {
-    cfg, err := config.LoadDefaultConfig()
-    if err != nil {
-        panic("configuration error, " + err.Error())
-    }
+	cfg, err := config.LoadDefaultConfig(context.TODO())
+	if err != nil {
+		panic("configuration error, " + err.Error())
+	}
 
-    client := sqs.NewFromConfig(cfg)
+	client := sqs.NewFromConfig(cfg)
 
-    input := &sqs.ListQueuesInput{}
+	input := &sqs.ListQueuesInput{}
 
-    result, err := GetQueues(context.Background(), client, input)
-    if err != nil {
-        fmt.Println("Got an error retrieving queue URLs:")
-        fmt.Println(err)
-        return
-    }
+	result, err := GetQueues(context.TODO(), client, input)
+	if err != nil {
+		fmt.Println("Got an error retrieving queue URLs:")
+		fmt.Println(err)
+		return
+	}
 
-    for i, url := range result.QueueUrls {
-        fmt.Printf("%d: %s\n", i+1, *url)
-    }
+	for i, url := range result.QueueUrls {
+		fmt.Printf("%d: %s\n", i+1, url)
+	}
 }
+
 // snippet-end:[sqs.go-v2.ListQueues]

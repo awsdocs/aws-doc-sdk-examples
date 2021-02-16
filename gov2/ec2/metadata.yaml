@@ -17,6 +17,12 @@ files:
   - path: DescribeInstances/DescribeInstancesv2_test.go
     services:
       - ec2
+  - path: DescribeVpcEndpoints/DescribeVpcEndpointsv2.go
+    services:
+      - ec2
+  - path: DescribeVpcEndpoints/DescribeVpcEndpointsv2_test.go
+    services:
+      - ec2
   - path: MonitorInstances/MonitorInstancesv2.go
     services:
       - ec2

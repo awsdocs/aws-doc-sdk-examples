@@ -4,22 +4,22 @@
 package main
 
 import (
-    "context"
-    "flag"
-    "fmt"
+	"context"
+	"flag"
+	"fmt"
 
-    "github.com/aws/aws-sdk-go-v2/aws"
-    "github.com/aws/aws-sdk-go-v2/config"
-    "github.com/aws/aws-sdk-go-v2/service/ec2"
-    "github.com/aws/aws-sdk-go-v2/service/ec2/types"
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/ec2"
+	"github.com/aws/aws-sdk-go-v2/service/ec2/types"
 )
 
 // EC2CreateImageAPI defines the interface for the CreateImage function.
 // We use this interface to test the function using a mocked service.
 type EC2CreateImageAPI interface {
-    CreateImage(ctx context.Context,
-        params *ec2.CreateImageInput,
-        optFns ...func(*ec2.Options)) (*ec2.CreateImageOutput, error)
+	CreateImage(ctx context.Context,
+		params *ec2.CreateImageInput,
+		optFns ...func(*ec2.Options)) (*ec2.CreateImageOutput, error)
 }
 
 // MakeImage creates an Amazon Elastic Compute Cloud (Amazon EC2) image.
@@ -31,57 +31,56 @@ type EC2CreateImageAPI interface {
 //     If success, a CreateImageOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to CreateImage.
 func MakeImage(c context.Context, api EC2CreateImageAPI, input *ec2.CreateImageInput) (*ec2.CreateImageOutput, error) {
-    resp, err := api.CreateImage(c, input)
-
-    return resp, err
+	return api.CreateImage(c, input)
 }
 
 func main() {
-    description := flag.String("d", "", "The description of the image")
-    instanceID := flag.String("i", "", "The ID of the instance")
-    name := flag.String("n", "", "The name of the image")
-    flag.Parse()
+	description := flag.String("d", "", "The description of the image")
+	instanceID := flag.String("i", "", "The ID of the instance")
+	name := flag.String("n", "", "The name of the image")
+	flag.Parse()
 
-    if *description == "" || *instanceID == "" || *name == "" {
-        fmt.Println("You must supply an image description, instance ID, and image name")
-        fmt.Println("(-d IMAGE-DESCRIPTION -i INSTANCE-ID -n IMAGE-NAME")
-        return
-    }
+	if *description == "" || *instanceID == "" || *name == "" {
+		fmt.Println("You must supply an image description, instance ID, and image name")
+		fmt.Println("(-d IMAGE-DESCRIPTION -i INSTANCE-ID -n IMAGE-NAME")
+		return
+	}
 
-    cfg, err := config.LoadDefaultConfig()
-    if err != nil {
-        panic("configuration error, " + err.Error())
-    }
+	cfg, err := config.LoadDefaultConfig(context.TODO())
+	if err != nil {
+		panic("configuration error, " + err.Error())
+	}
 
-    client := ec2.NewFromConfig(cfg)
+	client := ec2.NewFromConfig(cfg)
 
-    input := &ec2.CreateImageInput{
-        Description: description,
-        InstanceId:  instanceID,
-        Name:        name,
-        BlockDeviceMappings: []*types.BlockDeviceMapping{
-            {
-                DeviceName: aws.String("/dev/sda1"),
-                NoDevice:   aws.String(""),
-            },
-            {
-                DeviceName: aws.String("/dev/sdb"),
-                NoDevice:   aws.String(""),
-            },
-            {
-                DeviceName: aws.String("/dev/sdc"),
-                NoDevice:   aws.String(""),
-            },
-        },
-    }
+	input := &ec2.CreateImageInput{
+		Description: description,
+		InstanceId:  instanceID,
+		Name:        name,
+		BlockDeviceMappings: []types.BlockDeviceMapping{
+			{
+				DeviceName: aws.String("/dev/sda1"),
+				NoDevice:   aws.String(""),
+			},
+			{
+				DeviceName: aws.String("/dev/sdb"),
+				NoDevice:   aws.String(""),
+			},
+			{
+				DeviceName: aws.String("/dev/sdc"),
+				NoDevice:   aws.String(""),
+			},
+		},
+	}
 
-    resp, err := MakeImage(context.Background(), client, input)
-    if err != nil {
-        fmt.Println("Got an error createing image:")
-        fmt.Println(err)
-        return
-    }
+	resp, err := MakeImage(context.TODO(), client, input)
+	if err != nil {
+		fmt.Println("Got an error createing image:")
+		fmt.Println(err)
+		return
+	}
 
-    fmt.Println("ID: ", resp.ImageId)
+	fmt.Println("ID: ", resp.ImageId)
 }
+
 // snippet-end:[ec2.go-v2.CreateImage]

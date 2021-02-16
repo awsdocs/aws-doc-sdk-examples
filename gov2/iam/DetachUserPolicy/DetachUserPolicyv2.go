@@ -4,20 +4,20 @@
 package main
 
 import (
-    "context"
-    "flag"
-    "fmt"
+	"context"
+	"flag"
+	"fmt"
 
-    "github.com/aws/aws-sdk-go-v2/config"
-    "github.com/aws/aws-sdk-go-v2/service/iam"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/iam"
 )
 
 // IAMDetachRolePolicyAPI defines the interface for the DetachRolePolicy function.
 // We use this interface to test the function using a mocked service.
 type IAMDetachRolePolicyAPI interface {
-    DetachRolePolicy(ctx context.Context,
-        params *iam.DetachRolePolicyInput,
-        optFns ...func(*iam.Options)) (*iam.DetachRolePolicyOutput, error)
+	DetachRolePolicy(ctx context.Context,
+		params *iam.DetachRolePolicyInput,
+		optFns ...func(*iam.Options)) (*iam.DetachRolePolicyOutput, error)
 }
 
 // DetachDynamoFullPolicy detaches an Amazon DynamoDB full-access policy from an AWS Identity and Access Management (IAM) role.
@@ -29,39 +29,37 @@ type IAMDetachRolePolicyAPI interface {
 //     If successful, a DetachRolePolicyOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to DetachRolePolicy.
 func DetachDynamoFullPolicy(c context.Context, api IAMDetachRolePolicyAPI, input *iam.DetachRolePolicyInput) (*iam.DetachRolePolicyOutput, error) {
-    result, err := api.DetachRolePolicy(c, input)
-
-    return result, err
+	return api.DetachRolePolicy(c, input)
 }
 
 func main() {
-    roleName := flag.String("r", "", "The name of the IAM role")
-    flag.Parse()
+	roleName := flag.String("r", "", "The name of the IAM role")
+	flag.Parse()
 
-    if *roleName == "" {
-        fmt.Println("You must supply a role name (-r ROLE)")
-        return
-    }
+	if *roleName == "" {
+		fmt.Println("You must supply a role name (-r ROLE)")
+		return
+	}
 
-    cfg, err := config.LoadDefaultConfig()
-    if err != nil {
-        panic("configuration error, " + err.Error())
-    }
+	cfg, err := config.LoadDefaultConfig(context.TODO())
+	if err != nil {
+		panic("configuration error, " + err.Error())
+	}
 
-    client := iam.NewFromConfig(cfg)
+	client := iam.NewFromConfig(cfg)
 
-    policyArn := "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
-    input := &iam.DetachRolePolicyInput{
-        PolicyArn: &policyArn,
-        RoleName:  roleName,
-    }
+	policyArn := "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
+	input := &iam.DetachRolePolicyInput{
+		PolicyArn: &policyArn,
+		RoleName:  roleName,
+	}
 
-    _, err = DetachDynamoFullPolicy(context.Background(), client, input)
-    if err != nil {
-        fmt.Println("Unable to detach DynamoDB full-access role policy from role")
-        return
-    }
-    fmt.Println("Role detached successfully")
+	_, err = DetachDynamoFullPolicy(context.TODO(), client, input)
+	if err != nil {
+		fmt.Println("Unable to detach DynamoDB full-access role policy from role")
+		return
+	}
+	fmt.Println("Role detached successfully")
 }
 
 // snippet-end:[iam.go-v2.DetachUserPolicy]

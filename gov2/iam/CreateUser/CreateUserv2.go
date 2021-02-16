@@ -29,9 +29,7 @@ type IAMCreateUserAPI interface {
 //     If successful, a CreateUserOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to CreateUser.
 func MakeUser(c context.Context, api IAMCreateUserAPI, input *iam.CreateUserInput) (*iam.CreateUserOutput, error) {
-	results, err := api.CreateUser(c, input)
-
-	return results, err
+	return api.CreateUser(c, input)
 }
 
 func main() {
@@ -43,7 +41,7 @@ func main() {
 		return
 	}
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -54,7 +52,7 @@ func main() {
 		UserName: userName,
 	}
 
-	results, err := MakeUser(context.Background(), client, input)
+	results, err := MakeUser(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error creating user " + *userName)
 	}

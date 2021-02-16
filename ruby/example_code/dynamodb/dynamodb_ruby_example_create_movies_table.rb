@@ -1,67 +1,98 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Creates a DynamoDB table.]
-# snippet-keyword:[Amazon DynamoDB]
-# snippet-keyword:[create_table method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[dynamodb]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-require 'aws-sdk-dynamodb'  # v2: require 'aws-sdk'
+require 'aws-sdk-dynamodb'
 
-# Create dynamodb client in us-west-2 region
-dynamodb = Aws::DynamoDB::Client.new(region: 'us-west-2')
+# Creates a table in Amazon DynamoDB.
+#
+# @param dynamodb_client [Aws::DynamoDB::Client] An initialized
+#   Amazon DynamoDB client.
+# @param table_definition [Hash] The properties of the new table, 
+#   specified in the correct hash format.
+# @return [String] The creation status of the new table or the
+#   string 'Error'.
+# @example
+#   puts create_table(
+#     Aws::DynamoDB::Client.new(region: 'us-west-2'),
+#     {
+#       table_name: 'Movies',
+#       key_schema: [
+#         {
+#           attribute_name: 'year',
+#           key_type: 'HASH'  # Partition key.
+#         },
+#         {
+#           attribute_name: 'title',
+#           key_type: 'RANGE' # Sort key.
+#         }
+#       ],
+#       attribute_definitions: [
+#         {
+#           attribute_name: 'year',
+#           attribute_type: 'N'
+#         },
+#         {
+#           attribute_name: 'title',
+#           attribute_type: 'S'
+#         }
+#       ],
+#       provisioned_throughput: {
+#         read_capacity_units: 10,
+#         write_capacity_units: 10
+#       }
+#     }
+#   )
+def create_table(dynamodb_client, table_definition)
+  response = dynamodb_client.create_table(table_definition)
+  response.table_description.table_status
+rescue StandardError => e
+  puts "Error creating table: #{e.message}"
+  'Error'
+end
 
-# Create table Movies with year (integer) and title (string)
-params = {
-    table_name: 'Movies',
+# Full example call:
+def run_me
+  region = 'us-west-2'
+  table_name = 'Movies'
+
+  dynamodb_client = Aws::DynamoDB::Client.new(region: region)
+
+  table_definition = {
+    table_name: table_name,
     key_schema: [
-        {
-            attribute_name: 'year',
-            key_type: 'HASH'  #Partition key
-        },
-        {
-            attribute_name: 'title',
-            key_type: 'RANGE' #Sort key
-        }
+      {
+        attribute_name: 'year',
+        key_type: 'HASH'  # Partition key.
+      },
+      {
+        attribute_name: 'title',
+        key_type: 'RANGE' # Sort key.
+      }
     ],
     attribute_definitions: [
-        {
-            attribute_name: 'year',
-            attribute_type: 'N'
-        },
-        {
-            attribute_name: 'title',
-            attribute_type: 'S'
-        },
-
+      {
+        attribute_name: 'year',
+        attribute_type: 'N'
+      },
+      {
+        attribute_name: 'title',
+        attribute_type: 'S'
+      }
     ],
     provisioned_throughput: {
-        read_capacity_units: 10,
-        write_capacity_units: 10
+      read_capacity_units: 10,
+      write_capacity_units: 10
+    }
   }
-}
 
-begin
-    result = dynamodb.create_table(params)
+  puts "Creating the table named '#{table_name}'..."
+  create_table_result = create_table(dynamodb_client, table_definition)
 
-    puts 'Created table. Status: ' +
-        result.table_description.table_status;
-rescue  Aws::DynamoDB::Errors::ServiceError => error
-    puts 'Unable to create table:'
-    puts error.message
+  if create_table_result == 'Error'
+    puts 'Table not created.'
+  else
+    puts "Table created with status '#{create_table_result}'."
+  end
 end
+
+run_me if $PROGRAM_NAME == __FILE__

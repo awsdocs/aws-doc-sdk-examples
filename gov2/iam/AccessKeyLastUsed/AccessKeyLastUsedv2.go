@@ -29,9 +29,7 @@ type IAMGetAccessKeyLastUsedAPI interface {
 //     If successful, a GetAccessKeyLastUsedOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to GetAccessKeyLastUsed.
 func WhenWasKeyUsed(c context.Context, api IAMGetAccessKeyLastUsedAPI, input *iam.GetAccessKeyLastUsedInput) (*iam.GetAccessKeyLastUsedOutput, error) {
-	result, err := api.GetAccessKeyLastUsed(c, input)
-
-	return result, err
+	return api.GetAccessKeyLastUsed(c, input)
 }
 
 func main() {
@@ -43,7 +41,7 @@ func main() {
 		return
 	}
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -54,7 +52,7 @@ func main() {
 		AccessKeyId: keyID,
 	}
 
-	result, err := WhenWasKeyUsed(context.Background(), client, input)
+	result, err := WhenWasKeyUsed(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error retrieving when access key was last used:")
 		fmt.Println(err)

@@ -46,15 +46,15 @@ class FileUpload {
 }
 
 class S3Controller {
-  FOLDER = '/* s3-folder-name */';
-  BUCKET = '/* s3-bucket-name */';
+  FOLDER = '/* s3-folder-name */'; // For example, 'my_folder'.
+  BUCKET = '/* s3-bucket-name */'; // For example, 'my_bucket'.
 
   private static getS3Bucket(): any {
     return new S3(
       {
-        accessKeyId: '/* access key here */',
-        secretAccessKey: '/* secret key here */',
-        region: '/* region here */'
+        accessKeyId: '/* access key here */', // For example, 'AKIXXXXXXXXXXXGKUY'.
+        secretAccessKey: '/* secret key here */', // For example, 'm+XXXXXXXXXXXXXXXXXXXXXXDDIajovY+R0AGR'.
+        region: '/* region here */' // For example, 'us-east-1'.
       }
     );
   }

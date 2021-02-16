@@ -14,7 +14,7 @@
  */
 
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[index.js demonstrates how to query for information from Amazon Athena.]
+// snippet-sourcedescription:[index.ts demonstrates how to query for information from Amazon Athena.]
 // snippet-service:[athena]
 // snippet-keyword:[JavaScript]
 // snippet-sourcesyntax:[javascript]

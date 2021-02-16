@@ -28,13 +28,11 @@ type SNSListTopicsAPI interface {
 //     If success, a ListTopicsOutput object containing the result of the service call and nil
 //     Otherwise, nil and an error from the call to ListTopics
 func GetTopics(c context.Context, api SNSListTopicsAPI, input *sns.ListTopicsInput) (*sns.ListTopicsOutput, error) {
-	results, err := api.ListTopics(c, input)
-
-	return results, err
+	return api.ListTopics(c, input)
 }
 
 func main() {
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -43,7 +41,7 @@ func main() {
 
 	input := &sns.ListTopicsInput{}
 
-	results, err := GetTopics(context.Background(), client, input)
+	results, err := GetTopics(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error retrieving information about the SNS topics:")
 		fmt.Println(err)

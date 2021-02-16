@@ -1,57 +1,103 @@
-# snippet-sourcedescription:[ ]
-# snippet-service:[dynamodb]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-keyword:[Amazon DynamoDB]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[ ]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[ ]
-# snippet-sourceauthor:[AWS]
-# snippet-start:[dynamodb.Ruby.CodeExample.MoviesLoadData] 
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
+# This code example demonstrates how to load information from a file into
+# an existing table in Amazon DynamoDB named 'Movies'. The file must be named
+# 'moviedata.json', must be in the same directory as this code example file,
+# and must follow a specific format. For example, each table item for this
+# particular table must be represented in the file with the following
+# minimum information:
 #
-#  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# {
+#   "year": 2015,
+#   "title": "The Big New Movie"
+# }
 #
-#  This file is licensed under the Apache License, Version 2.0 (the "License").
-#  You may not use this file except in compliance with the License. A copy of
-#  the License is located at
-# 
-#  http://aws.amazon.com/apache2.0/
-# 
-#  This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-#  CONDITIONS OF ANY KIND, either express or implied. See the License for the
-#  specific language governing permissions and limitations under the License.
+# Table items can have additional information though, for example:
 #
-require "aws-sdk"
-require "json"
+# [
+#   {
+#     "year": 2015,
+#     "title": "The Big New Movie",
+#     "info": {
+#       "rating": 5.5,
+#       "plot": "A big new movie launches.",
+#       "genres": [
+#         "Biography",
+#         "Drama"
+#       ],
+#       "actors": [
+#         "Larry",
+#         "Moe",
+#         "Curly"
+#       ]
+#     }
+#   },
+#   {
+#     "year": 2017,
+#     "title": "The Big New Movie 2",
+#     "info": {
+#       "rating": 3.0,
+#       "plot": "Another big new movie launches.",
+#       "running_time_secs": 7380
+#       "actors": [
+#         "Tina",
+#         "Amy"
+#       ]
+#     }
+#   }
+# ]
 
-Aws.config.update({
-  region: "us-west-2",
-  endpoint: "http://localhost:8000"
-})
+# snippet-start:[dynamodb.Ruby.CodeExample.MoviesLoadData]
+require 'aws-sdk-dynamodb'
+require 'json'
 
-dynamodb = Aws::DynamoDB::Client.new
+$movie_counter = 0
+$total_movies = 0
 
-table_name = 'Movies'
+def add_item_to_table(dynamodb_client, table_item)
+  dynamodb_client.put_item(table_item)
+  $movie_counter += 1
+  puts "Added movie #{$movie_counter}/#{$total_movies}: " \
+    "'#{table_item[:item]['title']} " \
+    "(#{table_item[:item]['year']})'."
+rescue StandardError => e
+  puts "Error adding movie '#{table_item[:item]['title']} " \
+    "(#{table_item[:item]['year']})': #{e.message}"
+  puts 'Program stopped.'
+  exit 1
+end
 
-file = File.read('moviedata.json')
-movies = JSON.parse(file)
-movies.each{|movie|
+def run_me
+  region = 'us-west-2'
+  table_name = 'Movies'
+  data_file = 'moviedata.json'
 
-    params = {
-        table_name: table_name,
-        item: movie
+  # To use the downloadable version of Amazon DynamoDB,
+  # uncomment the endpoint statement.
+  Aws.config.update(
+    # endpoint: 'http://localhost:8000',
+    region: region
+  )
+
+  dynamodb_client = Aws::DynamoDB::Client.new
+  file = File.read(data_file)
+  movies = JSON.parse(file)
+  $total_movies = movies.count
+
+  puts "Adding #{$total_movies} movies from file '#{data_file}' " \
+    "into table '#{table_name}'..."
+
+  movies.each do |movie|
+    table_item = {
+      table_name: table_name,
+      item: movie
     }
+    add_item_to_table(dynamodb_client, table_item)
+  end
 
-    begin
-        dynamodb.put_item(params)
-        puts "Added movie: #{movie["year"]} #{movie["title"]}"
+  puts 'Done.'
+end
 
-    rescue  Aws::DynamoDB::Errors::ServiceError => error
-        puts "Unable to add movie:"
-        puts "#{error.message}"
-    end
-}
-
+run_me if $PROGRAM_NAME == __FILE__
 # snippet-end:[dynamodb.Ruby.CodeExample.MoviesLoadData]

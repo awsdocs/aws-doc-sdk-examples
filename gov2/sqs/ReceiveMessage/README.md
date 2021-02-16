@@ -1,4 +1,4 @@
-### ReceiveMessage/ReceiveMessagev2.go
+### ReceiveMessagev2.go
 
 This example gets the most recent message from an Amazon SQS queue.
 

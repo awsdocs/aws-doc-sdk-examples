@@ -21,7 +21,7 @@ Amazon Redshift is a fully managed, petabyte-scale data warehouse service in the
 which is *@aws-sdk/client-redshift-node*.
 
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/redshift
 npm install
 ```

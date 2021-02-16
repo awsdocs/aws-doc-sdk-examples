@@ -1,4 +1,4 @@
-### ChangeMsgVisibility/ChangeMsgVisibilityv2.go
+### ChangeMsgVisibilityv2.go
 
 This example sets the visibility timeout for a message in an Amazon SQS queue.
 

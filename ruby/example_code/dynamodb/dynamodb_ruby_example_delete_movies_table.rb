@@ -1,40 +1,41 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourcedescription:[dynamodb_ruby_example_delete_movies_table.rb deletes the DynamoDb table Movies.]
-# snippet-service:[dynamodb]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-keyword:[Amazon DynamoDB]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[delete_table]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2019-3-27]
-# snippet-sourceauthor:[Doug-AWS]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of
-# the License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-# CONDITIONS OF ANY KIND, either express or implied. See the License for the
-# specific language governing permissions and limitations under the License.
-# snippet-start:[dynamodb.ruby.delete_table]
-require 'aws-sdk-dynamodb' # v2: require 'aws-sdk'
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-# Create dynamodb client in us-west-2 region
-dynamodb = Aws::DynamoDB::Client.new(region: 'us-west-2')
+require 'aws-sdk-dynamodb'
 
-params = {
-  table_name: 'Movies'
-}
-
-begin
-  dynamodb.delete_table(params)
-  puts 'Deleted table.'
-rescue Aws::DynamoDB::Errors::ServiceError => error
-  puts 'Unable to delete table:'
-  puts error.message
+# Deletes a table in Amazon DynamoDB.
+#
+# @param dynamodb_client [Aws::DynamoDB::Client] An initialized
+#   Amazon DynamoDB client.
+# @param table_name [String] The name of the table to delete.
+# @return [Boolean] true if the table was deleted; otherwise, false.
+# @example
+#   ext 1 unless table_deleted?(
+#     Aws::DynamoDB::Client.new(region, 'us-west-2'),
+#     'Movies'
+#   )
+def table_deleted?(dynamodb_client, table_name)
+  dynamodb_client.delete_table(table_name: table_name)
+  true
+rescue StandardError => e
+  puts "Error deleting table: #{e.message}"
+  false
 end
-# snippet-end:[dynamodb.ruby.delete_table]
+
+# Full example call:
+def run_me
+  region = 'us-west-2'
+  table_name = 'Movies'
+
+  dynamodb_client = Aws::DynamoDB::Client.new(region: region)
+
+  puts "Deleting table '#{table_name}'..."
+
+  if table_deleted?(dynamodb_client, table_name)
+    puts 'Table deleted.'
+  else
+    puts 'Table not deleted.'
+  end
+end
+
+run_me if $PROGRAM_NAME == __FILE__

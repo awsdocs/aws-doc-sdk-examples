@@ -1,0 +1,32 @@
+--- 
+files:
+  - path: src/main/java/com/example/quicksight/DescribeAnalysis.java
+    services:
+      - quicksight
+  - path: src/main/java/com/example/quicksight/DescribeDashboard.java
+    services:
+      - quicksight
+  - path: src/main/java/com/example/quicksight/DescribeTemplate.java
+    services:
+      - quicksight
+  - path: src/main/java/com/example/quicksight/ListAnalyses.java
+    services:
+      - quicksight
+  - path: src/main/java/com/example/quicksight/ListDashboards.java
+    services:
+      - quicksight
+  - path: src/main/java/com/example/quicksight/ListDataSets.java
+    services:
+      - quicksight
+  - path: src/main/java/com/example/quicksight/ListTemplates.java
+    services:
+      - quicksight
+  - path: src/main/java/com/example/quicksight/ListThemes.java
+    services:
+      - quicksight
+  - path: src/main/java/com/example/quicksight/UpdateDashboard.java
+    services:
+      - quicksight
+  - path: src/test/java/QuickSightTest.java
+    services:
+      - quicksight      

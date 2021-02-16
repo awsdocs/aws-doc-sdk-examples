@@ -43,12 +43,12 @@ public class GetLogEvents {
                 .region(region)
                 .build();
 
-        getCWLogEvebts(cloudWatchLogsClient, logGroupName, logStreamName) ;
+        getCWLogEvents(cloudWatchLogsClient, logGroupName, logStreamName) ;
         cloudWatchLogsClient.close();
     }
 
     // snippet-start:[cloudwatch.java2.get_logs.main]
-    public static void getCWLogEvebts(CloudWatchLogsClient cloudWatchLogsClient, String logGroupName, String logStreamName) {
+    public static void getCWLogEvents(CloudWatchLogsClient cloudWatchLogsClient, String logGroupName, String logStreamName) {
 
         try {
 

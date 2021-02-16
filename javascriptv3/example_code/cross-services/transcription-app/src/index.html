@@ -1,0 +1,55 @@
+<!-- Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
+which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-table-example.html.
+
+Purpose:
+index.html is the front-end HTML code for a tutorial demonstrating how to build and deploy an app that transcribes and displays
+voice recordings for authenticated users. To run the full tutorial, see
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-table-example.html.
+
+*/
+-->
+
+<!-- snippet-start:[transcribe.HTML.recording-app.complete] -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="recorder.css">
+    <style>
+        table, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<h2>Record</h2>
+<p>
+    <button id="record" onclick="startRecord()"></button>
+    <button id="stopRecord" disabled onclick="stopRecord()">Stop</button>
+<p id="demo" style="visibility: hidden;"></p>
+</p>
+<p>
+    <audio id="recordedAudio"></audio>
+</p>
+
+<h2>My transcriptions</h2>
+<table id="myTable1" style ="width:678px;">
+</table>
+<table id="myTable" style ="width:678px;">
+        <tr>
+    <td style = "font-weight:bold">Time created</td>
+    <td style = "font-weight:bold">Transciption</td>
+    <td style = "font-weight:bold">Download</td>
+    <td style = "font-weight:bold">Delete</td>
+       </tr>
+</table>
+
+<script type="text/javascript" src="./main.js"></script>
+</body>
+
+</html>
+<!-- snippet-end:[transcribe.HTML.recording-app.complete] -->

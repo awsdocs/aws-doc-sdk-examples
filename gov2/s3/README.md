@@ -14,11 +14,11 @@ in the AWS SDK for Go Developer Guide.
 
 ## Running the code
 
-### CopyObject/CopyObject.go
+### CopyObject/CopyObjectv2.go
 
 This example copies an Amazon S3 object from one bucket to another.
 
-`go run CopyObject.go -s SOURCE -d DESTINATION -o OBJECT`
+`go run CopyObjectv2.go -s SOURCE -d DESTINATION -o OBJECT`
 
 - _SOURCE_ is the name of the bucket containing the item to copy.
 - _DESTINATION_ is the name of the bucket to which the item is copied.
@@ -26,79 +26,90 @@ This example copies an Amazon S3 object from one bucket to another.
 
 The unit test accepts similar values in _config.json_.
 
-###  CreateBucket/CreateBucket.go
+### CreateBucket/CreateBucketv2.go
 
 This example creates an Amazon S3 bucket.
 
-`go run CreateBucket.go -b BUCKET`
+`go run CreateBucketv2.go -b BUCKET`
 
 - _BUCKET_ is the name of the bucket to create.
 
 The unit test accepts a similar value in _config.json_.
 
-### DeleteBucket/DeleteBucket.go
+### DeleteBucket/DeleteBucketv2.go
 
 This example deletes an Amazon S3 bucket.
 
-`go run DeleteBucket.go -b BUCKET`
+`go run DeleteBucketv2.go -b BUCKET`
 
 - _BUCKET_ is the name of the bucket to delete.
 
 The unit test accepts a similar value in _config.json_.
 
-### DeleteObject/DeleteObject.go
+### DeleteObject/DeleteObjectv2.go
 
 This example deletes an Amazon S3 bucket object.
 
-`go run DeleteObject.go -b BUCKET -o OBJECT`
+`go run DeleteObjectv2.go -b BUCKET -o OBJECT`
 
 - _BUCKET_ is the name of the bucket containing the item to delete.
 - _OBJECT_ is the name of the object to delete.
 
 The unit test accepts similar values in _config.json_.
 
-### GetBucketAcl/GetBucketAcl.go
+### GeneratePresignedURL/GeneratePresignedURLv2.go
+
+This example retrieves a presigned URL for an Amazon S3 bucket object.
+
+`go run GeneratePresignedURLv2.go -b BUCKET -k KEY`
+
+- _BUCKET_ is the name of the bucket.
+- _KEY_ is the name of the object (key).
+
+The unit test accepts a similar value in _config.json_.
+
+### GetBucketAcl/GetBucketAclv2.go
 
 This example retrieves the access control list (ACL) for an Amazon S3 bucket.
 
-`go run GetBucketAcl.go -b BUCKET`
+`go run GetBucketAclv2.go -b BUCKET`
 
 - _BUCKET_ is the name of the bucket for which the ACL is retrieved.
 
 The unit test accepts a similar value in _config.json_.
 
-### GetObjectAcl/GetObjectAcl.go
+### GetObjectAcl/GetObjectAclv2.go
 
 This example retrieves the access control list (ACL) for an Amazon S3 bucket object.
 
-`go run GetObjectAcl.go -b BUCKET -o OBJECT`
+`go run GetObjectAclv2.go -b BUCKET -o OBJECT`
 
 - _BUCKET_ is the name of the bucket containing the item.
 - _OBJECT_ is the name of the object for which the ACL is retrieved.
 
 The unit test accepts similar values in _config.json_.
 
-### ListBuckets/ListBuckets.go
+### ListBuckets/ListBucketsv2.go
 
 This example lists your Amazon S3 buckets.
 
-`go run ListBuckets.go`
+`go run ListBucketsv2.go`
 
-### ListObjects/ListObjects.go
+### ListObjects/ListObjectsv2.go
 
 This example lists the objects in an Amazon S3 bucket.
 
-`go run ListObjects.go -b BUCKET`
+`go run ListObjectsv2.go -b BUCKET`
 
 - _BUCKET_ is the name of the bucket for which the objects are listed.
 
 The unit test accepts a similar value in _config.json_.
 
-### PutObject/PutObject.go
+### PutObject/PutObjectv2.go
 
 This example creates an Amazon S3 bucket object from a local file.
 
-`go run PutObject.go -b BUCKET -f FILE`
+`go run PutObjectv2.go -b BUCKET -f FILE`
 
 - _BUCKET_ is the name of the bucket to which the file is uploaded.
 - _FILE_ is the name of the local file to upload.

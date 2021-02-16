@@ -29,9 +29,7 @@ type SNSCreateTopicAPI interface {
 //     If success, a CreateTopicOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to CreateTopic.
 func MakeTopic(c context.Context, api SNSCreateTopicAPI, input *sns.CreateTopicInput) (*sns.CreateTopicOutput, error) {
-	results, err := api.CreateTopic(c, input)
-
-	return results, err
+	return api.CreateTopic(c, input)
 }
 
 func main() {
@@ -44,7 +42,7 @@ func main() {
 		return
 	}
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -55,7 +53,7 @@ func main() {
 		Name: topic,
 	}
 
-	results, err := MakeTopic(context.Background(), client, input)
+	results, err := MakeTopic(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println(err.Error())
 		return
@@ -63,4 +61,5 @@ func main() {
 
 	fmt.Println(*results.TopicArn)
 }
+
 // snippet-end:[sns.go-v2.CreateTopic]

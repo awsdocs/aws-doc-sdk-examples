@@ -8,9 +8,9 @@ import (
 	"flag"
 	"fmt"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/iam"
-	"github.com/aws/aws-sdk-go/aws"
 )
 
 // IAMListUsersAPI defines the interface for the ListUsers function.
@@ -30,9 +30,7 @@ type IAMListUsersAPI interface {
 //     If successful, a ListUsersOutput object containing the result of the service call and nil.
 //     Otherwise, nil and an error from the call to ListUsers.
 func GetUsers(c context.Context, api IAMListUsersAPI, input *iam.ListUsersInput) (*iam.ListUsersOutput, error) {
-	result, err := api.ListUsers(c, input)
-
-	return result, err
+	return api.ListUsers(c, input)
 }
 
 func main() {
@@ -47,7 +45,7 @@ func main() {
 		*maxUsers = 1000
 	}
 
-	cfg, err := config.LoadDefaultConfig()
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic("configuration error, " + err.Error())
 	}
@@ -58,7 +56,7 @@ func main() {
 		MaxItems: aws.Int32(int32((*maxUsers))),
 	}
 
-	result, err := GetUsers(context.Background(), client, input)
+	result, err := GetUsers(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Got an error retrieving users:")
 		fmt.Println(err)
