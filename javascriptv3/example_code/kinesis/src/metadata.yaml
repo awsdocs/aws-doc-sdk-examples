@@ -1,7 +1,0 @@
----
-# Amazon Kinesis basic usage examples
-files:
-  - path: kinesis-example.ts
-    services:
-      - kinesis
-...
