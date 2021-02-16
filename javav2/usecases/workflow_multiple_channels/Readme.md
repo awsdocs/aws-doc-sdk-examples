@@ -600,35 +600,30 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
             Element root = doc.createElement( "Students" );
             doc.appendChild( root );
 
-            // Get the elements from the collection.
-            int studentCount = itemList.size();
+            // Loop through the list.
+            for (Student myStudent: itemList) {
 
-            // Iterate through the collection.
-            for ( int index=0; index < studentCount; index++) {
-
-
-                Student myStudent = itemList.get(index);
                 Element item = doc.createElement( "Student" );
                 root.appendChild( item );
 
                 // Set Name.
                 Element name = doc.createElement( "Name" );
-                name.appendChild( doc.createTextNode(myStudent.getFirstName()));
+                name.appendChild( doc.createTextNode(myStudent.getFirstName()) );
                 item.appendChild( name );
 
                 // Set Mobile.
                 Element mobile = doc.createElement( "Mobile" );
-                mobile.appendChild( doc.createTextNode(myStudent.getMobileNumber()));
+                mobile.appendChild( doc.createTextNode(myStudent.getMobileNumber()) );
                 item.appendChild( mobile );
 
                 // Set Phone.
                 Element phone = doc.createElement( "Phone" );
-                phone.appendChild( doc.createTextNode(myStudent.getPhoneNunber()));
+                phone.appendChild( doc.createTextNode(myStudent.getPhoneNunber() ) );
                 item.appendChild( phone );
 
                 // Set Email.
                 Element email = doc.createElement( "Email" );
-                email.appendChild( doc.createTextNode(myStudent.getEmail()));
+                email.appendChild( doc.createTextNode(myStudent.getEmail() ) );
                 item.appendChild( email );
             }
 
@@ -637,8 +632,8 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
             e.printStackTrace();
         }
         return null;
-       }
       }
+     }
 
 
 ### SendNotifications class
