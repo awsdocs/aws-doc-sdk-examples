@@ -6,8 +6,8 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-ddb-setup.html.
 
 Purpose:
-mylambdafunction.ts demonstrates how to create a Amazon Lambda function that creates an Amazon DynamoDB database table.
-It is part of a tutorial demonstrating how create and deploy an Amazon Lambda function. To run the full tutorial, see
+mylambdafunction.ts demonstrates how to create a AWS Lambda function that creates an Amazon DynamoDB database table.
+It is part of a tutorial demonstrating how create and deploy an AWS Lambda function. To run the full tutorial, see
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-table-example.html.
 
 Inputs (replace in code):

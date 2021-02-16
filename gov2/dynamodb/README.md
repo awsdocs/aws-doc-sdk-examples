@@ -41,6 +41,38 @@ in a specified year.
 
 The unit test accepts similar values in _config.json_.
 
+### Using Amazon DynamoDB local
+
+You can test your Go code against a local version of Amazon DynamoDB.
+Doing so elimiates the possibility of incurring charges against your Amazon account.
+
+For information on installing the local version of Amazon DynamoDB, see
+[Setting Up DynamoDB Local (Downloadable Version)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html)
+in the Amazon DynamoDB Developer Guide.
+
+To run the local version of Amazon DynamoDB, perform the following steps:
+
+1. Navigate to where you've installed the local version of Amazon DynamoDB.
+1. Run the following command:
+   ```
+   java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
+   ```
+If you don't care whether any information is saved between session, add the **-inMemory** flag.  
+
+In your Go code, change the **config** object you create from:
+```
+cfg, err := config.LoadDefaultConfig(context.TODO())
+```
+to:
+```
+cfg, err := config.LoadDefaultConfig(context.TODO(),
+    config.WithEndpointResolver(aws.EndpointResolverFunc(
+        func(service, region string) (aws.Endpoint, error) {
+            return aws.Endpoint{URL: "https://localhost:8000"}, nil
+    })),
+)
+```
+
 ### Notes
 
 - We recommend that you grant this code least privilege,

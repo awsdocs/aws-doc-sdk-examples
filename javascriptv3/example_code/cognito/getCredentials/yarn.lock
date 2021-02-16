@@ -137,7 +137,7 @@
     tslib "^2.0.0"
     uuid "^3.0.0"
 
-"@aws-sdk/client-glacier@^1.0.0-gamma.6":
+"@aws-sdk/client-glacier@^3.3.0":
   version "1.0.0-gamma.7"
   resolved "https://registry.yarnpkg.com/@aws-sdk/client-glacier/-/client-glacier-1.0.0-gamma.7.tgz#1b14eebab3a8b4dd2d4673cd9f28da883d595cdd"
   integrity sha512-MQuz247pNPbmMvrC9KyEV1vj29b1tupxFDDU9TdXuT0v4I+SMRUbsDgi3LuJj4YfCP1IO9SHwwW9L5Ky6J7fiw==
@@ -176,7 +176,7 @@
     "@aws-sdk/util-utf8-node" "1.0.0-gamma.6"
     tslib "^2.0.0"
 
-"@aws-sdk/client-s3@^1.0.0-gamma.6":
+"@aws-sdk/client-s3@^3.3.0":
   version "1.0.0-gamma.7"
   resolved "https://registry.yarnpkg.com/@aws-sdk/client-s3/-/client-s3-1.0.0-gamma.7.tgz#8df3536a3911615a4cb933182ba03b2f26868d10"
   integrity sha512-KLk8U+AHw2jejUeFCzXLwZORDZDYPxOeleIndAOzkKs571UmTRWrWY8PNI7cfkjIUQjU5rrv8IslDTpbyz5PMA==
@@ -226,7 +226,7 @@
     fast-xml-parser "^3.16.0"
     tslib "^2.0.0"
 
-"@aws-sdk/client-sts@^1.0.0-gamma.6":
+"@aws-sdk/client-sts@^3.3.0":
   version "1.0.0-gamma.7"
   resolved "https://registry.yarnpkg.com/@aws-sdk/client-sts/-/client-sts-1.0.0-gamma.7.tgz#de382840cd294c0af4be26cf451a567f96d32dc6"
   integrity sha512-oVN0YAYmK31a8ZKJervJpnjNReZ0RDcm+TmqAE3Vne2g7f0PXCLbzVqmPdN5ZEJuq2kvCAl+3icIvOz2+SliYw==
@@ -579,7 +579,7 @@
     "@aws-sdk/types" "1.0.0-gamma.5"
     tslib "^1.8.0"
 
-"@aws-sdk/node-http-handler@1.0.0-gamma.6", "@aws-sdk/node-http-handler@^1.0.0-gamma.5":
+"@aws-sdk/node-http-handler@1.0.0-gamma.6", "@aws-sdk/node-http-handler@^3.3.0":
   version "1.0.0-gamma.6"
   resolved "https://registry.yarnpkg.com/@aws-sdk/node-http-handler/-/node-http-handler-1.0.0-gamma.6.tgz#5c094e807063041e8d6d999a9b281122cfd494a8"
   integrity sha512-n00mjbn/tFDMt9fYCO506ykK+ac8fL3guxTmHeV/ole5P7Iy7/DGTDIyTn6QzOHyMIjcDr8FaVwzd30IGVBY1w==
@@ -668,7 +668,7 @@
   resolved "https://registry.yarnpkg.com/@aws-sdk/types/-/types-1.0.0-gamma.5.tgz#fa73cb21856da93873598694eff559702a36761c"
   integrity sha512-waKbEd7clRocNPAW8NXPHJs2jgyvSfpR0Jfd4dm3R1EygkEa6aM0ct1bNvCEcnOfQFbytvfNiZK5vbLssuYmSA==
 
-"@aws-sdk/types@^0.1.0-gamma.6":
+"@aws-sdk/types@^3.3.0":
   version "0.1.0-preview.1"
   resolved "https://registry.yarnpkg.com/@aws-sdk/types/-/types-0.1.0-preview.1.tgz#6119574f873ec9a8ee2e5c1fbfb3ddcc9059c2f3"
   integrity sha512-CcZpxyN2G0I7+Jyj0om3LafYX7d30JWJAAQ+53Ysjau7jyL/xLMMkLZgniQPV8BMV7uKLXyf4hwu8JSs0Ejb+w==

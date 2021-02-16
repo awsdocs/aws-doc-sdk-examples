@@ -1,0 +1,16 @@
+---
+# Amazon Polly lip-sync example
+files:
+  - path: polly_lipsync.py
+    services:
+      - polly
+  - path: polly_wrapper.py
+    services:
+      - polly
+  - path: test/conftest.py
+    services:
+      - polly
+  - path: test/test_polly_wrapper.py
+    services:
+      - polly
+...
