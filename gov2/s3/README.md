@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrates how to perform several Amazon Simple Storage Service 
+These examples demonstrates how to perform some Amazon Simple Storage Service 
 (Amazon S3) operations using version 2 of the AWS SDK for Go.
 
 ## Prerequisites
