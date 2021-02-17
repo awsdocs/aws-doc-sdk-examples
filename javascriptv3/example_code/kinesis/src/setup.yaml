@@ -3,7 +3,7 @@ Resources:
     Type: AWS::Kinesis::Stream
     Properties:
       ShardCount: 1
-      Name: my-kinesis-stream
+      Name: my-stream-kinesis
       RetentionPeriodHours: 24
       StreamEncryption:
         Fn::If:
@@ -151,4 +151,16 @@ Conditions:
           - Fn::Equals:
               - Ref: AWS::Region
               - us-west-2
+Outputs:
+  Identitypoolid:
+    Value:
+      Ref: ExampleIdentityPool
+  Stackname:
+    Value:
+      Ref: MyFirstStream63B28502
+  Stackarn:
+    Value:
+      Fn::GetAtt:
+        - MyFirstStream63B28502
+        - Arn
 
