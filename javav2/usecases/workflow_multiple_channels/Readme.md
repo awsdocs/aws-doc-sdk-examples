@@ -378,13 +378,13 @@ Add this code to your project's pom.xml file.
 
 Use the Lambda runtime API to create the Java classes that define the Lamdba functions. In this example, there are two workflow steps that each correspond to a Java class. There are also extra classes that invoke the AWS services. The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **com.example.messages**.
 
-![AWS Tracking Application](images/ProjectJava2.png)
+![AWS Tracking Application](images/ProjectJava3.png)
 
 To create a Lambda function by using the Lambda runtime API, you implement **com.amazonaws.services.lambda.runtime.RequestHandler**. The application logic that's executed when the workflow step is invoked is located in the **handleRequest** method. The return value of this method is passed to the next step in a workflow.
 
 Create these Java classes, which are described in the following sections:
 + **ConnectionHelper** - Used to connect to the Amazon RDS instance.  
-+ **Handler** - Used as the first step in the workflow. This class queries data from the Amazon RDS instance. 
++ **ListMissingStudentsHandler** - Used as the first step in the workflow. This class queries data from the Amazon RDS instance. 
 + **HandlerVoiceNot** - Used as the second step in the workflow that sends out messages over multiple channels.
 + **RDSGetStudents** - Queries data from the student table using the JDBC API. 
 + **SendNotifications** - Uses the AWS SDK for Java V2 to invoke the Amazon SNS, Amazon Pinpoint, and Amazon SES services.
@@ -424,9 +424,9 @@ The following Java code represents the **ConnectionHelper** class.
 
 **Note**: The URL value is **localhost:3306**. This value is modified after the RDS instance is created. The Lambda function uses this URL to communicate with the database. You must also ensure that you specify the user name and password for your RDS instance.
 
-### Handler class
+### ListMissingStudentsHandler class
 
-This Java code represents the **Handler** class. The class creates a Lamdba function that reads the passed in date value and queries the **student** table using the date value.  The **handleRequest** method returns XML that specifies all of the absent students. The XML is passed to the second step in the workflow.
+This Java code represents the **ListMissingStudentsHandler** class. The class creates a Lamdba function that reads the passed in date value and queries the **student** table using this value.  The **handleRequest** method returns XML that specifies all of the absent students. The XML is passed to the second step in the workflow.
 
      package com.example.messages;
 
@@ -435,7 +435,7 @@ This Java code represents the **Handler** class. The class creates a Lamdba func
      import com.amazonaws.services.lambda.runtime.LambdaLogger;
      import java.util.Map;
     
-     public class Handler implements RequestHandler<Map<String,String>, String> {
+     public class ListMissingStudentsHandler implements RequestHandler<Map<String,String>, String> {
 
     @Override
     public String handleRequest(Map<String,String> event, Context context) {
@@ -1001,7 +1001,7 @@ In the previous line of code, notice **awstracker**. This is the database schema
 
 ### Create the database schema and table
 
-You can use MySQL Workbench to connect to the Amazon RDS MySQL instance and create a database schema and the **student** table. To connect to the database, open MySQL Workbench and connect to database.
+You can use [MySQL Workbench](https://www.mysql.com/products/workbench/) to connect to the Amazon RDS MySQL instance and create a database schema and the **student** table. To connect to the database, open MySQL Workbench and connect to database.
 
 ![AWS Tracking Application](images/MySQL.png)
 
@@ -1059,9 +1059,9 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 9. Choose **Upload**, and then browse to the JAR file that you created.  
 
-10. For **Handler**, enter the fully qualified name of the function, for example, **com.example.messages.Handler::handleRequest** (**com.example.messages.Handler** specifies the package and class followed by :: and method name).
+10. For **Handler**, enter the fully qualified name of the function, for example, **com.example.messages.ListMissingStudentsHandler::handleRequest** (**com.example.messages.Handler** specifies the package and class followed by :: and method name).
 
-![AWS Tracking Application](images/Settings.png)
+![AWS Tracking Application](images/Settings2.png)
 
 11. Choose **Save.**
 
