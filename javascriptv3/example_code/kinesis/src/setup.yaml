@@ -3,7 +3,7 @@ Resources:
     Type: AWS::Kinesis::Stream
     Properties:
       ShardCount: 1
-      Name: my-stream-806513260
+      Name: my-stream-kinesis
       RetentionPeriodHours: 24
       StreamEncryption:
         Fn::If:

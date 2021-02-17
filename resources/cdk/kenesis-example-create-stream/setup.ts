@@ -20,7 +20,7 @@ export class SetupStackCreateTable extends cdk.Stack {
     super(scope, id, props);
 
    const myStream =   new Stream(this, "MyFirstStream", {
-          streamName: `my-stream-${Math.ceil(Math.random() * 10 ** 10)}`
+          streamName: 'my-stream-kinesis'
       });
 
 
