@@ -12,8 +12,8 @@ In this AWS tutorial, you create an AWS serverless workflow by using the AWS SDK
 To send notifications over multiple channels, you can use these AWS Services:
 
 + Amazon Pinpoint Service
-+ Amazon Simple Notification Service (SNS)
-+ Amazon Simple Email Service (SES)
++ Amazon Simple Notification Service (Amazon SNS)
++ Amazon Simple Email Service (Amazon SES)
 
 
 **Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
@@ -378,13 +378,13 @@ Add this code to your project's pom.xml file.
 
 Use the Lambda runtime API to create the Java classes that define the Lamdba functions. In this example, there are two workflow steps that each correspond to a Java class. There are also extra classes that invoke the AWS services. The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **com.example.messages**.
 
-![AWS Tracking Application](images/ProjectJava2.png)
+![AWS Tracking Application](images/ProjectJava3.png)
 
 To create a Lambda function by using the Lambda runtime API, you implement **com.amazonaws.services.lambda.runtime.RequestHandler**. The application logic that's executed when the workflow step is invoked is located in the **handleRequest** method. The return value of this method is passed to the next step in a workflow.
 
 Create these Java classes, which are described in the following sections:
 + **ConnectionHelper** - Used to connect to the Amazon RDS instance.  
-+ **Handler** - Used as the first step in the workflow. This class queries data from the Amazon RDS instance. 
++ **ListMissingStudentsHandler** - Used as the first step in the workflow. This class queries data from the Amazon RDS instance. 
 + **HandlerVoiceNot** - Used as the second step in the workflow that sends out messages over multiple channels.
 + **RDSGetStudents** - Queries data from the student table using the JDBC API. 
 + **SendNotifications** - Uses the AWS SDK for Java V2 to invoke the Amazon SNS, Amazon Pinpoint, and Amazon SES services.
@@ -422,11 +422,11 @@ The following Java code represents the **ConnectionHelper** class.
       }
     }
 
-**Note**: The URL value is **localhost:3306**. This value is modified after the RDS instance is created. The Lambda function uses this URL to communicate with the database. You must also ensure that you specify the user name and password for your RDS instance.
+**Note**: The URL value is **localhost:3306**. This value is modified after the Amazon RDS instance is created. The Lambda function uses this URL to communicate with the database. You must also ensure that you specify the user name and password for your Amazon RDS instance.
 
-### Handler class
+### ListMissingStudentsHandler class
 
-This Java code represents the **Handler** class. The class creates a Lamdba function that reads the passed in date value and queries the **student** table using the date value.  The **handleRequest** method returns XML that specifies all of the absent students. The XML is passed to the second step in the workflow.
+This Java code represents the **ListMissingStudentsHandler** class. The class creates a Lamdba function that reads the passed in date value and queries the **student** table using this value.  The **handleRequest** method returns XML that specifies all of the absent students. The XML is passed to the second step in the workflow.
 
      package com.example.messages;
 
@@ -435,10 +435,10 @@ This Java code represents the **Handler** class. The class creates a Lamdba func
      import com.amazonaws.services.lambda.runtime.LambdaLogger;
      import java.util.Map;
     
-     public class Handler implements RequestHandler<Map<String,String>, String> {
+     public class ListMissingStudentsHandler implements RequestHandler<Map<String,String>, String> {
 
-    @Override
-    public String handleRequest(Map<String,String> event, Context context) {
+      @Override
+      public String handleRequest(Map<String,String> event, Context context) {
         
 	LambdaLogger logger = context.getLogger();
         String date = event.get("date");
@@ -454,8 +454,9 @@ This Java code represents the **Handler** class. The class creates a Lamdba func
         }
         logger.log("XML: " + xml);
         return xml;
+      }
      }
-    }
+
 ### HandlerVoiceNot class
 
 The **HandlerVoiceNot** class is the second step in the workflow. It creates a **SendNotifications** object and passes the XML to the following methods: 
@@ -477,8 +478,8 @@ The following code represents the **HandlerVoiceNot** method. In this example, t
 
       public class HandlerVoiceNot  implements RequestHandler<String, String>{
 
-     @Override
-     public String handleRequest(String event, Context context) {
+      @Override
+      public String handleRequest(String event, Context context) {
 
         LambdaLogger logger = context.getLogger();
         String xml = event ;
@@ -566,9 +567,9 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
             c.close();
          }
          return null;
-       }
+        }
 
-      private String convertToString(Document xml) {
+       private String convertToString(Document xml) {
         try {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             StreamResult result = new StreamResult(new StringWriter());
@@ -583,8 +584,8 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
        }
 
 
-      // Convert the list to XML.
-      private Document toXml(List<Student> itemList) {
+       // Convert the list to XML.
+       private Document toXml(List<Student> itemList) {
 
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -627,13 +628,13 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
             e.printStackTrace();
         }
         return null;
-       }  
-      }
+        }  
+       }
 
 
 ### SendNotifications class
 
-The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and the Amazom Pinpoint API to send messages. Each student in the XML is sent a message. 
+The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and the Amazon Pinpoint API to send messages. Each student in the XML is sent a message. 
 
        package com.example.messages;
 
@@ -664,9 +665,9 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
       import java.nio.ByteBuffer;
       import java.util.*;
 
-     public class SendNotifications {
+      public class SendNotifications {
 
-     public String handleEmailMessage(String myDom) throws JDOMException, IOException, MessagingException {
+      public String handleEmailMessage(String myDom) throws JDOMException, IOException, MessagingException {
 
         String myEmail = "";
         SesClient client = SesClient.builder()
@@ -686,9 +687,9 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
         }
         client.close();
         return myEmail;
-    }
+     }
 
-    public String handleTextMessage(String myDom) throws JDOMException, IOException{
+     public String handleTextMessage(String myDom) throws JDOMException, IOException{
 
         String mobileNum = "";
         SnsClient snsClient = SnsClient.builder()
@@ -709,9 +710,9 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
         }
         snsClient.close();
         return mobileNum;
-    }
+     }
 
-    public String handleVoiceMessage(String myDom) throws JDOMException, IOException{
+     public String handleVoiceMessage(String myDom) throws JDOMException, IOException{
 
         String mobileNum = "";
         
@@ -746,7 +747,7 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
         return mobileNum;
       }
 
-    private void sendVoiceMsg(PinpointSmsVoiceClient client, String mobileNumber) {
+     private void sendVoiceMsg(PinpointSmsVoiceClient client, String mobileNumber) {
 
         String languageCode = "en-US";
         String voiceName = "Matthew";
@@ -779,9 +780,9 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-    }
+     }
 
-    private void PublishTextSMS(SnsClient snsClient, String phoneNumber) {
+     private void PublishTextSMS(SnsClient snsClient, String phoneNumber) {
 
         String message = "Please be advised that your student was marked absent from school today.";
    
@@ -797,9 +798,9 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-    }
+     }
 
-    private void SendEmailMessage(SesClient client, String recipient) throws MessagingException, IOException {
+     private void SendEmailMessage(SesClient client, String recipient) throws MessagingException, IOException {
 
             // The email body for non-HTML email clients.
             String bodyText = "Hello,\r\n" + "Please be advised that your student was marked absent from school today. ";
@@ -878,7 +879,7 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
     }
 
 
-**NOTE** You need to specify a valid email for the sender that has been validated.  For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html). In addition, you need to assign the **originationNumber** variable a valid origination number associated with your AWS account. 
+**NOTE** You need to specify a valid email for the sender that has been validated. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html). In addition, you need to assign the **originationNumber** variable a valid origination number associated with your AWS account. 
 
 ### Student class
 
@@ -926,7 +927,7 @@ The following Java class represents the **Student** class.
       }
      }
 
-## Set up the RDS instance
+## Set up the Amazon RDS instance
 
 In this step, you create an Amazon RDS MySQL instance that is used by the Lambda function.
 
@@ -1001,7 +1002,7 @@ In the previous line of code, notice **awstracker**. This is the database schema
 
 ### Create the database schema and table
 
-You can use MySQL Workbench to connect to the Amazon RDS MySQL instance and create a database schema and the **student** table. To connect to the database, open MySQL Workbench and connect to database.
+You can use [MySQL Workbench](https://www.mysql.com/products/workbench/) to connect to the Amazon RDS MySQL instance and create a database schema and the **student** table. To connect to the database, open MySQL Workbench and connect to database.
 
 ![AWS Tracking Application](images/MySQL.png)
 
@@ -1059,9 +1060,9 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 9. Choose **Upload**, and then browse to the JAR file that you created.  
 
-10. For **Handler**, enter the fully qualified name of the function, for example, **com.example.messages.Handler::handleRequest** (**com.example.messages.Handler** specifies the package and class followed by :: and method name).
+10. For **Handler**, enter the fully qualified name of the function, for example, **com.example.messages.ListMissingStudentsHandler::handleRequest** (**com.example.messages.Handler** specifies the package and class followed by :: and method name).
 
-![AWS Tracking Application](images/Settings.png)
+![AWS Tracking Application](images/Settings2.png)
 
 11. Choose **Save.**
 
@@ -1071,7 +1072,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 **Note** Repeat this procedure for the **HandlerVoiceNot** class. Name the corresponding Lambda functions **HandlerVoice**. When you finish, you will have two Lambda functions that you can reference in the Amazon States Language document.  
 
-**IMPORTANT**: To connect to the RDS instance from a Lambda function, you must set the inbound rules using the same security group as the RDS Instance. For details, [How do I configure a Lambda function to connect to an RDS instance?](https://aws.amazon.com/premiumsupport/knowledge-center/connect-lambda-to-an-rds-instance/).
+**IMPORTANT**: To connect to the Amazon RDS instance from a Lambda function, you must set the inbound rules using the same security group as the Amazon RDS Instance. For details, [How do I configure a Lambda function to connect to an RDS instance?](https://aws.amazon.com/premiumsupport/knowledge-center/connect-lambda-to-an-rds-instance/).
 
 ## Add the Lambda functions to workflows
 
