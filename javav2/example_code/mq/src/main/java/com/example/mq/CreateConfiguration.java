@@ -29,7 +29,8 @@ public class CreateConfiguration {
                 .region(region)
                 .build();
         
-        createNewConfigutation(mqClient, configurationName);
+        String result = createNewConfigutation(mqClient, configurationName);
+        System.out.println("Configuration ID: " + result);
         mqClient.close();
     }
     public static String createNewConfigutation(MqClient mqClient, String configurationName) {
@@ -42,7 +43,6 @@ public class CreateConfiguration {
                 .build();
 
             CreateConfigurationResponse response = mqClient.createConfiguration(configurationRequest);
-            System.out.println(response.id());
             return response.id();
 
         } catch (MqException e) {

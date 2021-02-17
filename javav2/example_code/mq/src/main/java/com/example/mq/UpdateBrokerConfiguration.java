@@ -33,12 +33,12 @@ public class UpdateBrokerConfiguration {
                 .region(region)
                 .build();
         
-        updateBrokerConfiguration(mqClient, brokerId, configurationId);
+        String result = updateBrokerConfiguration(mqClient, brokerId, configurationId);
+        System.out.println(result);
         mqClient.close();
     }
-    public static void updateBrokerConfiguration(MqClient mqClient, String brokerId, String configurationId) {
+    public static String updateBrokerConfiguration(MqClient mqClient, String brokerId, String configurationId) {
         try {
-
             ConfigurationId configuration = ConfigurationId.builder()
                 .id(configurationId)
                 .build();
@@ -50,11 +50,12 @@ public class UpdateBrokerConfiguration {
             
             UpdateBrokerResponse response = mqClient.updateBroker(request);
             
-            System.out.println(response);
+            return response.brokerId();
 
         } catch (MqException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+        return "";
     }
 }

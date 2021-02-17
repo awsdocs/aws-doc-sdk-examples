@@ -27,21 +27,25 @@ public class DescribeBroker {
                 .region(region)
                 .build();
         
-        describeBroker(mqClient, brokerName);
+        String result = describeBroker(mqClient, brokerName);
+        System.out.print("Broker ID: " + result);
         mqClient.close();
     }
-    public static void describeBroker(MqClient mqClient, String brokerName) {
+    public static String describeBroker(MqClient mqClient, String brokerName) {
         try {
             DescribeBrokerRequest request = DescribeBrokerRequest.builder()
                 .brokerId(brokerName)
                 .build();
             
             DescribeBrokerResponse response = mqClient.describeBroker(request);
-            System.out.print(response);
+            System.out.print(response + "\n\n");
+            return response.brokerId();
+            
 
         } catch (MqException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+        return "";
     }
 }
