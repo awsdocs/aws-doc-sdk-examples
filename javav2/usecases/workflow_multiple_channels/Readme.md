@@ -879,7 +879,7 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
     }
 
 
-**NOTE** You need to specify a valid email for the sender that has been validated.  For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html). In addition, you need to assign the **originationNumber** variable a valid origination number associated with your AWS account. 
+**NOTE** You need to specify a valid email for the sender that has been validated. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html). In addition, you need to assign the **originationNumber** variable a valid origination number associated with your AWS account. 
 
 ### Student class
 
@@ -927,7 +927,7 @@ The following Java class represents the **Student** class.
       }
      }
 
-## Set up the RDS instance
+## Set up the Amazon RDS instance
 
 In this step, you create an Amazon RDS MySQL instance that is used by the Lambda function.
 
@@ -1072,7 +1072,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 **Note** Repeat this procedure for the **HandlerVoiceNot** class. Name the corresponding Lambda functions **HandlerVoice**. When you finish, you will have two Lambda functions that you can reference in the Amazon States Language document.  
 
-**IMPORTANT**: To connect to the RDS instance from a Lambda function, you must set the inbound rules using the same security group as the RDS Instance. For details, [How do I configure a Lambda function to connect to an RDS instance?](https://aws.amazon.com/premiumsupport/knowledge-center/connect-lambda-to-an-rds-instance/).
+**IMPORTANT**: To connect to the Amazon RDS instance from a Lambda function, you must set the inbound rules using the same security group as the Amazon RDS Instance. For details, [How do I configure a Lambda function to connect to an RDS instance?](https://aws.amazon.com/premiumsupport/knowledge-center/connect-lambda-to-an-rds-instance/).
 
 ## Add the Lambda functions to workflows
 
