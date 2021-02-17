@@ -437,8 +437,8 @@ This Java code represents the **ListMissingStudentsHandler** class. The class cr
     
      public class ListMissingStudentsHandler implements RequestHandler<Map<String,String>, String> {
 
-    @Override
-    public String handleRequest(Map<String,String> event, Context context) {
+      @Override
+      public String handleRequest(Map<String,String> event, Context context) {
         
 	LambdaLogger logger = context.getLogger();
         String date = event.get("date");
@@ -454,8 +454,9 @@ This Java code represents the **ListMissingStudentsHandler** class. The class cr
         }
         logger.log("XML: " + xml);
         return xml;
+      }
      }
-    }
+
 ### HandlerVoiceNot class
 
 The **HandlerVoiceNot** class is the second step in the workflow. It creates a **SendNotifications** object and passes the XML to the following methods: 
@@ -477,8 +478,8 @@ The following code represents the **HandlerVoiceNot** method. In this example, t
 
       public class HandlerVoiceNot  implements RequestHandler<String, String>{
 
-     @Override
-     public String handleRequest(String event, Context context) {
+      @Override
+      public String handleRequest(String event, Context context) {
 
         LambdaLogger logger = context.getLogger();
         String xml = event ;
@@ -566,9 +567,9 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
             c.close();
          }
          return null;
-       }
+        }
 
-      private String convertToString(Document xml) {
+       private String convertToString(Document xml) {
         try {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             StreamResult result = new StreamResult(new StringWriter());
@@ -583,8 +584,8 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
        }
 
 
-      // Convert the list to XML.
-      private Document toXml(List<Student> itemList) {
+       // Convert the list to XML.
+       private Document toXml(List<Student> itemList) {
 
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -627,8 +628,8 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
             e.printStackTrace();
         }
         return null;
-       }  
-      }
+        }  
+       }
 
 
 ### SendNotifications class
@@ -664,9 +665,9 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
       import java.nio.ByteBuffer;
       import java.util.*;
 
-     public class SendNotifications {
+      public class SendNotifications {
 
-     public String handleEmailMessage(String myDom) throws JDOMException, IOException, MessagingException {
+      public String handleEmailMessage(String myDom) throws JDOMException, IOException, MessagingException {
 
         String myEmail = "";
         SesClient client = SesClient.builder()
@@ -686,9 +687,9 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
         }
         client.close();
         return myEmail;
-    }
+     }
 
-    public String handleTextMessage(String myDom) throws JDOMException, IOException{
+     public String handleTextMessage(String myDom) throws JDOMException, IOException{
 
         String mobileNum = "";
         SnsClient snsClient = SnsClient.builder()
@@ -709,9 +710,9 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
         }
         snsClient.close();
         return mobileNum;
-    }
+     }
 
-    public String handleVoiceMessage(String myDom) throws JDOMException, IOException{
+     public String handleVoiceMessage(String myDom) throws JDOMException, IOException{
 
         String mobileNum = "";
         
@@ -746,7 +747,7 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
         return mobileNum;
       }
 
-    private void sendVoiceMsg(PinpointSmsVoiceClient client, String mobileNumber) {
+     private void sendVoiceMsg(PinpointSmsVoiceClient client, String mobileNumber) {
 
         String languageCode = "en-US";
         String voiceName = "Matthew";
@@ -779,9 +780,9 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-    }
+     }
 
-    private void PublishTextSMS(SnsClient snsClient, String phoneNumber) {
+     private void PublishTextSMS(SnsClient snsClient, String phoneNumber) {
 
         String message = "Please be advised that your student was marked absent from school today.";
    
@@ -797,9 +798,9 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-    }
+     }
 
-    private void SendEmailMessage(SesClient client, String recipient) throws MessagingException, IOException {
+     private void SendEmailMessage(SesClient client, String recipient) throws MessagingException, IOException {
 
             // The email body for non-HTML email clients.
             String bodyText = "Hello,\r\n" + "Please be advised that your student was marked absent from school today. ";
