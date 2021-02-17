@@ -634,7 +634,7 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
 
 ### SendNotifications class
 
-The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and the Amazom Pinpoint API to send messages. Each student in the XML is sent a message. 
+The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and the Amazon Pinpoint API to send messages. Each student in the XML is sent a message. 
 
        package com.example.messages;
 
