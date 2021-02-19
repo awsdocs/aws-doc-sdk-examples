@@ -93,7 +93,7 @@ public class AmazonMQTest {
     @Order(5)
     public void ListBrokers() {
         List<BrokerSummary> result = ListBrokers.listBrokers(mqClient);
-        assertTrue(result instanceof ArrayList);
+        assertTrue(result instanceof List<?>);
         System.out.println("Test 5 passed");
     }
 
@@ -101,7 +101,7 @@ public class AmazonMQTest {
     @Order(6)
     public void ListConfigurations() {
         List<Configuration> result = ListConfigurations.listConfigurations(mqClient);
-        assertTrue(result instanceof ArrayList);
+        assertTrue(result instanceof List<?>);
         System.out.println("Test 6 passed");
     }
 

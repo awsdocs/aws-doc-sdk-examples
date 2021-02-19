@@ -70,6 +70,7 @@ public class CreateBroker {
             User user = User.builder()
             .username("testAdminUser")
             .password("testAdminPassword")
+            .consoleAccess(true)
             .build();
 
             // Check the latest minor version release for the given engine type,
