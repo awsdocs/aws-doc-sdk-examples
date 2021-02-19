@@ -1,8 +1,29 @@
+//snippet-sourcedescription:[CreateBroker.java demonstrates how to create an Amazon MQ broker.]
+//snippet-keyword:[AWS SDK for Java v2]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon MQ]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2/18/2021]
+//snippet-sourceauthor:[fararmin-aws]
+
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
+// snippet-start:[mq.java2.create_broker.complete]
 package com.example.mq;
 
+// snippet-start:[mq.java2.create_broker.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mq.MqClient;
-import software.amazon.awssdk.services.mq.model.*;
+import software.amazon.awssdk.services.mq.model.User;
+import software.amazon.awssdk.services.mq.model.DescribeBrokerEngineTypesRequest;
+import software.amazon.awssdk.services.mq.model.DescribeBrokerEngineTypesResponse;
+import software.amazon.awssdk.services.mq.model.CreateBrokerRequest;
+import software.amazon.awssdk.services.mq.model.CreateBrokerResponse;
+import software.amazon.awssdk.services.mq.model.MqException;
+// snippet-end:[mq.java2.create_broker.import]
 
 public class CreateBroker {
     public static void main(String[] args) {
@@ -24,7 +45,7 @@ public class CreateBroker {
         }  else {
             engineType = args[0];
             if (argsLength == 1) {
-                brokerName = engineType + " - " + System.currentTimeMillis(); 
+                brokerName = engineType + "-" + System.currentTimeMillis(); 
             } else {
                 brokerName = args[1];
             }
@@ -40,22 +61,28 @@ public class CreateBroker {
         System.out.println("The broker ID is: " + brokerId);
         mqClient.close();
     }
+    // snippet-start:[mq.java2.create_broker.main]
     public static String createBroker(MqClient mqClient, String engineType, String brokerName) {
         
         try {
 
+            // Create an Amazon MQ User object.
             User user = User.builder()
             .username("testAdminUser")
             .password("testAdminPassword")
             .build();
 
-            String engineVersion = "";
+            // Check the latest minor version release for the given engine type,
+            // and use the latest version to create the broker.
+            DescribeBrokerEngineTypesRequest engineTypeRequest = DescribeBrokerEngineTypesRequest.builder()
+                .engineType(engineType)
+                .build();
+            
+            DescribeBrokerEngineTypesResponse enginesRequest = mqClient.describeBrokerEngineTypes(engineTypeRequest);
+            String engineVersion = enginesRequest.brokerEngineTypes().get(0)
+                .engineVersions().get(0)
+                .name();
 
-            if (engineType.equals("ACTIVEMQ")) {
-                engineVersion = "5.15.14";
-            } else {
-                engineVersion = "3.8.6";
-            }
             // Creates an ActiveMQ broker and a new configuration with default values.
             CreateBrokerResponse result = mqClient.createBroker(CreateBrokerRequest.builder()
                 .brokerName(brokerName)
@@ -68,9 +95,6 @@ public class CreateBroker {
                 .hostInstanceType("mq.t3.micro")
                 .build());
 
-            System.out.printf(
-                "Created a customer key with id \"%s",
-                result.brokerArn());
 
             return result.brokerId();
 
@@ -81,3 +105,5 @@ public class CreateBroker {
         return "";
     }
 }
+// snippet-end:[mq.java2.create_broker.main]
+// snippet-end:[mq.java2.create_broker.complete]

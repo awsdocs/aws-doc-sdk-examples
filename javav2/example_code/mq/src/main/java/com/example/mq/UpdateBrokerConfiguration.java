@@ -1,8 +1,26 @@
+//snippet-sourcedescription:[UpdateBrokerConfigurations.java demonstrates how to associate a new configuration with a specified broker.]
+//snippet-keyword:[AWS SDK for Java v2]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon MQ]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2/18/2021]
+//snippet-sourceauthor:[fararmin-aws]
+
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
+// snippet-start:[mq.java2.update_broker_configuration.complete]
 package com.example.mq;
 
+// snippet-start:[mq.java2.update_broker_configuration.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mq.MqClient;
-import software.amazon.awssdk.services.mq.model.*;
+import software.amazon.awssdk.services.mq.model.ConfigurationId;
+import software.amazon.awssdk.services.mq.model.UpdateBrokerRequest;
+import software.amazon.awssdk.services.mq.model.UpdateBrokerResponse;
+import software.amazon.awssdk.services.mq.model.MqException;
 
 public class UpdateBrokerConfiguration {
     public static void main(String[] args) {
@@ -33,10 +51,12 @@ public class UpdateBrokerConfiguration {
                 .region(region)
                 .build();
         
+        // Applies only to Amazon MQ for ActiveMQ brokers.
         String result = updateBrokerConfiguration(mqClient, brokerId, configurationId);
         System.out.println(result);
         mqClient.close();
     }
+    // snippet-start:[mq.java2.update_broker_configuration.main]
     public static String updateBrokerConfiguration(MqClient mqClient, String brokerId, String configurationId) {
         try {
             ConfigurationId configuration = ConfigurationId.builder()
@@ -58,4 +78,6 @@ public class UpdateBrokerConfiguration {
         }
         return "";
     }
+    // snippet-end:[mq.java2.update_broker_configuration.main]
 }
+// snippet-end:[mq.java2.update_broker_configuration.complete]

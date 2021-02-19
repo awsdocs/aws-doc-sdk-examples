@@ -1,8 +1,26 @@
+//snippet-sourcedescription:[CreateConfiguration.java demonstrates how to create an Amazon MQ configuration.]
+//snippet-keyword:[AWS SDK for Java v2]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon MQ]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2/18/2021]
+//snippet-sourceauthor:[fararmin-aws]
+
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
+// snippet-start:[mq.java2.create_configuration.complete]
 package com.example.mq;
 
+// snippet-start:[mq.java2.create_configuration.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mq.MqClient;
-import software.amazon.awssdk.services.mq.model.*;
+import software.amazon.awssdk.services.mq.model.CreateConfigurationRequest;
+import software.amazon.awssdk.services.mq.model.CreateConfigurationResponse;
+import software.amazon.awssdk.services.mq.model.MqException;
+
 
 public class CreateConfiguration {
     public static void main(String[] args) {
@@ -33,6 +51,7 @@ public class CreateConfiguration {
         System.out.println("Configuration ID: " + result);
         mqClient.close();
     }
+    // snippet-start:[mq.java2.create_broker.main]
     public static String createNewConfigutation(MqClient mqClient, String configurationName) {
         try {
             CreateConfigurationRequest configurationRequest = CreateConfigurationRequest.builder()
@@ -51,4 +70,6 @@ public class CreateConfiguration {
         }
         return "";
     }
+    // snippet-end:[mq.java2.create_broker.main]
 }
+// snippet-end:[mq.java2.create_broker.complete]
