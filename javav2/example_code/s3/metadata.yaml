@@ -39,6 +39,9 @@ files:
   - path: src/main/java/com/example/s3/GetBucketPolicy.java
     services:
       - s3
+  - path: src/main/java/com/example/s3/RestoreObject.java
+    services:
+      - s3
   - path: src/main/java/com/example/s3/GetObjectContentType.java
     services:
       - s3

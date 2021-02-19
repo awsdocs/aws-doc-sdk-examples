@@ -3,7 +3,7 @@ files:
   - path: src/main/java/com/example/example/messages/ConnectionHelper.java
     services:
       - lambda
-  - path: src/main/java/com/example/messages/Handler.java
+  - path: src/main/java/com/example/messages/ListMissingStudentsHandler.java
     services:
       - lambda
   - path: src/main/java/com/example/messages/HandlerVoiceNot.java
