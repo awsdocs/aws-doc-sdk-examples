@@ -50,7 +50,7 @@ You will see output from the JUnit tests, as shown here.
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
 	[INFO] -------------------------------------------------------
-	[INFO] Running SQSServiceIntegrationTest
+	[INFO] Running AmazonMQtest
 	Running Amazon MQ Test 1
 	Running Amazon MQ Test 2
 	...
