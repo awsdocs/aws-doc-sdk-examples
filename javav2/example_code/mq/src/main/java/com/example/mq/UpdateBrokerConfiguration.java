@@ -64,7 +64,10 @@ public class UpdateBrokerConfiguration {
                 .build();
 
             UpdateBrokerRequest request = UpdateBrokerRequest.builder()
+                //brokerId is the ID of an existing broker where the change is to be applied. 
                 .brokerId(brokerId)
+                // configuration is an existing XML broker configuration that will be associated
+                // with the specified broker.
                 .configuration(configuration)
                 .build();
             
