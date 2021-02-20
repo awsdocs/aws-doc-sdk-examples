@@ -36,8 +36,12 @@ Define these values to successfully run the JUnit tests:
 
 - **configurationName** – The name for a new Amazon MQ broker configuration. For example, **MyNewConfiguration**.
 
+**brokerId** - The unique ID of an existing ActiveMQ broker where configuration changes will be applied.
+
+**configurationId** - The unique ID of an existing ActiveMQ XML configuration to be associated with the specified broker.
+
 ### Command line
-To execute the JUnit tests from the command line, you can use the following command.
+To run the JUnit tests from the command line, you can use the following command.
 
 		mvn test
 
