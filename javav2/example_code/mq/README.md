@@ -30,7 +30,7 @@ Before running the Amazon MQ JUnit tests, you must define values in the **config
 
 Define these values to successfully run the JUnit tests:
 
-- **engineType** - The enum of your selected broker engine type. Enum options are **ACTIVEMQ** and **RABBITMQ**.
+- **engineType** - The enum of your selected broker engine type. Accepted values are **ACTIVEMQ** and **RABBITMQ**.
 
 - **brokerName** – The name for a new Amazon MQ broker. For example, **MyNewBroker**.
 
