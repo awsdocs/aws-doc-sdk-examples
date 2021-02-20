@@ -84,7 +84,8 @@ public class CreateBroker {
                 .engineVersions().get(0)
                 .name();
 
-            // Creates an ActiveMQ broker and a new configuration with default values.
+            // Creates a new Amazon MQ broker.
+            // Creates a new broker configuration for ActiveMQ brokers.
             CreateBrokerResponse result = mqClient.createBroker(CreateBrokerRequest.builder()
                 .brokerName(brokerName)
                 .engineType(engineType)
