@@ -3,19 +3,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// Purpose: This AWS Cloud Development Kit (AWS CDK) app
-// creates the following AWS resources:
-//
-// This AWS CDK app creates the following resources:
-//
-// - An AWS Identity and Access Management (IAM) unauthenticated role with full
-//   access to Amazon Polly.
-// - An Amazon Cognito identity pool with the IAM unauthenticated role attached to
-//   it.
-//
-// For instructions on how to run any of these apps, see
-// https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/resources/cdk/README.md#Running-a-CDK-app
-
 import * as cdk from '@aws-cdk/core';
 import * as cognito from '@aws-cdk/aws-cognito';
 import * as iam from '@aws-cdk/aws-iam';

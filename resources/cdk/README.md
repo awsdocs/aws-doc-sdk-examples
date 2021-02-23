@@ -1,11 +1,8 @@
-# About these CDK apps
+# About these AWS Cloud Development Kit (AWS CDK) apps
 
-This document describes the resources created by the
-AWS Cloud Development Kit (AWS CDK)
-apps in this directory.
+This document describes the resources created by the AWS CDK apps in this directory.
 
 For instructions on how to run any of these apps, see [Running a CDK app](#Running-a-CDK-app)
-
 
 ## go_example_lambda
 
@@ -90,7 +87,7 @@ This AWS CDK app creates the following resources:
 
 # About these CDK apps
 
-This document describes the resources created by the
+This section describes the resources created by the
 AWS Cloud Development Kit (AWS CDK)
 apps in this directory.
 
@@ -191,26 +188,28 @@ Inputs (replace in code):
  
     npm install && cdk synth && cdk deploy
 
-The names of the generated AWS resources will display in the output.
+The AWS CDK app displays the names of the resources it creates in the output.
 
 To destroy the generated AWS resources after you are finished using them,run the following command:
 
     cdk destroy
+     
+ **Note**: In some cases, such as when an S3 bucket is not empty, the AWS CDK app cannot destroy a resource.
 
  2. To run this app with the AWS Command Line Interface (AWS CLI):
 
-    a. If a cdk.out folder exists in this directory, delete it.
-    b. Run the following command to create an AWS CloudFormation template:
+    
+    a. Run the following command to create an AWS CloudFormation template:
 
        npm install && cdk synth >CLOUDFORMATION_TEMPLATE_NAME 
 
-    c. Run the following command to create a stack
+    b. Run the following command to create a stack
        based on this AWS CloudFormation template. This stack
        will create the specified AWS resources.
 
-       aws cloudformation create-stack --template-body file: >CLOUDFORMATION_TEMPLATE_NAME --stack-name STACK_NAME
+       aws cloudformation create-stack --template-body file: CLOUDFORMATION_TEMPLATE_NAME --stack-name STACK_NAME
 
-    d. To display the names of the generated resources, run the
+    c. To display the names of the generated resources, run the
        following command:
 
        aws cloudformation describe-stacks --stack-name STACK_NAME --query Stacks[0].Outputs --output text
@@ -218,17 +217,16 @@ To destroy the generated AWS resources after you are finished using them,run the
        Note that the generated resources might not be immediately available.
        You can keep running this command until you see their names.
 
-    e. To destroy the generated AWS resources after you are finished using them,
+    d. To destroy the generated AWS resources after you are finished using them,
        run the following command:
 
        aws cloudformation delete-stack --stack-name STACK_NAME
  3. To run this app with the AWS CloudFormation console:
 
-    a. If a cdk.out folder exists in this directory, delete it.
-    b. Run the following command to create an AWS CloudFormation template:
+    a. Run the following command to create an AWS CloudFormation template:
 
        npm install && cdk synth > CLOUDFORMATION_TEMPLATE_NAME
-    c. Sign in to the AWS CloudFormation console, at:
+    b. Sign in to the AWS CloudFormation console, at:
 
        https:console.aws.amazon.com/cloudformation
 
