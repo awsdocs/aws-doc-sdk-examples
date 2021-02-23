@@ -3,9 +3,17 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// TODO: Customize this AWS CDK code for your specific AWS CDK solution.
-// For more information, see the AWS CDK Developer Guide at
-// https://docs.aws.amazon.com/cdk/latest/guide
+// Purpose: This AWS Cloud Development Kit (AWS CDK) app
+// creates the following AWS resources:
+//
+// This AWS CDK app creates the following resources:
+//
+// - An Amazon Kinesis stream.
+// - An Amazon Cognito identity pool with access enabled for unauthenticated identities.
+// - An AWS Identity and Access Management role whose policy grants permission to submit data to an Amazon Kinesis stream.
+
+// For instructions on how to run any of these apps, see
+// https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/resources/cdk/README.md#Running-a-CDK-app
 
 import "source-map-support/register";
 import * as cdk from "@aws-cdk/core";
