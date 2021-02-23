@@ -32,19 +32,19 @@ const today = new Date();
 const dd = String(today.getDate()).padStart(2, "0");
 const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
 const yyyy = today.getFullYear();
-const date = yyyy + "-" + mm + "-" + dd ;
+const date = yyyy + "-" + mm + "-" + dd;
 
 // Set the parameters for the ScanCommand method.
 const params = {
-    // Specify which items in the results are returned.
-    FilterExpression: "startDate = :topic",
-    // Define the expression attribute value, which are substitutes for the values you want to compare.
-    ExpressionAttributeValues: {
-        ":topic": { S: date },
-    },
-    // Set the projection expression, which the the attributes that you want.
-    ProjectionExpression: "firstName, phone",
-    TableName: "TABLE_NAME"
+  // Specify which items in the results are returned.
+  FilterExpression: "startDate = :topic",
+  // Define the expression attribute value, which are substitutes for the values you want to compare.
+  ExpressionAttributeValues: {
+    ":topic": { S: date },
+  },
+  // Set the projection expression, which the the attributes that you want.
+  ProjectionExpression: "firstName, phone",
+  TableName: "TABLE_NAME",
 };
 
 // Create the client service objects.
@@ -53,31 +53,33 @@ const snsclient = new SNSClient({ region: REGION });
 
 // snippet-end:[lambda.JavaScript.general-examples-dynamodb-lambda.scanAndPublishV3.config]
 // snippet-start:[lambda.JavaScript.general-examples-dynamodb-lambda.scanAndPublishV3.handler]
-exports.handler = async(event, context, callback) => {
-    // Helper function to send message using Amazon SNS.
-    async function sendText(textParams) {
-        try {
-            const data = await snsclient.send(new PublishCommand(textParams));
-            console.log("Message sent");
-        } catch (err) {
-            console.log("Error, message not sent ", err);
-        }
-    }
+exports.handler = async (event, context, callback) => {
+  // Helper function to send message using Amazon SNS.
+  async function sendText(textParams) {
     try {
-        // Scan the table to check identify employees with work anniversary today.
-        const data = await dbclient.send(new ScanCommand(params));
-        data.Items.forEach(function (element, index, array) {
-                const textParams= {
-                    PhoneNumber: element.phone.N,
-                    Message: "Hi "+ element.firstName.S + "; congratulations on your work anniversary!"
-                };
-               // Send message using Amazon SNS.
-                sendText(textParams);
-        });
+      const data = await snsclient.send(new PublishCommand(textParams));
+      console.log("Message sent");
     } catch (err) {
-        console.log("Error, could not scan table ", err);
+      console.log("Error, message not sent ", err);
     }
+  }
+  try {
+    // Scan the table to check identify employees with work anniversary today.
+    const data = await dbclient.send(new ScanCommand(params));
+    data.Items.forEach(function (element, index, array) {
+      const textParams = {
+        PhoneNumber: element.phone.N,
+        Message:
+          "Hi " +
+          element.firstName.S +
+          "; congratulations on your work anniversary!",
+      };
+      // Send message using Amazon SNS.
+      sendText(textParams);
+    });
+  } catch (err) {
+    console.log("Error, could not scan table ", err);
+  }
 };
 // snippet-end:[lambda.JavaScript.general-examples-dynamodb-lambda.scanAndPublishV3.handler]
 // snippet-end:[lambda.JavaScript.general-examples-dynamodb-lambda.scanAndPublishV3]
-
