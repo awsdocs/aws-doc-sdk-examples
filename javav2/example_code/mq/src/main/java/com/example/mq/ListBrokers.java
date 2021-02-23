@@ -23,6 +23,7 @@ import software.amazon.awssdk.services.mq.MqClient;
 import software.amazon.awssdk.services.mq.model.BrokerSummary;
 import software.amazon.awssdk.services.mq.model.ListBrokersResponse;
 import software.amazon.awssdk.services.mq.model.MqException;
+// snippet-end:[mq.java2.list_brokers.import]
 
 public class ListBrokers {
     public static void main(String[] args) {

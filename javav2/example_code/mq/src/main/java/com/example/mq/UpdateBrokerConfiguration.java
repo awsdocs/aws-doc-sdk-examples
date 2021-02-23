@@ -21,6 +21,7 @@ import software.amazon.awssdk.services.mq.model.ConfigurationId;
 import software.amazon.awssdk.services.mq.model.UpdateBrokerRequest;
 import software.amazon.awssdk.services.mq.model.UpdateBrokerResponse;
 import software.amazon.awssdk.services.mq.model.MqException;
+// snippet-end:[mq.java2.update_broker_configuration.import]
 
 public class UpdateBrokerConfiguration {
     public static void main(String[] args) {

@@ -20,6 +20,7 @@ import software.amazon.awssdk.services.mq.MqClient;
 import software.amazon.awssdk.services.mq.model.CreateConfigurationRequest;
 import software.amazon.awssdk.services.mq.model.CreateConfigurationResponse;
 import software.amazon.awssdk.services.mq.model.MqException;
+// snippet-end:[mq.java2.create_configuration.import]
 
 
 public class CreateConfiguration {
@@ -51,7 +52,7 @@ public class CreateConfiguration {
         System.out.println("Configuration ID: " + result);
         mqClient.close();
     }
-    // snippet-start:[mq.java2.create_broker.main]
+    // snippet-start:[mq.java2.create_configuration.main]
     public static String createNewConfigutation(MqClient mqClient, String configurationName) {
         try {
             CreateConfigurationRequest configurationRequest = CreateConfigurationRequest.builder()
@@ -70,6 +71,6 @@ public class CreateConfiguration {
         }
         return "";
     }
-    // snippet-end:[mq.java2.create_broker.main]
+    // snippet-end:[mq.java2.create_configuration.main]
 }
-// snippet-end:[mq.java2.create_broker.complete]
+// snippet-end:[mq.java2.create_configuration.complete]

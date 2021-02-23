@@ -21,7 +21,7 @@ import software.amazon.awssdk.services.mq.MqClient;
 import software.amazon.awssdk.services.mq.model.DescribeBrokerRequest;
 import software.amazon.awssdk.services.mq.model.DescribeBrokerResponse;
 import software.amazon.awssdk.services.mq.model.MqException;
-
+// snippet-end:[mq.java2.describe_broker.import]
 
 public class DescribeBroker {
     public static void main(String[] args) {
@@ -50,7 +50,7 @@ public class DescribeBroker {
         System.out.print("Broker ID: " + result);
         mqClient.close();
     }
-    // snippet-start:[mq.java2.create_broker.main]
+    // snippet-start:[mq.java2.describe_broker.main]
     public static String describeBroker(MqClient mqClient, String brokerName) {
         try {
             DescribeBrokerRequest request = DescribeBrokerRequest.builder()
@@ -68,6 +68,6 @@ public class DescribeBroker {
         }
         return "";
     }
-    // snippet-end:[mq.java2.create_broker.main]
+    // snippet-end:[mq.java2.describe_broker.main]
 }
-// snippet-end:[mq.java2.create_broker.complete]
+// snippet-end:[mq.java2.describe_broker.complete]

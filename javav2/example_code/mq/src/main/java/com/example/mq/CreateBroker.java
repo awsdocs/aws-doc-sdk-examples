@@ -106,6 +106,6 @@ public class CreateBroker {
         }
         return "";
     }
+    // snippet-end:[mq.java2.create_broker.main]
 }
-// snippet-end:[mq.java2.create_broker.main]
 // snippet-end:[mq.java2.create_broker.complete]

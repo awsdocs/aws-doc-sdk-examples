@@ -21,6 +21,7 @@ import java.util.List;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mq.MqClient;
 import software.amazon.awssdk.services.mq.model.*;
+// snippet-end:[mq.java2.list_configurations.import]
 
 public class ListConfigurations {
     public static void main(String[] args) {
