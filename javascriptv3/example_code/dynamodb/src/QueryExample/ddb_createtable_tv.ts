@@ -28,37 +28,21 @@ const REGION = "region"; //e.g. "us-east-1"
 const params = {
   AttributeDefinitions: [
     {
-      AttributeName: "Id",
+      AttributeName: "Season",
       AttributeType: "N",
     },
     {
-      AttributeName: "first",
-      AttributeType: "S",
-    },
-    {
-      AttributeName: "phone",
-      AttributeType: "N",
-    },
-    {
-      AttributeName: "startDate",
+      AttributeName: "Episode",
       AttributeType: "N",
     }
   ],
   KeySchema: [
     {
-      AttributeName: "Id",
+      AttributeName: "Season",
       KeyType: "HASH",
     },
     {
-      AttributeName: "first",
-      KeyType: "RANGE",
-    },
-    {
-      AttributeName: "phone",
-      KeyType: "RANGE",
-    },
-    {
-      AttributeName: "startDate",
+      AttributeName: "Episode",
       KeyType: "RANGE",
     }
   ],
