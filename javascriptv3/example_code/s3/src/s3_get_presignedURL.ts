@@ -13,7 +13,6 @@ Note: This example creates a bucket and object for demonstration purposes, then 
 Inputs (replace in code):
 - REGION
 
-
 Running the code:
 ts-node s3_get_presignedURL.ts
 [Outputs | Returns]:
@@ -31,7 +30,7 @@ const {
   DeleteBucketCommand,
 } = require("@aws-sdk/client-s3");
 const { getSignedUrl  } = require("@aws-sdk/s3-request-presigner");
-
+const fetch = require("node-fetch");
 
 // Set parameters
 // Create random names for the Amazon Simple Storage Service (Amazon S3) bucket and key.
@@ -82,6 +81,10 @@ const run = async () => {
         `\nGetting "${params.Key}" using signedUrl with body "${params.Body}" in v3`
     );
     console.log(signedUrl);
+    const response = await fetch(signedUrl);
+    console.log(
+        `\nResponse returned by signed URL: ${await response.text()}\n`
+    );
   }
   catch (err) {
     console.log("Error creating presigned URL", err);
