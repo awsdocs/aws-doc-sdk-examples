@@ -190,12 +190,13 @@ Inputs (replace in code):
 
 The AWS CDK app displays the names of the resources it creates in the output.
 
-To destroy the generated AWS resources after you are finished using them,run the following command:
+To destroy the generated AWS resources after you are finished using them, run the following command:
 
     cdk destroy
-     
+
  **Note**: In some cases, such as when an S3 bucket is not empty, the AWS CDK app cannot destroy a resource.
 
+     
  2. To run this app with the AWS Command Line Interface (AWS CLI):
 
     
@@ -221,6 +222,9 @@ To destroy the generated AWS resources after you are finished using them,run the
        run the following command:
 
        aws cloudformation delete-stack --stack-name STACK_NAME
+       
+ **Note**: In some cases, such as when an S3 bucket is not empty, the AWS CDK app cannot destroy a resource.
+
  3. To run this app with the AWS CloudFormation console:
 
     a. Run the following command to create an AWS CloudFormation template:
@@ -242,4 +246,6 @@ To destroy the generated AWS resources after you are finished using them,run the
     e. To destroy the generated AWS resources after you are finished using them,
        choose the stack in the console, choose Delete, and then follow
        the on-screen instructions.
+
+ **Note**: In some cases, such as when an S3 bucket is not empty, the AWS CDK app cannot destroy a resource.
 
