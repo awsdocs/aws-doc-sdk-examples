@@ -47,7 +47,7 @@ const params = {
   Role: "IAM_ROLE_ARN", // IAM_ROLE_ARN; e.g., arn:aws:iam::650138640062:role/v3-lambda-tutorial-lambda-role
   Runtime: "nodejs12.x",
   Description:
-    "Scans a DynamoDB table of employee details and using Amazon Simple Notification Services (SNS) to " +
+    "Scans a DynamoDB table of employee details and using Amazon Simple Notification Services (Amazon SNS) to " +
     "send employees an email the each anniversary of their start-date.",
 };
 
