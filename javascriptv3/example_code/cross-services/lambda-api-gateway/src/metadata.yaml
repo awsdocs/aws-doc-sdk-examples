@@ -1,0 +1,13 @@
+---
+# AWS Lambda examples
+files:
+  - path: ./helper-functions/lambda-function-setup.ts
+    services:
+      - Lambda
+  - path: ./helper-functions/populate-table.ts
+    services:
+      - DynamoDB
+  - path: ./mylamdbafunction.ts
+    services:
+      - Lambda
+...
