@@ -6,7 +6,7 @@ Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) with Amazon Simple Storage Service
 (Amazon S3) to generate a presigned URL that can perform an action for a limited
-time with the generator's credentials. Also shows how to use the Requests package
+time with your credentials. Also shows how to use the Requests package
 to make a request with the URL.
 """
 
