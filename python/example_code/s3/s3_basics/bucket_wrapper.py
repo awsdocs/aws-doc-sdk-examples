@@ -405,37 +405,6 @@ def generate_presigned_post(bucket_name, object_key, expires_in):
     return response
 
 
-def generate_presigned_url(bucket_name, client_method, method_parameters,
-                           expires_in):
-    """
-    Generate a presigned Amazon S3 URL that can be used to perform an action on
-    a bucket. A presigned URL can be used for a limited time to let someone without
-    an AWS account perform an action.
-
-    Usage is shown in usage_demo at the end of this module.
-
-    :param bucket_name: The name of the bucket on which the action can be performed.
-    :param client_method: The name of the client method that the URL performs.
-    :param method_parameters: The parameters of the specified client method.
-    :param expires_in: The number of seconds the presigned URL is valid for.
-    :return: The presigned URL.
-    """
-    s3 = get_s3()
-    try:
-        url = s3.meta.client.generate_presigned_url(
-            ClientMethod=client_method,
-            Params=method_parameters,
-            ExpiresIn=expires_in
-        )
-        logger.info("Got presigned URL: %s", url)
-    except ClientError:
-        logger.exception("Couldn't get a presigned URL for bucket '%s' "
-                         "and client method '%s'.",
-                         bucket_name, client_method)
-        raise
-    return url
-
-
 def usage_demo():
     """Demonstrates ways to use the functions in this module."""
     prefix = 'usage-demo-bucket-wrapper-'
@@ -517,15 +486,6 @@ def usage_demo():
     get_rules = get_lifecycle_configuration(bucket.name)
     print(f"Bucket {bucket.name} has lifecycle configuration {json.dumps(get_rules)}.")
     delete_lifecycle_configuration(bucket.name)
-
-    url = generate_presigned_url(
-        bucket.name,
-        'list_objects',
-        {'Bucket': bucket.name},
-        10
-    )
-    print(f"Generated a pre-signed URL that can be used to list the objects in "
-          f"bucket {bucket.name}. The URL is {url}.")
 
     for bucket in created_buckets:
         bucket.delete()
