@@ -28,6 +28,7 @@ github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v0.2.0 h1:xeqwfWQGg3
 github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v0.2.0/go.mod h1:Ef71w/O9Ulhxj8gD9Pq2S0lXMvyNzFLMRuIxWpDRQxk=
 github.com/aws/aws-sdk-go-v2/service/internal/s3shared v0.4.0 h1:OiRO8lneLP7wJ80dqAwHpIRcMInUO04HzcQUVtPwk3U=
 github.com/aws/aws-sdk-go-v2/service/internal/s3shared v0.4.0/go.mod h1:fMsE4Rr6OkxQUmZxi4Amj8LS0BakLZw05Rog0jYStQM=
+github.com/aws/aws-sdk-go-v2/service/kinesis v0.31.0/go.mod h1:OYBQZvaQy8tR59aqEYerLKGbdfkbxTOgqLpQWvlg6Oc=
 github.com/aws/aws-sdk-go-v2/service/kms v0.31.0 h1:ju4tqKfhT+6AG39E+bUsZcaqkLhEW573RKbvwJo8G9M=
 github.com/aws/aws-sdk-go-v2/service/kms v0.31.0/go.mod h1:NcamFVUaE0JeTLqM9GbDL03yoUWrXCufXQ4gMrCT0Lc=
 github.com/aws/aws-sdk-go-v2/service/s3 v0.31.0 h1:KDBpodyszhL8F83QYv36qBzDj99oPlt1coZNGSFKTXU=
