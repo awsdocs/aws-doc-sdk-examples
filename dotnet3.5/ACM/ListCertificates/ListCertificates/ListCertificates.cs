@@ -9,18 +9,19 @@ using System.Threading.Tasks;
 
 namespace ListCertificates
 {
-    // This example lists the certificates associated with
-    // the default account. It was created using AWS SDK for .NET 3.5
-    // and .NET 5.0.
+    // The following example retrieves and displays a list of the
+    // certificates defined for the default account using the AWS
+    // Certificate Manager (ACM) service. It was created using
+    // AWS SDK for .NET 3.5 and .NET 5.0.
     class ListCertificates
     {
         // Specify your AWS Region (an example Region is shown).
-        private static readonly RegionEndpoint ACMRegionRegion = RegionEndpoint.USEast1;
+        private static readonly RegionEndpoint ACMRegion = RegionEndpoint.USEast1;
         private static AmazonCertificateManagerClient _client;
 
         static void Main(string[] args)
         {
-            var _client = new AmazonCertificateManagerClient(ACMRegionRegion);
+            var _client = new AmazonCertificateManagerClient(ACMRegion);
             var certificateList = ListCertificatesResponseAsync(client: _client);
 
             Console.WriteLine("Certificate Summary List\n");
@@ -36,8 +37,8 @@ namespace ListCertificates
         /// <summary>
         /// Retrieves a list of the certificates defined in this region.
         /// </summary>
-        /// <param name="client">The Amazon Certificate Manager client object
-        /// passed to the ListCertificateResAsync method call.</param>
+        /// <param name="client">The AWS Certificate Manager (ACM) client
+        /// object passed to the ListCertificateResAsync method call.</param>
         /// <param name="request"></param>
         /// <returns></returns>
         static async Task<ListCertificatesResponse> ListCertificatesResponseAsync(AmazonCertificateManagerClient client)
