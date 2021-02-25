@@ -42,7 +42,7 @@ namespace DescribeCertificate
 
         /// <summary>
         /// Displays detailed metadata about a certificate retrieved
-        /// using the AWS Certificate Manager (ACM) service.
+        /// using the ACM service.
         /// </summary>
         /// <param name="certificateDetail">The object that contains details
         /// returned from the call to DescribeCertificateAsync.</param>
@@ -60,8 +60,7 @@ namespace DescribeCertificate
         }
 
         /// <summary>
-        /// Calls DescribeCertificateAsyn to retrieve the metadata associated
-        /// with a certicate from the AWS Certificate Manager (ACM) service.
+        /// Retrieves the metadata associated with the ACM service certificate.
         /// </summary>
         /// <param name="client">An AmazonCertificateManagerClient object
         /// used to call DescribeCertificateResponse.</param>

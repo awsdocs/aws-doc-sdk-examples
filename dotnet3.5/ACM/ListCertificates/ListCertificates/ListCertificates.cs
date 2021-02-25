@@ -37,8 +37,8 @@ namespace ListCertificates
         /// <summary>
         /// Retrieves a list of the certificates defined in this region.
         /// </summary>
-        /// <param name="client">The AWS Certificate Manager (ACM) client
-        /// object passed to the ListCertificateResAsync method call.</param>
+        /// <param name="client">The ACM client object passed to the
+        /// ListCertificateResAsync method call.</param>
         /// <param name="request"></param>
         /// <returns></returns>
         static async Task<ListCertificatesResponse> ListCertificatesResponseAsync(AmazonCertificateManagerClient client)
