@@ -7,7 +7,7 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-
 
 Purpose:
 lambda-function-setup.ts demonstrates how to create an AWS Lambda function.
-It is part of a tutorial demonstrates how to create an API that triggers a AWS Lambda function that scans an
+It is part of a tutorial demonstrates how to create a REST API using API Gateway that triggers a AWS Lambda function that scans an
 Amazon DynamoDB table of employees' information and send an Amazon Simple Notification Service (Amazon SNS)
 message based on the results. It demonstrates how toTo run the full tutorial, see
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-scan-and-publish-message.html.
