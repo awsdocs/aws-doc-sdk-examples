@@ -6,7 +6,8 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-scan-and-publish-message.html.
 
 Purpose:
-It is part of a tutorial demonstrates how to create an API that triggers a AWS Lambda function that scans an
+mylambdafunction.ts is an AWS Lambda function.It is part of a tutorial demonstrates
+how to create a REST API using API Gateway that triggers a Lambda function that scans an
 Amazon DynamoDB table of employees' information and send an Amazon Simple Notification Service (Amazon SNS)
 message based on the results. It demonstrates how toTo run the full tutorial, see
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-scan-and-publish-message.html.
