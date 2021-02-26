@@ -16,9 +16,9 @@ in the AWS SDK for Go Developer Guide.
 
 ### PutRecord/PutRecordv2.go
 
-This example creates an Amazon EC2 image.
+This example produces a new data record in the stream.
 
-`go run PutRecordv2.go -s STREAM -k PARTITION-KEY -p PAYLOAD
+`go run PutRecordv2.go -s STREAM -k PARTITION-KEY -p PAYLOAD`
 
 - _STREAM_ is the Kinesis stream name.
 - _PARTITION-KEY_ is the partition ID.
