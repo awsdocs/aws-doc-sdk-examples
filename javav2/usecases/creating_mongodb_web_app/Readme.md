@@ -1511,7 +1511,7 @@ The following code represents the **add.html** file that enables users to add ne
 	<body>
 	<header th:replace="layout :: site-header"/>
 	<div class="container">
-	<h3>Welcome <span sec:authentication="principal.username">User</span> to DynamoDB Item Tracker</h3>
+	<h3>Welcome <span sec:authentication="principal.username">User</span> to MongoDB Item Tracker</h3>
     	<p>Add new items by filling in this table and clicking <b>Create Item</b></p>
 
 	<div class="row">
