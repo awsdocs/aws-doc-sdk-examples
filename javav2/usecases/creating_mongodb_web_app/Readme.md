@@ -57,6 +57,14 @@ The data stored in MongoDB reflects this data model. Each item is stored as JSON
 
 ![AWS Tracking Application](images/pic2.png)
 
+Atter you create the Mongo instance, create a new collection named **items** under **local**. Enter the following data. The Java logic in this tutorial is dependent upon this collection.  
+
+      [
+       { "_id" : "1db0971f-40de-4efd-aa1a-03f754ac9d0c", "archive" : "Open", "date" : "2020-09-19", "description" : "Working on Code Deploy Java Examples", "guide" : "Java V2    Developer Guide", ""status" " : "Completed writing S3 code", "username" : "user"  },
+       { "_id" : "1db0971f-40de-4efd-aa1a-03f712ac9r0c", "archive" : "Open", "date" : "2020-09-20", "description" : "Working on S3 Java Examples", "guide" : "Java V2 Developer Guide", "status" : "Completed writing S3 code", "username" : "user"  },
+       { "_id" : "1db0971f-40de-4efd-cc1a-03v754ac9d0c", "archive" : "Open", "date" : "2020-09-21", "description" : "Working on Pinpoint Java Examples", "guide" : "Java V2 Developer Guide", "status" : "Completed writing S3 code", "username" : "user"  }
+      ]
+
 The following figure shows the login page.
 
 ![AWS Tracking Application](images/pic3.png)
