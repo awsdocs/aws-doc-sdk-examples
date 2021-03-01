@@ -2154,11 +2154,7 @@ Package up the project into a .jar (JAR) file that you can deploy to Elastic Bea
 
 	mvn package
 
-The JAR file is located in the target folder.
-
-![AWS Tracking Application](images/pic11.png)
-
-The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file that includes the dependencies. Without the dependencies, the application does not run on Elastic Beanstalk. For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
+The JAR file is located in the target folder. The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file that includes the dependencies. Without the dependencies, the application does not run on Elastic Beanstalk. For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
 
 ## Deploy the application to Elastic Beanstalk
 
