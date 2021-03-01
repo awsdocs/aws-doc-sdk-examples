@@ -12,7 +12,7 @@ The application you create is named **MongoDB Item Tracker**, and uses Spring Bo
 
 This tutorial guides you through creating the **MongoDB Item Tracker** application. After the application is developed, you'll learn how to deploy it to Elastic Beanstalk.
 
-![AWS Tracking Application](images/pic1.png)
+![AWS Tracking Application](images/pic1a.png)
 
 **Note:** All of the Java code required to complete this tutorial is located in this GitHub repository (or you can copy the code from this tutorial).  
 
