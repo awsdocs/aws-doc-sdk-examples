@@ -24,7 +24,7 @@ This tutorial guides you through creating the **MongoDB Item Tracker** applicati
 
 + Prerequisites
 + Understand the AWS tracker application
-+ Create an IntelliJ project named ItemTrackerDynamoDB
++ Create an IntelliJ project 
 + Add the Spring POM dependencies to your project
 + Set up the Java packages in your project
 + Create the Java classes
