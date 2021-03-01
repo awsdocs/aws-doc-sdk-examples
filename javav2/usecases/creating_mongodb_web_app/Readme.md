@@ -472,7 +472,7 @@ The following Java code represents the **MainController** class.
         return "items";
      }
 
-     // Adds a new item to the DynamoDB database.
+     // Adds a new item.
      @RequestMapping(value = "/add", method = RequestMethod.POST)
      @ResponseBody
      String addItems(HttpServletRequest request, HttpServletResponse response) {
@@ -484,7 +484,7 @@ The following Java code represents the **MainController** class.
         String description = request.getParameter("description");
         String status = request.getParameter("status");
 
-        // Create a Work Item object to pass to the injectNewSubmission method.
+        // Create a WorkItem object.
         WorkItem myWork = new WorkItem();
         myWork.setGuide(guide);
         myWork.setDescription(description);
@@ -501,11 +501,11 @@ The following Java code represents the **MainController** class.
      String getReport(HttpServletRequest request, HttpServletResponse response) {
 
         String email = request.getParameter("email");
-      //  List<WorkItem> theList = dbService.getListItems();
-      //  java.io.InputStream is = excel.exportExcel(theList);
+        List<WorkItem> theList = dbService.getListItemsReport();
+        java.io.InputStream is = excel.exportExcel(theList);
 
         try {
-        //    sendMsg.sendReport(is, email);
+            sendMsg.sendReport(is, email);
         }catch (Exception e) {
             e.getStackTrace();
         }
@@ -708,18 +708,17 @@ The **MongoDBService** class uses the Mongo Java API to interact with the **item
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
         return sdf.format(cal.getTime());
     }
-
-    // Put an item into a DynamoDB table.
+    
+    // Put an item into the Mongo collection.
     public void putRecord(WorkItem item) {
 
         try {
 
-            // Create a DynamoDbTable object.
+            // Create a MongoClient object.
             MongoClient mongoClient = getConnection();
             String myGuid = java.util.UUID.randomUUID().toString();
 
-            // Populate the table.
-            // Get the database name
+            // Populate the collection.
             DB database = mongoClient.getDB("local");
 
             BasicDBObject document = new BasicDBObject();
@@ -737,15 +736,13 @@ The **MongoDBService** class uses the Mongo Java API to interact with the **item
             System.err.println(e.getMessage());
             System.exit(1);
         }
-       }
+      }
 
-     public void updateItemId(String id, String status) {
+      public void updateItemId(String id, String status) {
 
         try {
 
             MongoClient mongoClient = getConnection();
-
-            // Get the database name
             DB database = mongoClient.getDB("local");
 
             DBCollection collection = database.getCollection("items");
@@ -753,16 +750,15 @@ The **MongoDBService** class uses the Mongo Java API to interact with the **item
             BasicDBObject newDocument = new BasicDBObject();
             newDocument.append("$set", new BasicDBObject().append("status", status));
 
-
+            // Update the collection.
             collection.update(ob1, newDocument);
 
         } catch (Exception e) {
-
             System.out.println(e.getMessage());
         }
-      }
+       }
 
-    public String findDocumentById(String id) {
+       public String findDocumentById(String id) {
 
         try {
 
@@ -778,7 +774,7 @@ The **MongoDBService** class uses the Mongo Java API to interact with the **item
             Set<String> keys = ob1.keySet();
             Iterator iterator = keys.iterator();
 
-            ArrayList<WorkItem> itemList = new ArrayList();
+            ArrayList itemList = new ArrayList();
             WorkItem item = null;
             item = new WorkItem();
             while(iterator.hasNext()) {
@@ -804,15 +800,13 @@ The **MongoDBService** class uses the Mongo Java API to interact with the **item
             }
             return convertToString(toXml(itemList));
         } catch (Exception e){
-
             System.out.println(e.getMessage());
         }
         return "";
       }
 
-
-    // Retrieves all items from MongoDB
-    public String getAllItems() {
+     // Retrieves all items from MongoDB.
+     public String getAllItems() {
 
         MongoClient mongoClient = getConnection();
 
@@ -846,6 +840,7 @@ The **MongoDBService** class uses the Mongo Java API to interact with the **item
             Set<String> keys = dbo.keySet();
             Iterator iterator = keys.iterator();
 
+
             while (iterator.hasNext()) {
                 String key = (String) iterator.next();
                 String value = (String) dbo.get(key).toString();
@@ -867,14 +862,63 @@ The **MongoDBService** class uses the Mongo Java API to interact with the **item
                     itemList.add(item); // last item read
                 }
             }
-        } // end of while
-
+         } // end of while
 
         return convertToString(toXml(itemList));
-     }
+       }
 
-     // Convert Work item data into XML to pass back to the view.
-     private Document toXml(List<WorkItem> itemList) {
+      // Retrieves all items from MongoDB
+      public  ArrayList<WorkItem> getListItemsReport() {
+
+        MongoClient mongoClient = getConnection();
+
+        // Get the database name
+        DB database = mongoClient.getDB("local");
+
+        DBCursor cur = database.getCollection("items").find();
+
+        DBObject dbo = null;
+        ArrayList<WorkItem> itemList = new ArrayList();
+        WorkItem item = null;
+        int index = 0;
+        while (cur.hasNext()) {
+
+            index = 0;
+            item = new WorkItem();
+            dbo = cur.next();
+            Set<String> keys = dbo.keySet();
+            Iterator iterator = keys.iterator();
+
+
+            while (iterator.hasNext()) {
+                String key = (String) iterator.next();
+                String value = (String) dbo.get(key).toString();
+                if (key.compareTo("_id") == 0)
+                    item.setId(value);
+                else if (key.compareTo("archive") == 0)
+                    item.setArc(value);
+                else if (key.compareTo("date") == 0)
+                    item.setDate(value);
+                else if (key.compareTo("description") == 0)
+                    item.setDescription(value);
+                else if (key.compareTo("guide") == 0)
+                    item.setGuide(value);
+                else if (key.compareTo("status") == 0)
+                    item.setStatus(value);
+
+                else if (key.compareTo("username") == 0) {
+                    item.setName(value);
+                    itemList.add(item); // last item read
+                }
+            }
+         } // end of while
+
+
+        return itemList;
+      }
+
+      // Convert Work item data into XML to pass back to the view.
+      private Document toXml(List<WorkItem> itemList) {
 
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -947,8 +991,9 @@ The **MongoDBService** class uses the Mongo Java API to interact with the **item
             ex.printStackTrace();
         }
         return null;
+      }
      }
-    }
+
 
 **Note**: Besure to specify the full IP address for the Amazon EC2 hosting MongoDB in the **mongoUri** variable. If you do not specify a valid IP address, then your application does not connect to the MongoDB instance. 
 
