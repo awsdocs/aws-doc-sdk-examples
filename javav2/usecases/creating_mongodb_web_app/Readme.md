@@ -2180,7 +2180,7 @@ If this is your first time accessing this service, you will see a **Welcome to A
 12. Choose **Local file**, and then select **Choose file**. Browse to the JAR file that you created.  
 13. Choose **Create environment**. You'll see the application being created.
 
-![AWS Tracking Application](images/pic13.png)
+![AWS Tracking Application](images/pic8.png)
 
 When you’re done, you will see the application state the **Health** is **Ok** .
 
