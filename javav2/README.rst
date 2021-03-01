@@ -49,7 +49,7 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 
 + **Creating the Amazon Relational Database Service item tracker** - A tutorial that discusses using Amazon Relational Database Service (Amazon RDS), Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items.
 
-+ **Creating_dynamodb_item_tracker** - A tutorial that discusses using Amazon DynamoDB, Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items.
++ **Creating the DynamoDB web application item tracker** - A tutorial that discusses using Amazon DynamoDB, Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items.
 
 + **Creating the MongoDB web application item tracker** - A tutorial that discusses using MongoDB (deployed to an Amazon EC2 instance), Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items.
 
