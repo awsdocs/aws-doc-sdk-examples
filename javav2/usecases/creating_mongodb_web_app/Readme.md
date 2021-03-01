@@ -96,11 +96,7 @@ The user can select the email recipient from the **Select Manager** list and cho
 
 ## Add the Spring POM dependencies to your project
 
-At this point, you have a new project named **ItemTrackerMongoDB**.
-
-![AWS Tracking Application](images/pic8.png)
-
-In the **pom.xml** file's **project** element, add the **spring-boot-starter-parent** dependency.
+At this point, you have a new project named **ItemTrackerMongoDB**. In the **pom.xml** file's **project** element, add the **spring-boot-starter-parent** dependency.
 
      <parent>
         <groupId>org.springframework.boot</groupId>
@@ -143,14 +139,13 @@ Add the following dependency for the Amazon SES API (AWS SDK for Java version 2)
 
 Ensure that the **pom.xml** file looks like the following.
 
-     <?xml version="1.0" encoding="UTF-8"?>
-	<project xmlns="http://maven.apache.org/POM/4.0.0"
+    <?xml version="1.0" encoding="UTF-8"?>
+     <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>ItemTrackerDynamoDB</groupId>
-    <artifactId>ItemTrackerDynamoDB</artifactId>
+    <groupId>ItemTrackerMongoDB</groupId>
+    <artifactId>ItemTrackerMongoDB</artifactId>
     <version>1.0-SNAPSHOT</version>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -159,7 +154,7 @@ Ensure that the **pom.xml** file looks like the following.
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
     <properties>
-       <java.version>1.8</java.version>
+        <java.version>1.8</java.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -210,13 +205,13 @@ Ensure that the **pom.xml** file looks like the following.
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>ses</artifactId>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>3.8.0</version>
             <scope>test</scope>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
             <version>1.6.0</version>
@@ -242,10 +237,19 @@ Ensure that the **pom.xml** file looks like the following.
             <version>1.5.5</version>
         </dependency>
         <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>2.12.3</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-        <!-- bootstrap and jquery -->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>bson</artifactId>
+            <version>4.2.1</version>
+        </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
@@ -296,8 +300,8 @@ Ensure that the **pom.xml** file looks like the following.
                 </exclusion>
             </exclusions>
         </dependency>
-       </dependencies>
-       <build>
+      </dependencies>
+      <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -305,7 +309,7 @@ Ensure that the **pom.xml** file looks like the following.
             </plugin>
         </plugins>
        </build>
-      </project>
+     </project>
 
 
 ## Set up the Java packages in your project
