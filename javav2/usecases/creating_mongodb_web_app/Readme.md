@@ -697,7 +697,7 @@ The **MongoDBService** class uses the Mongo Java API to interact with the **item
     @Component
     public class MongoDBService {
 
-    private String mongoUri = "mongodb://ec2-54-160-97-184.compute-1.amazonaws.com:27017" ;
+    private String mongoUri = "mongodb://<ENTER EC2 IP Address>.amazonaws.com:27017" ;
     private MongoClient getConnection() {
 
         try {
@@ -957,6 +957,10 @@ The **MongoDBService** class uses the Mongo Java API to interact with the **item
         return null;
      }
     }
+
+**Note**: Besure to specify the full IP address for the Amazon EC2 hosting MongoDB in the **mongoUri** variable.
+
+**Note**: Note: You must set up inbound rules for the security group to connect to the database. You can set up one inbound rule for your development environment and another for Elastic Beanstalk (which will host the application). Setting up an inbound rule essentially means enabling an IP address to use the database. Once you set up the inbound rules, you can connect to the database from a client such as MySQL Workbench. For information about setting up security group inbound rules, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).  
 
 #### SendMessage class
 The **SendMessage** class uses the AWS SDK for Java V2 SES API to send an email message with an attachment (the Excel document) to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
