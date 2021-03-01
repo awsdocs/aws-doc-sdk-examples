@@ -69,37 +69,13 @@ When a user logs into the application, they see the **Home** page.
 A user can perform these tasks in the **DynamoDB Item Tracker** application:
 
 + Enter an item
-+ View all active items
-+ View archived items that are complete
-+ Modify active items
++ View all items
++ Modify items
 + Send a report to an email recipient
 
-The following figure shows the new item section.
-
-![AWS Tracking Application](images/pic4.png)
-
-A user can retrieve *active* or *archive* items. For example, a user can choose **Get Active Items** to get a dataset that's retrieved from the DynamoDB **Work** table and displayed in the web application.
+The user can select the email recipient from the **Select Manager** list and choose **Send Report** (see the List in the previous figure). Items are queried from the MongoDB and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report.
 
 ![AWS Tracking Application](images/pic5.png)
-
-The user can select the email recipient from the **Select Manager** list and choose **Send Report** (see the List in the previous figure). Items are queried from the **Work** table and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report.
-
-![AWS Tracking Application](images/pic6.png)
-
-#### Work table
-The DynamoDB table is named **Work** and contains the following fields:
-
-+ **id** - Represents the key.
-+ **date** - Specifies the date the item was created.
-+ **description** - A value that describes the item.
-+ **guide** - A value that represents the deliverable being worked on.
-+ **status** - A value that describes the status.
-+ **username** - A value that represents the user who entered the item.
-+ **archive** - A value that represents whether this is an active or archive item.
-
-The following figure shows the **Work** table.
-
-![AWS Tracking Application](images/pic7.png)
 
 ## Create an IntelliJ project named ItemTrackerDynamoDB
 
