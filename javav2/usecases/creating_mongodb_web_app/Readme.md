@@ -43,6 +43,9 @@ To complete the tutorial, you need the following:
 + Maven 3.6 or later
 + A MongoDB instance running on an Amazon EC2 instance. For complete instructions, see  [Install and configure MongoDB community edition](https://docs.aws.amazon.com/dms/latest/sbs/CHAP_MongoDB2DocumentDB.02.html).
 
+**Note**: See if there is a need to change the **bind_ip** variable at the /etc/mongodb.conf file. By default, it is locked to localhost.
+Try setting the value to 0.0.0.0 or assign the IP that will be able to connect the DB to it.
+
 ## Understand the MongoDB Item Tracker application
 The **MongoDB Item Tracker** application uses a model that is based on a work item and contains these attributes:
 
@@ -958,9 +961,11 @@ The **MongoDBService** class uses the Mongo Java API to interact with the **item
      }
     }
 
-**Note**: Besure to specify the full IP address for the Amazon EC2 hosting MongoDB in the **mongoUri** variable.
+**Note**: Besure to specify the full IP address for the Amazon EC2 hosting MongoDB in the **mongoUri** variable. If you do not specify a valid IP address, then your application does not connect to the MongoDB instance. 
 
 **Note**: Note: You must set up inbound rules for the security group to connect to the database. You can set up one inbound rule for your development environment and another for Elastic Beanstalk (which will host the application). Setting up an inbound rule essentially means enabling an IP address to use the database. Once you set up the inbound rules, you can connect to the database from a client such as MySQL Workbench. For information about setting up security group inbound rules, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).  
+
+
 
 #### SendMessage class
 The **SendMessage** class uses the AWS SDK for Java V2 SES API to send an email message with an attachment (the Excel document) to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
