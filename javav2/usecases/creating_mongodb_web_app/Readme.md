@@ -666,7 +666,6 @@ The following Java code represents the **WorkItem** class.
 The service classes contain Java application logic that invokes AWS services. In this section, you create these classes:
 
 + **MongoDBService** - Uses the Mongo Java API to interact with MongoDB deployed on Amazon EC2.
-+ **Work** - Is used by the Enhanced DynamoDB client object.
 + **SendMessages** - Uses the Amazon SES API to send email messages.
 + **WriteExcel** - Uses the Java Excel API to dynamically create a report (this does not use AWS SDK for Java APIs).
 
@@ -958,90 +957,6 @@ The **MongoDBService** class uses the Mongo Java API to interact with the **item
         return null;
      }
     }
-
-#### Work class
-The **Work** class is used with the DynamoDB enhanced client and maps the **Work** data members to items in the **Work** table. Notice that this class uses the **@DynamoDbBean** annotation.
-
-    package com.example.services;
-
-    import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
-    import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
-    import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
-
-    @DynamoDbBean
-     public class Work {
-
-       private String id;
-       private String date;
-       private String description ;
-       private String guide;
-       private String username ;
-       private String status  ;
-       private String archive   ;
-
-       @DynamoDbPartitionKey
-       public String getId() {
-         return this.id;
-       }
-
-       public void setId(String id) {
-        this.id = id;
-       }
-
-       @DynamoDbSortKey
-       public String getName() {
-        return this.username;
-        }
-
-       public void setArchive(String archive) {
-        this.archive = archive;
-        }
-
-       public String getArchive() {
-         return this.archive;
-        }
-
-       public void setStatus(String status) {
-         this.status = status;
-       }
-
-       public String getStatus() {
-        return this.status;
-       }
-
-      public void setUsername(String username) {
-       this.username = username;
-      }
-
-      public String getUsername() {
-       return this.username;
-      }
-
-      public void setGuide(String guide) {
-        this.guide = guide;
-   	}
-
-      public String getGuide() {
-        return this.guide;
-      }
-
-      public String getDate() {
-       return this.date;
-       }
-
-      public void setDate(String date) {
-       this.date = date;
-      }
-
-      public String getDescription() {
-       return description;
-      }
-
-     public void setDescription(String description) {
-      this.description = description;
-       }
-      }
-
 
 #### SendMessage class
 The **SendMessage** class uses the AWS SDK for Java V2 SES API to send an email message with an attachment (the Excel document) to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
@@ -1374,10 +1289,9 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
 #### To create the service classes
 
 1. Create the **com.example.services** package.
-2. Create the **DynamoDBService** class and add the Java code to it.
+2. Create the **MongoDBService** class and add the Java code to it.
 3. Create the **SendMessages** class and add the Java code to it.   
 4. Create the **WriteExcel** class and add the Java code to it.
-5. Create the **Work** class and add the Java code to it.
 
 ## Create the HTML files
 
@@ -1497,44 +1411,43 @@ The following HTML code represents the login form.
 The following HTML code represents the **index.html** file. This file represents the application's home view.
 
     <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
     <head>
-      <meta charset="utf-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <meta charset="utf-8" />
+     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-      <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
-      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-      <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
+     <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
+     <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+     <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
 
-      <title>AWS Item Tracker</title>
-     </head>
+    <title>AWS MongoDB Item Tracker</title>
+    </head>
 
-     <body>
-      <header th:replace="layout :: site-header"/>
-      <div class="container">
+    <body>
+    <header th:replace="layout :: site-header"/>
+    <div class="container">
 
-      <h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Item Tracker</h3>
-      <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
+    <h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Item Tracker</h3>
+    <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
 
-      <h2>Amazon DynamoDB Item Tracker</h2>
+    <h2>AWS MongoDB Item Tracker</h2>
 
-    <p>The Amazon DynamoDB Item Tracker sample application uses multiple AWS services and the Java V2 API. Collecting and  working with items has never been easier! Simply perform these steps:<p>
+    <p>The AWS MongoDB Item Tracker example application uses multiple AWS Services. Collecting and  working with items has never been easier! Simply perform these steps:<p>
 
     <ol>
-        <li>Enter work items into the system by choosing the <b>Add Items</b> menu item. Fill in the form, and then choose <b>Create Item</b>.The AWS Item Tracker application stores the data into a DynamoDB table by using the DynamoDB Java V2 API. </li>
-        <li>You can view all of your items by choosing the <b>Get Items</b> menu item. Then choose <b>Get Active Items</b> in the dialog box.</li>
-        <li>Modify an Active Item by selecting an item in the table and then choosing <b>Get Single Item</b>. The item appears in the Modify Item section where you can modify the description or status.</li>
-        <li>Modify the item and then choose <b>Update Item</b>. You cannot modify the ID value. </li>
-        <li>You can archive any item by selecting the item and choosing <b>Archive Item</b>. Notice that the table is updated with only active items.</li>
-        <li>You can display all archived items by choosing <b>Get Archived Items</b>. You cannot modify an archived item.</li>
-        <li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog box and then choosing <b>Send Report</b>. The Amazon Simple Email Service is used to send an email with an Excel document to the selected email recipient.</li>
-
-    </ol>
+        <li>Enter work items into the system by choosing the <i>Add Items</i> menu item. Fill in the form and then choose <i>Create Item</i>.</li>
+        <li>The AWS Item Tracker application stores the data into a MongoDB instance deployed to Amazon EC2 by using the Mongo-java-driver API.</li>
+        <li>You can view all of your items by choosing the <i>Get Items</i> menu item.</li>
+        <li>You can modify an Item by selecting an item in the table and then choosing <i>Get Single Item</i>. The item appears in the Modify Item section where you can modify the status.</li>
+        <li>Modify the item and then choose <i>Update Item</i>.</li>
+        <li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog box and then choosing <i>Send Report</i>.      </li>
+        <li>The Amazon Simple Email Service is used to send an email with an Excel document to the selected email recipient.</li>
+     </ol>
     <div>
-</body>
-</html>
+    </body>
+    </html>
 
 #### add.html
 
@@ -1597,36 +1510,36 @@ The following code represents the **add.html** file that enables users to add ne
 The following code represents the **items.html** file. This file enables users to modify items and send reports.
 
 	<!DOCTYPE html>
-	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-	<html>
-	<head>
-    	  <title>Modify Items</title>
+        <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+        <html>
+        <head>
+        <title>Modify Items</title>
 
-    	  <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
-    	  <script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
-    	  <script th:src="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js|"></script>
-    	  <script th:src="|https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js|"></script>
-    	  <script src="../public/js/items.js" th:src="@{/js/items.js}"></script>
+        <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
+        <script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
+        <script th:src="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js|"></script>
+        <script th:src="|https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js|"></script>
+        <script src="../public/js/items.js" th:src="@{/js/items.js}"></script>
 
-    	  <!-- CSS files  -->
-    	  <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
-    	  <link rel="stylesheet" th:href="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css|"/>
-    	  <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-    	  <link rel="stylesheet" href="../public/css/col.css" th:href="@{/css/col.css}" />
-    	  <link rel="stylesheet" href="../public/css/button.css" th:href="@{/css/button.css}" />
-    	  <link rel="stylesheet" href="../public/css/all.min.css" th:href="@{/css/all.min.css}" />
+        <!-- CSS files  -->
+       <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
+       <link rel="stylesheet" th:href="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css|"/>
+       <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+       <link rel="stylesheet" href="../public/css/col.css" th:href="@{/css/col.css}" />
+       <link rel="stylesheet" href="../public/css/button.css" th:href="@{/css/button.css}" />
+       <link rel="stylesheet" href="../public/css/all.min.css" th:href="@{/css/all.min.css}" />
 
-	</head>
-	<body>
-	<header th:replace="layout :: site-header"/>
+     </head>
+     <body>
+     <header th:replace="layout :: site-header"/>
 
-	<div class="container">
+     <div class="container">
 
-    	<h3>Welcome <span sec:authentication="principal.username">User</span> to DynamoDB Item Tracker</h3>
-    	<h3 id="info3">Get Items</h3>
-	<p>You can manage items in this view.</p>
+     <h3>Welcome <span sec:authentication="principal.username">User</span> to AWS MongoDB Item Tracker</h3>
+     <h3 id="info3">Get Items</h3>
+     <p>You can manage items in this view.</p>
 
-    	<table id="myTable" class="display" style="width:100%">
+     <table id="myTable" class="display" style="width:100%">
         <thead>
         <tr>
             <th>Item Id</th>
@@ -1658,16 +1571,16 @@ The following code represents the **items.html** file. This file enables users t
         </tr>
         </tfoot>
         <div id="success3"></div>
-    </table>
+       </table>
 
-    </div>
-    <br>
-    <div id="modform" class="container">
+      </div>
+      <br>
+      <div id="modform" class="container" >
 
-    <h3>Modify an item</h3>
-    <p>You can modify items.</p>
+     <h3>Modify an Item</h3>
+     <p>You can modify items.</p>
 
-    <form>
+     <form>
         <div class="control-group">
             <div class="form-group floating-label-form-group controls mb-0 pb-2">
                 <label>ID</label>
@@ -1678,7 +1591,7 @@ The following code represents the **items.html** file. This file enables users t
         <div class="control-group">
             <div class="form-group floating-label-form-group controls mb-0 pb-2">
                 <label>Description</label>
-                <textarea class="form-control" id="description" rows="5" placeholder="Description" required="required" data-validation-required-message="Description."></textarea>
+                <textarea class="form-control" id="description" rows="5" placeholder="Description" readonly data-validation-required-message="Description."></textarea>
                 <p class="help-block text-danger"></p>
             </div>
         </div>
@@ -1690,15 +1603,14 @@ The following code represents the **items.html** file. This file enables users t
             </div>
         </div>
         <br>
-      </form>
+    </form>
 
      </div>
 
-     <div id="dialogtemplate2" border="2" title="Basic dialog">
-
+    <div id="dialogtemplate2" border="2" title="Basic dialog">
     <table  align="center">
         <tr>
-        <td>
+            <td>
                 <p>Options:</p>
             </td>
             <td>
@@ -1716,56 +1628,31 @@ The following code represents the **items.html** file. This file enables users t
         <tr>
             <td>
                 <select id="manager">
-                   <option value="scmacdon@amazon.com">tblue@nomail.com</option>
-                   <option value="susfer@amazon.com">swhite@nomail.com</option>
+                    <option value="scmacdon@amazon.com">scmacdon@amazon.com</option>
+                    <option value="susfer@amazon.com">millem@amazon.com</option>
                 </select>
             </td>
             <td>
-
-            </td>
-        </tr>
-
-        <tr>
-
-        <tr>
-            <td>
-                <button class="shiny-blue" type="button" onclick="GetItems()">Get Active Items</button>
-            </td>
-
-            <td>
-
             </td>
         </tr>
         <tr>
+        <tr>
             <td>
-                <button class="shiny-blue" type="button" onclick="GetArcItems()">Get Archived Items</button>
+                <button class="shiny-blue" type="button" onclick="GetItems()">Get Items</button>
             </td>
-
             <td>
-
+            </td>
+        </tr>
+         <tr>
+            <td>
+                <button class="shiny-blue" id="singlebutton" type="button" onclick="ModifyItem()">Get Single Item</button>
+            </td>
+            <td>
             </td>
         </tr>
         <tr>
             <td>
-                <button class="shiny-blue" type="button" onclick="ModifyItem()">Get Single Item</button>
-            </td>
-
-            <td>
-
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button class="shiny-blue" type="button" onclick="modItem()">Update Item</button>
-            </td>
-
-            <td>
-
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button class="shiny-blue" type="button" onclick="archiveItem()">Archive Item</button>
+                <button class="shiny-blue" id="updatebutton" type="button" onclick="modItem()">Update Item</button>
             </td>
 
             <td>
@@ -1776,12 +1663,10 @@ The following code represents the **items.html** file. This file enables users t
             <td>
                 <button class="shiny-blue" type="button" id="reportbutton" onclick="Report()">Send Report</button>
             </td>
-
             <td>
-
             </td>
         </tr>
-    </table>
+     </table>
     </div>
 
     <style>
@@ -1816,25 +1701,23 @@ The following code represents the **items.html** file. This file enables users t
         overflow: auto;
         position: relative;
         padding: 0 !important;
-    }
+     }
 
-    .ui-widget-header {
+     .ui-widget-header {
         background: #000;
         border: 0;
         color: #fff;
         font-weight: normal;
-    }
+     }
 
-    .ui-dialog .ui-dialog-titlebar {
+     .ui-dialog .ui-dialog-titlebar {
         padding: 0.1em .5em;
         position: relative;
         font-size: 1em;
-    }
-
-	</style>
-
-	</body>
-	</html>
+     }
+    </style>
+    </body>
+    </html>
 
 **Note:** Replace the default email addresses with real email addresses in this file.
 #### layout.html
@@ -2222,7 +2105,7 @@ The following JavaScript code represents the **contact_me.js** file that is used
 
 **Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.
 
-## Create a JAR file for the DynamoDB Tracker application
+## Create a JAR file for the MongoDB Tracker application
 
 Package up the project into a .jar (JAR) file that you can deploy to Elastic Beanstalk by using the following Maven command.
 
@@ -2240,7 +2123,7 @@ Sign in to the AWS Management Console, and then open the Elastic Beanstalk conso
 
 If this is your first time accessing this service, you will see a **Welcome to AWS Elastic Beanstalk** page. Otherwise, you’ll see the Elastic Beanstalk Dashboard, which lists all of your applications.
 
-#### To deploy the DynamoDB Tracker application to Elastic Beanstalk
+#### To deploy the MongoDB Tracker application to Elastic Beanstalk
 
 1. Open the Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home.
 2. In the navigation pane, choose  **Applications**, and then choose **Create a new application**. This opens a wizard that creates your application and launches an appropriate environment.
