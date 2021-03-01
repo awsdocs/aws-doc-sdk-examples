@@ -74,7 +74,7 @@ When a user logs into the application, they see the **Home** page.
 ![AWS Tracking Application](images/pic1a.png)
 
 #### Application functionality
-A user can perform these tasks in the **DynamoDB Item Tracker** application:
+A user can perform these tasks in the **MongoDB Item Tracker** application:
 
 + Enter an item
 + View all items
@@ -85,18 +85,18 @@ The user can select the email recipient from the **Select Manager** list and cho
 
 ![AWS Tracking Application](images/pic5.png)
 
-## Create an IntelliJ project named ItemTrackerDynamoDB
+## Create an IntelliJ project named ItemTrackerMongoDB
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
 2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**.
 3. For **GroupId**, enter **aws-spring**.
-4. For **ArtifactId**, enter **ItemTrackerDynamoDB**.
+4. For **ArtifactId**, enter **ItemTrackerMongoDB**.
 6. Choose **Next**.
 7. Choose **Finish**.
 
 ## Add the Spring POM dependencies to your project
 
-At this point, you have a new project named **ItemTrackerDynamoDB**.
+At this point, you have a new project named **ItemTrackerMongoDB**.
 
 ![AWS Tracking Application](images/pic8.png)
 
@@ -321,7 +321,7 @@ The Java files go into the following subpackages.
 These packages contain the following:
 
 + **entities** - Contains Java files that represent the model. In this example, the model class is named **WorkItem**.
-+ **services** - Contains Java files that invoke AWS services. For example, the **software.amazon.awssdk.services.dynamodb.DynamoDbClient** object is used to perform DynamoDB operations.
++ **services** - Contains Java files that invoke AWS services. 
 + **secureweb** - Contains the SpringJava classes.
 
 **Note:** The only class that is in **com.example** is **SecureWebApp**. All other classes are in the subpackages.
