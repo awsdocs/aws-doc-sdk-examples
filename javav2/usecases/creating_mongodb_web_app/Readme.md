@@ -1338,7 +1338,7 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
 
 ## Create the HTML files
 
-At this point, you have created all of the Java files required for the **DynamoDB Item Tracker** application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the resource folder, create a **templates** folder, and then create the following HTML files:
+At this point, you have created all of the Java files required for the **MongoDB Item Tracker** application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the resource folder, create a **templates** folder, and then create the following HTML files:
 
 + **login.html**
 + **index.html**
