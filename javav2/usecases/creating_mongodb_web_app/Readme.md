@@ -12,7 +12,7 @@ The application you create is named **MongoDB Item Tracker**, and uses Spring Bo
 
 This tutorial guides you through creating the **MongoDB Item Tracker** application. After the application is developed, you'll learn how to deploy it to Elastic Beanstalk.
 
-![AWS Tracking Application](images/pic1a.png)
+![AWS Tracking Application](images/pic4.png)
 
 **Note:** All of the Java code required to complete this tutorial is located in this GitHub repository (or you can copy the code from this tutorial).  
 
@@ -59,11 +59,11 @@ The data stored in MongoDB reflects this data model. Each item is stored as JSON
 
 The following figure shows the login page.
 
-![AWS Tracking Application](images/pic32.png)
+![AWS Tracking Application](images/pic3.png)
 
 When a user logs into the application, they see the **Home** page.
 
-![AWS Tracking Application](images/pic3a.png)
+![AWS Tracking Application](images/pic1a.png)
 
 #### Application functionality
 A user can perform these tasks in the **DynamoDB Item Tracker** application:
