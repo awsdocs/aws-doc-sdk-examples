@@ -41,7 +41,7 @@ To complete the tutorial, you need the following:
 + A Java IDE (this tutorial uses the IntelliJ IDE)
 + Java 1.8 JDK
 + Maven 3.6 or later
-+ A DynamoDB table named **Work** with a key named **id**
++ A MongoDB instance running on an EC2 instance. For complete instructions, see  [Install and configure MongoDB community edition](https://docs.aws.amazon.com/dms/latest/sbs/CHAP_MongoDB2DocumentDB.02.html).
 
 ## Understand the DynamoDB Item Tracker application
 The **DynamoDB Item Tracker** application uses a model that is based on a work item and contains these attributes:
