@@ -55,11 +55,11 @@ The **MongoDB Item Tracker** application uses a model that is based on a work it
 
 The data stored in MongoDB reflects this data model. Each item is stored as JSON, as shown in this illustration. 
 
-
+![AWS Tracking Application](images/pic2.png)
 
 The following figure shows the login page.
 
-![AWS Tracking Application](images/pic2.png)
+![AWS Tracking Application](images/pic32.png)
 
 When a user logs into the application, they see the **Home** page.
 
