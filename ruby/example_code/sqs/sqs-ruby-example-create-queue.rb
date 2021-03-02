@@ -1,30 +1,39 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Creates an SQS queue.]
-# snippet-keyword:[Amazon Simple Queue Service]
-# snippet-keyword:[create_queue method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[sqs]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+require 'aws-sdk-sqs'
+
+# Creates a queue in Amazon Simple Queue Service (Amazon SQS).
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# @param sqs_client [Aws::SQS::Client] An initialized Amazon SQS client.
+# @param queue_name [String] The name of the queue.
+# @return [Boolean] true if the queue was created; otherwise, false.
+# @example
+#   exit 1 unless queue_created?(
+#     Aws::SQS::Client.new(region: 'us-east-1'),
+#     'my-queue'
+#   )
+def queue_created?(sqs_client, queue_name)
+  sqs_client.create_queue(queue_name: queue_name)
+  true
+rescue StandardError => e
+  puts "Error creating queue: #{e.message}"
+  false
+end
 
-require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
+# Full example call:
+def run_me
+  region = 'us-east-1'
+  queue_name = 'my-queue'
+  sqs_client = Aws::SQS::Client.new(region: region)
 
-sqs = Aws::SQS::Client.new(region: 'us-west-2')
+  puts "Creating the queue named '#{queue_name}'..."
 
-queue = sqs.create_queue(queue_name: 'MyGroovyQueue')
+  if queue_created?(sqs_client, queue_name)
+    puts 'Queue created.'
+  else
+    puts 'Queue not created.'
+  end
+end
 
-puts queue.queue_url
+run_me if $PROGRAM_NAME == __FILE__

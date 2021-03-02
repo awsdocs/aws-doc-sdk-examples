@@ -1,53 +1,33 @@
 <!--
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+
+ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
+which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/kinesis-examples-capturing-page-scrolling.html.
+
+Purpose:
+blog_page.html is part of a tutorial demonstrating how to capture browser user event data and send it to Amazon Kenesis.
+To run the full tutorial, see
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/kinesis-examples-capturing-page-scrolling.html.
+
 -->
-
-<!--
- snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
- snippet-sourcedescription:[blog_page.html contains the HTML for the scroll-progress example]
- snippet-service:[kinesis]
- snippet-keyword:[HTML]
- snippet-keyword:[Amazon Kinesis]
- snippet-keyword:[Code Sample]
- snippet-sourcetype:[full-example]
- snippet-sourcedate:[]
- snippet-sourceauthor:[AWS_JSDG]
-
- ABOUT THIS BROWSER SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
- https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/kinesis-examples-capturing-page-scrolling.html
-
- NOTE:
- The above-mentioned topic also contains important information about the role policy when creating the IAM role.
--->
-
-<!-- snippet-start:[kinesis.HTML.pageScroll.blog_page] -->
+<!-- snippet-start:[kinesis.HTML.pageScroll.blog_page_v3] -->
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>AWS SDK for JavaScript - Amazon Kinesis Application</title>
-    </head>
-    <body>
-        <div id="BlogContent" style="width: 60%; height: 800px; overflow: auto;margin: auto; text-align: center;">
-            <div>
-                <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vitae nulla eget nisl bibendum feugiat. Fusce rhoncus felis at ultricies luctus. Vivamus fermentum cursus sem at interdum. Proin vel lobortis nulla. Aenean rutrum odio in tellus semper rhoncus. Nam eu felis ac augue dapibus laoreet vel in erat. Vivamus vitae mollis turpis. Integer sagittis dictum odio. Duis nec sapien diam. In imperdiet sem nec ante laoreet, vehicula facilisis sem placerat. Duis ut metus egestas, ullamcorper neque et, accumsan quam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-                </p>
-                <!-- Additional paragraphs in the blog page appear here -->
-            </div>
-        </div>
-        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
-        <script src="kinesis-example.js"></script>
-    </body>
+<head>
+    <title>AWS SDK for JavaScript (V3) - Amazon Kinesis Application</title>
+</head>
+<body>
+<div id="BlogContent" style="width: 60%; height: 800px; overflow: auto;margin: auto; text-align: center;">
+    <div>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vitae nulla eget nisl bibendum feugiat. Fusce rhoncus felis at ultricies luctus. Vivamus fermentum cursus sem at interdum. Proin vel lobortis nulla. Aenean rutrum odio in tellus semper rhoncus. Nam eu felis ac augue dapibus laoreet vel in erat. Vivamus vitae mollis turpis. Integer sagittis dictum odio. Duis nec sapien diam. In imperdiet sem nec ante laoreet, vehicula facilisis sem placerat. Duis ut metus egestas, ullamcorper neque et, accumsan quam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+        </p>
+        <!-- Additional paragraphs in the blog page appear here -->
+    </div>
+</div>
+<script src="main.js"></script>
+</body>
 </html>
-<!-- snippet-end:[kinesis.HTML.pageScroll.blog_page] -->
+<!-- snippet-end:[kinesis.HTML.pageScroll.blog_page_v3] -->

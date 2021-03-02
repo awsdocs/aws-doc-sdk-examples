@@ -1,54 +1,66 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Lists your SQS queues and some of their attributes.]
-# snippet-keyword:[Amazon Simple Queue Service]
-# snippet-keyword:[get_queue_attributes method]
-# snippet-keyword:[list_queues method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[sqs]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+require 'aws-sdk-sqs'
+require 'aws-sdk-sts'
+
+# Lists the URLs of available queues in Amazon Simple Queue Service (Amazon SQS).
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
+# @param sqs_client [Aws::SQS::Client] An initialized Amazon SQS client.
+# @example
+#   list_queue_urls(Aws::SQS::Client.new(region: 'us-east-1'))
+def list_queue_urls(sqs_client)
+  queues = sqs_client.list_queues
+
+  queues.queue_urls.each do |url|
+    puts url
+  end
+rescue StandardError => e
+  puts "Error listing queue URLs: #{e.message}"
+end
+
+# Lists the attributes of a queue in Amazon Simple Queue Service (Amazon SQS).
 #
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
-
-require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
-
-sqs = Aws::SQS::Client.new(region: 'us-west-2')
-
-queues = sqs.list_queues
-
-queues.queue_urls.each do |url|
-  puts 'URL:                ' + url
-
-  # Get ARN, messages available, and messages in flight for queue
-  req = sqs.get_queue_attributes(
-    {
-      queue_url: url, attribute_names: 
-        [
-          'QueueArn', 
-          'ApproximateNumberOfMessages', 
-          'ApproximateNumberOfMessagesNotVisible'
-        ]
-    }
+# @param sqs_client [Aws::SQS::Client] An initialized Amazon SQS client.
+# @param queue_url [String] The URL of the queue.
+# @example
+#   list_queue_attributes(
+#     Aws::SQS::Client.new(region: 'us-east-1'),
+#     'https://sqs.us-east-1.amazonaws.com/111111111111/my-queue'
+#   )
+def list_queue_attributes(sqs_client, queue_url)
+  attributes = sqs_client.get_queue_attributes(
+    queue_url: queue_url,
+    attribute_names: [ "All" ]
   )
 
-  arn = req.attributes['QueueArn']
-  msgs_available = req.attributes['ApproximateNumberOfMessages']
-  msgs_in_flight = req.attributes['ApproximateNumberOfMessagesNotVisible']
+  attributes.attributes.each do |key, value|
+    puts "#{key}: #{value}"
+  end
 
-  puts 'ARN:                ' + arn
-  puts 'Messages available: ' + msgs_available
-  puts 'Messages in flight: ' + msgs_in_flight
-  puts
+rescue StandardError => e
+  puts "Error getting queue attributes: #{e.message}"
 end
+
+# Full example call:
+def run_me
+  region = 'us-east-1'
+  queue_name = 'my-queue'
+
+  sqs_client = Aws::SQS::Client.new(region: region)
+
+  puts 'Listing available queue URLs...'
+  list_queue_urls(sqs_client)
+
+  sts_client = Aws::STS::Client.new(region: region)
+
+  # For example:
+  # 'https://sqs.us-east-1.amazonaws.com/111111111111/my-queue'
+  queue_url = 'https://sqs.' + region + '.amazonaws.com/' + 
+    sts_client.get_caller_identity.account + '/' + queue_name
+
+  puts "\nGetting information about queue '#{queue_name}'..."
+  list_queue_attributes(sqs_client, queue_url)
+end
+
+run_me if $PROGRAM_NAME == __FILE__

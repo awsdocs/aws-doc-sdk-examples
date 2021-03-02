@@ -1,13 +1,13 @@
-const mockPutObject = jest.fn();
-jest.mock("@aws-sdk/client-s3", () => ({
+const mockGetObject = jest.fn();
+jest.mock("@aws-sdk/client-s3/commands/GetObjectCommand", () => ({
     S3: function S3() {
-        this.GetObjectCommand = mockPutObject;
+        this.GetObjectCommand = mockGetObject;
     },
 }));
-const { uploadParams, file, path, run } = require("../../s3/s3_getobject");
+const {  run } = require("../../s3/src/s3_getobject");
 
-test("has to mock S3#uploadtoBucket", async (done) => {
+test("has to mock S3#getObjectfromBucket", async (done) => {
     await run();
-    expect(mockPutObject).toHaveBeenCalled;
+    expect(mockGetObject).toHaveBeenCalled;
     done();
 });

@@ -16,7 +16,8 @@
     "@aws-sdk/credential-provider-cognito-identity": "^3.3.0",
     "@aws-sdk/client-dynamodb": "^3.3.0",
     "@aws-sdk/client-iam": "^3.3.0",
-    "@aws-sdk/client-lambda": "^3.3.0"
+    "@aws-sdk/client-lambda": "^3.3.0",
+    "@aws-sdk/client-cloudformation": "^3.3.0"
   },
   "devDependencies": {
     "webpack": "^4.42.0",

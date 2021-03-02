@@ -24,4 +24,7 @@ venv
 composer.*
 vendor/
 main.zip
-node_modules
+node_modules/
+cdk.out/
+package-lock.json
+*.class
