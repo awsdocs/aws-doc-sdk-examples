@@ -18,11 +18,11 @@ in the AWS SDK for Go V2 Developer Guide.
 
 This example performs three tasks:
 
-1. Saves the image in an Amazon Simple Storage Service (Amazon S3) bucket with a "uploads/" prefix.
+1. Saves the image in an Amazon Simple Storage Service (Amazon S3) bucket with an "uploads/" prefix.
 1. Gets any ELIF information from the image and saves in the Amazon DynamoDB (DynamoDB) table.
 1. Detects instances of real-world entities,
    such as flowers, weddings, and nature, within a JPEG or PNG image,
-   and save those instances as name/confidence pairs in the DynamoDB table.
+   and saves those instances as name/confidence pairs in the DynamoDB table.
 1. Creates a thumbnail version of the image, no larger than 80 pixels by 80 pixels,
    and saves it in the same bucket with a "thumbs/" prefix and "thumb" suffix.
 
