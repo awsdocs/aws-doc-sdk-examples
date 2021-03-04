@@ -1,0 +1,275 @@
+Resources:
+  mybucketbrmur91CFB1BC:
+    Type: AWS::S3::Bucket
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: false
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: false
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: SetupStackLambda/mybucket-brmur      /Resource
+  mybucketbrmurPolicy9AA1828A:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket:
+        Ref: mybucketbrmur91CFB1BC
+      PolicyDocument:
+        Statement:
+          - Action: s3:GetObject
+            Effect: Allow
+            Principal: "*"
+            Resource:
+              Fn::Join:
+                - ""
+                - - Fn::GetAtt:
+                      - mybucketbrmur91CFB1BC
+                      - Arn
+                  - /*
+          - Action: s3:PutObject
+            Effect: Allow
+            Principal: "*"
+            Resource:
+              Fn::Join:
+                - ""
+                - - Fn::GetAtt:
+                      - mybucketbrmur91CFB1BC
+                      - Arn
+                  - /*
+        Version: "2012-10-17"
+    Metadata:
+      aws:cdk:path: SetupStackLambda/mybucket-brmur      /Policy/Resource
+  myLambdaRole8B777879:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+    Metadata:
+      aws:cdk:path: SetupStackLambda/myLambdaRole/Resource
+  myLambdaRoleDefaultPolicyF1CBE162:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogtream
+              - logs:PutLogEvents
+            Effect: Allow
+            Resource: "*"
+          - Action: sns:*
+            Effect: Allow
+            Resource: "*"
+          - Action:
+              - dynamodb:*
+              - dax:*
+              - application-autoscaling:DeleteScalingPolicy
+              - application-autoscaling:DeregisterScalableTarget
+              - application-autoscaling:DescribeScalableTargets
+              - application-autoscaling:DescribeScalingActivities
+              - application-autoscaling:DescribeScalingPolicies
+              - application-autoscaling:PutScalingPolicy
+              - application-autoscaling:RegisterScalableTarget
+              - cloudwatch:DeleteAlarms
+              - cloudwatch:DescribeAlarmHistory
+              - cloudwatch:DescribeAlarms
+              - cloudwatch:DescribeAlarmsForMetric
+              - cloudwatch:GetMetricStatistics
+              - cloudwatch:ListMetrics
+              - cloudwatch:PutMetricAlarm
+              - cloudwatch:GetMetricData
+              - datapipeline:ActivatePipeline
+              - datapipeline:CreatePipeline
+              - datapipeline:DeletePipeline
+              - datapipeline:DescribeObjects
+              - datapipeline:DescribePipelines
+              - datapipeline:GetPipelineDefinition
+              - datapipeline:ListPipelines
+              - datapipeline:PutPipelineDefinition
+              - datapipeline:QueryObjects
+              - ec2:DescribeVpcs
+              - ec2:DescribeSubnets
+              - ec2:DescribeSecurityGroups
+              - iam:GetRole
+              - iam:ListRoles
+              - kms:DescribeKey
+              - kms:ListAliases
+              - sns:CreateTopic
+              - sns:DeleteTopic
+              - sns:ListSubscriptions
+              - sns:ListSubscriptionsByTopic
+              - sns:ListTopics
+              - sns:Subscribe
+              - sns:Unsubscribe
+              - sns:SetTopicAttributes
+              - lambda:CreateFunction
+              - lambda:ListFunctions
+              - lambda:ListEventSourceMappings
+              - lambda:CreateEventSourceMapping
+              - lambda:DeleteEventSourceMapping
+              - lambda:GetFunctionConfiguration
+              - lambda:DeleteFunction
+              - resource-groups:ListGroups
+              - resource-groups:ListGroupResources
+              - resource-groups:GetGroup
+              - resource-groups:GetGroupQuery
+              - resource-groups:DeleteGroup
+              - resource-groups:CreateGroup
+              - tag:GetResources
+              - kinesis:ListStreams
+              - kinesis:DescribeStream
+              - kinesis:DescribeStreamSummary
+            Effect: Allow
+            Resource: "*"
+          - Action: cloudwatch:GetInsightRuleReport
+            Effect: Allow
+            Resource: arn:aws:cloudwatch:*:*:insight-rule/DynamoDBContributorInsights*
+          - Action: iam:PassRole
+            Condition:
+              StringLike:
+                iam:PassedToService:
+                  - application-autoscaling.amazonaws.com
+                  - application-autoscaling.amazonaws.com.cn
+                  - dax.amazonaws.com
+            Effect: Allow
+            Resource: "*"
+          - Action: iam:CreateServiceLinkedRole
+            Condition:
+              StringEquals:
+                iam:AWSServiceName:
+                  - replication.dynamodb.amazonaws.com
+                  - dax.amazonaws.com
+                  - dynamodb.application-autoscaling.amazonaws.com
+                  - contributorinsights.dynamodb.amazonaws.com
+                  - kinesisreplication.dynamodb.amazonaws.com
+            Effect: Allow
+            Resource: "*"
+        Version: "2012-10-17"
+      PolicyName: myLambdaRoleDefaultPolicyF1CBE162
+      Roles:
+        - Ref: myLambdaRole8B777879
+    Metadata:
+      aws:cdk:path: SetupStackLambda/myLambdaRole/DefaultPolicy/Resource
+  table8235A42E:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+        - AttributeName: firstName
+          KeyType: RANGE
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: "N"
+        - AttributeName: firstName
+          AttributeType: S
+        - AttributeName: FirstName
+          AttributeType: S
+      GlobalSecondaryIndexes:
+        - IndexName: FirstNameIndex
+          KeySchema:
+            - AttributeName: FirstName
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+          ProvisionedThroughput:
+            ReadCapacityUnits: 5
+            WriteCapacityUnits: 10
+      ProvisionedThroughput:
+        ReadCapacityUnits: 10
+        WriteCapacityUnits: 10
+      TableName: Employees
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: SetupStackLambda/table/Resource
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
+    Properties:
+      Modules: aws-cdk=1.87.1,@aws-cdk/assets=1.90.1,@aws-cdk/aws-applicationautoscaling=1.90.1,@aws-cdk/aws-autoscaling-common=1.90.1,@aws-cdk/aws-cloudwatch=1.90.1,@aws-cdk/aws-codeguruprofiler=1.90.1,@aws-cdk/aws-dynamodb=1.90.1,@aws-cdk/aws-ec2=1.90.1,@aws-cdk/aws-ecr=1.90.1,@aws-cdk/aws-ecr-assets=1.90.1,@aws-cdk/aws-events=1.90.1,@aws-cdk/aws-iam=1.90.1,@aws-cdk/aws-kms=1.90.1,@aws-cdk/aws-lambda=1.90.1,@aws-cdk/aws-logs=1.90.1,@aws-cdk/aws-s3=1.90.1,@aws-cdk/aws-s3-assets=1.90.1,@aws-cdk/aws-sqs=1.90.1,@aws-cdk/aws-ssm=1.90.1,@aws-cdk/cloud-assembly-schema=1.90.1,@aws-cdk/core=1.90.1,@aws-cdk/custom-resources=1.90.1,@aws-cdk/cx-api=1.90.1,@aws-cdk/region-info=1.90.1,jsii-runtime=node.js/v12.14.1
+    Metadata:
+      aws:cdk:path: SetupStackLambda/CDKMetadata/Default
+    Condition: CDKMetadataAvailable
+Outputs:
+  TableName:
+    Value:
+      Ref: table8235A42E
+  Bucketname:
+    Value:
+      Ref: mybucketbrmur91CFB1BC
+  IAMrole:
+    Value:
+      Ref: myLambdaRole8B777879
+Conditions:
+  CDKMetadataAvailable:
+    Fn::Or:
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ca-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-northwest-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-central-1
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-3
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - me-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - sa-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-2
+

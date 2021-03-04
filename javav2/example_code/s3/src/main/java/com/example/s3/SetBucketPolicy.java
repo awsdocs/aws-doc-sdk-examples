@@ -1,20 +1,14 @@
-//snippet-sourcedescription:[SetBucketPolicy.java demonstrates how to add a bucket policy to an existing Amazon S3 bucket.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[SetBucketPolicy.java demonstrates how to add a bucket policy to an existing Amazon Simple Storage Service (Amazon S3) bucket.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/6/2020]
+//snippet-sourcedate:[10/28/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-This file is licensed under the Apache License, Version 2.0 (the "License").
-You may not use this file except in compliance with the License. A copy of
-the License is located at
-http://aws.amazon.com/apache2.0/
-This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-CONDITIONS OF ANY KIND, either express or implied. See the License for the
-specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.s3;
@@ -34,58 +28,44 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 // snippet-end:[s3.java2.set_bucket_policy.import]
 
-/**
- * Add a bucket policy to an existing S3 bucket.
- *
- * This code expects that you have AWS credentials set up, as described here:
- * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
- */
-
 public class SetBucketPolicy {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    SetBucketPolicy <bucket> [policyfile]\n\n" +
+                "    SetBucketPolicy <bucketName> <polFile>\n\n" +
                 "Where:\n" +
-                "    bucket     - the bucket to set the policy on.\n" +
-                "    policyfile - an optional JSON file containing the policy\n" +
-                "                 description.\n\n" +
-                "If no policyfile is given, a generic public-read policy will be set on\n" +
-                "the bucket.\n\n" +
-                "Example:\n" +
-                "    SetBucketPolicy testbucket mypolicy.json\n\n";
+                "    bucketName - the Amazon S3 bucket to set the policy on.\n" +
+                "    polFile - a JSON file containing the policy (see the Amazon S3 Readme for an example). \n" ;
 
-        if (args.length < 1) {
+        if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
-        }
+         }
 
         String bucketName = args[0];
-        String policyText = getBucketPolicyFromFile(args[1]);
+        String polFile = args[1] ;
+        String policyText = getBucketPolicyFromFile(polFile);
 
-        System.out.println("Setting policy:");
-        System.out.println("----");
-        System.out.println(policyText);
-        System.out.println("----");
-        System.out.format("On S3 bucket: \"%s\"\n", bucketName);
-
-        // Create the S3Client object
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder()
                 .region(region)
                 .build();
 
-        // Set the Bucket Policy
         setPolicy(s3, bucketName, policyText);
+        s3.close();
     }
 
     // snippet-start:[s3.java2.set_bucket_policy.main]
-    public static void setPolicy(S3Client s3, String bucketName, String polText) {
+    public static void setPolicy(S3Client s3, String bucketName, String policyText) {
+
+        System.out.println("Setting policy:");
+        System.out.println("----");
+        System.out.println(policyText);
+        System.out.println("----");
+        System.out.format("On Amazon S3 bucket: \"%s\"\n", bucketName);
 
         try {
-
-            String policyText = getBucketPolicyFromFile(polText);
             PutBucketPolicyRequest policyReq = PutBucketPolicyRequest.builder()
                     .bucket(bucketName)
                     .policy(policyText)
@@ -98,19 +78,18 @@ public class SetBucketPolicy {
         System.out.println("Done!");
     }
 
-    // Loads a JSON-formatted policy from a file, verifying it with the Policy
-    // class.
-    private static String getBucketPolicyFromFile(String policFile) {
+    // Loads a JSON-formatted policy from a file
+    public static String getBucketPolicyFromFile(String policyFile) {
 
         StringBuilder fileText = new StringBuilder();
         try {
             List<String> lines = Files.readAllLines(
-                    Paths.get(policFile), Charset.forName("UTF-8"));
+                    Paths.get(policyFile), Charset.forName("UTF-8"));
             for (String line : lines) {
                 fileText.append(line);
             }
         } catch (IOException e) {
-            System.out.format("Problem reading file: \"%s\"", policFile);
+            System.out.format("Problem reading file: \"%s\"", policyFile);
             System.out.println(e.getMessage());
         }
 
@@ -124,7 +103,6 @@ public class SetBucketPolicy {
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
-
         return fileText.toString();
     }
 }

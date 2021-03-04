@@ -1,47 +1,77 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Adds items from a JSON file to a DynamoDB table.]
-# snippet-keyword:[Amazon DynamoDB]
-# snippet-keyword:[put_item method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[dynamodb]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-require 'aws-sdk-dynamodb'  # v2: require 'aws-sdk'
+require 'aws-sdk-dynamodb'
 require 'json'
 
-# Create dynamodb client in us-west-2 region
-dynamodb = Aws::DynamoDB::Client.new(region: 'us-west-2')
+# Adds an item to a table in Amazon DynamoDB.
+#
+# @param dynamodb_client [Aws::DynamoDB::Client] An initialized
+#   Amazon DynamoDB client.
+# @param table_item [Hash] The properties of the item, in the correct format.
+# @example
+#   add_item_to_table(
+#     Aws::DynamoDB::Client.new(region, 'us-west-2'),
+#     {
+#       table_name: 'Movies',
+#       item: {
+#         "year": 1985,
+#         "title": "The Big Movie",
+#         "info": {
+#           "directors": ["Mary"],
+#           "release_date": "1985-12-25T00:00:00Z",
+#           "rating": 5.5,
+#           "genres": [
+#             "Action",
+#             "Drama"
+#           ],
+#           "image_url": "http://docs.aws.amazon.com/assets/images/aws_logo_dark.png",
+#           "plot": "Nothing happens at all.",
+#           "rank": 2,
+#           "running_time_secs": 7380,
+#           "actors": [
+#             "Larry",
+#             "Moe",
+#             "Curly"
+#           ]
+#         }
+#       }
+#     }
+#   )
+def add_item_to_table(dynamodb_client, table_item)
+  dynamodb_client.put_item(table_item)
+  puts "Added movie: #{table_item[:item]['title']} " \
+    "(#{table_item[:item]['year']})"
+rescue StandardError => e
+  puts 'Error adding movie ' \
+    "#{table_item[:item]['title']} " \
+    "(#{table_item[:item]['year']})': #{e.message}"
+  puts 'Program stopped.'
+  exit 1
+end
 
-file = File.read('movie_data.json')
-movies = JSON.parse(file)
-movies.each{|movie|
+# Full example call:
+def run_me
+  region = 'us-west-2'
+  table_name = 'Movies'
+  data_file = 'moviedata.json'
 
-  params = {
-      table_name: 'Movies',
+  dynamodb_client = Aws::DynamoDB::Client.new(region: region)
+  file = File.read(data_file)
+  movies = JSON.parse(file)
+
+  puts "Adding movies from file '#{data_file}' " \
+    "into table '#{table_name}'..."
+
+  movies.each do |movie|
+    table_item = {
+      table_name: table_name,
       item: movie
-  }
-
-  begin
-    dynamodb.put_item(params)
-    puts 'Added movie: ' + movie['year'].to_i.to_s  + ' - ' + movie['title']
-
-  rescue  Aws::DynamoDB::Errors::ServiceError => error
-    puts 'Unable to add movie:'
-    puts error.message
+    }
+    add_item_to_table(dynamodb_client, table_item)
   end
-}
+
+  puts 'Done.'
+end
+
+run_me if $PROGRAM_NAME == __FILE__

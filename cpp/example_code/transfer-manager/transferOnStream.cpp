@@ -58,7 +58,7 @@ int main(int argc, char** argv)
 {
     if (argc < 4) 
     {
-        std::cout << "This program is used to demostrate how transfer manager transfers large object in memory without copying it to a local file." << std::endl
+        std::cout << "This program is used to demonstrate how transfer manager transfers large object in memory without copying it to a local file." << std::endl
             << "It first uploads [LocalFilePath] to your S3 [Bucket] with object name [Key], then downloads the object to memory." << std::endl
             << "To verify the correctness of the file content in memory, we will dump the data to a local file [LocalFilePath]_copy." << std::endl
             << "You can use md5sum [LocalFilePath] [LocalFilePath]_copy to verify they have the same content." << std::endl

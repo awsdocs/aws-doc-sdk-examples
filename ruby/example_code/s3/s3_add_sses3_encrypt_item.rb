@@ -1,43 +1,63 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Adds an item to an S3 bucket and encrypts it with KMS on the server.]
-# snippet-keyword:[Amazon Simple Storage Service]
-# snippet-keyword:[put_object method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[s3]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
+
+require 'aws-sdk-s3'
+
+# Adds an encrypted object to an Amazon S3 bucket. The encryption is performed
+#   on the server by using the aws/s3 AWS managed customer master key (CMK).
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
+# Prerequisites:
 #
-# http://aws.amazon.com/apache2.0/
+# - An Amazon S3 bucket.
 #
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
-
-require 'aws-sdk-s3' # In v2: require 'aws-sdk'
-
-bucket = 'my_bucket'
-item = 'my_item'
-
-# Get file contents as a string
-contents = File.read(item)
-
-# Create S3 client
-client = Aws::S3::Client.new(region: 'us-west-2')
-
-# Encrypt item with KMS on server
-client.put_object(
-  body: contents,
-  bucket: bucket,
-  key: item,
-  server_side_encryption: 'aws:kms'
+# @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
+# @param bucket_name [String] The name of the bucket.
+# @param object_key [String] The name to assign to the uploaded object.
+# @param content_to_encrypt [String] The content to be encrypted.
+# @return [Boolean] true if the encrypted object was successfully uploaded;
+#   otherwise, false.
+# @example
+#   exit 1 unless kms_sse_encrypted_object_uploaded?(
+#     Aws::S3::Client.new(region: 'us-east-1'),
+#     'doc-example-bucket',
+#     'my-file.txt',
+#     'This is the content of my-file.txt.'
+#   )
+def kms_sse_encrypted_object_uploaded?(
+  s3_client,
+  bucket_name,
+  object_key,
+  content_to_encrypt
 )
+  s3_client.put_object(
+    bucket: bucket_name,
+    key: object_key,
+    body: content_to_encrypt,
+    server_side_encryption: 'aws:kms'
+  )
+  return true
+rescue StandardError => e
+  puts "Error uploading encrypted object: #{e.message}"
+  return false
+end
 
-puts 'Added item ' + name + ' to bucket ' + bucket
+def run_me
+  bucket_name = 'doc-example-bucket'
+  object_key = 'my-file.txt'
+  content_to_encrypt = 'This is the content of my-file.txt.'
+  region = 'us-east-1'
+  s3_client = Aws::S3::Client.new(region: region)
+
+  if kms_sse_encrypted_object_uploaded?(
+    s3_client,
+    bucket_name,
+    object_key,
+    content_to_encrypt
+  )
+    puts 'Encrypted object uploaded.'
+  else
+    puts 'Encrypted object not uploaded.'
+  end
+end
+
+run_me if $PROGRAM_NAME == __FILE__

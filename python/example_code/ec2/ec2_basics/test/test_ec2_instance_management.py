@@ -55,14 +55,17 @@ def test_stop_instance(make_stubber, make_unique_name, error_code):
         assert exc_info.value.response['Error']['Code'] == error_code
 
 
-@pytest.mark.parametrize('error_code', [None, 'TestException'])
-def test_allocate_elastic_ip(make_stubber, make_unique_name, error_code):
+@pytest.mark.parametrize(
+    'error_code,stop_on_method',[
+        (None, None), ('TestException', 'stub_allocate_elastic_ip')])
+def test_allocate_elastic_ip(
+        make_stubber, stub_runner, error_code, stop_on_method):
     ec2_stubber = make_stubber(ec2_instance_management.ec2.meta.client)
     address = mock_address()
 
-    with ec2_stubber.conditional_stubs(error_code is not None, 'allocate_address'):
-        ec2_stubber.stub_allocate_elastic_ip(address, error_code=error_code)
-        ec2_stubber.stub_describe_addresses([address], error_code=error_code)
+    with stub_runner(error_code, stop_on_method) as runner:
+        runner.add(ec2_stubber.stub_allocate_elastic_ip, address)
+        runner.add(ec2_stubber.stub_describe_addresses, [address])
 
     if error_code is None:
         elastic_ip = ec2_instance_management.allocate_elastic_ip()
@@ -74,16 +77,17 @@ def test_allocate_elastic_ip(make_stubber, make_unique_name, error_code):
         assert exc_info.value.response['Error']['Code'] == error_code
 
 
-@pytest.mark.parametrize('error_code', [None, 'TestException'])
-def test_associate_elastic_ip(make_stubber, make_unique_name, error_code):
+@pytest.mark.parametrize('error_code,stop_on_method', [
+    (None, None), ('TestException', 'stub_associate_elastic_ip')])
+def test_associate_elastic_ip(
+        make_stubber, make_unique_name, stub_runner, error_code, stop_on_method):
     ec2_stubber = make_stubber(ec2_instance_management.ec2.meta.client)
     address = mock_address()
     instance_id = make_unique_name('instance-')
 
-    with ec2_stubber.conditional_stubs(error_code is not None, 'associate_address'):
-        ec2_stubber.stub_associate_elastic_ip(
-            address, instance_id, error_code=error_code)
-        ec2_stubber.stub_describe_addresses([address], error_code=error_code)
+    with stub_runner(error_code, stop_on_method) as runner:
+        runner.add(ec2_stubber.stub_associate_elastic_ip, address, instance_id)
+        runner.add(ec2_stubber.stub_describe_addresses, [address])
 
     if error_code is None:
         elastic_ip = ec2_instance_management.associate_elastic_ip(
@@ -148,15 +152,15 @@ def test_get_console_output(make_stubber, make_unique_name, error_code):
 
 
 @pytest.mark.parametrize(
-    'interface_count,group_count,error_func,error_code',
-    [(1, 1, None, None),
-     (1, 1, 'describe_instances', 'TestException'),
-     (1, 1, 'modify_network_interface_attribute', 'TestException'),
-     (3, 2, None, None),
-     (1, 4, None, None)])
+    'interface_count,group_count,error_code,stop_on_method,modify_network_error',
+    [(1, 1, None, None, None),
+     (1, 1, 'TestException', 'stub_describe_instances', None),
+     (1, 1, None, None, 'TestException'),
+     (3, 2, None, None, None),
+     (1, 4, None, None, None)])
 def test_change_security_group(
-        make_stubber, make_unique_name, interface_count, group_count,
-        error_func, error_code):
+        make_stubber, make_unique_name, stub_runner, interface_count, group_count,
+        error_code, stop_on_method, modify_network_error):
     ec2_stubber = make_stubber(ec2_instance_management.ec2.meta.client)
     instance_id = make_unique_name('instance-')
     old_security_group_id = make_unique_name('old-sg-')
@@ -171,18 +175,16 @@ def test_change_security_group(
         group_name='replaceable-group', group_id=old_security_group_id))
     instance = unittest.mock.MagicMock(id=instance_id, network_interfaces=interfaces)
 
-    with ec2_stubber.conditional_stubs(error_func is not None, error_func):
-        ec2_stubber.stub_describe_instances(
-            [instance],
-            error_code=error_code if error_func == 'describe_instances' else None)
-        ec2_stubber.stub_modify_network_interface_attribute(
+    with stub_runner(error_code, stop_on_method) as runner:
+        runner.add(ec2_stubber.stub_describe_instances, [instance])
+        runner.add(
+            ec2_stubber.stub_modify_network_interface_attribute,
             interfaces[0].network_interface_id,
             [new_security_group_id
              if old_security_group_id == group.group_id else group.group_id
-             for group in interfaces[0].groups],
-            error_code=error_code)
+             for group in interfaces[0].groups], error_code=modify_network_error)
 
-    if error_code is None or error_func == 'modify_network_interface_attribute':
+    if error_code is None:
         ec2_instance_management.change_security_group(
             instance_id, old_security_group_id, new_security_group_id)
     else:

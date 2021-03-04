@@ -1,27 +1,16 @@
-/**
- * Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
-
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[LambdaInvoke.java demonstrates how to invoke an AWS Lambda function by using the LambdaClient object]
-// snippet-service:[Lambda]
-// snippet-keyword:[Java]
-// snippet-keyword:[Amazon Lambda]
+//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS Lambda]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-11-19]
+// snippet-sourcedate:[05/11/2020]
 // snippet-sourceauthor:[AWS-scmacdon]
+
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 // snippet-start:[lambda.java2.LambdaInvoke.complete]
 package com.example.lambda;
@@ -32,32 +21,45 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.lambda.model.InvokeRequest;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.lambda.model.InvokeResponse;
-import software.amazon.awssdk.services.lambda.model.ServiceException;
+import software.amazon.awssdk.services.lambda.model.LambdaException;
 // snippet-end:[lambda.java2.invoke.import]
 
 public class LambdaInvoke {
 
-    public static void main(String[] args) {
+    /*
+     Function names appear as arn:aws:lambda:us-west-2:335556666777:function:HelloFunction
+     you can retrieve the value by looking at the function in the AWS Console
+   */
+   public static void main(String[] args) {
 
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    LambdaInvoke <functionName> \n\n" +
+                "Where:\n" +
+                "    functionName - the name of the Lambda function \n";
 
         if (args.length < 1) {
-            System.out.println("Please specify a function name");
+            System.out.println(USAGE);
             System.exit(1);
         }
 
-        // snippet-start:[lambda.java2.invoke.main]
-        
-        /*
-        Function names appear as arn:aws:lambda:us-west-2:335556330391:function:HelloFunction
-        you can retrieve the value by looking at the function in the AWS Console
-        */
+       /* Read the name from command args*/
         String functionName = args[0];
 
-        InvokeResponse res = null ;
-        try {
-            Region region = Region.US_WEST_2;
-            LambdaClient awsLambda = LambdaClient.builder().region(region).build();
+        Region region = Region.US_EAST_1;
+        LambdaClient awsLambda = LambdaClient.builder()
+                .region(region)
+                .build();
 
+        invokeFunction(awsLambda, functionName);
+        awsLambda.close();
+    }
+
+    // snippet-start:[lambda.java2.invoke.main]
+    public static void invokeFunction(LambdaClient awsLambda, String functionName) {
+
+         InvokeResponse res = null ;
+        try {
             //Need a SdkBytes instance for the payload
             SdkBytes payload = SdkBytes.fromUtf8String("{\n" +
                     " \"Hello \": \"Paris\",\n" +
@@ -72,15 +74,12 @@ public class LambdaInvoke {
 
             //Invoke the Lambda function
             res = awsLambda.invoke(request);
-
-            //Get the response
             String value = res.payload().asUtf8String() ;
-
-            //write out the response
             System.out.println(value);
 
-        } catch(ServiceException e) {
-            e.getStackTrace();
+        } catch(LambdaException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
         // snippet-end:[lambda.java2.invoke.main]
     }

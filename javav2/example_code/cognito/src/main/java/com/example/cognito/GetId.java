@@ -1,27 +1,14 @@
 //snippet-sourcedescription:[GetId.java demonstrates how to retrieve the client ID from an identity provider.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon Cognito]
-// snippet-service:[cognito]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[4/16/2020]
-// snippet-sourceauthor:[scmacdon - (AWS)]
-
+//snippet-keyword:[AWS SDK for Java v2]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Cognito]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[11/04/2020]
+//snippet-sourceauthor:[scmacdon AWS]
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.cognito;
 
@@ -31,7 +18,6 @@ import software.amazon.awssdk.services.cognitoidentity.CognitoIdentityClient;
 import software.amazon.awssdk.services.cognitoidentity.model.GetIdRequest;
 import software.amazon.awssdk.services.cognitoidentity.model.GetIdResponse;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
-import java.util.HashMap;
 //snippet-end:[cognito.java2.GetId.import]
 
 public class GetId {
@@ -39,57 +25,36 @@ public class GetId {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    GetId <app_id> <identity_pool_id><cognitoUserPool >\n\n" +
+                "    GetId <identityPoolId>\n\n" +
                 "Where:\n" +
-                "    appId - the application ID from the login provider\n\n" +
-                "    identityPoolId  - the AWS Region and GUID of the ID of your identity pool\n\n" +
-                "    cognitoUserPool  - the user pool\n\n" +
+                "    identityPoolId - the GUID value of your identity pool.\n\n" +
                 "Example:\n" +
-                "    GetId amzn1.application-oa2-client.1234567890112-abcdefg us-east-2:1234567890112-abcdefg\n";
+                "    GetId us-east-1:00eb915b-c521-417b-af0d-ebad008axxxx\n";
 
-        if (args.length < 3) {
-             System.out.println(USAGE);
+        if (args.length != 1) {
+            System.out.println(USAGE);
             System.exit(1);
         }
 
-        /* Read the name from command args */
-        String appId = args[0];
-        String identityPoolId = args[1];
-        String cognitoUserPool = args[2];
-
+        String identityPoolId = args[0];
         CognitoIdentityClient cognitoclient = CognitoIdentityClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
-        getClientID(cognitoclient, appId, identityPoolId, cognitoUserPool);
+        getClientID(cognitoclient, identityPoolId);
+        cognitoclient.close();
     }
 
     //snippet-start:[cognito.java2.GetID.main]
-    public static void getClientID(CognitoIdentityClient cognitoclient,
-                                   String appId,
-                                   String identityPoolId,
-                                   String cognitoUserPool){
-
-        HashMap<String, String> potentialProviders = new HashMap<>();
-        potentialProviders.put("facebook", "graph.facebook.com");
-        potentialProviders.put("google", "accounts.google.com");
-        potentialProviders.put("amazon", "www.amazon.com");
-        potentialProviders.put("twitter", "api.twitter.com");
-        potentialProviders.put("digits", "www.digits.com");
-
-        HashMap<String, String> loginProvider = new HashMap<>();
-        loginProvider.put(potentialProviders.get("amazon"), appId);
-
-        HashMap login = new HashMap<String, String>();
-        login.put(cognitoUserPool, appId);
-
+    public static void getClientID(CognitoIdentityClient cognitoclient, String identityPoolId){
         try {
-        GetIdResponse response = cognitoclient.getId(GetIdRequest.builder()
-                .identityPoolId(identityPoolId)
-                .logins(login)
-                .build());
 
-        System.out.println("Identity ID " + response.identityId());
+            GetIdRequest request = GetIdRequest.builder()
+                    .identityPoolId(identityPoolId)
+                    .build();
+
+            GetIdResponse response = cognitoclient.getId(request);
+            System.out.println("Identity ID " + response.identityId());
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());

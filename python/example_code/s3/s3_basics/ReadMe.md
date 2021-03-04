@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Shows how to use the AWS SDK for Python (Boto3) to  get started using bucket and 
+Shows how to use the AWS SDK for Python (Boto3) to get started using bucket and 
 object operations in Amazon Simple Storage Service (Amazon S3). 
 Learn to create, get, remove, and configure buckets and objects.
 
@@ -11,34 +11,47 @@ Learn to create, get, remove, and configure buckets and objects.
 - You must have an AWS account, and have your default credentials and AWS Region
   configured as described in the [AWS Tools and SDKs Shared Configuration and
   Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.6 or later
+- Python 3.7 or later
 - Boto 3 1.11.10 or later
+- Requests 2.24.0 or later
 - PyTest 5.3.5 or later (to run unit tests)
+
+## Cautions
+
+- As an AWS best practice, grant this code least privilege, or only the 
+  permissions required to perform a task. For more information, see 
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
+  in the *AWS Identity and Access Management 
+  User Guide*.
+- This code has not been tested in all AWS Regions. Some AWS services are 
+  available only in specific Regions. For more information, see the 
+  [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
+  on the AWS website.
+- Running this code might result in charges to your AWS account.
 
 ## Running the code
 
-Both `bucket_wrapper.py` and `object_wrapper.py` contain `usage_demo` functions
-that demonstrate ways to use the functions in their respective modules. 
-For example, to see the bucket demonstration, run the module in a command window.
+**bucket_wrapper.py** and **object_wrapper.py**
+
+These scripts contain `usage_demo` functions that demonstrate ways to use the 
+functions in their respective modules. For example, to see the bucket demonstration, 
+run the module in a command window.
 
 ```
 python -m bucket_wrapper
 ``` 
 
-You can also run individual functions in the Python shell to make requests to your 
-AWS account. For example, run the following commands to create a bucket, upload 
-an object, get the object, empty the bucket, and delete the bucket.  
+**presigned_url.py**
 
-    > python
-    >>> import time
-    >>> bucket_name = f"bucket{time.time_ns()}"
-    >>> import bucket_wrapper
-    >>> bucket = bucket_wrapper.create_bucket(bucket_name, region='us-west-2')
-    >>> import object_wrapper
-    >>> object_wrapper.put_object(bucket, 'my-test-object', b'My test data')
-    >>> obj = object_wrapper.get_object(bucket, 'my-test-object')
-    >>> object_wrapper.empty_bucket(bucket)
-    >>> bucket_wrapper.delete_bucket(bucket)
+This script generates a presigned URL and uses the Requests package to get or 
+put a file in an Amazon S3 bucket. For example, run the following command to get
+a file from Amazon S3 at a command prompt.
+
+```
+python -m presigned_url.py your-bucket-name your-object-key get
+``` 
+
+Run the script with the `-h` flag to get more help.
 
 ## Running the tests
 
@@ -70,15 +83,6 @@ have actually been cleaned up.
 
 - [Boto 3 Amazon S3 examples](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/s3-examples.html)
 - [Boto 3 Amazon S3 service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html)
-- As an AWS best practice, grant this code least privilege, or only the 
-  permissions required to perform a task. For more information, see 
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
-  in the *AWS Identity and Access Management 
-  User Guide*.
-- This code has not been tested in all AWS Regions. Some AWS services are 
-  available only in specific Regions. For more information, see the 
-  "AWS Regional Table" on the AWS website.
-- Running this code might result in charges to your AWS account.
 
 ---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

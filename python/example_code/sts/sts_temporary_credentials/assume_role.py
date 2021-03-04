@@ -24,7 +24,7 @@ def progress_bar(seconds):
 
 
 def unique_name(base_name):
-    return f'aws-assume-role-demo-{base_name}-{time.time_ns()}'
+    return f'demo-assume-role-{base_name}-{time.time_ns()}'
 
 
 def setup(iam_resource):

@@ -133,17 +133,17 @@ def usage_demo():
           "permissions.")
     s3 = boto3.resource('s3')
     bucket = s3.create_bucket(
-        Bucket=f'aws-iam-demo-bucket-{time.time_ns()}',
+        Bucket=f'demo-iam-bucket-{time.time_ns()}',
         CreateBucketConfiguration={
             'LocationConstraint': s3.meta.client.meta.region_name
         }
     )
     print(f"Created an Amazon S3 bucket named {bucket.name}.")
-    user_writer = create_user('aws-iam-demo-writer')
-    user_reader = create_user('aws-iam-demo-reader')
+    user_writer = create_user('demo-iam-writer')
+    user_reader = create_user('demo-iam-reader')
     print(f"Created two IAM users: {user_writer.name} and {user_reader.name}")
-    update_user(user_writer.name, 'aws-iam-demo-creator')
-    update_user(user_reader.name, 'aws-iam-demo-getter')
+    update_user(user_writer.name, 'demo-iam-creator')
+    update_user(user_reader.name, 'demo-iam-getter')
     users = list_users()
     user_writer = next(user for user in users if user.user_id == user_writer.user_id)
     user_reader = next(user for user in users if user.user_id == user_reader.user_id)
@@ -151,14 +151,14 @@ def usage_demo():
           f"and {user_reader.name}.")
 
     write_policy = policy_wrapper.create_policy(
-        'aws-iam-demo-write-policy',
+        'demo-iam-write-policy',
         'Grants rights to create an object in the demo bucket.',
         's3:PutObject',
         f'arn:aws:s3:::{bucket.name}/*')
     print(f"Created policy {write_policy.policy_name} with ARN: {write_policy.arn}")
     print(write_policy.description)
     read_policy = policy_wrapper.create_policy(
-        'aws-iam-demo-read-policy',
+        'demo-iam-read-policy',
         'Grants rights to get an object from the demo bucket.',
         's3:GetObject',
         f'arn:aws:s3:::{bucket.name}/*')

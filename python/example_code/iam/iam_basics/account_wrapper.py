@@ -63,7 +63,7 @@ def list_aliases():
         else:
             logger.info("Got no aliases for your account.")
     except ClientError:
-        logger.exception("Coudn't list aliases for your account.")
+        logger.exception("Couldn't list aliases for your account.")
         raise
     else:
         return response['AccountAliases']

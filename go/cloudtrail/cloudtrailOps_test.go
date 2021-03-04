@@ -172,7 +172,7 @@ func showEvents(t *testing.T, sess *session.Session, trailName string, userName 
                 t.Log("Time:   ", aws.TimeValue(event.EventTime))
             }
 
-            t.Log("Resourcs:")
+            t.Log("Resources:")
 
             for _, resource := range event.Resources {
                 if nil != resource.ResourceName {

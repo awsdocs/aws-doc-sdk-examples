@@ -29,7 +29,7 @@ public class GreetingController {
     private PublishTextSMS msg;
 
 
-    @GetMapping("/greeting")
+    @GetMapping("/")
     public String greetingForm(Model model) {
         model.addAttribute("greeting", new Greeting());
         return "greeting";

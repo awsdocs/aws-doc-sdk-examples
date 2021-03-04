@@ -3,6 +3,9 @@ files:
   - path: src/main/java/com/example/kinesis/AddDataShards.java
     services:
       - kinesis
+  - path: src/main/java/com/example/kinesis/ClientConfiguration.java
+    services:
+      - kinesis
   - path: src/main/java/com/example/kinesis/CreateDataStream.java
     services:
       - kinesis
@@ -27,6 +30,15 @@ files:
   - path: src/main/java/com/example/kinesis/ListShards.java
     services:
       - kinesis
+  - path: src/main/java/com/example/kinesis/StockTrade.java
+    services:
+      - kinesis
+  - path: src/main/java/com/example/kinesis/StockTradeGenerator.java
+    services:
+      - kinesis
   - path: src/main/java/com/example/kinesis/StockTradesWriter.java
     services:
       - kinesis
+  - path: src/test/java/KinesisServiceTest.java
+    services:
+      - kinesis  

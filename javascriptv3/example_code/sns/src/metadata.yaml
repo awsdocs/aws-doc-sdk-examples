@@ -1,0 +1,55 @@
+---
+# Amazon SNS basic usage examples
+files:
+  - path: sns_checkphoneoptout.ts
+    services:
+      - sns
+  - path: sns_createtopic.ts
+    services:
+      - sns
+  - path: sns_deletetopic.ts
+    services:
+      - sns
+  - path: sns_gettopicattributes.ts
+    services:
+      - sns
+  - path: sns_listnumbersoptedout.ts
+    services:
+      - sns
+  - path: sns_listsubscriptions.ts
+    services:
+      - sns
+  - path: sns_listtopics.ts
+    services:
+      - sns
+  - path: sns_publishsms.ts
+    services:
+      - sns
+  - path: sns_publishtotopic.ts
+    services:
+      - sns
+  - path: sns_setsmstype.ts
+    services:
+      - sns
+  - path: sns_settopicattributes.ts
+    services:
+      - sns
+  - path: sns_subscribeapp.ts
+    services:
+      - sns
+  - path: sns_subscribeemail.ts
+    services:
+      - sns
+  - path: sns_subscribelambda.ts
+    services:
+      - sns
+  - path: sns_unsubscribe.ts
+    services:
+      - sns
+  - path: sns_confirmsubscription.ts
+    services:
+      - sns
+  - path: sns_getsmstype.ts
+    services:
+      - sns
+...

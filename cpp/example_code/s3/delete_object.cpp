@@ -17,15 +17,24 @@
  * Inputs:
  * - objectKey: The name of the object to delete.
  * - fromBucket: The name of the bucket to delete the object from.
+ * - region: The AWS Region to create the bucket in.
  *
  * Outputs: true if the object was deleted; otherwise, false.
  * ///////////////////////////////////////////////////////////////////////// */
 
 // snippet-start:[s3.cpp.delete_object.code]
 bool AwsDoc::S3::DeleteObject(const Aws::String& objectKey, 
-    const Aws::String& fromBucket)
+    const Aws::String& fromBucket,const Aws::String& region)
 {
-    Aws::S3::S3Client s3_client;
+    Aws::Client::ClientConfiguration config;
+
+    if (!region.empty())
+    {
+        config.region = region;
+    }
+
+    Aws::S3::S3Client s3_client(config);
+
     Aws::S3::Model::DeleteObjectRequest request;
 
     request.WithKey(objectKey)
@@ -52,11 +61,12 @@ int main()
 {
     Aws::String object_key = "my-key";
     Aws::String from_bucket = "my-bucket";
+    Aws::String region = "us-east-1";
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        if (AwsDoc::S3::DeleteObject(object_key, from_bucket))
+        if (AwsDoc::S3::DeleteObject(object_key, from_bucket, region))
         {
             std::cout << "Deleted object " << object_key <<
                 " from " << from_bucket << "." << std::endl;

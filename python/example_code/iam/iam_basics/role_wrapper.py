@@ -102,7 +102,7 @@ def usage_demo():
     print("Roles let you define sets of permissions and can be assumed by "
           "other entities, like users and services.")
     role = create_role(
-        'aws-iam-demo-role',
+        'demo-iam-role',
         ['lambda.amazonaws.com', 'batchoperations.s3.amazonaws.com'])
     print(f"Created role {role.name}, with trust policy:")
     pprint.pprint(role.assume_role_policy_document)

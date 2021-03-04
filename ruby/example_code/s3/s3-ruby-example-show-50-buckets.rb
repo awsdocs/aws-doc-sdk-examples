@@ -1,31 +1,51 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Lists up to 50 of your S3 buckets.]
-# snippet-keyword:[Amazon Simple Storage Service]
-# snippet-keyword:[Resource.buckets method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[s3]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
 
-require 'aws-sdk-s3'  # v2: require 'aws-sdk'
+require 'aws-sdk-s3'
 
-region = 'us-west-2'
-s3 = Aws::S3::Resource.new(region: region)
-
-s3.buckets.limit(50).each do |b|
-  puts "#{b.name}"
+# Lists the Amazon Simple Storage Service (Amazon S3) buckets owned by the
+#   authenticated sender of the request.
+#
+# @param s3_client [Aws::S3::Client] An initialized S3 client.
+# @param max_buckets [Integer] The maximum number of buckets to list. The
+#   number must be between 1 and 50. If not specified, only up to the
+#   first 50 objects will be listed.
+# @example
+#   list_buckets(Aws::S3::Client.new(region: 'us-east-1'), 25)
+def list_buckets(s3_client, max_buckets = 50)
+  if max_buckets < 1 || max_buckets > 50
+    puts 'Maximum number of buckets to request must be between 1 and 50.'
+    return
+  end
+  buckets = s3_client.list_buckets.buckets
+  if buckets.count.zero?
+    puts 'No buckets.'
+    return
+  else
+    if buckets.count > max_buckets
+      puts "First #{max_buckets} buckets:"
+      i = 0
+      max_buckets.times do
+        puts "#{i + 1}) #{buckets[i].name}"
+        i += 1
+      end
+    else
+      puts "#{buckets.count} buckets:"
+      i = 0
+      buckets.count.times do
+        puts "#{i + 1}) #{buckets[i].name}"
+        i += 1
+      end
+    end
+  end
+rescue StandardError => e
+  puts "Error listing buckets: #{e.message}"
 end
+
+def run_me
+  region = 'us-east-1'
+  s3_client = Aws::S3::Client.new(region: region)
+  list_buckets(s3_client, 25)
+end
+
+run_me if $PROGRAM_NAME == __FILE__

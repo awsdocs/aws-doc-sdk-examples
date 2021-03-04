@@ -54,7 +54,7 @@ public class SQSServiceIntegrationTest {
 
     @Test
     @Order(1)
-    public void whenInitializingAWSCWService_thenNotNull() {
+    public void whenInitializingAWSService_thenNotNull() {
         assertNotNull(sqsClient);
         System.out.println("Test 1 passed");
     }
@@ -87,33 +87,40 @@ public class SQSServiceIntegrationTest {
 
     @Test
     @Order(5)
-    public void DeleteMessages() {
-
-        SQSExample.deleteMessages(sqsClient, queueUrl,messages );
+    public void GetQueueAttributes() {
+        GetQueueAttributes.getAttributes(sqsClient, queueName);
         System.out.println("Test 5 passed");
     }
 
     @Test
     @Order(6)
-    public void LongPolling()
-    {
-       LongPolling.setLongPoll(sqsClient);
-       System.out.println("Test 6 passed");
+    public void DeleteMessages() {
+
+        SQSExample.deleteMessages(sqsClient, queueUrl,messages );
+        System.out.println("Test 6 passed");
     }
 
     @Test
     @Order(7)
-    public void DeadLetterQueues() {
-
-        DeadLetterQueues.setDeadLetterQueue(sqsClient);
-        System.out.println("Test 7 passed");
-   }
+    public void LongPolling()
+    {
+       LongPolling.setLongPoll(sqsClient);
+       System.out.println("Test 7 passed");
+    }
 
     @Test
     @Order(8)
+    public void DeadLetterQueues() {
+
+        DeadLetterQueues.setDeadLetterQueue(sqsClient);
+        System.out.println("Test 8 passed");
+   }
+
+    @Test
+    @Order(9)
     public void DeleteQueue() {
 
         DeleteQueue.deleteSQSQueue(sqsClient, queueName);
-        System.out.println("Test 8 passed");
+        System.out.println("Test 9 passed");
     }
 }

@@ -40,16 +40,17 @@ def test_create_key_pair(
 
 
 @pytest.mark.parametrize(
-    'has_vpcs,include_ssh,error_func,error_code', [
+    'has_vpcs,include_ssh,error_code,stop_on_method', [
         (True, True, None, None),
         (True, False, None, None),
-        (False, True, 'describe_vpcs', None),
-        (True, True, 'describe_vpcs', 'TestException'),
-        (True, True, 'create_security_group', 'TestException'),
-        (True, True, 'authorize_security_group_ingress', 'TestException')
+        (False, True, None, 'stub_describe_vpcs'),
+        (True, True, 'TestException', 'stub_describe_vpcs'),
+        (True, True, 'TestException', 'stub_create_security_group'),
+        (True, True, 'TestException', 'stub_authorize_security_group_ingress')
     ])
 def test_setup_security_group(
-        make_stubber, make_unique_name, has_vpcs, include_ssh, error_func, error_code):
+        make_stubber, make_unique_name, stub_runner, has_vpcs, include_ssh, error_code,
+        stop_on_method):
     ec2_stubber = make_stubber(ec2_setup.ec2.meta.client)
     vpc_filter = {'Name': 'isDefault', 'Values': ['true']}
     if has_vpcs:
@@ -69,17 +70,14 @@ def test_setup_security_group(
         ip_permissions.append(
             {'protocol': 'tcp', 'port': 22, 'ip_ranges': [{'CidrIp': f'{test_ip}/32'}]})
 
-    with ec2_stubber.conditional_stubs(error_func is not None, error_func):
-        ec2_stubber.stub_describe_vpcs(
-            vpcs, vpc_filters=[vpc_filter],
-            error_code=error_code if error_func == 'describe_vpcs' else None)
-        ec2_stubber.stub_create_security_group(
-            group_name, group_description, vpc_id, group_id,
-            error_code=error_code if error_func == 'create_security_group' else None)
-        ec2_stubber.stub_authorize_security_group_ingress(
-            group_id, ip_permissions,
-            error_code=error_code if error_func == 'authorize_security_group_ingress'
-            else None)
+    with stub_runner(error_code, stop_on_method) as runner:
+        runner.add(ec2_stubber.stub_describe_vpcs, vpcs, vpc_filters=[vpc_filter])
+        runner.add(
+            ec2_stubber.stub_create_security_group, group_name, group_description,
+            vpc_id, group_id)
+        runner.add(
+            ec2_stubber.stub_authorize_security_group_ingress, group_id,
+            ip_permissions)
 
     if error_code is None:
         if has_vpcs:
@@ -102,7 +100,7 @@ def test_setup_security_group(
     [(None, None),
      (['test-security-group'], None),
      (None, 'TestException')])
-def test_create_intances(
+def test_create_instances(
         make_stubber, make_unique_name, security_groups, error_code):
     ec2_stubber = make_stubber(ec2_setup.ec2.meta.client)
     image_id = 'ami-1234567890EXAMPLE'

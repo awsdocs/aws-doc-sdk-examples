@@ -26,7 +26,9 @@
 bool AwsDoc::S3::CreateBucket(const Aws::String& bucketName, 
     const Aws::S3::Model::BucketLocationConstraint& region)
 {
-	Aws::S3::S3Client s3_client;
+    Aws::Client::ClientConfiguration config;
+
+    Aws::S3::S3Client s3_client(config);
 
     Aws::S3::Model::CreateBucketRequest request;
     request.SetBucket(bucketName);

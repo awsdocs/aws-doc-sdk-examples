@@ -1,5 +1,5 @@
 # Minimal CMakeLists.txt for the AWS SDK for C++.
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.8)
 
 # Use shared libraries, which is the default for the AWS C++ SDK build.
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)

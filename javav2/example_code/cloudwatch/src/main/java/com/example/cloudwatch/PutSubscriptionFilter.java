@@ -1,25 +1,16 @@
 //snippet-sourcedescription:[PutSubscriptionFilter.java demonstrates how to create an Amazon CloudWatch log subscription filter.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/02/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[11/02/2020]
+//snippet-sourceauthor:[scmacdon - aws]
 
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 
 package com.example.cloudwatch;
 
@@ -28,11 +19,19 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
 import software.amazon.awssdk.services.cloudwatchlogs.model.CloudWatchLogsException;
 import software.amazon.awssdk.services.cloudwatchlogs.model.PutSubscriptionFilterRequest;
-import software.amazon.awssdk.services.cloudwatchlogs.model.PutSubscriptionFilterResponse;
 // snippet-end:[cloudwatch.java2.put_subscription_filter.import]
 
 /**
- * Creates a CloudWatch log subscription filter
+ * Before running this code example, you need to grant permission to CloudWatch Logs the right to execute your Lambda function.
+ * To perform this task, you can use this CLI command:
+ *
+ * aws lambda add-permission --function-name "lamda1" --statement-id "lamda1"
+ * --principal "logs.us-west-2.amazonaws.com" --action "lambda:InvokeFunction"
+ * --source-arn "arn:aws:logs:us-west-2:xxxxxx047983:log-group:testgroup:*"
+ * --source-account "xxxxxx047983"
+ *
+ * Make sure you replace the function name with your function name and replace the xxxxxx with your account details.
+ * For more information, see "Subscription Filters with AWS Lambda" in the Amazon CloudWatch Logs Guide.
  */
 
 public class PutSubscriptionFilter {
@@ -40,18 +39,16 @@ public class PutSubscriptionFilter {
 
         final String USAGE =
                 "To run this example, supply:\n" +
-                        "* a filter name\n" +
-                        "* filter pattern\n" +
-                        "* log group name\n" +
-                        "* a role arn \n" +
-                        "* lambda function arn\n\n" +
-                        "Ex: PutSubscriptionFilter <filter-name> \\\n" +
-                        "                          <filter pattern> \\\n" +
-                        "                          <log-group-name> \\\n" +
-                        "                          <role-arn> \\\n" +
-                        "                          <lambda-function-arn>\n";
+                        "* a filter name (for example, myfilter)\n" +
+                        "* filter pattern (for example, ERROR)\n" +
+                        "* log group name (testgroup)\n" +
+                        "* lambda function arn (for example, arn:aws:lambda:us-west-2:xxxxxx047983:function:lamda1)\n\n" +
+                        "Ex: PutSubscriptionFilter <filter> \\\n" +
+                        "                          <pattern> \\\n" +
+                        "                          <logGroup> \\\n" +
+                        "                          <functionArn>\n";
 
-        if (args.length != 5) {
+        if (args.length != 4) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -59,15 +56,15 @@ public class PutSubscriptionFilter {
         String filter = args[0];
         String pattern = args[1];
         String logGroup = args[2];
-        String roleArn = args[3];
-        String functionArn = args[4];
+        String functionArn = args[3];
 
         Region region = Region.US_WEST_2;
         CloudWatchLogsClient cwl = CloudWatchLogsClient.builder()
                 .region(region)
                 .build();
 
-        putSubFilters(cwl, filter, pattern, logGroup, roleArn, functionArn ) ;
+        putSubFilters(cwl, filter, pattern, logGroup, functionArn ) ;
+        cwl.close();
     }
 
     // snippet-start:[cloudwatch.java2.put_subscription_filter.main]
@@ -75,7 +72,6 @@ public class PutSubscriptionFilter {
                                      String filter,
                                      String pattern,
                                      String logGroup,
-                                     String roleArn,
                                      String functionArn) {
 
         try {
@@ -83,22 +79,19 @@ public class PutSubscriptionFilter {
                     PutSubscriptionFilterRequest.builder()
                             .filterName(filter)
                             .filterPattern(pattern)
-                            .roleArn(roleArn)
                             .logGroupName(logGroup)
                             .destinationArn(functionArn)
                             .build();
 
-            PutSubscriptionFilterResponse response =
-                    cwl.putSubscriptionFilter(request);
+            cwl.putSubscriptionFilter(request);
+            System.out.printf(
+                    "Successfully created CloudWatch logs subscription filter %s",
+                    filter);
 
         } catch (CloudWatchLogsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
-        System.out.printf(
-                "Successfully created CloudWatch log subscription filter %s",
-                filter);
     }
 }
 // snippet-end:[cloudwatch.java2.put_subscription_filter.main]

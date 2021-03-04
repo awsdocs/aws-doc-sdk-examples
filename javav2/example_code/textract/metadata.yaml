@@ -1,0 +1,17 @@
+--- 
+files:
+  - path: src/main/java/com/example/textract/AnalyzeDocument.java
+    services:
+      - textract
+  - path: src/main/java/com/example/textract/DetectDocumentText.java
+    services:
+      - textract
+  - path: src/main/java/com/example/textract/DetectDocumentTextS3.java
+    services:
+      - textract
+  - path: src/main/java/com/example/textract/StartDocumentAnalysis.java
+    services:
+      - textract
+  - path: src/test/java/AmazonTextractServiceIntegrationTest.java
+    services:
+      - textract      

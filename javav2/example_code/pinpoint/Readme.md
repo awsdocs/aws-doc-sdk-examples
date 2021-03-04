@@ -10,20 +10,13 @@ The Java examples perform AWS operations for the account and AWS Region for whic
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting an Amazon Pinpoint application. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
-To run these examples, you'll need the AWS SDK for Java libraries in your **CLASSPATH**.
-
-	export CLASSPATH=target/sdk-pinpoint-examples-1.0.jar:/path/to/aws-java-sdk/<jar-file-name>.jar
-
-Here **/path/to/aws-java-sdk/<jar-file-name>.jar** is the path to where you extracted or built the AWS SDK for Java JAR file.
-
-For systems with Bash support, once you set the **CLASSPATH**, you can run a particular example as follows.
-
-	java com.example.pinpoint.CreateApp
+To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 
 
  ## Testing the Amazon Pinpoint Java files
 
-You can test the Java code examples for Amazon Pinpoint by running a test file named **AmazonPinpointServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for Amazon Pinpoint by running a test file named **AmazonPinpointTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is run, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -37,12 +30,20 @@ Before running the JUnit tests, you must define values in the **config.propertie
 Define these values to successfully run the JUnit tests:
 
 - **appName** - The name of the Amazon Pinpoint application. For example, **TestApp2**.
-
 - **bucket** – The name of an Amazon S3 bucket to use for the **ImportSegments** test.
-
 - **path** – The path where the JSON file is located in the bucket for the **ImportSegments** test. For example, **imports/myjson.json**.
-
 - **roleArn** - The Amazon Resource Name (ARN) of the role for the **ImportSegments** test.
+- **existingApplicationId** - An existing application Id value used in various tests.
+- **userId** - An existing user Id value used in various tests.
+- **s3BucketName** - An Amazon S3 bucket that is used in the **ExportEndpoints** test.
+- **iamExportRoleArn** - The ARN of an IAM role that grants Amazon Pinpoint write permissions to the S3 bucket and used in the **ExportEndpoints** test.
+- **filePath** - The path where the files downloaded from the Amazon S3 bucket are written (for example, C:/AWS/).
+- **subject** - The email subject to use in the **SendEmailMessage** test.
+- **senderAddress** - The from address. This address has to be verified in Amazon Pinpoint in the region you're using to send email .
+- **senderAddress** - The to address. This address has to be verified in Amazon Pinpoint in the region you're using to send email .
+- **originationNumber** - The phone number or short code that you specify has to be associated with your Amazon Pinpoint account. For best results, specify long codes in E.164 format (for example, +1-555-555-5654).
+- **destinationNumber** - The phone number or short code that you specify has to be associated with your Amazon Pinpoint account. For best results, specify long codes in E.164 format (for example, +1-555-555-5654).
+- **message** - The message to use in the **SendMessage** test. 
 
 
 ###  Sample policy text
@@ -100,14 +101,14 @@ You will see output from the JUnit tests, as shown here.
 	 [INFO] -------------------------------------------------------
 	 [INFO]  T E S T S
 	 [INFO] -------------------------------------------------------
-	 [INFO] Running AmazonPinpointServiceIntegrationTest
+	 [INFO] Running AmazonPinpointTest
 	 Running Amazon Test 1
 	 Running Amazon Test 2
 	 ...
 	 Done!
 	 [INFO] Results:
 	 [INFO]
-	 [INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0
+	 [INFO] Tests run: 17, Failures: 0, Errors: 0, Skipped: 0
 	 [INFO]
 	 INFO] --------------------------------------------
 	 [INFO] BUILD SUCCESS

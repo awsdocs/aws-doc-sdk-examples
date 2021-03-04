@@ -21,6 +21,9 @@ files:
  - path: src/main/java/com/example/cloudwatch/GetLogEvents.java
    services:
      - cloudwatch
+ - path: src/main/java/com/example/cloudwatch/GetMetricData.java
+   services:
+     - cloudwatch
  - path: src/main/java/com/example/cloudwatch/ListMetrics.java
    services:
      - cloudwatch
@@ -45,4 +48,4 @@ files:
  - path: src/main/java/com/example/cloudwatch/PutTargets.java
    services:
      - cloudwatch
- - path: src/test/java/CloudWatchServiceIntegrationTest.java
+ - path: src/test/java/CloudWatchTest.java

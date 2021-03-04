@@ -1,27 +1,16 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetObjectUsingPresignedUrl.java demonstrates how to get an object located in an Amazon S3 bucket by using the S3Presigner client object]
-// snippet-service:[S3]
-// snippet-keyword:[Java]
-// snippet-keyword:[Amazon S3]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/6/2020]
+// snippet-sourcedescription:[GetObjectUsingPresignedUrl.java demonstrates how to get an object located in an Amazon Simple Storage Service (Amazon S3) bucket by using the S3Presigner client object]
+//snippet-keyword:[AWS SDK for Java v2]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon S3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[01/06/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 package com.example.s3;
 
 // snippet-start:[presigned.java2.getobjectpresigned.import]
@@ -30,6 +19,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.time.Duration;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
@@ -41,32 +31,40 @@ import software.amazon.awssdk.utils.IoUtils;
 public class GetObjectPresignedUrl {
 
     public static void main(String[] args) {
-        if (args.length < 2) {
-            System.out.println("Please specify a bucket name and key name");
-            System.exit(1);
+
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    GetObjectPresignedUrl <bucketName> <keyName> \n\n" +
+                "Where:\n" +
+                "    bucketName - the Amazon S3 bucket name. \n\n"+
+                "    keyName - a key name that represents a text file. \n\n";
+
+        if (args.length != 2) {
+           System.out.println(USAGE);
+           System.exit(1);
         }
 
         String bucketName = args[0];
         String keyName = args[1];
+        Region region = Region.US_WEST_2;
+        S3Presigner presigner = S3Presigner.builder()
+                .region(region)
+                .build();
 
-        // Create an S3Presigner by using the default AWS Region and credentials
-        S3Presigner presigner = S3Presigner.create();
-        getPresignedUrl(presigner, bucketName,keyName);
+        getPresignedUrl(presigner, bucketName, keyName);
+        presigner.close();
 
     }
       // snippet-start:[presigned.java2.getobjectpresigned.main]
-       public static void getPresignedUrl( S3Presigner presigner, String bucketName,String keyName ) {
+       public static void getPresignedUrl(S3Presigner presigner, String bucketName, String keyName ) {
 
         try {
-
-            // Create a GetObjectRequest to be pre-signed
             GetObjectRequest getObjectRequest =
                     GetObjectRequest.builder()
                             .bucket(bucketName)
                             .key(keyName)
                             .build();
 
-            // Create a GetObjectPresignRequest to specify the signature duration
             GetObjectPresignRequest getObjectPresignRequest =
                     GetObjectPresignRequest.builder()
                             .signatureDuration(Duration.ofMinutes(10))
@@ -80,10 +78,7 @@ public class GetObjectPresignedUrl {
             // Log the presigned URL
             System.out.println("Presigned URL: " + presignedGetObjectRequest.url());
 
-            // Create a JDK HttpURLConnection for communicating with S3
             HttpURLConnection connection = (HttpURLConnection) presignedGetObjectRequest.url().openConnection();
-
-            // Specify any headers that the service needs (not needed when isBrowserExecutable is true)
             presignedGetObjectRequest.httpRequest().headers().forEach((header, values) -> {
                 values.forEach(value -> {
                     connection.addRequestProperty(header, value);
@@ -104,14 +99,6 @@ public class GetObjectPresignedUrl {
                 System.out.println("Service returned response: ");
                 IoUtils.copy(content, System.out);
             }
-
-            /*
-             *  It's recommended that you close the S3Presigner when it is done being used, because some credential
-             * providers (e.g. if your AWS profile is configured to assume an STS role) require system resources
-             * that need to be freed. If you are using one S3Presigner per application (as recommended), this
-             * usually isn't needed
-             */
-            presigner.close();
 
         } catch (S3Exception e) {
             e.getStackTrace();

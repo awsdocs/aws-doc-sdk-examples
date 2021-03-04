@@ -1,0 +1,13 @@
+---
+# Transcribe app
+files:
+  - path: helper.ts
+    services:
+      - S3
+  - path: index.ts
+    services:
+      - S3
+  - path: recorder.ts
+    services:
+      - S3
+...

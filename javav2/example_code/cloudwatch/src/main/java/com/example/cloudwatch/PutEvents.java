@@ -1,25 +1,15 @@
-//snippet-sourcedescription:[PutEvents.java demonstrates how to put a sample Amazon CloudWatch event.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[PutEvents.java demonstrates how to put a sample CloudWatch event.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/02/2020]
-//snippet-sourceauthor:[scmacdon-aws]
+//snippet-sourcedate:[11/02/2020]
+//snippet-sourceauthor:[scmacdon - aws]
 
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.put_events.import]
@@ -30,14 +20,14 @@ import software.amazon.awssdk.services.cloudwatchevents.model.PutEventsRequestEn
 import software.amazon.awssdk.services.cloudwatchevents.model.PutEventsResponse;
 // snippet-end:[cloudwatch.java2.put_events.import]
 
-/**
- * Puts a sample CloudWatch event
- */
 public class PutEvents {
     public static void main(String[] args) {
-        final String USAGE =
-                "To run this example, supply a resource ARN\n" +
-                        "Ex: PutEvents <resource-arn>\n";
+
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "  PutEvents <resourceArn>\n\n" +
+                "Where:\n" +
+                "  resourceArn - an Amazon Resource Name (ARN) related to the events.\n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -45,12 +35,11 @@ public class PutEvents {
         }
 
         String resourceArn = args[0];
-
-
         CloudWatchEventsClient cwe =
                 CloudWatchEventsClient.builder().build();
 
         putCWEvents(cwe, resourceArn );
+        cwe.close();
     }
 
     // snippet-start:[cloudwatch.java2.put_events.main]
@@ -62,21 +51,23 @@ public class PutEvents {
                 "{ \"key1\": \"value1\", \"key2\": \"value2\" }";
 
             PutEventsRequestEntry requestEntry = PutEventsRequestEntry.builder()
-                .detail(EVENT_DETAILS)
-                .detailType("sampleSubmitted")
-                .resources(resourceArn)
-                .source("aws-sdk-java-cloudwatch-example").build();
+                    .detail(EVENT_DETAILS)
+                    .detailType("sampleSubmitted")
+                    .resources(resourceArn)
+                    .source("aws-sdk-java-cloudwatch-example")
+                    .build();
 
             PutEventsRequest request = PutEventsRequest.builder()
-                .entries(requestEntry).build();
+                    .entries(requestEntry)
+                    .build();
 
-            PutEventsResponse response = cwe.putEvents(request);
+            cwe.putEvents(request);
+            System.out.println("Successfully put CloudWatch event");
 
         } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
         // snippet-end:[cloudwatch.java2.put_events.main]
-        System.out.println("Successfully put CloudWatch event");
-    }
+   }
 }

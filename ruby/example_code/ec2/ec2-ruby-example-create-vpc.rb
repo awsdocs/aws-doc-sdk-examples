@@ -1,44 +1,87 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Creates a VPC with DNS support and hostname enabled and adds a tag to the VPC.]
-# snippet-keyword:[Amazon Elastic Compute Cloud]
-# snippet-keyword:[create_vpc method]
-# snippet-keyword:[Vpc.modify_attribute method]
-# snippet-keyword:[Vpc.create_tags method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[ec2]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
+
+require 'aws-sdk-ec2'
+
+# Creates a virtual private cloud (VPC) in
+# Amazon Virtual Private Cloud (Amazon VPC) and then tags
+# the VPC.
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# @param ec2_resource [Aws::EC2::Resource] An initialized
+#   Amazon Elastic Compute Cloud (Amazon EC2) resource object.
+# @param cidr_block [String] The IPv4 CIDR block for the subnet.
+# @param tag_key [String] The key portion of the tag for the VPC. 
+# @param tag_value [String] The value portion of the tag for the VPC.
+# @return [Boolean] true if the VPC was created and tagged;
+#   otherwise, false.
+# @example
+#   exit 1 unless vpc_created_and_tagged?(
+#     Aws::EC2::Resource.new(region: 'us-east-1'),
+#     '10.0.0.0/24',
+#     'my-key',
+#     'my-value'
+#   )
+def vpc_created_and_tagged?(
+  ec2_resource,
+  cidr_block,
+  tag_key,
+  tag_value
+)
+  vpc = ec2_resource.create_vpc(cidr_block: cidr_block)
 
-require 'aws-sdk-ec2'  # v2: require 'aws-sdk'
+  # Create a public DNS by enabling DNS support and DNS hostnames.
+  vpc.modify_attribute(enable_dns_support: { value: true })
+  vpc.modify_attribute(enable_dns_hostnames: { value: true })
 
-ec2 = Aws::EC2::Resource.new(region: 'us-west-2')
+  vpc.create_tags(tags: [{ key: tag_key, value: tag_value }])
 
-vpc = ec2.create_vpc({ cidr_block: '10.200.0.0/16' })
+  puts "Created VPC with ID '#{vpc.id}' and tagged with key " \
+    "'#{tag_key}' and value '#{tag_value}'."
+  return true
+rescue StandardError => e
+  puts "#{e.message}"
+  return false
+end
 
-# So we get a public DNS
-vpc.modify_attribute({
-  enable_dns_support: { value: true }
-})
+# Full example call:
+def run_me
+  cidr_block = ''
+  tag_key = ''
+  tag_value = ''
+  region = ''
+  # Print usage information and then stop.
+  if ARGV[0] == '--help' || ARGV[0] == '-h'
+    puts 'Usage:   ruby ec2-ruby-example-create-vpc.rb ' \
+      'CIDR_BLOCK TAG_KEY TAG_VALUE REGION'
+    puts 'Example: ruby ec2-ruby-example-create-vpc.rb ' \
+      '10.0.0.0/24 my-key my-value us-east-1'
+    exit 1
+  # If no values are specified at the command prompt, use these default values.
+  elsif ARGV.count.zero?
+    cidr_block = '10.0.0.0/24'
+    tag_key = 'my-key'
+    tag_value = 'my-value'
+    region = 'us-east-1'
+  # Otherwise, use the values as specified at the command prompt.
+  else
+    cidr_block = ARGV[0]
+    tag_key = ARGV[1]
+    tag_value = ARGV[2]
+    region = ARGV[3]
+  end
 
-vpc.modify_attribute({
-  enable_dns_hostnames: { value: true }
-})
+  ec2_resource = Aws::EC2::Resource.new(region: region)
 
-# Name our VPC
-vpc.create_tags({ tags: [{ key: 'Name', value: 'MyGroovyVPC' }]})
+  if vpc_created_and_tagged?(
+    ec2_resource,
+    cidr_block,
+    tag_key,
+    tag_value
+  )
+    puts 'VPC created and tagged.'
+  else
+    puts 'VPC not created or not tagged.'
+  end
+end
 
-puts vpc.vpc_id
+run_me if $PROGRAM_NAME == __FILE__

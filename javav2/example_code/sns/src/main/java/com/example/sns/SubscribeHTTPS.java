@@ -1,26 +1,15 @@
-//snippet-sourcedescription:[SubscribeHTTPS.java demonstrates how to send a confirmation message to a URL.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
+//snippet-sourcedescription:[SubscribeHTTPS.java demonstrates how to demonstrates how to subscribe to an Amazon Simple Notification Service (Amazon SNS) HTTPs endpoint.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-07-20]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[11/06/2020]
+//snippet-sourceauthor:[scmacdon- AWS]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.sns;
 
@@ -36,11 +25,11 @@ public class SubscribeHTTPS {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "SubscribeHTTPS - send confirmation message to a URL endpoint.\n" +
-                "Usage: SubscribeHTTPS <topicArn> <url>\n\n" +
+                "Usage: " +
+                "SubscribeHTTPS <topicArn> <url>\n\n" +
                 "Where:\n" +
                 "  topicArn - the ARN of the topic to subscribe.\n\n" +
-                "  url - HTTPS endpoint to subscribe.\n\n";
+                "  url - the HTTPS endpoint that you want to receive notifications.\n\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -54,11 +43,12 @@ public class SubscribeHTTPS {
                 .region(Region.US_WEST_2)
                 .build();
 
-        subHTTS(snsClient, topicArn, url) ;
+        subHTTPS(snsClient, topicArn, url) ;
+        snsClient.close();
     }
 
     //snippet-start:[sns.java2.SubscribeHTTPS.main]
-    public static void subHTTS(SnsClient snsClient, String topicArn, String url ) {
+    public static void subHTTPS(SnsClient snsClient, String topicArn, String url ) {
 
         try {
             SubscribeRequest request = SubscribeRequest.builder()
@@ -69,13 +59,12 @@ public class SubscribeHTTPS {
                 .build();
 
             SubscribeResponse result = snsClient.subscribe(request);
-            System.out.println("Subscription ARN: " + result.subscriptionArn() + "\n\n Status was " + result.sdkHttpResponse().statusCode());
+            System.out.println("Subscription ARN is " + result.subscriptionArn() + "\n\n Status is " + result.sdkHttpResponse().statusCode());
 
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
          }
-
         //snippet-end:[sns.java2.SubscribeHTTPS.main]
     }
 }

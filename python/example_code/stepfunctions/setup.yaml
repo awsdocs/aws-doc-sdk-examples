@@ -1,0 +1,228 @@
+Resources:
+  docexamplestepfunctionsmessages655FAA79:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+        - AttributeName: user_name
+          KeyType: HASH
+        - AttributeName: message_id
+          KeyType: RANGE
+      AttributeDefinitions:
+        - AttributeName: user_name
+          AttributeType: S
+        - AttributeName: message_id
+          AttributeType: S
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      TableName: doc-example-stepfunctions-messages
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: doc-example-stepfunctions-messages-stack/doc-example-stepfunctions-messages/Resource
+  docexamplestepfunctionslambdamessagesroleA963E816:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      RoleName: doc-example-stepfunctions-lambda-messages-role
+    Metadata:
+      aws:cdk:path: doc-example-stepfunctions-messages-stack/doc-example-stepfunctions-lambda-messages-role/Resource
+  docexamplestepfunctionslambdamessagesroleDefaultPolicy2726D8C5:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action: dynamodb:Scan
+            Effect: Allow
+            Resource:
+              Fn::GetAtt:
+                - docexamplestepfunctionsmessages655FAA79
+                - Arn
+        Version: "2012-10-17"
+      PolicyName: docexamplestepfunctionslambdamessagesroleDefaultPolicy2726D8C5
+      Roles:
+        - Ref: docexamplestepfunctionslambdamessagesroleA963E816
+    Metadata:
+      aws:cdk:path: doc-example-stepfunctions-messages-stack/doc-example-stepfunctions-lambda-messages-role/DefaultPolicy/Resource
+  docexamplestepfunctionsscanmessages57A7ACC8:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        ZipFile:
+          Fn::Join:
+            - ""
+            - - >-
+                import boto3
+
+                from boto3.dynamodb.conditions import Attr
+
+                def lambda_handler(event, context):
+                    return boto3.resource('dynamodb').Table('
+              - Ref: docexamplestepfunctionsmessages655FAA79
+              - "').scan(FilterExpression=Attr('sent').eq(False))['Items']"
+      Role:
+        Fn::GetAtt:
+          - docexamplestepfunctionslambdamessagesroleA963E816
+          - Arn
+      Handler: index.lambda_handler
+      Runtime: python3.7
+    DependsOn:
+      - docexamplestepfunctionslambdamessagesroleDefaultPolicy2726D8C5
+      - docexamplestepfunctionslambdamessagesroleA963E816
+    Metadata:
+      aws:cdk:path: doc-example-stepfunctions-messages-stack/doc-example-stepfunctions-scan-messages/Resource
+  docexamplestepfunctionsqueueBFE470E4:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: doc-example-stepfunctions-queue
+    Metadata:
+      aws:cdk:path: doc-example-stepfunctions-messages-stack/doc-example-stepfunctions-queue/Resource
+  docexamplestepfunctionsmessagesrole5CFF9C6C:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                Fn::Join:
+                  - ""
+                  - - states.
+                    - Ref: AWS::Region
+                    - .amazonaws.com
+        Version: "2012-10-17"
+      RoleName: doc-example-stepfunctions-messages-role
+    Metadata:
+      aws:cdk:path: doc-example-stepfunctions-messages-stack/doc-example-stepfunctions-messages-role/Resource
+  docexamplestepfunctionsmessagesroleDefaultPolicyF77A78C5:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action: dynamodb:UpdateItem
+            Effect: Allow
+            Resource:
+              Fn::GetAtt:
+                - docexamplestepfunctionsmessages655FAA79
+                - Arn
+          - Action: lambda:InvokeFunction
+            Effect: Allow
+            Resource:
+              Fn::GetAtt:
+                - docexamplestepfunctionsscanmessages57A7ACC8
+                - Arn
+          - Action: sqs:SendMessage
+            Effect: Allow
+            Resource:
+              Fn::GetAtt:
+                - docexamplestepfunctionsqueueBFE470E4
+                - Arn
+        Version: "2012-10-17"
+      PolicyName: docexamplestepfunctionsmessagesroleDefaultPolicyF77A78C5
+      Roles:
+        - Ref: docexamplestepfunctionsmessagesrole5CFF9C6C
+    Metadata:
+      aws:cdk:path: doc-example-stepfunctions-messages-stack/doc-example-stepfunctions-messages-role/DefaultPolicy/Resource
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
+    Properties:
+      Modules: aws-cdk=1.85.0,@aws-cdk/assets=1.85.0,@aws-cdk/aws-applicationautoscaling=1.85.0,@aws-cdk/aws-autoscaling-common=1.85.0,@aws-cdk/aws-cloudwatch=1.85.0,@aws-cdk/aws-codeguruprofiler=1.85.0,@aws-cdk/aws-dynamodb=1.85.0,@aws-cdk/aws-ec2=1.85.0,@aws-cdk/aws-ecr=1.85.0,@aws-cdk/aws-ecr-assets=1.85.0,@aws-cdk/aws-events=1.85.0,@aws-cdk/aws-iam=1.85.0,@aws-cdk/aws-kms=1.85.0,@aws-cdk/aws-lambda=1.85.0,@aws-cdk/aws-logs=1.85.0,@aws-cdk/aws-s3=1.85.0,@aws-cdk/aws-s3-assets=1.85.0,@aws-cdk/aws-sqs=1.85.0,@aws-cdk/aws-ssm=1.85.0,@aws-cdk/cloud-assembly-schema=1.85.0,@aws-cdk/core=1.85.0,@aws-cdk/custom-resources=1.85.0,@aws-cdk/cx-api=1.85.0,@aws-cdk/region-info=1.85.0,jsii-runtime=node.js/v14.15.2
+    Metadata:
+      aws:cdk:path: doc-example-stepfunctions-messages-stack/CDKMetadata/Default
+    Condition: CDKMetadataAvailable
+Outputs:
+  MessageTableName:
+    Value:
+      Ref: docexamplestepfunctionsmessages655FAA79
+  SendQueueUrl:
+    Value:
+      Ref: docexamplestepfunctionsqueueBFE470E4
+  ScanFunctionArn:
+    Value:
+      Fn::GetAtt:
+        - docexamplestepfunctionsscanmessages57A7ACC8
+        - Arn
+  StepRoleArn:
+    Value:
+      Fn::GetAtt:
+        - docexamplestepfunctionsmessagesrole5CFF9C6C
+        - Arn
+Conditions:
+  CDKMetadataAvailable:
+    Fn::Or:
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ca-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-northwest-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-central-1
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-3
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - me-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - sa-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-2
+

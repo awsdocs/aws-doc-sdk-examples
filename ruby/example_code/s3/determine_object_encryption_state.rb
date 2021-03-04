@@ -1,36 +1,56 @@
-#**
- #* Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- #*
- #* This file is licensed under the Apache License, Version 2.0 (the "License").
- #* You may not use this file except in compliance with the License. A copy of
- #* the License is located at
- #*
- #* http://aws.amazon.com/apache2.0/
- #*
- #* This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- #* CONDITIONS OF ANY KIND, either express or implied. See the License for the
- #* specific language governing permissions and limitations under the License.
-#**
-# snippet-sourcedescription:[determine_object_encryption_state.rb shows how to determine the encryption state of an existing object.] 
-# snippet-service:[s3]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-keyword:[Amazon S3]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[GET server_side_encryption Object]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2019-02-11]
-# snippet-sourceauthor:[AWS]
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
+
 # snippet-start:[s3.ruby.determine_object_encryption_state.rb]
-# Determine server-side encryption of an object.
 require 'aws-sdk-s3'
 
-regionName = 'us-west-2' 
-bucketName='bucket-name'
-key = 'key'
-
-s3 = Aws::S3::Resource.new(region:regionName)
-enc = s3.bucket(bucketName).object(key).server_side_encryption
-enc_state = (enc != nil) ? enc : "not set"
-puts "Encryption state is #{enc_state}."
+# Gets the server-side encryption state of an object in an Amazon S3 bucket.
+#
+# Prerequisites:
+#
+# - An Amazon S3 bucket.
+# - An object within that bucket.
+#
+# @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
+# @param bucket_name [String] The bucket's name.
+# @param object_key [String] The object's key.
+# @return [String] The server-side encryption state.
+# @example
+#   s3_client = Aws::S3::Client.new(region: 'us-east-1')
+#   puts get_server_side_encryption_state(
+#     s3_client,
+#     'doc-example-bucket',
+#     'my-file.txt'
+#   )
+def get_server_side_encryption_state(s3_client, bucket_name, object_key)
+  response = s3_client.get_object(
+    bucket: bucket_name,
+    key: object_key
+  )
+  encryption_state = response.server_side_encryption
+  encryption_state.nil? ? 'not set' : encryption_state
+rescue StandardError => e
+  "unknown or error: #{e.message}"
+end
 # snippet-end:[s3.ruby.determine_object_encryption_state.rb]
+
+# Full example call:
+def run_me
+  bucket_name = 'doc-example-bucket'
+  object_key = 'my-file.txt'
+  region = 'us-east-1'
+  s3_client = Aws::S3::Client.new(region: region)
+
+  puts "Getting server-side encryption state for object '#{object_key}' " \
+    "in bucket '#{bucket_name}'..."
+
+  state = get_server_side_encryption_state(
+    s3_client,
+    bucket_name,
+    object_key
+  )
+
+  puts "Encryption state is #{state}."
+end
+
+run_me if $PROGRAM_NAME == __FILE__

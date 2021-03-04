@@ -104,19 +104,9 @@ class IamStubber(ExampleStubber):
             'RoleName': role_name,
             'AssumeRolePolicyDocument': assume_role_policy
         }
-
-        if not error_code:
-            self.add_response(
-                'create_role',
-                expected_params=expected_params,
-                service_response=self._add_role({}, role_name)
-            )
-        else:
-            self.add_client_error(
-                'create_role',
-                expected_params=expected_params,
-                service_error_code=error_code
-            )
+        response = self._add_role({}, role_name)
+        self._stub_bifurcator(
+            'create_role', expected_params, response, error_code=error_code)
 
     def stub_get_role(self, role_name, role_arn=None, status_code=200, error_code=None):
         expected_params = {'RoleName': role_name}
@@ -236,39 +226,21 @@ class IamStubber(ExampleStubber):
             'RoleName': role_name,
             'PolicyArn': policy_arn
         }
-        if not error_code:
-            self.add_response(
-                'attach_role_policy',
-                expected_params=expected_params,
-                service_response={}
-            )
-        else:
-            self.add_client_error(
-                'attach_role_policy',
-                expected_params=expected_params,
-                service_error_code=error_code
-            )
+        self._stub_bifurcator(
+            'attach_role_policy', expected_params, error_code=error_code)
 
-    def stub_list_attached_role_policies(self, role_name, policies=None,
-                                         error_code=None):
+    def stub_list_attached_role_policies(
+            self, role_name, policies=None, error_code=None):
         expected_params = {'RoleName': role_name}
-        if not error_code:
-            self.add_response(
-                'list_attached_role_policies',
-                expected_params=expected_params,
-                service_response={
-                    'AttachedPolicies': [{
-                        'PolicyName': name,
-                        'PolicyArn': arn
-                    } for name, arn in policies.items()]
-                }
-            )
-        else:
-            self.add_client_error(
-                'list_attached_role_policies',
-                expected_params=expected_params,
-                service_error_code=error_code
-            )
+        response = {
+            'AttachedPolicies': [{
+                'PolicyName': name,
+                'PolicyArn': arn
+            } for name, arn in policies.items()]
+        }
+        self._stub_bifurcator(
+            'list_attached_role_policies', expected_params, response,
+            error_code=error_code)
 
     def stub_detach_role_policy(self, role_name, policy_arn, error_code=None):
         self._stub_bifurcator(
@@ -454,3 +426,48 @@ class IamStubber(ExampleStubber):
         expected_params = {'UserName': user_name, 'SerialNumber': serial_number}
         self._stub_bifurcator(
             'deactivate_mfa_device', expected_params, error_code=error_code)
+
+    def stub_create_instance_profile(self, profile_name, error_code=None):
+        expected_params = {'InstanceProfileName': profile_name}
+        response = {'InstanceProfile': {
+            'Path': '/',
+            'InstanceProfileName': profile_name,
+            'InstanceProfileId': 'EXAMPLEEXAMPLEEXAMPLE',
+            'Arn': f'arn:aws:iam::123456EXAMPLE:instance-profile/{profile_name}',
+            'CreateDate': datetime.datetime.now(),
+            'Roles': []
+        }}
+        self._stub_bifurcator(
+            'create_instance_profile', expected_params, response, error_code=error_code)
+
+    def stub_add_role_to_instance_profile(
+            self, profile_name, role_name, error_code=None):
+        expected_params = {'InstanceProfileName': profile_name, 'RoleName': role_name}
+        self._stub_bifurcator(
+            'add_role_to_instance_profile', expected_params, error_code=error_code)
+
+    def stub_list_instance_profiles_for_role(
+            self, role_name, profiles, error_code=None):
+        expected_params = {'RoleName': role_name}
+        response = {'InstanceProfiles': [{
+            'Path': '/',
+            'InstanceProfileName': profile,
+            'InstanceProfileId': 'EXAMPLEEXAMPLEEXAMPLE',
+            'Arn': f'arn:aws:iam::123456EXAMPLE:instance-profile/{profile}',
+            'CreateDate': datetime.datetime.now(),
+            'Roles': []
+        } for profile in profiles]}
+        self._stub_bifurcator(
+            'list_instance_profiles_for_role', expected_params, response,
+            error_code=error_code)
+
+    def stub_remove_role_from_instance_profile(
+            self, profile_name, role_name, error_code=None):
+        expected_params = {'InstanceProfileName': profile_name, 'RoleName': role_name}
+        self._stub_bifurcator(
+            'remove_role_from_instance_profile', expected_params, error_code=error_code)
+
+    def stub_delete_instance_profile(self, profile_name, error_code=None):
+        expected_params = {'InstanceProfileName': profile_name}
+        self._stub_bifurcator(
+            'delete_instance_profile', expected_params, error_code=error_code)

@@ -1,25 +1,14 @@
 // snippet-sourcedescription:[ListCollections.java demonstrates how to list the available Amazon Rekognition collections.]
+//snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
-// snippet-keyword:[Java]
-// snippet-keyword:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[6-10-2020]
+// snippet-sourcedate:[11-03-2020]
 // snippet-sourceauthor:[scmacdon - AWS]
-
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.rekognition;
 
@@ -36,13 +25,14 @@ public class ListCollections {
 
     public static void main(String[] args) {
 
-        Region region = Region.US_EAST_2;
+        Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
                 .build();
 
         System.out.println("Listing collections");
         listAllCollections(rekClient);
+        rekClient.close();
     }
 
     // snippet-start:[rekognition.java2.list_collections.main]
@@ -50,15 +40,11 @@ public class ListCollections {
 
         try {
 
-            // Create a ListCollectionsRequest object
             ListCollectionsRequest listCollectionsRequest = ListCollectionsRequest.builder()
                     .maxResults(10)
                     .build();
 
-            // Invoke the listCollections method
             ListCollectionsResponse response = rekClient.listCollections(listCollectionsRequest);
-
-            // Display the results
             List<String> collectionIds = response.collectionIds();
             for (String resultId : collectionIds) {
                 System.out.println(resultId);

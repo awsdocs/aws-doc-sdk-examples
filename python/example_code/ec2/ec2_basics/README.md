@@ -16,10 +16,23 @@ groups.
 - You must have an AWS account, and have your default credentials and AWS Region
   configured as described in the [AWS Tools and SDKs Shared Configuration and
   Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.6 or later
+- Python 3.7 or later
 - Boto3 1.11.10 or later
 - PyTest 5.3.5 or later (to run unit tests)
 - An SSH client, such as Open SSH (to connect to demo instances)
+
+## Cautions
+
+- As an AWS best practice, grant this code least privilege, or only the 
+  permissions required to perform a task. For more information, see 
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
+  in the *AWS Identity and Access Management 
+  User Guide*.
+- This code has not been tested in all AWS Regions. Some AWS services are 
+  available only in specific Regions. For more information, see the 
+  [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
+  on the AWS website.
+- Running this code might result in charges to your AWS account.
 
 ## Running the code
 
@@ -88,16 +101,6 @@ python -m pytest
 - [Boto3 Amazon EC2 examples](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/ec2-examples.html)
 - [Boto3 Amazon EC2 service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html)
 - [Amazon Elastic Compute Cloud Documentation](https://docs.aws.amazon.com/ec2/index.html)
-- As an AWS best practice, grant this code least privilege, or only the 
-  permissions required to perform a task. For more information, see 
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
-  in the *AWS Identity and Access Management 
-  User Guide*.
-- This code has not been tested in all AWS Regions. Some AWS services are 
-  available only in specific Regions. For more information, see the 
-  [AWS Regional Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
-  on the AWS website.
-- Running this code might result in charges to your AWS account.
 
 ---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

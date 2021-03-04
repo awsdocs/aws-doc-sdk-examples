@@ -42,7 +42,7 @@ import yaml
 from yaml.scanner import ScannerError
 from yaml.parser import ParserError
 
-METADATA_FILENAME = 'metadata.yaml'
+METADATA_FILENAMES = ['metadata.yaml', '.metadata.yaml']
 GITHUB_URL = 'https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/'
 
 # A file must have one of these extensions to be counted in file total.
@@ -64,7 +64,9 @@ IGNORE_FOLDERS = {
     'venv',
     'scripts',
     '__pycache__',
-    '.pytest_cache'
+    '.pytest_cache',
+    '.vscode',
+    'vendor'
 }
 
 
@@ -106,7 +108,7 @@ def gather_data(examples_folder):
             if ext.lower() in EXT_LOOKUP:
                 file_url = make_github_url(folder_name, file_name)
                 files.append(file_url)
-            elif file_name.lower() == METADATA_FILENAME:
+            elif file_name.lower() in METADATA_FILENAMES:
                 file_path = os.path.join(folder_name, file_name)
                 print(f"Found metadata: {file_path}.")
                 read_metadata(file_path, examples)
@@ -127,8 +129,11 @@ def read_metadata(file_path, examples):
         try:
             meta_docs = yaml.safe_load_all(meta_stream)
             for example_meta in meta_docs:
-                example_meta['metadata_path'] = file_path
-                examples.append(example_meta)
+                if example_meta is None:
+                    print(f"Empty section found in {file_path}.")
+                else:
+                    example_meta['metadata_path'] = file_path
+                    examples.append(example_meta)
         except (ScannerError, ParserError) as err:
             print(f"Yaml parser error in {file_path}, skipping.")
             print(err)

@@ -265,7 +265,7 @@ func listTrailEvents(sess *session.Session, trailName string, userName string) e
             fmt.Println("ID:     ", aws.StringValue(event.EventId))
             fmt.Println("Time:   ", aws.TimeValue(event.EventTime))
 
-            fmt.Println("Resourcs:")
+            fmt.Println("Resources:")
 
             for _, resource := range event.Resources {
                 fmt.Println("  Name:", aws.StringValue(resource.ResourceName))

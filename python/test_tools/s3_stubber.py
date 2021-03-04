@@ -86,18 +86,9 @@ class S3Stubber(ExampleStubber):
             )
 
     def stub_delete_bucket(self, bucket_name, error_code=None):
-        if not error_code:
-            self.add_response(
-                'delete_bucket',
-                expected_params={'Bucket': bucket_name},
-                service_response={}
-            )
-        else:
-            self.add_client_error(
-                'delete_bucket',
-                expected_params={'Bucket': bucket_name},
-                service_error_code=error_code
-            )
+        expected_params = {'Bucket': bucket_name}
+        self._stub_bifurcator(
+            'delete_bucket', expected_params, error_code=error_code)
 
     def stub_list_buckets(self, buckets, error_code=None):
         response = {
@@ -215,10 +206,10 @@ class S3Stubber(ExampleStubber):
                 service_error_code=error_code
             )
 
-    def stub_put_bucket_policy(self, bucket_name, policy, error_code=None):
+    def stub_put_bucket_policy(self, bucket_name, policy=ANY, error_code=None):
         expected_params = {
             'Bucket': bucket_name,
-            'Policy': json.dumps(policy)
+            'Policy': policy if isinstance(policy, type(ANY)) else json.dumps(policy)
         }
 
         if not error_code:
@@ -387,45 +378,21 @@ class S3Stubber(ExampleStubber):
                           error_code=None):
         if not object_keys:
             object_keys = []
-
         expected_params = {'Bucket': bucket_name}
         if prefix:
             expected_params['Prefix'] = prefix
+        response = {'Contents': [{'Key': key} for key in object_keys]}
+        self._stub_bifurcator(
+            'list_objects', expected_params, response, error_code=error_code)
 
-        if not error_code:
-            self.add_response(
-                'list_objects',
-                expected_params=expected_params,
-                service_response={
-                    'Contents': [{
-                        'Key': key
-                    } for key in object_keys]
-                }
-            )
-        else:
-            self.add_client_error(
-                'list_objects',
-                expected_params=expected_params,
-                service_error_code=error_code
-            )
-
-    def stub_delete_objects(self, bucket_name, object_keys):
-        self.add_response(
-            'delete_objects',
-            expected_params={
-                'Bucket': bucket_name,
-                'Delete': {
-                    'Objects': [{
-                        'Key': key
-                    } for key in object_keys]
-                }
-            },
-            service_response={
-                'Deleted': [{
-                    'Key': key
-                } for key in object_keys]
-            }
-        )
+    def stub_delete_objects(self, bucket_name, object_keys, error_code=None):
+        expected_params = {
+            'Bucket': bucket_name,
+            'Delete': {'Objects': [{'Key': key} for key in object_keys]}
+        }
+        response = {'Deleted': [{'Key': key} for key in object_keys]}
+        self._stub_bifurcator(
+            'delete_objects', expected_params, response, error_code=error_code)
 
     def stub_copy_object(self, src_bucket, src_object_key,
                          dest_bucket, dest_object_key):

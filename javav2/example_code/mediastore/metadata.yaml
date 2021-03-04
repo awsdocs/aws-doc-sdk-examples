@@ -1,0 +1,29 @@
+--- 
+files:
+ - path: src/main/java/com/example/mediastore/CreateContainer.java
+   services:
+     - mediastore
+ - path: src/main/java/com/example/mediastore/DeleteContainer.java
+   services:
+     - mediastore
+ - path: src/main/java/com/example/mediastore/DeleteObject.java
+   services:
+     - mediastore
+ - path: src/main/java/com/example/mediastore/DescribeContainer.java
+   services:
+     - mediastore
+ - path: src/main/java/com/example/mediastore/GetObject.java
+   services:
+     - mediastore
+ - path: src/main/java/com/example/mediastore/ListContainers.java
+   services:
+     - mediastore
+ - path: src/main/java/com/example/mediastore/ListItems.java
+   services:
+     - mediastore
+ - path: src/main/java/com/example/mediastore/PutObject.java
+   services:
+     - mediastore
+ - path: src/test/java/MediaStoreTest.java
+   services:
+     - mediastore

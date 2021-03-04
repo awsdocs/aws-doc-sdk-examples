@@ -1,52 +1,75 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Gets an S3 bucket item using an RSA private key.]
-# snippet-keyword:[Amazon Simple Storage Service]
-# snippet-keyword:[Encryption.get_object method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[s3]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
 
-require 'aws-sdk-s3' # v2: require 'aws-sdk'
+require 'aws-sdk-s3'
 require 'openssl'
 
-if ARGV.empty?()
-  puts 'You must supply a pass phrase'
-  exit 1
+# Downloads an object from an Amazon S3 bucket. The object's contents
+#   were originally encrypted with an RSA public key.
+#
+# Prerequisites:
+#
+# - An Amazon S3 bucket.
+# - An object in this bucket.
+#
+# @param s3_encryption_client [Aws::S3::EncryptionV2::Client] An initialized
+#   Amazon S3 encryption client.
+# @param bucket_name [String] The bucket's name.
+# @param object_key [String] The name of the object.
+# @return [String] The object's content; otherwise, information about the
+#   failed download operation.
+# @example
+#   puts download_object_with_private_key_encryption(
+#     Aws::S3::EncryptionV2::Client.new(
+#       encryption_key: OpenSSL::PKey::RSA.new(File.read('my-private-key.pem')),
+#       key_wrap_schema: :rsa_oaep_sha1,
+#       content_encryption_schema: :aes_gcm_no_padding,
+#       security_profile: :v2,
+#       region: 'us-east-1'
+#     ),
+#     'doc-example-bucket',
+#     'my-file.txt'
+#   )
+def download_object_with_private_key_encryption(
+  s3_encryption_client,
+  bucket_name,
+  object_key
+)
+  response = s3_encryption_client.get_object(
+    bucket: bucket_name,
+    key: object_key
+  )
+  return response.body.read
+rescue StandardError => e
+  puts "Error downloading object: #{e.message}"
 end
 
-pass_phrase = ARGV[0]
+# Full example call:
+# Prerequisites: the same RSA key pair you originally used to encrypt the object.
+def run_me
+  bucket_name = 'doc-example-bucket'
+  object_key = 'my-file.txt'
+  region = 'us-east-1'
+  private_key_file = 'my-private-key.pem'
+  private_key = OpenSSL::PKey::RSA.new(File.read(private_key_file))
 
-bucket = 'my_bucket'
-item = 'my_item'
-key_file = 'private_key.pem'
-
-begin
-  private_key = File.binread(key_file)
-  key = OpenSSL::PKey::RSA.new(private_key, pass_phrase)
-
-  # encryption client
-  enc_client = Aws::S3::EncryptionV2::Client.new(encryption_key: key)
-
-  resp = enc_client.get_object(bucket: bucket, key: item)
-
-  puts resp.body.read
-rescue StandardError => ex
-  puts 'Could not get item'
-  puts 'Error message:'
-  puts ex.message
+  # When initializing this Amazon S3 encryption client, note:
+  # - For key_wrap_schema, use rsa_oaep_sha1 for asymmetric keys.
+  # - For security_profile, for reading or decrypting objects encrypted
+  #     by the v1 encryption client, use :v2_and_legacy instead.
+  s3_encryption_client = Aws::S3::EncryptionV2::Client.new(
+    encryption_key: private_key,
+    key_wrap_schema: :rsa_oaep_sha1,
+    content_encryption_schema: :aes_gcm_no_padding,
+    security_profile: :v2,
+    region: region
+  )
+  puts "The content of '#{object_key}' in bucket '#{bucket_name}' is:"
+  puts download_object_with_private_key_encryption(
+    s3_encryption_client,
+    bucket_name,
+    object_key
+  )
 end
+
+run_me if $PROGRAM_NAME == __FILE__

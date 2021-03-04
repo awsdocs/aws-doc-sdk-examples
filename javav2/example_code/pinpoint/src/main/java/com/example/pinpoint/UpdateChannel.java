@@ -1,27 +1,15 @@
-//snippet-sourcedescription:[UpdateChannel.java demonstrates how to update a channel for an application in Amazon Pinpoint.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
+//snippet-sourcedescription:[UpdateChannel.java demonstrates how to update a channel for an Amazon Pinpoint application.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
-//snippet-service:[pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[4/14/2020]
-//snippet-sourceauthor:[scmacdon AWS]
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+//snippet-sourcedate:[11/05/2020]
+//snippet-sourceauthor:[scmacdon-aws]
 
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 package com.example.pinpoint;
 
 //snippet-start:[pinpoint.java2.updatechannel.import]
@@ -37,16 +25,18 @@ import software.amazon.awssdk.services.pinpoint.model.UpdateSmsChannelResponse;
 
 public class UpdateChannel {
     public static void main(String[] args) {
-        final String USAGE = "\n" +
-                "UpdateChannel -  update a channel in Amazon Pinpoint\n\n" +
-                "Usage: CreateChannel <appId>\n\n" +
-                "Where:\n" +
-                "  appId - the name of the application to update.\n\n";
 
-        if (args.length < 1) {
+        final String USAGE = "\n" +
+                "Usage: " +
+                "CreateChannel <appId>\n\n" +
+                "Where:\n" +
+                "  appId - the name of the application whose channel is updated.\n\n";
+
+        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
+
         String appId = args[0];
         PinpointClient pinpoint = PinpointClient.builder()
                 .region(Region.US_EAST_1)
@@ -54,6 +44,7 @@ public class UpdateChannel {
 
         SMSChannelResponse getResponse = getSMSChannel(pinpoint, appId);
         toggleSmsChannel(pinpoint, appId, getResponse);
+        pinpoint.close();
     }
 
     //snippet-start:[pinpoint.java2.updatechannel.main]
@@ -65,7 +56,7 @@ public class UpdateChannel {
                     .build();
 
             SMSChannelResponse response = client.getSmsChannel(request).smsChannelResponse();
-            System.out.println("Channel state: " + response.enabled());
+            System.out.println("Channel state is " + response.enabled());
             return response;
 
         } catch ( PinpointException e) {

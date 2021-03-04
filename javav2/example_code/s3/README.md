@@ -10,20 +10,13 @@ The Java examples perform AWS operations for the account and AWS Region for whic
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting an Amazon S3 bucket. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
-To run these examples, you'll need the AWS SDK for Java libraries in your **CLASSPATH**.
-
-	export CLASSPATH=target/sdk-s3-examples-1.0.jar:/path/to/aws-java-sdk/<jar-file-name>.jar
-
-Here **/path/to/aws-java-sdk/<jar-file-name>.jar** is the path to where you extracted or built the AWS SDK for Java JAR file.
-
-For systems with Bash support, once you set the **CLASSPATH**, you can run a particular example as follows.
-
-	java com.example.s3.S3BucketOps
+To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, see 
+see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
 
  ## Testing the Amazon S3 Java files
 
-You can test the Amazon S3 Java code examples by running a test file named **AmazonS3ServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Amazon S3 Java code examples by running a test file named **AmazonS3Test**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can execute the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is executed, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -37,6 +30,8 @@ Before running the Amazon S3 JUnit tests, you must define values in the **config
 Define these values to successfully run the JUnit tests:
 
 - **bucketName** - The name of the bucket to use. For example, **buckettestfeb7**.
+
+- **bucketNamePolicy** - The name of an existing bucket to which a policy is applied (used in the **setBucketPolicy** and **getBucketPolicy** tests). 
 
 - **presignBucket** - The name of the bucket to use in presign operations. For example, **bucketpresign**.
 
@@ -54,28 +49,40 @@ Define these values to successfully run the JUnit tests:
 
 - **id**  - The ID of the user who owns the bucket. You can get this value from the AWS Management Console. This value appears as a GUID value (choose the *Permissions* tab, and then the *Access Control List* tab).
 
-- **access** - The access level to test an ACL with. You can specify one of these values: **FULL_CONTROL**, **READ**, **WRITE**, **READ_ACP**, **WRITE_ACP**.
+- **accountId** - Your account id value required for the **CreateAccessPoint** test.
+
+- **accessPointName** - The name of the access point required for the **CreateAccessPoint** test.
+
+- **encryptObjectName** - The name of the object to encrypt required for the **KMSEncryptionExample** test.
+
+- **encryptObjectPath** - The path to a TXT file to encrypt and place into a Amazon S3 bucket. This value is required for the **KMSEncryptionExample** test.
+
+- **encryptOutPath** - The path where a text file is written to after it's decrypted. This value is required for the **KMSEncryptionExample** test.
+
+- **keyId** - The id of the AWS KMS key to use to encrpt/decrypt the data. You can obtain the key ID value from the AWS Management Console. This value is required for the **KMSEncryptionExample** test.
+
 
 ###  Sample policy text
 
 For the purpose of the JUnit tests, you can use the following example content for the policy text. Be sure to specify the correct Amazon Resource Name (ARN) bucket name in the **Resource** section; otherwise, your test is not successful.
 
 	{
-		"Version": "2012-10-17",
-		"Id": "S3PolicyId1",
-		"Statement": [
-		{
-			"Sid": "IPAllow",
-			"Effect": "Deny",
-			"Principal": "*",
-			"Action": "s3:*",
-			"Resource": "arn:aws:s3:::examplebucket/*",
-			"Condition": {
-				"NotIpAddress": {"aws:SourceIp": "54.240.143.0/24"}
-			}
-		}
-	  ]
-	}
+   	  "Version":"2012-10-17",
+   	  "Statement":[
+      	{
+         "Sid":"PublicRead",
+         "Effect":"Allow",
+         "Principal":"*",
+         "Action":[
+            "s3:GetObject",
+            "s3:GetObjectVersion"
+         ],
+         "Resource":[
+            "arn:aws:s3:::<change to an existing bucket>/*"
+         ]
+      }
+   ]
+}
 
 ### Command line
 
@@ -88,7 +95,7 @@ You will see output from the JUnit tests, as shown here.
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
 	[INFO] -------------------------------------------------------
-	[INFO] Running AWSS3ServiceIntegrationTest
+	[INFO] Running AmazonS3Test
 	Running Amazon S3 Test 1
 	Running Amazon S3 Test 2
 	...

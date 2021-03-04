@@ -1,19 +1,14 @@
-//snippet-sourcedescription:[GetAcl.java demonstrates how to the access control list (ACL) for an Amazon S3 bucket.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-sourcedescription:[GetAcl.java demonstrates how to get the access control list (ACL) for an Amazon Simple Storage Service (Amazon S3) bucket.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/6/2020]
+//snippet-sourcedate:[01/06/2021]
 //snippet-sourceauthor:[scmacdon-aws]
+
 /*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-This file is licensed under the Apache License, Version 2.0 (the "License").
-You may not use this file except in compliance with the License. A copy of
-the License is located at
-http://aws.amazon.com/apache2.0/
-This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-CONDITIONS OF ANY KIND, either express or implied. See the License for the
-specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
 package com.example.s3;
 
@@ -27,30 +22,17 @@ import software.amazon.awssdk.services.s3.model.Grant;
 import java.util.List;
 // snippet-end:[s3.java2.get_acl.import]
 
-/**
- * Get the ACL for an existing S3 bucket.
- *
- * This code expects that you have AWS credentials set up, as described here:
- * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
- */
-
-
 public class GetAcl {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "Usage: \n" +
-                "  GetAcl <bucket> [object]\n\n" +
+                "Usage:\n" +
+                "  GetAcl <bucketName> <objectKey>\n\n" +
                 "Where:\n" +
-                "  bucket - the bucket to get the access control list (ACL) for\n" +
-                "  object - (optional) the object to get the ACL for.\n" +
-                "           If object is specified, the retrieved ACL will be\n" +
-                "           for the object, not the bucket.\n\n" +
-                "Examples:\n" +
-                "    GetAcl  bucket1\n" +
-                "    GetAcl  bucket1 book.pdf\n\n";
+                "  bucketName - the Amazon S3 bucket to get the access control list (ACL) for.\n" +
+                "  objectKey - the object to get the ACL for. \n" ;
 
-        if (args.length < 1) {
+        if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -61,23 +43,26 @@ public class GetAcl {
         System.out.println("Retrieving ACL for object: " + objectKey);
         System.out.println("in bucket: " + bucketName);
 
-        // Create the S3Client object
         Region region = Region.US_WEST_2;
-        S3Client s3 = S3Client.builder().region(region).build();
-        getBucketACL(s3,objectKey,bucketName);
+        S3Client s3 = S3Client.builder()
+                .region(region)
+                .build();
 
+        getBucketACL(s3,objectKey,bucketName);
+        s3.close();
         System.out.println("Done!");
+
     }
 
     // snippet-start:[s3.java2.get_acl.main]
     public static String getBucketACL(S3Client s3, String objectKey,String bucketName) {
 
-        GetObjectAclRequest aclReq = GetObjectAclRequest.builder()
+        try {
+            GetObjectAclRequest aclReq = GetObjectAclRequest.builder()
                 .bucket(bucketName)
                 .key(objectKey)
                 .build();
 
-        try {
             GetObjectAclResponse aclRes = s3.getObjectAcl(aclReq);
             List<Grant> grants = aclRes.grants();
             String grantee = "";

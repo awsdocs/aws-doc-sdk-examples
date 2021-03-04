@@ -92,7 +92,7 @@
  * Prerequisites: An existing bucket.
  *
  * Inputs:
- * - bucketName: The name of the bucket to get ACL informaton for. For example,
+ * - bucketName: The name of the bucket to get ACL information for. For example,
  *   "my-bucket".
  * - region: The AWS Region identifier for the bucket. For example, "us-east-1".
  *
@@ -138,16 +138,15 @@ Aws::S3::Model::Type SetGranteeType(const Aws::String& type)
     return Aws::S3::Model::Type::NOT_SET;
 }
 
-bool AwsDoc::S3::PutBucketAcl(const Aws::String& bucketName,
-    const Aws::String& region, 
+bool AwsDoc::S3::PutBucketAcl(const Aws::String& bucketName, 
     const Aws::String& ownerID, 
     const Aws::String& granteePermission, 
     const Aws::String& granteeType, 
-    Aws::String granteeID = "", 
-    Aws::String granteeDisplayName = "", 
-    Aws::String granteeEmailAddress = "", 
-    Aws::String granteeURI = ""
-)
+    const Aws::String& granteeID, 
+    const Aws::String& region,
+    const Aws::String& granteeDisplayName,
+    const Aws::String& granteeEmailAddress,
+    const Aws::String& granteeURI)
 {
     Aws::Client::ClientConfiguration config;
     config.region = region;

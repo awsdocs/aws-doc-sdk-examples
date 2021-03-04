@@ -18,6 +18,68 @@ For Boto3 and AWS documentation, see the following:
 
 ## Examples
 
+### [AWS Certificate Manager (ACM) basics example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/acm/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with AWS Certificate Manager (ACM)
+to request, import, and manage certificates.
+
+* Request a new certificate from ACM.
+* Import a self-signed certificate.
+* Retrieve certificate data.
+* Add custom tags to certificates.
+
+### [Amazon API Gateway AWS service integration example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/apigateway/aws_service/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon API Gateway to
+create a REST API that integrates with Amazon DynamoDB.
+
+* Create a REST API served by API Gateway.
+* Define REST methods that call DynamoDB to store and access data.
+* Call the REST API with the Requests package.
+
+### [Amazon CloudWatch custom metrics and alarms example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/cloudwatch/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon CloudWatch to
+accomplish the following tasks:
+
+* Create a custom metric.
+* Create an alarm that watches a metric.
+* Send data to CloudWatch for a metric.
+* Get statistics for a metric.
+* Trigger an alarm and get its state.
+
+### [Amazon Comprehend detection, classification, and topic modeling examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/comprehend/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Comprehend to inspect
+documents and discover information about them.
+
+* Detect elements of a document, such as languages used, key phrases, and personally
+identifiable information (PII).
+* Train a custom classifier that learns a set of labels on GitHub issues, and send 
+new issues to the classifer for labeling.
+* Detect common themes in a set of documents without the need for prior annotation.
+
+### [Amazon DynamoDB batch examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/dynamodb/batching/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) to write and retrieve Amazon DynamoDB
+data using batch functions.
+
+Boto3 features a 
+[batch_writer](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/dynamodb.html#batch-writing) 
+function that handles all of the necessary intricacies
+of the Amazon DynamoDB batch API on your behalf. This includes buffering, removing
+duplicates, and retrying unprocessed items.
+
 ### [Amazon DynamoDB getting started examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/dynamodb/GettingStarted/README.md)
 
 #### Purpose
@@ -52,6 +114,36 @@ groups.
 * Clean up security keys and security groups.
 * Permanently terminate instances. 
 
+### [Amazon EMR cluster and command examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/emr/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with the Amazon EMR API to create
+and manage clusters and job steps. Learn to accomplish the following tasks:
+
+* Create a short-lived cluster that estimates the value of pi using Apache Spark to 
+  parallelize a large number of calculations, writes output to Amazon S3, and
+  terminates itself after completing the job.
+* Create a long-lived cluster that uses Apache Spark to query historical Amazon 
+  review data to discover the top products in various categories with certain 
+  keywords in their product titles.
+* Create security roles and groups to let Amazon EMR manage cluster instances and
+  to let the instances access additional AWS resources.
+* Run commands on cluster instances, such as EMRFS configuration and shell scripts
+  to install additional libraries. 
+* Query clusters for status and terminate them using the API.
+
+### [AWS IoT Greengrass code snippets](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/greengrass/README.md)
+
+#### Purpose
+
+Shows how to use the AWS IoT Greengrass Core SDK to create AWS Lambda functions
+that publish MQTT messages, implement connectors, and retrieve secrets.
+
+These code examples are primarily code snippets that are used in the 
+[AWS Iot Greengrass developer guide](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html)
+and are not intended to be used out of context.
+
 ### [AWS IAM getting started examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/iam/iam_basics/README.md)
 
 #### Purpose
@@ -65,6 +157,118 @@ Management (IAM) resources. Learn to accomplish the following tasks:
 * Create and manage IAM policies, including versioned policies.
 * Create and manage IAM roles, including how to attach and detach policies.
 * Create and manage IAM users, including how to attach a policy to a user.
+
+### [Amazon Kinesis Data Streams and Data Analytics examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/kinesis/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Kinesis and version 2 of
+the Amazon Kinesis Data Analytics API to create an application that reads data from
+an input stream, uses SQL code to transform the data, and writes it to an output
+stream.
+
+* Create and manage Kinesis streams.
+* Create and manage Kinesis Data Analytics applications.
+* Create an AWS Identity and Access Management (IAM) role and policy that lets 
+an application read from an input stream and write to an output stream.
+* Add input and output streams to an application.
+* Upload SQL code that runs in an application and transforms data from an input
+stream to data in an output stream.
+* Run a data generator that puts records into an input stream.
+* Read transformed records from an output stream.
+
+### [AWS Lambda examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/lambda/boto_client_examples/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) to create, deploy, and invoke 
+AWS Lambda functions. Learn to accomplish the following tasks:
+
+* Create and deploy Lambda functions that can be invoked in different ways:
+    * By an invoke call through Boto3
+    * By Amazon API Gateway as the target of a REST request
+    * By Amazon EventBridge on a schedule
+* Create and deploy a REST API on Amazon API Gateway. The REST API targets an 
+AWS Lambda function to handle REST requests.
+* Create a schedule rule on Amazon EventBridge that targets an AWS Lambda function.
+
+These examples show how to use the low-level Boto3 client APIs to accomplish tasks
+like creating a REST API and setting an event schedule. You can also use
+[AWS Chalice](https://github.com/aws/chalice)
+to achieve similar results more easily and with additional features. 
+
+### [AWS Chalice and AWS Lambda REST API example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/lambda/chalice_examples/lambda_rest/README.md)
+
+#### Purpose
+
+Shows how to use AWS Chalice with the AWS SDK for Python (Boto3) to 
+create a serverless REST API that uses Amazon API Gateway, AWS Lambda, and 
+Amazon DynamoDB. The REST API simulates a system that tracks daily cases
+of COVID-19 in the United States, using fictional data. Learn how to:
+
+* Use AWS Chalice to define routes in AWS Lambda functions that
+ are called to handle REST requests that come through Amazon API Gateway.
+* Use AWS Lambda functions to retrieve and store data in an Amazon DynamoDB 
+table to serve REST requests.
+* Define table structure and security role resources in an AWS CloudFormation template.
+* Use AWS Chalice and AWS CloudFormation to package and deploy all necessary resources.
+* Use AWS CloudFormation to clean up all created resources.
+
+This example brings together some of the same information you can find in the
+tutorials in the 
+[AWS Chalice GitHub repository](https://aws.github.io/chalice/quickstart.html).
+
+### [AWS Organizations policy examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/organizations/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) to create and manage AWS Organizations
+policies.
+
+### [Amazon Polly lip-sync example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/polly/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Polly and Tkinter to
+create a lip-sync application that displays an animated face speaking along with the
+speech synthesized by Amazon Polly. Lip-sync is accomplished by requesting a list
+of visemes from Amazon Polly that match up with the synthesized speech.
+
+* Get voice metadata from Amazon Polly and display it in a Tkinter application.
+* Get synthesized speech audio and matching viseme speech marks from Amazon Polly.
+* Play the audio with synchronized mouth movements in an animated face.
+* Submit asynchronous synthesis tasks for long texts and retrieve the output from
+an Amazon Simple Storage Service (Amazon S3) bucket.
+
+### [Amazon Aurora serverless REST API lending library example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/rds/lending_library/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with the Amazon Relational Database 
+Service (Amazon RDS) API and AWS Chalice to create a REST API backed by an 
+Amazon Aurora database. The web service is fully serverless and represents
+a simple lending library where patrons can borrow and return books. Learn how to:
+
+* Create and manage a serverless Amazon Aurora database cluster.
+* Use AWS Secrets Manager to manage database credentials.
+* Implement a data storage layer that uses Amazon RDS Data Service to move data into
+and out of the database.  
+* Use AWS Chalice to deploy a serverless REST API to Amazon API Gateway and AWS Lambda.
+* Use the Requests package to send requests to the web service.
+
+### [Amazon Rekognition image and video detection example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/rekognition/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Rekognition to
+recognize people, objects, and text in images and videos.
+
+* Detect faces, celebrities, objects, and text in an image.
+* Create a collection of indexed faces and search for faces in your collection 
+that match a reference image.
+* Detect faces, celebrities, and objects in a video.
+* Create a notification channel so your code can determine when a video
+detection job has completed.
 
 ### [Amazon S3 managed file transfer example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/s3/file_transfer/README.md)
 
@@ -82,7 +286,7 @@ thread usage and time to transfer.
 
 #### Purpose
 
-Shows how to use the AWS SDK for Python (Boto3) to  get started using bucket and 
+Shows how to use the AWS SDK for Python (Boto3) to get started using bucket and 
 object operations in Amazon Simple Storage Service (Amazon S3). 
 Learn to create, get, remove, and configure buckets and objects.
 
@@ -91,7 +295,7 @@ Learn to create, get, remove, and configure buckets and objects.
 #### Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) to set up an Amazon S3 bucket for 
-versioning, and how to perform taks on a version-enabled bucket. Learn to 
+versioning, and how to perform tasks on a version-enabled bucket. Learn to 
 accomplish the following tasks:
 
 * Create a version-enabled bucket and apply revisions to its objects.
@@ -110,6 +314,43 @@ following tasks:
 * Delete Lambda functions.
 * Empty and delete a versioned bucket.
 
+### [AWS Secrets Manager example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/secretsmanager/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with AWS Secrets Manager to
+create, manage, and use secrets.
+
+* Create a new secret and update it with string and byte values.
+* Update the stage of a secret.
+* Use an existing secret with Amazon Relational Database Service (Amazon RDS) Data 
+Service to access a serverless Amazon Aurora cluster and database.
+
+### [Amazon SES email and identity example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/ses/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Simple Email Service 
+(Amazon SES) to verify identities, send emails, and manage rules and templates.
+
+* Verify email address and domain identities.
+* Create and manage email templates that contain replaceable tags.
+* Send email by using the Amazon SES API or an Amazon SES SMTP server.
+* Create and manage rules to block, allow, or handle incoming emails. 
+* Copy email and domain identity configuration from one AWS Region to another.
+
+### [Amazon Simple Notification Service topics and subscriptions example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/sns/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Simple Notification Service
+(Amazon SNS).
+
+* Create a notification topic.
+* Subscribe phone numbers and emails to the topic.
+* Publish messages to the topic and receive them at your subscribed endpoints.
+* Add filtering attributes to a subscription.
+
 ### [Amazon SQS getting started examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/sqs/ReadMe.md)
 
 #### Purpose
@@ -118,6 +359,21 @@ Shows how to use the AWS SDK for Python (Boto3) to get started using queue and
 message operations in Amazon Simple Queue Service (Amazon SQS). Learn how to 
 create, get, and remove standard, FIFO, and dead-letter queues. Learn how to 
 send, receive, and delete messages from a queue.
+
+### [AWS Step Functions state machine example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/stepfunctions/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with AWS Step Functions to
+create and run state machines.
+
+* Create a state machine that retrieves and updates message records from an 
+Amazon DynamoDB table.
+* Update the state machine definition to also send messages to Amazon Simple Queue Service 
+(Amazon SQS).
+* Start and stop state machine runs.
+* Connect to AWS Lambda, DynamoDB, and Amazon SQS from a state machine by using service
+integrations.
 
 ### [AWS STS temporary credential examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/sts/sts_temporary_credentials/README.md)
 
@@ -135,6 +391,17 @@ perform permitted actions.
 * Construct a URL that gives federated users direct access to an account through the
 AWS Management Console.
 * Get a session token that can be used to call an API function that requires MFA.
+
+### [Amazon Transcribe custom vocabulary example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/transcribe/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with the Amazon Transcribe API to
+transcribe an audio file to a text file. Learn how to:
+
+* Run a transcription job against an audio file in an Amazon S3 bucket.
+* Create and refine a custom vocabulary to improve the accuracy of the transcription.
+* List and manage transcription jobs and custom vocabularies.
 
 ### [Test tools for Python code examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/test_tools/README.md)
 

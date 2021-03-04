@@ -217,3 +217,23 @@ class Ec2Stubber(ExampleStubber):
         self._stub_bifurcator(
             'modify_network_interface_attribute', expected_params,
             error_code=error_code)
+
+    def stub_describe_security_groups(self, groups, error_code=None):
+        expected_params = {'GroupIds': [group['id'] for group in groups]}
+        response = {'SecurityGroups': [{
+            'GroupId': group['id'],
+            'GroupName': group['group_name'],
+            'IpPermissions': group['ip_permissions']
+        } for group in groups]}
+        self._stub_bifurcator(
+            'describe_security_groups', expected_params, response,
+            error_code=error_code)
+
+    def stub_revoke_security_group_ingress(
+            self, sec_group, error_code=None):
+        expected_params = {
+            'GroupId': sec_group['id'],
+            'IpPermissions': sec_group['ip_permissions'],
+        }
+        self._stub_bifurcator(
+            'revoke_security_group_ingress', expected_params, error_code=error_code)

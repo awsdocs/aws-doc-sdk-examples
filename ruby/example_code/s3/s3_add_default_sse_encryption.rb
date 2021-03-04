@@ -1,48 +1,67 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Specifies default KMS encryption on an S3 bucket.]
-# snippet-keyword:[Amazon Simple Storage Service]
-# snippet-keyword:[put_bucket_encryption method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[s3]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
 
-require 'aws-sdk-s3' # In v2: require 'aws-sdk'
+require 'aws-sdk-s3'
 
-# Get the key from the command line
-if ARGV.empty?()
-  puts 'You must supply a key'
-  exit 1
+# Sets the default encryption state for an Amazon S3 bucket using
+#   server-side encryption (SSE) with an
+#   AWS KMS customer master key (CMK).
+#
+# Prerequisites:
+# 
+# - An Amazon S3 bucket.
+# - An AWS KMS CMK.
+#
+# @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
+# @param bucket_name [String] The name of the bucket.
+# @param kms_master_key_id [String] The ID of the CMK.
+# @return [Boolean] true if the default encryption state was
+#   successfully set; otherwise, false.
+# @example
+#   exit 1 unless default_bucket_encryption_sse_cmk_set?(
+#     Aws::S3::Client.new(region: 'us-east-1'),
+#     'doc-example-bucket',
+#     '9041e78c-7a20-4db3-929e-828abEXAMPLE'
+#   )
+def default_bucket_encryption_sse_cmk_set?(
+  s3_client,
+  bucket_name,
+  kms_master_key_id
+)
+  s3_client.put_bucket_encryption(
+    bucket: bucket_name,
+    server_side_encryption_configuration: {
+      rules: [
+        {
+          apply_server_side_encryption_by_default: {
+            sse_algorithm: 'aws:kms',
+            kms_master_key_id: kms_master_key_id
+          }
+        }
+      ]
+    }
+  )
+  return true
+rescue StandardError => e
+  puts "Error setting default encryption state: #{e.message}"
+  return false
 end
 
-key = ARGV[0]
+def run_me
+  bucket_name = 'doc-example-bucket'
+  kms_master_key_id = '9041e78c-7a20-4db3-929e-828abEXAMPLE'
+  region = 'us-east-1'
+  s3_client = Aws::S3::Client.new(region: region)
 
-# Create S3 client
-client = Aws::S3::Client.new(region: 'us-west-2')
+  if default_bucket_encryption_sse_cmk_set?(
+    s3_client,
+    bucket_name,
+    kms_master_key_id
+  )
+    puts 'Default encryption state set.'
+  else
+    puts 'Default encryption state not set.'
+  end
+end
 
-# Set default encryption on bucket
-client.put_bucket_encryption(
-  bucket: 'my_bucket',
-  server_side_encryption_configuration: {
-    rules: [{
-      apply_server_side_encryption_by_default: {
-        sse_algorithm: 'aws:kms',
-        kms_master_key_id: key
-      }
-    }]
-  }
-)
+run_me if $PROGRAM_NAME == __FILE__
