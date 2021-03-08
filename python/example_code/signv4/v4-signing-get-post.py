@@ -144,7 +144,7 @@ print(r.text)
  
 
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourcedescription:[v4-signing-get-post.py shows how to make a request using the Amazon EC2 query API. The request makes a GET request and passes authentication information to AWS using the Authorization header.]
+# snippet-sourcedescription:[v4-signing-get-post.py shows how to make a request using the Amazon EC2 query API. The request makes a POST request and passes authentication information to AWS using the Authorization header.]
 # snippet-keyword:[Python]
 # snippet-sourcesyntax:[python]
 # snippet-sourcesyntax:[python]
