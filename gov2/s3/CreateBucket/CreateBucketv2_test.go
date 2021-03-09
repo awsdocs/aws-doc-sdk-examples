@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"io/ioutil"
 	"testing"
 	"time"
@@ -22,8 +21,7 @@ func (dt S3CreateBucketImpl) CreateBucket(ctx context.Context,
 		Location: aws.String("us-west-2"),
 	}
 
-	//return output, nil
-	return output, errors.New("random error")
+	return output, nil
 }
 
 type Config struct {
