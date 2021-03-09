@@ -22,7 +22,8 @@ func (dt S3CreateBucketImpl) CreateBucket(ctx context.Context,
 		Location: aws.String("us-west-2"),
 	}
 
-	return output, nil
+	//return output, nil
+	return output, errors.New("error")
 }
 
 type Config struct {
