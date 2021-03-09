@@ -20,6 +20,8 @@ jobs:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
+    # If you get an error that run_go_tests.sh is NOT executable, run:
+    #   git update-index --chmod=+x scripts/run_go_tests.sh
     steps:
       - name: checkout repo content
         uses: actions/checkout@v2 # checkout the repository content to github runner.
