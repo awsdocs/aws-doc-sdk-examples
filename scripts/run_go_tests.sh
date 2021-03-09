@@ -1,4 +1,5 @@
 TestGoFile () {
+    echo Testing $1
     pushd $1
 
     declare RESULT=(`go test`)  # (..) = array
