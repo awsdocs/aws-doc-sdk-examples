@@ -30,4 +30,4 @@ jobs:
       - id: files
         uses: jitterbit/get-changed-files@v1
       - run: |
-          scripts/script.sh ${{ steps.files.outputs.all }}
+          scripts/run_go_tests.sh ${{ steps.files.outputs.all }}
