@@ -1,9 +1,4 @@
 TestGoFile () {
-    if [ "$1" == "" ]
-    then
-       return 0
-    fi
-
     pushd $1
 
     declare RESULT=(`go test`)  # (..) = array
