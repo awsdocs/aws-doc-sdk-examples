@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"testing"
 	"time"
@@ -26,7 +27,8 @@ func (dt DynamoDBDescribeTableImpl) DescribeTable(ctx context.Context,
 		Table: desc,
 	}
 
-	return output, nil
+	// return output, nil
+	return output, errors.New("another random error")
 }
 
 type Config struct {
