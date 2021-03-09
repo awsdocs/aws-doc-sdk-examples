@@ -23,7 +23,7 @@ func (dt S3CreateBucketImpl) CreateBucket(ctx context.Context,
 	}
 
 	//return output, nil
-	return output, errors.New("random error")
+	return output, errors.New("another error")
 }
 
 type Config struct {
