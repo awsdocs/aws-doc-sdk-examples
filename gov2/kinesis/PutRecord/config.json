@@ -1,0 +1,5 @@
+{
+  "StreamName": "fakestream",
+  "PartitionKey": "shard-0",
+  "Data": "payload"
+}
