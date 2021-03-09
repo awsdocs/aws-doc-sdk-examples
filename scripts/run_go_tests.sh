@@ -10,7 +10,7 @@ TestGoFile () {
     
     if [ "${RESULT[0]}" != "PASS" ]
     then
-      return 1
+        exit 1
     fi
 }
 
@@ -34,3 +34,5 @@ for f in $@ ; do
 #    	    echo It is NOT a go test file
     esac
 done
+
+exit 0
