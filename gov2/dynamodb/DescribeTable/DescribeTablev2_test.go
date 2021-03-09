@@ -7,6 +7,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
 )
@@ -17,8 +18,8 @@ func (dt DynamoDBDescribeTableImpl) DescribeTable(ctx context.Context,
 	params *dynamodb.DescribeTableInput,
 	optFns ...func(*dynamodb.Options)) (*dynamodb.DescribeTableOutput, error) {
 	desc := &types.TableDescription{
-		ItemCount:      1,
-		TableSizeBytes: 64,
+		ItemCount:      aws.Int64(int64(1)),
+		TableSizeBytes: aws.Int64(int64(64)),
 		TableStatus:    "Active",
 	}
 
