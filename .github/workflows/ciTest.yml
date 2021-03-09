@@ -32,4 +32,7 @@ jobs:
       - id: files
         uses: jitterbit/get-changed-files@v1
       - run: |
+           # make file runnable, might not be necessary
+          chmod +x "${GITHUB_WORKSPACE}/scripts/run_go_tests.sh"
+
           scripts/run_go_tests.sh ${{ steps.files.outputs.all }}
