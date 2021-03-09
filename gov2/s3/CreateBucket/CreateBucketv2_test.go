@@ -75,9 +75,7 @@ func TestCreateBucket(t *testing.T) {
 
 	resp, err := MakeBucket(context.Background(), *api, &input)
 	if err != nil {
-		t.Log("Got an error ...:")
-		t.Log(err)
-		return
+		t.Fatal(err)
 	}
 
 	t.Log("Created bucket " + globalConfig.BucketName + " in " + *resp.Location)
