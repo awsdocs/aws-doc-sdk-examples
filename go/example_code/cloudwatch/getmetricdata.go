@@ -1,0 +1,92 @@
+// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
+// snippet-sourceauthor:[neo7337]
+// snippet-sourcedescription:[Retrieves a list of published AWS CloudWatch metrics.]
+// snippet-keyword:[AWS CloudWatch]
+// snippet-keyword:[GetMetricData function]
+// snippet-keyword:[Go]
+// snippet-sourcesyntax:[go]
+// snippet-service:[cloudwatch]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[2021-03-11]
+/*
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   This file is licensed under the Apache License, Version 2.0 (the "License").
+   You may not use this file except in compliance with the License. A copy of
+   the License is located at
+    http://aws.amazon.com/apache2.0/
+   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations under the License.
+*/
+
+package main
+
+import (
+	"fmt"
+	"os"
+
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/cloudwatch"
+)
+
+// Fetches the cloudwatch metrics for your provided input in the given time-frame
+
+func main() {
+	if len(os.Args) != 7 {
+		fmt.Println("You must supply a metric name, namespace, dimension name, dimension value, id, start time, and end time")
+		os.Exit(1)
+	}
+
+	metricName := os.Args[1] //case sensitive
+	namespace := os.Args[2]
+	dimensionName := os.Args[3]
+	dimensionValue := os.Args[4]
+	id := os.Args[5]
+	//The parameter EndTime must be greater than StartTime
+	startTime := os.Args[6] //time.Unix(time.Now().Unix(), 0)
+	endTime := os.Args[7]   //time.Unix(time.Now().Add(time.Duration(-60)*time.Minute).Unix(), 0)
+
+	// Initialize a session that the SDK uses to load
+	// credentials from the shared credentials file ~/.aws/credentials
+	// and configuration from the shared configuration file ~/.aws/config.
+	sess := session.Must(session.NewSessionWithOptions(session.Options{
+		SharedConfigState: session.SharedConfigEnable,
+	}))
+
+	// Create CloudWatch client
+	svc := cloudwatch.New(sess)
+
+	// Invoke the GetMetricData
+	result, err := svc.GetMetricData(&cloudwatch.GetMetricDataInput{
+		EndTime:   aws.Time(startTime),
+		StartTime: aws.Time(endTime),
+		MetricDataQueries: []*cloudwatch.MetricDataQuery{
+			&cloudwatch.MetricDataQuery{
+				Id: aws.String(id),
+				MetricStat: &cloudwatch.MetricStat{
+					Metric: &cloudwatch.Metric{
+						Namespace:  aws.String(namespace),
+						MetricName: aws.String(metricName),
+						Dimensions: []*cloudwatch.Dimension{
+							&cloudwatch.Dimension{
+								Name:  aws.String(dimensionName),
+								Value: aws.String(dimensionValue),
+							},
+						},
+					},
+					Period: aws.Int64(60),
+					Stat:   aws.String("Average"),
+				},
+			},
+		},
+	})
+
+	if err != nil {
+		fmt.Println("Error", err)
+		return
+	}
+
+	fmt.Println("Metrics", result)
+}
