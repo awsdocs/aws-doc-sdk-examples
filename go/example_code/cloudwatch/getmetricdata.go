@@ -34,8 +34,8 @@ import (
 // Fetches the cloudwatch metrics for your provided input in the given time-frame
 
 func main() {
-	if len(os.Args) != 7 {
-		fmt.Println("You must supply a metric name, namespace, dimension name, dimension value, id, start time, and end time")
+	if len(os.Args) != 9 {
+		fmt.Println("You must supply a metric name, namespace, dimension name, dimension value, id, start time, end time, stat and period")
 		os.Exit(1)
 	}
 
@@ -47,6 +47,8 @@ func main() {
 	//The parameter EndTime must be greater than StartTime
 	startTime := os.Args[6] //time.Unix(time.Now().Unix(), 0)
 	endTime := os.Args[7]   //time.Unix(time.Now().Add(time.Duration(-60)*time.Minute).Unix(), 0)
+	stat := os.Args[8]
+	period := os.Args[9]
 
 	// Initialize a session that the SDK uses to load
 	// credentials from the shared credentials file ~/.aws/credentials
@@ -76,8 +78,8 @@ func main() {
 							},
 						},
 					},
-					Period: aws.Int64(60),
-					Stat:   aws.String("Average"),
+					Period: aws.Int64(period),
+					Stat:   aws.String(stat),
 				},
 			},
 		},
