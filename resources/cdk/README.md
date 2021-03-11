@@ -51,8 +51,7 @@ This AWS CDK app creates the following resources:
 - An Amazon S3 bucket with public access to the bucket's objects
 - An IAM unauthenticated role based on an AWS identity
   that has permission to create a DynamoDB table, invoke an Lambda
-  function,
-  and create a mobile analytics event. 
+  function, and create a mobile analytics event. 
 - An Amazon Cognito identity pool with the role attached to it. 
 
 For more information on the example using these resources, see [Tutorial: Creating and using Lambda functions](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-table-example.html).
