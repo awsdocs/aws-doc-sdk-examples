@@ -44,7 +44,7 @@ const client = new RekognitionClient({
 
 // Calls DetectFaces API and shows estimated ages of detected faces.
 window.DetectFaces = async (imageData) => {
-    // Set the parameters.
+  // Set the parameters.
   var params = {
     Image: {
       Bytes: imageData,
