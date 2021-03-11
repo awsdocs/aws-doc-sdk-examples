@@ -33,6 +33,9 @@ files:
   - path: src/main/java/com/example/s3/GeneratePresignedUrlMetadata.java
     services:
       - s3
+  - path: src/main/java/com/example/s3/GeneratePresignedUrlUploadImage.java
+    services:
+      - s3
   - path: src/main/java/com/example/s3/GetAcl.java
     services:
       - s3
