@@ -109,9 +109,21 @@ This AWS CDK app creates the following resources:
   `username` partition key
 - An IAM role
   that enables API Gateway to read from and write to the table.
-  
+
 For more information on the example using these resources, see [...python/example_code/stepfunctions](  https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/stepfunctions).
 
+## textract_example_s3_sns_sqs
+
+This AWS CDK app creates the following resources:
+
+* An Amazon S3 bucket that grants Amazon Textract read-write permission.
+* An Amazon SNS topic.
+* An IAM role that can be assumed by Textract and grants permission to publish to 
+the topic.
+* An Amazon SQS queue that is subscribed to receive messages from the topic.
+
+For more information on the example using these resources, see [...python/example_code/textract](  https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/textract).
+  
 # Running a CDK app
 
 This section describes how to run any of these AWS CDK apps in this directory.
@@ -186,4 +198,3 @@ To destroy the generated AWS resources after you are finished using them, run th
        the on-screen instructions.
 
  **Note**: In some cases, such as when an S3 bucket is not empty, the AWS CDK app cannot destroy a resource.
-
