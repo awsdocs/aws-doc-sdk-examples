@@ -2,7 +2,7 @@
 
 This document describes the resources created by the AWS CDK apps in this directory.
 
-For instructions on how to run any of these apps, see [Running a CDK app](#running-a-cdk-app).
+For instructions on how to run any of these apps, see [Running a CDK app](#cdk).
 
 ## go_example_lambda
 
@@ -124,7 +124,7 @@ the topic.
 
 For more information on the example using these resources, see [...python/example_code/textract](  https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/textract).
   
-# Running a CDK app
+# Running a CDK app<a name="cdk"></a>
 
 This section describes how to run any of these AWS CDK apps in this directory.
  
