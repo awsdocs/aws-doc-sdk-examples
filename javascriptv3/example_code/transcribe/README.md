@@ -1,7 +1,7 @@
 # TypeScript environment for Amazon Transcribe examples
 Environment for AWS SDK for JavaScript version 3 (v3) Amazon Transcribe examples. 
 
-The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
+The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
 The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples.html) contains these examples.
 
