@@ -8,17 +8,7 @@
 // snippet-service:[cloudwatch]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2021-03-11]
-/*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
+// snippet-sourcedate:[2021-03-13]
 
 package main
 
@@ -45,8 +35,8 @@ func main() {
 	dimensionValue := os.Args[4]
 	id := os.Args[5]
 	//The parameter EndTime must be greater than StartTime
-	startTime := os.Args[6] //time.Unix(time.Now().Unix(), 0)
-	endTime := os.Args[7]   //time.Unix(time.Now().Add(time.Duration(-60)*time.Minute).Unix(), 0)
+	startTime := os.Args[6] //time.Unix(time.Now().Add(time.Duration(-60)*time.Minute).Unix(), 0)
+	endTime := os.Args[7]   //time.Unix(time.Now().Unix(), 0)
 	stat := os.Args[8]
 	period := os.Args[9]
 
