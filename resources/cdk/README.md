@@ -2,7 +2,7 @@
 
 This document describes the resources created by the AWS CDK apps in this directory.
 
-For instructions on how to run any of these apps, see [Running a CDK app](#running-a-cdk-app).
+For instructions on how to run any of these apps, see [Running a CDK app](#cdk).
 
 ## go_example_lambda
 
@@ -17,6 +17,8 @@ In addition, this AWS CDK app creates notifications to
 Amazon Lambda (Lambda) function that detect changes in those resources,
 and handlers, in Go, that print messages to an Amazon CloudWatch (CloudWatch) log.
 
+For instructions on how to run any of these apps, see [.../cfn/go_example_lambda](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/resources/cfn/go_example_lambda).
+
 ## javascript_example_code_polly_aws_service
 
 This AWS CDK app creates the following resources:
@@ -25,6 +27,7 @@ This AWS CDK app creates the following resources:
   access to Amazon Polly. 
 - An Amazon Cognito identity pool with the IAM unauthenticated role attached to
   it.
+
 
 ## javascript_example_code_transcribe_demo
 
@@ -38,6 +41,9 @@ This AWS CDK app creates the following resources:
 - An Amazon S3 bucket to host the application files.
 - An Amazon S3 bucket to to store the transcriptions.
 
+For more information on the example using these resources, see [Build a transcription app with authenticated users](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/transcribe-app.html).
+
+
 ## javascript_example_lambda_aws-service
 
 This AWS CDK app creates the following resources:
@@ -45,9 +51,12 @@ This AWS CDK app creates the following resources:
 - An Amazon S3 bucket with public access to the bucket's objects
 - An IAM unauthenticated role based on an AWS identity
   that has permission to create a DynamoDB table, invoke an Lambda
-  function,
-  and create a mobile analytics event. 
+  function, and create a mobile analytics event. 
 - An Amazon Cognito identity pool with the role attached to it. 
+
+For more information on the example using these resources, see [Tutorial: Creating and using Lambda functions](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-table-example.html).
+
+
 
 ## lambda-using-api-gateway
 
@@ -57,6 +66,8 @@ This AWS CDK app creates the following resources:
 - An IAM role with attached permissions to execute Lambda functions.
 - An Amazon S3 bucket to host Lambda function. 
 
+For more information on the example using these resources, see [Tutorial: Invoking Lambda with API Gateway](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/cross-services/lambda-api-gateway).
+
 ## python_example_code_apigateway_aws_service
 
 This AWS CDK app creates the following resources:
@@ -65,6 +76,8 @@ This AWS CDK app creates the following resources:
   `username` partition key
 - an IAM role
   that enables Amazon API Gateway to read from and write to the table.
+  
+For more information on the example using these resources, see [...python/example_code/apigateway/aws_service](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/apigateway/aws_service).
 
 ## python_example_code_apigateway_websocket
 
@@ -78,11 +91,15 @@ This AWS CDK app creates the following resources:
   that contains the DynamoDB table name. The function code is updated as part
   of the example.
 
+For more information on the example using these resources, see [...python/example_code/apigateway/aws_service](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/apigateway/websocket).
+
 ## python_example_code_secretsmanager_demo
 
 This AWS CDK app creates the following resources:
 
 - An Amazon Aurora (Aurora) serverless cluster
+
+For more information on the example using these resources, see [...python/example_code/secretsmanager](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/secretsmanager).
 
 ## python_example_code_stepfunctions_demo
 
@@ -93,7 +110,21 @@ This AWS CDK app creates the following resources:
 - An IAM role
   that enables API Gateway to read from and write to the table.
 
-# Running a CDK app
+For more information on the example using these resources, see [...python/example_code/stepfunctions](  https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/stepfunctions).
+
+## textract_example_s3_sns_sqs
+
+This AWS CDK app creates the following resources:
+
+* An Amazon S3 bucket that grants Amazon Textract read-write permission.
+* An Amazon SNS topic.
+* An IAM role that can be assumed by Textract and grants permission to publish to 
+the topic.
+* An Amazon SQS queue that is subscribed to receive messages from the topic.
+
+For more information on the example using these resources, see [...python/example_code/textract](  https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/textract).
+  
+# Running a CDK app<a name="cdk"></a>
 
 This section describes how to run any of these AWS CDK apps in this directory.
  
@@ -167,4 +198,3 @@ To destroy the generated AWS resources after you are finished using them, run th
        the on-screen instructions.
 
  **Note**: In some cases, such as when an S3 bucket is not empty, the AWS CDK app cannot destroy a resource.
-

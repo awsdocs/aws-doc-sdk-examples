@@ -1,7 +1,7 @@
 # TypeScript environment for AWS Lambda examples
 This is a workspace where you can find working AWS SDK for JavaScript v3 AWS Lambda examples. 
 
-The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
+The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
 The [AWS documentation for this tutorial](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/using-lambda-functions.html) contains these examples.
 
