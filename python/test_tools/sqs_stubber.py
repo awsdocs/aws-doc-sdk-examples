@@ -102,14 +102,16 @@ class SqsStubber(ExampleStubber):
 
     def stub_receive_messages(
             self, url, messages, receive_count, error_code=None,
-            message_attributes=['All']):
-        expected_params = {
-            'QueueUrl': url,
-            'MaxNumberOfMessages': receive_count,
-            'WaitTimeSeconds': ANY
-        }
+            message_attributes=['All'], omit_wait_time=False):
+        expected_params = {'QueueUrl': url}
+        if receive_count is not None:
+            expected_params['MaxNumberOfMessages'] = receive_count
+        if not omit_wait_time:
+            expected_params['WaitTimeSeconds'] = ANY
         if message_attributes is not None:
             expected_params['MessageAttributeNames'] = ['All']
+        if receive_count is None:
+            receive_count = len(messages)
         response = {
             'Messages': [{
                 'MessageId': f'msg-{ind}',
@@ -121,11 +123,13 @@ class SqsStubber(ExampleStubber):
         self._stub_bifurcator(
             'receive_message', expected_params, response, error_code=error_code)
 
-    def stub_delete_message(self, url, message, error_code=None):
-        expected_params = {
-            'QueueUrl': url,
-            'ReceiptHandle': message.receipt_handle
-        }
+    def stub_delete_message(
+            self, url, message=None, receipt_handle=None, error_code=None):
+        expected_params = {'QueueUrl': url}
+        if message is not None:
+            expected_params['ReceiptHandle'] = message.receipt_handle
+        elif receipt_handle is not None:
+            expected_params['ReceiptHandle'] = receipt_handle
         self._stub_bifurcator(
             'delete_message', expected_params, error_code=error_code)
 
