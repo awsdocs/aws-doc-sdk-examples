@@ -12,7 +12,7 @@ files:
   - path: src/main/java/com/example/SecureWebApp.java
     services:
       - dynamodb
-  - path: src/main/java/com/example/services/DynamoDBService.java
+  - path: src/main/java/com/example/services/MongoDBService.java
     services:
       - dynamodb
   - path: src/main/java/com/example/services/SendMessages.java
