@@ -69,6 +69,8 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 
 + **Building an AWS Workflow that sends notifications over multiple channels** - A tutorial that discusses how to develop an AWS serverless workflow that sends notifications over multiple channels. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function. 
 
++ **Creating the MongoDB web application item tracker** -  A tutorial that discusses using Amazon EC2 that hosts MongoDB, Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items. 
+
 
 AWS service examples
 --------------------
