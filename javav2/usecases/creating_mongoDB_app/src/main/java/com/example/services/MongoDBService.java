@@ -5,11 +5,15 @@
 package com.example.services;
 
 import com.example.entities.WorkItem;
-import org.springframework.stereotype.Component;
-import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
+import com.mongodb.BasicDBObject;
+import com.mongodb.MongoClientURI;
 import com.mongodb.DB;
-import com.mongodb.*;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
+import com.mongodb.DBCursor;
+import com.mongodb.MongoException;
+import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import javax.xml.parsers.DocumentBuilder;
@@ -21,13 +25,18 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Set;
+import java.util.Iterator;
+import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class MongoDBService {
 
-    private String mongoUri = "mongodb://ec2-54-160-97-184.compute-1.amazonaws.com:27017" ;
+    private String mongoUri = "mongodb://<URL TO EC2 Hosting MongoDB>.com:27017" ;
 
     private MongoClient getConnection() {
 
@@ -35,16 +44,16 @@ public class MongoDBService {
             MongoClient mongoClient = new MongoClient(new MongoClientURI(mongoUri));
             return mongoClient;
 
-        } catch (Exception e) {
+        } catch (UnknownHostException e) {
             e.getStackTrace();
         }
         return null;
     }
 
     private String now() {
-        String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
+        String dateFormat = "yyyy-MM-dd HH:mm:ss";
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
         return sdf.format(cal.getTime());
     }
 
@@ -71,7 +80,7 @@ public class MongoDBService {
 
             database.getCollection("items").insert(document);
 
-        } catch (Exception e) {
+        } catch (MongoException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
@@ -92,7 +101,7 @@ public class MongoDBService {
 
             collection.update(ob1, newDocument);
 
-        } catch (Exception e) {
+        } catch (MongoException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -138,7 +147,7 @@ public class MongoDBService {
                 }
             }
             return convertToString(toXml(itemList));
-        } catch (Exception e){
+        } catch (MongoException e){
 
             System.out.println(e.getMessage());
         }
@@ -165,9 +174,7 @@ public class MongoDBService {
 
         // Get the database name
         DB database = mongoClient.getDB("local");
-
         DBCursor cur = database.getCollection("items").find();
-
         DBObject dbo = null;
         ArrayList<WorkItem> itemList = new ArrayList();
         WorkItem item = null;
@@ -178,11 +185,8 @@ public class MongoDBService {
             item = new WorkItem();
             dbo = cur.next();
             Set<String> keys = dbo.keySet();
-            Iterator iterator = keys.iterator();
 
-
-            while (iterator.hasNext()) {
-                String key = (String) iterator.next();
+            for (String key : keys) {
                 String value = (String) dbo.get(key).toString();
                 if (key.compareTo("_id") == 0)
                     item.setId(value);
@@ -208,7 +212,7 @@ public class MongoDBService {
     }
 
     // Retrieves all items from MongoDB
-    public  ArrayList<WorkItem> getListItemsReport() {
+    public ArrayList<WorkItem> getListItemsReport() {
 
         MongoClient mongoClient = getConnection();
 
@@ -332,5 +336,4 @@ public class MongoDBService {
         }
         return null;
     }
-
 }
