@@ -2167,7 +2167,7 @@ If this is your first time accessing this service, you will see a **Welcome to A
 1. Open the Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home.
 2. In the navigation pane, choose  **Applications**, and then choose **Create a new application**. This opens a wizard that creates your application and launches an appropriate environment.
 3. On the **Create New Application** page, enter the following values:
-   + **Application Name** - DynamoDB Tracker
+   + **Application Name** - MongoDB Tracker
    + **Description** - A description for the application
 4. Choose **Create**.
 5. Choose **Create a new environment**.
