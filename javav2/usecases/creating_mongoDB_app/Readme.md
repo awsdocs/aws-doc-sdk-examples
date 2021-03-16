@@ -662,7 +662,7 @@ The service classes contain Java application logic that invokes AWS services. In
 + **WriteExcel** - Uses the Java Excel API to dynamically create a report (this does not use AWS SDK for Java APIs).
 
 #### MongoDBService class
-The **MongoDBService** class uses the Mongo Java API to interact with the **items** collection. It adds new items, updates items, and perform queries. The following Java code represents the **MongoDBService** class. 
+The **MongoDBService** class uses the Mongo Java API to interact with the **items** collection. It adds new items, updates items, and perform queries. The following Java code represents the **MongoDBService** class. Make sure that you specify the complete URL to the EC2 instance that is hosting your MongoDB instance for the **mongoUri** variable. 
 
     package com.example.services;
 
