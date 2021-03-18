@@ -22,10 +22,18 @@ Inputs (replace in code):
 
 "use strict";
 // Load the required clients and commands.
-const { DynamoDBClient, PutRecord } = require("@aws-sdk/client-dynamodb");
+const { DynamoDBClient, ScanCommand } = require("@aws-sdk/client-dynamodb");
+const { SNSClient, PublishCommand } = require("@aws-sdk/client-sns");
 
 //Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"
+
+// Get today's date.
+const today = new Date();
+const dd = String(today.getDate()).padStart(2, "0");
+const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+const yyyy = today.getFullYear();
+const date = yyyy + "-" + mm + "-" + dd;
 
 // Set the parameters for the ScanCommand method.
 const params = {
@@ -42,6 +50,7 @@ const params = {
 
 // Create the client service objects.
 const dbclient = new DynamoDBClient({ region: REGION });
+const snsclient = new SNSClient({ region: REGION });
 
 // snippet-end:[lambda.JavaScript.general-examples-dynamodb-lambda.scanAndPublishV3.config]
 // snippet-start:[lambda.JavaScript.general-examples-dynamodb-lambda.scanAndPublishV3.handler]
