@@ -1,5 +1,5 @@
 const mockCreateMultipartUpload = jest.fn();
-jest.mock("@aws-sdk/client-s3/Commands/CreateMultipartUploadCommand", () => ({
+jest.mock("@aws-sdk/client-s3", () => ({
     S3: function S3() {
         this.CreateMultipartUploadCommand = mockCreateMultipartUpload;
     },
