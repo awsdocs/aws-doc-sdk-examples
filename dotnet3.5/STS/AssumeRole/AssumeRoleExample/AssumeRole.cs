@@ -1,4 +1,5 @@
-﻿using Amazon.SecurityToken;
+﻿using Amazon;
+using Amazon.SecurityToken;
 using Amazon.SecurityToken.Model;
 using System;
 using System.Threading.Tasks;
@@ -7,13 +8,21 @@ namespace AssumeRoleExample
 {
     class AssumeRole
     {
-
+        /// <summary>
+        /// This example shows how to use the AWS Security Token
+        /// Service (AWS STS) to Assume an IAM role.
+        /// </summary>
+        private static readonly RegionEndpoint REGION = RegionEndpoint.USWest2;
+        
         static async Task Main()
         {
-            var roleArnToAssume = "arn:aws:iam::123456789012:role/testAssumeRole";
+            // Create the SecurityToken client and then get the Identity of the
+            // default user. Remember that the default user must have permissions
+            // to call AssumeRoleAsync for the role defined in roleArnToAssume.
+            // var roleArnToAssume = "arn:aws:iam::123456789012:role/testAssumeRole";
+            var roleArnToAssume = "arn:aws:iam::704825161248:role/testAssumeRole";
 
-            // Create the SecurityToken client and then get the Identity of the default user.
-            var client = new Amazon.SecurityToken.AmazonSecurityTokenServiceClient();
+            var client = new Amazon.SecurityToken.AmazonSecurityTokenServiceClient(REGION);
 
             // Get and display the information about the identity of the default user.
             var callerIdRequest = new GetCallerIdentityRequest();
@@ -30,7 +39,7 @@ namespace AssumeRoleExample
             var assumeRoleRes = await client.AssumeRoleAsync(assumeRoleReq);
 
             // Now create a new client based on the credentials of the caller assuming the role.
-            var client2 = new Amazon.SecurityToken.AmazonSecurityTokenServiceClient(credentials: assumeRoleRes.Credentials);
+            var client2 = new AmazonSecurityTokenServiceClient(credentials: assumeRoleRes.Credentials);
 
             // Get and display information about the caller that has assumed the defined role.
             var caller2 = await client.GetCallerIdentityAsync(callerIdRequest);

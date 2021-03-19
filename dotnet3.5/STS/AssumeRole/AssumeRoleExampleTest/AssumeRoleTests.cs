@@ -1,35 +1,98 @@
 using System;
 using System.Threading.Tasks;
 using Xunit;
+using Amazon.SecurityToken;
+using Amazon.SecurityToken.Model;
+using Moq;
+using System.Threading;
+using System.Net;
+using Amazon;
 
 namespace AssumeRoleExampleTest
 {
     public class AssumeRoleTests
     {
+        private string roleArnToAssume = "arn:aws:iam::123456789012:role/testAssumeRole";
+        private static readonly RegionEndpoint REGION = RegionEndpoint.USWest2;
+
         [Fact]
         public async Task GetCallerIdentityAsyncTest()
         {
+            // Create the mock SecurityToken client.
             // Define variable
+            var mockClient = new Mock<AmazonSecurityTokenServiceClient>(REGION);
+            mockClient.Setup(client => client.GetCallerIdentityAsync(
+                    It.IsAny<GetCallerIdentityRequest>(),
+                    It.IsAny<CancellationToken>()))
+                .Callback<GetCallerIdentityRequest,
+                    CancellationToken>((request, token) =>
+                    {
+                    })
+                .Returns((GetCallerIdentityRequest r,
+                    CancellationToken token) =>
+                {
+                    return Task.FromResult(new GetCallerIdentityResponse()
+                    {
+                        Arn = roleArnToAssume,
+                        HttpStatusCode = HttpStatusCode.OK,
+                    });
+                });
 
-            // Create the moq
+            var client = mockClient.Object;
+            var callerIdRequest = new GetCallerIdentityRequest();
+            var response = await client.GetCallerIdentityAsync(callerIdRequest);
 
-            // Call the method
-            var response = GetCallerIdentityResponseAsync(client: client, request: getCallerIdReq)
+            bool ok = response.HttpStatusCode == HttpStatusCode.OK;
+            Assert.True(ok, $"Successfully retrieved caller Identity.");
 
-            // Examine the results
         }
 
         [Fact]
         public async Task AssumeRoleAsyncTest()
         {
-            // Define variables
+            // Create the mock client object
+            var mockClient = new Mock<AmazonSecurityTokenServiceClient>(REGION);
+            mockClient.Setup(client => client.AssumeRoleAsync(
+                    It.IsAny<AssumeRoleRequest>(),
+                    It.IsAny<CancellationToken>()))
+                .Callback<AssumeRoleRequest,
+                    CancellationToken>((request, token) =>
+                    {
+                        if (request is not null)
+                        {
 
-            // Create the moq client
+                        }
+                    })
+                .Returns((AssumeRoleRequest r,
+                    CancellationToken token) =>
+                {
+                    var roleUser = new AssumedRoleUser()
+                    {
+                        Arn = roleArnToAssume,
+                    };
 
-            // Call the method
-            var response = await AssumeRoleAsync();
+                    return Task.FromResult(new AssumeRoleResponse()
+                    {
+                        AssumedRoleUser = roleUser,
+                        HttpStatusCode = HttpStatusCode.OK,
+                    });
+                });
 
-            // Examine the results
+            var client = mockClient.Object;
+
+            // Create the request to use with the AssumeRoleAsync call.
+            var assumeRoleReq = new AssumeRoleRequest()
+            {
+                DurationSeconds = 1600,
+                RoleSessionName = "Session1",
+                RoleArn = roleArnToAssume
+            };
+
+            var response = await client.AssumeRoleAsync(assumeRoleReq);
+            Assert.True(response.AssumedRoleUser.Arn == roleArnToAssume, "Successfully call to assume role.");
+
+            bool ok = response.HttpStatusCode == HttpStatusCode.OK;
+            Assert.True(ok, $"Successfully retrieved caller Identity.");
         }
     }
 }
