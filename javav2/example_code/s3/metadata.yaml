@@ -15,6 +15,9 @@ files:
   - path: src/main/java/com/example/s3/CreateJob.java
     services:
       - s3
+  - path: src/main/java/com/example/s3/GeneratePresignedUrlUploadImage
+    services:
+      - s3
   - path: src/main/java/com/example/s3/DeleteBucketPolicy.java
     services:
       - s3

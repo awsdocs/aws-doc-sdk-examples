@@ -21,7 +21,7 @@ export class SetupStackLambda extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-      const myBucket = new s3.Bucket(this, 'mybucket-brmur      ',{
+      const myBucket = new s3.Bucket(this, 'mybucket      ',{
           removalPolicy: cdk.RemovalPolicy.DESTROY,
           blockPublicAccess:  {
               blockPublicAcls: true,

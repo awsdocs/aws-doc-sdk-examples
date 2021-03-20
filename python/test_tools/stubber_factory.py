@@ -39,6 +39,7 @@ from test_tools.sqs_stubber import SqsStubber
 from test_tools.ssm_stubber import SsmStubber
 from test_tools.stepfunctions_stubber import StepFunctionsStubber
 from test_tools.sts_stubber import StsStubber
+from test_tools.textract_stubber import TextractStubber
 from test_tools.transcribe_stubber import TranscribeStubber
 
 
@@ -109,6 +110,8 @@ def stubber_factory(service_name):
         return StepFunctionsStubber
     elif service_name == 'sts':
         return StsStubber
+    elif service_name == 'textract':
+        return TextractStubber
     elif service_name == 'transcribe':
         return TranscribeStubber
     else:
