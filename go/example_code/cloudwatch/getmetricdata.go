@@ -15,6 +15,8 @@ package main
 import (
 	"fmt"
 	"os"
+	"strconv"
+	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -24,7 +26,7 @@ import (
 // Fetches the cloudwatch metrics for your provided input in the given time-frame
 
 func main() {
-	if len(os.Args) != 9 {
+	if len(os.Args) != 8 {
 		fmt.Println("You must supply a metric name, namespace, dimension name, dimension value, id, start time, end time, stat and period")
 		os.Exit(1)
 	}
@@ -35,10 +37,9 @@ func main() {
 	dimensionValue := os.Args[4]
 	id := os.Args[5]
 	//The parameter EndTime must be greater than StartTime
-	startTime := os.Args[6] //time.Unix(time.Now().Add(time.Duration(-60)*time.Minute).Unix(), 0)
-	endTime := os.Args[7]   //time.Unix(time.Now().Unix(), 0)
-	stat := os.Args[8]
-	period := os.Args[9]
+	diffInMinutes, _ := strconv.Atoi(os.Args[6])
+	stat := os.Args[7]
+	period, _ := strconv.Atoi(os.Args[8])
 
 	// Initialize a session that the SDK uses to load
 	// credentials from the shared credentials file ~/.aws/credentials
@@ -52,8 +53,8 @@ func main() {
 
 	// Invoke the GetMetricData
 	result, err := svc.GetMetricData(&cloudwatch.GetMetricDataInput{
-		EndTime:   aws.Time(startTime),
-		StartTime: aws.Time(endTime),
+		EndTime:   aws.Time(time.Unix(time.Now().Unix(), 0)),
+		StartTime: aws.Time(time.Unix(time.Now().Add(time.Duration(-diffInMinutes)*time.Minute).Unix(), 0)),
 		MetricDataQueries: []*cloudwatch.MetricDataQuery{
 			&cloudwatch.MetricDataQuery{
 				Id: aws.String(id),
@@ -68,7 +69,7 @@ func main() {
 							},
 						},
 					},
-					Period: aws.Int64(period),
+					Period: aws.Int64(int64(period)),
 					Stat:   aws.String(stat),
 				},
 			},
