@@ -1,4 +1,7 @@
-﻿using Amazon;
+﻿# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+using Amazon;
 using Amazon.SecurityToken;
 using Amazon.SecurityToken.Model;
 using System;
