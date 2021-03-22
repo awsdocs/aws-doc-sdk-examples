@@ -2,6 +2,23 @@
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+
+// Purpose: This AWS Cloud Development Kit (AWS CDK) app
+// creates the following AWS resources:
+//
+// This AWS CDK app creates the following resources:
+//
+// - An Amazon Cognito identity pool with an authenticated user role.
+// - An IAM policy with permissions for the Amazon S3 and Amazon Transcribe is
+//   attached to the authenticated user role.
+// - An Amazon Cognito user pool that enables users to sign up and sign in to the
+//   app.
+// - An Amazon S3 bucket to host the application files.
+// - An Amazon S3 bucket to to store the transcriptions.
+//
+// For instructions on how to run any of these apps, see
+// https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/resources/cdk/README.md#Running-a-CDK-app
+
 import * as cdk from '@aws-cdk/core';
 import * as cognito from '@aws-cdk/aws-cognito';
 import * as iam from '@aws-cdk/aws-iam';

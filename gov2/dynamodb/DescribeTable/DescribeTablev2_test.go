@@ -17,8 +17,8 @@ func (dt DynamoDBDescribeTableImpl) DescribeTable(ctx context.Context,
 	params *dynamodb.DescribeTableInput,
 	optFns ...func(*dynamodb.Options)) (*dynamodb.DescribeTableOutput, error) {
 	desc := &types.TableDescription{
-		ItemCount:      1,
-		TableSizeBytes: 64,
+		ItemCount:      int64(1),
+		TableSizeBytes: int64(64),
 		TableStatus:    "Active",
 	}
 

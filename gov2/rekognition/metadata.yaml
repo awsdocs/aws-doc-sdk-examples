@@ -1,0 +1,7 @@
+files:
+  - path: DetectLabels/DetectLabels.go
+    services:
+      - rekognition
+  - path: DetectLabels/DetectLabels_test.go
+    services:
+      - rekognition

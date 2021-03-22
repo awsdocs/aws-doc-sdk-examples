@@ -10,6 +10,9 @@ files:
   - path: s3_basics/object_wrapper.py
     services:
       - s3
+  - path: s3_basics/presigned_url.py
+    services:
+      - s3
   - path: s3_basics/test/conftest.py
     services:
       - s3
@@ -20,6 +23,9 @@ files:
     services:
       - s3
   - path: s3_basics/test/test_object_wrapper.py
+    services:
+      - s3
+  - path: s3_basics/test/test_presigned_url.py
     services:
       - s3
 ...

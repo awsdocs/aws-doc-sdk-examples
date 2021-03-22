@@ -29,6 +29,7 @@ const {
   DeleteBucketCommand,
 } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+const fetch = require("node-fetch");
 
 // Set the AWS Region
 const REGION = "REGION";
@@ -65,6 +66,10 @@ const run = async () => {
       `\nPutting "${params.Key}" using signedUrl with body "${params.Body}" in v3`
     );
     console.log(signedUrl);
+    const response = await fetch(signedUrl);
+    console.log(
+        `\nResponse returned by signed URL: ${await response.text()}\n`
+    );
   } catch (err) {
     console.log("Error creating presigned URL", err);
   }

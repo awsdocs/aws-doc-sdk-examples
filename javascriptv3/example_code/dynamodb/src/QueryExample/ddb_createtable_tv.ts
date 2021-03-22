@@ -34,7 +34,7 @@ const params = {
     {
       AttributeName: "Episode",
       AttributeType: "N",
-    },
+    }
   ],
   KeySchema: [
     {
@@ -44,7 +44,7 @@ const params = {
     {
       AttributeName: "Episode",
       KeyType: "RANGE",
-    },
+    }
   ],
   ProvisionedThroughput: {
     ReadCapacityUnits: 1,

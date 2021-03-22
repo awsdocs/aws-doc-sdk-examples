@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[PutBatchRecords.java demonstrates how to write multiple data records into a delivery stream.]
+//snippet-sourcedescription:[PutBatchRecords.java demonstrates how to write multiple data records into a delivery stream and check each record using the response object.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kinesis Data Firehose]
@@ -20,6 +20,7 @@ import software.amazon.awssdk.services.firehose.model.Record;
 import software.amazon.awssdk.services.firehose.model.PutRecordBatchRequest;
 import software.amazon.awssdk.services.firehose.model.PutRecordBatchResponse;
 import software.amazon.awssdk.services.firehose.model.FirehoseException;
+import software.amazon.awssdk.services.firehose.model.PutRecordBatchResponseEntry;
 import software.amazon.awssdk.core.SdkBytes;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +84,22 @@ public class PutBatchRecords {
 
             PutRecordBatchResponse recordResponse = firehoseClient.putRecordBatch(recordBatchRequest) ;
             System.out.println("The number of records added is: "+recordResponse.requestResponses().size());
+
+            // Check the details of all records in this batch operation.
+            String errorMsg ="";
+            String errorCode = "";
+            List<PutRecordBatchResponseEntry> results = recordResponse.requestResponses();
+            for (PutRecordBatchResponseEntry result: results) {
+
+                // Returns null if there is no error.
+                errorCode = result.errorCode();
+                if (errorCode == null) {
+                    System.out.println("Record "+result.recordId() + " was successfully added!");
+                } else {
+                    errorMsg = result.errorMessage();
+                    System.out.println("Error code for record ID : "+result.recordId() + " is "+errorMsg);
+                }
+        }
 
         } catch (FirehoseException | InterruptedException e) {
             System.out.println(e.getLocalizedMessage());

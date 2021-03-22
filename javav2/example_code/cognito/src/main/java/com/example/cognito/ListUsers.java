@@ -39,19 +39,46 @@ public class ListUsers {
                 .build();
 
         listAllUsers(cognitoclient, userPoolId );
+        listUsersFilter(cognitoclient, userPoolId );
         cognitoclient.close();
     }
 
     //snippet-start:[cognito.java2.ListUsers.main]
+    // Shows how to list all users in the given user pool.
     public static void listAllUsers(CognitoIdentityProviderClient cognitoclient, String userPoolId ) {
 
         try {
-            ListUsersResponse response = cognitoclient.listUsers(ListUsersRequest.builder()
+            // List all users
+            ListUsersRequest usersRequest = ListUsersRequest.builder()
                     .userPoolId(userPoolId)
-                    .build());
+                    .build();
 
+            ListUsersResponse response = cognitoclient.listUsers(usersRequest);
             for(UserType user : response.users()) {
                 System.out.println("User " + user.username() + " Status " + user.userStatus() + " Created " + user.userCreateDate() );
+            }
+
+        } catch (CognitoIdentityProviderException e){
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+    }
+
+    // Shows how to list users by using a filter.
+    public static void listUsersFilter(CognitoIdentityProviderClient cognitoclient, String userPoolId ) {
+
+        try {
+            // List only users with specific email.
+            String filter = "email = \"tblue@noserver.com\"";
+
+            ListUsersRequest usersRequest = ListUsersRequest.builder()
+                    .userPoolId(userPoolId)
+                    .filter(filter)
+                    .build();
+
+            ListUsersResponse response = cognitoclient.listUsers(usersRequest);
+            for(UserType user : response.users()) {
+                System.out.println("User with filter applied " + user.username() + " Status " + user.userStatus() + " Created " + user.userCreateDate() );
             }
 
         } catch (CognitoIdentityProviderException e){
