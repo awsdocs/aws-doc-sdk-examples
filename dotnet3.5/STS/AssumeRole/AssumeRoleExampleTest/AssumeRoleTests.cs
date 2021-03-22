@@ -1,5 +1,5 @@
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 using Amazon;
 using Amazon.SecurityToken;
@@ -20,16 +20,10 @@ namespace AssumeRoleExampleTest
         [Fact]
         public async Task GetCallerIdentityAsyncTest()
         {
-            // Create the mock SecurityToken client.
-            // Define variable
             var mockClient = new Mock<AmazonSecurityTokenServiceClient>(REGION);
             mockClient.Setup(client => client.GetCallerIdentityAsync(
                     It.IsAny<GetCallerIdentityRequest>(),
                     It.IsAny<CancellationToken>()))
-                .Callback<GetCallerIdentityRequest,
-                    CancellationToken>((request, token) =>
-                    {
-                    })
                 .Returns((GetCallerIdentityRequest r,
                     CancellationToken token) =>
                 {
@@ -57,14 +51,6 @@ namespace AssumeRoleExampleTest
             mockClient.Setup(client => client.AssumeRoleAsync(
                     It.IsAny<AssumeRoleRequest>(),
                     It.IsAny<CancellationToken>()))
-                .Callback<AssumeRoleRequest,
-                    CancellationToken>((request, token) =>
-                    {
-                        if (request is not null)
-                        {
-
-                        }
-                    })
                 .Returns((AssumeRoleRequest r,
                     CancellationToken token) =>
                 {
@@ -82,7 +68,6 @@ namespace AssumeRoleExampleTest
 
             var client = mockClient.Object;
 
-            // Create the request to use with the AssumeRoleAsync call.
             var assumeRoleReq = new AssumeRoleRequest()
             {
                 DurationSeconds = 1600,

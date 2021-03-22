@@ -1,5 +1,5 @@
-﻿# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 using Amazon;
 using Amazon.SecurityToken;
@@ -13,7 +13,7 @@ namespace AssumeRoleExample
     {
         /// <summary>
         /// This example shows how to use the AWS Security Token
-        /// Service (AWS STS) to Assume an IAM role.
+        /// Service (AWS STS) to assume an IAM role.
         /// 
         /// NOTE: It is important that the role that will be assumed has a
         /// trust relationship with the account that will assume the role.
@@ -29,7 +29,7 @@ namespace AssumeRoleExample
         
         static async Task Main()
         {
-            // Create the SecurityToken client and then display the Identity of the
+            // Create the SecurityToken client and then display the identity of the
             // default user.
             var roleArnToAssume = "arn:aws:iam::123456789012:role/testAssumeRole";
 
