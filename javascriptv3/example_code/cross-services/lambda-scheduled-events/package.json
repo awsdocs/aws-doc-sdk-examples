@@ -1,5 +1,5 @@
 {
-  "name": "lambda-api-gateway-example",
+  "name": "lambda-scheduled-events-example",
   "version": "1.0.0",
   "description": "Using the AWS SDK for JavaScript V3 to build and deploy Lambda functions using scheduled events.",
   "main": "index.js",
