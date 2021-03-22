@@ -33,7 +33,7 @@ To build and run these examples, you need the following:
              .build();
 
 
-**Note**: For more information about setting your AWS credentials, see  `Supplying and retrieving AWS credentials <https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html/>`_.
+**Note**: For more information about setting your AWS credentials, see  `Supplying and retrieving AWS credentials <https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html>`_.
 
 AWS Java code examples
 ======================
@@ -51,6 +51,8 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 
 + **Creating_dynamodb_item_tracker** - A tutorial that discusses using Amazon DynamoDB, Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items.
 
++ **Creating_mongodb_item_tracker** - A tutorial that discusses using Amazon EC2 that hosts a MongoDB instance, Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items.
+
 + **Creating AWS serverless workflows using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and AWS Step Functions to create a workflow that invokes AWS services. Each workflow step is implemented by using an AWS Lambda function.
 
 + **Creating a sample AWS photo analyzer application using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and various AWS services, such as the  Amazon Rekognition service, to analyze images. The application can analyze many images and generate a report that breaks down each image into a series of labels.
@@ -65,7 +67,9 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 
 + **Using Amazon API Gateway to invoke Lambda functions** - A tutorial that discusses how to use Amazon API Gateway to invoke a Lambda function. In addition, the AWS Lambda function is created by using the AWS Lambda Java runtime API and invokes multiple AWS services to perform a specific use case.
 
-+ **Building an Amazon Lex Chatbot that handles multiple languages** - A tutorial that discusses how to create an Amazon Lex chatbot within a web application to engage your web site visitors. In addition, this chatbot supports multiple languages that lets users communiciate with the chatbot in the languages of their choice (for example, French).  
++ **Building an Amazon Lex Chatbot that handles multiple languages** - A tutorial that discusses how to create an Amazon Lex chatbot within a web application to engage your web site visitors. In addition, this chatbot supports multiple languages that lets users interact with the chatbot in the languages of their choice (for example, French). 
+
++ **Building an AWS Workflow that sends notifications over multiple channels** - A tutorial that discusses how to develop an AWS serverless workflow that sends notifications over multiple channels. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function. 
 
 
 AWS service examples

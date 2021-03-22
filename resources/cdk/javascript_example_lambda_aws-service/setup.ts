@@ -3,9 +3,20 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// TODO: Customize this AWS CDK code for your specific AWS CDK solution.
-// For more information, see the AWS CDK Developer Guide at
-// https://docs.aws.amazon.com/cdk/latest/guide
+// Purpose: This AWS Cloud Development Kit (AWS CDK) app
+// creates the following AWS resources:
+//
+// This AWS CDK app creates the following resources:
+//
+// - An Amazon S3 bucket with public access to the bucket's objects
+// - An IAM unauthenticated role based on an AWS identity
+//   that has permission to create a DynamoDB table, invoke an Lambda
+//   function,
+//   and create a mobile analytics event.
+// - An Amazon Cognito identity pool with the role attached to it.
+//
+// For instructions on how to run any of these apps, see
+// https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/resources/cdk/README.md#Running-a-CDK-app
 
 import "source-map-support/register";
 import * as cdk from "@aws-cdk/core";

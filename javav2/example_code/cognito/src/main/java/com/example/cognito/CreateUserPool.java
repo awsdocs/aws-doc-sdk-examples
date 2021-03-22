@@ -51,12 +51,12 @@ public class CreateUserPool {
     public static String createPool(CognitoIdentityProviderClient cognitoclient,String userPoolName ) {
 
         try {
-            CreateUserPoolResponse repsonse = cognitoclient.createUserPool(
+            CreateUserPoolResponse userPoolResponse = cognitoclient.createUserPool(
                     CreateUserPoolRequest.builder()
                             .poolName(userPoolName)
                             .build()
             );
-            return repsonse.userPool().id();
+            return userPoolResponse.userPool().id();
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());

@@ -34,10 +34,11 @@ func AttachDynamoFullPolicy(c context.Context, api IAMAttachRolePolicyAPI, input
 
 func main() {
 	roleName := flag.String("r", "", "The name of the IAM role")
+	policyName := flag.String("p", "", "The name of the policy to attach to the role")
 	flag.Parse()
 
-	if *roleName == "" {
-		fmt.Println("You must supply a role name (-r ROLE)")
+	if *roleName == "" || *policyName == "" {
+		fmt.Println("You must supply a role and policy name (-r ROLE -p POLICY)")
 		return
 	}
 
@@ -48,7 +49,7 @@ func main() {
 
 	client := iam.NewFromConfig(cfg)
 
-	policyArn := "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
+	policyArn := "arn:aws:iam::aws:policy/" + *policyName
 
 	input := &iam.AttachRolePolicyInput{
 		PolicyArn: &policyArn,
@@ -57,11 +58,11 @@ func main() {
 
 	_, err = AttachDynamoFullPolicy(context.TODO(), client, input)
 	if err != nil {
-		fmt.Println("Unable to attach DynamoDB full-access role policy to role")
+		fmt.Println("Unable to attach policy " + *policyName + " to role " + *roleName)
 		return
 	}
 
-	fmt.Println("Role attached successfully")
+	fmt.Println("Policy " + *policyName + " attached to role " + *roleName)
 }
 
 // snippet-end:[iam.go-v2.AttachUserPolicy]
