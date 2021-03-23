@@ -7,9 +7,9 @@
   "author": "brmur",
   "license": "Apache 2.0",
   "scripts": {
-    "build-lambda-1": "webpack getid.js --mode development --target  --devtool false -o index.js",
-    "build-lambda-2": "webpack additem.js --mode development --target web --devtool false -o index.js",
-    "build-lambda-3": "webpack sendemail.js --mode development --target commonjs --devtool false -o index.js",
+    "build-lambda-1": "webpack getid.ts --mode development --libraryTarget commonjs2 --target node --devtool false -o index.js",
+    "build-lambda-2": "webpack additem.js --mode development --libraryTarget commonjs2 --target node --devtool false -o index.js",
+    "build-lambda-3": "webpack sendemail.js --mode development --libraryTarget commonjs2 --target node --devtool false -o index.js",
     "test": "exit 0",
     "dev": "parcel sendemail.ts",
     "build": "parcel build index.js"
