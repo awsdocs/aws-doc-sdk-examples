@@ -35,7 +35,7 @@ const params = {
       {
         PutRequest: {
           Item: {
-            Id: { N: "1" },
+            id: { N: "1" },
             firstName: { S: "Bob" },
             phone: { N: "155555555555654" },
             startDate: { S: "2019-12-20" },
@@ -45,7 +45,7 @@ const params = {
       {
         PutRequest: {
           Item: {
-            Id: { N: "2" },
+            id: { N: "2" },
             firstName: { S: "Xing" },
             phone: { N: "155555555555653" },
             startDate: { S: "2019-12-17" },
@@ -55,7 +55,7 @@ const params = {
       {
         PutRequest: {
           Item: {
-            Id: { N: "55" },
+            id: { N: "55" },
             firstName: { S: "Harriette" },
             phone: { N: "155555555555652" },
             startDate: { S: "2019-12-19" },

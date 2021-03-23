@@ -3,11 +3,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// TODO: Customize this AWS Cloud Development Kit (AWS CDK) code for your
-// specific AWS CDK solution. For more information, see the
-// AWS CDK Developer Guide at
-// https://docs.aws.amazon.com/cdk/latest/guide
-
 import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
 import { CfnOutput } from "@aws-cdk/core";
@@ -21,7 +16,7 @@ export class SetupStackLambda extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-      const myBucket = new s3.Bucket(this, 'mybucket      ',{
+      const myBucket = new s3.Bucket(this, 'mybucket',{
           removalPolicy: cdk.RemovalPolicy.DESTROY,
           blockPublicAccess:  {
               blockPublicAcls: true,
@@ -30,8 +25,6 @@ export class SetupStackLambda extends cdk.Stack {
               restrictPublicBuckets: false
           }
       });
-      myBucket.grantPublicAccess('*', 's3:GetObject');
-      myBucket.grantPublicAccess('*', 's3:PutObject');
 
     const myRole = new iam.Role(this, "myLambdaRole", {
       assumedBy: new ServicePrincipal("lambda.amazonaws.com")
@@ -163,7 +156,7 @@ export class SetupStackLambda extends cdk.Stack {
               }
             }
         ))
-
+      myBucket.grantReadWrite(myRole);
     const table = new dynamodb.Table(this, 'table', {
       tableName: 'Employees',
       partitionKey: {

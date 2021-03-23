@@ -19,11 +19,9 @@ Inputs (replace in code):
 // snippet-start:[lambda.JavaScript.cross-service-examples.lambda-scheduled-events.config]
 
 "use strict";
-// Load the required clients and commands.
 const { DynamoDBClient, ScanCommand } = require("@aws-sdk/client-dynamodb");
 const { SNSClient, PublishCommand } = require("@aws-sdk/client-sns");
 
-//Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"
 
 // Get today's date.
@@ -41,12 +39,11 @@ const params = {
   ExpressionAttributeValues: {
     ":topic": { S: date },
   },
-  // Set the projection expression, which the the attributes that you want.
+  // Set the projection expression, which are the attributes that you want.
   ProjectionExpression: "firstName, phone",
   TableName: "TABLE_NAME",
 };
 
-// Create the client service objects.
 const dbclient = new DynamoDBClient({ region: REGION });
 const snsclient = new SNSClient({ region: REGION });
 
@@ -63,7 +60,7 @@ exports.handler = async (event, context, callback) => {
     }
   }
   try {
-    // Scan the table to check identify employees with work anniversary today.
+    // Scan the table to identify employees with work anniversary today.
     const data = await dbclient.send(new ScanCommand(params));
     data.Items.forEach(function (element, index, array) {
       const textParams = {

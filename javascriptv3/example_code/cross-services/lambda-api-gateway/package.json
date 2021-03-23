@@ -5,9 +5,9 @@
   "main": "index.js",
   "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/cross-services/lambda-api-gateway.git",
   "author": "brmur",
-  "license": "MIT",
+  "license": "Apache 2.0",
   "scripts": {
-    "build": "webpack mylamdbafunction --mode development --target web --devtool false -o index.js",
+    "build": "webpack mylamdbafunction.ts --mode development --libraryTarget commonjs2 --target node --devtool false -o index.js",
     "test": "exit 0"
   },
   "dependencies": {

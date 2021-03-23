@@ -1,5 +1,5 @@
 Resources:
-  mybucketbrmur91CFB1BC:
+  mybucket160F8132:
     Type: AWS::S3::Bucket
     Properties:
       PublicAccessBlockConfiguration:
@@ -10,37 +10,7 @@ Resources:
     UpdateReplacePolicy: Delete
     DeletionPolicy: Delete
     Metadata:
-      aws:cdk:path: SetupStackLambda/mybucket-brmur      /Resource
-  mybucketbrmurPolicy9AA1828A:
-    Type: AWS::S3::BucketPolicy
-    Properties:
-      Bucket:
-        Ref: mybucketbrmur91CFB1BC
-      PolicyDocument:
-        Statement:
-          - Action: s3:GetObject
-            Effect: Allow
-            Principal: "*"
-            Resource:
-              Fn::Join:
-                - ""
-                - - Fn::GetAtt:
-                      - mybucketbrmur91CFB1BC
-                      - Arn
-                  - /*
-          - Action: s3:PutObject
-            Effect: Allow
-            Principal: "*"
-            Resource:
-              Fn::Join:
-                - ""
-                - - Fn::GetAtt:
-                      - mybucketbrmur91CFB1BC
-                      - Arn
-                  - /*
-        Version: "2012-10-17"
-    Metadata:
-      aws:cdk:path: SetupStackLambda/mybucket-brmur      /Policy/Resource
+      aws:cdk:path: SetupStackLambda/mybucket/Resource
   myLambdaRole8B777879:
     Type: AWS::IAM::Role
     Properties:
@@ -151,6 +121,24 @@ Resources:
                   - kinesisreplication.dynamodb.amazonaws.com
             Effect: Allow
             Resource: "*"
+          - Action:
+              - s3:GetObject*
+              - s3:GetBucket*
+              - s3:List*
+              - s3:DeleteObject*
+              - s3:PutObject*
+              - s3:Abort*
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - mybucket160F8132
+                  - Arn
+              - Fn::Join:
+                  - ""
+                  - - Fn::GetAtt:
+                        - mybucket160F8132
+                        - Arn
+                    - /*
         Version: "2012-10-17"
       PolicyName: myLambdaRoleDefaultPolicyF1CBE162
       Roles:
@@ -193,7 +181,7 @@ Resources:
   CDKMetadata:
     Type: AWS::CDK::Metadata
     Properties:
-      Modules: aws-cdk=1.87.1,@aws-cdk/assets=1.90.1,@aws-cdk/aws-applicationautoscaling=1.90.1,@aws-cdk/aws-autoscaling-common=1.90.1,@aws-cdk/aws-cloudwatch=1.90.1,@aws-cdk/aws-codeguruprofiler=1.90.1,@aws-cdk/aws-dynamodb=1.90.1,@aws-cdk/aws-ec2=1.90.1,@aws-cdk/aws-ecr=1.90.1,@aws-cdk/aws-ecr-assets=1.90.1,@aws-cdk/aws-events=1.90.1,@aws-cdk/aws-iam=1.90.1,@aws-cdk/aws-kms=1.90.1,@aws-cdk/aws-lambda=1.90.1,@aws-cdk/aws-logs=1.90.1,@aws-cdk/aws-s3=1.90.1,@aws-cdk/aws-s3-assets=1.90.1,@aws-cdk/aws-sqs=1.90.1,@aws-cdk/aws-ssm=1.90.1,@aws-cdk/cloud-assembly-schema=1.90.1,@aws-cdk/core=1.90.1,@aws-cdk/custom-resources=1.90.1,@aws-cdk/cx-api=1.90.1,@aws-cdk/region-info=1.90.1,jsii-runtime=node.js/v12.14.1
+      Analytics: v2:deflate64:H4sIAAAAAAAACk2Oyw4CIQxFv8V9pxPUjTvjfIAG/QEGMGEe1PDQTAj/rsDG1T1tTpvL8HREtjuLj++kmvskyWlM9yDkDANZH1yUAbj2FJ3UMDztNYZXDIX+tz9XmWDIZii/kj9gukQ562o2ymDEionTUk9q3mgxcitjowxqs2IlNWJ6iLGZFXLOYElpnHz/ZntkpfjkjelctMGsGnnLL4G3VLHUAAAA
     Metadata:
       aws:cdk:path: SetupStackLambda/CDKMetadata/Default
     Condition: CDKMetadataAvailable
@@ -203,7 +191,7 @@ Outputs:
       Ref: table8235A42E
   Bucketname:
     Value:
-      Ref: mybucketbrmur91CFB1BC
+      Ref: mybucket160F8132
   IAMrole:
     Value:
       Ref: myLambdaRole8B777879
@@ -211,6 +199,9 @@ Conditions:
   CDKMetadataAvailable:
     Fn::Or:
       - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - af-south-1
           - Fn::Equals:
               - Ref: AWS::Region
               - ap-east-1
@@ -238,13 +229,16 @@ Conditions:
           - Fn::Equals:
               - Ref: AWS::Region
               - cn-northwest-1
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - eu-central-1
       - Fn::Or:
           - Fn::Equals:
               - Ref: AWS::Region
+              - eu-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
               - eu-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-south-1
           - Fn::Equals:
               - Ref: AWS::Region
               - eu-west-1
@@ -266,6 +260,7 @@ Conditions:
           - Fn::Equals:
               - Ref: AWS::Region
               - us-east-2
+      - Fn::Or:
           - Fn::Equals:
               - Ref: AWS::Region
               - us-west-1
