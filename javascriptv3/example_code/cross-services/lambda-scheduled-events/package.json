@@ -1,9 +1,9 @@
 {
-  "name": "lambda-api-gateway-example",
+  "name": "lambda-scheduled-events-example",
   "version": "1.0.0",
-  "description": "Using the AWS SDK for JavaScript V3 to build and deploy Lambda functions on API Gateway.",
+  "description": "Using the AWS SDK for JavaScript V3 to build and deploy Lambda functions using scheduled events.",
   "main": "index.js",
-  "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/cross-services/lambda-api-gateway.git",
+  "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/cross-services/lambda-scheduled-events.git",
   "author": "brmur",
   "license": "Apache 2.0",
   "scripts": {

@@ -1,8 +1,8 @@
-# TypeScript environment for tutorial using Amazon API Gateway to invoke AWS Lambda functions
+# TypeScript environment for tutorial using Amazon CloudWatch scheduled events to invoke AWS Lambda functions
 This is a workspace where you can find an AWS SDK for JavaScript version 3 (v3) tutorial that demonstrates how to 
-use Amazon API Gateway to invoke AWS Lambda functions.
+use Amazon CloudWatch scheduled events to invoke AWS Lambda functions.
 
-The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-scan-and-publish-message.html) contains these examples.
+The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/invoke-lambda-functions-with-scheduled-events.html) contains these examples.
 
 # Getting started
 
@@ -10,7 +10,7 @@ The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-
 See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for 
 instructions.
 
-1. Install the dependencies listed in the [root]/javascriptv3/example_code/cross-services/lambda-api-gateway/package.json.
+1. Install the dependencies listed in the [root]/javascriptv3/example_code/cross-services/lambda-scheduled-events/package.json.
 
 **Note**: These include the AWS SDK for JavaScript v3 client modules for the AWS services required in this example, 
 which are  *@aws-sdk/client-cognito-identity*, *@aws-sdk/credential-provider-cognito-identity*, *@aws-sdk/client-dynamodb*,
