@@ -6,8 +6,8 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/invoke-lambda-functions-with-scheduled-events.html.
 
 Purpose:
-mylambdafunction.ts is an AWS Lambda function.It is part of a tutorial demonstrates
-It is part of a tutorial demonstrates execute Lambda functions using Amazon CloudWatch scheduled events. To see the full tutorial, see
+mylambdafunction.ts is an AWS Lambda function. It is part of a tutorial demonstrates how to execute Lambda functions
+ using Amazon CloudWatch scheduled events. To see the full tutorial, see
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/invoke-lambda-functions-with-scheduled-events.html.
 
 Inputs (replace in code):
