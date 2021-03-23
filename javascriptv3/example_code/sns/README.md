@@ -1,7 +1,8 @@
+<!-- snippet-start:[sns.Markdown.readme]-->
 # TypeScript environment for Amazon Simple Notification Service (SNS) examples
-This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) Amazon SNS examples.
+This is a workspace where you can find AWS SDK for JavaScript version 3 (v3) Amazon SNS examples.
 
-The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
+The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
 The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples.html) contains these examples.
 
@@ -35,3 +36,4 @@ npm install
 cd src
 ts-node [example name].ts // e.g., ts-node sns_checkphoneoptout.ts
 ```
+<!-- snippet-end:[sns.Markdown.readme]-->

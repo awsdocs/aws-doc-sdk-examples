@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates.All Rights Reserved. 
 // SPDX - License - Identifier: Apache - 2.0
 
-//  snippet - start: [general.cpp.starter.main]
+// snippet-start:[general.cpp.starter.main]
 
 #include <aws/core/Aws.h>
 #include <aws/core/utils/logging/LogLevel.h>
@@ -39,4 +39,4 @@ int main()
     ShutdownAPI(options);
     return 0;
 }
-//  snippet - end: [general.cpp.starter.main]
+// snippet-end:[general.cpp.starter.main]
