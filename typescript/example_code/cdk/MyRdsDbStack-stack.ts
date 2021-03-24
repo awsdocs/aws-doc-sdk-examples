@@ -36,9 +36,7 @@ export class MyRdsDbStack extends core.Stack {
 
     new rds.DatabaseCluster(this, "MyRdsDb", {
       defaultDatabaseName: "MyAuroraDatabase",
-      masterUser: {
-        username: "admin"
-      },
+      // credentials: rds.Credentials.fromGeneratedSecret('clusteradmin'), // Optional - will default to 'admin' username and generated password
       engine: rds.DatabaseClusterEngine.AURORA,
       instanceProps: {
         instanceType: new ec2.InstanceType(
