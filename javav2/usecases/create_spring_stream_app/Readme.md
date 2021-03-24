@@ -547,9 +547,10 @@ The **index.html** file is the application's home view. The following HTML repre
 
      <!DOCTYPE HTML>
      <html xmlns:th="https://www.thymeleaf.org">
-     <meta charset="utf-8" />
-     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-     <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
@@ -557,26 +558,21 @@ The **index.html** file is the application's home view. The following HTML repre
 
     <title>AWS Item Tracker</title>
     </head>
-
     <body>
     <header th:replace="layout :: site-header"></header>
     <div class="container">
 
     <h2>Video Stream over HTTP App</h2>
 
-    <p>The AWS Item Tracker application is a sample application that uses multiple AWS Services and the Java V2 API. Collecting and working with items has never been easier! Simply perform these steps:<p>
-
+    <p>This sample application streams S3 video content over HTTP using the Amazon S3 Java V2 API.<p>
     <ol>
-        <li>Enter work items into the system by choosing the <i>Add Items</i> menu item. Fill in the form and then choose <i>Create Item</i>.</li>
-        <li>The AWS Item Tracker application stores the data by using the Amazon Relational Database Service (Amazon RDS).</li>
-        <li>You can view all of your items by choosing the <i>Get Items</i> menu item. Next, choose <i>Get Active Items</i> in the dialog box.</li>
-        <li>You can modify an Active Item by selecting an item in the table and then choosing <i>Get Single Item</i>. The item appears in the Modify Item section where you can modify the description or status.</li>
-        <li>Modify the item and then choose <i>Update Item</i>. You cannot modify the ID value. </li>
-        <li>You can archive any item by selecting the item and choosing <i>Archive Item</i>. Notice that the table is updated with only active items.</li>
-        <li>You can display all archived items by choosing <i>Get Archived Items</i>. You cannot modify an archived item.</li>
-        <li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog box and then choosing <i>Send Report</i>.Only Active data is sent in a report.</li>
-        <li>The Amazon Simple Email Service is used to send an email with an Excel document to the selected email recipient.</li>
+        <li>Upload MP4 videos to an Amazon S3 bucket by choosing the <i>Upload Video</i>.
+        <li>Fill in the form and then choose <i>Submit</i>.</li>
+        <li>The application stores the video in an Amazon S3 bucket.</li>
+        <li>You can view a video by choosing <i>Watch Video</i>.
+        <li>Next, choose the video to watch by click in the video title.</li>
     </ol>
+    </div>
     </div>
 
     </body>
