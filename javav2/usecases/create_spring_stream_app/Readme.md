@@ -1,6 +1,6 @@
 # Building a Spring Boot web application that Streams Amazon S3 content over HTTP
 
-You can use Amazon Web Services to create a web application that streams Amazon S3 video content over HTTP. The video is displayed in the application’s view. In this tutorial, the Spring Framework along with AWS SDK for Java API is used to create the application. 
+You can use Amazon Web Services to create a web application that streams Amazon S3 video content over HTTP. The video is displayed in the application’s view. 
 
 ![AWS Video Analyzer](images/pic1.png)
 
