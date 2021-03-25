@@ -6,7 +6,7 @@ You can use Amazon Web Services to create a web application that streams Amazon 
 
 The application you create uses Spring Boot APIs to build a model, different views, and a controller. This web application also reads the object tags to dynamically build the video menu. To read the video content and object tags, you use the Amazon S3 Java API (V2). For more information about Spring Boot APIs, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
 
-In the previous illustration, notice the video menu that displays video titles and descriptions. The video menu is displayed to let the user know which videos are available to view. To view a specific video, the user click the video title. A GET Request is made to a Spring Controller, the application reads the specific video in an Amazon S3 bucket, encodes the byte array and then steams the data where the video is displayed in an HTML5 Video tag. 
+In the previous illustration, notice the video menu that displays video titles and descriptions. The video menu is displayed to let the user know which videos are available. To view a specific video, the user can click the video title. A GET Request is made to a Spring Controller, the application reads the specific video in an Amazon S3 bucket, encodes the byte array and then steams the data where the video is displayed in an HTML5 **Video** tag. 
 
 This web application also supports uploading MP4 videos to an Amazon S3 bucket. For example, the following illustration shows a video named Rabbit.mp4 along with a description. 
 
@@ -284,7 +284,7 @@ The following Java code represents the **VideoStreamController** class.
 
 ### VideoStreamService class
 
-The following Java code represents the **VideoStreamService** class. This class uses the Amazon S3 Java API (V2) to interact with content located in an S3 bucket. For example, the **getTags** method returns a collection of tags that are used to create the video menu. Likewise, the **getObjectBytes** reads bytes from a MP4 video. 
+The following Java code represents the **VideoStreamService** class. This class uses the Amazon S3 Java API (V2) to interact with content located in an S3 bucket. For example, the **getTags** method returns a collection of tags that are used to create the video menu. Likewise, the **getObjectBytes** reads bytes from a MP4 video. The byte array is used to create a **ResponseEntity** object. This object sets HTTP header information and the HTTP status code required to stream that video. 
 
      package com.example;
 
