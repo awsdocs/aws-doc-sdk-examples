@@ -584,11 +584,6 @@ The following code represents the **layout.html** file that represents the appli
     <a href="#" style="color: white" th:href="@{/}">Home</a>
     <a href="#" style="color: white" th:href="@{/upload}">Upload Videos</a>
     <a href="#"  style="color: white" th:href="@{/watch}">Watch Videos</a>
-    <div id="logged-in-info">
-        <form method="post" th:action="@{/logout}">
-            <input type="submit"  value="Logout"/>
-        </form>
-    </div>
     </header>
     <h1>Welcome</h1>
     </body>
