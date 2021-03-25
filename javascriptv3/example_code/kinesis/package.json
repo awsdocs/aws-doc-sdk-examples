@@ -8,7 +8,7 @@
   },
   "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/kinesis.git",
   "author": "https://github.com/brmur",
-  "license": "MIT",
+  "license": "Apache 2.0",
   "dependencies": {
     "@aws-sdk/client-cognito-identity": "^3.3.0",
     "@aws-sdk/credential-provider-cognito-identity":"^3.3.0",
