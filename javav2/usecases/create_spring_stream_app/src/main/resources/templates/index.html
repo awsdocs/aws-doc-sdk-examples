@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+    <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
+
+    <title>Video Stream Sample App</title>
+</head>
+
+<body>
+<header th:replace="layout :: site-header"></header>
+<div class="container">
+
+    <h2>Video Stream over HTTP App</h2>
+
+    <p>This sample application streams S3 video content over HTTP using the Amazon S3 Java V2 API.<p>
+
+    <ol>
+        <li>Upload MP4 videos to an Amazon S3 bucket by choosing the <i>Upload Video</i>.
+        <li>Fill in the form and then choose <i>Submit</i>.</li>
+        <li>The application stores the video in an Amazon S3 bucket.</li>
+        <li>You can view a video by choosing <i>Watch Video</i>.
+        <li>Next, choose the video to watch by click in the video title.</li>
+    </ol>
+    </div>
+
+  </body>
+</html>
