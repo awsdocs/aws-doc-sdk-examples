@@ -3,10 +3,10 @@
 # within this repository.
 ---
 files:
-  - path: ListObjects/ListObjects.cs
+  - path: PollReceiveExample/PollReceiveExample.cs
     services: 
-    - s3
-  - path: ListObjectsTest/ListObjectsTest.cs
+    - sqs
+  - path: PollReceiveExampleTests/ListObjectsTest.cs
     services: 
-    - s3
+    - sqs
 ...

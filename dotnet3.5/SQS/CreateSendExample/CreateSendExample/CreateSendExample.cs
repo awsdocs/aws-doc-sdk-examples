@@ -44,30 +44,17 @@ namespace CreateSendExample
             Console.WriteLine($"Created a queue with URL : {response.QueueUrl}");
         }
 
-        static async Task<GetQueueUrlResponse> GetQueueURL(IAmazonSQS client, string queueName)
-        {
-            var request = new GetQueueUrlRequest
-            {
-                QueueName = queueName
-            };
-
-            GetQueueUrlResponse response = await client.GetQueueUrlAsync(request);
-            Console.WriteLine($"The SQS queue's URL is {response.QueueUrl}");
-
-            return response;
-        }
-
         static async Task<SendMessageResponse> SendMessage(
             IAmazonSQS client,
             string queueName,
             string messageBody,
-            Dictionary<string, MessageAttributeValue> messageAttribute
+            Dictionary<string, MessageAttributeValue> messageAttributes
         )
         {
             var sendMessageRequest = new SendMessageRequest
             {
                 DelaySeconds = 10,
-                messageAttribute,
+                MessageAttributes = messageAttributes,
                 MessageBody = messageBody,
                 QueueUrl = queueName
             };
@@ -76,6 +63,22 @@ namespace CreateSendExample
             Console.WriteLine($"Sent a message with id : {response.MessageId}");
 
             return response;
+        }
+
+        public async Task GetQueueUrlExample(string queueName)
+        {
+            // Create service client using the SDK's default logic for determining AWS credentials and region to use.
+            // For information configuring service clients checkout the .NET developer guide: https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config.html
+            AmazonSQSClient client = new AmazonSQSClient();
+
+            var request = new GetQueueUrlRequest
+            {
+                QueueName = queueName
+            };
+
+            GetQueueUrlResponse response = await client.GetQueueUrlAsync(request);
+
+            Console.WriteLine($"The SQS queue's URL is {response.QueueUrl}");
         }
     }
 }
