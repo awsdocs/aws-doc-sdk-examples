@@ -3,22 +3,20 @@ SPDX-License-Identifier: Apache-2.0
 
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-scan-and-publish-message.html.
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/invoke-lambda-functions-with-scheduled-events.html.
 
 Purpose:
-mylambdafunction.ts is an AWS Lambda function.It is part of a tutorial that demonstrates
-how to create a REST API using API Gateway that triggers a Lambda function that scans an
-Amazon DynamoDB table of employees' information and send an Amazon Simple Notification Service (Amazon SNS)
-message based on the results. It demonstrates how toTo run the full tutorial, see
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-scan-and-publish-message.html.
+mylambdafunction.ts is an AWS Lambda function. It is part of a tutorial demonstrates how to execute Lambda functions
+ using Amazon CloudWatch scheduled events. To see the full tutorial, see
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/invoke-lambda-functions-with-scheduled-events.html.
 
 Inputs (replace in code):
 - REGION
 - TABLE_NAME
 
 */
-// snippet-start:[lambda.JavaScript.general-examples-dynamodb-lambda.scanAndPublishV3]
-// snippet-start:[lambda.JavaScript.general-examples-dynamodb-lambda.scanAndPublishV3.config]
+// snippet-start:[lambda.JavaScript.cross-service-examples.lambda-scheduled-events.scanAndPublishV3]
+// snippet-start:[lambda.JavaScript.cross-service-examples.lambda-scheduled-events.config]
 
 "use strict";
 const { DynamoDBClient, ScanCommand } = require("@aws-sdk/client-dynamodb");
@@ -49,8 +47,8 @@ const params = {
 const dbclient = new DynamoDBClient({ region: REGION });
 const snsclient = new SNSClient({ region: REGION });
 
-// snippet-end:[lambda.JavaScript.general-examples-dynamodb-lambda.scanAndPublishV3.config]
-// snippet-start:[lambda.JavaScript.general-examples-dynamodb-lambda.scanAndPublishV3.handler]
+// snippet-end:[lambda.JavaScript.cross-service-examples.lambda-scheduled-events.config]
+// snippet-start:[lambda.JavaScript.cross-service-examples.lambda-scheduled-events.scanAndPublishV3.handler]
 exports.handler = async (event, context, callback) => {
   // Helper function to send message using Amazon SNS.
   async function sendText(textParams) {
@@ -79,5 +77,5 @@ exports.handler = async (event, context, callback) => {
     console.log("Error, could not scan table ", err);
   }
 };
-// snippet-end:[lambda.JavaScript.general-examples-dynamodb-lambda.scanAndPublishV3.handler]
-// snippet-end:[lambda.JavaScript.general-examples-dynamodb-lambda.scanAndPublishV3]
+// snippet-end:[lambda.JavaScript.cross-service-examples.lambda-scheduled-events.scanAndPublishV3.handler]
+// snippet-end:[lambda.JavaScript.cross-service-examples.lambda-scheduled-events.scanAndPublishV3]

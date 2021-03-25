@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/iam.git",
   "author": "Doug-AWS, AllanFly120",
-  "license": "MIT",
+  "license": "Apache 2.0",
   "scripts": {
     "build:frontend": "webpack MyLambdaApp/index.ts --mode development --target web --devtool false -o MyLambdaApp/main.ts",
     "build:backend": "webpack slotpull.ts --mode development --target node --devtool false --output-library-target umd -o index.ts",
