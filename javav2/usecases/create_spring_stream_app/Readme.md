@@ -528,6 +528,8 @@ At this point, you have created all of the Java files required for this example 
 + upload.html
 + video.html
 
+**Note**: The CSS file for this application is located in this Github repository. 
+
 ### index.html
 The **index.html** file is the application's home view. The following HTML represents the **index.html** file. 
 
