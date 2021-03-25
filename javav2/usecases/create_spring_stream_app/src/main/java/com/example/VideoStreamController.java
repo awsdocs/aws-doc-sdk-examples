@@ -28,7 +28,7 @@ public class VideoStreamController {
     @Autowired
     VideoStreamService vid;
 
-    private String bucket = "bucketscottnov2";
+    private String bucket = "<Enter your bucket name>";
 
     @RequestMapping(value = "/")
     public String root() {
