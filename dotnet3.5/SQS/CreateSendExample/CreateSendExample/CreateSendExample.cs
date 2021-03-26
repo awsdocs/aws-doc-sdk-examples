@@ -17,7 +17,7 @@ namespace CreateSendExample
         // created using AWS SDK for .NET 3.5 and .NET 5.0.
 
         // Specify your AWS Region (an example Region is shown).
-        private static readonly RegionEndpoint _serviceRegion = RegionEndpoint.USWest2;
+        private static readonly RegionEndpoint _serviceRegion = RegionEndpoint.USEast2; // RegionEndpoint.USWest2;
         private static IAmazonSQS _client;
 
         private static readonly string _queueName = "Example_Queue";
@@ -25,10 +25,32 @@ namespace CreateSendExample
         static async Task Main()
         {
             _client = new AmazonSQSClient(_serviceRegion);
+            var createQueueResponse = await CreateQueue(_client, _queueName);
 
+            string queueUrl = createQueueResponse.QueueUrl;
+
+            Dictionary<string, MessageAttributeValue> messageAttributes = new Dictionary<string, MessageAttributeValue>
+            {
+                {"Title",   new MessageAttributeValue{DataType = "String", StringValue = "The Whistler"}},
+                {"Author",  new MessageAttributeValue{DataType = "String", StringValue = "John Grisham"}},
+                {"WeeksOn", new MessageAttributeValue{DataType = "Number", StringValue = "6"}}
+            };
+
+            string messageBody = "Information about current NY Times fiction bestseller for week of 12/11/2016.";
+
+            var sendMsgResponse = await SendMessage(_client, queueUrl, messageBody, messageAttributes);
         }
 
-        static async Task CreateQueue(IAmazonSQS client, string queueName)
+        /// <summary>
+        /// Creates a new Amazon SQS queue using the queue name passed to it
+        /// in queueName.
+        /// </summary>
+        /// <param name="client">An SQS client object used to send the message.</param>
+        /// <param name="queueName">A string representing the name of the queue
+        /// to create.</param>
+        /// <returns>A CreateQueueResponse that contains information about the
+        /// newly created queue.</returns>
+        static async Task<CreateQueueResponse> CreateQueue(IAmazonSQS client, string queueName)
         {
             var request = new CreateQueueRequest
             {
@@ -42,11 +64,25 @@ namespace CreateSendExample
 
             var response = await client.CreateQueueAsync(request);
             Console.WriteLine($"Created a queue with URL : {response.QueueUrl}");
+
+            return response;
         }
 
+        /// <summary>
+        /// Sends a message to and SQA queue.
+        /// </summary>
+        /// <param name="client">An SQS client object used to send the message.</param>
+        /// <param name="queueUrl">The URL of the queue to which to send the
+        /// message.</param>
+        /// <param name="messageBody">A string representing the body of the
+        /// message to be sent to the queue.</param>
+        /// <param name="messageAttributes">Attributes for the message to be
+        /// sent to the queue.</param>
+        /// <returns>A SendMessageResponse object that contains information
+        /// about the message that was sent.</returns>
         static async Task<SendMessageResponse> SendMessage(
             IAmazonSQS client,
-            string queueName,
+            string queueUrl,
             string messageBody,
             Dictionary<string, MessageAttributeValue> messageAttributes
         )
@@ -56,29 +92,13 @@ namespace CreateSendExample
                 DelaySeconds = 10,
                 MessageAttributes = messageAttributes,
                 MessageBody = messageBody,
-                QueueUrl = queueName
+                QueueUrl = queueUrl
             };
 
             var response = await client.SendMessageAsync(sendMessageRequest);
             Console.WriteLine($"Sent a message with id : {response.MessageId}");
 
             return response;
-        }
-
-        public async Task GetQueueUrlExample(string queueName)
-        {
-            // Create service client using the SDK's default logic for determining AWS credentials and region to use.
-            // For information configuring service clients checkout the .NET developer guide: https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config.html
-            AmazonSQSClient client = new AmazonSQSClient();
-
-            var request = new GetQueueUrlRequest
-            {
-                QueueName = queueName
-            };
-
-            GetQueueUrlResponse response = await client.GetQueueUrlAsync(request);
-
-            Console.WriteLine($"The SQS queue's URL is {response.QueueUrl}");
         }
     }
 }
