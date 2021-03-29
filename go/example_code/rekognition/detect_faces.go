@@ -26,6 +26,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"path/filepath"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -34,18 +35,34 @@ import (
 
 var svc *rekognition.Rekognition
 var bucket = flag.String("bucket", "", "The name of the bucket")
-var photo = flag.String("photo", "", "The path to the photo file (JPEG, GIF, or ???)")
+var photo = flag.String("photo", "", "The path to the photo file (JPEG, JPG, PNG)")
+var checks = true
 
 func init() {
 
 	//https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/sessions.html
 
 	flag.StringVar(bucket, "b", "", "The name of the bucket")
-	flag.StringVar(photo, "p", "", "The path to the photo file (JPEG, GIF, or ???)")
+	flag.StringVar(photo, "p", "", "The path to the photo file (JPEG, JPG, PNG)")
 	flag.Parse()
 
 	if *bucket == "" || *photo == "" {
+		checks = false
+		flag.PrintDefaults()
 		fmt.Println("You must supply a bucket name (-b BUCKET) and photo file (-p PHOTO)")
+		return
+	}
+
+	fileExtension := filepath.Ext(*photo)
+	validExtension := map[string]bool{
+		".png":  true,
+		".jpg":  true,
+		".jpeg": true,
+	}
+
+	if !validExtension[fileExtension] {
+		checks = false
+		fmt.Println("Rekognition only supports jpeg, jpg or png")
 		return
 	}
 
@@ -55,6 +72,7 @@ func init() {
 	})
 
 	if err != nil {
+		checks = false
 		fmt.Println("Error while creating session,", err)
 		return
 	}
@@ -64,6 +82,10 @@ func init() {
 }
 
 func main() {
+
+	if checks == false {
+		return
+	}
 
 	params := &rekognition.DetectFacesInput{
 		Image: &rekognition.Image{
@@ -81,6 +103,11 @@ func main() {
 	resp, err := svc.DetectFaces(params)
 	if err != nil {
 		fmt.Println(err.Error())
+		return
+	}
+
+	if len(resp.FaceDetails) == 0 {
+		fmt.Println("No faces detected in the image !")
 		return
 	}
 
