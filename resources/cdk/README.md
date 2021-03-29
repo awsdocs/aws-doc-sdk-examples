@@ -4,6 +4,11 @@ This document describes the resources created by the AWS CDK apps in this direct
 
 For instructions on how to run any of these apps, see [Running a CDK app](#cdk).
 
+## lex_bot_example_iam_unauth_role
+This AWS CDK app creates the following resources:
+- An AWS Identity and Access Management (IAM) unauthenticated role with permissions 
+  for Amazon Comprehend, Amazon Translate, and Amazon Lex.
+
 ## go_example_lambda
 
 This AWS CDK app creates the following resources:
@@ -23,7 +28,7 @@ For instructions on how to run any of these apps, see [.../cfn/go_example_lambda
 
 This AWS CDK app creates the following resources:
 
-- An AWS Identity and Access Management (IAM) unauthenticated role with full
+- An IAM unauthenticated role with full
   access to Amazon Polly. 
 - An Amazon Cognito identity pool with the IAM unauthenticated role attached to
   it.
