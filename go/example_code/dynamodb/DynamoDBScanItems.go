@@ -35,7 +35,7 @@ import (
     "github.com/aws/aws-sdk-go/service/dynamodb/expression"
 
     "fmt"
-    "os"
+    "log"
 )
 // snippet-end:[dynamodb.go.scan_items.imports]
 
@@ -82,9 +82,7 @@ func main() {
 
     expr, err := expression.NewBuilder().WithFilter(filt).WithProjection(proj).Build()
     if err != nil {
-        fmt.Println("Got error building expression:")
-        fmt.Println(err.Error())
-        os.Exit(1)
+        log.Fatalf("Got error building expression: %s", err)
     }
     // snippet-end:[dynamodb.go.scan_items.expr]
 
@@ -101,9 +99,7 @@ func main() {
     // Make the DynamoDB Query API call
     result, err := svc.Scan(params)
     if err != nil {
-        fmt.Println("Query API call failed:")
-        fmt.Println((err.Error()))
-        os.Exit(1)
+        log.Fatalf("Query API call failed: %s", err)
     }
     // snippet-end:[dynamodb.go.scan_items.call]
 
@@ -116,9 +112,7 @@ func main() {
         err = dynamodbattribute.UnmarshalMap(i, &item)
 
         if err != nil {
-            fmt.Println("Got error unmarshalling:")
-            fmt.Println(err.Error())
-            os.Exit(1)
+            log.Fatalf("Got error unmarshalling: %s", err)
         }
 
         // Which ones had a higher rating than minimum?

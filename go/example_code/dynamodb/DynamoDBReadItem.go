@@ -33,6 +33,7 @@ import (
     "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 
     "fmt"
+    "log"
 )
 // snippet-end:[dynamodb.go.read_item.imports]
 
@@ -76,8 +77,7 @@ func main() {
         },
     })
     if err != nil {
-        fmt.Println(err.Error())
-        return
+        log.Fatalf("Got error calling GetItem: %s", err)
     }
     // snippet-end:[dynamodb.go.read_item.call]
 
