@@ -6,7 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 'AWS SDK for JavaScript v3 Developer Guide' at https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lex-bot-example.html.
 
 Purpose:
-index.ts is part of a tutorial demonstrating how to build and deploy an Amazon Lex Chatbot
+index.ts is part of a tutorial demonstrating how to build and deploy an Amazon Lex chatbot
 within a web application to engage your web site visitors. To run the full tutorial, see
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lex-bot-example.html.
 

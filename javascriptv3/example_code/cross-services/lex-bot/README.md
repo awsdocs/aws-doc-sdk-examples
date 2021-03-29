@@ -1,5 +1,5 @@
 # TypeScript environment for tutorial using Amazon API Gateway to invoke AWS Lambda functions
-This is a workspace where you can find an AWS SDK for JavaScript version 3 (v3) tutorial that how to build and deploy an Amazon Lex Chatbot
+This is a workspace where you can find an AWS SDK for JavaScript version 3 (v3) tutorial that how to build and deploy an Amazon Lex chatbot
 within a web application to engage your web site visitors.
 
 The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lex-bot-example.html) contains these examples.
