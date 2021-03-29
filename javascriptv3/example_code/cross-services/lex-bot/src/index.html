@@ -1,0 +1,32 @@
+<!-- Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+
+ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
+which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lex-bot-example.html.
+
+Purpose:
+index.html is part of a tutorial demonstrating how to build and deploy an Amazon Lex Chatbot
+within a web application to engage your web site visitors. To run the full tutorial, see
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lex-bot-example.html.
+-->
+<!--snippet-start:[cross-service.JavaScript.lex-app.frontendV3]-->
+<!DOCTYPE html>
+<head>
+    <title>Amazon Lex - Sample Application (BookTrip)</title>
+    <link type="text/css" rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<h1 id="title">Amazon Lex - BookTrip</h1>
+<p id="intro">
+    This multiple language chatbot shows you how easy it is to incorporate
+    <a href="https://aws.amazon.com/lex/" title="Amazon Lex (product)" target="_new">Amazon Lex</a> into your web apps.  Try it out.
+</p>
+<div id="conversation"></div>
+<input type="text" id="wisdom" size="80" value="" placeholder="J'ai besoin d'une chambre d'hôtel">
+<br>
+<button onclick="createResponse()">Send Text</button>
+<script type="text/javascript" src="./main.js"></script>
+</body>
+<!--snippet-end:[cross-service.JavaScript.lex-app.frontendV3]-->
