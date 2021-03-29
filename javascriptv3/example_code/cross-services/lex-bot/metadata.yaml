@@ -1,7 +1,7 @@
 ---
-# AWS Lex bot cross-service examples
+# Amazon Lex bot cross-service examples
 files:
   - path: ./src/index.ts
     services:
-      - Lambda
+      - Lex
 ...

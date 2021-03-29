@@ -19,7 +19,6 @@ Inputs (replace in code):
 */
 
 // snippet-start:[cross-service.JavaScript.lex-app.backendV3]
-// Import required AWS SDK clients and commands for Node.js
 const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
 const {
   fromCognitoIdentityPool,
@@ -107,7 +106,7 @@ function loadNewItems(event) {
   wisdomText.locked = false;
 }
 
-// Respond to user's input
+// Respond to user's input.
 const createResponse = async () => {
   // Confirm there is text to submit.
   var wisdomText = document.getElementById("wisdom");
@@ -124,7 +123,7 @@ const createResponse = async () => {
       const data = await comprehendClient.send(
         new DetectDominantLanguageCommand(comprehendParams)
       );
-      console.log("Success. The language is: ", data.Languages[0].LanguageCode);
+      console.log("Success. The language code is: ", data.Languages[0].LanguageCode);
       const translateParams = {
         SourceLanguageCode: data.Languages[0].LanguageCode,
         TargetLanguageCode: "en", // For example, "en" for English.
