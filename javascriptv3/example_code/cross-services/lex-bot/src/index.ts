@@ -16,9 +16,9 @@ Inputs (replace in code):
 - BOT_ALIAS
 - BOT_NAME
 - USER_ID
-
-<!--snippet-start:[cross-service.JavaScript.lex-app.backendV3]-->
 */
+
+// snippet-start:[cross-service.JavaScript.lex-app.backendV3]
 // Import required AWS SDK clients and commands for Node.js
 const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
 const {
