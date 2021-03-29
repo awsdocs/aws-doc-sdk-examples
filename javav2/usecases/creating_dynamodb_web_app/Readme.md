@@ -20,7 +20,7 @@ The following figure shows you the structure of the Java project.
 
 **Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
 
-**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
+**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 #### Topics
 
