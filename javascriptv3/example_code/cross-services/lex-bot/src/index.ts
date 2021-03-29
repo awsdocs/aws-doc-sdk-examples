@@ -25,15 +25,15 @@ const {
 } = require("@aws-sdk/credential-provider-cognito-identity");
 const {
   ComprehendClient,
-  DetectDominantLanguageCommand,
+  DetectDominantLanguageCommand
 } = require("@aws-sdk/client-comprehend");
 const {
   TranslateClient,
-  TranslateTextCommand,
+  TranslateTextCommand
 } = require("@aws-sdk/client-translate");
 const {
   LexRuntimeServiceClient,
-  PostTextCommand,
+  PostTextCommand
 } = require("@aws-sdk/client-lex-runtime-service");
 
 const REGION = "REGION"; //e.g. "us-east-1"
@@ -42,21 +42,21 @@ const comprehendClient = new ComprehendClient({
   region: REGION,
   credentials: fromCognitoIdentityPool({
     client: new CognitoIdentityClient({ region: REGION }),
-    identityPoolId: IdentityPoolId,
+    identityPoolId: IdentityPoolId
   }),
 });
 const lexClient = new LexRuntimeServiceClient({
   region: REGION,
   credentials: fromCognitoIdentityPool({
     client: new CognitoIdentityClient({ region: REGION }),
-    identityPoolId: IdentityPoolId,
+    identityPoolId: IdentityPoolId
   }),
 });
 const translateClient = new TranslateClient({
   region: REGION,
   credentials: fromCognitoIdentityPool({
     client: new CognitoIdentityClient({ region: REGION }),
-    identityPoolId: IdentityPoolId,
+    identityPoolId: IdentityPoolId
   }),
 });
 
@@ -71,7 +71,7 @@ function showRequest(daText) {
   requestPara.appendChild(document.createTextNode(g_text));
   conversationDiv.appendChild(requestPara);
   conversationDiv.scrollTop = conversationDiv.scrollHeight;
-}
+};
 
 function showResponse(lexResponse) {
   var conversationDiv = document.getElementById("conversation");
@@ -84,7 +84,7 @@ function showResponse(lexResponse) {
   responsePara.appendChild(document.createElement("br"));
   conversationDiv.appendChild(responsePara);
   conversationDiv.scrollTop = conversationDiv.scrollHeight;
-}
+};
 
 function handletext(text) {
   g_text = text;
@@ -93,7 +93,7 @@ function handletext(text) {
   xhr.open("POST", "../text", true); // A Spring MVC controller
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //necessary
   xhr.send("text=" + text);
-}
+};
 
 function loadNewItems(event) {
   var msg = event.target.responseText;
@@ -104,7 +104,7 @@ function loadNewItems(event) {
   var wisdomText = document.getElementById("wisdom");
   wisdomText.value = "";
   wisdomText.locked = false;
-}
+};
 
 // Respond to user's input.
 const createResponse = async () => {
