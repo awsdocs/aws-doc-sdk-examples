@@ -7,4 +7,4 @@ This example performs 1 tasks:
 `go run DetectFaces.go -b BUCKET -i IMAGE`
 
 - _BUCKET_ is the name of the bucket where the images are saved.
-- _IMAGE_ is the name of the JPG or PNG image along with the proper path.
+- _IMAGE_ is the name of the JPG or PNG image along with the proper path in the bucket.
