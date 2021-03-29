@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/30/2020]
+//snippet-sourcedate:[03/29/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -51,6 +51,7 @@ public class EnhancedScanRecordsWithExpression {
         createTable(ddb, tableName);
         loadData(ddb, tableName);
         scanIndex(ddb, tableName, "CreateDateIndex");
+        scanUsingContains(ddb, tableName, "CreateDateIndex");
         queryIndex(ddb, tableName, "CreateDateIndex");
         ddb.close();
     }
@@ -160,6 +161,58 @@ public class EnhancedScanRecordsWithExpression {
         }
     }
     // snippet-end:[dynamodb.java2.mapping.scanEx.main]
+
+
+   // Scan table for records where title contains the word issues using the contains function
+    public static void scanUsingContains(DynamoDbClient ddb, String tableName, String indexName) {
+
+        System.out.println("\n***********************************************************\n");
+        System.out.print("Select items for "+tableName +" where title contains the word issues");
+
+        try {
+            // Create a DynamoDbEnhancedClient and use the DynamoDbClient object.
+            DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+                    .dynamoDbClient(ddb)
+                    .build();
+
+            // Create a DynamoDbTable object based on Issues.
+            DynamoDbTable<Issues> table = enhancedClient.table("Issues", TableSchema.fromBean(Issues.class));
+
+            AttributeValue attVal = AttributeValue.builder()
+                    .s("issue")
+                    .build();
+
+            Map<String, AttributeValue> myMap = new HashMap<>();
+            myMap.put(":val1", attVal);
+
+            Map<String, String> myExMap = new HashMap<>();
+            myExMap.put("#title", "title");
+
+            Expression expression = Expression.builder()
+                    .expressionValues(myMap)
+                    .expressionNames(myExMap)
+                    .expression("contains(#title, :val1)")
+                    .build();
+
+            ScanEnhancedRequest enhancedRequest = ScanEnhancedRequest.builder()
+                    .filterExpression(expression)
+                    .limit(15)
+                    .build();
+
+            // Get items in the Issues table.
+            Iterator<Issues> results = table.scan(enhancedRequest).items().iterator();
+
+            while (results.hasNext()) {
+                Issues issue = results.next();
+                System.out.println("The record description is " + issue.getDescription());
+                System.out.println("The record title is " + issue.getTitle());
+            }
+
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+    }
 
     // Load data into the table.
     public static void loadData(DynamoDbClient ddb, String tableName) {
@@ -313,7 +366,7 @@ public class EnhancedScanRecordsWithExpression {
             GlobalSecondaryIndex titleIndex = GlobalSecondaryIndex.builder()
                     .indexName("titleIndex")
                     .provisionedThroughput(ptIndex)
-                    .keySchema(keySchemaCol2) 
+                    .keySchema(keySchemaCol2)
                     .projection(Projection.builder().projectionType("KEYS_ONLY").build())
                     .build();
 
@@ -349,7 +402,7 @@ public class EnhancedScanRecordsWithExpression {
                     .build();
 
             System.out.println("Creating table " + tableName + "...");
-           
+
             DynamoDbWaiter dbWaiter = ddb.waiter();
             CreateTableResponse response =  ddb.createTable(request);
 
