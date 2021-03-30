@@ -17,7 +17,7 @@ namespace ReceiveDeleteExample
         // and .NET 5.0.
 
         // Specify your AWS Region (an example Region is shown).
-        private static readonly RegionEndpoint _endpoint = RegionEndpoint.USEast2; // RegionEndpoint.USWest2;
+        private static readonly RegionEndpoint _endpoint = RegionEndpoint.USWest2;
         private static IAmazonSQS _client;
 
         static async Task Main()

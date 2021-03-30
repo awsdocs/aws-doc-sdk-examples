@@ -17,7 +17,7 @@ namespace CreateSendExample
         // created using AWS SDK for .NET 3.5 and .NET 5.0.
 
         // Specify your AWS Region (an example Region is shown).
-        private static readonly RegionEndpoint _serviceRegion = RegionEndpoint.USEast2; // RegionEndpoint.USWest2;
+        private static readonly RegionEndpoint _serviceRegion = RegionEndpoint.USWest2;
         private static IAmazonSQS _client;
 
         private static readonly string _queueName = "Example_Queue";
