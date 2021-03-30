@@ -14,6 +14,7 @@ Inputs (replace in code):
 Running the code:
 ts-node s3_createbucket.ts
 */
+//
 // snippet-start:[s3.JavaScript.buckets.createBucketV3]
 // Import required AWS SDK clients and commands for Node.js
 const { S3Client, CreateBucketCommand } = require("@aws-sdk/client-s3");

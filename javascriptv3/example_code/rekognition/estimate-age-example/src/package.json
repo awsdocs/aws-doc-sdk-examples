@@ -8,7 +8,7 @@
   },
   "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/rekognition.git",
   "author": "Brian Murray <brmur@amazon.com>",
-  "license": "MIT",
+  "license": "Apache 2.0",
   "dependencies": {
     "@aws-sdk/client-rekognition": "^3.3.0",
     "@aws-sdk/node-http-handler": "^3.3.0",
