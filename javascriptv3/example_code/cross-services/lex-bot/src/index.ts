@@ -98,7 +98,6 @@ function handletext(text) {
 function loadNewItems(event) {
   var msg = event.target.responseText;
   showRequest();
-  showResponse(msg);
 
   // re-enable input
   var wisdomText = document.getElementById("wisdom");
@@ -143,7 +142,8 @@ const createResponse = async () => {
         try {
           const data = await lexClient.send(new PostTextCommand(lexParams));
           console.log("Success. Response is: ", data.message);
-          document.getElementById("conversation").innerHTML = data.message;
+          var msg = data.message;
+          showResponse(msg);
         } catch (err) {
           console.log("Error responding to message. ", err);
         }
@@ -155,5 +155,6 @@ const createResponse = async () => {
     }
   }
 };
+// Make the function available to the browser.
 window.createResponse = createResponse;
 // snippet-end:[cross-service.JavaScript.lex-app.backendV3]
