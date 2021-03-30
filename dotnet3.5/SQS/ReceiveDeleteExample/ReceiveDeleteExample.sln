@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.6.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollReceiveExample", "PollReceiveExample\PollReceiveExample.csproj", "{BC864827-401B-47B6-A7A4-24205AB39D8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiveDeleteExample", "ReceiveDeleteExample\ReceiveDeleteExample.csproj", "{BC864827-401B-47B6-A7A4-24205AB39D8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollReceiveExampleTests", "PollReceiveExampleTests\PollReceiveExampleTests.csproj", "{D6906F16-5D2C-464F-8389-E844F05E5CBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiveDeleteExampleTests", "ReceiveDeleteExampleTests\ReceiveDeleteExampleTests.csproj", "{D6906F16-5D2C-464F-8389-E844F05E5CBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{BC864827-401B-47B6-A7A4-24205AB39D8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -44,5 +41,11 @@ Global
 		{D6906F16-5D2C-464F-8389-E844F05E5CBF}.Release|x64.Build.0 = Release|Any CPU
 		{D6906F16-5D2C-464F-8389-E844F05E5CBF}.Release|x86.ActiveCfg = Release|Any CPU
 		{D6906F16-5D2C-464F-8389-E844F05E5CBF}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {58D5B3E9-03F4-47D6-93AB-4FE1F0F57AD3}
 	EndGlobalSection
 EndGlobal

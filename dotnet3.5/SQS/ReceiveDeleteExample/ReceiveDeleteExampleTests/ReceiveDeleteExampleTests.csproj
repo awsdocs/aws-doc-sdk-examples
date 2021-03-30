@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PollReceiveExample\PollReceiveExample.csproj" />
+    <ProjectReference Include="..\ReceiveDeleteExample\ReceiveDeleteExample.csproj" />
   </ItemGroup>
 
 </Project>
