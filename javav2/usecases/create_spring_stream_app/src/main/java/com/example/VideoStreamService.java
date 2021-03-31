@@ -158,14 +158,14 @@ public class VideoStreamService {
         s3 = getClient();
 
         try {
-            // create a GetObjectRequest instance.
+            // Create a GetObjectRequest instance.
             GetObjectRequest objectRequest = GetObjectRequest
                     .builder()
                     .key(keyName)
                     .bucket(bucketName)
                     .build();
 
-            // get the byte[] from this AWS S3 object and return a ResponseEntity.
+            // Get the byte[] from this AWS S3 object and returns a ResponseEntity.
             ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
             return ResponseEntity.status(HttpStatus.OK)
                     .header(CONTENT_TYPE, VIDEO_CONTENT + "mp4")
@@ -180,7 +180,7 @@ public class VideoStreamService {
     }
 
 
-    // Convert a LIST to XML data.
+    // Converts a list to XML data.
      private Document toXml(List<Tags> itemList) {
 
         try {
@@ -188,7 +188,7 @@ public class VideoStreamService {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 
-            // Start building the XML
+            // Start building the XML.
             Element root = doc.createElement( "Tags" );
             doc.appendChild( root );
 
@@ -198,12 +198,12 @@ public class VideoStreamService {
                 Element item = doc.createElement( "Tag" );
                 root.appendChild( item );
 
-                // Set Name
+                // Set Name.
                 Element id = doc.createElement( "Name" );
                 id.appendChild( doc.createTextNode(myItem.getName() ) );
                 item.appendChild( id );
-
-                // Set Description
+.
+                // Set Description.
                 Element name = doc.createElement( "Description" );
                 name.appendChild( doc.createTextNode(myItem.getDesc() ) );
                 item.appendChild( name );
