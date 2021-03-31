@@ -68,7 +68,7 @@ The first step in this tutorial is to update the POM file in your project to ens
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.15.0</version>
+                <version>2.16.29</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
