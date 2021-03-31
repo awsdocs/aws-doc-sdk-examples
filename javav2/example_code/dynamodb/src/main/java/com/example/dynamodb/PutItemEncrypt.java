@@ -33,8 +33,8 @@ public class PutItemEncrypt {
                 "Usage:\n" +
                 "    PutItem <tableName> <key> <keyVal> <albumtitle> <albumtitleval> <awards> <awardsval> <Songtitle> <songtitleval>\n\n" +
                 "Where:\n" +
-                "    tableName - the Amazon DynamoDB table in which an item is placed (for example, Music3).\n" +
-                "    key - the key used in the Amazon DynamoDB table (for example, Artist).\n" +
+                "    tableName - the DynamoDB table in which an item is placed (for example, Music3).\n" +
+                "    key - the key used in the DynamoDB table (for example, Artist).\n" +
                 "    keyval - the key value that represents the item to get (for example, Famous Band).\n" +
                 "    albumTitle - album title (for example, AlbumTitle).\n" +
                 "    AlbumTitleValue - the name of the album (for example, Songs About Life ).\n" +
@@ -42,7 +42,7 @@ public class PutItemEncrypt {
                 "    AwardVal - the value of the awards (for example, 10).\n" +
                 "    SongTitle - the song title (for example, SongTitle).\n" +
                 "    SongTitleVal - the value of the song title (for example, Happy Day).\n" +
-                "    keyId - a KMS key id value to use to encrypt/decrypt the data (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).";
+                "    keyId - a KMS key id value to use to encrypt the data (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).";
 
         if (args.length != 10) {
             System.out.println(USAGE);
