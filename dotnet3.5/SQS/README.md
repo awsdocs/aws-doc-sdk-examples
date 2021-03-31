@@ -1,11 +1,14 @@
-# Amazon SQS examples
+<!-- Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+     SPDX - License - Identifier: Apache - 2.0 -->
+
+# Amazon Simple Queue Service (Amazon SQS) Code Examples in C\#
 
 ## Purpose
 
-Shows how to use the AWS SDK for .NET 3.x to get started using queue and 
-message operations in Amazon Simple Queue Service (Amazon SQS). Learn how to 
-create, get, and remove standard, FIFO, and dead-letter queues. Learn how to 
-send, receive, and delete messages from a queue.
+This folder contains examples that show how to use the AWS SDK for .NET 3.x to
+get started using queue and message operations in Amazon Simple Queue Service
+(Amazon SQS). The examples will show you how to create a queue and send, receive,
+and delete messages from it.
 
 ## Prerequisites
 
@@ -29,22 +32,45 @@ send, receive, and delete messages from a queue.
   on the AWS website.
 - Running this code might result in charges to your AWS account.
 
-## Running the code
+## Running the tests
 
-The examples for SQS include the following:
+Navigate to the folder that contains the test application, CreateSendExample
+for instance, and run:
+
+```
+dotnet test
+```
+
+If you want more information, run:
+
+```
+dotnet test -l "console;verbosity=detailed"
+```
+
+## Running the examples
+
+The examples in this folder use the default user account. The call to
+initialize the Amazon SQS client supplies the region. Change the region to
+match your own before running the example.
+
+Once the example has been compiled, you can run it from the commandline by
+first navigating to the folder that contains the .csproj file, and then
+issuing the following command:
+
+```
+dotnet run
+```
+
+Or you can execute the example from within your IDE.
 
 | Example | Description |
 |---------|-------------|
 | [CreateSendExample](CreateSendExample/) | Create an SQS queue and sends a sample message. |
-| PollReceiveExample | Polls a queue for message and then receives them. |
-| DeleteQueue | Deletes an existing queue. |
-
-## Running the tests
-
+| [ReceiveDelete](ReceivDeleteExample) | Receives a single message from the queue and then deletes it from the queue. |
 
 ## Additional information
 
-- [Put in a link to the AWS SDK for .NET User Guide].
+- [AWS SDK for .NET Documentation](https://docs.aws.amazon.com/sdk-for-net/index.html#latest-version).
 
 ---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
