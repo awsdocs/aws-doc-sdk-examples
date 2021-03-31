@@ -11,9 +11,9 @@ namespace ReceiveDeleteExample
 {
     class ReceiveDeleteExample
     {
-        // This example will retrieve a single message from an Amazon Simple
-        // Queue Service (Amazon SQS) queue and then will delete the message.
-        // This example was creating using the AWS SDK for .NET version 3.x
+        // This example retrieves a single message from an Amazon Simple
+        // Queue Service (Amazon SQS) queue and then deletes the message.
+        // This example was created using the AWS SDK for .NET version 3.x
         // and .NET 5.0.
 
         // Specify your AWS Region (an example Region is shown).
@@ -54,7 +54,7 @@ namespace ReceiveDeleteExample
         }
 
         /// <summary>
-        /// Retrieves the message from the quque at the URL pssed in the
+        /// Retrieves the message from the quque at the URL passed in the
         /// queueURL parameters using the client.
         /// </summary>
         /// <param name="client">The SQS client used to retrieve a message.</param>

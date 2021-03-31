@@ -69,7 +69,7 @@ namespace CreateSendExample
         }
 
         /// <summary>
-        /// Sends a message to and SQA queue.
+        /// Sends a message to an SQS queue.
         /// </summary>
         /// <param name="client">An SQS client object used to send the message.</param>
         /// <param name="queueUrl">The URL of the queue to which to send the
