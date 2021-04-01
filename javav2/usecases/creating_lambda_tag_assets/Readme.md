@@ -10,10 +10,10 @@ After you execute the Lambda function, it automatically create tags based on the
 
 Tagging an object has benfits such as providing a way to categorize storage. For more information about object tagging, see [Categorizing your storage using tags](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-tagging.html).
 
-As an Amazon Web Services API developer, you can create a Lambda function by using the AWS Lambda Java runtime API. This example invokes different AWS services to perform this specific use case. Lambda is a compute service that enables you to run code without provisioning or managing servers. You can create Lambda functions in various programming languages. For more information about AWS Lambda, see
-[What is AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html).
+As an Amazon Web Services API developer, you can create a Lambda function by using the AWS Lambda Java runtime API. This example invokes different AWS services to perform this specific use case. This tutorial shows you how to use the AWS SDK for Java V2 API to invoke both the Amazon S3 service along with the Amazon Rekognition service. The Lambda function reads all objects in a given Amazon S3 bucket. For each object in the bucket, it passes the image to the Amazon Rekognition service to geneate a series of labels. Each label is used to create a tag that is applied to the image.  
 
-This tutorial shows you how to use the AWS SDK for Java V2 API to invoke both the Amazon S3 service along with the Amazon Rekognition service. The Lambda function reads all objects in a given Amazon S3 bucket. For each object in the bucket, it passes the image to the Amazon Rekognition service to geneate a series of labels. Each label is used to create a tag that is applied to the image.  
+**Note**: Lambda is a compute service that enables you to run code without provisioning or managing servers. You can create Lambda functions in various programming languages. For more information about AWS Lambda, see
+[What is AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html).
   
 In addition to applying tags to images, this Lambda function also supports removing tags from images. That is, you can execute the Lambda function and set an input variable to false and the Lambda function removes all tags each image in the bucket.     
 
