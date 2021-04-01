@@ -4,7 +4,9 @@ You can create an Amazon Web Services Lambda function that automatically tags di
 
 ![AWS Tracking Application](images/pic1.png)
 
-As an Amazon Web Services API developer, you can create a Lambda function by using the Lambda Java runtime API. This example invokes different AWS services to perform this specific use case. This tutorial shows you how to use the AWS SDK for Java V2 API to invoke both the Amazon S3 service along with the Amazon Rekognition service. The Lambda function reads all objects in a given Amazon S3 bucket. For each object in the bucket, it passes the image to the Amazon Rekognition service to geneate a series of labels. Each label is used to create a tag that is applied to the image. After you execute the Lambda function, it automatically creates tags based on all images in a given Amazon S3 bucket and applies them to the images, as shown in this illustration.
+As an Amazon Web Services API developer, you can create a Lambda function by using the Lambda Java runtime API. This example invokes different AWS services to perform this specific use case. This tutorial shows you how to use the AWS SDK for Java V2 API to invoke both the Amazon S3 service along with the Amazon Rekognition service. 
+
+The Lambda function reads all objects in a given Amazon S3 bucket. For each object in the bucket, it passes the image to the Amazon Rekognition service to geneate a series of labels. Each label is used to create a tag that is applied to the image. After you execute the Lambda function, it automatically creates tags based on all images in a given Amazon S3 bucket and applies them to the images, as shown in this illustration.
 
 ![AWS Tracking Application](images/pic2.png)
 
