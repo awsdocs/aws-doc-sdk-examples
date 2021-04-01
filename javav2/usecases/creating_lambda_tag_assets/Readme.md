@@ -401,7 +401,7 @@ The following Java code represents the **BucketItem** class that stores Amazon S
     }
     
  ### S3Service class
-The following class uses the Amazon S3 API to perform S3 operations. For example, the getObjectBytes method returns a byte array that represents the image. 
+The following class uses the Amazon S3 API to perform S3 operations. For example, the **getObjectBytes** method returns a byte array that represents the image. Likewise, the **listBucketObjects** method returns a **List** object where each element is a string value that specifies the key name.  
 
      package com.example.tags;
 
@@ -486,7 +486,7 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
         return null;
      }
 
-     // tag assets with labels in the given list.
+     // Tag assets with labels in the given list.
      public void tagAssets(List myList, String bucketName) {
 
         try {
@@ -498,10 +498,10 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
             String labelName = "";
             String labelValue = "";
 
-            // tag all the assets in the list.
+            // Tag all the assets in the list.
             for (Object o : myList) {
 
-                //Need to get the WorkItem from each list.
+                // Need to get the WorkItem from each list.
                 List innerList = (List) o;
                 for (Object value : innerList) {
 
@@ -563,7 +563,7 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
         }
       }
 
-     //Delete tags from the given object.
+     // Delete tags from the given object.
      public void deleteTagFromObject(String bucketName, String key) {
 
         try {
@@ -623,11 +623,11 @@ The following Java code represents the **WorkItem** class.
 
 ## Package the project that contains the Lambda functions
 
-Package up the project into a .jar (JAR) file that you can deploy as a Lambda function by using the following Maven command.
+Package up the project into a .jar (JAR) file by using the following Maven command.
 
     mvn package
 
-The JAR file is located in the **target** folder (which is a child folder of the project folder).
+The JAR file is located in the **target** folder (which is a child folder of the project folder). 
 
 ![AWS Tracking Application](images/pic6.png)
 
