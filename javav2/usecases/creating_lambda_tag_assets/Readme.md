@@ -15,7 +15,7 @@ As an Amazon Web Services API developer, you can create a Lambda function by usi
 **Note**: Lambda is a compute service that enables you to run code without provisioning or managing servers. You can create Lambda functions in various programming languages. For more information about AWS Lambda, see
 [What is AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html).
   
-In addition to applying tags to images, this Lambda function also supports removing tags from images. That is, you can execute the Lambda function and set an input variable to false and the Lambda function removes all tags each image in the bucket.     
+In addition to applying tags to images, this Lambda function also supports removing tags from images. That is, you can execute the Lambda function and set an input variable to **false** and the Lambda function removes all object tags from the given bucket.     
 
 **Cost to complete**: The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
 
