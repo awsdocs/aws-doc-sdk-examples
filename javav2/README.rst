@@ -71,7 +71,9 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 
 + **Building an AWS Workflow that sends notifications over multiple channels** - A tutorial that discusses how to develop an AWS serverless workflow that sends notifications over multiple channels. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function. 
 
-+ **Building a Spring Boot web application that Streams Amazon S3 content over HTTP** - A tutorial that discusses how to create a web application that streams Amazon S3 video content over HTTP. The video is displayed in the application’s view. In this tutorial, the Spring Framework along with AWS SDK for Java API is used to create the application. 
++ **Building a Spring Boot web application that Streams Amazon S3 content over HTTP** - A tutorial that discusses how to create a web application that streams Amazon S3 video content over HTTP. The video is displayed in the application’s view. In this tutorial, the Spring Framework along with AWS SDK for Java API is used to create the application.
+
++ **Creating Lambda functions that tags digital assets located in Amazon S3 buckets** - A tutorial that discusses how to create a Lambda function that automatically tags digital assets located in an Amazon Simple Storage Service (Amazon S3) bucket. 
 
 
 AWS service examples
