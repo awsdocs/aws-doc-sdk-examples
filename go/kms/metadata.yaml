@@ -1,8 +1,8 @@
 files:
-  - path: CreateCMK/CreateCMK.go
+  - path: CreateKey/CreateKey.go
     services:
       - kms
-  - path: CreateCMK/CreateCMK_test.go
+  - path: CreateKey/CreateKey_test.go
     services:
       - kms
   - path: DecryptData/DecryptData.go
