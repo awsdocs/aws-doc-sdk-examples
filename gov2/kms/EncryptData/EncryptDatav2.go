@@ -21,7 +21,7 @@ type KMSEncryptAPI interface {
 		optFns ...func(*kms.Options)) (*kms.EncryptOutput, error)
 }
 
-// EncryptText encrypts some text using an AWS Key Management Service (AWS KMS) customer master key (CMK).
+// EncryptText encrypts some text using an AWS Key Management Service (AWS KMS) key (KMS key).
 // Inputs:
 //     c is the context of the method call, which includes the AWS Region.
 //     api is the interface that defines the method call.
