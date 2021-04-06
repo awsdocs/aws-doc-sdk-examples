@@ -1,4 +1,10 @@
 files:
+  - path: DetectFaces/DetectFaces.go
+    services:
+      - rekognition
+  - path: DetectFaces/DetectFaces_test.go
+    services:
+      - rekognition
   - path: DetectLabels/DetectLabels.go
     services:
       - rekognition
