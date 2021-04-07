@@ -9,6 +9,9 @@ files:
   - path: src/main/java/com/example/dynamodb/DeleteItem.java
     services:
       - dynamodb
+  - path: src/main/java/com/example/dynamodb/PutItemEncrypt.java
+    services:
+      - dynamodb    
   - path: src/main/java/com/example/dynamodb/DeleteTable.java
     services:
       - dynamodb

@@ -1,0 +1,75 @@
+/*Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+    SPDX-License-Identifier: Apache-2.0
+
+ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
+which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the
+'AWS SDK for JavaScript v3 Developer Guide' at https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lex-bot-example.html.
+
+Purpose:
+style.css is part of a tutorial demonstrating how to build and deploy an Amazon Lex chatbot
+within a web application to engage your web site visitors. To run the full tutorial, see
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lex-bot-example.html.
+
+<!--snippet-start:[cross-service.JavaScript.lex-app.styleV3]-->
+*/
+#title{
+    "text-align:  left"
+}
+#intro{
+    width: 400px
+}
+
+#conversation{
+    width: 400px;
+    height: 400px;
+    border: 1px solid #ccc;
+    background-color: #eee;
+    padding: 4px;
+    overflow: scroll
+}
+
+input#wisdom {
+    padding: 4px;
+    font-size: 1em;
+    width: 400px
+}
+
+input::placeholder {
+    color: #ccc;
+    font-style: italic;
+}
+
+p.userRequest {
+    margin: 4px;
+    padding: 4px 10px 4px 10px;
+    border-radius: 4px;
+    min-width: 50%;
+    max-width: 85%;
+    float: left;
+    background-color: #7d7;
+}
+
+p.lexResponse {
+    margin: 4px;
+    padding: 4px 10px 4px 10px;
+    border-radius: 4px;
+    text-align: right;
+    min-width: 50%;
+    max-width: 85%;
+    float: right;
+    background-color: #bbf;
+    font-style: italic;
+}
+
+p.lexError {
+    margin: 4px;
+    padding: 4px 10px 4px 10px;
+    border-radius: 4px;
+    text-align: right;
+    min-width: 50%;
+    max-width: 85%;
+    float: right;
+    background-color: #f77;
+/*
+<!--snippet-end:[cross-service.JavaScript.lex-app.styleV3]-->
+*/

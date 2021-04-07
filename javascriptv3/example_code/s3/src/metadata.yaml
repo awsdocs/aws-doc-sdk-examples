@@ -46,6 +46,9 @@ files:
   - path: s3_setbucketwebsite.ts
     services:
       - s3
+  - path: s3_multipartupload.ts
+    services:
+      - s3
   - path: s3_putbucketpolicy.ts
     services:
       - s3
