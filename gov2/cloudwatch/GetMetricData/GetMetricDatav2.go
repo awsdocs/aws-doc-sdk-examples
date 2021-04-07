@@ -9,6 +9,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/cloudwatch"
+	"github.com/aws/aws-sdk-go-v2/service/cloudwatch/types"
 )
 
 // CWGetMetricDataAPI defines the interface for the GetMetricData function
@@ -48,21 +49,21 @@ func main() {
 	input := &cloudwatch.GetMetricDataInput{
 		EndTime:   aws.Time(time.Unix(time.Now().Unix(), 0)),
 		StartTime: aws.Time(time.Unix(time.Now().Add(time.Duration(-*diffInMinutes)*time.Minute).Unix(), 0)),
-		MetricDataQueries: []*cloudwatch.MetricDataQuery{
-			&cloudwatch.MetricDataQuery{
+		MetricDataQueries: []types.MetricDataQuery{
+			types.MetricDataQuery{
 				Id: aws.String(*id),
-				MetricStat: &cloudwatch.MetricStat{
-					Metric: &cloudwatch.Metric{
+				MetricStat: &types.MetricStat{
+					Metric: &types.Metric{
 						Namespace:  aws.String(*namespace),
 						MetricName: aws.String(*metricName),
-						Dimensions: []*cloudwatch.Dimension{
-							&cloudwatch.Dimension{
+						Dimensions: []types.Dimension{
+							types.Dimension{
 								Name:  aws.String(*dimensionName),
 								Value: aws.String(*dimensionValue),
 							},
 						},
 					},
-					Period: aws.Int64(int64(*period)),
+					Period: aws.Int32(int32(*period)),
 					Stat:   aws.String(*stat),
 				},
 			},
