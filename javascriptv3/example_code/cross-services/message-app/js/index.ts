@@ -71,7 +71,7 @@ const populateChat = async () => {
       MaxNumberOfMessages: 10,
       MessageAttributeNames: ["All"],
       VisibilityTimeout: 20,
-      WaitTimeSeconds: 20
+      WaitTimeSeconds: 20,
     };
     try {
       // Retrieve the messages from the Amazon SQS Queue.
@@ -161,7 +161,7 @@ const pushMessage = async () => {
       MaxNumberOfMessages: 10,
       MessageAttributeNames: ["All"],
       VisibilityTimeout: 20,
-      WaitTimeSeconds: 20
+      WaitTimeSeconds: 20,
     };
 
     // Retrieve messages from SQS Queue.
@@ -172,7 +172,7 @@ const pushMessage = async () => {
     $("#messages").empty();
     // Loop through messages for user and message body.
     var i;
-    for (i = 0; i <  final.Messages.length; i++) {
+    for (i = 0; i < final.Messages.length; i++) {
       const name = final.Messages[i].MessageAttributes.Name.StringValue;
       const body = final.Messages[i].Body;
       // Create the HTML for the message.
