@@ -4,6 +4,12 @@ This document describes the resources created by the AWS CDK apps in this direct
 
 For instructions on how to run any of these apps, see [Running a CDK app](#cdk).
 
+## messaging-app-unauthenticated-role-sqs-fifo-queue
+This AWS CDK app creates the following resources:
+- An AWS Identity and Access Management (IAM) unauthenticated role with permissions 
+  for Amazon Simple Queue Service (Amazon SQS).
+- An Amazon SQS First In First Out (FIFO) queue.
+
 ## lex_bot_example_iam_unauth_role
 This AWS CDK app creates the following resources:
 - An AWS Identity and Access Management (IAM) unauthenticated role with permissions 
