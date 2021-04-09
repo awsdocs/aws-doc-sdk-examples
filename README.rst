@@ -20,7 +20,7 @@ Finding code examples
 The code examples are organized by AWS SDK or AWS programming tool. For example, among the top-level folders:
 
 * **cpp** for the latest version of the AWS SDK for C++ (version 1)
-* **dotnet3.5** for the latest version of the AWS SDK for .NET (version 3.5)
+* **dotnetv3** for the latest version of the AWS SDK for .NET (version 3.5 and later)
 * **gov2** for the latest version of the AWS SDK for Go (version 2)
 * **javav2** for the latest version of the AWS SDK for Java (version 2)
 * **javascriptv3** for the latest version of the AWS SDK for JavaScript (version 3)
