@@ -14,10 +14,10 @@ import (
 )
 // snippet-end:[kms.go.encrypt_data.imports]
 
-// EncryptText encrypts some text using an AWS Key Management Service (AWS KMS) customer master key (CMK).
+// EncryptText encrypts some text using an AWS Key Management Service (AWS KMS) key (KMS key).
 // Inputs:
 //     svc is an AWS KMS service client
-//     keyID is the ID of a CMK
+//     keyID is the ID of a KMS key
 // Output:
 //     If success, information about the encrypted text and nil
 //     Otherwise, nil and an error from the call to Encrypt
