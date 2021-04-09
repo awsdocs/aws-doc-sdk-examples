@@ -1,4 +1,4 @@
-# TypeScript environment for tutorial building an Amazon Lex chatbot
+# TypeScript environment for tutorial building an Amazon Messaging app
 This is a workspace where you can find an AWS SDK for JavaScript version 3 (v3) tutorial demonstrating how to build an app 
 that sends and receives messages using Amazon Simple Queue Service (Amazon SQS).
 
