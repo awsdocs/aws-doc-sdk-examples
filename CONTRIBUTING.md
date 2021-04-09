@@ -70,7 +70,7 @@ When you submit a new code example to us, we strongly encourage you to include t
   [Here's a good example](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/gov2/sts/AssumeRole/AssumeRolev2.go) 
   of code written in a modular style.
 * **Add some type of [unit tests](https://en.wikipedia.org/wiki/Unit_testing ) to help users more easily run your example.** These unit tests can use hard-coded input values (or input values provided by the user) to call your example code. 
-  [Here's a good example](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/dotnet3.5/dynamodb/GetItemTest/GetItemTest.cs) 
+  [Here's a good example](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/dotnetv3/dynamodb/GetItemTest/GetItemTest.cs) 
   of a unit test that use hard-coded input values. 
 * **Add standard error or exception handling to your code to enable easier troubleshooting and recovery.** [
   Here's a good example](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/javav2/example_code/lambda/src/main/java/com/example/lambda/LambdaInvoke.java) 
