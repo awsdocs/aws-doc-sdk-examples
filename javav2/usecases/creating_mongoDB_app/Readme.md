@@ -41,7 +41,7 @@ To complete the tutorial, you need the following:
 + A Java IDE (this tutorial uses the IntelliJ IDE)
 + Java 1.8 JDK
 + Maven 3.6 or later
-+ A MongoDB instance running on an Amazon EC2 instance. For complete instructions, see  [Install and configure MongoDB community edition](https://docs.aws.amazon.com/dms/latest/sbs/CHAP_MongoDB2DocumentDB.02.html).
++ A MongoDB instance running on an Amazon EC2 instance. For complete instructions, see  [Install and configure MongoDB community edition](https://docs.aws.amazon.com/dms/latest/sbs/chap-mongodb2documentdb.02.html).
 
 **Note**: After you deploy MongoDB to the Amazon EC2 instance, look at the **bind_ip** variable at the /etc/mongodb.conf file. By default, it is locked to localhost. Try setting the value to 0.0.0.0 or assign the IP that will be able to connect the DB to it.
 
