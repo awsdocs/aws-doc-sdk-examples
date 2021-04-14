@@ -34,7 +34,7 @@ const params = {
     {
       AttributeName: "Episode",
       AttributeType: "N",
-    },
+    }
   ],
   KeySchema: [
     {
@@ -44,7 +44,7 @@ const params = {
     {
       AttributeName: "Episode",
       KeyType: "RANGE",
-    },
+    }
   ],
   ProvisionedThroughput: {
     ReadCapacityUnits: 1,
@@ -57,7 +57,7 @@ const params = {
 };
 
 // Create DynamoDB service object
-const dbclient = new DynamoDBClient(REGION);
+const dbclient = new DynamoDBClient({ region: REGION });
 
 const run = async () => {
   try {

@@ -4,9 +4,8 @@ jest.mock("@aws-sdk/client-ec2/commands/StartInstancesCommand", () => ({
     this.StartInstancesCommand = mockStartInstancesCommand;
   },
 }));
-const { params, run } = require("../../ec2/ec2_startstopinstances");
+const { params, run } = require("../../ec2/src/ec2_startstopinstances");
 
-//test function
 test("has to mock ec2#startstopInstances", async (done) => {
   await run();
   expect(mockStartInstancesCommand).toHaveBeenCalled;

@@ -2,10 +2,8 @@
 SPDX-License-Identifier: Apache-2.0
 
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is pending release.  The preview version of the SDK is available
-at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for v3 is also
-scheduled for release later in 2020, and the topic containing this example will be hosted at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-subscriptions.html
+which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-subscriptions.html.
 
 Purpose:
 cwl_describesubscriptionfilters.ts demonstrates how to list the subscription filters for an Amazon CloudWatch Logs group.
@@ -35,7 +33,7 @@ const params = {
 };
 
 // Create CloudWatch service object
-const cwl = new CloudWatchLogsClient(REGION);
+const cwl = new CloudWatchLogsClient({ region: REGION });
 
 const run = async () => {
   try {

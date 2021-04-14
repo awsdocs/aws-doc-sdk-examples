@@ -15,6 +15,12 @@ files:
   - path: src/main/java/com/example/firehose/PutRecord.java
     services:
       - firehose
-  - path: src/test/java/AmazonFirehoseServiceIntegrationTest.java
+  - path: src/main/java/com/example/firehose/StockTrade.java
     services:
-      - firehose      
+      - firehose
+  - path: src/main/java/com/example/firehose/StockTradeGenerator.java
+    services:
+      - firehose
+  - path: src/test/java/FirehoseTest.java
+    services:
+      - firehose

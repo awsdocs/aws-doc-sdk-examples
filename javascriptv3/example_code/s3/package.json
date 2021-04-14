@@ -1,17 +1,21 @@
 {
-  "name": "aws-sdk-v3-iam-examples",
+  "name": "aws-sdk-v3-s3-examples",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/iam.git",
+  "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/s3.git",
   "author": "Brian Murray <brmur@amazon.com>, Alex Forsyth <alex-git@amazon.com>",
-  "license": "MIT",
+  "license": "Apache 2.0",
   "dependencies": {
-    "@aws-sdk/client-s3": "^1.0.0-gamma.6",
-    "@aws-sdk/client-cognito-identity": "^1.0.0-gamma.6",
-    "@aws-sdk/credential-provider-cognito-identity": "^1.0.0-gamma.6",
-    "@aws-sdk/node-http-handler": "^1.0.0-gamma.5",
-    "@aws-sdk/types": "^0.1.0-gamma.6",
-    "ts-node": "^9.0.0"
+    "@aws-sdk/client-s3": "^3.3.0",
+    "@aws-sdk/s3-request-presigner": "^3.3.0",
+    "@aws-sdk/util-create-request": "^3.3.0",
+    "@aws-sdk/util-format-url": "^3.3.0",
+    "@aws-sdk/client-cognito-identity": "^3.3.0",
+    "@aws-sdk/credential-provider-cognito-identity": "^3.3.0",
+    "@aws-sdk/node-http-handler": "^3.3.0",
+    "@aws-sdk/types": "^3.3.0",
+    "ts-node": "^9.0.0",
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "@types/node": "^14.0.23",

@@ -1,5 +1,5 @@
 ---
-# Amazon Lambda examples
+# AWS Lambda examples
 files:
   - path: ddb-table-create.ts
     services:
@@ -17,6 +17,12 @@ files:
     services:
       - S3
   - path: s3-bucket-setup-non-modular.ts
+    services:
+      - S3
+  - path: slotpull.ts
+    services:
+      - S3
+  - path: ./MyLambdaApp/index.ts
     services:
       - S3
 ...

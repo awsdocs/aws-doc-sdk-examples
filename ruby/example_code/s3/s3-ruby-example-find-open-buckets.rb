@@ -1,64 +1,68 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Finds the S3 buckets open to the public.]
-# snippet-keyword:[Amazon Simple Storage Service]
-# snippet-keyword:[list_account_aliases method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[s3]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
 
-require 'aws-sdk-iam'
 require 'aws-sdk-s3'
 
-client = Aws::IAM::Client.new()
-iam = Aws::IAM::Resource.new(client: client)
-
-resp = client.list_account_aliases({})
-
-arn_parts = iam.current_user.arn.split(':')
-account = arn_parts[4]
-
-if resp.account_aliases == nil || resp.account_aliases[0] == nil
-  puts 'Open buckets for account ' + account
-else
-  puts 'Open buckets for account ' + account + ' (' + resp.account_aliases[0] + '):'
-end
-
-puts
-
-s3 = Aws::S3::Resource.new(region: 'us-west-2')
-
-bucket_count = 0
-
-s3.buckets.each do |b|
-  begin
-    grants = b.acl.grants
-
-    grants.each do |g|
-      if g.grantee.display_name == nil && g.permission == 'READ'
-        puts '  ' + b.name
-        bucket_count += 1
-        break
+# Checks to see which Amazon Simple Storage Service (Amazon S3)
+#   buckets are open for public read access. These buckets must also
+#   be accessible to you and were initially created with the target
+#   AWS Region specified.
+#
+# @param s3_client [Aws::S3::Client] An initialized S3 client.
+# @param region [String] The Region to check.
+# @return [Array] The list of any buckets open for public read access.
+# @example
+#   open_buckets = []
+#   open_buckets = get_open_buckets(
+#     Aws::S3::Client.new(region: 'us-east-1'),
+#     'us-east-1'
+#   )
+#   unless open_buckets.count.zero?
+#     open_buckets.each do |open_bucket|
+#       puts open_bucket
+#     end
+#   end
+def get_open_buckets(s3_client, region)
+  open_buckets = []
+  response = s3_client.list_buckets
+  if response.buckets.count.zero?
+    return open_buckets
+  else
+    response.buckets.each do |bucket|
+      location = s3_client.get_bucket_location(
+        bucket: bucket.name
+      ).location_constraint
+      if region == location
+        bucket_acl = s3_client.get_bucket_acl(bucket: bucket.name)
+        grants = bucket_acl.grants
+        grants.each do |grant|
+          if grant.grantee.display_name.nil? && grant.permission == 'READ'
+            open_buckets << bucket.name
+          end
+        end
       end
     end
-  rescue StandardError
-    puts 'Got error'
+  end
+  return open_buckets
+rescue StandardError => e
+  puts "Error getting information about buckets: #{e.message}"
+end
+
+# Full example call:
+def run_me
+  region = 'us-east-1'
+  s3_client = Aws::S3::Client.new(region: region)
+  open_buckets = get_open_buckets(s3_client, region)
+  if open_buckets.count.zero?
+    puts 'No open buckets among accessible buckets with AWS Region specified ' \
+      "as '#{region}' on initial creation."
+  else
+    puts 'Open buckets among accessible buckets with AWS Region specified ' \
+      "as '#{region}' on initial creation:"
+    open_buckets.each do |open_bucket|
+      puts open_bucket
+    end
   end
 end
 
-puts
-puts "Found #{bucket_count} open bucket(s) out of #{s3.buckets.count}"
+run_me if $PROGRAM_NAME == __FILE__

@@ -1,9 +1,12 @@
+<!-- snippet-start:[sns.Markdown.readme]-->
 # TypeScript environment for Amazon Simple Notification Service (SNS) examples
-This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) Amazon SNS examples.
+This is a workspace where you can find AWS SDK for JavaScript version 3 (v3) Amazon SNS examples.
 
-The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
+The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
-Once it's released, see the [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples.html) for the topic containing these examples.
+The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples.html) contains these examples.
+
+The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-sns/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon SNS client module.
 
 Amazon SNS is a fully managed messaging service for both system-to-system and app-to-person (A2P) communication. 
 
@@ -19,7 +22,7 @@ Amazon SNS is a fully managed messaging service for both system-to-system and ap
 **Note**: These include the client module for the AWS services required in these example, 
 which is "@aws-sdk/client-sns".
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/sns
 npm install
 ```
@@ -33,3 +36,4 @@ npm install
 cd src
 ts-node [example name].ts // e.g., ts-node sns_checkphoneoptout.ts
 ```
+<!-- snippet-end:[sns.Markdown.readme]-->

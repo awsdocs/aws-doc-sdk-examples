@@ -4,9 +4,8 @@ jest.mock("@aws-sdk/client-ses/commands/GetTemplateCommand", () => ({
     this.GetTemplateCommand = mockGetTemplate;
   },
 }));
-const { run } = require("../../ses/ses_gettemplate");
+const { run } = require("../../ses/src/ses_gettemplate");
 
-//test function
 test("has to mock SES#gettemplate", async (done) => {
   await run();
   expect(mockGetTemplate).toHaveBeenCalled;

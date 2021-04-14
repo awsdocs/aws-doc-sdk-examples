@@ -4,9 +4,8 @@ jest.mock("@aws-sdk/client-sqs/commands/ListQueuesCommand", () => ({
     this.ListQueuesCommand = mockListQueue;
   },
 }));
-const { run } = require("../../sqs/sqs_listqueues.js");
+const { run } = require("../../sqs/src/sqs_listqueues.js");
 
-//test function
 test("has to mock SQS#listqueues", async (done) => {
   await run();
   expect(mockListQueue).toHaveBeenCalled;

@@ -24,7 +24,7 @@
 //snippet-keyword:[ProcessReady]
 //snippet-keyword:[ProcessEnding]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-12-12]
+// snippet-sourcedate:[2020-11-5]
 // snippet-sourceauthor:[AWS]
 // snippet-start:[gamelift.dotnet.game-server.unity]
 using UnityEngine;
@@ -100,9 +100,9 @@ public class GameLiftServerExampleBehavior : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        //Make sure to call GameLiftServerAPI.Destroy() when the application quits. 
+        //Make sure to call GameLiftServerAPI.ProcessEnding() when the application quits. 
         //This resets the local connection with GameLift's agent.
-        GameLiftServerAPI.Destroy();
+        GameLiftServerAPI.ProcessEnding();
     }
 }
 // snippet-end:[gamelift.dotnet.game-server.unity]

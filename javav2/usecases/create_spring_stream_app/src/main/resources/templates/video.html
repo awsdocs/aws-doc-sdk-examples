@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
+    <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+    <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
+    <title>Spring Framework</title>
+
+    <script>
+
+        $(function() {
+
+            getItems();
+
+        } );
+
+        // Gets the MP4 tags to set in the scroll list.
+        function getItems() {
+
+            var xhr = new XMLHttpRequest();
+            xhr.addEventListener("load", loadTags, false);
+            xhr.open("GET", "../items", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
+            xhr.send();
+        }
+
+        function loadTags(event) {
+
+            var xml = event.target.responseText;
+            $(xml).find('Tag').each(function () {
+
+                var $field = $(this);
+                var name = $field.find('Name').text();
+                var description = $field.find('Description').text();
+                var vv = "Prime video"
+
+                // Append this data to the main list.
+                $('.list-group').append("<className='list-group-item list-group-item-action flex-column align-items-start'>");
+                $('.list-group').append("<h5 onMouseOver=\"this.style.cursor='pointer'\" onclick=\"addVideo('" +name+"')\" class='mb-1'>"+name+"</li>");
+                $('.list-group').append("<p class='mb-1'>"+description+"</p>");
+                $('.list-group').append("<small class='text-muted'>"+vv+"</small>");
+                $('.list-group').append("<br class='row'>");
+            });
+       }
+
+        function addVideo(myVid) {
+            var myVideo = document.getElementById("video1");
+            myVideo.src = "/"+myVid+"/stream";
+        }
+    </script>
+
+</head>
+<body>
+<header th:replace="layout :: site-header"></header>
+<div class="container">
+    <h3>Video Stream over HTTP App</h3>
+    <p>This example reads a MP4 video located in an Amazon S3 bucket and streams over HTTP</p>
+    <div class="row">
+        <div class="col">
+            <video id="video1" width="750" height="440" controls>
+                <source type="video/mp4">
+
+                Your browser does not support HTML video.
+            </video>
+        </div>
+        <div class="col">
+            <div class="list-group">
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

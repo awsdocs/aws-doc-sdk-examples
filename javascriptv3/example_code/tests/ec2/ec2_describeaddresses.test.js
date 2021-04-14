@@ -4,9 +4,8 @@ jest.mock("@aws-sdk/client-ec2/commands/DescribeAddressesCommand", () => ({
     this.DescribeAddressesCommand = mockDescribeAddresses;
   },
 }));
-const { params, run } = require("../../ec2/ec2_describeaddresses");
+const { params, run } = require("../../ec2/src/ec2_describeaddresses");
 
-//test function
 test("has to mock ec2#describeAddresses", async (done) => {
   await run();
   expect(mockDescribeAddresses).toHaveBeenCalled;

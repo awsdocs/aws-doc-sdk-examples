@@ -63,7 +63,7 @@ def status_poller(intro, done_status, func):
 
 def setup_bucket(bucket_name, script_file_name, script_key, s3_resource):
     """
-    Creates an Amazon S3 bucket and uploads the specfied script file to it.
+    Creates an Amazon S3 bucket and uploads the specified script file to it.
 
     :param bucket_name: The name of the bucket to create.
     :param script_file_name: The name of the script file to upload.

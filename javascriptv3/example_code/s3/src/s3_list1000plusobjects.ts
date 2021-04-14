@@ -1,9 +1,7 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is pending release.  The preview version of the SDK is available
-at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for v3 is also
-scheduled for release later in 2020, and the topic containing this example will be hosted at
+which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
 Purpose:
 s3_list1000plusObjects.ts demonstrates how to list more than 1000 objects in an Amazon S3 bucket.
@@ -24,7 +22,7 @@ const REGION = "REGION"; //e.g. "us-east-1"
 const bucketParams = { Bucket: "BUCKET_NAME" };
 
 // Create S3 service object
-const s3 = new S3Client(REGION);
+const s3 = new S3Client({ region: REGION });
 
 async function run() {
   // Declare truncated as a flag that we will base our while loop on
@@ -43,6 +41,8 @@ async function run() {
       // If 'truncated' is true, assign the key of the final element in the response to our variable 'pageMarker'
       if (truncated) {
         pageMarker = response.Contents.slice(-1)[0].Key;
+        // Assign value of pageMarker to bucketParams so that the next iteration will start from the new pageMarker.
+        bucketParams.Marker = pageMarker;
       }
       // At end of the list, response.truncated is false and our function exits the while loop.
     } catch (err) {

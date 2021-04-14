@@ -1,28 +1,54 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Sends a message to an SQS queue.]
-# snippet-keyword:[Amazon Simple Queue Service]
-# snippet-keyword:[send_message method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[sqs]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
+require 'aws-sdk-sqs'
+require 'aws-sdk-sts'
 
-sqs = Aws::SQS::Client.new(region: 'us-west-2')
+# Sends a message to a queue in Amazon Simple Queue Service (Amazon SQS).
+#
+# @param sqs_client [Aws::SQS::Client] An initialized Amazon SQS client.
+# @param queue_url [String] The URL of the queue.
+# @param message_body [String] The contents of the message to be sent.
+# @return [Boolean] true if the message was sent; otherwise, false.
+# @example
+#   exit 1 unless message_sent?(
+#     Aws::SQS::Client.new(region: 'us-east-1'),
+#     'https://sqs.us-east-1.amazonaws.com/111111111111/my-queue',
+#     'This is my message.'
+#   )
+def message_sent?(sqs_client, queue_url, message_body)
+  sqs_client.send_message(
+    queue_url: queue_url,
+    message_body: message_body
+  )
+  true
+rescue StandardError => e
+  puts "Error sending message: #{e.message}"
+  false
+end
 
-sqs.send_message(queue_url: URL, message_body: 'Hello world')
+# Full example call:
+def run_me
+  region = 'us-east-1'
+  queue_name = 'my-queue'
+  message_body = 'This is my message.'
+
+  sts_client = Aws::STS::Client.new(region: region)
+  
+  # For example:
+  # 'https://sqs.us-east-1.amazonaws.com/111111111111/my-queue'
+  queue_url = 'https://sqs.' + region + '.amazonaws.com/' + 
+    sts_client.get_caller_identity.account + '/' + queue_name
+  
+  sqs_client = Aws::SQS::Client.new(region: region)
+
+  puts "Sending a message to the queue named '#{queue_name}'..."
+
+  if message_sent?(sqs_client, queue_url, message_body)
+    puts 'Message sent.'
+  else
+    puts 'Message not sent.'
+  end
+end
+
+run_me if $PROGRAM_NAME == __FILE__

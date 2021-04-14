@@ -1,69 +1,123 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Notifies Lambda, SNS, and SQS when an item is added to an S3 bucket.]
-# snippet-keyword:[Amazon Simple Storage Service]
-# snippet-keyword:[put_bucket_notification_configuration method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[s3]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
+
+require 'aws-sdk-s3'
+
+# Adds an event notification to an Amazon Simple Storage Service
+#   (Amazon S3) bucket.
 #
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
+# Prerequisites:
 #
-# http://aws.amazon.com/apache2.0/
+# - An S3 bucket.
+# - For an event notification to AWS Lambda, a Lambda function.
+# - For an event notification to Amazon Simple Notification Service
+#   (Amazon SNS), an SNS topic.
+# - For an event notification to Amazon Simple Queue Service
+#   (Amazon SQS), an SQS queue.
 #
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# @param s3_client [Aws::S3::Client] An initialized S3 client.
+# @param bucket_name [String] The name of the bucket.
+# @param events [Array] The S3 events to notify on.
+# @param send_to_type [String] The type of AWS resource to notify. Allowed
+#   values include 'lambda' for Lambda, 'sns' for SNS, and 'sqs' for SQS.
+# @param resource_arn [String] The Amazon Resource Name (ARN) of the
+#   AWS resource.
+# @return [Boolean] true if the bucket notification configuration was set;
+#   otherwise, false.
+# @example
+#   exit 1 unless bucket_notification_configuration_set?(
+#     Aws::S3::Client.new(region: 'us-east-1'),
+#     'doc-example-bucket',
+#     ['s3:ObjectCreated:*'],
+#     'sns',
+#     'arn:aws:sns:us-east-1:111111111111:my-topic'
+#   )
+def bucket_notification_configuration_set?(
+  s3_client,
+  bucket_name,
+  events,
+  send_to_type,
+  resource_arn
+)
+  case send_to_type
+  when 'lambda'
+    s3_client.put_bucket_notification_configuration(
+      bucket: bucket_name,
+      notification_configuration: {
+        lambda_function_configurations: [
+          {
+            lambda_function_arn: resource_arn,
+            events: events
+          }
+        ]
+      }
+    )
+  when 'sns'
+    s3_client.put_bucket_notification_configuration(
+      bucket: bucket_name,
+      notification_configuration: {
+        topic_configurations: [
+          {
+            topic_arn: resource_arn,
+            events: events
+          }
+        ]
+      }
+    )
+  when 'sqs'
+    s3_client.put_bucket_notification_configuration(
+      bucket: bucket_name,
+      notification_configuration: {
+        queue_configurations: [
+          {
+            queue_arn: resource_arn,
+            events: events
+          }
+        ]
+      }
+    )
+  else
+    puts 'Error setting bucket notification configuration: ' \
+      "Cannot determine send-to type. Must be 'lambda', 'sns', or 'sqs'."
+    return false
+  end
+  return true
+rescue StandardError => e
+  puts "Error setting bucket notification configuration: #{e.message}"
+  return false
+end
 
-require 'aws-sdk-s3'  # v2: require 'aws-sdk'
+# Full example call:
+def run_me
+  bucket_name = 'doc-example-bucket'
+  events = ['s3:ObjectCreated:*']
 
-req = {}
-req[:bucket] = bucket_name
+  # For an SNS topic:
+  send_to_type = 'sns'
+  resource_arn = 'arn:aws:sns:us-east-1:111111111111:my-topic'
 
-events = ['s3:ObjectCreated:*']
+  # For an SQS queue:
+  # send_to_type = 'sqs'
+  # resource_arn = 'arn:aws:sqs:us-east-1:111111111111:my-queue'
 
-notification_configuration = {}
+  # For a Lambda function:
+  # send_to_type = 'lambda'
+  # resource_arn = 'arn:aws:lambda:us-east-1:111111111111:function:myFunction'
 
-# Add function
-lc = {}
+  region = 'us-east-1'
+  s3_client = Aws::S3::Client.new(region: region)
 
-lc[:lambda_function_arn] = 'my-function-arn'
-lc[:events] = events
-lambda_configurations = []
-lambda_configurations << lc
+  if bucket_notification_configuration_set?(
+    s3_client,
+    bucket_name,
+    events,
+    send_to_type,
+    resource_arn
+  )
+    puts 'Bucket notification configuration set.'
+  else
+    puts 'Bucket notification configuration not set.'
+  end
+end
 
-notification_configuration[:lambda_function_configurations] = lambda_configurations
-
-# Add queue
-qc = {}
-
-qc[:queue_arn] = 'my-topic-arn'
-qc[:events] = events
-queue_configurations = []
-queue_configurations << qc
-
-notification_configuration[:queue_configurations] = queue_configurations
-
-# Add topic
-tc = {}
-
-tc[:topic_arn] = 'my-topic-arn'
-tc[:events] = events
-topic_configurations = []
-topic_configurations << tc
-
-notification_configuration[:topic_configurations] = topic_configurations
-
-req[:notification_configuration] = notification_configuration
-
-req[:use_accelerate_endpoint] = false
-
-s3 = Aws::S3::Client.new(region: 'us-west-2')
-
-s3.put_bucket_notification_configuration(req)
+run_me if $PROGRAM_NAME == __FILE__

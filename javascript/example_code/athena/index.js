@@ -14,7 +14,7 @@
  */
 
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[index.js demonstrates how to query for information from Amazon Athena.]
+// snippet-sourcedescription:[index.ts demonstrates how to query for information from Amazon Athena.]
 // snippet-service:[athena]
 // snippet-keyword:[JavaScript]
 // snippet-sourcesyntax:[javascript]
@@ -29,7 +29,7 @@
 
 // snippet-start:[athena.JavaScript.index.complete]
 const AWS = require('aws-sdk')
-const Queue = require('async/queue')
+const Queue = require('async.queue')
 const _ = require('lodash')
 
 const ATHENA_DB = 'default'

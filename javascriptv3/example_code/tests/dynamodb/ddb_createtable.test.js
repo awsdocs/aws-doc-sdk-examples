@@ -4,9 +4,8 @@ jest.mock("@aws-sdk/client-dynamodb/commands/CreateTableCommand", () => ({
     this.CreateTableCommand = mockCreateTable;
   },
 }));
-const { params, run } = require("../../dynamodb/ddb_createtable");
+const { params, run } = require("../../dynamodb/src/ddb_createtable");
 
-//test function
 test("has to mock db#createTable", async (done) => {
   await run();
   expect(mockCreateTable).toHaveBeenCalled;

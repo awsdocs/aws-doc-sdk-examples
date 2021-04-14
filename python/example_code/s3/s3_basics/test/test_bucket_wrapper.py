@@ -343,20 +343,3 @@ def test_generate_presigned_post(make_unique_name):
     segments = urlparse(response['url'])
     assert all([segments.scheme, segments.netloc, segments.path])
     assert response['fields']['key'] == object_key
-
-
-@pytest.mark.parametrize('client_method,method_parameters', [
-    ('list_objects', {'Bucket': 'test-bucket'}),
-    ('put_object', {'Bucket': 'test-bucket', 'Key': 'test-object'})
-])
-def test_generate_presigned_url(make_unique_name, client_method,
-                                method_parameters):
-    """"Test that generating a presigned URL works as expected."""
-    bucket_name = make_unique_name('bucket')
-    expires_in = 60
-
-    url = bucket_wrapper.generate_presigned_url(
-        bucket_name, client_method, method_parameters, expires_in
-    )
-    segments = urlparse(url)
-    assert all([segments.scheme, segments.netloc, segments.path])

@@ -7,9 +7,8 @@ jest.mock(
     },
   })
 );
-const { params, run } = require("../../iam/iam_deleteservercert.js");
+const { params, run } = require("../../iam/src/iam_deleteservercert.js");
 
-//test function
 test("has to mock iam#deleteservercertificate", async (done) => {
   await run();
   expect(mockDeleteServerCert).toHaveBeenCalled;

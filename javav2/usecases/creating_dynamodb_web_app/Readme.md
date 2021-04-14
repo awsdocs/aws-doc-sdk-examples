@@ -8,7 +8,7 @@ You can develop a web application that tracks and reports on work items by using
 
 **Note:** In this tutorial, we use the AWS SDK for Java version 2 to access Amazon SES and DynamoDB.
 
-The application you create is named **DynamoDB Item Tracker**, and uses Spring Boot APIs to build a model, different views, and a controller. It’s a secure web application that requires a user to log into the application. For more information, see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
+The application you create is named **DynamoDB Item Tracker**, and uses Spring Boot APIs to build a model, different views, and a controller. It’s an application that requires a user to log in. For more information, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
 
 This tutorial guides you through creating the **DynamoDB Item Tracker** application. After the application is developed, you'll learn how to deploy it to Elastic Beanstalk.
 
@@ -20,7 +20,7 @@ The following figure shows you the structure of the Java project.
 
 **Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
 
-**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
+**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 #### Topics
 
@@ -336,13 +336,13 @@ These packages contain the following:
 
 + **entities** - Contains Java files that represent the model. In this example, the model class is named **WorkItem**.
 + **services** - Contains Java files that invoke AWS services. For example, the **software.amazon.awssdk.services.dynamodb.DynamoDbClient** object is used to perform DynamoDB operations.
-+ **secureweb** - Contains a Java class for Spring security and the Java controller class.
++ **secureweb** - Contains the SpringJava classes.
 
 **Note:** The only class that is in **com.example** is **SecureWebApp**. All other classes are in the subpackages.
 
 ## Create the Java classes
 
-Create the Java classes, including the Spring security classes that secure the web application with a login form. In this application, a Java class sets up an in-memory user store that contains a single user (the user name is **user** and the password is **password**.)
+Create the Java classes, including the Spring classes. In this application, a Java class sets up an in-memory user store that contains a single user (the user name is **user** and the password is **password**.)
 
 ### Create the SecureWebApp class
 
@@ -492,19 +492,19 @@ The following Java code represents the **MainController** class.
         return "items";
      }
 
-     // Adds a new item to the DynamoDB database
+     // Adds a new item to the DynamoDB database.
      @RequestMapping(value = "/add", method = RequestMethod.POST)
      @ResponseBody
      String addItems(HttpServletRequest request, HttpServletResponse response) {
 
-        // Get the logged-in user
+        // Get the logged-in user.
         String name = getLoggedUser();
 
         String guide = request.getParameter("guide");
         String description = request.getParameter("description");
         String status = request.getParameter("status");
 
-        // Create a Work Item object to pass to the injectNewSubmission method
+        // Create a Work Item object to pass to the injectNewSubmission method.
         WorkItem myWork = new WorkItem();
         myWork.setGuide(guide);
         myWork.setDescription(description);
@@ -515,7 +515,7 @@ The following Java code represents the **MainController** class.
         return "Item added";
       }
 
-     // Builds and emails a report with all items
+     // Builds and emails a report with all items.
      @RequestMapping(value = "/report", method = RequestMethod.POST)
      @ResponseBody
      String getReport(HttpServletRequest request, HttpServletResponse response) {
@@ -532,17 +532,17 @@ The following Java code represents the **MainController** class.
      return "Report is created";
      }
 
-     // Archives a work item
+     // Archives a work item.
      @RequestMapping(value = "/archive", method = RequestMethod.POST)
      @ResponseBody
      String archieveWorkItem(HttpServletRequest request, HttpServletResponse response) {
 
       String id = request.getParameter("id");
-      dbService.archiveItem(id );
+      dbService.archiveItemEC(id );
       return id ;
       }
 
-     // Modifies the value of a work item
+     // Modifies the value of a work item.
      @RequestMapping(value = "/changewi", method = RequestMethod.POST)
      @ResponseBody
      String changeWorkItem(HttpServletRequest request, HttpServletResponse response) {
@@ -553,7 +553,7 @@ The following Java code represents the **MainController** class.
         return id;
      }
 
-     // Retrieve items
+     // Retrieve items.
      @RequestMapping(value = "/retrieve", method = RequestMethod.POST)
      @ResponseBody
      String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
@@ -571,7 +571,7 @@ The following Java code represents the **MainController** class.
          return xml;
       }
 
-     // Returns a work item to modify
+     // Returns a work item to modify.
      @RequestMapping(value = "/modify", method = RequestMethod.POST)
      @ResponseBody
      String modifyWork(HttpServletRequest request, HttpServletResponse response) {
@@ -583,7 +583,7 @@ The following Java code represents the **MainController** class.
 
      private String getLoggedUser() {
 
-      // Get the logged-in user
+      // Get the logged-in user.
       org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) 			SecurityContextHolder.getContext().getAuthentication().getPrincipal();
       String name = user2.getUsername();
       return name;
@@ -717,7 +717,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
      import org.springframework.stereotype.Component;
 
      /*
-      Before running this code example, create a table named Work with a PK named id
+      Before running this code example, create a table named Work with a PK named id.
       */
      @Component
      public class DynamoDBService {
@@ -734,7 +734,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
        return ddb;
        }
 
-     // Get a single item from the Work table based on the Key
+     // Get a single item from the Work table based on the Key.
      public String getItem(String idValue) {
 
       DynamoDbClient ddb = getClient();
@@ -746,7 +746,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
             .s(idValue)
             .build());
 
-     // Create a GetItemRequest object
+     // Create a GetItemRequest object.
      GetItemRequest request = GetItemRequest.builder()
            .key(keyToGet)
            .tableName("Work")
@@ -755,7 +755,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
      try {
          Map<String,AttributeValue> returnedItem = ddb.getItem(request).item();
 
-         // Get keys and values and get description and status
+         // Get keys and values and get description and status.
           for (Map.Entry<String,AttributeValue > entry : returnedItem.entrySet()) {
             String k = entry.getKey();
             AttributeValue v = entry.getValue();
@@ -775,19 +775,19 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
        return "";
        }
 
-       // Retrieves items from the DynamoDB table
+       // Retrieves items from the DynamoDB table.
     	public  ArrayList<WorkItem> getListItems() {
 
-        // Create a DynamoDbEnhancedClient
+        // Create a DynamoDbEnhancedClient.
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
            .dynamoDbClient(getClient())
            .build();
 
         try {
-          // Create a DynamoDbTable object
+          // Create a DynamoDbTable object.
           DynamoDbTable<Work> custTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
 
-          // Get items in the Work table
+          // Get items in the Work table.
           Iterator<Work> results = custTable.scan().items().iterator();
           WorkItem workItem ;
           ArrayList<WorkItem> itemList = new ArrayList();
@@ -818,7 +818,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
         return null ;
       }
 
-      // Archives an item based on the key
+      // Archives an item based on the key.
       public String archiveItem(String id){
         DynamoDbClient ddb = getClient();
 
@@ -830,7 +830,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
       HashMap<String, AttributeValueUpdate> updatedValues =
                 new HashMap<String,AttributeValueUpdate>();
 
-      // Update the column specified by name with updatedVal
+      // Update the column specified by name with updatedVal.
       updatedValues.put("archive", AttributeValueUpdate.builder()
            .value(AttributeValue.builder()
            .s("Closed").build())
@@ -856,7 +856,39 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
         return "";
         }
 
-      // Updates items in the Work table
+    // Update the archive column by using the enhanced client.
+    public String archiveItemEC(String id) {
+
+        DynamoDbClient ddb = getClient();
+
+        try {
+
+            DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+                    .dynamoDbClient(getClient())
+                    .build();
+
+            DynamoDbTable<Work> workTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+
+            //Get a Key object.
+            Key key = Key.builder()
+                    .partitionValue(id)
+                    .build();
+
+            // Get the item by using the key.
+            Work work = workTable.getItem(r->r.key(key));
+            work.setArchive("Closed");
+
+            workTable.updateItem(r->r.item(work));
+            return"The item was successfully archived";
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+        return "";
+    }
+
+      
+      // Updates items in the Work table.
       public String UpdateItem(String id, String status){
          DynamoDbClient ddb = getClient();
 
@@ -869,7 +901,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
         HashMap<String, AttributeValueUpdate> updatedValues =
                 new HashMap<String,AttributeValueUpdate>();
 
-        // Update the column specified by name with updatedVal
+        // Update the column specified by name with updatedVal.
         updatedValues.put("status", AttributeValueUpdate.builder()
                 .value(AttributeValue.builder()
                  .s(status).build())
@@ -895,16 +927,16 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
         return "";
         }
 
-      // Get Open items from the DynamoDB table
+      // Get Open items from the DynamoDB table.
       public String getOpenItems() {
 
-      // Create a DynamoDbEnhancedClient
+      // Create a DynamoDbEnhancedClient.
        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                .dynamoDbClient(getClient())
                .build();
 
        try{
-           // Create a DynamoDbTable object
+           // Create a DynamoDbTable object.
            DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
 
            AttributeValue attr = AttributeValue.builder()
@@ -917,7 +949,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
            Map<String, String> myExMap = new HashMap<>();
            myExMap.put("#archive", "archive");
 
-           // Set the Expression so only Closed items are queried from the Work table
+           // Set the Expression so only Closed items are queried from the Work table.
            Expression expression = Expression.builder()
                    .expressionValues(myMap)
                    .expressionNames(myExMap)
@@ -929,7 +961,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
                    .limit(15)
                    .build();
 
-           // Scan items
+           // Scan items.
            Iterator<Work> results = table.scan(enhancedRequest).items().iterator();
            WorkItem workItem ;
            ArrayList<WorkItem> itemList = new ArrayList();
@@ -961,7 +993,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
        return "" ;
        }
 
-      // Get Closed items from the DynamoDB table
+      // Get Closed items from the DynamoDB table.
       public String getClosedItems() {
 
         // Create a DynamoDbEnhancedClient
@@ -970,7 +1002,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
                 .build();
 
         try{
-            // Create a DynamoDbTable object
+            // Create a DynamoDbTable object.
             DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
 
             AttributeValue attr = AttributeValue.builder()
@@ -983,7 +1015,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
             Map<String, String> myExMap = new HashMap<>();
             myExMap.put("#archive", "archive");
 
-            // Set the Expression so only Closed items are queried from the Work table
+            // Set the Expression so only Closed items are queried from the Work table.
             Expression expression = Expression.builder()
                     .expressionValues(myMap)
                     .expressionNames(myExMap)
@@ -995,7 +1027,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
                     .limit(15)
                     .build();
 
-            // Get items
+            // Get items.
             Iterator<Work> results = table.scan(enhancedRequest).items().iterator();
             WorkItem workItem ;
             ArrayList<WorkItem> itemList = new ArrayList();
@@ -1012,7 +1044,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
                 workItem.setDate(work.getDate());
                 workItem.setId(work.getId());
 
-                // Push the workItem to the list
+                // Push the workItem to the list.
                 itemList.add(workItem);
             }
 
@@ -1028,7 +1060,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
 
        public void setItem(WorkItem item) {
 
-        // Create a DynamoDbEnhancedClient
+        // Create a DynamoDbEnhancedClient.
          DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(getClient())
                 .build();
@@ -1036,22 +1068,22 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
           putRecord(enhancedClient, item) ;
           }
 
-       // Put an item into a DynamoDB table
+       // Put an item into a DynamoDB table.
        public void putRecord(DynamoDbEnhancedClient enhancedClient, WorkItem item) {
 
          try {
 
-	     // Create a DynamoDbTable object
+	     // Create a DynamoDbTable object.
              DynamoDbTable<Work> workTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
 
-             // Create an Instant object
+             // Create an Instant object.
              LocalDate localDate = LocalDate.parse("2020-04-07");
              LocalDateTime localDateTime = localDate.atStartOfDay();
              Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
 
              String myGuid = java.util.UUID.randomUUID().toString();  
 
-             // Populate the table
+             // Populate the table.
              Work record = new Work();
              record.setUsername(item.getName());
              record.setId(myGuid);
@@ -1061,7 +1093,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
              record.setArchive("Open");
              record.setGuide(item.getGuide());
 
-             // Put the customer data into a DynamoDB table
+             // Put the customer data into a DynamoDB table.
              workTable.putItem(record);
 
              } catch (DynamoDbException e) {
@@ -1070,7 +1102,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
             }
   	   }
 
-    	 // Convert Work data into XML to pass back to the view
+    	 // Convert Work data into XML to pass back to the view.
          private Document toXml(List<WorkItem> itemList) {
 
          try {
@@ -1078,48 +1110,48 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 
-            // Start building the XML
+            // Start building the XML.
             Element root = doc.createElement( "Items" );
             doc.appendChild( root );
 
-            // Get the elements from the collection
+            // Get the elements from the collection.
             int custCount = itemList.size();
 
-            // Iterate through the collection
+            // Iterate through the collection.
             for ( int index=0; index < custCount; index++) {
 
-                // Get the WorkItem object from the collection
+                // Get the WorkItem object from the collection.
                 WorkItem myItem = itemList.get(index);
 
                 Element item = doc.createElement( "Item" );
                 root.appendChild( item );
 
-                // Set Id
+                // Set Id.
                 Element id = doc.createElement( "Id" );
                 id.appendChild( doc.createTextNode(myItem.getId() ) );
                 item.appendChild( id );
 
-                // Set Name
+                // Set Name.
                 Element name = doc.createElement( "Name" );
                 name.appendChild( doc.createTextNode(myItem.getName() ) );
                 item.appendChild( name );
 
-                // Set Date
+                // Set Date.
                 Element date = doc.createElement( "Date" );
                 date.appendChild( doc.createTextNode(myItem.getDate() ) );
                 item.appendChild( date );
 
-                // Set Description
+                // Set Description.
                 Element desc = doc.createElement( "Description" );
                 desc.appendChild( doc.createTextNode(myItem.getDescription() ) );
                 item.appendChild( desc );
 
-                // Set Guide
+                // Set Guide.
                 Element guide = doc.createElement( "Guide" );
                 guide.appendChild( doc.createTextNode(myItem.getGuide() ) );
                 item.appendChild( guide );
 
-                // Set Status
+                // Set Status.
                 Element status = doc.createElement( "Status" );
                 status.appendChild( doc.createTextNode(myItem.getStatus() ) );
                 item.appendChild( status );
@@ -1153,7 +1185,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
           return sdf.format(cal.getTime());
     	  }
 
-    	  // Convert Work data into an XML schema to pass back to client
+    	  // Convert Work data into an XML schema to pass back to client.
     	  private Document toXmlItem(String id2, String desc2, String status2) {
 
             try {
@@ -1313,19 +1345,19 @@ The following Java code represents the **SendMessage** class. Notice that an **E
 
      private String sender = "tblue@nomailserver.com";
 
-     // The subject line for the email
+     // The subject line for the email.
      private String subject = "Weekly AWS Status Report";
 
-     // The email body for recipients with non-HTML email clients
+     // The email body for recipients with non-HTML email clients.
      private String bodyText = "Hello,\r\n" + "Please see the attached file for a weekly update.";
 
-     // The HTML body of the email
+     // The HTML body of the email.
      private String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
             + "<p>See the attached file for a weekly update.</p>" + "</body>" + "</html>";
 
      public void sendReport(InputStream is, String emailAddress ) throws IOException {
 
-        // Convert the InputStream to a byte[]
+        // Convert the InputStream to a byte[].
         byte[] fileContent = IOUtils.toByteArray(is);
 
         try {
@@ -1340,45 +1372,45 @@ The following Java code represents the **SendMessage** class. Notice that an **E
         MimeMessage message = null;
         Session session = Session.getDefaultInstance(new Properties());
 
-        // Create a new MimeMessage object
+        // Create a new MimeMessage object.
         message = new MimeMessage(session);
 
-        // Add subject, from, and to lines
+        // Add subject, from, and to lines.
         message.setSubject(subject, "UTF-8");
         message.setFrom(new InternetAddress(sender));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
 
-        // Create a multipart/alternative child container
+        // Create a multipart/alternative child container.
         MimeMultipart msgBody = new MimeMultipart("alternative");
 
-        // Create a wrapper for the HTML and text parts
+        // Create a wrapper for the HTML and text parts.
         MimeBodyPart wrap = new MimeBodyPart();
 
-        // Define the text part
+        // Define the text part.
         MimeBodyPart textPart = new MimeBodyPart();
         textPart.setContent(bodyText, "text/plain; charset=UTF-8");
 
-        // Define the HTML part
+        // Define the HTML part.
         MimeBodyPart htmlPart = new MimeBodyPart();
         htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
 
-        // Add the text and HTML parts to the child container
+        // Add the text and HTML parts to the child container.
         msgBody.addBodyPart(textPart);
         msgBody.addBodyPart(htmlPart);
 
-        // Add the child container to the wrapper object
+        // Add the child container to the wrapper object.
         wrap.setContent(msgBody);
 
-        // Create a multipart/mixed parent container
+        // Create a multipart/mixed parent container.
         MimeMultipart msg = new MimeMultipart("mixed");
 
-        // Add the parent container to the message
+        // Add the parent container to the message.
         message.setContent(msg);
 
-        // Add the multipart/alternative part to the message
+        // Add the multipart/alternative part to the message.
         msg.addBodyPart(wrap);
 
-        // Define the attachment
+        // Define the attachment.
         MimeBodyPart att = new MimeBodyPart();
         DataSource fds = new ByteArrayDataSource(attachment, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         att.setDataHandler(new DataHandler(fds));
@@ -1389,7 +1421,7 @@ The following Java code represents the **SendMessage** class. Notice that an **E
         // Add the attachment to the message.
         msg.addBodyPart(att);
 
-       // Send the email
+       // Send the email.
         try {
             System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
 
@@ -1458,7 +1490,7 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
     private WritableCellFormat timesBoldUnderline;
     private WritableCellFormat times;
 
-    // Returns an InputStream that represents the Excel report
+    // Returns an InputStream that represents the Excel report.
     public java.io.InputStream exportExcel( List<WorkItem> list) {
 
         try {
@@ -1470,7 +1502,7 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         return null;
     }
 
-    // Generates the report and returns an InputStream
+    // Generates the report and returns an InputStream.
     public java.io.InputStream write( List<WorkItem> list) throws IOException, WriteException {
         java.io.OutputStream os = new java.io.ByteArrayOutputStream() ;
         WorkbookSettings wbSettings = new WorkbookSettings();
@@ -1488,7 +1520,7 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         workbook.write();
         workbook.close();
 
-        // Get an InputStram that represents the report
+        // Get an InputStream that represents the report
         java.io.ByteArrayOutputStream stream = new java.io.ByteArrayOutputStream();
         stream = (java.io.ByteArrayOutputStream)os;
         byte[] myBytes = stream.toByteArray();
@@ -1497,21 +1529,21 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         return is ;
     }
 
-    // Create headings in the Excel spreadsheet
+    // Create headings in the Excel spreadsheet.
     private void createLabel(WritableSheet sheet)
             throws WriteException {
-        // Create a Times font
+        // Create a Times font.
         WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
-        // Define the cell format
+        // Define the cell format.
         times = new WritableCellFormat(times10pt);
-        // Automatically wrap the cells
+        // Automatically wrap the cells.
         times.setWrap(true);
 
-        // Create a bold font with underlining
+        // Create a bold font with underlining.
         WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false,
                 UnderlineStyle.SINGLE);
         timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
-        // Automatically wrap the cells
+        // Automatically wrap the cells.
         timesBoldUnderline.setWrap(true);
 
         CellView cv = new CellView();
@@ -1519,7 +1551,7 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         cv.setFormat(timesBoldUnderline);
         cv.setAutosize(true);
 
-        // Write a few headers
+        // Write a few headers.
         addCaption(sheet, 0, 0, "Writer");
         addCaption(sheet, 1, 0, "Date");
         addCaption(sheet, 2, 0, "Guide");
@@ -1527,35 +1559,35 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         addCaption(sheet, 4, 0, "Status");
     }
 
-    // Write the ItemData to the Excel report
+    // Write the ItemData to the Excel report.
     private int createContent(WritableSheet sheet, List<WorkItem> list) throws WriteException {
 
         int size = list.size() ;
 
-        // Add data to the Excel report
+        // Add data to the Excel report.
         for (int i = 0; i < size; i++) {
 
             WorkItem wi = list.get(i);
 
-            // Get the work item values
+            // Get the work item values.
             String name = wi.getName();
             String guide = wi.getGuide();
             String date = wi.getDate();
             String des = wi.getDescription();
             String status = wi.getStatus();
 
-            // First column
+            // First column.
             addLabel(sheet, 0, i+2, name);
-            // Second column
+            // Second column.
             addLabel(sheet, 1, i+2, date);
 
-            // Third column
+            // Third column.
             addLabel(sheet, 2, i+2,guide);
 
-            // Forth column
+            // Forth column.
             addLabel(sheet, 3, i+2, des);
 
-            // Fifth column
+            // Fifth column.
             addLabel(sheet, 4, i+2, status);
 
         }
@@ -2193,7 +2225,7 @@ The following JavaScript code represents the **items.js** file that is used in t
 	function loadMods(event) {
 
     	var msg = event.target.responseText;
-    	alert("You have successfully modfied item "+msg)
+    	alert("You have successfully modified item "+msg)
 
     	$('#id').val("");
     	$('#description').val("");
@@ -2406,7 +2438,7 @@ The following JavaScript code represents the **items.js** file that is used in t
 	function onArch(event) {
 
     	 var xml = event.target.responseText;
-    	 alert("Item "+xml +" is achived now");
+    	 alert("Item "+xml +" is archived now");
 
     	// Refresh the grid
     	GetItems();

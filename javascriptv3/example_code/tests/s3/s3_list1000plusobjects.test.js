@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-s3", () => ({
 }));
 const { bucketParams } = require("../../s3/s3_list1000plusobjects");
 
-//test function
 test("has to mock S3#list1000PlusObjects", async (done) => {
   await run();
   expect(mockList1000PlusObjects).toHaveBeenCalled;

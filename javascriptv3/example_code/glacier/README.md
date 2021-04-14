@@ -1,9 +1,11 @@
 # TypeScript environment for Amazon S3 Glacier examples
 This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) Amazon S3 Glacier examples. 
 
-The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
+The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
-Once it's released, see the [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/glacier-examples.html) for the topic containing these examples.
+The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/glacier-examples.html) contains these examples.
+
+The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-glacier/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon S3 Glacier client module.
 
 Amazon S3 Glacier and S3 Glacier Deep Archive are a secure, durable, and extremely low-cost Amazon S3 cloud storage classes for data archiving and long-term backup. 
 
@@ -20,7 +22,7 @@ Amazon S3 Glacier and S3 Glacier Deep Archive are a secure, durable, and extreme
 **Note**: These include the client module for the AWS services required in these example, 
 which is *@aws-sdk/client-glacier*.
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/glacier
 npm install
 ```

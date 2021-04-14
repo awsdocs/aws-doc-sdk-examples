@@ -1,31 +1,15 @@
 // snippet-sourcedescription:[TranscribeStreamingDemoApp.java transcribes streaming audio from your computer's microphone or a file upload. The output is presented on your computer's standard output.]
-// snippet-service:[transcribe]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon Transcribe]
+// snippet-keyword:[AWS SDK for Java v2]
+//snippet-keyword:[Amazon Transcribe]
 // snippet-keyword:[Code Sample]
-// snippet-keyword:[TranscribeStreamingAsyncClient]
-// snippet-keyword:[StartStreamTranscription]
-// snippet-sourcetype:[snippet]
-// snippet-sourcedate:[2019-01-10]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[transcribe.java-streaming-demo]
-/**
- * COPYRIGHT:
- * <p>
- * Copyright 2018-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[11/06/2020]
+// snippet-sourceauthor:[scmacdon - AWS]
+
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 package com.amazonaws.transcribestreaming;
 
 import org.reactivestreams.Publisher;
@@ -37,7 +21,6 @@ import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.transcribestreaming.TranscribeStreamingAsyncClient;
 import software.amazon.awssdk.services.transcribestreaming.model.*;
-
 import javax.sound.sampled.*;
 import java.io.*;
 import java.net.URISyntaxException;
@@ -49,11 +32,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
 
-
+// snippet-start:[transcribe.java-streaming-demo]
 public class TranscribeStreamingDemoApp {
     private static final Region REGION = Region.US_EAST_1;
-    private static Subscription currentSubscription;
-
     private static TranscribeStreamingAsyncClient client;
 
     public static void main(String args[]) throws URISyntaxException, ExecutionException, InterruptedException, LineUnavailableException {
@@ -140,6 +121,7 @@ public class TranscribeStreamingDemoApp {
 
     private static class AudioStreamPublisher implements Publisher<AudioStream> {
         private final InputStream inputStream;
+        private static Subscription currentSubscription;
 
 
         private AudioStreamPublisher(InputStream inputStream) {
@@ -166,7 +148,7 @@ public class TranscribeStreamingDemoApp {
         private ExecutorService executor = Executors.newFixedThreadPool(1);
         private AtomicLong demand = new AtomicLong(0);
 
-        private SubscriptionImpl(Subscriber<? super AudioStream> s, InputStream inputStream) {
+        SubscriptionImpl(Subscriber<? super AudioStream> s, InputStream inputStream) {
             this.subscriber = s;
             this.inputStream = inputStream;
         }

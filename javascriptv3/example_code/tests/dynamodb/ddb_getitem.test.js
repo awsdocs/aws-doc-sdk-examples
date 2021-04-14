@@ -4,9 +4,8 @@ jest.mock("@aws-sdk/client-dynamodb/commands/GetItemCommand", () => ({
     this.GetItemCommand = mockGetItem;
   },
 }));
-const { params, run } = require("../../dynamodb/ddb_getitem");
+const { params, run } = require("../../dynamodb/src/ddb_getitem");
 
-//test function
 test("has to mock db#batchGetItem", async (done) => {
   await run();
   expect(mockGetItem).toHaveBeenCalled;

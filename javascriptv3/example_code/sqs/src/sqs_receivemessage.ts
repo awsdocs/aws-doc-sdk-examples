@@ -2,9 +2,7 @@
 SPDX-License-Identifier: Apache-2.0
 
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is pending release.  The preview version of the SDK is available
-at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for v3 is also
-scheduled for release later in 2020, and the topic containing this example will be hosted at
+which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-send-receive-messages.html.
 
 Purpose:
@@ -41,7 +39,7 @@ const params = {
 };
 
 // Create SQS service object
-const sqs = new SQSClient(REGION);
+const sqs = new SQSClient({ region: REGION });
 
 const run = async () => {
   try {
@@ -52,7 +50,7 @@ const run = async () => {
         ReceiptHandle: data.Messages[0].ReceiptHandle,
       };
       try {
-        const data = await sqs.send(new DeleteMessageCommand({}));
+        const data = await sqs.send(new DeleteMessageCommand(deleteParams));
       } catch (err) {
         console.log("Message Deleted", data);
       }

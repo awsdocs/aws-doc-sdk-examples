@@ -4,9 +4,8 @@ jest.mock("@aws-sdk/client-ses/commands/ListTemplatesCommand", () => ({
     this.ListTemplatesCommand = mockListTemplates;
   },
 }));
-const { run } = require("../../ses/ses_listtemplates.js");
+const { run } = require("../../ses/src/ses_listtemplates.js");
 
-//test function
 test("has to mock SES#ses_listtemplates", async (done) => {
   await run();
   expect(mockListTemplates).toHaveBeenCalled;

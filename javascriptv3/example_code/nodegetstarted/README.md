@@ -1,9 +1,9 @@
 # TypeScript environment for 'Node Get Started' examples
 This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) 'Node Get Started' examples. 
 
-The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
+The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
-Once it's released, see the [AWS documentation for this example](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-nodejs.html) for the topic containing these examples.
+The [AWS documentation for this example](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-nodejs.html) contains these examples.
 
 **NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
 
@@ -16,7 +16,7 @@ Once it's released, see the [AWS documentation for this example](https://docs.aw
 **Note**: These include the client module for the AWS services required in these example, 
 which is *@aws-sdk/client-s3*.
 ```
-npm install ts-node -g // If using JavaScript, enter 'npm install node -g' instead
+npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/nodegetstarted
 npm install
 ```

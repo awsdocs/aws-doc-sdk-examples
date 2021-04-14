@@ -4,9 +4,8 @@ jest.mock("@aws-sdk/client-sqs/commands/SendMessageCommand", () => ({
     this.SendMessageCommand = mockSendMessage;
   },
 }));
-const { run } = require("../../sqs/sqs_sendmessage.js");
+const { run } = require("../../sqs/src/sqs_sendmessage.js");
 
-//test function
 test("has to mock SQS#sendmessage", async (done) => {
   await run();
   expect(mockSendMessage).toHaveBeenCalled;

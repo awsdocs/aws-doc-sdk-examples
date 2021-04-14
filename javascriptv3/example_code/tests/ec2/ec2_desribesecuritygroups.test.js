@@ -4,9 +4,8 @@ jest.mock("@aws-sdk/client-ec2/commands/DescribeSecurityGroupsCommand", () => ({
     this.DescribeSecurityGroupsCommand = mockDescribeSecurityGroups;
   },
 }));
-const { params, run } = require("../../ec2/ec2_describesecuritygroups");
+const { params, run } = require("../../ec2/src/ec2_describesecuritygroups");
 
-//test function
 test("has to mock ec2#describeSecurityGroups", async (done) => {
   await run();
   expect(mockDescribeSecurityGroups).toHaveBeenCalled;

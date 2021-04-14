@@ -4,11 +4,11 @@
   "main": "index.js",
   "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/iam.git",
   "author": "Brian Murray <brmur@amazon.com>, Alex Forsyth <alex-git@amazon.com>",
-  "license": "MIT",
+  "license": "Apache 2.0",
   "dependencies": {
-    "@aws-sdk/client-glacier": "^1.0.0-gamma.6",
-    "@aws-sdk/node-http-handler": "^1.0.0-gamma.5",
-    "@aws-sdk/types": "^0.1.0-gamma.6",
+    "@aws-sdk/client-glacier": "^3.3.0",
+    "@aws-sdk/node-http-handler": "^3.3.0",
+    "@aws-sdk/types": "^3.3.0",
     "ts-node": "^9.0.0"
   },
   "devDependencies": {

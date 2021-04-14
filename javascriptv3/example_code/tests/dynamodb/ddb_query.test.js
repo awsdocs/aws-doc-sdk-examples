@@ -4,9 +4,8 @@ jest.mock("@aws-sdk/client-dynamodb/commands/QueryCommand", () => ({
     this.QueryCommand = mockQuery;
   },
 }));
-const { params, run } = require("../../dynamodb/ddb_query");
+const { params, run } = require("../../dynamodb/src/ddb_query");
 
-//test function
 test("has to mock db#Query", async (done) => {
   await run();
   expect(mockQuery).toHaveBeenCalled;

@@ -24,6 +24,6 @@ files:
  - path: src/main/java/com/example/mediastore/PutObject.java
    services:
      - mediastore
- - path: src/test/java/MediaStoreServiceIntegrationTest.java
+ - path: src/test/java/MediaStoreTest.java
    services:
      - mediastore

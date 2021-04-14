@@ -1,29 +1,18 @@
 //snippet-sourcedescription:[BidirectionalStreaming.java demonstrates how to use the AWS Transcribe service to transcribe an audio input.]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-keyword:[Code Sample]
+// snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Amazon Transcribe]
-//snippet-keyword:[bidirectional streaming]
-//snippet-service:[transcribe]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-04-18]
-//snippet-sourceauthor:[AWS]
+// snippet-keyword:[Code Sample]
+// snippet-sourcetype:[full-example]
+// snippet-sourcedate:[11/06/2020]
+// snippet-sourceauthor:[scmacdon - AWS]
 
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
 
-package com.amazonaws.transcribe;
 //snippet-start:[transcribe.java2.bidir_streaming_audiopublisher.complete]
+package com.amazonaws.transcribe;
 
 //snippet-start:[transcribe.java2.bidir_streaming_audiopublisher.import]
 import java.io.IOException;
@@ -39,6 +28,7 @@ import org.reactivestreams.Subscription;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.transcribestreaming.model.AudioEvent;
 import software.amazon.awssdk.services.transcribestreaming.model.AudioStream;
+import software.amazon.awssdk.services.transcribestreaming.model.TranscribeStreamingException;
 //snippet-end:[transcribe.java2.bidir_streaming_audiopublisher.import]
 
 //snippet-start:[transcribe.java2.bidir_streaming_audiopublisher.class]
@@ -88,7 +78,7 @@ public class AudioStreamPublisher implements Publisher<AudioStream> {
                             break;
                         }
                     } while (demand.decrementAndGet() > 0);
-                } catch (Exception e) {
+                } catch (TranscribeStreamingException e) {
                     subscriber.onError(e);
                 }
             });
@@ -121,11 +111,10 @@ public class AudioStreamPublisher implements Publisher<AudioStream> {
 
         private AudioEvent audioEventFromBuffer(ByteBuffer bb) {
             return AudioEvent.builder()
-                             .audioChunk(SdkBytes.fromByteBuffer(bb))
-                             .build();
+                    .audioChunk(SdkBytes.fromByteBuffer(bb))
+                    .build();
         }
     }
 }
 //snippet-end:[transcribe.java2.bidir_streaming_audiopublisher.class]
 //snippet-end:[transcribe.java2.bidir_streaming_audiopublisher.complete]
-

@@ -62,8 +62,7 @@ ipch/
 *.cachefile
 
 # Visual Studio
-# .NET Core does not use solution files
-*.sln
+# .NET Core supports .sln files
 
 # Visual Studio profiler
 *.psess

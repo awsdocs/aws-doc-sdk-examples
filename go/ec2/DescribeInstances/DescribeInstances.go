@@ -17,7 +17,7 @@ import (
 //     sess is the current session, which provides configuration for the SDK's service clients
 // Output:
 //     If success, a list of Amazon EC2 instances and nil
-//     Otherwise, nil and an error from the call to DescibeInstances
+//     Otherwise, nil and an error from the call to DescribeInstances
 func GetInstances(sess *session.Session) (*ec2.DescribeInstancesOutput, error) {
     // snippet-start:[ec2.go.describe_instances.call]
     svc := ec2.New(sess)

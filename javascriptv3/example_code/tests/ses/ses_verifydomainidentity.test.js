@@ -4,9 +4,8 @@ jest.mock("@aws-sdk/client-ses/commands/VerifyDomainIdentityCommand", () => ({
     this.VerifyDomainIdentityCommand = mockVerifyDomainIdentity;
   },
 }));
-const { run } = require("../../ses/ses_verifydomainidentity.js");
+const { run } = require("../../ses/src/ses_verifydomainidentity.js");
 
-//test function
 test("has to mock SES#verifydomainidentity", async (done) => {
   await run();
   expect(mockVerifyDomainIdentity).toHaveBeenCalled;

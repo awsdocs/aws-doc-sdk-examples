@@ -1,32 +1,30 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is pending release.  The preview version of the SDK is available
-at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for v3 is also
-scheduled for release later in 2020, and the topic containing this example will be hosted at
+which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-access-permissions.html.
 Purpose:
-s3_getbucketacl.ts demonstrates how to retrieve the access control list of an Amazon S3 bucket.
+s3_getbucketacl.ts demonstrates how to retrieve the Access Control List (ACL) permissions of an Amazon
+Simple Storage Service (Amazon S3) bucket.
+
 Inputs (replace in code):
-- REGION
 - BUCKET_NAME
+
 Running the code:
-ts-node S3.ts
+ts-node s3_getbucketacl.ts
+
 Outputs:
-Lists the buckets in the associated AWS account, then creates a bucket, then deletes it
+Retrieves the details of the ACL permissions of an Amazon S3 bucket.
 */
 //snippet-start:[s3.JavaScript.perms.getBucketAclV3]
 // Import required AWS SDK clients and commands for Node.js
 const { S3Client, GetBucketAclCommand } = require("@aws-sdk/client-s3/");
 
-// Set the AWS region
-const REGION = "region"; //e.g. "us-east-1"
-
-// Create the parameters for calling
+// Create the parameters.
 const bucketParams = { Bucket: "BUCKET_NAME" };
 
-// Create S3 service object
-const s3 = new S3Client(REGION);
+// Create an Amazon S3 service client object.
+const s3 = new S3Client({});
 
 const run = async () => {
   try {

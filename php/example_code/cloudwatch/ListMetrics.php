@@ -42,7 +42,7 @@ function listMetrics($cloudWatchClient)
                 foreach($result['Metrics'] as $metric) 
                 {
                     $message .= 'For metric ' . $metric['MetricName'] . 
-                        ' in namepsace ' . $metric['Namespace'] . ":\n";
+                        ' in namespace ' . $metric['Namespace'] . ":\n";
                     
                     if ((isset($metric['Dimensions'])) and 
                         (count($metric['Dimensions']) > 0))

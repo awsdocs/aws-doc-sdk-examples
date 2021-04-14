@@ -4,9 +4,8 @@ jest.mock("@aws-sdk/client-iam/commands/ListAccessKeysCommand", () => ({
     this.ListAccessKeysCommand = mockListAccessKeys;
   },
 }));
-const { params, run } = require("../../iam/iam_listaccesskeys.js");
+const { params, run } = require("../../iam/src/iam_listaccesskeys.js");
 
-//test function
 test("has to mock iam#listAccessKeys", async (done) => {
   await run();
   expect(mockListAccessKeys).toHaveBeenCalled;

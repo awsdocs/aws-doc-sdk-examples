@@ -1,7 +1,7 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-comment:[This is a full sample when you include SecretsManager-stack.ts, which goes in the lib dir.]
 // snippet-sourceauthor:[Doug-AWS]
-// snippet-sourcedescription:[SecretsManager.ts creates a stack using SecrectsManager-stack.ts.]
+// snippet-sourcedescription:[SecretsManager.ts creates a stack using SecretsManager-stack.ts.]
 // snippet-keyword:[CDK V1.0.0]
 // snippet-keyword:[TypeScript]
 // snippet-sourcesyntax:[javascript]

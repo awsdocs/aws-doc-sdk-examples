@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-lambda/commands/CreateRoleCommand", () => ({
 }));
 const { run } = require("../../lambda/tutorial/slotassets/lambda-role-setup");
 
-//test function
 test("has to mock lambda#rolesetup", async (done) => {
   await run();
   expect(mockLambdaRoleSetup).toHaveBeenCalled;

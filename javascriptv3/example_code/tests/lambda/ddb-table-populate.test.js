@@ -6,7 +6,6 @@ jest.mock("@aws-sdk/client-ddb/commands/PutItemCommand", () => ({
 }));
 const { run } = require("../../lambda/tutorial/slotassets/ddb-table-populate");
 
-//test function
 test("has to mock ddb#populatetable", async (done) => {
   await run();
   expect(mockPopulateTable).toHaveBeenCalled;

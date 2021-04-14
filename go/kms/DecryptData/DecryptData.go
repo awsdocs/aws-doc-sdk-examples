@@ -14,7 +14,7 @@ import (
 )
 // snippet-end:[kms.go.decrypt_data.imports]
 
-// DecodeData decrypts some text that was encrypted with an AWS Key Management Service (AWS KMS) customer master key (CMK).
+// DecodeData decrypts some text that was encrypted with an AWS Key Management Service (AWS KMS) key (KMS key).
 // Inputs:
 //     svc is an AWS KMS service client
 //     blob is an array of bytes containing the text to decrypt

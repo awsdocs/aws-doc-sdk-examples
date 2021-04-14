@@ -1,42 +1,78 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Stops an EC2 instance.]
-# snippet-keyword:[Amazon Elastic Compute Cloud]
-# snippet-keyword:[instance method]
-# snippet-keyword:[Instance.stop]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[ec2]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
 
-require 'aws-sdk-ec2'  # v2: require 'aws-sdk'
+require 'aws-sdk-ec2'
 
-ec2 = Aws::EC2::Resource.new(region: 'us-west-2')
-      
-i = ec2.instance('i-123abc')
-    
-if i.exists?
-  case i.state.code
-  when 48  # terminated
-    puts "#{id} is terminated, so you cannot stop it"
-  when 64  # stopping
-    puts "#{id} is stopping, so it will be stopped in a bit"
-  when 80  # stopped
-    puts "#{id} is already stopped"
+# Attempts to stop an Amazon Elastic Compute Cloud (Amazon EC2) instance.
+#
+# Prerequisites:
+#
+# - The Amazon EC2 instance.
+#
+# @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
+# @param instance_id [String] The ID of the instance.
+# @return [Boolean] true if the instance was stopped; otherwise, false.
+# @example
+#   exit 1 unless instance_stopped?(
+#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     'i-123abc'
+#   )
+def instance_stopped?(ec2_client, instance_id)
+  response = ec2_client.describe_instance_status(instance_ids: [instance_id])
+
+  if response.instance_statuses.count.positive?
+    state = response.instance_statuses[0].instance_state.name
+    case state
+    when 'stopping'
+      puts 'The instance is already stopping.'
+      return true
+    when 'stopped'
+      puts 'The instance is already stopped.'
+      return true
+    when 'terminated'
+      puts 'Error stopping instance: ' \
+        'the instance is terminated, so you cannot stop it.'
+      return false
+    end
+  end
+
+  ec2_client.stop_instances(instance_ids: [instance_id])
+  ec2_client.wait_until(:instance_stopped, instance_ids: [instance_id])
+  puts 'Instance stopped.'
+  return true
+rescue StandardError => e
+  puts "Error stopping instance: #{e.message}"
+  return false
+end
+
+# Full example call:
+def run_me
+  instance_id = ''
+  region = ''
+  # Print usage information and then stop.
+  if ARGV[0] == '--help' || ARGV[0] == '-h'
+    puts 'Usage:   ruby ec2-ruby-example-stop-instance-i-123abc.rb ' \
+      'INSTANCE_ID REGION '
+    puts 'Example: ruby ec2-ruby-example-start-instance-i-123abc.rb ' \
+      'i-123abc us-east-1'
+    exit 1
+  # If no values are specified at the command prompt, use these default values.
+  elsif ARGV.count.zero?
+    instance_id = 'i-123abc'
+    region = 'us-east-1'
+  # Otherwise, use the values as specified at the command prompt.
   else
-    i.stop
+    instance_id = ARGV[0]
+    region = ARGV[1]
+  end
+
+  ec2_client = Aws::EC2::Client.new(region: region)
+
+  puts "Attempting to stop instance '#{instance_id}' " \
+    '(this might take a few minutes)...'
+  unless instance_stopped?(ec2_client, instance_id)
+    puts 'Could not stop instance.'
   end
 end
+
+run_me if $PROGRAM_NAME == __FILE__

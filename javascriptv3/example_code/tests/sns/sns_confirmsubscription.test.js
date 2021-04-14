@@ -4,9 +4,8 @@ jest.mock("@aws-sdk/client-sns/commands/ConfirmSubscriptionCommand", () => ({
     this.ConfirmSubscriptionCommand = mockConfirmSubscription;
   },
 }));
-const { run } = require("../../sns/sns_confirmsubscription");
+const { run } = require("../../sns/src/sns_confirmsubscription");
 
-//test function
 test("has to mock SNS#confirmsubscription", async (done) => {
   await run();
   expect(mockConfirmSubscription).toHaveBeenCalled;

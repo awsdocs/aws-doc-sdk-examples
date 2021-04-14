@@ -2,9 +2,7 @@
 SPDX-License-Identifier: Apache-2.0
 
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is pending release.  The preview version of the SDK is available
-at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for v3 is also
-scheduled for release later in 2020, and the topic containing this example will be hosted at
+which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/redshift-examples.html.
 
 Purpose:
@@ -40,7 +38,7 @@ const params = {
   ClusterIdentifier: "CLUSTER_NAME", // Required
   NodeType: "NODE_TYPE", //Required
   MasterUsername: "MASTER_USER_NAME", // Required - must be lowercase
-  MasterUserPassword: "MASTER_USER_PASSWORD", // Required - must contain at least one uppercase leeter, and one number
+  MasterUserPassword: "MASTER_USER_PASSWORD", // Required - must contain at least one uppercase letter, and one number
   ClusterType: "CLUSTER_TYPE", // Required
   IAMRoleARN: "IAM_ROLE_ARN", // Optional - the ARN of an IAM role with permissions your cluster needs to access other AWS services on your behalf, such as Amazon S3.
   ClusterSubnetGroupName: "CLUSTER_SUBNET_GROUPNAME", //Optional - the name of a cluster subnet group to be associated with this cluster. Defaults to 'default' if not specified.
@@ -48,8 +46,8 @@ const params = {
   Port: "PORT_NUMBER", // Optional - defaults to '5439' if not specified
 };
 
-// Create an Amazon Redhsift client service object
-const redshift = new RedshiftClient(REGION);
+// Create an Amazon Redshift client service object
+const redshift = new RedshiftClient({ region: REGION });
 
 const run = async () => {
   try {

@@ -1,67 +1,93 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Lists any aliases for an IAM account, creates an alias for an IAM account, and deletes the alias from an IAM account.]
-# snippet-keyword:[AWS Identity and Access Management]
-# snippet-keyword:[create_account_alias method]
-# snippet-keyword:[delete_account_alias method]
-# snippet-keyword:[list_account_aliases method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[iam]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
 
-# Demonstrates how to:
-# 1. List AWS account aliases.
+# The following code example shows how to:
+# 1. List available AWS account aliases.
 # 2. Create an account alias.
-# 3. Delete the account alias.
+# 3. Delete an account alias.
 
-require 'aws-sdk-iam'  # v2: require 'aws-sdk'
+require 'aws-sdk-iam'
 
-iam = Aws::IAM::Client.new(region: 'us-east-1')
-
-account_alias = "my-account-alias"
-
-# List account aliases.
+# Lists available AWS account aliases.
+#
+# @param iam [Aws::IAM::Client] An initialized IAM client.
+# @example
+#   puts list_aliases(Aws::IAM::Client.new)
 def list_aliases(iam)
-  list_account_aliases_response = iam.list_account_aliases
+  response = iam.list_account_aliases
 
-  if list_account_aliases_response.account_aliases.count == 0
-    puts "No account aliases."
+  if response.account_aliases.count.positive?
+    response.account_aliases.each do |account_alias|
+      puts "  #{account_alias}"
+    end
   else
-    puts "Aliases:"
-    list_account_aliases_response.account_aliases.each do |account_alias|
-      puts account_alias
+    puts 'No account aliases found.'
+  end
+rescue StandardError => e
+  puts "Error listing account aliases: #{e.message}"
+end
+
+# Creates an AWS account alias.
+#
+# @param iam [Aws::IAM::Client] An initialized IAM client.
+# @param account_alias [String] The name of the account alias to create.
+# @return [Boolean] true if the account alias was created; otherwise, false.
+# @example
+#   exit 1 unless alias_created?(Aws::IAM::Client.new, 'my-account-alias')
+def alias_created?(iam, account_alias)
+  iam.create_account_alias(account_alias: account_alias)
+  return true
+rescue StandardError => e
+  puts "Error creating account alias: #{e.message}"
+  return false
+end
+
+# Deletes an AWS account alias.
+#
+# @param iam [Aws::IAM::Client] An initialized IAM client.
+# @param account_alias [String] The name of the account alias to delete.
+# @return [Boolean] true if the account alias was deleted; otherwise, false.
+# @example
+#   exit 1 unless alias_deleted?(Aws::IAM::Client.new, 'my-account-alias')
+def alias_deleted?(iam, account_alias)
+  iam.delete_account_alias(account_alias: account_alias)
+  return true
+rescue StandardError => e
+  puts "Error deleting account alias: #{e.message}"
+  return false
+end
+
+# Full example call:
+def run_me
+  iam = Aws::IAM::Client.new
+  account_alias = 'my-account-alias'
+  create_alias = true # Change to false to not generate an account alias.
+  delete_alias = true # Change to false to not delete any generated account alias.
+
+  puts 'Account aliases are:'
+  list_aliases(iam)
+
+  if create_alias
+    puts 'Attempting to create account alias...'
+    if alias_created?(iam, account_alias)
+      puts 'Account alias created. Account aliases now are:'
+      list_aliases(iam)
+    else
+      puts 'Account alias not created. Stopping program.'
+      exit 1
     end
   end
 
+  if create_alias && delete_alias
+    puts 'Attempting to delete account alias...'
+    if alias_deleted?(iam, account_alias)
+      puts 'Account alias deleted. Account aliases now are:'
+      list_aliases(iam)
+    else
+      puts 'Account alias not deleted. You will need to delete ' \
+        'the alias yourself.'
+    end
+  end
 end
 
-puts "Before creating account alias..."
-list_aliases(iam)
-
-# Create an account alias.
-puts "\nCreating account alias..."
-iam.create_account_alias({ account_alias: account_alias })
-
-puts "\nAfter creating account alias..."
-list_aliases(iam)
-
-# Delete the account alias.
-puts "\nDeleting account alias..."
-iam.delete_account_alias({ account_alias: account_alias })
-
-puts "\nAfter deleting account alias..."
-list_aliases(iam)
+run_me if $PROGRAM_NAME == __FILE__

@@ -1,86 +1,119 @@
-# AWS API Gateway REST interface to an AWS Service
+# Amazon API Gateway AWS service integration example
 
-The sample program creates a REST interface to the Amazon Translate service's TranslateText
-method. The service is called through an HTTPS GET method. The calling program does not need
-to have AWS credentials or use an AWS SDK to access the service.
+## Purpose
 
-The sample program creates an interface to the Amazon Translate service, but interfaces to other
-AWS services can be implemented by following the operations demonstrated in the program.
+Shows how to use the AWS SDK for Python (Boto3) with Amazon API Gateway to
+create a REST API that integrates with Amazon DynamoDB.
 
-The generated service infrastructure can be examined in the AWS console. In the API Gateway
-service window, explore the APIs, Usage Plans, and API Keys panes.
-
-Each call to the service must specify an API key value in an `X-API-Key` header. The key is 
-created as part of the service infrastructure.
-
-The service's URL, API key value, and other IDs are stored in a configuration file that is created
-as part of the service infrastructure. When the service infrastructure is deleted, the configuration
-file is also deleted.
-
-The text to translate is specified in a GET query parameter called `text`. The text can be in
-any language supported by Amazon Translate. The service translates the specified text to French.
-It is a trivial operation to translate the text to some other language. Refer to the source code
-for details.   
-
-Text specified on the command line using the `-t` or `--text` options is translated and output to 
-the terminal. Multi-word phrases must be surrounded by double quotation marks, as in `-t "Hello, my
-friend."`
-
-Text specified in a file using the `-f` or `--file` options is translated and output to a disk file.
-The output file name is constructed by appending the `.fr` extension to the input file name.
-
-Before sending a large document, check the current size limit for Amazon Translate. At the time of
-this writing, the size limit is 5000 bytes, which is about 500-1000 words. If the text is too
-long to fit within an HTTPS GET request, it may be truncated or generate a `414: URI Too Long`
-error. In such cases, it is better to either parse and translate sentences individually or pass
-the text in the body of a POST request. Implementation of a POST interface to the TranslateText
-method is left as an exercise for the reader.
-
-Note: Text with embedded newlines is currently not supported by Amazon Translate. Such text results 
-in a Serialization Exception.
-
-## Repository files
-
-* `aws_service.py` : Main program source file
-* `Tale_of_Two_Cities.txt` : Sample text to translate 
-
-## AWS infrastructure resources
-
-* API Gateway REST API to the Amazon Translate TranslateText method
-* API Gateway usage plan
-* API Gateway API key
-* AWS Identity and Access Management (IAM) role for the API Gateway resource
+* Create a REST API served by API Gateway.
+* Define REST methods that call DynamoDB to store and access data.
+* Call the REST API with the Requests package.
 
 ## Prerequisites
 
-* Install Python 3.x.
-* Install the AWS SDK for Python `boto3`. Instructions are at https://github.com/boto/boto3.
-* Install the AWS CLI (Command Line Interface). Instructions are at 
-  https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html.
-* Configure the AWS CLI. Instructions are at 
-  https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html.
-* Install the Python `requests` package, as in `pip install requests`.
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.8.5 or later
+- Boto3 1.15.4 or later
+- Requests 2.24.0 or later
+- PyTest 6.0.2 or later (to run unit tests)
 
-## Instructions
+## Cautions
 
-To create the REST API infrastructure:
+- As an AWS best practice, grant this code least privilege, or only the 
+  permissions required to perform a task. For more information, see 
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
+  in the *AWS Identity and Access Management 
+  User Guide*.
+- This code has not been tested in all AWS Regions. Some AWS services are 
+  available only in specific Regions. For more information, see the 
+  [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
+  on the AWS website.
+- Running this code might result in charges to your AWS account.
 
-    python aws_service.py
+## Running the code
 
-To translate text:
+This example requires a DynamoDB table with a specific key schema and an 
+AWS Identity and Access Management (IAM) role that grants permission to let
+API Gateway perform actions on the table. These resources are managed by
+an AWS CloudFormation stack that is defined in the accompanying `setup.yaml` file. 
 
-    python aws_service.py -t "Text to translate"
-    OR
-    python aws_service.py --text "Text to translate"
-    
-To translate text contained in a file:
+### Deploy resources
 
-    python aws_service.py -f FileWithText.txt
-    OR
-    python aws_service.py --file FileWithText.txt
-    
-To delete the REST API infrastructure:
+Deploy prerequisite resources by running the example script with the `deploy` flag at 
+a command prompt.
 
-    python aws_service.py -d
-    OR
-    python aws_service.py --delete
+```
+python aws_service.py deploy
+```
+
+### Run the usage demonstration
+
+Run the usage example with the `demo` flag at a command prompt.
+
+```
+python aws_service.py demo
+``` 
+
+### Destroy resources
+
+Destroy example resources by running the script with the `destroy` flag at a command 
+prompt.
+
+```
+python aws_service.py destroy
+``` 
+
+### Example structure
+
+The example contains the following files.
+
+**aws_service.py**
+
+Shows how to use Amazon API Gateway to create a REST API that is backed by a DynamoDB
+database. The example uses API Gateway integration with DynamoDB, so after the REST API
+is created and deployed, no user code is needed to serve the REST API. The `usage_demo`
+script in this file shows how to accomplish the following actions:
+
+1. Create a REST API served by API Gateway.
+1. Add resources to the REST API that represent a user profile.
+1. Add integration methods so the REST API uses a DynamoDB table to store user profile
+data. 
+1. Use the Requests package to call the REST API to add and retrieve user profiles.
+
+**setup.yaml**
+
+Contains a CloudFormation script that is used to create the resources needed for 
+the demo. Pass the `deploy` or `destroy` flag to the `aws_service.py` script to 
+create or remove these resources:  
+
+* A DynamoDB table that contains user profile information.
+* An IAM role that grants API Gateway permission to read from and write to the 
+table.
+
+The `setup.yaml` file was built from the 
+[AWS Cloud Development Kit (AWS CDK)](https://docs.aws.amazon.com/cdk/) 
+source script here: 
+[/resources/cdk/python_example_code_apigateway_aws_service/setup.ts](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/resources/cdk/python_example_code_apigateway_aws_service/setup.ts). 
+
+## Running the tests
+
+The unit tests in this module use the botocore Stubber. The Stubber captures requests 
+before they are sent to AWS, and returns a mocked response. To run all of the tests, 
+run the following command in your 
+[GitHub root]/python/example_code/apigateway/aws_service folder.
+
+```    
+python -m pytest
+```
+
+## Additional information
+
+- [Boto3 Amazon API Gateway service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/apigateway.html)
+- [Amazon API Gateway documentation](https://docs.aws.amazon.com/apigateway/)
+
+---
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

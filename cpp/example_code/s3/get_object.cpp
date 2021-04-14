@@ -19,6 +19,7 @@
  * Inputs:
  * - objectKey: The name of the text file.
  * - fromBucket: The name of the bucket that contains the text file.
+ * - region: The AWS Region for the bucket.
  *
  * Outputs: true if the contents of the text file were retrieved; 
  * otherwise, false.
@@ -28,7 +29,15 @@
 bool AwsDoc::S3::GetObject(const Aws::String& objectKey,
     const Aws::String& fromBucket, const Aws::String& region)
 {
-    Aws::S3::S3Client s3_client;
+    Aws::Client::ClientConfiguration config;
+
+    if (!region.empty())
+    {
+        config.region = region;
+    }
+
+    Aws::S3::S3Client s3_client(config);
+
     Aws::S3::Model::GetObjectRequest object_request;
     object_request.SetBucket(fromBucket);
     object_request.SetKey(objectKey);
@@ -66,8 +75,9 @@ int main()
     {
         const Aws::String bucket_name = "my-bucket";
         const Aws::String object_name = "my-file.txt";
+        const Aws::String region = "us-east-1";
 
-        if (!AwsDoc::S3::GetObject(object_name, bucket_name))
+        if (!AwsDoc::S3::GetObject(object_name, bucket_name, region))
         {
             return 1;
         }

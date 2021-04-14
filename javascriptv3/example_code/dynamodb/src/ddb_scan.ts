@@ -2,9 +2,7 @@
 SPDX-License-Identifier: Apache-2.0
 
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is pending release.  The preview version of the SDK is available
-at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for v3 is also
-scheduled for release later in 2020, and the topic containing this example will be hosted at
+which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-query-scan.html.
 
 Purpose:
@@ -22,13 +20,17 @@ ts-node ddb_scan.ts
 const { DynamoDBClient, ScanCommand } = require("@aws-sdk/client-dynamodb");
 const REGION = "REGION";
 
-// Set parameters
+// Set the parameters.
 const params = {
-  KeyConditionExpression: "Subtitle = :topic",
-  FilterExpression: "contains (Subtitle, :topic)",
+  // Specify which items in the results are returned.
+  FilterExpression: "Subtitle = :topic AND Season = :s AND Episode = :e",
+  // Define the expression attribute value, which are substitutes for the values you want to compare.
   ExpressionAttributeValues: {
-    ":topic": { S: "Sub" },
+    ":topic": { S: "SubTitle2" },
+    ":s": { N: "1" },
+    ":e": { N: "2" }
   },
+  // Set the projection expression, which the the attributes that you want.
   ProjectionExpression: "Season, Episode, Title, Subtitle",
   TableName: "EPISODES_TABLE",
 };
@@ -38,6 +40,7 @@ const dbclient = new DynamoDBClient({ region: REGION });
 
 async function run() {
   try {
+
     const data = await dbclient.send(new ScanCommand(params));
     data.Items.forEach(function (element, index, array) {
       console.log(element.Title.S + " (" + element.Subtitle.S + ")");

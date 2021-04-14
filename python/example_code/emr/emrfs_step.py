@@ -4,9 +4,9 @@
 """
 Purpose
 
-Shows how to run an EMRFS command as a job step on an Amazon EMR cluster. This
-can be used to automate ERMFS commands and is an alternative to connecting through
-SSH to run the commands manually.
+Shows how to run an elastic map reduce file system (EMRFS) command as a job step on
+an Amazon EMR cluster. This can be used to automate EMRFS commands and is an
+alternative to connecting through SSH to run the commands manually.
 """
 
 # snippet-start:[emr.python.addstep.emrfs]

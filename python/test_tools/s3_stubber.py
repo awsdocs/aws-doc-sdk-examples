@@ -206,10 +206,10 @@ class S3Stubber(ExampleStubber):
                 service_error_code=error_code
             )
 
-    def stub_put_bucket_policy(self, bucket_name, policy, error_code=None):
+    def stub_put_bucket_policy(self, bucket_name, policy=ANY, error_code=None):
         expected_params = {
             'Bucket': bucket_name,
-            'Policy': json.dumps(policy)
+            'Policy': policy if isinstance(policy, type(ANY)) else json.dumps(policy)
         }
 
         if not error_code:
@@ -502,3 +502,12 @@ class S3Stubber(ExampleStubber):
             },
             error_code=error_code
         )
+
+    def stub_generate_presigned_url(
+            self, client_method, method_params, timeout, url, error_code=None):
+        expected_params = {
+            'ClientMethod': client_method, 'Params': method_params,
+            'ExpiresIn': timeout}
+        response = {url}
+        self._stub_bifurcator(
+            'generate_presigned_url', expected_params, response, error_code=error_code)

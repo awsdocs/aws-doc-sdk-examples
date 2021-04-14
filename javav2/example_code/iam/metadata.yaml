@@ -15,6 +15,9 @@ files:
   - path: src/main/java/com/example/iam/CreatePolicy.java
     services:
       - iam
+  - path: src/main/java/com/example/iam/CreateRole.java
+    services:
+      - iam
   - path: src/main/java/com/example/iam/CreateUser.java
     services:
       - iam
@@ -39,6 +42,9 @@ files:
   - path: src/main/java/com/example/iam/GetPolicy.java
     services:
       - iam
+  - path: src/main/java/com/example/iam/GetServerCertificate.java
+    services:
+      - iam
   - path: src/main/java/com/example/iam/ListAccessKeys.java
     services:
       - iam
@@ -60,4 +66,4 @@ files:
   - path: src/main/java/com/example/iam/UpdateUser.java
     services:
       - iam
-  - path: src/test/java/IAMServiceIntegrationTest.java
+  - path: src/test/java/IAMServiceTest.java

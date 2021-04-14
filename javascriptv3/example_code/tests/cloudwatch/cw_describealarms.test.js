@@ -4,9 +4,8 @@ jest.mock("@aws-sdk/client-cloudwatch/commands/DescribeAlarmsCommand", () => ({
     this.DescribeAlarmsCommand = mockDescribeAlarms;
   },
 }));
-const { params, run } = require("../../cloudwatch/cw_describealarms");
+const { params, run } = require("../../cloudwatch/src/cw_describealarms");
 
-//test function
 test("has to mock cloudwatch#describealarms", async (done) => {
   await run();
   expect(mockDescribeAlarms).toHaveBeenCalled;

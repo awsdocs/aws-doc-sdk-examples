@@ -12,7 +12,7 @@
  * specific language governing permissions and limitations under the License.
  *
  */
- 
+
 //snippet-sourcedescription:[ses_gettemplate.js demonstrates how to retrieve an Amazon SES email template.]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
@@ -27,18 +27,18 @@
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/ses-examples-creating-template.html
 
 // snippet-start:[ses.JavaScript.templates.getTemplate]
-// Load the AWS SDK for Node.js
+    // Load the AWS SDK for Node.js.
 var AWS = require('aws-sdk');
-// Set the region 
+// Set the AWS Region.
 AWS.config.update({region: 'REGION'});
 
-// Create the promise and SES service object
+// Create the promise and Amazon Simple Email Service (Amazon SES) service object.
 var templatePromise = new AWS.SES({apiVersion: '2010-12-01'}).getTemplate({TemplateName: 'TEMPLATE_NAME'}).promise();
 
 // Handle promise's fulfilled/rejected states
 templatePromise.then(
   function(data) {
-    console.log(data.SubjectPart);
+    console.log(data.Template.SubjectPart);
   }).catch(
     function(err) {
     console.error(err, err.stack);

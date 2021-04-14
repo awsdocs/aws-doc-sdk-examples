@@ -4,9 +4,8 @@ jest.mock("@aws-sdk/client-sqs/commands/SetQueueAttributesCommand", () => ({
     this.SetQueueAttributesCommand = mockSetQueueAttributesLP;
   },
 }));
-const { run } = require("../../sqs/sqs_longpolling_existingqueue.js");
+const { run } = require("../../sqs/src/sqs_longpolling_existingqueue.js");
 
-//test function
 test("has to mock SQS#sqs_longpolling_existingqueue", async (done) => {
   await run();
   expect(mockSetQueueAttributesLP).toHaveBeenCalled;

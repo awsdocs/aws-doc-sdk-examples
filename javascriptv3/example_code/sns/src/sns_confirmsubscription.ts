@@ -2,9 +2,7 @@
 SPDX-License-Identifier: Apache-2.0
 
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is pending release.  The preview version of the SDK is available
-at https://github.com/aws/aws-sdk-js-v3. The 'SDK for JavaScript Developer Guide' for v3 is also
-scheduled for release later in 2020, and the topic containing this example will be hosted at
+which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples-sending-sms.html.
 
 Purpose:
@@ -19,7 +17,7 @@ https://sns.us-east-1.amazonaws.com/confirmation.html?TopicArn=arn:aws:sns:us-ea
 - AuthenticateOnUnsubscribe: either 'true' or 'false'
 
 Running the code:
-ts-node sns_confirmsubsrciption.ts
+ts-node sns_confirmsubscription.ts
 */
 // snippet-start:[sns.JavaScript.subscriptions.confirmSubscriptionV3]
 // Import required AWS SDK clients and commands for Node.js
@@ -39,7 +37,7 @@ const params = {
 };
 
 // Create SNS service object
-const sns = new SNSClient(REGION);
+const sns = new SNSClient({ region: REGION });
 
 const run = async () => {
   try {

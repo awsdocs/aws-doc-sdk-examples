@@ -7,9 +7,8 @@ jest.mock(
     },
   })
 );
-const { params, run } = require("../../mediaconvert/emc_create_jobtemplate");
+const { params, run } = require("../../mediaconvert/src/emc_create_jobtemplate");
 
-//test function
 test("has to mock mediaconvert#createjobtemplate", async (done) => {
   await run();
   expect(mockCreateJobTemp).toHaveBeenCalled;

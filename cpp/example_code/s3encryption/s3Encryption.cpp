@@ -332,7 +332,7 @@ int main(int argc, char** argv)
         Aws::String objectKey(OBJECT_KEY_PREFIX);
         AwsDoc::S3Encryption::KMSWithContextEncryptionMaterialsExample(BUCKET, (objectKey + "-kms-with-context-encryption-materials").c_str(), MASTER_KEY_ID);
         std::cout << std::endl;
-        AwsDoc::S3Encryption::SimpleEncryptionMaterialsWithGCMAADExample(BUCKET, (objectKey + "-simplie-encryption-materials-with-gcm-aad").c_str());
+        AwsDoc::S3Encryption::SimpleEncryptionMaterialsWithGCMAADExample(BUCKET, (objectKey + "-simple-encryption-materials-with-gcm-aad").c_str());
         std::cout << std::endl;
         AwsDoc::S3Encryption::DecryptObjectsEncryptedWithLegacyEncryptionExample(BUCKET, (objectKey + "-decrypt-objects-encrypted-with-legacy-encryption").c_str());
         std::cout << std::endl;

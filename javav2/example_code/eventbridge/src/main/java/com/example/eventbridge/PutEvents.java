@@ -1,25 +1,20 @@
 //snippet-sourcedescription:[PutEvents.java demonstrates how to send custom events to Amazon EventBridge.]
-//snippet-keyword:[SDK for Java 2.0]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EventBridge]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[7/22/2020]
+//snippet-sourcedate:[11/04/2020]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.eventbridge;
 
 // snippet-start:[eventbridge.java2._put_event.import]
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.eventbridge.EventBridgeClient;
 import software.amazon.awssdk.services.eventbridge.model.EventBridgeException;
 import software.amazon.awssdk.services.eventbridge.model.PutEventsRequest;
@@ -35,34 +30,36 @@ public class PutEvents {
     public static void main(String[] args) {
 
         final String USAGE =
-                "To run this example, supply a resource ARN\n" +
-                        "Ex: PutEvents <resource-arn>\n";
+                "To run this example, supply two resources, identified by Amazon Resource Name (ARN), which the event primarily concerns. " +
+                        "Any number, including zero, may be present. \n" +
+                        "For example: PutEvents <resourceArn> <resourceArn2>\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        EventBridgeClient eventBrClient =
-                EventBridgeClient.builder().build();
-
         String resourceArn = args[0];
         String resourceArn2 = args[1];
 
+        Region region = Region.US_WEST_2;
+        EventBridgeClient eventBrClient = EventBridgeClient.builder()
+                .region(region)
+                .build();
+
         putEBEvents(eventBrClient, resourceArn, resourceArn2);
+        eventBrClient.close();
     }
 
     // snippet-start:[eventbridge.java2._put_event.main]
     public static void putEBEvents(EventBridgeClient eventBrClient, String resourceArn, String resourceArn2 ) {
 
         try {
-
             // Populate a List with the resource ARN values
             List<String> resources = new ArrayList<String>();
             resources.add(resourceArn);
             resources.add(resourceArn2);
 
-            // Create a PutEventsRequestEntry object
             PutEventsRequestEntry reqEntry = PutEventsRequestEntry.builder()
                     .resources(resources)
                     .source("com.mycompany.myapp")
@@ -78,14 +75,13 @@ public class PutEvents {
                     .entries(reqEntry)
                     .build();
 
-            // Invoke the PutEvents method
             PutEventsResponse result = eventBrClient.putEvents(eventsRequest);
 
             for (PutEventsResultEntry resultEntry : result.entries()) {
                 if (resultEntry.eventId() != null) {
                     System.out.println("Event Id: " + resultEntry.eventId());
                 } else {
-                    System.out.println("Injection failed with error code: " + resultEntry.errorCode());
+                    System.out.println("Injection failed with Error Code: " + resultEntry.errorCode());
                 }
             }
 

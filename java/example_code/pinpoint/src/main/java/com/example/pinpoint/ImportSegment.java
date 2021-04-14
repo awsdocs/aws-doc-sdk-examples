@@ -39,7 +39,7 @@ public class ImportSegment {
                 "Usage: ImportSegment <appId> <bucket> <key> <roleArn> \n\n" +
                 "Where:\n" +
                 "  appId - the ID the application to create a segment for.\n\n" +
-                "  bucket - name of the s3 bucket that contains the segment definitons.\n\n" +
+                "  bucket - name of the s3 bucket that contains the segment definitions.\n\n" +
                 "  key - key of the s3 object " +
                 "  roleArn - ARN of the role that allows pinpoint to access S3";
 
