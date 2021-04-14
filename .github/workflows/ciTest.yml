@@ -29,8 +29,9 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: '^1.13.1' # The Go version to download (if necessary) and use.
-      - id: files
-        uses: jitterbit/get-changed-files@v1
+      - uses: jitterbit/get-changed-files@v1
+        id: files
+	continue-on-error: true
       - run: |
           # make file runnable, might not be necessary
           chmod +x scripts/run_go_tests.sh
