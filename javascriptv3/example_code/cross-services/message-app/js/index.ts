@@ -214,7 +214,7 @@ const purge = async () => {
     };
     // Get the Amazon SQS Queue URL.
     const data = await sqsClient.send(new GetQueueUrlCommand(queueParams));
-    console.log("Success", data.QueueUrl);
+    cons("Success", data.QueueUrl);
     // Delete all the messages in the Amazon SQS Queue.
     const result = await sqsClient.send(
       new PurgeQueueCommand({ QueueUrl: data.QueueUrl })
