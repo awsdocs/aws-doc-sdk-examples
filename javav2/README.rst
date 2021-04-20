@@ -73,7 +73,10 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 
 + **Building a Spring Boot web application that Streams Amazon S3 content over HTTP** - A tutorial that discusses how to create a web application that streams Amazon S3 video content over HTTP. The video is displayed in the application’s view. In this tutorial, the Spring Framework along with AWS SDK for Java API is used to create the application.
 
-+ **Creating Lambda functions that tags digital assets located in Amazon S3 buckets** - A tutorial that discusses how to create a Lambda function that automatically tags digital assets located in an Amazon Simple Storage Service (Amazon S3) bucket. 
++ **Creating Lambda functions that tags digital assets located in Amazon S3 buckets** - A tutorial that discusses how to create a Lambda function that automatically tags digital assets located in an Amazon Simple Storage Service (Amazon S3) bucket.
+
++ **Creating an Amazon Web Services Lambda function that detects images with Personal Protective Equipment** - A tutorial that discusses how to create a Lambda function that detects personal protective equipment (PPE) in digital assets located in an Amazon Simple Storage Service (Amazon S3) bucket. The Lambda function updates an Amazon DynamoDB table with the results as well as sends an email message.  
+
 
 
 AWS service examples
