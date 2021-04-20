@@ -375,7 +375,7 @@ The following Java code represents the **AnalyzePhotos** class. This class uses 
 ### DynamoDBService class
 
 The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to add a record to the **Gear** table by using the enhanced client. For more information about the enhanced client, see [Map items in DynamoDB tables](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/examples-dynamodb-enhanced.html).
- . 
+
 
      package com.example.ppe;
 
