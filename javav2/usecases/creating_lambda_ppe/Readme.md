@@ -4,7 +4,7 @@ You can create an Amazon Web Services Lambda function that detects personal prot
 
 ![AWS Tracking Application](images/lam.png)
 
-After you execute the Lambda function, it automatically detects the PPE gear in this image (along with any other images) and creates a record in a DynamoDB table, as shown in this illustration.
+After you execute the Lambda function, it automatically detects the PPE gear in this image (along with any other images) and creates a record in an Amazon DynamoDB table, as shown in this illustration.
 
 ![AWS Tracking Application](images/dynamodb.png)
 
