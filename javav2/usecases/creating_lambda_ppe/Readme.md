@@ -1,28 +1,28 @@
 #  Creating an Amazon Web Services Lambda function that detects images with Personal Protective Equipment
 
-You can create an Amazon Web Services Lambda function that detects personal protective equipment (PPE) in digital assets located in an Amazon Simple Storage Service (Amazon S3) bucket. For example, assume you run the Lambda function and you have this image in an Amazon S3 bucket. 
+You can create an Amazon Web Services Lambda function that detects personal protective equipment (PPE) in images located in an Amazon Simple Storage Service (Amazon S3) bucket. For example, assume you run the Lambda function and you have this image in an Amazon S3 bucket. 
 
 ![AWS Tracking Application](images/lam.png)
 
-After you execute the Lambda function, it automatically detects the (PPE) gear in this image (along with any other images) and creates a record in a DynamoDB table. as shown in this illustration.
+After you execute the Lambda function, it automatically detects the PPE gear in this image (along with any other images) and creates a record in a DynamoDB table, as shown in this illustration.
 
 ![AWS Tracking Application](images/dynamodb.png)
 
-In addition, this Lambda function creates a list of all images with (PPE) gear and emails the list by using the Simple Email Service, as shown in this illustration. 
+In addition, the Lambda function creates a list of all images with PPE gear and emails the list by using the Amazon Simple Email Service (SES), as shown in this illustration. 
 
 ![AWS Tracking Application](images/email.png)
 
-As an Amazon Web Services API developer, you can create a Lambda function by using the AWS Lambda Java runtime API. This example invokes different AWS services to perform this specific use case. Lambda is a compute service that enables you to run code without provisioning or managing servers. You can create Lambda functions in various programming languages. For more information about AWS Lambda, see
+As an Amazon Web Services API developer, you can create a Lambda function by using the AWS Lambda Java runtime API. Lambda is a compute service that enables you to run code without provisioning or managing servers. You can create Lambda functions in various programming languages. For more information about AWS Lambda, see
 [What is AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html).
 
-This tutorial shows you how to use the AWS SDK for Java V2 API to invoke these AWS Services: 
+This tutorial shows you how to use the AWS SDK for Java V2 API to invoke these AWS services: 
 
 - Amazon S3 service
 - Amazon Rekognition service
 - Amazon DynamoDB service
 - Amazon Simple Email service
 
-The Lambda function reads all objects in a given Amazon S3 bucket. For each object in the bucket, it passes the image to the Amazon Rekognition service to detect PPE gear. The results are stored as records in an Amazon DynamoDB table and then emailed to a recipient.     
+The Lambda function reads all images in a given Amazon S3 bucket. For each object in the bucket, it passes the image to the Amazon Rekognition service to detect PPE gear. The results are stored as records in an Amazon DynamoDB table and then emailed to a recipient.     
 
 **Cost to complete**: The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
 
