@@ -53,7 +53,7 @@ Create the following IAM role:
 
 + **lambda-support** - Used to invoke Lamdba functions.
 
-This tutorial uses the Amazon Rekognition and Amazon S3 services. The **lambda-support** role has to have policies that enable it to invoke these services from a Lambda function.  
+This tutorial uses the Amazon Rekognition, Amazon DynamoDB, Amazon SES, and Amazon S3 services. The **lambda-support** role has to have policies that enable it to invoke these services.  
 
 #### To create an IAM role
 
