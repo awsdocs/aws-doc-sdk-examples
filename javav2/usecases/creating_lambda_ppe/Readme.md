@@ -22,7 +22,7 @@ This tutorial shows you how to use the AWS SDK for Java V2 API to invoke these A
 - Amazon DynamoDB service
 - Amazon Simple Email service
 
-The Lambda function reads all images in a given Amazon S3 bucket. For each object in the bucket, it passes the image to the Amazon Rekognition service to detect PPE gear. The results are stored as records in an Amazon DynamoDB table and then emailed to a recipient.     
+The Lambda function reads all images in a given Amazon S3 bucket. For each object in the bucket, it passes the image to the Amazon Rekognition service to detect PPE information. The results are stored as records in an Amazon DynamoDB table and then emailed to a recipient.     
 
 **Cost to complete**: The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
 
