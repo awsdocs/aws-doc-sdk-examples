@@ -36,4 +36,7 @@ jobs:
           # make file runnable, might not be necessary
           chmod +x scripts/run_go_tests.sh
 
+          # Do not run in module mode
+	  set GO111MODULE=off
+
           scripts/run_go_tests.sh ${{ steps.files.outputs.all }}
