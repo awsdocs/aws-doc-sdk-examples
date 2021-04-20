@@ -28,9 +28,9 @@ namespace FaceRekognitionExample
                 Console.WriteLine(
                     "AwsRekognitionSample1 <image>\n" +
                     "   Identifies faces from source image with bounding rectangles\n" +
-                    "   and lists properties\n" +
+                    "   and lists properties.\n" +
                     "Arguments: " +
-                    "   <image> - image in jpg/png/gif" +
+                    "   <image> - full path to image in jpg/png/gif format." +
                     "Example:\n" +
                     "   FaceRekognitionExample image01.png\n");
                 return;
@@ -38,12 +38,15 @@ namespace FaceRekognitionExample
 
             var filename = args[0];
 
-            await IdentifyFaces(rekoClient, filename);
-            await IdentifyCelebrityFaces(rekoClient, filename);
+            if (File.Exists(filename))
+            {
+                await IdentifyFaces(rekoClient, filename);
+                await IdentifyCelebrityFaces(rekoClient, filename);
+            }
         }
 
         /// <summary>
-        /// Identifies faces in the image file. If face are found, the
+        /// Identifies faces in the image file. If faces are found, the
         /// method adds bounding boxes.
         /// </summary>
         /// <param name="client">The Rekognition client used to call
@@ -52,7 +55,7 @@ namespace FaceRekognitionExample
         /// contins images of celebrities.</param>
         public static async Task IdentifyFaces(AmazonRekognitionClient client, string filename)
         {
-            // Request needs image bytes, so read and add to request
+            // Request needs image bytes, so read and add to request.
             byte[] data = File.ReadAllBytes(filename);
 
             DetectFacesRequest request = new DetectFacesRequest
@@ -67,21 +70,21 @@ namespace FaceRekognitionExample
 
             if (response.FaceDetails.Count > 0)
             {
-                // Load a bitmap to modify with face bounding box rectangles
+                // Load a bitmap to modify with face bounding box rectangles.
                 Bitmap facesHighlighted = new Bitmap(filename);
                 Pen pen = new Pen(Color.Black, 3);
 
-                // Create a graphics context
+                // Create a graphics context.
                 using (var graphics = System.Drawing.Graphics.FromImage(facesHighlighted))
                 {
                     foreach (var fd in response.FaceDetails)
                     {
-                        // Get the bounding box
+                        // Get the bounding box.
                         BoundingBox bb = fd.BoundingBox;
                         Console.WriteLine($"Bounding box = ({bb.Left}, {bb.Top}, {bb.Height}, {bb.Width})");
 
-                        // Draw the rectangle using the bounding box values
-                        // They are percentages so scale them to picture
+                        // Draw the rectangle using the bounding box values.
+                        // They are percentages so scale them to the picture.
                         graphics.DrawRectangle(
                             pen,
                             x: facesHighlighted.Width * bb.Left,
@@ -91,7 +94,7 @@ namespace FaceRekognitionExample
                     }
                 }
 
-                // Save the image with highlights as PNG
+                // Save the image with highlights as PNG.
                 string fileout = filename.Replace(Path.GetExtension(filename), "_faces.png");
                 facesHighlighted.Save(fileout, System.Drawing.Imaging.ImageFormat.Png);
 
@@ -114,7 +117,7 @@ namespace FaceRekognitionExample
         /// contins faces.</param>
         public static async Task IdentifyCelebrityFaces(AmazonRekognitionClient client, string filename)
         {
-            // Request needs image bytes, so read and add to request
+            // Request needs image bytes, so read and add to request.
             byte[] data = File.ReadAllBytes(filename);
 
             RecognizeCelebritiesRequest request = new RecognizeCelebritiesRequest
@@ -129,22 +132,22 @@ namespace FaceRekognitionExample
 
             if (response.CelebrityFaces.Count > 0)
             {
-                // Load a bitmap to modify with face bounding box rectangles
+                // Load a bitmap to modify with face bounding box rectangles.
                 Bitmap facesHighlighted = new Bitmap(filename);
                 Pen pen = new Pen(Color.Black, 3);
                 Font drawFont = new Font("Arial", 12);
 
-                // Create a graphics context
+                // Create a graphics context.
                 using (var graphics = Graphics.FromImage(facesHighlighted))
                 {
                     foreach (var fd in response.CelebrityFaces)
                     {
-                        // Get the bounding box
+                        // Get the bounding box.
                         BoundingBox bb = fd.Face.BoundingBox;
                         Console.WriteLine($"Bounding box = ({bb.Left}, {bb.Top}, {bb.Height}, {bb.Width})");
 
-                        // Draw the rectangle using the bounding box values
-                        // They are percentages so scale them to picture
+                        // Draw the rectangle using the bounding box values.
+                        // They are percentages so scale them to the picture.
                         graphics.DrawRectangle(
                             pen,
                             x: facesHighlighted.Width * bb.Left,
@@ -160,7 +163,7 @@ namespace FaceRekognitionExample
                     }
                 }
 
-                // Save the image with highlights as PNG
+                // Save the image with highlights as PNG.
                 string fileout = filename.Replace(Path.GetExtension(filename), "_celebrityfaces.png");
                 facesHighlighted.Save(fileout, System.Drawing.Imaging.ImageFormat.Png);
 
