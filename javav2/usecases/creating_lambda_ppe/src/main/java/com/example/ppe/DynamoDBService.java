@@ -69,7 +69,7 @@ public class DynamoDBService {
                     gearRecord.setItemDescription(gearItem.getItemDescription());
                     gearRecord.setConfidence(gearItem.getConfidence());
 
-                    // Put the customer data into a DynamoDB table.
+                    // Put PPE data into a DynamoDB table.
                     gearTable.putItem(gearRecord);
                 }
             }
