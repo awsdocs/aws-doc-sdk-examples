@@ -882,7 +882,7 @@ Choose the **Invoke** button. After the Lambda function is invoked, you see a su
 ![AWS Tracking Application](images/lambda.png)
 
 ### Next steps
-Congratulations, you have created an AWS Lambda function that automactially applies tags to difital assets located in an Amazon S3 bucket.As stated at the beginning of this tutorial, be sure to terminate all of the resources you created while going through this tutorial to ensure that you’re not charged.
+Congratulations, you have created an AWS Lambda function that detects PPE in images located in an Amazon S3 bucket. As stated at the beginning of this tutorial, be sure to terminate all of the resources you created while going through this tutorial to ensure that you’re not charged.
 
 For more AWS multiservice examples, see
 [usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).
