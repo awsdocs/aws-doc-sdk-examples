@@ -442,7 +442,7 @@ The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to add a
                     gearRecord.setItemDescription(gearItem.getItemDescription());
                     gearRecord.setConfidence(gearItem.getConfidence());
 
-                    // Put the PPE data into a DynamoDB table
+                    // Put the PPE data into a DynamoDB table.
                     gearTable.putItem(gearRecord);
                 }
             }
