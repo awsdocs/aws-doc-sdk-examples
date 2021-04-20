@@ -4,11 +4,11 @@ You can create an Amazon Web Services Lambda function that detects personal prot
 
 ![AWS Tracking Application](images/lam.png)
 
-After you execute the Lambda function, it automatically detects the PPE gear in this image (along with any other images) and creates a record in an Amazon DynamoDB table, as shown in this illustration.
+After you execute the Lambda function, it automatically detects the PPE in the image (along with any other images) and creates a record in an Amazon DynamoDB table, as shown in this illustration.
 
 ![AWS Tracking Application](images/dynamodb.png)
 
-In addition, the Lambda function creates a list of all images with PPE gear and emails the list by using the Amazon Simple Email Service (SES), as shown in this illustration. 
+In addition, the Lambda function creates a list of all images with PPE and emails the list by using the Amazon Simple Email Service (SES), as shown in this illustration. 
 
 ![AWS Tracking Application](images/email.png)
 
@@ -879,6 +879,8 @@ At this point in the tutorial, you can test the Lambda function. Click the **Tes
 Choose the **Invoke** button. After the Lambda function is invoked, you see a successful message. 
 
 ![AWS Tracking Application](images/lambda.png)
+
+**Note**: You may have to set a longer timeout period for the Lambda function. For information, see [Configuring functions in the console](https://docs.aws.amazon.com/lambda/latest/dg/configuration-console.html). 
 
 ### Next steps
 Congratulations, you have created an AWS Lambda function that detects PPE in images located in an Amazon S3 bucket. As stated at the beginning of this tutorial, be sure to terminate all of the resources you created while going through this tutorial to ensure that you’re not charged.
