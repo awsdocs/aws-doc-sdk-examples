@@ -850,7 +850,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 3. Choose **Author from scratch**.
 
-4. In the **Basic** information section, enter **cron** as the name.
+4. In the **Basic** information section, enter **PPEGear** as the name.
 
 5. In the **Runtime**, choose **Java 8**.
 
@@ -862,7 +862,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 9. Choose **Upload**, and then browse to the JAR file that you created.  
 
-10. For **Handler**, enter the fully qualified name of the function, for example, **com.example.tags.Handler:handleRequest** (**com.example.tags** specifies the package, **Handler** is the class followed by :: and method name).
+10. For **Handler**, enter the fully qualified name of the function, for example, **com.example.ppe.PPEHandler:handleRequest** (**com.example.ppe** specifies the package, **PPEHandler** is the class followed by :: and method name).
 
 11. Choose **Save.**
 
@@ -872,16 +872,14 @@ The JAR file is located in the **target** folder (which is a child folder of the
 At this point in the tutorial, you can test the Lambda function. Click the **Test** tab and then enter the following JSON.
 
      {
-    "flag": "true"
+    "bucketName": "<Bucket name>"
      }
 
-![AWS Tracking Application](images/pic7.png)
-
-**Note**: Passing **true** tags the digital assets and passing **false** deletes the tags. 
+**Note**: Be sure that you specify the name of the Amazon S3 bucket that contains the PPE images. 
 
 Choose the **Invoke** button. After the Lambda function is invoked, you see a successful message. 
 
-![AWS Tracking Application](images/pic8.png)
+![AWS Tracking Application](images/lambda.png)
 
 ### Next steps
 Congratulations, you have created an AWS Lambda function that automactially applies tags to difital assets located in an Amazon S3 bucket.As stated at the beginning of this tutorial, be sure to terminate all of the resources you created while going through this tutorial to ensure that you’re not charged.
