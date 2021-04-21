@@ -29,14 +29,14 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: '^1.13.1' # The Go version to download (if necessary) and use.
+      - name: set env var
+        run: |
+            echo "GO111MODULE=off" >> $GITHUB_ENV # Do not run in module mode
       - uses: jitterbit/get-changed-files@v1
         id: files
         continue-on-error: true
       - run: |
           # make file runnable, might not be necessary
           chmod +x scripts/run_go_tests.sh
-
-          # Do not run in module mode
-	  set GO111MODULE=off
 
           scripts/run_go_tests.sh ${{ steps.files.outputs.all }}
