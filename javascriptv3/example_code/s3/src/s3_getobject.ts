@@ -11,7 +11,7 @@ s3_getobject.ts gets an object from an Amazon Simple Storage Service (Amazon S3)
 Inputs (replace in code):
 - REGION
 - BUCKET_NAME
-- OBJECT
+- KEY
 
 Running the code:
 ts-node s3_getobject.ts
@@ -26,7 +26,7 @@ const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
 const REGION = "REGION";
 
 const params = {
-    Bucket: "BUCKET",
+    Bucket: "BUCKET_NAME",
     Key: "KEY"
 };
 
