@@ -30,15 +30,15 @@ const REGION = "REGION";
 // Specify the name of the bucket and the object to return.
 const params = {
     Bucket: "BUCKET",
-    Key: "KEY",
+    Key: "KEY"
 };
 
-// Create an Amazon S3 client service object.
+// Create an Amazon Simple Storage Service (Amazon S3) client service object.
 const s3 = new S3Client({ region: REGION });
 
 const run = async () => {
     try {
-        // Create a function to convert a ReadableStream to a string.
+        // Create a helper function to convert a ReadableStream to a string.
         const streamToString = (stream) =>
             new Promise((resolve, reject) => {
                 const chunks = [];
@@ -47,10 +47,10 @@ const run = async () => {
                 stream.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
             });
 
-        // Get the object from the Amazon Simple Storage Service (Amazon s3) bucket.
+        // Get the object from the Amazon S3 bucket. It is returned as a ReadableStream.
         const data = await s3.send(new GetObjectCommand(params));
 
-        // Use the 'streamToStream' function to convert the ReadableStream to a string.
+        // Convert the ReadableStream to a string.
         const bodyContents = await streamToString(data.Body);
         console.log(bodyContents);
     } catch (err) {
