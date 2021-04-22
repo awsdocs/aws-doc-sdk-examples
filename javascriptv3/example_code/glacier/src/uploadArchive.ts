@@ -36,7 +36,7 @@ const glacier = new GlacierClient({ region: REGION });
 const run = async () => {
   try {
     const data = await glacier.send(new UploadArchiveCommand(params));
-    console.l  og("Archive ID", data.archiveId);
+    console.log("Archive ID", data.archiveId);
   } catch (err) {
     console.log("Error uploading archive!", err);
   }
