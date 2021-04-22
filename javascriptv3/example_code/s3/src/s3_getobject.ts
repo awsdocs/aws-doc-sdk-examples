@@ -23,11 +23,8 @@ Returns the object from the Amazon S3 bucket.
 // Import required AWS SDK clients and commands for Node.js.
 const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
 
-// Specify the AWS Region, such as "us-east-1".
 const REGION = "REGION";
 
-// Set the parameters.
-// Specify the name of the bucket and the object to return.
 const params = {
     Bucket: "BUCKET",
     Key: "KEY"
