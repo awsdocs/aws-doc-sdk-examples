@@ -18,7 +18,7 @@ ts-node s3_createbucket.ts
 // Get required modules using node.js 'require'. Delete this if using 'ES6' import method.
 const { S3Client, CreateBucketCommand } = require("@aws-sdk/client-s3");
 // snippet-end:[s3.JavaScript.buckets.createBucketV3.test.require]
-// snippet-start:[s3.JavaScript.buckets.createBucketV3.import]
+// snippet-start:[s3.JavaScript.buckets.createBucketV3.test.import]
 // Get required modules using 'ES6' import method. Delete this if using node.js 'require'.
 import { S3Client, CreateBucketCommand } from "@aws-sdk/client-s3";
 // snippet-end:[s3.JavaScript.buckets.createBucketV3.test.import]
