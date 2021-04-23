@@ -1,6 +1,6 @@
-#  Creating an Amazon Web Services Lambda function that detects images with Personal Protective Equipment
+#  Creating an AWS Lambda function that detects images with Personal Protective Equipment
 
-You can create an Amazon Web Services Lambda function that detects personal protective equipment (PPE) in images located in an Amazon Simple Storage Service (Amazon S3) bucket. For example, assume you run the Lambda function and you have this image in an Amazon S3 bucket. 
+You can create an AWS Lambda function that detects personal protective equipment (PPE) in images located in an Amazon Simple Storage Service (Amazon S3) bucket. For example, assume you run the Lambda function and you have this image in an Amazon S3 bucket. 
 
 ![AWS Tracking Application](images/lam.png)
 
@@ -8,7 +8,7 @@ After you execute the Lambda function, it detects PPE information in the image (
 
 ![AWS Tracking Application](images/dynamodb.png)
 
-In addition, the Lambda function creates a list of all images with PPE and emails the list by using the Amazon Simple Email Service (SES), as shown in this illustration. 
+In addition, the Lambda function creates a list of all images with PPE and emails the list by using the Amazon Simple Email (Amazon SES) service, as shown in this illustration. 
 
 ![AWS Tracking Application](images/email.png)
 
@@ -19,7 +19,7 @@ This tutorial shows you how to use the AWS SDK for Java V2 API to invoke these A
 
 - Amazon S3 service
 - Amazon Rekognition service
-- Amazon DynamoDB service
+- DynamoDB service
 - Amazon Simple Email service
 
 The Lambda function reads all images in a given Amazon S3 bucket. For each object in the bucket, it passes the image to the Amazon Rekognition service to detect PPE information. The results are stored as records in an Amazon DynamoDB table and then emailed to a recipient.     
@@ -29,13 +29,13 @@ The Lambda function reads all images in a given Amazon S3 bucket. For each objec
 **Note**: Be sure to terminate all of the resources after you have completed this tutorial to ensure that you are not charged.
 
 #### Topics
-+	Prerequisites
-+	Create an AWS Identity and Access Management (IAM) role that is used to execute Lambda functions
-+	Create an IntelliJ project
-+	Add the POM dependencies to your project
-+	Create an AWS Lambda function by using the AWS Lambda runtime API
-+	Package the project that contains the AWS Lambda function
-+	Deploy the AWS Lambda function
++	Prerequisites.
++	Create an AWS Identity and Access Management (IAM) role that is used to execute Lambda functions.
++	Create an IntelliJ project.
++	Add the POM dependencies to your project.
++	Create a Lambda function by using the Lambda runtime API.
++	Package the project that contains the Lambda function.
++	Deploy the Lambda function.
 
 ## Prerequisites
 To follow along with this tutorial, you need the following:
@@ -45,15 +45,15 @@ To follow along with this tutorial, you need the following:
 + Java 1.8 JDK.
 + Maven 3.6 or higher.
 + An Amazon S3 bucket with 5-7 PPE images. These images are read by the Lambda function. 
-+ An Amazon DynamoDB table named **Gear** with a key named **id**. 
++ A DynamoDB table named **Gear** with a key named **id**. 
 
-## Create an IAM role that's used to execute Lambda functions
+## Create an AWS Identity and Access Management (IAM) role that's used to execute Lambda functions
 
 Create the following IAM role:
 
 + **lambda-support** - Used to invoke Lamdba functions.
 
-This tutorial uses the Amazon Rekognition, Amazon DynamoDB, Amazon SES, and Amazon S3 services. The **lambda-support** role has to have policies that enable it to invoke these services.  
+This tutorial uses the Amazon Rekognition, DynamoDB, Amazon SES, and Amazon S3 services. The **lambda-support** role has to have policies that enable it to invoke these services.  
 
 #### To create an IAM role
 
@@ -264,7 +264,7 @@ Create these Java classes:
 + **DynamoDBService** - uses the Amazon DynamoDB API to insert PPE records in the DynamoDB table. 
 + **Gear** - defines a model that is used with the DynamoDB enhanced client. 
 + **GearItem** - defines a model that stores PPE information.
-+ **PPEHandler** - uses the Lambda Java run-time API and performs the use case described in this AWS tutorial. The application logic that's executed is located in the **handleRequest** method. 
++ **PPEHandler** - uses the Lambda Java run-time API and performs the use case described in this AWS tutorial. The executable application logic is in the **handleRequest** method. 
 + **S3Service** - uses the Amazon S3 API to perform S3 operations.
 + **SendEmail** - uses the SES API to send email messages. 
 
@@ -404,7 +404,7 @@ The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to add a
     }
 
 
-    // Persist the PPE Items into the Gear table.
+    // Persist the PPE items into the Gear table.
     public void persistItem(List<ArrayList<GearItem>> gearList) {
         DynamoDbClient ddb = getClient();
 
@@ -417,7 +417,7 @@ The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to add a
             DynamoDbTable<Gear> gearTable = enhancedClient.table("Gear", TableSchema.fromBean(Gear.class));
             Gear gearRecord;
 
-            // Create an Instant
+            // Create an Instant object.
             LocalDateTime now = LocalDateTime.now(); // current date and time
             LocalDateTime timeVal = now.toLocalDate().atStartOfDay();
             Instant instant = timeVal.toInstant(ZoneOffset.UTC);
@@ -600,7 +600,7 @@ The **GearIten** class represents the model in this use case. Its stores data re
 
 ### PPEHandler class
 
-This Java code represents the **PPEHandler** class. This class reads a value that specifies which Amazon S3 bucket to read the images from. The **s3Service.ListBucketObjects** method returns a **List** object where each element is a string value that represents the object key. For each image in the bucket, a byte array is obtained by calling the **s3Service.getObjectBytes** method. Then an **ArrayList** is obtained by calling the **photos.detectLabels** method. Finally the **ArrayList** object is added to another collection. The data that specifies PPE gear is then persisted in an DynamoDB table and emailed to a user. 
+This Java code represents the **PPEHandler** class. This class reads a value that specifies which Amazon S3 bucket to read the images from. The **s3Service.ListBucketObjects** method returns a **List** object where each element is a string value that represents the object key. For each image in the bucket, the **s3Service.getObjectBytes** method returns a byte array. Then an **ArrayList** is obtained by calling the **photos.detectLabels** method. Finally the **ArrayList** object is added to another collection and the data that specifies PPE gear is persisted in a DynamoDB table and emailed to a user. 
 
 The following Java code represents the **PPEHandler** class. 
 
@@ -610,7 +610,11 @@ The following Java code represents the **PPEHandler** class.
     import com.amazonaws.services.lambda.runtime.Context;
     import com.amazonaws.services.lambda.runtime.RequestHandler;
     import com.amazonaws.services.lambda.runtime.LambdaLogger;
-    import java.util.*;
+    import java.util.List;
+    import java.util.Map;
+    import java.util.ArrayList;
+    import java.util.Set;
+    import java.util.HashSet;
 
     public class PPEHandler implements RequestHandler<Map<String,String>, String> {
 
@@ -666,7 +670,7 @@ The following Java code represents the **PPEHandler** class.
             }
         }
 
-        // create list without duplicates...
+        // Create list without duplicates.
         Set<String> uniqueKeys = new HashSet<String>(keys);
         return uniqueKeys;
     }
@@ -839,7 +843,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 ![AWS Tracking Application](images/jar.png)
 
-**Note**: Notice the use of the **maven-shade-plugin** in the project’s POM file. This plugin is responsible for creating a JAR that contains the required dependencies. If you attempt to package up the project without this plugin, the required dependences are not included in the JAR file and you will encounter a **ClassNotFoundException**. 
+**Note**: Notice the use of the **maven-shade-plugin** in the project’s POM file. This plugin is responsible for creating a JAR that contains the required dependencies. If you attempt to package up the project without this plugin, the required dependencies are not included in the JAR file and you will encounter a **ClassNotFoundException**. 
 
 ## Deploy the Lambda function
 
