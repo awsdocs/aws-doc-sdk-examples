@@ -35,3 +35,9 @@ files:
   - path: PutEvent/PutEventv2_test.go
     services:
       - cloudwatch
+  - path : GetMetricData/GetMetricDatav2.go
+    services:
+      - cloudwatch
+  - path: GetMetricData/GetMetricDatav2_test.go
+    services:
+      - cloudwatch
