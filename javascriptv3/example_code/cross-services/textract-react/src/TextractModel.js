@@ -125,7 +125,7 @@ export default class TextractModel {
   /**
    * Calls synchronous Amazon Textract functions to extract data from an image.
    * Synchronous Amazon Textract functions can be awaited and do not require starting
-   * a job or polling a queue for status.
+   * a job or polling an Amazon SQS queue for status.
    *
    * Data returned from Amazon Textract is stored in `this.extraction`.
    *

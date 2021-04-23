@@ -8,7 +8,11 @@ an interactive web page. This example runs in a web browser and requires an
 authenticated Amazon Cognito identity for credentials. It uses Amazon Simple Storage 
 Service (Amazon S3) for storage, and for notifications it polls an Amazon Simple 
 Queue Service (Amazon SQS) queue that is subscribed to an Amazon Simple Notification 
-Service (Amazon SNS) topic.  
+Service (Amazon SNS) topic.
+
+Amazon Textract is a machine learning service that analyzes scanned document images. 
+Amazon Textract extracts text, form, and table information from typed and handwritten 
+documents like medical records, financial reports, and tax forms.   
 
 ## Cautions
 
@@ -136,7 +140,7 @@ at a command prompt with the stack name you used to create the stack:
 
 ## Example structure
 
-This examples uses an MVC (model view controller) pattern that separates the user
+This example uses an MVC (model view controller) pattern that separates the user
 interface components built with React from the model component that calls AWS 
 services. A main application render function is subscribed to the model so that it is
 informed whenever the underlying data changes.
