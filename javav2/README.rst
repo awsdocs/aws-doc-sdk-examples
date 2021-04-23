@@ -75,7 +75,7 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 
 + **Creating Lambda functions that tags digital assets located in Amazon S3 buckets** - A tutorial that discusses how to create a Lambda function that automatically tag digital assets located in an Amazon Simple Storage Service (Amazon S3) bucket.
 
-+ **Creating an Amazon Web Services Lambda function that detects images with Personal Protective Equipment** - A tutorial that discusses how to create a Lambda function that detects personal protective equipment (PPE) in digital assets located in an Amazon Simple Storage Service (Amazon S3) bucket. The Lambda function updates an Amazon DynamoDB table with the results as well as sends an email message.  
++ **Creating an Amazon Web Services Lambda function that detects images with Personal Protective Equipment** - A tutorial that discusses how to create a Lambda function that detects personal protective equipment (PPE) in digital assets located in an Amazon S3 bucket. The Lambda function updates an Amazon DynamoDB table with the results as well as sends an email message.  
 
 
 
