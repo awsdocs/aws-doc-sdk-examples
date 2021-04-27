@@ -64,7 +64,7 @@ namespace CommandLineParser
     // Method to get an argument from the parsed command-line arguments
     //
     // Parameters:
-    // - parsedArgs: The Dictonary object returned from the Parse() method (shown above).
+    // - parsedArgs: The Dictionary object returned from the Parse() method (shown above).
     // - defaultValue: The default string to return if the specified key isn't in parsedArgs.
     // - keys: An array of keys to look for in parsedArgs.
     public static string GetArgument(
@@ -77,7 +77,7 @@ namespace CommandLineParser
     }
 
     //
-    // Method to exit the applicaiton with an error.
+    // Method to exit the application with an error.
     public static void ErrorExit(string msg, int code=1)
     {
       Console.WriteLine("\nError");
