@@ -4,6 +4,8 @@ You can create a web application that stores and queries data by using the Amazo
 
 ![AWS Tracking Application](images/Redshift.png)
 
+**Note**: Amazon Redshift is a fully managed, petabyte-scale data warehouse service in the cloud. You can start with just a few hundred gigabytes of data and scale to a petabyte or more. This enables you to use your data to acquire new insights for your business and customers. For more information, see [What is Amazon Redshift?](https://docs.aws.amazon.com/redshift/latest/mgmt/welcome.html).
+
 The **blog** table contains these fields: 
 
 - **idblog**- a varchar field that stores a GUID value and represents the PK.
