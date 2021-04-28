@@ -51,8 +51,9 @@ const run = async () => {
       };
       try {
         const data = await sqs.send(new DeleteMessageCommand(deleteParams));
-      } catch (err) {
         console.log("Message Deleted", data);
+      } catch (err) {
+        console.log("Error", err);
       }
     } else {
       console.log("No messages to delete");

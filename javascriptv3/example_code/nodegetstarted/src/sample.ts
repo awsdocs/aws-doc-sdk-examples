@@ -15,7 +15,7 @@ Inputs (replace in code):
  - BODY
 
 Running the code:
-ts-node sample.ts
+node sample.js
 */
 // snippet-start:[GettingStarted.JavaScript.NodeJS.sampleV3]
 // Import required AWS SDK clients and commands for Node.js.
