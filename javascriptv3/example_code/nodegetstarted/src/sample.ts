@@ -11,12 +11,14 @@ sample.ts demonstrates how to get started using node.js with the AWS SDK for Jav
 Inputs (replace in code):
  - REGION
  - BUCKET_NAME
+ - KEY
+ - BODY
 
 Running the code:
 ts-node sample.ts
 */
 // snippet-start:[GettingStarted.JavaScript.NodeJS.sampleV3]
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 const {
   S3Client,
   PutObjectCommand,
@@ -24,30 +26,32 @@ const {
 } = require("@aws-sdk/client-s3");
 
 // Set the AWS region
-const REGION = "REGION"; // e.g., "us-east-1"
+const REGION = "REGION"; // The AWS Region. For example, "us-east-1".
 
-// Set the bucket parameters
-const bucketName = "BUCKET_NAME";
-const bucketParams = { Bucket: bucketName };
+// Set the parameters
+const params = {
+  Bucket: "BUCKET_NAME", // The name of the bucket. For example, 'sample_bucket_101'.
+  Key: "KEY", // The name of the object. For example, 'sample_upload.txt'.
+  Body: "BODY" // The content of the object. For example, 'Hello world!".
+}
 
-// Create name for uploaded object key
-const keyName = "hello_world.txt";
-const objectParams = { Bucket: bucketName, Key: keyName, Body: "Hello World!" };
 
-// Create an S3 client service object
-const s3 = new S3Client({ region: REGION });
+// Create an Amazon Simple Storage Solutiou (Amazon S3) client service object.
+const s3Client = new S3Client({ region: REGION });
 
 const run = async () => {
-  // Create S3 bucket
+  // Create an Amazon S3 bucket.
   try {
-    const data = await s3.send(new CreateBucketCommand(bucketParams));
-    console.log("Success. Bucket created.");
+    const data = await s3Client.send(new CreateBucketCommand({Bucket: params.Bucket}));
+    console.log(data);
+    console.log("Successfully created a bucket called ", data.BucketName);
   } catch (err) {
     console.log("Error", err);
   }
+  // Create an object and upload it to the Amazon S3 bucket.
   try {
-    const results = await s3.send(new PutObjectCommand(objectParams));
-    console.log("Successfully uploaded data to " + bucketName + "/" + keyName);
+    const results = await s3Client.send(new PutObjectCommand(params));
+    console.log("Successfully created " + params.Key + " and uploaded it to " + params.Bucket + "/" + params.Key).;
   } catch (err) {
     console.log("Error", err);
   }

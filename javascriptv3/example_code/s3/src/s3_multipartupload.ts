@@ -1,28 +1,3 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-
-ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
-
-Purpose:
-s3_multipartupload.ts demonstrates how to upload a single object to an Amazon Simple Storage Solution (S3) bucket
- as a set of parts.
-
- For more information about multipart uploads, see https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html.
-
-Inputs (replace in code):
-- REGION
-- BUCKET_NAME
-- LARGE_FILE_NAME
-- NUMBER_OF_PARTS - between 1 and 10000. Enter without surrounding inverted commas.
-
-Running the code:
-ts-node s3_createbucket.ts
-
-*/
-// snippet-start:[s3.JavaScript.buckets.multipartupload_v3]
-
 // Load the required clients and commands.
 const {
     S3,
@@ -36,12 +11,12 @@ const REGION = "REGION";
 
 // Set the parameters.
 const createParams = {
-    Bucket: "BUCKET",
-    Key: "LARGE_FILE_NAME"
+    Bucket: "brians-stack-mybucket160f8132-1phf3t7w4t5xn",
+    Key: "mylambdafunction.js.zip"
 };
 
 // Specify how many parts in the upload. Between 1 and 10000.
-const parts = NUMBER_OF_PARTS; // For example, 3.
+const parts = 3; // For example, 3.
 
 // Create an Amazon S3 service client object.
 const s3Client = new S3({ region: REGION });
@@ -78,6 +53,7 @@ const run = async () => {
                     },
                     UploadId: uploadParams.UploadId,
                 }
+                console.log(completeParams)
             } catch (err) {
                 console.log("Error uploading part", err);
             }
@@ -96,4 +72,3 @@ const run = async () => {
     }
 };
 run();
-// snippet-end:[s3.JavaScript.buckets.multipartupload_v3]
