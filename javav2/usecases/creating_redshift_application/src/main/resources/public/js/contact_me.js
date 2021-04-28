@@ -7,7 +7,6 @@ $(function() {
         var title = $('#title').val();
         var body = $('#body').val();
 
-        //invokes the getMyForms POST operation
         var xhr = new XMLHttpRequest();
         xhr.addEventListener("load", loadNewItems, false);
         xhr.open("POST", "../addPost", true);   //buildFormit -- a Spring MVC controller
@@ -15,24 +14,19 @@ $(function() {
         xhr.send("title=" + title + "&body=" + body);
     } );// END of the Send button click
 
-    //Handler for the uploadSave call
-    //This will populate the Data Table widget
     function loadNewItems(event) {
-
         var msg = event.target.responseText;
         alert("You have successfully added item "+msg)
 
         $('#title').val("");
         $('#body').val("");
     }
+} );
 
-   } );
-
-  function getDataValue()
-  {
+function getDataValue() {
     var radioValue = $("input[name='optradio']:checked").val();
-   return radioValue;
-  }
+    return radioValue;
+}
 
 function getPosts(num){
 
@@ -40,17 +34,15 @@ function getPosts(num){
     $('#progress').show();
     var lang = $('#lang option:selected').text();
 
-    //invokes the getMyForms POST operation
     var xhr = new XMLHttpRequest();
     xhr.addEventListener("load", loadItems, false);
     xhr.open("POST", "../getPosts", true);   //buildFormit -- a Spring MVC controller
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
     xhr.send("lang=" + lang +"&number=" + num );
-}
+ }
 
 function loadItems(event) {
 
-    //Clear the list
     $('#progress').hide();
     var xml = event.target.responseText;
     $(xml).find('Item').each(function ()  {
@@ -61,10 +53,8 @@ function loadItems(event) {
         var title = $field.find('Title').text();
         var body = $field.find('Content').text();
         var author = $field.find('Author').text();
-        var vv = "Prime video"
 
         // Append this data to the main list.
-
         $('.xsearch-items').append("<className='search-item'>");
         $('.xsearch-items').append("<div class='search-item-content'>");
         $('.xsearch-items').append("<h3 class='search-item-caption'><a href='#'>"+title+"</a></h3>");
@@ -75,6 +65,7 @@ function loadItems(event) {
         $('.xsearch-items').append("<div>");
         $('.xsearch-items').append("<h6>"+body +"</h6>");
         $('.xsearch-items').append("</div>");
-     });
+    });
 }
+
 
