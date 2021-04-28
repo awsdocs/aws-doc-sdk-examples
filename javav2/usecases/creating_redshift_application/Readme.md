@@ -411,8 +411,7 @@ The following Java code represents the **RedshiftService** class. This class use
         return redshiftDataClient;
     }
 
-
-    // Returns a collection that returns the latest five posts from the Redshift table.
+    // Returns a collection from the Redshift table.
     public String getPosts(String lang, int num) {
 
         try {
@@ -512,7 +511,6 @@ The following Java code represents the **RedshiftService** class. This class use
             System.exit(1);
         }
     }
-
 
     public List<Post> getResults(RedshiftDataClient redshiftDataClient, String statementId, String lang) {
 
@@ -725,8 +723,8 @@ The following Java code represents the **RedshiftService** class. This class use
         }
 
         return "";
+      }
     }
-}
 
 **Note**: Be sure to assign applicable values to the **clusterId**, **database**, and **dbUser** variables. Otherwise, your code does not work.
 
@@ -804,10 +802,10 @@ At this point, you have created all of the Java files required for this example 
 ### index.html
 The **index.html** file is the application's home view. The following HTML represents the **index.html** file. 
 
-     <!DOCTYPE html>
-     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
-     <head>
+    <head>
      <meta charset="utf-8" />
      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
      <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -816,25 +814,23 @@ The **index.html** file is the application's home view. The following HTML repre
      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
      <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
 
-    <title>AWS Job Posting Example</title>
-    </head>
+     <title>AWS Job Posting Example</title>
+   </head>
 
-    <body>
+   <body>
     <header th:replace="layout :: site-header"/>
     <div class="container">
 
-    <h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Job Posting example</h3>
-    <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
-
-    <h2>AWS Job Posting Example</h2>
-
-    <p>The AWS Job Posting Example application uses multiple AWS Services and the Java V2 API. Perform these steps:<p>
-
+     <h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Job Posting example</h3>
+     <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
+     <h2>AWS Job Posting Example</h2>
+     <p>The AWS Job Posting Example application uses multiple AWS Services and the Java V2 API. Perform these steps:<p>
     <ol>
-        <li>Enter items into the system by choosing the <i>Add Posts</i> menu item. Fill in the form and then choose <i>Create Item</i>.</li>
+        <li>Enter work items into the system by choosing the <i>Add Posts</i> menu item. Fill in the form and then choose <i>Create Item</i>.</li>
         <li>The sample application stores the data by using the Amazon Redshift Java API V2.</li>
         <li>You can view the items by choosing the <i>Get Posts</i> menu item. Next, select a language.</li>
-        <li>You can view the items by chooing either <b>Five Posts</b> or <b>Ten Posts</b> button. The items appear in the page.
+        <li>You can view the items by chooing either the <b>Five Posts</b>, <b>Ten Posts</b>, or <b>All Posts</b> button. </li>
+        <li>The items appear in the page from newest to oldest.</li>
     </ol>
     <div>
     </body>
@@ -924,6 +920,7 @@ The **post.html** file is the application's view that displays the items in the 
 
      <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
     <head>
      <meta charset="UTF-8" />
      <title>Blog</title>
@@ -938,15 +935,15 @@ The **post.html** file is the application's view that displays the items in the 
     </head>
 
     <body>
-    <header th:replace="layout :: site-header"/>
-
+     <header th:replace="layout :: site-header"/>
     <div class="container">
      <h3>Welcome <span sec:authentication="principal.username">User</span> to Example AWS Job Posting App</h3>
      <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
 
-     <div id= "progress" class="progress">
+    <div id= "progress" class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-     </div>
+    </div>
+
 
      <div class="row">
         <div class="col">
@@ -969,14 +966,15 @@ The **post.html** file is the application's view that displays the items in the 
             </select>
         </div>
         <div>
-            <button type="button" onclick="getFivePosts()">Five Posts</button>
-            <button type="button" onclick="getTenPosts()">Ten Posts</button>
-        </div>
+            <button type="button" onclick="getPosts(5)">Five Posts</button>
+            <button type="button" onclick="getPosts(10)">Ten Posts</button>
+            <button type="button" onclick="getPosts(0)">All Posts</button>
+         </div>
+       </div>
        </div>
       </div>
-     </div>
-    </body>
-    </html>
+      </body>
+     </html>
 
 
 ### login.html
