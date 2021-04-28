@@ -361,7 +361,7 @@ The following Java code represents the **Post** class.
 
 ### RedshiftService class
 
-The following Java code represents the **RedshiftService** class. This class uses the Amazon Redshift Java API (V2) to interact with data located the **blog** table.  For example, the **getPosts** method returns a result set that is queried from the **blog** table and displayed in the view. Likewise, the **addRecord** method adds a new record to the **blog** table. 
+The following Java code represents the **RedshiftService** class. This class uses the Amazon Redshift Java API (V2) to interact with data located the **blog** table.  For example, the **getPosts** method returns a result set that is queried from the **blog** table and displayed in the view. Likewise, the **addRecord** method adds a new record to the **blog** table. This class also uses the Amazon Translate Java V2 API to translation the result set if requested by the user. 
 
      package com.aws.blog;
 
@@ -404,6 +404,7 @@ The following Java code represents the **RedshiftService** class. This class use
 
         Region region = Region.US_WEST_2;
         RedshiftDataClient redshiftDataClient = RedshiftDataClient.builder()
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .region(region)
                 .build();
 
@@ -419,9 +420,11 @@ The following Java code represents the **RedshiftService** class. This class use
             RedshiftDataClient redshiftDataClient = getClient();
             String sqlStatement="";
             if (num ==5)
-                sqlStatement = "SELECT TOP 5 * FROM blog ORDER BY date";
+                sqlStatement = "SELECT TOP 5 * FROM blog ORDER BY date DESC";
+            else if (num ==10)
+                sqlStatement = "SELECT TOP 10 * FROM blog ORDER BY date DESC";
             else
-                sqlStatement = "SELECT TOP 10 * FROM blog ORDER BY date";
+                sqlStatement = "SELECT * FROM blog ORDER BY date DESC" ;
 
             ExecuteStatementRequest statementRequest = ExecuteStatementRequest.builder()
                     .clusterIdentifier(clusterId)
@@ -443,17 +446,16 @@ The following Java code represents the **RedshiftService** class. This class use
         return "";
     }
 
+    // Add a new record to the Amazon Redshift table.
     public String addRecord(String author, String title, String body) {
 
         try {
 
             RedshiftDataClient redshiftDataClient = getClient();
             UUID uuid = UUID.randomUUID();
-            String id  = uuid.toString();
+            String id = uuid.toString();
 
-            // Date conversion
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
+            // Date conversion.
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
             String sDate1 = dtf.format(now);
@@ -471,7 +473,6 @@ The following Java code represents the **RedshiftService** class. This class use
                     .build();
 
             redshiftDataClient.executeStatement(statementRequest);
-
             return id;
 
         } catch (RedshiftDataException | ParseException e) {
@@ -548,18 +549,16 @@ The following Java code represents the **RedshiftService** class. This class use
 
                     else if (index == 2) {
 
-                        if (!lang.equals("English")) {
-                            // We need to translate the text
+                        if (!lang.equals("English"))
                             value = translateText(value, lang);
-                        }
+
                         post.setTitle(value);
                     }
 
                     else if (index == 3) {
-                        if (!lang.equals("English")) {
-                            // We need to translate the text
-                           value = translateText(value, lang);
-                        }
+                        if (!lang.equals("English"))
+                             value = translateText(value, lang);
+
                         post.setBody(value);
                     }
 
@@ -570,11 +569,11 @@ The following Java code represents the **RedshiftService** class. This class use
                     index ++;
                }
 
-                // Push the Post object to the List
+                // Push the Post object to the List.
                 records.add(post);
             }
 
-            return  records;
+            return records;
 
         } catch (RedshiftDataException e) {
             System.err.println(e.getMessage());
@@ -584,7 +583,7 @@ The following Java code represents the **RedshiftService** class. This class use
         return null ;
     }
 
-    // Convert Work item data into XML to pass back to the view.
+    // Convert the list to XML to pass back to the view.
     private Document toXml(List<Post> itemsList) {
 
         try {
@@ -617,7 +616,7 @@ The following Java code represents the **RedshiftService** class. This class use
                     date.appendChild(doc.createTextNode(post.getTitle()));
                     item.appendChild(date);
 
-                    // Set Body.
+                    // Set Content.
                     Element desc = doc.createElement("Content");
                     desc.appendChild(doc.createTextNode(post.getBody()));
                     item.appendChild(desc);
@@ -635,7 +634,6 @@ The following Java code represents the **RedshiftService** class. This class use
         }
         return null;
     }
-
 
     private String convertToString(Document xml) {
         try {
@@ -655,7 +653,7 @@ The following Java code represents the **RedshiftService** class. This class use
 
         Region region = Region.US_WEST_2;
         TranslateClient translateClient = TranslateClient.builder()
-                //.credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .region(region)
                 .build();
         String transValue = "";
@@ -727,8 +725,10 @@ The following Java code represents the **RedshiftService** class. This class use
         }
 
         return "";
-       }
-     }
+    }
+}
+
+**Note**: Be sure to assign applicable values to the **clusterId**, **database**, and **dbUser** variables. Otherwise, your code does not work.
 
 ### WebSecurityConfig class
 
