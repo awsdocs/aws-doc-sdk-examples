@@ -1201,7 +1201,7 @@ If this is your first time accessing this service, you will see a **Welcome to A
 1. Open the Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home.
 2. In the navigation pane, choose  **Applications**, and then choose **Create a new application**. This opens a wizard that creates your application and launches an appropriate environment.
 3. On the **Create New Application** page, enter the following values:
-   + **Application Name** - Spring Video App
+   + **Application Name** - Redshift App
    + **Description** - A description for the application
 4. Choose **Create**.
 5. Choose **Create a new environment**.
@@ -1212,17 +1212,12 @@ If this is your first time accessing this service, you will see a **Welcome to A
 10. For **Platform**, choose **Java** (accept the default values for the other fields).
 11. In the **Application code** section, choose **Upload your code**.
 12. Choose **Local file**, and then select **Choose file**. Browse to the JAR file that you created.  
-13. Choose **Create environment**. You'll see the application being created.
-
-![AWS Tracking Application](images/pic6.png)
-
-When you’re done, you will see the application state the **Health** is **Ok** .
-
+13. Choose **Create environment**. You'll see the application being created. When you’re done, you will see the application state the **Health** is **Ok** .
 14. To change the port that Spring Boot listens on, add an environment variable named **SERVER_PORT**, with the value **5000**.
 11. Add a variable named **AWS_ACCESS_KEY_ID**, and then specify your access key value.
 12. Add a variable named **AWS_SECRET_ACCESS_KEY**, and then specify your secret key value. After the variables are configured, you'll see the URL for accessing the application.
 
-![AWS Tracking Application](images/pic7.png)
+![AWS Tracking Application](images/Beanstalk.png)
 
 **Note:** If you don't know how to set variables, see [Environment properties and other software settings](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-softwaresettings.html).
 
