@@ -1082,84 +1082,74 @@ This application has a **contact_me.js** file that is used to send requests to t
 
       $(function() {
 
-      $('#progress').hide();
+       $('#progress').hide();
 
         $("#SendButton" ).click(function($e) {
+
          var title = $('#title').val();
          var body = $('#body').val();
-         var xhr = new XMLHttpRequest();
-         xhr.addEventListener("load", loadNewItems, false);
-         xhr.open("POST", "../addPost", true);   //buildFormit -- a Spring MVC controller
-         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-         xhr.send("title=" + title + "&body=" + body);
+        
+        var xhr = new XMLHttpRequest();
+        xhr.addEventListener("load", loadNewItems, false);
+        xhr.open("POST", "../addPost", true);   //buildFormit -- a Spring MVC controller
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
+        xhr.send("title=" + title + "&body=" + body);
         } );// END of the Send button click
 
-      function loadNewItems(event) {
-
+       function loadNewItems(event) {
         var msg = event.target.responseText;
         alert("You have successfully added item "+msg)
 
         $('#title').val("");
         $('#body').val("");
-       }
+        }
        } );
 
-      function getDataValue() {
-      var radioValue = $("input[name='optradio']:checked").val();
-      return radioValue;
-      }
+    function getDataValue() {
+    var radioValue = $("input[name='optradio']:checked").val();
+    return radioValue;
+    }
 
-      function getFivePosts(){
+    function getPosts(num){
 
-      $('.xsearch-items').empty()
-      $('#progress').show();
-      var lang = $('#lang option:selected').text();
-      var xhr = new XMLHttpRequest();
-      xhr.addEventListener("load", loadItems, false);
-      xhr.open("POST", "../fivePost", true);   //buildFormit -- a Spring MVC controller
-      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-      xhr.send("lang=" + lang );
-      }
+    $('.xsearch-items').empty()
+    $('#progress').show();
+    var lang = $('#lang option:selected').text();
 
-     function getTenPosts(){
+    //invokes the getMyForms POST operation
+    var xhr = new XMLHttpRequest();
+    xhr.addEventListener("load", loadItems, false);
+    xhr.open("POST", "../getPosts", true);   //buildFormit -- a Spring MVC controller
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
+    xhr.send("lang=" + lang +"&number=" + num );
+    }
 
-     $('.xsearch-items').empty()
-     $('#progress').show();
-     var lang = $('#lang option:selected').text();
-    
-     var xhr = new XMLHttpRequest();
-     xhr.addEventListener("load", loadItems, false);
-      xhr.open("POST", "../tenPost", true);   //buildFormit -- a Spring MVC controller
-      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-      xhr.send("lang=" + lang );
-      }
+    function loadItems(event) {
 
-      function loadItems(event) {
- 
-      $('#progress').hide();
-      var xml = event.target.responseText;
-      $(xml).find('Item').each(function ()  {
+    $('#progress').hide();
+    var xml = event.target.responseText;
+    $(xml).find('Item').each(function ()  {
 
-      var $field = $(this);
-      var id = $field.find('Id').text();
-      var date = $field.find('Date').text();
-      var title = $field.find('Title').text();
-      var body = $field.find('Content').text();
-      var author = $field.find('Author').text();
-     
-       // Append this data to the main list.
-       $('.xsearch-items').append("<className='search-item'>");
-       $('.xsearch-items').append("<div class='search-item-content'>");
-       $('.xsearch-items').append("<h3 class='search-item-caption'><a href='#'>"+title+"</a></h3>");
-       $('.xsearch-items').append("<className='search-item-meta mb-15'>");
-       $('.xsearch-items').append("<className='list-inline'>");
-       $('.xsearch-items').append("<p><b>"+date+"</b></p>");
-       $('.xsearch-items').append("<p><b>'Posted by "+author+"</b></p>");
-       $('.xsearch-items').append("<div>");
-       $('.xsearch-items').append("<h6>"+body +"</h6>");
-       $('.xsearch-items').append("</div>");
-       });
-      }
+        var $field = $(this);
+        var id = $field.find('Id').text();
+        var date = $field.find('Date').text();
+        var title = $field.find('Title').text();
+        var body = $field.find('Content').text();
+        var author = $field.find('Author').text();
+        
+        // Append this data to the main list.
+        $('.xsearch-items').append("<className='search-item'>");
+        $('.xsearch-items').append("<div class='search-item-content'>");
+        $('.xsearch-items').append("<h3 class='search-item-caption'><a href='#'>"+title+"</a></h3>");
+        $('.xsearch-items').append("<className='search-item-meta mb-15'>");
+        $('.xsearch-items').append("<className='list-inline'>");
+        $('.xsearch-items').append("<p><b>"+date+"</b></p>");
+        $('.xsearch-items').append("<p><b>'Posted by "+author+"</b></p>");
+        $('.xsearch-items').append("<div>");
+        $('.xsearch-items').append("<h6>"+body +"</h6>");
+        $('.xsearch-items').append("</div>");
+      });
+     }
 
 ## Create a JAR file for the application
 
