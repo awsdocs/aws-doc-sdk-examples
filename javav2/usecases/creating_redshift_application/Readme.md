@@ -22,11 +22,11 @@ The application you create uses Spring Boot APIs to build a model, different vie
 
 ![AWS Tracking Application](images/NewRecord.png)
 
-This example application lets you view the post by choosing the **Get Posts** menu item and choosing one of the available buttons. For example, you can view five recent posts by choosing the **Five Posts** button, as shown in the following illustration.
+This example application lets you view the posts by choosing the **Get Posts** menu item and choosing one of the available buttons. For example, you can view five recent posts by choosing the **Five Posts** button, as shown in the following illustration.
 
 ![AWS Tracking Application](images/FiveRecords.png)
 
-This example web application also supports viewing the result set in different languages. For example, if a user wants to view the result set in Spanish, they can choose Spanish from the dropdown field and the data is translated to the given language by using the Amazon Translate Service, as shown in this illustration. 
+This application also supports viewing the result set in different languages. For example, if a user wants to view the result set in Spanish, they can choose Spanish from the dropdown field and the data is translated to the given language by using the Amazon Translate Service, as shown in this illustration. 
 
 ![AWS Tracking Application](images/Spanish.png)
 
