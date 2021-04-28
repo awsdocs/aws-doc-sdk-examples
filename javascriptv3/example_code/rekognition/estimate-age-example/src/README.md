@@ -30,22 +30,21 @@ npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instea
 cd javascriptv3/example_code/rekognition
 npm install
 ```
-3. If you're using JavaScript, change the sample file extension from ```.ts``` to ```.js```.
 
-4. Run the following in the commandline to use the 'setup.yaml' template to create the resources for this example:
+3. Run the following in the commandline to use the 'setup.yaml' template to create the resources for this example:
  
 aws cloudformation create-stack --stack-name STACK_NAME --template-body file://setup.yaml --capabilities CAPABILITY_IAM
 
 Note: The stack name must be unique within an AWS Region and AWS account. You can specify up to 128 characters, and numbers and hyphens are allowed.
 
-5. Open the AWS CloudFormation Console, choose the stack, and choose the  **Resources** tab. 
+4. Open the AWS CloudFormation Console, choose the stack, and choose the  **Resources** tab. 
 
-6. Copy the **Physical ID** of the **CognitoDefaultUnauthenticatedRole**.
+5. Copy the **Physical ID** of the **CognitoDefaultUnauthenticatedRole**.
 
-7. In the **estimate-age.js" file, replace **IDENTITY_POOL_ID** with the **Physical ID** of the **CognitoDefaultUnauthenticatedRole**.
+6. In the **estimate-age.js" file, replace **IDENTITY_POOL_ID** with the **Physical ID** of the **CognitoDefaultUnauthenticatedRole**.
 
-8. In the **estimate-age.js" file, replace **REGION** with your AWS Region.
+7. In the **estimate-age.js" file, replace **REGION** with your AWS Region.
 
-9. Use Webpack to bundle the Node.js modules required for the example by running the following in the command line:
+8. Use Webpack to bundle the Node.js modules required for the example by running the following in the command line:
 
 webpack estimate-age.js --mode development --target web --devtool false -o main.js

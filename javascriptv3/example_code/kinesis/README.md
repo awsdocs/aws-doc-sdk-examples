@@ -26,4 +26,4 @@ npm install
 ```
 3. If you're using JavaScript, change the sample file extension from ```.ts``` to ```.js```.
 
-3. Follow the instructions in the [Using JavaScript](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/kinesis-examples-capturing-page-scrolling.html) in the *AWS JavaScript SDK developer guide*.
+4. To run this code, follow the instructions for this example in the [Capturing Web Page Scroll Progress with Amazon Kinesis](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/kinesis-examples-capturing-page-scrolling.html).
