@@ -62,8 +62,7 @@ public class BlogController {
 
         String num = request.getParameter("number");
         String lang = request.getParameter("lang");
-        String xml = rs.getPosts(lang,Integer.parseInt(num)) ;
-        return xml;
+        return rs.getPosts(lang,Integer.parseInt(num)) ;
     }
 
     private String getLoggedUser() {
