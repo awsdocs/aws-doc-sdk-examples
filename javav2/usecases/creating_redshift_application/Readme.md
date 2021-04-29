@@ -1080,7 +1080,7 @@ The **login.html** file is the application's login page.
     
 ### Create the JS File
 
-This application has a **contact_me.js** file that is used to send requests to the Spring Controller. Place this file in the resources\public\js foler. 
+This application has a **contact_me.js** file that is used to send requests to the Spring Controller. Place this file in the **resources\public\js** folder. 
 
       $(function() {
 
