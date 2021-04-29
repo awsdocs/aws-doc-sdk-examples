@@ -206,7 +206,7 @@ At this point, you have a new project named **Blog**. Ensure that the pom.xml fi
 + **BlogApp** - Used as the base class for the Spring Boot application.
 + **BlogController** - Used as the Spring Boot controller that handles HTTP requests. 
 + **Post** - Used as the applications model that stores application data.
-+ **RedshiftService** - Used as the Spring Service that uses the Redshift Java API V2. 
++ **RedshiftService** - Used as the Spring Service that uses the Amazon Redshift Java API V2 and Amazon Translate Java API V2. 
 + **WebSecurityConfig** - The role of this class is to set up an in-memory user store that contains a single user (the user name is **user** and the password is **password**).
 
 ### BlogApp class
@@ -294,7 +294,6 @@ The following Java code represents the **BlogController** class.
 
     private String getLoggedUser() {
 
-        // Get the logged-in user.
         org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return user2.getUsername();
      }
