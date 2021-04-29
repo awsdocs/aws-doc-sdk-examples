@@ -1107,18 +1107,12 @@ This application has a **contact_me.js** file that is used to send requests to t
         }
        } );
 
-    function getDataValue() {
-    var radioValue = $("input[name='optradio']:checked").val();
-    return radioValue;
-    }
-
     function getPosts(num){
 
-    $('.xsearch-items').empty()
-    $('#progress').show();
-    var lang = $('#lang option:selected').text();
-
-    //invokes the getPosts POST operation
+     $('.xsearch-items').empty()
+     $('#progress').show();
+     var lang = $('#lang option:selected').text();
+    
     var xhr = new XMLHttpRequest();
     xhr.addEventListener("load", loadItems, false);
     xhr.open("POST", "../getPosts", true);   //buildFormit -- a Spring MVC controller
@@ -1150,8 +1144,8 @@ This application has a **contact_me.js** file that is used to send requests to t
         $('.xsearch-items').append("<div>");
         $('.xsearch-items').append("<h6>"+body +"</h6>");
         $('.xsearch-items').append("</div>");
-      });
-     }
+       });
+      }
 
 ## Create a JAR file for the application
 
