@@ -297,8 +297,8 @@ The following Java code represents the **BlogController** class.
         // Get the logged-in user.
         org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return user2.getUsername();
-    }
-}
+     }
+     }
 
 
 ### Post class
@@ -355,8 +355,8 @@ The following Java code represents the **Post** class.
 
     public String getId() {
         return this.id ;
+     }
     }
-   }
 
 ### RedshiftService class
 
@@ -722,8 +722,8 @@ The following Java code represents the **RedshiftService** class. This class use
         }
 
         return "";
+       }
       }
-    }
 
 **Note**: Be sure to assign applicable values to the **clusterId**, **database**, and **dbUser** variables. Otherwise, your code does not work.
 
@@ -785,14 +785,14 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
       @Bean
       public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+      }
      }
-    }
     
-**Note**: In this example, the user credentials to log into the application are user and password.    
+**Note**: In this example, the user credentials to log into the application are **user** and **password**.    
 
 ## Create the HTML file
 
-At this point, you have created all of the Java files required for this example application. Now you create HTML files that are required for the application's view. Under the resource folder, create a **templates** folder, and then create the following HTML files:
+At this point, you have created all of the Java files required for this example application. Now create HTML files that are required for the application's view. Under the resource folder, create a **templates** folder, and then create the following HTML files:
 
 + index.html
 + layout.html
@@ -801,7 +801,7 @@ At this point, you have created all of the Java files required for this example 
 + login.html
 
 ### index.html
-The **index.html** file is the application's home view. The following HTML represents the **index.html** file. 
+The **index.html** file is the application's home view. 
 
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
