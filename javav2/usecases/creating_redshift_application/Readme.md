@@ -207,7 +207,7 @@ At this point, you have a new project named **Blog**. Ensure that the pom.xml fi
 + **BlogController** - Used as the Spring Boot controller that handles HTTP requests. 
 + **Post** - Used as the applications model that stores application data.
 + **RedshiftService** - Used as the Spring Service that uses the Redshift Java API V2. 
-+ **WebSecurityConfig** - The role of this class is to ensure only authenticated users can view the application. 
++ **WebSecurityConfig** - The role of this class is to set up an in-memory user store that contains a single user (the user name is **user** and the password is **password**).
 
 ### BlogApp class
 
@@ -223,8 +223,8 @@ The following Java code represents the **BlogApp** class.
 
      public static void main(String[] args) throws Throwable {
         SpringApplication.run(BlogApp.class, args);
+      }
      }
-   }
 
 ### BlogController class
 
@@ -729,7 +729,7 @@ The following Java code represents the **RedshiftService** class. This class use
 
 ### WebSecurityConfig class
 
-The following Java code represents the WebSecurityConfig class. The role of this class is to ensure only authenticated users can view the application.
+The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application.
 
      package com.aws.blog;
 
@@ -787,6 +787,8 @@ The following Java code represents the WebSecurityConfig class. The role of this
         return new BCryptPasswordEncoder();
      }
     }
+    
+**Note**: In this example, the user credentials to log into the application are user and password.    
 
 ## Create the HTML file
 
