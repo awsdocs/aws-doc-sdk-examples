@@ -1118,7 +1118,7 @@ This application has a **contact_me.js** file that is used to send requests to t
     $('#progress').show();
     var lang = $('#lang option:selected').text();
 
-    //invokes the getMyForms POST operation
+    //invokes the getPosts POST operation
     var xhr = new XMLHttpRequest();
     xhr.addEventListener("load", loadItems, false);
     xhr.open("POST", "../getPosts", true);   //buildFormit -- a Spring MVC controller
