@@ -129,12 +129,28 @@ This AWS CDK app creates the following resources:
 
 * An Amazon S3 bucket that grants Amazon Textract read-write permission.
 * An Amazon SNS topic.
-* An IAM role that can be assumed by Textract and grants permission to publish to 
+* An IAM role that can be assumed by Amazon Textract and grants permission to publish to 
 the topic.
 * An Amazon SQS queue that is subscribed to receive messages from the topic.
 
 For more information on the example using these resources, see [...python/example_code/textract](  https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/textract).
   
+## textract_example_s3_sns_sqs_cognito
+
+This AWS CDK app creates the following resources:
+
+* An Amazon S3 bucket that grants Amazon Textract read-write permission.
+* An Amazon SNS topic.
+* An IAM role that can be assumed by Amazon Textract and grants permission to publish to 
+the topic.
+* An Amazon SQS queue that is subscribed to receive messages from the topic.
+* An Amazon Cognito user pool, identity pool, and authenticated user role that
+grants authenticated users permission to access Amazon Textract, the Amazon SQS
+queue, and the Amazon S3 bucket.
+
+For more information on the example using these resources, see [...javascriptv3/example_code/cross-services/textract-react](  https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/cross-services/textract-react).
+  
+
 # Running a CDK app<a name="cdk"></a>
 
 This section describes how to run any of these AWS CDK apps in this directory.
