@@ -11,16 +11,14 @@
     <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
     <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
 
-
-
 </head>
 
 <body>
 <header th:replace="layout :: site-header"/>
 <div class="container">
-    <h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Blog Example App</h3>
+    <h3>Welcome <span sec:authentication="principal.username">User</span> to the Amazon Redshift Job Posting example app</h3>
     <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
-    <p>Add a new Blog item by filling in this table and clicking <i>Create Item</i></p>
+    <p>Add a new job posting by filling in this table and clicking <i>Create Item</i></p>
 
     <div class="row">
         <div class="col-lg-8 mx-auto">

@@ -19,7 +19,7 @@
 <header th:replace="layout :: site-header"/>
 
 <div class="container">
-    <h3>Welcome <span sec:authentication="principal.username">User</span> to Example AWS Job Posting App</h3>
+    <h3>Welcome <span sec:authentication="principal.username">User</span> to the Amazon Redshift Job Posting example app</h3>
     <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
 
     <div id= "progress" class="progress">
