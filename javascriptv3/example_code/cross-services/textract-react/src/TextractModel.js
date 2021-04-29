@@ -2,12 +2,20 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import {
-  DetectDocumentTextCommand, AnalyzeDocumentCommand, FeatureType,
-  StartDocumentTextDetectionCommand, StartDocumentAnalysisCommand,
-  GetDocumentTextDetectionCommand, JobStatus, GetDocumentAnalysisCommand
+  DetectDocumentTextCommand,
+  AnalyzeDocumentCommand,
+  FeatureType,
+  StartDocumentTextDetectionCommand,
+  StartDocumentAnalysisCommand,
+  GetDocumentTextDetectionCommand,
+  JobStatus,
+  GetDocumentAnalysisCommand,
 } from "@aws-sdk/client-textract";
-import {GetObjectCommand} from "@aws-sdk/client-s3";
-import {ReceiveMessageCommand, DeleteMessageCommand} from "@aws-sdk/client-sqs";
+import { GetObjectCommand } from "@aws-sdk/client-s3";
+import {
+  ReceiveMessageCommand,
+  DeleteMessageCommand,
+} from "@aws-sdk/client-sqs";
 
 /**
  * Encapsulates the data model used by the application and wraps all calls to AWS
@@ -32,7 +40,15 @@ export default class TextractModel {
    * @param ConfigError: An error message that indicates the demo application is not
    *                     configured correctly.
    */
-  constructor({s3, sqs, textract, SNSTopicArn, RoleArn, QueueUrl, ConfigError}) {
+  constructor({
+    s3,
+    sqs,
+    textract,
+    SNSTopicArn,
+    RoleArn,
+    QueueUrl,
+    ConfigError,
+  }) {
     this.s3 = s3;
     this.sqs = sqs;
     this.textract = textract;
@@ -40,7 +56,7 @@ export default class TextractModel {
     this.roleArn = RoleArn;
     this.queueUrl = QueueUrl;
     this.extraction = null;
-    this.imageData = {bucketName: '', objectKey: ''};
+    this.imageData = { bucketName: "", objectKey: "" };
     this.onChanges = [];
     this.modelError = ConfigError;
   }
@@ -69,20 +85,21 @@ export default class TextractModel {
    * @returns {Promise<string>}: A Promise that contains the returned data.
    */
   async _readStream(stream) {
-    let data = '';
+    let data = "";
     const reader = stream.getReader();
     try {
       while (true) {
-        const {done, value} = await reader.read();
+        const { done, value } = await reader.read();
         if (done) {
           console.log("Done with stream.");
           return data;
         }
 
-        data += value.reduce(function (a, b) {return a + String.fromCharCode(b)}, '');
+        data += value.reduce(function (a, b) {
+          return a + String.fromCharCode(b);
+        }, "");
       }
-    }
-    finally {
+    } finally {
       reader.releaseLock();
     }
   }
@@ -98,25 +115,26 @@ export default class TextractModel {
   async loadImage(bucketName, objectKey) {
     this.modelError = null;
     this.extraction = null;
-    console.log(`Loading from ${bucketName}:${objectKey}`)
+    console.log(`Loading from ${bucketName}:${objectKey}`);
     try {
       const resp = await this.s3.send(
-        new GetObjectCommand({Bucket: bucketName, Key: objectKey}));
+        new GetObjectCommand({ Bucket: bucketName, Key: objectKey })
+      );
       const str_data = await this._readStream(resp.Body);
       this.imageData = {
         bucketName: bucketName,
         objectKey: objectKey,
-        base64Data: btoa(str_data).replace(/.{76}(?=.)/g, '$&\n')
+        base64Data: btoa(str_data).replace(/.{76}(?=.)/g, "$&\n"),
       };
     } catch (error) {
       console.log(error.message);
       this.modelError = error.message;
       if (error.Code === "AccessDenied") {
-        this.modelError += ". This may mean the image you entered is not present in " +
+        this.modelError +=
+          ". This may mean the image you entered is not present in " +
           "the specified bucket.";
       }
-    }
-    finally {
+    } finally {
       this.inform();
     }
     return this.imageData;
@@ -137,17 +155,16 @@ export default class TextractModel {
       Document: {
         S3Object: {
           Bucket: this.imageData.bucketName,
-          Name: this.imageData.objectKey
-        }
-      }
+          Name: this.imageData.objectKey,
+        },
+      },
     };
     let command;
     if (extractType === "text") {
       command = new DetectDocumentTextCommand(input);
-    }
-    else {
-      input['FeatureTypes'] = (extractType === 'form') ?
-        [FeatureType.FORMS]: [FeatureType.TABLES];
+    } else {
+      input["FeatureTypes"] =
+        extractType === "form" ? [FeatureType.FORMS] : [FeatureType.TABLES];
       command = new AnalyzeDocumentCommand(input);
     }
 
@@ -155,7 +172,7 @@ export default class TextractModel {
     this.extraction = {
       Name: this.imageData.objectKey,
       ExtractType: extractType,
-      Children: this._make_page_hierarchy(textractResponse['Blocks'])
+      Children: this._make_page_hierarchy(textractResponse["Blocks"]),
     };
     console.log(textractResponse);
     this.inform();
@@ -179,60 +196,65 @@ export default class TextractModel {
       DocumentLocation: {
         S3Object: {
           Bucket: this.imageData.bucketName,
-          Name: this.imageData.objectKey
-        }
+          Name: this.imageData.objectKey,
+        },
       },
       NotificationChannel: {
         SNSTopicArn: this.snsTopicArn,
-        RoleArn: this.roleArn
-      }
+        RoleArn: this.roleArn,
+      },
     };
     let command;
     if (extractType === "text") {
       command = new StartDocumentTextDetectionCommand(input);
-    }
-    else {
-      input['FeatureTypes'] = (extractType === 'form') ?
-        [FeatureType.FORMS]: [FeatureType.TABLES];
+    } else {
+      input["FeatureTypes"] =
+        extractType === "form" ? [FeatureType.FORMS] : [FeatureType.TABLES];
       command = new StartDocumentAnalysisCommand(input);
     }
 
-    const {JobId: jobId} = await this.textract.send(command);
+    const { JobId: jobId } = await this.textract.send(command);
     console.log(`JobId: ${jobId}`);
 
     const model = this;
     let waitTime = 0;
     async function getJob() {
-      const {Messages} = await model.sqs.send(new ReceiveMessageCommand({
-        QueueUrl: model.queueUrl,
-        MaxNumberOfMessages: 1
-      }));
+      const { Messages } = await model.sqs.send(
+        new ReceiveMessageCommand({
+          QueueUrl: model.queueUrl,
+          MaxNumberOfMessages: 1,
+        })
+      );
       if (Messages) {
         console.log(`Message[0]: ${Messages[0].Body}`);
-        await model.sqs.send(new DeleteMessageCommand({
-          QueueUrl: model.queueUrl, ReceiptHandle: Messages[0].ReceiptHandle}))
-        if (JSON.parse(JSON.parse(Messages[0].Body).Message).Status ===
-            JobStatus.SUCCEEDED) {
+        await model.sqs.send(
+          new DeleteMessageCommand({
+            QueueUrl: model.queueUrl,
+            ReceiptHandle: Messages[0].ReceiptHandle,
+          })
+        );
+        if (
+          JSON.parse(JSON.parse(Messages[0].Body).Message).Status ===
+          JobStatus.SUCCEEDED
+        ) {
           let getCommand;
           if (extractType === "text") {
-            getCommand = new GetDocumentTextDetectionCommand({JobId: jobId});
+            getCommand = new GetDocumentTextDetectionCommand({ JobId: jobId });
+          } else {
+            getCommand = new GetDocumentAnalysisCommand({ JobId: jobId });
           }
-          else {
-            getCommand = new GetDocumentAnalysisCommand({JobId: jobId});
-          }
-          const {Blocks} = await model.textract.send(getCommand);
+          const { Blocks } = await model.textract.send(getCommand);
           model.extraction = {
             Name: model.imageData.objectKey,
             ExtractType: extractType,
-            Children: model._make_page_hierarchy(Blocks)
+            Children: model._make_page_hierarchy(Blocks),
           };
           model.inform();
         }
-      }
-      else {
+      } else {
         const tick = 5000;
         waitTime += tick;
-        console.log(`Waited ${waitTime / 1000} seconds. No messages yet.`)
+        console.log(`Waited ${waitTime / 1000} seconds. No messages yet.`);
         setTimeout(getJob, tick);
       }
     }
@@ -275,11 +297,11 @@ export default class TextractModel {
   _add_children(block, block_dict) {
     const rels_list = block.Relationships || [];
     rels_list.forEach((rels) => {
-      if (rels.Type === 'CHILD') {
-        block['Children'] = [];
+      if (rels.Type === "CHILD") {
+        block["Children"] = [];
         rels.Ids.forEach((relId) => {
           const kid = block_dict[relId];
-          block['Children'].push(kid);
+          block["Children"].push(kid);
           this._add_children(kid, block_dict);
         });
       }
@@ -295,13 +317,13 @@ export default class TextractModel {
    */
   _make_page_hierarchy(blocks) {
     const block_dict = {};
-    blocks.forEach((block) => block_dict[block.Id] = block);
+    blocks.forEach((block) => (block_dict[block.Id] = block));
 
     const pages = [];
     blocks.forEach((block) => {
-      if (block.BlockType === 'PAGE') {
+      if (block.BlockType === "PAGE") {
         pages.push(block);
-        this._add_children(block, block_dict)
+        this._add_children(block, block_dict);
       }
     });
     return pages;

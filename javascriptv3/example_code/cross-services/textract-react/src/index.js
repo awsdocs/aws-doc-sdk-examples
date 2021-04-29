@@ -13,36 +13,36 @@
  * can be rendered whenever the underlying model changes.
  */
 
-import 'bootstrap/dist/css/bootstrap.css';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Config} from "./Config";
-import {awsFactory} from "./AwsFactory";
-import App from './App';
+import "bootstrap/dist/css/bootstrap.css";
+import React from "react";
+import ReactDOM from "react-dom";
+import { Config } from "./Config";
+import { awsFactory } from "./AwsFactory";
+import App from "./App";
 import TextractModel from "./TextractModel";
 
 const params = new URLSearchParams(window.location.hash.slice(1));
-const idToken = params.get('id_token');
+const idToken = params.get("id_token");
 let awsClients = null;
-if (typeof Config.CognitoId !== 'undefined') {
+if (typeof Config.CognitoId !== "undefined") {
   awsClients = awsFactory({
     cognitoId: Config.CognitoId,
     cognitoToken: idToken,
     cognitoIdentityPoolId: Config.CognitoIdentityPoolId,
-    deployRegion: Config.DeployRegion
+    deployRegion: Config.DeployRegion,
   });
 }
 const model = new TextractModel({
   ...awsClients,
-  ...Config
+  ...Config,
 });
 
 const render = () =>
   ReactDOM.render(
     <React.StrictMode>
-      <App model={model} isSignedIn={idToken !== null} config={Config}/>
+      <App model={model} isSignedIn={idToken !== null} config={Config} />
     </React.StrictMode>,
-    document.getElementById('root')
+    document.getElementById("root")
   );
 
 model.subscribe(render);

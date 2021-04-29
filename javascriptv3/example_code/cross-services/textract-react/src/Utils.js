@@ -5,13 +5,13 @@
  * A map of Amazon Textract block types to colors used to display the items.
  */
 export const ColorMap = {
-  PAGE: 'RebeccaPurple',
-  LINE: 'LimeGreen',
-  WORD: 'SaddleBrown',
-  TABLE: 'Teal',
-  CELL: 'Salmon',
-  KEY_VALUE_SET: 'CornflowerBlue',
-  SELECTION_ELEMENT: 'Tomato'
+  PAGE: "RebeccaPurple",
+  LINE: "LimeGreen",
+  WORD: "SaddleBrown",
+  TABLE: "Teal",
+  CELL: "Salmon",
+  KEY_VALUE_SET: "CornflowerBlue",
+  SELECTION_ELEMENT: "Tomato",
 };
 
 /**
@@ -19,7 +19,7 @@ export const ColorMap = {
  * in the explorer panel.
  */
 export const FilterMap = {
-  text: ['PAGE', 'LINE', 'WORD'],
-  table: ['PAGE', 'TABLE', 'CELL', 'WORD'],
-  form: ['PAGE', 'KEY_VALUE_SET', 'WORD', 'SELECTION_ELEMENT']
-}
+  text: ["PAGE", "LINE", "WORD"],
+  table: ["PAGE", "TABLE", "CELL", "WORD"],
+  form: ["PAGE", "KEY_VALUE_SET", "WORD", "SELECTION_ELEMENT"],
+};

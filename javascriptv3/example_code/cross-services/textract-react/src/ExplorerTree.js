@@ -1,8 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react';
-import {ColorMap, FilterMap} from "./Utils";
+import React from "react";
+import { ColorMap, FilterMap } from "./Utils";
 
 /**
  * An individual node that displays a block item from Amazon Textract as a checkbox.
@@ -21,13 +21,19 @@ import {ColorMap, FilterMap} from "./Utils";
 const ExplorerNode = (props) => {
   return (
     <li className="list-group-item">
-      <div className="form-check" style={{color: ColorMap[props.BlockType]}}>
+      <div className="form-check" style={{ color: ColorMap[props.BlockType] }}>
         <input
-          className="form-check-input" type="checkbox" id={props.Id}
+          className="form-check-input"
+          type="checkbox"
+          id={props.Id}
           checked={props.shownPolygons.some((poly) => poly.Id === props.Id)}
           onChange={(event) =>
             props.togglePolygon(
-              props.Id, props.BlockType, props.Geometry, event.target.checked)
+              props.Id,
+              props.BlockType,
+              props.Geometry,
+              event.target.checked
+            )
           }
         />
         <label className="form-check-label" htmlFor={props.Id}>
@@ -43,7 +49,7 @@ const ExplorerNode = (props) => {
       />
     </li>
   );
-}
+};
 
 /**
  * A list of Amazon Textract block items that share a common hierarchical parent.
@@ -57,25 +63,28 @@ const ExplorerNode = (props) => {
  * @returns {JSX.Element}
  */
 const ExplorerList = (props) => {
-  let childNodes = props.Children ?
-    props.Children
-      .filter((child) => {
+  let childNodes = props.Children
+    ? props.Children.filter((child) => {
         return FilterMap[props.extractType].includes(child.BlockType);
       }).map((child) => {
-        return <ExplorerNode
-          key={child.Id} Id={child.Id} BlockType={child.BlockType}
-          Text={child.Text} Children={child.Children} Geometry={child.Geometry}
-          togglePolygon={props.togglePolygon}
-          shownPolygons={props.shownPolygons}
-          extractType={props.extractType}
-        />
-      }) : null;
+        return (
+          <ExplorerNode
+            key={child.Id}
+            Id={child.Id}
+            BlockType={child.BlockType}
+            Text={child.Text}
+            Children={child.Children}
+            Geometry={child.Geometry}
+            togglePolygon={props.togglePolygon}
+            shownPolygons={props.shownPolygons}
+            extractType={props.extractType}
+          />
+        );
+      })
+    : null;
 
-  return (
-    <ul className={props.listClasses.join(" ")}>
-      {childNodes}
-    </ul>);
-}
+  return <ul className={props.listClasses.join(" ")}>{childNodes}</ul>;
+};
 
 /**
  * A hierarchical tree of block items returned by Amazon Textract. Block items
@@ -92,7 +101,7 @@ export const ExplorerTree = (props) => {
   return (
     <div>
       <div className="card-header">{props.extraction.Name}</div>
-      <div style={{height: `calc(100vh - 200px)`, overflowY: "auto"}}>
+      <div style={{ height: `calc(100vh - 200px)`, overflowY: "auto" }}>
         <ExplorerList
           listClasses={["list-group", "list-group-flush"]}
           Children={props.extraction.Children}
@@ -101,5 +110,6 @@ export const ExplorerTree = (props) => {
           shownPolygons={props.shownPolygons}
         />
       </div>
-    </div>);
-}
+    </div>
+  );
+};

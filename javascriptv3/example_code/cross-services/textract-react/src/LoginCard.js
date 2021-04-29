@@ -16,10 +16,9 @@ export const LoginCard = (props) => {
       <div className="card-body">
         <h5 className="card-title">Sign in</h5>
         <h6 className="card-subtitle mb-2 text-muted">
-          You must first sign in with Amazon Cognito to use this application.</h6>
-        <a
-          type="button" className="btn btn-primary"
-          href={props.loginUrl}>
+          You must first sign in with Amazon Cognito to use this application.
+        </h6>
+        <a type="button" className="btn btn-primary" href={props.loginUrl}>
           Sign in
         </a>
       </div>

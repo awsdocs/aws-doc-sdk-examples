@@ -1,11 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {CognitoIdentityClient} from "@aws-sdk/client-cognito-identity";
-import {fromCognitoIdentityPool} from "@aws-sdk/credential-provider-cognito-identity";
-import {TextractClient} from "@aws-sdk/client-textract";
-import {S3Client} from "@aws-sdk/client-s3";
-import {SQSClient} from "@aws-sdk/client-sqs";
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
+import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
+import { TextractClient } from "@aws-sdk/client-textract";
+import { S3Client } from "@aws-sdk/client-s3";
+import { SQSClient } from "@aws-sdk/client-sqs";
 
 /**
  * A factory that creates AWS clients used by the demo application.
@@ -20,23 +20,33 @@ import {SQSClient} from "@aws-sdk/client-sqs";
  *                      demo.
  * @returns {{}}: The AWS clients, initialized with Amazon Cognito identity credentials.
  */
-export const awsFactory = (
-    {cognitoId, cognitoToken, cognitoIdentityPoolId, deployRegion}) => {
+export const awsFactory = ({
+  cognitoId,
+  cognitoToken,
+  cognitoIdentityPoolId,
+  deployRegion,
+}) => {
   const creds = fromCognitoIdentityPool({
-    client: new CognitoIdentityClient({region: deployRegion}),
+    client: new CognitoIdentityClient({ region: deployRegion }),
     identityPoolId: cognitoIdentityPoolId,
-    logins: {[cognitoId]: cognitoToken}
+    logins: { [cognitoId]: cognitoToken },
   });
 
-  const clients = {}
-  clients['s3'] = new S3Client({
-    region: deployRegion, credentials: creds});
+  const clients = {};
+  clients["s3"] = new S3Client({
+    region: deployRegion,
+    credentials: creds,
+  });
 
-  clients['textract'] = new TextractClient({
-    region: deployRegion, credentials: creds});
+  clients["textract"] = new TextractClient({
+    region: deployRegion,
+    credentials: creds,
+  });
 
-  clients['sqs'] = new SQSClient({
-    region: deployRegion, credentials: creds});
+  clients["sqs"] = new SQSClient({
+    region: deployRegion,
+    credentials: creds,
+  });
 
   return clients;
 };

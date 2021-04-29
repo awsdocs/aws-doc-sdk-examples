@@ -1,12 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import React, {useState, useEffect} from "react";
-import {ImageLoader} from "./ImageLoader";
-import {ImageDisplay} from "./ImageDisplay";
-import {ExtractButtons} from "./ExtractButtons";
-import {ExplorerCard} from "./ExplorerCard";
-import {LoginCard} from "./LoginCard";
+import React, { useState, useEffect } from "react";
+import { ImageLoader } from "./ImageLoader";
+import { ImageDisplay } from "./ImageDisplay";
+import { ExtractButtons } from "./ExtractButtons";
+import { ExplorerCard } from "./ExplorerCard";
+import { LoginCard } from "./LoginCard";
 
 /**
  * Main React application element. Includes panels for signing in, loading and
@@ -27,10 +27,14 @@ function App(props) {
   const togglePolygon = (polyId, blockType, geometry, show) => {
     console.log(`togglePolygon: ${polyId} ${geometry}, ${show}`);
     if (show) {
-      setShownPolygons(shownPolygons.concat({
-        Id: polyId, BlockType: blockType, Geometry: geometry}));
-    }
-    else {
+      setShownPolygons(
+        shownPolygons.concat({
+          Id: polyId,
+          BlockType: blockType,
+          Geometry: geometry,
+        })
+      );
+    } else {
       setShownPolygons(shownPolygons.filter((poly) => poly.Id !== polyId));
     }
   };
@@ -44,16 +48,17 @@ function App(props) {
   const loadImage = (bucketName, objectKey) => {
     setShownPolygons([]);
     props.model.loadImage(bucketName, objectKey);
-  }
+  };
 
   const startExtraction = (syncType, extractType) => {
     setShownPolygons([]);
     setExtracting(true);
     props.model.extractDocument(syncType, extractType);
-  }
+  };
 
-  const loginCard = (props.isSignedIn) ? null :
-    <LoginCard loginUrl={props.config.LoginUrl}/>;
+  const loginCard = props.isSignedIn ? null : (
+    <LoginCard loginUrl={props.config.LoginUrl} />
+  );
 
   return (
     <div className="App container">
@@ -70,7 +75,8 @@ function App(props) {
           <div className="card mt-3">
             <div className="card-body">
               <ImageDisplay
-                imageData={props.model.imageData.base64Data} shownPolygons={shownPolygons}
+                imageData={props.model.imageData.base64Data}
+                shownPolygons={shownPolygons}
               />
               <ExtractButtons
                 hasImage={"base64Data" in props.model.imageData}

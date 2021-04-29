@@ -7,33 +7,37 @@
  * Data in the format returned by Amazon Textract.
  */
 export const TestExtractResponse = {
-  Blocks: [{
-    BlockType: 'PAGE',
-    Geometry: {test: 'test geometry'},
-    Id: 'page1',
-    Relationships: [{
-      Ids: [
-        'line1-1',
+  Blocks: [
+    {
+      BlockType: "PAGE",
+      Geometry: { test: "test geometry" },
+      Id: "page1",
+      Relationships: [
+        {
+          Ids: ["line1-1"],
+          Type: "CHILD",
+        },
       ],
-      Type: 'CHILD'
-    }]
-  }, {
-    BlockType: 'LINE',
-    Geometry: {},
-    Id: 'line1-1',
-    Text: 'LINE 1',
-    Relationships: [{
-      Ids: [
-        'word1-1-1',
+    },
+    {
+      BlockType: "LINE",
+      Geometry: {},
+      Id: "line1-1",
+      Text: "LINE 1",
+      Relationships: [
+        {
+          Ids: ["word1-1-1"],
+          Type: "CHILD",
+        },
       ],
-      Type: 'CHILD'
-    }]
-  }, {
-    BlockType: 'WORD',
-    Geometry: {},
-    Id: 'word1-1-1',
-    Text: 'WORD 1',
-  }]
+    },
+    {
+      BlockType: "WORD",
+      Geometry: {},
+      Id: "word1-1-1",
+      Text: "WORD 1",
+    },
+  ],
 };
 
 /**
@@ -42,33 +46,39 @@ export const TestExtractResponse = {
 export const TestExtractDocument = {
   Name: "Test extract document",
   ExtractType: "text",
-  Children: [{
-    BlockType: "PAGE",
-    Id: "page1",
-    Geometry: {test: "test geometry"},
-    Children: [{
-      BlockType: "LINE",
-      Id: "line1-1",
-      Text: "LINE 1",
-      Geometry: {},
-      Children: [{
-        BlockType: 'WORD',
-        Id: 'word1-1-1',
-        Text: 'WORD 1',
-        Geometry: {},
-      }],
-      Relationships: [{
-        Ids: [
-          'word1-1-1',
-        ],
-        Type: 'CHILD'
-      }]
-    }],
-    Relationships: [{
-      Ids: [
-        'line1-1',
+  Children: [
+    {
+      BlockType: "PAGE",
+      Id: "page1",
+      Geometry: { test: "test geometry" },
+      Children: [
+        {
+          BlockType: "LINE",
+          Id: "line1-1",
+          Text: "LINE 1",
+          Geometry: {},
+          Children: [
+            {
+              BlockType: "WORD",
+              Id: "word1-1-1",
+              Text: "WORD 1",
+              Geometry: {},
+            },
+          ],
+          Relationships: [
+            {
+              Ids: ["word1-1-1"],
+              Type: "CHILD",
+            },
+          ],
+        },
       ],
-      Type: 'CHILD'
-    }]
-  }]
+      Relationships: [
+        {
+          Ids: ["line1-1"],
+          Type: "CHILD",
+        },
+      ],
+    },
+  ],
 };

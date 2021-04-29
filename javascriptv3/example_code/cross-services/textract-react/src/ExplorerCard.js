@@ -1,8 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import React, {useRef} from 'react';
-import {ExplorerTree} from "./ExplorerTree";
+import React, { useRef } from "react";
+import { ExplorerTree } from "./ExplorerTree";
 
 /**
  * Displays output from Amazon Textract as a hierarchical tree of checkboxes.
@@ -26,12 +26,15 @@ export const ExplorerCard = (props) => {
   if (props.extraction) {
     subtitle = `Showing extracted ${props.extraction.ExtractType} data`;
     instructions = "Click an element to draw its bounding polygon.";
-    tree = <ExplorerTree
-      extracting={props.extracting}
-      extraction={props.extraction} togglePolygon={props.togglePolygon}
-      shownPolygons={props.shownPolygons}
-      headerHeight={(cardRef.current) ? cardRef.current.offsetHeight : 10}
-    />;
+    tree = (
+      <ExplorerTree
+        extracting={props.extracting}
+        extraction={props.extraction}
+        togglePolygon={props.togglePolygon}
+        shownPolygons={props.shownPolygons}
+        headerHeight={cardRef.current ? cardRef.current.offsetHeight : 10}
+      />
+    );
   }
 
   return (
@@ -40,15 +43,17 @@ export const ExplorerCard = (props) => {
         <h5 className="card-title">{props.header}</h5>
         <h6 className="card-subtitle mb-2 text-muted">{subtitle}</h6>
         <p className="card-text">{instructions}</p>
-        <div className={
-            `d-flex justify-content-center m-4 ${props.extracting ? '' : 'visually-hidden'}`}>
+        <div
+          className={`d-flex justify-content-center m-4 ${
+            props.extracting ? "" : "visually-hidden"
+          }`}
+        >
           <div className="spinner-border text-success" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
         </div>
-        <div className={props.extracting ? 'visually-hidden' : ''}>
-          {tree}
-        </div>
+        <div className={props.extracting ? "visually-hidden" : ""}>{tree}</div>
       </div>
-    </div>);
-}
+    </div>
+  );
+};
