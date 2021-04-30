@@ -52,7 +52,7 @@ Resources:
     Type: AWS::SNS::Topic
     Metadata:
       aws:cdk:path: video-analyzer/rekognition-demo-topic/Resource
-  rekognitionvideoanalyzerdemoroleC36E244D:
+  rekognitionvideoanalyzerrole316A744F:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -63,8 +63,8 @@ Resources:
               Service: rekognition.amazonaws.com
         Version: "2012-10-17"
     Metadata:
-      aws:cdk:path: video-analyzer/rekognition-video-analyzer-demo-role/Resource
-  rekognitionvideoanalyzerdemoroleDefaultPolicyD5C87263:
+      aws:cdk:path: video-analyzer/rekognition-video-analyzer-role/Resource
+  rekognitionvideoanalyzerroleDefaultPolicy9F799B85:
     Type: AWS::IAM::Policy
     Properties:
       PolicyDocument:
@@ -74,11 +74,11 @@ Resources:
             Resource:
               Ref: rekognitiondemotopic9DBECDA9
         Version: "2012-10-17"
-      PolicyName: rekognitionvideoanalyzerdemoroleDefaultPolicyD5C87263
+      PolicyName: rekognitionvideoanalyzerroleDefaultPolicy9F799B85
       Roles:
-        - Ref: rekognitionvideoanalyzerdemoroleC36E244D
+        - Ref: rekognitionvideoanalyzerrole316A744F
     Metadata:
-      aws:cdk:path: video-analyzer/rekognition-video-analyzer-demo-role/DefaultPolicy/Resource
+      aws:cdk:path: video-analyzer/rekognition-video-analyzer-role/DefaultPolicy/Resource
   ExampleIdentityPool:
     Type: AWS::Cognito::IdentityPool
     Properties:
