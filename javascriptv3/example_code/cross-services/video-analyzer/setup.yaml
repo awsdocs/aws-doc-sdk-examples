@@ -17,244 +17,6 @@ Resources:
     UpdateReplacePolicy: Delete
     DeletionPolicy: Delete
     Metadata:
-      aws:cdk:path: rekognition-example-s3-sns-sqs1/rekognition-demo-bucket/Resource
-  rekognitiondemobucketPolicyA85D753E:
-    Type: AWS::S3::BucketPolicy
-    Properties:
-      Bucket:
-        Ref: rekognitiondemobucketCF294C9A
-      PolicyDocument:
-        Statement:
-          - Action:
-              - s3:GetObject*
-              - s3:GetBucket*
-              - s3:List*
-              - s3:DeleteObject*
-              - s3:PutObject*
-              - s3:Abort*
-            Effect: Allow
-            Principal:
-              Service: rekognition.amazonaws.com
-            Resource:
-              - Fn::GetAtt:
-                  - rekognitiondemobucketCF294C9A
-                  - Arn
-              - Fn::Join:
-                  - ""
-                  - - Fn::GetAtt:
-                        - rekognitiondemobucketCF294C9A
-                        - Arn
-                    - /*
-        Version: "2012-10-17"
-    Metadata:
-      aws:cdk:path: rekognition-example-s3-sns-sqs1/rekognition-demo-bucket/Policy/Resource
-  rekognitiondemotopic9DBECDA9:
-    Type: AWS::SNS::Topic
-    Metadata:
-      aws:cdk:path: rekognition-example-s3-sns-sqs1/rekognition-demo-topic/Resource
-  rekognitiondemorole843BA0C9:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Statement:
-          - Action: sts:AssumeRole
-            Effect: Allow
-            Principal:
-              Service: rekognition.amazonaws.com
-        Version: "2012-10-17"
-    Metadata:
-      aws:cdk:path: rekognition-example-s3-sns-sqs1/rekognition-demo-role/Resource
-  rekognitiondemoroleDefaultPolicy0F28F69B:
-    Type: AWS::IAM::Policy
-    Properties:
-      PolicyDocument:
-        Statement:
-          - Action: sns:Publish
-            Effect: Allow
-            Resource:
-              Ref: rekognitiondemotopic9DBECDA9
-        Version: "2012-10-17"
-      PolicyName: rekognitiondemoroleDefaultPolicy0F28F69B
-      Roles:
-        - Ref: rekognitiondemorole843BA0C9
-    Metadata:
-      aws:cdk:path: rekognition-example-s3-sns-sqs1/rekognition-demo-role/DefaultPolicy/Resource
-  ExampleIdentityPool:
-    Type: AWS::Cognito::IdentityPool
-    Properties:
-      AllowUnauthenticatedIdentities: true
-    Metadata:
-      aws:cdk:path: rekognition-example-s3-sns-sqs1/ExampleIdentityPool
-  CognitoDefaultUnauthenticatedRoleABBF7267:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Statement:
-          - Action: sts:AssumeRoleWithWebIdentity
-            Condition:
-              StringEquals:
-                cognito-identity.amazonaws.com:aud:
-                  Ref: ExampleIdentityPool
-              ForAnyValue:StringLike:
-                cognito-identity.amazonaws.com:amr: unauthenticated
-            Effect: Allow
-            Principal:
-              Federated: cognito-identity.amazonaws.com
-        Version: "2012-10-17"
-    Metadata:
-      aws:cdk:path: rekognition-example-s3-sns-sqs1/CognitoDefaultUnauthenticatedRole/Resource
-  CognitoDefaultUnauthenticatedRoleDefaultPolicy2B700C08:
-    Type: AWS::IAM::Policy
-    Properties:
-      PolicyDocument:
-        Statement:
-          - Action:
-              - mobileanalytics:PutEvents
-              - cognito-sync:*
-            Effect: Allow
-            Resource: "*"
-          - Action:
-              - rekognition:StartFaceDetection
-              - rekognition:GetFaceDetection
-            Effect: Allow
-            Resource: "*"
-          - Action:
-              - s3:PutObject
-              - s3:DeleteObject
-              - s3:ListBucket
-              - s3:GetObject
-            Effect: Allow
-            Resource: "*"
-          - Action: ses:SendEmail
-            Effect: Allow
-            Resource: "*"
-        Version: "2012-10-17"
-      PolicyName: CognitoDefaultUnauthenticatedRoleDefaultPolicy2B700C08
-      Roles:
-        - Ref: CognitoDefaultUnauthenticatedRoleABBF7267
-    Metadata:
-      aws:cdk:path: rekognition-example-s3-sns-sqs1/CognitoDefaultUnauthenticatedRole/DefaultPolicy/Resource
-  DefaultValid:
-    Type: AWS::Cognito::IdentityPoolRoleAttachment
-    Properties:
-      IdentityPoolId:
-        Ref: ExampleIdentityPool
-      Roles:
-        unauthenticated:
-          Fn::GetAtt:
-            - CognitoDefaultUnauthenticatedRoleABBF7267
-            - Arn
-    Metadata:
-      aws:cdk:path: rekognition-example-s3-sns-sqs1/DefaultValid
-  CDKMetadata:
-    Type: AWS::CDK::Metadata
-    Properties:
-      Analytics: v2:deflate64:H4sIAAAAAAAACl1POw7CMAw9C3swFBhgAzoxgQoXqNwApm2MGgeEotydNAUhMb2P37PlDFZLmI7W5dOOsaonHrnT4I9SYq1yNlY6h6Lys9k7ubvECm3Zdah7HiMVCbEJql/h7Rz81mGtU/LDBjhwQ/j62YMOyhoL/sR3wn6WSFBUtuALbtKRhL/6t4h8MSQMPnq7ShsheR2YG/Wn+/pG4kfXNpohBGW40nCzk0c2g2wB2ehmicadi5VWQzHgG9v+r2YbAQAA
-    Metadata:
-      aws:cdk:path: rekognition-example-s3-sns-sqs1/CDKMetadata/Default
-    Condition: CDKMetadataAvailable
-Outputs:
-  BucketName:
-    Value:
-      Ref: rekognitiondemobucketCF294C9A
-  TopicArn:
-    Value:
-      Ref: rekognitiondemotopic9DBECDA9
-  Identitypoolid:
-    Value:
-      Ref: ExampleIdentityPool
-Conditions:
-  CDKMetadataAvailable:
-    Fn::Or:
-      - Fn::Or:
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - af-south-1
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - ap-east-1
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - ap-northeast-1
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - ap-northeast-2
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - ap-south-1
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - ap-southeast-1
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - ap-southeast-2
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - ca-central-1
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - cn-north-1
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - cn-northwest-1
-      - Fn::Or:
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - eu-central-1
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - eu-north-1
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - eu-south-1
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - eu-west-1
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - eu-west-2
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - eu-west-3
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - me-south-1
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - sa-east-1
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - us-east-1
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - us-east-2
-      - Fn::Or:
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - us-west-1
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - us-west-2
-
-Resources:
-  rekognitiondemobucketCF294C9A:
-    Type: AWS::S3::Bucket
-    Properties:
-      CorsConfiguration:
-        CorsRules:
-          - AllowedHeaders:
-              - "*"
-            AllowedMethods:
-              - GET
-              - PUT
-            AllowedOrigins:
-              - "*"
-            ExposedHeaders:
-              - ETag
-              - x-amz-meta-custom-header
-    UpdateReplacePolicy: Delete
-    DeletionPolicy: Delete
-    Metadata:
       aws:cdk:path: video-analyzer/rekognition-demo-bucket/Resource
   rekognitiondemobucketPolicyA85D753E:
     Type: AWS::S3::BucketPolicy
@@ -290,7 +52,7 @@ Resources:
     Type: AWS::SNS::Topic
     Metadata:
       aws:cdk:path: video-analyzer/rekognition-demo-topic/Resource
-  rekognitiondemorole843BA0C9:
+  rekognitionvideoanalyzerdemoroleC36E244D:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -301,8 +63,8 @@ Resources:
               Service: rekognition.amazonaws.com
         Version: "2012-10-17"
     Metadata:
-      aws:cdk:path: video-analyzer/rekognition-demo-role/Resource
-  rekognitiondemoroleDefaultPolicy0F28F69B:
+      aws:cdk:path: video-analyzer/rekognition-video-analyzer-demo-role/Resource
+  rekognitionvideoanalyzerdemoroleDefaultPolicyD5C87263:
     Type: AWS::IAM::Policy
     Properties:
       PolicyDocument:
@@ -312,11 +74,11 @@ Resources:
             Resource:
               Ref: rekognitiondemotopic9DBECDA9
         Version: "2012-10-17"
-      PolicyName: rekognitiondemoroleDefaultPolicy0F28F69B
+      PolicyName: rekognitionvideoanalyzerdemoroleDefaultPolicyD5C87263
       Roles:
-        - Ref: rekognitiondemorole843BA0C9
+        - Ref: rekognitionvideoanalyzerdemoroleC36E244D
     Metadata:
-      aws:cdk:path: video-analyzer/rekognition-demo-role/DefaultPolicy/Resource
+      aws:cdk:path: video-analyzer/rekognition-video-analyzer-demo-role/DefaultPolicy/Resource
   ExampleIdentityPool:
     Type: AWS::Cognito::IdentityPool
     Properties:
