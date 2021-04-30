@@ -21,7 +21,6 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.AttributeTy
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
 //snippet-end:[cognito.java2.new_admin_user.import]
 
-
 /**
  * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
  *
@@ -56,12 +55,12 @@ public class CreateUser {
                 .region(Region.US_EAST_1)
                 .build();
 
-        createAdmin(cognitoclient, userPoolId, userName, email, password);
+        createNewUser(cognitoclient, userPoolId, userName, email, password);
         cognitoclient.close();
     }
 
     //snippet-start:[cognito.java2.add_login_provider.main]
-    public static void createAdmin(CognitoIdentityProviderClient cognitoclient,
+    public static void createNewUser(CognitoIdentityProviderClient cognitoclient,
                                    String userPoolId,
                                    String name,
                                    String email,
