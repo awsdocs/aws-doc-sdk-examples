@@ -1,4 +1,4 @@
-# Creating a Job Posting Site using Amazon Redshift and Amazon Translation Services
+# Creating a Job Posting Site using Amazon Redshift and Amazon Translate Services
 
 You can create a web application that stores and queries data by using the Amazon Redshift service and the Amazon Redshift Java API V2. To interact with an Amazon Redshift table, you can use a [software.amazon.awssdk.services.redshiftdata.RedshiftDataClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/redshiftdata/RedshiftDataClient.html). The application created in this AWS tutorial is a job posting web application that lets an employer, an administrator, or human resources staff alert employees or the public about a job opening within a company.
 
@@ -26,7 +26,7 @@ This example application lets you view the posts by choosing the **Get Posts** m
 
 ![AWS Tracking Application](images/FiveRecordsa.png)
 
-This application also supports viewing the result set in different languages. For example, if a user wants to view the result set in Spanish, they can choose Spanish from the dropdown field and the data is translated to the given language by using the Amazon Translate Service, as shown in this illustration. 
+This application also supports viewing the result set in different languages. For example, if a user wants to view the result set in Spanish, they can choose Spanish from the dropdown field and the data is translated to the given language by using Amazon Translate, as shown in this illustration. 
 
 ![AWS Tracking Application](images/Spanisha.png)
 
@@ -36,14 +36,14 @@ This application also supports viewing the result set in different languages. Fo
 
 #### Topics
 
-+ Prerequisites
-+ Create an IntelliJ project 
-+ Add the POM dependencies to your project
-+ Set up the Java packages in your project
-+ Create the Java classes
-+ Create the HTML files
-+ Package the application into a JAR file
-+ Deploy the application to Elastic Beanstalk
+1. Prerequisites
+2. Create an IntelliJ project 
+3. Add the POM dependencies to your project
+4. Set up the Java packages in your project
+5. Create the Java classes
+6. Create the HTML files
+7. Package the application into a JAR file
+8. Deploy the application to Elastic Beanstalk
 
 
 ## Prerequisites
@@ -359,7 +359,7 @@ The following Java code represents the **Post** class.
 
 ### RedshiftService class
 
-The following Java code represents the **RedshiftService** class. This class uses the Amazon Redshift Java API (V2) to interact with data located the **blog** table.  For example, the **getPosts** method returns a result set that is queried from the **blog** table and displayed in the view. Likewise, the **addRecord** method adds a new record to the **blog** table. This class also uses the Amazon Translate Java V2 API to translation the result set if requested by the user. 
+The following Java code represents the **RedshiftService** class. This class uses the Amazon Redshift Java API (V2) to interact with data located the **blog** table.  For example, the **getPosts** method returns a result set that is queried from the **blog** table and displayed in the view. Likewise, the **addRecord** method adds a new record to the **blog** table. This class also uses the Amazon Translate Java V2 API to translate the result set if requested by the user. 
 
      package com.aws.blog;
 
