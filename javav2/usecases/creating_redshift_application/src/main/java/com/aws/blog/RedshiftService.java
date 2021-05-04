@@ -53,7 +53,7 @@ public class RedshiftService {
     }
 
 
-    // Returns a collection that returns the latest five posts from the Redshift table.
+    // Returns a collection that returns 5, 10, or all posts from the Redshift table.
     public String getPosts(String lang, int num) {
 
         try {
