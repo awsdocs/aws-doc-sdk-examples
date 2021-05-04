@@ -43,7 +43,7 @@ This application also supports viewing the result set in different languages. Fo
 5. Create the Java classes
 6. Create the HTML files
 7. Package the application into a JAR file
-8. Deploy the application to Elastic Beanstalk
+8. Deploy the application to AWS Elastic Beanstalk
 
 
 ## Prerequisites
@@ -197,7 +197,7 @@ At this point, you have a new project named **Blog**. Ensure that the pom.xml fi
      
  ## Create the Java classes
  
- Create a Java package in the main/java folder named **com.aws.blog**. This Java classes go into this package. 
+ Create a Java package in the main/java folder named **com.aws.blog**. The Java classes go into this package. 
  
  ![AWS Lex](images/Java.png)
  
@@ -1181,7 +1181,7 @@ If this is your first time accessing this service, you will see a **Welcome to A
 10. For **Platform**, choose **Java** (accept the default values for the other fields).
 11. In the **Application code** section, choose **Upload your code**.
 12. Choose **Local file**, and then select **Choose file**. Browse to the JAR file that you created.  
-13. Choose **Create environment**. You'll see the application being created. When you’re done, you will see the application state the **Health** is **Ok** .
+13. Choose **Create environment**. You'll see the application being created. When you’re done, you will see the application state **Health** is **Ok**.
 14. To change the port that Spring Boot listens on, add an environment variable named **SERVER_PORT**, with the value **5000**.
 11. Add a variable named **AWS_ACCESS_KEY_ID**, and then specify your access key value.
 12. Add a variable named **AWS_SECRET_ACCESS_KEY**, and then specify your secret key value. After the variables are configured, you'll see the URL for accessing the application.
@@ -1195,5 +1195,5 @@ To access the application, open your browser and enter the URL for your applicat
 ### Next steps
 Congratulations! You have created a Spring Boot application that uses the Amazon Redshift data client to create an example job posting application. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
-For more AWS multiservice examples, see
+For more AWS cross service examples, see
 [usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).
