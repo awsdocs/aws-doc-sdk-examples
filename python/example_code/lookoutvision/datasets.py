@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 """
-Amazon lookout for vision dataset code examples used in the service documentation:
+Amazon lookout for Vision dataset code examples used in the service documentation:
 https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/model-create-dataset.html
 Shows how to create and manage datasets. Also, how to create a manifest file and
 upload to an S3 bucket.
@@ -27,11 +27,12 @@ class Datasets:
     def create_dataset(lookoutvision_client, project_name, manifest_file, dataset_type):
         """
         Creates a new Amazon Lookout for Vision dataset
-        param: lookoutvision_client: The Amazon Lookout for Vision boto 3 client.
-        param: project_name: The name of the project in which you want to create a dataset.
-        param: bucket:  The bucket that contains the manifest file.
-        param: manifest_file: The path and name of the manifest file.
-        param: dataset_type: The type of the dataset (train or test).
+        :param lookoutvision_client: The Amazon Lookout for Vision Boto3 client.
+        :param project_name: The name of the project in which you want to
+         create a dataset.
+        :param bucket:  The bucket that contains the manifest file.
+        :param manifest_file: The path and name of the manifest file.
+        :param dataset_type: The type of the dataset (train or test).
         """
 
         try:
@@ -41,13 +42,9 @@ class Datasets:
             # Create a dataset
             logger.info("Creating %s dataset type...", dataset_type)
 
-            dataset = json.loads(
-                '{ "GroundTruthManifest": { "S3Object": { "Bucket": "'
-                + bucket
-                + '", "Key": "'
-                + key
-                + '" } } }'
-            )
+            dataset = {
+                "GroundTruthManifest": {"S3Object": {"Bucket": bucket, "Key": key}}
+            }
 
             response = lookoutvision_client.create_dataset(
                 ProjectName=project_name,
@@ -89,14 +86,9 @@ class Datasets:
                 finished = True
 
             if status != "CREATE_COMPLETE":
-                logger.exception(
-                    "Couldn't create dataset: %s",
-                    dataset_description["DatasetDescription"]["StatusMessage"],
-                )
-                raise Exception(
-                    "Couldn't create dataset: {}".format(
-                    dataset_description["DatasetDescription"]["StatusMessage"],
-                ))
+                message = dataset_description["DatasetDescription"]["StatusMessage"]
+                logger.exception("Couldn't create dataset: %s", message)
+                raise Exception(f"Couldn't create dataset: {message}")
 
         except ClientError as err:
             logger.exception(
@@ -105,24 +97,26 @@ class Datasets:
             raise
 
     @staticmethod
-    def create_manifest_file_s3(image_s3_path, manifest_s3_path):
+    def create_manifest_file_s3(s3_resource, image_s3_path, manifest_s3_path):
         """
         Creates a manifest file and uploads to S3.
-        param: image_s3_path: The S3 path to the images referenced by the manifest file. The images
-        must be in an S3 bucket with the following folder structure.
+        :param image_s3_path: The S3 path to the images referenced by the manifest file.
+        The images must be in an S3 bucket with the following folder structure.
         s3://my-bucket/<train or test>/
             normal/
             anomaly/
-        Place normal images in the normal folder. Anomalous images in the anomaly folder.
+        Place normal images in the normal folder. Anomalous images in the anomaly
+        folder.
         https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/create-dataset-s3.html
-        param: manifest_s3_path:  The S3 location in which to store the created manifest file.
+        :param manifest_s3_path: The S3 location in which to store the created
+        manifest file.
         """
 
         try:
             output_manifest_file = "temp.manifest"
 
             # Current date and time in manifest file format
-            #now=datetime.now()
+
             dttm = datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f")
 
             # get bucket and folder from image and manifest file paths
@@ -132,62 +126,63 @@ class Datasets:
                 "s3://", ""
             ).split("/", 1)
 
-            s3_client = boto3.client("s3")
-
             # create local temp manifest file
             with open(output_manifest_file, "w") as mfile:
 
                 logger.info("Creating manifest file")
                 # create JSON lines for anomalous images
-                response = s3_client.list_objects_v2(
-                    Bucket=bucket, Prefix=prefix + "anomaly/", Delimiter="/"
-                )
-                for file in response["Contents"]:
-                    image_path = "s3://{}/{}".format(bucket, file["Key"])
-                    manifest = Datasets.create_json_line(image_path, 1, dttm)
+
+                src_bucket = s3_resource.Bucket(bucket)
+                # create json lines for abnormal images.
+
+                for obj in src_bucket.objects.filter(
+                    Prefix=prefix + "anomaly/", Delimiter="/"
+                ):
+                    image_path = f"s3://{src_bucket.name}/{obj.key}"
+                    manifest = Datasets.create_json_line(image_path, "anomaly", dttm)
                     mfile.write(json.dumps(manifest) + "\n")
+
                 # create json lines for normal images
-                response = s3_client.list_objects_v2(
-                    Bucket=bucket, Prefix=prefix + "normal/", Delimiter="/"
-                )
-                for file in response["Contents"]:
-                    image_path = "s3://{}/{}".format(bucket, file["Key"])
-                    manifest = Datasets.create_json_line(image_path, 0, dttm)
+                for obj in src_bucket.objects.filter(
+                    Prefix=prefix + "normal/", Delimiter="/"
+                ):
+                    image_path = f"s3://{src_bucket.name}/{obj.key}"
+                    manifest = Datasets.create_json_line(image_path, "normal", dttm)
                     mfile.write(json.dumps(manifest) + "\n")
 
             # copy local manifest to target S3 location
             logger.info("Uploading manifest file to %s", manifest_s3_path)
-            response = s3_client.upload_file(
-                output_manifest_file, manifest_bucket, manifest_prefix
+            s3_resource.Bucket(manifest_bucket).upload_file(
+                output_manifest_file, manifest_prefix
             )
+
             # delete local manifest file
             os.remove(output_manifest_file)
 
         except ClientError as err:
-            print("S3 Service Error: {}".format(err))
+            logger.exception("S3 Service Error: %s", format(err))
             raise
 
         except Exception as err:
-            print(err)
+            logger.exception(format(err))
             raise
         else:
             logger.info("Completed manifest file creation and upload.")
 
     @staticmethod
-    def create_json_line(image, label, dttm):
+    def create_json_line(image, class_name, dttm):
         """
         Creates a single JSON line for an image.
-        param: image: The S3 location for the image.
-        param: label: The label for the image (normal or anomaly)
-        param: dttm: The date and time that the JSON is created.
+        :param image: The S3 location for the image.
+        :param label: The label for the image (normal or anomaly)
+        :param dttm: The date and time that the JSON is created.
         """
 
-        class_name = ""
-
-        if label == 0:
-            class_name = "normal"
-        elif label == 1:
-            class_name = "anomaly"
+        label = 0
+        if class_name == "normal":
+            label = 0
+        elif class_name == "anomaly":
+            label = 1
         else:
             logger.exception("Unexpected label value: %s for %s", str(label), image)
 
@@ -197,10 +192,10 @@ class Datasets:
 
         manifest = {
             "source-ref": image,
-            "auto-label": label,
-            "auto-label-metadata": {
+            "anomaly-label": label,
+            "anomaly-label-metadata": {
                 "confidence": 1,
-                "job-name": "labeling-job/auto-label",
+                "job-name": "labeling-job/anomaly-label",
                 "class-name": class_name,
                 "human-annotated": "yes",
                 "creation-date": dttm,
@@ -213,27 +208,26 @@ class Datasets:
     def delete_dataset(lookoutvision_client, project_name, dataset_type):
         """
         Deletes an Amazon Lookout for Vision dataset
-        param: lookoutvision_client: The Amazon Lookout for Vision boto 3 client.
-        param: project_name: The name of the project that contains the dataset that
+        :param lookoutvision_client: The Amazon Lookout for Vision Boto3 client.
+        :param project_name: The name of the project that contains the dataset that
         you want to delete.
-        param: dataset_type: The type (train or test) of the dataset that you
+        :param dataset_type: The type (train or test) of the dataset that you
         want to delete.
         """
         try:
-            lookoutvision_client = boto3.client("lookoutvision")
 
             # Delete the dataset
             logger.info(
-                "Deleting the " + dataset_type + " dataset for project " + project_name
+                "Deleting the %s dataset for project %s.", dataset_type, project_name
             )
             lookoutvision_client.delete_dataset(
                 ProjectName=project_name, DatasetType=dataset_type
             )
-            logger.info("Dataset deleted")
+            logger.info("Dataset deleted.")
 
         except ClientError as err:
             logger.exception(
-                "Service error: Couldn't delete dataset: %s", err.response["Message"]
+                "Service error: Couldn't delete dataset: %s.", err.response["Message"]
             )
             raise
 
@@ -241,10 +235,10 @@ class Datasets:
     def describe_dataset(lookoutvision_client, project_name, dataset_type):
         """
         Gets information about an Amazon Lookout for Vision dataset.
-        param: lookoutvision_client: The Amazon Lookout for Vision boto3 client.
-        param: project_name: The name of the project that contains the dataset that
+        :param lookoutvision_client: The Amazon Lookout for Vision Boto3 client.
+        :param project_name: The name of the project that contains the dataset that
         you want to describe.
-        param: dataset_type: The type (train or test) of the dataset that you want
+        :param dataset_type: The type (train or test) of the dataset that you want
         to describe.
         """
 
@@ -254,23 +248,21 @@ class Datasets:
             response = lookoutvision_client.describe_dataset(
                 ProjectName=project_name, DatasetType=dataset_type
             )
-            print("Name: " + response["DatasetDescription"]["ProjectName"])
-            print("Type: " + response["DatasetDescription"]["DatasetType"])
-            print("Status: " + response["DatasetDescription"]["Status"])
-            print("Message: " + response["DatasetDescription"]["StatusMessage"])
+            print(f"Name: {response['DatasetDescription']['ProjectName']}")
+            print(f"Type: {response['DatasetDescription']['DatasetType']}")
+            print(f"Status: {response['DatasetDescription']['Status']}")
+            print(f"Message: {response['DatasetDescription']['StatusMessage']}")
             print(
-                "Images: " + str(response["DatasetDescription"]["ImageStats"]["Total"])
+                f"Images: {str(response['DatasetDescription']['ImageStats']['Total'])}"
             )
             print(
-                "Labeled: "
-                + str(response["DatasetDescription"]["ImageStats"]["Labeled"])
+                f"Labeled: {str(response['DatasetDescription']['ImageStats']['Labeled'])}"
             )
             print(
-                "Normal: " + str(response["DatasetDescription"]["ImageStats"]["Normal"])
+                f"Normal: {str(response['DatasetDescription']['ImageStats']['Normal'])}"
             )
             print(
-                "Anomaly: "
-                + str(response["DatasetDescription"]["ImageStats"]["Anomaly"])
+                f"Anomaly: {str(response['DatasetDescription']['ImageStats']['Anomaly'])}"
             )
 
             print("Done...")

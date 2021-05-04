@@ -4,7 +4,7 @@
 
 Shows how to use the AWS SDK for Python (Boto3) with Amazon Lookout for Vision to
 create a model that detects anomalies in images. Examples are used in the 
-service documentation - https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/what-is.html.
+service documentation - [Amazon Lookout for Vision Developer Guide](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/what-is.html).
 
 * Create a project to manage your model.
 * Add a training dataset (and optional test dataset) that's used to train the model.
@@ -19,7 +19,6 @@ service documentation - https://docs.aws.amazon.com/lookout-for-vision/latest/de
   Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
 - Python 3.7 or later
 - Boto3 1.17.47 or later
-- argparse 3.9 or later
 
 ## Cautions
 
@@ -39,21 +38,21 @@ service documentation - https://docs.aws.amazon.com/lookout-for-vision/latest/de
 
 There are three demonstrations in this set of examples:
 
-* Creating and hosting a model.
-* Detecting anomalies in images using a model.
+* Create and host a model.
+* Detect anomalies in images using a model.
 * Find tags attached to a model.
 
 Before running these demonstrations do the following:
 - Follow the [setup instructions](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/su-set-up.html).
-- Read the [Getting started with the SDK](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/getting-started-sdk.html).
-- Create an an Amazon S3 bucket in your AWS account. You'll use the bucket to store your training images, manifest files, and training output.
+- Read [Getting started with the SDK](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/getting-started-sdk.html).
+- Create an Amazon S3 bucket in your AWS account. You'll use the bucket to store your training images, manifest files, and training output.
 - Copy your training and test images to your S3 bucket. To try this code with example images, You can use the example [circuit board dataset](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/su-prepare-example-images.html). 
 
 The folder structures for the training and test images must be as follows:
 ```
-    s3://my-bucket/<train or test>/
-        normal/
-        anomaly/
+s3://doc-example-bucket/<train or test>/
+    normal/
+    anomaly/
 ```
 `train` and `test` can be any folder path.
 Place normal images in the `normal` folder. Anomalous images in the `anomaly` folder.
@@ -68,20 +67,20 @@ python train_host.py <project> <bucket> <train> <test>
 ``` 
 
 - `project` - A name for your project.
-- `bucket` - The name of the S3 bucket in which to store your manifest files and training output (The bucket must be in your AWS account and in the same AWS Region as the S3 path supplied for `train` and `test`). For example, `my-bucket`.
-- `train` - The S3 path to where your training images are stored. For example, `s3://my-bucket/circuitboard/train/`.
-- `test` - (Optional) the S3 path to where your test images are stored. For example, `s3://my-bucket/circuitboard/test/`. If you don't supply a value, 
+- `bucket` - The name of the S3 bucket in which to store your manifest files and training output (The bucket must be in your AWS account and in the same AWS Region as the S3 path supplied for `train` and `test`). For example, `doc-example-bucket`.
+- `train` - The S3 path to where your training images are stored. For example, `s3://doc-example-bucket/circuitboard/train/`.
+- `test` - (Optional) the S3 path to where your test images are stored. For example, `s3://doc-example-bucket/circuitboard/test/`. If you don't supply a value, 
 Lookout for Vision splits the training dataset to create a test dataset.
 
 After training completes, use the performance metrics to decide if the model's performance is acceptable.
-For more information, see https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/improve.html.
+For more information, see [Improving your model](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/improve.html).
 If you are satisfied with the model's performance, the code allows you to start the model. 
 After the model starts, use `inference.py` to analyze an image.
 
 **You are charged for the amount of time that your model is running and for the time taken to successfully train your model.**
 
 
-### Detecting anomalies in images using a trained model
+### Detect anomalies in images using a trained model
 
 Shows how to detect anomalies in an image by using a trained model. 
 Run this example at a command prompt with the following command.
@@ -91,7 +90,7 @@ python inference.py <project> <version> <image>
 ``` 
 - `project` - The project that contains the model that you want to use.
 - `version` - The version of the model that you want to use.
-- `image` - The image that you want to analyze. You can supply a JPEG for PNG format file. You can also supply the S3 path of an image stored in an S3 bucket.
+- `image` - The image that you want to analyze. You can supply a JPEG or PNG format file. You can also supply the S3 path of an image stored in an S3 bucket.
 
 
 ### Find tags
@@ -103,7 +102,7 @@ python find_tag.py <tag> <value>
 - tag - The key of the tag that you want to find.
 - value - The value of the tag that you want to find.
 
- For more information about tags, see https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/tagging-model.html. 
+ For more information about tags, see [Tagging models](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/tagging-model.html). 
 
 ## Example structure
 
@@ -122,7 +121,7 @@ A simple class that shows how to create and manage an Amazon Lookout for Vision 
 A simple class that shows how to create and manage datasets. Also shows how to create a manifest file based on images found in an S3 bucket. Used by `train_host.py`.
 
 Manifest files are used to create training and test datasets. `train_host.py` uses `datasets.py` to create training and (optionally) test manifest files, and upload them to an S3 bucket location that you specify. 
-For more information about manifest files, see https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/create-dataset-ground-truth.html. 
+For more information about manifest files, see [Creating a dataset using an Amazon SageMaker Ground Truth manifest file](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/create-dataset-ground-truth.html). 
 
 ### hosting.py
 A simple class that shows how to start and stop an Amazon Lookout for Vision project. Also shows how to list hosted 
@@ -135,7 +134,7 @@ A simple class that shows how to analyze an image (JPEG/PNG) with a hosted Amazo
 Shows how to find a tag attached to an Amazon Lookout for Vision model.
 
 ### train_host.py
-Shows how to create and hosts a model. The code creates a project, creates a manifest file, creates
+Shows how to create and host a model. The code creates a project, creates a manifest file, creates
 a dataset using the manifest file,  and trains a model. Finally, if desired, the example shows how to host the model. Used by `train_host.py`.
 
 ## Additional information
