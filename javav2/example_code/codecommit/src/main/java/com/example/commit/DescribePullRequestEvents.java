@@ -23,6 +23,14 @@ import software.amazon.awssdk.services.codecommit.model.CodeCommitException;
 import java.util.List;
 // snippet-end:[codecommit.java2.describe_pr_events.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class DescribePullRequestEvents {
 
     public static void main(String[] args) {
