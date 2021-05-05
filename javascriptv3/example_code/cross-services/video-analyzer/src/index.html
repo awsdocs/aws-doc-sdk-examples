@@ -4,13 +4,13 @@ SPDX-License-Identifier: Apache-2.0
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/video-analyzer.html.
+
 Purpose:
 index.html is front end HTML for a tutorial demonstrating how to build a web app that analyzes videos for label detection using the
-JavaScript SDK for JavaScript v3. To run the full tutorial, see
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/video-analyzer.html.
+JavaScript SDK for JavaScript v3. To run the full tutorial, see https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/video-analyzer.html.
 
 Running the code:
-For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/video-analyzer.html
+For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/video-analyzer.html.
 -->
 
 <!-- snippet-start:[rekognition.HTML.video-analyzer.complete]-->
@@ -41,7 +41,6 @@ For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/deve
         </form>
         <div>
             <br>
-
             <p>Choose the following button to get information about the video to analyze.</p>
             <button onclick="getVideo()">Show Video</button>
             <table id="myTable" class="display" style="width:100%">
@@ -68,14 +67,11 @@ For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/deve
 </div>
 <div id="analyze"  >
     <div class="container">
-
         <p>You can generate a report that analyzes a video in an Amazon S3 bucket. You can send the report to the following email address. </p>
         <label for="email">Email address:</label><br>
         <input type="text" id="email" name="email" value=""><br>
-
         <div>
             <br>
-
             <p>Click the following button to analyze the video and obtain a report</p>
             <button id="button" onclick="ProcessImages()">Analyze Video</button>
         </div>
