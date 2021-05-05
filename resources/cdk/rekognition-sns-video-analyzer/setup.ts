@@ -26,7 +26,7 @@ export class SetupStack extends cdk.Stack {
 
     let topic = new Topic(this, 'rekognition-demo-topic', {});
 
-    let role = new Role(this, 'rekognition-demo-role', {
+    let role = new Role(this, 'rekognition-video-analyzer-role', {
       assumedBy: rekognition
     });
     topic.grantPublish(role);
@@ -97,6 +97,8 @@ export class SetupStack extends cdk.Stack {
     new CfnOutput(this, 'BucketName', {value: bucket.bucketName});
     new CfnOutput(this, 'TopicArn', {value: topic.topicArn});
     new CfnOutput(this, "Identity pool id", { value: myIdentityPool.ref });
+    new CfnOutput(this, "IAM Role ARN", { value: unauthenticatedRole.roleArn});
+
   }
 }
 

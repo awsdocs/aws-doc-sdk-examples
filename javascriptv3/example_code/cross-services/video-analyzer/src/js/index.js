@@ -9,6 +9,13 @@ Purpose:
 index.js contains the JavaScript for an web app that analyzes videos for label detection using the
 AWS JavaScript SDK for JavaScript v3.
 
+Inputs:
+- REGION
+- BUCKET
+- SNS_TOPIC_ARN
+- IDENTITY_POOL_ID
+- IAM_ROLE_ARN
+
 Running the code:
 To run the full tutorial, see
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/video-analyzer.html.
@@ -43,14 +50,15 @@ const {
   StartFaceDetectionCommand,
   GetFaceDetectionCommand,
 } = require("@aws-sdk/client-rekognition");
-
 const path = require("path");
-const REGION = "eu-west-1";
+
+const REGION = "REGION";
 const BUCKET =
-  "rekognition-example-s3-s-rekognitiondemobucketcf2-160hejid13n7n";
+  "BUCKET";
 const SNSTOPIC =
-  "arn:aws:sns:eu-west-1:957148002023:rekognition-example-s3-sns-sqs1-rekognitiondemotopic9DBECDA9-MDQA6YBCOQTJ"; // The Amazon Resource Number (ARN) of the Amazon Simple Notification Service (SNS) topic.
-const IDENTITYPOOLID = "eu-west-1:d45b5b7d-13f9-4927-bd27-6485a3398489";
+  "SNS_TOPIC_ARN"; // The Amazon Resource Number (ARN) of the Amazon Simple Notification Service (SNS) topic.
+const IDENTITYPOOLID = "IDENTITY_POOL_ID";
+const IAM_ROLE_ARN = "IAM_ROLE_ARN";
 
 const cognitoConfig = {
   region: REGION,
@@ -138,9 +146,8 @@ const ProcessImages = async () => {
         },
       },
       notificationChannel: {
-        roleARN:
-          "arn:aws:iam::957148002023:role/rekognition-example-s3-sn-rekognitiondemorole843BA-1L8JF3XFCY9HG",
-        SNSTopicArn: SNSTOPIC,
+        roleARN: IAM_ROLE_ARN,
+        SNSTopicArn: SNSTOPIC
       },
     };
     const data = await rekognitionClient.send(

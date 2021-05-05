@@ -163,6 +163,11 @@ Outputs:
   Identitypoolid:
     Value:
       Ref: ExampleIdentityPool
+  IAMRoleARN:
+    Value:
+      Fn::GetAtt:
+        - CognitoDefaultUnauthenticatedRoleABBF7267
+        - Arn
 Conditions:
   CDKMetadataAvailable:
     Fn::Or:
