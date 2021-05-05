@@ -35,7 +35,7 @@ const params = {
   TableName: "EPISODES_TABLE",
 };
 
-// Create a AWS DynamoDB service object.
+// Create an AWS DynamoDB service object.
 const dbclient = new DynamoDBClient({ region: REGION });
 
 async function run() {

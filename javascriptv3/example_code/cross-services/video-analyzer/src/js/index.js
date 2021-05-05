@@ -203,9 +203,9 @@ const ProcessImages = async () => {
 };
 window.ProcessImages = ProcessImages;
 
-// Helper file to create the CSV file.
+// Helper function to create the CSV file.
 function create_csv_file(facesArray) {
-  //define the heading for each row of the data
+  // Define the heading for each row of the data.
   var csv = "Bounding Box, , , , Confidance, Pose, , ,  Quality, ,\n";
 
   // Merge the data with CSV.
@@ -217,7 +217,7 @@ function create_csv_file(facesArray) {
   uploadFile(csv);
 }
 
-// Helper file to upload file to Amazon S3.
+// Helper function to upload file to Amazon S3.
 const uploadFile = async (csv) => {
   const uploadParams = {
     Bucket: BUCKET,
@@ -255,8 +255,7 @@ const sendEmail = async (bucket, key) => {
       key;
     // Set the parameters
     const params = {
-      Destination: {
-        /* required */
+      Destination: {   /* required */
         CcAddresses: [
           /* more items */
         ],
@@ -265,10 +264,8 @@ const sendEmail = async (bucket, key) => {
           /* more To-email addresses */
         ],
       },
-      Message: {
-        /* required */
-        Body: {
-          /* required */
+      Message: {   /* required */
+        Body: {   /* required */
           Html: {
             Charset: "UTF-8",
             Data:

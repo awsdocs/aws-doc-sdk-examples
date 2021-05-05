@@ -1,8 +1,8 @@
 # TypeScript environment for the Video Analyzer App tutorial
 
-This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) 'Video analyzer app' tutorial.
+This is a workspace where you can find AWS SDK for JavaScript version 3 (v3) 'Video analyzer app' tutorial.
 
-The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/video-analyzer.html) contains this examples.
+The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/video-analyzer.html) contains this example.
 
 # Getting started
 
