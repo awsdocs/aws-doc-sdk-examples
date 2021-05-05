@@ -7,7 +7,7 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/video-analyzer
 
 Purpose:
 index.js contains the JavaScript for an web app that analyzes videos for label detection using the
-JavaScript SDK for JavaScript v3.
+AWS JavaScript SDK for JavaScript v3.
 
 Running the code:
 To run the full tutorial, see
