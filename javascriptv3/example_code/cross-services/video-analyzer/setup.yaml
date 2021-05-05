@@ -9,6 +9,7 @@ Resources:
             AllowedMethods:
               - GET
               - PUT
+              - DELETE
             AllowedOrigins:
               - "*"
             ExposedHeaders:

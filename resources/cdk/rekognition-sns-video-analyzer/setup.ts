@@ -16,7 +16,7 @@ export class SetupStack extends cdk.Stack {
     let bucket = new Bucket(this, 'rekognition-demo-bucket', {
       cors: [{
         allowedHeaders: ["*"],
-        allowedMethods: [HttpMethods.GET, HttpMethods.PUT],
+        allowedMethods: [HttpMethods.GET, HttpMethods.PUT, HttpMethods.DELETE],
         allowedOrigins: ["*"],
         exposedHeaders: ["ETag", "x-amz-meta-custom-header"]
       }],
@@ -93,12 +93,10 @@ export class SetupStack extends cdk.Stack {
           },
         }
     );
-
     new CfnOutput(this, 'BucketName', {value: bucket.bucketName});
     new CfnOutput(this, 'TopicArn', {value: topic.topicArn});
     new CfnOutput(this, "Identity pool id", { value: myIdentityPool.ref });
     new CfnOutput(this, "IAM Role ARN", { value: unauthenticatedRole.roleArn});
-
   }
 }
 
