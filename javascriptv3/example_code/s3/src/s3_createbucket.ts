@@ -14,15 +14,10 @@ Inputs (replace in code):
 Running the code:
 ts-node s3_createbucket.ts
 */
-// snippet-start:[s3.JavaScript.buckets.createBucketV3.test.require]
-// Get required modules using node.js 'require'. Delete this if using 'ES6' import method.
-const { S3Client, CreateBucketCommand } = require("@aws-sdk/client-s3");
-// snippet-end:[s3.JavaScript.buckets.createBucketV3.test.require]
-// snippet-start:[s3.JavaScript.buckets.createBucketV3.test.import]
-// Get required modules using 'ES6' import method. Delete this if using node.js 'require'.
-import { S3Client, CreateBucketCommand } from "@aws-sdk/client-s3";
-// snippet-end:[s3.JavaScript.buckets.createBucketV3.test.import]
 // snippet-start:[s3.JavaScript.buckets.createBucketV3]
+// Get required modules using node.js 'require'.
+const { S3Client, CreateBucketCommand } = require("@aws-sdk/client-s3");
+
 // Set the AWS region
 const REGION = "REGION"; //e.g. "us-east-1"
 
@@ -36,7 +31,7 @@ const s3 = new S3Client({ region: REGION });
 const run = async () => {
     try {
         const data = await s3.send(new CreateBucketCommand(bucketParams));
-        console.log("Success", data.$metadata.httpHeaders.location);
+        console.log("Success", data.BucketName);
     } catch (err) {
         console.log("Error", err);
     }
