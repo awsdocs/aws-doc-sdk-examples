@@ -20,19 +20,27 @@ import software.amazon.awssdk.services.cognitoidentity.model.GetIdResponse;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
 //snippet-end:[cognito.java2.GetId.import]
 
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class GetId {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    GetId <identityPoolId>\n\n" +
+                "    <identityPoolId>\n\n" +
                 "Where:\n" +
                 "    identityPoolId - the GUID value of your identity pool.\n\n" +
                 "Example:\n" +
                 "    GetId us-east-1:00eb915b-c521-417b-af0d-ebad008axxxx\n";
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 

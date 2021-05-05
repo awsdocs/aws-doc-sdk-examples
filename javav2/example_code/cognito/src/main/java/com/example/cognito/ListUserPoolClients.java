@@ -20,17 +20,25 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.ListUserPoo
 import software.amazon.awssdk.services.cognitoidentityprovider.model.UserPoolClientDescription;
 //snippet-end:[cognito.java2.ListUserPoolClients.import]
 
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class ListUserPoolClients {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    ListUserPoolClients <userPoolId> \n\n" +
                 "Where:\n" +
                 "    userPoolId - the ID given to your user pool.\n\n" ;
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
