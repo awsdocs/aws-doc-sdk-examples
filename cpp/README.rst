@@ -18,77 +18,19 @@ according to the AWS service they demonstrate.
 Prerequisites
 =============
 
-To build the examples, the following software must be installed and configured.
+Before using the Code Examples, first complete the installation and setup steps of `Getting Started  
+<https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html>`_ in the AWS SDK for C++
+Developer Guide.
 
-* AWS SDK for C++
-* AWS credentials: Either configured in a local AWS credentials file or by 
-  setting the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables
-* Microsoft Visual Studio (Windows) or a C++11 compiler (Linux/macOS)
-* CMake version 3.2 or later
-
-Create a build environment
-==========================
-
-Create a build root directory. The directory can be located either within 
-the example directory structure or outside of it.
-
-::
-
-    mkdir sdk_example_builds
-    cd sdk_example_builds
-
-Create a build directory to store the compiled examples for a particular 
-AWS service. Each service should have its own build directory.
-
-::
-
-    mkdir s3
-    cd s3
-
-Build the examples on Windows
-=============================
-
-Run CMake and MSBuild. The compiled and linked executable files are
-located in the Debug directory.
-
-::
-
-    cd \<BUILD_ROOT_DIRECTORY>\<SERVICE>
-    cmake -D CMAKE_PREFIX_PATH="C:/Program Files (x86)/aws-cpp-sdk-all/" /awsdocs/aws-doc-sdk-examples/cpp/example_code/<SERVICE>
-    msbuild ALL_BUILD.vcxproj
-
-Define the CMAKE_PREFIX_PATH variable to specify the directory 
-where the AWS SDK for C++ was installed. Also specify the Code Catalog
-directory where the service's examples are located.
-
-On the MSBuild command line, specify the ALL_BUILD.vcxproj argument. 
-Alternatively, in Microsoft Visual Studio, open the ALL_BUILD.vcxproj 
-project and select Build > Build Solution.
-
-Note: MSBuild is included with Microsoft Visual Studio. Its location 
-depends on the Visual Studio version.
-
-* 2019 Community Edition: "\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\MSBuild\\Current\\Bin\\"
-* 2017 Community Edition: "\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\MSBuild\\15.0\\Bin\\amd64\\"
-
-Build the examples on Linux/macOS
-=================================
-
-Run CMake and make. The compiled and linked executable files are
-located in the build directory.
-
-::
-
-    cd /<BUILD_ROOT_DIRECTORY>/<SERVICE>
-    sudo cmake /awsdocs/aws-doc-sdk-examples/cpp/example_code/<SERVICE>
-    sudo make
-
-On the CMake command line, specify the Code Catalog directory where
-the service's examples are located.
-
-If CMake does not locate the required C++11 compiler, specify its location
-by defining CMake variables, as demonstrated below.
-
-::
-
-    sudo cmake -D CMAKE_C_COMPILER=/usr/local/bin/gcc -D CMAKE_CXX_COMPILER=/usr/local/bin/g++ /awsdocs/aws-doc-sdk-examples/cpp/example_code/<SERVICE>
+The  Getting Started section will cover how to obtain and build the SDK, and how to build your own
+ code utilizing the SDK with a sample “Hello World”-style application.  A similar procedure is 
+ applicable to utilizing the code examples in this repository.
+ 
+Additional information geared specifically to understanding the example applications is at
+ `AWS SDK for C++ Code Examples <https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/programming-services.html>`_.
+ 
+To propose a new code example for the AWS documentation team to consider producing, create a 
+new request. The team is looking to produce code examples that cover broader scenarios and use 
+cases, versus simple code snippets that cover only individual API calls. For instructions, see
+ the “Proposing new code examples” section in the 
+ `Readme on GitHub <https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/README.rst>`_.

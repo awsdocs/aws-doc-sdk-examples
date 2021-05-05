@@ -33,8 +33,7 @@ bool AwsDoc::S3::CreateBucket(const Aws::String& bucketName,
     Aws::S3::Model::CreateBucketRequest request;
     request.SetBucket(bucketName);
 
-    // You only need to set the AWS Region for the bucket if it is 
-    // other than US East (N. Virginia) us-east-1.
+    //  If you don't specify a Region, the bucket is created in the US East (N. Virginia) Region (us-east-1)
     if (region != Aws::S3::Model::BucketLocationConstraint::us_east_1)
     {
         Aws::S3::Model::CreateBucketConfiguration bucket_config;
@@ -63,6 +62,9 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        //TODO: Set to the region of your account.  If not, you will get a runtime
+        //IllegalLocationConstraintException Message: "The unspecified location constraint is incompatible
+        //for the region specific endpoint this request was sent to."
         Aws::S3::Model::BucketLocationConstraint region =
             Aws::S3::Model::BucketLocationConstraint::us_east_1;
 
