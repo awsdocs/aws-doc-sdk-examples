@@ -21,10 +21,7 @@ ts-node ddbdoc_get_item.ts
 */
 // snippet-start:[dynamodb.JavaScript.docClient.getV3]
 
-const {
-  DynamoDBDocumentClient,
-  GetCommand,
-} = require("@aws-sdk/lib-dynamodb");
+const { DynamoDBDocumentClient, GetCommand } = require("@aws-sdk/lib-dynamodb");
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 
 const REGION = "REGION";

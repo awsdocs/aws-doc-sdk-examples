@@ -16,7 +16,10 @@ Running the code:
 ts-node ddbdoc_update_query.ts
 */
 // snippet-start:[dynamodb.JavaScript.docClient.queryV3]
-const { DynamoDBDocumentClient, QueryCommand } = require("@aws-sdk/lib-dynamodb");
+const {
+  DynamoDBDocumentClient,
+  QueryCommand,
+} = require("@aws-sdk/lib-dynamodb");
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 
 const REGION = "eu-west-1";
@@ -65,7 +68,6 @@ const params = {
   // Filter that returns only episodes that meet previous criteria and have the subtitle 'The Return'
   FilterExpression: "contains (Subtitle, :topic)",
 };
-
 
 const run = async () => {
   try {
