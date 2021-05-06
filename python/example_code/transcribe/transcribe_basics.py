@@ -21,6 +21,7 @@ import boto3
 from botocore.exceptions import ClientError
 import requests
 
+# Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append('../..')
 from demo_tools.custom_waiter import CustomWaiter, WaitState
 
