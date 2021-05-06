@@ -47,7 +47,7 @@ const params = {
 };
 
 // Create DynamoDB document client
-const client = new DynamoDB({ region: "REGION" });
+const client = new DynamoDBClient({ region: "REGION" });
 
 const run = async () => {
   try {
