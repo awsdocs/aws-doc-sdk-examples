@@ -6,13 +6,13 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html.
 
 Purpose:
-ddbdoc_get_item.ts demonstrates how to use Amazon DynamoDB utilities to retrieve a set of attributes for an item in an Amazon DynamoDB table..
+ddbdoc_get_item.ts demonstrates how to use the Amazon DynamoDB document client to retrieve a set of attributes for an item in an Amazon DynamoDB table..
 
 Inputs (replace in code):
 - TABLE_NAME
 - REGION
-- primaryKey
-- sortKey (only required if table has sort key)
+- primaryKey - The name of the primary key.
+- sortKey - The name of the primary key. Only required if table has sort key.
 - VALUE_1: Value for the primary key (The format for the datatype must match the schema. For example, if the primaryKey is a number, VALUE_1 has no inverted commas.)
 - VALUE_2: Value for the primary key (The format for the datatype must match the schema.)
 
@@ -21,11 +21,35 @@ ts-node ddbdoc_get_item.ts
 */
 // snippet-start:[dynamodb.JavaScript.docClient.getV3]
 
-// Import the required AWS SDK clients and command for Node.js
-const { DynamoDBClient, GetItemCommand } = require("@aws-sdk/client-dynamodb");
-const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
+const {
+  DynamoDBDocumentClient,
+  GetCommand,
+} = require("@aws-sdk/lib-dynamodb");
+const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 
-// Set the parameters
+const REGION = "REGION";
+
+const marshallOptions = {
+  // Whether to automatically convert empty strings, blobs, and sets to `null`.
+  convertEmptyValues: false, // false, by default.
+  // Whether to remove undefined values while marshalling.
+  removeUndefinedValues: false, // false, by default.
+  // Whether to convert typeof object to map attribute.
+  convertClassInstanceToMap: false, // false, by default.
+};
+
+const unmarshallOptions = {
+  // Whether to return numbers as a string instead of converting them to native JavaScript numbers.
+  wrapNumbers: false, // false, by default.
+};
+
+const translateConfig = { marshallOptions, unmarshallOptions };
+
+// Create the clients.
+const client = new DynamoDBClient({ region: REGION });
+const ddbDocClient = DynamoDBDocumentClient.from(client, translateConfig); // client is DynamoDB client
+
+// Set the parameters.
 const params = {
   TableName: "TABLE_NAME",
   /*
@@ -40,25 +64,20 @@ const params = {
   MapAttribute: { foo: "bar" },
   NullAttribute: null
    */
-  Key: marshall({
-    primaryKey: VALUE, // For example, "Season: 2"
-    sortKey: VALUE, // For example,  "Episode: 1" (only required if table has sort key)
-  }),
+  Key: {
+    primaryKey: VALUE, // For example, 'Season': 2.
+    sortKey: VALUE, // For example,  'Episode': 1; (only required if table has sort key).
+  },
 };
-
-// Create DynamoDB document client
-const client = new DynamoDBClient({ region: "REGION" });
 
 const run = async () => {
   try {
-    const { Item } = await client.getItem(params);
-// Convert the DynamoDB record you retrieved into a JavaScript object
-    const jsObject = unmarshall(Item);
-// Print the JavaScript object to console
-    console.log(jsObject);
+    const data = await ddbDocClient.send(new GetCommand(params));
+    console.log("Success :", data.Item);
   } catch (err) {
     console.log("Error", err);
   }
 };
 run();
+
 // snippet-end:[dynamodb.JavaScript.docClient.getV3]
