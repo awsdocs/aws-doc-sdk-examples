@@ -5,7 +5,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
 
 Purpose:
-s3_delete_all_objectS.ts demonstrates how to all objects from an Amazon Simple Storage Solution (S3) bucket.
+s3_delete_all_objectS.ts demonstrates how to delete all objects from an Amazon Simple Storage Solution (S3) bucket.
 
 Inputs (replace in code):
 - REGION
