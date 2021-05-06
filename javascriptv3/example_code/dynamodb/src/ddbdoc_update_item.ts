@@ -21,7 +21,6 @@ ts-node ddbdoc_update_item.ts
 */
 // snippet-start:[dynamodb.JavaScript.docClient.updateV3]
 import { UpdateCommand } from "@aws-sdk/lib-dynamodb";
-
 const { DynamoDBDocumentClient, PutCommand } = require("@aws-sdk/lib-dynamodb");
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 
