@@ -46,16 +46,16 @@ const params = {
   }),
 };
 
-// Create DynamoDB client
-const client = new DynamoDBClient({ region: "REGION" });
+// Create DynamoDB document client
+const client = new DynamoDB({ region: "REGION" });
 
 const run = async () => {
   try {
-    const { Item } = await client.send(new GetItemCommand(params));
-    // Convert the DynamoDB record you retrieved into a JavaScript object
-    const item = unmarshall(Item);
-    // Print the JavaScript object to console
-    console.log(Item);
+    const { Item } = await client.getItem(params);
+// Convert the DynamoDB record you retrieved into a JavaScript object
+    const jsObject = unmarshall(Item);
+// Print the JavaScript object to console
+    console.log(jsObject);
   } catch (err) {
     console.log("Error", err);
   }
