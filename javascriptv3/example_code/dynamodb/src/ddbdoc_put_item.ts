@@ -46,13 +46,13 @@ const translateConfig = { marshallOptions, unmarshallOptions };
 
 // Create the clients.
 const client = new DynamoDBClient({ region: REGION });
-const ddbDocClient = DynamoDBDocumentClient.from(client, translateConfig); // client is DynamoDB client
+const ddbDocClient = DynamoDBDocumentClient.from(client, translateConfig);
 
 // Set the parameters.
 const params = {
     TableName: "EMPLOYEE",
     /*
-    Convert the key JavaScript object you are deleting to the
+    Convert the key JavaScript object you are adding to the
     required Amazon DynamoDB record. The format of values specifies
     the datatype. The following list demonstrates different
     datatype formatting requirements:

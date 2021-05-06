@@ -45,7 +45,7 @@ const translateConfig = { marshallOptions, unmarshallOptions };
 
 // Create the clients.
 const client = new DynamoDBClient({ region: REGION });
-const ddbDocClient = DynamoDBDocumentClient.from(client, translateConfig); // client is DynamoDB client
+const ddbDocClient = DynamoDBDocumentClient.from(client, translateConfig);
 
 // Set the parameters
 const params = {
