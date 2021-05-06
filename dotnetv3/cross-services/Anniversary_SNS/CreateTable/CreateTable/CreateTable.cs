@@ -149,7 +149,7 @@ namespace CreateTable
             {
                 ["Id"] = 101,
                 ["FirstName"] = "Jadwiga",
-                ["Phone"] = "11234567890",
+                ["Phone"] = "18456992258",
                 ["HireDate"] = $"{DateTime.Now.Year - 1}-{DateTime.Now.Month}-{DateTime.Now.Day}",
             };
 

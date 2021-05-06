@@ -46,7 +46,7 @@ namespace SendSnsMessage
                          S = targetDate
                      }}
                 },
-                    FilterExpression = "HireDate < :val",
+                    FilterExpression = "HireDate = :val",
 
                     ProjectionExpression = "FirstName, Phone"
                 };
@@ -71,8 +71,8 @@ namespace SendSnsMessage
 
             // Send congratulatory text messages to the employees.
             var specialMsg = (targetDate == "2020-5-4") ? "May the fourth be with you!" : "";
-            var firstName = item["FirstName"];
-            var phone = item["Phone"].ToString();
+            var firstName = item["FirstName"].S;
+            var phone = item["Phone"].S;
 
             string message = $"{firstName}, happy one-year anniversary! {specialMsg} We are so glad you have joined us.";
 
