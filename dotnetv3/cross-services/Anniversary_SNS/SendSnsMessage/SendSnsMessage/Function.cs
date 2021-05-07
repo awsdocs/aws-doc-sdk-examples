@@ -18,16 +18,16 @@ namespace SendSnsMessage
     {
         
         /// <summary>
-        /// A simple function that takes a string and does a ToUpper
+        /// This method retrieves any items from the DynamoDB table for people
+        /// whose HireDate is one year ago today. If any are returned, it will
+        /// send the person a text message, using Amazon Simple Notification
+        /// Service, congratulating them on their one-year anniversary.
         /// </summary>
-        /// <param name="input"></param>
         /// <param name="context"></param>
-        /// <returns></returns>
         public async Task FunctionHandler(ILambdaContext context)
         {
             // Get any employees for whom today is their work anniversary.
-            //var targetDate = $"{DateTime.Now.Year - 1}-{DateTime.Now.Month}-{DateTime.Now.Day}";
-            var targetDate = "2020-5-3";
+            var targetDate = $"{DateTime.Now.Year - 1}-{DateTime.Now.Month}-{DateTime.Now.Day}";
 
             var DbClient = new AmazonDynamoDBClient();
 
@@ -56,7 +56,7 @@ namespace SendSnsMessage
                 foreach (Dictionary<string, AttributeValue> item
                      in response.Items)
                 {
-                    await SendMessageAsync(targetDate, item);
+                    await SendMessageAsync(item);
                 }
 
                 lastKeyEvaluated = response.LastEvaluatedKey;
@@ -65,16 +65,22 @@ namespace SendSnsMessage
 
         }
 
-        public async Task SendMessageAsync(string targetDate, Dictionary<string, AttributeValue> item)
+        /// <summary>
+        /// This method is responsible for sending an anniversary text message
+        /// to those employees whose hire date is one year before today's date.
+        /// </summary>
+        /// <param name="item">Information about one employee that will be used
+        /// to send that person a text message congratulating them on their
+        /// one-year anniversary.</param>
+        public async Task SendMessageAsync(Dictionary<string, AttributeValue> item)
         {
             var snsClient = new AmazonSimpleNotificationServiceClient();
 
             // Send congratulatory text messages to the employees.
-            var specialMsg = (targetDate == "2020-5-4") ? "May the fourth be with you!" : "";
             var firstName = item["FirstName"].S;
             var phone = item["Phone"].S;
 
-            string message = $"{firstName}, happy one-year anniversary! {specialMsg} We are so glad you have joined us.";
+            string message = $"{firstName}, happy one-year anniversary! We are so glad you have joined us.";
 
             var request = new PublishRequest
             {
@@ -90,7 +96,6 @@ namespace SendSnsMessage
             {
                 Console.WriteLine($"Error sending message: {ex}");
             }
-
         }
     }
 }

@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace DeleteTable
 {
+    /// <summary>
+    /// This example simply deletes the table that was created for the
+    /// anniversary text message cross-service example.
+    /// </summary>
     class DeleteTable
     {
         static async Task Main()

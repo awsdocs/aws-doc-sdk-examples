@@ -3,12 +3,12 @@ using Xunit;
 
 namespace DeleteTableTests
 {
-    public class UnitTest1
+    public class DeleteTableTests
     {
         [Fact]
-        public void Test1()
+        public async Task TestingDeleteTableAsync()
         {
-
+             
         }
     }
 }
