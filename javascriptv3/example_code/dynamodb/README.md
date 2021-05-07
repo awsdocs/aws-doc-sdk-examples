@@ -1,13 +1,23 @@
 # TypeScript environment for Amazon DynamoDB examples
-This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) Amazon DynamoDB examples. 
-
-The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
-
-The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examples.html) contains these examples.
-
-The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon DynamoDB client module.
-
 Amazon DynamoDB is a key-value and document database that delivers single-digit millisecond performance at any scale. It's a fully managed, multiregion, multimaster, durable database with built-in security, backup and restore, and in-memory caching for internet-scale applications. 
+
+- [Get batch items](src/cw_deletealarms.ts)
+- [Write batch items](src/cw_describealarms.ts)
+- [Create a table](src/cw_enablealarmactions.ts)
+- [Delete an item](src/cw_listmetrics.ts)
+- [Delete a table](src/cw_putmetricalarm.ts)
+- [Describe tables](src/cw_putmetricdata.ts)
+- [Get items](src/cwe_putevents.ts)
+- [List tables](src/cwe_putrule.ts)
+- [Put items](src/cwe_puttargets.ts)
+- [Query a table](src/cwl_describesubscriptionfilters.ts)
+- [Scan a table](src/cwl_describesubscriptionfilters.ts)
+- [Put CloudWatch log subscription filters](src/cwl_putsubscriptionfilter.ts)
+- [Put CloudWatch log subscription filters](src/cwl_putsubscriptionfilter.ts)
+- [Put CloudWatch log subscription filters](src/cwl_putsubscriptionfilter.ts)
+- [Put CloudWatch log subscription filters](src/cwl_putsubscriptionfilter.ts)
+
+This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon DynamoDB examples: 
 
 **NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
 
@@ -38,4 +48,8 @@ cd src
 ts-node [example name].ts // e.g., ts-node ddb_batchgetitem.ts
 ```
 
+## Resources
+[AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
+[AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examples.html) 
+[AWS SDK for JavaScript v3 API Reference Guide - Amazon DynamoDB client module](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/index.html) 
 

@@ -12,7 +12,7 @@ Inputs (replace in code):
 - TABLE_NAME
 - REGION
 - primaryKey - The name of the primary key.
-- sortKey - The name of the primary key.
+- sortKey - The name of the sort key. Only required if table has sort key.
 - VALUE_1: Value for the primary key (The format for the datatype must match the schema. For example, if the primaryKey is a number, VALUE_1 has no inverted commas.)
 - VALUE_2: Value for the primary key (The format for the datatype must match the schema.)
 - NEW_ATTRIBUTE_1
