@@ -61,7 +61,7 @@ const params = {
    */
   Key: {
     primaryKey: VALUE_1, // For example, 'Season': 2.
-    sortKey: VALUE_2, // For example,  'Episode': 1; (only required if table has sort key).
+    sortKey: VALUE_2 // For example,  'Episode': 1; (only required if table has sort key).
   },
   // Define expressions for the new or updated attributes
   UpdateExpression: "set ATTRIBUTE_NAME_1 = :t, ATTRIBUTE_NAME_2 = :s", // For example, "'set Title = :t, Subtitle = :s'"

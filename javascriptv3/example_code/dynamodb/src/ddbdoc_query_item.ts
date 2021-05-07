@@ -61,7 +61,7 @@ const params = {
   ExpressionAttributeValues: {
     ":s": 1,
     ":e": 1,
-    ":topic": "Title2",
+    ":topic": "Title2"
   },
   // Specifies the values that define the range of the retrieved items. In this case, items in Season 2 before episode 9.
   KeyConditionExpression: "Season = :s and Episode > :e",

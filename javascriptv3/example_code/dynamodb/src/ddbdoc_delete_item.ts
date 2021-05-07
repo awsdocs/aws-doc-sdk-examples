@@ -64,7 +64,7 @@ const params = {
    */
   Key: {
     primaryKey: VALUE_1, // For example, 'Season': 2.
-    sortKey: VALUE_2, // For example,  'Episode': 1; (only required if table has sort key).
+    sortKey: VALUE_2 // For example,  'Episode': 1; (only required if table has sort key).
   },
 };
 
