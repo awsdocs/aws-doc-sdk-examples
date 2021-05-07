@@ -1,0 +1,71 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  S3BatchMpuCopyBatchIamRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      Policies:
+        - PolicyName: S3BatchMpuCopyBatchIamRolePolicy0
+          PolicyDocument:
+            Statement:
+              - Action:
+                  - 's3:PutObject*'
+                  - 's3:GetObject*'
+                  - 'lambda:InvokeFunction'
+                  - 's3:GetBucketLocation'
+                Resource: '*'
+                Effect: Allow
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: batchoperations.s3.amazonaws.com
+            Action: 'sts:AssumeRole'
+  S3BatchMpuCopyLambdaiamrole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+      Policies:
+        - PolicyName: S3BatchMpuCopyLambdaiamRolePolicy0
+          PolicyDocument:
+            Statement:
+              - Action:
+                  - 's3:GetObject*'
+                  - 's3:PutObject*'
+                  - 's3:ListBucket*'
+                Resource: '*'
+                Effect: Allow
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: 'sts:AssumeRole'
+  S3BatchMpuCopyfunction:
+    DependsOn:
+      - S3BatchMpuCopyLambdaiamrole
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Environment:
+        Variables:
+          destination_bucket: DESTINATION_BUCKET
+          max_attempts: 100
+          max_concurrency: 940
+          max_pool_connections: 940
+          multipart_chunksize: 16777216
+      Runtime: python3.7
+      Timeout: 900
+      Description: An S3 Batch Solution for Copying above 5GB S3 Object Size.
+      MemorySize: 600
+      Handler: index.lambda_handler
+      Role: !GetAtt
+        - S3BatchMpuCopyLambdaiamrole
+        - Arn
+      Code:
+        ZipFile:
+            Fn::Sub: |
+                Please copy the Lambda function code from below AWS GitHub page
+
+                'https://github.com/emmaylots/aws-code-samples/blob/master/codes/aws-services/S3/S3-Batch/Copy-Operation/s3-batch-ops-mpu-copy.py'
