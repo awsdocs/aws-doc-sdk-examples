@@ -28,6 +28,7 @@ if(MSVC AND BUILD_SHARED_LIBS)
     add_definitions(-DUSE_IMPORT_EXPORT)
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
     list(APPEND SERVICE_LIST s3)
+   
     #For IDE's like Xcode and Visual Studio this line will be ignored because Release/Debug 
     #  is switched internally, but this is necessary for non-IDE builds.
     set(CMAKE_BUILD_TYPE Debug) #TODO: Set to your build type
@@ -38,6 +39,7 @@ if(MSVC AND BUILD_SHARED_LIBS)
     
     message(STATUS ">>CMAKE_CURRENT_BINARY_DIR: ${CMAKE_CURRENT_BINARY_DIR}")
     message(STATUS ">>CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
+    message(STATUS ">>EXECUTABLE_OUTPUT_PATH : ${EXECUTABLE_OUTPUT_PATH}")
 endif()
 
 set_compiler_flags(${PROJECT_NAME})

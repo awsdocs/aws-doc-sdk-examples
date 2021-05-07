@@ -1,7 +1,7 @@
 # TypeScript environment for Amazon Secrets Manager examples
 This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) Amazon Secrets Manager examples. 
 
-The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
+The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
 See the [AWS Secrets Manager User Guide](https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_retrieve-secret.html) for more information about the Amazon Secrets Manager.
 

@@ -34,7 +34,7 @@
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.15.14</version>
+                <version>2.16.29</version>
                 <type>pom</type>
             </dependency>
         </dependencies>
@@ -71,12 +71,17 @@
          <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>personalize</artifactId>
-            <version>2.14.2</version>
+            <version>2.16.45</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>personalizeruntime</artifactId>
-            <version>2.13.20</version>
+            <version>2.16.45</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>personalizeevents</artifactId>
+            <version>2.16.45</version>
         </dependency>
     </dependencies>
 </project>

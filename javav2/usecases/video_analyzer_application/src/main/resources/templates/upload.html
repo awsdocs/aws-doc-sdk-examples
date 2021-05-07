@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
+<script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
+<script th:src="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js|"></script>
+<script src="../public/js/items.js" th:src="@{/js/items.js}"></script>
+
+<link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
+<link rel="stylesheet" th:href="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css|"/>
+<link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+<link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
+
+
+<title>AWS Video Analyzer</title>
+
+<script>
+    function myFunction() {
+        alert("The video was submitted");
+    }
+</script>
+</head>
+
+<body>
+<header th:replace="layout :: site-header"/>
+
+<div class="container">
+    <h2>AWS Video Analyzer application</h2>
+    <p>Upload a video to an Amazon S3 bucket that will be analyzed!</p>
+
+    <form method="POST" onsubmit="myFunction()" action="/upload" enctype="multipart/form-data">
+        <input type="file" name="file" /><br/><br/>
+        <input type="submit" value="Submit" />
+    </form>
+    <div>
+        <br>
+
+        <p>Choose the following button to get information about the video to analyze.</p>
+
+        <button onclick="getVideo()">Show Video</button>
+        <table id="myTable" class="display" style="width:100%">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Owner</th>
+                <th>Date</th>
+                <th>Size</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>No Data</td>
+                <td>No Data</td>
+                <td>No Data </td>
+                <td>No Data</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Owner</th>
+                <th>Date</th>
+                <th>Size</th>
+            </tr>
+            </tfoot>
+            <div id="success3"></div>
+        </table>
+    </div>
+</div>
+</body>
+</html>
