@@ -22,7 +22,7 @@ Before using the Code Examples, first complete the installation and setup steps 
 <https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html>`_ in the AWS SDK for C++
 Developer Guide.
 
-The  Getting Started section will cover how to obtain and build the SDK, and how to build your own
+The Getting Started section covers how to obtain and build the SDK, and how to build your own
  code utilizing the SDK with a sample “Hello World”-style application.  A similar procedure is 
  applicable to utilizing the code examples in this repository.
  
