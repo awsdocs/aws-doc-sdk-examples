@@ -21,16 +21,24 @@ import software.amazon.awssdk.services.cloudwatchevents.model.PutTargetsResponse
 import software.amazon.awssdk.services.cloudwatchevents.model.Target;
 // snippet-end:[cloudwatch.java2.put_targets.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class PutTargets {
 
     public static void main(String[] args) {
 
-        final String USAGE =
-                "To run this example, supply:\n" +
-                        "* a rule name\n" +
-                        "* a lambda function ARN value \n" +
-                        "* a target id\n\n" +
-                        "Ex: PutTargets <ruleName> <functionArn> <targetId>\n";
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "  PutTargets <ruleName> <functionArn> <targetId> \n\n" +
+                "Where:\n" +
+                "  ruleName - a rule name (for example, myrule).\n" +
+                "  functionArn - an AWS Lambda function ARN (for example, arn:aws:lambda:us-west-2:xxxxxx047983:function:lamda1).\n" +
+                "  targetId - a target id value.\n" ;
 
         if (args.length != 3) {
             System.out.println(USAGE);
