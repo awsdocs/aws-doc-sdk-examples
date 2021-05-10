@@ -23,11 +23,19 @@ import software.amazon.awssdk.services.cloudformation.model.Stack;
 import java.util.List;
 // snippet-end:[cf.java2.get_stacks.import]
 
+
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class DescribeStacks {
 
     public static void main(String[] args) {
 
-        Region region = Region.US_EAST_1;
+        Region region = Region.US_WEST_2;
         CloudFormationClient cfClient = CloudFormationClient.builder()
                 .region(region)
                 .build();

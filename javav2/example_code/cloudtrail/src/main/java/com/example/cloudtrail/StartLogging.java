@@ -22,6 +22,14 @@ import software.amazon.awssdk.services.cloudtrail.model.StartLoggingRequest;
 import software.amazon.awssdk.services.cloudtrail.model.StopLoggingRequest;
 //snippet-end:[cloudtrail.java2.logging.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class StartLogging {
 
     public static void main(String[] args) {
