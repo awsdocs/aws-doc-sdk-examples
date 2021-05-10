@@ -5,37 +5,36 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
 
 Purpose:
-s3_createbucket.ts demonstrates how to create an Amazon S3 bucket.
+s3_delete_object.ts demonstrates how to delete an object from an Amazon Simple Storage Solution (S3) bucket.
 
 Inputs (replace in code):
 - REGION
 - BUCKET_NAME
+- KEY
 
 Running the code:
-ts-node s3_createbucket.ts
+ts-node s3_delete_object.ts
 */
-// snippet-start:[s3.JavaScript.buckets.createBucketV3]
-// Get required modules using node.js 'require'.
-const { S3Client, CreateBucketCommand } = require("@aws-sdk/client-s3");
+// snippet-start:[s3.JavaScript.buckets.deleteobjectV3]
+const { S3Client, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 
-// Set the AWS region
 const REGION = "REGION"; //e.g. "us-east-1"
 
-// Set the bucket parameters
-const bucketParams = { Bucket: "BUCKET_NAME" };
+const params = { Bucket: "BUCKET_NAME", Key: "KEY" };
 
-// Create S3 service object
+// Create Amazon S3 client service object.
 const s3 = new S3Client({ region: REGION });
 
-//Attempt to create the bucket
+
 const run = async () => {
     try {
-        const data = await s3.send(new CreateBucketCommand(bucketParams));
-        console.log("Success", data.BucketName);
+        const data = await s3.send(new DeleteObjectCommand(params));
+        console.log("Success. Object deleted.", data);
     } catch (err) {
         console.log("Error", err);
     }
 };
 run();
-// snippet-end:[s3.JavaScript.buckets.createBucketV3]
+// snippet-end:[s3.JavaScript.buckets.deleteobjectV3]
+
 
