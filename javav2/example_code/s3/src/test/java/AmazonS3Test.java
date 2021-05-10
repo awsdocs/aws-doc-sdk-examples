@@ -47,7 +47,7 @@ public class AmazonS3Test {
     public static void setUp() throws IOException {
 
         // Run tests on Real AWS Resources
-        region = Region.US_WEST_2;
+        region = Region.US_EAST_1;
         s3 = S3Client.builder()
                 .region(region)
                 .build();
@@ -106,7 +106,7 @@ public class AmazonS3Test {
     @Order(2)
    public void createBucket() {
 
-        S3ObjectOperations.createBucket(s3,bucketName, region);
+      CreateBucket.createBucket(s3,bucketName);
       System.out.println("Test 2 passed");
    }
 
@@ -134,7 +134,7 @@ public class AmazonS3Test {
 
      String polText = SetBucketPolicy.getBucketPolicyFromFile(policyText);
      assertTrue(!polText.isEmpty());
-     SetBucketPolicy.setPolicy(s3, bucketName, polText);
+     SetBucketPolicy.setPolicy(s3, bucketNamePolicy, polText);
      System.out.println("Test 5 passed");
     }
 
@@ -142,7 +142,7 @@ public class AmazonS3Test {
     @Order(6)
     public void getBucketPolicy() {
 
-    String polText = GetBucketPolicy.getPolicy(s3, bucketName);
+    String polText = GetBucketPolicy.getPolicy(s3, bucketNamePolicy);
     assertTrue(!polText.isEmpty());
     System.out.println("Test 6 passed");
     }
@@ -151,7 +151,7 @@ public class AmazonS3Test {
     @Order(7)
     public void deleteBucketPolicy() {
 
-   DeleteBucketPolicy.deleteS3BucketPolicy(s3,bucketName );
+   DeleteBucketPolicy.deleteS3BucketPolicy(s3,bucketNamePolicy );
    System.out.println("Test 7 passed");
     }
 

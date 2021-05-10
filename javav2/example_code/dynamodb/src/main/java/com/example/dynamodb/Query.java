@@ -22,6 +22,14 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.regions.Region;
 // snippet-end:[dynamodb.java2.query.import]
 
+
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class Query {
 
     public static void main(String[] args) {
@@ -42,6 +50,9 @@ public class Query {
         String tableName = args[0];
         String partitionKeyName = args[1];
         String partitionKeyVal = args[2];
+
+        // For more information about an alias, see:
+        // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ExpressionAttributeNames.html
         String partitionAlias = "#a";
 
         System.out.format("Querying %s", tableName);
@@ -66,13 +77,15 @@ public class Query {
 
         // Set up an alias for the partition key name in case it's a reserved word
         HashMap<String,String> attrNameAlias = new HashMap<String,String>();
-
         attrNameAlias.put(partitionAlias, partitionKeyName);
 
         // Set up mapping of the partition name with the value
         HashMap<String, AttributeValue> attrValues =
                 new HashMap<String,AttributeValue>();
-        attrValues.put(":"+partitionKeyName, AttributeValue.builder().s(partitionKeyVal).build());
+
+        attrValues.put(":"+partitionKeyName, AttributeValue.builder()
+                .s(partitionKeyVal)
+                .build());
 
         QueryRequest queryReq = QueryRequest.builder()
                 .tableName(tableName)

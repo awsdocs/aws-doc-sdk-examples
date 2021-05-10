@@ -23,7 +23,6 @@ const {
   fromCognitoIdentityPool,
 } = require("@aws-sdk/credential-provider-cognito-identity");
 const { LambdaClient, InvokeCommand } = require("@aws-sdk/client-lambda");
-const {createWriteStream} = require ("fs");
 // Initialize the Amazon Cognito credentials provider
 const REGION = "REGION"; // e.g., 'us-east-2'
 const lambda = new LambdaClient({

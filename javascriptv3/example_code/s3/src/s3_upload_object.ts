@@ -23,21 +23,28 @@ Uploads the specified file to the specified bucket.
 // Import required AWS SDK clients and commands for Node.js.
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 const path = require("path");
+const fs = require("fs");
 
 // Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"
 
-// Set the parameters
-const uploadParams = { Bucket: "BUCKET_NAME" };
 const file = "OBJECT_PATH_AND_NAME"; // Path to and name of object. For example '../myFiles/index.js'.
+const fileStream = fs.createReadStream(file);
+
+// Set the parameters
+const uploadParams = {
+  Bucket: "BUCKET_NAME",
+  // Add the required 'Key' parameter using the 'path' module.
+  Key: path.basename(file),
+  // Add the required 'Body' parameter
+  Body: fileStream,
+};
 
 // Create an Amazon S3 service client object.
 const s3 = new S3Client({ region: REGION });
 
 // Upload file to specified bucket.
 const run = async () => {
-  // Add the required 'Key' parameter using the 'path' module.
-  uploadParams.Key = path.basename(file);
   try {
     const data = await s3.send(new PutObjectCommand(uploadParams));
     console.log("Success", data);

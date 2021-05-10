@@ -14,9 +14,8 @@ Inputs (replace in code):
 Running the code:
 ts-node s3_createbucket.ts
 */
-//
 // snippet-start:[s3.JavaScript.buckets.createBucketV3]
-// Import required AWS SDK clients and commands for Node.js
+// Get required modules using node.js 'require'.
 const { S3Client, CreateBucketCommand } = require("@aws-sdk/client-s3");
 
 // Set the AWS region
@@ -32,7 +31,7 @@ const s3 = new S3Client({ region: REGION });
 const run = async () => {
     try {
         const data = await s3.send(new CreateBucketCommand(bucketParams));
-        console.log("Success", data.$metadata.httpHeaders.location);
+        console.log("Success", data.BucketName);
     } catch (err) {
         console.log("Error", err);
     }

@@ -23,13 +23,28 @@ For more information, see [TypeScript homepage](https://www.typescriptlang.org/)
 2. Install the dependencies listed in the package.json.
 
 **Note**: These include the client module for the AWS services required in these example, 
-which are *@aws-sdk/client-cognito-identity*, *@aws-sdk/credential-provider-cognito-identity*, and *@aws-sdk/polly-kinesis*.
+which are *@aws-sdk/client-cognito-identity*, *@aws-sdk/credential-provider-cognito-identity*, and *@aws-sdk/polly-kinesis*, and Webpack for bundling your Node.js and Javascript.
 
 ```
 npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/rekognition
 npm install
 ```
-3. Follow the instructions in the [Using JavaScript](https://docs.aws.amazon.com/rekognition/latest/dg/image-bytes-javascript.html) in the *Amazon Rekognition developer guide*.
 
+3. Run the following in the commandline to use the 'setup.yaml' template to create the resources for this example:
+ 
+aws cloudformation create-stack --stack-name STACK_NAME --template-body file://setup.yaml --capabilities CAPABILITY_IAM
 
+Note: The stack name must be unique within an AWS Region and AWS account. You can specify up to 128 characters, and numbers and hyphens are allowed.
+
+4. Open the AWS CloudFormation Console, choose the stack, and choose the  **Resources** tab. 
+
+5. Copy the **Physical ID** of the **CognitoDefaultUnauthenticatedRole**.
+
+6. In the **estimate-age.js" file, replace **IDENTITY_POOL_ID** with the **Physical ID** of the **CognitoDefaultUnauthenticatedRole**.
+
+7. In the **estimate-age.js" file, replace **REGION** with your AWS Region.
+
+8. Use Webpack to bundle the Node.js modules required for the example by running the following in the command line:
+
+webpack estimate-age.js --mode development --target web --devtool false -o main.js
