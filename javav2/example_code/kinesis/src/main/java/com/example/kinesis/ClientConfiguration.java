@@ -12,11 +12,13 @@
 package com.example.kinesis;
 // snippet-start:[kinesis.java2.client_configuration.complete]
 // snippet-start:[kinesis.java2.client_configuration.import]
-
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.services.kinesis.KinesisAsyncClient;
 // snippet-end:[kinesis.java2.client_configuration.import]
+
+
+
 
 // snippet-start:[kinesis.java2.client_configuration.main]
 public class ClientConfiguration {
