@@ -8,7 +8,7 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.3.0",
     "@aws-sdk/node-http-handler": "^3.3.0",
-    "@aws-sdk/util-dynamodb": "^3.3.0",
+    "@aws-sdk/lib-dynamodb": "^3.3.0",
     "@aws-sdk/types": "^3.3.0",
     "ts-node": "^9.0.0"
   },
