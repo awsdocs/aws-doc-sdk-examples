@@ -19,6 +19,13 @@ import software.amazon.awssdk.services.glue.model.GlueException;
 import software.amazon.awssdk.services.glue.model.StartCrawlerRequest ;
 //snippet-end:[glue.java2.start_crawler.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class StartCrawler {
 
     public static void main(String[] args) {
