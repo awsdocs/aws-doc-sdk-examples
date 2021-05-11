@@ -32,8 +32,13 @@ import java.time.ZoneOffset;
 // snippet-end:[dynamodb.java2.mapping.batchitems.import]
 
 /*
-   Prior to running this code example, create an Amazon DynamoDB table named Customer with a key named id.
-*/
+ * Prior to running this code example, create an Amazon DynamoDB table named Customer with a key named id and populate it with data.
+ * Also, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class EnhancedBatchWriteItems {
 
     public static void main(String[] args) {
