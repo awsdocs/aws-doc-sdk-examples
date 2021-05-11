@@ -59,49 +59,11 @@ namespace GetSecretValueExample
 
             GetSecretValueResponse response = null;
 
-            // In this sample we only handle the specific exceptions for the 'GetSecretValue' API.
-            // See https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
-            // We rethrow the exception by default.
-
+            // For the sake of simplicity, this example handles only the most
+            // general SecretsManager exception.
             try
             {
                 response = await client.GetSecretValueAsync(request);
-            }
-            catch (DecryptionFailureException e)
-            {
-                // Secrets Manager can't decrypt the protected secret text using the provided KMS key.
-                // Deal with the exception here, and/or rethrow at your discretion.
-                Console.WriteLine($"Error: {e.Message}");
-            }
-            catch (InternalServiceErrorException e)
-            {
-                // An error occurred on the server side.
-                // Deal with the exception here, and/or rethrow at your discretion.
-                Console.WriteLine($"Error: {e.Message}");
-            }
-            catch (InvalidParameterException e)
-            {
-                // You provided an invalid value for a parameter.
-                // Deal with the exception here, and/or rethrow at your discretion
-                Console.WriteLine($"Error: {e.Message}");
-            }
-            catch (InvalidRequestException e)
-            {
-                // You provided a parameter value that is not valid for the current state of the resource.
-                // Deal with the exception here, and/or rethrow at your discretion.
-                Console.WriteLine($"Error: {e.Message}");
-            }
-            catch (ResourceNotFoundException e)
-            {
-                // We can't find the resource that you asked for.
-                // Deal with the exception here, and/or rethrow at your discretion.
-                Console.WriteLine($"Error: {e.Message}");
-            }
-            catch (AggregateException e)
-            {
-                // More than one of the above exceptions were triggered.
-                // Deal with the exception here, and/or rethrow at your discretion.
-                Console.WriteLine($"Error: {e.Message}");
             }
             catch (AmazonSecretsManagerException e)
             {

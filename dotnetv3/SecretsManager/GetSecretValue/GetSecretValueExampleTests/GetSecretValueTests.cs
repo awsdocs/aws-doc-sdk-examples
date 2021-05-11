@@ -35,17 +35,5 @@ namespace GetSecretValueExampleTests
 
             var response = client.GetSecretValueAsync(request);
         }
-
-        [Fact]
-        public void TestDecodeSecretValueBinary()
-        {
-
-        }
-
-        [Fact]
-        public void TestDecodeSecretValueString()
-        {
-
-        }
     }
 }
