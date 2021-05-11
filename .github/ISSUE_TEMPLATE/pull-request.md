@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-Each example should contain the following metadata. Some of the fields like keyword and service can be used multiple times as needed. For snippet-service, use the AWS Service Namespace as listed in our [General Reference](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces).  If the example uses multiple services, be sure to include each service on a seperate line. 
+Each example should contain the following metadata. Some of the fields like keyword and service can be used multiple times as needed. For snippet-service, use the AWS Service Namespace as listed in our [General Reference](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces).  If the example uses multiple services, be sure to include each service on a separate line. 
 
 Use comment denotations appropriate for each langague.
 Example Metadata and License:
@@ -45,7 +45,7 @@ Example Metadata and License:
 ```
 
 
-Please answer the following questions about the examples submitted to help us process the Pull request efficently.
+Please answer the following questions about the examples submitted to help us process the Pull request efficiently.
 
 **Did you add the metadata as described above?**
 
