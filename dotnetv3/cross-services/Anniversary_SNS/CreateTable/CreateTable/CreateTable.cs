@@ -10,6 +10,11 @@ using System.Threading.Tasks;
 
 namespace CreateTable
 {
+    /// <summary>
+    /// Creates an Amazon DynamoDB table called EmployeeTable. The table
+    /// contains the following pieces of data: Id, FirstName, Phone, and
+    /// HireDate.
+    /// </summary>
     class CreateTable
     {
         public static async Task Main()
@@ -140,16 +145,29 @@ namespace CreateTable
             return (status == "ACTIVE");
         }
 
+        /// <summary>
+        /// Creates a set of three items and adds each to an Amazon DynamoDB
+        /// table. The first item in the list has its date set to one year
+        /// before the current date to ensure that executing the Lambda
+        /// function will find an employee to whom to send a text message.
+        /// </summary>
+        /// <param name="client">The DynamoDB client object used to call
+        /// PutItemAsync to add each item to the table.</param>
+        /// <param name="tableName">The name of the table to which the sample
+        /// items will be added.</param>
         public static async Task AddSampleData(IAmazonDynamoDB client, string tableName)
         {
             Table employeeTable = Table.LoadTable(client, tableName);
 
             // Add sample employee items to the table.
+            // Remember to edit the phone number for emp1 to a valid moble
+            // number that can receive text messages. The hire date is
+            // set to one year before the date that the application runs.
             var emp1 = new Document
             {
                 ["Id"] = 101,
                 ["FirstName"] = "Jadwiga",
-                ["Phone"] = "18456992258",
+                ["Phone"] = "11234567890",
                 ["HireDate"] = $"{DateTime.Now.Year - 1}-{DateTime.Now.Month}-{DateTime.Now.Day}",
             };
 

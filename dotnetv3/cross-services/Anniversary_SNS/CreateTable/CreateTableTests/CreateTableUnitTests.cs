@@ -3,10 +3,10 @@ using Xunit;
 
 namespace CreateTableTests
 {
-    public class UnitTest1
+    public class CreateTableUnitTests
     {
         [Fact]
-        public void Test1()
+        public void CreateTableAsyncTest()
         {
 
         }
