@@ -24,6 +24,13 @@ import software.amazon.awssdk.services.kms.model.DecryptRequest;
 import software.amazon.awssdk.services.kms.model.DecryptResponse;
 // snippet-end:[kms.java2_encrypt_data.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class EncryptDataKey {
 
     public static void main(String[] args) {
@@ -69,6 +76,7 @@ public class EncryptDataKey {
              // Get the encrypted data
              SdkBytes encryptedData = response.ciphertextBlob();
              return encryptedData;
+
          } catch (KmsException e) {
              System.err.println(e.getMessage());
              System.exit(1);

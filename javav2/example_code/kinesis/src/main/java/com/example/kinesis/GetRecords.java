@@ -31,6 +31,11 @@ import java.util.List;
 /**
  * Demonstrates how to read data from a Amazon Kinesis Data Stream. Before running this Java code example, populate a Data Stream
  * by running the StockTradesWriter example. That example populates a Data Stream that you can then use for this example.
+ * Also, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
 public class GetRecords {

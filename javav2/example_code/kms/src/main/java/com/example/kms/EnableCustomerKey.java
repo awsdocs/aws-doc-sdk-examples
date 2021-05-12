@@ -19,6 +19,13 @@ import software.amazon.awssdk.services.kms.model.KmsException;
 import software.amazon.awssdk.services.kms.model.EnableKeyRequest;
 // snippet-end:[kms.java2_enable_key.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class EnableCustomerKey {
 
     public static void main(String[] args) {
