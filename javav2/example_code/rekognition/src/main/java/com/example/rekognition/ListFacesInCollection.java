@@ -39,12 +39,12 @@ public class ListFacesInCollection {
                 "Where:\n" +
                 "collectionId - the name of the collection. \n\n";
 
-      //  if (args.length < 1) {
-      //      System.out.println(USAGE);
-      //      System.exit(1);
-      //  }
+        if (args.length < 1) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
 
-        String collectionId = "lamCollection"; //args[0];
+        String collectionId = args[0];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
