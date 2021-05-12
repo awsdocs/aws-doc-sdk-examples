@@ -4,7 +4,7 @@ For more information about these examples, see the [AWS documentation for this e
 
 Amazon Cognito lets you add user sign-up, sign-in, and access control to your web and mobile apps quickly and easily. Amazon Cognito scales to millions of users and supports sign-in with social identity providers, such as Facebook, Google, and Amazon, and enterprise identity providers via SAML 2.0.
 
-This is a workspace where you can find working AWS SDK for JavaScript v3 Amazon Cognito examples. 
+This is a workspace where you can find the followingAWS SDK for JavaScript v3 Amazon Cognito examples. 
 
 # Getting started
 

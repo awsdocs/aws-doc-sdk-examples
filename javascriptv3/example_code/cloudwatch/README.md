@@ -1,19 +1,24 @@
 # TypeScript environment for Amazon Cloudwatch examples
-This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) Amazon Cloudwatch examples. 
-
-The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
-
-The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples.html) contains these examples.
-
-The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-cloudwatch/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon Cloudwatch client module.
-The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-cloudwatch-events/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon Cloudwatch Events client module.
-The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-cloudwatch-logs/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon Cloudwatch Logs client module.
-
 Amazon Cloudwatch enables you to collect, access, and correlate this data on a single platform from across all your AWS resources, applications, and services.
 
+This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon Cloudwatch examples:
 
-**NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
-# Getting started
+- [Delete CloudWatch alarms](src/cw_deletealarms.ts)
+- [Describe CloudWatch alarms](src/cw_describealarms.ts)
+- [Enable CloudWatch alarm actions](src/cw_enablealarmactions.ts)
+- [List CloudWatch metrics](src/cw_listmetrics.ts)
+- [Put CloudWatch metric alarms](src/cw_putmetricalarm.ts)
+- [Put CloudWatch metric data](src/cw_putmetricdata.ts)
+- [Put CloudWatch events](src/cwe_putevents.ts)
+- [Put CloudWatch event rule](src/cwe_putrule.ts)
+- [Put CloudWatch event targets](src/cwe_puttargets.ts)
+- [Delete CloudWatch log subscription filters](src/cwl_describesubscriptionfilters.ts)
+- [Describe CloudWatch log subscription filters](src/cwl_describesubscriptionfilters.ts)
+- [Put CloudWatch log subscription filters](src/cwl_putsubscriptionfilter.ts)
+
+
+
+## Getting started
 
 1. Clone the [AWS Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. 
 See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for 
@@ -38,4 +43,10 @@ npm install
 cd src
 ts-node [example name].ts // If you prefer to use JavaScript, enter 'node [sample name].js' instead
 ```
+## Resources
+- [AWS SDK for JavaScript v3 repo](https://github.com/aws/aws-sdk-js-v3) . 
+- [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples.html)
+- [AWS SDK for JavaScript v3 API Reference Guide - Amazon Cloudwatch client module](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-cloudwatch/index.html) 
+- [AWS SDK for JavaScript v3 API Reference Guide - Amazon Cloudwatch Events client module](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-cloudwatch-events/index.html)
+- [AWS SDK for JavaScript v3 API Reference Guide -  Amazon Cloudwatch Logs client module](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-cloudwatch-logs/index.html)
 

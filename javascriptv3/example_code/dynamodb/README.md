@@ -20,7 +20,7 @@ This is a workspace where you can find the following AWS SDK for JavaScript vers
 - [Query a DyanamoDB table using Document Client](src/ddbdoc_query_item.ts)
 - [Update a DyanamoDB table using Document Client](src/ddbdoc_update.ts)
 
-**NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
+
 
 # Getting started
 

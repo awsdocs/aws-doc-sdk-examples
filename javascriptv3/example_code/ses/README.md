@@ -1,5 +1,5 @@
 # TypeScript environment for AWS Simple Email Service (SES) examples
-This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) Amazon SES examples. 
+This is a workspace where you can find the followingAWS SDK for JavaScript version 3 (v3) Amazon SES examples. 
 
 The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available.
  
@@ -9,7 +9,7 @@ The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/
 
 Amazon SES is a cost-effective, flexible, and scalable email service that enables developers to send mail from within any application.
 
-**NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
+
 
 # Getting started
 

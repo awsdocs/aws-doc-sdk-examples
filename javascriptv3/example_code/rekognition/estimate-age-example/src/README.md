@@ -1,5 +1,5 @@
 # TypeScript environment for Amazon Rekognition examples
-This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) Amazon Rekognition examples. 
+This is a workspace where you can find the followingAWS SDK for JavaScript version 3 (v3) Amazon Rekognition examples. 
 
 The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
