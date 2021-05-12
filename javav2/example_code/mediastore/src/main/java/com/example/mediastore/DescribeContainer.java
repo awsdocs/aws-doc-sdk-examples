@@ -73,5 +73,5 @@ public class DescribeContainer {
     }
     return"";
     }
-    //snippet-end:[mediastore.java2.describe_container.import]
+    //snippet-end:[mediastore.java2.describe_container.main]
 }
