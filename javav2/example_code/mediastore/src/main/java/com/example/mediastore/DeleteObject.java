@@ -1,25 +1,15 @@
 //snippet-sourcedescription:[DeleteObject.java demonstrates how to delete an object within an AWS Elemental MediaStore container.]
-//snippet-keyword:[Java]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Elemental MediaStore]
 //snippet-service:[AWS Elemental MediaStore]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[9/1/2020]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[11/05/2020]
+//snippet-sourceauthor:[scmacdon - AWS]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.mediastore;
 
@@ -35,21 +25,29 @@ import java.net.URI;
 import java.net.URISyntaxException;
 //snippet-end:[mediastore.java2.delete_object.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class DeleteObject {
 
     public static void main(String[] args) throws URISyntaxException {
 
         final String USAGE = "\n" +
-                "To run this example, supply the path (including the container) of the item to delete and container name.\n" +
-                "\n" +
-                "Example: DeleteObject <completePath><containerName> \n";
+                "Usage: " +
+                "DeleteObject  <completePath> <containerName>\n\n" +
+                "Where:\n" +
+                "  completePath - the path (including the container) of the item to delete.\n"+
+                "  containerName - the name of the container.\n";
 
-        if (args.length < 2) {
+        if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        /* Read the name from command args */
         String completePath = args[0];
         String containerName = args[1];
 
@@ -62,6 +60,7 @@ public class DeleteObject {
                 .build();
 
         deleteMediaObject(mediaStoreData, completePath);
+        mediaStoreData.close();
     }
 
     //snippet-start:[mediastore.java2.delete_object.main]
@@ -93,6 +92,7 @@ public class DeleteObject {
                 .build();
 
         DescribeContainerResponse response = mediaStoreClient.describeContainer(containerRequest);
+        mediaStoreClient.close();
         return response.container().endpoint();
     }
 }
