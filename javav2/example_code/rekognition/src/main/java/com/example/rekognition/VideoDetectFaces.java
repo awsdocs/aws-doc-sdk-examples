@@ -16,14 +16,16 @@ package com.example.rekognition;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.services.rekognition.model.*;
-
 import java.util.List;
 // snippet-end:[rekognition.java2.recognize_video_faces.import]
 
 
 /**
- *  To run this code example, ensure that you perform the Prerequisites as stated in the Amazon Rekognition Guide:
- *  https://docs.aws.amazon.com/rekognition/latest/dg/video-analyzing-with-sqs.html
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class VideoDetectFaces {
 

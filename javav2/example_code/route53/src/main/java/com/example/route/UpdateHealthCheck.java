@@ -22,6 +22,13 @@ import software.amazon.awssdk.services.route53.model.Route53Exception;
 import software.amazon.awssdk.services.route53.model.UpdateHealthCheckRequest;
 // snippet-end:[route53.java2.update_health_check.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class UpdateHealthCheck {
 
     public static void main(String[] args) {

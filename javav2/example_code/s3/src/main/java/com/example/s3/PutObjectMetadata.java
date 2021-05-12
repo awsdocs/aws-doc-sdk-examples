@@ -26,6 +26,14 @@ import java.util.HashMap;
 import java.util.Map;
 // snippet-end:[s3.java2.s3_object_upload.metadata.import]
 
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class PutObjectMetadata {
 
     public static void main(String[] args) {

@@ -21,7 +21,13 @@ import software.amazon.awssdk.services.rds.model.DeleteDbInstanceResponse;
 import software.amazon.awssdk.services.rds.model.RdsException;
 // snippet-end:[rds.java2.delete_instance.import]
 
-
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class DeleteDBInstance {
 
     public static void main(String[] args) {
