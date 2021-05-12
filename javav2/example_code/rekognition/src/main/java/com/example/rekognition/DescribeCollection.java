@@ -37,10 +37,10 @@ public class DescribeCollection {
                 "Where:\n" +
                 "collectionName - the name of the Amazon Rekognition collection. \n\n";
 
-       // if (args.length != 1) {
-       //     System.out.println(USAGE);
-       //     System.exit(1);
-       // }
+        if (args.length != 1) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
 
         String collectionName = args[0];
         Region region = Region.US_EAST_1;
