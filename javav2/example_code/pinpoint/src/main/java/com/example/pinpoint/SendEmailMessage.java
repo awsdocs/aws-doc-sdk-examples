@@ -29,6 +29,13 @@ import java.util.HashMap;
 import java.util.Map;
 //snippet-end:[pinpoint.java2.send_email.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class SendEmailMessage {
 
     // The email body for recipients with non-HTML email clients.
@@ -57,15 +64,15 @@ public class SendEmailMessage {
                 "  senderAddress - the from address. This address has to be verified in Amazon Pinpoint in the region you're using to send email \n\n" +
                 "  toAddress - the to address. This address has to be verified in Amazon Pinpoint in the region you're using to send email \n\n" ;
 
-        if (args.length != 4) {
-            System.out.println(USAGE);
-            System.exit(1);
-        }
+//        if (args.length != 4) {
+//            System.out.println(USAGE);
+//            System.exit(1);
+//        }
 
-        String subject = args[0];
-        String appId = args[1] ;
-        String senderAddress = args[2] ;
-        String toAddress = args[3] ;
+        String subject = "Pinpoint Test" ; // args[0];
+        String appId = "2fdc4442c6a2483f85eaf7a943054815";  //args[1] ;
+        String senderAddress = "scmacdon@amazon.com" ; // args[2] ;
+        String toAddress =  "scmacdon@amazon.com"  ;  //args[3] ;
 
         System.out.println("Sending a message" );
         PinpointClient pinpoint = PinpointClient.builder()
@@ -128,6 +135,7 @@ public class SendEmailMessage {
                     .build();
 
             pinpoint.sendMessages(messagesRequest);
+
 
         } catch (PinpointException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
