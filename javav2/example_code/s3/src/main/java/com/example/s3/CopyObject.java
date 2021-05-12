@@ -24,6 +24,15 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 // snippet-end:[s3.java2.copy_object.import]
 
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
+
 public class CopyObject {
 
     public static void main(String[] args) {
@@ -35,19 +44,19 @@ public class CopyObject {
                 "    fromBucket - the S3 bucket name that contains the object (for example, bucket1).\n" +
                 "    toBucket - the S3 bucket to copy the object to (for example, bucket2).\n";
 
-        if (args.length != 3) {
-            System.out.println(USAGE);
-            System.exit(1);
-        }
+      //  if (args.length != 3) {
+      //      System.out.println(USAGE);
+      //      System.exit(1);
+      //  }
 
-        String objectKey = args[0];
-        String fromBucket = args[1];
-        String toBucket = args[2];
+        String objectKey = "foo.txt" ; //args[0]
+        String fromBucket = "bucketscottjan" ;
+        String toBucket =  "buckettestsept" ;
 
         System.out.format("Copying object %s from bucket %s to %s\n",
                 objectKey, fromBucket, toBucket);
 
-        Region region = Region.US_WEST_2;
+        Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
                 .build();

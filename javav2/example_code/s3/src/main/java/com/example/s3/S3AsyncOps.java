@@ -24,6 +24,15 @@ import java.nio.file.Paths;
 import java.util.concurrent.CompletableFuture;
 // snippet-end:[s3.java2.async_ops.import]
 // snippet-start:[s3.java2.async_ops.main]
+
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class S3AsyncOps {
 
      public static void main(String[] args) {

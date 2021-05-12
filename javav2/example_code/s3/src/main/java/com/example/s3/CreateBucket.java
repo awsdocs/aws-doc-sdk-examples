@@ -24,6 +24,14 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.waiters.S3Waiter;
 // snippet-end:[s3.java2.create_bucket_waiters.import]
 
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class CreateBucket {
 
     public static void main(String[] args) {
@@ -33,12 +41,12 @@ public class CreateBucket {
                 "Where:\n" +
                 "    bucketName - the name of the bucket to create. The bucket name must be unique, or an error occurs.\n\n" ;
 
-        if (args.length != 1) {
-            System.out.println(USAGE);
-            System.exit(1);
-        }
+        //if (args.length != 1) {
+        //   System.out.println(USAGE);
+        //    System.exit(1);
+       // }
 
-        String bucketName = args[0];
+        String bucketName = "scottmay22" ;  //args[0];
         System.out.format("Creating a bucket named %s\n",
                 bucketName);
 

@@ -28,6 +28,13 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 // snippet-end:[s3.java2.set_bucket_policy.import]
 
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class SetBucketPolicy {
 
     public static void main(String[] args) {
@@ -38,16 +45,16 @@ public class SetBucketPolicy {
                 "    bucketName - the Amazon S3 bucket to set the policy on.\n" +
                 "    polFile - a JSON file containing the policy (see the Amazon S3 Readme for an example). \n" ;
 
-        if (args.length != 2) {
-            System.out.println(USAGE);
-            System.exit(1);
-         }
+        //if (args.length != 2) {
+        //    System.out.println(USAGE);
+        //    System.exit(1);
+        // }
 
-        String bucketName = args[0];
-        String polFile = args[1] ;
+        String bucketName = "bucketscottfoo88"; //args[0];
+        String polFile = "C:/AWS/bucketpolicy.txt";
         String policyText = getBucketPolicyFromFile(polFile);
 
-        Region region = Region.US_WEST_2;
+        Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
                 .build();

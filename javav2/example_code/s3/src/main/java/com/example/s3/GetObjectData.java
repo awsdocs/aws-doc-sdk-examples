@@ -27,6 +27,14 @@ import java.io.IOException;
 import java.io.OutputStream;
 // snippet-end:[s3.java2.getobjectdata.import]
 
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class GetObjectData {
 
     public static void main(String[] args) {
@@ -39,16 +47,16 @@ public class GetObjectData {
                 "    keyName - the key name. \n\n"+
                 "    path - the path where the file is written to. \n\n";
 
-        if (args.length != 3) {
-            System.out.println(USAGE);
-            System.exit(1);
-        }
+   //     if (args.length != 3) {
+   //         System.out.println(USAGE);
+   //         System.exit(1);
+   //     }
 
-        String bucketName = args[0];
-        String keyName = args[1];
-        String path = args[2];
+        String bucketName = "mybucket"; //args[0];
+        String keyName = "students.xml";  //  args[1];
+        String path = "C:\\AWS\\Test.xml"; //args[2];
 
-        Region region = Region.US_WEST_2;
+        Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
                 .build();

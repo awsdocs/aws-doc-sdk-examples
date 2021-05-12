@@ -26,6 +26,14 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 // snippet-end:[s3.java2.set_acl.import]
 
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class SetAcl {
 
     public static void main(String[] args) {
@@ -43,11 +51,11 @@ public class SetAcl {
         }
 
         String bucketName = args[0];
-        String objectKey = args[1];
+       // String objectKey = args[1];
         String id = args[2];
 
         System.out.format("Setting access \n");
-        System.out.println("for object: " + objectKey);
+     //   System.out.println("for object: " + objectKey);
         System.out.println(" in bucket: " + bucketName);
 
         Region region = Region.US_WEST_2;
