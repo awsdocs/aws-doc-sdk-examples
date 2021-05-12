@@ -36,12 +36,12 @@ public class DeleteBucketPolicy {
                 "Where:\n" +
                 "    bucketName - the Amazon S3 bucket to delete the policy from (for example, bucket1)." ;
 
-      //  if (args.length != 1) {
-      //      System.out.println(USAGE);
-      //      System.exit(1);
-      //  }
+        if (args.length != 1) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
 
-        String bucketName = "bucketscottfoo88" ; //args[0];
+        String bucketName = args[0];
         System.out.format("Deleting policy from bucket: \"%s\"\n\n", bucketName);
 
         Region region = Region.US_EAST_1;

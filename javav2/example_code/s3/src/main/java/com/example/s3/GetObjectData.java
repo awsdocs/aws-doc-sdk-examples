@@ -47,14 +47,14 @@ public class GetObjectData {
                 "    keyName - the key name. \n\n"+
                 "    path - the path where the file is written to. \n\n";
 
-   //     if (args.length != 3) {
-   //         System.out.println(USAGE);
-   //         System.exit(1);
-   //     }
+        if (args.length != 3) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
 
-        String bucketName = "mybucket"; //args[0];
-        String keyName = "students.xml";  //  args[1];
-        String path = "C:\\AWS\\Test.xml"; //args[2];
+        String bucketName = args[0];
+        String keyName = args[1];
+        String path = args[2];
 
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()

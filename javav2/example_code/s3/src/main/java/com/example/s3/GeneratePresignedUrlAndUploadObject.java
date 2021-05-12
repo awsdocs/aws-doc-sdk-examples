@@ -51,8 +51,8 @@ public class GeneratePresignedUrlAndUploadObject {
             System.exit(1);
         }
 
-        String bucketName = "<MyBucket>";  //args[0];
-        String keyName = "foo*.txt"; //args[1];
+        String bucketName = args[0];
+        String keyName = args[1];
         Region region = Region.US_EAST_1;
         S3Presigner presigner = S3Presigner.builder()
                 .region(region)

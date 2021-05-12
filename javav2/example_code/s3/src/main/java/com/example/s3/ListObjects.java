@@ -41,12 +41,12 @@ public class ListObjects {
                 "Where:\n" +
                 "    bucketName - the Amazon S3 bucket from which objects are read. \n\n" ;
 
-   //     if (args.length != 1) {
-    //       System.out.println(USAGE);
-    //       System.exit(1);
-    //     }
+        if (args.length != 1) {
+           System.out.println(USAGE);
+           System.exit(1);
+        }
 
-        String bucketName = "bucketscott2"; // args[0];
+        String bucketName = args[0];
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder()
                 .region(region)

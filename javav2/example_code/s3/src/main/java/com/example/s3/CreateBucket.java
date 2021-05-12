@@ -41,12 +41,12 @@ public class CreateBucket {
                 "Where:\n" +
                 "    bucketName - the name of the bucket to create. The bucket name must be unique, or an error occurs.\n\n" ;
 
-        //if (args.length != 1) {
-        //   System.out.println(USAGE);
-        //    System.exit(1);
-       // }
+        if (args.length != 1) {
+           System.out.println(USAGE);
+            System.exit(1);
+        }
 
-        String bucketName = "scottmay22" ;  //args[0];
+        String bucketName = args[0];
         System.out.format("Creating a bucket named %s\n",
                 bucketName);
 

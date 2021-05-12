@@ -59,7 +59,7 @@ public class VPCCreateJob {
         String tagKey = args[4];
         String tagValue = args[5];
         String eTag = args [6];
-        String vpcBucketURL = args[7];;
+        String vpcBucketURL = args[7];
         String uuid = java.util.UUID.randomUUID().toString();
 
         URI myURI = new URI(vpcBucketURL);

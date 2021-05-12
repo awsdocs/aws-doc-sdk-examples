@@ -44,14 +44,14 @@ public class CopyObject {
                 "    fromBucket - the S3 bucket name that contains the object (for example, bucket1).\n" +
                 "    toBucket - the S3 bucket to copy the object to (for example, bucket2).\n";
 
-      //  if (args.length != 3) {
-      //      System.out.println(USAGE);
-      //      System.exit(1);
-      //  }
+        if (args.length != 3) {
+            System.out.println(USAGE);
+            System.exit(1);
+       }
 
-        String objectKey = "foo.txt" ; //args[0]
-        String fromBucket = "bucketscottjan" ;
-        String toBucket =  "buckettestsept" ;
+        String objectKey = args[0];
+        String fromBucket = args[1];;
+        String toBucket =  args[2];;
 
         System.out.format("Copying object %s from bucket %s to %s\n",
                 objectKey, fromBucket, toBucket);

@@ -50,7 +50,7 @@ public class PutObject {
             System.exit(1);
         }
 
-        String bucketName = "bucketscottfoo81" ; //args[0];
+        String bucketName =args[0];
         String objectKey = args[1];
         String objectPath = args[2];
 
