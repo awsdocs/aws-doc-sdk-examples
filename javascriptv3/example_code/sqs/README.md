@@ -9,7 +9,7 @@ The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/
 
 Amazon SQS is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications.
 
-This is a workspace where you can find the followingAWS SDK for JavaScript v3 SQS examples. 
+This is a workspace where you can find the following AWS SDK for JavaScript v3 SQS examples. 
 
 
 

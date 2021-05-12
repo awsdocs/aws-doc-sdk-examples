@@ -1,5 +1,5 @@
 # TypeScript environment for Amazon Elastic Computing (Amazon EC2) examples
-This is a workspace where you can find the followingAWS SDK for JavaScript version 3 (v3) Amazon EC2 examples. 
+This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon EC2 examples. 
 
 The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 

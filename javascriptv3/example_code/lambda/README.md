@@ -1,5 +1,5 @@
 # TypeScript environment for AWS Lambda examples
-This is a workspace where you can find the followingAWS SDK for JavaScript v3 AWS Lambda examples. 
+This is a workspace where you can find the following AWS SDK for JavaScript v3 AWS Lambda examples. 
 
 The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
@@ -9,7 +9,7 @@ The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/
 
 AWS Lambda lets you run code without provisioning or managing servers. You pay only for the compute time you consume.
 
-This is a workspace where you can find the followingAWS SDK for JavaScript v3 Lambda examples. 
+This is a workspace where you can find the following AWS SDK for JavaScript v3 Lambda examples. 
 
 
 

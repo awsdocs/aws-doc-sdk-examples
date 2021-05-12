@@ -3,7 +3,7 @@ Environment for AWS SDK for JavaScript version 3 (v3) Amazon S3 Photo Viewer tut
 
 Amazon Simple Storage Service (Amazon S3) is an object storage service that offers industry-leading scalability, data availability, security, and performance.
 
-This is a workspace where you can find the followingAWS SDK for JavaScript v3 S3 examples. 
+This is a workspace where you can find the following AWS SDK for JavaScript v3 S3 examples. 
 
 # Getting started
 
