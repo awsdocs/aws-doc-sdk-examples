@@ -27,6 +27,9 @@ files:
  - path: src/main/java/com/example/rekognition/DetectLabels.java
    services:
      - rekognition
+ - path: src/main/java/com/example/rekognition/DetectLabelsS3.java
+   services:
+     - rekognition
  - path: src/main/java/com/example/rekognition/DetectModerationLabels.java
    services:
      - rekognition
