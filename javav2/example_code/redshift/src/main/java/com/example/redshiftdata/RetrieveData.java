@@ -19,6 +19,14 @@ import software.amazon.awssdk.services.redshiftdata.RedshiftDataClient;
 import software.amazon.awssdk.services.redshiftdata.model.DescribeStatementRequest;
 import java.util.List;
 
+
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class RetrieveData {
 
     public static void main(String[] args) {
@@ -32,15 +40,15 @@ public class RetrieveData {
                 "    sqlStatement - the sql statement to use (for example, select * from information_schema.tables;) \n" +
                 "    clusterId - the id of the Redshift cluster (for example, redshift-cluster) \n" ;
 
-          if (args.length != 4) {
-              System.out.println(USAGE);
-              System.exit(1);
-          }
+          //if (args.length != 4) {
+          //    System.out.println(USAGE);
+          //    System.exit(1);
+         // }
 
-        String database = args[0];
-        String dbUser = args[1];
-        String sqlStatement = args[2];
-        String clusterId = args[3];
+        String database =  "dev"; //args[0];
+        String dbUser = "awsuser";  //args[1];
+        String sqlStatement = "Select * from blog;";  //args[2];
+        String clusterId = "redshift-cluster-1";  // args[3];
 
         Region region = Region.US_WEST_2;
         RedshiftDataClient redshiftDataClient = RedshiftDataClient.builder()
