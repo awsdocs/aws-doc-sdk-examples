@@ -20,8 +20,15 @@ import software.amazon.awssdk.services.quicksight.model.ListDataSetsResponse;
 import software.amazon.awssdk.services.quicksight.model.DataSetSummary;
 import software.amazon.awssdk.services.quicksight.model.QuickSightException;
 import java.util.List;
-// snippet-end:[quicksight.java2.list_datasets.import]
+// snippet-start:[quicksight.java2.list_datasets.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class ListDataSets {
 
     public static void main(String[] args) {
