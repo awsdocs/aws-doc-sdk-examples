@@ -30,6 +30,13 @@ import java.io.InputStream;
 import java.util.List;
 // snippet-end:[rekognition.java2.compare_faces.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class CompareFaces {
 
     public static void main(String[] args) {
@@ -41,14 +48,14 @@ public class CompareFaces {
                 "pathSource - the path to the source image (for example, C:\\AWS\\pic1.png). \n " +
                 "pathTarget - the path to the target image (for example, C:\\AWS\\pic2.png). \n\n";
 
-        if (args.length != 2) {
-            System.out.println(USAGE);
-            System.exit(1);
-        }
+       // if (args.length != 2) {
+       //     System.out.println(USAGE);
+       //     System.exit(1);
+       // }
 
         Float similarityThreshold = 70F;
-        String sourceImage = args[0];
-        String targetImage = args[1];
+        String sourceImage = "C:\\AWS\\Carey1.png" ; //args[0];
+        String targetImage = "C:\\AWS\\Carey2.png"; //args[1];
 
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()

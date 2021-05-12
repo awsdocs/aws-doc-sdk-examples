@@ -22,6 +22,13 @@ import software.amazon.awssdk.services.rekognition.model.RekognitionException;
 import java.util.List;
 // snippet-end:[rekognition.java2.list_faces_collection.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class ListFacesInCollection {
 
     public static void main(String[] args) {
@@ -32,12 +39,12 @@ public class ListFacesInCollection {
                 "Where:\n" +
                 "collectionId - the name of the collection. \n\n";
 
-        if (args.length < 1) {
-            System.out.println(USAGE);
-            System.exit(1);
-        }
+      //  if (args.length < 1) {
+      //      System.out.println(USAGE);
+      //      System.exit(1);
+      //  }
 
-        String collectionId = args[0];
+        String collectionId = "lamCollection"; //args[0];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
