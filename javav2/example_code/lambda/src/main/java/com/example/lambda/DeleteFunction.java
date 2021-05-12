@@ -22,6 +22,13 @@ import software.amazon.awssdk.services.lambda.model.DeleteFunctionRequest;
 import software.amazon.awssdk.services.lambda.model.LambdaException;
 // snippet-end:[lambda.java2.delete.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class DeleteFunction {
 
     public static void main(String[] args) {
@@ -35,7 +42,7 @@ public class DeleteFunction {
         if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
-        }
+       }
 
         String functionName = args[0];
         Region region = Region.US_EAST_1;

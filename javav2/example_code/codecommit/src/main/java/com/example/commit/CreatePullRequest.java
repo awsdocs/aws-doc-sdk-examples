@@ -24,6 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 // snippet-end:[codecommit.java2.create_pr.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class CreatePullRequest {
 
     public static void main(String[] args) {

@@ -19,6 +19,13 @@ import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
 import software.amazon.awssdk.services.cloudwatchlogs.model.GetLogEventsRequest;
 // snippet-end:[cloudwatch.java2.get_logs.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class GetLogEvents {
 
     public static void main(String[] args) {
@@ -51,7 +58,6 @@ public class GetLogEvents {
     public static void getCWLogEvents(CloudWatchLogsClient cloudWatchLogsClient, String logGroupName, String logStreamName) {
 
         try {
-
              GetLogEventsRequest getLogEventsRequest = GetLogEventsRequest.builder()
                 .logGroupName(logGroupName)
                 .logStreamName(logStreamName)

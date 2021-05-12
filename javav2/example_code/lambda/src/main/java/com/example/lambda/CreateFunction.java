@@ -32,7 +32,14 @@ import java.io.InputStream;
  *  If you do not have a ZIP or JAR, please refer to the following document:
  *
  *  https://github.com/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_workflows_stepfunctions
+ *
+ * Also, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
+
 public class CreateFunction {
 
     public static void main(String[] args) {
@@ -56,7 +63,7 @@ public class CreateFunction {
         String role = args[2];
         String handler = args[3];
 
-        Region region = Region.US_EAST_1;
+        Region region = Region.US_WEST_2;
         LambdaClient awsLambda = LambdaClient.builder()
                 .region(region)
                 .build();
@@ -77,17 +84,17 @@ public class CreateFunction {
             SdkBytes fileToUpload = SdkBytes.fromInputStream(is);
 
             FunctionCode code = FunctionCode.builder()
-                .zipFile(fileToUpload)
-                .build();
+                    .zipFile(fileToUpload)
+                    .build();
 
             CreateFunctionRequest functionRequest = CreateFunctionRequest.builder()
-                .functionName(functionName)
-                .description("Created by the Lambda Java API")
-                .code(code)
-                .handler(handler)
-                .runtime(Runtime.JAVA8)
-                .role(role)
-                .build();
+                    .functionName(functionName)
+                    .description("Created by the Lambda Java API")
+                    .code(code)
+                    .handler(handler)
+                    .runtime(Runtime.JAVA8)
+                    .role(role)
+                    .build();
 
             CreateFunctionResponse functionResponse = awsLambda.createFunction(functionRequest);
             System.out.println("The function ARN is "+functionResponse.functionArn());

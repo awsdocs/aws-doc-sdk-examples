@@ -20,6 +20,13 @@ import software.amazon.awssdk.services.kms.model.KmsException;
 import software.amazon.awssdk.services.kms.model.PutKeyPolicyRequest;
 // snippet-end:[kms.java2_set_policy.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class SetKeyPolicy {
 
     public static void main(String[] args) {
@@ -37,7 +44,7 @@ public class SetKeyPolicy {
         }
 
         String keyId = args[0];
-        String policyName = args[1];
+        String policyName =  args[1];
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
                 .region(region)

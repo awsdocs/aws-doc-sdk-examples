@@ -20,7 +20,11 @@ import software.amazon.awssdk.services.iam.model.IamException;
 // snippet-end:[iam.java2.create_account_alias.import]
 
 /**
- * Creates an alias for an AWS Account
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateAccountAlias {
     public static void main(String[] args) {

@@ -21,6 +21,14 @@ import software.amazon.awssdk.services.kms.model.CustomerMasterKeySpec;
 import software.amazon.awssdk.services.kms.model.CreateKeyResponse;
 import software.amazon.awssdk.services.kms.model.KmsException;
 // snippet-end:[kms.java2_create_key.import]
+
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class CreateCustomerKey {
 
     public static void main(String[] args) {
@@ -46,7 +54,6 @@ public class CreateCustomerKey {
                 .build();
 
         CreateKeyResponse result = kmsClient.createKey(keyRequest);
-
         System.out.printf(
                 "Created a customer key with id \"%s\"%n",
                 result.keyMetadata().arn());
