@@ -64,8 +64,8 @@ public class DetectLabelsS3 {
 
         try {
         S3Object s3Object = S3Object.builder()
-                .bucket("bucketscottfoo75")
-                .name("Lake.png")
+                .bucket(bucket)
+                .name(image)
                 .build() ;
 
         Image myImage = Image.builder()
