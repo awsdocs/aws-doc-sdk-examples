@@ -68,12 +68,12 @@ public class DetectLabelsS3 {
                 .name("Lake.png")
                 .build() ;
 
-        Image image = Image.builder()
+        Image myImage = Image.builder()
                 .s3Object(s3Object)
                 .build();
 
         DetectLabelsRequest detectLabelsRequest = DetectLabelsRequest.builder()
-                .image(image)
+                .image(myImage)
                 .maxLabels(10)
                 .build();
 
