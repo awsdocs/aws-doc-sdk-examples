@@ -6,13 +6,13 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-creating-alarms.html.
 
 Purpose:
-cw_putmetricalarm.ts demonstrates how to create or update an Amazon CloudWatch alarm and associate it with particular metrics.
+cw_putmetricalarm.js demonstrates how to create or update an Amazon CloudWatch alarm and associate it with particular metrics.
 
 Inputs (replace in code):
 - REGION
 
 Running the code:
-ts-node cw_putmetricalarm.ts
+ts-node cw_putmetricalarm.js
 */
 // snippet-start:[cw.JavaScript.alarms.putMetricAlarmV3]
 

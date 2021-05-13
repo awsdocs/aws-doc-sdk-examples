@@ -6,14 +6,14 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html.
 
 Purpose:
-ddbdoc_update_query.ts demonstrates how to use the Amazon DynamoDB document client to query items from an Amazon DynamoDB table.
+ddbdoc_update_query.js demonstrates how to use the Amazon DynamoDB document client to query items from an Amazon DynamoDB table.
 
 Inputs (replace in code):
 - TABLE_NAME
 - REGION
 
 Running the code:
-ts-node ddbdoc_update_query.ts
+ts-node ddbdoc_update_query.js
 */
 // snippet-start:[dynamodb.JavaScript.docClient.queryV3]
 const {

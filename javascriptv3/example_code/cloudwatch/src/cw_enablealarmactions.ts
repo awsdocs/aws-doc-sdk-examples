@@ -6,7 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-using-alarm-actions.html.
 
 Purpose:
-cw_enablealarmactions.ts demonstrates how to enable actions for Amazon CloudWatch alarms.
+cw_enablealarmactions.js demonstrates how to enable actions for Amazon CloudWatch alarms.
 
 Inputs (replace in code):
 - REGION
@@ -14,7 +14,7 @@ Inputs (replace in code):
 - ACTION_ARN
 
 Running the code:
-ts-node cw_enablealarmactions.ts
+ts-node cw_enablealarmactions.js
 */
 // snippet-start:[cw.JavaScript.alarms.enableAlarmActionsV3]
 

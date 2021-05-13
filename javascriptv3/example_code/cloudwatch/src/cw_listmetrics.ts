@@ -6,13 +6,13 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide//cloudwatch-examples-getting-metrics.html.
 
 Purpose:
-cw_listmetrics.ts demonstrates how to list metrics for Amazon CloudWatch.
+cw_listmetrics.js demonstrates how to list metrics for Amazon CloudWatch.
 
 Inputs (replace in code):
 - REGION
 
 Running the code:
-ts-node cw_listmetrics.ts
+ts-node cw_listmetrics.js
 */
 // snippet-start:[cw.JavaScript.metrics.listMetricsV3]
 

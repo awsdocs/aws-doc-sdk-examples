@@ -6,13 +6,13 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-creating-alarms.html.
 
 Purpose:
-cw_describealarms.ts demonstrates how to retrieve information about Amazon CloudWatch alarms.
+cw_describealarms.js demonstrates how to retrieve information about Amazon CloudWatch alarms.
 
 Inputs (replace in code):
 - REGION
 
 Running the code:
-ts-node cw_describealarms.ts
+ts-node cw_describealarms.js
 */
 // snippet-start:[cw.JavaScript.alarms.describeAlarmsV3]
 

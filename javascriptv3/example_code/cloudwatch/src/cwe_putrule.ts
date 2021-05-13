@@ -6,13 +6,13 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-sending-events.html.
 
 Purpose:
-cwe_putrule.ts demonstrates how to create or update an Amazon CloudWatch Events rule.
+cwe_putrule.js demonstrates how to create or update an Amazon CloudWatch Events rule.
 
 Inputs (replace in code):
 - REGION IAM_ROLE_ARN
 
 Running the code:
-ts-node cw_deletealarm.ts
+ts-node cw_deletealarm.js
 */
 // snippet-start:[cwEvents.JavaScript.cwe.putRuleV3]
 

@@ -6,13 +6,13 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-query-scan.html.
 
 Purpose:
-ddb_query.ts demonstrates how to find items in an Amazon DynamoDB table.
+ddb_query.js demonstrates how to find items in an Amazon DynamoDB table.
 
 Inputs (replace in code):
 - REGION
 
 Running the code:
-ts-node ddb_query.ts
+ts-node ddb_query.js
 */
 // snippet-start:[dynamodb.JavaScript.table.queryV3]
 

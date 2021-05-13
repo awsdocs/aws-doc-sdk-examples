@@ -7,7 +7,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 // https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write-batch.html.
 
 Purpose:
-ddb_batchwriteitem.ts demonstrates how to put items or delete items into an Amazon DynamoDB table.
+ddb_batchwriteitem.js demonstrates how to put items or delete items into an Amazon DynamoDB table.
 
 Inputs (replace in code):
 - REGION
@@ -17,7 +17,7 @@ Inputs (replace in code):
 - ATTRIBUTE_VALUES
 
 Running the code:
-ts-node ddb_batchwriteitem.ts
+ts-node ddb_batchwriteitem.js
 */
 // snippet-start:[dynamodb.JavaScript.batch.WriteItemV3]
 // Import required AWS SDK clients and commands for Node.js

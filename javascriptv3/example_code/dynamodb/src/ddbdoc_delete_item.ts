@@ -4,7 +4,7 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript versi
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html.
 Purpose:
-ddbdoc_get_item.ts demonstrates how to use the Amazon DynamoDB document client to delete an item from an Amazon DynamoDB table.
+ddbdoc_get_item.js demonstrates how to use the Amazon DynamoDB document client to delete an item from an Amazon DynamoDB table.
 
 Inputs (replace in code):
 - TABLE_NAME
@@ -15,7 +15,7 @@ Inputs (replace in code):
 - VALUE_2: Value for the primary key (The format for the datatype must match the schema.)
 
 Running the code:
-ts-node ddbdoc_delete_item.ts
+ts-node ddbdoc_delete_item.js
 */
 // snippet-start:[dynamodb.JavaScript.docClient.deleteV3]
 

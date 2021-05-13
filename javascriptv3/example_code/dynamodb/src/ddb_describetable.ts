@@ -6,14 +6,14 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examples-using-tables.html.
 
 Purpose:
-ddb_describetable.ts demonstrates how to retrieve information about an Amazon DynamoDB table.
+ddb_describetable.js demonstrates how to retrieve information about an Amazon DynamoDB table.
 
 Inputs (replace in code):
 - REGION
 - TABLE_NAME
 
 Running the code:
-ts-node ddb_describetable.ts
+ts-node ddb_describetable.js
 */
 // snippet-start:[dynamodb.JavaScript.table.describeTableV3]
 // Import required AWS SDK clients and commands for Node.js

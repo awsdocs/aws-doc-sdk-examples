@@ -6,7 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 // https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write.html.
 
 Purpose:
-ddb_putitem.ts demonstrates how to create or update an item in an Amazon DynamoDB table.
+ddb_putitem.js demonstrates how to create or update an item in an Amazon DynamoDB table.
 
 Inputs (replace in code):
 - REGION

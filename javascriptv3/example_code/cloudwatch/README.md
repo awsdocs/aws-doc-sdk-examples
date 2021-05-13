@@ -1,21 +1,24 @@
-# TypeScript environment for Amazon Cloudwatch examples
+# Amazon Cloudwatch JavaScript SDK v3 code examples
 Amazon Cloudwatch enables you to collect, access, and correlate this data on a single platform from across all your AWS resources, applications, and services.
 
+## Code examples
 This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon Cloudwatch examples:
 
-- [Delete CloudWatch alarms](src/cw_deletealarms.ts)
-- [Describe CloudWatch alarms](src/cw_describealarms.ts)
-- [Enable CloudWatch alarm actions](src/cw_enablealarmactions.ts)
-- [List CloudWatch metrics](src/cw_listmetrics.ts)
-- [Put CloudWatch metric alarms](src/cw_putmetricalarm.ts)
-- [Put CloudWatch metric data](src/cw_putmetricdata.ts)
-- [Put CloudWatch events](src/cwe_putevents.ts)
-- [Put CloudWatch event rule](src/cwe_putrule.ts)
-- [Put CloudWatch event targets](src/cwe_puttargets.ts)
-- [Delete CloudWatch log subscription filters](src/cwl_describesubscriptionfilters.ts)
-- [Describe CloudWatch log subscription filters](src/cwl_describesubscriptionfilters.ts)
-- [Put CloudWatch log subscription filters](src/cwl_putsubscriptionfilter.ts)
+- [Delete CloudWatch alarms](src/cw_deletealarms.js)
+- [Describe CloudWatch alarms](src/cw_describealarms.js)
+- [Enable CloudWatch alarm actions](src/cw_enablealarmactions.js)
+- [List CloudWatch metrics](src/cw_listmetrics.js)
+- [Put CloudWatch metric alarms](src/cw_putmetricalarm.js)
+- [Put CloudWatch metric data](src/cw_putmetricdata.js)
+- [Put CloudWatch events](src/cwe_putevents.js)
+- [Put CloudWatch event rule](src/cwe_putrule.js)
+- [Put CloudWatch event targets](src/cwe_puttargets.js)
+- [Delete CloudWatch log subscription filters](src/cwl_describesubscriptionfilters.js)
+- [Describe CloudWatch log subscription filters](src/cwl_describesubscriptionfilters.js)
+- [Put CloudWatch log subscription filters](src/cwl_putsubscriptionfilter.js)
 
+**Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see 
+[JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html).
 
 
 ## Getting started
@@ -29,19 +32,16 @@ instructions.
 **Note**: These dependencies include the client modules for the AWS services that this example requires, 
 which are the *@aws-sdk/client-cloudwatch*, *@aws-sdk/client-cloudwatch-events*, and *@aws-sdk/client-cloudwatch-logs*.
 ```
-npm install ts-node -g // If you prefer to use JavaScript, enter 'npm install node -g' instead
+npm install node -g 
 cd javascriptv3/example_code/cloudwatch 
 npm install
 ```
-3. If you're using JavaScript, change the sample file extension from ```.ts``` to ```.js```.
+3. In your text editor, update user variables specified in the ```Inputs``` section of the sample file.
 
-
-4. In your text editor, update user variables specified in the ```Inputs``` section of the sample file.
-
-5. Run sample code:
+4. Run sample code:
 ```
 cd src
-ts-node [example name].ts // If you prefer to use JavaScript, enter 'node [sample name].js' instead
+node [example name].js 
 ```
 ## Resources
 - [AWS SDK for JavaScript v3 repo](https://github.com/aws/aws-sdk-js-v3) . 

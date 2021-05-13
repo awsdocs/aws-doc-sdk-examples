@@ -7,7 +7,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 // https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write-batch.html.
 
 Purpose:
-ddb_batchgetitem.ts demonstrates how to retrieve items from an Amazon DynamoDB table.
+ddb_batchgetitem.js demonstrates how to retrieve items from an Amazon DynamoDB table.
 
 Inputs (replace in code):
 - REGION
@@ -17,7 +17,7 @@ Inputs (replace in code):
 - ATTRIBUTE_NAME
 
 Running the code:
-ts-node ddb_batchgetitem.ts
+ts-node ddb_batchgetitem.js
 */
 // snippet-start:[dynamodb.JavaScript.batch.GetItemV3]
 // Import required AWS SDK clients and commands for Node.js

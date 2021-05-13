@@ -6,7 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examples-using-tables.html.
 
 Purpose:
-ddb_createtable.ts demonstrates how to create an Amazon DynamoDB table.
+ddb_createtable.js demonstrates how to create an Amazon DynamoDB table.
 
 Inputs (replace in code):
 - REGION
@@ -16,7 +16,7 @@ Inputs (replace in code):
 - ATTRIBUTE_TYPE: the type of the attribute (e.g., N [for a number], S [for a string] etc.)
 
 Running the code:
-ts-node ddb_createtable.ts
+ts-node ddb_createtable.js
 */
 
 // snippet-start:[dynamodb.JavaScript.table.createTableV3]

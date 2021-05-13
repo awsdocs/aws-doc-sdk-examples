@@ -6,7 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html.
 
 Purpose:
-ddbdoc_get_item.ts demonstrates how to use the Amazon DynamoDB document client to retrieve a set of attributes for an item in an Amazon DynamoDB table..
+ddbdoc_get_item.js demonstrates how to use the Amazon DynamoDB document client to retrieve a set of attributes for an item in an Amazon DynamoDB table..
 
 Inputs (replace in code):
 - TABLE_NAME
@@ -17,7 +17,7 @@ Inputs (replace in code):
 - VALUE_2: Value for the primary key (The format for the datatype must match the schema.)
 
 Running the code:
-ts-node ddbdoc_get_item.ts
+ts-node ddbdoc_get_item.js
 */
 // snippet-start:[dynamodb.JavaScript.docClient.getV3]
 

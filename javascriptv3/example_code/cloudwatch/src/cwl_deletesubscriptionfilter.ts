@@ -6,7 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-subscriptions.html.
 
 Purpose:
-cwl_deletesubscriptionfilter.ts demonstrates how to delete an Amazon CloudWatch Logs filter.
+cwl_deletesubscriptionfilter.js demonstrates how to delete an Amazon CloudWatch Logs filter.
 
 Inputs :
 - REGION
@@ -14,7 +14,7 @@ Inputs :
 - LOG_GROUP
 
 Running the code:
-ts-node cwl_deletesubscriptionfilter.ts
+ts-node cwl_deletesubscriptionfilter.js
 */
 // snippet-start:[cwLogs.JavaScript.cwl.deleteSubscriptionFilterV3]
 

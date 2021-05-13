@@ -12,7 +12,7 @@ Inputs (replace in code):
 - REGION
 
 Running the code:
-ts-node cw_putmetricdata.ts
+ts-node cw_putmetricdata.js
 */
 // snippet-start:[cw.JavaScript.metrics.putMetricDataV3]
 

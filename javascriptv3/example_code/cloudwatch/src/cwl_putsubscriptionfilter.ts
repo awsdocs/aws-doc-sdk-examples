@@ -6,7 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-subscriptions.html.
 
 Purpose:
-cwl_putsubscriptionfilter.ts demonstrates how to create or update a subscription filter for an Amazon CloudWatch Logs group.
+cwl_putsubscriptionfilter.js demonstrates how to create or update a subscription filter for an Amazon CloudWatch Logs group.
 
 Inputs (replace in code): (all into command line below)
 - REGION
@@ -15,7 +15,7 @@ Inputs (replace in code): (all into command line below)
 - LOG_GROUP
 
 Running the code:
-ts-node cwl_putsubscriptionfilter.ts
+ts-node cwl_putsubscriptionfilter.js
 */
 // snippet-start:[cwLogs.JavaScript.cwl.putSubscriptionFilterV3]
 

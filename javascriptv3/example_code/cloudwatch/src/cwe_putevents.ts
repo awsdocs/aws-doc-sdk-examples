@@ -6,14 +6,14 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-sending-events.html.
 
 Purpose:
-cwe_putevents.ts demonstrates how to send custom events to Amazon CloudWatch Events so they can be matched with rules.
+cwe_putevents.js demonstrates how to send custom events to Amazon CloudWatch Events so they can be matched with rules.
 
 Inputs (replace in code):
 - REGION
 - RESOURCE_ARN
 
 Running the code:
-ts-node cwe_putevents.ts
+ts-node cwe_putevents.js
 */
 // snippet-start:[cwEvents.JavaScript.cwe.putEventsV3]
 

@@ -6,14 +6,14 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-using-alarm-actions.html.
 
 Purpose:
-cw_disablealarmactions.ts demonstrates how to disable actions for an Amazon CloudWatch alarm.
+cw_disablealarmactions.js demonstrates how to disable actions for an Amazon CloudWatch alarm.
 
 Inputs (replace in code):
 - REGION
 - ALARM_NAME
 
 Running the code:
-ts-node cw_disablealarmactions.ts
+ts-node cw_disablealarmactions.js
 */
 // snippet-start:[cw.JavaScript.alarms.disableAlarmActionsV3]
 

@@ -6,7 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html.
 
 Purpose:
-ddbdoc_put_item.ts demonstrates how to use the Amazon DynamoDB document client to create or replace an item in an Amazon DynamoDB table.
+ddbdoc_put_item.js demonstrates how to use the Amazon DynamoDB document client to create or replace an item in an Amazon DynamoDB table.
 
 Inputs (replace in code):
 - TABLE_NAME
@@ -19,7 +19,7 @@ Inputs (replace in code):
 - NEW_ATTRIBUTE_1_VALUE
 
 Running the code:
-ts-node ddbdoc_put_item.ts
+ts-node ddbdoc_put_item.js
 */
 // snippet-start:[dynamodb.JavaScript.docClient.putV3]
 

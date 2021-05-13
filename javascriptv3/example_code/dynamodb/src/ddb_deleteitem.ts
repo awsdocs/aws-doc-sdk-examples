@@ -6,7 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write.html.
 
 Purpose:
-ddb_deleteitem.ts demonstrates how to delete an item from an Amazon DynamoDB table.
+ddb_deleteitem.js demonstrates how to delete an item from an Amazon DynamoDB table.
 
 Inputs (replace in code):
 - REGION
@@ -15,7 +15,7 @@ Inputs (replace in code):
 - VALUE
 
 Running the code:
-ts-node ddb_deleteitem.ts
+ts-node ddb_deleteitem.js
 
 */
 // snippet-start:[dynamodb.JavaScript.item.deleteItemV3]

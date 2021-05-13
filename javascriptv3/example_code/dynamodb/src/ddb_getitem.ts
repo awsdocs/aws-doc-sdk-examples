@@ -5,7 +5,7 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript versi
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at// https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write.html.
 
 Purpose:
-ddb_getitem.ts demonstrates how to retrieve the attributes of an item from an Amazon DynamoDB table.
+ddb_getitem.js demonstrates how to retrieve the attributes of an item from an Amazon DynamoDB table.
 
 Inputs (replace in code):
 - REGION
@@ -15,7 +15,7 @@ Inputs (replace in code):
 - ATTRIBUTE_NAME: the name of the attribute column containing the attribute value
 
 Running the code:
-ts-node ddb_getitem.ts
+ts-node ddb_getitem.js
 */
 // snippet-start:[dynamodb.JavaScript.item.getItemV3]
 // Import required AWS SDK clients and commands for Node.js
