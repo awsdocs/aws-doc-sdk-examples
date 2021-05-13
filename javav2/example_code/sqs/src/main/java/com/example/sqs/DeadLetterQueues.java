@@ -22,6 +22,13 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
 // snippet-end:[sqs.java2.delete_letter_queues.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class DeadLetterQueues {
     private static final String QueueName = "testQueue" + new Date().getTime();
     private static final String DLQueueName = "DLQueue" + new Date().getTime();

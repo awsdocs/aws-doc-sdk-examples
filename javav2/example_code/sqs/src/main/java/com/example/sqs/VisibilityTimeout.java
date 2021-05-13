@@ -16,13 +16,19 @@ package com.example.sqs;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 // snippet-end:[sqs.java2.visibility_timeout.import]
 
 // snippet-start:[sqs.java2.visibility_timeout.main]
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class VisibilityTimeout {
 
     public static void main(String[] args) {
