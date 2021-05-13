@@ -65,7 +65,7 @@ public class CrossRegionReplication {
         String destBucketName = "*** Destination bucket name ***";
         String prefix = "Tax/";
 
-        String roleARN = String.format("arn:aws:iam::%s:role/%s", accountId, roleName);
+        String roleARN = String.format("arn:aws:iam::%s:%s", accountId, roleName);
         String destinationBucketARN = "arn:aws:s3:::" + destBucketName;
 
         AmazonS3 s3Client = AmazonS3Client.builder()
