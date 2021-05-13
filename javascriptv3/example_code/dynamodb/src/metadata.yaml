@@ -1,6 +1,12 @@
 ---
 # Amazon DynamoDB basic usage examples
 files:
+  - path: .libs/ddbClient.js
+    services:
+      - dynamodb
+  - path: .libs/ddbDocClient.js
+    services:
+      - dynamodb
   - path: ddb_batchgetitem.js
     services:
       - dynamodb

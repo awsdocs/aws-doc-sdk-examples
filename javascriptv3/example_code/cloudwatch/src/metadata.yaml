@@ -1,6 +1,15 @@
 ---
 # Amazon Cloudwatch basic usage examples
 files:
+  - path: .libs/cwClient.js
+    services:
+      - cloudwatch
+  - path: .libs/cweClient.js
+      services:
+      - cloudwatch
+  - path: .libs/cwlClient.js
+      services:
+      - cloudwatch
   - path: cw_deletealarms.js
     services:
       - cloudwatch
