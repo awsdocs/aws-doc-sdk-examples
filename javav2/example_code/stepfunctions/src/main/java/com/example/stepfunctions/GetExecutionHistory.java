@@ -23,6 +23,13 @@ import software.amazon.awssdk.services.sfn.model.SfnException;
 import java.util.List;
 // snippet-end:[stepfunctions.java2.get_history.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class GetExecutionHistory {
 
     public static void main(String[] args) {
@@ -62,6 +69,7 @@ public class GetExecutionHistory {
             List<HistoryEvent> events = historyResponse.events();
             for (HistoryEvent event: events) {
                 System.out.println("The event type is "+event.type().toString());
+
             }
 
         } catch (SfnException e) {

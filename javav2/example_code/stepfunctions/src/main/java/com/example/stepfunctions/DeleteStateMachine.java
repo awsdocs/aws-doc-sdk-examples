@@ -20,6 +20,13 @@ import software.amazon.awssdk.services.sfn.model.SfnException;
 import software.amazon.awssdk.services.sfn.model.DeleteStateMachineRequest;
 // snippet-end:[stepfunctions.java2.delete_machine.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class DeleteStateMachine {
 
     public static void main(String[] args) {
