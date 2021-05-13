@@ -13,7 +13,7 @@ Inputs (replace in code):
 - KEY
 
 Running the code:
-nodes3_delete_object.ts
+nodes3_delete_object.js
 */
 // snippet-start:[s3.JavaScript.buckets.deleteobjectV3]
 import { DeleteObjectCommand } from "@aws-sdk/client-s3";

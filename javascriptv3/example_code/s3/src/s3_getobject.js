@@ -14,7 +14,7 @@ Inputs (replace in code):
 - KEY
 
 Running the code:
-nodes3_getobject.ts
+nodes3_getobject.js
 
 [Outputs | Returns]:
 Returns the object} from the Amazon S3 bucket.

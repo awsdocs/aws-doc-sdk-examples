@@ -10,7 +10,7 @@ Inputs (replace in code):
 - IDENTITY_POOL_ID
 - TABLE_NAME
 Running the code:
-node s3_putbucketpolicy.ts
+node s3_putbucketpolicy.js
  */
 // snippet-start:[s3.JavaScript.policy.putBucketPolicyV3]
 // Import required AWS SDK clients and commands for Node.js

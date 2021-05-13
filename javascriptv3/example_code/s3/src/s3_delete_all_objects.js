@@ -12,7 +12,7 @@ Inputs (replace in code):
 - BUCKET_NAME
 
 Running the code:
-nodes3_delete_all_objectS.ts
+nodes3_delete_all_objectS.js
 */
 // snippet-start:[s3.JavaScript.buckets.deleteoallbjectsV3]
 import {

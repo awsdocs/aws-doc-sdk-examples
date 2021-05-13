@@ -9,7 +9,7 @@ Inputs (replace in code):
 - REGION
 - BUCKET_NAME
 Running the code:
-nodes3_deletebucketwebsite.ts
+nodes3_deletebucketwebsite.js
  */
 // snippet-start:[s3.JavaScript.website.deleteBucketWebsiteV3]
 

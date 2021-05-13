@@ -9,7 +9,7 @@ Inputs (replace in code):
 - REGION
 - BUCKET_NAME
 Running the code:
-nodes3_deletebucket.ts
+nodes3_deletebucket.js
 */
 // snippet-start:[s3.JavaScript.buckets.deleteBucketV3]
 // Import required AWS SDK clients and commands for Node.js

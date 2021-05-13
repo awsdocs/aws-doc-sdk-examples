@@ -9,7 +9,7 @@ Inputs (replace in code):
 - REGION
 - BUCKET_NAME
 Running the code:
-nodes3_getbucketpolicy.ts
+nodes3_getbucketpolicy.js
 */
 // snippet-start:[s3.JavaScript.policy.getBucketPolicyV3]
 // Import required AWS SDK clients and commands for Node.js

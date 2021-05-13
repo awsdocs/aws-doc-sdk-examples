@@ -14,7 +14,7 @@ Inputs (replace in code):
 - REGION
 
 Running the code:
-nodes3_get_presignedURL.ts
+nodes3_get_presignedURL.js
 [Outputs | Returns]:
 Uploads the specified file to the specified bucket.
 */

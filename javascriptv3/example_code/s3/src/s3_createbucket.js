@@ -12,7 +12,7 @@ Inputs (replace in code):
 - BUCKET_NAME
 
 Running the code:
-nodes3_createbucket.ts
+nodes3_createbucket.js
 */
 // snippet-start:[s3.JavaScript.buckets.createBucketV3]
 // Get service clients module and commands using ES6 syntax.

@@ -13,7 +13,7 @@ Inputs (in the commandline input below):
 - BODY: The contents of the uploaded file.
 
 Running the code:
-nodes3_create_and_upload_object.ts
+nodes3_create_and_upload_object.js
 */
 // snippet-start:[s3.JavaScript.buckets.upload_putcommandV3]
 

@@ -13,7 +13,7 @@ Inputs (replace in code):
 - OBJECT_PATH_AND_NAME: Relative path and name of object. For example '../myFiles/index.js'.
 
 Running the code:
-nodes3_putobject.ts
+nodes3_putobject.js
 
 [Outputs | Returns]:
 Uploads the specified file to the specified bucket.

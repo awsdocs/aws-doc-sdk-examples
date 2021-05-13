@@ -15,7 +15,7 @@ This is a workspace where you can find the following AWS SDK for JavaScript v3 S
 such as *@aws-sdk/client-s3*, *@aws-sdk/client-cognito-identity*, and 
 *@aws-sdk/credential-provider-cognito-identity*.
 ```
-npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
+npm install node -g
 cd javascriptv3/example_code/s3/src/photoViewer/src
 npm install
 ```

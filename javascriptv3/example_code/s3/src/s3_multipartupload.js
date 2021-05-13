@@ -13,7 +13,7 @@ Inputs (replace in code):
 - LARGE_FILE_NAME
 - NUMBER_OF_PARTS - between 1 and 10000. Enter without surrounding inverted commas.
 Running the code:
-nodes3_createbucket.ts
+nodes3_createbucket.js
 */
 // snippet-start:[s3.JavaScript.buckets.multipartupload_v3]
 

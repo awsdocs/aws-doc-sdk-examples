@@ -10,7 +10,7 @@ Inputs (replace in code):
 - INDEX_PAGE
 - ERROR_PAGE
 Running the code:
-nodes3_setbucketwebsite.ts
+nodes3_setbucketwebsite.js
  */
 // snippet-start:[s3.JavaScript.website.putBucketWebsiteV3]
 // Import required AWS SDK clients and commands for Node.js

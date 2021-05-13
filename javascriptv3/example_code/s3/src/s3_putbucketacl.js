@@ -14,7 +14,7 @@ Inputs (replace in code):
 - GRANTEE_2
 
 Running the code:
-nodes3_putbucketacl.ts
+nodes3_putbucketacl.js
 
 Outputs:
 Applies an ACL to an Amazon S3 bucket.

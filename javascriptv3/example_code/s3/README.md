@@ -1,4 +1,4 @@
-# TypeScript environment for AWS Simple Storage Service (S3) examples
+#  AWS Simple Storage Service (S3) JavaScript SDK v3 code examples
 Amazon S3 is an object storage service that offers industry-leading scalability, data availability, security, and performance.
 
 ## Code examples
@@ -38,13 +38,13 @@ This is a workspace where you can find the following AWS SDK for JavaScript vers
 2. Install the dependencies listed in the package.json.
 
 ```
-npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
+npm install node -g
 cd javascriptv3/example_code/s3
 npm install
 ```
-4. In your text editor, update user variables specified in the ```Inputs``` section of the sample file.
+3. In your text editor, update user variables specified in the ```Inputs``` section of the sample file.
 
-5. Run sample code:
+4. Run sample code:
 ```
 cd src
 node [example name].js

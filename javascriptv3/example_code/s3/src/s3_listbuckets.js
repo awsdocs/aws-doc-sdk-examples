@@ -10,7 +10,7 @@ Inputs (replace in code):
 - REGION
 - BUCKET_NAME
 Running the code:
-s3_getbucketwebsite s3_listobjects.ts
+s3_getbucketwebsite s3_listobjects.js
 */
 // snippet-start:[s3.JavaScript.buckets.listBucketsV3]
 // Import required AWS SDK clients and commands for Node.js

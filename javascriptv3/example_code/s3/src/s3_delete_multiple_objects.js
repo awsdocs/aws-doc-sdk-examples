@@ -14,7 +14,7 @@ Inputs (replace in code):
 - KEY_2
 
 Running the code:
-nodes3_delete_multiple_objects.ts
+nodes3_delete_multiple_objects.js
 */
 // snippet-start:[s3.JavaScript.buckets.deletemultipleobjectsV3]
 import { DeleteObjectsCommand } from "@aws-sdk/client-s3";

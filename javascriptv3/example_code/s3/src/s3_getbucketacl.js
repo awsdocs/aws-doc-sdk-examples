@@ -11,7 +11,7 @@ Inputs (replace in code):
 - BUCKET_NAME
 
 Running the code:
-nodes3_getbucketacl.ts
+nodes3_getbucketacl.js
 
 Outputs:
 Retrieves the details of the ACL permissions of an Amazon S3 bucket.

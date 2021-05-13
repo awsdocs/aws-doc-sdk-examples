@@ -9,7 +9,7 @@ Inputs :
 - REGION
 - BUCKET_NAME
 Running the code:
-nodes3_getbucketwebsite.ts
+nodes3_getbucketwebsite.js
 // snippet-start:[s3.JavaScript.website.getBucketWebsiteV3]
  */
 

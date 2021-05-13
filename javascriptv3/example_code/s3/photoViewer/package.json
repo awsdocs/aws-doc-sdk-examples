@@ -4,7 +4,7 @@
   "description": "A browser-based Photo Viewers demonstrating how to use the AWS SDK for JavaScript V3.",
   "main": "s3_PhotoViewer.js",
   "scripts": {
-    "build": "webpack s3_PhotoViewer.ts --mode development --target web --devtool false -o main.js",
+    "build": "webpack s3_PhotoViewer.js --mode development --target web --devtool false -o main.js",
     "test": "exit 0"
   },
   "repository": {

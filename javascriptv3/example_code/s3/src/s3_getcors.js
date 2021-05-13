@@ -9,7 +9,7 @@ Inputs :
 - REGION
 - BUCKET_NAME
 Running the code:
-nodes3_getcors.ts
+nodes3_getcors.js
  */
 // snippet-start:[s3.JavaScript.cors.getBucketCorsV3]
 

@@ -14,7 +14,7 @@ Inputs (replace in code):
 
 
 Running the code:
-nodes3_put_presignedURL.ts
+nodes3_put_presignedURL.js
 [Outputs | Returns]:
 Uploads the specified file to the specified bucket.
 */
