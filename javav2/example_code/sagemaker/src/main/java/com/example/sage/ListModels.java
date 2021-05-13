@@ -21,9 +21,16 @@ import software.amazon.awssdk.services.sagemaker.model.ListModelsRequest;
 import software.amazon.awssdk.services.sagemaker.model.ListModelsResponse;
 import software.amazon.awssdk.services.sagemaker.model.ModelSummary;
 import software.amazon.awssdk.services.sagemaker.model.SageMakerException;
+import java.util.List;
 //snippet-end:[sagemaker.java2.list_models.import]
 
-import java.util.List;
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 
 public class ListModels {
 
