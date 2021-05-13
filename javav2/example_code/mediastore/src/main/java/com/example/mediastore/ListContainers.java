@@ -1,25 +1,15 @@
 //snippet-sourcedescription:[ListContainers.java demonstrates how to list your AWS Elemental MediaStore containers.]
-//snippet-keyword:[Java]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Elemental MediaStore]
 //snippet-service:[AWS Elemental MediaStore]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[9/1/2020]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[11/05/2020]
+//snippet-sourceauthor:[scmacdon - AWS]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.mediastore;
 
@@ -32,7 +22,13 @@ import software.amazon.awssdk.services.mediastore.model.MediaStoreException;
 import java.util.List;
 //snippet-end:[mediastore.java2.list_containers.import]
 
-
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class ListContainers {
 
     public static void main(String[] args) {
@@ -43,6 +39,7 @@ public class ListContainers {
                 .build();
 
         listAllContainers(mediaStoreClient);
+        mediaStoreClient.close();
     }
 
     //snippet-start:[mediastore.java2.list_containers.main]

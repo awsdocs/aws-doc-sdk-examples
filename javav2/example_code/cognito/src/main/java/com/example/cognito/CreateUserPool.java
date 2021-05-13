@@ -20,6 +20,13 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.CreateUserP
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CreateUserPoolResponse;
 //snippet-end:[cognito.java2.create_user_pool.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class CreateUserPool {
 
     public static void main(String[] args) {
@@ -35,9 +42,8 @@ public class CreateUserPool {
             System.out.println(USAGE);
             System.exit(1);
         }
-        /* Read the name from command args */
-        String userPoolName = args[0];
 
+        String userPoolName = args[0];
         CognitoIdentityProviderClient cognitoclient = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
@@ -51,12 +57,12 @@ public class CreateUserPool {
     public static String createPool(CognitoIdentityProviderClient cognitoclient,String userPoolName ) {
 
         try {
-            CreateUserPoolResponse userPoolResponse = cognitoclient.createUserPool(
+            CreateUserPoolResponse repsonse = cognitoclient.createUserPool(
                     CreateUserPoolRequest.builder()
                             .poolName(userPoolName)
                             .build()
             );
-            return userPoolResponse.userPool().id();
+            return repsonse.userPool().id();
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());

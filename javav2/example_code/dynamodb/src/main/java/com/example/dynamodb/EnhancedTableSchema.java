@@ -28,9 +28,13 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 
 
 /*
-    Prior to running this code example, create an Amazon DynamoDB table named Customer with a key named id.
+ * Prior to running this code example, create an Amazon DynamoDB table named Customer with a key named id and populate it with data.
+ * Also, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class EnhancedTableSchema {
 
     private static final TableSchema<Record> TABLE_SCHEMA =

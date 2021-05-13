@@ -14,12 +14,21 @@
 package com.example.sqs;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
-import software.amazon.awssdk.services.sqs.model.*;
+import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
+import software.amazon.awssdk.services.sqs.model.CreateQueueResponse;
+import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
+import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
+import software.amazon.awssdk.services.sqs.model.SqsException;
 // snippet-end:[sqs.java2.send_recieve_messages.import]
 
-
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class SendMessages {
-
 
     public static void main(String[] args) {
 
@@ -30,7 +39,7 @@ public class SendMessages {
                 "  queueName - the name of the queue.\n\n" +
                 "  message - the message to send.\n\n";
 
-        if (args.length < 2) {
+        if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -60,12 +69,12 @@ public class SendMessages {
                 .build();
 
             String queueUrl = sqsClient.getQueueUrl(getQueueRequest).queueUrl();
-
             SendMessageRequest sendMsgRequest = SendMessageRequest.builder()
                 .queueUrl(queueUrl)
                 .messageBody(message)
                 .delaySeconds(5)
                 .build();
+
             sqsClient.sendMessage(sendMsgRequest);
 
         } catch (SqsException e) {

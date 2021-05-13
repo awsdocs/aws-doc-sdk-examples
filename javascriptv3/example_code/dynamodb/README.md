@@ -1,13 +1,24 @@
-# TypeScript environment for Amazon DynamoDB examples
-This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) Amazon DynamoDB examples. 
-
-The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
-
-The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examples.html) contains these examples.
-
-The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon DynamoDB client module.
-
+# Amazon DynamoDB examples
 Amazon DynamoDB is a key-value and document database that delivers single-digit millisecond performance at any scale. It's a fully managed, multiregion, multimaster, durable database with built-in security, backup and restore, and in-memory caching for internet-scale applications. 
+
+This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon DynamoDB examples: 
+
+- [Get batch items](src/ddb_batchgetitem.ts)
+- [Write batch items](src/ddb_batchwriteitem.ts)
+- [Create a DyanamoDB table](src/ddb_createtable.ts)
+- [Delete an item](src/ddb_deleteitem.ts)
+- [Delete a DyanamoDB table](src/ddb_deletetable.ts)
+- [Describe DyanamoDB tables](src/ddb_sescribetable.ts)
+- [Get items](src/ddb_getitem.ts)
+- [List DyanamoDB tables](src/ddb_listtables.ts)
+- [Put items](src/ddb_putitem.ts)
+- [Query a DyanamoDB table](src/ddb_query.ts)
+- [Scan a DyanamoDB table](src/ddb_scan.ts)
+- [Delete items using Document Client](src/ddbdoc_delete_item.ts)
+- [Get items using Document Client](src/ddbdoc_get_item.ts)
+- [Put items using Document Client](src/ddbdoc_put_item.ts)
+- [Query a DyanamoDB table using Document Client](src/ddbdoc_query_item.ts)
+- [Update a DyanamoDB table using Document Client](src/ddbdoc_update.ts)
 
 **NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
 
@@ -20,7 +31,7 @@ instructions.
 2. Install the dependencies listed in the package.json.
 
 **Note**: These include the client modules for the AWS services required in these example, 
-which are *@aws-sdk/client-dynamodb*, *@aws-sdk/util-dynamodb*.
+which are *@aws-sdk/client-dynamodb*, *@aws-sdk/lib-dynamodb*.
 ```
 npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/dynamodb
@@ -38,4 +49,8 @@ cd src
 ts-node [example name].ts // e.g., ts-node ddb_batchgetitem.ts
 ```
 
+## Resources
+- [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
+- [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examples.html) 
+- [AWS SDK for JavaScript v3 API Reference Guide - Amazon DynamoDB client module](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/index.html) 
 

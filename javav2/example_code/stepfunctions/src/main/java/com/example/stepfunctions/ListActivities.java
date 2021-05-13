@@ -23,7 +23,13 @@ import software.amazon.awssdk.services.sfn.model.ActivityListItem;
 import java.util.List;
 // snippet-end:[stepfunctions.java2.list_activities.import]
 
-
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class ListActivities {
 
     public static void main(String[] args) {
