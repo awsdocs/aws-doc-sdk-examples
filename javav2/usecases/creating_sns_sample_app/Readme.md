@@ -141,7 +141,7 @@ At this point, you have a new project named **SpringSubscribeApp**. Ensure that 
 
 + **SubApplication** - Used as the base class for the Spring Boot application.
 + **SubController** - Used as the Spring Boot controller that handles HTTP requests. 
-+ **SnsService** - Used to invoke AMazon SNS operation using the Amazon SNS Java API V2.  
++ **SnsService** - Used to invoke Amazon SNS operation using the Amazon SNS Java API V2.  
 
 ### SubApplication class
 
