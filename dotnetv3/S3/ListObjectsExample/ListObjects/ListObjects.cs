@@ -1,8 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
-// snippet-start:[S3.dotnet35.ListObjects]
-
 using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
@@ -16,15 +14,13 @@ namespace ListObjects
     // and .NET 5.0.
     public class ListObjects
     {
-        // Specify your AWS Region (an example Region is shown).
-        private static readonly RegionEndpoint BUCKET_REGION = RegionEndpoint.USWest2;
         private static IAmazonS3 _s3Client;
 
         private const string BUCKET_NAME = "doc-example-bucket";
 
         static async Task Main()
         {
-            _s3Client = new AmazonS3Client(BUCKET_REGION);
+            _s3Client = new AmazonS3Client();
 
             Console.WriteLine($"Listing the objects contained in {BUCKET_NAME}:\n");
             await ListingObjectsAsync(_s3Client, BUCKET_NAME);
@@ -51,4 +47,3 @@ namespace ListObjects
         }
     }
 }
-// snippet-end:[S3.dotnet35.ListObjects]
