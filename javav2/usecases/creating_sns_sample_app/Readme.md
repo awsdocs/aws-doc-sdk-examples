@@ -20,10 +20,6 @@ This example application lets you view all of the subscribed email recipients by
 
 ![AWS Tracking Application](images/pic4.png)
 
-This application also supports viewing the result set in different languages. For example, if a user wants to view the result set in French, they can choose French from the dropdown field and the data is translated to the given language by using the Amazon Translate Service, as shown in this illustration. 
-
-![AWS Tracking Application](images/French.png)
-
 **Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
 
 **Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
