@@ -133,7 +133,7 @@ At this point, you have a new project named **SpringSubscribeApp**. Ensure that 
      
  ## Create the Java classes
  
- Create a Java package in the main/java folder named **com.spring.sns**. This Java classes go into this package. 
+ Create a Java package in the main/java folder named **com.spring.sns**. The Java classes go into this package. 
  
  ![AWS Lex](images/pic5.png)
  
