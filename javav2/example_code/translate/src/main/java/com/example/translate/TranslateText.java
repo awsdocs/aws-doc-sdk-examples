@@ -28,6 +28,13 @@ import software.amazon.awssdk.services.translate.model.TranslateTextResponse;
 import software.amazon.awssdk.services.translate.model.TranslateException;
 // snippet-end:[translate.java2._text.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class TranslateText {
 
     public static void main(String[] args) {

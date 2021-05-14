@@ -25,6 +25,13 @@ import software.amazon.awssdk.services.sfn.model.SfnException;
 import java.util.List;
 // snippet-end:[stepfunctions.java2.get_failed_exes.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class GetFailedExecutions {
 
     public static void main(String[] args) {
@@ -35,12 +42,12 @@ public class GetFailedExecutions {
                 "Where:\n" +
                 "    stateMachineARN - The ARN of the state machine.\n";
 
-        if (args.length != 1) {
-            System.out.println(USAGE);
-            System.exit(1);
-        }
+      //  if (args.length != 1) {
+      //      System.out.println(USAGE);
+      //      System.exit(1);
+      //  }
 
-        String stateMachineARN = args[0];
+        String stateMachineARN = "arn:aws:states:us-east-1:814548047983:stateMachine:CallCenterStateMachine";//args[0];
         Region region = Region.US_WEST_2;
         SfnClient sfnClient = SfnClient.builder()
                 .region(region)
@@ -57,7 +64,7 @@ public class GetFailedExecutions {
             ListExecutionsRequest executionsRequest = ListExecutionsRequest.builder()
                     .maxResults(10)
                     .stateMachineArn(stateMachineARN)
-                    .statusFilter(ExecutionStatus.FAILED)
+                   // .statusFilter(ExecutionStatus.FAILED)
                     .build();
 
             ListExecutionsResponse response = sfnClient.listExecutions(executionsRequest);

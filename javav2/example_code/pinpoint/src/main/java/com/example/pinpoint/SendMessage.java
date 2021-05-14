@@ -29,6 +29,13 @@ import java.util.HashMap;
 import java.util.Map;
 //snippet-end:[pinpoint.java2.sendmsg.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class SendMessage {
 
     // The type of SMS message that you want to send. If you plan to send
@@ -57,7 +64,7 @@ public class SendMessage {
         if (args.length != 4) {
             System.out.println(USAGE);
             System.exit(1);
-        }
+       }
 
         String message = args[0];
         String appId = args[1];
