@@ -18,8 +18,6 @@ namespace UploadObject
 
     class UploadObject
     {
-        // Specify your AWS Region (an example Region is shown).
-        private static readonly RegionEndpoint BUCKET_REGION = RegionEndpoint.USWest2;
         private static IAmazonS3 _s3Client;
 
         private const string BUCKET_NAME = "doc-example-bucket";
@@ -30,7 +28,7 @@ namespace UploadObject
 
         static async Task Main()
         {
-            _s3Client = new AmazonS3Client(BUCKET_REGION);
+            _s3Client = new AmazonS3Client();
 
             // The method expects the full path, including the file name.
             var path = $"{LOCAL_PATH}\\{OBJECT_NAME1}";

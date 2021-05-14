@@ -10,15 +10,16 @@ using System.Threading.Tasks;
 
 namespace ListBuckets
 {
+    // This example uses the AWS SDK for .NET to list the Amazon Simple Storage
+    // Service (Amazon S3) buckets belonging to the default account. This code
+    // was written using AWS SDK for .NET v3.5 and .NET Core 5.0.
     class ListBuckets
     {
-        // Specify your AWS Region (an example Region is shown).
-        private static readonly RegionEndpoint BUCKET_REGION = RegionEndpoint.USWest2;
         private static IAmazonS3 _s3Client;
 
         static async Task Main(string[] args)
         {
-            _s3Client = new AmazonS3Client(BUCKET_REGION);
+            _s3Client = new AmazonS3Client();
             var response = await GetBuckets(_s3Client);
             DisplayBucketList(response.Buckets);
         }
