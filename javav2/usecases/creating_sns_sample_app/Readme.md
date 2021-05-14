@@ -1,18 +1,18 @@
 # Creating a Spring Boot Application that has publish/subscription functionality
 
-You can create a web application that has subscription and publish functionality by using the Simple Notification Service. The application created in this AWS tutorial is a Spring Boot web application that lets a user subscribe to an Amazon SNS topic by entering a valid email address. In fact, a user can enter many emails and all the emails are subscribed to the given SNS topic. The user can publish a message that results in all subscribed emails receiving the published message. 
+You can create a web application that has subscription and publish functionality by using the Amazon Simple Notification Service (Amazon SNS). The application created in this AWS tutorial is a Spring Boot web application that lets a user subscribe to an Amazon SNS topic by entering a valid email address. A user can enter many emails and all the emails are subscribed to the given SNS topic. The user can publish a message that results in all subscribed emails receiving the message. 
 
 **Note**: Amazon SNS is a managed service that provides message delivery from publishers to subscribers (also known as producers and consumers). For more information, see [What is Amazon SNS?](https://docs.aws.amazon.com/sns/latest/dg/welcome.html).
 
-To subscribe to a SNS topic, the user enters a valid email address into the web application. 
+To subscribe to an Amazon SNS topic, the user enters a valid email address into the web application. 
 
 ![AWS Tracking Application](images/pic1.png)
 
-The email address that is entered into the web application recieves a confirmation email that lets the email recipient confirm the subscription. 
+The specified email address recieves a confirmation email message that lets the recipient confirm the subscription. 
 
 ![AWS Tracking Application](images/pic2.png)
 
-Once the email recipient accepts the confirmation, that email is subscribed to the specific SNS topic and recieves published messages. To publish as message, a user enter the messages into the web applicaiton and chooses the **Publish** button. 
+Once the email recipient accepts the confirmation, that email is subscribed to the specific SNS topic and recieves published messages. To publish as message, a user enters the message into the web applicaiton and then chooses the **Publish** button. 
 
 ![AWS Tracking Application](images/pic3.png)
 
