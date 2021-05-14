@@ -230,7 +230,7 @@ The following Java code represents the **SubController** class.
 
 ### SnsService class
 
-The following Java code represents the **SnsService** class. This class uses the Java V2 SNS API to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes to the Amazon SNS topic. The **pubTopic** publishes a message. 
+The following Java code represents the **SnsService** class. This class uses the Java V2 SNS API to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes from the Amazon SNS topic. The **pubTopic** publishes a message. 
 
      package com.spring.sns;
 
