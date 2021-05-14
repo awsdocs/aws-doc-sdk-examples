@@ -73,18 +73,17 @@ At this point, you have a new project named **BlogAurora**. Ensure that the pom.
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
      <modelVersion>4.0.0</modelVersion>
-     <groupId>aws-spring</groupId>
-     <artifactId>BlogAurora</artifactId>
+     <groupId>org.example</groupId>
+     <artifactId>SpringSubscribeApp</artifactId>
      <version>1.0-SNAPSHOT</version>
-     <packaging>jar</packaging>
+     <description>Demo project for Spring Boot that shows Pub/Sub functionality</description>
      <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
+        <version>2.2.5.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
      </parent>
      <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
      </properties>
      <dependencyManagement>
@@ -92,7 +91,7 @@ At this point, you have a new project named **BlogAurora**. Ensure that the pom.
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.15.14</version>
+                <version>2.16.29</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -100,51 +99,12 @@ At this point, you have a new project named **BlogAurora**. Ensure that the pom.
      </dependencyManagement>
      <dependencies>
         <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>3.8.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.21</version>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>translate</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>3.3.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>3.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.6</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -157,6 +117,10 @@ At this point, you have a new project named **BlogAurora**. Ensure that the pom.
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>sns</artifactId>
+        </dependency>
      </dependencies>
      <build>
         <plugins>
@@ -165,40 +129,37 @@ At this point, you have a new project named **BlogAurora**. Ensure that the pom.
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-     </build>
+      </build>
     </project>
      
  ## Create the Java classes
  
- Create a Java package in the main/java folder named **com.aws.blog**. This Java classes go into this package. 
+ Create a Java package in the main/java folder named **com.spring.sns**. This Java classes go into this package. 
  
- ![AWS Lex](images/Java2.png)
+ ![AWS Lex](images/pic5.png)
  
  Create these Java classes:
 
-+ **BlogApp** - Used as the base class for the Spring Boot application.
-+ **BlogController** - Used as the Spring Boot controller that handles HTTP requests. 
-+ **ConnectionHelper** - Used to open a connection to the Aurora database. 
-+ **Post** - Used as the applications model that stores application data.
-+ **RetrieveDataRDS** - Used as the Spring Service that uses the Java JDBC API and the Amazon Translate Java API V2. 
-+ **WebSecurityConfig** - The role of this class is to set up an in-memory user store that contains a single user (the user name is **user** and the password is **password**).
++ **SubApplication** - Used as the base class for the Spring Boot application.
++ **SubController** - Used as the Spring Boot controller that handles HTTP requests. 
++ **SnsService** - Used to invoke AMazon SNS operation using the Amazon SNS Java API V2.  
 
-### BlogApp class
+### SubApplication class
 
-The following Java code represents the **BlogApp** class.
+The following Java code represents the **SubApplication** class.
 
-     package com.aws.blog;
+     package com.spring.sns;
 
      import org.springframework.boot.SpringApplication;
      import org.springframework.boot.autoconfigure.SpringBootApplication;
 
      @SpringBootApplication
-     public class BlogApp {
+     public class SubApplication {
 
-     public static void main(String[] args) throws Throwable {
-        SpringApplication.run(BlogApp.class, args);
-      }
+     public static void main(String[] args) {
+        SpringApplication.run(SubApplication.class, args);
      }
+    }
 
 ### BlogController class
 
