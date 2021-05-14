@@ -8,14 +8,13 @@ To subscribe to a SNS topic, the user enters a valid email address into the web 
 
 ![AWS Tracking Application](images/pic1.png)
 
-The **jobs** table contains these fields: 
+The email address that is entered into the web application recieves a confirmation email that lets the email recipient confirm the subscription. 
 
-- **idjobs**- a varchar field that stores a GUID value and represents the PK.
-- **date**- a date field that represents the date when the record was added. 
-- **title**- a varchar field that represents the title. 
-- **body**- a varchar field that represents the body. 
-- **author**-a varchar field that represents the author. 
+![AWS Tracking Application](images/pic2.png)
 
+Once the email recipient accepts the confirmation, that email is subscribed to the specific SNS topic and recieves published messages. To publish as message, a user enter the messages into the web applicaiton and chooses the **Publish** button. 
+
+![AWS Tracking Application](images/pic3.png)
 The application you create uses Spring Boot APIs to build a model, different views, and a controller. This web application also lets a user submit a new job posting that is then stored into the **jobs** table, as shown in this illustation. 
 
 ![AWS Tracking Application](images/Post.png)
