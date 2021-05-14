@@ -66,7 +66,7 @@ Create an IntelliJ project that is used to create the web application.
 
 ## Add the Spring POM dependencies to your project
 
-At this point, you have a new project named **BlogAurora**. Ensure that the pom.xml file resembles the following code.
+At this point, you have a new project named **SpringSubscribeApp**. Ensure that the pom.xml file resembles the following code.
 
      <?xml version="1.0" encoding="UTF-8"?>
      <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -161,152 +161,88 @@ The following Java code represents the **SubApplication** class.
      }
     }
 
-### BlogController class
+### SubController class
 
-The following Java code represents the **BlogController** class.
+The following Java code represents the **SubController** class.
 
-     package com.aws.blog;
+     package com.spring.sns;
 
-     import org.springframework.security.core.context.SecurityContextHolder;
+     import org.springframework.beans.factory.annotation.Autowired;
      import org.springframework.stereotype.Controller;
-     import org.springframework.ui.Model;
-     import org.springframework.web.bind.annotation.GetMapping;
-     import org.springframework.web.bind.annotation.RequestMapping;
-     import org.springframework.web.bind.annotation.ResponseBody;
-     import org.springframework.web.bind.annotation.RequestMethod;
+     import org.springframework.web.bind.annotation.*;
      import javax.servlet.http.HttpServletRequest;
      import javax.servlet.http.HttpServletResponse;
-     import org.springframework.beans.factory.annotation.Autowired;
 
-    @Controller
-    public class BlogController {
+     @Controller
+     public class SubController {
 
-    @Autowired
-    RetrieveDataRDS rdsData;
+     @Autowired
+     SnsService sns;
 
-    @GetMapping("/")
-    public String root() {
+     @GetMapping("/")
+     public String root() {
         return "index";
-    }
+     }
 
-    @GetMapping("/add")
-    public String add() {
-        return "add";
-    }
 
-    @GetMapping("/posts")
-    public String post() {
-        return "post";
-    }
+     @GetMapping("/subscribe")
+     public String add() {
+        return "sub";
+     }
 
-    @GetMapping("/login")
-    public String login(Model model) {
-        return "login";
-    }
+     // Adds a new item to the database.
+     @RequestMapping(value = "/addEmail", method = RequestMethod.POST)
+     @ResponseBody
+     String addItems(HttpServletRequest request, HttpServletResponse response) {
 
-    // Adds a new item to the database.
-    @RequestMapping(value = "/addPost", method = RequestMethod.POST)
-    @ResponseBody
-    String addItems(HttpServletRequest request, HttpServletResponse response) {
+        String email = request.getParameter("email");
+        return sns.subEmail(email);
+     }
 
-        String name = getLoggedUser();
-        String title = request.getParameter("title");
+     // Adds a new item to the database.
+     @RequestMapping(value = "/delSub", method = RequestMethod.POST)
+     @ResponseBody
+     String delSub(HttpServletRequest request, HttpServletResponse response) {
+
+        String email = request.getParameter("email");
+        sns.unSubEmail(email);
+        return email +" was successfully deleted!";
+     }
+
+     // Handles posting a message to all subscriptions.
+     @RequestMapping(value = "/addMessage", method = RequestMethod.POST)
+     @ResponseBody
+     String addMessage(HttpServletRequest request, HttpServletResponse response) {
+
         String body = request.getParameter("body");
-        return rdsData.addRecord(name, title, body);
+        sns.pubTopic(body);
+        return "Message sent";
      }
 
-    // Queries items from the Aurora database.
-    @RequestMapping(value = "/getPosts", method = RequestMethod.POST)
-    @ResponseBody
-    String getPosts(HttpServletRequest request, HttpServletResponse response) {
+     // Adds a new item to the database.
+     @RequestMapping(value = "/getSubs", method = RequestMethod.GET)
+     @ResponseBody
+     String getSubs(HttpServletRequest request, HttpServletResponse response) {
 
-        String num = request.getParameter("number");
-        String lang = request.getParameter("lang");
-        return rdsData.getPosts(lang,Integer.parseInt(num));
-    }
-
-    private String getLoggedUser() {
-
-        // Get the logged-in user.
-        org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return user2.getUsername();
+        String mySub = sns.getAllSubscriptions();
+        return mySub;
      }
     }
 
+### SnsService class
 
+The following Java code represents the **SnsService** class. This class uses the Java V2 SNS API to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes to the Amazon SNS topic. The **pubTopic** publishes a message. 
 
-### Post class
-
-The following Java code represents the **Post** class.
-
-    package com.aws.blog;
-
-    public class Post {
-
-    private String id;
-    private String title;
-    private String body;
-    private String author;
-    private String date ;
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getDate() {
-        return this.date ;
-    }
-
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getAuthor() {
-        return this.author ;
-    }
-
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    public String getBody() {
-        return this.body ;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getTitle() {
-        return this.title ;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getId() {
-        return this.id ;
-     }
-    }
-
-### RetrieveDataRDS class
-
-The following Java code represents the **RetrieveDataRDS** class. This class uses the Java JDBC API (V2) to interact with data located the **jobs** table.  For example, the **getPosts** method returns a result set that is queried from the **jobs** table and displayed in the view. Likewise, the **addRecord** method adds a new record to the **jobs** table. This class also uses the Amazon Translate Java V2 API to translation the result set if requested by the user. 
-
-     package com.aws.blog;
+     package com.spring.sns;
 
      import org.springframework.stereotype.Component;
-     import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-     import software.amazon.awssdk.regions.Region;
      import org.w3c.dom.Document;
      import org.w3c.dom.Element;
-     import software.amazon.awssdk.services.translate.TranslateClient;
-     import software.amazon.awssdk.services.translate.model.TranslateException;
-     import software.amazon.awssdk.services.translate.model.TranslateTextRequest;
-     import software.amazon.awssdk.services.translate.model.TranslateTextResponse;
+     import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+     import software.amazon.awssdk.services.sns.model.ListSubscriptionsByTopicRequest;
+     import software.amazon.awssdk.regions.Region;
+     import software.amazon.awssdk.services.sns.SnsClient;
+     import software.amazon.awssdk.services.sns.model.*;
      import javax.xml.parsers.DocumentBuilder;
      import javax.xml.parsers.DocumentBuilderFactory;
      import javax.xml.parsers.ParserConfigurationException;
@@ -316,202 +252,138 @@ The following Java code represents the **RetrieveDataRDS** class. This class use
      import javax.xml.transform.dom.DOMSource;
      import javax.xml.transform.stream.StreamResult;
      import java.io.StringWriter;
-     import java.text.ParseException;
-     import java.text.SimpleDateFormat;
-     import java.time.LocalDateTime;
-     import java.time.format.DateTimeFormatter;
      import java.util.ArrayList;
-     import java.util.Date;
      import java.util.List;
-     import java.util.UUID;
-     import java.sql.*;
 
      @Component
-     public class RetrieveDataRDS {
+     public class SnsService {
 
-    // Add a new record to the Amazon Aurora table.
-    public String addRecord(String author, String title, String body) {
+     String topicArn = "arn:aws:sns:us-west-2:814548047983:MyMailTopic";
 
-        Connection c = null;
-
-        try {
-
-            // Create a Connection object
-            c = ConnectionHelper.getConnection();
-
-            UUID uuid = UUID.randomUUID();
-            String id = uuid.toString();
-
-            // Date conversion.
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-            LocalDateTime now = LocalDateTime.now();
-            String sDate1 = dtf.format(now);
-            Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(sDate1);
-            java.sql.Date sqlDate = new java.sql.Date( date1.getTime());
-
-            // Use prepared statements
-            PreparedStatement ps = null;
-
-            // Inject an item into the system
-            String insert = "INSERT INTO jobs (idjobs, date,title,body, author) VALUES(?,?,?,?,?);";
-            ps = c.prepareStatement(insert);
-            ps.setString(1, id);
-            ps.setDate(2, sqlDate);
-            ps.setString(3, title);
-            ps.setString(4, body);
-            ps.setString(5, author );
-            ps.execute();
-
-            return id;
-
-        } catch (ParseException | SQLException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-        return null;
-      }
-
-
-       // Returns a collection from the Aurora table.
-       public String getPosts(String lang, int num) {
-
-        Connection c = null;
-
-        try {
-
-            // Create a Connection object
-            c = ConnectionHelper.getConnection();
-
-            String sqlStatement="";
-            if (num ==5)
-                sqlStatement = "Select * from jobs order by date DESC LIMIT 5 ; ";
-            else if (num ==10)
-                sqlStatement = "Select * from jobs order by date DESC LIMIT 10 ; ";
-            else
-                sqlStatement = "Select * from jobs order by date DESC" ;
-
-            PreparedStatement pstmt = null;
-            ResultSet rs = null;
-            List<Post> posts = new ArrayList<>();
-            Post post = null;
-
-            pstmt = c.prepareStatement(sqlStatement);
-            rs = pstmt.executeQuery();
-            String title = "";
-            String body = "";
-
-            while (rs.next()) {
-
-                post = new Post();
-                post.setId(rs.getString(1));
-                post.setDate(rs.getDate(2).toString());
-
-                title = rs.getString(3);
-                if (!lang.equals("English"))
-                    title = translateText(title, lang);
-
-                post.setTitle(title);
-                body= rs.getString(4);
-                if (!lang.equals("English"))
-                    body = translateText(body, lang);
-
-                post.setBody(body);
-                post.setAuthor(rs.getString(5));
-
-                // Push post to the list
-                posts.add(post);
-            }
-
-            return convertToString(toXml(posts));
-
-        } catch ( SQLException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-        return "";
-    }
-
-
-    private String translateText(String text, String lang) {
+     private SnsClient getSnsClient() {
 
         Region region = Region.US_WEST_2;
-        TranslateClient translateClient = TranslateClient.builder()
+        SnsClient snsClient = SnsClient.builder()
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .region(region)
                 .build();
-        String transValue = "";
+
+        return snsClient;
+     }
+
+    public void pubTopic(String message) {
+
         try {
+            SnsClient snsClient =  getSnsClient();;
+            PublishRequest request = PublishRequest.builder()
+                    .message(message)
+                    .topicArn(topicArn)
+                    .build();
 
-            if (lang.compareTo("French")==0) {
+            PublishResponse result = snsClient.publish(request);
+            System.out.println(result.messageId() + " Message sent. Status was " + result.sdkHttpResponse().statusCode());
 
-                TranslateTextRequest textRequest = TranslateTextRequest.builder()
-                        .sourceLanguageCode("en")
-                        .targetLanguageCode("fr")
-                        .text(text)
-                        .build();
-
-                TranslateTextResponse textResponse = translateClient.translateText(textRequest);
-                transValue = textResponse.translatedText();
-
-            } else if (lang.compareTo("Russian")==0) {
-
-                TranslateTextRequest textRequest = TranslateTextRequest.builder()
-                        .sourceLanguageCode("en")
-                        .targetLanguageCode("ru")
-                        .text(text)
-                        .build();
-
-                TranslateTextResponse textResponse = translateClient.translateText(textRequest);
-                transValue = textResponse.translatedText();
-
-
-            } else if (lang.compareTo("Japanese")==0) {
-
-                TranslateTextRequest textRequest = TranslateTextRequest.builder()
-                        .sourceLanguageCode("en")
-                        .targetLanguageCode("ja")
-                        .text(text)
-                        .build();
-
-                TranslateTextResponse textResponse = translateClient.translateText(textRequest);
-                transValue = textResponse.translatedText();
-
-
-            } else if (lang.compareTo("Spanish")==0) {
-
-                TranslateTextRequest textRequest = TranslateTextRequest.builder()
-                        .sourceLanguageCode("en")
-                        .targetLanguageCode("es")
-                        .text(text)
-                        .build();
-
-                TranslateTextResponse textResponse = translateClient.translateText(textRequest);
-                transValue = textResponse.translatedText();
-
-            } else {
-
-                TranslateTextRequest textRequest = TranslateTextRequest.builder()
-                        .sourceLanguageCode("en")
-                        .targetLanguageCode("zh")
-                        .text(text)
-                        .build();
-
-                TranslateTextResponse textResponse = translateClient.translateText(textRequest);
-                transValue = textResponse.translatedText();
-            }
-
-            return transValue;
-
-        } catch (TranslateException e) {
-            System.err.println(e.getMessage());
+        } catch (SnsException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+      }
 
+      public void unSubEmail(String emailEndpoint) {
+
+      try {
+
+         String subscriptionArn = getTopicArnValue(emailEndpoint);
+         SnsClient snsClient =  getSnsClient();
+
+         UnsubscribeRequest request = UnsubscribeRequest.builder()
+                 .subscriptionArn(subscriptionArn)
+                 .build();
+
+         snsClient.unsubscribe(request);
+
+     } catch (SnsException e) {
+        System.err.println(e.awsErrorDetails().errorMessage());
+        System.exit(1);
+      }
+     }
+
+     // Returns the Topic ARN based on the given endpoint
+     private String getTopicArnValue(String endpoint){
+
+        SnsClient snsClient =  getSnsClient();
+        try {
+            String subArn = "";
+            ListSubscriptionsByTopicRequest request = ListSubscriptionsByTopicRequest.builder()
+                    .topicArn(topicArn)
+                    .build();
+
+
+            ListSubscriptionsByTopicResponse result = snsClient.listSubscriptionsByTopic(request);
+            List<Subscription> allSubs  = result.subscriptions();
+
+            for (Subscription sub: allSubs) {
+
+            if (sub.endpoint().compareTo(endpoint)==0) {
+
+                subArn = sub.subscriptionArn();
+                return subArn;
+             }
+           }
+          } catch (SnsException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+          }
+         return "";
+        }
+
+       // Create a Subsciption of the given email address.
+       public String subEmail(String email) {
+
+       try {
+            SnsClient snsClient =  getSnsClient();
+            SubscribeRequest request = SubscribeRequest.builder()
+                    .protocol("email")
+                    .endpoint(email)
+                    .returnSubscriptionArn(true)
+                    .topicArn(topicArn)
+                    .build();
+
+            SubscribeResponse result = snsClient.subscribe(request);
+            return result.subscriptionArn() ;
+
+        } catch (SnsException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
         return "";
       }
 
-     // Convert the list to XML to pass back to the view.
-     private Document toXml(List<Post> itemsList) {
+     public String getAllSubscriptions() {
+        List subList = new ArrayList<String>() ;
+
+        try {
+            SnsClient snsClient =  getSnsClient();
+            ListSubscriptionsByTopicRequest request = ListSubscriptionsByTopicRequest.builder()
+                    .topicArn(topicArn)
+                    .build();
+
+            ListSubscriptionsByTopicResponse result = snsClient.listSubscriptionsByTopic(request);
+            List<Subscription> allSubs  = result.subscriptions();
+
+            for (Subscription sub: allSubs) {
+                subList.add(sub.endpoint());
+            }
+
+        } catch (SnsException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+        return convertToString(toXml(subList));
+      }
+
+      // Convert the list to XML to pass back to the view.
+      private Document toXml(List<String> subsList) {
 
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -519,51 +391,31 @@ The following Java code represents the **RetrieveDataRDS** class. This class use
             Document doc = builder.newDocument();
 
             // Start building the XML.
-            Element root = doc.createElement("Items");
+            Element root = doc.createElement("Subs");
             doc.appendChild(root);
 
             // Iterate through the collection.
-            for (Post post : itemsList) {
+            for (String sub : subsList) {
 
-                Element item = doc.createElement("Item");
+                Element item = doc.createElement("Sub");
                 root.appendChild(item);
 
-                // Set Id.
-                Element id = doc.createElement("Id");
-                id.appendChild(doc.createTextNode(post.getId()));
-                item.appendChild(id);
-
-                // Set Date.
-                Element name = doc.createElement("Date");
-                name.appendChild(doc.createTextNode(post.getDate()));
-                item.appendChild(name);
-
-                // Set Title.
-                Element date = doc.createElement("Title");
-                date.appendChild(doc.createTextNode(post.getTitle()));
-                item.appendChild(date);
-
-                // Set Content.
-                Element desc = doc.createElement("Content");
-                desc.appendChild(doc.createTextNode(post.getBody()));
-                item.appendChild(desc);
-
-                // Set Author.
-                Element guide = doc.createElement("Author");
-                guide.appendChild(doc.createTextNode(post.getAuthor()));
-                item.appendChild(guide);
+                // Set email
+                Element email = doc.createElement("email");
+                email.appendChild(doc.createTextNode(sub));
+                item.appendChild(email);
             }
 
-            return doc;
-
-        }catch(ParserConfigurationException e){
+             return doc;
+ 
+          }catch(ParserConfigurationException e){
             e.printStackTrace();
+          }
+         return null;
         }
-        return null;
-    ,}
 
-     private String convertToString(Document xml) {
-        try {
+       private String convertToString(Document xml) {
+         try {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             StreamResult result = new StreamResult(new StringWriter());
             DOMSource source = new DOMSource(xml);
@@ -574,118 +426,11 @@ The following Java code represents the **RetrieveDataRDS** class. This class use
             ex.printStackTrace();
         }
         return null;
-      }
-     }
-
-### ConnectionHelper class
-
-The following Java code represents the **ConnectionHelper** class.
-
-    package com.aws.jdbc;
-
-    import java.sql.Connection;
-    import java.sql.DriverManager;
-    import java.sql.SQLException;
-
-    public class ConnectionHelper {
-
-      private String url;
-      private static ConnectionHelper instance;
-
-      private ConnectionHelper() {
-          url = "jdbc:mysql://localhost:3306/mydb?useSSL=false";
        }
-
-      public static Connection getConnection() throws SQLException {
-         if (instance == null) {
-            instance = new ConnectionHelper();
-         }
-         try {
-
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            return DriverManager.getConnection(instance.url, "root","root");
-        } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            e.getStackTrace();
-        }
-        return null;
-    	}
-
-       public static void close(Connection connection) {
-         try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-      }
      }
 
-**Note:** The **URL** value is **localhost:3306**. Replace this value is modified with the endpoint of the Aurora database. You must also ensure that you specify the user name and password for your Aurora instance; otherwise your connection does not work.
 
-
-### WebSecurityConfig class
-
-The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application.
-
-     package com.aws.blog;
-
-     import org.springframework.context.annotation.Bean;
-     import org.springframework.context.annotation.Configuration;
-     import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-     import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-     import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-     import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-     import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-     import org.springframework.security.crypto.password.PasswordEncoder;
-     import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-     @Configuration
-     @EnableWebSecurity
-     public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers(
-                        "/js/**",
-                        "/css/**",
-                        "/img/**",
-                        "/webjars/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout()
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login?logout")
-                .permitAll();
-
-          http.csrf().disable();
-         }
-
-
-       @Override
-       protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .passwordEncoder(passwordEncoder())
-                .withUser("user")
-                .password(passwordEncoder().encode("password"))
-                .roles("USER");
-       }
-
-      @Bean
-      public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-      }
-     }
-    
-**Note**: In this example, the user credentials to log into the application are **user** and **password**.    
+**Note:** Make sure that you assign the SNS topic to the **topicArn** data member. Otherwise, your code does not work. 
 
 ## Create the HTML file
 
