@@ -257,7 +257,7 @@ The following Java code represents the **SnsService** class. This class uses the
      @Component
      public class SnsService {
 
-     String topicArn = "arn:aws:sns:us-west-2:814548047983:MyMailTopic";
+     String topicArn = "<Enter your TOPIC ARN";
 
      private SnsClient getSnsClient() {
 
@@ -429,7 +429,7 @@ The following Java code represents the **SnsService** class. This class uses the
      }
 
 
-**Note:** Make sure that you assign the SNS topic to the **topicArn** data member. Otherwise, your code does not work. 
+**Note:** Make sure that you assign the SNS topic ARN to the **topicArn** data member. Otherwise, your code does not work. 
 
 ## Create the HTML file
 
