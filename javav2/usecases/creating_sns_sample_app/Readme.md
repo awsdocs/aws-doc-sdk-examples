@@ -4,7 +4,7 @@ You can create a web application that has subscription and publish functionality
 
 **Note**: Amazon SNS is a managed service that provides message delivery from publishers to subscribers (also known as producers and consumers). For more information, see [What is Amazon SNS?](https://docs.aws.amazon.com/sns/latest/dg/welcome.html).
 
-To subcribe to a SNS topic, the user enters a valid email address into the web application. 
+To subscribe to a SNS topic, the user enters a valid email address into the web application. 
 
 ![AWS Tracking Application](images/pic1.png)
 
