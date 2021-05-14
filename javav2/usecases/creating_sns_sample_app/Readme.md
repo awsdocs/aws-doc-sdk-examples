@@ -1,4 +1,4 @@
-# Creating a Spring Boot Application that has publish/subscription functionality
+# Creating a Publish/Subscription Spring Boot Application
 
 You can create a web application that has subscription and publish functionality by using the Amazon Simple Notification Service (Amazon SNS). The application created in this AWS tutorial is a Spring Boot web application that lets a user subscribe to an Amazon SNS topic by entering a valid email address. A user can enter many emails and all the emails are subscribed to the given SNS topic (once the users confirm the subscription). The user can publish a message that results in all subscribed emails receiving the message. 
 
