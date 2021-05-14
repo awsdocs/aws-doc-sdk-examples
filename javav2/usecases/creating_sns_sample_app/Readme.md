@@ -15,13 +15,10 @@ The email address that is entered into the web application recieves a confirmati
 Once the email recipient accepts the confirmation, that email is subscribed to the specific SNS topic and recieves published messages. To publish as message, a user enter the messages into the web applicaiton and chooses the **Publish** button. 
 
 ![AWS Tracking Application](images/pic3.png)
-The application you create uses Spring Boot APIs to build a model, different views, and a controller. This web application also lets a user submit a new job posting that is then stored into the **jobs** table, as shown in this illustation. 
 
-![AWS Tracking Application](images/Post.png)
+This example application lets you view all of the subscribed email recipients by choosing the **List Subscriptions** button, as shown in the following illustration.
 
-This example application lets you view the posts by choosing the **Get Posts** menu item and choosing one of the available buttons. For example, you can view five recent posts by choosing the **Five Posts** button, as shown in the following illustration.
-
-![AWS Tracking Application](images/Posts.png)
+![AWS Tracking Application](images/pic4.png)
 
 This application also supports viewing the result set in different languages. For example, if a user wants to view the result set in French, they can choose French from the dropdown field and the data is translated to the given language by using the Amazon Translate Service, as shown in this illustration. 
 
