@@ -46,8 +46,6 @@ To complete the tutorial, you need the following:
 + Maven 3.6 or later
 + An Amazon SNS topic that you use in the Java code. For information, see [Creating an Amazon SNS topic](https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html). 
 
-**Note**: You must set up inbound rules for the security group to connect to the database. You can set up one inbound rule for your development environment and another for Elastic Beanstalk (which will host the application). Setting up an inbound rule essentially means enabling an IP address to use the database. Once you set up the inbound rules, you can connect to the database from a client such as MySQL Workbench. For information about setting up security group inbound rules, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).
-
 ## Create an IntelliJ project named BlogAurora
 
 Create an IntelliJ project that is used to create the web application.
@@ -60,7 +58,7 @@ Create an IntelliJ project that is used to create the web application.
 
 4. In **GroupId**, enter **spring-aws**.
 
-5. In **ArtifactId**, enter **BlogAurora**.
+5. In **ArtifactId**, enter **SpringSubscribeApp**.
 
 6. Choose **Next**.
 
