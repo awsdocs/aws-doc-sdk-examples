@@ -11,7 +11,7 @@ namespace DeleteBucket
     class DeleteBucket
     {
         // This example shows how to delete an existing empty bucket.
-        //  The examples uses AWS SDK for .NET 3.5 and .NET 5.0
+        //  The examples uses AWS SDK for .NET 3.5 and .NET 5.0.
 
         private static IAmazonS3 _s3Client;
 
