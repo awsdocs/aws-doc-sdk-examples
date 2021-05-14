@@ -1,6 +1,6 @@
 # Creating a Spring Boot Application that has publish/subscription functionality
 
-You can create a web application that has subscription and publish functionality by using the Simple Notification Service. The application created in this AWS tutorial is a Spring Boot web application that lets a user subscribe to a SNS topic by entering a valid email address. In fact, a user can enter many emails and all the emails are subscribed to the given SNS topic. The user can publish a message that results in all emails that are subscribed receiving the published message. Therefore a published message can reach many subcribed email recipients. 
+You can create a web application that has subscription and publish functionality by using the Simple Notification Service. The application created in this AWS tutorial is a Spring Boot web application that lets a user subscribe to an Amazon SNS topic by entering a valid email address. In fact, a user can enter many emails and all the emails are subscribed to the given SNS topic. The user can publish a message that results in all subscribed emails receiving the published message. 
 
 **Note**: Amazon SNS is a managed service that provides message delivery from publishers to subscribers (also known as producers and consumers). For more information, see [What is Amazon SNS?](https://docs.aws.amazon.com/sns/latest/dg/welcome.html).
 
@@ -29,7 +29,6 @@ This example application lets you view all of the subscribed email recipients by
 + Prerequisites
 + Create an IntelliJ project 
 + Add the POM dependencies to your project
-+ Set up the Java packages in your project
 + Create the Java classes
 + Create the HTML files
 + Package the application into a JAR file
@@ -748,7 +747,7 @@ If this is your first time accessing this service, you will see a **Welcome to A
 To access the application, open your browser and enter the URL for your application. You will see the Home page for your application.
 
 ### Next steps
-Congratulations! You have created a Spring Boot application that contains publish and subscription functionality. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+Congratulations! You have created a Spring Boot application that contains subscription and publish functionality. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 For more AWS multiservice examples, see
 [usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).
