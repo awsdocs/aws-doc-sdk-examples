@@ -1,43 +1,52 @@
 ---
 # Amazon Cloudwatch basic usage examples
 files:
-  - path: cw_deletealarms.ts
+  - path: .libs/cwClient.js
     services:
       - cloudwatch
-  - path: cw_describealarms.ts
+  - path: .libs/cweClient.js
+      services:
+      - cloudwatch
+  - path: .libs/cwlClient.js
+      services:
+      - cloudwatch
+  - path: cw_deletealarms.js
     services:
       - cloudwatch
-  - path: cw_disablealarmactions.ts
+  - path: cw_describealarms.js
     services:
       - cloudwatch
-  - path: cw_enablealarmactions.ts
+  - path: cw_disablealarmactions.js
     services:
       - cloudwatch
-  - path: cw_listmetrics.ts
+  - path: cw_enablealarmactions.js
     services:
       - cloudwatch
-  - path: cw_putmetricalarm.ts
+  - path: cw_listmetrics.js
     services:
       - cloudwatch
-  - path: cw_putmetricdata.ts
+  - path: cw_putmetricalarm.js
     services:
       - cloudwatch
-  - path: cwe_putevents.ts
+  - path: cw_putmetricdata.js
     services:
       - cloudwatch
-  - path: cwe_putrule.ts
+  - path: cwe_putevents.js
     services:
       - cloudwatch
-  - path: cwe_puttargets.ts
+  - path: cwe_putrule.js
     services:
       - cloudwatch
-  - path: cwl_deletesubscriptionfilter.ts
+  - path: cwe_puttargets.js
     services:
       - cloudwatch
-  - path: cwl_describesubscriptionfilters.ts
+  - path: cwl_deletesubscriptionfilter.js
     services:
       - cloudwatch
-  - path: cwl_putsubscriptionfilter.ts
+  - path: cwl_describesubscriptionfilters.js
+    services:
+      - cloudwatch
+  - path: cwl_putsubscriptionfilter.js
     services:
       - cloudwatch
 ...

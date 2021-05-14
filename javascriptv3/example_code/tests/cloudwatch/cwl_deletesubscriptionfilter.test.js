@@ -1,19 +1,13 @@
-const mockDeletSubFilter = jest.fn();
-jest.mock(
-  "@aws-sdk/client-cloudwatch-logs/commands/DeleteSubscriptionFilterCommand",
-  () => ({
-    CloudWatch: function CloudWatch() {
-      this.DeleteSubscriptionFilterCommand = mockDeletSubFilter;
-    },
-  })
-);
-const {
-  params,
-  run,
-} = require("../../cloudwatch/cwl_deletesubscriptionfilter");
+// Get service clients module and commands using CommonJS syntax.
+const { run, params } = require("../../cloudwatch/src/cwl_deletesubscriptionfilter");
+const { cwlClient } = require("../../cloudwatch/src/libs/cwlClient");
 
-test("has to mock cloudwatch-logs#deletesubscriptionfilter", async (done) => {
-  await run();
-  expect(mockDeletSubFilter).toHaveBeenCalled;
-  done();
+jest.mock("../../cloudwatch/src/libs/cwlClient.js");
+
+describe("@aws-sdk/client-cloudwatch mock", () => {
+    it("should successfully mock CloudWatch Logs client", async () => {
+        cwlClient.send.mockResolvedValue({ isMock: true });
+        const response = await run(params);
+        expect(response.isMock).toEqual(true);
+    });
 });
