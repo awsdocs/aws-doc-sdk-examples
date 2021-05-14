@@ -594,61 +594,61 @@ This application has a **contact_me.js** file that is used to send requests to t
         $('#body').val("");
 
        }
-     } );
+      } );
 
-    function subEmail(){
-     var mail = $('#inputEmail1').val();
-     var result = validate(mail)
-     if (result == false) {
+      function subEmail(){
+       var mail = $('#inputEmail1').val();
+       var result = validate(mail)
+       if (result == false) {
         alert (mail + " is not valid. Please specify a valid email");
         return;
+      }
+
+      // Valid email, post to the server
+      var xhr = new XMLHttpRequest();
+      xhr.addEventListener("load", loadItems, false);
+      xhr.open("POST", "../addEmail", true);   //buildFormit -- a Spring MVC controller
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
+      xhr.send("email=" + mail );
+      }
+
+     function loadItems(event) {
+
+      var subNum = event.target.responseText;
+      alert("Subscription validation is "+subNum);
      }
 
-     // Valid email, post to the server
-     var xhr = new XMLHttpRequest();
-     xhr.addEventListener("load", loadItems, false);
-     xhr.open("POST", "../addEmail", true);   //buildFormit -- a Spring MVC controller
-     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-     xhr.send("email=" + mail );
+     function validateEmail(email) {
+        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
      }
 
-    function loadItems(event) {
+     function validate(email) {
+      const $result = $("#result");
 
-     var subNum = event.target.responseText;
-     alert("Subscription validation is "+subNum);
-    }
-
-    function validateEmail(email) {
-     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-   }
-
-   function validate(email) {
-     const $result = $("#result");
-
-    if (validateEmail(email)) {
+      if (validateEmail(email)) {
         return true ;
-    } else {
+      } else {
         return false ;
+      }
      }
-   }
 
-    function subDelete() {
+     function subDelete() {
 
-     $("#myModal").modal();
-    }
+      $("#myModal").modal();
+     }
 
-    function getSubs(){
+     function getSubs(){
 
-     // Valid email, post to the server
-     var xhr = new XMLHttpRequest();
-     xhr.addEventListener("load", loadSubs, false);
-     xhr.open("GET", "../getSubs", true);
-     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-     xhr.send();
-    }
+      // Valid email, post to the server
+      var xhr = new XMLHttpRequest();
+      xhr.addEventListener("load", loadSubs, false);
+      xhr.open("GET", "../getSubs", true);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
+      xhr.send();
+      }
 
-    function loadSubs(event) {
+     function loadSubs(event) {
 
       $('.modal-body').empty();
       var xml = event.target.responseText;
@@ -661,46 +661,46 @@ This application has a **contact_me.js** file that is used to send requests to t
         $('.modal-body').append("<p><b>"+email+"</b></p>");
        });
       $("#myModal").modal();
-     }
+      }
 
-    function postMsg(){
+      function postMsg(){
 
-     // Valid email, post to the server
-     var xhr = new XMLHttpRequest();
-     xhr.addEventListener("load", loadMsg, false);
-     xhr.open("GET", "../getSubs", true);
-     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-     xhr.send();
-     }
+       // Valid email, post to the server
+       var xhr = new XMLHttpRequest();
+       xhr.addEventListener("load", loadMsg, false);
+       xhr.open("GET", "../getSubs", true);
+       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
+       xhr.send();
+      }
 
-     function loadMsg(event) {
+      function loadMsg(event) {
 
-     var msg = event.target.responseText;
-     alert(msg);
-    }
+       var msg = event.target.responseText;
+       alert(msg);
+      }
 
-    function delSub(event) {
-     var mail = $('#inputEmail1').val();
-     var result = validate(mail)
+      function delSub(event) {
+       var mail = $('#inputEmail1').val();
+       var result = validate(mail)
   
-    if (result == false) {
-     alert (mail + " is not valid. Please specify a valid email");
-     return;
-    }
+      if (result == false) {
+       alert (mail + " is not valid. Please specify a valid email");
+      return;
+     }
 
-    // Valid email, post to the server
-    var xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", loadItems, false);
-    xhr.open("POST", "../delSub", true);   //buildFormit -- a Spring MVC controller
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-    xhr.send("email=" + mail );
-    }
+      // Valid email, post to the server
+      var xhr = new XMLHttpRequest();
+      xhr.addEventListener("load", loadItems, false);
+      xhr.open("POST", "../delSub", true);   //buildFormit -- a Spring MVC controller
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
+      xhr.send("email=" + mail );
+      }
 
-    function loadItems(event) {
+     function loadItems(event) {
 
-     var subNum = event.target.responseText;
-     alert("Subscription validation is "+subNum);
-    }
+       var subNum = event.target.responseText;
+       alert("Subscription validation is "+subNum);
+      }
 
 
 ## Create a JAR file for the application
