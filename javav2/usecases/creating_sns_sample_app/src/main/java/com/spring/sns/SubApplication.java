@@ -1,3 +1,8 @@
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 package com.spring.sns;
 
 import org.springframework.boot.SpringApplication;
