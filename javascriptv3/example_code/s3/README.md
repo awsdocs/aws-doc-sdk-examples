@@ -1,39 +1,59 @@
-# TypeScript environment for AWS Simple Storage Service (S3) examples
-This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) Amazon S3 examples. 
-
-The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
-
-The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-examples.html) contains these examples.
-
-The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon S3 client module.
-
+#  AWS Simple Storage Service (S3) JavaScript SDK v3 code examples
 Amazon S3 is an object storage service that offers industry-leading scalability, data availability, security, and performance.
 
-**NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
+## Code examples
+This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon S3 examples: 
 
+- [Create and upload objects](src/s3_create_and_upload_objects.js)
+- [Create a bucket](src/s3_createbucket.js)
+- [Delete all objects from a bucket](src/s3_delete_all_objects.js)
+- [Delete multiple objects from a bucket](src/s3_delete_multiple_objects.js)
+- [Delete an object from a bucket](src/s3_delete_object.js)
+- [Delete a bucket policy](src/s3_deletebucketpolicy.js)
+- [Delete a bucket website policy](src/s3_deletebucketwebsite.js)
+- [Create a presigned URL to get objects](src/s3_get_presignedURL.js)
+- [Get a bucket Access Control List (ACL)](src/s3_getbucketacl.js)
+- [Get a bucket policy](src/s3_getbucketpolicy.js)
+- [Get a bucket website policy](src/s3_getbucketwebsite.js)
+- [Get a bucket CORS policy](src/s3_getcors.js)
+- [Get objects from a bucket](src/s3_getobject.js)
+- [Get more than 1000 objects from a bucket](src/s3_list1000plusobjects.js)
+- [List buckets](src/s3_listbuckets.js)
+- [List objects](src/s3_listobjects.js)
+- [Multipart object upload](src/s3_multipartupload.js)
+- [Create a presigned URL to get objects](src/s3_put_presignedURL.js)
+- [Set a bucket ACL](src/s3_putbucketacl.js)
+- [Set a bucket policy](src/s3_putbucketpolicy.js)
+- [Set a bucket website policy](src/s3_setbucketwebsite.js)
+- [Set a bucket CORS policy](src/s3_setcors.js)
+- [Upload objects to a bucket](src/s3_upload_object.js)
 
-# Getting started
+**Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see 
+[JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html).
+
+## Getting started
 
 1. Clone the [AWS SDK Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for instructions.
 
 2. Install the dependencies listed in the package.json.
 
-**Note**: These dependencies include the client modules for the AWS services that this example requires, 
-which is *@aws-sdk/client-s3*, *@aws-sdk/client-cognito-identity*, 
-*@aws-sdk/credential-provider-cognito-identity*, *@aws-sdk/s3-request-presigner*, *@aws-sdk/util-create-request*, 
-*@aws-sdk/util-format-url*, and *node-fetch*.
 ```
-npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
+npm install node -g
 cd javascriptv3/example_code/s3
 npm install
 ```
-3. If you're using JavaScript, change the sample file extension from ```.ts``` to ```.js```.
+3. In your text editor, update user variables specified in the ```Inputs``` section of the sample file.
 
-
-4. In your text editor, update user variables specified in the ```Inputs``` section of the sample file.
-
-5. Run sample code:
+4. Run sample code:
 ```
 cd src
-ts-node [example name].ts // e.g., ts-node s3.ts
+node [example name].js
 ```
+
+## Unit tests
+For more information see, the [README](../README.rst).
+
+## Resources
+- [AWS SDK for JavaScript v3 repo](https://github.com/aws/aws-sdk-js-v3)
+- [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-examples.html)
+- [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/index.html) 

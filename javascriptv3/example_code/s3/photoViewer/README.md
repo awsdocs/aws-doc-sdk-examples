@@ -3,7 +3,7 @@ Environment for AWS SDK for JavaScript version 3 (v3) Amazon S3 Photo Viewer tut
 
 Amazon Simple Storage Service (Amazon S3) is an object storage service that offers industry-leading scalability, data availability, security, and performance.
 
-This is a workspace where you can find working AWS SDK for JavaScript v3 S3 examples. 
+This is a workspace where you can find the following AWS SDK for JavaScript v3 S3 examples. 
 
 # Getting started
 
@@ -15,7 +15,7 @@ This is a workspace where you can find working AWS SDK for JavaScript v3 S3 exam
 such as *@aws-sdk/client-s3*, *@aws-sdk/client-cognito-identity*, and 
 *@aws-sdk/credential-provider-cognito-identity*.
 ```
-npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
+npm install node -g
 cd javascriptv3/example_code/s3/src/photoViewer/src
 npm install
 ```

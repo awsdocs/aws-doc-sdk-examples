@@ -1,13 +1,13 @@
-const mockBatchWriteItem = jest.fn();
-jest.mock("@aws-sdk/client-dynamodb/commands/BatchWriteItemCommand", () => ({
-  DynamoDB: function DynamoDB() {
-    this.BatchWriteItemCommand = mockBatchWriteItem;
-  },
-}));
-const { params, run } = require("../../dynamodb/src/ddb_batchwriteitem");
+// Get service clients module and commands using CommonJS syntax.
+const { run, params } = require("../../dynamodb/src/ddb_batchwriteitem");
+const { ddbClient } = require("../../dynamodb/src/libs/ddbClient");
 
-test("has to mock db#batchWriteItem", async (done) => {
-  await run();
-  expect(mockBatchWriteItem).toHaveBeenCalled;
-  done();
+jest.mock("../../dynamodb/src/libs/ddbClient.js");
+
+describe("@aws-sdk/client-dynamodb mock", () => {
+  it("should successfully mock DynamoDB client", async () => {
+    ddbClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

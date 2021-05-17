@@ -1,5 +1,5 @@
 # TypeScript environment for the SubmitData App tutorial
-This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) 'Submit data' app tutorial.
+This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) 'Submit data' app tutorial.
 
 The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-submitting-data.html) contains these examples.
 
