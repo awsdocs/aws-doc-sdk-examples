@@ -64,7 +64,7 @@ public class CreateDatasetImportJob {
                                                            String s3BucketPath,
                                                            String roleArn) {
 
-        long waitInMilliseconds = 60 * 1000; // 30 seconds
+        long waitInMilliseconds = 60 * 1000;
         String status;
         String datasetImportJobArn;
 
