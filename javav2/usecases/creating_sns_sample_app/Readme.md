@@ -12,7 +12,7 @@ The specified email address recieves an email message that lets the recipient co
 
 ![AWS Tracking Application](images/pic2.png)
 
-Once the email recipient accepts the confirmation, that email is subscribed to the specific SNS topic and recieves published messages. To publish as message, a user enters the message into the web applicaiton and then chooses the **Publish** button. 
+Once the email recipient accepts the confirmation, that email is subscribed to the specific SNS topic and recieves published messages. To publish a message, a user enters the message into the web applicaiton and then chooses the **Publish** button. 
 
 ![AWS Tracking Application](images/pic3.png)
 
