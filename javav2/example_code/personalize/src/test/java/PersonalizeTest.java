@@ -41,6 +41,11 @@ public class PersonalizeTest {
     private static String existingCampaignName="";
     private static String existingCampaignArn = "";
 
+    private static String putEventTrackerId = "";
+    private static String putEventUserId = "";
+    private static String putEventItemId = "";
+    private static String putEventSessionId = "";
+
 
     @BeforeAll
     public static void setUp() throws IOException {
@@ -97,6 +102,11 @@ public class PersonalizeTest {
             existingSolutionArn= prop.getProperty("existingSolutionArn");
             existingCampaignName = prop.getProperty("existingCampaignName");
             existingCampaignArn= prop.getProperty("existingCampaignArn");
+
+            putEventTrackerId = prop.getProperty("putEventTrackerId");
+            putEventUserId = prop.getProperty("putEventUserId");
+            putEventItemId = prop.getProperty("putEventItemId");
+            putEventSessionId = prop.getProperty("putEventSessionId");
 
 
         } catch (IOException ex) {
@@ -218,6 +228,15 @@ public class PersonalizeTest {
    public void GetRecommendations() {
        GetRecommendations.getRecs(personalizeRuntimeClient, existingCampaignArn, userId);
         System.out.println("GetRecommendations test passed");
+   }
+
+   @Test
+   @Order(999)
+   public void PutEvents() {
+        int responseCode = PutEvents.putEvents(personalizeEventsClient, putEventTrackerId, putEventUserId,
+                putEventItemId, putEventSessionId);
+       assertTrue(responseCode > 0);
+       System.out.println("PutEvents test passed");
    }
 
     @Test
