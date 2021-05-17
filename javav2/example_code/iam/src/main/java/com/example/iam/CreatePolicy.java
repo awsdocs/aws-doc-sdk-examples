@@ -25,7 +25,11 @@ import software.amazon.awssdk.services.iam.waiters.IamWaiter;
 // snippet-end:[iam.java2.create_policy.import]
 
 /**
- * Creates a fixed policy with a provided policy name.
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreatePolicy {
 

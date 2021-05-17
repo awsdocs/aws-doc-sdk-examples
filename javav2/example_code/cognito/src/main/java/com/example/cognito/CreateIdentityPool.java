@@ -20,12 +20,19 @@ import software.amazon.awssdk.services.cognitoidentity.model.CreateIdentityPoolR
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
 //snippet-end:[cognito.java2.create_identity_pool.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class CreateIdentityPool {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateIdentityPool <identityPoolName> \n\n" +
+                "    <identityPoolName> \n\n" +
                 "Where:\n" +
                 "    identityPoolName - the name to give your identity pool.\n\n" ;
 

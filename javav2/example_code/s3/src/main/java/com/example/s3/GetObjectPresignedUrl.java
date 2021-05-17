@@ -28,6 +28,14 @@ import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.utils.IoUtils;
 // snippet-end:[presigned.java2.getobjectpresigned.import]
 
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class GetObjectPresignedUrl {
 
     public static void main(String[] args) {
@@ -65,11 +73,10 @@ public class GetObjectPresignedUrl {
                             .key(keyName)
                             .build();
 
-            GetObjectPresignRequest getObjectPresignRequest =
-                    GetObjectPresignRequest.builder()
+            GetObjectPresignRequest getObjectPresignRequest =  GetObjectPresignRequest.builder()
                             .signatureDuration(Duration.ofMinutes(10))
                             .getObjectRequest(getObjectRequest)
-                            .build();
+                             .build();
 
             // Generate the presigned request
             PresignedGetObjectRequest presignedGetObjectRequest =

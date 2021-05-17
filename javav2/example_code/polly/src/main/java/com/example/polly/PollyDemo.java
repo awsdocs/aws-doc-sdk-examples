@@ -32,6 +32,13 @@ import javazoom.jl.player.advanced.PlaybackEvent;
 import javazoom.jl.player.advanced.PlaybackListener;
 // snippet-end:[polly.java2.demo.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class PollyDemo {
 
     private static final String SAMPLE = "Congratulations. You have successfully built this working demo "+
@@ -59,6 +66,7 @@ public class PollyDemo {
 
             DescribeVoicesResponse describeVoicesResult = polly.describeVoices(describeVoiceRequest);
             Voice voice = describeVoicesResult.voices().get(26);
+
 
             InputStream stream = synthesize(polly, SAMPLE, voice, OutputFormat.MP3);
             AdvancedPlayer player = new AdvancedPlayer(stream, javazoom.jl.player.FactoryRegistry.systemRegistry().createAudioDevice());

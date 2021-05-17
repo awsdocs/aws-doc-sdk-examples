@@ -4,6 +4,14 @@ This document describes the resources created by the AWS CDK apps in this direct
 
 For instructions on how to run any of these apps, see [Running a CDK app](#cdk).
 
+## rekognition-sns-video-analyzer
+This AWS CDK app creates the following resources:
+- An AWS Identity and Access Management (IAM) unauthenticated role with permissions 
+  for Amazon Simple Email Service (Amazon SQS), Amazon Simple Storage Service (Amazon S3), 
+  and Amazon Rekognition.
+- An Amazon S3 bucket.
+- An Amazon Simple Notification Service (SNS) topic.
+
 ## messaging-app-unauthenticated-role-sqs-fifo-queue
 This AWS CDK app creates the following resources:
 - An AWS Identity and Access Management (IAM) unauthenticated role with permissions 

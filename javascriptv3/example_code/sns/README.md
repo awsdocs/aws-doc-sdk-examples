@@ -10,7 +10,7 @@ The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/
 
 Amazon SNS is a fully managed messaging service for both system-to-system and app-to-person (A2P) communication. 
 
-**NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
+
 
 
 # Getting started

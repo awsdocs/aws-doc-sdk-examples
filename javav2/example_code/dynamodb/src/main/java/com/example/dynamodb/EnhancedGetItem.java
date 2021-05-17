@@ -27,7 +27,12 @@ import java.time.Instant;
 // snippet-end:[dynamodb.java2.mapping.getitem.import]
 
 /*
-    Prior to running this code example, create an Amazon DynamoDB table named Customer with a key named id and populate it with data.
+ * Prior to running this code example, create an Amazon DynamoDB table named Customer with a key named id and populate it with data.
+ * Also, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
 public class EnhancedGetItem {
@@ -57,7 +62,6 @@ public class EnhancedGetItem {
             //Create a KEY object
             Key key = Key.builder()
                     .partitionValue("id110")
-                    .sortValue("Fred Pink")
                     .build();
 
             // Get the item by using the key

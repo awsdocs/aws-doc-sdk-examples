@@ -1,13 +1,12 @@
-const mockgetCors = jest.fn();
-jest.mock("@aws-sdk/client-s3", () => ({
-    S3: function S3() {
-        this.putBucketCors = mockgetCors;
-    },
-}));
-const { bucketParams, run } = require("../../s3/s3_getcors");
+const { run, corsParams } = require("../../s3/src/s3_setcors");
+const { s3Client } = require("../../s3/src/libs/s3Client.js");
 
-test("has to mock S3#getCors", async (done) => {
-    await run();
-    expect(mockgetCors).toHaveBeenCalled;
-    done();
+jest.mock("../../s3/src/libs/s3Client.js");
+
+describe("@aws-sdk/client-s3 mock", () => {
+  it("should successfully mock s3 client", async () => {
+    s3Client.send.mockResolvedValue({ isMock: true });
+    const response = await run(corsParams);
+    expect(response.isMock).toEqual(true);
+  });
 });

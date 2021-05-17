@@ -20,6 +20,13 @@ import software.amazon.awssdk.services.rekognition.model.DescribeCollectionRespo
 import software.amazon.awssdk.services.rekognition.model.RekognitionException;
 // snippet-end:[rekognition.java2.describe_collection.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class DescribeCollection {
 
     public static void main(String[] args) {

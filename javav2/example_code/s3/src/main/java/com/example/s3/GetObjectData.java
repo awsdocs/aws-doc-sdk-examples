@@ -27,6 +27,14 @@ import java.io.IOException;
 import java.io.OutputStream;
 // snippet-end:[s3.java2.getobjectdata.import]
 
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class GetObjectData {
 
     public static void main(String[] args) {
@@ -48,7 +56,7 @@ public class GetObjectData {
         String keyName = args[1];
         String path = args[2];
 
-        Region region = Region.US_WEST_2;
+        Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
                 .build();

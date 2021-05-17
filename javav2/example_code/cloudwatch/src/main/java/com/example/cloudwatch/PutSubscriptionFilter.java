@@ -32,21 +32,25 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.PutSubscriptionFilte
  *
  * Make sure you replace the function name with your function name and replace the xxxxxx with your account details.
  * For more information, see "Subscription Filters with AWS Lambda" in the Amazon CloudWatch Logs Guide.
+ *
+ * In addition, ensure that you have setup your development environment, including your credentials.
+ *  For information, see this documentation topic:
+ *
+ *   https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *
  */
 
 public class PutSubscriptionFilter {
     public static void main(String[] args) {
 
-        final String USAGE =
-                "To run this example, supply:\n" +
-                        "* a filter name (for example, myfilter)\n" +
-                        "* filter pattern (for example, ERROR)\n" +
-                        "* log group name (testgroup)\n" +
-                        "* lambda function arn (for example, arn:aws:lambda:us-west-2:xxxxxx047983:function:lamda1)\n\n" +
-                        "Ex: PutSubscriptionFilter <filter> \\\n" +
-                        "                          <pattern> \\\n" +
-                        "                          <logGroup> \\\n" +
-                        "                          <functionArn>\n";
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "  PutSubscriptionFilter <filter> <pattern> <logGroup> <functionArn> \n\n" +
+                "Where:\n" +
+                "  filter - a filter name (for example, myfilter).\n" +
+                "  pattern - a filter pattern (for example, ERROR).\n" +
+                "  logGroup - a log group name (testgroup).\n" +
+                "  functionArn - an AWS Lambda function ARN (for example, arn:aws:lambda:us-west-2:xxxxxx047983:function:lamda1) .\n" ;
 
         if (args.length != 4) {
             System.out.println(USAGE);

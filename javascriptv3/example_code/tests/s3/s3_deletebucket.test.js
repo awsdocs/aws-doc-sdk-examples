@@ -1,13 +1,12 @@
-const mockDeleteBucket = jest.fn();
-jest.mock("@aws-sdk/client-s3", () => ({
-  S3: function S3() {
-    this.deleteBucket = mockDeleteBucket;
-  },
-}));
-const { bucketParams, run } = require("../../s3/s3_deleteBucket");
+const { run, bucketParams } = require("../../s3/src/s3_deletebucket");
+const { s3Client } = require("../../s3/src/libs/s3Client.js");
 
-test("has to mock S3#deleteBucket", async (done) => {
-  await run();
-  expect(mockDeleteBucket).toHaveBeenCalledWith(bucketParams);
-  done();
+jest.mock("../../s3/src/libs/s3Client.js");
+
+describe("@aws-sdk/client-s3 mock", () => {
+  it("should successfully mock s3 client", async () => {
+    s3Client.send.mockResolvedValue({ isMock: true });
+    const response = await run(bucketParams);
+    expect(response.isMock).toEqual(true);
+  });
 });
