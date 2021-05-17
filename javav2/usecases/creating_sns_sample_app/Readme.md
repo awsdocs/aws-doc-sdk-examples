@@ -254,7 +254,7 @@ The following Java code represents the **SnsService** class. This class uses the
      @Component
      public class SnsService {
 
-     String topicArn = "<Enter your TOPIC ARN";
+     String topicArn = "<Enter your TOPIC ARN>";
 
      private SnsClient getSnsClient() {
 
