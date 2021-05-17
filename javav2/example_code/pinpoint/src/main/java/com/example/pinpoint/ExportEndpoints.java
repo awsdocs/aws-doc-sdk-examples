@@ -45,6 +45,12 @@ import java.util.stream.Collectors;
 /**
  *  To run this code example, you need to create an AWS Identity and Access Management (IAM) role with the correct policy as described in this documentation:
  *  https://docs.aws.amazon.com/pinpoint/latest/developerguide/audience-data-export.html
+ *
+ * Also, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
 public class ExportEndpoints {
@@ -87,7 +93,7 @@ public class ExportEndpoints {
         exportAllEndpoints(pinpoint, s3Client, applicationId, s3BucketName, path, iamExportRoleArn);
         pinpoint.close();
         s3Client.close();
-   }
+    }
 
     //snippet-start:[pinpoint.java2.export_endpoint.main]
     public static void exportAllEndpoints(PinpointClient pinpoint,
@@ -107,7 +113,7 @@ public class ExportEndpoints {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-  }
+    }
 
     public static List<String> exportEndpointsToS3(PinpointClient pinpoint, S3Client s3Client, String s3BucketName, String iamExportRoleArn, String applicationId) {
 
@@ -156,10 +162,8 @@ public class ExportEndpoints {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
         return null;
     }
-
 
     private static void printExportJobStatus(PinpointClient pinpointClient,
                                              String applicationId,
@@ -199,8 +203,8 @@ public class ExportEndpoints {
     // Downloads files from an Amazon S3 bucket and writes them to the path location
     public static void downloadFromS3(S3Client s3Client, String path, String s3BucketName, List<String> objectKeys) {
 
-         try {
-              for (String key : objectKeys) {
+        try {
+            for (String key : objectKeys) {
 
                 GetObjectRequest objectRequest = GetObjectRequest.builder()
                         .bucket(s3BucketName)

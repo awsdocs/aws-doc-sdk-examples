@@ -28,8 +28,6 @@ import software.amazon.awssdk.services.secretsmanager.model.SecretsManagerExcept
  *
  *https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
-
 public class CreateSecret {
 
     public static void main(String[] args) {

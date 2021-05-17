@@ -27,6 +27,14 @@ import software.amazon.awssdk.services.sqs.model.*;
  long polling doesn't return a response until a message arrives
  in the message queue, or the long poll times out.
  */
+
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class LongPolling {
 
     private static final String QueueName = "testQueue" + new Date().getTime();

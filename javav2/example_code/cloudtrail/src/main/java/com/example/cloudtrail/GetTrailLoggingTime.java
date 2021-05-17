@@ -27,6 +27,14 @@ import java.time.format.FormatStyle;
 import java.util.Locale;
 //snippet-end:[cloudtrail.java2.getLogTime.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class GetTrailLoggingTime {
 
     public static void main(String[] args) {
@@ -64,7 +72,7 @@ public class GetTrailLoggingTime {
             Instant lastestNotication = trailStatusResponse.startLoggingTime();
 
             if (lastestNotication != null) {
-                // Convert the Instant to readable date
+                // Convert the Instant to readable date.
                 DateTimeFormatter formatter =
                         DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
                                 .withLocale(Locale.US)

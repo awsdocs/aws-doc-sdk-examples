@@ -21,8 +21,15 @@ import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
 import software.amazon.awssdk.services.sqs.model.DeleteQueueRequest;
 import software.amazon.awssdk.services.sqs.model.QueueNameExistsException;
 import software.amazon.awssdk.services.sqs.model.SqsException;
-
 // snippet-end:[sqs.java2.sqs_example.delete_queue.import]
+
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class DeleteQueue {
 
     public static void main(String[] args) {
@@ -33,7 +40,7 @@ public class DeleteQueue {
                 "Where:\n" +
                 "  queueName - the name of the Amazon SQS queue to delete.\n\n" ;
 
-        if (args.length < 1) {
+        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }

@@ -23,6 +23,13 @@ import software.amazon.awssdk.services.personalizeruntime.model.PredictedItem;
 import java.util.List;
 //snippet-end:[personalize.java2.get_recommendations.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class GetRecommendations {
 
     public static void main(String[] args) {
@@ -41,7 +48,6 @@ public class GetRecommendations {
 
         String campaignArn = args[0];
         String userId = args[1];
-
         Region region = Region.US_EAST_1;
         PersonalizeRuntimeClient personalizeRuntimeClient = PersonalizeRuntimeClient.builder()
                 .region(region)

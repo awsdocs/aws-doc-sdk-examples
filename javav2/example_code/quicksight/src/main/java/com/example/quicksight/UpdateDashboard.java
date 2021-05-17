@@ -30,13 +30,19 @@ import java.util.UUID;
 // snippet-end:[quicksight.java2.update_dashboard.import]
 
 /*
-    Before running this code example, follow the Getting Started with Data Analysis in Amazon QuickSight located here:
-
-    https://docs.aws.amazon.com/quicksight/latest/user/getting-started.html
-
-    This code example uses resources that you created by following that topic such as the DataSet Arn value.
-
- */
+*    Before running this code example, follow the Getting Started with Data Analysis in Amazon QuickSight located here:
+*
+*    https://docs.aws.amazon.com/quicksight/latest/user/getting-started.html
+*
+*    This code example uses resources that you created by following that topic such as the DataSet Arn value.
+*
+*
+*  Also, ensure that you have setup your development environment, including your credentials.
+*
+*  For information, see this documentation topic:
+*
+*  https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+*/
 
 public class UpdateDashboard {
 
@@ -123,7 +129,7 @@ public class UpdateDashboard {
                     .sourceAnalysis(templateSourceAnalysis)
                     .build();
 
-             UUID uuid = UUID.randomUUID();
+            UUID uuid = UUID.randomUUID();
             String templateGUID =uuid.toString();
 
             CreateTemplateRequest createTemplateRequest = CreateTemplateRequest.builder()

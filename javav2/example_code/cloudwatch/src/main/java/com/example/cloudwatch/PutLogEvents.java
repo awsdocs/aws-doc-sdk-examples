@@ -23,6 +23,13 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.PutLogEventsRequest;
 import java.util.Arrays;
 // snippet-end:[cloudwatch.java2.put_log_events.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class PutLogEvents {
     public static void main(String[] args) {
 
@@ -31,7 +38,7 @@ public class PutLogEvents {
                 "  PutLogEvents <logGroupName> <streamName>\n\n" +
                 "Where:\n" +
                 "  logGroupName - a log group name.\n" +
-                "  streamName - a stream name .\n" ;
+                "  streamName - a stream name.\n" ;
 
         if (args.length != 2) {
             System.out.println(USAGE);

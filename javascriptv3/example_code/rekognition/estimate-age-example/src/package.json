@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build:frontend": " ",
+    "build:frontend": "webpack estimate-age.js --mode development --target web --devtool false -o main.js",
     "test": "exit 0"
   },
   "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/rekognition.git",

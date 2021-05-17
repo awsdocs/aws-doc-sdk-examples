@@ -26,6 +26,11 @@ import java.util.List;
  *
  *  https://docs.aws.amazon.com/codedeploy/latest/userguide/tutorials.html
  *
+ * Also, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *
  */
 
 public class CreateDeploymentGroup {
