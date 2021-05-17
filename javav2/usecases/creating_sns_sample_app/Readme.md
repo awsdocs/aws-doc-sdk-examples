@@ -8,7 +8,7 @@ To subscribe to an Amazon SNS topic, the user enters a valid email address into 
 
 ![AWS Tracking Application](images/pic1.png)
 
-The specified email address recieves a confirmation email message that lets the recipient confirm the subscription. 
+The specified email address recieves an email message that lets the recipient confirm the subscription. 
 
 ![AWS Tracking Application](images/pic2.png)
 
