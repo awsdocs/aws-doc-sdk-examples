@@ -189,7 +189,6 @@ The following Java code represents the **SubController** class.
         return "sub";
      }
 
-     // Adds a new item to the database.
      @RequestMapping(value = "/addEmail", method = RequestMethod.POST)
      @ResponseBody
      String addItems(HttpServletRequest request, HttpServletResponse response) {
@@ -198,7 +197,6 @@ The following Java code represents the **SubController** class.
         return sns.subEmail(email);
      }
 
-     // Adds a new item to the database.
      @RequestMapping(value = "/delSub", method = RequestMethod.POST)
      @ResponseBody
      String delSub(HttpServletRequest request, HttpServletResponse response) {
@@ -208,7 +206,7 @@ The following Java code represents the **SubController** class.
         return email +" was successfully deleted!";
      }
 
-     // Handles posting a message to all subscriptions.
+     // Posts a message to all subscriptions.
      @RequestMapping(value = "/addMessage", method = RequestMethod.POST)
      @ResponseBody
      String addMessage(HttpServletRequest request, HttpServletResponse response) {
@@ -218,7 +216,6 @@ The following Java code represents the **SubController** class.
         return "Message sent";
      }
 
-     // Adds a new item to the database.
      @RequestMapping(value = "/getSubs", method = RequestMethod.GET)
      @ResponseBody
      String getSubs(HttpServletRequest request, HttpServletResponse response) {
