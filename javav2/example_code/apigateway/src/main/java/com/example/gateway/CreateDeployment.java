@@ -21,18 +21,18 @@ import software.amazon.awssdk.services.apigateway.model.ApiGatewayException;
 // snippet-end:[apigateway.java2.create_deployment.import]
 
 /**
- * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
- *https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateDeployment {
     public static void main(String[] args) {
 
       final String USAGE = "\n" +
            "Usage:\n" +
-           "    CreateDeployment <restApiId>\n\n" +
+           "    <restApiId> <stageName>\n\n" +
            "Where:\n" +
            "    restApiId - The string identifier of the associated RestApi. (for example, xxxx99ewyg).\n" +
            "    stageName - The name of the stage. \n" ;

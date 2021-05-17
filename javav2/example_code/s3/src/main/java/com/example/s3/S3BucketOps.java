@@ -22,6 +22,15 @@ import software.amazon.awssdk.services.s3.waiters.S3Waiter;
 
 // snippet-end:[s3.java2.s3_bucket_ops.import]
 // snippet-start:[s3.java2.s3_bucket_ops.main]
+
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class S3BucketOps {
 
     public static void main(String[] args) {
@@ -36,29 +45,25 @@ public class S3BucketOps {
         // snippet-end:[s3.java2.s3_bucket_ops.region]
         String bucket = "bucket" + System.currentTimeMillis();
         System.out.println(bucket);
-        createBucket(s3, bucket, region);
-        performOperations(s3, bucket,region ) ;
+        createBucket(s3, bucket);
+        performOperations(s3, bucket) ;
         }
-
 
     // snippet-start:[s3.java2.s3_bucket_ops.create_bucket]
     // Create a bucket by using a S3Waiter object
-    public static void createBucket( S3Client s3Client, String bucketName, Region region) {
+    public static void createBucket( S3Client s3Client, String bucketName) {
 
         try {
             S3Waiter s3Waiter = s3Client.waiter();
-            CreateBucketRequest bucketRequest = CreateBucketRequest.builder()
+             CreateBucketRequest bucketRequest = CreateBucketRequest.builder()
                     .bucket(bucketName)
-                    .createBucketConfiguration(
-                            CreateBucketConfiguration.builder()
-                                    .locationConstraint(region.id())
-                                    .build())
                     .build();
 
             s3Client.createBucket(bucketRequest);
             HeadBucketRequest bucketRequestWait = HeadBucketRequest.builder()
                     .bucket(bucketName)
                     .build();
+
 
             // Wait until the bucket is created and print out the response
             WaiterResponse<HeadBucketResponse> waiterResponse = s3Waiter.waitUntilBucketExists(bucketRequestWait);
@@ -72,7 +77,7 @@ public class S3BucketOps {
     }
     // snippet-end:[s3.java2.s3_bucket_ops.create_bucket]
 
-    public static void performOperations(S3Client s3, String bucket, Region region) {
+    public static void performOperations(S3Client s3, String bucket) {
 
         // snippet-start:[s3.java2.s3_bucket_ops.list_bucket]
         // List buckets

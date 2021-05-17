@@ -23,6 +23,13 @@ import software.amazon.awssdk.services.route53.model.HealthCheckConfig;
 import software.amazon.awssdk.services.route53.model.CreateHealthCheckResponse;
 // snippet-end:[route53.java2.create_health_check.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class CreateHealthCheck {
     public static void main(String[] args) {
 
@@ -53,7 +60,7 @@ public class CreateHealthCheck {
 
         try {
 
-            // You must use a unique CallerReference string every time you submit a CreateHostedZone request
+            // You must use a unique CallerReference string
             String callerReference = java.util.UUID.randomUUID().toString();
 
             HealthCheckConfig config = HealthCheckConfig.builder()

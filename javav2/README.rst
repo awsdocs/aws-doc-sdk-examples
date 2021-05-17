@@ -43,7 +43,7 @@ The **javav2** folder in this repository contains examples of complete use cases
 Use cases
 ---------
 
-In the **use_cases** folder, find step-by-step development tutorials that use multiple AWS services. By following these tutorials, you will gain a deeper understanding of how to create Java-based applications that use the AWS SDK for Java. These tutorials include:
+In the **use_cases** folder, find step-by-step development tutorials that use multiple AWS services. By following these tutorials, you will gain a deeper understanding of how to create Java-based applications that use the AWS SDK for Java V2. These tutorials include:
 
 + **Creating your first AWS Java web application** - A tutorial that discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS), and AWS Elastic Beanstalk.
 
@@ -77,7 +77,9 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 
 + **Creating an Amazon Web Services Lambda function that detects images with Personal Protective Equipment** - A tutorial that discusses how to create a Lambda function that detects personal protective equipment (PPE) in digital assets located in an Amazon S3 bucket. The Lambda function updates an Amazon DynamoDB table with the results as well as sends an email message.  
 
++ **Creating a Job Posting Site using Amazon Redshift and Amazon Translation Services** - A tutorial that discusses how to create a web application that uses the Redshift Data Client API and the Amazon Translate Service to display job listing data. In this tutorial, the Spring Framework along with AWS SDK for Java API V2 is used to create the application. 
 
++ **Creating a Spring Boot Application that has publish/subscription functionality** - A tutorial that discusses how to create a web application that has subscription and publish functionality. In this tutorial, the Spring Framework along with AWS SDK for Simple Notification Service Java API V2 is used to create the application. 
 
 AWS service examples
 --------------------

@@ -20,12 +20,19 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.CreateUserP
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CreateUserPoolClientResponse;
 //snippet-end:[cognito.java2.user_pool.create_user_pool_client.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class CreateUserPoolClient {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateUserPoolClient <clientName> <userPoolId> \n\n" +
+                "    <clientName> <userPoolId> \n\n" +
                 "Where:\n" +
                 "    clientName - the name for the user pool client to create.\n\n" +
                 "    userPoolId - the ID for the user pool.\n\n" ;

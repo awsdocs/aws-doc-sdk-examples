@@ -45,6 +45,14 @@ import software.amazon.awssdk.services.s3.model.HeadBucketResponse;
 // snippet-end:[s3.java2.s3_object_operations.import]
 
 // snippet-start:[s3.java2.s3_object_operations.main]
+
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class S3ObjectOperations {
 
     private static S3Client s3;

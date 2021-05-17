@@ -23,6 +23,14 @@ import software.amazon.awssdk.services.dynamodb.model.ResourceNotFoundException;
 import java.util.HashMap;
 // snippet-end:[dynamodb.java2.put_item.import]
 
+
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class PutItem {
 
     public static void main(String[] args) {
@@ -41,7 +49,7 @@ public class PutItem {
                 "    SongTitle - the song title (for example, SongTitle).\n" +
                 "    SongTitleVal - the value of the song title (for example, Happy Day).\n" +
                 "Example:\n" +
-                "    Music3 Artist Famous Band AlbumTitle Songs About Life Awards 10 SongTitle Happy Day \n" +
+                "    Music3  \n" +
                 "**Warning** This program will actually place an item that you specify into a table!\n";
 
         if (args.length != 9) {
@@ -58,6 +66,7 @@ public class PutItem {
         String awardVal = args[6];
         String songTitle = args[7];
         String songTitleVal = args[8];
+
 
         Region region = Region.US_WEST_2;
         DynamoDbClient ddb = DynamoDbClient.builder()

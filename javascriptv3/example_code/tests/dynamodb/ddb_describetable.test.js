@@ -1,13 +1,13 @@
-const mockDesribeTable = jest.fn();
-jest.mock("@aws-sdk/client-dynamodb/commands/DescribeTableCommand", () => ({
-  DynamoDB: function DynamoDB() {
-    this.DescribeTableCommand = mockDesribeTable;
-  },
-}));
-const { params, run } = require("../../dynamodb/src/ddb_describetable");
+// Get service clients module and commands using CommonJS syntax.
+const { run, params } = require("../../dynamodb/src/ddb_describetable");
+const { ddbClient } = require("../../dynamodb/src/libs/ddbClient");
 
-test("has to mock db#describeTable", async (done) => {
-  await run();
-  expect(mockDesribeTable).toHaveBeenCalled;
-  done();
+jest.mock("../../dynamodb/src/libs/ddbClient.js");
+
+describe("@aws-sdk/client-dynamodb mock", () => {
+  it("should successfully mock DynamoDB client", async () => {
+    ddbClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

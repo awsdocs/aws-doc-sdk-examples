@@ -26,10 +26,17 @@ import software.amazon.awssdk.services.lambda.model.LambdaException;
 
 public class LambdaInvoke {
 
-    /*
-     Function names appear as arn:aws:lambda:us-west-2:335556666777:function:HelloFunction
-     you can retrieve the value by looking at the function in the AWS Console
+   /*
+   *  Function names appear as arn:aws:lambda:us-west-2:335556666777:function:HelloFunction
+   *  you can retrieve the value by looking at the function in the AWS Console
+   *
+   * Also, ensure that you have setup your development environment, including your credentials.
+   *
+   * For information, see this documentation topic:
+   *
+   * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
    */
+
    public static void main(String[] args) {
 
         final String USAGE = "\n" +
@@ -41,11 +48,9 @@ public class LambdaInvoke {
         if (args.length < 1) {
             System.out.println(USAGE);
             System.exit(1);
-        }
+       }
 
-       /* Read the name from command args*/
         String functionName = args[0];
-
         Region region = Region.US_EAST_1;
         LambdaClient awsLambda = LambdaClient.builder()
                 .region(region)
@@ -61,10 +66,8 @@ public class LambdaInvoke {
          InvokeResponse res = null ;
         try {
             //Need a SdkBytes instance for the payload
-            SdkBytes payload = SdkBytes.fromUtf8String("{\n" +
-                    " \"Hello \": \"Paris\",\n" +
-                    " \"countryCode\": \"FR\"\n" +
-                    "}" ) ;
+            String json = "{\"Hello \":\"Paris\"}";
+            SdkBytes payload = SdkBytes.fromUtf8String(json) ;
 
             //Setup an InvokeRequest
             InvokeRequest request = InvokeRequest.builder()

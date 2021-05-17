@@ -1,25 +1,15 @@
 //snippet-sourcedescription:[CreateContainer.java demonstrates how to create an AWS Elemental MediaStore container.]
-//snippet-keyword:[Java]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Elemental MediaStore]
 //snippet-service:[AWS Elemental MediaStore]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[9/1/2020]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[11/05/2020]
+//snippet-sourceauthor:[scmacdon - AWS]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.mediastore;
 
@@ -31,6 +21,13 @@ import software.amazon.awssdk.services.mediastore.model.CreateContainerResponse;
 import software.amazon.awssdk.services.mediastore.model.MediaStoreException;
 //snippet-end:[mediastore.java2.create_container.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class CreateContainer {
 
     public static long sleepTime = 10;
@@ -38,25 +35,24 @@ public class CreateContainer {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "CreateContainer - Create an AWS Elemental MediaStore container.\n\n" +
-                "Usage: CreateContainer <containerName>\n\n" +
+                "Usage: " +
+                "CreateContainer <containerName>\n\n" +
                 "Where:\n" +
-                "  containerName - The name of the container to create.\n";
+                "  containerName - the name of the container to create.\n";
 
-         if (args.length < 1) {
+         if (args.length != 1) {
             System.out.println(USAGE);
              System.exit(1);
         }
 
-        /* Read the name from command args */
-        final String containerName = args[0];
-
+        String containerName = args[0];
         Region region = Region.US_EAST_1;
         MediaStoreClient mediaStoreClient = MediaStoreClient.builder()
                 .region(region)
                 .build();
 
         createMediaContainer(mediaStoreClient, containerName);
+        mediaStoreClient.close();
     }
 
     //snippet-start:[mediastore.java2.create_container.main]
@@ -77,7 +73,7 @@ public class CreateContainer {
                 Thread.sleep(sleepTime * 1000);
                 }
 
-            System.out.println("The container Amazon Resource Name (ARN) value is "+containerResponse.container().arn());
+            System.out.println("The container ARN value is "+containerResponse.container().arn());
             System.out.println("Finished ");
 
         } catch (MediaStoreException | InterruptedException e) {

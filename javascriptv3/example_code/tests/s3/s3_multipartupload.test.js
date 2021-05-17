@@ -1,41 +1,12 @@
-const mockCreateMultipartUpload = jest.fn();
-jest.mock("@aws-sdk/client-s3", () => ({
-    S3: function S3() {
-        this.CreateMultipartUploadCommand = mockCreateMultipartUpload;
-    },
-}));
-const { run } = require("../../s3/s3_multipartupload");
+const { run, bucketParams } = require("../../s3/src/s3_multipartupload");
+const { s3Client } = require("../../s3/src/libs/s3Client.js");
 
-test("has to mock S3#CreateMultiPartUpload", async (done) => {
-    await run();
-    expect(mockCreateMultipartUpload).toHaveBeenCalled;
-    done();
-});
+jest.mock("../../s3/src/libs/s3Client.js");
 
-const mockUploadPartCommand = jest.fn();
-jest.mock("@aws-sdk/client-s3/Commands/UploadPartCommand", () => ({
-    S3: function S3() {
-        this.UploadPartCommand = mockUploadPartCommand;
-    },
-}));
-const { run } = require("../../s3/s3_multipartupload");
-
-test("has to mock S3#mUploadPart", async (done) => {
-    await run();
-    expect(mockUploadPartCommand).toHaveBeenCalled;
-    done();
-});
-
-const mockCompleteMultipartUploadCommand = jest.fn();
-jest.mock("@aws-sdk/client-s3/Commands/CompleteMultipartUploadCommand", () => ({
-    S3: function S3() {
-        this.CompleteMultipartUploadCommand = mockCompleteMultipartUploadCommand;
-    },
-}));
-const { run } = require("../../s3/s3_multipartupload");
-
-test("has to mock S3#mCompleteUploadPart", async (done) => {
-    await run();
-    expect(mockCompleteMultipartUploadCommand).toHaveBeenCalled;
-    done();
+describe("@aws-sdk/client-s3 mock", () => {
+  it("should successfully mock s3 client", async () => {
+    s3Client.send.mockResolvedValue({ isMock: true });
+    const response = await run(bucketParams);
+    expect(response.isMock).toEqual(true);
+  });
 });

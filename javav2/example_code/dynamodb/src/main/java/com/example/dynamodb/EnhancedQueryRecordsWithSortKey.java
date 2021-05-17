@@ -4,7 +4,7 @@
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[12/16/2020]
-//snippet-sourceauthor:[debito - aws]
+//snippet-sourceauthor:[dito - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,18 +13,32 @@
 package com.example.dynamodb;
 
 import java.time.Instant;
+import java.util.Map;
+import java.util.Iterator;
+import java.util.HashMap;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+import software.amazon.awssdk.enhanced.dynamodb.Expression;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
 import software.amazon.awssdk.enhanced.dynamodb.model.PageIterable;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+
+/*
+ * Prior to running this code example, create an Amazon DynamoDB table named Customer with a key named id and populate it with data.
+ * Also, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 
 public class EnhancedQueryRecordsWithSortKey {
 
@@ -59,7 +73,7 @@ public class EnhancedQueryRecordsWithSortKey {
                     mappedTable.query(r -> r.queryConditional(queryConditional));
 
             customers.stream()
-                     .forEach(p -> p.items().forEach(item -> System.out.println(item.getCustName())));
+                    .forEach(p -> p.items().forEach(item -> System.out.println(item.getCustName())));
 
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());

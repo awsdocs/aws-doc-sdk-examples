@@ -1,5 +1,5 @@
 # TypeScript environment for the Transcription App tutorial
-This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) 'Transcription app' tutorial.
+This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) 'Transcription app' tutorial.
 
 The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/tarnscription-app.html) contains these examples.
 

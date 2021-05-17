@@ -1,5 +1,5 @@
 # TypeScript environment for Amazon Redshift examples
-This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) Amazon Redshift examples. 
+This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon Redshift examples. 
 
 The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
@@ -9,7 +9,7 @@ The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/
 
 Amazon Redshift is a fully managed, petabyte-scale data warehouse service in the cloud. You can start with just a few hundred gigabytes of data and scale to a petabyte or more. This enables you to use your data to acquire new insights for your business and customers.
  
-**NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
+
 
 # Getting started
 

@@ -66,7 +66,8 @@ IGNORE_FOLDERS = {
     '__pycache__',
     '.pytest_cache',
     '.vscode',
-    'vendor'
+    'vendor',
+    'node_modules',
 }
 
 

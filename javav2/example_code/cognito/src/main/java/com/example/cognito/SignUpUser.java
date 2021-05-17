@@ -28,14 +28,21 @@ import java.util.List;
 /**
  * To run this Java code example, you need to create a client app in a user pool with a secret key. For details, see:
  * https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-client-apps.html
+ *
+ * In addition,  ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
+
 public class SignUpUser {
 
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    SignUp <clientId> <secretkey> <userName> <password> <email>\n\n" +
+                "    <clientId> <secretkey> <userName> <password> <email>\n\n" +
                 "Where:\n" +
                 "    clientId - the app client id value that you can obtain from the AWS Management Console.\n\n" +
                 "    secretkey - the app client secret value that you can obtain from the AWS Management Console.\n\n" +
@@ -79,7 +86,6 @@ public class SignUpUser {
         attrs.add(attributeType);
 
        try {
-
            String secretVal = calculateSecretHash(clientId, secretKey, userName);
            SignUpRequest signUpRequest = SignUpRequest.builder()
                    .userAttributes(attrs)
