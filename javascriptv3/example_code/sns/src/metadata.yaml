@@ -1,55 +1,58 @@
 ---
 # Amazon SNS basic usage examples
 files:
-  - path: sns_checkphoneoptout.ts
+  - path: ./libs/snsClient.js
+    services:
+    - sns
+  - path: sns_checkphoneoptout.js
     services:
       - sns
-  - path: sns_createtopic.ts
+  - path: sns_createtopic.js
     services:
       - sns
-  - path: sns_deletetopic.ts
+  - path: sns_deletetopic.js
     services:
       - sns
-  - path: sns_gettopicattributes.ts
+  - path: sns_gettopicattributes.js
     services:
       - sns
-  - path: sns_listnumbersoptedout.ts
+  - path: sns_listnumbersoptedout.js
     services:
       - sns
-  - path: sns_listsubscriptions.ts
+  - path: sns_listsubscriptions.js
     services:
       - sns
-  - path: sns_listtopics.ts
+  - path: sns_listtopics.js
     services:
       - sns
-  - path: sns_publishsms.ts
+  - path: sns_publishsms.js
     services:
       - sns
-  - path: sns_publishtotopic.ts
+  - path: sns_publishtotopic.js
     services:
       - sns
-  - path: sns_setsmstype.ts
+  - path: sns_setsmstype.js
     services:
       - sns
-  - path: sns_settopicattributes.ts
+  - path: sns_settopicattributes.js
     services:
       - sns
-  - path: sns_subscribeapp.ts
+  - path: sns_subscribeapp.js
     services:
       - sns
-  - path: sns_subscribeemail.ts
+  - path: sns_subscribeemail.js
     services:
       - sns
-  - path: sns_subscribelambda.ts
+  - path: sns_subscribelambda.js
     services:
       - sns
-  - path: sns_unsubscribe.ts
+  - path: sns_unsubscribe.js
     services:
       - sns
-  - path: sns_confirmsubscription.ts
+  - path: sns_confirmsubscription.js
     services:
       - sns
-  - path: sns_getsmstype.ts
+  - path: sns_getsmstype.js
     services:
       - sns
 ...

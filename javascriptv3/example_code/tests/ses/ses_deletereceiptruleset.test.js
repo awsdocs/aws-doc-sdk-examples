@@ -1,13 +1,12 @@
-const mockDeleteReceiptRuleSet = jest.fn();
-jest.mock("@aws-sdk/client-ses/commands/DeleteReceiptRuleSetCommand", () => ({
-  SES: function SES() {
-    this.DeleteReceiptRuleSetCommand = mockDeleteReceiptRuleSet;
-  },
-}));
-const { run } = require("../../ses/src/ses_deletereceiptruleset.js");
+const { run, params } = require("../../ses/src/ses_deletereceiptruleset");
+const { sesClient } = require("../../ses/src/libs/sesClient.js");
 
-test("has to mock SES#deletereceiptruleset", async (done) => {
-  await run();
-  expect(mockDeleteReceiptRuleSet).toHaveBeenCalled;
-  done();
+jest.mock("../../ses/src/libs/sesClient.js");
+
+describe("@aws-sdk/client-ses mock", () => {
+  it("should successfully mock SES client", async () => {
+    sesClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });
