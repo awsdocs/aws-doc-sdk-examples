@@ -6,40 +6,32 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-policies.html.
 
 Purpose:
-iam_detachrolepolicy.ts demonstrates how to detach a managed policy from an IAM role.
+iam_detachrolepolicy.js demonstrates how to detach a managed policy from an IAM role.
 
 Inputs :
 - REGION
 - ROLE_NAME
 
 Running the code:
-ts-node iam_detachrolepolicy.ts
+node iam_detachrolepolicy.js
  */
 // snippet-start:[iam.JavaScript.policies.detachRolePolicyV3]
 // Import required AWS SDK clients and commands for Node.js
-const {
-  IAMClient,
+import { iamClient } from "./libs/iamClient.js";
+import {
   ListAttachedRolePoliciesCommand,
-  DetachRolePolicyCommand
-} = require("@aws-sdk/client-iam");
-
-// Set the AWS Region
-const REGION = "REGION"; //e.g. "us-east-1"
+  DetachRolePolicyCommand,
+} from "@aws-sdk/client-iam";
 
 // Set the parameters
-const paramsRoleList = { RoleName: "ROLE_NAME" }; //ROLE_NAME
-
-// Create IAM service object
-const iam = new IAMClient({ region: REGION });
+const params = { RoleName: "ROLE_NAME" }; //ROLE_NAME
 
 const run = async () => {
-  // Load the AWS SDK for Node.js
-
-  // Create IAM service object
   try {
-    const data = await iam.send(
-      new ListAttachedRolePoliciesCommand(paramsRoleList)
+    const data = await iamClient.send(
+      new ListAttachedRolePoliciesCommand(params)
     );
+    return data;
     const myRolePolicies = data.AttachedPolicies;
     myRolePolicies.forEach(function (val, index, array) {
       if (myRolePolicies[index].PolicyName === "AmazonDynamoDBFullAccess") {
@@ -48,7 +40,9 @@ const run = async () => {
           paramsRoleList,
         };
         try {
-          const results = iam.send(new DetachRolePolicyCommand(paramsRoleList));
+          const results = iamClient.send(
+            new DetachRolePolicyCommand(paramsRoleList)
+          );
           console.log("Policy detached from role successfully");
           process.exit();
         } catch (err) {
@@ -63,4 +57,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.policies.detachRolePolicyV3]
-
+// module.exports =  { run, params }; // For unit tests.

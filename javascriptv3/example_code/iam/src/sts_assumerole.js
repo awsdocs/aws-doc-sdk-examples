@@ -6,31 +6,25 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sts-examples-policies.html.
 
 Purpose:
-sts_assumerole.ts demonstrates how to use AWS STS to assume an IAM role.
+sts_assumerole.js demonstrates how to use AWS STS to assume an IAM role.
 
 Inputs :
 - REGION
 - ROLE_TO_ASSUME_ARN
 
 Running the code:
-ts-node sts_assumerule.ts
+node sts_assumerule.js
  */
 // snippet-start:[iam.JavaScript.sts.AssumeRoleV3]
 // Import required AWS SDK clients and commands for Node.js
-const {
-  STSClient,
+import { stsClient } from "./libs/stsClient.js";
+import {
   AssumeRoleCommand,
-  GetCallerIdentityCommand
-} = require("@aws-sdk/client-sts");
-
-// Set the AWS Region
-const REGION = "REGION"; //e.g. "us-east-1"
-
-// Create STS service object
-const sts = new STSClient({ region: REGION });
+  GetCallerIdentityCommand,
+} from "@aws-sdk/client-sts";
 
 // Set the parameters
-const roleToAssume = {
+const params = {
   RoleArn: "ARN_OF_ROLE_TO_ASSUME", //ARN_OF_ROLE_TO_ASSUME
   RoleSessionName: "session1",
   DurationSeconds: 900,
@@ -39,7 +33,8 @@ const roleToAssume = {
 const run = async () => {
   try {
     //Assume Role
-    const data = await sts.send(new AssumeRoleCommand(roleToAssume));
+    const data = await stsClient.send(new AssumeRoleCommand(params));
+    return data;
     const rolecreds = {
       accessKeyId: data.Credentials.AccessKeyId,
       secretAccessKey: data.Credentials.SecretAccessKey,
@@ -62,4 +57,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.sts.AssumeRoleV3]
-
+// module.exports =  { run, params }; // For unit tests.

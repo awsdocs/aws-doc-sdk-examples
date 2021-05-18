@@ -14,15 +14,13 @@ Inputs :
 - NEW_USER_NAME
 
 Running the code:
-ts-node iam_updateuser.ts
+node iam_updateuser.js
  */
 // snippet-start:[iam.JavaScript.users.updateUserV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { IAMClient, UpdateUserCommand } = require("@aws-sdk/client-iam");
-
-// Set the AWS Region
-const REGION = "REGION"; //e.g. "us-east-1"
+import { iamClient } from "./libs/iamClient.js";
+import { UpdateUserCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
 const params = {
@@ -30,17 +28,15 @@ const params = {
   NewUserName: "NEW_USER_NAME", //NEW_USER_NAME
 };
 
-// Create IAM service object
-const iam = new IAMClient({ region: REGION });
-
 const run = async () => {
   try {
-    const data = await iam.send(new UpdateUserCommand(params));
+    const data = await iamClient.send(new UpdateUserCommand(params));
     console.log("Success, username updated");
+    return data;
   } catch (err) {
     console.log("Error", err);
   }
 };
 run();
 // snippet-end:[iam.JavaScript.users.updateUserV3]
-
+// module.exports =  { run, params }; // For unit tests.
