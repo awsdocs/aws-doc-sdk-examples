@@ -1,0 +1,14 @@
+[package]
+name = "kms-create-key"
+version = "0.1.0"
+authors = ["Doug Schwartz <dougsch@amazon.com>"]
+edition = "2018"
+description = "Code example of the KMS CreateKey API"
+
+[dependencies]
+kms = { package = "aws-sdk-kms", path = "../../build/aws-sdk/kms" }
+tokio = { version = "1", features = ["full"]}
+structopt = { version = "0.3", default-features = false }
+tracing-subscriber = { version = "0.2.16", features = ["fmt"] }
+aws-hyper = { path = "../../build/aws-sdk/aws-hyper"}
+aws-types = { path = "../../build/aws-sdk/aws-types" }

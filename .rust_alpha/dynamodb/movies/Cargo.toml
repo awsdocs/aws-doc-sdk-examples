@@ -1,0 +1,22 @@
+[package]
+name = "dynamo-movies"
+version = "0.1.0"
+authors = ["Russell Cohen <rcoh@amazon.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dynamodb = { package = "aws-sdk-dynamodb", path = "../../build/aws-sdk/dynamodb" }
+aws-hyper = { path = "../../build/aws-sdk/aws-hyper"}
+aws-http = { path = "../../build/aws-sdk/aws-http"}
+smithy-http = { path = "../../build/aws-sdk/smithy-http" }
+smithy-types = { path = "../../build/aws-sdk/smithy-types" }
+tokio = { version = "1", features = ["full"] }
+serde_json = "1"
+
+# used only for static endpoint configuration:
+http = "0.2.3"
+
+# used only to enable basic logging:
+env_logger = "0.8.2"

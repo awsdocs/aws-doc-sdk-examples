@@ -1,0 +1,11 @@
+[package]
+name = "polly-helloworld"
+version = "0.1.0"
+authors = ["Russell Cohen <rcoh@amazon.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+polly = { package = "aws-sdk-polly", path = "../../build/aws-sdk/polly"}
+tokio = { version = "1", features = ["full"] }
