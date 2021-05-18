@@ -7,15 +7,15 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+dynamodb = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.4-alpha", package = "aws-sdk-dynamodb" }
+aws-http = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.4-alpha", package = "aws-http"}
+aws-hyper = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.4-alpha", package = "aws-hyper"}
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.4-alpha", package = "aws-types" }
+smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.4-alpha", package = "smithy-http" }
+smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.4-alpha", package = "smithy-types" }
 async-std = "1.9.0"
-aws-http = { path = "../../build/aws-sdk/aws-http"}
-aws-hyper = { path = "../../build/aws-sdk/aws-hyper"}
-aws-types = { path = "../../build/aws-sdk/aws-types" }
-dynamodb = { package = "aws-sdk-dynamodb", path = "../../build/aws-sdk/dynamodb" }
 rand = "0.8.3"
 serde_json = "1"
-smithy-http = { path = "../../build/aws-sdk/smithy-http" }
-smithy-types = { path = "../../build/aws-sdk/smithy-types" }
 structopt = { version = "0.3", default-features = false }
 tokio = { version = "1", features = ["full"] }
 tracing-subscriber = { version = "0.2.16", features = ["fmt"] }

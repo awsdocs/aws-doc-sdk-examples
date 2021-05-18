@@ -1,5 +1,5 @@
 [package]
-name = "dynamo-movies"
+name = "dynamodb-movies"
 version = "0.1.0"
 authors = ["Russell Cohen <rcoh@amazon.com>"]
 edition = "2018"
@@ -7,11 +7,12 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-dynamodb = { package = "aws-sdk-dynamodb", path = "../../build/aws-sdk/dynamodb" }
-aws-hyper = { path = "../../build/aws-sdk/aws-hyper"}
-aws-http = { path = "../../build/aws-sdk/aws-http"}
-smithy-http = { path = "../../build/aws-sdk/smithy-http" }
-smithy-types = { path = "../../build/aws-sdk/smithy-types" }
+dynamodb = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.4-alpha", package = "aws-sdk-dynamodb" }
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.4-alpha", package = "aws-types" }
+aws-hyper = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.4-alpha", package = "aws-hyper"}
+aws-http = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.4-alpha", package = "aws-http"}
+smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.4-alpha", package = "smithy-http" }
+smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.4-alpha", package = "smithy-types" }
 tokio = { version = "1", features = ["full"] }
 serde_json = "1"
 

@@ -7,8 +7,8 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-dynamodb = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.3-alpha", package = "aws-sdk-dynamodb" }
-aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.3-alpha", package = "aws-types" }
+dynamodb = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.4-alpha", package = "aws-sdk-dynamodb" }
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.4-alpha", package = "aws-types" }
 
 tokio = { version = "1", features = ["full"] }
 structopt = { version = "0.3", default-features = false }

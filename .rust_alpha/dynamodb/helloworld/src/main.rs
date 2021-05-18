@@ -7,6 +7,7 @@ use dynamodb::model::{
     AttributeDefinition, KeySchemaElement, KeyType, ProvisionedThroughput, ScalarAttributeType,
 };
 
+/// Lists your Amazon DynamoDB tables and creates the table __test-table__.
 #[tokio::main]
 async fn main() -> Result<(), dynamodb::Error> {
     let client = dynamodb::Client::from_env();

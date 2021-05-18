@@ -26,7 +26,7 @@ use dynamodb::output::DescribeTableOutput;
 
 use dynamodb::{Client, Config, Region};
 
-use aws_types::region::{EnvironmentProvider, ProvideRegion};
+use aws_types::region::ProvideRegion;
 
 use smithy_http::operation::Operation;
 use smithy_http::retry::ClassifyResponse;
@@ -44,7 +44,7 @@ struct Opt {
 
     /// The region
     #[structopt(short, long)]
-    region: Option<String>,
+    default_region: Option<String>,
 
     /// Activate verbose mode    
     #[structopt(short, long)]
@@ -110,11 +110,11 @@ struct Item {
 
 /// Add an item to the table.
 async fn add_item(client: &dynamodb::Client, item: Item) {
-    let user_av = AttributeValue::S(String::from(item.value));
-    let type_av = AttributeValue::S(String::from(item.utype));
-    let age_av = AttributeValue::S(String::from(item.age));
-    let first_av = AttributeValue::S(String::from(item.first_name));
-    let last_av = AttributeValue::S(String::from(item.last_name));
+    let user_av = AttributeValue::S(item.value);
+    let type_av = AttributeValue::S(item.utype);
+    let age_av = AttributeValue::S(item.age);
+    let first_av = AttributeValue::S(item.first_name);
+    let last_av = AttributeValue::S(item.last_name);
 
     match client
         .put_item()
@@ -138,11 +138,11 @@ async fn add_item(client: &dynamodb::Client, item: Item) {
 
 /// Scan the table for an item matching the input values.
 async fn scan(client: &dynamodb::Client, item: Item) {
-    let user_av = AttributeValue::S(String::from(item.value));
-    let type_av = AttributeValue::S(String::from(item.utype));
-    let age_av = AttributeValue::S(String::from(item.age));
-    let first_av = AttributeValue::S(String::from(item.first_name));
-    let last_av = AttributeValue::S(String::from(item.last_name));
+    let user_av = AttributeValue::S(item.value);
+    let type_av = AttributeValue::S(item.utype);
+    let age_av = AttributeValue::S(item.age);
+    let first_av = AttributeValue::S(item.first_name);
+    let last_av = AttributeValue::S(item.last_name);
 
     let mut found_match = true;
 
@@ -309,9 +309,9 @@ fn wait_for_ready_table(
 ) -> Operation<DescribeTable, WaitForReadyTable<AwsErrorRetryPolicy>> {
     let operation = DescribeTableInput::builder()
         .table_name(table_name)
-        .build(&conf)
-        //.expect("valid input")
-        //.make_operation(&conf)
+        .build()
+        .expect("valid input")
+        .make_operation(&conf)
         .expect("valid operation");
     let waiting_policy = WaitForReadyTable {
         inner: operation.retry_policy().clone(),
@@ -319,17 +319,26 @@ fn wait_for_ready_table(
     operation.with_retry_policy(waiting_policy)
 }
 
+/// Creates an Amazon DynamoDB table, adds an item to the table, updates the item, deletes the item, and deletes the table.
+/// # Arguments
+///
+/// * `[-i]` - Whether to run in interactive mode, which pauses the code between operations.
+/// * `[-d DEFAULT-REGION]` - The region in which the table is created.
+///   If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+///   If the environment variable is not set, defaults to **us-west-2**.
+/// * `[-v]` - Whether to display additional information.
 #[tokio::main]
 async fn main() {
     let Opt {
         interactive,
-        region,
+        default_region,
         verbose,
     } = Opt::from_args();
 
-    let region = EnvironmentProvider::new()
-        .region()
-        .or_else(|| region.as_ref().map(|region| Region::new(region.clone())))
+    let region = default_region
+        .as_ref()
+        .map(|region| Region::new(region.clone()))
+        .or_else(|| aws_types::region::default_provider().region())
         .unwrap_or_else(|| Region::new("us-west-2"));
 
     // Create 10-charater random table name

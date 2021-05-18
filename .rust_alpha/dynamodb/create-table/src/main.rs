@@ -10,7 +10,7 @@ use dynamodb::model::{
 };
 use dynamodb::{Client, Config, Region};
 
-use aws_types::region::{EnvironmentProvider, ProvideRegion};
+use aws_types::region::{ProvideRegion};
 
 use structopt::StructOpt;
 use tracing_subscriber::fmt::format::FmtSpan;
@@ -20,7 +20,7 @@ use tracing_subscriber::fmt::SubscriberBuilder;
 struct Opt {
     /// The region
     #[structopt(short, long)]
-    region: Option<String>,
+    default_region: Option<String>,
 
     /// The table name
     #[structopt(short, long)]
@@ -35,18 +35,29 @@ struct Opt {
     verbose: bool,
 }
 
+/// Adds an item to an Amazon DynamoDB table.
+/// The table schema must use one of username, p_type, age, first, or last as the primary key.
+/// # Arguments
+///
+/// * `-t TABLE` - The name of the table.
+/// * `-k KEY` - The primary key for the table.
+/// * `[-d DEFAULT-REGION]` - The region in which the table is created.
+///   If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+///   If the environment variable is not set, defaults to **us-west-2**.
+/// * `[-v]` - Whether to display additional information.
 #[tokio::main]
 async fn main() {
     let Opt {
         table,
         key,
-        region,
+        default_region,
         verbose,
     } = Opt::from_args();
 
-    let region = EnvironmentProvider::new()
-        .region()
-        .or_else(|| region.as_ref().map(|region| Region::new(region.clone())))
+    let region = default_region
+        .as_ref()
+        .map(|region| Region::new(region.clone()))
+        .or_else(|| aws_types::region::default_provider().region())
         .unwrap_or_else(|| Region::new("us-west-2"));
 
     if verbose {
