@@ -6,37 +6,33 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html.
 
 Purpose:
-iam_createaccesskeys.ts demonstrates how to create a new AWS access key and AWS access key ID for an IAM user.
+iam_createaccesskeys.js demonstrates how to create a new AWS access key and AWS access key ID for an IAM user.
 
 Inputs :
 - REGION
  - IAM_USER_NAME
 
 Running the code:
-ts-node iam_createaccesskeys.ts >newuserkeys.txt
+node iam_createaccesskeys.js >newuserkeys.txt
 (This create newuserkeys.txt and adds the access key ID and secret key to it.)
  */
 // snippet-start:[iam.JavaScript.keys.createAccessKeyV3]
 // Import required AWS SDK clients and commands for Node.js
-const { IAMClient, CreateAccessKeyCommand } = require("@aws-sdk/client-iam");
-
-// Set the AWS Region
-const REGION = "REGION"; //e.g. "us-east-1"
+import { iamClient } from "./libs/iamClient.js";
+import { CreateAccessKeyCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const userName = "IAM_USER_NAME"; //IAM_USER_NAME
-
-// Create IAM service object
-const iam = new IAMClient({ region: REGION });
+const params = {UserName: "IAM_USER_NAME"}; //IAM_USER_NAME
 
 const run = async () => {
   try {
-    const data = await iam.send(new CreateAccessKeyCommand(userName));
-    console.log("Success", data.AccessKey);
+    const data = await iamClient.send(new CreateAccessKeyCommand(params));
+    console.log("Success", data);
+    return data;
   } catch (err) {
     console.log("Error", err);
   }
 };
 run();
 // snippet-end:[iam.JavaScript.keys.createAccessKeyV3]
-
+// module.exports =  { run }; // For unit tests.

@@ -6,49 +6,38 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html.
 
 Purpose:
-iam_createuser.js demonstrates how to create an IAM user for an AWS account.
+iam_deleteuser.js demonstrates how to delete an IAM user from an AWS account.
 
 Inputs :
 - REGION
 - USER_NAME
 
 Running the code:
-ts-node iam_createuser.js
+node iam_deleteuser.js
  */
-
-// snippet-start:[iam.JavaScript.users.getUserV3]
+// snippet-start:[iam.JavaScript.users.deleteUserV3]
 // Import required AWS SDK clients and commands for Node.js
-const {
-  IAMClient,
-  GetUserCommand,
-  CreateUserCommand
-} = require("@aws-sdk/client-iam");
-
-// Set the AWS Region
-const REGION = "REGION"; //e.g. "us-east-1"
+import { iamClient } from "./libs/iamClient.js";
+import { DeleteUserCommand, GetUserCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
 const params = { UserName: "USER_NAME" }; //USER_NAME
 
-// Create IAM service object
-const iam = new IAMClient({ region: REGION });
-
 const run = async () => {
   try {
-    const data = await iam.send(new GetUserCommand(params));
-    console.log(
-      "User " + process.argv[3] + " already exists",
-      data.User.UserId
-    );
-  } catch (err) {
+    const data = await iamClient.send(new GetUserCommand(params));
+    return data;
     try {
-      const results = await iam.send(new CreateUserCommand(params));
+      const results = await iamClient.send(new DeleteUserCommand(params));
       console.log("Success", results);
+      return results;
     } catch (err) {
       console.log("Error", err);
     }
+  } catch (err) {
+    console.log("User " + process.argv[2] + " does not exist.");
   }
 };
 run();
-// snippet-end:[iam.JavaScript.users.getUserV3]
-
+// snippet-end:[iam.JavaScript.users.deleteUserV3]
+// module.exports =  { run, params }; // For unit tests.

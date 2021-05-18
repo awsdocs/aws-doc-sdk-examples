@@ -6,41 +6,37 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-policies.html.
 
 Purpose:
-iam_attachrolepolicy.ts demonstrates how to attach a managed policy to an IAM role.
+iam_attachrolepolicy.js demonstrates how to attach a managed policy to an IAM role.
 
 Inputs :
 - REGION
 - ROLE_NAME
 
 Running the code:
-ts-node iam_attachrolepolicy.ts
+node iam_attachrolepolicy.js
 
  */
-
 // snippet-start:[iam.JavaScript.policies.attachRolePolicyV3]
 // Import required AWS SDK clients and commands for Node.js
-const {
-  IAMClient,
+import { iamClient } from "./libs/iamClient.js";
+import {
   ListAttachedRolePoliciesCommand,
-  AttachRolePolicyCommand
-} = require("@aws-sdk/client-iam");
-
-// Set the AWS Region
-const REGION = "REGION"; //e.g. "us-east-1"
+  AttachRolePolicyCommand,
+} from "@aws-sdk/client-iam";
 
 // Set the parameters
 const ROLENAME = "ROLE_NAME";
 const paramsRoleList = { RoleName: ROLENAME }; //ROLE_NAME
-
-// Create IAM service object
-const iam = new IAMClient({ region: REGION });
-
+const params = {
+  PolicyArn: "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess",
+  RoleName: ROLENAME,
+};
 const run = async () => {
-  const iam = new IAMClient({ region: REGION });
   try {
-    const data = await iam.send(
+    const data = await iamClient.send(
       new ListAttachedRolePoliciesCommand(paramsRoleList)
     );
+    return data;
     const myRolePolicies = data.AttachedPolicies;
     myRolePolicies.forEach(function (val, index, array) {
       if (myRolePolicies[index].PolicyName === "AmazonDynamoDBFullAccess") {
@@ -51,12 +47,9 @@ const run = async () => {
       }
     });
     try {
-      const params = {
-        PolicyArn: "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess",
-        RoleName: ROLENAME,
-      };
-      const data = await iam.send(new AttachRolePolicyCommand(params));
+      const data = await iamClient.send(new AttachRolePolicyCommand(params));
       console.log("Role attached successfully");
+      return data;
     } catch (err) {
       console.log("Error", err);
     }
@@ -66,4 +59,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.policies.attachRolePolicyV3]
-
+// module.exports =  { run, params }; // For unit tests.
