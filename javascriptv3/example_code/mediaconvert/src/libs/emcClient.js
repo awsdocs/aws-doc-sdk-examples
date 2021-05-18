@@ -31,4 +31,4 @@ const ENDPOINT = { endpoint: "https://ENDPOINT_UNIQUE_STRING.mediaconvert.REGION
 //Set the MediaConvert Service Object
 const emcClient = new MediaConvertClient(ENDPOINT);
 export { emcClient };
-// snippet-start:[emc.JavaScript.createclientv3]
+// snippet-end:[emc.JavaScript.createclientv3]
