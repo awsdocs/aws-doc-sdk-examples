@@ -26,18 +26,18 @@ struct Opt {
 
     /// The name of the input file with encrypted text to decrypt
     #[structopt(short, long)]
-    input: String,
+    input_file: String,
 
     /// Specifies whether to display additonal runtime informmation
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Decrypts a string encrypted by AWS KMS.
+/// Decrypts a string encrypted by AWS KMS key.
 /// # Arguments
 ///
 /// * `-k KEY` - The encryption key.
-/// * `-i INPUT` - The encrypted string.
+/// * `-i INPUT-FILE` - The file containing the text encrypted by the key.
 /// * `[-d DEFAULT-REGION]` - The region in which the client is created.
 ///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
@@ -46,7 +46,7 @@ struct Opt {
 async fn main() {
     let Opt {
         key,
-        input,
+        input_file,
         default_region,
         verbose,
     } = Opt::from_args();
@@ -59,9 +59,9 @@ async fn main() {
 
     if verbose {
         println!("KMS client version: {}\n", kms::PKG_VERSION);
-        println!("Region: {:?}", &region);
-        println!("Key:    {}", key);
-        println!("Input:  {}", input);
+        println!("Region:             {:?}", &region);
+        println!("Key:                {}", key);
+        println!("Input filename:     {}", input_file);
 
         SubscriberBuilder::default()
             .with_env_filter("info")
@@ -75,7 +75,7 @@ async fn main() {
 
     // Open input text file and get contents as a string
     // input is a base-64 encoded string, so decode it:
-    let data = fs::read_to_string(input)
+    let data = fs::read_to_string(input_file)
         .map(|input| {
             base64::decode(input).expect("Input file does not contain valid base 64 characters.")
         })

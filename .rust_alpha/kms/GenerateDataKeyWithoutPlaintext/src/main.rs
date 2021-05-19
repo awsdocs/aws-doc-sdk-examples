@@ -29,10 +29,10 @@ struct Opt {
     verbose: bool,
 }
 
-/// Creates an AWS KMS data key without plaintext.
+/// Creates an AWS KMS data key, showing the plaintext public key but not the plaintext private key.
 /// # Arguments
 ///
-/// * `[-k KEY]` - The name of the data key.
+/// * `[-k KEY]` - The name of the AWS KMS data key.
 /// * `[-d DEFAULT-REGION]` - The region in which the client is created.
 ///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
