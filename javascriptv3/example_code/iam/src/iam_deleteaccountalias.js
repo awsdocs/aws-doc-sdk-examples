@@ -9,7 +9,6 @@ Purpose:
 iam_deleteaccountalias.js demonstrates how to delete an alias for an AWS account.
 
 Inputs :
-- REGION
 - ALIAS
 
 Running the code:

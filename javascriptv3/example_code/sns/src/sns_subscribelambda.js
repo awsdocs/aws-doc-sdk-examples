@@ -10,7 +10,6 @@ sns_subscribelambda.js demonstrates how to initiate a subscription to an Amazon 
 delivery to an AWS Lambda function.
 
 Inputs (replace in code):
-- REGION
 - TOPIC_ARN
 - LAMBDA_FUNCTION_ARN
 

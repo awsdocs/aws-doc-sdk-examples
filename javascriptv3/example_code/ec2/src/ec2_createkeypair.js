@@ -9,7 +9,6 @@ Purpose:
 ec2_createkeypair.js demonstrates how to create an RSA key pair for an Amazon EC2 instance.
 
 Inputs (replace in code):
-- REGION
 - MY_KEY_PAIR
 
 Running the code:

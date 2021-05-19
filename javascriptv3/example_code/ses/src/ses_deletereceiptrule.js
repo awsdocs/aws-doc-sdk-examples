@@ -9,7 +9,6 @@ Purpose:
 ses_deletereceiptrule.js demonstrates how to delete an Amazon SES receipt rule.
 
 Inputs (replace in code):
-- REGION
 - RULE_NAME
 - RULE_SET_NAME
 

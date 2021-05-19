@@ -9,7 +9,6 @@ Purpose:
 iam_createaccountalias.js demonstrates how to create an alias for an AWS account.
 
 Inputs :
-- REGION
 - ACCOUNT_ALIAS
 
 Running the code:

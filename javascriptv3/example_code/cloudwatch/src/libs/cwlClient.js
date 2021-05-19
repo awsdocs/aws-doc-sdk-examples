@@ -7,8 +7,7 @@ Purpose:
 cwlClient.js is a helper function that creates an Amazon CloudWatch Logs service client.
 
 Inputs (replace in code):
-- REGION
-
+-REGION
 */
 // snippet-start:[cloudwatch.JavaScript.logs.createclientv3]
 import { CloudWatchLogsClient } from "@aws-sdk/client-cloudwatch-logs";

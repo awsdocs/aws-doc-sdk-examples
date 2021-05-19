@@ -9,7 +9,6 @@ Purpose:
 iam_createaccesskeys.js demonstrates how to create a new AWS access key and AWS access key ID for an IAM user.
 
 Inputs :
-- REGION
  - IAM_USER_NAME
 
 Running the code:

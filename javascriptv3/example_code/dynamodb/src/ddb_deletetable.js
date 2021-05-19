@@ -8,8 +8,7 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examp
 Purpose:
 ddb_deletetable.js demonstrates how to delete an Amazon DynamoDB table.
 
-Inputs (replace in code):
-- REGION
+INPUTS:
 - TABLE_NAME
 
 Running the code:

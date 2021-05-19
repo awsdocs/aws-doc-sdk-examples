@@ -9,7 +9,6 @@ Purpose:
 sns_subscribeemail.js demonstrates how to initiate a subscription to an Amazon SNS topic with delivery to an email address.]
 
 Inputs (replace in code):
-- REGION
 - TOPIC_ARN
 - EMAIL_ADDRESS
 

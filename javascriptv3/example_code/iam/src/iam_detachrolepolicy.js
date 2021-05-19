@@ -9,7 +9,6 @@ Purpose:
 iam_detachrolepolicy.js demonstrates how to detach a managed policy from an IAM role.
 
 Inputs :
-- REGION
 - ROLE_NAME
 
 Running the code:

@@ -9,7 +9,6 @@ Purpose:
 sqs_sendmessage.js demonstrates how to deliver a message to an Amazon SQS queue.
 
 Inputs (replace in code):
-- REGION
 - SQS_QUEUE_URL (into command line below; e.g., 'https://sqs.REGION.amazonaws.com/ACCOUNT-ID/QUEUE-NAME')
 
 Running the code:

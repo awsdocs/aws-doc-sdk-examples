@@ -8,7 +8,6 @@ Purpose:
 pinpoint_send_sms_message.js demonstrates how to send a transactional email message using Amazon Pinpoint.]
 
 Inputs (replace in code):
-- REGION: The AWS Region
 - SENDER_NUMBER
 - RECEIVER_NUMBER
 - PINPOINT_PROJECT_ID

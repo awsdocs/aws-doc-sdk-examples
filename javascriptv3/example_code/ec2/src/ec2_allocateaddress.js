@@ -9,7 +9,6 @@ Purpose:
 ec2_allocateaddress.js demonstrates how to allocate and associate an Elastic IP address to an Amazon EC2 instance.
 
 Inputs (replace in code):
-- REGION
 - INSTANCE_ID
 
 Running the code:

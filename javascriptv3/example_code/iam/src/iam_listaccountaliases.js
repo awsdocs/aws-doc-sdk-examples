@@ -8,9 +8,6 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-a
 Purpose:
 iam_listaccountaliases.js demonstrates how to retrieve information about the aliases for an AWS account.
 
-Inputs :
-- REGION
-
 Running the code:
 node iam_listaccountaliases.js
  */

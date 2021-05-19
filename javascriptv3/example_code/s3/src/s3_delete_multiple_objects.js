@@ -8,7 +8,6 @@ Purpose:
 s3_delete_multiple_objects.js demonstrates how to delete multiple objects} from an Amazon Simple Storage Solution (S3) bucket.
 
 Inputs (replace in code):
-- REGION
 - BUCKET_NAME
 - KEY_1
 - KEY_2

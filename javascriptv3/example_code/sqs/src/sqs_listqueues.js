@@ -9,7 +9,6 @@ Purpose:
 sqs_listqueues.js demonstrates how to retrieve a list of Amazon SQS queues for an AWS account.
 
 Inputs (replace in code):
-- REGION
 
 Running the code:
 node sqs_listqueues.js

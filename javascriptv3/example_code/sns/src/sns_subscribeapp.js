@@ -9,7 +9,6 @@ Purpose:
 sns_subscribeapp.js demonstrates how to initiate a subscription to an Amazon SNS topic with delivery to a mobile app.
 
 Inputs (replace in code):
-- REGION
 - TOPIC_ARN
 - MOBILE_ENDPOINT_ARN
 

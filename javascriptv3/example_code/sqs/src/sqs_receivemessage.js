@@ -9,7 +9,6 @@ Purpose:
 sqs_receivemessage.js demonstrates how to receive and delete a message from an Amazon SQS queue.
 
 Inputs (replace in code):
-- REGION
 - SQS_QUEUE_URl
 
 Running the code:

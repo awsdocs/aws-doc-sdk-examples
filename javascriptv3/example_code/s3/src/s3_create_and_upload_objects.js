@@ -6,8 +6,7 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-cre
 
 Purpose:
 s3_create_and_upload_objects.js creates and uploads an object to an Amazon Simple Storage Solution (Amazon S3) bucket.
-Inputs (in the commandline input below):
-- REGION
+Inputs:
 - BUCKET_NAME
 - KEY: The name of the object to create and upload.
 - BODY: The contents of the uploaded file.

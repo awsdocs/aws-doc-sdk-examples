@@ -8,9 +8,6 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-se
 Purpose:
 ec2_describeregionsandzones.js demonstrates how to retrieve information about Amazon EC2 regions and availability zones.
 
-Inputs (replace in code):
-- REGION
-
 Running the code:
 node ec2_describeregionsandzones.js
 */

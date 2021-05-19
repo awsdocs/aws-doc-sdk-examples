@@ -8,8 +8,7 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-m
 Purpose:
 sqs_changingvisibility.js demonstrates how to change the visibility timeout of a message in an Amazon SQS queue.
 
-Inputs (replace in code):
-- REGION (part of queueURL)
+Inputs (replace in code): (part of queueURL)
 - ACCOUNT_ID (part of queueURL)
 - QUEUE_NAME (part of queueURL)
 

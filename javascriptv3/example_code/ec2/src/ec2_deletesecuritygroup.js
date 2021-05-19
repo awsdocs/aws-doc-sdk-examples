@@ -9,7 +9,6 @@ Purpose:
 ec2_deletesecuritygroup.js demonstrates how to delete a security group from an Amazon EC2 instance.
 
 Inputs (replace in code):
-- REGION
 - SECURITY_GROUP_ID
 
 Running the code:

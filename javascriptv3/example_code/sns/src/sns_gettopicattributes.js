@@ -9,7 +9,6 @@ Purpose:
 sns_gettopicattributes.js demonstrates how to retrieve the properties of an Amazon SNS topic.
 
 Inputs (replace in code):
-- REGION
 - TOPIC_ARN
 
 Running the code:

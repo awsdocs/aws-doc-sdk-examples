@@ -9,7 +9,6 @@ Purpose:
 iam_deleteaccesskey.js demonstrates how to delete the AWS access key pair for an IAM user.
 
 Inputs(in code):
-- REGION
 - ACCESS_KEY_ID
 - USER_NAME
 

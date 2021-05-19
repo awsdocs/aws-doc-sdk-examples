@@ -8,8 +8,6 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide//ec2-example-e
 Purpose:
 ec2_describeaddresses.js demonstrates how to retrieve information about one or more Elastic IP addresses.
 
-Inputs (replace in code):
-- REGION
 
 Running the code:
 node ec2_describeaddresses.js

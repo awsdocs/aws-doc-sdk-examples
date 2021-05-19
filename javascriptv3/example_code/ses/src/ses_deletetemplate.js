@@ -9,7 +9,6 @@ Purpose:
 ses_deletetemplate.js demonstrates how to delete an Amazon SES email template.
 
 Inputs (replace in code):
-- REGION
 - TEMPLATE_NAME
 
 Running the code:

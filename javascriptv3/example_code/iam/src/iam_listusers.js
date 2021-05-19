@@ -8,9 +8,6 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-m
 Purpose:
 iam_listusers.js demonstrates how to list IAM users.
 
-Inputs :
-- REGION
-
 Running the code:
 node iam_listusers.js
  */

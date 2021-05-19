@@ -7,8 +7,7 @@ Purpose:
 cweClient.js is a helper function that creates an Amazon CloudWatch Events service client.
 
 Inputs (replace in code):
-- REGION
-
+-REGION
 */
 // snippet-start:[cloudwatch.JavaScript.events.createclientv3]
 

@@ -7,8 +7,7 @@ Purpose:
 cwClient.js is a helper function that creates an Amazon CloudWatch service client.
 
 Inputs (replace in code):
-- REGION
-
+-REGION
 */
 // snippet-start:[cloudwatch.JavaScript.createclientv3]
 

@@ -8,8 +8,6 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide//cloudwatch-ex
 Purpose:
 cw_listmetrics.js demonstrates how to list metrics for Amazon CloudWatch.
 
-Inputs (replace in code):
-- REGION
 
 Running the code:
 node cw_listmetrics.js

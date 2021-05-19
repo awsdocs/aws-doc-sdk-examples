@@ -9,7 +9,6 @@ Purpose:
 ses_sendemail.js demonstrates how to send an email using Amazon SES.
 
 Inputs (replace in code):
-- REGION
 - RECEIVER_ADDRESS
 - SENDER_ADDRESS
 

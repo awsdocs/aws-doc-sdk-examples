@@ -9,7 +9,6 @@ Purpose:
 sqs_longpolling_receivemessage.js demonstrates how to retrieve messages from an Amazon SQS queue using long-polling support.
 
 Inputs (replace in code):
-- REGION
 - SQS_QUEUE_URL
 - MaxNumberOfMessages
 - WaitTimeSeconds

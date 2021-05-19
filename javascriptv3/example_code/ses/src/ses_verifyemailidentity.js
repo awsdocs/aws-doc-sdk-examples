@@ -9,7 +9,6 @@ Purpose:
 ses_verifyemailidentity.js demonstrates how to send an Amazon SES verification email.
 
 Inputs (replace in code):
-- REGION
 - ADDRESS@DOMAIN.EXT
 
 Running the code:

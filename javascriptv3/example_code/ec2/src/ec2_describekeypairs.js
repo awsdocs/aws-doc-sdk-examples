@@ -8,9 +8,6 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-ke
 Purpose:
 ec2_describekeypairs.js demonstrates how to retrieve information about one or more key pairs.
 
-Inputs (replace in code):
-- REGION
-
 Running the code:
 node ec2_describekeypairs.js
  */

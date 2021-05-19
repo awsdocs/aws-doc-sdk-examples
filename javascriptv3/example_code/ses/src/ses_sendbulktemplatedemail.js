@@ -10,7 +10,6 @@ ses_sendbulktemplatedemail.js demonstrates how to compose an Amazon SES template
 multiple destinations and queue it for sending.
 
 Inputs (replace in code):
-- REGION
 - RECEIVER_ADDRESSES
 - SENDER_ADDRESS
 

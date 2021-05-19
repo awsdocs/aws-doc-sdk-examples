@@ -9,7 +9,6 @@ Purpose:
 iam_createuser.js demonstrates how to create an IAM user for an AWS account.
 
 Inputs :
-- REGION
 - USER_NAME
 
 Running the code:

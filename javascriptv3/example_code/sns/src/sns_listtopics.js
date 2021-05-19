@@ -9,7 +9,6 @@ Purpose:
 sns_listtopics.js demonstrates how to retrieve a list of Amazon SNS topics.
 
 Inputs (replace in code):
-- REGION
 
 Running the code:
 node sns_listtopics.js

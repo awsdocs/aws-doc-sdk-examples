@@ -9,8 +9,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 Purpose:
 ddb_batchwriteitem.js demonstrates how to put items or delete items into an Amazon DynamoDB table.
 
-Inputs (replace in code):
-- REGION
+INPUTS:
 - TABLE_NAME
 - KEYS
 - KEY_VALUES

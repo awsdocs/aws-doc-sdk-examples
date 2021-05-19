@@ -8,9 +8,6 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-p
 Purpose:
 iam_getpolicy.js demonstrates how to retrieve information about an IAM managed policy.
 
-Inputs :
-- REGION
-
 Running the code:
 node iam_getpolicy.js
  */

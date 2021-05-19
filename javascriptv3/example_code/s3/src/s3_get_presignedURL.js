@@ -5,16 +5,15 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
 
 Purpose:
-s3_get_presignedURL.js demonstrated how to generate a presigned URL to get an object} from an
- Amazon Simple Storage Service (Amazon S3) bucket.
+s3_get_presignedURL.js demonstrated how to generate a presigned URL to get an object} from an Amazon Simple Storage Service (Amazon S3) bucket.
 
 Note: This example creates a bucket and object for demonstration purposes, then immediately deletes them.
 
 Inputs (replace in code):
-- REGION
 
 Running the code:
 nodes3_get_presignedURL.js
+
 [Outputs | Returns]:
 Uploads the specified file to the specified bucket.
 */

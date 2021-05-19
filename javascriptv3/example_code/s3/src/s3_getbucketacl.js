@@ -3,6 +3,7 @@ SPDX-License-Identifier: Apache-2.0
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-access-permissions.html.
+
 Purpose:
 s3_getbucketacl.js demonstrates how to retrieve the Access Control List (ACL) permissions of an Amazon
 Simple Storage Service (Amazon S3) bucket.

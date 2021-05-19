@@ -9,7 +9,6 @@ Purpose:
 iam_getservercert.js demonstrates how to retrieve information about an IAM SSL/TLS server certificate.
 
 Inputs :
-- REGION
 - CERTIFICATE_NAME
 
 Running the code:

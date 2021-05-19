@@ -8,7 +8,6 @@ Purpose:
 s3_delete_object.js demonstrates how to delete an object} from an Amazon Simple Storage Solution (S3) bucket.
 
 Inputs (replace in code):
-- REGION
 - BUCKET_NAME
 - KEY
 

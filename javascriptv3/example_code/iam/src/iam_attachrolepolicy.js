@@ -9,7 +9,6 @@ Purpose:
 iam_attachrolepolicy.js demonstrates how to attach a managed policy to an IAM role.
 
 Inputs :
-- REGION
 - ROLE_NAME
 
 Running the code:

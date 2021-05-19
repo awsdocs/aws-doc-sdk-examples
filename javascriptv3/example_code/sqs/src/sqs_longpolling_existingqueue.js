@@ -9,7 +9,6 @@ Purpose:
 sqs_longpolling_existingqueue.js demonstrates how to change the amount of time an Amazon SQS queue waits for a message to arrive.
 
 Inputs (replace in code):
-- REGION
 - SQS_QUEUE_URL
 - ReceiveMessageWaitTimeSeconds
 

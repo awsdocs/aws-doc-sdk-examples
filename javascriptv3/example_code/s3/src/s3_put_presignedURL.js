@@ -9,12 +9,9 @@ s3_put_presignedURL.js creates a presigned URL to upload a file to an Amazon Sim
 
 Note: This example immediately deletes the object and bucket.
 
-Inputs (replace in code):
-- REGION
-
-
 Running the code:
 nodes3_put_presignedURL.js
+
 [Outputs | Returns]:
 Uploads the specified file to the specified bucket.
 */
