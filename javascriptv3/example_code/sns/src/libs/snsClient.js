@@ -14,7 +14,7 @@ Inputs (replace in code):
 // snippet-start:[sns.JavaScript.createclientv3]
 import  { SNSClient } from "@aws-sdk/client-sns";
 // Set the AWS Region.
-const REGION = "eu-west-1"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 // Create SNS service object.
 const snsClient = new SNSClient({ region: REGION });
 export  { snsClient };

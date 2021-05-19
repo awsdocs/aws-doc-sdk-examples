@@ -1,11 +1,11 @@
 const { run, params } = require("../../mediaconvert/src/emc_getendpoint");
-const { emcClient } = require("../../mediaconvert/src/libs/emcClient");
+const { emcClientGet } = require("../../mediaconvert/src/libs/emcClientGet");
 
-jest.mock("../../mediaconvert/src/libs/emcClient.js");
+jest.mock("../../mediaconvert/src/libs/emcClientGet.js");
 
 describe("@aws-sdk/client-emc mock", () => {
     it("should successfully mock EMC client", async () => {
-        emcClient.send.mockResolvedValue({ isMock: true });
+        emcClientGet.send.mockResolvedValue({ isMock: true });
         const response = await run(params);
         expect(response.isMock).toEqual(true);
     });
