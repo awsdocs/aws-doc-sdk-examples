@@ -25,10 +25,8 @@ node redshift-create-cluster.js
 
 // snippet-start:[redshift.javascript.redshift-create-clusterV3]
 // Import required AWS SDK clients and commands for Node.js
-const {
-  CreateClusterCommand,
-} = require("@aws-sdk/client-redshift");
-const { redshiftClient } = require ("./libs/redshiftClient.js");
+const { CreateClusterCommand } = require("@aws-sdk/client-redshift");
+const { redshiftClient } = require("./libs/redshiftClient.js");
 
 const params = {
   ClusterIdentifier: "CLUSTER_NAME", // Required
@@ -55,4 +53,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[redshift.javascript.redshift-create-clusterV3]
-module.exports = {run, params}
+module.exports = { run, params };

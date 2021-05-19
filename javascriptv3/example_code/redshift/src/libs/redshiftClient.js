@@ -11,10 +11,10 @@ Inputs (replace in code):
 - REGION
 */
 // snippet-start:[redshift.JavaScript.createclientv3]
-const { RedshiftClient } = require( "@aws-sdk/client-redshift");
+const { RedshiftClient } = require("@aws-sdk/client-redshift");
 // Set the AWS Region.
 const REGION = "eu-west-1";
 //Set the MediaConvert Service Object
-const redshiftClient = new RedshiftClient({region: REGION});
-module.exports =  { redshiftClient };
+const redshiftClient = new RedshiftClient({ region: REGION });
+module.exports = { redshiftClient };
 // snippet-end:[redshift.JavaScript.createclientv3]
