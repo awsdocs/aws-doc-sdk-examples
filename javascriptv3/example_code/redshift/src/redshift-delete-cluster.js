@@ -6,10 +6,9 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/redshift-examples.html.
 
 Purpose:
-redshift-delete-cluster.ts demonstrates how to delete an Amazon RedShift cluster.
+redshift-delete-cluster.js demonstrates how to delete an Amazon RedShift cluster.
 
 Inputs (replace in code):
-- REGION: The AWS Region
 - CLUSTER_NAME:  The name of the cluster
 - SkipFinalClusterSnapshot: Determines whether a final snapshot of the cluster is created before Amazon Redshift deletes the cluster.
 - CLUSTER_SNAPSHOT_ID: Required if 'SkipFinalClusterSnapshot' is 'false', for example mycluster-xxxx-xx-xx-xx-xx-xx
@@ -17,18 +16,15 @@ Inputs (replace in code):
 For more information about these and additional parameters, see https://docs.aws.amazon.com/redshift/latest/APIReference/API_CreateCluster.html.
 
 Running the code:
-ts-node redshift-create-cluster.ts
+node redshift-create-cluster.js
 */
 
 // snippet-start:[redshift.javascript.redshift-delete-clusterV3]
 // Import required AWS SDK clients and commands for Node.js
 const {
-  RedshiftClient,
-  DeleteClusterCommand,
-} = require("@aws-sdk/client-redshift-node");
-
-// Set the AWS Region
-const REGION = "REGION";
+  DeleteClusterCommand
+} = require("@aws-sdk/client-redshift");
+const { redshiftClient } = require ("./libs/redshiftClient.js");
 
 const params = {
   ClusterIdentifier: "CLUSTER_NAME",
@@ -36,17 +32,15 @@ const params = {
   FinalClusterSnapshotIdentifier: "CLUSTER_SNAPSHOT_ID",
 };
 
-// Create an Amazon Redshift client service object
-const redshift = new RedshiftClient({ region: REGION });
-
 const run = async () => {
   try {
-    const data = await redshift.send(new DeleteClusterCommand(params));
-    console.log("Cluster deleted");
+    const data = await redshiftClient.send(new DeleteClusterCommand(params));
+    console.log("Success, cluster deleted. ", data);
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error", err);
   }
 };
 run();
 // snippet-end:[redshift.javascript.redshift-delete-clusterV3]
-
+module.exports = {run, params}

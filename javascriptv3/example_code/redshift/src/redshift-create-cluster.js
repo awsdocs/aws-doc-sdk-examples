@@ -6,10 +6,9 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/redshift-examples.html.
 
 Purpose:
-redshift-create-cluster.ts demonstrates how to create an Amazon Redshift cluster.
+redshift-create-cluster.js demonstrates how to create an Amazon Redshift cluster.
 
 Inputs (replace in code):
-- REGION: The AWS Region
 - CLUSTER_NAME:  The name of the cluster
 - NODE_TYPE: The node type to be provisioned for the cluster, for example, dc2.large
 - CLUSTER_TYPE: The type of the cluster. When cluster type is specified a 'single-node', the NumberOfNodes parameter is not required
@@ -21,18 +20,15 @@ Inputs (replace in code):
 For more information about these and additional parameters, see https://docs.aws.amazon.com/redshift/latest/APIReference/API_CreateCluster.html.
 
 Running the code:
-ts-node redshift-create-cluster.ts
+node redshift-create-cluster.js
 */
 
 // snippet-start:[redshift.javascript.redshift-create-clusterV3]
 // Import required AWS SDK clients and commands for Node.js
 const {
-  RedshiftClient,
   CreateClusterCommand,
-} = require("@aws-sdk/client-redshift-node");
-
-// Set the AWS Region
-const REGION = "REGION";
+} = require("@aws-sdk/client-redshift");
+const { redshiftClient } = require ("./libs/redshiftClient.js");
 
 const params = {
   ClusterIdentifier: "CLUSTER_NAME", // Required
@@ -46,19 +42,17 @@ const params = {
   Port: "PORT_NUMBER", // Optional - defaults to '5439' if not specified
 };
 
-// Create an Amazon Redshift client service object
-const redshift = new RedshiftClient({ region: REGION });
-
 const run = async () => {
   try {
-    const data = await redshift.send(new CreateClusterCommand(params));
+    const data = await redshiftClient.send(new CreateClusterCommand(params));
     console.log(
       "Cluster " + data.Cluster.ClusterIdentifier + " successfully created"
     );
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error", err);
   }
 };
 run();
 // snippet-end:[redshift.javascript.redshift-create-clusterV3]
-
+module.exports = {run, params}

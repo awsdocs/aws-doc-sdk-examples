@@ -6,44 +6,38 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/redshift-examples.html.
 
 Purpose:
-redshift-describe-clusters.ts demonstrates how to return properties of provisioned Amazon Redshift clusters, including general
+redshift-describe-clusters.js demonstrates how to return properties of provisioned Amazon Redshift clusters, including general
 cluster properties, cluster database properties, maintenance and backup properties, and security and access properties.
 
 Inputs (replace in code):
-- REGION: The AWS Region
 - CLUSTER_NAME:  The name of the cluster
 
 For more information about these and additional parameters, see https://docs.aws.amazon.com/redshift/latest/APIReference/API_DescribeClusters.html.
 
 Running the code:
-ts-node redshift-describe-clusters.ts
+node redshift-describe-clusters.js
 */
 
 // snippet-start:[redshift.javascript.redshift-describe-clustersV3]
 // Import required AWS SDK clients and commands for Node.js
 const {
-  RedshiftClient,
   DescribeClustersCommand
-} = require("@aws-sdk/client-redshift-node");
-
-// Set the AWS Region
-const REGION = "REGION";
+} = require("@aws-sdk/client-redshift");
+const { redshiftClient } = require ("./libs/redshiftClient.js");
 
 const params = {
-  ClusterIdentifier: "CLUSTER_NAME",
+  ClusterIdentifier: "CLUSTER_NAME"
 };
-
-// Create an Amazon Redshift client service object
-const redshift = new RedshiftClient({ region: REGION });
 
 const run = async () => {
   try {
-    const data = await redshift.send(new DescribeClustersCommand(params));
-    console.log(data);
+    const data = await redshiftClient.send(new DescribeClustersCommand(params));
+    console.log("Success", data);
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error", err);
   }
 };
 run();
 // snippet-end:[redshift.javascript.redshift-describe-clustersV3]
-
+module.exports = {run, params}
