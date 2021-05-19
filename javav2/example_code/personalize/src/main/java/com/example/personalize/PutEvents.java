@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Personalize]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
+//snippet-sourcedate:[5/19/2021]
 //snippet-sourceauthor:[seashman - AWS]
 
 /*
