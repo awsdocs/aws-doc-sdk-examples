@@ -18,7 +18,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.personalize.model.CreateDatasetRequest;
 import software.amazon.awssdk.services.personalize.PersonalizeClient;
 import software.amazon.awssdk.services.personalize.model.PersonalizeException;
-//snippet-stop:[personalize.java2.create_dataset.import]
+//snippet-end:[personalize.java2.create_dataset.import]
 
 public class CreateDataset {
 

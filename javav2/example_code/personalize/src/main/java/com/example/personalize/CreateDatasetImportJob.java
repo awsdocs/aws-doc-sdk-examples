@@ -25,7 +25,7 @@ import software.amazon.awssdk.services.personalize.model.DatasetImportJob;
 import software.amazon.awssdk.services.personalize.model.DescribeDatasetImportJobRequest;
 
 import java.time.Instant;
-//snippet-stop:[personalize.java2.create_dataset_import_job.import]
+//snippet-end:[personalize.java2.create_dataset_import_job.import]
 
 public class CreateDatasetImportJob {
 
@@ -119,5 +119,5 @@ public class CreateDatasetImportJob {
         }
         return "";
     }
-    //snippet-stop:[personalize.java2.create_dataset_import_job.main]
+    //snippet-end:[personalize.java2.create_dataset_import_job.main]
 }

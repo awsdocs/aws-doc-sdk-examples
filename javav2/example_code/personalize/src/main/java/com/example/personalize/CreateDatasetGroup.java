@@ -20,7 +20,7 @@ import software.amazon.awssdk.services.personalize.model.PersonalizeException;
 import software.amazon.awssdk.services.personalize.model.CreateDatasetGroupRequest;
 import software.amazon.awssdk.services.personalize.model.DescribeDatasetGroupRequest;
 import java.time.Instant;
-//snippet-stop:[personalize.java2.create_dataset_group.import]
+//snippet-end:[personalize.java2.create_dataset_group.import]
 
 public class CreateDatasetGroup {
 
