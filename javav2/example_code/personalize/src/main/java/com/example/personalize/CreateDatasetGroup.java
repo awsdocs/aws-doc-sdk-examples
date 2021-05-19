@@ -36,7 +36,7 @@ public class CreateDatasetGroup {
             System.exit(1);
         }
 
-        //change to the region where your resources are located
+        // Change to the region where your resources are located
         Region region = Region.US_WEST_2;
 
         String datasetGroupName = args[0];

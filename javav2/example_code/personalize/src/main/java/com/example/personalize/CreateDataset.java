@@ -42,6 +42,7 @@ public class CreateDataset {
         String datasetType = args[2];
         String schemaArn = args[3];
 
+        // Change to the region where your resources are located
         Region region = Region.US_WEST_2;
 
         PersonalizeClient personalizeClient = PersonalizeClient.builder()

@@ -4,8 +4,10 @@ import org.junit.jupiter.api.*;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.personalizeruntime.PersonalizeRuntimeClient;
 import software.amazon.awssdk.services.personalizeevents.PersonalizeEventsClient;
+
 import java.io.*;
 import java.util.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -16,7 +18,7 @@ public class PersonalizeTest {
     private static PersonalizeClient personalizeClient;
     private static PersonalizeEventsClient personalizeEventsClient;
 
-    private static String existingDatasetGroupArn = "";
+    private static String newSolutionDatasetGroupArn = "";
     private static String newDatasetGroupName = "";
     private static String newDatasetGroupArn = "";
 
@@ -28,17 +30,14 @@ public class PersonalizeTest {
     private static String schemaArn = "";
     private static String newDatasetName = "";
     private static String newDatasetType = "";
-    private static String destinationDatasetGroup = "";
+    private static String existingDatasetGroup = "";
 
     private static String solutionArn = "";
-    private static String existingSolutionArn = "";
-    private static String solutionVersionArn = "";
+    private static String existingSolutionVersionArn = "";
     private static String recipeArn = "";
-    private static String solutionName = "";
-    private static String campaignName = "";
-    private static String campaignArn = "";
+    private static String newSolutionName = "";
+    private static String newCampaignName = "";
     private static String userId = "";
-    private static String existingCampaignName="";
     private static String existingCampaignArn = "";
 
     private static String putEventTrackerId = "";
@@ -82,7 +81,7 @@ public class PersonalizeTest {
             schemaArn = prop.getProperty("schemaArn");
             newDatasetName = prop.getProperty("newDatasetName");
             newDatasetType = prop.getProperty("datasetType");
-            destinationDatasetGroup = prop.getProperty("destinationDatasetGroup");
+            existingDatasetGroup = prop.getProperty("existingDatasetGroup");
 
             // CreateDatasetImportJob data members
             datasetImportJobName = prop.getProperty("datasetImportJobName");
@@ -90,19 +89,20 @@ public class PersonalizeTest {
             s3BucketPath = prop.getProperty("s3BucketPath");
             roleArn = prop.getProperty("roleArn");
 
-
-
-            existingDatasetGroupArn = prop.getProperty("datasetGroupArn");
-            solutionVersionArn = prop.getProperty("solutionVersionArn");
+            // CreateSolution and ListSolution data members
+            newSolutionDatasetGroupArn = prop.getProperty("newSolutionDatasetGroupArn");
             recipeArn = prop.getProperty("recipeArn");
-            solutionName = prop.getProperty("solutionName");
-            campaignArn = prop.getProperty("campaignArn");
-            userId = prop.getProperty("userId");
-            campaignName= prop.getProperty("campaignName");
-            existingSolutionArn= prop.getProperty("existingSolutionArn");
-            existingCampaignName = prop.getProperty("existingCampaignName");
-            existingCampaignArn= prop.getProperty("existingCampaignArn");
+            newSolutionName = prop.getProperty("newSolutionName");
 
+            // CreateCampaign data members
+            existingSolutionVersionArn = prop.getProperty("existingSolutionVersionArn");
+            newCampaignName = prop.getProperty("campaignName");
+
+            // DescribeCampaign, GetRecommendations, and DeleteCampaign data member
+            existingCampaignArn = prop.getProperty("existingCampaignArn");
+            userId = prop.getProperty("userId");
+
+            // PutEvents data members
             putEventTrackerId = prop.getProperty("putEventTrackerId");
             putEventUserId = prop.getProperty("putEventUserId");
             putEventItemId = prop.getProperty("putEventItemId");
@@ -112,7 +112,7 @@ public class PersonalizeTest {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-   }
+    }
 
     @Test
     @Order(1)
@@ -127,7 +127,7 @@ public class PersonalizeTest {
     @Order(2)
     public void CreateDatasetGroup() {
         newDatasetGroupArn = CreateDatasetGroup.createDatasetGroup(personalizeClient, newDatasetGroupName);
-        assertFalse(existingDatasetGroupArn.isEmpty());
+        assertFalse(newDatasetGroupArn.isEmpty());
         System.out.println("CreateDatasetGroup test passed");
     }
 
@@ -135,12 +135,13 @@ public class PersonalizeTest {
     @Order(3)
     public void CreateDataset() {
         String newDatasetArn = CreateDataset.createDataset(personalizeClient,
-                newDatasetName, destinationDatasetGroup, newDatasetType, schemaArn);
+                newDatasetName, existingDatasetGroup, newDatasetType, schemaArn);
         assertFalse(newDatasetArn.isEmpty());
         System.out.println("CreateDataset test passed");
     }
+
     @Test
-    @Order(99)
+    @Order(4)
     public void CreateDatasetImportJob() {
         String datasetImportJobArn = CreateDatasetImportJob.createPersonalizeDatasetImportJob(personalizeClient,
                 datasetImportJobName, importDatasetArn, s3BucketPath, roleArn);
@@ -150,23 +151,23 @@ public class PersonalizeTest {
 
 
     @Test
-    @Order(4)
-     public void CreateSolution() {
-         solutionArn = CreateSolution.createPersonalizeSolution(personalizeClient, existingDatasetGroupArn, solutionName, recipeArn);
-         assertFalse(solutionArn.isEmpty());
-         System.out.println("CreationSolution test passed");
-    }
-
-    @Test
     @Order(5)
-    public void ListSolutions() {
-
-        ListSolutions.listAllSolutions(personalizeClient, existingDatasetGroupArn);
-        System.out.println("List Solutions test passed");
+    public void CreateSolution() {
+        solutionArn = CreateSolution.createPersonalizeSolution(personalizeClient, newSolutionDatasetGroupArn, newSolutionName, recipeArn);
+        assertFalse(solutionArn.isEmpty());
+        System.out.println("CreationSolution test passed");
     }
 
     @Test
     @Order(6)
+    public void ListSolutions() {
+
+        ListSolutions.listAllSolutions(personalizeClient, newSolutionDatasetGroupArn);
+        System.out.println("List Solutions test passed");
+    }
+
+    @Test
+    @Order(7)
     public void DescribeSolution() {
 
         DescribeSolution.describeSpecificSolution(personalizeClient, solutionArn);
@@ -174,21 +175,21 @@ public class PersonalizeTest {
     }
 
     @Test
-    @Order(7)
+    @Order(8)
     public void CreateCampaign() {
-        CreateCampaign.createPersonalCompaign(personalizeClient, solutionVersionArn, campaignName);
+        CreateCampaign.createPersonalCompaign(personalizeClient, existingSolutionVersionArn, newCampaignName);
         System.out.println("CreateCampaign test passed");
     }
 
     @Test
-    @Order(8)
+    @Order(9)
     public void DescribeCampaign() {
-        DescribeCampaign.describeSpecificCampaign(personalizeClient, campaignArn);
+        DescribeCampaign.describeSpecificCampaign(personalizeClient, existingCampaignArn);
         System.out.println("DescribeCampaign test passed");
     }
 
     @Test
-    @Order(9)
+    @Order(10)
     public void ListCampaigns() {
 
         ListCampaigns.listAllCampaigns(personalizeClient, solutionArn);
@@ -196,53 +197,53 @@ public class PersonalizeTest {
     }
 
     @Test
-    @Order(10)
+    @Order(11)
     public void DescribeRecipe() {
         DescribeRecipe.describeSpecificRecipe(personalizeClient, recipeArn);
         System.out.println("DescribeRecipe test passed");
-   }
-
-    @Test
-    @Order(11)
-   public void ListRecipes() {
-       ListRecipes.listAllRecipes(personalizeClient);
-        System.out.println("ListRecipes passed");
-   }
+    }
 
     @Test
     @Order(12)
-   public void ListDatasetGroups() {
-       ListDatasetGroups.listDSGroups(personalizeClient);
-        System.out.println("ListDatasetGroups test passed");
-   }
+    public void ListRecipes() {
+        ListRecipes.listAllRecipes(personalizeClient);
+        System.out.println("ListRecipes passed");
+    }
 
     @Test
     @Order(13)
-   public void DeleteSolution() {
-       DeleteSolution.deleteGivenSolution(personalizeClient,solutionArn);
-       System.out.println("DeleteSolution test passed");
-   }
+    public void ListDatasetGroups() {
+        ListDatasetGroups.listDSGroups(personalizeClient);
+        System.out.println("ListDatasetGroups test passed");
+    }
 
     @Test
     @Order(14)
-   public void GetRecommendations() {
-       GetRecommendations.getRecs(personalizeRuntimeClient, existingCampaignArn, userId);
-        System.out.println("GetRecommendations test passed");
-   }
-
-   @Test
-   @Order(999)
-   public void PutEvents() {
-        int responseCode = PutEvents.putEvents(personalizeEventsClient, putEventTrackerId, putEventUserId,
-                putEventItemId, putEventSessionId);
-       assertTrue(responseCode > 0);
-       System.out.println("PutEvents test passed");
-   }
+    public void DeleteSolution() {
+        DeleteSolution.deleteGivenSolution(personalizeClient, solutionArn);
+        System.out.println("DeleteSolution test passed");
+    }
 
     @Test
     @Order(15)
-   public void DeleteCampaign() {
-       DeleteCampaign.deleteSpecificCampaign(personalizeClient, existingCampaignArn);
+    public void GetRecommendations() {
+        GetRecommendations.getRecs(personalizeRuntimeClient, existingCampaignArn, userId);
+        System.out.println("GetRecommendations test passed");
+    }
+
+    @Test
+    @Order(16)
+    public void PutEvents() {
+        int responseCode = PutEvents.putEvents(personalizeEventsClient, putEventTrackerId, putEventUserId,
+                putEventItemId, putEventSessionId);
+        assertEquals(responseCode, 200);
+        System.out.println("PutEvents test passed");
+    }
+
+    @Test
+    @Order(17)
+    public void DeleteCampaign() {
+        DeleteCampaign.deleteSpecificCampaign(personalizeClient, existingCampaignArn);
         System.out.println("DeleteCampaign test passed");
-   }
+    }
 }

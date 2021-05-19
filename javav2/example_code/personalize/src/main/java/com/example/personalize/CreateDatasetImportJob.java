@@ -1,4 +1,5 @@
-//snippet-sourcedescription:[CreateDatasetImportJob.java demonstrates how to create an Amazon Personalize dataset import job.]
+//snippet-sourcedescription:[CreateDatasetImportJob.java demonstrates how to create an
+// Amazon Personalize dataset import job that imports data into an Amazon Personalize dataset.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Personalize]
@@ -14,6 +15,7 @@
 package com.example.personalize;
 
 //snippet-start:[personalize.java2.create_dataset_import_job.import]
+
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.personalize.PersonalizeClient;
 import software.amazon.awssdk.services.personalize.model.PersonalizeException;
@@ -21,19 +23,21 @@ import software.amazon.awssdk.services.personalize.model.CreateDatasetImportJobR
 import software.amazon.awssdk.services.personalize.model.DataSource;
 import software.amazon.awssdk.services.personalize.model.DatasetImportJob;
 import software.amazon.awssdk.services.personalize.model.DescribeDatasetImportJobRequest;
+
 import java.time.Instant;
 //snippet-stop:[personalize.java2.create_dataset_import_job.import]
 
 public class CreateDatasetImportJob {
 
-    public static void main(String [] args) {
+    public static void main(String[] args) {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
                 "    CreateDatasetImportJob <datasetArn, s3BucketPath, jobName, roleArn>\n\n" +
                 "Where:\n" +
-                "    datasetArn - The Amazon Resource Name (ARN) of the dataset that contains the data to import.\n" +
-                "    s3BucketPath - The path to the Amazon S3 bucket where the data that you want to upload to your dataset is stored.\n" +
+                "    datasetArn - The Amazon Resource Name (ARN) of the destination dataset.\n" +
+                "    s3BucketPath - The path to the Amazon S3 bucket where the data that you " +
+                "want to upload to your dataset is stored.\n" +
                 "    jobName - The name for the dataset import job.\n" +
                 "    roleArn - The ARN of the IAM service-linked role that"
                 + "has permissions to add data to your output Amazon S3 bucket.\n\n";
@@ -47,12 +51,14 @@ public class CreateDatasetImportJob {
         String jobName = args[2];
         String roleArn = args[3];
 
+        // Change to the region where your resources are located
         Region region = Region.US_WEST_2;
         PersonalizeClient personalizeClient = PersonalizeClient.builder()
                 .region(region)
                 .build();
 
-        String datasetImportJobArn = createPersonalizeDatasetImportJob(personalizeClient, jobName, datasetArn, s3BucketPath, roleArn);
+        String datasetImportJobArn = createPersonalizeDatasetImportJob(personalizeClient, jobName,
+                datasetArn, s3BucketPath, roleArn);
         System.out.println("Dataset import job ARN: " + datasetImportJobArn);
         personalizeClient.close();
     }
@@ -72,6 +78,7 @@ public class CreateDatasetImportJob {
             DataSource importDataSource = DataSource.builder()
                     .dataLocation(s3BucketPath)
                     .build();
+
             CreateDatasetImportJobRequest createDatasetImportJobRequest = CreateDatasetImportJobRequest.builder()
                     .datasetArn(datasetArn)
                     .dataSource(importDataSource)
