@@ -19,10 +19,8 @@ node transcribe_create_job.js
  */
 // snippet-start:[transcribe.JavaScript.jobs.createJobV3]
 // Import the required AWS SDK clients and commands for Node.js
-import {
-  StartTranscriptionJobCommand,
-} from "@aws-sdk/client-transcribe";
-import { transcribeClient } from  "./libs/transcribeClient.js" ;
+import { StartTranscriptionJobCommand } from "@aws-sdk/client-transcribe";
+import { transcribeClient } from "./libs/transcribeClient.js";
 
 // Set the parameters
 const params = {
@@ -37,7 +35,9 @@ const params = {
 
 const run = async () => {
   try {
-    const data = await transcribeClient.send(new StartTranscriptionJobCommand(params));
+    const data = await transcribeClient.send(
+      new StartTranscriptionJobCommand(params)
+    );
     console.log("Success - put", data);
     return data; // For unit tests.
   } catch (err) {

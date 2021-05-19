@@ -17,14 +17,12 @@ node transcribe_delete_medical_job.sj
  */
 // snippet-start:[transcribe.JavaScript.jobs.deleteMedicalJobV3]
 // Import the required AWS SDK clients and commands for Node.js
-import {
-  DeleteMedicalTranscriptionJobCommand,
-} from "@aws-sdk/client-transcribe";
-import { transcribeClient } from  "./libs/transcribeClient.js" ;
+import { DeleteMedicalTranscriptionJobCommand } from "@aws-sdk/client-transcribe";
+import { transcribeClient } from "./libs/transcribeClient.js";
 
 // Set the parameters
 const params = {
-  MedicalTranscriptionJobName: "MEDICAL_JOB_NAME" // For example, 'medical_transciption_demo'
+  MedicalTranscriptionJobName: "MEDICAL_JOB_NAME", // For example, 'medical_transciption_demo'
 };
 
 const run = async () => {

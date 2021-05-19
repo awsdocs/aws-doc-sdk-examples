@@ -1,5 +1,7 @@
 const { run, params } = require("../../transcribe/src/transcribe_delete_job");
-const { transcribeClient } = require("../../transcribe/src/libs/transcribeClient.js");
+const {
+  transcribeClient,
+} = require("../../transcribe/src/libs/transcribeClient.js");
 
 jest.mock("../../transcribe/src/libs/transcribeClient.js");
 

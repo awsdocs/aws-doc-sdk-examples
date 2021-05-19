@@ -16,10 +16,8 @@ node transcribe_list_medical_jobs.js
 // snippet-start:[transcribe.JavaScript.jobs.listMedicalJobsV3]
 // Import the required AWS SDK clients and commands for Node.js
 
-import {
-  ListMedicalTranscriptionJobsCommand,
-} from "@aws-sdk/client-transcribe";
-import { transcribeClient } from  "./libs/transcribeClient.js";
+import { ListMedicalTranscriptionJobsCommand } from "@aws-sdk/client-transcribe";
+import { transcribeClient } from "./libs/transcribeClient.js";
 
 // Set the parameters
 const params = {
