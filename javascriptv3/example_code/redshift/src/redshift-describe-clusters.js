@@ -20,8 +20,8 @@ node redshift-describe-clusters.js
 
 // snippet-start:[redshift.javascript.redshift-describe-clustersV3]
 // Import required AWS SDK clients and commands for Node.js
-const { DescribeClustersCommand } = require("@aws-sdk/client-redshift");
-const { redshiftClient } = require("./libs/redshiftClient.js");
+import { DescribeClustersCommand }  from "@aws-sdk/client-redshift";
+import { redshiftClient } from "./libs/redshiftClient.js";
 
 const params = {
   ClusterIdentifier: "CLUSTER_NAME",
@@ -38,4 +38,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[redshift.javascript.redshift-describe-clustersV3]
-module.exports = { run, params };
+// module.exports = { run, params };

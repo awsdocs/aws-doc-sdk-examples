@@ -15,17 +15,14 @@ Inputs (replace in code):
 - SOURCE_LOCATION
 
 Running the code:
-ts-node transcribe_create_job.ts
+node transcribe_create_job.js
  */
 // snippet-start:[transcribe.JavaScript.jobs.createJobV3]
 // Import the required AWS SDK clients and commands for Node.js
-const {
-  TranscribeClient,
+import {
   StartTranscriptionJobCommand,
-} = require("@aws-sdk/client-transcribe");
-
-// Set the AWS Region
-const REGION = "REGION"; // For example, "us-east-1"
+} from "@aws-sdk/client-transcribe";
+import { transcribeClient } from  "./libs/transcribeClient.js" ;
 
 // Set the parameters
 const params = {
@@ -38,16 +35,16 @@ const params = {
   },
 };
 
-// Create an Amazon Transcribe service client object
-const client = new TranscribeClient({ region: REGION });
-
 const run = async () => {
   try {
-    const data = await client.send(new StartTranscriptionJobCommand(params));
+    const data = await transcribeClient.send(new StartTranscriptionJobCommand(params));
     console.log("Success - put", data);
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error", err);
   }
 };
 run();
 // snippet-end:[transcribe.JavaScript.jobs.createJobV3]
+// For unit tests.
+// module.exports = {run, params}

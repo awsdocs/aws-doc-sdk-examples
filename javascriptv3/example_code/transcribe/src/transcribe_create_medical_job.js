@@ -5,10 +5,9 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript versi
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-transcribe_create_medical_job.ts demonstrates how to create an Amazon Transcribe medical transcription job.
+transcribe_create_medical_job.js demonstrates how to create an Amazon Transcribe medical transcription job.
 
 Inputs (replace in code):
-- REGION
 - MEDICAL_JOB_NAME
 - OUTPUT_BUCKET_NAME
 - JOB_TYPE
@@ -17,17 +16,14 @@ Inputs (replace in code):
 - SOURCE_FILE_LOCATION
 
 Running the code:
-ts-node transcribe_create_medical_job.ts
+node transcribe_create_medical_job.js
  */
 // snippet-start:[transcribe.JavaScript.jobs.createMedicalJobV3]
 // Import the required AWS SDK clients and commands for Node.js
-const {
-  TranscribeClient,
+import {
   StartMedicalTranscriptionJobCommand,
-} = require("@aws-sdk/client-transcribe");
-
-// Set the AWS Region
-const REGION = "REGION"; // For example, "us-east-1"
+} from "@aws-sdk/client-transcribe";
+import { transcribeClient } from  "./libs/transcribeClient.js" ;
 
 // Set the parameters
 const params = {
@@ -45,18 +41,18 @@ const params = {
   }
 };
 
-// Create an Amazon Transcribe service client object
-const client = new TranscribeClient({ region: REGION });
-
 const run = async () => {
   try {
-    const data = await client.send(
+    const data = await transcribeClient.send(
       new StartMedicalTranscriptionJobCommand(params)
     );
     console.log("Success - put", data);
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error", err);
   }
 };
 run();
 // snippet-end:[transcribe.JavaScript.jobs.createMedicalJobV3]
+// For unit tests.
+// module.exports = {run, params}
