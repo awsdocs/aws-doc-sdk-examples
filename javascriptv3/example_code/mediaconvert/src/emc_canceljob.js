@@ -14,7 +14,7 @@ Inputs (replace in code):
 Running the code:
 node emc_canceljob.js
 */
-// snippet-start:[mediaconvert.JavaScript.jobs.createClientV3]
+// snippet-start:[mediaconvert.JavaScript.jobs.cancelJobV3]
 // Import required AWS-SDK clients and commands for Node.js
 import { CancelJobCommand } from "@aws-sdk/client-mediaconvert";
 import { emcClient } from  "./libs/emcClient.js";
@@ -32,6 +32,6 @@ const run = async () => {
   }
 };
 run();
-// snippet-end:[mediaconvert.JavaScript.jobs.createClientV3]
+// snippet-end:[mediaconvert.JavaScript.jobs.cancelJobV3]
 // For unit tests only.
 //module.exports ={run, params};
