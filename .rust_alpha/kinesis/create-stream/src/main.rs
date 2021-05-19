@@ -7,7 +7,7 @@ use std::process;
 
 use kinesis::{Client, Config, Region};
 
-use aws_types::region::{EnvironmentProvider, ProvideRegion};
+use aws_types::region::{ProvideRegion};
 
 use structopt::StructOpt;
 use tracing_subscriber::fmt::format::FmtSpan;
@@ -17,13 +17,7 @@ use tracing_subscriber::fmt::SubscriberBuilder;
 struct Opt {
     /// The region
     #[structopt(short, long)]
-    region: Option<String>,
-
-    #[structopt(short, long)]
-    data: String,
-
-    #[structopt(short, long)]
-    key: String,
+    default_region: Option<String>,
 
     #[structopt(short, long)]
     name: String,
@@ -32,28 +26,32 @@ struct Opt {
     verbose: bool,
 }
 
+/// Creates an Amazon Kinesis data stream.
+/// # Arguments
+///
+/// * `-n NAME` - The name of the stream.
+/// * `[-d DEFAULT-REGION]` - The region containing the table.
+///   If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+///   If the environment variable is not set, defaults to **us-west-2**.
+/// * `[-v]` - Whether to display additional information.
 #[tokio::main]
 async fn main() {
     let Opt {
-        data,
-        key,
         name,
-        region,
+        default_region,
         verbose,
     } = Opt::from_args();
 
-    let region = EnvironmentProvider::new()
-        .region()
-        .or_else(|| region.as_ref().map(|region| Region::new(region.clone())))
+    let region = default_region
+        .as_ref()
+        .map(|region| Region::new(region.clone()))
+        .or_else(|| aws_types::region::default_provider().region())
         .unwrap_or_else(|| Region::new("us-west-2"));
 
     if verbose {
         println!("Kinesis client version: {}\n", kinesis::PKG_VERSION);
         println!("Region:      {:?}", &region);
-        println!("Data:");
-        println!("\n{}\n", data);
-        println!("Partition key: {}", key);
-        println!("Stream name:   {}", name);
+        println!("Stream name: {}", name);
 
         SubscriberBuilder::default()
             .with_env_filter("info")
@@ -65,19 +63,10 @@ async fn main() {
 
     let client = Client::from_conf(config);
 
-    let blob = kinesis::Blob::new(data);
-
-    match client
-        .put_record()
-        .data(blob)
-        .partition_key(key)
-        .stream_name(name)
-        .send()
-        .await
-    {
-        Ok(_) => println!("Put data into stream."),
+    match client.create_stream().stream_name(name).send().await {
+        Ok(_) => println!("Created stream"),
         Err(e) => {
-            println!("Got an error putting record:");
+            println!("Got an error creating stream");
             println!("{}", e);
             process::exit(1);
         }

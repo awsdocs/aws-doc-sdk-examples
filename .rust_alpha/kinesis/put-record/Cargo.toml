@@ -1,5 +1,5 @@
 [package]
-name = "kinesis-delete-stream"
+name = "kinesis-put-record"
 version = "0.1.0"
 authors = ["Doug Schwartz <dougsch@amazon.com>"]
 edition = "2018"
@@ -7,8 +7,8 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-kinesis = { package = "aws-sdk-kinesis", path = "../../build/aws-sdk/kinesis" }
+kinesis = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.4-alpha", package = "aws-sdk-kinesis" }
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.4-alpha", package = "aws-types" }
 tokio = { version = "1", features = ["full"] }
 structopt = { version = "0.3", default-features = false }
 tracing-subscriber = { version = "0.2.16", features = ["fmt"] }
-aws-types = { path = "../../build/aws-sdk/aws-types" }

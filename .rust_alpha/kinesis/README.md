@@ -1,4 +1,4 @@
-# AWS SDK for Rust code examples 
+# AWS SDK for Rust code examples for Amazon Kinesis
 
 ## Purpose
 
@@ -10,14 +10,71 @@ You must have an AWS account, and have configured your default credentials and A
 
 ## Running the code
 
-### FOLDER/EXAMPLE
+### create-stream
 
-This example ...
+This example creates a Kinesis data stream.
 
-`cargo run [-r REGION]`
+`cargo run -- -n NAME [-d DEFAULT-REGION] [-v]`
 
-- _REGION_ is optional name of a region, such as __us-east-1__.
+- _NAME_ is the name of the stream to create.
+- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
   If this value is not supplied, the region defaults to __us-west-2__.
+- __-v__ display additional information.  
+
+### delete-stream
+
+This example deletes a Kinesis data stream.
+
+`cargo run -- -n NAME [-d DEFAULT-REGION] [-v]`
+
+- _NAME_ is the name of the stream to delete.
+- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
+  If this value is not supplied, the region defaults to __us-west-2__.
+- __-v__ display additional information.  
+
+### describe-stream
+
+This example displays information about a Kinesis data stream.
+
+`cargo run -- -n NAME [-d DEFAULT-REGION] [-v]`
+
+- _NAME_ is the name of the stream.
+- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
+  If this value is not supplied, the region defaults to __us-west-2__.
+- __-v__ display additional information.  
+
+### list-streams
+
+This example lists your Kinesis data streams.
+
+`cargo run -- [-d DEFAULT-REGION] [-v]`
+
+- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
+  If this value is not supplied, the region defaults to __us-west-2__.
+- __-v__ display additional information.  
+
+### put-record
+
+This example adds a record to a Kinesis data streams.
+
+`cargo run -- -n NAME -k KEY -i INFO [-d DEFAULT-REGION] [-v]`
+
+- _NAME_ is the name of the stream.
+- _KEY_ is the name of the partition key for the record.
+- _INFO_ is the content of the record.
+- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
+  If this value is not supplied, the region defaults to __us-west-2__.
+- __-v__ display additional information.  
+
+
+
+
+
+
+
+
+
+
 
 ### Notes
 
