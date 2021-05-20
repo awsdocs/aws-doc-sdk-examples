@@ -18,7 +18,7 @@ nodes3_setbucketwebsite.js
 // snippet-start:[s3.JavaScript.website.putBucketWebsiteV3]
 // Import required AWS SDK clients and commands for Node.js
 import { PutBucketWebsiteCommand } from "@aws-sdk/client-s3";
- import { s3 } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+ import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
 // Create the parameters for the bucket
 const bucketParams = { Bucket: "BUCKET_NAME" };
@@ -42,9 +42,9 @@ const run = async () => {
   staticHostParams.WebsiteConfiguration.ErrorDocument.Key = "ERROR_PAGE"; // : the error document inserted into params JSON
   // set the new website configuration on the selected bucket
   try {
-    const data = await s3.send(new PutBucketWebsiteCommand(staticHostParams));
+    const data = await s3Client.send(new PutBucketWebsiteCommand(staticHostParams));
     console.log("Success", data);
-    return data;
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error", err);
   }

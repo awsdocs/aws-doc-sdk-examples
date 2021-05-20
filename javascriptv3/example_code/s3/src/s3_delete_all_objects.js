@@ -14,22 +14,19 @@ Running the code:
 nodes3_delete_all_objectS.js
 */
 // snippet-start:[s3.JavaScript.buckets.deleteoallbjectsV3]
-import {
-  ListObjectsCommand,
-  DeleteObjectCommand}
-from "@aws-sdk/client-s3";
- import { s3 } from "./libs/s3Client.js" // Helper function that creates Amazon S3 service client module.
+import { ListObjectsCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
+import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
 const bucketParams = { Bucket: "BUCKET_NAME" };
 
 const run = async () => {
   try {
-    const data = await s3.send(new ListObjectsCommand(bucketParams));
-    return data;
+    const data = await s3Client.send(new ListObjectsCommand(bucketParams));
+    return data; // For unit tests.
     let i = 0;
     let noOfObjects = data.Contents;
     for (let i = 0; i < noOfObjects.length; i++) {
-      const data = await s3.send(
+      const data = await s3Client.send(
         new DeleteObjectCommand({
           Bucket: bucketParams.Bucket,
           Key: noOfObjects[i].Key,
@@ -44,4 +41,4 @@ const run = async () => {
 run();
 // snippet-end:[s3.JavaScript.buckets.deleteoallbjectsV3]
 // For unit testing only.
-module.exports ={run, bucketParams};
+// module.exports ={run, bucketParams};

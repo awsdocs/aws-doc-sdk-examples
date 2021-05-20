@@ -17,7 +17,7 @@ nodes3_delete_multiple_objects.js
 */
 // snippet-start:[s3.JavaScript.buckets.deletemultipleobjectsV3]
 import { DeleteObjectsCommand } from "@aws-sdk/client-s3";
- import { s3 } from "./libs/s3Client.js" // Helper function that creates Amazon S3 service client module.
+ import { s3Client } from "./libs/s3Client.js" // Helper function that creates Amazon S3 service client module.
 
 const REGION = "REGION"; //e.g. "us-east-1"
 
@@ -37,8 +37,8 @@ const bucketParams = {
 
 const run = async () => {
   try {
-    const data = await s3.send(new DeleteObjectsCommand(bucketParams));
-    return data;
+    const data = await s3Client.send(new DeleteObjectsCommand(bucketParams));
+    return data; // For unit tests.
     console.log("Success. Object deleted.");
   } catch (err) {
     console.log("Error", err);

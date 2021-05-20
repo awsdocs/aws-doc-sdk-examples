@@ -27,7 +27,7 @@ import {
   DeleteObjectCommand,
   DeleteBucketCommand }
 from "@aws-sdk/client-s3";
- import { s3 } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+ import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 const fetch = require("node-fetch");
 
@@ -43,10 +43,10 @@ const run = async () => {
   // Create an Amazon S3 bucket.
   try {
     console.log(`Creating bucket ${bucketParams.Bucket}`);
-    const data = await s3.send(
+    const data = await s3Client.send(
       new CreateBucketCommand({ Bucket: bucketParams.Bucket })
     );
-    return data;
+    return data; // For unit tests.
     console.log(`Waiting for "${params.Bucket}" bucket creation...\n`);
   } catch (err) {
     console.log("Error creating bucket", err);
@@ -54,14 +54,14 @@ const run = async () => {
   // Put the object in the Amazon S3 bucket.
   try {
     console.log(`Putting object "${bucketParams.Key}" in bucket`);
-    const data = await s3.send(
+    const data = await s3Client.send(
       new PutObjectCommand({
         Bucket: bucketParams.Bucket,
         Key: bucketParams.Key,
         Body: bucketParams.Body,
       })
     );
-    return data;
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error putting object", err);
   }
@@ -71,7 +71,7 @@ const run = async () => {
     const command = new GetObjectCommand(bucketParams);
 
     // Create the presigned URL.
-    const signedUrl = await getSignedUrl(s3, command, {
+    const signedUrl = await getSignedUrl(s3Client, command, {
       expiresIn: 3600,
     });
     console.log(
@@ -88,20 +88,20 @@ const run = async () => {
   // Delete the object.
   try {
     console.log(`\nDeleting object "${bucketParams.Key}"} from bucket`);
-    const data = await s3.send(
+    const data = await s3Client.send(
       new DeleteObjectCommand({ Bucket: bucketParams.Bucket, Key: bucketParams.Key })
     );
-    return data;
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error deleting object", err);
   }
   // Delete the bucket.
   try {
     console.log(`\nDeleting bucket ${bucketParams.Bucket}`);
-    const data = await s3.send(
+    const data = await s3Client.send(
       new DeleteBucketCommand({ Bucket: bucketParams.Bucket, Key: bucketParams.Key })
     );
-    return data;
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error deleting object", err);
   }

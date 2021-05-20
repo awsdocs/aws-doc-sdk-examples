@@ -24,7 +24,7 @@ import {
   PutObjectCommand,
   DeleteBucketCommand }
 from "@aws-sdk/client-s3";
- import { s3 } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+ import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import fetch from "node-fetch";
 
@@ -39,7 +39,7 @@ const run = async () => {
   try {
     // Create an Amazon S3 bucket.
     console.log(`Creating bucket ${bucketParams.Bucket}`);
-    await s3.send(new CreateBucketCommand({ Bucket: bucketParams.Bucket }));
+    await s3Client.send(new CreateBucketCommand({ Bucket: bucketParams.Bucket }));
     console.log(`Waiting for "${bucketParams.Bucket}" bucket creation...`);
   } catch (err) {
     console.log("Error creating bucket", err);
@@ -49,7 +49,7 @@ const run = async () => {
     const command = new PutObjectCommand(bucketParams);
 
     // Create the presigned URL.
-    const signedUrl = await getSignedUrl(s3, command, {
+    const signedUrl = await getSignedUrl(s3Client, command, {
       expiresIn: 3600,
     });
     console.log(
@@ -67,7 +67,7 @@ const run = async () => {
   try {
     // Delete the object.
     console.log(`\nDeleting object "${bucketParams.Key}"} from bucket`);
-    await s3.send(
+    await s3Client.send(
       new DeleteObjectCommand({ Bucket: bucketParams.Bucket, Key: params.Key })
     );
   } catch (err) {

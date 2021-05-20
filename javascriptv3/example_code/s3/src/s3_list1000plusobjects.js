@@ -17,7 +17,7 @@ node s3_list1000plusObjects.js
 // snippet-start:[s3.JavaScript.buckets.listManyObjectsV3]
 // Import required AWS SDK clients and commands for Node.js
 import { ListObjectsCommand } from "@aws-sdk/client-s3";
- import { s3 } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+ import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
 // Create the parameters for the bucket
 const bucketParams = { Bucket: "BUCKET_NAME" };
@@ -30,7 +30,7 @@ async function run() {
   // While loop that runs until response.truncated is false
   while (truncated) {
     try {
-      const response = await s3.send(new ListObjectsCommand(bucketParams));
+      const response = await s3Client.send(new ListObjectsCommand(bucketParams));
       return response
       response.Contents.forEach((item) => {
         console.log(item.Key);
