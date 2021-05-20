@@ -6,8 +6,8 @@ edition = "2018"
 description = "Example usage of the SecretManager service"
 
 [dependencies]
-secretsmanager = { package = "aws-sdk-secretsmanager", path = "../../build/aws-sdk/secretsmanager" }
+secretsmanager = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.4-alpha", package = "aws-sdk-secretsmanager" }
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.4-alpha", package = "aws-types" }
 tokio = { version = "1", features = ["full"]}
 structopt = { version = "0.3", default-features = false }
 tracing-subscriber = { version = "0.2.16", features = ["fmt"] }
-aws-types = { path = "../../build/aws-sdk/aws-types" }

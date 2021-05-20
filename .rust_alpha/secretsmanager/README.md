@@ -1,8 +1,8 @@
-# AWS SDK for Rust code examples 
+# AWS SDK for Rust code examples for AWS Secrets Manager
 
 ## Purpose
 
-These examples demonstrate how to perform several operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Secrets Manager operations using the alpha version of the AWS SDK for Rust.
 
 ## Prerequisites
 
@@ -10,14 +10,51 @@ You must have an AWS account, and have configured your default credentials and A
 
 ## Running the code
 
-### FOLDER/EXAMPLE
+### create-secret
 
-This example ...
+This example creates a Secrets Manager secret.
 
-`cargo run [-r REGION]`
+`cargo run -- -n NAME -c CONTENT [-d DEFAULT-REGION]`
 
-- _REGION_ is optional name of a region, such as __us-east-1__.
+- _NAME_ is the name of the secret.
+- _CONTENT_ is the contents of the secret.
+- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
   If this value is not supplied, the region defaults to __us-west-2__.
+
+### get-secret-value
+
+Displays the value of a Secrets Manager secret.
+
+`cargo run -- -n NAME -c CONTENT [-d DEFAULT-REGION]`
+
+- _NAME_ is the name of the secret.
+- _CONTENT_ is the contents of the secret.
+- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
+  If this value is not supplied, the region defaults to __us-west-2__.
+
+### helloworld
+
+Creates and displays the value of a Secrets Manager secret.
+
+`cargo run`
+
+The name and value of the secret are hard-coded.
+
+### list-secrets
+
+This example lists the Secrets Manager secrets in the region.
+
+`cargo run -- [-d DEFAULT-REGION]`
+
+- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
+  If this value is not supplied, the region defaults to __us-west-2__.
+
+
+
+
+
+
+
 
 ### Notes
 
