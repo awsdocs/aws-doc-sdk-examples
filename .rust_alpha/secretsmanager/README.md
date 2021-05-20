@@ -49,13 +49,6 @@ This example lists the Secrets Manager secrets in the region.
 - _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
   If this value is not supplied, the region defaults to __us-west-2__.
 
-
-
-
-
-
-
-
 ### Notes
 
 - We recommend that you grant this code least privilege,

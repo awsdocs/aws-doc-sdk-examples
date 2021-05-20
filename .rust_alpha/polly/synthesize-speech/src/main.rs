@@ -34,7 +34,7 @@ struct Opt {
 /// Reads a text file and creates an MP3 file with the text synthesized into speech by Amazon Polly.
 /// # Arguments
 ///
-/// * `[-f FILENAME]` - The file containing the text to synthesize.
+/// * `[-f FILENAME]` - The name of the file containing the text to synthesize.
 ///   The MP3 output is saved in a file with the same basename and a ".MP3" extension.
 /// * `[-d DEFAULT-REGION]` - The region containing the voices.
 ///   If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
