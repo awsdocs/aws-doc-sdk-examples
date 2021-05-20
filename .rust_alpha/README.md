@@ -10,14 +10,7 @@ You must have an AWS account, and have configured your default credentials and A
 
 ## Running the code
 
-### FOLDER/EXAMPLE
-
-This example ...
-
-`cargo run [-r REGION]`
-
-- _REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
+See the individual readme files in each service directory for information about specific code examples for that service.
 
 ### Notes
 
