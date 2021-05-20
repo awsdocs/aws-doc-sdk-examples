@@ -9,36 +9,30 @@ Purpose:
 secrets_getsecretvalue.ts demonstrates how to retrieve a secret from Amazon Secrets Manager.
 
 Inputs (replace in code):
-- REGION
 - SECRET_ID
 
 Running the code:
-ts-node secrets_getsecretvalue.ts
+node secrets_getsecretvalue.js
  */
 
 // snippet-start:[secrets.JavaScript.retrieve.getSecretsValueV3]
-
 // Import required AWS SDK clients and commands for Node.js
-const {
-  SecretsManagerClient,
+import {
   GetSecretValueCommand,
-} = require("@aws-sdk/client-secrets-manager");
-
-// Set the AWS Region
-const REGION = "REGION";
+} from "@aws-sdk/client-secrets-manager";
+import { secretsClient } from "./libs/secretsClient.js" ;
 
 // Set the parameters
 const params = {
   SecretId: "SECRET_ID", //e.g. arn:aws:secretsmanager:REGION:XXXXXXXXXXXX:secret:mysecret-XXXXXX
 };
-// Create SES service object
-const secretsManagerClient = new SecretsManagerClient({ region: REGION });
 
 const run = async () => {
   let data;
   try {
-    data = await secretsManagerClient.send(new GetSecretValueCommand(params));
+    data = await secretsClient.send(new GetSecretValueCommand(params));
     console.log("data", data);
+    return data; // For unit tests.
   } catch (err) {
     console.log("err", err);
   }
@@ -56,3 +50,5 @@ const run = async () => {
 };
 run();
 // snippet-end:[secrets.JavaScript.retrieve.getSecretsValueV3]
+// For unit tests.
+//module.exports = {run, params}

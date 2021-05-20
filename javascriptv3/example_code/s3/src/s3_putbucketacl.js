@@ -22,7 +22,7 @@ Applies an ACL to an Amazon S3 bucket.
 //snippet-start:[s3.JavaScript.perms.putBucketAclV3]
 // Import required AWS SDK clients and commands for Node.js.
 import { PutBucketAclCommand } from "@aws-sdk/client-s3";
- import { s3 } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+ import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
 // Set the parameters. For more information,
 // see https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putBucketAcl-property.
@@ -39,9 +39,9 @@ const bucketParams = {
 
 const run = async () => {
   try {
-    const data = await s3.send(new PutBucketAclCommand(bucketParams));
+    const data = await s3Client.send(new PutBucketAclCommand(bucketParams));
     console.log("Success, permissions added to bucket", data);
-    return data;
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error", err);
   }

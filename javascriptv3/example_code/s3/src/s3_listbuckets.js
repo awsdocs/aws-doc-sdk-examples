@@ -17,13 +17,13 @@ s3_getbucketwebsite s3_listobjects.js
 // snippet-start:[s3.JavaScript.buckets.listBucketsV3]
 // Import required AWS SDK clients and commands for Node.js
 import { ListBucketsCommand } from "@aws-sdk/client-s3";
- import { s3 } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+ import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
 const run = async () => {
   try {
-    const data = await s3.send(new ListBucketsCommand({}));
+    const data = await s3Client.send(new ListBucketsCommand({}));
     console.log("Success", data.Buckets);
-    return data;
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error", err);
   }

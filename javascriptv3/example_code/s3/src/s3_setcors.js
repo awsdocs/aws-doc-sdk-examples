@@ -16,7 +16,7 @@ node s3_setcors.js BUCKET_NAME REGION
 // snippet-start:[s3.JavaScript.v3.cors.putBucketCors]
   // Import required AWS-SDK clients and commands for Node.js
   import { PutBucketCorsCommand } from "@aws-sdk/client-s3";
-  import { s3 } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+  import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
   // Set params
   // Create initial parameters JSON for putBucketCors
@@ -64,9 +64,9 @@ node s3_setcors.js BUCKET_NAME REGION
   };
 async function run() {
   try {
-    const data = await s3.send(new PutBucketCorsCommand(corsParams));
+    const data = await s3Client.send(new PutBucketCorsCommand(corsParams));
     console.log("Success", data);
-    return data;
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error", err);
   }

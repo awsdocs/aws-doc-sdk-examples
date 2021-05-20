@@ -25,7 +25,7 @@ import {
   UploadPartCommand,
   CompleteMultipartUploadCommand }
 from "@aws-sdk/client-s3";
- import { s3 } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+ import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
 // Set the parameters.
 const createParams = {
@@ -39,7 +39,7 @@ const parts = NUMBER_OF_PARTS; // For example, 3.
 const run = async () => {
   try {
     // Create the mutlipart upload.
-    const data = await s3.send(
+    const data = await s3Client.send(
       new CreateMultipartUploadCommand(createParams)
     );
     console.log("Upload started. Upload ID: ", data.UploadId);
@@ -54,9 +54,9 @@ const run = async () => {
         UploadId: data.UploadId,
       };
       try {
-        const data = await s3.send(new UploadPartCommand(uploadParams));
+        const data = await s3Client.send(new UploadPartCommand(uploadParams));
         console.log("Part uploaded. ETag: ", data.ETag);
-        return data;
+        return data; // For unit tests.
         var completeParams = {
           Bucket: createParams.Bucket,
           Key: createParams.Key,
@@ -79,11 +79,11 @@ const run = async () => {
   }
   try {
     // Complete the mutlipart upload.
-    const data = await s3.send(
+    const data = await s3Client.send(
       new CompleteMultipartUploadCommand(completeParams)
     );
     console.log("Upload completed. File location: ", data.Location);
-    return data;
+    return data; // For unit tests.
 
   } catch (err) {
     console.log("Error ", err);
