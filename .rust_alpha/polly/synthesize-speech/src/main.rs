@@ -8,7 +8,7 @@ use std::process;
 use polly::model::{OutputFormat, VoiceId};
 use polly::{Client, Config, Region};
 
-use aws_types::region::{EnvironmentProvider, ProvideRegion};
+use aws_types::region::{ProvideRegion};
 
 use bytes::Buf;
 use structopt::StructOpt;
@@ -20,7 +20,7 @@ use tracing_subscriber::fmt::SubscriberBuilder;
 struct Opt {
     /// The region
     #[structopt(short, long)]
-    region: Option<String>,
+    default_region: Option<String>,
 
     /// The file containing the text to synthesize
     #[structopt(short, long)]
@@ -31,17 +31,27 @@ struct Opt {
     verbose: bool,
 }
 
+/// Reads a text file and creates an MP3 file with the text synthesized into speech by Amazon Polly.
+/// # Arguments
+///
+/// * `[-f FILENAME]` - The file containing the text to synthesize.
+///   The MP3 output is saved in a file with the same basename and a ".MP3" extension.
+/// * `[-d DEFAULT-REGION]` - The region containing the voices.
+///   If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+///   If the environment variable is not set, defaults to **us-west-2**.
+/// * `[-v]` - Whether to display additional information.
 #[tokio::main]
 async fn main() {
     let Opt {
         filename,
-        region,
+        default_region,
         verbose,
     } = Opt::from_args();
 
-    let region = EnvironmentProvider::new()
-        .region()
-        .or_else(|| region.as_ref().map(|region| Region::new(region.clone())))
+    let region = default_region
+        .as_ref()
+        .map(|region| Region::new(region.clone()))
+        .or_else(|| aws_types::region::default_provider().region())
         .unwrap_or_else(|| Region::new("us-west-2"));
 
     if verbose {

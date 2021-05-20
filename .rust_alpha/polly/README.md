@@ -1,8 +1,8 @@
-# AWS SDK for Rust code examples 
+# AWS SDK for Rust code examples for Amazon Polly
 
 ## Purpose
 
-These examples demonstrate how to perform several operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Amazon Polly operations using the alpha version of the AWS SDK for Rust.
 
 ## Prerequisites
 
@@ -10,14 +10,47 @@ You must have an AWS account, and have configured your default credentials and A
 
 ## Running the code
 
-### FOLDER/EXAMPLE
+### describe-voices
 
-This example ...
+This example describes the voices in the region.
 
-`cargo run [-r REGION]`
+`cargo run -- [-d DEFAULT-REGION] [-v]`
 
-- _REGION_ is optional name of a region, such as __us-east-1__.
+- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
   If this value is not supplied, the region defaults to __us-west-2__.
+- __-v__ displays additional information.
+
+### list-lexicons
+
+This example lists the lexicons in the region.
+
+`cargo run -- [-d DEFAULT-REGION] [-v]`
+
+- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
+  If this value is not supplied, the region defaults to __us-west-2__.
+- __-v__ displays additional information.
+
+### put-lexicon
+
+This example adds a pronunciation lexicon to the region.
+
+`cargo run -- [-d DEFAULT-REGION] [-v]`
+
+- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
+  If this value is not supplied, the region defaults to __us-west-2__.
+- __-v__ displays additional information.
+
+### synthesize-speech
+
+This example reads a text file and creates an MP3 file with the text synthesized into speech by Amazon Polly.
+
+`cargo run -- -f FILENAME [-d DEFAULT-REGION] [-v]`
+
+- _FILENAME_ is name of the file containing the text to synthesize.
+  The MP3 output is saved in a file with the same basename and a ".MP3" extension.
+- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
+  If this value is not supplied, the region defaults to __us-west-2__.
+- __-v__ displays additional information.
 
 ### Notes
 
