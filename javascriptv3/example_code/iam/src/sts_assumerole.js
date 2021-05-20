@@ -9,7 +9,6 @@ Purpose:
 sts_assumerole.js demonstrates how to use AWS STS to assume an IAM role.
 
 Inputs :
-- REGION
 - ROLE_TO_ASSUME_ARN
 
 Running the code:

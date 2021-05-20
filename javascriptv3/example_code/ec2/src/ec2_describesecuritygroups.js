@@ -9,7 +9,6 @@ Purpose:
 ec2_describesecuritygroups.js demonstrates how to retrieve information about one or more security groups.
 
 Inputs (replace in code):
-- REGION
 - SECURITY_GROUP_ID
 
 Running the code:

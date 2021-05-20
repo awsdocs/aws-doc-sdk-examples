@@ -9,7 +9,6 @@ Purpose:
 ec2_rebootinstances.js demonstrates how to queue a reboot request for one or more Amazon EC2 instances.
 
 Inputs (replace in code):
-- REGION
 - INSTANCE_ID
 
 Running the code:

@@ -9,7 +9,6 @@ Purpose:
 ses_listreceiptfilters.js demonstrates how to list the Amazon SES IP filters for an AWS account.
 
 Inputs (replace in code):
-- REGION
 
 Running the code:
 node ses_listreceiptfilters.js

@@ -9,7 +9,6 @@ Purpose:
 sns_listnumbersoptedout.js demonstrates how to retrieve a list of phone numbers that have opted out of receiving Amazon SMS messages.
 
 Inputs (replace in code):
-- REGION
 
 Running the code:
 node sns_listnumbersoptedout.js

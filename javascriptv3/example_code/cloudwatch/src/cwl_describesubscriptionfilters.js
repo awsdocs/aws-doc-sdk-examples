@@ -8,8 +8,7 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-exa
 Purpose:
 cwl_describesubscriptionfilters.js demonstrates how to list the subscription filters for an Amazon CloudWatch Logs group.
 
-Inputs (replace in code): (all into command line below)
-- REGION
+Inputs (replace in code):
 - GROUP_NAME
 
 Running the code:

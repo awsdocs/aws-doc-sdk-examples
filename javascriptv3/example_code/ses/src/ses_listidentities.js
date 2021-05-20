@@ -9,7 +9,6 @@ Purpose:
 ses_listidentities.js demonstrates how to list all the identities for an AWS account.
 
 Inputs (replace in code):
-- REGION
 - IDENTITY_TYPE
 
 Running the code:

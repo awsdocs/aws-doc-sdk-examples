@@ -9,7 +9,6 @@ Purpose:
 ec2_createinstances.js demonstrates how to create an Amazon EC2 instance.
 
 Inputs (replace in code):
-- REGION
 - AMI_ID
 - KEY_PAIR_NAME
 

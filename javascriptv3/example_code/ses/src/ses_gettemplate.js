@@ -9,7 +9,6 @@ Purpose:
 ses_gettemplate.js demonstrates how to retrieve an Amazon SES email template.
 
 Inputs (replace in code):
-- REGION
 - TEMPLATE_NAME
 
 Running the code:

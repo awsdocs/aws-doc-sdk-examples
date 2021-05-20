@@ -3,12 +3,15 @@ SPDX-License-Identifier: Apache-2.0
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-static-web-host.html.
+
 Purpose:
 s3_setbucketwebsite.js applies a bucket website configuration to a selected bucket, and is part of an example
 of using an Amazon S3 bucket as a static web host.
+
 Inputs (replace in code):
 - INDEX_PAGE
 - ERROR_PAGE
+
 Running the code:
 nodes3_setbucketwebsite.js
  */

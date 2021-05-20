@@ -9,7 +9,6 @@ Purpose:
 sqs_createqueue.js demonstrates how to create an Amazon SQS standard queue.
 
 Inputs (replace in code):
-- REGION
 - SQS_QUEUE_NAME
 - DelaySeconds (in seconds)
 - MessageRetentionPeriod (in seconds)

@@ -9,7 +9,6 @@ Purpose:
 sns_listsubscriptions.js demonstrates how to retrieve a list of Amazon SNS subscriptions.
 
 Inputs (replace in code):
-- REGION
 - TOPIC_ARN
 
 Running the code:

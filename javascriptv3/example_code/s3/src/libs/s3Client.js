@@ -8,7 +8,6 @@ Purpose:
 s3Client.js is a helper function that creates an Amazon Simple Storage Service (Amazon S3) service client.
 
 Inputs (replace in code):
-- REGION
 
 */
 // snippet-start:[s3.JavaScript.buckets.createclientv3]

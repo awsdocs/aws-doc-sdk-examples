@@ -8,9 +8,6 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-exa
 Purpose:
 cw_putmetricalarm.js demonstrates how to create or update an Amazon CloudWatch alarm and associate it with particular metrics.
 
-Inputs (replace in code):
-- REGION
-
 Running the code:
 node cw_putmetricalarm.js
 */

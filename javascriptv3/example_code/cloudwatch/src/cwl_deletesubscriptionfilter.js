@@ -9,7 +9,6 @@ Purpose:
 cwl_deletesubscriptionfilter.js demonstrates how to delete an Amazon CloudWatch Logs filter.
 
 Inputs :
-- REGION
 - FILTER
 - LOG_GROUP
 

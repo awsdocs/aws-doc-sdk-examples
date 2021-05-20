@@ -9,7 +9,6 @@ Purpose:
 sns_deletetopic.js demonstrates how to delete an Amazon SNS topic and all its subscriptions.
 
 Inputs (replace in code):
-- REGION
 - TOPIC_ARN
 
 Running the code:

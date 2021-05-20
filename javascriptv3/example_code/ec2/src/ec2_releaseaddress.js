@@ -9,7 +9,6 @@ Purpose:
 ec2_releaseaddress.js demonstrates how to release an Elastic IP address.
 
 Inputs (replace in code):
-- REGION
 - ALLOCATION_ID
 
 Running the code:

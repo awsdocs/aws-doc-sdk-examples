@@ -17,7 +17,7 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/erverless-work
 const { SESClient, SendEmailCommand } = require("@aws-sdk/client-ses");
 
 // Set the AWS Region.
-const REGION = "eu-west-1"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Create the client service objects.
 const sesclient = new SESClient({ region: REGION });

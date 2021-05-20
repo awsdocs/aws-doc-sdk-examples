@@ -9,7 +9,6 @@ Purpose:
 s3_getobject.js gets an object} from an Amazon Simple Storage Service (Amazon S3) bucket.
 
 Inputs (replace in code):
-- REGION
 - BUCKET_NAME
 - KEY
 

@@ -28,7 +28,6 @@ cd javascriptv3/example_code/redshift
 npm install
 ```
 
-
 3. In your text editor, update user variables specified in the ```Inputs``` section of the sample file.
 
 4. Run sample code:

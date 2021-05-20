@@ -9,7 +9,6 @@ Purpose:
 iam_updateservercert.js demonstrates how to update the name of an IAM SSL/TLS server certificate.
 
 Inputs :
-- REGION
 - CERTIFICATE_NAME
 - NEW_CERTIFICATE_NAME
 

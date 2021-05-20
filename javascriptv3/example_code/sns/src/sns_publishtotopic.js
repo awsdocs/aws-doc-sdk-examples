@@ -9,7 +9,6 @@ Purpose:
 sns_publishtotopic.js demonstrates how to send a message to an Amazon SNS topic.
 
 Inputs (replace in code):
-- REGION
 - MESSAGE_TEXT
 - TOPIC_ARN
 

@@ -9,7 +9,6 @@ Purpose:
 ses_updatetemplate.js demonstrates how to update an Amazon SES email template.
 
 Inputs (replace in code):
-- REGION
 - TEMPLATE_NAME
 - HTML_CONTENT
 - SUBJECT_LINE

@@ -9,7 +9,6 @@ Purpose:
 ses_deleteidentity.js demonstrates how to delete an Amazon SES identity.
 
 Inputs (replace in code):
-- REGION
 - IDENTITY_TYPE
 - IDENTITY_NAME
 

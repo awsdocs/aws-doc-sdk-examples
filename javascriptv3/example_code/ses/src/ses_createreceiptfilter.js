@@ -9,7 +9,6 @@ Purpose:
 ses_createreceiptfilter.js demonstrates how to create an Amazon SES IP address filter.
 
 Inputs (replace in code):
-- REGION
 - IP_ADDRESS_OR_RANGE
 - POLICY
 - NAME

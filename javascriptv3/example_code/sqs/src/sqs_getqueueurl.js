@@ -9,7 +9,6 @@ Purpose:
 sqs_getqueueurl.js demonstrates how to retrieve the URL of an Amazon Simple Queue Service (Amazon SQS) queue.
 
 Inputs (replace in code):
-- REGION
 - SQS_QUEUE_NAME
 
 Running the code:

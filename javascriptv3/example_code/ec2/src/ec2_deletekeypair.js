@@ -9,7 +9,6 @@ Purpose:
 ec2_deletekeypair.js demonstrates how to delete a key pair from an Amazon EC2 instance.
 
 Inputs (replace in code):
-- REGION
 - KEY_PAIR_NAME
 
 Running the code:

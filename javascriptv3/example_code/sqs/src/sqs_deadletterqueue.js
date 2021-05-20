@@ -9,7 +9,6 @@ Purpose:
 sqs_deadletterqueue.js demonstrates how to enable the dead-letter functionality of an Amazon SQS queue.
 
 Inputs (replace in code):
-- REGION
 - SQS_QUEUE_URL
 - DEAD_LETTER_QUEUE_ARN
 

@@ -8,7 +8,6 @@ Purpose:
 s3_delete_all_objectS.js demonstrates how to delete all objects} from an Amazon Simple Storage Solution (S3) bucket.
 
 Inputs (replace in code):
-- REGION
 - BUCKET_NAME
 
 Running the code:

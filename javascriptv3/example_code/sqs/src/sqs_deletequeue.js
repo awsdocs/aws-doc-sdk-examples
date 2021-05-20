@@ -9,7 +9,6 @@ Purpose:
 sqs_deletequeue.js demonstrates how to delete an Amazon SQS queue.
 
 Inputs (replace in code):
-- REGION
 - SQS_QUEUE_URl
 
 Running the code:

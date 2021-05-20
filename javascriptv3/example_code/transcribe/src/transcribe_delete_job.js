@@ -8,34 +8,28 @@ Purpose:
 transcribe_delete_job.ts demonstrates how to delete an Amazon Transcribe transcription job.
 
 Inputs (replace in code):
-- REGION
 - JOB_NAME
 
 Running the code:
-ts-node transcribe_create_job.ts
+node transcribe_create_job.js
  */
 // snippet-start:[transcribe.JavaScript.jobs.deleteJobV3]
 // Import the required AWS SDK clients and commands for Node.js
-const {
-  TranscribeClient,
-  DeleteTranscriptionJobCommand
-} = require("@aws-sdk/client-transcribe");
-
-// Set the AWS Region
-const REGION = "REGION"; // For example, "us-east-1"
+import { DeleteTranscriptionJobCommand } from "@aws-sdk/client-transcribe";
+import { transcribeClient } from "./libs/transcribeClient.js";
 
 // Set the parameters
 const params = {
   TranscriptionJobName: "JOB_NAME", // Required. For example, 'transciption_demo'
 };
 
-// Create an Amazon Transcribe service client object
-const client = new TranscribeClient({ region: REGION });
-
 const run = async () => {
   try {
-    const data = await client.send(new DeleteTranscriptionJobCommand(params));
+    const data = await transcribeClient.send(
+      new DeleteTranscriptionJobCommand(params)
+    );
     console.log("Success - deleted");
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error", err);
   }
@@ -43,3 +37,5 @@ const run = async () => {
 run();
 
 // snippet-end:[transcribe.JavaScript.jobs.deleteJobV3]
+// For unit tests.
+// module.exports = {run, params}

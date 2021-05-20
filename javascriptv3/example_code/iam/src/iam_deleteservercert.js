@@ -9,7 +9,6 @@ Purpose:
 iam_deleteservercert.js demonstrates how to delete an IAM SSL/TLS server certificate.
 
 Inputs :
-- REGION
 - CERTIFICATE_NAME
 
 Running the code:

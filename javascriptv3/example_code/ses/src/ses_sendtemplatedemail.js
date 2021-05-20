@@ -10,7 +10,6 @@ ses_sendtemplatedemail.js demonstrates how to compose an Amazon SES templated em
 queue it for sending.
 
 Inputs (replace in code):
-- REGION
 - RECEIVER_ADDRESS
 - SENDER_ADDRESS
 - TEMPLATE_NAME

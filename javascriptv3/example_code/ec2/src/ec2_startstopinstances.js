@@ -9,7 +9,6 @@ Purpose:
 ec2_startstopinstances.js demonstrates how to start and stop an Amazon EC2 instance that is backed by Amazon Elastic Block Store.
 
 Inputs (replace in code):
-- REGION
 - INSTANCE_ID
 - STATE: i.e., "START" or "STOP"
 

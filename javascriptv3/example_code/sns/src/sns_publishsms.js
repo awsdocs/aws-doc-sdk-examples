@@ -9,7 +9,6 @@ Purpose:
 sns_publishsms.js demonstrates how to use Amazon SNS to send an SMS text message to a phone number.
 
 Inputs (replace in code):
-- REGION
 - TEXT_MESSAGE
 - PHONE_NUMBER
 

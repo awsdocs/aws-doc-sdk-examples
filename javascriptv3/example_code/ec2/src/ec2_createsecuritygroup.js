@@ -9,7 +9,6 @@ Purpose:
 ec2_createsecuritygroup.js demonstrates how to create a security group for an Amazon EC2 instance.
 
 Inputs (replace in code):
-- REGION
 - KEY_PAIR_NAME
 - DESCRIPTION
 - SECURITY_GROUP_NAME

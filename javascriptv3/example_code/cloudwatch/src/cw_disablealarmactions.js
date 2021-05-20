@@ -9,7 +9,6 @@ Purpose:
 cw_disablealarmactions.js demonstrates how to disable actions for an Amazon CloudWatch alarm.
 
 Inputs (replace in code):
-- REGION
 - ALARM_NAME
 
 Running the code:

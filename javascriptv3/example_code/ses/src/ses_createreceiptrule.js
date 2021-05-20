@@ -10,7 +10,6 @@ ses_createreceiptrule.js demonstrates how to create a receipt rule in Amazon SES
 received messages in an Amazon S3 bucket.
 
 Inputs (replace in code):
-- REGION
 - BUCKET_NAME
 - EMAIL_ADDRESS | DOMAIN
 - RULE_NAME

@@ -8,9 +8,6 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-s
 Purpose:
 iam_listservercerts.js demonstrates how to list the IAM SSL/TLS server certificates.
 
-Inputs :
-- REGION
-
 Running the code:
 node iam_listservercerts.js
  */

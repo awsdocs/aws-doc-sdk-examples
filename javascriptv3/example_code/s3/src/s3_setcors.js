@@ -8,7 +8,6 @@ Purpose:
 s3_setcors.js demonstrates how to set the CORS configuration of an Amazon S3 bucket.
 
 Inputs:
-- REGION (into command line below)
 - BUCKET_NAME (into command line below)
 
 Running the code:

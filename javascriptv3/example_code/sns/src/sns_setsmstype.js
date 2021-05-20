@@ -9,7 +9,6 @@ Purpose:
 sns_setsmstype.js demonstrates how to use Amazon SNS to set default SMS attributes.
 
 Inputs (replace in code):
-- REGION
 
 Running the code:
 node sns_setsmstype.js

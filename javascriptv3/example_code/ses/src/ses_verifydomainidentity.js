@@ -9,7 +9,6 @@ Purpose:
 ses_verifydomainidentity.js demonstrates how to add a domain to the list of Amazon SES identities and attempts to verify it.
 
 Inputs (replace in code):
-- REGION
 - DOMAIN_NAME
 
 Running the code:

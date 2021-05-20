@@ -9,7 +9,6 @@ Purpose:
 ses_createtemplate.js demonstrates how to create an Amazon SES email template.
 
 Inputs (replace in code):
-- REGION
 - TEMPLATE_NAME
 - HTML_CONTENT (into code; HTML tagged content of email)
 - SUBJECT (into code; the subject of the email)

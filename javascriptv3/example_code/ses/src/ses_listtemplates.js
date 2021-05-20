@@ -9,7 +9,6 @@ Purpose:
 ses_listtemplates.js demonstrates how to list the available Amazon SES email templates.
 
 Inputs (replace in code):
-- REGION
 - ITEMS_COUNT
 
 Running the code:

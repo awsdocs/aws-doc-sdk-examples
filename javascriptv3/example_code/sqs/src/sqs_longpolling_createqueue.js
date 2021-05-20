@@ -9,7 +9,6 @@ Purpose:
 sqs_longpolling_createqueue.js demonstrates how to create an Amazon SQS queue that waits for a message to arrive.
 
 Inputs (replace in code):
-- REGION
 - SQS_QUEUE_NAME
 
 Running the code:

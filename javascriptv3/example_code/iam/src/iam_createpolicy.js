@@ -9,7 +9,6 @@ Purpose:
 iam_createpolicy.js demonstrates how to create a managed policy for an AWS account.
 
 Inputs :
-- REGION
 - RESOURCE_ARN
 - DYNAMODB_POLICY_NAME
 

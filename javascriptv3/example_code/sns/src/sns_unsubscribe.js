@@ -9,7 +9,6 @@ Purpose:
 sns_unsubscribe.js demonstrates how to delete a subscription to an Amazon SNS topic.
 
 Inputs (replace in code):
-- REGION
 - TOPIC_SUBSCRIPTION_ARN
 
 Running the code:

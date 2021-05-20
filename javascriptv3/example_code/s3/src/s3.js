@@ -8,8 +8,7 @@ https://docs.aws.amazon.com/cloud9/latest/user-guide/sample-nodejs.html.
 Purpose:
 s3.js demonstrates how to list, create, and delete a bucket in Amazon S3.
 
-Inputs (replace in command line input below):
-- REGION
+Inputs:
 - BUCKET_NAME
 
 Running the code:

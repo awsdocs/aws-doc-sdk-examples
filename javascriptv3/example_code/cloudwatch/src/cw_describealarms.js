@@ -8,9 +8,6 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-exa
 Purpose:
 cw_describealarms.js demonstrates how to retrieve information about Amazon CloudWatch alarms.
 
-Inputs (replace in code):
-- REGION
-
 Running the code:
 node cw_describealarms.js
 */

@@ -3,15 +3,17 @@ SPDX-License-Identifier: Apache-2.0
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
+
 Purpose:
 s3_multipartupload.js demonstrates how to upload a single object to an Amazon Simple Storage Solution (S3) bucket
  as a set of parts.
  For more information about multipart uploads, see https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html.
+
 Inputs (replace in code):
-- REGION
 - BUCKET_NAME
 - LARGE_FILE_NAME
 - NUMBER_OF_PARTS - between 1 and 10000. Enter without surrounding inverted commas.
+
 Running the code:
 nodes3_createbucket.js
 */

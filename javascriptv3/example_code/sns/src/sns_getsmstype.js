@@ -9,7 +9,6 @@ Purpose:
 sns_getsmstype.js demonstrates how to retrieve the settings for sending Amazon SMS messages.
 
 Inputs (replace in code):
-- REGION
 
 Running the code:
 node sns_getsmstype.js

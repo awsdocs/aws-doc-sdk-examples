@@ -9,7 +9,6 @@ Purpose:
 sns_createtopic.js demonstrates how to create an Amazon SNS topic to which notifications can be published.
 
 Inputs (replace in code):
-- REGION
 - TOPIC_NAME
 
 Running the code:

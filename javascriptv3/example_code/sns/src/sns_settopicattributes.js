@@ -9,7 +9,6 @@ Purpose:
 sns_settopicattributes.js demonstrates how to set the attributes of an Amazon SNS topic.
 
 Inputs (replace in code):
-- REGION
 - ATTRIBUTE_NAME
 - TOPIC_ARN
 - NEW_ATTRIBUTE_VALUE

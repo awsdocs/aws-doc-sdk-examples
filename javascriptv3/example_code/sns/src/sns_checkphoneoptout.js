@@ -9,7 +9,6 @@ Purpose:
 sns_checkphoneoptout.js demonstrates how to determine whether a phone number has opted out of receiving AWS SMS messages.
 
 Inputs (replace in code):
-- REGION
 - PHONE_NUMBER
 
 Running the code:

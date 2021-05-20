@@ -8,7 +8,6 @@ Purpose:
 s3_createbucket.js demonstrates how to create an Amazon S3 bucket.
 
 Inputs (replace in code):
-- REGION
 - BUCKET_NAME
 
 Running the code:

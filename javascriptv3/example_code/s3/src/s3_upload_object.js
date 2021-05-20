@@ -8,7 +8,6 @@ Purpose:
 s3_putobject.js uploads an existing file to an Amazon Simple Storage Service (Amazon S3) bucket.
 
 Inputs (replace in code):
-- REGION
 - BUCKET_NAME
 - OBJECT_PATH_AND_NAME: Relative path and name of object. For example '../myFiles/index.js'.
 

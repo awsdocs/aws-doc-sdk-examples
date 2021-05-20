@@ -9,7 +9,6 @@ Purpose:
 iam_deleteuser.js demonstrates how to delete an IAM user from an AWS account.
 
 Inputs :
-- REGION
 - USER_NAME
 
 Running the code:

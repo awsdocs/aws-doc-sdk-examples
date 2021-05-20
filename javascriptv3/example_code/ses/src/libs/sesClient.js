@@ -14,7 +14,7 @@ Inputs (replace in code):
 // snippet-start:[ses.JavaScript.createclientv3]
 import  { SESClient }  from  "@aws-sdk/client-ses";
 // Set the AWS Region.
-const REGION = "eu-west-1"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 // Create SNS service object.
 const sesClient = new SESClient({ region: REGION });
 export  { sesClient };

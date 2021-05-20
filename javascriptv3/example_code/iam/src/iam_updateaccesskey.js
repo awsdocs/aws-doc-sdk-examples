@@ -8,7 +8,6 @@ Purpose:
 iam_updateaccesskey.js demonstrates how to update the status of an IAM user's access key.
 
 Inputs :
-- REGION
 - ACCESS_KEY_ID
 - USER_NAME
 

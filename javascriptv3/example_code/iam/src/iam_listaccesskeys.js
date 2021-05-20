@@ -9,7 +9,6 @@ Purpose:
 iam_listaccesskeys.js demonstrates how to retrieve information about the access keys of an IAM user.
 
 Inputs :
-- REGION
 - IAM_USER_NAME
 
 Running the code:

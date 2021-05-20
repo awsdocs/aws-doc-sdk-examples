@@ -9,7 +9,6 @@ Purpose:
 ses_deletereceiptfilter.js demonstrates how to delete an Amazon SES IP address filter.
 
 Inputs (replace in code):
-- REGION
 - FILTER_NAME
 
 Running the code:

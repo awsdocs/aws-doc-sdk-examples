@@ -9,7 +9,6 @@ Purpose:
 cwe_puttargets.js demonstrates how to add or update a target to an Amazon CloudWatch Events rule.
 
 Inputs (replace in code):
-- REGION
 - LAMBDA_FUNCTION_ARN
 
 Running the code:

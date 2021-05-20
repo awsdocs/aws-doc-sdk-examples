@@ -9,7 +9,6 @@ Purpose:
 ses_createreceiptruleset.js demonstrates how to create an empty Amazon SES rule set.
 
 Inputs (replace in code):
-- REGION
 - RULE_SET_NAME
 
 Running the code:

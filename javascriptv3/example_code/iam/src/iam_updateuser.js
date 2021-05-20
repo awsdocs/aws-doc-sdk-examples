@@ -9,7 +9,6 @@ Purpose:
 iam_updateuser.js demonstrates how to update the name of an IAM user.
 
 Inputs :
-- REGION
 - ORIGINAL_USER_NAME
 - NEW_USER_NAME
 

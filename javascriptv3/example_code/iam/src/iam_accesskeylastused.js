@@ -9,7 +9,6 @@ Purpose:
 iam_accesskeylastused.js demonstrates how to retrieve information about the last time an IAM access key was used.
 
 Inputs:
-- REGION
 - ACCESS_KEY_ID
 
 Running the code:

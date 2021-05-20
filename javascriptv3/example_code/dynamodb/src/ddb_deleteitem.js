@@ -8,8 +8,7 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examp
 Purpose:
 ddb_deleteitem.js demonstrates how to delete an item from an Amazon DynamoDB table.
 
-Inputs (replace in code):
-- REGION
+INPUTS:
 - TABLE
 - KEY_NAME
 - VALUE
