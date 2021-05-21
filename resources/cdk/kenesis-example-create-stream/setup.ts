@@ -24,69 +24,69 @@ import { Effect, PolicyStatement } from "@aws-cdk/aws-iam";
 import {Stream} from "@aws-cdk/aws-kinesis";
 
 export class SetupStackCreateTable extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
-    super(scope, id, props);
+    constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+        super(scope, id, props);
 
-   const myStream =   new Stream(this, "MyFirstStream", {
-          streamName: 'my-stream-kinesis'
-      });
+        const myStream =   new Stream(this, "MyFirstStream", {
+            streamName: 'my-stream-kinesis'
+        });
 
 
-    const myIdentityPool = new cognito.CfnIdentityPool(
-      this,
-      "ExampleIdentityPool",
-      {
-        allowUnauthenticatedIdentities: true,
-      }
-    );
+        const myIdentityPool = new cognito.CfnIdentityPool(
+            this,
+            "ExampleIdentityPool",
+            {
+                allowUnauthenticatedIdentities: true,
+            }
+        );
 
-    const unauthenticatedRole = new iam.Role(
-      this,
-      "CognitoDefaultUnauthenticatedRole",
-      {
-        assumedBy: new iam.FederatedPrincipal(
-          "cognito-identity.amazonaws.com",
-          {
-            StringEquals: {
-              "cognito-identity.amazonaws.com:aud": myIdentityPool.ref,
-            },
-            "ForAnyValue:StringLike": {
-              "cognito-identity.amazonaws.com:amr": "unauthenticated",
-            },
-          },
-          "sts:AssumeRoleWithWebIdentity"
-        ),
-      }
-    );
+        const unauthenticatedRole = new iam.Role(
+            this,
+            "CognitoDefaultUnauthenticatedRole",
+            {
+                assumedBy: new iam.FederatedPrincipal(
+                    "cognito-identity.amazonaws.com",
+                    {
+                        StringEquals: {
+                            "cognito-identity.amazonaws.com:aud": myIdentityPool.ref,
+                        },
+                        "ForAnyValue:StringLike": {
+                            "cognito-identity.amazonaws.com:amr": "unauthenticated",
+                        },
+                    },
+                    "sts:AssumeRoleWithWebIdentity"
+                ),
+            }
+        );
 
-    unauthenticatedRole.addToPolicy(
-      new PolicyStatement({
-            effect: Effect.ALLOW,
-            actions: ["mobileanalytics:PutEvents", "cognito-sync:*"],
-            resources: ["*"],
-          }));
+        unauthenticatedRole.addToPolicy(
+            new PolicyStatement({
+                effect: Effect.ALLOW,
+                actions: ["mobileanalytics:PutEvents", "cognito-sync:*"],
+                resources: ["*"],
+            }));
 
-      unauthenticatedRole.addToPolicy(
-          new PolicyStatement({
-              effect: Effect.ALLOW,
-              actions: ["kinesis:Put*"],
-              resources: [myStream.streamArn],
-          }));
+        unauthenticatedRole.addToPolicy(
+            new PolicyStatement({
+                effect: Effect.ALLOW,
+                actions: ["kinesis:Put*"],
+                resources: [myStream.streamArn],
+            }));
 
-    const defaultPolicy = new cognito.CfnIdentityPoolRoleAttachment(
-      this,
-      "DefaultValid",
-      {
-        identityPoolId: myIdentityPool.ref,
-        roles: {
-          unauthenticated: unauthenticatedRole.roleArn,
-        },
-      }
-    );
-      new CfnOutput(this, 'Identity pool id', {value: myIdentityPool.ref})
-      new CfnOutput(this, 'Stack name', {value: myStream.streamName})
-      new CfnOutput(this, 'Stack arn', {value: myStream.streamArn})
-  }
+        const defaultPolicy = new cognito.CfnIdentityPoolRoleAttachment(
+            this,
+            "DefaultValid",
+            {
+                identityPoolId: myIdentityPool.ref,
+                roles: {
+                    unauthenticated: unauthenticatedRole.roleArn,
+                },
+            }
+        );
+        new CfnOutput(this, 'Identity pool id', {value: myIdentityPool.ref})
+        new CfnOutput(this, 'Stack name', {value: myStream.streamName})
+        new CfnOutput(this, 'Stack arn', {value: myStream.streamArn})
+    }
 }
 
 const stackName = "SetupStackCreateTable";
