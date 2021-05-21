@@ -5,7 +5,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-nodejs.html.
 
 Purpose:
-pollyClient.js is a helper function that creates an Amazon Polly service client.
+s3Client.js is a helper function that creates an Amazon Simple Service Solution (S3) client.
 
 Inputs (replace in code):
 - REGION
