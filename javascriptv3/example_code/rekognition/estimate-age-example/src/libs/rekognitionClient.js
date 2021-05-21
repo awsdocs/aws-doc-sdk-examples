@@ -2,7 +2,7 @@
 SPDX-License-Identifier: Apache-2.0
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-nodejs.html.
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/rekognition-estimate-age-example.html.
 
 Purpose:
 rekognitionClient.js is a helper function that creates an Amazon Rekognition service client.
@@ -11,12 +11,10 @@ Inputs (replace in code):
 - REGION
 
 */
-// snippet-start:[GettingStarted.JavaScript.createclientv3]
+// snippet-start:[rekognition.JavaScript.createclientv3]
 import { RekognitionClient } from "@aws-sdk/client-rekognition";
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
-import {
-  fromCognitoIdentityPool,
-} from "@aws-sdk/credential-provider-cognito-identity";
+import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
 // Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"
 
@@ -29,5 +27,5 @@ const rekognitionClient = new RekognitionClient({
   }),
 });
 
-export { rekognitionClient } ;
-// snippet-end:[GettingStarted.JavaScript.createclientv3]
+export { rekognitionClient };
+// snippet-end:[rekognition.JavaScript.createclientv3]

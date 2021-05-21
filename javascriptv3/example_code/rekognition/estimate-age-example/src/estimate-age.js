@@ -6,7 +6,7 @@ https://docs.aws.amazon.com/rekognition/latest/dg/image-bytes-javascript.html.
 
 Purpose:
 estimate-age.js is part of an sample that demonstrates how to use Amazon Rekognition to estimate the ages of faces in an photo.
-To view the full example, see https://docs.aws.amazon.com/rekognition/latest/dg/image-bytes-javascript.html.
+To view the full example, see https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/rekognition-estimate-age-example.html.
 
 Inputs :
 - IDENTITY_POOL_ID
@@ -15,10 +15,8 @@ Inputs :
 // snippet-start:[rekognition.JavaScript.detect_faces_v3]
 
 // Import required AWS SDK clients and commands for Node.js.
-import {
-  DetectFacesCommand
-} from "@aws-sdk/client-rekognition";
-import {rekognitionClient} from "./libs/rekognitionClient.js"
+import { DetectFacesCommand } from "@aws-sdk/client-rekognition";
+import { rekognitionClient } from "./libs/rekognitionClient.js";
 
 // Calls DetectFaces API and shows estimated ages of detected faces.
 window.DetectFaces = async (imageData) => {
