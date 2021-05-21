@@ -5,17 +5,29 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-nodejs.html.
 
 Purpose:
-pollyClient.js is a helper function that creates an Amazon Polly service client.
+rekognitionClient.js is a helper function that creates an Amazon Rekognition service client.
 
 Inputs (replace in code):
 - REGION
 
 */
 // snippet-start:[GettingStarted.JavaScript.createclientv3]
-import { S3Client } from "@aws-sdk/client-s3";
+import { RekognitionClient } from "@aws-sdk/client-rekognition";
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
+import {
+  fromCognitoIdentityPool,
+} from "@aws-sdk/credential-provider-cognito-identity";
 // Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"
-// Create an Amazon S3 service client object.
-const s3Client = new S3Client({ region: REGION });
-export { s3Client };
+
+// Create an Amazon Transcribe service client object.
+const rekognitionClient = new RekognitionClient({
+  region: REGION,
+  credentials: fromCognitoIdentityPool({
+    client: new CognitoIdentityClient({ region: REGION }),
+    identityPoolId: "IDENTITY_POOL_ID",
+  }),
+});
+
+export { rekognitionClient } ;
 // snippet-end:[GettingStarted.JavaScript.createclientv3]
