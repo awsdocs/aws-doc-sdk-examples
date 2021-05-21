@@ -15,13 +15,9 @@ Inputs:
  */
 
 // snippet-start:[kinesis.JavaScript.kinesis-example_v3.complete]
-// snippet-start:[kinesis.JavaScript.kinesis-example_v3.config]
-// Configure Credentials to use Cognito
+// snippet-start:[kinesis.JavaScript.kinesis-example_v3.addEventListener]
 import { PutRecordsCommand } from "@aws-sdk/client-kinesis";
 import { kinesisClient } from "./libs/kinesisClient.js";
-
-// snippet-end:[kinesis.JavaScript.kinesis-example_v3.config]
-// snippet-start:[kinesis.JavaScript.kinesis-example_v3.addEventListener]
 // Get the ID of the web page element.
 var blogContent = document.getElementById('BlogContent');
 
