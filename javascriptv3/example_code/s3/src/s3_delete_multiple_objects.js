@@ -17,9 +17,7 @@ nodes3_delete_multiple_objects.js
 */
 // snippet-start:[s3.JavaScript.buckets.deletemultipleobjectsV3]
 import { DeleteObjectsCommand } from "@aws-sdk/client-s3";
- import { s3Client } from "./libs/s3Client.js" // Helper function that creates Amazon S3 service client module.
-
-const REGION = "REGION"; //e.g. "us-east-1"
+import { s3Client } from "./libs/s3Client.js" // Helper function that creates Amazon S3 service client module.
 
 const bucketParams = {
   Bucket: "BUCKET_NAME",

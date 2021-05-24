@@ -15,8 +15,8 @@ node s3_setcors.js BUCKET_NAME REGION
  */
 // snippet-start:[s3.JavaScript.v3.cors.putBucketCors]
   // Import required AWS-SDK clients and commands for Node.js
-  import { PutBucketCorsCommand } from "@aws-sdk/client-s3";
-  import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+ import { PutBucketCorsCommand } from "@aws-sdk/client-s3";
+ import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
   // Set params
   // Create initial parameters JSON for putBucketCors
