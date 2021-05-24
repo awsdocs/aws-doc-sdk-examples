@@ -1,10 +1,9 @@
 {
   "name": "aws-sdk-v3-iam-examples",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "estimate-age.js",
   "scripts": {
-    "build:frontend": "webpack estimate-age.js --mode development --target web --devtool false -o main.js",
-    "test": "exit 0"
+    "test": "jest"
   },
   "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/rekognition.git",
   "author": "Brian Murray <brmur@amazon.com>",
@@ -16,10 +15,10 @@
     "@aws-sdk/client-cognito-identity": "^3.3.0",
     "uuid": "^8.3.2",
     "webpack": "^4.42.0",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "jest": "^26.6.3"
   },
   "devDependencies": {
     "@types/node": "^14.0.23"
-  },
-  "type": "module"
+  }
 }
