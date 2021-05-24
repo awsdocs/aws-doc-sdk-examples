@@ -20,9 +20,6 @@ nodes3_create_and_upload_object.js
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
-// Set the AWS region
-const REGION = "REGION"; //e.g. "us-east-1"
-
 // Set the parameters.
 const bucketParams = {
   Bucket: "BUCKET_NAME",

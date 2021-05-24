@@ -26,7 +26,7 @@ import {
 import { ec2Client } from "./libs/ec2Client";
 
 // Set the parameters
-const params = { InstanceIds: "INSTANCE_ID" }; //INSTANCE_ID
+const params = { InstanceIds: ["INSTANCE_ID"] }; // Array of INSTANCE_IDs
 const command = "STATE"; // STATE i.e. "START" or "STOP"
 
 const run = async () => {

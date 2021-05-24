@@ -17,7 +17,7 @@ node s3_putbucketpolicy.js
 // snippet-start:[s3.JavaScript.policy.putBucketPolicyV3]
 // Import required AWS SDK clients and commands for Node.js
 import { PutBucketPolicyCommand } from "@aws-sdk/client-s3";
- import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
 // Create params JSON for S3.createBucket
 const BUCKET_NAME = "BUCKET_NAME";

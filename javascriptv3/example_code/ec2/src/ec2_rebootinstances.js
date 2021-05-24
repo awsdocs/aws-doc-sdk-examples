@@ -20,7 +20,7 @@ import { RebootInstancesCommand } from "@aws-sdk/client-ec2";
 import { ec2Client } from "./libs/ec2Client.js";
 
 // Set the parameters
-const params = { InstanceIds: "INSTANCE_ID" }; //INSTANCE_ID
+const params = { InstanceIds: ["INSTANCE_ID"] }; // Array of INSTANCE_IDs
 
 const run = async () => {
   try {

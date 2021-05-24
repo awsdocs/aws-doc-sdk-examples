@@ -16,7 +16,7 @@ nodes3_getbucketpolicy.js
 // snippet-start:[s3.JavaScript.policy.getBucketPolicyV3]
 // Import required AWS SDK clients and commands for Node.js
 import { GetBucketPolicyCommand } from "@aws-sdk/client-s3";
- import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
 // Create the parameters for calling
 const bucketParams = { Bucket: "BUCKET_NAME" };
