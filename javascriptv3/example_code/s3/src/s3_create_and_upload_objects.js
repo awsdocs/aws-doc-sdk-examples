@@ -6,8 +6,7 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-cre
 
 Purpose:
 s3_create_and_upload_objects.js creates and uploads an object to an Amazon Simple Storage Solution (Amazon S3) bucket.
-Inputs (in the commandline input below):
-- REGION
+Inputs:
 - BUCKET_NAME
 - KEY: The name of the object to create and upload.
 - BODY: The contents of the uploaded file.
@@ -18,11 +17,8 @@ nodes3_create_and_upload_object.js
 // snippet-start:[s3.JavaScript.buckets.upload_putcommandV3]
 
 // Import required AWS SDK clients and commands for Node.js
-import {PutObjectCommand} from "@aws-sdk/client-s3";
- import { s3 } from "./libs/s3Client.js" // Helper function that creates Amazon S3 service client module.
-
-// Set the AWS region
-const REGION = "REGION"; //e.g. "us-east-1"
+import { PutObjectCommand } from "@aws-sdk/client-s3";
+import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
 // Set the parameters.
 const bucketParams = {
@@ -37,8 +33,8 @@ const bucketParams = {
 // Create and upload the object to the specified Amazon S3 bucket.
 const run = async () => {
   try {
-    const data = await s3.send(new PutObjectCommand(bucketParams));
-    return data;
+    const data = await s3Client.send(new PutObjectCommand(bucketParams));
+    return data; // For unit tests.
     console.log(
       "Successfully uploaded object: " +
         uploadParams.Bucket +

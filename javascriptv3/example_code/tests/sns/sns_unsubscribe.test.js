@@ -1,13 +1,12 @@
-const mockUnscribe = jest.fn();
-jest.mock("@aws-sdk/client-sns/commands/UnsubscribeCommand", () => ({
-  SNS: function SNS() {
-    this.UnsubscribeCommand = mockUnscribe;
-  },
-}));
-const { run } = require("../../sns/src/sns_unsubscribe.js");
+const { run, params } = require("../../sns/src/sns_unsubscribe");
+const { snsClient } = require("../../sns/src/libs/snsClient.js");
 
-test("has to mock SNS#unsubscribe", async (done) => {
-  await run();
-  expect(mockUnscribe).toHaveBeenCalled;
-  done();
+jest.mock("../../sns/src/libs/snsClient.js");
+
+describe("@aws-sdk/client-emc mock", () => {
+  it("should successfully mock SNS client", async () => {
+    snsClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

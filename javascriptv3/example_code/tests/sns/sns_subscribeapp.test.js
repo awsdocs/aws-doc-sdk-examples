@@ -1,13 +1,12 @@
-const mockSubscribe = jest.fn();
-jest.mock("@aws-sdk/client-sns/commands/SubscribeCommand", () => ({
-  SNS: function SNS() {
-    this.SubscribeCommand = mockSubscribe;
-  },
-}));
-const { run } = require("../../sns/src/sns_subscribeapp.js");
+const { run, params } = require("../../sns/src/sns_subscribeapp");
+const { snsClient } = require("../../sns/src/libs/snsClient.js");
 
-test("has to mock SNS#subscribeapp", async (done) => {
-  await run();
-  expect(mockSubscribe).toHaveBeenCalled;
-  done();
+jest.mock("../../sns/src/libs/snsClient.js");
+
+describe("@aws-sdk/client-emc mock", () => {
+  it("should successfully mock SNS client", async () => {
+    snsClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

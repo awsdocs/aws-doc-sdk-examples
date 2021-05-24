@@ -68,20 +68,20 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.25</version>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>personalize</artifactId>
-            <version>2.16.45</version>
+            <version>2.16.52</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>personalizeruntime</artifactId>
-            <version>2.16.45</version>
+            <version>2.16.52</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>personalizeevents</artifactId>
-            <version>2.16.45</version>
+            <version>2.16.52</version>
         </dependency>
     </dependencies>
 </project>

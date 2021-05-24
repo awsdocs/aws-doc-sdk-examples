@@ -9,7 +9,7 @@ Purpose:
 cwe_putrule.js demonstrates how to create or update an Amazon CloudWatch Events rule.
 
 Inputs (replace in code):
-- REGION IAM_ROLE_ARN
+- IAM_ROLE_ARN
 
 Running the code:
 node cw_deletealarm.js

@@ -1,20 +1,10 @@
 # TypeScript environment for Amazon Rekognition examples
-This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon Rekognition examples. 
-
-The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
-
-The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-rekognition/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon Polly client module.
-
 Amazon Rekognition makes it easy to add image and video analysis to your applications. 
-You just provide an image or video to the Amazon Rekognition API, and the service can identify objects, 
-people, text, scenes, and activities. It can detect any inappropriate content as well. 
-Amazon Rekognition also provides highly accurate facial analysis, face comparison, and face search 
-capabilities. You can detect, analyze, and compare faces for a wide variety of use cases,
-including user verification, cataloging, people counting, and public safety. 
- 
-**NOTE:** The AWS SDK for JavaScript v3 is written in TypeScript so, for consistency, these examples are also 
-in TypeScript. TypeScript extends of JavaScript so these examples can also be run as JavaScript. 
-For more information, see [TypeScript homepage](https://www.typescriptlang.org/).
+
+## Code examples
+This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon Rekognition examples: 
+
+ - [Tutorial demonstrating how to estimate the ages of faces in an photo](./src/estimate-age.js)
 
 # Getting started
 
@@ -26,7 +16,7 @@ For more information, see [TypeScript homepage](https://www.typescriptlang.org/)
 which are *@aws-sdk/client-cognito-identity*, *@aws-sdk/credential-provider-cognito-identity*, and *@aws-sdk/polly-kinesis*, and Webpack for bundling your Node.js and Javascript.
 
 ```
-npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
+npm install node -g
 cd javascriptv3/example_code/rekognition
 npm install
 ```
@@ -48,3 +38,9 @@ Note: The stack name must be unique within an AWS Region and AWS account. You ca
 8. Use Webpack to bundle the Node.js modules required for the example by running the following in the command line:
 
 webpack estimate-age.js --mode development --target web --devtool false -o main.js
+
+
+## Resources
+[AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) 
+[AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-rekognition/index.html)
+

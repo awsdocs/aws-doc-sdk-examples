@@ -8,8 +8,7 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examp
 Purpose:
 ddb_describetable.js demonstrates how to retrieve information about an Amazon DynamoDB table.
 
-Inputs (replace in code):
-- REGION
+INPUTS:
 - TABLE_NAME
 
 Running the code:
@@ -19,9 +18,6 @@ ts-node ddb_describetable.js
 // Import required AWS SDK clients and commands for Node.js
 import { DescribeTableCommand } from "@aws-sdk/client-dynamodb";
 import { ddbClient } from "./libs/ddbClient.js";
-
-// Set the AWS Region
-const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters
 const params = { TableName: "TABLE_NAME" }; //TABLE_NAME

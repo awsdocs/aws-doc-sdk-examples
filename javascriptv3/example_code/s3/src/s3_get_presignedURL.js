@@ -5,16 +5,15 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
 
 Purpose:
-s3_get_presignedURL.js demonstrated how to generate a presigned URL to get an object} from an
- Amazon Simple Storage Service (Amazon S3) bucket.
+s3_get_presignedURL.js demonstrated how to generate a presigned URL to get an object from an Amazon Simple Storage Service (Amazon S3) bucket.
 
 Note: This example creates a bucket and object for demonstration purposes, then immediately deletes them.
 
 Inputs (replace in code):
-- REGION
 
 Running the code:
 nodes3_get_presignedURL.js
+
 [Outputs | Returns]:
 Uploads the specified file to the specified bucket.
 */
@@ -28,7 +27,7 @@ import {
   DeleteObjectCommand,
   DeleteBucketCommand }
 from "@aws-sdk/client-s3";
- import { s3 } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 const fetch = require("node-fetch");
 
@@ -44,10 +43,10 @@ const run = async () => {
   // Create an Amazon S3 bucket.
   try {
     console.log(`Creating bucket ${bucketParams.Bucket}`);
-    const data = await s3.send(
+    const data = await s3Client.send(
       new CreateBucketCommand({ Bucket: bucketParams.Bucket })
     );
-    return data;
+    return data; // For unit tests.
     console.log(`Waiting for "${params.Bucket}" bucket creation...\n`);
   } catch (err) {
     console.log("Error creating bucket", err);
@@ -55,14 +54,14 @@ const run = async () => {
   // Put the object in the Amazon S3 bucket.
   try {
     console.log(`Putting object "${bucketParams.Key}" in bucket`);
-    const data = await s3.send(
+    const data = await s3Client.send(
       new PutObjectCommand({
         Bucket: bucketParams.Bucket,
         Key: bucketParams.Key,
         Body: bucketParams.Body,
       })
     );
-    return data;
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error putting object", err);
   }
@@ -72,7 +71,7 @@ const run = async () => {
     const command = new GetObjectCommand(bucketParams);
 
     // Create the presigned URL.
-    const signedUrl = await getSignedUrl(s3, command, {
+    const signedUrl = await getSignedUrl(s3Client, command, {
       expiresIn: 3600,
     });
     console.log(
@@ -89,20 +88,20 @@ const run = async () => {
   // Delete the object.
   try {
     console.log(`\nDeleting object "${bucketParams.Key}"} from bucket`);
-    const data = await s3.send(
+    const data = await s3Client.send(
       new DeleteObjectCommand({ Bucket: bucketParams.Bucket, Key: bucketParams.Key })
     );
-    return data;
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error deleting object", err);
   }
   // Delete the bucket.
   try {
     console.log(`\nDeleting bucket ${bucketParams.Bucket}`);
-    const data = await s3.send(
+    const data = await s3Client.send(
       new DeleteBucketCommand({ Bucket: bucketParams.Bucket, Key: bucketParams.Key })
     );
-    return data;
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error deleting object", err);
   }

@@ -1,13 +1,12 @@
-const mockDeleteTopic = jest.fn();
-jest.mock("@aws-sdk/client-sns/commands/DeleteTopicCommand", () => ({
-  SNS: function SNS() {
-    this.DeleteTopicCommand = mockDeleteTopic;
-  },
-}));
-const { run } = require("../../sns/src/sns_deletetopic.js");
+const { run, params } = require("../../sns/src/sns_deletetopic");
+const { snsClient } = require("../../sns/src/libs/snsClient.js");
 
-test("has to mock SNS#deletetopic", async (done) => {
-  await run();
-  expect(mockDeleteTopic).toHaveBeenCalled;
-  done();
+jest.mock("../../sns/src/libs/snsClient.js");
+
+describe("@aws-sdk/client-emc mock", () => {
+  it("should successfully mock SNS client", async () => {
+    snsClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

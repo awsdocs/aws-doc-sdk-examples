@@ -8,7 +8,6 @@ Purpose:
 s3_delete_multiple_objects.js demonstrates how to delete multiple objects} from an Amazon Simple Storage Solution (S3) bucket.
 
 Inputs (replace in code):
-- REGION
 - BUCKET_NAME
 - KEY_1
 - KEY_2
@@ -18,9 +17,7 @@ nodes3_delete_multiple_objects.js
 */
 // snippet-start:[s3.JavaScript.buckets.deletemultipleobjectsV3]
 import { DeleteObjectsCommand } from "@aws-sdk/client-s3";
- import { s3 } from "./libs/s3Client.js" // Helper function that creates Amazon S3 service client module.
-
-const REGION = "REGION"; //e.g. "us-east-1"
+import { s3Client } from "./libs/s3Client.js" // Helper function that creates Amazon S3 service client module.
 
 const bucketParams = {
   Bucket: "BUCKET_NAME",
@@ -38,8 +35,8 @@ const bucketParams = {
 
 const run = async () => {
   try {
-    const data = await s3.send(new DeleteObjectsCommand(bucketParams));
-    return data;
+    const data = await s3Client.send(new DeleteObjectsCommand(bucketParams));
+    return data; // For unit tests.
     console.log("Success. Object deleted.");
   } catch (err) {
     console.log("Error", err);
