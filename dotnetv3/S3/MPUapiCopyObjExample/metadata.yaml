@@ -3,7 +3,7 @@
 # within this repository.
 ---
 files:
-  - path: MPUapiCopyObjectExample/MPUapiCopyObject.cs
+  - path: MPUapiCopyObjExample/MPUapiCopyObj.cs
     services: 
     - s3
 ...
