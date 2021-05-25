@@ -17,7 +17,7 @@ namespace GetSecretValueExample
     public class GetSecretValue
     {
         /// <summary>
-        /// The main methos initializes the necessary values and then calls
+        /// The main method initializes the necessary values and then calls
         /// the GetSecretAsync and DecodeString methods to get the decoded
         /// secret value for the secret named in secretName.
         /// </summary>
@@ -87,9 +87,9 @@ namespace GetSecretValueExample
         /// <returns>A string representing the decoded secret value.</returns>
         public static string DecodeString(GetSecretValueResponse response)
         {
-            // Decrypts secret using the associated KMS CMK.
-            // Depending on whether the secret is a string or binary value, one
-            // of these fields will be populated.
+            // Decrypts secret using the associated AWS Key Management Service
+            // Customer Master Key (CMK.) Depending on whether the secret is a
+            // string or binary value, one of these fields will be populated.
             MemoryStream memoryStream = new ();
 
             if (response.SecretString is not null)
