@@ -19,10 +19,17 @@ ts-node lambda-function-setup.ts
 
 // snippet-start:[lambda.JavaScript.tutorial.LambdaFunctionSetUpV3]
 // Load the Lambda client
-const {
+// ES Modules import
+import {
   LambdaClient,
   CreateFunctionCommand
-} = require("@aws-sdk/client-lambda");
+} from "@aws-sdk/client-lambda";
+// CommonJS import
+/* const {
+  LambdaClient,
+  CreateFunctionCommand
+} = require("@aws-sdk/client-lambda");*/
+
 
 //Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

@@ -36,13 +36,26 @@ import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 // CommonJS import
 // const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
 
-const {
+// ES Modules import
+import {
   fromCognitoIdentityPool,
-} = require("@aws-sdk/credential-provider-cognito-identity");
-const {
+} from "@aws-sdk/credential-provider-cognito-identity";
+// CommonJS import
+/* const {
+  fromCognitoIdentityPool,
+} = require("@aws-sdk/credential-provider-cognito-identity");*/
+
+// ES Modules import
+import {
   CognitoIdentityProviderClient,
   GetUserCommand,
-} = require("@aws-sdk/client-cognito-identity-provider");
+} from "@aws-sdk/client-cognito-identity-provider";
+// CommonJS import
+/* const {
+  CognitoIdentityProviderClient,
+  GetUserCommand,
+} = require("@aws-sdk/client-cognito-identity-provider");*/
+
 // ES Modules import
 import { S3RequestPresigner } from "@aws-sdk/s3-request-presigner";
 // CommonJS import
@@ -58,12 +71,21 @@ import { formatUrl } from "@aws-sdk/util-format-url";
 // CommonJS import
 // const { formatUrl } = require("@aws-sdk/util-format-url");
 
-const {
+// ES Modules import
+import {
   TranscribeClient,
   StartTranscriptionJobCommand,
   GetTranscriptionJobCommand,
-} = require("@aws-sdk/client-transcribe");
-const {
+} from "@aws-sdk/client-transcribe";
+// CommonJS import
+/* const {
+  TranscribeClient,
+  StartTranscriptionJobCommand,
+  GetTranscriptionJobCommand,
+} = require("@aws-sdk/client-transcribe");*/
+
+// ES Modules import
+import {
   S3,
   S3Client,
   PutObjectCommand,
@@ -72,7 +94,19 @@ const {
   HeadBucketCommand,
   ListObjectsCommand,
   DeleteObjectCommand,
-} = require("@aws-sdk/client-s3");
+} from "@aws-sdk/client-s3";
+// CommonJS import
+/* const {
+  S3,
+  S3Client,
+  PutObjectCommand,
+  GetObjectCommand,
+  CreateBucketCommand,
+  HeadBucketCommand,
+  ListObjectsCommand,
+  DeleteObjectCommand,
+} = require("@aws-sdk/client-s3");*/
+
 // ES Modules import
 import { path } from "path";
 // CommonJS import

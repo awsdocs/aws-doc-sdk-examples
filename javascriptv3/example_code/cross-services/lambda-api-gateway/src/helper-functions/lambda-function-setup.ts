@@ -25,10 +25,17 @@ ts-node lambda-function-setup.ts
 
 // snippet-start:[lambda.JavaScript.general-examples-dynamodb-lambda.LambdaFunctionSetUpV3]
 
-const {
+// ES Modules import
+import {
   LambdaClient,
   CreateFunctionCommand,
-} = require("@aws-sdk/client-lambda");
+} from "@aws-sdk/client-lambda";
+// CommonJS import
+/* const {
+  LambdaClient,
+  CreateFunctionCommand,
+} = require("@aws-sdk/client-lambda");*/
+
 
 const REGION = "REGION"; //e.g. "us-east-1"
 

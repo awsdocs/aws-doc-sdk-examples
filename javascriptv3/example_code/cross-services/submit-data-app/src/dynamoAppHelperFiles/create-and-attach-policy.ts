@@ -23,11 +23,19 @@ node create_and_attach_policy.js
  */
 // snippet-start:[s3.JavaScript.cross-service.addBucketPolicyV3]
 // Import required AWS SDK clients and commands for Node.js
-const {
+// ES Modules import
+import {
   IAMClient,
   AttachRolePolicyCommand,
   CreatePolicyCommand,
-} = require("@aws-sdk/client-iam");
+} from "@aws-sdk/client-iam";
+// CommonJS import
+/* const {
+  IAMClient,
+  AttachRolePolicyCommand,
+  CreatePolicyCommand,
+} = require("@aws-sdk/client-iam");*/
+
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

@@ -17,11 +17,19 @@ ts-node lambda-role-setup.ts
 */
 // snippet-start:[lambda.JavaScript.tutorial.LambdaRoleSetUpV3]
 // Import a non-modular IAM client
-const {
+// ES Modules import
+import {
   IAMClient,
   CreateRoleCommand,
   AttachRolePolicyCommand
-} = require("@aws-sdk/client-iam");
+} from "@aws-sdk/client-iam";
+// CommonJS import
+/* const {
+  IAMClient,
+  CreateRoleCommand,
+  AttachRolePolicyCommand
+} = require("@aws-sdk/client-iam");*/
+
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

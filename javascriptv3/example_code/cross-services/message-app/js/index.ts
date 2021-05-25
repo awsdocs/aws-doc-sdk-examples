@@ -27,16 +27,32 @@ import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 // CommonJS import
 // const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
 
-const {
+// ES Modules import
+import {
   fromCognitoIdentityPool,
-} = require("@aws-sdk/credential-provider-cognito-identity");
-const {
+} from "@aws-sdk/credential-provider-cognito-identity";
+// CommonJS import
+/* const {
+  fromCognitoIdentityPool,
+} = require("@aws-sdk/credential-provider-cognito-identity");*/
+
+// ES Modules import
+import {
   SQSClient,
   GetQueueUrlCommand,
   SendMessageCommand,
   ReceiveMessageCommand,
   PurgeQueueCommand,
-} = require("@aws-sdk/client-sqs");
+} from "@aws-sdk/client-sqs";
+// CommonJS import
+/* const {
+  SQSClient,
+  GetQueueUrlCommand,
+  SendMessageCommand,
+  ReceiveMessageCommand,
+  PurgeQueueCommand,
+} = require("@aws-sdk/client-sqs");*/
+
 
 const REGION = "REGION"; // For example, "us-east-1".
 const IdentityPoolId = "IDENTITY_POOL_ID"; // The Amazon Cognito Identity Pool ID.

@@ -24,21 +24,48 @@ import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 // CommonJS import
 // const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
 
-const {
+// ES Modules import
+import {
   fromCognitoIdentityPool,
-} = require("@aws-sdk/credential-provider-cognito-identity");
-const {
+} from "@aws-sdk/credential-provider-cognito-identity";
+// CommonJS import
+/* const {
+  fromCognitoIdentityPool,
+} = require("@aws-sdk/credential-provider-cognito-identity");*/
+
+// ES Modules import
+import {
   ComprehendClient,
   DetectDominantLanguageCommand
-} = require("@aws-sdk/client-comprehend");
-const {
+} from "@aws-sdk/client-comprehend";
+// CommonJS import
+/* const {
+  ComprehendClient,
+  DetectDominantLanguageCommand
+} = require("@aws-sdk/client-comprehend");*/
+
+// ES Modules import
+import {
   TranslateClient,
   TranslateTextCommand
-} = require("@aws-sdk/client-translate");
-const {
+} from "@aws-sdk/client-translate";
+// CommonJS import
+/* const {
+  TranslateClient,
+  TranslateTextCommand
+} = require("@aws-sdk/client-translate");*/
+
+// ES Modules import
+import {
   LexRuntimeServiceClient,
   PostTextCommand
-} = require("@aws-sdk/client-lex-runtime-service");
+} from "@aws-sdk/client-lex-runtime-service";
+// CommonJS import
+/* const {
+  LexRuntimeServiceClient,
+  PostTextCommand
+} = require("@aws-sdk/client-lex-runtime-service");*/
+
 
 const REGION = "REGION"; //e.g. "us-east-1"
 const IdentityPoolId = "IDENTITY_POOL_ID";

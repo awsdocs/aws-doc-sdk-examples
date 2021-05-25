@@ -19,9 +19,15 @@ node cwl_putsubscriptionfilter.js
 // snippet-start:[cwLogs.JavaScript.cwl.putSubscriptionFilterV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {
+// ES Modules import
+import {
   PutSubscriptionFilterCommand,
-} = require("@aws-sdk/client-cloudwatch-logs");
+} from "@aws-sdk/client-cloudwatch-logs";
+// CommonJS import
+/* const {
+  PutSubscriptionFilterCommand,
+} = require("@aws-sdk/client-cloudwatch-logs");*/
+
 // ES Modules import
 import { cwlClient } from "./libs/cwlClient";
 // CommonJS import

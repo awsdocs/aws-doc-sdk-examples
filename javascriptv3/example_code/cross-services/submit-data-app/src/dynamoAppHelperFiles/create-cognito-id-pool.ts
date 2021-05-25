@@ -20,11 +20,19 @@ node create-cognito-id-pool.js
  */
 // snippet-start:[s3.JavaScript.cross-service.createRoleV3]
 // Import required AWS SDK clients and commands for Node.js
-const {
+// ES Modules import
+import {
   CognitoIdentity,
   SetIdentityPoolRolesCommand,
   CreateIdentityPoolCommand,
-} = require("@aws-sdk/client-cognito-identity");
+} from "@aws-sdk/client-cognito-identity";
+// CommonJS import
+/* const {
+  CognitoIdentity,
+  SetIdentityPoolRolesCommand,
+  CreateIdentityPoolCommand,
+} = require("@aws-sdk/client-cognito-identity");*/
+
 // ES Modules import
 import { IAMClient, CreateRoleCommand } from "@aws-sdk/client-iam";
 // CommonJS import

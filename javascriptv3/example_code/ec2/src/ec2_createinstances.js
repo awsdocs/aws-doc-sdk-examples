@@ -17,10 +17,17 @@ node ec2_createinstances.js
 */
 // snippet-start:[ec2.JavaScript.Instances.create_instancesV3]
 // Import required AWS SDK clients and commands for Node.js
-const {
+// ES Modules import
+import {
     CreateTagsCommand,
     RunInstancesCommand
-} = require("@aws-sdk/client-ec2");
+} from "@aws-sdk/client-ec2";
+// CommonJS import
+/* const {
+    CreateTagsCommand,
+    RunInstancesCommand
+} = require("@aws-sdk/client-ec2");*/
+
 import { ec2Client } from "./libs/ec2Client";
 
 // Set the parameters

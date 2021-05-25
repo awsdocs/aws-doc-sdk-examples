@@ -23,13 +23,26 @@ Running the code:
 */
 // snippet-start:[cognito.javascript.cognito_getcredsV3]
 // Load the required clients and packages
-const {
+// ES Modules import
+import {
   CognitoIdentityClient,
   GetIdCommand
-} = require("@aws-sdk/client-cognito-identity");
-const {
+} from "@aws-sdk/client-cognito-identity";
+// CommonJS import
+/* const {
+  CognitoIdentityClient,
+  GetIdCommand
+} = require("@aws-sdk/client-cognito-identity");*/
+
+// ES Modules import
+import {
   fromCognitoIdentityPool,
-} = require("@aws-sdk/credential-provider-cognito-identity");
+} from "@aws-sdk/credential-provider-cognito-identity";
+// CommonJS import
+/* const {
+  fromCognitoIdentityPool,
+} = require("@aws-sdk/credential-provider-cognito-identity");*/
+
 
 // Set the parameter
 const IDENTITY_POOL_ID = "IDENTITY_POOL_ID";
