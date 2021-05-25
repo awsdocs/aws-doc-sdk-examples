@@ -1,8 +1,11 @@
 using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
+using GetSecretValueExample;
 using Moq;
 using System;
+using System.IO;
 using System.Net;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -29,11 +32,49 @@ namespace GetSecretValueExampleTests
 
             var client = mockClient.Object;
 
-            GetSecretValueRequest request = new();
+            GetSecretValueRequest request = new ();
             request.SecretId = "SecretTest";
             request.VersionStage = "AWSCURRENT"; // VersionStage defaults to AWSCURRENT if unspecified.
 
             var response = client.GetSecretValueAsync(request);
+        }
+
+        [Fact]
+        public void TestDecodeStringNullSecretValue()
+        {
+            var secretValue = new GetSecretValueResponse();
+            string secret = GetSecretValue.DecodeString(secretValue);
+
+            Assert.True(secret == string.Empty);
+        }
+
+        [Fact]
+        public void TestDecodeStringStringValue()
+        {
+            var secretValue = new GetSecretValueResponse
+            {
+                SecretString = "Example Secret"
+            };
+
+            string secret = GetSecretValue.DecodeString(secretValue);
+
+            Assert.True(secret == "Example Secret");
+        }
+
+        [Fact]
+        public void TestDecodeStringBinaryValue()
+        {
+            var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes("SecretExample"));
+            var secretBinary =  new MemoryStream(Encoding.UTF8.GetBytes(base64));
+
+            var secretValue = new GetSecretValueResponse
+            {
+                SecretBinary = secretBinary,
+            };
+
+            string secret = GetSecretValue.DecodeString(secretValue);
+
+            Assert.True(secret == "SecretExample", $"secret value is {secret}.");
         }
     }
 }
