@@ -1,0 +1,21 @@
+[package]
+name = "s3-code-examples"
+version = "0.1.0"
+authors = ["Russell Cohen <rcoh@amazon.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+s3 = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.5-alpha", package = "aws-sdk-s3" }
+smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.5-alpha", package = "smithy-http" }
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.5-alpha", package = "aws-types"}
+
+tokio = { version = "1", features = ["full"] }
+tracing-subscriber = "0.2.18"
+bytes = "1"
+hyper = "0.14.7"
+structopt = { version = "0.3", default-features = false }
+
+[profile.dev]
+split-debuginfo = "unpacked"
