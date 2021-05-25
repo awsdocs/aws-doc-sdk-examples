@@ -33,7 +33,11 @@ $(function () {
   });
 });
 
-const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
+// ES Modules import
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
+// CommonJS import
+// const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
+
 const {
   fromCognitoIdentityPool,
 } = require("@aws-sdk/credential-provider-cognito-identity");
@@ -44,7 +48,11 @@ const {
   ListObjectsCommand,
   GetObjectCommand,
 } = require("@aws-sdk/client-s3");
-const { SESClient, SendEmailCommand } = require("@aws-sdk/client-ses");
+// ES Modules import
+import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+// CommonJS import
+// const { SESClient, SendEmailCommand } = require("@aws-sdk/client-ses");
+
 const {
   RekognitionClient,
   StartFaceDetectionCommand,

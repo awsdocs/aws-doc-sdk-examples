@@ -20,7 +20,11 @@ node create-table.ts
  */
 // snippet-start:[s3.JavaScript.cross-service.updateTableV3]
 // Import required AWS SDK clients and commands for Node.js
-const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb");
+// ES Modules import
+import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
+// CommonJS import
+// const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb");
+
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

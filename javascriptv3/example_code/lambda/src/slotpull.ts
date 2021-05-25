@@ -18,7 +18,11 @@ ts-node lambda-function-setup.ts
 "use strict";
 
 // Load the DynamoDB client
-const { DynamoDBClient, GetItemCommand } = require("@aws-sdk/client-dynamodb");
+// ES Modules import
+import { DynamoDBClient, GetItemCommand } from "@aws-sdk/client-dynamodb";
+// CommonJS import
+// const { DynamoDBClient, GetItemCommand } = require("@aws-sdk/client-dynamodb");
+
 
 //Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

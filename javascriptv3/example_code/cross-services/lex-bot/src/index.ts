@@ -19,7 +19,11 @@ Inputs (replace in code):
 */
 
 // snippet-start:[cross-service.JavaScript.lex-app.backendV3]
-const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
+// ES Modules import
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
+// CommonJS import
+// const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
+
 const {
   fromCognitoIdentityPool,
 } = require("@aws-sdk/credential-provider-cognito-identity");

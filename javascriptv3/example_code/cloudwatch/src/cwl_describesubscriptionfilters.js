@@ -20,7 +20,11 @@ node cwl_describesubscriptionfilters.js
 const {
   DescribeSubscriptionFiltersCommand,
 } = require("@aws-sdk/client-cloudwatch-logs");
-const { cwlClient } = require("./libs/cwlClient");
+// ES Modules import
+import { cwlClient } from "./libs/cwlClient";
+// CommonJS import
+// const { cwlClient } = require("./libs/cwlClient");
+
 
 // Set the parameters
 const params = {

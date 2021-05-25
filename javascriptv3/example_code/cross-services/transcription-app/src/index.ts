@@ -26,8 +26,16 @@ For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/deve
 // Import the required AWS SDK clients and commands for Node.js
 require("./helper.ts");
 require("./recorder.ts");
-const { IAMClient } = require("@aws-sdk/client-iam");
-const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
+// ES Modules import
+import { IAMClient } from "@aws-sdk/client-iam";
+// CommonJS import
+// const { IAMClient } = require("@aws-sdk/client-iam");
+
+// ES Modules import
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
+// CommonJS import
+// const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
+
 const {
   fromCognitoIdentityPool,
 } = require("@aws-sdk/credential-provider-cognito-identity");
@@ -35,9 +43,21 @@ const {
   CognitoIdentityProviderClient,
   GetUserCommand,
 } = require("@aws-sdk/client-cognito-identity-provider");
-const { S3RequestPresigner } = require("@aws-sdk/s3-request-presigner");
-const { createRequest } = require("@aws-sdk/util-create-request");
-const { formatUrl } = require("@aws-sdk/util-format-url");
+// ES Modules import
+import { S3RequestPresigner } from "@aws-sdk/s3-request-presigner";
+// CommonJS import
+// const { S3RequestPresigner } = require("@aws-sdk/s3-request-presigner");
+
+// ES Modules import
+import { createRequest } from "@aws-sdk/util-create-request";
+// CommonJS import
+// const { createRequest } = require("@aws-sdk/util-create-request");
+
+// ES Modules import
+import { formatUrl } from "@aws-sdk/util-format-url";
+// CommonJS import
+// const { formatUrl } = require("@aws-sdk/util-format-url");
+
 const {
   TranscribeClient,
   StartTranscriptionJobCommand,
@@ -53,7 +73,11 @@ const {
   ListObjectsCommand,
   DeleteObjectCommand,
 } = require("@aws-sdk/client-s3");
-const { path } = require("path");
+// ES Modules import
+import { path } from "path";
+// CommonJS import
+// const { path } = require("path");
+
 const fetch = require("node-fetch");
 
 // Set the parameters.

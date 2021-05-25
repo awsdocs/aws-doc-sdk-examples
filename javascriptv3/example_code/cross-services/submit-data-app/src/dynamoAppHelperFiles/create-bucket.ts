@@ -22,7 +22,11 @@ node s3_createbucket.js
 // snippet-start:[s3.JavaScript.buckets.createBucketV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { S3Client, CreateBucketCommand } = require("@aws-sdk/client-s3");
+// ES Modules import
+import { S3Client, CreateBucketCommand } from "@aws-sdk/client-s3";
+// CommonJS import
+// const { S3Client, CreateBucketCommand } = require("@aws-sdk/client-s3");
+
 
 // Set the AWS region
 const REGION = "REGION"; //e.g. "us-east-1"

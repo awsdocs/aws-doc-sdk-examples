@@ -21,7 +21,11 @@ node cwl_deletesubscriptionfilter.js
 const {
   DeleteSubscriptionFilterCommand,
 } = require("@aws-sdk/client-cloudwatch-logs");
-const { cwlClient } = require("./libs/cwlClient");
+// ES Modules import
+import { cwlClient } from "./libs/cwlClient";
+// CommonJS import
+// const { cwlClient } = require("./libs/cwlClient");
+
 
 // Set the parameters
 const params = {

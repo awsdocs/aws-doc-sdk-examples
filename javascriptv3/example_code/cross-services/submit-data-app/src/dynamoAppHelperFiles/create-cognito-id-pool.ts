@@ -25,7 +25,11 @@ const {
   SetIdentityPoolRolesCommand,
   CreateIdentityPoolCommand,
 } = require("@aws-sdk/client-cognito-identity");
-const { IAMClient, CreateRoleCommand } = require("@aws-sdk/client-iam");
+// ES Modules import
+import { IAMClient, CreateRoleCommand } from "@aws-sdk/client-iam";
+// CommonJS import
+// const { IAMClient, CreateRoleCommand } = require("@aws-sdk/client-iam");
+
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

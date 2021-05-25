@@ -18,11 +18,19 @@ ts-node ddb-table-create.ts
 // snippet-start:[s3.JavaScript.buckets.indexv3]
 
 // Load the required clients and packages
-const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
+// ES Modules import
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
+// CommonJS import
+// const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
+
 const {
   fromCognitoIdentityPool,
 } = require("@aws-sdk/credential-provider-cognito-identity");
-const { LambdaClient, InvokeCommand } = require("@aws-sdk/client-lambda");
+// ES Modules import
+import { LambdaClient, InvokeCommand } from "@aws-sdk/client-lambda";
+// CommonJS import
+// const { LambdaClient, InvokeCommand } = require("@aws-sdk/client-lambda");
+
 // Initialize the Amazon Cognito credentials provider
 const REGION = "REGION"; // e.g., 'us-east-2'
 const lambda = new LambdaClient({

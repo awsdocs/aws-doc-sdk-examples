@@ -14,8 +14,16 @@ node cw_putmetricalarm.js
 // snippet-start:[cw.JavaScript.alarms.putMetricAlarmV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { PutMetricAlarmCommand } = require("@aws-sdk/client-cloudwatch");
-const { cwClient } = require("./libs/cwClient");
+// ES Modules import
+import { PutMetricAlarmCommand } from "@aws-sdk/client-cloudwatch";
+// CommonJS import
+// const { PutMetricAlarmCommand } = require("@aws-sdk/client-cloudwatch");
+
+// ES Modules import
+import { cwClient } from "./libs/cwClient";
+// CommonJS import
+// const { cwClient } = require("./libs/cwClient");
+
 
 // Set the parameters
 const params = {

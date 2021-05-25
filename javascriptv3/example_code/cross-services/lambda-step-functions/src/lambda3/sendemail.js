@@ -14,7 +14,11 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/erverless-work
 // snippet-start:[lambda.JavaScript.lambda-step-functions.sendemail]
 
 // Load the required clients and commands.
-const { SESClient, SendEmailCommand } = require("@aws-sdk/client-ses");
+// ES Modules import
+import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+// CommonJS import
+// const { SESClient, SendEmailCommand } = require("@aws-sdk/client-ses");
+
 
 // Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"

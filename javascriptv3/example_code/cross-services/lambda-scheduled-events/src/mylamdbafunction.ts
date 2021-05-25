@@ -19,8 +19,16 @@ Inputs (replace in code):
 // snippet-start:[lambda.JavaScript.cross-service-examples.lambda-scheduled-events.config]
 
 "use strict";
-const { DynamoDBClient, ScanCommand } = require("@aws-sdk/client-dynamodb");
-const { SNSClient, PublishCommand } = require("@aws-sdk/client-sns");
+// ES Modules import
+import { DynamoDBClient, ScanCommand } from "@aws-sdk/client-dynamodb";
+// CommonJS import
+// const { DynamoDBClient, ScanCommand } = require("@aws-sdk/client-dynamodb");
+
+// ES Modules import
+import { SNSClient, PublishCommand } from "@aws-sdk/client-sns";
+// CommonJS import
+// const { SNSClient, PublishCommand } = require("@aws-sdk/client-sns");
+
 
 const REGION = "REGION"; //e.g. "us-east-1"
 

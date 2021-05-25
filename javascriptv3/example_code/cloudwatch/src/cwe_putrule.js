@@ -17,8 +17,16 @@ node cw_deletealarm.js
 // snippet-start:[cwEvents.JavaScript.cwe.putRuleV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { PutRuleCommand } = require("@aws-sdk/client-cloudwatch-events");
-const { cweClient } = require("./libs/cweClient");
+// ES Modules import
+import { PutRuleCommand } from "@aws-sdk/client-cloudwatch-events";
+// CommonJS import
+// const { PutRuleCommand } = require("@aws-sdk/client-cloudwatch-events");
+
+// ES Modules import
+import { cweClient } from "./libs/cweClient";
+// CommonJS import
+// const { cweClient } = require("./libs/cweClient");
+
 
 // Set the parameters
 const params = {
