@@ -17,10 +17,10 @@ https://docs.aws.amazon.comsdk-for-javascript/v3/developer-guide/transcribe-app.
 // Enable microphone on browser.
 require("./helper.ts");
 const index = require("./index.ts");
-const {
+import {
   CognitoIdentityProviderClient,
   GetUserCommand,
-} = require("@aws-sdk/client-cognito-identity-provider");
+} from "@aws-sdk/client-cognito-identity-provider";
 navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
   handlerFunction(stream);
 });

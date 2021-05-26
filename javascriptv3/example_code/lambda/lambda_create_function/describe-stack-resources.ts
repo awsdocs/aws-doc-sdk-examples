@@ -15,12 +15,12 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-
 // snippet-start:[lambda.JavaScript.general-examples-lambda-create-function.describeResourcesV3]
 
 // Load the AWS SDK for Node.js
-const {
+import {
   CloudFormationClient,
   DescribeStackResourcesCommand,
   CreateStackCommand,
   DescribeStacksCommand
-} = require("@aws-sdk/client-cloudformation");
+} from "@aws-sdk/client-cloudformation";
 
 // Create S3 service object
 const cloudformation = new CloudFormationClient();

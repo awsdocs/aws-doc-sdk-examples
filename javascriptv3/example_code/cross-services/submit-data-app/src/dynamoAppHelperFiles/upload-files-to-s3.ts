@@ -23,11 +23,11 @@ Running the code:
  */
 // snippet-start:[s3.JavaScript.cross-service.uploadFilesV3]
 // Import required AWS SDK clients and commands for Node.js
-const {
+import {
   S3Client,
   PutBucketWebsiteCommand,
   PutObjectCommand
-} = require("@aws-sdk/client-s3");
+} from "@aws-sdk/client-s3";
 import path from "path";
 import fs from "fs";
 

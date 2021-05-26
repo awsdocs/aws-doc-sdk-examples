@@ -4,11 +4,11 @@ jest.mock("@aws-sdk/client-s3", () => ({
     this.createBucket = mocksetUpBucketNonMod;
   },
 }));
-const {
+import {
   staticHostParams,
   bucketParams,
   run,
-} = require("../../lambda/tutorial/slotassets/s3-bucket-setup-non-modular");
+} from "../../lambda/tutorial/slotassets/s3-bucket-setup-non-modular";
 
 test("has to mock s3#s3bucketsetupnonmod", async (done) => {
   await run();

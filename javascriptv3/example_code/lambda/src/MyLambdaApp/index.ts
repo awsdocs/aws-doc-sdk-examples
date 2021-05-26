@@ -19,9 +19,9 @@ ts-node ddb-table-create.ts
 
 // Load the required clients and packages
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
-const {
+import {
   fromCognitoIdentityPool,
-} = require("@aws-sdk/credential-provider-cognito-identity");
+} from "@aws-sdk/credential-provider-cognito-identity";
 import { LambdaClient, InvokeCommand } from "@aws-sdk/client-lambda";
 // Initialize the Amazon Cognito credentials provider
 const REGION = "REGION"; // e.g., 'us-east-2'

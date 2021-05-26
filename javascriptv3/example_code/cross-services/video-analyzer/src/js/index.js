@@ -34,22 +34,22 @@ $(function () {
 });
 
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
-const {
+import {
   fromCognitoIdentityPool,
-} = require("@aws-sdk/credential-provider-cognito-identity");
-const {
+} from "@aws-sdk/credential-provider-cognito-identity";
+import {
   S3Client,
   PutObjectCommand,
   DeleteObjectCommand,
   ListObjectsCommand,
   GetObjectCommand,
-} = require("@aws-sdk/client-s3");
+} from "@aws-sdk/client-s3";
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
-const {
+import {
   RekognitionClient,
   StartFaceDetectionCommand,
   GetFaceDetectionCommand,
-} = require("@aws-sdk/client-rekognition");
+} from "@aws-sdk/client-rekognition";
 const path = require("path");
 
 const REGION = "REGION";

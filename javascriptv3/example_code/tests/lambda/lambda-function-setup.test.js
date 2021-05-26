@@ -4,9 +4,9 @@ jest.mock("@aws-sdk/client-lambda/commands/CreateFunctionCommand", () => ({
     this.CreateFunctionCommand = mockLambdaFunSetup;
   },
 }));
-const {
+import {
   run,
-} = require("../../lambda/tutorial/slotassets/lambda-function-setup");
+} from "../../lambda/tutorial/slotassets/lambda-function-setup";
 
 test("has to mock lambda#functionsetup", async (done) => {
   await run();

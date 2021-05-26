@@ -1,7 +1,7 @@
-const {
+import {
   run,
   params,
-} = require("../../redshift/src/redshift-describe-clusters");
+} from "../../redshift/src/redshift-describe-clusters";
 import { redshiftClient } from "../../redshift/src/libs/redshiftClient.js";
 
 jest.mock("../../redshift/src/libs/redshiftClient.js");

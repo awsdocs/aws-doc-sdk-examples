@@ -18,10 +18,10 @@ node cw_enablealarmactions.js
 // snippet-start:[cw.JavaScript.alarms.enableAlarmActionsV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {
+import {
   PutMetricAlarmCommand,
   EnableAlarmActionsCommand,
-} = require("@aws-sdk/client-cloudwatch");
+} from "@aws-sdk/client-cloudwatch";
 import { cwClient } from "./libs/cwClient";
 
 // Set the parameters

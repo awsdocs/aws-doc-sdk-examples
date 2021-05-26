@@ -19,12 +19,12 @@ Running the code:
 node upload-files-to-s3.ts
  */
 // snippet-start:[s3.JavaScript.cross-service.addBucketPolicyV3]
-const {
+import {
   S3Client,
   CreateBucketCommand,
   PutBucketWebsiteCommand,
   PutBucketPolicyCommand,
-} = require("@aws-sdk/client-s3");
+} from "@aws-sdk/client-s3";
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

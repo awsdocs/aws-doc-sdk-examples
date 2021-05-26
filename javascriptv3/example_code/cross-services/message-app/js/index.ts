@@ -23,16 +23,16 @@ For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/deve
 // snippet-start:[sqs.JavaScript.messaging-app.config]
 
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
-const {
+import {
   fromCognitoIdentityPool,
-} = require("@aws-sdk/credential-provider-cognito-identity");
-const {
+} from "@aws-sdk/credential-provider-cognito-identity";
+import {
   SQSClient,
   GetQueueUrlCommand,
   SendMessageCommand,
   ReceiveMessageCommand,
   PurgeQueueCommand,
-} = require("@aws-sdk/client-sqs");
+} from "@aws-sdk/client-sqs";
 
 const REGION = "REGION"; // For example, "us-east-1".
 const IdentityPoolId = "IDENTITY_POOL_ID"; // The Amazon Cognito Identity Pool ID.

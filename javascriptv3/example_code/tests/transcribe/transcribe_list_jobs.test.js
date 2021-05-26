@@ -1,7 +1,7 @@
 import { run, params } from "../../transcribe/src/transcribe_list_jobs";
-const {
+import {
   transcribeClient,
-} = require("../../transcribe/src/libs/transcribeClient.js");
+} from "../../transcribe/src/libs/transcribeClient.js";
 
 jest.mock("../../transcribe/src/libs/transcribeClient.js");
 

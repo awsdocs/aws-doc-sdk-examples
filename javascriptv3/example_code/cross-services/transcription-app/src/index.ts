@@ -28,22 +28,22 @@ require("./helper.ts");
 require("./recorder.ts");
 import { IAMClient } from "@aws-sdk/client-iam";
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
-const {
+import {
   fromCognitoIdentityPool,
-} = require("@aws-sdk/credential-provider-cognito-identity");
-const {
+} from "@aws-sdk/credential-provider-cognito-identity";
+import {
   CognitoIdentityProviderClient,
   GetUserCommand,
-} = require("@aws-sdk/client-cognito-identity-provider");
+} from "@aws-sdk/client-cognito-identity-provider";
 import { S3RequestPresigner } from "@aws-sdk/s3-request-presigner";
 import { createRequest } from "@aws-sdk/util-create-request";
 import { formatUrl } from "@aws-sdk/util-format-url";
-const {
+import {
   TranscribeClient,
   StartTranscriptionJobCommand,
   GetTranscriptionJobCommand,
-} = require("@aws-sdk/client-transcribe");
-const {
+} from "@aws-sdk/client-transcribe";
+import {
   S3,
   S3Client,
   PutObjectCommand,
@@ -52,7 +52,7 @@ const {
   HeadBucketCommand,
   ListObjectsCommand,
   DeleteObjectCommand,
-} = require("@aws-sdk/client-s3");
+} from "@aws-sdk/client-s3";
 import { path } from "path";
 const fetch = require("node-fetch");
 

@@ -20,21 +20,21 @@ Inputs (replace in code):
 
 // snippet-start:[cross-service.JavaScript.lex-app.backendV3]
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
-const {
+import {
   fromCognitoIdentityPool,
-} = require("@aws-sdk/credential-provider-cognito-identity");
-const {
+} from "@aws-sdk/credential-provider-cognito-identity";
+import {
   ComprehendClient,
   DetectDominantLanguageCommand
-} = require("@aws-sdk/client-comprehend");
-const {
+} from "@aws-sdk/client-comprehend";
+import {
   TranslateClient,
   TranslateTextCommand
-} = require("@aws-sdk/client-translate");
-const {
+} from "@aws-sdk/client-translate";
+import {
   LexRuntimeServiceClient,
   PostTextCommand
-} = require("@aws-sdk/client-lex-runtime-service");
+} from "@aws-sdk/client-lex-runtime-service";
 
 const REGION = "REGION"; //e.g. "us-east-1"
 const IdentityPoolId = "IDENTITY_POOL_ID";

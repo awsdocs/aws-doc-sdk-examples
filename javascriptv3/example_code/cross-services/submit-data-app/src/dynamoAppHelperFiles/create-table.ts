@@ -21,11 +21,11 @@ node create-table.js
 // snippet-start:[s3.JavaScript.cross-service.createTableV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {
+import {
   DynamoDBClient,
   CreateTableCommand,
   PutItemCommand,
-} = require("@aws-sdk/client-dynamodb");
+} from "@aws-sdk/client-dynamodb";
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

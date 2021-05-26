@@ -17,10 +17,10 @@ ts-node ddb-table-create.ts
 */
 // snippet-start:[lambda.JavaScript.tutorial.CreateTableV3]
 // Load the required clients and packages
-const {
+import {
   DynamoDBClient,
   CreateTableCommand
-} = require("@aws-sdk/client-dynamodb");
+} from "@aws-sdk/client-dynamodb";
 
 //Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

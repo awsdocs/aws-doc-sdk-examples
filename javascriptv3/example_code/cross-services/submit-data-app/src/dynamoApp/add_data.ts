@@ -23,9 +23,9 @@ node add_data.ts
 // snippet-start:[s3.JavaScript.cross-service.addDataV3.config]
 // Import required AWS SDK clients and commands for Node.js
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
-const {
+import {
   fromCognitoIdentityPool,
-} = require("@aws-sdk/credential-provider-cognito-identity");
+} from "@aws-sdk/credential-provider-cognito-identity";
 import { DynamoDB, PutItemCommand } from "@aws-sdk/client-dynamodb";
 import { SNSClient, PublishCommand } from "@aws-sdk/client-sns";
 

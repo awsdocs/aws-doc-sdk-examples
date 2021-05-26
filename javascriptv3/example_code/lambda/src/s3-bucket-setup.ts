@@ -18,12 +18,12 @@ ts-node s3-bucket-setup.ts
 // snippet-start:[lambda.JavaScript.tutorial.BucketSetUpV3]
 
 // Import an S3 client
-const {
+import {
   S3Client,
   CreateBucketCommand,
   PutBucketWebsiteCommand,
   PutBucketPolicyCommand
-} = require("@aws-sdk/client-s3");
+} from "@aws-sdk/client-s3";
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

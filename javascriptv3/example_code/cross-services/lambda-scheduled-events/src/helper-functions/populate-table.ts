@@ -20,10 +20,10 @@ ts-node populate-table.t s
 */
 // snippet-start:[lambda.JavaScript.cross-service-examples.lambda-scheduled-events.CreateTableV3]
 // Load the required Amazon DynamoDB client and commands.
-const {
+import {
   DynamoDBClient,
   BatchWriteItemCommand,
-} = require("@aws-sdk/client-dynamodb");
+} from "@aws-sdk/client-dynamodb";
 
 // Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"

@@ -20,10 +20,10 @@ ts-node populate-table.ts
 
 */
 // snippet-start:[lambda.JavaScript.general-examples-dynamodb-lambda.CreateTableV3]
-const {
+import {
   DynamoDBClient,
   BatchWriteItemCommand,
-} = require("@aws-sdk/client-dynamodb");
+} from "@aws-sdk/client-dynamodb";
 
 const REGION = "REGION"; //e.g. "us-east-1"
 

@@ -19,9 +19,9 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 // snippet-start:[s3.JavaScript.s3_PhotoViewer.configV3]
 // Load the required clients and packages
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
-const {
+import {
   fromCognitoIdentityPool,
-} = require("@aws-sdk/credential-provider-cognito-identity");
+} from "@aws-sdk/credential-provider-cognito-identity";
 import { S3Client, ListObjectsCommand } from "@aws-sdk/client-s3";
 
 // Initialize the Amazon Cognito credentials provider
