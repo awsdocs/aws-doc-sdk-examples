@@ -9,7 +9,6 @@ Purpose:
 cwe_putevents.js demonstrates how to send custom events to Amazon CloudWatch Events so they can be matched with rules.
 
 Inputs (replace in code):
-- REGION
 - RESOURCE_ARN
 
 Running the code:

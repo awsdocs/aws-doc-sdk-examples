@@ -1,13 +1,12 @@
-const mockSetSMSAttributes = jest.fn();
-jest.mock("@aws-sdk/client-sns/commands/SetSMSAttributesCommand", () => ({
-  SNS: function SNS() {
-    this.SetSMSAttributesCommand = mockSetSMSAttributes;
-  },
-}));
-const { run } = require("../../sns/src/sns_setsmstype.js");
+const { run, params } = require("../../sns/src/sns_setsmstype");
+const { snsClient } = require("../../sns/src/libs/snsClient.js");
 
-test("has to mock SNS#setsmstype", async (done) => {
-  await run();
-  expect(mockSetSMSAttributes).toHaveBeenCalled;
-  done();
+jest.mock("../../sns/src/libs/snsClient.js");
+
+describe("@aws-sdk/client-emc mock", () => {
+  it("should successfully mock SNS client", async () => {
+    snsClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

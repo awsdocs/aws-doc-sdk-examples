@@ -1,16 +1,12 @@
-const mockListAttRolePolicies = jest.fn();
-jest.mock(
-  "@aws-sdk/client-iam/commands/ListAttachedRolePoliciesCommand",
-  () => ({
-    IAM: function IAM() {
-      this.ListAttachedRolePoliciesCommand = mockListAttRolePolicies;
-    },
-  })
-);
-const { params, run } = require("../../iam/src/iam_attachrolepolicy.js");
+const { run, params } = require("../../iam/src/iam_attachrolepolicy");
+const { iamClient } = require("../../iam/src/libs/iamClient.js");
 
-test("has to mock iam#listAttachedPolicies", async (done) => {
-  await run();
-  expect(mockListAttRolePolicies).toHaveBeenCalled;
-  done();
+jest.mock("../../iam/src/libs/iamClient.js");
+
+describe("@aws-sdk/client-iam mock", () => {
+    it("should successfully mock IAM client", async () => {
+        iamClient.send.mockResolvedValue({ isMock: true });
+        const response = await run(params);
+        expect(response.isMock).toEqual(true);
+    });
 });

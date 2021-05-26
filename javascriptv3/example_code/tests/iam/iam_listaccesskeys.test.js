@@ -1,13 +1,12 @@
-const mockListAccessKeys = jest.fn();
-jest.mock("@aws-sdk/client-iam/commands/ListAccessKeysCommand", () => ({
-  IAM: function IAM() {
-    this.ListAccessKeysCommand = mockListAccessKeys;
-  },
-}));
-const { params, run } = require("../../iam/src/iam_listaccesskeys.js");
+const { run, params } = require("../../iam/src/iam_listaccesskeys");
+const { iamClient } = require("../../iam/src/libs/iamClient.js");
 
-test("has to mock iam#listAccessKeys", async (done) => {
-  await run();
-  expect(mockListAccessKeys).toHaveBeenCalled;
-  done();
+jest.mock("../../iam/src/libs/iamClient.js");
+
+describe("@aws-sdk/client-iam mock", () => {
+  it("should successfully mock IAM client", async () => {
+    iamClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

@@ -1,13 +1,12 @@
-const mockSendMessage = jest.fn();
-jest.mock("@aws-sdk/client-sqs/commands/SendMessageCommand", () => ({
-  SQS: function SQS() {
-    this.SendMessageCommand = mockSendMessage;
-  },
-}));
-const { run } = require("../../sqs/src/sqs_sendmessage.js");
+const { run, params } = require("../../sqs/src/sqs_sendmessage");
+const { sqsClient } = require("../../sqs/src/libs/sqsClient.js");
 
-test("has to mock SQS#sendmessage", async (done) => {
-  await run();
-  expect(mockSendMessage).toHaveBeenCalled;
-  done();
+jest.mock("../../sqs/src/libs/sqsClient.js");
+
+describe("@aws-sdk/client-ses mock", () => {
+  it("should successfully mock SES client", async () => {
+    sqsClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

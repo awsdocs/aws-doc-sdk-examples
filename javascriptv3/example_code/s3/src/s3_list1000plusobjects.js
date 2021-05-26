@@ -3,18 +3,21 @@ SPDX-License-Identifier: Apache-2.0
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
+
 Purpose:
 s3_list1000plusObjects.js demonstrates how to list more than 1000 objects in an Amazon S3 bucket.
+
 Inputs (replace in code):
-- REGION
 - BUCKET_NAME
+
 Running the code:
-s3_getbucketwebsite s3_list1000plusObjects.js
+node s3_list1000plusObjects.js
+
 */
 // snippet-start:[s3.JavaScript.buckets.listManyObjectsV3]
 // Import required AWS SDK clients and commands for Node.js
 import { ListObjectsCommand } from "@aws-sdk/client-s3";
- import { s3 } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
 // Create the parameters for the bucket
 const bucketParams = { Bucket: "BUCKET_NAME" };
@@ -27,7 +30,7 @@ async function run() {
   // While loop that runs until response.truncated is false
   while (truncated) {
     try {
-      const response = await s3.send(new ListObjectsCommand(bucketParams));
+      const response = await s3Client.send(new ListObjectsCommand(bucketParams));
       return response
       response.Contents.forEach((item) => {
         console.log(item.Key);

@@ -8,8 +8,7 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-exa
 Purpose:
 cwl_putsubscriptionfilter.js demonstrates how to create or update a subscription filter for an Amazon CloudWatch Logs group.
 
-Inputs (replace in code): (all into command line below)
-- REGION
+Inputs (replace in code):
 - LAMBDA_FUNCTION_ARN
 - FILTER_NAME
 - LOG_GROUP

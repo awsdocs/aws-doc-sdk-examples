@@ -1,10 +1,13 @@
 ---
 # Amazon Pinpoint examples
 files:
-  - path: pinpoint_send_email_message.ts
+  - path: ./libs/pinClient.js
     services:
       - Pinpoint
-  - path: pinpoint_send_sms_message.ts
+  - path: pinpoint_send_email_message.js
+    services:
+      - Pinpoint
+  - path: pinpoint_send_sms_message.js
     services:
       - Pinpoint
 ...

@@ -9,7 +9,6 @@ Purpose:
 cw_deletealarm.js demonstrates how to delete Amazon CloudWatch alarms.
 
 Inputs (replace in code):
-- REGION
 - ALARM_NAMES (e.g., Web_Server_CPU_Utilization)
 
 Running the code:

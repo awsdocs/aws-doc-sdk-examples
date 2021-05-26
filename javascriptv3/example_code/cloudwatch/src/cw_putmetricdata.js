@@ -8,9 +8,6 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide//cloudwatch-ex
 Purpose:
 cw_putmetricdata.js demonstrates how to publish metric data to Amazon CloudWatch.
 
-Inputs (replace in code):
-- REGION
-
 Running the code:
 node cw_putmetricdata.js
 */

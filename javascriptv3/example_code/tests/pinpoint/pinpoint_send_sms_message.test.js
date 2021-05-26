@@ -1,13 +1,12 @@
-const mockSendSMS = jest.fn();
-jest.mock("@aws-sdk/client-pinpoint/commands/SendMessagesCommand", () => ({
-  Pinpoint: function Pinpoint() {
-    this.SendMessagesCommand = mockSendSMS;
-  },
-}));
-const { run } = require("../../pinpoint/src/pinpoint_send_sms_message");
+const { run, params } = require("../../pinpoint/src/pinpoint_send_sms_message");
+const { pinClient } = require("../../pinpoint/src/libs/pinClient.js");
 
-test("has to mock pinpoint#sendSms", async (done) => {
-  await run();
-  expect(mockSendSMS).toHaveBeenCalled;
-  done();
+jest.mock("../../pinpoint/src/libs/pinClient.js");
+
+describe("@aws-sdk/client-pinpoint mock", () => {
+  it("should successfully mock PinPoint client", async () => {
+    pinClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

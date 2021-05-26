@@ -9,7 +9,6 @@ Purpose:
 cw_enablealarmactions.js demonstrates how to enable actions for Amazon CloudWatch alarms.
 
 Inputs (replace in code):
-- REGION
 - ALARM_NAME
 - ACTION_ARN
 
