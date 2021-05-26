@@ -18,7 +18,7 @@ Inputs (replace in code):
 // snippet-start:[lambda.JavaScript.general-examples-lambda-create-function.CreateTableV3]
 "use strict";
 // Load the required clients and packages.
-const { DynamoDBClient, CreateTableCommand } = require("@aws-sdk/client-dynamodb");
+import { DynamoDBClient, CreateTableCommand } from "@aws-sdk/client-dynamodb";
 
 //Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"

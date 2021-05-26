@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-polly/commands/StartSpeechSynthesisTaskCommand", () =
         this.StartSpeechSynthesisTaskCommand = mockSynthesizeToS3;
     },
 }));
-const { run } = require("../../polly/general-examples/src/polly_synthesize_to_s3");
+import { run } from "../../polly/general-examples/src/polly_synthesize_to_s3";
 
 test("has to mock polly#mockSynthesizeToS3", async (done) => {
     await run();

@@ -15,11 +15,11 @@ node s3_PhotoExample.js
 // snippet-start:[s3.JavaScript.photoAlbumExample.completeV3]
 // snippet-start:[s3.JavaScript.photoAlbumExample.configV3]
 // Load the required clients and packages
-const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 const {
   fromCognitoIdentityPool,
 } = require("@aws-sdk/credential-provider-cognito-identity");
-const { S3Client, PutObjectCommand, ListObjectsCommand, DeleteObjectCommand, DeleteObjectsCommand } = require("@aws-sdk/client-s3");
+import { S3Client, PutObjectCommand, ListObjectsCommand, DeleteObjectCommand, DeleteObjectsCommand } from "@aws-sdk/client-s3";
 
 // Set the AWS Region
 const REGION = "REGION"; //REGION

@@ -22,7 +22,7 @@ node cwl_putsubscriptionfilter.js
 const {
   PutSubscriptionFilterCommand,
 } = require("@aws-sdk/client-cloudwatch-logs");
-const { cwlClient } = require("./libs/cwlClient");
+import { cwlClient } from "./libs/cwlClient";
 
 // Set the parameters
 const params = {

@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-s3/commands/PutObjectCommand", () => ({
     this.PutObjectCommand = mockPutObject;
   },
 }));
-const { run } = require("../../../cross-services/video-analyzer/src/js/index");
+import { run } from "../../../cross-services/video-analyzer/src/js/index";
 
 test("has to mock db#PutObjectCommand", async (done) => {
   await run();
@@ -18,7 +18,7 @@ jest.mock("@aws-sdk/client-s3/commands/ListObjectsCommand", () => ({
     this.ListObjectsCommand = mockListObjects;
   },
 }));
-const { run } = require("../../../cross-services/video-analyzer/src/js/index");
+import { run } from "../../../cross-services/video-analyzer/src/js/index";
 
 test("has to mock db#ListObjectsCommand", async (done) => {
   await run();
@@ -32,7 +32,7 @@ jest.mock("@aws-sdk/client-s3/commands/GetObjectCommand", () => ({
     this.GetObjectCommand = mockGetObject;
   },
 }));
-const { run } = require("../../../cross-services/video-analyzer/src/js/index");
+import { run } from "../../../cross-services/video-analyzer/src/js/index";
 
 test("has to mock db#GetObjectCommand", async (done) => {
   await run();
@@ -46,7 +46,7 @@ jest.mock("@aws-sdk/client-s3/commands/DeleteObjectCommand", () => ({
     this.DeleteObjectCommand = mockGetObject;
   },
 }));
-const { run } = require("../../../cross-services/video-analyzer/src/js/index");
+import { run } from "../../../cross-services/video-analyzer/src/js/index";
 
 test("has to mock db#DeleteObjectCommand", async (done) => {
   await run();
@@ -63,7 +63,7 @@ jest.mock(
     },
   })
 );
-const { run } = require("../../../cross-services/video-analyzer/src/js/index");
+import { run } from "../../../cross-services/video-analyzer/src/js/index";
 
 test("has to mock db#mockmockSendEmailCommand", async (done) => {
   await run();
@@ -80,7 +80,7 @@ jest.mock(
         },
     })
 );
-const { run } = require("../../../cross-services/video-analyzer/src/js/index");
+import { run } from "../../../cross-services/video-analyzer/src/js/index";
 
 test("has to mock db#mockmockStartFaceDetection", async (done) => {
     await run();
@@ -98,7 +98,7 @@ jest.mock(
         },
     })
 );
-const { run } = require("../../../cross-services/video-analyzer/src/js/index");
+import { run } from "../../../cross-services/video-analyzer/src/js/index";
 
 test("has to mock db#mockmockGetFaceDetection", async (done) => {
     await run();

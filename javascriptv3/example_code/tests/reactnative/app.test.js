@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-s3", () => ({
         this.createBucket = mockCreateBucket;
     },
 }));
-const { bucketParams, run } = require("../../s3/s3_createBucket");
+import { bucketParams, run } from "../../s3/s3_createBucket";
 
 test("has to mock S3#createBucket", async (done) => {
     await run();
@@ -18,7 +18,7 @@ jest.mock("@aws-sdk/client-s3", () => ({
         this.deleteBucket = mockDeleteBucket;
     },
 }));
-const { bucketParams, run } = require("../../s3/s3_deleteBucket");
+import { bucketParams, run } from "../../s3/s3_deleteBucket";
 
 test("has to mock S3#deleteBucket", async (done) => {
     await run();

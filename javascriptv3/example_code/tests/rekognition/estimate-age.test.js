@@ -1,5 +1,5 @@
-const { DetectFaces } = require("../../rekognition/estimate-age-example/src/estimate-age");
-const { rekognitionClient } = require("../../rekognition/estimate-age-example/src/libs/rekognitionClient.js");
+import { DetectFaces } from "../../rekognition/estimate-age-example/src/estimate-age";
+import { rekognitionClient } from "../../rekognition/estimate-age-example/src/libs/rekognitionClient.js";
 
 jest.mock("../../rekognition/estimate-age-example/src/libs/rekognitionClient.js");
 

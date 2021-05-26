@@ -12,7 +12,7 @@ Inputs (replace in code):
 
 */
 // snippet-start:[transcribe.JavaScript.createclientv3]
-const { TranscribeClient } = require("@aws-sdk/client-transcribe");
+import { TranscribeClient } from "@aws-sdk/client-transcribe";
 // Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"
 // Create anAmazon EC2 service client object.

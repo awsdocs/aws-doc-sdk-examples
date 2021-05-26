@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-comprehend/commands/DetectDominantLanguageCommand", (
         this.DetectDominantLanguageCommand = mockDetectDominantLanguageCommand;
     },
 }));
-const { run } = require("../../../cross-services/lex-bot/src/index");
+import { run } from "../../../cross-services/lex-bot/src/index";
 
 test("has to mock comprehend#dominantlanguage", async (done) => {
     await run();
@@ -18,7 +18,7 @@ jest.mock("@aws-sdk/client-translate/commands/TranslateTextCommand", () => ({
         this.TranslateTextCommand = mockTranslateTextCommand;
     },
 }));
-const { run } = require("../../../cross-services/lex-bot/src/index");
+import { run } from "../../../cross-services/lex-bot/src/index";
 
 test("has to mock translate#translatetext", async (done) => {
     await run();
@@ -33,7 +33,7 @@ jest.mock("@aws-sdk/client-translate/commands/PostTextCommand", () => ({
         this.PostTextCommand = mockPostTextCommand;
     },
 }));
-const { run } = require("../../../cross-services/lex-bot/src/index");
+import { run } from "../../../cross-services/lex-bot/src/index";
 
 test("has to mock lext#posttext", async (done) => {
     await run();

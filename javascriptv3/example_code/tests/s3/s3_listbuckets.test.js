@@ -1,5 +1,5 @@
-const { run } = require("../../s3/src/s3_listbuckets");
-const { s3Client } = require("../../s3/src/libs/s3Client.js");
+import { run } from "../../s3/src/s3_listbuckets";
+import { s3Client } from "../../s3/src/libs/s3Client.js";
 
 jest.mock("../../s3/src/libs/s3Client.js");
 

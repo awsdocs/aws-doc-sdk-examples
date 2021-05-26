@@ -1,5 +1,5 @@
-const { run, params } = require("../../iam/src/iam_deleteaccountalias");
-const { iamClient } = require("../../iam/src/libs/iamClient.js");
+import { run, params } from "../../iam/src/iam_deleteaccountalias";
+import { iamClient } from "../../iam/src/libs/iamClient.js";
 
 jest.mock("../../iam/src/libs/iamClient.js");
 

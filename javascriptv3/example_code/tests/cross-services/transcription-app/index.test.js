@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-s3/commands/PutObjectCommand", () => ({
         this.PutObjectCommand = mockPutObject;
     },
 }));
-const { run } = require("../../../cross-services/transcription-app/src/index");
+import { run } from "../../../cross-services/transcription-app/src/index";
 
 test("has to mock db#PutObjectCommand", async (done) => {
     await run();
@@ -18,7 +18,7 @@ jest.mock("@aws-sdk/client-s3/commands/ListObjectsCommand", () => ({
         this.ListObjectsCommand = mockListObjects;
     },
 }));
-const { run } = require("../../../cross-services/transcription-app/src/index");
+import { run } from "../../../cross-services/transcription-app/src/index";
 
 test("has to mock db#ListObjectsCommand", async (done) => {
     await run();
@@ -32,7 +32,7 @@ jest.mock("@aws-sdk/client-s3/commands/GetObjectCommand", () => ({
         this.GetObjectCommand = mockGetObject;
     },
 }));
-const { run } = require("../../../cross-services/transcription-app/src/index");
+import { run } from "../../../cross-services/transcription-app/src/index";
 
 test("has to mock db#GetObjectCommand", async (done) => {
     await run();
@@ -46,7 +46,7 @@ jest.mock("@aws-sdk/client-transcribe/commands/StartTranscriptionJobCommand", ()
         this.StartTranscriptionJobCommand = mockStartTranscriptionJobCommand;
     },
 }));
-const { run } = require("../../../cross-services/transcription-app/src/index");
+import { run } from "../../../cross-services/transcription-app/src/index";
 
 test("has to mock db#mockStartTranscriptionJobCommand", async (done) => {
     await run();

@@ -1,5 +1,5 @@
-const { run, bucketParams } = require("../../s3/src/s3_getbucketwebsite");
-const { s3Client } = require("../../s3/src/libs/s3Client.js");
+import { run, bucketParams } from "../../s3/src/s3_getbucketwebsite";
+import { s3Client } from "../../s3/src/libs/s3Client.js";
 
 jest.mock("../../s3/src/libs/s3Client.js");
 

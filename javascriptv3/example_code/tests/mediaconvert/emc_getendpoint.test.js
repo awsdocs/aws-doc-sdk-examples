@@ -1,5 +1,5 @@
-const { run, params } = require("../../mediaconvert/src/emc_getendpoint");
-const { emcClientGet } = require("../../mediaconvert/src/libs/emcClientGet");
+import { run, params } from "../../mediaconvert/src/emc_getendpoint";
+import { emcClientGet } from "../../mediaconvert/src/libs/emcClientGet";
 
 jest.mock("../../mediaconvert/src/libs/emcClientGet.js");
 

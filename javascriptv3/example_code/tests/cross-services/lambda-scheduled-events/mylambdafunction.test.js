@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-dynamodb/commands/ScanCommand", () => ({
         this.ScanCommand = mockScanCommand;
     },
 }));
-const { run } = require("../../../cross-services/lambda-scheduled-events/src/mylamdbafunction.ts");
+import { run } from "../../../cross-services/lambda-scheduled-events/src/mylamdbafunction.ts";
 
 test("has to mock db#scan", async (done) => {
     await run();
@@ -18,7 +18,7 @@ jest.mock("@aws-sdk/client-sns/commands/PublishCommand", () => ({
         this.PublishCommand = mockPublishCommand;
     },
 }));
-const { run } = require("../../../cross-services/lambda-scheduled-events/src/mylamdbafunction.ts");
+import { run } from "../../../cross-services/lambda-scheduled-events/src/mylamdbafunction.ts";
 
 test("has to mock sns#sendmessage", async (done) => {
     await run();

@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-dynamodb/commands/ScanCommand", () => ({
         this.mockBatchWriterItemCommand = mockBatchWriterItemCommand;
     },
 }));
-const { run } = require("../../../cross-services/lambda-scheduled-events/src/helper-functions/populate-table");
+import { run } from "../../../cross-services/lambda-scheduled-events/src/helper-functions/populate-table";
 
 test("has to mock db#batchwrite", async (done) => {
     await run();

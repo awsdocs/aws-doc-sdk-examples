@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-ddb/commands/CreateTableCommand", () => ({
     this.CreateTableCommand = mockCreateTable;
   },
 }));
-const { run } = require("../../lambda/tutorial/slotassets/ddb-table-create");
+import { run } from "../../lambda/tutorial/slotassets/ddb-table-create";
 
 test("has to mock ddb#createtable", async (done) => {
   await run();

@@ -1,4 +1,4 @@
-const { run, params } = require("../../transcribe/src/transcribe_list_jobs");
+import { run, params } from "../../transcribe/src/transcribe_list_jobs";
 const {
   transcribeClient,
 } = require("../../transcribe/src/libs/transcribeClient.js");

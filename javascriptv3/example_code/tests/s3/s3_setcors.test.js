@@ -1,5 +1,5 @@
-const { run, corsParams } = require("../../s3/src/s3_setcors");
-const { s3Client } = require("../../s3/src/libs/s3Client.js");
+import { run, corsParams } from "../../s3/src/s3_setcors";
+import { s3Client } from "../../s3/src/libs/s3Client.js";
 
 jest.mock("../../s3/src/libs/s3Client.js");
 

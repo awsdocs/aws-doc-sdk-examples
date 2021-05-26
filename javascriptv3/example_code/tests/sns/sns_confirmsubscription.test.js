@@ -1,5 +1,5 @@
-const { run, params } = require("../../sns/src/sns_confirmsubscription");
-const { snsClient } = require("../../sns/src/libs/snsClient");
+import { run, params } from "../../sns/src/sns_confirmsubscription";
+import { snsClient } from "../../sns/src/libs/snsClient";
 
 jest.mock("../../sns/src/libs/snsClient.js");
 

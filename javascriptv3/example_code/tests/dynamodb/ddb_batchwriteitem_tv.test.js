@@ -1,6 +1,6 @@
 // Get service clients module and commands using CommonJS syntax.
-const { run, params } = require("../../dynamodb/src/QueryExample/ddb_batchwriteitem_tv");
-const { ddbClient } = require("../../dynamodb/src/libs/ddbClient");
+import { run, params } from "../../dynamodb/src/QueryExample/ddb_batchwriteitem_tv";
+import { ddbClient } from "../../dynamodb/src/libs/ddbClient";
 
 jest.mock("../../dynamodb/src/libs/ddbClient.js");
 

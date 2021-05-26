@@ -22,7 +22,7 @@ const {
   PutMetricAlarmCommand,
   EnableAlarmActionsCommand,
 } = require("@aws-sdk/client-cloudwatch");
-const { cwClient } = require("./libs/cwClient");
+import { cwClient } from "./libs/cwClient";
 
 // Set the parameters
 const params = {

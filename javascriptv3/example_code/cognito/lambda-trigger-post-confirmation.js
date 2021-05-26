@@ -23,7 +23,7 @@ Running the code:
 // snippet-start:[cognito.javascript.lambda-trigger.post-confirmationV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { SES, SendEmailCommand } = require("@aws-sdk/client-ses");
+import { SES, SendEmailCommand } from "@aws-sdk/client-ses";
 // Set the AWS Region
 const REGION = "region"; //e.g. "us-east-1"
 const ses = new SES();

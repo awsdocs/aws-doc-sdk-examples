@@ -26,8 +26,8 @@ For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/deve
 // Import the required AWS SDK clients and commands for Node.js
 require("./helper.ts");
 require("./recorder.ts");
-const { IAMClient } = require("@aws-sdk/client-iam");
-const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
+import { IAMClient } from "@aws-sdk/client-iam";
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 const {
   fromCognitoIdentityPool,
 } = require("@aws-sdk/credential-provider-cognito-identity");
@@ -35,9 +35,9 @@ const {
   CognitoIdentityProviderClient,
   GetUserCommand,
 } = require("@aws-sdk/client-cognito-identity-provider");
-const { S3RequestPresigner } = require("@aws-sdk/s3-request-presigner");
-const { createRequest } = require("@aws-sdk/util-create-request");
-const { formatUrl } = require("@aws-sdk/util-format-url");
+import { S3RequestPresigner } from "@aws-sdk/s3-request-presigner";
+import { createRequest } from "@aws-sdk/util-create-request";
+import { formatUrl } from "@aws-sdk/util-format-url";
 const {
   TranscribeClient,
   StartTranscriptionJobCommand,
@@ -53,7 +53,7 @@ const {
   ListObjectsCommand,
   DeleteObjectCommand,
 } = require("@aws-sdk/client-s3");
-const { path } = require("path");
+import { path } from "path";
 const fetch = require("node-fetch");
 
 // Set the parameters.

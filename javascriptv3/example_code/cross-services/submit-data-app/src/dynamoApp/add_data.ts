@@ -22,12 +22,12 @@ node add_data.ts
 // snippet-start:[s3.JavaScript.cross-service.addDataV3.complete]
 // snippet-start:[s3.JavaScript.cross-service.addDataV3.config]
 // Import required AWS SDK clients and commands for Node.js
-const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 const {
   fromCognitoIdentityPool,
 } = require("@aws-sdk/credential-provider-cognito-identity");
-const { DynamoDB, PutItemCommand } = require("@aws-sdk/client-dynamodb");
-const { SNSClient, PublishCommand } = require("@aws-sdk/client-sns");
+import { DynamoDB, PutItemCommand } from "@aws-sdk/client-dynamodb";
+import { SNSClient, PublishCommand } from "@aws-sdk/client-sns";
 
 // Set the AWS Region
 const REGION = "REGION"; //REGION

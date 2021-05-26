@@ -1,5 +1,5 @@
-const { run, params } = require("../../glacier/src/createVault");
-const { glacierClient } = require("../../glacier/src/libs/glacierClient.js");
+import { run, params } from "../../glacier/src/createVault";
+import { glacierClient } from "../../glacier/src/libs/glacierClient.js";
 
 jest.mock("../../glacier/src/libs/glacierClient.js");
 

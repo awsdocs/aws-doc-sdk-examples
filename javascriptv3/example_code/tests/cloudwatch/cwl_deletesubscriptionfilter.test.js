@@ -1,6 +1,6 @@
 // Get service clients module and commands using CommonJS syntax.
-const { run, params } = require("../../cloudwatch/src/cwl_deletesubscriptionfilter");
-const { cwlClient } = require("../../cloudwatch/src/libs/cwlClient");
+import { run, params } from "../../cloudwatch/src/cwl_deletesubscriptionfilter";
+import { cwlClient } from "../../cloudwatch/src/libs/cwlClient";
 
 jest.mock("../../cloudwatch/src/libs/cwlClient.js");
 

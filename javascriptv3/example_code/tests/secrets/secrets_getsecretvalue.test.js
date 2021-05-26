@@ -1,5 +1,5 @@
-const { run, params } = require("../../secrets/src/secrets_getsecretvalue");
-const { secretsClient } = require("../../secrets/src/libs/secretsClient.js");
+import { run, params } from "../../secrets/src/secrets_getsecretvalue";
+import { secretsClient } from "../../secrets/src/libs/secretsClient.js";
 
 jest.mock("../../secrets/src/libs/secretsClient.js");
 

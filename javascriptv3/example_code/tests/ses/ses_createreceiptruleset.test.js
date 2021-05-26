@@ -1,5 +1,5 @@
-const { run, params } = require("../../ses/src/ses_createreceiptruleset");
-const { sesClient } = require("../../ses/src/libs/sesClient");
+import { run, params } from "../../ses/src/ses_createreceiptruleset";
+import { sesClient } from "../../ses/src/libs/sesClient";
 
 jest.mock("../../ses/src/libs/sesClient.js");
 

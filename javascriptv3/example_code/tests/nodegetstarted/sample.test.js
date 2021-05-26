@@ -1,5 +1,5 @@
-const { run, params } = require("../../nodegetstarted/src/sample.js");
-const { s3Client } = require("../../nodegetstarted/src/libs/s3Client.js");
+import { run, params } from "../../nodegetstarted/src/sample.js";
+import { s3Client } from "../../nodegetstarted/src/libs/s3Client.js";
 
 jest.mock("../../nodegetstarted/src/libs/s3Client.js");
 

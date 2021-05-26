@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-ses/commands/SendEmailCommand", () => ({
         this.SendEmailCommand = mockSendEmailCommand;
     },
 }));
-const { run } = require("../../../cross-services/lambda-step-functions/src/lambda3/sendemail");
+import { run } from "../../../cross-services/lambda-step-functions/src/lambda3/sendemail";
 
 test("has to mock db#sendemail", async (done) => {
     await run();

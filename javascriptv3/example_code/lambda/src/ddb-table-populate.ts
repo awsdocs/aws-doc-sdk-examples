@@ -18,7 +18,7 @@ ts-node ddb-table-populate.ts
 
 // snippet-start:[lambda.JavaScript.tutorial.PopulateTableV3]
 // Load the DynamoDB client
-const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb");
+import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 
 //Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

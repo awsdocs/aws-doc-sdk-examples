@@ -18,7 +18,7 @@ ts-node s3-bucket-setup-non-modular.ts
 // snippet-start:[lambda.JavaScript.BucketSetUp.NonModularV3]
 
 // Import a non-modular S3 client
-const { S3Client } = require("@aws-sdk/client-s3");
+import { S3Client } from "@aws-sdk/client-s3";
 
 // Set the AWS Region
 const REGION = "REGION"; //e.g. "us-east-1"

@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-cloudformation/commands/DescribeStackResourcesCommand
         this.DescribeStackResourcesCommand = mockDescribeStackResources;
     },
 }));
-const { run } = require("../../../lambda/lambda_create_function/src/describe-stack-resources");
+import { run } from "../../../lambda/lambda_create_function/src/describe-stack-resources";
 
 test("has to mock cloudformation#describestackresources", async (done) => {
     await run();

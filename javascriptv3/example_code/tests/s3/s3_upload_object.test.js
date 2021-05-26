@@ -1,5 +1,5 @@
-const { run, uploadParams } = require("../../s3/src/s3_upload_object");
-const { s3Client } = require("../../s3/src/libs/s3Client.js");
+import { run, uploadParams } from "../../s3/src/s3_upload_object";
+import { s3Client } from "../../s3/src/libs/s3Client.js";
 
 jest.mock("../../s3/src/libs/s3Client.js");
 

@@ -1,5 +1,5 @@
-const { run, params } = require("../../pinpoint/src/pinpoint_send_email_message");
-const { pinClient } = require("../../pinpoint/src/libs/pinClient.js");
+import { run, params } from "../../pinpoint/src/pinpoint_send_email_message";
+import { pinClient } from "../../pinpoint/src/libs/pinClient.js";
 
 jest.mock("../../pinpoint/src/libs/pinClient.js");
 

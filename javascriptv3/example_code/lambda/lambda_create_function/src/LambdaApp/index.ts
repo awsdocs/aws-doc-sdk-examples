@@ -22,11 +22,11 @@ ts-node ddb-table-create.ts
 // snippet-start:[lambda.JavaScript.general-examples-lambda-create-function.indexV3]
 
 // Load the required clients and packages.
-const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 const {
   fromCognitoIdentityPool,
 } = require("@aws-sdk/credential-provider-cognito-identity");
-const { LambdaClient, InvokeCommand } = require("@aws-sdk/client-lambda");
+import { LambdaClient, InvokeCommand } from "@aws-sdk/client-lambda";
 
 // Set the AWS Region.
 const REGION = "REGION"; // e.g., 'us-east-2'

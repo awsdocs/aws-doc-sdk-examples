@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-dynamodb/commands/CreateTableCommand", () => ({
         this.CreateTableCommand = mockCreateTable;
     },
 }));
-const { run } = require("../../../lambda/lambda_create_function/src/mylamdbafunction");
+import { run } from "../../../lambda/lambda_create_function/src/mylamdbafunction";
 
 test("has to mock dynamodb#createtable", async (done) => {
     await run();

@@ -1,5 +1,5 @@
-const { run, params } = require("../../sqs/src/sqs_changingvisibility");
-const { sqsClient } = require("../../sqs/src/libs/sqsClient.js");
+import { run, params } from "../../sqs/src/sqs_changingvisibility";
+import { sqsClient } from "../../sqs/src/libs/sqsClient.js";
 
 jest.mock("../../sqs/src/libs/sqsClient.js");
 

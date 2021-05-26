@@ -15,7 +15,7 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/erverless-work
 
 "use strict";
 // Load the required clients and commands.
-const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb");
+import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 
 const REGION = "REGION"; //e.g. "us-east-1"
 // Create the client service objects.

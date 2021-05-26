@@ -13,8 +13,8 @@ const params = {
     StreamName: 'STREAM_NAME'}
 
 
-const { uploadData } = require("../../kinesis/src/kinesis-example");
-const { kinesisClient } = require("../../kinesis/src/libs/kinesisClient.js");
+import { uploadData } from "../../kinesis/src/kinesis-example";
+import { kinesisClient } from "../../kinesis/src/libs/kinesisClient.js";
 
 jest.mock("../../kinesis/src/libs/kinesisClient.js");
 

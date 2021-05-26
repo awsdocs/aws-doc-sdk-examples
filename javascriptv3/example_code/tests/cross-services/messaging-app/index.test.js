@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-sqs/commands/GetQueueUrlCommand", () => ({
     this.GetQueueUrlCommand = mockDGetQueueUrlCommand;
   },
 }));
-const { run } = require("../../../cross-services/message-app/js/index");
+import { run } from "../../../cross-services/message-app/js/index";
 test("has to mock sqs#getqueueurlcommand", async (done) => {
   await run();
   expect(mockGetQueueUrlCommand).toHaveBeenCalled;
@@ -17,7 +17,7 @@ jest.mock("@aws-sdk/client-sqs/commands/SendMessageCommand", () => ({
     this.SendMessageCommand = mockSendMessageCommand;
   },
 }));
-const { run } = require("../../../cross-services/message-app/js/index");
+import { run } from "../../../cross-services/message-app/js/index";
 test("has to mock sqs#sendmessagecommand", async (done) => {
   await run();
   expect(mockSendMessageCommand).toHaveBeenCalled;
@@ -30,7 +30,7 @@ jest.mock("@aws-sdk/client-sqs/commands/ReceiveMessageCommand", () => ({
     this.ReceiveMessageCommand = mockReceiveMessageCommand;
   },
 }));
-const { run } = require("../../../cross-services/message-app/js/index");
+import { run } from "../../../cross-services/message-app/js/index";
 test("has to mock sqs#receivemessagecommand", async (done) => {
   await run();
   expect(mockReceiveMessageCommand).toHaveBeenCalled;
@@ -43,7 +43,7 @@ jest.mock("@aws-sdk/client-sqs/commands/PurgeQueueCommand", () => ({
     this.PurgeQueueCommand = mockPurgeQueueCommand;
   },
 }));
-const { run } = require("../../../cross-services/message-app/js/index");
+import { run } from "../../../cross-services/message-app/js/index";
 test("has to mock sqs#purgequeuecommand", async (done) => {
   await run();
   expect(mockPurgeQueueCommand).toHaveBeenCalled;

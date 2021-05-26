@@ -1,5 +1,5 @@
-const { run, params } = require("../../iam/src/sts_assumerole");
-const { stsClient } = require("../../iam/src/libs/stsClient.js");
+import { run, params } from "../../iam/src/sts_assumerole";
+import { stsClient } from "../../iam/src/libs/stsClient.js";
 
 jest.mock("../../iam/src/libs/stsClient.js");
 

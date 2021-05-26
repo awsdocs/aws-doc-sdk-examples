@@ -1,5 +1,5 @@
-const { run, params } = require("../../mediaconvert/src/emc_template_createjob");
-const { emcClient } = require("../../mediaconvert/src/libs/emcClient");
+import { run, params } from "../../mediaconvert/src/emc_template_createjob";
+import { emcClient } from "../../mediaconvert/src/libs/emcClient";
 
 jest.mock("../../mediaconvert/src/libs/emcClient.js");
 

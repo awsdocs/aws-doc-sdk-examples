@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-lambda/commands/InvokeCommand", () => ({
     this.InvokeCommand = mockInvokeLambdaFunction;
   },
 }));
-const { run } = require("../../../lambda/lambda_create_function/src/LambdaApp/index.js");
+import { run } from "../../../lambda/lambda_create_function/src/LambdaApp/index.js";
 
 test("has to mock ddb#invokefunction", async (done) => {
   await run();

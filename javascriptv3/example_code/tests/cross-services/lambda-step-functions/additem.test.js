@@ -4,7 +4,7 @@ jest.mock("@aws-sdk/client-dynamodb/commands/PutItemCommand", () => ({
         this.PutItemCommand = mockPutItemCommand;
     },
 }));
-const { run } = require("../../../cross-services/lambda-step-functions/src/lambda2/additem");
+import { run } from "../../../cross-services/lambda-step-functions/src/lambda2/additem";
 
 test("has to mock db#putitem", async (done) => {
     await run();
