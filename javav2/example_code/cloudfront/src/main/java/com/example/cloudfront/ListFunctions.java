@@ -15,11 +15,8 @@ package com.example.cloudfront;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudfront.CloudFrontClient;
-import software.amazon.awssdk.services.cloudfront.model.ListFunctionsResponse;
-import software.amazon.awssdk.services.cloudfront.model.ListFunctionsRequest;
-import software.amazon.awssdk.services.cloudfront.model.FunctionList;
-import software.amazon.awssdk.services.cloudfront.model.FunctionSummary;
-import software.amazon.awssdk.services.cloudfront.model.CloudFrontException;
+import software.amazon.awssdk.services.cloudfront.model.*;
+
 import java.util.List;
 
 /**
@@ -46,7 +43,7 @@ public class ListFunctions {
 
        try {
             ListFunctionsRequest functionsRequest = ListFunctionsRequest.builder()
-                .stage("DEVELOPMENT")
+                .stage(FunctionStage.DEVELOPMENT)
                 .maxItems("10")
                 .build();
 

@@ -39,11 +39,12 @@ public class CreateFunction {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    <functionName> \n\n" +
+                "    <functionName> <filePath>\n\n" +
                 "Where:\n" +
-                "    functionName - the name of the function to delete. \n";
+                "    functionName - the name of the function to create. \n"+
+                "    filePath - the path to a file that contains the application logic for the function. \n" ;
 
-         if (args.length != 1) {
+         if (args.length != 2) {
              System.out.println(USAGE);
              System.exit(1);
          }

@@ -34,7 +34,7 @@ public class DescribeFunction {
                 "Usage:\n" +
                 "    <functionName> \n\n" +
                 "Where:\n" +
-                "    functionName - the name of the function to delete. \n";
+                "    functionName - the name of the function to describe. \n";
 
          if (args.length != 1) {
              System.out.println(USAGE);

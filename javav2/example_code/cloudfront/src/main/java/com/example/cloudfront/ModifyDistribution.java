@@ -89,7 +89,7 @@ public class ModifyDistribution {
                     .distributionConfig(config1)
                     .id(disObject.id())
                     .ifMatch(response.eTag())
-                     .build();
+                    .build();
 
             cloudFrontClient.updateDistribution(updateDistributionRequest);
 
