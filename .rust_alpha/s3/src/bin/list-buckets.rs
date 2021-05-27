@@ -10,8 +10,8 @@ use s3::{Client, Config, Region};
 use aws_types::region::ProvideRegion;
 
 use structopt::StructOpt;
-// use tracing_subscriber::fmt::format::FmtSpan;
-// use tracing_subscriber::fmt::SubscriberBuilder;
+use tracing_subscriber::fmt::format::FmtSpan;
+use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
@@ -56,10 +56,10 @@ async fn main() {
         println!("S3 client version: {}", s3::PKG_VERSION);
         println!("Region:            {:?}", &region);
 
-        // SubscriberBuilder::default()
-        //    .with_env_filter("info")
-        //    .with_span_events(FmtSpan::CLOSE)
-        //    .init();
+        SubscriberBuilder::default()
+            .with_env_filter("info")
+            .with_span_events(FmtSpan::CLOSE)
+            .init();
     }
 
     let config = Config::builder().region(&region).build();
