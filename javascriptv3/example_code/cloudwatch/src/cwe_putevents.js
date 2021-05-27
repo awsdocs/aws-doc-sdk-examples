@@ -17,8 +17,8 @@ node cwe_putevents.js
 // snippet-start:[cwEvents.JavaScript.cwe.putEventsV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { PutEventsCommand } = require("@aws-sdk/client-cloudwatch-events");
-const { cweClient } = require("./libs/cweClient");
+import { PutEventsCommand } from "@aws-sdk/client-cloudwatch-events";
+import { cweClient } from "./libs/cweClient";
 
 // Set the parameters
 const params = {

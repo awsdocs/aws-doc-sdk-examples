@@ -17,8 +17,8 @@ node cw_disablealarmactions.js
 // snippet-start:[cw.JavaScript.alarms.disableAlarmActionsV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { DisableAlarmActionsCommand } = require("@aws-sdk/client-cloudwatch");
-const { cwClient } = require("./libs/cwClient");
+import { DisableAlarmActionsCommand } from "@aws-sdk/client-cloudwatch";
+import { cwClient } from "./libs/cwClient";
 
 // Set the parameters
 const params = { AlarmNames: "ALARM_NAME" }; // e.g., "Web_Server_CPU_Utilization"
