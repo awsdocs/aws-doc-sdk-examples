@@ -15,15 +15,15 @@ use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The default region
+    /// The AWS Region.
     #[structopt(short, long)]
     default_region: Option<String>,
 
-    /// The name of the bucket
+    /// The name of the bucket to delete.
     #[structopt(short, long)]
     bucket: String,
 
-    /// Whether to display additional information
+    /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
@@ -32,7 +32,7 @@ struct Opt {
 /// The bucket must be empty.
 /// # Arguments
 ///
-/// * `-n NAME` - The name of the bucket.
+/// * `-b BUCKET` - The name of the bucket to delete.
 /// * `[-d DEFAULT-REGION]` - The region containing the bucket.
 ///   If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
 ///   If the environment variable is not set, defaults to **us-west-2**.
@@ -53,7 +53,7 @@ async fn main() {
 
     if verbose {
         println!("S3 client version: {}", s3::PKG_VERSION);
-        println!("Region:            {:?}", &region);
+        println!("AWS Region:        {:?}", &region);
 
         SubscriberBuilder::default()
             .with_env_filter("info")

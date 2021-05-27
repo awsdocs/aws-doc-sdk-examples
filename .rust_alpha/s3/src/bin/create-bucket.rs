@@ -17,15 +17,15 @@ use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The default region
+    /// The AWS Region.
     #[structopt(short, long)]
     default_region: Option<String>,
 
-    /// The name of the bucket
+    /// The name of the bucket to create.
     #[structopt(short, long)]
-    name: String,
+    bucket: String,
 
-    /// Whether to display additional information
+    /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
@@ -33,7 +33,7 @@ struct Opt {
 /// Creates an Amazon S3 bucket
 /// # Arguments
 ///
-/// * `-n NAME` - The name of the bucket.
+/// * `-b BUCKET` - The name of the bucket to create.
 /// * `[-d DEFAULT-REGION]` - The region containing the bucket.
 ///   If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
 ///   If the environment variable is not set, defaults to **us-west-2**.
@@ -42,7 +42,7 @@ struct Opt {
 async fn main() {
     let Opt {
         default_region,
-        name,
+        bucket,
         verbose,
     } = Opt::from_args();
 
@@ -56,7 +56,7 @@ async fn main() {
 
     if verbose {
         println!("S3 client version: {}", s3::PKG_VERSION);
-        println!("Region:            {:?}", &region);
+        println!("AWS Region:        {:?}", &region);
 
         SubscriberBuilder::default()
             .with_env_filter("info")
@@ -76,12 +76,12 @@ async fn main() {
     match client
         .create_bucket()
         .create_bucket_configuration(cfg)
-        .bucket(&name)
+        .bucket(&bucket)
         .send()
         .await
     {
         Ok(_) => {
-            println!("Created bucket {}", name);
+            println!("Created bucket {}", bucket);
         }
 
         Err(e) => {

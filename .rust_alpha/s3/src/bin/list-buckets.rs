@@ -15,20 +15,20 @@ use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The default region
+    /// The AWS Region.
     #[structopt(short, long)]
     default_region: Option<String>,
 
-    /// Whether to show all buckets
+    /// Whether to show all buckets.
     #[structopt(short, long)]
     global: bool,
 
-    /// Whether to display additional information
+    /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Lists your Amazon S3 buckets
+/// Lists your Amazon S3 buckets.
 /// # Arguments
 ///
 /// * `[-d DEFAULT-REGION]` - The region containing the buckets.
@@ -54,7 +54,7 @@ async fn main() {
 
     if verbose {
         println!("S3 client version: {}", s3::PKG_VERSION);
-        println!("Region:            {:?}", &region);
+        println!("AWS Region:        {:?}", &region);
 
         SubscriberBuilder::default()
             .with_env_filter("info")

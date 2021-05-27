@@ -19,7 +19,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     for bucket in resp.buckets.unwrap_or_default() {
         println!("bucket: {:?}", bucket.name.expect("buckets have names"))
     }
-    // not the best pattern but fine for now because it reads a file all the way into memory
+    // Not the best pattern but fine for now because it reads a file all the way into memory.
     let f = tokio::fs::read("Cargo.toml").await?;
     let body = ByteStream::new(SdkBody::from(f));
     let resp = client
