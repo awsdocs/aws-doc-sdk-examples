@@ -35,7 +35,7 @@ const run = async () => {
         new CreateBucketCommand({ Bucket: params.Bucket })
     );
     console.log(data);
-    console.log("Successfully created a bucket called ", data.BucketName);
+    console.log("Successfully created a bucket called ", data.Location);
     return data; // For unit tests.
   } catch (err) {
     console.log("Error", err);
