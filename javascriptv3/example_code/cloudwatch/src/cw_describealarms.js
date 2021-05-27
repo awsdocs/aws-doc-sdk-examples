@@ -14,8 +14,8 @@ node cw_describealarms.js
 // snippet-start:[cw.JavaScript.alarms.describeAlarmsV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { DescribeAlarmsCommand } = require("@aws-sdk/client-cloudwatch");
-const { cwClient } = require("./libs/cwClient");
+import { DescribeAlarmsCommand } from "@aws-sdk/client-cloudwatch";
+import { cwClient } from "./libs/cwClient";
 
 // Set the parameters
 const params = { StateValue: "INSUFFICIENT_DATA" };
