@@ -28,7 +28,7 @@ struct Opt {
     verbose: bool,
 }
 
-/// Creates an AWS KMS data key.
+/// Creates an AWS Key Management Service (AWS KMS) key.
 /// # Arguments
 ///
 /// * `[-k KEY]` - The name of the key.

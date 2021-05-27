@@ -33,7 +33,7 @@ struct Opt {
     verbose: bool,
 }
 
-/// Decrypts a string encrypted by AWS KMS key.
+/// Decrypts a string encrypted by AWS Key Management Service (AWS KMS) key.
 /// # Arguments
 ///
 /// * `-k KEY` - The encryption key.

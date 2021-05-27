@@ -43,7 +43,7 @@ struct Opt {
     verbose: bool,
 }
 
-/// Re-encrypts a string with an AWS KMS key.
+/// Re-encrypts a string with an AWS Key Management Service (AWS KMS) key.
 /// # Arguments
 ///
 /// * `[-f FIRST-KEY]` - The first key used to originally encrypt the string.

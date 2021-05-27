@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several AWS KMS operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several AWS Key Management Service (AWS KMS) operations using the alpha version of the AWS SDK for Rust.
 
 ## Prerequisites
 

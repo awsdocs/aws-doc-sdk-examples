@@ -22,7 +22,7 @@ struct Opt {
     #[structopt(short, long)]
     verbose: bool,
 }
-/// Creates an AWS KMS key.
+/// Creates an AWS Key Management Service (AWS KMS) key.
 /// # Arguments
 ///
 /// * `[-d DEFAULT-REGION]` - The AWS Region in which the client is created.

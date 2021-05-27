@@ -29,7 +29,7 @@ struct Opt {
     verbose: bool,
 }
 
-/// Creates an AWS KMS data key, showing the plaintext public key but not the plaintext private key.
+/// Creates an AWS Key Management Service (AWS KMS) key key, showing the plaintext public key but not the plaintext private key.
 /// # Arguments
 ///
 /// * `[-k KEY]` - The name of the AWS KMS data key.
