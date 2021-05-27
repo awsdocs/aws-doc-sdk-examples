@@ -14,7 +14,7 @@ You must have an AWS account, and have configured your default credentials and A
 
 This example describes the voices in the region.
 
-`cargo run -- [-d DEFAULT-REGION] [-v]`
+`cargo run --bin describe-voices -- [-d DEFAULT-REGION] [-v]`
 
 - _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
   If this value is not supplied, the region defaults to __us-west-2__.
@@ -24,7 +24,7 @@ This example describes the voices in the region.
 
 This example lists the lexicons in the region.
 
-`cargo run -- [-d DEFAULT-REGION] [-v]`
+`cargo run --bin list-lexicons -- [-d DEFAULT-REGION] [-v]`
 
 - _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
   If this value is not supplied, the region defaults to __us-west-2__.
@@ -34,7 +34,7 @@ This example lists the lexicons in the region.
 
 This example adds a pronunciation lexicon to the region.
 
-`cargo run -- [-d DEFAULT-REGION] [-v]`
+`cargo run --bin put-lexicon -- [-d DEFAULT-REGION] [-v]`
 
 - _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
   If this value is not supplied, the region defaults to __us-west-2__.
@@ -44,7 +44,7 @@ This example adds a pronunciation lexicon to the region.
 
 This example reads a text file and creates an MP3 file with the text synthesized into speech by Amazon Polly.
 
-`cargo run -- -f FILENAME [-d DEFAULT-REGION] [-v]`
+`cargo run --bin synthesize-speech -- -f FILENAME [-d DEFAULT-REGION] [-v]`
 
 - _FILENAME_ is name of the file containing the text to synthesize.
   The MP3 output is saved in a file with the same basename and a ".MP3" extension.

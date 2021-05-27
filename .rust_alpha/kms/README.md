@@ -10,20 +10,20 @@ You must have an AWS account, and have configured your default credentials and A
 
 ## Running the code
 
-### CreateKey
+### create-key
 
 This example creates an AWS KMS key.
 
-`cargo run -- [-d DEFAULT-REGION] [-v]`
+`cargo run --bin create-key -- [-d DEFAULT-REGION] [-v]`
 
 - _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
   If this value is not supplied, the region defaults to __us-west-2__.
 
-### Decrypt
+### decrypt
 
 This example decrypts a string encrypted by AWS KMS key.
 
-`cargo run -- -k KEY -i INPUT-FILE [-d DEFAULT-REGION] [-v]`
+`cargo run --bin decrypt -- -k KEY -i INPUT-FILE [-d DEFAULT-REGION] [-v]`
 
 - _KEY_ is the encryption key.
 - _INPUT-FILE_ is the name of the file containing text encrypted by the key.
@@ -31,11 +31,11 @@ This example decrypts a string encrypted by AWS KMS key.
   If this value is not supplied, the region defaults to __us-west-2__.
 - __-v__ displays additional information.
 
-### Encrypt
+### encrypt
 
 This example encrypts a string using an AWS KMS key.
 
-`cargo run -- -k KEY -t TEXT -o OUT-FILE [-d DEFAULT-REGION] [-v]`
+`cargo run --bin encrypt -- -k KEY -t TEXT -o OUT-FILE [-d DEFAULT-REGION] [-v]`
 
 - _KEY_ is the encryption key.
 - _TEXT_ is the string to encrypt by the key.
@@ -44,45 +44,45 @@ This example encrypts a string using an AWS KMS key.
   If this value is not supplied, the region defaults to __us-west-2__.
 - __-v__ displays additional information.
 
-### GenerateDataKey
+### generate-data-key
 
 This example creates a data key for client-side encryption using an AWS KMS data key.
 
-`cargo run -- -k KEY -t TEXT -o OUT-FILE [-d DEFAULT-REGION] [-v]`
+`cargo run --bin generate-data-key -- -k KEY -t TEXT -o OUT-FILE [-d DEFAULT-REGION] [-v]`
 
 - _KEY_ is the name of the AWS KMS data key.
 - _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
   If this value is not supplied, the region defaults to __us-west-2__.
 - __-v__ displays additional information.
 
-### GenerateDataKeyWithoutPlaintext
+### generate-data-key-without-plaintext
 
 This example creates a data key for client-side encryption using an AWS KMS data key,
 showing the plaintext public key but not the plaintext private key.
 
-`cargo run -- -k KEY -t TEXT -o OUT-FILE [-d DEFAULT-REGION] [-v]`
+`cargo run --bin generate-data-key-without-plaintext -- -k KEY -t TEXT -o OUT-FILE [-d DEFAULT-REGION] [-v]`
 
 - _KEY_ is the name of the AWS KMS data key.
 - _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
   If this value is not supplied, the region defaults to __us-west-2__.
 - __-v__ displays additional information.
 
-### GenerateRandom
+### generate-random
 
 This example creates a random byte string that is cryptographically secure.
 
-`cargo run -- -l LENGTH [-d DEFAULT-REGION] [-v]`
+`cargo run --bin generate-random -- -l LENGTH [-d DEFAULT-REGION] [-v]`
 
 - _LENGTH_ is the number of bytes, which must be less than 1024.
 - _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
   If this value is not supplied, the region defaults to __us-west-2__.
 - __-v__ displays additional information.
 
-### ReEncryptData
+### reencrypt-data
 
 This example re-encrypts a text string that was encrypted using an AWS KMS key with another AWS KMS key.
 
-`cargo run -- -f FIRST-KEY -n NEW-KEY -i INPUT-FILE -o OUT-FILE [-d DEFAULT-REGION] [-v]`
+`cargo run --bin reencrypt-data -- -f FIRST-KEY -n NEW-KEY -i INPUT-FILE -o OUT-FILE [-d DEFAULT-REGION] [-v]`
 
 - _FIRST-KEY_ is the encryption key used to initially encrypt the text.
 - _NEW-KEY_ is the new encryption key used to re-encrypt the text.

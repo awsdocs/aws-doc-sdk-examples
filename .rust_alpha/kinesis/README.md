@@ -14,7 +14,7 @@ You must have an AWS account, and have configured your default credentials and A
 
 This example creates a Kinesis data stream.
 
-`cargo run -- -n NAME [-d DEFAULT-REGION] [-v]`
+`cargo run --bin create-stream -- -n NAME [-d DEFAULT-REGION] [-v]`
 
 - _NAME_ is the name of the stream to create.
 - _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
@@ -25,7 +25,7 @@ This example creates a Kinesis data stream.
 
 This example deletes a Kinesis data stream.
 
-`cargo run -- -n NAME [-d DEFAULT-REGION] [-v]`
+`cargo run --bin delete-stream -- -n NAME [-d DEFAULT-REGION] [-v]`
 
 - _NAME_ is the name of the stream to delete.
 - _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
@@ -36,7 +36,7 @@ This example deletes a Kinesis data stream.
 
 This example displays information about a Kinesis data stream.
 
-`cargo run -- -n NAME [-d DEFAULT-REGION] [-v]`
+`cargo run --bin describe-stream -- -n NAME [-d DEFAULT-REGION] [-v]`
 
 - _NAME_ is the name of the stream.
 - _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
@@ -47,7 +47,7 @@ This example displays information about a Kinesis data stream.
 
 This example lists your Kinesis data streams.
 
-`cargo run -- [-d DEFAULT-REGION] [-v]`
+`cargo run --bin list-streams -- [-d DEFAULT-REGION] [-v]`
 
 - _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
   If this value is not supplied, the region defaults to __us-west-2__.
@@ -57,7 +57,7 @@ This example lists your Kinesis data streams.
 
 This example adds a record to a Kinesis data streams.
 
-`cargo run -- -n NAME -k KEY -i INFO [-d DEFAULT-REGION] [-v]`
+`cargo run --bin put-record -- -n NAME -k KEY -i INFO [-d DEFAULT-REGION] [-v]`
 
 - _NAME_ is the name of the stream.
 - _KEY_ is the name of the partition key for the record.
