@@ -70,7 +70,12 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        Aws::String bucket_name = "my-bucket";
+        //TODO: Name of a bucket in your account.
+        //The bucket should have at least one object in it.  The easiest way to achieve
+        //this is to configure and run put_object.cpp's executable first.
+        const Aws::String bucket_name = "my-bucket";
+
+        //TODO: Set to the region of your profile.
         Aws::String region = "us-east-1";
 
         if (!AwsDoc::S3::ListObjects(bucket_name, region))

@@ -73,8 +73,12 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        //TODO: Name of a bucket in your account.
         const Aws::String bucket_name = "my-bucket";
+        //TODO: The bucket "my-bucket" must have been previously loaded with "my-file.txt".  The easiest way to achieve
+        //this is to configure and run put_object.cpp's executable first.
         const Aws::String object_name = "my-file.txt";
+        //TODO: Set to the region of your profile.
         const Aws::String region = "us-east-1";
 
         if (!AwsDoc::S3::GetObject(object_name, bucket_name, region))

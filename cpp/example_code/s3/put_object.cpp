@@ -51,6 +51,8 @@ bool AwsDoc::S3::PutObject(const Aws::String& bucketName,
     
     Aws::S3::Model::PutObjectRequest request;
     request.SetBucket(bucketName);
+    //Note how we are using the filename of the file as the unique key for the object in the bucket container.
+    //However, this is just a string and can set according to your retrieval needs.
     request.SetKey(objectName);
 
     std::shared_ptr<Aws::IOStream> input_data = 
@@ -83,8 +85,11 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        //TODO: Change to the name of an actual bucket in your account or you will get an Access Denied error.
         const Aws::String bucket_name = "my-bucket";
+        //TODO: Create a file called "my-file.txt" in the local folder where your executables are built to.
         const Aws::String object_name = "my-file.txt";
+        //TODO: Set to the region of your profile.
         const Aws::String region = "us-east-1";
 
         if (!AwsDoc::S3::PutObject(bucket_name, object_name, region)) {
