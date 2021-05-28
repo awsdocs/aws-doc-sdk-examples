@@ -61,9 +61,13 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        //TODO: Name of object already in bucket.
         Aws::String object_key = "my-file.txt";
+        //TODO: Name of your bucket that already contains "my-file.txt".  You can work on put_object.cpp first to get it in there.
         Aws::String from_bucket = "my-from-bucket";
+        //TODO: Name of another bucket in your account.
         Aws::String to_bucket = "my-to-bucket";
+        //TODO: Set to the region of your profile.
         Aws::String region = "us-east-1";
 
         if (AwsDoc::S3::CopyObject(object_key, from_bucket, to_bucket, region))

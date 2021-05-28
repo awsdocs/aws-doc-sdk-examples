@@ -52,8 +52,11 @@ bool AwsDoc::S3::DeleteBucketWebsite(const Aws::String& bucketName,
 
 int main()
 {
-    Aws::String bucket_name = "my-bucket";
-    Aws::String region = "us-east-1";
+    //TODO: Change to the name of an actual bucket in your account.
+    const Aws::String bucket_name = "my-bucket";
+    //TODO: Set to the region of your profile.
+    const Aws::String region = "us-east-1";
+
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);

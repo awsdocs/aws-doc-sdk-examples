@@ -111,8 +111,11 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        Aws::String bucket_name = "my-bucket";
-        Aws::String region = "us-east-1";
+        //TODO: Change to the name of an actual bucket in your account.
+        const Aws::String bucket_name = "my-bucket";
+        //TODO: Set to the region of your profile.
+        const Aws::String region = "us-east-1";
+
 
         // Get the caller's AWS account ID to be used in the bucket policy.
         Aws::STS::STSClient sts_client;

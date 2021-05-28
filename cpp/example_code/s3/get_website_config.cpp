@@ -75,8 +75,10 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        Aws::String bucket_name = "my-bucket";
-        Aws::String region = "us-east-1";
+        //TODO: Change to the name of an actual bucket in your account.
+        const Aws::String bucket_name = "my-bucket";
+        //TODO: Set to the region of your profile.
+        const Aws::String region = "us-east-1";
 
         if (!AwsDoc::S3::GetWebsiteConfig(bucket_name, region))
         {

@@ -85,7 +85,7 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        //TODO: Change to the name of an actual bucket in your account or you will get an Access Denied error.
+        //TODO: Change to the name of an actual bucket in your account.
         const Aws::String bucket_name = "my-bucket";
         //TODO: Create a file called "my-file.txt" in the local folder where your executables are built to.
         const Aws::String object_name = "my-file.txt";
