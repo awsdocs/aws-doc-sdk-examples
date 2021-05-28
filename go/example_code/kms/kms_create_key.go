@@ -34,11 +34,11 @@ import (
     "os"
 )
 
-// Create a customer master key (CMK)
+// Create an AWS KMS key (KMS key)
 // Since we are only encrypting small amounts of data (4 KiB or less) directly,
-// a CMK is fine for our purposes.
+// a KMS key is fine for our purposes.
 // For larger amounts of data,
-// use the CMK to encrypt a data encryption key (DEK).
+// use the KMS key to encrypt a data encryption key (DEK).
 
 func main() {
     // Initialize a session in us-west-2 that the SDK will use to load

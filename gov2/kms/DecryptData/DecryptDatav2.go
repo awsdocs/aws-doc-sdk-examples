@@ -21,7 +21,7 @@ type KMSDecryptAPI interface {
 		optFns ...func(*kms.Options)) (*kms.DecryptOutput, error)
 }
 
-// DecodeData decrypts some text that was encrypted with an AWS Key Management Service (AWS KMS) customer master key (CMK).
+// DecodeData decrypts some text that was encrypted with an AWS Key Management Service (AWS KMS) key (KMS key).
 // Inputs:
 //     c is the context of the method call, which includes the AWS Region.
 //     api is the interface that defines the method call.

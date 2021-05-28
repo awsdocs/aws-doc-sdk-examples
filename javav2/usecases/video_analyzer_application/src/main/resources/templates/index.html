@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
+    <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
+    <script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
+    <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+    <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
+
+    <title>AWS Video Analyzer</title>
+</head>
+<body>
+<header th:replace="layout :: site-header"/>
+<div class="container">
+
+    <h2>AWS Video Analyzer application</h2>
+
+    <p>The AWS Video Analyzer sample application uses the Amazon Rekognition service and other AWS services, and the AWS SDK for Java version 2.
+        Analyzing your videos in real-time has never been easier! Just perform these steps:<p>
+
+    <ol>
+        <li>Upload a video (.MP4) to an Amazon S3 bucket by choosing the <b>Upload Video</b> menu item.</li>
+        <li>Choose <b>Choose Video File</b> and browse to a video located on your desktop.</li>
+        <li>Choose <b>Upload</b> to upload your video to an Amazon S3 bucket.</li>
+        <li>Choose <b>Get Video</b> to view the video located in the S3 bucket. Only 1 video can be in the bucket.</li>
+        <li>Analyze the video and produce a report by choosing the <b>Analyze Video</b> menu item. </li>
+        <li>Enter an email address in the email field and choose <b>Analyze Video</b>.  </li>
+        <li>Amazon SES is used to send an email with an Excel report to the specified email recipient.</li>
+    </ol>
+</div>
+</body>
+</html>

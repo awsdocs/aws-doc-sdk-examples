@@ -246,7 +246,7 @@ Add this code to your project's pom.xml file.
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.15.66</version>
+                <version>2.16.29</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

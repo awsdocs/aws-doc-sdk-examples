@@ -29,7 +29,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"os"
+	"log"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -71,9 +71,7 @@ func main() {
 	)
 
 	if err != nil {
-		fmt.Println("Error creating session:")
-		fmt.Println(err.Error())
-		os.Exit(1)
+		log.Fatalf("Error creating session: %s", err)
 	}
 
 	// Create DynamoDB client
@@ -87,9 +85,7 @@ func main() {
 		av, err := dynamodbattribute.MarshalMap(item)
 
 		if err != nil {
-			fmt.Println("Got error marshalling map:")
-			fmt.Println(err.Error())
-			os.Exit(1)
+			log.Fatalf("Got error marshalling map: %s", err)
 		}
 
 		// Create item in table Movies
@@ -101,9 +97,7 @@ func main() {
 		_, err = svc.PutItem(input)
 
 		if err != nil {
-			fmt.Println("Got error calling PutItem:")
-			fmt.Println(err.Error())
-			os.Exit(1)
+			log.Fatalf("Got error calling PutItem: %s", err)
 		}
 
 		fmt.Println("Successfully added '", item.Title, "' (", item.Year, ") to Movies table")

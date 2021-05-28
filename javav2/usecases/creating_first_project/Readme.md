@@ -70,140 +70,136 @@ At this point, you have a new project named **Greetings**.
 
 Inside the **project** element in the **pom.xml** file, add the **spring-boot-starter-parent** dependency.
 
-     <parent>
-	  <groupId>org.springframework.boot</groupId>
-	  <artifactId>spring-boot-starter-parent</artifactId>
-	  <version>2.2.5.RELEASE</version>
-	  <relativePath/> <!-- lookup parent from repository -->
-     </parent>
+	<parent>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-parent</artifactId>
+	    <version>2.2.5.RELEASE</version>
+	    <relativePath/> <!-- lookup parent from repository -->
+	</parent>
 
 Also, add the following Spring Boot **dependency** elements inside the **dependencies** element.
 
-        <dependency>
-	  <groupId>org.springframework.boot</groupId>
-	  <artifactId>spring-boot-starter-thymeleaf</artifactId>
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-thymeleaf</artifactId>
 	</dependency>
 	<dependency>
-	  <groupId>org.springframework.boot</groupId>
-	  <artifactId>spring-boot-starter-web</artifactId>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-web</artifactId>
 	</dependency>
 	<dependency>
-	  <groupId>org.springframework.boot</groupId>
-	  <artifactId>spring-boot-starter-test</artifactId>
-	  <scope>test</scope>
-	  <exclusions>
-		<exclusion>
-		<groupId>org.junit.vintage</groupId>
-		<artifactId>junit-vintage-engine</artifactId>
-		</exclusion>
-	 </exclusions>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-test</artifactId>
+	    <scope>test</scope>
+	    <exclusions>
+	        <exclusion>
+	            <groupId>org.junit.vintage</groupId>
+	            <artifactId>junit-vintage-engine</artifactId>
+	        </exclusion>
+	    </exclusions>
 	</dependency>
 
 Also add these AWS API dependencies.
 
     <dependencyManagement>
-	<dependencies>
-	  <dependency>
-	  <groupId>software.amazon.awssdk</groupId>
-	  <artifactId>bom</artifactId>
-	  <version>2.10.54</version>
-	  <type>pom</type>
-	  <scope>import</scope>
-	</dependency>
-	</dependencies>
-      </dependencyManagement>
-      <dependency>
-	<groupId>software.amazon.awssdk</groupId>
-	<artifactId>dynamodb-enhanced</artifactId>
-	<version>2.11.0-PREVIEW</version>
-	</dependency>
-	<dependency>
-	 <groupId>software.amazon.awssdk</groupId>
-	 <artifactId>dynamodb</artifactId>
-	 <version>2.5.10</version>
-	 </dependency>
-	<dependency>
-	 <groupId>software.amazon.awssdk</groupId>
-	 <artifactId>sns</artifactId>
-	</dependency>
+        <dependencies>
+            <dependency>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>bom</artifactId>
+                <version>2.16.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>dynamodb-enhanced</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>dynamodb</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>sns</artifactId>
+    </dependency>
 
 **Note:** Ensure that you're using Java 1.8 (shown below).
 
 At this point, ensure that the **pom.xml** file resembles the following file.
 
-      <?xml version="1.0" encoding="UTF-8"?>
+	<?xml version="1.0" encoding="UTF-8"?>
 	<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>spring-aws</groupId>
-    	<artifactId>greetings</artifactId>
+		<artifactId>greetings</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<description>Demo project for Spring Boot</description>
 	<parent>
-	 <groupId>org.springframework.boot</groupId>
-	 <artifactId>spring-boot-starter-parent</artifactId>
-	 <version>2.2.5.RELEASE</version>
-	 <relativePath/> <!-- lookup parent from repository -->
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-parent</artifactId>
+	    <version>2.2.5.RELEASE</version>
+	    <relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<properties>
-	 <java.version>1.8</java.version>
+	    <java.version>1.8</java.version>
 	</properties>
 	<dependencyManagement>
-	 <dependencies>
-	  <dependency>
-	  <groupId>software.amazon.awssdk</groupId>
-	  <artifactId>bom</artifactId>
-	  <version>2.10.54</version>
-	  <type>pom</type>
-	  <scope>import</scope>
-	</dependency>
-	</dependencies>
+	    <dependencies>
+	        <dependency>
+	            <groupId>software.amazon.awssdk</groupId>
+	            <artifactId>bom</artifactId>
+	            <version>2.16.0</version>
+	            <type>pom</type>
+	            <scope>import</scope>
+	        </dependency>
+	    </dependencies>
 	</dependencyManagement>
 	<dependencies>
-	 <dependency>
-	  <groupId>org.springframework.boot</groupId>
-	  <artifactId>spring-boot-starter-thymeleaf</artifactId>
-	 </dependency>
-	 <dependency>
-	  <groupId>org.springframework.boot</groupId>
-	  <artifactId>spring-boot-starter-web</artifactId>
-	 </dependency>
-	 <dependency>
-	 <groupId>org.springframework.boot</groupId>
-	 <artifactId>spring-boot-starter-test</artifactId>
-	 <scope>test</scope>
-	 <exclusions>
-	  <exclusion>
-	   <groupId>org.junit.vintage</groupId>
-	   <artifactId>junit-vintage-engine</artifactId>
-	 </exclusion>
-	 </exclusions>
-	 </dependency>
-	  <dependency>
-	  <groupId>software.amazon.awssdk</groupId>
-	  <artifactId>dynamodb-enhanced</artifactId>
-	  <version>2.11.0-PREVIEW</version>
-	 </dependency>
-	 <dependency>
-	  <groupId>software.amazon.awssdk</groupId>
-	  <artifactId>dynamodb</artifactId>
-	  <version>2.5.10</version>
-	  </dependency>
-	  <dependency>
-	  <groupId>software.amazon.awssdk</groupId>
-	  <artifactId>sns</artifactId>
-	 </dependency>
-	 </dependencies>
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-thymeleaf</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-web</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-test</artifactId>
+	        <scope>test</scope>
+	        <exclusions>
+	            <exclusion>
+	                <groupId>org.junit.vintage</groupId>
+	                <artifactId>junit-vintage-engine</artifactId>
+	            </exclusion>
+	        </exclusions>
+	    </dependency>
+	    <dependency>
+	        <groupId>software.amazon.awssdk</groupId>
+	        <artifactId>dynamodb-enhanced</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>software.amazon.awssdk</groupId>
+	        <artifactId>dynamodb</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>software.amazon.awssdk</groupId>
+	        <artifactId>sns</artifactId>
+	    </dependency>
+	</dependencies>
 	<build>
-	<plugins>
-	<plugin>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-maven-plugin</artifactId>
-	</plugin>
-      </plugins>
-     </build>
-    </project>
+	    <plugins>
+	        <plugin>
+	            <groupId>org.springframework.boot</groupId>
+	            <artifactId>spring-boot-maven-plugin</artifactId>
+	        </plugin>
+	    </plugins>
+	</build>
+	</project>
 
 **Note:** Be sure that you have the **packaging** element in your POM file. This is required to build a JAR file (described later in this document).
 

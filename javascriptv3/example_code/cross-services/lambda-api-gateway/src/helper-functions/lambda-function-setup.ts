@@ -7,7 +7,7 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-
 
 Purpose:
 lambda-function-setup.ts demonstrates how to create an AWS Lambda function.
-It is part of a tutorial demonstrates how to create a REST API using API Gateway that triggers a Lambda function that scans an
+It is part of a tutorial that demonstrates how to create a REST API using API Gateway that triggers a Lambda function that scans an
 Amazon DynamoDB table of employees' information and send an Amazon Simple Notification Service (Amazon SNS)
 message based on the results. It demonstrates how toTo run the full tutorial, see
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-scan-and-publish-message.html.
@@ -24,19 +24,16 @@ ts-node lambda-function-setup.ts
 */
 
 // snippet-start:[lambda.JavaScript.general-examples-dynamodb-lambda.LambdaFunctionSetUpV3]
-// Load the required Lambda client and commands.
+
 const {
   LambdaClient,
   CreateFunctionCommand,
 } = require("@aws-sdk/client-lambda");
 
-// Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"
 
-// Instantiate an Lambda client service object.
 const lambda = new LambdaClient({ region: REGION });
 
-// Set the parameters.
 const params = {
   Code: {
     S3Bucket: "BUCKET_NAME", // BUCKET_NAME
@@ -47,16 +44,16 @@ const params = {
   Role: "IAM_ROLE_ARN", // IAM_ROLE_ARN; e.g., arn:aws:iam::650138640062:role/v3-lambda-tutorial-lambda-role
   Runtime: "nodejs12.x",
   Description:
-    "Scans a DynamoDB table of employee details and using Amazon Simple Notification Services (Amazon SNS) to " +
-    "send employees an email the each anniversary of their start-date.",
+    "Scans a DynamoDB table of employee details and using Amazon Simple Notification Service (Amazon SNS) to " +
+    "send employees an email on the anniversary of their start-date.",
 };
 
 const run = async () => {
   try {
     const data = await lambda.send(new CreateFunctionCommand(params));
-    console.log("Success", data); // successful response
+    console.log("Success", data);
   } catch (err) {
-    console.log("Error", err); // an error occurred
+    console.log("Error", err);
   }
 };
 run();

@@ -16,13 +16,13 @@ in the AWS SDK for Go Developer Guide.
 
 ### CreateKey/CreateKeyv2.go
 
-This example creates an AWS KMS customer master key (CMK).
+This example creates an AWS KMS key (KMS key).
 
 `go run CreateKeyv2.go`
 
 ### DecryptData/DecryptDatav2.go
 
-This example decrypts some text that was encrypted with an AWS KMS customer master key (CMK).
+This example decrypts some text that was encrypted with an AWS KMS key (KMS key).
 
 `go run DecryptDatav2.go -d DATA`
 
@@ -32,7 +32,7 @@ The unit test accepts a similar value in _config.json_.
 
 ### EncryptData/EncryptDatav2.go
 
-This example encrypts some text using an AWS KMS customer master key (CMK).
+This example encrypts some text using an AWS KMS key (KMS key).
 
 `go run EncryptDatav2.go -k KEYID -t TEXT`
 
@@ -43,7 +43,7 @@ The unit test accepts similar values in _config.json_.
 
 ### ReEncryptData/ReEncryptDatav2.go
 
-This example reencrypts some text using an AWS KMS customer master key (CMK).
+This example reencrypts some text using an AWS KMS key (KMS key).
 
 `go run ReEncryptDatav2.go -k KeyID -d DATA`
 

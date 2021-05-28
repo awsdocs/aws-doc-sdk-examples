@@ -50,7 +50,7 @@ public class S3BucketDeletion {
         s3.close();
     }
 
-    // snippet-start:[s3.java2.s3_bucket_ops.delete_bucket]
+    // snippet-start:[s3.java2.s3_bucket_ops.delete_bucketobjects]
     public static void listAllObjects(S3Client s3, String bucket) {
 
         try {
@@ -72,7 +72,7 @@ public class S3BucketDeletion {
                         .build();
 
             } while(listObjectsV2Response.isTruncated());
-            // snippet-end:[s3.java2.s3_bucket_ops.delete_bucket]
+            // snippet-end:[s3.java2.s3_bucket_ops.delete_bucketobjects]
 
             DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder().bucket(bucket).build();
             s3.deleteBucket(deleteBucketRequest);

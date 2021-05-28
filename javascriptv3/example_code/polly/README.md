@@ -1,7 +1,7 @@
 # TypeScript environment for Amazon Polly examples
 This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) Amazon Polly examples. 
 
-The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
+The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
 The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-polly/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon Polly client module.
 

@@ -33,7 +33,7 @@ import (
     "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 
     "fmt"
-    "os"
+    "log"
     "strconv"
 )
 // snippet-end:[dynamodb.go.create_item.imports]
@@ -71,9 +71,7 @@ func main() {
 
     av, err := dynamodbattribute.MarshalMap(item)
     if err != nil {
-        fmt.Println("Got error marshalling new movie item:")
-        fmt.Println(err.Error())
-        os.Exit(1)
+        log.Fatalf("Got error marshalling new movie item: %s", err)
     }
     // snippet-end:[dynamodb.go.create_item.assign_struct]
 
@@ -88,9 +86,7 @@ func main() {
 
     _, err = svc.PutItem(input)
     if err != nil {
-        fmt.Println("Got error calling PutItem:")
-        fmt.Println(err.Error())
-        os.Exit(1)
+        log.Fatalf("Got error calling PutItem: %s", err)
     }
 
     year := strconv.Itoa(item.Year)

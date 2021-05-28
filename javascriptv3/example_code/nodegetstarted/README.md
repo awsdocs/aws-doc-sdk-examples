@@ -1,7 +1,7 @@
 # TypeScript environment for 'Node Get Started' examples
 This is a workspace where you can find working AWS SDK for JavaScript version 3 (v3) 'Node Get Started' examples. 
 
-The [preview version of the AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
+The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 
 The [AWS documentation for this example](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-nodejs.html) contains these examples.
 

@@ -14,10 +14,10 @@ import (
 )
 // snippet-end:[kms.go.reencrypt_data.imports]
 
-// ReEncryptText reencrypts some text using a new AWS Key Management Service (AWS KMS) customer master key (CMK).
+// ReEncryptText reencrypts some text using a new AWS Key Management Service (AWS KMS) key (KMS key).
 // Inputs:
 //     svc is an AWS KMS service client
-//     keyID is the ID of a different CMK
+//     keyID is the ID of a different KMS key
 // Output:
 //     If success, information about the reencrypted text and nil
 //     Otherwise, nil and an error from the call to ReEncrypt

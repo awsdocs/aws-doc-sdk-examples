@@ -30,9 +30,9 @@ import (
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/dynamodb"
     "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
-    
+
     "fmt"
-    "os"
+    "log"
 )
 
 // ItemInfo holds info to update
@@ -67,16 +67,12 @@ func main() {
 
     expr, err := dynamodbattribute.MarshalMap(info)
     if err != nil {
-        fmt.Println("Got error marshalling info:")
-        fmt.Println(err.Error())
-        os.Exit(1)
+        log.Fatalf("Got error marshalling info: %s", err)
     }
 
     key, err := dynamodbattribute.MarshalMap(item)
     if err != nil {
-        fmt.Println("Got error marshalling item:")
-        fmt.Println(err.Error())
-        os.Exit(1)
+        log.Fatalf("Got error marshalling item: %s", err)
     }
 
     // Update item in table Movies
@@ -90,8 +86,7 @@ func main() {
 
     _, err = svc.UpdateItem(input)
     if err != nil {
-        fmt.Println(err.Error())
-        return
+        log.Fatalf("Got error calling UpdateItem: %s", err)
     }
 
     fmt.Println("Successfully updated 'The Big New Movie' (2015) rating to 0.5")

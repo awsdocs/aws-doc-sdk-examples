@@ -32,6 +32,7 @@ import (
     "github.com/aws/aws-sdk-go/service/dynamodb"
 
     "fmt"
+    "log"
 )
 // snippet-end:[dynamodb.go.delete_item.imports]
 
@@ -67,9 +68,7 @@ func main() {
 
     _, err := svc.DeleteItem(input)
     if err != nil {
-        fmt.Println("Got error calling DeleteItem")
-        fmt.Println(err.Error())
-        return
+        log.Fatalf("Got error calling DeleteItem: %s", err)
     }
 
     fmt.Println("Deleted '" + movieName + "' (" + movieYear + ") from table " + tableName)

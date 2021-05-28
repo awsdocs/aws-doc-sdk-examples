@@ -15,6 +15,9 @@ files:
   - path: src/main/java/com/example/iam/CreatePolicy.java
     services:
       - iam
+  - path: src/main/java/com/example/iam/CreateRole.java
+    services:
+      - iam
   - path: src/main/java/com/example/iam/CreateUser.java
     services:
       - iam

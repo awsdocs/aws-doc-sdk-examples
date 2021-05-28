@@ -1,0 +1,100 @@
+<!-- Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+
+ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
+which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/messaging-app.html.
+Purpose:
+index.html is front end HTML for a tutorial demonstrating how to build an app that sends and receives messages using
+Amazon Simple Queue Service (Amazon SQS). To run the full tutorial, see
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/messaging-app.html.
+
+Running the code:
+For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/messaging-app.html
+-->
+
+<!-- snippet-start:[sqs.HTML.messaging-app.complete]-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="./images/favicon.ico" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./css/styles.css"/>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script src="./js/main.js"></script>
+    <style>
+        .messageelement {
+            margin: auto;
+            border: 2px solid #dedede;
+            background-color: #D7D1D0 ;
+            border-radius: 5px;
+            max-width: 800px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .messageelement::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .messageelement img {
+            float: left;
+            max-width: 60px;
+            width: 100%;
+            margin-right: 20px;
+            border-radius: 50%;
+        }
+
+        .messageelement img.right {
+            float: right;
+            margin-left: 20px;
+            margin-right:0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>AWS Sample Messaging Application</h2>
+    <div id="messages">
+
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Sender:</span>
+        </div>
+        <select name="cars" id="username">
+            <option value="Scott">Brian</option>
+            <option value="Tricia">Tricia</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Message:</span>
+        </div>
+        <textarea class="form-control" id="textarea" aria-label="With textarea"></textarea>
+        <button type="button" onclick="pushMessage()" id="send" class="btn btn-success">Send</button>
+        <button type="button" onclick="purge()" id="refresh" class="btn btn-success">Purge</button>
+    </div>
+    <!-- All of these child items are hidden and only displayed in a FancyBox ------------------------------------------------------>
+    <div id="hide" style="display: none">
+
+        <div id="base" class="messageelement">
+            <img src="../public/images/av2.png"  alt="Avatar" class="right" style="width:100%;">
+            <p id="text">Excellent! So, what do you want to do today?</p>
+            <span class="time-right">11:02</span>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
+<!-- snippet-end:[sqs.HTML.messaging-app.complete]-->

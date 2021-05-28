@@ -7,7 +7,7 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-
 
 Purpose:
 populate-table.ts demonstrates how to populate an Amazon DynamoDB table.
-It is part of a tutorial demonstrates how to create a REST API using API Gateway that triggers a Lambda function that scans an
+It is part of a tutorial that demonstrates how to create a REST API using API Gateway that triggers a Lambda function that scans an
 Amazon DynamoDB table of employees' information and send an Amazon Simple Notification Service (Amazon SNS)
 message based on the results. It demonstrates how toTo run the full tutorial, see
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-scan-and-publish-message.html.
@@ -20,23 +20,20 @@ ts-node populate-table.ts
 
 */
 // snippet-start:[lambda.JavaScript.general-examples-dynamodb-lambda.CreateTableV3]
-// Load the required Amazon DynamoDB client and commands.
 const {
   DynamoDBClient,
   BatchWriteItemCommand,
 } = require("@aws-sdk/client-dynamodb");
 
-// Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"
 
-// Set the parameters.
 const params = {
   RequestItems: {
     Employees: [
       {
         PutRequest: {
           Item: {
-            Id: { N: "1" },
+            id: { N: "1" },
             firstName: { S: "Bob" },
             phone: { N: "155555555555654" },
             startDate: { S: "2019-12-20" },
@@ -46,7 +43,7 @@ const params = {
       {
         PutRequest: {
           Item: {
-            Id: { N: "2" },
+            id: { N: "2" },
             firstName: { S: "Xing" },
             phone: { N: "155555555555653" },
             startDate: { S: "2019-12-17" },
@@ -56,7 +53,7 @@ const params = {
       {
         PutRequest: {
           Item: {
-            Id: { N: "55" },
+            id: { N: "55" },
             firstName: { S: "Harriette" },
             phone: { N: "155555555555652" },
             startDate: { S: "2019-12-19" },
@@ -67,7 +64,6 @@ const params = {
   },
 };
 
-// Create DynamoDB service object.
 const dbclient = new DynamoDBClient({ region: REGION });
 
 const run = async () => {

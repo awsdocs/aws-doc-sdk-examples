@@ -19,7 +19,7 @@ type KMSCreateKeyAPI interface {
 		optFns ...func(*kms.Options)) (*kms.CreateKeyOutput, error)
 }
 
-// MakeKey creates an AWS Key Management Service (AWS KMS) customer master key (CMK).
+// MakeKey creates an AWS Key Management Service (AWS KMS) key (KMS key).
 // Inputs:
 //     c is the context of the method call, which includes the AWS Region.
 //     api is the interface that defines the method call.

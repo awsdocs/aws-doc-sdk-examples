@@ -23,7 +23,7 @@ ts-node ddbdoc_update_item.ts
 
 // Import the required AWS SDK clients and command for Node.js
 const { DynamoDBClient, UpdateItemCommand} = require("@aws-sdk/client-dynamodb");
-const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
+const { marshall } = require("@aws-sdk/util-dynamodb");
 
 // Set the parameters
 const params = {

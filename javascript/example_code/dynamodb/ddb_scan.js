@@ -43,7 +43,7 @@ const params = {
     ":s": { N: "1" },
     ":e": { N: "2" },
   },
-  // Set the projection expression, which the the attributes that you want.
+  // Set the projection expression, which are the attributes that you want.
   ProjectionExpression: "Season, Episode, Title, Subtitle",
   TableName: "EPISODES_TABLE",
 };

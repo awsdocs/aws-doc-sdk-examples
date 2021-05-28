@@ -13,11 +13,11 @@ in the AWS SDK for Go Developer Guide.
 
 ## Running the code
 
-### CreateCMK/CreateCMK.go
+### CreateKey/CreateKey.go
 
-This example creates an AWS KMS customer master key (CMK).
+This example creates an AWS KMS key.
 
-`go run CreateCMK.go -k KEY-NAME -v KEY-VALUE`
+`go run CreateKey.go -k KEY-NAME -v KEY-VALUE`
 
 - _KEY-NAME_ is the name of the key.
 - _KEY-VALUE_ is the value of the key.
@@ -26,7 +26,7 @@ The unit test mocks the service client and the `CreateKey` function.
 
 ### DecryptData/DecryptData.go
 
-This example decrypts some text that was encrypted with an AWS KMS customer master key (CMK).
+This example decrypts some text that was encrypted with an AWS KMS key.
 
 `go run DecryptData.go -d DATA`
 
@@ -36,22 +36,22 @@ The unit test mocks the service client and the `Decrypt` function.
 
 ### EncryptData/EncryptData.go
 
-This example encrypts some text using an AWS KMS customer master key (CMK).
+This example encrypts some text using an AWS KMS key.
 
 `go run EncryptData.go -k KEY-ID -t "text"`
 
-- _KEY-ID_ is the ID of a CMK.
+- _KEY-ID_ is the ID of a KMS key.
 - _text_ is the text to encrypt.
 
 The unit test mocks the service client and the `Encrypt` function.
 
 ### ReEncryptData/ReEncryptData.go
 
-This example reencrypts some text using a new AWS KMS customer master key (CMK).
+This example reencrypts some text using a new AWS KMS key.
 
 `go run ReEncryptData.go -k KEY-ID -d DATA`
 
-- _KEY-ID_ is the ID of a CMK.
+- _KEY-ID_ is the ID of a KMS key.
 - _DATA_ is the data to reencrypt, as a string.
 
 The unit test mocks the service client and the `ReEncrypt` function.

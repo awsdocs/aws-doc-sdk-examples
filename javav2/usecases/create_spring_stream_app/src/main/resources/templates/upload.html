@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
+    <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+    <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
+    <title>Spring Framework</title>
+
+</head>
+<body>
+<header th:replace="layout :: site-header"></header>
+ <div class="container">
+        <h2>Video Stream over HTTP App</h2>
+        <p>Upload a MP4 video to an Amazon S3 bucket</p>
+
+        <form method="POST" onsubmit="myFunction()" action="/fileupload" enctype="multipart/form-data">
+            Video Description:<input type="text" name="description" required><br>
+            <input type="file" name="file" /><br/><br/>
+            <input type="submit" value="Submit" />
+        </form>
+</div>
+</body>
+</html>

@@ -19,6 +19,15 @@ files:
   - path: s3_deletebucketwebsite.ts
     services:
       - s3
+  - path: s3_delete_object.ts
+      services:
+      - s3
+  - path: s3_delete_all_objects.ts
+      services:
+      - s3
+  - path: s3_delete_multiple_objects.ts
+      services:
+      - s3
   - path: s3_getbucketacl.ts
     services:
       - s3
@@ -44,6 +53,9 @@ files:
     services:
       - s3
   - path: s3_setbucketwebsite.ts
+    services:
+      - s3
+  - path: s3_multipartupload.ts
     services:
       - s3
   - path: s3_putbucketpolicy.ts

@@ -1,6 +1,6 @@
 ### EncryptDatav2.go
 
-This example encrypts some text using an AWS Key Management Service (AWS KMS) customer master key (CMK).
+This example encrypts some text using an AWS Key Management Service (AWS KMS) key (KMS key).
 
 `go run EncryptDatav2.go -k KEYID -t TEXT`
 

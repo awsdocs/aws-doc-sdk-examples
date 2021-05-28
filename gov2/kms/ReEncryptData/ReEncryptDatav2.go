@@ -20,7 +20,7 @@ type KMSReEncryptAPI interface {
 		optFns ...func(*kms.Options)) (*kms.ReEncryptOutput, error)
 }
 
-// ReEncryptText reencrypts some text using a new AWS Key Management Service (AWS KMS) customer master key (CMK).
+// ReEncryptText reencrypts some text using a new AWS Key Management Service (AWS KMS) key (KMS key).
 // Inputs:
 //     c is the context of the method call, which includes the AWS Region.
 //     api is the interface that defines the method call.

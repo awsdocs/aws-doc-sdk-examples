@@ -46,7 +46,12 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
-         <dependency>
+        <dependency>
+            <groupId>com.amazon.redshift</groupId>
+            <artifactId>redshift-jdbc41</artifactId>
+            <version>1.2.1.1001</version>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.4.2</version>
@@ -69,11 +74,6 @@
             <version>1.4.0</version>
             <scope>test</scope>
         </dependency>
-       <dependency>
-            <groupId>com.amazon.redshift</groupId>
-            <artifactId>redshift-jdbc41</artifactId>
-            <version>1.2.12.1017</version>
-        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
@@ -87,6 +87,10 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>redshiftdata</artifactId>
         </dependency>
     </dependencies>
 </project>

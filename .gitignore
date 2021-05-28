@@ -28,3 +28,4 @@ node_modules/
 cdk.out/
 package-lock.json
 *.class
+*.exe

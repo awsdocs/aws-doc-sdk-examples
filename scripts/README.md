@@ -5,14 +5,14 @@ Code Examples team.
 
 ## Cleanup report
 
-#### Purpose
+### Purpose
 
 Reads cleanup metadata and writes a report of files cleaned up vs. files still
 needing cleanup. A cleaned file contains code that has been brought up to coding
 standard, has been tested, and has at least minimal comments. To include a file
 in the cleaned report, list it in a metadata.yaml file somewhere in the repo.
 
-#### Prerequisites
+### Prerequisites
 
 To run this script, you must have the following installed globally or in a virtual
 environment:
@@ -21,7 +21,7 @@ environment:
 * PyYaml 5.3 or later
 * PyTest 5.3.5 or later (to run unit tests)
 
-#### Running the script
+### Running the script
 
 The typical usage of this script is to determine the cleanup coverage in this
 GitHub repository. To generate a CSV-formatted report of cleanup coverage, in a command
@@ -44,7 +44,7 @@ for testing new metadata files.
 python -m scripts.cleanup_report --root python/example_code/sqs --dirty
 ```
 
-#### Running the tests
+### Running the tests
 
 To run the unit tests associated with this script, in a command window at the 
 `scripts\tests` folder of the repository, run `python -m pytest test_cleanup_report.py`.
@@ -52,7 +52,7 @@ To run the unit tests associated with this script, in a command window at the
 
 ## Checkin tests
 
-#### Purpose
+### Purpose
 
 The checkin tests are run whenever a pull request is submitted or changed 
 (using Travis CI, configured in .travis.yml).
@@ -72,7 +72,7 @@ the following issues.
 A count of errors found is returned. When Travis CI receives a non-zero return code,
 it treats the checks as failed and displays a message in the pull request.
 
-#### Prerequisites
+### Prerequisites
 
 To run this script, you must have the following installed globally or in a virtual
 environment:
@@ -80,7 +80,7 @@ environment:
 * Python 3.6 or later
 * PyTest 5.3.5 or later (to run unit tests)
 
-#### Running the script
+### Running the script
 
 The typical usage of this script is to check for certain disallowed strings and
 verify matched snippet tags when submitting a pull request. You can run the script
@@ -101,7 +101,7 @@ python -m scripts.checkin_tests --root python/example_code/s3/file_transfer
 
 To suppress most output, add the `--quiet` option.
 
-#### Running the tests
+### Running the tests
 
 To run the unit tests associated with this script, in a command window at the 
 `scripts\tests` folder of the repository, run `python -m pytest test_checkin_tests.py`.
@@ -115,20 +115,42 @@ their purposes. Any existing README.md file at the root is overwritten.
 This script is currently intended for use only with the Python subsection of the
 repo, but could be expanded in the future.
 
-#### Prerequisites
+### Prerequisites
 
 To run this script, you must have the following installed globally or in a virtual
 environment:
  
 * Python 3.6 or later
 
-#### Running the script
+### Running the script
 
 Run the following in the root folder of your GitHub clone. 
 
 ```
 python -m scripts.summarizer --root python
 ``` 
+
+## vetCDK.sh
+
+### Purpose
+
+Validates all of the CDK apps in the in the 
+*resources/cdk* directory.
+
+### Prerequisites
+
+To run this script, you must have the following installed:
+
+* bash
+
+### Running the script
+
+Run the script from the root of your cloned
+*aws-doc-sdk-examples* repo:
+
+```
+./scripts/vetCDK.sh
+```
 
 ---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

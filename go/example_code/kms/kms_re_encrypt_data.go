@@ -1,6 +1,6 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourceauthor:[Doug-AWS]
-// snippet-sourcedescription:[Decrypts encrypted data and then immediately re-encrypts data under a new customer master key (CMK).]
+// snippet-sourcedescription:[Decrypts encrypted data and then immediately re-encrypts data under a new AWS KSM key (KMS key).]
 // snippet-keyword:[AWS Key Management Service]
 // snippet-keyword:[ReEncrypt function]
 // snippet-keyword:[Go]

@@ -32,7 +32,7 @@ import (
     "github.com/aws/aws-sdk-go/service/dynamodb"
 
     "fmt"
-    "os"
+    "log"
 )
 // snippet-end:[dynamodb.go.create_table.imports]
 
@@ -83,9 +83,7 @@ func main() {
 
     _, err := svc.CreateTable(input)
     if err != nil {
-        fmt.Println("Got error calling CreateTable:")
-        fmt.Println(err.Error())
-        os.Exit(1)
+        log.Fatalf("Got error calling CreateTable: %s", err)
     }
 
     fmt.Println("Created the table", tableName)

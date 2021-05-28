@@ -27,6 +27,11 @@ public class AmazonCognitoTest {
     private static String existingIdentityPoolId = "";
     private static String providerName="";
     private static String existingPoolName="";
+    private static String clientId="";
+    private static String secretkey="";
+    private static String password="";
+
+
 
     @BeforeAll
     public static void setUp() throws IOException {
@@ -70,6 +75,10 @@ public class AmazonCognitoTest {
             existingIdentityPoolId = prop.getProperty("existingIdentityPoolId");
             providerName = prop.getProperty("providerName");
             existingPoolName =  prop.getProperty("existingPoolName");
+            clientId =  prop.getProperty("clientId");
+            secretkey =  prop.getProperty("secretkey");
+            password = prop.getProperty("password");
+
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -95,8 +104,8 @@ public class AmazonCognitoTest {
 
     @Test
     @Order(3)
-    public void CreateAdminUser() {
-        CreateAdminUser.createAdmin(cognitoclient,userPoolId ,username, email);
+    public void CreateUser() {
+        CreateUser.createNewUser(cognitoclient,userPoolId ,username, email, password);
         System.out.println("Test 2 passed");
     }
 
@@ -181,9 +190,17 @@ public class AmazonCognitoTest {
 
     @Test
     @Order(15)
+   public void SignUp() {
+
+       SignUpUser.signUp(cognitoIdentityProviderClient, clientId, secretkey, username, password, email);
+        System.out.println("Test 15 passed");
+   }
+
+    @Test
+    @Order(16)
     public void DeleteIdentityPool() {
 
         DeleteIdentityPool.deleteIdPool(cognitoIdclient, identityPoolId);
-        System.out.println("Test 15 passed");
+        System.out.println("Test 16 passed");
     }
 }

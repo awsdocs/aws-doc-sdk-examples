@@ -27,6 +27,7 @@ package main
 
 import (
     "fmt"
+    "log"
 
     "github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
@@ -69,8 +70,7 @@ func main() {
     })
 
     if err != nil {
-        fmt.Println(err.Error())
-        return
+        log.Fatalf("Got error calling GetItem: %s", err)
     }
 
     item := Item{}

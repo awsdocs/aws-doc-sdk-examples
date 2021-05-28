@@ -502,3 +502,12 @@ class S3Stubber(ExampleStubber):
             },
             error_code=error_code
         )
+
+    def stub_generate_presigned_url(
+            self, client_method, method_params, timeout, url, error_code=None):
+        expected_params = {
+            'ClientMethod': client_method, 'Params': method_params,
+            'ExpiresIn': timeout}
+        response = {url}
+        self._stub_bifurcator(
+            'generate_presigned_url', expected_params, response, error_code=error_code)

@@ -63,6 +63,8 @@ do {
     }
 } while (!isset($result));
 
+fclose($source);
+
 // snippet-end:[s3.php.objectuploader.main]
 // snippet-end:[s3.php.objectuploader.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]

@@ -392,6 +392,22 @@ perform permitted actions.
 AWS Management Console.
 * Get a session token that can be used to call an API function that requires MFA.
 
+### [Amazon Textract explorer example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/textract/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Textract to detect text, 
+form, and table elements in a document image. The input image and Textract output are
+shown in a Tkinter application that lets you explore the detected elements. 
+
+* Submit a document image to Textract and explore the output of detected elements.
+* Submit images directly to Textract or through an Amazon Simple Storage Service 
+(Amazon S3) bucket.
+* Use asynchronous APIs to start a job that publishes a notification to an Amazon 
+Simple Notification Service (Amazon SNS) topic when the job completes.
+* Poll an Amazon Simple Queue Service (Amazon SQS) queue for a job completion message
+and display the results. 
+
 ### [Amazon Transcribe custom vocabulary example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/transcribe/README.md)
 
 #### Purpose

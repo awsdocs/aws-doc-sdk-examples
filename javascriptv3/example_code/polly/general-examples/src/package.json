@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "Brian Murray <brmur@amazon.com>, Alex Forsyth <alex-git@amazon.com>",
-  "license": "MIT",
+  "license": "Apache 2.0",
   "dependencies": {
     "@aws-sdk/client-polly": "^3.3.0",
     "@aws-sdk/client-cognito-identity": "^3.3.0",

@@ -1,6 +1,6 @@
 ### ReEncryptDatav2.go
 
-This example reencrypts some text using an AWS Key Management Service (AWS KMS) customer master key (CMK).
+This example reencrypts some text using an AWS Key Management Service (AWS KMS) key (KMS key).
 
 `go run ReEncryptDatav2.go -k KeyID -d DATA`
 

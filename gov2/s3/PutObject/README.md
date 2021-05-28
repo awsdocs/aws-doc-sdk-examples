@@ -1,4 +1,4 @@
-### PutObjectv1.go
+### PutObjectv2.go
 
 This example creates an Amazon S3 bucket object from a local file.
 

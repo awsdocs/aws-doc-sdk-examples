@@ -4,7 +4,7 @@
   "main": "index.js",
   "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/cloudwatch.git",
   "author": "Brian Murray <brmur@amazon.com>, Alex Forsyth <alex-git@amazon.com>",
-  "license": "MIT",
+  "license": "Apache 2.0",
   "dependencies": {
     "@aws-sdk/client-cloudwatch": "^3.3.0",
     "@aws-sdk/client-cloudwatch-events": "^3.3.0",
