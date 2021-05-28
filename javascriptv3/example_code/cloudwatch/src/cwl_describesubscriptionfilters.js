@@ -17,10 +17,10 @@ node cwl_describesubscriptionfilters.js
 // snippet-start:[cwLogs.JavaScript.cwl.describeSubscriptionFiltersV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const {
+import {
   DescribeSubscriptionFiltersCommand,
-} = require("@aws-sdk/client-cloudwatch-logs");
-const { cwlClient } = require("./libs/cwlClient");
+} from "@aws-sdk/client-cloudwatch-logs";
+import { cwlClient } from "./libs/cwlClient";
 
 // Set the parameters
 const params = {

@@ -50,7 +50,10 @@ bool AwsDoc::S3::DeleteBucket(const Aws::String& bucketName,
 
 int main()
 {
+    //TODO: Change this bucket_name to the name of a bucket that actually exists in your account.
+    //If the bucket does not exist, you will get an "access denied" error.
     Aws::String bucket_name = "my-bucket";
+    //TODO:  Set region to the region of the bucket bucket_name.
     Aws::String region = "us-east-1";
     
     Aws::SDKOptions options;

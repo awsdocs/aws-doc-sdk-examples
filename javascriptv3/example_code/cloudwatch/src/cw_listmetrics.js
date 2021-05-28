@@ -15,8 +15,8 @@ node cw_listmetrics.js
 // snippet-start:[cw.JavaScript.metrics.listMetricsV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { ListMetricsCommand } = require("@aws-sdk/client-cloudwatch");
-const { cwClient } = require("./libs/cwClient");
+import { ListMetricsCommand } from "@aws-sdk/client-cloudwatch";
+import { cwClient } from "./libs/cwClient";
 
 // Set the parameters
 const params = {

@@ -14,7 +14,7 @@ namespace MPUapiCopyObjectExample
     /// Simple Storage Service (Amazon S3) bucket to another. The example uses
     /// the AWS SDK for .NET version 3.7 and .NET Core 5.0.
     /// </summary>
-    public class MPUapiCopyObject
+    public class MPUapiCopyObj
     {
         private const string SourceBucket = "igsmith-doc-example-bucket1"; // "doc-example-bucket1";
         private const string TargetBucket = "igsmith-doc-example-bucket2"; // "doc-example-bucket2";

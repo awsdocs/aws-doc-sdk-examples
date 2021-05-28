@@ -14,8 +14,8 @@ node cw_putmetricdata.js
 // snippet-start:[cw.JavaScript.metrics.putMetricDataV3]
 
 // Import required AWS SDK clients and commands for Node.js
-const { CloudWatchClient } = require("@aws-sdk/client-cloudwatch");
-const { cwClient } = require("./libs/cwClient");
+import { CloudWatchClient } from "@aws-sdk/client-cloudwatch";
+import { cwClient } from "./libs/cwClient";
 
 // Set the parameters
 const params = {

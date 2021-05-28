@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0 
-
+//This header file is required for Windows build due to the inclusion of the unit tests.  The unit tests
+//are an external library, so for them to be able to access the project's methods in order to test them,
+//the methods must be exported.
 #pragma once
 
 #ifdef _MSC_VER

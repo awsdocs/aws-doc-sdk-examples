@@ -31,7 +31,7 @@ async function run() {
   while (truncated) {
     try {
       const response = await s3Client.send(new ListObjectsCommand(bucketParams));
-      return response
+      // return response; //For unit tests
       response.Contents.forEach((item) => {
         console.log(item.Key);
       });
