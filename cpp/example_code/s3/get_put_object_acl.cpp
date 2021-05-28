@@ -284,16 +284,24 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        //TODO: Change to the name of an actual bucket in your account.
         const Aws::String bucket_name = "my-bucket";
-        const Aws::String object_key = "my-file.txt";
+        //TODO: Create a file called "my-file.txt" in the local folder where your executables are built to.
+        const Aws::String object_name = "my-file.txt";
+        //TODO: Set to the region of your profile.
+        const Aws::String region = "us-east-1";
 
-        // Set the ACL's owner information. 
+
+        //TODO: Set the ACL's owner information (if it is your bucket, then you want your canonical id). 
+        //See https://docs.aws.amazon.com/AmazonS3/latest/userguide/finding-canonical-user-id.html for more information.,
+        //or you can find it by running the executable run_get_acl.exe of this project. 
         const Aws::String owner_id = 
             "b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE";
 
         // Set the ACL's grantee information.
         const Aws::String grantee_permission = "READ";
 
+        //TODO: Select which form of 'grantee' you want to specify, and update the corresponding data.
         // If the grantee is by canonical user, then either the user's ID or 
         // display name must be specified:
         const Aws::String grantee_type = "Canonical user";
@@ -308,27 +316,30 @@ int main()
 
         // If the grantee is by group, then the predefined group URI must 
         // be specified:
-        // const Aws::String grantee_type = "Group";
+        //const Aws::String grantee_type = "Group";
+        //// This example uses one of Amazon S3 predefined groups: Authenticated Users group (Access permission to this group allows any AWS account to access the resource. )
+        //// See https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#specifying-grantee for more information.
         // const Aws::String grantee_uri = 
-        //     "http://acs.amazonaws.com/groups/global/AuthenticatedUsers";
+        //     "http://acs.amazonaws.com/groups/global/AllUsers";
 
         // Set the object's ACL.
+        //TODO: If you elected to use a grantee type other than canonical user above, update this method to not use default parameters.
         if (!AwsDoc::S3::PutObjectAcl(bucket_name,
-            object_key, 
-            "us-east-1", 
+            object_name, 
+            region,
             owner_id, 
             grantee_permission, 
-            grantee_type, 
+            grantee_type,
             grantee_id))
             // grantee_display_name, 
             // grantee_email_address, 
-            // grantee_uri));
+            // grantee_uri))
         {
             return 1;
         }
 
         // Get the object's ACL information that was just set.
-        if (!AwsDoc::S3::GetObjectAcl(bucket_name, object_key, "us-east-1"))
+        if (!AwsDoc::S3::GetObjectAcl(bucket_name, object_name, region))
         {
             return 1;
         }
