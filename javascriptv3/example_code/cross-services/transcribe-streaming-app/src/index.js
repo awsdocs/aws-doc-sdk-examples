@@ -101,4 +101,4 @@ window.stopRecord = function () {
   record.style.backgroundColor = "red";
   micStream.stop();
 };
-// snippet-start:[transcribe.JavaScript.streaming.indexv3]
+// snippet-end:[transcribe.JavaScript.streaming.indexv3]
