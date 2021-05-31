@@ -6,34 +6,33 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-creating-alarms.html.
 
 Purpose:
-cw_describealarms.js demonstrates how to retrieve information about Amazon CloudWatch alarms.
+cw_deletealarm.js demonstrates how to delete Amazon CloudWatch alarms.
+
+Inputs (replace in code):
+- ALARM_NAME (e.g., Web_Server_CPU_Utilization)
 
 Running the code:
-node cw_describealarms.js
+node cw_deletealarm.js
 */
-// snippet-start:[cw.JavaScript.alarms.describeAlarmsV3]
+// snippet-start:[cw.JavaScript.alarms.deleteAlarmsV3]
 
 // Import required AWS SDK clients and commands for Node.js
-import { DescribeAlarmsCommand } from "@aws-sdk/client-cloudwatch";
-import { cwClient } from "./libs/cwClient";
+import { DeleteAlarmsCommand } from "@aws-sdk/client-cloudwatch";
+import { cwClient } from "./libs/cloudwatch-cloudWatchClient";
 
 // Set the parameters
-const params = { StateValue: "INSUFFICIENT_DATA" };
+const params = { AlarmNames: "ALARM_NAME" }; // e.g., "Web_Server_CPU_Utilization"
 
 const run = async () => {
   try {
-    const data = await cwClient.send(new DescribeAlarmsCommand(params));
-    console.log("Success", data);
+    const data = await cwClient.send(new DeleteAlarmsCommand(params));
+    console.log("Success, alarm deleted; requestID:", data);
     return data;
-    data.MetricAlarms.forEach(function (item, index, array) {
-      console.log(item.AlarmName);
-      return data;
-    });
   } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[cw.JavaScript.alarms.describeAlarmsV3]
+// snippet-end:[cw.JavaScript.alarms.deleteAlarmsV3]
 // For unit tests only.
 // module.exports ={run, params};

@@ -22,7 +22,7 @@ node cwl_putsubscriptionfilter.js
 import {
   PutSubscriptionFilterCommand,
 } from "@aws-sdk/client-cloudwatch-logs";
-import { cwlClient } from "./libs/cwlClient";
+import { cwlClient } from "./libs/cloudwatch-logs-cloudWatchLogsClient";
 
 // Set the parameters
 const params = {

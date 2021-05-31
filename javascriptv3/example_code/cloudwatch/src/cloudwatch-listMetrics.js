@@ -6,45 +6,39 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide//cloudwatch-examples-getting-metrics.html.
 
 Purpose:
-cw_putmetricdata.js demonstrates how to publish metric data to Amazon CloudWatch.
+cw_listmetrics.js demonstrates how to list metrics for Amazon CloudWatch.
+
 
 Running the code:
-node cw_putmetricdata.js
+node cw_listmetrics.js
 */
-// snippet-start:[cw.JavaScript.metrics.putMetricDataV3]
+// snippet-start:[cw.JavaScript.metrics.listMetricsV3]
 
 // Import required AWS SDK clients and commands for Node.js
-import { CloudWatchClient } from "@aws-sdk/client-cloudwatch";
-import { cwClient } from "./libs/cwClient";
+import { ListMetricsCommand } from "@aws-sdk/client-cloudwatch";
+import { cwClient } from "./libs/cloudwatch-cloudWatchClient";
 
 // Set the parameters
 const params = {
-  MetricData: [
+  Dimensions: [
     {
-      MetricName: "PAGES_VISITED",
-      Dimensions: [
-        {
-          Name: "UNIQUE_PAGES",
-          Value: "URLS",
-        },
-      ],
-      Unit: "None",
-      Value: 1.0,
+      Name: "LogGroupName" /* required */,
     },
   ],
-  Namespace: "SITE/TRAFFIC",
+  MetricName: "IncomingLogEvents",
+  Namespace: "AWS/Logs",
 };
 
 const run = async () => {
   try {
-    const data = await cwClient.send(new PutMetricDataCommand(params));
-    console.log("Success", data.$metadata.requestId);
+    const data = await cwClient.send(new ListMetricsCommand(params));
+    console.log("Success. Metrics:", JSON.stringify(data.Metrics));
     return data;
   } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[cw.JavaScript.metrics.putMetricDataV3]
+// snippet-end:[cw.JavaScript.metrics.listMetricsV3]
 // For unit tests only.
 // module.exports ={run, params};

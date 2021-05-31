@@ -1,10 +1,10 @@
 // Get service clients module and commands using CommonJS syntax.
 const { run, params } = require("../../cloudwatch/src/cwl_describesubscriptionfilters");
-const { cwlClient } = require("../../cloudwatch/src/libs/cwlClient");
+const { cwlClient } = require("../../cloudwatch/src/libs/cloudwatch-logs-cloudwatchLogsClient");
 
 jest.mock("../../cloudwatch/src/libs/cwlClient.js");
 
-describe("@aws-sdk/client-cloudwatch mock", () => {
+describe("@aws-sdk/client-cloudwatch-logs mock", () => {
     it("should successfully mock CloudWatch Logs client", async () => {
         cwlClient.send.mockResolvedValue({ isMock: true });
         const response = await run(params);

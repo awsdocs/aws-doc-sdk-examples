@@ -22,7 +22,7 @@ import {
   PutMetricAlarmCommand,
   EnableAlarmActionsCommand,
 } from "@aws-sdk/client-cloudwatch";
-import { cwClient } from "./libs/cwClient";
+import { cwClient } from "./libs/cloudwatch-cloudWatchClient";
 
 // Set the parameters
 const params = {

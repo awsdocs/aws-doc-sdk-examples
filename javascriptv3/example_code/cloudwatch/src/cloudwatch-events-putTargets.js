@@ -18,7 +18,7 @@ node cwe_puttargets.js
 
 // Import required AWS SDK clients and commands for Node.js
 import { PutTargetsCommand } from "@aws-sdk/client-cloudwatch-events";
-import { cweClient } from "./libs/cweClient";
+import { cweClient } from "./libs/cloudwatch-events-cloudWatchEventsClient";
 
 // Set the parameters
 const params = {
