@@ -1,0 +1,39 @@
+<!-- Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
+which is available at https://github.com/aws/aws-sdk-js-v3.
+
+Purpose:
+index.html is the front-end HTML code for a tutorial demonstrating how stream speech using Amazon Transcribe.
+*/
+-->
+
+<!-- snippet-start:[transcribe.HTML.streaming.indexv3] -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="recorder.css">
+    <style>
+        table, td {
+            border: 1px solid black;
+        }
+    </style>
+    <script type="text/javascript" src="./main.js"></script>
+
+</head>
+<body>
+<h2>Record</h2>
+<p>
+    <button id="record" onclick="startRecord()"></button>
+    <button id="stopRecord" disabled onclick="stopRecord()">Stop</button>
+<p id="demo" style="visibility: hidden;"></p>
+</p>
+
+<div id="output"></div>
+<script type="text/javascript" src="./main.js"></script>
+</body>
+
+</html>
+<!-- snippet-end:[transcribe.HTML.streaming.indexv3] -->
