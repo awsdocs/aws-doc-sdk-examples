@@ -4,7 +4,7 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript versi
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples.html.
 Purpose:
-cwlClient.js is a helper function that creates an Amazon CloudWatch Logs service client.
+cloudwatchLogsClient.js is a helper function that creates an Amazon CloudWatch Logs service client.
 
 Inputs (replace in code):
 -REGION

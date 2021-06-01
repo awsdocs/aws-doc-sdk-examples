@@ -4,19 +4,19 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript versi
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples.html.
 Purpose:
-cwClient.js is a helper function that creates an Amazon CloudWatch service client.
+cloudWatchEventsClient.js is a helper function that creates an Amazon CloudWatch Events service client.
 
 Inputs (replace in code):
 -REGION
 */
-// snippet-start:[cloudwatch.JavaScript.createclientv3]
+// snippet-start:[cloudwatch.JavaScript.events.createclientv3]
 
-import { CloudWatchClient } from "@aws-sdk/client-cloudwatch";
+import { CloudWatchEventsClient } from "@aws-sdk/client-cloudwatch-events";
 // Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"
 // Create an Amazon CloudWatch service client object.
-const cwClient = new CloudWatchClient({ region: REGION });
-export { cwClient };
-// snippet-end:[cloudwatch.JavaScript.createclientv3]
+const cweClient = new CloudWatchEventsClient({ region: REGION });
+export { cweClient };
+// snippet-end:[cloudwatch.JavaScript.events.createclientv3]
 
 

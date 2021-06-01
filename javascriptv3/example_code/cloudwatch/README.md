@@ -4,18 +4,18 @@ Amazon Cloudwatch enables you to collect, access, and correlate this data on a s
 ## Code examples
 This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon Cloudwatch examples:
 
-- [Delete CloudWatch alarms](src/cloudwatch-deleteAlarms.js)
-- [Describe CloudWatch alarms](src/cloudwatch-describeAlarms.js)
-- [Enable CloudWatch alarm actions](src/cloudwatch-enableAlarmActions.js)
-- [List CloudWatch metrics](src/cloudwatch-listMetrics.js)
-- [Put CloudWatch metric alarms](src/cloudwatch-putMetricAlarm.js)
-- [Put CloudWatch metric data](src/cloudwatch-putMetricData.js)
-- [Put CloudWatch events](src/cloudwatch-events-putEvents.js)
-- [Put CloudWatch event rule](src/cloudwatch-events-putRule.js)
-- [Put CloudWatch event targets](src/cloudwatch-events-putTargets.js)
-- [Delete a CloudWatch log subscription filters](src/cloudwatch-logs-deleteSubscriptionFilter.js)
-- [Describe CloudWatch log subscription filters](src/cloudwatch-logs-describeSubscriptionFilters.js)
-- [Put CloudWatch log subscription filter](src/cloudwatch-logs-putSubscriptionFilter.js)
+- [Delete CloudWatch alarms](src/deleteAlarms.js)
+- [Describe CloudWatch alarms](src/describeAlarms.js)
+- [Enable CloudWatch alarm actions](src/enableAlarmActions.js)
+- [List CloudWatch metrics](src/listMetrics.js)
+- [Put CloudWatch metric alarms](src/putMetricAlarm.js)
+- [Put CloudWatch metric data](src/putMetricData.js)
+- [Put CloudWatch events](src/putEvents.js)
+- [Put CloudWatch event rule](src/putRule.js)
+- [Put CloudWatch event targets](src/putTargets.js)
+- [Delete a CloudWatch log subscription filters](src/deleteSubscriptionFilter.js)
+- [Describe CloudWatch log subscription filters](src/describeSubscriptionFilters.js)
+- [Put CloudWatch log subscription filter](src/putSubscriptionFilter.js)
 
 **Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see 
 [JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html).

@@ -6,13 +6,13 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-subscriptions.html.
 
 Purpose:
-cwl_describesubscriptionfilters.js demonstrates how to list the subscription filters for an Amazon CloudWatch Logs group.
+describeSubscriptionFilters.js demonstrates how to list the subscription filters for an Amazon CloudWatch Logs group.
 
 Inputs (replace in code):
 - GROUP_NAME
 
 Running the code:
-node cwl_describesubscriptionfilters.js
+node describeSubscriptionFilters.js
 */
 // snippet-start:[cwLogs.JavaScript.cwl.describeSubscriptionFiltersV3]
 
@@ -20,7 +20,7 @@ node cwl_describesubscriptionfilters.js
 import {
   DescribeSubscriptionFiltersCommand,
 } from "@aws-sdk/client-cloudwatch-logs";
-import { cwlClient } from "./libs/cloudwatch-logs-cloudWatchLogsClient";
+import { cwlClient } from "./libs/cloudWatchLogsClient";
 
 // Set the parameters
 const params = {
