@@ -6,7 +6,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[]
 //snippet-sourceauthor:[AWS]
-//snippet-start:[billing.iam_policy.grants_attached_user_access_to_the_billing_console_but_denies_access_to_account_settings]
+//snippet-start:[billing.iam_policy.grants_attached_user_read_access_to_the_billing_console_but_denies_access_to_account_settings]
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -22,4 +22,4 @@
         }
     ]
 }
-//snippet-end:[billing.iam_policy.grants_attached_user_access_to_the_billing_console_but_denies_access_to_account_settings]
+//snippet-end:[billing.iam_policy.grants_attached_user_read_access_to_the_billing_console_but_denies_access_to_account_settings]
