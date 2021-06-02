@@ -43,7 +43,7 @@
       <source id="audioSource" type="audio/mp3" src="">
     </audio>
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.410.0.min.js"></script>
-    <!-- snippet-start:[Polly.HTML.BrowserExample.config] -->
+    <!-- snippet-start:[Polly.HTML.BrowserExample.configv2] -->
     <script type="text/javascript">
 
         // Initialize the Amazon Cognito credentials provider
@@ -61,7 +61,7 @@
                 VoiceId: "Matthew"
             };
             speechParams.Text = document.getElementById("textEntry").value;
-        <!--  snippet-end:[Polly.HTML.BrowserExample.config]-->
+        <!--  snippet-end:[Polly.HTML.BrowserExample.configv2]-->
 
           <!-- snippet-start:[Polly.HTML.BrowserExample.synthesize] -->
             // Create the Polly service object and presigner object
