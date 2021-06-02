@@ -76,7 +76,7 @@ namespace IAMUserExample
             await ListBucketsAsync(createKeyResponse.AccessKey);
 
             // Delete the user and group.
-            await CleanUpResources(iamClient, UserName, GroupName, createKeyResponse);
+            await CleanUpResources(iamClient, UserName, GroupName, createKeyResponse.AccessKey.AccessKeyId);
 
             Console.WriteLine("Press <Enter> to close the program.");
             Console.ReadLine();
@@ -89,7 +89,7 @@ namespace IAMUserExample
         /// <param name="groupName">The string representing the name for the
         /// new group.</param>
         /// <returns>Returns the response object returned by CreateGroupAsync.</returns>
-        private static async Task<CreateGroupResponse> CreateNewGroupAsync(
+        public static async Task<CreateGroupResponse> CreateNewGroupAsync(
             AmazonIdentityManagementServiceClient client,
             string groupName)
         {
@@ -115,7 +115,7 @@ namespace IAMUserExample
         /// <param name="group">The name of the group to create.</param>
         /// <returns>REturns a boolean value that indicates the success of the
         /// PutGroupPolicyAsync call.</returns>
-        private static async Task<bool> AddGroupPermissionsAsync(AmazonIdentityManagementServiceClient client, Group group)
+        public static async Task<bool> AddGroupPermissionsAsync(AmazonIdentityManagementServiceClient client, Group group)
         {
             // Add appropriate permissions so the new user can access S3 on
             // a readonly basis.
@@ -139,7 +139,7 @@ namespace IAMUserExample
         /// <param name="client">The IAM client object.</param>
         /// <param name="request">The user creation request.</param>
         /// <returns>The object returned by the call to CreateUserAsync.</returns>
-        private static async Task<User> CreateNewUserAsync(AmazonIdentityManagementServiceClient client, CreateUserRequest request)
+        public static async Task<User> CreateNewUserAsync(AmazonIdentityManagementServiceClient client, CreateUserRequest request)
         {
             CreateUserResponse response = null;
             try
@@ -176,7 +176,7 @@ namespace IAMUserExample
         /// group to which the new user will be added.</param>
         /// <param name="groupName">A string representing the name of the group
         /// to which to add the user.</param>
-        private static async Task<bool> AddNewUserToGroupAsync(AmazonIdentityManagementServiceClient client, string userName, string groupName)
+        public static async Task<bool> AddNewUserToGroupAsync(AmazonIdentityManagementServiceClient client, string userName, string groupName)
         {
             var response = await client.AddUserToGroupAsync(new AddUserToGroupRequest
             {
@@ -199,7 +199,7 @@ namespace IAMUserExample
         /// is created by the call to CreateAccessKeyAsync.</param>
         /// <returns>Returns the response from the call to
         /// CreateAccessKeyAsync.</returns>
-        private static async Task<CreateAccessKeyResponse> CreateNewAccessKeyAsync(AmazonIdentityManagementServiceClient client, string userName)
+        public static async Task<CreateAccessKeyResponse> CreateNewAccessKeyAsync(AmazonIdentityManagementServiceClient client, string userName)
         {
             try
             {
@@ -224,7 +224,7 @@ namespace IAMUserExample
         /// </summary>
         /// <param name="accessKey">The AccessKey that will provide permissions
         /// for the new user to call ListBucketsAsync.</param>
-        private static async Task ListBucketsAsync(AccessKey accessKey)
+        public static async Task ListBucketsAsync(AccessKey accessKey)
         {
             Console.WriteLine("\nPress <Enter> to list the S3 buckets using the new user.\n");
             Console.ReadLine();
@@ -251,9 +251,10 @@ namespace IAMUserExample
         /// resources.</param>
         /// <param name="userName">The name of the user that will be deleted.</param>
         /// <param name="groupName">The name of the group that will be deleted.</param>
-        /// <param name="accessKey">The AccessKey that was created for use with
-        /// the ListBucketsAsync method.</param>
-        private static async Task CleanUpResources(AmazonIdentityManagementServiceClient client, string userName, string groupName, CreateAccessKeyResponse accessKey)
+        /// <param name="accessKeyId">The AccessKeyId that represents the
+        /// AccessKey that was created for use with the ListBucketsAsync
+        /// method.</param>
+        public static async Task CleanUpResources(AmazonIdentityManagementServiceClient client, string userName, string groupName, string accessKeyId)
         {
             // Remove the user from the group.
             var removeUserRequest = new RemoveUserFromGroupRequest()
@@ -267,7 +268,7 @@ namespace IAMUserExample
             // Delete the client access keys before deleting the user.
             var deleteAccessKeyRequest = new DeleteAccessKeyRequest()
             {
-                AccessKeyId = accessKey.AccessKey.AccessKeyId,
+                AccessKeyId = accessKeyId,
                 UserName = userName,
             };
 

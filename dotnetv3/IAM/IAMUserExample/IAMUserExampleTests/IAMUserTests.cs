@@ -31,6 +31,7 @@ namespace IAMUserExampleTests
             "}]" +
         "}";
         private const string UserName = "S3ReadOnlyUser";
+        private const string AccessKeyId = "AKIAIOSFODNN7EXAMPLE";
 
         [Fact]
         public async Task CreateGroupAsyncTest()
@@ -270,28 +271,99 @@ namespace IAMUserExampleTests
         public async Task CleanUpResourcesTest()
         {
             var mockIAMClient = new Mock<AmazonIdentityManagementServiceClient>();
-            mockIAMClient.Setup(client => client.CreateGroupAsync(
-                It.IsAny<CreateGroupRequest>(),
+
+            mockIAMClient.Setup(client => client.RemoveUserFromGroupAsync(
+                It.IsAny<RemoveUserFromGroupRequest>(),
                 It.IsAny<CancellationToken>()
-            )).Callback<CreateGroupRequest, CancellationToken>((request, token) =>
+            )).Callback<RemoveUserFromGroupRequest, CancellationToken>((request, token) =>
             {
                 if (!string.IsNullOrEmpty(request.GroupName))
                 {
                     Assert.Equal(request.GroupName, GroupName);
                 }
-            }).Returns((CreateGroupRequest r, CancellationToken token) =>
+            }).Returns((RemoveUserFromGroupRequest r, CancellationToken token) =>
             {
-                return Task.FromResult(new CreateGroupResponse()
+                return Task.FromResult(new RemoveUserFromGroupResponse()
                 {
-                    Group = new Group
-                    {
-                        GroupName = GroupName,
-                    },
+                    HttpStatusCode = System.Net.HttpStatusCode.OK,
+                });
+            });
+
+            mockIAMClient.Setup(client => client.DeleteAccessKeyAsync(
+                It.IsAny<DeleteAccessKeyRequest>(),
+                It.IsAny<CancellationToken>()
+            )).Callback<DeleteAccessKeyRequest, CancellationToken>((request, token) =>
+            {
+                if (!string.IsNullOrEmpty(request.UserName))
+                {
+                    Assert.Equal(request.UserName, UserName);
+                }
+                if (!string.IsNullOrEmpty(request.AccessKeyId))
+                {
+                    Assert.Equal(request.AccessKeyId, AccessKeyId);
+                }
+            }).Returns((DeleteAccessKeyRequest r, CancellationToken token) =>
+            {
+                return Task.FromResult(new DeleteAccessKeyResponse()
+                {
+                    HttpStatusCode = System.Net.HttpStatusCode.OK,
+                });
+            });
+
+            mockIAMClient.Setup(client => client.DeleteUserAsync(
+                It.IsAny<DeleteUserRequest>(),
+                It.IsAny<CancellationToken>()
+            )).Callback<DeleteUserRequest, CancellationToken>((request, token) =>
+            {
+                if (!string.IsNullOrEmpty(request.UserName))
+                {
+                    Assert.Equal(request.UserName, UserName);
+                }
+            }).Returns((DeleteUserRequest r, CancellationToken token) =>
+            {
+                return Task.FromResult(new DeleteUserResponse()
+                {
+                    HttpStatusCode = System.Net.HttpStatusCode.OK,
+                });
+            });
+
+            mockIAMClient.Setup(client => client.DeleteGroupPolicyAsync(
+                It.IsAny<DeleteGroupPolicyRequest>(),
+                It.IsAny<CancellationToken>()
+            )).Callback<DeleteGroupPolicyRequest, CancellationToken>((request, token) =>
+            {
+                if (!string.IsNullOrEmpty(request.GroupName))
+                {
+                    Assert.Equal(request.GroupName, GroupName);
+                }
+            }).Returns((DeleteGroupPolicyRequest r, CancellationToken token) =>
+            {
+                return Task.FromResult(new DeleteGroupPolicyResponse()
+                {
+                    HttpStatusCode = System.Net.HttpStatusCode.OK,
+                });
+            });
+
+            mockIAMClient.Setup(client => client.DeleteGroupAsync(
+                It.IsAny<DeleteGroupRequest>(),
+                It.IsAny<CancellationToken>()
+            )).Callback<DeleteGroupRequest, CancellationToken>((request, token) =>
+            {
+                if (!string.IsNullOrEmpty(request.GroupName))
+                {
+                    Assert.Equal(request.GroupName, GroupName);
+                }
+            }).Returns((DeleteGroupRequest r, CancellationToken token) =>
+            {
+                return Task.FromResult(new DeleteGroupResponse()
+                {
                     HttpStatusCode = System.Net.HttpStatusCode.OK,
                 });
             });
 
             var client = mockIAMClient.Object;
+
+            await IAMUserExample.IAMUser.CleanUpResources(client, UserName, GroupName, AccessKeyId);
         }
     }
 }
