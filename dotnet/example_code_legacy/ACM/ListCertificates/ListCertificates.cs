@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier: MIT-0
-// snippet-start:[acm.dotNET.ListCertificates]
+
 using System;
 using Amazon;
 using Amazon.CertificateManager;
@@ -37,4 +37,3 @@ namespace ListCertificatesExample
         }
     }
 }
-// snippet-end:[acm.dotNET.ListCertificates]
