@@ -7,12 +7,20 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 Purpose:
 index.ts is part of a tutorial demonstrating how stream speech using Amazon Transcribe.
 */
+
 // snippet-start:[transcribe.JavaScript.streaming.indexv3]
-import { transcribeClient } from "./libs/transcribeClient.js";
+import { sesClient } from "./libs/allClients.js";
+import { comprehendClient } from "./libs/allClients.js";
+import { translateClient } from "./libs/allClients.js";
+import { transcribeClient } from "./libs/allClients.js";
+import { DetectDominantLanguageCommand } from "@aws-sdk/client-comprehend";
 import { StartStreamTranscriptionCommand } from "@aws-sdk/client-transcribe-streaming";
+import { TranslateTextCommand } from "@aws-sdk/client-translate";
+import { SendEmailCommand } from "@aws-sdk/client-ses";
 import MicrophoneStream from "microphone-stream";
 import getUserMedia from "get-user-media-promise";
 
+// Helper function to encode PCM audio.
 const pcmEncodeChunk = (chunk) => {
   const input = MicrophoneStream.toRaw(chunk);
   var offset = 0;
@@ -61,9 +69,8 @@ window.startRecord = async () => {
       LanguageCode: "en-US",
       // The encoding used for the input audio. The only valid value is pcm.
       MediaEncoding: "pcm",
-      // The sample rate of the input audio in Hertz. We suggest that you use 8000 Hz for low-quality audio and 16000 Hz for
-      // high-quality audio. The sample rate must match the sample rate in the audio file.
-      MediaSampleRateHertz: 16000,
+      // The sample rate of the input audio in Hertz.
+      MediaSampleRateHertz: 44100,
       AudioStream: audioStream(),
     });
 
@@ -84,7 +91,7 @@ window.startRecord = async () => {
         }
       }
     }
-    console.log("DONE", data);
+    console.log("Success. ", data);
     client.destroy();
   } catch (err) {
     console.log("Error. ", err);
@@ -100,5 +107,94 @@ window.stopRecord = function () {
   stop.disabled = true;
   record.style.backgroundColor = "red";
   micStream.stop();
+};
+
+window.translateText = async () => {
+  try {
+    const outPut = document.getElementById("output").innerHTML;
+    const data = await comprehendClient.send(
+      new DetectDominantLanguageCommand({ Text: outPut })
+    );
+    const langCode = data.Languages[0].LanguageCode;
+    try {
+      const selectedValue = document.getElementById("list").value;
+      const translateParams = {
+        Text: outPut,
+        SourceLanguageCode: langCode /* required */,
+        TargetLanguageCode: selectedValue /* required */,
+      };
+      const data = await translateClient.send(
+        new TranslateTextCommand(translateParams)
+      );
+      document.getElementById("translated").innerHTML = data.TranslatedText;
+    } catch (err) {
+      console.log("Error translating language. ", err);
+    }
+  } catch (err) {
+    console.log("Error detecting language of text. ", err);
+  }
+};
+
+window.clearTranscription = async () => {
+  document.getElementById("output").innerHTML = "";
+};
+
+// Helper function to send an email to user.
+window.sendEmail = async () => {
+  const toEmail = document.getElementById("email").value;
+  const outputDiv = document.getElementById("output").innerHTML;
+  const translatedDiv = document.getElementById("translated").innerHTML;
+  const fromEmail = "SENDER_ADDRESS";
+  try {
+    // Set the parameters
+    const params = {
+      Destination: {
+        /* required */
+        CcAddresses: [
+          /* more items */
+        ],
+        ToAddresses: [
+          toEmail, //RECEIVER_ADDRESS
+          /* more To-email addresses */
+        ],
+      },
+      Message: {
+        /* required */
+        Body: {
+          /* required */
+          Html: {
+            Charset: "UTF-8",
+            Data:
+              "<h1>Hello!</h1><p>Here is your Amazon Transcribe recording:</p>" +
+              "<h1>Original</h1>" +
+              "<p>" +
+              outputDiv +
+              "</p>" +
+              "<h1>Translation (if available)</h1>" +
+              "<p>" +
+              translatedDiv +
+              "</p>",
+          },
+          Text: {
+            Charset: "UTF-8",
+            Data:
+              "Hello,\\r\\n" +
+              "Here is your Amazon Transcribe transcription:" +
+              "\n" +
+              outputDiv,
+          },
+        },
+        Subject: {
+          Charset: "UTF-8",
+          Data: "Your Amazon Transcribe transcription.",
+        },
+      },
+      Source: fromEmail, // SENDER_ADDRESS (required)
+    };
+    const data = await sesClient.send(new SendEmailCommand(params));
+    alert("Success. Email sent.");
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
 // snippet-end:[transcribe.JavaScript.streaming.indexv3]

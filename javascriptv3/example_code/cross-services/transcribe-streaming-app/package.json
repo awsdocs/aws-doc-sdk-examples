@@ -14,7 +14,10 @@
     "@aws-sdk/client-cognito-identity": "^3.3.0",
     "@aws-sdk/credential-provider-cognito-identity": "^3.3.0",
     "@aws-sdk/client-transcribe-streaming": "^3.3.0",
-    "microphone-stream": "5.3.1",
+    "@aws-sdk/client-ses": "^3.3.0",
+    "@aws-sdk/client-comprehend": "^3.3.0",
+    "@aws-sdk/client-translate": "^3.3.0",
+    "microphone-stream": "6.0.0",
     "get-user-media-promise": "^1.1.4",
     "stream": "0.0.2"
   },

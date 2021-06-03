@@ -64,10 +64,23 @@ h2 {
     right: 100px;
     position: relative;
 }
-div {
+div#output {
+    display:block;
     background-color: lightgrey;
     width: 300px;
     border: 15px solid green;
     padding: 50px;
+    margin: 20px;
+}
+div#translated {
+    display:inline-block;
+    background-color: lightgrey;
+    width: 300px;
+    border: 15px solid green;
+    padding: 50px;
+    margin: 20px;
+}
+
+div#transButton, div#emailAddress{
     margin: 20px;
 }
