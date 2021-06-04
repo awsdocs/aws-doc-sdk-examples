@@ -6,19 +6,19 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-sending-events.html.
 
 Purpose:
-cwe_puttargets.js demonstrates how to add or update a target to an Amazon CloudWatch Events rule.
+putTargets.js demonstrates how to add or update a target to an Amazon CloudWatch Events rule.
 
 Inputs (replace in code):
 - LAMBDA_FUNCTION_ARN
 
 Running the code:
-node cwe_puttargets.js
+node putTargets.js
 */
 // snippet-start:[cwEvents.JavaScript.cwe.putTargetsV3]
 
 // Import required AWS SDK clients and commands for Node.js
 import { PutTargetsCommand } from "@aws-sdk/client-cloudwatch-events";
-import { cweClient } from "./libs/cweClient";
+import { cweClient } from "./libs/cloudWatchEventsClient";
 
 // Set the parameters
 const params = {

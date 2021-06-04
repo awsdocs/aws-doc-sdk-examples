@@ -6,22 +6,22 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-creating-alarms.html.
 
 Purpose:
-cw_deletealarm.js demonstrates how to delete Amazon CloudWatch alarms.
+deleteAlarms.js demonstrates how to delete Amazon CloudWatch alarms.
 
 Inputs (replace in code):
-- ALARM_NAMES (e.g., Web_Server_CPU_Utilization)
+- ALARM_NAME (e.g., Web_Server_CPU_Utilization)
 
 Running the code:
-node cw_deletealarm.js
+node deleteAlarms.js
 */
 // snippet-start:[cw.JavaScript.alarms.deleteAlarmsV3]
 
 // Import required AWS SDK clients and commands for Node.js
 import { DeleteAlarmsCommand } from "@aws-sdk/client-cloudwatch";
-import { cwClient } from "./libs/cwClient";
+import { cwClient } from "./libs/cloudWatchClient";
 
 // Set the parameters
-const params = { AlarmNames: "sdfs" }; // e.g., "Web_Server_CPU_Utilization"
+const params = { AlarmNames: "ALARM_NAME" }; // e.g., "Web_Server_CPU_Utilization"
 
 const run = async () => {
   try {

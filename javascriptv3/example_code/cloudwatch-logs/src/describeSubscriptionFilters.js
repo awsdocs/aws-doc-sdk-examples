@@ -6,44 +6,40 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-subscriptions.html.
 
 Purpose:
-cwl_deletesubscriptionfilter.js demonstrates how to delete an Amazon CloudWatch Logs filter.
+describeSubscriptionFilters.js demonstrates how to list the subscription filters for an Amazon CloudWatch Logs group.
 
-Inputs :
-- FILTER
-- LOG_GROUP
+Inputs (replace in code):
+- GROUP_NAME
 
 Running the code:
-node cwl_deletesubscriptionfilter.js
+node describeSubscriptionFilters.js
 */
-// snippet-start:[cwLogs.JavaScript.cwl.deleteSubscriptionFilterV3]
+// snippet-start:[cwLogs.JavaScript.cwl.describeSubscriptionFiltersV3]
 
 // Import required AWS SDK clients and commands for Node.js
 import {
-  DeleteSubscriptionFilterCommand,
+  DescribeSubscriptionFiltersCommand,
 } from "@aws-sdk/client-cloudwatch-logs";
-import { cwlClient } from "./libs/cwlClient";
+import { cwlClient } from "./libs/cloudWatchLogsClient";
 
 // Set the parameters
 const params = {
-  filterName: "FILTER", //FILTER
-  logGroupName: "LOG_GROUP", //LOG_GROUP
+  logGroupName: "GROUP_NAME", //GROUP_NAME
+  limit: 5,
 };
 
 const run = async () => {
   try {
     const data = await cwlClient.send(
-      new DeleteSubscriptionFilterCommand(params)
+      new DescribeSubscriptionFiltersCommand(params)
     );
-    console.log(
-      "Success, subscription filter deleted; requestId: ",
-      data.$metadata.requestId
-    );
+    console.log("Success", data.subscriptionFilters);
     return data;
   } catch (err) {
     console.log("Error", err);
   }
 };
 run();
-// snippet-end:[cwLogs.JavaScript.cwl.deleteSubscriptionFilterV3]
+// snippet-end:[cwLogs.JavaScript.cwl.describeSubscriptionFiltersV3]
 // For unit tests only.
 // module.exports ={run, params};

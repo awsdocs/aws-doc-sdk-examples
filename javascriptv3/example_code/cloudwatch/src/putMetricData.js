@@ -6,16 +6,16 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide//cloudwatch-examples-getting-metrics.html.
 
 Purpose:
-cw_putmetricdata.js demonstrates how to publish metric data to Amazon CloudWatch.
+putMetricData.js demonstrates how to publish metric data to Amazon CloudWatch.
 
 Running the code:
-node cw_putmetricdata.js
+node putMetricData.js
 */
 // snippet-start:[cw.JavaScript.metrics.putMetricDataV3]
 
 // Import required AWS SDK clients and commands for Node.js
-import { CloudWatchClient } from "@aws-sdk/client-cloudwatch";
-import { cwClient } from "./libs/cwClient";
+import { PutMetricDataCommand } from "@aws-sdk/client-cloudwatch";
+import { cwClient } from "./libs/cloudWatchClient";
 
 // Set the parameters
 const params = {

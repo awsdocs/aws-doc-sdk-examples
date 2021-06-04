@@ -6,16 +6,16 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-creating-alarms.html.
 
 Purpose:
-cw_describealarms.js demonstrates how to retrieve information about Amazon CloudWatch alarms.
+describeAlarms.js demonstrates how to retrieve information about Amazon CloudWatch alarms.
 
 Running the code:
-node cw_describealarms.js
+node describeAlarms.js
 */
 // snippet-start:[cw.JavaScript.alarms.describeAlarmsV3]
 
 // Import required AWS SDK clients and commands for Node.js
 import { DescribeAlarmsCommand } from "@aws-sdk/client-cloudwatch";
-import { cwClient } from "./libs/cwClient";
+import { cwClient } from "./libs/cloudWatchClient";
 
 // Set the parameters
 const params = { StateValue: "INSUFFICIENT_DATA" };

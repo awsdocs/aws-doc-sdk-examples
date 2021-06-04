@@ -12,12 +12,12 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- /// snippet-start:[s3.php.delete_bucket_lifecycle.complete]
+ // snippet-start:[s3.php.delete_bucket_lifecycle.complete]
 // snippet-start:[s3.php.delete_bucket_lifecycle.import]
 
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;  
+use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 // snippet-end:[s3.php.delete_bucket_lifecycle.import]
 
@@ -46,8 +46,8 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
- 
- 
+
+
 // snippet-end:[s3.php.delete_bucket_lifecycle.main]
 // snippet-end:[s3.php.delete_bucket_lifecycle.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]

@@ -6,14 +6,14 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-using-alarm-actions.html.
 
 Purpose:
-cw_enablealarmactions.js demonstrates how to enable actions for Amazon CloudWatch alarms.
+enableAlarmActions.js demonstrates how to enable actions for Amazon CloudWatch alarms.
 
 Inputs (replace in code):
 - ALARM_NAME
 - ACTION_ARN
 
 Running the code:
-node cw_enablealarmactions.js
+node enableAlarmActions.js
 */
 // snippet-start:[cw.JavaScript.alarms.enableAlarmActionsV3]
 
@@ -22,7 +22,7 @@ import {
   PutMetricAlarmCommand,
   EnableAlarmActionsCommand,
 } from "@aws-sdk/client-cloudwatch";
-import { cwClient } from "./libs/cwClient";
+import { cwClient } from "./libs/cloudWatchClient";
 
 // Set the parameters
 const params = {

@@ -1,8 +1,9 @@
 // Get service clients module and commands using CommonJS syntax.
-const { run, params } = require("../../cloudwatch/src/cw_enablealarmactions");
-const { cwClient } = require("../../cloudwatch/src/libs/cwClient");
+const { run, params } = require("../../cloudwatch/src/enableAlarmActions");
+const { cwClient } = require("../../cloudwatch/src/libs/cloudWatchClient");
 
-jest.mock("../../cloudwatch/src/libs/cwClient.js");
+
+jest.mock("../../cloudwatch/src/libs/cloudWatchClient.js");
 
 describe("@aws-sdk/client-cloudwatch mock", () => {
   it("should successfully mock CloudWatch client", async () => {

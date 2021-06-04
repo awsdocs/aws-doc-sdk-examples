@@ -18,7 +18,7 @@ Inputs (replace in code):
 Running the code:
 node upload-files-to-s3.ts
  */
-// snippet-start:[s3.JavaScript.cross-service.addBucketPolicyV3]
+// snippet-start:[s3.JavaScript.cross-service.convertBucketPolicyV3]
 const {
   S3Client,
   CreateBucketCommand,
@@ -69,6 +69,6 @@ const run = async () => {
   }
 };
 run();
-// snippet-end:[s3.JavaScript.cross-service.addBucketPolicyV3]
+// snippet-end:[s3.JavaScript.cross-service.convertBucketPolicyV3]
 // For unit tests only
-exports.run = run();
+//exports.run = run();
