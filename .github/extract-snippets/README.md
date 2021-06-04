@@ -38,7 +38,7 @@ features:
 * Can dedent (remove indentation from) extracted snippets.
 * Checks for and logs a variety of problems, including conflicting snippet
   tags (same tag in multiple files).
-* Besides a procesing log, produces a report of files with problems and an
+* Besides a processing log, produces a report of files with problems and an
   index mapping snippet tags back to the file(s) that contain them.
 
 It does not have the following features of the AWS Docs tool:
@@ -46,12 +46,6 @@ It does not have the following features of the AWS Docs tool:
 * Extract metadata from snippets for use in catalogs.  The metadata tags are
   recognized, but do not do anything, in this snippet extractor.
   
-**Note**
-
-In this README, examples that contain the phrase `snippet-start` are 
-intentionally misspelled as `snipppet-start`. This is to work around a build issue.
-Be sure to use the correct spelling in your own code!
-
 ## Snippet tags
 
 Snippet tags are special single-line comments in source files.  They must not
@@ -63,9 +57,7 @@ snippet tag is followed by the snippet directive, a colon, and an argument in
 square brackets.  Whitespace is permitted (but optional) between the comment
 marker and the snippet directive. For example:
 
-```
-// snipppet-start:[cdk.typescript.widget_service]
-```
+<tt>// snippet&#45;start:[cdk.typescript.widget_service]</tt>
 
 Here, the directive begins the extraction of a code snippet to the filename
 specified, with a `.txt` extension.
@@ -91,9 +83,7 @@ the snippet extractor used by the AWS Docs team).
 ALso unique to this extractor, `snippet-start` supports an optional number
 following the closing bracket.  
 
-```
-// snipppet-start:[my-snippet] 8
-```
+<tt>// snippet&#45;start:[my-snippet] 8</tt>
 
 If this number is present, that many spaces are removed from the beginning of
 each line of the snippet, allowing snippets to be dedented (have indentation
@@ -155,16 +145,12 @@ include the lines with the snippet tags in the snippets, so you should include
 the closing block comment marker on the same line to avoid the closing marker
 being included in the snippet.  For example:
 
-```
-/* snipppet-start:[terry.riley.in-c] */
-```
+<tt>/* snippet&#45;start:[terry.riley.in-c] */</tt>
 
 Not:
 
-```
-/* snipppet-start:[terry.riley.in-c]
- */
-```
+<tt>/* snippet&#45;start:[terry.riley.in-c]</tt><br/>
+<tt>*/</tt>
 
 Some languages support both line and block comments.  In this case, we suggest
 you always use the line comment marker for snippet tags.
