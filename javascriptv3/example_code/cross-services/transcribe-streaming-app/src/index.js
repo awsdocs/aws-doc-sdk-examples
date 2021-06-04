@@ -9,10 +9,10 @@ index.ts is part of a tutorial demonstrating how stream speech using Amazon Tran
 */
 
 // snippet-start:[transcribe.JavaScript.streaming.indexv3]
-import { sesClient } from "./libs/allClients.js";
-import { comprehendClient } from "./libs/allClients.js";
-import { translateClient } from "./libs/allClients.js";
-import { transcribeClient } from "./libs/allClients.js";
+import { transcribeClient } from "./libs/transcribeClient.js";
+import { translateClient } from "./libs/translateClient.js";
+import { sesClient } from "./libs/sesClient.js";
+import { comprehendClient } from "./libs/comprehendClient.js";
 import { DetectDominantLanguageCommand } from "@aws-sdk/client-comprehend";
 import { StartStreamTranscriptionCommand } from "@aws-sdk/client-transcribe-streaming";
 import { TranslateTextCommand } from "@aws-sdk/client-translate";
@@ -77,6 +77,7 @@ window.startRecord = async () => {
     // Send the speech stream to Amazon Transcribe.
     const data = await transcribeClient.send(command);
     console.log("Success", data.TranscriptResultStream);
+    //return data; //For unit tests only.
     for await (const event of data.TranscriptResultStream) {
       for (const result of event.TranscriptEvent.Transcript.Results || []) {
         if (result.IsPartial === false) {
@@ -115,6 +116,7 @@ window.translateText = async () => {
     const data = await comprehendClient.send(
       new DetectDominantLanguageCommand({ Text: outPut })
     );
+   // return data; //For unit tests only.
     const langCode = data.Languages[0].LanguageCode;
     try {
       const selectedValue = document.getElementById("list").value;
@@ -192,9 +194,11 @@ window.sendEmail = async () => {
       Source: fromEmail, // SENDER_ADDRESS (required)
     };
     const data = await sesClient.send(new SendEmailCommand(params));
+    // return data; //For unit tests only.
     alert("Success. Email sent.");
   } catch (err) {
     console.log("Error", err);
   }
 };
 // snippet-end:[transcribe.JavaScript.streaming.indexv3]
+// module.exports = {sendEmail, translateText, startRecord }

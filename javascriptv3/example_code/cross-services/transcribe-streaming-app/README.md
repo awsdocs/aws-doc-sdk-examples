@@ -210,19 +210,16 @@ Each button on the interface invokes one of these functions when clicked.
 ```
 
 ### Creating the JavaScript and Node.js
-**./src/libs/allClients.js** is a helper file that creates the AWS Service clients required. You must
+**./src/libs/** folders contains a file for each of the AWS Service clients required. You must
 replace "REGION" with your AWS Region, and replace "IDENTITY_POOL_ID" with the Amazon Cognito identity pool id
-you created in [Create the resources](#create-the-resources) on this page. 
+you created in [Create the resources](#create-the-resources) on this page. Here's an example of one of these client configuration files:
+ 
  
 ```
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 import {
     fromCognitoIdentityPool,
 } from "@aws-sdk/credential-provider-cognito-identity";
-import {
-    ComprehendClient
-} from "@aws-sdk/client-comprehend";
-import {SESClient} from "@aws-sdk/client-ses";
 import {TranscribeStreamingClient} from "@aws-sdk/client-transcribe-streaming";
 import {TranslateClient} from "@aws-sdk/client-translate";
 
@@ -238,34 +235,7 @@ const transcribeClient = new TranscribeStreamingClient({
     }),
 });
 
-// Create SES service object.
-const sesClient = new SESClient({
-    region: REGION,
-    credentials: fromCognitoIdentityPool({
-        client: new CognitoIdentityClient({ region: REGION }),
-        identityPoolId: IDENTITY_POOL_ID
-    }),
-});
-
-// Create an Amazon Comprehend service client object.
-const comprehendClient = new ComprehendClient({
-    region: REGION,
-    credentials: fromCognitoIdentityPool({
-        client: new CognitoIdentityClient({ region: REGION }),
-        identityPoolId: IDENTITY_POOL_ID
-    }),
-});
-
-// Create an Amazon Transcribe service client object.
-const translateClient = new TranslateClient({
-    region: REGION,
-    credentials: fromCognitoIdentityPool({
-        client: new CognitoIdentityClient({ region: REGION }),
-        identityPoolId: IDENTITY_POOL_ID
-    }),
-});
-
-export { transcribeClient, sesClient, comprehendClient, translateClient };
+export { transcribeClient };
 ```
 **./src/index.js** first imports all the require AWS Service and third party modules. 
 
