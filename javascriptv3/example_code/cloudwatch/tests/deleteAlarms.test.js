@@ -1,12 +1,10 @@
-// const { testEnvironment } = require("../jest.config");
+jest.mock("../src/libs/cwClient.js");
+jest.mock("@aws-sdk/client-cloudwatch");
 
 // Get service clients module and commands using ES6 syntax.
 import 'regenerator-runtime/runtime'
 import { run, params } from "../src/cw_deletealarms";
 import { cwClient } from "../src/libs/cwClient.js";
-
-jest.mock("../src/libs/cwClient.js");
-jest.mock("@aws-sdk/client-cloudwatch");
 
 describe("@aws-sdk/client-cloudwatch mock", () => {
   it("should run async equal", async (done) => {
