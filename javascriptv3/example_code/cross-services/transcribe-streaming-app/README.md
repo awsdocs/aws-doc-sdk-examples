@@ -1,7 +1,7 @@
 # Cross-service example: Building an Amazon Transcribe streaming app
 
 ## Purpose
-The cross-service example demonstrates how to build and app that records and transcribes an audio stream in real-time. It
+The cross-service example demonstrates how to build an app that records and transcribes an audio stream in real-time. It
 also demonstrates how to translate the transcription and sent it via email to your contacts. The app uses the following
 AWS services:
 - [Amazon Transcribe](https://aws.amazon.com/transcribe/)
