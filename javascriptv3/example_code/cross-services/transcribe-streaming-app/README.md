@@ -210,7 +210,7 @@ Each button on the interface invokes one of these functions when clicked.
 ```
 
 ### Creating the JavaScript and Node.js
-**./src/libs/** folders contains a file for each of the AWS Service clients required. You must
+The **./src/libs/** folders contains a file for each of the AWS Service clients required. You must
 replace "REGION" with your AWS Region, and replace "IDENTITY_POOL_ID" with the Amazon Cognito identity pool id
 you created in [Create the resources](#create-the-resources) on this page. Here's an example of one of these client configuration files:
  
