@@ -1,7 +1,7 @@
 # Extract Snippets for GitHub Actions
 
 Jerry Kindall, Amazon Web Services  
-Last updated 2-Jun-2021
+Last updated 4-Jun-2021
 
 ## What it is
 
@@ -24,8 +24,8 @@ There are two separate workflows:
 To prevent the introduction of errors in the snippets (e.g. duplicate snippet
 filenames with different content), all files in the repo are always processed.
 This is not noticeably slower than e.g. processing only the files in a given
-commit; the overhead of the action setup and Git commands dwarfs the run time
-of the actual snippet extraction.
+commit; the overhead of the action setup and Git commands overshadows the run
+time of the actual snippet extraction.
 
 ## Compared to other snippet extraction tools
 
@@ -80,7 +80,7 @@ the snippet extractor used by the AWS Docs team).
   partial code block.  Whitespace is stripped from the right of the argument
   but not the left, so you can match indentation.
 
-ALso unique to this extractor, `snippet-start` supports an optional number
+Also unique to this extractor, `snippet-start` supports an optional number
 following the closing bracket.  
 
 <tt>// snippet&#45;start:[my-snippet] 8</tt>
@@ -118,7 +118,8 @@ This script reads from standard input the paths of the files containing the
 snippets to be extracted.  It ignores non-source files, hidden files, and
 files in hidden directories (it is not necessary to filter out such files
 beforehand). The script's required argument is the directory that the snippets
-should be extracted into.
+should be extracted into.  This directory must not contain any files named
+the same as a snippet being extracted.
 
 For example, the following command runs the script on source files in the
 current directory, extracting snippets also into the current directory.
@@ -127,7 +128,8 @@ current directory, extracting snippets also into the current directory.
 ls | python3 extract-snippets.py .
 ```
 
-Both Windows and Linux-style paths are supported.
+Both Windows and Linux-style paths are supported so you can test the script
+on Windows during development.
 
 The supported source file formats are stored in `snippet-extensions.yml` or
 another file specified as the second command-line argument. This file is a YAML
