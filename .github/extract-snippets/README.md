@@ -45,6 +45,12 @@ It does not have the following features of the AWS Docs tool:
 
 * Extract metadata from snippets for use in catalogs.  The metadata tags are
   recognized, but do not do anything, in this snippet extractor.
+  
+**Note**
+
+In this README, examples that contain the phrase `snippet-start` are 
+intentionally misspelled as `snipppet-start`. This is to work around a build issue.
+Be sure to use the correct spelling in your own code!
 
 ## Snippet tags
 
@@ -58,7 +64,7 @@ square brackets.  Whitespace is permitted (but optional) between the comment
 marker and the snippet directive. For example:
 
 ```
-// snippet-start:[cdk.typescript.widget_service]
+// snipppet-start:[cdk.typescript.widget_service]
 ```
 
 Here, the directive begins the extraction of a code snippet to the filename
@@ -86,7 +92,7 @@ ALso unique to this extractor, `snippet-start` supports an optional number
 following the closing bracket.  
 
 ```
-// snippet-start:[my-snippet] 8
+// snipppet-start:[my-snippet] 8
 ```
 
 If this number is present, that many spaces are removed from the beginning of
@@ -150,13 +156,13 @@ the closing block comment marker on the same line to avoid the closing marker
 being included in the snippet.  For example:
 
 ```
-/* snippet-start:[terry.riley.in-c] */
+/* snipppet-start:[terry.riley.in-c] */
 ```
 
 Not:
 
 ```
-/* snippet-start:[terry.riley.in-c]
+/* snipppet-start:[terry.riley.in-c]
  */
 ```
 
