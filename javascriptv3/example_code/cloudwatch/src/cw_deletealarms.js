@@ -21,9 +21,9 @@ import { DeleteAlarmsCommand } from "@aws-sdk/client-cloudwatch";
 import { cwClient } from "./libs/cwClient";
 
 // Set the parameters
-const params = { AlarmNames: "sdfs" }; // e.g., "Web_Server_CPU_Utilization"
+export const params = { AlarmNames: "sdfs" }; // e.g., "Web_Server_CPU_Utilization"
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await cwClient.send(new DeleteAlarmsCommand(params));
     console.log("Success, alarm deleted; requestID:", data);
@@ -32,7 +32,10 @@ const run = async () => {
     console.log("Error", err);
   }
 };
-run();
+
+// Uncomment this line to run execution within this file. 
+// run();
+
 // snippet-end:[cw.JavaScript.alarms.deleteAlarmsV3]
 // For unit tests only.
-// module.exports ={run, params};
+// module.exports = {run, params};
