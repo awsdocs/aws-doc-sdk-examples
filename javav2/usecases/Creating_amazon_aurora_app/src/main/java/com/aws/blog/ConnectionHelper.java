@@ -11,7 +11,7 @@ public class ConnectionHelper {
     private static ConnectionHelper instance;
 
     private ConnectionHelper() {
-        url = "jdbc:mysql://database-1-instance-1.csf1if1wwrox.us-east-1.rds.amazonaws.com:3306/mydb?useSSL=false";
+        url = "jdbc:mysql://localhost:3306/mydb?useSSL=false"; // Replace this value
     }
 
 
