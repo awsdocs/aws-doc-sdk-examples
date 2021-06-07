@@ -22,7 +22,7 @@ public class ConnectionHelper {
         try {
 
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            return DriverManager.getConnection(instance.url, "root","root1234");
+            return DriverManager.getConnection(instance.url, "root","root1234"); // Replace these values with your user name and password
         } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             e.getStackTrace();
         }
