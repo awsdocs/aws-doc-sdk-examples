@@ -176,4 +176,5 @@ namespace com.amazonaws.codesamples
             }
         }
     }
-}// snippet-end:[dynamodb.dotNET.CodeExample.MidLevelQueryAndScan]
+}
+// snippet-end:[dynamodb.dotNET.CodeExample.MidLevelQueryAndScan]
