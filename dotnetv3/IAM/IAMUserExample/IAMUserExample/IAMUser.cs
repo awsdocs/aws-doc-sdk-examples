@@ -12,7 +12,7 @@ namespace IAMUserExample
 
     /// <summary>
     /// This example shows a typical use case for the AWS Identity and Access
-    /// Management (IAM) service. It aws created using the AWS SDK for .NET
+    /// Management (IAM) service. It was created using the AWS SDK for .NET
     /// version 3.x and .NET Core 5.x.
     /// </summary>
     public class IAMUser
@@ -29,8 +29,8 @@ namespace IAMUserExample
 
         private const string PolicyName = "S3ReadOnlyAccess";
 
-        // Indicates the region where the S3 bucket is located. Remember to replace
-        // the value with the endpoit for your own region.
+        // Indicates the AWS Region where the S3 bucket is located. Remember to
+        // replace the value with the endpoint for your own Region.
         private static readonly RegionEndpoint AWSRegion = RegionEndpoint.USWest2;
 
         private static readonly string UserName = "S3ReadOnlyUser";
@@ -43,7 +43,7 @@ namespace IAMUserExample
             // Clear the console screen before displaying any text.
             Console.Clear();
 
-            // Create an Amazon Identity Managements Service Group.
+            // Create an IAM group.
             var createGroupResponse = await CreateNewGroupAsync(iamClient, GroupName);
 
             // Create a policy and add it to the group.
@@ -64,8 +64,8 @@ namespace IAMUserExample
             // Add the new user to the group.
             success = await AddNewUserToGroupAsync(iamClient, readOnlyUser.UserName, createGroupResponse.Group.GroupName);
 
-            // Show that the user can access Amazon Simple Storage Service
-            // (Amazon S3) by listing the buckets on the account.
+            // Show that the user can access S3 by listing the buckets on
+            // the account.
             Console.Write("Waiting for user status to be Active.");
             do
             {
@@ -113,7 +113,7 @@ namespace IAMUserExample
         /// </summary>
         /// <param name="client">The IAM client object.</param>
         /// <param name="group">The name of the group to create.</param>
-        /// <returns>REturns a boolean value that indicates the success of the
+        /// <returns>Returns a boolean value that indicates the success of the
         /// PutGroupPolicyAsync call.</returns>
         public static async Task<bool> AddGroupPermissionsAsync(AmazonIdentityManagementServiceClient client, Group group)
         {
