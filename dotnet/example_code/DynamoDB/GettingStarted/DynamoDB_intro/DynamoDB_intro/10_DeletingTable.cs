@@ -23,4 +23,5 @@ namespace DynamoDB_intro
       return true;
     }
   }
-}// snippet-end:[dynamodb.dotNET.CodeExample.10_DeletingTable]
+}
+// snippet-end:[dynamodb.dotNET.CodeExample.10_DeletingTable]
