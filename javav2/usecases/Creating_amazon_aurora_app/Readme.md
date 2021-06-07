@@ -1133,14 +1133,12 @@ If this is your first time accessing this service, you will see a **Welcome to A
 11. Add a variable named **AWS_ACCESS_KEY_ID**, and then specify your access key value.
 12. Add a variable named **AWS_SECRET_ACCESS_KEY**, and then specify your secret key value. After the variables are configured, you'll see the URL for accessing the application.
 
-![AWS Tracking Application](images/Beanstalk.png)
-
 **Note:** If you don't know how to set variables, see [Environment properties and other software settings](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-softwaresettings.html).
 
-To access the application, open your browser and enter the URL for your application. You will see the Home page for your application.
+To access the application, open your browser and enter the URL for your application. 
 
 ### Next steps
-Congratulations! You have created a Spring Boot application that uses the Amazon Redshift data client to create an example job posting application. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+Congratulations! You have created a Spring Boot application that uses the Amazon Aurora to create an example job posting application. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 For more AWS multiservice examples, see
 [usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).
