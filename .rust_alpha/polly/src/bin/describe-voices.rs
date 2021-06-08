@@ -7,7 +7,7 @@ use std::process;
 
 use polly::{Client, Config, Region};
 
-use aws_types::region::{ProvideRegion};
+use aws_types::region::ProvideRegion;
 
 use structopt::StructOpt;
 use tracing_subscriber::fmt::format::FmtSpan;
@@ -33,7 +33,10 @@ struct Opt {
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
 async fn main() {
-    let Opt { default_region, verbose } = Opt::from_args();
+    let Opt {
+        default_region,
+        verbose,
+    } = Opt::from_args();
 
     let region = default_region
         .as_ref()
@@ -67,7 +70,7 @@ async fn main() {
                     "  Language: {}",
                     voice.language_name.as_deref().unwrap_or("No language!")
                 );
-		println!();
+                println!();
             }
 
             println!("\nFound {} voices.\n", voices.len());

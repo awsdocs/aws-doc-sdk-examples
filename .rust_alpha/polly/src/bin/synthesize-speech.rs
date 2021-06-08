@@ -8,7 +8,7 @@ use std::process;
 use polly::model::{OutputFormat, VoiceId};
 use polly::{Client, Config, Region};
 
-use aws_types::region::{ProvideRegion};
+use aws_types::region::ProvideRegion;
 
 use bytes::Buf;
 use structopt::StructOpt;
