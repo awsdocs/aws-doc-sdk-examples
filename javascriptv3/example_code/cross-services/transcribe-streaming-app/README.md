@@ -2,7 +2,7 @@
 
 ## Purpose
 The cross-service example demonstrates how to build an app that records and transcribes an audio stream in real-time. It
-also demonstrates how to translate the transcription and sent it via email to your contacts. The app uses the following
+also demonstrates how to translate the transcription and send it via email to your contacts. The app uses the following
 AWS services:
 - [Amazon Transcribe](https://aws.amazon.com/transcribe/)
 - [Amazon Comprehend](https://aws.amazon.com/comprehend/)
@@ -14,12 +14,13 @@ library that can be run on browsers, Node.js and potentially React Native. By de
 the client uses HTTP/2 connection on Node.js, and uses WebSocket connection on browsers 
 and React Native.
 
+
 ## Prerequisites
 
 To build this cross-service example, you need the following:
 
 * An AWS account. For more information see [AWS SDKs and Tools Reference Guide](https://docs.aws.amazon.com/sdkref/latest/guide/overview.html).
-* A project environment to run these Node TypeScript examples, and install the required AWS SDK for JavaScript and third-party modules.  For instructions, see [Create a Node.js project environment](#create-a-nodejs-project-environment) on this page.
+* A project environment to run this Node JavaScript example, and install the required AWS SDK for JavaScript and third-party modules.  For instructions, see [Create a Node.js project environment](#create-a-nodejs-project-environment) on this page.
 * At least one email address verified on Amazon SES. For instructions, see [Verifying an email address on Amazon SES](#verifying-an-email-address-on-amazon-ses).
 * The following AWS resources:
     - An unauthenticated AWS Identity and Access Management (IAM) user role with the following permissions:
@@ -41,10 +42,10 @@ To build this cross-service example, you need the following:
 
 ## Create the resources
 You can create the AWS resources required for this cross-service example using either of the following:
-- [The AWS Cloud Development Kit (AWS CDK)](#create-the-resources-using-the-aws-cdk)
-- [The AWS Console](#create-the-resources-using-the-aws-console)
+- [The Amazon CloudFormation](#create-the-resources-using-amazon-cloudformation)
+- [The AWS Management Console](#create-the-resources-using-the-aws-management-console)
 
-### Create the resources using the AWS CDK
+### Create the resources using Amazon CloudFormation
 To run the stack using the AWS CLI:
 
 1. Install and configure the AWS CLI following the instructions in the AWS CLI User Guide.
@@ -57,19 +58,19 @@ aws cloudformation create-stack --stack-name STACK_NAME --template-body file://s
 ```
 **Important**: The stack name must be unique within an AWS Region and AWS account. You can specify up to 128 characters, and numbers and hyphens are allowed.
 
-4. Open [AWS CloudFormation in the AWS Console](https://aws.amazon.com/cloudformation/), and open the **Stacks** page.
+4. Open [AWS CloudFormation in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the **Stacks** page.
 
 ![ ](images/cloud_formation_stacks.png)
 
-5. Choose the **Resources** tab. The **Physical ID** of the **IDENTITY_POOL_ID** you require for this cross-service examples is displayed.
+5. Choose the **Resources** tab. The **Physical ID** of the **IDENTITY_POOL_ID** you require for this cross-service example is displayed.
 
 ![ ](images/cloud_formation_resources_tab.png)
 
 For more information on the create-stack command parameters, see the [AWS CLI Command Reference guide](https://docs.aws.amazon.com/cli/latest/reference/cloudformation/create-stack.html), and the [AWS CloudFormation User Guide](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-cli-creating-stack.html).
 
-### Create the resources using the AWS Console
+### Create the resources using the AWS Management Console
 ####Create an unauthenticated user role
-4. Open [AWS Cognito in the AWS Console](https://aws.amazon.com/cloudformation/), and open the *Stacks* page.
+4. Open [AWS Cognito in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the *Stacks* page.
 5. Choose **Manage Identity Pools**.
 6. Choose **Create new identity pool**.
 7. In the **Identity pool name** field, give your identity pool a name.
@@ -84,7 +85,7 @@ For more information on the create-stack command parameters, see the [AWS CLI Co
 12. Take note of the name of the role in the **Unauthenticated role** field.
 
 ####Adding permissions to an unauthenticated user role
-13. Open [AWS IAM in the AWS Console](https://aws.amazon.com/iam/), and open the *Roles* page.
+13. Open [IAM in the AWS Management Console](https://aws.amazon.com/iam/), and open the *Roles* page.
 14. Search for the unauthenticated role you just created.
 15. Open the role. 
 16. Click the down arrow beside the policy name.
@@ -130,7 +131,7 @@ For more information on the create-stack command parameters, see the [AWS CLI Co
 20. Choose **Save Changes**.   
 
 ### Verifying an email address on Amazon SES 
-1. Open [AWS SES in the AWS Console](https://aws.amazon.com/SES/), and open the *Email Addresses* page.
+1. Open [AWS SES in the AWS Management Console](https://aws.amazon.com/SES/), and open the *Email Addresses* page.
 2. Choose **Verify a New Email Address**.
 3. Enter a working email address, and choose **Verify This Email Address**.
 4. Open the email in your email application, and verify it.
@@ -149,7 +150,7 @@ cd javascriptv3/example_code/cross-services/transcribe-streaming-app
 npm install
 ```
 ## Building the code
-This app is runs from the browser, so we create the interface using HTML and CSS. 
+This app runs from the browser, so we create the interface using HTML and CSS. 
 The app uses JavaScript to provide basic interactive features, and Node.js to invoke the AWS Services.
 
 ### Creating the HTML and CSS
@@ -174,7 +175,7 @@ Each button on the interface invokes one of these functions when clicked.
     <li>Record your voice.</li>
     <li>Select a target language to translate the transcription into.</li>
     <li>Select <b>Translate</b>.</li>
-    <li>Enter an email to send the trascription to.</li>
+    <li>Enter an email to send the transcription to.</li>
     <li>Select <b>Send email</b>.</li>
 </ol>
 <p>
@@ -237,7 +238,7 @@ const transcribeClient = new TranscribeStreamingClient({
 
 export { transcribeClient };
 ```
-**./src/index.js** first imports all the require AWS Service and third party modules. 
+**./src/index.js** first imports all the required AWS Service and third party modules. 
 
 It contains the following functions that are triggered by the buttons on the interface:
 - **startRecord** - starts voice recording in your browser, and converts it into an audio stream in real-time. It encodes the audio stream so that it can be used by the
@@ -246,12 +247,12 @@ It contains the following functions that are triggered by the buttons on the int
 - **clearTranscription** - clears the transcription field.
 - **translateText** - translates the transcription into the selected language.
 - **sendEmail** - emails the selected language to the entered email address. In this function, 
-replace "SENDER_ADDRESS" with an email address you verified on Amazon SNS in [Create the resources](#create-the-resources) 
-on this page.
+replace "SENDER_EMAIL" with an email address you verified on Amazon SES in [Create the resources](#create-the-resources) 
+on this page. 
 
 It also contains several helper functions that are describe in the inline code comments.
 
-**Important**: You must bundle the all the JavaScript and Node.js code required for the app into a single
+**Important**: You must bundle all the JavaScript and Node.js code required for the app into a single
  file (**main.js**) to run the app. For instructions, see [Bundling the scripts](#bundling-the-scripts).
 
 ```
@@ -390,7 +391,7 @@ window.sendEmail = async () => {
   const toEmail = document.getElementById("email").value;
   const outputDiv = document.getElementById("output").innerHTML;
   const translatedDiv = document.getElementById("translated").innerHTML;
-  const fromEmail = "briangermurray@gmail.com";
+  const fromEmail = "SENDER_EMAIL";
   try {
     // Set the parameters
     const params = {
@@ -435,7 +436,7 @@ window.sendEmail = async () => {
           Data: "Your Amazon Transcribe transcription.",
         },
       },
-      Source: fromEmail, // SENDER_ADDRESS
+      Source: fromEmail, // SENDER_EMAIL
     };
     const data = await sesClient.send(new SendEmailCommand(params));
     alert("Success. Email sent.");
@@ -447,7 +448,7 @@ window.sendEmail = async () => {
 
 ### Bundling the scripts
 This is a static site consisting only of HTML, CSS, and client-side JavaScript. 
-However, a build step required to enable the modules to work natively in the browser.
+However, a build step is required to enable the modules to work natively in the browser.
 
 To bundle the JavaScript and Node.js for this example in a single file named main.js, 
 enter the following commands in sequence in the AWS CLI command line:
@@ -457,10 +458,10 @@ cd javascriptv3/example_code/cross-services/transcribe-streaming-app/src
 webpack index.ts --mode development --target web --devtool false -o main.js
 ```
 ## Run the app
-Open the index.html in your favourite browser, and follow the onscreen instructions.
+Open the index.html in your favorite browser, and follow the onscreen instructions.
 
 ## Destroying the resources
-4. Open [AWS CloudFormation in the AWS Console](https://aws.amazon.com/cloudformation/), and open the *Stacks* page.
+4. Open [AWS CloudFormation in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the *Stacks* page.
 
 ![ ](images/cloud_formation_stacks.png)
 

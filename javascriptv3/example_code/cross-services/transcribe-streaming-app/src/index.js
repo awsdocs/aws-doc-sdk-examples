@@ -5,11 +5,11 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript versi
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-index.ts is part of a tutorial demonstrating how to:
+index.js is part of a tutorial demonstrating how to:
 - Transcribe speech in real-time using Amazon Transcribe
 - Detect the language of the transcription using Amazon Comprehend
 - Translate the transcription using Amazon Translate
-- Send the transcription and translation by email using Amazon Simple Email Service (SES)
+- Send the transcription and translation by email using Amazon Simple Email Service (Amazon SES)
 */
 
 // snippet-start:[transcribe.JavaScript.streaming.indexv3]

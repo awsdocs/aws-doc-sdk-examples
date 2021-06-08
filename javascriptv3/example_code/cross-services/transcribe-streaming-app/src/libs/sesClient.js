@@ -4,7 +4,7 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript versi
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-allClients.js is a helper function that creates the Amazon Simple Email Service (SES) service clients.
+sesClient.js is a helper function that creates the Amazon Simple Email Service (SES) clients.
 
 Inputs (replace in code):
 - REGION
@@ -20,7 +20,7 @@ import {SESClient} from "@aws-sdk/client-ses";
 const REGION = "REGION";
 const IDENTITY_POOL_ID = "IDENTITY_POOL_ID"; // An Amazon Cognito Identity Pool ID.
 
-// Create SES service object.
+// Create Amazon SES service object.
 const sesClient = new SESClient({
     region: REGION,
     credentials: fromCognitoIdentityPool({
