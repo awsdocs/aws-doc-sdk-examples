@@ -142,4 +142,5 @@ namespace DynamoDB_intro
             Console.WriteLine();
         }
     }
-}// snippet-end:[dynamodb.dotNET.CodeExample.LoadJsonMovieData]
+}
+// snippet-end:[dynamodb.dotNET.CodeExample.LoadJsonMovieData]

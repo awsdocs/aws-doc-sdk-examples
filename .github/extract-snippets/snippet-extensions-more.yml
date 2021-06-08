@@ -1,0 +1,44 @@
+# This file maps filename extensions (or, really, any string ending a path,
+# such as /makefile) to comemnt markers for a particular language, so that
+# snippet directives can be detected in that source file
+
+somewhere/lambda/widgets.js: ""    # example of excluding a file via empty comment marker
+
+.ahk: ;           # AutoHotkey
+.bash: "#"        # bash shell (must quote "#" here as it is also the YAML comment marker)
+.bat: "REM @REM rem @rem Rem @Rem"        # Windows batch file
+.class: //        # Java
+.c: "/*"          # C (closing comment marker must be on same line)
+.cpp: //          # C++
+.csh: "#"         # C shell
+.cs: //           # C#
+.dart: //         # Dart
+.f: "* c !"       # FORTRAN (fixed field; most compilers also support ! even in fexed field)
+.f90: "!"         # FORTRAN (freeform)
+.fs: //           # F#
+.h: "/* //"       # C or Objective-C header (closing comment marker must be on same line)
+.hpp: //          # C++ header
+.go: //           # Go
+.html: <!--       # HTML (closing comment marker must be on same line)
+.js: //           # JavaScript
+.json: //         # JSON (not really supported, but often used anyway)
+.kt: //           # Kotlin
+.m: //            # Objective-C
+.pas: "(* {"      # Pascal or Delphi (closing comment marker must be on same line)
+.php: "# //"      # PHP (supports both # and //)
+.pl: "#"          # Perl
+.ps1: "#"         # PowerShell
+.py: "#"          # Python
+.sh: "#"          # Shell
+.rb: "#"          # Ruby
+.rs: //           # Rust
+.swift: //        # Swift
+.tcl: "#"         # TCL
+.ts: //           # TypeScript
+.vb: "' Rem rem REM"    # Visual Basic
+.yaml: "#"        # YAML (told ya "#" is the YAML comment marker)
+.yml: "#"         # YAML again
+.xml: <!--        # XML (closing comment marker must be on same line)
+.zsh: "#"         # zsh shell
+
+/Dockerfile: "#"    # example of matching complete filename

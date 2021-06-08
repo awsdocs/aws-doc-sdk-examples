@@ -37,9 +37,9 @@ const run = async () => {
     return data; // For unit tests.
     console.log(
       "Successfully uploaded object: " +
-        uploadParams.Bucket +
+        bucketParams.Bucket +
         "/" +
-        uploadParams.Key
+        bucketParams.Key
     );
   } catch (err) {
     console.log("Error", err);
