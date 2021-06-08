@@ -57,7 +57,7 @@
  *
  * Inputs:
  * - bucketName: The name of the bucket to set the ACL for. For example, 
- *   "my-bucket".
+ *   "DOC-EXAMPLE-BUCKET".
  * - region: The AWS Region identifier for the bucket. For example, "us-east-1".
  * - ownerID: The canonical ID of the bucket owner. For example, 
  *   "b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE".
@@ -93,7 +93,7 @@
  *
  * Inputs:
  * - bucketName: The name of the bucket to get ACL information for. For example,
- *   "my-bucket".
+ *   "DOC-EXAMPLE-BUCKET".
  * - region: The AWS Region identifier for the bucket. For example, "us-east-1".
  *
  * Outputs: true if ACL information was retrieved for the bucket; 
@@ -272,8 +272,9 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        //TODO: Change to the name of an actual bucket in your account or you will get an Access Denied error.
-        const Aws::String bucket_name = "my-bucket";
+        //TODO: Change to the name of an actual bucket in your account.
+        //Else, you will get either an Access Denied or a NoSuchBucket error (depending on whether the bucket exists elsewhere).
+        const Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
         //TODO: Set to the region of your profile.
         const Aws::String region = "us-east-1";
 

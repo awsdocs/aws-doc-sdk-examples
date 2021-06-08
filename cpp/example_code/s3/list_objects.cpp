@@ -73,7 +73,7 @@ int main()
         //TODO: Name of a bucket in your account.
         //The bucket should have at least one object in it.  The easiest way to achieve
         //this is to configure and run put_object.cpp's executable first.
-        const Aws::String bucket_name = "my-bucket";
+        const Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
 
         //TODO: Set to the region of your profile.
         Aws::String region = "us-east-1";

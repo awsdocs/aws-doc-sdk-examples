@@ -74,8 +74,8 @@ int main()
     Aws::InitAPI(options);
     {
         //TODO: Name of a bucket in your account.
-        const Aws::String bucket_name = "my-bucket";
-        //TODO: The bucket "my-bucket" must have been previously loaded with "my-file.txt".  The easiest way to achieve
+        const Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
+        //TODO: The bucket "DOC-EXAMPLE-BUCKET" must have been previously loaded with "my-file.txt".  The easiest way to achieve
         //this is to configure and run put_object.cpp's executable first.
         const Aws::String object_name = "my-file.txt";
         //TODO: Set to the region of your profile.

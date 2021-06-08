@@ -60,7 +60,7 @@
  *
  * Inputs:
  * - bucketName: The name of the bucket to set the ACL for. For example,
- *   "my-bucket".
+ *   "DOC-EXAMPLE-BUCKET".
  * - objectKey: The name of the key for the object. For example, "my-file.txt".
  * - region: The AWS Region identifier for the bucket. For example, "us-east-1".
  * - ownerID: The canonical ID of the bucket owner. For example,
@@ -97,7 +97,7 @@
  *
  * Inputs:
  * - bucketName: The name of the bucket. For example,
- *   "my-bucket".
+ *   "DOC-EXAMPLE-BUCKET".
  * - objectKey: The name of the key for the object to get the ACL information 
  *   about. For example, "my-file.txt".
  * - region: The AWS Region identifier for the bucket. For example, "us-east-1".
@@ -285,7 +285,7 @@ int main()
     Aws::InitAPI(options);
     {
         //TODO: Change to the name of an actual bucket in your account.
-        const Aws::String bucket_name = "my-bucket";
+        const Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
         //TODO: Create a file called "my-file.txt" in the local folder where your executables are built to.
         const Aws::String object_name = "my-file.txt";
         //TODO: Set to the region of your profile.

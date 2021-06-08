@@ -63,7 +63,7 @@ int main()
     //it is the filename you added in put_object.cpp.
     Aws::String object_key = "my-file.txt";
     //TODO: Name of a bucket in your account.
-    Aws::String from_bucket = "my-bucket";
+    Aws::String from_bucket = "DOC-EXAMPLE-BUCKET";
     //TODO: Set to the region of your profile.
     Aws::String region = "us-east-1";
 

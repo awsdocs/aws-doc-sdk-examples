@@ -76,7 +76,7 @@ int main()
     Aws::InitAPI(options);
     {
         //TODO: Change to the name of an actual bucket in your account.
-        const Aws::String bucket_name = "my-bucket";
+        const Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
         //TODO: Set to the region of your profile.
         const Aws::String region = "us-east-1";
 
