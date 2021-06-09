@@ -81,7 +81,7 @@ window.startRecord = async () => {
     // Send the speech stream to Amazon Transcribe.
     const data = await transcribeClient.send(command);
     console.log("Success", data.TranscriptResultStream);
-    //return data; //For unit tests only.
+    // return data; //For unit tests only.
     for await (const event of data.TranscriptResultStream) {
       for (const result of event.TranscriptEvent.Transcript.Results || []) {
         if (result.IsPartial === false) {
@@ -120,7 +120,7 @@ window.translateText = async () => {
     const data = await comprehendClient.send(
       new DetectDominantLanguageCommand({ Text: outPut })
     );
-   // return data; //For unit tests only.
+   // return data; // Uncomment this for unit tests.
     const langCode = data.Languages[0].LanguageCode;
     try {
       const selectedValue = document.getElementById("list").value;
@@ -195,10 +195,10 @@ window.sendEmail = async () => {
           Data: "Your Amazon Transcribe transcription.",
         },
       },
-      Source: fromEmail, // SENDER_ADDRESS (required)
+      Source: fromEmail, // Sender's email address (required)
     };
     const data = await sesClient.send(new SendEmailCommand(params));
-    // return data; //For unit tests only.
+    // return data; // Uncomment this for unit tests.
     alert("Success. Email sent.");
   } catch (err) {
     console.log("Error", err);
