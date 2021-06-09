@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several operations using the alpha 0.0.4 version of the AWS SDK for Rust.
+These examples demonstrate how to perform several operations using the alpha 0.0.7 version of the AWS SDK for Rust.
 
 ## Prerequisites
 

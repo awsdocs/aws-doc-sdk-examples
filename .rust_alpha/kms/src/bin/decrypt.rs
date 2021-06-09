@@ -16,7 +16,7 @@ use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The AWS Region. 
+    /// The AWS Region.
     #[structopt(short, long)]
     default_region: Option<String>,
 

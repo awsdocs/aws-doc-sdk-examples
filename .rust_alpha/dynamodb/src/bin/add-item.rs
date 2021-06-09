@@ -8,7 +8,7 @@ use std::process;
 use dynamodb::model::AttributeValue;
 use dynamodb::{Client, Config, Region};
 
-use aws_types::region::{ProvideRegion};
+use aws_types::region::ProvideRegion;
 
 use structopt::StructOpt;
 use tracing_subscriber::fmt::format::FmtSpan;
@@ -86,7 +86,7 @@ async fn main() {
         .as_ref()
         .map(|region| Region::new(region.clone()))
         .or_else(|| aws_types::region::default_provider().region())
-        .unwrap_or_else(|| Region::new("us-west-2"));    
+        .unwrap_or_else(|| Region::new("us-west-2"));
 
     if verbose {
         println!("DynamoDB client version: {}\n", dynamodb::PKG_VERSION);

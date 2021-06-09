@@ -6,7 +6,7 @@ use std::process;
 
 use secretsmanager::{Client, Config, Region};
 
-use aws_types::region::{ProvideRegion};
+use aws_types::region::ProvideRegion;
 
 use structopt::StructOpt;
 
@@ -33,7 +33,10 @@ struct Opt {
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
 async fn main() {
-    let Opt { default_region, verbose } = Opt::from_args();
+    let Opt {
+        default_region,
+        verbose,
+    } = Opt::from_args();
 
     let region = default_region
         .as_ref()
