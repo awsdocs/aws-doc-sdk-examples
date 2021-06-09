@@ -59,12 +59,13 @@
  * the ACL for.
  *
  * Inputs:
- * - bucketName: The name of the bucket to set the ACL for. For example,
+ * - bucketName: The name of the bucket to which the ACL is applied. For example,
  *   "DOC-EXAMPLE-BUCKET".
- * - objectKey: The name of the key for the object. For example, "my-file.txt".
+ * - objectKey: The name of the object in the bucket. For example, "my-file.txt".
  * - region: The AWS Region identifier for the bucket. For example, "us-east-1".
  * - ownerID: The canonical ID of the bucket owner. For example,
  *   "b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE".
+ *   See https://docs.aws.amazon.com/AmazonS3/latest/userguide/finding-canonical-user-id.html for more information.
  * - granteePermission: The access level to enable for the grantee. For example:
  *   - "FULL_CONTROL": Can read the object's data and its metadata, 
  *     and read/write the object's permissions.
@@ -98,7 +99,7 @@
  * Inputs:
  * - bucketName: The name of the bucket. For example,
  *   "DOC-EXAMPLE-BUCKET".
- * - objectKey: The name of the key for the object to get the ACL information 
+ * - objectKey: The name of the object to get ACL information 
  *   about. For example, "my-file.txt".
  * - region: The AWS Region identifier for the bucket. For example, "us-east-1".
  *
@@ -284,26 +285,26 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        //TODO: Change to the name of an actual bucket in your account.
+        //TODO: Change bucket_name to the name of a bucket in your account.
         const Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
         //TODO: Create a file called "my-file.txt" in the local folder where your executables are built to.
         const Aws::String object_name = "my-file.txt";
-        //TODO: Set to the region of your profile.
+        //TODO: Set to the region in which the bucket was created.
         const Aws::String region = "us-east-1";
 
 
-        //TODO: Set the ACL's owner information (if it is your bucket, then you want your canonical id). 
+        //TODO: Set owner_id to your canonical id.  Since it is your bucket you are the ACL owner. 
         //See https://docs.aws.amazon.com/AmazonS3/latest/userguide/finding-canonical-user-id.html for more information.,
         //or you can find it by running the executable run_get_acl.exe of this project. 
         const Aws::String owner_id = 
             "b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE";
 
         // Set the ACL's grantee information.
-        const Aws::String grantee_permission = "READ";
+        const Aws::String grantee_permission = "READ"; //Give the grantee Read permissions.
 
-        //TODO: Select which form of 'grantee' you want to specify, and update the corresponding data.
+        //TODO: Select which form of grantee you want to specify, and update the corresponding data.
         // If the grantee is by canonical user, then either the user's ID or 
-        // display name must be specified:
+        // grantee_display_name must be specified:
         const Aws::String grantee_type = "Canonical user";
         const Aws::String grantee_id = 
             "51ffd418eb142601651cc9d54984604a32b51a23153b4898fd2224772EXAMPLE";

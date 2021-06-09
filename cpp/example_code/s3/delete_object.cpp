@@ -59,12 +59,12 @@ bool AwsDoc::S3::DeleteObject(const Aws::String& objectKey,
 
 int main()
 {
-    //TODO: The object_key is the unique identifier for the object in the bucket container. In this example set,
+    //TODO: The object_key is the unique identifier for the object in the bucket. In this example set,
     //it is the filename you added in put_object.cpp.
     Aws::String object_key = "my-file.txt";
     //TODO: Name of a bucket in your account.
     Aws::String from_bucket = "DOC-EXAMPLE-BUCKET";
-    //TODO: Set to the region of your profile.
+    //TODO: Set to the region in which the bucket was created.
     Aws::String region = "us-east-1";
 
     Aws::SDKOptions options;

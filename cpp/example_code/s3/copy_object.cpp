@@ -67,7 +67,7 @@ int main()
         Aws::String from_bucket = "my-from-bucket";
         //TODO: Name of another bucket in your account.
         Aws::String to_bucket = "my-to-bucket";
-        //TODO: Set to the region of your profile.
+        //TODO: Set to the region in which the bucket was created.
         Aws::String region = "us-east-1";
 
         if (AwsDoc::S3::CopyObject(object_key, from_bucket, to_bucket, region))

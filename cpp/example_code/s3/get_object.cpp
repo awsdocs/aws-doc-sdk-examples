@@ -75,10 +75,10 @@ int main()
     {
         //TODO: Name of a bucket in your account.
         const Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
-        //TODO: The bucket "DOC-EXAMPLE-BUCKET" must have been previously loaded with "my-file.txt".  The easiest way to achieve
-        //this is to configure and run put_object.cpp's executable first.
+        //TODO: The bucket "DOC-EXAMPLE-BUCKET" must have been created and previously loaded with "my-file.txt". 
+        //See create_bucket.cpp and put_object.cpp to create a bucket and load an object into that bucket.
         const Aws::String object_name = "my-file.txt";
-        //TODO: Set to the region of your profile.
+        //TODO: Set to the region in which the bucket was created.
         const Aws::String region = "us-east-1";
 
         if (!AwsDoc::S3::GetObject(object_name, bucket_name, region))

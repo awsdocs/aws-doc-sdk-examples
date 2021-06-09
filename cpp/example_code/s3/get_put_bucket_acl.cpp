@@ -61,6 +61,7 @@
  * - region: The AWS Region identifier for the bucket. For example, "us-east-1".
  * - ownerID: The canonical ID of the bucket owner. For example, 
  *   "b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE".
+ *   See https://docs.aws.amazon.com/AmazonS3/latest/userguide/finding-canonical-user-id.html for more information.
  * - granteePermission: The access level to enable for the grantee. For example:
  *   - "FULL_CONTROL": Can list objects in the bucket, create/overwrite/delete 
  *     objects in the bucket, and read/write the bucket's permissions.
@@ -272,10 +273,12 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        //TODO: Change to the name of an actual bucket in your account.
-        //Else, you will get either an Access Denied or a NoSuchBucket error (depending on whether the bucket exists elsewhere).
+        //TODO: Change bucket_name to the name of a bucket in your account.
+        //If the bucket is not in your account, you will get one of two errors: 
+        //AccessDenied if the bucket exists in some other account, or NoSuchBucket 
+        //if the bucket does not exist in any account.
         const Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
-        //TODO: Set to the region of your profile.
+        //TODO: Set to the region in which the bucket was created.
         const Aws::String region = "us-east-1";
 
         //TODO: Set the ACL's owner information (if it is your bucket, then you want your canonical id). 
@@ -284,9 +287,9 @@ int main()
             "b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE";
 
         // Set the ACL's grantee information.
-        const Aws::String grantee_permission = "READ";
+        const Aws::String grantee_permission = "READ"; //Give the grantee Read permissions.
         
-        //TODO: Select which form of 'grantee' you want to specify, and update the corresponding data.
+        //TODO: Select which form of grantee you want to specify, and update the corresponding data.
         // If the grantee is by canonical user, then either the user's ID or 
         // display name must be specified:
         const Aws::String grantee_type = "Canonical user";

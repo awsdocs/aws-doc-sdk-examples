@@ -51,7 +51,7 @@ bool AwsDoc::S3::PutObject(const Aws::String& bucketName,
     
     Aws::S3::Model::PutObjectRequest request;
     request.SetBucket(bucketName);
-    //Note how we are using the filename of the file as the unique key for the object in the bucket container.
+    //We are using the name of the file as the key for the object in the bucket.
     //However, this is just a string and can set according to your retrieval needs.
     request.SetKey(objectName);
 
@@ -85,11 +85,11 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        //TODO: Change to the name of an actual bucket in your account.
+        //TODO: Change bucket_name to the name of a bucket in your account.
         const Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
         //TODO: Create a file called "my-file.txt" in the local folder where your executables are built to.
         const Aws::String object_name = "my-file.txt";
-        //TODO: Set to the region of your profile.
+        //TODO: Set to the region in which the bucket was created.
         const Aws::String region = "us-east-1";
 
         if (!AwsDoc::S3::PutObject(bucket_name, object_name, region)) {
