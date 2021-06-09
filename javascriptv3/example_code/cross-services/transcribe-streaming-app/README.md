@@ -346,14 +346,7 @@ window.startRecord = async () => {
 };
 
 window.stopRecord = function () {
-  const micStream = new MicrophoneStream();
-  console.log("Recording stopped");
-  var record = document.getElementById("record");
-  var stop = document.getElementById("stopRecord");
-  record.disabled = false;
-  stop.disabled = true;
-  record.style.backgroundColor = "red";
-  micStream.stop();
+   window.location.reload();
 };
 
 window.translateText = async () => {
