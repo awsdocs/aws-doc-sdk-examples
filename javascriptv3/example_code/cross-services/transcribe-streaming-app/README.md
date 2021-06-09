@@ -180,7 +180,7 @@ Each button on the interface invokes one of these functions when clicked.
 </ol>
 <p>
     <button id="record" onclick="startRecord()"></button>
-    <button id="stopRecord" disabled onclick="stopRecord()">Stop</button>
+    <button id="stopRecord" disabled onclick="stopRecord()">Stop and clear</button>
 </p>
 <h2>Transcription</h2>
 <div id="output"></div>
@@ -346,14 +346,7 @@ window.startRecord = async () => {
 };
 
 window.stopRecord = function () {
-  const micStream = new MicrophoneStream();
-  console.log("Recording stopped");
-  var record = document.getElementById("record");
-  var stop = document.getElementById("stopRecord");
-  record.disabled = false;
-  stop.disabled = true;
-  record.style.backgroundColor = "red";
-  micStream.stop();
+  window.location.reload();
 };
 
 window.translateText = async () => {
