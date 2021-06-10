@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier:  Apache-2.0
+
 using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
 using GetSecretValueExample;
@@ -26,6 +29,7 @@ namespace GetSecretValueExampleTests
                 {
                     return Task.FromResult(new GetSecretValueResponse()
                     {
+                        SecretString = "Sample Secret String",
                         HttpStatusCode = HttpStatusCode.OK,
                     });
                 });
@@ -37,6 +41,8 @@ namespace GetSecretValueExampleTests
             request.VersionStage = "AWSCURRENT"; // VersionStage defaults to AWSCURRENT if unspecified.
 
             var response = client.GetSecretValueAsync(request);
+
+            Assert.True(response.Result.SecretString == "Sample Secret String");
         }
 
         [Fact]
