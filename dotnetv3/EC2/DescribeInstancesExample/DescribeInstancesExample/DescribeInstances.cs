@@ -66,8 +66,8 @@ namespace DescribeInstancesExample
 
         /// <summary>
         /// This method lists the EC2 instances for this account which have set
-        /// the tag named in the tagName parameter with the value in the
-        /// tagValue parameter.
+        /// the tag named in the tagName parameter with the value in the tagValue
+        /// parameter.
         /// </summary>
         /// <param name="client">The Amazon EC2 client object used to call
         /// the DescribeInstances method.</param>
