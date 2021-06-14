@@ -25,8 +25,8 @@ namespace DeleteMultipleObjectsExample
             const string bucketName = "doc-example-bucket";
 
             // If the S3 bucket from which you wish to delete objects is not
-            // located in the same region as the default user, specify the
-            // bucket region as a parameter to the client constructor.
+            // located in the same AWS Region as the default user, specify the
+            // bucket Region as a parameter to the client constructor.
             IAmazonS3 s3Client = new AmazonS3Client();
 
             await MultiObjectDeleteAsync(s3Client, bucketName);
@@ -45,15 +45,17 @@ namespace DeleteMultipleObjectsExample
             // Create three sample objects which we will then delete.
             var keysAndVersions = await PutObjectsAsync(client, 3, bucketName);
 
-            // a. multi-object delete by specifying the key names and version IDs.
+            // Now perform the multi-object delete, passing the key names and
+            // version IDs. Since we are working with a non-versioned bucket,
+            // the object keys collection includes null version IDs.
             DeleteObjectsRequest multiObjectDeleteRequest = new DeleteObjectsRequest
             {
                 BucketName = bucketName,
-                Objects = keysAndVersions, // This includes the object keys and null version IDs.
+                Objects = keysAndVersions,
             };
 
-            // You can add specific object key to the delete request using the .AddKey.
-            // multiObjectDeleteRequest.AddKey("TickerReference.csv", null);
+            // You can add a specific object key to the delete request using the
+            // AddKey method of the multiObjectDeleteRequest.
             try
             {
                 DeleteObjectsResponse response = await client.DeleteObjectsAsync(multiObjectDeleteRequest);
@@ -66,13 +68,12 @@ namespace DeleteMultipleObjectsExample
         }
 
         /// <summary>
-        /// Prins the list of errors raised by the call to DeleteObjectsAsync.
+        /// Prints the list of errors raised by the call to DeleteObjectsAsync.
         /// </summary>
         /// <param name="ex">A collection of exceptions returned by the call to
         /// DeleteObjectsAsync.</param>
         public static void PrintDeletionErrorStatus(DeleteObjectsException ex)
         {
-            // var errorResponse = e.ErrorResponse;
             DeleteObjectsResponse errorResponse = ex.Response;
             Console.WriteLine("x {0}", errorResponse.DeletedObjects.Count);
 

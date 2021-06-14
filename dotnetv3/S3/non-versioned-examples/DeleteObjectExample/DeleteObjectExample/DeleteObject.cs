@@ -16,7 +16,7 @@ namespace DeleteObjectExample
     public class DeleteObject
     {
         /// <summary>
-        /// The Main method initializes the necessary variable and then calls
+        /// The Main method initializes the necessary variables and then calls
         /// the DeleteObjectNonVersionedBucketAsync method to delete the object
         /// named by the keyName parameter.
         /// </summary>
@@ -25,10 +25,10 @@ namespace DeleteObjectExample
             const string bucketName = "doc-example-bucket";
             const string keyName = "testfile.txt";
 
-            // If the bucket is located in a region other than region of the
-            // default account, specify the region where the bucket is located
-            // in your call to the AmazonS3Client constructor, for example
-            // RegionEndpoint.USWest2
+            // If the S3 bucket is located in an AWS Region other than the
+            // Region of the default account, specify the bucket's Region in
+            // your call to the AmazonS3Client onstructor.
+            // For example RegionEndpoint.USWest2.
             IAmazonS3 client = new AmazonS3Client();
             await DeleteObjectNonVersionedBucketAsync(client, bucketName, keyName);
         }
