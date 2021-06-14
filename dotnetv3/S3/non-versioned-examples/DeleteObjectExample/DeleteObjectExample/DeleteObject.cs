@@ -27,7 +27,7 @@ namespace DeleteObjectExample
 
             // If the S3 bucket is located in an AWS Region other than the
             // Region of the default account, specify the bucket's Region in
-            // your call to the AmazonS3Client onstructor.
+            // your call to the AmazonS3Client constructor.
             // For example RegionEndpoint.USWest2.
             IAmazonS3 client = new AmazonS3Client();
             await DeleteObjectNonVersionedBucketAsync(client, bucketName, keyName);
