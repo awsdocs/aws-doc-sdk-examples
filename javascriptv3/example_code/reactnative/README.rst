@@ -21,7 +21,8 @@ Running the Example
   `pod install`
 
 6. Run the app in an IOS simulator.
-`npx react-native run-ios`
+
+  `npx react-native run-ios`
 
 
 Tips
