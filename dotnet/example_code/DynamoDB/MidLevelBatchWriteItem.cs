@@ -105,4 +105,5 @@ namespace com.amazonaws.codesamples
             superBatch.Execute();
         }
     }
-}// snippet-end:[dynamodb.dotNET.CodeExample.MidLevelBatchWriteItem]
+}
+// snippet-end:[dynamodb.dotNET.CodeExample.MidLevelBatchWriteItem]

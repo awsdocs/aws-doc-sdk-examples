@@ -167,4 +167,5 @@ namespace com.amazonaws.codesamples
             Console.WriteLine("************************************************");
         }
     }
-}// snippet-end:[dynamodb.dotNET.CodeExample.LowLevelBatchGet]
+}
+// snippet-end:[dynamodb.dotNET.CodeExample.LowLevelBatchGet]

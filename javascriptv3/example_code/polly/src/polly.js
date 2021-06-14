@@ -18,8 +18,8 @@ Inputs (replace in code):
 Running the code:
 Follow the steps in https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-browser.html.
 */
-// snippet-start:[Polly.HTML.BrowserExample.completeV3]
-// snippet-start:[Polly.HTML.BrowserExample.configV3]
+// snippet-start:[Polly.JavaScript.BrowserExample.completeV3]
+// snippet-start:[Polly.JavaScript.BrowserExample.configV3]
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 import {
     fromCognitoIdentityPool,
@@ -44,8 +44,8 @@ const speechParams = {
     TextType: "TEXT_TYPE", // For example, "text"
     VoiceId: "POLLY_VOICE" // For example, "Matthew"
 };
-// snippet-end:[Polly.HTML.BrowserExample.configV3]
-// snippet-start:[Polly.HTML.BrowserExample.synthesizeV3]
+// snippet-end:[Polly.JavaScript.BrowserExample.configV3]
+// snippet-start:[Polly.JavaScript.BrowserExample.synthesizeV3]
 const speakText = async () => {
     // Update the Text parameter with the text entered by the user
     speechParams.Text = document.getElementById("textEntry").value;
@@ -65,5 +65,5 @@ const speakText = async () => {
 };
 // Expose the function to the browser
 window.speakText = speakText;
-// snippet-end:[Polly.HTML.BrowserExample.synthesizeV3]
-// snippet-end:[Polly.HTML.BrowserExample.completeV3]
+// snippet-end:[Polly.JavaScript.BrowserExample.synthesizeV3]
+// snippet-end:[Polly.JavaScript.BrowserExample.completeV3]
