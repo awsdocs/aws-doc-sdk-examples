@@ -90,4 +90,5 @@ namespace DynamoDB_intro
             return true;
         }
     }
-}// snippet-end:[dynamodb.dotNET.CodeExample.03_LoadingData]
+}
+// snippet-end:[dynamodb.dotNET.CodeExample.03_LoadingData]

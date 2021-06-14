@@ -19,7 +19,7 @@ Running the code:
 node s3_createbucket.js
 */
 
-// snippet-start:[s3.JavaScript.buckets.createBucketV3]
+// snippet-start:[s3.JavaScript.sample-app.createBucketV3]
 
 // Import required AWS SDK clients and commands for Node.js
 const { S3Client, CreateBucketCommand } = require("@aws-sdk/client-s3");
@@ -43,6 +43,6 @@ const run = async () => {
   }
 };
 run();
-// snippet-end:[s3.JavaScript.buckets.createBucketV3]
+// snippet-end:[s3.JavaScript.sample-app.createBucketV3]
 //for unit tests only
-exports.run = run;
+// exports.run = run;

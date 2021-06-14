@@ -97,7 +97,7 @@ func GetLPMessages(sess *session.Session, queueURL *string, waitTime *int64) (*s
     // Create an SQS service client
     svc := sqs.New(sess)
 
-    // snippet-start:[sqs.go.receive_lp_message.call]
+    // snippet-start:[sqs.go.send_receive_long_polling.call2]
     results, err := svc.ReceiveMessage(&sqs.ReceiveMessageInput{
         QueueUrl: queueURL,
         AttributeNames: aws.StringSlice([]string{
@@ -109,7 +109,7 @@ func GetLPMessages(sess *session.Session, queueURL *string, waitTime *int64) (*s
         }),
         WaitTimeSeconds: waitTime,
     })
-    // snippet-end:[sqs.go.receive_lp_message.call]
+    // snippet-end:[sqs.go.send_receive_long_polling.call2]
     if err != nil {
         return nil, err
     }
