@@ -20,9 +20,6 @@ ts-node ddb_deletetable.js
 import { DeleteTableCommand } from "@aws-sdk/client-dynamodb";
 import { ddbClient } from "./libs/ddbClient.js";
 
-// Set the AWS Region
-const REGION = "REGION"; //e.g. "us-east-1"
-
 // Set the parameters
 const params = {
   TableName: "TABLE_NAME",

@@ -71,7 +71,7 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        const Aws::String bucket_name = "my-bucket";
+        const Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
         const Aws::String object_name = "my-file.txt";
         const std::string object_content = "This is my sample text content.";
         const Aws::String region = "us-east-1";

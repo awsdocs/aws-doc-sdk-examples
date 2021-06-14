@@ -1,3 +1,5 @@
+//NOTE!! This example only currently works on Linux.  If you are on a Windows environment, delete this .cpp file to build your solution.
+
 //snippet-sourcedescription:[Upgrade AWS SDK for C++ to version 1.8 to build list_buckets_disabling_dns_cache.cpp. This example demonstrates how to replace the default HTTP client and override the default HTTP client configurations.]
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
@@ -19,7 +21,7 @@
 #include <aws/core/utils/logging/LogLevel.h>
 #include <aws/core/http/standard/StandardHttpRequest.h>
 #include <aws/core/client/ClientConfiguration.h>
-#include <aws/core/http/curl/CurlHttpClient.h>
+#include <aws/core/http/curl/CurlHttpClient.h>  //This example is for Linux only. See top.
 #include <aws/s3/S3Client.h>
 
 using namespace Aws;

@@ -4,18 +4,13 @@ Amazon Cloudwatch enables you to collect, access, and correlate this data on a s
 ## Code examples
 This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon Cloudwatch examples:
 
-- [Delete CloudWatch alarms](src/cw_deletealarms.js)
-- [Describe CloudWatch alarms](src/cw_describealarms.js)
-- [Enable CloudWatch alarm actions](src/cw_enablealarmactions.js)
-- [List CloudWatch metrics](src/cw_listmetrics.js)
-- [Put CloudWatch metric alarms](src/cw_putmetricalarm.js)
-- [Put CloudWatch metric data](src/cw_putmetricdata.js)
-- [Put CloudWatch events](src/cwe_putevents.js)
-- [Put CloudWatch event rule](src/cwe_putrule.js)
-- [Put CloudWatch event targets](src/cwe_puttargets.js)
-- [Delete CloudWatch log subscription filters](src/cwl_describesubscriptionfilters.js)
-- [Describe CloudWatch log subscription filters](src/cwl_describesubscriptionfilters.js)
-- [Put CloudWatch log subscription filters](src/cwl_putsubscriptionfilter.js)
+- [Delete CloudWatch alarms](src/deleteAlarms.js)
+- [Describe CloudWatch alarms](src/describeAlarms.js)
+- [Disable CloudWatch alarm actions](src/disableAlarmActions.js)
+- [Enable CloudWatch alarm actions](src/enableAlarmActions.js)
+- [List CloudWatch metrics](src/listMetrics.js)
+- [Put CloudWatch metric alarms](src/putMetricAlarm.js)
+- [Put CloudWatch metric data](src/putMetricData.js)
 
 **Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see 
 [JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html).

@@ -16,7 +16,7 @@
  *  https://docs.aws.amazon.com/elastictranscoder/latest/developerguide/introduction.html
  *
  */
-// snippet-start:[elastictranscoder.php.create_hls_job.import] 
+// snippet-start:[elastictranscoder.php.creation.sample]
 // Path to your PHP autoload.  If you are using a phar installation, this is the
 // path to your aws.phar file.
 require_once 'path/to/autoload.php';
@@ -64,7 +64,7 @@ function create_hls_job($transcoder_client, $pipeline_id, $input_key, $output_ke
   foreach ($hls_presets as $prefix => $preset_id) {
     array_push($outputs, array('Key' => "$prefix/$output_key", 'PresetId' => $preset_id, 'SegmentDuration' => $segment_duration));
   }
-  
+
   // Setup master playlist which can be used to play using adaptive bitrate.
   $playlist = array(
     'Name' => 'hls_' . $output_key,
@@ -74,15 +74,15 @@ function create_hls_job($transcoder_client, $pipeline_id, $input_key, $output_ke
 
   // Create the job.
   $create_job_request = array(
-        'PipelineId' => $pipeline_id, 
-        'Input' => $input, 
-        'Outputs' => $outputs, 
-        'OutputKeyPrefix' => "$output_key_prefix$output_key/", 
+        'PipelineId' => $pipeline_id,
+        'Input' => $input,
+        'Outputs' => $outputs,
+        'OutputKeyPrefix' => "$output_key_prefix$output_key/",
         'Playlists' => array($playlist)
   );
   $create_job_result = $transcoder_client->createJob($create_job_request)->toArray();
   return $job = $create_job_result['Job'];
-}   
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   // If the request method is GET, return the form which will allow the user to
@@ -96,14 +96,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // If the request method is POST, create an HLS job using the posted data.
   $job = create_hls_job($transcoder_client, $_POST['pipelineid'], $_POST['inputkey'], $output_key_prefix, $hls_presets, $segment_duration);
-  
+
   // Output the result.
   echo '<PRE>';
   echo "HLS job has been created:\n";
   echo json_encode($job, JSON_PRETTY_PRINT);
   echo '</PRE>';
 }
-// snippet-end:[elastictranscoder.php.create_hls_job.import]
+// snippet-end:[elastictranscoder.php.creation.sample]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[HlsJobCreationSample.php demonstrates how to create an HLS job.]
 // snippet-keyword:[PHP]

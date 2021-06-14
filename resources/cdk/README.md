@@ -4,6 +4,13 @@ This document describes the resources created by the AWS CDK apps in this direct
 
 For instructions on how to run any of these apps, see [Running a CDK app](#cdk).
 
+## transcribe-streming-unauth-role
+This AWS CDK app creates an AWS Identity and Access Management (IAM) unauthenticated role with the following permissions:
+    - Amazon Simple Email Services (Amazon SES): SendEmail
+    - Amazon Transcribe: StartStreamTranscriptionWebSocket
+    - Amazon Comprehend: DetectDominantLanguage
+    - Amazon Translate: TranslateText
+
 ## rekognition-sns-video-analyzer
 This AWS CDK app creates the following resources:
 - An AWS Identity and Access Management (IAM) unauthenticated role with permissions 

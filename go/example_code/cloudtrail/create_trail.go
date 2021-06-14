@@ -36,22 +36,22 @@ import (
     "encoding/json"
     "flag"
     "fmt"
-    "os"
 )
+
 // snippet-end:[cloudtrail.go.create_trail.imports]
 
 func main() {
     // Get required trail name and bucket name
     // snippet-start:[cloudtrail.go.create_trail.vars]
     trailNamePtr := flag.String("n", "", "The name of the trail")
-    bucketNamePtr := flag.String("b", "", "the name of bucket to which the trails are uploaded")
+    bucketNamePtr := flag.String("b", "", "the name of the bucket to which the trails are uploaded")
     addPolicyPtr := flag.Bool("p", false, "Whether to add the CloudTrail policy to the bucket")
 
     flag.Parse()
 
     if *trailNamePtr == "" || *bucketNamePtr == "" {
         fmt.Println("You must supply a trail name and bucket name.")
-        os.Exit(0)
+        return
     }
     // snippet-end:[cloudtrail.go.create_trail.vars]
 
@@ -72,7 +72,7 @@ func main() {
         if err != nil {
             fmt.Println("Got error snarfing caller identity:")
             fmt.Println(err.Error())
-            os.Exit(1)
+            return
         }
 
         accountID := aws.StringValue(result.Account)
@@ -109,7 +109,7 @@ func main() {
         policy, err := json.Marshal(s3Policy)
         if err != nil {
             fmt.Println("Error marshalling request")
-            os.Exit(0)
+            return
         }
 
         // Create S3 service
@@ -123,7 +123,7 @@ func main() {
         if err != nil {
             fmt.Print("Got error adding bucket policy:")
             fmt.Print(err.Error())
-            os.Exit(1)
+            return
         }
 
         fmt.Printf("Successfully set bucket %q's policy\n", *bucketNamePtr)
@@ -142,10 +142,11 @@ func main() {
     if err != nil {
         fmt.Println("Got error calling CreateTrail:")
         fmt.Println(err.Error())
-        os.Exit(1)
+        return
     }
 
     fmt.Println("Created the trail", *trailNamePtr, "for bucket", *bucketNamePtr)
     // snippet-end:[cloudtrail.go.create_trail.create]
 }
+
 // snippet-end:[cloudtrail.go.create_trail.complete]
