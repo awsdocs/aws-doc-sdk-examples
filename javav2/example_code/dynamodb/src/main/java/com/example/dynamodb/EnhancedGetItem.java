@@ -27,7 +27,12 @@ import java.time.Instant;
 // snippet-end:[dynamodb.java2.mapping.getitem.import]
 
 /*
- * Prior to running this code example, create an Amazon DynamoDB table named Customer with a key named id and populate it with data.
+ * Prior to running this code example, create an Amazon DynamoDB table named Customer with these columns:
+ *   - id - the id of the record that is the key
+ *   - custName - the customer name
+ *   - email - the email value
+ *   - registrationDate - an instant value when the item was added to the table
+ *
  * Also, ensure that you have setup your development environment, including your credentials.
  *
  * For information, see this documentation topic:
@@ -61,12 +66,12 @@ public class EnhancedGetItem {
 
             //Create a KEY object
             Key key = Key.builder()
-                    .partitionValue("id110")
+                    .partitionValue("id120")
                     .build();
 
             // Get the item by using the key
             Customer result = mappedTable.getItem(r->r.key(key));
-            return "The record id is "+result.getId();
+            return "The email valie is "+result.getEmail();
 
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
@@ -74,53 +79,5 @@ public class EnhancedGetItem {
         }
         // snippet-end:[dynamodb.java2.mapping.getitem.main]
         return "";
-    }
-
-    //Create the Customer table
-    @DynamoDbBean
-    public static class Customer {
-
-        private String id;
-        private String name;
-        private String email;
-        private Instant regDate;
-
-        @DynamoDbPartitionKey
-        public String getId() {
-            return this.id;
-        };
-
-        public void setId(String id) {
-
-            this.id = id;
-        }
-
-        @DynamoDbSortKey
-        public String getCustName() {
-            return this.name;
-
-        }
-
-        public void setCustName(String name) {
-
-            this.name = name;
-        }
-
-        public String getEmail() {
-            return this.email;
-        }
-
-        public void setEmail(String email) {
-
-            this.email = email;
-        }
-
-        public Instant getRegistrationDate() {
-            return regDate;
-        }
-        public void setRegistrationDate(Instant registrationDate) {
-
-            this.regDate = registrationDate;
-        }
     }
 }
