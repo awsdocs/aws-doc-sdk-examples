@@ -1,13 +1,16 @@
-﻿using Amazon.S3;
-using Amazon.S3.Model;
-using Moq;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Xunit;
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 
 namespace BucketACLExample.Tests
 {
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Amazon.S3;
+    using Amazon.S3.Model;
+    using Moq;
+    using Xunit;
+
     public class BucketACLTests
     {
         const string BucketName = "new-doc-example-bucket";
