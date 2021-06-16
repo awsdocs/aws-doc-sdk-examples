@@ -8,15 +8,12 @@ edition = "2018"
 
 [dependencies]
 s3 = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.7-alpha", package = "aws-sdk-s3" }
-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.7-alpha", package = "smithy-http" }
-aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.7-alpha", package = "aws-types"}
-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.7-alpha", package = "smithy-types"}
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.7-alpha", package = "aws-types" }
 
 tokio = { version = "1", features = ["full"] }
-tracing-subscriber = "0.2.18"
-bytes = "1"
-hyper = "0.14.7"
+
 structopt = { version = "0.3", default-features = false }
+tracing-subscriber = "0.2.18"
 
 [profile.dev]
 split-debuginfo = "unpacked"

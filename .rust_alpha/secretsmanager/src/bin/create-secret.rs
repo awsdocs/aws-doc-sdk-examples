@@ -5,7 +5,7 @@
 
 use secretsmanager::{Client, Config, Region};
 
-use aws_types::region::ProvideRegion;
+use aws_types::region::{EnvironmentProvider, ProvideRegion};
 
 use structopt::StructOpt;
 
@@ -14,58 +14,57 @@ use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The AWS Region.
+    /// The region
     #[structopt(short, long)]
-    default_region: Option<String>,
+    region: Option<String>,
 
-    /// The name of the secret.
+    /// The name of the secret
     #[structopt(short, long)]
     name: String,
 
-    /// The content of the secret.
+    /// The value of the secret
     #[structopt(short, long)]
-    content: String,
+    secret_value: String,
 
-    /// Whether to display additonal information.
+    /// Whether to display additonal runtime information
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Creates a Secrets Manager secret.
+/// Creates a secret.
 /// # Arguments
 ///
-/// * `[-n NAME]` - The name of the secret.
-/// * `[-c CONTENT]` - The contents of the secret.
-/// * `[-d DEFAULT-REGION]` - The AWS Region containing the voices.
-///   If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
-///   If the environment variable is not set, defaults to **us-west-2**.
+/// * `-n NAME` - The name of the secret.
+/// * `-s SECRET_VALUE` - The secret value.
+/// * `[-d DEFAULT-REGION]` - The region in which the client is created.
+///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
 async fn main() {
     let Opt {
-        content,
         name,
-        default_region,
+        region,
+        secret_value,
         verbose,
     } = Opt::from_args();
 
-    let region = default_region
-        .as_ref()
-        .map(|region| Region::new(region.clone()))
-        .or_else(|| aws_types::region::default_provider().region())
+    let region = EnvironmentProvider::new()
+        .region()
+        .or_else(|| region.as_ref().map(|region| Region::new(region.clone())))
         .unwrap_or_else(|| Region::new("us-west-2"));
 
     if verbose {
         println!(
-            "SecretsManager client version: {}.\n",
+            "SecretsManager client version: {}\n",
             secretsmanager::PKG_VERSION
         );
-        println!("AWS Region:   {:?}", &region);
+        println!("Region:       {:?}", &region);
         println!("Secret name:  {}", name);
-        println!("Secret value: {}", content);
+        println!("Secret value: {}", secret_value);
 
         SubscriberBuilder::default()
-            .with_env_filter("verbose")
+            .with_env_filter("info")
             .with_span_events(FmtSpan::CLOSE)
             .init();
     }
@@ -77,11 +76,11 @@ async fn main() {
     match client
         .create_secret()
         .name(name)
-        .secret_string(content)
+        .secret_string(secret_value)
         .send()
         .await
     {
-        Ok(_) => println!("Created secret."),
-        Err(e) => panic!("Failed to create secret: {}.", e),
+        Ok(_) => println!("Created secret"),
+        Err(e) => panic!("Failed to create secret: {}", e),
     };
 }

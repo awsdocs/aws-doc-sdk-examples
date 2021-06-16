@@ -3,15 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use std::fs::File;
-use std::io::Write;
-use std::process;
-
-use kms::{Blob, Client, Config, Region};
+use s3::{ByteStream, Client, Config, Region};
 
 use aws_types::region::ProvideRegion;
 
 use structopt::StructOpt;
+
+use std::error::Error;
+use std::path::Path;
 use tracing_subscriber::fmt::format::FmtSpan;
 use tracing_subscriber::fmt::SubscriberBuilder;
 
@@ -21,40 +20,34 @@ struct Opt {
     #[structopt(short, long)]
     default_region: Option<String>,
 
-    /// Specifies the encryption key
+    /// Specifies the bucket
+    #[structopt(short, long)]
+    bucket: String,
+
+    /// Specifies the object in the bucket
     #[structopt(short, long)]
     key: String,
-
-    /// Specifies the text to encrypt
-    #[structopt(short, long)]
-    text: String,
-
-    /// Specifies the name of the file to store the encrypted text in
-    #[structopt(short, long)]
-    out: String,
 
     /// Whether to display additional runtime information
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Encrypts a string using an AWS KMS key.
+/// Lists your buckets and uploads a file to a bucket.
 /// # Arguments
 ///
-/// * `-k KEY` - The KMS key.
-/// * `-o OUT` - The name of the file to store the encryped key in.
-/// * `-t TEXT` - The string to encrypt.
+/// * `-b BUCKET` - The bucket to which the file is uploaded.
+/// * `-k KEY` - The file to upload to the bucket.
 /// * `[-d DEFAULT-REGION]` - The region in which the client is created.
 ///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), Box<dyn Error>> {
     let Opt {
-        key,
-        out,
+        bucket,
         default_region,
-        text,
+        key,
         verbose,
     } = Opt::from_args();
 
@@ -65,11 +58,10 @@ async fn main() {
         .unwrap_or_else(|| Region::new("us-west-2"));
 
     if verbose {
-        println!("KMS client version: {}\n", kms::PKG_VERSION);
-        println!("Region: {:?}", &region);
-        println!("Key:    {}", key);
-        println!("Text:   {}", text);
-        println!("Out:    {}", out);
+        println!("S3 client version: {}\n", s3::PKG_VERSION);
+        println!("Region:            {:?}", &region);
+        println!("Bucket:            {}", bucket);
+        println!("Key:               {}", key);
 
         SubscriberBuilder::default()
             .with_env_filter("info")
@@ -80,27 +72,26 @@ async fn main() {
     let conf = Config::builder().region(region).build();
     let client = Client::from_conf(conf);
 
-    let blob = Blob::new(text.as_bytes());
+    let resp = client.list_buckets().send().await?;
 
-    let resp = match client.encrypt().key_id(key).plaintext(blob).send().await {
-        Ok(output) => output,
-        Err(e) => {
-            eprintln!("Encryption failure: {}", e);
-            process::exit(1);
-        }
-    };
-
-    // Did we get an encrypted blob?
-    let blob = resp.ciphertext_blob.expect("Could not get encrypted text");
-    let bytes = blob.as_ref();
-
-    let s = base64::encode(&bytes);
-
-    let mut ofile = File::create(&out).expect("unable to create file");
-    ofile.write_all(s.as_bytes()).expect("unable to write");
-
-    if verbose {
-        println!("Wrote the following to {}", &out);
-        println!("{}", s);
+    for bucket in resp.buckets.unwrap_or_default() {
+        println!("bucket: {:?}", bucket.name.expect("buckets have names"))
     }
+
+    let body = ByteStream::from_path(Path::new("Cargo.toml")).await?;
+
+    let resp = client
+        .put_object()
+        .bucket(&bucket)
+        .key(&key)
+        .body(body)
+        .send()
+        .await?;
+
+    println!("Upload success. Version: {:?}", resp.version_id);
+
+    let resp = client.get_object().bucket(bucket).key(key).send().await?;
+    let data = resp.body.collect().await?;
+    println!("data: {:?}", data.into_bytes());
+    Ok(())
 }

@@ -5,6 +5,7 @@
 
 use rand::distributions::Alphanumeric;
 use rand::{thread_rng, Rng};
+use std::collections::HashMap;
 use std::io::{stdin, Read};
 use std::time::Duration;
 use std::{iter, process};
@@ -26,7 +27,7 @@ use dynamodb::output::DescribeTableOutput;
 
 use dynamodb::{Client, Config, Region};
 
-use aws_types::region::ProvideRegion;
+use aws_types::region::{EnvironmentProvider, ProvideRegion};
 
 use smithy_http::operation::Operation;
 use smithy_http::retry::ClassifyResponse;
@@ -38,15 +39,15 @@ use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// Whether to run in interactive mode (you have to press return between operations).
+    /// Whether to run in interactive mode (you have to press return between operations)
     #[structopt(short, long)]
     interactive: bool,
 
-    /// The AWS Region.
+    /// The region
     #[structopt(short, long)]
-    default_region: Option<String>,
+    region: Option<String>,
 
-    /// Whether to display additional information.
+    /// Activate verbose mode    
     #[structopt(short, long)]
     verbose: bool,
 }
@@ -136,34 +137,39 @@ async fn add_item(client: &dynamodb::Client, item: Item) {
     }
 }
 
-/// Scan the table for an item matching the input values.
-async fn scan(client: &dynamodb::Client, item: Item) {
-    let user_av = AttributeValue::S(item.value);
+/// Query the table for an item matching the input values.
+async fn query(client: &dynamodb::Client, item: Item) {
+    let value = &item.value;
+    let key = &item.key;
+    let user_av = AttributeValue::S(value.to_string());
+    let userav = AttributeValue::S(value.to_string());
     let type_av = AttributeValue::S(item.utype);
     let age_av = AttributeValue::S(item.age);
     let first_av = AttributeValue::S(item.first_name);
     let last_av = AttributeValue::S(item.last_name);
-
     let mut found_match = true;
-
-    let resp = client
-        .scan()
+    let mut cond = HashMap::new();
+    cond.insert("#key".to_string(), key.to_string());
+    let mut expr = HashMap::new();
+    expr.insert(":value".to_string(), user_av);
+    match client
+        .query()
         .table_name(item.table)
+        .set_key_condition_expression(Some("#key = :value".to_string()))
+        .set_expression_attribute_names(Some(cond))
+        .set_expression_attribute_values(Some(expr))
         .select(Select::AllAttributes)
         .send()
-        .await;
-
-    let key = &item.key;
-
-    match resp {
-        Ok(r) => {
-            let items = r.items.unwrap_or_default();
+        .await
+    {
+        Ok(resp) => {
+            let items = resp.items.unwrap_or_default();
             for item in items {
                 // Do key values match?
                 match item.get(&String::from(key)) {
                     None => found_match = false,
                     Some(v) => {
-                        if v != &user_av {
+                        if v != &userav {
                             found_match = false;
                         }
                     }
@@ -211,7 +217,7 @@ async fn scan(client: &dynamodb::Client, item: Item) {
             }
         }
         Err(e) => {
-            println!("Got an error scanning the table:");
+            println!("Got an error querying the table:");
             println!("{}", e);
             process::exit(1);
         }
@@ -219,6 +225,8 @@ async fn scan(client: &dynamodb::Client, item: Item) {
 
     if !found_match {
         println!("Did not find matching entry in table");
+    } else {
+        println!("Found a match!");
     }
 }
 
@@ -301,47 +309,31 @@ fn pause() {
     stdin().read_exact(&mut [0]).unwrap();
 }
 
-/// Construct a `DescribeTable` request with a policy to retry every second until the table
-/// is ready
-fn wait_for_ready_table(
-    table_name: &str,
-    conf: &Config,
-) -> Operation<DescribeTable, WaitForReadyTable<AwsErrorRetryPolicy>> {
-    let operation = DescribeTableInput::builder()
-        .table_name(table_name)
-        .build()
-        .expect("valid input")
-        .make_operation(&conf)
-        .expect("valid operation");
-    let waiting_policy = WaitForReadyTable {
-        inner: operation.retry_policy().clone(),
-    };
-    operation.with_retry_policy(waiting_policy)
-}
-
-/// Creates an Amazon DynamoDB table, adds an item to the table, updates the item, deletes the item, and deletes the table.
+/// Performs CRUD (create, read, update, delete) operations on a DynamoDB table and table item.
+/// It creates a table, adds an item to the table, updates the item, deletes the item, and deletes the table.
+/// The table name, primary key, and primary key value are all created as random strings.
+///
 /// # Arguments
 ///
-/// * `[-i]` - Whether to run in interactive mode, which pauses the code between operations.
-/// * `[-d DEFAULT-REGION]` - The AWS Region in which the table is created.
-///   If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
-///   If the environment variable is not set, defaults to **us-west-2**.
+/// * `[-i]` - Whether to pause between operations.
+/// * `[-d DEFAULT-REGION]` - The region in which the client is created.
+///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
 async fn main() {
     let Opt {
         interactive,
-        default_region,
+        region,
         verbose,
     } = Opt::from_args();
 
-    let region = default_region
-        .as_ref()
-        .map(|region| Region::new(region.clone()))
-        .or_else(|| aws_types::region::default_provider().region())
+    let region = EnvironmentProvider::new()
+        .region()
+        .or_else(|| region.as_ref().map(|region| Region::new(region.clone())))
         .unwrap_or_else(|| Region::new("us-west-2"));
 
-    // Create 10-charater random table name
+    // Create 10-character random table name
     let table = random_string(10);
 
     // Create a 6-character random key name
@@ -358,9 +350,9 @@ async fn main() {
 
     if verbose {
         println!("DynamoDB client version: {}\n", dynamodb::PKG_VERSION);
-        println!("AWS Table:               {}", table);
-        println!("Key:                     {}\n", key);
-        println!("Value:                   {}", value);
+        println!("Table:  {}", table);
+        println!("Key:    {}", key);
+        println!("Value:  {}", value);
 
         SubscriberBuilder::default()
             .with_env_filter("info")
@@ -370,7 +362,8 @@ async fn main() {
 
     let r = region.clone();
 
-    let client = Client::from_env();
+    let conf = Config::builder().region(&r).build();
+    let client = Client::from_conf(conf);
 
     /* Create table */
     println!();
@@ -384,16 +377,16 @@ async fn main() {
     raw_client
         .call(wait_for_ready_table(&table, client.conf()))
         .await
-        .expect("Table should become ready.");
+        .expect("table should become ready");
 
-    println!("Table is now ready to use.");
+    println!("Table is now ready to use");
 
     if interactive {
         pause();
     }
 
     println!();
-    println!("Adding item to table.");
+    println!("Adding item to table");
 
     let mut item = Item {
         table: table.clone(),
@@ -414,7 +407,7 @@ async fn main() {
     item.age = "44".to_string();
 
     /* Update the item */
-    println!("Modifying table item.");
+    println!("Modifying table item");
 
     add_item(&client, item.clone()).await;
 
@@ -423,9 +416,9 @@ async fn main() {
     }
 
     /* Get item and compare it with the one we added */
-    println!("Comparing table item to original value.");
+    println!("Comparing table item to original value");
 
-    scan(&client, item).await;
+    query(&client, item).await;
 
     if interactive {
         pause();
@@ -433,7 +426,7 @@ async fn main() {
 
     /* Delete item */
     println!();
-    println!("Deleting item.");
+    println!("Deleting item");
     delete_item(&client, &table, &key, &value).await;
 
     if interactive {
@@ -441,6 +434,24 @@ async fn main() {
     }
 
     /* Delete table */
-    println!("Deleting table.");
+    println!("Deleting table");
     delete_table(&client, &table).await;
+}
+
+/// Construct a `DescribeTable` request with a policy to retry every second until the table
+/// is ready
+fn wait_for_ready_table(
+    table_name: &str,
+    conf: &Config,
+) -> Operation<DescribeTable, WaitForReadyTable<AwsErrorRetryPolicy>> {
+    let operation = DescribeTableInput::builder()
+        .table_name(table_name)
+        .build()
+        .expect("valid input")
+        .make_operation(&conf)
+        .expect("valid operation");
+    let waiting_policy = WaitForReadyTable {
+        inner: operation.retry_policy().clone(),
+    };
+    operation.with_retry_policy(waiting_policy)
 }
