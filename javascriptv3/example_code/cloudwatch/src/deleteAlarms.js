@@ -21,7 +21,7 @@ import { DeleteAlarmsCommand } from "@aws-sdk/client-cloudwatch";
 import { cwClient } from "./libs/cloudWatchClient.js";
 
 // Set the parameters
-export const params = { AlarmNames: "sdfs" }; // e.g., "Web_Server_CPU_Utilization"
+export const params = { AlarmNames: "ALARM_NAME" }; // e.g., "Web_Server_CPU_Utilization"
 
 export const run = async () => {
   try {
