@@ -49,7 +49,7 @@ To complete the tutorial, you need the following:
 + Java JDK 1.8
 + Maven 3.6 or later
 + An Amazon S3 bucket that contains a Microsoft Excel document that contains poplation data. You can obtain the Microsoft Excel documnet from this Github repository. 
-+ An Amazon DynamoDB table named **Countrys** that contains a partition key named **id**. For information about creating an Amazon DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html). 
++ An Amazon DynamoDB table named **Country** that contains a partition key named **id**. For information about creating an Amazon DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html). 
 
 ## Understand the workflow
 
