@@ -111,7 +111,9 @@ To define a workflow that performs an ETL operation by using AWS Step Functions,
 
 ![AWS Tracking Application](images/workflow.png)
 
-Workflows can pass data between steps. For example, the **Get Excel Data** dynamically creates XML and passes the XML to the **Store Data** step. 
+Workflows can pass data between steps. For example, the **Get Excel Data** dynamically creates XML and passes the XML to the **Store Data** step. The following illustration shows the output of the **Get Excel Data** step.
+
+![AWS Tracking Application](images/workflowdata.png)
 
 **Note**: Later in this tutorial, you'll create application logic in the Lambda function to read data from the Amazon S3 bucket.  
 
