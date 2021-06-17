@@ -1112,11 +1112,11 @@ Update the Resource for the **Store Data** step with the ARN of the **ETLStoreDa
 You can invoke the workflow on the Step Functions console.  An execution receives JSON input. For this example, you can pass the following JSON data to the workflow.  
 
      {
-      "bucketname": "buckettestsept",
-      "objectname": "pop.xls"
+      "bucketname": "<Enter your Amazon S3 bucket name>",
+      "objectname": "<Enter the MS Excel document>"
      }
 
-**Note**: These values are used by the **DocumentHandler** class and are input into the workflow. 
+**Note**: Ensure that you specify the correct Amazon S3 bucket name and the Excel document that contains population data. These values are used by the **DocumentHandler** class and are input into the workflow. 
 
 #### To execute your workflow
 
@@ -1128,7 +1128,7 @@ You can invoke the workflow on the Step Functions console.  An execution receive
 
 If the step turns red, an error occurred. You can click the step and view the logs that are accessible from the right side.
 
-![AWS Tracking Application](images/lambda14.png)
+![AWS Tracking Application](images/workflow4.png)
 
 When the workflow is finished, you can view the data in the DynamoDB table.
 
