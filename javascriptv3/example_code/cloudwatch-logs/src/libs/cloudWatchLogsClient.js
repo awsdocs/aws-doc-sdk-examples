@@ -14,8 +14,8 @@ import { CloudWatchLogsClient } from "@aws-sdk/client-cloudwatch-logs";
 // Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"
 // Create an Amazon CloudWatch Logs service client object.
-const cwlClient = new CloudWatchLogs({ region: REGION });
-export{ cwlClient };
+export const cwlClient = new CloudWatchLogsClient({ region: REGION });
+
 // snippet-end:[cloudwatch.JavaScript.logs.createclientv3]
 
 
