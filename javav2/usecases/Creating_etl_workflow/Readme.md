@@ -1089,7 +1089,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 10. For **Handler**, enter the fully qualified name of the function, for example, **com.etl.example.DocumentHandler::handleRequest** (**com.etl.example.DocumentHandler** specifies the package and class followed by :: and method name).
 
-![AWS Tracking Application](images/lambda11.png)
+![AWS Tracking Application](images/LamDeploy2.png)
 
 11. Choose **Save.**
 
