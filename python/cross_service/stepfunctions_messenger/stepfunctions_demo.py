@@ -15,7 +15,7 @@ from pprint import pprint
 import time
 import boto3
 from state_definitions import make_definition
-from stepfunctions_basics import StepFunctionsStateMachine
+from stepfunctions_statemachine import StepFunctionsStateMachine
 
 logger = logging.getLogger(__name__)
 

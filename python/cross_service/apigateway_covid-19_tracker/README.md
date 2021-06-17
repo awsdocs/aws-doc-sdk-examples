@@ -56,7 +56,7 @@ tutorials in the
     ``` 
 
 1. At a command prompt, navigate to the 
-`[GitHub root]/python/example_code/lambda/chalice_examples/lambda_rest` 
+`[GitHub root]/python/cross_service/apigateway_covid-19_tracker` 
 folder.
 
 1. Run the following to create a deployment package in a subfolder named `out`.

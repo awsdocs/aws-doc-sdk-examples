@@ -230,3 +230,39 @@ class TextractWrapper:
             raise
         else:
             return response
+
+    @staticmethod
+    def _add_children(block, block_dict):
+        """
+        A recursive function that adds children to a block, based on its list
+        of relationship IDs.
+
+        :param block: The block to populate with children.
+        :param block_dict: A dictionary of all blocks for fast lookup by ID.
+        """
+        for kids in [rels['Ids'] for rels in block.get('Relationships', [])
+                     if rels['Type'] == 'CHILD']:
+            block['Children'] = []
+            for kid in [block_dict[k_id] for k_id in kids]:
+                block['Children'].append(kid)
+                TextractWrapper._add_children(kid, block_dict)
+
+    @staticmethod
+    def make_page_hierarchy(blocks):
+        """
+        Makes a list of pages that each contain a hierarchy of child blocks. The
+        page hierarchies are built from the flat list of blocks that is returned by
+        Textract.
+        This hierarchy is used by the Textract Explorer application to display the
+        detected elements.
+
+        :param blocks: The list of blocks returned by Textract.
+        :return: A single parent node that contains the list of pages as its children.
+        """
+        block_dict = {block['Id']: block for block in blocks}
+        pages = []
+        for block in block_dict.values():
+            if block['BlockType'] == 'PAGE':
+                pages.append(block)
+                TextractWrapper._add_children(block, block_dict)
+        return {'Children': pages}
