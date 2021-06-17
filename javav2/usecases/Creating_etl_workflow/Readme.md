@@ -1105,16 +1105,18 @@ Copy the value and then paste it into step 1 of the Amazon States Language docum
 
 ![AWS Tracking Application](images/workflow2.png)
 
-Update the Resource for the **Assign Case** and **Send Email** steps. This is how you hook in Lambda functions created by using the AWS SDK for Java into a workflow created by using Step Functions.
+Update the Resource for the **Store Data** step with the ARN of the **ETLStoreData** Lambda function. This is how you hook in Lambda functions created by using Java Lambda runtime API into a workflow created by using AWS Step Functions.
 
 ## Execute your workflow by using the Step Functions console
 
 You can invoke the workflow on the Step Functions console.  An execution receives JSON input. For this example, you can pass the following JSON data to the workflow.  
 
      {
-	"inputCaseID": "001"
+      "bucketname": "buckettestsept",
+      "objectname": "pop.xls"
      }
 
+**Note**: These values are used by the **DocumentHandler** class and are input into the workflow. 
 
 #### To execute your workflow
 
@@ -1122,7 +1124,7 @@ You can invoke the workflow on the Step Functions console.  An execution receive
 
 2. In the **Input** section, pass the JSON data. View the workflow. As each step is completed, it turns green.
 
-![AWS Tracking Application](images/lambda1.png)
+![AWS Tracking Application](images/workflow3.png)
 
 If the step turns red, an error occurred. You can click the step and view the logs that are accessible from the right side.
 
