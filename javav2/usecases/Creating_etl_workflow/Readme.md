@@ -59,7 +59,7 @@ The following figure shows the workflow you'll create with this tutorial, which 
 
 The following describes each step in the workflow:
 + **Start** - Initiates the workflow.
-+ **Get Excel Data** – Retrieves an Excel file from an Amazon S3 bucket by using the Amazon S3 Java API. This step dynamically creates XML that contains the population data and passes the XML to the next step. This example shows how a Lambda function can retrieve data from an Amazon S3 bucket and transform the data.
++ **Get Excel Data** – Retrieves an Excel file from an Amazon S3 bucket by using the Amazon S3 Java API. This step dynamically creates XML that contains the population data and passes the XML to the next step. 
 + **Store Data** – Parses the XML that contains the population data. For each item in the XML, this step adds a record to an Amazon DynamoDB table by using the Amazon DynamoDB Java API. .  
 + **End** - Stops the workflow.
 
