@@ -1,0 +1,21 @@
+--- 
+files:
+  - path: src/main/java/com/aws/blog/BlogApp.java
+    services:
+      - RDS
+  - path: src/main/java/com/aws/blog/ConnectionHelper.java
+    services:
+      - RDS
+  - path: src/main/java/com/aws/blog/BlogController.java
+    services:
+      - RDS
+  - path: src/main/java/com/aws/blog/Post.java
+    services:
+      - RDS
+  - path: src/main/java/com/aws/blog/RetrieveDataRDS.java
+    services:
+      - RDS  
+ - path: src/main/java/com/aws/blog/WebSecurityConfig.java
+    services:
+      - RDS 
+        

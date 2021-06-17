@@ -111,7 +111,7 @@ func ConfigureBucket(sess *session.Session, bucketName string) error {
 //     Otherwise, an error from the call to sts.GetCallerIdentity, json.Marshal, or s3.PutBucketPolicy
 // snippet-start:[cloudtrail.go.create_trail]
 func CreateTrail(sess *session.Session, trailName string, bucketName string) error {
-    // snippet-start:[cloudtrail.go.create_trail.create]
+    // snippet-start:[cloudtrailops.go.create_trail.create]
     svc := cloudtrail.New(sess)
 
     ctInput := &cloudtrail.CreateTrailInput{
@@ -125,7 +125,7 @@ func CreateTrail(sess *session.Session, trailName string, bucketName string) err
     }
 
     return nil
-    // snippet-end:[cloudtrail.go.create_trail.create]
+    // snippet-end:[cloudtrailops.go.create_trail.create]
 }
 // snippet-end:[cloudtrail.go.create_trail]
 

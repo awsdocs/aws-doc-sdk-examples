@@ -6,7 +6,7 @@ use std::process;
 
 use secretsmanager::{Client, Config, Region};
 
-use aws_types::region::{ProvideRegion};
+use aws_types::region::ProvideRegion;
 
 use structopt::StructOpt;
 
@@ -22,7 +22,7 @@ struct Opt {
     /// The name of the secret.
     #[structopt(short, long)]
     name: String,
-    
+
     /// Whether to display additonal information.
     #[structopt(short, long)]
     verbose: bool,
