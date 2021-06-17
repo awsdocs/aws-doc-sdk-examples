@@ -1130,12 +1130,10 @@ If the step turns red, an error occurred. You can click the step and view the lo
 
 ![AWS Tracking Application](images/workflow4.png)
 
-When the workflow is finished, you can view the data in the DynamoDB table.
-
-![AWS Tracking Application](images/lambda15.png)
+When the workflow is finished, you can view the data in the DynamoDB table (as shown at the start of this AWS tutorial).
 
 ### Next steps
-Congratulations! You have created a Spring Boot application that uses the Amazon Redshift data client to create an example job posting application. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+Congratulations! You have created a workflow that performs an ETL operation. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 For more AWS multiservice examples, see
 [usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).
