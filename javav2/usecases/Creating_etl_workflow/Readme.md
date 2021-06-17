@@ -8,7 +8,7 @@ The following illustration shows the population data located in a Microsoft Exce
 
 ![AWS Tracking Application](images/popDate.png)
 
-AFter the workflow successfully runs the ETL job, the population data is stored in an Amazon DynamoDB table, as shown in this illustation. 
+After the workflow successfully runs the ETL job, population data is stored in an Amazon DynamoDB table, as shown in this illustation. 
 
 ![AWS Tracking Application](images/DynTable.png)
 
@@ -32,9 +32,9 @@ Each workflow step is implemented by using an AWS Lambda function. Lambda is a c
 + Understand the workflow
 + Create an IAM role that is used to execute Lambda functions
 + Create a workflow by using AWS Step functions
-+ Create an IntelliJ project named LambdaFunctions
++ Create an IntelliJ project 
 + Add the POM dependencies to your project
-+ Create Lambda functions by using the Lambda API in the AWS SDK for Java
++ Create Lambda functions by using the Lambda Java runtime API
 + Package the project that contains Lambda functions
 + Deploy Lambda functions
 + Add Lambda functions to workflows
