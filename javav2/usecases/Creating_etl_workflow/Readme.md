@@ -1109,6 +1109,8 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 12. Repeat this procedure for the **HandlerStoreData** class. Name the corresponding Lambda function **ETLStoreData**. When you finish, you will have two Lambda functions that you can reference in the Amazon States Language document.  
 
+**Note**: It's recommended that you increase the timeout value for the Lambda functions. For more information, see [Configuring functions in the console](https://docs.aws.amazon.com/lambda/latest/dg/configuration-console.html).
+
 ## Add the Lambda functions to workflows
 
 Open the Lambda console. Notice that you can view the Lambda Amazon Resource Name (ARN) value in the upper-right corner.
