@@ -47,14 +47,14 @@ To complete the tutorial, you need the following:
 + Maven 3.6 or later
 
 
-## Important
+### Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
 +  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions (https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 + Running this code might result in charges to your AWS account. 
 + Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
-## Creating the resources
+### Creating the resources
 
 You need to create these resources:
 
