@@ -18,39 +18,35 @@ use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The AWS Region.
+    /// The region. Overrides environment variable AWS_DEFAULT_REGION.
     #[structopt(short, long)]
     default_region: Option<String>,
 
-    /// The original encryption key.
+    /// The original encryption key
     #[structopt(short, long)]
     first_key: String,
-
-    /// The new encryption key.
+    /// The new encryption key
     #[structopt(short, long)]
     new_key: String,
-
-    /// The name of the input file containing the text to reencrypt.
+    /// The name of the input file containing the text to reencrypt
     #[structopt(short, long)]
     input_file: String,
-
-    /// The name of the output file containing the reencrypted text.
+    /// The name of the output file containing the reencrypted text
     #[structopt(short, long)]
     output_file: String,
-
-    /// Whether to display additonal information.
+    /// Whether to display additonal runtime information
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Re-encrypts a string with an AWS Key Management Service (AWS KMS) key.
+/// Re-encrypts a string with an AWS KMS key.
 /// # Arguments
 ///
 /// * `[-f FIRST-KEY]` - The first key used to originally encrypt the string.
 /// * `[-n NEW-KEY]` - The new key used to re-encrypt the string.
 /// * `[-i INPUT-FILE]` - The file containing the encrypted string.
 /// * `[-o OUTPUT-FILE]` - The file containing the re-encrypted string.
-/// * `[-d DEFAULT-REGION]` - The AWS Region in which the client is created.
+/// * `[-d DEFAULT-REGION]` - The region in which the client is created.
 ///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
@@ -73,7 +69,7 @@ async fn main() {
 
     if verbose {
         println!("Running ReEncryptData with args:");
-        println!("AWS Region:      {:?}", &region);
+        println!("Region:          {:?}", &region);
         println!("Input key:       {}", first_key);
         println!("Output key:      {}", new_key);
         println!("Input filename:  {}", input_file);
@@ -86,14 +82,13 @@ async fn main() {
     }
 
     let conf = Config::builder().region(region).build();
-    let conn = aws_hyper::conn::Standard::https();
-    let client = Client::from_conf_conn(conf, conn);
+    let client = Client::from_conf(conf);
 
     // Get blob from input file
     // Open input text file and get contents as a string
     // input is a base-64 encoded string, so decode it:
     let data = fs::read_to_string(input_file)
-        .map(|input_file| base64::decode(input_file).expect("Invalid base-64 values."))
+        .map(|input_file| base64::decode(input_file).expect("invalid base 64"))
         .map(Blob::new);
 
     let resp = match client
@@ -112,16 +107,14 @@ async fn main() {
     };
 
     // Did we get an encrypted blob?
-    let blob = resp.ciphertext_blob.expect("Could not get encrypted text.");
+    let blob = resp.ciphertext_blob.expect("Could not get encrypted text");
     let bytes = blob.as_ref();
 
     let s = base64::encode(&bytes);
     let o = &output_file;
 
-    let mut ofile = File::create(o).expect("Unable to create file.");
-    ofile
-        .write_all(s.as_bytes())
-        .expect("Unable to write to file.");
+    let mut ofile = File::create(o).expect("unable to create file");
+    ofile.write_all(s.as_bytes()).expect("unable to write");
 
     if verbose {
         println!("Wrote the following to {}:", output_file);

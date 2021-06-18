@@ -7,7 +7,7 @@ use std::process;
 
 use polly::{Client, Config, Region};
 
-use aws_types::region::ProvideRegion;
+use aws_types::region::{EnvironmentProvider, ProvideRegion};
 
 use structopt::StructOpt;
 use tracing_subscriber::fmt::format::FmtSpan;
@@ -15,38 +15,34 @@ use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The AWS Region.
+    /// The region
     #[structopt(short, long)]
-    default_region: Option<String>,
+    region: Option<String>,
 
-    /// Display additional information.
+    /// Activate verbose mode
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Lists the Amazon Polly lexicons in the region.
+/// Displays a list of the lexicons in the region.
 /// # Arguments
 ///
-/// * `[-d DEFAULT-REGION]` - The AWS Region containing the lexicons.
-///   If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
-///   If the environment variable is not set, defaults to **us-west-2**.
+/// * `[-d DEFAULT-REGION]` - The region in which the client is created.
+///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
 async fn main() {
-    let Opt {
-        default_region,
-        verbose,
-    } = Opt::from_args();
+    let Opt { region, verbose } = Opt::from_args();
 
-    let region = default_region
-        .as_ref()
-        .map(|region| Region::new(region.clone()))
-        .or_else(|| aws_types::region::default_provider().region())
+    let region = EnvironmentProvider::new()
+        .region()
+        .or_else(|| region.as_ref().map(|region| Region::new(region.clone())))
         .unwrap_or_else(|| Region::new("us-west-2"));
 
     if verbose {
-        println!("Polly client version: {}\n", polly::PKG_VERSION);
-        println!("AWS Region:           {:?}", &region);
+        println!("polly client version: {}\n", polly::PKG_VERSION);
+        println!("Region:      {:?}", &region);
 
         SubscriberBuilder::default()
             .with_env_filter("info")
@@ -76,11 +72,11 @@ async fn main() {
                         .map(|attrib| attrib
                             .language_code
                             .as_ref()
-                            .expect("Languages must have language codes."))
-                        .expect("Languages must have attributes.")
+                            .expect("languages must have language codes"))
+                        .expect("languages must have attributes")
                 );
             }
-            println!("Found {} lexicons.\n", lexicons.len());
+            println!("\nFound {} lexicons.\n", lexicons.len());
         }
         Err(e) => {
             println!("Got an error listing lexicons:");
