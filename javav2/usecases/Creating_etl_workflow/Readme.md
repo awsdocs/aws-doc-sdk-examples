@@ -417,7 +417,7 @@ The following Java code represents the **DynamoDBService** class. This class use
         for (org.jdom2.Element element : items) {
 
             pop.setName( element.getChildText("Name"));
-            pop.setCode(element.getChildText("Code")); element.getChildText("Code");
+            pop.setCode(element.getChildText("Code"));
             pop.set2010(element.getChildText("Date2010"));
             pop.set2011(element.getChildText("Date2011"));
             pop.set2012(element.getChildText("Date2012"));
