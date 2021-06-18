@@ -430,9 +430,6 @@ The following Java code represents the **DynamoDBService** class. This class use
             pop.set2019(element.getChildText("Date2019"));
             setItem(pop) ;
         }
-
-        int y = 0;
-
     }
 
     public void setItem(PopData pop) {
