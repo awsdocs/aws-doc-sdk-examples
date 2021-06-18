@@ -25,19 +25,19 @@ struct Opt {
     /// The original encryption key.
     #[structopt(short, long)]
     first_key: String,
-    
+
     /// The new encryption key.
     #[structopt(short, long)]
     new_key: String,
-    
+
     /// The name of the input file containing the text to reencrypt.
     #[structopt(short, long)]
     input_file: String,
-    
+
     /// The name of the output file containing the reencrypted text.
     #[structopt(short, long)]
     output_file: String,
-    
+
     /// Whether to display additonal information.
     #[structopt(short, long)]
     verbose: bool,
@@ -119,7 +119,9 @@ async fn main() {
     let o = &output_file;
 
     let mut ofile = File::create(o).expect("Unable to create file.");
-    ofile.write_all(s.as_bytes()).expect("Unable to write to file.");
+    ofile
+        .write_all(s.as_bytes())
+        .expect("Unable to write to file.");
 
     if verbose {
         println!("Wrote the following to {}:", output_file);

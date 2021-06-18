@@ -8,12 +8,12 @@ edition = "2018"
 
 [dependencies]
 
-dynamodb = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.5-alpha", package = "aws-sdk-dynamodb" }
-aws-http = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.5-alpha", package = "aws-http"}
-aws-hyper = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.5-alpha", package = "aws-hyper"}
-aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.5-alpha", package = "aws-types" }
-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.5-alpha", package = "smithy-http" }
-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.5-alpha", package = "smithy-types" }
+dynamodb = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.7-alpha", package = "aws-sdk-dynamodb" }
+aws-http = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.7-alpha", package = "aws-http"}
+aws-hyper = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.7-alpha", package = "aws-hyper"}
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.7-alpha", package = "aws-types" }
+smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.7-alpha", package = "smithy-http" }
+smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.7-alpha", package = "smithy-types" }
 
 async-std = "1.9.0"
 rand = "0.8.3"

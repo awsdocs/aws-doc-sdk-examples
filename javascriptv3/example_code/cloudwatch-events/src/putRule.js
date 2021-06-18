@@ -18,26 +18,27 @@ node putRule.js
 
 // Import required AWS SDK clients and commands for Node.js
 import { PutRuleCommand } from "@aws-sdk/client-cloudwatch-events";
-import { cweClient } from "./libs/cloudWatchEventsClient";
+import { cweClient } from "./libs/cloudWatchEventsClient.js";
 
 // Set the parameters
-const params = {
+export const params = {
   Name: "DEMO_EVENT",
   RoleArn: "IAM_ROLE_ARN", //IAM_ROLE_ARN
   ScheduleExpression: "rate(5 minutes)",
   State: "ENABLED",
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await cweClient.send(new PutRuleCommand(params));
-    console.log("Success, scheduled rule created; Rule ARN:", data.RuleArn);
-    return data;
+    console.log("Success, scheduled rule created; Rule ARN:", data);
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error", err);
   }
 };
-run();
+// Uncomment this line to run execution within this file.
+// run();
 // snippet-end:[cwEvents.JavaScript.cwe.putRuleV3]
 // For unit tests only.
 // module.exports ={run, params};

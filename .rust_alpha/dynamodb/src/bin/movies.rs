@@ -22,7 +22,7 @@ use smithy_types::retry::RetryKind;
 use std::collections::HashMap;
 use std::time::Duration;
 
-/// A partial reimplementation of 
+/// A partial reimplementation of
 /// https://docs.amazonaws.cn/en_us/amazondynamodb/latest/developerguide/GettingStarted.Ruby.html
 /// in Rust.
 ///
