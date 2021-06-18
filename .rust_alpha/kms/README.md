@@ -78,6 +78,12 @@ This example creates a random byte string that is cryptographically secure.
   If this value is not supplied, the region defaults to __us-west-2__.
 - __-v__ displays additional information.
 
+### kms-helloworld
+
+This example creates a random, 64-byte string that is cryptographically secure in __us-east-1__.
+
+`cargo run --bin kms-helloworld`
+
 ### reencrypt-data
 
 This example re-encrypts a text string that was encrypted using an AWS KMS key with another AWS KMS key.

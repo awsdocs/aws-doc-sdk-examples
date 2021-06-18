@@ -10,7 +10,7 @@ use dynamodb::model::{
 };
 use dynamodb::{Client, Config, Region};
 
-use aws_types::region::ProvideRegion;
+use aws_types::region::{EnvironmentProvider, ProvideRegion};
 
 use structopt::StructOpt;
 use tracing_subscriber::fmt::format::FmtSpan;
@@ -18,53 +18,51 @@ use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The AWS Region.
+    /// The region
     #[structopt(short, long)]
-    default_region: Option<String>,
+    region: Option<String>,
 
-    /// The table name.
+    /// The table name
     #[structopt(short, long)]
     table: String,
 
-    /// The primary key for the table.
+    /// The primary key
     #[structopt(short, long)]
     key: String,
 
-    /// Whether to display additional information.
+    /// Activate verbose mode
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Adds an item to an Amazon DynamoDB table.
-/// The table schema must use one of username, p_type, age, first, or last as the primary key.
+/// Creates a DynamoDB table.
 /// # Arguments
 ///
-/// * `-t TABLE` - The name of the table.
 /// * `-k KEY` - The primary key for the table.
-/// * `[-d DEFAULT-REGION]` - The AWS Region in which the table is created.
-///   If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
-///   If the environment variable is not set, defaults to **us-west-2**.
+/// * `-t TABLE` - The name of the table.
+/// * `[-d DEFAULT-REGION]` - The region in which the client is created.
+///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
 async fn main() {
     let Opt {
         table,
         key,
-        default_region,
+        region,
         verbose,
     } = Opt::from_args();
 
-    let region = default_region
-        .as_ref()
-        .map(|region| Region::new(region.clone()))
-        .or_else(|| aws_types::region::default_provider().region())
+    let region = EnvironmentProvider::new()
+        .region()
+        .or_else(|| region.as_ref().map(|region| Region::new(region.clone())))
         .unwrap_or_else(|| Region::new("us-west-2"));
 
     if verbose {
         println!("DynamoDB client version: {}\n", dynamodb::PKG_VERSION);
-        println!("AWS Region:              {:?}", &region);
-        println!("Table:                   {}", table);
-        println!("Key:                     {}\n", key);
+        println!("Region: {:?}", &region);
+        println!("Table:  {}", table);
+        println!("Key:    {}\n", key);
 
         SubscriberBuilder::default()
             .with_env_filter("info")
