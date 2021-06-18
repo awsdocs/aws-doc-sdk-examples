@@ -23,9 +23,6 @@ Each workflow step is implemented by using an AWS Lambda function. Lambda is a c
 
 **Note**: You can create Lambda functions in various programming languages. For this tutorial, Lambda functions are implemented by using the Lambda Java API. For more information about Lambda, see  [What is AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html). 
 
-
-**Note:** 
-
 #### Topics
 
 + Prerequisites
