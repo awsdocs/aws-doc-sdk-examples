@@ -532,11 +532,12 @@ The following Java code represents the **ExcelService** class that uses the **jx
 
         // Loop through the rows in the spreadsheet
         for (int zz = 0 ; zz <a; zz++) {
+        
         // Get the first cell.
         System.out.println(zz);
 
         Cell[] row = sheet.getRow(zz);
-        //Cell cell = row.getCell(0);
+        
         if (zz ==0)
             System.out.println("Not 1st row");
         else {
