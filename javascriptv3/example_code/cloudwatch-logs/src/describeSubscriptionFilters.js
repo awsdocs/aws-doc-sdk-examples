@@ -17,29 +17,27 @@ node describeSubscriptionFilters.js
 // snippet-start:[cwLogs.JavaScript.cwl.describeSubscriptionFiltersV3]
 
 // Import required AWS SDK clients and commands for Node.js
-import {
-  DescribeSubscriptionFiltersCommand,
-} from "@aws-sdk/client-cloudwatch-logs";
-import { cwlClient } from "./libs/cloudWatchLogsClient";
+import { DescribeSubscriptionFiltersCommand } from "@aws-sdk/client-cloudwatch-logs";
+import { cwlClient } from "./libs/cloudWatchLogsClient.js";
 
 // Set the parameters
-const params = {
+export const params = {
   logGroupName: "GROUP_NAME", //GROUP_NAME
-  limit: 5,
+  limit: 5
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await cwlClient.send(
       new DescribeSubscriptionFiltersCommand(params)
     );
     console.log("Success", data.subscriptionFilters);
-    return data;
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error", err);
   }
 };
-run();
+// Uncomment this line to run execution within this file.
+// run();
 // snippet-end:[cwLogs.JavaScript.cwl.describeSubscriptionFiltersV3]
-// For unit tests only.
-// module.exports ={run, params};
+
