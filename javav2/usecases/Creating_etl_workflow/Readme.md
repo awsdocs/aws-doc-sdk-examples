@@ -476,6 +476,7 @@ The following Java code represents the **DynamoDBService** class. This class use
       }
      }
 
+**Note** Make sure that you created a Customer table as described at the start of this AWS tutorial. Otherwise, your code does not work.
 
 ### ExcelService class
 
