@@ -1,5 +1,6 @@
 # Creating an ETL workflow by using AWS Step Functions and the AWS SDK for Java
 
+## Purpose
 You can create an Extract, Transform, and Load (ETL) workflow by using AWS Step Functions and the AWS SDK for Java V2. An ETL operation retrieves data from a given data source, applies various transformations to the data, and then writes the results to a specified location where the data is stored. In this AWS tutorial, population data located in a Microsoft Excel spreadsheet and stored in an Amazon Simple Storage Service (Amazon S3) bucket is retrieved, transformed to another format, and stored in an Amazon DyanmoDB table named **Country**. 
 
 ![AWS Tracking Application](images/overview.png)
@@ -22,9 +23,8 @@ Each workflow step is implemented by using an AWS Lambda function. Lambda is a c
 
 **Note**: You can create Lambda functions in various programming languages. For this tutorial, Lambda functions are implemented by using the Lambda Java API. For more information about Lambda, see  [What is AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html). 
 
-**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
 
-**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+**Note:** 
 
 #### Topics
 
@@ -50,6 +50,13 @@ To complete the tutorial, you need the following:
 + Maven 3.6 or later
 + An Amazon S3 bucket that contains a Microsoft Excel document that contains poplation data. You can obtain the Microsoft Excel document from this Github repository. 
 + An Amazon DynamoDB table named **Country** that contains a partition key named **id**. For information about creating an Amazon DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html). 
+
+## Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions (https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 ## Understand the workflow
 
