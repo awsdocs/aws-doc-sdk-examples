@@ -1024,7 +1024,7 @@ The following Java code represents the **Population** class. The class is used f
     
 ### S3Service class
 
-The following Java code represents the **S3Service** class.
+The following Java code represents the **S3Service** class. This class contains a method named **getObjectBytes** that accepts the bucket name and object name (which represents the Microsoft Excel file) and returns a byte array. 
 
     package com.etl.example;
 
