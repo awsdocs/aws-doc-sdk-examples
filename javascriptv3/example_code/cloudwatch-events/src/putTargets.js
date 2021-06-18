@@ -18,10 +18,10 @@ node putTargets.js
 
 // Import required AWS SDK clients and commands for Node.js
 import { PutTargetsCommand } from "@aws-sdk/client-cloudwatch-events";
-import { cweClient } from "./libs/cloudWatchEventsClient";
+import { cweClient } from "./libs/cloudWatchEventsClient.js";
 
 // Set the parameters
-const params = {
+export const params = {
   Rule: "DEMO_EVENT",
   Targets: [
     {
@@ -31,16 +31,17 @@ const params = {
   ],
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await cweClient.send(new PutTargetsCommand(params));
-    console.log("Success, target added; requestID: ", data.$metadata.requestId);
-    return data;
+    console.log("Success, target added; requestID: ", data);
+    return data; // For unit tests.
   } catch (err) {
     console.log("Error", err);
   }
 };
-run();
+// Uncomment this line to run execution within this file.
+// run();
 // snippet-end:[cwEvents.JavaScript.cwe.putTargetsV3]
 // For unit tests only.
 // module.exports ={run, params};
