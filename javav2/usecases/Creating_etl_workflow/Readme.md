@@ -334,11 +334,11 @@ At this point, you have a new project named **ETL_Lambda**. Ensure that the pom.
  Create these Java classes:
 
 + **DocumentHandler** - Used as the first step in the workflow that retrieves the Microsoft Excel document and dynamically creates XML that contains the data.
-+ **DynamoDBService** - Uses the Amazon DynamoDB Java V2 API to store population data into a DynamoDB table.  
++ **DynamoDBService** - Uses the Amazon DynamoDB Java V2 API to store population data into a DynamoDB table. The Amazon DynamoDB Enhanced Client is used. For more information about the Enhanced Client, see [Map items in DynamoDB tables](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/examples-dynamodb-enhanced.html). 
 + **ExcelService** - Uses the **jxl.Workbook** (not an AWS Java API) to read data from a Microsoft Excel spreadsheet. 
 + **HandlerStoreData** - Used as the second step in the workflow. 
 + **PopData** - Used as a model that stores population data. 
-+ **Population** - Used as the data mapping class for the Amazon DynamoDB Java API (V2) Enchanced Client. For more information about the Enhanced Client, see [Map items in DynamoDB tables](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/examples-dynamodb-enhanced.html).
++ **Population** - Used as the data mapping class for the Amazon DynamoDB Java API (V2) Enchanced Client. 
 + **S3Service** - Uses the Amazon S3 Java API (V2) to read the Microsoft Excel document and returns a byte array.  
 
 ### DocumentHandler class
