@@ -15,10 +15,10 @@ node putMetricAlarm.js
 
 // Import required AWS SDK clients and commands for Node.js
 import { PutMetricAlarmCommand } from "@aws-sdk/client-cloudwatch";
-import { cwClient } from "./libs/cloudWatchClient";
+import { cwClient } from "./libs/cloudWatchClient.js";
 
 // Set the parameters
-const params = {
+export const params = {
   AlarmName: "Web_Server_CPU_Utilization",
   ComparisonOperator: "GreaterThanThreshold",
   EvaluationPeriods: 1,
@@ -38,16 +38,16 @@ const params = {
   Unit: "Percent",
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await cwClient.send(new PutMetricAlarmCommand(params));
-    console.log("Success", data.$metadata.requestId);
+    console.log("Success", data);
     return data;
   } catch (err) {
     console.log("Error", err);
   }
 };
-run();
+// Uncomment this line to run execution within this file.
+// run();
 // snippet-end:[cw.JavaScript.alarms.putMetricAlarmV3]
-// For unit tests only.
-// module.exports ={run, params};
+
