@@ -18,6 +18,92 @@ For Boto3 and AWS documentation, see the following:
 
 ## Examples
 
+### [AWS Chalice and AWS Lambda REST API example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/cross_service/apigateway_covid-19_tracker/README.md)
+
+#### Purpose
+
+Shows how to use AWS Chalice with the AWS SDK for Python (Boto3) to 
+create a serverless REST API that uses Amazon API Gateway, AWS Lambda, and 
+Amazon DynamoDB. The REST API simulates a system that tracks daily cases
+of COVID-19 in the United States, using fictional data. Learn how to:
+
+* Use AWS Chalice to define routes in AWS Lambda functions that
+ are called to handle REST requests that come through Amazon API Gateway.
+* Use AWS Lambda functions to retrieve and store data in an Amazon DynamoDB 
+table to serve REST requests.
+* Define table structure and security role resources in an AWS CloudFormation template.
+* Use AWS Chalice and AWS CloudFormation to package and deploy all necessary resources.
+* Use AWS CloudFormation to clean up all created resources.
+
+This example brings together some of the same information you can find in the
+tutorials in the 
+[AWS Chalice GitHub repository](https://aws.github.io/chalice/quickstart.html).
+
+### [Amazon API Gateway websocket chat example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/cross_service/apigateway_websocket_chat/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon API Gateway V2 to
+create a websocket API that integrates with AWS Lambda and Amazon DynamoDB.
+
+* Create a websocket API served by API Gateway.
+* Define a Lambda handler that stores connections in DynamoDB and posts messages to
+other chat participants.
+* Connect to the websocket chat application and send messages with the Websockets
+package.
+
+You can create a similar API Gateway websocket chat application by using 
+[AWS Chalice](https://github.com/aws/chalice).
+For a tutorial, see 
+[Chat Server Example](https://aws.github.io/chalice/tutorials/wschat.html).
+
+### [Amazon Aurora serverless REST API lending library example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/cross_service/aurora_rest_lending_library/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with the Amazon Relational Database 
+Service (Amazon RDS) API and AWS Chalice to create a REST API backed by an 
+Amazon Aurora database. The web service is fully serverless and represents
+a simple lending library where patrons can borrow and return books. Learn how to:
+
+* Create and manage a serverless Amazon Aurora database cluster.
+* Use AWS Secrets Manager to manage database credentials.
+* Implement a data storage layer that uses Amazon RDS Data Service to move data into
+and out of the database.  
+* Use AWS Chalice to deploy a serverless REST API to Amazon API Gateway and AWS Lambda.
+* Use the Requests package to send requests to the web service.
+
+### [AWS Step Functions messenger example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/cross_service/stepfunctions_messenger/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with AWS Step Functions to
+create and run state machines.
+
+* Create a state machine that retrieves and updates message records from an 
+Amazon DynamoDB table.
+* Update the state machine definition to also send messages to Amazon Simple Queue Service 
+(Amazon SQS).
+* Start and stop state machine runs.
+* Connect to AWS Lambda, DynamoDB, and Amazon SQS from a state machine by using service
+integrations.
+
+### [Amazon Textract explorer example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/cross_service/textract_explorer/README.md)
+
+#### Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Textract to detect text, 
+form, and table elements in a document image. The input image and Textract output are
+shown in a Tkinter application that lets you explore the detected elements. 
+
+* Submit a document image to Textract and explore the output of detected elements.
+* Submit images directly to Textract or through an Amazon Simple Storage Service 
+(Amazon S3) bucket.
+* Use asynchronous APIs to start a job that publishes a notification to an Amazon 
+Simple Notification Service (Amazon SNS) topic when the job completes.
+* Poll an Amazon Simple Queue Service (Amazon SQS) queue for a job completion message
+and display the results. 
+
 ### [AWS Certificate Manager (ACM) basics example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/acm/README.md)
 
 #### Purpose
@@ -197,26 +283,19 @@ like creating a REST API and setting an event schedule. You can also use
 [AWS Chalice](https://github.com/aws/chalice)
 to achieve similar results more easily and with additional features. 
 
-### [AWS Chalice and AWS Lambda REST API example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/lambda/chalice_examples/lambda_rest/README.md)
+### [Amazon Lookout for Vision example code](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/lookoutvision/README.md)
 
 #### Purpose
 
-Shows how to use AWS Chalice with the AWS SDK for Python (Boto3) to 
-create a serverless REST API that uses Amazon API Gateway, AWS Lambda, and 
-Amazon DynamoDB. The REST API simulates a system that tracks daily cases
-of COVID-19 in the United States, using fictional data. Learn how to:
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Lookout for Vision to
+create a model that detects anomalies in images. Examples are used in the 
+service documentation - [Amazon Lookout for Vision Developer Guide](https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/what-is.html).
 
-* Use AWS Chalice to define routes in AWS Lambda functions that
- are called to handle REST requests that come through Amazon API Gateway.
-* Use AWS Lambda functions to retrieve and store data in an Amazon DynamoDB 
-table to serve REST requests.
-* Define table structure and security role resources in an AWS CloudFormation template.
-* Use AWS Chalice and AWS CloudFormation to package and deploy all necessary resources.
-* Use AWS CloudFormation to clean up all created resources.
-
-This example brings together some of the same information you can find in the
-tutorials in the 
-[AWS Chalice GitHub repository](https://aws.github.io/chalice/quickstart.html).
+* Create a project to manage your model.
+* Add a training dataset (and optional test dataset) that's used to train the model.
+* Train the model.
+* Detect anomalies in images using the model.
+* Other project management tasks (tagging, model deletion, project listing etc.)
 
 ### [AWS Organizations policy examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/organizations/README.md)
 
@@ -239,22 +318,6 @@ of visemes from Amazon Polly that match up with the synthesized speech.
 * Play the audio with synchronized mouth movements in an animated face.
 * Submit asynchronous synthesis tasks for long texts and retrieve the output from
 an Amazon Simple Storage Service (Amazon S3) bucket.
-
-### [Amazon Aurora serverless REST API lending library example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/rds/lending_library/README.md)
-
-#### Purpose
-
-Shows how to use the AWS SDK for Python (Boto3) with the Amazon Relational Database 
-Service (Amazon RDS) API and AWS Chalice to create a REST API backed by an 
-Amazon Aurora database. The web service is fully serverless and represents
-a simple lending library where patrons can borrow and return books. Learn how to:
-
-* Create and manage a serverless Amazon Aurora database cluster.
-* Use AWS Secrets Manager to manage database credentials.
-* Implement a data storage layer that uses Amazon RDS Data Service to move data into
-and out of the database.  
-* Use AWS Chalice to deploy a serverless REST API to Amazon API Gateway and AWS Lambda.
-* Use the Requests package to send requests to the web service.
 
 ### [Amazon Rekognition image and video detection example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/rekognition/README.md)
 
@@ -360,20 +423,12 @@ message operations in Amazon Simple Queue Service (Amazon SQS). Learn how to
 create, get, and remove standard, FIFO, and dead-letter queues. Learn how to 
 send, receive, and delete messages from a queue.
 
-### [AWS Step Functions state machine example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/stepfunctions/README.md)
+### [AWS Step Functions basics](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/stepfunctions/README.md)
 
 #### Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) with AWS Step Functions to
 create and run state machines.
-
-* Create a state machine that retrieves and updates message records from an 
-Amazon DynamoDB table.
-* Update the state machine definition to also send messages to Amazon Simple Queue Service 
-(Amazon SQS).
-* Start and stop state machine runs.
-* Connect to AWS Lambda, DynamoDB, and Amazon SQS from a state machine by using service
-integrations.
 
 ### [AWS STS temporary credential examples](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/sts/sts_temporary_credentials/README.md)
 
@@ -392,21 +447,12 @@ perform permitted actions.
 AWS Management Console.
 * Get a session token that can be used to call an API function that requires MFA.
 
-### [Amazon Textract explorer example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/textract/README.md)
+### [Amazon Textract basics example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/textract/README.md)
 
 #### Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) with Amazon Textract to detect text, 
-form, and table elements in a document image. The input image and Textract output are
-shown in a Tkinter application that lets you explore the detected elements. 
-
-* Submit a document image to Textract and explore the output of detected elements.
-* Submit images directly to Textract or through an Amazon Simple Storage Service 
-(Amazon S3) bucket.
-* Use asynchronous APIs to start a job that publishes a notification to an Amazon 
-Simple Notification Service (Amazon SNS) topic when the job completes.
-* Poll an Amazon Simple Queue Service (Amazon SQS) queue for a job completion message
-and display the results. 
+form, and table elements in a document image. 
 
 ### [Amazon Transcribe custom vocabulary example](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/transcribe/README.md)
 

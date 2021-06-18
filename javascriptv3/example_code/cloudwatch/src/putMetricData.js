@@ -15,10 +15,10 @@ node putMetricData.js
 
 // Import required AWS SDK clients and commands for Node.js
 import { PutMetricDataCommand } from "@aws-sdk/client-cloudwatch";
-import { cwClient } from "./libs/cloudWatchClient";
+import { cwClient } from "./libs/cloudWatchClient.js";
 
 // Set the parameters
-const params = {
+export const params = {
   MetricData: [
     {
       MetricName: "PAGES_VISITED",
@@ -35,7 +35,7 @@ const params = {
   Namespace: "SITE/TRAFFIC",
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await cwClient.send(new PutMetricDataCommand(params));
     console.log("Success", data.$metadata.requestId);
@@ -44,7 +44,6 @@ const run = async () => {
     console.log("Error", err);
   }
 };
-run();
+// Uncomment this line to run execution within this file.
+// run();
 // snippet-end:[cw.JavaScript.metrics.putMetricDataV3]
-// For unit tests only.
-// module.exports ={run, params};
