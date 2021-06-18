@@ -7,7 +7,7 @@ use dynamodb::model::{
     AttributeDefinition, KeySchemaElement, KeyType, ProvisionedThroughput, ScalarAttributeType,
 };
 
-/// Lists your Amazon DynamoDB tables and creates the table __test-table__.
+/// Lists your DynamoDB tables and creates the table __test_table__.
 #[tokio::main]
 async fn main() -> Result<(), dynamodb::Error> {
     let client = dynamodb::Client::from_env();
@@ -39,7 +39,7 @@ async fn main() -> Result<(), dynamodb::Error> {
         .send()
         .await?;
     println!(
-        "New table: {:#?}",
+        "new table: {:#?}",
         &new_table.table_description.unwrap().table_arn.unwrap()
     );
     Ok(())

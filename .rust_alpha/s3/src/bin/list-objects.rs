@@ -15,15 +15,15 @@ use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The bucket containing objects to list.
-    #[structopt(short, long)]
-    bucket: String,
-
-    /// The AWS Region.
+    /// The default region
     #[structopt(short, long)]
     default_region: Option<String>,
 
-    /// Whether to display additional information.
+    /// The name of the bucket
+    #[structopt(short, long)]
+    bucket: String,
+
+    /// Whether to display additional information
     #[structopt(short, long)]
     verbose: bool,
 }
@@ -31,17 +31,16 @@ struct Opt {
 /// Lists the objects in an Amazon S3 bucket.
 /// # Arguments
 ///
-/// * `[-b BUCKET]` - The bucket containing the objects to list.
-/// * `[-d DEFAULT-REGION]` - The region containing the buckets.
+/// * `-n NAME` - The name of the bucket.
+/// * `[-d DEFAULT-REGION]` - The region containing the bucket.
 ///   If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
 ///   If the environment variable is not set, defaults to **us-west-2**.
-/// * `[-g]` - Whether to display buckets in all regions.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
 async fn main() {
     let Opt {
-        bucket,
         default_region,
+        bucket,
         verbose,
     } = Opt::from_args();
 
@@ -53,7 +52,7 @@ async fn main() {
 
     if verbose {
         println!("S3 client version: {}", s3::PKG_VERSION);
-        println!("AWS Region:        {:?}", &region);
+        println!("Region:            {:?}", &region);
 
         SubscriberBuilder::default()
             .with_env_filter("info")
@@ -65,39 +64,17 @@ async fn main() {
 
     let client = Client::from_conf(config);
 
-    let mut num_objects: i32 = 0;
-
     match client.list_objects().bucket(&bucket).send().await {
         Ok(resp) => {
-            println!("\nObjects in {}:\n", &bucket);
-
-            let objects = resp.contents.unwrap_or_default();
-
-            for object in &objects {
-                match &object.key {
-                    None => {}
-                    Some(k) => {
-                        println!("Name:          {}", k);
-                        num_objects += 1;
-                    }
-                }
-
-                println!("Size:          {} bytes", &object.size);
-
-                match &object.storage_class {
-                    None => {}
-                    Some(sc) => {
-                        println!("Storage class: {}\n", sc.as_str());
-                    }
-                }
+            println!("Objects:");
+            for object in resp.contents.unwrap_or_default() {
+                println!(" {}", object.key.expect("objects have keys"));
             }
-
-            println!("\nFound {} object(s) in {}", num_objects, bucket);
         }
         Err(e) => {
-            println!("Got an error listing objects:");
+            println!("Got an error retrieving objects for bucket:");
             println!("{}", e);
             process::exit(1);
         }
-    };
+    }
 }
