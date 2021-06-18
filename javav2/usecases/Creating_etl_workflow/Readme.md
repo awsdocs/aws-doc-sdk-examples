@@ -41,7 +41,7 @@ To complete the tutorial, you need the following:
 ### Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
 + Running this code might result in charges to your AWS account. 
 + Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
