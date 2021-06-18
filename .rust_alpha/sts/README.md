@@ -19,7 +19,7 @@ This example implements a basic version of ProvideCredentials with AWS STS and l
 `cargo run --bin create-bucket -- -b BUCKET [-d DEFAULT-REGION] [-v]`
 
 - _BUCKET_ is the name of the bucket to create.
-- _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the table is located.
+- _DEFAULT-REGION_ is the name of the AWS Region, such as __us-east-1__, where the table is located.
   If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
