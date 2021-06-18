@@ -13,15 +13,6 @@ After the workflow successfully runs the ETL job, population data is stored in a
 
 ![AWS Tracking Application](images/DynTable.png)
 
-The AWS Services used in this AWS tutorial are:
-
- - Amazon S3 Service
- - Amazon DynamoDB
- - AWS Step Functions
- 
-Each workflow step is implemented by using an AWS Lambda function. Lambda is a compute service that enables you to run code without provisioning or managing servers.
-
-**Note**: You can create Lambda functions in various programming languages. For this tutorial, Lambda functions are implemented by using the Lambda Java API. For more information about Lambda, see  [What is AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html). 
 
 ## Topics
 
@@ -55,6 +46,16 @@ To complete the tutorial, you need the following:
 + Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 ### Creating the resources
+
+The AWS Services used in this AWS tutorial are:
+
+ - Amazon S3 Service
+ - Amazon DynamoDB
+ - AWS Step Functions
+ 
+Each workflow step is implemented by using an AWS Lambda function. Lambda is a compute service that enables you to run code without provisioning or managing servers.
+
+**Note**: You can create Lambda functions in various programming languages. For this tutorial, Lambda functions are implemented by using the Lambda Java API. For more information about Lambda, see  [What is AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html). 
 
 You need to create these resources:
 
