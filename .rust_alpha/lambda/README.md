@@ -1,8 +1,8 @@
-# AWS SDK for Rust code examples for AWS Secrets Manager
+# AWS SDK for Rust code examples for AWS Lambda
 
 ## Purpose
 
-These examples demonstrate how to perform several Secrets Manager operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several AWS Lambda operations using the alpha version of the AWS SDK for Rust.
 
 ## Prerequisites
 
@@ -10,36 +10,26 @@ You must have an AWS account, and have configured your default credentials and A
 
 ## Running the code
 
-### create-secret
+### invoke-function
 
-This example creates a Secrets Manager secret.
+This example invokes a function by its ARN.
 
-`cargo run --bin create-secret -- -n NAME -c CONTENT [-d DEFAULT-REGION] [-v]`
+`cargo run --bin invoke-function -- -a ARN [-d DEFAULT-REGION] [-v]`
 
-- _NAME_ is the name of the secret.
-- _CONTENT_ is the contents of the secret.
+- _ARN_ is the ARN of the function to invoke.
 - _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
   If this value is not supplied, the region defaults to __us-west-2__.
+- __-v__ displays additional information.
 
-### get-secret-value
+### list-functions
 
-Displays the value of a Secrets Manager secret.
+This example lists your AWS Lambda functions.
 
-`cargo run --bin get-secret-value -- -n NAME -c CONTENT [-d DEFAULT-REGION]`
-
-- _NAME_ is the name of the secret.
-- _CONTENT_ is the contents of the secret.
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
-
-### list-secrets
-
-This example lists the names the Secrets Manager secrets in the region.
-
-`cargo run --bin list-secrets -- [-d DEFAULT-REGION]`
+`cargo run --bin list-functions -- [-d DEFAULT-REGION] [-v]`
 
 - _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
   If this value is not supplied, the region defaults to __us-west-2__.
+- __-v__ displays additional information.
 
 ### Notes
 

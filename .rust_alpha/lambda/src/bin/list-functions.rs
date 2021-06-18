@@ -5,31 +5,30 @@
 
 use std::process;
 
-use dynamodb::{Client, Config, Region};
-
-use aws_types::region::{EnvironmentProvider, ProvideRegion};
-
+// For command-line arguments.
 use structopt::StructOpt;
+
+use lambda::{Client, Config, Region};
+
+use aws_types::region::ProvideRegion;
+
 use tracing_subscriber::fmt::format::FmtSpan;
 use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The region
+    /// The region. Overrides environment variable AWS_DEFAULT_REGION.
     #[structopt(short, long)]
-    region: Option<String>,
+    default_region: Option<String>,
 
-    #[structopt(short, long)]
-    table: String,
-
+    /// Whether to display additional runtime information
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Lists the items in a DynamoDB table.
+/// Lists the ARNs of your Lambda functions.
 /// # Arguments
 ///
-/// * `-t TABLE` - The name of the table.
 /// * `[-d DEFAULT-REGION]` - The region in which the client is created.
 ///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
@@ -37,20 +36,19 @@ struct Opt {
 #[tokio::main]
 async fn main() {
     let Opt {
-        table,
-        region,
+        default_region,
         verbose,
     } = Opt::from_args();
 
-    let region = EnvironmentProvider::new()
-        .region()
-        .or_else(|| region.as_ref().map(|region| Region::new(region.clone())))
+    let region = default_region
+        .as_ref()
+        .map(|region| Region::new(region.clone()))
+        .or_else(|| aws_types::region::default_provider().region())
         .unwrap_or_else(|| Region::new("us-west-2"));
 
     if verbose {
-        println!("DynamoDB client version: {}\n", dynamodb::PKG_VERSION);
-        println!("Region: {:?}", &region);
-        println!("Table:  {}", table);
+        println!("Lambda client version: {}", lambda::PKG_VERSION);
+        println!("Region:                {:?}", &region);
 
         SubscriberBuilder::default()
             .with_env_filter("info")
@@ -59,23 +57,27 @@ async fn main() {
     }
 
     let config = Config::builder().region(region).build();
-
     let client = Client::from_conf(config);
 
-    let t = &table;
-
-    match client.scan().table_name(t).send().await {
+    match client.list_functions().send().await {
         Ok(resp) => {
-            println!("Items in table {}:", table);
+            println!("Function ARNs:");
 
-            let items = resp.items.unwrap_or_default();
+            let functions = resp.functions.unwrap_or_default();
 
-            for item in items {
-                println!("   {:?}", item);
+            for function in &functions {
+                match &function.function_arn {
+                    None => {}
+                    Some(f) => {
+                        println!("{}", f);
+                    }
+                }
             }
+
+            println!("Found {} functions", functions.len());
         }
         Err(e) => {
-            println!("Got an error listing items:");
+            println!("Got an error listing functions:");
             println!("{}", e);
             process::exit(1);
         }
