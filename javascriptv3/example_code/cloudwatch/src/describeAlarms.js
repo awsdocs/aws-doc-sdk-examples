@@ -15,12 +15,12 @@ node describeAlarms.js
 
 // Import required AWS SDK clients and commands for Node.js
 import { DescribeAlarmsCommand } from "@aws-sdk/client-cloudwatch";
-import { cwClient } from "./libs/cloudWatchClient";
+import { cwClient } from "./libs/cloudWatchClient.js";
 
 // Set the parameters
-const params = { StateValue: "INSUFFICIENT_DATA" };
+export const params = { StateValue: "INSUFFICIENT_DATA" };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await cwClient.send(new DescribeAlarmsCommand(params));
     console.log("Success", data);
@@ -33,7 +33,7 @@ const run = async () => {
     console.log("Error", err);
   }
 };
-run();
+// Uncomment this line to run execution within this file.
+// run();
 // snippet-end:[cw.JavaScript.alarms.describeAlarmsV3]
-// For unit tests only.
-// module.exports ={run, params};
+
