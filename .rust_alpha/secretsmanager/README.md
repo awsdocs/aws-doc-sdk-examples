@@ -14,7 +14,7 @@ You must have an AWS account, and have configured your default credentials and A
 
 This example creates a Secrets Manager secret.
 
-`cargo run --bin create-secret -- -n NAME -c CONTENT [-d DEFAULT-REGION]`
+`cargo run --bin create-secret -- -n NAME -c CONTENT [-d DEFAULT-REGION] [-v]`
 
 - _NAME_ is the name of the secret.
 - _CONTENT_ is the contents of the secret.
@@ -32,17 +32,9 @@ Displays the value of a Secrets Manager secret.
 - _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
   If this value is not supplied, the region defaults to __us-west-2__.
 
-### helloworld
-
-Creates and displays the value of a Secrets Manager secret.
-
-`cargo run --bin helloworld`
-
-The name and value of the secret are hard-coded.
-
 ### list-secrets
 
-This example lists the Secrets Manager secrets in the region.
+This example lists the names the Secrets Manager secrets in the region.
 
 `cargo run --bin list-secrets -- [-d DEFAULT-REGION]`
 

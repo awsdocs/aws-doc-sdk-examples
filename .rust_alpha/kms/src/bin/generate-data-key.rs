@@ -15,24 +15,24 @@ use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The AWS Region.
+    /// The region. Overrides environment variable AWS_DEFAULT_REGION.
     #[structopt(short, long)]
     default_region: Option<String>,
 
-    /// Specifies the encryption key.
+    /// Specifies the encryption key
     #[structopt(short, long)]
     key: String,
 
-    /// Whether additonal informmation is displayed.
+    /// Specifies whether additonal runtime informmation is displayed
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Creates an AWS Key Management Service (AWS KMS) key.
+/// Creates an AWS KMS data key.
 /// # Arguments
 ///
 /// * `[-k KEY]` - The name of the key.
-/// * `[-d DEFAULT-REGION]` - The AWS Region in which the client is created.
+/// * `[-d DEFAULT-REGION]` - The region in which the client is created.
 ///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
@@ -52,8 +52,8 @@ async fn main() {
 
     if verbose {
         println!("KMS client version: {}\n", kms::PKG_VERSION);
-        println!("AWS Region:         {:?}", &region);
-        println!("Key:                {}", key);
+        println!("Region: {:?}", &region);
+        println!("Key:    {}", key);
 
         SubscriberBuilder::default()
             .with_env_filter("info")
@@ -62,8 +62,7 @@ async fn main() {
     }
 
     let conf = Config::builder().region(region).build();
-    let conn = aws_hyper::conn::Standard::https();
-    let client = Client::from_conf_conn(conf, conn);
+    let client = Client::from_conf(conf);
 
     let resp = match client
         .generate_data_key()
@@ -74,13 +73,13 @@ async fn main() {
     {
         Ok(output) => output,
         Err(e) => {
-            eprintln!("Encryption failure: {}.", e);
+            eprintln!("Encryption failure: {}", e);
             process::exit(1);
         }
     };
 
     // Did we get an encrypted blob?
-    let blob = resp.ciphertext_blob.expect("Could not get encrypted text.");
+    let blob = resp.ciphertext_blob.expect("Could not get encrypted text");
     let bytes = blob.as_ref();
 
     let s = base64::encode(&bytes);

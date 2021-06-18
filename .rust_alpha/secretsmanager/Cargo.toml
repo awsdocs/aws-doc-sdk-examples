@@ -1,7 +1,7 @@
 [package]
 name = "secretsmanager-code-examples"
 version = "0.1.0"
-authors = ["Russell Cohen <rcoh@amazon.com>", "Doug Schwartz <dougsch@amazon.com>"]
+authors = ["AWS Rust SDK Team <aws-sdk-rust@amazon.com>", "Doug Schwartz <dougsch@amazon.com>"]
 edition = "2018"
 description = "Example usage of the SecretManager service"
 
@@ -11,6 +11,7 @@ aws-hyper = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.7-alp
 aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.7-alpha", package = "aws-types" }
 
 tokio = { version = "1", features = ["full"]}
+
 structopt = { version = "0.3", default-features = false }
 tracing-subscriber = { version = "0.2.16", features = ["fmt"] }
 

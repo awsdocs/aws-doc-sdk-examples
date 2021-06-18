@@ -10,7 +10,8 @@ edition = "2018"
 polly = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.7-alpha", package = "aws-sdk-polly" }
 aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.7-alpha", package = "aws-types" }
 
+bytes = "1"
 tokio = { version = "1", features = ["full"] }
 structopt = { version = "0.3", default-features = false }
 tracing-subscriber = { version = "0.2.16", features = ["fmt"] }
-bytes = "1"
+
