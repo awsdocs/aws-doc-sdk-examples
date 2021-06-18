@@ -26,11 +26,10 @@ This example lists the state of one or all of your Amazon EC2 instances
 
 ### ec2-helloworld
 
-This example lists the state of one or all of your Amazon EC2 instances
+This example describes the AWS Regions that are enabled for your account.
 
-`cargo run --bin ec2-helloworld -- [-i INSTANCE-ID] [-d DEFAULT-REGION] [-v]`
+`cargo run --bin ec2-helloworld -- [-d DEFAULT-REGION] [-v]`
 
-- _INSTANCE-ID_ is the ID of an instance to describe.
   If this argument is not supplied, the state of all instances is shown.
 - _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
   If this value is not supplied, the region defaults to __us-west-2__.
