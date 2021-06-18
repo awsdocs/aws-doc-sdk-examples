@@ -53,20 +53,19 @@ public class ExcelService {
 
         // Loop through the rows in the spreadsheet
         for (int zz = 0 ; zz <a; zz++) {
-        // Get the first cell.
-        System.out.println(zz);
 
-        Cell[] row = sheet.getRow(zz);
-        //Cell cell = row.getCell(0);
-        if (zz ==0)
-            System.out.println("Not 1st row");
-        else {
-            popData = new PopData();
+            // Get the first cell.
+            System.out.println(zz);
+
+            Cell[] row = sheet.getRow(zz);
+
+            if (zz ==0)
+               System.out.println("Not 1st row");
+            else {
+              popData = new PopData();
 
             for (Cell cell : row) {
-                // Column header names.
-                //System.out.println(cell.toString());
-
+                
                 int colIndex =  cell.getColumn();
                 String val = cell.getContents();
 
