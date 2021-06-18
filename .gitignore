@@ -29,3 +29,6 @@ cdk.out/
 package-lock.json
 *.class
 *.exe
+.vs/
+bin/
+obj/
