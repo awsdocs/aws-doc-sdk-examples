@@ -642,71 +642,71 @@ The following Java code represents the **ExcelService** class that uses the **jx
         // Iterate through the collection.
         for ( int index=0; index < custCount; index++) {
 
-        // Get the WorkItem object from the collection.
-        PopData myItem = itemList.get(index);
+           // Get the WorkItem object from the collection.
+           PopData myItem = itemList.get(index);
 
-        Element item = doc.createElement( "Item" );
-        root.appendChild( item );
+          Element item = doc.createElement( "Item" );
+          root.appendChild( item );
 
-        // Set Id.
-        Element id = doc.createElement( "Name" );
-        id.appendChild( doc.createTextNode(myItem.getName() ) );
-        item.appendChild( id );
+          // Set Name.
+          Element id = doc.createElement( "Name" );
+          id.appendChild( doc.createTextNode(myItem.getName() ) );
+          item.appendChild( id );
 
-        // Set Name.
-        Element name = doc.createElement( "Code" );
-        name.appendChild( doc.createTextNode(myItem.getCode()) );
-        item.appendChild( name );
+          // Set Code.
+          Element name = doc.createElement( "Code" );
+          name.appendChild( doc.createTextNode(myItem.getCode()) );
+          item.appendChild( name );
 
-        // Set 2010.
-        Element ob2010 = doc.createElement( "Date2010" );
-        ob2010.appendChild( doc.createTextNode(myItem.get2010() ) );
-        item.appendChild( ob2010 );
+          // Set 2010.
+          Element ob2010 = doc.createElement( "Date2010" );
+          ob2010.appendChild( doc.createTextNode(myItem.get2010() ) );
+          item.appendChild( ob2010 );
 
-        // Set 2011.
-        Element ob2011 = doc.createElement( "Date2011" );
-        ob2011.appendChild( doc.createTextNode(myItem.get2011()) );
-        item.appendChild( ob2011 );
+          // Set 2011.
+          Element ob2011 = doc.createElement( "Date2011" );
+          ob2011.appendChild( doc.createTextNode(myItem.get2011()) );
+          item.appendChild( ob2011 );
 
-        // Set 2012.
-        Element ob2012 = doc.createElement( "Date2012" );
-        ob2012.appendChild( doc.createTextNode(myItem.get2012() ) );
-        item.appendChild( ob2012 );
+          // Set 2012.
+          Element ob2012 = doc.createElement( "Date2012" );
+          ob2012.appendChild( doc.createTextNode(myItem.get2012() ) );
+          item.appendChild( ob2012 );
 
-        // Set 2013.
-        Element ob2013 = doc.createElement( "Date2013" );
-        ob2013.appendChild( doc.createTextNode(myItem.get2013()) );
-        item.appendChild( ob2013 );
+          // Set 2013.
+          Element ob2013 = doc.createElement( "Date2013" );
+          ob2013.appendChild( doc.createTextNode(myItem.get2013()) );
+          item.appendChild( ob2013 );
 
-        // Set 2014.
-        Element ob2014 = doc.createElement( "Date2014" );
-        ob2014.appendChild( doc.createTextNode(myItem.get2014()) );
-        item.appendChild( ob2014 );
+          // Set 2014.
+          Element ob2014 = doc.createElement( "Date2014" );
+          ob2014.appendChild( doc.createTextNode(myItem.get2014()) );
+          item.appendChild( ob2014 );
 
-        // Set 2015.
-        Element ob2015 = doc.createElement( "Date2015" );
-        ob2015.appendChild( doc.createTextNode(myItem.get2015()) );
-        item.appendChild( ob2015 );
+          // Set 2015.
+          Element ob2015 = doc.createElement( "Date2015" );
+          ob2015.appendChild( doc.createTextNode(myItem.get2015()) );
+          item.appendChild( ob2015 );
 
-        // Set 2016.
-        Element ob2016 = doc.createElement( "Date2016" );
-        ob2016.appendChild( doc.createTextNode(myItem.get2016()) );
-        item.appendChild( ob2016 );
+          // Set 2016.
+          Element ob2016 = doc.createElement( "Date2016" );
+          ob2016.appendChild( doc.createTextNode(myItem.get2016()) );
+          item.appendChild( ob2016 );
 
-        // Set 2017.
-        Element ob2017 = doc.createElement( "Date2075" );
-        ob2017.appendChild( doc.createTextNode(myItem.get2017()) );
-        item.appendChild( ob2017 );
+          // Set 2017.
+          Element ob2017 = doc.createElement( "Date2017" );
+          ob2017.appendChild( doc.createTextNode(myItem.get2017()) );
+          item.appendChild( ob2017 );
 
-        // Set 2018.
-        Element ob2018 = doc.createElement( "Date2018" );
-        ob2018.appendChild( doc.createTextNode(myItem.get2018()) );
-        item.appendChild( ob2018 );
+          // Set 2018.
+          Element ob2018 = doc.createElement( "Date2018" );
+          ob2018.appendChild( doc.createTextNode(myItem.get2018()) );
+          item.appendChild( ob2018 );
 
-        // Set 2015.
-        Element ob2019 = doc.createElement( "Date2019" );
-        ob2019.appendChild( doc.createTextNode(myItem.get2019()) );
-        item.appendChild( ob2019 );
+          // Set 2019
+          Element ob2019 = doc.createElement( "Date2019" );
+          ob2019.appendChild( doc.createTextNode(myItem.get2019()) );
+          item.appendChild( ob2019 );
         }
 
         return doc;
