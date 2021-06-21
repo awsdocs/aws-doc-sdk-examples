@@ -16,10 +16,8 @@ node populate-table.js
 
 */
 // snippet-start:[lambda.JavaScript.general-examples-dynamodb-lambda.CreateTableV3]
-import {
-  BatchWriteItemCommand
-} from"@aws-sdk/client-dynamodb";
-import {dynamoClient} from "./libs/dynamoClient.js";
+import { BatchWriteItemCommand } from "@aws-sdk/client-dynamodb";
+import { dynamoClient } from "./libs/dynamoClient.js";
 
 const params = {
   RequestItems: {

@@ -14,57 +14,55 @@ and AWS Step Functions.
 
 "use strict";
 // Load the required clients and commands.
-import { PutItemCommand } from"@aws-sdk/client-dynamodb";
-import {dynamoClient} from "../libs/dynamoClient";
+import { PutItemCommand } from "@aws-sdk/client-dynamodb";
+import { dynamoClient } from "../libs/dynamoClient";
 
 exports.handler = async (event) => {
- try{
-        // Helper function to send message using Amazon SNS.
-        const val = event;
-        //PersistCase adds an item to a DynamoDB table
-        const tmp = (Math.random() <= 0.5) ? 1 : 2;
-        console.log(tmp);
-        if (tmp == 1) {
-            const params = {
-                TableName: "Case",
-                Item: {
-                    id: {N: val.Case},
-                    empEmail: {S: "brmur@amazon.com"},
-                    name: {S: "Tom Blue"}
-                },
-            }
-            console.log('adding item for tom');
-            try {
-                const data = await dynamoClient.send(new PutItemCommand(params));
-                console.log(data);
-            } catch (err) {
-                console.error(err);
-            }
-            var result = { Email: params.Item.empEmail };
-            return result;
-        } else {
-            const params = {
-                TableName: "Case",
-                Item: {
-                    id: {N: val.Case},
-                    empEmail: {S: "brmur@amazon.com"},
-                    name: {S: "Sarah White"}
-                },
-            }
-            console.log('adding item for sarah');
-            try {
-                const data = await dynamoClient.send(new PutItemCommand(params));
-                console.log(data);
-            } catch (err) {
-                console.error(err);
-            }
-            return params.Item.empEmail;
-            var result = { Email: params.Item.empEmail };
-        }
+  try {
+    // Helper function to send message using Amazon SNS.
+    const val = event;
+    //PersistCase adds an item to a DynamoDB table
+    const tmp = Math.random() <= 0.5 ? 1 : 2;
+    console.log(tmp);
+    if (tmp == 1) {
+      const params = {
+        TableName: "Case",
+        Item: {
+          id: { N: val.Case },
+          empEmail: { S: "brmur@amazon.com" },
+          name: { S: "Tom Blue" },
+        },
+      };
+      console.log("adding item for tom");
+      try {
+        const data = await dynamoClient.send(new PutItemCommand(params));
+        console.log(data);
+      } catch (err) {
+        console.error(err);
+      }
+      var result = { Email: params.Item.empEmail };
+      return result;
+    } else {
+      const params = {
+        TableName: "Case",
+        Item: {
+          id: { N: val.Case },
+          empEmail: { S: "brmur@amazon.com" },
+          name: { S: "Sarah White" },
+        },
+      };
+      console.log("adding item for sarah");
+      try {
+        const data = await dynamoClient.send(new PutItemCommand(params));
+        console.log(data);
+      } catch (err) {
+        console.error(err);
+      }
+      return params.Item.empEmail;
+      var result = { Email: params.Item.empEmail };
     }
-    catch(err){
-     console.log("Error" , err)
-    }
-}
+  } catch (err) {
+    console.log("Error", err);
+  }
+};
 // snippet-end:[lambda.JavaScript.lambda-step-functions.additem]
-

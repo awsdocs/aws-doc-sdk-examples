@@ -13,9 +13,7 @@ Inputs (replace in code):
 */
 // snippet-start:[video-analyzer.JavaScript.s3Client]
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
-import {
-    fromCognitoIdentityPool,
-} from "@aws-sdk/credential-provider-cognito-identity";
+import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
 import { S3Client } from "@aws-sdk/client-s3";
 
 const REGION = "REGION";
@@ -23,12 +21,12 @@ const IDENTITY_POOL_ID = "IDENTITY_POOL_ID"; // An Amazon Cognito Identity Pool 
 
 // Create an Amazon S3 service client object.
 const s3Client = new s3Client({
-    region: REGION,
-    credentials: fromCognitoIdentityPool({
-        client: new CognitoIdentityClient({ region: REGION }),
-        identityPoolId: IDENTITY_POOL_ID
-    }),
+  region: REGION,
+  credentials: fromCognitoIdentityPool({
+    client: new CognitoIdentityClient({ region: REGION }),
+    identityPoolId: IDENTITY_POOL_ID,
+  }),
 });
 
-export {  s3Client };
+export { s3Client };
 // snippet-end:[video-analyzer.JavaScript.s3Client]

@@ -19,5 +19,3 @@ const REGION = "REGION"; //e.g. "us-east-1"
 const lambdaClient = new LambdaClient({ region: REGION });
 export { lambdaClient };
 // snippet-end:[lambda.JavaScript.apigateway.createclientv3]
-
-

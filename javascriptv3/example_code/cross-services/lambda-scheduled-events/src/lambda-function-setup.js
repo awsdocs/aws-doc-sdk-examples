@@ -21,9 +21,8 @@ node lambda-function-setup.js
 
 // snippet-start:[lambda.JavaScript.cross-service-examples.lambda-scheduled-events.LambdaFunctionSetUpV3]
 
-
-import {CreateFunctionCommand} from "@aws-sdk/client-lambda";
-import {lambdaClient} from "./libs/lambdaClient";
+import { CreateFunctionCommand } from "@aws-sdk/client-lambda";
+import { lambdaClient } from "./libs/lambdaClient";
 
 const params = {
   Code: {

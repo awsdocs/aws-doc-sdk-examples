@@ -20,5 +20,3 @@ const REGION = "REGION"; //e.g. "us-east-1"
 const dynamoClient = new DynamoDBClient({ region: REGION });
 export { dynamoClient };
 // snippet-end:[dynamodb.JavaScript.apigateway.createclientv3]
-
-

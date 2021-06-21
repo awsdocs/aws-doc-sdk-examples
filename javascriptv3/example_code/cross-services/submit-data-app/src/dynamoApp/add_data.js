@@ -22,10 +22,10 @@ node add_data.js
 // snippet-start:[s3.JavaScript.cross-service.addDataV3.complete]
 // snippet-start:[s3.JavaScript.cross-service.addDataV3.config]
 // Import required AWS SDK clients and commands for Node.js
-import { PutItemCommand } from"@aws-sdk/client-dynamodb";
-import { PublishCommand } from"@aws-sdk/client-sns";
-import {snsClient} from "../libs/snsClient.js";
-import {dynamoClient} from "../libs/dynamoClient.js"
+import { PutItemCommand } from "@aws-sdk/client-dynamodb";
+import { PublishCommand } from "@aws-sdk/client-sns";
+import { snsClient } from "../libs/snsClient.js";
+import { dynamoClient } from "../libs/dynamoClient.js";
 
 // snippet-end:[s3.JavaScript.crdynamooss-service.addDataV3.config]
 // snippet-start:[s3.JavaScript.cross-service.addDataV3.function]
@@ -48,7 +48,7 @@ export const submitData = async () => {
       id: { N: id + "" },
       title: { S: title + "" },
       name: { S: name + "" },
-      body: { S: body + "" }
+      body: { S: body + "" },
     },
   };
   // Check that all the fields are completed.
@@ -90,4 +90,3 @@ export const submitData = async () => {
 window.submitData = submitData;
 // snippet-end:[s3.JavaScript.cross-service.addDataV3.function]
 // snippet-end:[s3.JavaScript.cross-service.addDataV3.complete]
-

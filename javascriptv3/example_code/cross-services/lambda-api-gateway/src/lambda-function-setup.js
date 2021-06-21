@@ -24,11 +24,8 @@ node lambda-function-setup.js
 
 // snippet-start:[lambda.JavaScript.general-examples-dynamodb-lambda.LambdaFunctionSetUpV3]
 
-import {
-   CreateFunctionCommand,
-} from"@aws-sdk/client-lambda";
-import {lambdaClient} from "./libs/lambdaClient.js";
-
+import { CreateFunctionCommand } from "@aws-sdk/client-lambda";
+import { lambdaClient } from "./libs/lambdaClient.js";
 
 const params = {
   Code: {

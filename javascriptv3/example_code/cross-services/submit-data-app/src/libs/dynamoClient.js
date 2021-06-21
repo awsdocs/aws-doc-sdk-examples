@@ -13,24 +13,20 @@ Inputs (replace in code):
 */
 // snippet-start:[submit-data-app.JavaScript.dynamoClient]
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
-import {
-    fromCognitoIdentityPool,
-} from "@aws-sdk/credential-provider-cognito-identity";
-import {
-    DynamoDBClient
-} from "@aws-sdk/client-dynamodb";
+import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 
 const REGION = "REGION";
 const IDENTITY_POOL_ID = "IDENTITY_POOL_ID"; // An Amazon Cognito Identity Pool ID.
 
 // Create an Amazon Comprehend service client object.
 const dynamoClient = new DynamoDBClient({
-    region: REGION,
-    credentials: fromCognitoIdentityPool({
-        client: new CognitoIdentityClient({ region: REGION }),
-        identityPoolId: IDENTITY_POOL_ID
-    }),
+  region: REGION,
+  credentials: fromCognitoIdentityPool({
+    client: new CognitoIdentityClient({ region: REGION }),
+    identityPoolId: IDENTITY_POOL_ID,
+  }),
 });
 
-export {  dynamoClient };
+export { dynamoClient };
 // snippet-end:[submit-data-app.JavaScript.dynamoClient]

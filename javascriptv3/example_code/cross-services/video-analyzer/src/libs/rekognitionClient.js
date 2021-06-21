@@ -13,24 +13,20 @@ Inputs (replace in code):
 */
 // snippet-start:[video-analyzer.JavaScript.rekognitionClient]
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
-import {
-    fromCognitoIdentityPool,
-} from "@aws-sdk/credential-provider-cognito-identity";
-import {
-    RekognitionClient
-} from "@aws-sdk/client-rekognition";
+import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
+import { RekognitionClient } from "@aws-sdk/client-rekognition";
 
 const REGION = "REGION";
 const IDENTITY_POOL_ID = "IDENTITY_POOL_ID"; // An Amazon Cognito Identity Pool ID.
 
 // Create an Amazon Rekognition service client object.
 const rekognitionClient = new RekognitionClient({
-    region: REGION,
-    credentials: fromCognitoIdentityPool({
-        client: new CognitoIdentityClient({ region: REGION }),
-        identityPoolId: IDENTITY_POOL_ID
-    }),
+  region: REGION,
+  credentials: fromCognitoIdentityPool({
+    client: new CognitoIdentityClient({ region: REGION }),
+    identityPoolId: IDENTITY_POOL_ID,
+  }),
 });
 
-export {  rekognitionClient };
+export { rekognitionClient };
 // snippet-end:[video-analyzer.JavaScript.rekognitionClient]

@@ -20,17 +20,15 @@ For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/deve
 // snippet-start:[sqs.JavaScript.messaging-app.complete]
 // snippet-start:[sqs.JavaScript.messaging-app.config]
 
-import { CognitoIdentityClient } from"@aws-sdk/client-cognito-identity";
-import {
-  fromCognitoIdentityPool,
-} from"@aws-sdk/credential-provider-cognito-identity";
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
+import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
 import {
   GetQueueUrlCommand,
   SendMessageCommand,
   ReceiveMessageCommand,
   PurgeQueueCommand,
-} from"@aws-sdk/client-sqs";
-import { sqsClient } from"./libs/sqsClient.js";
+} from "@aws-sdk/client-sqs";
+import { sqsClient } from "./libs/sqsClient.js";
 
 const QueueName = "SQS_QUEUE_NAME"; // The Amazon SQS queue name, which must end in .fifo for this example.
 

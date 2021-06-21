@@ -20,5 +20,3 @@ const REGION = "REGION"; //e.g. "us-east-1"
 const sesClient = new SESClient({ region: REGION });
 export { sesClient };
 // snippet-end:[ses.JavaScript.step-functions.createclientv3]
-
-

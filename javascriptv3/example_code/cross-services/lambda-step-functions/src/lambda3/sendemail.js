@@ -13,61 +13,56 @@ and AWS Step Functions.
 // snippet-start:[lambda.JavaScript.lambda-step-functions.sendemail]
 
 // Load the required clients and commands.
-import { SendEmailCommand } from"@aws-sdk/client-ses";
-import {sesClient} from "../libs/sesClient";
+import { SendEmailCommand } from "@aws-sdk/client-ses";
+import { sesClient } from "../libs/sesClient";
 
 exports.handler = async (event) => {
-    // Enter a sender email address. This address must be verified.
-    const sender = "Sender Name <briangermurray@gmail.com>";
+  // Enter a sender email address. This address must be verified.
+  const sender = "Sender Name <briangermurray@gmail.com>";
 
-    // AWS Step Functions passes the  employee's email to the event.
-    // This address must be verified.
-    const recepient = event.S;
+  // AWS Step Functions passes the  employee's email to the event.
+  // This address must be verified.
+  const recepient = event.S;
 
-    // The subject line for the email.
-    const subject = "New case";
+  // The subject line for the email.
+  const subject = "New case";
 
-// The email body for recipients with non-HTML email clients.
-    const body_text =
-        "Hello,\r\n"
-        + "Please check the database for new ticket assigned to you.";
+  // The email body for recipients with non-HTML email clients.
+  const body_text =
+    "Hello,\r\n" + "Please check the database for new ticket assigned to you.";
 
-// The HTML body of the email.
-    const body_html = `<html><head></head><body><h1>Hello!</h1><p>Please check the database for new ticket assigned to you.</p></body></html>`;
+  // The HTML body of the email.
+  const body_html = `<html><head></head><body><h1>Hello!</h1><p>Please check the database for new ticket assigned to you.</p></body></html>`;
 
-// The character encoding for the email.
-    const charset = "UTF-8";
-    var params = {
-        Source: sender,
-        Destination: {
-            ToAddresses: [
-                recepient
-            ],
+  // The character encoding for the email.
+  const charset = "UTF-8";
+  var params = {
+    Source: sender,
+    Destination: {
+      ToAddresses: [recepient],
+    },
+    Message: {
+      Subject: {
+        Data: subject,
+        Charset: charset,
+      },
+      Body: {
+        Text: {
+          Data: body_text,
+          Charset: charset,
         },
-        Message: {
-            Subject: {
-                Data: subject,
-                Charset: charset
-            },
-            Body: {
-                Text: {
-                    Data: body_text,
-                    Charset: charset
-                },
-                Html: {
-                    Data: body_html,
-                    Charset: charset
-                }
-            }
-        }
-    };
-    try {
-        const data = await sesClient.send(new SendEmailCommand(params));
-        console.log(data);
-    } catch (err) {
-        console.error(err);
-    }
-
+        Html: {
+          Data: body_html,
+          Charset: charset,
+        },
+      },
+    },
+  };
+  try {
+    const data = await sesClient.send(new SendEmailCommand(params));
+    console.log(data);
+  } catch (err) {
+    console.error(err);
+  }
 };
 // snippet-end:[lambda.JavaScript.lambda-step-functions.sendemail]
-

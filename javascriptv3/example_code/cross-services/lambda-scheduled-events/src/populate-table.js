@@ -1,4 +1,3 @@
-
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
@@ -18,11 +17,8 @@ node populate-table.js
 */
 // snippet-start:[lambda.JavaScript.cross-service-examples.lambda-scheduled-events.CreateTableV3]
 // Load the required Amazon DynamoDB client and commands.
-import {
-  BatchWriteItemCommand,
-} from"@aws-sdk/client-dynamodb";
-import {dynamoClient} from "./libs/dynamoClient";
-
+import { BatchWriteItemCommand } from "@aws-sdk/client-dynamodb";
+import { dynamoClient } from "./libs/dynamoClient";
 
 // Set the parameters.
 const params = {

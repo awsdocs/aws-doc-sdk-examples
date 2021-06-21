@@ -113,7 +113,7 @@ window.translateText = async () => {
     const data = await comprehendClient.send(
       new DetectDominantLanguageCommand({ Text: outPut })
     );
-   // return data; // Uncomment this for unit tests.
+    // return data; // Uncomment this for unit tests.
     const langCode = data.Languages[0].LanguageCode;
     try {
       const selectedValue = document.getElementById("list").value;

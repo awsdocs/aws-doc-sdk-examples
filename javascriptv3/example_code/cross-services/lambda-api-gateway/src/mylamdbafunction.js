@@ -21,10 +21,10 @@ Inputs (replace in code):
 // snippet-start:[lambda.JavaScript.general-examples-dynamodb-lambda.scanAndPublishV3.config]
 
 "use strict";
-import { ScanCommand } from"@aws-sdk/client-dynamodb";
+import { ScanCommand } from "@aws-sdk/client-dynamodb";
 import { PublishCommand } from "@aws-sdk/client-sns";
-import {snsClient} from "./libs/snsClient.js";
-import {dynamoClient} from "./libs/dynamoClient.js";
+import { snsClient } from "./libs/snsClient.js";
+import { dynamoClient } from "./libs/dynamoClient.js";
 
 // Get today's date.
 const today = new Date();

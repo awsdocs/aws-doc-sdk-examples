@@ -12,21 +12,19 @@ Inputs (replace in code):
 */
 // snippet-start:[sesClient.JavaScript.streaming.createclientv3]
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
-import {
-    fromCognitoIdentityPool,
-} from "@aws-sdk/credential-provider-cognito-identity";
-import {SESClient} from "@aws-sdk/client-ses";
+import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
+import { SESClient } from "@aws-sdk/client-ses";
 
 const REGION = "REGION";
 const IDENTITY_POOL_ID = "IDENTITY_POOL_ID"; // An Amazon Cognito Identity Pool ID.
 
 // Create Amazon SES service object.
 const sesClient = new SESClient({
-    region: REGION,
-    credentials: fromCognitoIdentityPool({
-        client: new CognitoIdentityClient({ region: REGION }),
-        identityPoolId: IDENTITY_POOL_ID
-    }),
+  region: REGION,
+  credentials: fromCognitoIdentityPool({
+    client: new CognitoIdentityClient({ region: REGION }),
+    identityPoolId: IDENTITY_POOL_ID,
+  }),
 });
 
 export { sesClient };

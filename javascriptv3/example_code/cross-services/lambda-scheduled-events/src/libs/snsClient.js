@@ -20,5 +20,3 @@ const REGION = "REGION"; //e.g. "us-east-1"
 const snsClient = new SNSClient({ region: REGION });
 export { snsClient };
 // snippet-end:[sns.JavaScript.scheduledevents.createclientv3]
-
-

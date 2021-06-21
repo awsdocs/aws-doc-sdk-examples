@@ -17,15 +17,9 @@ Inputs (replace in code):
 */
 
 // snippet-start:[cross-service.JavaScript.lex-app.backendV3]
-import {
-  DetectDominantLanguageCommand
-} from"@aws-sdk/client-comprehend";
-import {
-  TranslateTextCommand
-} from"@aws-sdk/client-translate";
-import {
-  PostTextCommand
-} from"@aws-sdk/client-lex-runtime-service";
+import { DetectDominantLanguageCommand } from "@aws-sdk/client-comprehend";
+import { TranslateTextCommand } from "@aws-sdk/client-translate";
+import { PostTextCommand } from "@aws-sdk/client-lex-runtime-service";
 import { lexClient } from "./libs/lexClient.js";
 import { translateClient } from "./libs/translateClient.js";
 import { comprehendClient } from "./libs/comprehendClient.js";
@@ -41,7 +35,7 @@ function showRequest(daText) {
   requestPara.appendChild(document.createTextNode(g_text));
   conversationDiv.appendChild(requestPara);
   conversationDiv.scrollTop = conversationDiv.scrollHeight;
-};
+}
 
 function showResponse(lexResponse) {
   var conversationDiv = document.getElementById("conversation");
@@ -54,7 +48,7 @@ function showResponse(lexResponse) {
   responsePara.appendChild(document.createElement("br"));
   conversationDiv.appendChild(responsePara);
   conversationDiv.scrollTop = conversationDiv.scrollHeight;
-};
+}
 
 function handletext(text) {
   g_text = text;
@@ -63,7 +57,7 @@ function handletext(text) {
   xhr.open("POST", "../text", true); // A Spring MVC controller
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //necessary
   xhr.send("text=" + text);
-};
+}
 
 function loadNewItems(event) {
   var msg = event.target.responseText;
@@ -73,7 +67,7 @@ function loadNewItems(event) {
   var wisdomText = document.getElementById("wisdom");
   wisdomText.value = "";
   wisdomText.locked = false;
-};
+}
 
 // Respond to user's input.
 const createResponse = async () => {
@@ -86,17 +80,20 @@ const createResponse = async () => {
     wisdomText.locked = true;
 
     const comprehendParams = {
-      Text: wisdom
+      Text: wisdom,
     };
     try {
       const data = await comprehendClient.send(
         new DetectDominantLanguageCommand(comprehendParams)
       );
-      console.log("Success. The language code is: ", data.Languages[0].LanguageCode);
+      console.log(
+        "Success. The language code is: ",
+        data.Languages[0].LanguageCode
+      );
       const translateParams = {
         SourceLanguageCode: data.Languages[0].LanguageCode,
         TargetLanguageCode: "en", // For example, "en" for English.
-        Text: wisdom
+        Text: wisdom,
       };
       try {
         const data = await translateClient.send(
@@ -107,7 +104,7 @@ const createResponse = async () => {
           botAlias: "BOT_ALIAS",
           botName: "BOT_NAME",
           inputText: data.TranslatedText,
-          userId: "USER_ID" // For example, 'chatbot-demo'.
+          userId: "USER_ID", // For example, 'chatbot-demo'.
         };
         try {
           const data = await lexClient.send(new PostTextCommand(lexParams));
