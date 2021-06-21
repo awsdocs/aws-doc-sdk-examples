@@ -10,7 +10,7 @@ namespace WebsiteConfigExample
     using Amazon.S3.Model;
 
     /// <summary>
-    /// This example uses the Amazon Simple Storage Service (Amazon S3) to
+    /// This example uses Amazon Simple Storage Service (Amazon S3) to
     /// configure a static website in an Amazon S3 bucket. The example was
     /// created using AWS SDK for .NET version 3.7 and .NET Core 5.0.
     /// </summary>
@@ -18,12 +18,12 @@ namespace WebsiteConfigExample
     {
         /// <summary>
         /// The Main method initializes the values for Amazon Simple Storage
-        /// Service (Amazon S3) and the document and error document suffice
+        /// Service (Amazon S3) and the document and error document suffix
         /// values.
         /// </summary>
         public static async Task Main()
         {
-            const string bucketName = "igsmith-doc-example-bucket";
+            const string bucketName = "doc-example-bucket";
             const string indexDocumentSuffix = "index.html";
             const string errorDocument = "error.html";
 
@@ -54,7 +54,7 @@ namespace WebsiteConfigExample
         {
             try
             {
-                // 1. Put the website configuration.
+                // Put the website configuration.
                 PutBucketWebsiteRequest putRequest = new PutBucketWebsiteRequest()
                 {
                     BucketName = bucketName,
@@ -66,7 +66,7 @@ namespace WebsiteConfigExample
                 };
                 PutBucketWebsiteResponse response = await client.PutBucketWebsiteAsync(putRequest);
 
-                // 2. Get the website configuration.
+                // Get the website configuration.
                 GetBucketWebsiteRequest getRequest = new GetBucketWebsiteRequest()
                 {
                     BucketName = bucketName,
