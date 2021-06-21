@@ -4,6 +4,8 @@
 
 These examples demonstrate how to perform several Amazon SageMaker (SageMaker) operations using the alpha version of the AWS SDK for Rust.
 
+SageMaker is a fully managed machine learning service that you can use to quickly and easily build and train machine learning models, and then directly deploy them into a production-ready hosted environment.
+
 ## Prerequisites
 
 You must have an AWS account, and have configured your default credentials and AWS Region as described in [https://github.com/awslabs/aws-sdk-rust](https://github.com/awslabs/aws-sdk-rust).
