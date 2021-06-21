@@ -7,19 +7,16 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/serverless-wor
 
 Purpose:
 additem.js is part of a tutorial demonstrates how to create an AWS serverless workflow by using the AWS SDK for JavaScript (v3)
-and AWS Step Functions. To see the full tutorial, see
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/erverless-workflows-using-step-functions.html.
+and AWS Step Functions.
 
 */
 // snippet-start:[lambda.JavaScript.lambda-step-functions.additem]
 
 "use strict";
 // Load the required clients and commands.
-const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb");
+import { PutItemCommand } from"@aws-sdk/client-dynamodb";
+import {dynamoClient} from "../libs/dynamoClient";
 
-const REGION = "REGION"; //e.g. "us-east-1"
-// Create the client service objects.
-    const dbclient = new DynamoDBClient({ region: REGION });
 exports.handler = async (event) => {
  try{
         // Helper function to send message using Amazon SNS.
@@ -38,7 +35,7 @@ exports.handler = async (event) => {
             }
             console.log('adding item for tom');
             try {
-                const data = await dbclient.send(new PutItemCommand(params));
+                const data = await dynamoClient.send(new PutItemCommand(params));
                 console.log(data);
             } catch (err) {
                 console.error(err);
@@ -56,7 +53,7 @@ exports.handler = async (event) => {
             }
             console.log('adding item for sarah');
             try {
-                const data = await dbclient.send(new PutItemCommand(params));
+                const data = await dynamoClient.send(new PutItemCommand(params));
                 console.log(data);
             } catch (err) {
                 console.error(err);

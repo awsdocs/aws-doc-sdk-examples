@@ -7,8 +7,7 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/serverless-wor
 
 Purpose:
 getid.js is part of a tutorial demonstrates how to create an AWS serverless workflow by using the AWS SDK for JavaScript (v3)
-and AWS Step Functions. To see the full tutorial, see
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/erverless-workflows-using-step-functions.html.
+and AWS Step Functions.
 
 */
 

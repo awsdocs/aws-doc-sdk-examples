@@ -1,5 +1,5 @@
 module.exports = {
-    entry: ['./mylambdafunction.ts'],
+    entry: ['./mylambdafunction.js'],
     target: 'node',
     output: {
         path: `${process.cwd()}/bin`,

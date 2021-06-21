@@ -16,7 +16,7 @@ node listMetrics.js
 
 // Import required AWS SDK clients and commands for Node.js
 import { ListMetricsCommand } from "@aws-sdk/client-cloudwatch";
-import { cwClient } from "./libs/cloudWatchClient";
+import { cwClient } from "./libs/cloudWatchClient.js";
 
 // Set the parameters
 const params = {
