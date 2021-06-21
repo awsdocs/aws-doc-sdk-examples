@@ -27,7 +27,7 @@ import { PublishCommand } from "@aws-sdk/client-sns";
 import { snsClient } from "../libs/snsClient.js";
 import { dynamoClient } from "../libs/dynamoClient.js";
 
-// snippet-end:[s3.JavaScript.crdynamooss-service.addDataV3.config]
+// snippet-end:[s3.JavaScript.cross-service.addDataV3.config]
 // snippet-start:[s3.JavaScript.cross-service.addDataV3.function]
 export const submitData = async () => {
   //Set the parameters
