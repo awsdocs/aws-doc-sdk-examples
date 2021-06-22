@@ -61,14 +61,13 @@ async fn main() -> Result<(), sagemaker::Error> {
         let status = j.training_job_status.unwrap();
         let duration = training_end_time - creation_time;
 
-        let deets = format!(
+        println!(
             "{}\t{}\t{}\t{:#?}",
             name,
             creation_time.format("%Y-%m-%d@%H:%M:%S"),
             duration.num_seconds(),
             status
         );
-        println!("{}", deets);
     }
 
     Ok(())

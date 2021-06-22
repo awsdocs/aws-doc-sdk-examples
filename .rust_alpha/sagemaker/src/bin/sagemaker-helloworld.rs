@@ -56,11 +56,10 @@ async fn main() -> Result<(), sagemaker::Error> {
         let n_status = n.notebook_instance_status.unwrap();
         let n_name = n.notebook_instance_name.as_deref().unwrap_or_default();
 
-        let details = format!(
+        println!(
             "Notebook Name : {}, Notebook Status : {:#?}, Notebook Instance Type : {:#?}",
             n_name, n_status, n_instance_type
         );
-        println!("{}", details);
     }
 
     Ok(())
