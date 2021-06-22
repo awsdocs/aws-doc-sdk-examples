@@ -3,45 +3,41 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use std::process;
-
-use s3::{Client, Config, Region};
+use ec2::{Client, Config, Error, Region};
 
 use aws_types::region::ProvideRegion;
 
 use structopt::StructOpt;
-use tracing_subscriber::fmt::format::FmtSpan;
-use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The AWS Region.
+    /// The default region
     #[structopt(short, long)]
     default_region: Option<String>,
 
-    /// The name of the bucket to delete.
+    /// The ID of the instance to reboot
     #[structopt(short, long)]
-    bucket: String,
+    instance_id: String,
 
-    /// Whether to display additional information.
+    /// Whether to display additional information
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Deletes an Amazon S3 bucket.
-/// The bucket must be empty.
+/// Reboots an Amazon EC2 instance.
 /// # Arguments
 ///
-/// * `-b BUCKET` - The name of the bucket to delete.
-/// * `[-d DEFAULT-REGION]` - The region containing the bucket.
+/// * `-i INSTANCE-ID` - The ID of the instances to reboot.
+/// * `[-d DEFAULT-REGION]` - The AWS Region in which the client is created.
 ///   If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt::init();
     let Opt {
         default_region,
-        bucket,
+        instance_id,
         verbose,
     } = Opt::from_args();
 
@@ -52,28 +48,21 @@ async fn main() {
         .unwrap_or_else(|| Region::new("us-west-2"));
 
     if verbose {
-        println!("S3 client version: {}", s3::PKG_VERSION);
-        println!("AWS Region:        {:?}", &region);
-
-        SubscriberBuilder::default()
-            .with_env_filter("info")
-            .with_span_events(FmtSpan::CLOSE)
-            .init();
+        println!("EC2 client version: {}", ec2::PKG_VERSION);
+        println!("Region:             {:?}", &region);
+        println!("Instance ID:        {:?}", &instance_id);
     }
 
     let config = Config::builder().region(&region).build();
 
     let client = Client::from_conf(config);
+    client
+        .reboot_instances()
+        .instance_ids(instance_id)
+        .send()
+        .await?;
+    println!("Rebooted instance");
+    println!();
 
-    match client.delete_bucket().bucket(&bucket).send().await {
-        Ok(_) => {
-            println!("Deleted bucket {}", bucket);
-        }
-
-        Err(e) => {
-            println!("Got an error deleting bucket:");
-            println!("{}", e);
-            process::exit(1);
-        }
-    };
+    Ok(())
 }
