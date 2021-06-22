@@ -1,7 +1,7 @@
 # Creating an ETL workflow by using AWS Step Functions and the AWS SDK for Java
 
 ## Purpose
-You can create an Extract, Transform, and Load (ETL) workflow by using AWS Step Functions and the AWS SDK for Java V2. An ETL operation retrieves data from a given data source, applies various transformations to the data, and then writes the results to a specified location where the data is stored. In this AWS tutorial, population data located in a Microsoft Excel spreadsheet and stored in an Amazon Simple Storage Service (Amazon S3) bucket is retrieved, transformed to another format, and stored in an Amazon DyanmoDB table named **Country**. 
+An Extract, Transform, and Load (ETL) workflow extracts data from a given source, transforms the data, and loads the data into a target source. You can create an ETL workflow by using AWS Step Functions and the AWS SDK for Java V2. An ETL operation retrieves data from a given data source, applies various transformations to the data, and then writes the results to a specified location where the data is stored. In this AWS tutorial, population data located in a Microsoft Excel spreadsheet and stored in an Amazon Simple Storage Service (Amazon S3) bucket is retrieved, transformed to another format, and stored in an Amazon DyanmoDB table named **Country**. 
 
 ![AWS Tracking Application](images/step_functions.png)
 
@@ -13,6 +13,7 @@ After the workflow successfully runs the ETL job, population data is stored in a
 
 ![AWS Tracking Application](images/DynTable.png)
 
+**Note**: You can also create ETL logic by using AWS Glue. 
 
 ## Topics
 
@@ -509,7 +510,7 @@ The following Java code represents the **ExcelService** class that uses the **jx
 
     public String getData(String bucketName, String object) throws IOException, BiffException {
 
-    // Get the Excel speadsheet from the Amazon S3 bucket
+    // Get the Excel speadsheet from the Amazon S3 bucket.
     S3Service s3Service = new S3Service();
     byte[] data = s3Service.getObjectBytes(bucketName, object);
     InputStream inputStrean = new ByteArrayInputStream(data);
@@ -521,7 +522,7 @@ The following Java code represents the **ExcelService** class that uses the **jx
 
     try{
 
-        // Lets read the data from the excel spreadsheet
+        // Read the data from the excel spreadsheet.
         Sheet s=wb.getSheet(0);
         int b = s.getColumns();
         System.out.println("The No. of Columns in the Sheet are = " + b);
@@ -530,7 +531,7 @@ The following Java code represents the **ExcelService** class that uses the **jx
 
         PopData popData = null;
 
-        // Loop through the rows in the spreadsheet
+        // Loop through the rows in the spreadsheet.
         for (int zz = 0 ; zz <a; zz++) {
         
         // Get the first cell.
@@ -556,57 +557,46 @@ The following Java code represents the **ExcelService** class that uses the **jx
                         break;
 
                     case 1:
-                        // code block
                         popData.setCode(val);
                         break;
 
                     case 2:
-                        // code block
                         popData.set2010(val);
                         break;
 
                     case 3:
-                        // code block
                         popData.set2011(val);
                         break;
 
                     case 4:
-                        // code block
                         popData.set2012(val);
                         break;
 
                     case 5:
-                        // code block
                         popData.set2013(val);
                         break;
 
                     case 6:
-                        // code block
                         popData.set2014(val);
                         break;
 
                     case 7:
-                        // code block
                         popData.set2015(val);
                         break;
 
                     case 8:
-                        // code block
                         popData.set2016(val);
                         break;
 
                     case 9:
-                        // code block
                         popData.set2017(val);
                         break;
 
                     case 10:
-                        // code block
                         popData.set2018(val);
                         break;
 
                     default: {
-                        // code block
                         popData.set2019(val);
                         myList.add(popData);
                     }
@@ -644,9 +634,7 @@ The following Java code represents the **ExcelService** class that uses the **jx
         // Iterate through the collection.
         for ( int index=0; index < custCount; index++) {
 
-           // Get the WorkItem object from the collection.
-           PopData myItem = itemList.get(index);
-
+          PopData myItem = itemList.get(index);
           Element item = doc.createElement( "Item" );
           root.appendChild( item );
 
@@ -760,7 +748,7 @@ The following Java code represents the **HandlerStoreData** class. This class re
         } catch (JDOMException | IOException e) {
             e.printStackTrace();
         }
-        return "Data is stored successfully";
+        return "Data is stored successfully.";
       }
      }
 
@@ -770,7 +758,7 @@ The following Java code represents the **PopData** class.
 
     package com.etl.example;
 
-    //Stores the data model for this use case.
+    // Stores the data model for this use case.
     public class PopData {
 
     private String countryName;
