@@ -5,7 +5,7 @@
 
 package com.etl.example;
 
-//Stores the data model for this use case.
+// Stores the data model for this use case.
 public class PopData {
 
     private String countryName;

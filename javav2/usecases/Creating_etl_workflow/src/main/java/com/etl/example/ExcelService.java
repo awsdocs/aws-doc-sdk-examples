@@ -30,7 +30,7 @@ public class ExcelService {
 
     public String getData(String bucketName, String object) throws IOException, BiffException {
 
-    // Get the Excel speadsheet from the Amazon S3 bucket
+    // Get the Excel speadsheet from the Amazon S3 bucket.
     S3Service s3Service = new S3Service();
     byte[] data = s3Service.getObjectBytes(bucketName, object);
     InputStream inputStrean = new ByteArrayInputStream(data);
@@ -42,7 +42,7 @@ public class ExcelService {
 
     try{
 
-        // Lets read the data from the excel spreadsheet
+        // Read the data from the excel spreadsheet.
         Sheet s=wb.getSheet(0);
         int b = s.getColumns();
         System.out.println("The No. of Columns in the Sheet are = " + b);
@@ -51,7 +51,7 @@ public class ExcelService {
 
         PopData popData = null;
 
-        // Loop through the rows in the spreadsheet
+        // Loop through the rows in the spreadsheet.
         for (int zz = 0 ; zz <a; zz++) {
 
             // Get the first cell.
@@ -65,7 +65,7 @@ public class ExcelService {
               popData = new PopData();
 
             for (Cell cell : row) {
-                
+
                 int colIndex =  cell.getColumn();
                 String val = cell.getContents();
 
@@ -75,57 +75,46 @@ public class ExcelService {
                         break;
 
                     case 1:
-                        // code block
                         popData.setCode(val);
                         break;
 
                     case 2:
-                        // code block
                         popData.set2010(val);
                         break;
 
                     case 3:
-                        // code block
                         popData.set2011(val);
                         break;
 
                     case 4:
-                        // code block
                         popData.set2012(val);
                         break;
 
                     case 5:
-                        // code block
                         popData.set2013(val);
                         break;
 
                     case 6:
-                        // code block
                         popData.set2014(val);
                         break;
 
                     case 7:
-                        // code block
                         popData.set2015(val);
                         break;
 
                     case 8:
-                        // code block
                         popData.set2016(val);
                         break;
 
                     case 9:
-                        // code block
                         popData.set2017(val);
                         break;
 
                     case 10:
-                        // code block
                         popData.set2018(val);
                         break;
 
                     default: {
-                        // code block
                         popData.set2019(val);
                         myList.add(popData);
                     }

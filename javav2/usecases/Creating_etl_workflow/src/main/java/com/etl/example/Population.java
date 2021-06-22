@@ -128,5 +128,4 @@ public class Population {
     public String getCode() {
         return this.code;
     }
-
 }

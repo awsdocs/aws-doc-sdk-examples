@@ -26,6 +26,6 @@ public class HandlerStoreData  implements RequestHandler<String, String>{
         } catch (JDOMException | IOException e) {
             e.printStackTrace();
         }
-        return "Data is stored successfully";
+        return "Data is stored successfully.";
     }
 }

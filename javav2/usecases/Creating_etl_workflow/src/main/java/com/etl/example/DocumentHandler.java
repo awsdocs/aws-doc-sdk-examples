@@ -18,11 +18,11 @@ public class DocumentHandler {
         LambdaLogger logger = context.getLogger();
         logger.log("Getting excel doc from the Amazon S3 bucket");
 
-        // Get the Amazon S3 bucket name and MS Excel file name
+        // Get the Amazon S3 bucket name and MS Excel file name.
         String bucketName = event.get("bucketname");
         String object = event.get("objectname");
 
-        // Get the XML that contains the Pop data
+        // Get the XML that contains the Pop data.
         ExcelService excel = new ExcelService();
         String xml = excel.getData(bucketName, object);
         return xml;
