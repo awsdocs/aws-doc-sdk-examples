@@ -6,9 +6,9 @@ edition = "2018"
 description = "Example usage of the KMS service"
 
 [dependencies]
-kms = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.7-alpha", package = "aws-sdk-kms" }
-aws-hyper = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.7-alpha", package = "aws-hyper" }
-aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.7-alpha", package = "aws-types" }
+kms = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.9-alpha", package = "aws-sdk-kms" }
+aws-hyper = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.9-alpha", package = "aws-hyper" }
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.9-alpha", package = "aws-types" }
 
 tokio = { version = "1", features = ["full"]}
 structopt = { version = "0.3", default-features = false }
