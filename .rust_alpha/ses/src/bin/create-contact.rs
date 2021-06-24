@@ -71,7 +71,7 @@ async fn main() -> Result<(), Error> {
         .await;
     match new_contact {
         Ok(_) => println!("Created contact"),
-        Err(e) => eprintln!("Got error attemptint to create contact: {}", e),
+        Err(e) => eprintln!("Got error attempting to create contact: {}", e),
     };
 
     Ok(())
