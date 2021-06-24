@@ -279,6 +279,7 @@ if __name__ == "__main__":
 
     print("extracting snippets in source files", 
         " ".join(ex for ex in MAP_EXT_MARKER if MAP_EXT_MARKER[ex]), "\n")
+    print("Reports:", reports)
 
     # initialize snipper instance and our counters
     with Snipper(snippetdir) as snipper:
