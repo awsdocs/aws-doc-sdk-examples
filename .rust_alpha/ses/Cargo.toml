@@ -5,8 +5,8 @@ authors = ["Russell Cohen <rcoh@amazon.com>", "Doug Schwartz <dougsch@amazon.com
 edition = "2018"
 
 [dependencies]
-ses = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.8-alpha", package = "aws-sdk-sesv2" }
-aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.8-alpha", package = "aws-types" }
+ses = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.9-alpha", package = "aws-sdk-sesv2" }
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.9-alpha", package = "aws-types" }
 
 tokio = { version = "1", features = ["full"] }
 
