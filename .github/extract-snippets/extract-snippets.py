@@ -1,4 +1,4 @@
-# extract-snippets.py v1.1.0 6/2/2021
+# extract-snippets.py v1.2.0 6/24/2021
 # Jerry Kindall, Amazon Web Services
 
 # extracts tagged regions from source files and writes them to a snippets directory.
@@ -30,7 +30,7 @@
 # This script also presents an index mapping snippet names back to the files
 # they come from, and a list of source files having problems.
 
-import sys, os, yaml, re, functools
+import sys, os, io, yaml, re, functools
 
 # all open() calls have an implied encoding parameter, UTF-8 by default
 open = functools.partial(__builtins__.open, 
@@ -85,7 +85,18 @@ class Snipper:
         self.errors     = 0                 # processing errors
         self.issues     = AutoDict(set)     # files with issues
         self.index      = AutoDict(list)    # index of snippets to files (this should probably be merged with self.source)
- 
+        self.log        = io.StringIO()
+
+    # if used as context manager, we capture the log instead of printing it as we go
+    # by switching print() to print to a StringIO object
+    def __enter__(self):
+        global print
+        print = functools.partial(__builtins__.print, file=self.log)
+
+    def __exit__(self, *args):
+        global print 
+        print = __builtins__.print
+
     # extract snippets from a single file
     def __call__(self, path, markers):
         print(path)
@@ -101,6 +112,7 @@ class Snipper:
                 self.text = infile.read().rstrip()
         except IOError as ex:
             print("ERROR reading file", ex)
+            self.errors += 1
             return
         if TAB in self.text and "snippet-start" in self.text:
             print("    WARNING tab(s) found in %s may cause formatting problems in docs" % path)
@@ -110,8 +122,13 @@ class Snipper:
             if tag.match(line):         # line is a snippet directive, parse and process it
                 self.directive = line.split("snippet-")[1].split(":")[0].rstrip()   # get e.g. append fron snippet-append
                 self.arg = line.split("[")[1].split("]")[0].rstrip()                # get e.g. snippet-name from [snippet-name]
-                func = getattr(self, self.directive.lstrip("_"))
-                func and func(self.arg) # call our method named same as directive (e.g. start(..) for snippet-start)
+                func = getattr(self, self.directive.lstrip("_"), None)
+                if func and callable(func):
+                    func(self.arg)      # call our method named same as directive (e.g. start(..) for snippet-start)
+                else:
+                    print("    ERROR invalid directive snippet-%s at %s in %s" % (self.directive, self.i, self.path))
+                    self.errors += 1
+                    self.issues[path].add("invalid directive snippet-%s" % self.directive)
             else:                       # line is NOT a snippet directive. write it to any open snippet files
                 for snip, file in self.files.items():           # for each snippet file we're writing, write the line
                     dedent = self.dedent[snip]
@@ -214,13 +231,6 @@ class Snipper:
     def _where(self):
         return self.arg, self.i, self.path
 
-    # called when there's no method on this class to handle a directive, which is an error
-    def __getattr__(self, name):
-        print("    ERROR invalid directive snippet-%s at %s in %s" % (name, self.i, self.path))
-        self.errors += 1
-        self.issues[self.path].add("invalid directive snippet-%s" % name)
-        return None
-
 def err_exit(msg):
     print("ERROR", msg)
     sys.exit(1)
@@ -246,6 +256,10 @@ if __name__ == "__main__":
     else:
         commentfile = "snippet-extensions.yml"
 
+    # reports to be printed can be passed in via environment variable REPORTS
+    # if this value is not set, print all reports
+    reports = os.environ.get("REPORTS", "log issues index").lower().split()
+
     # if no directory specified, file is in same directory as script
     if "/" not in commentfile and "\\" not in commentfile:
         commentfile = os.path.join(os.path.dirname(__file__), commentfile)
@@ -266,44 +280,48 @@ if __name__ == "__main__":
         " ".join(ex for ex in MAP_EXT_MARKER if MAP_EXT_MARKER[ex]), "\n")
 
     # initialize snipper instance and our counters
-    snipper = Snipper(snippetdir)
-    seen = processed = 0
+    with Snipper(snippetdir) as snipper:
+        seen = processed = 0
 
-    # main loop: for each file named on stdin, check to see if we should process it, and if so, do so
-    for path in sorted(stdin_lines):
-        path = path.strip()
-        if not path:                                    # skip blank lines in input
-            continue
-        # make sure relative path starts with ./ so that e.g. /Makefile in the extensions map
-        # can be used to match an entire filename. 
-        if not (path.startswith(("./", "/", "\\")) or   # already relative or Linux/Mac absolute path or UNC path
-            (path[0].isalpha() and path[1] == ":")):    # already Windows absolute path
-                path = "./" + path
-        if "/." in path or "\\." in path:               # skip hidden file or directory
-            continue
-        seen += 1                                       # count files seen (not hidden)
-        # find first extension from extension map that matches current file
-        # replace backslashes with forward slashes for purposes of matching so it works with Windows or UNC paths
-        ext = next((ext for ext in MAP_EXT_MARKER if path.replace("\\", "/").endswith(ext)), None)
-        markers = MAP_EXT_MARKER.get(ext, ())
-        if markers:                                     # process it if we know its comment markers
-            snipper(path, markers)
-            processed += 1
+        # main loop: for each file named on stdin, check to see if we should process it, and if so, do so
+        for path in sorted(stdin_lines):
+            path = path.strip()
+            if not path:                                    # skip blank lines in input
+                continue
+            # make sure relative path starts with ./ so that e.g. /Makefile in the extensions map
+            # can be used to match an entire filename. 
+            if not (path.startswith(("./", "/", "\\")) or   # already relative or Linux/Mac absolute path or UNC path
+                (path[0].isalpha() and path[1] == ":")):    # already Windows absolute path
+                    path = "./" + path
+            if "/." in path or "\\." in path:               # skip hidden file or directory
+                continue
+            seen += 1                                       # count files seen (not hidden)
+            # find first extension from extension map that matches current file
+            # replace backslashes with forward slashes for purposes of matching so it works with Windows or UNC paths
+            ext = next((ext for ext in MAP_EXT_MARKER if path.replace("\\", "/").endswith(ext)), None)
+            markers = MAP_EXT_MARKER.get(ext, ())
+            if markers:                                     # process it if we know its comment markers
+                snipper(path, markers)
+                processed += 1
+    
+    # print log
+    if "log" in reports:
+        print(snipper.log.getvalue())
 
-    # print summary and reports, then exit
+    # print summary
     print("\n====", snipper.count, "snippet(s) extracted from", processed, 
         "source file(s) processed of", seen, "candidate(s) with", snipper.errors, 
         "error(s) in", len(snipper.issues), "file(s)\n")
 
     # files with issues report (files with most issues first)
-    if snipper.issues:
+    if "issues" in reports and snipper.issues:
         print("----", len(snipper.issues), "file(s) with issues:", end="\n\n")
         for issue, details in sorted(snipper.issues.items(), key=lambda item: -len(item[1])):
             print(issue, end="\n     ")
             print(*sorted(details), sep="\n     ", end="\n\n")
 
     # snippet index report (snippets that appear in the most files first)
-    if snipper.index:
+    if "index" in reports and snipper.index:
         print("----", len(snipper.index), "snippet(s) extracted from", processed, "files:", end="\n\n")
         for snippet, files in sorted(snipper.index.items(), key=lambda item: -len(item[1])):
             print(snippet, "declared in:", end="\n     ")
