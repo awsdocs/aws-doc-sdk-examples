@@ -60,7 +60,7 @@ Each workflow step is implemented by using an AWS Lambda function. Lambda is a c
 
 You need to create these resources prior to starting this tutorial:
 
-+ An Amazon S3 bucket that contains a Microsoft Excel document that contains poplation data. You can obtain the Microsoft Excel document from this Github repository.  For information about creating an Amazon S3 bucket, see [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html).
++ An Amazon S3 bucket that contains a Microsoft Excel document that contains poplation data. Create a Microsoft Excel document similiar to the previous illustration and put in example numbers for population data.  For information about creating an Amazon S3 bucket, see [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html).
 + An Amazon DynamoDB table named **Country** that contains a partition key named **id**. For information about creating an Amazon DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html). 
 
 ## Understand the workflow
