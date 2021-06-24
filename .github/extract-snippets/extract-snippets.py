@@ -277,9 +277,9 @@ if __name__ == "__main__":
                 err_exit("key, value must both be strings; got %s, %s (%s, %s)" % 
                     (k, v, type(k).__name__, type(v).__name__))
 
-    print("extracting snippets in source files", 
-        " ".join(ex for ex in MAP_EXT_MARKER if MAP_EXT_MARKER[ex]), "\n")
-    print("Reports:", reports)
+    print("==== extracting snippets in source files", 
+        " ".join(ex for ex in MAP_EXT_MARKER if ex and MAP_EXT_MARKER[ex]), "\n")
+    print("reports:", " ".join(reports).upper(), end="\n\n")
 
     # initialize snipper instance and our counters
     with Snipper(snippetdir) as snipper:
@@ -306,28 +306,38 @@ if __name__ == "__main__":
                 snipper(path, markers)
                 processed += 1
     
-    # print log
-    if "log" in reports:
-        print(snipper.log.getvalue())
-
-    # print summary
-    print("\n====", snipper.count, "snippet(s) extracted from", processed, 
-        "source file(s) processed of", seen, "candidate(s) with", snipper.errors, 
-        "error(s) in", len(snipper.issues), "file(s)\n")
-
     # files with issues report (files with most issues first)
-    if "issues" in reports and snipper.issues:
-        print("----", len(snipper.issues), "file(s) with issues:", end="\n\n")
-        for issue, details in sorted(snipper.issues.items(), key=lambda item: -len(item[1])):
-            print(issue, end="\n     ")
-            print(*sorted(details), sep="\n     ", end="\n\n")
+    if "issues" in reports:
+        if snipper.issues:
+            print("====", len(snipper.issues), "file(s) with issues:", end="\n\n")
+            for issue, details in sorted(snipper.issues.items(), key=lambda item: -len(item[1])):
+                print(issue, end="\n     ")
+                print(*sorted(details), sep="\n     ", end="\n\n")
+        else:
+            print("---- no issues found\n")
 
     # snippet index report (snippets that appear in the most files first)
-    if "index" in reports and snipper.index:
-        print("----", len(snipper.index), "snippet(s) extracted from", processed, "files:", end="\n\n")
-        for snippet, files in sorted(snipper.index.items(), key=lambda item: -len(item[1])):
-            print(snippet, "declared in:", end="\n     ")
-            print(*sorted(files), sep="\n     ", end="\n\n")
+    if "index" in reports:
+        if snipper.index:
+            print("====", len(snipper.index), "snippet(s) extracted from", processed, "files:", end="\n\n")
+            for snippet, files in sorted(snipper.index.items(), key=lambda item: -len(item[1])):
+                print(snippet, "declared in:", end="\n     ")
+                print(*sorted(files), sep="\n     ", end="\n\n")
+        else:
+            print("--- no snippets were extracted\n")
+
+    # print log
+    if "log" in reports:
+        print("==== Complete processing log\n")
+        if processed:
+            print(snipper.log.getvalue(), end="\n\n")
+        else:
+            print("No files were processed\n")
+
+    # print summary
+    print("====", snipper.count, "snippet(s) extracted from", processed, 
+        "source file(s) processed of", seen, "candidate(s) with", snipper.errors, 
+        "error(s) in", len(snipper.issues), "file(s)\n")
 
     # exit with nonzero status if we found any errors, so caller won't commit the snippets
     sys.exit(snipper.errors > 0)
