@@ -62,21 +62,21 @@ async fn main() -> Result<(), cloudformation::Error> {
     let conf = Config::builder().region(region).build();
     let client = Client::from_conf(conf);
 
-    let resp = client
+    // Panic if stack_name does not exist
+    let status = client
         .describe_stacks()
         .stack_name(stack_name)
         .send()
-        .await?;
+        .await
+        .expect("Could not find your stack")
+        .stacks
+        .unwrap()
+        .pop()
+        .unwrap()
+        .stack_status
+        .unwrap();
 
-    println!(
-        "Stack status: {:?}",
-        resp.stacks
-            .unwrap_or_default()
-            .pop()
-            .unwrap()
-            .stack_status
-            .unwrap()
-    );
+    println!("Stack status: {:?}", status);
     println!();
 
     Ok(())
