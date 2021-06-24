@@ -19,6 +19,7 @@ import requests
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.apigateway.ApiGatewayToService.class]
 class ApiGatewayToService:
     """
     Encapsulates Amazon API Gateway functions that are used to create a REST API that
@@ -32,7 +33,9 @@ class ApiGatewayToService:
         self.api_id = None
         self.root_id = None
         self.stage = None
+# snippet-end:[python.example_code.apigateway.ApiGatewayToService.class]
 
+# snippet-start:[python.example_code.apigateway.CreateRestApi]
     def create_rest_api(self, api_name):
         """
         Creates a REST API on API Gateway. The default API has only a root resource
@@ -62,7 +65,9 @@ class ApiGatewayToService:
             raise ValueError from err
 
         return self.api_id
+# snippet-end:[python.example_code.apigateway.CreateRestApi]
 
+# snippet-start:[python.example_code.apigateway.CreateResource]
     def add_rest_resource(self, parent_id, resource_path):
         """
         Adds a resource to a REST API.
@@ -81,7 +86,9 @@ class ApiGatewayToService:
             raise
         else:
             return resource_id
+# snippet-end:[python.example_code.apigateway.CreateResource]
 
+# snippet-start:[python.example_code.apigateway.AddIntegrationMethod]
     def add_integration_method(
             self, resource_id, rest_method, service_endpoint_prefix, service_action,
             service_method, role_arn, mapping_template):
@@ -149,7 +156,9 @@ class ApiGatewayToService:
                 "Couldn't create integration for resource %s to service URI %s.",
                 resource_id, service_uri)
             raise
+# snippet-end:[python.example_code.apigateway.AddIntegrationMethod]
 
+# snippet-start:[python.example_code.apigateway.CreateDeployment]
     def deploy_api(self, stage_name):
         """
         Deploys a REST API. After a REST API is deployed, it can be called from any
@@ -168,6 +177,7 @@ class ApiGatewayToService:
             raise
         else:
             return self.api_url()
+# snippet-end:[python.example_code.apigateway.CreateDeployment]
 
     def api_url(self, resource=None):
         """
@@ -182,6 +192,7 @@ class ApiGatewayToService:
             url = f'{url}/{resource}'
         return url
 
+# snippet-start:[python.example_code.apigateway.GetRestApis]
     def get_rest_api_id(self, api_name):
         """
         Gets the ID of a REST API from its name by searching the list of REST APIs
@@ -206,7 +217,9 @@ class ApiGatewayToService:
             raise
         else:
             return rest_api['id']
+# snippet-end:[python.example_code.apigateway.GetRestApis]
 
+# snippet-start:[python.example_code.apigateway.DeleteRestApi]
     def delete_rest_api(self):
         """
         Deletes a REST API, including all of its resources and configuration.
@@ -218,6 +231,7 @@ class ApiGatewayToService:
         except ClientError:
             logger.exception("Couldn't delete REST API %s.", self.api_id)
             raise
+# snippet-end:[python.example_code.apigateway.DeleteRestApi]
 
 
 def deploy(stack_name, cf_resource):
