@@ -16,29 +16,29 @@ use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The AWS Region.
+    /// The region. Overrides environment variable AWS_DEFAULT_REGION.
     #[structopt(short, long)]
     default_region: Option<String>,
 
-    /// Specifies the encryption key.
+    /// Specifies the encryption key
     #[structopt(short, long)]
     key: String,
 
-    /// The name of the input file with encrypted text to decrypt.
+    /// The name of the input file with encrypted text to decrypt
     #[structopt(short, long)]
-    input_file: String,
+    input: String,
 
-    /// Display additonal information
+    /// Specifies whether to display additonal runtime informmation
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Decrypts a string encrypted by AWS Key Management Service (AWS KMS) key.
+/// Decrypts a string encrypted by AWS KMS.
 /// # Arguments
 ///
 /// * `-k KEY` - The encryption key.
-/// * `-i INPUT-FILE` - The file containing the text encrypted by the key.
-/// * `[-d DEFAULT-REGION]` - The AWS Region in which the client is created.
+/// * `-i INPUT` - The encrypted string.
+/// * `[-d DEFAULT-REGION]` - The region in which the client is created.
 ///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
@@ -46,7 +46,7 @@ struct Opt {
 async fn main() {
     let Opt {
         key,
-        input_file,
+        input,
         default_region,
         verbose,
     } = Opt::from_args();
@@ -59,9 +59,9 @@ async fn main() {
 
     if verbose {
         println!("KMS client version: {}\n", kms::PKG_VERSION);
-        println!("AWS Region:         {:?}", &region);
-        println!("Key:                {}", key);
-        println!("Input filename:     {}", input_file);
+        println!("Region: {:?}", &region);
+        println!("Key:    {}", key);
+        println!("Input:  {}", input);
 
         SubscriberBuilder::default()
             .with_env_filter("info")
@@ -70,14 +70,13 @@ async fn main() {
     }
 
     let conf = Config::builder().region(region).build();
-    let conn = aws_hyper::conn::Standard::https();
-    let client = Client::from_conf_conn(conf, conn);
+    let client = Client::from_conf(conf);
 
     // Open input text file and get contents as a string
     // input is a base-64 encoded string, so decode it:
-    let data = fs::read_to_string(input_file)
+    let data = fs::read_to_string(input)
         .map(|input| {
-            base64::decode(input).expect("Input file does not contain valid base-64 characters.")
+            base64::decode(input).expect("Input file does not contain valid base 64 characters.")
         })
         .map(Blob::new);
 

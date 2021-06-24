@@ -22,29 +22,27 @@ use smithy_types::retry::RetryKind;
 use std::collections::HashMap;
 use std::time::Duration;
 
-/// A partial reimplementation of
-/// https://docs.amazonaws.cn/en_us/amazondynamodb/latest/developerguide/GettingStarted.Ruby.html
-/// in Rust.
+/// A partial reimplementation of https://docs.amazonaws.cn/en_us/amazondynamodb/latest/developerguide/GettingStarted.Ruby.html
+/// in Rust
 ///
-/// - Create table.
-/// - Wait for table to be ready.
-/// - Add a couple of rows.
-/// - Query for those rows.
+/// - Create table
+/// - Wait for table to be ready
+/// - Add a couple of rows
+/// - Query for those rows
 #[tokio::main]
 async fn main() {
     let table_name = "dynamo-movies-example";
     let conf = dynamodb::Config::builder()
         .region(Region::new("us-east-1"))
         .build();
-    let conn = aws_hyper::conn::Standard::https();
-    let client = dynamodb::Client::from_conf_conn(conf, conn);
+    let client = dynamodb::Client::from_conf(conf);
     let raw_client = aws_hyper::Client::https();
 
     let table_exists = client
         .list_tables()
         .send()
         .await
-        .expect("Should succeed.")
+        .expect("should succeed")
         .table_names
         .as_ref()
         .unwrap()
@@ -54,19 +52,19 @@ async fn main() {
         create_table(&client, table_name)
             .send()
             .await
-            .expect("Failed to create table.");
+            .expect("failed to create table");
     }
 
     raw_client
         .call(wait_for_ready_table(table_name, client.conf()))
         .await
-        .expect("Table should become ready.");
+        .expect("table should become ready");
 
     // data.json contains 2 movies from 2013
     let data = match serde_json::from_str(include_str!("data.json")).expect("should be valid JSON")
     {
         Value::Array(inner) => inner,
-        data => panic!("Data must be an array, got: {:?}", data),
+        data => panic!("data must be an array, got: {:?}", data),
     };
     for value in data {
         client
@@ -75,25 +73,25 @@ async fn main() {
             .set_item(Some(parse_item(value)))
             .send()
             .await
-            .expect("Failed to insert item.");
+            .expect("failed to insert item");
     }
     let films_2222 = movies_in_year(&client, table_name, 2222)
         .send()
         .await
-        .expect("Query should succeed.");
+        .expect("query should succeed");
     // this isn't back to the future, there are no movies from 2022
     assert_eq!(films_2222.count, 0);
 
     let films_2013 = movies_in_year(&client, table_name, 2013)
         .send()
         .await
-        .expect("Query should succeed.");
+        .expect("query should succeed");
     assert_eq!(films_2013.count, 2);
     let titles: Vec<AttributeValue> = films_2013
         .items
         .unwrap()
         .into_iter()
-        .map(|mut row| row.remove("title").expect("Row should have title."))
+        .map(|mut row| row.remove("title").expect("row should have title"))
         .collect();
     assert_eq!(
         titles,
@@ -146,7 +144,7 @@ fn create_table(
 fn parse_item(value: Value) -> HashMap<String, AttributeValue> {
     match value_to_item(value) {
         AttributeValue::M(map) => map,
-        other => panic!("Can only insert top level values, got {:?}", other),
+        other => panic!("can only insert top level values, got {:?}", other),
     }
 }
 
@@ -172,7 +170,7 @@ fn movies_in_year(client: &dynamodb::Client, table_name: &str, year: u16) -> Que
         .expression_attribute_values(":yyyy", AttributeValue::N(year.to_string()))
 }
 
-/// Hand-written waiter to retry every second until the table is out of `Creating` state.
+/// Hand-written waiter to retry every second until the table is out of `Creating` state
 #[derive(Clone)]
 struct WaitForReadyTable<R> {
     inner: R,
@@ -213,7 +211,7 @@ where
 }
 
 /// Construct a `DescribeTable` request with a policy to retry every second until the table
-/// is ready.
+/// is ready
 fn wait_for_ready_table(
     table_name: &str,
     conf: &Config,

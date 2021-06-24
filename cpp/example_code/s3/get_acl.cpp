@@ -268,7 +268,7 @@ bool AwsDoc::S3::GetObjectAcl(const Aws::String& bucketName,
 
 int main()
 {
-    Aws::String bucket_name = "my-bucket";
+    Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
     Aws::String object_name = "my-file.txt";
     Aws::String region = "us-east-1";
 
