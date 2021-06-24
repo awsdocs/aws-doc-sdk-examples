@@ -92,6 +92,7 @@ class Snipper:
     def __enter__(self):
         global print
         print = functools.partial(__builtins__.print, file=self.log)
+        return self
 
     def __exit__(self, *args):
         global print 
