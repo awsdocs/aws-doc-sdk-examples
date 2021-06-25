@@ -6,6 +6,7 @@ This is a workspace where you can find the following AWS SDK for JavaScript vers
 
 - [Create and upload objects](src/s3_create_and_upload_objects.js)
 - [Create a bucket](src/s3_createbucket.js)
+- [Delete a bucket](src/s3_deletebucket.js)
 - [Delete all objects from a bucket](src/s3_delete_all_objects.js)
 - [Delete multiple objects from a bucket](src/s3_delete_multiple_objects.js)
 - [Delete an object from a bucket](src/s3_delete_object.js)
