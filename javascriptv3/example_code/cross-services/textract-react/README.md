@@ -55,7 +55,7 @@ This name must be unique within your AWS account.
     The `setup.yaml` file was built from the 
     [AWS Cloud Development Kit (AWS CDK)](https://docs.aws.amazon.com/cdk/) 
     source script here: 
-    [/resources/cdk/textract_example_s3_sns_sqs_cognito/setup.js](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/resources/cdk/textract_example_s3_sns_sqs_cognito/setup.js). 
+    [/resources/cdk/textract_example_s3_sns_sqs_cognito/setup.ts](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/resources/cdk/textract_example_s3_sns_sqs_cognito/setup.ts). 
 
 1. Verify the stack is completely deployed before the next step by running the 
 following command:

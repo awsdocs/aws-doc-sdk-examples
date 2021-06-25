@@ -89,7 +89,7 @@ export default class TextractModel {
     const reader = stream.getReader();
     try {
       while (true) {
-        import { done, value } = await reader.read();
+        const { done, value } = await reader.read();
         if (done) {
           console.log("Done with stream.");
           return data;
@@ -213,13 +213,13 @@ export default class TextractModel {
       command = new StartDocumentAnalysisCommand(input);
     }
 
-    import { JobId: jobId } = await this.textract.send(command);
+    const { JobId: jobId } = await this.textract.send(command);
     console.log(`JobId: ${jobId}`);
 
     const model = this;
     let waitTime = 0;
     async function getJob() {
-      import { Messages } = await model.sqs.send(
+      const { Messages } = await model.sqs.send(
         new ReceiveMessageCommand({
           QueueUrl: model.queueUrl,
           MaxNumberOfMessages: 1,
@@ -243,7 +243,7 @@ export default class TextractModel {
           } else {
             getCommand = new GetDocumentAnalysisCommand({ JobId: jobId });
           }
-          import { Blocks } = await model.textract.send(getCommand);
+          const { Blocks } = await model.textract.send(getCommand);
           model.extraction = {
             Name: model.imageData.objectKey,
             ExtractType: extractType,

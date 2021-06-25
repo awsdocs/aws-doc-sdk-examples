@@ -63,7 +63,7 @@ if (mode === "add") {
   const cform = new CloudFormationClient({});
   (async () => {
     try {
-      import { Stacks } = await cform.send(
+      const { Stacks } = await cform.send(
         new DescribeStacksCommand({
           StackName: stackName,
         })
@@ -117,7 +117,7 @@ if (mode === "add") {
   const cogProvider = new CognitoIdentityProviderClient({});
   (async () => {
     try {
-      import { Users } = await cogProvider.send(
+      const { Users } = await cogProvider.send(
         new ListUsersCommand({
           UserPoolId: Config.CognitoUserPoolId,
         })
@@ -139,7 +139,7 @@ if (mode === "add") {
   const cogIdentity = new CognitoIdentityClient({});
   (async () => {
     try {
-      import { Identities } = await cogIdentity.send(
+      const { Identities } = await cogIdentity.send(
         new ListIdentitiesCommand({
           IdentityPoolId: Config.CognitoIdentityPoolId,
           MaxResults: 10,
