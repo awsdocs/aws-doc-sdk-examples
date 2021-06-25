@@ -6,7 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/invoke-lambda-functions-with-scheduled-events.html.
 
 Purpose:
-mylambdafunction.js is an AWS Lambda function. It is part of a tutorial demonstrates how to execute Lambda functions
+mylambdafunction.ts is an AWS Lambda function. It is part of a tutorial demonstrates how to execute Lambda functions
  using Amazon CloudWatch scheduled events. To see the full tutorial, see
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/invoke-lambda-functions-with-scheduled-events.html.
 
@@ -19,12 +19,12 @@ Inputs (replace in code):
 // snippet-start:[lambda.JavaScript.cross-service-examples.lambda-scheduled-events.config]
 
 "use strict";
-import { ScanCommand } from "@aws-sdk/client-dynamodb";
-import { PublishCommand } from "@aws-sdk/client-sns";
-import { snsClient } from "./libs/snsClient";
-import { dynamoClient } from "./libs/dynamoClient";
+const { ScanCommand } = require("@aws-sdk/client-dynamodb");
+const { PublishCommand } = require("@aws-sdk/client-sns");
+const {snsClient} = require ( "./libs/snsClient" );
+const {dynamoClient} = require ( "./libs/dynamoClient" );
 
-const REGION = "REGION"; //e.g. "us-east-1"
+const REGION = "eu-west-1"; //e.g. "us-east-1"
 
 // Get today's date.
 const today = new Date();
@@ -43,7 +43,7 @@ const params = {
   },
   // Set the projection expression, which are the attributes that you want.
   ProjectionExpression: "firstName, phone",
-  TableName: "TABLE_NAME",
+  TableName: "Employees",
 };
 
 // snippet-end:[lambda.JavaScript.cross-service-examples.lambda-scheduled-events.config]
@@ -52,7 +52,7 @@ exports.handler = async (event, context, callback) => {
   // Helper function to send message using Amazon SNS.
   async function sendText(textParams) {
     try {
-      const data = await snsClient.send(new PublishCommand(textParams));
+      const data = await snsclient.send(new PublishCommand(textParams));
       console.log("Message sent");
     } catch (err) {
       console.log("Error, message not sent ", err);

@@ -6,25 +6,24 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-scan-and-publish-message.html.
 
 Purpose:
-mylambdafunction.js is an AWS Lambda function.It is part of a tutorial that demonstrates
+mylambdafunction.js is an AWS Lambda function that is part of a tutorial that demonstrates
 how to create a REST API using API Gateway that triggers a Lambda function that scans an
 Amazon DynamoDB table of employees' information and send an Amazon Simple Notification Service (Amazon SNS)
-message based on the results. It demonstrates how toTo run the full tutorial, see
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-scan-and-publish-message.html.
+message based on the results.
 
 Inputs (replace in code):
-- REGION
 - TABLE_NAME
 
 */
 // snippet-start:[lambda.JavaScript.general-examples-dynamodb-lambda.scanAndPublishV3]
 // snippet-start:[lambda.JavaScript.general-examples-dynamodb-lambda.scanAndPublishV3.config]
-
 "use strict";
-import { ScanCommand } from "@aws-sdk/client-dynamodb";
-import { PublishCommand } from "@aws-sdk/client-sns";
-import { snsClient } from "./libs/snsClient.js";
-import { dynamoClient } from "./libs/dynamoClient.js";
+const { ScanCommand } = require("@aws-sdk/client-dynamodb");
+const { PublishCommand } = require("@aws-sdk/client-sns");
+const {snsClient} = require ( "./libs/snsClient" );
+const {dynamoClient} = require ( "./libs/dynamoClient" );
+
+const REGION = "eu-west-1"; //e.g. "us-east-1"
 
 // Get today's date.
 const today = new Date();
@@ -34,7 +33,7 @@ const yyyy = today.getFullYear();
 const date = yyyy + "-" + mm + "-" + dd;
 
 // Set the parameters for the ScanCommand method.
-export const params = {
+const params = {
   // Specify which items in the results are returned.
   FilterExpression: "startDate = :topic",
   // Define the expression attribute value, which are substitutes for the values you want to compare.
@@ -43,15 +42,16 @@ export const params = {
   },
   // Set the projection expression, which are the attributes that you want.
   ProjectionExpression: "firstName, phone",
-  TableName: "TABLE_NAME",
+  TableName: "Employees",
 };
 // snippet-end:[lambda.JavaScript.general-examples-dynamodb-lambda.scanAndPublishV3.config]
 // snippet-start:[lambda.JavaScript.general-examples-dynamodb-lambda.scanAndPublishV3.handler]
+// Helper function to send message using Amazon SNS.
 exports.handler = async (event, context, callback) => {
   // Helper function to send message using Amazon SNS.
   async function sendText(textParams) {
     try {
-      const data = await snsClient.send(new PublishCommand(textParams));
+      const data = await snsclient.send(new PublishCommand(textParams));
       console.log("Message sent");
     } catch (err) {
       console.log("Error, message not sent ", err);
@@ -64,9 +64,9 @@ exports.handler = async (event, context, callback) => {
       const textParams = {
         PhoneNumber: element.phone.N,
         Message:
-          "Hi " +
-          element.firstName.S +
-          "; congratulations on your work anniversary!",
+            "Hi " +
+            element.firstName.S +
+            "; congratulations on your work anniversary!",
       };
       // Send message using Amazon SNS.
       sendText(textParams);
@@ -77,3 +77,5 @@ exports.handler = async (event, context, callback) => {
 };
 // snippet-end:[lambda.JavaScript.general-examples-dynamodb-lambda.scanAndPublishV3.handler]
 // snippet-end:[lambda.JavaScript.general-examples-dynamodb-lambda.scanAndPublishV3]
+
+

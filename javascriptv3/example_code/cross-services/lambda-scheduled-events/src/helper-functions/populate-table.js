@@ -1,3 +1,4 @@
+
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
@@ -6,19 +7,23 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/invoke-lambda-functions-with-scheduled-events.html.
 
 Purpose:
-populate-table.js demonstrates how to populate an Amazon DynamoDB table.
+populate-table.ts demonstrates how to populate an Amazon DynamoDB table.
+It is part of a tutorial that demonstrates how to run Lambda functions using Amazon CloudWatch scheduled events. To see the full tutorial, see
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/invoke-lambda-functions-with-scheduled-events.html.
 
 Inputs (replace in code):
 - REGION
 
 Running the code:
-node populate-table.js
+ts-node populate-table.t s
 
 */
 // snippet-start:[lambda.JavaScript.cross-service-examples.lambda-scheduled-events.CreateTableV3]
 // Load the required Amazon DynamoDB client and commands.
-import { BatchWriteItemCommand } from "@aws-sdk/client-dynamodb";
-import { dynamoClient } from "./libs/dynamoClient";
+const {
+  BatchWriteItemCommand
+} = require("@aws-sdk/client-dynamodb");
+const {dynamoClient} = require ( "../libs/dynamoClient.js" );
 
 // Set the parameters.
 const params = {
@@ -29,8 +34,8 @@ const params = {
           Item: {
             id: { N: "1" },
             firstName: { S: "Bob" },
-            phone: { N: "155555555555654" },
-            startDate: { S: "2019-12-20" },
+            phone: { N: "353861230764" },
+            startDate: { S: "2020-6-17" },
           },
         },
       },

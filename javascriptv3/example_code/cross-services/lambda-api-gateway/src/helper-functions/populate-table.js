@@ -16,9 +16,13 @@ node populate-table.js
 
 */
 // snippet-start:[lambda.JavaScript.general-examples-dynamodb-lambda.CreateTableV3]
-import { BatchWriteItemCommand } from "@aws-sdk/client-dynamodb";
-import { dynamoClient } from "./libs/dynamoClient.js";
+// Load the required Amazon DynamoDB client and commands.
+const {
+  BatchWriteItemCommand
+} = require("@aws-sdk/client-dynamodb");
+const {dynamoClient} = require ( "../libs/dynamoClient.js" );
 
+// Set the parameters.
 const params = {
   RequestItems: {
     Employees: [
@@ -27,8 +31,8 @@ const params = {
           Item: {
             id: { N: "1" },
             firstName: { S: "Bob" },
-            phone: { N: "155555555555654" },
-            startDate: { S: "2019-12-20" },
+            phone: { N: "353861230764" },
+            startDate: { S: "2020-6-17" },
           },
         },
       },

@@ -16,20 +16,12 @@ Inputs (replace in code):
 - LAMBDA_FUNCTION
 - IDENTITY_POOL_ID
 
-Running the code:
-ts-node ddb-table-create.ts
 */
 // snippet-start:[lambda.JavaScript.general-examples-lambda-create-function.indexV3]
 
 // Load the required clients and packages.
-const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
-const {
-  fromCognitoIdentityPool,
-} = require("@aws-sdk/credential-provider-cognito-identity");
-const { LambdaClient, InvokeCommand } = require("@aws-sdk/client-lambda");
-
-// Set the AWS Region.
-const REGION = "REGION"; // e.g., 'us-east-2'
+const { InvokeCommand } = require ("@aws-sdk/client-lambda" );
+const { lambdaClient } = require ( "../libs/lambdaClient" );
 
 // Set the parmaeters.
 const params={
@@ -39,19 +31,10 @@ const params={
   LogType: "None"
 }
 
-// Create an AWS Lambda client service object that initializes the Amazon Cognito credentials provider.
-const lambda = new LambdaClient({
-  region: REGION,
-  credentials: fromCognitoIdentityPool({
-    client: new CognitoIdentityClient({ region: REGION }),
-    identityPoolId: "IDENTITY_POOL_ID", // IDENTITY_POOL_ID e.g., eu-west-1:xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxx
-  }),
-});
-
 // Call the Lambda function.
 window.createTable = async () => {
   try {
-    const data = await lambda.send(new InvokeCommand(params));
+    const data = await lambdaClient.send(new InvokeCommand(params));
     console.log("Table Created", data);
     document.getElementById('message').innerHTML = "Success, table created"
   } catch (err) {

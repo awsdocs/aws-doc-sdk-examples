@@ -13,10 +13,11 @@ Inputs (replace in code):
 */
 // snippet-start:[dynamodb.JavaScript.step-functions.createclientv3]
 
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+const { DynamoDBClient } = require ( "@aws-sdk/client-dynamodb" );
 // Set the AWS Region.
-const REGION = "REGION"; //e.g. "us-east-1"
+const REGION = "eu-west-1"; //e.g. "us-east-1"
 // Create an Amazon DynamoDB service client object.
 const dynamoClient = new DynamoDBClient({ region: REGION });
-export { dynamoClient };
+
+module.exports = { dynamoClient };
 // snippet-end:[dynamodb.JavaScript.step-functions.createclientv3]

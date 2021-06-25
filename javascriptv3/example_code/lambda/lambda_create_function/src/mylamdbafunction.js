@@ -18,7 +18,8 @@ Inputs (replace in code):
 // snippet-start:[lambda.JavaScript.general-examples-lambda-create-function.CreateTableV3]
 "use strict";
 // Load the required clients and packages.
-const { DynamoDBClient, CreateTableCommand } = require("@aws-sdk/client-dynamodb");
+const { CreateTableCommand } = require ( "@aws-sdk/client-dynamodb" );
+const { dynamoClient } = require (  "./libs/dynamoClient" );
 
 //Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"
@@ -55,12 +56,9 @@ const params = {
     },
 };
 
-// Instantiate an Amazon DynamoDB client object.
-const ddb = new DynamoDBClient({ region: REGION });
-
 exports.handler = async(event, context, callback) => {
     try {
-        const data = await ddb.send(new CreateTableCommand(params));
+        const data = await dynamoClient.send(new CreateTableCommand(params));
         console.log("Table Created", data);
     } catch (err) {
         console.log("Error", err);

@@ -12,10 +12,12 @@ Inputs (replace in code):
 */
 // snippet-start:[sns.JavaScript.apigateway.createclientv3]
 
-import { SNSClient } from "@aws-sdk/client-sns";
+const  { SNSClient } = require ( "@aws-sdk/client-sns" );
 // Set the AWS Region.
-const REGION = "REGION"; //e.g. "us-east-1"
+const REGION = "eu-west-1"; //e.g. "us-east-1"
 // Create an Amazon SNS service client object.
 const snsClient = new SNSClient({ region: REGION });
-export { snsClient };
+module.exports = { snsClient };
 // snippet-end:[sns.JavaScript.apigateway.createclientv3]
+
+

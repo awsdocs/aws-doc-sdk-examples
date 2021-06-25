@@ -9,8 +9,7 @@ Purpose:
 lambda-function-setup.js demonstrates how to create an AWS Lambda function.
 It is part of a tutorial that demonstrates how to create a REST API using API Gateway that triggers a Lambda function that scans an
 Amazon DynamoDB table of employees' information and send an Amazon Simple Notification Service (Amazon SNS)
-message based on the results. It demonstrates how toTo run the full tutorial, see
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-scan-and-publish-message.html.
+message based on the results.
 
 Inputs (replace in code):
 - BUCKET_NAME
@@ -24,8 +23,10 @@ node lambda-function-setup.js
 
 // snippet-start:[lambda.JavaScript.general-examples-dynamodb-lambda.LambdaFunctionSetUpV3]
 
-import { CreateFunctionCommand } from "@aws-sdk/client-lambda";
-import { lambdaClient } from "./libs/lambdaClient.js";
+const {
+  CreateFunctionCommand,
+} = require("@aws-sdk/client-lambda");
+const {lambdaClient} = require ( "../libs/lambdaClient.js" );
 
 const params = {
   Code: {
@@ -37,8 +38,8 @@ const params = {
   Role: "IAM_ROLE_ARN", // IAM_ROLE_ARN; e.g., arn:aws:iam::650138640062:role/v3-lambda-tutorial-lambda-role
   Runtime: "nodejs12.x",
   Description:
-    "Scans a DynamoDB table of employee details and using Amazon Simple Notification Service (Amazon SNS) to " +
-    "send employees an email on the anniversary of their start-date.",
+      "Scans a DynamoDB table of employee details and using Amazon Simple Notification Service (Amazon SNS) to " +
+      "send employees an email on the anniversary of their start-date.",
 };
 
 const run = async () => {
@@ -51,3 +52,5 @@ const run = async () => {
 };
 run();
 // snippet-end:[lambda.JavaScript.general-examples-dynamodb-lambda.LambdaFunctionSetUpV3]
+
+

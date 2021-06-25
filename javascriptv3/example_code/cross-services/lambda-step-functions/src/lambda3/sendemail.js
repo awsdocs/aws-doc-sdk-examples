@@ -13,12 +13,13 @@ and AWS Step Functions.
 // snippet-start:[lambda.JavaScript.lambda-step-functions.sendemail]
 
 // Load the required clients and commands.
-import { SendEmailCommand } from "@aws-sdk/client-ses";
-import { sesClient } from "../libs/sesClient";
+const { SendEmailCommand } = require ( "@aws-sdk/client-ses" );
+const { sesClient } = require ( "../libs/sesClient" );
 
 exports.handler = async (event) => {
   // Enter a sender email address. This address must be verified.
-  const sender = "Sender Name <briangermurray@gmail.com>";
+  const senderEmail = "SENDER_EMAIL"
+  const sender = "Sender Name <" + senderEmail + ">";
 
   // AWS Step Functions passes the  employee's email to the event.
   // This address must be verified.

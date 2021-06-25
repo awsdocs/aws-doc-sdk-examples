@@ -13,10 +13,10 @@ Inputs (replace in code):
 */
 // snippet-start:[ses.JavaScript.step-functions.createclientv3]
 
-import { SESClient } from "@aws-sdk/client-ses";
+const { SESClient } = require ( "@aws-sdk/client-ses" );
 // Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"
 // Create an Amazon SNS service client object.
 const sesClient = new SESClient({ region: REGION });
-export { sesClient };
+module.exports = { sesClient };
 // snippet-end:[ses.JavaScript.step-functions.createclientv3]

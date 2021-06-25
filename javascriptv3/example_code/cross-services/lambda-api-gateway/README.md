@@ -19,7 +19,7 @@ which are  *@aws-sdk/client-cognito-identity*, *@aws-sdk/credential-provider-cog
 
 They also include third-party Node.js modules, including webpack.
 ```
-npm install node -g 
+npm install node -g # If using JavaScript, enter 'npm install node -g' instead
 cd javascriptv3/example_code/cross-services/lamba-api-gateway
 npm install
 ```

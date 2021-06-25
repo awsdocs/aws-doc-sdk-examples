@@ -9,13 +9,16 @@ Purpose:
 additem.js is part of a tutorial demonstrates how to create an AWS serverless workflow by using the AWS SDK for JavaScript (v3)
 and AWS Step Functions.
 
+Inputs:
+- RECEIVER_EMAIL_ADDRESS:  A valid Amazon Simple Notification Services (Amazon SNS) email address.
+
 */
 // snippet-start:[lambda.JavaScript.lambda-step-functions.additem]
 
 "use strict";
 // Load the required clients and commands.
-import { PutItemCommand } from "@aws-sdk/client-dynamodb";
-import { dynamoClient } from "../libs/dynamoClient";
+const { PutItemCommand } = require ( "@aws-sdk/client-dynamodb" );
+const { dynamoClient } = require ( "../libs/dynamoClient" );
 
 exports.handler = async (event) => {
   try {
@@ -47,7 +50,7 @@ exports.handler = async (event) => {
         TableName: "Case",
         Item: {
           id: { N: val.Case },
-          empEmail: { S: "brmur@amazon.com" },
+          empEmail: { S: "RECEIVER_EMAIL_ADDRESS" }, // Valid Amazon Simple Notification Services (Amazon SNS) email address.
           name: { S: "Sarah White" },
         },
       };
