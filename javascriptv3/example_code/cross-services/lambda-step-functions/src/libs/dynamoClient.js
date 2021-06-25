@@ -15,7 +15,7 @@ Inputs (replace in code):
 
 const { DynamoDBClient } = require ( "@aws-sdk/client-dynamodb" );
 // Set the AWS Region.
-const REGION = "eu-west-1"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 // Create an Amazon DynamoDB service client object.
 const dynamoClient = new DynamoDBClient({ region: REGION });
 

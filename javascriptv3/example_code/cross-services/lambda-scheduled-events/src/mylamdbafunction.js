@@ -24,7 +24,7 @@ const { PublishCommand } = require("@aws-sdk/client-sns");
 const {snsClient} = require ( "./libs/snsClient" );
 const {dynamoClient} = require ( "./libs/dynamoClient" );
 
-const REGION = "eu-west-1"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 
 // Get today's date.
 const today = new Date();

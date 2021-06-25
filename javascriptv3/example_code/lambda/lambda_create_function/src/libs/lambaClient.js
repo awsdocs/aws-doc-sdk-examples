@@ -19,7 +19,7 @@ const {
 const { CognitoIdentityClient }  = require ("@aws-sdk/client-cognito-identity" );
 
 // Set the AWS Region.
-const REGION = "eu-west-1"; // e.g., 'us-east-2'
+const REGION = "REGION"; // e.g., 'us-east-2'
 const IDENTITY_POOL_ID = "eu-west-1:dc7d706a-1f07-4fa5-baa7-edfabc05f293";
 
 // Create an AWS Lambda client service object that initializes the Amazon Cognito credentials provider.

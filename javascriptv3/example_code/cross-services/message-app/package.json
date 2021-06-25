@@ -8,6 +8,7 @@
   "license": "Apache 2.0",
   "scripts": {
     "build": "webpack index.js --mode development --libraryTarget commonjs2 --target web --devtool false -o main.js",
+    "build-cdk": "aws cloudformation create-stack --stack-name STACK_NAME --template-body file://setup.yaml --capabilities CAPABILITY_IAM",
     "test": "exit 0"
   },
   "dependencies": {

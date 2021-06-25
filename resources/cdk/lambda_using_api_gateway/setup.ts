@@ -6,194 +6,119 @@
 import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
 import { CfnOutput } from "@aws-cdk/core";
-import * as s3 from '@aws-cdk/aws-s3';
-import * as dynamodb from '@aws-cdk/aws-dynamodb';
+import * as cognito from '@aws-cdk/aws-cognito';
 import * as iam from '@aws-cdk/aws-iam';
-import {Effect, PolicyStatement, ServicePrincipal} from '@aws-cdk/aws-iam';
-import { AwsCustomResource } from '@aws-cdk/custom-resources';
+import { Effect, PolicyStatement } from "@aws-cdk/aws-iam";
 
-export class SetupStackLambda extends cdk.Stack {
+export class stepfunctions extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-      const myBucket = new s3.Bucket(this, 'mybucket',{
-          removalPolicy: cdk.RemovalPolicy.DESTROY,
-          blockPublicAccess:  {
-              blockPublicAcls: true,
-              blockPublicPolicy: false,
-              ignorePublicAcls: true,
-              restrictPublicBuckets: false
-          }
-      });
+    const myIdentityPool = new cognito.CfnIdentityPool(
+        this,
+        "ExampleIdentityPool",
+        {
+          allowUnauthenticatedIdentities: true,
+        }
+    );
 
-    const myRole = new iam.Role(this, "myLambdaRole", {
-      assumedBy: new ServicePrincipal("lambda.amazonaws.com")
-    });
-    myRole.addToPolicy(
+    const lambda_support_role = new iam.Role(this, 'LambdaRole', ({
+      assumedBy: new iam.FederatedPrincipal('cognito-identity.amazonaws.com', {
+        "StringEquals": {"cognito-identity.amazonaws.com:aud": myIdentityPool.ref},
+        "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "unauthenticated"},
+      }, "sts:AssumeRoleWithWebIdentity")
+    }));
+
+    lambda_support_role.assumeRolePolicy?.addStatements(
+        new iam.PolicyStatement({
+          effect: iam.Effect.ALLOW,
+          principals: [new iam.ServicePrincipal('lambda.amazonaws.com')],
+          actions: ['sts:AssumeRole'],
+        }),
+    )
+
+    lambda_support_role.addToPolicy(
         new PolicyStatement({
           effect: Effect.ALLOW,
           actions: [
-            "logs:CreateLogGroup",
-            "logs:CreateLogtream",
-            "logs:PutLogEvents"
+            "lambda:InvokeFunction",
+            "mobileanalytics:PutEvents",
+            "cognito-sync:*",
           ],
           resources: ["*"],
         })
     );
-    myRole.addToPolicy(
+    lambda_support_role.addToPolicy(
         new PolicyStatement({
-              effect: Effect.ALLOW,
-              actions: ["sns:*"],
-              resources: ["*"]
-            }
-        ));
-    myRole.addToPolicy(
+          effect: Effect.ALLOW,
+          actions: ["dynamodb:*"],
+          resources: ["*"],
+        })
+    );
+    lambda_support_role.addToPolicy(
         new PolicyStatement({
-              effect: Effect.ALLOW,
-              actions: ["dynamodb:*",
-                "dax:*",
-                "application-autoscaling:DeleteScalingPolicy",
-                "application-autoscaling:DeregisterScalableTarget",
-                "application-autoscaling:DescribeScalableTargets",
-                "application-autoscaling:DescribeScalingActivities",
-                "application-autoscaling:DescribeScalingPolicies",
-                "application-autoscaling:PutScalingPolicy",
-                "application-autoscaling:RegisterScalableTarget",
-                "cloudwatch:DeleteAlarms",
-                "cloudwatch:DescribeAlarmHistory",
-                "cloudwatch:DescribeAlarms",
-                "cloudwatch:DescribeAlarmsForMetric",
-                "cloudwatch:GetMetricStatistics",
-                "cloudwatch:ListMetrics",
-                "cloudwatch:PutMetricAlarm",
-                "cloudwatch:GetMetricData",
-                "datapipeline:ActivatePipeline",
-                "datapipeline:CreatePipeline",
-                "datapipeline:DeletePipeline",
-                "datapipeline:DescribeObjects",
-                "datapipeline:DescribePipelines",
-                "datapipeline:GetPipelineDefinition",
-                "datapipeline:ListPipelines",
-                "datapipeline:PutPipelineDefinition",
-                "datapipeline:QueryObjects",
-                "ec2:DescribeVpcs",
-                "ec2:DescribeSubnets",
-                "ec2:DescribeSecurityGroups",
-                "iam:GetRole",
-                "iam:ListRoles",
-                "kms:DescribeKey",
-                "kms:ListAliases",
-                "sns:CreateTopic",
-                "sns:DeleteTopic",
-                "sns:ListSubscriptions",
-                "sns:ListSubscriptionsByTopic",
-                "sns:ListTopics",
-                "sns:Subscribe",
-                "sns:Unsubscribe",
-                "sns:SetTopicAttributes",
-                "lambda:CreateFunction",
-                "lambda:ListFunctions",
-                "lambda:ListEventSourceMappings",
-                "lambda:CreateEventSourceMapping",
-                "lambda:DeleteEventSourceMapping",
-                "lambda:GetFunctionConfiguration",
-                "lambda:DeleteFunction",
-                "resource-groups:ListGroups",
-                "resource-groups:ListGroupResources",
-                "resource-groups:GetGroup",
-                "resource-groups:GetGroupQuery",
-                "resource-groups:DeleteGroup",
-                "resource-groups:CreateGroup",
-                "tag:GetResources",
-                "kinesis:ListStreams",
-                "kinesis:DescribeStream",
-                "kinesis:DescribeStreamSummary",
-              ],
-              resources: ["*"]
-            }
-        ));
-    myRole.addToPolicy(
+          effect: Effect.ALLOW,
+          actions: ["ses:*"],
+          resources: ["*"],
+        })
+    );
+    const defaultPolicy = new cognito.CfnIdentityPoolRoleAttachment(
+        this,
+        "DefaultValid",
+        {
+          identityPoolId: myIdentityPool.ref,
+          roles: {
+            unauthenticated: lambda_support_role.roleArn,
+          },
+        }
+    );
+    const myIdentityPool_workflow = new cognito.CfnIdentityPool(
+        this,
+        "ExampleIdentityPoolWorkflow",
+        {
+          allowUnauthenticatedIdentities: true,
+        }
+    );
+    const workflow_support_role = new iam.Role(this, 'WorkflowRole', ({
+      assumedBy: new iam.FederatedPrincipal('cognito-identity.amazonaws.com', {
+        "StringEquals": {"cognito-identity.amazonaws.com:aud": myIdentityPool_workflow.ref},
+        "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "unauthenticated"},
+      }, "sts:AssumeRoleWithWebIdentity")
+    }));
+    workflow_support_role.assumeRolePolicy?.addStatements(
+        new iam.PolicyStatement({
+          effect: iam.Effect.ALLOW,
+          principals: [new iam.ServicePrincipal('states.amazonaws.com')],
+          actions: ['sts:AssumeRole'],
+        }),
+    )
+
+    workflow_support_role.addToPolicy(
         new PolicyStatement({
-              effect: Effect.ALLOW,
-              actions: ["cloudwatch:GetInsightRuleReport"
-              ],
-              resources: ["arn:aws:cloudwatch:*:*:insight-rule/DynamoDBContributorInsights*"]
-            }
-        ))
-    myRole.addToPolicy(
-        new PolicyStatement({
-              effect: Effect.ALLOW,
-              actions: ["iam:PassRole"
-              ],
-              resources: ["*"],
-              conditions: {
-                "StringLike": {
-                  "iam:PassedToService": [
-                    "application-autoscaling.amazonaws.com",
-                    "application-autoscaling.amazonaws.com.cn",
-                    "dax.amazonaws.com"
-                  ]
-                }
-              }
-            }
-        ))
-    myRole.addToPolicy(
-        new PolicyStatement({
-              effect: Effect.ALLOW,
-              actions: ["iam:CreateServiceLinkedRole"
-              ],
-              resources: ["*"],
-              conditions: {
-                "StringEquals": {
-                  "iam:AWSServiceName": [
-                    "replication.dynamodb.amazonaws.com",
-                    "dax.amazonaws.com",
-                    "dynamodb.application-autoscaling.amazonaws.com",
-                    "contributorinsights.dynamodb.amazonaws.com",
-                    "kinesisreplication.dynamodb.amazonaws.com"
-                  ]
-                }
-              }
-            }
-        ))
-      myBucket.grantReadWrite(myRole);
-    const table = new dynamodb.Table(this, 'table', {
-      tableName: 'Employees',
-      partitionKey: {
-        name: 'id',
-        type: dynamodb.AttributeType.NUMBER
-      },
-      sortKey: {
-        name: 'firstName',
-        type: dynamodb.AttributeType.STRING
-      },
-      readCapacity: 10,
-      writeCapacity: 10,
-      removalPolicy: cdk.RemovalPolicy.DESTROY
-    });
-    // Add global secondary index to the table.
-    table.addGlobalSecondaryIndex({
-      indexName: 'FirstNameIndex',
-      partitionKey: {
-        name: 'FirstName',
-        type: dynamodb.AttributeType.STRING
-      },
-      projectionType: dynamodb.ProjectionType.ALL,
-      readCapacity: 5,
-      writeCapacity: 10
-    });
-    new CfnOutput(this, 'TableName', {value: table.tableName}),
-    new CfnOutput(this, 'Bucket name', {value: myBucket.bucketName})
-    new CfnOutput(this, 'IAM role', {value: myRole.roleName})
+          effect: Effect.ALLOW,
+          actions: [
+            "lambda:InvokeFunction",
+            "mobileanalytics:PutEvents",
+            "cognito-sync:*",
+          ],
+          resources: ["*"],
+        })
+    );
+
+    const defaultPolicyworkflow = new cognito.CfnIdentityPoolRoleAttachment(
+        this,
+        "DefaultValidWorkflow",
+        {
+          identityPoolId: myIdentityPool_workflow.ref,
+          roles: {
+            unauthenticated: workflow_support_role.roleArn,
+          },
+        }
+    );
+    new CfnOutput(this, "Lambda support role", { value: lambda_support_role.roleName });
+    new CfnOutput(this, "Workflow support role", { value: workflow_support_role.roleName });
   }
 }
 
-
-
-
-
-
-
 const app = new cdk.App();
-new SetupStackLambda(app, 'SetupStackLambda');
-
+new stepfunctions(app, 'stepfunctions');

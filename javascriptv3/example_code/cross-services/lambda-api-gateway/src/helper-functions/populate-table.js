@@ -31,7 +31,7 @@ const params = {
           Item: {
             id: { N: "1" },
             firstName: { S: "Bob" },
-            phone: { N: "353861230764" },
+            phone: { N: "155555555555657" },
             startDate: { S: "2020-6-17" },
           },
         },
