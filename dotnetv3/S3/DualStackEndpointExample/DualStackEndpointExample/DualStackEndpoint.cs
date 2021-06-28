@@ -10,10 +10,10 @@ namespace DualStackEndpointExample
     using Amazon.S3.Model;
 
     /// <summary>
-    /// This examples configures the endpoint calculation for a service to go
-    /// to a dual stack (ipv6 enabled) endpoint for the configured region. The
-    /// example was created using the AWS SDK for .NET verion 3.7 and .NET Core
-    /// version 5.0.
+    /// This example configures the endpoint calculation for a service to go
+    /// to a dual stack (ipv6 enabled) endpoint for the configured AWS region.
+    /// The example was created using the AWS SDK for .NET verion 3.7 and .NET
+    /// Core version 5.0.
     /// </summary>
     public class DualStackEndpoint
     {
