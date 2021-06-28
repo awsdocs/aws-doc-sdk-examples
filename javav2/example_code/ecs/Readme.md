@@ -32,8 +32,9 @@ Define these values to successfully run the JUnit tests:
 - **clusterName** - the name of the cluster to create.  
 - **securityGroups** –the name of the security group.
 - **subnet** -  the name of the subnet which is used when you create a service. 
+- **taskId** - the task id value used in the ListTaskDefinitions test.
 - **serviceName** - the name of the service to create. 
--  **taskDefinition** -  the name of the tasks defination which is used when you create a service. 
+- **taskDefinition** -  the name of the tasks defination which is used when you create a service. 
 
 
 ### Command line
