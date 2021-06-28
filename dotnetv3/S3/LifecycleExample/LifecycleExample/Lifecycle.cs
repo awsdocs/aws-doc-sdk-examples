@@ -19,10 +19,10 @@ namespace LifecycleExample
     {
         public static async Task Main()
         {
-            // If the Amazon Region associated with the default user
-            // is different from the region where the bucket is located,
-            // pass the bucket region to the AmaS3Client constructor.
-            // The parameter should look like this:
+            // If the AWS Region associated with the default user is different
+            // from the region where the Amazon S3 bucket is located, pass the
+            // bucket region to the AmaS3Client constructor. The parameter
+            // should look like this:
             //      RegionEndpoint.USWest2
             var client = new AmazonS3Client();
             const string BucketName = "doc-example-bucket";
@@ -123,18 +123,18 @@ namespace LifecycleExample
                     },
                 });
 
-                // Add the lifecycle configuration to the bucket.
+                // Add the lifecycle configuration to the S3 bucket.
                 await AddExampleLifecycleConfigAsync(client, bucketName, lifeCycleConfiguration);
 
                 // Verify that the the bucket now has three rules in its lifecycle configuration.
                 lifeCycleConfiguration = await RetrieveLifecycleConfigAsync(client, bucketName);
                 Console.WriteLine($"Expected # of rulest: 3; # of rules found: {lifeCycleConfiguration.Rules.Count}");
 
-                // Now delete the configuration from the bucket.
+                // Now delete the configuration from the S3 bucket.
                 await RemoveLifecycleConfigAsync(client, bucketName);
 
                 // Show that the lifecycle configuration is no longer associated with
-                // the bucket.
+                // the S3 bucket.
                 lifeCycleConfiguration = await RetrieveLifecycleConfigAsync(client, bucketName);
             }
             catch (AmazonS3Exception ex)
@@ -168,7 +168,7 @@ namespace LifecycleExample
         /// </summary>
         /// <param name="client">The S3 client object used to call
         /// the GetLifecycleConfigurationAsync method.</param>
-        /// <param name="bucketName">The name of the bucket for which a
+        /// <param name="bucketName">The name of the S3 bucket for which a
         /// configuration will be created.</param>
         /// <returns>Returns a new LifecycleConfiguration object.</returns>
         public static async Task<LifecycleConfiguration> RetrieveLifecycleConfigAsync(IAmazonS3 client, string bucketName)

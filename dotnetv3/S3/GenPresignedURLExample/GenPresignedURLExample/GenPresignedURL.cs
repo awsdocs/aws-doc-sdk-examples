@@ -10,7 +10,7 @@ namespace GenPresignedURLExample
 
     /// <summary>
     /// This example generates a presigned URL for an object in an Amazon
-    /// Amazon Simple Storage Service (Amazon S3) bucket. The generated example
+    /// Simple Storage Service (Amazon S3) bucket. The generated example
     /// remains valid for the specified number of hours. This example was
     /// created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
     /// </summary>
@@ -24,7 +24,8 @@ namespace GenPresignedURLExample
             // Specify how long the presigned URL lasts, in hours
             const double timeoutDuration = 12;
 
-            // Specify your bucket region (an example region is shown).
+            // Specify the AWS Region of your Amazon S3 bucket. An example AWS
+            // Region is shown.
             RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
 
             IAmazonS3 s3Client = new AmazonS3Client();
@@ -39,13 +40,13 @@ namespace GenPresignedURLExample
         /// </summary>
         /// <param name="client">An initialized S3 client object used to call
         /// the GetPresignedUrl method.</param>
-        /// <param name="bucketName">The name of the bucket where the object
-        /// for which to create the presigned URL resides.</param>
-        /// <param name="objectKey">The name of the object which be accessed
-        /// with the generated URL.</param>
-        /// <param name="duration">The length of time for which the URL will be
-        /// valid.</param>
-        /// <returns>A string representing the generated URL.</returns>
+        /// <param name="bucketName">The name of the S3 bucket containing the
+        /// object for which to create the presigned URL.</param>
+        /// <param name="objectKey">The name of the object to access with the
+        /// presigned URL.</param>
+        /// <param name="duration">The length of time for which the presigned
+        /// URL will be valid.</param>
+        /// <returns>A string representing the generated presigned URL.</returns>
         public static string GeneratePresignedURL(IAmazonS3 client, string bucketName, string objectKey, double duration)
         {
             string urlString = string.Empty;
