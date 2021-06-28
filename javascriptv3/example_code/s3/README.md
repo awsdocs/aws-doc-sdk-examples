@@ -22,7 +22,7 @@ This is a workspace where you can find the following AWS SDK for JavaScript vers
 - [List buckets](src/s3_listbuckets.js)
 - [List objects](src/s3_listobjects.js)
 - [Multipart object upload](src/s3_multipartupload.js)
-- [Create a presigned URL to get objects](src/s3_put_presignedURL.js)
+- [Create a presigned URL to put objects](src/s3_put_presignedURL.js)
 - [Set a bucket ACL](src/s3_putbucketacl.js)
 - [Set a bucket policy](src/s3_putbucketpolicy.js)
 - [Set a bucket website policy](src/s3_setbucketwebsite.js)
