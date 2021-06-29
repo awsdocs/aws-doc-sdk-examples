@@ -20,8 +20,6 @@ For more information, see https://docs.aws.amazon.com/sdk-for-javascript/v3/deve
 // snippet-start:[sqs.JavaScript.messaging-app.complete]
 // snippet-start:[sqs.JavaScript.messaging-app.config]
 
-import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
-import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
 import {
   GetQueueUrlCommand,
   SendMessageCommand,
