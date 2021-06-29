@@ -29,9 +29,9 @@ namespace RestoreArchivedObjectExample
         }
 
         /// <summary>
-        /// This method restores a deleted object from an S3 bucket.
+        /// This method restores an archived object from an Amazon S3 bucket.
         /// </summary>
-        /// <param name="client">The initialized Amazon S3 client used to call
+        /// <param name="client">The initialized S3 client object used to call
         /// RestoreObjectAsync.</param>
         /// <param name="bucketName">A string representing the name of the
         /// bucket where the object to restore was located.</param>
@@ -61,10 +61,10 @@ namespace RestoreArchivedObjectExample
         /// <summary>
         /// This method retrieves the status of the object's restoration.
         /// </summary>
-        /// <param name="client">The initialized Amazon S3 client used to call
+        /// <param name="client">The initialized S3 client object used to call
         /// GetObjectMetadataAsync.</param>
         /// <param name="bucketName">A string representing the name of the
-        /// S3 bucket which contained the deleted object.</param>
+        /// S3 bucket which contains the archived object.</param>
         /// <param name="objectKey">A string representing the name of the
         /// archived object you want to restore.</param>
         public static async Task CheckRestorationStatusAsync(IAmazonS3 client, string bucketName, string objectKey)

@@ -12,7 +12,7 @@ namespace EnableNotificationsExample
     /// <summary>
     /// This example shows how to enable notifications for an Amazon Simple
     /// Storage Service (Amazon S3) bucket. The examples use the AWS SDK for
-    /// .NET 3.7, and .NET 5.0.
+    /// .NET version 3.7, and .NET Core 5.0.
     /// </summary>
     public class EnableNotifications
     {
@@ -31,17 +31,16 @@ namespace EnableNotificationsExample
         }
 
         /// <summary>
-        /// This method makes the call to the AWS SDK PutBucketNotificationAsync
-        /// method.
+        /// This method makes the call to the PutBucketNotificationAsync method.
         /// </summary>
         /// <param name="client">An initialized Amazon S3 client used to call
         /// the PutBucketNotificationAsync method.</param>
         /// <param name="bucketName">The name of the bucket for which
         /// notifications will be turned on.</param>
         /// <param name="snsTopic">The ARN for the Amazon Simple Notification
-        /// Service topic associated with the S3 bucket.</param>
+        /// Service (Amazon SNS) topic associated with the S3 bucket.</param>
         /// <param name="sqsQueue">The ARN of the Amazon Simple Queue Service
-        /// to which notifications will be pushed.</param>
+        /// (Amazon SQS) queue to which notifications will be pushed.</param>
         public static async Task EnableNotificationAsync(
             IAmazonS3 client,
             string bucketName,

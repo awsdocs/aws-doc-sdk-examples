@@ -20,11 +20,11 @@ namespace CrossRegionReplicationExample
         {
             string sourceBucket = "doc-example-bucket1";
 
-            // The ARN of the Amazon S3 destination bucket. The included value
-            // is only an example. Be sure to change this to the ARN of your
-            // destination bucket.
+            // The Amazon Resource Name (ARN) of the Amazon S3 destination
+            // bucket. The included value is only an example. Be sure to change
+            // this to the ARN of your destination bucket.
             //
-            // The role ARM should be the ARN of a role that can read and
+            // The role ARN should be the ARN of a role that can read and
             // write to an S3 bucket.
             //
             // The examples below are not valid ARNs and must be replaced with
