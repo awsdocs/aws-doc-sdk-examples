@@ -11,7 +11,6 @@ It is part of a tutorial demonstrating how create and deploy an AWS Lambda funct
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-table-example.html.
 
 Inputs (replace in code):
-- REGION
 - TABLE_NAME
 
 */
@@ -20,9 +19,6 @@ Inputs (replace in code):
 // Load the required clients and packages.
 const { CreateTableCommand } = require ( "@aws-sdk/client-dynamodb" );
 const { dynamoClient } = require (  "./libs/dynamoClient" );
-
-//Set the AWS Region.
-const REGION = "REGION"; //e.g. "us-east-1"
 
 // Set the parameters.
 const params = {
