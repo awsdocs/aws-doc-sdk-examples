@@ -37,9 +37,9 @@ import com.amazonaws.services.elasticmapreduce.util.StepFactory;
 public class Main {
 
 	public static void main(String[] args) {
-		AWSCredentials credentials_profile = null;		
+		AWSCredentialsProvider profile = null;		
 		try {
-			credentials_profile = new ProfileCredentialsProvider("default").getCredentials(); // specifies any named profile in .aws/credentials as the credentials provider
+			credentials_profile = new ProfileCredentialsProvider("default"); // specifies any named profile in .aws/credentials as the credentials provider
         } catch (Exception e) {
             throw new AmazonClientException(
                     "Cannot load credentials from .aws/credentials file. " +
@@ -49,7 +49,7 @@ public class Main {
 		
 		// create an EMR client using the credentials and region specified in order to create the cluster
 		AmazonElasticMapReduce emr = AmazonElasticMapReduceClientBuilder.standard()
-			.withCredentials(new AWSStaticCredentialsProvider(credentials_profile))
+			.withCredentials(credentials_profile)
 			.withRegion(Regions.US_WEST_1)
 			.build();
         
