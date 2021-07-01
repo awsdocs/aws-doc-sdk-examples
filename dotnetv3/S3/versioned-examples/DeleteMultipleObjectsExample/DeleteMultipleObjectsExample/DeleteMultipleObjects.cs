@@ -19,7 +19,7 @@
             string bucketName = "doc-example-bucket";
 
             // If the AWS region for your Amazon S3 bucket is different from
-            // the AWS region of the default user, define the AWS Region for
+            // the AWS Region of the default user, define the AWS Region for
             // the S3 bucket and pass it to the client constructor like this:
             // RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
             IAmazonS3 s3Client;
@@ -73,7 +73,7 @@
         }
 
         /// <summary>
-        /// This method reates several temporary objects and then delete them.
+        /// This method creates several temporary objects and then delete them.
         /// </summary>
         public static async Task DeleteObjectVersionsAsync(IAmazonS3 client, string bucketName)
         {
@@ -150,9 +150,10 @@
                 multiObjectDeleteRequest.AddKey(key.Key);
             }
 
-            // Execute DeleteObjects - Amazon S3 add delete marker for each object
-            // deletion. The objects disappear from your bucket. 
-            // You can verify that using the Amazon S3 console.
+            // Execute DeleteObjectsAsync.
+            // The DeleteObjectsAsync method adds a delete marker for each
+            // object deleted. You can verify that the objects were removed by
+            // using the S3 console.
             DeleteObjectsResponse response;
             try
             {
@@ -163,7 +164,7 @@
             catch (DeleteObjectsException ex)
             {
                 DisplayDeletionErrors(ex);
-                throw; // Some deletes failed. Investigate before continuing.
+                throw; // Some delettions failed. Investigate before continuing.
             }
 
             // This response contains the DeletedObjects list which we use to delete the delete markers.
@@ -214,7 +215,7 @@
         }
 
         /// <summary>
-        /// Create temporary S3 objects to sow how object deletion wors in an
+        /// Create temporary S3 objects to show how object deletion wors in an
         /// S3 bucket with versioning enabled.
         /// </summary>
         /// <param name="client">The initialized S3 client object used to call

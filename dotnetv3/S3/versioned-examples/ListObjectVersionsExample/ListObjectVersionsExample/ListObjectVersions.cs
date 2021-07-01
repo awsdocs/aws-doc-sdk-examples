@@ -19,7 +19,7 @@ namespace ListObjectVersionsExample
         {
             string bucketName = "doc-example-bucket";
 
-            // If the region where your bucket is defined is different from
+            // If the AWS Region where your bucket is defined is different from
             // the AWS Region where the S3 bucket is defined, pass the constant
             // for the region to the client constructor like this:
             //      var client = new AmazonS3Client(RegionEndpoint.USWest2);
