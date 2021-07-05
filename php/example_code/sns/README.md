@@ -28,6 +28,14 @@ This is a workspace where you can find AWS SDK for PHP v3 Amazon SNS examples.
 - [Subscribe to SMS](./SubscribeTextSMS.php)
 - [Unscribe](./unsubscribe.php)
 
+## ⚠ Important
+
+- We recommend that you grant this code least privilege, or at most the minimum permissions required to perform the task. For more information, see [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) in the AWS Identity and Access Management User Guide.
+- This code has not been tested in all AWS Regions. Some AWS services are available only in specific [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+- Running this code might result in charges to your AWS account. 
+- Running the unit tests might result in charges to your AWS account. [optional]
+
+
 ## Resources
 - [AWS SDK for PHP - Version 3](https://github.com/aws/aws-sdk-php) 
 - [AWS SDK for PHP developer guide](https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/welcome.html) 
