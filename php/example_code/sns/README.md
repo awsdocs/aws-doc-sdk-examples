@@ -7,7 +7,7 @@ The code examples in this directory demonstrate how to work with the Amazon Simp
 Amazon SNS is a fully managed messaging service for both system-to-system and app-to-person (A2P) communication. 
 
 ## Code examples
-This is a workspace where you can find AWS SDK for PHP v3 Amazon SNS examples.
+This is a workspace where you can find AWS SDK for PHP Version 3 Amazon SNS examples.
 
 - [Checking phone opt out](./CheckOptOut.php)
 - [Confirming a subscription](./ConfirmSubscription.php)
