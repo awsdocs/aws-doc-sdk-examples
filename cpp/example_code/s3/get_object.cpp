@@ -13,6 +13,7 @@
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: Prints the beginning contents of a text file in a 
  * bucket in Amazon S3.
+ * For an example of downloading an entire, larger object, see the s3-crt example.
  *
  * Prerequisites: The bucket that contains the text file.
  *
