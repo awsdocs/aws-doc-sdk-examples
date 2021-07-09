@@ -25,6 +25,14 @@ import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 // snippet-end:[s3.java2.s3_bucket_ops.delete_bucket.import]
 // snippet-end:[s3.java2.bucket_deletion.import]
 // snippet-start:[s3.java2.bucket_deletion.main]
+
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class S3BucketDeletion {
 
     public static void main(String[] args) throws Exception {
@@ -50,7 +58,7 @@ public class S3BucketDeletion {
         s3.close();
     }
 
-    // snippet-start:[s3.java2.s3_bucket_ops.delete_bucketobjects]
+    // snippet-start:[s3.java2.s3_bucket_ops.delete_bucket]
     public static void listAllObjects(S3Client s3, String bucket) {
 
         try {
@@ -72,7 +80,7 @@ public class S3BucketDeletion {
                         .build();
 
             } while(listObjectsV2Response.isTruncated());
-            // snippet-end:[s3.java2.s3_bucket_ops.delete_bucketobjects]
+            // snippet-end:[s3.java2.s3_bucket_ops.delete_bucket]
 
             DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder().bucket(bucket).build();
             s3.deleteBucket(deleteBucketRequest);

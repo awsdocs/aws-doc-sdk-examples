@@ -39,7 +39,14 @@ import java.io.FileInputStream;
 /**
  * Before running this code example, you need to create a key by using the AWS Key Management Service.
  * For information, see "Creating keys" in the AWS Key Management Service Developer Guide.
+ *
+ * In addition, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
+
 public class KMSEncryptionExample {
 
     public static void main(String[] args) {

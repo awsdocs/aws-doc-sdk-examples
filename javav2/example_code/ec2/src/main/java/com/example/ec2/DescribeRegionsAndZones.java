@@ -21,6 +21,13 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.DescribeAvailabilityZonesResponse;
 // snippet-end:[ec2.java2.describe_region_and_zones.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class DescribeRegionsAndZones {
 
     public static void main(String[] args) {

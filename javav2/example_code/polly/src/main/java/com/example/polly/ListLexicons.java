@@ -24,6 +24,13 @@ import java.util.Iterator;
 import java.util.List;
 // snippet-end:[polly.java2.list_icons.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class ListLexicons {
 
     public static void main(String args[]) {

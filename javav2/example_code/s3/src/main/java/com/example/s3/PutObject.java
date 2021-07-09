@@ -26,6 +26,14 @@ import java.util.HashMap;
 import java.util.Map;
 // snippet-end:[s3.java2.s3_object_upload.import]
 
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class PutObject {
 
     public static void main(String[] args) {
@@ -42,7 +50,7 @@ public class PutObject {
             System.exit(1);
         }
 
-        String bucketName = args[0];
+        String bucketName =args[0];
         String objectKey = args[1];
         String objectPath = args[2];
 
@@ -68,7 +76,7 @@ public class PutObject {
         try {
 
             Map<String, String> metadata = new HashMap<>();
-            metadata.put("myVal", "test");
+            metadata.put("x-amz-meta-myVal", "test");
 
             PutObjectRequest putOb = PutObjectRequest.builder()
                     .bucket(bucketName)

@@ -35,4 +35,4 @@ const presignedURL = s3.getSignedUrl('getObject', {
     Expires: signedUrlExpireSeconds
 })
 console.log(presignedURL)
-//<!-- snippet-end:[s3.JavaScript.get.presignedURL.complete] -->
+// snippet-end:[s3.JavaScript.get.presignedURL.complete]

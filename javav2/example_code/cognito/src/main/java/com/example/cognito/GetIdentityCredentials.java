@@ -19,19 +19,27 @@ import software.amazon.awssdk.services.cognitoidentity.model.GetCredentialsForId
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
 //snippet-end:[cognito.java2.GetIdentityCredentials.import]
 
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class GetIdentityCredentials {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    GetIdentityCredentials <identityId> \n\n" +
+                "    <identityId> \n\n" +
                 "Where:\n" +
                 "    identityId - the Id of an existing identity.\n\n" +
                 "Example:\n" +
                 "    GetIdentityCredentials us-east-2:0000007890000-abcdefgc\n";
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 

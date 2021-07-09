@@ -24,6 +24,14 @@ import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
 // snippet-end:[s3.java2.logging.import]
 
 // snippet-start:[s3.java2.logging.main]
+
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class S3Log {
 
     private static final Logger logger = LogManager.getLogger(S3Log.class);

@@ -17,12 +17,19 @@ package com.example.sqs;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.*;
+import java.util.List;
 // snippet-end:[sqs.java2.sqs_example.import]
 
-import java.util.List;
 
-// snippet-start:[sqs.java2.sqs_example.main]
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class SQSExample {
+
 
     public static void main(String[] args) {
         String queueName = "queue" + System.currentTimeMillis();
@@ -36,11 +43,13 @@ public class SQSExample {
         listQueues(sqsClient);
         listQueuesFilter(sqsClient, queueUrl);
         List<Message> messages = receiveMessages(sqsClient, queueUrl);
+        sendBatchMessages(sqsClient, queueUrl);
         changeMessages(sqsClient, queueUrl, messages);
         deleteMessages(sqsClient, queueUrl,  messages) ;
         sqsClient.close();
     }
 
+    // snippet-start:[sqs.java2.sqs_example.main]
     public static String createQueue(SqsClient sqsClient,String queueName ) {
 
         try {
@@ -141,7 +150,6 @@ public class SQSExample {
     }
 
     public static  List<Message> receiveMessages(SqsClient sqsClient, String queueUrl) {
-
 
         System.out.println("\nReceive messages");
 

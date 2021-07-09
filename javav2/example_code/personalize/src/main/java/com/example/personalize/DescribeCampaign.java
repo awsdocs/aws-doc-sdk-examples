@@ -22,6 +22,13 @@ import software.amazon.awssdk.services.personalize.model.Campaign;
 import software.amazon.awssdk.services.personalize.model.PersonalizeException;
 //snippet-end:[personalize.java2.describe_campaign.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class DescribeCampaign {
 
     public static void main(String[] args) {
@@ -37,9 +44,7 @@ public class DescribeCampaign {
             System.exit(1);
         }
 
-        /* Read the name from command args */
         String campaignArn = args[0];
-
         Region region = Region.US_EAST_1;
         PersonalizeClient personalizeClient = PersonalizeClient.builder()
                 .region(region)

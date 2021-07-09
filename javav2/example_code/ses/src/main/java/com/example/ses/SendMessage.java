@@ -36,6 +36,13 @@ import software.amazon.awssdk.services.ses.model.RawMessage;
 import software.amazon.awssdk.services.ses.model.SesException;
 // snippet-end:[ses.java2.sendmessage.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class SendMessage {
 
     public static void main(String[] args) throws IOException {
@@ -50,14 +57,14 @@ public class SendMessage {
 
          if (args.length != 3) {
             System.out.println(USAGE);
-            System.exit(1);
+           System.exit(1);
           }
 
         String sender = args[0];
         String recipient = args[1];
         String subject = args[2];
 
-        Region region = Region.US_WEST_2;
+        Region region = Region.US_EAST_1;
         SesClient client = SesClient.builder()
                 .region(region)
                 .build();

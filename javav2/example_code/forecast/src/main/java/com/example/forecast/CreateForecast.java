@@ -21,6 +21,14 @@ import software.amazon.awssdk.services.forecast.model.CreateForecastResponse;
 import software.amazon.awssdk.services.forecast.model.ForecastException;
 // snippet-end:[forecast.java2.create_forecast.import]
 
+
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class CreateForecast {
 
     public static void main(String[] args) {

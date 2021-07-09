@@ -25,7 +25,15 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.create_instance.import]
 
 /**
- * Creates an EC2 instance.
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *
+ * This code example requires an AMI value. You can learn more about this value by reading this documentation topic:
+ *
+ * https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/AMIs.html
  */
 public class CreateInstance {
     public static void main(String[] args) {
@@ -35,7 +43,7 @@ public class CreateInstance {
                 "CreateInstance <name> <amiId>\n\n" +
                 "Where:\n" +
                 "    name - an instance name value that you can obtain from the AWS Console (for example, ami-xxxxxx5c8b987b1a0). \n\n" +
-                "    amiId - an Amazon Machine Image (AMI) value that  you can obtain from the AWS Console (for example, i-xxxxxx2734106d0ab). \n\n" ;
+                "    amiId - an Amazon Machine Image (AMI) value that you can obtain from the AWS Console (for example, i-xxxxxx2734106d0ab). \n\n" ;
 
         if (args.length != 2) {
             System.out.println(USAGE);

@@ -19,7 +19,11 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.DeleteSubscriptionFi
 // snippet-end:[cloudwatch.java2.delete_subscription_filter.import]
 
 /**
- * Deletes a CloudWatch Logs subscription filter.
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
 public class DeleteSubscriptionFilter {
@@ -30,7 +34,7 @@ public class DeleteSubscriptionFilter {
                 "  DeleteSubscriptionFilter <filter> <logGroup>\n\n" +
                 "Where:\n" +
                 "  filter - the name of the subscription filter (for example, MyFilter).\n" +
-                "  logGroup - the name of the log group. (for example,testgroup).\n" ;
+                "  logGroup - the name of the log group. (for example, testgroup).\n" ;
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -39,7 +43,6 @@ public class DeleteSubscriptionFilter {
 
         String filter = args[0];
         String logGroup = args[1];
-
         CloudWatchLogsClient logs = CloudWatchLogsClient.builder()
                 .build();
 

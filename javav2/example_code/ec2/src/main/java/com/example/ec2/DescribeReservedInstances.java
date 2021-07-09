@@ -21,6 +21,13 @@ import software.amazon.awssdk.services.ec2.model.ReservedInstances;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.describe_reserved_instances.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class DescribeReservedInstances {
 
     public static void main(String[] args) {

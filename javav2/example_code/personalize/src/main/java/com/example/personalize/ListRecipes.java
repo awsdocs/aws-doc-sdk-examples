@@ -20,9 +20,16 @@ import software.amazon.awssdk.services.personalize.model.ListRecipesRequest;
 import software.amazon.awssdk.services.personalize.model.ListRecipesResponse;
 import software.amazon.awssdk.services.personalize.model.PersonalizeException;
 import software.amazon.awssdk.services.personalize.model.RecipeSummary;
+import java.util.List;
 //snippet-end:[personalize.java2.list_recipes.import]
 
-import java.util.List;
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 
 public class ListRecipes {
 

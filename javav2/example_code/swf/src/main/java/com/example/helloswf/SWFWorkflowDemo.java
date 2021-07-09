@@ -11,7 +11,6 @@
    SPDX-License-Identifier: Apache-2.0
 */
 package com.example.helloswf;
-
 // snippet-start:[swf.java2.activity_types.complete]
 // snippet-start:[swf.java2.activity_types.import]
 import software.amazon.awssdk.regions.Region;
@@ -25,7 +24,13 @@ import software.amazon.awssdk.services.swf.model.RegisterWorkflowTypeRequest;
 import software.amazon.awssdk.services.swf.model.ChildPolicy;
 // snippet-end:[swf.java2.activity_types.import]
 
-
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class SWFWorkflowDemo {
 
     public static void main(String[] args) {

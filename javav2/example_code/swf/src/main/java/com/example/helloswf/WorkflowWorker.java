@@ -10,6 +10,7 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
+
 // snippet-start:[swf.java2.task_request.complete]
 package com.example.helloswf;
 
@@ -30,6 +31,13 @@ import java.util.List;
 import java.util.UUID;
 // snippet-end:[swf.java2.task_request.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class WorkflowWorker {
 
     public static void main(String[] args) {

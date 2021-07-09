@@ -24,6 +24,13 @@ import software.amazon.awssdk.services.ssm.model.OpsItem;
 import software.amazon.awssdk.services.ssm.model.SsmException;
 // snippet-end:[ssm.Java2.get_ops.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class GetOpsItem {
     public static void main(String[] args) {
 

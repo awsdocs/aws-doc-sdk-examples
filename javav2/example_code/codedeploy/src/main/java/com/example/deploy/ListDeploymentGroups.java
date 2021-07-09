@@ -20,6 +20,13 @@ import software.amazon.awssdk.services.codedeploy.model.ListDeploymentGroupsRequ
 import software.amazon.awssdk.services.codedeploy.model.ListDeploymentGroupsResponse;
 // snippet-end:[codedeploy.java2._list_groups.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 import java.util.List;
 
 public class ListDeploymentGroups {

@@ -1,61 +1,64 @@
 ---
 # Amazon SES basic usage examples
 files:
-  - path: ses_createreceiptfilter.ts
+  - path: ./libs/sesClient.js
     services:
       - ses
-  - path: ses_createreceiptrule.ts
+  - path: ses_createreceiptfilter.js
     services:
       - ses
-  - path: ses_createreceiptruleset.ts
+  - path: ses_createreceiptrule.js
     services:
       - ses
-  - path: ses_createtemplate.ts
+  - path: ses_createreceiptruleset.js
     services:
       - ses
-  - path: ses_deleteidentity.ts
+  - path: ses_createtemplate.js
     services:
       - ses
-  - path: ses_deletereceiptfilter.ts
+  - path: ses_deleteidentity.js
     services:
       - ses
-  - path: ses_deletereceiptrule.ts
+  - path: ses_deletereceiptfilter.js
     services:
       - ses
-  - path: ses_deletereceiptruleset.ts
+  - path: ses_deletereceiptrule.js
     services:
       - ses
-  - path: ses_deletetemplate.ts
+  - path: ses_deletereceiptruleset.js
     services:
       - ses
-  - path: ses_gettemplate.ts
+  - path: ses_deletetemplate.js
     services:
       - ses
-  - path: ses_listidentities.ts
+  - path: ses_gettemplate.js
     services:
       - ses
-  - path: ses_listreceiptfilters.ts
+  - path: ses_listidentities.js
     services:
       - ses
-  - path: ses_listtemplates.ts
+  - path: ses_listreceiptfilters.js
     services:
       - ses
-  - path: ses_sendbulktemplatedemail.ts
+  - path: ses_listtemplates.js
     services:
       - ses
-  - path: ses_sendemail.ts
+  - path: ses_sendbulktemplatedemail.js
     services:
       - ses
-  - path: ses_sendtemplatedemail.ts
+  - path: ses_sendemail.js
     services:
       - ses
-  - path: ses_updatetemplate.ts
+  - path: ses_sendtemplatedemail.js
     services:
       - ses
-  - path: ses_verifydomainidentity.ts
+  - path: ses_updatetemplate.js
     services:
       - ses
-  - path: ses_verifyemailidentity.ts
+  - path: ses_verifydomainidentity.js
+    services:
+      - ses
+  - path: ses_verifyemailidentity.js
     services:
       - ses
 ...

@@ -38,8 +38,13 @@ import java.util.Map;
 /**
  *  To setup the model data and other requirements to make this Java V2 example work, follow this AWS tutorial prior to running this Java code example.
  *  https://aws.amazon.com/getting-started/hands-on/build-train-deploy-machine-learning-model-sagemaker/
+ *
+ * Also, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class CreateTrainingJob {
 
     public static void main(String[] args) {

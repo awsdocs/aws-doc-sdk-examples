@@ -21,16 +21,19 @@ import software.amazon.awssdk.services.cloudwatch.model.Dimension;
 import software.amazon.awssdk.services.cloudwatch.model.MetricDatum;
 import software.amazon.awssdk.services.cloudwatch.model.StandardUnit;
 import software.amazon.awssdk.services.cloudwatch.model.PutMetricDataRequest;
-import software.amazon.awssdk.services.cloudwatch.model.PutMetricDataResponse;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
-
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 // snippet-end:[cloudwatch.java2.put_metric_data.import]
+
 /**
- * Puts a sample metric data point
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class PutMetricData {
     public static void main(String[] args) {

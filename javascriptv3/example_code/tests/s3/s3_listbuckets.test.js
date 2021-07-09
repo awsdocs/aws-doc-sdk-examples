@@ -1,13 +1,14 @@
-const mockListBuckets = jest.fn();
-jest.mock("@aws-sdk/client-s3", () => ({
-  S3: function S3() {
-    this.listBuckets = mockListBuckets;
-  },
-}));
-const { bucketParams, run } = require("../../s3/s3_listbuckets");
+const { run } = require("../../s3/src/s3_listbuckets");
+const { s3Client } = require("../../s3/src/libs/s3Client.js");
 
-test("has to mock S3#listBuckets", async (done) => {
-  await run();
-  expect(mockListBuckets).toHaveBeenCalledWith();
-  done();
+jest.mock("../../s3/src/libs/s3Client.js");
+
+describe("@aws-sdk/client-s3 mock", () => {
+    it("should successfully mock s3 client", async () => {
+        s3Client.send.mockResolvedValue({ isMock: true });
+
+        const response = await run();
+
+        expect(response.isMock).toEqual(true);
+    });
 });

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Shows how to use the AWS SDK for JavaScript (v3pa) to build a React application
+Shows how to use the AWS SDK for JavaScript (v3) to build a React application
 that uses Amazon Textract to extract data from a document image and display it in
 an interactive web page. This example runs in a web browser and requires an 
 authenticated Amazon Cognito identity for credentials. It uses Amazon Simple Storage 

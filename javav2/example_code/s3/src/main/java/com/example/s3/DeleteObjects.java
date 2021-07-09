@@ -22,6 +22,14 @@ import software.amazon.awssdk.services.s3.model.DeleteObjectsRequest;
 import java.util.ArrayList;
 // snippet-end:[s3.java2.delete_objects.import]
 
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class DeleteObjects {
 
     public static void main(String[] args) {

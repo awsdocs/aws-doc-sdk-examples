@@ -1,82 +1,85 @@
 ---
 # Amazon S3 examples
 files:
-  - path: ../photoViewer/src/s3_PhotoViewer.ts
+  - path: ./libs/s3Client.js
     services:
       - s3
-  - path: ../photoExample/src/s3_PhotoExample.ts
+  - path: ../photoViewer/src/s3_PhotoViewer.js
     services:
       - s3
-  - path: s3_createbucket.ts
+  - path: ../photoExample/src/s3_PhotoExample.js
     services:
       - s3
-  - path: s3_deletebucket.ts
+  - path: s3_createbucket.js
     services:
       - s3
-  - path: s3_deletebucketpolicy.ts
+  - path: s3_deletebucket.js
     services:
       - s3
-  - path: s3_deletebucketwebsite.ts
+  - path: s3_deletebucketpolicy.js
     services:
       - s3
-  - path: s3_delete_object.ts
+  - path: s3_deletebucketwebsite.js
+    services:
+      - s3
+  - path: s3_delete_object.js
       services:
       - s3
-  - path: s3_delete_all_objects.ts
+  - path: s3_delete_all_objects.js
       services:
       - s3
-  - path: s3_delete_multiple_objects.ts
+  - path: s3_delete_multiple_objects.js
       services:
       - s3
-  - path: s3_getbucketacl.ts
+  - path: s3_getbucketacl.js
     services:
       - s3
-  - path: s3_putbucketacl.ts
+  - path: s3_putbucketacl.js
     services:
       - s3
-  - path: s3_getbucketpolicy.ts
+  - path: s3_getbucketpolicy.js
     services:
       - s3
-  - path: s3_getbucketwebsite.ts
+  - path: s3_getbucketwebsite.js
     services:
       - s3
-  - path: s3_getcors.ts
+  - path: s3_getcors.js
     services:
       - s3
-  - path: s3_setcors.ts
+  - path: s3_setcors.js
     services:
       - s3
-  - path: s3_listbuckets.ts
+  - path: s3_listbuckets.js
     services:
       - s3
-  - path: s3_listobjects.ts
+  - path: s3_listobjects.js
     services:
       - s3
-  - path: s3_setbucketwebsite.ts
+  - path: s3_setbucketwebsite.js
     services:
       - s3
-  - path: s3_multipartupload.ts
+  - path: s3_multipartupload.js
     services:
       - s3
-  - path: s3_putbucketpolicy.ts
+  - path: s3_putbucketpolicy.js
     services:
       - s3
-  - path: s3_list1000plusobjects.ts
+  - path: s3_list1000plusobjects.js
     services:
       - s3
-  - path: s3_create_and_upload_object.ts
+  - path: s3_create_and_upload_object.js
     services:
       - s3
-  - path: s3_upload_object.ts
+  - path: s3_upload_object.js
     services:
       - s3
-  - path: s3_put_presignedURL.ts
+  - path: s3_put_presignedURL.js
     services:
       - s3
-  - path: s3.ts
+  - path: s3.js
     services:
       - s3
-  - path: s3_getobject.ts
+  - path: s3_getobject.js
     services:
       - s3
 ...

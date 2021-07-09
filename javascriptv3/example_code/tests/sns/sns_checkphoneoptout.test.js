@@ -1,16 +1,12 @@
-const mockCheckPhoneOptOut = jest.fn();
-jest.mock(
-  "@aws-sdk/client-sns/commands/CheckIfPhoneNumberIsOptedOutCommand",
-  () => ({
-    SNS: function SNS() {
-      this.CheckIfPhoneNumberIsOptedOutCommand = mockCheckPhoneOptOut;
-    },
-  })
-);
-const { run } = require("../../sns/src/sns_checkphoneoptout.js");
+const { run, params } = require("../../sns/src/sns_checkphoneoptout");
+const { snsClient } = require("../../sns/src/libs/snsClient.js");
 
-test("has to mock SNS#checkphoneoptout", async (done) => {
-  await run();
-  expect(mockCheckPhoneOptOut).toHaveBeenCalled;
-  done();
+jest.mock("../../sns/src/libs/snsClient.js");
+
+describe("@aws-sdk/client-sns mock", () => {
+    it("should successfully mock SNS client", async () => {
+        snsClient.send.mockResolvedValue({ isMock: true });
+        const response = await run(params);
+        expect(response.isMock).toEqual(true);
+    });
 });

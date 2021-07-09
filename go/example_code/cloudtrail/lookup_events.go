@@ -33,9 +33,9 @@ import (
 
     "flag"
     "fmt"
-    "os"
     "time"
 )
+
 // snippet-end:[cloudtrail.go.lookup_events.imports]
 
 func main() {
@@ -47,7 +47,7 @@ func main() {
 
     if *trailNamePtr == "" {
         fmt.Println("You must supply a trail name")
-        os.Exit(1)
+        return
     }
     // snippet-end:[cloudtrail.go.lookup_events.vars]
 
@@ -66,7 +66,7 @@ func main() {
     if err != nil {
         fmt.Println("Got error calling CreateTrail:")
         fmt.Println(err.Error())
-        os.Exit(1)
+        return
     }
 
     fmt.Println("Found", len(resp.Events), "events before now")
@@ -92,4 +92,5 @@ func main() {
         // snippet-end:[cloudtrail.go.lookup_events.lookup]
     }
 }
+
 // snippet-end:[cloudtrail.go.lookup_events.complete]

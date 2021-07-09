@@ -27,8 +27,12 @@ import java.util.List;
 import java.util.Map;
 //snippet-end:[pinpoint.java2.send_voice_message.import]
 
-/*
- This example calls the specified phone number and says the value of ssmlMessage.
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class SendVoiceMessage {
 

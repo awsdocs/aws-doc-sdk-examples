@@ -19,6 +19,14 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.RebootInstancesRequest;
 // snippet-end:[ec2.java2.reboot_instance.import]
 
+
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class RebootInstance {
 
     public static void main(String[] args) {

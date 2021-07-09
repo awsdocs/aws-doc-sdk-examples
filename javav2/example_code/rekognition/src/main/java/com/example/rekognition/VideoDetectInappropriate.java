@@ -26,10 +26,16 @@ import software.amazon.awssdk.services.rekognition.model.GetContentModerationRes
 import software.amazon.awssdk.services.rekognition.model.GetContentModerationRequest;
 import software.amazon.awssdk.services.rekognition.model.VideoMetadata;
 import software.amazon.awssdk.services.rekognition.model.ContentModerationDetection;
+import java.util.List;
 // snippet-end:[rekognition.java2.recognize_video_moderation.import]
 
-import java.util.List;
-
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class VideoDetectInappropriate {
 
     private static String startJobId ="";

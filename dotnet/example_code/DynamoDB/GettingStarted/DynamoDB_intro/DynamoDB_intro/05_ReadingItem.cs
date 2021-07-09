@@ -35,4 +35,5 @@ namespace DynamoDB_intro
       }
     }
   }
-}// snippet-end:[dynamodb.dotNET.CodeExample.05_ReadingItem]
+}
+// snippet-end:[dynamodb.dotNET.CodeExample.05_ReadingItem]

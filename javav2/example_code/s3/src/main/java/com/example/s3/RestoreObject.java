@@ -1,5 +1,5 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[RestoreObject.java demonstrates how to restore an archived copy of an object back into an Amazon S3 Amazon Simple Storage Service (Amazon S3) bucket.]
+// snippet-sourcedescription:[RestoreObject.java demonstrates how to restores an archived copy of an object back into an Amazon S3 Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
@@ -38,7 +38,7 @@ public class RestoreObject {
                 "    RestoreObject <bucketName> <keyName> <expectedBucketOwner>\n\n" +
                 "Where:\n" +
                 "    bucketName - the Amazon S3 bucket name. \n\n" +
-                "    keyName - the key name of an object. \n\n" +
+                "    keyName - the key name of an object with a Storage class value of Glacier. \n\n" +
                 "    expectedBucketOwner - the account that owns the bucket (you can obtain this value from the AWS Management Console). \n\n";
 
         if (args.length != 3) {

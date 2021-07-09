@@ -22,8 +22,15 @@ import software.amazon.awssdk.services.iam.IamClient;
 import java.io.FileReader;
 
 /*
-    This example requires a trust policy document. For more information, see:
-    https://aws.amazon.com/blogs/security/how-to-use-trust-policies-with-iam-roles/
+*    This example requires a trust policy document. For more information, see:
+*    https://aws.amazon.com/blogs/security/how-to-use-trust-policies-with-iam-roles/
+*
+*
+* In addition, ensure that you have setup your development environment, including your credentials.
+*
+* For information, see this documentation topic:
+*
+* https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
 

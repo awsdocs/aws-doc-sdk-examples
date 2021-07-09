@@ -1,25 +1,15 @@
-//snippet-sourcedescription:[PutObject.java demonstrates how to upload an MP4 file to an AWS Elemental MediaStore container.]
-//snippet-keyword:[Java]
+//snippet-sourcedescription:[PutObject.java demonstrates how to upload a MP4 file to an AWS Elemental MediaStore container.]
+//snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Elemental MediaStore]
 //snippet-service:[AWS Elemental MediaStore]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[9/1/2020]
-//snippet-sourceauthor:[scmacdon AWS]
+//snippet-sourcedate:[11/05/2020]
+//snippet-sourceauthor:[scmacdon - AWS]
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.mediastore;
 
@@ -38,21 +28,27 @@ import java.net.URI;
 import java.net.URISyntaxException;
 //snippet-end:[mediastore.java2.put_object.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class PutObject {
 
     public static void main(String[] args) throws URISyntaxException {
 
         final String USAGE = "\n" +
-                "To run this example, supply the name of a container, a file location to use, and path in the container. \n" +
+                "To run this example, supply the name of a container, a file location to use, and path in the container \n" +
                "\n" +
-                "Example: PutObject <containerName><filePath><completePath>\n";
+                "Ex: PutObject <containerName><filePath><completePath>\n";
 
          if (args.length < 3) {
              System.out.println(USAGE);
              System.exit(1);
         }
 
-        /* Read the name from command args */
         String containerName = args[0];
         String filePath = args[1];
         String completePath = args[2];
@@ -66,6 +62,7 @@ public class PutObject {
                 .build();
 
         putMediaObject(mediaStoreData, filePath, completePath);
+        mediaStoreData.close();
     }
 
     //snippet-start:[mediastore.java2.put_object.main]
@@ -77,7 +74,7 @@ public class PutObject {
 
             PutObjectRequest objectRequest = PutObjectRequest.builder()
                 .path(completePath)
-                 .contentType("video/mp4")
+                .contentType("video/mp4")
                 .build();
 
             PutObjectResponse response = mediaStoreData.putObject(objectRequest, requestBody );

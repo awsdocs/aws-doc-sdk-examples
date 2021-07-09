@@ -18,7 +18,6 @@ namespace CopyObject
     public class CopyObject
     {
         // Specify the AWS Region where your buckets are located (an example Region is shown).
-        private static readonly RegionEndpoint BUCKET_REGION = RegionEndpoint.USWest2;
         private static IAmazonS3 _s3Client;
 
         // Remember to change these values to refer to your own Amazon S3 objects.
@@ -29,7 +28,7 @@ namespace CopyObject
 
         static async Task Main()
         {
-            _s3Client = new AmazonS3Client(BUCKET_REGION);
+            _s3Client = new AmazonS3Client();
 
             Console.WriteLine($"Copying {SOURCE_OBJ_KEY} from {SOURCE_BUCKET_NAME} to ");
             Console.WriteLine($"{DESTINATION_BUCKET_NAME} as {DESTINATION_OBJ_KEY}");

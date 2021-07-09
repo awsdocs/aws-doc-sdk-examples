@@ -116,6 +116,13 @@ import software.amazon.awssdk.services.mediaconvert.model.M3u8Scte35Source;
 /**
  * Create a MediaConvert job. Must supply MediaConvert access role Amazon Resource Name (ARN), and a
  * valid video input file via Amazon S3 URL.
+ *
+ * Also, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *
  */
 public class CreateJob {
 
