@@ -24,6 +24,7 @@ specific language governing permissions and limitations under the License.
 #include <aws/core/Aws.h>
 #include <aws/core/utils/threading/Executor.h>
 #include <aws/transfer/TransferManager.h>
+#include <aws/transfer/TransferHandle.h>
 #include <aws/s3/S3Client.h>
 #include <aws/core/utils/memory/AWSMemory.h>
 #include <aws/core/utils/memory/stl/AWSStreamFwd.h>
@@ -73,10 +74,11 @@ int main(int argc, char** argv)
     LOCAL_FILE_COPY += "_copy";
 
     Aws::SDKOptions options;
-    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Trace;
+    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Trace; //Turn on logging.
 
     Aws::InitAPI(options);
     {
+        // snippet-start:[transfer-manager.cpp.transferOnStream.code]
         auto s3_client = Aws::MakeShared<Aws::S3::S3Client>("S3Client");
         auto executor = Aws::MakeShared<Aws::Utils::Threading::PooledThreadExecutor>("executor", 25);
         Aws::Transfer::TransferManagerConfiguration transfer_config(executor.get());
@@ -86,35 +88,53 @@ int main(int argc, char** argv)
 
         auto uploadHandle = transfer_manager->UploadFile(LOCAL_FILE, BUCKET, KEY, "text/plain", Aws::Map<Aws::String, Aws::String>());
         uploadHandle->WaitUntilFinished();
-        std::cout << "File upload finished!" << std::endl;
+        bool success = uploadHandle->GetStatus() == Transfer::TransferStatus::COMPLETED; 
+      
+        if (!success)
+        {
+            auto err = uploadHandle->GetLastError();           
+            std::cout << "File upload failed:  "<< err.GetMessage() << std::endl;
+        }
+        else
+        {
+            std::cout << "File upload finished." << std::endl;
 
-        // verify upload expected length of data
-        assert(uploadHandle->GetBytesTotalSize() == uploadHandle->GetBytesTransferred());
-        g_file_size = uploadHandle->GetBytesTotalSize();
+            // Verify upload expected length of data
+            assert(uploadHandle->GetBytesTotalSize() == uploadHandle->GetBytesTransferred());
+            g_file_size = uploadHandle->GetBytesTotalSize();
 
-        // This buffer is what we used to initialize streambuf and is in memory
-        Aws::Utils::Array<unsigned char> buffer(BUFFER_SIZE);
-        auto downloadHandle = transfer_manager->DownloadFile(BUCKET,
-                KEY, 
+            // This buffer is what we used to initialize streambuf and is in memory
+            Aws::Utils::Array<unsigned char> buffer(BUFFER_SIZE);
+            auto downloadHandle = transfer_manager->DownloadFile(BUCKET,
+                KEY,
                 [&]() { //create stream lambda fn
                     return Aws::New<MyUnderlyingStream>("TestTag", Aws::New<Stream::PreallocatedStreamBuf>("TestTag", buffer.GetUnderlyingData(), BUFFER_SIZE));
                 });
-        downloadHandle->WaitUntilFinished();
-        std::cout << "File download to memory finished!" << std::endl;
+            downloadHandle->WaitUntilFinished();// block calling thread until download complete
+            auto downStat = downloadHandle->GetStatus();
+            if (downStat != Transfer::TransferStatus::COMPLETED)
+            {
+                auto err = downloadHandle->GetLastError();
+                std::cout << "File download failed:  " << err.GetMessage() << std::endl;
+            }
+            std::cout << "File download to memory finished."  << std::endl;
+            // snippet-end:[transfer-manager.cpp.transferOnStream.code]
+             
+            
+            // verify download expected length of data
+            assert(downloadHandle->GetBytesTotalSize() == downloadHandle->GetBytesTransferred());
 
-        // verify download expected length of data
-        assert(downloadHandle->GetBytesTotalSize() == downloadHandle->GetBytesTransferred());
+            // verify length of upload equals download 
+            assert(uploadHandle->GetBytesTotalSize() == downloadHandle->GetBytesTotalSize());
 
-        // verify length of upload equals download 
-        assert(uploadHandle->GetBytesTotalSize() == downloadHandle->GetBytesTotalSize());
+            // write buffered data to local file copy
+            Aws::OFStream storeFile(LOCAL_FILE_COPY.c_str(), Aws::OFStream::out | Aws::OFStream::trunc);
+            storeFile.write((const char*)(buffer.GetUnderlyingData()), downloadHandle->GetBytesTransferred());
+            storeFile.close();
 
-        // write buffered data to local file copy
-        Aws::OFStream storeFile(LOCAL_FILE_COPY.c_str(), Aws::OFStream::out | Aws::OFStream::trunc);
-        storeFile.write((const char*)(buffer.GetUnderlyingData()), downloadHandle->GetBytesTransferred());
-        storeFile.close();
-        std::cout << "File dumpped to local file finished! You can verify the two files' content using md5sum." << std::endl;
-
-        // verify upload file is the same as downloaded copy. I did that simply using `md5sum file file_copy`
+            std::cout << "File dumped to local file finished. You can verify the two files' content using md5sum." << std::endl;
+            // verify upload file is the same as downloaded copy. Can be done simply using `md5sum file file_copy`
+        }
     }
     Aws::ShutdownAPI(options);
 }
