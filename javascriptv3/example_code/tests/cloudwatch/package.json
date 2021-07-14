@@ -7,8 +7,6 @@
   "license": "Apache 2.0",
   "dependencies": {
     "@aws-sdk/client-cloudwatch": "^3.3.0",
-    "@aws-sdk/client-cloudwatch-events": "^3.3.0",
-    "@aws-sdk/client-cloudwatch-logs": "^3.3.0",
     "@aws-sdk/node-http-handler": "^3.3.0",
     "@aws-sdk/types": "^3.3.0",
     "node-fetch": "^2.6",

@@ -1,13 +1,12 @@
-const mockDeleteCluster = jest.fn();
-jest.mock("@aws-sdk/client-redshift-node", () => ({
-    Redshift: function Redshift() {
-        this.DeleteClusterCommand = mockDeleteCluster;
-    },
-}));
-const { run } = require("../../redshift/src/redshift-create-cluster.ts");
+const { run, params } = require("../../redshift/src/redshift-delete-cluster");
+const { redshiftClient } = require("../../redshift/src/libs/redshiftClient.js");
 
-test("has to mock RedShift#deleteCluster", async (done) => {
-    await run();
-    expect(mockDeleteCluster).toHaveBeenCalled;
-    done();
+jest.mock("../../redshift/src/libs/redshiftClient.js");
+
+describe("@aws-sdk/client-redshift mock", () => {
+  it("should successfully mock redshift client", async () => {
+    redshiftClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

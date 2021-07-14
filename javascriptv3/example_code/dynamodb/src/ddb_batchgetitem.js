@@ -9,8 +9,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 Purpose:
 ddb_batchgetitem.js demonstrates how to retrieve items from an Amazon DynamoDB table.
 
-Inputs (replace in code):
-- REGION
+INPUTS:
 - TABLE
 - KEY_NAME
 - KEY_VALUE

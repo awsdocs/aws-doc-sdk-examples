@@ -1,0 +1,53 @@
+[
+  {
+    "year": 2013,
+    "title": "Turn It Down, Or Else!",
+    "info": {
+      "directors": [
+        "Alice Smith",
+        "Bob Jones"
+      ],
+      "release_date": "2013-01-18T00:00:00Z",
+      "rating": 6.2,
+      "genres": [
+        "Comedy",
+        "Drama"
+      ],
+      "image_url": "http://ia.media-imdb.com/images/N/O9ERWAU7FS797AJ7LU8HN09AMUP908RLlo5JF90EWR7LJKQ7@@._V1_SX400_.jpg",
+      "plot": "A rock band plays their music at high volumes, annoying the neighbors.",
+      "rank": 11,
+      "running_time_secs": 5215,
+      "actors": [
+        "David Matthewman",
+        "Ann Thomas",
+        "Jonathan G. Neff"
+      ]
+    }
+  },
+  {
+    "year": 2013,
+    "title": "Rush",
+    "info": {
+      "directors": [
+        "Ron Howard"
+      ],
+      "release_date": "2013-09-02T00:00:00Z",
+      "rating": 8.3,
+      "genres": [
+        "Action",
+        "Biography",
+        "Drama",
+        "Sport"
+      ],
+      "image_url": "http://ia.media-imdb.com/images/M/MV5BMTQyMDE0MTY0OV5BMl5BanBnXkFtZTcwMjI2OTI0OQ@@._V1_SX400_.jpg",
+      "plot": "A re-creation of the merciless 1970s rivalry between Formula One rivals James Hunt and Niki Lauda.",
+      "rank": 2,
+      "running_time_secs": 7380,
+      "actors": [
+        "Daniel Bruhl",
+        "Chris Hemsworth",
+        "Olivia Wilde"
+      ]
+    }
+  }
+]

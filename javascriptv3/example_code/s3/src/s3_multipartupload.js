@@ -3,15 +3,17 @@ SPDX-License-Identifier: Apache-2.0
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
+
 Purpose:
 s3_multipartupload.js demonstrates how to upload a single object to an Amazon Simple Storage Solution (S3) bucket
  as a set of parts.
  For more information about multipart uploads, see https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html.
+
 Inputs (replace in code):
-- REGION
 - BUCKET_NAME
 - LARGE_FILE_NAME
 - NUMBER_OF_PARTS - between 1 and 10000. Enter without surrounding inverted commas.
+
 Running the code:
 nodes3_createbucket.js
 */
@@ -23,7 +25,7 @@ import {
   UploadPartCommand,
   CompleteMultipartUploadCommand }
 from "@aws-sdk/client-s3";
- import { s3 } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
 // Set the parameters.
 const createParams = {
@@ -37,7 +39,7 @@ const parts = NUMBER_OF_PARTS; // For example, 3.
 const run = async () => {
   try {
     // Create the mutlipart upload.
-    const data = await s3.send(
+    const data = await s3Client.send(
       new CreateMultipartUploadCommand(createParams)
     );
     console.log("Upload started. Upload ID: ", data.UploadId);
@@ -52,9 +54,9 @@ const run = async () => {
         UploadId: data.UploadId,
       };
       try {
-        const data = await s3.send(new UploadPartCommand(uploadParams));
+        const data = await s3Client.send(new UploadPartCommand(uploadParams));
         console.log("Part uploaded. ETag: ", data.ETag);
-        return data;
+        return data; // For unit tests.
         var completeParams = {
           Bucket: createParams.Bucket,
           Key: createParams.Key,
@@ -77,11 +79,11 @@ const run = async () => {
   }
   try {
     // Complete the mutlipart upload.
-    const data = await s3.send(
+    const data = await s3Client.send(
       new CompleteMultipartUploadCommand(completeParams)
     );
     console.log("Upload completed. File location: ", data.Location);
-    return data;
+    return data; // For unit tests.
 
   } catch (err) {
     console.log("Error ", err);

@@ -1,13 +1,12 @@
-const mockDeleteAccessKey = jest.fn();
-jest.mock("@aws-sdk/client-iam/commands/DeleteAccessKeyCommand", () => ({
-  IAM: function IAM() {
-    this.DeleteAccessKeyCommand = mockDeleteAccessKey;
-  },
-}));
-const { params, run } = require("../../iam/src/iam_deleteaccesskey.js");
+const { run, params } = require("../../iam/src/iam_deleteaccesskey");
+const { iamClient } = require("../../iam/src/libs/iamClient.js");
 
-test("has to mock iam#deleteaccesskey", async (done) => {
-  await run();
-  expect(mockDeleteAccessKey).toHaveBeenCalled;
-  done();
+jest.mock("../../iam/src/libs/iamClient.js");
+
+describe("@aws-sdk/client-iam mock", () => {
+  it("should successfully mock IAM client", async () => {
+    iamClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

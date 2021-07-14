@@ -17,7 +17,7 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/erverless-work
 // Load the required clients and commands.
 const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb");
 
-const REGION = "eu-west-1"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 // Create the client service objects.
     const dbclient = new DynamoDBClient({ region: REGION });
 exports.handler = async (event) => {

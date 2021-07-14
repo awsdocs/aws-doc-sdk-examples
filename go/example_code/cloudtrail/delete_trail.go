@@ -33,8 +33,8 @@ import (
 
     "flag"
     "fmt"
-    "os"
 )
+
 // snippet-end:[cloudtrail.go.delete_trail.imports]
 
 func main() {
@@ -46,7 +46,7 @@ func main() {
 
     if *trailNamePtr == "" {
         fmt.Println("You must supply a trail name")
-        os.Exit(1)
+        return
     }
     // snippet-end:[cloudtrail.go.delete_trail.vars]
 
@@ -65,10 +65,11 @@ func main() {
     if err != nil {
         fmt.Println("Got error calling CreateTrail:")
         fmt.Println(err.Error())
-        os.Exit(1)
+        return
     }
 
     fmt.Println("Successfully deleted trail", *trailNamePtr)
     // snippet-end:[cloudtrail.go.delete_trail.delete]
 }
+
 // snippet-end:[cloudtrail.go.delete_trail.complete]

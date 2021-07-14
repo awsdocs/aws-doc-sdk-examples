@@ -46,4 +46,5 @@ namespace DynamoDB_intro
      return true;
     }
   }
-}// snippet-end:[dynamodb.dotNET.CodeExample.07_DeletingItem]
+}
+// snippet-end:[dynamodb.dotNET.CodeExample.07_DeletingItem]

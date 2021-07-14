@@ -8,8 +8,7 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examp
 Purpose:
 ddb_createtable.js demonstrates how to create an Amazon DynamoDB table.
 
-Inputs (replace in code):
-- REGION
+INPUTS:
 - TABLE_NAME
 - ATTRIBUTE_NAME_1: the name of the partition key
 - ATTRIBUTE_NAME_2: the name of the sort key (optional)

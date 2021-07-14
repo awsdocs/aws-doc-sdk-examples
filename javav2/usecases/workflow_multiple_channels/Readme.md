@@ -979,7 +979,7 @@ In this step, you create an Amazon RDS MySQL instance that is used by the Lambda
 
 13. Wait for the Status of your new DB instance to show as Available. Then choose the DB instance name to show its details.
 
-**Note**: You must set up inbound rules for the security group to connect to the database. You can set up an inbound rule for your development environment. Setting up an inbound rule essentially means enabling an IP address to use the database. Once you set up the inbound rules, you can connect to the database from a client such as MySQL Workbench. For information about setting up security group inbound rules, see [Controlling Access with Security Groups]https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).
+**Note**: You must set up inbound rules for the security group to connect to the database. You can set up an inbound rule for your development environment. Setting up an inbound rule essentially means enabling an IP address to use the database. Once you set up the inbound rules, you can connect to the database from a client such as MySQL Workbench. For information about setting up security group inbound rules, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).
 
 ### Obtain the endpoint
 
@@ -1072,7 +1072,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 **Note** Repeat this procedure for the **HandlerVoiceNot** class. Name the corresponding Lambda functions **HandlerVoice**. When you finish, you will have two Lambda functions that you can reference in the Amazon States Language document.  
 
-**IMPORTANT**: To connect to the Amazon RDS instance from a Lambda function, you must set the inbound rules using the same security group as the Amazon RDS Instance. For details, [How do I configure a Lambda function to connect to an RDS instance?](https://aws.amazon.com/premiumsupport/knowledge-center/connect-lambda-to-an-rds-instance/).
+**IMPORTANT**: To connect to the Amazon RDS instance from a Lambda function, you must set the inbound rules using the same security group as the Amazon RDS Instance. For details, [How do I configure a Lambda function to connect to an RDS instance](https://aws.amazon.com/premiumsupport/knowledge-center/connect-lambda-to-an-rds-instance/). 
 
 ## Add the Lambda functions to workflows
 

@@ -50,7 +50,12 @@ bool AwsDoc::S3::DeleteBucket(const Aws::String& bucketName,
 
 int main()
 {
-    Aws::String bucket_name = "my-bucket";
+    //TODO: Change bucket_name to the name of a bucket in your account.
+    //If the bucket is not in your account, you will get one of two errors:
+    //AccessDenied if the bucket exists in some other account, or NoSuchBucket
+    //if the bucket does not exist in any account.
+    Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
+    //TODO:  Set region to the region of the bucket bucket_name.
     Aws::String region = "us-east-1";
     
     Aws::SDKOptions options;

@@ -8,8 +8,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 Purpose:
 ddb_putitem.js demonstrates how to create or update an item in an Amazon DynamoDB table.
 
-Inputs (replace in code):
-- REGION
+INPUTS:
 - TABLE_NAME
 
 Running the code:

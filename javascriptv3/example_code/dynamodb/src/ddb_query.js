@@ -8,9 +8,6 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examp
 Purpose:
 ddb_query.js demonstrates how to find items in an Amazon DynamoDB table.
 
-Inputs (replace in code):
-- REGION
-
 Running the code:
 ts-node ddb_query.js
 */

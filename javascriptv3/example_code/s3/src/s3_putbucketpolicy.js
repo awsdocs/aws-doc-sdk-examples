@@ -3,19 +3,21 @@ SPDX-License-Identifier: Apache-2.0
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-dataupload.html.
+
 Purpose:
 s3_putbucketpolicy.js is an example that demonstrates how to attach a permissions policy to an Amazon S3 bucket.
+
 Inputs (replace in code):
-- REGION
 - IDENTITY_POOL_ID
 - TABLE_NAME
+
 Running the code:
 node s3_putbucketpolicy.js
  */
 // snippet-start:[s3.JavaScript.policy.putBucketPolicyV3]
 // Import required AWS SDK clients and commands for Node.js
 import { PutBucketPolicyCommand } from "@aws-sdk/client-s3";
- import { s3 } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
 // Create params JSON for S3.createBucket
 const BUCKET_NAME = "BUCKET_NAME";
@@ -49,7 +51,7 @@ const bucketPolicyParams = {
 const run = async () => {
   try {
     // const response = await s3.putBucketPolicy(bucketPolicyParams);
-    const response = await s3.send(
+    const response = await s3Client.send(
       new PutBucketPolicyCommand(bucketPolicyParams)
     );
     return response;

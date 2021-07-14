@@ -10,7 +10,6 @@ ddbdoc_update_item.js demonstrates how to use the Amazon DynamoDB document clien
 
 Inputs (replace in code):
 - TABLE_NAME
-- REGION
 - primaryKey - Name of the primary key. For example, "id".
 - VALUE_1
 - sortKey - Name of the sor key. For example, "firstName".

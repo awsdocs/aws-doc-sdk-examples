@@ -1,15 +1,16 @@
-# TypeScript environment for Amazon Pinpoint examples
-This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon Pinpoint examples. 
-
-The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
-
-The [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-pinpoint/index.html) contains the API operations for the AWS SDK for JavaScript v3 Amazon Pinpoint client module.
-
+# Amazon Pinpoint JavaScript SDK v3 code examples
 Amazon Pinpoint is a flexible and scalable outbound and inbound marketing communications service. You can connect with customers over channels like email, SMS, push, or voice.
 
+## Code examples
+This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon Pinpoint examples. 
 
+- [Send email messages](src/pinpoint_send_email_message.js)
+- [Send SMS messages](src/pinpoint_send_sms_message.js)
 
-# Getting started
+**Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see 
+[JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-example-javascript-syntax.html).
+
+## Getting started
 
 1. Clone the [AWS SDK Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for instructions.
 
@@ -19,17 +20,18 @@ Amazon Pinpoint is a flexible and scalable outbound and inbound marketing commun
 which is *@aws-sdk/client-pinpoint*.
 
 ```
-npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
+npm install node -g
 cd javascriptv3/example_code/pinpoint
 npm install
 ```
-3. If you're using JavaScript, change the sample file extension from ```.ts``` to ```.js```.
+3. In your text editor, update user variables specified in the ```Inputs``` section of the sample file.
 
-4. In your text editor, update user variables specified in the ```Inputs``` section of the sample file.
-
-5. Run sample code:
+4. Run sample code:
 ```
 cd src
-ts-node [example name].ts // e.g., ts-node pinpoint-create-cluster.ts
+node [example name].js // For example, node pinpoint-create-cluster.js
 ```
+## Resources
+- [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) 
+- [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-pinpoint/index.html) 
 

@@ -1,16 +1,12 @@
-const mockListJobTemps = jest.fn();
-jest.mock(
-  "@aws-sdk/client-mediaconvert/commands/ListJobTemplatesCommand",
-  () => ({
-    MediaConvert: function MediaConvert() {
-      this.ListJobTemplatesCommand = mockListJobTemps;
-    },
-  })
-);
-const { params, run } = require("../../mediaconvert/src/emc_listtemplates");
+const { run, params } = require("../../mediaconvert/src/emc_listtemplates");
+const { emcClient } = require("../../mediaconvert/src/libs/emcClient");
 
-test("has to mock mediaconvert#listjobstemp", async (done) => {
-  await run();
-  expect(mockListJobTemps).toHaveBeenCalled;
-  done();
+jest.mock("../../mediaconvert/src/libs/emcClient.js");
+
+describe("@aws-sdk/client-emc mock", () => {
+    it("should successfully mock EMC client", async () => {
+        emcClient.send.mockResolvedValue({ isMock: true });
+        const response = await run(params);
+        expect(response.isMock).toEqual(true);
+    });
 });

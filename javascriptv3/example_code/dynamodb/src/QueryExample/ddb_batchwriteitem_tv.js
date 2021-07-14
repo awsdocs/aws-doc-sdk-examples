@@ -8,8 +8,6 @@ Purpose:
 ddb_batchwriteitem_tv.js populates the table used for the match query example
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-query-scan.html.
 
-Inputs (replace in code):
-- REGION
 
 Running the code:
 ts-node ddb_batchwriteitem_tv.js

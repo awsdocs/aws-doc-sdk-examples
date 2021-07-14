@@ -10,7 +10,6 @@ ddbdoc_update_query.js demonstrates how to use the Amazon DynamoDB document clie
 
 Inputs (replace in code):
 - TABLE_NAME
-- REGION
 
 Running the code:
 ts-node ddbdoc_update_query.js
