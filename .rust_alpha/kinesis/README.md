@@ -66,16 +66,6 @@ This example adds a record to a Kinesis data streams.
   If this value is not supplied, the region defaults to __us-west-2__.
 - __-v__ display additional information.  
 
-
-
-
-
-
-
-
-
-
-
 ### Notes
 
 - We recommend that you grant this code least privilege,

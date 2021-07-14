@@ -18,21 +18,21 @@ node disableAlarmActions.js
 
 // Import required AWS SDK clients and commands for Node.js
 import { DisableAlarmActionsCommand } from "@aws-sdk/client-cloudwatch";
-import { cwClient } from "./libs/cloudWatchClient";
+import { cwClient } from "./libs/cloudWatchClient.js";
 
 // Set the parameters
-const params = { AlarmNames: "ALARM_NAME" }; // e.g., "Web_Server_CPU_Utilization"
+export const params = { AlarmNames: "ALARM_NAME" }; // e.g., "Web_Server_CPU_Utilization"
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await cwClient.send(new DisableAlarmActionsCommand(params));
-    console.log("Success, alarm disabled:", data.$metadata.requestId);
+    console.log("Success, alarm disabled:", data);
     return data;
   } catch (err) {
     console.log("Error", err);
   }
 };
-run();
+// Uncomment this line to run execution within this file.
+// run();
 // snippet-end:[cw.JavaScript.alarms.disableAlarmActionsV3]
-// For unit tests only.
-// module.exports ={run, params};
+

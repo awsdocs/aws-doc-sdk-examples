@@ -8,6 +8,8 @@ jobs:
   extract-snippets-dryrun:
     if: github.repository_owner == 'aws' || github.repository_owner == 'awsdocs' || github.repository_owner == 'aws-samples' || github.repository_owner == 'jerry-aws'
     runs-on: ubuntu-latest
+    env:
+      REPORTS: issues
     steps:
       - uses: actions/checkout@v2
         with:

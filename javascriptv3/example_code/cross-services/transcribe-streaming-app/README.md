@@ -448,7 +448,7 @@ enter the following commands in sequence in the AWS CLI command line:
 
 ```
 cd javascriptv3/example_code/cross-services/transcribe-streaming-app/src
-webpack index.ts --mode development --target web --devtool false -o main.js
+webpack index.js --mode development --target web --devtool false -o main.js
 ```
 ## Run the app
 Open the index.html in your favorite browser, and follow the onscreen instructions.

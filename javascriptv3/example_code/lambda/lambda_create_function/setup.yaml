@@ -5,26 +5,6 @@ Resources:
     DeletionPolicy: Delete
     Metadata:
       aws:cdk:path: SetupStackCreateTable/mybucket/Resource
-  mybucketPolicy942B6019:
-    Type: AWS::S3::BucketPolicy
-    Properties:
-      Bucket:
-        Ref: mybucket160F8132
-      PolicyDocument:
-        Statement:
-          - Action: s3:GetObject
-            Effect: Allow
-            Principal: "*"
-            Resource:
-              Fn::Join:
-                - ""
-                - - Fn::GetAtt:
-                      - mybucket160F8132
-                      - Arn
-                  - /*
-        Version: "2012-10-17"
-    Metadata:
-      aws:cdk:path: SetupStackCreateTable/mybucket/Policy/Resource
   ExampleIdentityPool:
     Type: AWS::Cognito::IdentityPool
     Properties:
@@ -60,6 +40,8 @@ Resources:
         Statement:
           - Action:
               - lambda:InvokeFunction
+              - lambda:CreateFunction
+              - iam:PassRole
               - mobileanalytics:PutEvents
               - cognito-sync:*
             Effect: Allow
@@ -67,6 +49,15 @@ Resources:
           - Action: dynamodb:CreateTable
             Effect: Allow
             Resource: "*"
+          - Action: s3:*
+            Effect: Allow
+            Resource:
+              Fn::Join:
+                - ""
+                - - Fn::GetAtt:
+                      - mybucket160F8132
+                      - Arn
+                  - /*
         Version: "2012-10-17"
       PolicyName: CognitoDefaultUnauthenticatedRoleDefaultPolicy2B700C08
       Roles:
@@ -88,7 +79,7 @@ Resources:
   CDKMetadata:
     Type: AWS::CDK::Metadata
     Properties:
-      Modules: aws-cdk=1.84.0,@aws-cdk/assets=1.77.0,@aws-cdk/aws-applicationautoscaling=1.77.0,@aws-cdk/aws-autoscaling-common=1.77.0,@aws-cdk/aws-cloudwatch=1.77.0,@aws-cdk/aws-codeguruprofiler=1.77.0,@aws-cdk/aws-cognito=1.77.0,@aws-cdk/aws-ec2=1.77.0,@aws-cdk/aws-ecr=1.77.0,@aws-cdk/aws-ecr-assets=1.77.0,@aws-cdk/aws-events=1.77.0,@aws-cdk/aws-iam=1.77.0,@aws-cdk/aws-kms=1.77.0,@aws-cdk/aws-lambda=1.77.0,@aws-cdk/aws-logs=1.77.0,@aws-cdk/aws-s3=1.77.0,@aws-cdk/aws-s3-assets=1.77.0,@aws-cdk/aws-sqs=1.77.0,@aws-cdk/aws-ssm=1.77.0,@aws-cdk/cloud-assembly-schema=1.77.0,@aws-cdk/core=1.77.0,@aws-cdk/custom-resources=1.77.0,@aws-cdk/cx-api=1.77.0,@aws-cdk/region-info=1.77.0,jsii-runtime=node.js/v12.14.1
+      Modules: aws-cdk=1.109.0,@aws-cdk/assets=1.84.0,@aws-cdk/aws-applicationautoscaling=1.84.0,@aws-cdk/aws-autoscaling-common=1.84.0,@aws-cdk/aws-cloudwatch=1.84.0,@aws-cdk/aws-codeguruprofiler=1.84.0,@aws-cdk/aws-cognito=1.84.0,@aws-cdk/aws-ec2=1.84.0,@aws-cdk/aws-ecr=1.84.0,@aws-cdk/aws-ecr-assets=1.84.0,@aws-cdk/aws-events=1.84.0,@aws-cdk/aws-iam=1.84.0,@aws-cdk/aws-kms=1.84.0,@aws-cdk/aws-lambda=1.84.0,@aws-cdk/aws-logs=1.84.0,@aws-cdk/aws-s3=1.84.0,@aws-cdk/aws-s3-assets=1.84.0,@aws-cdk/aws-sqs=1.84.0,@aws-cdk/aws-ssm=1.84.0,@aws-cdk/cloud-assembly-schema=1.84.0,@aws-cdk/core=1.84.0,@aws-cdk/custom-resources=1.84.0,@aws-cdk/cx-api=1.84.0,@aws-cdk/region-info=1.84.0,jsii-runtime=node.js/v14.7.0
     Metadata:
       aws:cdk:path: SetupStackCreateTable/CDKMetadata/Default
     Condition: CDKMetadataAvailable

@@ -1,15 +1,6 @@
 ---
 # Amazon Textract explorer example
 files:
-  - path: textract_app.py
-    services:
-      - s3
-      - sns
-      - sqs
-      - textract
-  - path: textract_demo_launcher.py
-    services:
-      - textract
   - path: textract_wrapper.py
     services:
       - s3

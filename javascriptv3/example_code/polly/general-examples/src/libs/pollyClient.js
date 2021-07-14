@@ -14,7 +14,7 @@ Inputs (replace in code):
 // snippet-start:[polly.JavaScript.createclientv3]
 const { PollyClient } =require( "@aws-sdk/client-polly");
 // Set the AWS Region.
-const REGION = "eu-west-1"; //e.g. "us-east-1"
+const REGION = "REGION"; //e.g. "us-east-1"
 // Create an Amazon S3 service client object.
 const pollyClient = new PollyClient({ region: REGION });
 module.exports = { pollyClient };

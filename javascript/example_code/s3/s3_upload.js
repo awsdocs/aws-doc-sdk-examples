@@ -32,7 +32,7 @@ var AWS = require('aws-sdk');
 AWS.config.update({region: 'REGION'});
 
 // Create S3 service object
-s3 = new AWS.S3({apiVersion: '2006-03-01'});
+var s3 = new AWS.S3({apiVersion: '2006-03-01'});
 
 // call S3 to retrieve upload file to specified bucket
 var uploadParams = {Bucket: process.argv[2], Key: '', Body: ''};
