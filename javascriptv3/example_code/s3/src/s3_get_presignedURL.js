@@ -47,7 +47,7 @@ const run = async () => {
       new CreateBucketCommand({ Bucket: bucketParams.Bucket })
     );
     return data; // For unit tests.
-    console.log(`Waiting for "${params.Bucket}" bucket creation...\n`);
+    console.log(`Waiting for "${bucketParams.Bucket}" bucket creation...\n`);
   } catch (err) {
     console.log("Error creating bucket", err);
   }

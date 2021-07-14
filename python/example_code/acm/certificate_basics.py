@@ -17,6 +17,7 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.acm.AcmCertificate]
 class AcmCertificate:
     """
     Encapsulates ACM functions.
@@ -27,6 +28,9 @@ class AcmCertificate:
         """
         self.acm_client = acm_client
 
+# snippet-end:[python.example_code.acm.AcmCertificate]
+
+# snippet-start:[python.example_code.acm.DescribeCertificate]
     def describe(self, certificate_arn):
         """
         Gets certificate metadata.
@@ -46,7 +50,9 @@ class AcmCertificate:
             raise
         else:
             return certificate
+# snippet-end:[python.example_code.acm.DescribeCertificate]
 
+# snippet-start:[python.example_code.acm.GetCertificate]
     def get(self, certificate_arn):
         """
         Gets the body and certificate chain of a certificate.
@@ -62,7 +68,10 @@ class AcmCertificate:
             raise
         else:
             return response
+# snippet-end:[python.example_code.acm.GetCertificate]
 
+
+# snippet-start:[python.example_code.acm.ListCertificates]
     def list(
             self, max_items, statuses=None, key_usage=None, extended_key_usage=None,
             key_types=None):
@@ -102,7 +111,10 @@ class AcmCertificate:
             raise
         else:
             return certificates
+# snippet-end:[python.example_code.acm.ListCertificates]
 
+
+# snippet-start:[python.example_code.acm.ImportCertificate]
     def import_certificate(self, certificate_body, private_key):
         """
         Imports a self-signed certificate to ACM.
@@ -122,7 +134,9 @@ class AcmCertificate:
             raise
         else:
             return certificate_arn
+# snippet-end:[python.example_code.acm.ImportCertificate]
 
+# snippet-start:[python.example_code.acm.DeleteCertificate]
     def remove(self, certificate_arn):
         """
         Removes a certificate.
@@ -135,7 +149,10 @@ class AcmCertificate:
         except ClientError:
             logger.exception("Couldn't remove certificate %s.", certificate_arn)
             raise
+# snippet-end:[python.example_code.acm.DeleteCertificate]
 
+
+# snippet-start:[python.example_code.acm.AddTagsToCertificate]
     def add_tags(self, certificate_arn, tags):
         """
         Adds tags to a certificate. Tags are key-value pairs that contain custom
@@ -152,7 +169,10 @@ class AcmCertificate:
         except ClientError:
             logger.exception("Couldn't add tags to certificate %s.", certificate_arn)
             raise
+# snippet-end:[python.example_code.acm.AddTagsToCertificate]
 
+
+# snippet-start:[python.example_code.acm.ListTagsForCertificate]
     def list_tags(self, certificate_arn):
         """
         Lists the tags attached to a certificate.
@@ -170,7 +190,10 @@ class AcmCertificate:
             raise
         else:
             return tags
+# snippet-end:[python.example_code.acm.ListTagsForCertificate]
 
+
+# snippet-start:[python.example_code.acm.RemoveTagsFromCertificate]
     def remove_tags(self, certificate_arn, tags):
         """
         Removes tags from a certificate. If the value of a tag is specified, the tag is
@@ -195,7 +218,10 @@ class AcmCertificate:
             logger.exception(
                 "Couldn't remove tags from certificate %s.", certificate_arn)
             raise
+# snippet-end:[python.example_code.acm.RemoveTagsFromCertificate]
 
+
+# snippet-start:[python.example_code.acm.RequestCertificate]
     def request_validation(
             self, domain, alternate_domains, method, validation_domains=None):
         """
@@ -237,7 +263,10 @@ class AcmCertificate:
             raise
         else:
             return certificate_arn
+# snippet-end:[python.example_code.acm.RequestCertificate]
 
+
+# snippet-start:[python.example_code.acm.ResendValidationEmail]
     def resend_validation_email(self, certificate_arn, domain, validation_domain):
         """
         Request that validation email is sent again, for a certificate that was
@@ -259,6 +288,7 @@ class AcmCertificate:
             logger.exception(
                 "Couldn't resend validation email to %s.", validation_domain)
             raise
+# snippet-end:[python.example_code.acm.ResendValidationEmail]
 
 
 def usage_demo():

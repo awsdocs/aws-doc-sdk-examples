@@ -19,7 +19,7 @@ _@aws-sdk/client-ses_, and _@aws-sdk/credential-provider-cognito-identity_.
 They also include third-party Node.js modules, path, node-fetch, and webpack.
 
 ```
-npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
+npm install node -g
 cd javascriptv3/example_code/cross-services/video-analyzer
 npm install
 ```

@@ -80,12 +80,12 @@ This example deletes a DynamoDB table.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
-### helloworld
+### dynamodb-helloworld
 
 This example lists your DynamoDB tables and creates the table __test-table__.
 Use __delete-table__ to delete __test-table__.
 
-`cargo run --bin helloworld`
+`cargo run --bin dynamodb-helloworld`
 
 ### list-items
 

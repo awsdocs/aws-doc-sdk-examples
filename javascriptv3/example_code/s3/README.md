@@ -6,6 +6,7 @@ This is a workspace where you can find the following AWS SDK for JavaScript vers
 
 - [Create and upload objects](src/s3_create_and_upload_objects.js)
 - [Create a bucket](src/s3_createbucket.js)
+- [Delete a bucket](src/s3_deletebucket.js)
 - [Delete all objects from a bucket](src/s3_delete_all_objects.js)
 - [Delete multiple objects from a bucket](src/s3_delete_multiple_objects.js)
 - [Delete an object from a bucket](src/s3_delete_object.js)
@@ -21,7 +22,7 @@ This is a workspace where you can find the following AWS SDK for JavaScript vers
 - [List buckets](src/s3_listbuckets.js)
 - [List objects](src/s3_listobjects.js)
 - [Multipart object upload](src/s3_multipartupload.js)
-- [Create a presigned URL to get objects](src/s3_put_presignedURL.js)
+- [Create a presigned URL to put objects](src/s3_put_presignedURL.js)
 - [Set a bucket ACL](src/s3_putbucketacl.js)
 - [Set a bucket policy](src/s3_putbucketpolicy.js)
 - [Set a bucket website policy](src/s3_setbucketwebsite.js)

@@ -22,10 +22,10 @@ import {
   PutMetricAlarmCommand,
   EnableAlarmActionsCommand,
 } from "@aws-sdk/client-cloudwatch";
-import { cwClient } from "./libs/cloudWatchClient";
+import { cwClient } from "./libs/cloudWatchClient.js";
 
 // Set the parameters
-const params = {
+export const params = {
   AlarmName: "ALARM_NAME", //ALARM_NAME
   ComparisonOperator: "GreaterThanThreshold",
   EvaluationPeriods: 1,
@@ -46,10 +46,10 @@ const params = {
   Unit: "Percent",
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await cwClient.send(new PutMetricAlarmCommand(params));
-    console.log("Alarm action added; RequestID:", data.$metadata.requestId);
+    console.log("Alarm action added; RequestID:", data);
     return data;
     const paramsEnableAlarmAction = {
       AlarmNames: [params.AlarmName],
@@ -67,7 +67,7 @@ const run = async () => {
     console.log("Error", err);
   }
 };
-run();
+// Uncomment this line to run execution within this file.
+// run();
 // snippet-end:[cw.JavaScript.alarms.enableAlarmActionsV3]
-// For unit tests only.
-// module.exports ={run, params};
+
