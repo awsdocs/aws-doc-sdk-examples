@@ -14,6 +14,7 @@
 package com.example.personalize;
 
 //snippet-start:[personalize.java2.create_dataset.import]
+
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.personalize.model.CreateDatasetRequest;
 import software.amazon.awssdk.services.personalize.PersonalizeClient;
@@ -22,7 +23,7 @@ import software.amazon.awssdk.services.personalize.model.PersonalizeException;
 
 public class CreateDataset {
 
-    public static void main(String [] args) {
+    public static void main(String[] args) {
 
         final String USAGE = "Usage:\n" +
                 "    CreateDataset <datasetName, dataset group arn, dataset type, schema arn>\n\n" +
@@ -54,12 +55,13 @@ public class CreateDataset {
         personalizeClient.close();
 
     }
+
     //snippet-start:[personalize.java2.create_dataset.main]
     public static String createDataset(PersonalizeClient personalizeClient,
-                                        String datasetName,
-                                        String datasetGroupArn,
-                                        String datasetType,
-                                        String schemaArn) {
+                                       String datasetName,
+                                       String datasetGroupArn,
+                                       String datasetType,
+                                       String schemaArn) {
         try {
             CreateDatasetRequest request = CreateDatasetRequest.builder()
                     .name(datasetName)
@@ -72,8 +74,7 @@ public class CreateDataset {
                     .datasetArn();
             System.out.println("Dataset " + datasetName + " created.");
             return datasetArn;
-        }
-        catch(PersonalizeException e) {
+        } catch (PersonalizeException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
