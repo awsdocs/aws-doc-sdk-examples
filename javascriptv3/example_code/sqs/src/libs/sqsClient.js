@@ -5,7 +5,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sns-examples.html.
 
 Purpose:
-snsClient.js is a helper function that creates an Amazon Simple Notification Services (Amazon SNS) service client.
+sqsClient.js is a helper function that creates an Amazon Simple Queue Service (Amazon SQS) service client.
 
 Inputs (replace in code):
 - REGION

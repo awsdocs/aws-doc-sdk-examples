@@ -13,6 +13,7 @@
 
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: Adds an object to an Amazon S3 bucket.
+ * For an example of a multipart upload, see the s3-crt code example.
  *
  * Prerequisites: An Amazon S3 bucket and the object to be added.
  *
