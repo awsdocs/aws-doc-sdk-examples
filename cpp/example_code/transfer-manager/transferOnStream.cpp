@@ -41,13 +41,13 @@ static const size_t BUFFER_SIZE = 512 * 1024 * 1024; // 512MB Buffer
 static size_t g_file_size = 0;
 
 /**
- * In memory stream implementation
+ * In-memory stream implementation
  */
 class MyUnderlyingStream : public Aws::IOStream
 {
     public:
         using Base = Aws::IOStream;
-        // provide a customer controlled streambuf, so as to put all transfered data into this in memory buffer.
+        // Provide a customer-controlled streambuf to hold data from the bucket.
         MyUnderlyingStream(std::streambuf* buf)
             : Base(buf)
         {}
@@ -60,8 +60,8 @@ int main(int argc, char** argv)
     if (argc < 4) 
     {
         std::cout << "This program is used to demonstrate how transfer manager transfers large object in memory without copying it to a local file." << std::endl
-            << "It first uploads [LocalFilePath] to your S3 [Bucket] with object name [Key], then downloads the object to memory." << std::endl
-            << "To verify the correctness of the file content in memory, we will dump the data to a local file [LocalFilePath]_copy." << std::endl
+            << "It first uploads [LocalFilePath] to your Amazon S3 [Bucket] with object name [Key], then downloads the object to memory." << std::endl
+            << "To verify the correctness of the file content in memory, the program will dump the data to a local file [LocalFilePath]_copy." << std::endl
             << "You can use md5sum [LocalFilePath] [LocalFilePath]_copy to verify they have the same content." << std::endl
             << "\tUsage: " << argv[0] << " [Bucket] [Key] [LocalFilePath]" << std::endl;
         return -1;
@@ -99,18 +99,18 @@ int main(int argc, char** argv)
         {
             std::cout << "File upload finished." << std::endl;
 
-            // Verify upload expected length of data
+            // Verify that the upload retrieved the expected amount of data.
             assert(uploadHandle->GetBytesTotalSize() == uploadHandle->GetBytesTransferred());
             g_file_size = uploadHandle->GetBytesTotalSize();
 
-            // This buffer is what we used to initialize streambuf and is in memory
+            // Create buffer to hold data received by the data stream. 
             Aws::Utils::Array<unsigned char> buffer(BUFFER_SIZE);
             auto downloadHandle = transfer_manager->DownloadFile(BUCKET,
                 KEY,
-                [&]() { //create stream lambda fn
+                [&]() { //Define a lambda expression for the callback method parameter to stream back the data.
                     return Aws::New<MyUnderlyingStream>("TestTag", Aws::New<Stream::PreallocatedStreamBuf>("TestTag", buffer.GetUnderlyingData(), BUFFER_SIZE));
                 });
-            downloadHandle->WaitUntilFinished();// block calling thread until download complete
+            downloadHandle->WaitUntilFinished();// Block calling thread until download is complete.
             auto downStat = downloadHandle->GetStatus();
             if (downStat != Transfer::TransferStatus::COMPLETED)
             {
@@ -121,19 +121,19 @@ int main(int argc, char** argv)
             // snippet-end:[transfer-manager.cpp.transferOnStream.code]
              
             
-            // verify download expected length of data
+            // Verify the download retrieved the expected length of data.
             assert(downloadHandle->GetBytesTotalSize() == downloadHandle->GetBytesTransferred());
 
-            // verify length of upload equals download 
+            // Verify that the length of the upload equals the download. 
             assert(uploadHandle->GetBytesTotalSize() == downloadHandle->GetBytesTotalSize());
 
-            // write buffered data to local file copy
+            // Write the buffered data to local file copy.
             Aws::OFStream storeFile(LOCAL_FILE_COPY.c_str(), Aws::OFStream::out | Aws::OFStream::trunc);
             storeFile.write((const char*)(buffer.GetUnderlyingData()), downloadHandle->GetBytesTransferred());
             storeFile.close();
 
             std::cout << "File dumped to local file finished. You can verify the two files' content using md5sum." << std::endl;
-            // verify upload file is the same as downloaded copy. Can be done simply using `md5sum file file_copy`
+            // Verify the upload file is the same as the downloaded copy. This can be done using 'md5sum' or any other file compare tool.
         }
     }
     Aws::ShutdownAPI(options);

@@ -55,7 +55,7 @@ int main()
     //AccessDenied if the bucket exists in some other account, or NoSuchBucket
     //if the bucket does not exist in any account.
     Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
-    //TODO:  Set region to the region of the bucket bucket_name.
+    //TODO:  Set to the AWS Region of the bucket bucket_name.
     Aws::String region = "us-east-1";
     
     Aws::SDKOptions options;
