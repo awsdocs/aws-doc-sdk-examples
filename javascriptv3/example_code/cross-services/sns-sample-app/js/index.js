@@ -26,7 +26,7 @@ import { snsClient } from "../libs/snsClient.js";
 // Set global parameters.
 const TOPIC_ARN = "TOPIC_ARN";
 
-/*<!-- snip pet-end:[sns-functions.JavaScript.frontend.config] -->
+/*<!-- snippet-end:[sns-functions.JavaScript.frontend.config] -->
 <!-- snippet-start:[sns-functions.JavaScript.frontend.functions] -->*/
 
 // Subscribe the email address to the Amazon SNS topic.
