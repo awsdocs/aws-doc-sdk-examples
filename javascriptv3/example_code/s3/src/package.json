@@ -17,6 +17,7 @@
     "@aws-sdk/client-cognito-identity": "^3.3.0",
     "@aws-sdk/credential-provider-cognito-identity": "^3.3.0",
     "@aws-sdk/node-http-handler": "^3.3.0",
+    "stream": "^0.0.2",
     "@aws-sdk/types": "^3.3.0",
     "ts-node": "^9.0.0",
     "node-fetch": "^2.6",
