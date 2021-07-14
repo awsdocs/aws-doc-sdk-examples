@@ -19,7 +19,7 @@ import { ListMetricsCommand } from "@aws-sdk/client-cloudwatch";
 import { cwClient } from "./libs/cloudWatchClient.js";
 
 // Set the parameters
-const params = {
+export const params = {
   Dimensions: [
     {
       Name: "LogGroupName" /* required */,
@@ -29,7 +29,7 @@ const params = {
   Namespace: "AWS/Logs",
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await cwClient.send(new ListMetricsCommand(params));
     console.log("Success. Metrics:", JSON.stringify(data.Metrics));
@@ -38,7 +38,7 @@ const run = async () => {
     console.log("Error", err);
   }
 };
-run();
+// Uncomment this line to run execution within this file.
+// run();
 // snippet-end:[cw.JavaScript.metrics.listMetricsV3]
-// For unit tests only.
-// module.exports ={run, params};
+

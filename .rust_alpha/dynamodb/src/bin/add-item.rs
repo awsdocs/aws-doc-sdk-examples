@@ -8,7 +8,7 @@ use std::process;
 use dynamodb::model::AttributeValue;
 use dynamodb::{Client, Config, Region};
 
-use aws_types::region::ProvideRegion;
+use aws_types::region::{EnvironmentProvider, ProvideRegion};
 
 use structopt::StructOpt;
 use tracing_subscriber::fmt::format::FmtSpan;
@@ -16,40 +16,41 @@ use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The permission type of the user, standard_user or admin.
+    /// The permission type of the user, standard_user or admin
     #[structopt(short, long)]
     p_type: String,
 
-    /// The user's age.
+    /// The user's age
     #[structopt(short, long)]
     age: String,
 
-    /// The user's username.
+    /// The user's username
     #[structopt(short, long)]
     username: String,
 
-    /// The user's first name.
+    /// The user's first name
     #[structopt(short, long)]
     first: String,
 
-    /// The user's last name.
+    /// The user's last name
     #[structopt(short, long)]
     last: String,
 
-    /// The table name.
+    /// The table name
     #[structopt(short, long)]
     table: String,
 
-    /// The AWS Region.
+    /// The region
     #[structopt(short, long)]
-    default_region: Option<String>,
+    region: Option<String>,
 
-    /// Whether to display additional information.
+    /// Activate verbose mode
     #[structopt(short, long)]
     verbose: bool,
 }
 
 /// Adds an item to an Amazon DynamoDB table.
+/// The table schema must use one of username, p_type, age, first, or last as the primary key.
 /// # Arguments
 ///
 /// * `-t TABLE` - The name of the table.
@@ -58,7 +59,7 @@ struct Opt {
 /// * `-a AGE` - The age of the user.
 /// * `-f FIRST` - The first name of the user.
 /// * `-l LAST` - The last name of the user.
-/// * `[-d DEFAULT-REGION]` - The AWS Region containing the table.
+/// * `[-r REGION]` - The region in which the table is created.
 ///   If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
@@ -71,7 +72,7 @@ async fn main() {
         age,
         first,
         last,
-        default_region,
+        region,
         verbose,
     } = Opt::from_args();
 
@@ -82,21 +83,20 @@ async fn main() {
         process::exit(1);
     }
 
-    let region = default_region
-        .as_ref()
-        .map(|region| Region::new(region.clone()))
-        .or_else(|| aws_types::region::default_provider().region())
+    let region = EnvironmentProvider::new()
+        .region()
+        .or_else(|| region.as_ref().map(|region| Region::new(region.clone())))
         .unwrap_or_else(|| Region::new("us-west-2"));
 
     if verbose {
         println!("DynamoDB client version: {}\n", dynamodb::PKG_VERSION);
-        println!("AWS Region:              {:?}", &region);
-        println!("Table:                   {}", table);
-        println!("User:                    {}", username);
-        println!("Type:                    {}", p_type);
-        println!("Age:                     {}", age);
-        println!("First:                   {}", first);
-        println!("Last:                    {}\n", last);
+        println!("Region: {:?}", &region);
+        println!("Table:  {}", table);
+        println!("User:   {}", username);
+        println!("Type:   {}", p_type);
+        println!("Age:    {}", age);
+        println!("First:  {}", first);
+        println!("Last:   {}\n", last);
 
         SubscriberBuilder::default()
             .with_env_filter("info")
@@ -114,19 +114,20 @@ async fn main() {
     let first_av = AttributeValue::S(String::from(&first));
     let last_av = AttributeValue::S(String::from(&last));
 
-    match client
+    let request = client
         .put_item()
         .table_name(table)
         .item("username", user_av)
         .item("account_type", type_av)
         .item("age", age_av)
         .item("first_name", first_av)
-        .item("last_name", last_av)
-        .send()
-        .await
-    {
+        .item("last_name", last_av);
+
+    println!("Executing request [{:?}] to add item...", request);
+
+    match request.send().await {
         Ok(_) => println!(
-            "Added user {}, {} {}, age {} as {} user.",
+            "Added user {}, {} {}, age {} as {} user",
             username, first, last, age, p_type
         ),
         Err(e) => {

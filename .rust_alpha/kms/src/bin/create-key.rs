@@ -14,18 +14,18 @@ use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The AWS Region.
+    /// The region. Overrides environment variable AWS_DEFAULT_REGION.
     #[structopt(short, long)]
     default_region: Option<String>,
 
-    /// Display additional information.
+    /// Activate verbose mode    
     #[structopt(short, long)]
     verbose: bool,
 }
-/// Creates an AWS Key Management Service (AWS KMS) key.
+/// Creates an AWS KMS key.
 /// # Arguments
 ///
-/// * `[-d DEFAULT-REGION]` - The AWS Region in which the client is created.
+/// * `[-d DEFAULT-REGION]` - The region in which the client is created.
 ///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
@@ -43,8 +43,8 @@ async fn main() {
         .unwrap_or_else(|| Region::new("us-west-2"));
 
     if verbose {
-        println!("KMS client version: {}.\n", kms::PKG_VERSION);
-        println!("AWS Region:         {:?}", &region);
+        println!("KMS client version: {}\n", kms::PKG_VERSION);
+        println!("Region:      {:?}", &region);
 
         SubscriberBuilder::default()
             .with_env_filter("info")
@@ -53,8 +53,7 @@ async fn main() {
     }
 
     let conf = Config::builder().region(region).build();
-    let conn = aws_hyper::conn::Standard::https();
-    let client = Client::from_conf_conn(conf, conn);
+    let client = Client::from_conf(conf);
 
     match client.create_key().send().await {
         Ok(resp) => {

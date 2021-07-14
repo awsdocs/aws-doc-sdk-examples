@@ -1,8 +1,10 @@
 # AWS SDK for Rust code examples for Amazon S3
 
+Amazon Simple Storage Service (Amazon S3) is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web.
+
 ## Purpose
 
-These examples demonstrate how to perform several Amazon Simple Storage Service (Amazon S3) operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Amazon S3 operations using the alpha version of the AWS SDK for Rust.
 
 ## Prerequisites
 
@@ -17,45 +19,6 @@ This example creates an Amazon S3 bucket.
 `cargo run --bin create-bucket -- -b BUCKET [-d DEFAULT-REGION] [-v]`
 
 - _BUCKET_ is the name of the bucket to create.
-- _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the table is located.
-  If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
-  If the environment variable is not set, defaults to __us-west-2__.
-- __-v__ displays additional information.
-
-### delete-bucket
-
-This example deletes an Amazon S3 bucket.
-
-`cargo run --bin delete-bucket -- -b BUCKET [-d DEFAULT-REGION] [-v]`
-
-- _BUCKET_ is the name of the bucket to delete.
-- _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the table is located.
-  If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
-  If the environment variable is not set, defaults to __us-west-2__.
-- __-v__ displays additional information.
-
-### delete-object
-
-This example deletes an object from an Amazon S3 bucket.
-
-`cargo run --bin delete-object -- -b BUCKET -k KEY [-d DEFAULT-REGION] [-v]`
-
-- _BUCKET_ is the name of the bucket.
-- _KEY_ is the name of the object to delete.
-- _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the table is located.
-  If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
-  If the environment variable is not set, defaults to __us-west-2__.
-- __-v__ displays additional information.
-
-### hello-world
-
-This example lists your buckets in __us-east-2__, 
-creates the bucket __aws-rust-sdk__ (you might have to change the name if anyone has already run this code example), 
-adds __Cargo.toml__ to the bucket,
-retrieves the object as a string, and displays it.
-
-`cargo run --bin hello-world -- [-d DEFAULT-REGION] [-v]`
-
 - _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the table is located.
   If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
@@ -84,14 +47,14 @@ This example lists the objects in an Amazon S3 bucket.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
-### put-object
+### s3-helloworld
 
-This example adds an object (file) to an Amazon S3 bucket.
+This example lists your buckets and uploads a file to a bucket.
 
-`cargo run --bin put-object -- -b BUCKET -k KEY [-d DEFAULT-REGION] [-v]`
+`cargo run --bin hello-world -- -b BUCKET -k KEY [-d DEFAULT-REGION] [-v]`
 
 - _BUCKET_ is the name of the bucket.
-- _KEY_ is the name of the object (file).
+- _KEY_ is the name of the file to upload to the bucket.
 - _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the table is located.
   If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
