@@ -265,7 +265,14 @@ import { snsClient } from "../libs/snsClient.js";
 const TOPIC_ARN = "TOPIC_ARN";
 ```
 
-Next, you define functions for working with the table.
+Next, you define the following functions: 
+
+- *subEmail* - subscribe an email to the Amazon SNS topic.
+- *getSubs* - list the emails subscribed to the Amazon SNS topic.
+- *delSub* - remove an email from being subscribed to the Amazon SNS topic.
+- *sendMessage* - send an email to all email addresses subscribed to the Amazon SNS topic.
+
+**Note:** *loadItems* and *validate* are helper functions.
 ```
 // Subscribe the email address to the Amazon SNS topic.
 const subEmail = async () => {
