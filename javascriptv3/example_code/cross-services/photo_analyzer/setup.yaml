@@ -1,5 +1,5 @@
 Resources:
-  rekognitionbucketforimages60759ADB:
+  bucketforimages293BECA3:
     Type: AWS::S3::Bucket
     Properties:
       CorsConfiguration:
@@ -18,12 +18,12 @@ Resources:
     UpdateReplacePolicy: Delete
     DeletionPolicy: Delete
     Metadata:
-      aws:cdk:path: SetupStackRekognition/rekognition-bucket-for-images/Resource
-  rekognitionbucketforimagesPolicyC5112580:
+      aws:cdk:path: SetupStackRekognition/bucket-for-images/Resource
+  bucketforimagesPolicyE07C6415:
     Type: AWS::S3::BucketPolicy
     Properties:
       Bucket:
-        Ref: rekognitionbucketforimages60759ADB
+        Ref: bucketforimages293BECA3
       PolicyDocument:
         Statement:
           - Action:
@@ -38,18 +38,18 @@ Resources:
               Service: rekognition.amazonaws.com
             Resource:
               - Fn::GetAtt:
-                  - rekognitionbucketforimages60759ADB
+                  - bucketforimages293BECA3
                   - Arn
               - Fn::Join:
                   - ""
                   - - Fn::GetAtt:
-                        - rekognitionbucketforimages60759ADB
+                        - bucketforimages293BECA3
                         - Arn
                     - /*
         Version: "2012-10-17"
     Metadata:
-      aws:cdk:path: SetupStackRekognition/rekognition-bucket-for-images/Policy/Resource
-  rekognitionbucketforreports97624E08:
+      aws:cdk:path: SetupStackRekognition/bucket-for-images/Policy/Resource
+  bucketforreports8DC7D870:
     Type: AWS::S3::Bucket
     Properties:
       CorsConfiguration:
@@ -68,12 +68,12 @@ Resources:
     UpdateReplacePolicy: Delete
     DeletionPolicy: Delete
     Metadata:
-      aws:cdk:path: SetupStackRekognition/rekognition-bucket-for-reports/Resource
-  rekognitionbucketforreportsPolicy734DD211:
+      aws:cdk:path: SetupStackRekognition/bucket-for-reports/Resource
+  bucketforreportsPolicy45A5DA4F:
     Type: AWS::S3::BucketPolicy
     Properties:
       Bucket:
-        Ref: rekognitionbucketforreports97624E08
+        Ref: bucketforreports8DC7D870
       PolicyDocument:
         Statement:
           - Action:
@@ -88,17 +88,17 @@ Resources:
               Service: rekognition.amazonaws.com
             Resource:
               - Fn::GetAtt:
-                  - rekognitionbucketforreports97624E08
+                  - bucketforreports8DC7D870
                   - Arn
               - Fn::Join:
                   - ""
                   - - Fn::GetAtt:
-                        - rekognitionbucketforreports97624E08
+                        - bucketforreports8DC7D870
                         - Arn
                     - /*
         Version: "2012-10-17"
     Metadata:
-      aws:cdk:path: SetupStackRekognition/rekognition-bucket-for-reports/Policy/Resource
+      aws:cdk:path: SetupStackRekognition/bucket-for-reports/Policy/Resource
   rekognitionphotoanalyzerrole82B362F0:
     Type: AWS::IAM::Role
     Properties:
@@ -186,10 +186,10 @@ Resources:
 Outputs:
   Bucketforimages:
     Value:
-      Ref: rekognitionbucketforimages60759ADB
+      Ref: bucketforimages293BECA3
   Bucketforreports:
     Value:
-      Ref: rekognitionbucketforreports97624E08
+      Ref: bucketforreports8DC7D870
   Identitypoolid:
     Value:
       Ref: ExampleIdentityPool

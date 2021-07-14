@@ -253,4 +253,4 @@ const sendEmail = async (bucket, key, linkToCSV) => {
   }
 };
 <!-- snippet-end:[rekognition.Javascript.photo-analyzer.process-images]-->
-<!-- snippet-start:[rekognition.Javascript.photo-analyzer.complete]-->
+<!-- snippet-end:[rekognition.Javascript.photo-analyzer.complete]-->
