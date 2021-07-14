@@ -51,5 +51,5 @@ public class DeleteEventTracker {
             System.exit(1);
         }
     }
-    //snippet-start:[personalize.java2.delete_event_tracker.main]
+    //snippet-end:[personalize.java2.delete_event_tracker.main]
 }
