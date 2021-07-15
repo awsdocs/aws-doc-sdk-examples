@@ -51,7 +51,7 @@ const subEmail = async () => {
     console.log("Error", err.stack);
   }
 };
-// Expose function to browser.
+// Expose the function to the browser.
 window.subEmail = subEmail;
 
 function loadItems(event) {
@@ -76,7 +76,7 @@ function validate(email) {
   }
 }
 
-// List subscriptions to the Amazon SNS topic.
+// List the subscriptions to the Amazon SNS topic.
 const getSubs = async () => {
   const params = {
     TopicArn: TOPIC_ARN,
@@ -102,10 +102,10 @@ const getSubs = async () => {
     console.log("Error", err.stack);
   }
 };
-// Expose function to browser.
+// Expose the function to the browser.
 window.getSubs = getSubs;
 
-// Unsubscribe email subscription from Amazon SNS topic.
+// Unsubscribe an email subscription from Amazon SNS topic.
 const delSub = async () => {
   const userEmail = document.getElementById("inputEmail1").value;
   var result = validate(userEmail);
@@ -134,10 +134,10 @@ const delSub = async () => {
     console.log("Error", err.stack);
   }
 };
-// Expose function to browser.
+// Expose the function to the browser.
 window.delSub = delSub;
 
-// Send message to all emails subscribed to the Amazon SNS topic.
+// Send a message to all emails subscribed to the Amazon SNS topic.
 const sendMessage = async () => {
   const messageText = document.getElementById("body").value;
   if (messageText == "") {
@@ -155,7 +155,7 @@ const sendMessage = async () => {
     console.log("Error", err.stack);
   }
 };
-// Expose function to browser.
+// Expose the function to the browser.
 window.sendMessage = sendMessage;
 /*<!-- snippet-end:[sns-functions.JavaScript.frontend.functions] -->
 <!-- snippet-end:[sns-functions.JavaScript.frontend.complete] -->*/
