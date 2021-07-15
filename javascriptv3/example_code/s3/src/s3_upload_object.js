@@ -29,7 +29,7 @@ const file = "OBJECT_PATH_AND_NAME"; // Path to and name of object. For example 
 const fileStream = fs.createReadStream(file);
 
 // Set the parameters
-const uploadParams = {
+export const uploadParams = {
   Bucket: "BUCKET_NAME",
   // Add the required 'Key' parameter using the 'path' module.
   Key: path.basename(file),
@@ -39,7 +39,7 @@ const uploadParams = {
 
 
 // Upload file to specified bucket.
-const run = async () => {
+export const run = async () => {
   try {
     const data = await s3Client.send(new PutObjectCommand(uploadParams));
     console.log("Success", data);
