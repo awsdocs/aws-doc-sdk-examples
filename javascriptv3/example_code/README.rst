@@ -21,9 +21,16 @@ Unit tests
 =============
 `Unit tests<./tests>`_ are provided for all examples, using the `Jest <https://jestjs.io/>`_ framework.
 
-**Note**: Jest does not currently support jest.mock in a clean way in ECMAscript 6 (ES6) syntax, the JavaScript syntax used in our code examples.
-We recommend converting the code examples you want to unit test to CommonJS syntax. For guidelines to convert ES6 syntax to CommonJS syntax, see
-`JavaScript ES6/CommonJS syntax <https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html>`_.
+For example, to run tests on the S3 folder, do the following:
+
+```
+npm install node -g
+cd javascriptv3/example_code/s3/tests
+npm install
+npm test
+
+```
+
 
 Resources
 =============
