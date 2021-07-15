@@ -268,8 +268,12 @@ bool AwsDoc::S3::GetObjectAcl(const Aws::String& bucketName,
 
 int main()
 {
+    //TODO: Name of your bucket that already contains "my-file.txt".  
+    //See create_bucket.cpp and put_object.cpp to create a bucket and load an object into that bucket.
     Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
+    //TODO: Name of object already in bucket.
     Aws::String object_name = "my-file.txt";
+    //TODO: Set to the AWS Region in which the bucket was created.
     Aws::String region = "us-east-1";
 
     Aws::SDKOptions options;
