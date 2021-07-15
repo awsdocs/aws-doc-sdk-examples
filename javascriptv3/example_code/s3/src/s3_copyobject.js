@@ -8,7 +8,9 @@ Purpose:
 s3_copyobject.js demonstrates how to copy an object from one Amazon Simple Storage Solution (Amazon S3) bucket to another.
 
 Inputs (replace in code):
-- BUCKET_NAME
+- DESTINATION_BUCKET_NAME
+- SOURCE_BUCKET_NAME
+- OBJECT_NAME
 
 Running the code:
 node s3_copyobject.js
@@ -21,9 +23,9 @@ import { s3Client } from "./libs/s3Client.js";
 // Set the bucket parameters.
 
 export const params = {
-    Bucket: "brmurbucket",
-    CopySource: "/apigatewaystack-mybucket160f8132-1dysc21xykp8d/index.js",
-    Key: "index.js"
+    Bucket: "DESTINATION_BUCKET_NAME",
+    CopySource: "/SOURCE_BUCKET_NAME/OBJECT_NAME",
+    Key: "OBJECT_NAME"
 };
 
 // Create the Amazon S3 bucket.
