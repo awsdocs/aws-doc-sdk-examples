@@ -13,7 +13,7 @@ Inputs (replace in code):
 Running the code:
 node s3_copyobject.js
 */
-// snippet-start:[s3.JavaScript.buckets.createBucketV3]
+// snippet-start:[s3.JavaScript.buckets.copyObjectV3]
 // Get service clients module and commands using ES6 syntax.
 import { CopyObjectCommand } from "@aws-sdk/client-s3";
 import { s3Client } from "./libs/s3Client.js";
@@ -37,6 +37,6 @@ export const run = async () => {
     }
 };
 run();
-// snippet-end:[s3.JavaScript.buckets.createBucketV3]
+// snippet-end:[s3.JavaScript.buckets.copyObjectV3]
 // For unit tests only.
 // module.exports ={run, bucketParams};
