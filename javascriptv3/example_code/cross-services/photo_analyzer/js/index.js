@@ -32,7 +32,7 @@ const BUCKET_IMAGES =
     "BUCKET_IMAGES";
 const BUCKET_REPORTS =
     "BUCKET_REPORTs";
-const EMAIL_SENDER_ADDRESS = "EMAIL_SENDER_ADDRESS"; // A verified Amazon SES email.
+const EMAIL_SENDER_ADDRESS = "EMAIL_SENDER_ADDRESS"; // A verified Amazon SES email address.
 
 <!-- snippet-end:[rekognition.Javascript.photo-analyzer.config]-->
 
@@ -77,7 +77,7 @@ const loadTable = async () => {
 };
 loadTable();
 
-// Refresh page to populate table with latest images.
+// Refresh page to populate the table with the latest images.
 const getImages = async () => {
   window.location.reload();
 };
@@ -191,27 +191,27 @@ const uploadFile = async (csv, key) => {
       uploadParams.Key;
     console.log("Success. Report uploaded to " + linkToCSV + ".");
 
-    // Send an email to notify user when report is available.
+    // Send an email to notify the user when report is available.
     sendEmail(uploadParams.Bucket, uploadParams.Key, linkToCSV);
   } catch (err) {
     console.log("Error", err);
   }
 };
-// Helper function to send an email to user.
+// Helper function to send an email to the user.
 const sendEmail = async (bucket, key, linkToCSV) => {
   const toEmail = document.getElementById("email").value;
   const fromEmail = EMAIL_SENDER_ADDRESS; //
   try {
-    // Set the parameters
+    // Set the parameters.
     const params = {
       Destination: {
         /* required */
         CcAddresses: [
-          /* more items */
+          /* Insert Cc email addresses here. */
         ],
         ToAddresses: [
           toEmail, //RECEIVER_ADDRESS
-          /* more To-email addresses */
+          /* Insert additional email addresses here.. */
         ],
       },
       Message: {

@@ -4,7 +4,7 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript versi
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-rekognitionClient.js is a helper function that creates the Amazon Rekognition service clients.
+rekognitionClient.js is a helper function that creates the AWS Rekognition service clients.
 
 Inputs (replace in code):
 - REGION
@@ -18,7 +18,7 @@ import { RekognitionClient } from "@aws-sdk/client-rekognition";
 const REGION = "REGION";
 const IDENTITY_POOL_ID = "IDENTITY_POOL_ID"; // An Amazon Cognito Identity Pool ID.
 
-// Create an Amazon Rekognition service client object.
+// Create an AWS Rekognition service client object.
 const rekognitionClient = new RekognitionClient({
     region: REGION,
     credentials: fromCognitoIdentityPool({

@@ -2,7 +2,7 @@
 
 ## Purpose
 The cross-service example demonstrates how to build an app that analyzes nature images located in an Amazon Simple Storage Service (Amazon S3) bucket 
-by using the Amazon Rekognition service. For example, the following image shows a lake. 
+by using the AWS Rekognition service. For example, the following image shows a lake. 
 
 ![AWS Photo Analyzer](images/Lake1.png)
                                          
@@ -20,7 +20,7 @@ The application can analyze many images and generate reports for each image in a
 seperate Amazon S3 bucket, breaking the image down into a series of labels. In addition, this application uses Amazon Simple Email Service (Amazon SES) 
 to send emails with a link to each reports to the recipient.The app uses the following AWS services:
 
-- [Amazon Rekognition](https://aws.amazon.com/rekognition/)
+- [AWS Rekognition](https://aws.amazon.com/rekognition/)
 - [Amazon Simple Storage Services (S3)](https://aws.amazon.com/s3/)
 - [Amazon Simple Email Services (SES)](https://aws.amazon.com/ses/)
 
@@ -33,10 +33,7 @@ To build this cross-service example, you need the following:
 * At least one email address verified on Amazon SES. For instructions, see [Verifying an email address on Amazon SES](#verifying-an-email-address-on-amazon-ses).
 * The following AWS resources:
     - An unauthenticated AWS Identity and Access Management (IAM) user role with the following permissions:
-        - s3:PutObject, s3:DeleteObject, s3:ListBucket, s3:GetObject
-        - rekognition:DetectLabels
-        - comprehend:DetectDominantLanguage
-        - ses:SendEmail
+        - sns:*
 
 **Note**: An unauthenticated role enables you to provide permissions to unauthenticated users to use the AWS Services. To create an authenticated role, see [Amazon Cognito Identity Pools (Federated Identities)](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html).    
  
@@ -212,7 +209,7 @@ The remaining code defines the interface features, including a table and buttons
 <div class ="container" >
     <br>
 
-    <p>Click the following button to determine the number of images in the bucket</p>
+    <p>Select the following button to determine the number of images in the bucket.</p>
 
     <button onclick="getImages()">Get Images</button>
     <table id="myTable" class="display" style="width:100%">
@@ -267,7 +264,7 @@ import { RekognitionClient } from "@aws-sdk/client-rekognition";
 const REGION = "REGION";
 const IDENTITY_POOL_ID = "IDENTITY_POOL_ID"; // An Amazon Cognito Identity Pool ID.
 
-// Create an Amazon Rekognition service client object.
+// Create an AWS Rekognition service client object.
 const rekognitionClient = new RekognitionClient({
     region: REGION,
     credentials: fromCognitoIdentityPool({
@@ -511,24 +508,10 @@ const sendEmail = async (bucket, key, linkToCSV) => {
     console.log("Error", err);
   }
 };
-
-
-It contains the following functions that are triggered by the buttons on the interface:
-- **startRecord** - starts voice recording in your browser, and converts it into an audio stream in real-time. It encodes the audio stream so that it can be used by the
- AWS JavaScript SDK Transcribe Streaming client, which transcribes the audio in real-time.
-- **stopRecord** - stops the recording.
-- **clearTranscription** - clears the transcription field.
-- **translateText** - translates the transcription into the selected language.
-- **sendEmail** - emails the selected language to the entered email address. In this function, 
-replace "SENDER_EMAIL" with an email address you verified on Amazon SES in [Create the resources](#create-the-resources) 
-on this page. 
-
-It also contains several helper functions that are describe in the inline code comments.
-
+```
 **Important**: You must bundle all the JavaScript and Node.js code required for the app into a single
  file (**main.js**) to run the app. For instructions, see [Bundling the scripts](#bundling-the-scripts).
 
-```
 
 ### Bundling the scripts
 This is a static site consisting only of HTML, CSS, and client-side JavaScript. 
