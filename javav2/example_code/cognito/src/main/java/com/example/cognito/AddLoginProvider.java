@@ -23,13 +23,20 @@ import java.util.ArrayList;
 import java.util.List;
 //snippet-end:[cognito.java2.add_login_provider.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class AddLoginProvider {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    AddLoginProvider <appId> <identityPoolName> <identityPoolId> <providerName>\n\n" +
+                "    <appId> <identityPoolName> <identityPoolId> <providerName>\n\n" +
                 "Where:\n" +
                 "    appId - the application ID value from the login provider.\n\n" +
                 "    identityPoolName - the name of your identity pool.\n\n" +
@@ -37,7 +44,7 @@ public class AddLoginProvider {
                 "    providerName - the provider name (i.e., cognito-idp.us-east-1.amazonaws.com/us-east-1_Taz4Yxxxx).\n\n";
 
         if (args.length != 4) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 

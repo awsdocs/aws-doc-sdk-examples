@@ -46,7 +46,14 @@ import java.util.Locale;
  * }
  *
  *  For more information, see "Editing the Trust Relationship for an Existing Role" in the AWS Directory Service guide.
+ *
+ * Also, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
+
 public class AssumeRole {
 
     public static void main(String[] args) {

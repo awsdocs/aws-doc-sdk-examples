@@ -22,6 +22,13 @@ import software.amazon.awssdk.services.ec2.model.Reservation;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.describe_instances.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class DescribeInstances {
 
     public static void main(String[] args) {
@@ -49,18 +56,12 @@ public class DescribeInstances {
 
                 for (Reservation reservation : response.reservations()) {
                     for (Instance instance : reservation.instances()) {
-                    System.out.printf(
-                            "Found Reservation with id %s, " +
-                                    "AMI %s, " +
-                                    "type %s, " +
-                                    "state %s " +
-                                    "and monitoring state %s",
-                            instance.instanceId(),
-                            instance.imageId(),
-                            instance.instanceType(),
-                            instance.state().name(),
-                            instance.monitoring().state());
-                    System.out.println("");
+                        System.out.println("Instance Id is " + instance.instanceId());
+                        System.out.println("Image id is "+  instance.imageId());
+                        System.out.println("Instance type is "+  instance.instanceType());
+                        System.out.println("Instance state name is "+  instance.state().name());
+                        System.out.println("monitoring information is "+  instance.monitoring().state());
+
                 }
             }
                 nextToken = response.nextToken();

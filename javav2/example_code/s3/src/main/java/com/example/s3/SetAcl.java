@@ -26,15 +26,22 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 // snippet-end:[s3.java2.set_acl.import]
 
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class SetAcl {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "  SetAcl <bucketName> <objectKey> <id> \n\n" +
+                "  SetAcl <bucketName> <id> \n\n" +
                 "Where:\n" +
                     " bucketName - the Amazon S3 bucket to grant permissions on. \n" +
-                    " objectKey - the object to grant permissions on. \n" +
                     " id - the ID of the owner of this bucket (you can get this value from the AWS Management Console).\n"  ;
 
         if (args.length != 3) {
@@ -43,11 +50,9 @@ public class SetAcl {
         }
 
         String bucketName = args[0];
-        String objectKey = args[1];
-        String id = args[2];
+        String id = args[1];
 
         System.out.format("Setting access \n");
-        System.out.println("for object: " + objectKey);
         System.out.println(" in bucket: " + bucketName);
 
         Region region = Region.US_WEST_2;

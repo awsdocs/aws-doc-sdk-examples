@@ -29,6 +29,13 @@ import java.util.HashMap;
 import java.util.Map;
 //snippet-end:[pinpoint.java2.send_email.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class SendEmailMessage {
 
     // The email body for recipients with non-HTML email clients.
@@ -128,6 +135,7 @@ public class SendEmailMessage {
                     .build();
 
             pinpoint.sendMessages(messagesRequest);
+
 
         } catch (PinpointException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

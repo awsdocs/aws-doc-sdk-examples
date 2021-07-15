@@ -22,6 +22,14 @@ import software.amazon.awssdk.services.cloudformation.model.GetTemplateRequest;
 import software.amazon.awssdk.services.cloudformation.model.GetTemplateResponse;
 // snippet-end:[cf.java2._template.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class GetTemplate {
 
     public static void main(String[] args) {
@@ -38,7 +46,7 @@ public class GetTemplate {
         }
 
         String stackName = args[0];
-        Region region = Region.US_EAST_1;
+        Region region = Region.US_WEST_2;
         CloudFormationClient cfClient = CloudFormationClient.builder()
                 .region(region)
                 .build();

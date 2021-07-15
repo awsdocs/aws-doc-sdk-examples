@@ -1,13 +1,14 @@
-const mockListMetrics = jest.fn();
-jest.mock("@aws-sdk/client-cloudwatch/commands/PutMetricAlarmCommand", () => ({
-  CloudWatch: function CloudWatch() {
-    this.PutMetricAlarmCommand = mockListMetrics;
-  },
-}));
-const { params, run } = require("../../cloudwatch/src/cw_listmetrics");
+// Get service clients module and commands using CommonJS syntax.
+const { run, params } = require("../../cloudwatch/src/listMetrics");
+const { cwClient } = require("../../cloudwatch/src/libs/cloudWatchClient");
 
-test("has to mock cloudwatch#listmetrics", async (done) => {
-  await run();
-  expect(mockListMetrics).toHaveBeenCalled;
-  done();
+
+jest.mock("../../cloudwatch/src/libs/cloudWatchClient.js");
+
+describe("@aws-sdk/client-cloudwatch mock", () => {
+  it("should successfully mock CloudWatch client", async () => {
+    cwClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

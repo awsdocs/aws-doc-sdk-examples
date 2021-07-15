@@ -1,13 +1,13 @@
-const mockPutItem = jest.fn();
-jest.mock("@aws-sdk/client-dynamodb/commands/PutItemCommand", () => ({
-    DynamoDB: function DynamoDB() {
-        this.PutItemCommand = mockPutItem;
-    },
-}));
-const { params, run } = require("../../dynamodb/src/ddb_putitem");
+// Get service clients module and commands using CommonJS syntax.
+const { run, params } = require("../../dynamodb/src/ddbdoc_put_item");
+const { ddbDocClient } = require("../../dynamodb/src/libs/ddbDocClient");
 
-test("has to mock db#putItem", async (done) => {
-    await run();
-    expect(mockPutItem).toHaveBeenCalled;
-    done();
+jest.mock("../../dynamodb/src/libs/ddbDocClient.js");
+
+describe("@aws-sdk/client-ddb mock", () => {
+    it("should successfully mock DynamoDB client", async () => {
+        ddbDocClient.send.mockResolvedValue({ isMock: true });
+        const response = await run(params);
+        expect(response.isMock).toEqual(true);
+    });
 });

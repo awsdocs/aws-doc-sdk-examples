@@ -23,6 +23,14 @@ import java.util.List;
 import java.util.ListIterator;
 // snippet-end:[s3.java2.list_objects.import]
 
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class ListObjects {
 
     public static void main(String[] args) {
@@ -36,7 +44,7 @@ public class ListObjects {
         if (args.length != 1) {
            System.out.println(USAGE);
            System.exit(1);
-         }
+        }
 
         String bucketName = args[0];
         Region region = Region.US_WEST_2;
@@ -65,6 +73,7 @@ public class ListObjects {
                 System.out.print("\n The name of the key is " + myValue.key());
                 System.out.print("\n The object is " + calKb(myValue.size()) + " KBs");
                 System.out.print("\n The owner is " + myValue.owner());
+
              }
 
         } catch (S3Exception e) {

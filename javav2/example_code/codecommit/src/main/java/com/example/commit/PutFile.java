@@ -27,6 +27,15 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 // snippet-end:[codecommit.java2.put_file.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
+
 public class PutFile {
 
     public static void main(String[] args) {

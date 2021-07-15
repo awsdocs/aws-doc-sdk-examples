@@ -30,6 +30,13 @@ import software.amazon.awssdk.services.workdocs.model.DescribeUsersRequest;
 import software.amazon.awssdk.services.workdocs.model.User;
 // snippet-end:[workdocs.java2.list_user_docs.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class ListUserDocs {
 
     public static void main(String[] args) throws Exception {
@@ -47,8 +54,8 @@ public class ListUserDocs {
              System.exit(1);
          }
 
-        String orgId = args[0];
-        String userEmail = args[1];
+        String orgId = "d-926702115e" ;//args[0]
+        String userEmail = "scmacdon@amazon.com";
 
         Region region = Region.US_WEST_2;
         WorkDocsClient workDocs = WorkDocsClient.builder()

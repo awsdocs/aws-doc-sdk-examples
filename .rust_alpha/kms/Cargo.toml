@@ -1,0 +1,18 @@
+[package]
+name = "kms-code-examples"
+version = "0.1.0"
+authors = ["Russell Cohen <rcoh@amazon.com>", "Doug Schwartz <dougsch@amazon.com"]
+edition = "2018"
+description = "Example usage of the KMS service"
+
+[dependencies]
+kms = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.9-alpha", package = "aws-sdk-kms" }
+aws-hyper = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.9-alpha", package = "aws-hyper" }
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.9-alpha", package = "aws-types" }
+
+tokio = { version = "1", features = ["full"]}
+structopt = { version = "0.3", default-features = false }
+base64 = "0.13.0"
+# optional
+env_logger = "0.8.2"
+tracing-subscriber = { version = "0.2.16", features = ["fmt"] }

@@ -21,7 +21,13 @@ import software.amazon.awssdk.services.rds.model.ModifyDbInstanceResponse;
 import software.amazon.awssdk.services.rds.model.RdsException;
 // snippet-end:[rds.java2.modify_instance.import]
 
-
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class ModifyDBInstance {
 
     public static void main(String[] args) {
@@ -56,6 +62,7 @@ public class ModifyDBInstance {
             // For a demo - modify the DB instance by modifying the master password
             ModifyDbInstanceRequest modifyDbInstanceRequest = ModifyDbInstanceRequest.builder()
                     .dbInstanceIdentifier(dbInstanceIdentifier)
+                    .publiclyAccessible(true)
                     .masterUserPassword(masterUserPassword)
                     .build();
 

@@ -1,13 +1,12 @@
-const mockGetQueueUrl = jest.fn();
-jest.mock("@aws-sdk/client-sqs/commands/GetQueueUrlCommand", () => ({
-  SQS: function SQS() {
-    this.GetQueueUrlCommand = mockGetQueueUrl;
-  },
-}));
-const { run } = require("../../sqs/src/sqs_getqueueurl.js");
+const { run, params } = require("../../sqs/src/sqs_getqueueurl");
+const { sqsClient } = require("../../sqs/src/libs/sqsClient.js");
 
-test("has to mock SQS#getqueueurl", async (done) => {
-  await run();
-  expect(mockGetQueueUrl).toHaveBeenCalled;
-  done();
+jest.mock("../../sqs/src/libs/sqsClient.js");
+
+describe("@aws-sdk/client-ses mock", () => {
+  it("should successfully mock SES client", async () => {
+    sqsClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
 });

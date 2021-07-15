@@ -21,6 +21,14 @@ import software.amazon.awssdk.services.swf.model.SwfException;
 import software.amazon.awssdk.services.swf.model.StartWorkflowExecutionRequest;
 // snippet-end:[swf.java2.start_workflow.import]
 
+
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class WorkflowStarter {
 
     public static final String WORKFLOW_EXECUTION = "HelloWorldWorkflowExecution";

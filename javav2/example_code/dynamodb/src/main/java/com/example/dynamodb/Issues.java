@@ -7,6 +7,7 @@ package com.example.dynamodb;
 
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSecondaryPartitionKey;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
 
 @DynamoDbBean
@@ -74,9 +75,11 @@ public class Issues {
         this.dueDate = dueDate;
     }
 
+    @DynamoDbSecondaryPartitionKey(indexNames = { "dueDateIndex" })
     public String getDueDate() {
         return this.dueDate;
     }
+
 
     public String getDate() {
         return this.createDate;

@@ -23,6 +23,13 @@ import software.amazon.awssdk.services.pinpoint.model.CreateImportJobResponse;
 import software.amazon.awssdk.services.pinpoint.model.PinpointException;
 //snippet-end:[pinpoint.java2.importsegment.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class ImportSegment {
     public static void main(String[] args) {
         final String USAGE = "\n" +

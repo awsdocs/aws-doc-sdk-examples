@@ -22,6 +22,13 @@ import software.amazon.awssdk.services.redshift.model.RedshiftException;
 import java.util.List;
 // snippet-end:[redshift.java2.describe_cluster.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class DescribeClusters {
 
     public static void main(String[] args) {

@@ -26,7 +26,13 @@ import software.amazon.awssdk.services.comprehend.model.DocumentClassifierInputD
  * Before running this code example, you can setup the necessary resources, such as the CSV file and IAM Roles, by following this document:
  * https://aws.amazon.com/blogs/machine-learning/building-a-custom-classifier-using-amazon-comprehend/
  */
-
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class DocumentClassifierDemo {
 
     public static void main(String[] args) {

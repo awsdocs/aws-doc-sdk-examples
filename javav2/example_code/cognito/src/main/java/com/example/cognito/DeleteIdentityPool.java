@@ -19,13 +19,20 @@ import software.amazon.awssdk.services.cognitoidentity.CognitoIdentityClient;
 import software.amazon.awssdk.services.cognitoidentity.model.DeleteIdentityPoolRequest;
 //snippet-end:[cognito.java2.deleteidpool.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class DeleteIdentityPool {
 
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeleteIdentityPool <identityPoolId> \n\n" +
+                "    <identityPoolId> \n\n" +
                 "Where:\n" +
                 "    identityPoolId - the Id value of your identity pool.\n\n" ;
 

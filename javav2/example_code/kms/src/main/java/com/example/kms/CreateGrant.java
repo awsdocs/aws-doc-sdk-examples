@@ -20,6 +20,13 @@ import software.amazon.awssdk.services.kms.model.CreateGrantResponse;
 import software.amazon.awssdk.services.kms.model.KmsException;
 // snippet-end:[kms.java2_create_grant.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class CreateGrant {
 
     public static void main(String[] args) {

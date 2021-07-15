@@ -1,0 +1,21 @@
+# v1.1.0
+name: Extract Snippets Dry Run
+on:
+  pull_request:
+  # run on demand
+  workflow_dispatch:
+jobs:
+  extract-snippets-dryrun:
+    if: github.repository_owner == 'aws' || github.repository_owner == 'awsdocs' || github.repository_owner == 'aws-samples' || github.repository_owner == 'jerry-aws'
+    runs-on: ubuntu-latest
+    env:
+      REPORTS: issues
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9.x"
+      - run: bash .github/extract-snippets/extract-snippets.sh dryrun

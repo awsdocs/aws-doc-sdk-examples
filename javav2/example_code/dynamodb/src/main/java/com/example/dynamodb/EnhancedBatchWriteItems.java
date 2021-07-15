@@ -32,8 +32,18 @@ import java.time.ZoneOffset;
 // snippet-end:[dynamodb.java2.mapping.batchitems.import]
 
 /*
-   Prior to running this code example, create an Amazon DynamoDB table named Customer with a key named id.
-*/
+ * Prior to running this code example, create an Amazon DynamoDB table named Customer with these columns:
+ *   - id - the id of the record that is the key
+ *   - custName - the customer name
+ *   - email - the email value
+ *   - registrationDate - an instant value when the item was added to the table
+ *
+ * Also, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class EnhancedBatchWriteItems {
 
     public static void main(String[] args) {
@@ -94,48 +104,5 @@ public class EnhancedBatchWriteItems {
         }
     }
 
-    @DynamoDbBean
-    public static class Customer {
-
-        private String id;
-        private String name;
-        private String email;
-        private Instant regDate;
-
-        @DynamoDbPartitionKey
-        public String getId() {
-            return this.id;
-        };
-
-        public void setId(String id) {
-
-            this.id = id;
-        }
-
-        @DynamoDbSortKey
-        public String getCustName() {
-            return this.name;
-        }
-
-        public void setCustName(String name) {
-            this.name = name;
-        }
-
-        public String getEmail() {
-            return this.email;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
-        }
-
-        public Instant getRegistrationDate() {
-            return regDate;
-        }
-        public void setRegistrationDate(Instant registrationDate) {
-
-            this.regDate = registrationDate;
-        }
-    }
     // snippet-end:[dynamodb.java2.mapping.batchitems.main]
 }

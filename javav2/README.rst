@@ -79,6 +79,12 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 
 + **Creating a Job Posting Site using Amazon Redshift and Amazon Translation Services** - A tutorial that discusses how to create a web application that uses the Redshift Data Client API and the Amazon Translate Service to display job listing data. In this tutorial, the Spring Framework along with AWS SDK for Java API V2 is used to create the application. 
 
++ **Creating a Spring Boot Application that has publish/subscription functionality** - A tutorial that discusses how to create a web application that has subscription and publish functionality. In this tutorial, the Spring Framework along with AWS SDK for Simple Notification Service Java API V2 is used to create the application.
+
++ **Creating a Job Posting Site using Amazon Aurora and Amazon Translation Services** - A tutorial that discusses how to create a web application that uses Amazon Aurora (Amazon Relational Database Service) and the Amazon Translate Service to display job listing data. In this tutorial, the Spring Framework along with AWS SDK for Java API V2 is used to create the application. 
+
++ **Creating an ETL workflow by using AWS Step Functions and the AWS SDK for Java** -  A tutorial that discusses how to develop an AWS serverless workflow that performs an Extract, Transform, and Load (ETL) job. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function. 
+
 AWS service examples
 --------------------
 

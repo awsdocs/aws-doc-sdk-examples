@@ -36,6 +36,11 @@ import software.amazon.awssdk.services.cloudformation.waiters.CloudFormationWait
  *  Also, the role that you use must have CloudFormation permissions as well as Amazon S3 and Amazon EC2 permissions. For more information,
  *  see "Getting started with AWS CloudFormation" in the AWS CloudFormation User Guide.
  *
+ * Also, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *
  */
 
 public class CreateStack {

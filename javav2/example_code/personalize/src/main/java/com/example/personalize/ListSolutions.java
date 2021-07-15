@@ -20,10 +20,16 @@ import software.amazon.awssdk.services.personalize.model.ListSolutionsRequest;
 import software.amazon.awssdk.services.personalize.model.ListSolutionsResponse;
 import software.amazon.awssdk.services.personalize.model.SolutionSummary;
 import software.amazon.awssdk.services.personalize.model.PersonalizeException;
-
 import java.util.List;
 //snippet-end:[personalize.java2.list_solutions.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class ListSolutions {
 
     public static void main(String[] args) {

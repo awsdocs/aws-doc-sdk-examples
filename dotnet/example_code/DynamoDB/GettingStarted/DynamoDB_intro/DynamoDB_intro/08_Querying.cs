@@ -47,4 +47,5 @@ namespace DynamoDB_intro
             return response;
         }
     }
-}// snippet-end:[dynamodb.dotNET.CodeExample.08_Querying]
+}
+// snippet-end:[dynamodb.dotNET.CodeExample.08_Querying]

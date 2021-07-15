@@ -33,6 +33,11 @@ import java.util.ArrayList;
  * To run this code example, ensure that you have followed the documentation provided here:
  *
  * https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-create-job.html
+ *
+ * In addition, ensure that you have setup your development environment, including your AWS credentials.
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateJob {
 
@@ -55,7 +60,7 @@ public class CreateJob {
         String accountId = args[0];
         String iamRoleArn = args[1];
         String manifestLocation = args[2];
-        String reportBucketName = args[3];
+        String reportBucketName = args[3];;
         String uuid = java.util.UUID.randomUUID().toString();
 
         S3ControlClient s3ControlClient = S3ControlClient.builder()

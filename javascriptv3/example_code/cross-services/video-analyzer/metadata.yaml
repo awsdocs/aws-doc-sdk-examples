@@ -1,9 +1,0 @@
----
-# Amazon video analyzer cross-service example
-files:
-  - path: ./src/js/index.js
-    services:
-      - SNS
-      - S3
-      - Rekognition
-...

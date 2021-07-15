@@ -28,6 +28,14 @@ import software.amazon.awssdk.services.swf.model.TaskList;
 // snippet-end:[swf.java2.poll_tasks.import]
 
 // snippet-start:[swf.java2.poll_tasks.main]
+
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class ActivityWorkerWithGracefulShutdown {
 
     private static CountDownLatch waitForTermination = new CountDownLatch(1);

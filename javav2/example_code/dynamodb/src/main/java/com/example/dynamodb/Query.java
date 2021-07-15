@@ -29,6 +29,10 @@ import software.amazon.awssdk.regions.Region;
  * For information, see this documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *
+ *  To query items from an Amazon DynamoDB table using the AWS SDK for Java V2,
+ *  its better practice to use the
+ *  Enhanced Client. See the EnhancedQueryRecords example.
  */
 public class Query {
 

@@ -21,6 +21,14 @@ import software.amazon.awssdk.services.s3.model.GetBucketPolicyRequest;
 import software.amazon.awssdk.services.s3.model.GetBucketPolicyResponse;
 // snippet-end:[s3.java2.get_bucket_policy.import]
 
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class GetBucketPolicy {
 
     public static void main(String[] args) {

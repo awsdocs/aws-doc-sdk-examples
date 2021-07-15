@@ -19,12 +19,19 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.ListUsersRe
 import software.amazon.awssdk.services.cognitoidentityprovider.model.UserType;
 //snippet-end:[cognito.java2.ListUsers.import]
 
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class ListUsers {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    ListUsers <userPoolId> \n\n" +
+                "    <userPoolId> \n\n" +
                 "Where:\n" +
                 "    userPoolId - the ID given to your user pool when it's created.\n\n" ;
 
@@ -39,7 +46,6 @@ public class ListUsers {
                 .build();
 
         listAllUsers(cognitoclient, userPoolId );
-        listUsersFilter(cognitoclient, userPoolId );
         cognitoclient.close();
     }
 

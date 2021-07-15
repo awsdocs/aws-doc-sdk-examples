@@ -20,6 +20,13 @@ import software.amazon.awssdk.services.kms.model.CreateAliasRequest;
 import software.amazon.awssdk.services.kms.model.KmsException;
 // snippet-end:[kms.java2_create_alias.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class CreateAlias {
 
     public static void main(String[] args) {
@@ -34,7 +41,7 @@ public class CreateAlias {
          if (args.length != 2) {
               System.out.println(USAGE);
              System.exit(1);
-        }
+         }
 
         String targetKeyId = args[0];
         String aliasName = args[1];

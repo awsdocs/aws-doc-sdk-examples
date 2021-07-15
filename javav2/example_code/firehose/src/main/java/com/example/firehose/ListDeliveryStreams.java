@@ -18,15 +18,21 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.firehose.FirehoseClient;
 import software.amazon.awssdk.services.firehose.model.FirehoseException;
 import software.amazon.awssdk.services.firehose.model.ListDeliveryStreamsResponse;
+import java.util.List;
 // snippet-end:[firehose.java2.list_streams.import]
 
-import java.util.List;
-
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class ListDeliveryStreams {
 
     public static void main(String[] args) throws Exception {
 
-        Region region = Region.US_WEST_2;
+        Region region = Region.US_EAST_1;
         FirehoseClient firehoseClient = FirehoseClient.builder()
                 .region(region)
                 .build();

@@ -28,6 +28,13 @@ import software.amazon.awssdk.services.kinesis.model.SubscribeToShardResponse;
 import software.amazon.awssdk.services.kinesis.model.SubscribeToShardResponseHandler;
 // snippet-end:[kinesis.java2.stream_example.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class KinesisStreamEx {
 
     /**
@@ -76,7 +83,7 @@ public class KinesisStreamEx {
     // snippet-end:[kinesis.java2.stream_example.lifecycle_callback]
 
     /**
-     * Uses the SubscribeToShardResponseHandler.Builder and a simple Consumer of events to subscribe.
+     * Using the SubscribeToShardResponseHandler.Builder and a simple Consumer of events to subscribe.
      */
     private static CompletableFuture<Void> responseHandlerBuilderConsumer(KinesisAsyncClient client, SubscribeToShardRequest request) {
         SubscribeToShardResponseHandler responseHandler = SubscribeToShardResponseHandler
@@ -181,7 +188,7 @@ public class KinesisStreamEx {
     // snippet-end:[kinesis.java2.stream_example.custom_handler]
 
     /**
-     * Uses the SubscribeToShardResponseHandler.Builder and a traditional subscriber.
+     * Using the SubscribeToShardResponseHandler.Builder and a traditional subscriber.
      */
     // snippet-start:[kinesis.java2.stream_example.subscribe]
     private static CompletableFuture<Void> responseHandlerBuilderSubscriber(KinesisAsyncClient client, SubscribeToShardRequest request) {

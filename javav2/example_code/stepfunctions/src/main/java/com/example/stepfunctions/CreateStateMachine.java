@@ -29,9 +29,15 @@ import java.io.IOException;
 /**
  * To run this example, you need a JSON file that represents the Amazon States Language definition for the state machine.
  *
- * To see an Amazon States Language definition example that you can use in this code example, see 
- * "Getting started with AWS Step Functions" at https://docs.aws.amazon.com/step-functions/latest/dg/getting-started.html.
+ * To see an Amazon States Language definition example that you can use, see "Getting started with AWS Step Functions" at https://docs.aws.amazon.com/step-functions/latest/dg/getting-started.html.
+ *
+ * Also, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
+
 
 public class CreateStateMachine {
 
@@ -41,7 +47,7 @@ public class CreateStateMachine {
                 "    CreateStateMachine <jsonFile> <roleARN> <stateMachineName>\n\n" +
                 "Where:\n" +
                 "    jsonFile - A JSON file that represents the Amazon States Language definition of the state machine.\n\n" +
-                "    roleARN - The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role to use for this state machine.\n" +
+                "    roleARN - The Amazon Resource Name (ARN) of the IAM role to use for this state machine.\n" +
                 "    stateMachineName - The name of the state machine to create.\n";
 
         if (args.length != 3) {

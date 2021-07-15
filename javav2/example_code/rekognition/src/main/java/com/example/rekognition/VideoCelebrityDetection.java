@@ -32,7 +32,14 @@ import java.util.List;
 /**
  *  To run this code example, ensure that you perform the Prerequisites as stated in the Amazon Rekognition Guide:
  *  https://docs.aws.amazon.com/rekognition/latest/dg/video-analyzing-with-sqs.html
+ *
+ * Also, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
+
 public class VideoCelebrityDetection {
 
     private static String startJobId ="";

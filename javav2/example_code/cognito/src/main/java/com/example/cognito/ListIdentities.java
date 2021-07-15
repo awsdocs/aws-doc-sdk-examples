@@ -19,22 +19,29 @@ import software.amazon.awssdk.services.cognitoidentity.model.IdentityDescription
 import software.amazon.awssdk.services.cognitoidentity.model.ListIdentitiesRequest;
 import software.amazon.awssdk.services.cognitoidentity.model.ListIdentitiesResponse;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
+import java.util.List;
 //snippet-end:[cognito.java2.listidentities.import]
 
-import java.util.List;
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 
 public class ListIdentities {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    ListIdentities <identityPoolId>\n\n" +
                 "Where:\n" +
                 "    identityPoolId - the id value of your identity pool (for example, us-east-1:00eb915b-c521-417b-af0d-ebad008axxxx).\n\n" ;
 
         if (args.length != 1) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 

@@ -21,6 +21,13 @@ import software.amazon.awssdk.services.sagemaker.model.DescribeTrainingJobRespon
 import software.amazon.awssdk.services.sagemaker.model.SageMakerException;
 //snippet-end:[sagemaker.java2.describe_train_job.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class DescribeTrainingJob {
 
     public static void main(String[] args) {

@@ -20,10 +20,17 @@ import software.amazon.awssdk.services.iam.model.AttachRolePolicyRequest;
 import software.amazon.awssdk.services.iam.model.AttachedPolicy;
 import software.amazon.awssdk.services.iam.model.ListAttachedRolePoliciesRequest;
 import software.amazon.awssdk.services.iam.model.ListAttachedRolePoliciesResponse;
-import java.util.ArrayList;
 import java.util.List;
 // snippet-end:[iam.java2.attach_role_policy.import]
 
+
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class AttachRolePolicy {
 
     public static void main(String[] args) {
@@ -59,8 +66,7 @@ public class AttachRolePolicy {
 
         try {
 
-            List<AttachedPolicy> matchingPolicies = new ArrayList<>();
-            ListAttachedRolePoliciesRequest request = ListAttachedRolePoliciesRequest.builder()
+             ListAttachedRolePoliciesRequest request = ListAttachedRolePoliciesRequest.builder()
                     .roleName(roleName)
                     .build();
 
@@ -70,7 +76,6 @@ public class AttachRolePolicy {
             // Ensure that the policy is not attached to this role
             String polArn = "";
             for (AttachedPolicy policy: attachedPolicies) {
-
                 polArn = policy.policyArn();
                 if (polArn.compareTo(policyArn)==0) {
                    System.out.println(roleName +

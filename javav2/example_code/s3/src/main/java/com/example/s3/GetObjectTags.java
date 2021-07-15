@@ -24,6 +24,14 @@ import java.util.Iterator;
 import java.util.List;
 // snippet-end:[s3.java2.getobjecttags.import]
 
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class GetObjectTags {
 
     public static void main(String[] args) {

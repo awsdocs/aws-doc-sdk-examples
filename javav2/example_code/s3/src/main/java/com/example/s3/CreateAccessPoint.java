@@ -21,6 +21,14 @@ import software.amazon.awssdk.services.s3control.model.S3ControlException;
 import software.amazon.awssdk.services.s3control.model.DeleteAccessPointRequest;
 // snippet-end:[s3.java2.create_access_point.import]
 
+/**
+ * To run this AWS code example, ensure that you have setup your development environment, including your AWS credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
 public class CreateAccessPoint {
 
     public static void main(String[] args) {

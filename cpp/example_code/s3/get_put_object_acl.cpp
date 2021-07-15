@@ -296,6 +296,7 @@ int main()
         //TODO: Set owner_id to your canonical id.  It is your bucket so you are the ACL owner. 
         //See https://docs.aws.amazon.com/AmazonS3/latest/userguide/finding-canonical-user-id.html for more information.
         //You can also find it by running the executable run_get_acl.exe of this project. 
+
         const Aws::String owner_id = 
             "b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE";
 
