@@ -6,7 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
 
 Purpose:
-s3_getobject.js gets an object} from an Amazon Simple Storage Service (Amazon S3) bucket.
+s3_getobject.js gets an object from an Amazon Simple Storage Service (Amazon S3) bucket.
 
 Inputs (replace in code):
 - BUCKET_NAME
@@ -16,7 +16,7 @@ Running the code:
 nodes3_getobject.js
 
 [Outputs | Returns]:
-Returns the object} from the Amazon S3 bucket.
+Returns an object from an Amazon S3 bucket.
 */
 // snippet-start:[s3.JavaScript.buckets.getobjectV3]
 // Import required AWS SDK clients and commands for Node.js.
