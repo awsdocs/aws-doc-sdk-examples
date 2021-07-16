@@ -1,4 +1,4 @@
-# Amazon S3 AWS SDK for C++ code examples
+# Amazon S3 C++ SDK code examples using S3CrtClient
 
 ## Purpose
 The code examples in this directory demonstrate how to work with the Amazon Simple Storage Service 

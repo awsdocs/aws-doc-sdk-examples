@@ -1,4 +1,4 @@
-# Amazon S3 AWS SDK for C++ code examples
+# Amazon S3 C++ SDK code examples using TransferManager
 
 ## Purpose
 The code examples in this directory demonstrate how to work with the Amazon Simple Storage Service 
@@ -7,7 +7,7 @@ The code examples in this directory demonstrate how to work with the Amazon Simp
 Amazon S3 is an object storage service that offers industry-leading scalability, data availability, security, and performance. 
 
 This example uses the TransferManager for better upload/download performance over the S3Client.  For other classes provided by the AWS SDK for C++ that also interface to
-Amazon S3, see example folder [s3-crt](../s3-crt) and example folder [transfer-manager](../transfer-manager).
+Amazon S3, see example folder [s3-crt](../s3-crt) and example folder [s3](../s3).
 
 ## Code examples
 This is a workspace where you can find AWS SDK for C++ S3 examples utilizing the TransferManager class.
