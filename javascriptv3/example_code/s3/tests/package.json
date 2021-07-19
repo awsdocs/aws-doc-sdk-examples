@@ -10,8 +10,13 @@
     "@aws-sdk/client-s3": "^3.3.0",
     "@aws-sdk/node-http-handler": "^3.3.0"
   },
+  "devDependencies": {
+    "@babel/preset-env": "^7.14.4",
+    "@types/node": "^14.0.23",
+    "jest": "^26.6.3",
+    "regenerator-runtime": "^0.13.7"
+  },
   "scripts": {
     "test": "jest"
-  },
-  "type": "module"
+  }
 }

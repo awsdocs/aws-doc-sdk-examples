@@ -5,34 +5,40 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
 
 Purpose:
-s3_createbucket.js demonstrates how to create an Amazon S3 bucket.
+s3_copyobject.js demonstrates how to copy an object from one Amazon Simple Storage Solution (Amazon S3) bucket to another.
 
 Inputs (replace in code):
-- BUCKET_NAME
+- DESTINATION_BUCKET_NAME
+- SOURCE_BUCKET_NAME
+- OBJECT_NAME
 
 Running the code:
-nodes3_createbucket.js
+node s3_copyobject.js
 */
-// snippet-start:[s3.JavaScript.buckets.createBucketV3]
+// snippet-start:[s3.JavaScript.buckets.copyObjectV3]
 // Get service clients module and commands using ES6 syntax.
-import { CreateBucketCommand } from "@aws-sdk/client-s3";
+import { CopyObjectCommand } from "@aws-sdk/client-s3";
 import { s3Client } from "./libs/s3Client.js";
 
 // Set the bucket parameters.
 
-export const bucketParams = { Bucket: "brmurbucket" };
+export const params = {
+    Bucket: "DESTINATION_BUCKET_NAME",
+    CopySource: "/SOURCE_BUCKET_NAME/OBJECT_NAME",
+    Key: "OBJECT_NAME"
+};
 
 // Create the Amazon S3 bucket.
 export const run = async () => {
-  try {
-    const data = await s3Client.send(new CreateBucketCommand(bucketParams));
-    console.log("Success", data);
-    return data; // For unit tests.
-  } catch (err) {
-    console.log("Error", err);
-  }
+    try {
+        const data = await s3Client.send(new CopyObjectCommand(params));
+        console.log("Success", data);
+        return data; // For unit tests.
+    } catch (err) {
+        console.log("Error", err);
+    }
 };
 run();
-// snippet-end:[s3.JavaScript.buckets.createBucketV3]
+// snippet-end:[s3.JavaScript.buckets.copyObjectV3]
 // For unit tests only.
 // module.exports ={run, bucketParams};

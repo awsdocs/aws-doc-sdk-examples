@@ -139,7 +139,7 @@ const ProcessImages = async () => {
       // Parse results into CVS format.
       const noOfLabels = lastdata.Labels.length;
       var j;
-      for (j = 0; j < data.Contents.length; j++) {
+      for (j = 0; j < lastdata.Labels.length; j++) {
         var name = JSON.stringify(lastdata.Labels[j].Name);
         var confidence = JSON.stringify(lastdata.Labels[j].Confidence);
         var arrayfirst = [];
