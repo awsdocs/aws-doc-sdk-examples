@@ -1,3 +1,16 @@
+//snippet-sourcedescription:[DescribeInstanceTags.java demonstrates how to describe the specified tags for your Amazon Elastic Compute Cloud (Amazon EC2) resource.]
+//snippet-keyword:[AWS SDK for Java v2]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon EC2]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[11/01/2020]
+//snippet-sourceauthor:[scmacdon-aws]
+
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 package com.example.ec2;
 
 import software.amazon.awssdk.regions.Region;
@@ -15,6 +28,17 @@ import java.util.List;
 public class DescribeInstanceTags {
 
     public static void main(String[] args) {
+
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "DescribeInstanceTags <resourceId> \n\n" +
+                "Where:\n" +
+                "    resourceId - the instance ID value that you can obtain from the AWS Console (for example, i-xxxxxx0913e05f482). \n\n"  ;
+
+        if (args.length != 1) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
 
         String resourceId = args[0];
         Region region = Region.US_EAST_1;
