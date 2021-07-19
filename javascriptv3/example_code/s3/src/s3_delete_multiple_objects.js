@@ -19,7 +19,7 @@ nodes3_delete_multiple_objects.js
 import { DeleteObjectsCommand } from "@aws-sdk/client-s3";
 import { s3Client } from "./libs/s3Client.js" // Helper function that creates Amazon S3 service client module.
 
-const bucketParams = {
+export const bucketParams = {
   Bucket: "BUCKET_NAME",
   Delete: {
     Objects: [
@@ -33,7 +33,7 @@ const bucketParams = {
   },
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await s3Client.send(new DeleteObjectsCommand(bucketParams));
     return data; // For unit tests.

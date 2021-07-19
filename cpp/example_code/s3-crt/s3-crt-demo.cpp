@@ -51,7 +51,7 @@ bool CreateBucket(const Aws::S3Crt::S3CrtClient& s3CrtClient, const Aws::String&
     Aws::S3Crt::Model::CreateBucketRequest request;
     request.SetBucket(bucketName);
 
-    //  If you don't specify a Region, the bucket is created in the US East (N. Virginia) Region (us-east-1)
+    //  If you don't specify an AWS Region, the bucket is created in the US East (N. Virginia) Region (us-east-1)
     if (locConstraint != Aws::S3Crt::Model::BucketLocationConstraint::us_east_1)
     {
         Aws::S3Crt::Model::CreateBucketConfiguration bucket_config;
@@ -184,9 +184,9 @@ bool DeleteObject(const Aws::S3Crt::S3CrtClient& s3CrtClient, const Aws::String&
 int main(int argc, char* argv[]) {
 
     Aws::SDKOptions options;
-    //Turn on logging
+    //Turn on logging.
     options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Info;
-    // Override default log level for AWS common runtime libraries to see multipart upload.
+    // Override the default log level for AWS common runtime libraries to see multipart upload entries in the log file.
     options.loggingOptions.crt_logger_create_fn = []() {
         return Aws::MakeShared<Aws::Utils::Logging::DefaultCRTLogSystem>(ALLOCATION_TAG, Aws::Utils::Logging::LogLevel::Debug);
     };
@@ -213,13 +213,13 @@ int main(int argc, char* argv[]) {
         // TODO: Copy the provided ny.json file to your executable directory.
         Aws::String file_name = "ny.json";
         
-        //TODO: Set to your account region.
+        //TODO: Set to your account AWS Region.
         Aws::String region = Aws::Region::US_EAST_1;
 
         //The object_key is the unique identifier for the object in the bucket.
         Aws::String object_key = "my-object";
 
-        // Create a unique bucket name for the new bucket (must be globally unique).
+        // Create a globally unique name for the new bucket.
         // Format: "my-bucket-" + lowercase UUID.
         Aws::String uuid = Aws::Utils::UUID::RandomUUID();
         Aws::String bucket_name = "my-bucket-" +
