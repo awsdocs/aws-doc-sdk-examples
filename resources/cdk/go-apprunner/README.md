@@ -1,6 +1,6 @@
-# Golang: AppRunner with ECR via CDK
+# Golang: AWS App Runner with ECR via CDK
 
-This is an example of building Golang applications on top of AppRunner.
+This is an example of building Golang applications on top of AWS AppRunner.
 
 AppRunner does not natively support Go, however it is possible to automate the deployment of a Go application using the
 Elastic Container Registry. Here, a simple application written in Go, is packaged into a Docker container.
@@ -8,21 +8,19 @@ Elastic Container Registry. Here, a simple application written in Go, is package
 * The docker container is built in two passes: The first builds the Golang application for the target linux-amd64 environment.
   The second stage assembles the final container used by the application: A barebones Go application and supporting environment.
 * This application is built using [fiber](://gofiber.io/) however any HTTP framework will do. 
-* AppRunner automatically procures HTTPS certificates. 
+* App Runner automatically procures HTTPS certificates for both the default certificate and any custom domains you may associate with your service.
 
 
-## :important: Important
+## ⚠️ Important
 
-* While this sample has been tested in multiple regions, you will need to verify that AppRunner and the Elastic Container Registry are
-  available in the regions you wish to deploy to
-* Running the sample may incur charges upon your account. Unless you clean up the AppRunner instance, it will continue to incur charges.
-  To avoid future charges, use `cdk destroy` to clean up any resources that were created as a part of this example.
+* While this sample has been tested in multiple AWS Regions, you will need to verify that AppRunner and the Elastic Container Registry are available in the Regions you wish to deploy to.
+* Running the sample may incur charges upon your account. Unless you clean up the AppRunner instance, it will continue to incur charges. To avoid future charges, use `cdk destroy` to clean up any resources that were created as a part of this example.
 
 ## Running the example
 
-To run this example, make sure you have the CDK installed.
+To run this example, make sure you have the AWS Clould Development Kit (AWS CDK) installed.
 
-If you have not already done so, you will need to bootstrap the CDK:
+If you have not already done so, you will need to bootstrap the AWS CDK:
 ```
 cdk bootstrap
 ```
