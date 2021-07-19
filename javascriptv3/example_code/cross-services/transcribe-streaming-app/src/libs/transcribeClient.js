@@ -11,25 +11,21 @@ Inputs (replace in code):
 - IDENTITY_POOL_ID - an Amazon Cognito Identity Pool ID.
 */
 // snippet-start:[transcribeClient.JavaScript.streaming.createclientv3]
-const { CognitoIdentityClient } =require("@aws-sdk/client-cognito-identity");
-const {
-    fromCognitoIdentityPool,
-} =require("@aws-sdk/credential-provider-cognito-identity");
-const {TranscribeStreamingClient} =require("@aws-sdk/client-transcribe-streaming");
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
+import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
+import { TranscribeStreamingClient } from "@aws-sdk/client-transcribe-streaming";
 
 const REGION = "REGION";
 const IDENTITY_POOL_ID = "IDENTITY_POOL_ID"; // An Amazon Cognito Identity Pool ID.
 
-
 // Create an Amazon Transcribe service client object.
 const transcribeClient = new TranscribeStreamingClient({
-    region: REGION,
-    credentials: fromCognitoIdentityPool({
-        client: new CognitoIdentityClient({ region: REGION }),
-        identityPoolId: IDENTITY_POOL_ID
-    }),
+  region: REGION,
+  credentials: fromCognitoIdentityPool({
+    client: new CognitoIdentityClient({ region: REGION }),
+    identityPoolId: IDENTITY_POOL_ID,
+  }),
 });
 
-
-export { transcribeClient};
+export { transcribeClient };
 // snippet-end:[transcribeClient.JavaScript.streaming.createclientv3]

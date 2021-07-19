@@ -37,13 +37,14 @@ This example deletes a CloudFormation stack in the region.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
-### describe-stacks
+### describe-stack
 
 This example retrieves the status of a CloudFormation stack in the region.
 
 `cargo run --bin describe-stacks -- -s STACK-NAME [-d DEFAULT-REGION] [-v]`
 
 - _STACK-NAME_ is name of the stack.
+  If the stack does not exist, the code panics.
 - _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the stacks are located.
   If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.

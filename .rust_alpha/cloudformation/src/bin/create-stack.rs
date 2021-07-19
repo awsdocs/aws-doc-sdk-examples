@@ -81,7 +81,9 @@ async fn main() -> Result<(), cloudformation::Error> {
         .send()
         .await?;
 
-    println!("Stack created");
+    println!("Stack created.");
+    println!("Use describe-stacks with your stack name to see the status of your stack.");
+    println!("You cannot use/deploy the stack until the status is 'CreateComplete'.");
     println!();
 
     Ok(())

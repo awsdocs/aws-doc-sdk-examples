@@ -47,11 +47,13 @@ async fn main() -> Result<(), Error> {
         .or_else(|| aws_types::region::default_provider().region())
         .unwrap_or_else(|| Region::new("us-west-2"));
 
+    let only_one = instance_id.as_deref().unwrap_or_default() != "";
+
     if verbose {
         println!("EC2 client version: {}", ec2::PKG_VERSION);
         println!("Region:             {:?}", &region);
 
-        if instance_id.as_deref().unwrap_or_default() != "" {
+        if only_one {
             println!("Instance ID:        {:?}", instance_id);
         }
     }
@@ -60,7 +62,7 @@ async fn main() -> Result<(), Error> {
 
     let client = Client::from_conf(config);
 
-    if instance_id.as_deref().unwrap_or_default() == "" {
+    if only_one {
         let resp = client.describe_instances().send().await?;
         for reservation in resp.reservations.unwrap_or_default() {
             println!("Instances:");
