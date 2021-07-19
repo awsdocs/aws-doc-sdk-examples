@@ -1,6 +1,6 @@
 # Amazon Elastic Container Service Java code examples
 
-This README discusses how to run and test the Java code examples for Amazon Elastic Container Service.
+This README discusses how to run and test the Java code examples for Amazon Elastic Container Service (Amazon ECS).
 
 ## Running the Amazon Elastic Container Service Java files
 
