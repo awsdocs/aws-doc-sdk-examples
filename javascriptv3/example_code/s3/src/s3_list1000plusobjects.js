@@ -20,9 +20,9 @@ import { ListObjectsCommand } from "@aws-sdk/client-s3";
 import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
 // Create the parameters for the bucket
-const bucketParams = { Bucket: "BUCKET_NAME" };
+export const bucketParams = { Bucket: "BUCKET_NAME" };
 
-async function run() {
+export async function run() {
   // Declare truncated as a flag that we will base our while loop on
   let truncated = true;
   // Declare a variable that we will assign the key of the last element in the response to

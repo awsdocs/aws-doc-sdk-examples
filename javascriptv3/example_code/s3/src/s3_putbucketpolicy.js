@@ -21,7 +21,7 @@ import { s3Client } from "./libs/s3Client.js"; // Helper function that creates A
 
 // Create params JSON for S3.createBucket
 const BUCKET_NAME = "BUCKET_NAME";
-const bucketParams = {
+export const bucketParams = {
   Bucket: BUCKET_NAME,
 };
 // Create the policy
@@ -48,7 +48,7 @@ const bucketPolicyParams = {
   Policy: JSON.stringify(readOnlyAnonUserPolicy),
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     // const response = await s3.putBucketPolicy(bucketPolicyParams);
     const response = await s3Client.send(

@@ -63,11 +63,12 @@ int main()
     {
         //TODO: Name of object already in bucket.
         Aws::String object_key = "my-file.txt";
-        //TODO: Name of your bucket that already contains "my-file.txt".  You can work on put_object.cpp first to get it in there.
-        Aws::String from_bucket = "my-from-bucket";
-        //TODO: Name of another bucket in your account.
-        Aws::String to_bucket = "my-to-bucket";
-        //TODO: Set to the region in which the bucket was created.
+        //TODO: Change from_bucket to the name of your bucket that already contains "my-file.txt". 
+        //See create_bucket.cpp and put_object.cpp to create a bucket and load an object into that bucket.
+        Aws::String from_bucket = "MY-FROM-BUCKET";
+        //TODO: Change to the name of another bucket in your account.
+        Aws::String to_bucket = "MY-TO-BUCKET";
+        //TODO: Set to the AWS Region in which the bucket was created.
         Aws::String region = "us-east-1";
 
         if (AwsDoc::S3::CopyObject(object_key, from_bucket, to_bucket, region))

@@ -58,11 +58,11 @@ node s3_setcors.js BUCKET_NAME REGION
   const corsRules = new Array(thisConfig);
 
   // Create CORS params
-  const corsParams = {
+export  const corsParams = {
     Bucket: "BUCKET_NAME",
     CORSConfiguration: { CORSRules: corsRules },
   };
-async function run() {
+export async function run() {
   try {
     const data = await s3Client.send(new PutBucketCorsCommand(corsParams));
     console.log("Success", data);

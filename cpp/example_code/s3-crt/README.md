@@ -1,4 +1,4 @@
-# Amazon S3 AWS SDK for C++ code examples
+# Amazon S3 C++ SDK code examples using S3CrtClient
 
 ## Purpose
 The code examples in this directory demonstrate how to work with the Amazon Simple Storage Service 
@@ -22,7 +22,7 @@ This is a workspace where you can find AWS SDK for C++ S3 examples utilizing the
 
 ## Running the Examples
 Before using the code examples, first complete the installation and setup steps of [Getting Started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for C++ Developer Guide.
-The Getting Started section covers how to obtain and build the SDK, and how to build your own code utilizing the SDK with a sample “Hello World”-style application. 
+The Getting Started section covers how to obtain and build the SDK, and how to build your own code utilizing the SDK with a sample "Hello World"-style application. 
 
 Next, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html) for information on the structure of the code examples, building, and running the examples.
 
