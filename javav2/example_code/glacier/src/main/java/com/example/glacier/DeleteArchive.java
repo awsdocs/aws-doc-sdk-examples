@@ -12,12 +12,12 @@
 
 package com.example.glacier;
 
-// snippet-start:[glacier.java2.delete.import]
+// snippet-start:[glacier.java2.deletearchive.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glacier.GlacierClient;
 import software.amazon.awssdk.services.glacier.model.DeleteArchiveRequest;
 import software.amazon.awssdk.services.glacier.model.GlacierException;
-// snippet-end:[glacier.java2.delete.import]
+// snippet-end:[glacier.java2.deletearchive.import]
 
 
 public class DeleteArchive {
@@ -49,7 +49,7 @@ public class DeleteArchive {
         glacier.close();
     }
 
-    // snippet-start:[glacier.java2.delete.main]
+    // snippet-start:[glacier.java2.deletearchive.main]
     public static void deleteGlacierArchive(GlacierClient glacier, String vaultName, String accountId, String archiveId) {
 
         try {
@@ -66,6 +66,6 @@ public class DeleteArchive {
             System.exit(1);
 
         }
-        // snippet-end:[glacier.java2.delete.main]
+        // snippet-end:[glacier.java2.deletearchive.main]
     }
 }

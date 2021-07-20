@@ -58,7 +58,7 @@ public class CreateUser {
         cognitoclient.close();
     }
 
-    //snippet-start:[cognito.java2.add_login_provider.main]
+    //snippet-start:[cognito.java2.create-user.main]
     public static void createNewUser(CognitoIdentityProviderClient cognitoclient,
                                    String userPoolId,
                                    String name,
@@ -87,6 +87,6 @@ public class CreateUser {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        //snippet-end:[cognito.java2.add_login_provider.main]
+        //snippet-end:[cognito.java2.create-user.main]
     }
 }
