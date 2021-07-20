@@ -43,11 +43,11 @@ const create_bucket_params = {
   },
 };
 
-const delete_bucket_params = { Bucket: bucket_name };
+export const delete_bucket_params = { Bucket: bucket_name };
 
 // List all of your available buckets in this AWS Region.
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await s3Client.send(new ListBucketsCommand({}));
     return data; // For unit tests.

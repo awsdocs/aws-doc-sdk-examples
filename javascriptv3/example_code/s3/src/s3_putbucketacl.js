@@ -26,7 +26,7 @@ import { s3Client } from "./libs/s3Client.js"; // Helper function that creates A
 
 // Set the parameters. For more information,
 // see https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putBucketAcl-property.
-const bucketParams = {
+export const bucketParams = {
   Bucket: "BUCKET_NAME",
   // 'GrantFullControl' allows grantee the read, write, read ACP, and write ACP permissions on the bucket.
   // For example, an AWS account Canonical User ID in the format:
@@ -37,7 +37,7 @@ const bucketParams = {
   GrantWrite: "GRANTEE_2",
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await s3Client.send(new PutBucketAclCommand(bucketParams));
     console.log("Success, permissions added to bucket", data);
