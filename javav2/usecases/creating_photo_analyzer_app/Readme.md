@@ -1187,6 +1187,14 @@ The following HTML represents the **process.html** file.
         <p>Choose the button to obtain a report.</p>
         <button onclick="ProcessImages()">Analyze Photos</button>
     </div>
+    <div>
+        <h3>Download a photo to your browser</h3>
+        <p>Specify the photo to download from an Amazon S3 bucket</p>
+        <label for="photo">Photo Name:"</label><br>
+        <input type="text" id="photo" name="photo" value=""><br>
+        <p>Click the following button to download a photo</p>
+        <button onclick="DownloadImage()">Download Photo</button>
+    </div>
     </div>
     </body>
     </html>
@@ -1385,6 +1393,14 @@ The following JavaScript represents the **message.js** file. The **ProcessImages
        var res = event.target.responseText;
        alert(res) ;
       }
+      
+      function DownloadImage(){
+
+    	//Post the values to the controller
+    	var photo =  $('#photo').val();
+    	window.location="../downloadphoto?photoKey=" + photo ;
+      	}
+
 
 **Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.   
 
