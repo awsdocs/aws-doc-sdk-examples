@@ -373,6 +373,7 @@ The following Java code represents the **PhotoController** class that handles HT
     import org.springframework.web.servlet.ModelAndView;
     import org.springframework.web.multipart.MultipartFile;
     import org.springframework.web.servlet.view.RedirectView;
+    import java.io.ByteArrayInputStream;
     import java.io.IOException;
     import java.io.InputStream;
     import java.util.*;
@@ -414,7 +415,7 @@ The following Java code represents the **PhotoController** class that handles HT
     return s3Client.ListAllObjects("scottphoto");
     }
 
-    // Generate a report that analyzes photos in a given bucket
+    // generates a report that analyzes photos in a given bucket
     @RequestMapping(value = "/report", method = RequestMethod.POST)
     @ResponseBody
     String report(HttpServletRequest request, HttpServletResponse response) {
@@ -424,10 +425,10 @@ The following Java code represents the **PhotoController** class that handles HT
        // Get a list of key names in the given bucket
        List myKeys =  s3Client.ListBucketObjects("scottphoto");
 
-       // Create a list to store the data
-       List myList = new ArrayList<List>();
+       // Create a List to store the data
+       List<List> myList = new ArrayList<List>();
 
-       // Loop through each element in the List
+       // loop through each element in the List
        int len = myKeys.size();
        for (int z=0 ; z < len; z++) {
 
@@ -435,7 +436,7 @@ The following Java code represents the **PhotoController** class that handles HT
            byte[] keyData = s3Client.getObjectBytes ("scottphoto", key);
            //myMap.put(key, keyData);
 
-           // Analyze the photo
+           //Analyze the photo
           ArrayList item =  photos.DetectLabels(keyData, key);
           myList.add(item);
        }
@@ -444,36 +445,58 @@ The following Java code represents the **PhotoController** class that handles HT
        InputStream excelData = excel.exportExcel(myList);
 
        try {
-           // Email the report
+           //email the report
            sendMessage.sendReport(excelData, email);
 
        } catch (Exception e) {
 
            e.printStackTrace();
        }
-        return "The photos have been analyzed and the report is sent.";
+        return "The photos have been analyzed and the report is sent";
     }
 
-    // Upload an image to send to an S3 bucket
+    //Upload a video to analyze
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public ModelAndView singleFileUpload(@RequestParam("file") MultipartFile file) {
 
         try {
 
-            // Now you can add this to an S3 bucket
+            // Now i can add this to an S3 Bucket
             byte[] bytes = file.getBytes();
             String name =  file.getOriginalFilename() ;
 
            // Put the file into the bucket
             s3Client.putObject(bytes, "scottphoto", name);
-
+       
         } catch (IOException e) {
             e.printStackTrace();
         }
         return new ModelAndView(new RedirectView("photo"));
+    }
+
+    // This controller method downloads the given image from the Amazon S3 bucket
+    @RequestMapping(value = "/downloadphoto", method = RequestMethod.GET)
+    void buildDynamicReportDownload(HttpServletRequest request, HttpServletResponse response) {
+        try {
+
+            //Get the form id from the submitted form
+            String photoKey = request.getParameter("photoKey");
+            byte[] photoBytes = s3Client.getObjectBytes("scottphoto", photoKey) ;
+            InputStream is = new ByteArrayInputStream(photoBytes);
+
+            //define the required information here
+            response.setContentType("image/png");
+            response.setHeader("Content-disposition", "attachment; filename="+photoKey);
+            org.apache.commons.io.IOUtils.copy(is, response.getOutputStream());
+            response.flushBuffer();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-       }
+    }
+}
+
 
 ### S3Service class
 
