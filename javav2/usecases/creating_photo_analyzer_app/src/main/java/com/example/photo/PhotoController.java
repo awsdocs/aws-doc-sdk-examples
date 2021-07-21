@@ -1,3 +1,8 @@
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 package com.example.photo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -51,7 +58,6 @@ public class PhotoController {
     return s3Client.ListAllObjects("scottphoto");
     }
 
-
     // generates a report that analyzes photos in a given bucket
     @RequestMapping(value = "/report", method = RequestMethod.POST)
     @ResponseBody
@@ -63,7 +69,7 @@ public class PhotoController {
        List myKeys =  s3Client.ListBucketObjects("scottphoto");
 
        // Create a List to store the data
-       List myList = new ArrayList<List>();
+       List<List> myList = new ArrayList<List>();
 
        // loop through each element in the List
        int len = myKeys.size();
@@ -92,7 +98,7 @@ public class PhotoController {
         return "The photos have been analyzed and the report is sent";
     }
 
-    //Upload an image to send to a S3 bucket
+    //Upload a video to analyze
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public ModelAndView singleFileUpload(@RequestParam("file") MultipartFile file) {
@@ -111,6 +117,26 @@ public class PhotoController {
         }
         return new ModelAndView(new RedirectView("photo"));
     }
+
+
+    // This controller method downloads the given image from the Amazon S3 bucket
+    @RequestMapping(value = "/downloadphoto", method = RequestMethod.GET)
+    void buildDynamicReportDownload(HttpServletRequest request, HttpServletResponse response) {
+        try {
+
+            //Get the form id from the submitted form
+            String photoKey = request.getParameter("photoKey");
+            byte[] photoBytes = s3Client.getObjectBytes("scottphoto", photoKey) ;
+            InputStream is = new ByteArrayInputStream(photoBytes);
+
+            //define the required information here
+            response.setContentType("image/png");
+            response.setHeader("Content-disposition", "attachment; filename="+photoKey);
+            org.apache.commons.io.IOUtils.copy(is, response.getOutputStream());
+            response.flushBuffer();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
-
-
