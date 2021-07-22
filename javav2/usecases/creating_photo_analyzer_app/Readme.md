@@ -388,6 +388,9 @@ The following Java code represents the **PhotoController** class that handles HT
     @Controller
     public class PhotoController {
 
+    // Change to your Bucket Name!
+    private String bucketName = "<YOUR BUCKET>"; 
+    
     @Autowired
     S3Service s3Client;
 
@@ -419,40 +422,39 @@ The following Java code represents the **PhotoController** class that handles HT
     @ResponseBody
     String getImages(HttpServletRequest request, HttpServletResponse response) {
 
-    return s3Client.ListAllObjects("scottphoto");
+    return s3Client.ListAllObjects(bucketName);
     }
 
-    // generates a report that analyzes photos in a given bucket
+    // Generates a report that analyzes photos in a given bucket.
     @RequestMapping(value = "/report", method = RequestMethod.POST)
     @ResponseBody
     String report(HttpServletRequest request, HttpServletResponse response) {
 
         String email = request.getParameter("email");
 
-       // Get a list of key names in the given bucket
-       List myKeys =  s3Client.ListBucketObjects("scottphoto");
+       // Get a list of key names in the given bucket.
+       List myKeys =  s3Client.ListBucketObjects(bucketName);
 
-       // Create a List to store the data
+       // Create a List to store the data.
        List<List> myList = new ArrayList<List>();
 
-       // loop through each element in the List
+       // loop through each element in the List.
        int len = myKeys.size();
        for (int z=0 ; z < len; z++) {
 
            String key = (String) myKeys.get(z);
-           byte[] keyData = s3Client.getObjectBytes ("scottphoto", key);
-           //myMap.put(key, keyData);
+           byte[] keyData = s3Client.getObjectBytes (bucketName, key);
 
-           //Analyze the photo
+           //Analyze the photo.
           ArrayList item =  photos.DetectLabels(keyData, key);
           myList.add(item);
        }
 
-       // Now we have a list of WorkItems that have all of the analytical data describing the photos in the S3 bucket
+       // Now we have a list of WorkItems that have all of the analytical data describing the photos in the S3 bucket.
        InputStream excelData = excel.exportExcel(myList);
 
        try {
-           //email the report
+           // Email the report.
            sendMessage.sendReport(excelData, email);
 
        } catch (Exception e) {
@@ -462,37 +464,37 @@ The following Java code represents the **PhotoController** class that handles HT
         return "The photos have been analyzed and the report is sent";
     }
 
-    //Upload a video to analyze
+    // Upload a video to analyze.
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public ModelAndView singleFileUpload(@RequestParam("file") MultipartFile file) {
 
         try {
 
-            // Now i can add this to an S3 Bucket
             byte[] bytes = file.getBytes();
             String name =  file.getOriginalFilename() ;
 
-           // Put the file into the bucket
-            s3Client.putObject(bytes, "scottphoto", name);
-       
+            // Put the file into the bucket.
+            s3Client.putObject(bytes, bucketName, name);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
         return new ModelAndView(new RedirectView("photo"));
     }
 
-    // This controller method downloads the given image from the Amazon S3 bucket
+
+    // This controller method downloads the given image from the Amazon S3 bucket.
     @RequestMapping(value = "/downloadphoto", method = RequestMethod.GET)
     void buildDynamicReportDownload(HttpServletRequest request, HttpServletResponse response) {
         try {
 
-            //Get the form id from the submitted form
+            // Get the form id from the submitted form.
             String photoKey = request.getParameter("photoKey");
-            byte[] photoBytes = s3Client.getObjectBytes("scottphoto", photoKey) ;
+            byte[] photoBytes = s3Client.getObjectBytes(bucketName, photoKey) ;
             InputStream is = new ByteArrayInputStream(photoBytes);
 
-            //define the required information here
+            // Define the required information here.
             response.setContentType("image/png");
             response.setHeader("Content-disposition", "attachment; filename="+photoKey);
             org.apache.commons.io.IOUtils.copy(is, response.getOutputStream());
@@ -501,8 +503,10 @@ The following Java code represents the **PhotoController** class that handles HT
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-}
+      }
+     }
+
+
 
 
 ### S3Service class
