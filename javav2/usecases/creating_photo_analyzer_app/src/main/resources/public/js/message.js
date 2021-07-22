@@ -20,4 +20,12 @@ function handle(event) {
     alert(res) ;
 }
 
+function DownloadImage(){
+
+    //Post the values to the controller
+    var photo =  $('#photo').val();
+    window.location="../downloadphoto?photoKey=" + photo ;
+}
+
+
 
