@@ -13,13 +13,13 @@
 
 package com.example.personalize;
 
-//snippet-start:[personalize.java2.create_campaign.import]
+//snippet-start:[personalize.java2.delete_campaign.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.personalize.PersonalizeClient;
 import software.amazon.awssdk.services.personalize.model.DeleteCampaignRequest;
 import software.amazon.awssdk.services.personalize.model.CreateCampaignResponse;
 import software.amazon.awssdk.services.personalize.model.PersonalizeException;
-//snippet-end:[personalize.java2.create_campaign.import]
+//snippet-end:[personalize.java2.delete_campaign.import]
 
 /**
  * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.

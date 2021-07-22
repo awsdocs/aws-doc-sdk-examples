@@ -23,9 +23,9 @@ import { GetBucketAclCommand } from "@aws-sdk/client-s3/";
 import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
 // Create the parameters.
-const bucketParams = { Bucket: "BUCKET_NAME" };
+export const bucketParams = { Bucket: "BUCKET_NAME" };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await s3Client.send(new GetBucketAclCommand(bucketParams));
     console.log("Success", data.Grants);

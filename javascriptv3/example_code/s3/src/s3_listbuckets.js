@@ -19,7 +19,7 @@ s3_getbucketwebsite s3_listobjects.js
 import { ListBucketsCommand } from "@aws-sdk/client-s3";
 import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await s3Client.send(new ListBucketsCommand({}));
     console.log("Success", data.Buckets);

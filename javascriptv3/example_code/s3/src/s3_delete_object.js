@@ -18,9 +18,9 @@ nodes3_delete_object.js
 import { DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { s3Client } from "./libs/s3Client.js" // Helper function that creates Amazon S3 service client module.
 
-const bucketParams = { Bucket: "BUCKET_NAME", Key: "KEY" };
+export const bucketParams = { Bucket: "BUCKET_NAME", Key: "KEY" };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await s3Client.send(new DeleteObjectCommand(bucketParams));
     console.log("Success. Object deleted.", data);

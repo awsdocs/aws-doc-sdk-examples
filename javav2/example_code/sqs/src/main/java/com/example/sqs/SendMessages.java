@@ -10,7 +10,7 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-// snippet-start:[sqs.java2.send_recieve_messages.import]
+// snippet-start:[sqs.java2.send_messages.import]
 package com.example.sqs;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
@@ -19,7 +19,7 @@ import software.amazon.awssdk.services.sqs.model.CreateQueueResponse;
 import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
 import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 import software.amazon.awssdk.services.sqs.model.SqsException;
-// snippet-end:[sqs.java2.send_recieve_messages.import]
+// snippet-end:[sqs.java2.send_messages.import]
 
 /**
  * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
@@ -55,7 +55,7 @@ public class SendMessages {
         sqsClient.close();
     }
 
-    // snippet-start:[sqs.java2.send_recieve_messages.main]
+    // snippet-start:[sqs.java2.send_messages.main]
     public static void sendMessage(SqsClient sqsClient, String queueName, String message) {
 
         try {
@@ -83,4 +83,4 @@ public class SendMessages {
         }
     }
 }
-// snippet-end:[sqs.java2.send_recieve_messages.main]
+// snippet-end:[sqs.java2.send_messages.main]

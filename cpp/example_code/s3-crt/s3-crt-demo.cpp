@@ -209,8 +209,11 @@ int main(int argc, char* argv[]) {
 
     Aws::InitAPI(options);
     {
-        //"ny.json" is an example data file large enough to demonstrate multipart upload.  
-        // TODO: Copy the provided ny.json file to your executable directory.
+
+        // TODO: Add a large file to your executable folder, and update file_name to the name of that file.
+        //    File "ny.json" (1940 census data; https://www.archives.gov/developer/1940-census#accessportiondataset) 
+        //    is an example data file large enough to demonstrate multipart upload.  
+        // Download "ny.json" from https://nara-1940-census.s3.us-east-2.amazonaws.com/metadata/json/ny.json
         Aws::String file_name = "ny.json";
         
         //TODO: Set to your account AWS Region.
