@@ -50,7 +50,7 @@ export const run = async () => {
           /* Required. The full path to the file in the repository,
           including the name of the file. For example, 'js/index.js'  */
           filePath: "PATH_AND_FILENAME_WITHIN_REPO",
-          /* Content to be commit to the file. Required if sourceFile is not specified.*/
+          /* Content to be committed to the file. Required if sourceFile is not specified.*/
            fileContent: Buffer.from("STRING"),
           /* The name and full path of the file that contains the
           changes you want to make as part of the commit. Required if fileContent
