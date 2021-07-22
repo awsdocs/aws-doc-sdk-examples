@@ -370,6 +370,8 @@ The following Java code represents the **PhotoApplication** class.
 
 The following Java code represents the **PhotoController** class that handles HTTP requests. For example, when a new image is posted (uploaded to an S3 bucket), the **singleFileUpload** method handles the request.
 
+**Note**: Be sure that you change the **bucketName** variable to your Amazon S3 bucket name. 
+
     package com.example.photo;
 
     import org.springframework.beans.factory.annotation.Autowired;
