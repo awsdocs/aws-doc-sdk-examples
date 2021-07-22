@@ -25,10 +25,10 @@ namespace ServerAccessLoggingExample
             string logBucketName = "doc-example-logs-bucket";
             string logObjectKeyPrefix = "Logs";
 
-            // If the AWS region defined for your default user is different
-            // from the AWS regsion where your Amazon S3 bucket is located,
-            // pass the AWS Region name to the S3 client object's constructor.
-            // For example, RegionEndpoint.USWest2 or RegionEndpoint.USEast2.
+            // If the AWS Region defined for your default user is different
+            // from the Regsion where your Amazon S3 bucket is located,
+            // pass the Region name to the S3 client object's constructor.
+            // For example: RegionEndpoint.USWest2 or RegionEndpoint.USEast2.
             IAmazonS3 client = new AmazonS3Client();
 
             try

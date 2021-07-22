@@ -25,10 +25,10 @@ namespace SSECLowLevelMPUcopyObjectExample
             string targetKeyName = "sample_file_copy.txt";
             string filePath = $"sample\\{targetKeyName}";
 
-            // If the AWS region defined for your default user is different
-            // from the AWS regsion where your Amazon S3 bucket is located,
-            // pass the AWS Region name to the S3 client object's constructor.
-            // For example, RegionEndpoint.USWest2.
+            // If the AWS Region defined for your default user is different
+            // from the Regsion where your Amazon S3 bucket is located,
+            // pass the Region name to the S3 client object's constructor.
+            // For example: RegionEndpoint.USWest2.
             IAmazonS3 client = new AmazonS3Client();
 
             // Create the encryption key.
@@ -70,7 +70,6 @@ namespace SSECLowLevelMPUcopyObjectExample
             string filePath,
             string base64Key)
         {
-            // List to store upload part responses.
             List<UploadPartResponse> uploadResponses = new List<UploadPartResponse>();
 
             InitiateMultipartUploadRequest initiateRequest = new InitiateMultipartUploadRequest

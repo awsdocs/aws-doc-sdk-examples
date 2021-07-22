@@ -28,10 +28,10 @@ namespace UploadUsingPresignedURLExample
             // Specify how long the signed URL will be valid in hours.
             double timeoutDuration = 12;
 
-            // If the AWS region defined for your default user is different
-            // from the AWS regsion where your Amazon S3 bucket is located,
-            // pass the AWS Region name to the S3 client object's constructor.
-            // For example, RegionEndpoint.USWest2.
+            // If the AWS Region defined for your default user is different
+            // from the Regsion where your Amazon S3 bucket is located,
+            // pass the Region name to the S3 client object's constructor.
+            // For example: RegionEndpoint.USWest2.
             IAmazonS3 client = new AmazonS3Client();
 
             var url = GeneratePreSignedURL(client, bucketName, keyName, timeoutDuration);
@@ -55,7 +55,7 @@ namespace UploadUsingPresignedURLExample
         /// file you want to upload.</param>
         /// <param name="url">The presigned URL that will be used to upload the
         /// file to the S3 bucket.</param>
-        /// <returns>A boolean value indicating the success or failure of the
+        /// <returns>A Boolean value indicating the success or failure of the
         /// operation, based on the HttpWebResponse.</returns>
         public static bool UploadObject(string filePath, string url)
         {

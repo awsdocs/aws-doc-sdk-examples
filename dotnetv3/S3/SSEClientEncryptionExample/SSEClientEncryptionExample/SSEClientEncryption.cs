@@ -23,10 +23,10 @@ namespace SSEClientEncryptionExample
             string keyName = "exampleobject.txt";
             string copyTargetKeyName = "examplecopy.txt";
 
-            // If the AWS region defined for your default user is different
-            // from the AWS regsion where your Amazon S3 bucket is located,
-            // pass the AWS Region name to the S3 client object's constructor.
-            // For example, RegionEndpoint.USWest2.
+            // If the AWS Region defined for your default user is different
+            // from the Regsion where your Amazon S3 bucket is located,
+            // pass the Region name to the S3 client object's constructor.
+            // For example: RegionEndpoint.USWest2.
             IAmazonS3 client = new AmazonS3Client();
 
             try
@@ -40,14 +40,14 @@ namespace SSEClientEncryptionExample
                 // Upload the object.
                 PutObjectRequest putObjectRequest = await UploadObjectAsync(client, bucketName, keyName, base64Key);
 
-                // Download the object and verify that its contents matche what you uploaded.
+                // Download the object and verify that its contents match what you uploaded.
                 await DownloadObjectAsync(client, bucketName, keyName, base64Key, putObjectRequest);
 
                 // Get object metadata and verify that the object uses AES-256 encryption.
                 await GetObjectMetadataAsync(client, bucketName, keyName, base64Key);
 
                 // Copy both the source and target objects using server-side encryption with 
-                // a customer-provided encryption key.
+                // an encryption key.
                 await CopyObjectAsync(client, bucketName, keyName, copyTargetKeyName, aesEncryption, base64Key);
             }
             catch (AmazonS3Exception ex)
@@ -178,8 +178,8 @@ namespace SSEClientEncryptionExample
         /// </summary>
         /// <param name="client">The initialized S3 client object used to call
         /// CopyObjectAsync.</param>
-        /// <param name="bucketName">The S3 bucket containing the object we
-        /// wish to copy.</param>
+        /// <param name="bucketName">The S3 bucket containing the object
+        /// to copy.</param>
         /// <param name="keyName">The name of the object to copy.</param>
         /// <param name="copyTargetKeyName">The S3 bucket to which the object
         /// will be copied.</param>
