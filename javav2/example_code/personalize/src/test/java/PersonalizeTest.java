@@ -2,8 +2,10 @@ import com.example.personalize.*;
 import software.amazon.awssdk.services.personalize.PersonalizeClient;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.personalize.model.IngestionMode;
 import software.amazon.awssdk.services.personalizeruntime.PersonalizeRuntimeClient;
 import software.amazon.awssdk.services.personalizeevents.PersonalizeEventsClient;
+import software.amazon.awssdk.services.personalizeruntime.model.PredictedItem;
 
 import java.io.*;
 import java.util.*;
@@ -20,7 +22,9 @@ public class PersonalizeTest {
 
     private static String newSolutionDatasetGroupArn = "";
     private static String newDatasetGroupName = "";
-    private static String newDatasetGroupArn = "";
+
+    private static String schemaName = "";
+    private static String schemaLocation = "";
 
     private static String datasetImportJobName = "";
     private static String importDatasetArn = "";
@@ -44,6 +48,65 @@ public class PersonalizeTest {
     private static String putEventUserId = "";
     private static String putEventItemId = "";
     private static String putEventSessionId = "";
+
+    private static String itemsDatasetArn = "";
+    private static String item1Id = "";
+    private static String item1PropertyName = "";
+    private static String item1PropertyValue = "";
+    private static String item2Id = "";
+    private static String item2PropertyName = "";
+    private static String item2PropertyValue = "";
+
+    private static String usersDatasetArn = "";
+    private static String user1Id = "";
+    private static String user1PropertyName = "";
+    private static String user1PropertyValue = "";
+
+    private static String user2Id = "";
+    private static String user2PropertyName = "";
+    private static String user2PropertyValue = "";
+
+    private static String filterName = "";
+    private static String filterDatasetGroup = "";
+    private static String filterExpression = "";
+
+    private static String filterRecCampaignArn = "";
+    private static String filterRecUserId = "";
+    private static String filterRecFilterArn = "";
+    private static String filterRecParameter1Name = "";
+    private static String filterRecParameterValue1 = "";
+    private static String filterRecParameterValue2 = "";
+    private static String filterRecParameter2Name = "";
+    private static String filterRecParameter2Value = "";
+
+    private static String batchSolutionVersionArn = "";
+    private static String jobName = "";
+    private static String s3InputDataSource = "";
+    private static String s3DataDestination = "";
+    private static String batchServiceRoleArn = "";
+    private static String explorationWeight = "";
+    private static String explorationItemAgeCutOff = "";
+
+    private static ArrayList<String> rankingItemIds;
+    private static String rankingCampaign = "";
+    private static String rankingUserId = "";
+
+    private static IngestionMode ingestionMode = IngestionMode.ALL;
+    private static String exportJobName = "";
+    private static String exportDatasetArn = "";
+    private static String exportS3BucketPath = "";
+    private static String kmsKeyArn = "";
+
+    private static String eventTrackerName = "";
+
+    private static String updateCampaignArn = "";
+    private static String updateCampaignSolutionVersionArn = "";
+    private static Integer updateCampaignTps = 1;
+
+    private static String deleteEventTrackerArn = "";
+
+    private static String createSolutionVersionSolutionArn = "";
+
 
 
     @BeforeAll
@@ -77,6 +140,10 @@ public class PersonalizeTest {
             // CreateDatasetGroup data members
             newDatasetGroupName = prop.getProperty("newDatasetGroupName");
 
+            // CreateSchema data member
+            schemaName = prop.getProperty("schemaName");
+            schemaLocation = prop.getProperty("schemaLocation");
+
             // CreateDataset data members
             schemaArn = prop.getProperty("schemaArn");
             newDatasetName = prop.getProperty("newDatasetName");
@@ -108,6 +175,82 @@ public class PersonalizeTest {
             putEventItemId = prop.getProperty("putEventItemId");
             putEventSessionId = prop.getProperty("putEventSessionId");
 
+            // PutItems data members
+            itemsDatasetArn = prop.getProperty("itemsDatasetArn");
+            item1Id = prop.getProperty("item1Id");
+            item1PropertyName = prop.getProperty("item1PropertyName");
+            item1PropertyValue = prop.getProperty("item1PropertyValue");
+
+            item2Id = prop.getProperty("item2Id");
+            item2PropertyName = prop.getProperty("item2PropertyName");
+            item2PropertyValue = prop.getProperty("item2PropertyValue");
+
+            // PutUsers data members
+            usersDatasetArn = prop.getProperty("usersDatasetArn");
+            user1Id = prop.getProperty("user1Id");
+            user1PropertyName = prop.getProperty("user1PropertyName");
+            user1PropertyValue = prop.getProperty("user1PropertyValue");
+
+            user2Id = prop.getProperty("user2Id");
+            user2PropertyName = prop.getProperty("user2PropertyName");
+            user2PropertyValue = prop.getProperty("user2PropertyValue");
+
+            // CreateFilter data members
+            filterName = prop.getProperty("filterName");
+            filterDatasetGroup = prop.getProperty("filterDatasetGroupArn");
+            filterExpression = prop.getProperty("filterExpression");
+
+            // FilterRecommendation data members
+            filterRecCampaignArn = prop.getProperty("filterRecCampaignArn");
+            filterRecUserId = prop.getProperty("filterRecUserId");
+            filterRecFilterArn = prop.getProperty("filterRecFilterArn");
+            filterRecParameter1Name = prop.getProperty("filterRecParameter1Name");
+            filterRecParameterValue1 = prop.getProperty("filterRecParameterValue1");
+            filterRecParameterValue2 = prop.getProperty("filterRecParameterValue2");
+            filterRecParameter2Name = prop.getProperty("filterRecParameter2Name");
+            filterRecParameter2Value = prop.getProperty("filterRecParameter2Value");
+
+            // CreateBatchInferenceJob data members
+            batchSolutionVersionArn = prop.getProperty("batchSolutionVersionArn");
+            jobName = prop.getProperty("jobName");
+            s3InputDataSource = prop.getProperty("s3InputDataSource");
+            s3DataDestination = prop.getProperty("s3DataDestination");
+            batchServiceRoleArn = prop.getProperty("batchServiceRoleArn");
+            explorationWeight = prop.getProperty("explorationWeight");
+            explorationItemAgeCutOff = prop.getProperty("explorationItemAgeCutOff");
+
+            // GetPersonalizeRanking data members
+            rankingItemIds = new ArrayList<String>(Arrays.asList(prop.getProperty("rankingItemIds")
+                    .split("\\s*,\\s*")));
+            rankingCampaign = prop.getProperty("rankingCampaign");
+            rankingUserId = prop.getProperty("rankingUserId");
+
+            // CreateDatasetExportJob members
+
+            if (prop.getProperty("ingestionMode").equalsIgnoreCase("put")) {
+                ingestionMode = IngestionMode.PUT;
+            } else if (prop.getProperty("ingestionMode").equalsIgnoreCase("bulk")) {
+                ingestionMode = IngestionMode.BULK;
+            }
+            exportJobName = prop.getProperty("exportJobName");
+            exportDatasetArn = prop.getProperty("exportDatasetArn");
+            exportS3BucketPath = prop.getProperty("exportS3BucketPath");
+            kmsKeyArn = prop.getProperty("kmsKeyArn");
+
+            // CreateEventTracker members
+            eventTrackerName = prop.getProperty("eventTrackerName");
+
+            // UpdateCampaign members
+            updateCampaignArn = prop.getProperty("updateCampaignArn");
+            updateCampaignSolutionVersionArn = prop.getProperty("updateCampaignSolutionVersionArn");
+            updateCampaignTps = Integer.parseInt(prop.getProperty("updateCampaignTps"));
+
+            // DeleteEventTracker members
+            deleteEventTrackerArn = prop.getProperty("deleteEventTrackerArn");
+
+            // CreateSolutionVersion members
+            createSolutionVersionSolutionArn = prop.getProperty("createSolutionVersionSolutionArn");
+
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -126,7 +269,7 @@ public class PersonalizeTest {
     @Test
     @Order(2)
     public void CreateDatasetGroup() {
-        newDatasetGroupArn = CreateDatasetGroup.createDatasetGroup(personalizeClient, newDatasetGroupName);
+        String newDatasetGroupArn = CreateDatasetGroup.createDatasetGroup(personalizeClient, newDatasetGroupName);
         assertFalse(newDatasetGroupArn.isEmpty());
         System.out.println("CreateDatasetGroup test passed");
     }
@@ -242,8 +385,111 @@ public class PersonalizeTest {
 
     @Test
     @Order(17)
+    public void PutItems() {
+        int responseCode = PutItems.putItems(personalizeEventsClient,
+                itemsDatasetArn, item1Id, item1PropertyName, item1PropertyValue, item2Id,
+                item2PropertyName, item2PropertyValue);
+        assertEquals(responseCode, 200);
+        System.out.println("PutItems test passed");
+    }
+
+    @Test
+    @Order(18)
+    public void PutUsers() {
+        int responseCode = PutUsers.putUsers(personalizeEventsClient,
+                usersDatasetArn, user1Id, user1PropertyName, user1PropertyValue,
+                user2Id, user2PropertyName, user2PropertyValue);
+        assertEquals(responseCode, 200);
+        System.out.println("PutUsers test passed");
+    }
+
+    @Test
+    @Order(19)
     public void DeleteCampaign() {
         DeleteCampaign.deleteSpecificCampaign(personalizeClient, existingCampaignArn);
         System.out.println("DeleteCampaign test passed");
     }
+
+    @Test
+    @Order(20)
+    public void CreateFilter() {
+        String filterArn = CreateFilter.createFilter(personalizeClient, filterName, filterDatasetGroup, filterExpression);
+        assertFalse(filterArn.isEmpty());
+        System.out.println("CreateFilter test passed");
+    }
+
+    @Test
+    @Order(21)
+    public void FilterRecommendations() {
+        FilterRecommendations.getFilteredRecs(personalizeRuntimeClient, filterRecCampaignArn, filterRecUserId,
+                filterRecFilterArn, filterRecParameter1Name, filterRecParameterValue1, filterRecParameterValue2, filterRecParameter2Name,
+                filterRecParameter2Value);
+        System.out.println("Filter recommendations passed");
+    }
+
+    @Test
+    @Order(22)
+    public void CreateBatchInferenceJob() {
+        String batchArn = CreateBatchInferenceJob.createPersonalizeBatchInferenceJob(personalizeClient, batchSolutionVersionArn,
+                jobName, s3InputDataSource, s3DataDestination, batchServiceRoleArn, explorationWeight, explorationItemAgeCutOff);
+        assertFalse(batchArn.isEmpty());
+        System.out.println("CreateBatchInferenceJob test passed");
+    }
+
+    @Test
+    @Order(23)
+    public void GetPersonalizedRanking() {
+        List<PredictedItem> rankedItems = GetPersonalizedRanking.getRankedRecs(personalizeRuntimeClient,
+                rankingCampaign, rankingUserId, rankingItemIds);
+        assertFalse(rankedItems.isEmpty());
+        System.out.println("CreateBatchInferenceJob test passed");
+    }
+
+    @Test
+    @Order(24)
+    public void CreateDatasetExportJob() {
+        String exportStatus = CreateDatasetExportJob.createDatasetExportJob(personalizeClient, exportJobName,
+                exportDatasetArn, ingestionMode, roleArn, exportS3BucketPath, kmsKeyArn);
+        assertEquals("ACTIVE", exportStatus);
+        System.out.println("CreateDatasetExportJob test passed");
+    }
+
+    @Test
+    @Order(25)
+    public void CreateEventTracker() {
+        String eventTrackerId = CreateEventTracker.createEventTracker(personalizeClient, eventTrackerName, existingDatasetGroup);
+        assertFalse(eventTrackerId.isEmpty());
+        System.out.println("CreateEventTracker test passed");
+    }
+
+    @Test
+    @Order(26)
+    public void CreateSchema() {
+        String schemaArn = CreateSchema.createSchema(personalizeClient, schemaName, schemaLocation);
+        assertFalse(schemaArn.isEmpty());
+        System.out.println("CreateSchema test passed");
+    }
+    @Test
+    @Order(27)
+    public void UpdateCampaign() {
+        String status = UpdateCampaign.updateCampaign(personalizeClient, updateCampaignArn,
+                updateCampaignSolutionVersionArn, updateCampaignTps);
+        assertFalse(status.isEmpty());
+        System.out.println("UpdateCampaign test passed");
+    }
+    @Test
+    @Order(28)
+    public void DeleteEventTracker() {
+        DeleteEventTracker.deleteEventTracker(personalizeClient, deleteEventTrackerArn);
+        System.out.println("DeleteEventTracker test passed");
+    }
+    @Test
+    @Order(29)
+    public void CreateSolutionVersion() {
+        String solutionVersionArn = CreateSolutionVersion.createPersonalizeSolutionVersion(personalizeClient, createSolutionVersionSolutionArn);
+        assertFalse(solutionVersionArn.isEmpty());
+        System.out.println("Create Solution Version test passed");
+    }
+
+
 }

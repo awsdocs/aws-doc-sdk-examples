@@ -54,7 +54,7 @@ int main()
 {
     //TODO: Change bucket_name to the name of a bucket in your account.
     const Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
-    //TODO: Set to the region in which the bucket was created.
+    //TODO: Set to the AWS Region in which the bucket was created.
     const Aws::String region = "us-east-1";
 
 

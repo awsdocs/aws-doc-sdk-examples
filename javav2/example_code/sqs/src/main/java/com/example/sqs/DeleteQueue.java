@@ -11,7 +11,7 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-// snippet-start:[sqs.java2.long_polling.complete]
+// snippet-start:[sqs.java2.sqs_example.delete_queue.complete]
 package com.example.sqs;
 
 // snippet-start:[sqs.java2.sqs_example.delete_queue.import]
@@ -78,4 +78,4 @@ public class DeleteQueue {
         // snippet-end:[sqs.java2.sqs_example.delete_queue]
     }
 }
-// snippet-end:[sqs.java2.long_polling.complete]
+// snippet-end:[sqs.java2.sqs_example.delete_queue.complete]
