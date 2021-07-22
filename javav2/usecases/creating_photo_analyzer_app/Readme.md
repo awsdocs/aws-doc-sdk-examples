@@ -539,8 +539,9 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
 
     S3Client s3 ;
 
+    // Create the S3Client object.
     private S3Client getClient() {
-        // Create the S3Client object
+       
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder()
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
@@ -548,21 +549,20 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
                 .build();
 
         return s3;
-      }
+    }
 
+    // Get the byte[] from this AWS S3 object.
     public byte[] getObjectBytes (String bucketName, String keyName) {
 
         s3 = getClient();
 
         try {
-            // Create a GetObjectRequest instance
             GetObjectRequest objectRequest = GetObjectRequest
                     .builder()
                     .key(keyName)
                     .bucket(bucketName)
                     .build();
-
-            // Get the byte[] from this S3 object
+            
             ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
             byte[] data = objectBytes.asByteArray();
             return data;
@@ -572,9 +572,9 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
             System.exit(1);
         }
         return null;
-     }
+    }
 
-    // Return the names of all images and data within an XML document
+    // Returns the names of all images and data within an XML document.
     public String ListAllObjects(String bucketName) {
 
         s3 = getClient();
@@ -613,9 +613,9 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
             System.exit(1);
         }
         return null ;
-      }
+    }
 
-    // Return the names of all images in the given bucket
+    // Returns the names of all images in the given bucket.
     public List ListBucketObjects(String bucketName) {
 
         s3 = getClient();
@@ -638,7 +638,7 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
                 keys.add(keyName);
             }
 
-           return keys;
+            return keys;
 
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -648,13 +648,12 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
     }
 
 
-    // Place an image into an S3 bucket
+    // Places an image into a S3 bucket.
     public String putObject(byte[] data, String bucketName, String objectKey) {
 
         s3 = getClient();
 
         try {
-            // Put a file into the bucket
             PutObjectResponse response = s3.putObject(PutObjectRequest.builder()
                             .bucket(bucketName)
                             .key(objectKey)
@@ -668,9 +667,9 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
             System.exit(1);
         }
         return "";
-     }
+    }
 
-    // Convert bucket item data into XML to pass back to the view
+    // Convert items into XML to pass back to the view.
     private Document toXml(List<BucketItem> itemList) {
 
         try {
@@ -678,49 +677,49 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 
-            // Start building the XML
+            // Start building the XML.
             Element root = doc.createElement( "Items" );
             doc.appendChild( root );
 
-            // Get the elements from the collection
+            // Get the elements from the collection.
             int custCount = itemList.size();
 
-            // Iterate through the collection
+            // Iterate through the collection.
             for ( int index=0; index < custCount; index++) {
 
-                // Get the WorkItem object from the collection
+                // Get the WorkItem object from the collection.
                 BucketItem myItem = itemList.get(index);
 
                 Element item = doc.createElement( "Item" );
                 root.appendChild( item );
 
-                // Set Key
+                // Set Key.
                 Element id = doc.createElement( "Key" );
                 id.appendChild( doc.createTextNode(myItem.getKey()) );
                 item.appendChild( id );
 
-                // Set Owner
+                // Set Owner.
                 Element name = doc.createElement( "Owner" );
                 name.appendChild( doc.createTextNode(myItem.getOwner() ) );
                 item.appendChild( name );
 
-                // Set Date
+                // Set Date.
                 Element date = doc.createElement( "Date" );
                 date.appendChild( doc.createTextNode(myItem.getDate() ) );
                 item.appendChild( date );
 
-                // Set Size
+                // Set Size.
                 Element desc = doc.createElement( "Size" );
                 desc.appendChild( doc.createTextNode(myItem.getSize() ) );
                 item.appendChild( desc );
-          }
+        }
 
             return doc;
         } catch(ParserConfigurationException e) {
             e.printStackTrace();
         }
         return null;
-      }
+    }
 
     private String convertToString(Document xml) {
         try {
@@ -734,8 +733,9 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
             ex.printStackTrace();
         }
         return null;
-        }
-      }
+     }
+    }
+
 
 ### SendMessage class
 
