@@ -31,12 +31,10 @@ public class EcsTest {
     @BeforeAll
     public static void setUp() throws IOException {
 
-        // Run tests on Real AWS Resources
         region = Region.US_EAST_1;
         ecsClient = EcsClient.builder()
                 .region(region)
                 .build();
-
 
         try (InputStream input = EcsTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 
@@ -47,17 +45,13 @@ public class EcsTest {
                 return;
             }
 
-            //load a properties file from class path, inside static method
             prop.load(input);
-
-            // Populate the data members required for all tests
             clusterName = prop.getProperty("clusterName");
             taskId = prop.getProperty("taskId");
             subnet = prop.getProperty("subnet");
             securityGroups = prop.getProperty("securityGroups");
             serviceName = prop.getProperty("serviceName");
             taskDefinition = prop.getProperty("taskDefinition");
-
 
         } catch (IOException ex) {
             ex.printStackTrace();
