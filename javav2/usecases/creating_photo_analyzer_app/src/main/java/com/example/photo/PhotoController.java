@@ -21,6 +21,9 @@ import java.util.*;
 @Controller
 public class PhotoController {
 
+    // Change to your Bucket Name
+    private String bucketName = "<YOUR BUCKET>";
+
     @Autowired
     S3Service s3Client;
 
@@ -48,13 +51,11 @@ public class PhotoController {
         return "upload";
     }
 
-
-
     @RequestMapping(value = "/getimages", method = RequestMethod.GET)
     @ResponseBody
     String getImages(HttpServletRequest request, HttpServletResponse response) {
 
-    return s3Client.ListAllObjects("scottphoto");
+    return s3Client.ListAllObjects(bucketName);
     }
 
     // Generates a report that analyzes photos in a given bucket.
@@ -65,7 +66,7 @@ public class PhotoController {
         String email = request.getParameter("email");
 
        // Get a list of key names in the given bucket.
-       List myKeys =  s3Client.ListBucketObjects("scottphoto");
+       List myKeys =  s3Client.ListBucketObjects(bucketName);
 
        // Create a List to store the data.
        List<List> myList = new ArrayList<List>();
@@ -75,7 +76,7 @@ public class PhotoController {
        for (int z=0 ; z < len; z++) {
 
            String key = (String) myKeys.get(z);
-           byte[] keyData = s3Client.getObjectBytes ("scottphoto", key);
+           byte[] keyData = s3Client.getObjectBytes (bucketName, key);
 
            //Analyze the photo.
           ArrayList item =  photos.DetectLabels(keyData, key);
@@ -102,13 +103,13 @@ public class PhotoController {
     public ModelAndView singleFileUpload(@RequestParam("file") MultipartFile file) {
 
         try {
-            
+
             byte[] bytes = file.getBytes();
             String name =  file.getOriginalFilename() ;
 
             // Put the file into the bucket.
-            s3Client.putObject(bytes, "scottphoto", name);
-   
+            s3Client.putObject(bytes, bucketName, name);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -123,7 +124,7 @@ public class PhotoController {
 
             // Get the form id from the submitted form.
             String photoKey = request.getParameter("photoKey");
-            byte[] photoBytes = s3Client.getObjectBytes("scottphoto", photoKey) ;
+            byte[] photoBytes = s3Client.getObjectBytes(bucketName, photoKey) ;
             InputStream is = new ByteArrayInputStream(photoBytes);
 
             // Define the required information here.
@@ -137,3 +138,5 @@ public class PhotoController {
         }
     }
 }
+
+
