@@ -10,7 +10,7 @@ listRepositories.js gets information about one or more repositories.
 Running the code:
 node listRepositories.js
 */
-// snippet-start:[codeCommit.JavaScript.listRepoV3]
+// snippet-start:[codeCommit.JavaScript.listReposV3]
 // Get service clients module and commands using ES6 syntax.
 import { ListRepositoriesCommand } from "@aws-sdk/client-codecommit";
 import { codeCommitClient } from "./libs/codeCommitClient.js";

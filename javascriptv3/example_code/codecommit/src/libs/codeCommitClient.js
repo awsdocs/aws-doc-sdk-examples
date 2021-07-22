@@ -10,7 +10,7 @@ Inputs (replace in code):
 - REGION
 
 */
-// snippet-end:[code-commit.JavaScript.codeCommitClient]
+// snippet-start:[code-commit.JavaScript.codeCommitClient]
 import { CodeCommitClient } from "@aws-sdk/client-codecommit";
 
 const REGION = "eu-west-1";

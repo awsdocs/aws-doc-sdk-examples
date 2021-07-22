@@ -39,5 +39,5 @@ export const run = async () => {
     }
 };
 run();
-// snippet-end:[codeCommit.JavaScript.createRepoV3]
+// snippet-end:[codeCommit.JavaScript.createRepositoryV3]
 
