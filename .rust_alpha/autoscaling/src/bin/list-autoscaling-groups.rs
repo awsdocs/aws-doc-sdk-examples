@@ -18,7 +18,7 @@ struct Opt {
     verbose: bool,
 }
 
-/// Lists your Amazon EC2 Auto Scaling group in the Region.
+/// Lists your Amazon EC2 Auto Scaling groups in the Region.
 /// # Arguments
 ///
 /// * `[-r REGION]` - The Region in which the client is created.

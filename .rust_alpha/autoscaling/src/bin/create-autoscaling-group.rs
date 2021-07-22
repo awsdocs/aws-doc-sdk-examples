@@ -26,7 +26,7 @@ struct Opt {
     verbose: bool,
 }
 
-/// Creates an AutoScaling group in the Region.
+/// Creates an Auto Scaling group in the Region.
 /// # Arguments
 ///
 /// * `-a AUTOSCALING-NAME` - The name of the Auto Scaling group.

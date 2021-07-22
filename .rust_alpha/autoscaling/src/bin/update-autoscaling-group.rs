@@ -26,10 +26,11 @@ struct Opt {
     verbose: bool,
 }
 
-/// Creates an Auto Scaling group in the Region.
+/// Updates an Auto Scaling group in the Region to a new maximum size.
 /// # Arguments
 ///
-/// * `- AUTOSCALING-NAME` - The name of the Auto Scaling group.
+/// * `-a AUTOSCALING-NAME` - The name of the Auto Scaling group.
+/// * `-m MAXIMUM-SiZE` - The mazimum size of the Auto Scaling group.
 /// * `[-r REGION]` - The Region in which the client is created.
 ///    If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
