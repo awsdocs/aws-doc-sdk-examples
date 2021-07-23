@@ -20,7 +20,7 @@ const REGION = "REGION";
 const IDENTITY_POOL_ID = "IDENTITY_POOL_ID"; // An Amazon Cognito Identity Pool ID.
 
 // Create an Amazon S3 service client object.
-const s3Client = new s3Client({
+const s3Client = new S3Client({
   region: REGION,
   credentials: fromCognitoIdentityPool({
     client: new CognitoIdentityClient({ region: REGION }),

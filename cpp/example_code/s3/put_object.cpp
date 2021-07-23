@@ -90,7 +90,7 @@ int main()
         const Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
         //TODO: Create a file called "my-file.txt" in the local folder where your executables are built to.
         const Aws::String object_name = "my-file.txt";
-        //TODO: Set to the region in which the bucket was created.
+        //TODO: Set to the AWS Region in which the bucket was created.
         const Aws::String region = "us-east-1";
 
         if (!AwsDoc::S3::PutObject(bucket_name, object_name, region)) {

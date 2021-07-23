@@ -25,20 +25,7 @@ You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the comma
 **WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
 
  ### Properties file
-Before running the Amazon Personalize JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a solution name used in the tests. If you do not define all values, the JUnit tests fail.
-
-Define these values to successfully run the JUnit tests:
-
-- **existingSolutionArn** - The Amazon Resource Name (ARN) value of an existing solution.   
-- **solutionVersionArn** - The ARN of the solution version that is used in the **CreateCampaign** test.
-- **campaignName** - The name of a campaign to create.
-- **modelName** - The model name used in various tests.
-- **datasetGroupArn** - The ARN of the dataset group used to create a solution.
-- **recipeArn** - The ARN of a recipe used in the **DescribeRecipe** test.
-- **solutionName** - The name of the solution to create.
-- **campaignArn** - The ARN of a campaign used in the **DescribeCampaign** test.
-- **userId** - The user ID to provide recommendations for and used in the **GetRecommendations** tests.
-
+Before running the Amazon Personalize JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you specify a solution name used in the tests. If you do not define all values, the JUnit tests fail.
 
 **Note**: To set up the data and other requirements needed for the unit tests, follow [Getting Started](https://docs.aws.amazon.com/personalize/latest/dg/getting-started-console.html).
 
