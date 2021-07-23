@@ -24,7 +24,7 @@ namespace SSEClientEncryptionExample
             string copyTargetKeyName = "examplecopy.txt";
 
             // If the AWS Region defined for your default user is different
-            // from the Regsion where your Amazon S3 bucket is located,
+            // from the Region where your Amazon S3 bucket is located,
             // pass the Region name to the S3 client object's constructor.
             // For example: RegionEndpoint.USWest2.
             IAmazonS3 client = new AmazonS3Client();
@@ -135,9 +135,6 @@ namespace SSEClientEncryptionExample
                 {
                     Console.WriteLine("Error...Object encryption method is not the same as AES256 we set");
                 }
-
-                // Assert.AreEqual(putObjectRequest.ContentBody, content);
-                // Assert.AreEqual(ServerSideEncryptionCustomerMethod.AES256, getResponse.ServerSideEncryptionCustomerMethod);
             }
         }
 
@@ -170,7 +167,6 @@ namespace SSEClientEncryptionExample
 
             GetObjectMetadataResponse getObjectMetadataResponse = await client.GetObjectMetadataAsync(getObjectMetadataRequest);
             Console.WriteLine("The object metadata show encryption method used is: {0}", getObjectMetadataResponse.ServerSideEncryptionCustomerMethod);
-            // Assert.AreEqual(ServerSideEncryptionCustomerMethod.AES256, getObjectMetadataResponse.ServerSideEncryptionCustomerMethod);
         }
 
         /// <summary>

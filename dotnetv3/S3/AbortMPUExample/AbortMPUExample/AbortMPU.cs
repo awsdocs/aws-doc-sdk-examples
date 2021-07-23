@@ -21,7 +21,7 @@ namespace AbortMPUExample
             string bucketName = "doc-example-bucket";
 
             // If the AWS Region defined for your default user is different
-            // from the Regsion where your Amazon S3 bucket is located,
+            // from the Region where your Amazon S3 bucket is located,
             // pass the Region name to the S3 client object's constructor.
             // For example: RegionEndpoint.USWest2.
             IAmazonS3 client = new AmazonS3Client();
@@ -30,19 +30,19 @@ namespace AbortMPUExample
         }
 
         /// <summary>
-        /// Aborts the multi-part copy process.
+        /// Cancels the multi-part copy process.
         /// </summary>
         /// <param name="client">The initialized client object used to create
         /// the TransferUtility object.</param>
-        /// <param name="bucketName">The name of the multi-part copy operation
-        /// that is in progress.</param>
+        /// <param name="bucketName">The name of the S3 bucket where the
+        /// multi-part copy operation is in progress.</param>
         public static async Task AbortMPUAsync(IAmazonS3 client, string bucketName)
         {
             try
             {
                 var transferUtility = new TransferUtility(client);
 
-                // Abort all in-progress uploads initiated before the specified date.
+                // Cancel all in-progress uploads initiated before the specified date.
                 await transferUtility.AbortMultipartUploadsAsync(
                     bucketName, DateTime.Now.AddDays(-7));
             }
