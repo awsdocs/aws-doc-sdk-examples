@@ -1,7 +1,7 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. For information about how AWS CodeBuild works, see https://docs.aws.amazon.com/codebuild/latest/userguide/concepts.html.
+which is codeBuild.JavaScript.createProjectV3available at https://github.com/aws/aws-sdk-js-v3. For information about how AWS CodeBuild works, see https://docs.aws.amazon.com/codebuild/latest/userguide/concepts.html.
 
 Purpose:
 createProject.js demonstrates how to create an AWS CodeBuild project.
@@ -65,6 +65,6 @@ export const run = async () => {
     }
 };
 run();
-// snippet-start:[codeBuild.JavaScript.createProjectV3]
+// snippet-end:[codeBuild.JavaScript.createProjectV3]
 // For unit tests only.
 // module.exports ={run, bucketParams};

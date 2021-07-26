@@ -10,7 +10,7 @@ Inputs (replace in code):
 - REGION
 
 */
-// snippet-end:[code-build.JavaScript.codeBuildClient]
+// snippet-start:[code-build.JavaScript.codeBuildClient]
 import { CodeBuildClient } from "@aws-sdk/client-codebuild";
 
 const REGION = "eu-west-1";
