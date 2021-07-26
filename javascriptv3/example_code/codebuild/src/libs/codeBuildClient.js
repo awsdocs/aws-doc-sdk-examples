@@ -13,7 +13,7 @@ Inputs (replace in code):
 // snippet-start:[code-build.JavaScript.codeBuildClient]
 import { CodeBuildClient } from "@aws-sdk/client-codebuild";
 
-const REGION = "eu-west-1";
+const REGION = "REGION";
 
 // Create an AWS CodeBuild service client object.
 const codeBuildClient = new CodeBuildClient({region: REGION});
