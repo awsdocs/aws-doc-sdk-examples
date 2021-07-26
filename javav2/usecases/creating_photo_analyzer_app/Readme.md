@@ -1,5 +1,6 @@
 #  Creating an example AWS photo analyzer application using the AWS SDK for Java
 
+## Purpose
 You can create an AWS application that analyzes nature images located in an Amazon Simple Storage Service (Amazon S3) bucket by using the Amazon Rekognition service.
 
 The application can analyze many images and generate a report that breaks down each image into a series of labels.
@@ -26,10 +27,6 @@ This application uses the following AWS services:
 *	Amazon SES
 *	AWS Elastic Beanstalk
 
-**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged for them.
-
 #### Topics
 
 + Prerequisites
@@ -50,7 +47,17 @@ To complete the tutorial, you need the following:
 + A Java IDE (this tutorial uses the IntelliJ IDE)
 + Java JDK 1.8
 + Maven 3.6 or later
-+ An Amazon S3 bucket named **photos[somevalue]**. Be sure to use this bucket name in your Amazon S3 Java code. For information, see [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html).
+
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+Create an Amazon S3 bucket named **photos[somevalue]**. Be sure to use this bucket name in your Amazon S3 Java code. For information, see [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html).
 
 ## Understand the AWS Photo Analyzer application
 
@@ -61,6 +68,10 @@ The AWS Photo Analyzer application supports uploading images to an Amazon S3 buc
 To generate a report, enter an email address and choose **Analyze Photos**.
 
 ![AWS Photo Analyzer](images/photo2.png)
+
+You can also download a given image from the Amazon S3 bucket by using this application. Simply specify the image name and choose the **Download Photo** button. The image is downloaded to your browser, as shown in this illustration. 
+
+![AWS Photo Analyzer](images/download.png)
 
 ## Create an IntelliJ project named SpringPhotoAnalyzer
 
@@ -359,6 +370,8 @@ The following Java code represents the **PhotoApplication** class.
 
 The following Java code represents the **PhotoController** class that handles HTTP requests. For example, when a new image is posted (uploaded to an S3 bucket), the **singleFileUpload** method handles the request.
 
+**Note**: Be sure that you change the **bucketName** variable to your Amazon S3 bucket name. 
+
     package com.example.photo;
 
     import org.springframework.beans.factory.annotation.Autowired;
@@ -369,6 +382,7 @@ The following Java code represents the **PhotoController** class that handles HT
     import org.springframework.web.servlet.ModelAndView;
     import org.springframework.web.multipart.MultipartFile;
     import org.springframework.web.servlet.view.RedirectView;
+    import java.io.ByteArrayInputStream;
     import java.io.IOException;
     import java.io.InputStream;
     import java.util.*;
@@ -376,6 +390,9 @@ The following Java code represents the **PhotoController** class that handles HT
     @Controller
     public class PhotoController {
 
+    // Change to your Bucket Name!
+    private String bucketName = "<YOUR BUCKET>"; 
+    
     @Autowired
     S3Service s3Client;
 
@@ -407,69 +424,92 @@ The following Java code represents the **PhotoController** class that handles HT
     @ResponseBody
     String getImages(HttpServletRequest request, HttpServletResponse response) {
 
-    return s3Client.ListAllObjects("scottphoto");
+    return s3Client.ListAllObjects(bucketName);
     }
 
-    // Generate a report that analyzes photos in a given bucket
+    // Generates a report that analyzes photos in a given bucket.
     @RequestMapping(value = "/report", method = RequestMethod.POST)
     @ResponseBody
     String report(HttpServletRequest request, HttpServletResponse response) {
 
         String email = request.getParameter("email");
 
-       // Get a list of key names in the given bucket
-       List myKeys =  s3Client.ListBucketObjects("scottphoto");
+       // Get a list of key names in the given bucket.
+       List myKeys =  s3Client.ListBucketObjects(bucketName);
 
-       // Create a list to store the data
-       List myList = new ArrayList<List>();
+       // Create a List to store the data.
+       List<List> myList = new ArrayList<List>();
 
-       // Loop through each element in the List
+       // loop through each element in the List.
        int len = myKeys.size();
        for (int z=0 ; z < len; z++) {
 
            String key = (String) myKeys.get(z);
-           byte[] keyData = s3Client.getObjectBytes ("scottphoto", key);
-           //myMap.put(key, keyData);
+           byte[] keyData = s3Client.getObjectBytes (bucketName, key);
 
-           // Analyze the photo
+           //Analyze the photo.
           ArrayList item =  photos.DetectLabels(keyData, key);
           myList.add(item);
        }
 
-       // Now we have a list of WorkItems that have all of the analytical data describing the photos in the S3 bucket
+       // Now we have a list of WorkItems that have all of the analytical data describing the photos in the S3 bucket.
        InputStream excelData = excel.exportExcel(myList);
 
        try {
-           // Email the report
+           // Email the report.
            sendMessage.sendReport(excelData, email);
 
        } catch (Exception e) {
 
            e.printStackTrace();
        }
-        return "The photos have been analyzed and the report is sent.";
+        return "The photos have been analyzed and the report is sent";
     }
 
-    // Upload an image to send to an S3 bucket
+    // Upload a video to analyze.
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public ModelAndView singleFileUpload(@RequestParam("file") MultipartFile file) {
 
         try {
 
-            // Now you can add this to an S3 bucket
             byte[] bytes = file.getBytes();
             String name =  file.getOriginalFilename() ;
 
-           // Put the file into the bucket
-            s3Client.putObject(bytes, "scottphoto", name);
+            // Put the file into the bucket.
+            s3Client.putObject(bytes, bucketName, name);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
         return new ModelAndView(new RedirectView("photo"));
+    }
+
+
+    // This controller method downloads the given image from the Amazon S3 bucket.
+    @RequestMapping(value = "/downloadphoto", method = RequestMethod.GET)
+    void buildDynamicReportDownload(HttpServletRequest request, HttpServletResponse response) {
+        try {
+
+            // Get the form id from the submitted form.
+            String photoKey = request.getParameter("photoKey");
+            byte[] photoBytes = s3Client.getObjectBytes(bucketName, photoKey) ;
+            InputStream is = new ByteArrayInputStream(photoBytes);
+
+            // Define the required information here.
+            response.setContentType("image/png");
+            response.setHeader("Content-disposition", "attachment; filename="+photoKey);
+            org.apache.commons.io.IOUtils.copy(is, response.getOutputStream());
+            response.flushBuffer();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-       }
+      }
+     }
+
+
+
 
 ### S3Service class
 
@@ -505,8 +545,9 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
 
     S3Client s3 ;
 
+    // Create the S3Client object.
     private S3Client getClient() {
-        // Create the S3Client object
+       
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder()
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
@@ -514,21 +555,20 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
                 .build();
 
         return s3;
-      }
+    }
 
+    // Get the byte[] from this AWS S3 object.
     public byte[] getObjectBytes (String bucketName, String keyName) {
 
         s3 = getClient();
 
         try {
-            // Create a GetObjectRequest instance
             GetObjectRequest objectRequest = GetObjectRequest
                     .builder()
                     .key(keyName)
                     .bucket(bucketName)
                     .build();
-
-            // Get the byte[] from this S3 object
+            
             ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
             byte[] data = objectBytes.asByteArray();
             return data;
@@ -538,9 +578,9 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
             System.exit(1);
         }
         return null;
-     }
+    }
 
-    // Return the names of all images and data within an XML document
+    // Returns the names of all images and data within an XML document.
     public String ListAllObjects(String bucketName) {
 
         s3 = getClient();
@@ -579,9 +619,9 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
             System.exit(1);
         }
         return null ;
-      }
+    }
 
-    // Return the names of all images in the given bucket
+    // Returns the names of all images in the given bucket.
     public List ListBucketObjects(String bucketName) {
 
         s3 = getClient();
@@ -604,7 +644,7 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
                 keys.add(keyName);
             }
 
-           return keys;
+            return keys;
 
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -614,13 +654,12 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
     }
 
 
-    // Place an image into an S3 bucket
+    // Places an image into a S3 bucket.
     public String putObject(byte[] data, String bucketName, String objectKey) {
 
         s3 = getClient();
 
         try {
-            // Put a file into the bucket
             PutObjectResponse response = s3.putObject(PutObjectRequest.builder()
                             .bucket(bucketName)
                             .key(objectKey)
@@ -634,9 +673,9 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
             System.exit(1);
         }
         return "";
-     }
+    }
 
-    // Convert bucket item data into XML to pass back to the view
+    // Convert items into XML to pass back to the view.
     private Document toXml(List<BucketItem> itemList) {
 
         try {
@@ -644,49 +683,49 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 
-            // Start building the XML
+            // Start building the XML.
             Element root = doc.createElement( "Items" );
             doc.appendChild( root );
 
-            // Get the elements from the collection
+            // Get the elements from the collection.
             int custCount = itemList.size();
 
-            // Iterate through the collection
+            // Iterate through the collection.
             for ( int index=0; index < custCount; index++) {
 
-                // Get the WorkItem object from the collection
+                // Get the WorkItem object from the collection.
                 BucketItem myItem = itemList.get(index);
 
                 Element item = doc.createElement( "Item" );
                 root.appendChild( item );
 
-                // Set Key
+                // Set Key.
                 Element id = doc.createElement( "Key" );
                 id.appendChild( doc.createTextNode(myItem.getKey()) );
                 item.appendChild( id );
 
-                // Set Owner
+                // Set Owner.
                 Element name = doc.createElement( "Owner" );
                 name.appendChild( doc.createTextNode(myItem.getOwner() ) );
                 item.appendChild( name );
 
-                // Set Date
+                // Set Date.
                 Element date = doc.createElement( "Date" );
                 date.appendChild( doc.createTextNode(myItem.getDate() ) );
                 item.appendChild( date );
 
-                // Set Size
+                // Set Size.
                 Element desc = doc.createElement( "Size" );
                 desc.appendChild( doc.createTextNode(myItem.getSize() ) );
                 item.appendChild( desc );
-          }
+        }
 
             return doc;
         } catch(ParserConfigurationException e) {
             e.printStackTrace();
         }
         return null;
-      }
+    }
 
     private String convertToString(Document xml) {
         try {
@@ -700,8 +739,9 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
             ex.printStackTrace();
         }
         return null;
-        }
-      }
+     }
+    }
+
 
 ### SendMessage class
 
@@ -1160,6 +1200,14 @@ The following HTML represents the **process.html** file.
         <p>Choose the button to obtain a report.</p>
         <button onclick="ProcessImages()">Analyze Photos</button>
     </div>
+    <div>
+        <h3>Download a photo to your browser</h3>
+        <p>Specify the photo to download from an Amazon S3 bucket</p>
+        <label for="photo">Photo Name:"</label><br>
+        <input type="text" id="photo" name="photo" value=""><br>
+        <p>Click the following button to download a photo</p>
+        <button onclick="DownloadImage()">Download Photo</button>
+    </div>
     </div>
     </body>
     </html>
@@ -1358,6 +1406,14 @@ The following JavaScript represents the **message.js** file. The **ProcessImages
        var res = event.target.responseText;
        alert(res) ;
       }
+      
+      function DownloadImage(){
+
+    	//Post the values to the controller
+    	var photo =  $('#photo').val();
+    	window.location="../downloadphoto?photoKey=" + photo ;
+      	}
+
 
 **Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.   
 
