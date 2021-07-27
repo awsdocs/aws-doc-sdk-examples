@@ -63,15 +63,13 @@ public class PublishTextSMS {
                 .build();
 
             PublishResponse result = snsClient.publish(request);
-
             System.out.println(result.messageId() + " Message sent. Status was " + result.sdkHttpResponse().statusCode());
 
         } catch (SnsException e) {
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
-
-        //snippet-end:[sns.java2.PublishTextSMS.main]
     }
+    //snippet-end:[sns.java2.PublishTextSMS.main]
 }
 

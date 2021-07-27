@@ -45,34 +45,34 @@ public class CreateUserPoolClient {
         String clientName = args[0];
         String userPoolId = args[1];
 
-        CognitoIdentityProviderClient cognitoclient = CognitoIdentityProviderClient.builder()
+        CognitoIdentityProviderClient cognitoClient = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
-        createPoolClient (cognitoclient, clientName, userPoolId) ;
-        cognitoclient.close();
+        createPoolClient (cognitoClient, clientName, userPoolId) ;
+        cognitoClient.close();
     }
 
     //snippet-start:[cognito.java2.user_pool.create_user_pool_client.main]
-    public static void createPoolClient ( CognitoIdentityProviderClient cognitoclient,
+    public static void createPoolClient ( CognitoIdentityProviderClient cognitoClient,
                                           String clientName,
                                           String userPoolId ) {
 
         try {
 
-            CreateUserPoolClientResponse repsonse = cognitoclient.createUserPoolClient(
+            CreateUserPoolClientResponse response = cognitoClient.createUserPoolClient(
                     CreateUserPoolClientRequest.builder()
                             .clientName(clientName)
                             .userPoolId(userPoolId)
                             .build()
             );
 
-            System.out.println("User pool " + repsonse.userPoolClient().clientName() + " created. ID: " + repsonse.userPoolClient().clientId());
+            System.out.println("User pool " + response.userPoolClient().clientName() + " created. ID: " + response.userPoolClient().clientId());
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        //snippet-end:[cognito.java2.user_pool.create_user_pool_client.main]
     }
+    //snippet-end:[cognito.java2.user_pool.create_user_pool_client.main]
 }

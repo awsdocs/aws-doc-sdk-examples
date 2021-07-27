@@ -45,7 +45,6 @@ public class ConfirmSubscription {
 
         String subscriptionToken = args[0];
         String topicArn = args[1];
-
         SnsClient snsClient = SnsClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
@@ -64,13 +63,12 @@ public class ConfirmSubscription {
                 .build();
 
             ConfirmSubscriptionResponse result = snsClient.confirmSubscription(request);
-
             System.out.println("\n\nStatus was " + result.sdkHttpResponse().statusCode() + "\n\nSubscription Arn: \n\n" + result.subscriptionArn());
-    } catch (SnsException e) {
 
+        } catch (SnsException e) {
         System.err.println(e.awsErrorDetails().errorMessage());
         System.exit(1);
+        }
     }
-        //snippet-end:[sns.java2.ConfirmSubscription.main]
-    }
+    //snippet-end:[sns.java2.ConfirmSubscription.main]
 }
