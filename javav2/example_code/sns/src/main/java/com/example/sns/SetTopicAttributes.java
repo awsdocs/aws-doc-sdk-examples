@@ -70,7 +70,6 @@ public class SetTopicAttributes {
                 .build();
 
             SetTopicAttributesResponse result = snsClient.setTopicAttributes(request);
-
             System.out.println("\n\nStatus was " + result.sdkHttpResponse().statusCode() + "\n\nTopic " + request.topicArn()
                 + " updated " + request.attributeName() + " to " + request.attributeValue());
 
@@ -78,6 +77,7 @@ public class SetTopicAttributes {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        //snippet-end:[sns.java2.SetTopicAttributes.main]
+
     }
+    //snippet-end:[sns.java2.SetTopicAttributes.main]
 }
