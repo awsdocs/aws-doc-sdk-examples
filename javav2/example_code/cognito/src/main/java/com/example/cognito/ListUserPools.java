@@ -33,32 +33,31 @@ public class ListUserPools {
 
     public static void main(String[] args) {
 
-        CognitoIdentityProviderClient cognitoclient = CognitoIdentityProviderClient.builder()
+        CognitoIdentityProviderClient cognitoClient = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
-        listAllUserPools(cognitoclient) ;
-        cognitoclient.close();
+        listAllUserPools(cognitoClient) ;
+        cognitoClient.close();
     }
 
     //snippet-start:[cognito.java2.ListUserPools.main]
-    public static void listAllUserPools(CognitoIdentityProviderClient cognitoclient ) {
+    public static void listAllUserPools(CognitoIdentityProviderClient cognitoClient ) {
 
         try {
-            ListUserPoolsResponse response = cognitoclient
-                    .listUserPools(
-                            ListUserPoolsRequest.builder()
-                                    .maxResults(10)
-                                    .build()
-                    );
+            ListUserPoolsRequest request = ListUserPoolsRequest.builder()
+                    .maxResults(10)
+                    .build();
 
-            for (UserPoolDescriptionType userpool : response.userPools()) {
+            ListUserPoolsResponse response = cognitoClient.listUserPools(request);
+           for (UserPoolDescriptionType userpool : response.userPools()) {
                 System.out.println("User pool " + userpool.name() + ", User ID " + userpool.id() + ", Status " + userpool.status());
             }
+
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        //snippet-end:[cognito.java2.ListUserPools.main]
     }
+    //snippet-end:[cognito.java2.ListUserPools.main]
 }

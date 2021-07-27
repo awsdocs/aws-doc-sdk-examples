@@ -58,7 +58,6 @@ public class SubscribeTextSMS {
     public static void subTextSNS( SnsClient snsClient, String topicArn, String phoneNumber) {
 
         try {
-
             SubscribeRequest request = SubscribeRequest.builder()
                 .protocol("sms")
                 .endpoint(phoneNumber)
@@ -67,12 +66,12 @@ public class SubscribeTextSMS {
                 .build();
 
             SubscribeResponse result = snsClient.subscribe(request);
-            System.out.println("Subscription ARN: " + result.subscriptionArn() + "\n\n Status was " + result.sdkHttpResponse().statusCode());
+            System.out.println("Subscription ARN: " + result.subscriptionArn() + "\n\n Status is " + result.sdkHttpResponse().statusCode());
 
-    } catch (SnsException e) {
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
+        } catch (SnsException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
     }
-        //snippet-end:[sns.java2.SubscribeTextSMS.main]
-    }
+    //snippet-end:[sns.java2.SubscribeTextSMS.main]
 }
