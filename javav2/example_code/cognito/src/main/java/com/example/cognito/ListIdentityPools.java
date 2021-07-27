@@ -34,16 +34,16 @@ public class ListIdentityPools {
 
     public static void main(String[] args) {
 
-        CognitoIdentityClient cognitoclient = CognitoIdentityClient.builder()
+        CognitoIdentityClient cognitoClient = CognitoIdentityClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
-        listIdPools(cognitoclient);
-        cognitoclient.close();
+        listIdPools(cognitoClient);
+        cognitoClient.close();
     }
 
     //snippet-start:[cognito.java2.listidentitypools.main]
-    public static void listIdPools(CognitoIdentityClient cognitoclient) {
+    public static void listIdPools(CognitoIdentityClient cognitoClient) {
 
         try {
 
@@ -51,8 +51,8 @@ public class ListIdentityPools {
                     .maxResults(15)
                     .build();
 
-            ListIdentityPoolsResponse poolReponse = cognitoclient.listIdentityPools(poolsRequest);
-            List<IdentityPoolShortDescription> pools = poolReponse.identityPools();
+            ListIdentityPoolsResponse poolResponse = cognitoClient.listIdentityPools(poolsRequest);
+            List<IdentityPoolShortDescription> pools = poolResponse.identityPools();
 
             for (IdentityPoolShortDescription pool: pools) {
                 System.out.println("Pool ID: "+pool.identityPoolId());

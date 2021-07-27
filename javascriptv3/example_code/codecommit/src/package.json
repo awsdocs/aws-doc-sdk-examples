@@ -7,8 +7,5 @@
   "dependencies": {
     "@aws-sdk/client-codecommit ": "^3.3.0"
   },
-  "scripts": {
-    "test": "jest"
-  },
   "type": "module"
 }

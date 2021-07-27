@@ -49,11 +49,10 @@ public class ListTopics {
             ListTopicsResponse result = snsClient.listTopics(request);
             System.out.println("Status was " + result.sdkHttpResponse().statusCode() + "\n\nTopics\n\n" + result.topics());
 
-    } catch (SnsException e) {
-
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
+        } catch (SnsException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
     }
-        //snippet-end:[sns.java2.ListTopics.main]
-    }
+    //snippet-end:[sns.java2.ListTopics.main]
 }
