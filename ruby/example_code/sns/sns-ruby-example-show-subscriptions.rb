@@ -21,7 +21,7 @@ def show_subscriptions?(sns_client, topic_arn)
 rescue StandardError => e
   puts "Error while sending the message: #{e.message}"
 end
-# snippet-end:[sns.Ruby.showSubscription]
+
 def run_me
 
   topic_arn = 'arn:aws:sns:eu-west-1:164794437551:brmurrubytopic'
@@ -39,3 +39,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[sns.Ruby.showSubscription]

@@ -19,7 +19,7 @@ def message_sent?(sns_client, topic_arn, message)
 rescue StandardError => e
   puts "Error while sending the message: #{e.message}"
   end
-# snippet-end:[sns.Ruby.sendMessage]
+
 def run_me
 
   topic_arn = 'SNS_TOPIC_ARN'

@@ -20,15 +20,14 @@ def subscription_created?(sns_client, topic_arn, protocol, endpoint)
 rescue StandardError => e
   puts "Error while creating the subscription: #{e.message}"
 end
-# snippet-end:[sns.Ruby.createSubscription]
-#
+
 # Full example call:
 def run_me
 
 protocol = 'email'
-endpoint = 'brmur@amazon.com'
-topic_arn = 'arn:aws:sns:eu-west-1:164794437551:brmurrubytopic'
-region = 'eu-west-1'
+endpoint = 'EMAIL_ADDRESS'
+topic_arn = 'TOPIC_ARN'
+region = 'REGION'
 
 sns_client = Aws::SNS::Client.new(region: region)
 

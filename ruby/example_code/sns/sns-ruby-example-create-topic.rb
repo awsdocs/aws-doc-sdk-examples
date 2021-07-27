@@ -18,11 +18,11 @@ sns_client.create_topic(name: topic_name)
 rescue StandardError => e
   puts "Error while creating the topic named '#{topic_name}': #{e.message}"
 end
-# snippet-end:[sns.Ruby.createTopic]
+
 # Full example call:
 def run_me
-  topic_name = 'doc-example-topic'
-  region = 'eu-west-1'
+  topic_name = 'TOPIC_NAME'
+  region = 'REGION'
 
   sns_client = Aws::SNS::Client.new(region: region)
 

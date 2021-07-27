@@ -9,7 +9,7 @@
 # - REGION
 
 # snippet-start:[sns.Ruby.showTopics]
- require 'aws-sdk-sns'  # v2: require 'aws-sdk'
+require 'aws-sdk-sns'  # v2: require 'aws-sdk'
 
 def list_topics?(sns_client)
   sns_client.topics.each do |topic|
@@ -18,7 +18,7 @@ rescue StandardError => e
   puts "Error while listing the topics: #{e.message}"
   end
   end
-# snippet-end:[sns.Ruby.showTopics]
+
 def run_me
 
   region = 'eu-west-1'
@@ -33,3 +33,5 @@ def run_me
   end
 end
 run_me if $PROGRAM_NAME == __FILE__
+
+# snippet-end:[sns.Ruby.showTopics]
