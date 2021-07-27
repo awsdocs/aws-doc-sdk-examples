@@ -70,5 +70,6 @@ public class DeleteSubscriptionFilter {
            System.exit(1);
        }
    }
+   // snippet-end:[cloudwatch.java2.delete_subscription_filter.main]
 }
-// snippet-end:[cloudwatch.java2.delete_subscription_filter.main]
+

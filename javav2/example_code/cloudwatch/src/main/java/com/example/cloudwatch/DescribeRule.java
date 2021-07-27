@@ -13,11 +13,13 @@
 
 package com.example.cloudwatch;
 
+// snippet-start:[cloudwatch.javav2.describe_rule.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatchevents.CloudWatchEventsClient;
 import software.amazon.awssdk.services.cloudwatchevents.model.DescribeRuleRequest;
 import software.amazon.awssdk.services.cloudwatchevents.model.DescribeRuleResponse;
+// snippet-end:[cloudwatch.javav2.describe_rule.import]
 
 
 /**
@@ -52,6 +54,7 @@ public class DescribeRule {
         cwe.close();
     }
 
+    // snippet-start:[cloudwatch.javav2.describe_rule.main]
     public static void DescribeSpecificRule(CloudWatchEventsClient cwe, String ruleName) {
 
         try {
@@ -69,6 +72,6 @@ public class DescribeRule {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
     }
+    // snippet-end:[cloudwatch.javav2.describe_rule.main]
 }

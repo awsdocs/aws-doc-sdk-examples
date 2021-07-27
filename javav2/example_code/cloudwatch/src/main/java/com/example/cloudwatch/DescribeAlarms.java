@@ -78,6 +78,6 @@ public class DescribeAlarms {
             System.exit(1);
         }
         System.out.printf("Done");
-        // snippet-end:[cloudwatch.java2.describe_alarms.main]
     }
+    // snippet-end:[cloudwatch.java2.describe_alarms.main]
 }

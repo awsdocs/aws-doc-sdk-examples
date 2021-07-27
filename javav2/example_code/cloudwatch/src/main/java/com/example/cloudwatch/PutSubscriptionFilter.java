@@ -97,5 +97,6 @@ public class PutSubscriptionFilter {
             System.exit(1);
         }
     }
+    // snippet-end:[cloudwatch.java2.put_subscription_filter.main]
 }
-// snippet-end:[cloudwatch.java2.put_subscription_filter.main]
+

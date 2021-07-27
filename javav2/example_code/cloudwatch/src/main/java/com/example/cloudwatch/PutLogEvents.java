@@ -85,8 +85,6 @@ public class PutLogEvents {
                 .build();
 
         logsClient.putLogEvents(putLogEventsRequest);
-        // snippet-end:[cloudwatch.java2.put_log_events.main]
-
         System.out.println("Successfully put CloudWatch log event");
 
      } catch (CloudWatchException e) {
@@ -94,4 +92,5 @@ public class PutLogEvents {
          System.exit(1);
      }
     }
+    // snippet-end:[cloudwatch.java2.put_log_events.main]
 }

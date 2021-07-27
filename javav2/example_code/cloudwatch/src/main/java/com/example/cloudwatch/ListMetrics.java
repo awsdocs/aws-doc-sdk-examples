@@ -96,6 +96,6 @@ public class ListMetrics {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        // snippet-end:[cloudwatch.java2.list_metrics.main]
     }
+    // snippet-end:[cloudwatch.java2.list_metrics.main]
 }

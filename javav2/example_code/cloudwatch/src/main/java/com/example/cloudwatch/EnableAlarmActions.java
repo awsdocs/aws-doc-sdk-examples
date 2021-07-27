@@ -68,8 +68,7 @@ public class EnableAlarmActions {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
-        // snippet-end:[cloudwatch.java2.enable_alarm_actions.main]
    }
+    // snippet-end:[cloudwatch.java2.enable_alarm_actions.main]
 }
 

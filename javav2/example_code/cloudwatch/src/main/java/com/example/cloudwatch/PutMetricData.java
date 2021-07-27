@@ -89,6 +89,6 @@ public class PutMetricData {
             System.exit(1);
         }
         System.out.printf("Successfully put data point %f", dataPoint);
-        // snippet-end:[cloudwatch.java2.put_metric_data.main]
-    }
+     }
+    // snippet-end:[cloudwatch.java2.put_metric_data.main]
 }

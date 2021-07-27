@@ -101,5 +101,6 @@ public class DescribeSubscriptionFilters {
         }
         System.out.printf("Done");
     }
+    // snippet-end:[cloudwatch.java2.describe_subscription_filters.main]
 }
-// snippet-end:[cloudwatch.java2.describe_subscription_filters.main]
+
