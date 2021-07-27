@@ -66,6 +66,6 @@ public class GetTopicAttributes {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        //snippet-end:[sns.java2.GetTopicAttributes.main]
     }
+    //snippet-end:[sns.java2.GetTopicAttributes.main]
 }

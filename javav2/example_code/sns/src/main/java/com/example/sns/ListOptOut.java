@@ -46,12 +46,12 @@ public class ListOptOut {
 
             ListPhoneNumbersOptedOutRequest request = ListPhoneNumbersOptedOutRequest.builder().build();
             ListPhoneNumbersOptedOutResponse result = snsClient.listPhoneNumbersOptedOut(request);
-            System.out.println("Status was " + result.sdkHttpResponse().statusCode() + "\n\nPhone Numbers: \n\n" + result.phoneNumbers());
+            System.out.println("Status is " + result.sdkHttpResponse().statusCode() + "\n\nPhone Numbers: \n\n" + result.phoneNumbers());
 
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-       //snippet-end:[sns.java2.ListOptOut.main]
     }
+    //snippet-end:[sns.java2.ListOptOut.main]
 }
