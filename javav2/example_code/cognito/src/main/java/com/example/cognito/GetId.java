@@ -45,29 +45,29 @@ public class GetId {
         }
 
         String identityPoolId = args[0];
-        CognitoIdentityClient cognitoclient = CognitoIdentityClient.builder()
+        CognitoIdentityClient cognitoClient = CognitoIdentityClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
-        getClientID(cognitoclient, identityPoolId);
-        cognitoclient.close();
+        getClientID(cognitoClient, identityPoolId);
+        cognitoClient.close();
     }
 
     //snippet-start:[cognito.java2.GetID.main]
-    public static void getClientID(CognitoIdentityClient cognitoclient, String identityPoolId){
+    public static void getClientID(CognitoIdentityClient cognitoClient, String identityPoolId){
         try {
 
             GetIdRequest request = GetIdRequest.builder()
                     .identityPoolId(identityPoolId)
                     .build();
 
-            GetIdResponse response = cognitoclient.getId(request);
+            GetIdResponse response = cognitoClient.getId(request);
             System.out.println("Identity ID " + response.identityId());
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        //snippet-end:[cognito.java2.GetID.main]
     }
+    //snippet-end:[cognito.java2.GetID.main]
 }
