@@ -77,7 +77,8 @@ public class EnhancedGetItem {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java2.mapping.getitem.main]
+
         return "";
     }
+    // snippet-end:[dynamodb.java2.mapping.getitem.main]
 }
