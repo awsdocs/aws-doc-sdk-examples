@@ -70,6 +70,6 @@ public class CreateTopic {
             System.exit(1);
         }
         return "";
-        //snippet-end:[sns.java2.CreateTopic.main]
     }
+    //snippet-end:[sns.java2.CreateTopic.main]
 }
