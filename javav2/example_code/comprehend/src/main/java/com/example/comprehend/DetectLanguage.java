@@ -70,7 +70,7 @@ public class DetectLanguage {
                System.err.println(e.awsErrorDetails().errorMessage());
                System.exit(1);
            }
-        //snippet-end:[comprehend.java2.detect_language.main]
-        }
+      }
+    //snippet-end:[comprehend.java2.detect_language.main]
     }
 

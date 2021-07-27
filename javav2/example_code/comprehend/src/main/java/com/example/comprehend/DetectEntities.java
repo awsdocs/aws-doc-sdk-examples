@@ -67,6 +67,6 @@ public class DetectEntities {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
        }
-        //snippet-end:[comprehend.java2.detect_entities.main]
     }
+    //snippet-end:[comprehend.java2.detect_entities.main]
 }

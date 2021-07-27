@@ -68,7 +68,7 @@ public class DetectKeyPhrases {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        //snippet-end:[comprehend.java2.detect_keyphrases.main]
     }
+    //snippet-end:[comprehend.java2.detect_keyphrases.main]
 }
 
