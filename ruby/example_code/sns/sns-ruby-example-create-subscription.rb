@@ -11,6 +11,7 @@
 # - EMAIL_ADDRESS
 
 # snippet-start:[sns.Ruby.createSubscription]
+
 require 'aws-sdk-sns'  # v2: require 'aws-sdk'
 
 def subscription_created?(sns_client, topic_arn, protocol, endpoint)

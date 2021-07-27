@@ -9,6 +9,7 @@
 # - REGION
 
 # snippet-start:[sns.Ruby.showTopics]
+
 require 'aws-sdk-sns'  # v2: require 'aws-sdk'
 
 def list_topics?(sns_client)

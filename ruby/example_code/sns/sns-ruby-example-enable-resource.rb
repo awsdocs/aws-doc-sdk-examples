@@ -12,6 +12,7 @@
 # - POLICY_NAME
 
 # snippet-start:[sns.Ruby.enableResource]
+
 require 'aws-sdk-sns'  # v2: require 'aws-sdk'
 
 policy  = '{
@@ -42,4 +43,5 @@ topic.set_attributes({
   attribute_name: "POLICY_NAME",
   attribute_value: policy
 })
+
 # snippet-end:[sns.Ruby.enableResource]

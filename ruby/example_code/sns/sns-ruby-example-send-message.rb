@@ -11,6 +11,7 @@
 # - MESSAGE
 
 # snippet-start:[sns.Ruby.sendMessage]
+
 require 'aws-sdk-sns'  # v2: require 'aws-sdk'
 
 def message_sent?(sns_client, topic_arn, message)
@@ -39,4 +40,5 @@ def run_me
   end
 
 run_me if $PROGRAM_NAME == __FILE__
-# snippet-start:[sns.Ruby.sendMessage]
+
+# snippet-end:[sns.Ruby.sendMessage]

@@ -10,6 +10,7 @@
 # - TOPIC_NAME
 
 # snippet-start:[sns.Ruby.createTopic]
+
 require 'aws-sdk-sns'  # v2: require 'aws-sdk'
 
 def topic_created?(sns_client, topic_name)

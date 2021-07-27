@@ -10,6 +10,7 @@
 # - SNS_TOPIC
 
 # snippet-start:[sns.Ruby.showSubscription]
+
 require 'aws-sdk-sns'  # v2: require 'aws-sdk'
 
 def show_subscriptions?(sns_client, topic_arn)
@@ -39,4 +40,5 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+
 # snippet-end:[sns.Ruby.showSubscription]
