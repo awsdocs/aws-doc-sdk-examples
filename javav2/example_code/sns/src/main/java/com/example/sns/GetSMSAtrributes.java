@@ -67,7 +67,6 @@ public class GetSMSAtrributes {
 
             // Iterate through the map
             Iterator iter = map.entrySet().iterator();
-
             while (iter.hasNext()) {
                 Map.Entry entry = (Map.Entry) iter.next();
                 System.out.println("[Key] : " + entry.getKey() + " [Value] : " + entry.getValue());
@@ -79,6 +78,6 @@ public class GetSMSAtrributes {
         }
 
         System.out.println("\n\nStatus was good");
-        //snippet-end:[sns.java2.GetSMSAtrributes.main]
     }
+    //snippet-end:[sns.java2.GetSMSAtrributes.main]
 }
