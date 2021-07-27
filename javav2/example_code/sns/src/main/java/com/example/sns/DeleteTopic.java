@@ -67,6 +67,6 @@ public class DeleteTopic {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        //snippet-end:[sns.java2.DeleteTopic.main]
     }
+    //snippet-end:[sns.java2.DeleteTopic.main]
 }

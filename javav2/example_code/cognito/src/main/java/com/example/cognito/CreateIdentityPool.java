@@ -42,26 +42,25 @@ public class CreateIdentityPool {
         }
 
         String identityPoolName = args[0];
-        CognitoIdentityClient cognitoclient = CognitoIdentityClient.builder()
+        CognitoIdentityClient cognitoClient = CognitoIdentityClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
-        String identityPoolId = createIdPool(cognitoclient, identityPoolName) ;
+        String identityPoolId = createIdPool(cognitoClient, identityPoolName) ;
         System.out.println("Unity pool ID " + identityPoolId);
-        cognitoclient.close();
+        cognitoClient.close();
     }
 
     //snippet-start:[cognito.java2.create_identity_pool.main]
-    public static String createIdPool(CognitoIdentityClient cognitoclient, String identityPoolName ) {
+    public static String createIdPool(CognitoIdentityClient cognitoClient, String identityPoolName ) {
 
         try {
-            CreateIdentityPoolResponse response = cognitoclient.createIdentityPool(
-                    CreateIdentityPoolRequest.builder()
-                            .allowUnauthenticatedIdentities(false)
-                            .identityPoolName(identityPoolName)
-                            .build()
-            );
+            CreateIdentityPoolRequest poolRequest = CreateIdentityPoolRequest.builder()
+                    .allowUnauthenticatedIdentities(false)
+                    .identityPoolName(identityPoolName)
+                    .build() ;
 
+            CreateIdentityPoolResponse response = cognitoClient.createIdentityPool(poolRequest);
             return response.identityPoolId();
 
         } catch (CognitoIdentityProviderException e){
@@ -69,6 +68,6 @@ public class CreateIdentityPool {
             System.exit(1);
         }
         return "";
-        //snippet-end:[cognito.java2.create_identity_pool.main]
     }
+    //snippet-end:[cognito.java2.create_identity_pool.main]
 }

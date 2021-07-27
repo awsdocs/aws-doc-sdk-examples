@@ -54,8 +54,8 @@ public class AddTags {
         snsClient.close();
        }
 
+    //snippet-start:[sns.java2.add_tags.main]
     public static void addTopicTags(SnsClient snsClient, String topicArn) {
-
 
      try {
         Tag tag = Tag.builder()
@@ -85,4 +85,5 @@ public class AddTags {
           System.exit(1);
       }
    }
+    //snippet-end:[sns.java2.add_tags.main]
 }

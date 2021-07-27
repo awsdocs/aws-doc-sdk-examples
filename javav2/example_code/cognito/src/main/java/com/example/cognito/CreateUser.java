@@ -50,16 +50,16 @@ public class CreateUser {
         String email = args[2];
         String password = args[3];
 
-        CognitoIdentityProviderClient cognitoclient = CognitoIdentityProviderClient.builder()
+        CognitoIdentityProviderClient cognitoClient = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
-        createNewUser(cognitoclient, userPoolId, userName, email, password);
-        cognitoclient.close();
+        createNewUser(cognitoClient, userPoolId, userName, email, password);
+        cognitoClient.close();
     }
 
-    //snippet-start:[cognito.java2.create-user.main]
-    public static void createNewUser(CognitoIdentityProviderClient cognitoclient,
+    //snippet-start:[cognito.java2.add_login_provider.main]
+    public static void createNewUser(CognitoIdentityProviderClient cognitoClient,
                                    String userPoolId,
                                    String name,
                                    String email,
@@ -80,13 +80,13 @@ public class CreateUser {
                     .messageAction("SUPPRESS")
                     .build() ;
 
-            AdminCreateUserResponse response = cognitoclient.adminCreateUser(userRequest);
+            AdminCreateUserResponse response = cognitoClient.adminCreateUser(userRequest);
             System.out.println("User " + response.user().username() + "is created. Status: " + response.user().userStatus());
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        //snippet-end:[cognito.java2.create-user.main]
     }
+    //snippet-end:[cognito.java2.add_login_provider.main]
 }

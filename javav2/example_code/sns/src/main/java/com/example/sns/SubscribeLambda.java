@@ -68,15 +68,13 @@ public class SubscribeLambda {
                 .build();
 
             SubscribeResponse result = snsClient.subscribe(request);
-
             return result.subscriptionArn();
 
-
-         } catch (SnsException e) {
+        } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
+            System.exit(1);
         }
         return "";
-     //snippet-end:[sns.java2.SubscribeLambda.main]
     }
+    //snippet-end:[sns.java2.SubscribeLambda.main]
 }
