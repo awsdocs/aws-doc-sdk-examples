@@ -46,16 +46,16 @@ public class ListIdentities {
         }
 
         String identityPoolId = args[0];
-        CognitoIdentityClient cognitoclient = CognitoIdentityClient.builder()
+        CognitoIdentityClient cognitoClient = CognitoIdentityClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
-        listPoolIdentities(cognitoclient, identityPoolId);
-        cognitoclient.close();
+        listPoolIdentities(cognitoClient, identityPoolId);
+        cognitoClient.close();
     }
 
     //snippet-start:[cognito.java2.listidentities.main]
-    public static void listPoolIdentities(CognitoIdentityClient cognitoclient, String identityPoolId) {
+    public static void listPoolIdentities(CognitoIdentityClient cognitoClient, String identityPoolId) {
 
         try {
             ListIdentitiesRequest identitiesRequest = ListIdentitiesRequest.builder()
@@ -63,12 +63,13 @@ public class ListIdentities {
                     .maxResults(15)
                     .build() ;
 
-            ListIdentitiesResponse response = cognitoclient.listIdentities(identitiesRequest);
+            ListIdentitiesResponse response = cognitoClient.listIdentities(identitiesRequest);
             List<IdentityDescription> identities = response.identities();
 
             for (IdentityDescription identity: identities) {
                 System.out.println("The ID is : "+identity.identityId());
             }
+
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
