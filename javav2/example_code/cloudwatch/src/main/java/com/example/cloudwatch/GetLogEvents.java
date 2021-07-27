@@ -42,8 +42,8 @@ public class GetLogEvents {
             System.exit(1);
        }
 
-        String logStreamName = "testgroup" ; //args[0];
-        String logGroupName = "foostream" ; //args[1];
+        String logStreamName = args[0];
+        String logGroupName = args[1];
 
         Region region = Region.US_WEST_2;
         CloudWatchLogsClient cloudWatchLogsClient = CloudWatchLogsClient.builder()
