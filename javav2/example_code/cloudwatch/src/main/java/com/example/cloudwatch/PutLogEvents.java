@@ -45,9 +45,8 @@ public class PutLogEvents {
             System.exit(1);
         }
 
-        String logGroupName = args[1];
-        String streamName = args[2];
-
+        String logGroupName = args[0];
+        String streamName = args[1];
         CloudWatchLogsClient logsClient = CloudWatchLogsClient.builder()
                 .build();
 
