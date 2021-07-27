@@ -67,8 +67,7 @@ public class DescribeRule {
             String schedule = ruleResp.scheduleExpression();
             System.out.println("The schedule for this rule is "+schedule);
 
-        } catch (
-                CloudWatchException e) {
+        } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
