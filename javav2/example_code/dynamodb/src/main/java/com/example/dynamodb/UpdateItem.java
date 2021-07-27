@@ -108,5 +108,5 @@ public class UpdateItem {
 
         System.out.println("Done!");
     }
-    // snippet-end:[dynamodb.java2.sync_pagination.main]
+    // snippet-end:[dynamodb.java2.update_item.main]
 }
