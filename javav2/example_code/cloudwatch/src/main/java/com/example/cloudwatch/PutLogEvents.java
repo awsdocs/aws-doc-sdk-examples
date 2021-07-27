@@ -13,7 +13,6 @@
 package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.put_log_events.import]
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
 import software.amazon.awssdk.services.cloudwatchlogs.model.DescribeLogStreamsRequest;

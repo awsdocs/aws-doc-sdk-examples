@@ -44,7 +44,6 @@ public class GetLogEvents {
 
         String logStreamName = args[0];
         String logGroupName = args[1];
-
         Region region = Region.US_WEST_2;
         CloudWatchLogsClient cloudWatchLogsClient = CloudWatchLogsClient.builder()
                 .region(region)

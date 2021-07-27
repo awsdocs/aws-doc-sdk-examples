@@ -46,7 +46,6 @@ public class PutRule {
 
         String ruleName = args[0];
         String roleArn = args[1];
-
         CloudWatchEventsClient cwe =
                 CloudWatchEventsClient.builder().build();
 

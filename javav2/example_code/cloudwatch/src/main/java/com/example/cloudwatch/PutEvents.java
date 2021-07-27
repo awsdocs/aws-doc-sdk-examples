@@ -17,7 +17,6 @@ import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatchevents.CloudWatchEventsClient;
 import software.amazon.awssdk.services.cloudwatchevents.model.PutEventsRequest;
 import software.amazon.awssdk.services.cloudwatchevents.model.PutEventsRequestEntry;
-import software.amazon.awssdk.services.cloudwatchevents.model.PutEventsResponse;
 // snippet-end:[cloudwatch.java2.put_events.import]
 
 /**

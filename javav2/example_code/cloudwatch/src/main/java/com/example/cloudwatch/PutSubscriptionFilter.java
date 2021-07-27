@@ -61,7 +61,6 @@ public class PutSubscriptionFilter {
         String pattern = args[1];
         String logGroup = args[2];
         String functionArn = args[3];
-
         Region region = Region.US_WEST_2;
         CloudWatchLogsClient cwl = CloudWatchLogsClient.builder()
                 .region(region)

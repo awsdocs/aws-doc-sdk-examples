@@ -11,8 +11,9 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-// snippet-start:[cloudwatch.java2.get_metric_data.import]
 package com.example.cloudwatch;
+
+// snippet-start:[cloudwatch.java2.get_metric_data.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.GetMetricDataResponse;

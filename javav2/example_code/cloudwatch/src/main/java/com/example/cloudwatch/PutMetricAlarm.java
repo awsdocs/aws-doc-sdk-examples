@@ -47,7 +47,6 @@ public class PutMetricAlarm {
 
         String alarmName = args[0];
         String instanceId = args[1];
-
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
                 .region(region)

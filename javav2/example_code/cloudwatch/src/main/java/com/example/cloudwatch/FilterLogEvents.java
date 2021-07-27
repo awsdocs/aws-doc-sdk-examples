@@ -44,7 +44,6 @@ public class FilterLogEvents {
         String logGroupName = args[0];
         Long startTime = Long.parseLong(args[1]);
         Long endTime = Long.parseLong(args[2]);
-
         Region region = Region.US_WEST_2;
         CloudWatchLogsClient cloudWatchLogsClient = CloudWatchLogsClient.builder()
                 .region(region)
