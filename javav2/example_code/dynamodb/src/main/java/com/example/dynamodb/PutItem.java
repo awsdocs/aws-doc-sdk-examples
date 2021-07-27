@@ -119,6 +119,7 @@ public class PutItem {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java2.put_item.main]
+
     }
+    // snippet-end:[dynamodb.java2.put_item.main]
 }

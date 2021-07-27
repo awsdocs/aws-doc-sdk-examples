@@ -101,8 +101,8 @@ public class DescribeTable {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java2.describe_table.main]
         System.out.println("\nDone!");
     }
+    // snippet-end:[dynamodb.java2.describe_table.main]
 }
 

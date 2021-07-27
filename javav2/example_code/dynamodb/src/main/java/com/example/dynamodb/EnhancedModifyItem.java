@@ -13,6 +13,7 @@
 package com.example.dynamodb;
 
 
+// snippet-start:[dynamodb.java2.mapping.moditem.import]
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
@@ -24,7 +25,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import java.time.Instant;
-
+// snippet-end:[dynamodb.java2.mapping.moditem.import]
 
 /*
  * Prior to running this code example, create an Amazon DynamoDB table named Customer with these columns:
@@ -72,7 +73,7 @@ public class EnhancedModifyItem {
         ddb.close();
     }
 
-
+    // snippet-start:[dynamodb.java2.mapping.moditem.main]
     public static String modifyItem(DynamoDbEnhancedClient enhancedClient, String keyVal, String email) {
         try {
             //Create a DynamoDbTable object
@@ -95,6 +96,7 @@ public class EnhancedModifyItem {
         }
         return "";
     }
+    // snippet-end:[dynamodb.java2.mapping.moditem.main]
 }
 
 

@@ -73,7 +73,7 @@ public class DeleteTable {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java2.delete_table.main]
         System.out.println(tableName +" was successfully deleted!");
     }
+    // snippet-end:[dynamodb.java2.delete_table.main]
 }
