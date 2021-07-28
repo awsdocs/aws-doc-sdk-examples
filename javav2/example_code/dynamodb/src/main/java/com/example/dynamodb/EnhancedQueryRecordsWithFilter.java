@@ -47,7 +47,7 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
  */
 public class EnhancedQueryRecordsWithFilter {
 
-    // Query the Customer table using a filter
+    // Query the Customer table using a filter.
     public static void main(String[] args) {
 
         Region region = Region.US_EAST_1;
@@ -81,12 +81,12 @@ public class EnhancedQueryRecordsWithFilter {
                     .expressionValues(expressionValues)
                     .build();
 
-            // Create a QueryConditional object that is used in the query operation
+            // Create a QueryConditional object that is used in the query operation.
             QueryConditional queryConditional = QueryConditional
                     .keyEqualTo(Key.builder().partitionValue("id103")
                             .build());
 
-            // Get items in the Customer table and write out the ID value
+            // Get items in the Customer table and write out the ID value.
             Iterator<Customer> results = mappedTable.query(r -> r.queryConditional(queryConditional).filterExpression(expression)).items().iterator();
 
             while (results.hasNext()) {
@@ -100,6 +100,6 @@ public class EnhancedQueryRecordsWithFilter {
             System.exit(1);
         }
         System.out.println("Done");
-        // snippet-end:[dynamodb.java2.mapping.queryfilter.main]
     }
+    // snippet-end:[dynamodb.java2.mapping.queryfilter.main]
 }

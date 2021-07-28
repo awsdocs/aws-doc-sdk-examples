@@ -26,7 +26,9 @@ The Getting Started section covers how to obtain and build the SDK, and how to b
 
 Next, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html) for information on the structure of the code examples, building, and running the examples.
 
-## Additional Information
+If you want to demonstrate multipart upload, you will need a large enough file.  You can download census data, "ny.json", from
+https://nara-1940-census.s3.us-east-2.amazonaws.com/metadata/json/ny.json.
+
 See [Amazon S3 code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/examples-s3.html) in the AWS SDK for C++ Developer Guide for additional information on using the Amazon S3 service with the SDK.
 
 ## Resources

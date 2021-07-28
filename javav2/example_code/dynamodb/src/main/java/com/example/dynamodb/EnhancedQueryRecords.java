@@ -87,6 +87,7 @@ public class EnhancedQueryRecords {
             System.exit(1);
         }
         return "";
-        // snippet-end:[dynamodb.java2.mapping.query.main]
+
     }
+    // snippet-end:[dynamodb.java2.mapping.query.main]
  }

@@ -97,6 +97,7 @@ public class GetItem {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java2.get_item.main]
+
     }
+    // snippet-end:[dynamodb.java2.get_item.main]
 }

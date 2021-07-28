@@ -72,6 +72,7 @@ public class SubscribeHTTPS {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
          }
-        //snippet-end:[sns.java2.SubscribeHTTPS.main]
+
     }
+    //snippet-end:[sns.java2.SubscribeHTTPS.main]
 }
