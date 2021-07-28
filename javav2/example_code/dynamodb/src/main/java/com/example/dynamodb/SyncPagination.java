@@ -132,5 +132,6 @@ public class SyncPagination {
             }
         }
     }
+    // snippet-end:[dynamodb.java2.sync_pagination.main]
 }
-// snippet-end:[dynamodb.java2.sync_pagination.main] 
+
