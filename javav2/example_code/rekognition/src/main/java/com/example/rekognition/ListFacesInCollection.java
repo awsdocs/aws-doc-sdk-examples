@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-03-2020]
+// snippet-sourcedate:[07-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -66,7 +66,7 @@ public class ListFacesInCollection {
 
             ListFacesResponse facesResponse = rekClient.listFaces(facesRequest);
 
-            // For each face in the collection, print out the confidence level and face id value
+            // For each face in the collection, print out the confidence level and face id value.
             List<Face> faces = facesResponse.faces();
             for (Face face: faces) {
                 System.out.println("Confidence level there is a face: "+face.confidence());
@@ -77,6 +77,6 @@ public class ListFacesInCollection {
             System.out.println(e.getMessage());
             System.exit(1);
          }
-        // snippet-end:[rekognition.java2.list_faces_collection.main]
-     }
+      }
+    // snippet-end:[rekognition.java2.list_faces_collection.main]
   }
