@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[12-01-2020]
+// snippet-sourcedate:[07-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -106,6 +106,7 @@ public class VideoDetectSegment {
             StartShotDetectionFilter cueDetectionFilter = StartShotDetectionFilter.builder()
                     .minSegmentConfidence(60F)
                     .build();
+
 
             StartTechnicalCueDetectionFilter technicalCueDetectionFilter = StartTechnicalCueDetectionFilter.builder()
                     .minSegmentConfidence(60F)
