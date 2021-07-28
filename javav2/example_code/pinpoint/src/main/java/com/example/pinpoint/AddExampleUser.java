@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
+//snippet-sourcedate:[07-27-2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -83,7 +83,7 @@ public class AddExampleUser {
                 .userAttributes(wangName)
                 .build();
 
-            // Create an EndpointBatchItem object for Mary Major
+            // Create an EndpointBatchItem object for Mary Major.
             EndpointRequest wangXiulanEndpoint = EndpointRequest.builder()
                 .channelType(ChannelType.EMAIL)
                 .address("wang_xiulan@example.com")
@@ -106,6 +106,6 @@ public class AddExampleUser {
         System.err.println(e.awsErrorDetails().errorMessage());
         System.exit(1);
     }
+ }
     //snippet-end:[pinpoint.java2.update_endpoint.main]
-  }
 }
