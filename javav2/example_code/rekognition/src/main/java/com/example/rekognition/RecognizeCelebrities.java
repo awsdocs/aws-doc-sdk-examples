@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-03-2020]
+// snippet-sourcedate:[07-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -16,7 +16,6 @@ package com.example.rekognition;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.core.SdkBytes;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -66,7 +65,7 @@ public class RecognizeCelebrities {
 
         try {
 
-            InputStream sourceStream = new FileInputStream(new File(sourceImage));
+            InputStream sourceStream = new FileInputStream(sourceImage);
             SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
 
             Image souImage = Image.builder()
@@ -98,6 +97,6 @@ public class RecognizeCelebrities {
             System.out.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[rekognition.java2.recognize_celebs.main]
-    }
+     }
+    // snippet-end:[rekognition.java2.recognize_celebs.main]
 }
