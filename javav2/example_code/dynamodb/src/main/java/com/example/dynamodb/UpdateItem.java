@@ -105,7 +105,8 @@ public class UpdateItem {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java2.update_item.main]
+
         System.out.println("Done!");
     }
+    // snippet-end:[dynamodb.java2.update_item.main]
 }

@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-03-2020]
+// snippet-sourcedate:[07-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -83,7 +83,7 @@ public class SearchFaceMatchingImageCollection {
 
             SearchFacesByImageResponse imageResponse = rekClient.searchFacesByImage(facesByImageRequest) ;
 
-            // Display the results
+            // Display the results.
             System.out.println("Faces matching in the collection");
             List<FaceMatch> faceImageMatches = imageResponse.faceMatches();
             for (FaceMatch face: faceImageMatches) {
@@ -94,6 +94,6 @@ public class SearchFaceMatchingImageCollection {
             System.out.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[rekognition.java2.search_faces_collection.main]
-     }
+    }
+    // snippet-end:[rekognition.java2.search_faces_collection.main]
 }

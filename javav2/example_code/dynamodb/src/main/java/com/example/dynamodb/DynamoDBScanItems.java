@@ -82,6 +82,6 @@ public class DynamoDBScanItems {
             e.printStackTrace();
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java2.dynamoDB_scan.main]
     }
+    // snippet-end:[dynamodb.java2.dynamoDB_scan.main]
 }
