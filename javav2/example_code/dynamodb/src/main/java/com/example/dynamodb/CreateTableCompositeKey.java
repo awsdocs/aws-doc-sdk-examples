@@ -103,7 +103,7 @@ public class CreateTableCompositeKey {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java2.create_table_composite_key.main]
-        return "";
+       return "";
     }
+    // snippet-end:[dynamodb.java2.create_table_composite_key.main]
 }

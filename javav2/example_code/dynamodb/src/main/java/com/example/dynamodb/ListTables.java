@@ -80,7 +80,8 @@ public class ListTables {
                 System.exit(1);
             }
         }
-        // snippet-end:[dynamodb.java2.list_tables.main]
+
         System.out.println("\nDone!");
     }
+    // snippet-end:[dynamodb.java2.list_tables.main]
 }
