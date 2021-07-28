@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-03-2020]
+// snippet-sourcedate:[07-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -69,7 +69,7 @@ public class CreateStreamProcessor {
 
         ListStreamProcessorsResponse listStreamProcessorsResult = rekClient.listStreamProcessors(request);
 
-        //List all stream processors (and state) returned from Rekognition
+        //List all stream processors (and state) returned from Rekognition.
         for (StreamProcessor streamProcessor : listStreamProcessorsResult.streamProcessors()) {
             System.out.println("StreamProcessor name - " + streamProcessor.name());
             System.out.println("Status - " + streamProcessor.status());

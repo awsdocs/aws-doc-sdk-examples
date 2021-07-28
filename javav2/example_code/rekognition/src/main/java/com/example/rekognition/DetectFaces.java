@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-03-2020]
+// snippet-sourcedate:[07-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -69,7 +69,7 @@ public class DetectFaces {
             InputStream sourceStream = new FileInputStream(new File(sourceImage));
             SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
 
-            // Create an Image object for the source image
+            // Create an Image object for the source image.
             Image souImage = Image.builder()
                     .bytes(sourceBytes)
                     .build();
@@ -95,6 +95,6 @@ public class DetectFaces {
             System.out.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[rekognition.java2.detect_faces.main]
     }
+    // snippet-end:[rekognition.java2.detect_faces.main]
  }
