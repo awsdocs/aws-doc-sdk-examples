@@ -84,7 +84,7 @@ public class UpdateTable {
             System.exit(1);
         }
 
-        // snippet-end:[dynamodb.java2.update_table.main]
         System.out.println("Done!");
     }
+    // snippet-end:[dynamodb.java2.update_table.main]
 }
