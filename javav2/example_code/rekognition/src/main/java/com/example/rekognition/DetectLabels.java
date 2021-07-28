@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-03-2020]
+// snippet-sourcedate:[07-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,7 +21,6 @@ import software.amazon.awssdk.services.rekognition.model.DetectLabelsRequest;
 import software.amazon.awssdk.services.rekognition.model.DetectLabelsResponse;
 import software.amazon.awssdk.services.rekognition.model.Label;
 import software.amazon.awssdk.services.rekognition.model.RekognitionException;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -64,10 +63,10 @@ public class DetectLabels {
     public static void detectImageLabels(RekognitionClient rekClient, String sourceImage) {
 
         try {
-            InputStream sourceStream = new FileInputStream(new File(sourceImage));
+            InputStream sourceStream = new FileInputStream(sourceImage);
             SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
 
-            // Create an Image object for the source image
+            // Create an Image object for the source image.
             Image souImage = Image.builder()
                     .bytes(sourceBytes)
                     .build();
@@ -89,6 +88,6 @@ public class DetectLabels {
             System.out.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[rekognition.java2.detect_labels.main]
     }
+    // snippet-end:[rekognition.java2.detect_labels.main]
 }

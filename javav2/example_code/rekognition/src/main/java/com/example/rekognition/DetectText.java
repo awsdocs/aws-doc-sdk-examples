@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-03-2020]
+// snippet-sourcedate:[07-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,7 +21,6 @@ import software.amazon.awssdk.services.rekognition.model.Image;
 import software.amazon.awssdk.services.rekognition.model.DetectTextResponse;
 import software.amazon.awssdk.services.rekognition.model.TextDetection;
 import software.amazon.awssdk.services.rekognition.model.RekognitionException;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -45,7 +44,7 @@ public class DetectText {
                 "Where:\n" +
                 "sourceImage - the path to the image that contains text (for example, C:\\AWS\\pic1.png). \n\n";
 
-        if (args.length != 1) {
+      if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -65,7 +64,7 @@ public class DetectText {
 
         try {
 
-            InputStream sourceStream = new FileInputStream(new File(sourceImage));
+            InputStream sourceStream = new FileInputStream(sourceImage);
             SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
 
             // Create an Image object for the source image
