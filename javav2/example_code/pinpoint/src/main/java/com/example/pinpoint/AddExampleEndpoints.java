@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
+//snippet-sourcedate:[07-27-2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -83,7 +83,7 @@ public class AddExampleEndpoints {
                 .userAttributes(myMap2)
                 .build();
 
-            // Create an EndpointBatchItem object for Richard Roe
+            // Create an EndpointBatchItem object for Richard Roe.
             EndpointBatchItem richardRoesEmailEndpoint = EndpointBatchItem.builder()
                 .channelType(ChannelType.EMAIL)
                 .address("richard_roe@example.com")
@@ -112,7 +112,7 @@ public class AddExampleEndpoints {
                 .userAttributes(maryName)
                 .build();
 
-            // Create an EndpointBatchItem object for Mary Major
+            // Create an EndpointBatchItem object for Mary Major.
             EndpointBatchItem maryMajorsSmsEndpoint = EndpointBatchItem.builder()
                 .channelType(ChannelType.SMS)
                 .address("+16145550100")
@@ -127,13 +127,13 @@ public class AddExampleEndpoints {
                 .item( maryMajorsSmsEndpoint)
                 .build();
 
-            // Create the UpdateEndpointsBatchRequest
+            // Create the UpdateEndpointsBatchRequest.
             UpdateEndpointsBatchRequest batchRequest = UpdateEndpointsBatchRequest.builder()
                 .applicationId(applicationId)
                 .endpointBatchRequest(endpointList)
                 .build();
 
-            //  Updates the endpoints with Amazon Pinpoint
+            //  Updates the endpoints with Amazon Pinpoint.
             UpdateEndpointsBatchResponse result = pinpoint.updateEndpointsBatch(batchRequest);
             System.out.format("Update endpoints batch result: %s\n",
                 result.messageBody().message());
@@ -142,6 +142,6 @@ public class AddExampleEndpoints {
         System.err.println(e.awsErrorDetails().errorMessage());
         System.exit(1);
     }
-        //snippet-end:[pinpoint.java2.update_batch.main]
   }
+    //snippet-end:[pinpoint.java2.update_batch.main]
 }
