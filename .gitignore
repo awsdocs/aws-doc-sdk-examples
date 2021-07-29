@@ -8,3 +8,5 @@ target/
 ._*
 vendor/
 *.exe
+.idea
+venv
