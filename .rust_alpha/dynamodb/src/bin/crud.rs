@@ -51,8 +51,12 @@ fn random_string(n: usize) -> String {
         .collect()
 }
 
-/// Create a new table. It's remotely possible the random table name exists.
-async fn create_table(client: &Client, table: &str, key: &str) {
+/// Create a new table.
+async fn make_table(
+    client: &Client,
+    table: &str,
+    key: &str,
+) -> Result<(), aws_hyper::SdkError<aws_sdk_dynamodb::error::CreateTableError>> {
     let ad = AttributeDefinition::builder()
         .attribute_name(key)
         .attribute_type(ScalarAttributeType::S)
@@ -77,16 +81,12 @@ async fn create_table(client: &Client, table: &str, key: &str) {
         .send()
         .await
     {
-        Ok(_) => println!("Created the table."),
-        Err(e) => {
-            println!("Got an error creating the table:");
-            println!("{}", e);
-            process::exit(1);
-        }
+        Ok(_) => Ok(()),
+        Err(e) => Err(e),
     }
 }
 
-/// For add_item and scan_item
+/// For add_item and query_item
 #[derive(Clone)]
 struct Item {
     table: String,
@@ -99,7 +99,10 @@ struct Item {
 }
 
 /// Add an item to the table.
-async fn add_item(client: &Client, item: Item) {
+async fn add_item(
+    client: &Client,
+    item: Item,
+) -> Result<(), SdkError<aws_sdk_dynamodb::error::PutItemError>> {
     let user_av = AttributeValue::S(item.value);
     let type_av = AttributeValue::S(item.utype);
     let age_av = AttributeValue::S(item.age);
@@ -117,17 +120,14 @@ async fn add_item(client: &Client, item: Item) {
         .send()
         .await
     {
-        Ok(_) => println!("Added item to or modified item in table."),
-        Err(e) => {
-            println!("Got an error adding item to table:");
-            println!("{}", e);
-            process::exit(1);
-        }
+        Ok(_) => Ok(()),
+        Err(e) => Err(e),
     }
 }
 
 /// Query the table for an item matching the input values.
-async fn query(client: &Client, item: Item) {
+/// Returns true if the item is found; otherwise false.
+async fn query_item(client: &Client, item: Item) -> bool {
     let value = &item.value;
     let key = &item.key;
     let user_av = AttributeValue::S(value.to_string());
@@ -144,44 +144,16 @@ async fn query(client: &Client, item: Item) {
     {
         Ok(resp) => {
             if resp.count > 0 {
-                println!("Found a matching entry in table.");
+                println!("Found a matching entry in the table:");
+                println!("{:?}", resp.items.unwrap_or_default().pop());
+                true
             } else {
                 println!("Did not find a match.");
+                false
             }
         }
         Err(e) => {
-            println!("Got an error adding item to table:");
-            println!("{}", e);
-            process::exit(1);
-        }
-    }
-}
-
-/// Delete an item from the table.
-async fn delete_item(client: &Client, table: &str, key: &str, value: &str) {
-    let user_av = AttributeValue::S(String::from(value));
-    match client
-        .delete_item()
-        .table_name(table)
-        .key(key, user_av)
-        .send()
-        .await
-    {
-        Ok(_) => println!("Deleted the item."),
-        Err(e) => {
-            println!("Got an error trying to delete item:");
-            println!("{}", e);
-            process::exit(1);
-        }
-    }
-}
-
-/// Delete the table.
-async fn delete_table(client: &Client, table: &str) {
-    match client.delete_table().table_name(table).send().await {
-        Ok(_) => println!("Deleted the table."),
-        Err(e) => {
-            println!("Got an error deleting table:");
+            println!("Got an error querying table:");
             println!("{}", e);
             process::exit(1);
         }
@@ -230,9 +202,7 @@ where
 
 /// Wait for the user to press Enter.
 fn pause() {
-    println!();
     println!("Press Enter to continue.");
-    println!();
     stdin().read_exact(&mut [0]).unwrap();
 }
 
@@ -275,15 +245,21 @@ async fn main() -> Result<(), Error> {
     let age = "33";
     let utype = "standard_user";
 
+    println!();
+
     if verbose {
         println!("DynamoDB client version: {}", PKG_VERSION);
         println!(
-            "Region:                 {}",
+            "Region:                  {}",
             region.region().unwrap().as_ref()
         );
         println!("Table:                   {}", table);
         println!("Key:                     {}", key);
         println!("Value:                   {}", value);
+        println!("First name:              {}", first_name);
+        println!("Last name:               {}", last_name);
+        println!("Age:                     {}", age);
+        println!("User type:               {}", utype);
 
         println!();
     }
@@ -292,10 +268,17 @@ async fn main() -> Result<(), Error> {
     let client = Client::from_conf(conf);
 
     /* Create table */
-    println!();
-    println!("Creating table.");
-    create_table(&client, &table, &key).await;
-    println!();
+    println!("Creating the table.");
+    match make_table(&client, &table, &key).await {
+        Err(e) => {
+            println!("Got an error creating the table:");
+            println!("{}", e);
+            process::exit(1);
+        }
+        Ok(_) => {
+            println!("Created the table.");
+        }
+    }
 
     println!("Waiting for table to be ready.");
 
@@ -304,15 +287,14 @@ async fn main() -> Result<(), Error> {
     raw_client
         .call(wait_for_ready_table(&table, client.conf()))
         .await
-        .expect("table should become ready");
+        .expect("table should become ready.");
 
-    println!("Table is now ready to use");
+    println!("Table is now ready to use.");
 
     if interactive {
         pause();
     }
 
-    println!();
     println!("Adding item to table.");
 
     let mut item = Item {
@@ -325,9 +307,8 @@ async fn main() -> Result<(), Error> {
         utype: utype.to_string(),
     };
 
-    add_item(&client, item.clone()).await;
-
-    println!();
+    add_item(&client, item.clone()).await?;
+    println!("Added item to table.");
 
     if interactive {
         pause();
@@ -336,10 +317,11 @@ async fn main() -> Result<(), Error> {
     item.age = "44".to_string();
 
     /* Update the item */
-    println!("Modifying table item.");
+    println!("Modifying table item to change age to 44.");
 
-    add_item(&client, item.clone()).await;
-    println!();
+    add_item(&client, item.clone()).await?;
+
+    println!("Modified table item.");
 
     if interactive {
         pause();
@@ -348,25 +330,32 @@ async fn main() -> Result<(), Error> {
     /* Get item and compare it with the one we added */
     println!("Comparing table item to original value.");
 
-    query(&client, item).await;
-    println!();
+    query_item(&client, item).await;
 
     if interactive {
         pause();
     }
 
     /* Delete item */
-    println!("Deleting item");
-    delete_item(&client, &table, &key, &value).await;
-    println!();
+    println!("Deleting item.");
+    let user_av = AttributeValue::S(value);
+    client
+        .delete_item()
+        .table_name(&table)
+        .key(key, user_av)
+        .send()
+        .await?;
+
+    println!("Deleted item.");
 
     if interactive {
         pause();
     }
 
     /* Delete table */
-    println!("Deleting table");
-    delete_table(&client, &table).await;
+    println!("Deleting table.");
+    client.delete_table().table_name(&table).send().await?;
+    println!("Deleted table.");
     println!();
 
     Ok(())
