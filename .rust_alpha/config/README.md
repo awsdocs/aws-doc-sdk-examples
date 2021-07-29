@@ -92,10 +92,10 @@ This example lists your AWS Config resources, by resource type, in the Region.
 
 This example displays the configuration history for a resource.
 
-`cargo run --bin -- -i ID -t TYPE [-r REGION] [-v]`
+`cargo run --bin -- -i ID --resource-type RESOURCE-TYPE [-r REGION] [-v]`
 
 - _ID_ is the ID of the resource.
-- _TYPE_ is the resource type, such as `AWS::EC2::SecurityGroup`.
+- _RESOURCE-TYPE_ is the resource type, such as `AWS::EC2::SecurityGroup`.
 - _REGION_ is the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.

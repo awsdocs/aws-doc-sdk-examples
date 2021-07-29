@@ -15,8 +15,8 @@ struct Opt {
     id: String,
 
     /// The resource type.
-    #[structopt(short, long)]
-    type_: String,
+    #[structopt(long)]
+    resource_type: String,
 
     /// Whether to display additional information.
     #[structopt(short, long)]
@@ -29,7 +29,7 @@ struct Opt {
 /// # Arguments
 ///
 /// * `-i ID` - The ID of the resource.
-/// * `-t TYPE` - The resource type, such as `AWS::EC2::SecurityGroup`.
+/// * `--resource-type RESOURCE-TYPE` - The resource type, such as `AWS::EC2::SecurityGroup`.
 /// * `[-r REGION]` - The Region in which the client is created.
 ///   If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///   If the environment variable is not set, defaults to **us-west-2**.
@@ -40,7 +40,7 @@ async fn main() -> Result<(), Error> {
     let Opt {
         region,
         id,
-        type_,
+        resource_type,
         verbose,
     } = Opt::from_args();
 
@@ -57,18 +57,18 @@ async fn main() -> Result<(), Error> {
             region.region().unwrap().as_ref()
         );
         println!("Resource ID:           {}", &id);
-        println!("Resource type:         {}", &type_);
+        println!("Resource type:         {}", &resource_type);
         println!();
     }
 
     // Parse resource type from user input.
-    let parsed = ResourceType::from(type_.as_str());
+    let parsed = ResourceType::from(resource_type.as_str());
 
     // Make sure it's a known type.
     if matches!(parsed, ResourceType::Unknown(_)) {
         panic!(
             "unknown resource type: `{}`. Valid resource types: {:#?}",
-            &type_,
+            &resource_type,
             ResourceType::values()
         )
     }
