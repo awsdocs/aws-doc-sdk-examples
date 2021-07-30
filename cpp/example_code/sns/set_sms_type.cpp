@@ -1,13 +1,3 @@
-//snippet-sourcedescription:[set_sms_type.cpp demonstrates how to use Amazon SNS to set default SMS attributes.]
-//snippet-service:[sns]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[tapasweni-pathak]
-
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -26,7 +16,11 @@
 #include <iostream>
 
 /**
- * Set the sms type based on command line input
+ * Set the SMS type - demonstrates how to use Amazon SNS to set the DefaultSMSType attribute.
+ * 
+ * For more information on SetSMSAttributes, see https://docs.aws.amazon.com/sns/latest/api/API_SetSMSAttributes.html.
+ * 
+ * <sms_type> set to "Promotional" to indicate noncritical messages.
  */
 
 int main(int argc, char ** argv)
@@ -36,12 +30,12 @@ int main(int argc, char ** argv)
     std::cout << "Usage: set_sms_type <sms_type> " << std::endl;
     return 1;
   }
-
+  // snippet-start:[sns.cpp.set_sms_type.code]
   Aws::SDKOptions options;
   Aws::InitAPI(options);
   {
     Aws::SNS::SNSClient sns;
-    Aws::String sms_type = argv[1];
+    Aws::String sms_type =  argv[1];
 
     Aws::SNS::Model::SetSMSAttributesRequest ssmst_req;
     ssmst_req.AddAttributes("DefaultSMStype", sms_type);
@@ -60,5 +54,6 @@ int main(int argc, char ** argv)
   }
 
   Aws::ShutdownAPI(options);
+  // snippet-end:[sns.cpp.set_sms_type.code]
   return 0;
 }
