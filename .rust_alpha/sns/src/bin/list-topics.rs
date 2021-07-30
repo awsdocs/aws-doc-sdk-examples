@@ -3,78 +3,60 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+use aws_sdk_sns::{Client, Config, Error, Region, PKG_VERSION};
+use aws_types::region;
 use aws_types::region::ProvideRegion;
-use sns::{Client, Config, Region};
-use std::process::exit;
 use structopt::StructOpt;
-use tracing_subscriber::fmt::format::FmtSpan;
-use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
-    default_region: Option<String>,
+    region: Option<String>,
 
-    /// Whether to display addtional information.
+    /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Lists your Amazon SNS topics.
+/// Lists your Amazon SNS topics in the Region.
 /// # Arguments
 ///
-/// * `[-d DEFAULT-REGION]` - The AWS Region containing the Amazon SNS topic.
-///   If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
-///   If the environment variable is not set, defaults to **us-west-2**.
+/// * `[-r REGION]` - The Region in which the client is created.
+///    If not supplied, uses the value of the **AWS_REGION** environment variable.
+///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() -> Result<(), sns::Error> {
-    let Opt {
-        default_region,
-        verbose,
-    } = Opt::from_args();
+async fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt::init();
 
-    let region = default_region
-        .as_ref()
-        .map(|region| Region::new(region.clone()))
-        .or_else(|| aws_types::region::default_provider().region())
-        .unwrap_or_else(|| Region::new("us-west-2"));
+    let Opt { region, verbose } = Opt::from_args();
+
+    let region = region::ChainProvider::first_try(region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
+
+    println!();
 
     if verbose {
-        println!("SNS client version: {}", sns::PKG_VERSION);
-        println!("AWS Region:         {:?}", &region);
+        println!("SNS client version:   {}", PKG_VERSION);
+        println!(
+            "Region:               {}",
+            region.region().unwrap().as_ref()
+        );
 
-        SubscriberBuilder::default()
-            .with_env_filter("info")
-            .with_span_events(FmtSpan::CLOSE)
-            .init();
+        println!();
     }
 
-    let config = Config::builder().region(region).build();
-    let client = Client::from_conf(config);
+    let conf = Config::builder().region(region).build();
+    let client = Client::from_conf(conf);
 
-    let topic_output = client.list_topics().send().await?;
-    //let mut topics = topics.topics.unwrap_or_default();
+    let resp = client.list_topics().send().await?;
 
     println!("Topic ARNs:");
 
-    match topic_output.topics {
-        None => {
-            println!("Did not find any topics in this region.");
-            exit(1);
-        }
-        Some(topics) => {
-            for (_, topic) in topics.iter().enumerate() {
-                match &topic.topic_arn {
-                    None => {}
-                    Some(arn) => {
-                        println!("{}", arn);
-                    }
-                }
-            }
-        }
+    for topic in resp.topics.unwrap_or_default() {
+        println!("{}", topic.topic_arn.as_deref().unwrap_or_default());
     }
-
     Ok(())
 }
