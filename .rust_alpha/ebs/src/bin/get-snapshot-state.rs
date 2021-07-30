@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_sdk_cloudformation::{Client, Config, Error, Region, PKG_VERSION};
+use aws_sdk_ec2::model::Filter;
+use aws_sdk_ec2::{Client, Config, Error, Region, PKG_VERSION};
 use aws_types::region;
 use aws_types::region::ProvideRegion;
 use structopt::StructOpt;
@@ -14,19 +15,20 @@ struct Opt {
     #[structopt(short, long)]
     region: Option<String>,
 
-    /// The name of the AWS CloudFormation stack.
+    /// The ID of the snapshot.
     #[structopt(short, long)]
-    stack_name: String,
+    snapshot_id: String,
 
     /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Retrieves the status of a CloudFormation stack in the Region.
+/// Retrieves the state of an Amazon Elastic Block Store snapshot using Amazon EC2 API.
+/// It must be `completed` before you can use the snapshot.
 /// # Arguments
 ///
-/// * `-s STACK-NAME` - The name of the stack.
+/// * `-s SNAPSHOT-ID` - The ID of the snapshot.
 /// * `[-r REGION]` - The Region in which the client is created.
 ///    If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
@@ -37,7 +39,7 @@ async fn main() -> Result<(), Error> {
 
     let Opt {
         region,
-        stack_name,
+        snapshot_id,
         verbose,
     } = Opt::from_args();
 
@@ -48,32 +50,36 @@ async fn main() -> Result<(), Error> {
     println!();
 
     if verbose {
-        println!("CloudFormation version: {}", PKG_VERSION);
-        println!(
-            "Region:                 {}",
-            region.region().unwrap().as_ref()
-        );
-        println!("Stack:                  {}", &stack_name);
+        println!("EC2 version: {}", PKG_VERSION);
+        println!("Region:      {}", region.region().unwrap().as_ref());
+        println!("Snapshot ID: {}", snapshot_id);
         println!();
     }
 
-    let conf = Config::builder().region(region).build();
-    let client = Client::from_conf(conf);
+    let config = Config::builder().region(region).build();
+    let client = Client::from_conf(config);
 
-    // Return an error if stack_name does not exist
     let resp = client
-        .describe_stacks()
-        .stack_name(stack_name)
+        .describe_snapshots()
+        .filters(
+            Filter::builder()
+                .name("snapshot-id")
+                .values(snapshot_id)
+                .build(),
+        )
         .send()
         .await?;
 
-    // Otherwise we get a list of stacks that match the stack_name.
-    // The list should only have one item, so just access is via pop().
-    let status = resp.stacks.unwrap_or_default().pop().unwrap().stack_status;
-
-    println!("Stack status: {:?}", status);
-
-    println!();
+    println!(
+        "State: {}",
+        resp.snapshots
+            .unwrap()
+            .pop()
+            .unwrap()
+            .state
+            .unwrap()
+            .as_ref()
+    );
 
     Ok(())
 }
