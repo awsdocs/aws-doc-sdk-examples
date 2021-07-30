@@ -11,10 +11,10 @@ create and manage config rules.
 
 * [Creating an AWS Config rule](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/config/config_rules.py) 
 (`put_config_rule`)
-* [Describing an AWS Config rule](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/config/config_rules.py) 
-(`describe_config_rules`)
 * [Deleting an AWS Config rule](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/config/config_rules.py) 
 (`delete_config_rule`)
+* [Describing an AWS Config rule](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/config/config_rules.py) 
+(`describe_config_rules`)
 
 ## ⚠ Important
 
@@ -47,6 +47,26 @@ a command prompt with the following command.
 ```
 python config_rules.py
 ``` 
+
+### Example structure
+
+The example contains the following file.
+
+**config_rules.py**
+
+Shows how to use AWS Config APIs. The `usage_demo` script creates a rule that prohibits
+making Amazon S3 buckets publicly readable, gets data about the rule, and deletes it.
+
+## Running the tests
+
+The unit tests in this module use the botocore Stubber. This captures requests before 
+they are sent to AWS, and returns a mocked response. To run all of the tests, 
+run the following in your [GitHub root]/python/example_code/config 
+folder.
+
+```    
+python -m pytest
+```
 
 ## Additional information
 
