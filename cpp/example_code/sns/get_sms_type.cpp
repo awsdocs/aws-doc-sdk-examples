@@ -1,13 +1,3 @@
-//snippet-sourcedescription:[get_sms_type.cpp demonstrates how to retrieve the settings for sending Amazon SMS messages.]
-//snippet-service:[sns]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[tapasweni-pathak]
-
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -26,17 +16,19 @@
 #include <iostream>
 
 /**
- * Get the sms type
+ * Get the SMS type - demonstrates how to retrieve the settings for sending Amazon SMS messages.
+ * 
+ * For more information on SetSMSAttributes, see https://docs.aws.amazon.com/sns/latest/api/API_SetSMSAttributes.html.
  */
 
 int main(int argc, char ** argv)
 {
-  if (argc != 2)
+  if (argc != 1)
   {
     std::cout << "Usage: get_sms_type" << std::endl;
     return 1;
   }
-
+  // snippet-start:[sns.cpp.get_sms_type.code]
   Aws::SDKOptions options;
   Aws::InitAPI(options);
   {
@@ -59,5 +51,6 @@ int main(int argc, char ** argv)
   }
 
   Aws::ShutdownAPI(options);
+  // snippet-end:[sns.cpp.get_sms_type.code]
   return 0;
 }
