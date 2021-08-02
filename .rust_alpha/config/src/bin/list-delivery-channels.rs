@@ -1,9 +1,4 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0.
- */
-
-use aws_sdk_sns::{Client, Config, Error, Region, PKG_VERSION};
+use aws_sdk_config::{Client, Config, Error, Region, PKG_VERSION};
 use aws_types::region;
 use aws_types::region::ProvideRegion;
 use structopt::StructOpt;
@@ -19,17 +14,17 @@ struct Opt {
     verbose: bool,
 }
 
-/// Lists your Amazon SNS topics in the Region.
+/// Lists the AWS Config delivery channels in the Region.
+///
 /// # Arguments
 ///
 /// * `[-r REGION]` - The Region in which the client is created.
-///    If not supplied, uses the value of the **AWS_REGION** environment variable.
-///    If the environment variable is not set, defaults to **us-west-2**.
-/// * `[-v]` - Whether to display additional information.
+///   If not supplied, uses the value of the **AWS_REGION** environment variable.
+///   If the environment variable is not set, defaults to **us-west-2**.
+/// * `[-v]` - Whether to display information.
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
-
     let Opt { region, verbose } = Opt::from_args();
 
     let region = region::ChainProvider::first_try(region.map(Region::new))
@@ -39,9 +34,9 @@ async fn main() -> Result<(), Error> {
     println!();
 
     if verbose {
-        println!("SNS client version:   {}", PKG_VERSION);
+        println!("Config client version: {}", PKG_VERSION);
         println!(
-            "Region:               {}",
+            "Region:                {}",
             region.region().unwrap().as_ref()
         );
 
@@ -51,12 +46,21 @@ async fn main() -> Result<(), Error> {
     let conf = Config::builder().region(region).build();
     let client = Client::from_conf(conf);
 
-    let resp = client.list_topics().send().await?;
+    let resp = client.describe_delivery_channels().send().await?;
 
-    println!("Topic ARNs:");
+    let channels = resp.delivery_channels.unwrap_or_default();
 
-    for topic in resp.topics.unwrap_or_default() {
-        println!("{}", topic.topic_arn.as_deref().unwrap_or_default());
+    let num_channels = channels.len();
+
+    if num_channels == 0 {
+        println!("You have no delivery channels")
+    } else {
+        for channel in channels {
+            println!("  Channel: {}", channel.name.as_deref().unwrap_or_default());
+        }
     }
+
+    println!();
+
     Ok(())
 }

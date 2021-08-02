@@ -1,9 +1,4 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0.
- */
-
-use aws_sdk_dynamodb::{Client, Config, Error, Region, PKG_VERSION};
+use aws_sdk_config::{Client, Config, Error, Region, PKG_VERSION};
 use aws_types::region;
 use aws_types::region::ProvideRegion;
 use structopt::StructOpt;
@@ -14,27 +9,29 @@ struct Opt {
     #[structopt(short, long)]
     region: Option<String>,
 
-    /// The name of the table.
+    /// The channel to delete.
     #[structopt(short, long)]
-    table: String,
+    channel: String,
 
     /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Deletes a DynamoDB table.
+/// Deletes an AWS Config delivery channel.
+///
 /// # Arguments
 ///
-/// * `-t TABLE` - The name of the table.
-/// * `[-r REGION]` - The region in which the client is created.
-///    If not supplied, uses the value of the **AWS_REGION** environment variable.
-///    If the environment variable is not set, defaults to **us-west-2**.
-/// * `[-v]` - Whether to display additional information.
+/// * `-c CHANNEL` - The name of the channel to delete.
+/// * `[-r REGION]` - The Region in which the client is created.
+///   If not supplied, uses the value of the **AWS_REGION** environment variable.
+///   If the environment variable is not set, defaults to **us-west-2**.
+/// * `[-v]` - Whether to display information.
 #[tokio::main]
 async fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt::init();
     let Opt {
-        table,
+        channel,
         region,
         verbose,
     } = Opt::from_args();
@@ -46,21 +43,26 @@ async fn main() -> Result<(), Error> {
     println!();
 
     if verbose {
-        println!("DynamoDB client version: {}", PKG_VERSION);
+        println!("Config client version: {}", PKG_VERSION);
         println!(
-            "Region:                  {}",
+            "Region:                {}",
             region.region().unwrap().as_ref()
         );
-        println!("Table:                   {}", &table);
+        println!("Delivery channel:      {}", channel);
+
         println!();
     }
 
     let conf = Config::builder().region(region).build();
     let client = Client::from_conf(conf);
 
-    client.delete_table().table_name(table).send().await?;
+    client
+        .delete_delivery_channel()
+        .delivery_channel_name(channel)
+        .send()
+        .await?;
 
-    println!("Deleted table");
+    println!("Done");
 
     Ok(())
 }

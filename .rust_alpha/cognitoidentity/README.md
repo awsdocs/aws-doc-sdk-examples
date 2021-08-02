@@ -1,10 +1,10 @@
-# AWS SDK for Rust code examples for Amazon SNS
+# AWS SDK for Rust code examples for Amazon Cognito identity pools
 
-Amazon Simple Notification Service (Amazon SNS) is a web service that enables applications, end-users, and devices to instantly send and receive notifications from the cloud.
+Amazon Cognito identity pools (federated identities) enable you to create unique identities for your users and federate them with identity providers. With an identity pool, you can obtain temporary, limited-privilege AWS credentials to access other AWS services.
 
 ## Purpose
 
-These examples demonstrate how to perform several Amazon SNS operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Amazon Cognito identity pool operations using the alpha version of the AWS SDK for Rust.
 
 ## Prerequisites
 
@@ -12,39 +12,37 @@ You must have an AWS account, and have configured your default credentials and A
 
 ## Running the code
 
-### create-topic
+### describe-identity-pool
 
-This example creates an Amazon SNS topic.
+This example displays some information about an Amazon Cognito identitiy pool.
 
-`cargo run --bin create-topic -- -t TOPIC_ARN [-r REGION] [-v]`
+`cargo run --bin describe-identity-pool -- -i IDENTITY-POOL-ID [-r REGION] [-v]`
 
-- _TOPIC_ARN_ is the ARN of the topic.
-- _REGION_ is name of the Region in which the client is created.
+- _IDENTITY-POOL-ID_ is the ID of the identity pool.
+- _DEFAULT-REGION_ is name of the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
-### list-topics
+### list-identity-pools
 
-This example lists your Amazon SNS topics in the Region.
+This example lists your Amazon Cognito identity pools in the Region.
 
-`cargo run --bin list-topics -- [-r REGION] [-v]`
+`cargo run --bin list-identity-pools -- [-r REGION] [-v]`
 
-- _REGION_ is name of the Region in which the client is created.
+- _DEFAULT-REGION_ is name of the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
-### sns-hello-world
+### list-pool-identities
 
-This example subscribes an email address and publishes a message to a topic.
+This example lists the identities in an Amazon Cognito identity pool.
 
-`cargo run --bin sns-hello-world -- -e EMAIL_ADDRESS -t TOPIC_ARN [-r REGION] [-v]`
+`cargo run --bin list-pool-identities -- -i IDENTITY-POOL-ID [-r REGION] [-v]`
 
-- _EMAIL_ADDRESS_ is the email address to subscribe to a topic.
-  The topic to which the address subscribes is the first in the list of topics.
-- _TOPIC_ARN_ is the ARN of the topic.
-- _REGION_ is name of the Region in which the client is created.
+- _IDENTITY-POOL-ID_ is the ID of the identity pool.
+- _DEFAULT-REGION_ is name of the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
