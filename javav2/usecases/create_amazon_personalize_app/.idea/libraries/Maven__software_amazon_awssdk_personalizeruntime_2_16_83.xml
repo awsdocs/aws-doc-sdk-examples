@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: software.amazon.awssdk:personalizeruntime:2.16.83">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/software/amazon/awssdk/personalizeruntime/2.16.83/personalizeruntime-2.16.83.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/software/amazon/awssdk/personalizeruntime/2.16.83/personalizeruntime-2.16.83-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/software/amazon/awssdk/personalizeruntime/2.16.83/personalizeruntime-2.16.83-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
