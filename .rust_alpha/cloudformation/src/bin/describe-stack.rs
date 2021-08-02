@@ -3,80 +3,76 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+use aws_sdk_cloudformation::{Client, Config, Error, Region, PKG_VERSION};
+use aws_types::region;
 use aws_types::region::ProvideRegion;
-
-use cloudformation::{Client, Config, Region};
-
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The region. Overrides environment variable AWS_DEFAULT_REGION.
+    /// The AWS Region.
     #[structopt(short, long)]
-    default_region: Option<String>,
+    region: Option<String>,
 
-    /// The name of the stack.
+    /// The name of the AWS CloudFormation stack.
     #[structopt(short, long)]
     stack_name: String,
 
-    /// Whether to display additional runtime information.
+    /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Retrieves the status of a CloudFormation stack in the region.
+/// Retrieves the status of a CloudFormation stack in the Region.
 /// # Arguments
 ///
 /// * `-s STACK-NAME` - The name of the stack.
-/// * `[-d DEFAULT-REGION]` - The region in which the client is created.
-///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+/// * `[-r REGION]` - The Region in which the client is created.
+///    If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() -> Result<(), cloudformation::Error> {
+async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
     let Opt {
-        default_region,
+        region,
         stack_name,
-
         verbose,
     } = Opt::from_args();
 
-    let region = default_region
-        .as_ref()
-        .map(|region| Region::new(region.clone()))
-        .or_else(|| aws_types::region::default_provider().region())
-        .unwrap_or_else(|| Region::new("us-west-2"));
+    let region = region::ChainProvider::first_try(region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
+
+    println!();
 
     if verbose {
+        println!("CloudFormation version: {}", PKG_VERSION);
         println!(
-            "CloudFormation client version: {}",
-            cloudformation::PKG_VERSION
+            "Region:                 {}",
+            region.region().unwrap().as_ref()
         );
-        println!("Region:                   {:?}", &region);
-        println!("Stack:                    {}", &stack_name);
+        println!("Stack:                  {}", &stack_name);
         println!();
     }
 
     let conf = Config::builder().region(region).build();
     let client = Client::from_conf(conf);
 
-    // Panic if stack_name does not exist
-    let status = client
+    // Return an error if stack_name does not exist
+    let resp = client
         .describe_stacks()
         .stack_name(stack_name)
         .send()
-        .await
-        .expect("Could not find your stack")
-        .stacks
-        .unwrap()
-        .pop()
-        .unwrap()
-        .stack_status
-        .unwrap();
+        .await?;
+
+    // Otherwise we get a list of stacks that match the stack_name.
+    // The list should only have one item, so just access is via pop().
+    let status = resp.stacks.unwrap_or_default().pop().unwrap().stack_status;
 
     println!("Stack status: {:?}", status);
+
     println!();
 
     Ok(())
