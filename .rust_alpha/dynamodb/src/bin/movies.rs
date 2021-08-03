@@ -262,7 +262,7 @@ fn wait_for_ready_table(
         .table_name(table_name)
         .build()
         .expect("valid input")
-        .make_operation(&conf)
+        .make_operation(conf)
         .expect("valid operation");
     let waiting_policy = WaitForReadyTable {
         inner: operation.retry_policy().clone(),
