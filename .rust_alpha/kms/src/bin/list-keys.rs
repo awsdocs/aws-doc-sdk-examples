@@ -18,7 +18,7 @@ struct Opt {
     #[structopt(short, long)]
     verbose: bool,
 }
-/// Creates an AWS KMS key in the Region.
+/// Lists your AWS KMS keys in the Region.
 /// # Arguments
 ///
 /// * `[-r REGION]` - The Region in which the client is created.
@@ -38,23 +38,26 @@ async fn main() -> Result<(), Error> {
     println!();
 
     if verbose {
-        println!("KMS client version: {}", PKG_VERSION);
-        println!("Region:             {}", region.region().unwrap().as_ref());
+        println!("KMS version: {}", PKG_VERSION);
+        println!("Region:      {}", region.region().unwrap().as_ref());
         println!();
     }
 
     let conf = Config::builder().region(region).build();
     let client = Client::from_conf(conf);
 
-    let resp = client.create_key().send().await?;
+    let resp = client.list_keys().send().await?;
 
-    let id = resp
-        .key_metadata
-        .unwrap()
-        .key_id
-        .unwrap_or_else(|| String::from("No ID!"));
+    let keys = resp.keys.unwrap_or_default();
 
-    println!("Key: {}", id);
+    let len = keys.len();
+
+    for key in keys {
+        println!("Key ARN: {}", key.key_arn.as_deref().unwrap_or_default());
+    }
+
+    println!();
+    println!("Found {} keys", len);
 
     Ok(())
 }

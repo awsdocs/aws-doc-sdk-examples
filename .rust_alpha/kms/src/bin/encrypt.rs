@@ -3,37 +3,32 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+use aws_sdk_kms::{Blob, Client, Config, Error, Region, PKG_VERSION};
+use aws_types::region;
+use aws_types::region::ProvideRegion;
 use std::fs::File;
 use std::io::Write;
-use std::process;
-
-use kms::{Blob, Client, Config, Region};
-
-use aws_types::region::ProvideRegion;
-
 use structopt::StructOpt;
-use tracing_subscriber::fmt::format::FmtSpan;
-use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The region. Overrides environment variable AWS_DEFAULT_REGION.
+    /// The AWS Region.
     #[structopt(short, long)]
-    default_region: Option<String>,
+    region: Option<String>,
 
-    /// Specifies the encryption key
+    /// The encryption key.
     #[structopt(short, long)]
     key: String,
 
-    /// Specifies the text to encrypt
+    /// The text to encrypt.
     #[structopt(short, long)]
     text: String,
 
-    /// Specifies the name of the file to store the encrypted text in
+    /// The name of the file to store the encrypted text in.
     #[structopt(short, long)]
-    out: String,
+    out_file: String,
 
-    /// Whether to display additional runtime information
+    /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
@@ -42,39 +37,37 @@ struct Opt {
 /// # Arguments
 ///
 /// * `-k KEY` - The KMS key.
-/// * `-o OUT` - The name of the file to store the encryped key in.
+/// * `-o OUT-FILE` - The name of the file to store the encryped key in.
 /// * `-t TEXT` - The string to encrypt.
-/// * `[-d DEFAULT-REGION]` - The region in which the client is created.
-///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+/// * `[-r REGION]` - The Region in which the client is created.
+///    If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt::init();
+
     let Opt {
         key,
-        out,
-        default_region,
+        out_file,
+        region,
         text,
         verbose,
     } = Opt::from_args();
 
-    let region = default_region
-        .as_ref()
-        .map(|region| Region::new(region.clone()))
-        .or_else(|| aws_types::region::default_provider().region())
-        .unwrap_or_else(|| Region::new("us-west-2"));
+    let region = region::ChainProvider::first_try(region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
+
+    println!();
 
     if verbose {
-        println!("KMS client version: {}\n", kms::PKG_VERSION);
-        println!("Region: {:?}", &region);
-        println!("Key:    {}", key);
-        println!("Text:   {}", text);
-        println!("Out:    {}", out);
-
-        SubscriberBuilder::default()
-            .with_env_filter("info")
-            .with_span_events(FmtSpan::CLOSE)
-            .init();
+        println!("KMS client version: {}", PKG_VERSION);
+        println!("Region:             {}", region.region().unwrap().as_ref());
+        println!("Key:                {}", &key);
+        println!("Text:               {}", &text);
+        println!("Output file:        {}", &out_file);
+        println!();
     }
 
     let conf = Config::builder().region(region).build();
@@ -82,13 +75,7 @@ async fn main() {
 
     let blob = Blob::new(text.as_bytes());
 
-    let resp = match client.encrypt().key_id(key).plaintext(blob).send().await {
-        Ok(output) => output,
-        Err(e) => {
-            eprintln!("Encryption failure: {}", e);
-            process::exit(1);
-        }
-    };
+    let resp = client.encrypt().key_id(key).plaintext(blob).send().await?;
 
     // Did we get an encrypted blob?
     let blob = resp.ciphertext_blob.expect("Could not get encrypted text");
@@ -96,11 +83,13 @@ async fn main() {
 
     let s = base64::encode(&bytes);
 
-    let mut ofile = File::create(&out).expect("unable to create file");
+    let mut ofile = File::create(&out_file).expect("unable to create file");
     ofile.write_all(s.as_bytes()).expect("unable to write");
 
     if verbose {
-        println!("Wrote the following to {}", &out);
+        println!("Wrote the following to {:?}", out_file);
         println!("{}", s);
     }
+
+    Ok(())
 }
