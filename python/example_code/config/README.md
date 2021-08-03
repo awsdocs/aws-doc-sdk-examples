@@ -55,7 +55,8 @@ The example contains the following file.
 **config_rules.py**
 
 Shows how to use AWS Config APIs. The `usage_demo` script creates a rule that prohibits
-making Amazon S3 buckets publicly readable, gets data about the rule, and deletes it.
+making Amazon Simple Storage Service (Amazon S3) buckets publicly readable, gets data 
+about the rule, and deletes it.
 
 ## Running the tests
 
