@@ -1,5 +1,7 @@
 # AWS SDK for Rust code examples for AWS Lambda
 
+With AWS Lambda, you can run code without provisioning or managing servers. 
+
 ## Purpose
 
 These examples demonstrate how to perform several AWS Lambda operations using the alpha version of the AWS SDK for Rust.
