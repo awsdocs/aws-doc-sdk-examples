@@ -4,16 +4,16 @@ Amazon Relational Database Service (Amazon RDS) is a web service that makes it e
 
 ## rds-helloworld
 
-This code example displays information about your RDS instances.
+This code example displays information about your RDS instances in the Region.
 
 ### Usage
 
-```cargo run --bin rds-helloworld [-d DEFAULT_REGION] [-v]```
+```cargo run --bin rds-helloworld [-r REGION] [-v]```
 
 where:
 
-- _DEFAULT_REGION_ is the region in which the client is created.
-  If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the **AWS_REGION** environment variable.
   If the environment variable is not set, defaults to **us-west-2**.
 - __-v__ enables displaying additional information.
 
