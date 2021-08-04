@@ -3,27 +3,72 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_auth::{CredentialsError, ProvideCredentials};
+use aws_auth::provider::{CredentialsError, ProvideCredentials};
+use aws_sdk_dynamodb::Error;
+use aws_sdk_sts::{Credentials, Region};
+use aws_types::region;
+use aws_types::region::ProvideRegion;
 use std::sync::{Arc, Mutex};
 use std::time::{Duration, SystemTime};
-use sts::Credentials;
+use structopt::StructOpt;
+
+#[derive(Debug, StructOpt)]
+struct Opt {
+    /// The AWS Region.
+    #[structopt(short, long)]
+    region: Option<String>,
+
+    /// Whether to display additional information.
+    #[structopt(short, long)]
+    verbose: bool,
+}
 
 /// Implements a basic version of ProvideCredentials with AWS STS
 /// and lists the tables in the region based on those credentials.
+/// # Arguments
+///
+/// * `[-r REGION]` - The Region in which the client is created.
+///    If not supplied, uses the value of the **AWS_REGION** environment variable.
+///    If the environment variable is not set, defaults to **us-west-2**.
+/// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() -> Result<(), dynamodb::Error> {
+async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
-    let client = sts::Client::from_env();
+
+    let Opt { region, verbose } = Opt::from_args();
+
+    let region = region::ChainProvider::first_try(region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
+
+    println!();
+
+    if verbose {
+        println!("STS client version:      {}", aws_sdk_sts::PKG_VERSION);
+        println!("DynamoDB client version: {}", aws_sdk_dynamodb::PKG_VERSION);
+        println!(
+            "Region:                  {}",
+            region.region().unwrap().as_ref()
+        );
+        println!();
+    }
+
+    let config = aws_sdk_sts::Config::builder().region(region).build();
+    let client = aws_sdk_sts::Client::from_conf(config);
+
     let sts_provider = StsCredentialsProvider {
         client,
         credentials: Arc::new(Mutex::new(None)),
     };
+
     sts_provider.spawn_refresh_loop().await;
 
-    let dynamodb_conf = dynamodb::Config::builder()
+    let dynamodb_conf = aws_sdk_dynamodb::Config::builder()
         .credentials_provider(sts_provider)
         .build();
-    let client = dynamodb::Client::from_conf(dynamodb_conf);
+
+    let client = aws_sdk_dynamodb::Client::from_conf(dynamodb_conf);
+
     println!("tables: {:?}", client.list_tables().send().await?);
     Ok(())
 }
@@ -33,7 +78,7 @@ async fn main() -> Result<(), dynamodb::Error> {
 /// Do not use this in production! A high quality implementation is in the roadmap.
 #[derive(Clone)]
 struct StsCredentialsProvider {
-    client: sts::Client,
+    client: aws_sdk_sts::Client,
     credentials: Arc<Mutex<Option<Credentials>>>,
 }
 
@@ -74,7 +119,7 @@ impl StsCredentialsProvider {
             }
         });
     }
-    pub async fn refresh(&self) -> Result<(), sts::Error> {
+    pub async fn refresh(&self) -> Result<(), aws_sdk_sts::Error> {
         let session_token = self.client.get_session_token().send().await?;
         let sts_credentials = session_token
             .credentials
