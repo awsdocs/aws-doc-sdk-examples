@@ -35,6 +35,8 @@ int main(int argc, char ** argv)
     Aws::SNS::SNSClient sns;
 
     Aws::SNS::Model::GetSMSAttributesRequest gsmst_req;
+    //Set the request to only retrieve the DefaultSMSType setting. 
+    //Without the following line, GetSMSAttributes would retrieve all settings.
     gsmst_req.AddAttributes("DefaultSMSType");
 
     auto gsmst_out = sns.GetSMSAttributes(gsmst_req);
