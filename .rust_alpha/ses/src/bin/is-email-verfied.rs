@@ -10,9 +10,9 @@ use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The name of the contact list.
+    /// The email address.
     #[structopt(short, long)]
-    contact_list: String,
+    email_address: String,
 
     /// The AWS Region.
     #[structopt(short, long)]
@@ -23,10 +23,10 @@ struct Opt {
     verbose: bool,
 }
 
-/// Lists the contacts in a contact list in the Region.
+/// Determines whether the email address has been verified.
 /// # Arguments
 ///
-/// * `-c CONTACT-LIST` - The name of the contact list.
+/// * `-e EMAIL-ADDRESS` - The email address.
 /// * `[-r REGION]` - The Region in which the client is created.
 ///    If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
@@ -36,7 +36,7 @@ async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
     let Opt {
-        contact_list,
+        email_address,
         region,
         verbose,
     } = Opt::from_args();
@@ -50,7 +50,7 @@ async fn main() -> Result<(), Error> {
     if verbose {
         println!("SES client version: {}", PKG_VERSION);
         println!("Region:             {}", region.region().unwrap().as_ref());
-        println!("Contact list:       {}", &contact_list);
+        println!("Email address:      {}", &email_address);
         println!();
     }
 
@@ -58,15 +58,15 @@ async fn main() -> Result<(), Error> {
     let client = Client::from_conf(conf);
 
     let resp = client
-        .list_contacts()
-        .contact_list_name(contact_list)
+        .get_email_identity()
+        .email_identity(email_address)
         .send()
         .await?;
 
-    println!("Contacts:");
-
-    for contact in resp.contacts.unwrap_or_default() {
-        println!("  {}", contact.email_address.as_deref().unwrap_or_default());
+    if resp.verified_for_sending_status {
+        println!("The address is verified");
+    } else {
+        println!("The address is not verified");
     }
 
     Ok(())
