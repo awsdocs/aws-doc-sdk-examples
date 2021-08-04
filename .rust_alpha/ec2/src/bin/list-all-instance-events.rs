@@ -19,7 +19,7 @@ struct Opt {
     verbose: bool,
 }
 
-/// Shows the scheduled events for the instances in the Region.
+/// Shows the scheduled events for the Amazon Elastic Compute Cloud (Amazon EC2) instances in the Region.
 async fn show_events(reg: String) {
     let region = Region::new(reg.clone());
     let config = Config::builder().region(region).build();
