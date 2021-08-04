@@ -16,11 +16,12 @@ You must have an AWS account, and have configured your default credentials and A
 
 This example invokes a function by its ARN.
 
-`cargo run --bin invoke-function -- -a ARN [-d DEFAULT-REGION] [-v]`
+`cargo run --bin invoke-function -- -a ARN [-r REGION] [-v]`
 
 - _ARN_ is the ARN of the function to invoke.
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
 ### list-functions
@@ -29,8 +30,9 @@ This example lists your AWS Lambda functions.
 
 `cargo run --bin list-functions -- [-d DEFAULT-REGION] [-v]`
 
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
 ### Notes
