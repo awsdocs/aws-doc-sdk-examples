@@ -1,0 +1,117 @@
+{
+    "Docs": {
+	"prefix":"docs",
+	"body": [
+	    "/// BLANKs your SERVICE BLANKs, in the Region.",
+	    "///",
+	    "/// # Arguments",
+	    "///",
+	    "/// * `[-r REGION]` - The Region in which the client is created.",
+	    "///   If not supplied, uses the value of the **AWS_REGION** environment variable.",
+	    "///   If the environment variable is not set, defaults to **us-west-2**.",
+	    "/// * `[-v]` - Whether to display information."
+	],
+	"description": "Inserts internal documentation template"
+    },
+    "Snippet start": {
+	"prefix":"snippet-start",
+	"body": "$LINE_COMMENT snippet-start:[$WORKSPACE_NAME.rust.$TM_FILENAME_BASE]",
+	"description": "Inserts a snippet start tag"
+    },
+     "Snippet end": {
+	"prefix":"snippet-end",
+	"body": "$LINE_COMMENT snippet-end:[$WORKSPACE_NAME.rust.$TM_FILENAME_BASE]",
+	"description": "Inserts a snippet end tag"
+    },
+    "Insert copyright": {
+        "prefix": "copyright",
+        "body": [
+            "/*",
+            " * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.",
+            " * SPDX-License-Identifier: Apache-2.0.",
+	    " */"
+        ],
+        "description": "Inserts the copyright"
+    },    
+    "Add region code": {
+        "prefix": "region",
+        "body": [
+            "let region = region::ChainProvider::first_try(region.map(Region::new))",
+            ".or_default_provider()",
+            ".or_else(Region::new(\"us-west-2\"));"
+        ],
+        "description": "Inserts the code to create a region"
+    },
+    "Insert package declarations": {
+        "prefix": "packages",
+        "body": [
+            "use aws_types::region;",
+            "use aws_types::region::ProvideRegion;",
+            "use aws_sdk_SERVICE::{Client, Config, Error, Region, PKG_VERSION};",
+            "use structopt::StructOpt;"
+        ],
+        "description": "Inserts package declarations"
+    },
+    "Add region code": {
+        "prefix": "region",
+        "body": [
+            "let region = region::ChainProvider::first_try(region.map(Region::new))",
+            ".or_default_provider()",
+            ".or_else(Region::new(\"us-west-2\"));"
+        ],
+        "description": "Inserts the code to create a region"
+    },
+    "Create config/client": {
+        "prefix": "config-client",
+        "body": [
+            "let conf = Config::builder().region(region).build();",
+            "let client = Client::from_conf(conf);"
+        ],
+        "description": "Inserts the code to create a config and client object"
+    },
+    "Add options list": {
+        "prefix": "options",
+        "body": [
+            "#[derive(Debug, StructOpt)]",
+            "struct Opt {",
+            "    /// The AWS Region.",
+            "    #[structopt(short, long)]",
+            "    region: Option<String>,",
+            "",
+            "    /// Whether to display additional information.",
+            "    #[structopt(short, long)]",
+            "    verbose: bool,",
+            "}"
+        ],
+        "description": "Inserts the region and verbose option declarations."
+    },
+    "Main declaration": {
+        "prefix": "main",
+        "body": [
+            "/// BLANKs the Amazon/AWS service THINGs in the Region.",
+            "///",
+            "/// # Arguments",
+            "///",
+            "/// * `[-r REGION]` - The Region in which the client is created.",
+            "///   If not supplied, uses the value of the **AWS_REGION** environment variable.",
+            "///   If the environment variable is not set, defaults to **us-west-2**.",
+            "/// * `[-v]` - Whether to display information.",
+            "#[tokio::main]",
+            "async fn main() -> Result<(), Error> {",
+            "    tracing_subscriber::fmt::init();",
+            "    let Opt { region, verbose } = Opt::from_args();"
+        ],
+        "description": "Inserts the doc comments, main declaration, and options declarations."
+    },
+    "Verbose block": {
+        "prefix": "verbose",
+        "body": [
+            "if verbose {",
+            "    println!(\"SERVICE client version: {}\", PKG_VERSION);",
+            "    println!(\"Region:                 {}\", region.region().unwrap().as_ref());",
+            "    println!();",
+            "}"
+        ],
+        "description": "Inserts a verbose code block."
+    }
+}
