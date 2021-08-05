@@ -38,7 +38,7 @@ int main(int argc, char ** argv)
     Aws::String sms_type =  argv[1];
 
     Aws::SNS::Model::SetSMSAttributesRequest ssmst_req;
-    ssmst_req.AddAttributes("DefaultSMStype", sms_type);
+    ssmst_req.AddAttributes("DefaultSMSType", sms_type);
 
     auto ssmst_out = sns.SetSMSAttributes(ssmst_req);
 
@@ -48,8 +48,8 @@ int main(int argc, char ** argv)
     }
     else
     {
-      std::cout << "Error while setting SMS Type " << ssmst_out.GetError().GetMessage()
-        << std::endl;
+        std::cout << "Error while setting SMS Type: '" << ssmst_out.GetError().GetMessage()
+            << "'" << std::endl;
     }
   }
 
