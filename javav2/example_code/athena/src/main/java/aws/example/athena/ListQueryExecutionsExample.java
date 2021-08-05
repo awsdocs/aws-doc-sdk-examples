@@ -58,8 +58,8 @@ public class ListQueryExecutionsExample {
         e.printStackTrace();
         System.exit(1);
     }
-    //snippet-end:[athena.java2.ListNamedQueryExecutionsExample.main]
   }
+    //snippet-end:[athena.java2.ListNamedQueryExecutionsExample.main]
 }
 //snippet-end:[athena.java.ListNamedQueryExecutionsExample.complete]
 //snippet-end:[athena.java2.ListNamedQueryExecutionsExample.complete]
