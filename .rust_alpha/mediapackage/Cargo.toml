@@ -7,8 +7,8 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-mediapackage = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.9-alpha", package = "aws-sdk-mediapackage" }
-
+aws-sdk-mediapackage = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.13-alpha", package = "aws-sdk-mediapackage" }
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.13-alpha", package = "aws-types" }
 tokio = { version = "1", features = ["full"] }
-# used only to enable basic logging:
-env_logger = "0.8.2"
+structopt = { version = "0.3", default-features = false }
+tracing-subscriber = "0.2.18"

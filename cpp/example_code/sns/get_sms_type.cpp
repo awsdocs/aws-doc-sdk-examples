@@ -35,18 +35,23 @@ int main(int argc, char ** argv)
     Aws::SNS::SNSClient sns;
 
     Aws::SNS::Model::GetSMSAttributesRequest gsmst_req;
-    gsmst_req.AddAttributes("DefaultSMStype");
+    //Set the request to only retrieve the DefaultSMSType setting. 
+    //Without the following line, GetSMSAttributes would retrieve all settings.
+    gsmst_req.AddAttributes("DefaultSMSType");
 
     auto gsmst_out = sns.GetSMSAttributes(gsmst_req);
 
     if (gsmst_out.IsSuccess())
     {
-      std::cout << "SMS Type " << std::endl;
+        for (auto const& att : gsmst_out.GetResult().GetAttributes())
+        {
+            std::cout <<  att.first << ":  " <<  att.second << std::endl;
+        }
     }
     else
     {
-      std::cout << "Error while getting SMS Type " << gsmst_out.GetError().GetMessage()
-        << std::endl;
+      std::cout << "Error while getting SMS Type: '" << gsmst_out.GetError().GetMessage()
+        << "'" << std::endl;
     }
   }
 

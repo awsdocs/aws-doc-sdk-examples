@@ -12,54 +12,59 @@ You must have an AWS account, and have configured your default credentials and A
 
 ### describe-voices
 
-This example describes the voices in the region.
+This example describes the voices in the Region.
 
-`cargo run --bin describe-voices -- [-d DEFAULT-REGION] [-v]`
+`cargo run --bin describe-voices -- [-r REGION] [-v]`
 
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
 ### list-lexicons
 
-This example lists the lexicons in the region.
+This example lists the lexicons in the Region.
 
-`cargo run --bin list-lexicons -- [-d DEFAULT-REGION] [-v]`
+`cargo run --bin list-lexicons -- [-r REGION] [-v]`
 
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
 ### polly-helloworld
 
-This example displays a list of the voices and their language, and those supporting a neural engine, in the region.
+This example displays a list of the voices and their language, and those supporting a neural engine, in the Region.
 
-`cargo run --bin polly-helloworld -- [-d DEFAULT-REGION] [-v]`
+`cargo run --bin polly-helloworld -- [-r REGION] [-v]`
 
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
 ### put-lexicon
 
-This example adds a pronunciation lexicon to the region.
+This example adds a pronunciation lexicon to the Region.
 
-`cargo run --bin put-lexicon -- [-d DEFAULT-REGION] [-v]`
+`cargo run --bin put-lexicon -- [-r REGION] [-v]`
 
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
 ### synthesize-speech
 
 This example reads a text file and creates an MP3 file with the text synthesized into speech by Amazon Polly.
 
-`cargo run --bin synthesize-speech -- -f FILENAME [-d DEFAULT-REGION] [-v]`
+`cargo run --bin synthesize-speech -- -f FILENAME [-r REGION] [-v]`
 
 - _FILENAME_ is name of the file containing the text to synthesize.
   The MP3 output is saved in a file with the same basename and a ".MP3" extension.
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
 ### Notes
