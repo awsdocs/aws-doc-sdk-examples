@@ -18,10 +18,10 @@ This is a workspace where you can find AWS SDK for C++ SNS examples.
 - [Sending an SMS text message to a phone number](./publish_sms.cpp) (Publish)
 - [Sending a message to an Amazon SNS topic](./publish_to_topic.cpp) (Publish)
 - [Setting default SMS attributes](./set_sms_type.cpp) (SetSMSAttributes)
-- [Initiating a subscription to an Amazon SNS topic with delivery to a mobile app](./subscribe_app.cpp) (Subscribe)
-- [Initiating a subscription to an Amazon SNS topic with delivery to an email address](./subscribe_email.cpp) (Subscribe)
-- [Initiating a subscription to an Amazon SNS topic with delivery to an AWS Lambda function](./subscribe_lambda.cpp) (Subscribe)
-- [Deleting a subscription to an Amazon SNS topic](./unsubscribe.cpp) (Unsubscribe)
+- [Subscribing to an Amazon SNS topic with delivery to a mobile app](./subscribe_app.cpp) (Subscribe)
+- [Subscribing to an Amazon SNS topic with delivery to an email address](./subscribe_email.cpp) (Subscribe)
+- [Subscribing to an Amazon SNS topic with delivery to an AWS Lambda function](./subscribe_lambda.cpp) (Subscribe)
+- [Unsubscribing to an Amazon SNS topic](./unsubscribe.cpp) (Unsubscribe)
 
 ## ⚠ Important
 - We recommend that you grant your code least privilege, or at most the minimum permissions required to perform the task. For more information, see [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) in the AWS Identity and Access Management User Guide.

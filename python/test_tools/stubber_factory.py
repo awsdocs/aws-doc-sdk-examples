@@ -15,6 +15,7 @@ from test_tools.apigateway_v2_stubber import ApiGatewayV2Stubber
 from test_tools.cloudwatch_stubber import CloudWatchStubber
 from test_tools.cloudwatch_logs_stubber import CloudWatchLogsStubber
 from test_tools.comprehend_stubber import ComprehendStubber
+from test_tools.config_stubber import ConfigStubber
 from test_tools.dynamodb_stubber import DynamoStubber
 from test_tools.ec2_stubber import Ec2Stubber
 from test_tools.emr_stubber import EmrStubber
@@ -62,6 +63,8 @@ def stubber_factory(service_name):
         return CloudWatchLogsStubber
     elif service_name == 'comprehend':
         return ComprehendStubber
+    elif service_name == 'config':
+        return ConfigStubber
     elif service_name == 'dynamodb':
         return DynamoStubber
     elif service_name == 'ec2':
