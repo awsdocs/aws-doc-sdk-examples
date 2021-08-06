@@ -14,7 +14,7 @@ You must have an AWS account, and have configured your default credentials and A
 
 ### create-parameter
 
-This example creates a new Systems Manager parameter.
+This example creates a new Systems Manager parameter in the Region.
 
 `cargo run --bin create-parameter -- -n NAME -p PARAMETER-VALUE -d DESCRIPTION [-r REGION] [-v]`
 
@@ -23,21 +23,21 @@ Where:
 - _DESCRIPTION_ is the description of the parameter.
 - _PARAMETER-VALUE_ is the value of the parameter.
 - _NAME_ is the name of the parameter.
-- _REGION_ is name of the AWS Region, such as __us-east-1__, where the parameter is created.
-  If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
 ### describe-parameters
 
-This example lists the names of your Systems Manager parameters.
+This example lists the names of your Systems Manager parameters in the Region.
 
-`cargo run --bin describe-parameters -- [-d DEFAULT-REGION] [-v]`
+`cargo run --bin describe-parameters -- [-r REGION] [-v]`
 
 Where:
 
-- _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the parameters are defined.
-  If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
