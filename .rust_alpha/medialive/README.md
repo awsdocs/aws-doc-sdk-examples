@@ -16,7 +16,12 @@ You must have an AWS account, and have configured your default credentials and A
 
 This example lists your MediaLive input names and ARNs.
 
-`cargo run --bin medialive-helloworld`
+`cargo run --bin medialive-helloworld [-r REGION] [-v]`
+
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.
 
 ### Notes
 
