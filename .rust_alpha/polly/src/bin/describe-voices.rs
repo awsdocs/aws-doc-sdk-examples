@@ -3,77 +3,72 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use std::process;
-
-use polly::{Client, Config, Region};
-
-use aws_types::region::{EnvironmentProvider, ProvideRegion};
-
+use aws_sdk_polly::{Client, Config, Error, Region, PKG_VERSION};
+use aws_types::region;
+use aws_types::region::ProvideRegion;
 use structopt::StructOpt;
-use tracing_subscriber::fmt::format::FmtSpan;
-use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The region
+    /// The AWS Region.
     #[structopt(short, long)]
     region: Option<String>,
 
-    /// Display additional information
+    /// Whether to isplay additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Displays a list of the voices in the region.
+/// Displays a list of the voices in the Region.
 /// # Arguments
 ///
-/// * `[-d DEFAULT-REGION]` - The region in which the client is created.
-///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+/// * `[-r REGION]` - The Region in which the client is created.
+///    If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt::init();
+
     let Opt { region, verbose } = Opt::from_args();
 
-    let region = EnvironmentProvider::new()
-        .region()
-        .or_else(|| region.as_ref().map(|region| Region::new(region.clone())))
-        .unwrap_or_else(|| Region::new("us-west-2"));
+    let region = region::ChainProvider::first_try(region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
+
+    println!();
 
     if verbose {
-        println!("polly client version: {}\n", polly::PKG_VERSION);
-        println!("Region: {:?}", &region);
-
-        SubscriberBuilder::default()
-            .with_env_filter("info")
-            .with_span_events(FmtSpan::CLOSE)
-            .init();
+        println!("Polly client version: {}", PKG_VERSION);
+        println!(
+            "Region:               {}",
+            region.region().unwrap().as_ref()
+        );
+        println!();
     }
 
     let config = Config::builder().region(region).build();
     let client = Client::from_conf(config);
 
-    match client.describe_voices().send().await {
-        Ok(resp) => {
-            println!("Voices:");
-            let voices = resp.voices.unwrap_or_default();
-            for voice in &voices {
-                println!(
-                    "  Name:     {}",
-                    voice.name.as_deref().unwrap_or("No name!")
-                );
-                println!(
-                    "  Language:     {}",
-                    voice.language_name.as_deref().unwrap_or("No language!")
-                );
-            }
+    let resp = client.describe_voices().send().await?;
 
-            println!("\nFound {} voices\n", voices.len());
-        }
-        Err(e) => {
-            println!("Got an error describing voices:");
-            println!("{}", e);
-            process::exit(1);
-        }
-    };
+    println!("Voices:");
+
+    let voices = resp.voices.unwrap_or_default();
+    for voice in &voices {
+        println!(
+            "  Name:     {}",
+            voice.name.as_deref().unwrap_or("No name!")
+        );
+        println!(
+            "  Language: {}",
+            voice.language_name.as_deref().unwrap_or("No language!")
+        );
+
+        println!();
+    }
+
+    println!("Found {} voices", voices.len());
+
+    Ok(())
 }
