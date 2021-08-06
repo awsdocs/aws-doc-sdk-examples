@@ -39,11 +39,11 @@ int main(int argc, char ** argv)
 
     if (s_out.IsSuccess())
     {
-      std::cout << "Subscribed successfully " << std::endl;
+      std::cout << "Unsubscribed successfully " << std::endl;
     }
     else
     {
-      std::cout << "Error while subscribing " << s_out.GetError().GetMessage()
+      std::cout << "Error while unsubscribing " << s_out.GetError().GetMessage()
         << std::endl;
     }
   }
