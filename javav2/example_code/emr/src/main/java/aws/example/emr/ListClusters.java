@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[AddDataShards.java demonstrates how to increase shard count in an Amazon Kinesis data stream.]
+//snippet-sourcedescription:[ListClusters.java demonstrates how to list clusters.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EMR]
