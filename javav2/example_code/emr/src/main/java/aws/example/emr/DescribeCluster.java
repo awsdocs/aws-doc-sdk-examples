@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateSparkCluster.java demonstrates how to create and start running a new cluster (job flow).]
+//snippet-sourcedescription:[DescribeCluster.java demonstrates how to describe a cluster.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon EMR]
