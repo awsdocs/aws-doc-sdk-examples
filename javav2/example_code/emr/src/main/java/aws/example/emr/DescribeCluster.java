@@ -33,7 +33,7 @@ public class DescribeCluster {
                 "Usage: " +
                 "   <clusterId> \n\n" +
                 "Where:\n" +
-                "   clusterId - he identifier of the cluster to describe. \n\n" ;
+                "   clusterId - The identifier of the cluster to describe. \n\n" ;
 
         if (args.length != 1) {
               System.out.println(USAGE);
