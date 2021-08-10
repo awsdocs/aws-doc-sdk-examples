@@ -42,7 +42,7 @@ public class CreateCluster {
                 "Where:\n" +
                 "   jar - a path to a JAR file run during the step. \n\n" +
                 "   myClass - the name of the main class in the specified Java file. \n\n" +
-                "   keys - The name of the EC2 key pair. \n\n" +
+                "   keys - The name of the Amazon EC2 key pair. \n\n" +
                 "   logUri - The Amazon S3 bucket where the logs are located (for example,  s3://<BucketName>/logs/). \n\n" +
                 "   name - The name of the job flow. \n\n" ;
 
