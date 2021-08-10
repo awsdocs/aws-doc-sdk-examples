@@ -1,0 +1,37 @@
+.tile {
+    border-style: solid;
+    padding: 14px;
+    border-width: 3px;
+    color: black;
+    display: inline-block;
+    height: 125px;
+    list-style-type: none;
+    margin: 10px 40px 10px 20px;
+    position: relative;
+    width: 200px;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px #AAAAAA;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #CCF11B), color-stop(1, #3874FF));
+    background-image: linear-gradient(0deg, #CCDDDC 0%, #EEFFFE 100%);
+    text-align: center;
+    vertical-align: top;
+}
+
+.tile_description {
+    color: white;
+    font-size: 1.3em;
+    font-style: italic;
+}
+
+.fancy_button {
+  background-color: #4CAF50; /* Green */
+  border: solid;
+  border-radius: 10px;
+  color: white;
+  margin: 10px 40px 10px 20px;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
