@@ -7,7 +7,6 @@ package com.amazonaws.personalize.client.demo.movielens;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Locale;
 
 import org.mortbay.jetty.Handler;
 import org.mortbay.jetty.Server;
