@@ -32,7 +32,7 @@ namespace IsPhoneNumOptedOutExample
         /// </summary>
         /// <param name="client">The initialized Amazon SNS Client object used
         /// to check if the phone number has been opted out.</param>
-        /// <param name="phoneNumber">A string represesnting the phone number
+        /// <param name="phoneNumber">A string representing the phone number
         /// to check.</param>
         public static async Task CheckIfOptedOutAsync(IAmazonSimpleNotificationService client, string phoneNumber)
         {
