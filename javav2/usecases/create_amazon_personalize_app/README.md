@@ -51,7 +51,7 @@ Create solutions and solution versions for the following recipes:
 - Create campaigns to deploy each solution version
 - Generate and display real-time recommendations.
 
-##Additional Notes
+## Additional Notes
   
 This project does not include the following:
 - Adding items and users in real-time using put APIs.
