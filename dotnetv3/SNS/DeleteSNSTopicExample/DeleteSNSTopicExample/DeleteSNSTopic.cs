@@ -7,7 +7,7 @@ namespace DeleteSNSTopicExample
     using System.Threading.Tasks;
     using Amazon.SimpleNotificationService;
 
-    // snippet-start:[SNS.dotnet35.DeleteSNSTopicExample]
+    // snippet-start:[SNS.dotnetv3.DeleteSNSTopicExample]
 
     /// <summary>
     /// This example deletes an existing Simple Notification Service (Amazon
@@ -25,5 +25,5 @@ namespace DeleteSNSTopicExample
         }
     }
 
-    // snippet-end:[SNS.dotnet35.DeleteSNSTopicExample]
+    // snippet-end:[SNS.dotnetv3.DeleteSNSTopicExample]
 }

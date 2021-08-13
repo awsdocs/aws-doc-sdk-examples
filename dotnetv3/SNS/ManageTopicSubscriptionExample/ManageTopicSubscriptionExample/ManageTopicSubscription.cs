@@ -36,7 +36,7 @@ namespace ManageTopicSubscriptionExample
             Console.WriteLine("\nUnscribed from topic.");
         }
 
-        // snippet-start:[SNS.dotnet35.TopicSubscribe]
+        // snippet-start:[SNS.dotnetv3.TopicSubscribe]
 
         /// <summary>
         /// Creates a new subscription to a topic.
@@ -61,9 +61,9 @@ namespace ManageTopicSubscriptionExample
             return response;
         }
 
-        // snippet-end:[SNS.dotnet35.TopicSubscribe]
+        // snippet-end:[SNS.dotnetv3.TopicSubscribe]
 
-        // snippet-start:[SNS.dotnet35.UnsubscribeTopic]
+        // snippet-start:[SNS.dotnetv3.UnsubscribeTopic]
 
         /// <summary>
         /// Given the ARN for an SNS subscription, this method deletes the
@@ -79,6 +79,6 @@ namespace ManageTopicSubscriptionExample
             var response = await client.UnsubscribeAsync(subscriptionArn);
         }
 
-        // snippet-end:[SNS.dotnet35.UnsubscribeTopic]
+        // snippet-end:[SNS.dotnetv3.UnsubscribeTopic]
     }
 }
