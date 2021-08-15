@@ -10,9 +10,9 @@ namespace DeleteSNSTopicExample
     // snippet-start:[SNS.dotnetv3.DeleteSNSTopicExample]
 
     /// <summary>
-    /// This example deletes an existing Simple Notification Service (Amazon
-    /// SNS) topic. The example was created using the AWS SDK for .NET version
-    /// 3.7 and .NET Core 5.0.
+    /// This example deletes an existing Amazon Simple Notification Service
+    /// (Amazon SNS) topic. The example was created using the AWS SDK for .NET
+    /// version 3.7 and .NET Core 5.0.
     /// </summary>
     public class DeleteSNSTopic
     {

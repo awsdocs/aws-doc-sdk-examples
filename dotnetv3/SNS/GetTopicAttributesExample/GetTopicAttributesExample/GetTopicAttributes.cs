@@ -13,7 +13,7 @@ namespace GetTopicAttributesExample
 
     /// <summary>
     /// This example shows how to retrieve the attributes of an Amazon Simple
-    /// Notification Service (Amazon SNS) topic. The example was writing using
+    /// Notification Service (Amazon SNS) topic. The example was written using
     /// the AWS SDK for .NET 3.7 and .NET Core 5.0.
     /// </summary>
     public class GetTopicAttributes
@@ -28,11 +28,11 @@ namespace GetTopicAttributesExample
         }
 
         /// <summary>
-        /// Given the ARN of the SNS topic, this method retrieves the topic
+        /// Given the ARN of the Amazon SNS topic, this method retrieves the topic
         /// attributes.
         /// </summary>
-        /// <param name="client">The initialized SNS client object used to
-        /// retrieve the attributes for SNS topic.</param>
+        /// <param name="client">The initialized Amazon SNS client object used
+        /// to retrieve the attributes for the Amazon SNS topic.</param>
         /// <param name="topicArn">The ARN of the topic for which to retrieve
         /// the attributes.</param>
         /// <returns>A Dictionary of topic attributes.</returns>
@@ -46,10 +46,10 @@ namespace GetTopicAttributesExample
         }
 
         /// <summary>
-        /// This method displays the attributes for an SNS topic.
+        /// This method displays the attributes for an Amazon SNS topic.
         /// </summary>
         /// <param name="topicAttributes">A Dictionary containing the
-        /// attributes for an SNS topic.</param>
+        /// attributes for an Amazon SNS topic.</param>
         public static void DisplayTopicAttributes(Dictionary<string, string> topicAttributes)
         {
             foreach (KeyValuePair<string, string> entry in topicAttributes)

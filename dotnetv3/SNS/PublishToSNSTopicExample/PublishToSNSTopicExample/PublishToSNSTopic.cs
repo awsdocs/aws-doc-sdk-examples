@@ -19,7 +19,7 @@ namespace PublishToSNSTopicExample
 
         public static async Task Main()
         {
-            string topicArn = "arn:aws:sns:us-east-2:704825161248:ExampleSNSTopic"; // "arn:aws:sns:us-east-2:000000000000:ExampleSNSTopic";
+            string topicArn = "arn:aws:sns:us-east-2:000000000000:ExampleSNSTopic";
             string messageText = "This is an example message to publish to the ExampleSNSTopic.";
 
             IAmazonSimpleNotificationService client = new AmazonSimpleNotificationServiceClient();
@@ -28,10 +28,10 @@ namespace PublishToSNSTopicExample
         }
 
         /// <summary>
-        /// Publishes a message to an SNS topic.
+        /// Publishes a message to an Amazon SNS topic.
         /// </summary>
-        /// <param name="client">The initialized client object used to pulish
-        /// to the SNS topic.</param>
+        /// <param name="client">The initialized client object used to publish
+        /// to the Amazon SNS topic.</param>
         /// <param name="topicArn">The ARN of the topic.</param>
         /// <param name="messageText">The text of the message.</param>
         public static async Task PublishToTopicAsync(

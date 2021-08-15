@@ -30,8 +30,8 @@ namespace ListSNSSubscriptionsExample
         /// <summary>
         /// Gets a list of the existing Amazon SNS subscriptions.
         /// </summary>
-        /// <param name="client">The initialized SNS client object used to
-        /// obtaint the list of subscriptions.</param>
+        /// <param name="client">The initialized Amazon SNS client object used
+        /// to obtain the list of subscriptions.</param>
         /// <returns>A List containing information about each subscription.</returns>
         public static async Task<List<Subscription>> GetSubscriptionsListAsync(IAmazonSimpleNotificationService client)
         {
@@ -41,10 +41,10 @@ namespace ListSNSSubscriptionsExample
         }
 
         /// <summary>
-        /// Display a list of SNS subscription information.
+        /// Display a list of Amazon SNS subscription information.
         /// </summary>
-        /// <param name="subscriptionList">A list containing deails for existing
-        /// SNS subscriptions.</param>
+        /// <param name="subscriptionList">A list containing details for existing
+        /// Amazon SNS subscriptions.</param>
         public static void DisplaySubscriptionList(List<Subscription> subscriptionList)
         {
             foreach (var subscription in subscriptionList)

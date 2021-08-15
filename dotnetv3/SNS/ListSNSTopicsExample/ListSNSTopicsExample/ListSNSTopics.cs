@@ -29,11 +29,11 @@ namespace ListSNSTopicsExample
         /// Retrieves the list of Amazon SNS topics in groups of up to 100
         /// topics.
         /// </summary>
-        /// <param name="client">The initialized SNS client object used to
-        /// retrieve the list of topics.</param>
+        /// <param name="client">The initialized Amazon SNS client object used
+        /// to retrieve the list of topics.</param>
         public static async Task GetTopicListAsync(IAmazonSimpleNotificationService client)
         {
-            // If there are more than 100 SNS topics, the call to
+            // If there are more than 100 Amazon SNS topics, the call to
             // ListTopicsAsync will return a value to pass to the
             // method to retrieve the next 100 (or less) topics.
             string nextToken = string.Empty;
@@ -48,7 +48,7 @@ namespace ListSNSTopicsExample
         }
 
         /// <summary>
-        /// Displays the list of SNS Topic ARNs.
+        /// Displays the list of Amazon SNS Topic ARNs.
         /// </summary>
         /// <param name="topicList">The list of Topic ARNs.</param>
         public static void DisplayTopicsList(List<Topic> topicList)
