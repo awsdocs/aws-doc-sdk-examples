@@ -70,8 +70,8 @@ public class CreateNamedQueryExample {
             e.printStackTrace();
             System.exit(1);
         }
-        //snippet-end:[athena.java2.CreateNamedQueryExample.main]
     }
+    //snippet-end:[athena.java2.CreateNamedQueryExample.main]
 }
 //snippet-end:[athena.java.CreateNamedQueryExample.complete]
 //snippet-end:[athena.java2.CreateNamedQueryExample.complete]
