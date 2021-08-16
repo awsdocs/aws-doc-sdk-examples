@@ -1,4 +1,4 @@
-# TypeScript environment for the Video Analyzer App tutorial
+# JavaScript environment for the Video Analyzer App tutorial
 
 This is a workspace where you can find AWS SDK for JavaScript version 3 (v3) 'Video analyzer app' tutorial.
 

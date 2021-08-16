@@ -1,4 +1,4 @@
-# TypeScript environment for Amazon Transcribe examples
+# JavaScript environment for Amazon Transcribe examples
 Amazon Transcribe makes it easy for developers to add speech to text capabilities to their applications.
 
 ## Code examples

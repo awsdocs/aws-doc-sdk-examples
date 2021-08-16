@@ -1,4 +1,4 @@
-# TypeScript environment for Amazon Cognito examples
+# JavaScript environment for Amazon Cognito examples
 Environment for AWS SDK for JavaScript version 3 (v3) Amazon Cognito examples. The [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
 For more information about these examples, see the [AWS documentation for this example](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-nodejs.html).
 
