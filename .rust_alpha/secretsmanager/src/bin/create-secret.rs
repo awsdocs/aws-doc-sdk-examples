@@ -22,7 +22,7 @@ struct Opt {
     #[structopt(short, long)]
     secret_value: String,
 
-    /// Whether to display additonal information.
+    /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }

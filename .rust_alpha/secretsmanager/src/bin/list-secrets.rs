@@ -14,12 +14,12 @@ struct Opt {
     #[structopt(short, long)]
     region: Option<String>,
 
-    /// Whether to display additonal information.
+    /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Lists the names of your secrets in he Region.
+/// Lists the names of your secrets in the Region.
 /// # Arguments
 ///
 /// * `[-r REGION]` - The Region in which the client is created.

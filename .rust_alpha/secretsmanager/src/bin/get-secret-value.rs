@@ -18,7 +18,7 @@ struct Opt {
     #[structopt(short, long)]
     name: String,
 
-    /// Whether to display additonal information.
+    /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
