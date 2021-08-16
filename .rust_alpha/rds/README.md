@@ -2,6 +2,10 @@
 
 Amazon Relational Database Service (Amazon RDS) is a web service that makes it easier to set up, operate, and scale a relational database in the cloud.
 
+## Prerequisites
+
+You must have an AWS account, and have configured your default credentials and AWS Region as described in [https://github.com/awslabs/aws-sdk-rust](https://github.com/awslabs/aws-sdk-rust).
+
 ## rds-helloworld
 
 This code example displays information about your RDS instances in the Region.

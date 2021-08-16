@@ -19,7 +19,7 @@ struct Opt {
     verbose: bool,
 }
 
-/// Displays information about your RDS instances in the Region.
+/// Displays information about your Amazon Relational Database Service (Amazon RDS) instances in the Region.
 /// # Arguments
 ///
 /// * `[-r REGION]` - The region in which the client is created.
