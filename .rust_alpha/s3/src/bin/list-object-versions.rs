@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_sdk_s3::model::{BucketLocationConstraint, CreateBucketConfiguration};
 use aws_sdk_s3::{Client, Config, Error, Region, PKG_VERSION};
 use aws_types::region;
 use aws_types::region::ProvideRegion;
@@ -24,7 +23,7 @@ struct Opt {
     verbose: bool,
 }
 
-/// Creates an Amazon S3 bucket in the Region.
+/// Lists the versions of the objects in an Amazon S3 bucket.
 /// # Arguments
 ///
 /// * `-b BUCKET` - The name of the bucket.
@@ -48,12 +47,9 @@ async fn main() -> Result<(), Error> {
 
     println!();
 
-    let r_rgr = region.region().unwrap();
-    let r_str = r_rgr.as_ref();
-
     if verbose {
         println!("S3 client version: {}", PKG_VERSION);
-        println!("Region:            {}", r_str);
+        println!("Region:            {}", region.region().unwrap().as_ref());
         println!("Bucket:            {}", &bucket);
         println!();
     }
@@ -61,18 +57,16 @@ async fn main() -> Result<(), Error> {
     let conf = Config::builder().region(region).build();
     let client = Client::from_conf(conf);
 
-    let constraint = BucketLocationConstraint::from(r_str);
-    let cfg = CreateBucketConfiguration::builder()
-        .location_constraint(constraint)
-        .build();
+    let resp = client.list_object_versions().bucket(&bucket).send().await?;
 
-    client
-        .create_bucket()
-        .create_bucket_configuration(cfg)
-        .bucket(bucket)
-        .send()
-        .await?;
-    println!("Created bucket.");
+    for version in resp.versions.unwrap_or_default() {
+        println!("{}", version.key.as_deref().unwrap_or_default());
+        println!(
+            "  version ID: {}",
+            version.version_id.as_deref().unwrap_or_default()
+        );
+        println!();
+    }
 
     Ok(())
 }
