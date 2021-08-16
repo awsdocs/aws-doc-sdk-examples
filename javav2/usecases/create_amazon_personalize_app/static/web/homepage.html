@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="assets/css/owl.carousel.min.css" />
+<link rel="stylesheet" href="assets/css/owl.theme.green.min.css" />
+<link rel="stylesheet" href="assets/css/my.css" />
+
+<script type="text/javascript" src="assets/jquery.min.js"></script>
+<script type="text/javascript" src="assets/owl.carousel.min.js"></script>
+<script type="text/javascript" src="assets/my.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		var loggedInUser = "45"; //prompt("Please enter UserId", "anyuser");;
+		$('#itemDetailSection').hide();
+		updateRecommendations('/recommendations/user/' + loggedInUser);
+		$('#pageTitle').html('Item Recommendations For UserId: ' + loggedInUser);
+		$(document).on('click', '.owl-item', function(event) {
+			var clickedItemId = $(this).attr('id');
+			var clickedItemName = $(this).html();
+			updateRecommendations('/recommendations/item/' + clickedItemId);
+			postEvent(loggedInUser, clickedItemId, 'click');
+			$('#itemDetailSection').show();
+			$('#itemDetail').html(clickedItemName);
+			$('#pageTitle').html('Items similar to "' + clickedItemName + '" : ');
+		});
+		$('#backtoHome').click(function() {
+		    location.reload();
+		});
+	});
+	
+</script>
+
+
+<meta charset="UTF-8">
+
+<title>Amazon Personalize - demo using MovieLens</title>
+</head>
+
+<body>
+
+	<div id="itemDetailSection">
+		<h2>Item details</h2>
+		<div id="itemDetail" class="tile"></div>
+		<button id="backtoHome" class="fancy_button">Back to home</button>
+		<hr></hr>
+	</div>
+
+	<h2 id="pageTitle">Recommended Items for User:</h2>
+
+	<div class="owl-carousel owl-theme owl-loaded">
+		<div id="display" class="owl-stage-outer"></div>
+	</div>
+</body>
+</html>
