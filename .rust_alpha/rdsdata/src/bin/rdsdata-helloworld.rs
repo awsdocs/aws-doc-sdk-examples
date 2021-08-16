@@ -18,7 +18,7 @@ struct Opt {
     #[structopt(short, long)]
     query: String,
 
-    /// The Amazon Resource Name (ARN) of your Amazon Aurora serverless Amazon DynamoDB cluster.
+    /// The Amazon Resource Name (ARN) of your Amazon Aurora Serverless DB cluster.
     #[structopt(short, long)]
     cluster_arn: String,
 
@@ -37,7 +37,7 @@ struct Opt {
 /// * `-q QUERY` - The SQL query to run against the cluster.
 ///    It should look something like: __"SELECT * FROM pg_catalog.pg_tables limit 1"__.
 ///    Don't forget you'll likely have to escape some characters.
-/// * `-c CLUSTER_ARN` - The ARN of your Aurora serverless DB cluster.
+/// * `-c CLUSTER_ARN` - The ARN of your Aurora Serverless DB cluster.
 ///    It should look something like __arn:aws:rds:us-west-2:AWS_ACCOUNT:cluster:database-2__.
 /// * `-s SECRET_ARN` - The ARN of the Secrets Manager secret.
 ///    It should look something like: __arn:aws:secretsmanager:us-west-2:AWS_ACCOUNT:secret:database2/test/postgres-b8maVb__.
