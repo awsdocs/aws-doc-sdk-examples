@@ -19,20 +19,20 @@ This example creates an Amazon S3 bucket.
 `cargo run --bin create-bucket -- -b BUCKET [-r REGION] [-v]`
 
 - _BUCKET_ is the name of the bucket to create.
-- _REGION_ is region in which the client is created.
+- _REGION_ is the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
 ### delete-object
 
-This example deletes an object from an Amazon S3 buicket.
+This example deletes an object from an Amazon S3 bucket.
 
 `cargo run --bin delete-object -- -b BUCKET -k KEY [-r REGION] [-v]`
 
 - _BUCKET_ is the name of the bucket.
 - _KEY_ is the name of the object.
-- _REGION_ is region in which the client is created.
+- _REGION_ is the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
@@ -43,7 +43,7 @@ This example lists your Amazon S3 buckets.
 
 `cargo run --bin list-buckets -- [-r REGION] [-v]`
 
-- _REGION_ is region in which the client is created.
+- _REGION_ is the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
@@ -55,7 +55,7 @@ This example lists the objects in an Amazon S3 bucket.
 `cargo run --bin list-objects -- -b BUCKET [-r REGION] [-v]`
 
 - _BUCKET_ is the name of the bucket.
-- _REGION_ is region in which the client is created.
+- _REGION_ is the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
@@ -68,7 +68,7 @@ This example lists your buckets and uploads a file to a bucket.
 
 - _BUCKET_ is the name of the bucket.
 - _KEY_ is the name of the file to upload to the bucket.
-- _REGION_ is region in which the client is created.
+- _REGION_ is the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.

@@ -31,7 +31,7 @@ struct Opt {
 /// # Arguments
 ///
 /// * `-b BUCKET` - The name of the bucket.
-/// * `-k KEY` - The names of the object to delete.
+/// * `-k KEY` - The name of the object to delete.
 /// * `[-r REGION]` - The Region in which the client is created.
 ///   If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///   If the environment variable is not set, defaults to **us-west-2**.
