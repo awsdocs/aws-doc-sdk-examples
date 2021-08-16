@@ -1,4 +1,4 @@
-# TypeScript environment for tutorial to create an AWS serverless workflow using AWS SDK for JavaScript and AWS Step Functions
+# JavaScript environment for tutorial to create an AWS serverless workflow using AWS SDK for JavaScript and AWS Step Functions
 This is a workspace where you can find an AWS SDK for JavaScript version 3 (v3) tutorial that demonstrates how to 
 create AWS serverless workflows using AWS Step Functions.
 
