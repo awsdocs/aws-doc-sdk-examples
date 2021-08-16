@@ -1,4 +1,4 @@
-# TypeScript environment for Amazon Rekognition examples
+# JavaScript environment for Amazon Rekognition examples
 Amazon Rekognition makes it easy to add image and video analysis to your applications. 
 
 ## Code examples
