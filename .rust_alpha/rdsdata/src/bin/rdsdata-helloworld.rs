@@ -18,11 +18,11 @@ struct Opt {
     #[structopt(short, long)]
     query: String,
 
-    /// The ARN of your Aurora serverless DB cluster.
+    /// The Amazon Resource Name (ARN) of your Amazon Aurora serverless Amazon DynamoDB cluster.
     #[structopt(short, long)]
     cluster_arn: String,
 
-    /// The ARN of the Secrets Manager secret.
+    /// The ARN of the AWS Secrets Manager secret.
     #[structopt(short, long)]
     secret_arn: String,
 
