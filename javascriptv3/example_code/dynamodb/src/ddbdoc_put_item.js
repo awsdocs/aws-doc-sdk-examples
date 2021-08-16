@@ -13,7 +13,7 @@ Inputs (replace in code):
 - primaryKey - The name of the primary key. For example, "id".
 - VALUE_1: Value for the primary key (The format for the datatype must match the schema. For example, if the primaryKey is a number, VALUE_1 has no inverted commas.)
 - sortKey - The name of the sort key. Only required if table has sort key. For example, "firstName".
-- VALUE_2: Value for the primary key (The format for the datatype must match the schema.)
+- VALUE_2: Value for the sort key (The format for the datatype must match the schema.)
 - NEW_ATTRIBUTE_1
 - NEW_ATTRIBUTE_1_VALUE
 

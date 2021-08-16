@@ -1,4 +1,4 @@
-# TypeScript environment for tutorial using Amazon CloudWatch scheduled events to invoke AWS Lambda functions
+# JavaScript environment for tutorial using Amazon CloudWatch scheduled events to invoke AWS Lambda functions
 This is a workspace where you can find an AWS SDK for JavaScript version 3 (v3) tutorial that demonstrates how to 
 use Amazon CloudWatch scheduled events to invoke AWS Lambda functions.
 
