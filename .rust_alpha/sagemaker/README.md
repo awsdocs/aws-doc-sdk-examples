@@ -14,23 +14,23 @@ You must have an AWS account, and have configured your default credentials and A
 
 ### list-training-jobs
 
-This example lists your SageMaker training jobs in an AWS Region.
+This example lists your SageMaker training jobs in the Region.
 
-`cargo run --bin list-training-jobs -- [-d DEFAULT-REGION] [-v]`
+`cargo run --bin list-training-jobs -- [-r REGION] [-v]`
 
-- _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the training jobs are located.
-  If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
 ### sagemaker-helloworld
 
-This example lists the name, status, and type of your SageMaker instances in an AWS Region..
+This example lists the name, status, and type of your SageMaker instances in the Region.
 
-`cargo run --bin sagemaker-helloworld -- [-d DEFAULT-REGION] [-v]`
+`cargo run --bin sagemaker-helloworld -- [-r REGION] [-v]`
 
-- _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the instances are located.
-  If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
