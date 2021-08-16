@@ -14,7 +14,7 @@ struct Opt {
     #[structopt(short, long)]
     region: Option<String>,
 
-    /// The Lambda function's ARN.
+    /// The AWS Lambda function's Amazon Resource Name (ARN).
     #[structopt(short, long)]
     arn: String,
 

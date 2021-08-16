@@ -19,7 +19,7 @@ struct Opt {
     verbose: bool,
 }
 
-/// Lists the ARNs of your Lambda functions in the Region.
+/// Lists the Amazon Resource Names (ARNs) of your AWS Lambda functions in the Region.
 /// # Arguments
 ///
 /// * `[-r REGION]` - The Region in which the client is created.
