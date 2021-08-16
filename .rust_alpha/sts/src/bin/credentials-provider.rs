@@ -23,7 +23,7 @@ struct Opt {
     verbose: bool,
 }
 
-/// Implements a basic version of ProvideCredentials with AWS STS
+/// Implements a basic version of ProvideCredentials with AWS Security Token Service (AWS STS)
 /// and lists the tables in the region based on those credentials.
 /// # Arguments
 ///
@@ -73,9 +73,8 @@ async fn main() -> Result<(), Error> {
     Ok(())
 }
 
-/// This is a rough example of how you could implement ProvideCredentials with Amazon STS.
-///
-/// Do not use this in production! A high quality implementation is in the roadmap.
+/// The following code implements ProvideCredentials with Amazon STS.
+/// We recommend that you do not use this code in production.
 #[derive(Clone)]
 struct StsCredentialsProvider {
     client: aws_sdk_sts::Client,
