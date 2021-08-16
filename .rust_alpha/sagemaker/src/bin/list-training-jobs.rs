@@ -19,7 +19,7 @@ struct Opt {
     verbose: bool,
 }
 
-/// Lists the your SageMaker jobs in the Region.
+/// Lists your SageMaker jobs in the Region.
 /// /// # Arguments
 ///
 /// * `[-r REGION]` - The Region in which the client is created.
