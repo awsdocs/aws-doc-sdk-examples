@@ -19,7 +19,7 @@ struct Opt {
     verbose: bool,
 }
 
-/// Lists your Amazon QLDB ledgers.
+/// Lists your Amazon Quantum Ledger Database (Amazon QLDB) ledgers.
 /// # Arguments
 ///
 /// * `[-r REGION]` - The Region in which the client is created.

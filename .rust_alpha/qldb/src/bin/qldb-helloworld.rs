@@ -24,7 +24,7 @@ struct Opt {
     verbose: bool,
 }
 
-/// Creates a low-level Amazon QLDB session in the Region.
+/// Creates a low-level Amazon Quantum Ledger Database (Amazon QLDB) session in the Region.
 /// # Arguments
 ///
 /// * `-l LEDGER` - The name of the ledger to start a new session against.

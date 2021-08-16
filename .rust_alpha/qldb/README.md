@@ -2,6 +2,10 @@
 
 Amazon Quantum Ledger Database (Amazon QLDB) is a fully managed ledger database that provides a transparent, immutable, and cryptographically verifiable transaction log owned by a central trusted authority.
 
+## Prerequisites
+
+You must have an AWS account, and have configured your default credentials and AWS Region as described in [https://github.com/awslabs/aws-sdk-rust](https://github.com/awslabs/aws-sdk-rust).
+
 ## create-ledger
 
 This code example creates an Amazon QLDB ledger in the Region.

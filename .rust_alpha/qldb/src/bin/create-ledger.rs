@@ -24,7 +24,7 @@ struct Opt {
     verbose: bool,
 }
 
-/// Creates an Amazon QLDB ledger in the Region.
+/// Creates an Amazon Quantum Ledger Database (Amazon QLDB) ledger in the Region.
 /// # Arguments
 ///
 /// * `-l LEDGER` - The name of the ledger.
