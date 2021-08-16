@@ -14,17 +14,19 @@
 package com.example.personalize;
 
 //snippet-start:[personalize.java2.create_dataset_group.import]
+
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.personalize.PersonalizeClient;
 import software.amazon.awssdk.services.personalize.model.PersonalizeException;
 import software.amazon.awssdk.services.personalize.model.CreateDatasetGroupRequest;
 import software.amazon.awssdk.services.personalize.model.DescribeDatasetGroupRequest;
+
 import java.time.Instant;
 //snippet-end:[personalize.java2.create_dataset_group.import]
 
 public class CreateDatasetGroup {
 
-    public static void main(String [] args) {
+    public static void main(String[] args) {
 
         final String USAGE = "Usage:\n" +
                 "    CreateDatasetGroup <name>\n\n" +
@@ -49,41 +51,16 @@ public class CreateDatasetGroup {
         System.out.println("Dataset group ARN: " + datasetGroupArn);
         personalizeClient.close();
     }
+
     //snippet-start:[personalize.java2.create_dataset_group.main]
     public static String createDatasetGroup(PersonalizeClient personalizeClient, String datasetGroupName) {
 
-        long waitInMilliseconds = 30 * 1000;
-
         try {
-
             CreateDatasetGroupRequest createDatasetGroupRequest = CreateDatasetGroupRequest.builder()
                     .name(datasetGroupName)
                     .build();
-            String datasetGroupArn = personalizeClient.createDatasetGroup(createDatasetGroupRequest).datasetGroupArn();
-
-            long maxTime = Instant.now().getEpochSecond() + (15 * 60); // 15 minutes
-
-            DescribeDatasetGroupRequest describeRequest
-                    = DescribeDatasetGroupRequest.builder().datasetGroupArn(datasetGroupArn).build();
-            String status;
-
-            while (Instant.now().getEpochSecond() < maxTime) {
-                status = personalizeClient.describeDatasetGroup(describeRequest).datasetGroup().status();
-
-                System.out.println("DatasetGroup status: " + status);
-                if (status.equals("ACTIVE") || status.equals("FAILED")) {
-                    break;
-                }
-
-                try {
-                    Thread.sleep(waitInMilliseconds);
-                } catch (InterruptedException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-            return datasetGroupArn;
-        }
-        catch(PersonalizeException e) {
+            return personalizeClient.createDatasetGroup(createDatasetGroupRequest).datasetGroupArn();
+        } catch (PersonalizeException e) {
             System.out.println(e.awsErrorDetails().errorMessage());
         }
         return "";

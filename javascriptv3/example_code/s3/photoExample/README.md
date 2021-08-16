@@ -1,4 +1,4 @@
-# TypeScript environment for Amazon Simple Storage Service (S3) examples
+# JavaScript environment for Amazon Simple Storage Service (S3) examples
 Environment for AWS SDK for JavaScript version 3 (v3) Amazon S3 Photo Album tutorial. For more information, see the [AWS documentation for these examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-photo-album.html).
 
 This example demonstrates how to manipulate photos in albums stored in an Amazon S3 bucket.
