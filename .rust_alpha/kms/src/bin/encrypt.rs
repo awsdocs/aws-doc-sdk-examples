@@ -37,7 +37,7 @@ struct Opt {
 /// # Arguments
 ///
 /// * `-k KEY` - The KMS key.
-/// * `-o OUT-FILE` - The name of the file to store the encryped key in.
+/// * `-o OUT-FILE` - The name of the file to store the encrypted key in.
 /// * `-t TEXT` - The string to encrypt.
 /// * `[-r REGION]` - The Region in which the client is created.
 ///    If not supplied, uses the value of the **AWS_REGION** environment variable.

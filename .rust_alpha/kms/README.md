@@ -25,7 +25,7 @@ This example creates an AWS KMS key.
 
 ### decrypt
 
-This example decrypts a string encrypted by AWS KMS key.
+This example decrypts a string encrypted by an AWS KMS key.
 
 `cargo run --bin decrypt -- -k KEY -i INPUT-FILE [-r REGION] [-v]`
 

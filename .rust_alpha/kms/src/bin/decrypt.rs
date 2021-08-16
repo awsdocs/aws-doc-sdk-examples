@@ -23,7 +23,7 @@ struct Opt {
     #[structopt(short, long)]
     input_file: String,
 
-    /// Whether to display additonal informmation.
+    /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }

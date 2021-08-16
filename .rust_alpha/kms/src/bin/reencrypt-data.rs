@@ -24,15 +24,15 @@ struct Opt {
     #[structopt(short, long)]
     new_key: String,
 
-    /// The name of the input file containing the text to reencrypt.
+    /// The name of the input file containing the text to re-encrypt.
     #[structopt(short, long)]
     input_file: String,
 
-    /// The name of the output file containing the reencrypted text.
+    /// The name of the output file containing the re-encrypted text.
     #[structopt(short, long)]
     output_file: String,
 
-    /// Whether to display additonal runtime information.
+    /// Whether to display additional runtime information.
     #[structopt(short, long)]
     verbose: bool,
 }
