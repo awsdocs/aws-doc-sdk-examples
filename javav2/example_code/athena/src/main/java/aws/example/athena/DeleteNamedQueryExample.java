@@ -47,7 +47,7 @@ public class DeleteNamedQueryExample {
             System.exit(1);
         }
 
-        String name ="sampleQuery" ;  //args[0];
+        String name = args[0];
         AthenaClient athenaClient = AthenaClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
