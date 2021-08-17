@@ -2,21 +2,25 @@
 
 Amazon Relational Database Service Data Service (Data Service) provides a secure HTTP endpoint and integration with AWS SDKs so you can SQL statements without managing connections.
 
+## Prerequisites
+
+You must have an AWS account, and have configured your default credentials and AWS Region as described in [https://github.com/awslabs/aws-sdk-rust](https://github.com/awslabs/aws-sdk-rust).
+
 ## rdsdata-helloworld
 
 This code example sends a query to an Aurora serverless cluster.
 
 ### Usage
 
-```cargo run --bin rdsdata-helloworld -- -q QUERY -r RESOURECE_ARN -s SECRET_ARN [-d DEFAULT_REGION] [-v]```
+```cargo run --bin rdsdata-helloworld -- -q QUERY -c CLUSTER_ARN -s SECRET_ARN [-r REGION] [-v]```
 
 where:
 
 - _QUERY_ is the query to send to the cluster.
-- _RESOURCE_ARN_ is the ARN of the cluster.
+- _CLUSTER_ARN_ is the Amazon Resource Name (ARN) of the cluster.
 - _SECRET_ARN_ is the ARN of the of the Secrets Manager secret.
-- _DEFAULT_REGION_ is the region in which the client is created.
-  If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the **AWS_REGION** environment variable.
   If the environment variable is not set, defaults to **us-west-2**.
 - __-v__ enables displaying additional information.
 
