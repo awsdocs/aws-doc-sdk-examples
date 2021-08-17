@@ -16,8 +16,8 @@ namespace SNSMessageExampleTest
     public class SNSMessageTest
     {
         private static readonly RegionEndpoint _regionEndpoint = RegionEndpoint.USWest2;
-        private string _text = "This is a test text message";
-        private string _phoneNum = "18005551212";
+        private readonly string Text = "This is a test text message";
+        private readonly string PhoneNum = "18005551212";
 
         private AmazonSimpleNotificationServiceClient CreateMockSNSClient()
         {
@@ -29,12 +29,12 @@ namespace SNSMessageExampleTest
             {
                 if (!String.IsNullOrEmpty(request.PhoneNumber))
                 {
-                    Assert.Equal(request.PhoneNumber, _phoneNum);
+                    Assert.Equal(request.PhoneNumber, PhoneNum);
                 }
 
                 if(!String.IsNullOrEmpty(request.Message))
                 {
-                    Assert.Equal(request.Message, _text);
+                    Assert.Equal(request.Message, Text);
                 }
             }).Returns((PublishRequest r, CancellationToken token) =>
             {
@@ -54,8 +54,8 @@ namespace SNSMessageExampleTest
 
             var request = new PublishRequest
             {
-                Message = _text,
-                PhoneNumber = _phoneNum
+                Message = Text,
+                PhoneNumber = PhoneNum
             };
 
             var result = await MockSNSClient.PublishAsync(request);
@@ -64,7 +64,7 @@ namespace SNSMessageExampleTest
             Assert.True(gotResult, "Copy operation failed.");
             
             bool ok = result.HttpStatusCode == HttpStatusCode.OK;
-            Assert.True(ok, $"Could NOT send test message to {_phoneNum}.");
+            Assert.True(ok, $"Could NOT send test message to {PhoneNum}.");
 
 
         }

@@ -3,91 +3,76 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use std::process;
-
-use s3::{Client, Config, Region};
-
-use s3::model::{BucketLocationConstraint, CreateBucketConfiguration};
-
+use aws_sdk_s3::model::{BucketLocationConstraint, CreateBucketConfiguration};
+use aws_sdk_s3::{Client, Config, Error, Region, PKG_VERSION};
+use aws_types::region;
 use aws_types::region::ProvideRegion;
-
 use structopt::StructOpt;
-use tracing_subscriber::fmt::format::FmtSpan;
-use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The default region
+    /// The AWS Region.
     #[structopt(short, long)]
-    default_region: Option<String>,
+    region: Option<String>,
 
-    /// The name of the bucket
+    /// The name of the bucket.
     #[structopt(short, long)]
-    name: String,
+    bucket: String,
 
-    /// Whether to display additional information
+    /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Creates an Amazon S3 bucket
+/// Creates an Amazon S3 bucket in the Region.
 /// # Arguments
 ///
-/// * `-n NAME` - The name of the bucket.
-/// * `[-d DEFAULT-REGION]` - The region containing the bucket.
-///   If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+/// * `-b BUCKET` - The name of the bucket.
+/// * `[-r REGION]` - The Region in which the client is created.
+///   If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt::init();
+
     let Opt {
-        default_region,
-        name,
+        region,
+        bucket,
         verbose,
     } = Opt::from_args();
 
-    let region = default_region
-        .as_ref()
-        .map(|region| Region::new(region.clone()))
-        .or_else(|| aws_types::region::default_provider().region())
-        .unwrap_or_else(|| Region::new("us-west-2"));
+    let region = region::ChainProvider::first_try(region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
 
-    let r: &str = &region.as_ref();
+    println!();
+
+    let r_rgr = region.region().unwrap();
+    let r_str = r_rgr.as_ref();
 
     if verbose {
-        println!("S3 client version: {}", s3::PKG_VERSION);
-        println!("Region:            {:?}", &region);
-
-        SubscriberBuilder::default()
-            .with_env_filter("info")
-            .with_span_events(FmtSpan::CLOSE)
-            .init();
+        println!("S3 client version: {}", PKG_VERSION);
+        println!("Region:            {}", r_str);
+        println!("Bucket:            {}", &bucket);
+        println!();
     }
 
-    let config = Config::builder().region(&region).build();
+    let conf = Config::builder().region(region).build();
+    let client = Client::from_conf(conf);
 
-    let client = Client::from_conf(config);
-
-    let constraint = BucketLocationConstraint::from(r);
+    let constraint = BucketLocationConstraint::from(r_str);
     let cfg = CreateBucketConfiguration::builder()
         .location_constraint(constraint)
         .build();
 
-    match client
+    client
         .create_bucket()
         .create_bucket_configuration(cfg)
-        .bucket(&name)
+        .bucket(bucket)
         .send()
-        .await
-    {
-        Ok(_) => {
-            println!("Created bucket {}", name);
-        }
+        .await?;
+    println!("Created bucket.");
 
-        Err(e) => {
-            println!("Got an error creating bucket:");
-            println!("{}", e);
-            process::exit(1);
-        }
-    };
+    Ok(())
 }

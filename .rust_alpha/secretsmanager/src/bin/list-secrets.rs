@@ -2,75 +2,64 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0.
  */
-use std::process;
 
-use secretsmanager::{Client, Config, Region};
-
-use aws_types::region::{EnvironmentProvider, ProvideRegion};
-
+use aws_sdk_secretsmanager::{Client, Config, Error, Region, PKG_VERSION};
+use aws_types::region;
+use aws_types::region::ProvideRegion;
 use structopt::StructOpt;
-
-use tracing_subscriber::fmt::format::FmtSpan;
-use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The region
+    /// The AWS Region.
     #[structopt(short, long)]
     region: Option<String>,
 
-    /// Whether to display additonal runtime information
+    /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Lists the names of your secrets.
+/// Lists the names of your secrets in the Region.
 /// # Arguments
 ///
-/// * `[-d DEFAULT-REGION]` - The region in which the client is created.
-///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+/// * `[-r REGION]` - The Region in which the client is created.
+///    If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt::init();
+
     let Opt { region, verbose } = Opt::from_args();
 
-    let region = EnvironmentProvider::new()
-        .region()
-        .or_else(|| region.as_ref().map(|region| Region::new(region.clone())))
-        .unwrap_or_else(|| Region::new("us-west-2"));
+    let region = region::ChainProvider::first_try(region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
+
+    println!();
 
     if verbose {
+        println!("SERVICE client version: {}", PKG_VERSION);
         println!(
-            "SecretsManager client version: {}",
-            secretsmanager::PKG_VERSION
+            "Region:                 {}",
+            region.region().unwrap().as_ref()
         );
-        println!("Region: {:?}", &region);
-
-        SubscriberBuilder::default()
-            .with_env_filter("info")
-            .with_span_events(FmtSpan::CLOSE)
-            .init();
+        println!();
     }
 
     let config = Config::builder().region(region).build();
     let client = Client::from_conf(config);
 
-    match client.list_secrets().send().await {
-        Ok(resp) => {
-            println!("Secret names:");
+    let resp = client.list_secrets().send().await?;
 
-            let secrets = resp.secret_list.unwrap_or_default();
-            for secret in &secrets {
-                println!("  {}", secret.name.as_deref().unwrap_or("No name!"));
-            }
+    println!("Secret names:");
 
-            println!("Found {} secrets", secrets.len());
-        }
-        Err(e) => {
-            println!("Got an error listing secrets:");
-            println!("{}", e);
-            process::exit(1);
-        }
-    };
+    let secrets = resp.secret_list.unwrap_or_default();
+    for secret in &secrets {
+        println!("  {}", secret.name.as_deref().unwrap_or("No name!"));
+    }
+
+    println!("Found {} secrets", secrets.len());
+
+    Ok(())
 }
