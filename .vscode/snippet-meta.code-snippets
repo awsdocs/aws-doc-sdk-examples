@@ -1,0 +1,25 @@
+{
+	"Snippet header": {
+		"scope": "",
+		"prefix": "SnippetHeader",
+		"description": "Header for SOS",
+		"body": [
+			"${LINE_COMMENT}snippet-sourcedescription:[${description}]",
+			"${LINE_COMMENT}snippet-keyword:[${keyword}]",
+			"${LINE_COMMENT}snippet-sourcetype:[full-example]",
+			"${LINE_COMMENT}snippet-sourcedate:[$CURRENT_MONTH/${CURRENT_DATE}/$CURRENT_YEAR]",
+			"${LINE_COMMENT}snippet-sourceauthor:[${author}]"
+		]
+	},
+
+	"Snippet Body": {
+		"scope": "",
+		"prefix": "SnippetBlock",
+		"description": "Wraps the selected text ",
+		"body": [
+			"${LINE_COMMENT}snippet-start:[${1:snippet-id}]",
+			"${TM_SELECTED_TEXT}",
+			"${LINE_COMMENT}snippet-end:[${1}]"
+		]
+	}
+}
