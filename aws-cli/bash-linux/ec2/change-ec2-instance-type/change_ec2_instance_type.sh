@@ -33,7 +33,7 @@
 #      without pausing to ask permission. It automatically restarts the
 #      instance after changing the type.
 #
-#      change-instance-type -i i-123456789012 -f -r
+#      change_ec2_instance_type -i i-123456789012 -t t2.micro -f -r
 #
 # Returns:
 #      0 if successful
