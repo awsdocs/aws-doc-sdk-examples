@@ -23,8 +23,9 @@
 #   -t   [string, mandatory] The instance type to switch the instance to.
 #   -f   [switch, optional]  If set, the function doesn't pause and ask before
 #                            stopping the instance.
-#   -r   [switch, optional]  If set, the function restarts the instance after
+#   -r   [switch, optional]  If set, the function starts the instance after
 #                            changing the type.
+#   -v   [switch, optional]  Enable verbose logging.
 #   -h   [switch, optional]  Displays this help.
 #
 # Example:
@@ -106,10 +107,10 @@ function change_ec2_instance_type {
         echo "Parameter:"
         echo "  -i  Specify the instance ID whose type you want to modify."
         echo "  -t  Specify the instance type to convert the instance to."
-        echo "  -d  If the instance was originally running, this option prevents"
-        echo "      automatically restarting the instance."
         echo "  -f  If the instance was originally running, this option prevents"
         echo "      the script from asking permission before stopping the instance."
+        echo "  -r  Start instance after changing the type."
+        echo "  -v  Enable verbose logging."
         echo ""
     )
 
