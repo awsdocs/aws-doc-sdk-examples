@@ -3,23 +3,22 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use ec2::{Client, Config, Error, Region};
-
+use aws_sdk_ec2::{Client, Config, Error, Region, PKG_VERSION};
+use aws_types::region;
 use aws_types::region::ProvideRegion;
-
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The default region
+    /// The AWS Region.
     #[structopt(short, long)]
-    default_region: Option<String>,
+    region: Option<String>,
 
-    /// The ID of the instance to stop
+    /// The ID of the instance to stop.
     #[structopt(short, long)]
     instance_id: String,
 
-    /// Whether to display additional information
+    /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
@@ -28,41 +27,40 @@ struct Opt {
 /// # Arguments
 ///
 /// * `-i INSTANCE-ID` - The ID of the instances to start.
-/// * `[-d DEFAULT-REGION]` - The AWS Region in which the client is created.
-///   If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+/// * `[-r REGION]` - The Region in which the client is created.
+///   If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
     let Opt {
-        default_region,
+        region,
         instance_id,
         verbose,
     } = Opt::from_args();
 
-    let region = default_region
-        .as_ref()
-        .map(|region| Region::new(region.clone()))
-        .or_else(|| aws_types::region::default_provider().region())
-        .unwrap_or_else(|| Region::new("us-west-2"));
+    let region = region::ChainProvider::first_try(region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
 
     if verbose {
-        println!("EC2 client version: {}", ec2::PKG_VERSION);
-        println!("Region:             {:?}", &region);
-        println!("Instance ID:        {:?}", &instance_id);
+        println!("EC2 client version: {}", PKG_VERSION);
+        println!("Region:             {}", region.region().unwrap().as_ref());
+        println!("Instance ID:        {}", instance_id);
+        println!();
     }
 
-    let config = Config::builder().region(&region).build();
-
+    let config = Config::builder().region(region).build();
     let client = Client::from_conf(config);
+
     client
         .start_instances()
         .instance_ids(instance_id)
         .send()
         .await?;
-    println!("Started instance");
-    println!();
+
+    println!("Started instance.");
 
     Ok(())
 }

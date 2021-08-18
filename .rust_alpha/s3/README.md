@@ -16,11 +16,24 @@ You must have an AWS account, and have configured your default credentials and A
 
 This example creates an Amazon S3 bucket.
 
-`cargo run --bin create-bucket -- -b BUCKET [-d DEFAULT-REGION] [-v]`
+`cargo run --bin create-bucket -- -b BUCKET [-r REGION] [-v]`
 
 - _BUCKET_ is the name of the bucket to create.
-- _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the table is located.
-  If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.
+
+### delete-object
+
+This example deletes an object from an Amazon S3 bucket.
+
+`cargo run --bin delete-object -- -b BUCKET -k KEY [-r REGION] [-v]`
+
+- _BUCKET_ is the name of the bucket.
+- _KEY_ is the name of the object.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
@@ -28,10 +41,10 @@ This example creates an Amazon S3 bucket.
 
 This example lists your Amazon S3 buckets.
 
-`cargo run --bin list-buckets -- [-d DEFAULT-REGION] [-v]`
+`cargo run --bin list-buckets -- [-r REGION] [-v]`
 
-- _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the table is located.
-  If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
@@ -39,11 +52,11 @@ This example lists your Amazon S3 buckets.
 
 This example lists the objects in an Amazon S3 bucket.
 
-`cargo run --bin list-objects -- -b BUCKET [-d DEFAULT-REGION] [-v]`
+`cargo run --bin list-objects -- -b BUCKET [-r REGION] [-v]`
 
 - _BUCKET_ is the name of the bucket.
-- _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the table is located.
-  If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
@@ -51,12 +64,12 @@ This example lists the objects in an Amazon S3 bucket.
 
 This example lists your buckets and uploads a file to a bucket.
 
-`cargo run --bin hello-world -- -b BUCKET -k KEY [-d DEFAULT-REGION] [-v]`
+`cargo run --bin hello-world -- -b BUCKET -k KEY [-r REGION] [-v]`
 
 - _BUCKET_ is the name of the bucket.
 - _KEY_ is the name of the file to upload to the bucket.
-- _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the table is located.
-  If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 

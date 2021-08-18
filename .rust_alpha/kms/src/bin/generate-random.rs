@@ -3,27 +3,23 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use std::process;
-
-use kms::{Client, Config, Region};
-
+use aws_sdk_kms::{Client, Config, Error, Region, PKG_VERSION};
+use aws_types::region;
 use aws_types::region::ProvideRegion;
-
+use std::process;
 use structopt::StructOpt;
-use tracing_subscriber::fmt::format::FmtSpan;
-use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The region. Overrides environment variable AWS_DEFAULT_REGION.
+    /// The AWS Region.
     #[structopt(short, long)]
-    default_region: Option<String>,
+    region: Option<String>,
 
     /// The # of bytes. Must be less than 1024.
     #[structopt(short, long)]
     length: i32,
 
-    /// Specifies whether additonal runtime informmation is displayed
+    /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
@@ -32,23 +28,23 @@ struct Opt {
 /// # Arguments
 ///
 /// * `[-l LENGTH]` - The number of bytes to generate. Must be less than 1024.
-/// * `[-d DEFAULT-REGION]` - The region in which the client is created.
-///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+/// * `[-r REGION]` - The Region in which the client is created.
+///    If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt::init();
+
     let Opt {
         length,
-        default_region,
+        region,
         verbose,
     } = Opt::from_args();
 
-    let region = default_region
-        .as_ref()
-        .map(|region| Region::new(region.clone()))
-        .or_else(|| aws_types::region::default_provider().region())
-        .unwrap_or_else(|| Region::new("us-west-2"));
+    let region = region::ChainProvider::first_try(region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
 
     // Trap out-of-range-values:
     match length {
@@ -61,33 +57,23 @@ async fn main() {
         }
     }
 
-    if verbose {
-        println!("KMS client version: {}\n", kms::PKG_VERSION);
-        println!("Region: {:?}", &region);
-        println!("Length: {}", length);
+    println!();
 
-        SubscriberBuilder::default()
-            .with_env_filter("info")
-            .with_span_events(FmtSpan::CLOSE)
-            .init();
+    if verbose {
+        println!("KMS client version: {}", PKG_VERSION);
+        println!("Region:             {}", region.region().unwrap().as_ref());
+        println!("Length:             {}", &length);
+        println!();
     }
 
     let conf = Config::builder().region(region).build();
     let client = Client::from_conf(conf);
 
-    let resp = match client
+    let resp = client
         .generate_random()
         .number_of_bytes(length)
         .send()
-        .await
-    {
-        Ok(output) => output,
-        Err(e) => {
-            println!("Got an error calling GenerateRandom:");
-            println!("{}", e);
-            process::exit(1);
-        }
-    };
+        .await?;
 
     // Did we get an encrypted blob?
     let blob = resp.plaintext.expect("Could not get encrypted text");
@@ -95,6 +81,9 @@ async fn main() {
 
     let s = base64::encode(&bytes);
 
+    println!();
     println!("Data key:");
     println!("{}", s);
+
+    Ok(())
 }

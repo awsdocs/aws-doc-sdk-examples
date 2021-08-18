@@ -14,12 +14,13 @@ You must have an AWS account, and have configured your default credentials and A
 
 ### route53-helloworld
 
-This example displays the IDs and names of the hosted zones in the region..
+This example displays the IDs and names of the hosted zones in the Region.
 
-`cargo run --bin route53-helloworld -- [-d DEFAULT-REGION] [-v]`
+`cargo run --bin route53-helloworld -- [-r REGION] [-v]`
 
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
 ### Notes

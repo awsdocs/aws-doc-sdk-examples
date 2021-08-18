@@ -19,6 +19,7 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.cloudwatch.CloudWatchWrapper]
 class CloudWatchWrapper:
     """Encapsulates Amazon CloudWatch functions."""
     def __init__(self, cloudwatch_resource):
@@ -27,6 +28,9 @@ class CloudWatchWrapper:
         """
         self.cloudwatch_resource = cloudwatch_resource
 
+# snippet-end:[python.example_code.cloudwatch.CloudWatchWrapper]
+
+# snippet-start:[python.example_code.cloudwatch.ListMetrics]
     def list_metrics(self, namespace, name, recent=False):
         """
         Gets the metrics within a namespace that have the specified name.
@@ -50,7 +54,9 @@ class CloudWatchWrapper:
             raise
         else:
             return metric_iter
+# snippet-end:[python.example_code.cloudwatch.ListMetrics]
 
+# snippet-start:[python.example_code.cloudwatch.PutMetricData]
     def put_metric_data(self, namespace, name, value, unit):
         """
         Sends a single data value to CloudWatch for a metric. This metric is given
@@ -75,7 +81,9 @@ class CloudWatchWrapper:
         except ClientError:
             logger.exception("Couldn't put data for metric %s.%s", namespace, name)
             raise
+# snippet-end:[python.example_code.cloudwatch.PutMetricData]
 
+# snippet-start:[python.example_code.cloudwatch.PutMetricData_DataSet]
     def put_metric_data_set(self, namespace, name, timestamp, unit, data_set):
         """
         Sends a set of data to CloudWatch for a metric. All of the data in the set
@@ -103,7 +111,9 @@ class CloudWatchWrapper:
         except ClientError:
             logger.exception("Couldn't put data set for metric %s.%s.", namespace, name)
             raise
+# snippet-end:[python.example_code.cloudwatch.PutMetricData_DataSet]
 
+# snippet-start:[python.example_code.cloudwatch.GetMetricStatistics]
     def get_metric_statistics(self, namespace, name, start, end, period, stat_types):
         """
         Gets statistics for a metric within a specified time span. Metrics are grouped
@@ -133,7 +143,9 @@ class CloudWatchWrapper:
             raise
         else:
             return stats
+# snippet-end:[python.example_code.cloudwatch.GetMetricStatistics]
 
+# snippet-start:[python.example_code.cloudwatch.PutMetricAlarm]
     def create_metric_alarm(
             self, metric_namespace, metric_name, alarm_name, stat_type, period,
             eval_periods, threshold, comparison_op):
@@ -173,7 +185,9 @@ class CloudWatchWrapper:
             raise
         else:
             return alarm
+# snippet-end:[python.example_code.cloudwatch.PutMetricAlarm]
 
+# snippet-start:[python.example_code.cloudwatch.DescribeAlarmsForMetric]
     def get_metric_alarms(self, metric_namespace, metric_name):
         """
         Gets the alarms that are currently watching the specified metric.
@@ -186,7 +200,9 @@ class CloudWatchWrapper:
         alarm_iter = metric.alarms.all()
         logger.info("Got alarms for metric %s.%s.", metric_namespace, metric_name)
         return alarm_iter
+# snippet-end:[python.example_code.cloudwatch.DescribeAlarmsForMetric]
 
+# snippet-start:[python.example_code.cloudwatch.EnableAlarmActions.DisableAlarmActions]
     def enable_alarm_actions(self, alarm_name, enable):
         """
         Enables or disables actions on the specified alarm. Alarm actions can be
@@ -211,7 +227,9 @@ class CloudWatchWrapper:
                 "Couldn't %s actions alarm %s.", "enable" if enable else "disable",
                 alarm_name)
             raise
+# snippet-end:[python.example_code.cloudwatch.EnableAlarmActions.DisableAlarmActions]
 
+# snippet-start:[python.example_code.cloudwatch.DeleteAlarms]
     def delete_metric_alarms(self, metric_namespace, metric_name):
         """
         Deletes all of the alarms that are currently watching the specified metric.
@@ -229,6 +247,7 @@ class CloudWatchWrapper:
                 "Couldn't delete alarms for metric %s.%s.", metric_namespace,
                 metric_name)
             raise
+# snippet-end:[python.example_code.cloudwatch.DeleteAlarms]
 
 
 def usage_demo():

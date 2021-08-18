@@ -14,13 +14,13 @@ You must have an AWS account, and have configured your default credentials and A
 
 ### credentials-providers
 
-This example implements a basic version of ProvideCredentials with AWS STS and lists the tables in the region based on those credentials.
+This example implements a basic version of ProvideCredentials with AWS STS and lists the tables in the Region based on those credentials.
 
-`cargo run --bin create-bucket -- -b BUCKET [-d DEFAULT-REGION] [-v]`
+`cargo run --bin create-bucket -- -b BUCKET [-r REGION] [-v]`
 
 - _BUCKET_ is the name of the bucket to create.
-- _DEFAULT-REGION_ is the name of the AWS Region, such as __us-east-1__, where the table is located.
-  If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 

@@ -74,7 +74,7 @@ public class EnhancedPutItem {
             // Populate the Table
             Customer custRecord = new Customer();
             custRecord.setCustName("Susan red");
-            custRecord.setId("id140");
+            custRecord.setId("id146");
             custRecord.setEmail("sred@noserver.com");
             custRecord.setRegistrationDate(instant) ;
 

@@ -3,39 +3,28 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use rand::distributions::Alphanumeric;
-use rand::{thread_rng, Rng};
-use std::collections::HashMap;
-use std::io::{stdin, Read};
-use std::time::Duration;
-use std::{iter, process};
-
 use aws_http::AwsErrorRetryPolicy;
 use aws_hyper::{SdkError, SdkSuccess};
-
-use dynamodb::error::DescribeTableError;
-
-use dynamodb::input::DescribeTableInput;
-
-use dynamodb::model::{
+use aws_sdk_dynamodb::error::DescribeTableError;
+use aws_sdk_dynamodb::input::DescribeTableInput;
+use aws_sdk_dynamodb::model::{
     AttributeDefinition, AttributeValue, KeySchemaElement, KeyType, ProvisionedThroughput,
     ScalarAttributeType, Select, TableStatus,
 };
-
-use dynamodb::operation::DescribeTable;
-use dynamodb::output::DescribeTableOutput;
-
-use dynamodb::{Client, Config, Region};
-
-use aws_types::region::{EnvironmentProvider, ProvideRegion};
-
+use aws_sdk_dynamodb::operation::DescribeTable;
+use aws_sdk_dynamodb::output::DescribeTableOutput;
+use aws_sdk_dynamodb::{Client, Config, Error, Region, PKG_VERSION};
+use aws_types::region;
+use aws_types::region::ProvideRegion;
+use rand::distributions::Alphanumeric;
+use rand::{thread_rng, Rng};
 use smithy_http::operation::Operation;
 use smithy_http::retry::ClassifyResponse;
 use smithy_types::retry::RetryKind;
-
+use std::io::{stdin, Read};
+use std::time::Duration;
+use std::{iter, process};
 use structopt::StructOpt;
-use tracing_subscriber::fmt::format::FmtSpan;
-use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
@@ -43,7 +32,7 @@ struct Opt {
     #[structopt(short, long)]
     interactive: bool,
 
-    /// The region
+    /// The AWS Region
     #[structopt(short, long)]
     region: Option<String>,
 
@@ -62,8 +51,12 @@ fn random_string(n: usize) -> String {
         .collect()
 }
 
-/// Create a new table. It's remotely possible the random table name exists.
-async fn create_table(client: &dynamodb::Client, table: &str, key: &str) {
+/// Create a new table.
+async fn make_table(
+    client: &Client,
+    table: &str,
+    key: &str,
+) -> Result<(), aws_hyper::SdkError<aws_sdk_dynamodb::error::CreateTableError>> {
     let ad = AttributeDefinition::builder()
         .attribute_name(key)
         .attribute_type(ScalarAttributeType::S)
@@ -88,16 +81,12 @@ async fn create_table(client: &dynamodb::Client, table: &str, key: &str) {
         .send()
         .await
     {
-        Ok(_) => println!(),
-        Err(e) => {
-            println!("Got an error creating the table:");
-            println!("{}", e);
-            process::exit(1);
-        }
+        Ok(_) => Ok(()),
+        Err(e) => Err(e),
     }
 }
 
-/// For add_item and scan_item
+/// For add_item and query_item
 #[derive(Clone)]
 struct Item {
     table: String,
@@ -110,7 +99,10 @@ struct Item {
 }
 
 /// Add an item to the table.
-async fn add_item(client: &dynamodb::Client, item: Item) {
+async fn add_item(
+    client: &Client,
+    item: Item,
+) -> Result<(), SdkError<aws_sdk_dynamodb::error::PutItemError>> {
     let user_av = AttributeValue::S(item.value);
     let type_av = AttributeValue::S(item.utype);
     let age_av = AttributeValue::S(item.age);
@@ -128,133 +120,40 @@ async fn add_item(client: &dynamodb::Client, item: Item) {
         .send()
         .await
     {
-        Ok(_) => println!(),
-        Err(e) => {
-            println!("Got an error adding item to table:");
-            println!("{}", e);
-            process::exit(1);
-        }
+        Ok(_) => Ok(()),
+        Err(e) => Err(e),
     }
 }
 
 /// Query the table for an item matching the input values.
-async fn query(client: &dynamodb::Client, item: Item) {
+/// Returns true if the item is found; otherwise false.
+async fn query_item(client: &Client, item: Item) -> bool {
     let value = &item.value;
     let key = &item.key;
     let user_av = AttributeValue::S(value.to_string());
-    let userav = AttributeValue::S(value.to_string());
-    let type_av = AttributeValue::S(item.utype);
-    let age_av = AttributeValue::S(item.age);
-    let first_av = AttributeValue::S(item.first_name);
-    let last_av = AttributeValue::S(item.last_name);
-    let mut found_match = true;
-    let mut cond = HashMap::new();
-    cond.insert("#key".to_string(), key.to_string());
-    let mut expr = HashMap::new();
-    expr.insert(":value".to_string(), user_av);
+
     match client
         .query()
         .table_name(item.table)
-        .set_key_condition_expression(Some("#key = :value".to_string()))
-        .set_expression_attribute_names(Some(cond))
-        .set_expression_attribute_values(Some(expr))
+        .key_condition_expression("#key = :value".to_string())
+        .expression_attribute_names("#key".to_string(), key.to_string())
+        .expression_attribute_values(":value".to_string(), user_av)
         .select(Select::AllAttributes)
         .send()
         .await
     {
         Ok(resp) => {
-            let items = resp.items.unwrap_or_default();
-            for item in items {
-                // Do key values match?
-                match item.get(&String::from(key)) {
-                    None => found_match = false,
-                    Some(v) => {
-                        if v != &userav {
-                            found_match = false;
-                        }
-                    }
-                }
-
-                // Do age values match?
-                match item.get(&String::from("age")) {
-                    None => found_match = false,
-                    Some(v) => {
-                        if v != &age_av {
-                            found_match = false;
-                        }
-                    }
-                }
-
-                // Do first name values match?
-                match item.get(&String::from("first_name")) {
-                    None => found_match = false,
-                    Some(v) => {
-                        if v != &first_av {
-                            found_match = false;
-                        }
-                    }
-                }
-
-                // Do last name values match?
-                match item.get(&String::from("last_name")) {
-                    None => found_match = false,
-                    Some(v) => {
-                        if v != &last_av {
-                            found_match = false;
-                        }
-                    }
-                }
-
-                // Do account type values match?
-                match item.get(&String::from("account_type")) {
-                    None => found_match = false,
-                    Some(v) => {
-                        if v != &type_av {
-                            found_match = false;
-                        }
-                    }
-                }
+            if resp.count > 0 {
+                println!("Found a matching entry in the table:");
+                println!("{:?}", resp.items.unwrap_or_default().pop());
+                true
+            } else {
+                println!("Did not find a match.");
+                false
             }
         }
         Err(e) => {
-            println!("Got an error querying the table:");
-            println!("{}", e);
-            process::exit(1);
-        }
-    };
-
-    if !found_match {
-        println!("Did not find matching entry in table");
-    } else {
-        println!("Found a match!");
-    }
-}
-
-/// Delete an item from the table.
-async fn delete_item(client: &dynamodb::Client, table: &str, key: &str, value: &str) {
-    let user_av = AttributeValue::S(String::from(value));
-    match client
-        .delete_item()
-        .table_name(table)
-        .key(key, user_av)
-        .send()
-        .await
-    {
-        Ok(_) => println!(),
-        Err(e) => {
-            println!("Got an error trying to delete item:");
-            println!("{}", e);
-            process::exit(1);
-        }
-    }
-}
-
-/// Delete the table.
-async fn delete_table(client: &dynamodb::Client, table: &str) {
-    match client.delete_table().table_name(table).send().await {
-        Ok(_) => println!(),
-        Err(e) => {
-            println!("Got an error deleting table:");
+            println!("Got an error querying table:");
             println!("{}", e);
             process::exit(1);
         }
@@ -303,9 +202,7 @@ where
 
 /// Wait for the user to press Enter.
 fn pause() {
-    println!();
-    println!("Press Enter to continue");
-    println!();
+    println!("Press Enter to continue.");
     stdin().read_exact(&mut [0]).unwrap();
 }
 
@@ -316,22 +213,22 @@ fn pause() {
 /// # Arguments
 ///
 /// * `[-i]` - Whether to pause between operations.
-/// * `[-d DEFAULT-REGION]` - The region in which the client is created.
-///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+/// * `[-r REGION]` - The region in which the client is created.
+///    If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt::init();
     let Opt {
         interactive,
         region,
         verbose,
     } = Opt::from_args();
 
-    let region = EnvironmentProvider::new()
-        .region()
-        .or_else(|| region.as_ref().map(|region| Region::new(region.clone())))
-        .unwrap_or_else(|| Region::new("us-west-2"));
+    let region = region::ChainProvider::first_try(region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
 
     // Create 10-character random table name
     let table = random_string(10);
@@ -348,45 +245,57 @@ async fn main() {
     let age = "33";
     let utype = "standard_user";
 
-    if verbose {
-        println!("DynamoDB client version: {}\n", dynamodb::PKG_VERSION);
-        println!("Table:  {}", table);
-        println!("Key:    {}", key);
-        println!("Value:  {}", value);
+    println!();
 
-        SubscriberBuilder::default()
-            .with_env_filter("info")
-            .with_span_events(FmtSpan::CLOSE)
-            .init();
+    if verbose {
+        println!("DynamoDB client version: {}", PKG_VERSION);
+        println!(
+            "Region:                  {}",
+            region.region().unwrap().as_ref()
+        );
+        println!("Table:                   {}", table);
+        println!("Key:                     {}", key);
+        println!("Value:                   {}", value);
+        println!("First name:              {}", first_name);
+        println!("Last name:               {}", last_name);
+        println!("Age:                     {}", age);
+        println!("User type:               {}", utype);
+
+        println!();
     }
 
-    let r = region.clone();
-
-    let conf = Config::builder().region(&r).build();
+    let conf = Config::builder().region(region).build();
     let client = Client::from_conf(conf);
 
     /* Create table */
-    println!();
-    println!("Creating table {} in {:?}", table, r);
-    create_table(&client, &table, &key).await;
+    println!("Creating the table.");
+    match make_table(&client, &table, &key).await {
+        Err(e) => {
+            println!("Got an error creating the table:");
+            println!("{}", e);
+            process::exit(1);
+        }
+        Ok(_) => {
+            println!("Created the table.");
+        }
+    }
 
-    println!("Waiting for table to be ready");
+    println!("Waiting for table to be ready.");
 
     let raw_client = aws_hyper::Client::https();
 
     raw_client
         .call(wait_for_ready_table(&table, client.conf()))
         .await
-        .expect("table should become ready");
+        .expect("table should become ready.");
 
-    println!("Table is now ready to use");
+    println!("Table is now ready to use.");
 
     if interactive {
         pause();
     }
 
-    println!();
-    println!("Adding item to table");
+    println!("Adding item to table.");
 
     let mut item = Item {
         table: table.clone(),
@@ -398,7 +307,8 @@ async fn main() {
         utype: utype.to_string(),
     };
 
-    add_item(&client, item.clone()).await;
+    add_item(&client, item.clone()).await?;
+    println!("Added item to table.");
 
     if interactive {
         pause();
@@ -407,35 +317,48 @@ async fn main() {
     item.age = "44".to_string();
 
     /* Update the item */
-    println!("Modifying table item");
+    println!("Modifying table item to change age to 44.");
 
-    add_item(&client, item.clone()).await;
+    add_item(&client, item.clone()).await?;
+
+    println!("Modified table item.");
 
     if interactive {
         pause();
     }
 
     /* Get item and compare it with the one we added */
-    println!("Comparing table item to original value");
+    println!("Comparing table item to original value.");
 
-    query(&client, item).await;
+    query_item(&client, item).await;
 
     if interactive {
         pause();
     }
 
     /* Delete item */
-    println!();
-    println!("Deleting item");
-    delete_item(&client, &table, &key, &value).await;
+    println!("Deleting item.");
+    let user_av = AttributeValue::S(value);
+    client
+        .delete_item()
+        .table_name(&table)
+        .key(key, user_av)
+        .send()
+        .await?;
+
+    println!("Deleted item.");
 
     if interactive {
         pause();
     }
 
     /* Delete table */
-    println!("Deleting table");
-    delete_table(&client, &table).await;
+    println!("Deleting table.");
+    client.delete_table().table_name(&table).send().await?;
+    println!("Deleted table.");
+    println!();
+
+    Ok(())
 }
 
 /// Construct a `DescribeTable` request with a policy to retry every second until the table
@@ -448,7 +371,7 @@ fn wait_for_ready_table(
         .table_name(table_name)
         .build()
         .expect("valid input")
-        .make_operation(&conf)
+        .make_operation(conf)
         .expect("valid operation");
     let waiting_policy = WaitForReadyTable {
         inner: operation.retry_policy().clone(),

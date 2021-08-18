@@ -1,15 +1,3 @@
- 
-//snippet-sourcedescription:[publish_sms.cpp demonstrates how to use Amazon SNS to send an SMS text message to a phone number.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[tapasweni-pathak]
-
-
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -26,11 +14,21 @@
 #include <aws/sns/model/PublishRequest.h>
 #include <aws/sns/model/PublishResult.h>
 #include <iostream>
-
+// snippet-start:[sns.cpp.publish_sms.code]
 /**
- * Publish sms
+ * Publish SMS: use Amazon SNS to send an SMS text message to a phone number.
+ * Note: This requires additional AWS configuration prior to running example. 
+ * 
+ *  NOTE: When you start using Amazon SNS to send SMS messages, your AWS account is in the SMS sandbox and you can only
+ *  use verified destination phone numbers. See https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html.
+ *  NOTE: If destination is in the US, you also have an additional restriction that you have use a dedicated
+ *  origination ID (phone number). You can request an origination number using Amazon Pinpoint for a fee.
+ *  See https://aws.amazon.com/blogs/compute/provisioning-and-using-10dlc-origination-numbers-with-amazon-sns/ 
+ *  for more information. 
+ * 
+ *  <phone_number_value> input parameter uses E.164 format. 
+ *  For example, in United States, this input value should be of the form: +12223334444
  */
-
 int main(int argc, char ** argv)
 {
   if (argc != 3)
@@ -67,3 +65,4 @@ int main(int argc, char ** argv)
   Aws::ShutdownAPI(options);
   return 0;
 }
+// snippet-end:[sns.cpp.publish_sms.code]

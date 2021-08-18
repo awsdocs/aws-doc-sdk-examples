@@ -3,27 +3,22 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use std::process;
-
-use dynamodb::{Client, Config, Region};
-
-use aws_types::region::{EnvironmentProvider, ProvideRegion};
-
+use aws_sdk_dynamodb::{Client, Config, Error, Region, PKG_VERSION};
+use aws_types::region;
+use aws_types::region::ProvideRegion;
 use structopt::StructOpt;
-use tracing_subscriber::fmt::format::FmtSpan;
-use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The region
+    /// The AWS Region.
     #[structopt(short, long)]
     region: Option<String>,
 
-    /// The table name
+    /// The name of the table.
     #[structopt(short, long)]
     table: String,
 
-    /// Activate verbose mode
+    /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
@@ -32,44 +27,40 @@ struct Opt {
 /// # Arguments
 ///
 /// * `-t TABLE` - The name of the table.
-/// * `[-d DEFAULT-REGION]` - The region in which the client is created.
-///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+/// * `[-r REGION]` - The region in which the client is created.
+///    If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), Error> {
     let Opt {
         table,
         region,
         verbose,
     } = Opt::from_args();
 
-    let region = EnvironmentProvider::new()
-        .region()
-        .or_else(|| region.as_ref().map(|region| Region::new(region.clone())))
-        .unwrap_or_else(|| Region::new("us-west-2"));
+    let region = region::ChainProvider::first_try(region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
+
+    println!();
 
     if verbose {
-        println!("DynamoDB client version: {}\n", dynamodb::PKG_VERSION);
-        println!("Region: {:?}", &region);
-        println!("Table:  {}", table);
-
-        SubscriberBuilder::default()
-            .with_env_filter("info")
-            .with_span_events(FmtSpan::CLOSE)
-            .init();
+        println!("DynamoDB client version: {}", PKG_VERSION);
+        println!(
+            "Region:                  {}",
+            region.region().unwrap().as_ref()
+        );
+        println!("Table:                   {}", &table);
+        println!();
     }
 
-    let config = Config::builder().region(region).build();
+    let conf = Config::builder().region(region).build();
+    let client = Client::from_conf(conf);
 
-    let client = Client::from_conf(config);
+    client.delete_table().table_name(table).send().await?;
 
-    match client.delete_table().table_name(table).send().await {
-        Ok(_) => println!("Deleted table"),
-        Err(e) => {
-            println!("Got an error deleting the table:");
-            println!("{}", e);
-            process::exit(1);
-        }
-    };
+    println!("Deleted table");
+
+    Ok(())
 }

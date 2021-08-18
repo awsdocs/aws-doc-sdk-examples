@@ -3,65 +3,69 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use std::process;
-
-use kinesis::{Client, Config, Region};
-
-use aws_types::region::{EnvironmentProvider, ProvideRegion};
-
+use aws_sdk_kinesis::{Client, Config, Error, Region, PKG_VERSION};
+use aws_types::region;
+use aws_types::region::ProvideRegion;
 use structopt::StructOpt;
-use tracing_subscriber::fmt::format::FmtSpan;
-use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The region
+    /// The AWS Region.
     #[structopt(short, long)]
     region: Option<String>,
 
-    /// The name of the stream to delete
+    /// The name of the stream to delete.
     #[structopt(short, long)]
-    name: String,
+    stream_name: String,
 
     /// Whether to display additional information
     #[structopt(short, long)]
     verbose: bool,
 }
 
+/// Deletes an Amazon Kinesis data stream.
+/// # Arguments
+///
+/// * `-s STREAM-NAME` - The name of the stream.
+/// * `[-r REGION]` - The Region in which the client is created.
+///    If not supplied, uses the value of the **AWS_REGION** environment variable.
+///    If the environment variable is not set, defaults to **us-west-2**.
+/// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt::init();
     let Opt {
-        name,
+        stream_name,
         region,
         verbose,
     } = Opt::from_args();
 
-    let region = EnvironmentProvider::new()
-        .region()
-        .or_else(|| region.as_ref().map(|region| Region::new(region.clone())))
-        .unwrap_or_else(|| Region::new("us-west-2"));
+    let region = region::ChainProvider::first_try(region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
+
+    println!();
 
     if verbose {
-        println!("Kinesis client version: {}\n", kinesis::PKG_VERSION);
-        println!("Region:      {:?}", &region);
-        println!("Stream name: {}", name);
-
-        SubscriberBuilder::default()
-            .with_env_filter("info")
-            .with_span_events(FmtSpan::CLOSE)
-            .init();
+        println!("Kinesis client version: {}", PKG_VERSION);
+        println!(
+            "Region:                 {}",
+            region.region().unwrap().as_ref()
+        );
+        println!("Stream name:            {}", &stream_name);
+        println!();
     }
 
     let config = Config::builder().region(region).build();
-
     let client = Client::from_conf(config);
 
-    match client.delete_stream().stream_name(name).send().await {
-        Ok(_) => println!("Deleted stream."),
-        Err(e) => {
-            println!("Got an error deleting the stream:");
-            println!("{}", e);
-            process::exit(1);
-        }
-    };
+    client
+        .delete_stream()
+        .stream_name(stream_name)
+        .send()
+        .await?;
+
+    println!("Deleted stream.");
+
+    Ok(())
 }

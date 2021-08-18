@@ -1,15 +1,3 @@
- 
-//snippet-sourcedescription:[unsubscribe.cpp demonstrates how to delete a subscription to an Amazon SNS topic.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[tapasweni-pathak]
-
-
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -27,17 +15,17 @@
 #include <iostream>
 
 /**
- * Unsubscribe based on subscription_arn given on command line
+ * Unsubscribe - demonstrates how to delete a subscription to an Amazon SNS topic.
  */
 
 int main(int argc, char ** argv)
 {
   if (argc != 2)
   {
-    std::cout << "Usage: subscribe <topic_subscription_arn>" << std::endl;
+    std::cout << "Usage: unsubscribe <topic_subscription_arn>" << std::endl;
     return 1;
   }
-
+  // snippet-start:[sns.cpp.unsubscribe.code]
   Aws::SDKOptions options;
   Aws::InitAPI(options);
   {
@@ -51,15 +39,16 @@ int main(int argc, char ** argv)
 
     if (s_out.IsSuccess())
     {
-      std::cout << "Subscribed successfully " << std::endl;
+      std::cout << "Unsubscribed successfully " << std::endl;
     }
     else
     {
-      std::cout << "Error while subscribing " << s_out.GetError().GetMessage()
+      std::cout << "Error while unsubscribing " << s_out.GetError().GetMessage()
         << std::endl;
     }
   }
 
   Aws::ShutdownAPI(options);
+  // snippet-end:[sns.cpp.unsubscribe.code]
   return 0;
 }
