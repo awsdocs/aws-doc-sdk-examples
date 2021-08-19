@@ -46,6 +46,7 @@ def bucket_acl_set_for_owner_id?(
       }
     },
     bucket: bucket_name
+    body: "c:\\my-file.txt",
   )
   return true
 rescue StandardError => e
