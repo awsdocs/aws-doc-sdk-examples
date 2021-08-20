@@ -1,0 +1,190 @@
+acm_DescribeCertificate:
+  title: Describe an &ACM; certificate using an &AWS; SDK
+  title_abbrev: Describe a certificate
+  synopsis: |-
+    The following examples show how to write code to
+    describe &ACM; certificates
+    using some of the &AWS; SDKs that are available.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.acm.AcmCertificate
+                - python.example_code.acm.DescribeCertificate
+  services:
+    - acm
+acm_GetCertificate:
+  title: Get an &ACM; certificate using an &AWS; SDK
+  title_abbrev: Get a certificate
+  synopsis: |-
+    The following examples show how to write code to
+    get &ACM; certificates
+    using some of the &AWS; SDKs that are available.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+              - python.example_code.acm.AcmCertificate
+              - python.example_code.acm.GetCertificate
+  services:
+    - acm
+acm_ListCertificates:
+  title: List &ACM; certificates using an &AWS; SDK
+  title_abbrev: List certificates
+  synopsis: |-
+    The following examples show how to write code to
+    list &ACM; certificates
+    using some of the &AWS; SDKs that are available.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+              - python.example_code.acm.AcmCertificate
+              - python.example_code.acm.ListCertificates
+  services:
+    - acm
+acm_ImportCertificate:
+  title: Import an &ACM; certificate using an &AWS; SDK
+  title_abbrev: Import certificates
+  synopsis: |-
+    The following examples show how to write code to
+    import &ACM; certficates
+    using some of the &AWS; SDKs that are available.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+              - python.example_code.acm.AcmCertificate
+              - python.example_code.acm.ImportCertificate
+  services:
+    - acm
+acm_DeleteCertificate:
+  title: Delete an &ACM; certificate using an &AWS; SDK
+  title_abbrev: Delete a certificate
+  synopsis: |-
+    The following examples show how to write code to
+    delete &ACM; certificates
+    using some of the &AWS; SDKs that are available.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+              - python.example_code.acm.AcmCertificate
+              - python.example_code.acm.DeleteCertificate
+  services:
+    - acm
+acm_AddTagsToCertificate:
+  title: Add tags to an &ACM; certificate using an &AWS; SDK
+  title_abbrev: Add tags to a certificate
+  synopsis: |-
+    The following examples show how to write code to
+    add tags to &ACM; certificates
+    using some of the &AWS; SDKs that are available.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+              - python.example_code.acm.AcmCertificate
+              - python.example_code.acm.AddTagsToCertificate
+  services:
+    - acm
+acm_ListTagsForCertificate:
+  title: List tags for an &ACM; certificate using an &AWS; SDK
+  title_abbrev: List tags for a certificate
+  synopsis: |-
+    The following examples show how to write code to
+    list tags for &ACM; certificates
+    using some of the &AWS; SDKs that are available.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+              - python.example_code.acm.AcmCertificate
+              - python.example_code.acm.ListTagsForCertificate
+  services:
+    - acm
+acm_RemoveTagsFromCertificate:
+  title: Remove tags from an &ACM; certificate using an &AWS; SDK
+  title_abbrev: Remove tags from a certificate
+  synopsis: |-
+    The following examples show how to write code to
+    remove tags from &ACM; certificates
+    using some of the &AWS; SDKs that are available.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+              - python.example_code.acm.AcmCertificate
+              - python.example_code.acm.RemoveTagsFromCertificate
+  services:
+    - acm
+acm_RequestCertificate:
+  title: Request validation of an &ACM; certificate using an &AWS; SDK
+  title_abbrev: Request validation of a certificate
+  synopsis: |-
+    The following examples show how to write code to
+    request validation of &ACM; certificates
+    using some of the &AWS; SDKs that are available.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+              - python.example_code.acm.AcmCertificate
+              - python.example_code.acm.RequestCertificate
+  services:
+    - acm
+acm_ResendValidationEmail:
+  title: Resend validation email for an &ACM; certificate using an &AWS; SDK
+  title_abbrev: Resend validation email for a certificate
+  synopsis: |-
+    The following examples show how to write code to
+    resend validation email for &ACM; certificates
+    using some of the &AWS; SDKs that are available.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+              - python.example_code.acm.AcmCertificate
+              - python.example_code.acm.ResendValidationEmail
+  services:
+    - acm
