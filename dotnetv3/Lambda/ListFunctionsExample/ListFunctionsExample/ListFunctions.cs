@@ -24,7 +24,7 @@ namespace ListFunctionsExample
             // If the AWS Region you are interested in listing is the same as
             // the AWS Region defined for the default user, you don't have to
             // supply the RegionEndpoint constant to the constructor.
-            IAmazonLambda client = new AmazonLambdaClient(RegionEndpoint.USWest2);
+            IAmazonLambda client = new AmazonLambdaClient(RegionEndpoint.USEast2);
 
             // First use the ListFunctionsAsync method.
             var functions1 = await ListFunctionsAsync(client);
@@ -64,11 +64,13 @@ namespace ListFunctionsExample
         /// <returns>A list of Lambda functions configuration information.</returns>
         public static async Task<List<FunctionConfiguration>> ListFunctionsPaginatorAsync(IAmazonLambda client)
         {
-            Console.WriteLine("\nNow let's show the list using the paginator.\n");
+            Console.WriteLine("\nNow let's show the list using a paginator.\n");
 
             // Get the list of functions using a paginator.
             var paginator = client.Paginators.ListFunctions(new ListFunctionsRequest());
 
+            // Defined return a list of function information to the caller
+            // for display using the DisplayFunctionList method.
             var functions = new List<FunctionConfiguration>();
 
             await foreach (var resp in paginator.Responses)
