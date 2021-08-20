@@ -1,4 +1,4 @@
-# Amazon Simple Notification Service (SNS) SDK for .NET 3 examples
+# Amazon Simple Notification Service (Amazon SNS) SDK for .NET 3 examples
 
 Amazon SNS is a fully managed messaging service for both system-to-system and app-to-person (A2P) communication. 
 
@@ -25,7 +25,7 @@ This is a workspace where you can find AWS SDK for .NET version 3 (v3) Amazon SN
 ## Running the Examples
 
 You can run the examples in your IDE of choice, or you can use the dotnet command line to run the example from
-the console. To run an example from the console, type the following commands:
+the console. To run an example from the console, enter the following commands:
 
 
 ```bash
