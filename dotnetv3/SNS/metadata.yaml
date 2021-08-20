@@ -3,10 +3,31 @@
 # within this repository.
 ---
 files:
-  - path: SNSMessageExample/SNSMessageExample.cs
+  - path: CreateSNSTopicExample/CreateSNSTopicExample.cs
     services: 
     - sns
-  - path: SNSMessageExampleTest/SNSMessageExampleTest.cs
+  - path: DeleteSNSTopicExample/DeleteSNSTopicExample.cs
+    services: 
+    - sns
+  - path: GetTopicAttributesExample/GetTopicAttributesExample.cs
+    services: 
+    - sns
+  - path: IsPhoneNumberOptedOutExample/IsPhoneNumberOptedOutExample.cs
+    services: 
+    - sns
+  - path: ListSNSSubscriptionsExample/ListSNSSubscriptionsExample.cs
+    services: 
+    - sns
+  - path: ListSNSTopicsExample/ListSNSTopicsExample.cs
+    services: 
+    - sns
+  - path: ManageTopicSubscriptionsExample/ManageTopicSubscriptionsExample.cs
+    services: 
+    - sns
+  - path: PublishToSNSTopicExample/PublishToSNSTopicExample.cs
+    services: 
+    - sns
+  - path: SNSMessageExample/SNSMessageExample.cs
     services: 
     - sns
 ...
