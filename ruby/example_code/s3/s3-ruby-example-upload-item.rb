@@ -23,6 +23,7 @@ require 'aws-sdk-s3'
 def object_uploaded?(s3_client, bucket_name, object_key)
   response = s3_client.put_object(
     bucket: bucket_name,
+    body: "c:\\my-file.txt",
     key: object_key
   )
   if response.etag
