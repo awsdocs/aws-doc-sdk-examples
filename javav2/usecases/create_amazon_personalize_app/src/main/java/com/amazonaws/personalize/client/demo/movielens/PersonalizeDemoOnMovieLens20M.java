@@ -34,9 +34,9 @@ import software.amazon.awssdk.services.iam.IamClient;
 
 public class PersonalizeDemoOnMovieLens20M {
 
-    private static final String PREFIX = "your-project-name-here";
-    private static final String S3_BUCKET = PREFIX;
-    private static final Region region = Region.US_EAST_1;
+    private static final String PREFIX = "your-project-name-here";  // replace with your project name.
+    private static final String S3_BUCKET = PREFIX.toLowerCase() + "-tutorial-bucket";
+    private static final Region region = Region.US_EAST_1; // change to the region where you want to create your resources
 
 
     public static void main(String[] args) throws Exception {
