@@ -130,9 +130,17 @@ public class MovieLensDatasetProvider implements DatasetProvider {
         try {
             s3Client.headBucket(headBucketRequest);
             return true;
-        } catch (NoSuchBucketException ex) {
-            return false;
+
+        } catch (S3Exception ex) {
+            if (ex.statusCode() == 403 || ex.statusCode() == 400) {
+                System.out.println(ex.getMessage());
+            }
+            else if (ex.statusCode() == 404){
+                System.out.println("This bucket doesn't exist, creating bucket...");
+                return false;
+            }
         }
+        return false;
     }
 
     // Create a bucket by using a S3Waiter object
