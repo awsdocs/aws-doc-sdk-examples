@@ -1,0 +1,148 @@
+sdks:
+  C++:
+    property: cpp
+    sdk:
+      1:
+        long: "&CPPlong;"
+        short: "&CPP;"
+    guide: "&guide-cpp-dev;"
+  Go:
+    property: go
+    sdk:
+      1:
+        long: "&Golong; V1"
+        short: "&Go; V1"
+      2:
+        long: "&Golong; V2"
+        short: "&Go; V2"
+    guide: "&guide-go-dev;"
+  Java:
+    property: java
+    sdk:
+      1:
+        long: "&Javalong;"
+        short: "&Java;"
+      2:
+        long: "&JavaV2long;"
+        short: "&JavaV2;"
+    guide: "&guide-javav2-dev;"
+  JavaScript:
+    property: javascript
+    sdk:
+      2:
+        long: "&JSBlong; V2"
+        short: "&JSB; V2"
+      3:
+        long: "&JSBlong; V3"
+        short: "&JSB; V3"
+    guide: "&guide-jsb-dev;"
+  .NET:
+    property: csharp
+    sdk:
+      3:
+        long: "&NETlong;"
+        short: "&NET;"
+    guide: "&guide-net-dev;"
+  PHP:
+    property: php
+    sdk:
+      3:
+        long: "&PHPlong;"
+        short: "&PHP;"
+    guide: "&guide-php-dev;"
+  Python:
+    property: python
+    sdk:
+      3:
+        long: "&Python3long;"
+        short: "&Python3;"
+    guide: "&guide-python3-gsg;"
+  Ruby:
+    property: ruby
+    sdk:
+      3:
+        long: "&Rubylong;"
+        short: "&Ruby;"
+    guide: "&guide-ruby-dev;"
+services:
+  # The sort key of a service is the short display name (the expanded version of the short entity) without the AWS/Amazon prefix.
+  acm:
+    long: "&ACMlong;"
+    short: "&ACM;"
+    sort: "ACM"
+  apigateway:
+    long: "&ABPlong;"
+    short: "&ABP;"
+    sort: "API Gateway"
+  cloudformation:
+    long:  "&CFNlong;"
+    short:  "&CFN;"
+    sort:  "CloudFormation"
+  cognito:
+    long: "&COGlong;"
+    short: "&COG;"
+    sort: "Cognito"
+  cognito-identity:
+    long: "&COGID;"
+    short: "&COGID;"
+    sort: "Cognito Identity"
+  dynamodb:
+    long: "&DDBlong;"
+    short: "&DDB;"
+    sort: "DynamoDB"
+  events:
+    long: "&EVlong;"
+    short: "&EV;"
+    sort: "EventBridge"
+  lambda:
+    long: "&LAMlong;"
+    short: "&LAM;"
+    sort: "Lambda"
+  rds:
+    long: "&RDSlong;"
+    short: "&RDS;"
+    sort: "RDS"
+  s3:
+    long: "&S3long;"
+    short: "&S3;"
+    sort: "S3"
+  secretsmanager:
+    long: "&ASMlong;"
+    short: "&ASM;"
+    sort: "Secrets Manager"
+  sns:
+    long: "&SNSlong;"
+    short: "&SNS;"
+    sort: "SNS"
+  sqs:
+    long: "&SQSlong;"
+    short: "&SQS;"
+    sort: "SQS"
+  stepfunctions:
+    long: "&SFNlong;"
+    short: "&SFN;"
+    sort: "Step Functions"
+  textract:
+    long: "&TEXTRACTlong;"
+    short: "&TEXTRACT;"
+    sort: "Textract"
+  transcribe:
+    long: "&TSClong;"
+    short: "&TSC;"
+    sort: "Transcribe"
+  comprehend:
+    long: "&CMPlong;"
+    short: "&CMP;"
+    sort: "Comprehend"
+  iam:
+    long: "&IAMlong;"
+    short: "&IAM;"
+    sort: "IAM"
+  translate:
+    long: "&TSLlong;"
+    short: "&TSL;"
+    sort: "Translate"
+  ses:
+    long: "&SESlong;"
+    short: "&SES;"
+    sort: "SES"

@@ -1,0 +1,15 @@
+name: Validate Doc Metadata
+on:
+  pull_request:
+  # run on demand
+  workflow_dispatch:
+jobs:
+  validate-doc-metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: >
+          ./.doc_gen/zexi/zexi -metadata .doc_gen/metadata
+          -zonbook-templates '.doc_gen/templates/zonbook'
+          -cross '.doc_gen/cross-content'
+          -snippet '' -output '' -validate

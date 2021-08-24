@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
+    %xinclude;
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<chapter id="{{.LanguageSlug}}_code_examples" role="topic">
+    <info>
+        <title id="{{.LanguageSlug}}_code_examples.title">{{.SdkEntity.Short}} code examples</title>
+        <titleabbrev id="{{.LanguageSlug}}_code_examples.titleabbrev">Code examples</titleabbrev>
+        <abstract>
+            <para>Code examples that show how to use {{.SdkEntity.Long}} with &AWS;.</para>
+        </abstract>
+    </info>
+    <para>The following code examples show how to use {{.SdkEntity.Long}} with &AWS;.</para>
+    <para role="contents-abbrev">Code examples</para>
+    {{if .CrossServiceExamples}}
+    <section id="{{.LanguageSlug}}_code_examples_cross_service" role="topic">
+        <info>
+            <title id="{{.LanguageSlug}}_code_examples_cross_service.title">Cross-service examples using {{.SdkEntity.Short}}</title>
+            <titleabbrev id="{{.LanguageSlug}}_code_examples_cross_service.titleabbrev">Cross-service examples</titleabbrev>
+            <abstract>
+                <para>The following code examples show how to use {{.SdkEntity.Short}} to combine
+                    &AWS; services.</para>
+            </abstract>
+        </info>
+        <para>The following code examples show how to use {{.SdkEntity.Long}} to combine
+            multiple &AWS; services.</para>
+        <para role="topiclist-abbrev">Examples</para>
+        {{end}}
+        {{range .CrossServiceExamples}}
+        <section id="{{.ExampleId}}_{{$.LanguageSlug}}_topic" role="topic">
+            <info>
+                <title id="{{.ExampleId}}_{{$.LanguageSlug}}_topic.title">{{.Title}}</title>
+                <titleabbrev id="{{.ExampleId}}_{{$.LanguageSlug}}_topic.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+            </info>
+            <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}_{{$.Language}}.xml"></xi:include>
+        </section>
+        {{end}}
+        {{if .CrossServiceExamples}}
+    </section>
+    {{end}}
+    {{if .ApiExamples}}
+    <section id="{{.LanguageSlug}}_code_examples_API" role="topic">
+        <info>
+            <title id="{{.LanguageSlug}}_code_examples_API.title">API examples using {{.SdkEntity.Short}}</title>
+            <titleabbrev id="{{.LanguageSlug}}_code_examples_API.titleabbrev">API examples</titleabbrev>
+            <abstract>
+                <para>The following code examples show how to use {{.SdkEntity.Short}} to perform &AWS; service operations.</para>
+            </abstract>
+        </info>
+        <para>The following code examples show how to use {{.SdkEntity.Short}} to perform &AWS; service operations.</para>
+        <para role="topiclist-abbrev">Examples</para>
+        {{end}}
+        {{range $service, $svc_examples := .ApiExamples}}
+        <section id="{{$.LanguageSlug}}_{{$svc_examples.ServiceSlug}}_code_examples" role="topic">
+            <info>
+                <title id="{{$.LanguageSlug}}_{{$svc_examples.ServiceSlug}}_code_examples.title">{{$svc_examples.ServiceEntity.Short}} examples using {{$.SdkEntity.Short}}</title>
+                <titleabbrev id="{{$.LanguageSlug}}_{{$svc_examples.ServiceSlug}}_code_examples.titleabbrev">{{$svc_examples.ServiceEntity.Short}} examples</titleabbrev>
+                <abstract>
+                    <para>Code examples that show how to use {{$.SdkEntity.Long}} with {{$svc_examples.ServiceEntity.Short}}.</para>
+                </abstract>
+            </info>
+            <para>Code examples that show how to use {{$.SdkEntity.Long}} with {{$svc_examples.ServiceEntity.Short}}.</para>
+            <collapsible expand-section="_collapse_all_">
+                {{range $svc_examples.Examples}}
+                <section id="{{.ExampleId}}_{{$.LanguageSlug}}_topic" role="topic">
+                    <info>
+                        <title id="{{.ExampleId}}_{{$.LanguageSlug}}_topic.titleabbrev">{{.TitleAbbrev}}</title>
+                        <titleabbrev id="{{.ExampleId}}_{{$.LanguageSlug}}_topic.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+                    </info>
+                    <para>{{.Synopsis}}</para>
+                    <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}_{{$.Language}}.xml"></xi:include>
+                </section>
+                {{end}}
+            </collapsible>
+        </section>
+        {{end}}
+        {{if .ApiExamples}}
+    </section>
+    {{end}}
+</chapter>
