@@ -1,5 +1,6 @@
 # Creating your first AWS Java web application
 
+## Purpose
 You can develop an AWS Web Application that users can use to submit data to an Amazon DynamoDB table. In addition to using Amazon DynamoDB, this web application also uses Amazon Simple Notification Service (Amazon SNS) and AWS Elastic Beanstalk. This application uses the **software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient** to store data within a DynamoDB table. After the DynamoDB table is updated, the application uses Amazon SNS to send a text message to notify a user. This application also uses Spring Boot APIs to build a model, views, and a controller.
 
 The DynamoDB enhanced client lets you map your client-side classes to Amazon DynamoDB tables. To use the DynamoDB enhanced client, you define the relationship between items in a DynamoDB table and their corresponding object instances in your code. The DynamoDB enhanced client enables you to do the following:
@@ -31,6 +32,26 @@ To complete the tutorial, you need the following:
 + An AWS account
 + A Java IDE (this example uses IntelliJ)
 + Java 1.8 SDK and Maven
+
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+The AWS Services used in this AWS tutorial are:
+
+ - Amazon S3 Service
+ - Amazon DynamoDB
+ - AWS Step Functions
+ 
+You need to create this resources prior to starting this tutorial:
+
++ An Amazon DynamoDB table named **Greeting** that contains a partition key named **idblog**. For information about creating an Amazon DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html). 
+
 
 The following figure shows the project that's created.
 
