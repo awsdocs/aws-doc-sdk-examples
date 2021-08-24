@@ -25,6 +25,11 @@ After the table is updated with a new item, a text message is sent to notify a m
 
 This tutorial guides you through creating an AWS application that uses Spring Boot. After you develop the application, you'll learn how to deploy it to Elastic Beanstalk.
 
+The following figure shows the project that's created.
+
+![AWS Blog Application](images/greet3.png)
+
+
 ## Prerequisites
 
 To complete the tutorial, you need the following:
@@ -44,22 +49,13 @@ To complete the tutorial, you need the following:
 
 The AWS Services used in this AWS tutorial are:
 
- - Amazon S3 Service
+ - Amazon SNS 
  - Amazon DynamoDB
- - AWS Step Functions
+ - AWS Elastic Beanstalk
  
 You need to create this resources prior to starting this tutorial:
 
 + An Amazon DynamoDB table named **Greeting** that contains a partition key named **idblog**. For information about creating an Amazon DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html). 
-
-
-The following figure shows the project that's created.
-
-![AWS Blog Application](images/greet3.png)
-
-**Cost to complete:** The AWS services you'll use in this example are part of the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note:** When you're done developing the application, be sure to terminate all of the resources you created to ensure that you're no longer charged.
 
 **Topics**
 
