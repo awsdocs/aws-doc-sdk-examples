@@ -66,7 +66,6 @@ You need to create this resources prior to starting this tutorial:
 + Create the Java logic for the main Boot class
 + Create the HTML files
 + Package the **Greetings** application into a JAR file
-+ Set up the DynamoDB table
 + Deploy the  **Greetings** application to Elastic Beanstalk
 
 ## Create an IntelliJ project named Greetings
@@ -610,14 +609,6 @@ The JAR file is located in the target folder, as shown in the following figure.
 ![AWS Tracking Application](images/greet8.png)
 
 The POM file contains the **spring-boot-maven-plugin** that builds a executable JAR file which includes the dependencies. (Without the dependencies, the application does not run on Elastic Beanstalk.) For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
-
-## Create the DynamoDB table named Greeting
-
-You can use the DynamoDB Java API to create a table. The code to create a table is listed at the following URL:
-
-https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/CreateTable.java
-
-Don't include the **CreateTable** class in this Spring project. Set up a separate Java project to run this code. Ensure that you name the table **Greeting** when you execute this Java code (this is referenced in the **DynamoDBEnhanced** class).
 
 ## Deploy the application to Elastic Beanstalk
 
