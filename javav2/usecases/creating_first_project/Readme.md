@@ -245,16 +245,17 @@ In the **com.example** package, create a Java class named **GreetingApplication*
 
 	package com.example;
 
-	import org.springframework.boot.SpringApplication;
-	import org.springframework.boot.autoconfigure.SpringBootApplication;
+       import org.springframework.boot.SpringApplication;
+       import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-	@SpringBootApplication
-	public class GreetingApplication {
+       @SpringBootApplication
+       public class GreetingApplication {
 
-    	public static void main(String[] args) {
-        	SpringApplication.run(GreetingApplication.class, args);
-    	 }
-	}
+         public static void main(String[] args) {
+          SpringApplication.run(GreetingApplication.class, args);
+        }
+     }
+
 
 ### Create the GreetingController class
 
@@ -295,7 +296,7 @@ In the **com.example.handlingformsubmission** package, create the **GreetingCont
 
           return "result";
     	}
-     }
+      }
 
 ### Create the Greeting class
 
@@ -347,7 +348,7 @@ In the **com.example.handlingformsubmission** package, create the **Greeting** c
 
 In the **com.example.handlingformsubmission** package, create the **DynamoDBEnhanced** class. This class uses the DynamoDB API that injects data into a DynamoDB table by using the enhanced client API. To map data to the table, you use a **TableSchema** object (as shown in the following example). In this example, notice the **GreetingItems** class where each data member is mapped to a column in the DynamoDB table.
 
-To inject data into a DynamoDB table, you create a **DynamoDbTable** object by invoking the **DynamoDbEnhancedClient** object's **table** method and passing the table name (in this example, **Greeting**) and the **TableSchema** object. Next, create a **GreetingItems** object and populate it with data values that you want to store (in this example, the data items are submitted from the Spring form).
+To inject data into a DynamoDB table, create a **DynamoDbTable** object by invoking the **DynamoDbEnhancedClient** object's **table** method and passing the table name (in this example, **Greeting**) and the **TableSchema** object. Next, create a **GreetingItems** object and populate it with data values that you want to store (in this example, the data items are submitted from the Spring form).
 
 Create a **PutItemEnhancedRequest** object and pass the **GreetingItems** object for the **items** method. Finally, invoke the **DynamoDbEnhancedClient** object's **putItem** method, and pass the **PutItemEnhancedRequest** object. The following Java code represents the **DynamoDBEnhanced** class.
 
@@ -426,9 +427,10 @@ Create a **PutItemEnhancedRequest** object and pass the **GreetingItems** object
         }
     	}
 
-	 public class GreetingItems {
+	 @DynamoDbBean
+        public class GreetingItems {
 
-        // Set up data members that correspond to columns in the Work table
+        //Set up Data Members that correspond to columns in the Greeting table
         private String id;
         private String name;
         private String message;
@@ -438,6 +440,7 @@ Create a **PutItemEnhancedRequest** object and pass the **GreetingItems** object
         {
         }
 
+        @DynamoDbPartitionKey
         public String getId() {
             return this.id;
         }
@@ -468,9 +471,9 @@ Create a **PutItemEnhancedRequest** object and pass the **GreetingItems** object
 
         public void setTitle(String title) {
             this.title = title;
-	       }
-	   }
-	}
+         }
+       }
+     }
 
 **Note:** The **EnvironmentVariableCredentialsProvider** is used to create a **DynamoDbClient**, because this application will be deployed to Elastic Beanstalk. You can set up environment variables on Elastic Beanstalk so that the  **DynamoDbClient** is successfully created. 	
 
