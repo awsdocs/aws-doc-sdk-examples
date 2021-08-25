@@ -300,17 +300,10 @@ Create a **PutItemEnhancedRequest** object and pass the **GreetingItems** object
     import software.amazon.awssdk.enhanced.dynamodb.model.PutItemEnhancedRequest;
     import software.amazon.awssdk.regions.Region;
     import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-    import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
     import org.springframework.stereotype.Component;
 
     @Component("DynamoDBEnhanced")
     public class DynamoDBEnhanced {
-
-    private final ProvisionedThroughput DEFAULT_PROVISIONED_THROUGHPUT =
-            ProvisionedThroughput.builder()
-                    .readCapacityUnits(50L)
-                    .writeCapacityUnits(50L)
-                    .build();
 
      // Uses the enhanced client to inject a new post into a DynamoDB table
      public void injectDynamoItem(Greeting item){
