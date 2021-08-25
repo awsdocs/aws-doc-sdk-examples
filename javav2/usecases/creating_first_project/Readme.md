@@ -83,7 +83,7 @@ The first step is to create an IntelliJ project.
 
 At this point, you have a new project named **Greetings**.
 
-![AWS Tracking Application](images/greet4.png)
+![AWS Tracking Application](images/project1.png)
 
 Inside the **project** element in the **pom.xml** file, add the **spring-boot-starter-parent** dependency.
 
