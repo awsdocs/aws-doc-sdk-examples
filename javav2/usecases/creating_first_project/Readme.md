@@ -431,7 +431,7 @@ Create a class named **PublishTextSMS** that sends a text message when a new ite
                     .phoneNumber(phoneNumber)
                     .build();
 
-         PublishResponse result = snsClient.publish(request);
+         snsClient.publish(request);
 
       } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
