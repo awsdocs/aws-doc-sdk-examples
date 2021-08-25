@@ -159,8 +159,6 @@ Ensure that the **pom.xml** file resembles the following XML code.
 	</build>
 	</project>
 
-**Note:** Be sure that you have the **packaging** element in your POM file. This is required to build a JAR file (described later in this document).
-
 ## Set up the Java packages in your project
 
 In the **main/java** folder, create a Java package named **com.example.handlingformsubmission**. The Java files go into this package.
