@@ -64,7 +64,7 @@ Create an Amazon S3 bucket named **doc[somevalue]**. Be sure to use this bucket 
 
 The following illustration shows the Home page of the application. 
 
-![AWS Photo Analyzer](images/home.png)
+![AWS Photo Analyzer](images/home1.png)
 
 The AWS document analyzer application supports uploading PDF images to an Amazon S3 bucket. 
 
@@ -644,12 +644,12 @@ The following HTML represents the **index.html** file.
         Analyzing PDF documents has never been easier! Simply perform these steps:<p>
 
      <ol>
-        <li>You can upload a PDF document to an Amazon S3 bucket by choosing the <i>Upload Documents</i> menu item.</li>
-        <li>Choose <i>Choose File</i> and browse to a PDF document located on your local desktop.</li>
-        <li>Choose <i>Upload</i> to upload the PDF document to an Amazon S3 bucket.</li>
-        <li>You can choose <i>Get Documents</i> to view the PDF documents located in the Amazon S3 bucket. All documents in the Amazon S3 bucket are displayed in the drop-down field. </li>
-        <li>You can analyze a given PDF document by choosing the <i>Analyze Documents</i> menu item. </li>
-        <li>Select a PDF document from the drop-down field and choose <i>Analyze Document</i>. The results are displaced in the application.  </li>
+        <li>You can upload a PNG image of a PDF document to an Amazon S3 bucket by choosing the <i>Upload Documents</i> menu item.</li>
+        <li>Choose <i>Choose File</i> and browse to a PNG image of a PDF document located on your local desktop.</li>
+        <li>Choose <i>Upload</i> to upload the image file to an Amazon S3 bucket.</li>
+        <li>You can choose <i>Get Documents</i> to view the PDF images located in the Amazon S3 bucket. All image files in the Amazon S3 bucket are displayed in the drop-down field. </li>
+        <li>You can analyze a given PDF image by choosing the <i>Analyze Documents</i> menu item. </li>
+        <li>Select a PDF image from the drop-down field and choose <i>Analyze Document</i>. The results are displaced in the application.  </li>
      </ol>
      </div>
     </body>
