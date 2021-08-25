@@ -513,7 +513,7 @@ The following HTML code represents the **result.html** file.
 	<h1>Result</h1>
 	<p th:text="'id: ' + ${greeting.id}" />
 	<p th:text="'content: ' + ${greeting.body}" />
-	<a href="/greeting">Submit another message</a>
+	<a href="/">Submit another message</a>
 	</body>
 	</html>
 
