@@ -316,24 +316,6 @@ Create a **PutItemEnhancedRequest** object and pass the **GreetingItems** object
                     .writeCapacityUnits(50L)
                     .build();
 
-    private final TableSchema<GreetingItems> TABLE_SCHEMA =
-            StaticTableSchema.builder(GreetingItems.class)
-                    .newItemSupplier(GreetingItems::new)
-                    .addAttribute(String.class, a -> a.name("idblog")
-                            .getter(GreetingItems::getId)
-                            .setter(GreetingItems::setId)
-                            .tags(primaryPartitionKey()))
-                    .addAttribute(String.class, a -> a.name("author")
-                            .getter(GreetingItems::getName)
-                            .setter(GreetingItems::setName))
-                    .addAttribute(String.class, a -> a.name("title")
-                            .getter(GreetingItems::getTitle)
-                            .setter(GreetingItems::setTitle))
-                    .addAttribute(String.class, a -> a.name("body")
-                            .getter(GreetingItems::getMessage)
-                            .setter(GreetingItems::setMessage))
-                    .build();
-
      // Uses the enhanced client to inject a new post into a DynamoDB table
      public void injectDynamoItem(Greeting item){
 
@@ -343,14 +325,14 @@ Create a **PutItemEnhancedRequest** object and pass the **GreetingItems** object
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
-      try {
+     try {
 
        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                     .dynamoDbClient(ddb)
                     .build();
 
        // Create a DynamoDbTable object
-       DynamoDbTable<GreetingItems> mappedTable = enhancedClient.table("Greeting", TABLE_SCHEMA);
+       DynamoDbTable<GreetingItems> mappedTable = enhancedClient.table("Greeting", TableSchema.fromBean(GreetingItems.class));
        GreetingItems gi = new GreetingItems();
        gi.setName(item.getName());
        gi.setMessage(item.getBody());
