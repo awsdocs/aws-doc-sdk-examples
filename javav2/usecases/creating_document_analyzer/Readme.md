@@ -301,7 +301,7 @@ The following Java code represents the **DocumentController** class.
       }
     }
     
-**Note** - Besure to specify your bucket name in this code.     
+**Note** - Specify your bucket name in this code.     
 
 ### S3Service class
 
