@@ -85,73 +85,14 @@ At this point, you have a new project named **Greetings**.
 
 ![AWS Tracking Application](images/project1.png)
 
-Inside the **project** element in the **pom.xml** file, add the **spring-boot-starter-parent** dependency.
-
-	<parent>
-	    <groupId>org.springframework.boot</groupId>
-	    <artifactId>spring-boot-starter-parent</artifactId>
-	    <version>2.2.5.RELEASE</version>
-	    <relativePath/> <!-- lookup parent from repository -->
-	</parent>
-
-Also, add the following Spring Boot **dependency** elements inside the **dependencies** element.
-
-	<dependency>
-	    <groupId>org.springframework.boot</groupId>
-	    <artifactId>spring-boot-starter-thymeleaf</artifactId>
-	</dependency>
-	<dependency>
-	    <groupId>org.springframework.boot</groupId>
-	    <artifactId>spring-boot-starter-web</artifactId>
-	</dependency>
-	<dependency>
-	    <groupId>org.springframework.boot</groupId>
-	    <artifactId>spring-boot-starter-test</artifactId>
-	    <scope>test</scope>
-	    <exclusions>
-	        <exclusion>
-	            <groupId>org.junit.vintage</groupId>
-	            <artifactId>junit-vintage-engine</artifactId>
-	        </exclusion>
-	    </exclusions>
-	</dependency>
-
-Also add these AWS API dependencies.
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>software.amazon.awssdk</groupId>
-                <artifactId>bom</artifactId>
-                <version>2.16.0</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-    <dependency>
-        <groupId>software.amazon.awssdk</groupId>
-        <artifactId>dynamodb-enhanced</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>software.amazon.awssdk</groupId>
-        <artifactId>dynamodb</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>software.amazon.awssdk</groupId>
-        <artifactId>sns</artifactId>
-    </dependency>
-
-**Note:** Ensure that you're using Java 1.8 (shown below).
-
-At this point, ensure that the **pom.xml** file resembles the following file.
+Ensure that the **pom.xml** file resembles the following XML code.
 
 	<?xml version="1.0" encoding="UTF-8"?>
 	<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>spring-aws</groupId>
-		<artifactId>greetings</artifactId>
+	<artifactId>greetings</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<description>Demo project for Spring Boot</description>
