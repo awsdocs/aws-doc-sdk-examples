@@ -305,7 +305,7 @@ The following Java code represents the **DocumentController** class.
 
 ### S3Service class
 
-The following class uses the Amazon S3 API to perform S3 operations. For example, the **getObjectBytes** method returns a byte array that represents the image. Be sure to replace the bucket name in this code example with your bucket name.
+The following class uses the Amazon S3 API to perform S3 operations. For example, the **getObjectBytes** method returns a byte array that represents the image. 
 
     package com.aws.example;
 
