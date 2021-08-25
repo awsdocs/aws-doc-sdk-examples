@@ -293,30 +293,30 @@ To inject data into a DynamoDB table, create a **DynamoDbTable** object by invok
 
 Create a **PutItemEnhancedRequest** object and pass the **GreetingItems** object for the **items** method. Finally, invoke the **DynamoDbEnhancedClient** object's **putItem** method, and pass the **PutItemEnhancedRequest** object. The following Java code represents the **DynamoDBEnhanced** class.
 
-	package com.example.handlingformsubmission;
+     package com.example.handlingformsubmission;
 
-	import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primaryPartitionKey;
-	import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-	import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
-	import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
-	import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
-	import software.amazon.awssdk.enhanced.dynamodb.mapper.StaticTableSchema;
-	import software.amazon.awssdk.enhanced.dynamodb.model.PutItemEnhancedRequest;
-	import software.amazon.awssdk.regions.Region;
-	import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-	import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
-	import org.springframework.stereotype.Component;
+    import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primaryPartitionKey;
+    import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+    import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
+    import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+    import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+    import software.amazon.awssdk.enhanced.dynamodb.mapper.StaticTableSchema;
+    import software.amazon.awssdk.enhanced.dynamodb.model.PutItemEnhancedRequest;
+    import software.amazon.awssdk.regions.Region;
+    import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+    import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
+    import org.springframework.stereotype.Component;
 
-	@Component("DynamoDBEnhanced")
-	public class DynamoDBEnhanced {
+    @Component("DynamoDBEnhanced")
+    public class DynamoDBEnhanced {
 
-    	private final ProvisionedThroughput DEFAULT_PROVISIONED_THROUGHPUT =
+    private final ProvisionedThroughput DEFAULT_PROVISIONED_THROUGHPUT =
             ProvisionedThroughput.builder()
                     .readCapacityUnits(50L)
                     .writeCapacityUnits(50L)
                     .build();
 
-    	private final TableSchema<GreetingItems> TABLE_SCHEMA =
+    private final TableSchema<GreetingItems> TABLE_SCHEMA =
             StaticTableSchema.builder(GreetingItems.class)
                     .newItemSupplier(GreetingItems::new)
                     .addAttribute(String.class, a -> a.name("idblog")
@@ -334,86 +334,88 @@ Create a **PutItemEnhancedRequest** object and pass the **GreetingItems** object
                             .setter(GreetingItems::setMessage))
                     .build();
 
-    	// Uses the enhanced client to inject a new post into a DynamoDB table
-    	public void injectDynamoItem(Greeting item){
+     // Uses the enhanced client to inject a new post into a DynamoDB table
+     public void injectDynamoItem(Greeting item){
 
-        Region region = Region.US_EAST_1;
-         DynamoDbClient ddb = DynamoDbClient.builder()
+     Region region = Region.US_EAST_1;
+     DynamoDbClient ddb = DynamoDbClient.builder()
                 .region(region)
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
-        try {
+      try {
 
-            DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+       DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                     .dynamoDbClient(ddb)
                     .build();
 
-            // Create a DynamoDbTable object
-            DynamoDbTable<GreetingItems> mappedTable = enhancedClient.table("Greeting", TABLE_SCHEMA);
-            GreetingItems gi = new GreetingItems();
-            gi.setName(item.getName());
-            gi.setMessage(item.getBody());
-            gi.setTitle(item.getTitle());
-            gi.setId(item.getId());
+       // Create a DynamoDbTable object
+       DynamoDbTable<GreetingItems> mappedTable = enhancedClient.table("Greeting", TABLE_SCHEMA);
+       GreetingItems gi = new GreetingItems();
+       gi.setName(item.getName());
+       gi.setMessage(item.getBody());
+       gi.setTitle(item.getTitle());
+       gi.setId(item.getId());
 
-            PutItemEnhancedRequest enReq = PutItemEnhancedRequest.builder(GreetingItems.class)
+       PutItemEnhancedRequest enReq = PutItemEnhancedRequest.builder(GreetingItems.class)
                     .item(gi)
                     .build();
 
-            mappedTable.putItem(enReq);
+       mappedTable.putItem(enReq);
 
-        } catch (Exception e) {
+      } catch (Exception e) {
             e.getStackTrace();
-          }
-    	}
+         }
+    }
 
-	@DynamoDbBean
-        public class GreetingItems {
+     @DynamoDbBean
+     public class GreetingItems {
 
-         //Set up Data Members that correspond to columns in the Greeting table
-         private String id;
-         private String name;
-         private String message;
-         private String title;
+     //Set up Data Members that correspond to columns in the Greeting table
+     private String id;
+     private String name;
+     private String message;
+     private String title;
 
-         public GreetingItems() {
+     public GreetingItems() {
         }
 
-         @DynamoDbPartitionKey
-         public String getId() {
+    @DynamoDbPartitionKey
+    public String getId() {
             return this.id;
-         }
+    }
 
-         public void setId(String id) {
-            this.id = id;
-         }
+    public void setId(String id) {
+       this.id = id;
+    }
 
-         public String getName() {
-            return this.name;
-         }
+    public String getName() {
+      return this.name;
+    }
 
-         public void setName(String name) {
-            this.name = name;
-         }
+    public void setName(String name) {
+         this.name = name;
+    }
 
-         public String getMessage(){
-            return this.message;
-         }
+    public String getMessage(){
+       return this.message;
+    }
 
-         public void setMessage(String message){
-            this.message = message;
-         }
+    public void setMessage(String message){
+        this.message = message;
+    }
 
-         public String getTitle() {
-            return this.title;
-         }
+    public String getTitle() {
+         return this.title;
+    }
 
-         public void setTitle(String title) {
-            this.title = title;
-          }
-        }
-       }
+    public void setTitle(String title) {
+        this.title = title;
+     }
+     }
+    }
+
+	
 
 **Note:** The **EnvironmentVariableCredentialsProvider** is used to create a **DynamoDbClient**, because this application will be deployed to Elastic Beanstalk. You can set up environment variables on Elastic Beanstalk so that the  **DynamoDbClient** is successfully created. 	
 
