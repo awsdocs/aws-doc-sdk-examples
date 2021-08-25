@@ -201,9 +201,9 @@ Create a Java package in the **main/java** folder named **com.aws.example**. The
 Create these Java classes:
 
 + **DocumentApplication** - Used as the base class for the Spring Boot application.
-+ **DocumentController** - Used as the Spring Boot controller that handles HTTP requests..   
++ **DocumentController** - Used as the Spring Boot controller that handles HTTP requests.   
 + **S3Service** - Uses the Amazon S3 API to perform S3 operations.
-+ **TextractService** -Uses the Amazon Textract API to perform document operations.
++ **TextractService** - Uses the Amazon Textract API to perform document operations.
 
 
 ### DocumentApplication class
