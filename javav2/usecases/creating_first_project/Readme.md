@@ -165,7 +165,7 @@ Ensure that the **pom.xml** file resembles the following XML code.
 
 In the **main/java** folder, create a Java package named **com.example.handlingformsubmission**. The Java files go into this package.
 
-![AWS Tracking Application](images/project.png)
+![AWS Tracking Application](images/project2.png)
 
 The Java files in this package are the following:
 
