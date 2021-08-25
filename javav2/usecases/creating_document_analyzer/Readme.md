@@ -473,7 +473,7 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
         }
         return null;
     }
-}
+    }
 
 
 ### TextractService class
