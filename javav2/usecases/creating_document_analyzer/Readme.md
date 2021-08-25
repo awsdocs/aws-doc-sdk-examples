@@ -68,15 +68,11 @@ The following illustration shows the Home page of the application.
 
 The AWS document analyzer application supports uploading PDF images to an Amazon S3 bucket. 
 
-![AWS Photo Analyzer](images/upload.png)
+![AWS Photo Analyzer](images/upload1.png)
 
-After the PDF image is uploaded, you can select the image from a drop down field. 
+After the PDF image is uploaded, you can select the image from a drop down field. Then choose the **Analyze Document** button and the results are displayed in the web application. 
 
-![AWS Photo Analyzer](images/document1.png)
-
-Then choose the **Analyze Document** button and the results are displayed in the web application. 
-
-![AWS Photo Analyzer](images/results.png)
+![AWS Photo Analyzer](images/results1.png)
 
 ## Create an IntelliJ project named SpringDocumentAnalyzer
 
