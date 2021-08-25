@@ -1,7 +1,7 @@
 #  Creating an AWS document analyzer application using the AWS SDK for Java
 
 ## Purpose
-You can create an AWS application that analyzes PDF document images located in an Amazon Simple Storage Service (Amazon S3) bucket by using the Amazon Textract service. The following information can be returned in Block objects.
+You can create an AWS application that analyzes PDF document images located in an Amazon Simple Storage Service (Amazon S3) bucket by using the Amazon Textract service and the AWS SDK for Java V2. The following information can be returned in Block objects.
 
 - The lines and words of detected text
 - The relationships between the lines and words of detected text
