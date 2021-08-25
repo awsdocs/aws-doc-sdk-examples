@@ -242,7 +242,7 @@ The following Java code represents the **DocumentController** class.
     @Controller
     public class DocumentController {
 
-     private String bucketName = "scottdocbucket";
+     private String bucketName = "<ENTER BUCKET NAME>";
 
      @Autowired
      S3Service s3Service;
@@ -300,6 +300,8 @@ The following Java code represents the **DocumentController** class.
         return new ModelAndView(new RedirectView("process"));
       }
     }
+    
+**Note** - Besure to specify your bucket name in this code.     
 
 ### S3Service class
 
