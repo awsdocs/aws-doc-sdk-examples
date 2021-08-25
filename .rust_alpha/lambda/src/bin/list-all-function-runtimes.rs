@@ -24,7 +24,7 @@ struct Opt {
     verbose: bool,
 }
 
-/// Lists the Lambda ARNs and runtimes in the given AWS Region.
+/// Lists the ARNs and runtimes of all Lambda functions in all Regions.
 async fn show_lambdas(verbose: bool, language: &str, reg: String) {
     let r = reg.clone();
     let region = Region::new(reg);
