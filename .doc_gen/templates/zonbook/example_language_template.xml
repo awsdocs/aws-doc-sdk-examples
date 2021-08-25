@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
+    %xinclude;
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<variablelist role="termdef">
+    {{range $version := .Versions}}
+    <varlistentry>
+        <term>{{$version.SdkEntity.Short}}</term>
+        <listitem>
+            {{if $version.BlockContent}}
+            <xi:include href="file://AWSShared/code-samples/docs/{{.BlockContent}}"></xi:include>
+            <itemizedlist>
+                <title>Services used in this example</title>
+                {{range $svc_ent := $version.Services}}
+                <listitem><para>{{$svc_ent.Short}}</para></listitem>
+                {{end}}
+            </itemizedlist>
+            {{else}}{{range $version.Excerpts}}
+            <block>
+                <para>{{.Description}}</para>
+                <programlisting language="{{.Syntax}}">{{range .SnippetTags}}<xi:include parse="text" href="file://AWSShared/snippets/{{.}}.txt"/>{{end}}</programlisting>
+            </block>
+            {{end}}
+            <itemizedlist>
+                {{if $version.GitHubUrl}}
+                <listitem>
+                    <para>
+                        Find instructions and more code on <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/{{$version.GitHubUrl}}">GitHub</ulink>
+                    </para>
+                </listitem>
+                {{end}}
+                {{if $version.SdkGuideUrl}}
+                <listitem>
+                    <para>
+                        For more information, see <ulink {{$version.SdkGuideDocType}} url="{{$version.SdkGuideUrl}}">{{$version.SdkGuideEntity}}</ulink>
+                    </para>
+                </listitem>
+                {{end}}
+            </itemizedlist>
+            {{end}}
+        </listitem>
+    </varlistentry>
+    {{end}}
+</variablelist>
