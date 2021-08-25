@@ -365,56 +365,55 @@ Create a **PutItemEnhancedRequest** object and pass the **GreetingItems** object
 
         } catch (Exception e) {
             e.getStackTrace();
-        }
+          }
     	}
 
-	 @DynamoDbBean
+	@DynamoDbBean
         public class GreetingItems {
 
-        //Set up Data Members that correspond to columns in the Greeting table
-        private String id;
-        private String name;
-        private String message;
-        private String title;
+         //Set up Data Members that correspond to columns in the Greeting table
+         private String id;
+         private String name;
+         private String message;
+         private String title;
 
-        public GreetingItems()
-        {
+         public GreetingItems() {
         }
 
-        @DynamoDbPartitionKey
-        public String getId() {
+         @DynamoDbPartitionKey
+         public String getId() {
             return this.id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return this.name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getMessage(){
-            return this.message;
-        }
-
-        public void setMessage(String message){
-            this.message = message;
-        }
-
-        public String getTitle() {
-            return this.title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
          }
+
+         public void setId(String id) {
+            this.id = id;
+         }
+
+         public String getName() {
+            return this.name;
+         }
+
+         public void setName(String name) {
+            this.name = name;
+         }
+
+         public String getMessage(){
+            return this.message;
+         }
+
+         public void setMessage(String message){
+            this.message = message;
+         }
+
+         public String getTitle() {
+            return this.title;
+         }
+
+         public void setTitle(String title) {
+            this.title = title;
+          }
+        }
        }
-     }
 
 **Note:** The **EnvironmentVariableCredentialsProvider** is used to create a **DynamoDbClient**, because this application will be deployed to Elastic Beanstalk. You can set up environment variables on Elastic Beanstalk so that the  **DynamoDbClient** is successfully created. 	
 
