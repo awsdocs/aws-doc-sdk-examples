@@ -87,6 +87,8 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 
 + **Create an Amazon Personalize app with the AWS SDK for Java** - This tutorial shows you how to complete the Amazon Personalize workflow from start to finish with the AWS Java V2 SDK. The project trains two different models with the movie-lens dataset: one with the User-Personalization (`aws-user-personalization`) recipe for creating personalized recommendations for your users, and one with the item-to-item similarities (`aws-sims`) recipe to generate recommendations for items that are similar to a given item.
 
++ **Creating an AWS document analyzer application using the AWS SDK for Java** - This tutorial shows you how to use the Amazon Textract service and the Amazon Simple Storage Service to analyze PDF document images.
+
 AWS service examples
 --------------------
 
