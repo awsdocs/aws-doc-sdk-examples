@@ -92,7 +92,7 @@ This AWS CDK app creates the following resources:
 
 For more information on the example using these resources, see [Tutorial: Creating and using Lambda functions](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lambda-create-table-example.html).
 
-## kenesis-example-create-stream -> kinesis-example-create-stream
+## kinesis-example-create-stream
 
 This AWS CDK app creates the following resources:
 
