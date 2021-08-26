@@ -20,7 +20,7 @@ import java.io.IOException;
 @Controller
 public class DocumentController {
 
-    private String bucketName = "<ENTER BUCKET NAME>";
+    private String bucketName = "scottdocbucket";
 
     @Autowired
     S3Service s3Service;

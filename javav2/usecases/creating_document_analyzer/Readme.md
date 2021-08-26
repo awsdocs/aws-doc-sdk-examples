@@ -1,7 +1,7 @@
 #  Creating an AWS document analyzer application using the AWS SDK for Java
 
 ## Purpose
-You can create an AWS application that analyzes PDF document images located in an Amazon Simple Storage Service (Amazon S3) bucket by using the Amazon Textract service and the AWS SDK for Java V2. The following information can be returned in Block objects.
+You can create an AWS application that analyzes PDF document images located in an Amazon Simple Storage Service (Amazon S3) bucket by using the Amazon Textract service. The following information can be returned in Block objects.
 
 - The lines and words of detected text
 - The relationships between the lines and words of detected text
@@ -37,7 +37,8 @@ This application uses the following AWS services:
 + Create the Java classes
 + Create the HTML files
 + Create the script files
-+ Run the application
++ Package the project into a JAR file
++ Deploy the application to AWS Elastic Beanstalk
 
 ## Prerequisites
 
@@ -63,7 +64,7 @@ Create an Amazon S3 bucket named **doc[somevalue]**. Be sure to use this bucket 
 
 The following illustration shows the Home page of the application. 
 
-![AWS Photo Analyzer](images/home1.png)
+![AWS Photo Analyzer](images/home.png)
 
 The AWS document analyzer application supports uploading PDF images to an Amazon S3 bucket. 
 
@@ -201,9 +202,9 @@ Create a Java package in the **main/java** folder named **com.aws.example**. The
 Create these Java classes:
 
 + **DocumentApplication** - Used as the base class for the Spring Boot application.
-+ **DocumentController** - Used as the Spring Boot controller that handles HTTP requests.   
++ **DocumentController** - Used as the Spring Boot controller that handles HTTP requests..   
 + **S3Service** - Uses the Amazon S3 API to perform S3 operations.
-+ **TextractService** - Uses the Amazon Textract API to perform document operations.
++ **TextractService** -Uses the Amazon Textract API to perform document operations.
 
 
 ### DocumentApplication class
@@ -242,7 +243,7 @@ The following Java code represents the **DocumentController** class.
     @Controller
     public class DocumentController {
 
-     private String bucketName = "<ENTER BUCKET NAME>";
+     private String bucketName = "scottdocbucket";
 
      @Autowired
      S3Service s3Service;
@@ -300,12 +301,10 @@ The following Java code represents the **DocumentController** class.
         return new ModelAndView(new RedirectView("process"));
       }
     }
-    
-**Note** - Specify your bucket name in this code.     
 
 ### S3Service class
 
-The following class uses the Amazon S3 API to perform S3 operations. For example, the **getObjectBytes** method returns a byte array that represents the image. 
+The following class uses the Amazon S3 API to perform S3 operations. For example, the **getObjectBytes** method returns a byte array that represents the image. Be sure to replace the bucket name in this code example with your bucket name.
 
     package com.aws.example;
 
@@ -473,7 +472,7 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
         }
         return null;
     }
-    }
+}
 
 
 ### TextractService class
@@ -645,12 +644,12 @@ The following HTML represents the **index.html** file.
         Analyzing PDF documents has never been easier! Simply perform these steps:<p>
 
      <ol>
-        <li>You can upload a PNG image of a PDF document to an Amazon S3 bucket by choosing the <i>Upload Documents</i> menu item.</li>
-        <li>Choose <i>Choose File</i> and browse to a PNG image of a PDF document located on your local desktop.</li>
-        <li>Choose <i>Upload</i> to upload the image file to an Amazon S3 bucket.</li>
-        <li>You can choose <i>Get Documents</i> to view the PDF images located in the Amazon S3 bucket. All image files in the Amazon S3 bucket are displayed in the drop-down field. </li>
-        <li>You can analyze a given PDF image by choosing the <i>Analyze Documents</i> menu item. </li>
-        <li>Select a PDF image from the drop-down field and choose <i>Analyze Document</i>. The results are displaced in the application.  </li>
+        <li>You can upload a PDF document to an Amazon S3 bucket by choosing the <i>Upload Documents</i> menu item.</li>
+        <li>Choose <i>Choose File</i> and browse to a PDF document located on your local desktop.</li>
+        <li>Choose <i>Upload</i> to upload the PDF document to an Amazon S3 bucket.</li>
+        <li>You can choose <i>Get Documents</i> to view the PDF documents located in the Amazon S3 bucket. All documents in the Amazon S3 bucket are displayed in the drop-down field. </li>
+        <li>You can analyze a given PDF document by choosing the <i>Analyze Documents</i> menu item. </li>
+        <li>Select a PDF document from the drop-down field and choose <i>Analyze Document</i>. The results are displaced in the application.  </li>
      </ol>
      </div>
     </body>
