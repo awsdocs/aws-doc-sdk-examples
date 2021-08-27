@@ -33,29 +33,17 @@ public class GetSessionToken {
 
     public static void main(String[] args) {
 
-       final String USAGE = "\n" +
-                "Usage:\n" +
-                "    GetSessionToken <accessKeyId> \n\n" +
-                "Where:\n" +
-                "    accessKeyId - the identifier of an access key (for example, XXXXX3JWY3BXW7POHDLA). \n";
-
-        if (args.length != 1) {
-            System.out.println(USAGE);
-            System.exit(1);
-        }
-
-        String accessKeyId = args[0];
         Region region = Region.US_EAST_1;
         StsClient stsClient = StsClient.builder()
                 .region(region)
                 .build();
 
-        getToken(stsClient, accessKeyId);
+        getToken(stsClient);
         stsClient.close();
     }
 
     // snippet-start:[sts.java2.get_session_token.main]
-    public static void getToken(StsClient stsClient, String accessKeyId ) {
+    public static void getToken(StsClient stsClient) {
 
         try {
             GetSessionTokenRequest tokenRequest = GetSessionTokenRequest.builder()
