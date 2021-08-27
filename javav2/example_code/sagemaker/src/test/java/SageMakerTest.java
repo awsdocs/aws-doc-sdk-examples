@@ -89,7 +89,7 @@ public class SageMakerTest {
     @Test
     @Order(4)
     public void DescribeTrainingJob() {
-        DescribeTrainingJob.desribeTrainJob(sageMakerClient, trainingJobName);
+        DescribeTrainingJob.describeTrainJob(sageMakerClient, trainingJobName);
         System.out.println("Test 4 passed");
     }
 
