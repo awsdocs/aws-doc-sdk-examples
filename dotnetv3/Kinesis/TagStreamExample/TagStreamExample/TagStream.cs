@@ -40,13 +40,13 @@ namespace TagStreamExample
         }
 
         /// <summary>
-        /// Applies the set of tags to the named CloudWatch stream.
+        /// Applies the set of tags to the named Kinesis stream.
         /// </summary>
-        /// <param name="client">The initialized CloudWatch client.</param>
-        /// <param name="streamName">The name of the CloudWatch stream to which
+        /// <param name="client">The initialized Kinesis client.</param>
+        /// <param name="streamName">The name of the Kinesis stream to which
         /// the tags will be attached.</param>
         /// <param name="tags">A sictionary containing key/value pairs which
-        /// will be used to create the CloudWatch tags.</param>
+        /// will be used to create the Kinesis tags.</param>
         /// <returns>A Boolean value which represents the success or failure
         /// of AddTagsToStreamAsync.</returns>
         public static async Task<bool> ApplyTagsToStreamAsync(IAmazonKinesis client,

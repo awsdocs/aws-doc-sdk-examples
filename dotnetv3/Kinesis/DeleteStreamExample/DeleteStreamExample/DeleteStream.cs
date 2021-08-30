@@ -36,7 +36,7 @@ namespace DeleteStreamExample
         /// </summary>
         /// <param name="client">An initialized Kinesis client object.</param>
         /// <param name="streamName">The name of the string to delete.</param>
-        /// <returns>A Boolean value representing the succes of the operation.</returns>
+        /// <returns>A Boolean value representing the success of the operation.</returns>
         public static async Task<bool> DeleteStreamAsync(IAmazonKinesis client, string streamName)
         {
             // If EnforceConsumerDeletion is true, any consumers
