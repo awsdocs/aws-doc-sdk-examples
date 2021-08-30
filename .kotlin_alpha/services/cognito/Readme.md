@@ -1,6 +1,6 @@
 # Amazon Cognito Kotlin code examples
 
-This README discusses how to run the Kotlin code examples forAmazon Cognito.
+This README discusses how to run the Kotlin code examples for Amazon Cognito.
 
 ## Running the Amazon Cognito Kotlin examples
 
