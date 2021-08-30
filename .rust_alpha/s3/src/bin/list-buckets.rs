@@ -44,8 +44,10 @@ async fn main() -> Result<(), Error> {
     let region = region::ChainProvider::first_try(region.map(Region::new))
         .or_default_provider()
         .or_else(Region::new("us-west-2"));
-
+  
     let region_str: String = String::from(region.region().unwrap().as_ref());
+
+    println!();
 
     if verbose {
         println!("S3 client version: {}", PKG_VERSION);

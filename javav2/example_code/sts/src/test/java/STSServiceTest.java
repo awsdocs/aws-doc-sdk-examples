@@ -1,3 +1,9 @@
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
+
 import com.example.sts.AssumeRole;
 import com.example.sts.GetAccessKeyInfo;
 import com.example.sts.GetCallerIdentity;
@@ -5,7 +11,6 @@ import com.example.sts.GetSessionToken;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sts.StsClient;
 import org.junit.jupiter.api.*;
-import software.amazon.awssdk.regions.Region;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.util.*;
@@ -69,7 +74,7 @@ public class STSServiceTest {
     @Test
     @Order(3)
     public void GetSessionToken() {
-        GetSessionToken.getToken(stsClient, accessKeyId);
+        GetSessionToken.getToken(stsClient);
         System.out.println("Test 3 passed");
     }
 
@@ -86,4 +91,5 @@ public class STSServiceTest {
         GetAccessKeyInfo.getKeyInfo(stsClient, accessKeyId);
         System.out.println("Test 5 passed");
     }
+
 }

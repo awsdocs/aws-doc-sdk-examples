@@ -41,8 +41,9 @@ This example deletes an object from an Amazon S3 bucket.
 
 This example lists your Amazon S3 buckets.
 
-`cargo run --bin list-buckets -- [-r REGION] [-v]`
+`cargo run --bin list-buckets -- [-s] [-r REGION] [-v]`
 
+- __-s__ display only buckets in the Region.
 - _REGION_ is the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
