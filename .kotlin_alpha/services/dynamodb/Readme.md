@@ -1,6 +1,6 @@
 # Amazon DynamoDB Kotlin code examples
 
-This README discusses how to run the Kotlin code examples forAmazon DynamoDB.
+This README discusses how to run the Kotlin code examples for Amazon DynamoDB.
 
 ## Running the Athena Java files
 
