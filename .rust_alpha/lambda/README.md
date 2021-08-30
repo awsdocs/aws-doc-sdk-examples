@@ -12,9 +12,21 @@ You must have an AWS account, and have configured your default credentials and A
 
 ## Running the code
 
+### change-java-runtime
+
+If a Lambda function uses a Java runtime, this example sets its runtime to Corretto.
+
+`cargo run --bin change-java-runtime -- -a ARN [-r REGION] [-v]`
+
+- _ARN_ is the ARN of the function.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.
+
 ### invoke-function
 
-This example invokes a function by its ARN.
+This example invokes a Lambda function.
 
 `cargo run --bin invoke-function -- -a ARN [-r REGION] [-v]`
 
@@ -24,11 +36,22 @@ This example invokes a function by its ARN.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
+### list-all-function-runtimes
+
+This example lists the ARNs and runtimes of all Lambda functions in all Regions.
+
+`cargo run --bin list-all-function-runtimes -- [-r REGION] [-v]`
+
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.
+
 ### list-functions
 
 This example lists your AWS Lambda functions.
 
-`cargo run --bin list-functions -- [-d DEFAULT-REGION] [-v]`
+`cargo run --bin list-functions -- [-r REGION] [-v]`
 
 - _REGION_ is the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
