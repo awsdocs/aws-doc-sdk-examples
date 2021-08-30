@@ -7,7 +7,7 @@ These examples demonstrate how to perform AWS service operations using the alpha
 ## Prerequisites
 
 You must have an AWS account, and have configured your default credentials and AWS Region as described in [AWS SDK for Kotlin
-Developer Guide](https://github.com/awslabs/aws-sdk-rust).
+Developer Guide](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide).
 
 ## Running the code
 
