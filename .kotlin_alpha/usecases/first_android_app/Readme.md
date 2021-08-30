@@ -84,8 +84,8 @@ Notice that there is Gradle build file here:
 
 Add the following AWS depedencies.
 
-    api("aws.sdk.kotlin:dynamodb:0.4.0-SNAPSHOT")
-    api("aws.sdk.kotlin:sns:0.4.0-SNAPSHOT")
+    api("aws.sdk.kotlin:dynamodb:0.4.0-alpha")
+    api("aws.sdk.kotlin:sns:0.4.0-alpha")
 
 The following code represents this build file.
 
