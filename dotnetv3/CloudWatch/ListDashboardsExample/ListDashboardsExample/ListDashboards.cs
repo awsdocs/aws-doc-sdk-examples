@@ -36,7 +36,7 @@ namespace ListDashboardsExample
         }
 
         /// <summary>
-        /// Displays the name f each CloudWatch Dashboard in the list passed
+        /// Displays the name of each CloudWatch Dashboard in the list passed
         /// to the method.
         /// </summary>
         /// <param name="dashboards">A list of DashboardEntry objects.</param>
