@@ -44,13 +44,14 @@ async fn main() -> Result<(), Error> {
     let region = region::ChainProvider::first_try(region.map(Region::new))
         .or_default_provider()
         .or_else(Region::new("us-west-2"));
-    println!();
-
+  
     let region_str: String = String::from(region.region().unwrap().as_ref());
+
+    println!();
 
     if verbose {
         println!("S3 client version: {}", PKG_VERSION);
-        println!("Region:            {}", region.region().unwrap().as_ref());
+        println!("Region:            {}", region_str);
 
         if strict {
             println!("Only lists buckets in the Region.");
@@ -61,7 +62,7 @@ async fn main() -> Result<(), Error> {
         println!();
     }
 
-    let conf = Config::builder().region(region).build();
+    let conf = Config::builder().region(region.region()).build();
     let client = Client::from_conf(conf);
 
     let resp = client.list_buckets().send().await?;
