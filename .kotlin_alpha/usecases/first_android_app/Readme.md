@@ -141,8 +141,8 @@ The following code represents this build file.
 
     dependencies {
      implementation fileTree(dir: "libs", include: ["*.jar"])
-     api("aws.sdk.kotlin:dynamodb:0.4.0-SNAPSHOT")
-     api("aws.sdk.kotlin:sns:0.4.0-SNAPSHOT")  {
+     api("aws.sdk.kotlin:dynamodb:0.4.0-alpha")
+     api("aws.sdk.kotlin:sns:0.4.0-alpha")  {
         exclude group: "xmlpull", module: "xmlpull"
      }
      coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
