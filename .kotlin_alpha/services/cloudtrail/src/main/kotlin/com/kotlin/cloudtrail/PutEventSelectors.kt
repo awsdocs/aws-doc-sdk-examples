@@ -14,14 +14,14 @@
 
 package com.kotlin.cloudtrail
 
-//snippet-start:[cloudtrail.kotlin._selectors.import]
+//snippet-start:[cloudtrail.kotlin.selectors.import]
 import aws.sdk.kotlin.services.cloudtrail.CloudTrailClient
 import aws.sdk.kotlin.services.cloudtrail.model.EventSelector
 import aws.sdk.kotlin.services.cloudtrail.model.PutEventSelectorsRequest
 import aws.sdk.kotlin.services.cloudtrail.model.ReadWriteType
 import aws.sdk.kotlin.services.cloudtrail.model.CloudTrailException
 import kotlin.system.exitProcess
-//snippet-end:[cloudtrail.kotlin._selectors.import]
+//snippet-end:[cloudtrail.kotlin.selectors.import]
 
 suspend fun main(args: Array<String>) {
 
@@ -46,7 +46,7 @@ suspend fun main(args: Array<String>) {
     cloudTrailClient.close()
   }
 
-//snippet-start:[cloudtrail.kotlin._selectors.main]
+//snippet-start:[cloudtrail.kotlin.selectors.main]
 suspend fun setSelector(cloudTrailClient: CloudTrailClient, trailNameVal: String?) {
         try {
 
@@ -67,4 +67,4 @@ suspend fun setSelector(cloudTrailClient: CloudTrailClient, trailNameVal: String
             exitProcess(0)
         }
  }
-//snippet-end:[cloudtrail.kotlin._selectors.main]
+//snippet-end:[cloudtrail.kotlin.selectors.main]
