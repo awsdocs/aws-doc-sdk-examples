@@ -27,7 +27,7 @@ suspend fun main(args:Array<String>) {
         <instanceID> 
 
     Where:
-        instanceId - an instance id value that you can obtain from the AWS Management Console. 
+        instanceID - an instance id value that you can obtain from the AWS Management Console. 
          
     """
 
