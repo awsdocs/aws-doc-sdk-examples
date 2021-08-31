@@ -28,7 +28,7 @@ suspend fun main(args:Array<String>) {
 
     Where:
         name - the name of the forecast. 
-        predictorArn - the arn of the predictor to use (ie, arn:aws:forecast:us-west-2:xxxxxe33:predictor/MyPredictor). 
+        predictorArn - the ARN of the predictor to use (ie, arn:aws:forecast:us-west-2:xxxxxe33:predictor/MyPredictor). 
     """
 
     if (args.size != 2) {
