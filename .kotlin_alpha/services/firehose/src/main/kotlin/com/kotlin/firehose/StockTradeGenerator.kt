@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[StockTrade.kt is a helper class]
+//snippet-sourcedescription:[StockTradeGenerator.kt is a helper class]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kinesis Data Firehose]
