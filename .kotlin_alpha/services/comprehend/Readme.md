@@ -2,7 +2,7 @@
 
 This README discusses how to run the Kotlin code examples forAmazon Comprehend.
 
-## Running the Athena Java files
+## Running the Amazon Comprehend Kotlin files
 
 **IMPORTANT**
 
