@@ -38,7 +38,7 @@ class StockTrade {
     }
 
     /**
-     * Represents the type of the stock trade eg buy or sell.
+     * Represents the type of the stock trade, e.g. buy or sell.
      */
     enum class TradeType {
         BUY, SELL
