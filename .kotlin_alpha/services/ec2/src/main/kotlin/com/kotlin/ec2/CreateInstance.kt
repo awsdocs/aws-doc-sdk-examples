@@ -36,7 +36,7 @@ suspend fun main(args:Array<String>) {
 
     if (args.size != 2) {
         println(usage)
-        System.exit(1)
+        exitProcess(0)
     }
 
     val name = args[0]

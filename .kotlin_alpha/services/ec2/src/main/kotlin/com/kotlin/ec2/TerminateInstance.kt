@@ -33,7 +33,7 @@ suspend fun main(args:Array<String>) {
 
     if (args.size != 1) {
         println(usage)
-        System.exit(1)
+        exitProcess(0)
     }
 
     val instanceId = args[0];
