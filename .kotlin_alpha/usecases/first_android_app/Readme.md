@@ -69,7 +69,7 @@ The first step is to create an Android project.
 5. In the **Name** field, enter **AWSAndroid**.
 6. In the **Package name** field, enter **com.example.aws**. 
 7. From the **Language** field, choose **Kotlin**. 
-8. In the **Minimum API** field, specify 26.
+8. In the **Minimum API** field, specify **API 26 - Android 8**.
 9. Choose **Finish**.
 
 ## Add the dependencies to your Andorid project
@@ -82,7 +82,7 @@ Notice that there is Gradle build file here:
 
 ![AWS Blog Application](images/project3.png)
 
-Add the following AWS depedencies.
+Add the following AWS dependencies.
 
     api("aws.sdk.kotlin:dynamodb:0.4.0-alpha")
     api("aws.sdk.kotlin:sns:0.4.0-alpha")
@@ -245,9 +245,9 @@ In the **com.example.aws** package, add additional Kotlin files, as shown in thi
 
 The Kotlin files in this package are the following:
 
-+ **Database** - A Kotlin class that injects data into an Amazon DynamoDB table by using the DynamoDB Kotlin API.
++ **Database** - A Kotlin class that injects data into an Amazon DynamoDB table by using the Amazon DynamoDB Kotlin API.
 + **MainActivity** - A Kotlin class that extends **AppCompatActivity**.
-+ **SendMessage** - A Kotlin class that sends a text message using the SNS Kotlin API.
++ **SendMessage** - A Kotlin class that sends a text message using the Amazon SNS Kotlin API.
 
 ### Create the Database class
 
@@ -414,7 +414,7 @@ The following Kotlin code represents the **SendMessage** Kotlin class that sends
 
 To run the application from the IDE, you must ensure that have you have installed an Android emulator which simulates an Android application. For more information, see [Run apps on the Android Emulator](https://developer.android.com/studio/run/emulator).  
 
-Once you install the emulator, you can run the application and then application appears in the emulator. 
+Once you install the emulator, you can run the application and then the application appears in the emulator. 
 ![AWS Tracking Application](images/app4.png)
 
 
