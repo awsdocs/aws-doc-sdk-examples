@@ -64,7 +64,7 @@ class StockTradeGenerator {
     }
 
     private val random = Random()
-    private val id = AtomicLong(1)// add 1 because nextInt() will return between 0 (inclusive)
+    private val id = AtomicLong(1)
 
     val randomTrade: StockTrade
         get() {
