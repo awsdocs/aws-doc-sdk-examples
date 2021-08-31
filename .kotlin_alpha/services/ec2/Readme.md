@@ -1,6 +1,6 @@
 # Amazon EC2 Kotlin code examples
 
-This README discusses how to run the Kotlin code examples for Amazon EC2.
+This README discusses how to run the Kotlin code examples for Amazon Elastic Compute Cloud (Amazon EC2).
 
 ## Running the Amazon EC2 Kotlin files
 
