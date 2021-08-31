@@ -41,7 +41,7 @@ suspend fun describeEC2RegionsAndZones(ec2: Ec2Client) {
 
         val zonesResponse = ec2.describeAvailabilityZones(DescribeAvailabilityZonesRequest{})
         for (zone: AvailabilityZone in zonesResponse.availabilityZones!!)
-            println("Found Availability Zone ${zone.zoneName} with status  ${zone.state} in region ${zone.regionName}")
+            println("Found Availability Zone ${zone.zoneName} with status  ${zone.state} in Region ${zone.regionName}")
 
     } catch (e: Ec2Exception) {
         println(e.message)
