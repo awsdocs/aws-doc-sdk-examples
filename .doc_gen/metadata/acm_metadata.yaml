@@ -1,3 +1,4 @@
+# zexi 0.1.0
 acm_DescribeCertificate:
   title: Describe an &ACM; certificate using an &AWS; SDK
   title_abbrev: Describe a certificate

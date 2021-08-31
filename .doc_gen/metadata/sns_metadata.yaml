@@ -1,3 +1,4 @@
+# zexi 0.1.0
 sns_GetTopicAttributes:
   title: Get the properties of an &SNS; topic using an &AWS; SDK
   title_abbrev: Get the properties of a topic
