@@ -2,7 +2,7 @@
 
 This README discusses how to run the Kotlin code examples for Amazon Athena.
 
-## Running the Athena Java files
+## Running the Athena Kotlin files
 
 **IMPORTANT**
 
