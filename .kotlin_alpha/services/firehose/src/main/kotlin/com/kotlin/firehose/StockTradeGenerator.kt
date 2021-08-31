@@ -91,34 +91,5 @@ class StockTradeGenerator {
         }
 
     private class StockPrice internal constructor(var tickerSymbol: String, var price: Double)
-
-    /**
-     * Return a random stock trade with a unique id every time.
-     *
-     */
-
-
-    fun getSampleData(): StockTrade {
-
-        // pick a random stock
-        val stockPrice = STOCK_PRICES[random.nextInt(STOCK_PRICES.size)]
-        // pick a random deviation between -MAX_DEVIATION and +MAX_DEVIATION
-        val deviation = (random.nextDouble() - 0.5) * 2.0 * MAX_DEVIATION
-        // set the price using the deviation and mean price
-        var price = stockPrice.price * (1 + deviation)
-        // round price to 2 decimal places
-        price = Math.round(price * 100.0) / 100.0
-
-        // set the trade type to buy or sell depending on the probability of sell
-        var tradeType = TradeType.BUY
-        if (random.nextDouble() < PROBABILITY_SELL) {
-            tradeType = TradeType.SELL
-        }
-
-        // randomly pick a quantity of shares
-        val quantity =
-            random.nextInt(MAX_QUANTITY) + 1.toLong() // add 1 because nextInt() will return between 0 (inclusive)
-        // and MAX_QUANTITY (exclusive). we want at least 1 share.
-        return StockTrade(stockPrice.tickerSymbol, tradeType, price, quantity, id.getAndIncrement())
-    }
+    
 }
