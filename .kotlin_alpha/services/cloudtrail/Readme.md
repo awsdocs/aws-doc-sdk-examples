@@ -2,7 +2,7 @@
 
 This README discusses how to run the Kotlin code examples for AWS CloudTrail.
 
-## Running the Athena Java files
+## Running the AWS CloudTrail Kotlin files
 
 **IMPORTANT**
 
