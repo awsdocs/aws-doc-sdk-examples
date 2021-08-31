@@ -1,6 +1,6 @@
 # Amazon Comprehend Kotlin code examples
 
-This README discusses how to run the Kotlin code examples forAmazon Comprehend.
+This README discusses how to run the Kotlin code examples for Amazon Comprehend.
 
 ## Running the Amazon Comprehend Kotlin files
 
