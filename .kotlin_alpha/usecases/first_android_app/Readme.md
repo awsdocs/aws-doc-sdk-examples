@@ -72,7 +72,7 @@ The first step is to create an Android project.
 8. In the **Minimum API** field, specify **API 26 - Android 8**.
 9. Choose **Finish**.
 
-## Add the dependencies to your Andorid project
+## Add the dependencies to your Android project
 
 At this point, you have a new project named **AWSAndroid** with a default Kotlin class named **MainActivity**.
 
