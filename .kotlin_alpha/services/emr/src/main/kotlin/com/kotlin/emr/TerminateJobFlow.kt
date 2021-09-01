@@ -12,12 +12,12 @@
 
 package com.kotlin.emr
 
-//snippet-start:[erm.kotlin.terminate_job.import]
+//snippet-start:[emr.kotlin.terminate_job.import]
 import aws.sdk.kotlin.services.emr.EmrClient
 import aws.sdk.kotlin.services.emr.model.TerminateJobFlowsRequest
 import aws.sdk.kotlin.services.emr.model.EmrException
 import kotlin.system.exitProcess
-//snippet-end:[erm.kotlin.terminate_job.import]
+//snippet-end:[emr.kotlin.terminate_job.import]
 
 /**
 To run this Kotlin code example, ensure that you have setup your development environment,
@@ -48,7 +48,7 @@ suspend fun main(args:Array<String>) {
     terminateFlow(emrClient, id)
 }
 
-//snippet-start:[erm.kotlin.terminate_job.main]
+//snippet-start:[emr.kotlin.terminate_job.main]
 suspend fun terminateFlow(emrClient: EmrClient, id: String) {
     try {
         val jobFlowsRequest = TerminateJobFlowsRequest{
@@ -64,4 +64,4 @@ suspend fun terminateFlow(emrClient: EmrClient, id: String) {
     }
 }
 
-//snippet-end:[erm.kotlin.terminate_job.main]
+//snippet-end:[emr.kotlin.terminate_job.main]
