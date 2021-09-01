@@ -20,6 +20,14 @@ import aws.sdk.kotlin.services.athena.model.ListQueryExecutionsRequest
 import kotlin.system.exitProcess
 //snippet-end:[athena.kotlin.ListNamedQueryExecutionsExample.import]
 
+/**
+To run this Kotlin code example, ensure that you have setup your development environment,
+including your credentials.
+
+For information, see this documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+
 suspend fun main() {
 
     val athenaClient = AthenaClient { region = "us-west-2" }
