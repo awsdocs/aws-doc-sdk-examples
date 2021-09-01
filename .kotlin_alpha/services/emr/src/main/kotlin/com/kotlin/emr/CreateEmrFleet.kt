@@ -12,7 +12,7 @@
 
 package com.kotlin.emr
 
-//snippet-start:[erm.kotlin.create_fleet.import]
+//snippet-start:[emr.kotlin.create_fleet.import]
 import aws.sdk.kotlin.services.emr.EmrClient
 import aws.sdk.kotlin.services.emr.model.InstanceTypeConfig
 import aws.sdk.kotlin.services.emr.model.InstanceFleetConfig
@@ -22,7 +22,7 @@ import aws.sdk.kotlin.services.emr.model.RunJobFlowRequest
 import aws.sdk.kotlin.services.emr.model.EmrException
 import aws.sdk.kotlin.services.emr.model.Application
 import kotlin.system.exitProcess
-//snippet-end:[erm.kotlin.create_fleet.import]
+//snippet-end:[emr.kotlin.create_fleet.import]
 
 /*
 * To run the CreateEmrFleet example, it is recommended that you go through the following document:
@@ -46,7 +46,7 @@ suspend fun main() {
     emrClient.close()
 }
 
-//snippet-start:[erm.kotlin.create_fleet.main]
+//snippet-start:[emr.kotlin.create_fleet.main]
 suspend fun createFleet(emr: EmrClient) {
     try {
 
@@ -153,4 +153,4 @@ suspend fun createFleet(emr: EmrClient) {
         exitProcess(0)
     }
 }
-//snippet-end:[erm.kotlin.create_fleet.main]
+//snippet-end:[emr.kotlin.create_fleet.main]
