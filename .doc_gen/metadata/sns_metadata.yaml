@@ -881,7 +881,9 @@ sns_PublishFifoTopic:
             - description: Create a FIFO topic and FIFO queues. Subscribe the queues to the topic.
               snippet_tags:
                 - sns.java.fifo_topics.create_topic
-            - description: Set a filter policy on each subscription so that each subscriber application receives only the price updates that it needs.
+            - description: |-
+                Set a filter policy on each subscription so that each subscriber application receives only the price
+                updates that it needs.
               snippet_tags:
                 - sns.java.fifo_topics.filter_policy
             - description: Compose and publish a message that updates the wholesale price.
@@ -893,7 +895,7 @@ sns_PublishLargeMessage:
   title: Publish a large message to &SNS; with &S3; using an &AWS; SDK
   title_abbrev: Publish a large message
   synopsis: The following code shows how to publish a large message to &SNS; using &S3; to store the message payload.
-    category:
+  category:
   languages:
     Java:
       versions:
