@@ -22,6 +22,14 @@ import aws.sdk.kotlin.services.cloudwatchlogs.model.SubscriptionFilter
 import kotlin.system.exitProcess
 // snippet-end:[cloudwatch.kotlin.describe_subscription_filters.import]
 
+/**
+To run this Kotlin code example, ensure that you have setup your development environment,
+including your credentials.
+
+For information, see this documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+
 suspend fun main(args:Array<String>) {
 
     val usage = """
