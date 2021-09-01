@@ -22,7 +22,13 @@ import aws.sdk.kotlin.services.comprehend.model.ComprehendException
 import kotlin.system.exitProcess
 //snippet-end:[comprehend.kotlin.classifier.import]
 
+/**
+To run this Kotlin code example, ensure that you have setup your development environment,
+including your credentials.
 
+For information, see this documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
 suspend fun main(args: Array<String>) {
 
     val usage = """
@@ -41,7 +47,7 @@ suspend fun main(args: Array<String>) {
         exitProcess(0)
     }
 
-    val dataAccessRoleArn  = args[0]
+    val dataAccessRoleArn = args[0]
     val s3Uri = args[1]
     val documentClassifierName = args[2]
 
