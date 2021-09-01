@@ -22,6 +22,13 @@ import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
 import java.util.HashMap
 // snippet-end:[dynamodb.kotlin.scan_items_filter.import]
 
+/**
+To run this Kotlin code example, ensure that you have setup your development environment,
+including your credentials.
+
+For information, see this documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
 suspend fun main(args: Array<String>) {
 
     val usage = """
