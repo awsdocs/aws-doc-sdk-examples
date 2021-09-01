@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteDomain.kt demonstrates how to delete an Amazon Elasticsearch domain.]
+//snippet-sourcedescription:[DeleteDomain.kt demonstrates how to delete an Amazon Elasticsearch Service domain.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Elasticsearch Service]

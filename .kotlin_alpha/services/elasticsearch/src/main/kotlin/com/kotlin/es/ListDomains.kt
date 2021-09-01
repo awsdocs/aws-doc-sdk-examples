@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListDomains.kt demonstrates how to list all Elasticsearch domains owned by the current user's account.]
+//snippet-sourcedescription:[ListDomains.kt demonstrates how to list all Amazon Elasticsearch Service domains owned by the current user's account.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Elasticsearch Service]

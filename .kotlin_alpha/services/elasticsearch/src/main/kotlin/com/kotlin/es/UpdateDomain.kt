@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[UpdateDomain.kt demonstrates how to update an Amazon Elasticsearch domain.]
+//snippet-sourcedescription:[UpdateDomain.kt demonstrates how to update an Amazon Elasticsearch Service domain.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Elasticsearch Service]

@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateDomain.kt demonstrates how to create an Amazon Elasticsearch domain.]
+//snippet-sourcedescription:[CreateDomain.kt demonstrates how to create an Amazon Elasticsearch Service domain.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Elasticsearch Service]
