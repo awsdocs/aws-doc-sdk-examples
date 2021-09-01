@@ -32,7 +32,6 @@ including your credentials.
 For information, see this documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
-
 suspend fun main(args:Array<String>) {
 
     val usage = """
@@ -127,6 +126,5 @@ suspend fun createAppCluster(
         println(e.message)
         exitProcess(0)
     }
-    return ""
-}
+ }
 //snippet-end:[erm.kotlin.create_cluster.main]
