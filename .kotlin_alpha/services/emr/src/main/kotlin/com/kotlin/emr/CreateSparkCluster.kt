@@ -12,7 +12,7 @@
 
 package com.kotlin.emr
 
-//snippet-start:[erm.kotlin.create_spark.import]
+//snippet-start:[emr.kotlin.create_spark.import]
 import aws.sdk.kotlin.services.emr.EmrClient
 import aws.sdk.kotlin.services.emr.model.HadoopJarStepConfig
 import aws.sdk.kotlin.services.emr.model.Application
@@ -22,7 +22,7 @@ import aws.sdk.kotlin.services.emr.model.JobFlowInstancesConfig
 import aws.sdk.kotlin.services.emr.model.RunJobFlowRequest
 import aws.sdk.kotlin.services.emr.model.EmrException
 import kotlin.system.exitProcess
-//snippet-end:[erm.kotlin.create_spark.import]
+//snippet-end:[emr.kotlin.create_spark.import]
 
 /**
 To run this Kotlin code example, ensure that you have setup your development environment,
@@ -62,7 +62,7 @@ suspend fun main(args:Array<String>) {
     println("The job flow id is $jobFlowId")
 }
 
-//snippet-start:[erm.kotlin.create_spark.main]
+//snippet-start:[emr.kotlin.create_spark.main]
 suspend fun createSparkCluster(
     emrClient: EmrClient,
     jarVal: String?,
@@ -116,4 +116,4 @@ suspend fun createSparkCluster(
         exitProcess(0)
     }
 }
-//snippet-end:[erm.kotlin.create_spark.main]
+//snippet-end:[emr.kotlin.create_spark.main]
