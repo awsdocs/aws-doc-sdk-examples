@@ -19,7 +19,7 @@ struct Opt {
     verbose: bool,
 }
 
-/// Displays information about your API Gateway functions in the Region.
+/// Displays information about the Amazon API Gateway REST APIs in the Region.
 ///
 /// # Arguments
 ///
