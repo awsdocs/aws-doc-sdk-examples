@@ -20,6 +20,14 @@ import aws.sdk.kotlin.services.firehose.model.ListDeliveryStreamsRequest
 import kotlin.system.exitProcess
 // snippet-end:[firehose.kotlin.list_streams.import]
 
+/**
+To run this Kotlin code example, ensure that you have setup your development environment,
+including your credentials.
+
+For information, see this documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+
 suspend fun main() {
 
     val firehoseClient = FirehoseClient{region="us-east-1"}
