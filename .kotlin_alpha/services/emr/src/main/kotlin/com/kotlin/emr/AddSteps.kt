@@ -12,11 +12,11 @@
 
 package com.kotlin.emr
 
-//snippet-start:[erm.kotlin.add_steps.import]
+//snippet-start:[emr.kotlin.add_steps.import]
 import aws.sdk.kotlin.services.emr.EmrClient
 import aws.sdk.kotlin.services.emr.model.*
 import kotlin.system.exitProcess
-//snippet-end:[erm.kotlin.add_steps.import]
+//snippet-end:[emr.kotlin.add_steps.import]
 
 /**
 To run this Kotlin code example, ensure that you have setup your development environment,
@@ -51,7 +51,7 @@ suspend fun main(args:Array<String>) {
 
 }
 
-//snippet-start:[erm.kotlin.add_steps.main]
+//snippet-start:[emr.kotlin.add_steps.main]
 suspend fun addNewStep(emrClient: EmrClient, jobFlowIdVal: String?, jarVal: String?, myClass: String?) {
     try {
         val jarStepConfig = HadoopJarStepConfig {
@@ -77,4 +77,4 @@ suspend fun addNewStep(emrClient: EmrClient, jobFlowIdVal: String?, jarVal: Stri
         exitProcess(0)
     }
 }
-//snippet-end:[erm.kotlin.add_steps.main]
+//snippet-end:[emr.kotlin.add_steps.main]
