@@ -22,6 +22,14 @@ import aws.sdk.kotlin.services.cloudwatch.model.DescribeAlarmsResponse
 import kotlin.system.exitProcess
 // snippet-end:[cloudwatch.kotlin.describe_alarms.import]
 
+/**
+To run this Kotlin code example, ensure that you have setup your development environment,
+including your credentials.
+
+For information, see this documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+
 suspend fun main() {
 
     val cwClient = CloudWatchClient{region="us-east-1"}
