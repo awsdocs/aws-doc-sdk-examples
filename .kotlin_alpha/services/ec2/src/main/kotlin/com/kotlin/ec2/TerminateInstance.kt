@@ -44,7 +44,7 @@ suspend fun main(args:Array<String>) {
         exitProcess(0)
     }
 
-    val instanceID = args[0];
+    val instanceID = args[0]
     val ec2Client = Ec2Client{region = "us-west-2"}
     terminateEC2(ec2Client, instanceID)
 }
