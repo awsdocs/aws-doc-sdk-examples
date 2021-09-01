@@ -12,12 +12,12 @@
 
 package com.kotlin.emr
 
-//snippet-start:[erm.kotlin.describe_cluster.import]
+//snippet-start:[emr.kotlin.describe_cluster.import]
 import aws.sdk.kotlin.services.emr.EmrClient
 import aws.sdk.kotlin.services.emr.model.DescribeClusterRequest
 import aws.sdk.kotlin.services.emr.model.EmrException
 import kotlin.system.exitProcess
-//snippet-end:[erm.kotlin.describe_cluster.import]
+//snippet-end:[emr.kotlin.describe_cluster.import]
 
 /**
 To run this Kotlin code example, ensure that you have setup your development environment,
@@ -48,7 +48,7 @@ suspend fun main(args:Array<String>) {
     emrClient.close()
 }
 
-//snippet-start:[erm.kotlin.describe_cluster.main]
+//snippet-start:[emr.kotlin.describe_cluster.main]
 suspend fun describeMyCluster(emrClient: EmrClient, clusterIdVal: String?) {
     try {
         val clusterRequest = DescribeClusterRequest {
@@ -63,4 +63,4 @@ suspend fun describeMyCluster(emrClient: EmrClient, clusterIdVal: String?) {
         exitProcess(0)
     }
 }
-//snippet-end:[erm.kotlin.describe_cluster.main]
+//snippet-end:[emr.kotlin.describe_cluster.main]
