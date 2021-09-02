@@ -46,7 +46,7 @@ suspend fun main(args: Array<String>) {
          exitProcess(0)
     }
 
-    val appId = args[0];
+    val appId = args[0]
     val pinpointClient = PinpointClient {region = "us-east-1"}
     updateEndpointsViaBatch(pinpointClient, appId)
     pinpointClient.close()
