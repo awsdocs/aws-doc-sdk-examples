@@ -34,7 +34,7 @@ suspend fun main(args: Array<String>) {
         Usage:
             <username> 
         Where:
-            username - the name of the user to create. 
+            username - the name of the user to delete. 
 
         """
 
