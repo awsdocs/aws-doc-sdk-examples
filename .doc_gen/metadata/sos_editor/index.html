@@ -366,7 +366,7 @@
       <li><p>Follow steps 1 and 2 of <a href="https://w.amazon.com/bin/view/AWSDocs/CodeExamples/Team/SOS/#HAddinganewAPIexample">Adding a new API example</a>.</p>
         <p>Ensure the metadata file you want to edit is in the <i>/.doc_gen/metadata/sos_editor</i> folder <br>
           of the <b>AWSDocsSdkExamplesPublic</b> pagckage you're working on.</p>
-        <p>If not, create it.</p></li>
+        <p>If not, create it. Remember to update the 'services' section of this 'mapping.yaml' file to include the entities for this new service.</p></li>
       <li>Open the command line and navigate to the <i>/.doc_gen/metadata/sos_editor folder</i>.</li>
       <li><p>Run <i>node create_json.js [stubname of service metadata to edit].</i></p>
         <p>For example, <i>node create_json.js sns</i>.</p>
@@ -2223,12 +2223,12 @@
       xmlhttp.send();
     }
     const serviceStub = document.getElementById('selecttheservice').value
-    alert('Success. Before you continue, either:\n' +
-      '\n' +
-      ' - Update the .yaml file with your changes run node create_json.js [stubname of service metadata to update].For example, node create_json.js sns.\n' +
-      '\n' +
-      '- Ignore these changes and  delete the ' +serviceStub + '_metadata.json file from your Downloads folder.')
-    window.location.reload();
+    setTimeout(function(){
+      alert('Success. To save these changes your local metadata, navigate in your CLI to your metadata/sos_editor folder and run \'node update_yaml.js ' +serviceStub + '\'.' + '\n' +
+              '\n' +
+              'Note: You can ignore these changes and restart by deleting the ' +serviceStub + '_metadata.json file from your Downloads folder.')
+      window.location.reload();
+    }, 3000);//wait 2 second
   };
   $("#selectService").on('click', function() {
     console.log('selectService clicked')
@@ -2412,57 +2412,54 @@ console.log('options',options)
 
     var element = document.getElementById('addSdkVersion');
     element.setAttribute("style", "visibility: visible");
-    var element = document.getElementById('gitHub');
-    element.setAttribute("style", "visibility: visible");
-    var element = document.getElementById('sdkGuide');
-    element.setAttribute("style", "visibility: visible");
-  /*  var element = document.getElementById('snippDesc');
-    element.setAttribute("style", "visibility: visible");
-    var element = document.getElementById('snippet');
-    element.setAttribute("style", "visibility: visible");*/
-    var element = document.getElementById('anotherSnippet');
-    element.setAttribute("style", "visibility: visible");
-    var element = document.getElementById('removeSnippet');
-    element.setAttribute("style", "visibility: visible");
-    var element = document.getElementById('createYAML');
-    element.setAttribute("style", "visibility: visible");
   });
 
   $("#subVersion").on('click', function() {
+    console.log('why')
     if(document.getElementById('languages').value !== "Not listed") {
+      alert('You may need to add an entry for this version in the \'sdk \' section of the mapping.yaml.')
       let currentVersions = [];
-      var values = $("#sdkVersion>option").map(function() { return $(this).val(); }).get();
+      var values = $("#sdkVersion>option").map(function () {
+        return $(this).val();
+      }).get();
       currentVersions.push(values);
-      const mynewcurrentVersions = currentVersions[0].splice(-1,1);
+      const mynewcurrentVersions = currentVersions[0].splice(-1, 1);
       console.log('currentVersions1', currentVersions)
       const valueToCheck = document.getElementById('addskdversion').value
-      if(currentVersions[0].includes(valueToCheck) === true){
+      if (currentVersions[0].includes(valueToCheck) === true) {
         console.log('says it does')
         var element = document.getElementById('addSdkVersion');
         element.setAttribute("style", "class:show-when-target");
         alert('This SDK version already exists. Please select it.')
         document.getElementById('sdkVersion').disabled = false;
       }
+      else{
+        document.getElementById('sdkVersion').disabled = true;
+        var element = document.getElementById('gitHub');
+        element.setAttribute("style", "visibility: visible");
+        var element = document.getElementById('sdkGuide');
+        element.setAttribute("style", "visibility: visible");
+        var element = document.getElementById('anotherSnippet');
+        element.setAttribute("style", "visibility: visible");
+        var element = document.getElementById('removeSnippet');
+        element.setAttribute("style", "visibility: visible");
+        var element = document.getElementById('createYAML');
+        element.setAttribute("style", "visibility: visible");
+      }
+    }
 else{
       document.getElementById('subVersion').disabled = true;
-
+        alert('You may need to add an entry for this version in the \'sdk \' section of the mapping.yaml.')
       var element = document.getElementById('gitHub');
       element.setAttribute("style", "visibility: visible");
       var element = document.getElementById('sdkGuide');
       element.setAttribute("style", "visibility: visible");
-     /* var element = document.getElementById('snippDesc');
-      element.setAttribute("style", "visibility: visible");
-      var element = document.getElementById('snippet');
-      element.setAttribute("style", "visibility: visible");*/
       var element = document.getElementById('anotherSnippet');
       element.setAttribute("style", "visibility: visible");
         var element = document.getElementById('removeSnippet');
         element.setAttribute("style", "visibility: visible");
       var element = document.getElementById('createYAML');
       element.setAttribute("style", "visibility: visible");
-    }
-  }
-    else{
     }
   });
 

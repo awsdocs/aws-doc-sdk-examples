@@ -3,7 +3,7 @@
     "title": "Get the properties of an &SNS; topic using an &AWS; SDK",
     "title_abbrev": "Get the properties of a topic",
     "synopsis": "The following code shows how to get the properties of an &SNS; topic.",
-    "category": "edited",
+    "category": "jklj",
     "languages": {
       "C++": {
         "versions": [
@@ -70,30 +70,6 @@
                 "snippet_tags": [
                   "sns.JavaScript.topics.getTopicAttributesV3"
                 ]
-              },
-              {
-                "description": "test desc",
-                "snippet_tags": [
-                  "sns.JavaScript.topics.getTopicAttributesV3"
-                ]
-              },
-              {
-                "description": "test desc2",
-                "snippet_tags": [
-                  "sns.JavaScript.topics.getTopicAttributesV3"
-                ]
-              },
-              {
-                "description": "test desc3",
-                "snippet_tags": [
-                  "sns.JavaScript.topics.getTopicAttributesV3"
-                ]
-              },
-              {
-                "description": "test desc3",
-                "snippet_tags": [
-                  "sns.JavaScript.topics.getTopicAttributesV3"
-                ]
               }
             ]
           },
@@ -106,58 +82,6 @@
                 "description": "Import the SDK and client modules and call the API.",
                 "snippet_tags": [
                   "sns.JavaScript.topics.getTopicAttributes"
-                ]
-              }
-            ]
-          },
-          {
-            "sdk_version": 4,
-            "github": "jkljkl",
-            "sdkguide": "lkjklj"
-          }
-        ]
-      },
-      "Python": {
-        "versions": [
-          {
-            "sdk_version": 1,
-            "github": "kljklj",
-            "sdkguide": "kljklj",
-            "excerpts": [
-              {
-                "description": "kjhjk",
-                "snippet_tags": [
-                  "sns.java.publish_sms_to_topic.publish"
-                ]
-              },
-              {
-                "description": "kjhjk",
-                "snippet_tags": [
-                  "sns.java.publish_sms_to_topic.publish"
-                ]
-              },
-              {
-                "description": "kjhjk",
-                "snippet_tags": [
-                  "sns.java.publish_sms_to_topic.publish"
-                ]
-              },
-              {
-                "description": "kjkl",
-                "snippet_tags": [
-                  "sns.java.publish_sms_to_topic.publish"
-                ]
-              },
-              {
-                "description": "jkhjkh",
-                "snippet_tags": [
-                  "sns.java.publish_sms_to_topic.publish"
-                ]
-              },
-              {
-                "description": "et Description",
-                "snippet_tags": [
-                  "sns.java.publish_sms_to_topic.publish"
                 ]
               }
             ]
@@ -1724,7 +1648,7 @@
                 ]
               },
               {
-                "description": "Set a filter policy on each subscription so that each subscriber application receives only the price\\\\\\\\nupdates that it needs.",
+                "description": "Set a filter policy on each subscription so that each subscriber application receives only the price\nupdates that it needs.",
                 "snippet_tags": [
                   "sns.java.fifo_topics.filter_policy"
                 ]
@@ -1853,7 +1777,7 @@
                 ]
               },
               {
-                "description": "Set attributes on the message, such as the ID of the sender, the maximum price, and its type.\\\\\\\\nMessage attributes are optional.",
+                "description": "Set attributes on the message, such as the ID of the sender, the maximum price, and its type.\nMessage attributes are optional.",
                 "snippet_tags": [
                   "sns.java.publish_sms_to_topic.set_message_attributes"
                 ]
@@ -1865,117 +1789,12 @@
                 ]
               },
               {
-                "description": "Call the previous functions to create a topic, subscribe a phone number, set message attributes, and\\\\\\\\npublish a message to the topic.",
+                "description": "Call the previous functions to create a topic, subscribe a phone number, set message attributes, and\npublish a message to the topic.",
                 "snippet_tags": [
                   "sns.java.publish_sms_to_topic.main"
                 ]
               }
             ]
-          }
-        ]
-      }
-    },
-    "services": [
-      "sns"
-    ]
-  },
-  "sns_": {
-    "title": "kjkl",
-    "title_abbrev": "jkljl",
-    "synopsis": "jkljkl",
-    "category": "kljl",
-    "languages": {
-      "JavaScript": {
-        "versions": [
-          {
-            "sdk_version": 1,
-            "github": "hjhjk",
-            "sdkguide": "hkjhk"
-          }
-        ]
-      }
-    },
-    "services": [
-      "sns"
-    ]
-  },
-  "sns_1": {
-    "title": "test",
-    "title_abbrev": "test",
-    "synopsis": "test",
-    "category": "test",
-    "languages": {
-      "JavaScript": {
-        "versions": [
-          {
-            "sdk_version": 1,
-            "github": "kljkl",
-            "sdkguide": "ljklj",
-            "excerpts": [
-              {
-                "description": "kjkljkl",
-                "snippet_tags": [
-                  "sns.java.publish_sms_to_topic.publish"
-                ]
-              },
-              {
-                "description": "hjkhjk",
-                "snippet_tags": [
-                  "sns.java.publish_sms_to_topic.publish"
-                ]
-              },
-              {
-                "description": "hjkhjk",
-                "snippet_tags": [
-                  "sns.java.publish_sms_to_topic.publish"
-                ]
-              },
-              {
-                "description": "jkljklj",
-                "snippet_tags": [
-                  "sns.java.publish_sms_to_topic.publish"
-                ]
-              },
-              {
-                "description": "jkljklj",
-                "snippet_tags": [
-                  "sns.java.publish_sms_to_topic.publish"
-                ]
-              },
-              {
-                "description": "jkljkl",
-                "snippet_tags": [
-                  "sns.java.publish_sms_to_topic.publish"
-                ]
-              }
-            ]
-          },
-          {
-            "sdk_version": 2,
-            "github": "jkjl",
-            "sdkguide": "ljklj",
-            "excerpts": [
-              {
-                "description": "snippet1",
-                "snippet_tags": [
-                  "sns.java.publish_sms_to_topic.publish"
-                ]
-              }
-            ]
-          },
-          {
-            "sdk_version": 3,
-            "github": "jklj",
-            "sdkguide": "ljkl"
-          }
-        ]
-      },
-      "Python": {
-        "versions": [
-          {
-            "sdk_version": 1,
-            "github": "jklj",
-            "sdkguide": "jkljlk"
           }
         ]
       }
