@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ModifyDBInstance.kt demonstrates how to modify a RDS instance.]
+//snippet-sourcedescription:[ModifyDBInstance.kt demonstrates how to modify an Amazon RDS instance.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
