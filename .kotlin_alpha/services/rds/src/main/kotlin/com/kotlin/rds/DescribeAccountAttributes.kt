@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DescribeAccountAttributes.kt demonstrates how to retrieve attributes that belongs to an Amazon Relational Database Service (RDS) account.]
+//snippet-sourcedescription:[DescribeAccountAttributes.kt demonstrates how to retrieve attributes that belong to an Amazon Relational Database Service (RDS) account.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
