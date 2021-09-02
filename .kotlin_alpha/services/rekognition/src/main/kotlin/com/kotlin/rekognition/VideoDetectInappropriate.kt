@@ -43,7 +43,7 @@ suspend fun main(args: Array<String>){
         
         Where:
             bucket - the name of the bucket in which the video is located (for example, (for example, myBucket). 
-            video - the name of video (for example, people.mp4). 
+            video - the name of the video (for example, people.mp4). 
             topicArn - the ARN of the Amazon Simple Notification Service (Amazon SNS) topic. 
             roleArn - the ARN of the AWS Identity and Access Management (IAM) role to use. 
         
