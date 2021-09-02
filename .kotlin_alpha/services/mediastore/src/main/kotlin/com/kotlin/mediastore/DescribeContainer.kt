@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteContainer.kt demonstrates how to delete a given AWS Elemental MediaStore container.]
+//snippet-sourcedescription:[DescribeContainer.kt demonstrates how to describe a given AWS Elemental MediaStore container.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaStore]
