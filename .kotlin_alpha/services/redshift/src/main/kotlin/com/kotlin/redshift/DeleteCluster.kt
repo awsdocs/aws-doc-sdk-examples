@@ -34,7 +34,7 @@ suspend fun main(args:Array<String>) {
         <clusterId>  
 
     Where:
-        clusterId - the id of the cluster to create. 
+        clusterId - the id of the cluster to delete. 
        
     """
 
