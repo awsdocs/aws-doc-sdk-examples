@@ -1,5 +1,5 @@
-//snippet-sourcedescription:[StockTrade.java is a helper class.]
-//snippet-keyword:[AWS SDK for Java v2]
+//snippet-sourcedescription:[StockTradeGenerator.kt is a helper class.]
+//snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Kinesis]
 //snippet-sourcetype:[full-example]
