@@ -2,7 +2,7 @@
 
 This README discusses how to run and test the Kotlin code examples for AWS Identity and Access Management (IAM).
 
-## Running the AWS IAM  Kotlin files
+## Running the AWS IAM Kotlin files
 
 **IMPORTANT**
 
