@@ -2,10 +2,8 @@
 apigateway_CreateRestApi:
   title: Create an &ABP; REST API using an &AWS; SDK
   title_abbrev: Create a REST API
-  synopsis: |-
-    The following examples show how to write code to
-    create an &ABP; REST API
-    using some of the &AWS; SDKs that are available.
+  synopsis: The following examples show how to write code to create an &ABP; REST API using some of the &AWS; SDKs that are available.
+  category:
   languages:
     Python:
       versions:
@@ -15,36 +13,32 @@ apigateway_CreateRestApi:
           excerpts:
             - description:
               snippet_tags:
-              - python.example_code.apigateway.ApiGatewayToService.class
-              - python.example_code.apigateway.CreateRestApi
+                - python.example_code.apigateway.ApiGatewayToService.class
+                - python.example_code.apigateway.CreateRestApi
   services:
     - apigateway
 apigateway_GetResources:
   title: Get &ABP; REST resources using an &AWS; SDK
   title_abbrev: Get REST resources
-  synopsis: |-
-    The following examples show how to write code to
-    get &ABP; REST resources
-    using some of the &AWS; SDKs that are available.
+  synopsis: The following examples show how to write code to get &ABP; REST resources using some of the &AWS; SDKs that are available.
+  category:
   languages:
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/apigateway
-          sdkguide: 
+          sdkguide:
           excerpts:
             - description:
               snippet_tags:
-              - python.example_code.apigateway.CreateRestApi
+                - python.example_code.apigateway.CreateRestApi
   services:
     - apigateway
 apigateway_CreateResource:
   title: Create an &ABP; REST resource using an &AWS; SDK
   title_abbrev: Create a REST resource
-  synopsis: |-
-    The following examples show how to write code to
-    create an &ABP; REST resource
-    using some of the &AWS; SDKs that are available.
+  synopsis: The following examples show how to write code to create an &ABP; REST resource using some of the &AWS; SDKs that are available.
+  category:
   languages:
     Python:
       versions:
@@ -54,54 +48,48 @@ apigateway_CreateResource:
           excerpts:
             - description:
               snippet_tags:
-              - python.example_code.apigateway.CreateResource
+                - python.example_code.apigateway.CreateResource
   services:
     - apigateway
 apigateway_PutMethod:
   title: Add an HTTP method to an &ABP; REST resource using an &AWS; SDK
   title_abbrev: Add an HTTP method to a REST resource
-  synopsis: |-
-    The following examples show how to write code to
-    add an HTTP method to an &ABP; REST resource
-    using some of the &AWS; SDKs that are available.
+  synopsis: The following examples show how to write code to add an HTTP method to an &ABP; REST resource using some of the &AWS; SDKs that are available.
+  category:
   languages:
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/apigateway
-          sdkguide: 
+          sdkguide:
           excerpts:
             - description:
               snippet_tags:
-              - python.example_code.apigateway.AddIntegrationMethod
+                - python.example_code.apigateway.AddIntegrationMethod
   services:
     - apigateway
 apigateway_PutMethodResponse:
   title: Add an HTTP response to an &ABP; REST resource using an &AWS; SDK
   title_abbrev: Add an HTTP response to a REST resource
-  synopsis: |-
-    The following examples show how to write code to
-    add an HTTP response to an &ABP; REST resource
-    using some of the &AWS; SDKs that are available.
+  synopsis: The following examples show how to write code to add an HTTP response to an &ABP; REST resource using some of the &AWS; SDKs that are available.
+  category:
   languages:
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/apigateway
-          sdkguide: 
+          sdkguide:
           excerpts:
             - description:
               snippet_tags:
-              - python.example_code.apigateway.AddIntegrationMethod
+                - python.example_code.apigateway.AddIntegrationMethod
   services:
     - apigateway
 apigateway_PutIntegration:
   title: Integrate an &ABP; method with an &AWS; service using an &AWS; SDK
   title_abbrev: Integrate a method with an &AWS; service
-  synopsis: |-
-    The following examples show how to write code to
-    integrate an &ABP; method with an &AWS; service
-    using some of the &AWS; SDKs that are available.
+  synopsis: The following examples show how to write code to integrate an &ABP; method with an &AWS; service using some of the &AWS; SDKs that are available.
+  category:
   languages:
     Python:
       versions:
@@ -111,16 +99,14 @@ apigateway_PutIntegration:
           excerpts:
             - description:
               snippet_tags:
-              - python.example_code.apigateway.AddIntegrationMethod
+                - python.example_code.apigateway.AddIntegrationMethod
   services:
     - apigateway
 apigateway_PutIntegrationResponse:
   title: Add a response from an &AWS; service integrated with an &ABP; method using an &AWS; SDK
   title_abbrev: Add a response from an &AWS; service integrated with a method
-  synopsis: |-
-    The following examples show how to write code to
-    add a response from an &AWS; service integrated with an &ABP; method
-    using some of the &AWS; SDKs that are available.
+  synopsis: The following examples show how to write code to add a response from an &AWS; service integrated with an &ABP; method using some of the &AWS; SDKs that are available.
+  category:
   languages:
     Python:
       versions:
@@ -130,16 +116,14 @@ apigateway_PutIntegrationResponse:
           excerpts:
             - description:
               snippet_tags:
-              - python.example_code.apigateway.AddIntegrationMethod
+                - python.example_code.apigateway.AddIntegrationMethod
   services:
     - apigateway
 apigateway_CreateDeployment:
   title: Deploy an &ABP; REST API using an &AWS; SDK
   title_abbrev: Deploy a REST API
-  synopsis: |-
-    The following examples show how to write code to
-    deploy an &ABP; REST API
-    using some of the &AWS; SDKs that are available.
+  synopsis: The following examples show how to write code to deploy an &ABP; REST API using some of the &AWS; SDKs that are available.
+  category:
   languages:
     Python:
       versions:
@@ -149,16 +133,14 @@ apigateway_CreateDeployment:
           excerpts:
             - description:
               snippet_tags:
-              - python.example_code.apigateway.CreateDeployment
+                - python.example_code.apigateway.CreateDeployment
   services:
     - apigateway
 apigateway_GetRestApis:
   title: List &ABP; REST APIs using an &AWS; SDK
   title_abbrev: List REST APIs
-  synopsis: |-
-    The following examples show how to write code to
-    list &ABP; REST APIs
-    using some of the &AWS; SDKs that are available.
+  synopsis: The following examples show how to write code to list &ABP; REST APIs using some of the &AWS; SDKs that are available.
+  category:
   languages:
     Python:
       versions:
@@ -168,16 +150,14 @@ apigateway_GetRestApis:
           excerpts:
             - description:
               snippet_tags:
-              - python.example_code.apigateway.GetRestApis
+                - python.example_code.apigateway.GetRestApis
   services:
     - apigateway
 apigateway_DeleteRestApi:
   title: Delete an &ABP; REST API using an &AWS; SDK
   title_abbrev: Delete a REST API
-  synopsis: |-
-    The following examples show how to write code to
-    delete an &ABP; REST API
-    using some of the &AWS; SDKs that are available.
+  synopsis: The following examples show how to write code to delete an &ABP; REST API using some of the &AWS; SDKs that are available.
+  category:
   languages:
     Python:
       versions:
@@ -187,6 +167,6 @@ apigateway_DeleteRestApi:
           excerpts:
             - description:
               snippet_tags:
-              - python.example_code.apigateway.DeleteRestApi
+                - python.example_code.apigateway.DeleteRestApi
   services:
     - apigateway
