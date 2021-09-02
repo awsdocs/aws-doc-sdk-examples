@@ -2,7 +2,7 @@
 
 This README discusses how to run the Kotlin code examples for Amazon Rekognition.
 
-## Running the Rekognition Kotlin files
+## Running the Amazon Rekognition Kotlin files
 
 **IMPORTANT**
 
