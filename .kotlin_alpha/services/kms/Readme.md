@@ -1,6 +1,6 @@
 # AWS KMS Kotlin code examples
 
-This README discusses how to run the Kotlin code examples for  AWS Key Management Service (AWS KMS).
+This README discusses how to run the Kotlin code examples for AWS Key Management Service (AWS KMS).
 
 ## Running the AWS KMS Kotlin files
 
