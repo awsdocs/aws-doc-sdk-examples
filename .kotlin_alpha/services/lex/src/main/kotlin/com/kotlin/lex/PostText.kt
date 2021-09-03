@@ -1,11 +1,10 @@
-//snippet-sourcedescription:[PostText.kt demonstrates how to sent text an Amazon Lex conversational bot.]
+//snippet-sourcedescription:[PostText.kt demonstrates how to send text to an Amazon Lex conversational bot.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Lex]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[06/25/2021]
 //snippet-sourceauthor:[scmacdon - aws]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
