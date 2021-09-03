@@ -2,7 +2,7 @@
 
 This README discusses how to run the Kotlin code examples for Amazon Personalize.
 
-## Running the Personalize Kotlin files
+## Running the Amazon Personalize Kotlin files
 
 **IMPORTANT**
 
