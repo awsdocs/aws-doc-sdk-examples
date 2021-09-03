@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[SendMessageEmail.kt demonstrates how to send an email message with an attachment by using the Amazon Simple Email Service (Amazon SES).]
+// snippet-sourcedescription:[SendMessageEmail.kt demonstrates how to send an email message by using the Amazon Simple Email Service (Amazon SES).]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[06/23/2020]
