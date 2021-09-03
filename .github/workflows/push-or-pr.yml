@@ -1,5 +1,5 @@
 # Run Python checkin script on push or pull request
-name: PushOrPR
+name: Snippet tags and secret keys
 
 # Controls when the action will run. 
 on:

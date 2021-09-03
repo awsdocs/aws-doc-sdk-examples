@@ -19,7 +19,7 @@ import aws.sdk.kotlin.services.personalize.model.ListRecipesRequest
 import aws.sdk.kotlin.services.personalize.model.RecipeSummary
 import aws.sdk.kotlin.services.personalize.model.PersonalizeException
 import kotlin.system.exitProcess
-//snippet-kotlin:[personalize.kotlin.list_recipes.import]
+//snippet-end:[personalize.kotlin.list_recipes.import]
 
 /**
 To run this Kotlin code example, ensure that you have setup your development environment,
