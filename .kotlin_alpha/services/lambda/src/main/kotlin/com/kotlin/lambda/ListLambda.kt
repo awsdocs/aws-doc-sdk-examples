@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListLambda.kt demonstrates how to list your Lambda functions.]
+//snippet-sourcedescription:[ListLambda.kt demonstrates how to list your AWS Lambda functions.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Lambda]
