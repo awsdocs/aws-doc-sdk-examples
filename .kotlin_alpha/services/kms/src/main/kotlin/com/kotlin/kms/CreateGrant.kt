@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateGrant.java demonstrates how to add a grant to a customer master key (CMK).]
+//snippet-sourcedescription:[CreateGrant.kt demonstrates how to add a grant to a customer master key (CMK).]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
