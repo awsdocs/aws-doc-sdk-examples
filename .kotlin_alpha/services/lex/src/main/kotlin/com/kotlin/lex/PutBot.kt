@@ -42,7 +42,7 @@ suspend fun main(args:Array<String>) {
         <botName> <intentName> <intentVersion> 
 
     Where:
-        botName - the name of bot (for example, BookHotel).
+        botName - the name of the bot (for example, BookHotel).
         intentName - the name of an existing intent (for example, BookHotel).
         intentVersion - the version of the intent (for example, 1).
 
