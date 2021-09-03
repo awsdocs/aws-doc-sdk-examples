@@ -2,7 +2,7 @@
 
 This README discusses how to run the Kotlin code examples for Amazon Lex.
 
-## Running the Lex Kotlin files
+## Running the Amazon Lex Kotlin files
 
 **IMPORTANT**
 
