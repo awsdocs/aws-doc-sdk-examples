@@ -91,7 +91,7 @@ suspend fun createMediaJob(mcClient: MediaConvertClient, mcRoleARN: String, file
         // output group Preset HLS low profile
         val hlsLow = createOutput("hls_low", "_low", "_\$dt$", 750000, 7, 1920, 1080, 640)
 
-        // output group Preset HLS media profile
+        // output group Preset HLS medium profile
         val hlsMedium = createOutput("hls_medium", "_medium", "_\$dt$", 1200000, 7, 1920, 1080, 1280)
 
         // output group Preset HLS high profole
