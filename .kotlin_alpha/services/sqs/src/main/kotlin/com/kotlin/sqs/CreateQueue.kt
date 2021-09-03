@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateQueue.kt demonstrates how to create an Amazon Simple Queue Service (Amazon SQS) queues.]
+//snippet-sourcedescription:[CreateQueue.kt demonstrates how to create an Amazon Simple Queue Service (Amazon SQS) queue.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
