@@ -76,4 +76,4 @@ suspend fun listBucketObjects(s3Client: S3Client, bucketName: String) {
     private fun calKb(intValue: Int): Int {
         return intValue / 1024
    }
-// snippet-start:[s3.kotlin.list_objects.main]
+// snippet-end:[s3.kotlin.list_objects.main]
