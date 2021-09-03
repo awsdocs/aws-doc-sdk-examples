@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[SendMessage.kt demonstrates how to send a SMS message using Amazon Pinpoint.]
+//snippet-sourcedescription:[SendMessage.kt demonstrates how to send an SMS message using Amazon Pinpoint.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
