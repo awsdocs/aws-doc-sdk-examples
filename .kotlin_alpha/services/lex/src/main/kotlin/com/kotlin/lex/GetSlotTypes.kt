@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[GetSlotTypes.kt demonstrates how to returns slot type information.]
+//snippet-sourcedescription:[GetSlotTypes.kt demonstrates how to return slot type information.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Lex]
