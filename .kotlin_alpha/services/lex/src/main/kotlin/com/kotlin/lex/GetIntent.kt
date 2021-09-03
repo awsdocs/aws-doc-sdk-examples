@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteBot.kt demonstrates how to delete an Amazon Lex conversational bot.]
+//snippet-sourcedescription:[GetIntent.kt demonstrates how to get intent information from an Amazon Lex conversational bot.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Lex]
