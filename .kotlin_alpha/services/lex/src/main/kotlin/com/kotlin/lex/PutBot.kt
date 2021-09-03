@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[PutBot.kt demonstrates how to creates an Amazon Lex conversational bot.]
+//snippet-sourcedescription:[PutBot.kt demonstrates how to create an Amazon Lex conversational bot.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Lex]
