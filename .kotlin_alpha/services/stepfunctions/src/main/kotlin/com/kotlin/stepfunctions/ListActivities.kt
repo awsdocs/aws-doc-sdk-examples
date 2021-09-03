@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListActivities.kt demonstrates how to List existing activities for AWS Step Functions.]
+//snippet-sourcedescription:[ListActivities.kt demonstrates how to list existing activities for AWS Step Functions.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Step Functions]
