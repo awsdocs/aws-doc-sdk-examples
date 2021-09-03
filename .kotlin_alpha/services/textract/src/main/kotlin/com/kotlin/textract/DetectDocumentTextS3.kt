@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[DetectDocumentText.kt demonstrates how to detect text in the input document.]
+// snippet-sourcedescription:[DetectDocumentTextS3.kt demonstrates how to detect text in an input document located in an Amazon S3 bucket.]
 // snippet-keyword:[AWS SDK for Kotlin]
 // snippet-service:[Amazon Textract]
 // snippet-keyword:[Code Sample]
