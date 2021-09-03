@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[RevokeGrant.kt demonstrates how to revoke a grant for the specified customer master key (CMK).]
+//snippet-sourcedescription:[RevokeGrant.kt demonstrates how to revoke a grant for the specified AWS Key Management Service (AWS KMS) key.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]

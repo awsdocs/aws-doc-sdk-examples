@@ -34,7 +34,7 @@ suspend fun main(args: Array<String>) {
         Usage:
             <keyId> 
         Where:
-            keyId -  a key id value to enable (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). 
+            keyId - an AWS KMS key id value to enable (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). 
     """
 
      if (args.size != 1) {
