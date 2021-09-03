@@ -1,6 +1,6 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[DeleteHostedZone.kt demonstrates how to delete a hosted zone.]
-//snippet-keyword:[AWS SDK for Kotlin]
+// snippet-sourcedescription:[UpdateHealthCheck.kt demonstrates how to update a health check.]
+// snippet-keyword:[AWS SDK for Kotlin]
 // snippet-service:[Amazon Route 53]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
@@ -32,10 +32,10 @@ suspend fun main(args: Array<String>) {
 
     val usage = """
     Usage:
-        <hostedZoneId> 
+        <healthCheckId> 
 
     Where:
-        hostedZoneId - the hosted zone id.
+         healthCheckId - the health check id.
     """
 
       if (args.size != 1) {
@@ -43,9 +43,9 @@ suspend fun main(args: Array<String>) {
           exitProcess(0)
       }
 
-    val id = args[0]
+    val healthCheckId = args[0]
     val route53Client = Route53Client{region = "AWS_GLOBAL"}
-    updateSpecificHealthCheck(route53Client, id)
+    updateSpecificHealthCheck(route53Client, healthCheckId)
     route53Client.close()
 }
 

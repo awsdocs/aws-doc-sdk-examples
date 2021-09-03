@@ -1,6 +1,6 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[DeleteHostedZone.kt demonstrates how to delete a hosted zone.]
-//snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[AWS SDK for Kotlin]
 // snippet-service:[Amazon Route 53]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
