@@ -83,10 +83,8 @@ suspend fun main(args: Array<String>) {
                 + "<p>This email was sent through the <a href='https://aws.amazon.com/pinpoint/'>"
                 + "Amazon Pinpoint</a> Email API")
 
-        // The character encoding the you want to use for the subject line and
-        // message body of the email.
+        // The character encoding to use for the subject line and the message body.
         var charset = "UTF-8"
-
 
         try {
 
