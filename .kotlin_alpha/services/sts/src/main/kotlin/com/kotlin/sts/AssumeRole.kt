@@ -40,6 +40,13 @@ import kotlin.system.exitProcess
  *
  */
 
+/**
+To run this Kotlin code example, ensure that you have setup your development environment,
+including your credentials.
+For information, see this documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+
 suspend fun main(args:Array<String>) {
 
     val usage = """
@@ -47,7 +54,7 @@ suspend fun main(args:Array<String>) {
         <roleArn> <roleSessionName> 
 
     Where:
-        roleArn - the Amazon Resource Name (ARN) of the role to assume (for example, rn:aws:iam::000008047983:role/s3role). 
+        roleArn - the Amazon Resource Name (ARN) of the role to assume (for example, arn:aws:iam::xxxxx8047983:role/s3role). 
         roleSessionName - an identifier for the assumed role session (for example, mysession). 
     """
 
