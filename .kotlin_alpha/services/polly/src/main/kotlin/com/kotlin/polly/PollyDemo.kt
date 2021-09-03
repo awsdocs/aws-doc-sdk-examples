@@ -66,7 +66,7 @@ suspend fun main() {
 
             polly.synthesizeSpeech(synthReq) { resp ->
 
-                // inside this block you can access `resp`and play the audio stream.
+                // inside this block you can access `resp` and play the audio stream.
                 val audioData = resp.audioStream?.toByteArray()
                 val targetStream = ByteArrayInputStream(audioData)
                 val player = AdvancedPlayer(targetStream, FactoryRegistry.systemRegistry().createAudioDevice())
