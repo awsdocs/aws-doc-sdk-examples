@@ -2,7 +2,7 @@
 
 This README discusses how to run the Kotlin code examples for AWS Security Token Service (AWS STS).
 
-## Running the AAWS STS Kotlin files
+## Running the AWS STS Kotlin files
 
 **IMPORTANT**
 
