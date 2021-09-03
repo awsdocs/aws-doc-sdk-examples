@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--zexi 0.1.0-->
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
         <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
         %xinclude;
         <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
         %phrases-shared;
         ]>
+<!-- zexi 0.2.0 -->
 <chapter id="service_code_examples" role="topic">
     <info>
         <title id="service_code_examples.title">Code examples for {{.ServiceEntity.Short}}</title>
@@ -19,8 +19,8 @@
         and information about previous versions, see
         <xref linkend="sdk-general-information-section" endterm="sdk-general-information-section.title"></xref>.</para>
     <para role="contents-abbrev">Code examples</para>
-    {{range $category := .CategoryNamesSorted}}
-    {{with $cat_examples := index $.CategorizedExampleSets $category}}
+    {{- range $category := .CategoryNamesSorted}}
+    {{- with $cat_examples := index $.CategorizedExampleSets $category}}
     <section id="service_code_examples_{{$cat_examples.CategoryIdSuffix}}" role="topic">
         <info>
             <title id="service_code_examples_{{$cat_examples.CategoryIdSuffix}}.title">{{$cat_examples.CategoryName}} examples for {{$.ServiceEntity.Short}}</title>
@@ -31,7 +31,7 @@
         </info>
         <para>The following code examples show how to use {{$.ServiceEntity.Short}} with &AWS; SDKs.</para>
         <para role="topiclist-abbrev">Examples</para>
-        {{range $cat_examples.Examples}}
+        {{- range $cat_examples.Examples}}
         <section id="example_{{.ExampleId}}_section" role="topic">
             <info>
                 <title id="example_{{.ExampleId}}_section.title">{{.Title}}</title>
@@ -46,8 +46,8 @@
                 and information about previous versions, see
                 <xref linkend="sdk-general-information-section" endterm="sdk-general-information-section.title"></xref>.</para>
         </section>
-        {{end}}
+        {{- end}}
     </section>
-    {{end}}
-    {{end}}
+    {{- end}}
+    {{- end}}
 </chapter>
