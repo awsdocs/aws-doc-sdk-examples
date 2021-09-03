@@ -39,7 +39,7 @@ suspend fun listAllSecrets(secretsClient: SecretsManagerClient) {
             if (secrets != null) {
                 for (secret in secrets) {
                     println("The secret name is ${secret.name}")
-                    println("The secret descreiption is ${secret.description}")
+                    println("The secret description is ${secret.description}")
                 }
             }
         } catch (ex: SecretsManagerException) {

@@ -50,7 +50,7 @@ suspend fun createNewSecret(secretsClient: SecretsManagerClient, secretName: Str
 
             val secretRequest  = CreateSecretRequest {
                 name = secretName
-                description = "This secret was created by the AWS Secret Manager Kotlin API"
+                description = "This secret was created by the AWS Secrets Manager Kotlin API"
                 secretString = secretValue
             }
 
@@ -64,3 +64,4 @@ suspend fun createNewSecret(secretsClient: SecretsManagerClient, secretName: Str
         }
    }
 //snippet-end:[secretsmanager.kotlin.create_secret.main]
+
