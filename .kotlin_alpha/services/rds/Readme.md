@@ -2,7 +2,7 @@
 
 This README discusses how to run the Kotlin code examples for Amazon Relational Database Service (Amazon RDS).
 
-## Running the RDS Kotlin files
+## Running the Amazon RDS Kotlin files
 
 **IMPORTANT**
 
