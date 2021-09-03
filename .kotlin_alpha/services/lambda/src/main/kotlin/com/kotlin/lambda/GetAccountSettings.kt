@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[Demonstrates how to abort a multipart upload to an Amazon Simple Storage Service (Amazon S3) bucket.]
+//snippet-sourcedescription:[GetAccountSettings.kt demonstrates how to get AWS Lambda account settings.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Lambda]
