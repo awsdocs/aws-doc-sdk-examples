@@ -28,7 +28,7 @@ suspend fun main(args:Array<String>) {
         Usage: 
             <queueName> <tagName>
         Where:
-           queueName - the name of the queue to which tags are removed.
+           queueName - the name of the queue from which tags are removed.
            tagName - the name of the tag to remove.
 
         """
