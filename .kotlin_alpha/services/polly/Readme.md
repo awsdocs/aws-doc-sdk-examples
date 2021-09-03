@@ -2,7 +2,7 @@
 
 This README discusses how to run the Kotlin code examples for Amazon Polly.
 
-## Running the Polly Kotlin files
+## Running the Amazon Polly Kotlin files
 
 **IMPORTANT**
 
