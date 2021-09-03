@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[SendMessageEmail.kt demonstrates how to send an email message by using the Amazon Simple Email Service (Amazon SES).]
+// snippet-sourcedescription:[SendMessageEmail.kt demonstrates how to send an email message with an attachment by using the Amazon Simple Email Service (Amazon SES).]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[06/23/2020]
@@ -31,8 +31,8 @@ suspend fun main(args:Array<String>) {
 
     Where:
         sender - an email address that represents the sender. 
-        recipient -  an email address that represents the recipient. 
-        subject - the  subject line. 
+        recipient - an email address that represents the recipient. 
+        subject - the subject line. 
     """
 
     if (args.size != 3) {

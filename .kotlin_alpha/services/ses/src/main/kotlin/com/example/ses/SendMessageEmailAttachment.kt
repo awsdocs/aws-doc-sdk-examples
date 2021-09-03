@@ -33,7 +33,7 @@ import javax.mail.internet.MimeMessage
 import javax.mail.internet.MimeMultipart
 import javax.mail.util.ByteArrayDataSource
 import kotlin.system.exitProcess
-// snippet-end:[ses.kotlin.sendmessageattachment.import]
+// snippet-end:[ses.kotlin.sendmessageattachment.main]
 
 suspend fun main(args:Array<String>) {
 
@@ -91,7 +91,7 @@ suspend fun sendemailAttachment(
     // Create a new MimeMessage object.
     val message = MimeMessage(session)
 
-    // Add subject, from and to lines.
+    // Add subject, from, and to lines.
     message.setSubject(subject, "UTF-8")
     message.setFrom(InternetAddress(sender))
     message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient))
