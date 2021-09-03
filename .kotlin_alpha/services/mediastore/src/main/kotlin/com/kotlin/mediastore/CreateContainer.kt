@@ -63,7 +63,7 @@ suspend fun createMediaContainer(mediaStoreClient: MediaStoreClient, containerNa
             val containerResponse = mediaStoreClient.createContainer(containerRequest)
             var status = containerResponse.container?.status.toString()
 
-            // Wait unitl the container is in an active state.
+            // Wait until the container is in an active state.
             while (!status.equals("Active", ignoreCase = true)) {
                 status = checkContainer(mediaStoreClient, containerNameVal).toString()
                 println("Status - $status")
