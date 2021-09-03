@@ -34,7 +34,7 @@ suspend fun main(args: Array<String>) {
         Usage:
             <aliasName>  
         Where:
-            keyId - a unique identifier for the customer master key associated with the grant (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).
+            keyId - a unique identifier for the KMS key associated with the grant (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).
             grantId - a grant id value of the grant revoke.
          """
 
