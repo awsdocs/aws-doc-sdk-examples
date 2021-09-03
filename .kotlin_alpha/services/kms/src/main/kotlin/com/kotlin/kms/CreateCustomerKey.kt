@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateCustomerKey.java demonstrates how to create an AWS Key Management Service (AWS KMS) key.]
+//snippet-sourcedescription:[CreateCustomerKey.kt demonstrates how to create an AWS Key Management Service (AWS KMS) key.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
