@@ -34,7 +34,7 @@ suspend fun main(args: Array<String>) {
         Usage:
             <targetKeyId> <aliasName>  
         Where:
-            targetKeyId - the key ID or the Amazon Resource Name (ARN) of the customer master key (CMK).
+            targetKeyId - the key ID or the Amazon Resource Name (ARN) of the KMS key.
             aliasName - an alias name to create (for example, alias/myAlias).
         
          """
