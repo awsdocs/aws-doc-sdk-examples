@@ -58,4 +58,4 @@ suspend fun getSNSTopicAttributes(snsClient: SnsClient, topicArnVal: String) {
         exitProcess(0)
     }
  }
-//snippet-start:[sns.kotlin.GetTopicAttributes.main]
+//snippet-end:[sns.kotlin.GetTopicAttributes.main]
