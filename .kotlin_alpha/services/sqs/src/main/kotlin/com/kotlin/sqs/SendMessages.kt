@@ -13,14 +13,14 @@
 
 package com.kotlin.sqs
 
-// snippet-start:[sqs.kotlin.send_recieve_messages.import]
+// snippet-start:[sqs.kotlin.send_messages.import]
 import aws.sdk.kotlin.services.sqs.SqsClient
 import aws.sdk.kotlin.services.sqs.model.SendMessageRequest
 import aws.sdk.kotlin.services.sqs.model.SqsException
 import aws.sdk.kotlin.services.sqs.model.SendMessageBatchRequestEntry
 import aws.sdk.kotlin.services.sqs.model.SendMessageBatchRequest
 import kotlin.system.exitProcess
-// snippet-end:[sqs.kotlin.send_recieve_messages.import]
+// snippet-end:[sqs.kotlin.send_messages.import]
 
 suspend fun main(args:Array<String>) {
 
@@ -48,7 +48,7 @@ suspend fun main(args:Array<String>) {
     sqsClient.close()
 }
 
-// snippet-start:[sqs.kotlin.send_recieve_messages.main]
+// snippet-start:[sqs.kotlin.send_messages.main]
 suspend fun sendMessages(sqsClient: SqsClient, queueUrlVal: String, message : String) {
     println("Sending multiple messages")
     try {
@@ -98,4 +98,4 @@ suspend fun sendBatchMessages(sqsClient: SqsClient, queueUrlVal: String?) {
         exitProcess(0)
     }
 }
-// snippet-end:[sqs.kotlin.send_recieve_messages.main]
+// snippet-end:[sqs.kotlin.send_messages.main]
