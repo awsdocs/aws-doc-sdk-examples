@@ -35,7 +35,7 @@ suspend fun main(args: Array<String>) {
         Usage:
             <keyId> <granteePrincipal> <operation>
         Where:
-            keyId - the unique identifier for the customer master key (CMK) that the grant applies to (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).
+            keyId - the unique identifier for the AWS KMS key that the grant applies to (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).
             granteePrincipal - the principal that is given permission to perform the operations that the grant permits. 
             operation - an operation (for example, Encrypt). 
     """
