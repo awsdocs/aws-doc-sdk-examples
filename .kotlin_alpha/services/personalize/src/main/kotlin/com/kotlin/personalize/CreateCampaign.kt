@@ -36,7 +36,7 @@ suspend fun main(args:Array<String>){
 
     Where:
          solutionVersionArn - The ARN of the solution version.
-         campaignName - The name of the Amazon Personalization campaign to create.
+         campaignName - The name of the Amazon Personalize campaign to create.
 
     """
 

@@ -66,7 +66,7 @@ suspend fun getRecs(personalizeRuntimeClient: PersonalizeRuntimeClient, campaign
             if (items != null) {
                 for (item in items) {
                     println("Item Id is ${item.itemId}")
-                    println("Item score is is ${item.score}")
+                    println("Item score is ${item.score}")
                 }
             }
 
