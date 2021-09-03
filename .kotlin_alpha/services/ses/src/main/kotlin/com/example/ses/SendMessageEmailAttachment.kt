@@ -33,7 +33,7 @@ import javax.mail.internet.MimeMessage
 import javax.mail.internet.MimeMultipart
 import javax.mail.util.ByteArrayDataSource
 import kotlin.system.exitProcess
-// snippet-start:[ses.kotlin.sendmessageattachment.main]
+// snippet-end:[ses.kotlin.sendmessageattachment.main]
 
 suspend fun main(args:Array<String>) {
 
