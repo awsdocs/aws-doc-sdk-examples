@@ -37,7 +37,7 @@ suspend fun main(args:Array<String>){
             <botName> 
 
         Where:
-          botName - the name of bot (for example, BookHotel).
+          botName - the name of the bot (for example, BookHotel).
           botAlias - the bot alias.
     """
 
