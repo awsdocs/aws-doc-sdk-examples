@@ -1,5 +1,5 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[CreateHealthCheck.kt demonstrates how to create a new health check.]
+// snippet-sourcedescription:[CreateHostedZone.kt demonstrates how to create a hosted zone.]
 // snippet-keyword:[AWS SDK for Kotlin]
 // snippet-service:[Amazon Route 53]
 // snippet-keyword:[Code Sample]
@@ -14,15 +14,13 @@
 
 package com.kotlin.route
 
-// snippet-start:[route53.kotlin.create_health_check.import]
+// snippet-start:[route53.kotlin.create_hosted_zone.import]
 import aws.sdk.kotlin.services.route53.Route53Client
-import aws.sdk.kotlin.services.route53.model.HealthCheckConfig
-import aws.sdk.kotlin.services.route53.model.HealthCheckType
-import aws.sdk.kotlin.services.route53.model.CreateHealthCheckRequest
+import aws.sdk.kotlin.services.route53.model.CreateHostedZoneRequest
 import aws.sdk.kotlin.services.route53.model.Route53Exception
 import java.util.UUID
 import kotlin.system.exitProcess
-// snippet-end:[route53.kotlin.create_health_check.import]
+// snippet-end:[route53.kotlin.create_hosted_zone.import]
 
 /**
 To run this Kotlin code example, ensure that you have setup your development environment,
@@ -42,43 +40,35 @@ suspend fun main(args: Array<String>) {
         domainName - the fully qualified domain name. 
     """
 
-    if (args.size != 1) {
-        println(usage)
-        exitProcess(0)
-    }
+      if (args.size != 1) {
+          println(usage)
+          exitProcess(0)
+     }
 
     val domainName = args[0]
     val route53Client = Route53Client{region = "AWS_GLOBAL"}
-    val id = createCheck(route53Client, domainName)
-    println("The health check id is $id")
+    val id = createZone(route53Client, domainName)
+    println("The hosted zone id is $id")
     route53Client.close()
 }
 
-// snippet-start:[route53.kotlin.create_health_check.main]
-suspend fun createCheck(route53Client: Route53Client, domainName: String?): String? {
+// snippet-start:[route53.kotlin.create_hosted_zone.main]
+suspend fun createZone(route53Client: Route53Client, domainName: String?): String? {
         try {
 
             // You must use a unique CallerReference string.
             val callerReferenceVal = UUID.randomUUID().toString()
-
-            val config = HealthCheckConfig {
-                fullyQualifiedDomainName =domainName
-                port =80
-                type = HealthCheckType.Http
-            }
-
-            val healthCheckRequest = CreateHealthCheckRequest {
+            val zoneRequest = CreateHostedZoneRequest {
                 callerReference = callerReferenceVal
-                healthCheckConfig = config
+                name= domainName
             }
 
-            // Create the Health Check and return the id value.
-            val healthResponse = route53Client.createHealthCheck(healthCheckRequest)
-            return healthResponse.healthCheck?.id
+            val zoneResponse = route53Client.createHostedZone(zoneRequest)
+            return zoneResponse.hostedZone?.id
 
         } catch (e: Route53Exception) {
             System.err.println(e.message)
             exitProcess(0)
         }
-      }
-// snippet-end:[route53.kotlin.create_health_check.main]
+    }
+// snippet-end:[route53.kotlin.create_hosted_zone.main]
