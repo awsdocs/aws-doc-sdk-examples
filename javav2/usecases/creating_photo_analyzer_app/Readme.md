@@ -53,7 +53,7 @@ Create an Amazon S3 bucket named **photos[somevalue]**. Be sure to use this buck
 
 The AWS Photo Analyzer application supports uploading images to an Amazon S3 bucket. After the images are uploaded, you can view the images that are analyzed.
 
-![AWS Photo Analyzer](images/Photo1.png)
+![AWS Photo Analyzer](images/upload3.png)
 
 To generate a report, enter an email address and choose **Analyze Photos**.
 
