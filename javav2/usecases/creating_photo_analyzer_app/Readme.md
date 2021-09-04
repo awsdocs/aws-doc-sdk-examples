@@ -76,7 +76,7 @@ You can also download a given image from the Amazon S3 bucket by using this appl
 
 At this point, you have a new project named **SpringPhotoAnalyzer**.
 
-![AWS Photo Analyzer](images/photo3.png)
+![AWS Photo Analyzer](images/projectpa0.png)
 
 Add the following dependencies for the Amazon services (AWS SDK for Java version 2).
 
