@@ -67,7 +67,7 @@ The AWS Photo Analyzer application supports uploading images to an Amazon S3 buc
 
 To generate a report, enter an email address and choose **Analyze Photos**.
 
-![AWS Photo Analyzer](images/report2.png)
+![AWS Photo Analyzer](images/Report2.png)
 
 You can also download a given image from the Amazon S3 bucket by using this application. Simply specify the image name and choose the **Download Photo** button. The image is downloaded to your browser, as shown in this illustration. 
 
