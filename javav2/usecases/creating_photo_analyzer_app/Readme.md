@@ -10,6 +10,7 @@ For example, the following image shows a lake.
 ![AWS Photo Analyzer](images/Lake1.png)
 
 After the application analyzes this image, it creates this data:
+
 *	Panoramic - 99.99971
 *	Outdoors - 99.99971
 *	Nature - 99.99971
@@ -19,7 +20,11 @@ After the application analyzes this image, it creates this data:
 *	Water - 93.501465
 *	Lake - 87.28128
 
-In addition, this application uses Amazon Simple Email Service (Amazon SES) to send a report to a given email recipient. In this tutorial, you create a Spring Boot application named **AWS Photo Analyzer**. The Spring Boot APIs are used to build a model, different views, and a controller. For more information, see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
+In addition, this application uses Amazon Simple Email Service (Amazon SES) to send a report to a given email recipient. The report is a Microsoft Excel document that cotains label data for each image. 
+
+![AWS Photo Analyzer](images/excelreport.png)
+
+In this tutorial, you create a Spring Boot application named **AWS Photo Analyzer**. The Spring Boot APIs are used to build a model, different views, and a controller. For more information, see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
 
 This application uses the following AWS services:
 *	Amazon Rekognition
