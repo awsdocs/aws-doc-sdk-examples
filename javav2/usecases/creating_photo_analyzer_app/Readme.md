@@ -5,18 +5,7 @@ You can create a dynamic web application that analyzes nature images located in 
 
 ![AWS Photo Analyzer](images/Lake1.png)
 
-After the application analyzes this image, it creates this data:
-
-*	Panoramic - 99.99971
-*	Outdoors - 99.99971
-*	Nature - 99.99971
-*	Landscape - 99.99971
-*	Scenery	 - 99.99971
-*	Wilderness - 96.90007
-*	Water - 93.501465
-*	Lake - 87.28128
-
-In addition, this application uses Amazon Simple Email Service (Amazon SES) to send a report to a given email recipient. The report is a Microsoft Excel document that cotains label data for each image. 
+After the application analyzes all images in the Amazon S3 bucket, it uses the Amazon Simple Email Service (Amazon SES) to send a report that is dynamically created to a given email recipient. The report is a Microsoft Excel document that contains label data for each image. 
 
 ![AWS Photo Analyzer](images/excelreport.png)
 
