@@ -881,18 +881,17 @@ The **add.html** file is the application's view that lets users post new items.
      <head>
      <meta charset="UTF-8" />
      <title>Blog</title>
-     <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
-     <script th:src="|https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js|"></script>
-     <script th:src="|https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js|"></script>
-     <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
-     <script src="../public/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
-     <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-     <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
-   </head>
+      <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
+      <script th:src="|https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js|"></script>
+      <script th:src="|https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js|"></script>
+      <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
+      <script src="../public/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
+      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+     </head>
 
    <body>
-    <header th:replace="layout :: site-header"/>
-    <div class="container">
+     <header th:replace="layout :: site-header"/>
+     <div class="container">
      <h3>Welcome to the Amazon Redshift Job Posting example app</h3>
      <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
      <p>Add a new job posting by filling in this table and clicking <i>Create Item</i></p>
