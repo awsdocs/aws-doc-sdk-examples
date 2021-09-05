@@ -1,7 +1,7 @@
 #  Creating a dynamic web application that analzyes photos using the AWS SDK for Java
 
 ## Purpose
-You can create a dynamic web application that analyzes nature images located in an Amazon Simple Storage Service (Amazon S3) bucket by using the Amazon Rekognition service. The application can analyze many images and generate a report that breaks down each image into a series of labels. For example, the following image shows a lake.
+You can create a dynamic web application that analyzes nature images located in an Amazon Simple Storage Service (Amazon S3) bucket by using the Amazon Rekognition service. The application analyzes many images and generates a report that breaks down each image into a series of labels. For example, the following image shows a lake.
 
 ![AWS Photo Analyzer](images/Lake1.png)
 
