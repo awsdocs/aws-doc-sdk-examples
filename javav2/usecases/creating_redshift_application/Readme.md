@@ -64,7 +64,7 @@ This example application lets you view the posts by choosing the **Get Posts** m
 
 This application also supports viewing the result set in different languages. For example, if a user wants to view the result set in Spanish, they can choose Spanish from the dropdown field and the data is translated to the given language by using Amazon Translate, as shown in this illustration. 
 
-![AWS Tracking Application](images/Spanisha.png)
+![AWS Tracking Application](images/posts2.png)
 
 ## Create an IntelliJ project named Blog
 
