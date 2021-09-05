@@ -8,13 +8,14 @@ You can create a dynamic web application that stores and queries data by using t
 #### Topics
 
 1. Prerequisites
-2. Create an IntelliJ project 
-3. Add the POM dependencies to your project
-4. Set up the Java packages in your project
-5. Create the Java classes
-6. Create the HTML files
-7. Package the application into a JAR file
-8. Deploy the application to AWS Elastic Beanstalk
+2. Understand the Job Posting application
+3. Create an IntelliJ project 
+4. Add the POM dependencies to your project
+5. Set up the Java packages in your project
+6. Create the Java classes
+7. Create the HTML files
+8. Package the application into a JAR file
+9. Deploy the application to AWS Elastic Beanstalk
 
 
 ## Prerequisites
