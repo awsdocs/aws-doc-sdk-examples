@@ -810,10 +810,11 @@ At this point, you have created all of the Java files required for this example 
 + login.html
 
 ### index.html
+
 The **index.html** file is the application's home view. 
 
-   <!DOCTYPE html>
-   <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+     <!DOCTYPE html>
+     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
     <head>
      <meta charset="utf-8" />
@@ -838,11 +839,13 @@ The **index.html** file is the application's home view.
         <li>You can view the items by chooing either the <b>Five Posts</b>, <b>Ten Posts</b>, or <b>All Posts</b> button. </li>
         <li>The items appear in the page from newest to oldest.</li>
      </ol>
-     <div>
-     </body>
-     </html>
+      <div>
+      </body>
+     </html>     
+  
 	   
 ### layout.html
+
 The following code represents the **layout.html** file that represents the application's menu.
 
      <!DOCTYPE html>
