@@ -893,7 +893,7 @@ The **add.html** file is the application's view that lets users post new items.
    <body>
     <header th:replace="layout :: site-header"/>
     <div class="container">
-     <h3>Welcome <span sec:authentication="principal.username">User</span> to the Amazon Redshift Job Posting example app</h3>
+     <h3>Welcome to the Amazon Redshift Job Posting example app</h3>
      <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
      <p>Add a new job posting by filling in this table and clicking <i>Create Item</i></p>
 
@@ -914,8 +914,8 @@ The **add.html** file is the application's view that lets users post new items.
                 <br>
                 <button type="submit" class="btn btn-primary btn-xl" id="SendButton">Create Item</button>
             </div>
-     </body>
-     </html>
+       </body>
+      </html>
 
 ### post.html
 The **post.html** file is the application's view that displays the job items in the specific language. 
