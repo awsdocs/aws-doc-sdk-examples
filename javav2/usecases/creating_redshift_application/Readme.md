@@ -209,7 +209,7 @@ At this point, you have a new project named **Blog**. Ensure that the pom.xml fi
  
  Create a Java package in the main/java folder named **com.aws.blog**. The Java classes go into this package. 
  
- ![AWS Lex](images/Java.png)
+ ![AWS Lex](images/projectclasses.png)
  
  Create these Java classes:
 
