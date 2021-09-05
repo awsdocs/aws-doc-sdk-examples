@@ -813,8 +813,8 @@ At this point, you have created all of the Java files required for this example 
 
 The **index.html** file is the application's home view. 
 
-     <!DOCTYPE html>
-     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
     <head>
      <meta charset="utf-8" />
@@ -825,10 +825,12 @@ The **index.html** file is the application's home view.
      <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
      <title>AWS Job Posting Example</title>
-   </head>
-   <body>
-    <header th:replace="layout :: site-header"/>
+    </head>
+
+    <body>
+     <header th:replace="layout :: site-header"/>
      <div class="container">
+
      <h3>Welcome <span sec:authentication="principal.username">User</span> to the Amazon Redshift Job Posting example app</h3>
      <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
      <p>The Amazon Redshift Job Posting Example application uses multiple AWS Services and the Java V2 API. Perform these steps:<p>
@@ -839,9 +841,9 @@ The **index.html** file is the application's home view.
         <li>You can view the items by chooing either the <b>Five Posts</b>, <b>Ten Posts</b>, or <b>All Posts</b> button. </li>
         <li>The items appear in the page from newest to oldest.</li>
      </ol>
-      <div>
-      </body>
-     </html>     
+     <div>
+     </body>
+    </html>
   
 	   
 ### layout.html
