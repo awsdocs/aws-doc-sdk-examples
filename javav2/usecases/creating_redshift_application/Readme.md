@@ -851,7 +851,7 @@ The **index.html** file is the application's home view.
 The following code represents the **layout.html** file that represents the application's menu.
 
      <!DOCTYPE html>
-     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+     <html xmlns:th="http://www.thymeleaf.org">
      <head th:fragment="site-head">
      <meta charset="UTF-8" />
      <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
@@ -859,93 +859,83 @@ The following code represents the **layout.html** file that represents the appli
      <meta th:include="this :: head" th:remove="tag"/>
     </head>
     <body>
-     <!-- th:hef calls a controller method - which returns the view -->
-     <header th:fragment="site-header">
-     <a href="index.html" th:href="@{/}"><img src="../public/img/site-logo.png" th:src="@{/img/site-logo.png}" /></a>
+    <!-- th:hef calls a controller method - which returns the view -->
+    <header th:fragment="site-header">
      <a href="#" style="color: white" th:href="@{/}">Home</a>
      <a href="#" style="color: white" th:href="@{/add}">Add Post</a>
      <a href="#"  style="color: white" th:href="@{/posts}">Get Posts</a>
      <div id="logged-in-info">
-
         <form method="post" th:action="@{/logout}">
             <input type="submit"  value="Logout"/>
         </form>
     </div>
-    </header>
-    <h1>Welcome</h1>
-    <body>
-    <p>Welcome to  AWS Blog application.</p>
-    </body>
-    </html>
-	   
+   </header>
+  </html>
 
 ### add.html
 
 The **add.html** file is the application's view that lets users post new items. 
 
-      <!DOCTYPE html>
-      <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+     <!DOCTYPE html>
+     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
      <head>
      <meta charset="UTF-8" />
-     <title>Redshift App</title>
+     <title>Reshift App</title>
      <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
      <script th:src="|https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js|"></script>
      <script th:src="|https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js|"></script>
      <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
-     <script src="../public/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
-     <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+    <script src="../public/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
+    <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
     <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
-    </head>
+   </head>
 
-    <body>
-    <header th:replace="layout :: site-header"/>
-    <div class="container">
-     <h3>Welcome <span sec:authentication="principal.username">User</span> to the Amazon Redshift Job Posting example app</h3>
-     <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
-     <p>Add a new job posting by filling in this table and clicking <i>Create Item</i></p>
+   <body>
+   <header th:replace="layout :: site-header"/>
+   <div class="container">
+    <h3>Welcome <span sec:authentication="principal.username">User</span> to the Amazon Redshift Job Posting example app</h3>
+    <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
+    <p>Add a new job posting by filling in this table and clicking <i>Create Item</i></p>
 
-     <div class="control-group">
-     <div class="form-group floating-label-form-group controls mb-0 pb-2">
-         <label>Title</label>
-         <input class="form-control" id="title" placeholder="Title" required="required" data-validation-required-message="Please enter the AWS Guide.">
-         <p class="help-block text-danger"></p>
-         </div>
-         </div>
-         <div class="control-group">
-         <div class="form-group floating-label-form-group controls mb-0 pb-2">
-         <label>Body</label>
-         <textarea class="form-control" id="body" rows="5" placeholder="Body" required="required" data-validation-required-message="Please enter a description."></textarea>
-         <p class="help-block text-danger"></p>
-         </div>
-       </div>
-       <br>
-       <button type="submit" class="btn btn-primary btn-xl" id="SendButton">Create Item</button>
-      </div>
-     </body>
-    </html>
+       <div class="control-group">
+       <div class="form-group floating-label-form-group controls mb-0 pb-2">
+           <label>Title</label>
+             <input class="form-control" id="title" placeholder="Title" required="required" data-validation-required-message="Please enter the AWS Guide.">
+                  <p class="help-block text-danger"></p>
+                   </div>
+            </div>
+      <div class="control-group">
+       <div class="form-group floating-label-form-group controls mb-0 pb-2">
+             <label>Body</label>
+             <textarea class="form-control" id="body" rows="5" placeholder="Body" required="required" data-validation-required-message="Please enter a description."></textarea>
+                 <p class="help-block text-danger"></p>
+                 </div>
+              </div>
+              <br>
+                <button type="submit" class="btn btn-primary btn-xl" id="SendButton">Create Item</button>
+            </div>
+       </body>
+      </html>
 
 ### post.html
 The **post.html** file is the application's view that displays the job items in the specific language. 
 
-    <!DOCTYPE html>
-     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+   <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
      <head>
      <meta charset="UTF-8" />
      <title>Blog</title>
-
      <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
      <script th:src="|https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js|"></script>
      <script th:src="|https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js|"></script>
      <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
      <script src="../public/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-
-     </head>
-     <body>
-     <header th:replace="layout :: site-header"/>
-
-     <div class="container">
+    </head>
+    <body>
+    <header th:replace="layout :: site-header"/>
+    <div class="container">
      <h3>Welcome <span sec:authentication="principal.username">User</span> to the Amazon Redshift Job Posting example app</h3>
      <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
      <div  id ="progress"  class="progress">
@@ -955,15 +945,12 @@ The **post.html** file is the application's view that displays the job items in 
      </div>
      <div class="row">
         <div class="col-8">
-
             <div class="clearfix mt-40">
                 <ul class="xsearch-items">
                 </ul>
             </div>
-
         </div>
         <div class="col-4">
-
             <label for="lang">Select a Language:</label>
             <select name="lang" id="lang">
                 <option>English</option>
@@ -973,15 +960,15 @@ The **post.html** file is the application's view that displays the job items in 
                 <option>Chinese</option>
                 <option>Japanese</option>
             </select>
-            <div>
+           <div>
                 <button type="button" onclick="getPosts(5)">Five Posts</button>
                 <button type="button" onclick="getPosts(10)">Ten Posts</button>
                 <button type="button" onclick="getPosts(0)">All Posts</button>
-             </div>
-           </div>
+            </div>
          </div>
-       </body>
-      </html>
+       </div>
+      </body>
+     </html>
 
 ### login.html
 The **login.html** file is the application's login page. 
