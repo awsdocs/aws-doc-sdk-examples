@@ -1095,16 +1095,16 @@ This application has a **contact_me.js** file that is used to send requests to t
             }
         });
 
-     } );// END of the Send button click
-    } );
+      } );// END of the Send button click
+     } );
 
-  function getPosts(num){
+     function getPosts(num){
 
-    $('.xsearch-items').empty()
-    $('#progress').show();
-    var lang = $('#lang option:selected').text();
+     $('.xsearch-items').empty()
+     $('#progress').show();
+     var lang = $('#lang option:selected').text();
 
-    $.ajax('/getPosts', {
+     $.ajax('/getPosts', {
         type: 'POST',  // http method
         data: 'lang=' + lang+"&number=" + num ,  // data to submit
         success: function (data, status, xhr) {
