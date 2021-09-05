@@ -8,13 +8,14 @@ You can create a dynamic web application that stores and queries data by using t
 #### Topics
 
 1. Prerequisites
-2. Create an IntelliJ project 
-3. Add the POM dependencies to your project
-4. Set up the Java packages in your project
-5. Create the Java classes
-6. Create the HTML files
-7. Package the application into a JAR file
-8. Deploy the application to AWS Elastic Beanstalk
+2. Understand the Job Posting application
+3. Create an IntelliJ project 
+4. Add the POM dependencies to your project
+5. Set up the Java packages in your project
+6. Create the Java classes
+7. Create the HTML files
+8. Package the application into a JAR file
+9. Deploy the application to AWS Elastic Beanstalk
 
 
 ## Prerequisites
@@ -53,17 +54,17 @@ The **blog** table contains these fields:
 
 **Note**: For more information about supported field data types, see [Data types](https://docs.aws.amazon.com/redshift/latest/dg/c_Supported_data_types.html). 
 
-The application you create uses Spring Boot APIs to build a model, different views, and a controller. This web application also lets a user submit a new job posting that is then stored into the **blog** table, as shown in this illustration. 
+The application you create uses Spring Boot APIs to build a model, different views, and a controller. This web application lets a user submit a new job posting that is then stored in the **blog** table, as shown in this illustration. 
 
 ![AWS Tracking Application](images/NewRecorda.png)
 
-This example application lets you view the posts by choosing the **Get Posts** menu item and choosing one of the available buttons. For example, you can view five recent posts by choosing the **Five Posts** button, as shown in the following illustration.
+This application lets a user view the posts by choosing the **Get Posts** menu item and choosing one of the available buttons. For example, you can view five recent posts by choosing the **Five Posts** button, as shown in the following illustration.
 
-![AWS Tracking Application](images/FiveRecordsa.png)
+![AWS Tracking Application](images/posts.png)
 
 This application also supports viewing the result set in different languages. For example, if a user wants to view the result set in Spanish, they can choose Spanish from the dropdown field and the data is translated to the given language by using Amazon Translate, as shown in this illustration. 
 
-![AWS Tracking Application](images/Spanisha.png)
+![AWS Tracking Application](images/posts2.png)
 
 ## Create an IntelliJ project named Blog
 
@@ -83,7 +84,7 @@ Create an IntelliJ project that is used to create the web application.
 
 7. Choose **Finish**.
 
-## Add the Spring POM dependencies to your project
+## Add the POM dependencies to your project
 
 At this point, you have a new project named **Blog**. Ensure that the pom.xml file resembles the following code.
 
@@ -208,7 +209,7 @@ At this point, you have a new project named **Blog**. Ensure that the pom.xml fi
  
  Create a Java package in the main/java folder named **com.aws.blog**. The Java classes go into this package. 
  
- ![AWS Lex](images/Java.png)
+ ![AWS Lex](images/projectclasses.png)
  
  Create these Java classes:
 
@@ -809,50 +810,48 @@ At this point, you have created all of the Java files required for this example 
 + login.html
 
 ### index.html
+
 The **index.html** file is the application's home view. 
 
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
     <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
-    <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-    <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
-
-    <title>AWS Job Posting Example</title>
+     <meta charset="utf-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
+     <script th:src="|https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js|"></script>
+     <script th:src="|https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js|"></script>
+     <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
+     <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+     <title>AWS Job Posting Example</title>
     </head>
 
     <body>
-    <header th:replace="layout :: site-header"/>
-    <div class="container">
+     <header th:replace="layout :: site-header"/>
+     <div class="container">
 
-    <h3>Welcome <span sec:authentication="principal.username">User</span> to the Amazon Redshift Job Posting example app</h3>
-    <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
-
-    <h2>Amazon Redshift Job Posting Example</h2>
-
-    <p>The Amazon Redshift Job Posting Example application uses multiple AWS Services and the Java V2 API. Perform these steps:<p>
-
-    <ol>
+     <h3>Welcome <span sec:authentication="principal.username">User</span> to the Amazon Redshift Job Posting example app</h3>
+     <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
+     <p>The Amazon Redshift Job Posting Example application uses multiple AWS Services and the Java V2 API. Perform these steps:<p>
+     <ol>
         <li>Enter work items into the system by choosing the <i>Add Posts</i> menu item. Fill in the form and then choose <i>Create Item</i>.</li>
         <li>The sample application stores the data by using the Amazon Redshift Java API V2.</li>
         <li>You can view the items by choosing the <i>Get Posts</i> menu item. Next, select a language.</li>
         <li>You can view the items by chooing either the <b>Five Posts</b>, <b>Ten Posts</b>, or <b>All Posts</b> button. </li>
         <li>The items appear in the page from newest to oldest.</li>
-    </ol>
-    <div>
-    </body>
+     </ol>
+     <div>
+     </body>
     </html>
-
+  
+	   
 ### layout.html
+
 The following code represents the **layout.html** file that represents the application's menu.
 
      <!DOCTYPE html>
-     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+     <html xmlns:th="http://www.thymeleaf.org">
      <head th:fragment="site-head">
      <meta charset="UTF-8" />
      <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
@@ -860,51 +859,46 @@ The following code represents the **layout.html** file that represents the appli
      <meta th:include="this :: head" th:remove="tag"/>
     </head>
     <body>
-     <!-- th:hef calls a controller method - which returns the view -->
-     <header th:fragment="site-header">
-     <a href="index.html" th:href="@{/}"><img src="../public/img/site-logo.png" th:src="@{/img/site-logo.png}" /></a>
+    <!-- th:hef calls a controller method - which returns the view -->
+    <header th:fragment="site-header">
      <a href="#" style="color: white" th:href="@{/}">Home</a>
      <a href="#" style="color: white" th:href="@{/add}">Add Post</a>
      <a href="#"  style="color: white" th:href="@{/posts}">Get Posts</a>
      <div id="logged-in-info">
-
         <form method="post" th:action="@{/logout}">
             <input type="submit"  value="Logout"/>
         </form>
     </div>
-    </header>
-    <h1>Welcome</h1>
-    <body>
-    <p>Welcome to  AWS Blog application.</p>
-    </body>
-    </html>
+   </header>
+  </html>
 
 ### add.html
+
 The **add.html** file is the application's view that lets users post new items. 
 
-      <!DOCTYPE html>
-      <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <!DOCTYPE html>
+     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
      <head>
      <meta charset="UTF-8" />
      <title>Blog</title>
-
      <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
+     <script th:src="|https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js|"></script>
+     <script th:src="|https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js|"></script>
+     <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
      <script src="../public/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
-     <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
      <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
-     </head>
+    </head>
 
-     <body>
-     <header th:replace="layout :: site-header"/>
-     <div class="container">
-     <h3>Welcome <span sec:authentication="principal.username">User</span> to the Amazon Redshift Job Posting example app</h3>
-     <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
-     <p>Add a new job posting by filling in this table and clicking <i>Create Item</i></p>
+    <body>
+    <header th:replace="layout :: site-header"/>
+    <div class="container">
+    <h3>Welcome <span sec:authentication="principal.username">User</span> to the Amazon Redshift Job Posting example app</h3>
+    <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
+    <p>Add a new job posting by filling in this table and clicking <i>Create Item</i></p>
 
-     <div class="row">
-        <div class="col-lg-8 mx-auto">
+
                 <div class="control-group">
                     <div class="form-group floating-label-form-group controls mb-0 pb-2">
                         <label>Title</label>
@@ -922,48 +916,39 @@ The **add.html** file is the application's view that lets users post new items.
                 <br>
                 <button type="submit" class="btn btn-primary btn-xl" id="SendButton">Create Item</button>
             </div>
-       </div>
-       </div>
       </body>
      </html>
 
 ### post.html
-The **post.html** file is the application's view that displays the items in the specific language. 
+The **post.html** file is the application's view that displays the job items in the specific language. 
 
-    <!DOCTYPE html>
-     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-
+   <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
      <head>
      <meta charset="UTF-8" />
      <title>Blog</title>
-
      <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
      <script th:src="|https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js|"></script>
      <script th:src="|https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js|"></script>
      <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
      <script src="../public/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-     <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
-     </head>
-
-     <body>
-     <header th:replace="layout :: site-header"/>
-
+    </head>
+    <body>
+    <header th:replace="layout :: site-header"/>
     <div class="container">
      <h3>Welcome <span sec:authentication="principal.username">User</span> to the Amazon Redshift Job Posting example app</h3>
      <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
-
-     <div id= "progress" class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+     <div  id ="progress"  class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:90%">
+            Retrieving Amazon Redshift Data...
+        </div>
      </div>
-
-    <div class="row">
-        <div class="col">
-            <div class="col-lg-10">
-                <div class="clearfix mt-40">
-                    <ul class="xsearch-items">
-                    </ul>
-                </div>
+     <div class="row">
+        <div class="col-8">
+            <div class="clearfix mt-40">
+                <ul class="xsearch-items">
+                </ul>
             </div>
         </div>
         <div class="col-4">
@@ -976,17 +961,15 @@ The **post.html** file is the application's view that displays the items in the 
                 <option>Chinese</option>
                 <option>Japanese</option>
             </select>
-        </div>
-        <div>
-            <button type="button" onclick="getPosts(5)">Five Posts</button>
-            <button type="button" onclick="getPosts(10)">Ten Posts</button>
-            <button type="button" onclick="getPosts(0)">All Posts</button>
-        </div>
-     </div>
-     </div>
-     </div>
-     </body>
-    </html>
+           <div>
+                <button type="button" onclick="getPosts(5)">Five Posts</button>
+                <button type="button" onclick="getPosts(10)">Ten Posts</button>
+                <button type="button" onclick="getPosts(0)">All Posts</button>
+            </div>
+         </div>
+       </div>
+      </body>
+     </html>
 
 ### login.html
 The **login.html** file is the application's login page. 
@@ -1094,66 +1077,63 @@ This application has a **contact_me.js** file that is used to send requests to t
       $(function() {
 
        $('#progress').hide();
-
-        $("#SendButton" ).click(function($e) {
+       $("#SendButton" ).click(function($e) {
 
          var title = $('#title').val();
          var body = $('#body').val();
-        
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", loadNewItems, false);
-        xhr.open("POST", "../addPost", true);   //buildFormit -- a Spring MVC controller
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-        xhr.send("title=" + title + "&body=" + body);
-        } );// END of the Send button click
 
-       function loadNewItems(event) {
-        var msg = event.target.responseText;
-        alert("You have successfully added item "+msg)
+        $.ajax('/addPost', {
+            type: 'POST',  // http method
+            data: 'title=' + title + '&body=' + body ,  // data to submit
+            success: function (data, status, xhr) {
 
-        $('#title').val("");
-        $('#body').val("");
-        }
-       } );
+                alert("You have successfully added an item")
 
-    function getPosts(num){
+                $('#title').val("");
+                $('#body').val("");
+
+            }
+        });
+
+      } );// END of the Send button click
+     } );
+
+     function getPosts(num){
 
      $('.xsearch-items').empty()
      $('#progress').show();
      var lang = $('#lang option:selected').text();
-    
-    var xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", loadItems, false);
-    xhr.open("POST", "../getPosts", true);   //buildFormit -- a Spring MVC controller
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-    xhr.send("lang=" + lang +"&number=" + num );
-    }
 
-    function loadItems(event) {
+     $.ajax('/getPosts', {
+        type: 'POST',  // http method
+        data: 'lang=' + lang+"&number=" + num ,  // data to submit
+        success: function (data, status, xhr) {
 
-    $('#progress').hide();
-    var xml = event.target.responseText;
-    $(xml).find('Item').each(function ()  {
+            var xml = data;
+            $('#progress').hide();
+            $(xml).find('Item').each(function () {
 
-        var $field = $(this);
-        var id = $field.find('Id').text();
-        var date = $field.find('Date').text();
-        var title = $field.find('Title').text();
-        var body = $field.find('Content').text();
-        var author = $field.find('Author').text();
-        
-        // Append this data to the main list.
-        $('.xsearch-items').append("<className='search-item'>");
-        $('.xsearch-items').append("<div class='search-item-content'>");
-        $('.xsearch-items').append("<h3 class='search-item-caption'><a href='#'>"+title+"</a></h3>");
-        $('.xsearch-items').append("<className='search-item-meta mb-15'>");
-        $('.xsearch-items').append("<className='list-inline'>");
-        $('.xsearch-items').append("<p><b>"+date+"</b></p>");
-        $('.xsearch-items').append("<p><b>'Posted by "+author+"</b></p>");
-        $('.xsearch-items').append("<div>");
-        $('.xsearch-items').append("<h6>"+body +"</h6>");
-        $('.xsearch-items').append("</div>");
-       });
+                var $field = $(this);
+                var id = $field.find('Id').text();
+                var date = $field.find('Date').text();
+                var title = $field.find('Title').text();
+                var body = $field.find('Content').text();
+                var author = $field.find('Author').text();
+
+                // Append this data to the main list.
+                $('.xsearch-items').append("<className='search-item'>");
+                $('.xsearch-items').append("<div class='search-item-content'>");
+                $('.xsearch-items').append("<h3 class='search-item-caption'><a href='#'>" + title + "</a></h3>");
+                $('.xsearch-items').append("<className='search-item-meta mb-15'>");
+                $('.xsearch-items').append("<className='list-inline'>");
+                $('.xsearch-items').append("<p><b>" + date + "</b></p>");
+                $('.xsearch-items').append("<p><b>'Posted by " + author + "</b></p>");
+                $('.xsearch-items').append("<div>");
+                $('.xsearch-items').append("<h6>" + body + "</h6>");
+                $('.xsearch-items').append("</div>");
+            });
+         }
+        });
       }
 
 ## Create a JAR file for the application
