@@ -735,7 +735,7 @@ The following class uses the Amazon S3 Java API to perform Amazon S3 operations.
 
 The following Java code represents the **SendMessage** class. This class uses the Amazon SES Java API to send an email message with an attachment that represents the report.
 
-   package com.example.photo;
+     package com.example.photo;
 
     import org.apache.commons.io.IOUtils;
     import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
