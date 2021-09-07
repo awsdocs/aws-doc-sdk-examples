@@ -332,11 +332,11 @@ Ensure that the **pom.xml** file looks like the following.
 
 Create a Java package in the **main/java** folder named **com.example**.
 
-![AWS Tracking Application](images/pic9.png)
+![AWS Tracking Application](images/project1.png)
 
 The Java files go into the following subpackages.
 
-![AWS Tracking Application](images/pic10.png)
+![AWS Tracking Application](images/project2.png)
 
 These packages contain the following:
 
