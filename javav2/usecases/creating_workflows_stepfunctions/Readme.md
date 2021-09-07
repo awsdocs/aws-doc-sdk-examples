@@ -1,7 +1,7 @@
 #  Create AWS serverless workflows by using the AWS SDK for Java
 
 ## Purpose
-You can create an AWS serverless workflow by using the AWS SDK for Java and AWS Step Functions.
+You can create an AWS serverless workflow by using the AWS SDK for Java Version 2 and AWS Step Functions.
 Each workflow step is implemented by using an AWS Lambda function. Lambda is a compute service that enables you to run
 code without provisioning or managing servers.
 
