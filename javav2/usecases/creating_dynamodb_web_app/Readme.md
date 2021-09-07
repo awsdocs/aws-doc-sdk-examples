@@ -118,7 +118,7 @@ The following figure shows the **Work** table.
 
 At this point, you have a new project named **ItemTrackerDynamoDB**.
 
-![AWS Tracking Application](images/pic8.png)
+![AWS Tracking Application](images/project.png)
 
 In the **pom.xml** file's **project** element, add the **spring-boot-starter-parent** dependency.
 
