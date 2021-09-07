@@ -80,7 +80,7 @@ A user can perform these tasks in the **DynamoDB Item Tracker** application:
 
 The following figure shows the new item section.
 
-![AWS Tracking Application](images/pic4.png)
+![AWS Tracking Application](images/additems.png)
 
 A user can retrieve *active* or *archive* items. For example, a user can choose **Get Active Items** to get a dataset that's retrieved from the DynamoDB **Work** table and displayed in the web application.
 
