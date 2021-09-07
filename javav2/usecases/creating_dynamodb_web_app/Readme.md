@@ -596,16 +596,6 @@ The following Java code represents the **MainController** class.
      }
      }
 
-#### To create the WebSecurityConfig classes
-
-1. Create the **com.example.secureweb** package.
-2. Create the **WebSecurityConfig** class and paste the code into it.
-
-#### To create the MainController class
-
-1. In the **com.example.secureweb** package, create the **MainController** class.
-2. Copy the code from the **MainController** class and paste it into this class in your project.
-
 ### Create the WorkItem class
 
 Create a Java package named **com.example.entities**. Next, create a class named **WorkItem** that represents the application model.  
@@ -673,10 +663,6 @@ The following Java code represents the **WorkItem** class.
      }
      }
 
-#### To create the WorkItem class
-1. In the **com.example.entities** package, create the **WorkItem** class.
-2. Copy the code from the **WorkItem** class and paste it into this class in your project.
-
 ### Create the service classes
 
 The service classes contain Java application logic that invokes AWS services. In this section, you create these classes:
@@ -687,6 +673,7 @@ The service classes contain Java application logic that invokes AWS services. In
 + **WriteExcel** - Uses the Java Excel API to dynamically create a report (this does not use AWS SDK for Java APIs).
 
 #### DynamoDBService class
+
 The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to interact with the **Work** table. It adds new items, updates items, and perform queries. The following Java code represents the **DynamoDBService** class. In the following code example, notice the use of an **Expression** object. This object is used to query active or closed items. For example, in the **getClosedItems** method, only closed items are retrieved.
 
 Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials.
@@ -1315,6 +1302,7 @@ The **Work** class is used with the DynamoDB enhanced client and maps the **Work
 
 
 #### SendMessage class
+
 The **SendMessage** class uses the AWS SDK for Java V2 SES API to send an email message with an attachment (the Excel document) to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
 The following Java code represents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials.
@@ -1641,14 +1629,6 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         return count;
      }
     }
-
-#### To create the service classes
-
-1. Create the **com.example.services** package.
-2. Create the **DynamoDBService** class and add the Java code to it.
-3. Create the **SendMessages** class and add the Java code to it.   
-4. Create the **WriteExcel** class and add the Java code to it.
-5. Create the **Work** class and add the Java code to it.
 
 ## Create the HTML files
 
