@@ -1762,6 +1762,7 @@ The following HTML code represents the **index.html** file. This file represents
      <body>
      <header th:replace="layout :: site-header"/>
      <div class="container">
+     <h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Item Tracker</h3>
      <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
      <h2>Amazon DynamoDB Item Tracker</h2>
      <p>The Amazon DynamoDB Item Tracker example application uses multiple AWS Services and the Java V2 API. Collecting and  working with items has never been easier! Simply perform these steps:<p>
