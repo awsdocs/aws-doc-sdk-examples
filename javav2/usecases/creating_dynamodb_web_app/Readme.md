@@ -1757,16 +1757,14 @@ The following HTML code represents the **index.html** file. This file represents
      <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
      <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
-
-    <title>Amazon DynamoDB Item Tracker</title>
-   </head>
-
-    <body>
-    <header th:replace="layout :: site-header"/>
-    <div class="container">
-    <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
-    <h2>Amazon DynamoDB Item Tracker</h2>
-    <p>The Amazon DynamoDB Item Tracker example application uses multiple AWS Services and the Java V2 API. Collecting and  working with items has never been easier! Simply perform these steps:<p>
+     <title>Amazon DynamoDB Item Tracker</title>
+     </head>
+     <body>
+     <header th:replace="layout :: site-header"/>
+     <div class="container">
+     <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
+     <h2>Amazon DynamoDB Item Tracker</h2>
+     <p>The Amazon DynamoDB Item Tracker example application uses multiple AWS Services and the Java V2 API. Collecting and  working with items has never been easier! Simply perform these steps:<p>
      <ol>
         <li>Enter work items into the system by choosing the <i>Add Items</i> menu item. Fill in the form and then choose <i>Create Item</i>.</li>
         <li>The AWS Item Tracker application stores the data into an Amazon DynamoDB table by using the DynamoDB Java V2 API.</li>
