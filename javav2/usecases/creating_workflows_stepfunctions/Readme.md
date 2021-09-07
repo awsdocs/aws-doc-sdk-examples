@@ -324,13 +324,14 @@ The pom.xml file looks like the following.
         </plugins>
        </build>
      </project>
+
 ## Create Lambda functions by using the AWS SDK for Java Lambda API
 
 Use the Lambda runtime API to create the Java classes that define the Lamdba functions. In this example, there are three workflow steps that each correspond to a Java class. There are also two extra classes that invoke the Amazon DynamoDB service and the Amazon SES service.  
 
 The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **example**.
 
-![AWS Tracking Application](images/lambda9.png)
+![AWS Tracking Application](images/project2.png)
 
 To create a Lambda function by using the Lambda runtime API, you implement **com.amazonaws.services.lambda.runtime.RequestHandler**. The application logic that's executed when the workflow step is invoked is located in the **handleRequest** method. The return value of this method is passed to the next step in a workflow.
 
