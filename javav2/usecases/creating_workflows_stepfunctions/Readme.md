@@ -116,9 +116,9 @@ Workflows can pass data between steps. For example, the **Open Case** step proce
 
 2. Choose **Create State Machine**.
 
-3. Choose **Author with code snippets**. In the **Type** area, choose **Standard**.
+3. Choose **Write your workflow in code**. In the **Type** area, choose **Standard**.
 
-![AWS Tracking Application](images/lambda3.png)
+![AWS Tracking Application](images/createsm.png)
 
 4. Specify the Amazon States Language document by entering the following code.
 
