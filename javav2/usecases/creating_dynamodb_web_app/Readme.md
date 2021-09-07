@@ -48,7 +48,7 @@ To complete the tutorial, you need the following:
 
 ### Creating the resources
 
-Create an Amazon DynamoDB table named **Work** with a key named **id**. Be sure to use this bucket name in your Amazon S3 Java code. For information, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+Create an Amazon DynamoDB table named **Work** with a key named **id**. For information, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 
 
 ## Understand the DynamoDB Item Tracker application
