@@ -1751,41 +1751,41 @@ The following HTML code represents the **index.html** file. This file represents
     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
     <head>
-      <meta charset="utf-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <meta charset="utf-8" />
+     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+     <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
+     <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+     <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
 
-      <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
-      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-      <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
+    <title>Amazon DynamoDB Item Tracker</title>
+   </head>
 
-      <title>AWS Item Tracker</title>
-     </head>
+  <body>
+   <header th:replace="layout :: site-header"/>
+   <div class="container">
 
-     <body>
-      <header th:replace="layout :: site-header"/>
-      <div class="container">
+    <h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Item Tracker</h3>
+    <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
 
-      <h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Item Tracker</h3>
-      <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
+    <h2>Amazon DynamoDB Item Tracker</h2>
 
-      <h2>Amazon DynamoDB Item Tracker</h2>
-
-    <p>The Amazon DynamoDB Item Tracker sample application uses multiple AWS services and the Java V2 API. Collecting and  working with items has never been easier! Simply perform these steps:<p>
+    <p>The Amazon DynamoDB Item Tracker example application uses multiple AWS Services and the Java V2 API. Collecting and  working with items has never been easier! Simply perform these steps:<p>
 
     <ol>
-        <li>Enter work items into the system by choosing the <b>Add Items</b> menu item. Fill in the form, and then choose <b>Create Item</b>.The AWS Item Tracker application stores the data into a DynamoDB table by using the DynamoDB Java V2 API. </li>
-        <li>You can view all of your items by choosing the <b>Get Items</b> menu item. Then choose <b>Get Active Items</b> in the dialog box.</li>
-        <li>Modify an Active Item by selecting an item in the table and then choosing <b>Get Single Item</b>. The item appears in the Modify Item section where you can modify the description or status.</li>
-        <li>Modify the item and then choose <b>Update Item</b>. You cannot modify the ID value. </li>
-        <li>You can archive any item by selecting the item and choosing <b>Archive Item</b>. Notice that the table is updated with only active items.</li>
-        <li>You can display all archived items by choosing <b>Get Archived Items</b>. You cannot modify an archived item.</li>
-        <li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog box and then choosing <b>Send Report</b>. The Amazon Simple Email Service is used to send an email with an Excel document to the selected email recipient.</li>
-
+        <li>Enter work items into the system by choosing the <i>Add Items</i> menu item. Fill in the form and then choose <i>Create Item</i>.</li>
+        <li>The AWS Item Tracker application stores the data into an Amazon DynamoDB table by using the DynamoDB Java V2 API.</li>
+        <li>You can view all of your items by choosing the <i>Get Items</i> menu item. Next, choose <i>Get Active Items</i> in the dialog box.</li>
+        <li>You can modify an Active Item by selecting an item in the table and then choosing <i>Get Single Item</i>. The item appears in the Modify Item section where you can modify the description or status.</li>
+        <li>Modify the item and then choose <i>Update Item</i>. You cannot modify the ID value. </li>
+        <li>You can archive any item by selecting the item and choosing <i>Archive Item</i>. Notice that the table is updated with only active items.</li>
+        <li>You can display all archived items by choosing <i>Get Archived Items</i>. You cannot modify an archived item.</li>
+        <li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog box and then choosing <i>Send Report</i>.</li>
+        <li>The Amazon Simple Email Service is used to send an email with an Excel document to the selected email recipient.</li>
     </ol>
     <div>
-</body>
-</html>
+   </body>
+   </html>
 
 #### add.html
 
