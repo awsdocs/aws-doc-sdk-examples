@@ -179,28 +179,7 @@ At this point, you have a new project named **LambdaFunctions**.
 
 ![AWS Tracking Application](images/project.png)
 
-Add the following dependency for the Amazon SES API (AWS SDK for Java version 2).
-
-     <dependency>
-       <groupId>software.amazon.awssdk</groupId>
-       <artifactId>ses</artifactId>
-       <version>2.10.41</version>
-     </dependency>
-
-Add the following dependencies for the Amazon DynamoDB API (AWS SDK for Java version 2).
-
-     <dependency>
-       <groupId>software.amazon.awssdk</groupId>
-       <artifactId>dynamodb-enhanced</artifactId>
-       <version>2.11.4-PREVIEW</version>
-     </dependency>
-     <dependency>
-       <groupId>software.amazon.awssdk</groupId>
-       <artifactId>dynamodb</artifactId>
-       <version>2.5.10</version>
-     </dependency>
-
-The pom.xml file looks like the following.
+Add the following code to your pom.xml file.
 
       <?xml version="1.0" encoding="UTF-8"?>
 	<project xmlns="http://maven.apache.org/POM/4.0.0"
