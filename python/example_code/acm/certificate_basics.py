@@ -8,6 +8,7 @@ Shows how to use the AWS SDK for Python (Boto3) with AWS Certificate Manager (AC
 to request and manage certificates.
 """
 
+# snippet-start:[python.example_code.acm.imports]
 import logging
 from pprint import pprint
 
@@ -15,6 +16,8 @@ import boto3
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
+
+# snippet-end:[python.example_code.acm.imports]
 
 
 # snippet-start:[python.example_code.acm.AcmCertificate]
@@ -284,6 +287,7 @@ class AcmCertificate:
 # snippet-end:[python.example_code.acm.ResendValidationEmail]
 
 
+# snippet-start:[python.example_code.acm.Usage_ImportListRemove]
 def usage_demo():
     print('-'*88)
     print("Welcome to the AWS Certificate Manager (ACM) demo!")
@@ -347,6 +351,7 @@ def usage_demo():
 
     print("Thanks for watching!")
     print('-'*88)
+# snippet-end:[python.example_code.acm.Usage_ImportListRemove]
 
 
 if __name__ == '__main__':

@@ -1,0 +1,195 @@
+# zexi 0.2.0
+cloudwatch_ListMetrics:
+  title: List &CW; metrics using an &AWS; SDK
+  title_abbrev: List metrics
+  synopsis: list &CW; metrics.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchWrapper
+                - python.example_code.cloudwatch.ListMetrics
+  services:
+    - cloudwatch
+cloudwatch_PutMetricData:
+  title: Put data into a &CW; metric using an &AWS; SDK
+  title_abbrev: Put data into a metric
+  synopsis: put data into a &CW; metric.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchWrapper
+                - python.example_code.cloudwatch.PutMetricData
+  services:
+    - cloudwatch
+cloudwatch_PutMetricData_DataSet:
+  title: Put a set of data into a &CW; metric using an &AWS; SDK
+  title_abbrev: Put a set of data into a metric
+  synopsis: put a set of data into a &CW; metric.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchWrapper
+                - python.example_code.cloudwatch.PutMetricData_DataSet
+  services:
+    - cloudwatch
+cloudwatch_GetMetricStatistics:
+  title: Get &CW; metric statistics using an &AWS; SDK
+  title_abbrev: Get metric statistics
+  synopsis: get &CW; metric statistics.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchWrapper
+                - python.example_code.cloudwatch.GetMetricStatistics
+  services:
+    - cloudwatch
+cloudwatch_PutMetricAlarm:
+  title: Create a &CW; alarm that watches a metric using an &AWS; SDK
+  title_abbrev: Create an alarm that watches a metric
+  synopsis: create a &CW; alarm that watches a metric.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchWrapper
+                - python.example_code.cloudwatch.PutMetricAlarm
+  services:
+    - cloudwatch
+cloudwatch_DescribeAlarmsForMetric:
+  title: Describe &CW; alarms for a metric using an &AWS; SDK
+  title_abbrev: Describe alarms for a metric
+  synopsis: describe &CW; alarms for a metric.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchWrapper
+                - python.example_code.cloudwatch.DescribeAlarmsForMetric
+  services:
+    - cloudwatch
+cloudwatch_EnableAlarmActions:
+  title: Enable &CW; alarm actions using an &AWS; SDK
+  title_abbrev: Enable alarm actions
+  synopsis: enable &CW; alarm actions.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchWrapper
+                - python.example_code.cloudwatch.EnableAlarmActions.DisableAlarmActions
+  services:
+    - cloudwatch
+cloudwatch_DisableAlarmActions:
+  title: Disable &CW; alarm actions using an &AWS; SDK
+  title_abbrev: Disable alarm actions
+  synopsis: disable &CW; alarm actions.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchWrapper
+                - python.example_code.cloudwatch.EnableAlarmActions.DisableAlarmActions
+  services:
+    - cloudwatch
+cloudwatch_DeleteAlarms:
+  title: Delete &CW; alarms using an &AWS; SDK
+  title_abbrev: Delete alarms
+  synopsis: delete &CW; alarms.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchWrapper
+                - python.example_code.cloudwatch.DeleteAlarms
+  services:
+    - cloudwatch
+cloudwatch_Usage_MetricsAlarms:
+  title: Manage &CW; metrics and alarms using an &AWS; SDK
+  title_abbrev: Manage metrics and alarms
+  synopsis_list:
+    - Create an alarm that watches a metric.
+    - Put data into a &CW; metric and trigger the alarm.
+    - Get data from the alarm.
+    - Delete the alarm.
+  category: Usage
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Create a class that wraps &CW; operations.
+              snippet_tags:
+                - python.example_code.cloudwatch.imports
+                - python.example_code.cloudwatch.CloudWatchWrapper
+                - python.example_code.cloudwatch.PutMetricData_DataSet
+                - python.example_code.cloudwatch.PutMetricAlarm
+                - python.example_code.cloudwatch.PutMetricData
+                - python.example_code.cloudwatch.GetMetricStatistics
+                - python.example_code.cloudwatch.DescribeAlarmsForMetric
+                - python.example_code.cloudwatch.DeleteAlarms
+            - description: Use the wrapper class to put data in a metric, trigger an
+                alarm that watches the metric, and get data from the alarm.
+              snippet_tags:
+                - python.example_code.cloudwatch.Usage_MetricsAlarms
+  services:
+    - cloudwatch
