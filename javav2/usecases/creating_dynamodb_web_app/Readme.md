@@ -1,12 +1,13 @@
 #  Creating the DynamoDB web application item tracker
 
+## Purpose
 You can develop a web application that tracks and reports on work items by using the following AWS services:
 
 + Amazon DynamoDB to store the data
 + Amazon Simple Email Service (Amazon SES) to send email messages
 + AWS Elastic Beanstalk to host the application
 
-**Note:** In this tutorial, we use the AWS SDK for Java version 2 to access Amazon SES and DynamoDB.
+**Note:** In this tutorial, we use the AWS SDK for Java version 2 to access Amazon SES and Amazon DynamoDB.
 
 The application you create is named **DynamoDB Item Tracker**, and uses Spring Boot APIs to build a model, different views, and a controller. It’s an application that requires a user to log in. For more information, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
 
@@ -15,12 +16,6 @@ This tutorial guides you through creating the **DynamoDB Item Tracker** applicat
 The following figure shows you the structure of the Java project.
 
 ![AWS Tracking Application](images/pic1a.png)
-
-**Note:** All of the Java code required to complete this tutorial is located in this GitHub repository (or you can copy the code from this tutorial).  
-
-**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 #### Topics
 
@@ -41,9 +36,20 @@ To complete the tutorial, you need the following:
 
 + An AWS account
 + A Java IDE (this tutorial uses the IntelliJ IDE)
-+ Java 1.8 JDK
++ Java JDK 1.8
 + Maven 3.6 or later
-+ A DynamoDB table named **Work** with a key named **id**
+
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+Create an Amazon DynamoDB table named **Work** with a key named **id**. Be sure to use this bucket name in your Amazon S3 Java code. For information, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+
 
 ## Understand the DynamoDB Item Tracker application
 The **DynamoDB Item Tracker** application uses a model that is based on a work item and contains these attributes:
