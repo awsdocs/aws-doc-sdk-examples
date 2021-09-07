@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_types::region;
-use aws_types::region::ProvideRegion;
+use aws_config::meta::region::RegionProviderChain;
 use std::error::Error;
 use std::path::Path;
 use structopt::StructOpt;
@@ -77,9 +76,19 @@ async fn main() -> Result<(), Box<dyn Error>> {
         }
     }
 
-    let region = region::ChainProvider::first_try(region.map(aws_sdk_s3::Region::new))
-        .or_default_provider()
-        .or_else(aws_sdk_s3::Region::new("us-west-2"));
+    let s3_region = region.clone();
+    let rek_region = region.clone();
+
+    let rek_region_provider =
+        RegionProviderChain::first_try(s3_region.map(aws_sdk_rekognition::Region::new))
+            .or_default_provider()
+            .or_else(aws_sdk_rekognition::Region::new("us-west-2"));
+
+    let s3_region_provider =
+        RegionProviderChain::first_try(rek_region.map(aws_sdk_s3::Region::new))
+            .or_default_provider()
+            .or_else(aws_sdk_s3::Region::new("us-west-2"));
+    println!();
 
     println!();
 
@@ -89,20 +98,28 @@ async fn main() -> Result<(), Box<dyn Error>> {
             aws_sdk_rekognition::PKG_VERSION
         );
         println!("S3 client version:          {}", aws_sdk_s3::PKG_VERSION);
-        println!("Bucket:                     {}", &bucket);
-        println!("Filename:                   {}", &filename);
+        println!("Bucket:                     {}", bucket);
+        println!("Filename:                   {}", filename);
+
         println!(
-            "Region:                     {}",
-            region.region().unwrap().as_ref()
+            "Region:               {}",
+            s3_region_provider.region().await.unwrap().as_ref()
         );
+
         println!();
     }
 
-    let s3_region = region.region();
-    let rek_region = region.region();
+    let s3_shared_config = aws_config::from_env()
+        .region(s3_region_provider)
+        .load()
+        .await;
+    let s3_client = aws_sdk_s3::Client::new(&s3_shared_config);
 
-    let s3_conf = aws_sdk_s3::Config::builder().region(s3_region).build();
-    let s3_client = aws_sdk_s3::Client::from_conf(s3_conf);
+    let rek_shared_config = aws_config::from_env()
+        .region(rek_region_provider)
+        .load()
+        .await;
+    let rek_client = aws_sdk_rekognition::Client::new(&rek_shared_config);
 
     let body = aws_sdk_s3::ByteStream::from_path(path).await;
 
@@ -117,13 +134,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
         .send()
         .await?;
 
-    println!("Added file to bucket");
+    println!("Added file to bucket.");
     println!();
-
-    let rek_conf = aws_sdk_rekognition::Config::builder()
-        .region(rek_region)
-        .build();
-    let rek_client = aws_sdk_rekognition::Client::from_conf(rek_conf);
 
     let s3_obj = aws_sdk_rekognition::model::S3Object::builder()
         .bucket(bucket)
