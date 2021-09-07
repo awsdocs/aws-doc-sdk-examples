@@ -1,12 +1,13 @@
-#  Creating the DynamoDB web application item tracker
+#  Creating the Amazon DynamoDB web application item tracker
 
+## Purpose
 You can develop a web application that tracks and reports on work items by using the following AWS services:
 
 + Amazon DynamoDB to store the data
 + Amazon Simple Email Service (Amazon SES) to send email messages
 + AWS Elastic Beanstalk to host the application
 
-**Note:** In this tutorial, we use the AWS SDK for Java version 2 to access Amazon SES and DynamoDB.
+**Note:** In this tutorial, we use the AWS SDK for Java version 2 to access Amazon SES and Amazon DynamoDB.
 
 The application you create is named **DynamoDB Item Tracker**, and uses Spring Boot APIs to build a model, different views, and a controller. It’s an application that requires a user to log in. For more information, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
 
@@ -15,12 +16,6 @@ This tutorial guides you through creating the **DynamoDB Item Tracker** applicat
 The following figure shows you the structure of the Java project.
 
 ![AWS Tracking Application](images/pic1a.png)
-
-**Note:** All of the Java code required to complete this tutorial is located in this GitHub repository (or you can copy the code from this tutorial).  
-
-**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 #### Topics
 
@@ -41,9 +36,20 @@ To complete the tutorial, you need the following:
 
 + An AWS account
 + A Java IDE (this tutorial uses the IntelliJ IDE)
-+ Java 1.8 JDK
++ Java JDK 1.8
 + Maven 3.6 or later
-+ A DynamoDB table named **Work** with a key named **id**
+
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+Create an Amazon DynamoDB table named **Work** with a key named **id**. Be sure to use this bucket name in your Amazon S3 Java code. For information, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+
 
 ## Understand the DynamoDB Item Tracker application
 The **DynamoDB Item Tracker** application uses a model that is based on a work item and contains these attributes:
@@ -61,7 +67,7 @@ The following figure shows the login page.
 
 When a user logs into the application, they see the **Home** page.
 
-![AWS Tracking Application](images/pic3a.png)
+![AWS Tracking Application](images/homepage.png)
 
 #### Application functionality
 A user can perform these tasks in the **DynamoDB Item Tracker** application:
@@ -74,7 +80,7 @@ A user can perform these tasks in the **DynamoDB Item Tracker** application:
 
 The following figure shows the new item section.
 
-![AWS Tracking Application](images/pic4.png)
+![AWS Tracking Application](images/additems.png)
 
 A user can retrieve *active* or *archive* items. For example, a user can choose **Get Active Items** to get a dataset that's retrieved from the DynamoDB **Work** table and displayed in the web application.
 
@@ -112,7 +118,7 @@ The following figure shows the **Work** table.
 
 At this point, you have a new project named **ItemTrackerDynamoDB**.
 
-![AWS Tracking Application](images/pic8.png)
+![AWS Tracking Application](images/project.png)
 
 In the **pom.xml** file's **project** element, add the **spring-boot-starter-parent** dependency.
 
@@ -326,11 +332,11 @@ Ensure that the **pom.xml** file looks like the following.
 
 Create a Java package in the **main/java** folder named **com.example**.
 
-![AWS Tracking Application](images/pic9.png)
+![AWS Tracking Application](images/project1.png)
 
 The Java files go into the following subpackages.
 
-![AWS Tracking Application](images/pic10.png)
+![AWS Tracking Application](images/project2.png)
 
 These packages contain the following:
 
@@ -590,16 +596,6 @@ The following Java code represents the **MainController** class.
      }
      }
 
-#### To create the WebSecurityConfig classes
-
-1. Create the **com.example.secureweb** package.
-2. Create the **WebSecurityConfig** class and paste the code into it.
-
-#### To create the MainController class
-
-1. In the **com.example.secureweb** package, create the **MainController** class.
-2. Copy the code from the **MainController** class and paste it into this class in your project.
-
 ### Create the WorkItem class
 
 Create a Java package named **com.example.entities**. Next, create a class named **WorkItem** that represents the application model.  
@@ -667,10 +663,6 @@ The following Java code represents the **WorkItem** class.
      }
      }
 
-#### To create the WorkItem class
-1. In the **com.example.entities** package, create the **WorkItem** class.
-2. Copy the code from the **WorkItem** class and paste it into this class in your project.
-
 ### Create the service classes
 
 The service classes contain Java application logic that invokes AWS services. In this section, you create these classes:
@@ -681,6 +673,7 @@ The service classes contain Java application logic that invokes AWS services. In
 + **WriteExcel** - Uses the Java Excel API to dynamically create a report (this does not use AWS SDK for Java APIs).
 
 #### DynamoDBService class
+
 The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to interact with the **Work** table. It adds new items, updates items, and perform queries. The following Java code represents the **DynamoDBService** class. In the following code example, notice the use of an **Expression** object. This object is used to query active or closed items. For example, in the **getClosedItems** method, only closed items are retrieved.
 
 Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials.
@@ -1309,6 +1302,7 @@ The **Work** class is used with the DynamoDB enhanced client and maps the **Work
 
 
 #### SendMessage class
+
 The **SendMessage** class uses the AWS SDK for Java V2 SES API to send an email message with an attachment (the Excel document) to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
 The following Java code represents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials.
@@ -1636,14 +1630,6 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
      }
     }
 
-#### To create the service classes
-
-1. Create the **com.example.services** package.
-2. Create the **DynamoDBService** class and add the Java code to it.
-3. Create the **SendMessages** class and add the Java code to it.   
-4. Create the **WriteExcel** class and add the Java code to it.
-5. Create the **Work** class and add the Java code to it.
-
 ## Create the HTML files
 
 At this point, you have created all of the Java files required for the **DynamoDB Item Tracker** application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the resource folder, create a **templates** folder, and then create the following HTML files:
@@ -1765,41 +1751,35 @@ The following HTML code represents the **index.html** file. This file represents
     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
     <head>
-      <meta charset="utf-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-      <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
-      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-      <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
-
-      <title>AWS Item Tracker</title>
+     <meta charset="utf-8" />
+     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+     <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
+     <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+     <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
+     <title>Amazon DynamoDB Item Tracker</title>
      </head>
-
      <body>
-      <header th:replace="layout :: site-header"/>
-      <div class="container">
-
-      <h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Item Tracker</h3>
-      <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
-
-      <h2>Amazon DynamoDB Item Tracker</h2>
-
-    <p>The Amazon DynamoDB Item Tracker sample application uses multiple AWS services and the Java V2 API. Collecting and  working with items has never been easier! Simply perform these steps:<p>
-
-    <ol>
-        <li>Enter work items into the system by choosing the <b>Add Items</b> menu item. Fill in the form, and then choose <b>Create Item</b>.The AWS Item Tracker application stores the data into a DynamoDB table by using the DynamoDB Java V2 API. </li>
-        <li>You can view all of your items by choosing the <b>Get Items</b> menu item. Then choose <b>Get Active Items</b> in the dialog box.</li>
-        <li>Modify an Active Item by selecting an item in the table and then choosing <b>Get Single Item</b>. The item appears in the Modify Item section where you can modify the description or status.</li>
-        <li>Modify the item and then choose <b>Update Item</b>. You cannot modify the ID value. </li>
-        <li>You can archive any item by selecting the item and choosing <b>Archive Item</b>. Notice that the table is updated with only active items.</li>
-        <li>You can display all archived items by choosing <b>Get Archived Items</b>. You cannot modify an archived item.</li>
-        <li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog box and then choosing <b>Send Report</b>. The Amazon Simple Email Service is used to send an email with an Excel document to the selected email recipient.</li>
-
+     <header th:replace="layout :: site-header"/>
+     <div class="container">
+     <h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Item Tracker</h3>
+     <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
+     <h2>Amazon DynamoDB Item Tracker</h2>
+     <p>The Amazon DynamoDB Item Tracker example application uses multiple AWS Services and the Java V2 API. Collecting and  working with items has never been easier! Simply perform these steps:<p>
+     <ol>
+        <li>Enter work items into the system by choosing the <i>Add Items</i> menu item. Fill in the form and then choose <i>Create Item</i>.</li>
+        <li>The AWS Item Tracker application stores the data into an Amazon DynamoDB table by using the DynamoDB Java V2 API.</li>
+        <li>You can view all of your items by choosing the <i>Get Items</i> menu item. Next, choose <i>Get Active Items</i> in the dialog box.</li>
+        <li>You can modify an Active Item by selecting an item in the table and then choosing <i>Get Single Item</i>. The item appears in the Modify Item section where you can modify the description or status.</li>
+        <li>Modify the item and then choose <i>Update Item</i>. You cannot modify the ID value. </li>
+        <li>You can archive any item by selecting the item and choosing <i>Archive Item</i>. Notice that the table is updated with only active items.</li>
+        <li>You can display all archived items by choosing <i>Get Archived Items</i>. You cannot modify an archived item.</li>
+        <li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog box and then choosing <i>Send Report</i>. </li>
+        <li>The Amazon Simple Email Service is used to send an email with an Excel document to the selected email recipient.</li>
     </ol>
     <div>
-</body>
-</html>
+    </body>
+    </html>
 
 #### add.html
 
@@ -2117,7 +2097,6 @@ The following code represents the **layout.html** file that represents the appli
 	<body>
 	<!-- th:href calls a controller method - which returns the view -->
 	<header th:fragment="site-header">
-    	<a href="index.html" th:href="@{/}"><img src="../public/img/site-logo.png" th:src="@{/img/site-logo.png}" /></a>
     	<a href="#" style="color: white" th:href="@{/}">Home</a>
     	<a href="#" style="color: white" th:href="@{/add}">Add Items</a>
     	<a href="#"  style="color: white" th:href="@{/items}">Get Items</a>
@@ -2158,291 +2137,276 @@ The following JavaScript code represents the **items.js** file that is used in t
 
 	$(function() {
 
-    	$( "#dialogtemplate2" ).dialog();
+        $( "#dialogtemplate2" ).dialog();
 
-    	$('#myTable').DataTable( {
-        scrollY:        "500px",
-        scrollX:        true,
-        scrollCollapse: true,
-        paging:         true,
-        columnDefs: [
+        $('#myTable').DataTable( {
+         scrollY:        "500px",
+         scrollX:        true,
+         scrollCollapse: true,
+         paging:         true,
+         columnDefs: [
             { width: 200, targets: 0 }
-        ],
-        fixedColumns: true
-    	} );
+         ],
+         fixedColumns: true
+      } );
 
-    	var table = $('#myTable').DataTable();
-    	$('#myTable tbody').on( 'click', 'tr', function () {
-
-	if ( $(this).hasClass('selected') ) {
+      var table = $('#myTable').DataTable();
+      $('#myTable tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
         }
         else {
             table.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
         }
-    	} );
+      } );
 
+      // Disable the report button.
+      $('#reportbutton').prop("disabled",true);
+      $('#reportbutton').css("color", "#0d010d");
+     });
 
-    	// Disable the reportbutton
-    	$('#reportbutton').prop("disabled",true);
-    	$('#reportbutton').css("color", "#0d010d");
-
-	});
-
-
-	function modItem()
-	{
+     function modItem() {
         var id = $('#id').val();
         var description = $('#description').val();
         var status = $('#status').val();
 
-        if (id == "")
-        {
-            alert("Select an item from the table");
+        if (id == "") {
+            alert("Please select an item from the table");
             return;
         }
 
-        if (description.length > 350)
-        {
+        if (description.length > 350) {
             alert("Description has too many characters");
             return;
         }
 
-        if (status.length > 350)
-        {
+        if (status.length > 350) {
             alert("Status has too many characters");
             return;
         }
 
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", loadMods, false);
-        xhr.open("POST", "../changewi", true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-        xhr.send("id=" + id + "&description=" + description+ "&status=" + status);
-    	}
+      $.ajax('/changewi', {
+        type: 'POST',
+        data: 'id=' + id + '&description=' + description+ '&status=' + status,
+        success: function (data, status, xhr) {
 
-	function loadMods(event) {
+            var msg = event.target.responseText;
+            alert("You have successfully modfied item "+msg)
 
-    	var msg = event.target.responseText;
-    	alert("You have successfully modified item "+msg)
+            $('#id').val("");
+            $('#description').val("");
+            $('#status').val("");
 
-    	$('#id').val("");
-    	$('#description').val("");
-    	$('#status').val("");
+            //Refresh the grid.
+            GetItems();
 
-    	//Refresh the grid
-    	GetItems();
-	}
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+      });
+     }
 
+    // Populate the table with work items.
+    function GetItems() {
+     var type="active";
+     $.ajax('/retrieve', {
+        type: 'POST',
+        data: 'type=' + type,
+        success: function (data, status, xhr) {
 
-	// Populate the table with work items
-	function GetItems() {
-    	var xhr = new XMLHttpRequest();
-    	var type="active";
-    	xhr.addEventListener("load", loadItems, false);
-    	xhr.open("POST", "../retrieve", true);   //buildFormit -- a Spring MVC controller
-    	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-    	xhr.send("type=" + type);
-	}
+            // Enable the buttons.
+            $('#singlebutton').prop("disabled",false);
+            $('#updatebutton').prop("disabled",false);
+            $('#reportbutton').prop("disabled",false);
+            $('#reportbutton').css("color", "#FFFFFF");
+            $('#singlebutton').css("color", "#FFFFFF");
+            $('#updatebutton').css("color", "#FFFFFF");
+            $('#archive').prop("disabled",false);
+            $('#archive').css("color", "#FFFFFF");
 
-	function loadItems(event) {
+            $("#modform").show();
 
-    	// Enable the buttons
-    	$('#singlebutton').prop("disabled",false);
-    	$('#updatebutton').prop("disabled",false);
-    	$('#reportbutton').prop("disabled",false);
-    	$('#reportbutton').css("color", "#FFFFFF");
-    	$('#singlebutton').css("color", "#FFFFFF");
-    	$('#updatebutton').css("color", "#FFFFFF");
-    	$('#archive').prop("disabled",false);
-    	$('#archive').css("color", "#FFFFFF");
+            var xml = data;
+            var oTable = $('#myTable').dataTable();
+            oTable.fnClearTable(true);
 
-    	$("#modform").show();
+            $(xml).find('Item').each(function () {
 
-    	var xml = event.target.responseText;
-    	var oTable = $('#myTable').dataTable();
-    	oTable.fnClearTable(true);
+                var $field = $(this);
+                var id = $field.find('Id').text();
+                var name = $field.find('Name').text();
+                var guide = $field.find('Guide').text();
+                var date = $field.find('Date').text();
+                var description = $field.find('Description').text();
+                var status = $field.find('Status').text();
 
-    	$(xml).find('Item').each(function () {
+                //Set the new data
+                oTable.fnAddData( [
+                    id,
+                    name,
+                    guide,
+                    date,
+                    description,
+                    status,,]
+                );
+            });
 
-        var $field = $(this);
-        var id = $field.find('Id').text();
-        var name = $field.find('Name').text();
-        var guide = $field.find('Guide').text();
-        var date = $field.find('Date').text();
-        var description = $field.find('Description').text();
-        var status = $field.find('Status').text();
+            document.getElementById("info3").innerHTML = "Active Items";
 
-        // Set the new data
-        oTable.fnAddData( [
-            id,
-            name,
-            guide,
-            date,
-            description,
-            status,,]
-        	);
-    	});
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+       });
+      }
 
-    	document.getElementById("info3").innerHTML = "Active Items";
-	}
+     function ModifyItem() {
+     var table = $('#myTable').DataTable();
+     var myId="";
+     var arr = [];
+     $.each(table.rows('.selected').data(), function() {
 
-	function ModifyItem() {
-    	 var table = $('#myTable').DataTable();
-    	 var myId="";
-    	 var arr = [];
+        var value = this[0];
+        myId = value;
+     });
 
-    	$.each(table.rows('.selected').data(), function() {
-
-          var value = this[0];
-          myId = value;
-    	 });
-
-      if (myId == "") {
+     if (myId == "") {
         alert("You need to select a row");
         return;
       }
 
-      // Need to check that it's not an Archive item
-    	var h3Val =  document.getElementById("info3").innerHTML;
+     // Need to check its not an Archive item.
+     var h3Val =  document.getElementById("info3").innerHTML;
+     if (h3Val=="Archive Items") {
+        alert("You cannot modify an Archived item");
+        return;
+     }
 
-	if (h3Val=="Archive Items") {
-          alert("You cannot modify an Archived item");
-          return;
-    	}
+     $.ajax('/modify', {
+        type: 'POST',
+        data: 'id=' + myId,
+        success: function (data, status, xhr) {
 
-       // Post to modify
-       var xhr = new XMLHttpRequest();
-       xhr.addEventListener("load", onModifyLoad, false);
-       xhr.open("POST", "../modify", true);   //buildFormit -- a Spring MVC controller
-       xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");//necessary
-       xhr.send("id=" + myId);
-	}
+            var xml = data;
+            $(xml).find('Item').each(function () {
 
+                var $field = $(this);
+                var id = $field.find('Id').text();
+                var description = $field.find('Description').text();
+                var status = $field.find('Status').text();
 
-	// Handler for the uploadSave call
-	function onModifyLoad(event) {
+                //Set the fields
+                $('#id').val(id);
+                $('#description').val(description);
+                $('#status').val(status);
 
-     	var xml = event.target.responseText;
-    	$(xml).find('Item').each(function () {
+             });
+           },
+          error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+          }
+         });
+       }
 
-        var $field = $(this);
-        var id = $field.find('Id').text();
-        var description = $field.find('Description').text();
-        var status = $field.find('Status').text();
-
-        // Set the fields
-        $('#id').val(id);
-        $('#description').val(description);
-        $('#status').val(status);
-
-    	});
-	}
-
-
-       function Report() {
+      function Report() {
         var email = $('#manager option:selected').text();
 
-        // Post to report
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", onReport, false);
-        xhr.open("POST", "../report", true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-        xhr.send("email=" + email);
-    	}
+        $.ajax('/report', {
+            type: 'POST',
+            data: 'email=' + email,
+            success: function (data, status, xhr) {
+                 alert(data);
 
-	function onReport(event) {
-
-    	 var data = event.target.responseText;
-    	 alert(data);
-	 }
-
-
-	 function GetArcItems(){
-
-    	  var xhr = new XMLHttpRequest();
-    	  var type="archive";
-    	  xhr.addEventListener("load", loadArcItems, false);
-    	  xhr.open("POST", "../retrieve", true);   //buildFormit -- a Spring MVC controller
-    	  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-    	  xhr.send("type=" + type);
-	  }
-
- 	function loadArcItems(event) {
-
-    	 // Disable buttons when Archive button
-    	  $('#reportbutton').prop("disabled",true);
-    	  $('#reportbutton').css("color", "#0d010d");
-    	  $('#singlebutton').prop("disabled",true);
-    	  $('#singlebutton').css("color", "#0d010d");
-    	  $('#updatebutton').prop("disabled",true);
-    	  $('#updatebutton').css("color", "#0d010d");
-    	  $('#archive').prop("disabled",true);
-    	  $('#archive').css("color", "#0d010d");
-
-      	  $("#modform").hide();
-
-    	 var xml = event.target.responseText;
-    	 var oTable = $('#myTable').dataTable();
-    	 oTable.fnClearTable(true);
-
-    	 $(xml).find('Item').each(function () {
-
-          var $field = $(this);
-          var id = $field.find('Id').text();
-          var name = $field.find('Name').text();
-          var guide = $field.find('Guide').text();
-          var date = $field.find('Date').text();
-          var description = $field.find('Description').text();
-          var status = $field.find('Status').text();
-
-          // Set the new data
-          oTable.fnAddData( [
-            id,
-            name,
-            guide,
-            date,
-            description,
-            status,,]
-           );
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                $('p').append('Error' + errorMessage);
+            }
           });
+        }
 
-          document.getElementById("info3").innerHTML = "Archive Items";
+     function GetArcItems() {
+     var type="archive";
+     $.ajax('/retrieve', {
+        type: 'POST',
+        data: 'type=' + type,
+        success: function (data, status, xhr) {
+            // Disable buttons when Achive button
+            $('#reportbutton').prop("disabled", true);
+            $('#reportbutton').css("color", "#0d010d");
+            $('#singlebutton').prop("disabled", true);
+            $('#singlebutton').css("color", "#0d010d");
+            $('#updatebutton').prop("disabled", true);
+            $('#updatebutton').css("color", "#0d010d");
+            $('#archive').prop("disabled", true);
+            $('#archive').css("color", "#0d010d");
 
-	}
+            $("#modform").hide();
+            var xml = event.target.responseText;
+            var oTable = $('#myTable').dataTable();
+            oTable.fnClearTable(true);
 
-	 function archiveItem() {
-    	  var table = $('#myTable').DataTable();
-    	  var myId="";
-    	  var arr = [];
+            $(xml).find('Item').each(function () {
 
-	 $.each(table.rows('.selected').data(), function() {
+                var $field = $(this);
+                var id = $field.find('Id').text();
+                var name = $field.find('Name').text();
+                var guide = $field.find('Guide').text();
+                var date = $field.find('Date').text();
+                var description = $field.find('Description').text();
+                var status = $field.find('Status').text();
 
-          var value = this[0];
-          myId = value;
-    	  });
+                //Set the new data
+                oTable.fnAddData([
+                    id,
+                    name,
+                    guide,
+                    date,
+                    description,
+                    status, ,]
+                );
+              });
 
-    	if (myId == "") {
-         alert("You need to select a row");
-         return;
-    	}
+             document.getElementById("info3").innerHTML = "Archive Items";
 
-    	var xhr = new XMLHttpRequest();
-    	xhr.addEventListener("load", onArch, false);
-    	xhr.open("POST", "../archive", true);   //buildFormit -- a Spring MVC controller
-    	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");//necessary
-    	xhr.send("id=" + myId);
-	}
-
-	function onArch(event) {
-
-    	 var xml = event.target.responseText;
-    	 alert("Item "+xml +" is archived now");
-
-    	// Refresh the grid
-    	GetItems();
+            },
+           error: function (jqXhr, textStatus, errorMessage) {
+             $('p').append('Error' + errorMessage);
+           }
+          });
        }
+
+     function archiveItem() {
+     var table = $('#myTable').DataTable();
+     var myId = "";
+     var arr = [];
+     $.each(table.rows('.selected').data(), function () {
+
+        var value = this[0];
+        myId = value;
+     });
+
+     if (myId == "") {
+        alert("You need to select a row");
+        return;
+     }
+
+      $.ajax('/archive', {
+        type: 'POST',
+        data: 'id=' + myId,
+        success: function (data, status, xhr) {
+            alert("Item " + data + " is achived now");
+            //Refresh the grid
+            GetItems();
+
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+      });
+     }
+
 
  #### contact_me.js file
 
@@ -2450,40 +2414,37 @@ The following JavaScript code represents the **contact_me.js** file that is used
 
 	$(function() {
 
-	    $("#SendButton" ).click(function($e) {
+         $("#SendButton" ).click(function($e) {
 
-            var guide = $('#guide').val();
-            var description = $('#description').val();
-            var status = $('#status').val();
+          var guide = $('#guide').val();
+          var description = $('#description').val();
+          var status = $('#status').val();
 
-            if (description.length > 350)
-       	    {
+         if (description.length > 350) {
             alert("Description has too many characters");
             return;
-            }
+        }
 
-          if (status.length > 350)
-        {
+        if (status.length > 350) {
             alert("Status has too many characters");
             return;
         }
 
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", loadNewItems, false);
-        xhr.open("POST", "../add", true);   
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-        xhr.send("guide=" + guide + "&description=" + description+ "&status=" + status);
-    } );// END of the Send button click
+        $.ajax('/add', {
+            type: 'POST',  // http GET method
+            data: 'guide=' + guide + '&description=' + description+ '&status=' + status,
+            success: function (data, status, xhr) {
 
-    // Handler for the click SendButton call
-    function loadNewItems(event) {
+                alert("You have successfully added item "+data)
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                $('p').append('Error' + errorMessage);
+            }
+         });
 
-        var msg = event.target.responseText;
-        alert("You have successfully added item "+msg)
+       } );// END of the Send button click
+     } );
 
-    	}
-
-      });
 
 **Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.
 
