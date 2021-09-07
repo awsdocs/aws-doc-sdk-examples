@@ -177,7 +177,7 @@ Workflows can pass data between steps. For example, the **Open Case** step proce
 
 At this point, you have a new project named **LambdaFunctions**.
 
-![AWS Tracking Application](images/lambda8.png)
+![AWS Tracking Application](images/project.png)
 
 Add the following dependency for the Amazon SES API (AWS SDK for Java version 2).
 
