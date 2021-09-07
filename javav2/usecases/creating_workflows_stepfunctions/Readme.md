@@ -1,5 +1,6 @@
 #  Create AWS serverless workflows by using the AWS SDK for Java
 
+## Purpose
 You can create an AWS serverless workflow by using the AWS SDK for Java and AWS Step Functions.
 Each workflow step is implemented by using an AWS Lambda function. Lambda is a compute service that enables you to run
 code without provisioning or managing servers.
@@ -9,10 +10,6 @@ implemented by using the Lambda Java API. For more information about Lambda, see
 [What is AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html).
 
 In this tutorial, you create a workflow that creates support tickets for an organization. Each workflow step performs an operation on the ticket. This tutorial shows you how to use Java to process workflow data. For example, you'll learn how to read data that's passed to the workflow, how to pass data between steps, and how to invoke AWS services from the workflow.
-
-**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
 
 #### Topics
 
@@ -29,12 +26,24 @@ In this tutorial, you create a workflow that creates support tickets for an orga
 + Invoke the workflow from the AWS Console
 
 ## Prerequisites
-To follow along with the tutorial, you need the following:
-+ An AWS Account.
-+ A Java IDE (for this tutorial, the IntelliJ IDE is used).
-+ Java 1.8 JDK.
-+ Maven 3.6 or higher.
-+ An Amazon DynamoDB table named **Case** with a key named **Id**. To learn how to create a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+
+To complete the tutorial, you need the following:
+
++ An AWS account
++ A Java IDE (this tutorial uses the IntelliJ IDE)
++ Java JDK 1.8
++ Maven 3.6 or later
+
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+An Amazon DynamoDB table named **Case** with a key named **Id**. To learn how to create a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 
 ## Understand the workflow
 
