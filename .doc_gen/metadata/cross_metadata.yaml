@@ -1,9 +1,8 @@
-# zexi 0.1.0
+# zexi 0.2.0
 cross_DynamoDBDataTracker:
   title: Create a dynamic web application to track &DDB; data
   title_abbrev: Create a web application to track &DDB; data
-  synopsis: |-
-    Create a web application that tracks and reports on work items
+  synopsis: create a web application that tracks and reports on work items
   languages:
     Java:
       versions:
@@ -15,9 +14,8 @@ cross_DynamoDBDataTracker:
 cross_ApiGatewayDataTracker:
   title: Create an &ABP; REST API to track COVID-19 data
   title_abbrev: Create a REST API to track COVID-19 data
-  synopsis: |-
-    Create a REST API that simulates a system to track daily cases of COVID-19 in the
-    United States, using fictional data.
+  synopsis: create a REST API that simulates a system to track daily cases of
+    COVID-19 in the United States, using fictional data.
   languages:
     Python:
       versions:
@@ -31,8 +29,7 @@ cross_ApiGatewayDataTracker:
 cross_ApiGatewayWebsocketChat:
   title: Create a websocket chat application with &ABP;
   title_abbrev: Create a websocket chat application
-  synopsis: |-
-    Create a chat application that is served by a websocket API built on &ABPlong;.
+  synopsis: create a chat application that is served by a websocket API built on &ABPlong;.
   languages:
     Python:
       versions:
@@ -45,8 +42,7 @@ cross_ApiGatewayWebsocketChat:
 cross_AuroraRestLendingLibrary:
   title: Create a lending library REST API
   title_abbrev: Create a lending library REST API
-  synopsis: |-
-    Create a lending library where patrons can borrow and return books by using a
+  synopsis: create a lending library where patrons can borrow and return books by using a
     REST API backed by an &AURlong; database.
   languages:
     Python:
@@ -61,8 +57,7 @@ cross_AuroraRestLendingLibrary:
 cross_StepFunctionsMessenger:
   title: Create a messenger application with &SFN;
   title_abbrev: Create a messenger application
-  synopsis: |-
-    Create an &SFNlong; messenger application that retrieves message records from a database table.
+  synopsis: create an &SFNlong; messenger application that retrieves message records from a database table.
   languages:
     Python:
       versions:
@@ -76,8 +71,7 @@ cross_StepFunctionsMessenger:
 cross_TextractExplorer:
   title: Create an &TEXTRACT; explorer application
   title_abbrev: Create an &TEXTRACT; explorer application
-  synopsis: |-
-    Explore &TEXTRACTlong; output through an interactive application.
+  synopsis: explore &TEXTRACTlong; output through an interactive application.
   languages:
     JavaScript:
       versions:
@@ -97,8 +91,8 @@ cross_TextractExplorer:
 cross_SubmitDataApp:
   title: Build an app to submit data to an &DDB; table
   title_abbrev: Build an app to submit data to an &DDB; table
-  synopsis: |-
-    Build an application that submits data to an &DDBlong; table and notifies you when a user updates the table.
+  synopsis: build an application that submits data to an &DDBlong; table and notifies
+    you when a user updates the table.
   languages:
     JavaScript:
       versions:
@@ -110,8 +104,7 @@ cross_SubmitDataApp:
 cross_LambdaAPIGateway:
   title: Use &ABP; to invoke a &LAM; function
   title_abbrev: Use &ABP; to invoke a &LAM; function 
-  synopsis: |-
-    Create an &LAMlong; function invoked by &ABPlong; that sends anniversary text messages.
+  synopsis: create an &LAMlong; function invoked by &ABPlong; that sends anniversary text messages.
   languages:
     JavaScript:
       versions:
@@ -125,8 +118,8 @@ cross_LambdaAPIGateway:
 cross_LambdaScheduledEvents:
   title: Use scheduled events to invoke a &LAM; function
   title_abbrev: Use scheduled events to invoke a &LAM; function 
-  synopsis: |-
-    Create an &LAMlong; function invoked by an &EVlong; scheduled event that sends anniversary text messages.
+  synopsis: create an &LAMlong; function invoked by an &EVlong; scheduled event that
+    sends anniversary text messages.
   languages:
     JavaScript:
       versions:
@@ -140,8 +133,7 @@ cross_LambdaScheduledEvents:
 cross_ServerlessWorkflows:
   title: Use &SFN; to invoke &LAM; functions 
   title_abbrev: Use &SFN; to invoke &LAM; functions  
-  synopsis: |-
-    Create an &SFNlong; state machine that invokes &LAMlong; functions in sequence.
+  synopsis: create an &SFNlong; state machine that invokes &LAMlong; functions in sequence.
   languages:
     JavaScript:
       versions:
@@ -155,8 +147,7 @@ cross_ServerlessWorkflows:
 cross_TranscriptionApp:
   title: Build an &TSC; app
   title_abbrev: Build an &TSC; app
-  synopsis: |-
-     Use &TSClong; to transcribe and display voice recordings in the browser. 
+  synopsis: use &TSClong; to transcribe and display voice recordings in the browser.
   languages:
     JavaScript:
       versions:
@@ -169,8 +160,7 @@ cross_TranscriptionApp:
 cross_TranscriptionStreamingApp:
   title: Build an &TSC; streaming app
   title_abbrev: Build an &TSC; streaming app
-  synopsis: |-
-    Build an app that records, transcribes, and translates live audio in real-time, and emails
+  synopsis: build an app that records, transcribes, and translates live audio in real-time, and emails
     the results.
   languages:
     JavaScript:
