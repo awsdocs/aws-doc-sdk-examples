@@ -1,4 +1,4 @@
-#  Creating the DynamoDB web application item tracker
+#  Creating the Amazon DynamoDB web application item tracker
 
 ## Purpose
 You can develop a web application that tracks and reports on work items by using the following AWS services:
