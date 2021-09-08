@@ -6,7 +6,7 @@ You can create an AWS Lambda function that detects personal protective equipment
 
 ![AWS Tracking Application](images/lam.png)
 
-After you execute the Lambda function, it detects PPE information in the image using the Amazon Rekognition service (along with any other images) and creates a record in an Amazon DynamoDB table, as shown in this illustration.
+After you execute the Lambda function, it detects PPE information in the image using the Amazon Rekognition service and creates a record in an Amazon DynamoDB table, as shown in this illustration.
 
 ![AWS Tracking Application](images/dynamodb.png)
 
