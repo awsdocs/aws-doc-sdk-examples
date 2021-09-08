@@ -443,8 +443,6 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
 
 In the **com.aws.securingweb** package, create the controller class named **MainController**. This class handles the HTTP requests. For example, when a POST operation is made, the **MainController** handles the request and returns a dataset that is displayed in the view. The dataset is obtained from the MySQL database located in the AWS Cloud.
 
-**Note:** In this application, the **XMLHttpRequest** object's **send()** method is used to invoke controller methods. The syntax of the this method is shown later in this tutorial.
-
 The following Java code represents the **MainController** class.
 
     package com.aws.securingweb;
