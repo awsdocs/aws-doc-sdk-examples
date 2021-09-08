@@ -339,7 +339,7 @@ Ensure that the **pom.xml** file looks like the following.
 
 Create a Java package in the **main/java** folder named **com.aws**.
 
-![AWS Tracking Application](images/track6.png)
+![AWS Tracking Application](images/project1.png)
 
 The Java files go into the following subpackages.
 
