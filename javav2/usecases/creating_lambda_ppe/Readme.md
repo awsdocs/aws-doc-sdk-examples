@@ -1,10 +1,12 @@
 #  Creating an AWS Lambda function that detects images with Personal Protective Equipment
 
+## Purpose
+
 You can create an AWS Lambda function that detects personal protective equipment (PPE) in images located in an Amazon Simple Storage Service (Amazon S3) bucket. For example, assume you run the Lambda function and you have this image in an Amazon S3 bucket. 
 
 ![AWS Tracking Application](images/lam.png)
 
-After you execute the Lambda function, it detects PPE information in the image (along with any other images) and creates a record in an Amazon DynamoDB table, as shown in this illustration.
+After you execute the Lambda function, it detects PPE information in the image using the Amazon Rekognition service and creates a record in an Amazon DynamoDB table, as shown in this illustration.
 
 ![AWS Tracking Application](images/dynamodb.png)
 
@@ -22,12 +24,6 @@ This tutorial shows you how to use the AWS SDK for Java V2 API to invoke these A
 - DynamoDB service
 - Amazon Simple Email service
 
-The Lambda function reads all images in a given Amazon S3 bucket. For each object in the bucket, it passes the image to the Amazon Rekognition service to detect PPE information. The results are stored as records in an Amazon DynamoDB table and then emailed to a recipient.     
-
-**Cost to complete**: The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note**: Be sure to terminate all of the resources after you have completed this tutorial to ensure that you are not charged.
-
 #### Topics
 +	Prerequisites.
 +	Create an AWS Identity and Access Management (IAM) role that is used to execute Lambda functions.
@@ -44,8 +40,20 @@ To follow along with this tutorial, you need the following:
 + A Java IDE (for this tutorial, the IntelliJ IDE is used).
 + Java 1.8 JDK.
 + Maven 3.6 or higher.
-+ An Amazon S3 bucket with 5-7 PPE images. These images are read by the Lambda function. 
-+ A DynamoDB table named **Gear** with a key named **id**. 
+
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+Create an Amazon S3 bucket with 5-7 PPE images. These images are read by the Lambda function. 
+
+Create an Amazon DynamoDB table named **Gear** with a key named **id**. For information, see [Create a table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.CreateTables.html).
+
 
 ## Create an AWS Identity and Access Management (IAM) role that's used to execute Lambda functions
 
@@ -107,7 +115,7 @@ This tutorial uses the Amazon Rekognition, DynamoDB, Amazon SES, and Amazon S3 s
 
 At this point, you have a new project named **WorkflowPPE**.
 
-![AWS Tracking Application](images/project.png)
+![AWS Tracking Application](images/project1.png)
 
 Make sure that your project's pom.xml file looks like the following.
 
@@ -256,7 +264,7 @@ Make sure that your project's pom.xml file looks like the following.
 
 Use the AWS Lambda runtime Java API to create the Java class that defines the Lamdba function. In this example, there is one Java class for the Lambda function named **PPEHandler** and additional classes required for this use case. The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **com.example.ppe**. 
 
-![AWS Tracking Application](images/classesA.png)
+![AWS Tracking Application](images/project2.png)
 
 Create these Java classes:
 
@@ -369,8 +377,8 @@ The following Java code represents the **AnalyzePhotos** class. This class uses 
             System.exit(1);
         }
         return null;
-     }
-    }
+       }
+      }
 
 ### DynamoDBService class
 
@@ -453,7 +461,7 @@ The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to add a
         }
 
         }
-     }
+      }
 
 ### Gear class 
 
@@ -536,8 +544,8 @@ The **Gear** class is responsible for mapping an object to the Gear table using 
     public void setConfidence(String confidence) {
 
         this.confidence = confidence;
+      }
      }
-    }
 
 ### GearItem class
 
@@ -594,8 +602,8 @@ The **GearIten** class represents the model in this use case. Its stores data re
 
     public String getConfidence() {
         return this.confidence;
+     }
     }
-   }
 
 
 ### PPEHandler class
@@ -673,8 +681,8 @@ The following Java code represents the **PPEHandler** class.
         // Create list without duplicates.
         Set<String> uniqueKeys = new HashSet<String>(keys);
         return uniqueKeys;
-    }
-   }
+      }
+     }
 
 ### S3Service class
 
@@ -755,8 +763,8 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
             System.exit(1);
         }
         return null;
-       }
-     }
+        }
+      }
     
  ### SendEmail class
 The following class uses the Amazon SES Java API to send email messages that specify which images contain PPE. 
@@ -828,8 +836,8 @@ The following class uses the Amazon SES Java API to send email messages that spe
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+       }
      }
-    }
     
 **Note**: Set email addresses for the **sender** and **recipient** variables. 
 
