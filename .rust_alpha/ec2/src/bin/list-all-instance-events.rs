@@ -19,15 +19,7 @@ struct Opt {
 }
 
 /// Shows the scheduled events for the Amazon Elastic Compute Cloud (Amazon EC2) instances in the Region.
-async fn show_events(reg: &'static str) {
-    /*
-        let region = Region::new(reg.clone());
-        let config = aws_sdk_ec2::Config::builder().region(region).build();
-        let client = Client::from_conf(config);
-    */
-
-    //let reg_slice: &str = Box::leak(reg.into_boxed_str());
-
+async fn show_events(reg: &'static str) {    
     let region_provider = RegionProviderChain::default_provider().or_else(reg);
     let config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&config);
