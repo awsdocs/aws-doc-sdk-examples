@@ -119,7 +119,7 @@ The following figure shows the **work** table.
 
 At this point, you have a new project named **AWSItemTracker**.
 
-![AWS Tracking Application](images/track5.png)
+![AWS Tracking Application](images/project.png)
 
 In the **pom.xml** file's **project** element, add the **spring-boot-starter-parent** dependency.
 
