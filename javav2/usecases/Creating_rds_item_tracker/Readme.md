@@ -14,7 +14,7 @@ This tutorial guides you through creating the AWS Tracker application. Once the 
 
 The following figure shows you the structure of the Java project.
 
-![AWS Tracking Application](images/JavaProject.png)
+![AWS Tracking Application](images/project0.png)
 
 **Note:** All of the Java code required to complete this tutorial is located in this GitHub repository (or you can copy the code from this tutorial).  
 
