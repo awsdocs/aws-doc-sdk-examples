@@ -115,7 +115,7 @@ This tutorial uses the Amazon Rekognition, DynamoDB, Amazon SES, and Amazon S3 s
 
 At this point, you have a new project named **WorkflowPPE**.
 
-![AWS Tracking Application](images/project.png)
+![AWS Tracking Application](images/project1.png)
 
 Make sure that your project's pom.xml file looks like the following.
 
