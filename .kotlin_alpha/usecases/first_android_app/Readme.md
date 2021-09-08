@@ -239,6 +239,17 @@ Replace the XML code in the  **activity_main.xml** file with the following XML c
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+### Update the Strings.xml file
+
+In the **strings.xml** file under **res/values**, ensure this file looks like this code. 
+
+     <resources>
+      <string name="app_name">Android Amazon DynamoDB Example</string>
+      <string name="convert_string">Submit</string>
+      <string name="dollars_hint">dollars</string>
+      <string name="no_value_string">No Value</string>
+     </resources>
+
 ## Create the Kotlin classes for your Android project
 
 In the **com.example.aws** package, add additional Kotlin files, as shown in this illustration.
