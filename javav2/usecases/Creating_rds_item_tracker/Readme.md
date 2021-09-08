@@ -2048,15 +2048,6 @@ The following code represents the **layout.html** file that represents the appli
 	</body>
 	</html>
 
-#### To create the HTML files
-
-1. In the **resources** folder, create a folder named **templates**.  
-2. In the **templates** folder, create the **login.html** file and paste the HTML code into this file.
-3. In the **templates** folder, create the **index.html** file and paste the HTML code into this file.
-4. In the **templates** folder, create the **add.html** file and paste the HTML code into this file.
-5. In the **templates** folder, create the **items.html** file and paste the HTML code into this file.
-6. In the **templates** folder, create the **layout.html** file and paste the HTML code into this file.
-
 ## Create script files
 
 Both the **add** and **items** views use script files to communicate with the Spring controller. You have to ensure that these files are part of your project; otherwise, your application doesn’t work.
@@ -2070,23 +2061,22 @@ Both files contain application logic that sends a request to the Spring MainCont
 
 The following JavaScript code represents the **items.js** file that is used in the **items.html** view.
 
-	$(function() {
+     $(function() {
 
-    	$( "#dialogtemplate2" ).dialog();
-
-    	$('#myTable').DataTable( {
-         scrollY:        "500px",
-         scrollX:        true,
-         scrollCollapse: true,
-         paging:         true,
-         columnDefs: [
+      $( "#dialogtemplate2" ).dialog();
+      $('#myTable').DataTable( {
+        scrollY:        "500px",
+        scrollX:        true,
+        scrollCollapse: true,
+        paging:         true,
+        columnDefs: [
             { width: 200, targets: 0 }
         ],
         fixedColumns: true
-    } );
+     } );
 
-    var table = $('#myTable').DataTable();
-    $('#myTable tbody').on( 'click', 'tr', function () {
+     var table = $('#myTable').DataTable();
+     $('#myTable tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
         }
@@ -2094,116 +2084,114 @@ The following JavaScript code represents the **items.js** file that is used in t
             table.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
         }
-    } );
+     } );
 
 
-    //Disable the reportbutton
-    $('#reportbutton').prop("disabled",true);
-    $('#reportbutton').css("color", "#0d010d");
+     // Disable the reportbutton
+     $('#reportbutton').prop("disabled",true);
+     $('#reportbutton').css("color", "#0d010d");
+    });
 
-     });
 
+    function modItem() {
+        var id = $('#id').val();
+        var description = $('#description').val();
+        var status = $('#status').val();
 
-    function modItem()
-    {
-
-    var id = $('#id').val();
-    var description = $('#description').val();
-    var status = $('#status').val();
-
-    if (id == "")
-        {
+        if (id == "") {
             alert("Please select an item from the table");
             return;
         }
 
-    if (description.length > 350)
-        {
+        if (description.length > 350) {
             alert("Description has too many characters");
             return;
         }
 
-    //var status = $("textarea#status").val();
-    if (status.length > 350)
-        {
+        if (status.length > 350) {
             alert("Status has too many characters");
             return;
         }
 
-        //invokes the getMyForms POST operation
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", loadMods, false);
-        xhr.open("POST", "../changewi", true);   //buildFormit -- a Spring MVC controller
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-        xhr.send("id=" + id + "&description=" + description+ "&status=" + status);
-    }
+     $.ajax('/changewi', {
+        type: 'POST',
+        data: 'id=' + id + '&description=' + description+ '&status=' + status,
+        success: function (data, status, xhr) {
 
+            var msg = event.target.responseText;
+            alert("You have successfully modfied item "+msg)
 
-     // Handler for the changewi call
-     function loadMods(event) {
+            $('#id').val("");
+            $('#description').val("");
+            $('#status').val("");
 
-    var msg = event.target.responseText;
-    alert("You have successfully modified item "+msg)
+            //Refresh the grid.
+            GetItems();
 
-    $('#id').val("");
-    $('#description').val("");
-    $('#status').val("");
-
-    // Refresh the grid
-    GetItems();
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+      });
      }
-
-    // Populate the table with work items
-    function GetItems() {
-
+ 
+  // Populate the table with work items.
+  function GetItems() {
     var xhr = new XMLHttpRequest();
     var type="active";
-    xhr.addEventListener("load", loadItems, false);
-    xhr.open("POST", "../retrieve", true);   //buildFormit -- a Spring MVC controller
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-    xhr.send("type=" + type);
-    }
 
-    // Handler for the GetItems call
-    // This will populate the Data Table widget
-    function loadItems(event) {
+    $.ajax('/retrieve', {
+        type: 'POST',
+        data: 'type=' + type,
+        success: function (data, status, xhr) {
 
-    // Enable the reportbutton
-    $('#reportbutton').prop("disabled",false);
-    $('#reportbutton').css("color", "#FFFFFF");
+            // Enable the buttons.
+            $('#singlebutton').prop("disabled",false);
+            $('#updatebutton').prop("disabled",false);
+            $('#reportbutton').prop("disabled",false);
+            $('#reportbutton').css("color", "#FFFFFF");
+            $('#singlebutton').css("color", "#FFFFFF");
+            $('#updatebutton').css("color", "#FFFFFF");
+            $('#archive').prop("disabled",false);
+            $('#archive').css("color", "#FFFFFF");
 
-    // Refresh the URL for Form Preview
-    var xml = event.target.responseText;
-    var oTable = $('#myTable').dataTable();
-    oTable.fnClearTable(true);
+            $("#modform").show();
 
-    $(xml).find('Item').each(function () {
+            var xml = data;
+            var oTable = $('#myTable').dataTable();
+            oTable.fnClearTable(true);
 
-        var $field = $(this);
-        var id = $field.find('Id').text();
-        var name = $field.find('Name').text();
-        var guide = $field.find('Guide').text();
-        var date = $field.find('Date').text();
-        var description = $field.find('Description').text();
-        var status = $field.find('Status').text();
+            $(xml).find('Item').each(function () {
 
-        // Set the new data
-        oTable.fnAddData( [
-            id,
-            name,
-            guide,
-            date,
-            description,
-            status,,]
-        );
-    });
+                var $field = $(this);
+                var id = $field.find('Id').text();
+                var name = $field.find('Name').text();
+                var guide = $field.find('Guide').text();
+                var date = $field.find('Date').text();
+                var description = $field.find('Description').text();
+                var status = $field.find('Status').text();
 
-    document.getElementById("info3").innerHTML = "Active Items";
-    }
+                //Set the new data.
+                oTable.fnAddData( [
+                    id,
+                    name,
+                    guide,
+                    date,
+                    description,
+                    status,,]
+                );
+            });
 
+            document.getElementById("info3").innerHTML = "Active Items";
 
-    function ModifyItem() {
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+      });
+     }
 
+   function ModifyItem() {
     var table = $('#myTable').DataTable();
     var myId="";
     var arr = [];
@@ -2213,149 +2201,139 @@ The following JavaScript code represents the **items.js** file that is used in t
         myId = value;
     });
 
-    if (myId == "")
-    {
+    if (myId == "") {
         alert("You need to select a row");
         return;
     }
 
-    // Need to check its not an Archive item
+    //Need to check its not an Archive item.
     var h3Val =  document.getElementById("info3").innerHTML;
-    if (h3Val=="Archive Items")
-    {
+    if (h3Val=="Archive Items") {
         alert("You cannot modify an Archived item");
         return;
-    }
-
-
-    // Post to modify
-    var xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", onModifyLoad, false);
-    xhr.open("POST", "../modify", true);   //buildFormit -- a Spring MVC controller
-    xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");//necessary
-    xhr.send("id=" + myId);
      }
 
+     $.ajax('/modify', {
+        type: 'POST',
+        data: 'id=' + myId,
+        success: function (data, status, xhr) {
 
-     //Handler for the ModifyItem call
-     function onModifyLoad(event) {
+            var xml = data;
+            $(xml).find('Item').each(function () {
 
-     var xml = event.target.responseText;
-     $(xml).find('Item').each(function () {
+                var $field = $(this);
+                var id = $field.find('Id').text();
+                var description = $field.find('Description').text();
+                var status = $field.find('Status').text();
 
-        var $field = $(this);
-        var id = $field.find('Id').text();
-        var description = $field.find('Description').text();
-        var status = $field.find('Status').text();
-
-        // Set the fields
-        $('#id').val(id);
-        $('#description').val(description);
-        $('#status').val(status);
-
-    });
-    }
-
-
-    function Report() {
-
-        var email = $('#manager option:selected').text();
-
-        // Post to report
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", onReport, false);
-        xhr.open("POST", "../report", true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-        xhr.send("email=" + email);
-    }
-
-	function onReport(event) {
-         var data = event.target.responseText;
-         alert(data);
+                //Set the fields
+                $('#id').val(id);
+                $('#description').val(description);
+                $('#status').val(status);
+            });
+         },
+         error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+         }
+       });
      }
 
-	function GetArcItems()
-	{
+  function Report() {
+    var email = $('#manager option:selected').text();
+    $.ajax('/report', {
+        type: 'POST',
+        data: 'email=' + email,
+        success: function (data, status, xhr) {
+            alert(data);
 
-    	var xhr = new XMLHttpRequest();
-   	var type="archive";
-
-    	xhr.addEventListener("load", loadArcItems, false);
-    	xhr.open("POST", "../retrieve", true);   //buildFormit -- a Spring MVC controller
-    	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-    	xhr.send("type=" + type);
-	}
-
-	//Handler for the Report call
-	function loadArcItems(event) {
-
-    	// Enable the report button
-    	$('#reportbutton').prop("disabled",true);
-    	$('#reportbutton').css("color", "#0d010d");
-
-    	// Refresh the URL for Form Preview
-    	var xml = event.target.responseText;
-    	var oTable = $('#myTable').dataTable();
-    	oTable.fnClearTable(true);
-
-    	$(xml).find('Item').each(function () {
-
-        	var $field = $(this);
-        	var id = $field.find('Id').text();
-        	var name = $field.find('Name').text();
-        	var guide = $field.find('Guide').text();
-        	var date = $field.find('Date').text();
-        	var description = $field.find('Description').text();
-        	var status = $field.find('Status').text();
-
-        	// Set the new data
-        	oTable.fnAddData( [
-            		id,
-            		name,
-            		guide,
-            		date,
-            		description,
-            		status,,]
-        		);
-    		});
-
-    		document.getElementById("info3").innerHTML = "Archive Items";
-		}
-
-	function archiveItem()
-	{
-    	var table = $('#myTable').DataTable();
-    	var myId="";
-    	var arr = [];
-    	$.each(table.rows('.selected').data(), function() {
-
-        	var value = this[0];
-        	myId = value;
-    	});
-
-    	if (myId == "")
-    	 {
-         alert("You need to select a row");
-         return;
-      	}
-
-    	// Post to modify
-    	var xhr = new XMLHttpRequest();
-    	xhr.addEventListener("load", onArch, false);
-    	xhr.open("POST", "../archive", true);   //buildFormit -- a Spring MVC controller
-    	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");//necessary
-    	xhr.send("id=" + myId);
-	}
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+      });
+    }
 
 
-	// Handler for the uploadSave call
-	function onArch(event) {
+   function GetArcItems() {
+    var type="archive";
+    $.ajax('/retrieve', {
+        type: 'POST',
+        data: 'type=' + type,
+        success: function (data, status, xhr) {
+            // Disable buttons when Achive button
+            $('#reportbutton').prop("disabled", true);
+            $('#reportbutton').css("color", "#0d010d");
+            $('#singlebutton').prop("disabled", true);
+            $('#singlebutton').css("color", "#0d010d");
+            $('#updatebutton').prop("disabled", true);
+            $('#updatebutton').css("color", "#0d010d");
+            $('#archive').prop("disabled", true);
+            $('#archive').css("color", "#0d010d");
 
-    	var xml = event.target.responseText;
-    	alert("Item "+xml +" is archived now");
-    	//Refresh the grid
-    	GetItems();
-	}
+            $("#modform").hide();
+
+            var xml = event.target.responseText;
+            var oTable = $('#myTable').dataTable();
+            oTable.fnClearTable(true);
+
+            $(xml).find('Item').each(function () {
+
+                var $field = $(this);
+                var id = $field.find('Id').text();
+                var name = $field.find('Name').text();
+                var guide = $field.find('Guide').text();
+                var date = $field.find('Date').text();
+                var description = $field.find('Description').text();
+                var status = $field.find('Status').text();
+
+                //Set the new data.
+                oTable.fnAddData([
+                    id,
+                    name,
+                    guide,
+                    date,
+                    description,
+                    status, ,]
+                 );
+              });
+
+             document.getElementById("info3").innerHTML = "Archive Items";
+           },
+           error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+         }
+       });
+      }
+
+    function archiveItem() {
+     var table = $('#myTable').DataTable();
+     var myId="";
+     var arr = [];
+     $.each(table.rows('.selected').data(), function() {
+        var value = this[0];
+        myId = value;
+     });
+
+     if (myId == "") {
+        alert("You need to select a row");
+        return;
+     }
+
+     $.ajax('/archive', {
+        type: 'POST',
+        data: 'id=' + myId,
+        success: function (data, status, xhr) {
+            alert("Item " + data + " is achived now");
+            //Refresh the grid
+            GetItems();
+
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+      });
+    }
+
 
  #### contact_me.js file
 
@@ -2363,40 +2341,35 @@ The following JavaScript code represents the **contact_me.js** file that is used
 
 	$(function() {
 
-	    $("#SendButton" ).click(function($e) {
+        $("#SendButton" ).click(function($e) {
 
-            var guide = $('#guide').val();
-            var description = $('#description').val();
-            var status = $('#status').val();
+         var guide = $('#guide').val();
+         var description = $('#description').val();
+         var status = $('#status').val();
 
-            if (description.length > 350)
-       	    {
+         if (description.length > 350) {
             alert("Description has too many characters");
             return;
-            }
+         }
 
-          if (status.length > 350)
-        {
+         if (status.length > 350) {
             alert("Status has too many characters");
             return;
-        }
+         }
 
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", loadNewItems, false);
-        xhr.open("POST", "../add", true);   
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-        xhr.send("guide=" + guide + "&description=" + description+ "&status=" + status);
-    } );// END of the Send button click
+         $.ajax('/add', {
+            type: 'POST',
+            data: 'guide=' + guide + '&description=' + description+ '&status=' + status,
+            success: function (data, status, xhr) {
 
-    // Handler for the click SendButton call
-    function loadNewItems(event) {
-
-        var msg = event.target.responseText;
-        alert("You have successfully added item "+msg)
-
-    	}
-
-      });
+                alert("You have successfully added item "+data)
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                $('p').append('Error' + errorMessage);
+            }
+          });
+        } );
+      } );
 
 **Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the resources folder are included in your project.
 
