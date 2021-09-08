@@ -1,5 +1,7 @@
 #  Creating an AWS Lambda function that detects images with Personal Protective Equipment
 
+## Purpose
+
 You can create an AWS Lambda function that detects personal protective equipment (PPE) in images located in an Amazon Simple Storage Service (Amazon S3) bucket. For example, assume you run the Lambda function and you have this image in an Amazon S3 bucket. 
 
 ![AWS Tracking Application](images/lam.png)
@@ -24,10 +26,6 @@ This tutorial shows you how to use the AWS SDK for Java V2 API to invoke these A
 
 The Lambda function reads all images in a given Amazon S3 bucket. For each object in the bucket, it passes the image to the Amazon Rekognition service to detect PPE information. The results are stored as records in an Amazon DynamoDB table and then emailed to a recipient.     
 
-**Cost to complete**: The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note**: Be sure to terminate all of the resources after you have completed this tutorial to ensure that you are not charged.
-
 #### Topics
 +	Prerequisites.
 +	Create an AWS Identity and Access Management (IAM) role that is used to execute Lambda functions.
@@ -46,6 +44,18 @@ To follow along with this tutorial, you need the following:
 + Maven 3.6 or higher.
 + An Amazon S3 bucket with 5-7 PPE images. These images are read by the Lambda function. 
 + A DynamoDB table named **Gear** with a key named **id**. 
+
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+Create an Amazon DynamoDB table named **Gear** with a key named **id**. For information about creating an Amazon DynamoDB table, see [https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.CreateTables.html).
+
 
 ## Create an AWS Identity and Access Management (IAM) role that's used to execute Lambda functions
 
