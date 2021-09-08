@@ -82,12 +82,15 @@ Notice that there is Gradle build file here:
 
 ![AWS Blog Application](images/project3.png)
 
-Add the following AWS dependencies.
+Add the following dependencies to the Gradle build file.
 
     api("aws.sdk.kotlin:dynamodb:0.4.0-alpha")
-    api("aws.sdk.kotlin:sns:0.4.0-alpha")
+    api("aws.sdk.kotlin:sns:0.4.0-alpha")  {
+        exclude group: "xmlpull", module: "xmlpull"
+    }
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
-The following code represents this build file.
+The following code represents this build file. 
 
 	apply plugin: 'com.android.application'
         apply plugin: 'kotlin-android'
@@ -104,7 +107,6 @@ The following code represents this build file.
      kotlinOptions {
         jvmTarget = "1.8"
      }
-
 
      compileSdkVersion 30
      buildToolsVersion "30.0.0"
@@ -236,6 +238,17 @@ Replace the XML code in the  **activity_main.xml** file with the following XML c
             android:text="email"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+### Update the Strings.xml file
+
+In the **strings.xml** file under **res/values**, ensure this file looks like this code. 
+
+     <resources>
+      <string name="app_name">Android Amazon DynamoDB Example</string>
+      <string name="convert_string">Submit</string>
+      <string name="dollars_hint">dollars</string>
+      <string name="no_value_string">No Value</string>
+     </resources>
 
 ## Create the Kotlin classes for your Android project
 
