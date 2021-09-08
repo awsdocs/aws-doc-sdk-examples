@@ -1,6 +1,8 @@
 #  Creating the Amazon Relational Database Service item tracker
 
-You can develop a Spring application that tracks and reports on work items by using the following AWS services:
+## Purpose
+
+You can develop a web application that tracks and reports on work items by using the following AWS services
 
 + Amazon Relational Database Service (Amazon RDS)
 + Amazon Simple Email Service (the AWS SDK for Java SDK version 2 is used to access Amazon SES)
@@ -15,10 +17,6 @@ The following figure shows you the structure of the Java project.
 ![AWS Tracking Application](images/JavaProject.png)
 
 **Note:** All of the Java code required to complete this tutorial is located in this GitHub repository (or you can copy the code from this tutorial).  
-
-**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
 
 #### Topics
 
@@ -38,12 +36,20 @@ The following figure shows you the structure of the Java project.
 
 To complete the tutorial, you need the following:
 
-+ An AWS Account
++ An AWS account
 + A Java IDE (this tutorial uses the IntelliJ IDE)
-+ Java 1.8 JDK
++ Java JDK 1.8
 + Maven 3.6 or later
 
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
 ## Understand the AWS Tracker application
+
 The AWS Tracker application uses a model that is based on a work item and contains these attributes:
 
 + **date** - The start date of the item.
@@ -64,6 +70,7 @@ When a user logs into the system, they see the **Home** page.
 ![AWS Tracking Application](images/AWSItemsAll4.png)
 
 #### Application functionality
+
 A user can perform these tasks in the AWS Tracker application:
 
 + Enter an item into the system
