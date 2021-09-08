@@ -264,7 +264,7 @@ Make sure that your project's pom.xml file looks like the following.
 
 Use the AWS Lambda runtime Java API to create the Java class that defines the Lamdba function. In this example, there is one Java class for the Lambda function named **PPEHandler** and additional classes required for this use case. The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **com.example.ppe**. 
 
-![AWS Tracking Application](images/classesA.png)
+![AWS Tracking Application](images/project2.png)
 
 Create these Java classes:
 
