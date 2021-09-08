@@ -82,12 +82,15 @@ Notice that there is Gradle build file here:
 
 ![AWS Blog Application](images/project3.png)
 
-Add the following AWS dependencies.
+Add the following dependencies to the Gradle build file.
 
     api("aws.sdk.kotlin:dynamodb:0.4.0-alpha")
-    api("aws.sdk.kotlin:sns:0.4.0-alpha")
+    api("aws.sdk.kotlin:sns:0.4.0-alpha")  {
+        exclude group: "xmlpull", module: "xmlpull"
+    }
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
-The following code represents this build file.
+The following code represents this build file. 
 
 	apply plugin: 'com.android.application'
         apply plugin: 'kotlin-android'
@@ -104,7 +107,6 @@ The following code represents this build file.
      kotlinOptions {
         jvmTarget = "1.8"
      }
-
 
      compileSdkVersion 30
      buildToolsVersion "30.0.0"
