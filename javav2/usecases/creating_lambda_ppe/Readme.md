@@ -40,8 +40,6 @@ To follow along with this tutorial, you need the following:
 + A Java IDE (for this tutorial, the IntelliJ IDE is used).
 + Java 1.8 JDK.
 + Maven 3.6 or higher.
-+ An Amazon S3 bucket with 5-7 PPE images. These images are read by the Lambda function. 
-+ A DynamoDB table named **Gear** with a key named **id**. 
 
 ### Important
 
@@ -51,6 +49,8 @@ To follow along with this tutorial, you need the following:
 + Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 ### Creating the resources
+
+Create an Amazon S3 bucket with 5-7 PPE images. These images are read by the Lambda function. 
 
 Create an Amazon DynamoDB table named **Gear** with a key named **id**. For information about creating an Amazon DynamoDB table, see [https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.CreateTables.html).
 
