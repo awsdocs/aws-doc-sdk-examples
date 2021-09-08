@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_sdk_lambda::{Client, Config, Error, Region, PKG_VERSION};
-use aws_types::region;
-use aws_types::region::ProvideRegion;
+use aws_config::meta::region::RegionProviderChain;
+use aws_sdk_lambda::{Client, Error, Region, PKG_VERSION};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -15,7 +14,7 @@ struct Opt {
     region: Option<String>,
 
     /// Just show runtimes for indicated language.
-    /// dotnet, go, node, java, etc.aws_sdk_lambda
+    /// dotnet, go, node, java, etc.
     #[structopt(short, long)]
     language: Option<String>,
 
@@ -25,11 +24,10 @@ struct Opt {
 }
 
 /// Lists the ARNs and runtimes of all Lambda functions in all Regions.
-async fn show_lambdas(verbose: bool, language: &str, reg: String) {
-    let r = reg.clone();
-    let region = Region::new(reg);
-    let config = Config::builder().region(region).build();
-    let client = Client::from_conf(config);
+async fn show_lambdas(verbose: bool, language: &str, reg: &'static str) {
+    let region_provider = RegionProviderChain::default_provider().or_else(reg);
+    let config = aws_config::from_env().region(region_provider).load().await;
+    let client = Client::new(&config);
 
     let resp = client.list_functions().send().await;
     let functions = resp.unwrap().functions.unwrap_or_default();
@@ -54,7 +52,7 @@ async fn show_lambdas(verbose: bool, language: &str, reg: String) {
     if num_functions > 0 || verbose {
         println!(
             "Found {} function(s) (out of {}) in {} region.",
-            num_functions, max_functions, r
+            num_functions, max_functions, reg
         );
         println!();
     }
@@ -77,34 +75,31 @@ async fn main() -> Result<(), Error> {
         verbose,
     } = Opt::from_args();
 
-    let region = region::ChainProvider::first_try(region.map(Region::new))
+    let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()
         .or_else(Region::new("us-west-2"));
-
     println!();
 
     if verbose {
         println!("EC2 client version:    {}", aws_sdk_ec2::PKG_VERSION);
         println!("Lambda client version: {}", PKG_VERSION);
         println!(
-            "Region:                {:?}",
-            region.region().unwrap().as_ref()
+            "Region:                {}",
+            region_provider.region().await.unwrap().as_ref()
         );
         println!();
     }
 
     // Get list of available regions.
-    let config = aws_sdk_ec2::Config::builder().region(region).build();
-    let ec2_client = aws_sdk_ec2::Client::from_conf(config);
+
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
+    let ec2_client = aws_sdk_ec2::Client::new(&shared_config);
+
     let resp = ec2_client.describe_regions().send().await;
 
     for region in resp.unwrap().regions.unwrap_or_default() {
-        show_lambdas(
-            verbose,
-            language.as_deref().unwrap_or_default(),
-            region.region_name.unwrap(),
-        )
-        .await;
+        let reg: &'static str = Box::leak(region.region_name.unwrap().into_boxed_str());
+        show_lambdas(verbose, language.as_deref().unwrap_or_default(), reg).await;
     }
 
     Ok(())
