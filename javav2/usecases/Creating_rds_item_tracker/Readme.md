@@ -2016,6 +2016,7 @@ The following code represents the **items.html** file. This file enables users t
 	</html>
 
 **Note:** Replace the default email addresses with real email addresses in this file.
+
 #### layout.html
 
 The following code represents the **layout.html** file that represents the application's menu.
@@ -2135,12 +2136,12 @@ The following JavaScript code represents the **items.js** file that is used in t
       });
      }
  
-  // Populate the table with work items.
-  function GetItems() {
+    // Populate the table with work items.
+    function GetItems() {
     var xhr = new XMLHttpRequest();
     var type="active";
 
-    $.ajax('/retrieve', {
+     $.ajax('/retrieve', {
         type: 'POST',
         data: 'type=' + type,
         success: function (data, status, xhr) {
@@ -2180,40 +2181,40 @@ The following JavaScript code represents the **items.js** file that is used in t
                     description,
                     status,,]
                 );
-            });
+             });
 
             document.getElementById("info3").innerHTML = "Active Items";
 
-        },
-        error: function (jqXhr, textStatus, errorMessage) {
+          },
+          error: function (jqXhr, textStatus, errorMessage) {
             $('p').append('Error' + errorMessage);
-        }
-      });
-     }
+         }
+        });
+       }
 
-   function ModifyItem() {
-    var table = $('#myTable').DataTable();
-    var myId="";
-    var arr = [];
-    $.each(table.rows('.selected').data(), function() {
+     function ModifyItem() {
+      var table = $('#myTable').DataTable();
+      var myId="";
+      var arr = [];
+      $.each(table.rows('.selected').data(), function() {
 
         var value = this[0];
         myId = value;
-    });
+      });
 
-    if (myId == "") {
+      if (myId == "") {
         alert("You need to select a row");
-        return;
-    }
-
-    //Need to check its not an Archive item.
-    var h3Val =  document.getElementById("info3").innerHTML;
-    if (h3Val=="Archive Items") {
-        alert("You cannot modify an Archived item");
         return;
      }
 
-     $.ajax('/modify', {
+     //Need to check its not an Archive item.
+     var h3Val =  document.getElementById("info3").innerHTML;
+     if (h3Val=="Archive Items") {
+        alert("You cannot modify an Archived item");
+        return;
+      }
+
+      $.ajax('/modify', {
         type: 'POST',
         data: 'id=' + myId,
         success: function (data, status, xhr) {
@@ -2231,16 +2232,16 @@ The following JavaScript code represents the **items.js** file that is used in t
                 $('#description').val(description);
                 $('#status').val(status);
             });
-         },
-         error: function (jqXhr, textStatus, errorMessage) {
+          },
+          error: function (jqXhr, textStatus, errorMessage) {
             $('p').append('Error' + errorMessage);
-         }
-       });
-     }
+          }
+        });
+      }
 
-  function Report() {
-    var email = $('#manager option:selected').text();
-    $.ajax('/report', {
+     function Report() {
+     var email = $('#manager option:selected').text();
+     $.ajax('/report', {
         type: 'POST',
         data: 'email=' + email,
         success: function (data, status, xhr) {
@@ -2251,12 +2252,12 @@ The following JavaScript code represents the **items.js** file that is used in t
             $('p').append('Error' + errorMessage);
         }
       });
-    }
+     }
 
 
-   function GetArcItems() {
-    var type="archive";
-    $.ajax('/retrieve', {
+    function GetArcItems() {
+     var type="archive";
+     $.ajax('/retrieve', {
         type: 'POST',
         data: 'type=' + type,
         success: function (data, status, xhr) {
@@ -2302,24 +2303,24 @@ The following JavaScript code represents the **items.js** file that is used in t
            error: function (jqXhr, textStatus, errorMessage) {
             $('p').append('Error' + errorMessage);
          }
-       });
-      }
+        });
+       }
 
-    function archiveItem() {
-     var table = $('#myTable').DataTable();
-     var myId="";
-     var arr = [];
-     $.each(table.rows('.selected').data(), function() {
-        var value = this[0];
-        myId = value;
-     });
+      function archiveItem() {
+       var table = $('#myTable').DataTable();
+       var myId="";
+       var arr = [];
+       $.each(table.rows('.selected').data(), function() {
+         var value = this[0];
+         myId = value;
+      });
 
-     if (myId == "") {
+      if (myId == "") {
         alert("You need to select a row");
         return;
-     }
+      }
 
-     $.ajax('/archive', {
+      $.ajax('/archive', {
         type: 'POST',
         data: 'id=' + myId,
         success: function (data, status, xhr) {
@@ -2331,8 +2332,8 @@ The following JavaScript code represents the **items.js** file that is used in t
         error: function (jqXhr, textStatus, errorMessage) {
             $('p').append('Error' + errorMessage);
         }
-      });
-    }
+       });
+      }
 
 
  #### contact_me.js file
@@ -2343,21 +2344,21 @@ The following JavaScript code represents the **contact_me.js** file that is used
 
         $("#SendButton" ).click(function($e) {
 
-         var guide = $('#guide').val();
-         var description = $('#description').val();
-         var status = $('#status').val();
+          var guide = $('#guide').val();
+          var description = $('#description').val();
+          var status = $('#status').val();
 
-         if (description.length > 350) {
+          if (description.length > 350) {
             alert("Description has too many characters");
             return;
-         }
+          }
 
-         if (status.length > 350) {
+          if (status.length > 350) {
             alert("Status has too many characters");
             return;
-         }
+          }
 
-         $.ajax('/add', {
+          $.ajax('/add', {
             type: 'POST',
             data: 'guide=' + guide + '&description=' + description+ '&status=' + status,
             success: function (data, status, xhr) {
@@ -2367,9 +2368,9 @@ The following JavaScript code represents the **contact_me.js** file that is used
             error: function (jqXhr, textStatus, errorMessage) {
                 $('p').append('Error' + errorMessage);
             }
-          });
-        } );
-      } );
+           });
+          } );
+         } );
 
 **Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the resources folder are included in your project.
 
