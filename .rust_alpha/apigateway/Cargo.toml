@@ -1,5 +1,5 @@
 [package]
-name = "apigateway_code_examples"
+name = "apigateway-code-examples"
 version = "0.1.0"
 edition = "2018"
 
