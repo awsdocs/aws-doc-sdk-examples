@@ -377,8 +377,8 @@ The following Java code represents the **AnalyzePhotos** class. This class uses 
             System.exit(1);
         }
         return null;
-     }
-    }
+       }
+      }
 
 ### DynamoDBService class
 
@@ -461,7 +461,7 @@ The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to add a
         }
 
         }
-     }
+      }
 
 ### Gear class 
 
@@ -544,8 +544,8 @@ The **Gear** class is responsible for mapping an object to the Gear table using 
     public void setConfidence(String confidence) {
 
         this.confidence = confidence;
+      }
      }
-    }
 
 ### GearItem class
 
@@ -602,8 +602,8 @@ The **GearIten** class represents the model in this use case. Its stores data re
 
     public String getConfidence() {
         return this.confidence;
+     }
     }
-   }
 
 
 ### PPEHandler class
@@ -681,8 +681,8 @@ The following Java code represents the **PPEHandler** class.
         // Create list without duplicates.
         Set<String> uniqueKeys = new HashSet<String>(keys);
         return uniqueKeys;
-    }
-   }
+      }
+     }
 
 ### S3Service class
 
@@ -763,8 +763,8 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
             System.exit(1);
         }
         return null;
-       }
-     }
+        }
+      }
     
  ### SendEmail class
 The following class uses the Amazon SES Java API to send email messages that specify which images contain PPE. 
@@ -836,8 +836,8 @@ The following class uses the Amazon SES Java API to send email messages that spe
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+       }
      }
-    }
     
 **Note**: Set email addresses for the **sender** and **recipient** variables. 
 
