@@ -343,7 +343,7 @@ Create a Java package in the **main/java** folder named **com.aws**.
 
 The Java files go into the following subpackages.
 
-![AWS Tracking Application](images/newtrack7_1.png)
+![AWS Tracking Application](images/project2.png)
 
 These packages contain the following:
 
