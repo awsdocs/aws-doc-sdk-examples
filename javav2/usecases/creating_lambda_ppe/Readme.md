@@ -52,7 +52,7 @@ To follow along with this tutorial, you need the following:
 
 Create an Amazon S3 bucket with 5-7 PPE images. These images are read by the Lambda function. 
 
-Create an Amazon DynamoDB table named **Gear** with a key named **id**. For information about creating an Amazon DynamoDB table, see [Create a table] (https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.CreateTables.html).
+Create an Amazon DynamoDB table named **Gear** with a key named **id**. For information, see [Create a table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.CreateTables.html).
 
 
 ## Create an AWS Identity and Access Management (IAM) role that's used to execute Lambda functions
