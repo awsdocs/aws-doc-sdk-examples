@@ -325,9 +325,10 @@ The following Kotlin code represents the **MainActivity** Kotlin class. To handl
         }
 
      fun submitData(view: View) = runBlocking{
-        val dollarValue = dollarText.text.toString()
-        val myName  = personName.text.toString()
-        val myEmail = emailAddress.text.toString()
+     
+        val dollarField: EditText =  findViewById(R.id.dollarText)
+        val nameField: EditText =  findViewById(R.id.personName)
+        val emailField: EditText =  findViewById(R.id.emailAddress)
 
         val data = Database()
 
@@ -348,11 +349,11 @@ The following Kotlin code represents the **MainActivity** Kotlin class. To handl
         val key = "id"
         val keyVal = uuid.toString()
         val moneyTotal = "Value"
-        val moneyTotalValue = dollarValue
+        val moneyTotalValue = dollarField.text.toString()
         val name = "Name"
-        val NameVal = myName
+        val NameVal = nameField.text.toString()
         val email = "email"
-        val emailVal = myEmail
+        val emailVal = emailField.text.toString()
 
         data.putItemInTable2(ddb, tableName, key, keyVal, moneyTotal, moneyTotalValue, name, NameVal, email, emailVal);
         ddb.close()
