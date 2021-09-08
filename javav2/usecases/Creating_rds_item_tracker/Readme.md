@@ -1264,7 +1264,7 @@ The following Java code represents the **SendMessage** class. Notice that an **E
     @Component
     public class SendMessages {
 
-     private String sender = "tblue@nomailserver.com";
+     private String sender = "<ENTER A VALID SEND EMAIL ADDRESS>";
 
      // The subject line for the email
      private String subject = "Weekly AWS Status Report";
