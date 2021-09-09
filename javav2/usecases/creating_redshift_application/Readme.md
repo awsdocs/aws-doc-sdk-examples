@@ -822,6 +822,7 @@ At this point, you have created all of the Java files required for this example 
 
 The **index.html** file is the application's home view. 
 
+```html
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
@@ -853,7 +854,7 @@ The **index.html** file is the application's home view.
      <div>
      </body>
     </html>
-  
+```  
 	   
 ### layout.html
 
