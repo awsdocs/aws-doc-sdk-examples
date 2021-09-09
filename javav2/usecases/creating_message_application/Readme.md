@@ -42,7 +42,7 @@ Create A FIFO queue named **Message.fifo**. For information, see [Creating an Am
 
 ## Understand the AWS Messaging application
 
-To send a message to a SQS queue, enter the message into the application and choose Send.
+To send a message to a SQS queue, enter the message into the application and choose **Send**.
 
 ![AWS Messaging application](images/client2b.png)
 
