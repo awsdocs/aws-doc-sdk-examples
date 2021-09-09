@@ -12,24 +12,16 @@ The DynamoDB enhanced client lets you map your client-side classes to Amazon Dyn
 
 **Note:** For more information about the DynamoDB enhanced client, see [Map items in DynamoDB tables](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/examples-dynamodb-enhanced.html).
 
-The following shows the application you'll create.
+**Topics**
 
-![AWS Blog Application](images/firstAWS1.png)
-
-When you choose **Submit**, the data is submitted to a Spring Controller and persisted into an Amazon DynamoDB table named **Greeting**. Then a text message is sent to a user using Amazon SNS. The following is the **Greeting** table.
-
-![AWS Blog Application](images/greet2_1.png)
-
-After the table is updated with a new item, a text message is sent to notify a mobile user.
-
-![AWS Blog Application](images/phone2.png)
-
-This tutorial guides you through creating an AWS application that uses Spring Boot. After you develop the application, you'll learn how to deploy it to Elastic Beanstalk.
-
-The following figure shows the project that's created.
-
-![AWS Blog Application](images/greet3.png)
-
++ 
++ Create an IntelliJ project named **Greetings**
++ Add the Spring POM dependencies to your project
++ Set up the Java packages in your project
++ Create the Java logic for the main Boot class
++ Create the HTML files
++ Package the **Greetings** application into a JAR file
++ Deploy the  **Greetings** application to Elastic Beanstalk
 
 ## Prerequisites
 
@@ -58,17 +50,29 @@ You need to create this resources prior to starting this tutorial:
 
 + An Amazon DynamoDB table named **Greeting** that contains a partition key named **idblog**. For information about creating an Amazon DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html). 
 
-**Topics**
-
-+ Create an IntelliJ project named **Greetings**
-+ Add the Spring POM dependencies to your project
-+ Set up the Java packages in your project
-+ Create the Java logic for the main Boot class
-+ Create the HTML files
-+ Package the **Greetings** application into a JAR file
-+ Deploy the  **Greetings** application to Elastic Beanstalk
 
 ## Create an IntelliJ project named Greetings
+
+The following shows the application you'll create.
+
+![AWS Blog Application](images/firstAWS1.png)
+
+When you choose **Submit**, the data is submitted to a Spring Controller and persisted into an Amazon DynamoDB table named **Greeting**. Then a text message is sent to a user using Amazon SNS. The following is the **Greeting** table.
+
+![AWS Blog Application](images/greet2_1.png)
+
+After the table is updated with a new item, a text message is sent to notify a mobile user.
+
+![AWS Blog Application](images/phone2.png)
+
+This tutorial guides you through creating an AWS application that uses Spring Boot. After you develop the application, you'll learn how to deploy it to Elastic Beanstalk.
+
+The following figure shows the project that's created.
+
+![AWS Blog Application](images/greet3.png)
+
+
+
 The first step is to create an IntelliJ project.
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
