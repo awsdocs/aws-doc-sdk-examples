@@ -1,8 +1,44 @@
 # Creating a Publish/Subscription Spring Boot Application
 
+## Purpose
+
 You can create a web application that has subscription and publish functionality by using the Amazon Simple Notification Service (Amazon SNS). The application created in this AWS tutorial is a Spring Boot web application that lets a user subscribe to an Amazon SNS topic by entering a valid email address. A user can enter many emails and all of them are subscribed to the given SNS topic (once the email recipients confirm the subscription). The user can publish a message that results in all subscribed emails receiving the message. 
 
 **Note**: Amazon SNS is a managed service that provides message delivery from publishers to subscribers (also known as producers and consumers). For more information, see [What is Amazon SNS?](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
+
+
+#### Topics
+
++ Prerequisites
++  Understand the Publish/Subscription application
++ Create an IntelliJ project 
++ Add the POM dependencies to your project
++ Create the Java classes
++ Create the HTML files
++ Package the application into a JAR file
++ Deploy the application to Elastic Beanstalk
+
+## Prerequisites
+
+To complete the tutorial, you need the following:
+
++ An AWS account
++ A Java IDE (this tutorial uses the IntelliJ IDE)
++ Java JDK 1.8
++ Maven 3.6 or later
+
+## Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+Create an Amazon SNS queue that is used in the Java code. For information, see [Creating an Amazon SNS topic](https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html). ).
+
+## Understand the Publish/Subscription application
 
 To subscribe to an Amazon SNS topic, the user enters a valid email address into the web application. 
 
@@ -20,30 +56,6 @@ This example application lets you view all of the subscribed email recipients by
 
 ![AWS Tracking Application](images/pic4.png)
 
-**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
-
-#### Topics
-
-+ Prerequisites
-+ Create an IntelliJ project 
-+ Add the POM dependencies to your project
-+ Create the Java classes
-+ Create the HTML files
-+ Package the application into a JAR file
-+ Deploy the application to Elastic Beanstalk
-
-
-## Prerequisites
-
-To complete the tutorial, you need the following:
-
-+ An AWS account
-+ A Java IDE (this tutorial uses the IntelliJ IDE)
-+ Java JDK 1.8
-+ Maven 3.6 or later
-+ An Amazon SNS topic that you use in the Java code. For information, see [Creating an Amazon SNS topic](https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html). 
 
 ## Create an IntelliJ project
 
