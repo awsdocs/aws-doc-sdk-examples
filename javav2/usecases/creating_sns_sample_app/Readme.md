@@ -10,7 +10,7 @@ You can create a web application that has subscription and publish functionality
 #### Topics
 
 + Prerequisites
-+  Understand the Publish/Subscription application
++ Understand the Publish/Subscription application
 + Create an IntelliJ project 
 + Add the POM dependencies to your project
 + Create the Java classes
@@ -36,7 +36,7 @@ To complete the tutorial, you need the following:
 
 ### Creating the resources
 
-Create an Amazon SNS queue that is used in the Java code. For information, see [Creating an Amazon SNS topic](https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html). ).
+Create an Amazon SNS queue that is used in the Java code. For information, see [Creating an Amazon SNS topic](https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html). 
 
 ## Understand the Publish/Subscription application
 
