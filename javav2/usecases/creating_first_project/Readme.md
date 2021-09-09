@@ -87,6 +87,7 @@ At this point, you have a new project named **Greetings**.
 
 Ensure that the **pom.xml** file resembles the following XML code.
 
+```xml
 	<?xml version="1.0" encoding="UTF-8"?>
 	<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -158,6 +159,7 @@ Ensure that the **pom.xml** file resembles the following XML code.
 	    </plugins>
 	</build>
 	</project>
+```
 
 ## Set up the Java packages in your project
 
@@ -182,6 +184,7 @@ You need to create the main Spring Boot Java class, the Controller class, the Mo
 
 In the **com.example** package, create a Java class named **GreetingApplication**. Add the following Java code to this class.
 
+```java
 	package com.example;
 
        import org.springframework.boot.SpringApplication;
@@ -194,12 +197,13 @@ In the **com.example** package, create a Java class named **GreetingApplication*
           SpringApplication.run(GreetingApplication.class, args);
         }
      }
-
+```
 
 ### Create the GreetingController class
 
 In the **com.example.handlingformsubmission** package, create the **GreetingController** class. This class functions as the controller for the Spring Boot application. It handles HTTP requests and returns a view. In this example, notice the **@Autowired** annotation that creates a managed Spring bean. The following Java code represents this class.
 
+```java
 	package com.example.handlingformsubmission;
 
 	import org.springframework.beans.factory.annotation.Autowired;
@@ -236,11 +240,13 @@ In the **com.example.handlingformsubmission** package, create the **GreetingCont
           return "result";
     	}
       }
+```
 
 ### Create the Greeting class
 
 In the **com.example.handlingformsubmission** package, create the **Greeting** class. This class represents the model for the Spring Boot application. The following Java code represents this class.  
 
+```java
 	package com.example.handlingformsubmission;
 
 	public class Greeting {
@@ -282,6 +288,7 @@ In the **com.example.handlingformsubmission** package, create the **Greeting** c
         	this.body = body;
     	}
        }
+ ```
 
 ### Create the DynamoDBEnhanced class
 
@@ -289,6 +296,7 @@ In the **com.example.handlingformsubmission** package, create the **DynamoDBEnha
 
 Create a **PutItemEnhancedRequest** object and pass the **GreetingItems** object for the **items** method. Finally, invoke the **DynamoDbEnhancedClient** object's **putItem** method, and pass the **PutItemEnhancedRequest** object. The following Java code represents the **DynamoDBEnhanced** class.
 
+```java
      package com.example.handlingformsubmission;
 
     import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primaryPartitionKey;
@@ -385,7 +393,7 @@ Create a **PutItemEnhancedRequest** object and pass the **GreetingItems** object
      }
      }
     }
-
+```
 	
 
 **Note:** The **EnvironmentVariableCredentialsProvider** is used to create a **DynamoDbClient**, because this application will be deployed to Elastic Beanstalk. You can set up environment variables on Elastic Beanstalk so that the  **DynamoDbClient** is successfully created. 	
@@ -394,6 +402,7 @@ Create a **PutItemEnhancedRequest** object and pass the **GreetingItems** object
 
 Create a class named **PublishTextSMS** that sends a text message when a new item is added to the DynamoDB table. The following Java code represents this class.
 
+```java
     package com.example.handlingformsubmission;
 
     import software.amazon.awssdk.regions.Region;
@@ -432,6 +441,7 @@ Create a class named **PublishTextSMS** that sends a text message when a new ite
         }
        }
       }
+```
 
 **Note:** Be sure to specify a valid mobile number for the **phoneNumber** variable.
 
@@ -454,6 +464,7 @@ The **result.html** file is used as a view returned by the controller after the 
 
 The following HTML code represents the **greeting.html** file.
 
+```html
 	<!DOCTYPE HTML>
 	<html xmlns:th="https://www.thymeleaf.org">
 	<head>
@@ -487,6 +498,7 @@ The following HTML code represents the **greeting.html** file.
 
 	</body>
 	</html>
+```
 
 **Note:** The **th:field** values correspond to the data members in the **Greeting** class.
 
@@ -494,6 +506,7 @@ The following HTML code represents the **greeting.html** file.
 
 The following HTML code represents the **result.html** file.
 
+```html
 	<!DOCTYPE HTML>
 	<html xmlns:th="https://www.thymeleaf.org">
 	<head>
@@ -507,12 +520,7 @@ The following HTML code represents the **result.html** file.
 	<a href="/">Submit another message</a>
 	</body>
 	</html>
-
-#### Create the HTML files
-
-1. In the **resources** folder, create a folder named **templates**.
-2. In the **templates** folder, create the **greeting.html** file, and then paste the HTML code into this file.
-3. In the **templates** folder, create the **result.html** file, and then paste the HTML code into this file.   
+```
 
 ## Create a JAR file for the Greetings application
 
