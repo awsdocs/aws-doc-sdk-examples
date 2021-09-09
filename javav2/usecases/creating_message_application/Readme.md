@@ -700,6 +700,7 @@ The following is the HTML for the **layout.html** file that represents the appli
     </body>
     </html>
 ```
+
 ## Create script files
 
 Create a script file named **message.js** that communicates with the Spring controller. This file is used by the **message.html** view. Place the script file in the following path.
