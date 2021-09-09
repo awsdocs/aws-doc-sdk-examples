@@ -223,6 +223,7 @@ At this point, you have a new project named **Blog**. Ensure that the pom.xml fi
 
 The following Java code represents the **BlogApp** class.
 
+```java
      package com.aws.blog;
 
      import org.springframework.boot.SpringApplication;
@@ -235,11 +236,13 @@ The following Java code represents the **BlogApp** class.
         SpringApplication.run(BlogApp.class, args);
       }
      }
+```
 
 ### BlogController class
 
 The following Java code represents the **BlogController** class.
 
+```java
      package com.aws.blog;
 
      import org.springframework.security.core.context.SecurityContextHolder;
@@ -308,12 +311,13 @@ The following Java code represents the **BlogController** class.
         return user2.getUsername();
      }
      }
-
+```
 
 ### Post class
 
 The following Java code represents the **Post** class.
 
+```java
     package com.aws.blog;
 
     public class Post {
@@ -366,11 +370,13 @@ The following Java code represents the **Post** class.
         return this.id ;
      }
     }
+```
 
 ### RedshiftService class
 
 The following Java code represents the **RedshiftService** class. This class uses the Amazon Redshift Java API (V2) to interact with data located the **blog** table.  For example, the **getPosts** method returns a result set that is queried from the **blog** table and displayed in the view. Likewise, the **addRecord** method adds a new record to the **blog** table. This class also uses the Amazon Translate Java V2 API to translate the result set if requested by the user. 
 
+```java
      package com.aws.blog;
 
      import org.springframework.stereotype.Component;
@@ -733,12 +739,14 @@ The following Java code represents the **RedshiftService** class. This class use
         return "";
        }
       }
+```
 
 **Note**: Be sure to assign applicable values to the **clusterId**, **database**, and **dbUser** variables. Otherwise, your code does not work.
 
 ### WebSecurityConfig class
 
 The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application.
+```java
 
      package com.aws.blog;
 
@@ -796,7 +804,8 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
         return new BCryptPasswordEncoder();
       }
      }
-    
+```
+
 **Note**: In this example, the user credentials to log into the application are **user** and **password**.    
 
 ## Create the HTML file
@@ -1074,6 +1083,7 @@ The **login.html** file is the application's login page.
 
 This application has a **contact_me.js** file that is used to send requests to the Spring Controller. Place this file in the **resources\public\js** folder. 
 
+```javascript	
       $(function() {
 
        $('#progress').hide();
@@ -1135,7 +1145,8 @@ This application has a **contact_me.js** file that is used to send requests to t
          }
         });
       }
-
+```
+	
 ## Create a JAR file for the application
 
 Package up the project into a .jar (JAR) file that you can deploy to Elastic Beanstalk by using the following Maven command.
