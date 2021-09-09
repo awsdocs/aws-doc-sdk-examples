@@ -575,9 +575,6 @@ The following Java code represents the **MainController** class.
 
 Create a Java package named **com.aws.entities**. Next, create a class, named **WorkItem**, that represents the application model.  
 
-#### WorkItem class
-The following Java code represents the **WorkItem** class.
-
 ```java
     package com.aws.entities;
 
