@@ -44,12 +44,12 @@ Create A FIFO queue named **Message.fifo**. For information, see [Creating an Am
 
 To send a message to a SQS queue, enter the message into the application and choose **Send**.
 
-![AWS Messaging application](images/client2b.png)
+![AWS Messaging application](images/clientapp.png)
 
 After the message is sent, the application displays the message, as shown in this figure.
 
 
-![AWS Messaging application](images/client2c.png)
+![AWS Messaging application](images/clientapp1.png)
 
 You can choose **Purge** to purge the messages from the FIFO queue. This results in an empty queue, and no messages are displayed in the application.  
 
