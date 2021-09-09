@@ -74,7 +74,7 @@ The following describes how the application handles a message:
 
 At this point, you have a new project named **SpringAWSMessage**.
 
-![AWS Messaging application](images/client3.png)
+![AWS Messaging application](images/project.png)
 
 Add the following dependency for the Amazon SQS API (AWS SDK for Java version 2).
 
