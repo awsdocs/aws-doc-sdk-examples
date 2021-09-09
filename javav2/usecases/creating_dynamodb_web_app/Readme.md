@@ -2414,7 +2414,7 @@ The following JavaScript code represents the **contact_me.js** file that is used
         }
 
         $.ajax('/add', {
-            type: 'POST',  // http GET method
+            type: 'POST',  
             data: 'guide=' + guide + '&description=' + description+ '&status=' + status,
             success: function (data, status, xhr) {
 
