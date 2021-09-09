@@ -69,11 +69,6 @@ After the table is updated with a new item, a text message is sent to notify a m
 
 This tutorial guides you through creating an AWS application that uses Spring Boot. After you develop the application, you'll learn how to deploy it to Elastic Beanstalk.
 
-The following figure shows the project that's created.
-
-![AWS Blog Application](images/greet3.png)
-
-
 ## Create an IntelliJ project named Greetings
 The first step is to create an IntelliJ project.
 
