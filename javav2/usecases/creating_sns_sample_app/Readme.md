@@ -669,20 +669,20 @@ This application has a **contact_me.js** file that is used to send requests to t
       });
     }
 
-   function validateEmail(email) {
-    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-   }
+     function validateEmail(email) {
+       const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+       return re.test(email);
+      }
 
-   function validate(email) {
-    const $result = $("#result");
+     function validate(email) {
+      const $result = $("#result");
 
-    if (validateEmail(email)) {
+     if (validateEmail(email)) {
         return true ;
-     } else {
+      } else {
         return false ;
      }
-   }
+    }
 
 ## Create a JAR file for the application
 
