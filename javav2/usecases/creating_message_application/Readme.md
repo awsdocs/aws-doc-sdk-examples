@@ -172,11 +172,11 @@ Add the following dependency for the Amazon SQS API (AWS SDK for Java version 2)
 
 Create a Java package in the **main/java** folder named **com.example**.
 
-![AWS Messaging application](images/client4.png)
+![AWS Messaging application](images/project1.png)
 
 The Java files must go into this package.
 
-![AWS Messaging application](images/client5.png)
+![AWS Messaging application](images/project2.png)
 
 Create the following Java classes:
 
