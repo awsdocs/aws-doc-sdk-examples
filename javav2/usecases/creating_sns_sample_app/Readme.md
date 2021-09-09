@@ -624,8 +624,8 @@ This application has a **contact_me.js** file that is used to send requests to t
       });
      }
 
-   function getSubs() {
-    $.ajax('/getSubs', {
+     function getSubs() {
+      $.ajax('/getSubs', {
         type: 'GET', 
         success: function (data, status, xhr) {
 
@@ -644,19 +644,19 @@ This application has a **contact_me.js** file that is used to send requests to t
         error: function (jqXhr, textStatus, errorMessage) {
             $('p').append('Error' + errorMessage);
         }
-      });
-    }
+       });
+      }
 
-   function delSub(event) {
-     var mail = $('#inputEmail1').val();
-     var result = validate(mail)
+     function delSub(event) {
+       var mail = $('#inputEmail1').val();
+       var result = validate(mail)
 
-    if (result == false) {
-     alert (mail + " is not valid. Please specify a valid email");
-     return;
-    }
+      if (result == false) {
+       alert (mail + " is not valid. Please specify a valid email");
+       return;
+      }
 
-    $.ajax('/delSub', {
+     $.ajax('/delSub', {
         type: 'POST',  // http GET method
         data: 'email=' + mail,
         success: function (data, status, xhr) {
