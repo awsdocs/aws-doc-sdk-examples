@@ -1,6 +1,7 @@
 #  Create AWS serverless workflows by using the AWS SDK for Java
 
-You can create an AWS serverless workflow by using the AWS SDK for Java and AWS Step Functions.
+## Purpose
+You can create an AWS serverless workflow by using the AWS SDK for Java Version 2 and AWS Step Functions.
 Each workflow step is implemented by using an AWS Lambda function. Lambda is a compute service that enables you to run
 code without provisioning or managing servers.
 
@@ -9,10 +10,6 @@ implemented by using the Lambda Java API. For more information about Lambda, see
 [What is AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html).
 
 In this tutorial, you create a workflow that creates support tickets for an organization. Each workflow step performs an operation on the ticket. This tutorial shows you how to use Java to process workflow data. For example, you'll learn how to read data that's passed to the workflow, how to pass data between steps, and how to invoke AWS services from the workflow.
-
-**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
 
 #### Topics
 
@@ -29,12 +26,24 @@ In this tutorial, you create a workflow that creates support tickets for an orga
 + Invoke the workflow from the AWS Console
 
 ## Prerequisites
-To follow along with the tutorial, you need the following:
-+ An AWS Account.
-+ A Java IDE (for this tutorial, the IntelliJ IDE is used).
-+ Java 1.8 JDK.
-+ Maven 3.6 or higher.
-+ An Amazon DynamoDB table named **Case** with a key named **Id**. To learn how to create a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+
+To complete the tutorial, you need the following:
+
++ An AWS account
++ A Java IDE (this tutorial uses the IntelliJ IDE)
++ Java JDK 1.8
++ Maven 3.6 or later
+
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+An Amazon DynamoDB table named **Case** with a key named **Id**. To learn how to create a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 
 ## Understand the workflow
 
@@ -107,9 +116,9 @@ Workflows can pass data between steps. For example, the **Open Case** step proce
 
 2. Choose **Create State Machine**.
 
-3. Choose **Author with code snippets**. In the **Type** area, choose **Standard**.
+3. Choose **Write your workflow in code**. In the **Type** area, choose **Standard**.
 
-![AWS Tracking Application](images/lambda3.png)
+![AWS Tracking Application](images/createsm.png)
 
 4. Specify the Amazon States Language document by entering the following code.
 
@@ -168,30 +177,9 @@ Workflows can pass data between steps. For example, the **Open Case** step proce
 
 At this point, you have a new project named **LambdaFunctions**.
 
-![AWS Tracking Application](images/lambda8.png)
+![AWS Tracking Application](images/project.png)
 
-Add the following dependency for the Amazon SES API (AWS SDK for Java version 2).
-
-     <dependency>
-       <groupId>software.amazon.awssdk</groupId>
-       <artifactId>ses</artifactId>
-       <version>2.10.41</version>
-     </dependency>
-
-Add the following dependencies for the Amazon DynamoDB API (AWS SDK for Java version 2).
-
-     <dependency>
-       <groupId>software.amazon.awssdk</groupId>
-       <artifactId>dynamodb-enhanced</artifactId>
-       <version>2.11.4-PREVIEW</version>
-     </dependency>
-     <dependency>
-       <groupId>software.amazon.awssdk</groupId>
-       <artifactId>dynamodb</artifactId>
-       <version>2.5.10</version>
-     </dependency>
-
-The pom.xml file looks like the following.
+Add the following code to your pom.xml file.
 
       <?xml version="1.0" encoding="UTF-8"?>
 	<project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -315,13 +303,14 @@ The pom.xml file looks like the following.
         </plugins>
        </build>
      </project>
+
 ## Create Lambda functions by using the AWS SDK for Java Lambda API
 
 Use the Lambda runtime API to create the Java classes that define the Lamdba functions. In this example, there are three workflow steps that each correspond to a Java class. There are also two extra classes that invoke the Amazon DynamoDB service and the Amazon SES service.  
 
 The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **example**.
 
-![AWS Tracking Application](images/lambda9.png)
+![AWS Tracking Application](images/project2.png)
 
 To create a Lambda function by using the Lambda runtime API, you implement **com.amazonaws.services.lambda.runtime.RequestHandler**. The application logic that's executed when the workflow step is invoked is located in the **handleRequest** method. The return value of this method is passed to the next step in a workflow.
 
