@@ -497,7 +497,6 @@ The following code represents the **layout.html** file that represents the appli
      <meta th:include="this :: head" th:remove="tag"/>
     </head>
     <header th:fragment="site-header">
-     <a href="index.html" th:href="@{/}"><img src="../public/img/site-logo.png" th:src="@{/img/site-logo.png}" /></a>
      <a href="#" style="color: white" th:href="@{/}">Home</a>
      <a href="#" style="color: white" th:href="@{/subscribe}">Manage Subscriptions</a>
      </header>
@@ -582,7 +581,7 @@ The **sub.html** file is the application's view that manages Amazon SNS Subscrip
 This application has a **contact_me.js** file that is used to send requests to the Spring Controller. Place this file in the **resources\public\js** folder. 
 
     $(function() {
-     $("#SendButton" ).click(function($e) {
+    $("#SendButton" ).click(function($e) {
 
         var body = $('#body').val();
         if (body == '' ){
@@ -590,127 +589,100 @@ This application has a **contact_me.js** file that is used to send requests to t
             return;
         }
 
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", handleMsg, false);
-        xhr.open("POST", "../addMessage", true);   //buildFormit -- a Spring MVC controller
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-        xhr.send("body=" + body );
-      } );// END of the Send button click
+        $.ajax('/addMessage', {
+            type: 'POST',
+            data: 'body=' + body,
+            success: function (data, status, xhr) {
 
-      function handleMsg(event) {
-        var msg = event.target.responseText;
-        alert(msg)
-        $('#body').val("");
+                alert(data)
+                $('#body').val("");
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                $('p').append('Error' + errorMessage);
+            }
+        });
+       } );
+     } );
 
-       }
-      } );
-
-      function subEmail(){
-       var mail = $('#inputEmail1').val();
-       var result = validate(mail)
-       if (result == false) {
-        alert (mail + " is not valid. Please specify a valid email");
+    function subEmail(){
+     var mail = $('#inputEmail1').val();
+     var result = validate(mail)
+     if (result == false) {
+        alert (mail + " is not valid. Please specify a valid email.");
         return;
-      }
-
-      // Valid email, post to the server
-      var xhr = new XMLHttpRequest();
-      xhr.addEventListener("load", loadItems, false);
-      xhr.open("POST", "../addEmail", true);   //buildFormit -- a Spring MVC controller
-      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-      xhr.send("email=" + mail );
-      }
-
-     function loadItems(event) {
-
-      var subNum = event.target.responseText;
-      alert("Subscription validation is "+subNum);
      }
 
-     function validateEmail(email) {
-        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
+     $.ajax('/addEmail', {
+        type: 'POST',
+        data: 'email=' + mail,
+        success: function (data, status, xhr) {
+            alert("Subscription validation is "+data)
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+      });
      }
 
-     function validate(email) {
-      const $result = $("#result");
+   function getSubs() {
+    $.ajax('/getSubs', {
+        type: 'GET', 
+        success: function (data, status, xhr) {
 
-      if (validateEmail(email)) {
+            $('.modal-body').empty();
+            var xml = data;
+            $(xml).find('Sub').each(function ()  {
+
+                var $field = $(this);
+                var email = $field.find('email').text();
+
+                // Append this data to the main list.
+                $('.modal-body').append("<p><b>"+email+"</b></p>");
+            });
+            $("#myModal").modal();
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+      });
+    }
+
+   function delSub(event) {
+     var mail = $('#inputEmail1').val();
+     var result = validate(mail)
+
+    if (result == false) {
+     alert (mail + " is not valid. Please specify a valid email");
+     return;
+    }
+
+    $.ajax('/delSub', {
+        type: 'POST',  // http GET method
+        data: 'email=' + mail,
+        success: function (data, status, xhr) {
+
+            alert("Subscription validation is "+data);
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+      });
+    }
+
+   function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+   }
+
+   function validate(email) {
+    const $result = $("#result");
+
+    if (validateEmail(email)) {
         return true ;
-      } else {
+     } else {
         return false ;
-      }
      }
-
-     function subDelete() {
-
-      $("#myModal").modal();
-     }
-
-     function getSubs(){
-
-      // Valid email, post to the server
-      var xhr = new XMLHttpRequest();
-      xhr.addEventListener("load", loadSubs, false);
-      xhr.open("GET", "../getSubs", true);
-      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-      xhr.send();
-      }
-
-     function loadSubs(event) {
-
-      $('.modal-body').empty();
-      var xml = event.target.responseText;
-      $(xml).find('Sub').each(function ()  {
-
-      var $field = $(this);
-      var email = $field.find('email').text();
-
-      // Append this data to the main list.
-        $('.modal-body').append("<p><b>"+email+"</b></p>");
-       });
-      $("#myModal").modal();
-      }
-
-      function postMsg(){
-
-       // Valid email, post to the server
-       var xhr = new XMLHttpRequest();
-       xhr.addEventListener("load", loadMsg, false);
-       xhr.open("GET", "../getSubs", true);
-       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-       xhr.send();
-      }
-
-      function loadMsg(event) {
-
-       var msg = event.target.responseText;
-       alert(msg);
-      }
-
-      function delSub(event) {
-       var mail = $('#inputEmail1').val();
-       var result = validate(mail)
-  
-      if (result == false) {
-       alert (mail + " is not valid. Please specify a valid email");
-      return;
-     }
-
-      // Valid email, post to the server
-      var xhr = new XMLHttpRequest();
-      xhr.addEventListener("load", loadItems, false);
-      xhr.open("POST", "../delSub", true);   //buildFormit -- a Spring MVC controller
-      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-      xhr.send("email=" + mail );
-      }
-
-     function loadItems(event) {
-
-       var subNum = event.target.responseText;
-       alert("Subscription validation is "+subNum);
-      }
-
+   }
 
 ## Create a JAR file for the application
 
