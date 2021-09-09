@@ -20,6 +20,7 @@ from test_tools.dynamodb_stubber import DynamoStubber
 from test_tools.ec2_stubber import Ec2Stubber
 from test_tools.emr_stubber import EmrStubber
 from test_tools.eventbridge_stubber import EventBridgeStubber
+from test_tools.glacier_stubber import GlacierStubber
 from test_tools.iam_stubber import IamStubber
 from test_tools.kinesis_stubber import KinesisStubber
 from test_tools.kinesis_analytics_v2_stubber import KinesisAnalyticsV2Stubber
@@ -73,6 +74,8 @@ def stubber_factory(service_name):
         return EmrStubber
     elif service_name == 'events':
         return EventBridgeStubber
+    elif service_name == 'glacier':
+        return GlacierStubber
     elif service_name == 'iam':
         return IamStubber
     elif service_name == 'kinesis':

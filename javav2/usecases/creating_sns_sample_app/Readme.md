@@ -1,8 +1,44 @@
 # Creating a Publish/Subscription Spring Boot Application
 
+## Purpose
+
 You can create a web application that has subscription and publish functionality by using the Amazon Simple Notification Service (Amazon SNS). The application created in this AWS tutorial is a Spring Boot web application that lets a user subscribe to an Amazon SNS topic by entering a valid email address. A user can enter many emails and all of them are subscribed to the given SNS topic (once the email recipients confirm the subscription). The user can publish a message that results in all subscribed emails receiving the message. 
 
 **Note**: Amazon SNS is a managed service that provides message delivery from publishers to subscribers (also known as producers and consumers). For more information, see [What is Amazon SNS?](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
+
+
+#### Topics
+
++ Prerequisites
++ Understand the Publish/Subscription application
++ Create an IntelliJ project 
++ Add the POM dependencies to your project
++ Create the Java classes
++ Create the HTML files
++ Package the application into a JAR file
++ Deploy the application to Elastic Beanstalk
+
+## Prerequisites
+
+To complete the tutorial, you need the following:
+
++ An AWS account
++ A Java IDE (this tutorial uses the IntelliJ IDE)
++ Java JDK 1.8
++ Maven 3.6 or later
+
+## Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+Create an Amazon SNS queue that is used in the Java code. For information, see [Creating an Amazon SNS topic](https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html). 
+
+## Understand the Publish/Subscription application
 
 To subscribe to an Amazon SNS topic, the user enters a valid email address into the web application. 
 
@@ -20,30 +56,6 @@ This example application lets you view all of the subscribed email recipients by
 
 ![AWS Tracking Application](images/pic4.png)
 
-**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
-
-#### Topics
-
-+ Prerequisites
-+ Create an IntelliJ project 
-+ Add the POM dependencies to your project
-+ Create the Java classes
-+ Create the HTML files
-+ Package the application into a JAR file
-+ Deploy the application to Elastic Beanstalk
-
-
-## Prerequisites
-
-To complete the tutorial, you need the following:
-
-+ An AWS account
-+ A Java IDE (this tutorial uses the IntelliJ IDE)
-+ Java JDK 1.8
-+ Maven 3.6 or later
-+ An Amazon SNS topic that you use in the Java code. For information, see [Creating an Amazon SNS topic](https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html). 
 
 ## Create an IntelliJ project
 
@@ -63,7 +75,7 @@ Create an IntelliJ project that is used to create the web application.
 
 7. Choose **Finish**.
 
-## Add the Spring POM dependencies to your project
+## Add the POM dependencies to your project
 
 At this point, you have a new project named **SpringSubscribeApp**. Ensure that the pom.xml file resembles the following code.
 
@@ -135,7 +147,7 @@ At this point, you have a new project named **SpringSubscribeApp**. Ensure that 
  
  Create a Java package in the main/java folder named **com.spring.sns**. The Java classes go into this package. 
  
- ![AWS Lex](images/pic5.png)
+ ![AWS Lex](images/project.png)
  
  Create these Java classes:
 
@@ -485,7 +497,6 @@ The following code represents the **layout.html** file that represents the appli
      <meta th:include="this :: head" th:remove="tag"/>
     </head>
     <header th:fragment="site-header">
-     <a href="index.html" th:href="@{/}"><img src="../public/img/site-logo.png" th:src="@{/img/site-logo.png}" /></a>
      <a href="#" style="color: white" th:href="@{/}">Home</a>
      <a href="#" style="color: white" th:href="@{/subscribe}">Manage Subscriptions</a>
      </header>
@@ -570,7 +581,7 @@ The **sub.html** file is the application's view that manages Amazon SNS Subscrip
 This application has a **contact_me.js** file that is used to send requests to the Spring Controller. Place this file in the **resources\public\js** folder. 
 
     $(function() {
-     $("#SendButton" ).click(function($e) {
+    $("#SendButton" ).click(function($e) {
 
         var body = $('#body').val();
         if (body == '' ){
@@ -578,127 +589,100 @@ This application has a **contact_me.js** file that is used to send requests to t
             return;
         }
 
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", handleMsg, false);
-        xhr.open("POST", "../addMessage", true);   //buildFormit -- a Spring MVC controller
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-        xhr.send("body=" + body );
-      } );// END of the Send button click
+        $.ajax('/addMessage', {
+            type: 'POST',
+            data: 'body=' + body,
+            success: function (data, status, xhr) {
 
-      function handleMsg(event) {
-        var msg = event.target.responseText;
-        alert(msg)
-        $('#body').val("");
+                alert(data)
+                $('#body').val("");
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                $('p').append('Error' + errorMessage);
+            }
+        });
+       } );
+     } );
 
-       }
-      } );
+    function subEmail(){
+     var mail = $('#inputEmail1').val();
+     var result = validate(mail)
+     if (result == false) {
+        alert (mail + " is not valid. Please specify a valid email.");
+        return;
+     }
 
-      function subEmail(){
+     $.ajax('/addEmail', {
+        type: 'POST',
+        data: 'email=' + mail,
+        success: function (data, status, xhr) {
+            alert("Subscription validation is "+data)
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+      });
+     }
+
+     function getSubs() {
+      $.ajax('/getSubs', {
+        type: 'GET', 
+        success: function (data, status, xhr) {
+
+            $('.modal-body').empty();
+            var xml = data;
+            $(xml).find('Sub').each(function ()  {
+
+                var $field = $(this);
+                var email = $field.find('email').text();
+
+                // Append this data to the main list.
+                $('.modal-body').append("<p><b>"+email+"</b></p>");
+            });
+            $("#myModal").modal();
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+       });
+      }
+
+     function delSub(event) {
        var mail = $('#inputEmail1').val();
        var result = validate(mail)
-       if (result == false) {
-        alert (mail + " is not valid. Please specify a valid email");
-        return;
+
+      if (result == false) {
+       alert (mail + " is not valid. Please specify a valid email");
+       return;
       }
 
-      // Valid email, post to the server
-      var xhr = new XMLHttpRequest();
-      xhr.addEventListener("load", loadItems, false);
-      xhr.open("POST", "../addEmail", true);   //buildFormit -- a Spring MVC controller
-      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-      xhr.send("email=" + mail );
-      }
+     $.ajax('/delSub', {
+        type: 'POST',  // http GET method
+        data: 'email=' + mail,
+        success: function (data, status, xhr) {
 
-     function loadItems(event) {
-
-      var subNum = event.target.responseText;
-      alert("Subscription validation is "+subNum);
-     }
+            alert("Subscription validation is "+data);
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+      });
+    }
 
      function validateEmail(email) {
-        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
-     }
+       const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+       return re.test(email);
+      }
 
      function validate(email) {
       const $result = $("#result");
 
-      if (validateEmail(email)) {
+     if (validateEmail(email)) {
         return true ;
       } else {
         return false ;
-      }
      }
-
-     function subDelete() {
-
-      $("#myModal").modal();
-     }
-
-     function getSubs(){
-
-      // Valid email, post to the server
-      var xhr = new XMLHttpRequest();
-      xhr.addEventListener("load", loadSubs, false);
-      xhr.open("GET", "../getSubs", true);
-      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-      xhr.send();
-      }
-
-     function loadSubs(event) {
-
-      $('.modal-body').empty();
-      var xml = event.target.responseText;
-      $(xml).find('Sub').each(function ()  {
-
-      var $field = $(this);
-      var email = $field.find('email').text();
-
-      // Append this data to the main list.
-        $('.modal-body').append("<p><b>"+email+"</b></p>");
-       });
-      $("#myModal").modal();
-      }
-
-      function postMsg(){
-
-       // Valid email, post to the server
-       var xhr = new XMLHttpRequest();
-       xhr.addEventListener("load", loadMsg, false);
-       xhr.open("GET", "../getSubs", true);
-       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-       xhr.send();
-      }
-
-      function loadMsg(event) {
-
-       var msg = event.target.responseText;
-       alert(msg);
-      }
-
-      function delSub(event) {
-       var mail = $('#inputEmail1').val();
-       var result = validate(mail)
-  
-      if (result == false) {
-       alert (mail + " is not valid. Please specify a valid email");
-      return;
-     }
-
-      // Valid email, post to the server
-      var xhr = new XMLHttpRequest();
-      xhr.addEventListener("load", loadItems, false);
-      xhr.open("POST", "../delSub", true);   //buildFormit -- a Spring MVC controller
-      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-      xhr.send("email=" + mail );
-      }
-
-     function loadItems(event) {
-
-       var subNum = event.target.responseText;
-       alert("Subscription validation is "+subNum);
-      }
-
+    }
 
 ## Create a JAR file for the application
 
