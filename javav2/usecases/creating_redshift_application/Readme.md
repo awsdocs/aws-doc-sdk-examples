@@ -88,6 +88,7 @@ Create an IntelliJ project that is used to create the web application.
 
 At this point, you have a new project named **Blog**. Ensure that the pom.xml file resembles the following code.
 
+```xml
      <?xml version="1.0" encoding="UTF-8"?>
      <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -204,7 +205,8 @@ At this point, you have a new project named **Blog**. Ensure that the pom.xml fi
         </plugins>
     </build>
 </project>
-     
+```
+
  ## Create the Java classes
  
  Create a Java package in the main/java folder named **com.aws.blog**. The Java classes go into this package. 
@@ -860,6 +862,7 @@ The **index.html** file is the application's home view.
 
 The following code represents the **layout.html** file that represents the application's menu.
 
+```html
      <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org">
      <head th:fragment="site-head">
@@ -881,11 +884,13 @@ The following code represents the **layout.html** file that represents the appli
     </div>
    </header>
   </html>
+```	     
 
 ### add.html
 
 The **add.html** file is the application's view that lets users post new items. 
 
+```html	     
     <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
@@ -928,10 +933,12 @@ The **add.html** file is the application's view that lets users post new items.
             </div>
       </body>
      </html>
+```
 
 ### post.html
 The **post.html** file is the application's view that displays the job items in the specific language. 
 
+```html
    <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
      <head>
@@ -980,10 +987,12 @@ The **post.html** file is the application's view that displays the job items in 
        </div>
       </body>
      </html>
+```
 
 ### login.html
 The **login.html** file is the application's login page. 
 
+```html
      <!DOCTYPE html>
      <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 
@@ -1079,7 +1088,8 @@ The **login.html** file is the application's login page.
     </form>
     </body>
     </html>
-    
+```
+
 ### Create the JS File
 
 This application has a **contact_me.js** file that is used to send requests to the Spring Controller. Place this file in the **resources\public\js** folder. 
