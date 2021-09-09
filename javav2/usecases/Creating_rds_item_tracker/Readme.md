@@ -115,50 +115,11 @@ The following figure shows the **work** table.
 6. Choose **Next**.
 7. Choose **Finish**.
 
-## Add the Spring POM dependencies to your project
+## Add the POM dependencies to your project
 
 At this point, you have a new project named **AWSItemTracker**.
 
 ![AWS Tracking Application](images/project.png)
-
-In the **pom.xml** file's **project** element, add the **spring-boot-starter-parent** dependency.
-
-     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
-      </parent>
-
-In the **dependencies** element, add the following Spring Boot **dependency** elements.
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-thymeleaf</artifactId>
-    </dependency>
-    <dependency>
-     <groupId>org.springframework.boot</groupId>
-     <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-     <groupId>org.springframework.boot</groupId>
-     <artifactId>spring-boot-starter-test</artifactId>
-     <scope>test</scope>
-      <exclusions>
-       <exclusion>
-        <groupId>org.junit.vintage</groupId>
-        <artifactId>junit-vintage-engine</artifactId>
-       </exclusion>
-      </exclusions>
-    </dependency>
-
-Add the following dependency for the Amazon SES API (AWS SDK for Java version 2).
-
- 	<dependency>
-          <groupId>software.amazon.awssdk</groupId>
-          <artifactId>ses</artifactId>
-          <version>2.10.41</version>
-        </dependency>
 
 **Note:** Ensure that you are using Java 1.8 (as shown below).
 
