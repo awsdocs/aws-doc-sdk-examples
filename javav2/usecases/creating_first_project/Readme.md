@@ -14,7 +14,8 @@ The DynamoDB enhanced client lets you map your client-side classes to Amazon Dyn
 
 **Topics**
 
-+ 
++ Prerequisites
++ Understand the web application
 + Create an IntelliJ project named **Greetings**
 + Add the Spring POM dependencies to your project
 + Set up the Java packages in your project
@@ -51,7 +52,8 @@ You need to create this resources prior to starting this tutorial:
 + An Amazon DynamoDB table named **Greeting** that contains a partition key named **idblog**. For information about creating an Amazon DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html). 
 
 
-## Create an IntelliJ project named Greetings
+
+## Understand the web application
 
 The following shows the application you'll create.
 
@@ -72,7 +74,7 @@ The following figure shows the project that's created.
 ![AWS Blog Application](images/greet3.png)
 
 
-
+## Create an IntelliJ project named Greetings
 The first step is to create an IntelliJ project.
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
