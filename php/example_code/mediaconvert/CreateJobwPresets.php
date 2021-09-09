@@ -21,7 +21,7 @@
 
 require 'vendor/autoload.php';
 
-use Aws\MediaConvert\MediaConvertClient;  
+use Aws\MediaConvert\MediaConvertClient;
 use Aws\Exception\AwsException;
 // snippet-end:[mediaconvert.php.create_job_with_preset.import]
 
@@ -32,7 +32,7 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create an AWSMediaConvert client object with your account specific endpoint.  
+//Create an AWSMediaConvert client object with your account specific endpoint.
 // snippet-start:[mediaconvert.php.create_job_with_preset.region]
 $mediaConvertClient = new MediaConvertClient([
     'version' => '2017-08-29',
@@ -65,7 +65,7 @@ $jobSetting = [
                     "AudioDescriptions" => [
                         [
                             "AudioSourceName" => "Audio Selector 2",
-                            "Codec" => "AAC"
+                            "Codec" => "AAC",
                             "CodecSettings" => [
                                 "AacSettings" => [
                                     "CodingMode" => 'CODING_MODE_2_0',
@@ -132,10 +132,10 @@ try {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-} 
- 
+}
+
 // snippet-end:[mediaconvert.php.create_job_with_preset.main]
-// snippet-end:[mediaconvert.php.create_job_with_preset.complete] 
+// snippet-end:[mediaconvert.php.create_job_with_preset.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-sourcedescription:[CreateJobwPresets.php demonstrates how to create a customized AWS Elemental MediaConvert Job.]
 // snippet-keyword:[PHP]

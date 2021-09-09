@@ -147,3 +147,7 @@ services:
     long: "&SESlong;"
     short: "&SES;"
     sort: "SES"
+  glacier:
+    long: "&GLlong;"
+    short: "&GLshort;"
+    sort: "S3 Glacier"
