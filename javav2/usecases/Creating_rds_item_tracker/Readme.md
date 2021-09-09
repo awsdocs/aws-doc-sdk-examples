@@ -1153,8 +1153,7 @@ The following Java code represents the **RetrieveItems** class.
     }
 
 
-       // Convert Work item data retrieved from MySQL
-       // into an XML schema to pass back to client
+       // Convert Work item data retrieved from MySQL into an XML schema to pass back to client.
        private Document toXmlItem(String id2, String desc2, String status2) {
 
         try {
@@ -2123,8 +2122,7 @@ The following JavaScript code represents the **items.js** file that is used in t
  
     // Populate the table with work items.
     function GetItems() {
-    var xhr = new XMLHttpRequest();
-    var type="active";
+     var type="active";
 
      $.ajax('/retrieve', {
         type: 'POST',
