@@ -466,19 +466,19 @@ The following Java code represents the **MainController** class.
     @Autowired
     RetrieveItems ri ;
 
-    // Adds a new item to the database
+    // Adds a new item to the database.
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     String addItems(HttpServletRequest request, HttpServletResponse response) {
 
-        //Get the Logged in User
+        //Get the Logged in User.
         String name = getLoggedUser();
 
         String guide = request.getParameter("guide");
         String description = request.getParameter("description");
         String status = request.getParameter("status");
 
-        // Create a Work Item object to pass to the injestNewSubmission method
+        // Create a Work Item object to pass to the injestNewSubmission method.
         WorkItem myWork = new WorkItem();
         myWork.setGuide(guide);
         myWork.setDescription(description);
@@ -489,7 +489,7 @@ The following Java code represents the **MainController** class.
         return "Item added";
     }
 
-    // Builds and emails a report
+    // Builds and emails a report.
     @RequestMapping(value = "/report", method = RequestMethod.POST)
     @ResponseBody
     String getReport(HttpServletRequest request, HttpServletResponse response) {
@@ -511,7 +511,7 @@ The following Java code represents the **MainController** class.
         return "Report is created";
      }
 
-     // Archives a work item
+     // Archives a work item.
      @RequestMapping(value = "/archive", method = RequestMethod.POST)
      @ResponseBody
      String archieveWorkItem(HttpServletRequest request, HttpServletResponse response) {
@@ -520,7 +520,7 @@ The following Java code represents the **MainController** class.
         return id ;
      }
 
-     // Modifies the value of a work item
+     // Modifies the value of a work item.
      @RequestMapping(value = "/changewi", method = RequestMethod.POST)
      @ResponseBody
      String changeWorkItem(HttpServletRequest request, HttpServletResponse response) {
@@ -531,7 +531,7 @@ The following Java code represents the **MainController** class.
         return value;
      }
 
-     // Retrieve all items for a given user
+     // Retrieve all items for a given user.
      @RequestMapping(value = "/retrieve", method = RequestMethod.POST)
      @ResponseBody
      String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
@@ -552,7 +552,7 @@ The following Java code represents the **MainController** class.
         }
       }
 
-     // Returns a work item to modify
+     // Returns a work item to modify.
      @RequestMapping(value = "/modify", method = RequestMethod.POST)
      @ResponseBody
      String modifyWork(HttpServletRequest request, HttpServletResponse response) {
@@ -563,7 +563,7 @@ The following Java code represents the **MainController** class.
 
      private String getLoggedUser() {
 
-        // Get the logged-in Useruser
+        // Get the logged-in user.
         org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String name = user2.getUsername();
         return name;
@@ -717,7 +717,7 @@ The following Java code represents the **InjectWorkService** class.
     @Component
     public class InjectWorkService {
 
-      // Inject a new submission
+      // Inject a new submission.
       public String modifySubmission(String id, String desc, String status) {
 
 	Connection c = null;
@@ -725,10 +725,10 @@ The following Java code represents the **InjectWorkService** class.
 
 	try {
 
-	  // Create a Connection object
+	  // Create a Connection object.
           c = ConnectionHelper.getConnection();
 
-          // Use prepared statements
+          // Use prepared statements.
           PreparedStatement ps = null;
 
           String query = "update work set description = ?, status = ? where idwork = '" +id +"'";
@@ -745,7 +745,7 @@ The following Java code represents the **InjectWorkService** class.
         return null;
     }
 
-    // Inject a new submission
+    // Inject a new submission.
     public String injestNewSubmission(WorkItem item) {
 
        Connection c = null;
@@ -758,13 +758,13 @@ The following Java code represents the **InjectWorkService** class.
          // Use a prepared statement
          PreparedStatement ps = null;
 
-        // Convert rev to int
+        // Convert rev to int.
         String name = item.getName();
         String guide = item.getGuide();
         String description = item.getDescription();
         String status = item.getStatus();
 
-        // Generate the work item ID
+        // Generate the work item ID.
         UUID uuid = UUID.randomUUID();
         String workId = uuid.toString();
 
@@ -776,7 +776,7 @@ The following Java code represents the **InjectWorkService** class.
         Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(sDate1);
         java.sql.Date sqlDate = new java.sql.Date( date1.getTime());
 
-        // Inject an item into the system
+        // Inject an item into the system.
         String insert = "INSERT INTO work (idwork, username,date,description, guide, status, archive) VALUES(?,?, ?,?,?,?,?);";
         ps = c.prepareStatement(insert);
         ps.setString(1, workId);
@@ -839,18 +839,18 @@ The following Java code represents the **RetrieveItems** class.
 
         try {
 
-	    // Create a Connection object
+	    // Create a Connection object.
             c = ConnectionHelper.getConnection();
 
             ResultSet rs = null;
             Statement s = c.createStatement();
             Statement scount = c.createStatement();
 
-            // Use prepared statements
+            // Use prepared statements.
             PreparedStatement pstmt = null;
             PreparedStatement ps = null;
 
-            // Specify the SQL statement to query data
+            // Specify the SQL statement to query data.
             query = "update work set archive = ? where idwork ='" +id + "' ";
 
             PreparedStatement updateForm = c.prepareStatement(query);
@@ -866,19 +866,19 @@ The following Java code represents the **RetrieveItems** class.
     }
 
 
-    // Retrieves archive data from the MySQL database
+    // Retrieves archive data from the MySQL database.
     public String getArchiveData(String username) {
 
         Connection c = null;
 
-        // Define a list in which work items are stored
+        // Define a list in which work items are stored.
         List<WorkItem> itemList = new ArrayList<WorkItem>();
         int rowCount = 0;
         String query = "";
         WorkItem item = null;
 
         try {
-            // Create a Connection object
+            // Create a Connection object.
             c = ConnectionHelper.getConnection();
 
             ResultSet rs = null;
@@ -891,7 +891,7 @@ The following Java code represents the **RetrieveItems** class.
 
             int arch = 1;
 
-            // Specify the SQL statement to query data
+            // Specify the SQL statement to query data.
             query = "Select idwork,username,date,description,guide,status FROM work where username = '" +username +"' and archive = " +arch +"";
             pstmt = c.prepareStatement(query);
             rs = pstmt.executeQuery();
@@ -922,18 +922,18 @@ The following Java code represents the **RetrieveItems** class.
         return null;
     }
 
-    // Retrieves an item based on the ID
+    // Retrieves an item based on the ID.
     public String getItemSQL(String id ) {
 
         Connection c = null;
 
-        // Define a list in which all work items are stored
+        // Define a list in which all work items are stored.
         String query = "";
         String status="" ;
         String description="";
 
         try {
-            // Create a Connection object
+            // Create a Connection object.
             c = ConnectionHelper.getConnection();
 
             ResultSet rs = null;
@@ -976,14 +976,14 @@ The following Java code represents the **RetrieveItems** class.
         WorkItem item = null;
 
         try {
-            // Create a Connection object
+            // Create a Connection object.
             c = ConnectionHelper.getConnection();
 
             ResultSet rs = null;
             Statement s = c.createStatement();
             Statement scount = c.createStatement();
 
-            // Use prepared statements
+            // Use prepared statements.
             PreparedStatement pstmt = null;
             PreparedStatement ps = null;
 
