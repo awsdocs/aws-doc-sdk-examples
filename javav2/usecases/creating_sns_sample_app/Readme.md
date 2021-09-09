@@ -79,6 +79,7 @@ Create an IntelliJ project that is used to create the web application.
 
 At this point, you have a new project named **SpringSubscribeApp**. Ensure that the pom.xml file resembles the following code.
 
+```xml
      <?xml version="1.0" encoding="UTF-8"?>
      <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -142,7 +143,8 @@ At this point, you have a new project named **SpringSubscribeApp**. Ensure that 
         </plugins>
       </build>
     </project>
-     
+```  
+
  ## Create the Java classes
  
  Create a Java package in the main/java folder named **com.spring.sns**. The Java classes go into this package. 
@@ -159,6 +161,7 @@ At this point, you have a new project named **SpringSubscribeApp**. Ensure that 
 
 The following Java code represents the **SubApplication** class.
 
+```java
      package com.spring.sns;
 
      import org.springframework.boot.SpringApplication;
@@ -171,11 +174,13 @@ The following Java code represents the **SubApplication** class.
         SpringApplication.run(SubApplication.class, args);
      }
     }
+```
 
 ### SubController class
 
 The following Java code represents the **SubController** class.
 
+```java
      package com.spring.sns;
 
      import org.springframework.beans.factory.annotation.Autowired;
@@ -236,11 +241,13 @@ The following Java code represents the **SubController** class.
         return mySub;
      }
     }
+```
 
 ### SnsService class
 
 The following Java code represents the **SnsService** class. This class uses the Java V2 SNS API to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes from the Amazon SNS topic. The **pubTopic** publishes a message. 
 
+```java
      package com.spring.sns;
 
      import org.springframework.stereotype.Component;
@@ -436,7 +443,7 @@ The following Java code represents the **SnsService** class. This class uses the
         return null;
        }
      }
-
+```
 
 **Note:** Make sure that you assign the SNS topic ARN to the **topicArn** data member. Otherwise, your code does not work. 
 
@@ -451,6 +458,7 @@ At this point, you have created all of the Java files required for this example 
 ### index.html
 The **index.html** file is the application's home view. 
 
+```html
     <!DOCTYPE html>
     <html xmlns:th="https://www.thymeleaf.org">
     <head>
@@ -484,10 +492,13 @@ The **index.html** file is the application's home view.
       <div>
      </body>
     </html>
+```
+	   	
 
 ### layout.html
 The following code represents the **layout.html** file that represents the application's menu.
 
+```html
       <!DOCTYPE html>
       <html xmlns:th="http://www.thymeleaf.org">
      <head th:fragment="site-head">
@@ -501,10 +512,12 @@ The following code represents the **layout.html** file that represents the appli
      <a href="#" style="color: white" th:href="@{/subscribe}">Manage Subscriptions</a>
      </header>
     </html>
+```
 
 ### add.html
 The **sub.html** file is the application's view that manages Amazon SNS Subscriptions. 
 
+```html
      <!DOCTYPE html>
      <html xmlns:th="https://www.thymeleaf.org" lang="">
     <head>
@@ -575,11 +588,12 @@ The **sub.html** file is the application's view that manages Amazon SNS Subscrip
        </div>
        </body>
       </html
-    
+  ```
 ### Create the JS File
 
 This application has a **contact_me.js** file that is used to send requests to the Spring Controller. Place this file in the **resources\public\js** folder. 
 
+```javascript
     $(function() {
     $("#SendButton" ).click(function($e) {
 
@@ -683,6 +697,7 @@ This application has a **contact_me.js** file that is used to send requests to t
         return false ;
      }
     }
+ ```
 
 ## Create a JAR file for the application
 
