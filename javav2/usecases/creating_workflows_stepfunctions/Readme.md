@@ -122,6 +122,7 @@ Workflows can pass data between steps. For example, the **Open Case** step proce
 
 4. Specify the Amazon States Language document by entering the following code.
 
+```json
         {
         "Comment": "A simple AWS Step Functions state machine that automates a call center support session.",
         "StartAt": "Open Case",
@@ -142,7 +143,8 @@ Workflows can pass data between steps. For example, the **Open Case** step proce
          "End": true
           }
           }
-         }
+         
+```
 **Note:** Don't worry about the errors related to the Lambda resource values. You'll update these values later in this tutorial.
 
 5. Choose **Next**.
@@ -181,6 +183,7 @@ At this point, you have a new project named **LambdaFunctions**.
 
 Add the following code to your pom.xml file.
 
+```xml
       <?xml version="1.0" encoding="UTF-8"?>
 	<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -303,6 +306,7 @@ Add the following code to your pom.xml file.
         </plugins>
        </build>
      </project>
+```
 
 ## Create Lambda functions by using the AWS SDK for Java Lambda API
 
@@ -325,6 +329,7 @@ Create these Java classes, which are described in the following sections:
 
 This Java code represents the **Handler** class. The class creates a Lamdba function that reads the ticket ID value that is passed to the workflow. Notice that you can log messages to Amazon CloudWatch logs by using a **LambdaLogger** object. The **handleRequest** method returns the ticket ID value that is passed to the second step in the workflow.
 
+```java
      package example;
 
      import com.amazonaws.services.lambda.runtime.Context;
@@ -354,11 +359,13 @@ This Java code represents the **Handler** class. The class creates a Lamdba func
         return myCaseID;
        }
       }
+```
 
 ### Handler2 class
 
 The **Handler2** class is the second step in the workflow and uses basic Java application logic to select an employee to assign the ticket. Then a **PersistCase** object is created and used to store the ticket data in a DynamoDB table named **Case**. The email address of the employee is passed to the third step.
 
+```java
       package example;
 
       import com.amazonaws.services.lambda.runtime.Context;
@@ -400,11 +407,13 @@ The **Handler2** class is the second step in the workflow and uses basic Java ap
         return emailEmp;
         }
       }
+```
 
 ### Handler3 class
 
 The **Handler3** class is the third step in the workflow and creates a **SendMessage** object. An email message is sent to the employee to notify them about the new ticket. The email address that is passed from the second step is used.
 
+ ```java
        package example;
 
        import com.amazonaws.services.lambda.runtime.Context;
@@ -435,12 +444,14 @@ The **Handler3** class is the third step in the workflow and creates a **SendMes
 
         return "";
      }
-    }
+  }
+```
 
 ### PersistCase class
 
 The following class uses the Amazon DynamoDB API to store the data in a table. For more information, see [DynamoDB examples using the AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/examples-dynamodb.html).
 
+```java
        package example;
 
        import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
@@ -552,11 +563,13 @@ The following class uses the Amazon DynamoDB API to store the data in a table. F
         }
        }
       }
+```
 
 ### SendMessage class
 
 The following Java class represents the **SendMessage** class. This class uses the Amazon SES API to send an email message to the employee. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
+ ```java
        package example;
 
        import software.amazon.awssdk.regions.Region;
@@ -684,6 +697,8 @@ The following Java class represents the **SendMessage** class. This class uses t
           }
          }
        }
+ ```
+ 
 ## Package the project that contains the Lambda functions
 
 Package up the project into a .jar (JAR) file that you can deploy as a Lambda function by using the following Maven command.
