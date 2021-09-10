@@ -40,7 +40,7 @@ To complete the tutorial, you need the following:
 
 ### Creating the resources
 
-Create an Amazon DynamoDB table named **Work** with a key named **id**. For information, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+Create an Amazon S3 bucket that contains 3-5 MP4 files. For information, see [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html).
 
 ## Understand the application
 
