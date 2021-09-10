@@ -41,6 +41,10 @@ To complete the tutorial, you need the following:
 
 Create an Amazon S3 bucket that contains 3-5 MP4 files. For information, see [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html).
 
+Tags each MP4 file wiht these two tags.
+
+![AWS Video Analyzer](images/tags.png)
+
 ## Understand the application
 
 The application you create uses Spring Boot APIs to build a model, different views, and a controller. For more information about Spring Boot APIs, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/index.htm).
