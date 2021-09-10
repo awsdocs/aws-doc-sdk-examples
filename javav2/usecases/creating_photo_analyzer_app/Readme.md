@@ -78,25 +78,11 @@ At this point, you have a new project named **SpringPhotoAnalyzer**.
 
 ![AWS Photo Analyzer](images/projectpa0.png)
 
-Add the following dependencies for the Amazon services (AWS SDK for Java version 2).
+**Note:** Ensure that you are using Java 1.8 (as shown in the following **pom.xml** file).
 
-    <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>ses</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>rekognition</artifactId>
-     </dependency>
-     <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>s3</artifactId>
-     </dependency>
+Ensure that the **pom.xml** file looks like the following.
 
-   **Note:** Ensure that you are using Java 1.8 (as shown in the following **pom.xml** file).
-
-   Add the Spring Boot dependencies. The **pom.xml** file looks like the following.
-
+```xml
      <?xml version="1.0" encoding="UTF-8"?>
      <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -197,6 +183,7 @@ Add the following dependencies for the Amazon services (AWS SDK for Java version
         </plugins>
       </build>
      </project>
+```
 
 ## Create the Java classes
 
@@ -223,6 +210,7 @@ Create these Java classes:
 
 The following Java code represents the **AnalyzePhotos** class. This class uses the Amazon Rekognition API to analyze the images.
 
+```java
     package com.example.photo;
 
     import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -287,6 +275,7 @@ The following Java code represents the **AnalyzePhotos** class. This class uses 
         return null ;
      }
     }
+```
 
 **Note:** In this example, an **EnvironmentVariableCredentialsProvider** is used for the credentials. This is because this application is deployed to Elastic Beanstalk where environment variables are set (shown later in this tutorial).
 
@@ -294,6 +283,7 @@ The following Java code represents the **AnalyzePhotos** class. This class uses 
 
 The following Java code represents the **BucketItem** class that stores S3 object data.
 
+```java
     package com.example.photo;
 
     public class BucketItem {
@@ -337,11 +327,13 @@ The following Java code represents the **BucketItem** class that stores S3 objec
         return this.key ;
     }
     }
+```
 
 ### PhotoApplication class
 
 The following Java code represents the **PhotoApplication** class.
 
+```java
     package com.example.photo;
 
     import org.springframework.boot.SpringApplication;
@@ -354,6 +346,7 @@ The following Java code represents the **PhotoApplication** class.
         SpringApplication.run(PhotoApplication.class, args);
       }
      }
+```
 
 ### PhotoController class
 
@@ -361,6 +354,7 @@ The following Java code represents the **PhotoController** class that handles HT
 
 **Note**: Be sure that you change the **bucketName** variable to your Amazon S3 bucket name. 
 
+```java
     package com.example.photo;
 
     import org.springframework.beans.factory.annotation.Autowired;
@@ -474,7 +468,6 @@ The following Java code represents the **PhotoController** class that handles HT
         return new ModelAndView(new RedirectView("photo"));
     }
 
-
     // This controller method downloads the given image from the Amazon S3 bucket.
     @RequestMapping(value = "/downloadphoto", method = RequestMethod.GET)
     void buildDynamicReportDownload(HttpServletRequest request, HttpServletResponse response) {
@@ -496,6 +489,7 @@ The following Java code represents the **PhotoController** class that handles HT
         }
       }
      }
+```
 
 **Note** - Be sure to replace the bucket name in this code example with your bucket name.
 
@@ -503,6 +497,7 @@ The following Java code represents the **PhotoController** class that handles HT
 
 The following class uses the Amazon S3 Java API to perform Amazon S3 operations. For example, the **getObjectBytes** method returns a byte array that represents the image. 
 
+```java
     package com.example.photo;
 
     import org.springframework.stereotype.Component;
@@ -641,7 +636,6 @@ The following class uses the Amazon S3 Java API to perform Amazon S3 operations.
         return null ;
     }
 
-
     // Places an image into a S3 bucket.
     public String putObject(byte[] data, String bucketName, String objectKey) {
 
@@ -729,12 +723,13 @@ The following class uses the Amazon S3 Java API to perform Amazon S3 operations.
         return null;
      }
     }
-
+```
 
 ### SendMessage class
 
 The following Java code represents the **SendMessage** class. This class uses the Amazon SES Java API to send an email message with an attachment that represents the report.
 
+```java
      package com.example.photo;
 
     import org.apache.commons.io.IOUtils;
@@ -877,11 +872,13 @@ The following Java code represents the **SendMessage** class. This class uses th
         System.out.println("Email sent with attachment.");
         }
        }
+```
 
  ### WorkItem class
 
  The following Java code represents the **WorkItem** class.
 
+```java
      package com.example.photo;
 
     public class WorkItem {
@@ -914,11 +911,13 @@ The following Java code represents the **SendMessage** class. This class uses th
         return this.confidence;
       }
      }
+```
 
 ### WriteExcel class
 
 The following Java code represents the **WriteExcel** class.
 
+```java
     package com.example.photo;
 
     import jxl.CellView;
@@ -1091,6 +1090,7 @@ The following Java code represents the **WriteExcel** class.
         return count;
        }
      }
+```
 
 ## Create the HTML files
 
@@ -1107,6 +1107,7 @@ The **index.html** file is the application's home view. The **process.html** fil
 
 The following HTML represents the **index.html** file.
 
+```html
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org">
 
@@ -1143,11 +1144,13 @@ The following HTML represents the **index.html** file.
     </div>
     </body>
     </html>
+```
 
 ### process.html
 
 The following HTML represents the **process.html** file.
 
+```html
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org">
      <head>
@@ -1204,11 +1207,13 @@ The following HTML represents the **process.html** file.
      </div>
      </body>
     </html>
+```
 
 ### upload.html
 
 The following HTML represents the **upload.html** file.
 
+```html
     <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -1284,11 +1289,13 @@ The following HTML represents the **upload.html** file.
     </div>
     </body>
     </html>
+```
 
 ### layout.html
 
 The following HTML represents the **layout.html** file for the application's menu.
 
+```html
      <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org">
      <head th:fragment="site-head">
@@ -1305,6 +1312,7 @@ The following HTML represents the **layout.html** file for the application's men
        <a href="#"  style="color: white" th:href="@{/process}">Analyze Photos</a>
       </header>
      </html>
+```
 
 ## Create script files
 
@@ -1319,6 +1327,7 @@ Both files contain application logic that sends a request to the Spring controll
 
 The following JavaScript represents the **items.js** file.
 
+```javascript
     $(function() {
 
     $('#myTable').DataTable( {
@@ -1362,19 +1371,21 @@ The following JavaScript represents the **items.js** file.
         });
       }
 
+```
 
 ### message.js
 
 The following JavaScript represents the **message.js** file. The **ProcessImages** function sends a request to the **/report** handler in the controller that generates a report. Notice that an email address is posted to the **Controller** method.
 
+```javascript
     $(function() {
 
     $("#bar").hide()
 
 
-} );
+   } );
 
-function ProcessImages() {
+  function ProcessImages() {
 
     //Post the values to the controller
     $("#bar").show()
@@ -1401,7 +1412,7 @@ function ProcessImages() {
      window.location="../downloadphoto?photoKey=" + photo ;
     }
 
-
+```
 
 **Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.   
 
