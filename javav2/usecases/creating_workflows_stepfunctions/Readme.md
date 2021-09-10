@@ -355,7 +355,7 @@ This Java code represents the **Handler** class. The class creates a Lamdba func
         logger.log("EVENT Data: " + gson.toJson(event));
 
         String myCaseID = event.get("inputCaseID");
-        logger.log("CaseId44: " + myCaseID);
+        logger.log("CaseId: " + myCaseID);
         return myCaseID;
        }
       }
