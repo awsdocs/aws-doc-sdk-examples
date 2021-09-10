@@ -607,7 +607,6 @@ The following code represents the **layout.html** file that represents the appli
      <body>
      <!-- th:hef calls a controller method - which returns the view -->
     <header th:fragment="site-header">
-    <a href="index.html" th:href="@{/}"><img src="../public/img/site-logo.png" th:src="@{/img/site-logo.png}" /></a>
     <a href="#" style="color: white" th:href="@{/}">Home</a>
     <a href="#" style="color: white" th:href="@{/upload}">Upload Videos</a>
     <a href="#"  style="color: white" th:href="@{/watch}">Watch Videos</a>
