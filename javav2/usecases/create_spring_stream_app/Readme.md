@@ -41,7 +41,7 @@ To complete the tutorial, you need the following:
 
 Create an Amazon S3 bucket that contains 3-5 MP4 files. For information, see [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html).
 
-Tags each MP4 file wiht these two tags.
+Tag each MP4 file with these two tags.
 
 ![AWS Video Analyzer](images/tags.png)
 
