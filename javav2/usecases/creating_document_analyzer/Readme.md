@@ -1,6 +1,7 @@
 #  Creating an AWS document analyzer application using the AWS SDK for Java
 
 ## Purpose
+
 You can create an AWS application that analyzes PDF document images located in an Amazon Simple Storage Service (Amazon S3) bucket by using the Amazon Textract service. The following information can be returned in Block objects.
 
 - The lines and words of detected text
@@ -97,6 +98,7 @@ At this point, you have a new project named **SpringDocumentAnalyzer**.
 
 Add the Spring Boot dependencies. The **pom.xml** file looks like the following.
 
+```xml
       <?xml version="1.0" encoding="UTF-8"?>
       <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -192,6 +194,7 @@ Add the Spring Boot dependencies. The **pom.xml** file looks like the following.
         </plugins>
      </build>
    </project>
+```
 
 ## Create the Java classes
 
@@ -211,6 +214,7 @@ Create these Java classes:
 
 The following Java code represents the **DocumentApplication** class.
 
+```java
     package com.aws.example;
 
     import org.springframework.boot.SpringApplication;
@@ -223,11 +227,13 @@ The following Java code represents the **DocumentApplication** class.
         SpringApplication.run(DocumentApplication.class, args);
      }
     }
+```
 
 ### DocumentController class
 
 The following Java code represents the **DocumentController** class.
 
+```java
     package com.aws.example;
 
     import org.springframework.beans.factory.annotation.Autowired;
@@ -301,11 +307,12 @@ The following Java code represents the **DocumentController** class.
         return new ModelAndView(new RedirectView("process"));
       }
     }
-
+```
 ### S3Service class
 
 The following class uses the Amazon S3 API to perform S3 operations. For example, the **getObjectBytes** method returns a byte array that represents the image. Be sure to replace the bucket name in this code example with your bucket name.
 
+```java
     package com.aws.example;
 
     import org.springframework.stereotype.Component;
@@ -473,12 +480,13 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
         return null;
     }
 }
-
+```
 
 ### TextractService class
 
 The following Java code represents the **TextractService** class. 
 
+```java
     package com.aws.example;
 
     import org.springframework.stereotype.Component;
@@ -605,6 +613,7 @@ The following Java code represents the **TextractService** class.
         return null;
       }
      }
+```
 
 ## Create the HTML files
 
@@ -620,6 +629,7 @@ The **index.html** file is the application's home view. The **process.html** fil
 
 The following HTML represents the **index.html** file.
 
+```html
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org">
 
@@ -654,11 +664,13 @@ The following HTML represents the **index.html** file.
      </div>
     </body>
     </html>
+```
 
 ### process.html
 
 The following HTML represents the **process.html** file.
 
+```html
      <html xmlns:th="http://www.thymeleaf.org">
      <head>
      <meta charset="utf-8" />
@@ -704,12 +716,13 @@ The following HTML represents the **process.html** file.
     </div>
     </body>
     </html>
-
+```
 
 ### layout.html
 
 The following HTML represents the **layout.html** file for the application's menu.
 
+```html
      <!DOCTYPE html>
       <html xmlns:th="http://www.thymeleaf.org">
      <head th:fragment="site-head">
@@ -723,7 +736,7 @@ The following HTML represents the **layout.html** file for the application's men
      <a href="#"  style="color: white" th:href="@{/process}">Analyze Documents</a>
     </header>
 
-
+```
 ## Create script files
 
 The process view use a script file to communicate with the Spring controller. You have to ensure that this file is part of your project; otherwise, your application won't work.
@@ -732,6 +745,7 @@ The process view use a script file to communicate with the Spring controller. Yo
 
 The following JavaScript represents the **items.js** file.
 
+```javascript
     $(function() {
 
     getDocNames() ;
@@ -797,6 +811,7 @@ The following JavaScript represents the **items.js** file.
         }
       });
      }
+```
 
 **Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.   
 
