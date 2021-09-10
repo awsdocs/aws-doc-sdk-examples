@@ -29,7 +29,6 @@ To complete the tutorial, you need the following:
 + A Java IDE (this tutorial uses the IntelliJ IDE)
 + Java JDK 1.8
 + Maven 3.6 or later
-+ An Amazon S3 bucket that contains 3-5 MP4 files. 
 
 ### Important
 
@@ -78,6 +77,7 @@ Create an IntelliJ project that is used to create the web application that strea
 
 At this point, you have a new project named **SpringVideoApp**. Ensure that the pom.xml file resembles the following code.
 
+```xml
      <?xml version="1.0" encoding="UTF-8"?>
      <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -153,6 +153,7 @@ At this point, you have a new project named **SpringVideoApp**. Ensure that the 
         </plugins>
     </build>
 </project>
+```
      
  ## Create the Java classes
  
@@ -171,6 +172,7 @@ At this point, you have a new project named **SpringVideoApp**. Ensure that the 
 
 The following Java code represents the **Application** class.
 
+```java
      package com.example;
 
       import org.springframework.boot.SpringApplication;
@@ -184,13 +186,14 @@ The following Java code represents the **Application** class.
         SpringApplication.run(Application.class, args);
       }
     }
-
+```
 
 ### Tags class
 
 The following Java code represents the **Tags** class.
 
-     package com.example;
+```java
+    package com.example;
 
     public class Tags {
 
@@ -213,11 +216,13 @@ The following Java code represents the **Tags** class.
         this.name = name;
      }
     }
+```
 
 ### VideoStreamController class
 
 The following Java code represents the **VideoStreamController** class.
 
+```java
     package com.example;
 
     import org.springframework.beans.factory.annotation.Autowired;
@@ -296,6 +301,7 @@ The following Java code represents the **VideoStreamController** class.
         return Mono.just(vid.getObjectBytes(bucket, fileName));
      }
    }
+```
 
 **Note**: Make sure that you assign an Amazon S3 bucket name to the **bucket** variable. Otherwise, your code does not work.   
 
@@ -303,6 +309,7 @@ The following Java code represents the **VideoStreamController** class.
 
 The following Java code represents the **VideoStreamService** class. This class uses the Amazon S3 Java API (V2) to interact with content located in an Amazon S3 bucket. For example, the **getTags** method returns a collection of tags that are used to create the video menu. Likewise, the **getObjectBytes** reads bytes from a MP4 video. The byte array is used to create a **ResponseEntity** object. This object sets HTTP header information and the HTTP status code required to stream the video. 
 
+```java
      package com.example;
 
      import org.springframework.http.HttpStatus;
@@ -530,6 +537,7 @@ The following Java code represents the **VideoStreamService** class. This class 
         return null;
       }
     }
+```
 
 ## Create the HTML file
 
@@ -545,6 +553,7 @@ At this point, you have created all of the Java files required for this example 
 ### index.html
 The **index.html** file is the application's home view. The following HTML represents the **index.html** file. 
 
+```html
      <!DOCTYPE HTML>
      <html xmlns:th="https://www.thymeleaf.org">
      <head>
@@ -577,10 +586,12 @@ The **index.html** file is the application's home view. The following HTML repre
 
     </body>
     </html>
+```
 
 ### layout.html
 The following code represents the **layout.html** file that represents the application's menu.
 
+```html
      <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org">
      <head th:fragment="site-head">
@@ -600,10 +611,12 @@ The following code represents the **layout.html** file that represents the appli
     <h1>Welcome</h1>
     </body>
     </html>
+```
 
 ### upload.html
 The **upload.html** file is the application's view that lets users upload a MP4 file. 
 
+```html
      <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org">
      <head lang="en">
@@ -629,10 +642,12 @@ The **upload.html** file is the application's view that lets users upload a MP4 
     </div>
     </body>
     </html>
+```
 
 ### video.html
 The **video.html** file is the application's view that displays both the video menu and the video content. 
 
+```html
      <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org">
      <head lang="en">
@@ -704,7 +719,7 @@ The **video.html** file is the application's view that displays both the video m
 
     </body>
     </html>
-
+```
 ## Create a JAR file for the application
 
 Package up the project into a .jar (JAR) file that you can deploy to Elastic Beanstalk by using the following Maven command.
