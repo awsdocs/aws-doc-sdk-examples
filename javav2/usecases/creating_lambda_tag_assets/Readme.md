@@ -1,5 +1,6 @@
 #  Creating an Amazon Web Services Lambda function that tags digital assets located in Amazon S3 buckets
 
+## Purpose
 You can create an Amazon Web Services Lambda function that automatically tags digital assets located in an Amazon Simple Storage Service (Amazon S3) bucket. For example, assume you run the Lambda function and you have this image in an Amazon S3 bucket. 
 
 ![AWS Tracking Application](images/pic1.png)
@@ -16,8 +17,6 @@ Tagging an object has benfits such as providing a way to categorize storage. For
 [What is AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html).
   
 In addition to applying tags to images, this Lambda function also supports removing tags from images. That is, you can execute the Lambda function and set an input variable to **false** and the Lambda function removes all object tags from the given bucket.     
-
-**Cost to complete**: The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
 
 **Note**: Be sure to terminate all of the resources after you have completed this tutorial to ensure that you are not charged.
 
@@ -37,6 +36,17 @@ To follow along with this tutorial, you need the following:
 + Java 1.8 JDK.
 + Maven 3.6 or higher.
 + An Amazon S3 bucket with 5-7 nature images in it. These images are read by the Lambda function. 
+
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+An Amazon S3 bucket with 5-7 nature images in it. These images are read by the Lambda function. For information, see [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html).
 
 ## Create an IAM role that's used to execute Lambda functions
 
@@ -98,6 +108,7 @@ At this point, you have a new project named **WorkflowTagAssets**.
 
 Make sure that your project's pom.xml file looks like the following.
 
+```xml
      <?xml version="1.0" encoding="UTF-8"?>
      <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -212,6 +223,7 @@ Make sure that your project's pom.xml file looks like the following.
         </plugins>
       </build>
      </project>
+    ```
     
 ## Create a Lambda function by using the AWS Lambda runtime Java API
 
@@ -231,6 +243,7 @@ Create these Java classes:
 
 This Java code represents the **Handler** class. The class reads a flag that is passed to the Lambda function. The **s3Service.ListBucketObjects** method returns a **List** object where each element is a string value that represents the object key. If the flag value is **true**, then tags are applied by iterating through the list and applying tags to each object by calling the **s3Service.tagAssets** method. If the flag value is **false**, then the **s3Service.deleteTagFromObject** method is invoked that deletes the tags. Also, notice that you can log messages to Amazon CloudWatch logs by using a **LambdaLogger** object.
 
+```java
     package com.example.tags;
 
     import com.amazonaws.services.lambda.runtime.Context;
@@ -281,7 +294,7 @@ This Java code represents the **Handler** class. The class reads a flag that is 
         return delFag;
       }
      }
-
+```
 
 **Note**: Make sure that you assign your bucket name to the **bucketName** variable. 
 
@@ -289,6 +302,7 @@ This Java code represents the **Handler** class. The class reads a flag that is 
 
 The following Java code represents the **AnalyzePhotos** class. This class uses the Amazon Rekognition API to analyze the images.
 
+```java
     package com.example.tags;
 
     import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -350,13 +364,14 @@ The following Java code represents the **AnalyzePhotos** class. This class uses 
         return null ;
       }
     }
-
+```
 
 
 ### BucketItem class
 
 The following Java code represents the **BucketItem** class that stores Amazon S3 object data.
 
+```java
     package com.example.tags;
 
     public class BucketItem {
@@ -399,10 +414,12 @@ The following Java code represents the **BucketItem** class that stores Amazon S
         return this.key ;
      }
     }
+ ```
     
  ### S3Service class
 The following class uses the Amazon S3 API to perform S3 operations. For example, the **getObjectBytes** method returns a byte array that represents the image. Likewise, the **listBucketObjects** method returns a **List** object where each element is a string value that specifies the key name.  
 
+```java
      package com.example.tags;
 
      import software.amazon.awssdk.core.ResponseBytes;
@@ -582,11 +599,12 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
         }
       }
     }
-
+```
 
 ### WorkItem class
 The following Java code represents the **WorkItem** class.
 
+```java
      package com.example.tags;
 
      public class WorkItem {
@@ -619,7 +637,7 @@ The following Java code represents the **WorkItem** class.
         return this.confidence;
     }
    }
-
+```
 
 ## Package the project that contains the Lambda functions
 
