@@ -159,7 +159,7 @@ At this point, you have a new project named **SpringVideoApp**. Ensure that the 
  
  Create a Java package in the main/java folder named **com.example**. This Java classes go into this package. 
  
- ![AWS Lex](images/pic2.png)
+ ![AWS Lex](images/project.png)
  
  Create these Java classes:
 
