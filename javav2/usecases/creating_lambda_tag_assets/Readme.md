@@ -223,7 +223,7 @@ Make sure that your project's pom.xml file looks like the following.
         </plugins>
       </build>
      </project>
-    ```
+```
     
 ## Create a Lambda function by using the AWS Lambda runtime Java API
 
