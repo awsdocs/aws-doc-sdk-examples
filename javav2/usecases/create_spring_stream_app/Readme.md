@@ -1,30 +1,17 @@
 # Building a Spring Boot web application that Streams Amazon S3 content over HTTP
 
+## Purpose
 You can use Amazon Web Services to create a web application that streams Amazon Simple Storage Service (Amazon S3) video content over HTTP. The video is displayed in the application along with a menu that displays the videos that you can view. 
 
 ![AWS Video Analyzer](images/pic1.png)
 
-The application you create uses Spring Boot APIs to build a model, different views, and a controller. This web application also reads the object tags to dynamically build the video menu. To read the video content and object tags, you use the Amazon S3 Java API (V2). For more information about Spring Boot APIs, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
-
-In the previous illustration, notice the video menu that displays video titles and descriptions and used to let users know which videos are available. To view a specific video, the user can click the video title. A GET Request is made to a Spring Controller, the application reads the specific video in an Amazon S3 bucket, encodes the byte array, and then steams the data where the video is displayed in an HTML5 **Video** tag. 
-
-This web application also supports uploading MP4 videos to an Amazon S3 bucket. For example, the following illustration shows a video named **Rabbit.mp4** along with a description. 
-
-![AWS Video Analyzer](images/pic3.png)
-
-Once a video is uploaded into the Amazon S3 bucket, it is displayed in the video menu. 
-
-![AWS Video Analyzer](images/pic4.png)
-
 In this AWS tutorial, you create a Spring Boot web application. After the application is created, this tutorial shows you how to deploy the application to AWS Elastic Beanstalk. 
 
-**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 #### Topics
 
 + Prerequisites
++ Understand the application
 + Create an IntelliJ project 
 + Add the POM dependencies to your project
 + Set up the Java package in your project
@@ -44,6 +31,31 @@ To complete the tutorial, you need the following:
 + Maven 3.6 or later
 + An Amazon S3 bucket that contains 3-5 MP4 files. 
 
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+Create an Amazon DynamoDB table named **Work** with a key named **id**. For information, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+
+## Understand the application
+
+The application you create uses Spring Boot APIs to build a model, different views, and a controller. This web application also reads the object tags to dynamically build the video menu. To read the video content and object tags, you use the Amazon S3 Java API (V2). For more information about Spring Boot APIs, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
+
+In the previous illustration, notice the video menu that displays video titles and descriptions and used to let users know which videos are available. To view a specific video, the user can click the video title. A GET Request is made to a Spring Controller, the application reads the specific video in an Amazon S3 bucket, encodes the byte array, and then steams the data where the video is displayed in an HTML5 **Video** tag. 
+
+This web application also supports uploading MP4 videos to an Amazon S3 bucket. For example, the following illustration shows a video named **Rabbit.mp4** along with a description. 
+
+![AWS Video Analyzer](images/pic3.png)
+
+Once a video is uploaded into the Amazon S3 bucket, it is displayed in the video menu. 
+
+![AWS Video Analyzer](images/pic4.png)
+
 ## Create an IntelliJ project named SpringVideoApp
 
 Create an IntelliJ project that is used to create the web application that streams Amazon S3 video content.
@@ -58,9 +70,9 @@ Create an IntelliJ project that is used to create the web application that strea
 
 5. In **ArtifactId**, enter **SpringVideoApp**.
 
-6.	Choose **Next**.
+6. Choose **Next**.
 
-7.	Choose **Finish**.
+7. Choose **Finish**.
 
 ## Add the Spring POM dependencies to your project
 
