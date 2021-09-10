@@ -129,40 +129,11 @@ In the **pom.xml** file's **project** element, add the **spring-boot-starter-par
         <relativePath /> <!-- lookup parent from repository -->
       </parent>
 
-In the **dependencies** element, add the following Spring Boot **dependency** elements.
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-thymeleaf</artifactId>
-    </dependency>
-    <dependency>
-     <groupId>org.springframework.boot</groupId>
-     <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-     <groupId>org.springframework.boot</groupId>
-     <artifactId>spring-boot-starter-test</artifactId>
-     <scope>test</scope>
-      <exclusions>
-       <exclusion>
-        <groupId>org.junit.vintage</groupId>
-        <artifactId>junit-vintage-engine</artifactId>
-       </exclusion>
-      </exclusions>
-    </dependency>
-
-Add the following dependency for the Amazon SES API (AWS SDK for Java version 2).
-
- 	<dependency>
-          <groupId>software.amazon.awssdk</groupId>
-          <artifactId>ses</artifactId>
-          <version>2.10.41</version>
-        </dependency>
-
 **Note:** Ensure that you are using Java 1.8 (as shown below).
 
 Ensure that the **pom.xml** file looks like the following.
 
+```xml
      <?xml version="1.0" encoding="UTF-8"?>
 	<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -326,7 +297,7 @@ Ensure that the **pom.xml** file looks like the following.
         </plugins>
        </build>
       </project>
-
+```
 
 ## Set up the Java packages in your project
 
@@ -354,6 +325,7 @@ Create the Java classes, including the Spring classes. In this application, a Ja
 
 In the **com.example** package, create a class named **SecureWebApp**. This is the entry point into the Spring boot application and uses the **@SpringBootApplication** annotation. The following Java code represents this class.
 
+```java
     package com.example;
 
     import org.springframework.boot.SpringApplication;
@@ -366,7 +338,7 @@ In the **com.example** package, create a class named **SecureWebApp**. This is t
         SpringApplication.run(SecureWebApp.class, args);
      }
     }
-
+```
 
 ### Create the Spring security classes
 
@@ -379,6 +351,7 @@ Create a Java package named **com.example.secureweb**. Next, create these classe
 
 The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application.
 
+```java
     package com.example.secureweb;
 
     import org.springframework.context.annotation.Bean;
@@ -434,6 +407,7 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
         return new BCryptPasswordEncoder();
     }
     }
+```    
 
 **Note:** In this example, the user credentials to log in to the application are **user** and **password**.  
 
@@ -441,12 +415,11 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
 
 In the **com.example.secureweb** package, create the controller class named **MainController**. This class handles the HTTP requests. For example, when a POST operation is made, the **MainController** handles the request and returns a dataset that is displayed in the view. The dataset is obtained from the **Work** table.
 
-**Note:** In this application, the **XMLHttpRequest** object's **send()** method is used to invoke controller methods. The syntax of this method is shown later in this tutorial.
-
 #### MainController class
 
 The following Java code represents the **MainController** class.
 
+```java
      package com.example.secureweb;
 
      import com.example.entities.WorkItem;
@@ -595,7 +568,7 @@ The following Java code represents the **MainController** class.
       return name;
      }
      }
-
+```
 ### Create the WorkItem class
 
 Create a Java package named **com.example.entities**. Next, create a class named **WorkItem** that represents the application model.  
@@ -603,6 +576,7 @@ Create a Java package named **com.example.entities**. Next, create a class named
 #### WorkItem class
 The following Java code represents the **WorkItem** class.
 
+```java
     package com.example.entities;
 
     public class WorkItem {
@@ -662,6 +636,7 @@ The following Java code represents the **WorkItem** class.
      return this.guide;
      }
      }
+```
 
 ### Create the service classes
 
@@ -678,6 +653,7 @@ The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to inter
 
 Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials.
 
+```java
      package com.example.services;
 
      import com.example.entities.WorkItem;
@@ -879,7 +855,6 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
         }
         return "";
     }
-
       
       // Updates items in the Work table.
       public String UpdateItem(String id, String status){
@@ -1216,11 +1191,13 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
             return null;
            }
           }
+```
 
 #### Work class
 The **Work** class is used with the DynamoDB enhanced client and maps the **Work** data members to items in the **Work** table. Notice that this class uses the **@DynamoDbBean** annotation.
 
-    package com.example.services;
+```java
+   package com.example.services;
 
     import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
     import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
@@ -1299,7 +1276,7 @@ The **Work** class is used with the DynamoDB enhanced client and maps the **Work
       this.description = description;
        }
       }
-
+```
 
 #### SendMessage class
 
@@ -1307,6 +1284,7 @@ The **SendMessage** class uses the AWS SDK for Java V2 SES API to send an email 
 
 The following Java code represents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials.
 
+```java
     package com.example.services;
 
     import org.apache.commons.io.IOUtils;
@@ -1452,6 +1430,7 @@ The following Java code represents the **SendMessage** class. Notice that an **E
         System.out.println("Email sent with attachment");
       }
      }
+```
 
 **Note:** Update the email **sender** address with a verified email address.      
 
@@ -1459,6 +1438,7 @@ The following Java code represents the **SendMessage** class. Notice that an **E
 
 The **WriteExcel** class dynamically creates an Excel report with the data marked as active. The following code represents this class.
 
+```java
     package com.rxample.services;
 
     import jxl.CellView;
@@ -1629,7 +1609,7 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         return count;
      }
     }
-
+```
 ## Create the HTML files
 
 At this point, you have created all of the Java files required for the **DynamoDB Item Tracker** application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the resource folder, create a **templates** folder, and then create the following HTML files:
@@ -1646,6 +1626,7 @@ The **login.html** file is the login page where a user logs in to the applicatio
 
 The following HTML code represents the login form.
 
+```html
     	<!DOCTYPE html>
 	<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
         xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
@@ -1742,11 +1723,13 @@ The following HTML code represents the login form.
 
        </body>
       </html>
+```
 
 #### index.html
 
 The following HTML code represents the **index.html** file. This file represents the application's home view.
 
+```html
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
@@ -1780,11 +1763,13 @@ The following HTML code represents the **index.html** file. This file represents
     <div>
     </body>
     </html>
+```
 
 #### add.html
 
 The following code represents the **add.html** file that enables users to add new items.
 
+```html
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<html>
 	<head>
@@ -1836,11 +1821,13 @@ The following code represents the **add.html** file that enables users to add ne
 	</div>
 	</body>
 	</html>
+```
 
 #### items.html
 
 The following code represents the **items.html** file. This file enables users to modify items and send reports.
 
+```html
 	<!DOCTYPE html>
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<html>
@@ -2080,12 +2067,14 @@ The following code represents the **items.html** file. This file enables users t
 
 	</body>
 	</html>
+```
 
 **Note:** Replace the default email addresses with real email addresses in this file.
 #### layout.html
 
 The following code represents the **layout.html** file that represents the application's menu.
 
+```html
 	<!DOCTYPE html>
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<head th:fragment="site-head">
@@ -2112,15 +2101,7 @@ The following code represents the **layout.html** file that represents the appli
 	<p>Welcome to  AWS Item Tracker.</p>
 	</body>
 	</html>
-
-#### To create the HTML files
-
-1. In the **resources** folder, create a folder named **templates**.  
-2. In the **templates** folder, create the **login.html** file and paste the HTML code into this file.
-3. In the **templates** folder, create the **index.html** file and paste the HTML code into this file.
-4. In the **templates** folder, create the **add.html** file and paste the HTML code into this file.
-5. In the **templates** folder, create the **items.html** file and paste the HTML code into this file.
-6. In the **templates** folder, create the **layout.html** file and paste the HTML code into this file.
+```
 
 ## Create script files
 
@@ -2135,6 +2116,7 @@ Both files contain application logic that sends a request to the Spring MainCont
 
 The following JavaScript code represents the **items.js** file that is used in the **items.html** view.
 
+```javascript
 	$(function() {
 
         $( "#dialogtemplate2" ).dialog();
@@ -2406,12 +2388,13 @@ The following JavaScript code represents the **items.js** file that is used in t
         }
       });
      }
-
+```
 
  #### contact_me.js file
 
 The following JavaScript code represents the **contact_me.js** file that is used in the **add.html** view.
 
+```javascript
 	$(function() {
 
          $("#SendButton" ).click(function($e) {
@@ -2431,7 +2414,7 @@ The following JavaScript code represents the **contact_me.js** file that is used
         }
 
         $.ajax('/add', {
-            type: 'POST',  // http GET method
+            type: 'POST',  
             data: 'guide=' + guide + '&description=' + description+ '&status=' + status,
             success: function (data, status, xhr) {
 
@@ -2444,7 +2427,7 @@ The following JavaScript code represents the **contact_me.js** file that is used
 
        } );// END of the Send button click
      } );
-
+```
 
 **Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.
 
