@@ -43,9 +43,9 @@ Create an Amazon S3 bucket that contains 3-5 MP4 files. For information, see [Cr
 
 ## Understand the application
 
-The application you create uses Spring Boot APIs to build a model, different views, and a controller. This web application also reads the object tags to dynamically build the video menu. To read the video content and object tags, you use the Amazon S3 Java API (V2). For more information about Spring Boot APIs, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/index.htm).
+The application you create uses Spring Boot APIs to build a model, different views, and a controller. For more information about Spring Boot APIs, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/index.htm).
 
-In the previous illustration, notice the video menu that displays video titles and descriptions and used to let users know which videos are available. To view a specific video, the user can click the video title. A GET Request is made to a Spring Controller, the application reads the specific video in an Amazon S3 bucket, encodes the byte array, and then steams the data where the video is displayed in an HTML5 **Video** tag. 
+In the previous illustration, notice the video menu that displays video titles and descriptions and used to let users know which videos are available. This web application reads the object tags to dynamically build the video menu. To read the object tags, you use the Amazon S3 Java API (V2). To view a specific video, the user can click the video title. A GET Request is made to a Spring Controller, the application reads the specific video in an Amazon S3 bucket, encodes the byte array, and then steams the data where the video is displayed in an HTML5 **Video** tag. 
 
 This web application also supports uploading MP4 videos to an Amazon S3 bucket. For example, the following illustration shows a video named **Rabbit.mp4** along with a description. 
 
