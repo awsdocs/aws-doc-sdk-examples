@@ -1,30 +1,17 @@
 # Building a Spring Boot web application that Streams Amazon S3 content over HTTP
 
-You can use Amazon Web Services to create a web application that streams Amazon Simple Storage Service (Amazon S3) video content over HTTP. The video is displayed in the application along with a menu that displays the videos that you can view. 
+## Purpose
+You can create a dynamic web application that streams Amazon Simple Storage Service (Amazon S3) video content over HTTP. The video is displayed in the application along with a menu that displays the videos that you can view. 
 
 ![AWS Video Analyzer](images/pic1.png)
 
-The application you create uses Spring Boot APIs to build a model, different views, and a controller. This web application also reads the object tags to dynamically build the video menu. To read the video content and object tags, you use the Amazon S3 Java API (V2). For more information about Spring Boot APIs, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
-
-In the previous illustration, notice the video menu that displays video titles and descriptions and used to let users know which videos are available. To view a specific video, the user can click the video title. A GET Request is made to a Spring Controller, the application reads the specific video in an Amazon S3 bucket, encodes the byte array, and then steams the data where the video is displayed in an HTML5 **Video** tag. 
-
-This web application also supports uploading MP4 videos to an Amazon S3 bucket. For example, the following illustration shows a video named **Rabbit.mp4** along with a description. 
-
-![AWS Video Analyzer](images/pic3.png)
-
-Once a video is uploaded into the Amazon S3 bucket, it is displayed in the video menu. 
-
-![AWS Video Analyzer](images/pic4.png)
-
 In this AWS tutorial, you create a Spring Boot web application. After the application is created, this tutorial shows you how to deploy the application to AWS Elastic Beanstalk. 
 
-**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 #### Topics
 
 + Prerequisites
++ Understand the application
 + Create an IntelliJ project 
 + Add the POM dependencies to your project
 + Set up the Java package in your project
@@ -42,7 +29,35 @@ To complete the tutorial, you need the following:
 + A Java IDE (this tutorial uses the IntelliJ IDE)
 + Java JDK 1.8
 + Maven 3.6 or later
-+ An Amazon S3 bucket that contains 3-5 MP4 files. 
+
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+Create an Amazon S3 bucket that contains 3-5 MP4 files. For information, see [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html).
+
+Tag each MP4 file with these two tags.
+
+![AWS Video Analyzer](images/tags.png)
+
+## Understand the application
+
+The application you create uses Spring Boot APIs to build a model, different views, and a controller. For more information about Spring Boot APIs, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/index.htm).
+
+In the previous illustration, notice the video menu that displays video titles and descriptions and used to let users know which videos are available. This web application reads the object tags to dynamically build the video menu. To read the object tags, you use the Amazon S3 Java API (V2). To view a specific video, the user can click the video title. A GET Request is made to a Spring Controller, the application reads the specific video in an Amazon S3 bucket, encodes the byte array, and then steams the data where the video is displayed in an HTML5 **Video** tag. 
+
+This web application also supports uploading MP4 videos to an Amazon S3 bucket. For example, the following illustration shows a video named **Rabbit.mp4** along with a description. 
+
+![AWS Video Analyzer](images/pic3.png)
+
+Once a video is uploaded into the Amazon S3 bucket, it is displayed in the video menu. 
+
+![AWS Video Analyzer](images/pic4.png)
 
 ## Create an IntelliJ project named SpringVideoApp
 
@@ -58,14 +73,15 @@ Create an IntelliJ project that is used to create the web application that strea
 
 5. In **ArtifactId**, enter **SpringVideoApp**.
 
-6.	Choose **Next**.
+6. Choose **Next**.
 
-7.	Choose **Finish**.
+7. Choose **Finish**.
 
 ## Add the Spring POM dependencies to your project
 
 At this point, you have a new project named **SpringVideoApp**. Ensure that the pom.xml file resembles the following code.
 
+```xml
      <?xml version="1.0" encoding="UTF-8"?>
      <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -141,12 +157,13 @@ At this point, you have a new project named **SpringVideoApp**. Ensure that the 
         </plugins>
     </build>
 </project>
+```
      
  ## Create the Java classes
  
  Create a Java package in the main/java folder named **com.example**. This Java classes go into this package. 
  
- ![AWS Lex](images/pic2.png)
+ ![AWS Lex](images/project.png)
  
  Create these Java classes:
 
@@ -159,6 +176,7 @@ At this point, you have a new project named **SpringVideoApp**. Ensure that the 
 
 The following Java code represents the **Application** class.
 
+```java
      package com.example;
 
       import org.springframework.boot.SpringApplication;
@@ -172,13 +190,14 @@ The following Java code represents the **Application** class.
         SpringApplication.run(Application.class, args);
       }
     }
-
+```
 
 ### Tags class
 
 The following Java code represents the **Tags** class.
 
-     package com.example;
+```java
+    package com.example;
 
     public class Tags {
 
@@ -201,11 +220,13 @@ The following Java code represents the **Tags** class.
         this.name = name;
      }
     }
+```
 
 ### VideoStreamController class
 
 The following Java code represents the **VideoStreamController** class.
 
+```java
     package com.example;
 
     import org.springframework.beans.factory.annotation.Autowired;
@@ -284,6 +305,7 @@ The following Java code represents the **VideoStreamController** class.
         return Mono.just(vid.getObjectBytes(bucket, fileName));
      }
    }
+```
 
 **Note**: Make sure that you assign an Amazon S3 bucket name to the **bucket** variable. Otherwise, your code does not work.   
 
@@ -291,6 +313,7 @@ The following Java code represents the **VideoStreamController** class.
 
 The following Java code represents the **VideoStreamService** class. This class uses the Amazon S3 Java API (V2) to interact with content located in an Amazon S3 bucket. For example, the **getTags** method returns a collection of tags that are used to create the video menu. Likewise, the **getObjectBytes** reads bytes from a MP4 video. The byte array is used to create a **ResponseEntity** object. This object sets HTTP header information and the HTTP status code required to stream the video. 
 
+```java
      package com.example;
 
      import org.springframework.http.HttpStatus;
@@ -518,6 +541,7 @@ The following Java code represents the **VideoStreamService** class. This class 
         return null;
       }
     }
+```
 
 ## Create the HTML file
 
@@ -533,6 +557,7 @@ At this point, you have created all of the Java files required for this example 
 ### index.html
 The **index.html** file is the application's home view. The following HTML represents the **index.html** file. 
 
+```html
      <!DOCTYPE HTML>
      <html xmlns:th="https://www.thymeleaf.org">
      <head>
@@ -565,10 +590,12 @@ The **index.html** file is the application's home view. The following HTML repre
 
     </body>
     </html>
+```
 
 ### layout.html
 The following code represents the **layout.html** file that represents the application's menu.
 
+```html
      <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org">
      <head th:fragment="site-head">
@@ -580,7 +607,6 @@ The following code represents the **layout.html** file that represents the appli
      <body>
      <!-- th:hef calls a controller method - which returns the view -->
     <header th:fragment="site-header">
-    <a href="index.html" th:href="@{/}"><img src="../public/img/site-logo.png" th:src="@{/img/site-logo.png}" /></a>
     <a href="#" style="color: white" th:href="@{/}">Home</a>
     <a href="#" style="color: white" th:href="@{/upload}">Upload Videos</a>
     <a href="#"  style="color: white" th:href="@{/watch}">Watch Videos</a>
@@ -588,10 +614,12 @@ The following code represents the **layout.html** file that represents the appli
     <h1>Welcome</h1>
     </body>
     </html>
+```
 
 ### upload.html
 The **upload.html** file is the application's view that lets users upload a MP4 file. 
 
+```html
      <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org">
      <head lang="en">
@@ -617,10 +645,12 @@ The **upload.html** file is the application's view that lets users upload a MP4 
     </div>
     </body>
     </html>
+```
 
 ### video.html
 The **video.html** file is the application's view that displays both the video menu and the video content. 
 
+```html
      <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org">
      <head lang="en">
@@ -692,7 +722,7 @@ The **video.html** file is the application's view that displays both the video m
 
     </body>
     </html>
-
+```
 ## Create a JAR file for the application
 
 Package up the project into a .jar (JAR) file that you can deploy to Elastic Beanstalk by using the following Maven command.
