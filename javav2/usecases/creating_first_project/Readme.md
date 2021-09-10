@@ -12,24 +12,17 @@ The DynamoDB enhanced client lets you map your client-side classes to Amazon Dyn
 
 **Note:** For more information about the DynamoDB enhanced client, see [Map items in DynamoDB tables](https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/examples-dynamodb-enhanced.html).
 
-The following shows the application you'll create.
+**Topics**
 
-![AWS Blog Application](images/firstAWS1.png)
-
-When you choose **Submit**, the data is submitted to a Spring Controller and persisted into an Amazon DynamoDB table named **Greeting**. Then a text message is sent to a user using Amazon SNS. The following is the **Greeting** table.
-
-![AWS Blog Application](images/greet2_1.png)
-
-After the table is updated with a new item, a text message is sent to notify a mobile user.
-
-![AWS Blog Application](images/phone2.png)
-
-This tutorial guides you through creating an AWS application that uses Spring Boot. After you develop the application, you'll learn how to deploy it to Elastic Beanstalk.
-
-The following figure shows the project that's created.
-
-![AWS Blog Application](images/greet3.png)
-
++ Prerequisites
++ Understand the web application
++ Create an IntelliJ project named **Greetings**
++ Add the Spring POM dependencies to your project
++ Set up the Java packages in your project
++ Create the Java logic for the main Boot class
++ Create the HTML files
++ Package the **Greetings** application into a JAR file
++ Deploy the  **Greetings** application to Elastic Beanstalk
 
 ## Prerequisites
 
@@ -58,15 +51,23 @@ You need to create this resources prior to starting this tutorial:
 
 + An Amazon DynamoDB table named **Greeting** that contains a partition key named **idblog**. For information about creating an Amazon DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html). 
 
-**Topics**
 
-+ Create an IntelliJ project named **Greetings**
-+ Add the Spring POM dependencies to your project
-+ Set up the Java packages in your project
-+ Create the Java logic for the main Boot class
-+ Create the HTML files
-+ Package the **Greetings** application into a JAR file
-+ Deploy the  **Greetings** application to Elastic Beanstalk
+
+## Understand the web application
+
+The following shows the application you'll create.
+
+![AWS Blog Application](images/firstAWS1.png)
+
+When you choose **Submit**, the data is submitted to a Spring Controller and persisted into an Amazon DynamoDB table named **Greeting**. Then a text message is sent to a user using Amazon SNS. The following is the **Greeting** table.
+
+![AWS Blog Application](images/greet2_1.png)
+
+After the table is updated with a new item, a text message is sent to notify a mobile user.
+
+![AWS Blog Application](images/phone2.png)
+
+This tutorial guides you through creating an AWS application that uses Spring Boot. After you develop the application, you'll learn how to deploy it to Elastic Beanstalk.
 
 ## Create an IntelliJ project named Greetings
 The first step is to create an IntelliJ project.
@@ -87,6 +88,7 @@ At this point, you have a new project named **Greetings**.
 
 Ensure that the **pom.xml** file resembles the following XML code.
 
+```xml
 	<?xml version="1.0" encoding="UTF-8"?>
 	<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -158,6 +160,7 @@ Ensure that the **pom.xml** file resembles the following XML code.
 	    </plugins>
 	</build>
 	</project>
+```
 
 ## Set up the Java packages in your project
 
@@ -182,6 +185,7 @@ You need to create the main Spring Boot Java class, the Controller class, the Mo
 
 In the **com.example** package, create a Java class named **GreetingApplication**. Add the following Java code to this class.
 
+```java
 	package com.example;
 
        import org.springframework.boot.SpringApplication;
@@ -194,12 +198,13 @@ In the **com.example** package, create a Java class named **GreetingApplication*
           SpringApplication.run(GreetingApplication.class, args);
         }
      }
-
+```
 
 ### Create the GreetingController class
 
 In the **com.example.handlingformsubmission** package, create the **GreetingController** class. This class functions as the controller for the Spring Boot application. It handles HTTP requests and returns a view. In this example, notice the **@Autowired** annotation that creates a managed Spring bean. The following Java code represents this class.
 
+```java
 	package com.example.handlingformsubmission;
 
 	import org.springframework.beans.factory.annotation.Autowired;
@@ -236,11 +241,13 @@ In the **com.example.handlingformsubmission** package, create the **GreetingCont
           return "result";
     	}
       }
+```
 
 ### Create the Greeting class
 
 In the **com.example.handlingformsubmission** package, create the **Greeting** class. This class represents the model for the Spring Boot application. The following Java code represents this class.  
 
+```java
 	package com.example.handlingformsubmission;
 
 	public class Greeting {
@@ -282,6 +289,7 @@ In the **com.example.handlingformsubmission** package, create the **Greeting** c
         	this.body = body;
     	}
        }
+ ```
 
 ### Create the DynamoDBEnhanced class
 
@@ -289,6 +297,7 @@ In the **com.example.handlingformsubmission** package, create the **DynamoDBEnha
 
 Create a **PutItemEnhancedRequest** object and pass the **GreetingItems** object for the **items** method. Finally, invoke the **DynamoDbEnhancedClient** object's **putItem** method, and pass the **PutItemEnhancedRequest** object. The following Java code represents the **DynamoDBEnhanced** class.
 
+```java
      package com.example.handlingformsubmission;
 
     import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTags.primaryPartitionKey;
@@ -385,7 +394,7 @@ Create a **PutItemEnhancedRequest** object and pass the **GreetingItems** object
      }
      }
     }
-
+```
 	
 
 **Note:** The **EnvironmentVariableCredentialsProvider** is used to create a **DynamoDbClient**, because this application will be deployed to Elastic Beanstalk. You can set up environment variables on Elastic Beanstalk so that the  **DynamoDbClient** is successfully created. 	
@@ -394,6 +403,7 @@ Create a **PutItemEnhancedRequest** object and pass the **GreetingItems** object
 
 Create a class named **PublishTextSMS** that sends a text message when a new item is added to the DynamoDB table. The following Java code represents this class.
 
+```java
     package com.example.handlingformsubmission;
 
     import software.amazon.awssdk.regions.Region;
@@ -432,6 +442,7 @@ Create a class named **PublishTextSMS** that sends a text message when a new ite
         }
        }
       }
+```
 
 **Note:** Be sure to specify a valid mobile number for the **phoneNumber** variable.
 
@@ -454,6 +465,7 @@ The **result.html** file is used as a view returned by the controller after the 
 
 The following HTML code represents the **greeting.html** file.
 
+```html
 	<!DOCTYPE HTML>
 	<html xmlns:th="https://www.thymeleaf.org">
 	<head>
@@ -487,6 +499,7 @@ The following HTML code represents the **greeting.html** file.
 
 	</body>
 	</html>
+```
 
 **Note:** The **th:field** values correspond to the data members in the **Greeting** class.
 
@@ -494,6 +507,7 @@ The following HTML code represents the **greeting.html** file.
 
 The following HTML code represents the **result.html** file.
 
+```html
 	<!DOCTYPE HTML>
 	<html xmlns:th="https://www.thymeleaf.org">
 	<head>
@@ -507,12 +521,7 @@ The following HTML code represents the **result.html** file.
 	<a href="/">Submit another message</a>
 	</body>
 	</html>
-
-#### Create the HTML files
-
-1. In the **resources** folder, create a folder named **templates**.
-2. In the **templates** folder, create the **greeting.html** file, and then paste the HTML code into this file.
-3. In the **templates** folder, create the **result.html** file, and then paste the HTML code into this file.   
+```
 
 ## Create a JAR file for the Greetings application
 

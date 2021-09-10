@@ -1,16 +1,12 @@
 # Creating an example messaging application using the AWS SDK for Java
 
-You can create an AWS application that sends and retrieves messages by using the AWS SDK for Java and Amazon Simple Queue Service (Amazon SQS). Messages are stored in a first in, first out (FIFO) queue that ensures that the order of the messages is consistent. For example, the first message that's stored in the queue is the first message read from the queue.
+## Purpose
+
+You can create a dynamic web application that sends and retrieves messages by using the AWS SDK for Java and Amazon Simple Queue Service (Amazon SQS). Messages are stored in a first in, first out (FIFO) queue that ensures that the order of the messages is consistent. For example, the first message that's stored in the queue is the first message read from the queue.
 
 **Note:** For more information about Amazon SQS, see [What is Amazon Simple Queue Service?](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
 
-In this tutorial, you create a Spring Boot application named AWS Messaging. The Spring Boot APIs are used to build a model, different views, and a controller. The following figure shows the AWS Messaging application.
-
-![AWS Messaging application](images/client1a.png)
-
-**Cost to complete:** The AWS services you'll use in this example are part of the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note:** When you're done developing the application, be sure to terminate all of the resources you created to ensure that you're no longer charged for them.
+In this tutorial, you create a Spring Boot application named AWS Messaging. The Spring Boot APIs are used to build a model, different views, and a controller. For information, see [Spring Boot](https://spring.io/projects/spring-boot).
 
 #### Topics
 
@@ -31,19 +27,29 @@ To complete the tutorial, you need the following:
 + An AWS account
 + A Java IDE (this tutorial uses the IntelliJ IDE)
 + Java JDK 1.8
-+ Maven 3.6 or later
-+ A FIFO queue named **Message.fifo** (for information about creating a queue, see [Creating an Amazon SQS queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-create-queue.html))
++ Maven 3.6 or later+ 
+
+## Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+Create A FIFO queue named **Message.fifo**. For information, see [Creating an Amazon SQS queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-create-queue.html). 
 
 ## Understand the AWS Messaging application
 
-To send a message to a SQS queue, enter the message into the application and choose Send.
+To send a message to a SQS queue, enter the message into the application and choose **Send**.
 
-![AWS Messaging application](images/client2b.png)
+![AWS Messaging application](images/clientapp.png)
 
 After the message is sent, the application displays the message, as shown in this figure.
 
 
-![AWS Messaging application](images/client2c.png)
+![AWS Messaging application](images/clientapp1.png)
 
 You can choose **Purge** to purge the messages from the FIFO queue. This results in an empty queue, and no messages are displayed in the application.  
 
@@ -68,7 +74,7 @@ The following describes how the application handles a message:
 
 At this point, you have a new project named **SpringAWSMessage**.
 
-![AWS Messaging application](images/client3.png)
+![AWS Messaging application](images/project.png)
 
 Add the following dependency for the Amazon SQS API (AWS SDK for Java version 2).
 
@@ -166,11 +172,11 @@ Add the following dependency for the Amazon SQS API (AWS SDK for Java version 2)
 
 Create a Java package in the **main/java** folder named **com.example**.
 
-![AWS Messaging application](images/client4.png)
+![AWS Messaging application](images/project1.png)
 
 The Java files must go into this package.
 
-![AWS Messaging application](images/client5.png)
+![AWS Messaging application](images/project2.png)
 
 Create the following Java classes:
 
@@ -694,6 +700,7 @@ The following is the HTML for the **layout.html** file that represents the appli
     </body>
     </html>
 ```
+
 ## Create script files
 
 Create a script file named **message.js** that communicates with the Spring controller. This file is used by the **message.html** view. Place the script file in the following path.
@@ -703,110 +710,113 @@ Create a script file named **message.js** that communicates with the Spring cont
 The following code represents this **.js** file.
 
 ```javascript
-     $(function() {
+    $(function() {
 
      populateChat()
-     } );
+   } );
 
+  function populateChat() {
 
-    function populateChat() {
+    $.ajax('/populate', {
+        type: 'GET',
+        success: function (data, status, xhr) {
+            var xml = data;
 
-      // Post the values to the controller
-      var xhr = new XMLHttpRequest();
-      xhr.addEventListener("load", handle, false);
-      xhr.open("GET", "../populate", true);   
-      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-      xhr.send();
-      }
+            $("#messages").children().remove();
 
-     function handle(event) {
+            $(xml).find('Message').each(function () {
 
-       var xml = event.target.responseText;
-       $('#textarea').val("");
-       $("#messages").children().remove();
-       $(xml).find('Message').each(function () {
-       var $field = $(this);
-       var body = $field.find('Data').text();
-       var name = $field.find('User').text();
+                var $field = $(this);
+                var body = $field.find('Data').text();
+                var name = $field.find('User').text();
 
-       // Set the view
-       var userText = body +'<br><br><b>' + name  ;
-       var myTextNode = $("#base").clone();
-       myTextNode.text(userText) ;
-       var image_url;
-       var n = name.localeCompare("Scott");
+                //Set the view
+                var userText = body +'<br><br><b>' + name  ;
 
-       if (n == 0)
-            image_url = "../images/av1.png";
-        else
-            image_url = "../images/av2.png";
+                var myTextNode = $("#base").clone();
 
-       var images_div = "<img src=\"" +image_url+ "\" alt=\"Avatar\" class=\"right\" style=\"\"width:100%;\"\">";
-       myTextNode.html(userText) ;
-       myTextNode.append(images_div);
-       $("#messages").append(myTextNode);
+                myTextNode.text(userText) ;
+                var image_url;
+
+                var n = name.localeCompare("Scott");
+                if (n == 0)
+                    image_url = "../images/av1.png";
+                else
+                    image_url = "../images/av2.png";
+                var images_div = "<img src=\"" +image_url+ "\" alt=\"Avatar\" class=\"right\" style=\"\"width:100%;\"\">";
+
+                myTextNode.html(userText) ;
+                myTextNode.append(images_div);
+                $("#messages").append(myTextNode);
+            });
+
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+     });
+    }
+
+    function purge() {
+
+     $.ajax('/purge', {
+        type: 'GET',
+        success: function (data, status, xhr) {
+            alert(data);
+            populateChat();
+            $('#textarea').val("");
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+      });
+     }
+
+   function pushMessage() {
+
+    var user =  $('#username').val();
+    var message = $('#textarea').val();
+
+    $.ajax('/add', {
+        type: 'POST',
+        data: 'user=' + user + '&message=' + message,
+        success: function (data, status, xhr) {
+            var xml = event.target.responseText;
+            $('#textarea').val("");
+            $("#messages").children().remove();
+
+            $(xml).find('Message').each(function () {
+
+                var $field = $(this);
+                var body = $field.find('Data').text();
+                var name = $field.find('User').text();
+
+                //Set the view
+                var userText = body +'<br><br><b>' + name  ;
+
+                var myTextNode = $("#base").clone();
+
+                myTextNode.text(userText) ;
+                var image_url;
+
+                var n = name.localeCompare("Scott");
+                if (n == 0)
+                    image_url = "../images/av1.png";
+                else
+                    image_url = "../images/av2.png";
+                var images_div = "<img src=\"" +image_url+ "\" alt=\"Avatar\" class=\"right\" style=\"\"width:100%;\"\">";
+
+                myTextNode.html(userText) ;
+                myTextNode.append(images_div);
+                $("#messages").append(myTextNode);
+            });
+          },
+         error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+         }
        });
       }
 
-     function purge() {
-
-      // Post the values to the controller
-      // Invokes the getMyForms POST operation
-      var xhr = new XMLHttpRequest();
-      xhr.addEventListener("load", purgeItems, false);
-      xhr.open("GET", "../purge", true);   
-      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhr.send();
-      }
-
-     function purgeItems(event) {
-      $('#textarea').val("");
-      var msg = event.target.responseText;
-      alert(msg);
-      populateChat();
-      }
-
-     function pushMessage() {
-
-       var user =  $('#username').val();
-       var message = $('#textarea').val();
-
-       // Post the values to the controller
-       var xhr = new XMLHttpRequest();
-       xhr.addEventListener("load", loadNewItems, false);
-       xhr.open("POST", "../add", true);   
-       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-       xhr.send("user=" + user + "&message=" + message);
-       }
-
-      function loadNewItems(event) {
-
-       var xml = event.target.responseText;
-       $("#messages").children().remove();
-        $(xml).find('Message').each(function () {
-
-       var $field = $(this);
-       var body = $field.find('Data').text();
-       var name = $field.find('User').text();
-
-        // Set the view
-        var userText = body +'<br><br><b>' + name  ;
-        var myTextNode = $("#base").clone();
-        myTextNode.text(userText) ;
-        var image_url;
-
-        var n = name.localeCompare("Scott");
-        if (n == 0)
-            image_url = "../images/av1.png";
-        else
-           image_url = "../images/av2.png";
-        var images_div = "<img src=\"" +image_url+ "\" alt=\"Avatar\" class=\"right\" style=\"\"width:100%;\"\">";
-
-        myTextNode.html(userText) ;
-        myTextNode.append(images_div);
-        $("#messages").append(myTextNode);
-        });
-        }
 ```
 
 **Note:** Be sure to include the CSS and image files located on the GitHub website in your project.
