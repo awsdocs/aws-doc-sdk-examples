@@ -12,41 +12,85 @@ $(function() {
             return;
         }
 
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", handleMsg, false);
-        xhr.open("POST", "../addMessage", true);   //buildFormit -- a Spring MVC controller
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-        xhr.send("body=" + body );
-    } );// END of the Send button click
+        $.ajax('/addMessage', {
+            type: 'POST',
+            data: 'body=' + body,
+            success: function (data, status, xhr) {
 
-    function handleMsg(event) {
-        var msg = event.target.responseText;
-        alert(msg)
-        $('#body').val("");
-
-    }
+                alert(data)
+                $('#body').val("");
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                $('p').append('Error' + errorMessage);
+            }
+        });
+    } );
 } );
 
 function subEmail(){
     var mail = $('#inputEmail1').val();
     var result = validate(mail)
     if (result == false) {
-        alert (mail + " is not valid. Please specify a valid email");
+        alert (mail + " is not valid. Please specify a valid email.");
         return;
     }
 
-    // Valid email, post to the server
-    var xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", loadItems, false);
-    xhr.open("POST", "../addEmail", true);   //buildFormit -- a Spring MVC controller
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-    xhr.send("email=" + mail );
+    $.ajax('/addEmail', {
+        type: 'POST',
+        data: 'email=' + mail,
+        success: function (data, status, xhr) {
+            alert("Subscription validation is "+data)
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+    });
  }
 
-function loadItems(event) {
+function getSubs() {
 
-    var subNum = event.target.responseText;
-    alert("Subscription validation is "+subNum);
+    $.ajax('/getSubs', {
+        type: 'GET',
+        success: function (data, status, xhr) {
+
+            $('.modal-body').empty();
+            var xml = data;
+            $(xml).find('Sub').each(function ()  {
+
+                var $field = $(this);
+                var email = $field.find('email').text();
+
+                // Append this data to the main list.
+                $('.modal-body').append("<p><b>"+email+"</b></p>");
+            });
+            $("#myModal").modal();
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+    });
+}
+
+function delSub(event) {
+    var mail = $('#inputEmail1').val();
+    var result = validate(mail)
+
+    if (result == false) {
+    alert (mail + " is not valid. Please specify a valid email");
+    return;
+   }
+
+    $.ajax('/delSub', {
+        type: 'POST',  // http GET method
+        data: 'email=' + mail,
+        success: function (data, status, xhr) {
+
+            alert("Subscription validation is "+data);
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+    });
 }
 
 function validateEmail(email) {
@@ -64,71 +108,3 @@ function validate(email) {
     }
 }
 
-function subDelete() {
-
-    $("#myModal").modal();
-}
-
-function getSubs(){
-
-    // Valid email, post to the server
-    var xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", loadSubs, false);
-    xhr.open("GET", "../getSubs", true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-    xhr.send();
-}
-
-function loadSubs(event) {
-
-    $('.modal-body').empty();
-    var xml = event.target.responseText;
-    $(xml).find('Sub').each(function ()  {
-
-        var $field = $(this);
-        var email = $field.find('email').text();
-
-        // Append this data to the main list.
-        $('.modal-body').append("<p><b>"+email+"</b></p>");
-      });
-    $("#myModal").modal();
-}
-
-function postMsg(){
-
-    // Valid email, post to the server
-    var xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", loadMsg, false);
-    xhr.open("GET", "../getSubs", true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-    xhr.send();
-}
-
-function loadMsg(event) {
-
-    var msg = event.target.responseText;
-    alert(msg);
-}
-
-function delSub(event) {
-var mail = $('#inputEmail1').val();
-
- var result = validate(mail)
-if (result == false) {
-    alert (mail + " is not valid. Please specify a valid email");
-    return;
-}
-
-// Valid email, post to the server
-var xhr = new XMLHttpRequest();
-xhr.addEventListener("load", loadItems, false);
-xhr.open("POST", "../delSub", true);   //buildFormit -- a Spring MVC controller
-xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-xhr.send("email=" + mail );
-}
-
-function loadItems(event) {
-
-    var subNum = event.target.responseText;
-    alert("Subscription validation is "+subNum);
-}

@@ -2,9 +2,9 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0.
  */
-use aws_sdk_kms::{Blob, Client, Config, Error, Region, PKG_VERSION};
-use aws_types::region;
-use aws_types::region::ProvideRegion;
+
+use aws_config::meta::region::RegionProviderChain;
+use aws_sdk_kms::{Blob, Client, Error, Region, PKG_VERSION};
 use std::fs;
 use std::fs::File;
 use std::io::Write;
@@ -61,17 +61,16 @@ async fn main() -> Result<(), Error> {
         verbose,
     } = Opt::from_args();
 
-    let region = region::ChainProvider::first_try(region.map(Region::new))
+    let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()
         .or_else(Region::new("us-west-2"));
-
     println!();
 
     if verbose {
         println!("KMS client version:     {}", PKG_VERSION);
         println!(
-            "Region:                 {}",
-            region.region().unwrap().as_ref()
+            "Region:             {}",
+            region_provider.region().await.unwrap().as_ref()
         );
         println!("Input key:              {}", &first_key);
         println!("Output key:             {}", &new_key);
@@ -80,8 +79,8 @@ async fn main() -> Result<(), Error> {
         println!();
     }
 
-    let conf = Config::builder().region(region).build();
-    let client = Client::from_conf(conf);
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
+    let client = Client::new(&shared_config);
 
     // Get blob from input file
     // Open input text file and get contents as a string
