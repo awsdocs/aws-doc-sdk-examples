@@ -119,6 +119,7 @@ At this point, you have a new project named **WorkflowPPE**.
 
 Make sure that your project's pom.xml file looks like the following.
 
+```xml
      <?xml version="1.0" encoding="UTF-8"?>
      <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -259,6 +260,7 @@ Make sure that your project's pom.xml file looks like the following.
         </plugins>
       </build>
      </project>
+```
     
 ## Create a Lambda function by using the AWS Lambda runtime Java API
 
@@ -281,6 +283,7 @@ Create these Java classes:
 
 The following Java code represents the **AnalyzePhotos** class. This class uses the Amazon Rekognition API to analyze the images and detect PPE information.
 
+```java
     package com.example.ppe;
 
     import software.amazon.awssdk.core.SdkBytes;
@@ -379,12 +382,13 @@ The following Java code represents the **AnalyzePhotos** class. This class uses 
         return null;
        }
       }
+```
 
 ### DynamoDBService class
 
 The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to add a record to the **Gear** table by using the enhanced client. For more information about the enhanced client, see [Map items in DynamoDB tables](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/examples-dynamodb-enhanced.html).
 
-
+```java
      package com.example.ppe;
 
      import software.amazon.awssdk.enhanced.dynamodb.*;
@@ -462,11 +466,13 @@ The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to add a
 
         }
       }
+  ```
 
 ### Gear class 
 
 The **Gear** class is responsible for mapping an object to the Gear table using the enhanced client. Notice the use of the **@DynamoDbBean** annotation. 
 
+```java
        package com.example.ppe;
        import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
        import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
@@ -546,12 +552,14 @@ The **Gear** class is responsible for mapping an object to the Gear table using 
         this.confidence = confidence;
       }
      }
+ ```
 
 ### GearItem class
 
 The **GearIten** class represents the model in this use case. Its stores data retrieved from the Amazon Rekognition service. 
 
-     package com.example.ppe;
+ ```java
+    package com.example.ppe;
 
      public class GearItem {
 
@@ -604,7 +612,7 @@ The **GearIten** class represents the model in this use case. Its stores data re
         return this.confidence;
      }
     }
-
+```
 
 ### PPEHandler class
 
@@ -612,7 +620,7 @@ This Java code represents the **PPEHandler** class. This class reads a value tha
 
 The following Java code represents the **PPEHandler** class. 
 
-
+```java
     package com.example.ppe;
 
     import com.amazonaws.services.lambda.runtime.Context;
@@ -683,11 +691,13 @@ The following Java code represents the **PPEHandler** class.
         return uniqueKeys;
       }
      }
+```
 
 ### S3Service class
 
 The following class uses the Amazon S3 API to perform S3 operations. For example, the **getObjectBytes** method returns a byte array that represents the image. Likewise, the **listBucketObjects** method returns a List object where each element is a string value that specifies the key name.
 
+```java
     package com.example.ppe;
 
     import software.amazon.awssdk.core.ResponseBytes;
@@ -765,10 +775,12 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
         return null;
         }
       }
-    
+ ```
+ 
  ### SendEmail class
 The following class uses the Amazon SES Java API to send email messages that specify which images contain PPE. 
 
+```java
     package com.example.ppe;
 
     import software.amazon.awssdk.regions.Region;
@@ -838,7 +850,8 @@ The following class uses the Amazon SES Java API to send email messages that spe
         }
        }
      }
-    
+```
+
 **Note**: Set email addresses for the **sender** and **recipient** variables. 
 
 ## Package the project that contains the Lambda functions
