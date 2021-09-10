@@ -70,6 +70,7 @@ The following figure shows the workflow you'll create with this tutorial, which 
 ![AWS Tracking Application](images/workflow.png)
 
 The following describes each step in the workflow:
+
 + **Start** - Initiates the workflow.
 + **Get Excel Data** – Retrieves an Excel file from an Amazon S3 bucket by using the Amazon S3 Java API. This step dynamically creates XML that contains the population data and passes the XML to the next step. 
 + **Store Data** – Parses the XML that contains the population data. For each item in the XML, this step adds a record to an Amazon DynamoDB table by using the Amazon DynamoDB Java API.   
@@ -193,6 +194,7 @@ Create an IntelliJ project that is used to create the web application.
 
 At this point, you have a new project named **ETL_Lambda**. Ensure that the pom.xml file resembles the following code.
 
+```xml
      <?xml version="1.0" encoding="UTF-8"?>
      <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -325,7 +327,8 @@ At this point, you have a new project named **ETL_Lambda**. Ensure that the pom.
         </plugins>
        </build>
      </project>
-     
+```
+
  ## Create the Java classes
  
  Create a Java package in the main/java folder named **com.etl.example**. The Java classes go into this package. 
@@ -346,6 +349,7 @@ At this point, you have a new project named **ETL_Lambda**. Ensure that the pom.
 
 The following Java code represents the **DocumentHandler** class.
 
+```java
      package com.etl.example;
 
     import com.amazonaws.services.lambda.runtime.Context;
@@ -371,11 +375,13 @@ The following Java code represents the **DocumentHandler** class.
         return xml;
      }
     }
+```
 
 ### DynamoDBService class
 
 The following Java code represents the **DynamoDBService** class. This class uses the Amazon DynamoDB Java API (V2) to populate the **Country** table. 
 
+```java
     package com.etl.example;
 
     import org.jdom2.Document;
@@ -476,13 +482,14 @@ The following Java code represents the **DynamoDBService** class. This class use
         }
       }
      }
-
+```
 **Note** Make sure that you created a **Customer** table as described at the start of this AWS tutorial. Otherwise, your code does not work.
 
 ### ExcelService class
 
 The following Java code represents the **ExcelService** class that uses the **jxl.Workbook** Java API.
 
+```java
     package com.etl.example;
 
     import jxl.Cell;
@@ -720,11 +727,13 @@ The following Java code represents the **ExcelService** class that uses the **jx
         return null;
         }
   }
+```
 
 ### HandlerStoreData class
 
 The following Java code represents the **HandlerStoreData** class. This class represents the second step in the workflow. 
 
+```java
     package com.etl.example;
 
     import com.amazonaws.services.lambda.runtime.Context;
@@ -751,11 +760,13 @@ The following Java code represents the **HandlerStoreData** class. This class re
         return "Data is stored successfully.";
       }
      }
+```
 
 ### PopData class
 
 The following Java code represents the **PopData** class.
 
+```java
     package com.etl.example;
 
     // Stores the data model for this use case.
@@ -877,11 +888,13 @@ The following Java code represents the **PopData** class.
         return this.countryName ;
     }
    }
+```
 
 ### Population class
 
 The following Java code represents the **Population** class. The class is used for data mapping for the Amazon DynamoDB Java API Enhanced Client. 
 
+```java
      package com.etl.example;
 
      import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
@@ -1007,13 +1020,14 @@ The following Java code represents the **Population** class. The class is used f
     public String getCode() {
         return this.code;
     }
-
-}
+  }
+```
     
 ### S3Service class
 
 The following Java code represents the **S3Service** class. This class contains a method named **getObjectBytes** that accepts the bucket name and object name (which represents the Microsoft Excel file) and returns a byte array. 
 
+```java
     package com.etl.example;
 
     import software.amazon.awssdk.core.ResponseBytes;
@@ -1056,7 +1070,7 @@ The following Java code represents the **S3Service** class. This class contains 
         return null;
       }
     }
-
+```
 
 ## Package the project that contains the Lambda functions
 
