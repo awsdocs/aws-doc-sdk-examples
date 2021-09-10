@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_sdk_cloudformation::{Client, Config, Error, Region, PKG_VERSION};
-use aws_types::region;
-use aws_types::region::ProvideRegion;
+use aws_config::meta::region::RegionProviderChain;
+use aws_sdk_cloudformation::{Client, Error, Region, PKG_VERSION};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -32,9 +31,10 @@ async fn main() -> Result<(), Error> {
 
     let Opt { region, verbose } = Opt::from_args();
 
-    let region = region::ChainProvider::first_try(region.map(Region::new))
+    let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()
         .or_else(Region::new("us-west-2"));
+    println!();
 
     println!();
 
@@ -42,13 +42,14 @@ async fn main() -> Result<(), Error> {
         println!("CloudFormation client version: {}", PKG_VERSION);
         println!(
             "Region:                        {}",
-            region.region().unwrap().as_ref()
+            region_provider.region().await.unwrap().as_ref()
         );
+
         println!();
     }
 
-    let conf = Config::builder().region(region).build();
-    let client = Client::from_conf(conf);
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
+    let client = Client::new(&shared_config);
 
     let stacks = client.list_stacks().send().await?;
 
