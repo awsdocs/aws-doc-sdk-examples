@@ -88,6 +88,7 @@ Create an IntelliJ project that is used to create the web application.
 
 At this point, you have a new project named **Blog**. Ensure that the pom.xml file resembles the following code.
 
+```xml
      <?xml version="1.0" encoding="UTF-8"?>
      <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -204,7 +205,8 @@ At this point, you have a new project named **Blog**. Ensure that the pom.xml fi
         </plugins>
     </build>
 </project>
-     
+```
+
  ## Create the Java classes
  
  Create a Java package in the main/java folder named **com.aws.blog**. The Java classes go into this package. 
@@ -223,6 +225,7 @@ At this point, you have a new project named **Blog**. Ensure that the pom.xml fi
 
 The following Java code represents the **BlogApp** class.
 
+```java
      package com.aws.blog;
 
      import org.springframework.boot.SpringApplication;
@@ -235,11 +238,13 @@ The following Java code represents the **BlogApp** class.
         SpringApplication.run(BlogApp.class, args);
       }
      }
+```
 
 ### BlogController class
 
 The following Java code represents the **BlogController** class.
 
+```java
      package com.aws.blog;
 
      import org.springframework.security.core.context.SecurityContextHolder;
@@ -308,12 +313,13 @@ The following Java code represents the **BlogController** class.
         return user2.getUsername();
      }
      }
-
+```
 
 ### Post class
 
 The following Java code represents the **Post** class.
 
+```java
     package com.aws.blog;
 
     public class Post {
@@ -366,11 +372,13 @@ The following Java code represents the **Post** class.
         return this.id ;
      }
     }
+```
 
 ### RedshiftService class
 
 The following Java code represents the **RedshiftService** class. This class uses the Amazon Redshift Java API (V2) to interact with data located the **blog** table.  For example, the **getPosts** method returns a result set that is queried from the **blog** table and displayed in the view. Likewise, the **addRecord** method adds a new record to the **blog** table. This class also uses the Amazon Translate Java V2 API to translate the result set if requested by the user. 
 
+```java
      package com.aws.blog;
 
      import org.springframework.stereotype.Component;
@@ -733,12 +741,14 @@ The following Java code represents the **RedshiftService** class. This class use
         return "";
        }
       }
+```
 
 **Note**: Be sure to assign applicable values to the **clusterId**, **database**, and **dbUser** variables. Otherwise, your code does not work.
 
 ### WebSecurityConfig class
 
 The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application.
+```java
 
      package com.aws.blog;
 
@@ -796,7 +806,8 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
         return new BCryptPasswordEncoder();
       }
      }
-    
+```
+
 **Note**: In this example, the user credentials to log into the application are **user** and **password**.    
 
 ## Create the HTML file
@@ -813,6 +824,7 @@ At this point, you have created all of the Java files required for this example 
 
 The **index.html** file is the application's home view. 
 
+```html
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
@@ -844,12 +856,13 @@ The **index.html** file is the application's home view.
      <div>
      </body>
     </html>
-  
+```  
 	   
 ### layout.html
 
 The following code represents the **layout.html** file that represents the application's menu.
 
+```html
      <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org">
      <head th:fragment="site-head">
@@ -871,11 +884,13 @@ The following code represents the **layout.html** file that represents the appli
     </div>
    </header>
   </html>
+```	     
 
 ### add.html
 
 The **add.html** file is the application's view that lets users post new items. 
 
+```html	     
     <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
@@ -918,10 +933,12 @@ The **add.html** file is the application's view that lets users post new items.
             </div>
       </body>
      </html>
+```
 
 ### post.html
 The **post.html** file is the application's view that displays the job items in the specific language. 
 
+```html
    <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
      <head>
@@ -970,10 +987,12 @@ The **post.html** file is the application's view that displays the job items in 
        </div>
       </body>
      </html>
+```
 
 ### login.html
 The **login.html** file is the application's login page. 
 
+```html
      <!DOCTYPE html>
      <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 
@@ -1069,11 +1088,13 @@ The **login.html** file is the application's login page.
     </form>
     </body>
     </html>
-    
+```
+
 ### Create the JS File
 
 This application has a **contact_me.js** file that is used to send requests to the Spring Controller. Place this file in the **resources\public\js** folder. 
 
+```javascript	
       $(function() {
 
        $('#progress').hide();
@@ -1135,7 +1156,8 @@ This application has a **contact_me.js** file that is used to send requests to t
          }
         });
       }
-
+```
+	
 ## Create a JAR file for the application
 
 Package up the project into a .jar (JAR) file that you can deploy to Elastic Beanstalk by using the following Maven command.
