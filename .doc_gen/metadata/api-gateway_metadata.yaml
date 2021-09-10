@@ -1,5 +1,5 @@
 # zexi 0.2.0
-apigateway_CreateRestApi:
+api-gateway_CreateRestApi:
   title: Create an &ABP; REST API using an &AWS; SDK
   title_abbrev: Create a REST API
   synopsis: create an &ABP; REST API.
@@ -13,11 +13,11 @@ apigateway_CreateRestApi:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.apigateway.ApiGatewayToService.class
-                - python.example_code.apigateway.CreateRestApi
+                - python.example_code.api-gateway.ApiGatewayToService.class
+                - python.example_code.api-gateway.CreateRestApi
   services:
-    - apigateway
-apigateway_GetResources:
+    - api-gateway
+api-gateway_GetResources:
   title: Get &ABP; REST resources using an &AWS; SDK
   title_abbrev: Get REST resources
   synopsis: get &ABP; REST resources.
@@ -31,10 +31,11 @@ apigateway_GetResources:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.apigateway.CreateRestApi
+                - python.example_code.api-gateway.ApiGatewayToService.class
+                - python.example_code.api-gateway.CreateRestApi
   services:
-    - apigateway
-apigateway_CreateResource:
+    - api-gateway
+api-gateway_CreateResource:
   title: Create an &ABP; REST resource using an &AWS; SDK
   title_abbrev: Create a REST resource
   synopsis: create an &ABP; REST resource.
@@ -48,10 +49,11 @@ apigateway_CreateResource:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.apigateway.CreateResource
+                - python.example_code.api-gateway.ApiGatewayToService.class
+                - python.example_code.api-gateway.CreateResource
   services:
-    - apigateway
-apigateway_PutMethod:
+    - api-gateway
+api-gateway_PutMethod:
   title: Add an HTTP method to an &ABP; REST resource using an &AWS; SDK
   title_abbrev: Add an HTTP method to a REST resource
   synopsis: add an HTTP method to an &ABP; REST resource.
@@ -65,10 +67,11 @@ apigateway_PutMethod:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.apigateway.AddIntegrationMethod
+                - python.example_code.api-gateway.ApiGatewayToService.class
+                - python.example_code.api-gateway.PutIntegration
   services:
-    - apigateway
-apigateway_PutMethodResponse:
+    - api-gateway
+api-gateway_PutMethodResponse:
   title: Add an HTTP response to an &ABP; REST resource using an &AWS; SDK
   title_abbrev: Add an HTTP response to a REST resource
   synopsis: add an HTTP response to an &ABP; REST resource.
@@ -82,10 +85,11 @@ apigateway_PutMethodResponse:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.apigateway.AddIntegrationMethod
+                - python.example_code.api-gateway.ApiGatewayToService.class
+                - python.example_code.api-gateway.PutIntegration
   services:
-    - apigateway
-apigateway_PutIntegration:
+    - api-gateway
+api-gateway_PutIntegration:
   title: Integrate an &ABP; method with an &AWS; service using an &AWS; SDK
   title_abbrev: Integrate a method with an &AWS; service
   synopsis: integrate an &ABP; method with an &AWS; service.
@@ -99,10 +103,11 @@ apigateway_PutIntegration:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.apigateway.AddIntegrationMethod
+                - python.example_code.api-gateway.ApiGatewayToService.class
+                - python.example_code.api-gateway.PutIntegration
   services:
-    - apigateway
-apigateway_PutIntegrationResponse:
+    - api-gateway
+api-gateway_PutIntegrationResponse:
   title: Add a response from an &AWS; service integrated with an &ABP; method using an &AWS; SDK
   title_abbrev: Add a response from an &AWS; service integrated with a method
   synopsis: add a response from an &AWS; service integrated with an &ABP; method.
@@ -116,10 +121,11 @@ apigateway_PutIntegrationResponse:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.apigateway.AddIntegrationMethod
+                - python.example_code.api-gateway.ApiGatewayToService.class
+                - python.example_code.api-gateway.PutIntegration
   services:
-    - apigateway
-apigateway_CreateDeployment:
+    - api-gateway
+api-gateway_CreateDeployment:
   title: Deploy an &ABP; REST API using an &AWS; SDK
   title_abbrev: Deploy a REST API
   synopsis: deploy an &ABP; REST API.
@@ -133,10 +139,12 @@ apigateway_CreateDeployment:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.apigateway.CreateDeployment
+                - python.example_code.api-gateway.ApiGatewayToService.class
+                - python.example_code.api-gateway.CreateDeployment
+                - python.example_code.api-gateway.Helper.ApiUrl
   services:
-    - apigateway
-apigateway_GetRestApis:
+    - api-gateway
+api-gateway_GetRestApis:
   title: List &ABP; REST APIs using an &AWS; SDK
   title_abbrev: List REST APIs
   synopsis: list &ABP; REST APIs.
@@ -150,10 +158,11 @@ apigateway_GetRestApis:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.apigateway.GetRestApis
+                - python.example_code.api-gateway.ApiGatewayToService.class
+                - python.example_code.api-gateway.GetRestApis
   services:
-    - apigateway
-apigateway_DeleteRestApi:
+    - api-gateway
+api-gateway_DeleteRestApi:
   title: Delete an &ABP; REST API using an &AWS; SDK
   title_abbrev: Delete a REST API
   synopsis: delete an &ABP; REST API.
@@ -167,6 +176,33 @@ apigateway_DeleteRestApi:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.apigateway.DeleteRestApi
+                - python.example_code.api-gateway.ApiGatewayToService.class
+                - python.example_code.api-gateway.DeleteRestApi
   services:
-    - apigateway
+    - api-gateway
+api-gateway_Usage_CreateDeployRest:
+  title: Create and deploy a REST API using an &AWS; SDK
+  title_abbrev: Create and deploy a REST API
+  synopsis: create and deploy a REST API.
+  category: Usage
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/api-gateway
+          sdkguide:
+          excerpts:
+            - description: Create a class that wraps &ABP; operations.
+              snippet_tags:
+                - python.example_code.api-gateway.imports
+                - python.example_code.api-gateway.ApiGatewayToService.class
+                - python.example_code.api-gateway.CreateRestApi
+                - python.example_code.api-gateway.CreateResource
+                - python.example_code.api-gateway.PutIntegration
+                - python.example_code.api-gateway.CreateDeployment
+                - python.example_code.api-gateway.Helper.ApiUrl
+            - description: Deploy a REST API and call it with the Requests package.
+              snippet_tags:
+                - python.example_code.api-gateway.Usage_CreateDeployRest
+  services:
+    - api-gateway
