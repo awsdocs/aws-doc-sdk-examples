@@ -1,7 +1,7 @@
 # Building a Spring Boot web application that Streams Amazon S3 content over HTTP
 
 ## Purpose
-You can use Amazon Web Services to create a web application that streams Amazon Simple Storage Service (Amazon S3) video content over HTTP. The video is displayed in the application along with a menu that displays the videos that you can view. 
+You can create a dynamic web application that streams Amazon Simple Storage Service (Amazon S3) video content over HTTP. The video is displayed in the application along with a menu that displays the videos that you can view. 
 
 ![AWS Video Analyzer](images/pic1.png)
 
