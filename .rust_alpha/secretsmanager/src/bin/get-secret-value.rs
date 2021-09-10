@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_sdk_secretsmanager::{Client, Config, Error, Region, PKG_VERSION};
-use aws_types::region;
-use aws_types::region::ProvideRegion;
+use aws_config::meta::region::RegionProviderChain;
+use aws_sdk_secretsmanager::{Client, Error, Region, PKG_VERSION};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -41,7 +40,7 @@ async fn main() -> Result<(), Error> {
         verbose,
     } = Opt::from_args();
 
-    let region = region::ChainProvider::first_try(region.map(Region::new))
+    let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()
         .or_else(Region::new("us-west-2"));
 
@@ -51,14 +50,14 @@ async fn main() -> Result<(), Error> {
         println!("SecretsMManager client version: {}", PKG_VERSION);
         println!(
             "Region:                         {}",
-            region.region().unwrap().as_ref()
+            region_provider.region().await.unwrap().as_ref()
         );
         println!("Secret name:                    {}", name);
         println!();
     }
 
-    let config = Config::builder().region(region).build();
-    let client = Client::from_conf(config);
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
+    let client = Client::new(&shared_config);
 
     let resp = client.get_secret_value().secret_id(name).send().await?;
 
