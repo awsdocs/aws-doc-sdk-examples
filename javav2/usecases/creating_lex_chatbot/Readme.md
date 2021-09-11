@@ -89,7 +89,7 @@ Create an IntelliJ project that is used to create a web site that uses the Amazo
 
 At this point, you have a new project named **SpringChatbot**.
 
-![AWS Lex](images/pic6.png)
+![AWS Lex](images/project.png)
 
 Ensure that the pom.xml file resembles the following code.
 
