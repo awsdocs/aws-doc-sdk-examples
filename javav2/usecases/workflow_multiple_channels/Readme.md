@@ -46,11 +46,6 @@ To follow along with the tutorial, you need the following:
 + Running this code might result in charges to your AWS account. 
 + Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
-### Creating the resources
-
-Create an Amazon DynamoDB table named **Work** with a key named **id**. For information, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
-
-
 ## Understand the workflow
 
 The following figure shows the workflow you'll create with this tutorial,  which is able to send out multiple messages over multiple channels. 
@@ -75,6 +70,7 @@ In this AWS tutorial, an Amazon RDS MySQL database is used to track the students
 
 The workflow queries the **students** table to get all absent students, and dynamically creates XML that contains the absent students.  
 
+```xml
        <?xml version="1.0" encoding="UTF-8"?>
        <Students>
          <Student>
@@ -90,6 +86,7 @@ The workflow queries the **students** table to get all absent students, and dyna
           <Email>lmccue@cnoserver.com</Email>
          </Student>
        </Students>
+```
 
 The second workflow step parses the XML and for each student invokes multiple AWS services to send messages over different channels.   
 
@@ -235,6 +232,7 @@ At this point, you have a new project named **LambdaNotifications**.
 
 Add this code to your project's pom.xml file. 
 
+```xml
           <?xml version="1.0" encoding="UTF-8"?>
           <project xmlns="http://maven.apache.org/POM/4.0.0"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -382,6 +380,7 @@ Add this code to your project's pom.xml file.
          </plugins>
         </build>
       </project>
+```
 
 ## Create Lambda functions by using the AWS SDK for Java
 
@@ -403,6 +402,7 @@ Create these Java classes, which are described in the following sections:
 
 The following Java code represents the **ConnectionHelper** class.
 
+```java
      package com.example.messages;
 
      import java.sql.Connection;
@@ -430,6 +430,7 @@ The following Java code represents the **ConnectionHelper** class.
         return null;
       }
     }
+ ```
 
 **Note**: The URL value is **localhost:3306**. This value is modified after the Amazon RDS instance is created. The Lambda function uses this URL to communicate with the database. You must also ensure that you specify the user name and password for your Amazon RDS instance.
 
@@ -437,6 +438,7 @@ The following Java code represents the **ConnectionHelper** class.
 
 This Java code represents the **ListMissingStudentsHandler** class. The class creates a Lamdba function that reads the passed in date value and queries the **student** table using this value.  The **handleRequest** method returns XML that specifies all of the absent students. The XML is passed to the second step in the workflow.
 
+```java
      package com.example.messages;
 
      import com.amazonaws.services.lambda.runtime.Context;
@@ -465,6 +467,7 @@ This Java code represents the **ListMissingStudentsHandler** class. The class cr
         return xml;
       }
      }
+ ```
 
 ### HandlerVoiceNot class
 
@@ -476,6 +479,7 @@ The **HandlerVoiceNot** class is the second step in the workflow. It creates a *
 
 The following code represents the **HandlerVoiceNot** method. In this example, the XML that is passed to the Lambda function is stored in the **xml** variable. 
 
+```java
       package com.example.messages;
 
       import com.amazonaws.services.lambda.runtime.Context;
@@ -506,11 +510,13 @@ The following code represents the **HandlerVoiceNot** method. In this example, t
         return num;
        }
       }
+ ```
 
 ### RDSGetStudents class
 
 The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS instance. The result set is stored in XML which is passed to the second step in the worlkflow. 
 
+```java
        package com.example.messages;
 
        import org.w3c.dom.Document;
@@ -639,12 +645,13 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
         return null;
         }  
        }
-
+```
 
 ### SendNotifications class
 
 The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and the Amazon Pinpoint API to send messages. Each student in the XML is sent a message. 
 
+```java
        package com.example.messages;
 
       import org.jdom2.Document;
@@ -886,7 +893,7 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
             }
         }
     }
-
+```
 
 **NOTE** You need to specify a valid email for the sender that has been validated. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html). In addition, you need to assign the **originationNumber** variable a valid origination number associated with your AWS account. 
 
@@ -894,6 +901,7 @@ The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and
 
 The following Java class represents the **Student** class. 
 
+```java
      package com.example.messages;
 
      public class Student {
@@ -935,6 +943,7 @@ The following Java class represents the **Student** class.
         return this.firstName;
       }
      }
+```
 
 ## Set up the Amazon RDS instance
 
