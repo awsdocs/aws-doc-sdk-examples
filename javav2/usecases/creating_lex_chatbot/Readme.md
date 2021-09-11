@@ -1,5 +1,6 @@
 # Building an Amazon Lex Chatbot that engages users in multiple languages
 
+## Purpose
 You can create an Amazon Lex Chatbot within a web application to engage your web site visitors. An Amazon Lex Chatbot is functionality that performs on-line chat conversation with users without providing direct contact with a person. For example, the following illustration shows an Amazon Lex Chatbot that engages a user about booking a hotel room. 
 
 ![AWS Video Analyzer](images/chatintro.png)
@@ -18,10 +19,6 @@ This AWS tutorial guides you through creating an Amazon Lex chatbot and integrat
 + Amazon Comprehend
 + Amazon Translate
 
-**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
-
 #### Topics
 
 + Prerequisites
@@ -39,6 +36,14 @@ To complete the tutorial, you need the following:
 + A Java IDE (this tutorial uses the IntelliJ IDE)
 + Java JDK 1.8
 + Maven 3.6 or later
+
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
 
 ## Create an Amazon Lex bot
 
@@ -88,6 +93,7 @@ At this point, you have a new project named **SpringChatbot**.
 
 Ensure that the pom.xml file resembles the following code.
 
+```xml
      <?xml version="1.0" encoding="UTF-8"?>
       <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -158,7 +164,8 @@ Ensure that the pom.xml file resembles the following code.
         </plugins>
      </build>
      </project>
-     
+```     
+
  ## Create the Java classes
  
  Create a Java package in the main/java folder named **com.aws.spring**.
@@ -179,6 +186,7 @@ Ensure that the pom.xml file resembles the following code.
 
 The following Java code represents the **BotExample** class.
 
+```java
      package com.aws.spring;
 
      import org.springframework.boot.SpringApplication;
@@ -191,12 +199,13 @@ The following Java code represents the **BotExample** class.
         SpringApplication.run(BotExample.class, args);
      }
     }
-
+```
 
 ### BotController class
 
 The following Java code represents the **BotController** class.
 
+```java
      package com.aws.spring;
 
      import org.springframework.beans.factory.annotation.Autowired;
@@ -230,6 +239,7 @@ The following Java code represents the **BotController** class.
        return message;
      }
     }
+```
 
 ### LexService class
 
@@ -237,6 +247,7 @@ The **LexService** class uses the AWS SDK for Java (v2) to handle all text submi
 
 If the text was in another language, then the text is translated back into the original language and passed back to the client where it's displayed in the Web UI. The following Java code represents the **LexService** class.
 
+```java
      package com.aws.spring;
 
      import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -390,7 +401,7 @@ If the text was in another language, then the text is translated back into the o
          return "";
        }
       }
-
+```
 
 **Note**: Ensure that you specify the bot name and the bot alias when creating the **PostTextRequest** object.  
 
@@ -402,6 +413,7 @@ At this point, you have created all of the Java files required for this example 
 
 The **index.html** file is the application's home view that displays the Amazon Lex bot. The following HTML represents the **index.html** file. 
 
+```html
      <!DOCTYPE html>
      <html xmlns:th="https://www.thymeleaf.org">
 
@@ -535,6 +547,7 @@ The **index.html** file is the application's home view that displays the Amazon 
      </script>
      </body>
 </html>
+```
 
 ### Next steps
 Congratulations! You have created a Spring Boot application that uses Amazon Lex to create an interactive user experience. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
