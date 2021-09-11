@@ -1,5 +1,6 @@
 #  Using AWS Step Functions and the AWS SDK for Java to build workflows that sends notifications over multiple channels
 
+## Purpose
 You can use Amazon Web Services to create a workflow that sends notifications over multiple channels. There are many practical business needs for this type of functionality. For example, a weather agency needs to warn many people about a storm, or a school wants to send parents alerts when kids are missing. 
 
 The use case for this AWS tutorial assumes you work at a school and you need to alert parents when a student skips school. Do you send an email message, do you phone the parents, or do you send a text message to a mobile device? The AWS workflow created in this tutorial sends messages over multiple channels, including email, as shown in this illustration. 
@@ -14,11 +15,6 @@ To send notifications over multiple channels, you can use these AWS Services:
 + Amazon Pinpoint Service
 + Amazon Simple Notification Service (Amazon SNS)
 + Amazon Simple Email Service (Amazon SES)
-
-
-**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note:** When completed, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 #### Topics
 
@@ -37,10 +33,23 @@ To send notifications over multiple channels, you can use these AWS Services:
 
 ## Prerequisites
 To follow along with the tutorial, you need the following:
+
 + An AWS Account.
 + A Java IDE (for this tutorial, the IntelliJ IDE is used).
 + Java 1.8 JDK.
 + Maven 3.6 or higher.
+
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+Create an Amazon DynamoDB table named **Work** with a key named **id**. For information, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+
 
 ## Understand the workflow
 
