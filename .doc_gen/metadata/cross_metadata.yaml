@@ -22,7 +22,7 @@ cross_ApiGatewayDataTracker:
         - sdk_version: 3
           block_content: cross_ApiGatewayDataTracker_Python_block.xml
   services:
-    - apigateway
+    - api-gateway
     - cloudformation
     - dynamodb
     - lambda
@@ -36,7 +36,7 @@ cross_ApiGatewayWebsocketChat:
         - sdk_version: 3
           block_content: cross_ApiGatewayWebsocketChat_Python_block.xml
   services:
-    - apigateway
+    - api-gateway
     - dynamodb
     - lambda
 cross_AuroraRestLendingLibrary:
@@ -50,10 +50,10 @@ cross_AuroraRestLendingLibrary:
         - sdk_version: 3
           block_content: cross_AuroraRestLendingLibrary_Python_block.xml
   services:
-    - apigateway
+    - api-gateway
     - lambda
     - rds
-    - secretsmanager
+    - secrets-manager
 cross_StepFunctionsMessenger:
   title: Create a messenger application with &SFN;
   title_abbrev: Create a messenger application
@@ -67,7 +67,7 @@ cross_StepFunctionsMessenger:
     - dynamodb
     - lambda
     - sqs
-    - stepfunctions
+    - sfn
 cross_TextractExplorer:
   title: Create an &TEXTRACT; explorer application
   title_abbrev: Create an &TEXTRACT; explorer application
@@ -111,7 +111,7 @@ cross_LambdaAPIGateway:
         - sdk_version: 3
           block_content: cross_LambdaAPIGateway_JavaScript_block.xml
   services:
-    - apigateway
+    - api-gateway
     - lambda
     - dynamodb
     - sns
@@ -127,7 +127,7 @@ cross_LambdaScheduledEvents:
           block_content: cross_LambdaScheduledEvents_JavaScript_block.xml
   services:
     - dynamodb
-    - events
+    - eventbridge
     - lambda
     - sns
 cross_ServerlessWorkflows:
@@ -143,7 +143,7 @@ cross_ServerlessWorkflows:
     - dynamodb
     - lambda
     - ses
-    - stepfunctions
+    - sfn
 cross_TranscriptionApp:
   title: Build an &TSC; app
   title_abbrev: Build an &TSC; app

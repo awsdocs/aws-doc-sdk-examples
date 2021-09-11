@@ -2,13 +2,20 @@
 
 ## Purpose
 
-Shows how to use the AWS SDK for Python (Boto3) with Amazon CloudWatch manage custom
+Shows how to use the AWS SDK for Python (Boto3) with Amazon CloudWatch to manage custom
 metrics and alarms.
 
 *CloudWatch provides a reliable, scalable, and flexible monitoring solution that you 
 can start using within minutes.*
 
 ## Code examples
+
+### Usage examples
+
+* [Managing alarms and metrics](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/cloudwatch/cloudwatch_basics.py)
+(`usage_demo`)
+
+### API examples
 
 * [Creating an alarm that watches a metric](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/cloudwatch/cloudwatch_basics.py)
 (`put_metric_alarm`)
