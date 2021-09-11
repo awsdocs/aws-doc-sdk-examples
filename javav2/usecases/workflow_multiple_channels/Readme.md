@@ -228,7 +228,7 @@ Create a Java project to develop Lambda functions by using the Lambda Java runti
 
 At this point, you have a new project named **LambdaNotifications**.
 
-![AWS Tracking Application](images/projetfiles.png)
+![AWS Tracking Application](images/projectfiles.png)
 
 Add this code to your project's pom.xml file. 
 
