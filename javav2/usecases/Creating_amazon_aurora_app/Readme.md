@@ -916,8 +916,10 @@ The **post.html** file is the application's view that displays the items in the 
      <h3>Welcome <span sec:authentication="principal.username">User</span> to the Amazon Redshift Job Posting example app</h3>
      <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
 
-     <div id= "progress" class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+     <div  id ="progress"  class="progress">
+      <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:90%">
+        Retrieving Amazon Aurora Data...
+      </div>
      </div>
 
     <div class="row">
@@ -1058,68 +1060,79 @@ The **login.html** file is the application's login page.
 This application has a **contact_me.js** file that is used to send requests to the Spring Controller. Place this file in the **resources\public\js** folder. 
 
 ```javascript
-      $(function() {
+    $(function() {
 
-       $('#progress').hide();
+    $('#progress').hide();
 
-        $("#SendButton" ).click(function($e) {
+    $("#SendButton" ).click(function($e) {
 
-         var title = $('#title').val();
-         var body = $('#body').val();
-        
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", loadNewItems, false);
-        xhr.open("POST", "../addPost", true);   //buildFormit -- a Spring MVC controller
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-        xhr.send("title=" + title + "&body=" + body);
-        } );// END of the Send button click
+        var title = $('#title').val();
+        var body = $('#body').val();
 
-       function loadNewItems(event) {
+        $.ajax('/addPost', {
+            type: 'POST',  // http method
+            data: 'title=' + title + '&body=' + body ,  // data to submit
+            success: function (data, status, xhr) {
+
+                alert("You have successfully added an item")
+
+                $('#title').val("");
+                $('#body').val("");
+
+            }
+        });
+
+    } );// END of the Send button click
+
+    function loadNewItems(event) {
         var msg = event.target.responseText;
         alert("You have successfully added item "+msg)
 
         $('#title').val("");
         $('#body').val("");
-        }
-       } );
+     }
+    } );
+
+    function getDataValue() {
+     var radioValue = $("input[name='optradio']:checked").val();
+     return radioValue;
+    }
 
     function getPosts(num){
 
-     $('.xsearch-items').empty()
-     $('#progress').show();
-     var lang = $('#lang option:selected').text();
-    
-    var xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", loadItems, false);
-    xhr.open("POST", "../getPosts", true);   //buildFormit -- a Spring MVC controller
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-    xhr.send("lang=" + lang +"&number=" + num );
-    }
+    $('.xsearch-items').empty()
+    $('#progress').show();
+    var lang = $('#lang option:selected').text();
 
-    function loadItems(event) {
+    $.ajax('/getPosts', {
+        type: 'POST',  // http method
+        data: 'lang=' + lang+"&number=" + num ,  // data to submit
+        success: function (data, status, xhr) {
 
-    $('#progress').hide();
-    var xml = event.target.responseText;
-    $(xml).find('Item').each(function ()  {
+            var xml = data;
+            $('#progress').hide();
+            $(xml).find('Item').each(function () {
 
-        var $field = $(this);
-        var id = $field.find('Id').text();
-        var date = $field.find('Date').text();
-        var title = $field.find('Title').text();
-        var body = $field.find('Content').text();
-        var author = $field.find('Author').text();
-        
-        // Append this data to the main list.
-        $('.xsearch-items').append("<className='search-item'>");
-        $('.xsearch-items').append("<div class='search-item-content'>");
-        $('.xsearch-items').append("<h3 class='search-item-caption'><a href='#'>"+title+"</a></h3>");
-        $('.xsearch-items').append("<className='search-item-meta mb-15'>");
-        $('.xsearch-items').append("<className='list-inline'>");
-        $('.xsearch-items').append("<p><b>"+date+"</b></p>");
-        $('.xsearch-items').append("<p><b>'Posted by "+author+"</b></p>");
-        $('.xsearch-items').append("<div>");
-        $('.xsearch-items').append("<h6>"+body +"</h6>");
-        $('.xsearch-items').append("</div>");
+                var $field = $(this);
+                var id = $field.find('Id').text();
+                var date = $field.find('Date').text();
+                var title = $field.find('Title').text();
+                var body = $field.find('Content').text();
+                var author = $field.find('Author').text();
+
+                // Append this data to the main list.
+                $('.xsearch-items').append("<className='search-item'>");
+                $('.xsearch-items').append("<div class='search-item-content'>");
+                $('.xsearch-items').append("<h3 class='search-item-caption'><a href='#'>" + title + "</a></h3>");
+                $('.xsearch-items').append("<className='search-item-meta mb-15'>");
+                $('.xsearch-items').append("<className='list-inline'>");
+                $('.xsearch-items').append("<p><b>" + date + "</b></p>");
+                $('.xsearch-items').append("<p><b>'Posted by " + author + "</b></p>");
+                $('.xsearch-items').append("<div>");
+                $('.xsearch-items').append("<h6>" + body + "</h6>");
+                $('.xsearch-items').append("</div>");
+            });
+           }
        });
       }
 ```
