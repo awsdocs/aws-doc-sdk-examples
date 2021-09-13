@@ -5,6 +5,13 @@ sns_GetTopicAttributes:
   synopsis: get the properties of an &SNS; topic.
   category:
   languages:
+    C#:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/sns
+          excerpts:
+            - snippet_tags:
+                - sns.cs.get_topic_attributes.main
     C++:
       versions:
         - sdk_version: 1
@@ -55,6 +62,13 @@ sns_ListSubscriptions:
   synopsis: retrieve the list of subscribers of an &SNS; topic.
   category:
   languages:
+    C#:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/sns
+          excerpts:
+            - snippet_tags:
+                - SNS.dotnetv3.ListSNSSubscriptionsExample
     C++:
       versions:
         - sdk_version: 1
@@ -118,6 +132,13 @@ sns_ListTopics:
   synopsis: list &SNS; topics.
   category:
   languages:
+    C#:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/sns
+          excerpts:
+            - snippet_tags:
+                - SNS.dotnetv3.ListSNSTopicsExample
     C++:
       versions:
         - sdk_version: 1
@@ -386,6 +407,20 @@ sns_CheckIfPhoneNumberIsOptedOut:
   synopsis: check whether a phone number is opted out of receiving &SNS; messages.
   category:
   languages:
+    C#:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/sns
+          sdkguide: sdk-for-php/v3/developer-guide/sns-examples-sending-sms.html#check-if-a-phone-number-has-opted-out
+          excerpts:
+            - snippet_tags:
+                -     C#:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/sns
+          excerpts:
+            - snippet_tags:
+                - SNS.dotnetv3.CheckIfOptedOut
     PHP:
       versions:
         - sdk_version: 3
@@ -437,6 +472,13 @@ sns_CreateTopic:
   synopsis: create an &SNS; topic.
   category:
   languages:
+    C#:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/sns
+          excerpts:
+            - snippet_tags:
+                - SNS.dotnetv3.CreateSNSTopic
     C++:
       versions:
         - sdk_version: 1
@@ -500,6 +542,13 @@ sns_DeleteTopic:
   synopsis: delete an &SNS; topic and all subscriptions to that topic.
   category:
   languages:
+    C#:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/sns
+          excerpts:
+            - snippet_tags:
+                - SNS.dotnetv3.DeleteSNSTopicExample
     C++:
       versions:
         - sdk_version: 1
