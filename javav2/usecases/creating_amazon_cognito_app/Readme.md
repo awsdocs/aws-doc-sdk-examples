@@ -13,7 +13,7 @@ After the user enters their credentials, they can access the web application.
 
 ![AWS Tracking Application](images/pic3.png)
 
-The following illustration shows the project files created in this tutorial (most of these files were created by following the tutorial referenced in the previous link). The files circled in red are the new files specific to this tutorial. 
+The following illustration shows the project files created in this tutorial (most of these files were created by following the tutorial referenced in the **Creating the resources** section). The files circled in red are the new files specific to this tutorial. 
 
 ![AWS Tracking Application](images/pic4.png)
 
