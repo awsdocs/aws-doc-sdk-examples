@@ -85,6 +85,7 @@ Create an IntelliJ project that is used to create the web application.
 
 At this point, you have a new project named **BlogAurora**. Ensure that the pom.xml file resembles the following code.
 
+```xml
      <?xml version="1.0" encoding="UTF-8"?>
      <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -184,7 +185,8 @@ At this point, you have a new project named **BlogAurora**. Ensure that the pom.
         </plugins>
      </build>
     </project>
-     
+```
+
  ## Create the Java classes
  
  Create a Java package in the main/java folder named **com.aws.blog**. This Java classes go into this package. 
@@ -204,6 +206,7 @@ At this point, you have a new project named **BlogAurora**. Ensure that the pom.
 
 The following Java code represents the **BlogApp** class.
 
+```java
      package com.aws.blog;
 
      import org.springframework.boot.SpringApplication;
@@ -216,11 +219,13 @@ The following Java code represents the **BlogApp** class.
         SpringApplication.run(BlogApp.class, args);
       }
      }
+```
 
 ### BlogController class
 
 The following Java code represents the **BlogController** class.
 
+```java
      package com.aws.blog;
 
      import org.springframework.security.core.context.SecurityContextHolder;
@@ -289,12 +294,13 @@ The following Java code represents the **BlogController** class.
      }
     }
 
-
+```
 
 ### Post class
 
 The following Java code represents the **Post** class.
 
+```java
     package com.aws.blog;
 
     public class Post {
@@ -347,11 +353,13 @@ The following Java code represents the **Post** class.
         return this.id ;
      }
     }
+```
 
 ### RetrieveDataRDS class
 
 The following Java code represents the **RetrieveDataRDS** class. This class uses the Java JDBC API (V2) to interact with data located the **jobs** table.  For example, the **getPosts** method returns a result set that is queried from the **jobs** table and displayed in the view. Likewise, the **addRecord** method adds a new record to the **jobs** table. This class also uses the Amazon Translate Java V2 API to translation the result set if requested by the user. 
 
+```java
      package com.aws.blog;
 
      import org.springframework.stereotype.Component;
@@ -632,11 +640,13 @@ The following Java code represents the **RetrieveDataRDS** class. This class use
         return null;
       }
      }
+```
 
 ### ConnectionHelper class
 
 The following Java code represents the **ConnectionHelper** class.
 
+```java
     package com.aws.jdbc;
 
     import java.sql.Connection;
@@ -676,6 +686,7 @@ The following Java code represents the **ConnectionHelper** class.
         }
       }
      }
+```
 
 **Note:** The **URL** value is **localhost:3306**. Replace this value is modified with the endpoint of the Aurora database. You must also ensure that you specify the user name and password for your Aurora instance; otherwise your connection does not work.
 
@@ -684,6 +695,7 @@ The following Java code represents the **ConnectionHelper** class.
 
 The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application.
 
+```java
      package com.aws.blog;
 
      import org.springframework.context.annotation.Bean;
@@ -740,7 +752,7 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
         return new BCryptPasswordEncoder();
       }
      }
-    
+```    
 **Note**: In this example, the user credentials to log into the application are **user** and **password**.    
 
 ## Create the HTML file
@@ -756,6 +768,7 @@ At this point, you have created all of the Java files required for this example 
 ### index.html
 The **index.html** file is the application's home view. 
 
+```html
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
@@ -792,10 +805,12 @@ The **index.html** file is the application's home view.
     <div>
     </body>
     </html>
-
+```
+	    
 ### layout.html
 The following code represents the **layout.html** file that represents the application's menu.
 
+```html
      <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
      <head th:fragment="site-head">
@@ -807,7 +822,6 @@ The following code represents the **layout.html** file that represents the appli
     <body>
      <!-- th:hef calls a controller method - which returns the view -->
      <header th:fragment="site-header">
-     <a href="index.html" th:href="@{/}"><img src="../public/img/site-logo.png" th:src="@{/img/site-logo.png}" /></a>
      <a href="#" style="color: white" th:href="@{/}">Home</a>
      <a href="#" style="color: white" th:href="@{/add}">Add Post</a>
      <a href="#"  style="color: white" th:href="@{/posts}">Get Posts</a>
@@ -823,10 +837,12 @@ The following code represents the **layout.html** file that represents the appli
     <p>Welcome to  AWS Blog application.</p>
     </body>
     </html>
+```
 
 ### add.html
 The **add.html** file is the application's view that lets users post new items. 
 
+```html
       <!DOCTYPE html>
       <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
@@ -871,10 +887,12 @@ The **add.html** file is the application's view that lets users post new items.
        </div>
       </body>
      </html>
+```
 
 ### post.html
 The **post.html** file is the application's view that displays the items in the specific language. 
 
+```html
     <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
@@ -932,10 +950,12 @@ The **post.html** file is the application's view that displays the items in the 
      </div>
      </body>
     </html>
+```
 
 ### login.html
 The **login.html** file is the application's login page. 
 
+```html
      <!DOCTYPE html>
      <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 
@@ -1031,11 +1051,13 @@ The **login.html** file is the application's login page.
     </form>
     </body>
     </html>
-    
+```
+
 ### Create the JS File
 
 This application has a **contact_me.js** file that is used to send requests to the Spring Controller. Place this file in the **resources\public\js** folder. 
 
+```javascript
       $(function() {
 
        $('#progress').hide();
@@ -1100,6 +1122,7 @@ This application has a **contact_me.js** file that is used to send requests to t
         $('.xsearch-items').append("</div>");
        });
       }
+```
 
 ## Create a JAR file for the application
 
