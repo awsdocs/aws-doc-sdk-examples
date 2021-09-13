@@ -15,7 +15,7 @@ namespace ListItems
 
     /// <summary>
     /// Lists the items in an Amazon DynamoDB table. The name of the table and
-    /// the Amazon Region are defined in the application configuration file.
+    /// the AWS Region are defined in the application configuration file.
     /// This example was created using the AWS SDK for .NET version 3.7 and
     /// .NET Core 5.0.
     /// </summary>
@@ -33,7 +33,7 @@ namespace ListItems
             var region = string.Empty;
             var table = string.Empty;
 
-            // Get default Region and table from config file
+            // Get default AWS Region and table from config file.
             var efm = new ExeConfigurationFileMap
             {
                 ExeConfigFilename = configfile,
@@ -108,7 +108,7 @@ namespace ListItems
         /// </summary>
         /// <param name="client">An initialized DynamoDB client object.</param>
         /// <param name="tableName">The name of the table to scan.</param>
-        /// <returns>The responsse from the ScanAsync method.</returns>
+        /// <returns>The response from the ScanAsync method.</returns>
         public static async Task<ScanResponse> GetItemsAsync(IAmazonDynamoDB client, string tableName)
         {
             var response = await client.ScanAsync(new ScanRequest

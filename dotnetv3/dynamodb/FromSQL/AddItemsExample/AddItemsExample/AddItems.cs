@@ -22,7 +22,7 @@ namespace AddItems
     public class AddItems
     {
         /// <summary>
-        /// Retrieves the confirugation file, parses the command line
+        /// Retrieves the configuration file, parses the command line
         /// arguments, and displays the contents. Then it calls the
         /// AddItemsAsync method to add the list of new items to the
         /// DynamoDB table.
@@ -38,7 +38,7 @@ namespace AddItems
             string index;
             bool debug = false;
 
-            // Get default Region and table from config file
+            // Get default Region and table from config file.
             var efm = new ExeConfigurationFileMap
             {
                 ExeConfigFilename = configfile,
@@ -79,7 +79,7 @@ namespace AddItems
                 i++;
             }
 
-            // Make sure index is an int >= 0
+            // Make sure index is an int >= 0.
             int indexVal;
 
             try
@@ -111,10 +111,10 @@ namespace AddItems
 
             DebugPrint(debug, "Opened file " + filename);
 
-            // Store up to 25 at a time in an array
+            // Store up to 25 at a time in an array.
             string[] inputs = new string[26];
 
-            // Get column names from the first line
+            // Get column names from the first line.
             file.ReadLine();
 
             string line;
@@ -159,15 +159,15 @@ namespace AddItems
 
             string line;
 
-            // Read the rest of the file, line by line
+            // Read the rest of the file, line by line.
             for (int input = 1; input < inputs.Length; input++)
             {
                 line = inputs[input];
 
-                // Split line into columns
+                // Split line into columns.
                 string[] values = line.Split(',');
 
-                // If we don't have the right number of parts, something's wrong
+                // If we don't have the right number of parts, something's wrong.
                 if (values.Length != numcolumns)
                 {
                     Console.WriteLine("Did not have " + numcolumns.ToString() + " columns in: ");
@@ -191,7 +191,7 @@ namespace AddItems
                     }
                     else if (headers[i] == "Order_Date")
                     {
-                        // The datetime format is:
+                        // The DateTime format is:
                         // YYYY-MM-DD HH:MM:SS
                         DateTime myDateTime = DateTime.ParseExact(values[i], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
 

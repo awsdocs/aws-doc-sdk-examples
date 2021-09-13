@@ -29,7 +29,7 @@ namespace CreateTable
             string region;
             string table;
 
-            // Get default Region and table from config file
+            // Get default AWS Region and table from config file.
             var efm = new ExeConfigurationFileMap
             {
                 ExeConfigFilename = configfile,
@@ -45,7 +45,7 @@ namespace CreateTable
 
                 if ((region == string.Empty) || (table == string.Empty))
                 {
-                    Console.WriteLine("You must specify Region and Table values in " + configfile);
+                    Console.WriteLine("You must specify the AWS Region and Table values in " + configfile);
                     return;
                 }
             }

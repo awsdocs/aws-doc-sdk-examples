@@ -8,8 +8,9 @@ namespace UpdateItemDataModelExample
     // snippet-start:[dynamodb.dotnet35.UpdateItemDataModel.Entry]
 
     /// <summary>
-    /// If you change the table name elsewhere (as in an app.config in
-    /// another project), you'll have to change it here and rebuild.
+    /// If you change the table name elsewhere (for example, in an
+    /// app.config in another project), you'll have to change it
+    /// here and rebuild.
     /// </summary>
     [DynamoDBTable("CustomersOrdersProducts")]
     public class Entry

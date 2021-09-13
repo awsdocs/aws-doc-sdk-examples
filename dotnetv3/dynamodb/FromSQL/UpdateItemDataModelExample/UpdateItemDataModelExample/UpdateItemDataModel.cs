@@ -21,7 +21,7 @@ namespace UpdateItemDataModelExample
     {
         /// <summary>
         /// Retrieves the configuration settings, parses the command line, and
-        /// then UpdateItemDataModel.
+        /// then UpdateTableItemAsync method.
         /// </summary>
         /// <param name="args">Command line arguments for the application.</param>
         public static async Task Main(string[] args)
@@ -76,7 +76,7 @@ namespace UpdateItemDataModelExample
 
             if ((status == string.Empty) || (id == string.Empty) || ((status != "backordered") && (status != "delivered") && (status != "delivering") && (status != "pending")))
             {
-                Console.WriteLine("You must supply a partition number (-i ID), and status value (-s STATUS) of backordered, delivered, delivering, or pending");
+                Console.WriteLine("You must supply a partition number (-i ID), and status value (-s STATUS) of backordered, delivered, delivering, or pending.");
                 return;
             }
 
@@ -99,11 +99,11 @@ namespace UpdateItemDataModelExample
 
         /// <summary>
         /// Update an item in a DynamoDB table that uses the modified
-        /// data model describe in the Entry class.
+        /// data model described in the Entry class.
         /// </summary>
         /// <param name="context">The initialized DynamoDB context used
         /// to update the item in the DynamoDB table.</param>
-        /// <param name="id">The Id of the item to be updated.</param>
+        /// <param name="id">The id of the item to be updated.</param>
         /// <param name="status">The new status value to write to the
         /// existing item.</param>
         /// <returns>An Entry object containing the updated data.</returns>
