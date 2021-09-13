@@ -15,8 +15,8 @@ Inputs (replace in code):
 Running the code:
 node ses_sendemail.js
 
-// snippet-start:[ses.JavaScript.email.sendEmailV3]
 */
+// snippet-start:[ses.JavaScript.email.sendEmailV3]
 // Create the promise and SES service object
 
 // Import required AWS SDK clients and commands for Node.js
