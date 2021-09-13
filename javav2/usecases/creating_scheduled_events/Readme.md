@@ -111,30 +111,9 @@ At this point, you have a new project named **LambdaCronFunctions**.
 
 ![AWS Tracking Application](images/pic4.png)
 
-Add the following dependency for the Amazon SNS API (AWS SDK for Java version 2).
+Ensure that the pom.xml file looks like the following.
 
-     <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>sns</artifactId>
-      <version>2.10.41</version>
-    </dependency>
-
-
-Add the following dependencies for the Amazon DynamoDB API (AWS SDK for Java version 2).
-
-     <dependency>
-       <groupId>software.amazon.awssdk</groupId>
-       <artifactId>dynamodb-enhanced</artifactId>
-       <version>2.11.4-PREVIEW</version>
-     </dependency>
-     <dependency>
-       <groupId>software.amazon.awssdk</groupId>
-       <artifactId>dynamodb</artifactId>
-       <version>2.5.10</version>
-     </dependency>
-
-The pom.xml file looks like the following.
-
+```xml
      <?xml version="1.0" encoding="UTF-8"?>
       <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -255,6 +234,7 @@ The pom.xml file looks like the following.
     </plugins>
     </build>
     </project>
+```
     
 ## Create a Lambda function by using the AWS Lambda runtime Java API
 
@@ -272,6 +252,7 @@ Create these Java classes:
 
 This Java code represents the **Handler** class. The class creates a **ScanEmployees** object and invokes the **sendEmployeMessage** method. Notice that you can log messages to Amazon CloudWatch logs by using a **LambdaLogger** object.
 
+```java
     package com.aws.example;
 
     import com.amazonaws.services.lambda.runtime.Context;
@@ -292,11 +273,13 @@ This Java code represents the **Handler** class. The class creates a **ScanEmplo
         return null;
     }
 }
+```
 
 ### ScanEmployees class
 The **ScanEmployees** class uses both Amazon DynamoDB Java V2 API and the Amazon SNS Java V2 API. In the following code example, notice the use of an **Expression** object. This object is used to return employees that have a start date one year ago. For each employee returned, a text message is sent using the **SnsClient** object's **publish** method.  
 
-     package com.aws.example;
+```java
+    package com.aws.example;
 
      import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
      import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
@@ -420,11 +403,13 @@ The **ScanEmployees** class uses both Amazon DynamoDB Java V2 API and the Amazon
         return ann;
      }
     }
+```
 
 ### Employee class
 
 The **Employee** class is used with the DynamoDB enhanced client and maps the **Employee** data members to items in the **Employee** table. Notice that this class uses the **@DynamoDbBean** annotation.
 
+```java
      package com.aws.example;
 
      import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
@@ -473,6 +458,7 @@ The **Employee** class is used with the DynamoDB enhanced client and maps the **
         return this.first;
      }
     }
+```
 
 ## Package the project that contains the Lambda functions
 
