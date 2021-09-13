@@ -81,7 +81,7 @@ Create an IntelliJ project that is used to create the web application.
 
 7. Choose **Finish**.
 
-## Add the Spring POM dependencies to your project
+## Add the POM dependencies to your project
 
 At this point, you have a new project named **BlogAurora**. Ensure that the pom.xml file resembles the following code.
 
