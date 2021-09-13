@@ -1,5 +1,6 @@
 #  Creating scheduled events to invoke Lambda functions
 
+## Purpose
 You can create a scheduled event that invokes an AWS Lambda function by using an Amazon CloudWatch Event. You can configure a CloudWatch Event to use a cron expression to schedule when a Lambda function is invoked. For example, you can schedule a CloudWatch Event to invoke an AWS Lambda function every weekday. AWS Lambda is a compute service that enables you to run code without provisioning or managing servers.
 
 **Note**: You can create Lambda functions in various programming languages. For this tutorial, the AWS Lambda function is implemented by using the AWS Lambda Java runtime API. For more information about AWS Lambda, see
@@ -19,10 +20,6 @@ This AWS tutorial uses an Amazon DynamoDB table named **Employee** that contains
 
 ![AWS Tracking Application](images/pic00.png)
 
-**Cost to complete**: The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note**: Be sure to terminate all of the resources after you have completed this tutorial to ensure that you are not charged.
-
 #### Topics
 +	Prerequisites
 +	Create an AWS Identity and Access Management (IAM) role that is used to execute Lambda functions
@@ -38,8 +35,19 @@ To follow along with this tutorial, you need the following:
 + An AWS Account with proper credentials.
 + A Java IDE (for this tutorial, the IntelliJ IDE is used).
 + Java 1.8 JDK.
-+ Maven 3.6 or higher.
-+ An Amazon DynamoDB table named **Employee** with a key named **Id** and the fields shown in the previous illustration. Make sure you enter the correct data, including a valid mobile phone that you want to test this use case with. To learn how to create a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
++ Maven 3.6 or higher.+ 
+
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+An Amazon DynamoDB table named **Employee** with a key named **Id** and the fields shown in the previous illustration. Make sure you enter the correct data, including a valid mobile phone that you want to test this use case with. To learn how to create a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+
 
 ## Create an IAM role that's used to execute Lambda functions
 
