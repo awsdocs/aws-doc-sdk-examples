@@ -125,15 +125,6 @@ cross_LambdaAPIGateway:
     - lambda
     - dynamodb
     - sns
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          block_content: cross_LambdaAPIGateway_JavaScript_block.xml
-  services:
-    - api-gateway
-    - lambda
-    - dynamodb
-    - sns
 cross_LambdaScheduledEvents:
   title: Use scheduled events to invoke a &LAM; function
   title_abbrev: Use scheduled events to invoke a &LAM; function 
