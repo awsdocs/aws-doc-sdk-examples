@@ -8,14 +8,12 @@ in images located in an Amazon Simple Storage Service (Amazon S3) bucket.
 In addition, the app stores the information in an Amazon DynamoDB table, and notifies a specified used by email 
 using the Amazon Simple Email (Amazon SES) service.
 
-![AWS Tracking Application](images/readme_images/email.png)
-
 This tutorial shows you how to use the AWS SDK for JavaScript V3 API to invoke these AWS services: 
 
 - Amazon S3 service
 - Amazon Rekognition service
 - Amazon DynamoDB service
-- Amazon SES
+- Amazon SES service
 
 **Cost to complete**: The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
 
@@ -29,16 +27,15 @@ To build this cross-service example, you need the following:
 * A project environment to run this Node JavaScript example, and install the required AWS SDK for JavaScript and third-party modules.  For instructions, see [Create a Node.js project environment](#create-a-nodejs-project-environment) on this page.
 * At least one email address verified on Amazon SES. For instructions, see [Verifying an email address on Amazon SES](#verifying-an-email-address-on-amazon-ses).
 * The following AWS resources:
-    - An unauthenticated AWS Identity and Access Management (IAM) user role with the following permissions:
-        - sns:*
+    - An unauthenticated AWS Identity and Access Management (IAM) user role with required permissions (described below).
+    - An Amazon DynamoDB table named **PPE** with a key named **id**. 
 **Note**: An unauthenticated role enables you to provide permissions to unauthenticated users to use the AWS Services. To create an authenticated role, see [Amazon Cognito Identity Pools (Federated Identities)](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html).   
-* An Amazon DynamoDB table named **PPE** with a key named **id**. 
+
 
 ## ⚠ Important
 * We recommend that you grant this code least privilege, or at most the minimum permissions required to perform the task. For more information, see [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) in the *AWS Identity and Access Management User Guide*. 
 * This code has not been tested in all AWS Regions. Some AWS services are available only in specific [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 * Running this code might result in charges to your AWS account. We recommend you destroy the resources when you are finished. For instructions, see [Destroying the resources](#destroying-the-resources).
-* Running the unit tests might result in charges to your AWS account.
 * This tutorial is written to work with the specific versions defined in the *package.json*. If you change these versions, the tutorial may not work correctly.
 
 ## Create the resources
@@ -220,16 +217,15 @@ import { DetectProtectiveEquipmentCommand } from "@aws-sdk/client-rekognition";
 import { PutItemCommand } from "@aws-sdk/client-dynamodb";
 
 const BUCKET = "S3_BUCKET_NAME";
-const TABLE = "DDB_TABLE_NAME";  // For example, 'ppe'.
-const FROM_EMAIL = "SENDER_EMAIL";
+const TABLE = "DDB_TABLE_NAME";
+const FROM_EMAIL = "SENDER_EMAIL_ADDRESS";
 ```
 
 Next, you define functions for working with the table.
 ```
-const sendEmail = async () => {
-  const toEmail = document.getElementById("email").value;
+export const sendEmail = async () => {
   // Helper function to send an email to user.
-  const fromEmail = FROM_EMAIL;
+  const TO_EMAIL = document.getElementById("email").value;
   try {
     // Set the parameters
     const params = {
@@ -239,7 +235,7 @@ const sendEmail = async () => {
           /* more items */
         ],
         ToAddresses: [
-          toEmail, //RECEIVER_ADDRESS
+          TO_EMAIL, //RECEIVER_ADDRESS
           /* more To-email addresses */
         ],
       },
@@ -250,16 +246,16 @@ const sendEmail = async () => {
           Html: {
             Charset: "UTF-8",
             Data:
-              "<h1>Hello!</h1>" +
-              "<p> The Amazon DynamoDB table " +
-              TABLE +
-              " has been updated with PPE information <a href='https://" +
-              REGION +
-              ".console.aws.amazon.com/dynamodb/home?region=" +
-              REGION +
-              "item-explorer?table=" +
-              TABLE +
-              ">here.</p>",
+                "<h1>Hello!</h1>" +
+                "<p> The Amazon DynamoDB table " +
+                TABLE +
+                " has been updated with PPE information <a href='https://" +
+                REGION +
+                ".console.aws.amazon.com/dynamodb/home?region=" +
+                REGION +
+                "#item-explorer?table=" +
+                TABLE +
+                "'>here.</a></p>"
           },
         },
         Subject: {
@@ -279,7 +275,7 @@ const sendEmail = async () => {
   }
 };
 
-const processImages = async () => {
+export const processImages = async () => {
   try {
     const listPhotosParams = {
       Bucket: BUCKET,
@@ -309,19 +305,19 @@ const processImages = async () => {
           RequiredEquipmentTypes: ["FACE_COVER", "HAND_COVER", "HEAD_COVER"],
         },
       };
-      const lastdata = await rekognitionClient.send(
-        new DetectProtectiveEquipmentCommand(imageParams)
+      const ppedata = await rekognitionClient.send(
+          new DetectProtectiveEquipmentCommand(imageParams)
       );
 
       // Parse the results using conditional nested loops.
-      const noOfPeople = lastdata.Persons.length;
+      const noOfPeople = ppedata.Persons.length;
       for (let i = 0; i < noOfPeople; i++) {
-        if (lastdata.Persons[i].BodyParts[0].EquipmentDetections.length === 0) {
-          const noOfBodyParts = lastdata.Persons[i].BodyParts.length;
+        if (ppedata.Persons[i].BodyParts[0].EquipmentDetections.length === 0) {
+          const noOfBodyParts = ppedata.Persons[i].BodyParts.length;
           for (let j = 0; j < noOfBodyParts; j++) {
-            const bodypart = lastdata.Persons[i].BodyParts[j].Name;
-            const confidence = lastdata.Persons[i].BodyParts[j].Confidence;
-            var equipment = "Not idenfified";
+            const bodypart = ppedata.Persons[i].BodyParts[j].Name;
+            const confidence = ppedata.Persons[i].BodyParts[j].Confidence;
+            var equipment = "Not identified";
             const val = Math.floor(1000 + Math.random() * 9000);
             const id = val.toString() + "";
             const image = imageParams.Image.S3Object.Name;
@@ -332,20 +328,20 @@ const processImages = async () => {
                 bodyPart: { S: bodypart + "" },
                 confidence: { S: confidence + "" },
                 equipment: { S: equipment + "" },
-                image: { S: image }
+                image: { S: image },
               },
             };
             const tableData = await dynamoDBClient.send(
-              new PutItemCommand(ppeParams)
+                new PutItemCommand(ppeParams)
             );
           }
         } else {
-          const noOfBodyParts = lastdata.Persons[i].BodyParts.length;
+          const noOfBodyParts = ppedata.Persons[i].BodyParts.length;
           for (let j = 0; j < noOfBodyParts; j++) {
-            const bodypart = lastdata.Persons[i].BodyParts[j].Name;
-            const confidence = lastdata.Persons[i].BodyParts[j].Confidence;
+            const bodypart = ppedata.Persons[i].BodyParts[j].Name;
+            const confidence = ppedata.Persons[i].BodyParts[j].Confidence;
             var equipment =
-              lastdata.Persons[i].BodyParts[j].EquipmentDetections[0].Type;
+                ppedata.Persons[i].BodyParts[j].EquipmentDetections[0].Type;
             const val = Math.floor(1000 + Math.random() * 9000);
             const id = val.toString() + "";
             const image = imageParams.Image.S3Object.Name;
@@ -356,20 +352,24 @@ const processImages = async () => {
                 bodyPart: { S: bodypart + "" },
                 confidence: { S: confidence + "" },
                 equipment: { S: equipment + "" },
-                image: { S: image }
+                image: { S: image },
               },
             };
             const tableData = await dynamoDBClient.send(
-              new PutItemCommand(ppeParams)
+                new PutItemCommand(ppeParams)
             );
           }
         }
       }
     }
     alert("Images analyzed and table updated.");
-    sendEmail();
   } catch (err) {
     console.log("Error analyzing images. ", err);
+  }
+  try {
+    sendEmail();
+  } catch (err) {
+    alert("Error sending email");
   }
 };
 // Expose the function to the browser.
@@ -387,8 +387,8 @@ To bundle the JavaScript and Node.js for this example in a single file named mai
 enter the following commands in sequence in the AWS CLI command line:
 
 ```
-cd javascriptv3/example_code/cross-services/detect-ppe/src
-webpack index.js --mode development --target web --devtool false -o main.js
+cd javascriptv3/example_code/cross-services/photo-analyzer-ppe
+webpack ./js/index.js --mode development --target web --devtool false -o ./js/main.js
 ```
 ## Run the app
 Open the index.html in your favorite browser, and follow the onscreen instructions.
@@ -401,6 +401,8 @@ Open the index.html in your favorite browser, and follow the onscreen instructio
 5. Select the stack you created in [Create the resources](#create-the-resources) on this page.
 
 6. Choose **Delete**.
+
+**Note**: If any of the resources have been altered, you must manually delete them via the AWS Console.
 
 ### Next steps
 Congratulations! You have created and deployed the AWS Photo Analyzer application. 
