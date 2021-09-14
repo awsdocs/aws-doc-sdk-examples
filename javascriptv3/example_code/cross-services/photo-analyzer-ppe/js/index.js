@@ -62,9 +62,9 @@ export const sendEmail = async () => {
                 REGION +
                 ".console.aws.amazon.com/dynamodb/home?region=" +
                 REGION +
-                "item-explorer?table=" +
+                "#item-explorer?table=" +
                 TABLE +
-                ">here.</p>",
+                "'>here.</a></p>"
           },
         },
         Subject: {
