@@ -106,6 +106,25 @@ cross_LambdaAPIGateway:
   title_abbrev: Use &ABP; to invoke a &LAM; function 
   synopsis: create an &LAMlong; function invoked by &ABPlong; that sends anniversary text messages.
   languages:
+    cross_LambdaAPIGateway:
+  title: Use &ABP; to invoke a &LAM; function
+  title_abbrev: Use &ABP; to invoke a &LAM; function 
+  synopsis: create an &LAMlong; function invoked by &ABPlong; that sends anniversary text messages.
+  languages:
+    languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_LambdaAPIGateway_Java_block.xml
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          block_content: cross_LambdaAPIGateway_JavaScript_block.xml
+  services:
+    - api-gateway
+    - lambda
+    - dynamodb
+    - sns
     JavaScript:
       versions:
         - sdk_version: 3
@@ -121,11 +140,7 @@ cross_LambdaScheduledEvents:
   synopsis: create an &LAMlong; function invoked by an &EVlong; scheduled event that
     sends anniversary text messages.
   languages:
-     Java:
-      versions:
-        - sdk_version: 2
-          block_content: cross_LambdaAPIGateway_Java_block.xml
-     JavaScript:
+    JavaScript:
       versions:
         - sdk_version: 3
           block_content: cross_LambdaScheduledEvents_JavaScript_block.xml
