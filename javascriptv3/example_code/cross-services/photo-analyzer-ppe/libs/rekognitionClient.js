@@ -19,7 +19,7 @@ import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 const REGION = "REGION"; // e.g., 'us-east-2'
 const IDENTITY_POOL_ID = "IDENTITY_POOL_ID"; // An Amazon Cognito Identity Pool ID.
 
-// Create an AWS Lambda client service object that initializes the Amazon Cognito credentials provider.
+// Create an Amazon Rekognition client service object that initializes the Amazon Cognito credentials provider.
 const rekognitionClient = new RekognitionClient({
   region: REGION,
   credentials: fromCognitoIdentityPool({

@@ -4,7 +4,7 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript versi
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-sesClient.js is a helper function that creates the Amazon Rekognition client using ES6 syntax.
+sesClient.js is a helper function that creates the Amazon Simple Email Service (SES) client using ES6 syntax.
 
 Inputs (replace in code):
 - REGION
@@ -19,7 +19,7 @@ import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 const REGION = "REGION"; // e.g., 'us-east-2'
 const IDENTITY_POOL_ID = "IDENTITY_POOL_ID"; // An Amazon Cognito Identity Pool ID.
 
-// Create an AWS Lambda client service object that initializes the Amazon Cognito credentials provider.
+// Create an Amazon SES client service object that initializes the Amazon Cognito credentials provider.
 const sesClient = new SESClient({
   region: REGION,
   credentials: fromCognitoIdentityPool({

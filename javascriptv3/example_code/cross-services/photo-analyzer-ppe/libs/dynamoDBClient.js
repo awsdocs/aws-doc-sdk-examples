@@ -19,7 +19,7 @@ import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 const REGION = "REGION"; // e.g., 'us-east-2'
 const IDENTITY_POOL_ID = "IDENTITY_POOL_ID"; // An Amazon Cognito Identity Pool ID.
 
-// Create an AWS DynaomDB client service object that initializes the Amazon Cognito credentials provider.
+// Create an Amazon DynamoDB client service object that initializes the Amazon Cognito credentials provider.
 const dynamoDBClient = new DynamoDBClient({
   region: REGION,
   credentials: fromCognitoIdentityPool({

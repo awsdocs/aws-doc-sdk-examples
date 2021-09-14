@@ -15,6 +15,7 @@ Inputs (replace in code):
 import { S3Client } from "@aws-sdk/client-s3";
 import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
+
 // Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"
 const IDENTITY_POOL_ID = "IDENTITY_POOL_ID"; //e.g. "us-east-1"
