@@ -106,6 +106,10 @@ cross_LambdaAPIGateway:
   title_abbrev: Use &ABP; to invoke a &LAM; function 
   synopsis: create an &LAMlong; function invoked by &ABPlong; that sends anniversary text messages.
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_LambdaAPIGateway_Java_block.xml
     JavaScript:
       versions:
         - sdk_version: 3
