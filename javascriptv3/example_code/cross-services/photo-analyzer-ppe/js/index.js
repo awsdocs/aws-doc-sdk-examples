@@ -30,12 +30,11 @@ import { PutItemCommand } from "@aws-sdk/client-dynamodb";
 
 const BUCKET = "S3_BUCKET_NAME";
 const TABLE = "DDB_TABLE_NAME";
-const FROM_EMAIL = "SENDER_EMAIL";
+const FROM_EMAIL = "SENDER_EMAIL_ADDRESS";
 
-const sendEmail = async () => {
-  const toEmail = document.getElementById("email").value;
+export const sendEmail = async () => {
   // Helper function to send an email to user.
-  const fromEmail = FROM_EMAIL;
+  const TO_EMAIL = document.getElementById("email").value;
   try {
     // Set the parameters
     const params = {
@@ -45,7 +44,7 @@ const sendEmail = async () => {
           /* more items */
         ],
         ToAddresses: [
-          toEmail, //RECEIVER_ADDRESS
+          TO_EMAIL, //RECEIVER_ADDRESS
           /* more To-email addresses */
         ],
       },
@@ -56,16 +55,16 @@ const sendEmail = async () => {
           Html: {
             Charset: "UTF-8",
             Data:
-              "<h1>Hello!</h1>" +
-              "<p> The Amazon DynamoDB table " +
-              TABLE +
-              " has been updated with PPE information <a href='https://" +
-              REGION +
-              ".console.aws.amazon.com/dynamodb/home?region=" +
-              REGION +
-              "item-explorer?table=" +
-              TABLE +
-              ">here.</p>",
+                "<h1>Hello!</h1>" +
+                "<p> The Amazon DynamoDB table " +
+                TABLE +
+                " has been updated with PPE information <a href='https://" +
+                REGION +
+                ".console.aws.amazon.com/dynamodb/home?region=" +
+                REGION +
+                "item-explorer?table=" +
+                TABLE +
+                ">here.</p>",
           },
         },
         Subject: {
@@ -85,7 +84,7 @@ const sendEmail = async () => {
   }
 };
 
-const processImages = async () => {
+export const processImages = async () => {
   try {
     const listPhotosParams = {
       Bucket: BUCKET,
@@ -115,19 +114,19 @@ const processImages = async () => {
           RequiredEquipmentTypes: ["FACE_COVER", "HAND_COVER", "HEAD_COVER"],
         },
       };
-      const lastdata = await rekognitionClient.send(
-        new DetectProtectiveEquipmentCommand(imageParams)
+      const ppedata = await rekognitionClient.send(
+          new DetectProtectiveEquipmentCommand(imageParams)
       );
 
       // Parse the results using conditional nested loops.
-      const noOfPeople = lastdata.Persons.length;
+      const noOfPeople = ppedata.Persons.length;
       for (let i = 0; i < noOfPeople; i++) {
-        if (lastdata.Persons[i].BodyParts[0].EquipmentDetections.length === 0) {
-          const noOfBodyParts = lastdata.Persons[i].BodyParts.length;
+        if (ppedata.Persons[i].BodyParts[0].EquipmentDetections.length === 0) {
+          const noOfBodyParts = ppedata.Persons[i].BodyParts.length;
           for (let j = 0; j < noOfBodyParts; j++) {
-            const bodypart = lastdata.Persons[i].BodyParts[j].Name;
-            const confidence = lastdata.Persons[i].BodyParts[j].Confidence;
-            var equipment = "Not idenfified";
+            const bodypart = ppedata.Persons[i].BodyParts[j].Name;
+            const confidence = ppedata.Persons[i].BodyParts[j].Confidence;
+            var equipment = "Not identified";
             const val = Math.floor(1000 + Math.random() * 9000);
             const id = val.toString() + "";
             const image = imageParams.Image.S3Object.Name;
@@ -142,16 +141,16 @@ const processImages = async () => {
               },
             };
             const tableData = await dynamoDBClient.send(
-              new PutItemCommand(ppeParams)
+                new PutItemCommand(ppeParams)
             );
           }
         } else {
-          const noOfBodyParts = lastdata.Persons[i].BodyParts.length;
+          const noOfBodyParts = ppedata.Persons[i].BodyParts.length;
           for (let j = 0; j < noOfBodyParts; j++) {
-            const bodypart = lastdata.Persons[i].BodyParts[j].Name;
-            const confidence = lastdata.Persons[i].BodyParts[j].Confidence;
+            const bodypart = ppedata.Persons[i].BodyParts[j].Name;
+            const confidence = ppedata.Persons[i].BodyParts[j].Confidence;
             var equipment =
-              lastdata.Persons[i].BodyParts[j].EquipmentDetections[0].Type;
+                ppedata.Persons[i].BodyParts[j].EquipmentDetections[0].Type;
             const val = Math.floor(1000 + Math.random() * 9000);
             const id = val.toString() + "";
             const image = imageParams.Image.S3Object.Name;
@@ -166,19 +165,22 @@ const processImages = async () => {
               },
             };
             const tableData = await dynamoDBClient.send(
-              new PutItemCommand(ppeParams)
+                new PutItemCommand(ppeParams)
             );
           }
         }
       }
     }
     alert("Images analyzed and table updated.");
-    sendEmail();
   } catch (err) {
     console.log("Error analyzing images. ", err);
+  }
+  try {
+    sendEmail();
+  } catch (err) {
+    alert("Error sending email");
   }
 };
 // Expose the function to the browser.
 window.processImages = processImages;
-
 // snippet-end:[s3.JavaScript.detect-ppe.indexv3]
