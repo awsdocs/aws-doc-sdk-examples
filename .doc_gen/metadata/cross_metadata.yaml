@@ -125,7 +125,7 @@ cross_LambdaScheduledEvents:
       versions:
         - sdk_version: 2
           block_content: cross_LambdaAPIGateway_Java_block.xml
-    JavaScript:
+     JavaScript:
       versions:
         - sdk_version: 3
           block_content: cross_LambdaScheduledEvents_JavaScript_block.xml
