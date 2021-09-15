@@ -176,3 +176,17 @@ cross_TranscriptionStreamingApp:
     - comprehend
     - transcribe
     - ses
+cross_RekognitionVideoDetection:
+  title: Detect people and objects in a video with &REK; using an &AWS; SDK
+  title_abbrev: Detect people and objects in a video
+  synopsis: detect people and objects in a video with &REK;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_RekognitionVideoDetection_Python_block.xml
+  services:
+    - rekognition
+    - sns
+    - sqs
