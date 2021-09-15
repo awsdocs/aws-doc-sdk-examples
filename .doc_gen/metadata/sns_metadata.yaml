@@ -8,10 +8,10 @@ sns_GetTopicAttributes:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/sns
+          github: dotnetv3/SNS
           excerpts:
             - snippet_tags:
-                - sns.cs.get_topic_attributes.main
+                - SNS.dotnetv3.GetTopicAttributesExample
     C++:
       versions:
         - sdk_version: 1
@@ -65,7 +65,7 @@ sns_ListSubscriptions:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/sns
+          github: dotnetv3/SNS
           excerpts:
             - snippet_tags:
                 - SNS.dotnetv3.ListSNSSubscriptionsExample
@@ -135,7 +135,7 @@ sns_ListTopics:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/sns
+          github: dotnetv3/SNS
           excerpts:
             - snippet_tags:
                 - SNS.dotnetv3.ListSNSTopicsExample
@@ -410,7 +410,7 @@ sns_CheckIfPhoneNumberIsOptedOut:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/sns
+          github: dotnetv3/SNS
           sdkguide: 
           excerpts:
             - snippet_tags:
@@ -469,7 +469,7 @@ sns_CreateTopic:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/sns
+          github: dotnetv3/SNS
           excerpts:
             - snippet_tags:
                 - SNS.dotnetv3.CreateSNSTopic
@@ -539,7 +539,7 @@ sns_DeleteTopic:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/sns
+          github: dotnetv3/SNS
           excerpts:
             - snippet_tags:
                 - SNS.dotnetv3.DeleteSNSTopicExample
