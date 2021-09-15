@@ -52,7 +52,7 @@ function ProcessImage() {
     reader.readAsArrayBuffer(file);
 }
 
-//snippet-start:[rekognition.JavaScript.alternative.detect_faces_v2]
+//snippet-end:[rekognition.JavaScript.alternative.detect_faces_v2]
 
 //Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //PDX-License-Identifier: MIT-0 (For details, see https://github.com/awsdocs/amazon-rekognition-developer-guide/blob/master/LICENSE-SAMPLECODE.)
