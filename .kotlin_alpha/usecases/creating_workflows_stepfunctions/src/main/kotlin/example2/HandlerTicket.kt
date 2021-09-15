@@ -15,8 +15,8 @@ class HandlerTicket: RequestHandler<String, String> {
 
     override fun handleRequest(event: String, context: Context): String = runBlocking {
 
-        var phoneNum = "18195765654"
-        var phoneNum2 = "18195765654"
+        var phoneNum = "<Enter Mobile number>"
+        var phoneNum2 = "<Enter Mobile number>"
         val logger = context.logger
         val gson = GsonBuilder().create()
 
