@@ -28,7 +28,7 @@ In this tutorial, you create a workflow that creates support tickets for an orga
 ## Prerequisites
 To follow along with the tutorial, you need the following:
 + An AWS Account.
-+ A Java IDE (for this tutorial, the IntelliJ IDE is used).
++ A Java IDE (for this tutorial, the IntelliJ IDE is used that has the Kotlin plug-in installed).
 + Java 1.8 JDK.
 + Maven 3.6 or higher.+ 
 
