@@ -1,3 +1,9 @@
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
+
 package example2
 
 import com.amazonaws.services.lambda.runtime.Context
