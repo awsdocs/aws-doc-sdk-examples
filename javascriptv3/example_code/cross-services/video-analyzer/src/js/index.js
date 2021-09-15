@@ -2,8 +2,7 @@
     SPDX-License-Identifier: Apache-2.0
 
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/video-analyzer.html.
+which is available at https://github.com/aws/aws-sdk-js-v3. 
 
 Purpose:
 index.js contains the JavaScript for an web app that analyzes videos for label detection using the
@@ -11,15 +10,19 @@ AWS JavaScript SDK for JavaScript v3.
 
 Inputs:
 - BUCKET
-- SNS_TOPIC_ARN
 - IAM_ROLE_ARN
 
-Running the code:
-To run the full tutorial, see
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/video-analyzer.html.
  */
 <!-- snippet-start:[rekognition.Javascript.video-analyzer.complete]-->
 <!-- snippet-start:[rekognition.Javascript.video-analyzer.config]-->
+import { rekognitionClient } from "../libs/rekognitionClient.js";
+import { s3Client } from "../libs/s3Client.js";
+import { sesClient } from "../libs/sesClient.js";
+import { SendEmailCommand } from "@aws-sdk/client-ses";
+import { ListObjectsCommand } from "@aws-sdk/client-s3";
+import { StartFaceDetectionCommand, GetFaceDetectionCommand } from "@aws-sdk/client-rekognition";
+const BUCKET = "BUCKET_NAME";
+const IAM_ROLE_ARN = "IAM_ROLE_ARN";
 
 <!-- snippet-end:[rekognition.Javascript.video-analyzer.config]-->
 <!-- snippet-start:[rekognition.Javascript.video-analyzer.upload]-->
@@ -34,10 +37,6 @@ $(function () {
   });
 });
 // Upload the video.
-
-const BUCKET = "BUCKET_NAME";
-const SNS_TOPIC_ARN = "SNS_TOPIC_ARN";
-const IAM_ROLE_ARN = "IAM_ROLE_ARN";
 
 const uploadVideo = async () => {
   try {
@@ -214,7 +213,7 @@ const uploadFile = async (csv) => {
 // Helper function to send an email to user.
 const sendEmail = async (bucket, key) => {
   const toEmail = document.getElementById("email").value;
-  const fromEmail = "SENDER_ADDRESS";// 
+  const fromEmail = "SENDER_ADDRESS";//
   try {
     const linkToCSV =
       "https://s3.console.aws.amazon.com/s3/object/" +

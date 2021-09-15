@@ -275,7 +275,7 @@ const rekognitionClient = new RekognitionClient({
 
 export { rekognitionClient };
 ```
-In **./src/index.js**, you first import all the required AWS Service and third party modules, and set global parameters.
+In **./src/js/index.js**, you first import all the required AWS Service and third party modules, and set global parameters.
 ```
 import { DetectLabelsCommand } from "@aws-sdk/client-rekognition";
 import { rekognitionClient } from "../libs/rekognitionClient.js";
@@ -285,10 +285,8 @@ import { sesClient } from "../libs/sesClient.js";
 import { SendEmailCommand } from "@aws-sdk/client-ses";
 
 // Set global parameters.
-const BUCKET_IMAGES =
-    "BUCKET_IMAGES";
-const BUCKET_REPORTS =
-    "BUCKET_REPORTs";
+const BUCKET_IMAGES = "BUCKET_IMAGES";
+const BUCKET_REPORTS ="BUCKET_REPORTs";
 const EMAIL_SENDER_ADDRESS = "EMAIL_SENDER_ADDRESS"; // A verified Amazon SES email.
 ```
 
