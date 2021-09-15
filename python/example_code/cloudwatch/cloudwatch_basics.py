@@ -8,6 +8,7 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon CloudWatch to create
 and manage custom metrics and alarms.
 """
 
+# snippet-start:[python.example_code.cloudwatch.imports]
 from datetime import datetime, timedelta
 import logging
 from pprint import pprint
@@ -18,6 +19,8 @@ from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
+# snippet-end:[python.example_code.cloudwatch.imports]
+
 
 # snippet-start:[python.example_code.cloudwatch.CloudWatchWrapper]
 class CloudWatchWrapper:
@@ -27,7 +30,6 @@ class CloudWatchWrapper:
         :param cloudwatch_resource: A Boto3 CloudWatch resource.
         """
         self.cloudwatch_resource = cloudwatch_resource
-
 # snippet-end:[python.example_code.cloudwatch.CloudWatchWrapper]
 
 # snippet-start:[python.example_code.cloudwatch.ListMetrics]
@@ -250,6 +252,7 @@ class CloudWatchWrapper:
 # snippet-end:[python.example_code.cloudwatch.DeleteAlarms]
 
 
+# snippet-start:[python.example_code.cloudwatch.Usage_MetricsAlarms]
 def usage_demo():
     print('-'*88)
     print("Welcome to the Amazon CloudWatch metrics and alarms demo!")
@@ -322,6 +325,7 @@ def usage_demo():
 
     print("Thanks for watching!")
     print('-'*88)
+# snippet-end:[python.example_code.cloudwatch.Usage_MetricsAlarms]
 
 
 if __name__ == '__main__':

@@ -1,5 +1,6 @@
 # Using Amazon Cognito to require a user to log into a web application
 
+## Purpose
 Amazon Cognito lets you add user sign-up, sign-in, and access control to your web applications. Amazon Cognito scales to millions of users and supports sign-in with social identity providers, such as Facebook, Google, and enterprise identity providers such as OAuth2. In this tutorial, OAuth2 and Amazon Cognito are used to protect a web application. This means a user has to log into the application by using the credentials of a user defined in an Amazon Cognito User Pool. For example, when a user accesses a web application, they see a web page that lets anonymous users view a log in page, as shown in the following illustration.   
 
 ![AWS Tracking Application](images/pic1a.png)
@@ -12,27 +13,13 @@ After the user enters their credentials, they can access the web application.
 
 ![AWS Tracking Application](images/pic3.png)
 
-**Note**: The Spring Boot application used in this tutorial is created by following [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_first_project). Before following along with this tutorial, you must complete that tutorial. 
-
-The following illustration shows the project files created in this tutorial (most of these files were created by following the tutorial referenced in the previous link). The files circled in red are the new files specific to this tutorial. 
+The following illustration shows the project files created in this tutorial (most of these files were created by following the tutorial referenced in the **Creating the resources** section). The files circled in red are the new files specific to this tutorial. 
 
 ![AWS Tracking Application](images/pic4.png)
 
-## Prerequisites
-
-To complete the tutorial, you need the following:
-
-+ An AWS account
-+ A Java IDE (this example uses IntelliJ)
-+ Java 1.8 SDK and Maven
-+ Complete the Creating your first AWS Java web application tutorial. 
-
-**Cost to complete:** The AWS services you'll use in this example are part of the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note:** When you're done developing the application, be sure to delete all of the resources you created to ensure that you're not charged.
-
 **Topics**
 
++ Prerequisites
 + Update the POM file
 + Create an Amazon Cognito User Pool
 + Define a client application within the User Pool
@@ -41,10 +28,33 @@ To complete the tutorial, you need the following:
 + Create a user
 + Modify your web application
 
+
+## Prerequisites
+
+To complete the tutorial, you need the following:
+
++ An AWS account
++ A Java IDE (this tutorial uses the IntelliJ IDE)
++ Java JDK 1.8
++ Maven 3.6 or later+ 
+
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+Complete the **Creating your first AWS Java web application** tutorial. For information, see [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_first_project).
+
+
 ## Update the POM file
 
 The first step in this tutorial is to update the POM file in your project to ensure you have the required dependencies (this is the project you created by following the Creating your first AWS Java web application tutorial). Ensure your project has the following POM dependencies. 
 
+```xml
       <?xml version="1.0" encoding="UTF-8"?>
       <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -118,7 +128,7 @@ The first step in this tutorial is to update the POM file in your project to ens
         </plugins>
        </build>
      </project>
-
+```
 
 ## Create an Amazon Cognito User Pool
 
@@ -220,6 +230,7 @@ If you do not have a web project, create one by following [Creating your first A
 
 Add the **WebSecurityConfig** class to the **com.example.handlingformsubmission** package. This file ensures that the application rerquires a user to log into it. The following Java code represents this class. 
 
+```java
      package com.example.handlingformsubmission;
 
     import org.springframework.context.annotation.Configuration;
@@ -243,6 +254,7 @@ Add the **WebSecurityConfig** class to the **com.example.handlingformsubmission*
                 .logoutSuccessUrl("/");
       }
     }
+```
 
 ### Add an application YML file to your project
 
@@ -267,6 +279,7 @@ Under your project’s resource folder, add a new file named **application.yml**
  
 The final step in the AWS tutorial is to modify the **greeting.html** file located under resources/templates folder. You have to add logic to inform the application what content is available for anonymous users and what content can be viewed by authenticated users. Add the following code to the **greeting.html** file. 
 
+```html
      <!DOCTYPE HTML>
      <html lang="en"
        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
@@ -318,6 +331,7 @@ The final step in the AWS tutorial is to modify the **greeting.html** file locat
      </div>
      </body>
     </html>
+```
 
 ### Next steps
 Congratulations, you have required a user to log into a web application by using Amazon Cognito. As stated at the beginning of this tutorial, be sure to delete all of the resources you created while going through this tutorial to ensure that you’re not charged.
