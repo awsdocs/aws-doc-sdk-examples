@@ -51,7 +51,8 @@ EXT_LOOKUP = {
 IGNORE_FOLDERS = {
     'venv',
     '__pycache__',
-    '.pytest_cache'
+    '.pytest_cache',
+    '.doc_gen'
 }
 
 # files to skip
