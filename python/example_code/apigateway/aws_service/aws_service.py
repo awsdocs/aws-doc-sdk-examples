@@ -8,6 +8,7 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon API Gateway to
 create a REST API that uses Amazon DynamoDB to store user profiles.
 """
 
+# snippet-start:[python.example_code.api-gateway.imports]
 import argparse
 import json
 import logging
@@ -18,8 +19,10 @@ import requests
 
 logger = logging.getLogger(__name__)
 
+# snippet-end:[python.example_code.api-gateway.imports]
 
-# snippet-start:[python.example_code.apigateway.ApiGatewayToService.class]
+
+# snippet-start:[python.example_code.api-gateway.ApiGatewayToService.class]
 class ApiGatewayToService:
     """
     Encapsulates Amazon API Gateway functions that are used to create a REST API that
@@ -33,9 +36,9 @@ class ApiGatewayToService:
         self.api_id = None
         self.root_id = None
         self.stage = None
-# snippet-end:[python.example_code.apigateway.ApiGatewayToService.class]
+# snippet-end:[python.example_code.api-gateway.ApiGatewayToService.class]
 
-# snippet-start:[python.example_code.apigateway.CreateRestApi]
+# snippet-start:[python.example_code.api-gateway.CreateRestApi]
     def create_rest_api(self, api_name):
         """
         Creates a REST API on API Gateway. The default API has only a root resource
@@ -65,9 +68,9 @@ class ApiGatewayToService:
             raise ValueError from err
 
         return self.api_id
-# snippet-end:[python.example_code.apigateway.CreateRestApi]
+# snippet-end:[python.example_code.api-gateway.CreateRestApi]
 
-# snippet-start:[python.example_code.apigateway.CreateResource]
+# snippet-start:[python.example_code.api-gateway.CreateResource]
     def add_rest_resource(self, parent_id, resource_path):
         """
         Adds a resource to a REST API.
@@ -86,9 +89,9 @@ class ApiGatewayToService:
             raise
         else:
             return resource_id
-# snippet-end:[python.example_code.apigateway.CreateResource]
+# snippet-end:[python.example_code.api-gateway.CreateResource]
 
-# snippet-start:[python.example_code.apigateway.AddIntegrationMethod]
+# snippet-start:[python.example_code.api-gateway.PutIntegration]
     def add_integration_method(
             self, resource_id, rest_method, service_endpoint_prefix, service_action,
             service_method, role_arn, mapping_template):
@@ -156,9 +159,9 @@ class ApiGatewayToService:
                 "Couldn't create integration for resource %s to service URI %s.",
                 resource_id, service_uri)
             raise
-# snippet-end:[python.example_code.apigateway.AddIntegrationMethod]
+# snippet-end:[python.example_code.api-gateway.PutIntegration]
 
-# snippet-start:[python.example_code.apigateway.CreateDeployment]
+# snippet-start:[python.example_code.api-gateway.CreateDeployment]
     def deploy_api(self, stage_name):
         """
         Deploys a REST API. After a REST API is deployed, it can be called from any
@@ -177,7 +180,9 @@ class ApiGatewayToService:
             raise
         else:
             return self.api_url()
-# snippet-end:[python.example_code.apigateway.CreateDeployment]
+# snippet-end:[python.example_code.api-gateway.CreateDeployment]
+
+# snippet-start:[python.example_code.api-gateway.Helper.ApiUrl]
 
     def api_url(self, resource=None):
         """
@@ -191,8 +196,9 @@ class ApiGatewayToService:
         if resource is not None:
             url = f'{url}/{resource}'
         return url
+# snippet-end:[python.example_code.api-gateway.Helper.ApiUrl]
 
-# snippet-start:[python.example_code.apigateway.GetRestApis]
+# snippet-start:[python.example_code.api-gateway.GetRestApis]
     def get_rest_api_id(self, api_name):
         """
         Gets the ID of a REST API from its name by searching the list of REST APIs
@@ -217,9 +223,9 @@ class ApiGatewayToService:
             raise
         else:
             return rest_api['id']
-# snippet-end:[python.example_code.apigateway.GetRestApis]
+# snippet-end:[python.example_code.api-gateway.GetRestApis]
 
-# snippet-start:[python.example_code.apigateway.DeleteRestApi]
+# snippet-start:[python.example_code.api-gateway.DeleteRestApi]
     def delete_rest_api(self):
         """
         Deletes a REST API, including all of its resources and configuration.
@@ -231,7 +237,7 @@ class ApiGatewayToService:
         except ClientError:
             logger.exception("Couldn't delete REST API %s.", self.api_id)
             raise
-# snippet-end:[python.example_code.apigateway.DeleteRestApi]
+# snippet-end:[python.example_code.api-gateway.DeleteRestApi]
 
 
 def deploy(stack_name, cf_resource):
@@ -260,6 +266,7 @@ def deploy(stack_name, cf_resource):
         print(f"\t{resource.resource_type}, {resource.physical_resource_id}")
 
 
+# snippet-start:[python.example_code.api-gateway.Usage_CreateDeployRest]
 def usage_demo(table_name, role_name, rest_api_name):
     """
     Demonstrates how to used API Gateway to create and deploy a REST API, and how
@@ -316,6 +323,7 @@ def usage_demo(table_name, role_name, rest_api_name):
     print(f"Getting just the profile for username 'jane' (URL: {profiles_url}/jane).")
     jane = requests.get(f'{profiles_url}/jane').json()
     pprint(jane)
+# snippet-end:[python.example_code.api-gateway.Usage_CreateDeployRest]
 
 
 def destroy(rest_api_name, stack, cf_resource):

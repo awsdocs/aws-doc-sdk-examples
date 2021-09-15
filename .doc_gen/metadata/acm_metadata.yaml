@@ -169,3 +169,37 @@ acm_ResendValidationEmail:
                 - python.example_code.acm.ResendValidationEmail
   services:
     - acm
+acm_Usage_ImportListRemove:
+  title: Manage &ACM; certificates using an &AWS; SDK
+  title_abbrev: Manage certificates
+  synopsis_list:
+    - Request a certificate from &ACM;.
+    - Import a self-signed certificate.
+    - List and describe certificates.
+    - Remove certificates.
+  category: Usage
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/acm
+          sdkguide:
+          excerpts:
+            - description: Create a class the wraps &ACM; operations.
+              snippet_tags:
+                - python.example_code.acm.imports
+                - python.example_code.acm.AcmCertificate
+                - python.example_code.acm.RequestCertificate
+                - python.example_code.acm.ImportCertificate
+                - python.example_code.acm.ListCertificates
+                - python.example_code.acm.DescribeCertificate
+                - python.example_code.acm.GetCertificate
+                - python.example_code.acm.AddTagsToCertificate
+                - python.example_code.acm.ListTagsForCertificate
+                - python.example_code.acm.RemoveTagsFromCertificate
+                - python.example_code.acm.DeleteCertificate
+            - description: Use the wrapper class to manage certificates for your account.
+              snippet_tags:
+                - python.example_code.acm.Usage_ImportListRemove
+  services:
+    - acm

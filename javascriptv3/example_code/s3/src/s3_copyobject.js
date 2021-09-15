@@ -41,4 +41,4 @@ export const run = async () => {
 run();
 // snippet-end:[s3.JavaScript.buckets.copyObjectV3]
 // For unit tests only.
-// module.exports ={run, bucketParams};
+//exports {run, bucketParams};

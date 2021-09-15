@@ -71,7 +71,7 @@ services:
     long: "&ACMlong;"
     short: "&ACM;"
     sort: "ACM"
-  apigateway:
+  api-gateway:
     long: "&ABPlong;"
     short: "&ABP;"
     sort: "API Gateway"
@@ -79,10 +79,14 @@ services:
     long:  "&CFNlong;"
     short:  "&CFN;"
     sort:  "CloudFormation"
-  cognito:
-    long: "&COGlong;"
-    short: "&COG;"
-    sort: "Cognito"
+  cloudfront:
+    long: "&CFlong;"
+    short: "&CF;"
+    sort: "CloudFront"
+  cloudwatch:
+    long: "&CWlong;"
+    short: "&CW;"
+    sort: "CloudWatch"
   cognito-identity:
     long: "&COGID;"
     short: "&COGID;"
@@ -91,7 +95,7 @@ services:
     long: "&DDBlong;"
     short: "&DDB;"
     sort: "DynamoDB"
-  events:
+  eventbridge:
     long: "&EVlong;"
     short: "&EV;"
     sort: "EventBridge"
@@ -107,7 +111,7 @@ services:
     long: "&S3long;"
     short: "&S3;"
     sort: "S3"
-  secretsmanager:
+  secrets-manager:
     long: "&ASMlong;"
     short: "&ASM;"
     sort: "Secrets Manager"
@@ -119,7 +123,7 @@ services:
     long: "&SQSlong;"
     short: "&SQS;"
     sort: "SQS"
-  stepfunctions:
+  sfn:
     long: "&SFNlong;"
     short: "&SFN;"
     sort: "Step Functions"
