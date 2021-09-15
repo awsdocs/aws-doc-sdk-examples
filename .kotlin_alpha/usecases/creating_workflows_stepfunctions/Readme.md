@@ -153,13 +153,17 @@ Workflows can pass data between steps. For example, the **Open Case** step proce
 
 ## Create an IntelliJ project named LambdaKotlinMaven
 
+The following illustration shows the project options. 
+
+![AWS Tracking Application](images/kotlinproject.png)
+
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
 
-2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**.
+2. In the **New Project** dialog box, choose **Kotlin**.
 
-3. For **GroupId**, enter **LambdaKotlinMaven**.
+3. In the **Name** field, specify **LambdaKotlinMaven**.
 
-4. For **ArtifactId**, enter **LambdaKotlinMaven**.
+4. For **Build System**, specify **Maven**. Also select a valid JDK.
 
 5. Choose **Next**.
 
