@@ -23,7 +23,6 @@ To build this cross-service example, you need the following:
 * At least one email address verified on Amazon SES. For instructions, see [Verifying an email address on Amazon SES](#verifying-an-email-address-on-amazon-ses).
 * The following AWS resources:
     - An unauthenticated AWS Identity and Access Management (IAM) user role with required permissions (described below).
-    - An Amazon DynamoDB table named **PPE** with a key named **id**. 
 **Note**: An unauthenticated role enables you to provide permissions to unauthenticated users to use the AWS Services. To create an authenticated role, see [Amazon Cognito Identity Pools (Federated Identities)](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html).   
 
 
@@ -169,6 +168,7 @@ The remaining code defines the interface features, including a table and buttons
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <link rel="stylesheet" href="../css/styles.css" th:href="@{/css/styles.css}" />
     <link rel="icon" href="../images/favicon.ico" th:href="@{/images/favicon.ico}" />
+    <script src="./js/main.js" ></script>
     <html xmlns:th="http://www.thymeleaf.org" >
     <link href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
     <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
