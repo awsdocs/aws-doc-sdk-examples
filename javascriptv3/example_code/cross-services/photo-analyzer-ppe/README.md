@@ -1,4 +1,4 @@
-#  Creating an AWS Lambda function that detects images with Personal Protective Equipment
+#  Creating an example AWS photo analyzer to detect images with Personal Protective Equipment
 
 You can create an application that uses Amazon Rekognition to detect personal protective equipment (PPE)
 in images located in an Amazon Simple Storage Service (Amazon S3) bucket. 
@@ -67,30 +67,31 @@ aws cloudformation create-stack --stack-name STACK_NAME --template-body file://s
 For more information on the create-stack command parameters, see the [AWS CLI Command Reference guide](https://docs.aws.amazon.com/cli/latest/reference/cloudformation/create-stack.html), and the [AWS CloudFormation User Guide](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-cli-creating-stack.html).
 
 ### Create the resources using the AWS Management Console
-####Create an unauthenticated user role
-4. Open [AWS Cognito in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the *Stacks* page.
-5. Choose **Manage Identity Pools**.
-6. Choose **Create new identity pool**.
-7. In the **Identity pool name** field, give your identity pool a name.
-7. Select the **Enable access to unauthenticated identities** checkbox.
-8. Choose **Create Pool**.
-9. Choose **Allow**.
-10. Take note of the **Identity pool ID**, which is highlighted in red in the **Get AWS Credentials** section.
+
+#### Create an unauthenticated user role
+1. Open [AWS Cognito in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the *Stacks* page.
+2. Choose **Manage Identity Pools**.
+3. Choose **Create new identity pool**.
+4. In the **Identity pool name** field, give your identity pool a name.
+5. Select the **Enable access to unauthenticated identities** checkbox.
+6. Choose **Create Pool**.
+7. Choose **Allow**.
+8. Take note of the **Identity pool ID**, which is highlighted in red in the **Get AWS Credentials** section.
 
 ![ ](images/readme_images/identity_pool_ids.png)
 
-11.Choose **Edit identity pool**.
-12. Take note of the name of the role in the **Unauthenticated role** field.
+9.Choose **Edit identity pool**.
+10. Take note of the name of the role in the **Unauthenticated role** field.
 
-####Adding permissions to an unauthenticated user role
-13. Open [IAM in the AWS Management Console](https://aws.amazon.com/iam/), and open the *Roles* page.
-14. Search for the unauthenticated role you just created.
-15. Open the role. 
-16. Click the down arrow beside the policy name.
-17. Choose **Edit Policy**.
-18. Choose the **JSON** tab.
-18. Delete the existing content, and paste the code below into it.
-```
+#### Adding permissions to an unauthenticated user role
+1. Open [IAM in the AWS Management Console](https://aws.amazon.com/iam/), and open the *Roles* page.
+2. Search for the unauthenticated role you just created.
+3. Open the role. 
+4. Click the down arrow beside the policy name.
+5. Choose **Edit Policy**.
+6. Choose the **JSON** tab.
+7. Delete the existing content, and paste the code below into it.
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -131,8 +132,8 @@ For more information on the create-stack command parameters, see the [AWS CLI Co
     ]
 }
 ```
-19. Choose **Review Policy**.
-20. Choose **Save Changes**.   
+8. Choose **Review Policy**.
+9. Choose **Save Changes**.   
 
 ### Verifying an email address on Amazon SES 
 1. Open [AWS SES in the AWS Management Console](https://aws.amazon.com/SES/), and open the **Email Addresses** page.
@@ -164,7 +165,7 @@ In **index.html**, the **head** section loads the **main.js**, which contains th
 
 The remaining code defines the interface features, including a table and buttons.
 
-```
+```html
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8" />
@@ -205,8 +206,35 @@ The remaining code defines the interface features, including a table and buttons
 </body>
 </html>
 ```
-In **./src/index.js**, you first import all the required AWS Service and third party modules, and set global parameters.
+### Creating the JavaScript
+
+The **./js/libs/** folders contains a file for each of the AWS Service clients required. You must
+replace "REGION" with your AWS Region, and replace "IDENTITY_POOL_ID" with the Amazon Cognito identity pool id
+you created in [Create the resources](#create-the-resources) on this page. Here's an example of one of these client configuration files:
+ 
+ ```javascript
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
+import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
+import { RekognitionClient } from "@aws-sdk/client-rekognition";
+
+const REGION = "REGION";
+const IDENTITY_POOL_ID = "IDENTITY_POOL_ID"; // An Amazon Cognito Identity Pool ID.
+
+// Create an AWS Rekognition service client object.
+const rekognitionClient = new RekognitionClient({
+    region: REGION,
+    credentials: fromCognitoIdentityPool({
+        client: new CognitoIdentityClient({ region: REGION }),
+        identityPoolId: IDENTITY_POOL_ID,
+    }),
+});
+
+export { rekognitionClient };
 ```
+
+In **./js/index.js**, you first import all the required AWS Service and third party modules, and set global parameters.
+
+```javascript
 import { rekognitionClient } from "../libs/rekognitionClient.js";
 import { s3Client } from "../libs/s3Client.js";
 import { dynamoDBClient, REGION } from "../libs/dynamodbClient.js";
@@ -222,7 +250,7 @@ const FROM_EMAIL = "SENDER_EMAIL_ADDRESS";
 ```
 
 Next, you define functions for working with the table.
-```
+```javascript
 export const sendEmail = async () => {
   // Helper function to send an email to user.
   const TO_EMAIL = document.getElementById("email").value;

@@ -92,7 +92,7 @@ For more information on the create-stack command parameters, see the [AWS CLI Co
 17. Choose **Edit Policy**.
 18. Choose the **JSON** tab.
 18. Delete the existing content, and paste the code below into it.
-```
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -159,7 +159,7 @@ and the **index.js**, which contains the following JavaScript and Node.js functi
 
 Each button on the interface invokes one of these functions when clicked.
 
-```
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -216,7 +216,7 @@ replace "REGION" with your AWS Region, and replace "IDENTITY_POOL_ID" with the A
 you created in [Create the resources](#create-the-resources) on this page. Here's an example of one of these client configuration files:
  
  
-```
+```javascript
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 import {
     fromCognitoIdentityPool,
@@ -255,7 +255,7 @@ It also contains several helper functions that are describe in the inline code c
 **Important**: You must bundle all the JavaScript and Node.js code required for the app into a single
  file (**main.js**) to run the app. For instructions, see [Bundling the scripts](#bundling-the-scripts).
 
-```
+```javascript
 import { transcribeClient } from "./libs/transcribeClient.js";
 import { sesClient } from "./libs/sesClient.js";
 import { translateClient } from "./libs/translateClient.js";

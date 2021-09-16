@@ -96,7 +96,7 @@ For more information on the create-stack command parameters, see the [AWS CLI Co
 17. Choose **Edit Policy**.
 18. Choose the **JSON** tab.
 18. Delete the existing content, and paste the code below into it.
-```
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -151,7 +151,7 @@ and the **main.js**, which contains the following JavaScript and Node.js functio
 
 The remaining code defines the interface features, including a table and buttons.
 
-```
+```html
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org" lang="">
 <head>
@@ -231,7 +231,7 @@ replace "REGION" with your AWS Region, and replace "IDENTITY_POOL_ID" with the A
 you created in [Create the resources](#create-the-resources) on this page. 
  
  
-```
+```javascript
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
 import { SNSClient } from "@aws-sdk/client-sns";
@@ -251,7 +251,7 @@ const snsClient = new SNSClient({
 export { snsClient };
 ```
 In **./src/index.js**, you first import all the required AWS Service and third party modules, and set global parameters.
-```
+```javascript
 import {
   SubscribeCommand,
   ListSubscriptionsByTopicCommand,
@@ -273,7 +273,7 @@ Next, you define the following functions:
 - *sendMessage* - send an email to all email addresses subscribed to the Amazon SNS topic.
 
 **Note:** *loadItems* and *validate* are helper functions.
-```
+```javascript
 // Subscribe the email address to the Amazon SNS topic.
 const subEmail = async () => {
   const userEmail = document.getElementById("inputEmail1").value;

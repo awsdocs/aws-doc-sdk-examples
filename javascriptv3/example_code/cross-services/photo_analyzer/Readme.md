@@ -99,7 +99,7 @@ For more information on the create-stack command parameters, see the [AWS CLI Co
 17. Choose **Edit Policy**.
 18. Choose the **JSON** tab.
 18. Delete the existing content, and paste the code below into it.
-```
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -169,7 +169,7 @@ and the **main.js**, which contains the following JavaScript and Node.js functio
 
 The remaining code defines the interface features, including a table and buttons.
 
-```
+```html
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8" />
@@ -251,12 +251,12 @@ The remaining code defines the interface features, including a table and buttons
 </html>
 ```
 ### Creating the JavaScript and Node.js
-The **./src/libs/** folders contains a file for each of the AWS Service clients required. You must
+The **./js/libs/** folders contains a file for each of the AWS Service clients required. You must
 replace "REGION" with your AWS Region, and replace "IDENTITY_POOL_ID" with the Amazon Cognito identity pool id
 you created in [Create the resources](#create-the-resources) on this page. Here's an example of one of these client configuration files:
  
  
-```
+```javascript
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
 import { RekognitionClient } from "@aws-sdk/client-rekognition";
@@ -275,8 +275,8 @@ const rekognitionClient = new RekognitionClient({
 
 export { rekognitionClient };
 ```
-In **./src/index.js**, you first import all the required AWS Service and third party modules, and set global parameters.
-```
+In **./js/index.js**, you first import all the required AWS Service and third party modules, and set global parameters.
+```javascript
 import { DetectLabelsCommand } from "@aws-sdk/client-rekognition";
 import { rekognitionClient } from "../libs/rekognitionClient.js";
 import { ListObjectsCommand, PutObjectCommand } from "@aws-sdk/client-s3";
@@ -285,15 +285,13 @@ import { sesClient } from "../libs/sesClient.js";
 import { SendEmailCommand } from "@aws-sdk/client-ses";
 
 // Set global parameters.
-const BUCKET_IMAGES =
-    "BUCKET_IMAGES";
-const BUCKET_REPORTS =
-    "BUCKET_REPORTs";
+const BUCKET_IMAGES = "BUCKET_IMAGES";
+const BUCKET_REPORTS ="BUCKET_REPORTs";
 const EMAIL_SENDER_ADDRESS = "EMAIL_SENDER_ADDRESS"; // A verified Amazon SES email.
 ```
 
 Next, you define functions for working with the table.
-```
+```javascript
 // Load table parameters.
 $(function() {
   $('#myTable').DataTable( {
@@ -341,7 +339,7 @@ window.getImages = getImages;
 ```
 Next you define the functions for adding an image to the Amazon S3 bucket (*addToBucket*), analyzing the image (*ProcessImages*), creating the CSV report (*create_csv_file*), 
 uploading the report to the Amazon S3 bucket (*uploadFile*), and sending the specified recepient email notification about each image (*sendEmail*).
-```
+```javascript
 const addToBucket = async () => {
   try{
     // Create the parameters for uploading the video.
