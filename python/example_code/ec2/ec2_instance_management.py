@@ -16,6 +16,7 @@ logger = logging.getLogger(__name__)
 ec2 = boto3.resource('ec2')
 
 
+# snippet-start:[python.example_code.ec2.StartInstances]
 def start_instance(instance_id):
     """
     Starts an instance. The request returns immediately. To wait for the instance
@@ -33,8 +34,10 @@ def start_instance(instance_id):
         raise
     else:
         return response
+# snippet-end:[python.example_code.ec2.StartInstances]
 
 
+# snippet-start:[python.example_code.ec2.StopInstances]
 def stop_instance(instance_id):
     """
     Stops an instance. The request returns immediately. To wait for the instance
@@ -52,8 +55,10 @@ def stop_instance(instance_id):
         raise
     else:
         return response
+# snippet-end:[python.example_code.ec2.StopInstances]
 
 
+# snippet-start:[python.example_code.ec2.AllocateAddress]
 def allocate_elastic_ip():
     """
     Allocates an Elastic IP address that can be associated with an instance. By using
@@ -72,8 +77,10 @@ def allocate_elastic_ip():
         raise
     else:
         return elastic_ip
+# snippet-end:[python.example_code.ec2.AllocateAddress]
 
 
+# snippet-start:[python.example_code.ec2.AssociateAddress]
 def associate_elastic_ip(allocation_id, instance_id):
     """
     Associates an Elastic IP address with an instance. When this association is
@@ -96,8 +103,10 @@ def associate_elastic_ip(allocation_id, instance_id):
             allocation_id, instance_id)
         raise
     return elastic_ip
+# snippet-end:[python.example_code.ec2.AssociateAddress]
 
 
+# snippet-start:[python.example_code.ec2.DisassociateAddress]
 def disassociate_elastic_ip(allocation_id):
     """
     Removes an association between an Elastic IP address and an instance. When the
@@ -115,8 +124,10 @@ def disassociate_elastic_ip(allocation_id):
         logger.exception(
             "Couldn't disassociate Elastic IP %s from its instance.", allocation_id)
         raise
+# snippet-end:[python.example_code.ec2.DisassociateAddress]
 
 
+# snippet-start:[python.example_code.ec2.ReleaseAddress]
 def release_elastic_ip(allocation_id):
     """
     Releases an Elastic IP address. After the Elastic IP address is released,
@@ -133,8 +144,10 @@ def release_elastic_ip(allocation_id):
         logger.exception(
             "Couldn't release Elastic IP address %s.", allocation_id)
         raise
+# snippet-end:[python.example_code.ec2.ReleaseAddress]
 
 
+# snippet-start:[python.example_code.ec2.GetConsoleOutput]
 def get_console_output(instance_id):
     """
     Gets the console output of the specified instance.
@@ -150,8 +163,10 @@ def get_console_output(instance_id):
         raise
     else:
         return output
+# snippet-end:[python.example_code.ec2.GetConsoleOutput]
 
 
+# snippet-start:[python.example_code.ec2.ModifyNetworkInterfaceAttribute]
 def change_security_group(instance_id, old_security_group_id, new_security_group_id):
     """
     Changes the security group of an instance. Security groups are associated with
@@ -182,8 +197,10 @@ def change_security_group(instance_id, old_security_group_id, new_security_group
         logger.exception(
             "Couldn't get network interfaces for instance %s.", instance_id)
         raise
+# snippet-end:[python.example_code.ec2.ModifyNetworkInterfaceAttribute]
 
 
+# snippet-start:[python.example_code.ec2.AuthorizeSecurityGroupIngress]
 def allow_security_group_ingress(target_security_group_id, source_security_group_name):
     """
     Sets an inbound rule in a security group. The rule lets instances that are in
@@ -207,3 +224,4 @@ def allow_security_group_ingress(target_security_group_id, source_security_group
                          "instances in %s.",
                          target_security_group_id, source_security_group_name)
         raise
+# snippet-end:[python.example_code.ec2.AuthorizeSecurityGroupIngress]
