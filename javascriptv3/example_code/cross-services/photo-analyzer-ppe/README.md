@@ -91,7 +91,7 @@ For more information on the create-stack command parameters, see the [AWS CLI Co
 5. Choose **Edit Policy**.
 6. Choose the **JSON** tab.
 7. Delete the existing content, and paste the code below into it.
-```
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -165,7 +165,7 @@ In **index.html**, the **head** section loads the **main.js**, which contains th
 
 The remaining code defines the interface features, including a table and buttons.
 
-```
+```html
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8" />
@@ -208,11 +208,11 @@ The remaining code defines the interface features, including a table and buttons
 ```
 ### Creating the JavaScript
 
-The **./src/libs/** folders contains a file for each of the AWS Service clients required. You must
+The **./js/libs/** folders contains a file for each of the AWS Service clients required. You must
 replace "REGION" with your AWS Region, and replace "IDENTITY_POOL_ID" with the Amazon Cognito identity pool id
 you created in [Create the resources](#create-the-resources) on this page. Here's an example of one of these client configuration files:
  
- ```
+ ```javascript
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
 import { RekognitionClient } from "@aws-sdk/client-rekognition";
@@ -232,8 +232,9 @@ const rekognitionClient = new RekognitionClient({
 export { rekognitionClient };
 ```
 
-In **./src/index.js**, you first import all the required AWS Service and third party modules, and set global parameters.
-```
+In **./js/index.js**, you first import all the required AWS Service and third party modules, and set global parameters.
+
+```javascript
 import { rekognitionClient } from "../libs/rekognitionClient.js";
 import { s3Client } from "../libs/s3Client.js";
 import { dynamoDBClient, REGION } from "../libs/dynamodbClient.js";
@@ -249,7 +250,7 @@ const FROM_EMAIL = "SENDER_EMAIL_ADDRESS";
 ```
 
 Next, you define functions for working with the table.
-```
+```javascript
 export const sendEmail = async () => {
   // Helper function to send an email to user.
   const TO_EMAIL = document.getElementById("email").value;

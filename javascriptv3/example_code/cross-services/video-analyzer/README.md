@@ -86,7 +86,7 @@ For more information on the create-stack command parameters, see the [AWS CLI Co
 5. Choose **Edit Policy**.
 6. Choose the **JSON** tab.
 7. Delete the existing content, and paste the code below into it.
-```
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -155,7 +155,7 @@ In **index.html**, the **head** section loads the **main.js**, which contains th
 
 The remaining code defines the interface features, including a table and buttons.
 
-```
+```html
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="site-head">
@@ -233,7 +233,7 @@ The **./src/libs/** folders contains a file for each of the AWS Service clients 
 replace "REGION" with your AWS Region, and replace "IDENTITY_POOL_ID" with the Amazon Cognito identity pool id
 you created in [Create the resources](#create-the-resources) on this page. Here's an example of one of these client configuration files:
  
- ```
+```javascript
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
 import { RekognitionClient } from "@aws-sdk/client-rekognition";
@@ -252,8 +252,8 @@ const rekognitionClient = new RekognitionClient({
 
 export { rekognitionClient };
 ```
-In **./js/index.js**, you first import all the required AWS Service and third party modules, and set global parameters.
-```
+In **.src/js/index.js**, you first import all the required AWS Service and third party modules, and set global parameters.
+```javascript
 import { rekognitionClient } from "../libs/rekognitionClient.js";
 import { s3Client } from "../libs/s3Client.js";
 import { sesClient } from "../libs/sesClient.js";
@@ -267,7 +267,7 @@ const IAM_ROLE_ARN = "IAM_ROLE_ARN";
 ```
 
 Next, you define functions for uploading the video.
-```
+```javascript
 $(function () {
   $("#myTable").DataTable({
     scrollY: "500px",
@@ -322,7 +322,7 @@ const uploadVideo = async () => {
 window.uploadVideo = uploadVideo;
 ```
 Next, you define functions for retrieving the video.
-```
+```javascript
 const getVideo = async () => {
   try {
     const listVideoParams = {
@@ -345,7 +345,7 @@ const getVideo = async () => {
 window.getVideo = getVideo;
 ```
 Define functions for analyzing the video, and sending the email.
-```
+```javascript
 const ProcessImages = async () => {
   try {
     // Create the parameters required to start face detection.

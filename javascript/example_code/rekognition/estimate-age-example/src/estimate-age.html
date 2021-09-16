@@ -5,7 +5,7 @@ This example is in the Amazon Rekognition Developer Guide' at
 https://docs.aws.amazon.com/rekognition/latest/dg/image-bytes-javascript.html.
 
 Purpose:
-estimate-age.html is part of an sample that demonstrates how to use Amazon Rekognition to estimate the ages of faces in an photo.
+estimate-age.html is part of an example that demonstrates how to use Amazon Rekognition to estimate the ages of faces in an image.
 To view the full example, see https://docs.aws.amazon.com/rekognition/latest/dg/image-bytes-javascript.html.
 
 Inputs :
@@ -36,7 +36,7 @@ Inputs :
         ProcessImage();
     }, false);
 
-//Calls DetectFaces API and shows estimated ages of detected faces
+// Calls DetectFaces API and shows estimated ages of detected faces.
 function DetectFaces(imageData) {
     AWS.region = "REGION"; // AWS Region.
     var rekognition = new AWS.Rekognition();
@@ -62,13 +62,13 @@ function DetectFaces(imageData) {
         }
     });
 }
-//Loads selected image and unencodes image bytes for Amazon Rekognition DetectFaces API
+// Loads selected image and unencodes image bytes for Amazon Rekognition DetectFaces API.
 function ProcessImage() {
     AnonLog();
     var control = document.getElementById("fileToUpload");
     var file = control.files[0];
 
-    // Load base64 encoded image
+    // Load base64 encoded image.
     var reader = new FileReader();
     reader.onload = (function (theFile) {
         return function (e) {
@@ -90,7 +90,7 @@ function ProcessImage() {
                     return;
                 }
             }
-            //unencode image bytes for Rekognition DetectFaces API
+            // Unencode image bytes for Rekognition DetectFaces API.
             var length = image.length;
             imageBytes = new ArrayBuffer(length);
             var ua = new Uint8Array(imageBytes);
@@ -103,15 +103,15 @@ function ProcessImage() {
     })(file);
     reader.readAsDataURL(file);
 }
-//Provides anonymous log on to AWS services
+// Provides anonymous log on to AWS services.
 function AnonLog() {
 
-    // Configure the credentials provider to use your identity pool
+    // Configure the credentials provider to use your identity pool.
     AWS.config.region = 'REGION'; // Region
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
         IdentityPoolId: 'IDENTITY_POOL_ID',
     });
-    // Make the call to obtain credentials
+    // Make the call to obtain credentials.
     AWS.config.credentials.get(function () {
         // Credentials will be available when this function is called.
         var accessKeyId = AWS.config.credentials.accessKeyId;

@@ -5,7 +5,7 @@ This example is in the Amazon Rekognition Developer Guide' at
 https://docs.aws.amazon.com/rekognition/latest/dg/image-bytes-javascript.html.
 
 Purpose:
-estimate-age.html is part of an sample that demonstrates how to use Amazon Rekognition to estimate the ages of faces in an photo.
+estimate-age.html is part of an example that demonstrates how to use Amazon Rekognition to estimate the ages of faces in an image.
 To view the full example, see https://docs.aws.amazon.com/rekognition/latest/dg/image-bytes-javascript.html.
 
 Inputs :
@@ -18,7 +18,7 @@ function ProcessImage() {
     var control = document.getElementById("fileToUpload");
     var file = control.files[0];
 
-    // Load base64 encoded image for display
+    // Load base64 encoded image for display.
     var reader = new FileReader();
     reader.onload = (function (theFile) {
         return function (e) {
