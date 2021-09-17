@@ -101,6 +101,7 @@ ALLOW_LIST = {
     'com/samples/JobStatusNotificationsSample',
     'generate_presigned_url_and_upload_object',
     'KinesisStreamSourceConfiguration=kinesis',
+    'ListOrganizationalUnitsForParentResponse',
     'nFindProductsWithNegativePriceWithConfig',
     's3_client_side_encryption_sym_master_key',
     'serial/CORE_THING_NAME/write/dev/serial1',
