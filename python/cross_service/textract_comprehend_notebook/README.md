@@ -31,7 +31,7 @@ For this example, you require the following resources:
 * An Amazon Simple Storage Service (Amazon S3) bucket.
 * An image in the S3 bucket containing text.
 
-You can create these resource by using the console or the AWS SDK for Python.
+You can create these resources by using the console or the AWS SDK for Python.
 
 ## Building the code
 
@@ -45,11 +45,13 @@ In order to run the unit tests:
 
 2. Replace the values of the indicated variables, specified in the `test-textract-comprehend` Python file, with the values that you want to use.
 
-3. Run the Python file..
+3. Run the Python file.
 
 ## Deleting the resources
 
 Remember to delete any resources you are no longer using, including your Amazon S3 bucket.
+
+
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
