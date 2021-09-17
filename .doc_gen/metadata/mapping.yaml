@@ -115,6 +115,10 @@ services:
     long: "&RDSlong;"
     short: "&RDS;"
     sort: "RDS"
+  rekognition:
+    long: "&REKlong;"
+    short: "&REK;"
+    sort: "Rekognition"
   s3:
     long: "&S3long;"
     short: "&S3;"
