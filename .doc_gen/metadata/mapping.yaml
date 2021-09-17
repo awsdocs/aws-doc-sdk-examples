@@ -91,6 +91,14 @@ services:
     long: "&COGID;"
     short: "&COGID;"
     sort: "Cognito Identity"
+  comprehend:
+    long: "&CMPlong;"
+    short: "&CMP;"
+    sort: "Comprehend"
+  config-service:
+    long: "&CClong;"
+    short: "&CC;"
+    sort: "Config"
   dynamodb:
     long: "&DDBlong;"
     short: "&DDB;"
@@ -107,6 +115,10 @@ services:
     long: "&RDSlong;"
     short: "&RDS;"
     sort: "RDS"
+  rekognition:
+    long: "&REKlong;"
+    short: "&REK;"
+    sort: "Rekognition"
   s3:
     long: "&S3long;"
     short: "&S3;"
@@ -135,10 +147,6 @@ services:
     long: "&TSClong;"
     short: "&TSC;"
     sort: "Transcribe"
-  comprehend:
-    long: "&CMPlong;"
-    short: "&CMP;"
-    sort: "Comprehend"
   iam:
     long: "&IAMlong;"
     short: "&IAM;"

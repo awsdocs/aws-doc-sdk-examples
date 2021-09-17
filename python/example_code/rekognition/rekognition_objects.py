@@ -9,13 +9,17 @@ to draw bounding boxes and polygons on an image and display it with the default
 viewer.
 """
 
+# snippet-start:[python.example_code.rekognition.helper.imports]
 import io
 import logging
 from PIL import Image, ImageDraw
 
 logger = logging.getLogger(__name__)
 
+# snippet-end:[python.example_code.rekognition.helper.imports]
 
+
+# snippet-start:[python.example_code.rekognition.helper.show_bounding_boxes]
 def show_bounding_boxes(image_bytes, box_sets, colors):
     """
     Draws bounding boxes on an image and shows it with the default image viewer.
@@ -34,8 +38,10 @@ def show_bounding_boxes(image_bytes, box_sets, colors):
             bottom = (image.height * box['Height']) + top
             draw.rectangle([left, top, right, bottom], outline=color, width=3)
     image.show()
+# snippet-end:[python.example_code.rekognition.helper.show_bounding_boxes]
 
 
+# snippet-start:[python.example_code.rekognition.helper.show_polygons]
 def show_polygons(image_bytes, polygons, color):
     """
     Draws polygons on an image and shows it with the default image viewer.
@@ -51,8 +57,10 @@ def show_polygons(image_bytes, polygons, color):
             (image.width * point['X'], image.height * point['Y']) for point in polygon],
             outline=color)
     image.show()
+# snippet-end:[python.example_code.rekognition.helper.show_polygons]
 
 
+# snippet-start:[python.example_code.rekognition.helper.RekognitionFace]
 class RekognitionFace:
     """Encapsulates an Amazon Rekognition face."""
     def __init__(self, face, timestamp=None):
@@ -127,8 +135,10 @@ class RekognitionFace:
         if has:
             rendering['has'] = has
         return rendering
+# snippet-end:[python.example_code.rekognition.helper.RekognitionFace]
 
 
+# snippet-start:[python.example_code.rekognition.helper.RekognitionCelebrity]
 class RekognitionCelebrity:
     """Encapsulates an Amazon Rekognition celebrity."""
     def __init__(self, celebrity, timestamp=None):
@@ -162,8 +172,10 @@ class RekognitionCelebrity:
         if self.timestamp is not None:
             rendering['timestamp'] = self.timestamp
         return rendering
+# snippet-end:[python.example_code.rekognition.helper.RekognitionCelebrity]
 
 
+# snippet-start:[python.example_code.rekognition.helper.RekognitionPerson]
 class RekognitionPerson:
     """Encapsulates an Amazon Rekognition person."""
     def __init__(self, person, timestamp=None):
@@ -195,8 +207,10 @@ class RekognitionPerson:
         if self.timestamp is not None:
             rendering['timestamp'] = self.timestamp
         return rendering
+# snippet-end:[python.example_code.rekognition.helper.RekognitionPerson]
 
 
+# snippet-start:[python.example_code.rekognition.helper.RekognitionLabel]
 class RekognitionLabel:
     """Encapsulates an Amazon Rekognition label."""
     def __init__(self, label, timestamp=None):
@@ -226,8 +240,10 @@ class RekognitionLabel:
         if self.timestamp is not None:
             rendering['timestamp'] = self.timestamp
         return rendering
+# snippet-end:[python.example_code.rekognition.helper.RekognitionLabel]
 
 
+# snippet-start:[python.example_code.rekognition.helper.RekognitionModerationLabel]
 class RekognitionModerationLabel:
     """Encapsulates an Amazon Rekognition moderation label."""
     def __init__(self, label, timestamp=None):
@@ -258,8 +274,10 @@ class RekognitionModerationLabel:
         if self.timestamp is not None:
             rendering['timestamp'] = self.timestamp
         return rendering
+# snippet-end:[python.example_code.rekognition.helper.RekognitionModerationLabel]
 
 
+# snippet-start:[python.example_code.rekognition.helper.RekognitionText]
 class RekognitionText:
     """Encapsulates an Amazon Rekognition text element."""
     def __init__(self, text_data):
@@ -290,3 +308,4 @@ class RekognitionText:
         if self.geometry is not None:
             rendering['polygon'] = self.geometry.get('Polygon')
         return rendering
+# snippet-end:[python.example_code.rekognition.helper.RekognitionText]

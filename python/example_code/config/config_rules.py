@@ -17,7 +17,7 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
-# snippet-start:[python.example_code.config.ConfigWrapper]
+# snippet-start:[python.example_code.config-service.ConfigWrapper]
 class ConfigWrapper:
     """
     Encapsulates AWS Config functions.
@@ -27,9 +27,9 @@ class ConfigWrapper:
         :param config_client: A Boto3 AWS Config client.
         """
         self.config_client = config_client
+# snippet-end:[python.example_code.config-service.ConfigWrapper]
 
-# snippet-end:[python.example_code.config.ConfigWrapper]
-# snippet-start:[python.example_code.config.PutConfigRule]
+# snippet-start:[python.example_code.config-service.PutConfigRule]
     def put_config_rule(self, rule_name):
         """
         Sets a configuration rule that prohibits making Amazon S3 buckets publicly
@@ -59,9 +59,9 @@ class ConfigWrapper:
         except ClientError:
             logger.exception("Couldn't create configuration rule %s.", rule_name)
             raise
-# snippet-end:[python.example_code.config.PutConfigRule]
+# snippet-end:[python.example_code.config-service.PutConfigRule]
 
-# snippet-start:[python.example_code.config.DescribeConfigRules]
+# snippet-start:[python.example_code.config-service.DescribeConfigRules]
     def describe_config_rule(self, rule_name):
         """
         Gets data for the specified rule.
@@ -79,9 +79,9 @@ class ConfigWrapper:
             raise
         else:
             return rule
-# snippet-end:[python.example_code.config.DescribeConfigRules]
+# snippet-end:[python.example_code.config-service.DescribeConfigRules]
 
-# snippet-start:[python.example_code.config.DeleteConfigRule]
+# snippet-start:[python.example_code.config-service.DeleteConfigRule]
     def delete_config_rule(self, rule_name):
         """
         Delete the specified rule.
@@ -94,7 +94,7 @@ class ConfigWrapper:
         except ClientError:
             logger.exception("Couldn't delete rule %s.", rule_name)
             raise
-# snippet-end:[python.example_code.config.DeleteConfigRule]
+# snippet-end:[python.example_code.config-service.DeleteConfigRule]
 
 
 def usage_demo():

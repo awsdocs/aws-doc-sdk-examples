@@ -11,18 +11,7 @@ function that handles all of the necessary intricacies
 of the Amazon DynamoDB batch API on your behalf. This includes buffering, removing
 duplicates, and retrying unprocessed items.
 
-## Prerequisites
-
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.7 or later
-- Boto3 1.11.10 or later
-- PyTest 5.3.5 or later (to run unit tests)
-- Download and extract the 
-  [example movie data JSON file](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip). 
-
-## Cautions
+## ⚠ Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -37,9 +26,22 @@ duplicates, and retrying unprocessed items.
 
 ## Running the code
 
+### Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.7 or later
+- Boto3 1.11.10 or later
+- PyTest 5.3.5 or later (to run unit tests)
+- Download and extract the 
+  [example movie data JSON file](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip). 
+
+### Command
+
 See the usage demonstration by running the following at a command prompt.
 
-```
+```commandline
 python dynamo_batching.py
 ```  
 
@@ -61,14 +63,14 @@ they are sent to AWS, and returns a mocked response. To run all of the tests,
 run the following in your [GitHub root]/python/example_code/dynamodb/batching 
 folder.
 
-```    
+```commandline
 python -m pytest
 ```
 
 ## Additional information
 
-- [Boto3 Amazon DynamoDB examples](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/dynamodb.html)
 - [Boto3 Amazon DynamoDB service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/dynamodb.html)
+- [Amazon DynamoDB documentation](https://docs.aws.amazon.com/dynamodb)
 
 ---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
