@@ -103,7 +103,7 @@ cross_SubmitDataApp:
     - sns
 cross_LambdaAPIGateway:
   title: Use &ABP; to invoke a &LAM; function
-  title_abbrev: Use &ABP; to invoke a &LAM; function 
+  title_abbrev: Use &ABP; to invoke a &LAM; function
   synopsis: create an &LAMlong; function invoked by &ABPlong; that sends anniversary text messages.
   languages:
     Java:
@@ -121,7 +121,7 @@ cross_LambdaAPIGateway:
     - sns
 cross_LambdaScheduledEvents:
   title: Use scheduled events to invoke a &LAM; function
-  title_abbrev: Use scheduled events to invoke a &LAM; function 
+  title_abbrev: Use scheduled events to invoke a &LAM; function
   synopsis: create an &LAMlong; function invoked by an &EVlong; scheduled event that
     sends anniversary text messages.
   languages:
@@ -139,8 +139,8 @@ cross_LambdaScheduledEvents:
     - lambda
     - sns
 cross_ServerlessWorkflows:
-  title: Use &SFN; to invoke &LAM; functions 
-  title_abbrev: Use &SFN; to invoke &LAM; functions  
+  title: Use &SFN; to invoke &LAM; functions
+  title_abbrev: Use &SFN; to invoke &LAM; functions
   synopsis: create an &SFNlong; state machine that invokes &LAMlong; functions in sequence.
   languages:
     JavaScript:
@@ -179,6 +179,46 @@ cross_TranscriptionStreamingApp:
     - translate
     - comprehend
     - transcribe
+    - ses
+cross_RekognitionPhotoAnalyzerPPE:
+  title: Analyze images for PPE with &REK; using an &AWS; SDK
+  title_abbrev: Analyze images for PPE
+  synopsis: build an app that uses &REK; to to detect Personal Protective Equipment (PPE) in images.
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          block_content: cross_RekognitionPhotoAnalyzerPPE_JavaScript.xml
+  services:
+    - rekognition
+    - s3
+    - dynamodb
+    - ses
+cross_RekognitionPhotoAnalyzer:
+  title: Analyze objects by category with &REK; using an &AWS; SDK
+  title_abbrev: Analyze images for objects
+  synopsis: build an app that uses &REK; to identify objects by category in images.
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          block_content: cross_RekognitionPhotoAnalyzer_JavaScript.xml
+  services:
+    - rekognition
+    - s3
+    - ses
+cross_RekognitionVideoAnalyzer:
+  title: Analyze video for objects with &REK; using an &AWS; SDK
+  title_abbrev: Detect people and objects videos
+  synopsis: build an app that use &REK; to detect faces and objects in videos.
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          block_content: cross_RekognitionVideoAnalyzer_JavaScript.xml
+  services:
+    - rekognition
+    - s3
     - ses
 cross_RekognitionVideoDetection:
   title: Detect people and objects in a video with &REK; using an &AWS; SDK
