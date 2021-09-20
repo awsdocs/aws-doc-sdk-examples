@@ -188,7 +188,7 @@ cross_RekognitionPhotoAnalyzerPPE:
     JavaScript:
       versions:
         - sdk_version: 3
-          block_content: cross_RekognitionPhotoAnalyzerPPE_JavaScript.xml
+          block_content: cross_RekognitionPhotoAnalyzerPPE_JavaScript_block.xml
   services:
     - rekognition
     - s3
@@ -202,7 +202,7 @@ cross_RekognitionPhotoAnalyzer:
     JavaScript:
       versions:
         - sdk_version: 3
-          block_content: cross_RekognitionPhotoAnalyzer_JavaScript.xml
+          block_content: cross_RekognitionPhotoAnalyzer_JavaScript_block.xml
   services:
     - rekognition
     - s3
@@ -215,7 +215,7 @@ cross_RekognitionVideoAnalyzer:
     JavaScript:
       versions:
         - sdk_version: 3
-          block_content: cross_RekognitionVideoAnalyzer_JavaScript.xml
+          block_content: cross_RekognitionVideoAnalyzer_JavaScript_block.xml
   services:
     - rekognition
     - s3
