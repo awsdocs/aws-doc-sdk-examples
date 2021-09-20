@@ -5,7 +5,7 @@
         ]>
 <block>
     <para>
-        Shows how to use &REKlong; (&REK;) with the &JSBlong; to create an app that uses &REK; to identify objects by category in images
+        Shows how to use &REK; with the &JSBlong; to create an app that uses &REK; to identify objects by category in images
         located in an &S3long; (&S3;) bucket. The app sends the admin an email notification with the results using
         &SESlong; (&SES;).
     </para>
