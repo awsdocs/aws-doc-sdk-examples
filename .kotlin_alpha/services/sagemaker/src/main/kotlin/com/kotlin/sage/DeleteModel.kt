@@ -13,10 +13,12 @@
 
 package com.kotlin.sage
 
+//snippet-start:[sagemaker.kotlin.delete_model.import]
 import aws.sdk.kotlin.services.sagemaker.SageMakerClient
 import aws.sdk.kotlin.services.sagemaker.model.DeleteModelRequest
 import aws.sdk.kotlin.services.sagemaker.model.SageMakerException
 import kotlin.system.exitProcess
+//snippet-end:[sagemaker.kotlin.delete_model.import]
 
 /**
 To run this Kotlin code example, ensure that you have setup your development environment,
@@ -46,6 +48,7 @@ suspend fun main(args:Array<String>) {
     sageMakerClient.close()
 }
 
+//snippet-start:[sagemaker.kotlin.delete_model.main]
 suspend fun deleteSagemakerModel(sageMakerClient: SageMakerClient, modelNameVal: String?) {
 
     try {
@@ -60,3 +63,4 @@ suspend fun deleteSagemakerModel(sageMakerClient: SageMakerClient, modelNameVal:
         exitProcess(0)
     }
 }
+//snippet-end:[sagemaker.kotlin.delete_model.main]

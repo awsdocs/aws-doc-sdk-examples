@@ -13,11 +13,12 @@
 
 package com.kotlin.sage
 
+//snippet-start:[sagemaker.kotlin.list_algs.import]
 import aws.sdk.kotlin.services.sagemaker.SageMakerClient
 import aws.sdk.kotlin.services.sagemaker.model.ListAlgorithmsRequest
-import aws.sdk.kotlin.services.sagemaker.model.ListModelsRequest
 import aws.sdk.kotlin.services.sagemaker.model.SageMakerException
 import kotlin.system.exitProcess
+//snippet-end:[sagemaker.kotlin.list_algs.import]
 
 /**
 To run this Kotlin code example, ensure that you have setup your development environment,
@@ -33,6 +34,7 @@ suspend fun main() {
     sageMakerClient.close()
 }
 
+//snippet-start:[sagemaker.kotlin.list_algs.main]
 suspend fun listAlgs(sageMakerClient:SageMakerClient) {
 
     try {
@@ -50,5 +52,5 @@ suspend fun listAlgs(sageMakerClient:SageMakerClient) {
      sageMakerClient.close()
     exitProcess(0)
    }
-
 }
+//snippet-end:[sagemaker.kotlin.list_algs.main]

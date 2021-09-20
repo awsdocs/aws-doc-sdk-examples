@@ -13,10 +13,12 @@
 
 package com.kotlin.sage
 
+//snippet-start:[sagemaker.kotlin.list_jobs.import]
 import aws.sdk.kotlin.services.sagemaker.SageMakerClient
 import aws.sdk.kotlin.services.sagemaker.model.ListTrainingJobsRequest
 import aws.sdk.kotlin.services.sagemaker.model.SageMakerException
 import kotlin.system.exitProcess
+//snippet-end:[sagemaker.kotlin.list_jobs.import]
 
 /**
 To run this Kotlin code example, ensure that you have setup your development environment,
@@ -32,6 +34,7 @@ suspend fun main() {
     sageMakerClient.close()
 }
 
+//snippet-start:[sagemaker.kotlin.list_jobs.main]
 suspend fun listJobs(sageMakerClient:SageMakerClient) {
 
     try {
@@ -51,3 +54,4 @@ suspend fun listJobs(sageMakerClient:SageMakerClient) {
         exitProcess(0)
     }
 }
+//snippet-end:[sagemaker.kotlin.list_jobs.main]

@@ -13,10 +13,20 @@
 
 package com.kotlin.sage
 
+//snippet-start:[sagemaker.kotlin.transform_job.import]
 import aws.sdk.kotlin.services.sagemaker.SageMakerClient
-import aws.sdk.kotlin.services.sagemaker.model.*
-import java.util.ArrayList
+import aws.sdk.kotlin.services.sagemaker.model.TransformS3DataSource
+import aws.sdk.kotlin.services.sagemaker.model.S3DataType
+import aws.sdk.kotlin.services.sagemaker.model.TransformDataSource
+import aws.sdk.kotlin.services.sagemaker.model.TransformInput
+import aws.sdk.kotlin.services.sagemaker.model.SplitType
+import aws.sdk.kotlin.services.sagemaker.model.TransformOutput
+import aws.sdk.kotlin.services.sagemaker.model.TransformResources
+import aws.sdk.kotlin.services.sagemaker.model.TransformInstanceType
+import aws.sdk.kotlin.services.sagemaker.model.CreateTransformJobRequest
+import aws.sdk.kotlin.services.sagemaker.model.SageMakerException
 import kotlin.system.exitProcess
+//snippet-end:[sagemaker.kotlin.transform_job.import]
 
 /**
 To run this Kotlin code example, ensure that you have setup your development environment,
@@ -53,6 +63,7 @@ suspend fun main(args:Array<String>) {
     sageMakerClient.close()
 }
 
+//snippet-start:[sagemaker.kotlin.transform_job.main]
 suspend fun transformJob(
     sageMakerClient: SageMakerClient,
     s3UriVal: String?,
@@ -70,22 +81,22 @@ suspend fun transformJob(
             s3DataSource = s3DataSourceOb
         }
 
-        val input: TransformInput = TransformInput {
+        val input = TransformInput {
             dataSource = dataSourceOb
             contentType = "text/csv"
             splitType = SplitType.Line
         }
 
-        val output: TransformOutput = TransformOutput {
+        val output = TransformOutput {
             s3OutputPath = s3OutputPathVal
         }
 
-        val resources: TransformResources = TransformResources {
+        val resources = TransformResources {
             instanceCount = 1
             instanceType = TransformInstanceType.MlC4_4_Xlarge
         }
 
-        val jobRequest: CreateTransformJobRequest = CreateTransformJobRequest {
+        val jobRequest = CreateTransformJobRequest {
             transformJobName = transformJobNameVal
             modelName = modelNameVal
             transformInput = input
@@ -102,3 +113,4 @@ suspend fun transformJob(
         exitProcess(0)
     }
 }
+//snippet-end:[sagemaker.kotlin.transform_job.main]

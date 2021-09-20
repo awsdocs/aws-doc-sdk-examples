@@ -13,10 +13,12 @@
 
 package com.kotlin.sage
 
+//snippet-start:[sagemaker.kotlin.describe_train_job.import]
 import aws.sdk.kotlin.services.sagemaker.SageMakerClient
 import aws.sdk.kotlin.services.sagemaker.model.DescribeTrainingJobRequest
 import aws.sdk.kotlin.services.sagemaker.model.SageMakerException
 import kotlin.system.exitProcess
+//snippet-end:[sagemaker.kotlin.describe_train_job.import]
 
 /**
 To run this Kotlin code example, ensure that you have setup your development environment,
@@ -47,6 +49,7 @@ suspend fun main(args:Array<String>) {
     sageMakerClient.close()
 }
 
+//snippet-start:[sagemaker.kotlin.describe_train_job.main]
 suspend fun describeTrainJob(sageMakerClient: SageMakerClient, trainingJobNameVal: String?) {
     try {
         val trainingJobRequest = DescribeTrainingJobRequest {
@@ -62,3 +65,4 @@ suspend fun describeTrainJob(sageMakerClient: SageMakerClient, trainingJobNameVa
         exitProcess(0)
     }
 }
+//snippet-end:[sagemaker.kotlin.describe_train_job.main]

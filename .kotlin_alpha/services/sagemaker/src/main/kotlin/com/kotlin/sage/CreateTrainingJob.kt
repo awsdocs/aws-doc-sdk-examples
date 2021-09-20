@@ -13,9 +13,24 @@
 
 package com.kotlin.sage
 
+//snippet-start:[sagemaker.kotlin.train_job.import]
 import aws.sdk.kotlin.services.sagemaker.SageMakerClient
-import aws.sdk.kotlin.services.sagemaker.model.*
+import aws.sdk.kotlin.services.sagemaker.model.S3DataSource
+import aws.sdk.kotlin.services.sagemaker.model.S3DataType
+import aws.sdk.kotlin.services.sagemaker.model.S3DataDistribution
+import aws.sdk.kotlin.services.sagemaker.model.DataSource
+import aws.sdk.kotlin.services.sagemaker.model.ResourceConfig
+import aws.sdk.kotlin.services.sagemaker.model.TrainingInstanceType
+import aws.sdk.kotlin.services.sagemaker.model.CheckpointConfig
+import aws.sdk.kotlin.services.sagemaker.model.OutputDataConfig
+import aws.sdk.kotlin.services.sagemaker.model.StoppingCondition
+import aws.sdk.kotlin.services.sagemaker.model.AlgorithmSpecification
+import aws.sdk.kotlin.services.sagemaker.model.TrainingInputMode
+import aws.sdk.kotlin.services.sagemaker.model.CreateTrainingJobRequest
+import aws.sdk.kotlin.services.sagemaker.model.SageMakerException
+import aws.sdk.kotlin.services.sagemaker.model.Channel
 import kotlin.system.exitProcess
+//snippet-end:[sagemaker.kotlin.train_job.import]
 
 /**
 To run this Kotlin code example, ensure that you have setup your development environment,
@@ -59,6 +74,7 @@ suspend fun main(args:Array<String>) {
     sageMakerClient.close()
 }
 
+//snippet-start:[sagemaker.kotlin.train_job.main]
 suspend fun trainJob(
     sageMakerClient: SageMakerClient,
     s3UriData: String?,
@@ -144,3 +160,4 @@ suspend fun trainJob(
         exitProcess(0)
     }
 }
+//snippet-end:[sagemaker.kotlin.train_job.main]

@@ -13,12 +13,14 @@
 
 package com.kotlin.sage
 
+//snippet-start:[sagemaker.kotlin.create_model.import]
 import aws.sdk.kotlin.services.sagemaker.SageMakerClient
 import aws.sdk.kotlin.services.sagemaker.model.ContainerDefinition
 import aws.sdk.kotlin.services.sagemaker.model.CreateModelRequest
 import aws.sdk.kotlin.services.sagemaker.model.ContainerMode
 import aws.sdk.kotlin.services.sagemaker.model.SageMakerException
 import kotlin.system.exitProcess
+//snippet-end:[sagemaker.kotlin.create_model.import]
 
 /**
 To run this Kotlin code example, ensure that you have setup your development environment,
@@ -56,6 +58,7 @@ suspend fun main(args:Array<String>) {
     sageMakerClient.close()
 }
 
+//snippet-start:[sagemaker.kotlin.create_model.main]
 suspend fun createSagemakerModel(
         sageMakerClient: SageMakerClient,
         dataUrl: String?,
@@ -86,3 +89,4 @@ suspend fun createSagemakerModel(
          exitProcess(0)
        }
   }
+//snippet-end:[sagemaker.kotlin.create_model.main]

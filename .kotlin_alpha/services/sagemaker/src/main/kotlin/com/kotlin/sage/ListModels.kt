@@ -13,10 +13,12 @@
 
 package com.kotlin.sage
 
+//snippet-start:[sagemaker.kotlin.list_models.import]
 import aws.sdk.kotlin.services.sagemaker.SageMakerClient
 import aws.sdk.kotlin.services.sagemaker.model.ListModelsRequest
 import aws.sdk.kotlin.services.sagemaker.model.SageMakerException
 import kotlin.system.exitProcess
+//snippet-end:[sagemaker.kotlin.list_models.import]
 
 /**
 To run this Kotlin code example, ensure that you have setup your development environment,
@@ -32,7 +34,7 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
         sageMakerClient.close()
     }
 
-
+    //snippet-start:[sagemaker.kotlin.list_models.main]
     suspend fun listAllModels(sageMakerClient:SageMakerClient) {
 
         try {
@@ -55,5 +57,5 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
             exitProcess(0)
         }
     }
-
+//snippet-end:[sagemaker.kotlin.list_models.main]
 
