@@ -181,8 +181,8 @@ cross_TranscriptionStreamingApp:
     - transcribe
     - ses
 cross_RekognitionPhotoAnalyzerPPE:
-  title: Analyze images for PPE with &REK; using an &AWS; SDK
-  title_abbrev: Analyze images for PPE
+  title: Detect PPE in images with &REK; using an &AWS; SDK
+  title_abbrev: Detect PPE in images
   synopsis: build an app that uses &REK; to to detect Personal Protective Equipment (PPE) in images.
   languages:
     JavaScript:
@@ -195,9 +195,9 @@ cross_RekognitionPhotoAnalyzerPPE:
     - dynamodb
     - ses
 cross_RekognitionPhotoAnalyzer:
-  title: Analyze objects by category with &REK; using an &AWS; SDK
-  title_abbrev: Analyze images for objects
-  synopsis: build an app that uses &REK; to identify objects by category in images.
+  title: Detect objects in images with &REK; using an &AWS; SDK
+  title_abbrev: Detect objects in images
+  synopsis: build an app that uses &REK; to detect objects by category in images.
   languages:
     JavaScript:
       versions:
@@ -208,8 +208,8 @@ cross_RekognitionPhotoAnalyzer:
     - s3
     - ses
 cross_RekognitionVideoAnalyzer:
-  title: Analyze video for objects with &REK; using an &AWS; SDK
-  title_abbrev: Detect people and objects videos
+  title: Detect people and objects in video with &REK; using an &AWS; SDK
+  title_abbrev: Detect people and objects in a video (&AWS; SDK for JS)
   synopsis: build an app that use &REK; to detect faces and objects in videos.
   languages:
     JavaScript:
