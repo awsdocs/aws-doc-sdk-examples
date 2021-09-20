@@ -56,10 +56,10 @@ public class CreateTransformJob {
             System.exit(1);
         }
 
-        String s3Uri = "s3://scottsagebucket/churn.txt"; // args[0];
-        String s3OutputPath = "s3://scottsagebucket/output"; // args[1];
-        String modelName = "xgboost-2020-06-27-19-35-42-527"; // args[2];
-        String transformJobName = "ScottJob2"; // args[3];
+        String s3Uri = args[0];
+        String s3OutputPath = args[1];
+        String modelName = args[2];
+        String transformJobName = args[3];
 
         Region region = Region.US_WEST_2;
         SageMakerClient sageMakerClient = SageMakerClient.builder()
