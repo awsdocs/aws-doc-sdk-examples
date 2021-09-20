@@ -11,12 +11,12 @@
 },
   "transform": {},
   "dependencies": {
-    "@aws-sdk/client-cognito-identity": "^3.3.0",
-    "@aws-sdk/credential-provider-cognito-identity": "^3.3.0",
-    "@aws-sdk/client-dynamodb": "^3.3.0",
-    "@aws-sdk/client-rekognition": "^3.3.0",
-    "@aws-sdk/client-s3": "^3.3.0",
-    "@aws-sdk/client-ses": "^3.3.0",
+    "@aws-sdk/client-cognito-identity": "^3.32.0",
+    "@aws-sdk/credential-provider-cognito-identity": "^3.32.0",
+    "@aws-sdk/client-dynamodb": "^3.32.0",
+    "@aws-sdk/client-rekognition": "^3.32.0",
+    "@aws-sdk/client-s3": "^3.32.0",
+    "@aws-sdk/client-ses": "^3.32.0",
     "fs": "^0.0.1-security",
     "path": "^0.12.7"
   },
