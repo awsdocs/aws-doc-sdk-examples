@@ -21,8 +21,8 @@ sdks:
     property: java
     sdk:
       1:
-        long: "&Javalong;"
-        short: "&Java;"
+        long: "&Javalong; 1.x"
+        short: "&Java; 1.x"
       2:
         long: "&JavaV2long;"
         short: "&JavaV2;"
@@ -37,6 +37,14 @@ sdks:
         long: "&JSBlong; V3"
         short: "&JSB; V3"
     guide: "&guide-jsb-dev;"
+  Kotlin:
+    property: kotlin
+    sdk:
+      1:
+        long: "&AWS; SDK for Kotlin"
+        short: "SDK for Kotlin"
+        caveat: "This is prerelease documentation for a feature in preview release. It is subject to change."
+    guide: "&AWS; SDK for Kotlin Developer Guide"
   .NET:
     property: csharp
     sdk:

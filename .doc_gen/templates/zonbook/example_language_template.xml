@@ -5,12 +5,15 @@
     <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
     %phrases-shared;
 ]>
-<!-- zexi 0.2.0 -->
+<!-- zexi 0.2.1 -->
 <variablelist role="termdef">
     {{- range $version := .Versions}}
     <varlistentry>
         <term>{{- $version.SdkEntity.Short}}</term>
         <listitem>
+            {{- if $version.Caveat}}
+            <note><para>{{$version.Caveat}}</para></note>
+            {{- end}}
             {{- if $version.BlockContent}}
             <xi:include href="file://AWSShared/code-samples/docs/{{.BlockContent}}"></xi:include>
             <itemizedlist>
