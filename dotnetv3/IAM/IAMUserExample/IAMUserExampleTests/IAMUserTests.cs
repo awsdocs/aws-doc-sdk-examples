@@ -32,6 +32,7 @@ namespace IAMUserExampleTests
         "}";
         private const string UserName = "S3ReadOnlyUser";
         private const string AccessKeyId = "AKIAIOSFODNN7EXAMPLE";
+        string BucketName = "bucket-to-delete";
 
         [Fact]
         public async Task CreateGroupAsyncTest()
@@ -271,6 +272,7 @@ namespace IAMUserExampleTests
         public async Task CleanUpResourcesTest()
         {
             var mockIAMClient = new Mock<AmazonIdentityManagementServiceClient>();
+            var mockS3Client = new Mock<AmazonS3Client>();
 
             mockIAMClient.Setup(client => client.RemoveUserFromGroupAsync(
                 It.IsAny<RemoveUserFromGroupRequest>(),
@@ -361,9 +363,28 @@ namespace IAMUserExampleTests
                 });
             });
 
-            var client = mockIAMClient.Object;
+            var iamClient = mockIAMClient.Object;
 
-            await IAMUserExample.IAMUser.CleanUpResources(client, UserName, GroupName, AccessKeyId);
+            mockS3Client.Setup(client => client.DeleteBucketAsync(
+                It.IsAny<string>(),
+                It.IsAny<CancellationToken>()
+            )).Callback<string, CancellationToken>((bucketName, token) =>
+            {
+                if (!string.IsNullOrEmpty(bucketName))
+                {
+                    Assert.Equal(bucketName, BucketName);
+                }
+            }).Returns((string bucketName, CancellationToken token) =>
+            {
+                return Task.FromResult(new DeleteBucketResponse()
+                {
+                    HttpStatusCode = System.Net.HttpStatusCode.OK,
+                });
+            });
+
+            var s3Client = mockS3Client.Object;
+
+            await IAMUserExample.IAMUser.CleanUpResources(iamClient, s3Client, UserName, GroupName, BucketName, AccessKeyId);
         }
     }
 }

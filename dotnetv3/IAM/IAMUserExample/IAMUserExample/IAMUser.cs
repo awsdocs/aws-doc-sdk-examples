@@ -9,6 +9,7 @@ namespace IAMUserExample
     using Amazon.IdentityManagement;
     using Amazon.IdentityManagement.Model;
     using Amazon.S3;
+    using Amazon.S3.Model;
 
     /// <summary>
     /// This example shows a typical use case for the AWS Identity and Access
@@ -17,9 +18,9 @@ namespace IAMUserExample
     /// </summary>
     public class IAMUser
     {
-        // Represents json code for AWS read-only policy for Amazon Simple
+        // Represents json code for AWS full access policy for Amazon Simple
         // Storage Service (Amazon S3).
-        private const string S3ReadonlyPolicy = "{" +
+        private const string S3FullAccessPolicy = "{" +
             "	\"Statement\" : [{" +
                 "	\"Action\" : [\"s3:*\"]," +
                 "	\"Effect\" : \"Allow\"," +
@@ -27,18 +28,21 @@ namespace IAMUserExample
             "}]" +
         "}";
 
-        private const string PolicyName = "S3ReadOnlyAccess";
+        private const string PolicyName = "S3FullAccess";
 
         // Indicates the AWS Region where the S3 bucket is located. Remember to
         // replace the value with the endpoint for your own Region.
         private static readonly RegionEndpoint AWSRegion = RegionEndpoint.USWest2;
 
-        private static readonly string UserName = "S3ReadOnlyUser";
-        private static readonly string GroupName = "S3ReadonlyGroup";
+        private static readonly string UserName = "S3FullAccessUser";
+        private static readonly string GroupName = "S3FullAccessGroup";
+
+        private static readonly string BucketName = "temporary-doc-example-bucket";
 
         public static async Task Main()
         {
             var iamClient = new AmazonIdentityManagementServiceClient();
+            var s3Client = new AmazonS3Client();
 
             // Clear the console screen before displaying any text.
             Console.Clear();
@@ -64,7 +68,7 @@ namespace IAMUserExample
             // Add the new user to the group.
             success = await AddNewUserToGroupAsync(iamClient, readOnlyUser.UserName, createGroupResponse.Group.GroupName);
 
-            // Show that the user can access S3 by listing the buckets on
+            // Show that the user can access Amazon S3 by listing the buckets on
             // the account.
             Console.Write("Waiting for user status to be Active.");
             do
@@ -75,8 +79,17 @@ namespace IAMUserExample
 
             await ListBucketsAsync(createKeyResponse.AccessKey);
 
-            // Delete the user and group.
-            await CleanUpResources(iamClient, UserName, GroupName, createKeyResponse.AccessKey.AccessKeyId);
+            // Show that the user also has write access to Amazon S3 by creating
+            // a new bucket.
+            success = await CreateS3BucketAsync(createKeyResponse.AccessKey, BucketName);
+
+            if (success)
+            {
+                Console.WriteLine($"Successfully created the bucket: {BucketName}.");
+            }
+
+            // Delete the user, the group, and the new bucket.
+            await CleanUpResources(iamClient, s3Client, UserName, GroupName, BucketName, createKeyResponse.AccessKey.AccessKeyId);
 
             Console.WriteLine("Press <Enter> to close the program.");
             Console.ReadLine();
@@ -123,12 +136,12 @@ namespace IAMUserExample
             {
                 GroupName = group.GroupName,
                 PolicyName = PolicyName,
-                PolicyDocument = S3ReadonlyPolicy,
+                PolicyDocument = S3FullAccessPolicy,
             };
 
             Console.WriteLine("--------------------------------------------------------------------------------------------------------------");
             var response = await client.PutGroupPolicyAsync(groupPolicyRequest);
-            Console.WriteLine($"Successfully added S3 readonly access policy to {group.GroupName}.");
+            Console.WriteLine($"Successfully added S3 full access access policy to {group.GroupName}.");
 
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
@@ -176,6 +189,8 @@ namespace IAMUserExample
         /// group to which the new user will be added.</param>
         /// <param name="groupName">A string representing the name of the group
         /// to which to add the user.</param>
+        /// <returns>A boolean value that indicates the success or failure of
+        /// the clean up procedure.</returns>
         public static async Task<bool> AddNewUserToGroupAsync(AmazonIdentityManagementServiceClient client, string userName, string groupName)
         {
             var response = await client.AddUserToGroupAsync(new AddUserToGroupRequest
@@ -244,17 +259,61 @@ namespace IAMUserExample
         }
 
         /// <summary>
+        /// Create a new Amazon S3 bucket using the supplied Access Key to
+        /// create an Amazon S3 client using the new user.
+        /// </summary>
+        /// <param name="accessKey">The AccessKey that will provide permissions
+        /// for the new user to call ListBucketsAsync.</param>
+        /// <param name="bucketName">The name of the Amazon S3 bucket to create.</param>
+        /// <returns>A boolean value indicating the success or failure of the operation.</returns>
+        public static async Task<bool> CreateS3BucketAsync(
+            AccessKey accessKey,
+            string bucketName)
+        {
+            // Creating a client that works with this user.
+            var client = new AmazonS3Client(accessKey.AccessKeyId, accessKey.SecretAccessKey);
+            var success = false;
+
+            try
+            {
+                var request = new PutBucketRequest
+                {
+                    BucketName = bucketName,
+                    UseClientRegion = true,
+                };
+
+                var response = await client.PutBucketAsync(request);
+                success = true;
+            }
+            catch (AmazonS3Exception ex)
+            {
+                Console.WriteLine($"Error creating bucket: '{ex.Message}'");
+            }
+
+            return success;
+        }
+
+        /// <summary>
         /// Deletes the User, Group, and AccessKey which were created for the purposes of
         /// this example.
         /// </summary>
         /// <param name="client">The IAM client used to delete the other
         /// resources.</param>
+        /// <param name="s3Client">The Amazon S3 client object to delete the
+        /// bucket that was created.</param>
         /// <param name="userName">The name of the user that will be deleted.</param>
         /// <param name="groupName">The name of the group that will be deleted.</param>
+        /// <param name="bucketName">The name of the bucket to delete.</param>
         /// <param name="accessKeyId">The AccessKeyId that represents the
         /// AccessKey that was created for use with the ListBucketsAsync
         /// method.</param>
-        public static async Task CleanUpResources(AmazonIdentityManagementServiceClient client, string userName, string groupName, string accessKeyId)
+        public static async Task CleanUpResources(
+            AmazonIdentityManagementServiceClient client,
+            AmazonS3Client s3Client,
+            string userName,
+            string groupName,
+            string bucketName,
+            string accessKeyId)
         {
             // Remove the user from the group.
             var removeUserRequest = new RemoveUserFromGroupRequest()
@@ -299,8 +358,16 @@ namespace IAMUserExample
 
             await client.DeleteGroupAsync(deleteGroupRequest);
 
+            // Now delete the bucket.
+            var deleteBucketRequest = new DeleteBucketRequest
+            {
+                BucketName = bucketName,
+            };
+
+            await s3Client.DeleteBucketAsync(deleteBucketRequest);
+
             Console.WriteLine("\n--------------------------------------------------------------------------------------------------------------");
-            Console.WriteLine("Deleted the user and group created for this example.");
+            Console.WriteLine("Deleted the user, the group, and the bucket created for this example.");
         }
     }
 }
