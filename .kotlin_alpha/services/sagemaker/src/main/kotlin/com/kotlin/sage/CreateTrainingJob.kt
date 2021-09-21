@@ -49,7 +49,7 @@ suspend fun main(args:Array<String>) {
         s3UriData - the location of the training data (for example, s3://trainbucket/train.csv).
         s3Uri - the Amazon S3 path where you want Amazon SageMaker to store checkpoints (for example, s3://trainbucket).
         trainingJobName - the name of the training job. 
-        roleArn - the Amazon Resource Name (ARN) of the IAM role that SageMaker uses.
+        roleArn - the Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that SageMaker uses.
         s3OutputPath - the output path located in an Amazon S3 bucket (for example, s3://trainbucket/sagemaker).
         channelName  - the channel name (for example, s3://trainbucket/sagemaker).
         trainingImage  - the training image (for example, 000007028032.bbb.zzz.us-west-2.amazonaws.com/xgboost:latest.

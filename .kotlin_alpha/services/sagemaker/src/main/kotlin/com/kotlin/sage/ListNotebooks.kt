@@ -38,7 +38,6 @@ suspend fun main() {
 suspend fun listBooks(sageMakerClient:SageMakerClient) {
 
     try {
-        // Get a list of notebooks.
         val notebookInstancesResponse = sageMakerClient.listNotebookInstances(ListNotebookInstancesRequest{})
         val items = notebookInstancesResponse.notebookInstances
 

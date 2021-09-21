@@ -39,7 +39,7 @@ suspend fun main(args:Array<String>) {
         dataUrl - the Amazon S3 path where the model artifacts, which result from model training, are stored.
         image - the Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored (for example, xxxxx5047983.dkr.ecr.us-west-2.amazonaws.com/train).
         modelName - the name of the model.
-        executionRoleArn - the Amazon Resource Name (ARN) of the IAM role that Amazon SageMaker can assume to access model artifacts (for example, arn:aws:iam::xxxxx5047983:role/service-role/AmazonSageMaker-ExecutionRole-20200627T12xxxx).
+        executionRoleArn - the Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that Amazon SageMaker can assume to access model artifacts (for example, arn:aws:iam::xxxxx5047983:role/service-role/AmazonSageMaker-ExecutionRole-20200627T12xxxx).
 
     """
 
