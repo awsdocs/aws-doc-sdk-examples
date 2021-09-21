@@ -190,7 +190,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         persons.push(p);
     }
 
-    // Sort vector by from_left value
+    // Sort vector by from_left value.
     persons.sort_by(|a, b| a.from_left.partial_cmp(&b.from_left).unwrap());
 
     if !verbose {

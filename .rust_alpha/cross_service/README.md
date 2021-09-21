@@ -15,7 +15,7 @@ You must have an AWS account, and have configured your default credentials and A
 ### detect_faces
 
 This code example:
-- Saves the image in an Amazon S3 bucket with an "uploads/" prefix.
+- Saves the image in an Amazon Simple Storage Service (Amazon S3) bucket with an "uploads/" prefix.
 - Displays facial details age range, gender, and emotion (smiling, etc.).
 
 ```
@@ -23,10 +23,10 @@ cd detect_faces;
 cargo run -- -b BUCKET -f FILENAME [-r REGION] [-v]
 ```
 
-- _BUCKET_ is the name of the S3 bucket where the JPG, JPEG, or PNG file is uploaded.
+- _BUCKET_ is the name of the Amazon S3 bucket where the JPG, JPEG, or PNG file is uploaded.
 - _FILENAME_ is the name of the file to upload.
   It must have a __jpg__, __jpeg__, or __png__ file extension.  
-- _REGION_ is name of the Region in which the client is created.
+- _REGION_ is the name of the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
@@ -34,22 +34,22 @@ cargo run -- -b BUCKET -f FILENAME [-r REGION] [-v]
 ### detect_labels
 
 This code example:
-- Gets EXIF information from a a JPG, JPEG, or PNG file.
-- Uploads the file to an S3 bucket.
-- Uses Rekognition to identify the three top attributes (labels in Rekognition) in the file.
-- Adds the EXIF and label information to a DynamoDB table.
+- Gets EXIF information from a JPG, JPEG, or PNG file.
+- Uploads the file to an Amazon S3 bucket.
+- Uses Amazon Rekognition to identify the three top attributes (labels in Amazon Rekognition) in the file.
+- Adds the EXIF and label information to an Amazon DynamoDB table.
 
 ```
 cd detect_labels; 
 cargo run -- -b BUCKET -f FILENAME -t TABLE [-r REGION] [-v]
 ```
 
-- _BUCKET_ is the name of the S3 bucket where the JPG, JPEG, or PNG file is uploaded.
+- _BUCKET_ is the name of the Amazon S3 bucket where the JPG, JPEG, or PNG file is uploaded.
 - _FILENAME_ is the name of the file to upload.
   It must have a __jpg__, __jpeg__, or __png__ file extension.
 - _TABLE_ is the DynamoDB table in which the EXIF and label information is stored.
   It must use the primary key __filename__.
-- _REGION_ is name of the Region in which the client is created.
+- _REGION_ is the name of the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
