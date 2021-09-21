@@ -20,3 +20,4 @@ They also include third-party Node.js modules, including webpack.
 npm install node -g 
 cd javascriptv3/example_code/cross-services/message-app/
 npm install
+```

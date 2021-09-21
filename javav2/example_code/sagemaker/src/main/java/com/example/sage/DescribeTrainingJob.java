@@ -49,12 +49,12 @@ public class DescribeTrainingJob {
                 .region(region)
                 .build();
 
-        desribeTrainJob(sageMakerClient, trainingJobName);
+        describeTrainJob(sageMakerClient, trainingJobName);
         sageMakerClient.close();
     }
 
     //snippet-start:[sagemaker.java2.describe_train_job.main]
-    public static void desribeTrainJob(SageMakerClient sageMakerClient, String trainingJobName) {
+    public static void describeTrainJob(SageMakerClient sageMakerClient, String trainingJobName) {
 
        try {
             DescribeTrainingJobRequest trainingJobRequest = DescribeTrainingJobRequest.builder()

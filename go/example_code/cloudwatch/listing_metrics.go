@@ -54,7 +54,7 @@ func main() {
     // Create CloudWatch client
     svc := cloudwatch.New(sess)
 
-    // Disable the alarm
+    // Get the list of metrics matching your criteria
     result, err := svc.ListMetrics(&cloudwatch.ListMetricsInput{
         MetricName: aws.String(metric),
         Namespace:  aws.String(namespace),

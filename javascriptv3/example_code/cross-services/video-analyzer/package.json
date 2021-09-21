@@ -11,12 +11,12 @@
     "test": "exit 0"
   },
   "dependencies": {
-    "@aws-sdk/client-cognito-identity": "^3.3.0",
-    "@aws-sdk/client-rekognition": "^3.3.0",
-    "@aws-sdk/client-s3": "^3.3.0",
-    "@aws-sdk/client-ses": "^3.3.0",
-    "@aws-sdk/credential-provider-cognito-identity": "^3.3.0",
-    "@aws-sdk/types": "^3.3.0",
+    "@aws-sdk/client-cognito-identity": "^3.32.0",
+    "@aws-sdk/client-rekognition": "^3.32.0",
+    "@aws-sdk/client-s3": "^3.32.0",
+    "@aws-sdk/client-ses": "^3.32.0",
+    "@aws-sdk/credential-provider-cognito-identity": "^3.32.0",
+    "@aws-sdk/types": "^3.32.0",
     "fetch": "^1.1.0",
     "node-fetch": "^2.6.1",
     "ts-node": "^9.0.0"

@@ -12,6 +12,7 @@ without cloning the GitHub repository, you must first download the image files f
     https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/rekognition/.media
 """
 
+# snippet-start:[python.example_code.rekognition.image_detection_imports]
 import logging
 from pprint import pprint
 import boto3
@@ -24,7 +25,10 @@ from rekognition_objects import (
 
 logger = logging.getLogger(__name__)
 
+# snippet-end:[python.example_code.rekognition.image_detection_imports]
 
+
+# snippet-start:[python.example_code.rekognition.RekognitionImage]
 class RekognitionImage:
     """
     Encapsulates an Amazon Rekognition image. This class is a thin wrapper
@@ -42,7 +46,9 @@ class RekognitionImage:
         self.image = image
         self.image_name = image_name
         self.rekognition_client = rekognition_client
+# snippet-end:[python.example_code.rekognition.RekognitionImage]
 
+# snippet-start:[python.example_code.rekognition.RekognitionImage.from_file]
     @classmethod
     def from_file(cls, image_file_name, rekognition_client, image_name=None):
         """
@@ -60,7 +66,9 @@ class RekognitionImage:
             image = {'Bytes': img_file.read()}
         name = image_file_name if image_name is None else image_name
         return cls(image, name, rekognition_client)
+# snippet-end:[python.example_code.rekognition.RekognitionImage.from_file]
 
+# snippet-start:[python.example_code.rekognition.RekognitionImage.from_bucket]
     @classmethod
     def from_bucket(cls, s3_object, rekognition_client):
         """
@@ -73,7 +81,9 @@ class RekognitionImage:
         """
         image = {'S3Object': {'Bucket': s3_object.bucket_name, 'Name': s3_object.key}}
         return cls(image, s3_object.key, rekognition_client)
+# snippet-end:[python.example_code.rekognition.RekognitionImage.from_bucket]
 
+# snippet-start:[python.example_code.rekognition.DetectFaces]
     def detect_faces(self):
         """
         Detects faces in the image.
@@ -90,7 +100,9 @@ class RekognitionImage:
             raise
         else:
             return faces
+# snippet-end:[python.example_code.rekognition.DetectFaces]
 
+# snippet-start:[python.example_code.rekognition.CompareFaces]
     def compare_faces(self, target_image, similarity):
         """
         Compares faces in the image with the largest face in the target image.
@@ -120,7 +132,9 @@ class RekognitionImage:
             raise
         else:
             return matches, unmatches
-
+# snippet-end:[python.example_code.rekognition.CompareFaces]
+    
+# snippet-start:[python.example_code.rekognition.DetectLabels]
     def detect_labels(self, max_labels):
         """
         Detects labels in the image. Labels are objects and people.
@@ -138,7 +152,9 @@ class RekognitionImage:
             raise
         else:
             return labels
+# snippet-end:[python.example_code.rekognition.DetectLabels]
 
+# snippet-start:[python.example_code.rekognition.DetectModerationLabels]
     def detect_moderation_labels(self):
         """
         Detects moderation labels in the image. Moderation labels identify content
@@ -159,7 +175,9 @@ class RekognitionImage:
             raise
         else:
             return labels
+# snippet-end:[python.example_code.rekognition.DetectModerationLabels]
 
+# snippet-start:[python.example_code.rekognition.DetectText]
     def detect_text(self):
         """
         Detects text in the image.
@@ -175,7 +193,9 @@ class RekognitionImage:
             raise
         else:
             return texts
+# snippet-end:[python.example_code.rekognition.DetectText]
 
+# snippet-start:[python.example_code.rekognition.RecognizeCelebrities]
     def recognize_celebrities(self):
         """
         Detects celebrities in the image.
@@ -199,8 +219,10 @@ class RekognitionImage:
             raise
         else:
             return celebrities, other_faces
+# snippet-end:[python.example_code.rekognition.RecognizeCelebrities]
 
 
+# snippet-start:[python.example_code.rekognition.Usage_ImageDetection]
 def usage_demo():
     print('-'*88)
     print("Welcome to the Amazon Rekognition image detection demo!")
@@ -290,6 +312,7 @@ def usage_demo():
 
     print("Thanks for watching!")
     print('-'*88)
+# snippet-end:[python.example_code.rekognition.Usage_ImageDetection]
 
 
 if __name__ == '__main__':

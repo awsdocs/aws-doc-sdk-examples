@@ -7,8 +7,8 @@ version = "0.1.0"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-sdk-rds = {git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.15-alpha", package = "aws-sdk-rds"}
-aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.15-alpha", package = "aws-types" }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.17-alpha", package = "aws-config" }
+aws-sdk-rds = {git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.17-alpha", package = "aws-sdk-rds"}
 tokio = {version = "1", features = ["full"]}
 structopt = { version = "0.3", default-features = false }
 tracing-subscriber = { version = "0.2.16", features = ["fmt"] }

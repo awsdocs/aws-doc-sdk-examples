@@ -1,3 +1,4 @@
+# zexi 0.2.0
 sdks:
   C++:
     property: cpp
@@ -70,7 +71,7 @@ services:
     long: "&ACMlong;"
     short: "&ACM;"
     sort: "ACM"
-  apigateway:
+  api-gateway:
     long: "&ABPlong;"
     short: "&ABP;"
     sort: "API Gateway"
@@ -78,19 +79,31 @@ services:
     long:  "&CFNlong;"
     short:  "&CFN;"
     sort:  "CloudFormation"
-  cognito:
-    long: "&COGlong;"
-    short: "&COG;"
-    sort: "Cognito"
+  cloudfront:
+    long: "&CFlong;"
+    short: "&CF;"
+    sort: "CloudFront"
+  cloudwatch:
+    long: "&CWlong;"
+    short: "&CW;"
+    sort: "CloudWatch"
   cognito-identity:
     long: "&COGID;"
     short: "&COGID;"
     sort: "Cognito Identity"
+  comprehend:
+    long: "&CMPlong;"
+    short: "&CMP;"
+    sort: "Comprehend"
+  config-service:
+    long: "&CClong;"
+    short: "&CC;"
+    sort: "Config"
   dynamodb:
     long: "&DDBlong;"
     short: "&DDB;"
     sort: "DynamoDB"
-  events:
+  eventbridge:
     long: "&EVlong;"
     short: "&EV;"
     sort: "EventBridge"
@@ -102,11 +115,15 @@ services:
     long: "&RDSlong;"
     short: "&RDS;"
     sort: "RDS"
+  rekognition:
+    long: "&REKlong;"
+    short: "&REK;"
+    sort: "Rekognition"
   s3:
     long: "&S3long;"
     short: "&S3;"
     sort: "S3"
-  secretsmanager:
+  secrets-manager:
     long: "&ASMlong;"
     short: "&ASM;"
     sort: "Secrets Manager"
@@ -118,7 +135,7 @@ services:
     long: "&SQSlong;"
     short: "&SQS;"
     sort: "SQS"
-  stepfunctions:
+  sfn:
     long: "&SFNlong;"
     short: "&SFN;"
     sort: "Step Functions"
@@ -130,10 +147,6 @@ services:
     long: "&TSClong;"
     short: "&TSC;"
     sort: "Transcribe"
-  comprehend:
-    long: "&CMPlong;"
-    short: "&CMP;"
-    sort: "Comprehend"
   iam:
     long: "&IAMlong;"
     short: "&IAM;"
@@ -146,3 +159,7 @@ services:
     long: "&SESlong;"
     short: "&SES;"
     sort: "SES"
+  glacier:
+    long: "&GLlong;"
+    short: "&GLshort;"
+    sort: "S3 Glacier"

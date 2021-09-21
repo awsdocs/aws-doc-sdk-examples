@@ -36,6 +36,8 @@ async fn main() -> Result<(), Error> {
         .or_default_provider()
         .or_else(Region::new("us-west-2"));
 
+    let region_str: String = String::from(region.region().unwrap().as_ref());
+
     println!();
 
     if verbose {
@@ -62,7 +64,7 @@ async fn main() -> Result<(), Error> {
     }
 
     println!();
-    println!("Found {} functions", num_funcs);
+    println!("Found {} functions in {} region", num_funcs, region_str);
 
     Ok(())
 }

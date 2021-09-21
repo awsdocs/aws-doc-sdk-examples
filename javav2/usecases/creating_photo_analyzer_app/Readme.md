@@ -1,25 +1,15 @@
-#  Creating an example AWS photo analyzer application using the AWS SDK for Java
+#  Creating a dynamic web application that analyzes photos using the AWS SDK for Java
 
 ## Purpose
-You can create an AWS application that analyzes nature images located in an Amazon Simple Storage Service (Amazon S3) bucket by using the Amazon Rekognition service.
-
-The application can analyze many images and generate a report that breaks down each image into a series of labels.
-
-For example, the following image shows a lake.
+You can create a dynamic web application that analyzes nature images located in an Amazon Simple Storage Service (Amazon S3) bucket by using the Amazon Rekognition service. The application analyzes many images and generates a report that breaks down each image into a series of labels. For example, the following image shows a lake.
 
 ![AWS Photo Analyzer](images/Lake1.png)
 
-After the application analyzes this image, it creates this data:
-*	Panoramic - 99.99971
-*	Outdoors - 99.99971
-*	Nature - 99.99971
-*	Landscape - 99.99971
-*	Scenery	 - 99.99971
-*	Wilderness - 96.90007
-*	Water - 93.501465
-*	Lake - 87.28128
+After the application analyzes all images in the Amazon S3 bucket, it uses the Amazon Simple Email Service (Amazon SES) to send a dynamically created report to a given email recipient. The report is a Microsoft Excel document that contains label data for each image. 
 
-In addition, this application uses Amazon Simple Email Service (Amazon SES) to send a report to a given email recipient. In this tutorial, you create a Spring Boot application named **AWS Photo Analyzer**. The Spring Boot APIs are used to build a model, different views, and a controller. For more information, see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
+![AWS Photo Analyzer](images/excelreport.png)
+
+In this tutorial, you create a Spring Boot application named **AWS Photo Analyzer**. The Spring Boot APIs are used to build a model, different views, and a controller. For more information, see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
 
 This application uses the following AWS services:
 *	Amazon Rekognition
@@ -63,11 +53,11 @@ Create an Amazon S3 bucket named **photos[somevalue]**. Be sure to use this buck
 
 The AWS Photo Analyzer application supports uploading images to an Amazon S3 bucket. After the images are uploaded, you can view the images that are analyzed.
 
-![AWS Photo Analyzer](images/Photo1.png)
+![AWS Photo Analyzer](images/upload3.png)
 
 To generate a report, enter an email address and choose **Analyze Photos**.
 
-![AWS Photo Analyzer](images/photo2.png)
+![AWS Photo Analyzer](images/Report2.png)
 
 You can also download a given image from the Amazon S3 bucket by using this application. Simply specify the image name and choose the **Download Photo** button. The image is downloaded to your browser, as shown in this illustration. 
 
@@ -86,27 +76,13 @@ You can also download a given image from the Amazon S3 bucket by using this appl
 
 At this point, you have a new project named **SpringPhotoAnalyzer**.
 
-![AWS Photo Analyzer](images/photo3.png)
+![AWS Photo Analyzer](images/projectpa0.png)
 
-Add the following dependencies for the Amazon services (AWS SDK for Java version 2).
+**Note:** Ensure that you are using Java 1.8 (as shown in the following **pom.xml** file).
 
-    <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>ses</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>rekognition</artifactId>
-     </dependency>
-     <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>s3</artifactId>
-     </dependency>
+Ensure that the **pom.xml** file looks like the following.
 
-   **Note:** Ensure that you are using Java 1.8 (as shown in the following **pom.xml** file).
-
-   Add the Spring Boot dependencies. The **pom.xml** file looks like the following.
-
+```xml
      <?xml version="1.0" encoding="UTF-8"?>
      <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -207,16 +183,17 @@ Add the following dependencies for the Amazon services (AWS SDK for Java version
         </plugins>
       </build>
      </project>
+```
 
 ## Create the Java classes
 
 Create a Java package in the **main/java** folder named **com.example.photo**.
 
-![AWS Photo Analyzer](images/photo4.png)
+![AWS Photo Analyzer](images/projectpa.png)
 
 The Java files go into this package.
 
-![AWS Photo Analyzer](images/photo5.png)
+![AWS Photo Analyzer](images/projectpa1.png)
 
 Create these Java classes:
 
@@ -233,6 +210,7 @@ Create these Java classes:
 
 The following Java code represents the **AnalyzePhotos** class. This class uses the Amazon Rekognition API to analyze the images.
 
+```java
     package com.example.photo;
 
     import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -263,7 +241,7 @@ The following Java code represents the **AnalyzePhotos** class. This class uses 
 
             SdkBytes sourceBytes = SdkBytes.fromByteArray(bytes);
 
-            // Create an Image object for the source image
+            // Create an Image object for the source image.
             Image souImage = Image.builder()
                     .bytes(sourceBytes)
                     .build();
@@ -275,11 +253,10 @@ The following Java code represents the **AnalyzePhotos** class. This class uses 
 
             DetectLabelsResponse labelsResponse = rekClient.detectLabels(detectLabelsRequest);
 
-            // Write the results to a WorkItem instance
+            // Write the results to a WorkItem instance.
             List<Label> labels = labelsResponse.labels();
 
             System.out.println("Detected labels for the given photo");
-
             ArrayList list = new ArrayList<WorkItem>();
             WorkItem item ;
             for (Label label: labels) {
@@ -298,6 +275,7 @@ The following Java code represents the **AnalyzePhotos** class. This class uses 
         return null ;
      }
     }
+```
 
 **Note:** In this example, an **EnvironmentVariableCredentialsProvider** is used for the credentials. This is because this application is deployed to Elastic Beanstalk where environment variables are set (shown later in this tutorial).
 
@@ -305,6 +283,7 @@ The following Java code represents the **AnalyzePhotos** class. This class uses 
 
 The following Java code represents the **BucketItem** class that stores S3 object data.
 
+```java
     package com.example.photo;
 
     public class BucketItem {
@@ -348,11 +327,13 @@ The following Java code represents the **BucketItem** class that stores S3 objec
         return this.key ;
     }
     }
+```
 
 ### PhotoApplication class
 
 The following Java code represents the **PhotoApplication** class.
 
+```java
     package com.example.photo;
 
     import org.springframework.boot.SpringApplication;
@@ -365,6 +346,7 @@ The following Java code represents the **PhotoApplication** class.
         SpringApplication.run(PhotoApplication.class, args);
       }
      }
+```
 
 ### PhotoController class
 
@@ -372,6 +354,7 @@ The following Java code represents the **PhotoController** class that handles HT
 
 **Note**: Be sure that you change the **bucketName** variable to your Amazon S3 bucket name. 
 
+```java
     package com.example.photo;
 
     import org.springframework.beans.factory.annotation.Autowired;
@@ -485,7 +468,6 @@ The following Java code represents the **PhotoController** class that handles HT
         return new ModelAndView(new RedirectView("photo"));
     }
 
-
     // This controller method downloads the given image from the Amazon S3 bucket.
     @RequestMapping(value = "/downloadphoto", method = RequestMethod.GET)
     void buildDynamicReportDownload(HttpServletRequest request, HttpServletResponse response) {
@@ -507,14 +489,15 @@ The following Java code represents the **PhotoController** class that handles HT
         }
       }
      }
+```
 
-
-
+**Note** - Be sure to replace the bucket name in this code example with your bucket name.
 
 ### S3Service class
 
-The following class uses the Amazon S3 API to perform S3 operations. For example, the **getObjectBytes** method returns a byte array that represents the image. Be sure to replace the bucket name in this code example with your bucket name.
+The following class uses the Amazon S3 Java API to perform Amazon S3 operations. For example, the **getObjectBytes** method returns a byte array that represents the image. 
 
+```java
     package com.example.photo;
 
     import org.springframework.stereotype.Component;
@@ -653,7 +636,6 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
         return null ;
     }
 
-
     // Places an image into a S3 bucket.
     public String putObject(byte[] data, String bucketName, String objectKey) {
 
@@ -741,13 +723,14 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
         return null;
      }
     }
-
+```
 
 ### SendMessage class
 
-The following Java code represents the **SendMessage** class. This class uses the Amazon SES API to send an email message with an attachment that represents the report.
+The following Java code represents the **SendMessage** class. This class uses the Amazon SES Java API to send an email message with an attachment that represents the report.
 
-   package com.example.photo;
+```java
+     package com.example.photo;
 
     import org.apache.commons.io.IOUtils;
     import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -889,11 +872,13 @@ The following Java code represents the **SendMessage** class. This class uses th
         System.out.println("Email sent with attachment.");
         }
        }
+```
 
  ### WorkItem class
 
  The following Java code represents the **WorkItem** class.
 
+```java
      package com.example.photo;
 
     public class WorkItem {
@@ -926,11 +911,13 @@ The following Java code represents the **SendMessage** class. This class uses th
         return this.confidence;
       }
      }
+```
 
 ### WriteExcel class
 
 The following Java code represents the **WriteExcel** class.
 
+```java
     package com.example.photo;
 
     import jxl.CellView;
@@ -1103,6 +1090,7 @@ The following Java code represents the **WriteExcel** class.
         return count;
        }
      }
+```
 
 ## Create the HTML files
 
@@ -1119,8 +1107,9 @@ The **index.html** file is the application's home view. The **process.html** fil
 
 The following HTML represents the **index.html** file.
 
+```html
     <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <html xmlns:th="http://www.thymeleaf.org">
 
     <head>
      <meta charset="utf-8" />
@@ -1140,7 +1129,7 @@ The following HTML represents the **index.html** file.
 
     <h2>AWS Photo Analyzer application</h2>
 
-    <p>The AWS Photo Analyzer application is an example application that uses the Amazon Rekognition service and other AWS services, and the AWS SDK for Java version 2.
+    <p>The AWS Photo Analyzer application is an example application that uses the Amazon Rekognition service, other AWS services, and the AWS SDK for Java version 2.
         Analyzing nature photographs has never been easier! Just perform these steps:<p>
 
     <ol>
@@ -1155,21 +1144,24 @@ The following HTML represents the **index.html** file.
     </div>
     </body>
     </html>
+```
 
 ### process.html
 
 The following HTML represents the **process.html** file.
 
+```html
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org">
-    <head>
+     <head>
      <meta charset="utf-8" />
      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
      <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-     <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
      <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
      <script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
      <script src="../public/js/message.js" th:src="@{/js/message.js}"></script>
 
      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
@@ -1181,41 +1173,47 @@ The following HTML represents the **process.html** file.
         function myFunction() {
             alert("The form was submitted");
         }
-     </script>
+      </script>
+      </head>
 
-    </head>
+      <body>
+      <header th:replace="layout :: site-header"/>
 
-    <body>
-    <header th:replace="layout :: site-header"/>
+      <div class="container">
 
-    <div class="container">
-
-    <h2>AWS Photo Analyzer application</h2>
-    <p>You can generate a report that analyzes the images in the Amazon S3 bucket. You can send the report to the following email address. </p>
-    <label for="email">Email address:</label><br>
-    <input type="text" id="email" name="email" value=""><br>
-
-    <div>
+      <h2>AWS Photo Analyzer Application</h2>
+      <p>You can generate a report that analyzes the images in the S3 bucket. You can send the report to the following email address. </p>
+      <label for="email">Email address:</label><br>
+      <input type="text" id="email" name="email" value=""><br>
+      <div>
         <br>
-        <p>Choose the button to obtain a report.</p>
+        <p>Click the following button to obtain a report</p>
         <button onclick="ProcessImages()">Analyze Photos</button>
-    </div>
-    <div>
-        <h3>Download a photo to your browser</h3>
-        <p>Specify the photo to download from an Amazon S3 bucket</p>
-        <label for="photo">Photo Name:"</label><br>
-        <input type="text" id="photo" name="photo" value=""><br>
-        <p>Click the following button to download a photo</p>
-        <button onclick="DownloadImage()">Download Photo</button>
-    </div>
-    </div>
-    </body>
+       </div>
+       <div  id ="bar"  class="progress">
+        <div class="progress-bar progress-bar-striped active" role="progressbar"
+             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:90%">
+            Generating Report
+         </div>
+        </div>
+       <div>
+         <h3>Download a photo to your browser</h3>
+         <p>Specify the photo to download from an Amazon S3 bucket</p>
+         <label for="photo">Photo Name:"</label><br>
+         <input type="text" id="photo" name="photo" value=""><br>
+         <p>Click the following button to download a photo</p>
+         <button onclick="DownloadImage()">Download Photo</button>
+      </div>
+     </div>
+     </body>
     </html>
+```
 
 ### upload.html
 
 The following HTML represents the **upload.html** file.
 
+```html
     <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -1291,38 +1289,30 @@ The following HTML represents the **upload.html** file.
     </div>
     </body>
     </html>
+```
 
 ### layout.html
 
 The following HTML represents the **layout.html** file for the application's menu.
 
+```html
      <!DOCTYPE html>
-      <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+     <html xmlns:th="http://www.thymeleaf.org">
      <head th:fragment="site-head">
       <meta charset="UTF-8" />
       <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
       <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
-       <meta th:include="this :: head" th:remove="tag"/>
-      </head>
-      <body>
+      <meta th:include="this :: head" th:remove="tag"/>
+     </head>
+     <body>
       <!-- th:hef calls a controller method - which returns the view -->
       <header th:fragment="site-header">
-      <a href="index.html" th:href="@{/}"><img src="../public/images/site-logo.png" th:src="@{/images/site-logo.png}" /></a>
-      <a href="#" style="color: white" th:href="@{/}">Home</a>
-      <a href="#" style="color: white" th:href="@{/photo}">Upload Photos</a>
-      <a href="#"  style="color: white" th:href="@{/process}">Analyze Photos</a>
-      <div id="logged-in-info">
-
-        <form method="post" th:action="@{/logout}">
-            <input type="submit"  value="Logout"/>
-        </form>
-         </div>
-        </header>
-        <h1>Welcome</h1>
-        <body>
-        <p>Welcome to  AWS Photo Analyzer.</p>
-        </body>
-        </html>
+       <a href="#" style="color: white" th:href="@{/}">Home</a>
+       <a href="#" style="color: white" th:href="@{/photo}">Upload Photos</a>
+       <a href="#"  style="color: white" th:href="@{/process}">Analyze Photos</a>
+      </header>
+     </html>
+```
 
 ## Create script files
 
@@ -1337,6 +1327,7 @@ Both files contain application logic that sends a request to the Spring controll
 
 The following JavaScript represents the **items.js** file.
 
+```javascript
     $(function() {
 
     $('#myTable').DataTable( {
@@ -1348,72 +1339,80 @@ The following JavaScript represents the **items.js** file.
             { width: 200, targets: 0 }
         ],
         fixedColumns: true
+      } );
      } );
-    } );
 
-     function getImages() {
+    function getImages() {
 
-      var xhr = new XMLHttpRequest();
-      xhr.addEventListener("load", handleimages, false);
-      xhr.open("GET", "../getimages", true);   //buildFormit -- a Spring MVC controller
-      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-      xhr.send();
-     }
+      $.ajax('/getimages', {
+        type: 'GET',  // http method
+        success: function (data, status, xhr) {
 
-     function handleimages() {
+            var xml = data
+            var oTable = $('#myTable').dataTable();
+            oTable.fnClearTable(true);
+            $(xml).find('Item').each(function () {
 
-     var xml = event.target.responseText;
-     var oTable = $('#myTable').dataTable();
-     oTable.fnClearTable(true);
-     $(xml).find('Item').each(function () {
+                var $field = $(this);
+                var key = $field.find('Key').text();
+                var name = $field.find('Owner').text();
+                var date = $field.find('Date').text();
+                var size = $field.find('Size').text();
 
-        var $field = $(this);
-        var key = $field.find('Key').text();
-        var name = $field.find('Owner').text();
-        var date = $field.find('Date').text();
-        var size = $field.find('Size').text();
-
-        // Set the new data
-        oTable.fnAddData( [
-            key,
-            name,
-            date,
-            size,,]
-         );
-       });
+                //Set the new data
+                oTable.fnAddData( [
+                    key,
+                    name,
+                    date,
+                    size]
+                );
+            });
+          },
+        });
       }
+
+```
 
 ### message.js
 
 The following JavaScript represents the **message.js** file. The **ProcessImages** function sends a request to the **/report** handler in the controller that generates a report. Notice that an email address is posted to the **Controller** method.
 
+```javascript
     $(function() {
 
-     } );
+    $("#bar").hide()
 
-    function ProcessImages() {
 
-     // Post the values to the controller
-     var email =  $('#email').val();
-     var xhr = new XMLHttpRequest();
-     xhr.addEventListener("load", handle, false);
-     xhr.open("POST", "../report", true);   //buildFormit -- a Spring MVC controller
-     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-     xhr.send("email=" + email);
-     }
+   } );
 
-     function handle(event) {
-       var res = event.target.responseText;
-       alert(res) ;
-      }
-      
-      function DownloadImage(){
+  function ProcessImages() {
 
-    	//Post the values to the controller
-    	var photo =  $('#photo').val();
-    	window.location="../downloadphoto?photoKey=" + photo ;
-      	}
+    //Post the values to the controller
+    $("#bar").show()
+    var email =  $('#email').val();
 
+    $.ajax('/report', {
+        type: 'POST',  // http method
+        data: 'email=' + email ,  // data to submit
+        success: function (data, status, xhr) {
+
+            $("#bar").hide()
+             alert(data) ;
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+    });
+    }
+
+    function DownloadImage(){
+
+     //Post the values to the controller
+     var photo =  $('#photo').val();
+     window.location="../downloadphoto?photoKey=" + photo ;
+    }
+
+```
 
 **Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.   
 

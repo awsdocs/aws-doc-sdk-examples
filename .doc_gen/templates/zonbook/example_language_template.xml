@@ -5,43 +5,45 @@
     <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
     %phrases-shared;
 ]>
+<!-- zexi 0.2.0 -->
 <variablelist role="termdef">
-    {{range $version := .Versions}}
+    {{- range $version := .Versions}}
     <varlistentry>
-        <term>{{$version.SdkEntity.Short}}</term>
+        <term>{{- $version.SdkEntity.Short}}</term>
         <listitem>
-            {{if $version.BlockContent}}
+            {{- if $version.BlockContent}}
             <xi:include href="file://AWSShared/code-samples/docs/{{.BlockContent}}"></xi:include>
             <itemizedlist>
                 <title>Services used in this example</title>
-                {{range $svc_ent := $version.Services}}
+                {{- range $svc_ent := $version.Services}}
                 <listitem><para>{{$svc_ent.Short}}</para></listitem>
-                {{end}}
+                {{- end}}
             </itemizedlist>
-            {{else}}{{range $version.Excerpts}}
+            {{- else}}{{range $version.Excerpts}}
             <block>
                 <para>{{.Description}}</para>
-                <programlisting language="{{.Syntax}}">{{range .SnippetTags}}<xi:include parse="text" href="file://AWSShared/snippets/{{.}}.txt"/>{{end}}</programlisting>
+                <programlisting language="{{.Syntax}}">{{range .SnippetTags}}<xi:include parse="text" href="file://AWSShared/snippets/{{.}}.txt"/>
+{{end}}</programlisting>
             </block>
-            {{end}}
+            {{- end}}
             <itemizedlist>
-                {{if $version.GitHubUrl}}
+                {{- if $version.GitHubUrl}}
                 <listitem>
                     <para>
-                        Find instructions and more code on <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/{{$version.GitHubUrl}}">GitHub</ulink>
+                        Find instructions and more code on <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/{{$version.GitHubUrl}}">GitHub</ulink>.
                     </para>
                 </listitem>
-                {{end}}
-                {{if $version.SdkGuideUrl}}
+                {{- end}}
+                {{- if $version.SdkGuideUrl}}
                 <listitem>
                     <para>
-                        For more information, see <ulink {{$version.SdkGuideDocType}} url="{{$version.SdkGuideUrl}}">{{$version.SdkGuideEntity}}</ulink>
+                        For more information, see <ulink {{$version.SdkGuideDocType}} url="{{$version.SdkGuideUrl}}">{{$version.SdkGuideEntity}}</ulink>.
                     </para>
                 </listitem>
-                {{end}}
+                {{- end}}
             </itemizedlist>
-            {{end}}
+            {{- end}}
         </listitem>
     </varlistentry>
-    {{end}}
+    {{- end}}
 </variablelist>

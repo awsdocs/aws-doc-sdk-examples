@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
-    <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
-    %xinclude;
-    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
-    %phrases-shared;
-]>
+        <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
+        %xinclude;
+        <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+        %phrases-shared;
+        ]>
+<!-- zexi 0.2.0 -->
 <chapter id="{{.LanguageSlug}}_code_examples" role="topic">
     <info>
         <title id="{{.LanguageSlug}}_code_examples.title">{{.SdkEntity.Short}} code examples</title>
@@ -15,7 +16,7 @@
     </info>
     <para>The following code examples show how to use {{.SdkEntity.Long}} with &AWS;.</para>
     <para role="contents-abbrev">Code examples</para>
-    {{if .CrossServiceExamples}}
+    {{- if .CrossServiceExamples}}
     <section id="{{.LanguageSlug}}_code_examples_cross_service" role="topic">
         <info>
             <title id="{{.LanguageSlug}}_code_examples_cross_service.title">Cross-service examples using {{.SdkEntity.Short}}</title>
@@ -28,8 +29,8 @@
         <para>The following code examples show how to use {{.SdkEntity.Long}} to combine
             multiple &AWS; services.</para>
         <para role="topiclist-abbrev">Examples</para>
-        {{end}}
-        {{range .CrossServiceExamples}}
+        {{- end}}
+        {{- range .CrossServiceExamples}}
         <section id="{{.ExampleId}}_{{$.LanguageSlug}}_topic" role="topic">
             <info>
                 <title id="{{.ExampleId}}_{{$.LanguageSlug}}_topic.title">{{.Title}}</title>
@@ -37,23 +38,23 @@
             </info>
             <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}_{{$.Language}}.xml"></xi:include>
         </section>
-        {{end}}
-        {{if .CrossServiceExamples}}
+        {{- end}}
+        {{- if .CrossServiceExamples}}
     </section>
-    {{end}}
-    {{if .ApiExamples}}
-    <section id="{{.LanguageSlug}}_code_examples_API" role="topic">
+    {{- end}}
+    {{- if .ApiExamples}}
+    <section id="{{$.LanguageSlug}}_code_examples_categorized" role="topic">
         <info>
-            <title id="{{.LanguageSlug}}_code_examples_API.title">API examples using {{.SdkEntity.Short}}</title>
-            <titleabbrev id="{{.LanguageSlug}}_code_examples_API.titleabbrev">API examples</titleabbrev>
+            <title id="{{$.LanguageSlug}}_code_examples_categorized.title">Examples using {{$.SdkEntity.Short}}</title>
+            <titleabbrev id="{{$.LanguageSlug}}_code_examples_categorized.titleabbrev">Examples</titleabbrev>
             <abstract>
-                <para>The following code examples show how to use {{.SdkEntity.Short}} to perform &AWS; service operations.</para>
+                <para>The following code examples show how to use {{$.SdkEntity.Short}} with &AWS; services.</para>
             </abstract>
         </info>
-        <para>The following code examples show how to use {{.SdkEntity.Short}} to perform &AWS; service operations.</para>
+        <para>The following code examples show how to use {{$.SdkEntity.Short}} with &AWS; services.</para>
         <para role="topiclist-abbrev">Examples</para>
-        {{end}}
-        {{range $service, $svc_examples := .ApiExamples}}
+        {{- end}}
+        {{- range $service, $svc_examples := .ApiExamples}}
         <section id="{{$.LanguageSlug}}_{{$svc_examples.ServiceSlug}}_code_examples" role="topic">
             <info>
                 <title id="{{$.LanguageSlug}}_{{$svc_examples.ServiceSlug}}_code_examples.title">{{$svc_examples.ServiceEntity.Short}} examples using {{$.SdkEntity.Short}}</title>
@@ -62,22 +63,40 @@
                     <para>Code examples that show how to use {{$.SdkEntity.Long}} with {{$svc_examples.ServiceEntity.Short}}.</para>
                 </abstract>
             </info>
-            <para>Code examples that show how to use {{$.SdkEntity.Long}} with {{$svc_examples.ServiceEntity.Short}}.</para>
+            {{- range $category := $svc_examples.CategoryNamesSorted}}
+            {{- with $cat_examples := index $svc_examples.CategorizedExampleSets $category}}
+            <para><emphasis role="bold">{{$cat_examples.CategoryName}} examples</emphasis></para>
             <collapsible expand-section="_collapse_all_">
-                {{range $svc_examples.Examples}}
+                {{- range $cat_examples.Examples}}
                 <section id="{{.ExampleId}}_{{$.LanguageSlug}}_topic" role="topic">
                     <info>
                         <title id="{{.ExampleId}}_{{$.LanguageSlug}}_topic.titleabbrev">{{.TitleAbbrev}}</title>
                         <titleabbrev id="{{.ExampleId}}_{{$.LanguageSlug}}_topic.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
                     </info>
-                    <para>{{.Synopsis}}</para>
+                    {{- if or .Synopsis .SynopsisList}}
+                        {{- $synopsis_prefix := "The following code example shows how to"}}
+                        {{- $synopsis_sep := " "}}
+                        {{- if not .Synopsis}}
+                            {{- $synopsis_sep = ":"}}
+                        {{- end}}
+                    <para>{{print $synopsis_prefix $synopsis_sep .Synopsis}}</para>
+                        {{- if .SynopsisList}}
+                    <itemizedlist>
+                        {{- range $synitem := .SynopsisList}}
+                        <listitem><para>{{$synitem}}</para></listitem>
+                        {{- end}}
+                    </itemizedlist>
+                        {{- end}}
+                    {{- end}}
                     <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}_{{$.Language}}.xml"></xi:include>
                 </section>
-                {{end}}
+                {{- end}}
             </collapsible>
+            {{- end}}
+            {{- end}}
         </section>
-        {{end}}
-        {{if .ApiExamples}}
+        {{- end}}
+        {{- if .ApiExamples}}
     </section>
-    {{end}}
+    {{- end}}
 </chapter>

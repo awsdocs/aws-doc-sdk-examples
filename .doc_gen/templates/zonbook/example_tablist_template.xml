@@ -3,13 +3,14 @@
     <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
     %xinclude;
 ]>
+<!-- zexi 0.2.0 -->
 <tablist>
-    {{range $language, $example_id := .}}
+    {{- range $language, $example_id := .}}
     <tablistentry>
         <tabname>{{$language}}</tabname>
         <tabcontent>
             <xi:include href="file://AWSShared/code-samples/docs/{{$example_id}}_{{$language}}.xml"></xi:include>
         </tabcontent>
     </tablistentry>
-    {{end}}
+    {{- end}}
 </tablist>
