@@ -103,6 +103,10 @@ services:
     long: "&DDBlong;"
     short: "&DDB;"
     sort: "DynamoDB"
+  ec2:
+    long: "&EC2long;"
+    short: "&EC2;"
+    sort: "EC2"
   eventbridge:
     long: "&EVlong;"
     short: "&EV;"

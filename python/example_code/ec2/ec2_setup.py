@@ -16,6 +16,7 @@ logger = logging.getLogger(__name__)
 ec2 = boto3.resource('ec2')
 
 
+# snippet-start:[python.example_code.ec2.CreateKeyPair]
 def create_key_pair(key_name, private_key_file_name=None):
     """
     Creates a key pair that can be used to securely connect to an Amazon EC2 instance.
@@ -37,8 +38,10 @@ def create_key_pair(key_name, private_key_file_name=None):
         raise
     else:
         return key_pair
+# snippet-end:[python.example_code.ec2.CreateKeyPair]
 
 
+# snippet-start:[python.example_code.ec2.CreateSecurityGroup_AuthorizeIngress]
 def setup_security_group(group_name, group_description, ssh_ingress_ip=None):
     """
     Creates a security group in the default virtual private cloud (VPC) of the
@@ -94,8 +97,10 @@ def setup_security_group(group_name, group_description, ssh_ingress_ip=None):
         raise
     else:
         return security_group
+# snippet-end:[python.example_code.ec2.CreateSecurityGroup_AuthorizeIngress]
 
 
+# snippet-start:[python.example_code.ec2.RunInstances]
 def create_instance(
         image_id, instance_type, key_name, security_group_names=None):
     """
@@ -134,3 +139,4 @@ def create_instance(
         raise
     else:
         return instance
+# snippet-end:[python.example_code.ec2.RunInstances]

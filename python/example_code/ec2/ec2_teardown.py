@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 ec2 = boto3.resource('ec2')
 
 
+# snippet-start:[python.example_code.ec2.DeleteKeyPair]
 def delete_key_pair(key_name, key_file_name):
     """
     Deletes a key pair and the specified private key file.
@@ -31,8 +32,10 @@ def delete_key_pair(key_name, key_file_name):
     except ClientError:
         logger.exception("Couldn't delete key %s.", key_name)
         raise
+# snippet-end:[python.example_code.ec2.DeleteKeyPair]
 
 
+# snippet-start:[python.example_code.ec2.DeleteSecurityGroup]
 def delete_security_group(group_id):
     """
     Deletes a security group.
@@ -45,8 +48,10 @@ def delete_security_group(group_id):
     except ClientError:
         logger.exception("Couldn't delete security group %s.", group_id)
         raise
+# snippet-end:[python.example_code.ec2.DeleteSecurityGroup]
 
 
+# snippet-start:[python.example_code.ec2.TerminateInstances]
 def terminate_instance(instance_id):
     """
     Terminates an instance. The request returns immediately. To wait for the
@@ -60,3 +65,4 @@ def terminate_instance(instance_id):
     except ClientError:
         logging.exception("Couldn't terminate instance %s.", instance_id)
         raise
+# snippet-end:[python.example_code.ec2.TerminateInstances]

@@ -1,4 +1,4 @@
-# Amazon EC2 getting started examples
+# Amazon EC2 examples
 
 ## Purpose
 
@@ -11,17 +11,50 @@ groups.
 * Clean up security keys and security groups.
 * Permanently terminate instances. 
 
-## Prerequisites
+*Amazon EC2 is a web service that provides resizable computing capacity that you use 
+to build and host your software systems.*
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.7 or later
-- Boto3 1.11.10 or later
-- PyTest 5.3.5 or later (to run unit tests)
-- An SSH client, such as Open SSH (to connect to demo instances)
+## Code examples
 
-## Cautions
+**Cross-service example**
+
+* [Create and manage instances](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/ec2/ec2_basics_demo.py)
+
+**API examples**
+
+* [Allocate an Elastic IP address](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/ec2/ec2_instance_management.py)
+(`allocate_address`)
+* [Associate an Elastic IP address with an instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/ec2/ec2_instance_management.py)
+(`associate_address`)
+* [Change the security group on an instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/ec2/ec2_instance_management.py)
+(`authorize_security_group_ingress`)
+* [Create a security group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/ec2/ec2_setup.py)
+(`create_security_group`)
+* [Create a security key pair](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/ec2/ec2_setup.py)
+(`create_key_pair`)
+* [Create and run an instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/ec2/ec2_setup.py)
+(`run_instances`)
+* [Delete a security group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/ec2/ec2_teardown.py)
+(`delete_security_group`)
+* [Delete a security key pair](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/ec2/ec2_teardown.py)
+(`delete_key_pair`)
+* [Disassociate an Elastic IP address from an instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/ec2/ec2_instance_management.py)
+(`disassociate_address`)
+* [Get the console output of an instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/ec2/ec2_instance_management.py)
+(`get_console_output`)
+* [Release an Elastic IP address](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/ec2/ec2_instance_management.py)
+(`release_address`)
+* [Set inbound rules for a security group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/ec2/ec2_instance_management.py)
+(`modify_network_interface_attribute`)
+* [Start an instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/ec2/ec2_instance_management.py)
+(`start_instances`)
+* [Stop an instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/ec2/ec2_instance_management.py)
+(`stop_instances`)
+* [Terminate an instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/ec2/ec2_teardown.py)
+(`terminate_instances`)
+
+
+## ⚠ Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -35,6 +68,18 @@ groups.
 - Running this code might result in charges to your AWS account.
 
 ## Running the code
+
+### Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.7 or later
+- Boto3 1.11.10 or later
+- PyTest 5.3.5 or later (to run unit tests)
+- An SSH client, such as Open SSH (to connect to demo instances)
+
+### Command
 
 Start the demonstration by running the following command at a command prompt:
 
