@@ -14,6 +14,7 @@
 #include <aws/s3-crt/model/DeleteBucketRequest.h>
 #include <aws/s3-crt/model/PutObjectRequest.h>
 #include <aws/s3-crt/model/GetObjectRequest.h>
+#include <aws/s3-crt/model/ListObjectsRequest.h>
 #include <aws/s3-crt/model/DeleteObjectRequest.h>
 #include <aws/core/utils/UUID.h>
 
@@ -152,6 +153,31 @@ bool GetObject(const Aws::S3Crt::S3CrtClient& s3CrtClient, const Aws::String& bu
     }
 }
 
+// List the Amazon S3 objects from the bucket.
+bool ListObjects(const Aws::S3Crt::S3CrtClient& s3CrtClient, const Aws::String& bucketName, const Aws::String& objectKey) {
+
+    std::cout << "Listing objects: \"" << objectKey << "\" from bucket: \"" << bucketName << "\" ..." << std::endl;
+
+    Aws::S3Crt::Model::ListObjectsRequest request;
+    request.WithBucket(bucketName);
+    request.WithPrefix(objectKey);
+
+    Aws::S3Crt::Model::ListObjectsOutcome outcome = s3CrtClient.ListObjects(request);
+
+    if (outcome.IsSuccess()) {
+       //Uncomment this line if you wish to have the contents of the file displayed. Not recommended for large files
+       // because it takes a while.
+       // std::cout << "Object content: " << outcome.GetResult().GetBody().rdbuf() << std::endl << std::endl;
+
+        return true;
+    }
+    else {
+        std::cout << "ListObject error:\n" << outcome.GetError() << std::endl << std::endl;
+
+        return false;
+    }
+}
+
 // Delete the Amazon S3 object from the bucket.
 bool DeleteObject(const Aws::S3Crt::S3CrtClient& s3CrtClient, const Aws::String& bucketName, const Aws::String& objectKey) {
 
@@ -225,8 +251,9 @@ int main(int argc, char* argv[]) {
         // Create a globally unique name for the new bucket.
         // Format: "my-bucket-" + lowercase UUID.
         Aws::String uuid = Aws::Utils::UUID::RandomUUID();
-        Aws::String bucket_name = "my-bucket-" +
-            Aws::Utils::StringUtils::ToLower(uuid.c_str());
+        Aws::String bucket_name = "my-bucket-"; // +
+        // Aws::String bucket_name = "my-bucket-"; // +
+            // Aws::Utils::StringUtils::ToLower(uuid.c_str());
 
         const double throughput_target_gbps = 5;
         const uint64_t part_size = 8 * 1024 * 1024; // 8 MB.
@@ -242,17 +269,19 @@ int main(int argc, char* argv[]) {
         //https://sdk.amazonaws.com/cpp/api/0.14.3/namespace_aws_1_1_s3_1_1_model_1_1_bucket_location_constraint_mapper.html#a50d4503d3f481022f969eff1085cfbb0
         Aws::S3Crt::Model::BucketLocationConstraint locConstraint = Aws::S3Crt::Model::BucketLocationConstraintMapper::GetBucketLocationConstraintForName(region);
 
-        ListBuckets(s3_crt_client, bucket_name);
+        // ListBuckets(s3_crt_client, bucket_name);
 
-        CreateBucket(s3_crt_client, bucket_name, locConstraint);
+        // CreateBucket(s3_crt_client, bucket_name, locConstraint);
 
-        PutObject(s3_crt_client, bucket_name, object_key, file_name);
+        // PutObject(s3_crt_client, bucket_name, object_key, file_name);
 
-        GetObject(s3_crt_client, bucket_name, object_key);
+        // GetObject(s3_crt_client, bucket_name, object_key);
 
-        DeleteObject(s3_crt_client, bucket_name, object_key);
+        ListObjects(s3_crt_client, bucket_name, object_key);
 
-        DeleteBucket(s3_crt_client, bucket_name);
+        // DeleteObject(s3_crt_client, bucket_name, object_key);
+
+        // DeleteBucket(s3_crt_client, bucket_name);
     }
     Aws::ShutdownAPI(options);
 
