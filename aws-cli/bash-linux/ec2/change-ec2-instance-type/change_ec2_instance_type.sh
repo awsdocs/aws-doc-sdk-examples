@@ -23,7 +23,7 @@
 #   -t   [string, mandatory] The instance type to switch the instance to.
 #   -f   [switch, optional]  If set, the function doesn't pause and ask before
 #                            stopping the instance.
-#   -r   [switch, optional]  If set, the function starts the instance after
+#   -r   [switch, optional]  If set, the function restarts the instance after
 #                            changing the type.
 #   -v   [switch, optional]  Enable verbose logging.
 #   -h   [switch, optional]  Displays this help.
