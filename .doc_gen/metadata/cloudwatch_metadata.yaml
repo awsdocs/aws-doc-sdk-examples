@@ -31,8 +31,8 @@ cloudwatch_ListMetrics:
           github: javascript/example_code/cloudwatch
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-getting-metrics.html#cloudwatch-examples-getting-metrics-listing
           excerpts:
-            snippet_tags:
-              - cw.JavaScript.metrics.listMetrics
+            - snippet_tags:
+                - cw.JavaScript.metrics.listMetrics
   services:
     - cloudwatch
 cloudwatch_PutMetricData:
@@ -67,8 +67,8 @@ cloudwatch_PutMetricData:
           github: javascript/example_code/cloudwatch
           sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/cloudwatch-examples-getting-metrics.html#cloudwatch-examples-getting-metrics-publishing-custom
           excerpts:
-            snippet_tags:
-              - cw.JavaScript.metrics.putMetricData
+            - snippet_tags:
+                - cw.JavaScript.metrics.putMetricData
   services:
     - cloudwatch
 cloudwatch_PutMetricData_DataSet:
@@ -139,8 +139,8 @@ cloudwatch_PutMetricAlarm:
           github: javascript/example_code/cloudwatch
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-putmetricalarm
           excerpts:
-            snippet_tags:
-              - cw.JavaScript.alarms.putMetricAlarm
+            - snippet_tags:
+                - cw.JavaScript.alarms.putMetricAlarm
   services:
     - cloudwatch
 cloudwatch_DescribeAlarmsForMetric:
@@ -175,8 +175,8 @@ cloudwatch_DescribeAlarmsForMetric:
           github: javascript/example_code/cloudwatch
           sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-describing
           excerpts:
-            snippet_tags:
-              - cw.JavaScript.alarms.describeAlarms
+            - snippet_tags:
+                - cw.JavaScript.alarms.describeAlarms
   services:
     - cloudwatch
 cloudwatch_EnableAlarmActions:

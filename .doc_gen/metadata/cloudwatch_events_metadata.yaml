@@ -21,8 +21,9 @@ cloudwatch_events_PutRule:
           github: javascript/example_code/cloudwatch
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-rules
           excerpts:
-            snippet_tags:
-              - cwEvents.JavaScript.cwe.putRule
+            - description:
+              snippet_tags:
+                - cwEvents.JavaScript.cwe.putRule
   services:
     - cloudwatch-events
 
@@ -48,8 +49,9 @@ cloudwatch_events_PutEvents:
           github: javascript/example_code/cloudwatch
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-putevents
           excerpts:
-            snippet_tags:
-              - cwEvents.JavaScript.cwe.putEvent
+            - description:
+              snippet_tags:
+                - cwEvents.JavaScript.cwe.putEvent
   services:
     - cloudwatch-events
 
@@ -75,7 +77,8 @@ cloudwatch_events_PutTargets:
           github: javascript/example_code/cloudwatch
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-rules
           excerpts:
-            snippet_tags:
-              - cwEvents.JavaScript.cwe.putRule
+            - description:
+              snippet_tags:
+                - cwEvents.JavaScript.cwe.putRule
   services:
     - cloudwatch-events
