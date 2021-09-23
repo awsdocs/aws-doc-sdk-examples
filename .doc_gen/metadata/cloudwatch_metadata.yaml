@@ -326,3 +326,167 @@ cloudwatch_Usage_MetricsAlarms:
                 - python.example_code.cloudwatch.Usage_MetricsAlarms
   services:
     - cloudwatch
+cloudwatch_DescribeSubscriptionFilters:
+  title: Describing &CWL; subscription filters metrics using an &AWS; SDK
+  title_abbrev: Describe subscription filters metrics
+  synopsis: describe &CWL; subscription filters metrics.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch-logs
+          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-describing
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - cloudwatch.JavaScript.logs.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cwLogs.JavaScript.cwl.describeSubscriptionFiltersV3
+        - sdk_version: 2
+          github: javascript/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-describing
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwLogs.JavaScript.cwl.describeSubscriptionFilters
+  services:
+    - cloudwatch
+cloudwatch_DeleteSubscriptionFilters:
+  title: Deleting &CWL; subscription filters using an &AWS; SDK
+  title_abbrev: Delete subscription filters metrics
+  synopsis: delete &CWL; subscription filters.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch-logs
+          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-deleting
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - cloudwatch.JavaScript.logs.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cwLogs.JavaScript.cwl.deleteSubscriptionFilterV3
+        - sdk_version: 2
+          github: javascript/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-deleting
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwLogs.JavaScript.cwl.deleteSubscriptionFilter
+  services:
+    - cloudwatch
+cloudwatch_PutSubscriptionFilter:
+  title: Creating a &CWL; subscription filter using an &AWS; SDK
+  title_abbrev: Create a subscription filter
+  synopsis: describe a &CWLong; subscription filters metrics.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch-logs
+          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-creating
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - cloudwatch.JavaScript.logs.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cwLogs.JavaScript.cwl.putSubscriptionFilterV3
+        - sdk_version: 2
+          github: javascript/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-creating
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwLogs.JavaScript.cwl.putSubscriptionFilter
+  services:
+    - cloudwatch
+cloudwatch_PutRule:
+  title: Creating a &CWL; scheduled rule using an &AWS; SDK
+  title_abbrev: Create a scheduled rule
+  synopsis: create a &CWE; scheduled rule.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch-events
+          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-rules
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - cloudwatch.JavaScript.events.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cwEvents.JavaScript.cwe.putRuleV3
+        - sdk_version: 2
+          github: javascript/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-rules
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwEvents.JavaScript.cwe.putRule
+  services:
+    - cloudwatch
+
+cloudwatch_PutEvents:
+  title: Sending &CWE; events using an &AWS; SDK
+  title_abbrev: Send events
+  synopsis: send &CWE; events.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch-events
+          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-putevents
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - cloudwatch.JavaScript.events.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cwEvents.JavaScript.cwe.putEventsV3
+        - sdk_version: 2
+          github: javascript/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-putevents
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwEvents.JavaScript.cwe.putEvents
+  services:
+    - cloudwatch
+
+cloudwatch_PutTargets:
+  title: Adding a &LAM; function target using an &AWS; SDK
+  title_abbrev: Adding a &LAM; function target
+  synopsis: add a &LAMlong; function target to a &CWL; event.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch-events
+          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-targets
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - cloudwatch.JavaScript.events.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cwEvents.JavaScript.cwe.putRuleV3
+        - sdk_version: 2
+          github: javascript/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-rules
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwEvents.JavaScript.cwe.putRule
+  services:
+    - cloudwatch
