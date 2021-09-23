@@ -248,15 +248,6 @@ rekognition_Usage_FindFacesInCollection:
   synopsis: build an &REK; collection and find faces in it.
   category: Usage
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/rekognition/
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - rekognition.java2.list_faces_collection.main
     Python:
       versions:
         - sdk_version: 3
