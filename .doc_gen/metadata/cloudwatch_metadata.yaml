@@ -31,7 +31,8 @@ cloudwatch_ListMetrics:
           github: javascript/example_code/cloudwatch
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-getting-metrics.html#cloudwatch-examples-getting-metrics-listing
           excerpts:
-            - snippet_tags:
+            - description:
+              snippet_tags:
                 - cw.JavaScript.metrics.listMetrics
   services:
     - cloudwatch
@@ -65,9 +66,10 @@ cloudwatch_PutMetricData:
                 - cw.JavaScript.metrics.putMetricDataV3
         - sdk_version: 2
           github: javascript/example_code/cloudwatch
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/cloudwatch-examples-getting-metrics.html#cloudwatch-examples-getting-metrics-publishing-custom
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-getting-metrics.html#cloudwatch-examples-getting-metrics-publishing-custom
           excerpts:
-            - snippet_tags:
+            - description:
+              snippet_tags:
                 - cw.JavaScript.metrics.putMetricData
   services:
     - cloudwatch
@@ -139,7 +141,8 @@ cloudwatch_PutMetricAlarm:
           github: javascript/example_code/cloudwatch
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-putmetricalarm
           excerpts:
-            - snippet_tags:
+            - description:
+              snippet_tags:
                 - cw.JavaScript.alarms.putMetricAlarm
   services:
     - cloudwatch
@@ -163,7 +166,7 @@ cloudwatch_DescribeAlarmsForMetric:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/cloudwatch
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-describing
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-describing
           excerpts:
             - description: Create the client in a separate module and export it.
               snippet_tags:
@@ -173,9 +176,10 @@ cloudwatch_DescribeAlarmsForMetric:
                 - cw.JavaScript.alarms.describeAlarmsV3
         - sdk_version: 2
           github: javascript/example_code/cloudwatch
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-describing
+          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-describing
           excerpts:
-            - snippet_tags:
+            - description:
+              snippet_tags:
                 - cw.JavaScript.alarms.describeAlarms
   services:
     - cloudwatch
@@ -199,7 +203,7 @@ cloudwatch_EnableAlarmActions:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/cloudwatch
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-using-alarm-actions.html#cloudwatch-examples-using-alarm-actions-enabling
+          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-using-alarm-actions.html#cloudwatch-examples-using-alarm-actions-enabling
           excerpts:
             - description: Create the client in a separate module and export it.
               snippet_tags:
@@ -209,7 +213,7 @@ cloudwatch_EnableAlarmActions:
                 - cw.JavaScript.alarms.enableAlarmActionsV3
         - sdk_version: 2
           github: javascript/example_code/cloudwatch
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/cloudwatch-examples-using-alarm-actions.html#cloudwatch-examples-using-alarm-actions-enabling
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-using-alarm-actions.html#cloudwatch-examples-using-alarm-actions-enabling
           excerpts:
             - description: Import the SDK and client modules and call the API.
               snippet_tags:
@@ -236,7 +240,7 @@ cloudwatch_DisableAlarmActions:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/cloudwatch
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-using-alarm-actions.html#cloudwatch-examples-using-alarm-actions-disabling
+          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-using-alarm-actions.html#cloudwatch-examples-using-alarm-actions-disabling
           excerpts:
             - description: Create the client in a separate module and export it.
               snippet_tags:
@@ -246,7 +250,7 @@ cloudwatch_DisableAlarmActions:
                 - cw.JavaScript.alarms.disableAlarmActionsV3
         - sdk_version: 2
           github: javascript/example_code/cloudwatch
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/cloudwatch-examples-using-alarm-actions.html#cloudwatch-examples-using-alarm-actions-disabling
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-using-alarm-actions.html#cloudwatch-examples-using-alarm-actions-disabling
           excerpts:
             - description: Import the SDK and client modules and call the API.
               snippet_tags:

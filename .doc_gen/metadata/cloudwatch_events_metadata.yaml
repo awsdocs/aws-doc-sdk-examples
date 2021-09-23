@@ -51,7 +51,7 @@ cloudwatch_events_PutEvents:
           excerpts:
             - description:
               snippet_tags:
-                - cwEvents.JavaScript.cwe.putEvent
+                - cwEvents.JavaScript.cwe.putEvents
   services:
     - cloudwatch-events
 
