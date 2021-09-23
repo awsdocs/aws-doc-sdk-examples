@@ -480,7 +480,7 @@ cloudwatch_PutTargets:
                 - cloudwatch.JavaScript.events.createclientv3
             - description: Import the SDK and client modules and call the API.
               snippet_tags:
-                - ccwEvents.JavaScript.cwe.putTargetsV3
+                - cwEvents.JavaScript.cwe.putTargetsV3
         - sdk_version: 2
           github: javascript/example_code/cloudwatch
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-rules
