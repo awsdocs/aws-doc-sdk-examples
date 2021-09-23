@@ -18,11 +18,11 @@ cloudwatch_events_PutRule:
               snippet_tags:
                 - cwEvents.JavaScript.cwe.putRuleV3
         - sdk_version: 2
-            github: javascript/example_code/cloudwatch
-            sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-rules
-            excerpts:
-              snippet_tags:
-                - cwEvents.JavaScript.cwe.putRule
+          github: javascript/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-rules
+          excerpts:
+            snippet_tags:
+              - cwEvents.JavaScript.cwe.putRule
   services:
     - cloudwatch-events
 
@@ -45,11 +45,11 @@ cloudwatch_events_PutEvents:
               snippet_tags:
                 - cwEvents.JavaScript.cwe.putEventsV3
         - sdk_version: 2
-            github: javascript/example_code/cloudwatch
-            sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-putevents
-            excerpts:
-              snippet_tags:
-                - cwEvents.JavaScript.cwe.putEvent
+          github: javascript/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-putevents
+          excerpts:
+            snippet_tags:
+              - cwEvents.JavaScript.cwe.putEvent
   services:
     - cloudwatch-events
 
@@ -72,10 +72,10 @@ cloudwatch_events_PutTargets:
               snippet_tags:
                 - cwEvents.JavaScript.cwe.putRuleV3
         - sdk_version: 2
-            github: javascript/example_code/cloudwatch
-            sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-rules
-            excerpts:
-              snippet_tags:
-                - cwEvents.JavaScript.cwe.putRule
+          github: javascript/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-rules
+          excerpts:
+            snippet_tags:
+              - cwEvents.JavaScript.cwe.putRule
   services:
     - cloudwatch-events
