@@ -2,7 +2,7 @@
 cloudwatch_ListMetrics:
   title: List &CW; metrics using an &AWS; SDK
   title_abbrev: List metrics
-  synopsis: list &CW; metrics.
+  synopsis: list &CWlong; metrics.
   category:
   languages:
     Python:
@@ -39,7 +39,7 @@ cloudwatch_ListMetrics:
 cloudwatch_PutMetricData:
   title: Put data into a &CW; metric using an &AWS; SDK
   title_abbrev: Put data into a metric
-  synopsis: put data into a &CW; metric.
+  synopsis: put data into a &CWlong; metric.
   category:
   languages:
     Python:
@@ -76,7 +76,7 @@ cloudwatch_PutMetricData:
 cloudwatch_PutMetricData_DataSet:
   title: Put a set of data into a &CW; metric using an &AWS; SDK
   title_abbrev: Put a set of data into a metric
-  synopsis: put a set of data into a &CW; metric.
+  synopsis: put a set of data into a &CWlong; metric.
   category:
   languages:
     Python:
@@ -94,7 +94,7 @@ cloudwatch_PutMetricData_DataSet:
 cloudwatch_GetMetricStatistics:
   title: Get &CW; metric statistics using an &AWS; SDK
   title_abbrev: Get metric statistics
-  synopsis: get &CW; metric statistics.
+  synopsis: get &CWlong; metric statistics.
   category:
   languages:
     Python:
@@ -112,7 +112,7 @@ cloudwatch_GetMetricStatistics:
 cloudwatch_PutMetricAlarm:
   title: Create a &CW; alarm that watches a metric using an &AWS; SDK
   title_abbrev: Create an alarm that watches a metric
-  synopsis: create a &CW; alarm that watches a metric.
+  synopsis: create an &CWlong; alarm that watches a metric.
   category:
   languages:
     Python:
@@ -149,7 +149,7 @@ cloudwatch_PutMetricAlarm:
 cloudwatch_DescribeAlarmsForMetric:
   title: Describe &CW; alarms for a metric using an &AWS; SDK
   title_abbrev: Describe alarms for a metric
-  synopsis: describe &CW; alarms for a metric.
+  synopsis: describe &CWlong; alarms for a metric.
   category:
   languages:
     Python:
@@ -176,7 +176,7 @@ cloudwatch_DescribeAlarmsForMetric:
                 - cw.JavaScript.alarms.describeAlarmsV3
         - sdk_version: 2
           github: javascript/example_code/cloudwatch
-          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-describing
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-describing
           excerpts:
             - description:
               snippet_tags:
@@ -186,7 +186,7 @@ cloudwatch_DescribeAlarmsForMetric:
 cloudwatch_EnableAlarmActions:
   title: Enable &CW; alarm actions using an &AWS; SDK
   title_abbrev: Enable alarm actions
-  synopsis: enable &CW; alarm actions.
+  synopsis: enable &CWlong; alarm actions.
   category:
   languages:
     Python:
@@ -223,7 +223,7 @@ cloudwatch_EnableAlarmActions:
 cloudwatch_DisableAlarmActions:
   title: Disable &CW; alarm actions using an &AWS; SDK
   title_abbrev: Disable alarm actions
-  synopsis: disable &CW; alarm actions.
+  synopsis: disable &CWlong; alarm actions.
   category:
   languages:
     Python:
@@ -260,7 +260,7 @@ cloudwatch_DisableAlarmActions:
 cloudwatch_DeleteAlarms:
   title: Delete &CW; alarms using an &AWS; SDK
   title_abbrev: Delete alarms
-  synopsis: delete &CW; alarms.
+  synopsis: delete &CWlong; alarms.
   category:
   languages:
     Python:
@@ -296,7 +296,7 @@ cloudwatch_DeleteAlarms:
     - cloudwatch
 cloudwatch_Usage_MetricsAlarms:
   title: Manage &CW; metrics and alarms using an &AWS; SDK
-  title_abbrev: Manage metrics and alarms
+  title_abbrev: Manage &CWlong; metrics and alarms
   synopsis_list:
     - Create an alarm that watches a metric.
     - Put data into a &CW; metric and trigger the alarm.
@@ -329,7 +329,7 @@ cloudwatch_Usage_MetricsAlarms:
 cloudwatch_DescribeSubscriptionFilters:
   title: Describing &CWL; subscription filters metrics using an &AWS; SDK
   title_abbrev: Describe subscription filters metrics
-  synopsis: describe &CWL; subscription filters metrics.
+  synopsis: describe &CWLlong; subscription filters metrics.
   category:
   languages:
     JavaScript:
@@ -356,7 +356,7 @@ cloudwatch_DescribeSubscriptionFilters:
 cloudwatch_DeleteSubscriptionFilters:
   title: Deleting &CWL; subscription filters using an &AWS; SDK
   title_abbrev: Delete subscription filters metrics
-  synopsis: delete &CWL; subscription filters.
+  synopsis: delete &CWLlong; subscription filters.
   category:
   languages:
     JavaScript:
@@ -383,7 +383,7 @@ cloudwatch_DeleteSubscriptionFilters:
 cloudwatch_PutSubscriptionFilter:
   title: Creating a &CWL; subscription filter using an &AWS; SDK
   title_abbrev: Create a subscription filter
-  synopsis: describe a &CWLong; subscription filters metrics.
+  synopsis: create an &CWlong; subscription filters metrics.
   category:
   languages:
     JavaScript:
@@ -410,7 +410,7 @@ cloudwatch_PutSubscriptionFilter:
 cloudwatch_PutRule:
   title: Creating a &CWL; scheduled rule using an &AWS; SDK
   title_abbrev: Create a scheduled rule
-  synopsis: create a &CWE; scheduled rule.
+  synopsis: create an &CWLlong; scheduled rule.
   category:
   languages:
     JavaScript:
@@ -438,7 +438,7 @@ cloudwatch_PutRule:
 cloudwatch_PutEvents:
   title: Sending &CWE; events using an &AWS; SDK
   title_abbrev: Send events
-  synopsis: send &CWE; events.
+  synopsis: send &CWElong; events.
   category:
   languages:
     JavaScript:
@@ -466,7 +466,7 @@ cloudwatch_PutEvents:
 cloudwatch_PutTargets:
   title: Adding a &LAM; function target using an &AWS; SDK
   title_abbrev: Adding a &LAM; function target
-  synopsis: add a &LAMlong; function target to a &CWL; event.
+  synopsis: add an &LAMlong; function target to an &CWLlong; event.
   category:
   languages:
     JavaScript:
@@ -480,13 +480,13 @@ cloudwatch_PutTargets:
                 - cloudwatch.JavaScript.events.createclientv3
             - description: Import the SDK and client modules and call the API.
               snippet_tags:
-                - cwEvents.JavaScript.cwe.putRuleV3
+                - ccwEvents.JavaScript.cwe.putTargetsV3
         - sdk_version: 2
           github: javascript/example_code/cloudwatch
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-rules
           excerpts:
             - description:
               snippet_tags:
-                - cwEvents.JavaScript.cwe.putRule
+                - cwEvents.JavaScript.cwe.putTargets
   services:
     - cloudwatch
