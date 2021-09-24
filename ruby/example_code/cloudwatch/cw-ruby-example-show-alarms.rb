@@ -4,9 +4,6 @@
 require 'aws-sdk-cloudwatch'
 
 # Displays information about available metric alarms in Amazon CloudWatch.
-
-# snippet-start:[cloudwatch.Ruby.displayMetricInfo]
-
 #
 # @param cloudwatch_client [Aws::CloudWatch::Client]
 #   An initialized CloudWatch client.
@@ -91,5 +88,3 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
-
-# snippet-end:[cloudwatch.Ruby.displayMetricInfo]

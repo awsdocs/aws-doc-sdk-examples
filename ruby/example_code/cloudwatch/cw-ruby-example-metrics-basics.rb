@@ -5,7 +5,6 @@
 # 1. Add a datapoint to a metric in Amazon CloudWatch.
 # 2. List available metrics for a metric namespace in Amazon CloudWatch.
 
-# snippet-start:[cloudwatch.Ruby.addDataPoint]
 require 'aws-sdk-cloudwatch'
 
 # Adds a datapoint to a metric in Amazon CloudWatch.
@@ -42,7 +41,7 @@ def datapoint_added_to_metric?(
   metric_unit
 )
   cloudwatch_client.put_metric_data(
-    namespace: metric_namespace,
+    namespace: metric_namespace, 
     metric_data: [
       {
         metric_name: metric_name,
@@ -65,8 +64,7 @@ rescue StandardError => e
     "'#{metric_namespace}': #{e.message}"
   return false
 end
-# snippet-end:[cloudwatch.Ruby.addDataPoint]
-# snippet-start:[cloudwatch.Ruby.listMetrics]
+
 # Lists available metrics for a metric namespace in Amazon CloudWatch.
 #
 # @param cloudwatch_client [Aws::CloudWatch::Client]
@@ -142,4 +140,3 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
-# snippet-end:[cloudwatch.Ruby.listMetrics]
