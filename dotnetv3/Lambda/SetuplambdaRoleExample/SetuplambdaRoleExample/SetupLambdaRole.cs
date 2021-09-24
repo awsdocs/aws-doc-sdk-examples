@@ -9,20 +9,20 @@ namespace SetuplambdaRoleExample
     using Amazon.IdentityManagement.Model;
 
     /// <summary>
-    /// Creates an Amazon Identity Management Role to attach to an Amazon
-    /// Lambda Function that will management an Amazon Simple Storage Service
-    /// (Amazon S3) Bucket. The example was created using AWS SDK for .NET
-    /// version 3.7 and .NET Core 5.0.
+    /// Creates an AWS Identity and Access Management (IAM) to attach to an
+    /// Amazon Lambda function that will management an Amazon Simple Storage
+    /// Service (Amazon S3) Bucket. The example was created using AWS SDK for
+    /// .NET version 3.7 and .NET Core 5.0.
     /// </summary>
     public class SetupLambdaRole
     {
         /// <summary>
-        /// Defines the policy for the IAM Role and then creates the role.
+        /// Defines the policy for the IAM role and then creates the role.
         /// </summary>
         static async Task Main()
         {
             // Policy that allows reading and writing to a specific Amazon S3
-            // Bucket. This role will allow managing the bucket as well as
+            // Bucket. This policy will allow managing the bucket as well as
             // working with the objects in that bucket.
             string s3ManagementPolicy = "{" +
                 "   \"Version\": \"2012-10-17\"," +
@@ -41,7 +41,7 @@ namespace SetuplambdaRoleExample
 
             string roleName = "S3ManagementRole";
 
-            // Create the Amazon Identity Management client object.
+            // Create the IAM client object.
             var client = new AmazonIdentityManagementServiceClient();
 
             var request = new CreateRoleRequest

@@ -7,8 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-// This project specifies the serializer used to convert Lambda event into .NET classes in the project's main 
-// main function. This assembly register a serializer for use when the project is being debugged using the
+// This project specifies the serializer used to convert a Lambda event into
+// .NET classes in the project's main function. This assembly register a
+// serializer for use when the project is being debugged using the
 // AWS .NET Mock Lambda Test Tool.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 
@@ -16,9 +17,6 @@ namespace CreateDynamoDBTableExample
 {
     public class Function
     {
-        /// <summary>
-        /// The main entry point for the custom runtime.
-        /// </summary>
         private static async Task Main()
         {
             Func<string, ILambdaContext, Task> func = FunctionHandler;
@@ -34,9 +32,6 @@ namespace CreateDynamoDBTableExample
         /// of the new table.
         /// </summary>
         /// <param name="input">The name of the table to create.</param>
-        /// <param name="context">Optional object that contains information
-        /// about the function and the request. It is not used in this example.</param>
-        /// <returns></returns>
         public static async Task FunctionHandler(string input, ILambdaContext context)
         {
             if (input is not null)
@@ -64,6 +59,10 @@ namespace CreateDynamoDBTableExample
             var response = await client.CreateTableAsync(new CreateTableRequest
             {
                 TableName = tableName,
+                // The AttributeDefinitions in the CreateTableRequest describe
+                // the attributes for the table's Index. In this case, the two
+                // AttributeDefinition objects below describe two values, the
+                // ID, a string, and the Area, also a string.
                 AttributeDefinitions = new List<AttributeDefinition>
                 {
                     new AttributeDefinition
@@ -77,6 +76,10 @@ namespace CreateDynamoDBTableExample
                         AttributeType = "S",
                     },
                 },
+                // The KeySchema describes how the attributes will used used
+                // in the table. In the follow KeySchema, the ID is an Index
+                // value, a HASH and compriess the partition key. The Area
+                // attribute, a RANGE, is a sort key.
                 KeySchema = new List<KeySchemaElement>
                 {
                     new KeySchemaElement
