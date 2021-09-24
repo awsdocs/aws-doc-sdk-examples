@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[GetMethod.kt demonstrates how to describe an existing method resource..]
+//snippet-sourcedescription:[GetMethod.kt demonstrates how to describe an existing method resource.]
 //snippet-keyword:[SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon API Gateway]
