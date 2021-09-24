@@ -1,0 +1,82 @@
+# zexi 0.2.0
+cloudwatch_DescribeSubscriptionFilters:
+  title: Describing &CWL; subscription filters metrics using an &AWS; SDK
+  title_abbrev: Describe subscription filters metrics
+  synopsis: describe &CWLlong; subscription filters metrics.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch-logs
+          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-describing
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - cloudwatch.JavaScript.logs.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cwLogs.JavaScript.cwl.describeSubscriptionFiltersV3
+        - sdk_version: 2
+          github: javascript/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-describing
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwLogs.JavaScript.cwl.describeSubscriptionFilters
+  services:
+    - cloudwatch-logs
+cloudwatch_DeleteSubscriptionFilters:
+  title: Deleting &CWL; subscription filters using an &AWS; SDK
+  title_abbrev: Delete subscription filters metrics
+  synopsis: delete &CWLlong; subscription filters.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch-logs
+          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-deleting
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - cloudwatch.JavaScript.logs.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cwLogs.JavaScript.cwl.deleteSubscriptionFilterV3
+        - sdk_version: 2
+          github: javascript/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-deleting
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwLogs.JavaScript.cwl.deleteSubscriptionFilter
+  services:
+    - cloudwatch-logs
+cloudwatch_PutSubscriptionFilter:
+  title: Creating a &CWL; subscription filter using an &AWS; SDK
+  title_abbrev: Create a subscription filter
+  synopsis: create an &CWlong; subscription filters metrics.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch-logs
+          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-creating
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - cloudwatch.JavaScript.logs.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cwLogs.JavaScript.cwl.putSubscriptionFilterV3
+        - sdk_version: 2
+          github: javascript/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-creating
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwLogs.JavaScript.cwl.putSubscriptionFilter
+  services:
+    - cloudwatch-logs
