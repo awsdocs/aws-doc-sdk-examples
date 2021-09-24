@@ -1,4 +1,17 @@
 # zexi 0.2.0
+cross_LexChatbotLanguages:
+  title: Create an &LEX2; Chatbot within a web application to engage your web site visitors
+  title_abbrev: Building an &LEX2; Chatbot 
+  synopsis: create a Chatbot to engage your web site visitors
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_Lex_Java_block.xml
+  services:
+    - lex
+    - translate
+    - comprehend
 cross_DynamoDBDataTracker:
   title: Create a dynamic web application to track &DDB; data
   title_abbrev: Create a web application to track &DDB; data
