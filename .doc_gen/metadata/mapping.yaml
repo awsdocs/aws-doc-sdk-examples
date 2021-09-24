@@ -124,7 +124,7 @@ services:
     short: "&LAM;"
     sort: "Lambda"
   lex:
-    long: "&LEXlong;"
+    long: "&LEX2long;"
     short: "&LEX2;"
     sort: "Lex"
   rds:
