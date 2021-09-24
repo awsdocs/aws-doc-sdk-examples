@@ -123,6 +123,10 @@ services:
     long: "&LAMlong;"
     short: "&LAM;"
     sort: "Lambda"
+  lex:
+    long: "&LEXlong;"
+    short: "&LEX2;"
+    sort: "Lex"
   rds:
     long: "&RDSlong;"
     short: "&RDS;"
