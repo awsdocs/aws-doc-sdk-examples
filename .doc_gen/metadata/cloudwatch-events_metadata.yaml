@@ -1,5 +1,5 @@
 # zexi 0.2.0
-cloudwatch_PutRule:
+cloudwatch-events_PutRule:
     title: Creating a &CWE; scheduled rule using an &AWS; SDK
     title_abbrev: Create a scheduled rule
     synopsis: create an &CWElong; scheduled rule.
@@ -26,7 +26,7 @@ cloudwatch_PutRule:
                             - cwEvents.JavaScript.cwe.putRule
     services:
         - cloudwatch-events
-cloudwatch_PutEvents:
+cloudwatch-events_PutEvents:
     title: Sending &CWE; events using an &AWS; SDK
     title_abbrev: Send events
     synopsis: send &CWElong; events.
@@ -53,7 +53,7 @@ cloudwatch_PutEvents:
                             - cwEvents.JavaScript.cwe.putEvents
     services:
         - cloudwatch-events
-cloudwatch_PutTargets:
+cloudwatch-events_PutTargets:
     title: Adding a &LAM; function target using an &AWS; SDK
     title_abbrev: Adding a &LAM; function target
     synopsis: add an &LAMlong; function target to an &CWElong; event.
