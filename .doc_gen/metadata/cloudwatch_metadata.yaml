@@ -256,7 +256,7 @@ cloudwatch_DisableAlarmActions:
               snippet_tags:
                 - cw.JavaScript.alarms.disableAlarmActions
   services:
-    - cloudwatch-events
+    - cloudwatch
 cloudwatch_DeleteAlarms:
   title: Delete &CW; alarms using an &AWS; SDK
   title_abbrev: Delete alarms
