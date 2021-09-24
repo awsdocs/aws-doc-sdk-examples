@@ -5,10 +5,10 @@
 # 1. Create or update an Amazon CloudWatch alarm.
 # 2. Disable all actions for an alarm.
 
+# snippet-start:[cloudwatch.Ruby.createAnAlarm]
 require 'aws-sdk-cloudwatch'
 
-# Creates or updates an alarm in Amazon CloudWatch.
-#
+
 # @param cloudwatch_client [Aws::CloudWatch::Client]
 #   An initialized CloudWatch client.
 # @param alarm_name [String] The name of the alarm.
@@ -88,7 +88,8 @@ rescue StandardError => e
   puts "Error creating alarm: #{e.message}"
   return false
 end
-
+# snippet-end:[cloudwatch.Ruby.createAnAlarm]
+# snippet-start:[cloudwatch.Ruby.disableAnAlarm]
 # Disables an alarm in Amazon CloudWatch.
 #
 # Prerequisites.
@@ -169,3 +170,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[cloudwatch.Ruby.disableAnAlarm]

@@ -1,6 +1,11 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# The following code example shows how to:
+# 1. Create or update an Amazon CloudWatch alarm.
+
+# snippet-start:[cloudwatch.Ruby.createAlarm]
+
 require 'aws-sdk-cloudwatch'
 
 # Creates or updates an alarm in Amazon CloudWatch.
@@ -136,3 +141,5 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+
+# snippet-end:[cloudwatch.Ruby.createAlarm]
