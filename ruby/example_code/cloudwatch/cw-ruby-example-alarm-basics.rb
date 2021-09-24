@@ -5,7 +5,7 @@
 # 1. Get a list of available Amazon CloudWatch alarms.
 # 2. Create or update an alarm.
 # 3. Delete an alarm.
-
+# snippet-start:[cloudwatch.Ruby.getAlarmList]
 require 'aws-sdk-cloudwatch'
 
 # Lists the names of available Amazon CloudWatch alarms.
@@ -24,9 +24,10 @@ def list_alarms(cloudwatch_client)
     puts 'No alarms found.'
   end
 rescue StandardError => e
-  puts "Error getting information about alarms: #{e.message}" 
+  puts "Error getting information about alarms: #{e.message}"
 end
-
+# snippet-end:[cloudwatch.Ruby.getAlarmList]
+# snippet-start:[cloudwatch.Ruby.createAnotherAlarm]
 # Creates or updates an alarm in Amazon CloudWatch.
 #
 # @param cloudwatch_client [Aws::CloudWatch::Client]
@@ -108,7 +109,8 @@ rescue StandardError => e
   puts "Error creating alarm: #{e.message}"
   return false
 end
-
+# snippet-end:[cloudwatch.Ruby.createAnotherAlarm]
+# snippet-start:[cloudwatch.Ruby.deleteAlarm]
 # Deletes an alarm in Amazon CloudWatch.
 #
 # Prerequisites.
@@ -192,3 +194,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[cloudwatch.Ruby.deleteAlarm]
