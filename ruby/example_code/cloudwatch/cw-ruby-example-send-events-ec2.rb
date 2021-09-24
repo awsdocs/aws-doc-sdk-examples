@@ -324,7 +324,7 @@ rescue StandardError => e
   puts "Rule not found: #{e.message}"
   return false
 end
-# snippet-run:[cloudwatch.cross-service.Ruby.checkRuleAvailable]
+# snippet-end:[cloudwatch.cross-service.Ruby.checkRuleAvailable]
 # snippet-start:[cloudwatch.cross-service.Ruby.createRule]
 # Creates a rule in AWS CloudWatch Events.
 # This rule is triggered whenever an available instance in
