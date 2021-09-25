@@ -212,6 +212,14 @@ cross_RekognitionPhotoAnalyzer:
   title_abbrev: Detect objects in images
   synopsis: build an app that uses &REK; to detect objects by category in images.
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_RekognitionPhotoAnalyzer_Java_block.xml
+  services:
+    - rekognition
+    - s3
+    - ses
     JavaScript:
       versions:
         - sdk_version: 3
