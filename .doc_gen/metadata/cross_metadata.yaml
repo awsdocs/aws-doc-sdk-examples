@@ -230,6 +230,13 @@ cross_RekognitionVideoDetection:
   synopsis: detect people and objects in a video with &REK;.
   category: Cross-service
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_RekognitionVideoAnalyzer_Java_block.xml
+          add_services:
+            - s3
+            - ses
     JavaScript:
       versions:
         - sdk_version: 3
