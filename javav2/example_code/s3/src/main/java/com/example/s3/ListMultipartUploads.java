@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/07/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -37,7 +37,7 @@ public class ListMultipartUploads {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    ListMultipartUploads <bucketName> \n\n" +
+                "    <bucketName> \n\n" +
                 "Where:\n" +
                 "    bucketName - the name of the Amazon S3 bucket where an in-progress multipart upload is occurring.\n\n" ;
 

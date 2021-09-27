@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/28/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -93,5 +93,6 @@ public class S3BucketOps {
         s3.close();
         // snippet-end:[s3.java2.s3_bucket_ops.delete_bucket] 
     }
+    // snippet-end:[s3.java2.s3_bucket_ops.main]
 }
-// snippet-end:[s3.java2.s3_bucket_ops.main]
+

@@ -4,7 +4,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/06/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -43,7 +43,7 @@ public class GeneratePresignedUrlUploadImage {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    GeneratePresignedUrlAndUploadObject <bucketName> <keyName> <imageLocation> \n\n" +
+                "    <bucketName> <keyName> <imageLocation> \n\n" +
                 "Where:\n" +
                 "    bucketName - the name of the Amazon S3 bucket. \n\n" +
                 "    keyName - a key name that represents a text file. \n" +
@@ -107,7 +107,7 @@ public class GeneratePresignedUrlUploadImage {
         } catch (IOException e) {
             e.getStackTrace();
         }
-        // snippet-end:[presigned.java2.generatepresignedurlimage.main]
     }
+    // snippet-end:[presigned.java2.generatepresignedurlimage.main]
 }
 

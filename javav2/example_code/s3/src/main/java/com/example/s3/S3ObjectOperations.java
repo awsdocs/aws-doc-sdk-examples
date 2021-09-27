@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/30/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -61,7 +61,7 @@ public class S3ObjectOperations {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    S3ObjectOperations <bucketName> <key>\n\n" +
+                "    <bucketName> <key>\n\n" +
                 "Where:\n" +
                 "    bucketName - the Amazon S3 bucket to create.\n\n" +
                 "    key - the key to use.\n\n" ;

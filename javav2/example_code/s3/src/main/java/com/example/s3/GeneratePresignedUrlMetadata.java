@@ -4,7 +4,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/18/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -55,7 +55,6 @@ public class GeneratePresignedUrlMetadata {
 
         String bucketName = args[0];
         String keyName = args[1];
-
         Region region = Region.US_EAST_1;
         S3Presigner presigner = S3Presigner.builder()
                 .region(region)
@@ -116,6 +115,6 @@ public class GeneratePresignedUrlMetadata {
         } catch (IOException e) {
             e.getStackTrace();
         }
-        // snippet-end:[presigned.java2.generatepresignedurl.metadata.main]
     }
+    // snippet-end:[presigned.java2.generatepresignedurl.metadata.main]
 }
