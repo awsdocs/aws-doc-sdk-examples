@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[07-27-2021]
+// snippet-sourcedate:[09-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -42,10 +42,10 @@ public class CompareFaces {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "CompareFaces <pathSource> <pathTarget>\n\n" +
+                "   <pathSource> <pathTarget>\n\n" +
                 "Where:\n" +
-                "pathSource - the path to the source image (for example, C:\\AWS\\pic1.png). \n " +
-                "pathTarget - the path to the target image (for example, C:\\AWS\\pic2.png). \n\n";
+                "   pathSource - the path to the source image (for example, C:\\AWS\\pic1.png). \n " +
+                "   pathTarget - the path to the target image (for example, C:\\AWS\\pic2.png). \n\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);
