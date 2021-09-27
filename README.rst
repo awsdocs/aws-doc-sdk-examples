@@ -1,5 +1,3 @@
-[![Brian's GitHub stats](https://github-readme-stats.vercel.app/api?username=brmur)](https://github.com/brmur/github-readme-stats)
-
 .. Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0
