@@ -1,4 +1,17 @@
 # zexi 0.2.0
+cross_LexChatbotLanguages:
+  title: Create an &LEX2; Chatbot within a web application to engage your web site visitors
+  title_abbrev: Building an &LEX2; Chatbot 
+  synopsis: create a Chatbot to engage your web site visitors
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_Lex_Java_block.xml
+  services:
+    - lex
+    - translate
+    - comprehend
 cross_DynamoDBDataTracker:
   title: Create a dynamic web application to track &DDB; data
   title_abbrev: Create a web application to track &DDB; data
@@ -183,7 +196,7 @@ cross_TranscriptionStreamingApp:
 cross_RekognitionPhotoAnalyzerPPE:
   title: Detect PPE in images with &REK; using an &AWS; SDK
   title_abbrev: Detect PPE in images
-  synopsis: build an app that uses &REK; to to detect Personal Protective Equipment (PPE) in images.
+  synopsis: build an app that uses &REK; to detect Personal Protective Equipment (PPE) in images.
   languages:
     JavaScript:
       versions:
@@ -207,30 +220,25 @@ cross_RekognitionPhotoAnalyzer:
     - rekognition
     - s3
     - ses
-cross_RekognitionVideoAnalyzer:
-  title: Detect people and objects in video with &REK; using an &AWS; SDK
-  title_abbrev: Detect people and objects in a video (&AWS; SDK for JS)
-  synopsis: build an app that use &REK; to detect faces and objects in videos.
+cross_RekognitionVideoDetection:
+  title: Detect people and objects in a video with &REK; using an &AWS; SDK
+  title_abbrev: Detect people and objects in a video
+  synopsis: detect people and objects in a video with &REK;.
+  category: Cross-service
   languages:
     JavaScript:
       versions:
         - sdk_version: 3
           block_content: cross_RekognitionVideoAnalyzer_JavaScript_block.xml
-  services:
-    - rekognition
-    - s3
-    - ses
-cross_RekognitionVideoDetection:
-  title: Detect people and objects in a video with &REK; using an &AWS; SDK
-  title_abbrev: Detect people and objects in a video
-  synopsis: detect people and objects in a video with &REK;.
-  category:
-  languages:
+          add_services:
+            - s3
+            - ses
     Python:
       versions:
         - sdk_version: 3
           block_content: cross_RekognitionVideoDetection_Python_block.xml
+          add_services:
+            - sns
+            - sqs
   services:
     - rekognition
-    - sns
-    - sqs

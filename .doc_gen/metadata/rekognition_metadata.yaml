@@ -5,6 +5,15 @@ rekognition_DescribeCollection:
   synopsis: describe an &REK; collection.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.describe_collection.main
     Python:
       versions:
         - sdk_version: 3
@@ -23,6 +32,15 @@ rekognition_DeleteCollection:
   synopsis: delete an &REK; collection.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.delete_collection.main
     Python:
       versions:
         - sdk_version: 3
@@ -41,6 +59,15 @@ rekognition_IndexFaces:
   synopsis: index faces in and image and add them to an &REK; collection.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.add_faces_collection.main
     Python:
       versions:
         - sdk_version: 3
@@ -59,6 +86,15 @@ rekognition_ListFaces:
   synopsis: list faces in an &REK; collection.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.list_faces_collection.main
     Python:
       versions:
         - sdk_version: 3
@@ -77,6 +113,15 @@ rekognition_SearchFacesByImage:
   synopsis: search for faces in an &REK; collection compared to a reference image.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.match_faces_collection.main
     Python:
       versions:
         - sdk_version: 3
@@ -95,6 +140,15 @@ rekognition_SearchFaces:
   synopsis: search for faces in an &REK; collection that match another face from the collection.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.search_faces_collection.main
     Python:
       versions:
         - sdk_version: 3
@@ -113,6 +167,15 @@ rekognition_DeleteFaces:
   synopsis: delete faces from an &REK; collection.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.delete_faces_collection.main
     Python:
       versions:
         - sdk_version: 3
@@ -131,6 +194,15 @@ rekognition_CreateCollection:
   synopsis: create an &REK; collection.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.create_collection.main
     Python:
       versions:
         - sdk_version: 3
@@ -149,6 +221,15 @@ rekognition_ListCollections:
   synopsis: list &REK; collections.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.list_collections.main
     Python:
       versions:
         - sdk_version: 3
@@ -202,6 +283,15 @@ rekognition_DetectFaces:
   synopsis: detect faces in an image with &REK;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.detect_faces.main
     Python:
       versions:
         - sdk_version: 3
@@ -220,6 +310,15 @@ rekognition_CompareFaces:
   synopsis: compare faces in an image against a reference image with &REK;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.compare_faces.main
     Python:
       versions:
         - sdk_version: 3
@@ -238,6 +337,15 @@ rekognition_DetectLabels:
   synopsis: detect labels in an image with &REK;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.detect_labels.main
     Python:
       versions:
         - sdk_version: 3
@@ -257,6 +365,15 @@ rekognition_DetectModerationLabels:
     identify content that may be inappropriate for some audiences.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.detect_mod_labels.main
     Python:
       versions:
         - sdk_version: 3
@@ -275,6 +392,15 @@ rekognition_DetectText:
   synopsis: detect text in an image with &REK;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.detect_text.main
     Python:
       versions:
         - sdk_version: 3
@@ -293,6 +419,15 @@ rekognition_RecognizeCelebrities:
   synopsis: recognize celebrities in an image with &REK;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.recognize_celebs.main
     Python:
       versions:
         - sdk_version: 3
