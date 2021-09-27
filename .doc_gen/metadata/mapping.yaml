@@ -95,6 +95,14 @@ services:
     long: "&CWlong;"
     short: "&CW;"
     sort: "CloudWatch"
+  cloudwatch-logs:
+    long: "&CWLlong;"
+    short: "&CWL;"
+    sort: "CloudWatch Logs"
+  cloudwatch-events:
+    long: "&CWElong;"
+    short: "&CWE;"
+    sort: "CloudWatch Events"
   cognito-identity:
     long: "&COGID;"
     short: "&COGID;"
