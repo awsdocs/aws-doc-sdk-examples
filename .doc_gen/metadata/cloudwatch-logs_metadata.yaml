@@ -26,7 +26,7 @@ cloudwatch-logs_DescribeSubscriptionFilters:
                 - cwLogs.JavaScript.cwl.describeSubscriptionFilters
   services:
     - cloudwatch-logs
-cloudwatch-logs_DeleteSubscriptionFilters:
+cloudwatch-logs_DeleteSubscriptionFilter:
   title: Delete a &CWL; subscription filter using an &AWS; SDK
   title_abbrev: Delete a subscription filter
   synopsis: delete an &CWLlong; subscription filter.
