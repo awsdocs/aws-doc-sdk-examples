@@ -11,7 +11,7 @@ dynamodb_CreateTable:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Create an Amazon DynamoDB table by using a waiter.
+            - description: 
               snippet_tags:
                 - dynamodb.java2.create_table.main
     Python:
@@ -58,7 +58,7 @@ dynamodb_BatchWriteItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: How to insert many items into an Amazon DynamoDB table.
+            - description:
               snippet_tags:
                 - dynamodb.java2.mapping.batchitems.main
     Python:
@@ -112,7 +112,7 @@ dynamodb_DeleteTable:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: How to delete an Amazon DynamoDB table.
+            - description:
               snippet_tags:
                 - dynamodb.java2.delete_table.main
     Python:
@@ -138,7 +138,7 @@ dynamodb_PutItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: How to put an item into an Amazon DynamoDB table by using the enhanced client.
+            - description:
               snippet_tags:
                 - dynamodb.java2.mapping.putitem.main
     Python:
@@ -167,7 +167,7 @@ dynamodb_GetItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: How to retrieve an item from an Amazon DynamoDB table by using the enhanced client.
+            - description:
               snippet_tags:
                 - dynamodb.java2.mapping.getitem.main
     Python:
@@ -193,7 +193,7 @@ dynamodb_UpdateItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: How to modify an item located in an Amazon DynamoDB table by using the enhanced client.
+            - description:
               snippet_tags:
                 - dynamodb.java2.mapping.moditem.main
     Python:
@@ -228,7 +228,7 @@ dynamodb_DeleteItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: How to delete an item from an Amazon DynamoDB table.
+            - description: 
               snippet_tags:
                 - dynamodb.java2.delete_item.main
     Python:
@@ -254,7 +254,7 @@ dynamodb_ListTables:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: How to list all Amazon DynamoDB tables.
+            - description: 
               snippet_tags:
                 - dynamodb.java2.list_tables.main
     Python:
@@ -280,7 +280,7 @@ dynamodb_Query:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: How to query an Amazon DynamoDB table by using the enhanced client.
+            - description: 
               snippet_tags:
                 - dynamodb.java2.mapping.query.main
     Python:
@@ -309,7 +309,7 @@ dynamodb_Scan:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: How to scan an Amazon DynamoDB table by using the enhanced client.
+            - description:
               snippet_tags:
                 - dynamodb.java2.mapping.scan.main
     Python:
