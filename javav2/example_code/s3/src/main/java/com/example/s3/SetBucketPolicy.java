@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/28/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -40,7 +40,7 @@ public class SetBucketPolicy {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    SetBucketPolicy <bucketName> <polFile>\n\n" +
+                "    <bucketName> <polFile>\n\n" +
                 "Where:\n" +
                 "    bucketName - the Amazon S3 bucket to set the policy on.\n" +
                 "    polFile - a JSON file containing the policy (see the Amazon S3 Readme for an example). \n" ;
@@ -112,5 +112,6 @@ public class SetBucketPolicy {
         }
         return fileText.toString();
     }
+    // snippet-end:[s3.java2.set_bucket_policy.main]
 }
- // snippet-end:[s3.java2.set_bucket_policy.main]
+

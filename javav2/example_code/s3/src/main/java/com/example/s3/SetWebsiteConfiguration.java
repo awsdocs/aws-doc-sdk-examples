@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/28/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -34,7 +34,8 @@ public class SetWebsiteConfiguration {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage: SetWebsiteConfiguration <bucketName> [indexdoc] [errordoc]\n\n" +
+                "Usage: " +
+                "   <bucketName> [indexdoc] \n\n" +
                 "Where:\n" +
                 "   bucketName   - the Amazon S3 bucket to set the website configuration on. \n" +
                 "   indexdoc - The index document, ex. 'index.html'\n" +
@@ -47,7 +48,6 @@ public class SetWebsiteConfiguration {
 
         String bucketName = args[0];
         String indexDoc = "index.html";
-
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
@@ -80,5 +80,6 @@ public class SetWebsiteConfiguration {
             System.exit(1);
         }
     }
+    // snippet-end:[s3.java2.set_website_configuration.main]
  }
-// snippet-end:[s3.java2.set_website_configuration.main]
+

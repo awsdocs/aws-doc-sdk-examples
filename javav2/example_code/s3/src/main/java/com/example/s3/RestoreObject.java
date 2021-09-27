@@ -4,7 +4,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/06/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -35,7 +35,7 @@ public class RestoreObject {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    RestoreObject <bucketName> <keyName> <expectedBucketOwner>\n\n" +
+                "    <bucketName> <keyName> <expectedBucketOwner>\n\n" +
                 "Where:\n" +
                 "    bucketName - the Amazon S3 bucket name. \n\n" +
                 "    keyName - the key name of an object with a Storage class value of Glacier. \n\n" +
