@@ -1,8 +1,8 @@
 # zexi 0.2.0
 cloudwatch-logs_DescribeSubscriptionFilters:
-  title: Describing &CWL; subscription filters metrics using an &AWS; SDK
-  title_abbrev: Describe subscription filters metrics
-  synopsis: describe &CWLlong; subscription filters metrics.
+  title: Describe &CWL; subscription filters using an &AWS; SDK
+  title_abbrev: Describe existing subscription filters
+  synopsis: describe &CWLlong; existing subscription filters.
   category:
   languages:
     JavaScript:
@@ -27,9 +27,9 @@ cloudwatch-logs_DescribeSubscriptionFilters:
   services:
     - cloudwatch-logs
 cloudwatch-logs_DeleteSubscriptionFilters:
-  title: Deleting &CWL; subscription filters using an &AWS; SDK
-  title_abbrev: Delete subscription filters metrics
-  synopsis: delete &CWLlong; subscription filters.
+  title: Delete a &CWL; subscription filter using an &AWS; SDK
+  title_abbrev: Delete a subscription filter
+  synopsis: delete an &CWLlong; subscription filter.
   category:
   languages:
     JavaScript:
@@ -54,9 +54,9 @@ cloudwatch-logs_DeleteSubscriptionFilters:
   services:
     - cloudwatch-logs
 cloudwatch-logs_PutSubscriptionFilter:
-  title: Creating a &CWL; subscription filter using an &AWS; SDK
+  title: Create a &CWL; subscription filter using an &AWS; SDK
   title_abbrev: Create a subscription filter
-  synopsis: create an &CWlong; subscription filters metrics.
+  synopsis: create an &CWLlong; subscription filter.
   category:
   languages:
     JavaScript:
