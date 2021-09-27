@@ -1,52 +1,35 @@
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- */
 
-//snippet-sourcedescription:[ses_clonereceiptruleset.js demonstrates how to lists the receipt rule sets.]
-//snippet-keyword:[JavaScript]
-//snippet-sourcesyntax:[javascript]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Email Service]
-//snippet-service:[ses]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-06-02]
-//snippet-sourceauthor:[AWS-JSDG]
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
 
-// ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
-// https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/ses-examples-ip-filters.html
+ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 2 (v2).
+
+Purpose:
+ses_listreceiptrulesets.js demonstrates how to list Amazon Simple Email Service (SES) receipt rule sets.
+
+*/
 
 // snippet-start:[ses.JavaScript.filters.listReceiptRuleSets]
-// Load the AWS SDK for Node.js
+// Load the AWS SDK for Node.js.
 var AWS = require('aws-sdk');
-// Set the region 
+// Set the AWS Region.
 AWS.config.update({ region: 'REGION' });
 
-// Create listReceiptRuleSets params
+// Create listReceiptRuleSets parameters.
 var params = {
     NextToken: ""
 };
 
 
-// Create the promise and SES service object
+// Create the promise and SES service object.
 var sendPromise = new AWS.SES({ apiVersion: '2010-12-01' }).listReceiptRuleSets(params).promise();
 
-// Handle promise's fulfilled/rejected states
+// Handle promise's fulfilled/rejected states.
 sendPromise.then(
     function (data) {
         console.log(data);
     }).catch(
-        function (err) {
-            console.error(err, err.stack);
-        });
+    function (err) {
+        console.error(err, err.stack);
+    });
 // snippet-end:[ses.JavaScript.filters.listReceiptRuleSets]
