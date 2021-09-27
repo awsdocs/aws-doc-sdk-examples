@@ -75,5 +75,5 @@ public class DeleteObjects {
         }
         System.out.println("Done!");
     }
+   // snippet-end:[s3.java2.delete_objects.main]
 }
-// snippet-end:[s3.java2.delete_objects.main]
