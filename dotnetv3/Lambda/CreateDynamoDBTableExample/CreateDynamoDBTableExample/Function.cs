@@ -1,11 +1,14 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier:  Apache-2.0
+
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.RuntimeSupport;
 using Amazon.Lambda.Serialization.SystemTextJson;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 // This project specifies the serializer used to convert a Lambda event into
 // .NET classes in the project's main function. This assembly register a
@@ -15,20 +18,22 @@ using System.Threading.Tasks;
 
 namespace CreateDynamoDBTableExample
 {
+    /// <summary>
+    /// An AWS Lambda function that creates an Amazon DynamoDB table using the
+    /// AWS SDK for .NET version 3.7 and .NET Core 5.0.
+    /// </summary>
     public class Function
     {
-        private static async Task Main()
+        public static async Task Main()
         {
             Func<string, ILambdaContext, Task> func = FunctionHandler;
-            using(var handlerWrapper = HandlerWrapper.GetHandlerWrapper(func, new DefaultLambdaJsonSerializer()))
-            using(var bootstrap = new LambdaBootstrap(handlerWrapper))
-            {
-                await bootstrap.RunAsync();
-            }
+            using var handlerWrapper = HandlerWrapper.GetHandlerWrapper(func, new DefaultLambdaJsonSerializer());
+            using var bootstrap = new LambdaBootstrap(handlerWrapper);
+            await bootstrap.RunAsync();
         }
 
         /// <summary>
-        /// Creates an Amazon DynamoDB table. The string input defines the name
+        /// Creates an DynamoDB table. The string input defines the name
         /// of the new table.
         /// </summary>
         /// <param name="input">The name of the table to create.</param>
