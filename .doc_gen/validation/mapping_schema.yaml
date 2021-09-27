@@ -13,6 +13,7 @@ sdk:
 version:
   long: include('entity_with_version_regex')
   short: include('entity_with_version_regex')
+  caveat: str(required=False)
 
 service:
   long: include('entity_regex')
@@ -20,6 +21,6 @@ service:
   sort: regex('^[^&]\w', name='non-entity')
 
 syntax_enum: enum('cpp', 'go', 'java', 'javascript', 'kotlin', 'csharp', 'php', 'python', 'ruby', 'rust')
-entity_regex: regex('^[&]([\dA-Za-z-_])+[;]$', name='valid entity')
-entity_with_version_regex: regex('^[&]([\dA-Za-z-_])+;', name='valid entity with version')
+entity_regex: regex('^[&]([\dA-Za-z-_])+[;]$|^&AWS; SDK for Kotlin Developer Guide$', name='valid entity')
+entity_with_version_regex: regex('^[&]([\dA-Za-z-_])+;|^SDK for Kotlin$', name='valid entity with version')
 service_slug_regex: regex('^[\da-z-]+$', name='service slug')

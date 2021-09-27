@@ -71,7 +71,7 @@ public class EnhancedGetItem {
 
             // Get the item by using the key
             Customer result = mappedTable.getItem(r->r.key(key));
-            return "The email valie is "+result.getEmail();
+            return "The email value is "+result.getEmail();
 
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());

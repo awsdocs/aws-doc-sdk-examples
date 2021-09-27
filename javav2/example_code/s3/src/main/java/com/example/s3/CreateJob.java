@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/06/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -45,7 +45,7 @@ public class CreateJob {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateJob <accountId> <iamRoleArn> <manifestLocation> <reportBucketName>>\n\n" +
+                "    <accountId> <iamRoleArn> <manifestLocation> <reportBucketName>>\n\n" +
                 "Where:\n" +
                 "    accountId - the account id value that owns the Amazon S3 bucket.\n\n" +
                 "    iamRoleArn - the ARN of the AWS Identity and Access Management (IAM) role that has permissions to create a batch job.\n" +

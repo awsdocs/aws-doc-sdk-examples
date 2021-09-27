@@ -16,6 +16,12 @@ the content of documents without the need of any special preprocessing.*
 
 ## Code examples
 
+**Usage**
+
+* [Running a topic modeling job on sample data](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_topic_modeler_demo.py)
+* [Train a custom classifier and classify documents](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_classifier_demo.py)
+* [Use detection APIs with a document](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_detect.py)
+
 **Element detection**
 
 * [Detecting entities, like people and places, in a document](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_detect.py)

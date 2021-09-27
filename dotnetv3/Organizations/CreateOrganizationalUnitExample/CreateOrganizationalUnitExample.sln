@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateOrganizationalUnitExample", "CreateOrganizationalUnitExample\CreateOrganizationalUnitExample.csproj", "{8A546313-286C-4CAF-97DE-2F65AAFC71F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A546313-286C-4CAF-97DE-2F65AAFC71F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A546313-286C-4CAF-97DE-2F65AAFC71F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A546313-286C-4CAF-97DE-2F65AAFC71F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A546313-286C-4CAF-97DE-2F65AAFC71F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E379B740-A816-49E5-9CE5-343AED42BF86}
+	EndGlobalSection
+EndGlobal

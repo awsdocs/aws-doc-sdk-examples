@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/28/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -39,10 +39,10 @@ public class SetAcl {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "  SetAcl <bucketName> <id> \n\n" +
+                "  <bucketName> <id> \n\n" +
                 "Where:\n" +
-                    " bucketName - the Amazon S3 bucket to grant permissions on. \n" +
-                    " id - the ID of the owner of this bucket (you can get this value from the AWS Management Console).\n"  ;
+                 "  bucketName - the Amazon S3 bucket to grant permissions on. \n" +
+                 "  id - the ID of the owner of this bucket (you can get this value from the AWS Management Console).\n"  ;
 
         if (args.length != 3) {
              System.out.println(USAGE);
@@ -97,5 +97,6 @@ public class SetAcl {
             System.exit(1);
         }
     }
+    // snippet-end:[s3.java2.set_acl.main]
 }
-// snippet-end:[s3.java2.set_acl.main]
+

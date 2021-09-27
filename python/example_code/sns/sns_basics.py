@@ -26,8 +26,8 @@ class SnsWrapper:
         :param sns_resource: A Boto3 Amazon SNS resource.
         """
         self.sns_resource = sns_resource
-
 # snippet-end:[python.example_code.sns.SnsWrapper]
+
 # snippet-start:[python.example_code.sns.CreateTopic]
     def create_topic(self, name):
         """

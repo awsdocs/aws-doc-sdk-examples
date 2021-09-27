@@ -1,4 +1,4 @@
-# zexi 0.1.0
+# zexi 0.2.0
 sdks:
   C++:
     property: cpp
@@ -21,8 +21,8 @@ sdks:
     property: java
     sdk:
       1:
-        long: "&Javalong;"
-        short: "&Java;"
+        long: "&Javalong; 1.x"
+        short: "&Java; 1.x"
       2:
         long: "&JavaV2long;"
         short: "&JavaV2;"
@@ -37,6 +37,14 @@ sdks:
         long: "&JSBlong; V3"
         short: "&JSB; V3"
     guide: "&guide-jsb-dev;"
+  Kotlin:
+    property: kotlin
+    sdk:
+      1:
+        long: "&AWS; SDK for Kotlin"
+        short: "SDK for Kotlin"
+        caveat: "This is prerelease documentation for a feature in preview release. It is subject to change."
+    guide: "&AWS; SDK for Kotlin Developer Guide"
   .NET:
     property: csharp
     sdk:
@@ -71,7 +79,7 @@ services:
     long: "&ACMlong;"
     short: "&ACM;"
     sort: "ACM"
-  apigateway:
+  api-gateway:
     long: "&ABPlong;"
     short: "&ABP;"
     sort: "API Gateway"
@@ -79,19 +87,43 @@ services:
     long:  "&CFNlong;"
     short:  "&CFN;"
     sort:  "CloudFormation"
-  cognito:
-    long: "&COGlong;"
-    short: "&COG;"
-    sort: "Cognito"
+  cloudfront:
+    long: "&CFlong;"
+    short: "&CF;"
+    sort: "CloudFront"
+  cloudwatch:
+    long: "&CWlong;"
+    short: "&CW;"
+    sort: "CloudWatch"
+  cloudwatch-logs:
+    long: "&CWLlong;"
+    short: "&CWL;"
+    sort: "CloudWatch Logs"
+  cloudwatch-events:
+    long: "&CWElong;"
+    short: "&CWE;"
+    sort: "CloudWatch Events"
   cognito-identity:
     long: "&COGID;"
     short: "&COGID;"
     sort: "Cognito Identity"
+  comprehend:
+    long: "&CMPlong;"
+    short: "&CMP;"
+    sort: "Comprehend"
+  config-service:
+    long: "&CClong;"
+    short: "&CC;"
+    sort: "Config"
   dynamodb:
     long: "&DDBlong;"
     short: "&DDB;"
     sort: "DynamoDB"
-  events:
+  ec2:
+    long: "&EC2long;"
+    short: "&EC2;"
+    sort: "EC2"
+  eventbridge:
     long: "&EVlong;"
     short: "&EV;"
     sort: "EventBridge"
@@ -99,15 +131,23 @@ services:
     long: "&LAMlong;"
     short: "&LAM;"
     sort: "Lambda"
+  lex:
+    long: "&LEX2long;"
+    short: "&LEX2;"
+    sort: "Lex"
   rds:
     long: "&RDSlong;"
     short: "&RDS;"
     sort: "RDS"
+  rekognition:
+    long: "&REKlong;"
+    short: "&REK;"
+    sort: "Rekognition"
   s3:
     long: "&S3long;"
     short: "&S3;"
     sort: "S3"
-  secretsmanager:
+  secrets-manager:
     long: "&ASMlong;"
     short: "&ASM;"
     sort: "Secrets Manager"
@@ -119,7 +159,7 @@ services:
     long: "&SQSlong;"
     short: "&SQS;"
     sort: "SQS"
-  stepfunctions:
+  sfn:
     long: "&SFNlong;"
     short: "&SFN;"
     sort: "Step Functions"
@@ -131,10 +171,6 @@ services:
     long: "&TSClong;"
     short: "&TSC;"
     sort: "Transcribe"
-  comprehend:
-    long: "&CMPlong;"
-    short: "&CMP;"
-    sort: "Comprehend"
   iam:
     long: "&IAMlong;"
     short: "&IAM;"
@@ -147,3 +183,7 @@ services:
     long: "&SESlong;"
     short: "&SES;"
     sort: "SES"
+  glacier:
+    long: "&GLlong;"
+    short: "&GLshort;"
+    sort: "S3 Glacier"

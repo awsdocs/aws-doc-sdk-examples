@@ -33,9 +33,11 @@ EXT_LOOKUP = {
     'html': 'JavaScript',
     'java': 'Java',
     'js': 'JavaScript',
+    'kt': 'Kotlin',
     'php': 'PHP',
     'py': 'Python',
     'rb': 'Ruby',
+    'rs': 'Rust',
     'ts': 'TypeScript',
     'sh': 'AWS-CLI',
     'cmd': 'AWS-CLI',
@@ -49,7 +51,8 @@ EXT_LOOKUP = {
 IGNORE_FOLDERS = {
     'venv',
     '__pycache__',
-    '.pytest_cache'
+    '.pytest_cache',
+    '.doc_gen'
 }
 
 # files to skip
@@ -98,6 +101,7 @@ ALLOW_LIST = {
     'com/samples/JobStatusNotificationsSample',
     'generate_presigned_url_and_upload_object',
     'KinesisStreamSourceConfiguration=kinesis',
+    'ListOrganizationalUnitsForParentResponse',
     'nFindProductsWithNegativePriceWithConfig',
     's3_client_side_encryption_sym_master_key',
     'serial/CORE_THING_NAME/write/dev/serial1',
