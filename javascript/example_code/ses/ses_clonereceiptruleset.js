@@ -9,7 +9,7 @@ ses_clonereceiptruleset.js demonstrates how to clone an Amazon Simple Email Serv
 */
 
 // snippet-start:[ses.JavaScript.filters.cloneReceiptRuleSet]
-// Load the AWS SDK for Node.js
+// Load the AWS SDK for Node.js.
 var AWS = require('aws-sdk');
 // Set the AWS Region.
 AWS.config.update({ region: 'REGION' });
