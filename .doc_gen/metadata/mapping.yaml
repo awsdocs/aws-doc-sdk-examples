@@ -95,6 +95,14 @@ services:
     long: "&CWlong;"
     short: "&CW;"
     sort: "CloudWatch"
+  cloudwatch-logs:
+    long: "&CWLlong;"
+    short: "&CWL;"
+    sort: "CloudWatch Logs"
+  cloudwatch-events:
+    long: "&CWElong;"
+    short: "&CWE;"
+    sort: "CloudWatch Events"
   cognito-identity:
     long: "&COGID;"
     short: "&COGID;"
@@ -123,6 +131,10 @@ services:
     long: "&LAMlong;"
     short: "&LAM;"
     sort: "Lambda"
+  lex:
+    long: "&LEX2long;"
+    short: "&LEX2;"
+    sort: "Lex"
   rds:
     long: "&RDSlong;"
     short: "&RDS;"

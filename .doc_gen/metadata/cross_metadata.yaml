@@ -1,4 +1,17 @@
 # zexi 0.2.0
+cross_LexChatbotLanguages:
+  title: Create an &LEX2; Chatbot within a web application to engage your web site visitors
+  title_abbrev: Building an &LEX2; Chatbot 
+  synopsis: create a Chatbot to engage your web site visitors
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_Lex_Java_block.xml
+  services:
+    - lex
+    - translate
+    - comprehend
 cross_DynamoDBDataTracker:
   title: Create a dynamic web application to track &DDB; data
   title_abbrev: Create a web application to track &DDB; data
@@ -199,6 +212,10 @@ cross_RekognitionPhotoAnalyzer:
   title_abbrev: Detect objects in images
   synopsis: build an app that uses &REK; to detect objects by category in images.
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_RekognitionPhotoAnalyzer_Java_block.xml
     JavaScript:
       versions:
         - sdk_version: 3
@@ -213,6 +230,13 @@ cross_RekognitionVideoDetection:
   synopsis: detect people and objects in a video with &REK;.
   category: Cross-service
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_RekognitionVideoAnalyzer_Java_block.xml
+          add_services:
+            - s3
+            - ses
     JavaScript:
       versions:
         - sdk_version: 3

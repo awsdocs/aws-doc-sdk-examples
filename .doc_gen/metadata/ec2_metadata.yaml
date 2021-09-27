@@ -5,6 +5,15 @@ ec2_CreateKeyPair:
   synopsis: create a security key pair for &EC2;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.create_key_pair.main
     Python:
       versions:
         - sdk_version: 3
@@ -22,6 +31,15 @@ ec2_CreateSecurityGroup:
   synopsis: create an &EC2; security group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.create_security_group.main
     Python:
       versions:
         - sdk_version: 3
@@ -56,6 +74,15 @@ ec2_StartInstances:
   synopsis: start an &EC2; instance.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.start_stop_instance.start
     Python:
       versions:
         - sdk_version: 3
@@ -73,6 +100,15 @@ ec2_StopInstances:
   synopsis: stop an &EC2; instance.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.start_stop_instance.stop
     Python:
       versions:
         - sdk_version: 3
@@ -90,6 +126,15 @@ ec2_AllocateAddress:
   synopsis: allocate an Elastic IP address for &EC2;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.allocate_address.main
     Python:
       versions:
         - sdk_version: 3
@@ -141,6 +186,15 @@ ec2_ReleaseAddress:
   synopsis: release an Elastic IP address.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.release_instance.main
     Python:
       versions:
         - sdk_version: 3
@@ -214,6 +268,15 @@ ec2_DeleteKeyPair:
   synopsis: delete an &EC2; security key pair.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.delete_key_pair.main
     Python:
       versions:
         - sdk_version: 3
@@ -231,6 +294,15 @@ ec2_DeleteSecurityGroup:
   synopsis: delete an &EC2; security group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.delete_security_group.main
     Python:
       versions:
         - sdk_version: 3
@@ -248,6 +320,15 @@ ec2_TerminateInstances:
   synopsis: terminate an &EC2; instance.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.terminate_instance
     Python:
       versions:
         - sdk_version: 3
@@ -265,6 +346,15 @@ ec2_Usage_InstanceCreationAndManagement:
   synopsis: create and manage &EC2; instances.
   category: Usage
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.create_instance.main
     Python:
       versions:
         - sdk_version: 3
