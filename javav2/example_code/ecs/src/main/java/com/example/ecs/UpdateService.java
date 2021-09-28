@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Elastic Container Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/20/2021]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -13,10 +13,12 @@
 
 package com.example.ecs;
 
+// snippet-start:[ecs.java2.update_service.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ecs.EcsClient;
 import software.amazon.awssdk.services.ecs.model.EcsException;
 import software.amazon.awssdk.services.ecs.model.UpdateServiceRequest;
+// snippet-end:[ecs.java2.update_service.import]
 
 /**
  To run this Java V2 code example, ensure that you have setup your development environment,
@@ -54,6 +56,7 @@ public class UpdateService {
         ecsClient.close();
     }
 
+    // snippet-start:[ecs.java2.update_service.main]
     public static void updateSpecificService( EcsClient ecsClient, String clusterName, String serviceArn) {
 
         try {
@@ -72,4 +75,5 @@ public class UpdateService {
             System.exit(1);
         }
     }
+    // snippet-end:[ecs.java2.update_service.main]
 }
