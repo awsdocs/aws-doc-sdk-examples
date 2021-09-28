@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/03/2021]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -47,7 +47,7 @@ public class EnhancedModifyItem {
 
 
         String usage = "Usage:\n" +
-                "    UpdateItem <key> <email> \n\n" +
+                "    <key> <email> \n\n" +
                 "Where:\n" +
                 "    key - the name of the key in the table (id120).\n" +
                 "    email - the value of the modified email column.\n" ;

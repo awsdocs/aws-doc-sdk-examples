@@ -36,7 +36,7 @@ public class DescribeTable {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DescribeTable <tableName>\n\n" +
+                "    <tableName>\n\n" +
                 "Where:\n" +
                 "    tableName - the Amazon DynamoDB table to get information about (for example, Music3).\n\n" ;
 
