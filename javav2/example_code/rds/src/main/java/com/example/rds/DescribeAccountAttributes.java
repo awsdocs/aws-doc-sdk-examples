@@ -63,6 +63,6 @@ public class DescribeAccountAttributes {
         System.out.println(e.getLocalizedMessage());
         System.exit(1);
     }
-        // snippet-end:[rds.java2.describe_account.main]
-   }
+  }
+    // snippet-end:[rds.java2.describe_account.main]
  }

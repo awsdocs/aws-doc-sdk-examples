@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[07-27-2021]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -57,12 +57,12 @@ public class SendEmailMessage {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage: " +
-                "SendEmailMessage <subject> <appId> <senderAddress> <toAddress>\n\n" +
+                "   <subject> <appId> <senderAddress> <toAddress>\n\n" +
                 "Where:\n" +
-                "  subject - the email subject to use.\n\n"+
-                "  appId - the Amazon Pinpoint project/application ID to use when you send this message\n\n" +
-                "  senderAddress - the from address. This address has to be verified in Amazon Pinpoint in the region you're using to send email \n\n" +
-                "  toAddress - the to address. This address has to be verified in Amazon Pinpoint in the region you're using to send email \n\n" ;
+                "   subject - the email subject to use.\n\n"+
+                "   appId - the Amazon Pinpoint project/application ID to use when you send this message\n\n" +
+                "   senderAddress - the from address. This address has to be verified in Amazon Pinpoint in the region you're using to send email \n\n" +
+                "   toAddress - the to address. This address has to be verified in Amazon Pinpoint in the region you're using to send email \n\n" ;
 
         if (args.length != 4) {
             System.out.println(USAGE);

@@ -13,13 +13,13 @@
 
 package com.example.rds;
 
-// snippet-start:[rds.java2.create_snapshot.import]
+// snippet-start:[rds.java2.create_instance.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rds.RdsClient;
 import software.amazon.awssdk.services.rds.model.CreateDbSnapshotRequest;
 import software.amazon.awssdk.services.rds.model.CreateDbSnapshotResponse;
 import software.amazon.awssdk.services.rds.model.RdsException;
-// snippet-end:[rds.java2.create_snapshot.import]
+// snippet-end:[rds.java2.create_instance.import]
 
 /**
  * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
@@ -34,7 +34,7 @@ public class CreateDBSnapshot {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateDBSnapshot <dbInstanceIdentifier> <dbSnapshotIdentifier> \n\n" +
+                "    <dbInstanceIdentifier> <dbSnapshotIdentifier> \n\n" +
                 "Where:\n" +
                 "    dbInstanceIdentifier - the database instance identifier \n" +
                 "    dbSnapshotIdentifier - the snapshot identifier \n";
@@ -56,7 +56,7 @@ public class CreateDBSnapshot {
         rdsClient.close();
     }
 
-    // snippet-start:[rds.java2.create_snapshot.main]
+    // snippet-start:[rds.java2.create_instance.main]
     public static void createSnapshot(RdsClient rdsClient, String dbInstanceIdentifier, String dbSnapshotIdentifier) {
 
         try {
@@ -72,6 +72,6 @@ public class CreateDBSnapshot {
             System.out.println(e.getLocalizedMessage());
             System.exit(1);
         }
-        // snippet-end:[rds.java2.create_snapshot.main]
     }
+    // snippet-end:[rds.java2.create_instance.main]
 }
