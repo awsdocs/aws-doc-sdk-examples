@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kinesis Data Firehose]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -33,7 +33,7 @@ public class DeleteStream {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeleteStream <streamName> \n\n" +
+                "    <streamName> \n\n" +
                 "Where:\n" +
                 "    streamName - the data stream name to delete. \n";
 
@@ -67,7 +67,7 @@ public class DeleteStream {
             System.out.println(e.getLocalizedMessage());
             System.exit(1);
         }
-        // snippet-end:[firehose.java2.delete_stream.main]
     }
+    // snippet-end:[firehose.java2.delete_stream.main]
 }
 
