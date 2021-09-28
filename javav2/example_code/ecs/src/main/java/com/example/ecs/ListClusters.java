@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Elastic Container Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/20/2021]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -12,11 +12,13 @@
 */
 package com.example.ecs;
 
+// snippet-start:[ecs.java2.list_clusters.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ecs.EcsClient;
 import software.amazon.awssdk.services.ecs.model.ListClustersResponse;
 import software.amazon.awssdk.services.ecs.model.EcsException;
 import java.util.List;
+// snippet-end:[ecs.java2.list_clusters.import]
 
 /**
  To run this Java V2 code example, ensure that you have setup your development environment,
@@ -39,6 +41,7 @@ public class ListClusters {
         ecsClient.close();
     }
 
+    // snippet-start:[ecs.java2.list_clusters.main]
     public static void listAllClusters(EcsClient ecsClient) {
 
         try {
@@ -54,4 +57,5 @@ public class ListClusters {
             System.exit(1);
         }
     }
+    // snippet-end:[ecs.java2.list_clusters.main]
 }

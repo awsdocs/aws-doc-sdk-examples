@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kinesis Data Firehose]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -36,7 +36,7 @@ public class PutRecord {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    PutRecord <textValue> <streamName> \n\n" +
+                "    <textValue> <streamName> \n\n" +
                 "Where:\n" +
                 "    textValue - the text used as the data to write to the data stream. \n\n" +
                 "    streamName - the data stream name. \n" ;
@@ -81,6 +81,6 @@ public class PutRecord {
         System.out.println(e.getLocalizedMessage());
         System.exit(1);
     }
-   // snippet-end:[firehose.java2.put_record.main]
   }
+    // snippet-end:[firehose.java2.put_record.main]
 }

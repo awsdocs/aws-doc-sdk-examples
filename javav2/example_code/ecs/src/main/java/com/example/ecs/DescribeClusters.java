@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Elastic Container Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/20/2021]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -13,6 +13,7 @@
 
 package com.example.ecs;
 
+// snippet-start:[ecs.java2.des_cluster.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ecs.EcsClient;
 import software.amazon.awssdk.services.ecs.model.DescribeClustersRequest;
@@ -20,6 +21,7 @@ import software.amazon.awssdk.services.ecs.model.DescribeClustersResponse;
 import software.amazon.awssdk.services.ecs.model.Cluster;
 import software.amazon.awssdk.services.ecs.model.EcsException;
 import java.util.List;
+// snippet-end:[ecs.java2.des_cluster.import]
 
 /**
  To run this Java V2 code example, ensure that you have setup your development environment,
@@ -34,8 +36,7 @@ public class DescribeClusters {
 
         final String usage = "\n" +
                 "Usage:\n" +
-                "  DescribeClusters " +
-                "   <clusterArn>  \n\n" +
+                "  <clusterArn>  \n\n" +
                 "Where:\n" +
                 "  clusterArn - the ARN of the ECS cluster to describe.\n"  ;
 
@@ -53,7 +54,7 @@ public class DescribeClusters {
         descCluster(ecsClient, clusterArn);
 
     }
-
+    // snippet-start:[ecs.java2.des_cluster.main]
     public static void descCluster(EcsClient ecsClient, String clusterArn) {
 
         try {
@@ -72,4 +73,5 @@ public class DescribeClusters {
             System.exit(1);
         }
     }
+    // snippet-end:[ecs.java2.des_cluster.main]
 }

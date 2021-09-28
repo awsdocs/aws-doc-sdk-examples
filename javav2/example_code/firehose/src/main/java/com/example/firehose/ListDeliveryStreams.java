@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kinesis Data Firehose]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -57,6 +57,6 @@ public class ListDeliveryStreams {
             System.out.println(e.getLocalizedMessage());
             System.exit(1);
         }
-        // snippet-end:[firehose.java2.list_streams.main]
     }
+    // snippet-end:[firehose.java2.list_streams.main]
 }

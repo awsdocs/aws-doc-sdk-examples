@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Comprehend]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/04/2020]
+// snippet-sourcedate:[09/28/2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -58,6 +58,6 @@ public class DetectSentiment {
         System.err.println(e.awsErrorDetails().errorMessage());
         System.exit(1);
     }
-        //snippet-end:[comprehend.java2.detect_sentiment.main]
    }
+    //snippet-end:[comprehend.java2.detect_sentiment.main]
  }
