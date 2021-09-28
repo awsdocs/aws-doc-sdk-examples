@@ -68,7 +68,8 @@ public class ListGrants {
         for ( GrantListEntry grant: grants) {
             System.out.println("The grant Id is : "+grant.grantId());
         }
-    } catch (KmsException e) {
+
+     } catch (KmsException e) {
         System.err.println(e.getMessage());
         System.exit(1);
     }

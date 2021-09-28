@@ -57,6 +57,7 @@ public class ListKeys {
                 System.out.println("The key ARN is: " + key.keyArn());
                 System.out.println("The key Id is: " + key.keyId());
             }
+
         } catch (KmsException e) {
             System.err.println(e.getMessage());
             System.exit(1);

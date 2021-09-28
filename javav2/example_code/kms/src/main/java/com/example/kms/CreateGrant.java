@@ -61,7 +61,7 @@ public class CreateGrant {
     // snippet-start:[kms.java2_create_grant.main]
     public static String createGrant(KmsClient kmsClient, String keyId, String granteePrincipal, String operation) {
 
-        try {
+    try {
         CreateGrantRequest grantRequest = CreateGrantRequest.builder()
                 .keyId(keyId)
                 .granteePrincipal(granteePrincipal)
@@ -71,10 +71,10 @@ public class CreateGrant {
         CreateGrantResponse response = kmsClient.createGrant(grantRequest);
         return response.grantId();
 
-        } catch (KmsException e) {
+     } catch (KmsException e) {
             System.err.println(e.getMessage());
             System.exit(1);
-        }
+     }
         return "";
     }
     // snippet-end:[kms.java2_create_grant.main]

@@ -63,6 +63,7 @@ public class RevokeGrant {
                 .build();
 
             kmsClient.revokeGrant(grantRequest);
+
         } catch (KmsException e) {
             System.err.println(e.getMessage());
             System.exit(1);

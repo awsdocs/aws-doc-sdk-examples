@@ -62,7 +62,8 @@ public class DisableCustomerKey {
                 .build();
 
            kmsClient.disableKey(keyRequest);
-        } catch (KmsException e) {
+
+       } catch (KmsException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
