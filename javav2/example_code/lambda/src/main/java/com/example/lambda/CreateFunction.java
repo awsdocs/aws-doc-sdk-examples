@@ -3,7 +3,7 @@
 // snippet-keyword:[AWS Lambda]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/11/2020]
+// snippet-sourcedate:[09/27/2021]
 // snippet-sourceauthor:[AWS-scmacdon]
 
 /*
@@ -46,7 +46,7 @@ public class CreateFunction {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateFunction <functionName><filePath><role><handler> \n\n" +
+                "    <functionName> <filePath> <role> <handler> \n\n" +
                 "Where:\n" +
                 "    functionName - the name of the Lambda function. \n"+
                 "    filePath - the path to the ZIP or JAR where the code is located. \n"+
