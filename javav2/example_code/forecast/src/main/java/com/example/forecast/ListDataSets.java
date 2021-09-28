@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -64,6 +64,6 @@ public class ListDataSets {
            System.err.println(e.awsErrorDetails().errorMessage());
            System.exit(1);
        }
-      // snippet-end:[forecast.java2.list_datasets.main]
     }
+    // snippet-end:[forecast.java2.list_datasets.main]
 }
