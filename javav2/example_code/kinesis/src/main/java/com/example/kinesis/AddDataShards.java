@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Kinesis]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,11 +33,9 @@ public class AddDataShards {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    AddDataShards <streamName>\n\n" +
+                "    <streamName>\n\n" +
                 "Where:\n" +
-                "    streamName - The Amazon Kinesis data stream (for example, StockTradeStream)\n\n" +
-                "Example:\n" +
-                "    AddDataShards StockTradeStream\n";
+                "    streamName - The Amazon Kinesis data stream (for example, StockTradeStream)\n\n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -72,10 +70,11 @@ public class AddDataShards {
 
             UpdateShardCountResponse response = kinesisClient.updateShardCount(request);
             System.out.println(response.streamName() + " has updated shard count to " + response.currentShardCount());
-            // snippet-end:[kinesis.java2.AddDataShards.main]
+
         } catch (KinesisException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
     }
+    // snippet-end:[kinesis.java2.AddDataShards.main]
 }

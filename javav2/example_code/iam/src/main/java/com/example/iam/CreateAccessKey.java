@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -33,9 +33,9 @@ public class CreateAccessKey {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                " CreateAccessKey <user> \n\n" +
+                "   <user> \n\n" +
                 "Where:\n" +
-                " user - an AWS IAM user that you can obtain from the AWS Management Console.\n\n";
+                "   user - an AWS IAM user that you can obtain from the AWS Management Console.\n\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);

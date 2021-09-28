@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -33,7 +33,7 @@ public class DeletePolicy {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeletePolicy <policyARN> \n\n" +
+                "    <policyARN> \n\n" +
                 "Where:\n" +
                 "    policyARN - a policy ARN value to delete. \n\n" ;
 
@@ -68,7 +68,7 @@ public class DeletePolicy {
             System.exit(1);
         }
         System.out.println("Done");
-        // snippet-end:[iam.java2.delete_policy.main]
     }
+    // snippet-end:[iam.java2.delete_policy.main]
 }
 

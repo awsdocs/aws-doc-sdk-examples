@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaStore]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -38,10 +38,10 @@ public class DeleteObject {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "DeleteObject  <completePath> <containerName>\n\n" +
+                "   <completePath> <containerName>\n\n" +
                 "Where:\n" +
-                "  completePath - the path (including the container) of the item to delete.\n"+
-                "  containerName - the name of the container.\n";
+                "   completePath - the path (including the container) of the item to delete.\n"+
+                "   containerName - the name of the container.\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -64,23 +64,21 @@ public class DeleteObject {
     }
 
     //snippet-start:[mediastore.java2.delete_object.main]
-    public static void deleteMediaObject(MediaStoreDataClient mediaStoreData, String completePath){
+    public static void deleteMediaObject(MediaStoreDataClient mediaStoreData, String completePath) {
 
-        try{
+        try {
             DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
-                .path(completePath)
-                .build();
+                    .path(completePath)
+                    .build();
 
             mediaStoreData.deleteObject(deleteObjectRequest);
 
         } catch (MediaStoreDataException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-             System.exit(1);
+            System.exit(1);
+        }
     }
- }
-    //snippet-end:[mediastore.java2.delete_object.main]
-
-    private static String getEndpoint(String containerName){
+     private static String getEndpoint(String containerName){
 
         Region region = Region.US_EAST_1;
         MediaStoreClient mediaStoreClient = MediaStoreClient.builder()
@@ -95,4 +93,5 @@ public class DeleteObject {
         mediaStoreClient.close();
         return response.container().endpoint();
     }
+    //snippet-end:[mediastore.java2.delete_object.main]
 }
