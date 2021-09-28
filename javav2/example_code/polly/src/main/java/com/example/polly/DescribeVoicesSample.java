@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Polly]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/05/2020]
+// snippet-sourcedate:[09/27/2021]
 // snippet-sourceauthor:[scmacdon AWS]
 
 /*
@@ -66,6 +66,6 @@ public class DescribeVoicesSample {
             System.err.println("Exception caught: " + e);
            System.exit(1);
         }
-        // snippet-end:[polly.java2.describe_voice.main]
     }
+    // snippet-end:[polly.java2.describe_voice.main]
 }
