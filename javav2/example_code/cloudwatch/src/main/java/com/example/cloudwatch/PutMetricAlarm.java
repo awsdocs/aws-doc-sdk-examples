@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -35,7 +35,7 @@ public class PutMetricAlarm {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "  PutMetricAlarm <alarmName> <instanceId> \n\n" +
+                "  <alarmName> <instanceId> \n\n" +
                 "Where:\n" +
                 "  alarmName - an alarm name to use.\n" +
                 "  instanceId - an instance Id value .\n" ;
@@ -47,7 +47,6 @@ public class PutMetricAlarm {
 
         String alarmName = args[0];
         String instanceId = args[1];
-
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
                 .region(region)
@@ -90,6 +89,6 @@ public class PutMetricAlarm {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-       // snippet-end:[cloudwatch.java2.put_metric_alarm.main]
     }
+    // snippet-end:[cloudwatch.java2.put_metric_alarm.main]
 }

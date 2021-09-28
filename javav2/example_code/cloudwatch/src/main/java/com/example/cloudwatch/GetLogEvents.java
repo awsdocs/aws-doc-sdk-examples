@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -32,19 +32,18 @@ public class GetLogEvents {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "  GetLogEvents <logStreamName> <logGroupName>\n\n" +
+                "  <logStreamName> <logGroupName>\n\n" +
                 "Where:\n" +
                 "  logStreamName - the name of the log stream (for example, mystream).\n" +
                 "  logGroupName - the name of the log group (for example, myloggroup).\n" ;
 
-        if (args.length != 2) {
+       if (args.length != 2) {
             System.out.print(USAGE);
             System.exit(1);
-        }
+       }
 
         String logStreamName = args[0];
         String logGroupName = args[1];
-
         Region region = Region.US_WEST_2;
         CloudWatchLogsClient cloudWatchLogsClient = CloudWatchLogsClient.builder()
                 .region(region)
@@ -65,6 +64,7 @@ public class GetLogEvents {
                 .build();
 
             int logLimit = cloudWatchLogsClient.getLogEvents(getLogEventsRequest).events().size();
+
             for (int c = 0; c < logLimit; c++) {
                  System.out.println(cloudWatchLogsClient.getLogEvents(getLogEventsRequest).events().get(c).message());
             }
@@ -74,7 +74,6 @@ public class GetLogEvents {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
-        // snippet-end:[cloudwatch.java2.get_logs.main]
     }
+    // snippet-end:[cloudwatch.java2.get_logs.main]
 }

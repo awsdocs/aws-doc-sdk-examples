@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -45,7 +45,7 @@ public class PutSubscriptionFilter {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "  PutSubscriptionFilter <filter> <pattern> <logGroup> <functionArn> \n\n" +
+                "  <filter> <pattern> <logGroup> <functionArn> \n\n" +
                 "Where:\n" +
                 "  filter - a filter name (for example, myfilter).\n" +
                 "  pattern - a filter pattern (for example, ERROR).\n" +
@@ -61,7 +61,6 @@ public class PutSubscriptionFilter {
         String pattern = args[1];
         String logGroup = args[2];
         String functionArn = args[3];
-
         Region region = Region.US_WEST_2;
         CloudWatchLogsClient cwl = CloudWatchLogsClient.builder()
                 .region(region)
@@ -97,5 +96,6 @@ public class PutSubscriptionFilter {
             System.exit(1);
         }
     }
+    // snippet-end:[cloudwatch.java2.put_subscription_filter.main]
 }
-// snippet-end:[cloudwatch.java2.put_subscription_filter.main]
+
