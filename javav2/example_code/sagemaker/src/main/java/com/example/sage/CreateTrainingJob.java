@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon SageMaker]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -51,7 +51,7 @@ public class CreateTrainingJob {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateTrainingJob <s3UriData> <s3Uri> <trainingJobName> <roleArn> <s3OutputPath> <channelName> <trainingImage>\n\n" +
+                "    <s3UriData> <s3Uri> <trainingJobName> <roleArn> <s3OutputPath> <channelName> <trainingImage>\n\n" +
                 "Where:\n" +
                 "    s3UriData - the location of the training data (for example, s3://trainbucket/train.csv).\n\n" +
                 "    s3Uri - the Amazon S3 path where you want Amazon SageMaker to store checkpoints (for example, s3://trainbucket).\n\n" +
@@ -137,7 +137,7 @@ public class CreateTrainingJob {
                     .trainingInputMode(TrainingInputMode.FILE)
                     .build();
 
-            // Set hyper parameters
+            // Set hyper parameters.
             Map<String,String> hyperParameters = new HashMap<String, String>();
             hyperParameters.put("num_round", "100");
             hyperParameters.put("eta", "0.2");
