@@ -4,7 +4,7 @@
 // snippet-service:[Amazon Route 53]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[01/21/2021]
+// snippet-sourcedate:[09/28/2021]
 // snippet-sourceauthor:[AWS - scmacdon]
 
 /*
@@ -36,7 +36,7 @@ public class ListResourceRecordSets {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    ListResourceRecordSets <hostedZoneId> \n\n" +
+                "    <hostedZoneId> \n\n" +
                 "Where:\n" +
                 "    hostedZoneId - the id value of an existing hosted zone. \n";
 
