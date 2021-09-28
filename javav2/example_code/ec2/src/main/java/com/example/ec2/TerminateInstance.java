@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/01/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -35,9 +35,9 @@ public class TerminateInstance {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "TerminateInstance <instanceId>\n\n" +
+                "   <instanceId>\n\n" +
                 "Where:\n" +
-                "    instanceId - an instance id value that you can obtain from the AWS Console. \n\n" ;
+                "   instanceId - an instance id value that you can obtain from the AWS Console. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);
