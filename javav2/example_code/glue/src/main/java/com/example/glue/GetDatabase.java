@@ -36,9 +36,10 @@ public class GetDatabase {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "To run this example, supply the name of the database.  \n" +
-                "\n" +
-                "Ex: GetDatabase <databaseName>\n";
+                "Usage:\n" +
+                "    <databaseName>\n\n" +
+                "Where:\n" +
+                "    databaseName - the name of the database. \n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);

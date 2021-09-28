@@ -37,7 +37,7 @@ public class GetTable {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    <dbName><tableName>\n\n" +
+                "    <dbName> <tableName>\n\n" +
                 "Where:\n" +
                 "    dbName - the database name. \n" +
                 "    tableName - the name of the table. \n";

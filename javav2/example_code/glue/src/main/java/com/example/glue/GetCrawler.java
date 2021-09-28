@@ -37,9 +37,10 @@ public class GetCrawler {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "To run this example, supply the name of the crawler.  \n" +
-                "\n" +
-                "Ex: GetCrawler <crawlerName>\n";
+                "Usage:\n" +
+                "    <crawlerName>\n\n" +
+                "Where:\n" +
+                "    crawlerName - the name of the crawler. \n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);
