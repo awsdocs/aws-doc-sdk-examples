@@ -33,7 +33,8 @@ public class DescribeTemplate {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage: DescribeTemplate <account> <templateId>\n\n" +
+                "Usage: " +
+                "  <account> <templateId>\n\n" +
                 "Where:\n" +
                 "  account - the ID of the AWS account.\n\n" +
                 "  templateId - the ID of the Amazon QuickSight template to describe.\n\n";

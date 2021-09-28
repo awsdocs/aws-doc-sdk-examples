@@ -35,9 +35,10 @@ public class ListAnalyses {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage: AddQueueTags <account>\n\n" +
+                "Usage: " +
+                "   <account>\n\n" +
                 "Where:\n" +
-                "  account - the ID of the AWS account.\n\n";
+                "   account - the ID of the AWS account.\n\n";
 
          if (args.length != 1) {
              System.out.println(USAGE);
