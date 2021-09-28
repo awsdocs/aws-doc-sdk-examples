@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Kinesis]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,19 +33,16 @@ public class ListShards {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    ListShards <streamName>\n\n" +
+                "    <streamName>\n\n" +
                 "Where:\n" +
-                "    streamName - The Amazon Kinesis data stream (for example, StockTradeStream)\n\n" +
-                "Example:\n" +
-                "    ListShards StockTradeStream\n";
+                "    streamName - The Amazon Kinesis data stream (for example, StockTradeStream)\n\n" ;
 
-        if (args.length != 1) {
+       if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
         String name = args[0];
-
         // snippet-start:[kinesis.java2.ListShards.client]
         Region region = Region.US_EAST_1;
         KinesisClient kinesisClient = KinesisClient.builder()
