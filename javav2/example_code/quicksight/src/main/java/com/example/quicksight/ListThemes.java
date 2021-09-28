@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon QuickSight]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[1/14/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
