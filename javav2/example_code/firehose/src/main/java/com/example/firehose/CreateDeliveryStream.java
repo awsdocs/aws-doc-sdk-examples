@@ -76,7 +76,6 @@ public class CreateDeliveryStream {
                 .build();
 
             CreateDeliveryStreamResponse streamResponse = firehoseClient.createDeliveryStream(deliveryStreamRequest);
-
             System.out.println("Delivery Stream ARN is "+streamResponse.deliveryStreamARN());
 
     } catch (FirehoseException e) {

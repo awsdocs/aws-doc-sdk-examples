@@ -60,7 +60,7 @@ public class DeleteStream {
                     .deliveryStreamName(streamName)
                     .build();
 
-             firehoseClient.deleteDeliveryStream(deleteDeliveryStreamRequest);
+            firehoseClient.deleteDeliveryStream(deleteDeliveryStreamRequest);
             System.out.println("Delivery Stream "+streamName +" is deleted");
 
         } catch (FirehoseException e) {
