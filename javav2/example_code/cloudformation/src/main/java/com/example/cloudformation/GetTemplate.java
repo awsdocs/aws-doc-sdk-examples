@@ -4,7 +4,7 @@
 // snippet-service:[AWS CloudFormation]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/03/2020]
+// snippet-sourcedate:[09/28/2021]
 // snippet-sourceauthor:[AWS-scmacdon]
 
 /*
@@ -36,7 +36,7 @@ public class GetTemplate {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    GetTemplate <stackName> \n\n" +
+                "    <stackName> \n\n" +
                 "Where:\n" +
                 "    stackName - the name of the AWS CloudFormation stack. \n" ;
 
