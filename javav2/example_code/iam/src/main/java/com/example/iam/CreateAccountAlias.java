@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -31,7 +31,7 @@ public class CreateAccountAlias {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateAccountAlias <alias> \n\n" +
+                "    <alias> \n\n" +
                 "Where:\n" +
                 "    alias - the account alias to create (for example, myawsaccount). \n\n" ;
 

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -31,7 +31,7 @@ public class DeleteAccessKey {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeleteAccessKey <username> <accessKey> \n\n" +
+                "    <username> <accessKey> \n\n" +
                 "Where:\n" +
                 "    username - the name of the user. \n\n" +
                 "    accessKey - the access key ID for the secret access key you want to delete. \n\n" ;
