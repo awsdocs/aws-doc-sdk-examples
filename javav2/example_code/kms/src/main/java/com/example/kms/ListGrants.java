@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -35,7 +35,7 @@ public class ListGrants {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    ListGrants <keyId> \n\n" +
+                "    <keyId> \n\n" +
                 "Where:\n" +
                 "    keyId - a key id value to use (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" ;
 

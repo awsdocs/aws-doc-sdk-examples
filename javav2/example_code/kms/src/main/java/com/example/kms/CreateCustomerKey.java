@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -46,7 +46,7 @@ public class CreateCustomerKey {
     // snippet-start:[kms.java2_create_key.main]
     public static String createKey(KmsClient kmsClient, String keyDesc) {
 
-        try {
+    try {
         CreateKeyRequest keyRequest = CreateKeyRequest.builder()
                 .description(keyDesc)
                 .customerMasterKeySpec(CustomerMasterKeySpec.SYMMETRIC_DEFAULT)

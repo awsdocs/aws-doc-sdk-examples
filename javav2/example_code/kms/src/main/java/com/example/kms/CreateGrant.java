@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -33,7 +33,7 @@ public class CreateGrant {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateGrant <keyId> <granteePrincipal> <operation> \n\n" +
+                "    <keyId> <granteePrincipal> <operation> \n\n" +
                 "Where:\n" +
                 "    keyId - the unique identifier for the customer master key (CMK) that the grant applies to. \n\n" +
                 "    granteePrincipal - the principal that is given permission to perform the operations that the grant permits. \n\n" +
