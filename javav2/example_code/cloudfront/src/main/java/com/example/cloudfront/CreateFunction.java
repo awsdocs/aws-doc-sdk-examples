@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudFront]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[02/20/2021]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,6 +13,7 @@
 
 package com.example.cloudfront;
 
+// snippet-start:[cloudfront.java2.function.import]
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudfront.CloudFrontClient;
@@ -24,6 +25,7 @@ import software.amazon.awssdk.services.cloudfront.model.CloudFrontException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+// snippet-end:[cloudfront.java2.function.import]
 
 
 /**
@@ -60,6 +62,7 @@ public class CreateFunction {
         cloudFrontClient.close();
     }
 
+    // snippet-start:[cloudfront.java2.function.main]
     public static String createNewFunction(CloudFrontClient cloudFrontClient, String functionName, String filePath) {
 
         try {
@@ -87,5 +90,6 @@ public class CreateFunction {
         }
         return "";
     }
+    // snippet-end:[cloudfront.java2.function.main]
 }
 

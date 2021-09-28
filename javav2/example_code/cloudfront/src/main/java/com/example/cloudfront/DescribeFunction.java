@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudFront]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/20/2021]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,12 +13,15 @@
 
 package com.example.cloudfront;
 
+// snippet-start:[cloudfront.java2.des_function.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudfront.CloudFrontClient;
 import software.amazon.awssdk.services.cloudfront.model.DescribeFunctionRequest;
 import software.amazon.awssdk.services.cloudfront.model.FunctionStage;
 import software.amazon.awssdk.services.cloudfront.model.DescribeFunctionResponse;
 import software.amazon.awssdk.services.cloudfront.model.CloudFrontException;
+// snippet-end:[cloudfront.java2.des_function.import]
+
 /**
  * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
  *
@@ -51,6 +54,7 @@ public class DescribeFunction {
         cloudFrontClient.close();
     }
 
+    // snippet-start:[cloudfront.java2.des_function.main]
     public static String describeSinFunction(CloudFrontClient cloudFrontClient, String functionName) {
 
         try {
@@ -69,4 +73,5 @@ public class DescribeFunction {
         }
         return "";
     }
+    // snippet-end:[cloudfront.java2.des_function.main]
 }
