@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -34,7 +34,7 @@ public class PutRule {
 
        final String USAGE = "\n" +
                 "Usage:\n" +
-                "  PutRule <ruleName> roleArn> \n\n" +
+                "  <ruleName> roleArn> \n\n" +
                 "Where:\n" +
                 "  ruleName - a rule name (for example, myrule).\n" +
                 "  roleArn - a role ARN value (for example, arn:aws:iam::xxxxxx047983:user/MyUser).\n" ;
@@ -46,7 +46,6 @@ public class PutRule {
 
         String ruleName = args[0];
         String roleArn = args[1];
-
         CloudWatchEventsClient cwe =
                 CloudWatchEventsClient.builder().build();
 

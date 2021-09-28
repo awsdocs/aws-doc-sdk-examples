@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -40,7 +40,7 @@ public class PutMetricData {
 
        final String USAGE = "\n" +
                 "Usage:\n" +
-                "  PutMetricData <dataPoint> \n\n" +
+                "  <dataPoint> \n\n" +
                 "Where:\n" +
                 "  dataPoint - the value for the metric.\n" ;
 
@@ -89,6 +89,6 @@ public class PutMetricData {
             System.exit(1);
         }
         System.out.printf("Successfully put data point %f", dataPoint);
-        // snippet-end:[cloudwatch.java2.put_metric_data.main]
-    }
+     }
+    // snippet-end:[cloudwatch.java2.put_metric_data.main]
 }

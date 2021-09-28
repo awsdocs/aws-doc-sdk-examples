@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -32,7 +32,7 @@ public class DeleteAlarm {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "  DeleteAlarm <alarmName>\n\n" +
+                "  <alarmName>\n\n" +
                 "Where:\n" +
                 "  alarmName - an alarm name to delete (for example, MyAlarm).\n" ;
 
@@ -66,6 +66,6 @@ public class DeleteAlarm {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        // snippet-end:[cloudwatch.java2.delete_metrics.main]
     }
+    // snippet-end:[cloudwatch.java2.delete_metrics.main]
 }

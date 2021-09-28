@@ -3,6 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
+//snippet-sourcedate:[09/28/2021]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -30,7 +31,7 @@ public class FilterLogEvents {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "  FilterLogEvents <logGroupName> <startTime> <endTime>\n\n" +
+                "  <logGroupName> <startTime> <endTime>\n\n" +
                 "Where:\n" +
                 "  logGroupName - the name of the log group (for example, myloggroup).\n" +
                 "  startTime - the start of the time range, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC (for example, 1620940080).\n" +
@@ -44,7 +45,6 @@ public class FilterLogEvents {
         String logGroupName = args[0];
         Long startTime = Long.parseLong(args[1]);
         Long endTime = Long.parseLong(args[2]);
-
         Region region = Region.US_WEST_2;
         CloudWatchLogsClient cloudWatchLogsClient = CloudWatchLogsClient.builder()
                 .region(region)
@@ -74,8 +74,6 @@ public class FilterLogEvents {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
-        // snippet-end:[cloudwatch.java2.filter_logs.main]
     }
+    // snippet-end:[cloudwatch.java2.filter_logs.main]
 }
-
