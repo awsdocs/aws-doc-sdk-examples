@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Textract]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/06/2020]
+// snippet-sourcedate:[09/29/2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -41,7 +41,7 @@ public class DetectDocumentTextS3 {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DetectDocumentTextS3 <bucketName> <docName> \n\n" +
+                "    <bucketName> <docName> \n\n" +
                 "Where:\n" +
                 "    bucketName - The name of the Amazon S3 bucket that contains the document. \n\n" +
                 "    docName - The document name (must be an image, i.e., book.png). \n";
@@ -53,7 +53,6 @@ public class DetectDocumentTextS3 {
 
         String bucketName = args[0];
         String docName = args[1];
-
         Region region = Region.US_WEST_2;
         TextractClient textractClient = TextractClient.builder()
                 .region(region)
@@ -102,6 +101,6 @@ public class DetectDocumentTextS3 {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[textract.java2._detect_s3_text.main]
     }
+    // snippet-end:[textract.java2._detect_s3_text.main]
 }

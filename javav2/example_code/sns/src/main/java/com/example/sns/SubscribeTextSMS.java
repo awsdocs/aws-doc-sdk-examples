@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon- AWS]
 
 /*
@@ -33,10 +33,10 @@ public class SubscribeTextSMS {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage: " +
-                "SubscribeTextSMS <topicArn> <phoneNumber>\n\n" +
+                "   <topicArn> <phoneNumber>\n\n" +
                 "Where:\n" +
-                "  topicArn - the ARN of the topic to subscribe.\n\n" +
-                "  phoneNumber - a mobile phone number that receives notifications (for example, +1XXX5550100).\n\n";
+                "   topicArn - the ARN of the topic to subscribe.\n\n" +
+                "   phoneNumber - a mobile phone number that receives notifications (for example, +1XXX5550100).\n\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -45,7 +45,6 @@ public class SubscribeTextSMS {
 
         String topicArn = args[0];
         String phoneNumber = args[1];
-
         SnsClient snsClient = SnsClient.builder()
                 .region(Region.US_WEST_2)
                 .build();

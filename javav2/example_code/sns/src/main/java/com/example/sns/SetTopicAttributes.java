@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon- AWS]
 
 /*
@@ -34,11 +34,11 @@ public class SetTopicAttributes {
         final String USAGE = "\n" +
 
                 "Usage: " +
-                "SetTopicAttributes <attribute> <topicArn> <value>\n\n" +
+                "   <attribute> <topicArn> <value>\n\n" +
                 "Where:\n" +
-                "  attribute - the attribute action to use. Valid parameters are: Policy | DisplayName | DeliveryPolicy .\n" +
-                "  topicArn - The ARN of the topic. \n" +
-                "  value - the value for the attribute.\n\n";
+                "   attribute - the attribute action to use. Valid parameters are: Policy | DisplayName | DeliveryPolicy .\n" +
+                "   topicArn - The ARN of the topic. \n" +
+                "   value - the value for the attribute.\n\n";
 
         if (args.length < 3) {
             System.out.println(USAGE);
@@ -77,7 +77,6 @@ public class SetTopicAttributes {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
     }
     //snippet-end:[sns.java2.SetTopicAttributes.main]
 }

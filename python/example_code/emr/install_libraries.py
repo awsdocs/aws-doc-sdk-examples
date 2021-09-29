@@ -5,7 +5,7 @@
 Purpose
 
 Shows how to copy a shell script to Amazon EMR cluster instances and run them
-to install additional libraries on the instances. This can used to automate
+to install additional libraries on the instances. This can be used to automate
 instance management and is an alternative to connecting through SSH to run the
 script manually.
 """

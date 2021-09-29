@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon WorkDocs]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09/29/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -21,7 +21,6 @@ import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.FileNotFoundException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -58,7 +57,7 @@ public class UploadUserDocs {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    UploadUserDocs <organizationId> <userEmail> <docName> <docPath> \n\n" +
+                "    <organizationId> <userEmail> <docName> <docPath> \n\n" +
                 "Where:\n" +
                 "    organizationId - your organization Id value. You can obtain this value from the AWS Management Console. \n"+
                 "    userEmail - a user email. \n"+
@@ -208,6 +207,7 @@ public class UploadUserDocs {
                 .build();
         workDocs.updateDocumentVersion(request);
     }
+    // snippet-end:[workdocs.java2.upload_user_doc.main]
 }
-// snippet-end:[workdocs.java2.upload_user_doc.main]
+
 // snippet-end:[workdocs.java2.upload_user_doc.complete]
