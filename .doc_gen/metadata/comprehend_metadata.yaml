@@ -131,6 +131,15 @@ comprehend_Usage_ComprehendClassifier:
   synopsis: train a custom &CMP; classifier and classify documents.
   category: Usage
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - comprehend.java2.classifier.main
     Python:
       versions:
         - sdk_version: 3
@@ -143,6 +152,15 @@ comprehend_DetectDominantLanguage:
   synopsis: detect the dominant language in a document with &CMP;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - comprehend.java2.detect_language.main
     Python:
       versions:
         - sdk_version: 3
@@ -161,6 +179,15 @@ comprehend_DetectEntities:
   synopsis: detect entities in a document with &CMP;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - comprehend.java2.detect_entities.main
     Python:
       versions:
         - sdk_version: 3
@@ -179,6 +206,15 @@ comprehend_DetectKeyPhrases:
   synopsis: detect key phrases in a document with &CMP;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - comprehend.java2.detect_keyphrases.main
     Python:
       versions:
         - sdk_version: 3
@@ -215,6 +251,15 @@ comprehend_DetectSentiment:
   synopsis: detect the sentiment of a document with &CMP;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - comprehend.java2.detect_sentiment.main
     Python:
       versions:
         - sdk_version: 3
@@ -233,6 +278,15 @@ comprehend_DetectSyntax:
   synopsis: detect syntactial elements of a document with &CMP;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - comprehend.java2.detect_syntax.main
     Python:
       versions:
         - sdk_version: 3
