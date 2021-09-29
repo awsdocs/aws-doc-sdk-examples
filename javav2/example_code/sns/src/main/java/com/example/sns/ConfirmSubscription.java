@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon- AWS]
 
 /*
@@ -33,10 +33,10 @@ public class ConfirmSubscription {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "ConfirmSubscription <subscriptionToken> <topicArn>\n\n" +
+                "   <subscriptionToken> <topicArn>\n\n" +
                 "Where:\n" +
-                "  subscriptionToken - a short-lived token sent to an endpoint during the Subscribe action.\n\n" +
-                "  topicArn - the ARN of the topic. \n\n";
+                "   subscriptionToken - a short-lived token sent to an endpoint during the Subscribe action.\n\n" +
+                "   topicArn - the ARN of the topic. \n\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);

@@ -3,7 +3,7 @@
 //snippet-service:[Amazon Simple Workflow Service]
 //snippet-keyword:[Code Sample]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -37,7 +37,7 @@ public class WorkflowStarter {
 
          final String USAGE = "\n" +
                 "Usage:\n" +
-                "    WorkflowStarter <domain><workflowInput><workflow><workflowVersion> \n\n" +
+                "    <domain> <workflowInput> <workflow> <workflowVersion> \n\n" +
                 "Where:\n" +
                 "    domain - the domain to use (ie, mydomain). \n" +
                 "    workflowInput - the input to the workflow (ie, ProcessFile).  \n" +
