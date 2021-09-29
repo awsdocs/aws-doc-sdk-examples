@@ -33,9 +33,6 @@ Java:
     1:
       long: "&Javalong; 1.x"
       short: "&Java; 1.x"
-      api_ref:
-        uid: "SdkForJavaV1"
-        name: "&guide-java-api;"
     2:
       long: "&JavaV2long;"
       short: "&JavaV2;"
