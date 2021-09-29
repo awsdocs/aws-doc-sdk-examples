@@ -25,8 +25,7 @@
             {{- else}}{{range $version.Excerpts}}
             <block>
                 <para>{{.Description}}</para>
-                <programlisting language="{{.Syntax}}">{{range .SnippetTags}}<xi:include parse="text" href="file://AWSShared/snippets/{{.}}.txt"/>
-{{end}}</programlisting>
+                <programlisting language="{{.Syntax}}">{{range .SnippetTags}}<xi:include parse="text" href="file://AWSShared/snippets/{{.}}.txt"/>{{end}}</programlisting>
             </block>
             {{- end}}
             <itemizedlist>
@@ -37,10 +36,18 @@
                     </para>
                 </listitem>
                 {{- end}}
-                {{- if $version.SdkGuideUrl}}
+                {{- if $version.SdkGuideLink.Url}}
                 <listitem>
                     <para>
-                        For more information, see <ulink {{$version.SdkGuideDocType}} url="{{$version.SdkGuideUrl}}">{{$version.SdkGuideEntity}}</ulink>.
+                        For more information, see <ulink {{$version.SdkGuideLink.DocType}} url="{{$version.SdkGuideLink.Url}}">{{$version.SdkGuideLink.Text}}</ulink>.
+                    </para>
+                </listitem>
+                {{- end}}
+                {{- if $version.ApiRefLink.Url}}
+                <listitem>
+                    <para>
+                        For API details, see <ulink {{$version.ApiRefLink.DocType}} url="{{$version.ApiRefLink.Url}}">{{$version.ApiRefLink.Text}}</ulink>
+                        in <emphasis>{{$version.ApiRefName}}</emphasis>.
                     </para>
                 </listitem>
                 {{- end}}

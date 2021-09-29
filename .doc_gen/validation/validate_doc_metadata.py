@@ -5,6 +5,7 @@ against YAML files stored in the metadata folder and runs as a GitHub action.
 """
 
 import argparse
+import datetime
 import glob
 import os
 import re
@@ -15,15 +16,33 @@ from yamale.validators import DefaultValidators, Validator, String
 
 
 class ServiceName(Validator):
-    """ Validate that service names appear in mapping.yaml. """
+    """ Validate that service names appear in services.yaml. """
     tag = 'service_name'
     services = {}
 
     def get_name(self):
-        return 'service name found in mapping.yaml'
+        return 'service name found in services.yaml'
 
     def _is_valid(self, value):
         return value in self.services
+
+
+class ServiceVersion(Validator):
+    tag = 'service_version'
+
+    def get_name(self):
+        return 'valid service version'
+
+    def _is_valid(self, value):
+        try:
+            hyphen_index = len(value)
+            for _ in range(3):
+                hyphen_index = value.rfind('-', 0, hyphen_index)
+            time = datetime.datetime.strptime(value[hyphen_index + 1:], '%Y-%m-%d')
+            isdate = isinstance(time, datetime.date)
+        except ValueError:
+            isdate = False
+        return isdate
 
 
 class ExampleId(Validator):
@@ -59,15 +78,21 @@ class BlockContent(Validator):
 
 class StringExtension(String):
     """ Validate that strings don't contain non-entity AWS usage. """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.check_aws = bool(kwargs.pop('check_aws', True))
+
     def get_name(self):
         return 'string or contains a non-entity usage of AWS'
 
     def _is_valid(self, value):
-        # All occurrences of AWS must be entities or within a word.
-        if len(re.findall('(?<![&\\da-zA-Z])AWS|AWS(?![;\\da-zA-Z])', value)) > 0:
-            return False
-        else:
-            return super()._is_valid(value)
+        valid = True
+        if self.check_aws:
+            # All occurrences of AWS must be entities or within a word.
+            valid = len(re.findall('(?<![&\\da-zA-Z])AWS|AWS(?![;\\da-zA-Z])', value)) == 0
+        if valid:
+            valid = super()._is_valid(value)
+        return valid
 
 
 def validate_files(schema_name, meta_names, validators):
@@ -92,21 +117,31 @@ def main():
         "doc_gen", help="The folder that contains schema and metadata files.")
     args = parser.parse_args()
 
-    with open(os.path.join(args.doc_gen, 'metadata/mapping.yaml')) as mapping_file:
-        mapping_yaml = yaml.safe_load(mapping_file)
+    with open(os.path.join(args.doc_gen, 'metadata/sdks.yaml')) as sdks_file:
+        sdks_yaml = yaml.safe_load(sdks_file)
+
+    with open(os.path.join(args.doc_gen, 'metadata/services.yaml')) as services_file:
+        services_yaml = yaml.safe_load(services_file)
+
     validators = DefaultValidators.copy()
-    ServiceName.services = mapping_yaml['services']
-    ExampleId.services = mapping_yaml['services']
+    ServiceName.services = services_yaml
+    ExampleId.services = services_yaml
     BlockContent.block_names = os.listdir(os.path.join(args.doc_gen, 'cross-content'))
     validators[ServiceName.tag] = ServiceName
+    validators[ServiceVersion.tag] = ServiceVersion
     validators[ExampleId.tag] = ExampleId
     validators[BlockContent.tag] = BlockContent
     validators[String.tag] = StringExtension
 
-    # Validate mapping.yaml file.
-    schema_name = os.path.join(args.doc_gen, 'validation/mapping_schema.yaml')
-    meta_names = glob.glob(os.path.join(args.doc_gen, 'metadata/mapping.yaml'))
+    # Validate sdks.yaml file.
+    schema_name = os.path.join(args.doc_gen, 'validation/sdks_schema.yaml')
+    meta_names = glob.glob(os.path.join(args.doc_gen, 'metadata/sdks.yaml'))
     success = validate_files(schema_name, meta_names, validators)
+
+    # Validate services.yaml file.
+    schema_name = os.path.join(args.doc_gen, 'validation/services_schema.yaml')
+    meta_names = glob.glob(os.path.join(args.doc_gen, 'metadata/services.yaml'))
+    success &= validate_files(schema_name, meta_names, validators)
 
     # Validate example (*_metadata.yaml) files.
     schema_name = os.path.join(args.doc_gen, 'validation/example_schema.yaml')
