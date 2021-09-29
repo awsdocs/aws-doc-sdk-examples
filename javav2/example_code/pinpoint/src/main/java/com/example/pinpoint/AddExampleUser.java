@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[07-27-2021]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -40,9 +40,9 @@ public class AddExampleUser {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage: " +
-                "AddExampleEndpoints <appId>\n\n" +
+                "   <appId>\n\n" +
                 "Where:\n" +
-                "  appId - the ID of the application to delete.\n\n";
+                "   appId - the ID of the application to delete.\n\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);

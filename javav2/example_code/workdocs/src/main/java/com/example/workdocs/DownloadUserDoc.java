@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon WorkDocs]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09/29/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -52,11 +52,11 @@ import software.amazon.awssdk.services.workdocs.model.DocumentSourceType;
  */
 public class DownloadUserDoc {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DownloadUserDoc <organizationId> <userEmail> <workdocsName> <saveDocFullName> \n\n" +
+                "    <organizationId> <userEmail> <workdocsName> <saveDocFullName> \n\n" +
                 "Where:\n" +
                 "    organizationId - your organization Id value. You can obtain this value from the AWS Management Console. \n"+
                 "    userEmail - a user email. \n"+
@@ -72,7 +72,6 @@ public class DownloadUserDoc {
         String userEmail = args[1];
         String workdocsName = args[2];
         String saveDocFullName = args[3];
-
         Region region = Region.US_WEST_2;
         WorkDocsClient workDocs = WorkDocsClient.builder()
                 .region(region)
@@ -106,16 +105,16 @@ public class DownloadUserDoc {
                 return;
             }
 
-            // Get the URL that is used to download the content
+            // Get the URL that is used to download the content.
             String downloadUrl = getDownloadDocUrl(workDocs, docId, versionId, workdocsName);
 
-            // Get doc from provided URL
+            // Get doc from provided URL.
             URL docUrl = new URL(downloadUrl);
             URLConnection urlConn = docUrl.openConnection();
 
             Path destination = Paths.get(saveDocFullName);
 
-            try (final InputStream in = urlConn.getInputStream();) {
+            try (final InputStream in = urlConn.getInputStream()) {
                 Files.copy(in, destination);
                 System.out.println("Downloaded " + workdocsName + " to: "+ saveDocFullName);
             }
@@ -138,7 +137,7 @@ public class DownloadUserDoc {
                 .query(user)
                 .build();
 
-            String marker = null;
+            String marker;
 
             do {
                 DescribeUsersResponse response = workDocs.describeUsers(request);
@@ -173,7 +172,7 @@ public class DownloadUserDoc {
             Map<String, String> map = new HashMap<String, String>();
             String folderId = getUserFolder(workDocs, orgId, user);
 
-            if (folderId == "") {
+            if (folderId.equals("")) {
                 System.out.println("Could not get user folder");
             } else {
 
@@ -216,9 +215,7 @@ public class DownloadUserDoc {
             Map<DocumentSourceType,String> sourceDoc = response.metadata().source();
             Map.Entry<DocumentSourceType,String> entry = sourceDoc.entrySet().iterator().next();
             DocumentSourceType key = entry.getKey();
-            String docUrl = entry.getValue(); // stores the URL of this document
-
-            return docUrl;
+            return entry.getValue();
 
         } catch(WorkDocsException e) {
             System.out.println(e.getLocalizedMessage());
@@ -227,6 +224,7 @@ public class DownloadUserDoc {
 
         return "";
     }
+    // snippet-end:[workdocs.java2.download_user_docs.main]
 }
-// snippet-end:[workdocs.java2.download_user_docs.main]
+
 // snippet-end:[workdocs.java2.download_user_docs.complete]

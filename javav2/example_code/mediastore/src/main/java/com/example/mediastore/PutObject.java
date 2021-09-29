@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaStore]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -42,7 +42,7 @@ public class PutObject {
         final String USAGE = "\n" +
                 "To run this example, supply the name of a container, a file location to use, and path in the container \n" +
                "\n" +
-                "Ex: PutObject <containerName><filePath><completePath>\n";
+                "Ex: <containerName> <filePath> <completePath>\n";
 
          if (args.length < 3) {
              System.out.println(USAGE);
@@ -85,7 +85,7 @@ public class PutObject {
         System.exit(1);
     }
   }
-    //snippet-end:[mediastore.java2.put_object.main]
+
 
   public static String getEndpoint(String containerName){
 
@@ -101,4 +101,5 @@ public class PutObject {
       DescribeContainerResponse response = mediaStoreClient.describeContainer(containerRequest);
       return response.container().endpoint();
     }
+    //snippet-end:[mediastore.java2.put_object.main]
 }

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/06/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -52,7 +52,7 @@ public class KMSEncryptionExample {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    KMSEncryptionExample <objectName> <bucketName> <objectPath> <outPath> <keyId>\n\n" +
+                "    <objectName> <bucketName> <objectPath> <outPath> <keyId>\n\n" +
                 "Where:\n" +
                 "    objectName - the name of the object. \n\n" +
                 "    bucketName - the Amazon S3 bucket name that contains the object (for example, bucket1). \n" +

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Kinesis]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -32,11 +32,9 @@ public class DeleteDataStream {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeleteDataStream <streamName>\n\n" +
+                "    <streamName>\n\n" +
                 "Where:\n" +
-                "    streamName - The Amazon Kinesis data stream (for example, StockTradeStream)\n\n" +
-                "Example:\n" +
-                "    DeleteDataStream StockTradeStream\n";
+                "    streamName - The Amazon Kinesis data stream (for example, StockTradeStream)\n\n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);

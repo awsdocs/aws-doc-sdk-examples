@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -34,7 +34,7 @@ public class DescribeForecast {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DescribeForecast <forecastarn> \n\n" +
+                "    <forecastarn> \n\n" +
                 "Where:\n" +
                 "    forecastarn - the arn of the forecast (for example, \"arn:aws:forecast:us-west-2:xxxxx322:forecast/my_forecast)\n\n" ;
 

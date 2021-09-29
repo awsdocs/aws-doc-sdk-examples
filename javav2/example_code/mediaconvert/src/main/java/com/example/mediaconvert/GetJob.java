@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaConvert]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[smacdon - AWS ]
 
 /*
@@ -36,7 +36,7 @@ public class GetJob {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "GetJob <jobId> \n\n" +
+                "  <jobId> \n\n" +
                 "Where:\n" +
                 "  jobId - the job id value.\n\n" ;
 
@@ -84,6 +84,6 @@ public class GetJob {
             System.out.println(e.toString());
             System.exit(0);
         }
+    }
     // snippet-end:[mediaconvert.java.get_job.main]
-   }
 }

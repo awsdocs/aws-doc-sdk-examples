@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -53,7 +53,6 @@ public class ListAccountAliases {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
     }
     // snippet-end:[iam.java2.list_account_aliases.main]
 }

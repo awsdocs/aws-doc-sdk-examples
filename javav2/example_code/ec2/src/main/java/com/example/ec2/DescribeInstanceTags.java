@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/01/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -13,10 +13,12 @@
 
 package com.example.ec2;
 
+// snippet-start:[ec2.java2.describe_tags.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.*;
 import java.util.List;
+// snippet-end:[ec2.java2.describe_tags.import]
 
 /**
  * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
@@ -31,9 +33,9 @@ public class DescribeInstanceTags {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "DescribeInstanceTags <resourceId> \n\n" +
+                "   <resourceId> \n\n" +
                 "Where:\n" +
-                "    resourceId - the instance ID value that you can obtain from the AWS Console (for example, i-xxxxxx0913e05f482). \n\n"  ;
+                "   resourceId - the instance ID value that you can obtain from the AWS Console (for example, i-xxxxxx0913e05f482). \n\n"  ;
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -50,6 +52,7 @@ public class DescribeInstanceTags {
         ec2.close();
     }
 
+    // snippet-start:[ec2.java2.describe_tags.main]
     public static void describeEC2Tags(Ec2Client ec2,  String resourceId ) {
 
         try {
@@ -71,4 +74,5 @@ public class DescribeInstanceTags {
             System.exit(1);
         }
     }
+    // snippet-end:[ec2.java2.describe_tags.main]
 }

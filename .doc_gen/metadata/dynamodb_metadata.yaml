@@ -5,6 +5,15 @@ dynamodb_CreateTable:
   synopsis: create a &DDB; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - dynamodb.java2.create_table.main
     Python:
       versions:
         - sdk_version: 3
@@ -43,6 +52,15 @@ dynamodb_BatchWriteItem:
   synopsis: write a batch of &DDB; items.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.mapping.batchitems.main
     Python:
       versions:
         - sdk_version: 3
@@ -88,6 +106,15 @@ dynamodb_DeleteTable:
   synopsis: delete a &DDB; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.delete_table.main
     Python:
       versions:
         - sdk_version: 3
@@ -105,6 +132,15 @@ dynamodb_PutItem:
   synopsis: put an item in a &DDB; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.mapping.putitem.main
     Python:
       versions:
         - sdk_version: 3
@@ -125,6 +161,15 @@ dynamodb_GetItem:
   synopsis: get an item from a &DDB; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.mapping.getitem.main
     Python:
       versions:
         - sdk_version: 3
@@ -142,6 +187,15 @@ dynamodb_UpdateItem:
   synopsis: update an item in a &DDB; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.mapping.moditem.main
     Python:
       versions:
         - sdk_version: 3
@@ -168,6 +222,15 @@ dynamodb_DeleteItem:
   synopsis: delete an item from a &DDB; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - dynamodb.java2.delete_item.main
     Python:
       versions:
         - sdk_version: 3
@@ -185,6 +248,15 @@ dynamodb_ListTables:
   synopsis: list &DDB; tables.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - dynamodb.java2.list_tables.main
     Python:
       versions:
         - sdk_version: 3
@@ -202,6 +274,15 @@ dynamodb_Query:
   synopsis: query a &DDB; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - dynamodb.java2.mapping.query.main
     Python:
       versions:
         - sdk_version: 3
@@ -222,6 +303,15 @@ dynamodb_Scan:
   synopsis: scan a &DDB; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.mapping.scan.main
     Python:
       versions:
         - sdk_version: 3

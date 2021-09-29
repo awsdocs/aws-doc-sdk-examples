@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[07-27-2021]
+// snippet-sourcedate:[09-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -23,7 +23,10 @@ import software.amazon.awssdk.services.rekognition.model.Label;
 import software.amazon.awssdk.services.rekognition.model.RekognitionException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 // snippet-end:[rekognition.java2.detect_labels.import]
 
@@ -40,11 +43,11 @@ public class DetectLabels {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "DetectLabels <sourceImage>\n\n" +
+                "   <sourceImage>\n\n" +
                 "Where:\n" +
-                "sourceImage - the path to the image (for example, C:\\AWS\\pic1.png). \n\n";
+                "   sourceImage - the path to the image (for example, C:\\AWS\\pic1.png). \n\n";
 
-        if (args.length != 1) {
+       if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -63,7 +66,9 @@ public class DetectLabels {
     public static void detectImageLabels(RekognitionClient rekClient, String sourceImage) {
 
         try {
-            InputStream sourceStream = new FileInputStream(sourceImage);
+
+            InputStream sourceStream = new URL("https://images.unsplash.com/photo-1557456170-0cf4f4d0d362?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bGFrZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80").openStream();
+           // InputStream sourceStream = new FileInputStream(sourceImage);
             SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
 
             // Create an Image object for the source image.
@@ -84,9 +89,11 @@ public class DetectLabels {
                 System.out.println(label.name() + ": " + label.confidence().toString());
             }
 
-        } catch (RekognitionException | FileNotFoundException e) {
+        } catch (RekognitionException | FileNotFoundException | MalformedURLException e) {
             System.out.println(e.getMessage());
             System.exit(1);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     // snippet-end:[rekognition.java2.detect_labels.main]

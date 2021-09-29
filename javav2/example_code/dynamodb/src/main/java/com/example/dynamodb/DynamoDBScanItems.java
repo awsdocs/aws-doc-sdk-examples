@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/30/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -41,7 +41,7 @@ public class DynamoDBScanItems {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DynamoDBScanItems <tableName>\n\n" +
+                "    <tableName>\n\n" +
                 "Where:\n" +
                 "    tableName - the Amazon DynamoDB table to get information from (for example, Music3).\n\n" ;
 

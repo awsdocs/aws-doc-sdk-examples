@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/07/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -43,7 +43,7 @@ public class LifecycleConfiguration {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "  LifecycleConfiguration <bucketName> <accountId> \n\n" +
+                "  <bucketName> <accountId> \n\n" +
                 "Where:\n" +
                 "  bucketName - the Amazon Simple Storage Service (Amazon S3) bucket to upload an object into.\n" +
                 "  accountId - the id of the account that owns the Amazon S3 bucket.\n" ;

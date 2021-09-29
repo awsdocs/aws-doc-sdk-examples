@@ -1,9 +1,9 @@
-//snippet-sourcedescription:[ArchiveDownload.java demonstrates how to create a job start to retrieve inventory for an Amazon S3 Glacier vault.]
+//snippet-sourcedescription:[ArchiveDownload.java demonstrates how to create a job start to retrieve inventory for an Amazon Glacier vault.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon S3 Glacier]
+//snippet-service:[Amazon Glacier]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,15 +36,14 @@ public class ArchiveDownload {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "ArchiveDownload - start a job to retrieve vault inventory\n\n" +
-                "Usage: ArchiveDownload <vaultName> <accountId>\n\n" +
+                "Usage: " +
+                "   <vaultName> <accountId> <path>\n\n" +
                 "Where:\n" +
-                "  vaultName - the name of the vault.\n" +
-                "  accountId - the account ID value.\n\n"+
-                "  path - the path where the file is written to.\n\n";
+                "   vaultName - the name of the vault.\n" +
+                "   accountId - the account ID value.\n\n"+
+                "   path - the path where the file is written to.\n\n";
 
-
-        if (args.length != 2) {
+        if (args.length != 3) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -52,7 +51,6 @@ public class ArchiveDownload {
         String vaultName = args[0];
         String accountId = args[1];
         String path = args[2];
-
          GlacierClient glacier = GlacierClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
@@ -91,7 +89,7 @@ public class ArchiveDownload {
         return "";
     }
 
-    //  Poll S3 Glacier = Polling a Job may take 4-6 hours according to the Documentation. 
+    //  Poll S3 Glacier = Polling a Job may take 4-6 hours according to the Documentation.
     public static void checkJob(GlacierClient glacier, String jobId, String name, String account, String path) {
 
        try{
@@ -128,7 +126,7 @@ public class ArchiveDownload {
 
            ResponseBytes<GetJobOutputResponse> objectBytes = glacier.getJobOutputAsBytes(jobOutputRequest);
 
-           // Write the data to a local file
+           // Write the data to a local file.
            byte[] data = objectBytes.asByteArray();
            File myFile = new File(path);
            OutputStream os = new FileOutputStream(myFile);

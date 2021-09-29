@@ -65,8 +65,16 @@ Or you can execute the example from within your IDE.
 
 | Example | Description |
 |---------|-------------|
+| [AuthorizeS3ToSendMessageExample](AuthorizeS2ToSendMessageExample/) | Authorizes an Amazon Simple Storage Service (Amazon S3) bucket to post message to an Amazon SQS queue. |
+| [CreateQueueExample](CreateQueueExample/) | Creates an Amazon SQS queue. |
 | [CreateSendExample](CreateSendExample/) | Create an SQS queue and sends a sample message. |
-| [ReceiveDelete](ReceivDeleteExample) | Receives a single message from the queue and then deletes it from the queue. |
+| [DeleteMessageExample](DeleteMessageExample/) | Deletes messages from an Amazon SQS queue. |
+| [DeleteQueueExample](DeleteQueueExample/) | Deletes an Amazon SQS queue. Run this example with caution as when you run it, any existing messages in the queue will also be removed. |
+| [GetQueueAttributesExample](GetQueueAttributesExample/) | Retrieves and displays the attributes of an Amazon SQS queue. |
+| [GetQueueUrlExample](GetQueueUrlExample/) | Retrieves the URL for an Amazon SQS queue. |
+| [ReceiveDeleteExample](ReceivDeleteExample/) | Receives a single message from the queue and then deletes it from the queue. |
+| [ReceiveFromQueueExample](ReceiveFromQueueExample/) | Receives a message from an Amazon SQS queue. |
+| [SendMessageToQueueExample](SendMessageToQueueExample/) | Sends a message to an Amazon SQS queue. |
 
 ## Additional information
 

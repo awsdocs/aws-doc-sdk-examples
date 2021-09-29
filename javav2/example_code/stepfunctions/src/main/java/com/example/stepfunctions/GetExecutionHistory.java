@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Step Functions]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/28/2021]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-AWS]
 
 /*
@@ -36,7 +36,7 @@ public class GetExecutionHistory {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    GetExecutionHistory <exeARN> \n\n" +
+                "    <exeARN> \n\n" +
                 "Where:\n" +
                 "    exeARN - The Amazon Resource Name (ARN) of the execution.\n\n" ;
 

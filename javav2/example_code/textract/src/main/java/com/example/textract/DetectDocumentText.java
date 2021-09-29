@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Textract]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/06/2020]
+// snippet-sourcedate:[09/29/2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -45,7 +45,7 @@ public class DetectDocumentText {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DetectDocumentText <sourceDoc> \n\n" +
+                "    <sourceDoc> \n\n" +
                 "Where:\n" +
                 "    sourceDoc - the path where the document is located (must be an image, for example, C:/AWS/book.png). \n";
 
@@ -101,6 +101,6 @@ public class DetectDocumentText {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[textract.java2._detect_doc_text.main]
     }
+    // snippet-end:[textract.java2._detect_doc_text.main]
 }
