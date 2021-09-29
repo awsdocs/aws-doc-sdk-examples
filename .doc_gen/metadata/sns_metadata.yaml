@@ -196,7 +196,7 @@ sns_ListTopics:
                 - sns.Ruby.showTopics
   services:
     - sns
-sns_SubscribeApp:
+sns_Subscribe_App:
   title: Subscribe a mobile application to an &SNS; topic using an &AWS; SDK
   title_abbrev: Subscribe a mobile application to a topic
   synopsis: subscribe a mobile application endpoint so it receives notifications from an &SNS; topic.
@@ -223,7 +223,7 @@ sns_SubscribeApp:
                 - sns.JavaScript.subscriptions.subscribeAppV3
   services:
     - sns
-sns_SubscribeHTTP:
+sns_Subscribe_HTTP:
   title: Subscribe an HTTP endpoint to an &SNS; topic using an &AWS; SDK
   title_abbrev: Subscribe an HTTP endpoint to a topic
   synopsis: subscribe an HTTP or HTTPS endpoint so it receives notifications from an &SNS; topic.
@@ -247,7 +247,7 @@ sns_SubscribeHTTP:
                 - sns.java2.SubscribeHTTPS.main
   services:
     - sns
-sns_SubscribeLambda:
+sns_Subscribe_Lambda:
   title: Subscribe a &LAM; function to receive notifications from an &SNS; topic using an &AWS; SDK
   title_abbrev: Subscribe a &LAM; function to a topic
   synopsis: subscribe a &LAM; function so it receives notifications from an &SNS; topic.
@@ -283,7 +283,7 @@ sns_SubscribeLambda:
   services:
     - sns
 
-sns_GetSMSSettings:
+sns_GetSMSAttributes:
   title: Get the settings for sending &SNS; SMS messages using an &AWS; SDK
   title_abbrev: Get the settings for sending SMS messages
   synopsis: get the settings for sending &SNS; SMS messages.
