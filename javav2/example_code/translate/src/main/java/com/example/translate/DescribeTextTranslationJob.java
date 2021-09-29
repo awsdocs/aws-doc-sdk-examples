@@ -1,9 +1,9 @@
-//snippet-sourcedescription:[DescribeTextTranslationJob.java demonstrates how to describe a translation job.]
-//snippet-keyword:[AWS SDK for Java v2]
+//snippet-sourcedescription:[DescribeTextTranslationJob.kt demonstrates how to describe a translation job.]
+//snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Translate]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -35,7 +35,7 @@ public class DescribeTextTranslationJob {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DescribeTextTranslationJob <id> \n\n" +
+                "    <id> \n\n" +
                 "Where:\n" +
                 "    id - a translation job ID value. You can obtain this value from the BatchTranslation example.\n";
 
@@ -64,12 +64,14 @@ public class DescribeTextTranslationJob {
                  .build();
 
         DescribeTextTranslationJobResponse jobResponse = translateClient.describeTextTranslationJob(textTranslationJobRequest);
-        System.out.println("The job status is "+jobResponse.textTranslationJobProperties().jobStatus() );
+        System.out.println("The job status is "+jobResponse.textTranslationJobProperties().jobStatus());
+        System.out.println("The source language is "+jobResponse.textTranslationJobProperties().sourceLanguageCode());
+        System.out.println("The target language is "+jobResponse.textTranslationJobProperties().targetLanguageCodes());
 
       } catch (TranslateException e) {
           System.err.println(e.getMessage());
           System.exit(1);
       }
-        // snippet-end:[translate.java2._describe_jobs.main]
-   }
+    }
+    // snippet-end:[translate.java2._describe_jobs.main]
 }
