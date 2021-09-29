@@ -8,19 +8,6 @@ admin-create-user.js demonstrates how to create an user from Cognito SDK.
 
 */
 
-//snippet-sourcedescription:[admin-create-user.js demonstrates demonstrates how to create an user from Cognito SDK.]
-//snippet-service:[cognito]
-//snippet-keyword:[JavaScript]
-//snippet-sourcesyntax:[javascript]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Cognito]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2021-09-28]
-//snippet-sourceauthor:[zachjonesnoel]
-
-// ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
-// https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminCreateUser-property
-
 // snippet-start:[ses.JavaScript.filters.admin-create-user]
 // Load the AWS SDK for Node.js.
 var AWS = require('aws-sdk');
