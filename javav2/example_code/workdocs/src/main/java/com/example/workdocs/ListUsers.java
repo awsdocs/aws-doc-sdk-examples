@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon WorkDocs]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09/29/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -38,7 +38,7 @@ public class ListUsers {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    ListUsers <organizationId>   \n\n" +
+                "    <organizationId>   \n\n" +
                 "Where:\n" +
                 "    organizationId - your organization Id value. You can obtain this value from the AWS Management Console. \n" ;
 
@@ -92,6 +92,7 @@ public class ListUsers {
                     wdUser.rootFolderId());
         }
     }
+    // snippet-end:[workdocs.java2.list_users.main]
 }
-// snippet-end:[workdocs.java2.list_users.main]
+
 // snippet-end:[workdocs.java2.list_users.complete]

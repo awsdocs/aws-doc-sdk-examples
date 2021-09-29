@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Step Functions]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/28/2021]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-AWS]
 
 /*
@@ -44,7 +44,7 @@ public class CreateStateMachine {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateStateMachine <jsonFile> <roleARN> <stateMachineName>\n\n" +
+                "    <jsonFile> <roleARN> <stateMachineName>\n\n" +
                 "Where:\n" +
                 "    jsonFile - A JSON file that represents the Amazon States Language definition of the state machine.\n\n" +
                 "    roleARN - The Amazon Resource Name (ARN) of the IAM role to use for this state machine.\n" +

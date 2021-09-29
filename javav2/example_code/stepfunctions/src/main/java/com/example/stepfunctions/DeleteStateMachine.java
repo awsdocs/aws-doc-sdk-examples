@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Step Functions]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/28/2021]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-AWS]
 
 /*
@@ -32,7 +32,7 @@ public class DeleteStateMachine {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeleteStateMachine <stateMachineName>\n\n" +
+                "    <stateMachineArn>\n\n" +
                 "Where:\n" +
                 "    stateMachineArn - The ARN of the state machine to delete.\n";
 

@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Textract]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/06/2020]
+// snippet-sourcedate:[09/29/2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -45,11 +45,11 @@ public class AnalyzeDocument {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    AnalyzeDocument <sourceDoc> \n\n" +
+                "    <sourceDoc> \n\n" +
                 "Where:\n" +
                 "    sourceDoc - the path where the document is located (must be an image, for example, C:/AWS/book.png). \n";
 
-        if (args.length != 1) {
+       if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
@@ -99,6 +99,6 @@ public class AnalyzeDocument {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[textract.java2._analyze_doc.main]
     }
+    // snippet-end:[textract.java2._analyze_doc.main]
 }
