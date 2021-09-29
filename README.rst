@@ -8,6 +8,50 @@
    either express or implied. See the License for the specific language governing permissions and
    limitations under the License.
 
+NOTICE
+======
+
+We are changing the default branch for this repo from **master** to **main**
+on Saturday, October 2.
+
+If you have a fork or branch based on **master**,
+you can retarget them to refer to **main**.
+
+If you aren't sure which branch your branch was branched from:
+
+1. Navigate to the root of your branch
+2. Make sure your branch is the current branch (**git checkout BRANCH**).
+3. Run **git branch --contains**.
+
+Retargeting a branch from master to main
+----------------------------------------
+
+To change the parent branch for your branch to **main**,
+navigate to the root of your branch on your computer
+and enter the following commands,
+where *BRANCH* is the name of your branch:
+
+.. code-block:: sh
+		
+   git checkout main
+   git pull
+   git checkout BRANCH
+   git fetch --all -p
+   git fetch origin
+   git rebase origin/main
+   git push
+
+Retargeting a fork from master to main
+----------------------------------------
+
+To change the parent branch for your branch to **main**:
+
+1. Navigate to the main page of the forked repository that you want to sync with the upstream repository.
+2. Select the **Pull requests** tab.
+3. If you've made no changes, select **switching the base**.
+4. Make sure the **base: main** branch is shown.
+5. Create the pull request, then merge it.
+
 Welcome
 =======
 This is the repository for various code examples used in the public 
@@ -28,7 +72,13 @@ The code examples are organized by AWS SDK or AWS programming tool. For example,
 * **python** for the latest version of the AWS SDK for Python (Boto3)
 * **ruby** for the latest version of the AWS SDK for Ruby (version 3)
 
-Code examples for older AWS SDK versions will be archived in this repository but no longer maintained. These include:
+We also have code examples for two SDKs currently in alpha,
+**DO NOT USE THIS EXAMPLE CODE IN PRODUCTION**:
+
+* **.kotlin_alpha** for the alpha version of the AWS SDK for Kotlin.
+* **.rust_alpha** for the alpha version of the AWS SDK for Rust.
+
+Code examples for older AWS SDK versions are archived in this repository but no longer maintained. These include:
 
 * **dotnet** for versions of the AWS SDK for .NET prior to version 3.5
 * **go** for AWS SDK for Go version 1
