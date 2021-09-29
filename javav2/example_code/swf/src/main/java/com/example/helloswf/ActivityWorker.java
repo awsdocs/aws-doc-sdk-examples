@@ -3,7 +3,7 @@
 //snippet-service:[Amazon Simple Workflow Service (Amazon SWF)]
 //snippet-keyword:[Code Sample]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -23,7 +23,7 @@ import software.amazon.awssdk.services.swf.model.RespondActivityTaskCompletedReq
 import software.amazon.awssdk.services.swf.model.RespondActivityTaskFailedRequest;
 // snippet-end:[swf.java2.activity_worker.import]
 
-// snippet-start:[swf.java2.activity_worker.main]
+
 
 /**
  * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
@@ -38,7 +38,7 @@ public class ActivityWorker {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    HelloTypes <domain> <taskList> \n\n" +
+                "    <domain> <taskList> \n\n" +
                 "Where:\n" +
                 "    domain - The domain to use (for example, mydomain). \n" +
                 "    taskList - The taskList to use (for example, HelloTasklist).  \n" ;
@@ -60,6 +60,7 @@ public class ActivityWorker {
         swf.close();
     }
 
+    // snippet-start:[swf.java2.activity_worker.main]
     public static void getPollData( SwfClient swf, String domain, String taskList) {
 
         System.out.println("Polling for an activity task from the tasklist '"
