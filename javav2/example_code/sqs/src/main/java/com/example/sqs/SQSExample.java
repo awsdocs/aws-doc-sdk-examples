@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -208,5 +208,6 @@ public class SQSExample {
             System.exit(1);
         }
    }
+    // snippet-end:[sqs.java2.sqs_example.main]
 }
-// snippet-end:[sqs.java2.sqs_example.main]
+
