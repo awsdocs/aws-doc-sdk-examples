@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Kinesis]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,28 +34,26 @@ public class DescribeLimits {
         KinesisClient kinesisClient = KinesisClient.builder()
                 .region(region)
                 .build();
-
+        // snippet-end:[kinesis.java2.DescribeLimits.client]
         describeKinLimits(kinesisClient);
         kinesisClient.close();
     }
-
+    // snippet-start:[kinesis.java2.DescribeLimits.main]
     public static void describeKinLimits(KinesisClient kinesisClient) {
-
-        // snippet-end:[kinesis.java2.DescribeLimits.client]
         try {
-        // snippet-start:[kinesis.java2.DescribeLimits.main]
-        DescribeLimitsRequest request = DescribeLimitsRequest.builder()
+
+            DescribeLimitsRequest request = DescribeLimitsRequest.builder()
                  .build();
 
-        DescribeLimitsResponse response = kinesisClient.describeLimits(request);
+            DescribeLimitsResponse response = kinesisClient.describeLimits(request);
+            System.out.println("Number of open shards: " + response.openShardCount());
+            System.out.println("Maximum shards allowed: " + response.shardLimit());
 
-        System.out.println("Number of open shards: " + response.openShardCount());
-        System.out.println("Maximum shards allowed: " + response.shardLimit());
         } catch (KinesisException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
         System.out.println("Done");
-        // snippet-end:[kinesis.java2.DescribeLimits.main]
     }
+    // snippet-end:[kinesis.java2.DescribeLimits.main]
 }

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Redshift ]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -34,7 +34,7 @@ public class DeleteCluster {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeleteCluster <clusterId> \n\n" +
+                "    <clusterId> \n\n" +
                 "Where:\n" +
                 "    clusterId - the id of the cluster to delete. \n";
 
@@ -71,6 +71,6 @@ public class DeleteCluster {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[redshift.java2.delete_cluster.main]
-   }
+    }
+    // snippet-end:[redshift.java2.delete_cluster.main]
 }

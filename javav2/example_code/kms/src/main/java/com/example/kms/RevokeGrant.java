@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -32,7 +32,7 @@ public class RevokeGrant {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    RevokeGrant <keyId> <grantId> \n\n" +
+                "    <keyId> <grantId> \n\n" +
                 "Where:\n" +
                 "    keyId - a unique identifier for the customer master key associated with the grant (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" +
                 "    grantId - a grant id value of the grant revoke. \n\n" ;
@@ -44,7 +44,6 @@ public class RevokeGrant {
 
         String keyId = args[0];
         String grantId = args[1];
-
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
                 .region(region)
@@ -64,6 +63,7 @@ public class RevokeGrant {
                 .build();
 
             kmsClient.revokeGrant(grantRequest);
+
         } catch (KmsException e) {
             System.err.println(e.getMessage());
             System.exit(1);

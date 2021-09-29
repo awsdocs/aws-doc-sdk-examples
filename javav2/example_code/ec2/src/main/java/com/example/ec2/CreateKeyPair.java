@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/01/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -33,9 +33,9 @@ public class CreateKeyPair {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "CreateInstance <keyName> \n\n" +
+                "   <keyName> \n\n" +
                 "Where:\n" +
-                "    keyName - a key pair name (for example, TestKeyPair). \n\n"  ;
+                "   keyName - a key pair name (for example, TestKeyPair). \n\n"  ;
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -59,7 +59,7 @@ public class CreateKeyPair {
             CreateKeyPairRequest request = CreateKeyPairRequest.builder()
                 .keyName(keyName).build();
 
-            CreateKeyPairResponse response = ec2.createKeyPair(request);
+            ec2.createKeyPair(request);
             System.out.printf(
                 "Successfully created key pair named %s",
                 keyName);
@@ -68,6 +68,6 @@ public class CreateKeyPair {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        // snippet-end:[ec2.java2.create_key_pair.main]
-      }
-    }
+     }
+    // snippet-end:[ec2.java2.create_key_pair.main]
+ }

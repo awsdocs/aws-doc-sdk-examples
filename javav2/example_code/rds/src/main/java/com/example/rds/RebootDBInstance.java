@@ -34,7 +34,7 @@ public class RebootDBInstance {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    RebootDBInstance <dbInstanceIdentifier> \n\n" +
+                "    <dbInstanceIdentifier> \n\n" +
                 "Where:\n" +
                 "    dbInstanceIdentifier - the database instance identifier \n" ;
 
@@ -69,8 +69,7 @@ public class RebootDBInstance {
             System.out.println(e.getLocalizedMessage());
             System.exit(1);
         }
-
-        // snippet-end:[rds.java2.reboot_instance.main]
-    }
+   }
+    // snippet-end:[rds.java2.reboot_instance.main]
 }
 

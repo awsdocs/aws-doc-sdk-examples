@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -35,7 +35,7 @@ public class UpdateAccessKey {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    UpdateAccessKey <username> <accessId> <status> \n\n" +
+                "    <username> <accessId> <status> \n\n" +
                 "Where:\n" +
                 "    username - the name of the user whose key you want to update. \n\n" +
                 "    accessId - the access key ID of the secret access key you want to update. \n\n" +

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon QuickSight]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[1/14/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -33,10 +33,11 @@ public class DescribeAnalysis {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage: DescribeAnalysis <account> <analysisId>\n\n" +
+                "Usage: " +
+                "   <account> <analysisId>\n\n" +
                 "Where:\n" +
-                "  account - the ID of the AWS account that contains the analysis.\n\n" +
-                "  queueName - the ID of the Amazon QuickSight Analysis that you're describing.\n\n";
+                "   account - the ID of the AWS account that contains the analysis.\n\n" +
+                "   queueName - the ID of the Amazon QuickSight Analysis that you're describing.\n\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);

@@ -3,7 +3,7 @@
 // snippet-service:[AWS Migration Hub]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-05-2020]
+// snippet-sourcedate:[09-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -72,7 +72,6 @@ public class DescribeAppState {
             System.out.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[migration.java2.describe_app_state.main]
-
     }
+    // snippet-end:[migration.java2.describe_app_state.main]
 }
