@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon- AWS]
 
 /*
@@ -33,9 +33,9 @@ public class Unsubscribe {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage: " +
-                "Unsubscribe <subscriptionArn>\n\n" +
+                "   <subscriptionArn>\n\n" +
                 "Where:\n" +
-                "  subscriptionArn - the ARN of the subscription to delete.\n\n";
+                "   subscriptionArn - the ARN of the subscription to delete.\n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
