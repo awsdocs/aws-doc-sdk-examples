@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -11,8 +11,9 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-// snippet-start:[cloudwatch.java2.get_metric_data.import]
 package com.example.cloudwatch;
+
+// snippet-start:[cloudwatch.java2.get_metric_data.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.GetMetricDataResponse;
@@ -96,6 +97,6 @@ public class GetMetricData {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        // snippet-end:[cloudwatch.java2.get_metric_alarm.main]
     }
+    // snippet-end:[cloudwatch.java2.get_metric_alarm.main]
 }

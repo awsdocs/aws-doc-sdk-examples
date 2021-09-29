@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -17,7 +17,6 @@ import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatchevents.CloudWatchEventsClient;
 import software.amazon.awssdk.services.cloudwatchevents.model.PutEventsRequest;
 import software.amazon.awssdk.services.cloudwatchevents.model.PutEventsRequestEntry;
-import software.amazon.awssdk.services.cloudwatchevents.model.PutEventsResponse;
 // snippet-end:[cloudwatch.java2.put_events.import]
 
 /**
@@ -33,7 +32,7 @@ public class PutEvents {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "  PutEvents <resourceArn>\n\n" +
+                "  <resourceArn>\n\n" +
                 "Where:\n" +
                 "  resourceArn - an Amazon Resource Name (ARN) related to the events.\n" ;
 
@@ -76,6 +75,6 @@ public class PutEvents {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        // snippet-end:[cloudwatch.java2.put_events.main]
-   }
+    }
+    // snippet-end:[cloudwatch.java2.put_events.main]
 }

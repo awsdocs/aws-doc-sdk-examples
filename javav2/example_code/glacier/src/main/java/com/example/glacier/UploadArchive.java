@@ -1,9 +1,9 @@
-//snippet-sourcedescription:[UploadArchive.java demonstrates how to upload an archive to an Amazon Simple Storage Service Glacier (Amazon S3 Glacier) vault.]
+//snippet-sourcedescription:[UploadArchive.java demonstrates how to upload an archive to an Amazon Glacier vault.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon S3 Glacier]
+//snippet-service:[Amazon Glacier]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -27,6 +27,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 // snippet-end:[glacier.java2.upload.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class UploadArchive {
 
     static final int ONE_MB = 1024 * 1024;
@@ -35,10 +42,10 @@ public class UploadArchive {
 
         final String USAGE = "\n" +
                  "Usage:" +
-                " UploadArchive <strPath> <vaultName> \n\n" +
+                "   <strPath> <vaultName> \n\n" +
                 "Where:\n" +
-                "  strPath - the path to the archive to upload (for example, C:\\AWS\\test.pdf).\n" +
-                "  vaultName - the name of the vault.\n\n";
+                "   strPath - the path to the archive to upload (for example, C:\\AWS\\test.pdf).\n" +
+                "   vaultName - the name of the vault.\n\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -47,7 +54,6 @@ public class UploadArchive {
 
         String strPath = args[0];
         String vaultName = args[1];
-
         File myFile = new File(strPath);
         Path path = Paths.get(strPath);
 
@@ -66,6 +72,7 @@ public class UploadArchive {
         // Get an SHA-256 tree hash value
         String checkVal = computeSHA256(myFile);
 
+
         try {
             UploadArchiveRequest uploadRequest = UploadArchiveRequest.builder()
                     .vaultName(vaultName)
@@ -80,7 +87,6 @@ public class UploadArchive {
             System.exit(1);
         }
         return "";
-        // snippet-end:[glacier.java2.upload.main]
     }
 
     private static String computeSHA256(File inputFile) {
@@ -218,4 +224,5 @@ public class UploadArchive {
         }
         return sb.toString().toLowerCase();
     }
+    // snippet-end:[glacier.java2.upload.main]
 }

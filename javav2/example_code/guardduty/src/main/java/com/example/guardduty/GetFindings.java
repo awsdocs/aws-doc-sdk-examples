@@ -4,7 +4,7 @@
 // snippet-keyword:[Amazon GuardDuty]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/04/2020]
+// snippet-sourcedate:[09/28/2021]
 // snippet-sourceauthor:[AWS - scmacdon]
 
 /*
@@ -39,7 +39,7 @@ public class GetFindings {
         final String USAGE = "\n" +
                 "To run this example, supply the findingId value and the detectorId value.  \n" +
                 "\n" +
-                "Ex: GetFindings <findingId><detectorId>\n";
+                "Ex: GetFindings <findingId> <detectorId>\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);

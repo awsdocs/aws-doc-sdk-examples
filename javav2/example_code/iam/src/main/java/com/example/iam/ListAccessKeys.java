@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -33,7 +33,7 @@ public class ListAccessKeys {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    ListAccessKeys <userName> \n\n" +
+                "    <userName> \n\n" +
                 "Where:\n" +
                 "    userName - the name of the user for which access keys are retrieved. \n\n" ;
 
@@ -91,6 +91,6 @@ public class ListAccessKeys {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-       // snippet-end:[iam.java2.list_access_keys.main]
     }
+    // snippet-end:[iam.java2.list_access_keys.main]
 }

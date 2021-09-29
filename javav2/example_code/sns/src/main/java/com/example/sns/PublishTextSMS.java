@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon- AWS]
 
 /*
@@ -33,10 +33,10 @@ public class PublishTextSMS {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage: " +
-                "PublishTextSMS <message> <phoneNumber>\n\n" +
+                "   <message> <phoneNumber>\n\n" +
                 "Where:\n" +
-                "  message - the message text to send.\n\n" +
-                "  phoneNumber - the mobile phone number to which a message is sent (for example, +1XXX5550100). \n\n";
+                "   message - the message text to send.\n\n" +
+                "   phoneNumber - the mobile phone number to which a message is sent (for example, +1XXX5550100). \n\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);

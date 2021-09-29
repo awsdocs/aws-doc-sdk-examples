@@ -4,7 +4,7 @@
 // snippet-keyword:[Amazon Simple Systems Management]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/06/2020]
+// snippet-sourcedate:[09/27/2021]
 // snippet-sourceauthor:[AWS - scmacdon]
 
 /*
@@ -35,7 +35,7 @@ public class ResolveOpsItem {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    ResolveOpsItem <opsID>\n\n" +
+                "    <opsID>\n\n" +
                 "Where:\n" +
                 "    opsID - the Ops item ID value.\n";
 

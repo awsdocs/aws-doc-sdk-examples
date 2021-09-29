@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon SageMaker]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -36,7 +36,7 @@ public class CreateModel {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateModel <dataUrl> <image> <modelName><executionRoleArn>\n\n" +
+                "    <dataUrl> <image> <modelName> <executionRoleArn>\n\n" +
                 "Where:\n" +
                 "    dataUrl - the Amazon S3 path where the model artifacts, which result from model training, are stored.\n\n" +
                 "    image - the Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored (for example, xxxxx5047983.dkr.ecr.us-west-2.amazonaws.com/train).\n\n" +

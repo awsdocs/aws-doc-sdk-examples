@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Kinesis]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,11 +35,9 @@ public class StockTradesWriter {
 
        final String USAGE = "\n" +
                 "Usage:\n" +
-                "    StockTradesWriter <streamName>\n\n" +
+                "    <streamName>\n\n" +
                 "Where:\n" +
-                "    streamName - The Amazon Kinesis data stream to which records are written (for example, StockTradeStream)\n\n" +
-                "Example:\n" +
-                "    StockTradesWriter streamName\n";
+                "    streamName - The Amazon Kinesis data stream to which records are written (for example, StockTradeStream)\n\n";
 
             if (args.length != 1) {
                 System.out.println(USAGE);
@@ -119,6 +117,6 @@ public class StockTradesWriter {
             System.err.println(e);
             System.exit(1);
         }
-        // snippet-end:[kinesis.java2.putrecord.main]
     }
+    // snippet-end:[kinesis.java2.putrecord.main]
 }

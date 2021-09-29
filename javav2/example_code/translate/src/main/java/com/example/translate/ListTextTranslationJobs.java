@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Translate]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[7/20/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -69,6 +69,6 @@ public class ListTextTranslationJobs {
         System.err.println(e.getMessage());
         System.exit(1);
     }
-        // snippet-end:[translate.java2._list_jobs.main]
-    }
+ }
+    // snippet-end:[translate.java2._list_jobs.main]
 }

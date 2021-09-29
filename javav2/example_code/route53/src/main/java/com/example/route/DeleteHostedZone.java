@@ -4,7 +4,7 @@
 // snippet-service:[Amazon Route 53]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-09-28]
+// snippet-sourcedate:[09/28/2021]
 // snippet-sourceauthor:[AWS - scmacdon]
 
 /*
@@ -33,7 +33,7 @@ public class DeleteHostedZone {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeleteHostedZone <hostedZoneId> \n\n" +
+                "    <hostedZoneId> \n\n" +
                 "Where:\n" +
                 "    hostedZoneId - the hosted zone id. \n";
 

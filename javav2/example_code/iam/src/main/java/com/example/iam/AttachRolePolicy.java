@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -37,7 +37,7 @@ public class AttachRolePolicy {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    AttachRolePolicy <roleName> <policyArn> \n\n" +
+                "    <roleName> <policyArn> \n\n" +
                 "Where:\n" +
                 "    roleName - a role name that you can obtain from the AWS Management Console. \n\n" +
                 "    policyArn - a policy ARN that you can obtain from the AWS Management Console. \n\n" ;
@@ -101,7 +101,8 @@ public class AttachRolePolicy {
                 System.err.println(e.awsErrorDetails().errorMessage());
                 System.exit(1);
           }
-        // snippet-end:[iam.java2.attach_role_policy.main]
+
      System.out.println("Done");
     }
+    // snippet-end:[iam.java2.attach_role_policy.main]
 }

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Elastic Container Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/20/2021]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -12,6 +12,7 @@
 */
 package com.example.ecs;
 
+// snippet-start:[ecs.java2.list_tasks.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ecs.EcsClient;
 import software.amazon.awssdk.services.ecs.model.DescribeTasksRequest;
@@ -19,6 +20,7 @@ import software.amazon.awssdk.services.ecs.model.DescribeTasksResponse;
 import software.amazon.awssdk.services.ecs.model.EcsException;
 import software.amazon.awssdk.services.ecs.model.Task;
 import java.util.List;
+// snippet-end:[ecs.java2.list_tasks.import]
 
 /**
  To run this Java V2 code example, ensure that you have setup your development environment,
@@ -33,8 +35,7 @@ public class ListTaskDefinitions {
 
         final String usage = "\n" +
                 "Usage:\n" +
-                "  ListTaskDefinitions " +
-                "   <clusterArn> <taskId> \n\n" +
+                "  <clusterArn> <taskId> \n\n" +
                 "Where:\n" +
                 "  clusterArn - the ARN of an ECS cluster.\n" +
                 "  taskId - the task Id value.\n" ;
@@ -55,6 +56,7 @@ public class ListTaskDefinitions {
         ecsClient.close();
     }
 
+    // snippet-start:[ecs.java2.list_tasks.main]
     public static void getAllTasks(EcsClient ecsClient,  String clusterArn, String taskId) {
 
 
@@ -75,4 +77,5 @@ public class ListTaskDefinitions {
             System.exit(1);
         }
     }
+    // snippet-end:[ecs.java2.list_tasks.main]
 }

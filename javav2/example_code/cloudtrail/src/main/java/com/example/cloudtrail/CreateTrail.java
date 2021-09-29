@@ -4,7 +4,7 @@
 // snippet-service:[AWS CloudTrail]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/03/2020]
+// snippet-sourcedate:[09/28/2021]
 // snippet-sourceauthor:[AWS - scmacdon]
 
 /*
@@ -36,7 +36,7 @@ public class CreateTrail {
 
          final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateTrail <trailName> <s3BucketName> \n\n" +
+                "    <trailName> <s3BucketName> \n\n" +
                 "Where:\n" +
                 "    trailName - the name of the trail. \n" +
                 "    s3BucketName - the name of the Amazon S3 bucket designated for publishing log files. \n" ;

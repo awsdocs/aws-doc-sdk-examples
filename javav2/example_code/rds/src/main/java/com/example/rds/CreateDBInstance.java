@@ -39,7 +39,7 @@ public class CreateDBInstance {
 
             final String USAGE = "\n" +
                     "Usage:\n" +
-                    "    CreateDBInstance <dbInstanceIdentifier> <dbName> <masterUsername> <masterUserPassword> \n\n" +
+                    "    <dbInstanceIdentifier> <dbName> <masterUsername> <masterUserPassword> \n\n" +
                     "Where:\n" +
                     "    dbInstanceIdentifier - the database instance identifier. \n" +
                     "    dbName - the database name. \n" +
@@ -93,7 +93,7 @@ public class CreateDBInstance {
                 System.out.println(e.getLocalizedMessage());
                 System.exit(1);
             }
-            // snippet-end:[rds.java2.create_instance.main]
+
         }
 
     // Waits until the database instance is available
@@ -133,5 +133,6 @@ public class CreateDBInstance {
             System.exit(1);
         }
     }
+    // snippet-end:[rds.java2.create_instance.main]
   }
 

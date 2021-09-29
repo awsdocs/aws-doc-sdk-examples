@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EventBridge]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -35,7 +35,7 @@ public class CreateRule {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DescribeRule <ruleName> \n\n" +
+                "    <ruleName> \n\n" +
                 "Where:\n" +
                 "    ruleName - the name of the rule to create. \n";
 
@@ -74,6 +74,6 @@ public class CreateRule {
         System.err.println(e.awsErrorDetails().errorMessage());
         System.exit(1);
     }
+  }
     // snippet-end:[eventbridge.java2._create_rule.main]
-    }
 }
