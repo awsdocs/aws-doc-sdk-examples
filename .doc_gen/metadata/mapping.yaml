@@ -119,6 +119,10 @@ services:
     long: "&DDBlong;"
     short: "&DDB;"
     sort: "DynamoDB"
+  emr:
+    long: "&EMRlong;"
+    short: "&EMR;"
+    sort: "EMR"
   ec2:
     long: "&EC2long;"
     short: "&EC2;"
