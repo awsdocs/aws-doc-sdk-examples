@@ -52,6 +52,12 @@ To change the parent branch for your branch to **main**:
 4. Make sure the **base: main** branch is shown.
 5. Create the pull request, then merge it.
 
+Questions or Issues?
+--------------------
+
+If you have any questions, or run across any issue retargeting your branch or fork,
+open an issue and give us as much detail as possible.
+
 Welcome
 =======
 This is the repository for various code examples used in the public 
