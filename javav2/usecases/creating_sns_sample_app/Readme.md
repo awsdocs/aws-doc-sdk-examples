@@ -56,6 +56,8 @@ This application lets a user specify the language of the message that is sent. F
 
 ![AWS Tracking Application](images/french.png)
 
+**Note**: The Amazon Translate Service is used to translate the body of the message. The code is shown later in this document. 
+
 This example application lets you view all of the subscribed email recipients by choosing the **List Subscriptions** button, as shown in the following illustration.
 
 ![AWS Tracking Application](images/pic4.png)
