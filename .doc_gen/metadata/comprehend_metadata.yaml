@@ -5,6 +5,15 @@ comprehend_CreateDocumentClassifier:
   synopsis: create an &CMP; document classifier.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+            - comprehend.java2.classifier.main
     Python:
       versions:
         - sdk_version: 3
@@ -131,15 +140,6 @@ comprehend_Usage_ComprehendClassifier:
   synopsis: train a custom &CMP; classifier and classify documents.
   category: Usage
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/comprehend
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - comprehend.java2.classifier.main
     Python:
       versions:
         - sdk_version: 3
