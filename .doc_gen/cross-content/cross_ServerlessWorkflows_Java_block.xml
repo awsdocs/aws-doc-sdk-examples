@@ -5,7 +5,7 @@
 ]>
 <block>
     <para>
-        Shows how to create an &AWS; serverless workflow by using &SFNlong; and the AWS SDK for Java.
+        Shows how to create an &AWS; serverless workflow by using &SFNlong; and the &JavaV2long;.
         Each workflow step is implemented using an &LAMlong; function.
     </para>
     <para>
