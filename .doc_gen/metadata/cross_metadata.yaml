@@ -168,6 +168,10 @@ cross_ServerlessWorkflows:
   title_abbrev: Use &SFN; to invoke &LAM; functions
   synopsis: create an &SFNlong; state machine that invokes &LAMlong; functions in sequence.
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_ServerlessWorkflows_Java_block.xml
     JavaScript:
       versions:
         - sdk_version: 3
