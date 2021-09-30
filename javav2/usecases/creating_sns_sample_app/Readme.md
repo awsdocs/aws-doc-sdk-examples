@@ -52,7 +52,7 @@ Once the email recipient accepts the confirmation, that email is subscribed to t
 
 ![AWS Tracking Application](images/pic3.png)
 
-This application lets a user specify the language of the message that is sent. For example, the user can select **French** from the dropdown field and then the message is sent in French to all subscribed users. 
+This application lets a user specify the language of the message that is sent. For example, the user can select **French** from the dropdown field and then the message appears in French to all subscribed users. 
 
 ![AWS Tracking Application](images/french.png)
 
