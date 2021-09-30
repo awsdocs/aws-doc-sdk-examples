@@ -90,21 +90,21 @@ At this point, you have a new project named **SpringSubscribeApp**. Ensure that 
      <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-     <modelVersion>4.0.0</modelVersion>
-     <groupId>org.example</groupId>
-     <artifactId>SpringSubscribeApp</artifactId>
-     <version>1.0-SNAPSHOT</version>
-     <description>Demo project for Spring Boot that shows Pub/Sub functionality</description>
-     <parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.example</groupId>
+    <artifactId>SpringSubscribeApp</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <description>Demo project for Spring Boot that shows Pub/Sub functionality</description>
+    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.2.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
-     </parent>
-     <properties>
+    </parent>
+    <properties>
         <java.version>1.8</java.version>
-     </properties>
-     <dependencyManagement>
+    </properties>
+    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
@@ -114,8 +114,8 @@ At this point, you have a new project named **SpringSubscribeApp**. Ensure that 
                 <scope>import</scope>
             </dependency>
         </dependencies>
-     </dependencyManagement>
-     <dependencies>
+    </dependencyManagement>
+    <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -139,12 +139,17 @@ At this point, you have a new project named **SpringSubscribeApp**. Ensure that 
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>sns</artifactId>
         </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>translate</artifactId>
+        </dependency>
      </dependencies>
      <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${project.parent.version}</version>
             </plugin>
         </plugins>
       </build>
