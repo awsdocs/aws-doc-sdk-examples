@@ -248,12 +248,12 @@ async fn main() -> Result<(), exif::Error> {
             .or_else(aws_sdk_dynamodb::Region::new("us-west-2"));
 
     let rek_region_provider =
-        RegionProviderChain::first_try(s3_region.map(aws_sdk_rekognition::Region::new))
+        RegionProviderChain::first_try(rek_region.map(aws_sdk_rekognition::Region::new))
             .or_default_provider()
             .or_else(aws_sdk_rekognition::Region::new("us-west-2"));
 
     let s3_region_provider =
-        RegionProviderChain::first_try(rek_region.map(aws_sdk_s3::Region::new))
+        RegionProviderChain::first_try(s3_region.map(aws_sdk_s3::Region::new))
             .or_default_provider()
             .or_else(aws_sdk_s3::Region::new("us-west-2"));
 
