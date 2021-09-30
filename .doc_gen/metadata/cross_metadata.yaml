@@ -9,7 +9,7 @@ cross_RDSDataTracker:
         - sdk_version: 2
           block_content: cross_RDSDataTracker_Java_block.xml
   services:
-    - dynamodb
+    - rds
     - ses
 cross_SnsPublishSubscription:
   title: Build a publish and subscription web application that translates messages
