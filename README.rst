@@ -11,46 +11,42 @@
 NOTICE
 ======
 
-We are changing the default branch for this repo from **master** to **main**
-on Saturday, October 2.
+We have changed the default branch for this repo from **master** to **main**.
 
-If you have a fork or branch based on **master**,
-you can retarget them to refer to **main**.
+If the parent branch of your fork or branch is **master**,
+the following instructions tell you how to change the parent branch to **main**.
 
-If you aren't sure which branch your branch was branched from:
+To show the parent branch,
+where **BRANCH** is the name of your branch:
 
-1. Navigate to the root of your branch
+1. Navigate to the root of your branch or fork.
 2. Make sure your branch is the current branch (**git checkout BRANCH**).
 3. Run **git branch --contains**.
 
-Retargeting a branch from master to main
-----------------------------------------
+Changing a branch parent branch from master to main
+---------------------------------------------------
 
 To change the parent branch for your branch to **main**,
-navigate to the root of your branch on your computer
-and enter the following commands,
+navigate to the root of your branch and enter the following commands,
 where *BRANCH* is the name of your branch:
 
 .. code-block:: sh
 		
-   git checkout main
-   git pull
-   git checkout BRANCH
-   git fetch --all -p
+   git branch -m master main
    git fetch origin
-   git rebase origin/main
-   git push
+   git branch -u origin/main main
+   git remote set-head origin -a
+   git remote update --prune
 
-Retargeting a fork from master to main
-----------------------------------------
+Changing a fork parent branch from master to main
+-------------------------------------------------
 
 To change the parent branch for your branch to **main**:
 
-1. Navigate to the main page of the forked repository that you want to sync with the upstream repository.
-2. Select the **Pull requests** tab.
-3. If you've made no changes, select **switching the base**.
-4. Make sure the **base: main** branch is shown.
-5. Create the pull request, then merge it.
+1. Navigate to main web page of your fork.
+2. You should see a "The default branch on the parent repository has been renamed" message.
+3. Select the **branch settings** link.
+4. Select the **base: main** branch.
 
 Questions or Issues?
 --------------------
