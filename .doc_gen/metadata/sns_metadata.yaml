@@ -326,7 +326,7 @@ sns_GetSMSAttributes:
                 - sns.JavaScript.SMS.getSMSAttributesV3
   services:
     - sns
-sns_Publish_TextSMS:
+sns_PublishTextSMS:
   title: Publish an &SNS; SMS text message using an &AWS; SDK
   title_abbrev: Publish an SMS text message
   synopsis: publish SMS messages using &SNS;.
@@ -910,7 +910,7 @@ sns_Unsubscribe:
                 - python.example_code.sns.Unsubscribe
   services:
     - sns
-sns_Scenario_PublishFifoTopic:
+sns_PublishFifoTopic:
   title: Create and publish to a FIFO &SNS; topic using an &AWS; SDK
   title_abbrev: Create and publish to a FIFO topic
   synopsis: create and publish to a FIFO &SNS; topic.
@@ -935,7 +935,7 @@ sns_Scenario_PublishFifoTopic:
                 - sns.java.fifo_topics.publish
   services:
     - sns
-sns_Scenario_PublishLargeMessage:
+sns_PublishLargeMessage:
   title: Publish a large message to &SNS; with &S3; using an &AWS; SDK
   title_abbrev: Publish a large message
   synopsis: publish a large message to &SNS; using &S3; to store the message payload.
@@ -969,7 +969,7 @@ sns_SetSubscriptionAttributesRedrivePolicy:
                 - sns.java.redrive_policy
   services:
     - sns
-sns_Scenario_CreatePlatformEndpoint:
+sns_CreatePlatformEndpoint:
   title: Create a platform endpoint for &SNS; push notifications using an &AWS; SDK
   title_abbrev: Create a platform endpoint for push notifications
   synopsis: create a platform endpoint for &SNS; push notifications.
