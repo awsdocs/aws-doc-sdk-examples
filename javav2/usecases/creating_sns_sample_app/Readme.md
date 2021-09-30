@@ -1,4 +1,4 @@
-# Creating a Publish/Subscription Web Application that Translates Messages
+# Creating a publish/subscription web application that translates messages
 
 ## Purpose
 
