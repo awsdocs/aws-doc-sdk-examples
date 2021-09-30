@@ -1,8 +1,3 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
 package com.spring.sns;
 
 import org.springframework.stereotype.Component;
@@ -13,6 +8,10 @@ import software.amazon.awssdk.services.sns.model.ListSubscriptionsByTopicRequest
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.*;
+import software.amazon.awssdk.services.translate.TranslateClient;
+import software.amazon.awssdk.services.translate.model.TranslateTextRequest;
+import software.amazon.awssdk.services.translate.model.TranslateTextResponse;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -28,7 +27,7 @@ import java.util.List;
 @Component
 public class SnsService {
 
-    String topicArn = "<Enter a topic ARN>";
+    String topicArn = "arn:aws:sns:us-west-2:814548047983:MyMailTopic";
 
     private SnsClient getSnsClient() {
 
@@ -41,22 +40,57 @@ public class SnsService {
         return snsClient;
     }
 
-    public void pubTopic(String message) {
+    public String pubTopic(String message, String lang) {
 
         try {
-            SnsClient snsClient =  getSnsClient();;
+            String body;
+            Region region = Region.US_WEST_2;
+            TranslateClient translateClient = TranslateClient.builder()
+                    .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                    .region(region)
+                    .build();
+
+
+            if (lang.compareTo("English")==0) {
+                    body = message;
+
+            } else if(lang.compareTo("French")==0) {
+
+                    TranslateTextRequest textRequest = TranslateTextRequest.builder()
+                            .sourceLanguageCode("en")
+                            .targetLanguageCode("fr")
+                            .text(message)
+                            .build();
+
+                    TranslateTextResponse textResponse = translateClient.translateText(textRequest);
+                    body = textResponse.translatedText();
+
+            } else  {
+
+                TranslateTextRequest textRequest = TranslateTextRequest.builder()
+                        .sourceLanguageCode("en")
+                        .targetLanguageCode("es")
+                        .text(message)
+                        .build();
+
+                TranslateTextResponse textResponse = translateClient.translateText(textRequest);
+                body = textResponse.translatedText();
+            }
+
+            SnsClient snsClient =  getSnsClient();
             PublishRequest request = PublishRequest.builder()
-                    .message(message)
+                    .message(body)
                     .topicArn(topicArn)
                     .build();
 
             PublishResponse result = snsClient.publish(request);
-            System.out.println(result.messageId() + " Message sent. Status was " + result.sdkHttpResponse().statusCode());
+            return " Message sent in " +lang +". Status was " + result.sdkHttpResponse().statusCode();
 
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+        return "Error - msg not sent";
     }
 
     public void unSubEmail(String emailEndpoint) {
