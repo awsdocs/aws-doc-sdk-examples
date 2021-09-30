@@ -109,7 +109,7 @@ def create_custom_framework():
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     print('-' * 88)
-    print("     Welcome to the AWS AuditManager Samples Demo!")
+    print("     Welcome to the AWS Audit Manager Samples Demo!")
     print('-' * 88)
     print("You can use this sample to select a conformance pack from AWS Config and create a custom"
           " control for all the managed rules under the conformance pack. You can then create a custom framework with these"

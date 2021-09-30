@@ -9,14 +9,12 @@ Shows how to use the AWS SDK for Python (Boto3) with AWS Audit Manager to create
 assessment report that consists of only one day of evidence.
 """
 
-import logging
 import time
 import urllib.request
 import boto3
 import re
 from botocore.exceptions import ClientError
 
-logger = logging.getLogger(__name__)
 auditmanager_client = boto3.client('auditmanager')
 
 
@@ -102,7 +100,7 @@ def add_folder_to_staging(assessment_id, folder_id_list):
 def get_report(assessment_id):
     report = auditmanager_client.create_assessment_report(
         name='ReportViaScript',
-        description='testing by Manish',
+        description='testing',
         assessmentId=assessment_id,
     )
     if is_report_generated(report.get('assessmentReport').get('id')):
@@ -135,7 +133,7 @@ def is_report_generated(assessment_report_id):
 
 if __name__ == '__main__':
     print('-' * 88)
-    print("     Welcome to the AWS AuditManager Samples Demo!")
+    print("     Welcome to the AWS Audit Manager Samples Demo!")
     print('-' * 88)
     print(" This script creates an assessment report for an assessment with all the evidence collected on the provided date.")
     print('-' * 88)

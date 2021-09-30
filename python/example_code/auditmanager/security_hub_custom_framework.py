@@ -76,7 +76,7 @@ def create_custom_framework():
 
 if __name__ == '__main__':
     print('-' * 88)
-    print("     Welcome to the AWS AuditManager Samples Demo!")
+    print("     Welcome to the AWS Audit Manager Samples Demo!")
     print('-' * 88)
     print(" This script creates a custom framework with all Security Hub controls.")
     print('-' * 88)
