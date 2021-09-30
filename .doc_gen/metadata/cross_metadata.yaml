@@ -1,4 +1,16 @@
 # zexi 0.2.0
+cross_SnsPublishSubscription:
+  title: Build a publish and subscription web application that translates messages
+  title_abbrev: Building an &SNS; web application 
+  synopsis: create a web application that has subscription and publish functionality and translates messages.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_SNSSubPub_Java_block.xml
+  services:
+    - sns
+    - translate
 cross_LexChatbotLanguages:
   title: Create an &LEX2; Chatbot within a web application to engage your web site visitors
   title_abbrev: Building an &LEX2; Chatbot 

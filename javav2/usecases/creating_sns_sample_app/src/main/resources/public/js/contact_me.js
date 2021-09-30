@@ -2,11 +2,11 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-
 $(function() {
     $("#SendButton" ).click(function($e) {
 
         var body = $('#body').val();
+        var lang = $('#lang option:selected').text();
         if (body == '' ){
             alert("Please enter text");
             return;
@@ -14,7 +14,7 @@ $(function() {
 
         $.ajax('/addMessage', {
             type: 'POST',
-            data: 'body=' + body,
+            data: 'lang=' + lang+'&body=' + body,
             success: function (data, status, xhr) {
 
                 alert(data)
