@@ -13,7 +13,7 @@ comprehend_CreateDocumentClassifier:
           excerpts:
             - description:
               snippet_tags:
-            - comprehend.java2.classifier.main
+                - comprehend.java2.classifier.main
     Python:
       versions:
         - sdk_version: 3
