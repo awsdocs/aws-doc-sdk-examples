@@ -196,7 +196,7 @@ sns_ListTopics:
                 - sns.Ruby.showTopics
   services:
     - sns
-sns_SubscribeApp:
+sns_Subscribe_App:
   title: Subscribe a mobile application to an &SNS; topic using an &AWS; SDK
   title_abbrev: Subscribe a mobile application to a topic
   synopsis: subscribe a mobile application endpoint so it receives notifications from an &SNS; topic.
@@ -223,7 +223,7 @@ sns_SubscribeApp:
                 - sns.JavaScript.subscriptions.subscribeAppV3
   services:
     - sns
-sns_SubscribeHTTP:
+sns_Subscribe_HTTP:
   title: Subscribe an HTTP endpoint to an &SNS; topic using an &AWS; SDK
   title_abbrev: Subscribe an HTTP endpoint to a topic
   synopsis: subscribe an HTTP or HTTPS endpoint so it receives notifications from an &SNS; topic.
@@ -247,7 +247,7 @@ sns_SubscribeHTTP:
                 - sns.java2.SubscribeHTTPS.main
   services:
     - sns
-sns_SubscribeLambda:
+sns_Subscribe_Lambda:
   title: Subscribe a &LAM; function to receive notifications from an &SNS; topic using an &AWS; SDK
   title_abbrev: Subscribe a &LAM; function to a topic
   synopsis: subscribe a &LAM; function so it receives notifications from an &SNS; topic.
@@ -283,7 +283,7 @@ sns_SubscribeLambda:
   services:
     - sns
 
-sns_GetSMSSettings:
+sns_GetSMSAttributes:
   title: Get the settings for sending &SNS; SMS messages using an &AWS; SDK
   title_abbrev: Get the settings for sending SMS messages
   synopsis: get the settings for sending &SNS; SMS messages.
@@ -326,7 +326,7 @@ sns_GetSMSSettings:
                 - sns.JavaScript.SMS.getSMSAttributesV3
   services:
     - sns
-sns_PublishTextSMS:
+sns_Publish_TextSMS:
   title: Publish an &SNS; SMS text message using an &AWS; SDK
   title_abbrev: Publish an SMS text message
   synopsis: publish SMS messages using &SNS;.
@@ -910,11 +910,11 @@ sns_Unsubscribe:
                 - python.example_code.sns.Unsubscribe
   services:
     - sns
-sns_PublishFifoTopic:
+sns_Scenario_PublishFifoTopic:
   title: Create and publish to a FIFO &SNS; topic using an &AWS; SDK
   title_abbrev: Create and publish to a FIFO topic
   synopsis: create and publish to a FIFO &SNS; topic.
-  category:
+  category: Scenario
   languages:
     Java:
       versions:
@@ -935,11 +935,11 @@ sns_PublishFifoTopic:
                 - sns.java.fifo_topics.publish
   services:
     - sns
-sns_PublishLargeMessage:
+sns_Scenario_PublishLargeMessage:
   title: Publish a large message to &SNS; with &S3; using an &AWS; SDK
   title_abbrev: Publish a large message
   synopsis: publish a large message to &SNS; using &S3; to store the message payload.
-  category:
+  category: Scenario
   languages:
     Java:
       versions:
@@ -969,11 +969,11 @@ sns_SetSubscriptionAttributesRedrivePolicy:
                 - sns.java.redrive_policy
   services:
     - sns
-sns_CreatePlatformEndpoint:
+sns_Scenario_CreatePlatformEndpoint:
   title: Create a platform endpoint for &SNS; push notifications using an &AWS; SDK
   title_abbrev: Create a platform endpoint for push notifications
   synopsis: create a platform endpoint for &SNS; push notifications.
-  category:
+  category: Scenario
   languages:
     Java:
       versions:
@@ -993,7 +993,7 @@ sns_UsageSmsTopic:
     - Create an &SNS; topic.
     - Subscribe phone numbers to the topic.
     - Publish SMS messages to the topic so that all subscribed phone numbers receive the message at once.
-  category:
+  category: Scenario
   languages:
     Java:
       versions:

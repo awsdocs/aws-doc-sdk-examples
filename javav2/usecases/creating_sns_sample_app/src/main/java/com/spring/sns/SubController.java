@@ -2,7 +2,6 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-
 package com.spring.sns;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +49,8 @@ public class SubController {
     String addMessage(HttpServletRequest request, HttpServletResponse response) {
 
         String body = request.getParameter("body");
-        sns.pubTopic(body);
-        return "Message sent";
+        String lang = request.getParameter("lang");
+        return sns.pubTopic(body,lang);
     }
 
     @RequestMapping(value = "/getSubs", method = RequestMethod.GET)

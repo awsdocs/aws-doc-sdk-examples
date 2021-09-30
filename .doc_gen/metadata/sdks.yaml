@@ -1,0 +1,111 @@
+# zexi 0.2.0
+# SDK data
+C++:
+  property: cpp
+  sdk:
+    1:
+      long: "&CPPlong;"
+      short: "&CPP;"
+      api_ref:
+        uid: "SdkForCpp"
+        name: "&guide-cpp-api;"
+  guide: "&guide-cpp-dev;"
+Go:
+  property: go
+  sdk:
+    1:
+      long: "&Golong; V1"
+      short: "&Go; V1"
+      api_ref:
+        uid: "SdkForGoV1"
+        name: "&guide-go-api;"
+    2:
+      long: "&Golong; V2"
+      short: "&Go; V2"
+      api_ref:
+        uid: "SdkForGoV2"
+        name: "&guide-go-api;"
+        link_template: "https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/{{.Service}}#Client.{{.Operation}}"
+  guide: "&guide-go-dev;"
+Java:
+  property: java
+  sdk:
+    1:
+      long: "&Javalong; 1.x"
+      short: "&Java; 1.x"
+    2:
+      long: "&JavaV2long;"
+      short: "&JavaV2;"
+      api_ref:
+        uid: "SdkForJavaV2"
+        name: "&guide-javaV2-api;"
+  guide: "&guide-javaV2-dev;"
+JavaScript:
+  property: javascript
+  sdk:
+    2:
+      long: "&JSBlong; V2"
+      short: "&JSB; V2"
+      api_ref:
+        uid: "AWSJavaScriptSDK"
+        name: "&guide-jsb-api;"
+    3:
+      long: "&JSBlong; V3"
+      short: "&JSB; V3"
+      api_ref:
+        uid: "AWSJavaScriptSDKV3"
+        name: "&guide-jsb-api;"
+        link_template: "AWSJavaScriptSDK/v3/latest/clients/client-{{.Service}}/classes/{{.OperationLower}}command.html"
+  guide: "&guide-jsb-dev;"
+Kotlin:
+  property: kotlin
+  sdk:
+    1:
+      long: "&AWS; SDK for Kotlin"
+      short: "SDK for Kotlin"
+      caveat: "This is prerelease documentation for a feature in preview release. It is subject to change."
+      api_ref:
+        uid: "SdkForKotlinV1"
+        name: "&AWS; SDK for Kotlin API Reference"
+        link_template: "https://github.com/awslabs/aws-sdk-kotlin#generating-api-documentation"
+  guide: "&AWS; SDK for Kotlin Developer Guide"
+.NET:
+  property: csharp
+  sdk:
+    3:
+      long: "&NETlong;"
+      short: "&NET;"
+      api_ref:
+        uid: "DotNetSDKV3"
+        name: "&guide-net-api;"
+  guide: "&guide-net-dev;"
+PHP:
+  property: php
+  sdk:
+    3:
+      long: "&PHPlong;"
+      short: "&PHP;"
+      api_ref:
+        uid: "SdkForPHPV3"
+        name: "&guide-php-api;"
+  guide: "&guide-php-dev;"
+Python:
+  property: python
+  sdk:
+    3:
+      long: "&Python3long;"
+      short: "&Python3;"
+      api_ref:
+        uid: "boto3"
+        name: "&guide-python3-api;"
+  guide: "&guide-python3-gsg;"
+Ruby:
+  property: ruby
+  sdk:
+    3:
+      long: "&Rubylong;"
+      short: "&Ruby;"
+      api_ref:
+        uid: "SdkForRubyV3"
+        name: "&guide-ruby-api;"
+  guide: "&guide-ruby-dev;"
