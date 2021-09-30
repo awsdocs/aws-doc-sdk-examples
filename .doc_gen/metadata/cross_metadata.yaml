@@ -1,8 +1,8 @@
 # zexi 0.2.0
 cross_SnsPublishSubscription:
-  title: Creating an &SNSlong; Publish and Subscription Web Application that Translates Messages
-  title_abbrev: Building an &SNS; Sub Web Application 
-  synopsis: create a web application that has subscription and publish functionality 
+  title: Build a publish and subscription web application that translates messages
+  title_abbrev: Building an &SNS; web application 
+  synopsis: create a web application that has subscription and publish functionality and translates messages.
   languages:
     Java:
       versions:
