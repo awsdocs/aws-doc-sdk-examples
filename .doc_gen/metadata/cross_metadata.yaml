@@ -221,14 +221,14 @@ cross_TranscriptionStreamingApp:
     - comprehend
     - transcribe
     - ses
-cross_RekognitionPhotoAnalyzerPPE:
+cross_RekognitionLambdPPE:
   title: Detect PPE in images with &REK; using an &AWS; SDK
   title_abbrev: Detect PPE in images
   synopsis: build an &LAMlong; function that uses &REK; to detect Personal Protective Equipment (PPE) in images.
   languages:
-    JavaScript:
+    Java:
       versions:
-        - sdk_version: 3
+        - sdk_version: 2
           block_content: cross_RekognitionLambdPPE_Java_block.xml
   services:
     - rekognition
