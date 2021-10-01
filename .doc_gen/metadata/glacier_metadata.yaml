@@ -30,6 +30,15 @@ glacier_ListVaults:
   title_abbrev: List vaults
   synopsis: list &GLlong; vaults.
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - glacier.java2.list_vaults.main
     Python:
       versions:
         - sdk_version: 3
@@ -47,6 +56,15 @@ glacier_UploadArchive:
   title_abbrev: Upload an archive to a vault
   synopsis: upload an archive to an &GLlong; vault.
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - glacier.java2.upload.main
     Python:
       versions:
         - sdk_version: 3
@@ -98,6 +116,15 @@ glacier_DeleteVault:
   title_abbrev: Delete a vault
   synopsis: delete an &GLlong; vault.
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - glacier.java2.delete.main
     Python:
       versions:
         - sdk_version: 3
@@ -132,6 +159,15 @@ glacier_DeleteArchive:
   title_abbrev: Delete an archive
   synopsis: delete an &GLlong; archive.
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - glacier.java2.delete.main
     Python:
       versions:
         - sdk_version: 3
