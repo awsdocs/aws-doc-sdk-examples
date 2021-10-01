@@ -37,6 +37,19 @@ This example deletes an object from an Amazon S3 bucket.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
+### delete-objects
+
+This example deletes one or more objects from an Amazon S3 bucket.
+
+`cargo run --bin delete-objects -- -b BUCKET -o OBJECTS [-r REGION] [-v]`
+
+- _BUCKET_ is the name of the bucket.
+- _OBJECTS_ are the names of the objects to delete, separated by spaces.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.
+
 ### list-buckets
 
 This example lists your Amazon S3 buckets.
