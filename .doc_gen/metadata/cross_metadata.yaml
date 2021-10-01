@@ -1,4 +1,4 @@
-# zexi 0.2.0
+# zexi 0.4.0
 cross_RDSDataTracker:
   title: Create an &RDSlong; item tracker
   title_abbrev: Create a web application to track &RDS; data
@@ -9,8 +9,8 @@ cross_RDSDataTracker:
         - sdk_version: 2
           block_content: cross_RDSDataTracker_Java_block.xml
   services:
-    - rds
-    - ses
+    rds:
+    ses:
 cross_SnsPublishSubscription:
   title: Build a publish and subscription web application that translates messages
   title_abbrev: Building an &SNS; web application 
@@ -21,8 +21,8 @@ cross_SnsPublishSubscription:
         - sdk_version: 2
           block_content: cross_SNSSubPub_Java_block.xml
   services:
-    - sns
-    - translate
+    sns:
+    translate:
 cross_LexChatbotLanguages:
   title: Create an &LEX2; Chatbot within a web application to engage your web site visitors
   title_abbrev: Building an &LEX2; Chatbot 
@@ -33,9 +33,9 @@ cross_LexChatbotLanguages:
         - sdk_version: 2
           block_content: cross_Lex_Java_block.xml
   services:
-    - lex
-    - translate
-    - comprehend
+    lex:
+    translate:
+    comprehend:
 cross_DynamoDBDataTracker:
   title: Create a dynamic web application to track &DDB; data
   title_abbrev: Create a web application to track &DDB; data
@@ -46,8 +46,8 @@ cross_DynamoDBDataTracker:
         - sdk_version: 2
           block_content: cross_DynamoDBDataTracker_Java_block.xml
   services:
-    - dynamodb
-    - ses
+    dynamodb:
+    ses:
 cross_ApiGatewayDataTracker:
   title: Create an &ABP; REST API to track COVID-19 data
   title_abbrev: Create a REST API to track COVID-19 data
@@ -59,10 +59,10 @@ cross_ApiGatewayDataTracker:
         - sdk_version: 3
           block_content: cross_ApiGatewayDataTracker_Python_block.xml
   services:
-    - api-gateway
-    - cloudformation
-    - dynamodb
-    - lambda
+    api-gateway:
+    cloudformation:
+    dynamodb:
+    lambda:
 cross_ApiGatewayWebsocketChat:
   title: Create a websocket chat application with &ABP;
   title_abbrev: Create a websocket chat application
@@ -73,9 +73,9 @@ cross_ApiGatewayWebsocketChat:
         - sdk_version: 3
           block_content: cross_ApiGatewayWebsocketChat_Python_block.xml
   services:
-    - api-gateway
-    - dynamodb
-    - lambda
+    api-gateway:
+    dynamodb:
+    lambda:
 cross_AuroraRestLendingLibrary:
   title: Create a lending library REST API
   title_abbrev: Create a lending library REST API
@@ -87,10 +87,10 @@ cross_AuroraRestLendingLibrary:
         - sdk_version: 3
           block_content: cross_AuroraRestLendingLibrary_Python_block.xml
   services:
-    - api-gateway
-    - lambda
-    - rds
-    - secrets-manager
+    api-gateway:
+    lambda:
+    rds:
+    secrets-manager:
 cross_StepFunctionsMessenger:
   title: Create a messenger application with &SFN;
   title_abbrev: Create a messenger application
@@ -101,10 +101,10 @@ cross_StepFunctionsMessenger:
         - sdk_version: 3
           block_content: cross_StepFunctionsMessenger_Python_block.xml
   services:
-    - dynamodb
-    - lambda
-    - sqs
-    - sfn
+    dynamodb:
+    lambda:
+    sqs:
+    sfn:
 cross_TextractExplorer:
   title: Create an &TEXTRACT; explorer application
   title_abbrev: Create an &TEXTRACT; explorer application
@@ -115,16 +115,16 @@ cross_TextractExplorer:
         - sdk_version: 3
           block_content: cross_TextractExplorer_JavaScript_block.xml
           add_services:
-            - cognito-identity
+            cognito-identity:
     Python:
       versions:
         - sdk_version: 3
           block_content: cross_TextractExplorer_Python_block.xml
   services:
-    - s3
-    - sns
-    - sqs
-    - textract
+    s3:
+    sns:
+    sqs:
+    textract:
 cross_SubmitDataApp:
   title: Build an app to submit data to an &DDB; table
   title_abbrev: Build an app to submit data to an &DDB; table
@@ -136,8 +136,8 @@ cross_SubmitDataApp:
         - sdk_version: 3
           block_content: cross_SubmitDataApp_JavaScript_block.xml
   services:
-    - dynamodb
-    - sns
+    dynamodb:
+    sns:
 cross_LambdaAPIGateway:
   title: Use &ABP; to invoke a &LAM; function
   title_abbrev: Use &ABP; to invoke a &LAM; function
@@ -152,10 +152,10 @@ cross_LambdaAPIGateway:
         - sdk_version: 3
           block_content: cross_LambdaAPIGateway_JavaScript_block.xml
   services:
-    - api-gateway
-    - lambda
-    - dynamodb
-    - sns
+    api-gateway:
+    lambda:
+    dynamodb:
+    sns:
 cross_LambdaScheduledEvents:
   title: Use scheduled events to invoke a &LAM; function
   title_abbrev: Use scheduled events to invoke a &LAM; function
@@ -171,10 +171,10 @@ cross_LambdaScheduledEvents:
         - sdk_version: 3
           block_content: cross_LambdaScheduledEvents_JavaScript_block.xml
   services:
-    - dynamodb
-    - eventbridge
-    - lambda
-    - sns
+    dynamodb:
+    eventbridge:
+    lambda:
+    sns:
 cross_ServerlessWorkflows:
   title: Use &SFN; to invoke &LAM; functions
   title_abbrev: Use &SFN; to invoke &LAM; functions
@@ -189,10 +189,10 @@ cross_ServerlessWorkflows:
         - sdk_version: 3
           block_content: cross_ServerlessWorkflows_JavaScript_block.xml
   services:
-    - dynamodb
-    - lambda
-    - ses
-    - sfn
+    dynamodb:
+    lambda:
+    ses:
+    sfn:
 cross_TranscriptionApp:
   title: Build an &TSC; app
   title_abbrev: Build an &TSC; app
@@ -203,9 +203,9 @@ cross_TranscriptionApp:
         - sdk_version: 3
           block_content: cross_TranscriptionApp_JavaScript_block.xml
   services:
-    - cognito-identity
-    - s3
-    - transcribe
+    cognito-identity:
+    s3:
+    transcribe:
 cross_TranscriptionStreamingApp:
   title: Build an &TSC; streaming app
   title_abbrev: Build an &TSC; streaming app
@@ -217,10 +217,10 @@ cross_TranscriptionStreamingApp:
         - sdk_version: 3
           block_content: cross_TranscriptionStreamingApp_JavaScript_block.xml
   services:
-    - translate
-    - comprehend
-    - transcribe
-    - ses
+    translate:
+    comprehend:
+    transcribe:
+    ses:
 cross_RekognitionPhotoAnalyzerPPE:
   title: Detect PPE in images with &REK; using an &AWS; SDK
   title_abbrev: Detect PPE in images
@@ -235,10 +235,10 @@ cross_RekognitionPhotoAnalyzerPPE:
         - sdk_version: 3
           block_content: cross_RekognitionPhotoAnalyzerPPE_JavaScript_block.xml
   services:
-    - rekognition
-    - s3
-    - dynamodb
-    - ses
+    rekognition:
+    s3:
+    dynamodb:
+    ses:
 cross_RekognitionPhotoAnalyzer:
   title: Detect objects in images with &REK; using an &AWS; SDK
   title_abbrev: Detect objects in images
@@ -253,9 +253,9 @@ cross_RekognitionPhotoAnalyzer:
         - sdk_version: 3
           block_content: cross_RekognitionPhotoAnalyzer_JavaScript_block.xml
   services:
-    - rekognition
-    - s3
-    - ses
+    rekognition:
+    s3:
+    ses:
 cross_RekognitionVideoDetection:
   title: Detect people and objects in a video with &REK; using an &AWS; SDK
   title_abbrev: Detect people and objects in a video
@@ -267,21 +267,21 @@ cross_RekognitionVideoDetection:
         - sdk_version: 2
           block_content: cross_RekognitionVideoAnalyzer_Java_block.xml
           add_services:
-            - s3
-            - ses
+            s3:
+            ses:
     JavaScript:
       versions:
         - sdk_version: 3
           block_content: cross_RekognitionVideoAnalyzer_JavaScript_block.xml
           add_services:
-            - s3
-            - ses
+            s3:
+            ses:
     Python:
       versions:
         - sdk_version: 3
           block_content: cross_RekognitionVideoDetection_Python_block.xml
           add_services:
-            - sns
-            - sqs
+            sns:
+            sqs:
   services:
-    - rekognition
+    rekognition:
