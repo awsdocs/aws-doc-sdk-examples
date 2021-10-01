@@ -2,7 +2,7 @@
 cross_RDSDataTracker:
   title: Create an &RDSlong; item tracker
   title_abbrev: Create a web application to track &RDS; data
-  synopsis: create a web application that tracks and reports on work items
+  synopsis: create a web application that tracks and reports on work items using an &RDSlong; (&RDS;) database.
   languages:
     Java:
       versions:
@@ -221,25 +221,15 @@ cross_TranscriptionStreamingApp:
     - comprehend
     - transcribe
     - ses
-cross_RekognitionLambdPPE:
-  title: Detect PPE in images with &REK; using a &LAM; function
-  title_abbrev: Detect PPE in images using a &LAM; function
-  synopsis: build an &LAMlong; function that uses &REK; to detect Personal Protective Equipment (PPE) in images.
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          block_content: cross_RekognitionLambdPPE_Java_block.xml
-  services:
-    - rekognition
-    - s3
-    - dynamodb
-    - lambda
 cross_RekognitionPhotoAnalyzerPPE:
   title: Detect PPE in images with &REK; using an &AWS; SDK
   title_abbrev: Detect PPE in images
   synopsis: build an app that uses &REK; to detect Personal Protective Equipment (PPE) in images.
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_RekognitionLambdPPE_Java_block.xml
     JavaScript:
       versions:
         - sdk_version: 3
