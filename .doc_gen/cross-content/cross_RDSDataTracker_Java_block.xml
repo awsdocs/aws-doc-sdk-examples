@@ -5,7 +5,7 @@
 ]>
 <block>
     <para>
-        Shows how to create a web application that tracks and reports on work items stored in an RDS database. 
+        Shows how to create a web application that tracks and reports on work items stored in an &RDSlong; database. 
     </para>
     <para>
         For complete source code and instructions on how to set up and run, see the full example on
