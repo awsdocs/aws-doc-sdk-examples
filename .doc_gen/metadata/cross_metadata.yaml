@@ -1,7 +1,7 @@
 # zexi 0.2.0
 cross_RDSDataTracker:
   title: Create an &RDSlong; item tracker
-  title_abbrev: Create a web application to track &RDSlong; data
+  title_abbrev: Create a web application to track &RDS; data
   synopsis: create a web application that tracks and reports on work items
   languages:
     Java:
