@@ -13,6 +13,7 @@ without cloning the GitHub repository, you must first download the image files f
     https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/rekognition/.media
 """
 
+# snippet-start:[python.example_code.rekognition.collection.imports]
 import logging
 from pprint import pprint
 import boto3
@@ -22,7 +23,10 @@ from rekognition_image_detection import RekognitionImage
 
 logger = logging.getLogger(__name__)
 
+# snippet-end:[python.example_code.rekognition.collection.imports]
 
+
+# snippet-start:[python.example_code.rekognition.RekognitionCollection]
 class RekognitionCollection:
     """
     Encapsulates an Amazon Rekognition collection. This class is a thin wrapper
@@ -54,7 +58,9 @@ class RekognitionCollection:
             collection.get('CollectionArn'),
             collection.get('FaceCount', 0),
             collection.get('CreationTimestamp'))
+# snippet-end:[python.example_code.rekognition.RekognitionCollection]
 
+# snippet-start:[python.example_code.rekognition.helper.to_dict]
     def to_dict(self):
         """
         Renders parts of the collection data to a dict.
@@ -68,7 +74,9 @@ class RekognitionCollection:
             'created': self.created
         }
         return rendering
+# snippet-end:[python.example_code.rekognition.helper.to_dict]
 
+# snippet-start:[python.example_code.rekognition.DescribeCollection]
     def describe_collection(self):
         """
         Gets data about the collection from the Amazon Rekognition service.
@@ -88,7 +96,9 @@ class RekognitionCollection:
             raise
         else:
             return self.to_dict()
+# snippet-end:[python.example_code.rekognition.DescribeCollection]
 
+# snippet-start:[python.example_code.rekognition.DeleteCollection]
     def delete_collection(self):
         """
         Deletes the collection.
@@ -100,7 +110,9 @@ class RekognitionCollection:
         except ClientError:
             logger.exception("Couldn't delete collection %s.", self.collection_id)
             raise
+# snippet-end:[python.example_code.rekognition.DeleteCollection]
 
+# snippet-start:[python.example_code.rekognition.IndexFaces]
     def index_faces(self, image, max_faces):
         """
         Finds faces in the specified image, indexes them, and stores them in the
@@ -130,7 +142,9 @@ class RekognitionCollection:
             raise
         else:
             return indexed_faces, unindexed_faces
+# snippet-end:[python.example_code.rekognition.IndexFaces]
 
+# snippet-start:[python.example_code.rekognition.ListFaces]
     def list_faces(self, max_results):
         """
         Lists the faces currently indexed in the collection.
@@ -150,7 +164,9 @@ class RekognitionCollection:
             raise
         else:
             return faces
+# snippet-end:[python.example_code.rekognition.ListFaces]
 
+# snippet-start:[python.example_code.rekognition.SearchFacesByImage]
     def search_faces_by_image(self, image, threshold, max_faces):
         """
         Searches for faces in the collection that match the largest face in the
@@ -183,7 +199,9 @@ class RekognitionCollection:
             raise
         else:
             return image_face, collection_faces
+# snippet-end:[python.example_code.rekognition.SearchFacesByImage]
 
+# snippet-start:[python.example_code.rekognition.SearchFaces]
     def search_faces(self, face_id, threshold, max_faces):
         """
         Searches for faces in the collection that match another face from the
@@ -211,7 +229,9 @@ class RekognitionCollection:
             raise
         else:
             return faces
+# snippet-end:[python.example_code.rekognition.SearchFaces]
 
+# snippet-start:[python.example_code.rekognition.DeleteFaces]
     def delete_faces(self, face_ids):
         """
         Deletes faces from the collection.
@@ -230,8 +250,10 @@ class RekognitionCollection:
             raise
         else:
             return deleted_ids
+# snippet-end:[python.example_code.rekognition.DeleteFaces]
 
 
+# snippet-start:[python.example_code.rekognition.RekognitionCollectionManager]
 class RekognitionCollectionManager:
     """
     Encapsulates Amazon Rekognition collection management functions.
@@ -244,7 +266,9 @@ class RekognitionCollectionManager:
         :param rekognition_client: A Boto3 Rekognition client.
         """
         self.rekognition_client = rekognition_client
+# snippet-end:[python.example_code.rekognition.RekognitionCollectionManager]
 
+# snippet-start:[python.example_code.rekognition.CreateCollection]
     def create_collection(self, collection_id):
         """
         Creates an empty collection.
@@ -263,7 +287,9 @@ class RekognitionCollectionManager:
             raise
         else:
             return collection
+# snippet-end:[python.example_code.rekognition.CreateCollection]
 
+# snippet-start:[python.example_code.rekognition.ListCollections]
     def list_collections(self, max_results):
         """
         Lists collections for the current account.
@@ -281,8 +307,10 @@ class RekognitionCollectionManager:
             raise
         else:
             return collections
+# snippet-end:[python.example_code.rekognition.ListCollections]
 
 
+# snippet-start:[python.example_code.rekognition.Usage_FindFacesInCollection]
 def usage_demo():
     print('-'*88)
     print("Welcome to the Amazon Rekognition face collection demo!")
@@ -337,6 +365,7 @@ def usage_demo():
     collection.delete_collection()
     print('Thanks for watching!')
     print('-'*88)
+# snippet-end:[python.example_code.rekognition.Usage_FindFacesInCollection]
 
 
 if __name__ == '__main__':

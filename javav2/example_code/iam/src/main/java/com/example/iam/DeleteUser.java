@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -31,14 +31,14 @@ public class DeleteUser {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeleteUser <userName> \n\n" +
+                "    <userName> \n\n" +
                 "Where:\n" +
                 "    userName - the name of the user to delete. \n\n" ;
 
-        if (args.length != 1) {
+       if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
-        }
+       }
 
         String userName = args[0];
         Region region = Region.AWS_GLOBAL;

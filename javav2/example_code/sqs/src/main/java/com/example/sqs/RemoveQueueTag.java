@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[12/09/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -33,10 +33,11 @@ public class RemoveQueueTag {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage: RemoveQueueTag <queueName> <tagName>\n\n" +
+                "Usage: " +
+                "   <queueName> <tagName>\n\n" +
                 "Where:\n" +
-                "  queueName - the name of the queue to which tags are applied.\n\n"+
-                "  tagName - the name of the tag to remove." ;
+                "   queueName - the name of the queue to which tags are applied.\n\n"+
+                "   tagName - the name of the tag to remove." ;
 
         if (args.length != 2) {
             System.out.println(USAGE);

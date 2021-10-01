@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Shows how to use the AWS SDK for Python (Boto3) with the Amazon EMR API to create
+Shows how to use the AWS SDK for Python (Boto3) with Amazon EMR to create
 and manage clusters and job steps. Learn to accomplish the following tasks:
 
 * Create a short-lived cluster that estimates the value of pi using Apache Spark to 
@@ -17,17 +17,36 @@ and manage clusters and job steps. Learn to accomplish the following tasks:
   to install additional libraries. 
 * Query clusters for status and terminate them using the API.
 
-## Prerequisites
+*Amazon EMR is a web service that makes it easy to process vast amounts of data 
+efficiently using Apache Hadoop and services offered by Amazon Web Services.*
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.7 or later
-- Boto3 1.11.10 or later
-- PyTest 5.3.5 or later (to run unit tests)
-- PySpark 3.0.0 or later (optional, to run Spark scripts locally)
+## Code examples
 
-## Cautions
+**Common scenarios**
+
+* [Create a long-lived cluster and run several steps](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/emr/emr_usage_demo.py)
+(`demo_long_lived_cluster`)
+* [Create a short-lived cluster and run a step](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/emr/emr_usage_demo.py)
+(`demo_short_lived_cluster`)
+* [Run an EMRFS command on a cluster](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/emr/emrfs_step.py)
+* [Run a shell script to install libraries on instances](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/emr/install_libraries.py)
+
+**API examples**
+
+* [Add steps to a job flow](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/emr/emr_basics.py)
+(`AddJobFlowSteps`)
+* [Describe a cluster](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/emr/emr_basics.py)
+(`DescribeCluster`)
+* [Describe a step](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/emr/emr_basics.py)
+(`DescribeStep`)
+* [List steps for a cluster](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/emr/emr_basics.py)
+(`ListSteps`)
+* [Run a job flow](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/emr/emr_basics.py)
+(`RunJobFlow`)
+* [Terminate job flows](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/emr/emr_basics.py)
+(`TerminateJobFlows`)
+
+## ⚠ Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -41,6 +60,18 @@ and manage clusters and job steps. Learn to accomplish the following tasks:
 - Running this code might result in charges to your AWS account.
 
 ## Running the code
+
+### Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.7 or later
+- Boto3 1.11.10 or later
+- PyTest 5.3.5 or later (to run unit tests)
+- PySpark 3.0.0 or later (optional, to run Spark scripts locally)
+
+### Command
 
 These examples show how to use Amazon EMR clusters and how to run commands
 on running cluster instances.

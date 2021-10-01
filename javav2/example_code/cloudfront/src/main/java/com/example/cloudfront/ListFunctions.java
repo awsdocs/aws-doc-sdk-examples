@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudFront]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/20/2021]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,11 +13,12 @@
 
 package com.example.cloudfront;
 
+// snippet-start:[cloudfront.java2.list.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudfront.CloudFrontClient;
 import software.amazon.awssdk.services.cloudfront.model.*;
-
 import java.util.List;
+// snippet-end:[cloudfront.java2.list.import]
 
 /**
  * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
@@ -39,6 +40,7 @@ public class ListFunctions {
 
     }
 
+    // snippet-start:[cloudfront.java2.list.main]
     public static void listAllFunctions( CloudFrontClient cloudFrontClient) {
 
        try {
@@ -59,6 +61,6 @@ public class ListFunctions {
            System.err.println(e.awsErrorDetails().errorMessage());
            System.exit(1);
        }
-
     }
+    // snippet-end:[cloudfront.java2.list.main]
 }

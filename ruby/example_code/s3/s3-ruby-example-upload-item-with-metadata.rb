@@ -30,6 +30,7 @@ def object_uploaded_with_metadata?(
 )
   response = s3_client.put_object(
     bucket: bucket_name,
+    body: "c:\\my-file.txt",
     key: object_key,
     metadata: metadata
   )

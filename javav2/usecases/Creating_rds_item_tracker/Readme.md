@@ -1,6 +1,8 @@
 #  Creating the Amazon Relational Database Service item tracker
 
-You can develop a Spring application that tracks and reports on work items by using the following AWS services:
+## Purpose
+
+You can develop a web application that tracks and reports on work items by using the following AWS services
 
 + Amazon Relational Database Service (Amazon RDS)
 + Amazon Simple Email Service (the AWS SDK for Java SDK version 2 is used to access Amazon SES)
@@ -12,13 +14,9 @@ This tutorial guides you through creating the AWS Tracker application. Once the 
 
 The following figure shows you the structure of the Java project.
 
-![AWS Tracking Application](images/JavaProject.png)
+![AWS Tracking Application](images/project0.png)
 
 **Note:** All of the Java code required to complete this tutorial is located in this GitHub repository (or you can copy the code from this tutorial).  
-
-**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re no longer charged.
 
 #### Topics
 
@@ -38,12 +36,20 @@ The following figure shows you the structure of the Java project.
 
 To complete the tutorial, you need the following:
 
-+ An AWS Account
++ An AWS account
 + A Java IDE (this tutorial uses the IntelliJ IDE)
-+ Java 1.8 JDK
++ Java JDK 1.8
 + Maven 3.6 or later
 
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
 ## Understand the AWS Tracker application
+
 The AWS Tracker application uses a model that is based on a work item and contains these attributes:
 
 + **date** - The start date of the item.
@@ -61,9 +67,10 @@ The following figure shows the login page.
 
 When a user logs into the system, they see the **Home** page.
 
-![AWS Tracking Application](images/AWSItemsAll4.png)
+![AWS Tracking Application](images/home.png)
 
 #### Application functionality
+
 A user can perform these tasks in the AWS Tracker application:
 
 + Enter an item into the system
@@ -78,7 +85,7 @@ The following figure shows the new item section.
 
 A user can retrieve *active* or *archive* items. For example, a user can choose **Get Active Items** to get a dataset that's retrieved from an Amazon RDS database and displayed in the web application.
 
-![AWS Tracking Application](images/AWSItemsAll3.png)
+![AWS Tracking Application](images/home2.png)
 
 The user can select the email recipient from the **Select Manager** list and choose **Send Report** (see the dropdown in the previous figure). Active items are queried from the database and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report.
 
@@ -108,55 +115,17 @@ The following figure shows the **work** table.
 6. Choose **Next**.
 7. Choose **Finish**.
 
-## Add the Spring POM dependencies to your project
+## Add the POM dependencies to your project
 
 At this point, you have a new project named **AWSItemTracker**.
 
-![AWS Tracking Application](images/track5.png)
-
-In the **pom.xml** file's **project** element, add the **spring-boot-starter-parent** dependency.
-
-     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
-      </parent>
-
-In the **dependencies** element, add the following Spring Boot **dependency** elements.
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-thymeleaf</artifactId>
-    </dependency>
-    <dependency>
-     <groupId>org.springframework.boot</groupId>
-     <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-     <groupId>org.springframework.boot</groupId>
-     <artifactId>spring-boot-starter-test</artifactId>
-     <scope>test</scope>
-      <exclusions>
-       <exclusion>
-        <groupId>org.junit.vintage</groupId>
-        <artifactId>junit-vintage-engine</artifactId>
-       </exclusion>
-      </exclusions>
-    </dependency>
-
-Add the following dependency for the Amazon SES API (AWS SDK for Java version 2).
-
- 	<dependency>
-          <groupId>software.amazon.awssdk</groupId>
-          <artifactId>ses</artifactId>
-          <version>2.10.41</version>
-        </dependency>
+![AWS Tracking Application](images/project.png)
 
 **Note:** Ensure that you are using Java 1.8 (as shown below).
 
 Ensure that the **pom.xml** file looks like the following.
 
+```xml
      <?xml version="1.0" encoding="UTF-8"?>
      <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -326,17 +295,17 @@ Ensure that the **pom.xml** file looks like the following.
         </plugins>
       </build>
      </project>
-
+```
 
 ## Set up the Java packages in your project
 
 Create a Java package in the **main/java** folder named **com.aws**.
 
-![AWS Tracking Application](images/track6.png)
+![AWS Tracking Application](images/project1.png)
 
 The Java files go into the following subpackages.
 
-![AWS Tracking Application](images/newtrack7_1.png)
+![AWS Tracking Application](images/project2.png)
 
 These packages contain the following:
 
@@ -359,6 +328,7 @@ Create a Java package named **com.aws.securingweb**. Next, create these classes 
 #### SecuringWebApplication class
 The following Java code represents the **SecuringWebApplication** class. This is the entry point into a Spring boot application. Create this class in the **com.aws** package. 
 
+```java
     package com.aws;
 
     import org.springframework.boot.SpringApplication;
@@ -371,10 +341,12 @@ The following Java code represents the **SecuringWebApplication** class. This is
         SpringApplication.run(SecuringWebApplication.class, args);
      }
     }
+```
 
 #### WebSecurityConfig class
 The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application. Create this class in the **com.aws.securingweb** package. 
 
+```java
     package com.aws.securingweb;
 
     import org.springframework.context.annotation.Bean;
@@ -429,17 +401,16 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
         return new BCryptPasswordEncoder();
     }
     }
-
+```
 **Note**: In this example, the user credentials to log into the application are **user** and **password**.  
 
 ### Create the main controller class
 
 In the **com.aws.securingweb** package, create the controller class named **MainController**. This class handles the HTTP requests. For example, when a POST operation is made, the **MainController** handles the request and returns a dataset that is displayed in the view. The dataset is obtained from the MySQL database located in the AWS Cloud.
 
-**Note:** In this application, the **XMLHttpRequest** object's **send()** method is used to invoke controller methods. The syntax of the this method is shown later in this tutorial.
-
 The following Java code represents the **MainController** class.
 
+```java
     package com.aws.securingweb;
 
     import com.aws.entities.WorkItem;
@@ -495,19 +466,19 @@ The following Java code represents the **MainController** class.
     @Autowired
     RetrieveItems ri ;
 
-    // Adds a new item to the database
+    // Adds a new item to the database.
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     String addItems(HttpServletRequest request, HttpServletResponse response) {
 
-        //Get the Logged in User
+        //Get the Logged in User.
         String name = getLoggedUser();
 
         String guide = request.getParameter("guide");
         String description = request.getParameter("description");
         String status = request.getParameter("status");
 
-        // Create a Work Item object to pass to the injestNewSubmission method
+        // Create a Work Item object to pass to the injestNewSubmission method.
         WorkItem myWork = new WorkItem();
         myWork.setGuide(guide);
         myWork.setDescription(description);
@@ -518,7 +489,7 @@ The following Java code represents the **MainController** class.
         return "Item added";
     }
 
-    // Builds and emails a report
+    // Builds and emails a report.
     @RequestMapping(value = "/report", method = RequestMethod.POST)
     @ResponseBody
     String getReport(HttpServletRequest request, HttpServletResponse response) {
@@ -540,7 +511,7 @@ The following Java code represents the **MainController** class.
         return "Report is created";
      }
 
-     // Archives a work item
+     // Archives a work item.
      @RequestMapping(value = "/archive", method = RequestMethod.POST)
      @ResponseBody
      String archieveWorkItem(HttpServletRequest request, HttpServletResponse response) {
@@ -549,7 +520,7 @@ The following Java code represents the **MainController** class.
         return id ;
      }
 
-     // Modifies the value of a work item
+     // Modifies the value of a work item.
      @RequestMapping(value = "/changewi", method = RequestMethod.POST)
      @ResponseBody
      String changeWorkItem(HttpServletRequest request, HttpServletResponse response) {
@@ -560,7 +531,7 @@ The following Java code represents the **MainController** class.
         return value;
      }
 
-     // Retrieve all items for a given user
+     // Retrieve all items for a given user.
      @RequestMapping(value = "/retrieve", method = RequestMethod.POST)
      @ResponseBody
      String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
@@ -581,7 +552,7 @@ The following Java code represents the **MainController** class.
         }
       }
 
-     // Returns a work item to modify
+     // Returns a work item to modify.
      @RequestMapping(value = "/modify", method = RequestMethod.POST)
      @ResponseBody
      String modifyWork(HttpServletRequest request, HttpServletResponse response) {
@@ -592,20 +563,19 @@ The following Java code represents the **MainController** class.
 
      private String getLoggedUser() {
 
-        // Get the logged-in Useruser
+        // Get the logged-in user.
         org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String name = user2.getUsername();
         return name;
     }
     }
+```
 
 ### Create the WorkItem class
 
 Create a Java package named **com.aws.entities**. Next, create a class, named **WorkItem**, that represents the application model.  
 
-#### WorkItem class
-The following Java code represents the **WorkItem** class.
-
+```java
     package com.aws.entities;
 
     public class WorkItem {
@@ -665,6 +635,7 @@ The following Java code represents the **WorkItem** class.
       return this.guide;
       }
      }
+```
 
 ### Create the JDBC Classes
 
@@ -680,6 +651,7 @@ Create a Java package named **com.aws.jdbc**. Next, create these Java classes th
 
 The following Java code represents the **ConnectionHelper** class.
 
+```java
     package com.aws.jdbc;
 
     import java.sql.Connection;
@@ -719,6 +691,7 @@ The following Java code represents the **ConnectionHelper** class.
         }
       }
      }
+```
 
 **Note:** The **URL** value is **localhost:3306**. This value is modified after the RDS instance is created. The AWS Tracker application uses this URL to communicate with the database. You must also ensure that you specify the user name and password for your RDS instance.
 
@@ -726,6 +699,7 @@ The following Java code represents the **ConnectionHelper** class.
 
 The following Java code represents the **InjectWorkService** class.
 
+```java
     package com.aws.jdbc;
 
     import java.sql.Connection;
@@ -743,7 +717,7 @@ The following Java code represents the **InjectWorkService** class.
     @Component
     public class InjectWorkService {
 
-      // Inject a new submission
+      // Inject a new submission.
       public String modifySubmission(String id, String desc, String status) {
 
 	Connection c = null;
@@ -751,10 +725,10 @@ The following Java code represents the **InjectWorkService** class.
 
 	try {
 
-	  // Create a Connection object
+	  // Create a Connection object.
           c = ConnectionHelper.getConnection();
 
-          // Use prepared statements
+          // Use prepared statements.
           PreparedStatement ps = null;
 
           String query = "update work set description = ?, status = ? where idwork = '" +id +"'";
@@ -771,7 +745,7 @@ The following Java code represents the **InjectWorkService** class.
         return null;
     }
 
-    // Inject a new submission
+    // Inject a new submission.
     public String injestNewSubmission(WorkItem item) {
 
        Connection c = null;
@@ -784,13 +758,13 @@ The following Java code represents the **InjectWorkService** class.
          // Use a prepared statement
          PreparedStatement ps = null;
 
-        // Convert rev to int
+        // Convert rev to int.
         String name = item.getName();
         String guide = item.getGuide();
         String description = item.getDescription();
         String status = item.getStatus();
 
-        // Generate the work item ID
+        // Generate the work item ID.
         UUID uuid = UUID.randomUUID();
         String workId = uuid.toString();
 
@@ -802,7 +776,7 @@ The following Java code represents the **InjectWorkService** class.
         Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(sDate1);
         java.sql.Date sqlDate = new java.sql.Date( date1.getTime());
 
-        // Inject an item into the system
+        // Inject an item into the system.
         String insert = "INSERT INTO work (idwork, username,date,description, guide, status, archive) VALUES(?,?, ?,?,?,?,?);";
         ps = c.prepareStatement(insert);
         ps.setString(1, workId);
@@ -823,11 +797,13 @@ The following Java code represents the **InjectWorkService** class.
         return null;
       }
     }
+```
 
 #### RetrieveItems class
 
 The following Java code represents the **RetrieveItems** class.
 
+```java
     package com.aws.jdbc;
 
     import java.io.StringWriter;
@@ -863,18 +839,18 @@ The following Java code represents the **RetrieveItems** class.
 
         try {
 
-	    // Create a Connection object
+	    // Create a Connection object.
             c = ConnectionHelper.getConnection();
 
             ResultSet rs = null;
             Statement s = c.createStatement();
             Statement scount = c.createStatement();
 
-            // Use prepared statements
+            // Use prepared statements.
             PreparedStatement pstmt = null;
             PreparedStatement ps = null;
 
-            // Specify the SQL statement to query data
+            // Specify the SQL statement to query data.
             query = "update work set archive = ? where idwork ='" +id + "' ";
 
             PreparedStatement updateForm = c.prepareStatement(query);
@@ -890,19 +866,19 @@ The following Java code represents the **RetrieveItems** class.
     }
 
 
-    // Retrieves archive data from the MySQL database
+    // Retrieves archive data from the MySQL database.
     public String getArchiveData(String username) {
 
         Connection c = null;
 
-        // Define a list in which work items are stored
+        // Define a list in which work items are stored.
         List<WorkItem> itemList = new ArrayList<WorkItem>();
         int rowCount = 0;
         String query = "";
         WorkItem item = null;
 
         try {
-            // Create a Connection object
+            // Create a Connection object.
             c = ConnectionHelper.getConnection();
 
             ResultSet rs = null;
@@ -915,7 +891,7 @@ The following Java code represents the **RetrieveItems** class.
 
             int arch = 1;
 
-            // Specify the SQL statement to query data
+            // Specify the SQL statement to query data.
             query = "Select idwork,username,date,description,guide,status FROM work where username = '" +username +"' and archive = " +arch +"";
             pstmt = c.prepareStatement(query);
             rs = pstmt.executeQuery();
@@ -946,18 +922,18 @@ The following Java code represents the **RetrieveItems** class.
         return null;
     }
 
-    // Retrieves an item based on the ID
+    // Retrieves an item based on the ID.
     public String getItemSQL(String id ) {
 
         Connection c = null;
 
-        // Define a list in which all work items are stored
+        // Define a list in which all work items are stored.
         String query = "";
         String status="" ;
         String description="";
 
         try {
-            // Create a Connection object
+            // Create a Connection object.
             c = ConnectionHelper.getConnection();
 
             ResultSet rs = null;
@@ -1000,14 +976,14 @@ The following Java code represents the **RetrieveItems** class.
         WorkItem item = null;
 
         try {
-            // Create a Connection object
+            // Create a Connection object.
             c = ConnectionHelper.getConnection();
 
             ResultSet rs = null;
             Statement s = c.createStatement();
             Statement scount = c.createStatement();
 
-            // Use prepared statements
+            // Use prepared statements.
             PreparedStatement pstmt = null;
             PreparedStatement ps = null;
 
@@ -1177,8 +1153,7 @@ The following Java code represents the **RetrieveItems** class.
     }
 
 
-       // Convert Work item data retrieved from MySQL
-       // into an XML schema to pass back to client
+       // Convert Work item data retrieved from MySQL into an XML schema to pass back to client.
        private Document toXmlItem(String id2, String desc2, String status2) {
 
         try {
@@ -1216,6 +1191,7 @@ The following Java code represents the **RetrieveItems** class.
         return null;
       }
      }
+```
 
 ### Create the service classes
 
@@ -1229,6 +1205,7 @@ The **SendMessage** class uses the AWS SDK for Java V2 SES API to send an email 
 
 The following Java code represents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials.
 
+```java
     package com.aws.services;
 
     import org.apache.commons.io.IOUtils;
@@ -1259,7 +1236,7 @@ The following Java code represents the **SendMessage** class. Notice that an **E
     @Component
     public class SendMessages {
 
-     private String sender = "tblue@nomailserver.com";
+     private String sender = "<ENTER A VALID SEND EMAIL ADDRESS>";
 
      // The subject line for the email
      private String subject = "Weekly AWS Status Report";
@@ -1374,6 +1351,7 @@ The following Java code represents the **SendMessage** class. Notice that an **E
         System.out.println("Email sent with attachment");
       }
      }
+```
 
 **Note:** Update the email **sender** address with a verified email address; otherwise, the email is not sent. For information, see [Verifying email addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).       
 
@@ -1381,6 +1359,7 @@ The following Java code represents the **SendMessage** class. Notice that an **E
 
 The **WriteExcel** class dynamically creates an Excel report with the MySQL data marked as active. The following code represents this class.
 
+```java
     package com.aws.services;
 
     import jxl.CellView;
@@ -1551,6 +1530,7 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
         return count;
      }
     }
+```
 
 ## Create the HTML files
 
@@ -1568,6 +1548,7 @@ The **login.html** file is the login page where a user logs into the application
 
 The following HTML code represents the login form.
 
+```html
     	<!DOCTYPE html>
 	<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
         xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
@@ -1664,11 +1645,13 @@ The following HTML code represents the login form.
 
        </body>
       </html>
+```
 
 #### index.html
 
 The following HTML code represents the **index.html** file. This file represents the application's home view.
 
+```html
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
@@ -1709,11 +1692,13 @@ The following HTML code represents the **index.html** file. This file represents
     <div>
     </body>
     </html>
-
+```
+	     
 #### add.html
 
 The following code represents the **add.html** file that enables users to add new items.
 
+```html
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<html>
 	<head>
@@ -1765,11 +1750,13 @@ The following code represents the **add.html** file that enables users to add ne
 	</div>
 	</body>
 	</html>
-
+```
+		
 #### items.html
 
 The following code represents the **items.html** file. This file enables users to modify items and send reports.
 
+```html
 	<!DOCTYPE html>
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<html>
@@ -1836,7 +1823,7 @@ The following code represents the **items.html** file. This file enables users t
 
     </div>
     <br>
-    <div class="container">
+    <div id="modform" class="container">
 
     <h3>Modify an Item</h3>
     <p>You can modify items.</p>
@@ -2009,12 +1996,14 @@ The following code represents the **items.html** file. This file enables users t
 
 	</body>
 	</html>
-
+```
 **Note:** Replace the default email addresses with real email addresses in this file.
+
 #### layout.html
 
 The following code represents the **layout.html** file that represents the application's menu.
 
+```html
 	<!DOCTYPE html>
 	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<head th:fragment="site-head">
@@ -2026,8 +2015,7 @@ The following code represents the **layout.html** file that represents the appli
 	<body>
 	<!-- th:hef calls a controller method - which returns the view -->
 	<header th:fragment="site-header">
-    	<a href="index.html" th:href="@{/}"><img src="../public/img/site-logo.png" th:src="@{/img/site-logo.png}" /></a>
-    	<a href="#" style="color: white" th:href="@{/}">Home</a>
+      	<a href="#" style="color: white" th:href="@{/}">Home</a>
     	<a href="#" style="color: white" th:href="@{/add}">Add Items</a>
     	<a href="#"  style="color: white" th:href="@{/items}">Get Items</a>
     	<div id="logged-in-info">
@@ -2042,16 +2030,8 @@ The following code represents the **layout.html** file that represents the appli
 	<p>Welcome to  AWS Item Tracker.</p>
 	</body>
 	</html>
-
-#### To create the HTML files
-
-1. In the **resources** folder, create a folder named **templates**.  
-2. In the **templates** folder, create the **login.html** file and paste the HTML code into this file.
-3. In the **templates** folder, create the **index.html** file and paste the HTML code into this file.
-4. In the **templates** folder, create the **add.html** file and paste the HTML code into this file.
-5. In the **templates** folder, create the **items.html** file and paste the HTML code into this file.
-6. In the **templates** folder, create the **layout.html** file and paste the HTML code into this file.
-
+```
+		
 ## Create script files
 
 Both the **add** and **items** views use script files to communicate with the Spring controller. You have to ensure that these files are part of your project; otherwise, your application doesn’t work.
@@ -2065,23 +2045,23 @@ Both files contain application logic that sends a request to the Spring MainCont
 
 The following JavaScript code represents the **items.js** file that is used in the **items.html** view.
 
-	$(function() {
+```javascript
+     $(function() {
 
-    	$( "#dialogtemplate2" ).dialog();
-
-    	$('#myTable').DataTable( {
-         scrollY:        "500px",
-         scrollX:        true,
-         scrollCollapse: true,
-         paging:         true,
-         columnDefs: [
+      $( "#dialogtemplate2" ).dialog();
+      $('#myTable').DataTable( {
+        scrollY:        "500px",
+        scrollX:        true,
+        scrollCollapse: true,
+        paging:         true,
+        columnDefs: [
             { width: 200, targets: 0 }
         ],
         fixedColumns: true
-    } );
+     } );
 
-    var table = $('#myTable').DataTable();
-    $('#myTable tbody').on( 'click', 'tr', function () {
+     var table = $('#myTable').DataTable();
+     $('#myTable tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
         }
@@ -2089,309 +2069,293 @@ The following JavaScript code represents the **items.js** file that is used in t
             table.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
         }
-    } );
+     } );
 
 
-    //Disable the reportbutton
-    $('#reportbutton').prop("disabled",true);
-    $('#reportbutton').css("color", "#0d010d");
+     // Disable the reportbutton
+     $('#reportbutton').prop("disabled",true);
+     $('#reportbutton').css("color", "#0d010d");
+    });
 
-     });
 
+    function modItem() {
+        var id = $('#id').val();
+        var description = $('#description').val();
+        var status = $('#status').val();
 
-    function modItem()
-    {
-
-    var id = $('#id').val();
-    var description = $('#description').val();
-    var status = $('#status').val();
-
-    if (id == "")
-        {
+        if (id == "") {
             alert("Please select an item from the table");
             return;
         }
 
-    if (description.length > 350)
-        {
+        if (description.length > 350) {
             alert("Description has too many characters");
             return;
         }
 
-    //var status = $("textarea#status").val();
-    if (status.length > 350)
-        {
+        if (status.length > 350) {
             alert("Status has too many characters");
             return;
         }
 
-        //invokes the getMyForms POST operation
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", loadMods, false);
-        xhr.open("POST", "../changewi", true);   //buildFormit -- a Spring MVC controller
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-        xhr.send("id=" + id + "&description=" + description+ "&status=" + status);
-    }
+     $.ajax('/changewi', {
+        type: 'POST',
+        data: 'id=' + id + '&description=' + description+ '&status=' + status,
+        success: function (data, status, xhr) {
 
+            var msg = event.target.responseText;
+            alert("You have successfully modfied item "+msg)
 
-     // Handler for the changewi call
-     function loadMods(event) {
+            $('#id').val("");
+            $('#description').val("");
+            $('#status').val("");
 
-    var msg = event.target.responseText;
-    alert("You have successfully modified item "+msg)
+            //Refresh the grid.
+            GetItems();
 
-    $('#id').val("");
-    $('#description').val("");
-    $('#status').val("");
-
-    // Refresh the grid
-    GetItems();
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+      });
      }
-
-    // Populate the table with work items
+ 
+    // Populate the table with work items.
     function GetItems() {
+     var type="active";
 
-    var xhr = new XMLHttpRequest();
-    var type="active";
-    xhr.addEventListener("load", loadItems, false);
-    xhr.open("POST", "../retrieve", true);   //buildFormit -- a Spring MVC controller
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-    xhr.send("type=" + type);
-    }
+     $.ajax('/retrieve', {
+        type: 'POST',
+        data: 'type=' + type,
+        success: function (data, status, xhr) {
 
-    // Handler for the GetItems call
-    // This will populate the Data Table widget
-    function loadItems(event) {
+            // Enable the buttons.
+            $('#singlebutton').prop("disabled",false);
+            $('#updatebutton').prop("disabled",false);
+            $('#reportbutton').prop("disabled",false);
+            $('#reportbutton').css("color", "#FFFFFF");
+            $('#singlebutton').css("color", "#FFFFFF");
+            $('#updatebutton').css("color", "#FFFFFF");
+            $('#archive').prop("disabled",false);
+            $('#archive').css("color", "#FFFFFF");
 
-    // Enable the reportbutton
-    $('#reportbutton').prop("disabled",false);
-    $('#reportbutton').css("color", "#FFFFFF");
+            $("#modform").show();
 
-    // Refresh the URL for Form Preview
-    var xml = event.target.responseText;
-    var oTable = $('#myTable').dataTable();
-    oTable.fnClearTable(true);
+            var xml = data;
+            var oTable = $('#myTable').dataTable();
+            oTable.fnClearTable(true);
 
-    $(xml).find('Item').each(function () {
+            $(xml).find('Item').each(function () {
 
-        var $field = $(this);
-        var id = $field.find('Id').text();
-        var name = $field.find('Name').text();
-        var guide = $field.find('Guide').text();
-        var date = $field.find('Date').text();
-        var description = $field.find('Description').text();
-        var status = $field.find('Status').text();
+                var $field = $(this);
+                var id = $field.find('Id').text();
+                var name = $field.find('Name').text();
+                var guide = $field.find('Guide').text();
+                var date = $field.find('Date').text();
+                var description = $field.find('Description').text();
+                var status = $field.find('Status').text();
 
-        // Set the new data
-        oTable.fnAddData( [
-            id,
-            name,
-            guide,
-            date,
-            description,
-            status,,]
-        );
-    });
+                //Set the new data.
+                oTable.fnAddData( [
+                    id,
+                    name,
+                    guide,
+                    date,
+                    description,
+                    status,,]
+                );
+             });
 
-    document.getElementById("info3").innerHTML = "Active Items";
-    }
+            document.getElementById("info3").innerHTML = "Active Items";
 
+          },
+          error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+         }
+        });
+       }
 
-    function ModifyItem() {
-
-    var table = $('#myTable').DataTable();
-    var myId="";
-    var arr = [];
-    $.each(table.rows('.selected').data(), function() {
+     function ModifyItem() {
+      var table = $('#myTable').DataTable();
+      var myId="";
+      var arr = [];
+      $.each(table.rows('.selected').data(), function() {
 
         var value = this[0];
         myId = value;
-    });
+      });
 
-    if (myId == "")
-    {
+      if (myId == "") {
         alert("You need to select a row");
         return;
-    }
+     }
 
-    // Need to check its not an Archive item
-    var h3Val =  document.getElementById("info3").innerHTML;
-    if (h3Val=="Archive Items")
-    {
+     //Need to check its not an Archive item.
+     var h3Val =  document.getElementById("info3").innerHTML;
+     if (h3Val=="Archive Items") {
         alert("You cannot modify an Archived item");
         return;
-    }
+      }
 
+      $.ajax('/modify', {
+        type: 'POST',
+        data: 'id=' + myId,
+        success: function (data, status, xhr) {
 
-    // Post to modify
-    var xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", onModifyLoad, false);
-    xhr.open("POST", "../modify", true);   //buildFormit -- a Spring MVC controller
-    xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");//necessary
-    xhr.send("id=" + myId);
+            var xml = data;
+            $(xml).find('Item').each(function () {
+
+                var $field = $(this);
+                var id = $field.find('Id').text();
+                var description = $field.find('Description').text();
+                var status = $field.find('Status').text();
+
+                //Set the fields
+                $('#id').val(id);
+                $('#description').val(description);
+                $('#status').val(status);
+            });
+          },
+          error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+          }
+        });
+      }
+
+     function Report() {
+     var email = $('#manager option:selected').text();
+     $.ajax('/report', {
+        type: 'POST',
+        data: 'email=' + email,
+        success: function (data, status, xhr) {
+            alert(data);
+
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+      });
      }
 
 
-     //Handler for the ModifyItem call
-     function onModifyLoad(event) {
+    function GetArcItems() {
+     var type="archive";
+     $.ajax('/retrieve', {
+        type: 'POST',
+        data: 'type=' + type,
+        success: function (data, status, xhr) {
+            // Disable buttons when Achive button
+            $('#reportbutton').prop("disabled", true);
+            $('#reportbutton').css("color", "#0d010d");
+            $('#singlebutton').prop("disabled", true);
+            $('#singlebutton').css("color", "#0d010d");
+            $('#updatebutton').prop("disabled", true);
+            $('#updatebutton').css("color", "#0d010d");
+            $('#archive').prop("disabled", true);
+            $('#archive').css("color", "#0d010d");
 
-     var xml = event.target.responseText;
-     $(xml).find('Item').each(function () {
+            $("#modform").hide();
 
-        var $field = $(this);
-        var id = $field.find('Id').text();
-        var description = $field.find('Description').text();
-        var status = $field.find('Status').text();
+            var xml = event.target.responseText;
+            var oTable = $('#myTable').dataTable();
+            oTable.fnClearTable(true);
 
-        // Set the fields
-        $('#id').val(id);
-        $('#description').val(description);
-        $('#status').val(status);
+            $(xml).find('Item').each(function () {
 
-    });
-    }
+                var $field = $(this);
+                var id = $field.find('Id').text();
+                var name = $field.find('Name').text();
+                var guide = $field.find('Guide').text();
+                var date = $field.find('Date').text();
+                var description = $field.find('Description').text();
+                var status = $field.find('Status').text();
 
+                //Set the new data.
+                oTable.fnAddData([
+                    id,
+                    name,
+                    guide,
+                    date,
+                    description,
+                    status, ,]
+                 );
+              });
 
-    function Report() {
+             document.getElementById("info3").innerHTML = "Archive Items";
+           },
+           error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+         }
+        });
+       }
 
-        var email = $('#manager option:selected').text();
+      function archiveItem() {
+       var table = $('#myTable').DataTable();
+       var myId="";
+       var arr = [];
+       $.each(table.rows('.selected').data(), function() {
+         var value = this[0];
+         myId = value;
+      });
 
-        // Post to report
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", onReport, false);
-        xhr.open("POST", "../report", true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-        xhr.send("email=" + email);
-    }
+      if (myId == "") {
+        alert("You need to select a row");
+        return;
+      }
 
-	function onReport(event) {
-         var data = event.target.responseText;
-         alert(data);
-     }
+      $.ajax('/archive', {
+        type: 'POST',
+        data: 'id=' + myId,
+        success: function (data, status, xhr) {
+            alert("Item " + data + " is achived now");
+            //Refresh the grid
+            GetItems();
 
-	function GetArcItems()
-	{
-
-    	var xhr = new XMLHttpRequest();
-   	var type="archive";
-
-    	xhr.addEventListener("load", loadArcItems, false);
-    	xhr.open("POST", "../retrieve", true);   //buildFormit -- a Spring MVC controller
-    	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-    	xhr.send("type=" + type);
-	}
-
-	//Handler for the Report call
-	function loadArcItems(event) {
-
-    	// Enable the report button
-    	$('#reportbutton').prop("disabled",true);
-    	$('#reportbutton').css("color", "#0d010d");
-
-    	// Refresh the URL for Form Preview
-    	var xml = event.target.responseText;
-    	var oTable = $('#myTable').dataTable();
-    	oTable.fnClearTable(true);
-
-    	$(xml).find('Item').each(function () {
-
-        	var $field = $(this);
-        	var id = $field.find('Id').text();
-        	var name = $field.find('Name').text();
-        	var guide = $field.find('Guide').text();
-        	var date = $field.find('Date').text();
-        	var description = $field.find('Description').text();
-        	var status = $field.find('Status').text();
-
-        	// Set the new data
-        	oTable.fnAddData( [
-            		id,
-            		name,
-            		guide,
-            		date,
-            		description,
-            		status,,]
-        		);
-    		});
-
-    		document.getElementById("info3").innerHTML = "Archive Items";
-		}
-
-	function archiveItem()
-	{
-    	var table = $('#myTable').DataTable();
-    	var myId="";
-    	var arr = [];
-    	$.each(table.rows('.selected').data(), function() {
-
-        	var value = this[0];
-        	myId = value;
-    	});
-
-    	if (myId == "")
-    	 {
-         alert("You need to select a row");
-         return;
-      	}
-
-    	// Post to modify
-    	var xhr = new XMLHttpRequest();
-    	xhr.addEventListener("load", onArch, false);
-    	xhr.open("POST", "../archive", true);   //buildFormit -- a Spring MVC controller
-    	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");//necessary
-    	xhr.send("id=" + myId);
-	}
-
-
-	// Handler for the uploadSave call
-	function onArch(event) {
-
-    	var xml = event.target.responseText;
-    	alert("Item "+xml +" is archived now");
-    	//Refresh the grid
-    	GetItems();
-	}
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+       });
+      }
+```
 
  #### contact_me.js file
 
 The following JavaScript code represents the **contact_me.js** file that is used in the **add.html** view.
 
+```javascript
 	$(function() {
 
-	    $("#SendButton" ).click(function($e) {
+        $("#SendButton" ).click(function($e) {
 
-            var guide = $('#guide').val();
-            var description = $('#description').val();
-            var status = $('#status').val();
+          var guide = $('#guide').val();
+          var description = $('#description').val();
+          var status = $('#status').val();
 
-            if (description.length > 350)
-       	    {
+          if (description.length > 350) {
             alert("Description has too many characters");
             return;
-            }
+          }
 
-          if (status.length > 350)
-        {
+          if (status.length > 350) {
             alert("Status has too many characters");
             return;
-        }
+          }
 
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", loadNewItems, false);
-        xhr.open("POST", "../add", true);   
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-        xhr.send("guide=" + guide + "&description=" + description+ "&status=" + status);
-    } );// END of the Send button click
+          $.ajax('/add', {
+            type: 'POST',
+            data: 'guide=' + guide + '&description=' + description+ '&status=' + status,
+            success: function (data, status, xhr) {
 
-    // Handler for the click SendButton call
-    function loadNewItems(event) {
-
-        var msg = event.target.responseText;
-        alert("You have successfully added item "+msg)
-
-    	}
-
-      });
+                alert("You have successfully added item "+data)
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                $('p').append('Error' + errorMessage);
+            }
+           });
+          } );
+         } );
+```
 
 **Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the resources folder are included in your project.
 
@@ -2518,7 +2482,7 @@ Package up the project into a .jar (JAR) file that you can deploy to Elastic Bea
 
 The JAR file is located in the target folder.
 
-![AWS Tracking Application](images/AWT5png.png)
+![AWS Tracking Application](images/jarlocation.png)
 
 The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file which includes the dependencies. (Without the dependencies, the application does not run on Elastic Beanstalk.) For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
 

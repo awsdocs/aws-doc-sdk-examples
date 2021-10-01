@@ -3,32 +3,27 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use s3::{ByteStream, Client, Config, Region};
-
-use aws_types::region::ProvideRegion;
-
-use structopt::StructOpt;
-
-use std::error::Error;
+use aws_config::meta::region::RegionProviderChain;
+use aws_sdk_s3::{ByteStream, Client, Error, Region, PKG_VERSION};
 use std::path::Path;
-use tracing_subscriber::fmt::format::FmtSpan;
-use tracing_subscriber::fmt::SubscriberBuilder;
+use std::process;
+use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The region. Overrides environment variable AWS_DEFAULT_REGION.
+    /// The AWS Region.
     #[structopt(short, long)]
-    default_region: Option<String>,
+    region: Option<String>,
 
-    /// Specifies the bucket
+    /// The name of the bucket.
     #[structopt(short, long)]
     bucket: String,
 
-    /// Specifies the object in the bucket
+    /// The name of the object in the bucket.
     #[structopt(short, long)]
     key: String,
 
-    /// Whether to display additional runtime information
+    /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
@@ -37,61 +32,74 @@ struct Opt {
 /// # Arguments
 ///
 /// * `-b BUCKET` - The bucket to which the file is uploaded.
-/// * `-k KEY` - The file to upload to the bucket.
-/// * `[-d DEFAULT-REGION]` - The region in which the client is created.
-///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+/// * `-k KEY` - The name of the file to upload to the bucket.
+/// * `[-r REGION]` - The Region in which the client is created.
+///    If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn Error>> {
+async fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt::init();
+
     let Opt {
         bucket,
-        default_region,
+        region,
         key,
         verbose,
     } = Opt::from_args();
 
-    let region = default_region
-        .as_ref()
-        .map(|region| Region::new(region.clone()))
-        .or_else(|| aws_types::region::default_provider().region())
-        .unwrap_or_else(|| Region::new("us-west-2"));
+    let region_provider = RegionProviderChain::first_try(region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
+
+    println!();
 
     if verbose {
-        println!("S3 client version: {}\n", s3::PKG_VERSION);
-        println!("Region:            {:?}", &region);
-        println!("Bucket:            {}", bucket);
-        println!("Key:               {}", key);
-
-        SubscriberBuilder::default()
-            .with_env_filter("info")
-            .with_span_events(FmtSpan::CLOSE)
-            .init();
+        println!("S3 client version: {}", PKG_VERSION);
+        println!(
+            "Region:            {}",
+            region_provider.region().await.unwrap().as_ref()
+        );
+        println!("Bucket:            {}", &bucket);
+        println!("Key:               {}", &key);
+        println!();
     }
 
-    let conf = Config::builder().region(region).build();
-    let client = Client::from_conf(conf);
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
+    let client = Client::new(&shared_config);
 
     let resp = client.list_buckets().send().await?;
 
     for bucket in resp.buckets.unwrap_or_default() {
-        println!("bucket: {:?}", bucket.name.expect("buckets have names"))
+        println!("bucket: {:?}", bucket.name.as_deref().unwrap_or_default())
     }
 
-    let body = ByteStream::from_path(Path::new("Cargo.toml")).await?;
+    println!();
 
-    let resp = client
-        .put_object()
-        .bucket(&bucket)
-        .key(&key)
-        .body(body)
-        .send()
-        .await?;
+    let body = ByteStream::from_path(Path::new("Cargo.toml")).await;
 
-    println!("Upload success. Version: {:?}", resp.version_id);
+    match body {
+        Ok(b) => {
+            let resp = client
+                .put_object()
+                .bucket(&bucket)
+                .key(&key)
+                .body(b)
+                .send()
+                .await?;
 
-    let resp = client.get_object().bucket(bucket).key(key).send().await?;
-    let data = resp.body.collect().await?;
-    println!("data: {:?}", data.into_bytes());
+            println!("Upload success. Version: {:?}", resp.version_id);
+
+            let resp = client.get_object().bucket(bucket).key(key).send().await?;
+            let data = resp.body.collect().await;
+            println!("data: {:?}", data.unwrap().into_bytes());
+        }
+        Err(e) => {
+            println!("Got an error DOING SOMETHING:");
+            println!("{}", e);
+            process::exit(1);
+        }
+    }
+
     Ok(())
 }

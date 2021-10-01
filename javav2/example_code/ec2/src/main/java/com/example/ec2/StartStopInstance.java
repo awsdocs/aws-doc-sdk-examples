@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/01/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -31,9 +31,9 @@ public class StartStopInstance {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "StartStopInstance <instanceId>\n\n" +
+                "   <instanceId>\n\n" +
                 "Where:\n" +
-                "    instanceId - an instance id value that you can obtain from the AWS Console. \n\n" ;
+                "   instanceId - an instance id value that you can obtain from the AWS Console. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -70,10 +70,9 @@ public class StartStopInstance {
                 .build();
 
         ec2.startInstances(request);
-
-        // snippet-end:[ec2.java2.start_stop_instance.start]
         System.out.printf("Successfully started instance %s", instanceId);
     }
+    // snippet-end:[ec2.java2.start_stop_instance.start]
 
     // snippet-start:[ec2.java2.start_stop_instance.stop]
     public static void stopInstance(Ec2Client ec2, String instanceId) {
@@ -83,9 +82,8 @@ public class StartStopInstance {
                 .build();
 
         ec2.stopInstances(request);
-
-        // snippet-end:[ec2.java2.start_stop_instance.stop]
-        System.out.printf("Successfully stop instance %s", instanceId);
+        System.out.printf("Successfully stopped instance %s", instanceId);
     }
+    // snippet-end:[ec2.java2.start_stop_instance.stop]
 }
 

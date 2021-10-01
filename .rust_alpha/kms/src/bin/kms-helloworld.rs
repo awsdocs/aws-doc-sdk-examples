@@ -4,19 +4,13 @@
  */
 
 use aws_hyper::StandardClient;
-use kms::operation::GenerateRandom;
-use kms::Region;
-use tracing_subscriber::fmt::format::FmtSpan;
-use tracing_subscriber::fmt::SubscriberBuilder;
+use aws_sdk_kms::operation::GenerateRandom;
+use aws_sdk_kms::{Config, Region};
 
 /// Creates a random byte string that is cryptographically secure in __us-east-1__.
 #[tokio::main]
 async fn main() {
-    SubscriberBuilder::default()
-        .with_env_filter("info")
-        .with_span_events(FmtSpan::CLOSE)
-        .init();
-    let config = kms::Config::builder()
+    let config = Config::builder()
         // region can also be loaded from AWS_DEFAULT_REGION, just remove this line.
         .region(Region::new("us-east-1"))
         // creds loaded from environment variables, or they can be hard coded.

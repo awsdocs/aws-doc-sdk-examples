@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -37,7 +37,7 @@ public class CreateUser {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateUser <username> \n\n" +
+                "    <username> \n\n" +
                 "Where:\n" +
                 "    username - the name of the user to create. \n\n" ;
 

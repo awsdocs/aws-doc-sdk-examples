@@ -24,8 +24,7 @@ $(function() {
         }
     } );
 
-
-    // Disable the reportbutton
+    // Disable the report button.
     $('#reportbutton').prop("disabled",true);
     $('#reportbutton').css("color", "#0d010d");
 
@@ -56,80 +55,81 @@ function modItem()
             return;
         }
 
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", loadMods, false);
-        xhr.open("POST", "../changewi", true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-        xhr.send("id=" + id + "&description=" + description+ "&status=" + status);
-    }
+    $.ajax('/changewi', {
+        type: 'POST',
+        data: 'id=' + id + '&description=' + description+ '&status=' + status,
+        success: function (data, status, xhr) {
 
-function loadMods(event) {
+            var msg = event.target.responseText;
+            alert("You have successfully modfied item "+msg)
 
-    var msg = event.target.responseText;
-    alert("You have successfully modified item "+msg)
+            $('#id').val("");
+            $('#description').val("");
+            $('#status').val("");
 
-    $('#id').val("");
-    $('#description').val("");
-    $('#status').val("");
+            //Refresh the grid.
+            GetItems();
 
-    //Refresh the grid
-    GetItems();
-
-}
-
-
-// Populate the table with work items
-function GetItems() {
-    var xhr = new XMLHttpRequest();
-    var type="active";
-    xhr.addEventListener("load", loadItems, false);
-    xhr.open("POST", "../retrieve", true);   //buildFormit -- a Spring MVC controller
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-    xhr.send("type=" + type);
-}
-
-function loadItems(event) {
-
-    // Enable the buttons
-    $('#singlebutton').prop("disabled",false);
-    $('#updatebutton').prop("disabled",false);
-    $('#reportbutton').prop("disabled",false);
-    $('#reportbutton').css("color", "#FFFFFF");
-    $('#singlebutton').css("color", "#FFFFFF");
-    $('#updatebutton').css("color", "#FFFFFF");
-    $('#archive').prop("disabled",false);
-    $('#archive').css("color", "#FFFFFF");
-
-    $("#modform").show();
-
-    var xml = event.target.responseText;
-    var oTable = $('#myTable').dataTable();
-    oTable.fnClearTable(true);
-
-    $(xml).find('Item').each(function () {
-
-        var $field = $(this);
-        var id = $field.find('Id').text();
-        var name = $field.find('Name').text();
-        var guide = $field.find('Guide').text();
-        var date = $field.find('Date').text();
-        var description = $field.find('Description').text();
-        var status = $field.find('Status').text();
-
-        //Set the new data
-        oTable.fnAddData( [
-            id,
-            name,
-            guide,
-            date,
-            description,
-            status,,]
-        );
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
     });
+ }
 
-    document.getElementById("info3").innerHTML = "Active Items";
+// Populate the table with work items.
+function GetItems() {
+    var type="active";
+    $.ajax('/retrieve', {
+        type: 'POST',
+        data: 'type=' + type,
+        success: function (data, status, xhr) {
 
-}
+            // Enable the buttons.
+            $('#singlebutton').prop("disabled",false);
+            $('#updatebutton').prop("disabled",false);
+            $('#reportbutton').prop("disabled",false);
+            $('#reportbutton').css("color", "#FFFFFF");
+            $('#singlebutton').css("color", "#FFFFFF");
+            $('#updatebutton').css("color", "#FFFFFF");
+            $('#archive').prop("disabled",false);
+            $('#archive').css("color", "#FFFFFF");
+
+            $("#modform").show();
+
+            var xml = data;
+            var oTable = $('#myTable').dataTable();
+            oTable.fnClearTable(true);
+
+            $(xml).find('Item').each(function () {
+
+                var $field = $(this);
+                var id = $field.find('Id').text();
+                var name = $field.find('Name').text();
+                var guide = $field.find('Guide').text();
+                var date = $field.find('Date').text();
+                var description = $field.find('Description').text();
+                var status = $field.find('Status').text();
+
+                //Set the new data
+                oTable.fnAddData( [
+                    id,
+                    name,
+                    guide,
+                    date,
+                    description,
+                    status,,]
+                );
+            });
+
+            document.getElementById("info3").innerHTML = "Active Items";
+
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+    });
+ }
 
 function ModifyItem() {
     var table = $('#myTable').DataTable();
@@ -147,7 +147,7 @@ function ModifyItem() {
         return;
     }
 
-    //Need to check its not an Archive item
+    //Need to check its not an Archive item.
     var h3Val =  document.getElementById("info3").innerHTML;
     if (h3Val=="Archive Items")
     {
@@ -155,138 +155,128 @@ function ModifyItem() {
         return;
     }
 
-    // Post to modify
-    var xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", onModifyLoad, false);
-    xhr.open("POST", "../modify", true);   //buildFormit -- a Spring MVC controller
-    xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");//necessary
-    xhr.send("id=" + myId);
-}
+    $.ajax('/modify', {
+        type: 'POST',
+        data: 'id=' + myId,
+        success: function (data, status, xhr) {
 
+            var xml = data;
+            $(xml).find('Item').each(function () {
 
-// Handler for the uploadSave call
-function onModifyLoad(event) {
+                var $field = $(this);
+                var id = $field.find('Id').text();
+                var description = $field.find('Description').text();
+                var status = $field.find('Status').text();
 
-    var xml = event.target.responseText;
-    $(xml).find('Item').each(function () {
+                //Set the fields
+                $('#id').val(id);
+                $('#description').val(description);
+                $('#status').val(status);
 
-        var $field = $(this);
-        var id = $field.find('Id').text();
-        var description = $field.find('Description').text();
-        var status = $field.find('Status').text();
-
-        //Set the fields
-        $('#id').val(id);
-        $('#description').val(description);
-        $('#status').val(status);
-
+            });
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
     });
 }
 
-
-    function Report() {
+function Report() {
         var email = $('#manager option:selected').text();
 
-        // Post to report
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", onReport, false);
-        xhr.open("POST", "../report", true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-        xhr.send("email=" + email);
+        $.ajax('/report', {
+            type: 'POST',
+            data: 'email=' + email,
+            success: function (data, status, xhr) {
+                 alert(data);
+
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                $('p').append('Error' + errorMessage);
+            }
+        });
     }
 
-function onReport(event) {
-
-    var data = event.target.responseText;
-    alert(data);
-}
-
-
-function GetArcItems()
-{
-    var xhr = new XMLHttpRequest();
+function GetArcItems() {
     var type="archive";
-    xhr.addEventListener("load", loadArcItems, false);
-    xhr.open("POST", "../retrieve", true);   //buildFormit -- a Spring MVC controller
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-    xhr.send("type=" + type);
-}
-
-function loadArcItems(event) {
-
-    // Disable buttons when Archive button
-    $('#reportbutton').prop("disabled",true);
-    $('#reportbutton').css("color", "#0d010d");
-    $('#singlebutton').prop("disabled",true);
-    $('#singlebutton').css("color", "#0d010d");
-    $('#updatebutton').prop("disabled",true);
-    $('#updatebutton').css("color", "#0d010d");
-    $('#archive').prop("disabled",true);
-    $('#archive').css("color", "#0d010d");
+    $.ajax('/retrieve', {
+        type: 'POST',
+        data: 'type=' + type,
+        success: function (data, status, xhr) {
+            // Disable buttons when Achive button
+            $('#reportbutton').prop("disabled", true);
+            $('#reportbutton').css("color", "#0d010d");
+            $('#singlebutton').prop("disabled", true);
+            $('#singlebutton').css("color", "#0d010d");
+            $('#updatebutton').prop("disabled", true);
+            $('#updatebutton').css("color", "#0d010d");
+            $('#archive').prop("disabled", true);
+            $('#archive').css("color", "#0d010d");
 
 
-    $("#modform").hide();
+            $("#modform").hide();
 
+            var xml = event.target.responseText;
+            var oTable = $('#myTable').dataTable();
+            oTable.fnClearTable(true);
 
+            $(xml).find('Item').each(function () {
 
+                var $field = $(this);
+                var id = $field.find('Id').text();
+                var name = $field.find('Name').text();
+                var guide = $field.find('Guide').text();
+                var date = $field.find('Date').text();
+                var description = $field.find('Description').text();
+                var status = $field.find('Status').text();
 
-    var xml = event.target.responseText;
-    var oTable = $('#myTable').dataTable();
-    oTable.fnClearTable(true);
+                //Set the new data
+                oTable.fnAddData([
+                    id,
+                    name,
+                    guide,
+                    date,
+                    description,
+                    status, ,]
+                );
+            });
 
-    $(xml).find('Item').each(function () {
+            document.getElementById("info3").innerHTML = "Archive Items";
 
-        var $field = $(this);
-        var id = $field.find('Id').text();
-        var name = $field.find('Name').text();
-        var guide = $field.find('Guide').text();
-        var date = $field.find('Date').text();
-        var description = $field.find('Description').text();
-        var status = $field.find('Status').text();
-
-        //Set the new data
-        oTable.fnAddData( [
-            id,
-            name,
-            guide,
-            date,
-            description,
-            status,,]
-        );
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
     });
-
-    document.getElementById("info3").innerHTML = "Archive Items";
-
 }
 
-function archiveItem()
-{
+function archiveItem() {
     var table = $('#myTable').DataTable();
-    var myId="";
+    var myId = "";
     var arr = [];
-    $.each(table.rows('.selected').data(), function() {
+    $.each(table.rows('.selected').data(), function () {
 
         var value = this[0];
         myId = value;
     });
 
-    if (myId == "")
-    {
+    if (myId == "") {
         alert("You need to select a row");
         return;
     }
 
-    var xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", onArch, false);
-    xhr.open("POST", "../archive", true);   //buildFormit -- a Spring MVC controller
-    xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");//necessary
-    xhr.send("id=" + myId);
+    $.ajax('/archive', {
+        type: 'POST',
+        data: 'id=' + myId,
+        success: function (data, status, xhr) {
+            alert("Item " + data + " is achived now");
+            //Refresh the grid
+            GetItems();
+
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+    });
 }
 
-function onArch(event) {
-
-    var xml = event.target.responseText;
-    alert("Item "+xml +" is archived now");
-    //Refresh the grid
-    GetItems();
-}

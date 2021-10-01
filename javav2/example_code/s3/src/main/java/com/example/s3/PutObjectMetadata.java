@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/18/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -39,7 +39,7 @@ public class PutObjectMetadata {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "  PutObjectMetadata <bucketName> <objectKey> <objectPath> \n\n" +
+                "  <bucketName> <objectKey> <objectPath> \n\n" +
                 "Where:\n" +
                 "  bucketName - the Amazon S3 bucket to upload an object into.\n" +
                 "  objectKey - the object to upload (for example, book.pdf).\n" +

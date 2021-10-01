@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+        <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
+        %xinclude;
+        <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+        %phrases-shared;
+        ]>
+<!-- zexi 0.2.1 -->
+<chapter id="service_code_examples" role="topic">
+    <info>
+        <title id="service_code_examples.title">Code examples for {{.ServiceEntity.Short}}</title>
+        <titleabbrev id="service_code_examples.titleabbrev">Code examples</titleabbrev>
+        <abstract>
+            <para>Code examples that show how to use {{.ServiceEntity.Short}} with an &AWS; SDK.</para>
+        </abstract>
+    </info>
+    <para>The following code examples show how to use {{.ServiceEntity.Short}} with an &AWS; software development kit (SDK).</para>
+    <para>For a complete list of &AWS; SDK developer guides and code examples, including help getting started
+        and information about previous versions, see
+        <xref linkend="sdk-general-information-section" endterm="sdk-general-information-section.title"></xref>.</para>
+    <para role="contents-abbrev">Code examples</para>
+    {{- range $category := .CategoryNamesSorted}}
+    {{- with $cat_examples := index $.CategorizedExampleSets $category}}
+    <section id="service_code_examples_{{$cat_examples.CategoryIdSuffix}}" role="topic">
+        <info>
+            <title id="service_code_examples_{{$cat_examples.CategoryIdSuffix}}.title">{{$cat_examples.CategoryName}} examples for {{$.ServiceEntity.Short}}</title>
+            <titleabbrev id="service_code_examples_{{$cat_examples.CategoryIdSuffix}}.titleabbrev">{{$cat_examples.CategoryName}} examples</titleabbrev>
+            <abstract>
+                <para>The following code examples show how to use {{$.ServiceEntity.Short}} with &AWS; SDKs.</para>
+            </abstract>
+        </info>
+        <para>The following code examples show how to use {{$.ServiceEntity.Short}} with &AWS; SDKs.</para>
+        <para role="topiclist-abbrev">Examples</para>
+        {{- range $cat_examples.Examples}}
+        {{- $addSvc := ""}}
+        {{- if .AddService}}
+            {{- $addSvc = printf "_%s" .AddService}}
+        {{- end}}
+        <section id="example_{{.ExampleId}}_section" role="topic">
+            <info>
+                <title id="example_{{.ExampleId}}_section.title">{{.Title}}</title>
+                <titleabbrev id="example_{{.ExampleId}}_section.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+                <abstract>
+                    <para>{{.Title}}</para>
+                </abstract>
+            </info>
+            <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}_desc.xml"></xi:include>
+            <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}{{$addSvc}}_tablist.xml"></xi:include>
+            <para>For a complete list of &AWS; SDK developer guides and code examples, including help getting started
+                and information about previous versions, see
+                <xref linkend="sdk-general-information-section" endterm="sdk-general-information-section.title"></xref>.</para>
+        </section>
+        {{- end}}
+    </section>
+    {{- end}}
+    {{- end}}
+</chapter>

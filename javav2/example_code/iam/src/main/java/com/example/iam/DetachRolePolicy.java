@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -31,7 +31,7 @@ public class DetachRolePolicy {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DetachRolePolicy <roleName> <policyArn> \n\n" +
+                "    <roleName> <policyArn> \n\n" +
                 "Where:\n" +
                 "    roleName - a role name that you can obtain from the AWS Management Console. \n\n" +
                 "    policyArn - a policy ARN that you can obtain from the AWS Management Console. \n\n" ;
@@ -70,6 +70,6 @@ public class DetachRolePolicy {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        // snippet-end:[iam.java2.detach_role_policy.main]
     }
+    // snippet-end:[iam.java2.detach_role_policy.main]
 }

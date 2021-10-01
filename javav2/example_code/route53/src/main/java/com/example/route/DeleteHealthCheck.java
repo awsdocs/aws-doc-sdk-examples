@@ -4,7 +4,7 @@
 // snippet-service:[Amazon Route 53]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-09-28]
+// snippet-sourcedate:[09/28/2021]
 // snippet-sourceauthor:[AWS - scmacdon]
 
 /*
@@ -34,7 +34,7 @@ public class DeleteHealthCheck {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeleteHealthCheck <id> \n\n" +
+                "    <id> \n\n" +
                 "Where:\n" +
                 "    id - the health check id. \n";
 

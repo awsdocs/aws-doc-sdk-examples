@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/07/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -37,11 +37,11 @@ public class ListObjects {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    ListObjects <bucketName> \n\n" +
+                "    <bucketName> \n\n" +
                 "Where:\n" +
                 "    bucketName - the Amazon S3 bucket from which objects are read. \n\n" ;
 
-        if (args.length != 1) {
+       if (args.length != 1) {
            System.out.println(USAGE);
            System.exit(1);
         }

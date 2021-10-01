@@ -12,11 +12,24 @@ You must have an AWS account, and have configured your default credentials and A
 
 ## Running the code
 
+### config-helloworld
+
+This example lists the configuration history for an AWS Config resource.
+
+`cargo run --bin config-helloworld -- -resource_id RESOURCE-ID -resource_type RESOURCE-TYPE NAME [-r REGION] [-v]`
+
+- _RESOURCE-ID_ is the ID of the AWS Config resource.
+- _RESOURCE-TYPE_ is the type of the AWS Config resource, such as __AWS::EC2::SecurityGroup__.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.
+
 ### delete-configuration-recorder
 
 This example deletes an AWS Config configuration recorder.
 
-`cargo run --bin -- -n NAME [-r REGION] [-v]`
+`cargo run --bin delete-configuration-recorder -- -n NAME [-r REGION] [-v]`
 
 - _NAME_ is the name of the configuration recorder to delete.
 - _REGION_ is the Region in which the client is created.
@@ -28,7 +41,7 @@ This example deletes an AWS Config configuration recorder.
 
 This example deletes an AWS Config delivery channel.
 
-`cargo run --bin -- -c CHANNEL [-r REGION] [-v]`
+`cargo run --bin delete-delivery-channel -- -c CHANNEL [-r REGION] [-v]`
 
 - _CHANNEL_ is the name of the channel to delete.
 - _REGION_ is the Region in which the client is created.
@@ -40,7 +53,7 @@ This example deletes an AWS Config delivery channel.
 
 This example enables AWS Config for a resource type, in the Region.
 
-`cargo run --bin -- -b BUCKET -i IAM-ARN -k KMS-ARN -n NAME -p PREFIX -s SNS-ARN -t TYPE [-r REGION] [-v]`
+`cargo run --bin enable-config -- -b BUCKET -i IAM-ARN -k KMS-ARN -n NAME -p PREFIX -s SNS-ARN -t TYPE [-r REGION] [-v]`
 
 - _BUCKET_ is the name of the Amazon bucket to which AWS Config delivers configuration snapshots and configuration history files.
 - _IAM-ARN_ is the ARN of the IAM role that used to describe the AWS resources associated with the account.
@@ -59,7 +72,7 @@ This example enables AWS Config for a resource type, in the Region.
 
 This example lists the AWS Config configuration recorders in the Region.
 
-`cargo run --bin -- [-r REGION] [-v]`
+`cargo run --bin list-configuration-recorders -- [-r REGION] [-v]`
 
 - _REGION_ is the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
@@ -70,7 +83,7 @@ This example lists the AWS Config configuration recorders in the Region.
 
 This example lists the AWS Config delivery channels in the Region.
 
-`cargo run --bin -- [-r REGION] [-v]`
+`cargo run --bin list-delivery-channels -- [-r REGION] [-v]`
 
 - _REGION_ is the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
@@ -81,7 +94,7 @@ This example lists the AWS Config delivery channels in the Region.
 
 This example lists your AWS Config resources, by resource type, in the Region.
 
-`cargo run --bin -- [-r REGION] [-v]`
+`cargo run --bin list-resources -- [-r REGION] [-v]`
 
 - _REGION_ is the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
@@ -92,7 +105,7 @@ This example lists your AWS Config resources, by resource type, in the Region.
 
 This example displays the configuration history for a resource.
 
-`cargo run --bin -- -i ID --resource-type RESOURCE-TYPE [-r REGION] [-v]`
+`cargo run --bin show-resource-history -- -i ID --resource-type RESOURCE-TYPE [-r REGION] [-v]`
 
 - _ID_ is the ID of the resource.
 - _RESOURCE-TYPE_ is the resource type, such as `AWS::EC2::SecurityGroup`.
@@ -100,7 +113,6 @@ This example displays the configuration history for a resource.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
-
 
 ### Notes
 

@@ -1,0 +1,486 @@
+# zexi 0.2.0
+rekognition_DescribeCollection:
+  title: Describe an &REK; collection using an &AWS; SDK
+  title_abbrev: Describe a collection
+  synopsis: describe an &REK; collection.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.describe_collection.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rekognition
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rekognition.RekognitionCollection
+                - python.example_code.rekognition.DescribeCollection
+  services:
+    - rekognition
+rekognition_DeleteCollection:
+  title: Delete an &REK; collection using an &AWS; SDK
+  title_abbrev: Delete a collection
+  synopsis: delete an &REK; collection.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.delete_collection.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rekognition
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rekognition.RekognitionCollection
+                - python.example_code.rekognition.DeleteCollection
+  services:
+    - rekognition
+rekognition_IndexFaces:
+  title: Index faces to an &REK; collection using an &AWS; SDK
+  title_abbrev: Index faces to a collection
+  synopsis: index faces in and image and add them to an &REK; collection.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.add_faces_collection.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rekognition
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rekognition.RekognitionCollection
+                - python.example_code.rekognition.IndexFaces
+  services:
+    - rekognition
+rekognition_ListFaces:
+  title: List faces in an &REK; collection using an &AWS; SDK
+  title_abbrev: List faces in a collection
+  synopsis: list faces in an &REK; collection.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.list_faces_collection.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rekognition
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rekognition.RekognitionCollection
+                - python.example_code.rekognition.ListFaces
+  services:
+    - rekognition
+rekognition_SearchFacesByImage:
+  title: Search for faces in an &REK; collection compared to a reference image using an &AWS; SDK
+  title_abbrev: Search for faces in a collection compared to a reference image
+  synopsis: search for faces in an &REK; collection compared to a reference image.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.match_faces_collection.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rekognition
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rekognition.RekognitionCollection
+                - python.example_code.rekognition.SearchFacesByImage
+  services:
+    - rekognition
+rekognition_SearchFaces:
+  title: Search for faces in an &REK; collection using an &AWS; SDK
+  title_abbrev: Search for faces in a collection
+  synopsis: search for faces in an &REK; collection that match another face from the collection.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.search_faces_collection.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rekognition
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rekognition.RekognitionCollection
+                - python.example_code.rekognition.SearchFaces
+  services:
+    - rekognition
+rekognition_DeleteFaces:
+  title: Delete faces from an &REK; collection using an &AWS; SDK
+  title_abbrev: Delete faces from a collection
+  synopsis: delete faces from an &REK; collection.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.delete_faces_collection.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rekognition
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rekognition.RekognitionCollection
+                - python.example_code.rekognition.DeleteFaces
+  services:
+    - rekognition
+rekognition_CreateCollection:
+  title: Create an &REK; collection using an &AWS; SDK
+  title_abbrev: Create a collection
+  synopsis: create an &REK; collection.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.create_collection.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rekognition
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rekognition.RekognitionCollectionManager
+                - python.example_code.rekognition.CreateCollection
+  services:
+    - rekognition
+rekognition_ListCollections:
+  title: List &REK; collections using an &AWS; SDK
+  title_abbrev: List collections
+  synopsis: list &REK; collections.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.list_collections.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rekognition
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rekognition.RekognitionCollectionManager
+                - python.example_code.rekognition.ListCollections
+  services:
+    - rekognition
+rekognition_Usage_FindFacesInCollection:
+  title: Build an &REK; collection and find faces in it using an &AWS; SDK
+  title_abbrev: Build a collection and find faces in it
+  synopsis: build an &REK; collection and find faces in it.
+  category: Usage
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rekognition
+          sdkguide:
+          excerpts:
+            - description: Create classes that wrap &REKlong; functions.
+              snippet_tags:
+                - python.example_code.rekognition.collection.imports
+                - python.example_code.rekognition.RekognitionImage
+                - python.example_code.rekognition.RekognitionImage.from_file
+                - python.example_code.rekognition.RekognitionCollectionManager
+                - python.example_code.rekognition.CreateCollection
+                - python.example_code.rekognition.ListCollections
+                - python.example_code.rekognition.RekognitionCollection
+                - python.example_code.rekognition.helper.to_dict
+                - python.example_code.rekognition.DescribeCollection
+                - python.example_code.rekognition.DeleteCollection
+                - python.example_code.rekognition.IndexFaces
+                - python.example_code.rekognition.ListFaces
+                - python.example_code.rekognition.SearchFaces
+                - python.example_code.rekognition.SearchFacesByImage
+                - python.example_code.rekognition.helper.RekognitionFace
+            - description: Use the wrapper classes to build a collection of faces from a
+                set of images and then search for faces in the collection.
+              snippet_tags:
+                - python.example_code.rekognition.Usage_FindFacesInCollection
+  services:
+    - rekognition
+rekognition_DetectFaces:
+  title: Detect faces in an image with &REK; using an &AWS; SDK
+  title_abbrev: Detect faces in an image
+  synopsis: detect faces in an image with &REK;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.detect_faces.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rekognition
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rekognition.RekognitionImage
+                - python.example_code.rekognition.DetectFaces
+  services:
+    - rekognition
+rekognition_CompareFaces:
+  title: Compare faces in an image against a reference image with &REK; using an &AWS; SDK
+  title_abbrev: Compare faces in an image against a reference image
+  synopsis: compare faces in an image against a reference image with &REK;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.compare_faces.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rekognition
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rekognition.RekognitionImage
+                - python.example_code.rekognition.CompareFaces
+  services:
+    - rekognition
+rekognition_DetectLabels:
+  title: Detect labels in an image with &REK; using an &AWS; SDK
+  title_abbrev: Detect labels in an image
+  synopsis: detect labels in an image with &REK;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.detect_labels.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rekognition
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rekognition.RekognitionImage
+                - python.example_code.rekognition.DetectLabels
+  services:
+    - rekognition
+rekognition_DetectModerationLabels:
+  title: Detect moderation labels in an image with &REK; using an &AWS; SDK
+  title_abbrev: Detect moderation labels in an image
+  synopsis: detect moderation labels in an image with &REK;. Moderation labels
+    identify content that may be inappropriate for some audiences.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.detect_mod_labels.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rekognition
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rekognition.RekognitionImage
+                - python.example_code.rekognition.DetectModerationLabels
+  services:
+    - rekognition
+rekognition_DetectText:
+  title: Detect text in an image with &REK; using an &AWS; SDK
+  title_abbrev: Detect text in an image
+  synopsis: detect text in an image with &REK;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.detect_text.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rekognition
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rekognition.RekognitionImage
+                - python.example_code.rekognition.DetectText
+  services:
+    - rekognition
+rekognition_RecognizeCelebrities:
+  title: Recognize celebrities in an image with &REK; using an &AWS; SDK
+  title_abbrev: Recognize celebrities in an image
+  synopsis: recognize celebrities in an image with &REK;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rekognition.java2.recognize_celebs.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rekognition
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rekognition.RekognitionImage
+                - python.example_code.rekognition.RecognizeCelebrities
+  services:
+    - rekognition
+rekognition_Usage_DetectAndDisplayImage:
+  title: Detect and display elements in images with &REK; using an &AWS; SDK
+  title_abbrev: Detect and display elements in images
+  synopsis: detect and display elements in images with &REK;.
+  category: Usage
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/rekognition
+          sdkguide:
+          excerpts:
+            - description: Create classes to wrap &REKlong; functions.
+              snippet_tags:
+                - python.example_code.rekognition.image_detection_imports
+                - python.example_code.rekognition.RekognitionImage
+                - python.example_code.rekognition.RekognitionImage.from_file
+                - python.example_code.rekognition.RekognitionImage.from_bucket
+                - python.example_code.rekognition.DetectFaces
+                - python.example_code.rekognition.DetectLabels
+                - python.example_code.rekognition.RecognizeCelebrities
+                - python.example_code.rekognition.CompareFaces
+                - python.example_code.rekognition.DetectModerationLabels
+                - python.example_code.rekognition.DetectText
+            - description: Create helper functions to draw bounding boxes and polygons.
+              snippet_tags:
+                - python.example_code.rekognition.helper.imports
+                - python.example_code.rekognition.helper.show_bounding_boxes
+                - python.example_code.rekognition.helper.show_polygons
+            - description: Create classes to parse objects returned by &REK;.
+              snippet_tags:
+                - python.example_code.rekognition.helper.RekognitionFace
+                - python.example_code.rekognition.helper.RekognitionCelebrity
+                - python.example_code.rekognition.helper.RekognitionPerson
+                - python.example_code.rekognition.helper.RekognitionLabel
+                - python.example_code.rekognition.helper.RekognitionModerationLabel
+                - python.example_code.rekognition.helper.RekognitionText
+            - description: Use the wrapper classes to detect elements in images and
+                display their bounding boxes. The images used in this example can be
+                found on GitHub along with instructions and more code.
+              snippet_tags:
+                - python.example_code.rekognition.Usage_ImageDetection
+  services:
+    - rekognition

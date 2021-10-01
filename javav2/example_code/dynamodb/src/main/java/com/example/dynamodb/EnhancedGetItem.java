@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/30/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -66,12 +66,12 @@ public class EnhancedGetItem {
 
             //Create a KEY object
             Key key = Key.builder()
-                    .partitionValue("id120")
+                    .partitionValue("id146")
                     .build();
 
             // Get the item by using the key
             Customer result = mappedTable.getItem(r->r.key(key));
-            return "The email valie is "+result.getEmail();
+            return "The email value is "+result.getEmail();
 
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());

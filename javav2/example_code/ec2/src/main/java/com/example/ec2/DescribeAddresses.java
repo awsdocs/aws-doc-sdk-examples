@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/01/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -61,6 +61,6 @@ public class DescribeAddresses {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-     // snippet-end:[ec2.java2.describe_addresses.main]
     }
+    // snippet-end:[ec2.java2.describe_addresses.main]
 }

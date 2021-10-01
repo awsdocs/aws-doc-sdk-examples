@@ -1,0 +1,286 @@
+# zexi 0.2.0
+glacier_CreateVault:
+  title: Create an &GLlong; vault using an &AWS; SDK
+  title_abbrev: Create a vault
+  synopsis: create an &GLlong; vault.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glacier.GlacierWrapper
+                - python.example_code.glacier.CreateVault
+  services:
+    - glacier
+glacier_ListVaults:
+  title: List &GLlong; vaults using an &AWS; SDK
+  title_abbrev: List vaults
+  synopsis: list &GLlong; vaults.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glacier.GlacierWrapper
+                - python.example_code.glacier.ListVaults
+  services:
+    - glacier
+glacier_UploadArchive:
+  title: Upload an archive to an &GLlong; vault using an &AWS; SDK
+  title_abbrev: Upload an archive to a vault
+  synopsis: upload an archive to an &GLlong; vault.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glacier.GlacierWrapper
+                - python.example_code.glacier.UploadArchive
+  services:
+    - glacier
+glacier_InitiateJob_InventoryRetrieval:
+  title: Retrieve an &GLlong; vault inventory using an &AWS; SDK
+  title_abbrev: Retrieve a vault inventory
+  synopsis: retrieve an &GLlong; vault inventory.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glacier.GlacierWrapper
+                - python.example_code.glacier.InitiateJob.InventoryRetrieval
+  services:
+    - glacier
+glacier_ListJobs:
+  title: List &GLlong; jobs using an &AWS; SDK
+  title_abbrev: List jobs
+  synopsis: list &GLlong; jobs.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glacier.GlacierWrapper
+                - python.example_code.glacier.ListJobs
+  services:
+    - glacier
+glacier_DeleteVault:
+  title: Delete an &GLlong; vault using an &AWS; SDK
+  title_abbrev: Delete a vault
+  synopsis: delete an &GLlong; vault.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glacier.GlacierWrapper
+                - python.example_code.glacier.DeleteVault
+  services:
+    - glacier
+glacier_InitiateJob_ArchiveRetrieval:
+  title: Retrieve an archive from an &GLlong; vault using an &AWS; SDK
+  title_abbrev: Retrieve an archive from a vault
+  synopsis: retrieve an archive from an &GLlong; vault.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glacier.GlacierWrapper
+                - python.example_code.glacier.InitiateJob.ArchiveRetrieval
+  services:
+    - glacier
+glacier_DeleteArchive:
+  title: Delete an &GLlong; archive using an &AWS; SDK
+  title_abbrev: Delete an archive
+  synopsis: delete an &GLlong; archive.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glacier.GlacierWrapper
+                - python.example_code.glacier.DeleteArchive
+  services:
+    - glacier
+glacier_DescribeJob:
+  title: Describe an &GLlong; job using an &AWS; SDK
+  title_abbrev: Describe a job
+  synopsis: describe an &GLlong; job.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glacier.GlacierWrapper
+                - python.example_code.glacier.DescribeJob
+  services:
+    - glacier
+glacier_GetJobOutput:
+  title: Get &GLlong; job output using an &AWS; SDK
+  title_abbrev: Get job output
+  synopsis: get &GLlong; job output.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glacier.GlacierWrapper
+                - python.example_code.glacier.GetJobOutput
+  services:
+    - glacier
+glacier_SetVaultNotifications:
+  title: Set &GLlong; vault notifications using an &AWS; SDK
+  title_abbrev: Set vault notifications
+  synopsis: set &GLlong; vault notifications.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glacier.GlacierWrapper
+                - python.example_code.glacier.SetVaultNotifications
+  services:
+    - glacier
+glacier_GetVaultNotifications:
+  title: Get &GLlong; vault notification configuration using an &AWS; SDK
+  title_abbrev: Get vault notification configuration
+  synopsis: get &GLlong; vault notification configuration.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glacier.GlacierWrapper
+                - python.example_code.glacier.GetVaultNotifications
+  services:
+    - glacier
+glacier_DeleteVaultNotifications:
+  title: Delete &GLlong; vault notifications using an &AWS; SDK
+  title_abbrev: Delete vault notifications
+  synopsis: delete &GLlong; vault notifications.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.glacier.GlacierWrapper
+                - python.example_code.glacier.DeleteVaultNotifications
+  services:
+    - glacier
+glacier_Usage_UploadNotifyInitiate:
+  category: Usage
+  title: Archive a file to &GLlong;, get notifications, and initiate a job using an &AWS; SDK
+  title_abbrev: Archive a file, get notifications, and initiate a job
+  synopsis_list:
+    - Create an &GLlong; vault.
+    - Configure the vault to publish notifications to an &SNSlong; (&SNS;) topic.
+    - Upload an archive file to the vault.
+    - Initiate an archive retrieval job.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glacier
+          sdkguide:
+          excerpts:
+            - description: Create a class that wraps &GLshort; operations.
+              snippet_tags:
+                - python.example_code.glacier.imports
+                - python.example_code.glacier.GlacierWrapper
+                - python.example_code.glacier.CreateVault
+                - python.example_code.glacier.ListVaults
+                - python.example_code.glacier.UploadArchive
+                - python.example_code.glacier.InitiateJob.ArchiveRetrieval
+                - python.example_code.glacier.ListJobs
+                - python.example_code.glacier.SetVaultNotifications
+            - description: Call functions on the wrapper class to create a vault and
+                upload a file, then configure the vault to publish notifications and
+                initiate a job to retrieve the archive.
+              snippet_tags:
+                - python.example_code.glacier.usage.upload_demo
+  services:
+    - glacier
+glacier_Usage_RetrieveDelete:
+  category: Usage
+  title: |-
+    Get &GLlong; archive content and delete the archive using an &AWS; SDK
+  title_abbrev: Get archive content and delete the archive
+  synopsis_list:
+    - List jobs for an &GLlong; vault and get job status.
+    - Get the output of a completed archive retrieval job.
+    - Delete an archive.
+    - Delete a vault.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glacier
+          sdkguide:
+          excerpts:
+            - description: Create a class that wraps &GLshort; operations.
+              snippet_tags:
+                - python.example_code.glacier.imports
+                - python.example_code.glacier.GlacierWrapper
+                - python.example_code.glacier.ListJobs
+                - python.example_code.glacier.GetJobOutput
+                - python.example_code.glacier.DeleteArchive
+                - python.example_code.glacier.DeleteVault
+            - description: Call functions on the wrapper class to get archive content
+                from a completed job, then delete the archive.
+              snippet_tags:
+                - python.example_code.glacier.usage.retrieve_demo
+  services:
+    - glacier

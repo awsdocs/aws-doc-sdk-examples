@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon SageMaker]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -34,7 +34,7 @@ public class DeleteModel {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeleteModel <modelName>\n\n" +
+                "    <modelName>\n\n" +
                 "Where:\n" +
                 "    modelName - The name of the model.\n\n";
 

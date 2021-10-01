@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon- AWS]
 
 /*
@@ -33,7 +33,7 @@ public class DeleteTag {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "AddTags <topicArn>\n\n" +
+                "   <topicArn> <tagKey>\n\n" +
                 "Where:\n" +
                 "  topicArn - the ARN of the topic to which tags are added.\n\n"+
                 "  tagKey - the key of the tag to delete.";

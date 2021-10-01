@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/07/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -43,7 +43,7 @@ public class ManagingObjectTags {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "  ManagingObjectTags <bucketName> <objectKey> <objectPath> \n\n" +
+                "  <bucketName> <objectKey> <objectPath> \n\n" +
                 "Where:\n" +
                 "  bucketName - the Amazon S3 bucket.\n" +
                 "  objectKey - the object that a tag is applied (for example, book.pdf).\n" +

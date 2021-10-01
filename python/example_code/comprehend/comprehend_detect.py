@@ -8,12 +8,14 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Comprehend to
 detect entities, phrases, and more in a document.
 """
 
+# snippet-start:[python.example_code.comprehend.ComprehendDetect_imports]
 import logging
 from pprint import pprint
 import boto3
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
+# snippet-end:[python.example_code.comprehend.ComprehendDetect_imports]
 
 
 # snippet-start:[python.example_code.comprehend.ComprehendDetect]
@@ -157,6 +159,7 @@ class ComprehendDetect:
 # snippet-end:[python.example_code.comprehend.DetectSyntax]
 
 
+# snippet-start:[python.example_code.comprehend.Usage_DetectApis]
 def usage_demo():
     print('-'*88)
     print("Welcome to the Amazon Comprehend detection demo!")
@@ -208,6 +211,7 @@ def usage_demo():
 
     print("Thanks for watching!")
     print('-'*88)
+# snippet-end:[python.example_code.comprehend.Usage_DetectApis]
 
 
 if __name__ == '__main__':

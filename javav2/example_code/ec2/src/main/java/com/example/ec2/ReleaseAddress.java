@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/01/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -33,9 +33,9 @@ public class ReleaseAddress {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "ReleaseAddress <allocId>\n\n" +
+                "   <allocId>\n\n" +
                 "Where:\n" +
-                "    allocId - an allocation ID value that you can obtain from the AWS Console. \n\n" ;
+                "   allocId - an allocation ID value that you can obtain from the AWS Console. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);

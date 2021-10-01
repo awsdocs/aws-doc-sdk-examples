@@ -83,7 +83,11 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 
 + **Creating a Job Posting Site using Amazon Aurora and Amazon Translation Services** - A tutorial that discusses how to create a web application that uses Amazon Aurora (Amazon Relational Database Service) and the Amazon Translate Service to display job listing data. In this tutorial, the Spring Framework along with AWS SDK for Java API V2 is used to create the application. 
 
-+ **Creating an ETL workflow by using AWS Step Functions and the AWS SDK for Java** -  A tutorial that discusses how to develop an AWS serverless workflow that performs an Extract, Transform, and Load (ETL) job. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function. 
++ **Creating an ETL workflow by using AWS Step Functions and the AWS SDK for Java** -  A tutorial that discusses how to develop an AWS serverless workflow that performs an Extract, Transform, and Load (ETL) job. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function.
+
++ **Create an Amazon Personalize app with the AWS SDK for Java** - This tutorial shows you how to complete the Amazon Personalize workflow from start to finish with the AWS Java V2 SDK. The project trains two different models with the movie-lens dataset: one with the User-Personalization (`aws-user-personalization`) recipe for creating personalized recommendations for your users, and one with the item-to-item similarities (`aws-sims`) recipe to generate recommendations for items that are similar to a given item.
+
++ **Creating an AWS document analyzer application using the AWS SDK for Java** - This tutorial shows you how to use the Amazon Textract service and the Amazon Simple Storage Service to analyze PDF document images.
 
 AWS service examples
 --------------------
