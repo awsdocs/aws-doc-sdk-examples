@@ -222,7 +222,7 @@ cross_TranscriptionStreamingApp:
     - transcribe
     - ses
 cross_RekognitionLambdPPE:
-  title: Detect PPE in images with &REK; using an &LAM; function
+  title: Detect PPE in images with &REK; using a &LAM; function
   title_abbrev: Detect PPE in images
   synopsis: build an &LAMlong; function that uses &REK; to detect Personal Protective Equipment (PPE) in images.
   languages:
