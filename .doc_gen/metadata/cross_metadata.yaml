@@ -1,4 +1,16 @@
 # zexi 0.2.0
+cross_RDSDataTracker:
+  title: Create an &RDSlong; item tracker
+  title_abbrev: Create a web application to track &RDS; data
+  synopsis: create a web application that tracks and reports on work items using an &RDSlong; (&RDS;) database.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_RDSDataTracker_Java_block.xml
+  services:
+    - rds
+    - ses
 cross_SnsPublishSubscription:
   title: Build a publish and subscription web application that translates messages
   title_abbrev: Building an &SNS; web application 
@@ -214,6 +226,10 @@ cross_RekognitionPhotoAnalyzerPPE:
   title_abbrev: Detect PPE in images
   synopsis: build an app that uses &REK; to detect Personal Protective Equipment (PPE) in images.
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_RekognitionLambdPPE_Java_block.xml
     JavaScript:
       versions:
         - sdk_version: 3
