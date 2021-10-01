@@ -82,6 +82,15 @@ glacier_InitiateJob_InventoryRetrieval:
   title_abbrev: Retrieve a vault inventory
   synopsis: retrieve an &GLlong; vault inventory.
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - glacier.java2.download.main
     Python:
       versions:
         - sdk_version: 3
@@ -142,15 +151,6 @@ glacier_InitiateJob_ArchiveRetrieval:
   title_abbrev: Retrieve an archive from a vault
   synopsis: retrieve an archive from an &GLlong; vault.
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/glacier
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - glacier.java2.download.main
     Python:
       versions:
         - sdk_version: 3
