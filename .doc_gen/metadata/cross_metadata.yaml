@@ -1,4 +1,16 @@
 # zexi 0.2.0
+cross_FirstJavaApp:
+  title: Create your first AWS Java web application
+  title_abbrev: Create a web application 
+  synopsis: create a web appliction that lets users submit data to an &DDB; table.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_FirstJavaApp_Java_block.xml
+  services:
+    - dynamodb
+    - sns
 cross_RDSDataTracker:
   title: Create an &RDSlong; item tracker
   title_abbrev: Create a web application to track &RDS; data
