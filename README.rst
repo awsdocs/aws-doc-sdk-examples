@@ -38,15 +38,16 @@ where *BRANCH* is the name of your branch:
    git remote set-head origin -a
    git remote update --prune
 
-Changing a fork parent branch from master to main
--------------------------------------------------
+Changing a fork's default branch from master to main
+----------------------------------------------------
 
-To change the parent branch for your branch to **main**:
+GitHub will notify you when a parent branch has changed.
+To change your fork's default branch to **main**:
 
 1. Navigate to main web page of your fork.
 2. You should see a "The default branch on the parent repository has been renamed" message.
 3. Select the **branch settings** link.
-4. Select the **base: main** branch.
+4. Change **master** to **main**.
 
 Questions or Issues?
 --------------------
