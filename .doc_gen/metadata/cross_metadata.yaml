@@ -1,7 +1,7 @@
 # zexi 0.2.0
 cross_FirstJavaApp:
   title: Create your first Java web application
-  title_abbrev: Create a web application 
+  title_abbrev: Create a Java web application 
   synopsis: create a web appliction that lets users submit data to an &DDB; table.
   languages:
     Java:
