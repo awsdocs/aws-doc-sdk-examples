@@ -10,9 +10,10 @@ namespace AddFacesExample
     using Amazon.Rekognition.Model;
 
     /// <summary>
-    /// Uses the Amazon Rekognition Service to detect faces in an image and
-    /// then adds the information to a collection. The example was created
-    /// using the AWS SDK for .NET and .NET Core 5.0.
+    /// Uses the Amazon Rekognition Service to detect faces in an image
+    /// that has been uploaded to an Amazon Simple Storage Service (Amazon S3)
+    /// bucket and then adds the information to a collection. The example was
+    /// created using the AWS SDK for .NET and .NET Core 5.0.
     /// </summary>
     public class AddFaces
     {
@@ -34,7 +35,7 @@ namespace AddFacesExample
                 },
             };
 
-            IndexFacesRequest indexFacesRequest = new IndexFacesRequest()
+            var indexFacesRequest = new IndexFacesRequest
             {
                 Image = image,
                 CollectionId = collectionId,
