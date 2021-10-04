@@ -1,4 +1,4 @@
-# zexi 0.2.0
+# zexi 0.4.0
 cloudwatch_ListMetrics:
   title: List &CW; metrics using an &AWS; SDK
   title_abbrev: List metrics
@@ -35,7 +35,7 @@ cloudwatch_ListMetrics:
               snippet_tags:
                 - cw.JavaScript.metrics.listMetrics
   services:
-    - cloudwatch
+    cloudwatch: {ListMetrics}
 cloudwatch_PutMetricData:
   title: Put data into a &CW; metric using an &AWS; SDK
   title_abbrev: Put data into a metric
@@ -72,7 +72,7 @@ cloudwatch_PutMetricData:
               snippet_tags:
                 - cw.JavaScript.metrics.putMetricData
   services:
-    - cloudwatch
+    cloudwatch: {PutMetricData}
 cloudwatch_PutMetricData_DataSet:
   title: Put a set of data into a &CW; metric using an &AWS; SDK
   title_abbrev: Put a set of data into a metric
@@ -90,7 +90,7 @@ cloudwatch_PutMetricData_DataSet:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.PutMetricData_DataSet
   services:
-    - cloudwatch
+    cloudwatch: {PutMetricData}
 cloudwatch_GetMetricStatistics:
   title: Get &CW; metric statistics using an &AWS; SDK
   title_abbrev: Get metric statistics
@@ -108,7 +108,7 @@ cloudwatch_GetMetricStatistics:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.GetMetricStatistics
   services:
-    - cloudwatch
+    cloudwatch: {GetMetricStatistics}
 cloudwatch_PutMetricAlarm:
   title: Create a &CW; alarm that watches a metric using an &AWS; SDK
   title_abbrev: Create an alarm that watches a metric
@@ -145,7 +145,7 @@ cloudwatch_PutMetricAlarm:
               snippet_tags:
                 - cw.JavaScript.alarms.putMetricAlarm
   services:
-    - cloudwatch
+    cloudwatch: {PutMetricAlarm}
 cloudwatch_DescribeAlarmsForMetric:
   title: Describe &CW; alarms for a metric using an &AWS; SDK
   title_abbrev: Describe alarms for a metric
@@ -182,7 +182,7 @@ cloudwatch_DescribeAlarmsForMetric:
               snippet_tags:
                 - cw.JavaScript.alarms.describeAlarms
   services:
-    - cloudwatch
+    cloudwatch: {DescribeAlarmsForMetric}
 cloudwatch_EnableAlarmActions:
   title: Enable &CW; alarm actions using an &AWS; SDK
   title_abbrev: Enable alarm actions
@@ -219,7 +219,7 @@ cloudwatch_EnableAlarmActions:
               snippet_tags:
                 - cw.JavaScript.alarms.enableAlarmActions
   services:
-    - cloudwatch
+    cloudwatch: {EnableAlarmActions}
 cloudwatch_DisableAlarmActions:
   title: Disable &CW; alarm actions using an &AWS; SDK
   title_abbrev: Disable alarm actions
@@ -256,7 +256,7 @@ cloudwatch_DisableAlarmActions:
               snippet_tags:
                 - cw.JavaScript.alarms.disableAlarmActions
   services:
-    - cloudwatch
+    cloudwatch: {DisableAlarmActions}
 cloudwatch_DeleteAlarms:
   title: Delete &CW; alarms using an &AWS; SDK
   title_abbrev: Delete alarms
@@ -293,7 +293,7 @@ cloudwatch_DeleteAlarms:
               snippet_tags:
                 - cw.JavaScript.alarms.deleteAlarms
   services:
-    - cloudwatch
+    cloudwatch: {DeleteAlarms}
 cloudwatch_Usage_MetricsAlarms:
   title: Manage &CW; metrics and alarms using an &AWS; SDK
   title_abbrev: Manage &CWlong; metrics and alarms
@@ -325,4 +325,4 @@ cloudwatch_Usage_MetricsAlarms:
               snippet_tags:
                 - python.example_code.cloudwatch.Usage_MetricsAlarms
   services:
-    - cloudwatch
+    cloudwatch: {}
