@@ -10,7 +10,7 @@ application-auto-scaling:
   long: "&APP-ASlong;"
   short: "&APP-AS;"
   sort "Application Auto Scaling"
-  version: ???
+  version: application-auto-scaling-2016-02-06
 api-gateway:
   long: "&ABPlong;"
   short: "&ABP;"
