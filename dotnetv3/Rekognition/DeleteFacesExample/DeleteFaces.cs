@@ -37,6 +37,6 @@ namespace DeleteFacesExample
             });
         }
 
-        // snippet-start:[Rekognition.dotnetv3.DeleteFacesExample]
+        // snippet-end:[Rekognition.dotnetv3.DeleteFacesExample]
     }
 }

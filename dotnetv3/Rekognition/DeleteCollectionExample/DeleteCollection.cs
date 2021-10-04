@@ -32,6 +32,6 @@ namespace DeleteCollectionExample
             Console.WriteLine($"{collectionId}: {deleteCollectionResponse.StatusCode}");
         }
 
-        // snippet-start:[Rekognition.dotnetv3.DeleteCollectionExample]
+        // snippet-end:[Rekognition.dotnetv3.DeleteCollectionExample]
     }
 }
