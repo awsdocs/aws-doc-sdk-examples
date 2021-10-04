@@ -72,3 +72,13 @@ async fn main() -> Result<(), Error> {
 
     Ok(())
 }
+
+#[actix_rt::test]
+async fn test_describe_scaling_policies() {
+    let shared_config = aws_config::load_from_env().await;
+    let client = Client::new(&shared_config);
+
+    client
+        .describe_scaling_policies()
+        .service_namespace(ServiceNamespace::Ec2);
+}
