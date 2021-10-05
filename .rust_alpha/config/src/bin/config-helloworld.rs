@@ -27,7 +27,31 @@ struct Opt {
     verbose: bool,
 }
 
-/// Lists the configuration history for a resource.
+// Retrieves the configuration history for a resource.
+// snippet-start:[config.rust.config-helloworld]
+async fn get_history(
+    client: &aws_sdk_config::Client,
+    id: &str,
+    res: ResourceType,
+) -> Result<(), aws_sdk_config::Error> {
+    let rsp = client
+        .get_resource_config_history()
+        .resource_id(id)
+        .resource_type(res)
+        .send()
+        .await?;
+
+    println!("configuration history for {}:", id);
+
+    for item in rsp.configuration_items.unwrap_or_default() {
+        println!("item: {:?}", item);
+    }
+
+    Ok(())
+}
+// snippet-end:[config.rust.config-helloworld]
+
+/// Lists the configuration history for a resource in the Region.
 ///
 /// NOTE: AWS Config must be enabled to discover resources
 /// # Arguments
@@ -76,18 +100,19 @@ async fn main() -> Result<(), Error> {
         )
     }
 
-    let rsp = client
-        .get_resource_config_history()
-        .resource_id(&resource_id)
-        .resource_type(parsed)
-        .send()
-        .await?;
-
-    println!("configuration history for {}:", resource_id);
-
-    for item in rsp.configuration_items.unwrap_or_default() {
-        println!("item: {:?}", item);
-    }
+    get_history(&client, &resource_id, parsed).await.unwrap();
 
     Ok(())
+}
+
+#[actix_rt::test]
+async fn test_get_history() {
+    let shared_config = aws_config::load_from_env().await;
+    let client = Client::new(&shared_config);
+    let res = ResourceType::from("ResourceType::Unknown");
+
+    client
+        .get_resource_config_history()
+        .resource_id("id")
+        .resource_type(res);
 }

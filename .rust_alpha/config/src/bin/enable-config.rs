@@ -51,6 +51,99 @@ struct Opt {
     verbose: bool,
 }
 
+// Enables config.
+// snippet-start:[config.rust.enable-config]
+async fn enable_config(
+    client: &aws_sdk_config::Client,
+    name: &str,
+    kms_arn: &str,
+    bucket: &str,
+    sns_arn: &str,
+    iam_arn: &str,
+    prefix: &str,
+) -> Result<(), aws_sdk_config::Error> {
+    // If we already have a configuration recorder in the Region, we cannot create another.
+    let resp = client.describe_configuration_recorders().send().await?;
+
+    let recorders = resp.configuration_recorders.unwrap_or_default();
+
+    //let num_recorders = recorders.len();
+
+    if recorders.is_empty() {
+        println!("You already have a configuration recorder in this region");
+        println!("Use delete-configuration-recorder to delete it before you call this again.");
+
+        for recorder in recorders {
+            println!("Recorder: {}", recorder.name.as_deref().unwrap_or_default());
+        }
+
+        process::exit(1);
+    }
+
+    // If we already have a delivery channel in the Region, we cannot create another.
+    let resp = client.describe_delivery_channels().send().await?;
+
+    let channels = resp.delivery_channels.unwrap_or_default();
+
+    let num_channels = channels.len();
+
+    if num_channels != 0 {
+        println!("You already have a delivery channel in this region");
+        println!("Use delete-delivery-channel to delete it before you call this again.");
+
+        for channel in channels {
+            println!("  Channel: {}", channel.name.as_deref().unwrap_or_default());
+        }
+
+        process::exit(1);
+    }
+
+    let resource_types: Vec<ResourceType> = vec![ResourceType::Topic];
+
+    let rec_group = RecordingGroup::builder()
+        .set_resource_types(Some(resource_types))
+        .build();
+
+    let cfg_recorder = ConfigurationRecorder::builder()
+        .name(name)
+        .role_arn(iam_arn)
+        .set_recording_group(Some(rec_group))
+        .build();
+
+    client
+        .put_configuration_recorder()
+        .configuration_recorder(cfg_recorder)
+        .send()
+        .await?;
+
+    println!("Configured recorder.");
+
+    // Create delivery channel
+    let snapshot_props = ConfigSnapshotDeliveryProperties::builder()
+        .delivery_frequency(MaximumExecutionFrequency::TwelveHours)
+        .build();
+
+    let delivery_channel = DeliveryChannel::builder()
+        .name(name)
+        .s3_bucket_name(bucket)
+        .s3_key_prefix(prefix)
+        .s3_kms_key_arn(kms_arn)
+        .sns_topic_arn(sns_arn)
+        .config_snapshot_delivery_properties(snapshot_props)
+        .build();
+
+    client
+        .put_delivery_channel()
+        .delivery_channel(delivery_channel)
+        .send()
+        .await?;
+
+    println!("Configured delivery channel.");
+
+    Ok(())
+}
+// snippet-end:[config.rust.enable-config]
+
 /// Enables AWS Config for a resource type, in the Region.
 ///
 /// # Arguments
@@ -109,83 +202,34 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    // If we already have a configuration recorder in the Region, we cannot create another.
-    let resp = client.describe_configuration_recorders().send().await?;
+    enable_config(
+        &client, &name, &kms_arn, &bucket, &sns_arn, &iam_arn, &prefix,
+    )
+    .await
+    .unwrap();
 
-    let recorders = resp.configuration_recorders.unwrap_or_default();
+    Ok(())
+}
 
-    let num_recorders = recorders.len();
+#[actix_rt::test]
+async fn test_enable_config() {
+    let shared_config = aws_config::load_from_env().await;
+    let client = Client::new(&shared_config);
 
-    if num_recorders != 0 {
-        println!("You already have a configuration recorder in this region");
-        println!("Use delete-configuration-recorder to delete it before you call this again.");
-
-        for recorder in recorders {
-            println!("Recorder: {}", recorder.name.as_deref().unwrap_or_default());
-        }
-
-        process::exit(1);
-    }
-
-    // If we already have a delivery channel in the Region, we cannot create another.
-    let resp = client.describe_delivery_channels().send().await?;
-
-    let channels = resp.delivery_channels.unwrap_or_default();
-
-    let num_channels = channels.len();
-
-    if num_channels != 0 {
-        println!("You already have a delivery channel in this region");
-        println!("Use delete-delivery-channel to delete it before you call this again.");
-
-        for channel in channels {
-            println!("  Channel: {}", channel.name.as_deref().unwrap_or_default());
-        }
-
-        process::exit(1);
-    }
-
-    let resource_types: Vec<ResourceType> = vec![ResourceType::Topic];
-
-    let rec_group = RecordingGroup::builder()
-        .set_resource_types(Some(resource_types))
-        .build();
-
-    let cfg_recorder = ConfigurationRecorder::builder()
-        .name(&name)
-        .role_arn(iam_arn)
-        .set_recording_group(Some(rec_group))
-        .build();
-
-    client
-        .put_configuration_recorder()
-        .configuration_recorder(cfg_recorder)
-        .send()
-        .await?;
-
-    println!("Configured recorder.");
-
-    // Create delivery channel
     let snapshot_props = ConfigSnapshotDeliveryProperties::builder()
         .delivery_frequency(MaximumExecutionFrequency::TwelveHours)
         .build();
 
     let delivery_channel = DeliveryChannel::builder()
-        .name(name)
-        .s3_bucket_name(bucket)
-        .s3_key_prefix(prefix)
-        .s3_kms_key_arn(kms_arn)
-        .sns_topic_arn(sns_arn)
+        .name("name")
+        .s3_bucket_name("bucket")
+        .s3_key_prefix("prefix")
+        .s3_kms_key_arn("kms_arn")
+        .sns_topic_arn("sns_arn")
         .config_snapshot_delivery_properties(snapshot_props)
         .build();
 
     client
         .put_delivery_channel()
-        .delivery_channel(delivery_channel)
-        .send()
-        .await?;
-
-    println!("Configured delivery channel.");
-
-    Ok(())
+        .delivery_channel(delivery_channel);
 }
