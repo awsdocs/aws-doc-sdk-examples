@@ -15,7 +15,6 @@ This application uses the following AWS services:
 *	Amazon Rekognition
 *	Amazon S3
 *	Amazon SES
-*	AWS Elastic Beanstalk
 
 **Note**: This example application uses the Asynchronous client that belongs to the AWS SDK for Java V2 for the Amazon S3 and Amazon Rekognition services. For more information, see [Asynchronous programming in the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/asynchronous.html).
 
