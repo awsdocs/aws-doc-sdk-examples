@@ -25,13 +25,12 @@ This application uses the following AWS services:
 
 + Prerequisites
 + Understand the AWS Photo Analyzer application
-+ Create an IntelliJ project named SpringPhotoAnalyzer
++ Create an IntelliJ project 
 + Add the POM dependencies to your project
 + Create the Java classes
 + Create the HTML files
 + Create the script files
-+ Package the project into a JAR file
-+ Deploy the application to AWS Elastic Beanstalk
++ Run the application
 
 ## Prerequisites
 
