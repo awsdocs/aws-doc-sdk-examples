@@ -5,6 +5,11 @@ acm:
   short: "&ACM;"
   sort: "ACM"
   version: acm-2015-12-08
+application-autoscaling:
+  long: "&APP-ASlong;"
+  short: "&APP-AS;"
+  sort: "Application Auto Scaling"
+  version: application-autoscaling-2016-02-06
 api-gateway:
   long: "&ABPlong;"
   short: "&ABP;"
