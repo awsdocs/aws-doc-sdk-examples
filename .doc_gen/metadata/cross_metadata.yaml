@@ -126,11 +126,15 @@ cross_TextractExplorer:
     sqs:
     textract:
 cross_SubmitDataApp:
-  title: Build an app to submit data to an &DDB; table
-  title_abbrev: Build an app to submit data to an &DDB; table
+  title: Build an application to submit data to a &DDB; table
+  title_abbrev: Build an app to submit data to a &DDB; table
   synopsis: build an application that submits data to an &DDBlong; table and notifies
     you when a user updates the table.
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_FirstJavaApp_Java_block.xml
     JavaScript:
       versions:
         - sdk_version: 3
