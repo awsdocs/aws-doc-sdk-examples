@@ -1,4 +1,4 @@
-# zexi 0.2.0
+# zexi 0.4.0
 ec2_CreateKeyPair:
   title: Create a security key pair for &EC2; using an &AWS; SDK
   title_abbrev: Create a security key pair
@@ -24,7 +24,7 @@ ec2_CreateKeyPair:
               snippet_tags:
                 - python.example_code.ec2.CreateKeyPair
   services:
-    - ec2
+    ec2: {CreateKeyPair}
 ec2_CreateSecurityGroup:
   title: Create an &EC2; security group using an &AWS; SDK
   title_abbrev: Create a security group
@@ -50,7 +50,7 @@ ec2_CreateSecurityGroup:
               snippet_tags:
                 - python.example_code.ec2.CreateSecurityGroup_AuthorizeIngress
   services:
-    - ec2
+    ec2: {CreateSecurityGroup}
 ec2_RunInstances:
   title: Create and run an &EC2; instance using an &AWS; SDK
   title_abbrev: Create and run an instance
@@ -67,7 +67,7 @@ ec2_RunInstances:
               snippet_tags:
                 - python.example_code.ec2.RunInstances
   services:
-    - ec2
+    ec2: {RunInstances}
 ec2_StartInstances:
   title: Start an &EC2; instance using an &AWS; SDK
   title_abbrev: Start an instance
@@ -93,7 +93,7 @@ ec2_StartInstances:
               snippet_tags:
                 - python.example_code.ec2.StartInstances
   services:
-    - ec2
+    ec2: {StartInstances}
 ec2_StopInstances:
   title: Stop an &EC2; instance using an &AWS; SDK
   title_abbrev: Stop an instance
@@ -119,7 +119,7 @@ ec2_StopInstances:
               snippet_tags:
                 - python.example_code.ec2.StopInstances
   services:
-    - ec2
+    ec2: {StopInstances}
 ec2_AllocateAddress:
   title: Allocate an Elastic IP address for &EC2; using an &AWS; SDK
   title_abbrev: Allocate an Elastic IP address
@@ -145,7 +145,7 @@ ec2_AllocateAddress:
               snippet_tags:
                 - python.example_code.ec2.AllocateAddress
   services:
-    - ec2
+    ec2: {AllocateAddress}
 ec2_AssociateAddress:
   title: Associate an Elastic IP address with an &EC2; instance using an &AWS; SDK
   title_abbrev: Associate an Elastic IP address with an instance
@@ -162,7 +162,7 @@ ec2_AssociateAddress:
               snippet_tags:
                 - python.example_code.ec2.AssociateAddress
   services:
-    - ec2
+    ec2: {AssociateAddress}
 ec2_DisassociateAddress:
   title: Disassociate an Elastic IP address from an &EC2; instance using an &AWS; SDK
   title_abbrev: Disassociate an Elastic IP address from an instance
@@ -179,7 +179,7 @@ ec2_DisassociateAddress:
               snippet_tags:
                 - python.example_code.ec2.DisassociateAddress
   services:
-    - ec2
+    ec2: {DisassociateAddress}
 ec2_ReleaseAddress:
   title: Release an Elastic IP address using an &AWS; SDK
   title_abbrev: Release an Elastic IP address
@@ -205,7 +205,7 @@ ec2_ReleaseAddress:
               snippet_tags:
                 - python.example_code.ec2.ReleaseAddress
   services:
-    - ec2
+    ec2: {ReleaseAddress}
 ec2_GetConsoleOutput:
   title: Get the console output of an &EC2; instance using an &AWS; SDK
   title_abbrev: Get the console output of an instance
@@ -222,7 +222,7 @@ ec2_GetConsoleOutput:
               snippet_tags:
                 - python.example_code.ec2.GetConsoleOutput
   services:
-    - ec2
+    ec2: {GetConsoleOutput}
 ec2_ModifyNetworkInterfaceAttribute:
   title: Change the security group of an &EC2; instance using an &AWS; SDK
   title_abbrev: Change the security group on an instance
@@ -239,7 +239,7 @@ ec2_ModifyNetworkInterfaceAttribute:
               snippet_tags:
                 - python.example_code.ec2.ModifyNetworkInterfaceAttribute
   services:
-    - ec2
+    ec2: {ModifyNetworkInterfaceAttribute}
 ec2_AuthorizeSecurityGroupIngress:
   title: Set inbound rules for an &EC2; security group using an &AWS; SDK
   title_abbrev: Set inbound rules for a security group
@@ -261,7 +261,7 @@ ec2_AuthorizeSecurityGroupIngress:
               snippet_tags:
                 - python.example_code.ec2.AuthorizeSecurityGroupIngress
   services:
-    - ec2
+    ec2: {AuthorizeSecurityGroupIngress}
 ec2_DeleteKeyPair:
   title: Delete an &EC2; security key pair using an &AWS; SDK
   title_abbrev: Delete a security key pair
@@ -287,7 +287,7 @@ ec2_DeleteKeyPair:
               snippet_tags:
                 - python.example_code.ec2.DeleteKeyPair
   services:
-    - ec2
+    ec2: {DeleteKeyPair}
 ec2_DeleteSecurityGroup:
   title: Delete an &EC2; security group using an &AWS; SDK
   title_abbrev: Delete a security group
@@ -313,7 +313,7 @@ ec2_DeleteSecurityGroup:
               snippet_tags:
                 - python.example_code.ec2.DeleteSecurityGroup
   services:
-    - ec2
+    ec2: {DeleteSecurityGroup}
 ec2_TerminateInstances:
   title: Terminate an &EC2; instance using an &AWS; SDK
   title_abbrev: Terminate an instance
@@ -339,7 +339,7 @@ ec2_TerminateInstances:
               snippet_tags:
                 - python.example_code.ec2.TerminateInstances
   services:
-    - ec2
+    ec2: {TerminateInstances}
 ec2_Usage_InstanceCreationAndManagement:
   title: Create and manage &EC2; instances using an &AWS; SDK
   title_abbrev: Create and manage instances
@@ -360,4 +360,4 @@ ec2_Usage_InstanceCreationAndManagement:
         - sdk_version: 3
           block_content: usage_EC2InstanceManagement_Python_block.xml
   services:
-    - ec2
+    ec2: {}
