@@ -1,4 +1,4 @@
-# zexi 0.2.0
+# zexi 0.4.0
 rekognition_DescribeCollection:
   title: Describe an &REK; collection using an &AWS; SDK
   title_abbrev: Describe a collection
@@ -25,7 +25,7 @@ rekognition_DescribeCollection:
                 - python.example_code.rekognition.RekognitionCollection
                 - python.example_code.rekognition.DescribeCollection
   services:
-    - rekognition
+    rekognition: {DescribeCollection}
 rekognition_DeleteCollection:
   title: Delete an &REK; collection using an &AWS; SDK
   title_abbrev: Delete a collection
@@ -52,7 +52,7 @@ rekognition_DeleteCollection:
                 - python.example_code.rekognition.RekognitionCollection
                 - python.example_code.rekognition.DeleteCollection
   services:
-    - rekognition
+    rekognition: {DeleteCollection}
 rekognition_IndexFaces:
   title: Index faces to an &REK; collection using an &AWS; SDK
   title_abbrev: Index faces to a collection
@@ -79,7 +79,7 @@ rekognition_IndexFaces:
                 - python.example_code.rekognition.RekognitionCollection
                 - python.example_code.rekognition.IndexFaces
   services:
-    - rekognition
+    rekognition: {IndexFaces}
 rekognition_ListFaces:
   title: List faces in an &REK; collection using an &AWS; SDK
   title_abbrev: List faces in a collection
@@ -106,7 +106,7 @@ rekognition_ListFaces:
                 - python.example_code.rekognition.RekognitionCollection
                 - python.example_code.rekognition.ListFaces
   services:
-    - rekognition
+    rekognition: {ListFaces}
 rekognition_SearchFacesByImage:
   title: Search for faces in an &REK; collection compared to a reference image using an &AWS; SDK
   title_abbrev: Search for faces in a collection compared to a reference image
@@ -133,7 +133,7 @@ rekognition_SearchFacesByImage:
                 - python.example_code.rekognition.RekognitionCollection
                 - python.example_code.rekognition.SearchFacesByImage
   services:
-    - rekognition
+    rekognition: {SearchFacesByImage}
 rekognition_SearchFaces:
   title: Search for faces in an &REK; collection using an &AWS; SDK
   title_abbrev: Search for faces in a collection
@@ -160,7 +160,7 @@ rekognition_SearchFaces:
                 - python.example_code.rekognition.RekognitionCollection
                 - python.example_code.rekognition.SearchFaces
   services:
-    - rekognition
+    rekognition: {SearchFaces}
 rekognition_DeleteFaces:
   title: Delete faces from an &REK; collection using an &AWS; SDK
   title_abbrev: Delete faces from a collection
@@ -187,7 +187,7 @@ rekognition_DeleteFaces:
                 - python.example_code.rekognition.RekognitionCollection
                 - python.example_code.rekognition.DeleteFaces
   services:
-    - rekognition
+    rekognition: {DeleteFaces}
 rekognition_CreateCollection:
   title: Create an &REK; collection using an &AWS; SDK
   title_abbrev: Create a collection
@@ -214,7 +214,7 @@ rekognition_CreateCollection:
                 - python.example_code.rekognition.RekognitionCollectionManager
                 - python.example_code.rekognition.CreateCollection
   services:
-    - rekognition
+    rekognition: {CreateCollection}
 rekognition_ListCollections:
   title: List &REK; collections using an &AWS; SDK
   title_abbrev: List collections
@@ -241,7 +241,7 @@ rekognition_ListCollections:
                 - python.example_code.rekognition.RekognitionCollectionManager
                 - python.example_code.rekognition.ListCollections
   services:
-    - rekognition
+    rekognition: {ListCollections}
 rekognition_Usage_FindFacesInCollection:
   title: Build an &REK; collection and find faces in it using an &AWS; SDK
   title_abbrev: Build a collection and find faces in it
@@ -276,7 +276,7 @@ rekognition_Usage_FindFacesInCollection:
               snippet_tags:
                 - python.example_code.rekognition.Usage_FindFacesInCollection
   services:
-    - rekognition
+    rekognition: {}
 rekognition_DetectFaces:
   title: Detect faces in an image with &REK; using an &AWS; SDK
   title_abbrev: Detect faces in an image
@@ -303,7 +303,7 @@ rekognition_DetectFaces:
                 - python.example_code.rekognition.RekognitionImage
                 - python.example_code.rekognition.DetectFaces
   services:
-    - rekognition
+    rekognition: {DetectFaces}
 rekognition_CompareFaces:
   title: Compare faces in an image against a reference image with &REK; using an &AWS; SDK
   title_abbrev: Compare faces in an image against a reference image
@@ -330,7 +330,7 @@ rekognition_CompareFaces:
                 - python.example_code.rekognition.RekognitionImage
                 - python.example_code.rekognition.CompareFaces
   services:
-    - rekognition
+    rekognition: {CompareFaces}
 rekognition_DetectLabels:
   title: Detect labels in an image with &REK; using an &AWS; SDK
   title_abbrev: Detect labels in an image
@@ -357,7 +357,7 @@ rekognition_DetectLabels:
                 - python.example_code.rekognition.RekognitionImage
                 - python.example_code.rekognition.DetectLabels
   services:
-    - rekognition
+    rekognition: {DetectLabels}
 rekognition_DetectModerationLabels:
   title: Detect moderation labels in an image with &REK; using an &AWS; SDK
   title_abbrev: Detect moderation labels in an image
@@ -385,7 +385,7 @@ rekognition_DetectModerationLabels:
                 - python.example_code.rekognition.RekognitionImage
                 - python.example_code.rekognition.DetectModerationLabels
   services:
-    - rekognition
+    rekognition: {DetectModerationLabels}
 rekognition_DetectText:
   title: Detect text in an image with &REK; using an &AWS; SDK
   title_abbrev: Detect text in an image
@@ -412,7 +412,7 @@ rekognition_DetectText:
                 - python.example_code.rekognition.RekognitionImage
                 - python.example_code.rekognition.DetectText
   services:
-    - rekognition
+    rekognition: {DetectText}
 rekognition_RecognizeCelebrities:
   title: Recognize celebrities in an image with &REK; using an &AWS; SDK
   title_abbrev: Recognize celebrities in an image
@@ -439,7 +439,7 @@ rekognition_RecognizeCelebrities:
                 - python.example_code.rekognition.RekognitionImage
                 - python.example_code.rekognition.RecognizeCelebrities
   services:
-    - rekognition
+    rekognition: {RecognizeCelebrities}
 rekognition_Usage_DetectAndDisplayImage:
   title: Detect and display elements in images with &REK; using an &AWS; SDK
   title_abbrev: Detect and display elements in images
@@ -483,4 +483,4 @@ rekognition_Usage_DetectAndDisplayImage:
               snippet_tags:
                 - python.example_code.rekognition.Usage_ImageDetection
   services:
-    - rekognition
+    rekognition: {}
