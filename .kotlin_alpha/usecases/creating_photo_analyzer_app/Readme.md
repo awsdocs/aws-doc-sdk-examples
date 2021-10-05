@@ -3,7 +3,7 @@
 ## Purpose
 You can create a dynamic web application that analyzes nature images located in an Amazon Simple Storage Service (Amazon S3) bucket by using the Amazon Rekognition service and the AWS SDK for Kotlin. The web application can analyze many images and generate data that breaks down each image into a series of labels. For example, the following image shows a lake during sun rise.
 
-![AWS Photo Analyzer](images/lake.png)
+![AWS Photo Analyzer](images/lakesun.png)
 
 After the application analyzes this image, it creates this data:
 
