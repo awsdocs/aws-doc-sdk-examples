@@ -336,6 +336,9 @@ rekognition_DetectLabels:
   title_abbrev: Detect labels in an image
   synopsis: detect labels in an image with &REK;.
   category:
+  guide_topic:
+    title: Detecting labels in an image
+    url: rekognition/latest/dg/labels-detect-labels-image.html
   languages:
     Java:
       versions:
