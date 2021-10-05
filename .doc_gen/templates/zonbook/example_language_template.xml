@@ -5,7 +5,7 @@
     <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
     %phrases-shared;
 ]>
-<!-- zexi 0.2.1 -->
+<!-- zexi 0.4.0 -->
 <variablelist role="termdef">
     {{- range $version := .Versions}}
     <varlistentry>
@@ -32,7 +32,7 @@
                 {{- if $version.GitHubUrl}}
                 <listitem>
                     <para>
-                        Find instructions and more code on <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/{{$version.GitHubUrl}}">GitHub</ulink>.
+                        Find instructions and more code on <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/{{$version.GitHubUrl}}">GitHub</ulink>.
                     </para>
                 </listitem>
                 {{- end}}
@@ -43,12 +43,24 @@
                     </para>
                 </listitem>
                 {{- end}}
-                {{- if $version.ApiRefLink.Url}}
+                {{- if gt (len $version.ApiRefLinks) 0 }}
                 <listitem>
+                    {{- if eq (len $version.ApiRefLinks) 1 }}
                     <para>
-                        For API details, see <ulink {{$version.ApiRefLink.DocType}} url="{{$version.ApiRefLink.Url}}">{{$version.ApiRefLink.Text}}</ulink>
+                        For API details, see
+                        {{- range $actionLink := $version.ApiRefLinks}}
+                        <ulink {{$actionLink.DocType}} url="{{$actionLink.Url}}">{{$actionLink.Text}}</ulink>
+                        {{- end}}
                         in <emphasis>{{$version.ApiRefName}}</emphasis>.
                     </para>
+                    {{- else }}
+                    <para>For API details, see the following topics in <emphasis>{{$version.ApiRefName}}</emphasis>.</para>
+                    <itemizedlist>
+                        {{- range $actionLink := $version.ApiRefLinks}}
+                        <listitem><para><ulink {{$actionLink.DocType}} url="{{$actionLink.Url}}">{{$actionLink.Text}}</ulink></para></listitem>
+                        {{- end }}
+                    </itemizedlist>
+                    {{- end }}
                 </listitem>
                 {{- end}}
             </itemizedlist>
