@@ -5,7 +5,7 @@ acm:
   short: "&ACM;"
   sort: "ACM"
   version: acm-2015-12-08
-application-auto-scaling:
+application-autoscaling:
   long: "&APP-ASlong;"
   short: "&APP-AS;"
   sort: "Application Auto Scaling"
