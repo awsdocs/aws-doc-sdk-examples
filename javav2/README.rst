@@ -43,7 +43,9 @@ The **javav2** folder in this repository contains examples of complete use cases
 Use cases
 ---------
 
-In the **use_cases** folder, find step-by-step development tutorials that use multiple AWS services. By following these tutorials, you will gain a deeper understanding of how to create Java-based applications that use the AWS SDK for Java V2. These tutorials include:
+In the **use_cases** folder, find step-by-step development tutorials that use multiple AWS services. By following these tutorials, you will gain a deeper understanding of how to create Java-based applications that use the AWS SDK for Java V2. Most of these AWS SDK for Java V2 tutorials use the Synchronous Java client. If you are interested in using the Asynchronous Java client, see the **Creating a dynamic web application that asynchronously analyzes photos using the AWS SDK for Java** tutorial. 
+
+These tutorials include:
 
 + **Creating your first AWS Java web application** - A tutorial that discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS), and AWS Elastic Beanstalk.
 
