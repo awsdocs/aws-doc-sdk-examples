@@ -1222,12 +1222,11 @@ The following HTML represents the **index.html** file.
     <header th:replace="layout :: site-header"/>
     <div class="container">
 
-    <h2>AWS Photo Analyzer application</h2>
+    <h2>AWS Asynchronous Photo Analyzer Application</h2>
 
-    <p>The AWS Photo Analyzer application is an example application that uses the Amazon Rekognition service, other AWS services, and the AWS SDK for Java version 2.
-        Analyzing nature photographs has never been easier! Just perform these steps:<p>
-
-    <ol>
+    <p>The AWS Photo Analyzer application is a sample application that uses the Amazon Rekognition Service as well as other AWS Services and the Java V2 SDK.
+        <b>This example application uses the Asynchronous client for the Amazon S3 and Amazon Rekognition Services</b>. Analyzing nature photographs has never been easier! Simply perform these steps:<p>
+     <ol>
         <li>Upload a nature photograph to an Amazon S3 bucket by choosing the <b>Upload Photos</b> menu item.</li>
         <li>Choose <b>Choose File</b> and browse to a nature image located on your desktop.</li>
         <li>Choose <b>Upload</b> to upload your image to an S3 bucket.</li>
