@@ -26,6 +26,24 @@ struct Opt {
     verbose: bool,
 }
 
+// Deletes a group.
+// snippet-start:[autoscaling.rust.delete-autoscaling-group]
+async fn delete_group(
+    client: &aws_sdk_autoscaling::Client,
+    name: &str,
+    force: bool,
+) -> Result<(), aws_sdk_autoscaling::Error> {
+    client
+        .delete_auto_scaling_group()
+        .auto_scaling_group_name(name)
+        .set_force_delete(force.then(|| true))
+        .send()
+        .await?;
+
+    Ok(())
+}
+// snippet-end:[autoscaling.rust.delete-autoscaling-group]
+
 /// Updates an Auto Scaling group in the Region to the specified maximum size.
 /// # Arguments
 ///
@@ -67,13 +85,22 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    client
-        .delete_auto_scaling_group()
-        .auto_scaling_group_name(autoscaling_name)
-        .set_force_delete(force.then(|| true))
-        .send()
-        .await?;
+    delete_group(&client, &autoscaling_name, force)
+        .await
+        .unwrap();
 
     println!("Deleted Auto Scaling group");
+
     Ok(())
+}
+
+#[actix_rt::test]
+async fn test_delete_group() {
+    let shared_config = aws_config::load_from_env().await;
+    let client = Client::new(&shared_config);
+
+    client
+        .delete_auto_scaling_group()
+        .auto_scaling_group_name("name")
+        .set_force_delete(Some(true));
 }

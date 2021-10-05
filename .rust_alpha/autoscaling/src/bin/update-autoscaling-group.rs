@@ -26,6 +26,24 @@ struct Opt {
     verbose: bool,
 }
 
+// Updates the size of a group.
+// snippet-start:[autoscaling.rust.update-autoscaling-group]
+async fn update_group(
+    client: &aws_sdk_autoscaling::Client,
+    name: &str,
+    size: i32,
+) -> Result<(), aws_sdk_autoscaling::Error> {
+    client
+        .update_auto_scaling_group()
+        .auto_scaling_group_name(name)
+        .max_size(size)
+        .send()
+        .await?;
+
+    Ok(())
+}
+// snippet-end:[autoscaling.rust.update-autoscaling-group]
+
 /// Updates an Auto Scaling group in the Region to a new maximum size.
 /// # Arguments
 ///
@@ -65,13 +83,21 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    client
-        .update_auto_scaling_group()
-        .auto_scaling_group_name(autoscaling_name)
-        .max_size(max_size)
-        .send()
-        .await?;
+    update_group(&client, &autoscaling_name, max_size)
+        .await
+        .unwrap();
 
     println!("Updated AutoScaling group");
     Ok(())
+}
+
+#[actix_rt::test]
+async fn test_update_group() {
+    let shared_config = aws_config::load_from_env().await;
+    let client = Client::new(&shared_config);
+
+    client
+        .update_auto_scaling_group()
+        .auto_scaling_group_name("name")
+        .max_size(32);
 }

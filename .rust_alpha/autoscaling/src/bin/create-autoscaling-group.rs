@@ -26,6 +26,28 @@ struct Opt {
     verbose: bool,
 }
 
+// Creates a group.
+// snippet-start:[autoscaling.rust.create-autoscaling-group]
+async fn create_group(
+    client: &aws_sdk_autoscaling::Client,
+    name: &str,
+    id: &str,
+) -> Result<(), aws_sdk_autoscaling::Error> {
+    client
+        .create_auto_scaling_group()
+        .auto_scaling_group_name(name)
+        .instance_id(id)
+        .min_size(1)
+        .max_size(5)
+        .send()
+        .await?;
+
+    println!("Created AutoScaling group");
+
+    Ok(())
+}
+// snippet-end:[autoscaling.rust.create-autoscaling-group]
+
 /// Creates an Auto Scaling group in the Region.
 /// # Arguments
 ///
@@ -66,15 +88,22 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
+    create_group(&client, &autoscaling_name, &instance_id)
+        .await
+        .unwrap();
+
+    Ok(())
+}
+
+#[actix_rt::test]
+async fn test_create_group() {
+    let shared_config = aws_config::load_from_env().await;
+    let client = Client::new(&shared_config);
+
     client
         .create_auto_scaling_group()
-        .auto_scaling_group_name(autoscaling_name)
-        .instance_id(instance_id)
+        .auto_scaling_group_name("random")
+        .instance_id("id")
         .min_size(1)
-        .max_size(5)
-        .send()
-        .await?;
-
-    println!("Created AutoScaling group");
-    Ok(())
+        .max_size(5);
 }

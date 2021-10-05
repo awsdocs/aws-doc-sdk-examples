@@ -62,6 +62,12 @@ This example updates an Auto Scaling group in the Region to a new maximum size.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
+### Testing the code
+
+To run the unit tests for all of the code examples, enter the following command:
+
+`cargo test`
+
 ### Notes
 
 - We recommend that you grant this code least privilege,
