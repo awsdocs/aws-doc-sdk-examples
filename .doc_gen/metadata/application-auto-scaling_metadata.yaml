@@ -15,4 +15,4 @@ application-autoscaling_DescribeScalingPolicies:
               snippet_tags:
                 - applicationautoscaling.rust.describe-scaling-policies
   services:
-    - api-gateway
+    - application-autoscaling {DescribeScalingPolicies}
