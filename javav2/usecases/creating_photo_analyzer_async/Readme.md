@@ -272,7 +272,7 @@ To return data that you read from the **resp** object (for example, label data),
 
             } finally {
 
-                // Only close the client when you are completely done with it
+                // Only close the client when you are completely done with it.
                 rekAsyncClient.close();
             }
 
@@ -476,7 +476,6 @@ The following Java code represents the **PhotoController** class that handles HT
     String getImages(HttpServletRequest request, HttpServletResponse response) {
 
         return s3Client.ListAllObjects(bucketName);
-
     }
 
 
@@ -564,7 +563,7 @@ The following class uses the Amazon S3 Java API to perform Amazon S3 operations.
                     .key(keyName)
                     .build();
 
-            // Get the Object from the Amazon S3 bucket using the Amazon S3 Async Client
+            // Get the Object from the Amazon S3 bucket using the Amazon S3 Async Client.
             final CompletableFuture<ResponseBytes<GetObjectResponse>>[] futureGet = new CompletableFuture[]{s3AsyncClient.getObject(objectRequest,
                     AsyncResponseTransformer.toBytes())};
 
@@ -573,21 +572,21 @@ The following class uses the Amazon S3 Java API to perform Amazon S3 operations.
 
                     if (resp != null) {
 
-                        //  Set the AtomicReference object
-                         reference.set(resp.asByteArray());
+                        //  Set the AtomicReference object.
+                        reference.set(resp.asByteArray());
 
                     } else {
                         err.printStackTrace();
                     }
                 } finally {
 
-                    // Only close the client when you are completely done with it
+                    // Only close the client when you are completely done with it.
                     s3AsyncClient.close();
                 }
             });
             futureGet[0].join();
 
-            // Read the AtomicReference object and return the byte[] value
+            // Read the AtomicReference object and return the byte[] value.
             return reference.get();
 
           } catch (S3Exception e) {
@@ -673,7 +672,7 @@ The following class uses the Amazon S3 Java API to perform Amazon S3 operations.
                         err.printStackTrace();
                     }
                 } finally {
-                    // Only close the client when you are completely done with it
+                    // Only close the client when you are completely done with it.
                     s3AsyncClient.close();
                 }
             });
@@ -723,7 +722,7 @@ The following class uses the Amazon S3 Java API to perform Amazon S3 operations.
                             DateIn = myValue.lastModified();
                             myItem.setDate(String.valueOf(DateIn));
 
-                            // Push the items to the list
+                            // Push the items to the list.
                             bucketItems.add(myItem);
                         }
 
@@ -734,7 +733,7 @@ The following class uses the Amazon S3 Java API to perform Amazon S3 operations.
                         err.printStackTrace();
                     }
                 } finally {
-                    // Only close the client when you are completely done with it
+                    // Only close the client when you are completely done with it.
                     s3AsyncClient.close();
                 }
             });
@@ -856,19 +855,19 @@ The following Java code represents the **SendMessage** class. This class uses th
 
     private String sender = "<enter email address>";
 
-    // The subject line for the email
+    // The subject line for the email.
     private String subject = "Analyzed photos report";
 
-    // The email body for recipients with non-HTML email clients
+    // The email body for recipients with non-HTML email clients.
     private String bodyText = "Hello,\r\n" + "See the attached file for the analyzed photos report.";
 
-    // The HTML body of the email
+    // The HTML body of the email.
     private String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
             + "<p>Please see the attached file for the report that analyzed photos in the S3 bucket.</p>" + "</body>" + "</html>";
 
     public void sendReport(InputStream is, String emailAddress ) throws IOException {
 
-        // Convert the InputStream to a byte[]
+        // Convert the InputStream to a byte[].
         byte[] fileContent = IOUtils.toByteArray(is);
 
         try {
@@ -883,45 +882,45 @@ The following Java code represents the **SendMessage** class. This class uses th
         MimeMessage message = null;
         Session session = Session.getDefaultInstance(new Properties());
 
-        // Create a new MimeMessage object
+        // Create a new MimeMessage object.
         message = new MimeMessage(session);
 
-        // Add subject, from, and to lines
+        // Add subject, from, and to lines.
         message.setSubject(subject, "UTF-8");
         message.setFrom(new InternetAddress(sender));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
 
-        // Create a multipart/alternative child container
+        // Create a multipart/alternative child container.
         MimeMultipart msgBody = new MimeMultipart("alternative");
 
-        // Create a wrapper for the HTML and text parts
+        // Create a wrapper for the HTML and text parts.
         MimeBodyPart wrap = new MimeBodyPart();
 
-        // Define the text part
+        // Define the text part.
         MimeBodyPart textPart = new MimeBodyPart();
         textPart.setContent(bodyText, "text/plain; charset=UTF-8");
 
-        // Define the HTML part
+        // Define the HTML part.
         MimeBodyPart htmlPart = new MimeBodyPart();
         htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
 
-        // Add the text and HTML parts to the child container
+        // Add the text and HTML parts to the child container.
         msgBody.addBodyPart(textPart);
         msgBody.addBodyPart(htmlPart);
 
-        // Add the child container to the wrapper object
+        // Add the child container to the wrapper object.
         wrap.setContent(msgBody);
 
-        // Create a multipart/mixed parent container
+        // Create a multipart/mixed parent container.
         MimeMultipart msg = new MimeMultipart("mixed");
 
-        // Add the parent container to the message
+        // Add the parent container to the message.
         message.setContent(msg);
 
-        // Add the multipart/alternative part to the message
+        // Add the multipart/alternative part to the message.
         msg.addBodyPart(wrap);
 
-        // Define the attachment
+        // Define the attachment.
         MimeBodyPart att = new MimeBodyPart();
         DataSource fds = new ByteArrayDataSource(attachment, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         att.setDataHandler(new DataHandler(fds));
@@ -929,10 +928,10 @@ The following Java code represents the **SendMessage** class. This class uses th
         String reportName = "PhotoReport.xls";
         att.setFileName(reportName);
 
-        // Add the attachment to the message
+        // Add the attachment to the message.
         msg.addBodyPart(att);
 
-        // Try to send the email
+        // Try to send the email.
         try {
             System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
 
@@ -1036,7 +1035,7 @@ The following Java code represents the **WriteExcel** class.
      private WritableCellFormat timesBoldUnderline;
      private WritableCellFormat times;
 
-     // Returns an InputStream that represents the Excel report
+     // Returns an InputStream that represents the Excel report.
      public java.io.InputStream exportExcel( List<List> list) {
 
         try {
@@ -1048,22 +1047,21 @@ The following Java code represents the **WriteExcel** class.
         return null;
      }
 
-     // Generates the report and returns an InputStream
+     // Generates the report and returns an InputStream.
      public java.io.InputStream write( List<List> list) throws IOException, WriteException {
         java.io.OutputStream os = new java.io.ByteArrayOutputStream() ;
         WorkbookSettings wbSettings = new WorkbookSettings();
 
         wbSettings.setLocale(new Locale("en", "EN"));
 
-        // Create a workbook - pass the OutputStream
+        // Create a workbook - pass the OutputStream.
         WritableWorkbook workbook = Workbook.createWorkbook(os, wbSettings);
-        //Outer list
         int size = list.size() ;
 
-        // Outer list
+        // Outer list.
         for (int i = 0; i < size; i++) {
 
-            // Need to get the WorkItem from each list
+            // Need to get the WorkItem from each list.
             List innerList = (List) list.get(i);
             WorkItem wi = (WorkItem)innerList.get(i);
 
@@ -1074,11 +1072,11 @@ The following Java code represents the **WriteExcel** class.
             createContent(excelSheet, innerList);
         }
 
-        // Close the workbook
+        // Close the workbook.
         workbook.write();
         workbook.close();
 
-        // Get an InputStream that represents the report
+        // Get an InputStream that represents the report.
         java.io.ByteArrayOutputStream stream = new java.io.ByteArrayOutputStream();
         stream = (java.io.ByteArrayOutputStream)os;
         byte[] myBytes = stream.toByteArray();
@@ -1087,22 +1085,20 @@ The following Java code represents the **WriteExcel** class.
         return is ;
      }
 
-     // Create headings in the Excel sheet
+     // Create headings in the Excel sheet.
      private void createLabel(WritableSheet sheet)
             throws WriteException {
-        // Create a times font
+       
         WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
 
-	  // Define the cell format
-        times = new WritableCellFormat(times10pt);
-        // Lets automatically wrap the cells
+	times = new WritableCellFormat(times10pt);
         times.setWrap(true);
 
-        // Create a bold font with underlining
+        // Create a bold font with underlining.
         WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false,
                 UnderlineStyle.SINGLE);
         timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
-        // Let's automatically wrap the cells
+        // Let's automatically wrap the cells.
         timesBoldUnderline.setWrap(true);
 
         CellView cv = new CellView();
@@ -1110,33 +1106,32 @@ The following Java code represents the **WriteExcel** class.
         cv.setFormat(timesBoldUnderline);
         cv.setAutosize(true);
 
-        // Write a few headers
+        // Write a few headers.
         addCaption(sheet, 0, 0, "Photo");
         addCaption(sheet, 1, 0, "Label");
         addCaption(sheet, 2, 0, "Confidence");
        }
 
-      // Write the WorkItem data to the Excel report
+      // Write the WorkItem data to the Excel report.
       private int createContent(WritableSheet sheet, List<List> list) throws WriteException {
 
         int size = list.size() ;
-
-        //  List
         for (int i = 0; i < size; i++) {
 
                 WorkItem wi = (WorkItem)list.get(i);
 
-                // Get the work item values
+                // Get the work item values.
                 String key = wi.getKey();
                 String label = wi.getName();
                 String confidence = wi.getConfidence();
 
-                // First column
+                // First column.
                 addLabel(sheet, 0, i + 2, key);
-                // Second column
+                
+		// Second column.
                 addLabel(sheet, 1, i + 2, label);
 
-                // Third column
+                // Third column.
                 addLabel(sheet, 2, i + 2, confidence);
 
           }
@@ -1176,7 +1171,7 @@ The following Java code represents the **WriteExcel** class.
     private int countString (String ss) {
         int count = 0;
 
-	// Counts each character except spaces
+	// Counts each character except spaces.
         for(int i = 0; i < ss.length(); i++) {
             if(ss.charAt(i) != ' ')
                 count++;
