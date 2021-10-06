@@ -21,7 +21,7 @@ namespace DescribeLogGroupsExample
             // Creates a CloudWatch Logs client using the default
             // user. If you need to work with resources in another
             // AWS Region than the one defined for the default user,
-            // pass the Region as a parameter to the client constructor.
+            // pass the AWS Region as a parameter to the client constructor.
             var client = new AmazonCloudWatchLogsClient();
 
             var request = new DescribeLogGroupsRequest

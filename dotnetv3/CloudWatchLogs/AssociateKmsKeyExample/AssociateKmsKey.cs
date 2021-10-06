@@ -20,7 +20,7 @@ namespace AssociateKmsKeyExample
         {
             // This client object will be associated with the same AWS Region
             // as the default user on this system. If you need to use a
-            // different AWS region, pass it as a parameter to the client
+            // different AWS Region, pass it as a parameter to the client
             // constructor.
             var client = new AmazonCloudWatchLogsClient();
 
