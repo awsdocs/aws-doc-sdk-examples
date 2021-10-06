@@ -18,6 +18,35 @@ struct Opt {
     verbose: bool,
 }
 
+// Lists your groups.
+async fn list_groups(
+    client: &aws_sdk_autoscaling::Client,
+) -> Result<(), aws_sdk_autoscaling::Error> {
+    let resp = client.describe_auto_scaling_groups().send().await?;
+
+    println!("Groups:");
+
+    let groups = resp.auto_scaling_groups.unwrap_or_default();
+
+    for group in &groups {
+        println!(
+            "  {}",
+            group.auto_scaling_group_name.as_deref().unwrap_or_default()
+        );
+        println!(
+            "  ARN:          {}",
+            group.auto_scaling_group_arn.as_deref().unwrap_or_default()
+        );
+        println!("  Minimum size: {}", group.min_size.unwrap_or_default());
+        println!("  Maximum size: {}", group.max_size.unwrap_or_default());
+        println!();
+    }
+
+    println!("Found {} group(s)", groups.len());
+
+    Ok(())
+}
+
 /// Lists your Amazon EC2 Auto Scaling groups in the Region.
 /// # Arguments
 ///
@@ -49,26 +78,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client.describe_auto_scaling_groups().send().await?;
-
-    println!("Groups:");
-
-    let groups = resp.auto_scaling_groups.unwrap_or_default();
-
-    for group in &groups {
-        println!(
-            "  {}",
-            group.auto_scaling_group_name.as_deref().unwrap_or_default()
-        );
-        println!(
-            "  ARN:          {}",
-            group.auto_scaling_group_arn.as_deref().unwrap_or_default()
-        );
-        println!("  Minimum size: {}", group.min_size.unwrap_or_default());
-        println!("  Maximum size: {}", group.max_size.unwrap_or_default());
-        println!();
-    }
-
-    println!("Found {} group(s)", groups.len());
-    Ok(())
+    list_groups(&client).await
 }
