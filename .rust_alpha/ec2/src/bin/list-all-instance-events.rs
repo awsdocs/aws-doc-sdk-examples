@@ -18,38 +18,39 @@ struct Opt {
     verbose: bool,
 }
 
-/// Shows the scheduled events for the Amazon Elastic Compute Cloud (Amazon EC2) instances in the Region.
-async fn show_events(reg: &'static str) {    
-    let region_provider = RegionProviderChain::default_provider().or_else(reg);
-    let config = aws_config::from_env().region(region_provider).load().await;
-    let client = Client::new(&config);
+// Shows the events for every Region.
+// snippet-start:[ec2.rust.list-all-instance-events]
+async fn show_all_events(client: &aws_sdk_ec2::Client) -> Result<(), aws_sdk_ec2::Error> {
+    let resp = client.describe_regions().send().await?;
 
-    let resp = client.describe_instance_status().send().await;
+    for region in resp.regions.unwrap_or_default() {
+        let reg: &'static str = Box::leak(region.region_name.unwrap().into_boxed_str());
+        let region_provider = RegionProviderChain::default_provider().or_else(reg);
+        let config = aws_config::from_env().region(region_provider).load().await;
+        let new_client = Client::new(&config);
 
-    println!("Instances in region {}:", reg);
-    println!();
+        let resp = new_client.describe_instance_status().send().await;
 
-    for status in resp.unwrap().instance_statuses.unwrap_or_default() {
-        println!(
-            "  Events scheduled for instance ID: {}",
-            status.instance_id.as_deref().unwrap_or_default()
-        );
-        for event in status.events.unwrap_or_default() {
-            println!("    Event ID:     {}", event.instance_event_id.unwrap());
-            println!("    Description:  {}", event.description.unwrap());
-            /* Event codes:
-               InstanceReboot
-               InstanceRetirement
-               InstanceStop
-               SystemMaintenance
-               SystemReboot
-               Unknown
-            */
-            println!("    Event code:   {}", event.code.unwrap().as_ref());
-            println!();
+        println!("Instances in region {}:", reg);
+        println!();
+
+        for status in resp.unwrap().instance_statuses.unwrap_or_default() {
+            println!(
+                "  Events scheduled for instance ID: {}",
+                status.instance_id.as_deref().unwrap_or_default()
+            );
+            for event in status.events.unwrap_or_default() {
+                println!("    Event ID:     {}", event.instance_event_id.unwrap());
+                println!("    Description:  {}", event.description.unwrap());
+                println!("    Event code:   {}", event.code.unwrap().as_ref());
+                println!();
+            }
         }
     }
+
+    Ok(())
 }
+// snippet-end:[ec2.rust.list-all-instance-events]
 
 /// Lists the events of your EC2 instances in all available regions.
 /// # Arguments
@@ -80,14 +81,15 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    // Get list of available regions.
-    let resp = client.describe_regions().send().await;
-
-    // Show the events for that EC2 instances in that Region.
-    for region in resp.unwrap().regions.unwrap_or_default() {
-        let reg: &'static str = Box::leak(region.region_name.unwrap().into_boxed_str());
-        show_events(reg).await;
-    }
+    show_all_events(&client).await.unwrap();
 
     Ok(())
+}
+
+#[actix_rt::test]
+async fn test_show_all_events() {
+    let shared_config = aws_config::load_from_env().await;
+    let client = Client::new(&shared_config);
+
+    client.describe_regions();
 }

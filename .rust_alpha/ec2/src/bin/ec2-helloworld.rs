@@ -18,6 +18,20 @@ struct Opt {
     verbose: bool,
 }
 
+// Describes the regions.
+// snippet-start:[ec2.rust.ec2-helloworld]
+async fn show_regions(client: &aws_sdk_ec2::Client) -> Result<(), aws_sdk_ec2::Error> {
+    let rsp = client.describe_regions().send().await?;
+
+    println!("Regions:");
+    for region in rsp.regions.unwrap_or_default() {
+        println!("  {}", region.region_name.unwrap());
+    }
+
+    Ok(())
+}
+// snippet-end:[ec2.rust.ec2-helloworld]
+
 /// Describes the AWS Regions that are enabled for your account.
 /// # Arguments
 ///
@@ -47,12 +61,15 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let rsp = client.describe_regions().send().await?;
-
-    println!("Regions:");
-    for region in rsp.regions.unwrap_or_default() {
-        println!("  {}", region.region_name.unwrap());
-    }
+    show_regions(&client).await.unwrap();
 
     Ok(())
+}
+
+#[actix_rt::test]
+async fn test_show_regions() {
+    let shared_config = aws_config::load_from_env().await;
+    let client = Client::new(&shared_config);
+
+    client.describe_regions();
 }
