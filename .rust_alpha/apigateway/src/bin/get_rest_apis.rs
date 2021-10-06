@@ -19,7 +19,7 @@ struct Opt {
 }
 
 // Displays the Amazon API Gateway REST APIs in the Region.
-async fn show_apis(client: &aws_sdk_apigateway::Client) -> Result<(), aws_sdk_apigateway::Error> {
+async fn show_apis(client: &Client) -> Result<(), Error> {
     let resp = client.get_rest_apis().send().await?;
 
     for api in resp.items.unwrap_or_default() {
@@ -71,7 +71,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    show_apis(&client).await.unwrap();
-
-    Ok(())
+    show_apis(&client).await
 }
