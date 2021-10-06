@@ -1,0 +1,13 @@
+<!-- SDK for Kotlin Alpha -->
+
+<!ENTITY Kotlinlong '&AWS; SDK for Kotlin'>
+<!ENTITY Kotlin 'SDK for Kotlin'>
+<!ENTITY guide-kotlin-dev '&Kotlinlong; developer guide'>
+<!ENTITY guide-kotlin-api '&Kotlinlong; API reference'>
+
+<!-- SDK for Rust Alpha -->
+
+<!ENTITY Rustlong '&AWS; SDK for Rust'>
+<!ENTITY Rust 'SDK for Rust'>
+<!ENTITY guide-rust-dev '&Rustlong; developer guide'>
+<!ENTITY guide-rust-api '&Rustlong; API reference'>
