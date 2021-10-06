@@ -156,6 +156,7 @@ Ensure that the **pom.xml** file resembles the following XML code.
 	        <plugin>
 	            <groupId>org.springframework.boot</groupId>
 	            <artifactId>spring-boot-maven-plugin</artifactId>
+		    <version>${project.parent.version}</version>	
 	        </plugin>
 	    </plugins>
 	</build>
