@@ -108,3 +108,15 @@ Ruby:
         uid: "SdkForRubyV3"
         name: "&guide-ruby-api;"
   guide: "&guide-ruby-dev;"
+Rust:
+  property: rust
+  sdk:
+    1:
+      long: "&AWS; SDK for Rust"
+      short: "SDK for Rust"
+      caveat: "This documentation is for an SDK in preview release. The SDK is subject to change and should not be used in production."
+      api_ref:
+        uid: "SdkForRustV1"
+        name: "&AWS; SDK for Rust API Reference"
+        link_template: "https://github.com/awslabs/aws-sdk-rust/guide.md"
+  guide: "&AWS; SDK for Rust Developer Guide"
