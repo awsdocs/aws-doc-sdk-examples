@@ -10,7 +10,7 @@ namespace CelebrityInfoExample
 
     /// <summary>
     /// Shows how to use Amazon Rekognition to retrieve information about the
-    /// celebrity identified by the supplised celebrity Id. This example was
+    /// celebrity identified by the supplied celebrity Id. This example was
     /// created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
     /// </summary>
     public class CelebrityInfo
@@ -31,7 +31,7 @@ namespace CelebrityInfoExample
 
             var celebrityInfoResponse = await rekognitionClient.GetCelebrityInfoAsync(celebrityInfoRequest);
 
-            // Display celebrity information
+            // Display celebrity information.
             Console.WriteLine($"celebrity name: {celebrityInfoResponse.Name}");
             Console.WriteLine("Further information (if available):");
             celebrityInfoResponse.Urls.ForEach(url =>

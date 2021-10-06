@@ -10,7 +10,7 @@ namespace SearchFacesMatchingIdExample
 
     /// <summary>
     /// Uses the Amazon Rekognition Service to find faces in an image that
-    /// match the face Id provideded in the method request. This example was
+    /// match the face Id provided in the method request. This example was
     /// created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
     /// </summary>
     public class SearchFacesMatchingId

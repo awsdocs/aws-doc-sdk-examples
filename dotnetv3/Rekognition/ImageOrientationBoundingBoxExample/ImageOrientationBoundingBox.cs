@@ -13,7 +13,7 @@ namespace ImageOrientationBoundingBoxExample
 
     /// <summary>
     /// Uses the Amazon Rekognition Service to display the details of the
-    /// bounding box around the faces detected in an image. This example was
+    /// bounding boxes around the faces detected in an image. This example was
     /// created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
     /// </summary>
     public class ImageOrientationBoundingBox
