@@ -22,6 +22,15 @@ struct Opt {
     verbose: bool,
 }
 
+// Stops an instance.
+async fn stop_instance(client: &aws_sdk_ec2::Client, id: &str) -> Result<(), aws_sdk_ec2::Error> {
+    client.stop_instances().instance_ids(id).send().await?;
+
+    println!("Stopped instance.");
+
+    Ok(())
+}
+
 /// Stops an Amazon EC2 instance.
 /// # Arguments
 ///
@@ -57,13 +66,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    client
-        .stop_instances()
-        .instance_ids(instance_id)
-        .send()
-        .await?;
-
-    println!("Stopped instance.");
-
-    Ok(())
+    stop_instance(&client, &instance_id).await
 }
