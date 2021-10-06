@@ -18,6 +18,28 @@ struct Opt {
     verbose: bool,
 }
 
+// Displays the Amazon API Gateway REST APIs in the Region.
+async fn show_apis(client: &aws_sdk_apigateway::Client) -> Result<(), aws_sdk_apigateway::Error> {
+    let resp = client.get_rest_apis().send().await?;
+
+    for api in resp.items.unwrap_or_default() {
+        println!("ID:          {}", api.id.as_deref().unwrap_or_default());
+        println!("Name:        {}", api.name.as_deref().unwrap_or_default());
+        println!(
+            "Description: {}",
+            api.description.as_deref().unwrap_or_default()
+        );
+        println!(
+            "Version:     {}",
+            api.version.as_deref().unwrap_or_default()
+        );
+        println!("Created:     {}", api.created_date.unwrap().to_chrono());
+        println!();
+    }
+
+    Ok(())
+}
+
 /// Displays information about the Amazon API Gateway REST APIs in the Region.
 ///
 /// # Arguments
@@ -49,22 +71,7 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client.get_rest_apis().send().await?;
-
-    for api in resp.items.unwrap_or_default() {
-        println!("ID:          {}", api.id.as_deref().unwrap_or_default());
-        println!("Name:        {}", api.name.as_deref().unwrap_or_default());
-        println!(
-            "Description: {}",
-            api.description.as_deref().unwrap_or_default()
-        );
-        println!(
-            "Version:     {}",
-            api.version.as_deref().unwrap_or_default()
-        );
-        println!("Created:     {}", api.created_date.unwrap().to_chrono());
-        println!();
-    }
+    show_apis(&client).await.unwrap();
 
     Ok(())
 }
