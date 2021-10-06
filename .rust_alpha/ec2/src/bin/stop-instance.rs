@@ -23,6 +23,7 @@ struct Opt {
 }
 
 // Stops an instance.
+// snippet-start:[ec2.rust.stop-instance]
 async fn stop_instance(client: &aws_sdk_ec2::Client, id: &str) -> Result<(), aws_sdk_ec2::Error> {
     client.stop_instances().instance_ids(id).send().await?;
 
@@ -30,6 +31,7 @@ async fn stop_instance(client: &aws_sdk_ec2::Client, id: &str) -> Result<(), aws
 
     Ok(())
 }
+// snippet-end:[ec2.rust.stop-instance]
 
 /// Stops an Amazon EC2 instance.
 /// # Arguments

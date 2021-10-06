@@ -23,12 +23,14 @@ struct Opt {
 }
 
 // Reboots an instance.
+// snippet-start:[ec2.rust.reboot-instance]
 async fn reboot_instance(client: &aws_sdk_ec2::Client, id: &str) -> Result<(), aws_sdk_ec2::Error> {
     client.reboot_instances().instance_ids(id).send().await?;
 
     println!("Rebooted instance.");
     Ok(())
 }
+// snippet-end:[ec2.rust.reboot-instance]
 
 /// Reboots an Amazon EC2 instance.
 /// # Arguments

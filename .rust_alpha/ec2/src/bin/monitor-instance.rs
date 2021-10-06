@@ -23,6 +23,7 @@ struct Opt {
 }
 
 // Enables monitoring for an instance.
+// snippet-start:[ec2.rust.monitor-instance]
 async fn enable_monitoring(
     client: &aws_sdk_ec2::Client,
     id: &str,
@@ -33,6 +34,7 @@ async fn enable_monitoring(
 
     Ok(())
 }
+// snippet-end:[ec2.rust.monitor-instance]
 
 /// Enables monitoring for an Amazon EC2 instance.
 /// # Arguments

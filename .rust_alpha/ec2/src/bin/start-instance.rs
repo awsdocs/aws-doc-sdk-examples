@@ -23,6 +23,7 @@ struct Opt {
 }
 
 // Starts an instance.
+// snippet-start:[ec2.rust.start-instance]
 async fn start_instance(client: &aws_sdk_ec2::Client, id: &str) -> Result<(), aws_sdk_ec2::Error> {
     client.start_instances().instance_ids(id).send().await?;
 
@@ -30,6 +31,7 @@ async fn start_instance(client: &aws_sdk_ec2::Client, id: &str) -> Result<(), aw
 
     Ok(())
 }
+// snippet-end:[ec2.rust.start-instance]
 
 /// Starts an Amazon EC2 instance.
 /// # Arguments
