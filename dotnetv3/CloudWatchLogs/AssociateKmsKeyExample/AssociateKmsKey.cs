@@ -24,7 +24,7 @@ namespace AssociateKmsKeyExample
             // constructor.
             var client = new AmazonCloudWatchLogsClient();
 
-            string kmsKeyId = "arn:aws:kms:us-east-2:704825161248:key/7c9eccc2-38cb-4c4f-9db3-766ee8dd3ad4";
+            string kmsKeyId = "arn:aws:kms:us-west-2:<account-number>:key/7c9eccc2-38cb-4c4f-9db3-766ee8dd3ad4";
             string groupName = "cloudwatchlogs-example-loggroup";
 
             var request = new AssociateKmsKeyRequest
