@@ -1,5 +1,5 @@
 # zexi 0.2.0
-application-auto-scaling_DescribeScalingPolicies:
+application-autoscaling_DescribeScalingPolicies:
   title: Describes the Application Auto Scaling scaling policies for the specified service namespace.
   title_abbrev: Describes scaling policies
   synopsis: describe scaling policies.
