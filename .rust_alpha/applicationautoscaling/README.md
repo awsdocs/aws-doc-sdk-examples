@@ -23,12 +23,6 @@ This example describes the API Gateway REST APIs in the Region.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
-#### Testing the code
-
-To test this code example, enter the following command:
-
-`cargo test`
-
 ## Notes
 
 - We recommend that you grant this code least privilege,
