@@ -1,10 +1,10 @@
-# AWS SDK for Rust code examples for API Gateway
+# AWS SDK for Rust code examples for Application Auto Scaling
 
-Amazon API Gateway (API Gateway) enables you to create and deploy your own REST and WebSocket APIs at any scale. You can create robust, secure, and scalable APIs that access Amazon Web Services or other web services, as well as data that’s stored in the AWS Cloud.
+Application Auto Scaling enables auto scaling for resources beyond just EC2, either with scaling policies or with scheduled scaling.
 
 ## Purpose
 
-These examples demonstrate how to perform several API Gateway operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Application Auto Scaling operations using the alpha version of the AWS SDK for Rust.
 
 ## Prerequisites
 
@@ -12,11 +12,11 @@ You must have an AWS account, and have configured your default credentials and A
 
 ## Running the code
 
-### get_rest_apis
+### describe-scaling-policies
 
-This example describes the API Gateway REST APIs in the Region.
+This example lists your Application Auto Scaling policies in the Region.
 
-`cargo run --bin get_rest_apis -- [-r REGION] [-v]`
+`cargo run --bin describe-scaling-policies -- [-r REGION] [-v]`
 
 - _REGION_ is name of the Region where the stacks are located.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.

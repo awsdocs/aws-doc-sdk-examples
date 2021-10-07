@@ -21,9 +21,7 @@ struct Opt {
 
 // Lists the Application Auto Scaling policies.
 // snippet-start:[applicationautoscaling.rust.describe-scaling-policies]
-async fn show_policies(
-    client: &aws_sdk_applicationautoscaling::Client,
-) -> Result<(), aws_sdk_applicationautoscaling::Error> {
+async fn show_policies(client: &Client) -> Result<(), Error> {
     let response = client
         .describe_scaling_policies()
         .service_namespace(ServiceNamespace::Ec2)
