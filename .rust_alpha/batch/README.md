@@ -1,6 +1,6 @@
 # AWS SDK for Rust code examples for AWS Batch 
 
-AWS Batch enables you to .
+AWS Batch enables you to run batch computing workloads on the AWS Cloud.
 
 ## Purpose
 
