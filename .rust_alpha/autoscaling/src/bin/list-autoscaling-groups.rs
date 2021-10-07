@@ -19,9 +19,8 @@ struct Opt {
 }
 
 // Lists your groups.
-async fn list_groups(
-    client: &aws_sdk_autoscaling::Client,
-) -> Result<(), aws_sdk_autoscaling::Error> {
+// snippet-start:[autoscaling.rust.list-autoscaling-groups]
+async fn list_groups(client: &Client) -> Result<(), Error> {
     let resp = client.describe_auto_scaling_groups().send().await?;
 
     println!("Groups:");
@@ -46,6 +45,7 @@ async fn list_groups(
 
     Ok(())
 }
+// snippet-end:[autoscaling.rust.list-autoscaling-groups]
 
 /// Lists your Amazon EC2 Auto Scaling groups in the Region.
 /// # Arguments
