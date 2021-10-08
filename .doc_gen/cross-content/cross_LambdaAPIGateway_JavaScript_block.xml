@@ -13,7 +13,7 @@
     </para>
     <para>
         For complete source code and instructions on how to set up and run, see the full example on
-        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/cross-services/lambda-api-gateway">GitHub</ulink>.
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/cross-services/lambda-api-gateway">GitHub</ulink>.
     </para>
     <para>This example is also available in the
         <ulink type="documentation" url="sdk-for-javascript/v3/developer-guide/api-gateway-invoking-lambda-example.html">&JSBlong; v3 developer guide</ulink>.</para>

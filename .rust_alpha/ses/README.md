@@ -64,7 +64,7 @@ This example lists the names of the contact lists in the Region.
 
 This example lists the email addresses of the contacts in a contact list in the Region.
 
-`cargo run --bin ???-??? -- -c CONTACT-LIST [-r REGION] [-v]`
+`cargo run --bin list-contact -- -c CONTACT-LIST [-r REGION] [-v]`
 
 - _CONTACT-LIST_ is the name of the contact list.
 - _REGION_ is the Region in which the client is created.

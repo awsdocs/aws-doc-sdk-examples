@@ -7,6 +7,7 @@ Purpose
 Shows how to use AWS Identity and Access Management (IAM) access keys.
 """
 
+# snippet-start:[python.example_code.iam.access_key_wrapper.imports]
 import logging
 import boto3
 from botocore.exceptions import ClientError
@@ -14,8 +15,10 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 iam = boto3.resource('iam')
+# snippet-end:[python.example_code.iam.access_key_wrapper.imports]
 
 
+# snippet-start:[python.example_code.iam.CreateAccessKey]
 def create_key(user_name):
     """
     Creates an access key for the specified user. Each user can have a
@@ -34,8 +37,10 @@ def create_key(user_name):
         raise
     else:
         return key_pair
+# snippet-end:[python.example_code.iam.CreateAccessKey]
 
 
+# snippet-start:[python.example_code.iam.DeleteAccessKey]
 def delete_key(user_name, key_id):
     """
     Deletes a user's access key.
@@ -52,8 +57,10 @@ def delete_key(user_name, key_id):
     except ClientError:
         logger.exception("Couldn't delete key %s for %s", key_id, user_name)
         raise
+# snippet-end:[python.example_code.iam.DeleteAccessKey]
 
 
+# snippet-start:[python.example_code.iam.GetAccessKeyLastUsed]
 def get_last_use(key_id):
     """
     Gets information about when and how a key was last used.
@@ -73,8 +80,10 @@ def get_last_use(key_id):
         raise
     else:
         return response
+# snippet-end:[python.example_code.iam.GetAccessKeyLastUsed]
 
 
+# snippet-start:[python.example_code.iam.ListAccessKeys]
 def list_keys(user_name):
     """
     Lists the keys owned by the specified user.
@@ -90,8 +99,10 @@ def list_keys(user_name):
         raise
     else:
         return keys
+# snippet-end:[python.example_code.iam.ListAccessKeys]
 
 
+# snippet-start:[python.example_code.iam.UpdateAccessKey]
 def update_key(user_name, key_id, activate):
     """
     Updates the status of a key.
@@ -112,8 +123,10 @@ def update_key(user_name, key_id, activate):
         logger.exception(
             "Couldn't %s key %s.", 'Activate' if activate else 'Deactivate', key_id)
         raise
+# snippet-end:[python.example_code.iam.UpdateAccessKey]
 
 
+# snippet-start:[python.example_code.iam.Scenario_ManageAccessKeys]
 def usage_demo():
     """Shows how to create and manage access keys."""
     def print_keys():
@@ -149,6 +162,7 @@ def usage_demo():
         delete_key(current_user_name, new_key.id)
         print_keys()
         print("Thanks for watching!")
+# snippet-end:[python.example_code.iam.Scenario_ManageAccessKeys]
 
 
 if __name__ == '__main__':
