@@ -7,6 +7,7 @@ Purpose
 Shows how to use AWS Identity and Access Management (IAM) users.
 """
 
+# snippet-start:[python.example_code.iam.user_wrapper.imports]
 import logging
 import time
 
@@ -18,8 +19,10 @@ import policy_wrapper
 
 logger = logging.getLogger(__name__)
 iam = boto3.resource('iam')
+# snippet-end:[python.example_code.iam.user_wrapper.imports]
 
 
+# snippet-start:[python.example_code.iam.CreateUser]
 def create_user(user_name):
     """
     Creates a user. By default, a user has no permissions or access keys.
@@ -35,8 +38,10 @@ def create_user(user_name):
         raise
     else:
         return user
+# snippet-end:[python.example_code.iam.CreateUser]
 
 
+# snippet-start:[python.example_code.iam.DeleteUser]
 def delete_user(user_name):
     """
     Deletes a user. Before a user can be deleted, all associated resources,
@@ -50,8 +55,10 @@ def delete_user(user_name):
     except ClientError:
         logger.exception("Couldn't delete user %s.", user_name)
         raise
+# snippet-end:[python.example_code.iam.DeleteUser]
 
 
+# snippet-start:[python.example_code.iam.ListUsers]
 def list_users():
     """
     Lists the users in the current account.
@@ -66,8 +73,10 @@ def list_users():
         raise
     else:
         return users
+# snippet-end:[python.example_code.iam.ListUsers]
 
 
+# snippet-start:[python.example_code.iam.UpdateUser]
 def update_user(user_name, new_user_name):
     """
     Updates a user's name.
@@ -84,8 +93,10 @@ def update_user(user_name, new_user_name):
         logger.exception("Couldn't update name for user %s.", user_name)
         raise
     return user
+# snippet-end:[python.example_code.iam.UpdateUser]
 
 
+# snippet-start:[python.example_code.iam.AttachUserPolicy]
 def attach_policy(user_name, policy_arn):
     """
     Attaches a policy to a user.
@@ -99,8 +110,10 @@ def attach_policy(user_name, policy_arn):
     except ClientError:
         logger.exception("Couldn't attach policy %s to user %s.", policy_arn, user_name)
         raise
+# snippet-end:[python.example_code.iam.AttachUserPolicy]
 
 
+# snippet-start:[python.example_code.iam.DetachUserPolicy]
 def detach_policy(user_name, policy_arn):
     """
     Detaches a policy from a user.
@@ -115,8 +128,10 @@ def detach_policy(user_name, policy_arn):
         logger.exception(
             "Couldn't detach policy %s from user %s.", policy_arn, user_name)
         raise
+# snippet-end:[python.example_code.iam.DetachUserPolicy]
 
 
+# snippet-start:[python.example_code.iam.Scenario_UserPolicies]
 def usage_demo():
     """
     Shows how to manage users, keys, and policies.
@@ -244,6 +259,7 @@ def usage_demo():
     bucket.delete()
     print(f"Emptied and deleted {bucket.name}.")
     print("Thanks for watching!")
+# snippet-end:[python.example_code.iam.Scenario_UserPolicies]
 
 
 if __name__ == '__main__':
