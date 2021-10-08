@@ -1,11 +1,18 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# Purpose:
+# dynamodb_ruby_example_load_movies.rb demonstrates how to
+# add an item to an Amazon DynamoDB table using the AWS SDK for Ruby.
+
+# Inputs:
+# - REGION - The AWS Region.
+
+# snippet-start:[dynamodb.Ruby.loadMovies]
+
 require 'aws-sdk-dynamodb'
 require 'json'
 
-# Adds an item to a table in Amazon DynamoDB.
-#
 # @param dynamodb_client [Aws::DynamoDB::Client] An initialized
 #   Amazon DynamoDB client.
 # @param table_item [Hash] The properties of the item, in the correct format.
@@ -75,3 +82,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[dynamodb.Ruby.loadMovies]

@@ -1,13 +1,16 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
-require 'aws-sdk-s3'
-
-# Checks to see which Amazon Simple Storage Service (Amazon S3)
+# Purpose
+# This code example demonstrates how to checks to see which Amazon Simple Storage Service (Amazon S3)
 #   buckets are open for public read access. These buckets must also
 #   be accessible to you and were initially created with the target
 #   AWS Region specified.
-#
+
+# snippet-start:[s3.ruby.s3-ruby-example-find-open-buckets]
+
+require 'aws-sdk-s3'
+
 # @param s3_client [Aws::S3::Client] An initialized S3 client.
 # @param region [String] The Region to check.
 # @return [Array] The list of any buckets open for public read access.
@@ -66,3 +69,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3-ruby-example-find-open-buckets]

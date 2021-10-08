@@ -1,6 +1,12 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to set the access control list (ACL) on an
+# object in an Amazon Simple Storage Solution (Amazon S3) bucket for the given owner..
+
+# snippet-start:[s3.s3_set_bucket_object_acls.rb]
+
 require 'aws-sdk-s3'
 
 # Sets the access control list (ACL) on an object in an Amazon S3
@@ -81,3 +87,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.s3_set_bucket_object_acls.rb]

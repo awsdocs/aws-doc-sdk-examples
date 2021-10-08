@@ -1,10 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# Purpose:
+# dynamodb-ruby-example-show-tables-names-and-item-count.rb demonstrates how to
+# get a count of items in a table in Amazon DynamoDB using the AWS SDK for Ruby.
+
+# snippet-start:[dynamodb.Ruby.showTableNames]
+
 require 'aws-sdk-dynamodb'
 
-# Gets a list of available table names in Amazon DynamoDB.
-#
 # @param dynamodb_client [Aws::DynamoDB::Client] An initialized
 #   Amazon DynamoDB client.
 # @return [Array] The list of available table names as an array of type String.
@@ -56,7 +60,7 @@ def run_me
   else
     puts "Found #{table_names.count} tables in AWS Region '#{region}':"
     puts "(Displaying information for only the first 100 tables)" if table_names.count > 100
-    
+
     table_names.each do |table_name|
       table_items_count = get_count_of_table_items(dynamodb_client, table_name)
 
@@ -73,3 +77,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[dynamodb.Ruby.showTableNames]

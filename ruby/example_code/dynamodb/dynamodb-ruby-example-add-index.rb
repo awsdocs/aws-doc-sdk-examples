@@ -1,10 +1,17 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# Purpose:
+# dynamodb-ruby-example-add-index.rb demonstrates how to add an index to a table
+# in Amazon DynamoDB using the AWS SDK for Ruby.
+
+# Inputs:
+# - REGION - The AWS Region.
+
+# snippet-start:[dynamodb.Ruby.addIndex]
+
 require 'aws-sdk-dynamodb'
 
-# Adds an index to a table in Amazon DynamoDB.
-#
 # @param dynamodb_client [Aws::DynamoDB::Client] An initialized
 #   Amazon DynamoDB client.
 # @param index_definition [Hash] The properties of the index, in the correct format.
@@ -52,7 +59,7 @@ end
 
 # Full example call:
 def run_me
-  region = 'us-west-2'
+  region = 'REGION'
   table_name = 'Users'
   index_name = 'AirMileageIndex'
 
@@ -65,7 +72,7 @@ def run_me
         attribute_name: 'AirMiles',
         attribute_type: 'N'
       }
-    ],    
+    ],
     global_secondary_index_updates: [
       {
         create: {
@@ -99,3 +106,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[dynamodb.Ruby.addIndex]

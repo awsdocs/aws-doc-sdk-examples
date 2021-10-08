@@ -1,11 +1,18 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# ec2-ruby-example-get-instance-info-by-tag.rb demonstrates how to
+# list the IDs, current states, and tag keys/values of matching
+# available Amazon Elastic Compute Cloud (Amazon EC2) instances.
+
+# Inputs:
+# - REGION - The AWS Region.
+
+# snippet-start:[ec2.Ruby.getInstanceInforByTag]
 
 require 'aws-sdk-ec2'
 
-# Lists the IDs, current states, and tag keys/values of matching
-# available Amazon Elastic Compute Cloud (Amazon EC2) instances.
-#
 # @param ec2_resource [Aws::EC2::Resource] An initialized EC2 resource object.
 # @param tag_key [String] The key portion of the tag to search on.
 # @param tag_value [String] The value portion of the tag to search on.
@@ -56,7 +63,7 @@ def run_me
   elsif ARGV.count.zero?
     tag_key = 'my-key'
     tag_value = 'my-value'
-    region = 'us-east-1'
+    region = 'REGION'
   # Otherwise, use the values as specified at the command prompt.
   else
     tag_key = ARGV[0]
@@ -68,3 +75,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[ec2.Ruby.getInstanceInforByTag]

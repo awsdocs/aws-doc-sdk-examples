@@ -1,12 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to checks to see which Amazon Simple Storage Service (Amazon S3)
+# buckets accessible to you and were initially created with the target AWS Region specified.
+
+# snippet-start:[s3.ruby.s3-ruby-example-show-buckets-in-region]
+
 require 'aws-sdk-s3'
 
-# Checks to see which Amazon Simple Storage Service (Amazon S3)
-#   buckets accessible to you and were initially created with the target
-#   AWS Region specified.
-#
 # @param s3_client [Aws::S3::Client] An initialized S3 client.
 # @param region [String] The Region to check.
 # @example
@@ -50,3 +52,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3-ruby-example-show-buckets-in-region]

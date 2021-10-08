@@ -1,11 +1,17 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
 
+# Purpose:
+# ec2-ruby-example-create-route-table.rb demonstrates how to
+# create a route table in Amazon Virtual Private Cloud (Amazon VPC)
+# and then associates the route table with a subnet in Amazon VPC.
+
+# Inputs:
+# - REGION - The AWS Region.
+
+# snippet-start:[ec2.Ruby.createRouteTable]
 require 'aws-sdk-ec2'
 
-# Creates a route table in Amazon Virtual Private Cloud (Amazon VPC)
-# and then associates the route table with a subnet in Amazon VPC.
-#
 # Prerequisites:
 #
 # - A VPC in Amazon VPC.
@@ -18,7 +24,7 @@ require 'aws-sdk-ec2'
 # @param subnet_id [String] The ID of the subnet for the route table.
 # @param gateway_id [String] The ID of the gateway for the route.
 # @param destination_cidr_block [String] The destination CIDR block
-#   for the route. 
+#   for the route.
 # @param tag_key [String] The key portion of the tag for the route table.
 # @param tag_value [String] The value portion of the tag for the route table.
 # @return [Boolean] true if the route table was created and associated;
@@ -96,7 +102,7 @@ def run_me
     destination_cidr_block = '0.0.0.0/0'
     tag_key = 'my-key'
     tag_value = 'my-value'
-    region = 'us-east-1'
+    region = 'REGION'
   # Otherwise, use the values as specified at the command prompt.
   else
     vpc_id = ARGV[0]
@@ -126,3 +132,5 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+
+# snippet-end:[ec2.Ruby.createRouteTable]

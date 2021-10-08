@@ -1,15 +1,20 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to get the contents of an encrypted object
+# in an Amazon Simple Storage Solution (Amazon S3) bucket.
+
+# snippet-start:[s3.s3_get_cskms_decrypt_item.rb]
+
 require 'aws-sdk-s3'
 
-# Gets the contents of an encrypted object in an Amazon S3 bucket.
-#
+
 # Prerequisites:
 #
 # - An Amazon S3 bucket.
 # - An encrypted object in the bucket to get.
-# 
+#
 # @param s3_encryption_client [Aws::S3::EncryptionV2::Client]
 #   An initialized Amazon S3 V2 encryption client.
 # @param bucket_name [String] The name of the bucket.
@@ -74,3 +79,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.s3_get_cskms_decrypt_item.rb]

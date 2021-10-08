@@ -1,12 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to uploads a file to an Amazon Simple Storage Solution (Amazon S3)
+# bucket and then encrypts the file server-side by using the 256-bit
+# Advanced Encryption Standard (AES-256) block cipher.
+
 # snippet-start:[s3.ruby.s3_encrypt_file_upload.rb]
 require 'aws-sdk-s3'
 
-# Uploads a file to an Amazon S3 bucket and then encrypts the file server-side
-#   by using the 256-bit Advanced Encryption Standard (AES-256) block cipher.
-#
 # Prerequisites:
 #
 # - An Amazon S3 bucket.
@@ -63,3 +65,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3_encrypt_file_upload.rb]

@@ -1,12 +1,17 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+# SPDX - License - Identifier: Apache - 2.0
+
+# Purpose
+# This code example demonstrates how to copy an object from one
+# Amazon Simple Storage Service (Amazon S3) bucket to another.
+# You can also set an access control list(ACL) and an S3 storage
+# class on the copied object.
+
+# snippet-start:[s3.ruby.s3-ruby-example-set-item-props]
 
 require 'aws-sdk-s3'
 
-# Copies an object from one Amazon Simple Storage Service (Amazon S3)
-#   bucket to another. You can also set an access control list
-#   (ACL) and an S3 storage class on the copied object.
-#
+
 # Prerequisites:
 #
 # - A source S3 bucket and a target S3 bucket.
@@ -84,3 +89,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3-ruby-example-set-item-props]

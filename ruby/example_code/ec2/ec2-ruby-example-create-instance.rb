@@ -1,11 +1,19 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# ec2-ruby-example-create-instance.rb demonstrates how to
+# create and tag an Amazon Elastic Compute Cloud (Amazon EC2) instance.
+# using AWS SDK for Ruby.
+
+# Inputs:
+# - REGION - The AWS Region.
+
+# snippet-start:[ec2.Ruby.createInstances]
 
 require 'aws-sdk-ec2'
 require 'base64'
 
-# Creates and tags an Amazon Elastic Compute Cloud (Amazon EC2) instance.
-#
 # Prerequisites:
 #
 # - An EC2 key pair.
@@ -119,7 +127,7 @@ def run_me
     tag_key = 'my-key'
     tag_value = 'my-value'
     instance_type = 't2.micro'
-    region = 'us-east-1'
+    region = 'REGION'
     user_data_file = 'my-user-data.txt'
   # Otherwise, use the values as specified at the command prompt.
   else
@@ -136,7 +144,7 @@ def run_me
 
   if instance_created?(
     ec2_resource,
-    image_id, 
+    image_id,
     key_pair_name,
     tag_key,
     tag_value,
@@ -150,3 +158,5 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+
+# snippet-end:[ec2.Ruby.createInstances]

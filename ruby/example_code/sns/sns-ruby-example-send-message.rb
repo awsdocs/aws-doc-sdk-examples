@@ -3,7 +3,7 @@
 
 # Purpose:
 # sns-ruby-example-send-message.rb demonstrates how to send a message using the Amazon Simple Notification Services (SNS) topic using
-# the AWS SDK for JavaScript (v3).
+# the AWS SDK for Ruby.
 
 # Inputs:
 # - REGION

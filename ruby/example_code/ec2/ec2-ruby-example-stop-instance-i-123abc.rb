@@ -1,10 +1,17 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# ec2-ruby-example-stop-instance-i-123abc.rb demonstrates how to
+# stop an Amazon Elastic Compute Cloud (Amazon EC2) instance using the AWS SDK for Ruby.
+
+# Inputs:
+# - REGION - The AWS Region.
+
+# snippet-start:[ec2.Ruby.stopInstances]
 
 require 'aws-sdk-ec2'
 
-# Attempts to stop an Amazon Elastic Compute Cloud (Amazon EC2) instance.
-#
 # Prerequisites:
 #
 # - The Amazon EC2 instance.
@@ -59,7 +66,7 @@ def run_me
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
     instance_id = 'i-123abc'
-    region = 'us-east-1'
+    region = 'REGION'
   # Otherwise, use the values as specified at the command prompt.
   else
     instance_id = ARGV[0]
@@ -76,3 +83,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[ec2.Ruby.stopInstances]

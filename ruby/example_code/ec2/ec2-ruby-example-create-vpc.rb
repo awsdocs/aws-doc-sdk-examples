@@ -1,5 +1,11 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# ec2-ruby-example-create-vpc.rb demonstrates how to creates a virtual private cloud
+# (VPC) in Amazon Virtual Private Cloud (Amazon VPC) and then tags the VPC.
+
+# snippet-start:[ec2.Ruby.createVpc]
 
 require 'aws-sdk-ec2'
 
@@ -10,7 +16,7 @@ require 'aws-sdk-ec2'
 # @param ec2_resource [Aws::EC2::Resource] An initialized
 #   Amazon Elastic Compute Cloud (Amazon EC2) resource object.
 # @param cidr_block [String] The IPv4 CIDR block for the subnet.
-# @param tag_key [String] The key portion of the tag for the VPC. 
+# @param tag_key [String] The key portion of the tag for the VPC.
 # @param tag_value [String] The value portion of the tag for the VPC.
 # @return [Boolean] true if the VPC was created and tagged;
 #   otherwise, false.
@@ -85,3 +91,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[ec2.Ruby.createVpc]

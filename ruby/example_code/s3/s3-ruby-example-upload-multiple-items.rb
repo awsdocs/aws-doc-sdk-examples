@@ -1,8 +1,11 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
 # This code example demonstrates how to upload multiple items
-# to a bucket in Amazon S3.
+# to a bucket in Amazon Simple Storage Solution (Amazon S3).
+
+# snippet-start:[s3.ruby.s3-ruby-example-upload-multiple-items]
 
 # Prerequisites:
 #  - An existing Amazon S3 bucket.
@@ -118,3 +121,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3-ruby-example-upload-multiple-items]

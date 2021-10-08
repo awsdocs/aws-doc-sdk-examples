@@ -3,7 +3,7 @@
 
 # Purpose:
 # sns-ruby-example-enable-resource.rb demonstrates how to enable an Amazon Simple Notification Services (SNS) resource using
-# the AWS SDK for JavaScript (v3).
+# the AWS SDK for Ruby.
 
 # Inputs:
 # - MY_TOPIC_ARN

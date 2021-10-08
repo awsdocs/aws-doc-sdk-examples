@@ -1,10 +1,13 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how upload an encrypted object to an Amazon Simple Storage Solution (Amazon S3) bucket.
+
+# snippet-start:[s3.ruby.s3_add_cskms_encrypt_item]
+
 require 'aws-sdk-s3'
 
-# Uploads an encrypted object to an Amazon S3 bucket.
-#
 # Prerequisites:
 #
 # - An Amazon S3 bucket.
@@ -85,3 +88,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3_add_cskms_encrypt_item]

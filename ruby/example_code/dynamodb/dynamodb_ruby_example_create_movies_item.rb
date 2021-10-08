@@ -1,10 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# Purpose:
+# dynamodb_ruby_example_create_movies_item.rb demonstrates how to
+# add an item to a table in Amazon DynamoDB using the AWS SDK for Ruby.
+
+# snippet-start:[dynamodb.Ruby.createMovieItems]
+
 require 'aws-sdk-dynamodb'
 
-# Adds an item to a table in Amazon DynamoDB.
-#
 # @param dynamodb_client [Aws::DynamoDB::Client] An initialized
 #   Amazon DynamoDB client.
 # @param table_item [Hash] The properties of the item, in the correct format.
@@ -62,3 +66,5 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+
+# snippet-end:[dynamodb.Ruby.createMovieItems]

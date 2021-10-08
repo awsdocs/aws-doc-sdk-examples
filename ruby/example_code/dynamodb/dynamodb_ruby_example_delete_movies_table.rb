@@ -1,10 +1,17 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# Purpose:
+# dynamodb_ruby_example_delete_movies_table.rb demonstrates how to
+# delete a table in Amazon DynamoDB using the AWS SDK for Ruby.
+
+# Inputs:
+# - REGION - The AWS Region.
+
+# snippet-start:[dynamodb.Ruby.deleteMovieTable]
+
 require 'aws-sdk-dynamodb'
 
-# Deletes a table in Amazon DynamoDB.
-#
 # @param dynamodb_client [Aws::DynamoDB::Client] An initialized
 #   Amazon DynamoDB client.
 # @param table_name [String] The name of the table to delete.
@@ -24,7 +31,7 @@ end
 
 # Full example call:
 def run_me
-  region = 'us-west-2'
+  region = 'REGION'
   table_name = 'Movies'
 
   dynamodb_client = Aws::DynamoDB::Client.new(region: region)
@@ -39,3 +46,5 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+
+# snippet-end:[dynamodb.Ruby.deleteMovieTable]

@@ -5,8 +5,31 @@
 This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate 
 Amazon Elastic Compute Cloud (Amazon EC2).
 
-## Prerequisites
+## Code examples 
 
+## Usage examples
+- [Create internet gateway and attach it to a VPC](./ec2-ruby-example-attach-igw-vpc.rb)
+- [Managing addresses](./ec2-ruby-example-elastic-ips.rb)
+- [Managing key pairs](./ec2-ruby-example-key-pairs.rb)
+- [Managing security groups](./ec2-ruby-example-security-group.rb)
+- [Manage instances](./ec2-ruby-example-manage-instances.rb)
+
+### API examples
+- [Create an intance](./ec2-ruby-example-create-instance.rb)
+- [Create a key pair](./ec2-ruby-example-create-key-pair.rb)
+- [Create a route table](./ec2-ruby-example-create-route-table.rb)
+- [Create a security group](./ec2-ruby-example-create-security-group.rb)
+- [Create a subnet](./ec2-ruby-example-create-subnet.rb)
+- [Create a VPC](./ec2-ruby-example-create-vpc.rb)
+- [Get instance information by tag](./ec2-ruby-example-get-instance-info-by-tag.rb)
+- [List state instances](./ec2-ruby-example-list-state-instance-i-123abc.rb)
+- [Reboot an instance](./ec2-ruby-example-reboot-instance-i-123abc.rb)
+- [Display list of available AWS Regions](./ec2-ruby-example-regions-availability-zones.rb)
+- [Start an instance](./ec2-ruby-example-start-instance-i-123abc.rb)
+- [Stop an instance](./ec2-ruby-example-stop-instance-i-123abc.rb)
+- [Terminate and instance](./ec2-ruby-example-terminate-instance-i-123abc.rb)
+
+## Prerequisites
 - An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
 - AWS credentials or an AWS Security Token Service (AWS STS) access token. For details, see 
   [Configuring the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html) in the 

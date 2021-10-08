@@ -1,11 +1,15 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
-# The following code example shows how to to:
+# Purpose:
+# iam-ruby-example-manage-users.rb shows how to to:
 # 1. Get a list of user names in AWS Identity and Access Management (IAM).
 # 2. Create a user.
 # 3. Update the user's name.
 # 4. Delete the user.
+
+# snippet-start:[elastictranscoder.ruby.manageUsers]
+
 
 require 'aws-sdk-iam'
 
@@ -156,3 +160,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[elastictranscoder.ruby.manageUsers]

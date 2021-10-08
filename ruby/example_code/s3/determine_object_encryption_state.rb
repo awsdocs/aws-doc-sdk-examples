@@ -1,5 +1,9 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose
+# This code demonstrates how get the server-side encryption state
+# of an object in an Amazon Simple Storage Solution (Amazon S3) bucket.
 
 # snippet-start:[s3.ruby.determine_object_encryption_state.rb]
 require 'aws-sdk-s3'
@@ -32,7 +36,6 @@ def get_server_side_encryption_state(s3_client, bucket_name, object_key)
 rescue StandardError => e
   "unknown or error: #{e.message}"
 end
-# snippet-end:[s3.ruby.determine_object_encryption_state.rb]
 
 # Full example call:
 def run_me
@@ -54,3 +57,5 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+
+# snippet-end:[s3.ruby.determine_object_encryption_state.rb]

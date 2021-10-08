@@ -1,11 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+# SPDX - License - Identifier: Apache - 2.0
+
+# Purpose
+# This code example demonstrates how to send multiple messages as a batch to a queue in Amazon Simple Queue Service (Amazon SQS).
+
+# snippet-start:[s3.sqs-ruby-example-send-message-batch.rb]
 
 require 'aws-sdk-sqs'
 require 'aws-sdk-sts'
 
-# Sends multiple messages as a batch to a queue in
-# Amazon Simple Queue Service (Amazon SQS).
 #
 # @param sqs_client [Aws::SQS::Client] An initialized Amazon SQS client.
 # @param queue_url [String] The URL of the queue.
@@ -54,12 +57,12 @@ def run_me
   ]
 
   sts_client = Aws::STS::Client.new(region: region)
-  
+
   # For example:
   # 'https://sqs.us-east-1.amazonaws.com/111111111111/my-queue'
-  queue_url = 'https://sqs.' + region + '.amazonaws.com/' + 
+  queue_url = 'https://sqs.' + region + '.amazonaws.com/' +
     sts_client.get_caller_identity.account + '/' + queue_name
-  
+
   sqs_client = Aws::SQS::Client.new(region: region)
 
   puts "Sending messages to the queue named '#{queue_name}'..."
@@ -72,3 +75,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.sqs-ruby-example-send-message-batch.rb]

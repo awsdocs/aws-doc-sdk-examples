@@ -4,6 +4,24 @@
 
 This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate Amazon DynamoDB.
 
+## Code examples 
+
+### API examples
+- [Add an index](./dynamodb-ruby-example-add-index.rb)
+- [Add item to a table](./dynamodb-ruby-example-add-item-users-table.rb)
+- [Create a table](./dynamodb-ruby-example-create-users-table.rb)
+- [List items in a table (scan)](./dynamodb-ruby-example-list-50-users-table-items.rb)
+- [Get item from a table](./dynamodb-ruby-example-list-item-123456-users-table.rb)
+- [Gets list of available table names](./dynamodb-ruby-example-show-tables-names-and-item-count.rb)
+- [Update a table](./dynamodb-ruby-example-update-users-table.rb)
+- [Create an item (movie example)](./dynamodb_ruby_example_create_movies_item.rb)
+- [Create a table (movie example)](./dynamodb_ruby_example_create_movies_table.rb)
+- [Delete an item from a table (movie example)](./dynamodb_ruby_example_delete_movies_item.rb)
+- [Delete a table (movie example)](./dynamodb_ruby_example_delete_movies_table.rb)
+- [Add an item to a table (movie example)](./dynamodb_ruby_example_load_movies.rb)
+- [Get an item from a table (movie example)](./dynamodb_ruby_example_read_movies_item.rb)
+- [Update and item in a table (movie example)](./dynamodb_ruby_example_update_movies_item.rb)
+
 ## Prerequisites
 
 - An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
@@ -55,7 +73,6 @@ Most of these tests are designed to use stubs, to avoid generating unnecessary c
 
 
 ## Additional information
-
 - [Amazon DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide)
 - [AWS SDK for Ruby Documentation](https://docs.aws.amazon.com/sdk-for-ruby)
 - [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs)

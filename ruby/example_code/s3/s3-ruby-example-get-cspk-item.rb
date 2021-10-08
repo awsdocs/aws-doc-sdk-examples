@@ -1,11 +1,16 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to download an object from an Amazon Simple Storage Solution (Amazon S3) bucket.
+# The object's contents were originally encrypted with an RSA public key.
+
+# snippet-start:[s3.ruby.s3-ruby-example-get-cspk-item]
+
 require 'aws-sdk-s3'
 require 'openssl'
 
-# Downloads an object from an Amazon S3 bucket. The object's contents
-#   were originally encrypted with an RSA public key.
+
 #
 # Prerequisites:
 #
@@ -73,3 +78,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3-ruby-example-get-cspk-item]

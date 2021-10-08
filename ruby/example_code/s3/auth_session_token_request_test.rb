@@ -1,18 +1,26 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
 
-# Uses a user and a role in AWS Identity and Access Management (IAM) to
-# list the contents of a bucket in Amazon S3.
+# Purpose
+# This code demonstrates how to:
+# - Checks whether a user exists in IAM.
+# - Creates a user in IAM.
+# - Gets a user in IAM.
+# - Checks whether a role exists in IAM.
+# - Gets credentials for a role in IAM.
+# - Checks whether a bucket exists in Amazon Simple Storage Solution (Amazon S3).
+# - Lists the keys and ETags for the objects in an Amazon S3 bucket.
+
+# snippet-start:[s3.ruby.auth_session_token_request_test.rb]
 
 # Prerequisites:
 # - A user in AWS Identity and Access Management (IAM). This user must
 #   be able to assume the following IAM role. You must run this code example
 #   within the context of this user.
-# - An existing role in IAM that allows all of the Amazon S3 actions for all of the 
+# - An existing role in IAM that allows all of the Amazon S3 actions for all of the
 #   resources in this code example. This role must also trust the preceding IAM user.
 # - An existing S3 bucket.
 
-# snippet-start:[s3.ruby.auth_session_token_request_test.rb]
 require 'aws-sdk-core'
 require 'aws-sdk-s3'
 require 'aws-sdk-iam'

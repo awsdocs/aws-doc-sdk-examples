@@ -1,10 +1,15 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to create an Amazon Simple Storage Service (Amazon S3) bucket.
+
+# snippet-start:[s3.ruby.s3-ruby-example-create-bucket]
+
 require 'aws-sdk-s3'
 require 'securerandom'
 
-# Creates an Amazon Simple Storage Service (Amazon S3) bucket.
+# Creates an Amazon S3 bucket.
 #
 # @param s3_client [Aws::S3::Client] An initialized S3 client.
 # @param bucket_name [String] The bucket's name.
@@ -37,3 +42,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3-ruby-example-create-bucket]

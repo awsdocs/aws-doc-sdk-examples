@@ -1,5 +1,15 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# ec2-ruby-example-elastic-ips.rb demonstrates how to
+# check whether the specified Amazon Elastic Compute Cloud
+# (Amazon EC2) instance exists.
+
+# Inputs:
+# - REGION - The AWS Region.
+
+# snippet-start:[ec2.Ruby.elasticIps]
 
 # This code example does the following:
 # 1. Displays information about any addresses associated with an
@@ -160,7 +170,7 @@ def run_me
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
     instance_id = 'i-033c48ef067af3dEX'
-    region = 'us-east-1'
+    region = 'REGION'
   # Otherwise, use the values as specified at the command prompt.
   else
     instance_id = ARGV[0]
@@ -217,3 +227,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[ec2.Ruby.elasticIps]

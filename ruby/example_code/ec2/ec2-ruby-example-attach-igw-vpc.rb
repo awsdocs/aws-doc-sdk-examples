@@ -1,11 +1,18 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# ec2-ruby-example-attach-igw-vpc.rb demonstrates how to
+# create an internet gateway and then attaches it to a virtual private cloud
+# (VPC) in Amazon Virtual Private Cloud (Amazon VPC).
+
+# Inputs:
+# - REGION - The AWS Region.
+
+# snippet-start:[ec2.Ruby.attachIgwVpc]
 
 require 'aws-sdk-ec2'
 
-# Creates an internet gateway and then attaches it to a virtual private cloud
-# (VPC) in Amazon Virtual Private Cloud (Amazon VPC).
-#
 # Prerequisites:
 #
 # - A VPC in Amazon VPC.
@@ -66,7 +73,7 @@ def run_me
     vpc_id = 'vpc-6713dfEX'
     tag_key = 'my-key'
     tag_value = 'my-value'
-    region = 'us-east-1'
+    region = 'REGION'
   # Otherwise, use the values as specified at the command prompt.
   else
     vpc_id = ARGV[0]
@@ -90,3 +97,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[ec2.Ruby.attachIgwVpc]

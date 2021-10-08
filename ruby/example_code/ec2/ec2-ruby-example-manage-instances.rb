@@ -1,5 +1,17 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# ec2-ruby-example-manage-instances.rb demonstrates how to
+# stops an Amazon Elastic Compute Cloud (Amazon EC2) instance,
+# restarts the instance, reboots the instance,
+# enables detailed monitoring for the instance, and
+# displays information about available instances.
+
+# Inputs:
+# - REGION - The AWS Region.
+
+# snippet-start:[ec2.Ruby.manageInstances]
 
 # This code example does the following:
 # 1. Stops an Amazon Elastic Compute Cloud (Amazon EC2) instance.
@@ -129,7 +141,7 @@ rescue StandardError => e
   return false
 end
 
-# Displays information about available 
+# Displays information about available
 # Amazon Elastic Compute Cloud (Amazon EC2) instances.
 #
 # @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
@@ -217,3 +229,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[ec2.Ruby.manageInstances]

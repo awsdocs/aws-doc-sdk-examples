@@ -1,5 +1,16 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# ec2-ruby-example-security-group.rb demonstrates how to
+# create an Amazon Elastic Compute Cloud (Amazon EC2) security group,
+# add inbound rules to the security group, display information about
+# available security groups, and deletes the security group.
+
+# Inputs:
+# - REGION - The AWS Region.
+
+# snippet-start:[ec2.Ruby.exampleSecurityGroup]
 
 # This code example does the following:
 # 1. Creates an Amazon Elastic Compute Cloud (Amazon EC2) security group.
@@ -256,7 +267,7 @@ def run_me
     from_port_ssh = '22'
     to_port_ssh = '22'
     cidr_ip_range_ssh = '0.0.0.0/0'
-    region = 'us-east-1'
+    region = 'REGION'
   # Otherwise, use the values as specified at the command prompt.
   else
     group_name = ARGV[0]
@@ -329,3 +340,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[ec2.Ruby.exampleSecurityGroup]

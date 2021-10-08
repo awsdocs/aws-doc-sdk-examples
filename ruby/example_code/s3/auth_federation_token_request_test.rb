@@ -1,13 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
 
+# Purpose:
 # This code example allows a federated user with a limited set of
-# permissions to list the objects in an Amazon S3 bucket.
+# permissions to list the objects in an Amazon Simple Storage Solution (Amazon S3) bucket.
 
+# snippet-start:[s3.ruby.auth_federation_token_request_test.rb]
 # Prerequisites:
 #  - An existing Amazon S3 bucket.
 
-# snippet-start:[s3.ruby.auth_federation_token_request_test.rb]
 require 'aws-sdk-s3'
 require 'aws-sdk-iam'
 require 'json'
@@ -48,7 +49,7 @@ end
 # @return [Aws::STS::Types::Credentials] AWS credentials for API authentication.
 # @example
 #   sts = Aws::STS::Client.new(region: 'us-east-1')
-#   credentials = get_temporary_credentials(sts, duration_seconds, user_name, 
+#   credentials = get_temporary_credentials(sts, duration_seconds, user_name,
 #     {
 #       'Version' => '2012-10-17',
 #       'Statement' => [
@@ -136,3 +137,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.auth_federation_token_request_test.rb]

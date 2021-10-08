@@ -1,11 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to list the Amazon Simple Storage Service (Amazon S3)
+# buckets owned by the authenticated sender of the request.
+
+# snippet-start:[s3.ruby.s3-ruby-example-show-50-buckets]
+
 require 'aws-sdk-s3'
 
-# Lists the Amazon Simple Storage Service (Amazon S3) buckets owned by the
-#   authenticated sender of the request.
-#
 # @param s3_client [Aws::S3::Client] An initialized S3 client.
 # @param max_buckets [Integer] The maximum number of buckets to list. The
 #   number must be between 1 and 50. If not specified, only up to the
@@ -49,3 +52,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3-ruby-example-show-50-buckets]

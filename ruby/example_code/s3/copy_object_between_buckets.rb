@@ -1,14 +1,15 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose
+# This code demonstrates how to copy an object from one Amazon Simple Storage Solution (Amazon S3) bucket to another.
 
 # snippet-start:[s3.ruby.copy_object_between_buckets.rb]
 require 'aws-sdk-s3'
 
-# Copies an object from one Amazon S3 bucket to another.
-#
 # Prerequisites:
 #
-# - Two S3 buckets (a source bucket and a target bucket).
+# - Two Amazon S3 buckets (a source bucket and a target bucket).
 # - An object in the source bucket to be copied.
 #
 # @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
@@ -42,7 +43,6 @@ def object_copied?(
 rescue StandardError => e
   puts "Error while copying object: #{e.message}"
 end
-# snippet-end:[s3.ruby.copy_object_between_buckets.rb]
 
 # Full example call:
 def run_me
@@ -71,3 +71,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.copy_object_between_buckets.rb]

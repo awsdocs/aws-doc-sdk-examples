@@ -1,5 +1,11 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose
+# s3-ruby-example-access-permissions.rb demonstrates how to set the access control list (ACL) for an
+# Amazon Simple Storage Solution (Amazon S3) bucket for public access.
+
+# snippet-start:[s3.ruby.s3-ruby-example-access-permissions]
 
 require 'aws-sdk-s3'
 require 'net/http'
@@ -218,3 +224,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3-ruby-example-access-permissions]

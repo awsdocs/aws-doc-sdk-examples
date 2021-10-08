@@ -1,10 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates various Amazon Simple Storage Solution (Amazon S3) operations,
+# such as creating and listing buckets and uploading, copying, and deleting objects from buckets.
+
+# snippet-start:[s3.s3_ruby_create_bucket.rb]
+
 require 'aws-sdk-s3'
 
-# Demonstrates various Amazon S3 operations, such as creating and listing
-#   buckets and uploading, copying, and deleting objects from buckets.
 
 # Lists the available Amazon S3 buckets.
 #
@@ -246,3 +250,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.s3_ruby_create_bucket.rb]

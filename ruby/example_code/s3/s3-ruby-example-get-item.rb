@@ -1,10 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to downloads an object from an
+# Amazon Simple Storage Service (Amazon S3) bucket.
+
+# snippet-start:[s3.ruby.s3-ruby-example-get-item]
+
 require 'aws-sdk-s3'
 
-# Downloads an object from an Amazon Simple Storage Service (Amazon S3) bucket.
-#
 # @param s3_client [Aws::S3::Client] An initialized S3 client.
 # @param bucket_name [String] The name of the bucket containing the object.
 # @param object_key [String] The name of the object to download.
@@ -44,3 +48,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3-ruby-example-get-item]

@@ -3,7 +3,7 @@
 
 # Purpose:
 # sns-ruby-example-show-subscriptions.rb demonstrates how to list subscriptions to the Amazon Simple Notification Services (SNS) topic using
-# the AWS SDK for JavaScript (v3).
+# the AWS SDK for Ruby.
 
 # Inputs:
 # - REGION

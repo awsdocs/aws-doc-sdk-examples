@@ -1,5 +1,10 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+# SPDX - License - Identifier: Apache - 2.0
+
+# Purpose
+# This code example demonstrates how to receives messages in a queue in Amazon Simple Queue Service (Amazon SQS).
+
+# snippet-start:[s3.ruby.sqs-ruby-example-get-messages.rb]
 
 require 'aws-sdk-sqs'
 require 'aws-sdk-sts'
@@ -55,7 +60,7 @@ def run_me
 
   # For example:
   # 'https://sqs.us-east-1.amazonaws.com/111111111111/my-queue'
-  queue_url = 'https://sqs.' + region + '.amazonaws.com/' + 
+  queue_url = 'https://sqs.' + region + '.amazonaws.com/' +
     sts_client.get_caller_identity.account + '/' + queue_name
 
   sqs_client = Aws::SQS::Client.new(region: region)
@@ -66,3 +71,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.sqs-ruby-example-get-messages.rb]

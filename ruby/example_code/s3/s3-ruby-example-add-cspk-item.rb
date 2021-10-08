@@ -1,12 +1,15 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# s3-ruby-example-add-cspk-item.rb demonstrates how to upload an object to an Amazon Simple Storage Solution
+# (Amazon S3) bucket. The object's contents are encrypted with an RSA public key.
+
+# snippet-start:[s3.ruby.s3-ruby-example-add-cspk-item]
+
 require 'aws-sdk-s3'
 require 'openssl'
 
-# Uploads an object to an Amazon S3 bucket. The object's contents
-#   are encrypted with an RSA public key.
-#
 # Prerequisites:
 #
 # - An Amazon S3 bucket.
@@ -82,3 +85,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3-ruby-example-add-cspk-item]

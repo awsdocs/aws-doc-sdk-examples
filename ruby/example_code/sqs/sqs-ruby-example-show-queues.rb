@@ -1,11 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+# SPDX - License - Identifier: Apache - 2.0
+
+# Purpose
+# This code example demonstrates how to list the URLs of available queues in Amazon Simple Queue Service (Amazon SQS).
+
+# snippet-start:[s3.sqs-ruby-example-show-queues.rb]
 
 require 'aws-sdk-sqs'
 require 'aws-sdk-sts'
 
-# Lists the URLs of available queues in Amazon Simple Queue Service (Amazon SQS).
-#
 # @param sqs_client [Aws::SQS::Client] An initialized Amazon SQS client.
 # @example
 #   list_queue_urls(Aws::SQS::Client.new(region: 'us-east-1'))
@@ -56,7 +59,7 @@ def run_me
 
   # For example:
   # 'https://sqs.us-east-1.amazonaws.com/111111111111/my-queue'
-  queue_url = 'https://sqs.' + region + '.amazonaws.com/' + 
+  queue_url = 'https://sqs.' + region + '.amazonaws.com/' +
     sts_client.get_caller_identity.account + '/' + queue_name
 
   puts "\nGetting information about queue '#{queue_name}'..."
@@ -64,3 +67,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.sqs-ruby-example-show-queues.rb]

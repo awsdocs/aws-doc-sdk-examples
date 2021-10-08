@@ -1,9 +1,12 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
 # This code example demonstrates how to use an RSA public key to
 # encrypt content and then upload that encrypted content
-# to an Amazon S3 bucket.
+# to an Amazon Simple Storage Solution (Amazon S3) bucket.
+
+# snippet-start:[s3.ruby.s3_add_cspk_encrypt_item]
 
 require 'aws-sdk-s3'
 require 'openssl'
@@ -97,7 +100,7 @@ end
 # @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
 # @param bucket_name [String] The name of the bucket.
 # @param object_key [String] The name of the object to upload.
-# @param encrypted_object_content [String] The encrypted content of 
+# @param encrypted_object_content [String] The encrypted content of
 #   the object to upload.
 # @return [Boolean] true if the object was uploaded; otherwise, false.
 # @example
@@ -172,3 +175,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3_add_cspk_encrypt_item]

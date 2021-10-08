@@ -1,9 +1,20 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# ec2-ruby-example-create-subnet.rb demonstrates how to
+# creates a subnet within a virtual private cloud (VPC) in
+# Amazon Virtual Private Cloud (Amazon VPC) and then tags
+# the subnet.
+
+# Inputs:
+# - REGION - The AWS Region.
+
+# snippet-start:[ec2.Ruby.createSubnet]
 
 require 'aws-sdk-ec2'
 
-# Creates a subnet within a virtual private cloud (VPC) in 
+# Creates a subnet within a virtual private cloud (VPC) in
 # Amazon Virtual Private Cloud (Amazon VPC) and then tags
 # the subnet.
 #
@@ -17,7 +28,7 @@ require 'aws-sdk-ec2'
 # @param cidr_block [String] The IPv4 CIDR block for the subnet.
 # @param availability_zone [String] The ID of the Availability Zone
 #   for the subnet.
-# @param tag_key [String] The key portion of the tag for the subnet. 
+# @param tag_key [String] The key portion of the tag for the subnet.
 # @param tag_vlue [String] The value portion of the tag for the subnet.
 # @return [Boolean] true if the subnet was created and tagged;
 #   otherwise, false.
@@ -83,7 +94,7 @@ def run_me
     availability_zone = 'us-east-1a'
     tag_key = 'my-key'
     tag_value = 'my-value'
-    region = 'us-east-1'
+    region = 'REGION'
   # Otherwise, use the values as specified at the command prompt.
   else
     vpc_id = ARGV[0]
@@ -111,3 +122,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[ec2.Ruby.createSubnet]

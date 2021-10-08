@@ -1,6 +1,13 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to set the default encryption state for an
+# Amazon Simple Storage Solution (Amazon S3) bucket using server-side encryption (SSE)
+# with an AWS KMS customer master key (CMK).
+
+# snippet-start:[s3.ruby.s3_add_default_sse_encryption]
+
 require 'aws-sdk-s3'
 
 # Sets the default encryption state for an Amazon S3 bucket using
@@ -8,7 +15,7 @@ require 'aws-sdk-s3'
 #   AWS KMS customer master key (CMK).
 #
 # Prerequisites:
-# 
+#
 # - An Amazon S3 bucket.
 # - An AWS KMS CMK.
 #
@@ -65,3 +72,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3_add_default_sse_encryption]

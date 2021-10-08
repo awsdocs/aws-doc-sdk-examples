@@ -5,6 +5,55 @@
 This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate 
 Amazon Simple Storage Service (Amazon S3).
 
+## Code examples
+
+### Usage examples
+- [Managing access permissions](./s3-ruby-example-access-permissions.rb)
+- [Working with buckets](./s3_ruby_create_bucket.rb)
+
+### API examples
+- [Allows federated to list objects](./auth_federation_token_request_test.rb)
+- [Prints list of objects](./auth_request_object_keys.rb)
+- [Create user access keys](./auth_session_token_request_test.rb)
+- [Copy objects between buckets](./copy_object_between_buckets.rb)
+- [Copy an object between buckets, changing its server-side encryption state](./copy_object_encrypt_copy.rb)
+- [Create a bucket](./create_bucket_snippet.rb)
+- [Create RSA keys](./create_rsa_keys.rb)
+- [Determine an object's encryption state](./determine_object_encryption_state.rb)
+- [List your buckets](./s3.rb)
+- [Upload an object to a bucket, encrypting the contents with an RSA public key](./s3-ruby-example-add-cspk-item.rb)
+- [Add an event notification to a bucket](./s3-ruby-example-add-notification.rb)
+- [Check whether a bucket exists in an AWS Region](./s3-ruby-example-bucket-accessible.rb)
+- [Check whether a bucket exists](./s3-ruby-example-bucket-exists.rb)
+- [Create a bucket](./s3-ruby-example-create-bucket.rb)
+- [Create RSA keys](./s3-ruby-example-create-rsa-keys.rb)
+- [Check which buckets have public read access](./s3-ruby-example-find-open-buckets.rb)
+- [Download an object from a bucket, where the object's contents were  encrypted with an RSA public key](./s3-ruby-example-get-cspk-item.rb)
+- [Downloads an object from a bucket](./s3-ruby-example-get-item.rb)
+- [Determine whether a bucket exists and you have permission to access it](./s3-ruby-example-head-bucket.rb)
+- [List objects in a bucket](./s3-ruby-example-list-bucket-items.rb)
+- [Copy an object from bucket to another, optionally setting the object's (ACL) and storage class](./s3-ruby-example-set-item-props.rb)
+- [Lists the buckets owned by the authenticated sender of the request](./s3-ruby-example-show-50-buckets.rb)
+- [Checks to see which buckets are accessible to you, with the target AWS Region specified](./s3-ruby-example-show-buckets-in-region.rb)
+- [Uploads an object to a bucket](./s3-ruby-example-upload-item.rb)
+- [Upload an item (file) to a folder within a bucket](./s3-ruby-example-upload-item-to-folder.rb)
+- [Upload an object to a bucket, and associate specified metadata with the object](./s3-ruby-example-upload-item-with-metadata.rb)
+- [Upload multiple items to a bucket ](./s3-ruby-example-upload-multiple-items.rb)
+- [Deny uploads of unencrypted objects to a bucket](./s3_add_bucket_ssekms_encryption_policy.rb)
+- [Deny uploads of objects without server-side AWS KMS encryption to a bucket.](./s3_add_bucket_sses3_encryption_policy.rb)
+- [Upload an encrypted object to a bucket (AES256-GCM key)](./s3_add_csaes_encrypt_item.rb)
+- [Upload an encrypted object to a bucket (KMS key)](./s3_add_cskms_encrypt_item.rb)
+- [Upload an encrypted object to a bucket (public/private key-pair strings)](./s3_add_cspk_encrypt_item.rb)
+- [Sets the default encryption state for a bucket SSE with an AWS KMS customer master key (CMK).](./s3_add_default_sse_encryption.rb)
+- [Adds a (CORS) configuration to an Amazon S3 bucket](./s3_ruby_bucket_cors.rb)
+- [Configure a bucket as a static website](./s3_ruby_bucket_website.rb)
+- [Set the ACL on a bucket for the given owner](./ss3_set_bucket_acls.rb)
+- [Sets the ACL on an object in a bucket for the given owner](./s3_set_bucket_object_acls.rb)
+- [Upload an object to a bucket (file uploader)](./upload_files_using_managed_file_uploader.rb)
+- [Upload an object to a bucket (put object method) ](./upload_files_using_put_object_method.rb)
+- [Upload an object to a bucket using a presigned URL](./upload_object_presigned_url.rb)
+
+
 ## Prerequisites
 
 - An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.

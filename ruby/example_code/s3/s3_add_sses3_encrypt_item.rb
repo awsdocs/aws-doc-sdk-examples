@@ -1,11 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to a dds an encrypted object to an Amazon Simple Storage Solution (Amazon S3)
+# bucket. The encryption is performed on the server by using the aws/s3 AWS managed customer master key (CMK).
+
+# snippet-start:[s3.ruby.s3_add_sses3_encrypt_item]
+
 require 'aws-sdk-s3'
 
-# Adds an encrypted object to an Amazon S3 bucket. The encryption is performed
-#   on the server by using the aws/s3 AWS managed customer master key (CMK).
-#
 # Prerequisites:
 #
 # - An Amazon S3 bucket.
@@ -61,3 +64,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3_add_sses3_encrypt_item]

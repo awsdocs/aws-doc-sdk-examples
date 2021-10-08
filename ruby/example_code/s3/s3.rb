@@ -1,27 +1,10 @@
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of
-# the License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-# CONDITIONS OF ANY KIND, either express or implied. See the License for the
-# specific language governing permissions and limitations under the License.
-# snippet-sourcedescription:[s3.rb demonstrates how to list, create, and delete a bucket in Amazon S3.]
-# snippet-service:[s3]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-keyword:[Amazon S3]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[list_buckets]
-# snippet-keyword:[create_bucket]
-# snippet-keyword:[delete_bucket]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2017-01-18]
-# snippet-sourceauthor:[AWS]
-# snippet-start:[s3.ruby.bucket_operations.list_create_delete]
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose
+# s3.rb demonstrates how to list, create, and delete a bucket in Amazon Simple Storage Solution (Amazon S3).
+
+# snippet-start:[s3.ruby.s3.rb]
 require 'aws-sdk'
 
 if ARGV.length < 2
@@ -55,7 +38,7 @@ begin
       location_constraint: region
     }
   })
-  
+
   s3.wait_until(:bucket_exists, {bucket: bucket_name,})
 rescue Aws::S3::Errors::BucketAlreadyExists
   puts "Cannot create the bucket. " +
@@ -72,4 +55,4 @@ s3.delete_bucket(bucket: bucket_name)
 s3.wait_until(:bucket_not_exists, {bucket: bucket_name,})
 
 list_my_buckets(s3)
-# snippet-end:[s3.ruby.bucket_operations.list_create_delete]
+# snippet-end:[s3.ruby.s3.rb]

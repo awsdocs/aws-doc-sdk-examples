@@ -1,5 +1,11 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# iam-ruby-example-add-new-user.rb demonstrates how to create a user in
+# AWS Identity and Access Management (IAM) using the AWS SKD for Ruby.
+
+# snippet-start:[elastictranscoder.ruby.addNewUser]
 
 require 'aws-sdk-iam'
 
@@ -47,3 +53,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[elastictranscoder.ruby.addNewUser]

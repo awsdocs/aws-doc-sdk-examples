@@ -1,11 +1,18 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# ec2-ruby-example-create-security-group.rb demonstrates how to
+# create an Amazon Elastic Compute Cloud (Amazon EC2) security group and
+# then adds an outbound rule to that security group.
+
+# Inputs:
+# - REGION - The AWS Region.
+
+# snippet-start:[ec2.Ruby.createSecurityGroup]
 
 require 'aws-sdk-ec2'
 
-# Creates an Amazon Elastic Compute Cloud (Amazon EC2) security group and
-# then adds an outbound rule to that security group.
-#
 # Prerequisites:
 #
 # - A VPC in Amazon Virtual Private Cloud (Amazon VPC).
@@ -17,7 +24,7 @@ require 'aws-sdk-ec2'
 # @param vpc_id [String] The ID of the VPC for the security group.
 # @param protocol [String] The network protocol for the outbound rule.
 # @param from_port [String] The originating port for the outbound rule.
-# @param to_port [String] The destination port for the outbound rule. 
+# @param to_port [String] The destination port for the outbound rule.
 # @param cidr_ip_range [String] The CIDR IP range for the outbound rule.
 # @return [Boolean] true if the security group was created and the outbound
 #   rule was added; otherwise, false.
@@ -100,7 +107,7 @@ def run_me
     from_port = '22'
     to_port = '22'
     cidr_ip_range = '0.0.0.0/0'
-    region = 'us-east-1'
+    region = 'REGION'
   # Otherwise, use the values as specified at the command prompt.
   else
     group_name = ARGV[0]
@@ -132,3 +139,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[ec2.Ruby.createSecurityGroup]

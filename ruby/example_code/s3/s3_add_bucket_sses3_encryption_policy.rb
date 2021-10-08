@@ -1,11 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how deny uploads of objects without
+# server-side AWS KMS encryption to an Amazon Simple Storage Solution (Amazon S3).
+
+# snippet-start:[s3.ruby.s3_add_bucket_sses3_encryption_policy]
+
 require 'aws-sdk-s3'
 
-# Denies uploads of objects without server-side AWS KMS encryption to
-#   an Amazon S3 bucket.
-#
 # Prerequisites:
 #
 # - The Amazon S3 bucket to deny uploading objects without
@@ -79,3 +82,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3_add_bucket_sses3_encryption_policy]

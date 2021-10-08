@@ -1,11 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to add a cross-origin resource sharing (CORS)
+# configuration containing a single rule to an Amazon Simple Storage Solution (Amazon S3) bucket.
+
+# snippet-start:[s3.s3_ruby_bucket_cors.rb]
+
 require 'aws-sdk-s3'
 
-# Adds a cross-origin resource sharing (CORS) configuration containing
-#   a single rule to an Amazon S3 bucket.
-#
 # Prerequisites:
 #
 # - An Amazon S3 bucket.
@@ -126,3 +129,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.s3_ruby_bucket_cors.rb]

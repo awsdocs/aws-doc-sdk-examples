@@ -1,11 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# s3-ruby-example-bucket-exists.rb demonstrates checks to see whether an Amazon Simple Storage Service
+# (Amazon S3) bucket exists.
+
+# snippet-start:[s3.ruby.s3-ruby-example-bucket-exists]
+
 require 'aws-sdk-s3'
 
-# Checks to see whether an Amazon Simple Storage Service
-#   (Amazon S3) bucket exists.
-#
 # @param s3_client [Aws::S3::Client] An initialized S3 client.
 # @param bucket_name [String] The name of the bucket.
 # @return [Boolean] true if the bucket exists; otherwise, false.
@@ -39,3 +42,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3-ruby-example-bucket-exists]

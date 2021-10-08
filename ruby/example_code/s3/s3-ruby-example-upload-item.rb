@@ -1,10 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to upload an object to a bucket
+# in Amazon Simple Storage Service (Amazon S3).
+
+# snippet-start:[s3.ruby.s3-ruby-example-upload-item]
+
 require 'aws-sdk-s3'
- 
-# Uploads an object to a bucket in Amazon Simple Storage Service (Amazon S3).
-#
+
 # Prerequisites:
 #
 # - An S3 bucket.
@@ -51,3 +55,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3-ruby-example-upload-item]

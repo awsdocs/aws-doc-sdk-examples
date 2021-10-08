@@ -4,6 +4,26 @@
 
 This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate AWS Identity and Access Management (IAM).
 
+## Code examples 
+
+### Usage examples
+- [Construct a URL for federated users](./iam-ruby-example-construct-url-federated-users.rb)
+- [Managing access keys](./iam-ruby-example-access-keys.rb)
+- [Managing account aliases](./iam-ruby-example-account-alias.rb)
+- [Managing Policies](./iam-ruby-example-manage-policies.rb)
+- [Managing users](./iam-ruby-example-manage-users.rb)
+- [Managing server certificates](./iam-ruby-example-server-certificates.rb)
+- [Managing administrator privilages](./iam_ruby_example_show_admins.rb)
+
+### API examples
+- [Add a managed policy](./iam-ruby-example-add-managed-policy.rb)
+- [Add a new user](./iam-ruby-example-add-new-user.rb)
+- [Create a role](./iam-ruby-example-create-role.rb)
+- [Create user access keys](./iam-ruby-example-create-user-access-keys.rb)
+- [Get SSH public keys](./iam-ruby-example-get-ssh-public-keys.rb)
+- [List all users](./iam-ruby-example-list-all-users.rb)
+
+
 ## Prerequisites
 
 - An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.

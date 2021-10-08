@@ -1,10 +1,13 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+# SPDX - License - Identifier: Apache - 2.0
+
+# Purpose
+
+# snippet-start:[s3.ruby.sqs-ruby-example-create-queue.rb]
+# This code example demonstrates how to create a queue in Amazon Simple Queue Service (Amazon SQS).
 
 require 'aws-sdk-sqs'
 
-# Creates a queue in Amazon Simple Queue Service (Amazon SQS).
-#
 # @param sqs_client [Aws::SQS::Client] An initialized Amazon SQS client.
 # @param queue_name [String] The name of the queue.
 # @return [Boolean] true if the queue was created; otherwise, false.
@@ -37,3 +40,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.sqs-ruby-example-create-queue.rb]

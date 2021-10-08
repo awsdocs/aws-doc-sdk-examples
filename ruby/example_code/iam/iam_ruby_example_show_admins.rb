@@ -16,6 +16,9 @@
 # - group_has_admin_policy?
 # - group_has_attached_policy?
 
+# snippet-start:[elastictranscoder.ruby.showAdmins]
+
+
 require 'aws-sdk-iam'
 
 # Determines whether the specified user in
@@ -266,3 +269,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[elastictranscoder.ruby.showAdmins]

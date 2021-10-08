@@ -1,6 +1,11 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+# SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to determine whether an Amazon Simple Storage Service (Amazon S3)
+#  bucket exists and you have permission to access it.
+
+# snippet-start:[s3.ruby.s3-ruby-example-head-bucket]
 require 'aws-sdk-s3'
 
 # Determines whether an Amazon Simple Storage Service (Amazon S3)
@@ -41,3 +46,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3-ruby-example-head-bucket]

@@ -1,12 +1,19 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# ec2-ruby-example-create-key-pair.rb demonstrates how to
+# creates a key pair in Amazon Elastic Compute Cloud (Amazon EC2) and
+# saves the resulting RSA private key file locally in the calling
+# user's home directory.
+
+# Inputs:
+# - REGION - The AWS Region.
+
+# snippet-start:[ec2.Ruby.createKeyPair]
 
 require 'aws-sdk-ec2'
 
-# Creates a key pair in Amazon Elastic Compute Cloud (Amazon EC2) and
-# saves the resulting RSA private key file locally in the calling
-# user's home directory.
-#
 # @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
 # @param key_pair_name [String] The name for the key pair and private
 #   key file.
@@ -44,7 +51,7 @@ def run_me
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
     key_pair_name = 'my-key-pair'
-    region = 'us-east-1'
+    region = 'REGION'
   # Otherwise, use the values as specified at the command prompt.
   else
     key_pair_name = ARGV[0]
@@ -61,3 +68,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[ec2.Ruby.createKeyPair]

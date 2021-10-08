@@ -1,10 +1,17 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# ec2-ruby-example-reboot-instance-i-123abc.rb demonstrates how to reboot
+# an Amazon Elastic Compute Cloud (Amazon EC2) instance using the AWS SDK for Ruby.
+
+# Inputs:
+# - REGION - The AWS Region.
+
+# snippet-start:[ec2.Ruby.updateMovieItems]
 
 require 'aws-sdk-ec2'
 
-# Reboots an Amazon Elastic Compute Cloud (Amazon EC2) instance.
-#
 # Prerequisites:
 #
 # - An Amazon EC2 instance.

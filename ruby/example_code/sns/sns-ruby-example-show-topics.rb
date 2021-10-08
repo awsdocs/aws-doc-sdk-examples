@@ -3,7 +3,7 @@
 
 # Purpose:
 # sns-ruby-example-show-topics.rb demonstrates how to list Amazon Simple Notification Services (SNS) topics using
-# the AWS SDK for JavaScript (v3).
+# the AWS SDK for Ruby.
 
 # Inputs:
 # - REGION

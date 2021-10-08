@@ -1,10 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to list the objects in an Amazon Simple Storage Service
+# (Amazon S3) bucket.
+
+# snippet-start:[s3.ruby.s3-ruby-example-list-bucket-items]
+
 require 'aws-sdk-s3'
 
-# Lists the objects in an Amazon Simple Storage Service (Amazon S3) bucket.
-#
 # Prerequisites:
 #
 # - An S3 bucket, preferrably containing at least one object.
@@ -59,3 +63,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3-ruby-example-list-bucket-items]

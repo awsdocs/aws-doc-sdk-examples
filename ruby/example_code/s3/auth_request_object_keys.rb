@@ -1,14 +1,18 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# This code example prints the list of objects in an Amazon Simple Storage Solution (Amazon S3) bucket
+# using the AWS SDK for Ruby.
+
+# snippet-start:[s3.ruby.auth_federation_token_request_test.rb]
 
 # Prerequisites:
-#   - An Amazon S3 bucket.
+#  - An existing Amazon S3 bucket.
 
 # snippet-start:[s3.ruby.auth_request_object_keys.rb]
 require 'aws-sdk-s3'
 
-# Prints the list of objects in an Amazon S3 bucket.
-#
 # @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
 # @param bucket_name [String] The bucket's name.
 # @return [Boolean] true if all operations succeed; otherwise, false.
@@ -36,15 +40,16 @@ rescue StandardError => e
   puts "Error while accessing the bucket named '#{bucket_name}': #{e.message}"
   return false
 end
-# snippet-end:[s3.ruby.auth_request_object_keys.rb]
 
 # Full example call:
 def run_me
-  region = 'us-east-1'
-  bucket_name = 'doc-example-bucket'
+  region = 'REGION'
+  bucket_name = 'BUCKET_NAME'
   s3_client = Aws::S3::Client.new(region: region)
 
   exit 1 unless list_bucket_objects?(s3_client, bucket_name)
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+
+# snippet-end:[s3.ruby.auth_request_object_keys.rb]

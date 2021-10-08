@@ -1,11 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# s3-ruby-example-add-notification.rb demonstrates how to add an event notification to an Amazon Simple Storage Service
+# (Amazon S3) bucket.
+
+# snippet-start:[s3.ruby.s3-ruby-example-add-notification]
+
 require 'aws-sdk-s3'
 
-# Adds an event notification to an Amazon Simple Storage Service
-#   (Amazon S3) bucket.
-#
 # Prerequisites:
 #
 # - An S3 bucket.
@@ -121,3 +124,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3-ruby-example-add-notification]

@@ -1,11 +1,18 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# ec2-ruby-example-regions-availability-zones.rb demonstrates how to
+# display a list of AWS Regions for Amazon Elastic Compute Cloud (Amazon EC2)
+# that are available to you.
+
+# Inputs:
+# - REGION - The AWS Region.
+
+# snippet-start:[ec2.Ruby.regionsAvailabilityZones]
 
 require 'aws-sdk-ec2'
 
-# Displays a list of AWS Regions for Amazon Elastic Compute Cloud (Amazon EC2)
-# that are available to you.
-#
 # @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
 # @example
 #   list_regions_endpoints(Aws::EC2::Client.new(region: 'us-east-1'))
@@ -103,3 +110,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[ec2.Ruby.regionsAvailabilityZones]

@@ -1,6 +1,15 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# Purpose:
+# dynamodb_ruby_example_delete_movies_item.rb demonstrates how to
+# delete an item from a table in Amazon DynamoDB using the AWS SDK for Ruby.
+
+# Inputs:
+# - REGION - The AWS Region.
+
+# snippet-start:[dynamodb.Ruby.deleteMovieItem]
+
 require 'aws-sdk-dynamodb'
 
 # Deletes an item from a table in Amazon DynamoDB.
@@ -30,7 +39,7 @@ end
 
 # Full example call:
 def run_me
-  region = 'us-west-2'
+  region = 'REGION'
   table_name = 'Movies'
   year = 2015
   title = 'The Big New Movie'
@@ -55,3 +64,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[dynamodb.Ruby.deleteMovieItem]
