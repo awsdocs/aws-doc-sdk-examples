@@ -787,7 +787,7 @@ This application has a **contact_me.js** file that is used to send requests to t
 
 ## Run the application
 
-Using Visual Studio, you can run your application. After it starts, you will see the HOME page, as shown in this illustration. 
+Using IntelliJ, you can run your application. After it starts, you will see the HOME page, as shown in this illustration. 
 
 ![AWS Tracking Application](images/run.png)
 
