@@ -160,6 +160,15 @@ api-gateway_GetRestApis:
               snippet_tags:
                 - python.example_code.api-gateway.ApiGatewayToService.class
                 - python.example_code.api-gateway.GetRestApis
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/apigateway
+          sdkguide:
+          excerpts:
+            - description: Displays the Amazon API Gateway REST APIs in the Region.
+              snippet_tags:
+                - apigateway.rust.get_rest_apis
   services:
     api-gateway: {GetRestApis}
 api-gateway_DeleteRestApi:
