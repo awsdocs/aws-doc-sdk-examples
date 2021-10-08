@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DescribeLogGroupsExample", "DescribeLogGroupsExample.csproj", "{15D0B87C-2F61-4ADF-9E06-F448A51DD99C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15D0B87C-2F61-4ADF-9E06-F448A51DD99C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15D0B87C-2F61-4ADF-9E06-F448A51DD99C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15D0B87C-2F61-4ADF-9E06-F448A51DD99C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15D0B87C-2F61-4ADF-9E06-F448A51DD99C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B705FE3B-6454-40FF-A32B-D9A3C3501095}
+	EndGlobalSection
+EndGlobal

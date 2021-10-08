@@ -60,14 +60,14 @@ Kotlin:
   property: kotlin
   sdk:
     1:
-      long: "&AWS; SDK for Kotlin"
-      short: "SDK for Kotlin"
+      long: "&Kotlinlong;"
+      short: "&Kotlin;"
       caveat: "This is prerelease documentation for a feature in preview release. It is subject to change."
       api_ref:
         uid: "SdkForKotlinV1"
-        name: "&AWS; SDK for Kotlin API Reference"
+        name: "&guide-kotlin-api;"
         link_template: "https://github.com/awslabs/aws-sdk-kotlin#generating-api-documentation"
-  guide: "&AWS; SDK for Kotlin Developer Guide"
+  guide: "&guide-kotlin-dev;"
 .NET:
   property: csharp
   sdk:
@@ -108,3 +108,15 @@ Ruby:
         uid: "SdkForRubyV3"
         name: "&guide-ruby-api;"
   guide: "&guide-ruby-dev;"
+Rust:
+  property: rust
+  sdk:
+    1:
+      long: "&Rustlong;"
+      short: "&Rust;"
+      caveat: "This documentation is for an SDK in preview release. The SDK is subject to change and should not be used in production."
+      api_ref:
+        uid: "SdkForRustV1"
+        name: "&guide-rust-api;"
+        link_template: "https://awslabs.github.io/aws-sdk-rust/"
+  guide: "&guide-rust-dev;"
