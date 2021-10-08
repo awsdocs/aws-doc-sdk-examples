@@ -14,7 +14,7 @@ cloudwatch-logs_AssociateKmsKey:
               snippet_tags:
                 - CloudWatchLogs.dotnetv3.AssociateKmsKeyExample
   services:
-    - cloudwatch-logs: {AssociateKmsKey}
+    cloudwatch-logs: {AssociateKmsKey}
 cloudwatch-logs_CancelExportTask:
   title: Cancels a &CWL; export task using an &AWS; SDK
   title_abbrev: Cancels an existing &CWL; export task.
@@ -30,7 +30,7 @@ cloudwatch-logs_CancelExportTask:
               snippet_tags:
                 - CloudWatchLogs.dotnetv3.CancelExportTaskExample
   services:
-    - cloudwatch-logs: {CancelExportTask}
+    cloudwatch-logs: {CancelExportTask}
 cloudwatch-logs_CreateLogGroup:
   title: Creates a &CWL; log group using an &AWS; SDK
   title_abbrev: Creates a new &CWL; log group.
@@ -46,7 +46,7 @@ cloudwatch-logs_CreateLogGroup:
             snippet_tags:
               - CloudWatchLogs.dotnetv3.CreateLogGroupExample
   services:
-    - cloudwatch-logs: {CreateLogGroup}
+    cloudwatch-logs: {CreateLogGroup}
 cloudwatch-logs_CreateLogStream:
   title: Creates a &CWL; log stream using an &AWS; SDK
   title_abbrev: Creates a new &CWL; log stream.
@@ -62,7 +62,7 @@ cloudwatch-logs_CreateLogStream:
             snippet_tags:
               - CloudWatchLogs.dotnetv3.CreateLogStreamExample
   services:
-    - cloudwatch-logs: {CreateLogStream}
+    cloudwatch-logs: {CreateLogStream}
 cloudwatch-logs_DeleteLogGroup:
   title: Deletes an existing &CWL; log group using an &AWS; SDK
   title_abbrev: Deletes an existing &CWL; log group.
@@ -78,7 +78,7 @@ cloudwatch-logs_DeleteLogGroup:
             snippet_tags:
               - CloudWatchLogs.dotnetv3.DeleteLogGroupExample
   services:
-    - cloudwatch-logs: {DeleteLogGroup}
+    cloudwatch-logs: {DeleteLogGroup}
 cloudwatch-logs_DescribeExportTasks:
   title: Describes existing &CWL; export tasks using an &AWS; SDK
   title_abbrev: Describes existing &CWL; export tasks.
@@ -94,7 +94,7 @@ cloudwatch-logs_DescribeExportTasks:
             snippet_tags:
               - CloudWatchLogs.dotnetv3.DescribeExportTasksExammple
   services:
-    - cloudwatch-logs: {DescribeExportTasks}
+    cloudwatch-logs: {DescribeExportTasks}
 cloudwatch-logs_DescribeLogGroups:
   title: Describes existing &CWL; log groups using an &AWS; SDK
   title_abbrev: Describes existing &CWL; log groups.
@@ -110,7 +110,7 @@ cloudwatch-logs_DescribeLogGroups:
             snippet_tags:
               - CloudWatchLogs.dotnetv3.DescribeLogGroupsExample
   services:
-    - cloudwatch-logs: {DescribeLogGroups}
+    cloudwatch-logs: {DescribeLogGroups}
 cloudwatch-logs_DescribeSubscriptionFilters:
   title: Describe &CWL; subscription filters using an &AWS; SDK
   title_abbrev: Describe existing subscription filters
@@ -137,7 +137,7 @@ cloudwatch-logs_DescribeSubscriptionFilters:
               snippet_tags:
                 - cwLogs.JavaScript.cwl.describeSubscriptionFilters
   services:
-    - cloudwatch-logs: {DescribeSubscriptionFilters}
+    cloudwatch-logs: {DescribeSubscriptionFilters}
 cloudwatch-logs_DeleteSubscriptionFilter:
   title: Delete a &CWL; subscription filter using an &AWS; SDK
   title_abbrev: Delete a subscription filter
@@ -164,7 +164,7 @@ cloudwatch-logs_DeleteSubscriptionFilter:
               snippet_tags:
                 - cwLogs.JavaScript.cwl.deleteSubscriptionFilter
   services:
-    - cloudwatch-logs: {DeleteSubscriptionFilter}
+    cloudwatch-logs: {DeleteSubscriptionFilter}
 cloudwatch-logs_PutSubscriptionFilter:
   title: Create a &CWL; subscription filter using an &AWS; SDK
   title_abbrev: Create a subscription filter
@@ -191,4 +191,4 @@ cloudwatch-logs_PutSubscriptionFilter:
               snippet_tags:
                 - cwLogs.JavaScript.cwl.putSubscriptionFilter
   services:
-    - cloudwatch-logs: {PutSubscriptionFilter}
+    cloudwatch-logs: {PutSubscriptionFilter}
