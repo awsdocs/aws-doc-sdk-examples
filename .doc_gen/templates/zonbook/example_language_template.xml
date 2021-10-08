@@ -27,7 +27,9 @@
             {{- else}}{{range $version.Excerpts}}
             <block>
                 <para>{{.Description}}</para>
-                <programlisting language="{{.Syntax}}">{{range .SnippetTags}}<xi:include parse="text" href="file://AWSShared/snippets/{{.}}.txt"/>{{end}}</programlisting>
+                <!-- The following line break must be preserved and left-justified exactly as-is, to keep snippets looking good. -->
+                <programlisting language="{{.Syntax}}">{{range .SnippetTags}}<xi:include parse="text" href="file://AWSShared/snippets/{{.}}.txt"/>
+{{end}}</programlisting>
             </block>
             {{- end}}
             <itemizedlist>

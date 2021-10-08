@@ -1,0 +1,630 @@
+# zexi 0.4.0
+iam_CreateAccountAlias:
+  title: Create an alias for an &IAM; account using an &AWS; SDK
+  title_abbrev: Create an alias for an account
+  synopsis: create an alias for an &IAM; account.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.CreateAccountAlias
+  services:
+    iam: {CreateAccountAlias}
+iam_DeleteAccountAlias:
+  title: Delete an &IAM; account alias using an &AWS; SDK
+  title_abbrev: Delete an account alias
+  synopsis: delete an &IAM; account alias.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.DeleteAccountAlias
+  services:
+    iam: {DeleteAccountAlias}
+iam_ListAccountAliases:
+  title: List &IAM; account aliases using an &AWS; SDK
+  title_abbrev: List account aliases
+  synopsis: list &IAM; account aliases.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListAccountAliases
+  services:
+    iam: {ListAccountAliases}
+iam_GetAccountAuthorizationDetails:
+  title: Get a detailed &IAM; authorization report for your account using an &AWS; SDK
+  title_abbrev: Get a detailed authorization report for your account
+  synopsis: get a detailed &IAM; authorization report for your account.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.GetAccountAuthorizationDetails
+  services:
+    iam: {GetAccountAuthorizationDetails}
+iam_GetAccountSummary:
+  title: Get a summary of account usage from &IAM; using an &AWS; SDK
+  title_abbrev: Get a summary of account usage
+  synopsis: get a summary of account usage from &IAM;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.GetAccountSummary
+  services:
+    iam: {GetAccountSummary}
+iam_GenerateCredentialReport:
+  title: Generate a credential report from &IAM; using an &AWS; SDK
+  title_abbrev: Generate a credential report
+  synopsis: generate a credential report from &IAM; for the current account.
+    After the report is generated, get it by using the GetCredentialReport action.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.GenerateCredentialReport
+  services:
+    iam: {GenerateCredentialReport}
+iam_GetCredentialReport:
+  title: Get a credential report from &IAM; using an &AWS; SDK
+  title_abbrev: Get a credential report
+  synopsis: get the most recently generated credential report from &IAM;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.GetCredentialReport
+  services:
+    iam: {GetCredentialReport}
+iam_Scenario_AccountManagement:
+  title: Manage your &IAM; account using an &AWS; SDK
+  title_abbrev: Manage your account
+  synopsis: manage your &IAM; account.
+  category: Scenario
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description: Create functions that wrap &IAM; account actions.
+              snippet_tags:
+                - python.example_code.iam.account_wrapper.imports
+                - python.example_code.iam.ListAccountAliases
+                - python.example_code.iam.CreateAccountAlias
+                - python.example_code.iam.DeleteAccountAlias
+                - python.example_code.iam.GenerateCredentialReport
+                - python.example_code.iam.GetCredentialReport
+                - python.example_code.iam.GetAccountSummary
+                - python.example_code.iam.GetAccountAuthorizationDetails
+            - description: Call wrapper functions to change the account alias and
+                to get reports about the account.
+              snippet_tags:
+                - python.example_code.iam.Scenario_AccountManagement
+  services:
+    iam: {}
+iam_CreateAccessKey:
+  title: Create an &IAM; access key using an &AWS; SDK
+  title_abbrev: Create an access key
+  synopsis: create an &IAM; access key.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.CreateAccessKey
+  services:
+    iam: {CreateAccessKey}
+iam_DeleteAccessKey:
+  title: Delete an &IAM; access key using an &AWS; SDK
+  title_abbrev: Delete an access key
+  synopsis: delete an &IAM; access key.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.DeleteAccessKey
+  services:
+    iam: {DeleteAccessKey}
+iam_GetAccessKeyLastUsed:
+  title: Get data about the last use of an &IAM; access key using an &AWS; SDK
+  title_abbrev: Get data about the last use of an access key
+  synopsis: get data about the last use of an &IAM; access key.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.GetAccessKeyLastUsed
+  services:
+    iam: {GetAccessKeyLastUsed}
+iam_ListAccessKeys:
+  title: List a user's &IAM; access keys using an &AWS; SDK
+  title_abbrev: List a user's access keys
+  synopsis: list a user's &IAM; access keys.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListAccessKeys
+  services:
+    iam: {ListAccessKeys}
+iam_UpdateAccessKey:
+  title: Update an &IAM; access key using an &AWS; SDK
+  title_abbrev: Update an access key
+  synopsis: update an &IAM; access key.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.UpdateAccessKey
+  services:
+    iam: {UpdateAccessKey}
+iam_Scenario_ManageAccessKeys:
+  title: Manage &IAM; access keys using an &AWS; SDK
+  title_abbrev: Manage access keys
+  synopsis: manage &IAM; access keys.
+  category: Scenario
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description: Create functions that wrap &IAM; access key actions.
+              snippet_tags:
+                - python.example_code.iam.access_key_wrapper.imports
+                - python.example_code.iam.ListAccessKeys
+                - python.example_code.iam.CreateAccessKey
+                - python.example_code.iam.GetAccessKeyLastUsed
+                - python.example_code.iam.UpdateAccessKey
+                - python.example_code.iam.DeleteAccessKey
+            - description: Use the wrapper functions to perform access key actions for
+                the current user.
+              snippet_tags:
+                - python.example_code.iam.Scenario_ManageAccessKeys
+  services:
+    iam: {}
+iam_CreatePolicy:
+  title: Create an &IAM; policy using an &AWS; SDK
+  title_abbrev: Create a policy
+  synopsis: create an &IAM; policy.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.CreatePolicy
+  services:
+    iam: {CreatePolicy}
+iam_DeletePolicy:
+  title: Delete an &IAM; policy using an &AWS; SDK
+  title_abbrev: Delete a policy
+  synopsis: delete an &IAM; policy.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.DeletePolicy
+  services:
+    iam: {DeletePolicy}
+iam_CreatePolicyVersion:
+  title: Create an &IAM; policy version using an &AWS; SDK
+  title_abbrev: Create a policy version
+  synopsis: create an &IAM; policy version.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.CreatePolicyVersion
+  services:
+    iam: {CreatePolicyVersion}
+iam_ListPolicies:
+  title: List &IAM; policies using an &AWS; SDK
+  title_abbrev: List policies
+  synopsis: list &IAM; policies.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListPolicies
+  services:
+    iam: {ListPolicies}
+iam_GetPolicyVersion:
+  title: Get an &IAM; policy version using an &AWS; SDK
+  title_abbrev: Get a policy version
+  synopsis: get an &IAM; policy version.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.GetPolicyVersion
+  services:
+    iam: {GetPolicyVersion}
+iam_Scenario_RollbackPolicyVersion:
+  title: Rollback an &IAM; policy version using an &AWS; SDK
+  title_abbrev: Rollback a policy version
+  synopsis: rollback an &IAM; policy version.
+  category: Scenario
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.Scenario_RollbackPolicyVersion
+  services:
+    iam: {}
+iam_AttachRolePolicy:
+  title: Attach an &IAM; policy to a role using an &AWS; SDK
+  title_abbrev: Attach a policy to a role
+  synopsis: attach an &IAM; policy to a role.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description: Attach a policy to a role using the Boto3 Policy object.
+              snippet_tags:
+                - python.example_code.iam.AttachRolePolicy_Policy
+            - description: Attach a policy to a role using the Boto3 Role object.
+              snippet_tags:
+                - python.example_code.iam.AttachRolePolicy_Role
+  services:
+    iam: {AttachRolePolicy}
+iam_DetachRolePolicy:
+  title: Detach an &IAM; policy from a role using an &AWS; SDK
+  title_abbrev: Detach a policy from a role
+  synopsis: detach an &IAM; policy from a role.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description: Detach a policy from a role using the Boto3 Policy object.
+              snippet_tags:
+                - python.example_code.iam.DetachRolePolicy_Policy
+            - description: Detach a policy from a role using the Boto3 Role object.
+              snippet_tags:
+                - python.example_code.iam.DetachRolePolicy_Role
+  services:
+    iam: {DetachRolePolicy}
+iam_Scenario_PolicyManagement:
+  title: Manage &IAM; policies using an &AWS; SDK
+  title_abbrev: Manage policies
+  synopsis: manage &IAM; policies.
+  category: Scenario
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description: Create functions that wrap &IAM; policy actions.
+              snippet_tags:
+                - python.example_code.iam.policy_wrapper.imports
+                - python.example_code.iam.CreatePolicy
+                - python.example_code.iam.ListPolicies
+                - python.example_code.iam.CreatePolicyVersion
+                - python.example_code.iam.GetPolicyVersion
+                - python.example_code.iam.Scenario_RollbackPolicyVersion
+                - python.example_code.iam.DeletePolicy
+            - description: Use the wrapper functions to create policies, update
+                versions, and get information about them.
+              snippet_tags:
+                - python.example_code.iam.Scenario_PolicyManagement
+  services:
+    iam: {}
+iam_CreateRole:
+  title: Create an &IAM; role using an &AWS; SDK
+  title_abbrev: Create a role
+  synopsis: create an &IAM; role.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.CreateRole
+  services:
+    iam: {CreateRole}
+iam_DeleteRole:
+  title: Delete an &IAM; role using an &AWS; SDK
+  title_abbrev: Delete a role
+  synopsis: delete an &IAM; role.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.DeleteRole
+  services:
+    iam: {DeleteRole}
+iam_Scenario_RoleManagement:
+  title: Manage &IAM; roles using an &AWS; SDK
+  title_abbrev: Manage roles
+  synopsis: manage &IAM; roles.
+  category: Scenario
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description: Create functions that wrap &IAM; role actions.
+              snippet_tags:
+                - python.example_code.iam.role_wrapper.imports
+                - python.example_code.iam.CreateRole
+                - python.example_code.iam.AttachRolePolicy_Role
+                - python.example_code.iam.DetachRolePolicy_Role
+                - python.example_code.iam.DeleteRole
+            - description: Use the wrapper functions to create a role, then attach
+                and detach a policy.
+              snippet_tags:
+                - python.example_code.iam.Scenario_RoleManagement
+  services:
+    iam: {}
+iam_CreateUser:
+  title: Create an &IAM; user using an &AWS; SDK
+  title_abbrev: Create a user
+  synopsis: create an &IAM; user.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.CreateUser
+  services:
+    iam: {CreateUser}
+iam_DeleteUser:
+  title: Delete an &IAM; user using an &AWS; SDK
+  title_abbrev: Delete a user
+  synopsis: delete an &IAM; user.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.DeleteUser
+  services:
+    iam: {DeleteUser}
+iam_ListUsers:
+  title: List &IAM; users using an &AWS; SDK
+  title_abbrev: List users
+  synopsis: list &IAM; users.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListUsers
+  services:
+    iam: {ListUsers}
+iam_UpdateUser:
+  title: Update an &IAM; user using an &AWS; SDK
+  title_abbrev: Update a user
+  synopsis: update an &IAM; user.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.UpdateUser
+  services:
+    iam: {UpdateUser}
+iam_AttachUserPolicy:
+  title: Attach an &IAM; policy to a user using an &AWS; SDK
+  title_abbrev: Attach a policy to a user
+  synopsis: attach an &IAM; policy to a user.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.AttachUserPolicy
+  services:
+    iam: {AttachUserPolicy}
+iam_DetachUserPolicy:
+  title: Detach an &IAM; policy from a user using an &AWS; SDK
+  title_abbrev: Detach a policy from a user
+  synopsis: detach an &IAM; policy from a user.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.DetachUserPolicy
+  services:
+    iam: {DetachUserPolicy}
+iam_Scenario_UserPolicies:
+  title: Create read-only and write-only &IAM; users using an &AWS; SDK
+  title_abbrev: Create read-only and write-only users
+  synopsis: create two &IAMlong; (&IAM;) users, where one user can only put
+    objects in an &S3long; (&S3;) bucket and the other can only get objects from
+    the bucket. The users' credentials are then used to move objects in and out of
+    the bucket.
+  category: Scenario
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description: Create functions that wrap &IAM; user actions.
+              snippet_tags:
+                - python.example_code.iam.user_wrapper.imports
+                - python.example_code.iam.CreateUser
+                - python.example_code.iam.UpdateUser
+                - python.example_code.iam.ListUsers
+                - python.example_code.iam.DeleteUser
+                - python.example_code.iam.AttachUserPolicy
+                - python.example_code.iam.DetachUserPolicy
+            - description: Create functions that wrap &IAM; policy actions.
+              snippet_tags:
+                - python.example_code.iam.policy_wrapper.imports
+                - python.example_code.iam.CreatePolicy
+                - python.example_code.iam.DeletePolicy
+            - description: Create functions that wrap &IAM; access key actions.
+              snippet_tags:
+                - python.example_code.iam.access_key_wrapper.imports
+                - python.example_code.iam.CreateAccessKey
+                - python.example_code.iam.DeleteAccessKey
+            - description: Use the wrapper functions to create users with differing
+                policies and use their credentials to access an &S3; bucket.
+              snippet_tags:
+                - python.example_code.iam.Scenario_UserPolicies
+  services:
+    iam: {}
