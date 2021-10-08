@@ -6,6 +6,8 @@ You can create a web application that has subscription and publish functionality
 
 **Note**: Amazon SNS is a managed service that provides message delivery from publishers to subscribers (also known as producers and consumers). For more information, see [What is Amazon SNS?](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
 
+**Note**: This example application uses the Asynchronous client that belongs to the AWS SDK for Java V2 for the Amazon SNS and Amazon Translate services. For more information, see [Asynchronous programming in the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/asynchronous.html).
+
 
 #### Topics
 
