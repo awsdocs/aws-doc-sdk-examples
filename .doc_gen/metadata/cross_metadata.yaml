@@ -16,14 +16,11 @@ cross_SnsPublishSubscription:
   title_abbrev: Building an &SNS; web application 
   synopsis: create a web application that has subscription and publish functionality and translates messages.
   languages:
-    Java (Async):
-      versions:
-        - sdk_version: 2
-          block_content: cross_SNSSubPub_JavaAsync_block.xml
     Java:
       versions:
         - sdk_version: 2
           block_content: cross_SNSSubPub_Java_block.xml
+          block_content: cross_SNSSubPub_JavaAsync_block.xml
   services:
     sns:
     translate:
