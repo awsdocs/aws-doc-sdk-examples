@@ -20,7 +20,6 @@ cross_SnsPublishSubscription:
       versions:
         - sdk_version: 2
           block_content: cross_SNSSubPub_Java_block.xml
-          block_content: cross_SNSSubPub_JavaAsync_block.xml
   services:
     sns:
     translate:
