@@ -168,7 +168,7 @@ At this point, you have a new project named **SpringSubscribeApp**. Ensure that 
 
 + **SubApplication** - Used as the base class for the Spring Boot application.
 + **SubController** - Used as the Spring Boot controller that handles HTTP requests. 
-+ **SnsService** - Used to invoke Amazon SNS operations by using the Amazon SNS Java API V2.  
++ **SnsService** - Used to invoke Amazon SNS operations by using the Amazon SNS **SnsAsyncClient**.  
 
 ### SubApplication class
 
@@ -257,7 +257,11 @@ The following Java code represents the **SubController** class.
 
 ### SnsService class
 
-The following Java code represents the **SnsService** class. This class uses the Java V2 SNS API to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes from the Amazon SNS topic. The **pubTopic** publishes a message. 
+The following Java code represents the **SnsService** class. This class uses the Java V2 **SnsAsyncClient** object to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes from the Amazon SNS topic. The **pubTopic** publishes a message.
+
+When working with the **SnsAsyncClient**, you use a **CompletableFuture** object that allows you to access the response when it’s ready. You can access the **resp** object by calling the **futureGet.whenComplete** method. Then you can get service data by invoking the applicable method that belongs to the **resp** object. For example, you can get the subscription Arn value by invoking the **resp.subscriptionArn()** method. 
+
+To return data that you read from the **resp** object (for example, a subscription Arn value), you must use an AtomicReference object. You cannot return data from within the **futureGet.whenComplete** method. If you attempt to perform this task, you get a compile error. You can set the data by using the **AtomicReference** object's **set** method. You can then access the **AtomicReference** object from outside the **futureGet.whenComplete** method to get the data by using the **AtomicReference** object's **get** method. Then you can return the data from a Java method, as shown in the following Java code example.
 
 ```java
      package com.spring.sns;
@@ -268,8 +272,11 @@ The following Java code represents the **SnsService** class. This class uses the
      import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
      import software.amazon.awssdk.services.sns.model.ListSubscriptionsByTopicRequest;
      import software.amazon.awssdk.regions.Region;
-     import software.amazon.awssdk.services.sns.SnsClient;
+     import software.amazon.awssdk.services.sns.SnsAsyncClient;
      import software.amazon.awssdk.services.sns.model.*;
+     import software.amazon.awssdk.services.translate.TranslateAsyncClient;
+     import software.amazon.awssdk.services.translate.model.TranslateTextRequest;
+     import software.amazon.awssdk.services.translate.model.TranslateTextResponse;
      import javax.xml.parsers.DocumentBuilder;
      import javax.xml.parsers.DocumentBuilderFactory;
      import javax.xml.parsers.ParserConfigurationException;
@@ -281,129 +288,81 @@ The following Java code represents the **SnsService** class. This class uses the
      import java.io.StringWriter;
      import java.util.ArrayList;
      import java.util.List;
+     import java.util.concurrent.CompletableFuture;
+     import java.util.concurrent.atomic.AtomicReference;
 
-     @Component
-     public class SnsService {
+    @Component
+    public class SnsService {
 
-     String topicArn = "<Enter your TOPIC ARN>";
+    String topicArn = "<ENTER YOUR TOPIC ARN VALUE>";
 
-     private SnsClient getSnsClient() {
+    private SnsAsyncClient getSnsClient() {
 
         Region region = Region.US_WEST_2;
-        SnsClient snsClient = SnsClient.builder()
+        SnsAsyncClient snsAsyncClient = SnsAsyncClient.builder()
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .region(region)
                 .build();
 
-        return snsClient;
-     }
+        return snsAsyncClient;
+    }
 
-     public String pubTopic(String message, String lang) {
+    public void unSubEmail(String emailEndpoint) {
 
         try {
-            String body;
-            Region region = Region.US_WEST_2;
-            TranslateClient translateClient = TranslateClient.builder()
-                    .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                    .region(region)
+
+            String subscriptionArn = getTopicArnValue(emailEndpoint);
+            SnsAsyncClient snsAsyncClient = getSnsClient();
+
+            UnsubscribeRequest request = UnsubscribeRequest.builder()
+                    .subscriptionArn(subscriptionArn)
                     .build();
 
-
-            if (lang.compareTo("English")==0) {
-                    body = message;
-
-            } else if(lang.compareTo("French")==0) {
-
-                    TranslateTextRequest textRequest = TranslateTextRequest.builder()
-                            .sourceLanguageCode("en")
-                            .targetLanguageCode("fr")
-                            .text(message)
-                            .build();
-
-                    TranslateTextResponse textResponse = translateClient.translateText(textRequest);
-                    body = textResponse.translatedText();
-
-            } else  {
-
-                TranslateTextRequest textRequest = TranslateTextRequest.builder()
-                        .sourceLanguageCode("en")
-                        .targetLanguageCode("es")
-                        .text(message)
-                        .build();
-
-                TranslateTextResponse textResponse = translateClient.translateText(textRequest);
-                body = textResponse.translatedText();
-            }
-
-            SnsClient snsClient =  getSnsClient();
-            PublishRequest request = PublishRequest.builder()
-                    .message(body)
-                    .topicArn(topicArn)
-                    .build();
-
-            PublishResponse result = snsClient.publish(request);
-            return " Message sent in " +lang +". Status was " + result.sdkHttpResponse().statusCode();
+            snsAsyncClient.unsubscribe(request);
 
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        return "Error - msg not sent";
-      }
+    }
 
-      public void unSubEmail(String emailEndpoint) {
+    // Returns the Sub ARN based on the given endpoint
+    private String getTopicArnValue(String endpoint){
 
-      try {
-
-         String subscriptionArn = getTopicArnValue(emailEndpoint);
-         SnsClient snsClient =  getSnsClient();
-
-         UnsubscribeRequest request = UnsubscribeRequest.builder()
-                 .subscriptionArn(subscriptionArn)
-                 .build();
-
-         snsClient.unsubscribe(request);
-
-     } catch (SnsException e) {
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
-      }
-     }
-
-     // Returns the Topic ARN based on the given endpoint
-     private String getTopicArnValue(String endpoint){
-
-        SnsClient snsClient =  getSnsClient();
+        final AtomicReference<String> reference = new AtomicReference<>();
+        SnsAsyncClient snsAsyncClient = getSnsClient();
         try {
             String subArn = "";
             ListSubscriptionsByTopicRequest request = ListSubscriptionsByTopicRequest.builder()
                     .topicArn(topicArn)
                     .build();
 
+            CompletableFuture<ListSubscriptionsByTopicResponse> futureGet  = snsAsyncClient.listSubscriptionsByTopic(request);
+            futureGet.whenComplete((resp, err) -> {
 
-            ListSubscriptionsByTopicResponse result = snsClient.listSubscriptionsByTopic(request);
-            List<Subscription> allSubs  = result.subscriptions();
+                List<Subscription> allSubs  = resp.subscriptions();
+                for (Subscription sub: allSubs) {
 
-            for (Subscription sub: allSubs) {
+                    if (sub.endpoint().compareTo(endpoint)==0)
+                             reference.set(sub.subscriptionArn());
+                }
+            });
+            futureGet.join();
+            return reference.get();
 
-            if (sub.endpoint().compareTo(endpoint)==0) {
-
-                subArn = sub.subscriptionArn();
-                return subArn;
-             }
-           }
-          } catch (SnsException e) {
+        } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
-          }
-         return "";
         }
+        return "";
+    }
 
-       // Create a Subsciption of the given email address.
-       public String subEmail(String email) {
+    // Create a Subscription.
+    public String subEmail(String email) {
 
-       try {
-            SnsClient snsClient =  getSnsClient();
+        final AtomicReference<String> reference = new AtomicReference<>();
+        try {
+            SnsAsyncClient snsAsyncClient = getSnsClient();
             SubscribeRequest request = SubscribeRequest.builder()
                     .protocol("email")
                     .endpoint(email)
@@ -411,41 +370,55 @@ The following Java code represents the **SnsService** class. This class uses the
                     .topicArn(topicArn)
                     .build();
 
-            SubscribeResponse result = snsClient.subscribe(request);
-            return result.subscriptionArn() ;
+            CompletableFuture<SubscribeResponse> futureGet  = snsAsyncClient.subscribe(request);
+            futureGet.whenComplete((resp, err) -> {
+
+                String subscriptionArn = resp.subscriptionArn();
+                reference.set(subscriptionArn);
+            });
+            futureGet.join();
+
+            return reference.get();
 
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
         return "";
-      }
+    }
 
-     public String getAllSubscriptions() {
+    public String getAllSubscriptions() {
+
+        final AtomicReference<List<String>> reference = new AtomicReference<>();
         List subList = new ArrayList<String>() ;
 
         try {
-            SnsClient snsClient =  getSnsClient();
+            SnsAsyncClient snsAsyncClient = getSnsClient();
             ListSubscriptionsByTopicRequest request = ListSubscriptionsByTopicRequest.builder()
                     .topicArn(topicArn)
                     .build();
 
-            ListSubscriptionsByTopicResponse result = snsClient.listSubscriptionsByTopic(request);
-            List<Subscription> allSubs  = result.subscriptions();
+            CompletableFuture<ListSubscriptionsByTopicResponse> futureGet  = snsAsyncClient.listSubscriptionsByTopic(request);
+            futureGet.whenComplete((resp, err) -> {
 
-            for (Subscription sub: allSubs) {
-                subList.add(sub.endpoint());
-            }
+                List<Subscription> allSubs  = resp.subscriptions();
+                for (Subscription sub: allSubs) {
+                    subList.add(sub.endpoint());
+                }
+                reference.set(subList);
+            });
+            futureGet.join();
 
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        return convertToString(toXml(subList));
-      }
 
-      // Convert the list to XML to pass back to the view.
-      private Document toXml(List<String> subsList) {
+        return convertToString(toXml(reference.get()));
+    }
+
+    // Convert the list to XML to pass back to the view.
+    private Document toXml(List<String> subsList) {
 
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -468,16 +441,16 @@ The following Java code represents the **SnsService** class. This class uses the
                 item.appendChild(email);
             }
 
-             return doc;
- 
-          }catch(ParserConfigurationException e){
-            e.printStackTrace();
-          }
-         return null;
-        }
+            return doc;
 
-       private String convertToString(Document xml) {
-         try {
+        }catch(ParserConfigurationException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private String convertToString(Document xml) {
+        try {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             StreamResult result = new StreamResult(new StringWriter());
             DOMSource source = new DOMSource(xml);
@@ -488,8 +461,65 @@ The following Java code represents the **SnsService** class. This class uses the
             ex.printStackTrace();
         }
         return null;
+    }
+
+    public String pubTopic(String message, String lang) {
+
+        final AtomicReference<Integer> reference = new AtomicReference<>();
+            String body;
+
+            if (lang.compareTo("English")==0)
+                body = message;
+            else if(lang.compareTo("French")==0)
+                body = translateBody(message, "fr");
+            else
+                body = translateBody(message, "es");
+
+        try {
+            SnsAsyncClient snsAsyncClient = getSnsClient();
+            PublishRequest request = PublishRequest.builder()
+                    .message(body)
+                    .topicArn(topicArn)
+                    .build();
+
+            CompletableFuture<PublishResponse> futureGet  = snsAsyncClient.publish(request);
+            futureGet.whenComplete((resp, err) -> {
+               reference.set(resp.sdkHttpResponse().statusCode());
+            });
+            futureGet.join();
+            return " Message sent in " +lang +". Status was " + reference.get();
+
+        } catch (SnsException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+        return "Error - msg not sent";
+    }
+
+    private String translateBody(String message, String lan)
+    {
+        final AtomicReference<String> reference = new AtomicReference<>();
+        Region region = Region.US_WEST_2;
+        TranslateAsyncClient translateClient = TranslateAsyncClient.builder()
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .region(region)
+                .build();
+
+        TranslateTextRequest textRequest = TranslateTextRequest.builder()
+                .sourceLanguageCode("en")
+                .targetLanguageCode(lan)
+                .text(message)
+                .build();
+
+        CompletableFuture<TranslateTextResponse> futureGet = translateClient.translateText(textRequest);;
+        futureGet.whenComplete((resp, err) -> {
+            reference.set(resp.translatedText());
+        });
+        futureGet.join();
+        return reference.get();
        }
      }
+
 ```
 
 **Note:** Make sure that you assign the SNS topic ARN to the **topicArn** data member. Otherwise, your code does not work. 
@@ -755,48 +785,11 @@ This application has a **contact_me.js** file that is used to send requests to t
     }
  ```
 
-## Create a JAR file for the application
+## Run the application
 
-Package up the project into a .jar (JAR) file that you can deploy to Elastic Beanstalk by using the following Maven command.
+Using Visual Studio, you can run your application. After it starts, you will see the HOME page, as shown in this illustration. 
 
-	mvn package
-
-The JAR file is located in the target folder.
-
-![AWS Tracking Application](images/pic6.png)
-
-The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file that includes the dependencies. Without the dependencies, the application does not run on Elastic Beanstalk. For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
-
-## Deploy the application to Elastic Beanstalk
-
-Sign in to the AWS Management Console, and then open the Elastic Beanstalk console. An application is the top-level container in Elastic Beanstalk that contains one or more application environments (for example prod, qa, and dev, or prod-web, prod-worker, qa-web, qa-worker).
-
-If this is your first time accessing this service, you will see a **Welcome to AWS Elastic Beanstalk** page. Otherwise, you’ll see the Elastic Beanstalk Dashboard, which lists all of your applications.
-
-#### To deploy the application to Elastic Beanstalk
-
-1. Open the Elastic Beanstalk console at https://console.aws.amazon.com/elasticbeanstalk/home.
-2. In the navigation pane, choose  **Applications**, and then choose **Create a new application**. This opens a wizard that creates your application and launches an appropriate environment.
-3. On the **Create New Application** page, enter the following values:
-   + **Application Name** - Subscribe App
-   + **Description** - A description for the application
-4. Choose **Create**.
-5. Choose **Create a new environment**.
-6. Choose **Web server environment**.
-7. Choose **Select**.
-8. In the **Environment information** section, leave the default values.
-9. In the **Platform** section, choose **Managed platform**.
-10. For **Platform**, choose **Java** (accept the default values for the other fields).
-11. In the **Application code** section, choose **Upload your code**.
-12. Choose **Local file**, and then select **Choose file**. Browse to the JAR file that you created.  
-13. Choose **Create environment**. You'll see the application being created. When you’re done, you will see the application state the **Health** is **Ok** .
-14. To change the port that Spring Boot listens on, add an environment variable named **SERVER_PORT**, with the value **5000**.
-11. Add a variable named **AWS_ACCESS_KEY_ID**, and then specify your access key value.
-12. Add a variable named **AWS_SECRET_ACCESS_KEY**, and then specify your secret key value. After the variables are configured, you'll see the URL for accessing the application.
-
-**Note:** If you don't know how to set variables, see [Environment properties and other software settings](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-softwaresettings.html).
-
-To access the application, open your browser and enter the URL for your application. You will see the Home page for your application.
+![AWS Tracking Application](images/run.png)
 
 ### Next steps
 Congratulations! You have created a Spring Boot application that contains subscription and publish functionality. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
