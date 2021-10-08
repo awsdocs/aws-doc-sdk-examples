@@ -1,4 +1,110 @@
-# zexi 0.4.0
+# zexi 0.2.0
+cloudwatch-logs_AssociateKmsKey:
+  title: Associate KMS Key to a &CWL; log group using an &AWS; SDK
+  title_abbrev: Associate a KMS Key to existing log group.
+  synopsis:
+  category:
+  languages:
+    .NET:
+      versions:
+        = sdk_version: 3
+          github: dotnetv3/CloudWatchLogs
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatchLogs.dotnetv3.AssociateKmsKeyExample
+  services:
+    - cloudwatch-logs
+cloudwatch-logs_CancelExportTask:
+  title: Cancels a &CWL; export task using an &AWS; SDK
+  title_abbrev: Cancels an existing &CWL; export task.
+  synopsis:
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatchLogs
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatchLogs.dotnetv3.CancelExportTaskExample
+  services:
+    - cloudwatch-logs
+cloudwatch-logs_CreateLogGroup:
+  title: Creates a &CWL; log group using an &AWS; SDK
+  title_abbrev: Creates a new &CWL; log group.
+  synopsis:
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+        github: dotnetv3/CloudWatchLogs
+        excerpts:
+          - description:
+            snippet_tags:
+              - CloudWatchLogs.dotnetv3.CreateLogGroupExample
+  services:
+    - cloudwatch-logs
+cloudwatch-logs_CreateLogStream:
+  title: Creates a &CWL; log stream using an &AWS; SDK
+  title_abbrev: Creates a new &CWL; log stream.
+  synopsis:
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+        github: dotnetv3/CloudWatchLogs
+        excerpts:
+          - description:
+            snippet_tags:
+              - CloudWatchLogs.dotnetv3.CreateLogStreamExample
+  services:
+    - cloudwatch-logs
+cloudwatch-logs_DeleteLogGroup:
+  title: Deletes an existing &CWL; log group using an &AWS; SDK
+  title_abbrev: Deletes an existing &CWL; log group.
+  synopsis:
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+        github: dotnetv3/CloudWatchLogs
+        excerpts:
+          - description:
+            snippet_tags:
+              - CloudWatchLogs.dotnetv3.DeleteLogGroupExample
+  services:
+    - cloudwatch-logs
+cloudwatch-logs_DescribeExportTasksExample:
+  title: Describes existing &CWL; export tasks using an &AWS; SDK
+  title_abbrev: Describes existing &CWL; export tasks.
+  synopsis:
+  category:
+  languages:
+    .NET:
+      versions:
+        - description:
+          snippet_tags:
+            - CloudWatchLogs.dotnetv3.DescribeExportTasksExammple
+  services:
+    - cloudwatch-logs
+cloudwatch-logs_DescribeExportTasks:
+  title: Describes existing &CWL; export tasks using an &AWS; SDK
+  title_abbrev: Describes existing &CWL; export tasks.
+  synopsis:
+  category:
+  languages:
+    .NET:
+      versions:
+        - description:
+          snippet_tags:
+            - CloudWatchLogs.dotnetv3.DescribeLogGroupsExample
+  services:
+    - cloudwatch-logs
 cloudwatch-logs_DescribeSubscriptionFilters:
   title: Describe &CWL; subscription filters using an &AWS; SDK
   title_abbrev: Describe existing subscription filters
@@ -25,7 +131,7 @@ cloudwatch-logs_DescribeSubscriptionFilters:
               snippet_tags:
                 - cwLogs.JavaScript.cwl.describeSubscriptionFilters
   services:
-    cloudwatch-logs: {DescribeSubscriptionFilters}
+    - cloudwatch-logs
 cloudwatch-logs_DeleteSubscriptionFilter:
   title: Delete a &CWL; subscription filter using an &AWS; SDK
   title_abbrev: Delete a subscription filter
@@ -52,7 +158,7 @@ cloudwatch-logs_DeleteSubscriptionFilter:
               snippet_tags:
                 - cwLogs.JavaScript.cwl.deleteSubscriptionFilter
   services:
-    cloudwatch-logs: {DeleteSubscriptionFilter}
+    - cloudwatch-logs
 cloudwatch-logs_PutSubscriptionFilter:
   title: Create a &CWL; subscription filter using an &AWS; SDK
   title_abbrev: Create a subscription filter
@@ -79,4 +185,4 @@ cloudwatch-logs_PutSubscriptionFilter:
               snippet_tags:
                 - cwLogs.JavaScript.cwl.putSubscriptionFilter
   services:
-    cloudwatch-logs: {PutSubscriptionFilter}
+    - cloudwatch-logs
