@@ -19,5 +19,5 @@ api_ref:
   link_template: str(required=False, check_aws=False)
 
 syntax_enum: enum('cpp', 'go', 'java', 'javascript', 'kotlin', 'csharp', 'php', 'python', 'ruby', 'rust')
-entity_regex: regex('^[&]([\dA-Za-z-_])+[;]$|^&AWS; SDK for Kotlin Developer Guide$|^&AWS; SDK for Kotlin API Reference$', name='valid entity')
-entity_with_version_regex: regex('^[&]([\dA-Za-z-_])+;|^SDK for Kotlin$', name='valid entity with version')
+entity_regex: regex('^[&]([\dA-Za-z-_])+[;]$', name='valid entity')
+entity_with_version_regex: regex('^[&]([\dA-Za-z-_])+;', name='valid entity with version')
