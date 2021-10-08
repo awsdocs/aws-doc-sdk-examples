@@ -22,6 +22,22 @@ struct Opt {
     verbose: bool,
 }
 
+// Deletes a channel.
+async fn delete_channel(
+    client: &aws_sdk_config::Client,
+    channel: &str,
+) -> Result<(), aws_sdk_config::Error> {
+    client
+        .delete_delivery_channel()
+        .delivery_channel_name(channel)
+        .send()
+        .await?;
+
+    println!("Done");
+
+    Ok(())
+}
+
 /// Deletes an AWS Config delivery channel.
 ///
 /// # Arguments
@@ -59,13 +75,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    client
-        .delete_delivery_channel()
-        .delivery_channel_name(channel)
-        .send()
-        .await?;
-
-    println!("Done");
-
-    Ok(())
+    delete_channel(&client, &channel).await
 }

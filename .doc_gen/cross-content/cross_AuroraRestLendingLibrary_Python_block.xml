@@ -20,6 +20,6 @@
     </itemizedlist>
     <para>
         For complete source code and instructions on how to set up and run, see the full example on
-        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/cross_service/aurora_rest_lending_library">GitHub</ulink>.
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/cross_service/aurora_rest_lending_library">GitHub</ulink>.
     </para>
 </block>
