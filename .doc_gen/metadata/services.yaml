@@ -1,11 +1,15 @@
-# zexi 0.2.0
-  # AWS service data
+# zexi 0.4.0
 # The sort key of a service is the short display name (the expanded version of the short entity) without the AWS/Amazon prefix.
 acm:
   long: "&ACMlong;"
   short: "&ACM;"
   sort: "ACM"
   version: acm-2015-12-08
+application-autoscaling:
+  long: "&APP-ASlong;"
+  short: "&APP-AS;"
+  sort: "Application Auto Scaling"
+  version: application-autoscaling-2016-02-06
 api-gateway:
   long: "&ABPlong;"
   short: "&ABP;"

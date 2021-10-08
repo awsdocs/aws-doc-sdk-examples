@@ -1,4 +1,4 @@
-# zexi 0.2.0
+# zexi 0.4.0
 config-service_PutConfigRule:
   title: Put an &CC; rule using an &AWS; SDK
   title_abbrev: Put a rule
@@ -16,7 +16,7 @@ config-service_PutConfigRule:
                 - python.example_code.config-service.ConfigWrapper
                 - python.example_code.config-service.PutConfigRule
   services:
-    - config-service
+    config-service: {PutConfigRule}
 config-service_DescribeConfigRules:
   title: Describe &CC; rules using an &AWS; SDK
   title_abbrev: Describe rules
@@ -34,7 +34,7 @@ config-service_DescribeConfigRules:
                 - python.example_code.config-service.ConfigWrapper
                 - python.example_code.config-service.DescribeConfigRules
   services:
-    - config-service
+    config-service: {DescribeConfigRules}
 config-service_DeleteConfigRule:
   title: Delete an &CC; rule using an &AWS; SDK
   title_abbrev: Delete a rule
@@ -52,4 +52,4 @@ config-service_DeleteConfigRule:
                 - python.example_code.config-service.ConfigWrapper
                 - python.example_code.config-service.DeleteConfigRule
   services:
-    - config-service
+    config-service: {DeleteConfigRule}

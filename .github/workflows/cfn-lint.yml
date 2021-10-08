@@ -1,10 +1,10 @@
 name: Lint Code Base
 on:
   push:
-    branches: [ master ]
-    paths: cloudformation/**/** # run linter when files are committed to the cfn directory 
+    branches: [ main ]
+    paths: cloudformation/**/** # run linter when files are committed to the cfn directory
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
     paths: cloudformation/**/**
 
 jobs:
