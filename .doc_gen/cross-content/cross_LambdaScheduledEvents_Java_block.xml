@@ -14,6 +14,6 @@
     </para>
     <para>
         For complete source code and instructions on how to set up and run, see the full example on
-        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_scheduled_events">GitHub</ulink>.
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_scheduled_events">GitHub</ulink>.
     </para>
 </block>
