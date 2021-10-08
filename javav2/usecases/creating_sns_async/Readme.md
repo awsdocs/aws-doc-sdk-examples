@@ -1,4 +1,4 @@
-# Creating an asynchronous publish/subscription web application that translates messages
+# Creating an asynchronous publish/subscription web application that translates messages using the AWS SDK for Java
 
 ## Purpose
 
