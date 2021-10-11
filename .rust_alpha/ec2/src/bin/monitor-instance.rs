@@ -71,15 +71,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    enable_monitoring(&client, &instance_id).await.unwrap();
-
-    Ok(())
-}
-
-#[actix_rt::test]
-async fn test_enable_monitoring() {
-    let shared_config = aws_config::load_from_env().await;
-    let client = Client::new(&shared_config);
-
-    client.monitor_instances().instance_ids("id");
+    enable_monitoring(&client, &instance_id).await
 }
