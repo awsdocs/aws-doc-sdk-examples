@@ -5,6 +5,15 @@ rekognition_DescribeCollection:
   synopsis: describe an &REK; collection.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.DescribeCollectionExample
     Java:
       versions:
         - sdk_version: 2
@@ -32,6 +41,15 @@ rekognition_DeleteCollection:
   synopsis: delete an &REK; collection.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.DeleteCollectionExample
     Java:
       versions:
         - sdk_version: 2
@@ -53,12 +71,38 @@ rekognition_DeleteCollection:
                 - python.example_code.rekognition.DeleteCollection
   services:
     rekognition: {DeleteCollection}
+rekognition_ImageOrientationBoundingBox:
+  title: Determines the orientation of faces in an image using an &AWS; SDK
+  title_abbrev: Determines the orientation of faces in an image
+  synopsis: Uses &REK; to determine the orientation of faces in an image.
+  category:
+  languages:
+    .NET:
+      versions:
+        sdk_version: 3
+        github: dotnetv3/Rekognition/
+        sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.ImageOrientationBoundingBoxExample
+  services:
+    rekognition: {ImageOrientationBoundingBoxExample}
 rekognition_IndexFaces:
   title: Index faces to an &REK; collection using an &AWS; SDK
   title_abbrev: Index faces to a collection
-  synopsis: index faces in and image and add them to an &REK; collection.
+  synopsis: index faces in an image and add them to an &REK; collection.
   category:
   languages:
+    .NET:
+      versions:
+        sdk_version: 3
+        github: dotnetv3/Rekognition/
+        sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.AddFacesExample
     Java:
       versions:
         - sdk_version: 2
@@ -86,6 +130,15 @@ rekognition_ListFaces:
   synopsis: list faces in an &REK; collection.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.ListFacesExample
     Java:
       versions:
         - sdk_version: 2
@@ -113,6 +166,15 @@ rekognition_SearchFacesByImage:
   synopsis: search for faces in an &REK; collection compared to a reference image.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.SearchFacesMatchingImageExample
     Java:
       versions:
         - sdk_version: 2
@@ -167,6 +229,15 @@ rekognition_DeleteFaces:
   synopsis: delete faces from an &REK; collection.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.DeleteFacesExample
     Java:
       versions:
         - sdk_version: 2
@@ -194,6 +265,15 @@ rekognition_CreateCollection:
   synopsis: create an &REK; collection.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          exerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.CreateCollectionExample
     Java:
       versions:
         - sdk_version: 2
@@ -221,6 +301,15 @@ rekognition_ListCollections:
   synopsis: list &REK; collections.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.ListCollectionsExample
     Java:
       versions:
         - sdk_version: 2
@@ -283,6 +372,15 @@ rekognition_DetectFaces:
   synopsis: detect faces in an image with &REK;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.DetectFacesExample
     Java:
       versions:
         - sdk_version: 2
@@ -310,6 +408,14 @@ rekognition_CompareFaces:
   synopsis: compare faces in an image against a reference image with &REK;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.CompareFacesExample
     Java:
       versions:
         - sdk_version: 2
@@ -337,6 +443,14 @@ rekognition_DetectLabels:
   synopsis: detect labels in an image with &REK;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.DetectLabelsExample
     Java:
       versions:
         - sdk_version: 2
@@ -358,6 +472,22 @@ rekognition_DetectLabels:
                 - python.example_code.rekognition.DetectLabels
   services:
     rekognition: {DetectLabels}
+rekognition_DetectLabelsLocalFile:
+  title: Detect labels in an image on the local system with &REK; using an &AWS; SDK
+  title_abbrev: Detect labels in an image stored on the local system
+  synopsis: detect labels in an image on the local system with &REK;.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.DetectLabelsLocalFileExample
+  services:
+    rekognition: {DetectLabelsLocalFile}
 rekognition_DetectModerationLabels:
   title: Detect moderation labels in an image with &REK; using an &AWS; SDK
   title_abbrev: Detect moderation labels in an image
@@ -365,6 +495,14 @@ rekognition_DetectModerationLabels:
     identify content that may be inappropriate for some audiences.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.DetectModerationLabelsExample
     Java:
       versions:
         - sdk_version: 2
@@ -392,6 +530,14 @@ rekognition_DetectText:
   synopsis: detect text in an image with &REK;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.DetectTextExample
     Java:
       versions:
         - sdk_version: 2
@@ -419,6 +565,14 @@ rekognition_RecognizeCelebrities:
   synopsis: recognize celebrities in an image with &REK;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.CelebritiesInImageExample
     Java:
       versions:
         - sdk_version: 2
@@ -484,3 +638,35 @@ rekognition_Usage_DetectAndDisplayImage:
                 - python.example_code.rekognition.Usage_ImageDetection
   services:
     rekognition: {}
+rekognition_RecognizeCelebrities:
+  title: Recognize celebrities in an image with &REK; using an &AWS; SDK
+  title_abbrev: Searches for faces that match a face Id.
+  synopsis: recognize faces that match a face id using &REK;.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.SearchFacesMatchingIdExample
+  services:
+    rekognition: {SearchFacesMatchingId}
+rekognition_CelebrityInfo:
+  title: Retrieves and displays addtional infor about celebrities found in an image with &REK; using an &AWS; SDK
+  title_abbrev: Displays additional information about celebrities found in an image.
+  synopsis: shows celebrity information for celebrities found in an image using &REK;
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.CelebrityInfoExample
+  services:
+    rekognition: {CelebrityInfo}
