@@ -85,7 +85,7 @@ rekognition_ImageOrientation:
         excerpts:
           - description:
             snippet_tags:
-              - Rekognition.dotnetv3.ImageOrientationBoundingBoxExample
+              - Rekognition.dotnetv3.ImageOrientationBoundingBox
   services:
     rekognition: {ImageOrientation}
 rekognition_IndexFaces:
