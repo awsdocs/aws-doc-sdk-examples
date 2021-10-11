@@ -5,7 +5,7 @@ acm:
   short: "&ACM;"
   sort: "ACM"
   version: acm-2015-12-08
-application-autoscaling:
+application-auto-scaling:
   long: "&APP-ASlong;"
   short: "&APP-AS;"
   sort: "Application Auto Scaling"
@@ -15,10 +15,10 @@ api-gateway:
   short: "&ABP;"
   sort: "API Gateway"
   version: apigateway-2015-07-09
-autoscaling:
-  long: "&AWS-AS;"
-  short: "&AWS-AS;"
-  sort: "AWS Auto Scaling"
+auto-scaling:
+  long: "&ASlong;"
+  short: "&AS;"
+  sort: "EC2 Auto Scaling"
   version: autoscaling-2011-01-01
 cloudformation:
   long: "&CFNlong;"
