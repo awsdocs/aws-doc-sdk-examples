@@ -12,16 +12,79 @@ Management (IAM) resources. Learn to accomplish the following tasks:
 * Create and manage IAM roles, including how to attach and detach policies.
 * Create and manage IAM users, including how to attach a policy to a user.
 
-## Prerequisites
+*IAM is a web service for securely controlling access to AWS services. With IAM, you 
+can centrally manage users, security credentials such as access keys, and permissions 
+that control which AWS resources users and applications can access.* 
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.7 or later
-- Boto3 1.11.10 or later
-- PyTest 5.3.5 or later (to run unit tests)
+## Code examples
 
-## Cautions
+### Scenario examples
+
+* [Create read-only and write-only users](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/user_wrapper.py)
+* [Manage access keys](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/access_key_wrapper.py)
+* [Manage policies](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/policy_wrapper.py)
+* [Manage roles](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/role_wrapper.py)
+* [Manage your account](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/account_wrapper.py)
+* [Rollback a policy version](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/policy_wrapper.py)
+
+### API examples
+
+* [Attach a policy to a role](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/role_wrapper.py)
+(`AttachRolePolicy`)
+* [Attach a policy to a user](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/user_wrapper.py)
+(`AttachUserPolicy`)
+* [Create a policy](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/policy_wrapper.py)
+(`CreatePolicy`)
+* [Create a policy version](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/policy_wrapper.py)
+(`CreatePolicyVersion`)
+* [Create a role](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/role_wrapper.py)
+(`CreateRole`)
+* [Create a user](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/user_wrapper.py)
+(`CreateUser`)
+* [Create an access key](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/access_key_wrapper.py)
+(`CreateAccessKey`)
+* [Create an alias for an account](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/account_wrapper.py)
+(`CreateAccountAlias`)
+* [Delete a policy](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/policy_wrapper.py)
+(`DeletePolicy`)
+* [Delete a role](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/role_wrapper.py)
+(`DeleteRole`)
+* [Delete a user](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/user_wrapper.py)
+(`DeleteUser`)
+* [Delete an account alias](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/account_wrapper.py)
+(`DeleteAccountAlias`)
+* [Detach a policy from a role](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/role_wrapper.py)
+(`DetachRolePolicy`)
+* [Detach a policy from a user](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/user_wrapper.py)
+(`DetachUserPolicy`)
+* [Delete an access key](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/access_key_wrapper.py)
+(`DeleteAccessKey`)
+* [Generate a credential report](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/account_wrapper.py)
+(`GenerateCredentialReport`)
+* [Get a credential report](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/account_wrapper.py)
+(`GetCredentialReport`)
+* [Get a detailed authorization report for your account](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/account_wrapper.py)
+(`GetAccountAuthorizationDetails`)
+* [Get a policy version](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/policy_wrapper.py)
+(`GetPolicyVersion`)
+* [Get a summary of account usage](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/account_wrapper.py)
+(`GetAccountSummary`)
+* [Get data about the last use of an access key](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/access_key_wrapper.py)
+(`GetAccessKeyLastUsed`)
+* [List a user's access keys](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/access_key_wrapper.py)
+(`ListAccessKeys`)
+* [List account aliases](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/account_wrapper.py)
+(`ListAccountAliases`)
+* [List policies](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/policy_wrapper.py)
+(`ListPolicies`)
+* [List users](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/user_wrapper.py)
+(`ListUsers`)
+* [Update a user](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/user_wrapper.py)
+(`UpdateUser`)
+* [Update an access key](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/access_key_wrapper.py)
+(`UpdateAccessKey`)
+
+## ⚠ Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -35,6 +98,17 @@ Management (IAM) resources. Learn to accomplish the following tasks:
 - Running this code might result in charges to your AWS account.
 
 ## Running the code
+
+### Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.7 or later
+- Boto3 1.11.10 or later
+- PyTest 5.3.5 or later (to run unit tests)
+
+### Command
 
 Each file can be run separately at a command prompt. For example, see the user
 demonstration by running the following at a command prompt.
@@ -85,8 +159,8 @@ python -m pytest
 
 ## Additional information
 
-- [Boto3 AWS Identity and Access Management examples](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/iam-examples.html)
 - [Boto3 AWS Identity and Access Management service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iam.html)
+- [AWS Identity and Access Management Documentation](https://docs.aws.amazon.com/iam)
 
 ---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
