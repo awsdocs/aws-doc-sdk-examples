@@ -270,7 +270,7 @@ rekognition_CreateCollection:
         - sdk_version: 3
           github: dotnetv3/Rekognition/
           sdkguide:
-          exerpts:
+          excerpts:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.CreateCollectionExample
