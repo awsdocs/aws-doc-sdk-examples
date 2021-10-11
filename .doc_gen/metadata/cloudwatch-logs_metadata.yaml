@@ -82,7 +82,7 @@ cloudwatch-logs_DeleteLogGroup:
 cloudwatch-logs_DescribeExportTasks:
   title: Describes existing &CWL; export tasks using an &AWS; SDK
   title_abbrev: Describes existing &CWL; export tasks.
-  synopsis:
+  synopsis: describes &CWL export tasks.
   category:
   languages:
     .NET:
