@@ -79,13 +79,13 @@ rekognition_ImageOrientation:
   languages:
     .NET:
       versions:
-        sdk_version: 3
-        github: dotnetv3/Rekognition/
-        sdkguide:
-        excerpts:
-          - description:
-            snippet_tags:
-              - Rekognition.dotnetv3.ImageOrientationBoundingBox
+          - sdk_version: 3
+            github: dotnetv3/Rekognition/
+            sdkguide:
+            excerpts:
+              - description:
+                snippet_tags:
+                  - Rekognition.dotnetv3.ImageOrientationBoundingBox
   services:
     rekognition: {ImageOrientation}
 rekognition_IndexFaces:
@@ -96,13 +96,13 @@ rekognition_IndexFaces:
   languages:
     .NET:
       versions:
-        sdk_version: 3
-        github: dotnetv3/Rekognition/
-        sdkguide:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
           excerpts:
-            - description:
-              snippet_tags:
-                - Rekognition.dotnetv3.AddFacesExample
+              - description:
+                snippet_tags:
+                  - Rekognition.dotnetv3.AddFacesExample
     Java:
       versions:
         - sdk_version: 2
