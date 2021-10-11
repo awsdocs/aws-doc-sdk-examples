@@ -27,7 +27,29 @@ struct Opt {
     verbose: bool,
 }
 
-/// Lists the configuration history for a resource.
+// Retrieves the configuration history for a resource.
+async fn get_history(
+    client: &aws_sdk_config::Client,
+    id: &str,
+    res: ResourceType,
+) -> Result<(), aws_sdk_config::Error> {
+    let rsp = client
+        .get_resource_config_history()
+        .resource_id(id)
+        .resource_type(res)
+        .send()
+        .await?;
+
+    println!("configuration history for {}:", id);
+
+    for item in rsp.configuration_items.unwrap_or_default() {
+        println!("item: {:?}", item);
+    }
+
+    Ok(())
+}
+
+/// Lists the configuration history for a resource in the Region.
 ///
 /// NOTE: AWS Config must be enabled to discover resources
 /// # Arguments
@@ -76,18 +98,5 @@ async fn main() -> Result<(), Error> {
         )
     }
 
-    let rsp = client
-        .get_resource_config_history()
-        .resource_id(&resource_id)
-        .resource_type(parsed)
-        .send()
-        .await?;
-
-    println!("configuration history for {}:", resource_id);
-
-    for item in rsp.configuration_items.unwrap_or_default() {
-        println!("item: {:?}", item);
-    }
-
-    Ok(())
+    get_history(&client, &resource_id, parsed).await
 }
