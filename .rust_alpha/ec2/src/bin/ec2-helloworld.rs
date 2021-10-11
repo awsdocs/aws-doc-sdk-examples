@@ -20,7 +20,7 @@ struct Opt {
 
 // Describes the regions.
 // snippet-start:[ec2.rust.ec2-helloworld]
-async fn show_regions(client: &aws_sdk_ec2::Client) -> Result<(), aws_sdk_ec2::Error> {
+async fn show_regions(client: &Client) -> Result<(), Error> {
     let rsp = client.describe_regions().send().await?;
 
     println!("Regions:");
