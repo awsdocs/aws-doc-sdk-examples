@@ -100,19 +100,5 @@ async fn main() -> Result<(), Error> {
         )
     }
 
-    get_history(&client, &resource_id, parsed).await.unwrap();
-
-    Ok(())
-}
-
-#[actix_rt::test]
-async fn test_get_history() {
-    let shared_config = aws_config::load_from_env().await;
-    let client = Client::new(&shared_config);
-    let res = ResourceType::from("ResourceType::Unknown");
-
-    client
-        .get_resource_config_history()
-        .resource_id("id")
-        .resource_type(res);
+    get_history(&client, &resource_id, parsed).await
 }

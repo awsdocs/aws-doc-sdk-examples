@@ -79,17 +79,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    delete_recorder(&client, &name).await.unwrap();
-
-    Ok(())
-}
-
-#[actix_rt::test]
-async fn test_delete_recorder() {
-    let shared_config = aws_config::load_from_env().await;
-    let client = Client::new(&shared_config);
-
-    client
-        .delete_configuration_recorder()
-        .configuration_recorder_name("name");
+    delete_recorder(&client, &name).await
 }

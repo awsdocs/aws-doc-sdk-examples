@@ -101,19 +101,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    show_history(&client, &id, parsed).await.unwrap();
-
-    Ok(())
-}
-
-#[actix_rt::test]
-async fn test_show_history() {
-    let shared_config = aws_config::load_from_env().await;
-    let client = Client::new(&shared_config);
-    let res = ResourceType::from("ResourceType::Unknown");
-
-    client
-        .get_resource_config_history()
-        .resource_id("id")
-        .resource_type(res);
+    show_history(&client, &id, parsed).await
 }

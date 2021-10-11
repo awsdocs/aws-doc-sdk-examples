@@ -206,30 +206,4 @@ async fn main() -> Result<(), Error> {
         &client, &name, &kms_arn, &bucket, &sns_arn, &iam_arn, &prefix,
     )
     .await
-    .unwrap();
-
-    Ok(())
-}
-
-#[actix_rt::test]
-async fn test_enable_config() {
-    let shared_config = aws_config::load_from_env().await;
-    let client = Client::new(&shared_config);
-
-    let snapshot_props = ConfigSnapshotDeliveryProperties::builder()
-        .delivery_frequency(MaximumExecutionFrequency::TwelveHours)
-        .build();
-
-    let delivery_channel = DeliveryChannel::builder()
-        .name("name")
-        .s3_bucket_name("bucket")
-        .s3_key_prefix("prefix")
-        .s3_kms_key_arn("kms_arn")
-        .sns_topic_arn("sns_arn")
-        .config_snapshot_delivery_properties(snapshot_props)
-        .build();
-
-    client
-        .put_delivery_channel()
-        .delivery_channel(delivery_channel);
 }

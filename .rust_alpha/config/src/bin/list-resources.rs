@@ -90,16 +90,5 @@ async fn main() -> Result<(), Error> {
         println!("You won't see any output if you don't have any resources defined in the region.");
     }
 
-    show_resources(verbose, &client).await.unwrap();
-
-    Ok(())
-}
-
-#[actix_rt::test]
-async fn test_show_resources() {
-    let shared_config = aws_config::load_from_env().await;
-    let client = Client::new(&shared_config);
-    let res = ResourceType::from("ResourceType::Unknown");
-
-    client.list_discovered_resources().resource_type(res);
+    show_resources(verbose, &client).await
 }
