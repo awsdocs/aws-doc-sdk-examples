@@ -18,6 +18,21 @@ struct Opt {
     verbose: bool,
 }
 
+// Shows your topics.
+// snippet-start:[sns.rust.list-topics]
+async fn show_topics(client: &Client) -> Result<(), Error> {
+    let resp = client.list_topics().send().await?;
+
+    println!("Topic ARNs:");
+
+    for topic in resp.topics.unwrap_or_default() {
+        println!("{}", topic.topic_arn.as_deref().unwrap_or_default());
+    }
+
+    Ok(())
+}
+// snippet-end:[sns.rust.list-topics]
+
 /// Lists your Amazon SNS topics in the Region.
 /// # Arguments
 ///
@@ -50,12 +65,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client.list_topics().send().await?;
-
-    println!("Topic ARNs:");
-
-    for topic in resp.topics.unwrap_or_default() {
-        println!("{}", topic.topic_arn.as_deref().unwrap_or_default());
-    }
-    Ok(())
+    show_topics(&client).await
 }
