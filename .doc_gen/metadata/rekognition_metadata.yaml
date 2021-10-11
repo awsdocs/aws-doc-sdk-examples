@@ -449,6 +449,7 @@ rekognition_DetectLabels:
         - sdk_version: 3
           github: dotnetv3/Rekognition/
           sdkguide:
+          excerpts:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.DetectLabelsExample
@@ -484,6 +485,7 @@ rekognition_DetectLabelsLocalFile:
         - sdk_version: 3
           github: dotnetv3/Rekognition/
           sdkguide:
+          excerpts:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.DetectLabelsLocalFileExample
@@ -501,6 +503,7 @@ rekognition_DetectModerationLabels:
         - sdk_version: 3
           github: dotnetv3/Rekognition/
           sdkguide:
+          excerpts:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.DetectModerationLabelsExample
@@ -536,6 +539,7 @@ rekognition_DetectText:
         - sdk_version: 3
           github: dotnetv3/Rekognition/
           sdkguide:
+          excerpts:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.DetectTextExample
@@ -571,6 +575,7 @@ rekognition_RecognizeCelebrities:
         - sdk_version: 3
           github: dotnetv3/Rekognition/
           sdkguide:
+          excerpts:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.CelebritiesInImageExample
@@ -650,6 +655,7 @@ rekognition_RecognizeCelebrities:
         - sdk_version: 3
           github: dotnetv3/Rekognition/
           sdkguide:
+          excerpts:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.SearchFacesMatchingIdExample
@@ -666,6 +672,7 @@ rekognition_CelebrityInfo:
         - sdk_version: 3
           github: dotnetv3/Rekognition/
           sdkguide:
+          excerpts:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.CelebrityInfoExample
