@@ -413,6 +413,7 @@ rekognition_CompareFaces:
         - sdk_version: 3
           github: dotnetv3/Rekognition/
           sdkguide:
+          excerpts:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.CompareFacesExample
