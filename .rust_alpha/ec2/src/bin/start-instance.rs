@@ -68,15 +68,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    start_instance(&client, &instance_id).await.unwrap();
-
-    Ok(())
-}
-
-#[actix_rt::test]
-async fn test_start_instance() {
-    let shared_config = aws_config::load_from_env().await;
-    let client = Client::new(&shared_config);
-
-    client.start_instances().instance_ids("id");
+    start_instance(&client, &instance_id).await
 }
