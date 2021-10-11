@@ -7,6 +7,7 @@ Purpose
 Shows how to use AWS Identity and Access Management (IAM) roles.
 """
 
+# snippet-start:[python.example_code.iam.role_wrapper.imports]
 import json
 import logging
 import pprint
@@ -16,8 +17,10 @@ from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 iam = boto3.resource('iam')
+# snippet-end:[python.example_code.iam.role_wrapper.imports]
 
 
+# snippet-start:[python.example_code.iam.CreateRole]
 def create_role(role_name, allowed_services):
     """
     Creates a role that lets a list of specified services assume the role.
@@ -46,8 +49,10 @@ def create_role(role_name, allowed_services):
         raise
     else:
         return role
+# snippet-end:[python.example_code.iam.CreateRole]
 
 
+# snippet-start:[python.example_code.iam.DeleteRole]
 def delete_role(role_name):
     """
     Deletes a role.
@@ -60,8 +65,10 @@ def delete_role(role_name):
     except ClientError:
         logger.exception("Couldn't delete role %s.", role_name)
         raise
+# snippet-end:[python.example_code.iam.DeleteRole]
 
 
+# snippet-start:[python.example_code.iam.AttachRolePolicy_Role]
 def attach_policy(role_name, policy_arn):
     """
     Attaches a policy to a role.
@@ -75,8 +82,10 @@ def attach_policy(role_name, policy_arn):
     except ClientError:
         logger.exception("Couldn't attach policy %s to role %s.", policy_arn, role_name)
         raise
+# snippet-end:[python.example_code.iam.AttachRolePolicy_Role]
 
 
+# snippet-start:[python.example_code.iam.DetachRolePolicy_Role]
 def detach_policy(role_name, policy_arn):
     """
     Detaches a policy from a role.
@@ -91,8 +100,10 @@ def detach_policy(role_name, policy_arn):
         logger.exception(
             "Couldn't detach policy %s from role %s.", policy_arn, role_name)
         raise
+# snippet-end:[python.example_code.iam.DetachRolePolicy_Role]
 
 
+# snippet-start:[python.example_code.iam.Scenario_RoleManagement]
 def usage_demo():
     """Shows how to use the role functions."""
     logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
@@ -114,6 +125,7 @@ def usage_demo():
     delete_role(role.name)
     print(f"Deleted {role.name}.")
     print("Thanks for watching!")
+# snippet-end:[python.example_code.iam.Scenario_RoleManagement]
 
 
 if __name__ == '__main__':
