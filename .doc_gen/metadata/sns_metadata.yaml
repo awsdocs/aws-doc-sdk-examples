@@ -199,8 +199,7 @@ sns_ListTopics:
         - sdk_version: 1
           github: .rust_alpha/sns
           excerpts:
-            - description: Lists your Amazon SNS topics in the Region.
-              snippet_tags:
+            - snippet_tags:
                 - sns.rust.list-topics
   services:
     sns: { ListTopics }
@@ -541,8 +540,7 @@ sns_CreateTopic:
         - sdk_version: 1
           github: .rust_alpha/sns
           excerpts:
-            - description: Creates an SNS topic.
-              snippet_tags:
+            - snippet_tags:
                 - sns.rust.create-topic
   services:
     sns: { CreateTopic }
@@ -703,8 +701,7 @@ sns_Publish:
         - sdk_version: 1
           github: .rust_alpha/sns
           excerpts:
-            - description: Publishes a message to a topic.
-              snippet_tags:
+            - snippet_tags:
                 - sns.rust.sns-hello-world
   services:
     sns: { Publish }
@@ -886,8 +883,7 @@ sns_Subscribe:
         - sdk_version: 1
           github: .rust_alpha/sns
           excerpts:
-            - description: Subscribes an email address to a topic.
-              snippet_tags:
+            - snippet_tags:
                 - sns.rust.sns-hello-world
   services:
     sns: { Subscribe }
