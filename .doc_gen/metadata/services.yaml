@@ -15,10 +15,15 @@ api-gateway:
   short: "&ABP;"
   sort: "API Gateway"
   version: apigateway-2015-07-09
+auto-scaling:
+  long: "&ASlong;"
+  short: "&AS;"
+  sort: "EC2 Auto Scaling"
+  version: autoscaling-2011-01-01
 cloudformation:
-  long:  "&CFNlong;"
-  short:  "&CFN;"
-  sort:  "CloudFormation"
+  long: "&CFNlong;"
+  short: "&CFN;"
+  sort: "CloudFormation"
   version: cloudformation-2010-05-15
 cloudfront:
   long: "&CFlong;"
