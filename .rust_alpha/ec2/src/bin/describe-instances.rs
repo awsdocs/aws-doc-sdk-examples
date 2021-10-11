@@ -96,16 +96,5 @@ async fn main() -> Result<(), Error> {
         }
     }
 
-    show_state(&client, id_opt.unwrap()).await.unwrap();
-
-    Ok(())
-}
-
-#[actix_rt::test]
-async fn test_show_state() {
-    let shared_config = aws_config::load_from_env().await;
-    let client = Client::new(&shared_config);
-    let ids: Vec<String> = vec![];
-
-    client.describe_instances().set_instance_ids(Some(ids));
+    show_state(&client, id_opt.unwrap()).await
 }
