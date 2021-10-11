@@ -71,7 +71,7 @@ rekognition_DeleteCollection:
                 - python.example_code.rekognition.DeleteCollection
   services:
     rekognition: {DeleteCollection}
-rekognition_ImageOrientationBoundingBox:
+rekognition_ImageOrientation:
   title: Determines the orientation of faces in an image using an &AWS; SDK
   title_abbrev: Determines the orientation of faces in an image
   synopsis: Uses &REK; to determine the orientation of faces in an image.
@@ -87,7 +87,7 @@ rekognition_ImageOrientationBoundingBox:
             snippet_tags:
               - Rekognition.dotnetv3.ImageOrientationBoundingBoxExample
   services:
-    rekognition: {ImageOrientationBoundingBox}
+    rekognition: {ImageOrientation}
 rekognition_IndexFaces:
   title: Index faces to an &REK; collection using an &AWS; SDK
   title_abbrev: Index faces to a collection
