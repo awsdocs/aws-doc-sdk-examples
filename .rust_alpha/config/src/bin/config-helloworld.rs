@@ -30,10 +30,10 @@ struct Opt {
 // Retrieves the configuration history for a resource.
 // snippet-start:[config.rust.config-helloworld]
 async fn get_history(
-    client: &aws_sdk_config::Client,
+    client: &Client,
     id: &str,
     res: ResourceType,
-) -> Result<(), aws_sdk_config::Error> {
+) -> Result<(), Error> {
     let rsp = client
         .get_resource_config_history()
         .resource_id(id)

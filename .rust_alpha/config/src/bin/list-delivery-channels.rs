@@ -20,7 +20,7 @@ struct Opt {
 
 // Lists your deliver channels.
 // snippet-start:[config.rust.list-delivery-channels]
-async fn show_channels(client: &aws_sdk_config::Client) -> Result<(), aws_sdk_config::Error> {
+async fn show_channels(client: &Client) -> Result<(), Error> {
     let resp = client.describe_delivery_channels().send().await?;
 
     let channels = resp.delivery_channels.unwrap_or_default();

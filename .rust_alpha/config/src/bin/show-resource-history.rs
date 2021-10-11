@@ -30,10 +30,10 @@ struct Opt {
 // Shows the history for a resource.
 // snippet-start:[config.rust.show-resource-history]
 async fn show_history(
-    client: &aws_sdk_config::Client,
+    client: &Client,
     id: &str,
     res: ResourceType,
-) -> Result<(), aws_sdk_config::Error> {
+) -> Result<(), Error> {
     let rsp = client
         .get_resource_config_history()
         .resource_id(id)

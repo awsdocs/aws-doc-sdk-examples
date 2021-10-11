@@ -23,8 +23,8 @@ struct Opt {
 // snippet-start:[config.rust.list-resources]
 async fn show_resources(
     verbose: bool,
-    client: &aws_sdk_config::Client,
-) -> Result<(), aws_sdk_config::Error> {
+    client: &Client,
+) -> Result<(), Error> {
     for value in ResourceType::values() {
         let parsed = ResourceType::from(*value);
 
