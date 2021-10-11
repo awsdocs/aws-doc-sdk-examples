@@ -87,7 +87,7 @@ rekognition_ImageOrientationBoundingBox:
               snippet_tags:
                 - Rekognition.dotnetv3.ImageOrientationBoundingBoxExample
   services:
-    rekognition: {ImageOrientationBoundingBoxExample}
+    rekognition: {ImageOrientationBoundingBox}
 rekognition_IndexFaces:
   title: Index faces to an &REK; collection using an &AWS; SDK
   title_abbrev: Index faces to a collection
