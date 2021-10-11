@@ -1,0 +1,18 @@
+# zexi 0.2.0
+application-autoscaling_DescribeScalingPolicies:
+  title: Describes the Application Auto Scaling scaling policies for the specified service namespace.
+  title_abbrev: Describes scaling policies
+  synopsis: describe scaling policies.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/applicationautoscaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - applicationautoscaling.rust.describe-scaling-policies
+  services:
+    application-autoscaling: {DescribeScalingPolicies}

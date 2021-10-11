@@ -11,7 +11,7 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-package com.example.s3;
+package com.example.s3.async;
 // snippet-start:[s3.java2.async_ops.complete]
 // snippet-start:[s3.java2.async_ops.import]
 
