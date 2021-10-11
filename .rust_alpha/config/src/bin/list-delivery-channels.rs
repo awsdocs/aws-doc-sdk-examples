@@ -19,7 +19,8 @@ struct Opt {
 }
 
 // Lists your deliver channels.
-async fn show_channels(client: &aws_sdk_config::Client) -> Result<(), aws_sdk_config::Error> {
+// snippet-start:[config.rust.list-delivery-channels]
+async fn show_channels(client: &Client) -> Result<(), Error> {
     let resp = client.describe_delivery_channels().send().await?;
 
     let channels = resp.delivery_channels.unwrap_or_default();
@@ -38,6 +39,7 @@ async fn show_channels(client: &aws_sdk_config::Client) -> Result<(), aws_sdk_co
 
     Ok(())
 }
+// snippet-end:[config.rust.list-delivery-channels]
 
 /// Lists the AWS Config delivery channels in the Region.
 ///

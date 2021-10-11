@@ -23,10 +23,11 @@ struct Opt {
 }
 
 // Deletes a channel.
+// snippet-start:[config.rust.delete-delivery-channel]
 async fn delete_channel(
-    client: &aws_sdk_config::Client,
+    client: &Client,
     channel: &str,
-) -> Result<(), aws_sdk_config::Error> {
+) -> Result<(), Error> {
     client
         .delete_delivery_channel()
         .delivery_channel_name(channel)
@@ -37,6 +38,7 @@ async fn delete_channel(
 
     Ok(())
 }
+// snippet-end:[config.rust.delete-delivery-channel]
 
 /// Deletes an AWS Config delivery channel.
 ///
