@@ -100,6 +100,8 @@ rekognition:
   short: "&REK;"
   sort: "Rekognition"
   version: rekognition-2016-06-27
+  caveat: The code examples in this chapter are intended to supplement the
+    code examples found throughout the rest of this guide.
 s3:
   long: "&S3long;"
   short: "&S3;"
