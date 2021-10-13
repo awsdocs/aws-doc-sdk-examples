@@ -4,13 +4,11 @@
 # Purpose:
 # This code example prints the list of objects in an Amazon Simple Storage Solution (Amazon S3) bucket
 # using the AWS SDK for Ruby.
-
-# snippet-start:[s3.ruby.auth_federation_token_request_test.rb]
+# snippet-start:[s3.ruby.auth_request_object_keys.rb]
 
 # Prerequisites:
 #  - An existing Amazon S3 bucket.
 
-# snippet-start:[s3.ruby.auth_request_object_keys.rb]
 require 'aws-sdk-s3'
 
 # @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
