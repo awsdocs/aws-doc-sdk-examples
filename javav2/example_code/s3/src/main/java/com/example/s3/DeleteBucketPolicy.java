@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/06/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -32,7 +32,7 @@ public class DeleteBucketPolicy {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeleteBucketPolicy <bucketName>\n\n" +
+                "    <bucketName>\n\n" +
                 "Where:\n" +
                 "    bucketName - the Amazon S3 bucket to delete the policy from (for example, bucket1)." ;
 
@@ -43,7 +43,6 @@ public class DeleteBucketPolicy {
 
         String bucketName = args[0];
         System.out.format("Deleting policy from bucket: \"%s\"\n\n", bucketName);
-
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
@@ -69,5 +68,6 @@ public class DeleteBucketPolicy {
             System.exit(1);
         }
     }
+    // snippet-end:[s3.java2.delete_bucket_policy.main]
 }
-// snippet-end:[s3.java2.delete_bucket_policy.main]
+

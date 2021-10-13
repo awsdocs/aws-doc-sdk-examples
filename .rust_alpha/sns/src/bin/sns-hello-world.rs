@@ -26,6 +26,38 @@ struct Opt {
     verbose: bool,
 }
 
+// Subscribes an email address and publishes a message to a topic.
+// snippet-start:[sns.rust.sns-hello-world]
+async fn subscribe_and_publish(
+    client: &Client,
+    topic_arn: &str,
+    email_address: &str,
+) -> Result<(), Error> {
+    println!("Receiving on topic with ARN: `{}`", topic_arn);
+
+    let rsp = client
+        .subscribe()
+        .topic_arn(topic_arn)
+        .protocol("email")
+        .endpoint(email_address)
+        .send()
+        .await?;
+
+    println!("Added a subscription: {:?}", rsp);
+
+    let rsp = client
+        .publish()
+        .topic_arn(topic_arn)
+        .message("hello sns!")
+        .send()
+        .await?;
+
+    println!("Published message: {:?}", rsp);
+
+    Ok(())
+}
+// snippet-end:[sns.rust.sns-hello-world]
+
 /// Subscribes an email address and publishes a message to a topic.
 /// If the email address has not been confirmed for the topic,
 /// a confirmation request is also sent to the email address.
@@ -68,26 +100,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    println!("Receiving on topic with ARN: `{}`", topic_arn);
-
-    let rsp = client
-        .subscribe()
-        .topic_arn(&topic_arn)
-        .protocol("email")
-        .endpoint(email_address)
-        .send()
-        .await?;
-
-    println!("Added a subscription: {:?}", rsp);
-
-    let rsp = client
-        .publish()
-        .topic_arn(&topic_arn)
-        .message("hello sns!")
-        .send()
-        .await?;
-
-    println!("Published message: {:?}", rsp);
-
-    Ok(())
+    subscribe_and_publish(&client, &topic_arn, &email_address).await
 }

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/07/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -39,7 +39,7 @@ public class PutObject {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "  PutObject <bucketName> <objectKey> <objectPath> \n\n" +
+                "  <bucketName> <objectKey> <objectPath> \n\n" +
                 "Where:\n" +
                 "  bucketName - the Amazon S3 bucket to upload an object into.\n" +
                 "  objectKey - the object to upload (for example, book.pdf).\n" +
@@ -53,7 +53,6 @@ public class PutObject {
         String bucketName =args[0];
         String objectKey = args[1];
         String objectPath = args[2];
-
         System.out.println("Putting object " + objectKey +" into bucket "+bucketName);
         System.out.println("  in bucket: " + bucketName);
 

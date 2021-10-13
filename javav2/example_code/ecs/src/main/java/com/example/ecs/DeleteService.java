@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Elastic Container Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/20/2021]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -13,10 +13,12 @@
 
 package com.example.ecs;
 
+// snippet-start:[ecs.java2.delete_service.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ecs.EcsClient;
 import software.amazon.awssdk.services.ecs.model.DeleteServiceRequest;
 import software.amazon.awssdk.services.ecs.model.EcsException;
+// snippet-end:[ecs.java2.delete_service.import]
 
 /**
  To run this Java V2 code example, ensure that you have setup your development environment,
@@ -32,8 +34,7 @@ public class DeleteService {
 
         final String usage = "\n" +
                 "Usage:\n" +
-                "  DeleteService " +
-                "   <clusterName> <serviceArn> \n\n" +
+                "  <clusterName> <serviceArn> \n\n" +
                 "Where:\n" +
                 "  clusterName - the name of the ECS cluster.\n" +
                 "  serviceArn - the ARN of the ECS service.\n"  ;
@@ -54,6 +55,7 @@ public class DeleteService {
         ecsClient.close();
     }
 
+    // snippet-start:[ecs.java2.delete_service.main]
     public static void deleteSpecificService(EcsClient ecsClient, String clusterName, String serviceArn) {
 
         try {
@@ -71,4 +73,5 @@ public class DeleteService {
             System.exit(1);
         }
     }
+    // snippet-end:[ecs.java2.delete_service.main]
 }

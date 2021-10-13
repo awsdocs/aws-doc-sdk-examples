@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -61,7 +61,8 @@ public class ListForecasts {
                 ForecastSummary forecastSummary = forecastIterator.next();
                 System.out.println("The name of the forecast is " +forecastSummary.forecastName()) ;
             }
-       } catch (ForecastException e) {
+
+     } catch (ForecastException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }

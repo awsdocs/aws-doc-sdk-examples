@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+    <para>
+        Create a long-lived &EMRlong; cluster that uses Apache Spark to query
+        historical Amazon review data from the
+        <ulink url="https://s3.amazonaws.com/amazon-reviews-pds/readme.html">Amazon Customer Reviews Dataset</ulink>.
+        Run a job that gets data for top-rated products in specific categories that contain
+        keywords in their product titles. Job results are written to an &S3long; (&S3;) bucket.
+    </para>
+    <itemizedlist>
+        <listitem><para>Create an &S3; bucket and upload a job script.</para></listitem>
+        <listitem><para>Create &IAMlong; (&IAM;) roles.</para></listitem>
+        <listitem><para>Create &EC2long; (&EC2;) security groups.</para></listitem>
+        <listitem><para>Create a long-lived cluster and run several job steps.</para></listitem>
+    </itemizedlist>
+    <para>
+        This example is best viewed on GitHub. For complete source code
+        and instructions on how to set up and run, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/emr">GitHub</ulink>.
+    </para>
+</block>

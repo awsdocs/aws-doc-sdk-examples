@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon- AWS]
 
 /*
@@ -33,10 +33,10 @@ public class SubscribeLambda {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage: " +
-                "SubscribeLambda <topicArn> <lambdaArn>\n\n" +
+                "   <topicArn> <lambdaArn>\n\n" +
                 "Where:\n" +
-                "  topicArn - the ARN of the topic to subscribe.\n\n" +
-                "  lambdaArn - the ARN of an AWS Lambda function.\n\n";
+                "   topicArn - the ARN of the topic to subscribe.\n\n" +
+                "   lambdaArn - the ARN of an AWS Lambda function.\n\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);

@@ -1,4 +1,4 @@
-# Creating a Publish/Subscription Spring Boot Application
+# Creating a publish/subscription web application that translates messages
 
 ## Purpose
 
@@ -52,6 +52,12 @@ Once the email recipient accepts the confirmation, that email is subscribed to t
 
 ![AWS Tracking Application](images/pic3.png)
 
+This application lets a user specify the language of the message that is sent. For example, the user can select **French** from the dropdown field and then the message appears in that language to all subscribed users. 
+
+![AWS Tracking Application](images/french.png)
+
+**Note**: The Amazon Translate Service is used to translate the body of the message. The code is shown later in this document. 
+
 This example application lets you view all of the subscribed email recipients by choosing the **List Subscriptions** button, as shown in the following illustration.
 
 ![AWS Tracking Application](images/pic4.png)
@@ -84,21 +90,21 @@ At this point, you have a new project named **SpringSubscribeApp**. Ensure that 
      <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-     <modelVersion>4.0.0</modelVersion>
-     <groupId>org.example</groupId>
-     <artifactId>SpringSubscribeApp</artifactId>
-     <version>1.0-SNAPSHOT</version>
-     <description>Demo project for Spring Boot that shows Pub/Sub functionality</description>
-     <parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.example</groupId>
+    <artifactId>SpringSubscribeApp</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <description>Demo project for Spring Boot that shows Pub/Sub functionality</description>
+    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.2.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
-     </parent>
-     <properties>
+    </parent>
+    <properties>
         <java.version>1.8</java.version>
-     </properties>
-     <dependencyManagement>
+    </properties>
+    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
@@ -108,8 +114,8 @@ At this point, you have a new project named **SpringSubscribeApp**. Ensure that 
                 <scope>import</scope>
             </dependency>
         </dependencies>
-     </dependencyManagement>
-     <dependencies>
+    </dependencyManagement>
+    <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -133,12 +139,17 @@ At this point, you have a new project named **SpringSubscribeApp**. Ensure that 
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>sns</artifactId>
         </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>translate</artifactId>
+        </dependency>
      </dependencies>
      <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${project.parent.version}</version>
             </plugin>
         </plugins>
       </build>
@@ -223,14 +234,13 @@ The following Java code represents the **SubController** class.
         return email +" was successfully deleted!";
      }
 
-     // Posts a message to all subscriptions.
      @RequestMapping(value = "/addMessage", method = RequestMethod.POST)
      @ResponseBody
      String addMessage(HttpServletRequest request, HttpServletResponse response) {
 
         String body = request.getParameter("body");
-        sns.pubTopic(body);
-        return "Message sent";
+        String lang = request.getParameter("lang");
+        return sns.pubTopic(body,lang);
      }
 
      @RequestMapping(value = "/getSubs", method = RequestMethod.GET)
@@ -286,22 +296,57 @@ The following Java code represents the **SnsService** class. This class uses the
         return snsClient;
      }
 
-    public void pubTopic(String message) {
+     public String pubTopic(String message, String lang) {
 
         try {
-            SnsClient snsClient =  getSnsClient();;
+            String body;
+            Region region = Region.US_WEST_2;
+            TranslateClient translateClient = TranslateClient.builder()
+                    .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                    .region(region)
+                    .build();
+
+
+            if (lang.compareTo("English")==0) {
+                    body = message;
+
+            } else if(lang.compareTo("French")==0) {
+
+                    TranslateTextRequest textRequest = TranslateTextRequest.builder()
+                            .sourceLanguageCode("en")
+                            .targetLanguageCode("fr")
+                            .text(message)
+                            .build();
+
+                    TranslateTextResponse textResponse = translateClient.translateText(textRequest);
+                    body = textResponse.translatedText();
+
+            } else  {
+
+                TranslateTextRequest textRequest = TranslateTextRequest.builder()
+                        .sourceLanguageCode("en")
+                        .targetLanguageCode("es")
+                        .text(message)
+                        .build();
+
+                TranslateTextResponse textResponse = translateClient.translateText(textRequest);
+                body = textResponse.translatedText();
+            }
+
+            SnsClient snsClient =  getSnsClient();
             PublishRequest request = PublishRequest.builder()
-                    .message(message)
+                    .message(body)
                     .topicArn(topicArn)
                     .build();
 
             PublishResponse result = snsClient.publish(request);
-            System.out.println(result.messageId() + " Message sent. Status was " + result.sdkHttpResponse().statusCode());
+            return " Message sent in " +lang +". Status was " + result.sdkHttpResponse().statusCode();
 
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+        return "Error - msg not sent";
       }
 
       public void unSubEmail(String emailEndpoint) {
@@ -575,19 +620,27 @@ The **sub.html** file is the application's view that manages Amazon SNS Subscrip
          </div>
          <hr style="width:50%;text-align:left;margin-left:0">
          <h4>Enter a message to publish</h4>
-         <div class="col-lg-12 mx-auto">
-         <div class="control-group">
+        <div class="col-lg-12 mx-auto">
+        <div class="control-group">
             <div class="form-group floating-label-form-group controls mb-0 pb-2">
                 <textarea class="form-control" id="body" rows="5" placeholder="Body" required="required" data-validation-required-message="Please enter a description."></textarea>
                 <p class="help-block text-danger"></p>
             </div>
-           </div>
-          <br>
-          <button type="submit" class="btn btn-primary btn-xl" id="SendButton">Publish</button>
-         </div>
-       </div>
-       </body>
-      </html
+        </div>
+        <br>
+        <div>
+            <label for="lang">Select a Language:</label>
+            <select name="lang" id="lang">
+                <option>English</option>
+                <option>French</option>
+                <option>Spanish</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-xl" id="SendButton">Publish</button>
+    </div>
+    </div>
+    </body>
+    </html>
   ```
 ### Create the JS File
 
@@ -598,6 +651,7 @@ This application has a **contact_me.js** file that is used to send requests to t
     $("#SendButton" ).click(function($e) {
 
         var body = $('#body').val();
+        var lang = $('#lang option:selected').text();
         if (body == '' ){
             alert("Please enter text");
             return;
@@ -605,7 +659,7 @@ This application has a **contact_me.js** file that is used to send requests to t
 
         $.ajax('/addMessage', {
             type: 'POST',
-            data: 'body=' + body,
+            data: 'lang=' + lang+'&body=' + body,
             success: function (data, status, xhr) {
 
                 alert(data)
@@ -615,9 +669,9 @@ This application has a **contact_me.js** file that is used to send requests to t
                 $('p').append('Error' + errorMessage);
             }
         });
-       } );
-     } );
-
+      } );
+    } );
+    
     function subEmail(){
      var mail = $('#inputEmail1').val();
      var result = validate(mail)

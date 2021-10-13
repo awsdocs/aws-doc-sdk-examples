@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/01/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -33,10 +33,10 @@ public class MonitorInstance {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "MonitorInstance <instanceId> <monitor>\n\n" +
+                "   <instanceId> <monitor>\n\n" +
                 "Where:\n" +
-                "    instanceId - an instance id value that you can obtain from the AWS Console. \n\n" +
-                "    monitor - a monitoring status (true|false)";
+                "   instanceId - an instance id value that you can obtain from the AWS Console. \n\n" +
+                "   monitor - a monitoring status (true|false)";
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -59,29 +59,29 @@ public class MonitorInstance {
         ec2.close();
     }
 
+    // snippet-start:[ec2.java2.monitor_instance.main]
     public static void monitorInstance( Ec2Client ec2, String instanceId) {
-        // snippet-start:[ec2.java2.monitor_instance.main]
+
         MonitorInstancesRequest request = MonitorInstancesRequest.builder()
                 .instanceIds(instanceId).build();
 
         ec2.monitorInstances(request);
-
-        // snippet-end:[ec2.java2.monitor_instance.main]
         System.out.printf(
                 "Successfully enabled monitoring for instance %s",
                 instanceId);
     }
+    // snippet-end:[ec2.java2.monitor_instance.main]
 
+    // snippet-start:[ec2.java2.monitor_instance.stop]
     public static void unmonitorInstance(Ec2Client ec2, String instanceId) {
-        // snippet-start:[ec2.java2.monitor_instance.stop]
         UnmonitorInstancesRequest request = UnmonitorInstancesRequest.builder()
                 .instanceIds(instanceId).build();
 
         ec2.unmonitorInstances(request);
-        // snippet-end:[ec2.java2.monitor_instance.stop]
+
         System.out.printf(
                 "Successfully disabled monitoring for instance %s",
                 instanceId);
     }
-
+    // snippet-end:[ec2.java2.monitor_instance.stop]
 }

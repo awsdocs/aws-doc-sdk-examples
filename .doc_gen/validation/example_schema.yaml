@@ -9,8 +9,13 @@ example:
   synopsis: str(required=False)
   synopsis_list: list(str(), required=False)
   category: str(required=False)
+  guide_topic: include('guide_topic', required=False)
   languages: map(include('language'), key=enum('C++', 'Go', 'Java', 'JavaScript', 'Kotlin', '.NET', 'PHP', 'Python', 'Ruby', 'Rust'))
-  services: list(service_name())
+  services: map(map(key=str(), required=False), key=service_name())
+
+guide_topic:
+  title: str()
+  url: include('doc_url', required=False)
 
 language:
   versions: list(include('version'))
@@ -18,13 +23,14 @@ language:
 version:
   sdk_version: int(min=1)
   github: regex('^(?!http).+', name="relative URL", required=False)
-  sdkguide: regex('^(?!https://docs.aws.amazon.com/).+', name="relative documentation URL", required=False)
+  sdkguide: include('doc_url', required=False)
   excerpts: list(include('excerpt'), required=False)
   block_content: block_content(required=False)
-  add_services: list(include('service_slug_regex'), required=False)
+  add_services: map(key=service_name(), required=False)
 
 excerpt:
   description: str(required=False)
   snippet_tags: list(str())
 
 service_slug_regex: regex('^[\da-z-]+$', name='service slug')
+doc_url: regex('^(?!https://docs.aws.amazon.com/).+', name="relative documentation URL")

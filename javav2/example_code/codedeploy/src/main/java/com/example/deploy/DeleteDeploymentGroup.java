@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS CodeDeploy
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/3/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 
 /*
@@ -33,7 +33,7 @@ public class DeleteDeploymentGroup {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeleteDeploymentGroup <appName> <deploymentGroupName>\n\n" +
+                "    <appName> <deploymentGroupName>\n\n" +
                 "Where:\n" +
                 "    appName - the name of the application. \n"+
                 "    deploymentGroupName - the name of the deployment group. \n";

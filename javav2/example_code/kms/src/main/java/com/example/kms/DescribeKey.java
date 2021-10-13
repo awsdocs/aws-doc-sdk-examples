@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -34,7 +34,7 @@ public class DescribeKey {
 
        final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DescribeKey <keyId> \n\n" +
+                "    <keyId> \n\n" +
                 "Where:\n" +
                 "    keyId -  a key id value to describe (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" ;
 
@@ -70,6 +70,6 @@ public class DescribeKey {
            System.err.println(e.getMessage());
            System.exit(1);
        }
-        // snippet-end:[kms.java2_describe_key.main]
     }
+    // snippet-end:[kms.java2_describe_key.main]
 }

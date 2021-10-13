@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/28/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -39,7 +39,7 @@ public class S3BucketDeletion {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    S3BucketDeletion <bucket>\n\n" +
+                "    <bucket>\n\n" +
                 "Where:\n" +
                 "    bucket - the bucket to delete (for example, bucket1). \n\n" ;
 
@@ -58,7 +58,7 @@ public class S3BucketDeletion {
         s3.close();
     }
 
-    // snippet-start:[s3.java2.s3_bucket_delete.delete_bucket]
+    // snippet-start:[s3.java2.s3_bucket_ops.delete_bucket]
     public static void listAllObjects(S3Client s3, String bucket) {
 
         try {
@@ -80,7 +80,7 @@ public class S3BucketDeletion {
                         .build();
 
             } while(listObjectsV2Response.isTruncated());
-            // snippet-end:[s3.java2.s3_bucket_delete.delete_bucket]
+            // snippet-end:[s3.java2.s3_bucket_ops.delete_bucket]
 
             DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder().bucket(bucket).build();
             s3.deleteBucket(deleteBucketRequest);
@@ -90,5 +90,6 @@ public class S3BucketDeletion {
             System.exit(1);
         }
     }
+    // snippet-end:[s3.java2.bucket_deletion.main]
 }
-// snippet-end:[s3.java2.bucket_deletion.main]
+

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS CodeDeploy
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/3/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 
 /*
@@ -42,7 +42,7 @@ public class DeployApplication {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeployApplication <appName> <bucketName> <bundleType> <key> <deploymentGroup> \n\n" +
+                "    <appName> <bucketName> <bundleType> <key> <deploymentGroup> \n\n" +
                 "Where:\n" +
                 "    appName - the name of the application. \n" +
                 "    bucketName - the name of the Amazon S3 bucket that contains the ZIP to deploy. \n" +

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -13,7 +13,6 @@
 package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.put_log_events.import]
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
 import software.amazon.awssdk.services.cloudwatchlogs.model.DescribeLogStreamsRequest;
@@ -35,7 +34,7 @@ public class PutLogEvents {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "  PutLogEvents <logGroupName> <streamName>\n\n" +
+                "  <logGroupName> <streamName>\n\n" +
                 "Where:\n" +
                 "  logGroupName - a log group name.\n" +
                 "  streamName - a stream name.\n" ;
@@ -45,9 +44,8 @@ public class PutLogEvents {
             System.exit(1);
         }
 
-        String logGroupName = args[1];
-        String streamName = args[2];
-
+        String logGroupName = args[0];
+        String streamName = args[1];
         CloudWatchLogsClient logsClient = CloudWatchLogsClient.builder()
                 .build();
 
@@ -85,8 +83,6 @@ public class PutLogEvents {
                 .build();
 
         logsClient.putLogEvents(putLogEventsRequest);
-        // snippet-end:[cloudwatch.java2.put_log_events.main]
-
         System.out.println("Successfully put CloudWatch log event");
 
      } catch (CloudWatchException e) {
@@ -94,4 +90,5 @@ public class PutLogEvents {
          System.exit(1);
      }
     }
+    // snippet-end:[cloudwatch.java2.put_log_events.main]
 }

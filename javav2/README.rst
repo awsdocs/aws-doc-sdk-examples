@@ -43,7 +43,15 @@ The **javav2** folder in this repository contains examples of complete use cases
 Use cases
 ---------
 
-In the **use_cases** folder, find step-by-step development tutorials that use multiple AWS services. By following these tutorials, you will gain a deeper understanding of how to create Java-based applications that use the AWS SDK for Java V2. These tutorials include:
+In the **use_cases** folder, find step-by-step development tutorials that use multiple AWS services. By following these tutorials, you will gain a deeper understanding of how to create Java-based applications that use the AWS SDK for Java V2. Most of these AWS SDK for Java V2 tutorials use the Synchronous Java client.
+
+If you are interested in using the Asynchronous Java client, see one of these tutorials:
+
++ **Creating a dynamic web application that asynchronously analyzes photos using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java (Asynchronous client) and various AWS services, such as the  Amazon Rekognition service, to analyze images. The application can analyze many images and generate a report that breaks down each image into a series of labels.
+
++ **Creating an asynchronous publish/subscription web application that translates messages using the AWS SDK for Java** - A tutorial that discusses how to create a web application that has subscription and publish functionality. In this tutorial, the Spring Framework along with AWS SDK for Simple Notification Service Java Asynchronous client is used.
+
+The following tutorials use the Synchronous Java client:
 
 + **Creating your first AWS Java web application** - A tutorial that discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS), and AWS Elastic Beanstalk.
 
@@ -55,7 +63,9 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 
 + **Creating AWS serverless workflows using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and AWS Step Functions to create a workflow that invokes AWS services. Each workflow step is implemented by using an AWS Lambda function.
 
-+ **Creating a sample AWS photo analyzer application using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and various AWS services, such as the  Amazon Rekognition service, to analyze images. The application can analyze many images and generate a report that breaks down each image into a series of labels.
++ **Creating a dynamic web application that asynchronously analyzes photos using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and various AWS services, such as the  Amazon Rekognition service, to asynchronously analyze images. This application uses the Asynchronous client that belongs to the AWS SDK for Java V2 for the Amazon S3 and Amazon Rekognition services.
+
++ **Creating a dynamic web application that analyzes photos using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and various AWS services, such as the  Amazon Rekognition service, to analyze images. The application can analyze many images and generate a report that breaks down each image into a series of labels.
 
 + **Creating_message_application** - A tutorial that discusses using the AWS SDK for Java and the Amazon Simple Queue Service (Amazon SQS) to create a basic messaging web application.
 

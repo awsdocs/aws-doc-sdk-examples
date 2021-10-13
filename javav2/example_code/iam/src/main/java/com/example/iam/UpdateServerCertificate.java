@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -33,7 +33,7 @@ public class UpdateServerCertificate {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    UpdateServerCertificate <curName> <newName> \n\n" +
+                "    <curName> <newName> \n\n" +
                 "Where:\n" +
                 "    curName - the current certificate name. \n\n" +
                 "    newName - an updated certificate name. \n\n" ;

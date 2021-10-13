@@ -7,6 +7,7 @@ Purpose
 Shows how to use AWS Identity and Access Management (IAM) accounts.
 """
 
+# snippet-start:[python.example_code.iam.account_wrapper.imports]
 import logging
 import pprint
 import sys
@@ -16,8 +17,10 @@ from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 iam = boto3.resource('iam')
+# snippet-end:[python.example_code.iam.account_wrapper.imports]
 
 
+# snippet-start:[python.example_code.iam.CreateAccountAlias]
 def create_alias(alias):
     """
     Creates an alias for the current account. The alias can be used in place of the
@@ -33,8 +36,10 @@ def create_alias(alias):
     except ClientError:
         logger.exception("Couldn't create alias '%s' for your account.", alias)
         raise
+# snippet-end:[python.example_code.iam.CreateAccountAlias]
 
 
+# snippet-start:[python.example_code.iam.DeleteAccountAlias]
 def delete_alias(alias):
     """
     Removes the alias from the current account.
@@ -47,11 +52,13 @@ def delete_alias(alias):
     except ClientError:
         logger.exception("Couldn't remove alias '%s' from your account.", alias)
         raise
+# snippet-end:[python.example_code.iam.DeleteAccountAlias]
 
 
+# snippet-start:[python.example_code.iam.ListAccountAliases]
 def list_aliases():
     """
-    Gets the list aliases for the current account. An account has at most one alias.
+    Gets the list of aliases for the current account. An account has at most one alias.
 
     :return: The list of aliases for the account.
     """
@@ -67,8 +74,10 @@ def list_aliases():
         raise
     else:
         return response['AccountAliases']
+# snippet-end:[python.example_code.iam.ListAccountAliases]
 
 
+# snippet-start:[python.example_code.iam.GetAccountAuthorizationDetails]
 def get_authorization_details(response_filter):
     """
     Gets an authorization detail report for the current account.
@@ -88,8 +97,10 @@ def get_authorization_details(response_filter):
         raise
     else:
         return account_details
+# snippet-end:[python.example_code.iam.GetAccountAuthorizationDetails]
 
 
+# snippet-start:[python.example_code.iam.GetAccountSummary]
 def get_summary():
     """
     Gets a summary of account usage.
@@ -104,8 +115,10 @@ def get_summary():
         raise
     else:
         return summary.summary_map
+# snippet-end:[python.example_code.iam.GetAccountSummary]
 
 
+# snippet-start:[python.example_code.iam.GenerateCredentialReport]
 def generate_credential_report():
     """
     Starts generation of a credentials report about the current account. After
@@ -122,8 +135,10 @@ def generate_credential_report():
         raise
     else:
         return response
+# snippet-end:[python.example_code.iam.GenerateCredentialReport]
 
 
+# snippet-start:[python.example_code.iam.GetCredentialReport]
 def get_credential_report():
     """
     Gets the most recently generated credentials report about the current account.
@@ -138,8 +153,10 @@ def get_credential_report():
         raise
     else:
         return response['Content']
+# snippet-end:[python.example_code.iam.GetCredentialReport]
 
 
+# snippet-start:[python.example_code.iam.Scenario_AccountManagement]
 def usage_demo():
     """Shows how to use the account functions."""
     logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
@@ -205,6 +222,7 @@ def usage_demo():
 
     print('-'*88)
     print("Thanks for watching.")
+# snippet-end:[python.example_code.iam.Scenario_AccountManagement]
 
 
 if __name__ == '__main__':

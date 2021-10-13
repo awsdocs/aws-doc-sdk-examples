@@ -22,6 +22,17 @@ struct Opt {
     verbose: bool,
 }
 
+// Starts an instance.
+// snippet-start:[ec2.rust.start-instance]
+async fn start_instance(client: &Client, id: &str) -> Result<(), Error> {
+    client.start_instances().instance_ids(id).send().await?;
+
+    println!("Started instance.");
+
+    Ok(())
+}
+// snippet-end:[ec2.rust.start-instance]
+
 /// Starts an Amazon EC2 instance.
 /// # Arguments
 ///
@@ -57,13 +68,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    client
-        .start_instances()
-        .instance_ids(instance_id)
-        .send()
-        .await?;
-
-    println!("Started instance.");
-
-    Ok(())
+    start_instance(&client, &instance_id).await
 }

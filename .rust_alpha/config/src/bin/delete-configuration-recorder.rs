@@ -22,6 +22,26 @@ struct Opt {
     verbose: bool,
 }
 
+// Deletes a configuration recorder.
+// snippet-start:[config.rust.delete-configuration-recorder]
+async fn delete_recorder(
+    client: &Client,
+    name: &str,
+) -> Result<(), Error> {
+    client
+        .delete_configuration_recorder()
+        .configuration_recorder_name(name)
+        .send()
+        .await?;
+
+    println!("Done");
+
+    println!();
+
+    Ok(())
+}
+// snippet-end:[config.rust.delete-configuration-recorder]
+
 /// Deletes an AWS Config configuration recorder.
 ///
 /// # Arguments
@@ -59,15 +79,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    client
-        .delete_configuration_recorder()
-        .configuration_recorder_name(name)
-        .send()
-        .await?;
-
-    println!("Done");
-
-    println!();
-
-    Ok(())
+    delete_recorder(&client, &name).await
 }

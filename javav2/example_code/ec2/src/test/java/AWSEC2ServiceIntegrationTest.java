@@ -1,3 +1,8 @@
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 import com.example.ec2.*;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -25,7 +30,6 @@ public class AWSEC2ServiceIntegrationTest {
 
     @BeforeAll
     public static void setUp() throws IOException {
-
 
         Region region = Region.US_WEST_2;
         ec2 = Ec2Client.builder()
@@ -57,7 +61,7 @@ public class AWSEC2ServiceIntegrationTest {
 
     @Test
     @Order(1)
-    public void whenInitializingAWSS3Service_thenNotNull() {
+    public void whenInitializingAWSService_thenNotNull() {
         assertNotNull(ec2);
         System.out.println("Test 1 passed");
     }

@@ -1,4 +1,4 @@
-# zexi 0.2.0
+# zexi 0.4.0
 sns_GetTopicAttributes:
   title: Get the properties of an &SNS; topic using an &AWS; SDK
   title_abbrev: Get the properties of a topic
@@ -55,7 +55,7 @@ sns_GetTopicAttributes:
               snippet_tags:
                 - sns.JavaScript.topics.getTopicAttributes
   services:
-    - sns
+    sns: { GetTopicAttributes }
 sns_ListSubscriptions:
   title: List the subscribers of an &SNS; topic using an &AWS; SDK
   title_abbrev: List the subscribers of a topic
@@ -125,7 +125,7 @@ sns_ListSubscriptions:
             - snippet_tags:
                 - sns.Ruby.showSubscription
   services:
-    - sns
+    sns: { ListSubscriptions }
 sns_ListTopics:
   title: List &SNS; topics using an &AWS; SDK
   title_abbrev: List topics
@@ -194,9 +194,16 @@ sns_ListTopics:
           excerpts:
             - snippet_tags:
                 - sns.Ruby.showTopics
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/sns
+          excerpts:
+            - snippet_tags:
+                - sns.rust.list-topics
   services:
-    - sns
-sns_SubscribeApp:
+    sns: { ListTopics }
+sns_Subscribe_App:
   title: Subscribe a mobile application to an &SNS; topic using an &AWS; SDK
   title_abbrev: Subscribe a mobile application to a topic
   synopsis: subscribe a mobile application endpoint so it receives notifications from an &SNS; topic.
@@ -222,8 +229,8 @@ sns_SubscribeApp:
               snippet_tags:
                 - sns.JavaScript.subscriptions.subscribeAppV3
   services:
-    - sns
-sns_SubscribeHTTP:
+    sns: { Subscribe }
+sns_Subscribe_HTTP:
   title: Subscribe an HTTP endpoint to an &SNS; topic using an &AWS; SDK
   title_abbrev: Subscribe an HTTP endpoint to a topic
   synopsis: subscribe an HTTP or HTTPS endpoint so it receives notifications from an &SNS; topic.
@@ -246,8 +253,8 @@ sns_SubscribeHTTP:
             - snippet_tags:
                 - sns.java2.SubscribeHTTPS.main
   services:
-    - sns
-sns_SubscribeLambda:
+    sns: { Subscribe }
+sns_Subscribe_Lambda:
   title: Subscribe a &LAM; function to receive notifications from an &SNS; topic using an &AWS; SDK
   title_abbrev: Subscribe a &LAM; function to a topic
   synopsis: subscribe a &LAM; function so it receives notifications from an &SNS; topic.
@@ -281,9 +288,9 @@ sns_SubscribeLambda:
               snippet_tags:
                 - sns.JavaScript.subscriptions.subscribeLambdaV3
   services:
-    - sns
+    sns: { Subscribe }
 
-sns_GetSMSSettings:
+sns_GetSMSAttributes:
   title: Get the settings for sending &SNS; SMS messages using an &AWS; SDK
   title_abbrev: Get the settings for sending SMS messages
   synopsis: get the settings for sending &SNS; SMS messages.
@@ -325,7 +332,7 @@ sns_GetSMSSettings:
               snippet_tags:
                 - sns.JavaScript.SMS.getSMSAttributesV3
   services:
-    - sns
+    sns: { GetSMSAttributes }
 sns_PublishTextSMS:
   title: Publish an &SNS; SMS text message using an &AWS; SDK
   title_abbrev: Publish an SMS text message
@@ -364,7 +371,7 @@ sns_PublishTextSMS:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.Publish_TextMessage
   services:
-    - sns
+    sns: { Publish }
 sns_ConfirmSubscription:
   title: Confirm an endpoint owner wants to receive &SNS; messages using an &AWS; SDK
   title_abbrev: Confirm an endpoint owner wants to receive messages
@@ -400,7 +407,7 @@ sns_ConfirmSubscription:
               snippet_tags:
                 - sns.JavaScript.subscriptions.confirmSubscriptionV3
   services:
-    - sns
+    sns: { ConfirmSubscription }
 sns_CheckIfPhoneNumberIsOptedOut:
   title: Check whether a phone number is opted out of &SNS; using an &AWS; SDK
   title_abbrev: Check whether a phone number is opted out
@@ -411,7 +418,7 @@ sns_CheckIfPhoneNumberIsOptedOut:
       versions:
         - sdk_version: 3
           github: dotnetv3/SNS
-          sdkguide: 
+          sdkguide:
           excerpts:
             - snippet_tags:
                 - SNS.dotnetv3.CheckIfOptedOut
@@ -444,7 +451,7 @@ sns_CheckIfPhoneNumberIsOptedOut:
               snippet_tags:
                 - sns.JavaScript.SMS.checkIfPhoneNumberIsOptedOutV3
   services:
-    - sns
+    sns: { CheckIfPhoneNumberIsOptedOut }
 sns_TagResource:
   title: Add tags to an &SNS; topic using an &AWS; SDK
   title_abbrev: Add tags to a topic
@@ -459,7 +466,7 @@ sns_TagResource:
             - snippet_tags:
                 - sns.java2.add_tags.main
   services:
-    - sns
+    sns: { TagResource }
 sns_CreateTopic:
   title: Create an &SNS; topic using an &AWS; SDK
   title_abbrev: Create a topic
@@ -528,8 +535,15 @@ sns_CreateTopic:
           excerpts:
             - snippet_tags:
                 - sns.Ruby.createTopic
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/sns
+          excerpts:
+            - snippet_tags:
+                - sns.rust.create-topic
   services:
-    - sns
+    sns: { CreateTopic }
 sns_DeleteTopic:
   title: Delete an &SNS; topic using an &AWS; SDK
   title_abbrev: Delete a topic
@@ -587,7 +601,7 @@ sns_DeleteTopic:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.DeleteTopic
   services:
-    - sns
+    sns: { DeleteTopic }
 sns_ListPhoneNumbersOptedOut:
   title: List phone numbers opted out of &SNS; using an &AWS; SDK
   title_abbrev: List opted out phone numbers
@@ -611,7 +625,7 @@ sns_ListPhoneNumbersOptedOut:
             - snippet_tags:
                 - sns.php.list_optout.complete
   services:
-    - sns
+    sns: { ListPhoneNumbersOptedOut }
 sns_Publish:
   title: Publish to an &SNS; topic using an &AWS; SDK
   title_abbrev: Publish to a topic
@@ -682,8 +696,15 @@ sns_Publish:
           excerpts:
             - snippet_tags:
                 - sns.Ruby.sendMessage
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/sns
+          excerpts:
+            - snippet_tags:
+                - sns.rust.sns-hello-world
   services:
-    - sns
+    sns: { Publish }
 sns_SetSmsAttributes:
   title: Set the default settings for sending &SNS; SMS messages using an &AWS; SDK
   title_abbrev: Set the default settings for sending SMS messages
@@ -727,7 +748,7 @@ sns_SetSmsAttributes:
             - snippet_tags:
                 - sns.php.set_sms_attributes.main
   services:
-    - sns
+    sns: { SetSmsAttributes }
 sns_SetSubscriptionAttributes:
   title: Set an &SNS; filter policy using an &AWS; SDK
   title_abbrev: Set a filter policy
@@ -751,7 +772,7 @@ sns_SetSubscriptionAttributes:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.SetSubscriptionAttributes
   services:
-    - sns
+    sns: { SetSubscriptionAttributes }
 sns_SetTopicAttributes:
   title: Set &SNS; topic attributes using an &AWS; SDK
   title_abbrev: Set topic attributes
@@ -795,7 +816,7 @@ sns_SetTopicAttributes:
             - snippet_tags:
                 - sns.Ruby.enableResource
   services:
-    - sns
+    sns: { SetTopicAttributes }
 sns_Subscribe:
   title: Subscribe an email address to an &SNS; topic using an &AWS; SDK
   title_abbrev: Subscribe an email address to a topic
@@ -857,8 +878,15 @@ sns_Subscribe:
           excerpts:
             - snippet_tags:
                 - sns.Ruby.createSubscription
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/sns
+          excerpts:
+            - snippet_tags:
+                - sns.rust.sns-hello-world
   services:
-    - sns
+    sns: { Subscribe }
 sns_Unsubscribe:
   title: Delete an &SNS; subscription using an &AWS; SDK
   title_abbrev: Delete a subscription
@@ -909,12 +937,12 @@ sns_Unsubscribe:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.Unsubscribe
   services:
-    - sns
+    sns: { Unsubscribe }
 sns_PublishFifoTopic:
   title: Create and publish to a FIFO &SNS; topic using an &AWS; SDK
   title_abbrev: Create and publish to a FIFO topic
   synopsis: create and publish to a FIFO &SNS; topic.
-  category:
+  category: Scenario
   languages:
     Java:
       versions:
@@ -934,12 +962,12 @@ sns_PublishFifoTopic:
               snippet_tags:
                 - sns.java.fifo_topics.publish
   services:
-    - sns
+    sns: {}
 sns_PublishLargeMessage:
   title: Publish a large message to &SNS; with &S3; using an &AWS; SDK
   title_abbrev: Publish a large message
   synopsis: publish a large message to &SNS; using &S3; to store the message payload.
-  category:
+  category: Scenario
   languages:
     Java:
       versions:
@@ -947,12 +975,13 @@ sns_PublishLargeMessage:
           github: java/example_code/sns
           sdkguide:
           excerpts:
-            - description: To publish a large message, use the &SNS; Extended Client Library for Java.
+            - description:
+                To publish a large message, use the &SNS; Extended Client Library for Java.
                 The message that you send references an &S3; object containing the actual message content.
               snippet_tags:
                 - sns.java.publish_large_file
   services:
-    - sns
+    sns: {}
 sns_SetSubscriptionAttributesRedrivePolicy:
   title: Set a dead-letter queue for an &SNS; subscription using an &AWS; SDK
   title_abbrev: Set a dead-letter queue for a subscription
@@ -968,12 +997,12 @@ sns_SetSubscriptionAttributesRedrivePolicy:
             - snippet_tags:
                 - sns.java.redrive_policy
   services:
-    - sns
+    sns: { SetSubscriptionAttributesRedrivePolicy }
 sns_CreatePlatformEndpoint:
   title: Create a platform endpoint for &SNS; push notifications using an &AWS; SDK
   title_abbrev: Create a platform endpoint for push notifications
   synopsis: create a platform endpoint for &SNS; push notifications.
-  category:
+  category: Scenario
   languages:
     Java:
       versions:
@@ -985,7 +1014,7 @@ sns_CreatePlatformEndpoint:
               snippet_tags:
                 - sns.java.create_mobile_endpoint
   services:
-    - sns
+    sns: {}
 sns_UsageSmsTopic:
   title: Publish SMS messages to an &SNS; topic using an &AWS; SDK
   title_abbrev: Publish SMS messages to a topic
@@ -993,7 +1022,7 @@ sns_UsageSmsTopic:
     - Create an &SNS; topic.
     - Subscribe phone numbers to the topic.
     - Publish SMS messages to the topic so that all subscribed phone numbers receive the message at once.
-  category:
+  category: Scenario
   languages:
     Java:
       versions:
@@ -1021,5 +1050,4 @@ sns_UsageSmsTopic:
               snippet_tags:
                 - sns.java.publish_sms_to_topic.main
   services:
-    - sns
-
+    sns: {}

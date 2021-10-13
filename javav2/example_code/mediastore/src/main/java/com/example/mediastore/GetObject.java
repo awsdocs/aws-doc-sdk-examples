@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaStore]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -44,11 +44,11 @@ public class GetObject {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "GetObject  <completePath> <containerName> <savePath>\n\n" +
+                "   <completePath> <containerName> <savePath>\n\n" +
                 "Where:\n" +
-                "  completePath - the path of the object in the container (for example, Videos5/sampleVideo.mp4).\n"+
-                "  containerName - the name of the container.\n"+
-                "  savePath - the path on the local drive where the file is saved, including the file name (for example, C:/AWS/myvid.mp4).\n";
+                "   completePath - the path of the object in the container (for example, Videos5/sampleVideo.mp4).\n"+
+                "   containerName - the name of the container.\n"+
+                "   savePath - the path on the local drive where the file is saved, including the file name (for example, C:/AWS/myvid.mp4).\n";
 
         if (args.length != 3) {
             System.out.println(USAGE);
@@ -94,7 +94,7 @@ public class GetObject {
             System.exit(1);
         }
     }
-    //snippet-end:[mediastore.java2.get_object.main]
+
 
     private static String getEndpoint(String containerName){
 
@@ -110,4 +110,5 @@ public class GetObject {
         DescribeContainerResponse response = mediaStoreClient.describeContainer(containerRequest);
         return response.container().endpoint();
     }
+    //snippet-end:[mediastore.java2.get_object.main]
 }

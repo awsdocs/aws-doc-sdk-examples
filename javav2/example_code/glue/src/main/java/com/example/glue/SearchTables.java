@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Glue]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -38,7 +38,7 @@ public class SearchTables {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    SearchTables <text>\n\n" +
+                "    <text>\n\n" +
                 "Where:\n" +
                 "    text - a string used for a text search. \n";
 

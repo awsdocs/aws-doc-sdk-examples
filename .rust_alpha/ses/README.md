@@ -37,21 +37,6 @@ This example creates a contact list.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.  
 
-### email-contact-list
-
-This example sends a message to the email addresses in the contact list.
-
-`cargo run --bin email-contact-list -- -c CONTACT-LIST -f FROM-ADDRESS -m MESSAGE -s SUBJECT [-r REGION] [-v]`
-
-- _CONTACT-LIST_ is the name of the contact list.
-- _FROM-ADDRESS_ is the email address of the sender.
-- _MESSAGE_ is the message sent to each contact in the contact list.
-- _SUBJECT_ is the subject of the message.
-- _REGION_ is the Region in which the client is created.
-  If not supplied, uses the value of the __AWS_REGION__ environment variable.
-  If the environment variable is not set, defaults to __us-west-2__.
-- __-v__ displays additional information.  
-
 ### is-email-verified
 
 This example determines whether an email address has been verified. 
@@ -79,9 +64,24 @@ This example lists the names of the contact lists in the Region.
 
 This example lists the email addresses of the contacts in a contact list in the Region.
 
-`cargo run --bin ???-??? -- -c CONTACT-LIST [-r REGION] [-v]`
+`cargo run --bin list-contact -- -c CONTACT-LIST [-r REGION] [-v]`
 
 - _CONTACT-LIST_ is the name of the contact list.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.  
+
+### send-email
+
+This example sends a message to the email addresses in the contact list.
+
+`cargo run --bin send-email -- -c CONTACT-LIST -f FROM-ADDRESS -m MESSAGE -s SUBJECT [-r REGION] [-v]`
+
+- _CONTACT-LIST_ is the name of the contact list.
+- _FROM-ADDRESS_ is the email address of the sender.
+- _MESSAGE_ is the message sent to each contact in the contact list.
+- _SUBJECT_ is the subject of the message.
 - _REGION_ is the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.

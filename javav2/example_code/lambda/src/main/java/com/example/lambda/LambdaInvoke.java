@@ -4,7 +4,7 @@
 // snippet-keyword:[AWS Lambda]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/11/2020]
+// snippet-sourcedate:[09/27/2021]
 // snippet-sourceauthor:[AWS-scmacdon]
 
 /*
@@ -41,7 +41,7 @@ public class LambdaInvoke {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    LambdaInvoke <functionName> \n\n" +
+                "    <functionName> \n\n" +
                 "Where:\n" +
                 "    functionName - the name of the Lambda function \n";
 
@@ -75,7 +75,6 @@ public class LambdaInvoke {
                     .payload(payload)
                     .build();
 
-            //Invoke the Lambda function
             res = awsLambda.invoke(request);
             String value = res.payload().asUtf8String() ;
             System.out.println(value);
@@ -84,7 +83,7 @@ public class LambdaInvoke {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[lambda.java2.invoke.main]
     }
+    // snippet-end:[lambda.java2.invoke.main]
 }
 // snippet-end:[lambda.java2.LambdaInvoke.complete]

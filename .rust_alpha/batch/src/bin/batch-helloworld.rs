@@ -18,6 +18,26 @@ struct Opt {
     verbose: bool,
 }
 
+// Lists your AWS Batch compute environments.
+// snippet-start:[batch.rust.batch-helloworld]
+async fn show_envs(client: &Client) -> Result<(), Error> {
+    let rsp = client.describe_compute_environments().send().await?;
+
+    let compute_envs = rsp.compute_environments.unwrap_or_default();
+    println!("Found {} compute environments:", compute_envs.len());
+    for env in compute_envs {
+        let arn = env.compute_environment_arn.as_deref().unwrap_or_default();
+        let name = env.compute_environment_name.as_deref().unwrap_or_default();
+
+        println!("  Name : {}", name);
+        println!("  ARN:   {}", arn);
+        println!();
+    }
+
+    Ok(())
+}
+// snippet-end:[batch.rust.batch-helloworld]
+
 /// Lists the names and the ARNs of your AWS Batch compute environments in the Region.
 /// # Arguments
 ///
@@ -49,18 +69,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let rsp = client.describe_compute_environments().send().await?;
-
-    let compute_envs = rsp.compute_environments.unwrap_or_default();
-    println!("Found {} compute environments:", compute_envs.len());
-    for env in compute_envs {
-        let arn = env.compute_environment_arn.as_deref().unwrap_or_default();
-        let name = env.compute_environment_name.as_deref().unwrap_or_default();
-
-        println!("  Name : {}", name);
-        println!("  ARN:   {}", arn);
-        println!();
-    }
-
-    Ok(())
+    show_envs(&client).await
 }

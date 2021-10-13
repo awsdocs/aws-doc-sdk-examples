@@ -4,7 +4,7 @@
 // snippet-keyword:[AWS Lambda]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/11/2020]
+// snippet-sourcedate:[09/27/2021]
 // snippet-sourceauthor:[AWS-scmacdon]
 
 /*
@@ -35,7 +35,7 @@ public class DeleteFunction {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeleteFunction <functionName> \n\n" +
+                "    <functionName> \n\n" +
                 "Where:\n" +
                 "    functionName - the name of the Lambda function \n";
 
@@ -69,7 +69,7 @@ public class DeleteFunction {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[lambda.java2.delete.main]
     }
+    // snippet-end:[lambda.java2.delete.main]
 }
 // snippet-end:[lambda.java2.DeleteFunction.complete]

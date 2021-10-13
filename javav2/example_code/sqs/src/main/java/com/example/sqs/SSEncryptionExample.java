@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[12/09/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -36,10 +36,11 @@ public class SSEncryptionExample {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage: SSEncryptionExample <queueName> <kmsMasterKeyAlias> \n\n" +
+                "Usage: " +
+                "   <queueName> <kmsMasterKeyAlias> \n\n" +
                 "Where:\n" +
-                "  queueName - the name of the queue.\n\n" +
-                "  kmsMasterKeyAlias - the alias of the AWS managed CMK for Amazon SQS. ";
+                "   queueName - the name of the queue.\n\n" +
+                "   kmsMasterKeyAlias - the alias of the AWS managed CMK for Amazon SQS. ";
 
         if (args.length != 2) {
             System.out.println(USAGE);

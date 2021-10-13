@@ -18,6 +18,27 @@ struct Opt {
     verbose: bool,
 }
 
+// Lists your recorders.
+// snippet-start:[config.rust.list-configuration-recorders]
+async fn show_recorders(client: &Client) -> Result<(), Error> {
+    let resp = client.describe_configuration_recorders().send().await?;
+
+    let recorders = resp.configuration_recorders.unwrap_or_default();
+
+    if recorders.is_empty() {
+        println!("You have no configuration recorders")
+    } else {
+        for recorder in recorders {
+            println!("Recorder: {}", recorder.name.as_deref().unwrap_or_default());
+        }
+    }
+
+    println!();
+
+    Ok(())
+}
+// snippet-end:[config.rust.list-configuration-recorders]
+
 /// Lists the AWS Config configuration recorders in the Region.
 ///
 /// # Arguments
@@ -49,21 +70,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client.describe_configuration_recorders().send().await?;
-
-    let recorders = resp.configuration_recorders.unwrap_or_default();
-
-    let num_recorders = recorders.len();
-
-    if num_recorders == 0 {
-        println!("You have no configuration recorders")
-    } else {
-        for recorder in recorders {
-            println!("Recorder: {}", recorder.name.as_deref().unwrap_or_default());
-        }
-    }
-
-    println!();
-
-    Ok(())
+    show_recorders(&client).await
 }

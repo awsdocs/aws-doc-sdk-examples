@@ -1,9 +1,9 @@
-//snippet-sourcedescription:[CreateVault.java demonstrates how to create an Amazon Simple Storage Service Glacier (Amazon S3 Glacier) vault.]
+//snippet-sourcedescription:[CreateVault.java demonstrates how to create an Amazon Glacier vault.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon S3 Glacier]
+//snippet-service:[Amazon Glacier]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -20,15 +20,22 @@ import software.amazon.awssdk.services.glacier.model.CreateVaultResponse;
 import software.amazon.awssdk.services.glacier.model.GlacierException;
 // snippet-end:[glacier.java2.create.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class CreateVault {
 
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "CreateVault <vaultName>\n\n" +
+                "   <vaultName>\n\n" +
                 "Where:\n" +
-                "  vaultName - the name of the vault to create.\n\n";
+                "   vaultName - the name of the vault to create.\n\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -59,6 +66,6 @@ public class CreateVault {
             System.exit(1);
 
         }
-        // snippet-end:[glacier.java2.create.main]
     }
+    // snippet-end:[glacier.java2.create.main]
 }

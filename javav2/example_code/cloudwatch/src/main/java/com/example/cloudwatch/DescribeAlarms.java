@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -78,6 +78,6 @@ public class DescribeAlarms {
             System.exit(1);
         }
         System.out.printf("Done");
-        // snippet-end:[cloudwatch.java2.describe_alarms.main]
     }
+    // snippet-end:[cloudwatch.java2.describe_alarms.main]
 }

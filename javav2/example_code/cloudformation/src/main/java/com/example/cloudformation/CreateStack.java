@@ -4,7 +4,7 @@
 // snippet-service:[AWS CloudFormation]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/03/2020]
+// snippet-sourcedate:[09/28/2021]
 // snippet-sourceauthor:[AWS-scmacdon]
 
 /*
@@ -49,7 +49,7 @@ public class CreateStack {
 
        final String USAGE = "\n" +
                "Usage:\n" +
-               "    CreateStack <stackName> <roleARN> <location> <key> <value> \n\n" +
+               "    <stackName> <roleARN> <location> <key> <value> \n\n" +
                "Where:\n" +
                "    stackName - the name of the AWS CloudFormation stack. \n" +
                "    roleARN - the ARN of the role that has AWS CloudFormation permissions. \n" +
