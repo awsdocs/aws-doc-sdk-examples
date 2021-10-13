@@ -1,7 +1,7 @@
 # Amazon SQS Ruby SDK v3 code examples
 
 ## Purpose
-This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate Amazon Simple Queue Service (SQS).
+This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate Amazon Simple Queue Service (Amazon SQS).
 
 
 ## Code examples

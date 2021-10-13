@@ -1,11 +1,11 @@
-# AWS SDK for Ruby code examples for Amazon Elastic BeanStalk
+# AWS SDK for Ruby code examples for AWS Elastic BeanStalk
 
 ## Purpose
 
-This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate Amazon Elastic BeanStalk.
+This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate AWS Elastic BeanStalk.
 
 ## Code examples
-This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) Amazon Elastic BeanStalk examples:
+This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) AWS Elastic BeanStalk examples:
 
 ### API examples
 - [List stacks](./eb_list_stacks.rb)
@@ -65,7 +65,7 @@ Most of these tests are designed to use stubs, to avoid generating unnecessary c
 
 ## Additional information
 
-- [Amazon Elastic BeanStalk Documentation](https://docs.aws.amazon.com/elastic-beanstalk/)
+- [AWS Elastic BeanStalk Documentation](https://docs.aws.amazon.com/elastic-beanstalk/)
 - [AWS SDK for Ruby Documentation](https://docs.aws.amazon.com/sdk-for-ruby)
 - [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs)
 - [RSpec Documentation](https://rspec.info/documentation)
