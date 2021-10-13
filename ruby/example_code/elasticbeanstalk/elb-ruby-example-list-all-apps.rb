@@ -5,7 +5,7 @@
 # elb-ruby-example-list-all-apps.rb demonstrates how to list your Amazon
 # Elastic Beanstalk applications and environments using the AWS SKD for Ruby.
 
-# snippet-start:[eb.Ruby.listStacks]
+# snippet-start:[eb.Ruby.listApps]
 
 require 'aws-sdk-elasticbeanstalk'  # v2: require 'aws-sdk'
 
@@ -22,4 +22,4 @@ eb.describe_applications.applications.each do |a|
     puts "    Health:     #{env.health}"
   end
 end
-# snippet-end:[eb.Ruby.listStacks]
+# snippet-end:[eb.Ruby.listApps]
