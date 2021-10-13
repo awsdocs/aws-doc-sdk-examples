@@ -1,4 +1,4 @@
-# AWS SDK for Ruby code examples for Amazon CloudWatch
+# AWS SDK for Ruby code examples for Amazon Event Bridge
 
 ## Purpose
 
@@ -7,14 +7,9 @@ This folder contains code examples that demonstrate how to use the AWS SDK for R
 ## Code examples
 This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) Amazon Cloudwatch examples:
 
-###  Usage examples
-- [Create an alarm and disable all actions for the alarm](./cw-ruby-example-alarm-actions.rb)
-- [List alarms, create a new alram, and delete an alarm](./cw-ruby-example-alarm-basics.rb)
-- [Add a datapoint to a metric, and list all metrics for a namespace](./cw-ruby-example-metrics-basics.rb)
+###  Cross-service examples
+- [Create and trigger a rule in Amazon CloudWatch Events](./cw-ruby-example-send-events-ec2.rb)
 
-### API examples
-- [Create an alarm](./cw-ruby-example-create-alarm.rb)
-- [Show alarms](./cw-ruby-example-show-alarms.rb)
 
 ## Prerequisites
 
