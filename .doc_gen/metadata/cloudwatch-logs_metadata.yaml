@@ -13,7 +13,7 @@ cloudwatch-logs_DescribeSubscriptionFilters:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.java2.delete_subscription_filter.main
+                - cloudwatch.java2.describe_subscription_filters.main
     JavaScript:
       versions:
         - sdk_version: 3
