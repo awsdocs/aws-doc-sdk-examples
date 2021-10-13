@@ -17,7 +17,7 @@ This folder contains code examples that demonstrate how to use the AWS SDK for R
   [Install the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html) in the 
   *AWS SDK for Ruby Developer Guide*.
 
-## Cautions
+## Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 

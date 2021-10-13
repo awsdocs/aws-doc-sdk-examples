@@ -12,20 +12,7 @@ This is a workspace where you can find the following AWS SDK for Ruby version 3 
 - [List builds](./aws-ruby-sdk-codebuild-example-list-builds.rb)
 - [List projects](./aws-ruby-sdk-codebuild-example-list-projects.rb)
 
-## Prerequisites
-
-- An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
-- AWS credentials or an AWS Security Token Service (AWS STS) access token. For details, see 
-  [Configuring the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html) in the 
-  *AWS SDK for Ruby Developer Guide*.
-- To run the code examples, Ruby version 1.9 or later. For Ruby download and installation instructions, see 
-  [Download Ruby](https://www.ruby-lang.org/en/downloads/) on the Ruby Progamming Language website.
-- To test the code examples, RSpec 3.9 or later. For RSpec download and installation instructions, see the [rspec/rspec](https://github.com/rspec/rspec) repository in GitHub.
-- The AWS SDK for Ruby. For AWS SDK for Ruby download and installation instructions, see 
-  [Install the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html) in the 
-  *AWS SDK for Ruby Developer Guide*.
-
-## Cautions
+## Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -38,6 +25,19 @@ This is a workspace where you can find the following AWS SDK for Ruby version 3 
 - Running this code might result in charges to your AWS account.
 
 ## Running the code
+
+### Prerequisites
+
+- An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
+- AWS credentials or an AWS Security Token Service (AWS STS) access token. For details, see 
+  [Configuring the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html) in the 
+  *AWS SDK for Ruby Developer Guide*.
+- To run the code examples, Ruby version 1.9 or later. For Ruby download and installation instructions, see 
+  [Download Ruby](https://www.ruby-lang.org/en/downloads/) on the Ruby Progamming Language website.
+- To test the code examples, RSpec 3.9 or later. For RSpec download and installation instructions, see the [rspec/rspec](https://github.com/rspec/rspec) repository in GitHub.
+- The AWS SDK for Ruby. For AWS SDK for Ruby download and installation instructions, see 
+  [Install the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html) in the 
+  *AWS SDK for Ruby Developer Guide*.
 
 Most of these code example files can be run with very little to no modification. For example, to use Ruby to run the `cw-ruby-example-create-alarm.rb` file, replace the hard-coded values in the file with your own values, save the file, and then run the file. For example:
 
