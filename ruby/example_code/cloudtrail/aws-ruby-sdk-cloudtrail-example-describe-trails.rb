@@ -6,7 +6,7 @@
 # retrieve details about your an Amazon CloudTrail trails using the AWS SDK for Ruby.
 
 
-# snippet-start:[cloudtrail.Ruby.createTrail]
+# snippet-start:[cloudtrail.Ruby.describeTrails]
 require 'aws-sdk-cloudtrail'  # v2: require 'aws-sdk'
 
 # Create client in us-west-2.
@@ -25,4 +25,4 @@ resp.trail_list.each do |trail|
   puts 'S3 bucket name: ' + trail.s3_bucket_name
   puts
 end
-# snippet-start:[cloudtrail.Ruby.createTrail]
+# snippet-end:[cloudtrail.Ruby.describeTrails]

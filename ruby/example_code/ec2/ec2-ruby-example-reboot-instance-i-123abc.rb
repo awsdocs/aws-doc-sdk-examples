@@ -5,7 +5,7 @@
 # ec2-ruby-example-reboot-instance-i-123abc.rb demonstrates how to reboot
 # an Amazon Elastic Compute Cloud (Amazon EC2) instance using the AWS SDK for Ruby.
 
-# snippet-start:[ec2.Ruby.updateMovieItems]
+# snippet-start:[ec2.Ruby.rebootInstances]
 
 require 'aws-sdk-ec2'
 
@@ -65,3 +65,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[ec2.Ruby.rebootInstances]

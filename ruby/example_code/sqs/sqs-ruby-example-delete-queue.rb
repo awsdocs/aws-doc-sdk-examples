@@ -11,4 +11,4 @@ require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
 sqs = Aws::SQS::Client.new(region: 'us-west-2')
 
 sqs.delete_queue(queue_url: URL)
-# snippet-start:[s3.ruby.sqs-ruby-example-dead-letter-queue.rb]
+# snippet-end:[s3.ruby.sqs-ruby-example-dead-letter-queue.rb]

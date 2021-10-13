@@ -43,7 +43,6 @@ rescue StandardError => e
   puts "Error uploading object: #{e.message}"
   return false
 end
-# snippet-end:[s3.ruby.s3_encrypt_file_upload.rb]
 # Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
   bucket_name = 'doc-example-bucket'

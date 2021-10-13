@@ -8,8 +8,6 @@
 
 # snippet-start:[kms.ruby.reEncryptData]
 
-# snippet-start:[elastictranscoder.ruby.addManagedPolicy]
-
 require 'aws-sdk-kms'  # v2: require 'aws-sdk'
 
 # Human-readable version of the ciphertext of the data to reencrypt.

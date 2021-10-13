@@ -101,7 +101,6 @@ def list_objects_in_bucket?(s3_client, bucket_name)
 rescue StandardError => e
   puts "Error while accessing the bucket named '#{bucket_name}': #{e.message}"
 end
-# snippet-end:[s3.ruby.auth_federation_token_request_test.rb]
 
 # Full example call:
 # Replace us-west-2 with the AWS Region you're using for Amazon S3.
