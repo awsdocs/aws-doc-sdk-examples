@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[12/09/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -35,20 +35,20 @@ public class AddQueueTags {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage: AddQueueTags <queueName>\n\n" +
+                "Usage: " +
+                "   <queueName>\n\n" +
                 "Where:\n" +
-                "  queueName - the name of the queue to which tags are applied.\n\n";
+                "   queueName - the name of the queue to which tags are applied.\n\n";
 
        if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
-        String queueName = "MessageQueue"; //args[0];
+        String queueName = args[0];
         SqsClient sqsClient = SqsClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
-
         addTags(sqsClient, queueName);
         sqsClient.close();
     }

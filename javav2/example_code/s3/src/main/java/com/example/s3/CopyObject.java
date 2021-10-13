@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/08/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -19,6 +19,9 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.CopyObjectRequest;
 import software.amazon.awssdk.services.s3.model.CopyObjectResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 // snippet-end:[s3.java2.copy_object.import]
 
 /**
@@ -35,7 +38,7 @@ public class CopyObject {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CopyObject <objectKey> <fromBucket> <toBucket>\n\n" +
+                "    <objectKey> <fromBucket> <toBucket>\n\n" +
                 "Where:\n" +
                 "    objectKey - the name of the object (for example, book.pdf).\n\n" +
                 "    fromBucket - the S3 bucket name that contains the object (for example, bucket1).\n" +
@@ -47,8 +50,8 @@ public class CopyObject {
        }
 
         String objectKey = args[0];
-        String fromBucket = args[1];;
-        String toBucket =  args[2];;
+        String fromBucket = args[1];
+        String toBucket =  args[2];
 
         System.out.format("Copying object %s from bucket %s to %s\n",
                 objectKey, fromBucket, toBucket);
@@ -65,9 +68,14 @@ public class CopyObject {
     // snippet-start:[s3.java2.copy_object.main]
     public static String copyBucketObject (S3Client s3, String fromBucket, String objectKey, String toBucket) {
 
+        String encodedUrl = null;
+        try {
+            encodedUrl = URLEncoder.encode(fromBucket + "/" + objectKey, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+            System.out.println("URL could not be encoded: " + e.getMessage());
+        }
         CopyObjectRequest copyReq = CopyObjectRequest.builder()
-                .sourceBucket(fromBucket)
-                .sourceKey(objectKey)
+                .copySource(encodedUrl)
                 .destinationBucket(toBucket)
                 .destinationKey(objectKey)
                 .build();

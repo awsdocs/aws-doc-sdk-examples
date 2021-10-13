@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Textract]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/06/2020]
+// snippet-sourcedate:[09/29/2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -35,7 +35,7 @@ public class StartDocumentAnalysis {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    StartDocumentAnalysis <bucketName> <docName> \n\n" +
+                "    <bucketName> <docName> \n\n" +
                 "Where:\n" +
                 "    bucketName - the name of the Amazon S3 bucket that contains the document. \n\n" +
                 "    docName - the document name (must be an image, for example, book.png). \n";

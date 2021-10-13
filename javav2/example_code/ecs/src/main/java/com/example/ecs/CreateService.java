@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Elastic Container Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/20/2021]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -13,6 +13,7 @@
 
 package com.example.ecs;
 
+// snippet-start:[ecs.java2.create_service.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ecs.EcsClient;
 import software.amazon.awssdk.services.ecs.model.AwsVpcConfiguration;
@@ -21,6 +22,7 @@ import software.amazon.awssdk.services.ecs.model.CreateServiceRequest;
 import software.amazon.awssdk.services.ecs.model.LaunchType;
 import software.amazon.awssdk.services.ecs.model.CreateServiceResponse;
 import software.amazon.awssdk.services.ecs.model.EcsException;
+// snippet-end:[ecs.java2.create_service.import]
 
 /**
  To run this Java V2 code example, ensure that you have setup your development environment,
@@ -34,8 +36,7 @@ public class CreateService {
 
         final String usage = "\n" +
                 "Usage:\n" +
-                "  CreateService " +
-                "   <clusterName> <serviceName> <securityGroups> <subnets> <taskDefinition>\n\n" +
+                "  <clusterName> <serviceName> <securityGroups> <subnets> <taskDefinition>\n\n" +
                 "Where:\n" +
                 "  clusterName - the name of the ECS cluster.\n" +
                 "  serviceName - the name of the ECS service to create.\n" +
@@ -52,7 +53,7 @@ public class CreateService {
         String serviceName = args[1];
         String securityGroups = args[2];
         String subnets = args[3];
-        String taskDefinition = args[4];;
+        String taskDefinition = args[4];
         Region region = Region.US_EAST_1;
         EcsClient ecsClient = EcsClient.builder()
                 .region(region)
@@ -63,6 +64,7 @@ public class CreateService {
         ecsClient.close();
     }
 
+    // snippet-start:[ecs.java2.create_service.main]
     public static String CreateNewService(EcsClient ecsClient,
                                           String clusterName,
                                           String serviceName,
@@ -98,4 +100,5 @@ public class CreateService {
     }
     return "";
   }
+    // snippet-end:[ecs.java2.create_service.main]
 }

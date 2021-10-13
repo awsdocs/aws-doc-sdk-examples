@@ -22,6 +22,30 @@ struct Opt {
     verbose: bool,
 }
 
+// Lists the state of an instance.
+// snippet-start:[ec2.rust.describe-instances]
+async fn show_state(
+    client: &Client,
+    ids: Vec<String>,
+) -> Result<(), Error> {
+    let resp = client
+        .describe_instances()
+        .set_instance_ids(Some(ids))
+        .send()
+        .await?;
+
+    for reservation in resp.reservations.unwrap_or_default() {
+        for instance in reservation.instances.unwrap_or_default() {
+            println!("Instance ID: {}", instance.instance_id.unwrap());
+            println!("State:       {:?}", instance.state.unwrap().name.unwrap());
+            println!();
+        }
+    }
+
+    Ok(())
+}
+// snippet-end:[ec2.rust.describe-instances]
+
 /// Lists the state of one or all of your Amazon EC2 instances.
 /// # Arguments
 ///
@@ -72,19 +96,5 @@ async fn main() -> Result<(), Error> {
         }
     }
 
-    let resp = client
-        .describe_instances()
-        .set_instance_ids(id_opt)
-        .send()
-        .await?;
-
-    for reservation in resp.reservations.unwrap_or_default() {
-        for instance in reservation.instances.unwrap_or_default() {
-            println!("Instance ID: {}", instance.instance_id.unwrap());
-            println!("State:       {:?}", instance.state.unwrap().name.unwrap());
-            println!();
-        }
-    }
-
-    Ok(())
+    show_state(&client, id_opt.unwrap()).await
 }

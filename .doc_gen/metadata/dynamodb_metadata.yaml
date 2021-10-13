@@ -1,10 +1,19 @@
-# zexi 0.2.0
+# zexi 0.4.0
 dynamodb_CreateTable:
   title: Create a &DDB; table using an &AWS; SDK
   title_abbrev: Create a table
   synopsis: create a &DDB; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - dynamodb.java2.create_table.main
     Python:
       versions:
         - sdk_version: 3
@@ -18,7 +27,7 @@ dynamodb_CreateTable:
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesCreateTable
   services:
-    - dynamodb
+    dynamodb: {CreateTable}
 dynamodb_BatchGetItem:
   title: Get a batch of &DDB; items using an &AWS; SDK
   title_abbrev: Get a batch of items.
@@ -36,13 +45,22 @@ dynamodb_BatchGetItem:
                 - python.example_code.dynamodb.Batching_imports
                 - python.example_code.dynamodb.BatchGetItem
   services:
-    - dynamodb
+    dynamodb: {BatchGetItem}
 dynamodb_BatchWriteItem:
   title: Write a batch of &DDB; items using an &AWS; SDK
   title_abbrev: Write a batch of items
   synopsis: write a batch of &DDB; items.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.mapping.batchitems.main
     Python:
       versions:
         - sdk_version: 3
@@ -53,7 +71,7 @@ dynamodb_BatchWriteItem:
               snippet_tags:
                 - python.example_code.dynamodb.PutItem_BatchWriter
   services:
-    - dynamodb
+    dynamodb: {BatchWriteItem}
 dynamodb_Usage_BatchGetWriteDelete:
   title: Get, write, and delete batches of &DDB; items using an &AWS; SDK
   title_abbrev: Get, write, and delete batches of items
@@ -81,13 +99,22 @@ dynamodb_Usage_BatchGetWriteDelete:
               snippet_tags:
                 - python.example_code.dynamodb.Usage_BatchFunctions
   services:
-    - dynamodb
+    dynamodb: {}
 dynamodb_DeleteTable:
   title: Delete a &DDB; table using an &AWS; SDK
   title_abbrev: Delete a table
   synopsis: delete a &DDB; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.delete_table.main
     Python:
       versions:
         - sdk_version: 3
@@ -98,13 +125,22 @@ dynamodb_DeleteTable:
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesDeleteTable
   services:
-    - dynamodb
+    dynamodb: {DeleteTable}
 dynamodb_PutItem:
   title: Put an item in a &DDB; table using an &AWS; SDK
   title_abbrev: Put an item in a table
   synopsis: put an item in a &DDB; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.mapping.putitem.main
     Python:
       versions:
         - sdk_version: 3
@@ -118,13 +154,22 @@ dynamodb_PutItem:
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesLoadData
   services:
-    - dynamodb
+    dynamodb: {PutItem}
 dynamodb_GetItem:
   title: Get an item from a &DDB; table using an &AWS; SDK
   title_abbrev: Get an item from a table
   synopsis: get an item from a &DDB; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.mapping.getitem.main
     Python:
       versions:
         - sdk_version: 3
@@ -135,13 +180,22 @@ dynamodb_GetItem:
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesItemOps02
   services:
-    - dynamodb
+    dynamodb: {GetItem}
 dynamodb_UpdateItem:
   title: Update an item in a &DDB; table using an &AWS; SDK
   title_abbrev: Update an item in a table
   synopsis: update an item in a &DDB; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.mapping.moditem.main
     Python:
       versions:
         - sdk_version: 3
@@ -161,13 +215,22 @@ dynamodb_UpdateItem:
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesItemOps05
   services:
-    - dynamodb
+    dynamodb: {UpdateItem}
 dynamodb_DeleteItem:
   title: Delete an item from a &DDB; table using an &AWS; SDK
   title_abbrev: Delete an item from a table
   synopsis: delete an item from a &DDB; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - dynamodb.java2.delete_item.main
     Python:
       versions:
         - sdk_version: 3
@@ -178,13 +241,22 @@ dynamodb_DeleteItem:
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesItemOps06
   services:
-    - dynamodb
+    dynamodb: {DeleteItem}
 dynamodb_ListTables:
   title: List &DDB; tables using an &AWS; SDK
   title_abbrev: List tables
   synopsis: list &DDB; tables.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - dynamodb.java2.list_tables.main
     Python:
       versions:
         - sdk_version: 3
@@ -195,13 +267,22 @@ dynamodb_ListTables:
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesListTables
   services:
-    - dynamodb
+    dynamodb: {ListTables}
 dynamodb_Query:
   title: Query a &DDB; table using an &AWS; SDK
   title_abbrev: Query a table
   synopsis: query a &DDB; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - dynamodb.java2.mapping.query.main
     Python:
       versions:
         - sdk_version: 3
@@ -215,13 +296,22 @@ dynamodb_Query:
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesQuery02
   services:
-    - dynamodb
+    dynamodb: {Query}
 dynamodb_Scan:
   title: Scan a &DDB; table using an &AWS; SDK
   title_abbrev: Scan a table
   synopsis: scan a &DDB; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.mapping.scan.main
     Python:
       versions:
         - sdk_version: 3
@@ -232,7 +322,7 @@ dynamodb_Scan:
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesScan
   services:
-    - dynamodb
+    dynamodb: {Scan}
 dynamodb_Usage_DaxDemo:
   title: Accelerate &DDB; reads with &DAX; using an &AWS; SDK
   title_abbrev: Accelerate reads with &DAX;
@@ -267,4 +357,4 @@ dynamodb_Usage_DaxDemo:
               snippet_tags:
                 - dynamodb.Python.TryDax.06-delete-table
   services:
-    - dynamodb
+    dynamodb: {}

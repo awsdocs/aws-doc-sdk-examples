@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/01/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -38,11 +38,11 @@ public class CreateSecurityGroup {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "CreateSecurityGroup <groupName> <groupDesc> <vpcId> \n\n" +
+                "   <groupName> <groupDesc> <vpcId> \n\n" +
                 "Where:\n" +
-                "    groupName - a group name (for example, TestKeyPair). \n\n"  +
-                "    groupDesc - a group description  (for example, TestKeyPair). \n\n"  +
-                "    vpc-id - a VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f). \n\n"  ;
+                "   groupName - a group name (for example, TestKeyPair). \n\n"  +
+                "   groupDesc - a group description  (for example, TestKeyPair). \n\n"  +
+                "   vpcId - a VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f). \n\n"  ;
 
         if (args.length != 3) {
             System.out.println(USAGE);
@@ -107,9 +107,7 @@ public class CreateSecurityGroup {
 
             AuthorizeSecurityGroupIngressResponse authResponse =
             ec2.authorizeSecurityGroupIngress(authRequest);
-            // snippet-end:[ec2.java2.create_security_group.config]
 
-            // snippet-end:[ec2.java2.create_security_group.main]
             System.out.printf(
                 "Successfully added ingress policy to Security Group %s",
                 groupName);
@@ -122,5 +120,7 @@ public class CreateSecurityGroup {
         }
         return "";
     }
+    // snippet-end:[ec2.java2.create_security_group.config]
+    // snippet-end:[ec2.java2.create_security_group.main]
 }
 

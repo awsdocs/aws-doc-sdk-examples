@@ -27,7 +27,29 @@ struct Opt {
     verbose: bool,
 }
 
-/// Displays the configuration history for a resource.
+// Shows the history for a resource.
+// snippet-start:[config.rust.show-resource-history]
+async fn show_history(
+    client: &Client,
+    id: &str,
+    res: ResourceType,
+) -> Result<(), Error> {
+    let rsp = client
+        .get_resource_config_history()
+        .resource_id(id)
+        .resource_type(res)
+        .send()
+        .await?;
+    println!("configuration history for {}:", id);
+    for item in rsp.configuration_items.unwrap_or_default() {
+        println!("item: {:?}", item);
+    }
+
+    Ok(())
+}
+// snippet-end:[config.rust.show-resource-history]
+
+/// Displays the configuration history for a resource in the Region.
 ///
 /// NOTE: AWS Config must be enabled to discover resources.
 /// # Arguments
@@ -79,16 +101,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let rsp = client
-        .get_resource_config_history()
-        .resource_id(&id)
-        .resource_type(parsed)
-        .send()
-        .await?;
-    println!("configuration history for {}:", id);
-    for item in rsp.configuration_items.unwrap_or_default() {
-        println!("item: {:?}", item);
-    }
-
-    Ok(())
+    show_history(&client, &id, parsed).await
 }

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Step Functions]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/28/2021]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-AWS]
 
 /*
@@ -36,10 +36,10 @@ public class StartExecution {
        public static void main(String[] args) {
             final String USAGE = "\n" +
                     "Usage:\n" +
-                    "    StartExecution <stateMachineArn> <jsonFile>\n\n" +
+                    "    <stateMachineArn> <jsonFile>\n\n" +
                     "Where:\n" +
                     "    stateMachineArn - the ARN of the state machine.\n\n" +
-                    "    jsonFile - A JSON file that contains the values to pass to the worflow.\n" ;
+                    "    jsonFile - A JSON file that contains the values to pass to the workflow.\n" ;
 
             if (args.length != 2) {
                 System.out.println(USAGE);

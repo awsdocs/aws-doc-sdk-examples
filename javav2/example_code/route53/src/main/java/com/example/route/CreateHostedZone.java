@@ -4,7 +4,7 @@
 // snippet-service:[Amazon Route 53]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-09-28]
+// snippet-sourcedate:[09/28/2021]
 // snippet-sourceauthor:[AWS - scmacdon]
 
 /*
@@ -35,7 +35,7 @@ public class CreateHostedZone {
 
        final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateHostedZone <domainName> \n\n" +
+                "    <domainName> \n\n" +
                 "Where:\n" +
                 "    domainName - the fully qualified domain name. \n";
 

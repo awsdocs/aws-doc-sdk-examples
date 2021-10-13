@@ -4,7 +4,7 @@
 //snippet-keyword:[Code Sample]
 // snippet-service:[AWS CodeCommit]
 // snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/03/2020]
+//snippet-sourcedate:[09/28/2021]
 // snippet-sourceauthor:[AWS - scmacdon]
 
 /*
@@ -35,7 +35,7 @@ public class DeleteRepository {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeleteRepository <repoName> \n\n" +
+                "    <repoName> \n\n" +
                 "Where:\n" +
                 "    repoName - the name of the repository.\n" ;
 

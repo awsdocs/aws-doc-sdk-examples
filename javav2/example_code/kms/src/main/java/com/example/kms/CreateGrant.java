@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -33,7 +33,7 @@ public class CreateGrant {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateGrant <keyId> <granteePrincipal> <operation> \n\n" +
+                "    <keyId> <granteePrincipal> <operation> \n\n" +
                 "Where:\n" +
                 "    keyId - the unique identifier for the customer master key (CMK) that the grant applies to. \n\n" +
                 "    granteePrincipal - the principal that is given permission to perform the operations that the grant permits. \n\n" +
@@ -61,7 +61,7 @@ public class CreateGrant {
     // snippet-start:[kms.java2_create_grant.main]
     public static String createGrant(KmsClient kmsClient, String keyId, String granteePrincipal, String operation) {
 
-        try {
+    try {
         CreateGrantRequest grantRequest = CreateGrantRequest.builder()
                 .keyId(keyId)
                 .granteePrincipal(granteePrincipal)
@@ -71,10 +71,10 @@ public class CreateGrant {
         CreateGrantResponse response = kmsClient.createGrant(grantRequest);
         return response.grantId();
 
-        } catch (KmsException e) {
+     } catch (KmsException e) {
             System.err.println(e.getMessage());
             System.exit(1);
-        }
+     }
         return "";
     }
     // snippet-end:[kms.java2_create_grant.main]

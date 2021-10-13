@@ -22,6 +22,20 @@ struct Opt {
     verbose: bool,
 }
 
+// Enables monitoring for an instance.
+// snippet-start:[ec2.rust.monitor-instance]
+async fn enable_monitoring(
+    client: &Client,
+    id: &str,
+) -> Result<(), Error> {
+    client.monitor_instances().instance_ids(id).send().await?;
+
+    println!("Enabled monitoring");
+
+    Ok(())
+}
+// snippet-end:[ec2.rust.monitor-instance]
+
 /// Enables monitoring for an Amazon EC2 instance.
 /// # Arguments
 ///
@@ -57,13 +71,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    client
-        .monitor_instances()
-        .instance_ids(instance_id)
-        .send()
-        .await?;
-
-    println!("Enabled monitoring");
-
-    Ok(())
+    enable_monitoring(&client, &instance_id).await
 }

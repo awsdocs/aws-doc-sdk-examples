@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[07-27-2021]
+// snippet-sourcedate:[09-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -44,10 +44,10 @@ public class AddFacesToCollection {
 
         final String USAGE = "\n" +
                "Usage: " +
-               "AddFacesToCollection <collectionId> <sourceImage>\n\n" +
+               "    <collectionId> <sourceImage>\n\n" +
                "Where:\n" +
-               "  collectionName - the name of the collection.\n" +
-               "  sourceImage - the path to the image (for example, C:\\AWS\\pic1.png). \n\n";
+               "    collectionName - the name of the collection.\n" +
+               "    sourceImage - the path to the image (for example, C:\\AWS\\pic1.png). \n\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);

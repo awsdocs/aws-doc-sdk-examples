@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -31,7 +31,7 @@ public class DeleteAccountAlias {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeleteAccountAlias <alias> \n\n" +
+                "    <alias> \n\n" +
                 "Where:\n" +
                 "    alias - the account alias to delete. \n\n" ;
 
@@ -66,6 +66,6 @@ public class DeleteAccountAlias {
             System.exit(1);
         }
         System.out.println("Done");
-        // snippet-end:[iam.java2.delete_account_alias.main]
     }
+    // snippet-end:[iam.java2.delete_account_alias.main]
 }

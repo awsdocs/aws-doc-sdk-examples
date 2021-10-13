@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
-        <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
-        %xinclude;
-        <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
-        %phrases-shared;
-        ]>
-<!-- zexi 0.2.1 -->
+    <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
+    %xinclude;
+    <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
+    %phrases-code-examples;
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<!-- zexi 0.4.1 -->
 <chapter id="service_code_examples" role="topic">
     <info>
         <title id="service_code_examples.title">Code examples for {{.ServiceEntity.Short}}</title>
@@ -14,7 +16,8 @@
             <para>Code examples that show how to use {{.ServiceEntity.Short}} with an &AWS; SDK.</para>
         </abstract>
     </info>
-    <para>The following code examples show how to use {{.ServiceEntity.Short}} with an &AWS; software development kit (SDK).</para>
+    <para>The following code examples show how to use {{.ServiceEntity.Short}} with an &AWS; software development kit (SDK).
+        {{.ServiceEntity.Caveat}}</para>
     <para>For a complete list of &AWS; SDK developer guides and code examples, including help getting started
         and information about previous versions, see
         <xref linkend="sdk-general-information-section" endterm="sdk-general-information-section.title"></xref>.</para>
@@ -45,6 +48,9 @@
                 </abstract>
             </info>
             <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}_desc.xml"></xi:include>
+            {{- if .GuideTopic.Url}}
+            <para>For more information, see <ulink {{.GuideTopic.DocType}} url="{{.GuideTopic.Url}}">{{.GuideTopic.Text}}</ulink>.</para>
+            {{- end}}
             <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}{{$addSvc}}_tablist.xml"></xi:include>
             <para>For a complete list of &AWS; SDK developer guides and code examples, including help getting started
                 and information about previous versions, see

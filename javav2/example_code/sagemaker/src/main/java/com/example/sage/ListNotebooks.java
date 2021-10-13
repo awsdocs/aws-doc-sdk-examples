@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon SageMaker]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -47,7 +47,6 @@ public class ListNotebooks {
     public static void listBooks(SageMakerClient sageMakerClient) {
 
        try {
-            // Get a list of notebooks
             ListNotebookInstancesResponse notebookInstancesResponse = sageMakerClient.listNotebookInstances();
             List<NotebookInstanceSummary> items = notebookInstancesResponse.notebookInstances();
 

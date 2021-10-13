@@ -22,6 +22,20 @@ struct Opt {
     verbose: bool,
 }
 
+// Creates a topic.
+// snippet-start:[sns.rust.create-topic]
+async fn make_topic(client: &Client, topic_name: &str) -> Result<(), Error> {
+    let resp = client.create_topic().name(topic_name).send().await?;
+
+    println!(
+        "Created topic with ARN: {}",
+        resp.topic_arn.as_deref().unwrap_or_default()
+    );
+
+    Ok(())
+}
+// snippet-end:[sns.rust.create-topic]
+
 /// Creates an Amazon SNS topic.
 /// # Arguments
 ///
@@ -59,12 +73,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client.create_topic().name(topic).send().await?;
-
-    println!(
-        "Created topic with ARN: {}",
-        resp.topic_arn.as_deref().unwrap_or_default()
-    );
-
-    Ok(())
+    make_topic(&client, &topic).await
 }

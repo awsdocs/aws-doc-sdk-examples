@@ -35,6 +35,16 @@ This example describes the AWS Regions that are enabled for your account.
   If this value is not supplied, the region defaults to __us-west-2__.
 - __-v__ display additional information.  
 
+### list-all-instance-events
+
+This example shows the scheduled events for the Amazon Elastic Compute Cloud (Amazon EC2) instances in the Region.
+
+`cargo run --bin list-all-instance-events -- [-d DEFAULT-REGION] [-v]`
+
+- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
+  If this value is not supplied, the region defaults to __us-west-2__.
+- __-v__ display additional information.  
+
 ### monitor-instance
 
 This example enables monitoring on an Amazon EC2 instance.
@@ -81,9 +91,15 @@ This example stops an Amazon EC2 instance.
   If this argument is not supplied, the state of all instances is shown.
 - _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
   If this value is not supplied, the region defaults to __us-west-2__.
-- __-v__ display additional information.  
+- __-v__ display additional information.
 
-### Notes
+### Running the unit tests
+
+To run the unit tests, enter the following command:
+
+`cargo test`
+
+## Notes
 
 - We recommend that you grant this code least privilege,
   or at most the minimum permissions required to perform the task.

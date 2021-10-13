@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/06/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -37,7 +37,7 @@ public class DeleteObjects {
                 "To run this example, supply the name of an S3 bucket and at least\n" +
                 "one object name (key) to delete.\n" +
                 "\n" +
-                "Ex: DeleteObjects <bucketName> <objectName>\n";
+                "Ex: <bucketName> <objectName>\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -75,5 +75,5 @@ public class DeleteObjects {
         }
         System.out.println("Done!");
     }
+   // snippet-end:[s3.java2.delete_objects.main]
 }
-// snippet-end:[s3.java2.delete_objects.main]

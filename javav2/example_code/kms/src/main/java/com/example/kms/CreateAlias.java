@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -33,7 +33,7 @@ public class CreateAlias {
 
          final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateAlias <targetKeyId> <aliasName> \n\n" +
+                "    <targetKeyId> <aliasName> \n\n" +
                 "Where:\n" +
                 "    targetKeyId - the key ID or the Amazon Resource Name (ARN) of the customer master key (CMK). \n\n" +
                 "    aliasName - an alias name (for example, alias/myAlias). \n\n" ;
@@ -69,6 +69,6 @@ public class CreateAlias {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[kms.java2._create_alias.main]
     }
+    // snippet-end:[kms.java2._create_alias.main]
 }

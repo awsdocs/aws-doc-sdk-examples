@@ -1,4 +1,4 @@
-# zexi 0.2.0
+# zexi 0.4.0
 cloudfront_ListDistributions:
   title: List &CF; distributions using an &AWS; SDK
   title_abbrev: List distributions
@@ -16,7 +16,7 @@ cloudfront_ListDistributions:
                 - python.example_code.cloudfront.CloudFrontWrapper
                 - python.example_code.cloudfront.ListDistributions
   services:
-    - cloudfront
+    cloudfront: {ListDistributions}
 cloudfront_GetDistributionConfig:
   title: Get &CF; distribution configuration using an &AWS; SDK
   title_abbrev: Get distribution configuration
@@ -34,13 +34,39 @@ cloudfront_GetDistributionConfig:
                 - python.example_code.cloudfront.CloudFrontWrapper
                 - python.example_code.cloudfront.UpdateDistribution
   services:
-    - cloudfront
+    cloudfront: {GetDistributionConfig}
+cloudfront_CreateFunction:
+  title: Create a &CF; function using an &AWS; SDK
+  title_abbrev: Create a function
+  synopsis: create an &CFlong; function.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudfront
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudfront.java2.function.main
+  services:
+    cloudfront: {CreateFunction}
 cloudfront_UpdateDistribution:
   title: Update a &CF; distribution using an &AWS; SDK
   title_abbrev: Update a distribution
   synopsis: update an &CFlong; distribution.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudfront
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudfront.java2.mod.main
     Python:
       versions:
         - sdk_version: 3
@@ -52,4 +78,4 @@ cloudfront_UpdateDistribution:
                 - python.example_code.cloudfront.CloudFrontWrapper
                 - python.example_code.cloudfront.UpdateDistribution
   services:
-    - cloudfront
+    cloudfront: {UpdateDistribution}

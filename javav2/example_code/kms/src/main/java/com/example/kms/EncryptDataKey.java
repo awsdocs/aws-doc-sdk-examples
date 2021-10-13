@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -37,7 +37,7 @@ public class EncryptDataKey {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    EncryptDataKey <keyId> \n\n" +
+                "    <keyId> \n\n" +
                 "Where:\n" +
                 "    keyId - a key id value to use to encrypt/decrypt the data (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" ;
 
@@ -73,7 +73,7 @@ public class EncryptDataKey {
              String algorithm = response.encryptionAlgorithm().toString();
              System.out.println("The encryption algorithm is " + algorithm);
 
-             // Get the encrypted data
+             // Get the encrypted data.
              SdkBytes encryptedData = response.ciphertextBlob();
              return encryptedData;
 

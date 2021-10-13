@@ -4,7 +4,7 @@
 //snippet-keyword:[Code Sample]
 // snippet-service:[AWS CodeCommit]
 // snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/03/2020]
+//snippet-sourcedate:[09/28/2021]
 // snippet-sourceauthor:[AWS - scmacdon]
 
 /*
@@ -42,7 +42,7 @@ public class PutFile {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    PutFile <repoName> <branchName> <filePath> <email> <name> <repoPath> <commitId>\n\n" +
+                "    <repoName> <branchName> <filePath> <email> <name> <repoPath> <commitId>\n\n" +
                 "Where:\n" +
                 "    repoName - the name of the repository.\n" +
                 "    branchName -  the name of the branch.\n" +

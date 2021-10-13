@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -35,12 +35,10 @@ public class CreateForecast {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateForecast <name> <predictorArn> \n\n" +
+                "    <name> <predictorArn> \n\n" +
                 "Where:\n" +
                 "    name - the name of the forecast. \n\n" +
-                "    predictorArn - the arn of the predictor to use. \n\n" +
-                "Example:\n" +
-                "    CreateForecast MyForecast arn:aws:forecast:us-west-2:xxxxxe33:predictor/MyPredictor\n";
+                "    predictorArn - the arn of the predictor to use. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -49,7 +47,6 @@ public class CreateForecast {
 
         String name = args[0];
         String predictorArn = args[1];
-
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
                 .region(region)

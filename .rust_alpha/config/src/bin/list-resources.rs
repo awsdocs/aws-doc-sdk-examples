@@ -19,6 +19,42 @@ struct Opt {
     verbose: bool,
 }
 
+// Lists your resources.
+// snippet-start:[config.rust.list-resources]
+async fn show_resources(
+    verbose: bool,
+    client: &Client,
+) -> Result<(), Error> {
+    for value in ResourceType::values() {
+        let parsed = ResourceType::from(*value);
+
+        let resp = client
+            .list_discovered_resources()
+            .resource_type(parsed)
+            .send()
+            .await?;
+
+        let resources = resp.resource_identifiers.unwrap_or_default();
+
+        if !resources.is_empty() || verbose {
+            println!();
+            println!("Resources of type {}:", value);
+        }
+
+        for resource in resources {
+            println!(
+                "  Resource ID: {}",
+                resource.resource_id.as_deref().unwrap_or_default()
+            );
+        }
+    }
+
+    println!();
+
+    Ok(())
+}
+// snippet-end:[config.rust.list-resources]
+
 /// Lists your AWS Config resources, by resource type, in the Region.
 ///
 /// # Arguments
@@ -54,32 +90,5 @@ async fn main() -> Result<(), Error> {
         println!("You won't see any output if you don't have any resources defined in the region.");
     }
 
-    for value in ResourceType::values() {
-        let parsed = ResourceType::from(*value);
-
-        let resp = client
-            .list_discovered_resources()
-            .resource_type(parsed)
-            .send()
-            .await?;
-
-        let resources = resp.resource_identifiers.unwrap_or_default();
-        let length = resources.len();
-
-        if length > 0 || verbose {
-            println!();
-            println!("Resources of type {}:", value);
-        }
-
-        for resource in resources {
-            println!(
-                "  Resource ID: {}",
-                resource.resource_id.as_deref().unwrap_or_default()
-            );
-        }
-    }
-
-    println!();
-
-    Ok(())
+    show_resources(verbose, &client).await
 }

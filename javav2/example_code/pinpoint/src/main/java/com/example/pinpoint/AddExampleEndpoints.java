@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[07-27-2021]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -42,9 +42,9 @@ public class AddExampleEndpoints {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage: " +
-                "AddExampleEndpoints <appId>\n\n" +
+                "   <appId>\n\n" +
                 "Where:\n" +
-                "  appId - the ID of the application.\n\n" ;
+                "   appId - the ID of the application.\n\n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -34,7 +34,7 @@ public class PutTargets {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "  PutTargets <ruleName> <functionArn> <targetId> \n\n" +
+                "  <ruleName> <functionArn> <targetId> \n\n" +
                 "Where:\n" +
                 "  ruleName - a rule name (for example, myrule).\n" +
                 "  functionArn - an AWS Lambda function ARN (for example, arn:aws:lambda:us-west-2:xxxxxx047983:function:lamda1).\n" +

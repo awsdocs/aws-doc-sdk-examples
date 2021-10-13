@@ -1,0 +1,159 @@
+# zexi 0.4.0
+# The sort key of a service is the short display name (the expanded version of the short entity) without the AWS/Amazon prefix.
+acm:
+  long: "&ACMlong;"
+  short: "&ACM;"
+  sort: "ACM"
+  version: acm-2015-12-08
+application-autoscaling:
+  long: "&APP-ASlong;"
+  short: "&APP-AS;"
+  sort: "Application Auto Scaling"
+  version: application-autoscaling-2016-02-06
+api-gateway:
+  long: "&ABPlong;"
+  short: "&ABP;"
+  sort: "API Gateway"
+  version: apigateway-2015-07-09
+auto-scaling:
+  long: "&ASlong;"
+  short: "&AS;"
+  sort: "EC2 Auto Scaling"
+  version: autoscaling-2011-01-01
+cloudformation:
+  long: "&CFNlong;"
+  short: "&CFN;"
+  sort: "CloudFormation"
+  version: cloudformation-2010-05-15
+cloudfront:
+  long: "&CFlong;"
+  short: "&CF;"
+  sort: "CloudFront"
+  version: cloudfront-2020-05-31
+cloudwatch:
+  long: "&CWlong;"
+  short: "&CW;"
+  sort: "CloudWatch"
+  version: monitoring-2010-08-01
+cloudwatch-logs:
+  long: "&CWLlong;"
+  short: "&CWL;"
+  sort: "CloudWatch Logs"
+  version: logs-2014-03-28
+cloudwatch-events:
+  long: "&CWElong;"
+  short: "&CWE;"
+  sort: "CloudWatch Events"
+  version: eventbridge-2015-10-07
+cognito-identity:
+  long: "&COGID;"
+  short: "&COGID;"
+  sort: "Cognito Identity"
+  version: cognito-identity-2014-06-30
+comprehend:
+  long: "&CMPlong;"
+  short: "&CMP;"
+  sort: "Comprehend"
+  version: comprehend-2017-11-27
+config-service:
+  long: "&CClong;"
+  short: "&CC;"
+  sort: "Config"
+  version: config-2014-11-12
+dynamodb:
+  long: "&DDBlong;"
+  short: "&DDB;"
+  sort: "DynamoDB"
+  version: dynamodb-2012-08-10
+ec2:
+  long: "&EC2long;"
+  short: "&EC2;"
+  sort: "EC2"
+  version: ec2-2016-11-15
+emr:
+  long: "&EMRlong;"
+  short: "&EMR;"
+  sort: "EMR"
+  version: elasticmapreduce-2009-03-31
+eventbridge:
+  long: "&EVlong;"
+  short: "&EV;"
+  sort: "EventBridge"
+  version: eventbridge-2015-10-07
+lambda:
+  long: "&LAMlong;"
+  short: "&LAM;"
+  sort: "Lambda"
+  version: lambda-2015-03-31
+lex:
+  long: "&LEX2long;"
+  short: "&LEX2;"
+  sort: "Lex"
+  version: runtime.lex.v2-2020-08-07
+rds:
+  long: "&RDSlong;"
+  short: "&RDS;"
+  sort: "RDS"
+  version: rds-2014-10-31
+rekognition:
+  long: "&REKlong;"
+  short: "&REK;"
+  sort: "Rekognition"
+  version: rekognition-2016-06-27
+  caveat: The code examples in this chapter are intended to supplement the
+    code examples found throughout the rest of this guide.
+s3:
+  long: "&S3long;"
+  short: "&S3;"
+  sort: "S3"
+  version: s3-2006-03-01
+secrets-manager:
+  long: "&ASMlong;"
+  short: "&ASM;"
+  sort: "Secrets Manager"
+  version: secretsmanager-2017-10-17
+sns:
+  long: "&SNSlong;"
+  short: "&SNS;"
+  sort: "SNS"
+  version: sns-2010-03-31
+sqs:
+  long: "&SQSlong;"
+  short: "&SQS;"
+  sort: "SQS"
+  version: sqs-2012-11-05
+sfn:
+  long: "&SFNlong;"
+  short: "&SFN;"
+  sort: "Step Functions"
+  version: states-2016-11-23
+textract:
+  long: "&TEXTRACTlong;"
+  short: "&TEXTRACT;"
+  sort: "Textract"
+  version: textract-2018-06-27
+transcribe:
+  long: "&TSClong;"
+  short: "&TSC;"
+  sort: "Transcribe"
+  version: transcribe-2017-10-26
+iam:
+  long: "&IAMlong;"
+  short: "&IAM;"
+  sort: "IAM"
+  version: iam-2010-05-08
+translate:
+  long: "&TSLlong;"
+  short: "&TSL;"
+  sort: "Translate"
+  version: translate-2017-07-01
+ses:
+  long: "&SESlong;"
+  short: "&SES;"
+  sort: "SES"
+  version: email-2010-12-01
+glacier:
+  long: "&GLlong;"
+  short: "&GLshort;"
+  sort: "S3 Glacier"
+  version: glacier-2012-06-01
