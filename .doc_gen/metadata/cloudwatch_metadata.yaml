@@ -325,7 +325,7 @@ cloudwatch_DeleteAlarms:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.java2.disable_alarm_actions.main
+                - cloudwatch.java2.delete_metrics.main
     Python:
       versions:
         - sdk_version: 3
@@ -367,15 +367,6 @@ cloudwatch_Usage_MetricsAlarms:
     - Delete the alarm.
   category: Usage
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/cloudwatch
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - cloudwatch.java2.put_metric_alarm.main
     Python:
       versions:
         - sdk_version: 3
