@@ -1,11 +1,11 @@
-# AWS SDK for Ruby code examples for Amazon CloudTrail
+# AWS SDK for Ruby code examples for AWS CloudTrail
 
 ## Purpose
 
-This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate Amazon CloudTrail.
+This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate AWS CloudTrail.
 
 ## Code examples
-This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) Amazon CloudTrail examples:
+This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) AWS CloudTrail examples:
 
 ### API examples
 - [Create a trail](./aws-ruby-sdk-cloudtrail-example-create-trail.rb)
@@ -64,7 +64,7 @@ Most of these tests are designed to use stubs, to avoid generating unnecessary c
 
 
 ## Additional information
-- [Amazon CloudTrail Documentation](https://docs.aws.amazon.com/cloudtrail/)
+- [AWS CloudTrail Documentation](https://docs.aws.amazon.com/cloudtrail/)
 - [AWS SDK for Ruby Documentation](https://docs.aws.amazon.com/sdk-for-ruby)
 - [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs)
 - [RSpec Documentation](https://rspec.info/documentation)
