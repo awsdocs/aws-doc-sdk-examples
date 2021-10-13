@@ -10,8 +10,8 @@
 # snippet-start:[s3.sqs-ruby-example-send-receive-messages.rb]
 
 require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
-
-sqs = Aws::SQS::Client.new(region: 'us-east-1')
+# Replace us-west-2 with the AWS Region you're using for Amazon SQS.
+sqs = Aws::SQS::Client.new(region: 'us-west-2')
 
 # Send a message to a queue.
 queue_name = "my-queue"

@@ -2,12 +2,12 @@
 # SPDX - License - Identifier: Apache - 2.0
 
 # Purpose
-# This code example demonstrates how to describe your WorkDocs users.
+# This code example demonstrates how to describe your Amazon WorkDocs users.
 
 # snippet-start:[s3.wd_list_users.rb]
 
 require 'aws-sdk-workdocs'  # v2: require 'aws-sdk'
-
+# Replace us-west-2 with the AWS Region you're using for Amazon WorkDocs.
 client = Aws::WorkDocs::Client.new(region: 'us-west-2')
 
 # Set to the OrganizationId of your WorkDocs site

@@ -3,7 +3,7 @@
 
 # Purpose:
 # dynamodb_ruby_example_update_movies_item.rb demonstrates how to
-# update an item in Amazon DynamoDB table using the AWS SDK for Ruby.
+# update an item in an Amazon DynamoDB table using the AWS SDK for Ruby.
 
 # Inputs:
 # - REGION - The AWS Region.
@@ -49,7 +49,8 @@ end
 
 # Full example call:
 def run_me
-  region = 'REGION'
+# Replace us-west-2 with the AWS Region you're using for AWS DynamoDB.
+  region = 'us-west-2'
   table_name = 'Movies'
   title = 'The Big New Movie'
   year = 2015

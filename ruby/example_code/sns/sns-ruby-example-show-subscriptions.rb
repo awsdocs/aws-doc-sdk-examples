@@ -25,8 +25,8 @@ end
 
 def run_me
 
-  topic_arn = 'arn:aws:sns:eu-west-1:164794437551:brmurrubytopic'
-  region = 'eu-west-1'
+  topic_arn = 'SNS_TOPIC_ARN'
+  region = 'REGION'
 
   sns_client = Aws::SNS::Resource.new(region: region)
 

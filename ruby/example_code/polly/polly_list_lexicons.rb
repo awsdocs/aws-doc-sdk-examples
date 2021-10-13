@@ -3,7 +3,7 @@
 
 # Purpose:
 # polly_list_lexicons.rb demonstrates how to
-# list your Polly lexicons using Amazon Polly using the AWS SKD for Ruby.
+# list your Amazon Polly lexicons using Amazon Polly using the AWS SKD for Ruby.
 
 # snippet-start:[polly.ruby.listLexicons]
 

@@ -32,7 +32,7 @@ policy  = '{
      }
   }]
 }'
-
+# Replace us-west-2 with the AWS Region you're using for Amazon SNS.
 sns = Aws::SNS::Resource.new(region: 'REGION')
 
 # Get topic by ARN

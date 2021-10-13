@@ -26,7 +26,7 @@ require 'aws-sdk-s3'
 #   successfully set; otherwise, false.
 # @example
 #   exit 1 unless default_bucket_encryption_sse_cmk_set?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket',
 #     '9041e78c-7a20-4db3-929e-828abEXAMPLE'
 #   )
@@ -54,10 +54,11 @@ rescue StandardError => e
   return false
 end
 
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
   bucket_name = 'doc-example-bucket'
   kms_master_key_id = '9041e78c-7a20-4db3-929e-828abEXAMPLE'
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
 
   if default_bucket_encryption_sse_cmk_set?(

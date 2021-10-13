@@ -6,8 +6,6 @@
 # check whether the specified Amazon Elastic Compute Cloud
 # (Amazon EC2) instance exists.
 
-# Inputs:
-# - REGION - The AWS Region.
 
 # snippet-start:[ec2.Ruby.elasticIps]
 
@@ -36,7 +34,7 @@ require 'aws-sdk-ec2'
 # @return [Boolean] true if the instance exists; otherwise, false.
 # @example
 #   exit 1 unless instance_exists?(
-#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     Aws::EC2::Client.new(region: 'us-west-2'),
 #     'i-033c48ef067af3dEX'
 #   )
 def instance_exists?(ec2_client, instance_id)
@@ -51,7 +49,7 @@ end
 # @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
 # @return [String] The allocation ID corresponding to the Elastic IP address.
 # @example
-#   puts allocate_elastic_ip_address(Aws::EC2::Client.new(region: 'us-east-1'))
+#   puts allocate_elastic_ip_address(Aws::EC2::Client.new(region: 'us-west-2'))
 def allocate_elastic_ip_address(ec2_client)
   response = ec2_client.allocate_address(domain: 'vpc')
   return response.allocation_id
@@ -76,7 +74,7 @@ end
 #   Elastic IP address to the instance.
 # @example
 #   puts allocate_elastic_ip_address(
-#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     Aws::EC2::Client.new(region: 'us-west-2'),
 #     'eipalloc-04452e528a66279EX',
 #     'i-033c48ef067af3dEX')
 def associate_elastic_ip_address_with_instance(
@@ -105,7 +103,7 @@ end
 # @param instance_id [String] The ID of the instance.
 # @example
 #   describe_addresses_for_instance(
-#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     Aws::EC2::Client.new(region: 'us-west-2'),
 #     'i-033c48ef067af3dEX'
 #   )
 def describe_addresses_for_instance(ec2_client, instance_id)
@@ -145,7 +143,7 @@ end
 #   otherwise, false.
 # @example
 #   exit 1 unless elastic_ip_address_released?(
-#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     Aws::EC2::Client.new(region: 'us-west-2'),
 #     'eipalloc-04452e528a66279EX'
 #   )
 def elastic_ip_address_released?(ec2_client, allocation_id)
@@ -164,13 +162,15 @@ def run_me
   if ARGV[0] == '--help' || ARGV[0] == '-h'
     puts 'Usage:   ruby ec2-ruby-example-elastic-ips.rb ' \
       'INSTANCE_ID REGION'
+    # Replace us-west-2 with the AWS Region you're using for AWS EC2.
     puts 'Example: ruby ec2-ruby-example-elastic-ips.rb ' \
-      'i-033c48ef067af3dEX us-east-1'
+      'i-033c48ef067af3dEX us-west-2'
     exit 1
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
     instance_id = 'i-033c48ef067af3dEX'
-    region = 'REGION'
+     # Replace us-west-2 with the AWS Region you're using for AWS EC2.
+    region = 'us-west-2'
   # Otherwise, use the values as specified at the command prompt.
   else
     instance_id = ARGV[0]

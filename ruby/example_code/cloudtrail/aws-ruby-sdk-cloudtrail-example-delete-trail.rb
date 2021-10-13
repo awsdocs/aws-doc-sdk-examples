@@ -5,9 +5,6 @@
 # aws-ruby-sdk-cloudtrail-example-delete-trail.rb demonstrates how to delete
 # an Amazon CloudTrail trail using the AWS SDK for Ruby.
 
-# Inputs:
-# - REGION
-
 # snippet-start:[cloudtrail.Ruby.createTrail]
 
 require 'aws-sdk-cloudtrail'  # v2: require 'aws-sdk'
@@ -20,6 +17,7 @@ end
 name = ARGV[0]
 
 # Create client in us-west-2
+# Replace us-west-2 with the AWS Region you're using for AWS CloudTrail.
 client = Aws::CloudTrail::Client.new(region: 'us-west-2')
 
 begin

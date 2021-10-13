@@ -3,7 +3,7 @@
 
 # Purpose:
 # dynamodb-ruby-example-show-tables-names-and-item-count.rb demonstrates how to
-# get a count of items in a table in Amazon DynamoDB using the AWS SDK for Ruby.
+# count items in a table in Amazon DynamoDB using the AWS SDK for Ruby.
 
 # snippet-start:[dynamodb.Ruby.showTableNames]
 
@@ -48,6 +48,7 @@ end
 
 # Full example call:
 def run_me
+# Replace us-west-2 with the AWS Region you're using for AWS DynamoDB.
   region = 'us-west-2'
 
   dynamodb_client = Aws::DynamoDB::Client.new(region: region)

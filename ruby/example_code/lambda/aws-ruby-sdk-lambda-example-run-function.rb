@@ -3,7 +3,7 @@
 
 # Purpose:
 # aws-ruby-sdk-lambda-example-run-function.rb demonstrates how to
-# run a Lambda function using Amazon Key Management Services (KMS) using the AWS SKD for Ruby.
+# run an AWS Lambda function using the AWS SKD for Ruby.
 
 # snippet-start:[lambda.ruby.runFunction]
 
@@ -15,7 +15,7 @@ require 'os'
 if OS.windows?
   Aws.use_bundled_cert!
 end
-
+# Replace us-west-2 with the AWS Region you're using for Lambda.
 client = Aws::Lambda::Client.new(region: 'us-west-2')
 
 # Get the 10 most recent items

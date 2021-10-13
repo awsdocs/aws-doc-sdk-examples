@@ -2,12 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose:
-# ec2-ruby-example-create-instance.rb demonstrates how to
-# create and tag an Amazon Elastic Compute Cloud (Amazon EC2) instance.
-# using AWS SDK for Ruby.
-
-# Inputs:
-# - REGION - The AWS Region.
+# ec2-ruby-example-create-instance.rb demonstrates how to create and tag an
+# Amazon Elastic Compute Cloud (Amazon EC2) instance using AWS SDK for Ruby.
 
 # snippet-start:[ec2.Ruby.createInstances]
 
@@ -34,7 +30,7 @@ require 'base64'
 #   otherwise, false.
 # @example
 #   exit 1 unless instance_created?(
-#     Aws::EC2::Resource.new(region: 'us-east-1'),
+#     Aws::EC2::Resource.new(region: 'us-west-2'),
 #     'ami-0947d2ba12EXAMPLE',
 #     'my-key-pair',
 #     'my-key',
@@ -116,9 +112,10 @@ def run_me
     puts 'Usage: ruby ec2-ruby-example-create-instance.rb ' \
       'IMAGE_ID KEY_PAIR_NAME TAG_KEY TAG_VALUE INSTANCE_TYPE ' \
       'REGION [USER_DATA_FILE]'
+     # Replace us-west-2 with the AWS Region you're using for AWS EC2.
     puts 'Example: ruby ec2-ruby-example-create-instance.rb ' \
       'ami-0947d2ba12EXAMPLE my-key-pair my-key my-value t2.micro ' \
-      'us-east-1 my-user-data.txt'
+      'us-west-2 my-user-data.txt'
     exit 1
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
@@ -127,7 +124,8 @@ def run_me
     tag_key = 'my-key'
     tag_value = 'my-value'
     instance_type = 't2.micro'
-    region = 'REGION'
+    # Replace us-west-2 with the AWS Region you're using for AWS EC2.
+    region = 'us-west-2'
     user_data_file = 'my-user-data.txt'
   # Otherwise, use the values as specified at the command prompt.
   else

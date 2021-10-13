@@ -65,7 +65,7 @@ Most of these tests are designed to use stubs, to avoid generating unnecessary c
 
 ## Additional information
 
-- [Amazon Elastic BeanStalk Documentation](https://docs.aws.amazon.com/Elastic BeanStalk)
+- [Amazon Elastic BeanStalk Documentation](https://docs.aws.amazon.com/elastic-beanstalk/)
 - [AWS SDK for Ruby Documentation](https://docs.aws.amazon.com/sdk-for-ruby)
 - [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs)
 - [RSpec Documentation](https://rspec.info/documentation)

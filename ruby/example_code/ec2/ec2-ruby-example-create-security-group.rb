@@ -6,9 +6,6 @@
 # create an Amazon Elastic Compute Cloud (Amazon EC2) security group and
 # then adds an outbound rule to that security group.
 
-# Inputs:
-# - REGION - The AWS Region.
-
 # snippet-start:[ec2.Ruby.createSecurityGroup]
 
 require 'aws-sdk-ec2'
@@ -30,7 +27,7 @@ require 'aws-sdk-ec2'
 #   rule was added; otherwise, false.
 # @example
 #   exit 1 unless security_group_created_with_egress?(
-#     Aws::EC2::Resource.new(region: 'us-east-1'),
+#     Aws::EC2::Resource.new(region: 'us-west-2'),
 #     'my-security-group',
 #     'This is my security group.',
 #     'vpc-6713dfEX',
@@ -94,9 +91,10 @@ def run_me
     puts 'Usage: ruby ec2-ruby-example-create-security-group.rb ' \
       'GROUP_NAME DESCRIPTION VPC_ID IP_PROTOCOL FROM_PORT TO_PORT ' \
       'CIDR_IP_RANGE REGION'
+   # Replace us-west-2 with the AWS Region you're using for AWS EC2.
     puts 'Example: ruby ec2-ruby-example-create-security-group.rb ' \
       'my-security-group \'This is my security group.\' vpc-6713dfEX ' \
-      'tcp 22 22 \'0.0.0.0/0\' us-east-1'
+      'tcp 22 22 \'0.0.0.0/0\' us-west-2'
     exit 1
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
@@ -107,7 +105,8 @@ def run_me
     from_port = '22'
     to_port = '22'
     cidr_ip_range = '0.0.0.0/0'
-    region = 'REGION'
+    # Replace us-west-2 with the AWS Region you're using for AWS EC2.
+    region = 'us-west-2'
   # Otherwise, use the values as specified at the command prompt.
   else
     group_name = ARGV[0]

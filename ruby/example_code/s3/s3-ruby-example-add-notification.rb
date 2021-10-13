@@ -29,11 +29,11 @@ require 'aws-sdk-s3'
 #   otherwise, false.
 # @example
 #   exit 1 unless bucket_notification_configuration_set?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket',
 #     ['s3:ObjectCreated:*'],
 #     'sns',
-#     'arn:aws:sns:us-east-1:111111111111:my-topic'
+#     'arn:aws:sns:us-west-2:111111111111:my-topic'
 #   )
 def bucket_notification_configuration_set?(
   s3_client,
@@ -97,17 +97,18 @@ def run_me
 
   # For an SNS topic:
   send_to_type = 'sns'
-  resource_arn = 'arn:aws:sns:us-east-1:111111111111:my-topic'
+  resource_arn = 'arn:aws:sns:us-west-2:111111111111:my-topic'
 
   # For an SQS queue:
   # send_to_type = 'sqs'
-  # resource_arn = 'arn:aws:sqs:us-east-1:111111111111:my-queue'
+  # resource_arn = 'arn:aws:sqs:us-west-2:111111111111:my-queue'
 
   # For a Lambda function:
   # send_to_type = 'lambda'
-  # resource_arn = 'arn:aws:lambda:us-east-1:111111111111:function:myFunction'
+  # resource_arn = 'arn:aws:lambda:us-west-2:111111111111:function:myFunction'
 
-  region = 'us-east-1'
+  # Replace us-west-2 with the AWS Region you're using for Amazon S3.
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
 
   if bucket_notification_configuration_set?(

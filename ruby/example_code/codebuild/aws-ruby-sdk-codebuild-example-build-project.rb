@@ -3,10 +3,8 @@
 
 # Purpose:
 # aws-ruby-sdk-codebuild-example-build-project.rb demonstrates how to build
-# an Amazon CloudWatch projects using the AWS SDK for Ruby.
+# an Amazon CloudWatch project using the AWS SDK for Ruby.
 
-# Inputs:
-# - REGION - The AWS Region.
 
 # snippet-start:[codebuild.Ruby.buildProject]
 
@@ -20,7 +18,7 @@ if ARGV.length != 1
 else
   project_name = ARGV[0]
 end
-
+# Replace us-west-2 with the AWS Region you're using for AWS CodeBuild.
 client = Aws::CodeBuild::Client.new(region: 'us-west-2')
 
 begin

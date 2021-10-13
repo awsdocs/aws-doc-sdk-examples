@@ -102,6 +102,7 @@ end
 # Full example call:
 def run_me
   metric_namespace = 'SITE/TRAFFIC'
+  # Replace us-west-2 with the AWS Region you're using for AWS CloudWatch.
   region = 'us-east-1'
 
   cloudwatch_client = Aws::CloudWatch::Client.new(region: region)

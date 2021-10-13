@@ -14,7 +14,7 @@ require 'aws-sdk-s3'
 #   number must be between 1 and 50. If not specified, only up to the
 #   first 50 objects will be listed.
 # @example
-#   list_buckets(Aws::S3::Client.new(region: 'us-east-1'), 25)
+#   list_buckets(Aws::S3::Client.new(region: 'us-west-2'), 25)
 def list_buckets(s3_client, max_buckets = 50)
   if max_buckets < 1 || max_buckets > 50
     puts 'Maximum number of buckets to request must be between 1 and 50.'
@@ -45,8 +45,9 @@ rescue StandardError => e
   puts "Error listing buckets: #{e.message}"
 end
 
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
   list_buckets(s3_client, 25)
 end

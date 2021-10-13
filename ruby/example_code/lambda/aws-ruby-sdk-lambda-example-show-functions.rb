@@ -3,13 +3,12 @@
 
 # Purpose:
 # aws-ruby-sdk-lambda-example-run-function.rb demonstrates how to
-# list your Lambda functions using Amazon Key Management Services (KMS) using the AWS SKD for Ruby.
+# list your AWS Lambda functions using the AWS SKD for Ruby.
 
 # snippet-start:[lambda.ruby.listFunctions]
 
-
 require 'aws-sdk-lambda'  # v2: require 'aws-sdk'
-
+# Replace us-west-2 with the AWS Region you're using for Lambda.
 client = Aws::Lambda::Client.new(region: 'us-west-2')
 
 client.list_functions.functions.each do |function|

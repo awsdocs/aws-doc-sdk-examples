@@ -11,8 +11,8 @@ require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
 
 # Uncomment for Windows.
 # Aws.use_bundled_cert!
-
-sqs = Aws::SQS::Client.new(region: 'us-east-1')
+# Replace us-west-2 with the AWS Region you're using for Amazon SQS.
+sqs = Aws::SQS::Client.new(region: 'us-west-2')
 
 # Create a queue representing a dead letter queue.
 dead_letter_queue_name = "dead-letter-queue"

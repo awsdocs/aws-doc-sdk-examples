@@ -7,9 +7,6 @@
 # saves the resulting RSA private key file locally in the calling
 # user's home directory.
 
-# Inputs:
-# - REGION - The AWS Region.
-
 # snippet-start:[ec2.Ruby.createKeyPair]
 
 require 'aws-sdk-ec2'
@@ -21,7 +18,7 @@ require 'aws-sdk-ec2'
 #   created; otherwise, false.
 # @example
 #   exit 1 unless key_pair_created?(
-#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     Aws::EC2::Client.new(region: 'us-west-2'),
 #     'my-key-pair'
 #   )
 def key_pair_created?(ec2_client, key_pair_name)
@@ -45,13 +42,15 @@ def run_me
   if ARGV[0] == '--help' || ARGV[0] == '-h'
     puts 'Usage: ruby ec2-ruby-example-create-key-pair.rb ' \
       'KEY_PAIR_NAME REGION'
+    # Replace us-west-2 with the AWS Region you're using for AWS EC2.
     puts 'Example: ruby ec2-ruby-example-create-key-pair.rb ' \
-      'my-key-pair us-east-1'
+      'my-key-pair us-west-2'
     exit 1
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
     key_pair_name = 'my-key-pair'
-    region = 'REGION'
+    # Replace us-west-2 with the AWS Region you're using for AWS EC2.
+    region = 'us-west-2 '
   # Otherwise, use the values as specified at the command prompt.
   else
     key_pair_name = ARGV[0]

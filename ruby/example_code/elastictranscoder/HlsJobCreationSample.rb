@@ -4,8 +4,6 @@
 # Purpose:
 # eb_list_stacks.rb demonstrates how to create an HLS job using the AWS SKD for Ruby.
 
-# Inputs:
-# - REGION - The AWS Region.
 
 # snippet-start:[elastictranscoder.ruby.create_hls_job.import]
 require 'aws-sdk-elastictranscoder'
@@ -19,8 +17,8 @@ pipeline_id = 'Enter your pipeline id here.'
 # This is the name of the input key that you would like to transcode.
 input_key = 'Enter your input key here.'
 
-# Region where the sample will be run
-region = 'REGION'
+# Replace us-west-2 with the AWS Region you're using for Elastic Transcoder.
+region = 'us-west-2'
 
 # HLS Presets that will be used to create an adaptive bitrate playlist.
 hls_64k_audio_preset_id = '1351620000001-200071'

@@ -7,15 +7,6 @@ This folder contains code examples that demonstrate how to use the AWS SDK for R
 ## Code examples
 This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) AWS Polly examples:
 
-###  Cross-service examples
-- [Create and trigger a rule in AWS Polly Events](./cw-ruby-example-send-events-ec2.rb)
-
-###  Usage examples
-- [Create an alarm and disable all actions for the alarm](./cw-ruby-example-alarm-actions.rb)
-- [List alarms, create a new alram, and delete an alarm](./cw-ruby-example-alarm-basics.rb)
-- [Add a datapoint to a metric, and list all metrics for a namespace](./cw-ruby-example-metrics-basics.rb)
-- [List topics](./sns-ruby-example-show-topics.rb)
-
 ### API examples
 - [Describe voices](./polly_describe_voices.rb)
 - [List lexicons](./polly_list_lexicons.rb)
@@ -73,7 +64,7 @@ Most of these tests are designed to use stubs, to avoid generating unnecessary c
 
 ## Additional information
 
-- [AWS Polly Documentation](https://docs.aws.amazon.com/Elastic TransCoder)
+- [AWS Polly Documentation](https://docs.aws.amazon.com/polly/)
 - [AWS SDK for Ruby Documentation](https://docs.aws.amazon.com/sdk-for-ruby)
 - [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs)
 - [RSpec Documentation](https://rspec.info/documentation)

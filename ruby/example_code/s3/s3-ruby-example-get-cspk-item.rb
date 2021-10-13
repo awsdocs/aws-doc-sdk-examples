@@ -30,7 +30,7 @@ require 'openssl'
 #       key_wrap_schema: :rsa_oaep_sha1,
 #       content_encryption_schema: :aes_gcm_no_padding,
 #       security_profile: :v2,
-#       region: 'us-east-1'
+#       region: 'us-west-2'
 #     ),
 #     'doc-example-bucket',
 #     'my-file.txt'
@@ -51,10 +51,11 @@ end
 
 # Full example call:
 # Prerequisites: the same RSA key pair you originally used to encrypt the object.
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
   bucket_name = 'doc-example-bucket'
   object_key = 'my-file.txt'
-  region = 'us-east-1'
+  region = 'us-west-2'
   private_key_file = 'my-private-key.pem'
   private_key = OpenSSL::PKey::RSA.new(File.read(private_key_file))
 

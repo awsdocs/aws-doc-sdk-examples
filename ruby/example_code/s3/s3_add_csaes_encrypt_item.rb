@@ -24,7 +24,7 @@ require 'openssl'
 #   otherwise, false.
 # @example
 #   s3_encryption_client = Aws::S3::EncryptionV2::Client.new(
-#     region: 'us-east-1',
+#     region: 'us-west-2',
 #     encryption_key: get_random_aes_256_gcm_key, # See later in this file.
 #     key_wrap_schema: :aes_gcm,
 #     content_encryption_schema: :aes_gcm_no_padding,
@@ -83,10 +83,11 @@ def get_random_aes_256_gcm_key
 end
 
 # Full example call:
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
   bucket_name = 'doc-example-bucket'
   object_key = 'my-file.txt'
-  region = 'us-east-1'
+  region = 'us-west-2'
   object_content = File.read(object_key)
 
   # The following call generates a random AES256-GCM key. Alternatively, you can

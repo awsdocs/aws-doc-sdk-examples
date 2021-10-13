@@ -8,6 +8,7 @@
 # snippet-start:[cloudwatch.Ruby.createAnAlarm]
 require 'aws-sdk-cloudwatch'
 
+# Creates or updates an alarm in Amazon CloudWatch.
 
 # @param cloudwatch_client [Aws::CloudWatch::Client]
 #   An initialized CloudWatch client.
@@ -138,6 +139,7 @@ def run_me
   evaluation_periods = 1 # More than one day.
   threshold = 1 # One object.
   comparison_operator = 'GreaterThanThreshold' # More than one object.
+  # Replace us-west-2 with the AWS Region you're using for AWS CloudWatch.
   region = 'us-east-1'
 
   cloudwatch_client = Aws::CloudWatch::Client.new(region: region)

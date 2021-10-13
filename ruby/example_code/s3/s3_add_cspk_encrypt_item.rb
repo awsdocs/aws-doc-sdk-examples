@@ -104,7 +104,7 @@ end
 #   the object to upload.
 # @return [Boolean] true if the object was uploaded; otherwise, false.
 # @example
-#   s3_client = Aws::S3::Client.new(region: 'us-east-1')
+#   s3_client = Aws::S3::Client.new(region: 'us-west-2')
 #   if encrypted_object_uploaded?(
 #     s3_client,
 #     'doc-example-bucket',
@@ -133,6 +133,7 @@ rescue StandardError => e
 end
 
 # Full example call:
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
   key_strings = create_public_private_rsa_key_pair_strings
   public_key_string = key_strings['public_key_string']
@@ -142,7 +143,7 @@ def run_me
   content_to_encrypt = 'Hello, World!'
   bucket_name = 'doc-example-bucket'
   object_key = 'my-file.txt'
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
 
   unless public_private_rsa_key_pair_files_created?(

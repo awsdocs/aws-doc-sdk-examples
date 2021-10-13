@@ -5,13 +5,13 @@
 # aws-ruby-sdk-cloudtrail-example-describe-trails.rb demonstrates how to
 # retrieve details about your an Amazon CloudTrail trails using the AWS SDK for Ruby.
 
-# Inputs:
-# - REGION - The AWS Region.
 
 # snippet-start:[cloudtrail.Ruby.createTrail]
 require 'aws-sdk-cloudtrail'  # v2: require 'aws-sdk'
 
-# Create client in us-west-2
+# Create client in us-west-2.
+# Replace us-west-2 with the AWS Region you're using for AWS CloudTrail.
+
 client = Aws::CloudTrail::Client.new(region: 'REGION')
 
 resp = client.describe_trails({})

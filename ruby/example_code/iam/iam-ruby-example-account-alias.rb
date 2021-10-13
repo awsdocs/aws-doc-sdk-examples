@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
-# iam-ruby-example-account-alias.rb demonstrates how doing the following using the AWS SDK for Ruby:
+# iam-ruby-example-account-alias.rb demonstrates how to do the following using the AWS SDK for Ruby:
 # 1. List available AWS account aliases.
 # 2. Create an account alias.
 # 3. Delete an account alias.

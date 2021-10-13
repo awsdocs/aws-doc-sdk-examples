@@ -67,6 +67,7 @@ Most of these tests are designed to use stubs, to avoid generating unnecessary c
 
 
 ## Resources
+- [Amazon Simple Notification Service Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
 - [AWS SDK for Ruby repo](https://github.com/aws/aws-sdk-ruby) . 
 - [AWS SDK for Ruby Developer Guide](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/welcome.html)
 - [AWS SDK for Ruby v3 API Reference Guide](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/) 

@@ -32,7 +32,7 @@ end
 # @param bucket_name [String] The name of the bucket.
 # @return [Boolean] true if the bucket exists; otherwise, false.
 # @example
-#   s3_client = Aws::S3::Client.new(region: 'us-east-1')
+#   s3_client = Aws::S3::Client.new(region: 'us-west-2')
 #   exit 1 unless bucket_exists?(s3_client, 'doc-example-bucket')
 def bucket_exists?(s3_client, bucket_name)
   response = s3_client.list_buckets
@@ -51,7 +51,7 @@ end
 # @param file_name [String] The name of the file.
 # @return [Boolean] true if the file was uploaded; otherwise, false.
 # @example
-#   s3_client = Aws::S3::Client.new(region: 'us-east-1')
+#   s3_client = Aws::S3::Client.new(region: 'us-west-2')
 #   exit 1 unless upload_file_to_bucket?(s3_client, 'doc-example-bucket', 'my-file.txt')
 def upload_file_to_bucket?(s3_client, bucket_name, file_name)
   s3_client.put_object(
@@ -66,12 +66,13 @@ rescue StandardError => e
 end
 
 # Full example call:
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
   proposed_file_names = ['my-file-1.txt', 'my-file-2.txt']
   existing_file_names = []
   uploaded_file_names = []
   bucket_name = 'doc-example-bucket'
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
 
   puts 'Checking whether the specified files exist and are indeed files...'

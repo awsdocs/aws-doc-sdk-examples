@@ -2,7 +2,26 @@
 
 ## Purpose
 
-This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to get started with automating Amazon DynamoDB.
+This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to get 
+started with automating Amazon DynamoDB.
+
+## Code examples
+
+### API examples
+- [Create a table](./MoviesCreateTable.rb)
+- [Delete a table](./MoviesDeleteTable.rb)
+- [Add an item to a table](./MoviesItemOps01.rb)
+- [Get an item from a table](./MoviesItemOps02.rb)
+- [Update an item in a table](./MoviesItemOps03.rb)
+- [Update an item in a table](./MoviesItemOps04.rb)
+- [Update an item in a table](./MoviesItemOps05.rb)
+- [Delete an item from a table](./MoviesItemOps06.rb)
+- [Load JSON to a table](./MoviesLoadData.rb)
+- [Query for items from a table](./MoviesQuery01.rb)
+- [Query for items from a table](./MoviesQuery02.rb)
+- [Scan for items on a table](./MoviesScan.rb)
+
+
 
 ## Prerequisites
 

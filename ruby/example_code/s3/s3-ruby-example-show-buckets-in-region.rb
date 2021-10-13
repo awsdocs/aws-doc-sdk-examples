@@ -2,7 +2,7 @@
 # SPDX - License - Identifier: Apache - 2.0
 
 # Purpose
-# This code example demonstrates how to checks to see which Amazon Simple Storage Service (Amazon S3)
+# This code example demonstrates how to check to see which Amazon Simple Storage Service (Amazon S3)
 # buckets accessible to you and were initially created with the target AWS Region specified.
 
 # snippet-start:[s3.ruby.s3-ruby-example-show-buckets-in-region]
@@ -13,8 +13,8 @@ require 'aws-sdk-s3'
 # @param region [String] The Region to check.
 # @example
 #   list_accessible_buckets_in_region(
-#     Aws::S3::Client.new(region: 'us-east-1'),
-#     'us-east-1'
+#     Aws::S3::Client.new(region: 'us-west-2'),
+#     'us-west-2'
 #   )
 def list_accessible_buckets_in_region(s3_client, region)
   buckets = s3_client.list_buckets.buckets
@@ -44,8 +44,9 @@ rescue StandardError => e
 end
 
 # Full example call:
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
 
   list_accessible_buckets_in_region(s3_client, region)

@@ -3,12 +3,9 @@
 
 # Purpose:
 # ec2-ruby-example-create-subnet.rb demonstrates how to
-# creates a subnet within a virtual private cloud (VPC) in
+# create a subnet within a virtual private cloud (VPC) in
 # Amazon Virtual Private Cloud (Amazon VPC) and then tags
 # the subnet.
-
-# Inputs:
-# - REGION - The AWS Region.
 
 # snippet-start:[ec2.Ruby.createSubnet]
 
@@ -34,10 +31,10 @@ require 'aws-sdk-ec2'
 #   otherwise, false.
 # @example
 #   exit 1 unless subnet_created_and_tagged?(
-#     Aws::EC2::Resource.new(region: 'us-east-1'),
+#     Aws::EC2::Resource.new(region: 'us-west-2'),
 #     'vpc-6713dfEX',
 #     '10.0.0.0/24',
-#     'us-east-1a',
+#     'us-west-2a',
 #     'my-key',
 #     'my-value'
 #   )
@@ -84,17 +81,19 @@ def run_me
   if ARGV[0] == '--help' || ARGV[0] == '-h'
     puts 'Usage:   ruby ec2-ruby-example-create-subnet.rb ' \
       'VPC_ID CIDR_BLOCK AVAILABILITY_ZONE TAG_KEY TAG_VALUE REGION'
+    # Replace us-west-2 with the AWS Region you're using for AWS EC2.
     puts 'Example: ruby ec2-ruby-example-create-subnet.rb ' \
-      'vpc-6713dfEX 10.0.0.0/24 us-east-1a my-key my-value us-east-1'
+      'vpc-6713dfEX 10.0.0.0/24 us-west-2a my-key my-value us-west-2'
     exit 1
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
     vpc_id = 'vpc-6713dfEX'
     cidr_block = '10.0.0.0/24'
-    availability_zone = 'us-east-1a'
+    availability_zone = 'us-west-2a'
     tag_key = 'my-key'
     tag_value = 'my-value'
-    region = 'REGION'
+    # Replace us-west-2 with the AWS Region you're using for AWS EC2.
+    region = 'us-west-2'
   # Otherwise, use the values as specified at the command prompt.
   else
     vpc_id = ARGV[0]

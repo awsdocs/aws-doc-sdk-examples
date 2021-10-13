@@ -26,7 +26,7 @@ require 'digest/md5'
 #   otherwise, false.
 # @example
 #   exit 1 unless customer_key_sse_encrypted_object_uploaded?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket',
 #     'my-file.txt',
 #     'This is the content of my-file.txt.',
@@ -78,11 +78,12 @@ def get_random_aes_256_gcm_key
   return random_key_64
 end
 
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
   bucket_name = 'doc-example-bucket'
   object_key = 'my-file.txt'
   content_to_encrypt = 'This is the content of my-file.txt.'
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
 
   # The following call generates a random AES256-GCM key. Alternatively, you can

@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose:
-# polly_list_lexicons.rb demonstrates how to produces an MP3 file containing the synthesized
+# polly_list_lexicons.rb demonstrates how to produce an MP3 file containing the synthesized
 # speech from a text file using Amazon Polly using the AWS SKD for Ruby.
 
 # snippet-start:[polly.ruby.synthesizeSpeech]

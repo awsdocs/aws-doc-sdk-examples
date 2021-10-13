@@ -8,7 +8,7 @@
 # snippet-start:[rds.ruby.createDatabaseSnapshot]
 
 require 'aws-sdk-rds'  # v2: require 'aws-sdk'
-
+# Replace us-west-2 with the AWS Region you're using for Amazon RDS.
 rds = Aws::RDS::Resource.new(region: 'us-west-2')
 
 instance = rds.db_instance(instance_name)

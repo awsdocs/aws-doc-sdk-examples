@@ -21,7 +21,7 @@ require 'securerandom'
 # @return [Boolean] true if the bucket was created; otherwise, false.
 # @example
 #   exit 1 unless bucket_created?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket'
 #   )
 def bucket_created?(s3_client, bucket_name)
@@ -46,7 +46,7 @@ end
 # @return [Boolean] true if the bucket policy was added; otherwise, false.
 # @example
 #   exit 1 unless bucket_policy_added?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket',
 #     'arn:aws:iam::111111111111:user/SomeUser',
 #     's3:GetObject'
@@ -90,7 +90,7 @@ end
 # @return [Boolean] true if the bucket policy was updated; otherwise, false.
 # @example
 #   exit 1 unless bucket_policy_aws_principal_updated?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket',
 #     'arn:aws:iam::111111111111:user/SomeOtherUser'
 #   )
@@ -126,7 +126,7 @@ end
 # @return [Boolean] true if the bucket policy was deleted; otherwise, false.
 # @example
 #   exit 1 unless bucket_policy_deleted?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket'
 #   )
 def bucket_policy_deleted?(s3_client, bucket_name)
@@ -148,7 +148,7 @@ end
 # @return [Boolean] true if the bucket was deleted; otherwise, false.
 # @example
 #   exit 1 unless bucket_deleted?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket'
 #   )
 def bucket_deleted?(s3_client, bucket_name)
@@ -164,7 +164,7 @@ def run_me
   aws_principal = 'arn:aws:iam::111111111111:user/SomeUser'
   new_aws_principal = 'arn:aws:iam::111111111111:user/SomeOtherUser'
   action = 's3:GetObject'
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
   bucket_name = 'bucket-' + SecureRandom.uuid
 

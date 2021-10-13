@@ -3,10 +3,8 @@
 
 # Purpose:
 # JobStatusNotificationSample.rb demonstrates how to create a notification handler for an
-# Elastic Transcoder job using the AWS SKD for Ruby.
+# Amazon Elastic Transcoder job using the AWS SKD for Ruby.
 
-# Inputs:
-# - REGION - The AWS Region.
 
 # snippet-start:[elastictranscoder.ruby.create_job_status_notification.import]
 require 'aws-sdk-elastictranscoder'
@@ -32,8 +30,8 @@ preset_id = '1351620000001-000020'
 # All outputs will have this prefix prepended to their output key.
 output_key_prefix = 'elastic-transcoder-samples/output/'
 
-# Region where you setup your AWS resources.
-region = 'REGION'
+# Replace us-west-2 with the AWS Region you're using for Elastic Transcoder.
+region = 'us-west-2'
 
 def create_elastic_transcoder_job(region, pipeline_id, input_key, preset_id, output_key_prefix)
   # Create the client for Elastic Transcoder.

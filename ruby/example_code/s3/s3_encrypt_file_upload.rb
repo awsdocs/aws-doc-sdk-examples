@@ -2,9 +2,9 @@
 # SPDX - License - Identifier: Apache - 2.0
 
 # Purpose
-# This code example demonstrates how to uploads a file to an Amazon Simple Storage Solution (Amazon S3)
-# bucket and then encrypts the file server-side by using the 256-bit
-# Advanced Encryption Standard (AES-256) block cipher.
+# This code example demonstrates how to upload a file to an Amazon Simple Storage Solution (Amazon S3)
+# bucket and then encrypts the file server-side by using the 256-bit Advanced Encryption Standard (AES-256)
+# block cipher.
 
 # snippet-start:[s3.ruby.s3_encrypt_file_upload.rb]
 require 'aws-sdk-s3'
@@ -21,7 +21,7 @@ require 'aws-sdk-s3'
 #   encrypted; otherwise, false.
 # @example
 #   exit 1 unless upload_file_encrypted_aes256_at_rest?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket',
 #     'my-file.txt',
 #     'This is the content of my-file.txt.'
@@ -44,12 +44,12 @@ rescue StandardError => e
   return false
 end
 # snippet-end:[s3.ruby.s3_encrypt_file_upload.rb]
-
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
   bucket_name = 'doc-example-bucket'
   object_key = 'my-file.txt'
   object_content = 'This is the content of my-file.txt.'
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
 
   if upload_file_encrypted_aes256_at_rest?(

@@ -11,7 +11,7 @@ require 'aws-sdk-sts'
 
 # @param sqs_client [Aws::SQS::Client] An initialized Amazon SQS client.
 # @example
-#   list_queue_urls(Aws::SQS::Client.new(region: 'us-east-1'))
+#   list_queue_urls(Aws::SQS::Client.new(region: 'us-west-2'))
 def list_queue_urls(sqs_client)
   queues = sqs_client.list_queues
 
@@ -28,8 +28,8 @@ end
 # @param queue_url [String] The URL of the queue.
 # @example
 #   list_queue_attributes(
-#     Aws::SQS::Client.new(region: 'us-east-1'),
-#     'https://sqs.us-east-1.amazonaws.com/111111111111/my-queue'
+#     Aws::SQS::Client.new(region: 'us-west-2'),
+#     'https://sqs.us-west-2.amazonaws.com/111111111111/my-queue'
 #   )
 def list_queue_attributes(sqs_client, queue_url)
   attributes = sqs_client.get_queue_attributes(
@@ -46,8 +46,9 @@ rescue StandardError => e
 end
 
 # Full example call:
+# Replace us-west-2 with the AWS Region you're using for Amazon SQS.
 def run_me
-  region = 'us-east-1'
+  region = 'us-west-2'
   queue_name = 'my-queue'
 
   sqs_client = Aws::SQS::Client.new(region: region)
@@ -58,7 +59,7 @@ def run_me
   sts_client = Aws::STS::Client.new(region: region)
 
   # For example:
-  # 'https://sqs.us-east-1.amazonaws.com/111111111111/my-queue'
+  # 'https://sqs.us-west-2.amazonaws.com/111111111111/my-queue'
   queue_url = 'https://sqs.' + region + '.amazonaws.com/' +
     sts_client.get_caller_identity.account + '/' + queue_name
 

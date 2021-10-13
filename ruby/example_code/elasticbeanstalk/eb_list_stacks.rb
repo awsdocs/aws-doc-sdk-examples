@@ -2,11 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose:
-# eb_list_stacks.rb demonstrates how to
-# list your Elastic Beanstalk solution stacks using the AWS SKD for Ruby.
-
-# Inputs:
-# - REGION - The AWS Region.
+# eb_list_stacks.rb demonstrates how to list your Amazon Elastic Beanstalk
+# solution stacks using the AWS SKD for Ruby.
 
 # snippet-start:[eb.Ruby.listStacks]
 require 'aws-sdk-elasticbeanstalk'  # v2: require 'aws-sdk'
@@ -39,8 +36,8 @@ If REGION is not supplied, defaults to 'us-east-1'
 -h     Shows this message and quits
 
 DOC
-
-region = 'us-east-1'
+# Replace us-west-2 with the AWS Region you're using for Elastic Beanstalk.
+region = 'us-west-2'
 filter = ''
 
 i = 0

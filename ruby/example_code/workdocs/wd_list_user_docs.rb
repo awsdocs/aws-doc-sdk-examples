@@ -2,7 +2,7 @@
 # SPDX - License - Identifier: Apache - 2.0
 
 # Purpose
-# This code example demonstrates how to list the documents for each of your WorkDocs users.
+# This code example demonstrates how to list the documents for each of your Amazon WorkDocs users.
 
 # snippet-start:[s3.wd_list_user_docs.rb]
 
@@ -24,7 +24,7 @@ def get_user_folder(client, orgId, user_email)
 
   return root_folder
 end
-
+# Replace us-west-2 with the AWS Region you're using for Amazon WorkDocs.
 client = Aws::WorkDocs::Client.new(region: 'us-west-2')
 
 # Set to the email address of a user

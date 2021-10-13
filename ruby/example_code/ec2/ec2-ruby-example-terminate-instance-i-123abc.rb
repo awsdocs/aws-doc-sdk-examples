@@ -22,7 +22,7 @@ require 'aws-sdk-ec2'
 # @return [Boolean] true if the instance was terminated; otherwise, false.
 # @example
 #   exit 1 unless instance_terminated?(
-#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     Aws::EC2::Client.new(region: 'us-west-2'),
 #     'i-123abc'
 #   )
 def instance_terminated?(ec2_client, instance_id)
@@ -52,13 +52,15 @@ def run_me
   if ARGV[0] == '--help' || ARGV[0] == '-h'
     puts 'Usage:   ruby ec2-ruby-example-terminate-instance-i-123abc.rb ' \
       'INSTANCE_ID REGION '
+   # Replace us-west-2 with the AWS Region you're using for AWS EC2.
     puts 'Example: ruby ec2-ruby-example-terminate-instance-i-123abc.rb ' \
-      'i-123abc us-east-1'
+      'i-123abc us-west-2'
     exit 1
   # If no values are specified at the command prompt, use these default values.
+  # Replace us-west-2 with the AWS Region you're using for AWS EC2.
   elsif ARGV.count.zero?
     instance_id = 'i-123abc'
-    region = 'REGION'
+    region = 'us-west-2'
   # Otherwise, use the values as specified at the command prompt.
   else
     instance_id = ARGV[0]

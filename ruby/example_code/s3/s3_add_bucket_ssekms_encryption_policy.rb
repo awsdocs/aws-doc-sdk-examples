@@ -3,6 +3,7 @@
 
 # Purpose
 # This code example demonstrates how deny uploads of unencrypted objects to an Amazon Simple Storage Solution (Amazon S3) bucket.
+
 # snippet-start:[s3.ruby.s3_add_bucket_ssekms_encryption_policy]
 
 require 'aws-sdk-s3'
@@ -17,7 +18,7 @@ require 'aws-sdk-s3'
 #   deny uploading unencrypted objects; otherwise, false.
 # @example
 #   if deny_uploads_without_encryption?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket'
 #   )
 #     puts 'Policy added.'
@@ -69,9 +70,10 @@ rescue StandardError => e
 end
 
 # Full example call:
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
   if deny_uploads_without_encryption?(
-    Aws::S3::Client.new(region: 'us-east-1'),
+    Aws::S3::Client.new(region: 'us-west-2'),
     'doc-example-bucket'
   )
     puts 'Policy added.'

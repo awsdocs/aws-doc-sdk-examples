@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate AWS Key Management Service.
+This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate AWS Key Management Service (KMS).
 
 ## Code examples
 This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) AWS Key Management Service examples:
@@ -20,7 +20,7 @@ This is a workspace where you can find the following AWS SDK for Ruby version 3 
   [Configuring the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html) in the 
   *AWS SDK for Ruby Developer Guide*.
 - To run the code examples, Ruby version 1.9 or later. For Ruby download and installation instructions, see 
-  [Download Ruby](https://www.ruby-lang.org/en/downloads/) on the Ruby Progamming Language website.
+  [Download Ruby](https://www.ruby-lang.org/en/downloads/) on the Ruby Programming Language website.
 - To test the code examples, RSpec 3.9 or later. For RSpec download and installation instructions, see the [rspec/rspec](https://github.com/rspec/rspec) repository in GitHub.
 - The AWS SDK for Ruby. For AWS SDK for Ruby download and installation instructions, see 
   [Install the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html) in the 
@@ -65,7 +65,7 @@ Most of these tests are designed to use stubs, to avoid generating unnecessary c
 
 ## Additional information
 
-- [AWS Key Management Service Documentation](https://docs.aws.amazon.com/Elastic TransCoder)
+- [AWS Key Management Service Documentation](https://docs.aws.amazon.com/kms/)
 - [AWS SDK for Ruby Documentation](https://docs.aws.amazon.com/sdk-for-ruby)
 - [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs)
 - [RSpec Documentation](https://rspec.info/documentation)

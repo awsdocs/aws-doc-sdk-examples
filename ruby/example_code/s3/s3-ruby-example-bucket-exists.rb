@@ -2,7 +2,7 @@
 # SPDX - License - Identifier: Apache - 2.0
 
 # Purpose
-# s3-ruby-example-bucket-exists.rb demonstrates checks to see whether an Amazon Simple Storage Service
+# s3-ruby-example-bucket-exists.rb demonstrates how to check whether an Amazon Simple Storage Service
 # (Amazon S3) bucket exists.
 
 # snippet-start:[s3.ruby.s3-ruby-example-bucket-exists]
@@ -14,7 +14,7 @@ require 'aws-sdk-s3'
 # @return [Boolean] true if the bucket exists; otherwise, false.
 # @example
 #   exit 1 unless bucket_exists?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket'
 #   )
 def bucket_exists?(s3_client, bucket_name)
@@ -29,9 +29,10 @@ rescue StandardError => e
 end
 
 # Full example call:
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
   bucket_name = 'doc-example-bucket'
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
 
   if bucket_exists?(s3_client, bucket_name)

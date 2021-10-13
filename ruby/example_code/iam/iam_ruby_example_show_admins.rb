@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
-# This code example determines of the users available to you in
+# This code example determines the users available to you in
 # AWS Identity and Access Management (IAM), how many of them are associated
 # with a policy that provides administrator privileges.
 #

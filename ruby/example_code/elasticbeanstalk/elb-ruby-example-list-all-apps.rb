@@ -2,17 +2,15 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose:
-# elb-ruby-example-list-all-apps.rb demonstrates how to
-# list your Elastic Beanstalk applications and environments using the AWS SKD for Ruby.
-
-# Inputs:
-# - REGION - The AWS Region.
+# elb-ruby-example-list-all-apps.rb demonstrates how to list your Amazon
+# Elastic Beanstalk applications and environments using the AWS SKD for Ruby.
 
 # snippet-start:[eb.Ruby.listStacks]
 
 require 'aws-sdk-elasticbeanstalk'  # v2: require 'aws-sdk'
 
-eb = Aws::ElasticBeanstalk::Client.new(region: 'REGION')
+# Replace us-west-2 with the AWS Region you're using for Elastic Beanstalk.
+eb = Aws::ElasticBeanstalk::Client.new(region: 'us-west-2')
 
 eb.describe_applications.applications.each do |a|
   puts "Name:         #{a.application_name}"

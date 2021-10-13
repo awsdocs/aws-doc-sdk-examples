@@ -3,13 +3,10 @@
 
 # Purpose:
 # ec2-ruby-example-manage-instances.rb demonstrates how to
-# stops an Amazon Elastic Compute Cloud (Amazon EC2) instance,
-# restarts the instance, reboots the instance,
-# enables detailed monitoring for the instance, and
-# displays information about available instances.
-
-# Inputs:
-# - REGION - The AWS Region.
+# stop an Amazon Elastic Compute Cloud (Amazon EC2) instance,
+# restart the instance, reboot the instance,
+# enable detailed monitoring for the instance, and
+# display information about available instances.
 
 # snippet-start:[ec2.Ruby.manageInstances]
 
@@ -34,7 +31,7 @@ require 'aws-sdk-ec2'
 # @param instance_id [String] The ID of the instance.
 # @example
 #   wait_for_instance(
-#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     Aws::EC2::Client.new(region: 'us-west-2'),
 #     :instance_stopped,
 #     'i-033c48ef067af3dEX'
 #   )
@@ -56,7 +53,7 @@ end
 # @return [Boolean] true if the instance was stopped; otherwise, false.
 # @example
 #   exit 1 unless instance_stopped?(
-#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     Aws::EC2::Client.new(region: 'us-west-2'),
 #     'i-033c48ef067af3dEX'
 #   )
 def instance_stopped?(ec2_client, instance_id)
@@ -79,7 +76,7 @@ end
 # @return [Boolean] true if the instance was restarted; otherwise, false.
 # @example
 #   exit 1 unless instance_restarted?(
-#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     Aws::EC2::Client.new(region: 'us-west-2'),
 #     'i-033c48ef067af3dEX'
 #   )
 def instance_restarted?(ec2_client, instance_id)
@@ -102,7 +99,7 @@ end
 # @return [Boolean] true if the instance was rebooted; otherwise, false.
 # @example
 #   exit 1 unless instance_rebooted?(
-#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     Aws::EC2::Client.new(region: 'us-west-2'),
 #     'i-033c48ef067af3dEX'
 #   )
 def instance_rebooted?(ec2_client, instance_id)
@@ -126,7 +123,7 @@ end
 # @return [Boolean] true if detailed monitoring was enabled; otherwise, false.
 # @example
 #   exit 1 unless instance_detailed_monitoring_enabled?(
-#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     Aws::EC2::Client.new(region: 'us-west-2'),
 #     'i-033c48ef067af3dEX'
 #   )
 def instance_detailed_monitoring_enabled?(ec2_client, instance_id)
@@ -146,7 +143,7 @@ end
 #
 # @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
 # @example
-#   list_instances_information(Aws::EC2::Client.new(region: 'us-east-1'))
+#   list_instances_information(Aws::EC2::Client.new(region: 'us-west-2'))
 def list_instances_information(ec2_client)
   result = ec2_client.describe_instances
   result.reservations.each do |reservation|
@@ -185,13 +182,15 @@ def run_me
   if ARGV[0] == '--help' || ARGV[0] == '-h'
     puts 'Usage:   ruby ec2-ruby-example-manage-instances.rb ' \
       'INSTANCE_ID REGION'
+    # Replace us-west-2 with the AWS Region you're using for AWS EC2.
     puts 'Example: ruby ec2-ruby-example-manage-instances.rb ' \
-      'i-033c48ef067af3dEX us-east-1'
+      'i-033c48ef067af3dEX us-west-2'
     exit 1
   # If no values are specified at the command prompt, use these default values.
+  # Replace us-west-2 with the AWS Region you're using for AWS EC2.
   elsif ARGV.count.zero?
     instance_id = 'i-033c48ef067af3dEX'
-    region = 'us-east-1'
+    region = 'us-west-2'
   # Otherwise, use the values as specified at the command prompt.
   else
     instance_id = ARGV[0]

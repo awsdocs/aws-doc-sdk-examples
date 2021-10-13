@@ -3,7 +3,7 @@
 
 # Purpose:
 # polly_describe_voices.rb demonstrates how to
-# list your Polly voices using Amazon Polly using the AWS SKD for Ruby.
+# list your Amazon Polly voices using Amazon Polly using the AWS SKD for Ruby.
 
 # snippet-start:[polly.ruby.describeVoices]
 

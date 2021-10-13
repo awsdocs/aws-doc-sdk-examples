@@ -5,12 +5,12 @@
 # aws-ruby-sdk-codebuild-example-list-projects.rb demonstrates how to list your
 # Amazon CloudWatch projects using the AWS SDK for Ruby.
 
-
 # snippet-start:[codebuild.Ruby.listProjects]
 
 require 'aws-sdk-codebuild'  # v2: require 'aws-sdk'
 
-client = Aws::CodeBuild::Client.new(region: 'us-west-2')
+# Replace us-west-2 with the AWS Region you're using for AWS CodeBuild.
+client = Aws::CodeBuild::Client.new(region: 'REGION')
 
 resp = client.list_projects({
   sort_by: 'NAME', # accepts NAME, CREATED_TIME, LAST_MODIFIED_TIME

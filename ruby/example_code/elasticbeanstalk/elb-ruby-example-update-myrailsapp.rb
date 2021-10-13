@@ -4,12 +4,9 @@
 # Purpose:
 # eb_list_stacks.rb demonstrates how to update a Ruby on Rails application the AWS SKD for Ruby.
 
-# Inputs:
-# - REGION - The AWS Region.
-
 # snippet-start:[eb.Ruby.updateMyRailsApp]
 require 'aws-sdk-elasticbeanstalk'  # v2: require 'aws-sdk'
-
+# Replace us-west-2 with the AWS Region you're using for Elastic Beanstalk.
 Aws.config.update({region: 'us-west-2'})
 
 eb = Aws::ElasticBeanstalk::Client.new

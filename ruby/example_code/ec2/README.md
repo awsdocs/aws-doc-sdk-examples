@@ -8,14 +8,14 @@ Amazon Elastic Compute Cloud (Amazon EC2).
 ## Code examples 
 
 ## Usage examples
-- [Create internet gateway and attach it to a VPC](./ec2-ruby-example-attach-igw-vpc.rb)
-- [Managing addresses](./ec2-ruby-example-elastic-ips.rb)
-- [Managing key pairs](./ec2-ruby-example-key-pairs.rb)
-- [Managing security groups](./ec2-ruby-example-security-group.rb)
+- [Create an Internet gateway and attach it to a VPC](./ec2-ruby-example-attach-igw-vpc.rb)
+- [Manage addresses](./ec2-ruby-example-elastic-ips.rb)
+- [Manage key pairs](./ec2-ruby-example-key-pairs.rb)
+- [Manage security groups](./ec2-ruby-example-security-group.rb)
 - [Manage instances](./ec2-ruby-example-manage-instances.rb)
 
 ### API examples
-- [Create an intance](./ec2-ruby-example-create-instance.rb)
+- [Create an instance](./ec2-ruby-example-create-instance.rb)
 - [Create a key pair](./ec2-ruby-example-create-key-pair.rb)
 - [Create a route table](./ec2-ruby-example-create-route-table.rb)
 - [Create a security group](./ec2-ruby-example-create-security-group.rb)
@@ -60,7 +60,7 @@ Most of these code example files can be run with very little to no modification.
 ```
 # Option 1: Run the file with the correct command-line arguments.
 
-ruby ec2-ruby-example-create-instance.rb ami-0947d2ba12EXAMPLE my-key-pair my-key my-value t2.micro us-east-1 my-user-data.txt
+ruby ec2-ruby-example-create-instance.rb ami-0947d2ba12EXAMPLE my-key-pair my-key my-value t2.micro us-west-2 my-user-data.txt
 
 # Option 2: Replace the equivalent hard-coded values in the file with your own values, save the file, and then run the file without any command-line arguments.
 
@@ -78,7 +78,7 @@ ruby ec2-ruby-example-create-instance.rb --help
 # Displays:
 
 Usage:   ruby ec2-ruby-example-create-instance.rb IMAGE_ID KEY_PAIR_NAME TAG_KEY TAG_VALUE INSTANCE_TYPE REGION [USER_DATA_FILE]
-Example: ruby ec2-ruby-example-create-instance.rb ami-0947d2ba12EXAMPLE my-key-pair my-key my-value t2.micro us-east-1 my-user-data.txt
+Example: ruby ec2-ruby-example-create-instance.rb ami-0947d2ba12EXAMPLE my-key-pair my-key my-value t2.micro us-west-2 my-user-data.txt
 ```
 
 Most of these files have been refactored into reusable functions that can be copied into your own code. You can then call those functions directly from your own code without modifying the copied function code itself. For example, you could copy the `instance_created?` function code from the `ec2-ruby-example-create-instance.rb` file into your own code. You could then adapt the code in the `run_me` function in that same file as a basis to write your own code to call the copied `instance_created?` function.

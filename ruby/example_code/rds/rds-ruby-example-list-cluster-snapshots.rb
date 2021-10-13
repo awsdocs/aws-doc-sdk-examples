@@ -3,12 +3,12 @@
 
 # Purpose:
 # rds-ruby-example-create-cluster-snapshot.rb demonstrates how to list your
-# Amazon Relational Database Service (RDS) cluster using the AWS SKD for Ruby.
+# Amazon Relational Database Service (RDS) clusters using the AWS SKD for Ruby.
 
 # snippet-start:[rds.ruby.listClusterSnapshots]
 
 require 'aws-sdk-rds'  # v2: require 'aws-sdk'
-
+# Replace us-west-2 with the AWS Region you're using for Amazon RDS.
 rds = Aws::RDS::Resource.new(region: 'us-west-2')
 
 rds.db_clusters.each do |c|

@@ -8,7 +8,7 @@ This folder contains code examples that demonstrate how to use the AWS SDK for R
 This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) Amazon Secrets Manager examples:
 
 ### API examples
-- [Gets all secrets in an AWS Region](./sm_get_secrets.rb)
+- [Get all secrets in an AWS Region](./sm_get_secrets.rb)
 
 ## Prerequisites
 - An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
@@ -61,7 +61,7 @@ Most of these tests are designed to use stubs, to avoid generating unnecessary c
 
 ## Additional information
 
-- [Amazon Secrets Manager Documentation](https://docs.aws.amazon.com/Elastic TransCoder)
+- [Amazon Secrets Manager Documentation](https://docs.aws.amazon.com/secretsmanager/)
 - [AWS SDK for Ruby Documentation](https://docs.aws.amazon.com/sdk-for-ruby)
 - [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs)
 - [RSpec Documentation](https://rspec.info/documentation)

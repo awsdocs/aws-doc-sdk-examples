@@ -25,7 +25,8 @@ def show_event(event)
   end
 end
 
-# Create client in us-west-2
+# Create client in us-west-2.
+# Replace us-west-2 with the AWS Region you're using for AWS CloudTrail.
 client = Aws::CloudTrail::Client.new(region: 'us-west-2')
 
 resp = client.lookup_events()

@@ -1,4 +1,4 @@
-# AWS SDK for Ruby code examples for Amazon Amazon RDS
+# AWS SDK for Ruby code examples for Amazon RDS
 
 ## Purpose
 
@@ -69,7 +69,7 @@ Most of these tests are designed to use stubs, to avoid generating unnecessary c
 
 ## Additional information
 
-- [Amazon Relational Database Service Documentation](https://docs.aws.amazon.com/Elastic TransCoder)
+- [Amazon Relational Database Service Documentation](https://docs.aws.amazon.com/rds/)
 - [AWS SDK for Ruby Documentation](https://docs.aws.amazon.com/sdk-for-ruby)
 - [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs)
 - [RSpec Documentation](https://rspec.info/documentation)

@@ -25,7 +25,7 @@ require 'aws-sdk-s3'
 # @return [Boolean] true if the ACL was set; otherwise, false.
 # @example
 #   exit 1 unless bucket_acl_set_for_owner_id?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket',
 #     'READ',
 #     'b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE'
@@ -61,11 +61,13 @@ rescue StandardError => e
 end
 
 # Full example call:
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
+
 def run_me
   bucket_name = 'doc-example-bucket'
   permission = 'READ'
   owner_id = 'b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE'
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
 
   if bucket_acl_set_for_owner_id?(

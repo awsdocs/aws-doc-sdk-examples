@@ -20,7 +20,7 @@ require 'aws-sdk-s3'
 #   first 50 objects will be listed.
 # @example
 #   list_bucket_objects(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket',
 #     100
 #   )
@@ -54,9 +54,10 @@ rescue StandardError => e
 end
 
 # Full example call:
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
   bucket_name = 'doc-example-bucket'
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
 
   list_bucket_objects(s3_client, bucket_name)

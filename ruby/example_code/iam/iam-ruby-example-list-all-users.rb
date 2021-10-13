@@ -3,7 +3,7 @@
 
 # Purpose:
 # iam-ruby-example-list-all-users.rb demonstrates how to
-# displays information about available users in
+# display information about available users in
 # AWS Identity and Access Management (IAM) including users'
 # names, associated group names, inline embedded user policy names,
 # and access key IDs.

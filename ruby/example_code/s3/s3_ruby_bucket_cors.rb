@@ -30,7 +30,7 @@ require 'aws-sdk-s3'
 #   otherwise, false.
 # @example
 #   exit 1 unless if bucket_cors_rule_set?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket',
 #     %w[GET PUT POST DELETE],
 #     %w[http://www.example.com],
@@ -93,7 +93,7 @@ end
 # @returns [Array<Aws::S3::Types::CORSRule>] The list of CORS rules.
 # @example
 #   puts bucket_cors_rules(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket')
 def bucket_cors_rules(s3_client, bucket_name)
   response = s3_client.get_bucket_cors(bucket: bucket_name)
@@ -102,6 +102,8 @@ rescue StandardError => e
   puts "Error getting CORS rules: #{e.message}"
 end
 
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
+
 def run_me
   bucket_name = 'doc-example-bucket'
   allowed_methods = %w[GET PUT POST DELETE]
@@ -109,7 +111,7 @@ def run_me
   allowed_headers = %w[*]
   expose_headers = %w[x-amz-server-side-encryption x-amz-request-id x-amz-id-2]
   max_age_seconds = 3000
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
 
   if bucket_cors_rule_set?(

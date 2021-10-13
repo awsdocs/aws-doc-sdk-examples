@@ -2,7 +2,7 @@
 # SPDX - License - Identifier: Apache - 2.0
 
 # Purpose
-# This code example demonstrates how to gets your Amazon Simple Email Services (Amazon SES) send statistics.
+# This code example demonstrates how to gets your Amazon Simple Email Services (Amazon SES) to send statistics.
 
 # snippet-start:[s3.ruby.ses_get_statistics.rb]
 

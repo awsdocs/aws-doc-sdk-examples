@@ -6,7 +6,7 @@ require_relative '../ec2-ruby-example-create-subnet'
 describe '#subnet_created_and_tagged?' do
   let(:vpc_id) { 'vpc-6713dfEX' }
   let(:cidr_block) { '10.0.0.0/24' }
-  let(:availability_zone) { 'us-east-1a' }
+  let(:availability_zone) { 'us-west-2a' }
   let(:tag_key) { 'my-key' }
   let(:tag_value) { 'my-value' }
   let(:ec2_client) do

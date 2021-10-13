@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose:
-# aws-ruby-sdk-kms-example-create-key.rb demonstrates how to creates a customer master key
+# aws-ruby-sdk-kms-example-create-key.rb demonstrates how to create a customer master key
 # using Amazon Key Management Services (KMS) using the AWS SKD for Ruby.
 
 # snippet-start:[kms.ruby.createKey]

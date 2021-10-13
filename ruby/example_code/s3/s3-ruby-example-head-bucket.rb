@@ -21,7 +21,7 @@ require 'aws-sdk-s3'
 #   access it; otherwise, false.
 # @example
 #   exit 1 unless bucket_exists_and_accessible?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket'
 #   )
 def bucket_exists_and_accessible?(s3_client, bucket_name)
@@ -32,9 +32,10 @@ rescue StandardError
 end
 
 # Full example call:
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
   bucket_name = 'doc-example-bucket'
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
 
   if bucket_exists_and_accessible?(s3_client, bucket_name)

@@ -22,7 +22,7 @@ require 'aws-sdk-s3'
 #   otherwise, false.
 # @example
 #   s3_encryption_client = Aws::S3::EncryptionV2::Client.new(
-#     region: 'us-east-1',
+#     region: 'us-west-2',
 #     kms_key_id: '9041e78c-7a20-4db3-929e-828abEXAMPLE',
 #     key_wrap_schema: :kms_context,
 #     content_encryption_schema: :aes_gcm_no_padding,
@@ -56,10 +56,11 @@ rescue StandardError => e
 end
 
 # Full example call:
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
   bucket_name = 'doc-example-bucket'
   object_key = 'my-file.txt'
-  region = 'us-east-1'
+  region = 'us-west-2'
   kms_key_id = '9041e78c-7a20-4db3-929e-828abEXAMPLE'
   object_content = File.read(object_key)
 

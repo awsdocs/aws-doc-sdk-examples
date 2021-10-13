@@ -25,7 +25,7 @@ require 'aws-sdk-s3'
 #   otherwise, false.
 # @example
 #   exit 1 unless bucket_website_configured?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket',
 #     'index.html',
 #     '404.html'
@@ -53,11 +53,13 @@ rescue StandardError => e
   return false
 end
 
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
+
 def run_me
   bucket_name = 'doc-example-bucket'
   index_document = 'index.html'
   error_document = '404.html'
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
 
   if bucket_website_configured?(

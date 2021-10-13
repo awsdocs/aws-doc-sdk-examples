@@ -3,7 +3,7 @@
 
 # Purpose:
 # dynamodb-ruby-example-list-50-users-table-items.rb demonstrates how to
-# searches for items in a table in Amazon DynamoDB by using a scan
+# search for items in a table in Amazon DynamoDB using a scan
 # operation, which reads every item in a table or a secondary index.
 
 # snippet-start:[dynamodb.Ruby.listUserTableItems]
@@ -55,6 +55,7 @@ end
 
 # Full example call:
 def run_me
+# Replace us-west-2 with the AWS Region you're using for AWS DynamoDB.
   region = 'us-west-2'
   table_name = 'Users'
   selection_criteria = 'ALL_ATTRIBUTES'

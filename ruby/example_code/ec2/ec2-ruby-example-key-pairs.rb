@@ -7,9 +7,6 @@
 # saves the resulting RSA private key file locally in the calling
 # user's home directory.
 
-# Inputs:
-# - REGION - The AWS Region.
-
 # snippet-start:[ec2.Ruby.exampleKeyPairs]
 
 # This code example does the following:
@@ -26,7 +23,7 @@ require 'aws-sdk-ec2'
 #   created; otherwise, false.
 # @example
 #   exit 1 unless key_pair_created?(
-#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     Aws::EC2::Client.new(region: 'us-west-2'),
 #     'my-key-pair'
 #   )
 def key_pair_created?(ec2_client, key_pair_name)
@@ -51,7 +48,7 @@ end
 #
 # @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
 # @example
-#   describe_key_pairs(Aws::EC2::Client.new(region: 'us-east-1'))
+#   describe_key_pairs(Aws::EC2::Client.new(region: 'us-west-2'))
 def describe_key_pairs(ec2_client)
   result = ec2_client.describe_key_pairs
   if result.key_pairs.count.zero?
@@ -77,7 +74,7 @@ end
 # @return [Boolean] true if the key pair was deleted; otherwise, false.
 # @example
 #   exit 1 unless key_pair_deleted?(
-#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     Aws::EC2::Client.new(region: 'us-west-2'),
 #     'my-key-pair'
 #   )
 def key_pair_deleted?(ec2_client, key_pair_name)
@@ -95,12 +92,13 @@ def run_me
   # Print usage information and then stop.
   if ARGV[0] == '--help' || ARGV[0] == '-h'
     puts 'Usage:   ruby ec2-ruby-example-key-pairs.rb KEY_PAIR_NAME REGION'
-    puts 'Example: ruby ec2-ruby-example-key-pairs.rb my-key-pair us-east-1'
+    puts 'Example: ruby ec2-ruby-example-key-pairs.rb my-key-pair us-west-2'
     exit 1
   # If no values are specified at the command prompt, use these default values.
+  # Replace us-west-2 with the AWS Region you're using for AWS EC2.
   elsif ARGV.count.zero?
     key_pair_name = 'my-key-pair'
-    region = 'us-east-1'
+    region = 'us-west-2'
   # Otherwise, use the values as specified at the command prompt.
   else
     key_pair_name = ARGV[0]

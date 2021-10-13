@@ -23,7 +23,7 @@ require 'aws-sdk-s3'
 # @return [Boolean] true if the object was copied with the specified
 #   server-side encryption; otherwise, false.
 # @example
-#   s3_client = Aws::S3::Client.new(region: 'us-east-1')
+#   s3_client = Aws::S3::Client.new(region: 'us-west-2')
 #   if object_copied_with_encryption?(
 #     s3_client,
 #     'doc-example-bucket1',
@@ -56,8 +56,9 @@ rescue StandardError => e
 end
 
 # Full example call:
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
-  s3_client = Aws::S3::Client.new(region: 'us-east-1')
+  s3_client = Aws::S3::Client.new(region: 'us-west-2')
 
   if object_copied_with_encryption?(
     s3_client,

@@ -6,16 +6,13 @@
 # display a list of AWS Regions for Amazon Elastic Compute Cloud (Amazon EC2)
 # that are available to you.
 
-# Inputs:
-# - REGION - The AWS Region.
-
 # snippet-start:[ec2.Ruby.regionsAvailabilityZones]
 
 require 'aws-sdk-ec2'
 
 # @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
 # @example
-#   list_regions_endpoints(Aws::EC2::Client.new(region: 'us-east-1'))
+#   list_regions_endpoints(Aws::EC2::Client.new(region: 'us-west-2'))
 def list_regions_endpoints(ec2_client)
   result = ec2_client.describe_regions
   # Enable pretty printing.
@@ -45,7 +42,7 @@ end
 #
 # @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
 # @example
-#   list_availability_zones(Aws::EC2::Client.new(region: 'us-east-1'))
+#   list_availability_zones(Aws::EC2::Client.new(region: 'us-west-2'))
 def list_availability_zones(ec2_client)
   result = ec2_client.describe_availability_zones
   # Enable pretty printing.
@@ -91,11 +88,13 @@ def run_me
   # Print usage information and then stop.
   if ARGV[0] == '--help' || ARGV[0] == '-h'
     puts 'Usage:   ruby ec2-ruby-example-regions-availability-zones.rb REGION'
-    puts 'Example: ruby ec2-ruby-example-regions-availability-zones.rb us-east-1'
+    # Replace us-west-2 with the AWS Region you're using for AWS EC2.
+    puts 'Example: ruby ec2-ruby-example-regions-availability-zones.rb us-west-2'
     exit 1
   # If no values are specified at the command prompt, use these default values.
+  # Replace us-west-2 with the AWS Region you're using for AWS EC2.
   elsif ARGV.count.zero?
-    region = 'us-east-1'
+    region = 'us-west-2'
   # Otherwise, use the values as specified at the command prompt.
   else
     region = ARGV[0]
