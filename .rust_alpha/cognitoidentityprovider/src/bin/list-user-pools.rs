@@ -18,6 +18,34 @@ struct Opt {
     verbose: bool,
 }
 
+// Lists your user pools.
+// snippet-start:[cognitoidentityprovider.rust.list-user-pools]
+async fn show_pools(client: &Client) -> Result<(), Error> {
+    let response = client.list_user_pools().max_results(10).send().await?;
+    if let Some(pools) = response.user_pools {
+        println!("User pools:");
+        for pool in pools {
+            println!("  ID:              {}", pool.id.unwrap_or_default());
+            println!("  Name:            {}", pool.name.unwrap_or_default());
+            println!("  Status:          {:?}", pool.status);
+            println!("  Lambda Config:   {:?}", pool.lambda_config.unwrap());
+            println!(
+                "  Last modified:   {}",
+                pool.last_modified_date.unwrap().to_chrono()
+            );
+            println!(
+                "  Creation date:   {:?}",
+                pool.creation_date.unwrap().to_chrono()
+            );
+            println!();
+        }
+    }
+    println!("Next token: {}", response.next_token.unwrap_or_default());
+
+    Ok(())
+}
+// snippet-end:[cognitoidentityprovider.rust.list-user-pools]
+
 /// Lists your Amazon Cognito user pools in the Region.
 /// # Arguments
 ///
@@ -49,26 +77,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let response = client.list_user_pools().max_results(10).send().await?;
-    if let Some(pools) = response.user_pools {
-        println!("User pools:");
-        for pool in pools {
-            println!("  ID:              {}", pool.id.unwrap_or_default());
-            println!("  Name:            {}", pool.name.unwrap_or_default());
-            println!("  Status:          {:?}", pool.status);
-            println!("  Lambda Config:   {:?}", pool.lambda_config.unwrap());
-            println!(
-                "  Last modified:   {}",
-                pool.last_modified_date.unwrap().to_chrono()
-            );
-            println!(
-                "  Creation date:   {:?}",
-                pool.creation_date.unwrap().to_chrono()
-            );
-            println!();
-        }
-    }
-    println!("Next token: {}", response.next_token.unwrap_or_default());
-
-    Ok(())
+    show_pools(&client).await
 }
