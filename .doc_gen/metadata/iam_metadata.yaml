@@ -749,7 +749,7 @@ iam_DetachRolePolicy:
   languages:
     Java:
       versions:
-        - sdk_version: 3
+        - sdk_version: 2
           github: javav2/example_code/iam
           sdkguide:
           excerpts:
