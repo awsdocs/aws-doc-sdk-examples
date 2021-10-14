@@ -5,6 +5,15 @@ iam_CreateAccountAlias:
   synopsis: create an alias for an &IAM; account.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.create_account_alias.main
     Python:
       versions:
         - sdk_version: 3
@@ -22,6 +31,15 @@ iam_DeleteAccountAlias:
   synopsis: delete an &IAM; account alias.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.delete_account_alias.main
     Python:
       versions:
         - sdk_version: 3
@@ -39,6 +57,15 @@ iam_ListAccountAliases:
   synopsis: list &IAM; account aliases.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.list_account_aliases.main
     Python:
       versions:
         - sdk_version: 3
@@ -153,6 +180,15 @@ iam_CreateAccessKey:
   synopsis: create an &IAM; access key.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.create_access_key.main
     Python:
       versions:
         - sdk_version: 3
@@ -170,6 +206,15 @@ iam_DeleteAccessKey:
   synopsis: delete an &IAM; access key.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.delete_access_key.main
     Python:
       versions:
         - sdk_version: 3
@@ -204,6 +249,15 @@ iam_ListAccessKeys:
   synopsis: list a user's &IAM; access keys.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.list_access_keys.main
     Python:
       versions:
         - sdk_version: 3
@@ -221,6 +275,15 @@ iam_UpdateAccessKey:
   synopsis: update an &IAM; access key.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.update_access_key.main
     Python:
       versions:
         - sdk_version: 3
@@ -264,6 +327,15 @@ iam_CreatePolicy:
   synopsis: create an &IAM; policy.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.create_policy.main
     Python:
       versions:
         - sdk_version: 3
@@ -281,6 +353,15 @@ iam_DeletePolicy:
   synopsis: delete an &IAM; policy.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.delete_policy.main
     Python:
       versions:
         - sdk_version: 3
@@ -366,6 +447,15 @@ iam_AttachRolePolicy:
   synopsis: attach an &IAM; policy to a role.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.attach_role_policy.main
     Python:
       versions:
         - sdk_version: 3
@@ -386,6 +476,15 @@ iam_DetachRolePolicy:
   synopsis: detach an &IAM; policy from a role.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.detach_role_policy.main
     Python:
       versions:
         - sdk_version: 3
@@ -433,6 +532,15 @@ iam_CreateRole:
   synopsis: create an &IAM; role.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.create_role.main
     Python:
       versions:
         - sdk_version: 3
@@ -492,6 +600,15 @@ iam_CreateUser:
   synopsis: create an &IAM; user.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.create_user.main
     Python:
       versions:
         - sdk_version: 3
@@ -509,6 +626,15 @@ iam_DeleteUser:
   synopsis: delete an &IAM; user.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.delete_user.main
     Python:
       versions:
         - sdk_version: 3
@@ -526,6 +652,15 @@ iam_ListUsers:
   synopsis: list &IAM; users.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.list_users.main
     Python:
       versions:
         - sdk_version: 3
@@ -543,6 +678,15 @@ iam_UpdateUser:
   synopsis: update an &IAM; user.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.update_user.main
     Python:
       versions:
         - sdk_version: 3
@@ -560,6 +704,15 @@ iam_AttachUserPolicy:
   synopsis: attach an &IAM; policy to a user.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.attach_role_policy.main
     Python:
       versions:
         - sdk_version: 3
@@ -588,6 +741,23 @@ iam_DetachUserPolicy:
                 - python.example_code.iam.DetachUserPolicy
   services:
     iam: {DetachUserPolicy}
+iam_DetachRolePolicy:
+  title: Detach an &IAM; policy from a role using an &AWS; SDK
+  title_abbrev: Detach a policy from a role
+  synopsis: detach an &IAM; policy from a role.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 3
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.detach_role_policy.main
+  services:
+    iam: {}
 iam_Scenario_UserPolicies:
   title: Create read-only and write-only &IAM; users using an &AWS; SDK
   title_abbrev: Create read-only and write-only users
