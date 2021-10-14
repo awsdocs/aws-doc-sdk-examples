@@ -1,11 +1,13 @@
 # AWS SDK for Ruby code examples for AWS Elastic BeanStalk
 
 ## Purpose
+This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate AWS Elastic BeanStalk (Amazon EBS).
 
-This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate AWS Elastic BeanStalk.
+Amazon EBS is a web service that provides block level storage volumes 
+for use with Amazon Elastic Compute Cloud instances. Amazon EBS volumes are highly available and 
+reliable storage volumes that can be attached to any running instance and used like a hard drive.
 
 ## Code examples
-This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) AWS Elastic BeanStalk examples:
 
 ### API examples
 - [List stacks](./eb_list_stacks.rb)

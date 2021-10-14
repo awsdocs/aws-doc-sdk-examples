@@ -3,6 +3,8 @@
 ## Purpose
 This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate Amazon Simple Notification Service (SNS).
 
+Amazon SNS is a fully managed messaging service for both application-to-application (A2A) and application-to-person (A2P) communication. 
+
 
 ## Code examples
 This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) Amazon Cloudwatch examples:

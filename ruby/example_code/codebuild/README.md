@@ -1,11 +1,12 @@
 # AWS SDK for Ruby code examples for AWS CodeBuild
 
 ## Purpose
+This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate Amazon CodeBuild.
 
-This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate AWS CodeBuild.
+AWS CodeBuild is a fully managed build service that compiles your source code, runs unit tests, 
+and produces artifacts that are ready to deploy.
 
 ## Code examples
-This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) AWS CodeBuild examples:
 
 ### API examples
 - [Build a project](./aws-ruby-sdk-codebuild-example-build-project.rb)

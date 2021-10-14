@@ -1,11 +1,13 @@
 # AWS SDK for Ruby code examples for Amazon Elastic TransCoder
 
 ## Purpose
-
 This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate Amazon Elastic TransCoder.
 
+Amazon Elastic Transcoder is media transcoding in the cloud. It is designed to be a highly scalable, 
+easy to use and a cost effective way for developers and businesses to convert (or “transcode”) media files 
+from their source format into versions that will playback on devices like smartphones, tablets and PCs.
+
 ## Code examples
-This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) Amazon Elastic TransCoder examples:
 
 ### API examples
 - [Create a job](./HlsJobCreationSample.rb)

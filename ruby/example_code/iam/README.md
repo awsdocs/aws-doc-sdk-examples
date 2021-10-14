@@ -1,9 +1,12 @@
 # AWS SDK for Ruby code examples for AWS IAM
 
 ## Purpose
-
 This folder contains code examples that demonstrate how to use the AWS SDK for 
 Ruby to automate AWS Identity and Access Management (IAM).
+
+IAM is a web service for securely controlling access to AWS services. With IAM, you can
+centrally manage users, security credentials such as access keys, and permissions that control 
+which AWS resources users and applications can access.
 
 ## Code examples 
 

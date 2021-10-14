@@ -1,11 +1,12 @@
 # AWS SDK for Ruby code examples for Amazon CloudWatch
 
 ## Purpose
-
 This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate Amazon CloudWatch.
 
+Amazon CloudWatch provides a reliable, scalable, and flexible monitoring solution that you can start using within minutes. 
+You no longer need to set up, manage, and scale your own monitoring systems and infrastructure.
+
 ## Code examples
-This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) Amazon Cloudwatch examples:
 
 ###  Usage examples
 - [Create an alarm and disable all actions for the alarm](./cw-ruby-example-alarm-actions.rb)

@@ -1,11 +1,12 @@
-# AWS SDK for Ruby code examples for Amazon Event Bridge
+# AWS SDK for Ruby code examples for Amazon EventBridge
 
 ## Purpose
+This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate Amazon EventBridge.
 
-This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate Amazon CloudWatch.
+Amazon EventBridge (formerly Amazon CloudWatch Events) is a serverless event bus service that you 
+can use to connect your applications with data from a variety of sources.
 
 ## Code examples
-This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) Amazon Cloudwatch examples:
 
 ###  Cross-service examples
 - [Create and trigger a rule in Amazon CloudWatch Events](./cw-ruby-example-send-events-ec2.rb)

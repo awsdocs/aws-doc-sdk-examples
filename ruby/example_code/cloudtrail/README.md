@@ -1,11 +1,12 @@
 # AWS SDK for Ruby code examples for AWS CloudTrail
 
 ## Purpose
-
 This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate AWS CloudTrail.
 
+AWS CloudTrail is an AWS service that helps you enable governance, compliance, and operational and risk auditing 
+of your AWS account. Actions taken by a user, role, or an AWS service are recorded as events in CloudTrail.
+
 ## Code examples
-This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) AWS CloudTrail examples:
 
 ### API examples
 - [Create a trail](./aws-ruby-sdk-cloudtrail-example-create-trail.rb)

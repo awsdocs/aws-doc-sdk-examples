@@ -1,11 +1,11 @@
 # AWS SDK for Ruby code examples for Amazon Secrets Manager
 
 ## Purpose
-
 This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate Amazon Secrets Manager.
 
+AWS Secrets Manager helps you protect secrets needed to access your applications, services, and IT resources.
+
 ## Code examples
-This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) Amazon Secrets Manager examples:
 
 ### API examples
 - [Get all secrets in an AWS Region](./sm_get_secrets.rb)

@@ -3,10 +3,12 @@
 ## Purpose
 This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate Amazon WorkDocs.
 
+Amazon WorkDocs is a fully managed, secure content creation, storage, and collaboration service. With Amazon WorkDocs, 
+you can easily create, edit, and share content, and because it’s stored centrally on AWS, access it from anywhere on any device. 
 
 ## Code examples
-This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) WorkDocs examples:
 
+### API examples
 - [List a users documents](./wd_list_user_docs.rb)
 - [List users](./wd_list_users.rb)
 

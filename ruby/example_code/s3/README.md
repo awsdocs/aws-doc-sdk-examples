@@ -5,6 +5,8 @@
 This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate 
 Amazon Simple Storage Service (Amazon S3).
 
+Amazon S3 is an object storage service that offers industry-leading scalability, data availability, security, and performance. 
+
 ## Code examples
 
 ### Usage examples

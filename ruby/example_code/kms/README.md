@@ -1,11 +1,12 @@
 # AWS SDK for Ruby code examples for AWS Key Management Service
 
 ## Purpose
-
 This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate AWS Key Management Service (KMS).
 
+AWS KMS makes it easy for you to create and manage cryptographic keys and control their use across a wide range 
+of AWS services and in your applications. 
+
 ## Code examples
-This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) AWS Key Management Service examples:
 
 ### API examples
 - [Create a key](./aws-ruby-sdk-kms-example-create-key.rb)

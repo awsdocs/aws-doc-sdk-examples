@@ -1,8 +1,10 @@
 # AWS SDK for Ruby code examples for Amazon DynamoDB
 
 ## Purpose
-
 This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate Amazon DynamoDB.
+
+Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable 
+performance with seamless scalability.
 
 ## Code examples 
 

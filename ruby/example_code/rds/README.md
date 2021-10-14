@@ -1,8 +1,12 @@
 # AWS SDK for Ruby code examples for Amazon RDS
 
 ## Purpose
-
 This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate Amazon Relational Database Service (RDS).
+
+Amazon Relational Database Service (Amazon RDS) makes it easy to set up, operate, and scale a relational database in the cloud. It provides 
+cost-efficient and resizable capacity while automating time-consuming administration tasks such as hardware provisioning, database setup, 
+patching and backups. It frees you to focus on your applications so you can give them the fast performance, high availability, security and 
+compatibility they need.
 
 ## Code examples
 This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) Amazon RDS examples:
