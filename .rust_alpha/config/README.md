@@ -1,16 +1,39 @@
 # AWS SDK for Rust code examples for AWS Config
 
-AWS Config 
-
 ## Purpose
 
 These examples demonstrate how to perform several AWS Config operations using the alpha version of the AWS SDK for Rust.
 
-## Prerequisites
+AWS Config provides a detailed view of the resources associated with your AWS account, including how they are configured, how they are related to one another, and how the configurations and their relationships have changed over time.
+
+## Code examples
+
+- [Get resource configuration history](src/bin/config-helloworld) (GetResourceConfigHistory)
+- [Delete configuration recorder](src/bin/delete-configuration-recorder) (DeleteConfigurationRecorder)
+- [Delete delivery channel](src/bin/delete-delivery-channel) (DeleteDeliveryChannel)
+- [Enable configuration](src/bin/enable-config) (DescribeConfigurationRecorders, DescribeDeliveryChannels, PutConfigurationRecorder, PutDeliveryChannel)
+- [List configuration recorders](src/bin/list-configuration-recorders) (DescribeConfigurationRecorders)
+- [List delivery channels](src/bin/list-delivery-channels) (DescribeDeliveryChannels)
+- [List resources](src/bin/list-resources) (ListDiscoveredResources)
+- [Show resource history](src/bin/show-resource-history) (GetResourceConfigHistory)
+
+## ⚠ Important
+
+- We recommend that you grant this code least privilege, 
+  or at most the minimum permissions required to perform the task.
+  For more information, see
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
+  in the AWS Identity and Access Management User Guide.
+- This code has not been tested in all AWS Regions.
+  Some AWS services are available only in specific
+  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+- Running this code might result in charges to your AWS account.
+
+## Running the code examples
+
+### Prerequisites
 
 You must have an AWS account, and have configured your default credentials and AWS Region as described in [https://github.com/awslabs/aws-sdk-rust](https://github.com/awslabs/aws-sdk-rust).
-
-## Running the code
 
 ### config-helloworld
 
@@ -114,22 +137,15 @@ This example displays the configuration history for a resource.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
-### Running the unit tests
+## Resources
 
-Enter the following command to run all of the unit tests:
+- [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
 
-`cargo test`
+## Contributing
 
-### Notes
-
-- We recommend that you grant this code least privilege,
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account.
+To propose a new code example to the AWS documentation team, 
+see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md). 
+The team prefers to create code examples that show broad scenarios rather than individual API calls. 
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
