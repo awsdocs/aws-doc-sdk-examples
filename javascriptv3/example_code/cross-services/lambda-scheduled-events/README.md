@@ -2,8 +2,7 @@
 This is a workspace where you can find an AWS SDK for JavaScript version 3 (v3) tutorial that demonstrates how to 
 use Amazon CloudWatch scheduled events to invoke AWS Lambda functions.
 
-The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/scheduled-events-invoking-lambda-example.html) 
-contains instructions for running this example.
+The [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/invoke-lambda-functions-with-scheduled-events.html) contains these examples.
 
 # Getting started
 
@@ -20,8 +19,9 @@ which are  *@aws-sdk/client-cognito-identity*, *@aws-sdk/credential-provider-cog
 They also include third-party Node.js modules, including webpack.
 ```
 npm install ts-node -g # If using JavaScript, enter 'npm install node -g' instead
-cd javascriptv3/example_code/cross-services/lambda-scheduled-events
+cd javascriptv3/example_code/cross-services/lamba-api-gateway
 npm install
 ```
+
 
 
