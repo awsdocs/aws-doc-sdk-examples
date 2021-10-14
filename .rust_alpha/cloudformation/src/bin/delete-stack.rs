@@ -22,6 +22,18 @@ struct Opt {
     verbose: bool,
 }
 
+// Deletes a stack.
+// snippet-start:[cloudformation.rust.delete-stack]
+async fn delete_stack(client: &Client, name: &str) -> Result<(), Error> {
+    client.delete_stack().stack_name(name).send().await?;
+
+    println!("Stack deleted");
+    println!();
+
+    Ok(())
+}
+// snippet-end:[cloudformation.rust.delete-stack]
+
 /// Deletes a CloudFormation stack.
 /// # Arguments
 ///
@@ -58,10 +70,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    client.delete_stack().stack_name(stack_name).send().await?;
-
-    println!("Stack deleted");
-    println!();
-
-    Ok(())
+    delete_stack(&client, &stack_name).await
 }
