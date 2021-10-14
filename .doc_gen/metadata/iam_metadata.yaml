@@ -757,7 +757,7 @@ iam_DetachRolePolicy:
               snippet_tags:
                 - iam.java2.detach_role_policy.main
   services:
-    iam: {}
+    iam: {DetachRolePolicy}
 iam_Scenario_UserPolicies:
   title: Create read-only and write-only &IAM; users using an &AWS; SDK
   title_abbrev: Create read-only and write-only users
