@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0.
 #
 [package]
-name = "exif_code_examples"
+name = "detect-labels-code-example"
 version = "0.1.0"
 edition = "2018"
 
