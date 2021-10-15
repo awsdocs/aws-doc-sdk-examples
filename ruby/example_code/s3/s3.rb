@@ -4,7 +4,7 @@
 # Purpose
 # s3.rb demonstrates how to list, create, and delete a bucket in Amazon Simple Storage Service (Amazon S3).
 
-# snippet-start:[s3.ruby.s3.rb]
+# snippet-start:[s3.ruby.bucket_operations.list_create_delete]
 require 'aws-sdk'
 # Replace us-west-2 with the AWS Region you're using for Amazon S3.
 if ARGV.length < 2
@@ -55,4 +55,4 @@ s3.delete_bucket(bucket: bucket_name)
 s3.wait_until(:bucket_not_exists, {bucket: bucket_name,})
 
 list_my_buckets(s3)
-# snippet-end:[s3.ruby.s3.rb]
+# snippet-end:[s3.ruby.bucket_operations.list_create_delete]
