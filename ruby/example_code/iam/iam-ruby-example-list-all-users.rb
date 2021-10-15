@@ -1,13 +1,17 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
 
-require 'aws-sdk-iam'
-
-# Displays information about available users in
+# Purpose:
+# iam-ruby-example-list-all-users.rb demonstrates how to
+# display information about available users in
 # AWS Identity and Access Management (IAM) including users'
 # names, associated group names, inline embedded user policy names,
 # and access key IDs.
-#
+
+# snippet-start:[elastictranscoder.ruby.listAllUsers]
+
+require 'aws-sdk-iam'
+
 # @param iam_client [Aws::IAM::Client] An initialized IAM client.
 # @example
 #   get_user_details(Aws::IAM::Client.new)
@@ -81,3 +85,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[elastictranscoder.ruby.listAllUsers]

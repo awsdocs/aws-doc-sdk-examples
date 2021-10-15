@@ -1,11 +1,16 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to download an object from an Amazon Simple Storage Service (Amazon S3) bucket.
+# The object's contents were originally encrypted with an RSA public key.
+
+# snippet-start:[s3.ruby.s3-ruby-example-get-cspk-item]
+
 require 'aws-sdk-s3'
 require 'openssl'
 
-# Downloads an object from an Amazon S3 bucket. The object's contents
-#   were originally encrypted with an RSA public key.
+
 #
 # Prerequisites:
 #
@@ -25,7 +30,7 @@ require 'openssl'
 #       key_wrap_schema: :rsa_oaep_sha1,
 #       content_encryption_schema: :aes_gcm_no_padding,
 #       security_profile: :v2,
-#       region: 'us-east-1'
+#       region: 'us-west-2'
 #     ),
 #     'doc-example-bucket',
 #     'my-file.txt'
@@ -46,10 +51,11 @@ end
 
 # Full example call:
 # Prerequisites: the same RSA key pair you originally used to encrypt the object.
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
   bucket_name = 'doc-example-bucket'
   object_key = 'my-file.txt'
-  region = 'us-east-1'
+  region = 'us-west-2'
   private_key_file = 'my-private-key.pem'
   private_key = OpenSSL::PKey::RSA.new(File.read(private_key_file))
 
@@ -73,3 +79,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3-ruby-example-get-cspk-item]
