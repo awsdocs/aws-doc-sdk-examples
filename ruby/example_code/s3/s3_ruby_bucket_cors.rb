@@ -3,7 +3,7 @@
 
 # Purpose
 # This code example demonstrates how to add a cross-origin resource sharing (CORS)
-# configuration containing a single rule to an Amazon Simple Storage Solution (Amazon S3) bucket.
+# configuration containing a single rule to an Amazon Simple Storage Service (Amazon S3) bucket.
 
 # snippet-start:[s3.s3_ruby_bucket_cors.rb]
 

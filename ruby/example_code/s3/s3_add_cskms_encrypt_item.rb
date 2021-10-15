@@ -2,7 +2,7 @@
 # SPDX - License - Identifier: Apache - 2.0
 
 # Purpose
-# This code example demonstrates how upload an encrypted object to an Amazon Simple Storage Solution (Amazon S3) bucket.
+# This code example demonstrates how to upload an encrypted object to an Amazon Simple Storage Service (Amazon S3) bucket.
 
 # snippet-start:[s3.ruby.s3_add_cskms_encrypt_item]
 

@@ -22,7 +22,7 @@ performance with seamless scalability.
 - [Delete a table (movie example)](./dynamodb_ruby_example_delete_movies_table.rb)
 - [Add an item to a table (movie example)](./dynamodb_ruby_example_load_movies.rb)
 - [Get an item from a table (movie example)](./dynamodb_ruby_example_read_movies_item.rb)
-- [Update and item in a table (movie example)](./dynamodb_ruby_example_update_movies_item.rb)
+- [Update an item in a table (movie example)](./dynamodb_ruby_example_update_movies_item.rb)
 
 ## Important
 
@@ -51,10 +51,10 @@ performance with seamless scalability.
   [Install the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html) in the 
   *AWS SDK for Ruby Developer Guide*.
   
-Most of these code example files can be run with very little to no modification. For example, to use Ruby to run the `dynamodb_ruby_example_create_movies_table.rb` file, replace the hard-coded values in the file with your own values, save the file, and then run the file. For example:
+Most of these code example files can be run with very little to no modification. For example, to use Ruby to run the `dynamodb-ruby-example-add-index.rb` file, replace the hard-coded values in the file with your own values, save the file, and then run the file. For example:
 
 ```
-ruby dynamodb_ruby_example_create_movies_table.rb
+ruby dynamodb-ruby-example-add-index.rb
 ```
 
 Most of these files have been refactored into reusable functions that can be copied into your own code. You can then call those functions directly from your own code without modifying the copied function code itself. For example, you could copy the `create_table` function code from the `dynamodb_ruby_example_create_movies_table.rb` file into your own code. You could then adapt the code in the `run_me` function in that same file as a basis to write your own code to call the copied `create_table` function.

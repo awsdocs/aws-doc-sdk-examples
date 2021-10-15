@@ -8,7 +8,7 @@
 # - Get a user in IAM.
 # - Check whether a role exists in IAM.
 # - Get credentials for a role in IAM.
-# - Check whether a bucket exists in Amazon Simple Storage Solution (Amazon S3).
+# - Check whether a bucket exists in Amazon Simple Storage Service (Amazon S3).
 # - List the keys and ETags for the objects in an Amazon S3 bucket.
 
 # snippet-start:[s3.ruby.auth_session_token_request_test.rb]

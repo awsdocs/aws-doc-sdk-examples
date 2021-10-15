@@ -3,7 +3,7 @@
 
 # Purpose
 # s3-ruby-example-access-permissions.rb demonstrates how to set the access control list (ACL) for an
-# Amazon Simple Storage Solution (Amazon S3) bucket for public access.
+# Amazon Simple Storage Service (Amazon S3) bucket for public access.
 
 # snippet-start:[s3.ruby.s3-ruby-example-access-permissions]
 

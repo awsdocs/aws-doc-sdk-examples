@@ -3,7 +3,7 @@
 
 # Purpose:
 # This code example allows a federated user with a limited set of
-# permissions to list the objects in an Amazon Simple Storage Solution (Amazon S3) bucket.
+# permissions to list the objects in an Amazon Simple Storage Service (Amazon S3) bucket.
 
 # snippet-start:[s3.ruby.auth_federation_token_request_test.rb]
 # Prerequisites:

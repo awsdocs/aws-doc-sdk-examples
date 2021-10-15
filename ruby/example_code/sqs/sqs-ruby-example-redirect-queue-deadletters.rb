@@ -2,7 +2,7 @@
 # SPDX - License - Identifier: Apache - 2.0
 
 # Purpose
-# This code example demonstrates how to redirects dead letters from one Amazon Simple Queue Service (Amazon SQS)
+# This code example demonstrates how to redirects dead-letters from one Amazon Simple Queue Service (Amazon SQS)
 # queue to another.
 
 # snippet-start:[s3.sqs-ruby-example-redirect-queue-deadletters.rb]

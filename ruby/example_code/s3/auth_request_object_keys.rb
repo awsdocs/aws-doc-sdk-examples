@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose:
-# This code example prints the list of objects in an Amazon Simple Storage Solution (Amazon S3) bucket
+# This code example prints the list of objects in an Amazon Simple Storage Service (Amazon S3) bucket
 # using the AWS SDK for Ruby.
 # snippet-start:[s3.ruby.auth_request_object_keys.rb]
 

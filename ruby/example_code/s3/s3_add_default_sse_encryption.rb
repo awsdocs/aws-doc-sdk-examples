@@ -3,7 +3,7 @@
 
 # Purpose
 # This code example demonstrates how to set the default encryption state for an
-# Amazon Simple Storage Solution (Amazon S3) bucket using server-side encryption (SSE)
+# Amazon Simple Storage Service (Amazon S3) bucket using server-side encryption (SSE)
 # with an AWS KMS customer master key (CMK).
 
 # snippet-start:[s3.ruby.s3_add_default_sse_encryption]

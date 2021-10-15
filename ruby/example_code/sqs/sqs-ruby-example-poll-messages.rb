@@ -2,7 +2,7 @@
 # SPDX - License - Identifier: Apache - 2.0
 
 # Purpose
-# This code example demonstrates how to poll for messages on Amazon Simple Queue Service (Amazon SQS) queue
+# This code example demonstrates how to poll for messages on an Amazon Simple Queue Service (Amazon SQS) queue
 # that are not visible after being received.
 
 # snippet-start:[s3.sqs-ruby-example-poll-messages.rb]

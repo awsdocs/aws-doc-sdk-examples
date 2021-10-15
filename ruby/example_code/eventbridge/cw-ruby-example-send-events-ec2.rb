@@ -267,7 +267,7 @@ rescue StandardError => e
 end
 # snippet-end:[cloudwatch.cross-service.Ruby.createIamRole]
 # snippet-start:[cloudwatch.cross-service.Ruby.checkRuleExists]
-# Checks whether the specified AWS CloudWatch Events rule exists among
+# Checks whether the specified Amazon CloudWatch Events rule exists among
 # those provided to this function.
 # This is a helper function that is called by the rule_exists? function.
 #
@@ -289,10 +289,10 @@ end
 # snippet-end:[cloudwatch.cross-service.Ruby.checkRuleExists]
 # snippet-start:[cloudwatch.cross-service.Ruby.checkRuleAvailable]
 # Checks whether the specified rule exists among those available to the
-# caller in AWS CloudWatch Events.
+# caller in Amazon CloudWatch Events.
 #
 # @param cloudwatchevents_client [Aws::CloudWatchEvents::Client]
-#   An initialized AWS CloudWatch Events client.
+#   An initialized Amazon CloudWatch Events client.
 # @param rule_name [String] The name of the rule to find.
 # @return [Boolean] true if the rule name was found; otherwise, false.
 # @example
@@ -326,7 +326,7 @@ rescue StandardError => e
 end
 # snippet-end:[cloudwatch.cross-service.Ruby.checkRuleAvailable]
 # snippet-start:[cloudwatch.cross-service.Ruby.createRule]
-# Creates a rule in AWS CloudWatch Events.
+# Creates a rule in Amazon CloudWatch Events.
 # This rule is triggered whenever an available instance in
 # Amazon Elastic Compute Cloud (Amazon EC2) changes to the specified state.
 # This rule is designed to be used specifically by this code example.
@@ -338,7 +338,7 @@ end
 # - A topic in Amazon Simple Notification Service (Amazon SNS).
 #
 # @param cloudwatchevents_client [Aws::CloudWatchEvents::Client]
-#   An initialized AWS CloudWatch Events client.
+#   An initialized Amazon CloudWatch Events client.
 # @param rule_name [String] The name of the rule to create.
 # @param rule_description [String] Some description for this rule.
 # @param instance_state [String] The state that available instances in

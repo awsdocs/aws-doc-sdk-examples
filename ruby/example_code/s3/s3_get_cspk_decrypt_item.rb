@@ -2,7 +2,7 @@
 # SPDX - License - Identifier: Apache - 2.0
 
 # Purpose
-# This code example demonstrates how to get the contents of an object in an Amazon Simple Storage Solution (Amazon S3) bucket.
+# This code example demonstrates how to get the contents of an object in an Amazon Simple Storage Service (Amazon S3) bucket.
 # The object's content must have already been encrypted with an RSA public key.
 
 # snippet-start:[s3.s3_get_cspk_decrypt_item.rb]

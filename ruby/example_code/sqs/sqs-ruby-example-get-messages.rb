@@ -2,7 +2,7 @@
 # SPDX - License - Identifier: Apache - 2.0
 
 # Purpose
-# This code example demonstrates how to receives messages in a queue in Amazon Simple Queue Service (Amazon SQS).
+# This code example demonstrates how to receive messages in a queue in Amazon Simple Queue Service (Amazon SQS).
 
 # snippet-start:[s3.ruby.sqs-ruby-example-get-messages.rb]
 

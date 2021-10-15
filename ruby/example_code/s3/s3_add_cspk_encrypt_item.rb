@@ -4,7 +4,7 @@
 # Purpose
 # This code example demonstrates how to use an RSA public key to
 # encrypt content and then upload that encrypted content
-# to an Amazon Simple Storage Solution (Amazon S3) bucket.
+# to an Amazon Simple Storage Service (Amazon S3) bucket.
 
 # snippet-start:[s3.ruby.s3_add_cspk_encrypt_item]
 

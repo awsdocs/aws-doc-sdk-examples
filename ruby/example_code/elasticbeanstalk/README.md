@@ -1,11 +1,10 @@
-# AWS SDK for Ruby code examples for AWS Elastic BeanStalk
+# AWS SDK for Ruby code examples for AWS Elastic Beanstalk
 
 ## Purpose
-This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate AWS Elastic BeanStalk (Amazon EBS).
+This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate AWS Elastic Beanstalk.
 
-Amazon EBS is a web service that provides block level storage volumes 
-for use with Amazon Elastic Compute Cloud instances. Amazon EBS volumes are highly available and 
-reliable storage volumes that can be attached to any running instance and used like a hard drive.
+With AWS Elastic Beanstalk, you can quickly deploy and manage applications in the AWS Cloud without worrying about 
+the infrastructure that runs those applications.
 
 ## Code examples
 
@@ -41,32 +40,17 @@ reliable storage volumes that can be attached to any running instance and used l
 - The AWS SDK for Ruby. For AWS SDK for Ruby download and installation instructions, see 
   [Install the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html) in the 
   *AWS SDK for Ruby Developer Guide*.
-Most of these code example files can be run with very little to no modification. For example, to use Ruby to run the `cw-ruby-example-create-alarm.rb` file, replace the hard-coded values in the file with your own values, save the file, and then run the file. For example:
+  
+Most of these code example files can be run with very little to no modification. For example, to use Ruby to run the `eb_list_stacks.rb` file, replace the hard-coded
+values in the file with your own values, save the file, and then run the file. For example:
 
 ```
-ruby cw-ruby-example-create-alarm.rb
+ruby eb_list_stacks.rb
 ```
-
-Most of these files have been refactored into reusable functions that can be copied into your own code. You can then call those functions directly from your own code without modifying the copied function code itself. For example, you could copy the `alarm_created_or_updated?` function code from the `cw-ruby-example-create-alarm.rb` file into your own code. You could then adapt the code in the `run_me` function in that same file as a basis to write your own code to call the copied `alarm_created_or_updated?` function.
-
-## Running the tests
-
-Most of these code example files have accompanying tests that are written to work with RSpec. These tests are in the `tests` folder and contain the same file name as the corresponding code example file, for example `tests/test_cw-ruby-example-create-alarm.rb` contains tests for `cw-ruby-example-create-alarm.rb`.
-
-To use RSpec to run all tests within a file, specify the path to that file, for example:
-
-```
-rspec tests/test_cw-ruby-example-create-alarm.rb
-```
-
-To explore additional options for using RSpec to run tests, run the `rspec --help` command. 
-
-Most of these tests are designed to use stubs, to avoid generating unnecessary costs in an AWS account. For more information, see [Stubbing Client Responses and Errors](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/stubbing.html) in the *AWS SDK for Ruby Developer Guide*.
-
 
 ## Additional information
 
-- [AWS Elastic BeanStalk Documentation](https://docs.aws.amazon.com/elastic-beanstalk/)
+- [AWS Elastic Beanstalk Documentation](https://docs.aws.amazon.com/elastic-beanstalk/)
 - [AWS SDK for Ruby Documentation](https://docs.aws.amazon.com/sdk-for-ruby)
 - [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs)
 - [RSpec Documentation](https://rspec.info/documentation)

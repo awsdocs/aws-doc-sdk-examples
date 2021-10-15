@@ -88,11 +88,11 @@ def run_me
   # Print usage information and then stop.
   if ARGV[0] == '--help' || ARGV[0] == '-h'
     puts 'Usage:   ruby ec2-ruby-example-regions-availability-zones.rb REGION'
-    # Replace us-west-2 with the AWS Region you're using for AWS EC2.
+    # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
     puts 'Example: ruby ec2-ruby-example-regions-availability-zones.rb us-west-2'
     exit 1
   # If no values are specified at the command prompt, use these default values.
-  # Replace us-west-2 with the AWS Region you're using for AWS EC2.
+  # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
   elsif ARGV.count.zero?
     region = 'us-west-2'
   # Otherwise, use the values as specified at the command prompt.

@@ -3,7 +3,7 @@
 
 # Purpose:
 # JobStatusNotificationSample.rb demonstrates how to create a notification handler for an
-# Amazon Elastic Transcoder job using the AWS SKD for Ruby.
+# Amazon Elastic Transcoder job using the AWS SDK for Ruby.
 
 
 # snippet-start:[elastictranscoder.ruby.create_job_status_notification.import]

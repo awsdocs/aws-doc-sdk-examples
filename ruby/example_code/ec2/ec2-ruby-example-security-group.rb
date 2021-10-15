@@ -264,7 +264,7 @@ def run_me
     from_port_ssh = '22'
     to_port_ssh = '22'
     cidr_ip_range_ssh = '0.0.0.0/0'
-    # Replace us-west-2 with the AWS Region you're using for AWS EC2.
+    # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
     region = 'us-west-2'
   # Otherwise, use the values as specified at the command prompt.
   else

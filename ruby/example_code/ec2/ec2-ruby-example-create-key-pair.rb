@@ -3,7 +3,7 @@
 
 # Purpose:
 # ec2-ruby-example-create-key-pair.rb demonstrates how to
-# creates a key pair in Amazon Elastic Compute Cloud (Amazon EC2) and
+# create a key pair in Amazon Elastic Compute Cloud (Amazon EC2) and
 # saves the resulting RSA private key file locally in the calling
 # user's home directory.
 
@@ -42,14 +42,14 @@ def run_me
   if ARGV[0] == '--help' || ARGV[0] == '-h'
     puts 'Usage: ruby ec2-ruby-example-create-key-pair.rb ' \
       'KEY_PAIR_NAME REGION'
-    # Replace us-west-2 with the AWS Region you're using for AWS EC2.
+    # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
     puts 'Example: ruby ec2-ruby-example-create-key-pair.rb ' \
       'my-key-pair us-west-2'
     exit 1
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
     key_pair_name = 'my-key-pair'
-    # Replace us-west-2 with the AWS Region you're using for AWS EC2.
+    # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
     region = 'us-west-2 '
   # Otherwise, use the values as specified at the command prompt.
   else

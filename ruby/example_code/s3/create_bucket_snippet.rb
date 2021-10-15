@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose
-# This code demonstrates how to create a bucket in Amazon Simple Storage Solution (Amazon S3).
+# This code demonstrates how to create a bucket in Amazon Simple Storage Service (Amazon S3).
 
 # snippet-start:[s3.ruby.create_bucket_snippet.rb]
 require 'aws-sdk-s3'

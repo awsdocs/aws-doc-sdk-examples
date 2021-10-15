@@ -3,7 +3,7 @@
 
 # Purpose:
 # aws-ruby-sdk-lambda-example-configure-function-for-notification.rb demonstrates how to
-# configure an AWS Lambda function to accept notifications using the AWS SKD for Ruby.
+# configure an AWS Lambda function to accept notifications using the AWS SDK for Ruby.
 
 # snippet-start:[lambda.ruby.createKey]
 require 'aws-sdk-lambda'  # v2: require 'aws-sdk'

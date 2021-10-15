@@ -3,7 +3,7 @@
 
 # Purpose:
 # aws-ruby-sdk-lambda-example-run-function.rb demonstrates how to
-# list your AWS Lambda functions using the AWS SKD for Ruby.
+# list your AWS Lambda functions using the AWS SDK for Ruby.
 
 # snippet-start:[lambda.ruby.listFunctions]
 

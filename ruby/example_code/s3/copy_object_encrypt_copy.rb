@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose
-# This code demonstrates how to copy an object from one Amazon Simple Storage Solution (Amazon S3) bucket to another,
+# This code demonstrates how to copy an object from one Amazon Simple Storage Service (Amazon S3) bucket to another,
 # changing the object's server-side encryption state during the copy operation.
 
 # snippet-start:[s3.ruby.copy_object_encrypt_copy.rb]

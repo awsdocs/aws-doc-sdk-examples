@@ -3,7 +3,7 @@
 
 # Purpose
 # This code example demonstrates how to get the contents of an encrypted object
-# in an Amazon Simple Storage Solution (Amazon S3) bucket.
+# in an Amazon Simple Storage Service (Amazon S3) bucket.
 
 # snippet-start:[s3.s3_get_csaes_decrypt_item.rb]
 

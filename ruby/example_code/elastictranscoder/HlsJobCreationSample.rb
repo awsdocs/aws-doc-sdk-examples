@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose:
-# eb_list_stacks.rb demonstrates how to create an HLS job using the AWS SKD for Ruby.
+# eb_list_stacks.rb demonstrates how to create an HLS job using the AWS SDK for Ruby.
 
 
 # snippet-start:[elastictranscoder.ruby.create_hls_job.import]

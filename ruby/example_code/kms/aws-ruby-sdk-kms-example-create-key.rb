@@ -3,7 +3,7 @@
 
 # Purpose:
 # aws-ruby-sdk-kms-example-create-key.rb demonstrates how to create a customer master key
-# using Amazon Key Management Services (KMS) using the AWS SKD for Ruby.
+# using Amazon Key Management Services (AWS KMS) using the AWS SDK for Ruby.
 
 # snippet-start:[kms.ruby.createKey]
 

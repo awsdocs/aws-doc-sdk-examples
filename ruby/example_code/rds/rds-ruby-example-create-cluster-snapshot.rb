@@ -3,7 +3,7 @@
 
 # Purpose:
 # rds-ruby-example-create-cluster-snapshot.rb demonstrates how to create a snapshot of an
-# Amazon Relational Database Service (RDS) cluster using the AWS SKD for Ruby.
+# Amazon Relational Database Service (Amazon RDS) cluster using the AWS SDK for Ruby.
 
 # snippet-start:[rds.ruby.createClusterSnapshot]
 

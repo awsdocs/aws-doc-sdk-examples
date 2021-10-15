@@ -182,12 +182,12 @@ def run_me
   if ARGV[0] == '--help' || ARGV[0] == '-h'
     puts 'Usage:   ruby ec2-ruby-example-manage-instances.rb ' \
       'INSTANCE_ID REGION'
-    # Replace us-west-2 with the AWS Region you're using for AWS EC2.
+    # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
     puts 'Example: ruby ec2-ruby-example-manage-instances.rb ' \
       'i-033c48ef067af3dEX us-west-2'
     exit 1
   # If no values are specified at the command prompt, use these default values.
-  # Replace us-west-2 with the AWS Region you're using for AWS EC2.
+  # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
   elsif ARGV.count.zero?
     instance_id = 'i-033c48ef067af3dEX'
     region = 'us-west-2'

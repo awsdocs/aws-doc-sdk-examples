@@ -3,7 +3,7 @@
 
 # Purpose:
 # aws-ruby-sdk-cloudtrail-example-delete-trail.rb demonstrates how to delete
-# an Amazon CloudTrail trail using the AWS SDK for Ruby.
+# an AWS CloudTrail trail using the AWS SDK for Ruby.
 
 # snippet-start:[cloudtrail.Ruby.deleteTrail]
 

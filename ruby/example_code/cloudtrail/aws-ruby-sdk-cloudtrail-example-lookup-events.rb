@@ -3,7 +3,7 @@
 
 # Purpose:
 # aws-ruby-sdk-cloudtrail-example-lookup-events.rb demonstrates how to look up
-#  Amazon CloudTrail trail events using the AWS SDK for Ruby.
+#  AWS CloudTrail trail events using the AWS SDK for Ruby.
 
 
 # snippet-start:[cloudtrail.Ruby.lookupEvents]

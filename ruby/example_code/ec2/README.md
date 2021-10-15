@@ -29,7 +29,7 @@ servers in Amazon's data centers—that you use to build and host your software 
 - [Display list of available AWS Regions](./ec2-ruby-example-regions-availability-zones.rb)
 - [Start an instance](./ec2-ruby-example-start-instance-i-123abc.rb)
 - [Stop an instance](./ec2-ruby-example-stop-instance-i-123abc.rb)
-- [Terminate and instance](./ec2-ruby-example-terminate-instance-i-123abc.rb)
+- [Terminate an instance](./ec2-ruby-example-terminate-instance-i-123abc.rb)
 
 ## Important
 

@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose:
-# rds-ruby-example-create-cluster-snapshot.rb demonstrates how to list your
-# Amazon Relational Database Service (RDS) subnet groups using the AWS SKD for Ruby.
+# rds-ruby-example-list-subnet-groups.rb demonstrates how to list your
+# Amazon Relational Database Service (Amazon RDS) subnet groups using the AWS SDK for Ruby.
 
 # snippet-start:[rds.ruby.listSubnetGroups]
 require 'aws-sdk-rds'  # v2: require 'aws-sdk'

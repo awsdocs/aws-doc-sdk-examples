@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose:
-# rds-ruby-example-create-cluster-snapshot.rb demonstrates how to create a snapshot of an
-# Amazon Relational Database Service (RDS) database using the AWS SKD for Ruby.
+# rds-ruby-example-create-snapshot.rb demonstrates how to create a snapshot of an
+# Amazon Relational Database Service (Amazon RDS) database using the AWS SDK for Ruby.
 
 # snippet-start:[rds.ruby.createDatabaseSnapshot]
 

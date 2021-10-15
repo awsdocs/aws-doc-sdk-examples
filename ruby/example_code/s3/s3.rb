@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose
-# s3.rb demonstrates how to list, create, and delete a bucket in Amazon Simple Storage Solution (Amazon S3).
+# s3.rb demonstrates how to list, create, and delete a bucket in Amazon Simple Storage Service (Amazon S3).
 
 # snippet-start:[s3.ruby.s3.rb]
 require 'aws-sdk'

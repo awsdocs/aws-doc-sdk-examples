@@ -3,7 +3,7 @@
 
 # Purpose
 # This code example demonstrates how to upload multiple items
-# to a bucket in Amazon Simple Storage Solution (Amazon S3).
+# to a bucket in Amazon Simple Storage Service (Amazon S3).
 
 # snippet-start:[s3.ruby.s3-ruby-example-upload-multiple-items]
 

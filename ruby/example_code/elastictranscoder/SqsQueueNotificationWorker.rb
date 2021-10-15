@@ -3,7 +3,7 @@
 
 # Purpose:
 # JobStatusNotificationSample.rb demonstrates how to create a queue for handling notifications
-# for an Amazon Elastic Transcoder job using the AWS SKD for Ruby.
+# for an Amazon Elastic Transcoder job using the AWS SDK for Ruby.
 
 # snippet-start:[elastictranscoder.ruby.create_sqs_notification_queue.import]
 require 'aws-sdk-elastictranscoder'

@@ -58,7 +58,7 @@ end
 
 # Full example call:
 def run_me
-# Replace us-west-2 with the AWS Region you're using for AWS DynamoDB.
+# Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
   region = 'us-west-2'
   table_name = 'Movies'
 

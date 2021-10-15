@@ -3,7 +3,7 @@
 
 # Purpose:
 # aws-ruby-sdk-cloudtrail-example-create-trail.rb demonstrates how to create
-# an Amazon CloudTrail trail using the AWS SDK for Ruby.
+# an AWS CloudTrail trail using the AWS SDK for Ruby.
 
 # Inputs:
 # - REGION
@@ -20,7 +20,7 @@ def add_policy(bucket)
   resp = sts_client.get_caller_identity({})
   account_id = resp.account
 
-  # Attach policy to and Amazon Simple Storage Solution (S3) bucket.
+  # Attach policy to an Amazon Simple Storage Service (S3) bucket.
   # Replace us-west-2 with the AWS Region you're using for AWS CloudTrail.
   s3_client = Aws::S3::Client.new(region: 'us-west-2')
 

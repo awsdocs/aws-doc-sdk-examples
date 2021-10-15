@@ -1,4 +1,4 @@
-# AWS SDK for Ruby code examples for AWS IAM
+# AWS SDK for Ruby code examples for IAM
 
 ## Purpose
 This folder contains code examples that demonstrate how to use the AWS SDK for 
@@ -14,10 +14,10 @@ which AWS resources users and applications can access.
 - [Construct a URL for federated users](./iam-ruby-example-construct-url-federated-users.rb)
 - [Manage access keys](./iam-ruby-example-access-keys.rb)
 - [Manage account aliases](./iam-ruby-example-account-alias.rb)
-- [Manage Policies](./iam-ruby-example-manage-policies.rb)
+- [Manage policies](./iam-ruby-example-manage-policies.rb)
 - [Manage users](./iam-ruby-example-manage-users.rb)
 - [Manage server certificates](./iam-ruby-example-server-certificates.rb)
-- [Manage administrator privilages](./iam_ruby_example_show_admins.rb)
+- [Manage administrator privileges](./iam_ruby_example_show_admins.rb)
 
 ### API examples
 - [Add a managed policy](./iam-ruby-example-add-managed-policy.rb)

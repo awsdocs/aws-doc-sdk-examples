@@ -2,7 +2,7 @@
 # SPDX - License - Identifier: Apache - 2.0
 
 # Purpose
-# This code example demonstrates how to checks to see which Amazon Simple Storage Service (Amazon S3)
+# This code example demonstrates how to check which Amazon Simple Storage Service (Amazon S3)
 #   buckets are open for public read access. These buckets must also
 #   be accessible to you and were initially created with the target
 #   AWS Region specified.

@@ -2,7 +2,7 @@
 # SPDX - License - Identifier: Apache - 2.0
 
 # Purpose
-# This code example demonstrates how to upload a file to an Amazon Simple Storage Solution (Amazon S3)
+# This code example demonstrates how to upload a file to an Amazon Simple Storage Service (Amazon S3)
 # bucket and then encrypts the file server-side by using the 256-bit Advanced Encryption Standard (AES-256)
 # block cipher.
 

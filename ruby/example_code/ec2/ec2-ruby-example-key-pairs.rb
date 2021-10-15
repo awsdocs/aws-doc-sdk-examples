@@ -95,7 +95,7 @@ def run_me
     puts 'Example: ruby ec2-ruby-example-key-pairs.rb my-key-pair us-west-2'
     exit 1
   # If no values are specified at the command prompt, use these default values.
-  # Replace us-west-2 with the AWS Region you're using for AWS EC2.
+  # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
   elsif ARGV.count.zero?
     key_pair_name = 'my-key-pair'
     region = 'us-west-2'

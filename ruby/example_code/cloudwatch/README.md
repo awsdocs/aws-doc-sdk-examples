@@ -10,7 +10,7 @@ You no longer need to set up, manage, and scale your own monitoring systems and 
 
 ###  Usage examples
 - [Create an alarm and disable all actions for the alarm](./cw-ruby-example-alarm-actions.rb)
-- [List alarms, create a new alram, and delete an alarm](./cw-ruby-example-alarm-basics.rb)
+- [List alarms, create a new alarm, and delete an alarm](./cw-ruby-example-alarm-basics.rb)
 - [Add a datapoint to a metric, and list all metrics for a namespace](./cw-ruby-example-metrics-basics.rb)
 
 ### API examples

@@ -1,4 +1,4 @@
-# Amazon SNS Ruby SDK v3 code examples
+# Amazon SDK for Ruby code examples for Amazon SNS
 
 ## Purpose
 This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate Amazon Simple Notification Service (SNS).
@@ -7,7 +7,7 @@ Amazon SNS is a fully managed messaging service for both application-to-applicat
 
 
 ## Code examples
-This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) Amazon Cloudwatch examples:
+This is a workspace where you can find the following AWS SDK for Ruby version 3 (v3) Amazon SNS examples:
 
 - [Create a subscription](./sns-ruby-example-create-subscription.rb)
 - [Create a topic](./sns-ruby-example-create-topic.rb)
@@ -44,22 +44,22 @@ This is a workspace where you can find the following AWS SDK for Ruby version 3 
   [Install the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html) in the 
   *AWS SDK for Ruby Developer Guide*.
   
-Most of these code example files can be run with very little to no modification. For example, to use Ruby to run the `cw-ruby-example-create-alarm.rb` file, replace the hard-coded values in the file with your own values, save the file, and then run the file. For example:
+Most of these code example files can be run with very little to no modification. For example, to use Ruby to run the `sns-ruby-example-create-subscription.rb` file, replace the hard-coded values in the file with your own values, save the file, and then run the file. For example:
 
 ```
-ruby cw-ruby-example-create-alarm.rb
+ruby sns-ruby-example-create-subscription.rb
 ```
 
-Most of these files have been refactored into reusable functions that can be copied into your own code. You can then call those functions directly from your own code without modifying the copied function code itself. For example, you could copy the `alarm_created_or_updated?` function code from the `cw-ruby-example-create-alarm.rb` file into your own code. You could then adapt the code in the `run_me` function in that same file as a basis to write your own code to call the copied `alarm_created_or_updated?` function.
+Most of these files have been refactored into reusable functions that can be copied into your own code. You can then call those functions directly from your own code without modifying the copied function code itself. For example, you could copy the `subscription_created?` function code from the `sns-ruby-example-create-subscription.rb` file into your own code. You could then adapt the code in the `run_me` function in that same file as a basis to write your own code to call the copied `subscription_created?` function.
 
 ## Running the tests
 
-Most of these code example files have accompanying tests that are written to work with RSpec. These tests are in the `tests` folder and contain the same file name as the corresponding code example file, for example `tests/test_cw-ruby-example-create-alarm.rb` contains tests for `cw-ruby-example-create-alarm.rb`.
+Most of these code example files have accompanying tests that are written to work with RSpec. These tests are in the `tests` folder and contain the same file name as the corresponding code example file, for example `tests/test-sns-ruby-example-create-subscription.rb` contains tests for `sns-ruby-example-create-subscription.rb`.
 
 To use RSpec to run all tests within a file, specify the path to that file, for example:
 
 ```
-rspec tests/test_cw-ruby-example-create-alarm.rb
+rspec tests/test-sns-ruby-example-create-subscription.rb
 ```
 
 To explore additional options for using RSpec to run tests, run the `rspec --help` command. 

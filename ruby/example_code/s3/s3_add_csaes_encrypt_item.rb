@@ -3,7 +3,7 @@
 
 # Purpose
 # This code example demonstrates how to upload an encrypted object to an
-# Amazon Simple Storage Solution (Amazon S3) bucket.
+# Amazon Simple Storage Service (Amazon S3) bucket.
 
 # snippet-start:[s3.ruby.s3_add_csaes_encrypt_item]
 

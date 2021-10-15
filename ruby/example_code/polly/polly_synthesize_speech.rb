@@ -3,7 +3,7 @@
 
 # Purpose:
 # polly_list_lexicons.rb demonstrates how to produce an MP3 file containing the synthesized
-# speech from a text file using Amazon Polly using the AWS SKD for Ruby.
+# speech from a text file using Amazon Polly using the AWS SDK for Ruby.
 
 # snippet-start:[polly.ruby.synthesizeSpeech]
 

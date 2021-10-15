@@ -2,7 +2,7 @@
 # SPDX - License - Identifier: Apache - 2.0
 
 # Purpose
-# This code example demonstrates how to list the verified email addresses for Amazon Simple Email Services (Amazon SES).
+# This code example demonstrates how to list the verified email addresses for Amazon Simple Email Service (Amazon SES).
 
 # snippet-start:[s3.ruby.ses_list_emails.rb]
 

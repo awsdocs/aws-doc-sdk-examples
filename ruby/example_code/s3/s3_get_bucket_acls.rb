@@ -3,7 +3,7 @@
 
 # Purpose
 # This code example demonstrates how to list the access control lists (ACLs) for an
-# Amazon Simple Storage Solution (Amazon S3) bucket.
+# Amazon Simple Storage Service (Amazon S3) bucket.
 
 # snippet-start:[s3.ruby.s3_get_bucket_acls.rb]
 

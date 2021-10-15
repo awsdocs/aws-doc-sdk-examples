@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose:
-# rds-ruby-example-create-cluster-snapshot.rb demonstrates how to list all
-# Amazon Relational Database Service (RDS) instances using the AWS SKD for Ruby.
+# rds-ruby-example-list-instance-snapshots.rb demonstrates how to list all
+# Amazon Relational Database Service (Amazon RDS) instances using the AWS SDK for Ruby.
 
 # snippet-start:[rds.ruby.listAllInstances]
 

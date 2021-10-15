@@ -3,7 +3,7 @@
 
 # Purpose:
 # eb_list_stacks.rb demonstrates how to list your Amazon Elastic Beanstalk
-# solution stacks using the AWS SKD for Ruby.
+# solution stacks using the AWS SDK for Ruby.
 
 # snippet-start:[eb.Ruby.listStacks]
 require 'aws-sdk-elasticbeanstalk'  # v2: require 'aws-sdk'

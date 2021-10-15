@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose:
-# rds-ruby-example-create-cluster-snapshot.rb demonstrates how to list your
-# Amazon Relational Database Service (RDS) parameter groups using the AWS SKD for Ruby.
+# rds-ruby-example-list-parameter-groups.rb demonstrates how to list your
+# Amazon Relational Database Service (Amazon RDS) parameter groups using the AWS SDK for Ruby.
 
 # snippet-start:[rds.ruby.listParameterGroups]
 

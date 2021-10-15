@@ -3,7 +3,7 @@
 
 # Purpose
 # This code example demonstrates how to create a dead-letter queue, get and set some queue attributes,
-# send a message to the queue, wait (polls) for the message to arrive, and receive the message.
+# send a message to the queue, wait (poll) for the message to arrive, and receive the message.
 
 # snippet-start:[s3.ruby.sqs-ruby-example-dead-letter-queue.rb]
 
@@ -14,7 +14,7 @@ require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
 # Replace us-west-2 with the AWS Region you're using for Amazon SQS.
 sqs = Aws::SQS::Client.new(region: 'us-west-2')
 
-# Create a queue representing a dead letter queue.
+# Create a queue representing a dead-letter queue.
 dead_letter_queue_name = "dead-letter-queue"
 
 sqs.create_queue({

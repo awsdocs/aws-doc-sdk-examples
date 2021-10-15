@@ -3,7 +3,7 @@
 
 # Purpose:
 # elb-ruby-example-list-all-apps.rb demonstrates how to list your Amazon
-# Elastic Beanstalk applications and environments using the AWS SKD for Ruby.
+# Elastic Beanstalk applications and environments using the AWS SDK for Ruby.
 
 # snippet-start:[eb.Ruby.listApps]
 

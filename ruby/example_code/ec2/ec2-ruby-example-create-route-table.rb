@@ -87,7 +87,7 @@ def run_me
     puts 'Usage: ruby ec2-ruby-example-create-route-table.rb ' \
       'VPC_ID SUBNET_ID GATEWAY_ID DESTINATION_CIDR_BLOCK ' \
       'TAG_KEY TAG_VALUE REGION'
-  # Replace us-west-2 with the AWS Region you're using for AWS EC2.
+  # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
     puts 'Example: ruby ec2-ruby-example-create-route-table.rb ' \
       'vpc-0b6f769731EXAMPLE subnet-03d9303b57EXAMPLE igw-06ca90c011EXAMPLE ' \
       '\'0.0.0.0/0\' my-key my-value us-west-2'
@@ -100,7 +100,7 @@ def run_me
     destination_cidr_block = '0.0.0.0/0'
     tag_key = 'my-key'
     tag_value = 'my-value'
-    # Replace us-west-2 with the AWS Region you're using for AWS EC2.
+    # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
     region = 'us-west-2'
   # Otherwise, use the values as specified at the command prompt.
   else

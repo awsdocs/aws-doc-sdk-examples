@@ -2,7 +2,7 @@
 # SPDX - License - Identifier: Apache - 2.0
 
 # Purpose
-# This code example demonstrates how to send a message to Amazon Simple Email Services (Amazon SES) email address.
+# This code example demonstrates how to send a message to Amazon Simple Email Service (Amazon SES) email address.
 
 # snippet-start:[s3.ruby.ses_send_email.rb]
 

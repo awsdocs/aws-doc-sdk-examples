@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose:
-# eb_list_stacks.rb demonstrates how to update a Ruby on Rails application the AWS SKD for Ruby.
+# eb_list_stacks.rb demonstrates how to update a Ruby on Rails application the AWS SDK for Ruby.
 
 # snippet-start:[eb.Ruby.updateMyRailsApp]
 require 'aws-sdk-elasticbeanstalk'  # v2: require 'aws-sdk'

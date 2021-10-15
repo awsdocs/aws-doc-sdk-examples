@@ -3,7 +3,7 @@
 
 # Purpose:
 # iam-ruby-example-add-managed-policy.rb demonstrates how to create a queue for handling notifications
-# for an AWS Identity and Access Management (IAM) job using the AWS SKD for Ruby.
+# for an AWS Identity and Access Management (IAM) job using the AWS SDK for Ruby.
 
 # snippet-start:[elastictranscoder.ruby.addManagedPolicy]
 

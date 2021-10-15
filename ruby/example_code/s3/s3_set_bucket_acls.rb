@@ -3,7 +3,7 @@
 
 # Purpose
 # This code example demonstrates how to set the access control list (ACL)
-# on an Amazon Simple Storage Solution (Amazon S3) bucket for the given owner.
+# on an Amazon Simple Storage Service (Amazon S3) bucket for the given owner.
 
 # snippet-start:[s3.s3_set_bucket_acls.rb]
 

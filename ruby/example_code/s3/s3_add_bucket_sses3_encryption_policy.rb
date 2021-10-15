@@ -2,8 +2,8 @@
 # SPDX - License - Identifier: Apache - 2.0
 
 # Purpose
-# This code example demonstrates how deny uploads of objects without
-# server-side AWS KMS encryption to an Amazon Simple Storage Solution (Amazon S3).
+# This code example demonstrates how to deny uploads of objects without
+# server-side AWS KMS encryption to an Amazon Simple Storage Service (Amazon S3).
 
 # snippet-start:[s3.ruby.s3_add_bucket_sses3_encryption_policy]
 

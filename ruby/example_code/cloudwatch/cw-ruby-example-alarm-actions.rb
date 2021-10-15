@@ -139,7 +139,7 @@ def run_me
   evaluation_periods = 1 # More than one day.
   threshold = 1 # One object.
   comparison_operator = 'GreaterThanThreshold' # More than one object.
-  # Replace us-west-2 with the AWS Region you're using for AWS CloudWatch.
+  # Replace us-west-2 with the AWS Region you're using for Amazon CloudWatch.
   region = 'us-east-1'
 
   cloudwatch_client = Aws::CloudWatch::Client.new(region: region)

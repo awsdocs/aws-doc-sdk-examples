@@ -2,7 +2,7 @@
 # SPDX - License - Identifier: Apache - 2.0
 
 # Purpose:
-# iam-ruby-example-manage-users.rb shows how to to:
+# iam-ruby-example-manage-users.rb shows how to:
 # 1. Get a list of user names in AWS Identity and Access Management (IAM).
 # 2. Create a user.
 # 3. Update the user's name.

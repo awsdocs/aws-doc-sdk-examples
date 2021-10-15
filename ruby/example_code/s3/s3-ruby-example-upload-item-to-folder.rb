@@ -3,7 +3,7 @@
 
 # Purpose
 # This code example demonstrates how to upload an item
-# (file) to a folder within a bucket in Amazon Simple Storage Solution (Amazon S3).
+# (file) to a folder within a bucket in Amazon Simple Storage Service (Amazon S3).
 
 # snippet-start:[s3.ruby.s3-ruby-example-upload-item-to-folder]
 

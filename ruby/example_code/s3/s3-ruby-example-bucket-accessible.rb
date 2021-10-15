@@ -2,7 +2,7 @@
 # SPDX - License - Identifier: Apache - 2.0
 
 # Purpose
-# s3-ruby-example-bucket-accessible.rb demonstrates checks whether an Amazon Simple Storage Service (Amazon S3) bucket
+# s3-ruby-example-bucket-accessible.rb checks whether an Amazon Simple Storage Service (Amazon S3) bucket
 # exists in an AWS Region.
 
 # snippet-start:[s3.ruby.s3-ruby-example-bucket-accessible]

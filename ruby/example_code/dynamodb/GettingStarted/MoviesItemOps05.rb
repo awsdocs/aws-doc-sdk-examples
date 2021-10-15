@@ -1,4 +1,4 @@
-    # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
 # This code example demonstrates how to update information about an
@@ -31,7 +31,7 @@ rescue StandardError => e
 end
 
 def run_me
-# Replace us-west-2 with the AWS Region you're using for AWS DynamoDB.
+# Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
   region = 'us-west-2'
   table_name = 'Movies'
   title = 'The Big New Movie'

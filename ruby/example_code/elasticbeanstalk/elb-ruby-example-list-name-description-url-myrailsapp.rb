@@ -4,7 +4,7 @@
 # Purpose:
 # elb-ruby-example-list-name-description-url-myrailsapp.rb demonstrates how to
 # get the name and description of an Amazon Elastic Beanstalk application and its
-# URL using the AWS SKD for Ruby.
+# URL using the AWS SDK for Ruby.
 
 # snippet-start:[eb.Ruby.listNameDescription]
 

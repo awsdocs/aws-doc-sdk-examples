@@ -3,7 +3,7 @@
 
 # Purpose:
 # aws-ruby-sdk-lambda-example-configure-function-for-notification.rb demonstrates how to
-# create an AWS Lambda function using the AWS SKD for Ruby.
+# create an AWS Lambda function using the AWS SDK for Ruby.
 
 # snippet-start:[lambda.ruby.createFunctions]
 

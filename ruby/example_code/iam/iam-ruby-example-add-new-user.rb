@@ -3,7 +3,7 @@
 
 # Purpose:
 # iam-ruby-example-add-new-user.rb demonstrates how to create a user in
-# AWS Identity and Access Management (IAM) using the AWS SKD for Ruby.
+# AWS Identity and Access Management (IAM) using the AWS SDK for Ruby.
 
 # snippet-start:[elastictranscoder.ruby.addNewUser]
 

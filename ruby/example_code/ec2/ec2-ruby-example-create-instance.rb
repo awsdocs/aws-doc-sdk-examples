@@ -112,7 +112,7 @@ def run_me
     puts 'Usage: ruby ec2-ruby-example-create-instance.rb ' \
       'IMAGE_ID KEY_PAIR_NAME TAG_KEY TAG_VALUE INSTANCE_TYPE ' \
       'REGION [USER_DATA_FILE]'
-     # Replace us-west-2 with the AWS Region you're using for AWS EC2.
+     # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
     puts 'Example: ruby ec2-ruby-example-create-instance.rb ' \
       'ami-0947d2ba12EXAMPLE my-key-pair my-key my-value t2.micro ' \
       'us-west-2 my-user-data.txt'
@@ -124,7 +124,7 @@ def run_me
     tag_key = 'my-key'
     tag_value = 'my-value'
     instance_type = 't2.micro'
-    # Replace us-west-2 with the AWS Region you're using for AWS EC2.
+    # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
     region = 'us-west-2'
     user_data_file = 'my-user-data.txt'
   # Otherwise, use the values as specified at the command prompt.

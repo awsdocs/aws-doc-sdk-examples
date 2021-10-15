@@ -2,7 +2,7 @@
 # SPDX - License - Identifier: Apache - 2.0
 
 # Purpose
-# This code example demonstrates how to download an object from an Amazon Simple Storage Solution (Amazon S3) bucket.
+# This code example demonstrates how to download an object from an Amazon Simple Storage Service (Amazon S3) bucket.
 # The object's contents were originally encrypted with an RSA public key.
 
 # snippet-start:[s3.ruby.s3-ruby-example-get-cspk-item]

@@ -1,4 +1,4 @@
-# Amazon WorkDocs Ruby SDK v3 code examples
+# Amazon SDK for Ruby SDK code examples for Amazon WorkDocs
 
 ## Purpose
 This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate Amazon WorkDocs.
@@ -9,7 +9,7 @@ you can easily create, edit, and share content, and because it’s stored centra
 ## Code examples
 
 ### API examples
-- [List a users documents](./wd_list_user_docs.rb)
+- [List a user's documents](./wd_list_user_docs.rb)
 - [List users](./wd_list_users.rb)
 
 ## Important
@@ -39,28 +39,11 @@ you can easily create, edit, and share content, and because it’s stored centra
    [Install the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html) in the 
    *AWS SDK for Ruby Developer Guide*.
 
-Most of these code example files can be run with very little to no modification. For example, to use Ruby to run the `cw-ruby-example-create-alarm.rb` file, replace the hard-coded values in the file with your own values, save the file, and then run the file. For example:
+Most of these code example files can be run with very little to no modification. For example, to use Ruby to run the `wd_list_user_docs.rb` file, replace the hard-coded values in the file with your own values, save the file, and then run the file. For example:
 
 ```
-ruby cw-ruby-example-create-alarm.rb
+ruby wd_list_user_docs.rb
 ```
-
-Most of these files have been refactored into reusable functions that can be copied into your own code. You can then call those functions directly from your own code without modifying the copied function code itself. For example, you could copy the `alarm_created_or_updated?` function code from the `cw-ruby-example-create-alarm.rb` file into your own code. You could then adapt the code in the `run_me` function in that same file as a basis to write your own code to call the copied `alarm_created_or_updated?` function.
-
-## Running the tests
-
-Most of these code example files have accompanying tests that are written to work with RSpec. These tests are in the `tests` folder and contain the same file name as the corresponding code example file, for example `tests/test_cw-ruby-example-create-alarm.rb` contains tests for `cw-ruby-example-create-alarm.rb`.
-
-To use RSpec to run all tests within a file, specify the path to that file, for example:
-
-```
-rspec tests/test_cw-ruby-example-create-alarm.rb
-```
-
-To explore additional options for using RSpec to run tests, run the `rspec --help` command. 
-
-Most of these tests are designed to use stubs, to avoid generating unnecessary costs in an AWS account. For more information, see [Stubbing Client Responses and Errors](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/stubbing.html) in the *AWS SDK for Ruby Developer Guide*.
-
 
 
 ## Resources

@@ -3,7 +3,7 @@
 
 # Purpose:
 # aws-ruby-sdk-kms-example-encrypt-data.rb demonstrates how to encrypt a string
-# using Amazon Key Management Services (KMS) using the AWS SKD for Ruby.
+# using Amazon Key Management Services (AWS KMS) using the AWS SDK for Ruby.
 
 # snippet-start:[kms.ruby.encryptBlob]
 require 'aws-sdk-kms'  # v2: require 'aws-sdk'

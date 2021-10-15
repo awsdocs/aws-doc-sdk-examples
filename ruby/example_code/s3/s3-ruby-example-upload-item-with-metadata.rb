@@ -3,7 +3,7 @@
 
 # Purpose
 # This code example demonstrates how to upload an object to a bucket in
-# Amazon Simple Storage Service (Amazon S3), and how to associates specified
+# Amazon Simple Storage Service (Amazon S3), and how to associate specified
 # metadata with the uploaded object.
 
 # snippet-start:[s3.ruby.s3-ruby-example-upload-item-with-metadata]

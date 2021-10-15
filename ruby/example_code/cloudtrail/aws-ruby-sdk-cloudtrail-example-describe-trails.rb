@@ -3,7 +3,7 @@
 
 # Purpose:
 # aws-ruby-sdk-cloudtrail-example-describe-trails.rb demonstrates how to
-# retrieve details about your an Amazon CloudTrail trails using the AWS SDK for Ruby.
+# retrieve details about AWS CloudTrail trails using the AWS SDK for Ruby.
 
 
 # snippet-start:[cloudtrail.Ruby.describeTrails]

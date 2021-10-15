@@ -2,7 +2,7 @@
 # SPDX - License - Identifier: Apache - 2.0
 
 # Purpose
-# This code example demonstrates how to configure an Amazon Simple Storage Solution (Amazon S3) bucket as a static website.
+# This code example demonstrates how to configure an Amazon Simple Storage Service (Amazon S3) bucket as a static website.
 
 # snippet-start:[s3.s3_ruby_bucket_website.rb]
 

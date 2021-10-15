@@ -3,7 +3,7 @@
 
 # Purpose
 # This code demonstrates how get the server-side encryption state
-# of an object in an Amazon Simple Storage Solution (Amazon S3) bucket.
+# of an object in an Amazon Simple Storage Service (Amazon S3) bucket.
 
 # snippet-start:[s3.ruby.determine_object_encryption_state.rb]
 require 'aws-sdk-s3'
