@@ -1,0 +1,37 @@
+pinpoint_SendMessages:
+  title: Send email and text messages with &PIN; using an &AWS; SDK
+  title_abbrev: Send email and text messages
+  synopsis: send email and text messages with &PIN;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Send an email message.
+              snippet_tags:
+                - pinpoint.python.pinpoint_send_email_message_api.complete
+            - description: Send an SMS message.
+              snippet_tags:
+                - pinpoint.python.pinpoint_send_sms_message_api.complete
+  services:
+    pinpoint: {SendMessages}
+pinpoint_Scenario_SendSmtpMessage:
+  title: Send a text message with an &PIN; SMTP server using an &AWS; SDK
+  title_abbrev: Send a text message with an SMTP server
+  synopsis: send a text message with an &PIN; SMTP server.
+  category: Scenario
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pinpoint.python.pinpoint_send_email_smtp.complete
+  services:
+    pinpoint: {}
