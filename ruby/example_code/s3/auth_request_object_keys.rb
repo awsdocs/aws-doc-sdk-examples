@@ -4,6 +4,7 @@
 # Purpose:
 # This code example prints the list of objects in an Amazon Simple Storage Service (Amazon S3) bucket
 # using the AWS SDK for Ruby.
+# snippet-start:[s3.ruby.auth_request_object_keys.rb]
 # snippet-start:[s3.ruby.auth_request_test.rb]
 
 # Prerequisites:
@@ -52,3 +53,4 @@ end
 run_me if $PROGRAM_NAME == __FILE__
 
 # snippet-end:[s3.ruby.auth_request_test.rb]
+# snippet-end:[s3.ruby.auth_request_object_keys.rb]
