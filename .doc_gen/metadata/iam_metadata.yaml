@@ -704,15 +704,6 @@ iam_AttachUserPolicy:
   synopsis: attach an &IAM; policy to a user.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/iam
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - iam.java2.attach_role_policy.main
     Python:
       versions:
         - sdk_version: 3
