@@ -61,20 +61,20 @@ def main():
     sender = "sender@example.com"
     to_addresses = ["recipient@example.com"]
     cc_addresses = ["cc_recipient1@example.com", "cc_recipient2@example.com"]
-    subject = "Amazon Pinpoint Test (SDK for Python)"
-    text_message = """Amazon Pinpoint Test (SDK for Python)
+    subject = "Amazon Pinpoint Test (SDK for Python (Boto3))"
+    text_message = """Amazon Pinpoint Test (SDK for Python (Boto3))
     -------------------------------------
-    This email was sent with Amazon Pinpoint using the AWS SDK for Python.
+    This email was sent with Amazon Pinpoint using the AWS SDK for Python (Boto3).
     For more information, see https://aws.amazon.com/sdk-for-python/
                 """
     html_message = """<html>
     <head></head>
     <body>
-      <h1>Amazon Pinpoint Test (SDK for Python)</h1>
+      <h1>Amazon Pinpoint Test (SDK for Python (Boto3))</h1>
       <p>This email was sent with
         <a href='https://aws.amazon.com/pinpoint/'>Amazon Pinpoint</a> using the
         <a href='https://aws.amazon.com/sdk-for-python/'>
-          AWS SDK for Python</a>.</p>
+          AWS SDK for Python (Boto3)</a>.</p>
     </body>
     </html>
                 """

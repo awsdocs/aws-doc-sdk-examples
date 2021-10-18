@@ -26,7 +26,7 @@ def send_email_message(
     :param pinpoint_client: A Boto3 Pinpoint client.
     :param app_id: The Amazon Pinpoint project ID to use when you send this message.
     :param sender: The "From" address. This address must be verified in
-                   Amazon Pinpoint in the region you're using to send email.
+                   Amazon Pinpoint in the AWS Region you're using to send email.
     :param to_addresses: The addresses on the "To" line. If your Amazon Pinpoint account
                          is in the sandbox, these addresses must be verified.
     :param char_set: The character encoding to use for the subject line and message

@@ -66,7 +66,7 @@ def main():
     ssml_message = (
         "<speak>"
         "This is a test message sent from <emphasis>Amazon Pinpoint</emphasis> "
-        "using the <break strength='weak'/>AWS SDK for Python. "
+        "using the <break strength='weak'/>AWS SDK for Python (Boto3). "
         "<amazon:effect phonation='soft'>Thank you for listening."
         "</amazon:effect>"
         "</speak>")

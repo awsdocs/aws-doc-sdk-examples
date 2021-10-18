@@ -4,7 +4,7 @@
 """
 Purpose
 
-Shows how to use send email by using an Amazon Pinpoint SMTP server.
+Shows how to send email by using an Amazon Pinpoint SMTP server.
 """
 
 # snippet-start:[pinpoint.python.pinpoint_send_email_smtp.complete]
@@ -55,7 +55,7 @@ def send_smtp_message(
 
 
 def main():
-    # If you're using Amazon Pinpoint in a region other than US West (Oregon),
+    # If you're using Amazon Pinpoint in an AWS Region other than US West (Oregon),
     # replace email-smtp.us-west-2.amazonaws.com with the Amazon Pinpoint SMTP
     # endpoint in the appropriate AWS Region.
     host = "email-smtp.us-west-2.amazonaws.com"
