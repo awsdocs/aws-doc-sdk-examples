@@ -48,13 +48,14 @@ const params = {
     ":t": "NEW_ATTRIBUTE_VALUE_1", // For example ':t' : 'NEW_TITLE'
     ":s": "NEW_ATTRIBUTE_VALUE_2", // For example ':s' : 'NEW_SUBTITLE'
   },
+  ReturnValues: "ALL_NEW"
 };
 
 const run = async () => {
   try {
     const data = await ddbDocClient.send(new UpdateCommand(params));
     console.log("Success - item added or updated", data);
-    return data;
+    return data.Attributes;
   } catch (err) {
     console.log("Error", err);
   }
