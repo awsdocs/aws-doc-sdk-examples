@@ -1,5 +1,11 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# ec2-ruby-example-create-vpc.rb demonstrates how to create a virtual private cloud
+# (VPC) in Amazon Virtual Private Cloud (Amazon VPC) and then tags the VPC.
+
+# snippet-start:[ec2.Ruby.createVpc]
 
 require 'aws-sdk-ec2'
 
@@ -10,13 +16,13 @@ require 'aws-sdk-ec2'
 # @param ec2_resource [Aws::EC2::Resource] An initialized
 #   Amazon Elastic Compute Cloud (Amazon EC2) resource object.
 # @param cidr_block [String] The IPv4 CIDR block for the subnet.
-# @param tag_key [String] The key portion of the tag for the VPC. 
+# @param tag_key [String] The key portion of the tag for the VPC.
 # @param tag_value [String] The value portion of the tag for the VPC.
 # @return [Boolean] true if the VPC was created and tagged;
 #   otherwise, false.
 # @example
 #   exit 1 unless vpc_created_and_tagged?(
-#     Aws::EC2::Resource.new(region: 'us-east-1'),
+#     Aws::EC2::Resource.new(region: 'us-west-2'),
 #     '10.0.0.0/24',
 #     'my-key',
 #     'my-value'
@@ -53,15 +59,17 @@ def run_me
   if ARGV[0] == '--help' || ARGV[0] == '-h'
     puts 'Usage:   ruby ec2-ruby-example-create-vpc.rb ' \
       'CIDR_BLOCK TAG_KEY TAG_VALUE REGION'
+    # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
     puts 'Example: ruby ec2-ruby-example-create-vpc.rb ' \
-      '10.0.0.0/24 my-key my-value us-east-1'
+      '10.0.0.0/24 my-key my-value us-west-2'
     exit 1
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
     cidr_block = '10.0.0.0/24'
     tag_key = 'my-key'
     tag_value = 'my-value'
-    region = 'us-east-1'
+    # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
+    region = 'us-west-2'
   # Otherwise, use the values as specified at the command prompt.
   else
     cidr_block = ARGV[0]
@@ -85,3 +93,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[ec2.Ruby.createVpc]

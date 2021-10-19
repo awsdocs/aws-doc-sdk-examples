@@ -1,11 +1,15 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# Purpose:
+# dynamodb-ruby-example-list-50-users-table-items.rb demonstrates how to
+# search for items in a table in Amazon DynamoDB using a scan
+# operation, which reads every item in a table or a secondary index.
+
+# snippet-start:[dynamodb.Ruby.listUserTableItems]
+
 require 'aws-sdk-dynamodb'
 
-# Searches for items in a table in Amazon DynamoDB by using a scan
-# operation, which reads every item in a table or a secondary index.
-#
 # @param dynamodb_client [Aws::DynamoDB::Client] An initialized
 #   Amazon DynamoDB client.
 # @param scan_condition [Hash] The properties of the scan operation,
@@ -51,6 +55,7 @@ end
 
 # Full example call:
 def run_me
+# Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
   region = 'us-west-2'
   table_name = 'Users'
   selection_criteria = 'ALL_ATTRIBUTES'
@@ -70,3 +75,5 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+
+# snippet-end:[dynamodb.Ruby.listUserTableItems]

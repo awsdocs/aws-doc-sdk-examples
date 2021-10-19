@@ -18,6 +18,6 @@
         <listitem><para>Send an email notification using &SES;.</para></listitem>
     </itemizedlist>
     <para>For complete source code and instructions on how to set up and run, see the full example on
-        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/cross-services/photo-analyzer-ppe">GitHub</ulink>.
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/cross-services/photo-analyzer-ppe">GitHub</ulink>.
     </para>
 </block>

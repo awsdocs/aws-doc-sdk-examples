@@ -22,6 +22,24 @@ struct Opt {
     verbose: bool,
 }
 
+// Deletes a channel.
+// snippet-start:[config.rust.delete-delivery-channel]
+async fn delete_channel(
+    client: &Client,
+    channel: &str,
+) -> Result<(), Error> {
+    client
+        .delete_delivery_channel()
+        .delivery_channel_name(channel)
+        .send()
+        .await?;
+
+    println!("Done");
+
+    Ok(())
+}
+// snippet-end:[config.rust.delete-delivery-channel]
+
 /// Deletes an AWS Config delivery channel.
 ///
 /// # Arguments
@@ -59,13 +77,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    client
-        .delete_delivery_channel()
-        .delivery_channel_name(channel)
-        .send()
-        .await?;
-
-    println!("Done");
-
-    Ok(())
+    delete_channel(&client, &channel).await
 }

@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose:
-# sns-ruby-example-show-subscriptions.rb demonstrates how to list subscriptions to the Amazon Simple Notification Services (SNS) topic using
-# the AWS SDK for JavaScript (v3).
+# sns-ruby-example-show-subscriptions.rb demonstrates how to list subscriptions to an Amazon Simple Notification Service (SNS) topic using
+# the AWS SDK for Ruby.
 
 # Inputs:
 # - REGION
@@ -25,8 +25,8 @@ end
 
 def run_me
 
-  topic_arn = 'arn:aws:sns:eu-west-1:164794437551:brmurrubytopic'
-  region = 'eu-west-1'
+  topic_arn = 'SNS_TOPIC_ARN'
+  region = 'REGION'
 
   sns_client = Aws::SNS::Resource.new(region: region)
 

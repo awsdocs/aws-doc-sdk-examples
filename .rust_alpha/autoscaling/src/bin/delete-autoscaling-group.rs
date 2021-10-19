@@ -26,7 +26,23 @@ struct Opt {
     verbose: bool,
 }
 
-/// Updates an Auto Scaling group in the Region to the specified maximum size.
+// Deletes a group.
+// snippet-start:[autoscaling.rust.delete-autoscaling-group]
+async fn delete_group(client: &Client, name: &str, force: bool) -> Result<(), Error> {
+    client
+        .delete_auto_scaling_group()
+        .auto_scaling_group_name(name)
+        .set_force_delete(force.then(|| true))
+        .send()
+        .await?;
+
+    println!("Deleted Auto Scaling group");
+
+    Ok(())
+}
+// snippet-end:[autoscaling.rust.delete-autoscaling-group]
+
+/// Deletes an Auto Scaling group in the Region.
 /// # Arguments
 ///
 /// * `-a AUTOSCALING-NAME` - The name of the Auto Scaling group.
@@ -67,13 +83,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    client
-        .delete_auto_scaling_group()
-        .auto_scaling_group_name(autoscaling_name)
-        .set_force_delete(force.then(|| true))
-        .send()
-        .await?;
-
-    println!("Deleted Auto Scaling group");
-    Ok(())
+    delete_group(&client, &autoscaling_name, force).await
 }

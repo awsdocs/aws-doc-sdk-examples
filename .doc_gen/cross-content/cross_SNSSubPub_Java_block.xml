@@ -12,6 +12,10 @@
     </para>
     <para>
         For complete source code and instructions on how to set up and run, see the full example on
-        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_sns_sample_app">GitHub</ulink>.
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_sns_sample_app">GitHub</ulink>.
+    </para>
+     <para>
+        For complete source code and instructions on how to set up and run the example that uses the Java Async API, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_sns_async">GitHub</ulink>.
     </para>
 </block>

@@ -1,11 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to deny uploads of objects without
+# server-side AWS KMS encryption to an Amazon Simple Storage Service (Amazon S3).
+
+# snippet-start:[s3.ruby.s3_add_bucket_sses3_encryption_policy]
+
 require 'aws-sdk-s3'
 
-# Denies uploads of objects without server-side AWS KMS encryption to
-#   an Amazon S3 bucket.
-#
 # Prerequisites:
 #
 # - The Amazon S3 bucket to deny uploading objects without
@@ -18,7 +21,7 @@ require 'aws-sdk-s3'
 #   otherwise, false.
 # @example
 #   if deny_uploads_without_server_side_aws_kms_encryption?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket'
 #   )
 #     puts 'Policy added.'
@@ -67,9 +70,10 @@ rescue StandardError => e
 end
 
 # Full example call:
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
   if deny_uploads_without_server_side_aws_kms_encryption?(
-    Aws::S3::Client.new(region: 'us-east-1'),
+    Aws::S3::Client.new(region: 'us-west-2'),
     'doc-example-bucket'
   )
     puts 'Policy added.'
@@ -79,3 +83,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3_add_bucket_sses3_encryption_policy]

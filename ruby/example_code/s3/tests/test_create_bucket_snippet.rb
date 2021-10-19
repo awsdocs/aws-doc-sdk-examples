@@ -11,10 +11,10 @@ describe '#bucket_created?' do
     bucket_data = s3_client.stub_data(
       :create_bucket,
       {
-        location: 'us-east-1'
+        location: 'us-west-2'
       }
     )
     s3_client.stub_responses(:create_bucket, bucket_data)
-    expect(bucket_created?(s3_client, bucket_name).location).to eq('us-east-1')
+    expect(bucket_created?(s3_client, bucket_name).location).to eq('us-west-2')
   end
 end

@@ -18,6 +18,29 @@ struct Opt {
     verbose: bool,
 }
 
+// Lists your deliver channels.
+// snippet-start:[config.rust.list-delivery-channels]
+async fn show_channels(client: &Client) -> Result<(), Error> {
+    let resp = client.describe_delivery_channels().send().await?;
+
+    let channels = resp.delivery_channels.unwrap_or_default();
+
+    let num_channels = channels.len();
+
+    if num_channels == 0 {
+        println!("You have no delivery channels")
+    } else {
+        for channel in channels {
+            println!("  Channel: {}", channel.name.as_deref().unwrap_or_default());
+        }
+    }
+
+    println!();
+
+    Ok(())
+}
+// snippet-end:[config.rust.list-delivery-channels]
+
 /// Lists the AWS Config delivery channels in the Region.
 ///
 /// # Arguments
@@ -49,21 +72,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client.describe_delivery_channels().send().await?;
-
-    let channels = resp.delivery_channels.unwrap_or_default();
-
-    let num_channels = channels.len();
-
-    if num_channels == 0 {
-        println!("You have no delivery channels")
-    } else {
-        for channel in channels {
-            println!("  Channel: {}", channel.name.as_deref().unwrap_or_default());
-        }
-    }
-
-    println!();
-
-    Ok(())
+    show_channels(&client).await
 }

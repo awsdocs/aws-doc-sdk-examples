@@ -1,5 +1,13 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# ec2-ruby-example-security-group.rb demonstrates how to
+# create an Amazon Elastic Compute Cloud (Amazon EC2) security group,
+# add inbound rules to the security group, display information about
+# available security groups, and delete the security group.
+
+# snippet-start:[ec2.Ruby.exampleSecurityGroup]
 
 # This code example does the following:
 # 1. Creates an Amazon Elastic Compute Cloud (Amazon EC2) security group.
@@ -23,7 +31,7 @@ require 'aws-sdk-ec2'
 # @return [String] The ID of security group that was created.
 # @example
 #   puts create_security_group(
-#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     Aws::EC2::Client.new(region: 'us-west-2'),
 #     'my-security-group',
 #     'This is my security group.',
 #     'vpc-6713dfEX'
@@ -63,7 +71,7 @@ end
 # @return
 # @example
 #   exit 1 unless security_group_ingress_authorized?(
-#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     Aws::EC2::Client.new(region: 'us-west-2'),
 #     'sg-030a858e078f1b9EX',
 #     'tcp',
 #     '80',
@@ -111,7 +119,7 @@ end
 #
 # @param p [Aws::EC2::Types::IpPermission] The IP permissions set.
 # @example
-#   ec2_client = Aws::EC2::Client.new(region: 'us-east-1')
+#   ec2_client = Aws::EC2::Client.new(region: 'us-west-2')
 #   response = ec2_client.describe_security_groups
 #   unless sg.ip_permissions.empty?
 #     describe_security_group_permissions(
@@ -153,7 +161,7 @@ end
 #
 # @param ec2_client [Aws::EC2::Client] An initialized Amazon EC2 client.
 # @example
-#   describe_security_groups(Aws::EC2::Client.new(region: 'us-east-1'))
+#   describe_security_groups(Aws::EC2::Client.new(region: 'us-west-2'))
 def describe_security_groups(ec2_client)
   response = ec2_client.describe_security_groups
 
@@ -207,7 +215,7 @@ end
 # @return [Boolean] true if the security group was deleted; otherwise, false.
 # @example
 #   exit 1 unless security_group_deleted?(
-#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     Aws::EC2::Client.new(region: 'us-west-2'),
 #     'sg-030a858e078f1b9EX'
 #   )
 def security_group_deleted?(ec2_client, security_group_id)
@@ -241,7 +249,7 @@ def run_me
       'CIDR_IP_RANGE_2 REGION'
     puts 'Example: ruby ec2-ruby-example-security-group.rb ' \
       'my-security-group \'This is my security group.\' vpc-6713dfEX ' \
-      'tcp 80 80 \'0.0.0.0/0\' tcp 22 22 \'0.0.0.0/0\' us-east-1'
+      'tcp 80 80 \'0.0.0.0/0\' tcp 22 22 \'0.0.0.0/0\' us-west-2'
     exit 1
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
@@ -256,7 +264,8 @@ def run_me
     from_port_ssh = '22'
     to_port_ssh = '22'
     cidr_ip_range_ssh = '0.0.0.0/0'
-    region = 'us-east-1'
+    # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
+    region = 'us-west-2'
   # Otherwise, use the values as specified at the command prompt.
   else
     group_name = ARGV[0]
@@ -329,3 +338,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[ec2.Ruby.exampleSecurityGroup]
