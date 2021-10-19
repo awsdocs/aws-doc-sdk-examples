@@ -6,7 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-sending-events.html.
 
 Purpose:
-putTargets.js demonstrates how to add or update a target to an Amazon CloudWatch Events rule.
+putTargets.js demonstrates how to add or update a target to an Amazon EventBridge rule.
 
 Inputs (replace in code):
 - LAMBDA_FUNCTION_ARN
@@ -16,11 +16,11 @@ node putTargets.js
 */
 // snippet-start:[eventBridge.JavaScript.eb.putTargetsV3]
 
-// Import required AWS SDK clients and commands for Node.js
-import { PutTargetsCommand } from "@aws-sdk/client-cloudwatch-events";
-import { cweClient } from "./libs/cloudWatchEventsClient.js";
+// Import required AWS SDK clients and commands for Node.js.
+import { PutTargetsCommand } from "@aws-sdk/client-eventbridge";
+import { ebClient } from "./libs/eventBridgeClient.js";
 
-// Set the parameters
+// Set the parameters.
 export const params = {
   Rule: "DEMO_EVENT",
   Targets: [
@@ -33,7 +33,7 @@ export const params = {
 
 export const run = async () => {
   try {
-    const data = await cweClient.send(new PutTargetsCommand(params));
+    const data = await ebClient.send(new PutTargetsCommand(params));
     console.log("Success, target added; requestID: ", data);
     return data; // For unit tests.
   } catch (err) {

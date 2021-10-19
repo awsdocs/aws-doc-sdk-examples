@@ -6,7 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples-sending-events.html.
 
 Purpose:
-putEvents.js demonstrates how to send custom events to Amazon CloudWatch Events so they can be matched with rules.
+putEvents.js demonstrates how to send custom events to Amazon EventBridge so they can be matched with rules.
 
 Inputs (replace in code):
 - RESOURCE_ARN
@@ -16,11 +16,11 @@ node putEvents.js
 */
 // snippet-start:[eventBridge.JavaScript.eb.putEventsV3]
 
-// Import required AWS SDK clients and commands for Node.js
-import { PutEventsCommand } from "@aws-sdk/client-cloudwatch-events";
-import { cweClient } from "./libs/cloudWatchEventsClient.js";
+// Import required AWS SDK clients and commands for Node.js.
+import { PutEventsCommand } from "@aws-sdk/client-eventbridge";
+import { ebClient } from "./libs/eventBridgeClient.js";
 
-// Set the parameters
+// Set the parameters.
 export const params = {
   Entries: [
     {
@@ -36,7 +36,7 @@ export const params = {
 
 export const run = async () => {
   try {
-    const data = await cweClient.send(new PutEventsCommand(params));
+    const data = await ebClient.send(new PutEventsCommand(params));
     console.log("Success, event sent; requestID:", data);
     return data; // For unit tests.
   } catch (err) {
