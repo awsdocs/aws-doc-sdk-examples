@@ -74,3 +74,5 @@ pinpoint_sendMail:
             - description: Send an email message.
               snippet_tags:
                 - pinpoint.javascript.pinpoint_send_email_smtp.complete
+  services:
+    pinpoint: {}
