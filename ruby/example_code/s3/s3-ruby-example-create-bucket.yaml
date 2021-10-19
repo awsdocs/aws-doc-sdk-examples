@@ -126,7 +126,7 @@ Conditions:
               - sa-east-1
           - Fn::Equals:
               - Ref: AWS::Region
-              - us-east-1
+              - us-west-2
           - Fn::Equals:
               - Ref: AWS::Region
               - us-east-2

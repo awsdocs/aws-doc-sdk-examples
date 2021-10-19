@@ -1,10 +1,13 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
-# The following code example shows how to:
+# Purpose:
+# iam-ruby-example-server-certificates.rb shows how to:
 # 1. Update a server certificate in AWS Identity and Access Management (IAM).
 # 2. List the names of available server certificates.
 # 3. Delete a server certificate.
+
+# snippet-start:[elastictranscoder.ruby.serverCertificates]
 
 require 'aws-sdk-iam'
 
@@ -151,3 +154,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[elastictranscoder.ruby.serverCertificates]

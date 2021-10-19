@@ -4,6 +4,9 @@ rekognition_DescribeCollection:
   title_abbrev: Describe a collection
   synopsis: describe an &REK; collection.
   category:
+  guide_topic:
+    title: Describing a collection
+    url: rekognition/latest/dg/describe-collection-procedure.html
   languages:
     Java:
       versions:
@@ -31,6 +34,9 @@ rekognition_DeleteCollection:
   title_abbrev: Delete a collection
   synopsis: delete an &REK; collection.
   category:
+  guide_topic:
+    title: Deleting a collection
+    url: rekognition/latest/dg/delete-collection-procedure.html
   languages:
     Java:
       versions:
@@ -58,6 +64,9 @@ rekognition_IndexFaces:
   title_abbrev: Index faces to a collection
   synopsis: index faces in and image and add them to an &REK; collection.
   category:
+  guide_topic:
+    title: Adding faces to a collection
+    url: rekognition/latest/dg/add-faces-to-collection-procedure.html
   languages:
     Java:
       versions:
@@ -85,6 +94,9 @@ rekognition_ListFaces:
   title_abbrev: List faces in a collection
   synopsis: list faces in an &REK; collection.
   category:
+  guide_topic:
+    title: Listing faces in a collection
+    url: rekognition/latest/dg/list-faces-in-collection-procedure.html
   languages:
     Java:
       versions:
@@ -112,6 +124,9 @@ rekognition_SearchFacesByImage:
   title_abbrev: Search for faces in a collection compared to a reference image
   synopsis: search for faces in an &REK; collection compared to a reference image.
   category:
+  guide_topic:
+    title: Searching for a face (image)
+    url: rekognition/latest/dg/search-face-with-image-procedure.html
   languages:
     Java:
       versions:
@@ -139,6 +154,9 @@ rekognition_SearchFaces:
   title_abbrev: Search for faces in a collection
   synopsis: search for faces in an &REK; collection that match another face from the collection.
   category:
+  guide_topic:
+    title: Searching for a face (face ID)
+    url: rekognition/latest/dg/search-face-with-id-procedure.html
   languages:
     Java:
       versions:
@@ -166,6 +184,9 @@ rekognition_DeleteFaces:
   title_abbrev: Delete faces from a collection
   synopsis: delete faces from an &REK; collection.
   category:
+  guide_topic:
+    title: Deleting faces from a collection
+    url: rekognition/latest/dg/delete-faces-procedure.html
   languages:
     Java:
       versions:
@@ -193,6 +214,9 @@ rekognition_CreateCollection:
   title_abbrev: Create a collection
   synopsis: create an &REK; collection.
   category:
+  guide_topic:
+    title: Creating a collection
+    url: rekognition/latest/dg/create-collection-procedure.html
   languages:
     Java:
       versions:
@@ -220,6 +244,9 @@ rekognition_ListCollections:
   title_abbrev: List collections
   synopsis: list &REK; collections.
   category:
+  guide_topic:
+    title: Listing collections
+    url: rekognition/latest/dg/list-collection-procedure.html
   languages:
     Java:
       versions:
@@ -247,6 +274,9 @@ rekognition_Usage_FindFacesInCollection:
   title_abbrev: Build a collection and find faces in it
   synopsis: build an &REK; collection and find faces in it.
   category: Usage
+  guide_topic:
+    title: Searching faces in a collection
+    url: rekognition/latest/dg/collections.html
   languages:
     Python:
       versions:
@@ -282,6 +312,9 @@ rekognition_DetectFaces:
   title_abbrev: Detect faces in an image
   synopsis: detect faces in an image with &REK;.
   category:
+  guide_topic:
+    title: Detecting faces in an image
+    url: rekognition/latest/dg/faces-detect-images.html
   languages:
     Java:
       versions:
@@ -309,6 +342,9 @@ rekognition_CompareFaces:
   title_abbrev: Compare faces in an image against a reference image
   synopsis: compare faces in an image against a reference image with &REK;.
   category:
+  guide_topic:
+    title: Comparing faces in images
+    url: rekognition/latest/dg/faces-comparefaces.html
   languages:
     Java:
       versions:
@@ -367,6 +403,9 @@ rekognition_DetectModerationLabels:
   synopsis: detect moderation labels in an image with &REK;. Moderation labels
     identify content that may be inappropriate for some audiences.
   category:
+  guide_topic:
+    title: Detecting inappropriate images
+    url: rekognition/latest/dg/procedure-moderate-images.html
   languages:
     Java:
       versions:
@@ -394,6 +433,9 @@ rekognition_DetectText:
   title_abbrev: Detect text in an image
   synopsis: detect text in an image with &REK;.
   category:
+  guide_topic:
+    title: Detecting text in an image
+    url: rekognition/latest/dg/text-detecting-text-procedure.html
   languages:
     Java:
       versions:
@@ -421,6 +463,9 @@ rekognition_RecognizeCelebrities:
   title_abbrev: Recognize celebrities in an image
   synopsis: recognize celebrities in an image with &REK;.
   category:
+  guide_topic:
+    title: Recognizing celebrities in an image
+    url: rekognition/latest/dg/celebrities-procedure-image.html
   languages:
     Java:
       versions:
@@ -448,6 +493,9 @@ rekognition_Usage_DetectAndDisplayImage:
   title_abbrev: Detect and display elements in images
   synopsis: detect and display elements in images with &REK;.
   category: Usage
+  guide_topic:
+    title: Displaying bounding boxes
+    url: rekognition/latest/dg/images-displaying-bounding-boxes.html
   languages:
     Python:
       versions:

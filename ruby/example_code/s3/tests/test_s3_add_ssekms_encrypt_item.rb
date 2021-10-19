@@ -8,7 +8,7 @@ describe '#kms_cmk_sse_encrypted_object_uploaded?' do
     put_object: {
       etag: "\"944e42453de468ac6d5d605faEXAMPLE\"",
       server_side_encryption: 'aws:kms',
-      ssekms_key_id: 'arn:aws:kms:us-east-1:111111111111:key/9041e78c-7a20-4db3-929e-828abEXAMPLE'
+      ssekms_key_id: 'arn:aws:kms:us-west-2:111111111111:key/9041e78c-7a20-4db3-929e-828abEXAMPLE'
     }
   })}
   let(:bucket_name) { 'doc-example-bucket' }

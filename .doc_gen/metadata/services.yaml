@@ -80,6 +80,16 @@ eventbridge:
   short: "&EV;"
   sort: "EventBridge"
   version: eventbridge-2015-10-07
+kinesis:
+  long: "&AKlong;"
+  short: "&AK;"
+  sort: "Kinesis"
+  version: kinesis-2013-12-02
+kinesis-analytics-v2:
+  long: "&AKAlong;"
+  short: "&AKA;"
+  sort: "Kinesis DataAnalytics"
+  version: kinesisanalyticsv2-2018-05-23
 lambda:
   long: "&LAMlong;"
   short: "&LAM;"

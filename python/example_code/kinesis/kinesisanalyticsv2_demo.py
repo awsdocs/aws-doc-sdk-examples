@@ -44,6 +44,7 @@ class ApplicationRunningWaiter(CustomWaiter):
         self._wait(ApplicationName=app_name)
 
 
+# snippet-start:[python.example_code.kinesis-analytics-v2.Scenario_SqlTransform]
 def usage_demo():
     print('-'*88)
     print("Welcome to the demo of version 2 of the Amazon Kinesis Data Analytics API.")
@@ -128,6 +129,7 @@ def usage_demo():
     role.delete()
     print("Thanks for watching!")
     print('-'*88)
+# snippet-end:[python.example_code.kinesis-analytics-v2.Scenario_SqlTransform]
 
 
 if __name__ == '__main__':

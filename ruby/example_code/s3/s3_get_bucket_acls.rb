@@ -1,6 +1,12 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to list the access control lists (ACLs) for an
+# Amazon Simple Storage Service (Amazon S3) bucket.
+
+# snippet-start:[s3.ruby.s3_get_bucket_acls.rb]
+
 require 'aws-sdk-s3'
 
 # Lists the access control lists (ACLs) for an Amazon S3 bucket.
@@ -13,7 +19,7 @@ require 'aws-sdk-s3'
 # @param bucket_name [String] The name of the bucket.
 # @return [String] Information about the ACLs.
 # @example
-#   list_bucket_acls(Aws::S3::Client.new(region: 'us-east-1'), 'doc-example-bucket')
+#   list_bucket_acls(Aws::S3::Client.new(region: 'us-west-2'), 'doc-example-bucket')
 def list_bucket_acls(s3_client, bucket_name)
   response = s3_client.get_bucket_acl(bucket: bucket_name)
   if response.grants.count.zero?
@@ -46,13 +52,14 @@ def list_bucket_acls(s3_client, bucket_name)
 rescue StandardError => e
   puts "Error getting bucket ACLs: #{e.message}"
 end
-
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
   bucket_name = 'doc-example-bucket'
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
 
   list_bucket_acls(s3_client, bucket_name)
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3_get_bucket_acls.rb]

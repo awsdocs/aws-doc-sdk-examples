@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose:
-# sns-ruby-example-enable-resource.rb demonstrates how to enable an Amazon Simple Notification Services (SNS) resource using
-# the AWS SDK for JavaScript (v3).
+# sns-ruby-example-enable-resource.rb demonstrates how to enable an Amazon Simple Notification Service (SNS) resource using
+# the AWS SDK for Ruby.
 
 # Inputs:
 # - MY_TOPIC_ARN
@@ -32,7 +32,7 @@ policy  = '{
      }
   }]
 }'
-
+# Replace us-west-2 with the AWS Region you're using for Amazon SNS.
 sns = Aws::SNS::Resource.new(region: 'REGION')
 
 # Get topic by ARN

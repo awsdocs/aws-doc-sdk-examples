@@ -1,24 +1,10 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[AWS]
-# snippet-sourcedescription:[Creates an HLS job.]
-# snippet-keyword:[Amazon Elastic Transcoder]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[elastictranscoder]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# eb_list_stacks.rb demonstrates how to create an HLS job using the AWS SDK for Ruby.
+
+
 # snippet-start:[elastictranscoder.ruby.create_hls_job.import]
 require 'aws-sdk-elastictranscoder'
 require 'openssl'
@@ -31,8 +17,8 @@ pipeline_id = 'Enter your pipeline id here.'
 # This is the name of the input key that you would like to transcode.
 input_key = 'Enter your input key here.'
 
-# Region where the sample will be run
-region = 'us-east-1'
+# Replace us-west-2 with the AWS Region you're using for Elastic Transcoder.
+region = 'us-west-2'
 
 # HLS Presets that will be used to create an adaptive bitrate playlist.
 hls_64k_audio_preset_id = '1351620000001-200071'
