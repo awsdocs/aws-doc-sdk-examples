@@ -1,10 +1,11 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
 
+# Purpose
+# This code demonstrates how to create a public and private key file pair.
+
+# snippet-start:[s3.ruby.create_rsa_keys.rb]
 require 'openssl'
-
-# Creates a public and private key file pair.
-#
 # @param public_key_file [File] An instance of the public key file.
 # @param private_key_file [File] An instance of the private key file.
 # @param passphrase [String] A passphrase for the private key file.
@@ -64,3 +65,5 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+
+# snippet-end:[s3.ruby.create_rsa_keys.rb]

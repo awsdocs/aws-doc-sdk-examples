@@ -1,10 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# Purpose:
+# dynamodb-ruby-example-list-item-123456-users-table.rb demonstrates how to
+# get an item from a table in Amazon DynamoDB using the AWS SDK for Ruby.
+
+# snippet-start:[dynamodb.Ruby.listItem123456UsersTable]
+
 require 'aws-sdk-dynamodb'
 
-# Gets an item from a table in Amazon DynamoDB.
-#
 # @param dynamodb_client [Aws::DynamoDB::Client] An initialized
 #   Amazon DynamoDB client.
 # @param table_item [Hash] The properties of the item to get,
@@ -32,6 +36,7 @@ end
 
 # Full example call:
 def run_me
+# Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
   region = 'us-west-2'
   table_name = 'Users'
   user_id = 123456
@@ -49,3 +54,5 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+
+# snippet-end:[dynamodb.Ruby.listItem123456UsersTable]

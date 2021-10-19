@@ -1,15 +1,20 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to get the contents of an encrypted object
+# in an Amazon Simple Storage Service (Amazon S3) bucket.
+
+# snippet-start:[s3.s3_get_cskms_decrypt_item.rb]
+
 require 'aws-sdk-s3'
 
-# Gets the contents of an encrypted object in an Amazon S3 bucket.
-#
+
 # Prerequisites:
 #
 # - An Amazon S3 bucket.
 # - An encrypted object in the bucket to get.
-# 
+#
 # @param s3_encryption_client [Aws::S3::EncryptionV2::Client]
 #   An initialized Amazon S3 V2 encryption client.
 # @param bucket_name [String] The name of the bucket.
@@ -18,7 +23,7 @@ require 'aws-sdk-s3'
 #   diagnostic information about the unsuccessful attempt.
 # @example
 #   s3_encryption_client = Aws::S3::EncryptionV2::Client.new(
-#     region: 'us-east-1',
+#     region: 'us-west-2',
 #     kms_key_id: '9041e78c-7a20-4db3-929e-828abEXAMPLE',
 #     key_wrap_schema: :kms_context,
 #     content_encryption_schema: :aes_gcm_no_padding,
@@ -48,10 +53,11 @@ rescue StandardError => e
 end
 
 # Full example call:
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
   bucket_name = 'doc-example-bucket'
   object_key = 'my-file.txt'
-  region = 'us-east-1'
+  region = 'us-west-2'
   kms_key_id = '9041e78c-7a20-4db3-929e-828abEXAMPLE'
 
   # Note that in the following call:
@@ -74,3 +80,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.s3_get_cskms_decrypt_item.rb]

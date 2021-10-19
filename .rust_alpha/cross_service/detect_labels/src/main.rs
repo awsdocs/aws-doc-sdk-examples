@@ -56,6 +56,7 @@ struct Ldata {
     value3: String,
 }
 
+// snippet-start:[detect_labels-add_file_to_bucket.rust.main]
 async fn add_file_to_bucket(client: &aws_sdk_s3::Client, bucket: &str, filename: &str) {
     let body = aws_sdk_s3::ByteStream::from_path(std::path::Path::new(filename)).await;
 
@@ -86,7 +87,9 @@ async fn add_file_to_bucket(client: &aws_sdk_s3::Client, bucket: &str, filename:
         }
     }
 }
+// snippet-end:[detect_labels-add_file_to_bucket.rust.main]
 
+// snippet-start:[detect_labels-get_exif_data.rust.main]
 fn get_exif_data(filename: &str) -> Edata {
     let height: String = "".to_owned();
     let width: String = "".to_owned();
@@ -123,7 +126,9 @@ fn get_exif_data(filename: &str) -> Edata {
 
     edata
 }
+// snippet-end:[detect_labels-get_exif_data.rust.main]
 
+// snippet-start:[detect_labels-add_data_to_table.rust.main]
 async fn add_data_to_table(
     verbose: bool,
     client: &aws_sdk_dynamodb::Client,
@@ -172,7 +177,9 @@ async fn add_data_to_table(
         }
     }
 }
+// snippet-end:[detect_labels-add_data_to_table.rust.main]
 
+// snippet-start:[detect_labels-get_label_data.rust.main]
 async fn get_label_data(
     rekog_client: &aws_sdk_rekognition::Client,
     bucket: &str,
@@ -211,6 +218,7 @@ async fn get_label_data(
     // Return the first three items.
     label_vec[0..3].to_vec()
 }
+// snippet-end:[detect_labels-get_label_data.rust.main]
 
 /// Gets EXIF information from a a JPG, JPEG, or PNG file,
 /// uploads it to an S3 bucket,
@@ -252,10 +260,9 @@ async fn main() -> Result<(), exif::Error> {
             .or_default_provider()
             .or_else(aws_sdk_rekognition::Region::new("us-west-2"));
 
-    let s3_region_provider =
-        RegionProviderChain::first_try(s3_region.map(aws_sdk_s3::Region::new))
-            .or_default_provider()
-            .or_else(aws_sdk_s3::Region::new("us-west-2"));
+    let s3_region_provider = RegionProviderChain::first_try(s3_region.map(aws_sdk_s3::Region::new))
+        .or_default_provider()
+        .or_else(aws_sdk_s3::Region::new("us-west-2"));
 
     println!();
 

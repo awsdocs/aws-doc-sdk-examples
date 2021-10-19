@@ -1,9 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
 
+# Purpose:
+# iam-ruby-example-create-role.rb demonstrates how to
+# create a role in AWS Access and Identity Management (IAM).
+
+
+# snippet-start:[elastictranscoder.ruby.createRole]
 require 'aws-sdk-iam'
 
-# Creates a role in AWS Access and Identity Management (IAM).
 #
 # @param iam_client [Aws::IAM::Client] An initialized IAM client.
 # @param role_name [String] A name for the role.
@@ -101,3 +106,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[elastictranscoder.ruby.createRole]

@@ -27,6 +27,25 @@ struct Opt {
     verbose: bool,
 }
 
+// Creates a stack.
+// snippet-start:[cloudformation.rust.create-stack]
+async fn create_stack(client: &Client, name: &str, body: &str) -> Result<(), Error> {
+    client
+        .create_stack()
+        .stack_name(name)
+        .template_body(body)
+        .send()
+        .await?;
+
+    println!("Stack created.");
+    println!("Use describe-stacks with your stack name to see the status of your stack.");
+    println!("You cannot use/deploy the stack until the status is 'CreateComplete'.");
+    println!();
+
+    Ok(())
+}
+// snippet-end:[cloudformation.rust.create-stack]
+
 /// Creates a CloudFormation stack in the region.
 /// # Arguments
 ///
@@ -70,17 +89,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    client
-        .create_stack()
-        .stack_name(stack_name)
-        .template_body(contents)
-        .send()
-        .await?;
-
-    println!("Stack created.");
-    println!("Use describe-stacks with your stack name to see the status of your stack.");
-    println!("You cannot use/deploy the stack until the status is 'CreateComplete'.");
-    println!();
-
-    Ok(())
+    create_stack(&client, &stack_name, &contents).await
 }
