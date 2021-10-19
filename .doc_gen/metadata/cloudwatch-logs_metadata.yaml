@@ -1,8 +1,8 @@
 # zexi 0.2.0
 cloudwatch-logs_AssociateKmsKey:
-  title: Associate &KMS; key to a &CWL; log group using an &AWS; SDK
-  title_abbrev: Associate a &KMS; key with existing log group
-  synopsis: associate an &KMS; key with a &CWL; log group.
+  title: Associate an &KMS; key to a &CWL; log group using an &AWS; SDK
+  title_abbrev: Associate an &KMS; key to log group
+  synopsis: associate an &KMS; key with an existing &CWL; log group.
   category:
   languages:
     .NET:
@@ -64,7 +64,7 @@ cloudwatch-logs_CreateLogStream:
   services:
     cloudwatch-logs: {CreateLogStream}
 cloudwatch-logs_DeleteLogGroup:
-  title: Delete an &CWL; log group using an &AWS; SDK
+  title: Delete a &CWL; log group using an &AWS; SDK
   title_abbrev: Delete a log group
   synopsis: delete an existing &CWL; log group.
   category:
