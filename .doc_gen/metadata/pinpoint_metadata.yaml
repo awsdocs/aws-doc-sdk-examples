@@ -29,8 +29,8 @@ pinpoint_SendMessages:
               snippet_tags:
                 - pinpoint.javascript.pinpoint_send_email_message_v3
             - description: Import the SDK and client modules and call the API to send an SMS message.
-                snippet_tags:
-                  - pinpoint.javascript.pinpoint_send_sms_message_V3
+              snippet_tags:
+                - pinpoint.javascript.pinpoint_send_sms_message_V3
         - sdk_version: 2
           github: javascript/example_code/cloudwatch
           sdkguide:
