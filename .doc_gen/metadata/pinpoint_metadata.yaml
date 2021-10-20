@@ -104,3 +104,51 @@ pinpoint_createApp:
                 - pinpoint.java2.createapp.main
   services:
     pinpoint: {}    
+pinpoint_createCampaign:
+  title: Create an &PIN; campaign
+  title_abbrev: Create a campaign 
+  synopsis: create a campaign.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Create a campaign.
+              snippet_tags:
+                - pinpoint.java2.createcampaign.main
+  services:
+    pinpoint: {}  
+pinpoint_creatEndpoint:
+  title: Create an &PIN; endpoint
+  title_abbrev: Create an endpoint 
+  synopsis: create an endpoint.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Create an endpoint.
+              snippet_tags:
+                - pinpoint.java2.createendpoint.main
+  services:
+    pinpoint: {}       
+pinpoint_creatSegment:
+  title: Create an &PIN; segment
+  title_abbrev: Create a segment 
+  synopsis: create a segment.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Create a segment.
+              snippet_tags:
+                - pinpoint.java2.createsegment.main
+  services:
+    pinpoint: {}    
