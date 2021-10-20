@@ -8,14 +8,14 @@ AWS Config provides a detailed view of the resources associated with your AWS ac
 
 ## Code examples
 
-- [Get resource configuration history](src/bin/config-helloworld) (GetResourceConfigHistory)
-- [Delete configuration recorder](src/bin/delete-configuration-recorder) (DeleteConfigurationRecorder)
-- [Delete delivery channel](src/bin/delete-delivery-channel) (DeleteDeliveryChannel)
-- [Enable configuration](src/bin/enable-config) (DescribeConfigurationRecorders, DescribeDeliveryChannels, PutConfigurationRecorder, PutDeliveryChannel)
-- [List configuration recorders](src/bin/list-configuration-recorders) (DescribeConfigurationRecorders)
-- [List delivery channels](src/bin/list-delivery-channels) (DescribeDeliveryChannels)
-- [List resources](src/bin/list-resources) (ListDiscoveredResources)
-- [Show resource history](src/bin/show-resource-history) (GetResourceConfigHistory)
+- [Get resource configuration history](src/bin/config-helloworld.rs) (GetResourceConfigHistory)
+- [Delete configuration recorder](src/bin/delete-configuration-recorder.rs) (DeleteConfigurationRecorder)
+- [Delete delivery channel](src/bin/delete-delivery-channel.rs) (DeleteDeliveryChannel)
+- [Enable configuration](src/bin/enable-config.rs) (DescribeConfigurationRecorders, DescribeDeliveryChannels, PutConfigurationRecorder, PutDeliveryChannel)
+- [List configuration recorders](src/bin/list-configuration-recorders.rs) (DescribeConfigurationRecorders)
+- [List delivery channels](src/bin/list-delivery-channels.rs) (DescribeDeliveryChannels)
+- [List resources](src/bin/list-resources.rs) (ListDiscoveredResources)
+- [Show resource history](src/bin/show-resource-history.rs) (GetResourceConfigHistory)
 
 ## ⚠ Important
 
