@@ -202,8 +202,8 @@ dynamodb_UpdateItem:
             - description: Update an item.
               snippet_tags:
                 - dynamodb.java2.update_item.main
-            - description:
-              snippet_tags: Update an item using the enhanced client.
+            - description: Update an item using the enhanced client.
+              snippet_tags: 
                 - dynamodb.java2.mapping.moditem.main
     Python:
       versions:
