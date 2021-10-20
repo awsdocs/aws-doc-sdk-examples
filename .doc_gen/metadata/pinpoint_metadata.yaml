@@ -151,4 +151,84 @@ pinpoint_creatSegment:
               snippet_tags:
                 - pinpoint.java2.createsegment.main
   services:
-    pinpoint: {}    
+    pinpoint: {}
+pinpoint_deleteApp:
+  title: Delete an &PIN; application
+  title_abbrev: Delete an application
+  synopsis: delete an application.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Delete an application.
+              snippet_tags:
+                - pinpoint.java2.deleteapp.main
+  services:
+    pinpoint: {}     
+pinpoint_deleteApp:
+  title: Delete an &PIN; endpoint
+  title_abbrev: Delete an endpoint
+  synopsis: delete an endpoint.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Delete an endpoint.
+              snippet_tags:
+                - pinpoint.java2.deleteendpoint.main
+  services:
+    pinpoint: {}
+pinpoint_exportEndpoint:
+  title: Export an &PIN; endpoint
+  title_abbrev: Export an endpoint
+  synopsis: export an endpoint.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Export an endpoint.
+              snippet_tags:
+                - pinpoint.java2.export_endpoint.main
+  services:
+    pinpoint: {}     
+pinpoint_importSegment:
+  title: Import an &PIN; segment
+  title_abbrev: Import a segment
+  synopsis: import a segment.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Import a segment.
+              snippet_tags:
+                - pinpoint.java2.importsegment.main
+  services:
+    pinpoint: {}   
+pinpoint_listEndpoints:
+  title: List &PIN; endpoints that are associated with a specific user ID
+  title_abbrev: list endpoints
+  synopsis: list endpoints.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: List endpoints.
+              snippet_tags:
+                - pinpoint.java2.list_endpoints.main
+  services:
+    pinpoint: {}       
