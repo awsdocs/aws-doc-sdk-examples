@@ -134,8 +134,7 @@ eventbridge_Scenario_createAndTriggerARule:
             - description: Checks whether the specified AWS Identity and Access Management (IAM) role exists among those provided to this function.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.IamRole
-            - description: Checks whether the specified role exists among those available to the
-              caller in IAM.
+            - description: Checks whether the specified role exists among those available to the caller in IAM.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.checkIamRole
             - description: Creates a role in IAM.
