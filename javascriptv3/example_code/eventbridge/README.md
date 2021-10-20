@@ -58,6 +58,19 @@ npm install
 cd src
 node [example name].js 
 ```
+
+## Unit tests
+
+`Unit tests<./tests>`_ are provided for most examples, using the `Jest <https://jestjs.io/>`_ framework.
+
+For example, to run tests on the eventbridge folder, enter the following sequence of commands at the command prompt:
+
+```
+npm install node -g
+cd javascriptv3/example_code/eventbridge/tests
+npm install
+npm test
+```
 ## Resources
 - [AWS SDK for JavaScript v3 repo](https://github.com/aws/aws-sdk-js-v3) . 
 - [AWS SDK for JavaScript v3 Developer Guide examples](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples.html)

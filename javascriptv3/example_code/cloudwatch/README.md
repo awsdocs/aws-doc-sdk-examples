@@ -7,8 +7,7 @@ Amazon CloudWatch provides a reliable, scalable, and flexible monitoring solutio
 You no longer need to set up, manage, and scale your own monitoring systems and infrastructure.
 
 ## Code examples
-This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon Cloudwatch examples:
-
+### API examples
 - [Delete CloudWatch alarms](src/deleteAlarms.js)
 - [Describe CloudWatch alarms](src/describeAlarms.js)
 - [Disable CloudWatch alarm actions](src/disableAlarmActions.js)
@@ -64,11 +63,11 @@ node [example name].js
 
 `Unit tests<./tests>`_ are provided for most examples, using the `Jest <https://jestjs.io/>`_ framework.
 
-For example, to run tests on the S3 folder, enter the following sequence of commands at the command prompt:
+For example, to run tests on the cloudwatch folder, enter the following sequence of commands at the command prompt:
 
 ```
 npm install node -g
-cd javascriptv3/example_code/s3/tests
+cd javascriptv3/example_code/cloudwatch/tests
 npm install
 npm test
 ```

@@ -5,8 +5,7 @@ using the AWS SDK for JavaScript v3.
 
 Amazon CloudWatch Events delivers a near real-time stream of system events that describe changes in Amazon Web Services (AWS) resources. 
 ## Code examples
-This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon Cloudwatch Events examples:
-
+### API examples
 - [Put CloudWatch events](src/putEvents.js)
 - [Put CloudWatch event rule](src/putRule.js)
 - [Put CloudWatch event targets](src/putTargets.js)
@@ -59,11 +58,11 @@ node [example name].js
 
 `Unit tests<./tests>`_ are provided for most examples, using the `Jest <https://jestjs.io/>`_ framework.
 
-For example, to run tests on the S3 folder, enter the following sequence of commands at the command prompt:
+For example, to run tests on the cloudwatch-events folder, enter the following sequence of commands at the command prompt:
 
 ```
 npm install node -g
-cd javascriptv3/example_code/s3/tests
+cd javascriptv3/example_code/cloudwatch-events/tests
 npm install
 npm test
 ```

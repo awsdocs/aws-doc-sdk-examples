@@ -37,8 +37,6 @@ to run the `pinpoint_send_email_message_api.js` file, replace the hard-coded val
 node pinpoint_send_email_message_api.js
 ```
 
-
-
 ## Resources
  
 - [AWS SDK for JavaScript v2 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/)

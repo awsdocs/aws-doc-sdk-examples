@@ -1,14 +1,14 @@
-jest.mock("../src/libs/cloudWatchEventsClient.js");
+jest.mock("../src/libs/eventBridgeClient.js");
 jest.mock("@aws-sdk/client-cloudwatch-events");
 
 // Get service clients module and commands.
 import 'regenerator-runtime/runtime'
 import { run, params } from "../src/putTargets.js";
-import { cweClient } from "../src/libs/cloudWatchEventsClient.js";
+import { ebClient } from "../src/libs/eventBridgeClient.js";
 
-describe("@aws-sdk/client-cloudwatch-events mock", () => {
-    it("should successfully mock CloudWatch Events client", async () => {
-        cweClient.send.mockResolvedValue({ isMock: true });
+describe("@aws-sdk/client-eventbridge mock", () => {
+    it("should successfully mock Amazon EventBridge client", async () => {
+        ebClient.send.mockResolvedValue({ isMock: true });
         const response = await run(params);
         expect(response.isMock).toEqual(true);
     });

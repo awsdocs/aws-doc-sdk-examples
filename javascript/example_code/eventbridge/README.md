@@ -6,8 +6,7 @@ using the AWS SDK for JavaScript v2.
 Amazon EventBridge (formerly Amazon CloudWatch Events) is a serverless event bus service that you 
 can use to connect your applications with data from a variety of sources.
 ## Code examples
-This is a workspace where you can find the following AWS SDK for JavaScript version 2 (v2) Amazon Cloudwatch examples:
-
+### API examples
 - [Put CloudWatch events](./cwe_putevents.js)
 - [Put CloudWatch event rule](./cwe_putRule.js)
 - [Put CloudWatch event targets](./cwe_putTargets.js)
@@ -34,14 +33,11 @@ This is a workspace where you can find the following AWS SDK for JavaScript vers
   *AWS SDK for JavaScript (v2) Developer Guide*.
 
 Most of these code example files can be run with very little to no modification. For example, to use Node.js 
-to run the `cwl_deletesubscriptionfilter.js` file, replace the hard-coded values in the file with your own values, save the file, and then run the file. For example:
+to run the `cwe_putevents.js` file, replace the hard-coded values in the file with your own values, save the file, and then run the file. For example:
 
 ```
-node cwl_deletesubscriptionfilter.js
+node cwe_putevents.js
 ```
-
-Most of these files have been refactored into reusable functions that can be copied into your own code. You can then call those functions directly from your own code without modifying the copied function code itself. For example, you could copy the `alarm_created_or_updated?` function code from the `cw-ruby-example-create-alarm.rb` file into your own code. You could then adapt the code in the `run_me` function in that same file as a basis to write your own code to call the copied `alarm_created_or_updated?` function.
-
 
 ## Resources
  

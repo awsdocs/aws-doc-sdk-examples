@@ -6,8 +6,7 @@ using the AWS SDK for JavaScript (v3).
 You can use Amazon CloudWatch Logs to monitor, store, and access your log files from Amazon Elastic Compute Cloud (Amazon EC2) instances, AWS CloudTrail, Route 53, and other sources.
 
 ## Code examples
-This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon Cloudwatch Logs examples:
-
+### API examples
 - [Delete a CloudWatch log subscription filters](src/deleteSubscriptionFilter.js)
 - [Describe CloudWatch log subscription filters](src/describeSubscriptionFilters.js)
 - [Put CloudWatch log subscription filter](src/putSubscriptionFilter.js)
@@ -60,11 +59,11 @@ node [example name].js
 
 `Unit tests<./tests>`_ are provided for most examples, using the `Jest <https://jestjs.io/>`_ framework.
 
-For example, to run tests on the S3 folder, enter the following sequence of commands at the command prompt:
+For example, to run tests on the cloudwatch-logs folder, enter the following sequence of commands at the command prompt:
 
 ```
 npm install node -g
-cd javascriptv3/example_code/s3/tests
+cd javascriptv3/example_code/cloudwatch-logs/tests
 npm install
 npm test
 ```
