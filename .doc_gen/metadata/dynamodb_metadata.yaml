@@ -309,9 +309,12 @@ dynamodb_Scan:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description:
+            - description: scan a table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.scan.main
+            - description: scan a table by using the enhanced client and an Expression object.
+              snippet_tags:
+                - dynamodb.java2.mapping.scanEx.main  
     Python:
       versions:
         - sdk_version: 3
