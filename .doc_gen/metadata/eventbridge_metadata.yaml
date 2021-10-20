@@ -164,8 +164,8 @@ eventbridge_Scenario_createAndTriggerARule:
             - description: Displays information about activity for a rule in &EV;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.displayInfo
-            - description:
-              snippet_tags: Displays log information for all of the log streams in a &CWL; log group.
+            - description: Displays log information for all of the log streams in a &CWL; log group.
+              snippet_tags:
                 - cloudwatch.cross-service.Ruby.displayLogInfo
             - description: Displays a reminder to the caller to manually clean up any associated &AWS; resources that they no longer need.
               snippet_tags:
