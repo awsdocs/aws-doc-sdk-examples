@@ -592,7 +592,7 @@ rekognition_VideoDetection:
           excerpts:
             - description: Get celebrity results from a video located in an &S3; bucket.
               snippet_tags:
-                - rekognition.java2.detect_text.main
+                - rekognition.java2.recognize_video_celebrity.main
             - description: Detect labels in a video by a label detection operation.
               snippet_tags:
                 - rekognition.java2.recognize_video_detect.main
