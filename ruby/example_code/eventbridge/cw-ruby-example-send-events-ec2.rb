@@ -4,17 +4,17 @@
 # The following code example shows how to create and trigger a rule in
 # Amazon EventBridge. This rule sends a notification to the specified
 # topic in Amazon Simple Notification Service (Amazon SNS) whenever an
-# available instance in Amazon Elastic Compute Cloud (Amazon EC2) changes
+# available instance in Amazon EC2 changes
 # to a running state. Also, related event information is logged to a log group
 # in Amazon CloudWatch Logs.
 #
 # This code example works with the following AWS resources through the
 # following functions:
 #
-# - A rule in Amazon CloudWatch Events. See the rule_exists?, rule_found?,
+# - A rule in Amazon EventBridge. See the rule_exists?, rule_found?,
 #   create_rule, and display_rule_activity functions.
 # - A role in AWS Identity and Access Management (IAM) to allow the rule
-#   to work with Amazon CloudWatch Events. See role_exists?, role_found?,
+#   to work with Amazon EventBridge. See role_exists?, role_found?,
 #   and create_role.
 # - An Amazon EC2 instance, which triggers the rule whenever it is restarted.
 #   See instance_restarted?.
@@ -27,10 +27,9 @@
 #
 # - An Amazon EC2 instance to restart, which triggers the rule.
 
-# snippet-start:[cloudwatch.cross-service.Ruby.require]
 # The run_me function toward the end of this code example calls the
 # functions in the correct order.
-
+# snippet-start:[cloudwatch.cross-service.Ruby.require]
 require 'aws-sdk-sns'
 require 'aws-sdk-iam'
 require 'aws-sdk-cloudwatchevents'
@@ -40,13 +39,12 @@ require 'aws-sdk-cloudwatchlogs'
 require 'securerandom'
 # snippet-end:[cloudwatch.cross-service.Ruby.require]
 # snippet-start:[cloudwatch.cross-service.Ruby.sns]
-# Checks whether the specified Amazon Simple Notification Service
-# (Amazon SNS) topic exists among those provided to this function.
+# Checks whether the specified Amazon SNS
+# topic exists among those provided to this function.
 # This is a helper function that is called by the topic_exists? function.
 #
 # @param topics [Array] An array of Aws::SNS::Types::Topic objects.
-# @param topic_arn [String] The Amazon Resource Name (ARN) of the
-#   topic to find.
+# @param topic_arn [String] The ARN of the topic to find.
 # @return [Boolean] true if the topic ARN was found; otherwise, false.
 # @example
 #   sns_client = Aws::SNS::Client.new(region: 'us-east-1')
@@ -67,11 +65,10 @@ end
 # snippet-end:[cloudwatch.cross-service.Ruby.sns]
 # snippet-start:[cloudwatch.cross-service.Ruby.snstopic]
 # Checks whether the specified topic exists among those available to the
-# caller in Amazon Simple Notification Service (Amazon SNS).
+# caller in Amazon SNS.
 #
 # @param sns_client [Aws::SNS::Client] An initialized Amazon SNS client.
-# @param topic_arn [String] The Amazon Resource Name (ARN) of the
-#   topic to find.
+# @param topic_arn [String] The ARN of the topic to find.
 # @return [Boolean] true if the topic ARN was found; otherwise, false.
 # @example
 #   exit 1 unless topic_exists?(
@@ -104,14 +101,13 @@ rescue StandardError => e
 end
 # snippet-end:[cloudwatch.cross-service.Ruby.snstopic]
 # snippet-start:[cloudwatch.cross-service.Ruby.createSnsTopic]
-# Creates a topic in Amazon Simple Notification Service (Amazon SNS)
+# Creates a topic in Amazon SNS
 # and then subscribes an email address to receive notifications to that topic.
 #
 # @param sns_client [Aws::SNS::Client] An initialized Amazon SNS client.
 # @param topic_name [String] The name of the topic to create.
 # @param email_address [String] The email address of the recipient to notify.
-# @return [String] The Amazon Resource Name (ARN) of the topic that
-#   was created.
+# @return [String] The ARN of the topic that was created.
 # @example
 #   puts create_topic(
 #     Aws::SNS::Client.new(region: 'us-east-1'),
@@ -144,8 +140,7 @@ end
 # This is a helper function that is called by the role_exists? function.
 #
 # @param roles [Array] An array of Aws::IAM::Role objects.
-# @param role_arn [String] The Amazon Resource Name (ARN) of the
-#   role to find.
+# @param role_arn [String] The ARN of the role to find.
 # @return [Boolean] true if the role ARN was found; otherwise, false.
 # @example
 #   iam_client = Aws::IAM::Client.new(region: 'us-east-1')
@@ -168,8 +163,7 @@ end
 # caller in AWS Identity and Access Management (IAM).
 #
 # @param iam_client [Aws::IAM::Client] An initialized IAM client.
-# @param role_arn [String] The Amazon Resource Name (ARN) of the
-#   role to find.
+# @param role_arn [String] The ARN of the role to find.
 # @return [Boolean] true if the role ARN was found; otherwise, false.
 # @example
 #   exit 1 unless role_exists?(
@@ -203,14 +197,13 @@ end
 # snippet-end:[cloudwatch.cross-service.Ruby.checkIamRole]
 # snippet-start:[cloudwatch.cross-service.Ruby.createIamRole]
 # Creates a role in AWS Identity and Access Management (IAM).
-# This role is used by a rule in Amazon CloudWatch Events to allow
+# This role is used by a rule in Amazon EventBridge to allow
 # that rule to operate within the caller's account.
 # This role is designed to be used specifically by this code example.
 #
 # @param iam_client [Aws::IAM::Client] An initialized IAM client.
 # @param role_name [String] The name of the role to create.
-# @return [String] The Amazon Resource Name (ARN) of the role that
-#   was created.
+# @return [String] The ARN of the role that was created.
 # @example
 #   puts create_role(
 #     Aws::IAM::Client.new(region: 'us-east-1'),
@@ -268,7 +261,7 @@ rescue StandardError => e
 end
 # snippet-end:[cloudwatch.cross-service.Ruby.createIamRole]
 # snippet-start:[cloudwatch.cross-service.Ruby.checkRuleExists]
-# Checks whether the specified Amazon CloudWatch Events rule exists among
+# Checks whether the specified Amazon EventBridge rule exists among
 # those provided to this function.
 # This is a helper function that is called by the rule_exists? function.
 #
@@ -290,10 +283,10 @@ end
 # snippet-end:[cloudwatch.cross-service.Ruby.checkRuleExists]
 # snippet-start:[cloudwatch.cross-service.Ruby.checkRuleAvailable]
 # Checks whether the specified rule exists among those available to the
-# caller in Amazon CloudWatch Events.
+# caller in Amazon EventBridge.
 #
 # @param cloudwatchevents_client [Aws::CloudWatchEvents::Client]
-#   An initialized Amazon CloudWatch Events client.
+#   An initialized Amazon EventBridge client.
 # @param rule_name [String] The name of the rule to find.
 # @return [Boolean] true if the rule name was found; otherwise, false.
 # @example
@@ -327,23 +320,23 @@ rescue StandardError => e
 end
 # snippet-end:[cloudwatch.cross-service.Ruby.checkRuleAvailable]
 # snippet-start:[cloudwatch.cross-service.Ruby.createRule]
-# Creates a rule in Amazon CloudWatch Events.
+# Creates a rule in Amazon EventBridge.
 # This rule is triggered whenever an available instance in
-# Amazon Elastic Compute Cloud (Amazon EC2) changes to the specified state.
+# Amazon EC2 changes to the specified state.
 # This rule is designed to be used specifically by this code example.
 #
 # Prerequisites:
 #
 # - A role in AWS Identity and Access Management (IAM) that is designed
 #   to be used specifically by this code example.
-# - A topic in Amazon Simple Notification Service (Amazon SNS).
+# - A topic in Amazon SNS.
 #
 # @param cloudwatchevents_client [Aws::CloudWatchEvents::Client]
-#   An initialized Amazon CloudWatch Events client.
+#   An initialized Amazon EventBridge client.
 # @param rule_name [String] The name of the rule to create.
 # @param rule_description [String] Some description for this rule.
 # @param instance_state [String] The state that available instances in
-#   Amazon Elastic Compute Cloud (Amazon EC2) must change to, to
+#   Amazon EC2 must change to, to
 #   trigger this rule.
 # @param role_arn [String] The Amazon Resource Name (ARN) of the IAM role.
 # @param target_id [String] Some identifying string for the rule's target.
@@ -531,7 +524,7 @@ end
 # snippet-end:[cloudwatch.cross-service.Ruby.writeEvent]
 # snippet-start:[cloudwatch.cross-service.Ruby.restartInstance]
 
-# Restarts an Amazon Elastic Compute Cloud (Amazon EC2) instance
+# Restarts an Amazon EC2 instance
 # and adds information about the related activity to a log stream
 # in Amazon CloudWatch Logs.
 #
@@ -609,11 +602,11 @@ rescue StandardError => e
 end
 # snippet-end:[cloudwatch.cross-service.Ruby.restartInstance]
 # snippet-start:[cloudwatch.cross-service.Ruby.displayInfo]
-# Displays information about activity for a rule in Amazon CloudWatch Events.
+# Displays information about activity for a rule in Amazon EventBridge.
 #
 # Prerequisites:
 #
-# - A rule in Amazon CloudWatch Events.
+# - A rule in Amazon EventBridge.
 #
 # @param cloudwatch_client [Amazon::CloudWatch::Client] An initialized
 #   Amazon CloudWatch client.
@@ -723,7 +716,7 @@ end
 #
 # @param topic_name [String] The name of the Amazon SNS topic.
 # @param role_name [String] The name of the IAM role.
-# @param rule_name [String] The name of the Amazon CloudWatch Events rule.
+# @param rule_name [String] The name of the Amazon EventBridge rule.
 # @param log_group_name [String] The name of the Amazon CloudWatch Logs log group.
 # @param instance_id [String] The ID of the Amazon EC2 instance.
 # @example
@@ -744,7 +737,7 @@ def manual_cleanup_notice(
   puts 'manually delete any of the following resources if they exist:'
   puts "- The Amazon SNS topic named '#{topic_name}'."
   puts "- The IAM role named '#{role_name}'."
-  puts "- The Amazon CloudWatch Events rule named '#{rule_name}'."
+  puts "- The Amazon EventBridge rule named '#{rule_name}'."
   puts "- The Amazon CloudWatch Logs log group named '#{log_group_name}'."
   puts "- The Amazon EC2 instance with the ID '#{instance_id}'."
 end
@@ -756,7 +749,7 @@ def run_me
   email_address = 'mary@example.com'
   # Properties for the IAM role.
   role_name = 'aws-doc-sdk-examples-cloudwatch-events-rule-role'
-  # Properties for the Amazon CloudWatch Events rule.
+  # Properties for the Amazon EventBridge rule.
   rule_name = 'aws-doc-sdk-examples-ec2-state-change'
   rule_description = 'Triggers when any available EC2 instance starts.'
   instance_state = 'running'
@@ -809,7 +802,7 @@ def run_me
     end
   end
 
-  # If the Amazon CloudWatch Events rule doesn't exist, create it.
+  # If the Amazon EventBridge rule doesn't exist, create it.
   unless rule_exists?(cloudwatchevents_client, rule_name)
     unless rule_created?(
       cloudwatchevents_client,
@@ -820,7 +813,7 @@ def run_me
       target_id,
       topic_arn
     )
-      puts 'Could not create the Amazon CloudWatch Events rule correctly. ' \
+      puts 'Could not create the Amazon EventBridge rule correctly. ' \
         'Program stopped.'
       manual_cleanup_notice(
         topic_name, role_name, rule_name, log_group_name, instance_id
