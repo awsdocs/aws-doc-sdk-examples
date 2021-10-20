@@ -19,7 +19,7 @@ eventbridge_CreateRule:
 eventbridge_DeleteRule:
   title: Delete an &EVlong; rule using an &AWS; SDK
   title_abbrev: Delete a rule
-  synopsis: delete a &EVlong; rule.
+  synopsis: delete an &EVlong; rule.
   category:
   languages:
     Java:
@@ -36,7 +36,7 @@ eventbridge_DeleteRule:
 eventbridge_DescribeRule:
   title: Describe an &EVlong; rule using an &AWS; SDK
   title_abbrev: Describe a rule
-  synopsis: describe a &EVlong; rule.
+  synopsis: describe an &EVlong; rule.
   category:
   languages:
     Java:
@@ -86,7 +86,7 @@ eventbridge_ListRules:
     eventbridge: {ListRules} 
 eventbridge_PutEvents:
   title: Put &EVlong; events using an &AWS; SDK
-  title_abbrev: put events
+  title_abbrev: Put events
   synopsis: put &EVlong; events.
   category:
   languages:
@@ -100,4 +100,4 @@ eventbridge_PutEvents:
               snippet_tags:
                 - eventbridge.java2._put_event.main
   services:
-    eventbridge: {PutEvents}     
+    eventbridge: {PutEvents}   
