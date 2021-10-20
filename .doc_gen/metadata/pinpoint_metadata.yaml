@@ -25,20 +25,20 @@ pinpoint_SendMessages:
             - description: Create the client in a separate module and export it.
               snippet_tags:
                 - pinpoint.JavaScript.createclientv3
-            - description: Import the SDK and client modules and call the API to send an email message.
+            - description: Send an email message.
               snippet_tags:
                 - pinpoint.javascript.pinpoint_send_email_message_v3
-            - description: Import the SDK and client modules and call the API to send an SMS message.
+            - description: Send an SMS message.
               snippet_tags:
                 - pinpoint.javascript.pinpoint_send_sms_message_V3
         - sdk_version: 2
-          github: javascript/example_code/cloudwatch
+          github: javascript/example_code/pinpoint
           sdkguide:
           excerpts:
             - description: Send an email message.
               snippet_tags:
                 - pinpoint.javascript.pinpoint_send_email_message_api.complete
-            - description: Send an SME message.
+            - description: Send an SMS message.
               snippet_tags:
                 - pinpoint.javascript.pinpoint_send_sms_message_api.complete
   services:
@@ -61,14 +61,14 @@ pinpoint_Scenario_SendSmtpMessage:
   services:
     pinpoint: {}
 pinpoint_sendMail:
-  title: Send a text message with an &PIN; SMTP server using an &AWS; SDK
-  title_abbrev: Send a text message with an SMTP server
-  synopsis: send a text message with an &PIN; SMTP server.
+  title: Send an email with an &PIN; SMTP server using an &AWS; SDK
+  title_abbrev: Send an email with an SMTP server
+  synopsis: send an email with an &PIN; SMTP server.
   languages:
     JavaScript:
       versions:
         - sdk_version: 2
-          github: javascript/example_code/cloudwatch
+          github: javascript/example_code/pinpoint
           sdkguide:
           excerpts:
             - description: Send an email message.
