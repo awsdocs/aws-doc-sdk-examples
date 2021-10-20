@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # The following code example shows how to create and trigger a rule in
-# Amazon CloudWatch Events. This rule sends a notification to the specified
+# Amazon EventBridge. This rule sends a notification to the specified
 # topic in Amazon Simple Notification Service (Amazon SNS) whenever an
 # available instance in Amazon Elastic Compute Cloud (Amazon EC2) changes
 # to a running state. Also, related event information is logged to a log group
@@ -26,9 +26,10 @@
 # This code example requires the following AWS resources to exist in advance:
 #
 # - An Amazon EC2 instance to restart, which triggers the rule.
-#
+
+# snippet-start:[cloudwatch.cross-service.Ruby.require]
 # The run_me function toward the end of this code example calls the
-# preceding functions in the correct order.
+# functions in the correct order.
 
 require 'aws-sdk-sns'
 require 'aws-sdk-iam'
@@ -37,7 +38,8 @@ require 'aws-sdk-ec2'
 require 'aws-sdk-cloudwatch'
 require 'aws-sdk-cloudwatchlogs'
 require 'securerandom'
-
+# snippet-end:[cloudwatch.cross-service.Ruby.require]
+# snippet-start:[cloudwatch.cross-service.Ruby.sns]
 # Checks whether the specified Amazon Simple Notification Service
 # (Amazon SNS) topic exists among those provided to this function.
 # This is a helper function that is called by the topic_exists? function.
@@ -56,7 +58,6 @@ require 'securerandom'
 #     puts 'Topic found.'
 #   end
 
-# snippet-start:[cloudwatch.cross-service.Ruby.sns]
 def topic_found?(topics, topic_arn)
   topics.each do |topic|
     return true if topic.topic_arn == topic_arn

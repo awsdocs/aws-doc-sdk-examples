@@ -107,3 +107,29 @@ eventbridge_PutTargets:
                 - cwEvents.JavaScript.cwe.putTargets
   services:
     eventbridge: {PutTargets}
+eventbridge_Scenario_createAndTriggerARule:
+  title: Sreate and trigger a rule in &EVlong; using an &AWS; SDK
+  title_abbrev: Create and trigger a rule
+  synopsis: create and trigger a rule in &EVlong;.
+  category: Scenario
+  languages:
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Call the functions in the correct order.
+              snippet_tags:
+                - cloudwatch.cross-service.Ruby.require
+            - description: Checks the specified &SNS; topic exists.
+              snippet_tags:
+                - cloudwatch.cross-service.Ruby.sns
+            - description:
+              snippet_tags:
+                - pinpoint.python.pinpoint_send_email_smtp.complete
+            - description:
+              snippet_tags:
+                - pinpoint.python.pinpoint_send_email_smtp.complete
+  services:
+    pinpoint: {}

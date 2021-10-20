@@ -105,6 +105,16 @@ pinpoint:
   short: "&PIN;"
   sort: "Pinpoint"
   version: pinpoint-2016-12-01
+pinpoint-email:
+  long: "&PIN-Email-API;"
+  short: "&PIN-Email-API;"
+  sort: "Pinpoint Email"
+  version: pinpoint-email-2018-07-26
+pinpoint-sms-voice:
+  long: "&PIN-SMS-Voice-API;"
+  short: "&PIN-SMS-Voice-API;"
+  sort: "Pinpoint SMS and Voice"
+  version: pinpoint-sms-voice-2018-09-05
 rds:
   long: "&RDSlong;"
   short: "&RDS;"
