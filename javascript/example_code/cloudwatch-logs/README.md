@@ -6,8 +6,7 @@ using the AWS SDK for JavaScript v2.
 You can use Amazon CloudWatch Logs to monitor, store, and access your log files from Amazon Elastic Compute Cloud (Amazon EC2) instances, AWS CloudTrail, Route 53, and other sources.
 
 ## Code examples
-This is a workspace where you can find the following AWS SDK for JavaScript version 2 (v2) Amazon Cloudwatch examples:
-
+### API examples
 - [Delete a CloudWatch log subscription filters](./cwl_deletesubscriptionfilter.js)
 - [Describe CloudWatch log subscription filters](./cwl_describesubscriptionfilters.js)
 - [Put CloudWatch log subscription filter](./cwl_putsubscriptionfilter.js)

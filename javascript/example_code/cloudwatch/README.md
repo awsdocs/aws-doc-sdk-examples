@@ -8,8 +8,7 @@ Amazon CloudWatch provides a reliable, scalable, and flexible monitoring solutio
 You no longer need to set up, manage, and scale your own monitoring systems and infrastructure.
 
 ## Code examples
-This is a workspace where you can find the following AWS SDK for JavaScript version 2 (v2) Amazon Cloudwatch examples:
-
+### API examples
 - [Delete CloudWatch alarms](./cw_deletealarms.js)
 - [Describe CloudWatch alarms](./cw_describealarms.js)
 - [Disable CloudWatch alarm actions](./cw_disablealarmactions.js)
@@ -46,8 +45,6 @@ to run the `cw-deletealarms.js` file, replace the hard-coded values in the file 
 ```
 node cw-deletealarms.js
 ```
-
-Most of these files have been refactored into reusable functions that can be copied into your own code. You can then call those functions directly from your own code without modifying the copied function code itself. For example, you could copy the `alarm_created_or_updated?` function code from the `cw-ruby-example-create-alarm.rb` file into your own code. You could then adapt the code in the `run_me` function in that same file as a basis to write your own code to call the copied `alarm_created_or_updated?` function.
 
 
 ## Resources

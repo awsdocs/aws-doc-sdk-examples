@@ -1,13 +1,12 @@
 # Amazon CloudWatch Events JavaScript SDK v2 code examples
 ## Purpose
-The code examples in this directory demonstrate how to work with the Amazon EventBridge
+The code examples in this directory demonstrate how to work with the Amazon CloudWatch Events
 using the AWS SDK for JavaScript v2.
 
-Amazon EventBridge (formerly Amazon CloudWatch Events) is a serverless event bus service that you 
-can use to connect your applications with data from a variety of sources.
-## Code examples
-This is a workspace where you can find the following AWS SDK for JavaScript version 2 (v2) Amazon Cloudwatch examples:
+Amazon CloudWatch Events delivers a near real-time stream of system events that describe changes in Amazon Web Services (AWS) resources. 
 
+## Code examples
+### API examples
 - [Put CloudWatch events](./cwe_putevents.js)
 - [Put CloudWatch event rule](./cwe_putRule.js)
 - [Put CloudWatch event targets](./cwe_putTargets.js)
@@ -39,7 +38,6 @@ to run the `cwe_putevents.js` file, replace the hard-coded values in the file wi
 ```
 node cwe_putevents.js
 ```
-
 
 
 ## Resources
