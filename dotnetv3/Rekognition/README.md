@@ -3,9 +3,14 @@
 ## Purpose
 
 This folder contains examples that show how to use the AWS SDK for .NET 3.x to
-get started working with .
+get started analyzing images and videos using Amazon Rekognition.
 
-
+Provide an image or video to the Amazon Rekognition API, to identify objects,
+people, text, scenes, and activities. It can detect any inappropriate content
+as well. Amazon Rekognition also provides highly accurate facial analysis, face
+comparison, and face search capabilities. You can detect, analyze, and compare
+faces for a wide variety of use cases, including user verification, cataloging,
+people counting, and public safety.
 
 ## Code examples
 
@@ -21,7 +26,7 @@ get started working with .
 - [DetectLabelsExample](DetectLabelsExample/) - Delete labels in an image stored in an Amazon Simple Storage Service (Amazon S3) bucket.
 - [DetectModerationLabelsExample](DetectModerationLabelsExample/) - Detect unsafe content in an image.
 - [DetectTextExample](DetectTextExample/) - Detect text in an image.
-- [FaceRekognitionExample](FaceRekognitionExample/) - 
+- [FaceRekognitionExample](FaceRekognitionExample/) - Scan an image for faces and then for celebrity faces.
 - [ImageOrientationBoundingBoxExample](ImageOrientationBoundingBoxExample/) - Determine the orientation of an image based on the proportions of its bounding box.
 - [ListCollectionsExample](ListCollectionsExample/) - List collections.
 - [ListFacesExample](ListFacesExample/) - List the faces in a collection.
