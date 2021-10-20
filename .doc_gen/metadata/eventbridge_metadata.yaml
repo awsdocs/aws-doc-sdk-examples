@@ -167,7 +167,7 @@ eventbridge_Scenario_createAndTriggerARule:
             - description:
               snippet_tags: Displays log information for all of the log streams in a log group in &CWL;.
                 - cloudwatch.cross-service.Ruby.displayLogInfo
-            - description: Displays a reminder to the caller to manually clean up any associated AWS resources that they no longer need.
+            - description: Displays a reminder to the caller to manually clean up any associated &AWS; resources that they no longer need.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.displayReminder
   services:
