@@ -16,3 +16,88 @@ eventbridge_CreateRule:
                 - eventbridge.java2._create_rule.main
   services:
     eventbridge: {CreateRule}
+eventbridge_DeleteRule:
+  title: Delete an &EVlong; rule using an &AWS; SDK
+  title_abbrev: Delete a rule
+  synopsis: delete a &EVlong; rule.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - eventbridge.java2._delete_rule.main
+  services:
+    eventbridge: {DeleteRule}    
+eventbridge_DescribeRule:
+  title: Describe an &EVlong; rule using an &AWS; SDK
+  title_abbrev: Describe a rule
+  synopsis: describe a &EVlong; rule.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - eventbridge.java2._describe_rule.main
+  services:
+    eventbridge: {DescribeRule}    
+eventbridge_ListEventBuses:
+  title: List &EVlong; buses using an &AWS; SDK
+  title_abbrev: List buses
+  synopsis: list &EVlong; buses.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - eventbridge.java2._list_buses.main
+  services:
+    eventbridge: {ListEventBuses}
+eventbridge_ListRules:
+  title: List &EVlong; rules using an &AWS; SDK
+  title_abbrev: List rules
+  synopsis: list &EVlong; rules.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - eventbridge.java2._list_rules.main
+  services:
+    eventbridge: {ListRules} 
+eventbridge_PutEvents:
+  title: Put &EVlong; events using an &AWS; SDK
+  title_abbrev: put events
+  synopsis: put &EVlong; events.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - eventbridge.java2._put_event.main
+  services:
+    eventbridge: {PutEvents}     
