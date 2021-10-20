@@ -218,7 +218,7 @@ pinpoint_importSegment:
     pinpoint: {}   
 pinpoint_listEndpoints:
   title: List &PIN; endpoints that are associated with a specific user ID
-  title_abbrev: list endpoints
+  title_abbrev: List endpoints
   synopsis: list endpoints.
   languages:
     Java:
@@ -232,3 +232,51 @@ pinpoint_listEndpoints:
                 - pinpoint.java2.list_endpoints.main
   services:
     pinpoint: {}       
+pinpoint_listSegments:
+  title: List &PIN; segments in an application
+  title_abbrev: List segments
+  synopsis: list segments.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: List segments.
+              snippet_tags:
+                - pinpoint.java2.listsegments.main
+  services:
+    pinpoint: {}   
+pinpoint_getEndpoint:
+  title: Display information about an existing &PIN; endpoint
+  title_abbrev: Get endpoints
+  synopsis: get endpoints.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: get endpoints.
+              snippet_tags:
+                - pinpoint.java2.lookup.main
+  services:
+    pinpoint: {}   
+pinpoint_updateChannel:
+  title: Update an &PIN; channel
+  title_abbrev: Update channels
+  synopsis: update channels.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: update channels.
+              snippet_tags:
+                - pinpoint.java2.updatechannel.main
+  services:
+    pinpoint: {}  
