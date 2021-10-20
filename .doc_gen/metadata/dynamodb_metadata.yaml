@@ -171,10 +171,10 @@ dynamodb_GetItem:
           sdkguide:
           excerpts:
             - description: Retrieve an item from a table.
-              snippet_tags:
+              snippet_tags: 
                 - dynamodb.java2.get_item.main
-            - description:
-              snippet_tags: Retrieve an item from a table using the enhanced client.
+            - description: Retrieve an item from a table using the enhanced client.
+              snippet_tags: 
                 - dynamodb.java2.mapping.getitem.main    
     Python:
       versions:
