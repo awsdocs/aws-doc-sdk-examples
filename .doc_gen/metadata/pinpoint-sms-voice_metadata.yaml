@@ -13,7 +13,7 @@ pinpoint-sms-voice_SendVoiceMessage:
             - description:
               snippet_tags:
                 - pinpoint.python.pinpoint_send_voice_message_sms_voice_api.complete
-    Javascript:
+    JavaScript:
       versions:
         - sdk_version: 2
           github: javascript/example_code/pinpoint-sms-voice
