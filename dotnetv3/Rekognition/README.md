@@ -6,11 +6,13 @@ This folder contains examples that show how to use the AWS SDK for .NET 3.x to
 get started analyzing images and videos using Amazon Rekognition.
 
 Provide an image or video to the Amazon Rekognition API, to identify objects,
-people, text, scenes, and activities. It can detect any inappropriate content
+people, text, scenes, and activities. It can be used to
+[moderate content](https://docs.aws.amazon.com/rekognition/latest/dg/moderation.html#moderation-api)
+in an image or detect [inappropriate content in stored videos](https://docs.aws.amazon.com/rekognition/latest/dg/procedure-moderate-videos.html)
 as well. Amazon Rekognition also provides highly accurate facial analysis, face
 comparison, and face search capabilities. You can detect, analyze, and compare
 faces for a wide variety of use cases, including user verification, cataloging,
-people counting, and public safety.
+people counting, and [public safety](https://docs.aws.amazon.com/rekognition/latest/dg/considerations-public-safety-use-cases.html).
 
 ## Code examples
 
@@ -24,7 +26,8 @@ people counting, and public safety.
 - [DescribeCollectionExample](DescribeCollectionExample/) - Describe the contents of a collection.
 - [DetectFacesExample](DetectFacesExample/) - Detect faces in an image.
 - [DetectLabelsExample](DetectLabelsExample/) - Delete labels in an image stored in an Amazon Simple Storage Service (Amazon S3) bucket.
-- [DetectModerationLabelsExample](DetectModerationLabelsExample/) - Detect unsafe content in an image.
+- [DetectModerationLabelsExample](DetectModerationLabelsExample/) - Detect
+  [unsafe content](https://docs.aws.amazon.com/rekognition/latest/dg/procedure-moderate-images.html) in an image.
 - [DetectTextExample](DetectTextExample/) - Detect text in an image.
 - [FaceRekognitionExample](FaceRekognitionExample/) - Scan an image for faces and then for celebrity faces.
 - [ImageOrientationBoundingBoxExample](ImageOrientationBoundingBoxExample/) - Determine the orientation of an image based on the proportions of its bounding box.
