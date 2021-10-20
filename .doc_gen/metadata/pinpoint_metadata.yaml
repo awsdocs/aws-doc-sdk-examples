@@ -89,7 +89,7 @@ pinpoint_sendMail:
   services:
     pinpoint: {}
 pinpoint_createApp:
-  title: Create an &PIN;application
+  title: Create an &PIN; application
   title_abbrev: Create an application 
   synopsis: create an appliation.
   languages:
