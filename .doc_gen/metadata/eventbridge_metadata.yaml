@@ -108,7 +108,7 @@ eventbridge_PutTargets:
   services:
     eventbridge: {PutTargets}
 eventbridge_Scenario_createAndTriggerARule:
-  title: Sreate and trigger a rule in &EVlong; using an &AWS; SDK
+  title: Create and trigger a rule in &EVlong; using an &AWS; SDK
   title_abbrev: Create and trigger a rule
   synopsis: create and trigger a rule in &EVlong;.
   category: Scenario
@@ -128,44 +128,44 @@ eventbridge_Scenario_createAndTriggerARule:
             - description:
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.snstopic
-            - description: Creates a topic in Amazon Simple Notification Service (Amazon SNS) and then subscribes an email address to receive notifications to that topic.
+            - description: Creates a topic in &SNSlong; (&SNS;) and then subscribes an email address to receive notifications to that topic.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.createSnsTopic
-            - description: Checks whether the specified AWS Identity and Access Management (IAM) role exists among those provided to this function.
+            - description: Checks whether the specified &IAMlong; (&IAM;) role exists among those provided to this function.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.IamRole
-            - description: Checks whether the specified role exists among those available to the caller in IAM.
+            - description: Checks whether the specified role exists among those available to the caller in &IAM;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.checkIamRole
-            - description: Creates a role in IAM.
+            - description: Creates a role in &IAM;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.createIamRole
-            - description: Checks whether the specified Amazon EventBridge rule exists among those provided to this function.
+            - description: Checks whether the specified &EV; rule exists among those provided to this function.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.checkRuleExists
-            - description: Checks whether the specified rule exists among those available to the caller in Amazon EventBridge.
+            - description: Checks whether the specified rule exists among those available to the caller in &EV;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.checkRuleAvailable
-            - description: Creates a rule in Amazon EventBridge.
+            - description: Creates a rule in &EV;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.createRule
-            - description: Checks to see whether the specified log group exists among those available to the caller in Amazon CloudWatch Logs.
+            - description: Checks to see whether the specified log group exists among those available to the caller in &CWLlong;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.checkLogGroup
-            - description: Creates a log group in Amazon CloudWatch Logs.
+            - description: Creates a log group in &CWL;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.createLogGroup
-            - description: Writes an event to a log stream in Amazon CloudWatch Logs.
+            - description: Writes an event to a log stream in &CWL;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.writeEvent
-            - description: Restarts an Amazon Elastic Compute Cloud (Amazon EC2) instance and adds information about the related activity to a log stream in Amazon CloudWatch Logs.
+            - description: Restarts an &EC2long; (&EC2;) instance and adds information about the related activity to a log stream in &CWL;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.restartInstance
-            - description: Displays information about activity for a rule in Amazon CloudWatch Events.
+            - description: Displays information about activity for a rule in &EV;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.displayInfo
             - description:
-              snippet_tags: Displays log information for all of the log streams in a log group in Amazon CloudWatch Logs.
+              snippet_tags: Displays log information for all of the log streams in a log group in &CWL;.
                 - cloudwatch.cross-service.Ruby.displayLogInfo
             - description: Displays a reminder to the caller to manually clean up any associated AWS resources that they no longer need.
               snippet_tags:
