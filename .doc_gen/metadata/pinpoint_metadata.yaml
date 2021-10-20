@@ -88,3 +88,19 @@ pinpoint_sendMail:
                 - pinpoint.javascript.pinpoint_send_email_smtp.complete
   services:
     pinpoint: {}
+pinpoint_createApp:
+  title: Create an &PIN;application
+  title_abbrev: Create an application 
+  synopsis: create an appliation.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Create an application.
+              snippet_tags:
+                - pinpoint.java2.createapp.main
+  services:
+    pinpoint: {}    
