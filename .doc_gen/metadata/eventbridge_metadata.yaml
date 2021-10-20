@@ -1,0 +1,18 @@
+# zexi 0.4.0
+eventbridge_CreateRule:
+  title: Create an &EVlong; rule using an &AWS; SDK
+  title_abbrev: Create a rule
+  synopsis: create a &EVlong; rule.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - eventbridge.java2._create_rule.main
+  services:
+    eventbridge: {CreateRule}
