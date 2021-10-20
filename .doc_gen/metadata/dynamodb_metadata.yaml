@@ -11,9 +11,12 @@ dynamodb_CreateTable:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: 
+            - description: Create a table.
               snippet_tags:
                 - dynamodb.java2.create_table.main
+            - description: Create a table using the DynamoDbAsyncClient client.
+              snippet_tags: 
+                - dynamodb.java2.dbasync.table.main      
     Python:
       versions:
         - sdk_version: 3
@@ -175,7 +178,10 @@ dynamodb_GetItem:
                 - dynamodb.java2.get_item.main
             - description: Retrieve an item from a table using the enhanced client.
               snippet_tags: 
-                - dynamodb.java2.mapping.getitem.main    
+                - dynamodb.java2.mapping.getitem.main
+            - description: Retrieve an item from a table using the DynamoDbAsyncClient client.
+              snippet_tags: 
+                - dynamoasyc.java2.get_item.main        
     Python:
       versions:
         - sdk_version: 3
@@ -263,9 +269,12 @@ dynamodb_ListTables:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: 
+            - description: List tables. 
               snippet_tags:
                 - dynamodb.java2.list_tables.main
+            - description: List tables by using the DynamoDbAsyncClient client. . 
+              snippet_tags:
+                - dynamodb.java2.dbasync.main   
     Python:
       versions:
         - sdk_version: 3
