@@ -582,7 +582,8 @@ rekognition_RecognizeCelebrities:
 rekognition_VideoDetection:
   title: Detect information in videos using &REK; and the &AWS; SDK
   title_abbrev: Detect information in videos
-  synopsis: detect information in videos;.
+  synopsis: detect information in videos.
+  category: Usage
   languages:
     Java:
       versions:
