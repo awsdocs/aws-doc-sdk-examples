@@ -152,6 +152,15 @@ comprehend_DetectDominantLanguage:
   synopsis: detect the dominant language in a document with &CMP;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Comprehend/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Comprehend.dotnetv3.DetectDominantLanguageExample
     Java:
       versions:
         - sdk_version: 2
@@ -179,6 +188,15 @@ comprehend_DetectEntities:
   synopsis: detect entities in a document with &CMP;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Comprehend/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Comprehend.dotnetv3.DetectEntitiesExample
     Java:
       versions:
         - sdk_version: 2
@@ -233,6 +251,15 @@ comprehend_DetectPiiEntities:
   synopsis: detect personally identifiable information (PII) in a document with &CMP;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Comprehend/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Comprehend.dotnetv3.DetectPIIExample
     Python:
       versions:
         - sdk_version: 3
@@ -251,6 +278,15 @@ comprehend_DetectSentiment:
   synopsis: detect the sentiment of a document with &CMP;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Comprehend/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Comprehend.dotnetv3.DetectSentimentExample
     Java:
       versions:
         - sdk_version: 2
@@ -333,6 +369,15 @@ comprehend_StartTopicsDetectionJob:
   synopsis: start an &CMP; topic modeling job.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Comprehend/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Comprehend.dotnetv3.TopicModelingExample
     Python:
       versions:
         - sdk_version: 3
