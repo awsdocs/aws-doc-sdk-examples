@@ -94,10 +94,10 @@ pinpoint_sendMail:
                 - pinpoint.javascript.pinpoint_send_email_smtp.complete
   services:
     pinpoint: {}
-pinpoint_createApp:
+pinpoint_CreateApp:
   title: Create an &PIN; application
   title_abbrev: Create an application 
-  synopsis: create an appliation.
+  synopsis: create an application.
   languages:
     Java:
       versions:
@@ -109,8 +109,8 @@ pinpoint_createApp:
               snippet_tags:
                 - pinpoint.java2.createapp.main
   services:
-    pinpoint: {}    
-pinpoint_createCampaign:
+    pinpoint: {CreateApp}    
+pinpoint_CreateCampaign:
   title: Create an &PIN; campaign
   title_abbrev: Create a campaign 
   synopsis: create a campaign.
@@ -125,8 +125,8 @@ pinpoint_createCampaign:
               snippet_tags:
                 - pinpoint.java2.createcampaign.main
   services:
-    pinpoint: {}  
-pinpoint_creatEndpoint:
+    pinpoint: {CreateCampaign}  
+pinpoint_UpdateEndpoint:
   title: Create an &PIN; endpoint
   title_abbrev: Create an endpoint 
   synopsis: create an endpoint.
@@ -141,8 +141,8 @@ pinpoint_creatEndpoint:
               snippet_tags:
                 - pinpoint.java2.createendpoint.main
   services:
-    pinpoint: {}       
-pinpoint_creatSegment:
+    pinpoint: {UpdateEndpoint}       
+pinpoint_CreateSegment:
   title: Create an &PIN; segment
   title_abbrev: Create a segment 
   synopsis: create a segment.
@@ -157,8 +157,8 @@ pinpoint_creatSegment:
               snippet_tags:
                 - pinpoint.java2.createsegment.main
   services:
-    pinpoint: {}
-pinpoint_deleteApp:
+    pinpoint: {CreateSegment}
+pinpoint_DeleteApp:
   title: Delete an &PIN; application
   title_abbrev: Delete an application
   synopsis: delete an application.
@@ -173,8 +173,8 @@ pinpoint_deleteApp:
               snippet_tags:
                 - pinpoint.java2.deleteapp.main
   services:
-    pinpoint: {}     
-pinpoint_deleteApp:
+    pinpoint: {DeleteApp}     
+pinpoint_DeleteEndpoint:
   title: Delete an &PIN; endpoint
   title_abbrev: Delete an endpoint
   synopsis: delete an endpoint.
@@ -189,8 +189,8 @@ pinpoint_deleteApp:
               snippet_tags:
                 - pinpoint.java2.deleteendpoint.main
   services:
-    pinpoint: {}
-pinpoint_exportEndpoint:
+    pinpoint: {DeleteEndpoint}
+pinpoint_CreateExportJob:
   title: Export an &PIN; endpoint
   title_abbrev: Export an endpoint
   synopsis: export an endpoint.
@@ -205,8 +205,8 @@ pinpoint_exportEndpoint:
               snippet_tags:
                 - pinpoint.java2.export_endpoint.main
   services:
-    pinpoint: {}     
-pinpoint_importSegment:
+    pinpoint: {CreateExportJob}     
+pinpoint_CreateImportJob:
   title: Import an &PIN; segment
   title_abbrev: Import a segment
   synopsis: import a segment.
@@ -221,8 +221,8 @@ pinpoint_importSegment:
               snippet_tags:
                 - pinpoint.java2.importsegment.main
   services:
-    pinpoint: {}   
-pinpoint_listEndpoints:
+    pinpoint: {CreateImportJob}   
+pinpoint_GetUserEndpoints:
   title: List &PIN; endpoints that are associated with a specific user ID
   title_abbrev: List endpoints
   synopsis: list endpoints.
@@ -237,8 +237,8 @@ pinpoint_listEndpoints:
               snippet_tags:
                 - pinpoint.java2.list_endpoints.main
   services:
-    pinpoint: {}       
-pinpoint_listSegments:
+    pinpoint: {GetUserEndpoints}       
+pinpoint_GetSegments:
   title: List &PIN; segments in an application
   title_abbrev: List segments
   synopsis: list segments.
@@ -253,8 +253,8 @@ pinpoint_listSegments:
               snippet_tags:
                 - pinpoint.java2.listsegments.main
   services:
-    pinpoint: {}   
-pinpoint_getEndpoint:
+    pinpoint: {GetSegments}   
+pinpoint_GetEndpoint:
   title: Display information about an existing &PIN; endpoint
   title_abbrev: Get endpoints
   synopsis: get endpoints.
@@ -269,11 +269,11 @@ pinpoint_getEndpoint:
               snippet_tags:
                 - pinpoint.java2.lookup.main
   services:
-    pinpoint: {}   
-pinpoint_updateChannel:
-  title: Update an &PIN; channel
-  title_abbrev: Update channels
-  synopsis: update channels.
+    pinpoint: {GetEndpoint}   
+pinpoint_UpdateSmsChannel:
+  title: Update the &PIN; SMS channel for an application
+  title_abbrev: Update the SMS channel for an application
+  synopsis: update the SMS channel for an application.
   languages:
     Java:
       versions:
@@ -281,8 +281,8 @@ pinpoint_updateChannel:
           github: javav2/example_code/pinpoint
           sdkguide:
           excerpts:
-            - description: update channels.
+            - description: Update the SMS channel..
               snippet_tags:
                 - pinpoint.java2.updatechannel.main
   services:
-    pinpoint: {}  
+    pinpoint: {UpdateSmsChannel}  
