@@ -1,6 +1,6 @@
 # zexi 0.4.0
 eventbridge_PutRule:
-  title: Create a &EV; scheduled rule using an &AWS; SDK
+  title: Create an &EV; scheduled rule using an &AWS; SDK
   title_abbrev: Create a scheduled rule
   synopsis: create an &EVlong; scheduled rule.
   category:
@@ -18,7 +18,7 @@ eventbridge_PutRule:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/eventbridge
-          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-rules
+          sdkguide:
           excerpts:
             - description: Create the client in a separate module and export it.
               snippet_tags:
@@ -28,7 +28,7 @@ eventbridge_PutRule:
                 - eventBridge.JavaScript.eb.putRuleV3
         - sdk_version: 2
           github: javascript/example_code/eventbridge
-          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-rules
+          sdkguide:
           excerpts:
             - description:
               snippet_tags:
@@ -54,7 +54,7 @@ eventbridge_PutEvents:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/eventbridge
-          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-putevents
+          sdkguide:
           excerpts:
             - description: Create the client in a separate module and export it.
               snippet_tags:
@@ -64,7 +64,7 @@ eventbridge_PutEvents:
                 - eventBridge.JavaScript.eb.putEventsV3
         - sdk_version: 2
           github: javascript/example_code/eventbridge
-          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-putevents
+          sdkguide:
           excerpts:
             - description:
               snippet_tags:
@@ -90,7 +90,7 @@ eventbridge_PutTargets:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/cloudwatch-events
-          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-targets
+          sdkguide:
           excerpts:
             - description: Create the client in a separate module and export it.
               snippet_tags:
@@ -100,7 +100,7 @@ eventbridge_PutTargets:
                 - eventBridge.JavaScript.eb.putTargetsV3
         - sdk_version: 2
           github: javascript/example_code/cloudwatch
-          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-targets
+          sdkguide:
           excerpts:
             - description:
               snippet_tags:
@@ -171,4 +171,4 @@ eventbridge_Scenario_createAndTriggerARule:
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.displayReminder
   services:
-    pinpoint: {}
+    eventbridge: {}
