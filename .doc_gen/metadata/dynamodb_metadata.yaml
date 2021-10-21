@@ -272,7 +272,7 @@ dynamodb_ListTables:
             - description: List tables. 
               snippet_tags:
                 - dynamodb.java2.list_tables.main
-            - description: List tables by using the DynamoDbAsyncClient client. . 
+            - description: List tables by using the DynamoDbAsyncClient client. 
               snippet_tags:
                 - dynamodb.java2.dbasync.main   
     Python:
