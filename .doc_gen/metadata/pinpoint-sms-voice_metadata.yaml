@@ -4,6 +4,15 @@ pinpoint-sms-voice_SendVoiceMessage:
   synopsis: send a voice message with &PIN-SMS-Voice-API;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pinpoint.java2.send_voice_message.main
     Python:
       versions:
         - sdk_version: 3
