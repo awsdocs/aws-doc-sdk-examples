@@ -1,8 +1,8 @@
 # zexi 0.4.0
-eventbridge_CreateRule:
+eventbridge_PutRule:
   title: Create an &EVlong; rule using an &AWS; SDK
   title_abbrev: Create a rule
-  synopsis: create a &EVlong; rule.
+  synopsis: create an &EVlong; rule.
   category:
   languages:
     Java:
@@ -15,7 +15,7 @@ eventbridge_CreateRule:
               snippet_tags:
                 - eventbridge.java2._create_rule.main
   services:
-    eventbridge: {CreateRule}
+    eventbridge: {PutRule}
 eventbridge_DeleteRule:
   title: Delete an &EVlong; rule using an &AWS; SDK
   title_abbrev: Delete a rule
