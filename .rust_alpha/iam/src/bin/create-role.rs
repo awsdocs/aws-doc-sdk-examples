@@ -35,6 +35,22 @@ struct Opt {
     verbose: bool,
 }
 
+// Creates a role.
+// snippet-start:[iam.rust.create-role]
+async fn create_role(client: &Client, name: &str, doc: &str) -> Result<(), Error> {
+    let resp = client
+        .create_role()
+        .assume_role_policy_document(doc)
+        .role_name(name)
+        .send()
+        .await?;
+
+    println!("Created role with ARN {}", resp.role.unwrap().arn.unwrap());
+
+    Ok(())
+}
+// snippet-end:[iam.rust.create-role]
+
 /// Creates an IAM role in the Region.
 ///
 /// # Arguments
@@ -83,14 +99,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client
-        .create_role()
-        .assume_role_policy_document(doc)
-        .role_name(name)
-        .send()
-        .await?;
-
-    println!("Created role with ARN {}", resp.role.unwrap().arn.unwrap());
-
-    Ok(())
+    create_role(&client, &name, &doc).await
 }
