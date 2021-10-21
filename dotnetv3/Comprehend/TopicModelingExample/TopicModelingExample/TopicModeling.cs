@@ -3,6 +3,7 @@
 
 namespace TopicModelingExample
 {
+    // snippet-start:[Comprehend.dotnetv3.TopicModelingExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Comprehend;
@@ -15,7 +16,7 @@ namespace TopicModelingExample
     /// on the screen. This example was created using the AWS SDK for .NEt
     /// version 3.7 and .NET Core version 5.0.
     /// </summary>
-    public class TopicModeling
+    public static class TopicModeling
     {
         /// <summary>
         /// This methos calls a topic detection job by calling the Amazon
@@ -79,4 +80,6 @@ namespace TopicModelingExample
             Console.WriteLine($"InputFormat: {props.InputDataConfig.InputFormat}, OutputS3Uri: {props.OutputDataConfig.S3Uri}");
         }
     }
+
+    // snippet-end:[Comprehend.dotnetv3.TopicModelingExample]
 }
