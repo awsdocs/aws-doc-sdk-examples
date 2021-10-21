@@ -43,3 +43,4 @@ node cwe_putevents.js
 ## Resources
  
 - [AWS SDK for JavaScript v2 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/cloudwatch-examples.html)
+- [AWS SDK for JavaScript v2 API Reference Guide -  Amazon Cloudwatch Events ](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CloudWatchEvents.html)

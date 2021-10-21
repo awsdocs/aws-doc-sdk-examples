@@ -38,3 +38,4 @@ node pinpoint_send_email_message_email_api.js
 ## Resources
  
 - [AWS SDK for JavaScript v2 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/)
+- [Amazon Pinpoint Documentation](https://docs.aws.amazon.com/pinpoint/) 

@@ -2,7 +2,7 @@
 SPDX-License-Identifier: Apache-2.0
  */
 
-//snippet-sourcedescription:[eb_putrule.js demonstrates how to create or update an Amazon EventBridge rule.]
+//snippet-sourcedescription:[eb_putrule.js demonstrates how to create or update an Amazon EventBridge (formerly Amazon CloudWatch) rule.]
 //snippet-service:[cw_events]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
@@ -11,9 +11,6 @@ SPDX-License-Identifier: Apache-2.0
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[2018-06-02]
 //snippet-sourceauthor:[AWS-JSDG]
-
-// ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
-// https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html
 
 // snippet-start:[eventBridge.JavaScript.eb.putRule]
 // Load the AWS SDK for Node.js

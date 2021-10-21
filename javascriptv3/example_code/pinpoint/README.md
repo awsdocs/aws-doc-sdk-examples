@@ -37,7 +37,7 @@ Amazon Pinpoint is a flexible and scalable outbound and inbound marketing commun
 2. Install the dependencies listed in the package.json.
 
 **Note**: These include the client module for the AWS services required in these example, 
-which is *@aws-sdk/client-pinpoint*.
+which are *@aws-sdk/client-pinpoint*, *@aws-sdk/client-pinpoint-email*, and *@aws-sdk/client-pinpoint-sms-voice*.
 
 ```
 npm install node -g

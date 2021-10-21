@@ -1,8 +1,8 @@
 # Amazon EventBridge JavaScript SDK v3 code examples
 
 ##Purpose
-This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) 
-Amazon EventBridge examples.
+The code examples in this directory demonstrate how to work with Amazon EventBridge 
+using the AWS SDK for JavaScript version 3 (v3).
 
 Amazon EventBridge helps you to respond to state changes in your Amazon Web Services resources. 
 When your resources change state, they automatically send events to an event stream. You can create 
@@ -73,7 +73,7 @@ npm test
 ```
 ## Resources
 - [AWS SDK for JavaScript v3 repo](https://github.com/aws/aws-sdk-js-v3) . 
-- [AWS SDK for JavaScript v2 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/)
+- [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/)
 - [Amazon EventBridge Documentation](https://docs.aws.amazon.com/eventbridge)
 - [AWS SDK for JavaScript v3 API Reference Guide - Amazon EventBridge client module](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-eventbridge/index.html)
 

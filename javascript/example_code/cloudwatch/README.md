@@ -40,7 +40,7 @@ You no longer need to set up, manage, and scale your own monitoring systems and 
   *AWS SDK for JavaScript (v2) Developer Guide*.
 
 Most of these code example files can be run with very little to no modification. For example, to use Node.js 
-to run the `cw-deletealarms.js` file, replace the hard-coded values in the file with your own values, save the file, and then run the file. For example:
+to run the `cw_deletealarms.js` file, replace the hard-coded values in the file with your own values, save the file, and then run the file. For example:
 
 ```
 node cw_deletealarms.js
@@ -50,3 +50,4 @@ node cw_deletealarms.js
 ## Resources
  
 - [AWS SDK for JavaScript v2 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/cloudwatch-examples.html)
+- [AWS SDK for JavaScript v2 API Reference Guide -  Amazon Cloudwatch](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CloudWatch.html)

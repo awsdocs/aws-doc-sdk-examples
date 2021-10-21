@@ -1,5 +1,5 @@
 jest.mock("../src/libs/eventBridgeClient.js");
-jest.mock("@aws-sdk/client-cloudwatch-events");
+jest.mock("@aws-sdk/client-eventbridge");
 
 // Get service clients module and commands.
 import 'regenerator-runtime/runtime'

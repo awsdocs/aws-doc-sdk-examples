@@ -1,6 +1,6 @@
 # Amazon Pinpoint JavaScript SDK v2 code examples
 ## Purpose
-This is a workspace where you can examples for the Amazon Pinpoint API using AWS SDK for JavaScript version 3 (v3).
+This is a workspace where you can examples for the Amazon Pinpoint API using AWS SDK for JavaScript version 2 (v2).
 
 Amazon Pinpoint is a flexible and scalable outbound and inbound marketing communications service. You can connect with customers over channels like email, SMS, push, or voice.
 ## Code examples
@@ -40,3 +40,4 @@ node pinpoint_send_email_message_api.js
 ## Resources
  
 - [AWS SDK for JavaScript v2 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/)
+- [Amazon Pinpoint Documentation](https://docs.aws.amazon.com/pinpoint/) 

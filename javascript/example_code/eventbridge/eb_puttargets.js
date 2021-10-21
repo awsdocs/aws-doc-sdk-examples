@@ -2,7 +2,7 @@
 SPDX-License-Identifier: Apache-2.0
  */
 
-//snippet-sourcedescription:[eb_puttargets.js demonstrates how to add or update a target to an Amazon EventBridge rule.]
+//snippet-sourcedescription:[eb_puttargets.js demonstrates how to add or update a target to an Amazon EventBridge (formerly Amazon CloudWatch) rule.]
 //snippet-service:[cw_events]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
@@ -12,8 +12,6 @@ SPDX-License-Identifier: Apache-2.0
 //snippet-sourcedate:[2018-06-02]
 //snippet-sourceauthor:[AWS-JSDG]
 
-// ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
-// https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html
 
 // snippet-start:[eventBridge.JavaScript.eb.putTargets]
 // Load the AWS SDK for Node.js
