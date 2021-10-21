@@ -89,7 +89,7 @@ eventbridge_PutTargets:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cloudwatch-events
+          github: javascriptv3/example_code/eventbridge
           sdkguide:
           excerpts:
             - description: Create the client in a separate module and export it.
@@ -99,7 +99,7 @@ eventbridge_PutTargets:
               snippet_tags:
                 - eventBridge.JavaScript.eb.putTargetsV3
         - sdk_version: 2
-          github: javascript/example_code/cloudwatch
+          github: javascript/example_code/eventbridge
           sdkguide:
           excerpts:
             - description:
@@ -122,22 +122,22 @@ eventbridge_Scenario_createAndTriggerARule:
             - description: Call the functions in the correct order.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.require
-            - description: Checks the specified &SNS; topic exists.
+            - description: Checks whether the specified &SNSlong; (&SNS;) topic exists among those provided to this function.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.sns
-            - description:
+            - description: Checks whether the specified topic exists among those available to the caller in &SNS;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.snstopic
-            - description: Creates a topic in &SNSlong; (&SNS;) and then subscribes an email address to receive notifications to that topic.
+            - description: Create a topic in &SNS; and then subscribe an email address to receive notifications to that topic.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.createSnsTopic
-            - description: Checks whether the specified &IAMlong; (&IAM;) role exists among those provided to this function.
+            - description: Check whether the specified &IAMlong; (&IAM;) role exists among those provided to this function.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.IamRole
-            - description: Checks whether the specified role exists among those available to the caller in &IAM;.
+            - description: Check whether the specified role exists among those available to the caller in &IAM;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.checkIamRole
-            - description: Creates a role in &IAM;.
+            - description: Create a role in &IAM;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.createIamRole
             - description: Checks whether the specified &EV; rule exists among those provided to this function.
@@ -146,28 +146,28 @@ eventbridge_Scenario_createAndTriggerARule:
             - description: Checks whether the specified rule exists among those available to the caller in &EV;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.checkRuleAvailable
-            - description: Creates a rule in &EV;.
+            - description: Create a rule in &EV;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.createRule
-            - description: Checks to see whether the specified log group exists among those available to the caller in &CWLlong;.
+            - description: Check to see whether the specified log group exists among those available to the caller in &CWLlong;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.checkLogGroup
-            - description: Creates a log group in &CWL;.
+            - description: Create a log group in &CWL;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.createLogGroup
-            - description: Writes an event to a log stream in &CWL;.
+            - description: Write an event to a log stream in &CWL;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.writeEvent
-            - description: Restarts an &EC2long; (&EC2;) instance and adds information about the related activity to a log stream in &CWL;.
+            - description: Restart an &EC2long; (&EC2;) instance and adds information about the related activity to a log stream in &CWL;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.restartInstance
-            - description: Displays information about activity for a rule in &EV;.
+            - description: Display information about activity for a rule in &EV;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.displayInfo
-            - description: Displays log information for all of the log streams in a &CWL; log group.
+            - description: Display log information for all of the log streams in a &CWL; log group.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.displayLogInfo
-            - description: Displays a reminder to the caller to manually clean up any associated &AWS; resources that they no longer need.
+            - description: Display a reminder to the caller to manually clean up any associated &AWS; resources that they no longer need.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.displayReminder
   services:
