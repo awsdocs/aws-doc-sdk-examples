@@ -14,7 +14,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 def get_git_hash():
   """
-  Get the short git hash of the current commit of the repository
+  Get the short Git hash of the current commit of the repository
   """
   try:
     return subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD']).decode('utf-8').strip()
@@ -25,7 +25,7 @@ class TestHelloSuite:
   """
   Our test suite. 
 
-  This is an older style of test suite, but here it allows us to use setup_method and teardown_method.
+  This style of test suite allows us to use setup_method and teardown_method.
 
   """
   def save_screenshot(self, name):
@@ -33,7 +33,7 @@ class TestHelloSuite:
 
   def setup_method(self, method):
     """
-    Set up a test
+    Set up a test.
 
     This makes sure that the session for an individual test is ready.
 
@@ -46,7 +46,7 @@ class TestHelloSuite:
     project_arn = os.environ.get("PROJECT_ARN", None)
     if project_arn is None:
       raise ValueError("Must set PROJECT_ARN")
-    # Get a hub URL for Selenium
+    # Request a driver hub URL for the Selenium client
     testgrid_url_response = devicefarm_client.create_test_grid_url(
       projectArn= project_arn,
       expiresInSeconds=300
@@ -93,7 +93,7 @@ class TestHelloSuite:
 
   def teardown_method(self, method):
     """
-    Clean up resources used by each method
+    Clean up resources used by each method.
     """
     # End the selenium session so we're off the clock.
     self.driver.quit()
@@ -110,7 +110,7 @@ class TestHelloSuite:
   ])
   def test_first_paragraph_text(self, query, leading):
     """
-    This test looks at the first paragraph of a page on Wikipedia, comparing it to a known leading sentance.
+    This test looks at the first paragraph of a page on Wikipedia, comparing it to a known leading sentence.
 
     If the leading sentence matches, the test passes. A screenshot is taken before the final assertion is made, letting us debug if something isn't right. 
     """
