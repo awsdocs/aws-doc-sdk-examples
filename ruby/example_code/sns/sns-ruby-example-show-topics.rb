@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose:
-# sns-ruby-example-show-topics.rb demonstrates how to list Amazon Simple Notification Services (SNS) topics using
-# the AWS SDK for JavaScript (v3).
+# sns-ruby-example-show-topics.rb demonstrates how to list Amazon Simple Notification Service (SNS) topics using
+# the AWS SDK for Ruby.
 
 # Inputs:
 # - REGION
@@ -22,7 +22,7 @@ rescue StandardError => e
 
 def run_me
 
-  region = 'eu-west-1'
+  region = 'REGION'
   sns_client = Aws::SNS::Resource.new(region: region)
 
   puts "Listing the topics."

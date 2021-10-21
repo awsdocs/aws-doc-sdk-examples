@@ -1,10 +1,18 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# ec2-ruby-example-terminate-instance-i-123abc.rb demonstrates how to
+# to terminate an Amazon Elastic Compute Cloud (Amazon EC2)
+# instance using the AWS SDK for Ruby.
+
+# Inputs:
+# - REGION - The AWS Region.
+
+# snippet-start:[ec2.Ruby.terminateInstances]
 
 require 'aws-sdk-ec2'
 
-# Attempts to terminate an Amazon Elastic Compute Cloud (Amazon EC2) instance.
-#
 # Prerequisites:
 #
 # - The Amazon EC2 instance.
@@ -14,7 +22,7 @@ require 'aws-sdk-ec2'
 # @return [Boolean] true if the instance was terminated; otherwise, false.
 # @example
 #   exit 1 unless instance_terminated?(
-#     Aws::EC2::Client.new(region: 'us-east-1'),
+#     Aws::EC2::Client.new(region: 'us-west-2'),
 #     'i-123abc'
 #   )
 def instance_terminated?(ec2_client, instance_id)
@@ -44,13 +52,15 @@ def run_me
   if ARGV[0] == '--help' || ARGV[0] == '-h'
     puts 'Usage:   ruby ec2-ruby-example-terminate-instance-i-123abc.rb ' \
       'INSTANCE_ID REGION '
+   # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
     puts 'Example: ruby ec2-ruby-example-terminate-instance-i-123abc.rb ' \
-      'i-123abc us-east-1'
+      'i-123abc us-west-2'
     exit 1
   # If no values are specified at the command prompt, use these default values.
+  # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
   elsif ARGV.count.zero?
     instance_id = 'i-123abc'
-    region = 'us-east-1'
+    region = 'us-west-2'
   # Otherwise, use the values as specified at the command prompt.
   else
     instance_id = ARGV[0]
@@ -67,3 +77,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[ec2.Ruby.terminateInstances]

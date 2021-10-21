@@ -103,7 +103,7 @@ public class CloudWatchTest {
     @Order(3)
     public void DescribeAlarms() {
 
-       DescribeAlarms.deleteCWAlarms(cw);
+       DescribeAlarms.desCWAlarms(cw);
        System.out.printf("\n Test 3 passed");
     }
 

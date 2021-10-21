@@ -1,44 +1,20 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Creates a dead-letter queue, gets and sets some queue attributes, sends a message to the queue, waits (polls) for the message to arrive, and receives the message.]
-# snippet-keyword:[Amazon Simple Queue Service]
-# snippet-keyword:[create_queue method]
-# snippet-keyword:[get_queue_attributes method]
-# snippet-keyword:[get_queue_url method]
-# snippet-keyword:[receive_message method]
-# snippet-keyword:[send_message method]
-# snippet-keyword:[set_queue_attributes method]
-# snippet-keyword:[QeuePoller.poll
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[sqs]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
 
-# Demonstrates how to:
-# 1. Create a queue representing a dead letter queue.
-# 2. Associate the dead letter queue with an existing queue.
+# Purpose
+# This code example demonstrates how to create a dead-letter queue, get and set some queue attributes,
+# send a message to the queue, wait (poll) for the message to arrive, and receive the message.
+
+# snippet-start:[s3.ruby.sqs-ruby-example-dead-letter-queue.rb]
 
 require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
 
 # Uncomment for Windows.
 # Aws.use_bundled_cert!
+# Replace us-west-2 with the AWS Region you're using for Amazon SQS.
+sqs = Aws::SQS::Client.new(region: 'us-west-2')
 
-sqs = Aws::SQS::Client.new(region: 'us-east-1')
-
-# Create a queue representing a dead letter queue.
+# Create a queue representing a dead-letter queue.
 dead_letter_queue_name = "dead-letter-queue"
 
 sqs.create_queue({
@@ -110,3 +86,4 @@ if receive_message_result.messages.count > 0
 else
   puts "\nNo messages received."
 end
+# snippet-end:[s3.ruby.sqs-ruby-example-dead-letter-queue.rb]

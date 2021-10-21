@@ -19,7 +19,8 @@ struct Opt {
 }
 
 // Lists your recorders.
-async fn show_recorders(client: &aws_sdk_config::Client) -> Result<(), aws_sdk_config::Error> {
+// snippet-start:[config.rust.list-configuration-recorders]
+async fn show_recorders(client: &Client) -> Result<(), Error> {
     let resp = client.describe_configuration_recorders().send().await?;
 
     let recorders = resp.configuration_recorders.unwrap_or_default();
@@ -36,6 +37,7 @@ async fn show_recorders(client: &aws_sdk_config::Client) -> Result<(), aws_sdk_c
 
     Ok(())
 }
+// snippet-end:[config.rust.list-configuration-recorders]
 
 /// Lists the AWS Config configuration recorders in the Region.
 ///

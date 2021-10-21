@@ -35,6 +35,7 @@ Java:
     2:
       long: "&JavaV2long;"
       short: "&JavaV2;"
+      bookmark: readme
       api_ref:
         uid: "SdkForJavaV2"
         name: "&guide-javaV2-api;"

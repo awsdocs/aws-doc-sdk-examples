@@ -1,94 +1,75 @@
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of
-# the License is located at
-#
-# http:#aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-# CONDITIONS OF ANY KIND, either express or implied. See the License for the
-# specific language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-# snippet-sourcedescription:[pinpoint_send_sms_message_api demonstrates how to send a transactional SMS message by using the SendMessages operation in the Amazon Pinpoint API.]
-# snippet-service:[mobiletargeting]
-# snippet-keyword:[Python]
-# snippet-sourcesyntax:[python]
-# snippet-sourcesyntax:[python]
-# snippet-keyword:[Amazon Pinpoint]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[SendMessages]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2019-01-20]
-# snippet-sourceauthor:[AWS]
+"""
+Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Pinpoint to
+send SMS messages.
+"""
+
 # snippet-start:[pinpoint.python.pinpoint_send_sms_message_api.complete]
 
+import logging
 import boto3
 from botocore.exceptions import ClientError
 
-# The AWS Region that you want to use to send the message. For a list of
-# AWS Regions where the Amazon Pinpoint API is available, see
-# https://docs.aws.amazon.com/pinpoint/latest/apireference/
-region = "us-east-1"
+logger = logging.getLogger(__name__)
 
-# The phone number or short code to send the message from. The phone number
-# or short code that you specify has to be associated with your Amazon Pinpoint
-# account. For best results, specify long codes in E.164 format.
-originationNumber = "+12065550199"
 
-# The recipient's phone number.  For best results, you should specify the
-# phone number in E.164 format.
-destinationNumber = "+14255550142"
+def send_sms_message(
+        pinpoint_client, app_id, origination_number, destination_number, message,
+        message_type):
+    """
+    Sends an SMS message with Amazon Pinpoint.
 
-# The content of the SMS message.
-message = ("This is a sample message sent from Amazon Pinpoint by using the "
-           "AWS SDK for Python (Boto 3).")
+    :param pinpoint_client: A Boto3 Pinpoint client.
+    :param app_id: The Amazon Pinpoint project/application ID to use when you send
+                   this message. The SMS channel must be enabled for the project or
+                   application.
+    :param destination_number: The recipient's phone number in E.164 format.
+    :param origination_number: The phone number to send the message from. This phone
+                               number must be associated with your Amazon Pinpoint
+                               account and be in E.164 format.
+    :param message: The content of the SMS message.
+    :param message_type: The type of SMS message that you want to send. If you send
+                         time-sensitive content, specify TRANSACTIONAL. If you send
+                         marketing-related content, specify PROMOTIONAL.
+    :return: The ID of the message.
+    """
+    try:
+        response = pinpoint_client.send_messages(
+            ApplicationId=app_id,
+            MessageRequest={
+                'Addresses': {destination_number: {'ChannelType': 'SMS'}},
+                'MessageConfiguration': {
+                    'SMSMessage': {
+                        'Body': message,
+                        'MessageType': message_type,
+                        'OriginationNumber': origination_number}}})
+    except ClientError:
+        logger.exception("Couldn't send message.")
+        raise
+    else:
+        return response['MessageResponse']['Result'][destination_number]['MessageId']
 
-# The Amazon Pinpoint project/application ID to use when you send this message.
-# Make sure that the SMS channel is enabled for the project or application
-# that you choose.
-applicationId = "ce796be37f32f178af652b26eexample"
 
-# The type of SMS message that you want to send. If you plan to send
-# time-sensitive content, specify TRANSACTIONAL. If you plan to send
-# marketing-related content, specify PROMOTIONAL.
-messageType = "TRANSACTIONAL"
+def main():
+    app_id = "ce796be37f32f178af652b26eexample"
+    origination_number = "+12065550199"
+    destination_number = "+14255550142"
+    message = (
+        "This is a sample message sent from Amazon Pinpoint by using the AWS SDK for "
+        "Python (Boto 3).")
+    message_type = "TRANSACTIONAL"
 
-# The registered keyword associated with the originating short code.
-registeredKeyword = "myKeyword"
+    print("Sending SMS message.")
+    message_id = send_sms_message(
+        boto3.client('pinpoint'), app_id, origination_number, destination_number,
+        message, message_type)
+    print(f"Message sent! Message ID: {message_id}.")
 
-# The sender ID to use when sending the message. Support for sender ID
-# varies by country or region. For more information, see
-# https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-countries.html
-senderId = "MySenderID"
 
-# Create a new client and specify a region.
-client = boto3.client('pinpoint',region_name=region)
-try:
-    response = client.send_messages(
-        ApplicationId=applicationId,
-        MessageRequest={
-            'Addresses': {
-                destinationNumber: {
-                    'ChannelType': 'SMS'
-                }
-            },
-            'MessageConfiguration': {
-                'SMSMessage': {
-                    'Body': message,
-                    'Keyword': registeredKeyword,
-                    'MessageType': messageType,
-                    'OriginationNumber': originationNumber,
-                    'SenderId': senderId
-                }
-            }
-        }
-    )
-
-except ClientError as e:
-    print(e.response['Error']['Message'])
-else:
-    print("Message sent! Message ID: "
-            + response['MessageResponse']['Result'][destinationNumber]['MessageId'])
-
+if __name__ == '__main__':
+    main()
 # snippet-end:[pinpoint.python.pinpoint_send_sms_message_api.complete]

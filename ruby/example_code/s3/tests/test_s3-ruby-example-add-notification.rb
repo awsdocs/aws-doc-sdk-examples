@@ -7,7 +7,7 @@ describe '#bucket_notification_configuration_set?' do
   let(:bucket_name) { 'doc-example-bucket' }
   let(:events) { ['s3:ObjectCreated:*'] }
   let(:send_to_type) { 'sns' }
-  let(:resource_arn) { 'arn:aws:sns:us-east-1:111111111111:my-topic' }
+  let(:resource_arn) { 'arn:aws:sns:us-west-2:111111111111:my-topic' }
   let(:s3_client) do
     Aws::S3::Client.new(
       stub_responses: {

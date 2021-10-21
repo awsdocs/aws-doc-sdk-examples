@@ -1,12 +1,16 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to add an encrypted object to an Amazon Simple Storage Service (Amazon S3) bucket.
+# The encryption is performed on the server by using the specified encryption key.
+
+# snippet-start:[s3.ruby.s3_add_sseck_encrypt_item]
+
 require 'aws-sdk-s3'
 require 'digest/md5'
 
-# Adds an encrypted object to an Amazon S3 bucket. The encryption is performed
-#   on the server by using the specified encryption key.
-#
+
 # Prerequisites:
 #
 # - An Amazon S3 bucket.
@@ -22,7 +26,7 @@ require 'digest/md5'
 #   otherwise, false.
 # @example
 #   exit 1 unless customer_key_sse_encrypted_object_uploaded?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket',
 #     'my-file.txt',
 #     'This is the content of my-file.txt.',
@@ -74,11 +78,12 @@ def get_random_aes_256_gcm_key
   return random_key_64
 end
 
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
   bucket_name = 'doc-example-bucket'
   object_key = 'my-file.txt'
   content_to_encrypt = 'This is the content of my-file.txt.'
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
 
   # The following call generates a random AES256-GCM key. Alternatively, you can
@@ -102,3 +107,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3_add_sseck_encrypt_item]

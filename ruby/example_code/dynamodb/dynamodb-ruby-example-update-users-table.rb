@@ -1,10 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# Purpose:
+# dynamodb-ruby-example-update-users-table.rb demonstrates how to
+# update items in a table in Amazon DynamoDB using the AWS SDK for Ruby.
+
+# snippet-start:[dynamodb.Ruby.updateUserTables]
+
 require 'aws-sdk-dynamodb'
 
-# Updates items in a table in Amazon DynamoDB.
-#
 # @param dynamodb_client [Aws::DynamoDB::Client] An initialized
 #   Amazon DynamoDB client.
 # @param table_name [String] The name of the table.
@@ -53,6 +57,7 @@ end
 
 # Full example call:
 def run_me
+# Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
   region = 'us-west-2'
   table_name = 'Users'
   table_key_attribute = 'ID'
@@ -79,3 +84,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[dynamodb.Ruby.updateUserTables]

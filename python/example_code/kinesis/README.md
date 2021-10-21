@@ -17,16 +17,65 @@ stream to data in an output stream.
 * Run a data generator that puts records into an input stream.
 * Read transformed records from an output stream.
 
-## Prerequisites
+*Amazon Kinesis makes it easy to collect, process, and analyze video and data streams 
+in real time.*
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.8.5 or later
-- Boto3 1.15.4 or later
-- PyTest 5.3.5 or later (to run unit tests)
+## Code examples
 
-## Cautions
+### Kinesis Data Streams
+
+### API examples
+
+* [Create a stream](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/streams/kinesis_stream.py)
+(`CreateStream`)
+* [Delete a stream](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/streams/kinesis_stream.py)
+(`DeleteStream`)
+* [Describe a stream](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/streams/kinesis_stream.py)
+(`DescribeStream`)
+* [Get data in batches from a stream](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/streams/kinesis_stream.py)
+(`GetRecords`)
+* [Put data into a stream](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/streams/kinesis_stream.py)
+(`PutRecord`)
+
+### Kinesis Data Analytics
+
+#### API examples
+
+* [Add an input stream to an application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/analyticsv2/analytics_application.py)
+(`AddApplicationInput`)
+* [Add an output stream to an application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/analyticsv2/analytics_application.py)
+(`AddApplicationOutput`)
+* [Create an application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/analyticsv2/analytics_application.py)
+(`CreateApplication`)
+* [Delete an application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/analyticsv2/analytics_application.py)
+(`DeleteApplication`)
+* [Describe an application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/analyticsv2/analytics_application.py)
+(`DescribeApplication`)
+* [Describe an application snapshot](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/analyticsv2/analytics_application.py)
+(`DescribeApplicationSnapshot`)
+* [Discover a data format for a stream](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/analyticsv2/analytics_application.py)
+(`DiscoverInputSchema`)
+* [Start an application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/analyticsv2/analytics_application.py)
+(`StartApplication`)
+* [Stop an application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/analyticsv2/analytics_application.py)
+(`StopApplication`)
+* [Update an application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/analyticsv2/analytics_application.py)
+(`UpdateApplication`)
+
+#### Stream generators for examples
+
+* [Generate a stream with a referrer](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/streams/dg_referrer.py)
+* [Generate a stream with blood pressure anomalies](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/streams/dg_anomalyex.py)
+* [Generate a stream with data in columns](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/streams/dg_columnlog.py)
+* [Generate a stream with heart rate anomalies](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/streams/dg_anomaly.py)
+* [Generate a stream with hotspots](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/streams/dg_hotspots.py)
+* [Generate a stream with log entries](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/streams/dg_regexlog.py)
+* [Generate a stream with stagger data](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/streams/dg_stagger.py)
+* [Generate a stream with stock ticker data](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/streams/dg_stock_ticker.py)
+* [Generate a stream with two data types](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/streams/dg_tworecordtypes.py)
+* [Generate a stream with web log data](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/kinesis/streams/dg_weblog.py)
+
+## ⚠ Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -41,6 +90,17 @@ stream to data in an output stream.
 
 
 ## Running the code
+
+### Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.8.5 or later
+- Boto3 1.15.4 or later
+- PyTest 5.3.5 or later (to run unit tests)
+
+### Command
 
 **Data Analytics usage**
 

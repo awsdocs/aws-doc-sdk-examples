@@ -1,23 +1,34 @@
-# AWS SDK for Ruby code examples for AWS Identity and Access Management
+# AWS SDK for Ruby code examples for IAM
 
 ## Purpose
+This folder contains code examples that demonstrate how to use the AWS SDK for 
+Ruby to automate AWS Identity and Access Management (IAM).
 
-This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to automate AWS Identity and Access Management (IAM).
+IAM is a web service for securely controlling access to AWS services. With IAM, you can
+centrally manage users, security credentials such as access keys, and permissions that control 
+which AWS resources users and applications can access.
 
-## Prerequisites
+## Code examples 
 
-- An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
-- AWS credentials or an AWS Security Token Service (AWS STS) access token. For details, see 
-  [Configuring the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html) in the 
-  *AWS SDK for Ruby Developer Guide*.
-- To run the code examples, Ruby version 1.9 or later. For Ruby download and installation instructions, see 
-  [Download Ruby](https://www.ruby-lang.org/en/downloads/) on the Ruby Progamming Language website.
-- To test the code examples, RSpec 3.9 or later. For RSpec download and installation instructions, see the [rspec/rspec](https://github.com/rspec/rspec) repository in GitHub.
-- The AWS SDK for Ruby. For AWS SDK for Ruby download and installation instructions, see 
-  [Install the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html) in the 
-  *AWS SDK for Ruby Developer Guide*.
+### Usage examples
+- [Construct a URL for federated users](./iam-ruby-example-construct-url-federated-users.rb)
+- [Manage access keys](./iam-ruby-example-access-keys.rb)
+- [Manage account aliases](./iam-ruby-example-account-alias.rb)
+- [Manage policies](./iam-ruby-example-manage-policies.rb)
+- [Manage users](./iam-ruby-example-manage-users.rb)
+- [Manage server certificates](./iam-ruby-example-server-certificates.rb)
+- [Manage administrator privileges](./iam_ruby_example_show_admins.rb)
 
-## Cautions
+### API examples
+- [Add a managed policy](./iam-ruby-example-add-managed-policy.rb)
+- [Add a new user](./iam-ruby-example-add-new-user.rb)
+- [Create a role](./iam-ruby-example-create-role.rb)
+- [Create user access keys](./iam-ruby-example-create-user-access-keys.rb)
+- [Get SSH public keys](./iam-ruby-example-get-ssh-public-keys.rb)
+- [List all users](./iam-ruby-example-list-all-users.rb)
+
+
+## Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -30,6 +41,19 @@ This folder contains code examples that demonstrate how to use the AWS SDK for R
 - Running this code might result in charges to your AWS account.
 
 ## Running the code
+
+### Prerequisites
+
+- An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
+- AWS credentials or an AWS Security Token Service (AWS STS) access token. For details, see 
+  [Configuring the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html) in the 
+  *AWS SDK for Ruby Developer Guide*.
+- To run the code examples, Ruby version 1.9 or later. For Ruby download and installation instructions, see 
+  [Download Ruby](https://www.ruby-lang.org/en/downloads/) on the Ruby Progamming Language website.
+- To test the code examples, RSpec 3.9 or later. For RSpec download and installation instructions, see the [rspec/rspec](https://github.com/rspec/rspec) repository in GitHub.
+- The AWS SDK for Ruby. For AWS SDK for Ruby download and installation instructions, see 
+  [Install the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html) in the 
+  *AWS SDK for Ruby Developer Guide*.
 
 Most of these code example files can be run with very little to no modification. For example, to use Ruby to run the `iam-ruby-example-add-new-user.rb` file, replace the hard-coded values in the file with your own values, save the file, and then run the file. For example:
 

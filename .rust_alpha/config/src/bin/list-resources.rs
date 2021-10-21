@@ -20,10 +20,11 @@ struct Opt {
 }
 
 // Lists your resources.
+// snippet-start:[config.rust.list-resources]
 async fn show_resources(
     verbose: bool,
-    client: &aws_sdk_config::Client,
-) -> Result<(), aws_sdk_config::Error> {
+    client: &Client,
+) -> Result<(), Error> {
     for value in ResourceType::values() {
         let parsed = ResourceType::from(*value);
 
@@ -52,6 +53,7 @@ async fn show_resources(
 
     Ok(())
 }
+// snippet-end:[config.rust.list-resources]
 
 /// Lists your AWS Config resources, by resource type, in the Region.
 ///

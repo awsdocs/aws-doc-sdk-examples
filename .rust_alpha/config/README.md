@@ -114,6 +114,12 @@ This example displays the configuration history for a resource.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
+### Running the unit tests
+
+Enter the following command to run all of the unit tests:
+
+`cargo test`
+
 ### Notes
 
 - We recommend that you grant this code least privilege,

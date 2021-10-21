@@ -5,6 +5,15 @@ api-gateway_CreateRestApi:
   synopsis: create an &ABP; REST API.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/apigateway
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - apigateway.java2.create_api.main
     Python:
       versions:
         - sdk_version: 3
@@ -131,6 +140,15 @@ api-gateway_CreateDeployment:
   synopsis: deploy an &ABP; REST API.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/apigateway
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - apigateway.java2.create_deployment.main
     Python:
       versions:
         - sdk_version: 3
@@ -177,6 +195,15 @@ api-gateway_DeleteRestApi:
   synopsis: delete an &ABP; REST API.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/apigateway
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - apigateway.java2.delete_api.main
     Python:
       versions:
         - sdk_version: 3
@@ -189,6 +216,23 @@ api-gateway_DeleteRestApi:
                 - python.example_code.api-gateway.DeleteRestApi
   services:
     api-gateway: {DeleteRestApi}
+api-gateway_DeleteDeployment:
+  title: Delete an &ABP; deployment using an &AWS; SDK
+  title_abbrev: Delete a deployment
+  synopsis: delete a deployment.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/apigateway
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - apigateway.java2.delete_deployment.main
+  services:
+    api-gateway: {DeleteDeployment}
 api-gateway_Usage_CreateDeployRest:
   title: Create and deploy a REST API using an &AWS; SDK
   title_abbrev: Create and deploy a REST API
