@@ -10,9 +10,6 @@ pinpoint_SendMessages:
           github: javav2/example_code/pinpoint
           sdkguide:
           excerpts:
-            - description: Send an email message.
-              snippet_tags:
-                - pinpoint.java2.send_email.main
             - description: Send an SMS message.
               snippet_tags:
                 - pinpoint.java2.sendmsg.main
@@ -77,6 +74,15 @@ pinpoint_sendMail:
   title_abbrev: Send an email with an SMTP server
   synopsis: send an email with an &PIN; SMTP server.
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Send an email message.
+              snippet_tags:
+                - pinpoint.java2.send_email.main
     JavaScript:
       versions:
         - sdk_version: 2
