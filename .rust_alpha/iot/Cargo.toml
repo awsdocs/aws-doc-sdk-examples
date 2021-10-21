@@ -7,9 +7,9 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.19-alpha", package = "aws-config" }
-aws-sdk-iot = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.19-alpha", package = "aws-sdk-iot" }
-aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.19-alpha", package = "aws-types" }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.21-alpha", package = "aws-config" }
+aws-sdk-iot = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.21-alpha", package = "aws-sdk-iot" }
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.21-alpha", package = "aws-types" }
 tokio = { version = "1", features = ["full"] }
 structopt = { version = "0.3", default-features = false }
 tracing-subscriber = "0.2.18"
