@@ -364,10 +364,9 @@ rekognition_DetectFaces:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.DetectFacesExample
-            excerpts:
-              - description: Display bounding box information for all faces in an image.
-                snippet_tags:
-                  - Rekognition.dotnetv3.ImageOrientationBoundingBox
+            - description: Display bounding box information for all faces in an image.
+              snippet_tags:
+                - Rekognition.dotnetv3.ImageOrientationBoundingBox
     Java:
       versions:
         - sdk_version: 2
