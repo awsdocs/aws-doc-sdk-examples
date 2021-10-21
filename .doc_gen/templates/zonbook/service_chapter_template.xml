@@ -8,10 +8,18 @@
     %phrases-shared;
 ]>
 <!-- zexi 0.4.1 -->
-<chapter id="service_code_examples" role="topic">
+{{- $doc_id := "service_code_examples"}}
+{{- $title_abbrev := "Code examples"}}
+{{- if .Bundle}}
+{{- $doc_id = printf "service_code_examples_%s" .Model }}
+{{- $title_abbrev = printf "%s examples" .ServiceEntity.Short }}
+<section id="{{$doc_id}}" role="topic">
+{{- else}}
+<chapter id="{{$doc_id}}" role="topic">
+{{end}}
     <info>
-        <title id="service_code_examples.title">Code examples for {{.ServiceEntity.Short}}</title>
-        <titleabbrev id="service_code_examples.titleabbrev">Code examples</titleabbrev>
+        <title id="{{$doc_id}}.title">Code examples for {{.ServiceEntity.Short}}</title>
+        <titleabbrev id="{{$doc_id}}.titleabbrev">{{$title_abbrev}}</titleabbrev>
         <abstract>
             <para>Code examples that show how to use {{.ServiceEntity.Short}} with an &AWS; SDK.</para>
         </abstract>
@@ -24,14 +32,14 @@
     <para role="contents-abbrev">Code examples</para>
     {{- range $category := .CategoryNamesSorted}}
     {{- with $cat_examples := index $.CategorizedExampleSets $category}}
-    <section id="service_code_examples_{{$cat_examples.CategoryIdSuffix}}" role="topic">
+    <section id="{{$doc_id}}_{{$cat_examples.CategoryIdSuffix}}" role="topic">
         <info>
-            <title id="service_code_examples_{{$cat_examples.CategoryIdSuffix}}.title">{{$cat_examples.CategoryName}} examples for {{$.ServiceEntity.Short}}</title>
-            <titleabbrev id="service_code_examples_{{$cat_examples.CategoryIdSuffix}}.titleabbrev">{{$cat_examples.CategoryName}} examples</titleabbrev>
+            <title id="{{$doc_id}}_{{$cat_examples.CategoryIdSuffix}}.title">{{$cat_examples.CategoryName}} examples for {{$.ServiceEntity.Short}}</title>
+            <titleabbrev id="{{$doc_id}}_{{$cat_examples.CategoryIdSuffix}}.titleabbrev">{{$cat_examples.CategoryName}} examples</titleabbrev>
             <abstract>
                 <para>The following code examples show how to use {{$.ServiceEntity.Short}} with &AWS; SDKs.</para>
             </abstract>
-        </info>
+            </info>
         <para>The following code examples show how to use {{$.ServiceEntity.Short}} with &AWS; SDKs.</para>
         <para role="topiclist-abbrev">Examples</para>
         {{- range $cat_examples.Examples}}
@@ -60,4 +68,8 @@
     </section>
     {{- end}}
     {{- end}}
+{{- if .Bundle}}
+</section>
+{{- else}}
 </chapter>
+{{end}}
