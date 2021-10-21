@@ -54,6 +54,23 @@ cargo run -- -b BUCKET -f FILENAME -t TABLE [-r REGION] [-v]
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
+### telephone
+
+This example synthesizes a plain text (UTF-8) input file to an audio file, converts that audio file to text, and displays the text.
+
+```
+cd telephone
+cargo run -- -f FILENAME -b BUCKET -j JOB-NAME  [-r REGION] [-v]
+```
+
+- __FILENAME__ is the name of the input file.
+  The output is saved in MP3 format in a file with the same basename, but with an __mp3__ extension.
+- __BUCKET__ is the Amazon S3 bucket to which the MP3 file is uploaded.
+- __JOB-NAME__ is the unique name of the job.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.
 
 ### Notes
 
