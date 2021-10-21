@@ -1,3 +1,6 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 import boto3
 import os
 import requests
@@ -8,7 +11,7 @@ import datetime
 import time
 import json
 
-# The following script runs a test through Device Farm
+# The following script runs a test through AWS Device Farm.
 #
 # Things you have to change:
 config = {
@@ -121,10 +124,4 @@ for job in jobs_response['jobs'] :
                     print("Downloading "+artifact_save_path)
                     with open(artifact_save_path, 'wb') as fn, requests.get(artifact['url'],allow_redirects=True) as request:
                         fn.write(request.content)
-                    #/for artifact in artifacts
-                #/for artifact type in []
-            #/ for test in ()[]
-        #/ for suite in suites
-    #/ for job in _[]
-# done
 print("Finished")

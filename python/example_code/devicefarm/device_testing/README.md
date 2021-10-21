@@ -1,7 +1,7 @@
-# CI Runner example for Device Farm
+# CI Runner example for AWS Device Farm
 
 ## Purpose
-This example covers a common use case of Device Farm: uploading a compiled Android (or iOS) application and test package to Device Farm, starting a test, waiting for pass/fail, and reporting those results. 
+This example covers a common use case of AWS Device Farm: uploading a compiled Android (or iOS) application and test package to Device Farm, starting a test, waiting for pass/fail, and reporting those results. 
 
 ## ⚠️ Important
 
@@ -9,7 +9,7 @@ This example covers a common use case of Device Farm: uploading a compiled Andro
 * This code works only in `us-west-2`, the only region Device Farm is located.
 * Running this code might result in charges to your AWS account. 
 
-## prequisites
+## Prerequisites
 
 This example requires
 
@@ -18,6 +18,11 @@ This example requires
 * A project ARN in Device Farm device testing
 * A device pool ARN
 * A prefix to use to distinguish runs of the test (such as a git branch)
+3. `pipenv`: This example uses Pipenv to contain its dependencies. If you are uncomfortable or unable to use such, 
+    The following dependencies are used:
+    
+    * boto3
+    * requests
 
 ## Running the sample
 
@@ -37,3 +42,8 @@ pipenv run python run_tests.py
 ```
 
 The results of your tests will be in `results/`. 
+
+--
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0
