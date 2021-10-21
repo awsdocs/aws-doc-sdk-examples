@@ -2,7 +2,7 @@
 SPDX-License-Identifier: Apache-2.0
  */
 
-//snippet-sourcedescription:[cwe_putevents.js demonstrates how to send custom events to Amazon EventBridge events so they can be matched with rules.]
+//snippet-sourcedescription:[eb_putevents.js demonstrates how to send custom events to Amazon EventBridge events so they can be matched with rules.]
 //snippet-service:[cw_events]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
