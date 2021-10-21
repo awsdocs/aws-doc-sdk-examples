@@ -43,7 +43,7 @@ Most of these code example files can be run with very little to no modification.
 to run the `cw-deletealarms.js` file, replace the hard-coded values in the file with your own values, save the file, and then run the file. For example:
 
 ```
-node cw-deletealarms.js
+node cw_deletealarms.js
 ```
 
 
