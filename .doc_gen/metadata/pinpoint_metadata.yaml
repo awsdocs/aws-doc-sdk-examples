@@ -4,6 +4,15 @@ pinpoint_SendMessages:
   synopsis: send email and text messages with &PIN;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Send an SMS message.
+              snippet_tags:
+                - pinpoint.java2.sendmsg.main
     Python:
       versions:
         - sdk_version: 3
@@ -16,6 +25,31 @@ pinpoint_SendMessages:
             - description: Send an SMS message.
               snippet_tags:
                 - pinpoint.python.pinpoint_send_sms_message_api.complete
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - pinpoint.JavaScript.createclientv3
+            - description: Send an email message.
+              snippet_tags:
+                - pinpoint.javascript.pinpoint_send_email_message_v3
+            - description: Send an SMS message.
+              snippet_tags:
+                - pinpoint.javascript.pinpoint_send_sms_message_V3
+        - sdk_version: 2
+          github: javascript/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Send an email message.
+              snippet_tags:
+                - pinpoint.javascript.pinpoint_send_email_message_api.complete
+            - description: Send an SMS message.
+              snippet_tags:
+                - pinpoint.javascript.pinpoint_send_sms_message_api.complete
   services:
     pinpoint: {SendMessages}
 pinpoint_Scenario_SendSmtpMessage:
@@ -35,3 +69,220 @@ pinpoint_Scenario_SendSmtpMessage:
                 - pinpoint.python.pinpoint_send_email_smtp.complete
   services:
     pinpoint: {}
+pinpoint_sendMail:
+  title: Send an email with an &PIN; SMTP server using an &AWS; SDK
+  title_abbrev: Send an email with an SMTP server
+  synopsis: send an email with an &PIN; SMTP server.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Send an email message.
+              snippet_tags:
+                - pinpoint.java2.send_email.main
+    JavaScript:
+      versions:
+        - sdk_version: 2
+          github: javascript/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Send an email message.
+              snippet_tags:
+                - pinpoint.javascript.pinpoint_send_email_smtp.complete
+  services:
+    pinpoint: {}
+pinpoint_createApp:
+  title: Create an &PIN; application
+  title_abbrev: Create an application 
+  synopsis: create an appliation.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Create an application.
+              snippet_tags:
+                - pinpoint.java2.createapp.main
+  services:
+    pinpoint: {}    
+pinpoint_createCampaign:
+  title: Create an &PIN; campaign
+  title_abbrev: Create a campaign 
+  synopsis: create a campaign.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Create a campaign.
+              snippet_tags:
+                - pinpoint.java2.createcampaign.main
+  services:
+    pinpoint: {}  
+pinpoint_creatEndpoint:
+  title: Create an &PIN; endpoint
+  title_abbrev: Create an endpoint 
+  synopsis: create an endpoint.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Create an endpoint.
+              snippet_tags:
+                - pinpoint.java2.createendpoint.main
+  services:
+    pinpoint: {}       
+pinpoint_creatSegment:
+  title: Create an &PIN; segment
+  title_abbrev: Create a segment 
+  synopsis: create a segment.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Create a segment.
+              snippet_tags:
+                - pinpoint.java2.createsegment.main
+  services:
+    pinpoint: {}
+pinpoint_deleteApp:
+  title: Delete an &PIN; application
+  title_abbrev: Delete an application
+  synopsis: delete an application.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Delete an application.
+              snippet_tags:
+                - pinpoint.java2.deleteapp.main
+  services:
+    pinpoint: {}     
+pinpoint_deleteApp:
+  title: Delete an &PIN; endpoint
+  title_abbrev: Delete an endpoint
+  synopsis: delete an endpoint.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Delete an endpoint.
+              snippet_tags:
+                - pinpoint.java2.deleteendpoint.main
+  services:
+    pinpoint: {}
+pinpoint_exportEndpoint:
+  title: Export an &PIN; endpoint
+  title_abbrev: Export an endpoint
+  synopsis: export an endpoint.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Export an endpoint.
+              snippet_tags:
+                - pinpoint.java2.export_endpoint.main
+  services:
+    pinpoint: {}     
+pinpoint_importSegment:
+  title: Import an &PIN; segment
+  title_abbrev: Import a segment
+  synopsis: import a segment.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Import a segment.
+              snippet_tags:
+                - pinpoint.java2.importsegment.main
+  services:
+    pinpoint: {}   
+pinpoint_listEndpoints:
+  title: List &PIN; endpoints that are associated with a specific user ID
+  title_abbrev: List endpoints
+  synopsis: list endpoints.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: List endpoints.
+              snippet_tags:
+                - pinpoint.java2.list_endpoints.main
+  services:
+    pinpoint: {}       
+pinpoint_listSegments:
+  title: List &PIN; segments in an application
+  title_abbrev: List segments
+  synopsis: list segments.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: List segments.
+              snippet_tags:
+                - pinpoint.java2.listsegments.main
+  services:
+    pinpoint: {}   
+pinpoint_getEndpoint:
+  title: Display information about an existing &PIN; endpoint
+  title_abbrev: Get endpoints
+  synopsis: get endpoints.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: get endpoints.
+              snippet_tags:
+                - pinpoint.java2.lookup.main
+  services:
+    pinpoint: {}   
+pinpoint_updateChannel:
+  title: Update an &PIN; channel
+  title_abbrev: Update channels
+  synopsis: update channels.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: update channels.
+              snippet_tags:
+                - pinpoint.java2.updatechannel.main
+  services:
+    pinpoint: {}  
