@@ -1,6 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# Purpose:
+# dynamodb_ruby_example_read_movies_item.rb demonstrates how to
+# get an item from an Amazon DynamoDB table using the AWS SDK for Ruby.
+
+# Inputs:
+# - REGION - The AWS Region.
+
+# snippet-start:[dynamodb.Ruby.readMoviesItem]
 require 'aws-sdk-dynamodb'
 
 # Gets an item from a table in Amazon DynamoDB.
@@ -31,6 +39,7 @@ end
 
 # Full example call:
 def run_me
+# Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
   region = 'us-west-2'
   table_name = 'Movies'
   title = 'The Big New Movie'
@@ -52,3 +61,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[dynamodb.Ruby.readMoviesItem]

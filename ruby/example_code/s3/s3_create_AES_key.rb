@@ -1,12 +1,15 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to generate a random AES256-GCM key.
+# Call this function if you do not already have an AES256-GCM key that you
+# want to use to encrypt an object.
+
+# snippet-start:[s3.ruby.s3_create_AES_key]
+
 require 'openssl'
 
-# Generates a random AES256-GCM key. Call this function if you do not
-#   already have an AES256-GCM key that you want to use to encrypt an
-#   object.
-#
 # @return [String] The generated AES256-GCM key. You must keep a record of
 #   the key that is reported. You will not be able to later decrypt the
 #   contents of any object that is encrypted with this key unless you
@@ -36,3 +39,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3_create_AES_key]

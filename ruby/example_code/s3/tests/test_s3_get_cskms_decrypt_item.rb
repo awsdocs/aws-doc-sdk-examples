@@ -85,7 +85,7 @@ describe '#get_decrypted_object_content' do
       stub_responses: {
         generate_data_key: {
           ciphertext_blob: kms_ciphertext_blob,
-          key_id: 'arn:aws:kms:us-east-1:111111111111:key/9041e78c-7a20-4db3-929e-828abEXAMPLE',
+          key_id: 'arn:aws:kms:us-west-2:111111111111:key/9041e78c-7a20-4db3-929e-828abEXAMPLE',
           plaintext: kms_plaintext
         }
       }

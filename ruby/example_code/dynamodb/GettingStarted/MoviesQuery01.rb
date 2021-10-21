@@ -34,6 +34,7 @@ rescue StandardError => e
 end
 
 def run_me
+# Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
   region = 'us-west-2'
   table_name = 'Movies'
   year = 1985
@@ -51,7 +52,7 @@ def run_me
   # hash/partition key, uncomment the following three 'title' comments.
   query_condition = {
     table_name: table_name,
-    key_condition_expression: '#yr = :yyyy', # '#yr = :yyyy AND #t = :title' 
+    key_condition_expression: '#yr = :yyyy', # '#yr = :yyyy AND #t = :title'
     expression_attribute_names: {
       # '#t' => 'title',
       '#yr' => 'year'

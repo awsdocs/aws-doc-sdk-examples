@@ -1,6 +1,12 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to set the access control list (ACL) on an
+# object in an Amazon Simple Storage Service (Amazon S3) bucket for the given owner.
+
+# snippet-start:[s3.s3_set_bucket_object_acls.rb]
+
 require 'aws-sdk-s3'
 
 # Sets the access control list (ACL) on an object in an Amazon S3
@@ -21,7 +27,7 @@ require 'aws-sdk-s3'
 # @return [Boolean] true if the ACL was set; otherwise, false.
 # @example
 #   exit 1 unless object_acl_set_for_owner_id?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket',
 #     'my-file.txt',
 #     'READ',
@@ -59,12 +65,14 @@ rescue StandardError => e
 end
 
 # Full example call:
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
+
 def run_me
   bucket_name = 'doc-example-bucket'
   object_key = 'my-file-1.txt'
   permission = 'READ'
   owner_id = 'b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE'
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
 
   if object_acl_set_for_owner_id?(
@@ -81,3 +89,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.s3_set_bucket_object_acls.rb]

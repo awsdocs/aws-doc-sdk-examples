@@ -1,38 +1,18 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Creates an SQS queue, sets long polling on the queue, receives any pending messages on the queue, and waits (polls) for new messages until none arrive for at least 60 seconds.]
-# snippet-keyword:[Amazon Simple Queue Service]
-# snippet-keyword:[create_queue method]
-# snippet-keyword:[get_queue_url method]
-# snippet-keyword:[receive_message method]
-# snippet-keyword:[set_queue_attributes method]
-# snippet-keyword:[QueuePoller.poll method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[sqs]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
 
-# Demonstrates how to:
+# Purpose
+# This code example demonstrates how to :
 # 1. Create a queue and set it for long polling.
 # 2. Set long polling for an existing queue.
 # 3. Set long polling when receiving messages for a queue.
 
-require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
+# snippet-start:[s3.ruby.sqs-ruby-example-enable-long-polling.rb]
 
-sqs = Aws::SQS::Client.new(region: 'us-east-1')
+require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
+# Replace us-west-2 with the AWS Region you're using for Amazon SQS.
+
+sqs = Aws::SQS::Client.new(region: 'us-west-2')
 
 # Create a queue and set it for long polling.
 new_queue_name = "new-queue"
@@ -43,7 +23,7 @@ create_queue_result = sqs.create_queue({
     "ReceiveMessageWaitTimeSeconds" => "20" # Wait 20 seconds to receive messages.
   },
 })
-  
+
 puts create_queue_result.queue_url
 
 # Set long polling for an existing queue.
@@ -53,7 +33,7 @@ begin
 
   sqs.set_queue_attributes({
     queue_url: existing_queue_url,
-    attributes: { 
+    attributes: {
       "ReceiveMessageWaitTimeSeconds" => "20" # Wait 20 seconds to receive messages.
     },
   })
@@ -79,7 +59,7 @@ begin
   puts "Received #{receive_message_result.messages.count} message(s)."
 rescue Aws::SQS::Errors::NonExistentQueue
   puts "Cannot receive messages using receive_message for a queue named '#{receive_queue_name}', as it does not exist."
-end 
+end
 
 # 2. Using Aws::SQS::QueuePoller.
 begin
@@ -106,3 +86,4 @@ begin
 rescue Aws::SQS::Errors::NonExistentQueue
   puts "Cannot receive messages using Aws::SQS::QueuePoller for a queue named '#{receive_queue_name}', as it does not exist."
 end
+# snippet-end:[s3.ruby.sqs-ruby-example-enable-long-polling.rb]

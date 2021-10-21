@@ -1,11 +1,15 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# ec2-ruby-example-create-security-group.rb demonstrates how to
+# create an Amazon Elastic Compute Cloud (Amazon EC2) security group and
+# then adds an outbound rule to that security group.
+
+# snippet-start:[ec2.Ruby.createSecurityGroup]
 
 require 'aws-sdk-ec2'
 
-# Creates an Amazon Elastic Compute Cloud (Amazon EC2) security group and
-# then adds an outbound rule to that security group.
-#
 # Prerequisites:
 #
 # - A VPC in Amazon Virtual Private Cloud (Amazon VPC).
@@ -17,13 +21,13 @@ require 'aws-sdk-ec2'
 # @param vpc_id [String] The ID of the VPC for the security group.
 # @param protocol [String] The network protocol for the outbound rule.
 # @param from_port [String] The originating port for the outbound rule.
-# @param to_port [String] The destination port for the outbound rule. 
+# @param to_port [String] The destination port for the outbound rule.
 # @param cidr_ip_range [String] The CIDR IP range for the outbound rule.
 # @return [Boolean] true if the security group was created and the outbound
 #   rule was added; otherwise, false.
 # @example
 #   exit 1 unless security_group_created_with_egress?(
-#     Aws::EC2::Resource.new(region: 'us-east-1'),
+#     Aws::EC2::Resource.new(region: 'us-west-2'),
 #     'my-security-group',
 #     'This is my security group.',
 #     'vpc-6713dfEX',
@@ -87,9 +91,10 @@ def run_me
     puts 'Usage: ruby ec2-ruby-example-create-security-group.rb ' \
       'GROUP_NAME DESCRIPTION VPC_ID IP_PROTOCOL FROM_PORT TO_PORT ' \
       'CIDR_IP_RANGE REGION'
+   # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
     puts 'Example: ruby ec2-ruby-example-create-security-group.rb ' \
       'my-security-group \'This is my security group.\' vpc-6713dfEX ' \
-      'tcp 22 22 \'0.0.0.0/0\' us-east-1'
+      'tcp 22 22 \'0.0.0.0/0\' us-west-2'
     exit 1
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
@@ -100,7 +105,8 @@ def run_me
     from_port = '22'
     to_port = '22'
     cidr_ip_range = '0.0.0.0/0'
-    region = 'us-east-1'
+    # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
+    region = 'us-west-2'
   # Otherwise, use the values as specified at the command prompt.
   else
     group_name = ARGV[0]
@@ -132,3 +138,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[ec2.Ruby.createSecurityGroup]

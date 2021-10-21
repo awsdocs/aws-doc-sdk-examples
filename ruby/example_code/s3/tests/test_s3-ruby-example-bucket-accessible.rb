@@ -5,7 +5,7 @@ require_relative '../s3-ruby-example-bucket-accessible'
 
 describe '#bucket_in_region?' do
   let(:bucket_name) { 'doc-example-bucket' }
-  let(:region) { 'us-east-1' }
+  let(:region) { 'us-west-2' }
   let(:s3_client) do
     Aws::S3::Client.new(
       stub_responses: {

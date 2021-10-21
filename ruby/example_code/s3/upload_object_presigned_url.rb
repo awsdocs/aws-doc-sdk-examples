@@ -1,6 +1,10 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to upload an object to a bucket in
+# Amazon Simple Storage Service (Amazon S3) by using a presigned URL.
+
 # snippet-start:[s3.ruby.upload_object_presigned_url.rb]
 require 'aws-sdk-s3'
 require 'net/http'
@@ -23,7 +27,7 @@ require 'net/http'
 # @return [Boolean] true if the object was uploaded; otherwise, false.
 # @example
 #   exit 1 unless object_uploaded_to_presigned_url?(
-#     Aws::S3::Resource.new(region: 'us-east-1'),
+#     Aws::S3::Resource.new(region: 'us-west-2'),
 #     'doc-example-bucket',
 #     'my-file.txt',
 #     'This is the content of my-file.txt'
@@ -69,13 +73,13 @@ rescue StandardError => e
   puts "Error uploading to presigned URL: #{e.message}"
   return false
 end
-# snippet-end:[s3.ruby.upload_object_presigned_url.rb]
 
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
   bucket_name = 'doc-example-bucket'
   object_key = 'my-file.txt'
   object_content = 'This is the content of my-file.txt.'
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_resource = Aws::S3::Resource.new(region: region)
 
   unless object_uploaded_to_presigned_url?(
@@ -90,3 +94,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.upload_object_presigned_url.rb]
