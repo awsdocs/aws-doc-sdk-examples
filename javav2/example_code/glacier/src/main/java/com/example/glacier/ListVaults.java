@@ -1,9 +1,9 @@
-//snippet-sourcedescription:[ListVaults.java demonstrates how to list all the Amazon Simple Storage Service Glacier (Amazon S3 Glacier) vaults.]
+//snippet-sourcedescription:[ListVaults.java demonstrates how to list all the Amazon Glacier vaults.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon S3 Glacier]
+//snippet-service:[Amazon Glacier]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,6 +21,13 @@ import software.amazon.awssdk.services.glacier.model.GlacierException;
 import java.util.List;
 // snippet-end:[glacier.java2.list_vaults.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class ListVaults {
 
     public static void main(String[] args) {
@@ -62,7 +69,7 @@ public class ListVaults {
                     totalVaults += 1;
                     System.out.println("* " + v.vaultName());
                 }
-                // Check for further results
+                // Check for further results.
                 newMarker = response.marker();
                 if (newMarker == null) {
                     listComplete = true;
@@ -77,5 +84,5 @@ public class ListVaults {
             System.exit(1);
         }
     }
+    // snippet-end:[glacier.java2.list_vaults.main]
 }
-// snippet-end:[glacier.java2.list_vaults.main]

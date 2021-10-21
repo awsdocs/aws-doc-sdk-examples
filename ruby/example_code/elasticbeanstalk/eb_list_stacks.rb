@@ -1,26 +1,11 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Lists your Elastic Beanstalk solution stacks.]
-# snippet-keyword:[AWS Elastic Beanstalk]
-# snippet-keyword:[list_available_solution_stacks method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[elasticbeanstalk]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
+# Purpose:
+# eb_list_stacks.rb demonstrates how to list your Amazon Elastic Beanstalk
+# solution stacks using the AWS SDK for Ruby.
+
+# snippet-start:[eb.Ruby.listStacks]
 require 'aws-sdk-elasticbeanstalk'  # v2: require 'aws-sdk'
 require 'os'
 
@@ -51,8 +36,8 @@ If REGION is not supplied, defaults to 'us-east-1'
 -h     Shows this message and quits
 
 DOC
-
-region = 'us-east-1'
+# Replace us-west-2 with the AWS Region you're using for Elastic Beanstalk.
+region = 'us-west-2'
 filter = ''
 
 i = 0
@@ -106,3 +91,4 @@ if filter != ''
 else
   puts "Showed #{orig_length} stack(s)"
 end
+# snippet-end:[eb.Ruby.listStacks]

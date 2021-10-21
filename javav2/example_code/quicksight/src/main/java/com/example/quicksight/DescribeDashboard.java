@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon QuickSight]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[1/14/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -33,7 +33,8 @@ public class DescribeDashboard {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage: DescribeDashboard <account> <dashboardId>\n\n" +
+                "Usage: " +
+                "   <account> <dashboardId>\n\n" +
                 "Where:\n" +
                 "  account - the ID of the AWS account.\n\n"+
                 "  dashboardId - the ID of the Amazon QuickSight Dashboard to describe.\n\n";

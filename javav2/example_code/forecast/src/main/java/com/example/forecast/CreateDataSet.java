@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -38,11 +38,9 @@ public class CreateDataSet {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateDataSet <name> \n\n" +
+                "    <name> \n\n" +
                 "Where:\n" +
-                "    name - the name of the data set. \n\n" +
-                "Example:\n" +
-                "    CreateDataSet MyDataSet\n";
+                "    name - the name of the data set. \n\n" ;
 
        if (args.length != 1) {
             System.out.println(USAGE);
@@ -85,10 +83,9 @@ public class CreateDataSet {
         }
 
        return "" ;
-      // snippet-end:[forecast.java2.create_forecast_dataset.main]
     }
 
-    // Create a SchemaAttribute list required to create a data set
+    // Create a SchemaAttribute list required to create a data set.
     private static List<SchemaAttribute> getSchema() {
 
         List<SchemaAttribute> schemaList = new ArrayList();
@@ -108,10 +105,11 @@ public class CreateDataSet {
                 .attributeType("float")
                 .build();
 
-        //Push the SchemaAttribute objects to the List
+        // Push the SchemaAttribute objects to the List.
         schemaList.add(att1);
         schemaList.add(att2);
         schemaList.add(att3);
         return schemaList;
     }
+    // snippet-end:[forecast.java2.create_forecast_dataset.main]
 }

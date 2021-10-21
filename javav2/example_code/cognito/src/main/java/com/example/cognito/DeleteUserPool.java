@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -42,29 +42,29 @@ public class DeleteUserPool {
         }
 
         String userPoolId = args[0];
-        CognitoIdentityProviderClient cognitoclient = CognitoIdentityProviderClient.builder()
+        CognitoIdentityProviderClient cognitoClient = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
-        deletePool(cognitoclient, userPoolId);
-        cognitoclient.close();
+        deletePool(cognitoClient, userPoolId);
+        cognitoClient.close();
     }
 
     //snippet-start:[cognito.java2.DeleteUserPool.main]
-    public static void deletePool(CognitoIdentityProviderClient cognitoclient, String userPoolId ) {
+    public static void deletePool(CognitoIdentityProviderClient cognitoClient, String userPoolId ) {
 
         try {
             DeleteUserPoolRequest request = DeleteUserPoolRequest.builder()
                     .userPoolId(userPoolId)
                     .build();
 
-            DeleteUserPoolResponse response = cognitoclient.deleteUserPool(request);
+            DeleteUserPoolResponse response = cognitoClient.deleteUserPool(request);
             System.out.println("User pool " + response.toString() + " deleted. ID: " + request.userPoolId());
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        //snippet-end:[cognito.java2.DeleteUserPool.main]
-    }
+     }
+    //snippet-end:[cognito.java2.DeleteUserPool.main]
 }

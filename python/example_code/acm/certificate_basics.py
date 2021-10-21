@@ -8,6 +8,7 @@ Shows how to use the AWS SDK for Python (Boto3) with AWS Certificate Manager (AC
 to request and manage certificates.
 """
 
+# snippet-start:[python.example_code.acm.imports]
 import logging
 from pprint import pprint
 
@@ -15,6 +16,8 @@ import boto3
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
+
+# snippet-end:[python.example_code.acm.imports]
 
 
 # snippet-start:[python.example_code.acm.AcmCertificate]
@@ -70,7 +73,6 @@ class AcmCertificate:
             return response
 # snippet-end:[python.example_code.acm.GetCertificate]
 
-
 # snippet-start:[python.example_code.acm.ListCertificates]
     def list(
             self, max_items, statuses=None, key_usage=None, extended_key_usage=None,
@@ -113,7 +115,6 @@ class AcmCertificate:
             return certificates
 # snippet-end:[python.example_code.acm.ListCertificates]
 
-
 # snippet-start:[python.example_code.acm.ImportCertificate]
     def import_certificate(self, certificate_body, private_key):
         """
@@ -151,7 +152,6 @@ class AcmCertificate:
             raise
 # snippet-end:[python.example_code.acm.DeleteCertificate]
 
-
 # snippet-start:[python.example_code.acm.AddTagsToCertificate]
     def add_tags(self, certificate_arn, tags):
         """
@@ -170,7 +170,6 @@ class AcmCertificate:
             logger.exception("Couldn't add tags to certificate %s.", certificate_arn)
             raise
 # snippet-end:[python.example_code.acm.AddTagsToCertificate]
-
 
 # snippet-start:[python.example_code.acm.ListTagsForCertificate]
     def list_tags(self, certificate_arn):
@@ -191,7 +190,6 @@ class AcmCertificate:
         else:
             return tags
 # snippet-end:[python.example_code.acm.ListTagsForCertificate]
-
 
 # snippet-start:[python.example_code.acm.RemoveTagsFromCertificate]
     def remove_tags(self, certificate_arn, tags):
@@ -219,7 +217,6 @@ class AcmCertificate:
                 "Couldn't remove tags from certificate %s.", certificate_arn)
             raise
 # snippet-end:[python.example_code.acm.RemoveTagsFromCertificate]
-
 
 # snippet-start:[python.example_code.acm.RequestCertificate]
     def request_validation(
@@ -265,7 +262,6 @@ class AcmCertificate:
             return certificate_arn
 # snippet-end:[python.example_code.acm.RequestCertificate]
 
-
 # snippet-start:[python.example_code.acm.ResendValidationEmail]
     def resend_validation_email(self, certificate_arn, domain, validation_domain):
         """
@@ -291,6 +287,7 @@ class AcmCertificate:
 # snippet-end:[python.example_code.acm.ResendValidationEmail]
 
 
+# snippet-start:[python.example_code.acm.Usage_ImportListRemove]
 def usage_demo():
     print('-'*88)
     print("Welcome to the AWS Certificate Manager (ACM) demo!")
@@ -354,6 +351,7 @@ def usage_demo():
 
     print("Thanks for watching!")
     print('-'*88)
+# snippet-end:[python.example_code.acm.Usage_ImportListRemove]
 
 
 if __name__ == '__main__':

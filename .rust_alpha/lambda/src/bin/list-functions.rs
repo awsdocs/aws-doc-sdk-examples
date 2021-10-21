@@ -3,83 +3,64 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use std::process;
-
-// For command-line arguments.
+use aws_config::meta::region::RegionProviderChain;
+use aws_sdk_lambda::{Client, Error, Region, PKG_VERSION};
 use structopt::StructOpt;
-
-use lambda::{Client, Config, Region};
-
-use aws_types::region::ProvideRegion;
-
-use tracing_subscriber::fmt::format::FmtSpan;
-use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The region. Overrides environment variable AWS_DEFAULT_REGION.
+    /// The AWS Region.
     #[structopt(short, long)]
-    default_region: Option<String>,
+    region: Option<String>,
 
-    /// Whether to display additional runtime information
+    /// Whether to display additional runtime information.
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Lists the ARNs of your Lambda functions.
+/// Lists the Amazon Resource Names (ARNs) of your AWS Lambda functions in the Region.
 /// # Arguments
 ///
-/// * `[-d DEFAULT-REGION]` - The region in which the client is created.
-///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+/// * `[-r REGION]` - The Region in which the client is created.
+///    If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() {
-    let Opt {
-        default_region,
-        verbose,
-    } = Opt::from_args();
+async fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt::init();
 
-    let region = default_region
-        .as_ref()
-        .map(|region| Region::new(region.clone()))
-        .or_else(|| aws_types::region::default_provider().region())
-        .unwrap_or_else(|| Region::new("us-west-2"));
+    let Opt { region, verbose } = Opt::from_args();
+
+    let region_provider = RegionProviderChain::first_try(region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
+    println!();
 
     if verbose {
-        println!("Lambda client version: {}", lambda::PKG_VERSION);
-        println!("Region:                {:?}", &region);
-
-        SubscriberBuilder::default()
-            .with_env_filter("info")
-            .with_span_events(FmtSpan::CLOSE)
-            .init();
+        println!("Lambda client version: {}", PKG_VERSION);
+        println!(
+            "Region:                {}",
+            region_provider.region().await.unwrap().as_ref()
+        );
+        println!();
     }
 
-    let config = Config::builder().region(region).build();
-    let client = Client::from_conf(config);
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
+    let client = Client::new(&shared_config);
 
-    match client.list_functions().send().await {
-        Ok(resp) => {
-            println!("Function ARNs:");
+    let resp = client.list_functions().send().await?;
 
-            let functions = resp.functions.unwrap_or_default();
+    println!("Function ARNs:");
 
-            for function in &functions {
-                match &function.function_arn {
-                    None => {}
-                    Some(f) => {
-                        println!("{}", f);
-                    }
-                }
-            }
+    let functions = resp.functions.unwrap_or_default();
+    let num_funcs = functions.len();
 
-            println!("Found {} functions", functions.len());
-        }
-        Err(e) => {
-            println!("Got an error listing functions:");
-            println!("{}", e);
-            process::exit(1);
-        }
-    };
+    for function in functions {
+        println!("{}", function.function_arn.unwrap_or_default());
+    }
+
+    println!();
+    println!("Found {} functions in the region", num_funcs);
+
+    Ok(())
 }

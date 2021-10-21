@@ -3,7 +3,7 @@
 // snippet-keyword:[AWS Lambda]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/11/2020]
+// snippet-sourcedate:[09/27/2021]
 // snippet-sourceauthor:[AWS-scmacdon]
 
 /*
@@ -58,7 +58,7 @@ public class ListLambdaFunctions {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[lambda.java2.list.main]
     }
+    // snippet-end:[lambda.java2.list.main]
 }
 // snippet-end:[lambda.java2.ListLambdaFunctions.complete]

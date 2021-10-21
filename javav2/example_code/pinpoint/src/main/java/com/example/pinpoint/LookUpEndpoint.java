@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -85,7 +85,7 @@ public class LookUpEndpoint {
             System.exit(1);
         }
         System.out.println("Done");
-        //snippet-end:[pinpoint.java2.lookup.main]
     }
+    //snippet-end:[pinpoint.java2.lookup.main]
 }
 

@@ -21,6 +21,7 @@ class JobInputFormat(Enum):
     per_line = 'ONE_DOC_PER_LINE'
 
 
+# snippet-start:[python.example_code.comprehend.ComprehendTopicModeler]
 class ComprehendTopicModeler:
     """Encapsulates a Comprehend topic modeler."""
     def __init__(self, comprehend_client):
@@ -28,7 +29,9 @@ class ComprehendTopicModeler:
         :param comprehend_client: A Boto3 Comprehend client.
         """
         self.comprehend_client = comprehend_client
+# snippet-end:[python.example_code.comprehend.ComprehendTopicModeler]
 
+# snippet-start:[python.example_code.comprehend.StartTopicsDetectionJob]
     def start_job(
             self, job_name, input_bucket, input_key, input_format, output_bucket,
             output_key, data_access_role_arn):
@@ -67,7 +70,9 @@ class ComprehendTopicModeler:
             raise
         else:
             return response
+# snippet-end:[python.example_code.comprehend.StartTopicsDetectionJob]
 
+# snippet-start:[python.example_code.comprehend.DescribeTopicsDetectionJob]
     def describe_job(self, job_id):
         """
         Gets metadata about a topic modeling job.
@@ -85,7 +90,9 @@ class ComprehendTopicModeler:
             raise
         else:
             return job
+# snippet-end:[python.example_code.comprehend.DescribeTopicsDetectionJob]
 
+# snippet-start:[python.example_code.comprehend.ListTopicsDetectionJobs]
     def list_jobs(self):
         """
         Lists topic modeling jobs for the current account.
@@ -101,3 +108,4 @@ class ComprehendTopicModeler:
             raise
         else:
             return jobs
+# snippet-end:[python.example_code.comprehend.ListTopicsDetectionJobs]

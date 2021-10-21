@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Kinesis]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -44,16 +44,14 @@ public class GetRecords {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    GetRecords <streamName>\n\n" +
+                "    <streamName>\n\n" +
                 "Where:\n" +
-                "    streamName - The Amazon Kinesis data stream to read from (for example, StockTradeStream).\n\n" +
-                "Example:\n" +
-                "    GetRecords streamName\n";
+                "    streamName - The Amazon Kinesis data stream to read from (for example, StockTradeStream).\n\n" ;
 
-        if (args.length != 1) {
+       if (args.length != 1) {
             System.out.println(USAGE);
             System.exit(1);
-        }
+       }
 
         String streamName = args[0];
         Region region = Region.US_EAST_1;
@@ -90,7 +88,7 @@ public class GetRecords {
             GetShardIteratorRequest itReq = GetShardIteratorRequest.builder()
                     .streamName(streamName)
                     .shardIteratorType("TRIM_HORIZON")
-                    .shardId(shards.get(0).shardId())
+                    .shardId(lastShardId)
                     .build();
 
             GetShardIteratorResponse shardIteratorResult = kinesisClient.getShardIterator(itReq);

@@ -1,5 +1,6 @@
 #  Using Amazon API Gateway to invoke  Lambda functions
 
+## Purpose
 You can invoke an AWS Lambda function by using Amazon API Gateway, which is an AWS service for creating, publishing, maintaining, monitoring, and securing REST, HTTP, and WebSocket APIs at scale. API developers can create APIs that access AWS or other web services, as well as data stored in the AWS Cloud. As an API Gateway developer, you can create APIs for use in your own client applications. For more information, see [What is Amazon API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html).
 
 Lambda is a compute service that enables you to run code without provisioning or managing servers. You can create Lambda functions in various programming languages. For more information about AWS Lambda, see
@@ -14,16 +15,13 @@ This tutorial shows you how to use Java logic to create a solution that performs
       curl -XGET "https://xxxxqjko1o3.execute-api.us-east-1.amazonaws.com/cronstage/employee" 
 
 This AWS tutorial uses an Amazon DynamoDB table named **Employee** that contains these fields. 
+
 -	**Id** – the key for the table.
 -	**first** – the employee’s first name.
 -	**phone** – the employee’s phone number.
 -	**startDate** – the employee’s start date.
 
 ![AWS Tracking Application](images/pic00.png)
-
-**Cost to complete**: The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note**: Be sure to terminate all of the resources after you have completed this tutorial to ensure that you are not charged.
 
 **Note**: To learn how to invoke an AWS Lambda function using scheduled events, see [Creating scheduled events to invoke Lambda functions](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_scheduled_events).
 
@@ -43,7 +41,17 @@ To follow along with this tutorial, you need the following:
 + A Java IDE (for this tutorial, the IntelliJ IDE is used).
 + Java 1.8 JDK.
 + Maven 3.6 or higher.
-+ An Amazon DynamoDB table named **Employee** with a key named **Id** and the fields shown in the previous illustration. Make sure you enter the correct data, including a valid mobile phone that you want to test this use case with. To learn how to create a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+An Amazon DynamoDB table named **Employee** with a key named **Id** and the fields shown in the previous illustration. Make sure you enter the correct data, including a valid mobile phone that you want to test this use case with. To learn how to create a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 
 ## Create an IAM role that's used to execute Lambda functions
 
@@ -131,6 +139,7 @@ Add the following dependencies for the Amazon DynamoDB API (AWS SDK for Java ver
 
 The pom.xml file looks like the following.
 
+```xml
      <?xml version="1.0" encoding="UTF-8"?>
       <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -251,7 +260,8 @@ The pom.xml file looks like the following.
     </plugins>
     </build>
     </project>
-    
+```    
+
 ## Create a Lambda function by using the AWS Lambda runtime Java API
 
 Use the AWS Lambda runtime Java API to create the Java class that defines the Lamdba function. In this example, there is one Java class for the Lambda function and two extra classes required for this use case. The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **com.aws.example**. 
@@ -268,6 +278,7 @@ Create these Java classes:
 
 This Java code represents the **Handler** class. The class creates a **ScanEmployees** object and invokes the **sendEmployeMessage** method. Notice that you can log messages to Amazon CloudWatch logs by using a **LambdaLogger** object.
 
+```java
     package com.aws.example;
 
     import com.amazonaws.services.lambda.runtime.Context;
@@ -288,10 +299,12 @@ This Java code represents the **Handler** class. The class creates a **ScanEmplo
         return null;
     }
 }
+```
 
 ### ScanEmployees class
 The **ScanEmployees** class uses both Amazon DynamoDB Java V2 API and the Amazon SNS Java V2 API. In the following code example, notice the use of an **Expression** object. This object is used to return employees that have a start date one year ago. For each employee returned, a text message is sent using the **SnsClient** object's **publish** method.  
 
+```java
      package com.aws.example;
 
      import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
@@ -416,11 +429,13 @@ The **ScanEmployees** class uses both Amazon DynamoDB Java V2 API and the Amazon
         return ann;
      }
     }
+```
 
 ### Employee class
 
 The **Employee** class is used with the DynamoDB enhanced client and maps the **Employee** data members to items in the **Employee** table. Notice that this class uses the **@DynamoDbBean** annotation.
 
+```java
      package com.aws.example;
 
      import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
@@ -469,6 +484,7 @@ The **Employee** class is used with the DynamoDB enhanced client and maps the **
         return this.first;
      }
     }
+```
 
 ## Package the project that contains the Lambda functions
 

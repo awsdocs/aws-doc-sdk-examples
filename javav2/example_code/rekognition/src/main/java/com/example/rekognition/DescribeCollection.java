@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-03-2020]
+// snippet-sourcedate:[09-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,9 +33,9 @@ public class DescribeCollection {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "DescribeCollection <collectionName>\n\n" +
+                "   <collectionName>\n\n" +
                 "Where:\n" +
-                "collectionName - the name of the Amazon Rekognition collection. \n\n";
+                "   collectionName - the name of the Amazon Rekognition collection. \n\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);

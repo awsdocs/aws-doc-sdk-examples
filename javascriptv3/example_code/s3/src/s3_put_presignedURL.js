@@ -30,12 +30,12 @@ import fetch from "node-fetch";
 
 // Set parameters
 // Create a random names for the Amazon Simple Storage Service (Amazon S3) bucket and key
-const bucketParams = {
+export const bucketParams = {
   Bucket: `test-bucket-${Math.ceil(Math.random() * 10 ** 10)}`,
   Key: `test-object-${Math.ceil(Math.random() * 10 ** 10)}`,
   Body: "BODY"
 };
-const run = async () => {
+export const run = async () => {
   try {
     // Create an Amazon S3 bucket.
     console.log(`Creating bucket ${bucketParams.Bucket}`);
@@ -53,7 +53,7 @@ const run = async () => {
       expiresIn: 3600,
     });
     console.log(
-      `\nPutting "${params.Key}" using signedUrl with body "${bucketParams.Body}" in v3`
+      `\nPutting "${bucketParams.Key}" using signedUrl with body "${bucketParams.Body}" in v3`
     );
     console.log(signedUrl);
     const response = await fetch(signedUrl);
@@ -68,7 +68,7 @@ const run = async () => {
     // Delete the object.
     console.log(`\nDeleting object "${bucketParams.Key}"} from bucket`);
     await s3Client.send(
-      new DeleteObjectCommand({ Bucket: bucketParams.Bucket, Key: params.Key })
+      new DeleteObjectCommand({ Bucket: bucketParams.Bucket, Key: bucketParams.Key })
     );
   } catch (err) {
     console.log("Error deleting object", err);

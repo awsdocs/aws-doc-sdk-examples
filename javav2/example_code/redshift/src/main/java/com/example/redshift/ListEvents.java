@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Redshift ]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -37,7 +37,7 @@ public class ListEvents {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    ListEvents <clusterId><masterUsername><masterUserPassword> \n\n" +
+                "     <clusterId> <eventSourceType> \n\n" +
                 "Where:\n" +
                 "    clusterId - the id of the cluster. \n" +
                 "    eventSourceType - the event type (ie, cluster). \n" ;
@@ -49,7 +49,6 @@ public class ListEvents {
 
         String clusterId = args[0];
         String eventSourceType = args[1];
-
         Region region = Region.US_WEST_2;
         RedshiftClient redshiftClient = RedshiftClient.builder()
                 .region(region)
@@ -87,7 +86,6 @@ public class ListEvents {
             System.err.println(e.getMessage());
             System.exit(1);
         }
+   }
     // snippet-end:[redshift.java2._events.main]
-    }
-
 }

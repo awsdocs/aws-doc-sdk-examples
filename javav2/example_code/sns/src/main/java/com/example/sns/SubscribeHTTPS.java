@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon- AWS]
 
 /*
@@ -33,10 +33,10 @@ public class SubscribeHTTPS {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage: " +
-                "SubscribeHTTPS <topicArn> <url>\n\n" +
+                "   <topicArn> <url>\n\n" +
                 "Where:\n" +
-                "  topicArn - the ARN of the topic to subscribe.\n\n" +
-                "  url - the HTTPS endpoint that you want to receive notifications.\n\n";
+                "   topicArn - the ARN of the topic to subscribe.\n\n" +
+                "   url - the HTTPS endpoint that you want to receive notifications.\n\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -72,6 +72,6 @@ public class SubscribeHTTPS {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
          }
-        //snippet-end:[sns.java2.SubscribeHTTPS.main]
     }
+    //snippet-end:[sns.java2.SubscribeHTTPS.main]
 }

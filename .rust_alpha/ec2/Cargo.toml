@@ -7,10 +7,10 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-ec2 = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.9-alpha", package = "aws-sdk-ec2" }
-aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.9-alpha", package = "aws-types" }
-
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.19-alpha", package = "aws-config" }
+aws-sdk-ec2 = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.19-alpha", package = "aws-sdk-ec2" }
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.19-alpha", package = "aws-types" }
 tokio = { version = "1", features = ["full"]}
-
+actix-rt = "*"
 structopt = { version = "0.3", default-features = false }
 tracing-subscriber = "0.2.18"

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
+    %phrases-code-examples;
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<!-- zexi 0.2.0 -->
+{{- $synopsis_prefix := "The following code examples show how to"}}
+{{- $synopsis_sep := " "}}
+{{- $synopsis := "use this service with some of the &AWS; SDKs that are available."}}
+{{- if eq .ExampleCount 1}}
+    {{- $synopsis_prefix = "The following code example shows how to"}}
+{{- end}}
+{{- if .Synopsis}}
+    {{- $synopsis = .Synopsis}}
+{{- else}}
+    {{- if .SynopsisList}}
+        {{- $synopsis_sep = ":"}}
+        {{- $synopsis = ""}}
+    {{- end}}
+{{- end}}
+<block>
+    <para>{{$synopsis_prefix}}{{$synopsis_sep}}{{$synopsis}}</para>
+    {{- if .SynopsisList}}
+    <itemizedlist>
+        {{- range $synitem := .SynopsisList}}
+        <listitem><para>{{$synitem}}</para></listitem>
+        {{- end}}
+    </itemizedlist>
+    {{- end}}
+</block>

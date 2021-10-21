@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/08/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -22,6 +22,7 @@ import software.amazon.awssdk.services.s3.model.HeadBucketRequest;
 import software.amazon.awssdk.services.s3.model.HeadBucketResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.waiters.S3Waiter;
+import java.net.URISyntaxException;
 // snippet-end:[s3.java2.create_bucket_waiters.import]
 
 /**
@@ -34,17 +35,17 @@ import software.amazon.awssdk.services.s3.waiters.S3Waiter;
 
 public class CreateBucket {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws URISyntaxException {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateBucket <bucketName> \n\n" +
+                "    <bucketName> \n\n" +
                 "Where:\n" +
                 "    bucketName - the name of the bucket to create. The bucket name must be unique, or an error occurs.\n\n" ;
 
         if (args.length != 1) {
-           System.out.println(USAGE);
+            System.out.println(USAGE);
             System.exit(1);
-        }
+       }
 
         String bucketName = args[0];
         System.out.format("Creating a bucket named %s\n",

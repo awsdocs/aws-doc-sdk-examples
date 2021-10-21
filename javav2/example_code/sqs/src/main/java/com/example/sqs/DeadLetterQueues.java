@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -15,7 +15,6 @@ package com.example.sqs;
 
 // snippet-start:[sqs.java2.delete_letter_queues.import]
 import software.amazon.awssdk.services.sqs.model.*;
-
 import java.util.Date;
 import java.util.HashMap;
 import software.amazon.awssdk.regions.Region;
@@ -94,5 +93,5 @@ public class DeadLetterQueues {
             System.exit(1);
         }
     }
+    // snippet-end:[sqs.java2.delete_letter_queues.main]
 }
-// snippet-end:[sqs.java2.delete_letter_queues.main]

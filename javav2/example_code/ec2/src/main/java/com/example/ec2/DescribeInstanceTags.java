@@ -1,9 +1,24 @@
+//snippet-sourcedescription:[DescribeInstanceTags.java demonstrates how to describe the specified tags for your Amazon Elastic Compute Cloud (Amazon EC2) resource.]
+//snippet-keyword:[AWS SDK for Java v2]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon EC2]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[09/28/2021]
+//snippet-sourceauthor:[scmacdon-aws]
+
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 package com.example.ec2;
 
+// snippet-start:[ec2.java2.describe_tags.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.*;
 import java.util.List;
+// snippet-end:[ec2.java2.describe_tags.import]
 
 /**
  * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
@@ -16,6 +31,17 @@ public class DescribeInstanceTags {
 
     public static void main(String[] args) {
 
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "   <resourceId> \n\n" +
+                "Where:\n" +
+                "   resourceId - the instance ID value that you can obtain from the AWS Console (for example, i-xxxxxx0913e05f482). \n\n"  ;
+
+        if (args.length != 1) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
+
         String resourceId = args[0];
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
@@ -26,6 +52,7 @@ public class DescribeInstanceTags {
         ec2.close();
     }
 
+    // snippet-start:[ec2.java2.describe_tags.main]
     public static void describeEC2Tags(Ec2Client ec2,  String resourceId ) {
 
         try {
@@ -47,4 +74,5 @@ public class DescribeInstanceTags {
             System.exit(1);
         }
     }
+    // snippet-end:[ec2.java2.describe_tags.main]
 }

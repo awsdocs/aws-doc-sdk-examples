@@ -2,25 +2,39 @@
 
 ## Purpose
 
-Shows how to use the AWS SDK for Python (Boto3) with Amazon CloudWatch to
-accomplish the following tasks:
+Shows how to use the AWS SDK for Python (Boto3) with Amazon CloudWatch to manage custom
+metrics and alarms.
 
-* Create a custom metric.
-* Create an alarm that watches a metric.
-* Send data to CloudWatch for a metric.
-* Get statistics for a metric.
-* Trigger an alarm and get its state.
+*CloudWatch provides a reliable, scalable, and flexible monitoring solution that you 
+can start using within minutes.*
 
-## Prerequisites
+## Code examples
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.8 or later
-- Boto3 1.14.47 or later
-- PyTest 5.3.5 or later (to run unit tests)
+### Usage examples
 
-## Cautions
+* [Managing alarms and metrics](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/cloudwatch/cloudwatch_basics.py)
+(`usage_demo`)
+
+### API examples
+
+* [Creating an alarm that watches a metric](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/cloudwatch/cloudwatch_basics.py)
+(`put_metric_alarm`)
+* [Deleting alarms that are watching a metric](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/cloudwatch/cloudwatch_basics.py)
+(`delete_alarms`)
+* [Enabling and disabling actions on an alarm](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/cloudwatch/cloudwatch_basics.py)
+(`enable_alarm_actions`, `disable_alarm_actions`)
+* [Getting statistics for a metric within a time span](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/cloudwatch/cloudwatch_basics.py)
+(`get_metric_statistics`)
+* [Getting the alarms that are watching a metric](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/cloudwatch/cloudwatch_basics.py)
+(`describe_alarms_for_metric`)
+* [Listing metrics](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/cloudwatch/cloudwatch_basics.py)
+(`list_metrics`)
+* [Sending a set of data to a metric](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/cloudwatch/cloudwatch_basics.py)
+(`put_metric_data_data_set`)
+* [Sending a single data value to a metric](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/cloudwatch/cloudwatch_basics.py)
+(`put_metric_data`)
+
+## ⚠ Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -34,6 +48,17 @@ accomplish the following tasks:
 - Running this code might result in charges to your AWS account.
 
 ## Running the code
+
+### Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.8 or later
+- Boto3 1.14.47 or later
+- PyTest 5.3.5 or later (to run unit tests)
+
+### Command
 
 Run this example at a command prompt with the following command.
 

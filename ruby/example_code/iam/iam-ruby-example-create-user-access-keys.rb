@@ -1,10 +1,15 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# iam-ruby-example-create-user-access-keys.rb demonstrates how to
+# create an access key for a user in AWS Identity and Access Management (IAM).
+
+
+# snippet-start:[elastictranscoder.ruby.createUserAccessKeys]
 
 require 'aws-sdk-iam'
 
-# Creates an access key for a user in AWS Identity and Access Management (IAM).
-#
 # Prerequisites:
 # - The user in IAM.
 #
@@ -38,3 +43,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[elastictranscoder.ruby.createUserAccessKeys]

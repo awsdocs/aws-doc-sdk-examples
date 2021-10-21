@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-03-2020]
+// snippet-sourcedate:[09-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -61,6 +61,6 @@ public class ListCollections {
             System.out.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[rekognition.java2.list_collections.main]
     }
+    // snippet-end:[rekognition.java2.list_collections.main]
 }

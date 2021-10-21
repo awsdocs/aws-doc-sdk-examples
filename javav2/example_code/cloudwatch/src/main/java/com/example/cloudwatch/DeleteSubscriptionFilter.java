@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -31,7 +31,7 @@ public class DeleteSubscriptionFilter {
 
        final String USAGE = "\n" +
                 "Usage:\n" +
-                "  DeleteSubscriptionFilter <filter> <logGroup>\n\n" +
+                "  <filter> <logGroup>\n\n" +
                 "Where:\n" +
                 "  filter - the name of the subscription filter (for example, MyFilter).\n" +
                 "  logGroup - the name of the log group. (for example, testgroup).\n" ;
@@ -70,5 +70,6 @@ public class DeleteSubscriptionFilter {
            System.exit(1);
        }
    }
+   // snippet-end:[cloudwatch.java2.delete_subscription_filter.main]
 }
-// snippet-end:[cloudwatch.java2.delete_subscription_filter.main]
+

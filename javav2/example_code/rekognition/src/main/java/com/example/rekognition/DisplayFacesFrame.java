@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-03-2020]
+// snippet-sourcedate:[09-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -48,10 +48,10 @@ public class DisplayFacesFrame extends JPanel {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "DisplayFacesFrame <sourceImage> <bucketName>\n\n" +
+                "   <sourceImage> <bucketName>\n\n" +
                 "Where:\n" +
-                "sourceImage - the name of the image in an Amazon S3 bucket (for example, people.png). \n\n" +
-                "bucketName - the name of the Amazon S3 bucket (for example, myBucket). \n\n";
+                "   sourceImage - the name of the image in an Amazon S3 bucket (for example, people.png). \n\n" +
+                "   bucketName - the name of the Amazon S3 bucket (for example, myBucket). \n\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -104,7 +104,7 @@ public class DisplayFacesFrame extends JPanel {
 
          result= rekClient.detectFaces(facesRequest);
 
-        // Show the bounding box info for each face
+        // Show the bounding box info for each face.
         List<FaceDetail> faceDetails = result.faceDetails();
         for (FaceDetail face : faceDetails) {
 
@@ -120,7 +120,7 @@ public class DisplayFacesFrame extends JPanel {
             System.out.println();
         }
 
-        // Create the frame and panel
+        // Create the frame and panel.
         JFrame frame = new JFrame("RotateImage");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         DisplayFacesFrame panel = new DisplayFacesFrame(image);
@@ -165,20 +165,20 @@ public class DisplayFacesFrame extends JPanel {
         image = bufImage;
     }
 
-    // Draws the bounding box around the detected faces
+    // Draws the bounding box around the detected faces.
     public void paintComponent(Graphics g) {
         float left = 0;
         float top = 0;
         int height = image.getHeight(this);
         int width = image.getWidth(this);
 
-        Graphics2D g2d = (Graphics2D) g; // Create a Java2D version of g
+        Graphics2D g2d = (Graphics2D) g; // Create a Java2D version of g.
 
         // Draw the image
         g2d.drawImage(image, 0, 0, width / scale, height / scale, this);
         g2d.setColor(new Color(0, 212, 0));
 
-        // Iterate through the faces and display bounding boxes
+        // Iterate through the faces and display bounding boxes.
         List<FaceDetail> faceDetails = result.faceDetails();
         for (FaceDetail face : faceDetails) {
 

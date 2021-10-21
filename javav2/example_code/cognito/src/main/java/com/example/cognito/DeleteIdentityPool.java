@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -42,23 +42,23 @@ public class DeleteIdentityPool {
         }
 
         String identityPoold = args[0];
-        CognitoIdentityClient cognitoIdclient = CognitoIdentityClient.builder()
+        CognitoIdentityClient cognitoIdClient = CognitoIdentityClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
-        deleteIdPool(cognitoIdclient, identityPoold);
-        cognitoIdclient.close();
+        deleteIdPool(cognitoIdClient, identityPoold);
+        cognitoIdClient.close();
     }
 
     //snippet-start:[cognito.java2.deleteidpool.main]
-    public static void deleteIdPool(CognitoIdentityClient cognitoIdclient, String identityPoold) {
+    public static void deleteIdPool(CognitoIdentityClient cognitoIdClient, String identityPoold) {
         try {
 
             DeleteIdentityPoolRequest identityPoolRequest = DeleteIdentityPoolRequest.builder()
                     .identityPoolId(identityPoold)
                     .build();
 
-            cognitoIdclient.deleteIdentityPool(identityPoolRequest);
+            cognitoIdClient.deleteIdentityPool(identityPoolRequest);
             System.out.println("Done");
 
         } catch (AwsServiceException e){

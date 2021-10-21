@@ -1,30 +1,38 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Lists your SNS topic ARNs.]
-# snippet-keyword:[Amazon Simple Notification Service]
-# snippet-keyword:[Resource.topics method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[sns]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# sns-ruby-example-show-topics.rb demonstrates how to list Amazon Simple Notification Service (SNS) topics using
+# the AWS SDK for Ruby.
+
+# Inputs:
+# - REGION
+
+# snippet-start:[sns.Ruby.showTopics]
 
 require 'aws-sdk-sns'  # v2: require 'aws-sdk'
 
-sns = Aws::SNS::Resource.new(region: 'us-west-2')
+def list_topics?(sns_client)
+  sns_client.topics.each do |topic|
+    puts topic.arn
+rescue StandardError => e
+  puts "Error while listing the topics: #{e.message}"
+  end
+  end
 
-sns.topics.each do |topic|
-  puts topic.arn
+def run_me
+
+  region = 'REGION'
+  sns_client = Aws::SNS::Resource.new(region: region)
+
+  puts "Listing the topics."
+
+  if list_topics?(sns_client)
+  else
+    puts 'The bucket was not created. Stopping program.'
+    exit 1
+  end
 end
+run_me if $PROGRAM_NAME == __FILE__
+
+# snippet-end:[sns.Ruby.showTopics]

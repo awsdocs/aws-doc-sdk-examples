@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/01/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -40,19 +40,18 @@ public class CreateInstance {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "CreateInstance <name> <amiId>\n\n" +
+                "   <name> <amiId>\n\n" +
                 "Where:\n" +
-                "    name - an instance name value that you can obtain from the AWS Console (for example, ami-xxxxxx5c8b987b1a0). \n\n" +
-                "    amiId - an Amazon Machine Image (AMI) value that you can obtain from the AWS Console (for example, i-xxxxxx2734106d0ab). \n\n" ;
+                "   name - an instance name value that you can obtain from the AWS Console (for example, ami-xxxxxx5c8b987b1a0). \n\n" +
+                "   amiId - an Amazon Machine Image (AMI) value that you can obtain from the AWS Console (for example, i-xxxxxx2734106d0ab). \n\n" ;
 
-        if (args.length != 2) {
+       if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
-        }
+       }
 
         String name = args[0];
         String amiId = args[1];
-
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
@@ -98,7 +97,8 @@ public class CreateInstance {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        // snippet-end:[ec2.java2.create_instance.main]
+
         return "";
     }
+    // snippet-end:[ec2.java2.create_instance.main]
 }

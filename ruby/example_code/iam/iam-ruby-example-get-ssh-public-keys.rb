@@ -1,6 +1,13 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
 
+# Purpose:
+# iam-ruby-example-get-ssh-public-keys.rb demonstrates how to
+# get information for up to the first 100 SSH public keys for the specified
+# user in AWS Identity and Access Management (IAM).
+
+
+# snippet-start:[elastictranscoder.ruby.getSSHPublicKeys]
 require 'aws-sdk-iam'
 
 # Gets information for up to the first 100 SSH public keys for the specified
@@ -41,3 +48,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[elastictranscoder.ruby.getSSHPublicKeys]

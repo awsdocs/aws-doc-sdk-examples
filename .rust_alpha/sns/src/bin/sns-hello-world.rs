@@ -3,78 +3,41 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use sns::{Client, Config, Region};
-use std::process::exit;
-
-use aws_types::region::ProvideRegion;
-
+use aws_config::meta::region::RegionProviderChain;
+use aws_sdk_sns::{Client, Error, Region, PKG_VERSION};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The region. Overrides environment variable AWS_DEFAULT_REGION.
+    /// The AWS Region.
     #[structopt(short, long)]
-    default_region: Option<String>,
+    region: Option<String>,
 
-    /// Specifies the email address to subscribe to the topic
+    /// The email address to subscribe to the topic.
     #[structopt(short, long)]
     email_address: String,
 
-    /// Whether to display additional runtime information
+    /// The ARN of the topic.
+    #[structopt(short, long)]
+    topic_arn: String,
+
+    /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Subscribes an email address and publishes a message to a topic.
-/// If the email address has not been confirmed for the topic,
-/// a confirmation request is also sent to the email address.
-/// # Arguments
-///
-/// * `-e EMAIL_ADDRESS` - The email address of a user subscribing to the topic.
-/// * `[-d DEFAULT-REGION]` - The region in which the client is created.
-///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
-///    If the environment variable is not set, defaults to **us-west-2**.
-/// * `[-v]` - Whether to display additional information.
-#[tokio::main]
-async fn main() -> Result<(), sns::Error> {
-    tracing_subscriber::fmt::init();
-
-    let Opt {
-        default_region,
-        email_address,
-        verbose,
-    } = Opt::from_args();
-
-    let region = default_region
-        .as_ref()
-        .map(|region| Region::new(region.clone()))
-        .or_else(|| aws_types::region::default_provider().region())
-        .unwrap_or_else(|| Region::new("us-west-2"));
-
-    if verbose {
-        println!("SNS client version: {}", sns::PKG_VERSION);
-        println!("Region:             {:?}", &region);
-        println!("Email address:      {}", &email_address);
-    }
-
-    let conf = Config::builder().region(region).build();
-    let client = Client::from_conf(conf);
-
-    let topics = client.list_topics().send().await?;
-    let mut topics = topics.topics.unwrap_or_default();
-    let topic_arn = match topics.pop() {
-        Some(topic) => topic.topic_arn.expect("topics have ARNs"),
-        None => {
-            eprintln!("No topics in this account. Please create a topic to proceed");
-            exit(1);
-        }
-    };
-
+// Subscribes an email address and publishes a message to a topic.
+// snippet-start:[sns.rust.sns-hello-world]
+async fn subscribe_and_publish(
+    client: &Client,
+    topic_arn: &str,
+    email_address: &str,
+) -> Result<(), Error> {
     println!("Receiving on topic with ARN: `{}`", topic_arn);
 
     let rsp = client
         .subscribe()
-        .topic_arn(&topic_arn)
+        .topic_arn(topic_arn)
         .protocol("email")
         .endpoint(email_address)
         .send()
@@ -84,7 +47,7 @@ async fn main() -> Result<(), sns::Error> {
 
     let rsp = client
         .publish()
-        .topic_arn(&topic_arn)
+        .topic_arn(topic_arn)
         .message("hello sns!")
         .send()
         .await?;
@@ -92,4 +55,50 @@ async fn main() -> Result<(), sns::Error> {
     println!("Published message: {:?}", rsp);
 
     Ok(())
+}
+// snippet-end:[sns.rust.sns-hello-world]
+
+/// Subscribes an email address and publishes a message to a topic.
+/// If the email address has not been confirmed for the topic,
+/// a confirmation request is also sent to the email address.
+/// # Arguments
+///
+/// * `-e EMAIL_ADDRESS` - The email address of a user subscribing to the topic.
+/// * `-t TOPIC_ARN` - The ARN of the topic.
+/// * `[-r REGION]` - The Region in which the client is created.
+///    If not supplied, uses the value of the **AWS_REGION** environment variable.
+///    If the environment variable is not set, defaults to **us-west-2**.
+/// * `[-v]` - Whether to display additional information.
+#[tokio::main]
+async fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt::init();
+
+    let Opt {
+        region,
+        email_address,
+        topic_arn,
+        verbose,
+    } = Opt::from_args();
+
+    let region_provider = RegionProviderChain::first_try(region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
+
+    println!();
+
+    if verbose {
+        println!("SNS client version:   {}", PKG_VERSION);
+        println!(
+            "Region:               {}",
+            region_provider.region().await.unwrap().as_ref()
+        );
+        println!("Email address:        {}", &email_address);
+        println!("Topic ARN:            {}", &topic_arn);
+        println!();
+    }
+
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
+    let client = Client::new(&shared_config);
+
+    subscribe_and_publish(&client, &topic_arn, &email_address).await
 }

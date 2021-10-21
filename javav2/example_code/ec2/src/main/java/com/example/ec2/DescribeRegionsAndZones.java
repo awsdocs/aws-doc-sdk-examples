@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/01/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -31,15 +31,15 @@ import software.amazon.awssdk.services.ec2.model.DescribeAvailabilityZonesRespon
 public class DescribeRegionsAndZones {
 
     public static void main(String[] args) {
-        // snippet-start:[ec2.java2.describe_region_and_zones.main]
+
         // snippet-start:[ec2.java2.describe_region_and_zones.client]
         Ec2Client ec2 = Ec2Client.create();
         // snippet-end:[ec2.java2.describe_region_and_zones.client]
 
         describeEC2RegionsAndZones(ec2);
         ec2.close();
-
     }
+    // snippet-start:[ec2.java2.describe_region_and_zones.main]
     public static void describeEC2RegionsAndZones( Ec2Client ec2) {
         // snippet-start:[ec2.java2.describe_region_and_zones.region]
         try {
@@ -76,8 +76,7 @@ public class DescribeRegionsAndZones {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        // snippet-end:[ec2.java2.describe_region_and_zones.main]
     }
+    // snippet-end:[ec2.java2.describe_region_and_zones.main]
 }
-
 // snippet-end:[ec2.java2.describe_region_and_zones.complete]

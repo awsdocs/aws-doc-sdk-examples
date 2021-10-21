@@ -4,7 +4,7 @@
 # This code example demonstrates how to delete an existing table in
 # Amazon DynamoDB named 'Movies'.
 
-# snippet-start:[dynamodb.Ruby.CodeExample.MoviesDeleteTable] 
+# snippet-start:[dynamodb.Ruby.CodeExample.MoviesDeleteTable]
 require 'aws-sdk-dynamodb'
 
 def table_deleted?(dynamodb_client, table_name)
@@ -16,6 +16,7 @@ rescue StandardError => e
 end
 
 def run_me
+# Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
   region = 'us-west-2'
   table_name = 'Movies'
 
@@ -25,7 +26,7 @@ def run_me
     # endpoint: 'http://localhost:8000',
     region: region
   )
-  
+
   dynamodb_client = Aws::DynamoDB::Client.new
 
   puts "Deleting table '#{table_name}'..."

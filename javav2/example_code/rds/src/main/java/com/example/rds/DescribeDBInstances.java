@@ -61,7 +61,7 @@ public class DescribeDBInstances {
             System.out.println(e.getLocalizedMessage());
             System.exit(1);
         }
-        // snippet-end:[rds.java2.describe_instances.main]
     }
+    // snippet-end:[rds.java2.describe_instances.main]
 }
 

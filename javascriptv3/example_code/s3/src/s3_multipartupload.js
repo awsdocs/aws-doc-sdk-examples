@@ -28,7 +28,7 @@ from "@aws-sdk/client-s3";
 import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
 // Set the parameters.
-const createParams = {
+export const createParams = {
   Bucket: "BUCKET",
   Key: "LARGE_FILE_NAME",
 };
@@ -36,7 +36,7 @@ const createParams = {
 // Specify how many parts in the upload. Between 1 and 10000.
 const parts = NUMBER_OF_PARTS; // For example, 3.
 
-const run = async () => {
+export const run = async () => {
   try {
     // Create the mutlipart upload.
     const data = await s3Client.send(

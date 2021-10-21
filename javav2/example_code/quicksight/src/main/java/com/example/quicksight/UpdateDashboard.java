@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon QuickSight]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[1/14/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -49,12 +49,13 @@ public class UpdateDashboard {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "Usage: UpdateDashboard <account> <dashboardId> <dataSetArn> <analysisArn>\n\n" +
+                "Usage: " +
+                "   <account> <dashboardId> <dataSetArn> <analysisArn>\n\n" +
                 "Where:\n" +
-                "  account - the account to use.\n\n" +
-                "  dashboardId - the dashboard id value to use.\n\n" +
-                "  dataSetArn - the ARN of the dataset.\n\n" +
-                "  analysisArn - the ARN of an existing analysis";
+                "   account - the account to use.\n\n" +
+                "   dashboardId - the dashboard id value to use.\n\n" +
+                "   dataSetArn - the ARN of the dataset.\n\n" +
+                "   analysisArn - the ARN of an existing analysis";
 
         if (args.length != 4) {
             System.out.println(USAGE);

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/01/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -34,9 +34,9 @@ public class DescribeReservedInstances {
 
            final String USAGE = "\n" +
                 "Usage:\n" +
-                "DescribeReservedInstances <instanceId>\n\n" +
+                "   <instanceId>\n\n" +
                 "Where:\n" +
-                "    instanceId - an instance id value that you can obtain from the AWS Console. \n\n" ;
+                "   instanceId - an instance id value that you can obtain from the AWS Console. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -77,6 +77,6 @@ public class DescribeReservedInstances {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
     }
-      // snippet-end:[ec2.java2.describe_reserved_instances.main]
   }
+    // snippet-end:[ec2.java2.describe_reserved_instances.main]
 }

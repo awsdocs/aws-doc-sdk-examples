@@ -1,12 +1,17 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+# SPDX - License - Identifier: Apache - 2.0
+
+# Purpose
+# This code example demonstrates how to copy an object from one
+# Amazon Simple Storage Service (Amazon S3) bucket to another.
+# You can also set an access control list (ACL) and an S3 storage
+# class on the copied object.
+
+# snippet-start:[s3.ruby.s3-ruby-example-set-item-props]
 
 require 'aws-sdk-s3'
 
-# Copies an object from one Amazon Simple Storage Service (Amazon S3)
-#   bucket to another. You can also set an access control list
-#   (ACL) and an S3 storage class on the copied object.
-#
+
 # Prerequisites:
 #
 # - A source S3 bucket and a target S3 bucket.
@@ -29,7 +34,7 @@ require 'aws-sdk-s3'
 # @return [Boolean] true if the object was copied; otherwise, false.
 # @example
 #   exit 1 unless object_copied_with_additional_properties?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket/my-file.txt',
 #     'doc-example-bucket1',
 #     'copied-files/my-copied-file.txt',
@@ -58,13 +63,14 @@ rescue StandardError => e
 end
 
 # Full example call:
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
   source_object_path = 'doc-example-bucket/my-file.txt'
   target_bucket_name = 'doc-example-bucket1'
   target_object_path = 'copied-files/my-copied-file.txt'
   canned_acl = 'bucket-owner-read'
   storage_class = 'STANDARD_IA'
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
 
   if object_copied_with_additional_properties?(
@@ -84,3 +90,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3-ruby-example-set-item-props]

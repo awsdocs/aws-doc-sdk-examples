@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -13,13 +13,14 @@
 
 package com.example.iam;
 
+// snippet-start:[iam.java2.create_role.import]
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import software.amazon.awssdk.services.iam.model.*;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
-
 import java.io.FileReader;
+// snippet-end:[iam.java2.create_role.import]
 
 /*
 *    This example requires a trust policy document. For more information, see:
@@ -40,7 +41,7 @@ public class CreateRole {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateRole <rolename> <fileLocation> \n\n" +
+                "    <rolename> <fileLocation> \n\n" +
                 "Where:\n" +
                 "    rolename - the name of the role to create. \n\n" +
                 "    fileLocation - the location of the JSON document that represents the trust policy. \n\n" ;
@@ -62,6 +63,7 @@ public class CreateRole {
         iam.close();
     }
 
+    // snippet-start:[iam.java2.create_role.main]
     public static String createIAMRole(IamClient iam, String rolename, String fileLocation ) {
 
         try {
@@ -91,4 +93,5 @@ public class CreateRole {
         JSONParser jsonParser = new JSONParser();
         return jsonParser.parse(reader);
     }
+    // snippet-end:[iam.java2.create_role.main]
 }

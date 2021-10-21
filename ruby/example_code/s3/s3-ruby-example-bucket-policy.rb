@@ -1,6 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
 # This code example demonstrates how to:
 # - Create a bucket in Amazon Simple Storage Service (Amazon S3).
 # - Add a bucket policy to the bucket.
@@ -8,17 +9,19 @@
 # - Remove the bucket policy from the bucket.
 # - Delete the bucket.
 
+# snippet-start:[s3.ruby.s3-ruby-example-bucket-policy]
+
 require 'aws-sdk-s3'
 require 'securerandom'
 
-# Creates an Amazon Simple Storage Service (Amazon S3) bucket.
+# Creates an Amazon S3 bucket.
 #
 # @param s3_client [Aws::S3::Client] An initialized S3 client.
 # @param bucket_name [String] The bucket's name.
 # @return [Boolean] true if the bucket was created; otherwise, false.
 # @example
 #   exit 1 unless bucket_created?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket'
 #   )
 def bucket_created?(s3_client, bucket_name)
@@ -43,7 +46,7 @@ end
 # @return [Boolean] true if the bucket policy was added; otherwise, false.
 # @example
 #   exit 1 unless bucket_policy_added?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket',
 #     'arn:aws:iam::111111111111:user/SomeUser',
 #     's3:GetObject'
@@ -87,7 +90,7 @@ end
 # @return [Boolean] true if the bucket policy was updated; otherwise, false.
 # @example
 #   exit 1 unless bucket_policy_aws_principal_updated?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket',
 #     'arn:aws:iam::111111111111:user/SomeOtherUser'
 #   )
@@ -123,7 +126,7 @@ end
 # @return [Boolean] true if the bucket policy was deleted; otherwise, false.
 # @example
 #   exit 1 unless bucket_policy_deleted?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket'
 #   )
 def bucket_policy_deleted?(s3_client, bucket_name)
@@ -145,7 +148,7 @@ end
 # @return [Boolean] true if the bucket was deleted; otherwise, false.
 # @example
 #   exit 1 unless bucket_deleted?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket'
 #   )
 def bucket_deleted?(s3_client, bucket_name)
@@ -161,7 +164,7 @@ def run_me
   aws_principal = 'arn:aws:iam::111111111111:user/SomeUser'
   new_aws_principal = 'arn:aws:iam::111111111111:user/SomeOtherUser'
   action = 's3:GetObject'
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
   bucket_name = 'bucket-' + SecureRandom.uuid
 
@@ -174,7 +177,7 @@ def run_me
 
   if bucket_policy_added?(s3_client, bucket_name, aws_principal, action)
     puts 'Bucket policy added.'
-  else 
+  else
     puts 'Bucket policy not added.'
   end
 
@@ -203,3 +206,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3-ruby-example-bucket-policy]

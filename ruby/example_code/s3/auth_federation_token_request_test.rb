@@ -1,13 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
 
+# Purpose:
 # This code example allows a federated user with a limited set of
-# permissions to list the objects in an Amazon S3 bucket.
+# permissions to list the objects in an Amazon Simple Storage Service (Amazon S3) bucket.
 
+# snippet-start:[s3.ruby.auth_federation_token_request_test.rb]
 # Prerequisites:
 #  - An existing Amazon S3 bucket.
 
-# snippet-start:[s3.ruby.auth_federation_token_request_test.rb]
 require 'aws-sdk-s3'
 require 'aws-sdk-iam'
 require 'json'
@@ -19,7 +20,7 @@ require 'json'
 # @param user_name [String] The user's name.
 # @return [Aws::IAM::Types::User] The existing or new user.
 # @example
-#   iam = Aws::IAM::Client.new(region: 'us-east-1')
+#   iam = Aws::IAM::Client.new(region: 'us-west-2')
 #   user = get_user(iam, 'my-user')
 #   exit 1 unless user.user_name
 #   puts "User's name: #{user.user_name}"
@@ -47,8 +48,8 @@ end
 # @param policy [Hash] The access policy.
 # @return [Aws::STS::Types::Credentials] AWS credentials for API authentication.
 # @example
-#   sts = Aws::STS::Client.new(region: 'us-east-1')
-#   credentials = get_temporary_credentials(sts, duration_seconds, user_name, 
+#   sts = Aws::STS::Client.new(region: 'us-west-2')
+#   credentials = get_temporary_credentials(sts, duration_seconds, user_name,
 #     {
 #       'Version' => '2012-10-17',
 #       'Statement' => [
@@ -78,7 +79,7 @@ end
 # @param bucket_name [String] The bucket's name.
 # @return [Boolean] true if the objects were listed; otherwise, false.
 # @example
-#   s3_client = Aws::S3::Client.new(region: 'us-east-1')
+#   s3_client = Aws::S3::Client.new(region: 'us-west-2')
 #   exit 1 unless list_objects_in_bucket?(s3_client, 'doc-example-bucket')
 def list_objects_in_bucket?(s3_client, bucket_name)
   puts "Accessing the contents of the bucket named '#{bucket_name}'..."
@@ -100,11 +101,11 @@ def list_objects_in_bucket?(s3_client, bucket_name)
 rescue StandardError => e
   puts "Error while accessing the bucket named '#{bucket_name}': #{e.message}"
 end
-# snippet-end:[s3.ruby.auth_federation_token_request_test.rb]
 
 # Full example call:
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
-  region = 'us-east-1'
+  region = 'us-west-2'
   user_name = 'my-user'
   bucket_name = 'doc-example-bucket'
 
@@ -136,3 +137,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.auth_federation_token_request_test.rb]

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS CodeDeploy
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/3/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 
 /*
@@ -39,7 +39,7 @@ public class CreateDeploymentGroup {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateDeploymentGroup <deploymentGroupName> <appName> <serviceRoleArn> <tagKey> <tagValue> \n\n" +
+                "    <deploymentGroupName> <appName> <serviceRoleArn> <tagKey> <tagValue> \n\n" +
                 "Where:\n" +
                 "    deploymentGroupName - the name of the deployment group. \n" +
                 "    appName - the name of the application. \n" +

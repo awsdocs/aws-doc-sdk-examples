@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+    <para>
+        Create a short-lived &EMRlong; cluster that estimates the value of pi using
+        Apache Spark to parallelize a large number of calculations. The job writes
+        output to &EMR; logs and to an &S3long; (&S3;) bucket. The cluster terminates
+        itself after completing the job.
+    </para>
+    <itemizedlist>
+        <listitem><para>Create an &S3; bucket and upload a job script.</para></listitem>
+        <listitem><para>Create &IAMlong; (&IAM;) roles.</para></listitem>
+        <listitem><para>Create &EC2long; (&EC2;) security groups.</para></listitem>
+        <listitem><para>Create a short-lived cluster and run a single job step.</para></listitem>
+    </itemizedlist>
+    <para>
+        This example is best viewed on GitHub. For complete source code
+        and instructions on how to set up and run, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/emr">GitHub</ulink>.
+    </para>
+</block>

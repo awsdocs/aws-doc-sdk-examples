@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/30/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -84,7 +84,7 @@ public class UpdateTable {
             System.exit(1);
         }
 
-        // snippet-end:[dynamodb.java2.update_table.main]
         System.out.println("Done!");
     }
+    // snippet-end:[dynamodb.java2.update_table.main]
 }

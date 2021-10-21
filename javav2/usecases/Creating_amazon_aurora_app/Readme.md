@@ -1,6 +1,7 @@
 # Creating a Job Posting Site using Amazon Aurora and Amazon Translation Services
 
-You can create a web application that stores and queries data by using Amazon Aurora. The application created in this AWS tutorial is a job posting web application that lets an employer, an administrator, or human resources staff alert employees or the public about a job opening within a company.
+## Purpose
+You can create a dynamic web application that stores and queries data by using Amazon Aurora. The application created in this AWS tutorial is a job posting web application that lets an employer, an administrator, or human resources staff alert employees or the public about a job opening within a company.
 
 **Note**: Amazon Aurora (Aurora) is a fully managed relational database engine that's compatible with MySQL and PostgreSQL. For more information, see [What is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html).
 
@@ -28,10 +29,6 @@ This application also supports viewing the result set in different languages. Fo
 
 ![AWS Tracking Application](images/French.png)
 
-**Cost to complete:** The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-
-**Note:** Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
-
 #### Topics
 
 + Prerequisites
@@ -52,7 +49,17 @@ To complete the tutorial, you need the following:
 + A Java IDE (this tutorial uses the IntelliJ IDE)
 + Java JDK 1.8
 + Maven 3.6 or later
-+ An Amazon Aurora table named **jobs** that contains the fields described in this tutorial. For information about creating an Amazon Aurora table, see [Getting started with Amazon Aurora](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_GettingStartedAurora.html). Set Public access when you create the Aurora database. 
+
+### Important
+
++ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ Running this code might result in charges to your AWS account. 
++ Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+
+### Creating the resources
+
+An Amazon Aurora table named **jobs** that contains the fields described in this tutorial. For information about creating an Amazon Aurora table, see [Getting started with Amazon Aurora](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_GettingStartedAurora.html). Set Public access when you create the Aurora database. 
 
 **Note**: You must set up inbound rules for the security group to connect to the database. You can set up one inbound rule for your development environment and another for Elastic Beanstalk (which will host the application). Setting up an inbound rule essentially means enabling an IP address to use the database. Once you set up the inbound rules, you can connect to the database from a client such as MySQL Workbench. For information about setting up security group inbound rules, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).
 
@@ -74,10 +81,11 @@ Create an IntelliJ project that is used to create the web application.
 
 7. Choose **Finish**.
 
-## Add the Spring POM dependencies to your project
+## Add the POM dependencies to your project
 
 At this point, you have a new project named **BlogAurora**. Ensure that the pom.xml file resembles the following code.
 
+```xml
      <?xml version="1.0" encoding="UTF-8"?>
      <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -177,7 +185,8 @@ At this point, you have a new project named **BlogAurora**. Ensure that the pom.
         </plugins>
      </build>
     </project>
-     
+```
+
  ## Create the Java classes
  
  Create a Java package in the main/java folder named **com.aws.blog**. This Java classes go into this package. 
@@ -197,6 +206,7 @@ At this point, you have a new project named **BlogAurora**. Ensure that the pom.
 
 The following Java code represents the **BlogApp** class.
 
+```java
      package com.aws.blog;
 
      import org.springframework.boot.SpringApplication;
@@ -209,11 +219,13 @@ The following Java code represents the **BlogApp** class.
         SpringApplication.run(BlogApp.class, args);
       }
      }
+```
 
 ### BlogController class
 
 The following Java code represents the **BlogController** class.
 
+```java
      package com.aws.blog;
 
      import org.springframework.security.core.context.SecurityContextHolder;
@@ -282,12 +294,13 @@ The following Java code represents the **BlogController** class.
      }
     }
 
-
+```
 
 ### Post class
 
 The following Java code represents the **Post** class.
 
+```java
     package com.aws.blog;
 
     public class Post {
@@ -340,11 +353,13 @@ The following Java code represents the **Post** class.
         return this.id ;
      }
     }
+```
 
 ### RetrieveDataRDS class
 
 The following Java code represents the **RetrieveDataRDS** class. This class uses the Java JDBC API (V2) to interact with data located the **jobs** table.  For example, the **getPosts** method returns a result set that is queried from the **jobs** table and displayed in the view. Likewise, the **addRecord** method adds a new record to the **jobs** table. This class also uses the Amazon Translate Java V2 API to translation the result set if requested by the user. 
 
+```java
      package com.aws.blog;
 
      import org.springframework.stereotype.Component;
@@ -625,11 +640,13 @@ The following Java code represents the **RetrieveDataRDS** class. This class use
         return null;
       }
      }
+```
 
 ### ConnectionHelper class
 
 The following Java code represents the **ConnectionHelper** class.
 
+```java
     package com.aws.jdbc;
 
     import java.sql.Connection;
@@ -669,6 +686,7 @@ The following Java code represents the **ConnectionHelper** class.
         }
       }
      }
+```
 
 **Note:** The **URL** value is **localhost:3306**. Replace this value is modified with the endpoint of the Aurora database. You must also ensure that you specify the user name and password for your Aurora instance; otherwise your connection does not work.
 
@@ -677,6 +695,7 @@ The following Java code represents the **ConnectionHelper** class.
 
 The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application.
 
+```java
      package com.aws.blog;
 
      import org.springframework.context.annotation.Bean;
@@ -733,7 +752,7 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
         return new BCryptPasswordEncoder();
       }
      }
-    
+```    
 **Note**: In this example, the user credentials to log into the application are **user** and **password**.    
 
 ## Create the HTML file
@@ -749,6 +768,7 @@ At this point, you have created all of the Java files required for this example 
 ### index.html
 The **index.html** file is the application's home view. 
 
+```html
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
@@ -785,10 +805,12 @@ The **index.html** file is the application's home view.
     <div>
     </body>
     </html>
-
+```
+	    
 ### layout.html
 The following code represents the **layout.html** file that represents the application's menu.
 
+```html
      <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
      <head th:fragment="site-head">
@@ -800,7 +822,6 @@ The following code represents the **layout.html** file that represents the appli
     <body>
      <!-- th:hef calls a controller method - which returns the view -->
      <header th:fragment="site-header">
-     <a href="index.html" th:href="@{/}"><img src="../public/img/site-logo.png" th:src="@{/img/site-logo.png}" /></a>
      <a href="#" style="color: white" th:href="@{/}">Home</a>
      <a href="#" style="color: white" th:href="@{/add}">Add Post</a>
      <a href="#"  style="color: white" th:href="@{/posts}">Get Posts</a>
@@ -816,10 +837,12 @@ The following code represents the **layout.html** file that represents the appli
     <p>Welcome to  AWS Blog application.</p>
     </body>
     </html>
+```
 
 ### add.html
 The **add.html** file is the application's view that lets users post new items. 
 
+```html
       <!DOCTYPE html>
       <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
@@ -864,10 +887,12 @@ The **add.html** file is the application's view that lets users post new items.
        </div>
       </body>
      </html>
+```
 
 ### post.html
 The **post.html** file is the application's view that displays the items in the specific language. 
 
+```html
     <!DOCTYPE html>
      <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
@@ -891,8 +916,10 @@ The **post.html** file is the application's view that displays the items in the 
      <h3>Welcome <span sec:authentication="principal.username">User</span> to the Amazon Redshift Job Posting example app</h3>
      <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
 
-     <div id= "progress" class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+     <div  id ="progress"  class="progress">
+      <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:90%">
+        Retrieving Amazon Aurora Data...
+      </div>
      </div>
 
     <div class="row">
@@ -925,10 +952,12 @@ The **post.html** file is the application's view that displays the items in the 
      </div>
      </body>
     </html>
+```
 
 ### login.html
 The **login.html** file is the application's login page. 
 
+```html
      <!DOCTYPE html>
      <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 
@@ -1024,75 +1053,89 @@ The **login.html** file is the application's login page.
     </form>
     </body>
     </html>
-    
+```
+
 ### Create the JS File
 
 This application has a **contact_me.js** file that is used to send requests to the Spring Controller. Place this file in the **resources\public\js** folder. 
 
-      $(function() {
+```javascript
+    $(function() {
 
-       $('#progress').hide();
+    $('#progress').hide();
 
-        $("#SendButton" ).click(function($e) {
+    $("#SendButton" ).click(function($e) {
 
-         var title = $('#title').val();
-         var body = $('#body').val();
-        
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener("load", loadNewItems, false);
-        xhr.open("POST", "../addPost", true);   //buildFormit -- a Spring MVC controller
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-        xhr.send("title=" + title + "&body=" + body);
-        } );// END of the Send button click
+        var title = $('#title').val();
+        var body = $('#body').val();
 
-       function loadNewItems(event) {
+        $.ajax('/addPost', {
+            type: 'POST',  // http method
+            data: 'title=' + title + '&body=' + body ,  // data to submit
+            success: function (data, status, xhr) {
+
+                alert("You have successfully added an item")
+
+                $('#title').val("");
+                $('#body').val("");
+
+            }
+        });
+
+    } );// END of the Send button click
+
+    function loadNewItems(event) {
         var msg = event.target.responseText;
         alert("You have successfully added item "+msg)
 
         $('#title').val("");
         $('#body').val("");
-        }
-       } );
+     }
+    } );
+
+    function getDataValue() {
+     var radioValue = $("input[name='optradio']:checked").val();
+     return radioValue;
+    }
 
     function getPosts(num){
 
-     $('.xsearch-items').empty()
-     $('#progress').show();
-     var lang = $('#lang option:selected').text();
-    
-    var xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", loadItems, false);
-    xhr.open("POST", "../getPosts", true);   //buildFormit -- a Spring MVC controller
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//necessary
-    xhr.send("lang=" + lang +"&number=" + num );
-    }
+    $('.xsearch-items').empty()
+    $('#progress').show();
+    var lang = $('#lang option:selected').text();
 
-    function loadItems(event) {
+    $.ajax('/getPosts', {
+        type: 'POST',  // http method
+        data: 'lang=' + lang+"&number=" + num ,  // data to submit
+        success: function (data, status, xhr) {
 
-    $('#progress').hide();
-    var xml = event.target.responseText;
-    $(xml).find('Item').each(function ()  {
+            var xml = data;
+            $('#progress').hide();
+            $(xml).find('Item').each(function () {
 
-        var $field = $(this);
-        var id = $field.find('Id').text();
-        var date = $field.find('Date').text();
-        var title = $field.find('Title').text();
-        var body = $field.find('Content').text();
-        var author = $field.find('Author').text();
-        
-        // Append this data to the main list.
-        $('.xsearch-items').append("<className='search-item'>");
-        $('.xsearch-items').append("<div class='search-item-content'>");
-        $('.xsearch-items').append("<h3 class='search-item-caption'><a href='#'>"+title+"</a></h3>");
-        $('.xsearch-items').append("<className='search-item-meta mb-15'>");
-        $('.xsearch-items').append("<className='list-inline'>");
-        $('.xsearch-items').append("<p><b>"+date+"</b></p>");
-        $('.xsearch-items').append("<p><b>'Posted by "+author+"</b></p>");
-        $('.xsearch-items').append("<div>");
-        $('.xsearch-items').append("<h6>"+body +"</h6>");
-        $('.xsearch-items').append("</div>");
+                var $field = $(this);
+                var id = $field.find('Id').text();
+                var date = $field.find('Date').text();
+                var title = $field.find('Title').text();
+                var body = $field.find('Content').text();
+                var author = $field.find('Author').text();
+
+                // Append this data to the main list.
+                $('.xsearch-items').append("<className='search-item'>");
+                $('.xsearch-items').append("<div class='search-item-content'>");
+                $('.xsearch-items').append("<h3 class='search-item-caption'><a href='#'>" + title + "</a></h3>");
+                $('.xsearch-items').append("<className='search-item-meta mb-15'>");
+                $('.xsearch-items').append("<className='list-inline'>");
+                $('.xsearch-items').append("<p><b>" + date + "</b></p>");
+                $('.xsearch-items').append("<p><b>'Posted by " + author + "</b></p>");
+                $('.xsearch-items').append("<div>");
+                $('.xsearch-items').append("<h6>" + body + "</h6>");
+                $('.xsearch-items').append("</div>");
+            });
+           }
        });
       }
+```
 
 ## Create a JAR file for the application
 

@@ -1,13 +1,17 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# iam-ruby-example-construct-url-federated-users.rb demonstrates how to
+# get a temporary URL that allows a federated user to sign in to a specified
+# location within the AWS Management Console for a limited time with the
+# specified permissions in the AWS account.
+
+# snippet-start:[elastictranscoder.ruby.constructFederatedUsers]
 
 require 'aws-sdk-core'
 require 'open-uri'
 
-# Gets a temporary URL that allows a federated user to sign in to a specified
-# location within the AWS Management Console for a limited time with the
-# specified permissions in the AWS account.
-#
 # @param sts_client [Aws::STS::Client] An initialized
 #   AWS Security Token Service (AWS STS) client.
 # @param user_name [String] A name for the federated user.
@@ -122,3 +126,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[elastictranscoder.ruby.constructFederatedUsers]

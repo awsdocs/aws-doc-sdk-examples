@@ -4,7 +4,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/01/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -45,7 +45,6 @@ public class FindRunningInstances {
     }
 
    // snippet-start:[ec2.java2.running_instances.main]
-   // This method creates a Filter to find all running instances
    public static void findRunningEC2Instances(Ec2Client ec2) {
 
        try {
@@ -87,6 +86,6 @@ public class FindRunningInstances {
            System.err.println(e.awsErrorDetails().errorMessage());
            System.exit(1);
         }
-        // snippet-end:[ec2.java2.running_instances.main]
-    }
+      }
+    // snippet-end:[ec2.java2.running_instances.main]
 }

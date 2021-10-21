@@ -31,7 +31,7 @@ exports.handler = (event, context, callback) => {
         event.response.challengeMetadata = 'CAPTCHA_CHALLENGE';
     }
 
-    Return to Amazon Cognito
+    //Return to Amazon Cognito.
     callback(null, event);
 }
 // snippet-end:[cognito.javascript.lambda-trigger.create-auth-challenge]

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/31/2021]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -13,6 +13,7 @@
 
 package com.example.dynamodb;
 
+// snippet-start:[dynamodb.java2.put_item_enc.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
@@ -24,6 +25,7 @@ import  software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.kms.model.EncryptRequest;
 import software.amazon.awssdk.services.kms.model.EncryptResponse;
 import java.util.HashMap;
+// snippet-end:[dynamodb.java2.put_item_enc.import]
 
 /**
  * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
@@ -82,6 +84,7 @@ public class PutItemEncrypt {
         ddb.close();
     }
 
+    // snippet-start:[dynamodb.java2.put_item_enc.main]
    public static void putItemInTable(DynamoDbClient ddb,
                                       KmsClient kmsClient,
                                       String tableName,
@@ -134,5 +137,6 @@ public class PutItemEncrypt {
             System.exit(1);
         }
     }
+    // snippet-end:[dynamodb.java2.put_item_enc.main]
 }
 

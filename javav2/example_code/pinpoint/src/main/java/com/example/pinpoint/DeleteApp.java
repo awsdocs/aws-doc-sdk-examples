@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -71,8 +71,7 @@ public class DeleteApp {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
-        //snippet-end:[pinpoint.java2.deleteapp.main]
-    }
+   }
+    //snippet-end:[pinpoint.java2.deleteapp.main]
 }
 

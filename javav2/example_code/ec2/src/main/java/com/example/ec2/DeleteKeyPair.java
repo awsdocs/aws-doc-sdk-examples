@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/01/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -34,9 +34,9 @@ public class DeleteKeyPair {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "DeleteKeyPair <keyPair> \n\n" +
+                "   <keyPair> \n\n" +
                 "Where:\n" +
-                "    keyPair - a key pair name (for example, TestKeyPair)."  ;
+                "   keyPair - a key pair name (for example, TestKeyPair)."  ;
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -63,8 +63,6 @@ public class DeleteKeyPair {
                 .build();
 
            DeleteKeyPairResponse response = ec2.deleteKeyPair(request);
-
-            // snippet-end:[ec2.java2.delete_key_pair.main]
             System.out.printf(
                 "Successfully deleted key pair named %s", keyPair);
 
@@ -73,4 +71,5 @@ public class DeleteKeyPair {
            System.exit(1);
         }
     }
+    // snippet-end:[ec2.java2.delete_key_pair.main]
 }

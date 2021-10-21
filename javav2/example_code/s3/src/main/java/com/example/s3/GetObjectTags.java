@@ -4,7 +4,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/06/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -38,7 +38,7 @@ public class GetObjectTags {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    GetObjectTags <bucketName> <keyName> \n\n" +
+                "    <bucketName> <keyName> \n\n" +
                 "Where:\n" +
                 "    bucketName - the Amazon S3 bucket name. \n\n"+
                 "    keyName - a key name that represents the object. \n\n";
@@ -84,6 +84,6 @@ public class GetObjectTags {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        // snippet-end:[s3.java2.getobjecttags.main]
     }
+    // snippet-end:[s3.java2.getobjecttags.main]
 }

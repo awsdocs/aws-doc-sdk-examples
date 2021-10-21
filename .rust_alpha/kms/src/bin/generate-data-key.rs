@@ -2,28 +2,23 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0.
  */
-use std::process;
 
-use kms::model::DataKeySpec;
-use kms::{Client, Config, Region};
-
-use aws_types::region::ProvideRegion;
-
+use aws_config::meta::region::RegionProviderChain;
+use aws_sdk_kms::model::DataKeySpec;
+use aws_sdk_kms::{Client, Error, Region, PKG_VERSION};
 use structopt::StructOpt;
-use tracing_subscriber::fmt::format::FmtSpan;
-use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The region. Overrides environment variable AWS_DEFAULT_REGION.
+    /// The AWS Region.
     #[structopt(short, long)]
-    default_region: Option<String>,
+    region: Option<String>,
 
-    /// Specifies the encryption key
+    /// The encryption key.
     #[structopt(short, long)]
     key: String,
 
-    /// Specifies whether additonal runtime informmation is displayed
+    /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
@@ -32,51 +27,44 @@ struct Opt {
 /// # Arguments
 ///
 /// * `[-k KEY]` - The name of the key.
-/// * `[-d DEFAULT-REGION]` - The region in which the client is created.
-///    If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+/// * `[-r REGION]` - The Region in which the client is created.
+///    If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt::init();
+
     let Opt {
         key,
-        default_region,
+        region,
         verbose,
     } = Opt::from_args();
 
-    let region = default_region
-        .as_ref()
-        .map(|region| Region::new(region.clone()))
-        .or_else(|| aws_types::region::default_provider().region())
-        .unwrap_or_else(|| Region::new("us-west-2"));
+    let region_provider = RegionProviderChain::first_try(region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
+    println!();
 
     if verbose {
-        println!("KMS client version: {}\n", kms::PKG_VERSION);
-        println!("Region: {:?}", &region);
-        println!("Key:    {}", key);
-
-        SubscriberBuilder::default()
-            .with_env_filter("info")
-            .with_span_events(FmtSpan::CLOSE)
-            .init();
+        println!("KMS client version: {}", PKG_VERSION);
+        println!(
+            "Region:             {}",
+            region_provider.region().await.unwrap().as_ref()
+        );
+        println!("Key:                {}", &key);
+        println!();
     }
 
-    let conf = Config::builder().region(region).build();
-    let client = Client::from_conf(conf);
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
+    let client = Client::new(&shared_config);
 
-    let resp = match client
+    let resp = client
         .generate_data_key()
         .key_id(key)
         .key_spec(DataKeySpec::Aes256)
         .send()
-        .await
-    {
-        Ok(output) => output,
-        Err(e) => {
-            eprintln!("Encryption failure: {}", e);
-            process::exit(1);
-        }
-    };
+        .await?;
 
     // Did we get an encrypted blob?
     let blob = resp.ciphertext_blob.expect("Could not get encrypted text");
@@ -84,6 +72,9 @@ async fn main() {
 
     let s = base64::encode(&bytes);
 
-    println!("\nData key:");
+    println!();
+    println!("Data key:");
     println!("{}", s);
+
+    Ok(())
 }

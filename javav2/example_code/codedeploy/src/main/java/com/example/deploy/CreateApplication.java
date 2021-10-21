@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS CodeDeploy
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/3/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 
 /*
@@ -35,7 +35,7 @@ public class CreateApplication {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateApplication <appName> \n\n" +
+                "    <appName> \n\n" +
                 "Where:\n" +
                 "    appName - the name of the application. \n";
 

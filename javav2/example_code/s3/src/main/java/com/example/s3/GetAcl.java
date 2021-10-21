@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/06/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -35,7 +35,7 @@ public class GetAcl {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "  GetAcl <bucketName> <objectKey>\n\n" +
+                "  <bucketName> <objectKey>\n\n" +
                 "Where:\n" +
                 "  bucketName - the Amazon S3 bucket to get the access control list (ACL) for.\n" +
                 "  objectKey - the object to get the ACL for. \n" ;
@@ -47,7 +47,6 @@ public class GetAcl {
 
         String bucketName = args[0];
         String objectKey = args[1];
-
         System.out.println("Retrieving ACL for object: " + objectKey);
         System.out.println("in bucket: " + bucketName);
 
@@ -86,5 +85,6 @@ public class GetAcl {
         }
         return "";
     }
+    // snippet-end:[s3.java2.get_acl.main]
 }
-// snippet-end:[s3.java2.get_acl.main]
+

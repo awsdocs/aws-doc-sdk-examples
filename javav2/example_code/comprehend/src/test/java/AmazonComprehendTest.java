@@ -50,7 +50,7 @@ public class AmazonComprehendTest {
 
     @Test
     @Order(1)
-    public void whenInitializingAWSPinpointService_thenNotNull() {
+    public void whenInitializingAWSService_thenNotNull() {
         assertNotNull(comClient);
         System.out.println("Test 1 passed");
     }
@@ -102,6 +102,4 @@ public class AmazonComprehendTest {
       DocumentClassifierDemo.createDocumentClassifier(comClient, dataAccessRoleArn, s3Uri, documentClassifierName);
      System.out.println("Test 7 passed");
     }
-
-
 }

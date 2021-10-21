@@ -1,8 +1,11 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
 # This code example demonstrates how to upload an item
-# (file) to a folder within a bucket in Amazon S3.
+# (file) to a folder within a bucket in Amazon Simple Storage Service (Amazon S3).
+
+# snippet-start:[s3.ruby.s3-ruby-example-upload-item-to-folder]
 
 # Prerequisites:
 #  - An existing Amazon S3 bucket.
@@ -28,7 +31,7 @@ end
 # @param bucket_name [String] The name of the bucket.
 # @return [Boolean] true if the bucket exists; otherwise, false.
 # @example
-#   s3_client = Aws::S3::Client.new(region: 'us-east-1')
+#   s3_client = Aws::S3::Client.new(region: 'us-west-2')
 #   exit 1 unless bucket_exists?(s3_client, 'doc-example-bucket')
 def bucket_exists?(s3_client, bucket_name)
   response = s3_client.list_buckets
@@ -47,7 +50,7 @@ end
 # @param folder_name [String] The name of the folder.
 # @return [Boolean] true if the folder exists; otherwise, false.
 # @example
-#   s3_client = Aws::S3::Client.new(region: 'us-east-1')
+#   s3_client = Aws::S3::Client.new(region: 'us-west-2')
 #   exit 1 unless folder_exists?(s3_client, 'doc-example-bucket', 'my-folder/')
 def folder_exists?(s3_client, bucket_name, folder_name)
   response = s3_client.list_objects_v2(bucket: bucket_name)
@@ -69,7 +72,7 @@ end
 # @param file_name [String] The name of the file.
 # @return [Boolean] true if the file was uploaded; otherwise, false.
 # @example
-#   s3_client = Aws::S3::Client.new(region: 'us-east-1')
+#   s3_client = Aws::S3::Client.new(region: 'us-west-2')
 #   exit 1 unless upload_file_to_folder?(
 #     s3_client,
 #     'doc-example-bucket',
@@ -88,11 +91,13 @@ rescue StandardError => e
 end
 
 # Full example call:
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
+
 def run_me
   file_name = 'my-file-1.txt'
   bucket_name = 'doc-example-bucket'
   folder_name = 'my-folder/'
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
 
   puts 'Checking whether the specified file exists and is indeed a file...'
@@ -131,3 +136,5 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+
+# snippet-end:[s3.ruby.s3-ruby-example-upload-item-to-folder]

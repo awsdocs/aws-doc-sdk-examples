@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon- AWS]
 
 /*
@@ -36,9 +36,9 @@ public class AddTags {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "AddTags <topicArn>\n\n" +
+                "   <topicArn>\n\n" +
                 "Where:\n" +
-                "  topicArn - the ARN of the topic to which tags are added.\n\n";
+                "   topicArn - the ARN of the topic to which tags are added.\n\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -54,8 +54,8 @@ public class AddTags {
         snsClient.close();
        }
 
+    //snippet-start:[sns.java2.add_tags.main]
     public static void addTopicTags(SnsClient snsClient, String topicArn) {
-
 
      try {
         Tag tag = Tag.builder()
@@ -85,4 +85,5 @@ public class AddTags {
           System.exit(1);
       }
    }
+    //snippet-end:[sns.java2.add_tags.main]
 }

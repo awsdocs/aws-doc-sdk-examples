@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/30/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -39,11 +39,9 @@ public class CreateTableCompositeKey {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateTable <tableName>\n\n" +
+                "    <tableName>\n\n" +
                 "Where:\n" +
-                "    tableName - the Amazon DynamoDB table to create (for example, Music3).\n\n" +
-                "Example:\n" +
-                "    CreateTable Music3\n";
+                "    tableName - the Amazon DynamoDB table to create (for example, Music3).\n\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -103,7 +101,7 @@ public class CreateTableCompositeKey {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java2.create_table_composite_key.main]
-        return "";
+       return "";
     }
+    // snippet-end:[dynamodb.java2.create_table_composite_key.main]
 }

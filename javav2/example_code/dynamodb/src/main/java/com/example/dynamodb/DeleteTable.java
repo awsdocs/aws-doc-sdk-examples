@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/30/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 
@@ -33,11 +33,9 @@ public class DeleteTable {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeleteTable <tableName>\n\n" +
+                "    <tableName>\n\n" +
                 "Where:\n" +
                 "    tableName - the Amazon DynamoDB table to delete (for example, Music3).\n\n" +
-                "Example:\n" +
-                "    DeleteTable Music3\n\n" +
                 "**Warning** This program will delete the table that you specify!\n";
 
         if (args.length != 1) {
@@ -73,7 +71,7 @@ public class DeleteTable {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java2.delete_table.main]
         System.out.println(tableName +" was successfully deleted!");
     }
+    // snippet-end:[dynamodb.java2.delete_table.main]
 }

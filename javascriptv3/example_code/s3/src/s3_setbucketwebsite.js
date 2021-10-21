@@ -21,8 +21,8 @@ import { PutBucketWebsiteCommand } from "@aws-sdk/client-s3";
 import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
 // Create the parameters for the bucket
-const bucketParams = { Bucket: "BUCKET_NAME" };
-const staticHostParams = {
+export const bucketParams = { Bucket: "BUCKET_NAME" };
+export const staticHostParams = {
   Bucket: bucketParams,
   WebsiteConfiguration: {
     ErrorDocument: {
@@ -34,7 +34,7 @@ const staticHostParams = {
   },
 };
 
-const run = async () => {
+export const run = async () => {
   // Insert specified bucket name and index and error documents into params JSON
   //} from command line arguments
   staticHostParams.Bucket = bucketParams;

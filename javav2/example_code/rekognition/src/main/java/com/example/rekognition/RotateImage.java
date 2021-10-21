@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-03-2020]
+// snippet-sourcedate:[09-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -42,9 +42,9 @@ public class RotateImage {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "RecognizeCelebrities <sourceImage>\n\n" +
+                "   <sourceImage>\n\n" +
                 "Where:\n" +
-                "sourceImage - the path to the image (for example, C:\\AWS\\pic1.png). \n\n";
+                "   sourceImage - the path to the image (for example, C:\\AWS\\pic1.png). \n\n";
 
        if (args.length != 1) {
             System.out.println(USAGE);
@@ -67,7 +67,7 @@ public class RotateImage {
 
         try {
             BufferedImage image = null;
-            InputStream sourceStream = new FileInputStream(new File(sourceImage));
+            InputStream sourceStream = new FileInputStream(sourceImage);
             SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
 
             image = ImageIO.read(sourceBytes.asInputStream());
@@ -137,10 +137,10 @@ public class RotateImage {
                 return;
         }
 
-        System.out.println("Left: " + String.valueOf((int) left));
-        System.out.println("Top: " + String.valueOf((int) top));
-        System.out.println("Face Width: " + String.valueOf((int)(imageWidth * box.width())));
-        System.out.println("Face Height: " + String.valueOf((int)(imageHeight * box.height())));
+        System.out.println("Left: " + (int) left);
+        System.out.println("Top: " + (int) top);
+        System.out.println("Face Width: " + (int) (imageWidth * box.width()));
+        System.out.println("Face Height: " + (int) (imageHeight * box.height()));
     }
 
     // snippet-end:[rekognition.java2.recognize_image_orientation.main]
