@@ -284,10 +284,7 @@ rekognition_Usage_FindFacesInCollection:
           github: javav2/example_code/rekognition/
           sdkguide:
           excerpts:
-            - description: Display information about a face that matches a face identified by its ID value.
-              snippet_tags:
-                - rekognition.java2.search_faces_collection.main
-            - description: Search for matching faces in a collection..
+            - description: Search for matching faces in a collection.
               snippet_tags:
                 - rekognition.java2.search_faces_collection.main    
     Python:
@@ -599,17 +596,17 @@ rekognition_VideoDetection:
                 - rekognition.java2.recognize_video_detect.main
             - description: Detect faces in a video stored in an &S3; bucket.
               snippet_tags:
-                - rekognition.java2.recognize_video_detect.main 
+                - rekognition.java2.recognize_video_faces.main 
             - description: Detect inappropriate or offensive content in a video stored in an &S3; bucket.
               snippet_tags:
                 - rekognition.java2.recognize_video_moderation.main 
             - description: Detect technical cue segments and shot detection segments in a video stored in an &S3; bucket.
               snippet_tags:
                 - rekognition.java2.recognize_video_segments.main 
-            - description: Detect text in a video stored in a video stored in an &S3; bucket.
+            - description: Detect text in a video stored in an &S3; bucket.
               snippet_tags:
                 - rekognition.java2.recognize_video_text.main 
-            - description: Detect people in a video stored in a video stored in an &S3; bucket.
+            - description: Detect people in a video stored in an &S3; bucket.
               snippet_tags:
                 - rekognition.java2.recognize_video_person.main     
   services:
