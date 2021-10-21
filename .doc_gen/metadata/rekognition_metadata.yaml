@@ -488,7 +488,7 @@ rekognition_DetectLabelsLocalFile:
           excerpts:
             - description:
               snippet_tags:
-                - Rekognition.dotnetv3.DetectLabelsLocalFileExample
+                - Rekognition.dotnetv3.DetectLabelsLocalFile
   services:
     rekognition: {DetectLabelsLocalFile}
 rekognition_DetectModerationLabels:
