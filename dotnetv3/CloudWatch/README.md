@@ -6,17 +6,12 @@ This folder contains examples that show how to use the AWS SDK for .NET 3.x to
 get started working with CloudWatch features such as alarms and
 dashboards.
 
-Amazon CloudWatch is a monitoring and observability service built for DevOps
-engineers, developers, site reliability engineers (SREs), and IT managers.
-CloudWatch provides you with data and actionable insights to monitor your
-applications, respond to system-wide performance changes, optimize resource
-utilization, and get a unified view of operational health. CloudWatch collects
-monitoring and operational data in the form of logs, metrics, and events,
-providing you with a unified view of AWS resources, applications, and services
-that run on AWS and on-premises servers. You can use CloudWatch to detect
-anomalous behavior in your environments, set alarms, visualize logs and metrics
-side by side, take automated actions, troubleshoot issues, and discover
-insights to keep your applications running smoothly.
+Amazon CloudWatch collects monitoring and operational data in the form of logs,
+metrics, and events, providing you with a unified view of AWS resources,
+applications, and services that run on AWS and on-premises servers. You can use
+CloudWatch to detect anomalous behavior in your environments, set alarms,
+visualize logs and metrics side by side, take automated actions, troubleshoot
+issues, and discover insights to keep your applications running smoothly.
 
 ## Code examples
 
@@ -35,14 +30,13 @@ insights to keep your applications running smoothly.
   in the AWS Identity and Access Management User Guide. 
 - This code has not been tested in all AWS Regions. Some AWS services are
   available only in specific [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
-- Running this code might result in charges to your AWS account. 
-- Running the unit tests might result in charges to your AWS account. [optional]
+- Running this code might result in charges to your AWS account.
 
 ## Running the examples
 
 The examples in this folder use the default user account. The call to
-initialize the Amazon CloudWatch client does not specify the AWS region. Supply
-the AWS region to match your own as a parameter to the client constructor. For
+initialize the Amazon CloudWatch client does not specify the AWS Region. Supply
+the AWS Region to match your own as a parameter to the client constructor. For
 example:
 
 ```
