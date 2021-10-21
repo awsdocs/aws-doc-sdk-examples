@@ -71,23 +71,6 @@ rekognition_DeleteCollection:
                 - python.example_code.rekognition.DeleteCollection
   services:
     rekognition: {DeleteCollection}
-rekognition_ImageOrientation:
-  title: Determines the orientation of faces in an image using an &AWS; SDK
-  title_abbrev: Determines the orientation of faces in an image
-  synopsis: Uses &REK; to determine the orientation of faces in an image.
-  category:
-  languages:
-    .NET:
-      versions:
-          - sdk_version: 3
-            github: dotnetv3/Rekognition/
-            sdkguide:
-            excerpts:
-              - description:
-                snippet_tags:
-                  - Rekognition.dotnetv3.ImageOrientationBoundingBox
-  services:
-    rekognition: {ImageOrientation}
 rekognition_IndexFaces:
   title: Index faces to an &REK; collection using an &AWS; SDK
   title_abbrev: Index faces to a collection
@@ -381,6 +364,10 @@ rekognition_DetectFaces:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.DetectFacesExample
+            excerpts:
+              - description: Display bounding box information for all faces in an image.
+                snippet_tags:
+                  - Rekognition.dotnetv3.ImageOrientationBoundingBox
     Java:
       versions:
         - sdk_version: 2
@@ -453,6 +440,9 @@ rekognition_DetectLabels:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.DetectLabelsExample
+            - description: Detect labels in an image file stored on your computer.
+              snippet_tags:
+                - Rekognition.dotnetv3.DetectLabelsLocalFile
     Java:
       versions:
         - sdk_version: 2
@@ -474,23 +464,6 @@ rekognition_DetectLabels:
                 - python.example_code.rekognition.DetectLabels
   services:
     rekognition: {DetectLabels}
-rekognition_DetectLabelsLocalFile:
-  title: Detect labels in an image on the local system with &REK; using an &AWS; SDK
-  title_abbrev: Detect labels in an image stored on the local system
-  synopsis: detect labels in an image on the local system with &REK;.
-  category:
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Rekognition/
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - Rekognition.dotnetv3.DetectLabelsLocalFile
-  services:
-    rekognition: {DetectLabelsLocalFile}
 rekognition_DetectModerationLabels:
   title: Detect moderation labels in an image with &REK; using an &AWS; SDK
   title_abbrev: Detect moderation labels in an image
@@ -661,8 +634,8 @@ rekognition_SearchFacesMatchingId:
                 - Rekognition.dotnetv3.SearchFacesMatchingIdExample
   services:
     rekognition: {SearchFacesMatchingId}
-rekognition_CelebrityInfo:
-  title: Retrieves and displays addtional infor about celebrities found in an image with &REK; using an &AWS; SDK
+rekognition_GetCelebrityInfo:
+  title: Get information about celebrities with &REK; using an &AWS; SDK
   title_abbrev: Displays additional information about celebrities found in an image.
   synopsis: shows celebrity information for celebrities found in an image using &REK;
   category:
@@ -677,4 +650,4 @@ rekognition_CelebrityInfo:
               snippet_tags:
                 - Rekognition.dotnetv3.CelebrityInfoExample
   services:
-    rekognition: {CelebrityInfo}
+    rekognition: {GetCelebrityInfo}
