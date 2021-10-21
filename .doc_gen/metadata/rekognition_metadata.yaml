@@ -644,9 +644,9 @@ rekognition_Usage_DetectAndDisplayImage:
                 - python.example_code.rekognition.Usage_ImageDetection
   services:
     rekognition: {}
-rekognition_RecognizeCelebrities:
-  title: Recognize celebrities in an image with &REK; using an &AWS; SDK
-  title_abbrev: Searches for faces that match a face Id.
+rekognition_SearchFacesMatchingId:
+  title: Search for faces in an image with &REK; using an &AWS; SDK
+  title_abbrev: Search for faces that match a face Id
   synopsis: recognize faces that match a face id using &REK;.
   category:
   languages:
