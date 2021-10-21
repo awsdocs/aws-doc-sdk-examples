@@ -3,7 +3,7 @@
 //snippet-service:[Amazon Simple Workflow Service (Amazon SWF)]
 //snippet-keyword:[Code Sample]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -37,7 +37,7 @@ public class SWFWorkflowDemo {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    SWFWorkflowDemo <domain> <taskList> <workflow> <workflowVersion> <activity> <activityVersion> \n\n" +
+                "    <domain> <taskList> <workflow> <workflowVersion> <activity> <activityVersion> \n\n" +
                 "Where:\n" +
                 "    domain - the domain to use (for example, mydomain). \n" +
                 "    taskList - the task list to use (for example, HelloTasklist).  \n" +

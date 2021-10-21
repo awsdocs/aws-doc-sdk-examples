@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[12/16/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[dito - aws]
 
 /*
@@ -12,6 +12,7 @@
 */
 package com.example.dynamodb;
 
+// snippet-start:[dynamodb.java2.mapping.querykey.import]
 import java.time.Instant;
 import java.util.Map;
 import java.util.Iterator;
@@ -30,6 +31,7 @@ import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+// snippet-end:[dynamodb.java2.mapping.querykey.import]
 
 /*
  * Prior to running this code example, create an Amazon DynamoDB table named Customer with these columns:
@@ -62,6 +64,7 @@ public class EnhancedQueryRecordsWithSortKey {
         ddb.close();
     }
 
+    // snippet-start:[dynamodb.java2.mapping.querykey.main]
     public static void queryTableSortKeyBetween(DynamoDbEnhancedClient enhancedClient) {
 
         try {
@@ -86,4 +89,5 @@ public class EnhancedQueryRecordsWithSortKey {
         }
         System.out.println("Done");
     }
+    // snippet-end:[dynamodb.java2.mapping.querykey.main]
 }

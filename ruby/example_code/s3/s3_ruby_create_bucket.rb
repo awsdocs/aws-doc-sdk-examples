@@ -1,16 +1,20 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates various Amazon Simple Storage Service (Amazon S3) operations,
+# such as creating and listing buckets and uploading, copying, and deleting objects from buckets.
+
+# snippet-start:[s3.s3_ruby_create_bucket.rb]
+
 require 'aws-sdk-s3'
 
-# Demonstrates various Amazon S3 operations, such as creating and listing
-#   buckets and uploading, copying, and deleting objects from buckets.
 
 # Lists the available Amazon S3 buckets.
 #
 # @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
 # @example
-#   list_buckets(Aws::S3::Client.new(region: 'us-east-1'))
+#   list_buckets(Aws::S3::Client.new(region: 'us-west-2'))
 def list_buckets(s3_client)
   response = s3_client.list_buckets
   if response.buckets.count.zero?
@@ -31,7 +35,7 @@ end
 # @return [Boolean] true if the bucket was created; otherwise, false.
 # @example
 #   exit 1 unless bucket_created?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket'
 #   )
 def bucket_created?(s3_client, bucket_name)
@@ -59,7 +63,7 @@ end
 # @return [Boolean] true if the object was uploaded; otherwise, false.
 # @example
 #   exit 1 unless object_uploaded?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket',
 #     'my-file.txt',
 #     'This is the content of my-file.txt.'
@@ -90,7 +94,7 @@ end
 # @param bucket_name [String] The name of the bucket.
 # @example
 #   list_objects(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket'
 #   )
 def list_objects(s3_client, bucket_name)
@@ -121,7 +125,7 @@ end
 # @return [Boolean] true if the object was copied; otherwise, false.
 # @example
 #   exit 1 unless object_copied?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket',
 #     'my-file.txt',
 #     'doc-example-bucket1',
@@ -161,7 +165,7 @@ end
 # @return object_key [String] The name of the object.
 # @example
 #   exit 1 unless object_deleted?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket',
 #     'my-file.txt'
 #   )
@@ -186,6 +190,7 @@ rescue StandardError => e
   return false
 end
 
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 # Full example call:
 def run_me
   bucket_name = 'doc-example-bucket'
@@ -193,7 +198,7 @@ def run_me
   object_content = 'This is the content of my-file.txt.'
   target_bucket_name = 'doc-example-bucket1'
   target_object_key = 'my-file-1.txt'
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
 
   puts 'Available buckets:'
@@ -246,3 +251,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.s3_ruby_create_bucket.rb]

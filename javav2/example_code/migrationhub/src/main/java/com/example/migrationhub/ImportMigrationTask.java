@@ -3,7 +3,7 @@
 // snippet-service:[AWS Migration Hub]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-05-2020]
+// snippet-sourcedate:[09-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -34,7 +34,7 @@ public class ImportMigrationTask {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    ImportMigrationTask <migrationTask> <progressStream> \n\n" +
+                "    <migrationTask> <progressStream> \n\n" +
                 "Where:\n" +
                 "    migrationTask - the name of a migration task. \n"+
                 "    progressStream - the name of a progress stream. \n";
@@ -80,6 +80,6 @@ public class ImportMigrationTask {
         System.out.println(e.getMessage());
         System.exit(1);
     }
+  }
     // snippet-end:[migration.java2.import_migration.main]
-    }
 }

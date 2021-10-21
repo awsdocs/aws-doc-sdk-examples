@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -34,22 +34,22 @@ public class DeleteDataset {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeleteDataset <datasetARN> \n\n" +
+                "    <datasetARN> \n\n" +
                 "Where:\n" +
-                "    name - the ARN of the data set to delete. \n\n" ;
+                "    datasetARN - the ARN of the data set to delete. \n\n" ;
 
          if (args.length != 1) {
               System.out.println(USAGE);
               System.exit(1);
            }
 
-        String myDataSetARN = args[0];
+        String datasetARN = args[0];
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
                 .region(region)
                 .build();
 
-        deleteForecastDataSet(forecast, myDataSetARN);
+        deleteForecastDataSet(forecast, datasetARN);
         forecast.close();
     }
 
@@ -68,6 +68,6 @@ public class DeleteDataset {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        // snippet-end:[forecast.java2.delete_forecast_dataset.main]
     }
+    // snippet-end:[forecast.java2.delete_forecast_dataset.main]
 }

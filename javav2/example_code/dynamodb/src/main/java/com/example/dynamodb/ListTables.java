@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/30/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -80,7 +80,7 @@ public class ListTables {
                 System.exit(1);
             }
         }
-        // snippet-end:[dynamodb.java2.list_tables.main]
         System.out.println("\nDone!");
     }
+    // snippet-end:[dynamodb.java2.list_tables.main]
 }

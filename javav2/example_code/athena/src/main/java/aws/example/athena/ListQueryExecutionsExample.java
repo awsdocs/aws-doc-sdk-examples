@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -58,8 +58,8 @@ public class ListQueryExecutionsExample {
         e.printStackTrace();
         System.exit(1);
     }
-    //snippet-end:[athena.java2.ListNamedQueryExecutionsExample.main]
   }
+    //snippet-end:[athena.java2.ListNamedQueryExecutionsExample.main]
 }
 //snippet-end:[athena.java.ListNamedQueryExecutionsExample.complete]
 //snippet-end:[athena.java2.ListNamedQueryExecutionsExample.complete]

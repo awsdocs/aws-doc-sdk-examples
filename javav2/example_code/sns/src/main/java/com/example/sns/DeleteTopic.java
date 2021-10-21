@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon- AWS]
 
 /*
@@ -33,9 +33,9 @@ public class DeleteTopic {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "DeleteTopic <topicArn>\n\n" +
+                "    <topicArn>\n\n" +
                 "Where:\n" +
-                "  topicArn - the ARN of the topic to delete.\n\n";
+                "   topicArn - the ARN of the topic to delete.\n\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -67,6 +67,6 @@ public class DeleteTopic {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        //snippet-end:[sns.java2.DeleteTopic.main]
     }
+    //snippet-end:[sns.java2.DeleteTopic.main]
 }

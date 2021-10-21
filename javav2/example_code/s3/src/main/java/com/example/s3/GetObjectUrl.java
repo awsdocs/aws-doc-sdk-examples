@@ -4,7 +4,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/06/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -28,7 +28,7 @@ public class GetObjectUrl {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    GetObjectUrl <bucketName> <keyName> \n\n" +
+                "    <bucketName> <keyName> \n\n" +
                 "Where:\n" +
                 "    bucketName - the Amazon S3 bucket name.\n\n"+
                 "    keyName - a key name that represents the object. \n\n";

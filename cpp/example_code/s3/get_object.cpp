@@ -13,6 +13,7 @@
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: Prints the beginning contents of a text file in a 
  * bucket in Amazon S3.
+ * For an example of downloading an entire, larger object, see the s3-crt example.
  *
  * Prerequisites: The bucket that contains the text file.
  *
@@ -73,12 +74,12 @@ int main()
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        //TODO: Name of a bucket in your account.
+        //TODO: Change bucket_name to the name of a bucket in your account.
         const Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
         //TODO: The bucket "DOC-EXAMPLE-BUCKET" must have been created and previously loaded with "my-file.txt". 
         //See create_bucket.cpp and put_object.cpp to create a bucket and load an object into that bucket.
         const Aws::String object_name = "my-file.txt";
-        //TODO: Set to the region in which the bucket was created.
+        //TODO: Set to the AWS Region in which the bucket was created.
         const Aws::String region = "us-east-1";
 
         if (!AwsDoc::S3::GetObject(object_name, bucket_name, region))

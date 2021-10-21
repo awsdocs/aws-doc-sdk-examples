@@ -4,7 +4,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/06/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -34,7 +34,7 @@ public class GetObjectContentType {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    GetObjectContentType <bucketName> <keyName>>\n\n" +
+                "    <bucketName> <keyName>>\n\n" +
                 "Where:\n" +
                 "    bucketName - the Amazon S3 bucket name. \n\n"+
                 "    keyName - the key name. \n\n";
@@ -73,6 +73,6 @@ public class GetObjectContentType {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        // snippet-end:[s3.java2.getobjectcontenttype.main]
     }
+    // snippet-end:[s3.java2.getobjectcontenttype.main]
 }

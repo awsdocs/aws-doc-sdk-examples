@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[12-01-2020]
+// snippet-sourcedate:[09-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -54,13 +54,13 @@ public class VideoDetect {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "VideoDetect <bucket> <video> <queueUrl> <topicArn> <roleArn>\n\n" +
+                "   <bucket> <video> <queueUrl> <topicArn> <roleArn>\n\n" +
                 "Where:\n" +
-                "bucket - the name of the bucket in which the video is located (for example, (for example, myBucket). \n\n"+
-                "video - the name of the video (for example, people.mp4). \n\n" +
-                "queueUrl- the URL of a SQS queue. \n\n" +
-                "topicArn - the ARN of the Amazon Simple Notification Service (Amazon SNS) topic. \n\n" +
-                "roleArn - the ARN of the AWS Identity and Access Management (IAM) role to use. \n\n" ;
+                "   bucket - the name of the bucket in which the video is located (for example, (for example, myBucket). \n\n"+
+                "   video - the name of the video (for example, people.mp4). \n\n" +
+                "   queueUrl- the URL of a SQS queue. \n\n" +
+                "   topicArn - the ARN of the Amazon Simple Notification Service (Amazon SNS) topic. \n\n" +
+                "   roleArn - the ARN of the AWS Identity and Access Management (IAM) role to use. \n\n" ;
 
         if (args.length != 5) {
             System.out.println(USAGE);
@@ -266,7 +266,7 @@ public class VideoDetect {
                         System.out.println("        None");
                     } else {
                         for (Parent parent : parents) {
-                            System.out.println("        " + parent.name());
+                            System.out.println("   " + parent.name());
                         }
                     }
                     System.out.println();

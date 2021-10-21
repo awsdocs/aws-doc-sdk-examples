@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/30/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 
@@ -87,6 +87,6 @@ public class EnhancedQueryRecords {
             System.exit(1);
         }
         return "";
-        // snippet-end:[dynamodb.java2.mapping.query.main]
     }
+    // snippet-end:[dynamodb.java2.mapping.query.main]
  }

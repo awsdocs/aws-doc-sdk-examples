@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -33,11 +33,9 @@ public class DeleteForecast {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeleteForecast <forecastArn> \n\n" +
+                "    <forecastArn> \n\n" +
                 "Where:\n" +
-                "    forecastArn - the ARN that belongs to the forecast to delete. \n\n" +
-                "Example:\n" +
-                "    DeleteForecast arn:aws:forecast:us-west-2:xxxxxe33:forecast/MyForecast\n";
+                "    forecastArn - the ARN that belongs to the forecast to delete. \n\n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -64,7 +62,8 @@ public class DeleteForecast {
 
             forecast.deleteForecast(forecastRequest);
             System.out.println("The forecast was successfully deleted");
-      } catch (ForecastException e) {
+
+        } catch (ForecastException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }

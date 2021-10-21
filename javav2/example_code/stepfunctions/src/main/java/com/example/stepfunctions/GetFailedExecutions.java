@@ -18,7 +18,6 @@ package com.example.stepfunctions;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sfn.SfnClient;
 import software.amazon.awssdk.services.sfn.model.ListExecutionsRequest;
-import software.amazon.awssdk.services.sfn.model.ExecutionStatus;
 import software.amazon.awssdk.services.sfn.model.ListExecutionsResponse;
 import software.amazon.awssdk.services.sfn.model.ExecutionListItem;
 import software.amazon.awssdk.services.sfn.model.SfnException;
@@ -38,16 +37,16 @@ public class GetFailedExecutions {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    GetFailedExecutions <stateMachineARN>\n\n" +
+                "    <stateMachineARN>\n\n" +
                 "Where:\n" +
                 "    stateMachineARN - The ARN of the state machine.\n";
 
-      //  if (args.length != 1) {
-      //      System.out.println(USAGE);
-      //      System.exit(1);
-      //  }
+        if (args.length != 1) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
 
-        String stateMachineARN = "arn:aws:states:us-east-1:814548047983:stateMachine:CallCenterStateMachine";//args[0];
+        String stateMachineARN = args[0];
         Region region = Region.US_WEST_2;
         SfnClient sfnClient = SfnClient.builder()
                 .region(region)

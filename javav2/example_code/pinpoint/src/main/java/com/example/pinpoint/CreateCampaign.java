@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -62,13 +62,11 @@ public class CreateCampaign {
     //snippet-start:[pinpoint.java2.createcampaign.main]
     public static void createPinCampaign(PinpointClient pinpoint, String appId, String segmentId) {
 
-
         CampaignResponse result = createCampaign(pinpoint, appId, segmentId);
         System.out.println("Campaign " + result.name() + " created.");
         System.out.println(result.description());
 
     }
-
 
     public static CampaignResponse createCampaign(PinpointClient client, String appID, String segmentID) {
 

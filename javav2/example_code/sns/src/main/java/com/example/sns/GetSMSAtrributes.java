@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09-27-2021]]
 //snippet-sourceauthor:[scmacdon- AWS]
 
 /*
@@ -35,9 +35,9 @@ public class GetSMSAtrributes {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "GetSMSAtrributes <topicArn>\n\n" +
+                "   <topicArn>\n\n" +
                 "Where:\n" +
-                "  topicArn - the ARN of the topic from which to retrieve attributes.\n\n";
+                "   topicArn - the ARN of the topic from which to retrieve attributes.\n\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -67,7 +67,6 @@ public class GetSMSAtrributes {
 
             // Iterate through the map
             Iterator iter = map.entrySet().iterator();
-
             while (iter.hasNext()) {
                 Map.Entry entry = (Map.Entry) iter.next();
                 System.out.println("[Key] : " + entry.getKey() + " [Value] : " + entry.getValue());
@@ -79,6 +78,6 @@ public class GetSMSAtrributes {
         }
 
         System.out.println("\n\nStatus was good");
-        //snippet-end:[sns.java2.GetSMSAtrributes.main]
     }
+    //snippet-end:[sns.java2.GetSMSAtrributes.main]
 }

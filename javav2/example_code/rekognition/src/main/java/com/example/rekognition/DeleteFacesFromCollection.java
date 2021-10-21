@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-03-2020]
+// snippet-sourcedate:[09-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -31,10 +31,10 @@ public class DeleteFacesFromCollection {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "DeleteFacesFromCollection <collectionId> <faceId> \n\n" +
+                "   <collectionId> <faceId> \n\n" +
                 "Where:\n" +
-                "  collectionId - the id of the collection from which faces are deleted. \n\n" +
-                "  faceId - the id of the face to delete. \n\n";
+                "   collectionId - the id of the collection from which faces are deleted. \n\n" +
+                "   faceId - the id of the face to delete. \n\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -66,7 +66,7 @@ public class DeleteFacesFromCollection {
                 .build();
 
             rekClient.deleteFaces(deleteFacesRequest);
-            System.out.println("The face was deleted from the collection");
+            System.out.println("The face was deleted from the collection.");
 
         } catch(RekognitionException e) {
             System.out.println(e.getMessage());

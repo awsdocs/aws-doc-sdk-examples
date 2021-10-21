@@ -34,7 +34,7 @@ public class DeleteDBInstance {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeleteDBInstance <dbInstanceIdentifier> \n\n" +
+                "    <dbInstanceIdentifier> \n\n" +
                 "Where:\n" +
                 "    dbInstanceIdentifier - the database instance identifier \n";
 
@@ -69,6 +69,6 @@ public class DeleteDBInstance {
             System.out.println(e.getLocalizedMessage());
             System.exit(1);
         }
-        // snippet-end:[rds.java2.delete_instance.main]
     }
+    // snippet-end:[rds.java2.delete_instance.main]
 }

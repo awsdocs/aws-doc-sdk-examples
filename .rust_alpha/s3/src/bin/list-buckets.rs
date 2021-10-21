@@ -3,86 +3,103 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use std::process;
-
-use s3::{Client, Config, Region};
-
-use aws_types::region::ProvideRegion;
-
+use aws_config::meta::region::RegionProviderChain;
+use aws_sdk_s3::{Client, Error, Region, PKG_VERSION};
 use structopt::StructOpt;
-use tracing_subscriber::fmt::format::FmtSpan;
-use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The default region
+    /// The AWS Region.
     #[structopt(short, long)]
-    default_region: Option<String>,
+    region: Option<String>,
 
-    /// Whether to display additional information
+    /// Whether to only get buckets in the Region.
+    #[structopt(short, long)]
+    strict: bool,
+
+    /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Lists your Amazon S3 buckets
+/// Lists your Amazon S3 buckets, or just the buckets in the Region.
 /// # Arguments
 ///
-/// * `[-d DEFAULT-REGION]` - The region containing the buckets.
-///   If not supplied, uses the value of the **AWS_DEFAULT_REGION** environment variable.
+/// * `[-s]` - Only list bucket in the Region.
+/// * `[-r REGION]` - The Region in which the client is created.
+///   If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///   If the environment variable is not set, defaults to **us-west-2**.
-/// * `[-g]` - Whether to display buckets in all regions.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt::init();
+
     let Opt {
-        default_region,
+        region,
+        strict,
         verbose,
     } = Opt::from_args();
 
-    let region = default_region
-        .as_ref()
-        .map(|region| Region::new(region.clone()))
-        .or_else(|| aws_types::region::default_provider().region())
-        .unwrap_or_else(|| Region::new("us-west-2"));
+    let region_provider = RegionProviderChain::first_try(region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
+
+    println!();
+    let region_str: String = String::from(region_provider.region().await.unwrap().as_ref());
+
+    println!();
 
     if verbose {
-        println!("S3 client version: {}", s3::PKG_VERSION);
-        println!("Region:            {:?}", &region);
+        println!("S3 client version: {}", PKG_VERSION);
+        println!(
+            "Region:            {}",
+            region_provider.region().await.unwrap().as_ref()
+        );
 
-        SubscriberBuilder::default()
-            .with_env_filter("info")
-            .with_span_events(FmtSpan::CLOSE)
-            .init();
+        if strict {
+            println!("Only lists buckets in the Region.");
+        } else {
+            println!("Lists all buckets.");
+        }
+
+        println!();
     }
 
-    let config = Config::builder().region(&region).build();
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
+    let client = Client::new(&shared_config);
 
-    let client = Client::from_conf(config);
+    let resp = client.list_buckets().send().await?;
+    let buckets = resp.buckets.unwrap_or_default();
+    let num_buckets = buckets.len();
 
-    let mut num_buckets = 0;
+    let mut in_region = 0;
 
-    match client.list_buckets().send().await {
-        Ok(resp) => {
-            println!("\nBuckets:\n");
+    for bucket in &buckets {
+        if strict {
+            let r = client
+                .get_bucket_location()
+                .bucket(bucket.name.as_deref().unwrap_or_default())
+                .send()
+                .await?;
 
-            let buckets = resp.buckets.unwrap_or_default();
-
-            for bucket in &buckets {
-                match &bucket.name {
-                    None => {}
-                    Some(b) => {
-                        println!("{}", b);
-                        num_buckets += 1;
-                    }
-                }
+            if r.location_constraint.unwrap().as_ref() == region_str {
+                println!("{}", bucket.name.as_deref().unwrap_or_default());
+                in_region += 1;
             }
+        } else {
+            println!("{}", bucket.name.as_deref().unwrap_or_default());
+        }
+    }
 
-            println!("\nFound {} buckets globally", num_buckets);
-        }
-        Err(e) => {
-            println!("Got an error listing buckets:");
-            println!("{}", e);
-            process::exit(1);
-        }
-    };
+    println!();
+    if strict {
+        println!(
+            "Found {} buckets in the {} region out of a total of {} buckets.",
+            in_region, region_str, num_buckets
+        );
+    } else {
+        println!("Found {} buckets in all regions.", num_buckets);
+    }
+
+    Ok(())
 }

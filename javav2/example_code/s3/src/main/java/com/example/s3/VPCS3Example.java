@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[1/19/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -30,7 +30,7 @@ public class VPCS3Example {
     public static void main(String[] args) throws URISyntaxException {
     final String USAGE = "\n" +
             "Usage:\n" +
-            "    ListObjects <bucketName> <vpcBucketURL> \n\n" +
+            "    <bucketName> <vpcBucketURL> \n\n" +
             "Where:\n" +
             "    bucketName - the Amazon S3 bucket from which objects are read. \n\n" +
             "    vpcBucketURL - the URL of the bucket located in your virtual private cloud (VPC) (for example,  https://bucket.vpce-xxxxxc4d-5e6f.s3.us-east-1.vpce.amazonaws.com"; ;

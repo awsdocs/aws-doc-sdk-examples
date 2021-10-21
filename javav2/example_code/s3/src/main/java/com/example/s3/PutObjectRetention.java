@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/20/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -39,7 +39,7 @@ public class PutObjectRetention {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    PutObjectRetention <key> <bucketName> \n\n" +
+                "    <key> <bucketName> \n\n" +
                 "Where:\n" +
                 "    key - the name of the object (for example, book.pdf). \n\n" +
                 "    bucketName - the Amazon S3 bucket name that contains the object (for example, bucket1). \n" ;
@@ -91,8 +91,8 @@ public class PutObjectRetention {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        // snippet-end:[s3.java2.retention_object.main]
     }
+    // snippet-end:[s3.java2.retention_object.main]
 }
 
 

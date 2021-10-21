@@ -5,21 +5,33 @@
 Shows how to use the AWS SDK for Python (Boto3) with AWS Certificate Manager (ACM)
 to request, import, and manage certificates.
 
-* Request a new certificate from ACM.
-* Import a self-signed certificate.
-* Retrieve certificate data.
-* Add custom tags to certificates.
+*ACM makes it easy to provision, manage, and deploy SSL/TLS certificates on AWS 
+managed resources.*
 
-## Prerequisites
+## Code examples
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.7 or later
-- Boto3 1.14.47 or later
-- PyTest 5.3.5 or later (to run unit tests)
+* [Adding tags to a certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/acm/certificate_basics.py)
+(`add_tags_to_certificate`)
+* [Deleting a certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/acm/certificate_basics.py)
+(`delete_certificate`)
+* [Getting certificate metadata](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/acm/certificate_basics.py)
+(`describe_certificate`)
+* [Getting the body and certificate chain of a certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/acm/certificate_basics.py)
+(`get_certificate`)
+* [Importing a self-signed certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/acm/certificate_basics.py)
+(`import_certificate`)
+* [Listing certificates for the current account](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/acm/certificate_basics.py)
+(`list_certificates`)
+* [Listing tags for a certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/acm/certificate_basics.py)
+(`list_tags_for_certificate`)
+* [Removing tags from a certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/acm/certificate_basics.py)
+(`remove_tags_from_certificate`)
+* [Requesting a new certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/acm/certificate_basics.py)
+(`request_certificate`)
+* [Resending validation email](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/acm/certificate_basics.py)
+(`resend_validation_email`)
 
-## Cautions
+## ⚠ Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -33,6 +45,17 @@ to request, import, and manage certificates.
 - Running this code might result in charges to your AWS account.
 
 ## Running the code
+
+### Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.7 or later
+- Boto3 1.14.47 or later
+- PyTest 5.3.5 or later (to run unit tests)
+
+### Command
 
 Run this example at a command prompt with the following command.
 

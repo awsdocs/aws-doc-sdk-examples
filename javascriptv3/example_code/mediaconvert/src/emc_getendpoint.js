@@ -19,14 +19,12 @@ node emc_getendpoint.js
 import { DescribeEndpointsCommand } from  "@aws-sdk/client-mediaconvert";
 import { emcClientGet } from  "./libs/emcClientGet.js";
 
-//set the parameters
+//set the parameters.
 const params = { MaxResults: 0 };
 
 const run = async () => {
   try {
-    // Load the required SDK for JavaScript modules
     // Create a new service object and set MediaConvert to customer endpoint
-    const params = { MaxResults: 0 };
     const data = await emcClientGet.send(new DescribeEndpointsCommand(params));
     console.log("Your MediaConvert endpoint is ", data.Endpoints);
     return data;

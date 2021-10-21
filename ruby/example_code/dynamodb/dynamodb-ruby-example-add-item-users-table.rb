@@ -1,9 +1,13 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# Purpose:
+# dynamodb-ruby-example-add-item-users-table.rb demonstrates how to add an item to a table
+# in Amazon DynamoDB using the AWS SDK for Ruby.
+
+# snippet-start:[dynamodb.Ruby.addItemUserTable]
 require 'aws-sdk-dynamodb'
 
-# Adds an item to a table in Amazon DynamoDB.
 #
 # @param dynamodb_client [Aws::DynamoDB::Client] An initialized
 #   Amazon DynamoDB client.
@@ -32,6 +36,7 @@ end
 
 # Full example call:
 def run_me
+# Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
   region = 'us-west-2'
   table_name = 'Users'
   user_id = 123456
@@ -55,7 +60,7 @@ def run_me
 
   puts "Adding user '#{item[:FirstName]} #{item[:LastName]}' " \
     "to table '#{table_name}'..."
-  
+
   if item_added_to_table?(dynamodb_client, table_item)
     puts 'Item added.'
   else
@@ -64,3 +69,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[dynamodb.Ruby.addItemUserTable]

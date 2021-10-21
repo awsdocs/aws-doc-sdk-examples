@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[12/05/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -33,11 +33,12 @@ public class ListEndpointIds {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "Usage: ListEndpointIds <applicationId> <userId>\n\n" +
+                "Usage: " +
+                "   <applicationId> <userId>\n\n" +
 
                 "Where:\n" +
-                "  applicationId - The ID of the Amazon Pinpoint application that has the endpoint.\n" +
-                "  userId - The user id applicable to the endpoints";
+                "   applicationId - The ID of the Amazon Pinpoint application that has the endpoint.\n" +
+                "   userId - The user id applicable to the endpoints";
 
         if (args.length != 2) {
             System.out.println(USAGE);

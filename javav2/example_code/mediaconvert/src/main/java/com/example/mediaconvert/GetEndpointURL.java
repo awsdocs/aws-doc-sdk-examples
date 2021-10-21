@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaConvert]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[smacdon - AWS ]
 
 /*
@@ -62,8 +62,8 @@ public class GetEndpointURL {
             System.out.println(e.toString());
             System.exit(0);
         }
-            // snippet-end:[mediaconvert.java.getendpointurl.retrieve_endpoints]
-     }
+    }
+    // snippet-end:[mediaconvert.java.getendpointurl.retrieve_endpoints]
 }
 // snippet-end:[mediaconvert.java.getendpointurl.main]
 // snippet-end:[mediaconvert.java.getendpointurl.complete]

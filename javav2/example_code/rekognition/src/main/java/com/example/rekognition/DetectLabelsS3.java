@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05-12-2021]
+// snippet-sourcedate:[09-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -38,10 +38,10 @@ public class DetectLabelsS3 {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "<bucket> <image>\n\n" +
+                "   <bucket> <image>\n\n" +
                 "Where:\n" +
-                "bucket - the name of the Amazon S3 bucket that contains the image (for example, ,ImageBucket)." +
-                "image - the name of the image located in the Amazon S3 bucket (for example, Lake.png). \n\n";
+                "   bucket - the name of the Amazon S3 bucket that contains the image (for example, ,ImageBucket)." +
+                "   image - the name of the image located in the Amazon S3 bucket (for example, Lake.png). \n\n";
 
          if (args.length != 2) {
              System.out.println(USAGE);

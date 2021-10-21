@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -33,7 +33,7 @@ public class AccessKeyLastUsed {
 
        final String USAGE = "\n" +
                 "Usage:\n" +
-                "    AccessKeyLastUsed <accessId> \n\n" +
+                "    <accessId> \n\n" +
                 "Where:\n" +
                 "    accessId - an access key id that you can obtain from the AWS Management Console. \n\n" ;
 
@@ -69,6 +69,6 @@ public class AccessKeyLastUsed {
             System.exit(1);
         }
         System.out.println("Done");
-        // snippet-end:[iam.java2.access_key_last_used.main]
     }
+    // snippet-end:[iam.java2.access_key_last_used.main]
 }

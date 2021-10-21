@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+  <para>
+    Shows how to use the &Python3long; with &TEXTRACTlong; to detect text,
+    form, and table elements in a document image. The input image and &TEXTRACT; output are
+    shown in a Tkinter application that lets you explore the detected elements.
+  </para>
+  <itemizedlist>
+    <listitem><para>Submit a document image to &TEXTRACT; and explore the output of detected elements.</para></listitem>
+    <listitem><para>Submit images directly to &TEXTRACT; or through an &S3long; (&S3;) bucket.</para></listitem>
+    <listitem><para>Use asynchronous APIs to start a job that publishes a notification to an &SNSlong; (&SNS;) topic when the
+    job completes.</para></listitem>
+    <listitem><para>Poll an &SQSlong; (&SQS;) queue for a job completion message and display the results.</para></listitem>
+  </itemizedlist>  
+  <para>
+    For complete source code and instructions on how to set up and run, see the full example on
+    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/cross_service/textract_explorer">GitHub</ulink>.
+  </para>
+</block>

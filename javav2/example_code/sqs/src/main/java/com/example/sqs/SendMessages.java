@@ -3,15 +3,17 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-// snippet-start:[sqs.java2.send_recieve_messages.import]
+
 package com.example.sqs;
+
+// snippet-start:[sqs.java2.send_recieve_messages.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
@@ -33,24 +35,22 @@ public class SendMessages {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "SendMessages - send a message\n\n" +
-                "Usage: SendMessages <queueName> <message>\n\n" +
+                "Usage: " +
+                "   <queueName> <message>\n\n" +
                 "Where:\n" +
-                "  queueName - the name of the queue.\n\n" +
-                "  message - the message to send.\n\n";
+                "   queueName - the name of the queue.\n\n" +
+                "   message - the message to send.\n\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);
             System.exit(1);
         }
 
+        String queueName = args[0];
+        String message = args[1];
         SqsClient sqsClient = SqsClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
-
-        String queueName = args[0];
-        String message = args[1];
-
         sendMessage(sqsClient, queueName, message);
         sqsClient.close();
     }
@@ -82,5 +82,6 @@ public class SendMessages {
             System.exit(1);
         }
     }
+    // snippet-end:[sqs.java2.send_recieve_messages.main]
 }
-// snippet-end:[sqs.java2.send_recieve_messages.main]
+

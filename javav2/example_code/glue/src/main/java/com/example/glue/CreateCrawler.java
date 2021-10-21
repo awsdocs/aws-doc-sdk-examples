@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Glue]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,7 +36,7 @@ public class CreateCrawler {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateCrawler <IAM> <s3Path> <cron> <dbName> <crawlerName>\n\n" +
+                "    <IAM> <s3Path> <cron> <dbName> <crawlerName>\n\n" +
                 "Where:\n" +
                 "    IAM - the ARN of the IAM role that has AWS Glue and S3 permissions. \n" +
                 "    s3Path - the Amazon Simple Storage Service (Amazon S3) target that contains data (for example, CSV data).\n" +

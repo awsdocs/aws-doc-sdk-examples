@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon- AWS]
 
 /*
@@ -33,10 +33,10 @@ public class SubscribeTextSMS {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage: " +
-                "SubscribeTextSMS <topicArn> <phoneNumber>\n\n" +
+                "   <topicArn> <phoneNumber>\n\n" +
                 "Where:\n" +
-                "  topicArn - the ARN of the topic to subscribe.\n\n" +
-                "  phoneNumber - a mobile phone number that receives notifications (for example, +1XXX5550100).\n\n";
+                "   topicArn - the ARN of the topic to subscribe.\n\n" +
+                "   phoneNumber - a mobile phone number that receives notifications (for example, +1XXX5550100).\n\n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -45,7 +45,6 @@ public class SubscribeTextSMS {
 
         String topicArn = args[0];
         String phoneNumber = args[1];
-
         SnsClient snsClient = SnsClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
@@ -58,7 +57,6 @@ public class SubscribeTextSMS {
     public static void subTextSNS( SnsClient snsClient, String topicArn, String phoneNumber) {
 
         try {
-
             SubscribeRequest request = SubscribeRequest.builder()
                 .protocol("sms")
                 .endpoint(phoneNumber)
@@ -67,12 +65,12 @@ public class SubscribeTextSMS {
                 .build();
 
             SubscribeResponse result = snsClient.subscribe(request);
-            System.out.println("Subscription ARN: " + result.subscriptionArn() + "\n\n Status was " + result.sdkHttpResponse().statusCode());
+            System.out.println("Subscription ARN: " + result.subscriptionArn() + "\n\n Status is " + result.sdkHttpResponse().statusCode());
 
-    } catch (SnsException e) {
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
+        } catch (SnsException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
     }
-        //snippet-end:[sns.java2.SubscribeTextSMS.main]
-    }
+    //snippet-end:[sns.java2.SubscribeTextSMS.main]
 }

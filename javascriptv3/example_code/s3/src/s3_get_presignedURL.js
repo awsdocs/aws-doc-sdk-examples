@@ -33,13 +33,13 @@ const fetch = require("node-fetch");
 
 // Set parameters
 // Create random names for the Amazon Simple Storage Service (Amazon S3) bucket and key.
-const bucketParams = {
+export const bucketParams = {
   Bucket: `test-bucket-${Math.ceil(Math.random() * 10 ** 10)}`,
   Key: `test-object-${Math.ceil(Math.random() * 10 ** 10)}`,
   Body: "BODY"
 };
 
-const run = async () => {
+export const run = async () => {
   // Create an Amazon S3 bucket.
   try {
     console.log(`Creating bucket ${bucketParams.Bucket}`);

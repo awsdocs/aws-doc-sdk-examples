@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaStore]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -46,13 +46,13 @@ public class ListItems {
                 "  containerName - the name of the container.\n" +
                 "  completePath - the path in the container where the objects are located (for example, /Videos5).";
 
-        //if (args.length != 1) {
-        //    System.out.println(USAGE);
-        //    System.exit(1);
-       // }
+        if (args.length != 1) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
 
-        String containerName = "Videos5"; //args[0];
-        String completePath = "/Videos5";
+        String containerName = args[0];
+        String completePath = args[1];
         Region region = Region.US_EAST_1;
         URI uri = new URI(getEndpoint(containerName));
 
@@ -90,7 +90,7 @@ public class ListItems {
            System.exit(1);
        }
     }
-    //snippet-end:[mediastore.java2.list_items.main]
+
     private static String getEndpoint(String containerName){
 
         Region region = Region.US_EAST_1;
@@ -105,4 +105,5 @@ public class ListItems {
         DescribeContainerResponse response = mediaStoreClient.describeContainer(containerRequest);
         return response.container().endpoint();
     }
+    //snippet-end:[mediastore.java2.list_items.main]
 }

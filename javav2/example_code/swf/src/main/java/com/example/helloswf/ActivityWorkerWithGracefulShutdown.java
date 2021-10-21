@@ -3,7 +3,7 @@
 //snippet-service:[Amazon Simple Workflow Service (Amazon SWF)]
 //snippet-keyword:[Code Sample]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -45,7 +45,7 @@ public class ActivityWorkerWithGracefulShutdown {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    ActivityWorkerWithGracefulShutdown <domain><taskList> \n\n" +
+                "    <domain> <taskList> \n\n" +
                 "Where:\n" +
                 "    domain - The domain to use (ie, mydomain). \n" +
                 "    taskList - The taskList to use (ie, HelloTasklist).  \n" ;

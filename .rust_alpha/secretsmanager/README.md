@@ -12,34 +12,39 @@ You must have an AWS account, and have configured your default credentials and A
 
 ### create-secret
 
-This example creates a Secrets Manager secret.
+This example creates a Secrets Manager secret in the Region.
 
-`cargo run --bin create-secret -- -n NAME -c CONTENT [-d DEFAULT-REGION] [-v]`
+`cargo run --bin create-secret -- -n NAME -s SECRET-VALUE [-r REGION] [-v]`
 
 - _NAME_ is the name of the secret.
-- _CONTENT_ is the contents of the secret.
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
+- _SECRET-VALUE_ is the value of the secret.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.
 
 ### get-secret-value
 
-Displays the value of a Secrets Manager secret.
+Displays the value of a Secrets Manager secret in the Region.
 
-`cargo run --bin get-secret-value -- -n NAME -c CONTENT [-d DEFAULT-REGION]`
+`cargo run --bin get-secret-value -- -n NAME [-r REGION] [-v]`
 
 - _NAME_ is the name of the secret.
-- _CONTENT_ is the contents of the secret.
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.
 
 ### list-secrets
 
-This example lists the names the Secrets Manager secrets in the region.
+This example lists the names of the Secrets Manager secrets in the Region.
 
-`cargo run --bin list-secrets -- [-d DEFAULT-REGION]`
+`cargo run --bin list-secrets -- [-r REGION] [-v]`
 
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.
 
 ### Notes
 

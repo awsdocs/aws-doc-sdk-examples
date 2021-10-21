@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-03-2020]
+// snippet-sourcedate:[09-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -21,7 +21,6 @@ import software.amazon.awssdk.services.rekognition.model.Image;
 import software.amazon.awssdk.services.rekognition.model.DetectModerationLabelsRequest;
 import software.amazon.awssdk.services.rekognition.model.DetectModerationLabelsResponse;
 import software.amazon.awssdk.services.rekognition.model.ModerationLabel;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -41,9 +40,9 @@ public class DetectModerationLabels {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "DetectModerationLabels <sourceImage>\n\n" +
+                "   <sourceImage>\n\n" +
                 "Where:\n" +
-                "sourceImage - the path to the image (for example, C:\\AWS\\pic1.png). \n\n";
+                "   sourceImage - the path to the image (for example, C:\\AWS\\pic1.png). \n\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -64,7 +63,7 @@ public class DetectModerationLabels {
     public static void detectModLabels(RekognitionClient rekClient, String sourceImage) {
 
     try {
-        InputStream sourceStream = new FileInputStream(new File(sourceImage));
+        InputStream sourceStream = new FileInputStream(sourceImage);
         SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
 
         Image souImage = Image.builder()
@@ -92,6 +91,6 @@ public class DetectModerationLabels {
         e.printStackTrace();
         System.exit(1);
     }
-    // snippet-end:[rekognition.java2.detect_mod_labels.main]
   }
+    // snippet-end:[rekognition.java2.detect_mod_labels.main]
 }

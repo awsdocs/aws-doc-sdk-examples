@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Glue]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -37,9 +37,10 @@ public class GetCrawler {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-                "To run this example, supply the name of the crawler.  \n" +
-                "\n" +
-                "Ex: GetCrawler <crawlerName>\n";
+                "Usage:\n" +
+                "    <crawlerName>\n\n" +
+                "Where:\n" +
+                "    crawlerName - the name of the crawler. \n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);

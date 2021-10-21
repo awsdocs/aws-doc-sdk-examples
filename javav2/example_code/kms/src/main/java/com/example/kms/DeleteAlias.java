@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -33,7 +33,7 @@ public class DeleteAlias {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DeleteAlias <aliasName> \n\n" +
+                "    <aliasName> \n\n" +
                 "Where:\n" +
                 "    aliasName - an alias name to delete (for example, alias/myAlias). \n\n" ;
 
@@ -65,6 +65,6 @@ public class DeleteAlias {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[kms.java2_delete_alias.main]
     }
+    // snippet-end:[kms.java2_delete_alias.main]
 }

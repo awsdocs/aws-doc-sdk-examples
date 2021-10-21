@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-03-2020]
+// snippet-sourcedate:[09-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -29,13 +29,13 @@ public class CreateStreamProcessor {
 
         final String usage = "\n" +
                 "Usage: " +
-                " <role> <kinInputStream> <kinOutputStream> <collectionName> <StreamProcessorName>\n\n" +
+                "   <role> <kinInputStream> <kinOutputStream> <collectionName> <StreamProcessorName>\n\n" +
                 "Where:\n" +
-                "role - the ARN of the AWS Identity and Access Management (IAM) role to use.  \n\n" +
-                "kinInputStream - the ARN of the Kinesis video stream. \n\n" +
-                "kinOutputStream - the ARN of the Kinesis data stream. \n\n" +
-                "collectionName - the name of the collection to use that contains content.  \n\n" +
-                "StreamProcessorName - the name of the Stream Processor.  \n\n"  ;
+                "   role - the ARN of the AWS Identity and Access Management (IAM) role to use.  \n\n" +
+                "   kinInputStream - the ARN of the Kinesis video stream. \n\n" +
+                "   kinOutputStream - the ARN of the Kinesis data stream. \n\n" +
+                "   collectionName - the name of the collection to use that contains content.  \n\n" +
+                "   StreamProcessorName - the name of the Stream Processor.  \n\n"  ;
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -69,7 +69,7 @@ public class CreateStreamProcessor {
 
         ListStreamProcessorsResponse listStreamProcessorsResult = rekClient.listStreamProcessors(request);
 
-        //List all stream processors (and state) returned from Rekognition
+        //List all stream processors (and state) returned from Rekognition.
         for (StreamProcessor streamProcessor : listStreamProcessorsResult.streamProcessors()) {
             System.out.println("StreamProcessor name - " + streamProcessor.name());
             System.out.println("Status - " + streamProcessor.status());

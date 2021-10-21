@@ -4,7 +4,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/06/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -41,7 +41,7 @@ public class GetObjectData {
 
      final String USAGE = "\n" +
                 "Usage:\n" +
-                "    GetObjectData <bucketName> <keyName> <path>\n\n" +
+                "    <bucketName> <keyName> <path>\n\n" +
                 "Where:\n" +
                 "    bucketName - the Amazon S3 bucket name. \n\n"+
                 "    keyName - the key name. \n\n"+
@@ -91,6 +91,6 @@ public class GetObjectData {
           System.err.println(e.awsErrorDetails().errorMessage());
            System.exit(1);
         }
-        // snippet-end:[s3.java2.getobjectdata.main]
     }
+    // snippet-end:[s3.java2.getobjectdata.main]
 }

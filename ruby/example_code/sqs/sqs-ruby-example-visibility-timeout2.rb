@@ -1,26 +1,10 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Performs an operation on a message from an SQS queue.]
-# snippet-keyword:[Amazon Simple Queue Service]
-# snippet-keyword:[QueuePoller.poll method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[sqs]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to perform an operation on a message from an Amazon Simple Queue Service (Amazon SQS) queue.
+
+# snippet-start:[s3.sqs-ruby-example-visibility-timeout2.rb]
 require 'aws-sdk-sqs'  # v2: require 'aws-sdk'
 
 # Process the message
@@ -32,7 +16,7 @@ end
 def do_something2(msg)
   puts msg.body
 end
-
+# Replace us-west-2 with the AWS Region you're using for Amazon SQS.
 Aws.config.update({region: 'us-west-2'})
 
 poller = Aws::SQS::QueuePoller.new(URL)
@@ -45,3 +29,4 @@ poller.poll(idle_timeout: timeout + 1) do |msg|
     do_something2(msg)
   end
 end
+# snippet-end:[s3.sqs-ruby-example-visibility-timeout2.rb]

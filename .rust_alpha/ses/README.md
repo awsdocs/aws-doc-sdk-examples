@@ -14,61 +14,78 @@ You must have an AWS account, and have configured your default credentials and A
 
 ### create-contact
 
-This example adds a contact to the contact list. 
+This example adds a contact to the contact list in the Region. 
 
-`cargo run --bin create-contact -- -c CONTACT-LIST -e EMAIL-ADDRESS [-d DEFAULT-REGION] [-v]`
+`cargo run --bin create-contact -- -c CONTACT-LIST -e EMAIL-ADDRESS [-r REGION] [-v]`
 
 - _CONTACT-LIST_ is the name of the contact list.
 - _EMAIL-ADDRESS_ is the email address of the contact.
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
-- __-v__ display additional information.  
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.  
 
 ### create-contact-list
 
 This example creates a contact list.
 
-`cargo run --bin create-contact-list -- -c CONTACT-LIST [-d DEFAULT-REGION] [-v]`
+`cargo run --bin create-contact-list -- -c CONTACT-LIST [-r REGION] [-v]`
 
 - _CONTACT-LIST_ is the name of the contact list.
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
-- __-v__ display additional information.  
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.  
 
-### email-contact-list
+### is-email-verified
+
+This example determines whether an email address has been verified. 
+
+`cargo run --bin is-email-verified -- -e EMAIL-ADDRESS [-r REGION] [-v]`
+
+- _EMAIL-ADDRESS_ is the email address.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.  
+
+### list-contact-lists
+
+This example lists the names of the contact lists in the Region.
+
+`cargo run --bin list-contact-lists -- [-r REGION] [-v]`
+
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.  
+
+### list-contact
+
+This example lists the email addresses of the contacts in a contact list in the Region.
+
+`cargo run --bin list-contact -- -c CONTACT-LIST [-r REGION] [-v]`
+
+- _CONTACT-LIST_ is the name of the contact list.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.  
+
+### send-email
 
 This example sends a message to the email addresses in the contact list.
 
-`cargo run --bin email-contact-list -- -c CONTACT-LIST -f FROM-ADDRESS -m MESSAGE -s SUBJECT [-d DEFAULT-REGION] [-v]`
+`cargo run --bin send-email -- -c CONTACT-LIST -f FROM-ADDRESS -m MESSAGE -s SUBJECT [-r REGION] [-v]`
 
 - _CONTACT-LIST_ is the name of the contact list.
 - _FROM-ADDRESS_ is the email address of the sender.
 - _MESSAGE_ is the message sent to each contact in the contact list.
 - _SUBJECT_ is the subject of the message.
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
-- __-v__ display additional information.  
-
-### list-contact-lists
-
-This example lists the names of your contact lists.
-
-`cargo run --bin list-contact-lists -- [-d DEFAULT-REGION] [-v]`
-
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
-- __-v__ display additional information.  
-
-### list-contact
-
-This example lists the email addresses of the contacts in a contact list.
-
-`cargo run --bin ???-??? -- -c CONTACT-LIST [-d DEFAULT-REGION] [-v]`
-
-- _CONTACT-LIST_ is the name of the contact list.
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
-- __-v__ display additional information.  
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.  
 
 ### Notes
 

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/30/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -41,7 +41,7 @@ public class PutItem {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    PutItem <tableName> <key> <keyVal> <albumtitle> <albumtitleval> <awards> <awardsval> <Songtitle> <songtitleval>\n\n" +
+                "    <tableName> <key> <keyVal> <albumtitle> <albumtitleval> <awards> <awardsval> <Songtitle> <songtitleval>\n\n" +
                 "Where:\n" +
                 "    tableName - the Amazon DynamoDB table in which an item is placed (for example, Music3).\n" +
                 "    key - the key used in the Amazon DynamoDB table (for example, Artist).\n" +
@@ -52,9 +52,7 @@ public class PutItem {
                 "    AwardVal - the value of the awards (for example, 10).\n" +
                 "    SongTitle - the song title (for example, SongTitle).\n" +
                 "    SongTitleVal - the value of the song title (for example, Happy Day).\n" +
-                "Example:\n" +
-                "    Music3  \n" +
-                "**Warning** This program will actually place an item that you specify into a table!\n";
+                "**Warning** This program will  place an item that you specify into a table!\n";
 
         if (args.length != 9) {
             System.out.println(USAGE);
@@ -119,6 +117,6 @@ public class PutItem {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java2.put_item.main]
     }
+    // snippet-end:[dynamodb.java2.put_item.main]
 }

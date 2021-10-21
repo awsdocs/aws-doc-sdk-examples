@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -41,17 +41,18 @@ public class ListUsers {
         }
 
         String userPoolId = args[0];
-        CognitoIdentityProviderClient cognitoclient = CognitoIdentityProviderClient.builder()
+        CognitoIdentityProviderClient cognitoClient = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
-        listAllUsers(cognitoclient, userPoolId );
-        cognitoclient.close();
+        listAllUsers(cognitoClient, userPoolId );
+        listUsersFilter(cognitoClient, userPoolId );
+        cognitoClient.close();
     }
 
     //snippet-start:[cognito.java2.ListUsers.main]
     // Shows how to list all users in the given user pool.
-    public static void listAllUsers(CognitoIdentityProviderClient cognitoclient, String userPoolId ) {
+    public static void listAllUsers(CognitoIdentityProviderClient cognitoClient, String userPoolId ) {
 
         try {
             // List all users
@@ -59,7 +60,7 @@ public class ListUsers {
                     .userPoolId(userPoolId)
                     .build();
 
-            ListUsersResponse response = cognitoclient.listUsers(usersRequest);
+            ListUsersResponse response = cognitoClient.listUsers(usersRequest);
             for(UserType user : response.users()) {
                 System.out.println("User " + user.username() + " Status " + user.userStatus() + " Created " + user.userCreateDate() );
             }
@@ -71,7 +72,7 @@ public class ListUsers {
     }
 
     // Shows how to list users by using a filter.
-    public static void listUsersFilter(CognitoIdentityProviderClient cognitoclient, String userPoolId ) {
+    public static void listUsersFilter(CognitoIdentityProviderClient cognitoClient, String userPoolId ) {
 
         try {
             // List only users with specific email.
@@ -82,7 +83,7 @@ public class ListUsers {
                     .filter(filter)
                     .build();
 
-            ListUsersResponse response = cognitoclient.listUsers(usersRequest);
+            ListUsersResponse response = cognitoClient.listUsers(usersRequest);
             for(UserType user : response.users()) {
                 System.out.println("User with filter applied " + user.username() + " Status " + user.userStatus() + " Created " + user.userCreateDate() );
             }
@@ -91,6 +92,6 @@ public class ListUsers {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        //snippet-end:[cognito.java2.ListUsers.main]
     }
+    //snippet-end:[cognito.java2.ListUsers.main]
 }

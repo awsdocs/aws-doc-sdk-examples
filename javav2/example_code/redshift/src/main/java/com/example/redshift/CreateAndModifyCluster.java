@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Redshift ]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -43,7 +43,7 @@ public class CreateAndModifyCluster {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateAndModifyCluster <clusterId> <masterUsername> <masterUserPassword> \n\n" +
+                "    <clusterId> <masterUsername> <masterUserPassword> \n\n" +
                 "Where:\n" +
                 "    clusterId - the id of the cluster to create. \n" +
                 "    masterUsername - the master user name. \n" +
@@ -147,6 +147,6 @@ public class CreateAndModifyCluster {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[redshift.java2.create_cluster.main]
     }
+    // snippet-end:[redshift.java2.create_cluster.main]
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+    <para>
+        Shows how to create an &EC2long; (&EC2;) instance,
+        perform management tasks on the instance, and clean up everything created
+        during the demo.
+    </para>
+    <itemizedlist>
+        <listitem><para>Create and run &EC2; instances.</para></listitem>
+        <listitem><para>Associate an Elastic IP address with an instance.</para></listitem>
+        <listitem><para>Stop and start an instance.</para></listitem>
+        <listitem><para>Allow one instance to connect to another by setting an inbound
+            rule in the target instance's security group that allows traffic from the
+            source instance's security group.</para></listitem>
+        <listitem><para>Change an instance's security group to another security group.</para></listitem>
+        <listitem><para>Terminate demo instances.</para></listitem>
+    </itemizedlist>
+    <para>
+        This example is best viewed on GitHub. For complete source code
+        and instructions on how to set up and run, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/ec2">GitHub</ulink>.
+    </para>
+</block>

@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-03-2020]
+// snippet-sourcedate:[09-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -35,10 +35,10 @@ public class SearchFaceMatchingIdCollection {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "SearchFaceMatchingIdCollection <collectionId> <sourceImage>\n\n" +
+                "   <collectionId> <sourceImage>\n\n" +
                 "Where:\n" +
-                "  collectionId - the id of the collection.  \n" +
-                "  sourceImage - the path to the image (for example, C:\\AWS\\pic1.png). \n\n";
+                "   collectionId - the id of the collection.  \n" +
+                "   sourceImage - the path to the image (for example, C:\\AWS\\pic1.png). \n\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -70,7 +70,7 @@ public class SearchFaceMatchingIdCollection {
 
             SearchFacesResponse imageResponse = rekClient.searchFaces(searchFacesRequest) ;
 
-            // Display the results
+            // Display the results.
             System.out.println("Faces matching in the collection");
             List<FaceMatch> faceImageMatches = imageResponse.faceMatches();
             for (FaceMatch face: faceImageMatches) {
@@ -81,6 +81,6 @@ public class SearchFaceMatchingIdCollection {
             System.out.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[rekognition.java2.match_faces_collection.main]
     }
+    // snippet-end:[rekognition.java2.match_faces_collection.main]
 }

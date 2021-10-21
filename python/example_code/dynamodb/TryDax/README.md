@@ -11,21 +11,7 @@ DAX is a DynamoDB-compatible caching service that provides fast in-memory perfor
 and high availability for applications that demand microsecond latency. For more
 information, see [In-Memory Acceleration with DynamoDB Accelerator (DAX)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.html). 
 
-## Prerequisites
-
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- An Amazon Virtual Private Cloud (Amazon VPC)
-- A DAX cluster set up in your VPC 
-- An Amazon Elastic Compute Cloud (Amazon EC2) instance running in your VPC with the
-  following installed:
-    - Python 3.7 or later
-    - Boto3 1.11.10 or later
-    - Amazon DAX Client for Python 1.1.7 or later
-- PyTest 5.3.5 or later (to run unit tests)
-
-## Cautions
+## ⚠ Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -40,6 +26,22 @@ information, see [In-Memory Acceleration with DynamoDB Accelerator (DAX)](https:
 
 ## Running the code
 
+### Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- An Amazon Virtual Private Cloud (Amazon VPC)
+- A DAX cluster set up in your VPC 
+- An Amazon Elastic Compute Cloud (Amazon EC2) instance running in your VPC with the
+  following installed:
+    - Python 3.7 or later
+    - Boto3 1.11.10 or later
+    - Amazon DAX Client for Python 1.1.7 or later
+- PyTest 5.3.5 or later (to run unit tests)
+
+### Command
+
 The files in this example are designed to be used as part of the Python sample 
 application tutorial in the  
 [Developing with the DAX Client](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.client.html) 
@@ -52,7 +54,7 @@ VPC, as described in the tutorial.
 Each file can be run separately at a command prompt. For example, create the
 table by running the following from a command prompt window.
 
-```
+```commandline
 python 01-create-table.py
 ```  
 
@@ -61,7 +63,7 @@ by specifying a DAX cluster endpoint as the first positional argument. For examp
 to run the query test script with the DAX client, run the following from a command 
 prompt window.
 
-```
+```commandline
 python 04-query-test.py YOUR-CLUSTER-NAME.111111.clustercfg.dax.usw2.cache.amazonaws.com:8111
 ```
 
@@ -72,14 +74,14 @@ they are sent to AWS and returns a mocked response. To run all of the tests,
 run the following in your [GitHub root]/python/example_code/dynamodb/TryDax 
 folder from a command prompt window.
 
-```    
+```commandline
 python -m pytest
 ```
 
 ## Additional information
 
-- [Boto3 Amazon DynamoDB examples](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/dynamodb.html)
 - [Boto3 Amazon DynamoDB service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/dynamodb.html)
+- [Amazon DynamoDB documentation](https://docs.aws.amazon.com/dynamodb)
 
 ---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

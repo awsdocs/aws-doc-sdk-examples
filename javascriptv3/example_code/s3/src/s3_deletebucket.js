@@ -14,13 +14,13 @@ nodes3_deletebucket.js
 */
 // snippet-start:[s3.JavaScript.buckets.deleteBucketV3]
 // Import required AWS SDK clients and commands for Node.js
-import { DeleteBucketCommand } from "@aws-sdk/client-s3/";
+import { DeleteBucketCommand } from "@aws-sdk/client-s3";
 import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
 // Set the bucket parameters
-const bucketParams = { Bucket: "BUCKET_NAME" };
+export const bucketParams = { Bucket: "BUCKET_NAME" };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await s3Client.send(new DeleteBucketCommand(bucketParams));
     return data; // For unit tests.

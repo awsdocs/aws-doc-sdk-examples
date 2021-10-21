@@ -1,8 +1,10 @@
 # AWS SDK for Rust code examples for Amazon Kinesis
 
+Amazon Kinesis makes it easy to collect, process, and analyze video and data streams in real time.
+
 ## Purpose
 
-These examples demonstrate how to perform several operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Kinesis operations using the alpha version of the AWS SDK for Rust.
 
 ## Prerequisites
 
@@ -14,56 +16,61 @@ You must have an AWS account, and have configured your default credentials and A
 
 This example creates a Kinesis data stream.
 
-`cargo run --bin create-stream -- -n NAME [-d DEFAULT-REGION] [-v]`
+`cargo run --bin create-stream -- -n NAME [-r REGION] [-v]`
 
 - _NAME_ is the name of the stream to create.
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ display additional information.  
 
 ### delete-stream
 
 This example deletes a Kinesis data stream.
 
-`cargo run --bin delete-stream -- -n NAME [-d DEFAULT-REGION] [-v]`
+`cargo run --bin delete-stream -- -n NAME [-r REGION] [-v]`
 
 - _NAME_ is the name of the stream to delete.
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ display additional information.  
 
 ### describe-stream
 
 This example displays information about a Kinesis data stream.
 
-`cargo run --bin describe-stream -- -n NAME [-d DEFAULT-REGION] [-v]`
+`cargo run --bin describe-stream -- -n NAME [-r REGION] [-v]`
 
 - _NAME_ is the name of the stream.
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ display additional information.  
 
 ### list-streams
 
 This example lists your Kinesis data streams.
 
-`cargo run --bin list-streams -- [-d DEFAULT-REGION] [-v]`
+`cargo run --bin list-streams -- [-r REGION] [-v]`
 
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ display additional information.  
 
 ### put-record
 
 This example adds a record to a Kinesis data streams.
 
-`cargo run --bin put-record -- -n NAME -k KEY -i INFO [-d DEFAULT-REGION] [-v]`
+`cargo run --bin put-record -- -n NAME -k KEY -i INFO [-r REGION] [-v]`
 
 - _NAME_ is the name of the stream.
 - _KEY_ is the name of the partition key for the record.
 - _INFO_ is the content of the record.
-- _DEFAULT-REGION_ is optional name of a region, such as __us-east-1__.
-  If this value is not supplied, the region defaults to __us-west-2__.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ display additional information.  
 
 ### Notes

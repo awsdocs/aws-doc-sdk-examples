@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Glue]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -33,7 +33,7 @@ public class GetJobRun {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    GetJobRun <jobName> <runId>\n\n" +
+                "    <jobName> <runId>\n\n" +
                 "Where:\n" +
                 "    jobName - the name of the job. \n" +
                 "    runId - the run id value. \n";

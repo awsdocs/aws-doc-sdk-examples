@@ -11,17 +11,59 @@ identifiable information (PII).
 new issues to the classifer for labeling.
 * Detect common themes in a set of documents without the need for prior annotation.
 
-## Prerequisites
+*Amazon Comprehend uses natural language processing (NLP) to extract insights about 
+the content of documents without the need of any special preprocessing.*
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.8.5 or later
-- Boto3 1.15.4 or later
-- Requests 2.24.0 or later
-- PyTest 6.0.2 or later (to run unit tests)
+## Code examples
 
-## Cautions
+**Usage**
+
+* [Running a topic modeling job on sample data](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_topic_modeler_demo.py)
+* [Train a custom classifier and classify documents](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_classifier_demo.py)
+* [Use detection APIs with a document](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_detect.py)
+
+**Element detection**
+
+* [Detecting entities, like people and places, in a document](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_detect.py)
+(`detect_entities`)
+* [Detecting languages used in a document](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_detect.py)
+(`detect_dominant_language`)
+* [Detecting key phrases in a document](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_detect.py)
+(`detect_key_phrases`)
+* [Detecting personally identifiable information (PII) in a document](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_detect.py)
+(`detect_pii_entities`)
+* [Detecting the overall sentiment expressed in a document](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_detect.py)
+(`detect_sentiment`)
+* [Detecting the syntactical elements of a document](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_detect.py)
+(`detect_syntax`)
+
+**Custom classifier**
+
+* [Creating a custom classifier](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_classifier.py)
+(`create_document_classifier`)
+* [Deleting a custom classifier](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_classifier.py)
+(`delete_document_classifier`)
+* [Getting metadata about a classification job](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_classifier.py)
+(`describe_document_classification_job`)
+* [Getting metadata about a custom classifier](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_classifier.py)
+(`describe_document_classifier`)
+* [Listing classification jobs](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_classifier.py)
+(`list_document_classification_jobs`)
+* [Listing custom classifiers](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_classifier.py)
+(`list_document_classifiers`)
+* [Starting an asynchronous classification job](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_classifier.py)
+(`start_document_classification_job`)
+
+**Document themes**
+
+* [Getting metadata about a topic detection job](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_topic_modeler.py)
+(`describe_topics_detection_job`)
+* [Listing topic detection jobs](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_topic_modeler.py)
+(`list_topics_detection_jobs`)
+* [Starting an asynchronous topic detection job](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/comprehend/comprehend_topic_modeler.py)
+(`start_topics_detection_job`)
+
+## ⚠ Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -35,6 +77,18 @@ new issues to the classifer for labeling.
 - Running this code might result in charges to your AWS account.
 
 ## Running the code
+
+### Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.8.5 or later
+- Boto3 1.15.4 or later
+- Requests 2.24.0 or later
+- PyTest 6.0.2 or later (to run unit tests)
+
+### Command
 
 There are three demonstrations in this set of examples:
 

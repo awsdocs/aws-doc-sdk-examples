@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -33,7 +33,7 @@ public class SetKeyPolicy {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    SetKeyPolicy <keyId> <policyName> \n\n" +
+                "    <keyId> <policyName> \n\n" +
                 "Where:\n" +
                 "    keyId - a unique identifier for the customer master key (CMK) (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" +
                 "    policyName - the name of the key policy. \n\n" ;

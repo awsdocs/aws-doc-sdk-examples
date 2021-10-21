@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon CloudFront]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/20/2021]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -13,6 +13,7 @@
 
 package com.example.cloudfront;
 
+// snippet-start:[cloudfront.java2.dis.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudfront.CloudFrontClient;
 import software.amazon.awssdk.services.cloudfront.model.CloudFrontException;
@@ -20,6 +21,7 @@ import software.amazon.awssdk.services.cloudfront.model.DistributionList;
 import software.amazon.awssdk.services.cloudfront.model.DistributionSummary;
 import software.amazon.awssdk.services.cloudfront.model.ListDistributionsResponse;
 import java.util.List;
+// snippet-end:[cloudfront.java2.dis.import]
 
 /**
  * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
@@ -40,6 +42,7 @@ public class GetDistrubutions {
         cloudFrontClient.close();
     }
 
+    // snippet-start:[cloudfront.java2.dis.main]
      public static void getCFDistrubutions(CloudFrontClient cloudFrontClient) {
         try {
 
@@ -56,4 +59,5 @@ public class GetDistrubutions {
             System.exit(1);
         }
     }
+    // snippet-end:[cloudfront.java2.dis.main]
 }

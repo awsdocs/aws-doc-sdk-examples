@@ -23,12 +23,12 @@ Returns the object} from the Amazon S3 bucket.
 import { GetObjectCommand } from "@aws-sdk/client-s3";
 import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
 
-const bucketParams = {
+export const bucketParams = {
   Bucket: "BUCKET_NAME",
   Key: "KEY",
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     // Create a helper function to convert a ReadableStream to a string.
     const streamToString = (stream) =>

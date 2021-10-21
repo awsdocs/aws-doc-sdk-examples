@@ -3,83 +3,89 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use std::process;
-
-use kinesis::{Client, Config, Region};
-
-use aws_types::region::{EnvironmentProvider, ProvideRegion};
-
+use aws_config::meta::region::RegionProviderChain;
+use aws_sdk_kinesis::{Blob, Client, Error, Region, PKG_VERSION};
 use structopt::StructOpt;
-use tracing_subscriber::fmt::format::FmtSpan;
-use tracing_subscriber::fmt::SubscriberBuilder;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    /// The region
+    /// The AWS Region.
     #[structopt(short, long)]
     region: Option<String>,
 
+    /// The data to add to the stream.
     #[structopt(short, long)]
     data: String,
 
+    /// The name of the partition key.
     #[structopt(short, long)]
     key: String,
 
+    /// The name of the stream.
     #[structopt(short, long)]
-    name: String,
+    stream_name: String,
 
+    /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
 
+/// Adds a record to an Amazon Kinesis data stream.
+/// # Arguments
+///
+/// * `-s STREAM-NAME` - The name of the stream.
+/// * `-k KEY-NAME` - The name of the partition key.
+/// * `-d DATA` - The data to add.
+/// * `[-r REGION]` - The Region in which the client is created.
+///    If not supplied, uses the value of the **AWS_REGION** environment variable.
+///    If the environment variable is not set, defaults to **us-west-2**.
+/// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt::init();
+
     let Opt {
         data,
         key,
-        name,
+        stream_name,
         region,
         verbose,
     } = Opt::from_args();
 
-    let region = EnvironmentProvider::new()
-        .region()
-        .or_else(|| region.as_ref().map(|region| Region::new(region.clone())))
-        .unwrap_or_else(|| Region::new("us-west-2"));
+    let region_provider = RegionProviderChain::first_try(region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
+    println!();
 
     if verbose {
-        println!("Kinesis client version: {}\n", kinesis::PKG_VERSION);
-        println!("Region:      {:?}", &region);
+        println!("Kinesis client version: {}", PKG_VERSION);
+        println!(
+            "Region:                 {}",
+            region_provider.region().await.unwrap().as_ref()
+        );
         println!("Data:");
-        println!("\n{}\n", data);
-        println!("Partition key: {}", key);
-        println!("Stream name:   {}", name);
-
-        SubscriberBuilder::default()
-            .with_env_filter("info")
-            .with_span_events(FmtSpan::CLOSE)
-            .init();
+        println!();
+        println!("{}", &data);
+        println!();
+        println!("Partition key:          {}", &key);
+        println!("Stream name:            {}", &stream_name);
+        println!();
     }
 
-    let config = Config::builder().region(region).build();
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
+    let client = Client::new(&shared_config);
 
-    let client = Client::from_conf(config);
+    let blob = Blob::new(data);
 
-    let blob = kinesis::Blob::new(data);
-
-    match client
+    client
         .put_record()
         .data(blob)
         .partition_key(key)
-        .stream_name(name)
+        .stream_name(stream_name)
         .send()
-        .await
-    {
-        Ok(_) => println!("Put data into stream."),
-        Err(e) => {
-            println!("Got an error putting record:");
-            println!("{}", e);
-            process::exit(1);
-        }
-    };
+        .await?;
+
+    println!("Put data into stream.");
+
+    Ok(())
 }
