@@ -151,4 +151,44 @@ s3_GetBucketPolicy:
               snippet_tags:
                 - s3.java2.get_bucket_policy.main
   services:
-    s3: {GetBucketPolicy}          
+    s3: {GetBucketPolicy}  
+s3_HeadObject:
+  title: Determines the content type of an object in an &S3; bucket using the &AWS; SDK
+  title_abbrev: Determines the content type
+  synopsis: get the content type of an object in an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.java2.getobjectcontenttype.main
+  services:
+    s3: {HeadObject}   
+s3_GetObject:
+  title: Read data from an &S3; bucket using the &AWS; SDK
+  title_abbrev: Read data from a bucket
+  synopsis: read data from an object located in an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: Read data as a byte array.
+              snippet_tags:
+                - s3.java2.getobjectdata.main
+            - description: Read tags that belong to an object.
+              snippet_tags:
+                - s3.java2.getobjecttags.main 
+            - description: Get an URL for an object.
+              snippet_tags:
+                - s3.java2.getobjecturl.main    
+  services:
+    s3: {GetObject}          
