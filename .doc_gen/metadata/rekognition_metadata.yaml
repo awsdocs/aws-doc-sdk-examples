@@ -8,6 +8,15 @@ rekognition_DescribeCollection:
     title: Describing a collection
     url: rekognition/latest/dg/describe-collection-procedure.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.DescribeCollectionExample
     Java:
       versions:
         - sdk_version: 2
@@ -38,6 +47,15 @@ rekognition_DeleteCollection:
     title: Deleting a collection
     url: rekognition/latest/dg/delete-collection-procedure.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.DeleteCollectionExample
     Java:
       versions:
         - sdk_version: 2
@@ -62,12 +80,21 @@ rekognition_DeleteCollection:
 rekognition_IndexFaces:
   title: Index faces to an &REK; collection using an &AWS; SDK
   title_abbrev: Index faces to a collection
-  synopsis: index faces in and image and add them to an &REK; collection.
+  synopsis: index faces in an image and add them to an &REK; collection.
   category:
   guide_topic:
     title: Adding faces to a collection
     url: rekognition/latest/dg/add-faces-to-collection-procedure.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+              - description:
+                snippet_tags:
+                  - Rekognition.dotnetv3.AddFacesExample
     Java:
       versions:
         - sdk_version: 2
@@ -98,6 +125,15 @@ rekognition_ListFaces:
     title: Listing faces in a collection
     url: rekognition/latest/dg/list-faces-in-collection-procedure.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.ListFacesExample
     Java:
       versions:
         - sdk_version: 2
@@ -128,6 +164,15 @@ rekognition_SearchFacesByImage:
     title: Searching for a face (image)
     url: rekognition/latest/dg/search-face-with-image-procedure.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.SearchFacesMatchingImageExample
     Java:
       versions:
         - sdk_version: 2
@@ -158,6 +203,15 @@ rekognition_SearchFaces:
     title: Searching for a face (face ID)
     url: rekognition/latest/dg/search-face-with-id-procedure.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.SearchFacesMatchingIdExample
     Java:
       versions:
         - sdk_version: 2
@@ -188,6 +242,15 @@ rekognition_DeleteFaces:
     title: Deleting faces from a collection
     url: rekognition/latest/dg/delete-faces-procedure.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.DeleteFacesExample
     Java:
       versions:
         - sdk_version: 2
@@ -218,6 +281,15 @@ rekognition_CreateCollection:
     title: Creating a collection
     url: rekognition/latest/dg/create-collection-procedure.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.CreateCollectionExample
     Java:
       versions:
         - sdk_version: 2
@@ -248,6 +320,15 @@ rekognition_ListCollections:
     title: Listing collections
     url: rekognition/latest/dg/list-collection-procedure.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.ListCollectionsExample
     Java:
       versions:
         - sdk_version: 2
@@ -316,6 +397,18 @@ rekognition_DetectFaces:
     title: Detecting faces in an image
     url: rekognition/latest/dg/faces-detect-images.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.DetectFacesExample
+            - description: Display bounding box information for all faces in an image.
+              snippet_tags:
+                - Rekognition.dotnetv3.ImageOrientationBoundingBox
     Java:
       versions:
         - sdk_version: 2
@@ -346,6 +439,15 @@ rekognition_CompareFaces:
     title: Comparing faces in images
     url: rekognition/latest/dg/faces-comparefaces.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.CompareFacesExample
     Java:
       versions:
         - sdk_version: 2
@@ -376,6 +478,18 @@ rekognition_DetectLabels:
     title: Detecting labels in an image
     url: rekognition/latest/dg/labels-detect-labels-image.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.DetectLabelsExample
+            - description: Detect labels in an image file stored on your computer.
+              snippet_tags:
+                - Rekognition.dotnetv3.DetectLabelsLocalFile
     Java:
       versions:
         - sdk_version: 2
@@ -407,6 +521,15 @@ rekognition_DetectModerationLabels:
     title: Detecting inappropriate images
     url: rekognition/latest/dg/procedure-moderate-images.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.DetectModerationLabelsExample
     Java:
       versions:
         - sdk_version: 2
@@ -437,6 +560,15 @@ rekognition_DetectText:
     title: Detecting text in an image
     url: rekognition/latest/dg/text-detecting-text-procedure.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.DetectTextExample
     Java:
       versions:
         - sdk_version: 2
@@ -467,6 +599,15 @@ rekognition_RecognizeCelebrities:
     title: Recognizing celebrities in an image
     url: rekognition/latest/dg/celebrities-procedure-image.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.CelebritiesInImageExample
     Java:
       versions:
         - sdk_version: 2
@@ -535,3 +676,20 @@ rekognition_Usage_DetectAndDisplayImage:
                 - python.example_code.rekognition.Usage_ImageDetection
   services:
     rekognition: {}
+rekognition_GetCelebrityInfo:
+  title: Get information about celebrities with &REK; using an &AWS; SDK
+  title_abbrev: Get information about celebrities
+  synopsis: get information about celebrities using &REK;.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.CelebrityInfoExample
+  services:
+    rekognition: {GetCelebrityInfo}

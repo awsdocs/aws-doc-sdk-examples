@@ -8,7 +8,7 @@ can use to connect your applications with data from a variety of sources.
 
 ## Code examples
 
-###  Cross-service examples
+###  Usage scenarios
 - [Create and trigger a rule in Amazon CloudWatch Events](./cw-ruby-example-send-events-ec2.rb)
 
 ## Important
