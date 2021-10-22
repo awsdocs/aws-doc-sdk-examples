@@ -128,6 +128,18 @@ rekognition_SearchFacesByImage:
     title: Searching for a face (image)
     url: rekognition/latest/dg/search-face-with-image-procedure.html
   languages:
+<<<<<<< Updated upstream
+=======
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.SearchFacesMatchingImageExample
+>>>>>>> Stashed changes
     Java:
       versions:
         - sdk_version: 2
@@ -158,6 +170,15 @@ rekognition_SearchFaces:
     title: Searching for a face (face ID)
     url: rekognition/latest/dg/search-face-with-id-procedure.html
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.SearchFacesMatchingIdExample
     Java:
       versions:
         - sdk_version: 2

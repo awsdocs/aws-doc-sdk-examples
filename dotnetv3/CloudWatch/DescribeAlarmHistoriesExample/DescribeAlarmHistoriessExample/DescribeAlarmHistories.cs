@@ -3,6 +3,7 @@
 
 namespace DescribeAlarmHistoriesExample
 {
+    // snippet-start:[CloudWatch.dotnetv3.DescribeAlarmHistoriesExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.CloudWatch;
@@ -67,4 +68,6 @@ namespace DescribeAlarmHistoriesExample
             } while (!string.IsNullOrEmpty(response.NextToken));
         }
     }
+
+    // snippet-end:[CloudWatch.dotnetv3.DescribeAlarmHistoriesExample]
 }
