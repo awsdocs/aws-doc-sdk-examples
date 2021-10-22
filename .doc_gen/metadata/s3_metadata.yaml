@@ -280,6 +280,12 @@ s3_PutObject:
                 - s3.java2.s3_object_upload.main
             - description: Upload an object to a bucket and set tags.
               snippet_tags:
-                - s3.java2.s3_object_manage_tags.main   
+                - s3.java2.s3_object_manage_tags.main 
+            - description: Upload an object to a bucket and set metadata.
+              snippet_tags:
+                - s3.java2.s3_object_upload.metadata.main
+            - description: Upload an object to a bucket and set an object retention value.
+              snippet_tags:
+                - s3.java2.retention_object.main      
   services:
     s3: {PutObject}     
