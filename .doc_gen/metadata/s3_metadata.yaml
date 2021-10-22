@@ -241,9 +241,12 @@ s3_ListObjects:
           github: javav2/example_code/s3
           sdkguide:
           excerpts:
-            - description:
+            - description: List objects in a given bucket.
               snippet_tags:
                 - s3.java2.list_objects.main
+            - description: Sets a S3Client object using a virtual private cloud (VPC)
+              snippet_tags:
+                - s3.java2.vpc.example.main    
   services:
     s3: {ListObjects}     
 s3_ListObjects:
@@ -305,4 +308,89 @@ s3_RestoreObject:
               snippet_tags:
                 - s3.java2.restore_object.main
   services:
-    s3: {RestoreObject}     
+    s3: {RestoreObject}   
+s3_DeleteBucket:
+  title: Deletes an empty &S3; bucket using the &AWS; SDK
+  title_abbrev: Deletes an empty bucket
+  synopsis: deletes an empty &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.s3_bucket_ops.delete_bucket
+  services:
+    s3: {DeleteBucket}   
+s3_PutBucketCors:
+  title: Manages cross-origin resource sharing (CORS) for an &S3; bucket using the &AWS; SDK
+  title_abbrev: Manages cross-origin resource sharing for a bucket
+  synopsis: manages cross-origin resource sharing (CORS) for an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.cors.main
+  services:
+    s3: {PutBucketCors} 
+s3_PutBucketAcl:
+  title: Set a new access control list (ACL) for an &S3; bucket using the &AWS; SDK
+  title_abbrev: Set a new access control list (ACL) for a bucket
+  synopsis: set a new access control list (ACL) for an &S3 for an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.set_acl.main
+  services:
+    s3: {PutBucketAcl}        
+s3_PutBucketPolicy:
+  title: Adds a bucket policy to an &S3; bucket using the &AWS; SDK
+  title_abbrev: Adds a bucket policy to a bucket
+  synopsis: adds a bucket policy to an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.set_bucket_policy.main
+  services:
+    s3: {PutBucketPolicy}   
+s3_PutBucketWebsite:
+  title: Sets the website configuration for an &S3; bucket using the &AWS; SDK
+  title_abbrev:  Sets the website configuration for a bucket
+  synopsis: sets the website configuration for an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.set_website_configuration.main
+  services:
+    s3: {PutBucketWebsite} 
