@@ -621,7 +621,7 @@ rekognition_Usage_DetectAndDisplayImage:
     rekognition: {}
 rekognition_GetCelebrityInfo:
   title: Get information about celebrities with &REK; using an &AWS; SDK
-  title_abbrev: get information about celebrities
+  title_abbrev: Get information about celebrities
   synopsis: get information about celebrities using &REK;.
   category:
   languages:
