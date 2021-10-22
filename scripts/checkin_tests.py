@@ -123,7 +123,8 @@ ALLOW_LIST = {
     'ses/commands/VerifyDomainIdentityCommand',
     'ses/commands/VerifyDomainIdentityCommand',
     'com/amazondynamodb/latest/developerguide',
-    'DynamodbRubyExampleCreateUsersTableStack'
+    'DynamodbRubyExampleCreateUsersTableStack',
+    'com/rekognition/latest/dg/considerations'
 }
 
 def check_files(root, quiet):
