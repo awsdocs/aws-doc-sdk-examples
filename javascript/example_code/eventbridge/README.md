@@ -1,6 +1,6 @@
 # Amazon EventBridge JavaScript SDK v2 code examples
 ## Purpose
-The code examples in this directory demonstrate how to work with the Amazon EventBridge
+The code examples in this directory demonstrate how to work with Amazon EventBridge
 using the AWS SDK for JavaScript v2.
 
 Amazon EventBridge (formerly Amazon CloudWatch Events) is a serverless event bus service that you 
