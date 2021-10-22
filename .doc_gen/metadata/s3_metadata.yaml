@@ -346,7 +346,7 @@ s3_PutBucketCors:
 s3_PutBucketAcl:
   title: Set a new access control list (ACL) for an &S3; bucket using the &AWS; SDK
   title_abbrev: Set a new access control list (ACL) for a bucket
-  synopsis: set a new access control list (ACL) for an &S3 for an &S3; bucket.
+  synopsis: set a new access control list (ACL) for an &S3; bucket.
   category:
   languages:
     Java:
