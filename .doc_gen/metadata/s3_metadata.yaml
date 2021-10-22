@@ -1,0 +1,35 @@
+# zexi 0.4.0
+s3_CreateBucket:
+  title: Create an &S3; bucket using an &AWS; SDK
+  title_abbrev: Create a bucket
+  synopsis: create an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.java2.create_bucket_waiters.main
+  services:
+    s3: {CreateBucket}
+s3_CopyObject:
+  title: Copy an object from one &S3; bucket another using an &AWS; SDK
+  title_abbrev: Copy an object
+  synopsis: copy an &S3; object.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.java2.copy_object.main
+  services:
+    s3: {CopyObject}
