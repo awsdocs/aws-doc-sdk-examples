@@ -1,0 +1,396 @@
+# zexi 0.4.0
+s3_CreateBucket:
+  title: Create an &S3; bucket using the &AWS; SDK
+  title_abbrev: Create a bucket
+  synopsis: create an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.java2.create_bucket_waiters.main
+  services:
+    s3: {CreateBucket}
+s3_CopyObject:
+  title: Copy an object from one &S3; bucket to another using the &AWS; SDK
+  title_abbrev: Copy an object
+  synopsis: copy an &S3; object.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.java2.copy_object.main
+  services:
+    s3: {CopyObject}
+s3_DeleteBucketPolicy:
+  title: Delete a policy from an &S3; bucket using the &AWS; SDK
+  title_abbrev: Delete a policy
+  synopsis: delete an policy from an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.java2.delete_bucket_policy.main
+  services:
+    s3: {DeleteBucketPolicy}    
+s3_DeleteObjects:
+  title: Delete multiple objects from an &S3; bucket using the &AWS; SDK
+  title_abbrev: Delete multiple objects
+  synopsis: delete multiple objects from an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.java2.delete_many_objects.main
+  services:
+    s3: {DeleteObjects}    
+s3_DeleteBucketWebsite:
+  title: Delete the website configuration for an &S3; bucket using the &AWS; SDK
+  title_abbrev: Delete the website configuration
+  synopsis: delete website configuration from an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.java2.delete_website_configuration.main
+  services:
+    s3: {DeleteBucketWebsite}
+s3_PresignPutObject:
+  title: Create a presigned URL and upload an object using the &AWS; SDK
+  title_abbrev: Create a presigned URL
+  synopsis: create a presigned URL and upload an object.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - presigned.java2.generatepresignedurl.main
+  services:
+    s3: {}   
+s3_GetObjectAcl:
+  title: Get the access control list (ACL) for an &S3; bucket using the &AWS; SDK
+  title_abbrev: Get the access control list
+  synopsis: get the access control list for an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.java2.get_acl.main
+  services:
+    s3: {GetObjectAcl}  
+s3_GetBucketPolicy:
+  title: Get the bucket policy for an existing &S3; bucket using the &AWS; SDK
+  title_abbrev: Get the bucket policy
+  synopsis: get the bucket policy for an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.java2.get_bucket_policy.main
+  services:
+    s3: {GetBucketPolicy}  
+s3_HeadObject:
+  title: Determines the content type of an object in an &S3; bucket using the &AWS; SDK
+  title_abbrev: Determines the content type
+  synopsis: get the content type of an object in an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.java2.getobjectcontenttype.main
+  services:
+    s3: {HeadObject}   
+s3_GetObject:
+  title: Read data from an &S3; bucket using the &AWS; SDK
+  title_abbrev: Read data from a bucket
+  synopsis: read data from an object located in an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: Read data as a byte array.
+              snippet_tags:
+                - s3.java2.getobjectdata.main
+            - description: Read tags that belong to an object.
+              snippet_tags:
+                - s3.java2.getobjecttags.main 
+            - description: Get an URL for an object.
+              snippet_tags:
+                - s3.java2.getobjecturl.main
+            - description: Get an object by using the S3Presigner client object.
+              snippet_tags:
+                - presigned.java2.getobjectpresigned.main    
+  services:
+    s3: {GetObject}
+s3_PutBucketLifecycleConfiguration:
+  title: Add a Lifecycle configuration for an &S3; bucket using the &AWS; SDK
+  title_abbrev: Add a Lifecycle configuration
+  synopsis: add a Lifecycle configuration for an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.manage_lifecycle.main
+  services:
+    s3: {PutBucketLifecycleConfiguration}    
+s3_PutBucketLifecycleConfiguration:
+  title: Add a Lifecycle configuration for an &S3; bucket using the &AWS; SDK
+  title_abbrev: Add a Lifecycle configuration
+  synopsis: add a Lifecycle configuration for an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.manage_lifecycle.main
+  services:
+    s3: {PutBucketLifecycleConfiguration}  
+s3_ListMultipartUploads:
+  title: Retrieve a list of in-progress multipart uploads to an &S3; bucket using the &AWS; SDK
+  title_abbrev: Retrieve a list of in-progress multipart uploads
+  synopsis: retrieve a list of in-progress multipart uploads to an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.list_multi_uploads.main
+  services:
+    s3: {ListMultipartUploads}    
+s3_ListObjects:
+  title: List objects located in a given &S3; bucket using the &AWS; SDK
+  title_abbrev: List objects in a given bucket
+  synopsis: list objects located in a given &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: List objects in a given bucket.
+              snippet_tags:
+                - s3.java2.list_objects.main
+            - description: Sets a client object using a virtual private cloud (VPC)
+              snippet_tags:
+                - s3.java2.vpc.example.main    
+  services:
+    s3: {ListObjects}     
+s3_ListObjects:
+  title: List objects located in a given &S3; bucket using the &AWS; SDK
+  title_abbrev: List objects in a given bucket
+  synopsis: list objects located in a given &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.list_objects.main
+  services:
+    s3: {ListObjects} 
+s3_PutObject:  
+  title: Upload an object to a given &S3; bucket using the &AWS; SDK
+  title_abbrev: Upload an object
+  synopsis: upload an object to a given &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: Upload an object to a bucket.
+              snippet_tags:
+                - s3.java2.s3_object_upload.main
+            - description: Upload an object to a bucket and set tags.
+              snippet_tags:
+                - s3.java2.s3_object_manage_tags.main 
+            - description: Upload an object to a bucket and set metadata.
+              snippet_tags:
+                - s3.java2.s3_object_upload.metadata.main
+            - description: Upload an object to a bucket and set an object retention value.
+              snippet_tags:
+                - s3.java2.retention_object.main      
+  services:
+    s3: {PutObject} 
+s3_RestoreObject:
+  title: Restores an archived copy of an object back into an &S3; bucket using the &AWS; SDK
+  title_abbrev: Restores an archived copy of an object
+  synopsis: restores an archived copy of an object back into an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.restore_object.main
+  services:
+    s3: {RestoreObject}   
+s3_DeleteBucket:
+  title: Deletes an empty &S3; bucket using the &AWS; SDK
+  title_abbrev: Deletes an empty bucket
+  synopsis: deletes an empty &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.s3_bucket_ops.delete_bucket
+  services:
+    s3: {DeleteBucket}   
+s3_PutBucketCors:
+  title: Manages cross-origin resource sharing (CORS) for an &S3; bucket using the &AWS; SDK
+  title_abbrev: Manages cross-origin resource sharing for a bucket
+  synopsis: manages cross-origin resource sharing (CORS) for an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.cors.main
+  services:
+    s3: {PutBucketCors} 
+s3_PutBucketAcl:
+  title: Set a new access control list (ACL) for an &S3; bucket using the &AWS; SDK
+  title_abbrev: Set a new access control list (ACL) for a bucket
+  synopsis: set a new access control list (ACL) for an &S3 for an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.set_acl.main
+  services:
+    s3: {PutBucketAcl}        
+s3_PutBucketPolicy:
+  title: Adds a bucket policy to an &S3; bucket using the &AWS; SDK
+  title_abbrev: Adds a bucket policy to a bucket
+  synopsis: adds a bucket policy to an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.set_bucket_policy.main
+  services:
+    s3: {PutBucketPolicy}   
+s3_PutBucketWebsite:
+  title: Sets the website configuration for an &S3; bucket using the &AWS; SDK
+  title_abbrev:  Sets the website configuration for a bucket
+  synopsis: sets the website configuration for an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.set_website_configuration.main
+  services:
+    s3: {PutBucketWebsite} 
