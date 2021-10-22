@@ -1,19 +1,22 @@
-# Amazon Cloudwatch Logs JavaScript SDK v3 code examples
+# Amazon EventBridge JavaScript SDK v3 code examples
+
 ## Purpose
-The code examples in this directory demonstrate how to work with Amazon CloudWatch Logs 
-using the AWS SDK for JavaScript (v3).
+The code examples in this directory demonstrate how to work with Amazon EventBridge 
+using the AWS SDK for JavaScript version 3 (v3).
 
-You can use Amazon CloudWatch Logs to monitor, store, and access your log files from Amazon Elastic Compute Cloud (Amazon EC2) instances, AWS CloudTrail, Route 53, and other sources.
+Amazon EventBridge helps you to respond to state changes in your Amazon Web Services resources. 
+When your resources change state, they automatically send events to an event stream. You can create 
+rules that match selected events in the stream and route them to targets to take action. 
 
-## Code examples
-### API examples
-- [Delete a CloudWatch log subscription filters](src/deleteSubscriptionFilter.js)
-- [Describe CloudWatch log subscription filters](src/describeSubscriptionFilters.js)
-- [Put CloudWatch log subscription filter](src/putSubscriptionFilter.js)
+## Code Examples
+
+### API Examples
+- [Put CloudWatch events](src/putEvents.js)
+- [Put CloudWatch event rule](src/putRule.js)
+- [Put CloudWatch event targets](src/putTargets.js)
 
 **Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see 
 [JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html).
-
 
 ## Important
 
@@ -34,6 +37,7 @@ You can use Amazon CloudWatch Logs to monitor, store, and access your log files 
 - AWS credentials. For details, see  [Setting credentials in Node.js](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/setting-credentials-node.html) in the 
   *AWS SDK for Javascript (v3) Developer Guide*.
 
+
 1. Clone the [AWS Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. 
 See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for 
 instructions.
@@ -41,10 +45,10 @@ instructions.
 2. Install the dependencies listed in the package.json.
 
 **Note**: These dependencies include the client modules for the AWS services that this example requires, 
-which include *@aws-sdk/client-cloudwatch-logs*.
+which include *@aws-sdk/client-eventbridge*.
 ```
 npm install node -g 
-cd javascriptv3/example_code/cloudwatch-logs
+cd javascriptv3/example_code/eventbridge 
 npm install
 ```
 3. In your text editor, update user variables specified in the ```Inputs``` section of the sample file.
@@ -59,17 +63,17 @@ node [example name].js
 
 `Unit tests<./tests>`_ are provided for most examples, using the `Jest <https://jestjs.io/>`_ framework.
 
-For example, to run tests on the cloudwatch-logs folder, enter the following sequence of commands at the command prompt:
+For example, to run tests on the eventbridge folder, enter the following sequence of commands at the command prompt:
 
 ```
 npm install node -g
-cd javascriptv3/example_code/cloudwatch-logs/tests
+cd javascriptv3/example_code/eventbridge/tests
 npm install
 npm test
 ```
-
 ## Resources
 - [AWS SDK for JavaScript v3 repo](https://github.com/aws/aws-sdk-js-v3) . 
-- [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cloudwatch-examples.html)
-- [AWS SDK for JavaScript v3 API Reference Guide -  Amazon Cloudwatch Logs client module](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-cloudwatch-logs/index.html)
+- [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/)
+- [Amazon EventBridge Documentation](https://docs.aws.amazon.com/eventbridge)
+- [AWS SDK for JavaScript v3 API Reference Guide - Amazon EventBridge client module](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-eventbridge/index.html)
 

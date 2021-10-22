@@ -67,8 +67,6 @@ async fn enable_config(
 
     let recorders = resp.configuration_recorders.unwrap_or_default();
 
-    //let num_recorders = recorders.len();
-
     if recorders.is_empty() {
         println!("You already have a configuration recorder in this region");
         println!("Use delete-configuration-recorder to delete it before you call this again.");
