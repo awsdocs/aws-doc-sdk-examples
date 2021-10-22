@@ -139,7 +139,7 @@ cloudwatch-logs_DescribeSubscriptionFilters:
               snippet_tags:
                 - cwLogs.JavaScript.cwl.describeSubscriptionFiltersV3
         - sdk_version: 2
-          github: javascript/example_code/cloudwatch
+          github: javascript/example_code/cloudwatch-logs
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-describing
           excerpts:
             - description:
@@ -175,7 +175,7 @@ cloudwatch-logs_DeleteSubscriptionFilter:
               snippet_tags:
                 - cwLogs.JavaScript.cwl.deleteSubscriptionFilterV3
         - sdk_version: 2
-          github: javascript/example_code/cloudwatch
+          github: javascript/example_code/cloudwatch-logs
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-deleting
           excerpts:
             - description:
@@ -211,7 +211,7 @@ cloudwatch-logs_PutSubscriptionFilter:
               snippet_tags:
                 - cwLogs.JavaScript.cwl.putSubscriptionFilterV3
         - sdk_version: 2
-          github: javascript/example_code/cloudwatch
+          github: javascript/example_code/cloudwatch-logs
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-creating
           excerpts:
             - description:
