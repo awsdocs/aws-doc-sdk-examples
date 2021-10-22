@@ -134,4 +134,21 @@ s3_GetObjectAcl:
               snippet_tags:
                 - s3.java2.get_acl.main
   services:
-    s3: {GetObjectAcl}      
+    s3: {GetObjectAcl}  
+s3_GetBucketPolicy:
+  title: Get the bucket policy for an existing &S3; bucket using the &AWS; SDK
+  title_abbrev: Get the bucket policy
+  synopsis: get the bucket policy for an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.java2.get_bucket_policy.main
+  services:
+    s3: {GetBucketPolicy}          
