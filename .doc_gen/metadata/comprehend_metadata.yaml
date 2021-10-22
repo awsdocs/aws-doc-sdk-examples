@@ -259,7 +259,7 @@ comprehend_DetectPiiEntities:
           excerpts:
             - description:
               snippet_tags:
-                - Comprehend.dotnetv3.DetectPIIExample
+                - Comprehend.dotnetv3.DetectingPIIExample
     Python:
       versions:
         - sdk_version: 3
@@ -286,7 +286,7 @@ comprehend_DetectSentiment:
           excerpts:
             - description:
               snippet_tags:
-                - Comprehend.dotnetv3.DetectSentimentExample
+                - Comprehend.dotnetv3.DetectingSentimentExample
     Java:
       versions:
         - sdk_version: 2
