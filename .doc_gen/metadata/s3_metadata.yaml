@@ -100,4 +100,21 @@ s3_DeleteBucketWebsite:
               snippet_tags:
                 - s3.java2.delete_website_configuration.main
   services:
-    s3: {DeleteBucketWebsite}      
+    s3: {DeleteBucketWebsite}
+s3_PresignPutObject:
+  title: Create a presigned URL and upload an object using the &AWS; SDK
+  title_abbrev: Create a presigned URL
+  synopsis: create a presigned URL and upload an object.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - presigned.java2.generatepresignedurl.main
+  services:
+    s3: {PresignPutObject}          
