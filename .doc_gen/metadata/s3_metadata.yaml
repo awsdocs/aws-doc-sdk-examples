@@ -262,7 +262,7 @@ s3_ListObjects:
               snippet_tags:
                 - s3.java2.list_objects.main
   services:
-    s3: {ListObjects} :
+    s3: {ListObjects} 
 s3_PutObject:  
   title: Upload an object to a given &S3; bucket using the &AWS; SDK
   title_abbrev: Upload an object
