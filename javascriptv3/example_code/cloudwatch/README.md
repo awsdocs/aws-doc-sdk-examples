@@ -1,6 +1,6 @@
 # Amazon Cloudwatch JavaScript SDK v3 code examples
 ## Purpose
-The code examples in this directory demonstrate how to work with the Amazon CloudWatch
+The code examples in this directory demonstrate how to work with Amazon CloudWatch
 using the AWS SDK for JavaScript (v3).
 
 Amazon CloudWatch provides a reliable, scalable, and flexible monitoring solution that you can start using within minutes. 

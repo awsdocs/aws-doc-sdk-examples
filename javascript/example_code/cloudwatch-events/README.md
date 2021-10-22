@@ -1,6 +1,6 @@
 # Amazon CloudWatch Events JavaScript SDK v2 code examples
 ## Purpose
-The code examples in this directory demonstrate how to work with the Amazon CloudWatch Events
+The code examples in this directory demonstrate how to work with Amazon CloudWatch Events
 using the AWS SDK for JavaScript v2.
 
 Amazon CloudWatch Events delivers a near real-time stream of system events that describe changes in Amazon Web Services (AWS) resources. 
@@ -8,8 +8,8 @@ Amazon CloudWatch Events delivers a near real-time stream of system events that 
 ## Code examples
 ### API examples
 - [Put CloudWatch events](./cwe_putevents.js)
-- [Put CloudWatch event rule](./cwe_putRule.js)
-- [Put CloudWatch event targets](./cwe_putTargets.js)
+- [Put CloudWatch event rule](./cwe_putrule.js)
+- [Put CloudWatch event targets](./cwe_puttargets.js)
 
 ## Important
 - As an AWS best practice, grant this code least privilege, or only the 

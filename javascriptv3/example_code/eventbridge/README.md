@@ -1,6 +1,6 @@
 # Amazon EventBridge JavaScript SDK v3 code examples
 
-##Purpose
+## Purpose
 The code examples in this directory demonstrate how to work with Amazon EventBridge 
 using the AWS SDK for JavaScript version 3 (v3).
 

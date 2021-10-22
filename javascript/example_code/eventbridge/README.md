@@ -7,9 +7,9 @@ Amazon EventBridge (formerly Amazon CloudWatch Events) is a serverless event bus
 can use to connect your applications with data from a variety of sources.
 ## Code examples
 ### API examples
-- [Put CloudWatch events](./eb_putevents.js)
-- [Put CloudWatch event rule](./eb_putRule.js)
-- [Put CloudWatch event targets](./eb_putTargets.js)
+- [Put EventBridge events](./eb_putevents.js)
+- [Put EventBridge event rule](./eb_putrule.js)
+- [Put EventBridge event targets](./eb_puttargets.js)
 
 ## Important
 - As an AWS best practice, grant this code least privilege, or only the 

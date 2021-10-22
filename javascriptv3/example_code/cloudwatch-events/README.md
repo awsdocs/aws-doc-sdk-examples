@@ -1,6 +1,6 @@
 # Amazon CloudWatch Events JavaScript SDK v3 code examples
 ## Purpose
-The code examples in this directory demonstrate how to work with the Amazon CloudWatch Events
+The code examples in this directory demonstrate how to work with Amazon CloudWatch Events
 using the AWS SDK for JavaScript v3.
 
 Amazon CloudWatch Events delivers a near real-time stream of system events that describe changes in Amazon Web Services (AWS) resources. 

@@ -1,6 +1,6 @@
 # Amazon Cloudwatch Logs JavaScript SDK v3 code examples
 ## Purpose
-The code examples in this directory demonstrate how to work with the Amazon CloudWatch Logs 
+The code examples in this directory demonstrate how to work with Amazon CloudWatch Logs 
 using the AWS SDK for JavaScript (v3).
 
 You can use Amazon CloudWatch Logs to monitor, store, and access your log files from Amazon Elastic Compute Cloud (Amazon EC2) instances, AWS CloudTrail, Route 53, and other sources.
