@@ -288,4 +288,21 @@ s3_PutObject:
               snippet_tags:
                 - s3.java2.retention_object.main      
   services:
-    s3: {PutObject}     
+    s3: {PutObject} 
+s3_RestoreObject:
+  title: Restores an archived copy of an object back into an &S3; bucket using the &AWS; SDK
+  title_abbrev: Restores an archived copy of an object
+  synopsis: restores an archived copy of an object back into an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.restore_object.main
+  services:
+    s3: {RestoreObject}     
