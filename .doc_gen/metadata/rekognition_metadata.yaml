@@ -158,9 +158,6 @@ rekognition_SearchFacesByImage:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.SearchFacesMatchingImageExample
-            - description:
-              snippet_tags:
-                - Rekognition.dotnetv3.SearchFacesMatchingIdExample
     Java:
       versions:
         - sdk_version: 2
@@ -188,6 +185,15 @@ rekognition_SearchFaces:
   synopsis: search for faces in an &REK; collection that match another face from the collection.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Rekognition/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Rekognition.dotnetv3.SearchFacesMatchingIdExample
     Java:
       versions:
         - sdk_version: 2
