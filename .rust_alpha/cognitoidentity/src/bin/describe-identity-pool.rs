@@ -22,45 +22,12 @@ struct Opt {
     verbose: bool,
 }
 
-/// Displays some information about an Amazon Cognito identitiy pool.
-/// # Arguments
-///
-/// * `-i IDENTITY-POOL-ID` - The ID of the identity pool to describe.
-/// * `[-r REGION]` - The Region in which the client is created.
-///   If not supplied, uses the value of the **AWS_REGION** environment variable.
-///   If the environment variable is not set, defaults to **us-west-2**.
-/// * `[-v]` - Whether to display additional information.
-#[tokio::main]
-async fn main() -> Result<(), Error> {
-    tracing_subscriber::fmt::init();
-
-    let Opt {
-        identity_pool_id,
-        region,
-        verbose,
-    } = Opt::from_args();
-
-    let region_provider = RegionProviderChain::first_try(region.map(Region::new))
-        .or_default_provider()
-        .or_else(Region::new("us-west-2"));
-    println!();
-
-    if verbose {
-        println!("Cognito client version: {}", PKG_VERSION);
-        println!(
-            "Region:                 {}",
-            region_provider.region().await.unwrap().as_ref()
-        );
-        println!("Identity pool ID:       {}", identity_pool_id);
-        println!();
-    }
-
-    let shared_config = aws_config::from_env().region(region_provider).load().await;
-    let client = Client::new(&shared_config);
-
+// Describes an identity pool
+// snippet-start:[cognitoidentity.rust.describe-identity-pool]
+async fn describe_pool(client: &Client, id: &str) -> Result<(), Error> {
     let response = client
         .describe_identity_pool()
-        .identity_pool_id(identity_pool_id)
+        .identity_pool_id(id)
         .send()
         .await?;
 
@@ -124,4 +91,44 @@ async fn main() -> Result<(), Error> {
     println!();
 
     Ok(())
+}
+// snippet-end:[cognitoidentity.rust.describe-identity-pool]
+
+/// Displays some information about an Amazon Cognito identitiy pool.
+/// # Arguments
+///
+/// * `-i IDENTITY-POOL-ID` - The ID of the identity pool to describe.
+/// * `[-r REGION]` - The Region in which the client is created.
+///   If not supplied, uses the value of the **AWS_REGION** environment variable.
+///   If the environment variable is not set, defaults to **us-west-2**.
+/// * `[-v]` - Whether to display additional information.
+#[tokio::main]
+async fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt::init();
+
+    let Opt {
+        identity_pool_id,
+        region,
+        verbose,
+    } = Opt::from_args();
+
+    let region_provider = RegionProviderChain::first_try(region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
+    println!();
+
+    if verbose {
+        println!("Cognito client version: {}", PKG_VERSION);
+        println!(
+            "Region:                 {}",
+            region_provider.region().await.unwrap().as_ref()
+        );
+        println!("Identity pool ID:       {}", identity_pool_id);
+        println!();
+    }
+
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
+    let client = Client::new(&shared_config);
+
+    describe_pool(&client, &identity_pool_id).await
 }

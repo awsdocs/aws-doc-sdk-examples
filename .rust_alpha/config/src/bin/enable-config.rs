@@ -52,21 +52,20 @@ struct Opt {
 }
 
 // Enables config.
+// snippet-start:[config.rust.enable-config]
 async fn enable_config(
-    client: &aws_sdk_config::Client,
+    client: &Client,
     name: &str,
     kms_arn: &str,
     bucket: &str,
     sns_arn: &str,
     iam_arn: &str,
     prefix: &str,
-) -> Result<(), aws_sdk_config::Error> {
+) -> Result<(), Error> {
     // If we already have a configuration recorder in the Region, we cannot create another.
     let resp = client.describe_configuration_recorders().send().await?;
 
     let recorders = resp.configuration_recorders.unwrap_or_default();
-
-    //let num_recorders = recorders.len();
 
     if recorders.is_empty() {
         println!("You already have a configuration recorder in this region");
@@ -141,6 +140,7 @@ async fn enable_config(
 
     Ok(())
 }
+// snippet-end:[config.rust.enable-config]
 
 /// Enables AWS Config for a resource type, in the Region.
 ///

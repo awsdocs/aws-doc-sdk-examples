@@ -1,11 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
+# This code example demonstrates how to add a cross-origin resource sharing (CORS)
+# configuration containing a single rule to an Amazon Simple Storage Service (Amazon S3) bucket.
+
+# snippet-start:[s3.s3_ruby_bucket_cors.rb]
+
 require 'aws-sdk-s3'
 
-# Adds a cross-origin resource sharing (CORS) configuration containing
-#   a single rule to an Amazon S3 bucket.
-#
 # Prerequisites:
 #
 # - An Amazon S3 bucket.
@@ -27,7 +30,7 @@ require 'aws-sdk-s3'
 #   otherwise, false.
 # @example
 #   exit 1 unless if bucket_cors_rule_set?(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket',
 #     %w[GET PUT POST DELETE],
 #     %w[http://www.example.com],
@@ -90,7 +93,7 @@ end
 # @returns [Array<Aws::S3::Types::CORSRule>] The list of CORS rules.
 # @example
 #   puts bucket_cors_rules(
-#     Aws::S3::Client.new(region: 'us-east-1'),
+#     Aws::S3::Client.new(region: 'us-west-2'),
 #     'doc-example-bucket')
 def bucket_cors_rules(s3_client, bucket_name)
   response = s3_client.get_bucket_cors(bucket: bucket_name)
@@ -99,6 +102,8 @@ rescue StandardError => e
   puts "Error getting CORS rules: #{e.message}"
 end
 
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
+
 def run_me
   bucket_name = 'doc-example-bucket'
   allowed_methods = %w[GET PUT POST DELETE]
@@ -106,7 +111,7 @@ def run_me
   allowed_headers = %w[*]
   expose_headers = %w[x-amz-server-side-encryption x-amz-request-id x-amz-id-2]
   max_age_seconds = 3000
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
 
   if bucket_cors_rule_set?(
@@ -126,3 +131,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.s3_ruby_bucket_cors.rb]

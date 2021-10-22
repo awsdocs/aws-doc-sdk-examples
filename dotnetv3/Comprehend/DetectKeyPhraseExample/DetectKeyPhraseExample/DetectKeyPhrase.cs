@@ -3,6 +3,7 @@
 
 namespace DetectKeyPhraseExample
 {
+    // snippet-start:[Comprehend.dotnetv3.DetectingKeyPhraseExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Comprehend;
@@ -13,7 +14,7 @@ namespace DetectKeyPhraseExample
     /// search text for key phrases. It was created using the AWS SDK for
     /// .NET version 3.7 and .NET Core 5.0.
     /// </summary>
-    public class DetectKeyPhrase
+    public static class DetectKeyPhrase
     {
         /// <summary>
         /// This method calls the Amazon Comprehend method DetectKeyPhrasesAsync
@@ -41,4 +42,6 @@ namespace DetectKeyPhraseExample
             Console.WriteLine("Done");
         }
     }
+
+    // snippet-end:[Comprehend.dotnetv3.DetectingKeyPhraseExample]
 }

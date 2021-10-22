@@ -15,10 +15,15 @@ api-gateway:
   short: "&ABP;"
   sort: "API Gateway"
   version: apigateway-2015-07-09
+auto-scaling:
+  long: "&ASlong;"
+  short: "&AS;"
+  sort: "EC2 Auto Scaling"
+  version: autoscaling-2011-01-01
 cloudformation:
-  long:  "&CFNlong;"
-  short:  "&CFN;"
-  sort:  "CloudFormation"
+  long: "&CFNlong;"
+  short: "&CFN;"
+  sort: "CloudFormation"
   version: cloudformation-2010-05-15
 cloudfront:
   long: "&CFlong;"
@@ -75,6 +80,16 @@ eventbridge:
   short: "&EV;"
   sort: "EventBridge"
   version: eventbridge-2015-10-07
+kinesis:
+  long: "&AKlong;"
+  short: "&AK;"
+  sort: "Kinesis"
+  version: kinesis-2013-12-02
+kinesis-analytics-v2:
+  long: "&AKAlong;"
+  short: "&AKA;"
+  sort: "Kinesis DataAnalytics"
+  version: kinesisanalyticsv2-2018-05-23
 lambda:
   long: "&LAMlong;"
   short: "&LAM;"
@@ -85,6 +100,21 @@ lex:
   short: "&LEX2;"
   sort: "Lex"
   version: runtime.lex.v2-2020-08-07
+pinpoint:
+  long: "&PINlong;"
+  short: "&PIN;"
+  sort: "Pinpoint"
+  version: pinpoint-2016-12-01
+pinpoint-email:
+  long: "&PIN-Email-API;"
+  short: "&PIN-Email-API;"
+  sort: "Pinpoint Email"
+  version: pinpoint-email-2018-07-26
+pinpoint-sms-voice:
+  long: "&PIN-SMS-Voice-API;"
+  short: "&PIN-SMS-Voice-API;"
+  sort: "Pinpoint SMS and Voice"
+  version: pinpoint-sms-voice-2018-09-05
 rds:
   long: "&RDSlong;"
   short: "&RDS;"
@@ -95,6 +125,8 @@ rekognition:
   short: "&REK;"
   sort: "Rekognition"
   version: rekognition-2016-06-27
+  caveat: The code examples in this chapter are intended to supplement the
+    code examples found throughout the rest of this guide.
 s3:
   long: "&S3long;"
   short: "&S3;"

@@ -1,0 +1,26 @@
+pinpoint-email_SendEmail:
+  title: Send email with &PIN-Email-API; using an &AWS; SDK
+  title_abbrev: Send email with &PIN-Email-API;
+  synopsis: send email with &PIN-Email-API;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/pinpoint-email
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pinpoint.python.pinpoint_send_email_message_email_api.complete
+    JavaScript:
+      versions:
+        - sdk_version: 2
+          github: javascript/example_code/pinpoint-email
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pinpoint.javascript.pinpoint_send_email_message_email_api.complete
+  services:
+    pinpoint-email: {SendEmail}

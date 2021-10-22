@@ -18,6 +18,21 @@ struct Opt {
     verbose: bool,
 }
 
+// Lists your stacks.
+// snippet-start:[cloudformation.rust.list-stacks]
+async fn list_stacks(client: &Client) -> Result<(), Error> {
+    let stacks = client.list_stacks().send().await?;
+
+    for s in stacks.stack_summaries.unwrap_or_default() {
+        println!("{}", s.stack_name.as_deref().unwrap_or_default());
+        println!("  Status: {:?}", s.stack_status.unwrap());
+        println!();
+    }
+
+    Ok(())
+}
+// snippet-end:[cloudformation.rust.list-stacks]
+
 /// Lists the name and status of your AWS CloudFormation stacks in the Region.
 /// # Arguments
 ///
@@ -51,13 +66,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let stacks = client.list_stacks().send().await?;
-
-    for s in stacks.stack_summaries.unwrap_or_default() {
-        println!("{}", s.stack_name.as_deref().unwrap_or_default());
-        println!("  Status: {:?}", s.stack_status.unwrap());
-        println!();
-    }
-
-    Ok(())
+    list_stacks(&client).await
 }

@@ -5,6 +5,15 @@ cloudwatch_ListMetrics:
   synopsis: list &CWlong; metrics.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.list_metrics.main
     Python:
       versions:
         - sdk_version: 3
@@ -42,6 +51,15 @@ cloudwatch_PutMetricData:
   synopsis: put data into a &CWlong; metric.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.put_metric_data.main
     Python:
       versions:
         - sdk_version: 3
@@ -115,6 +133,15 @@ cloudwatch_PutMetricAlarm:
   synopsis: create an &CWlong; alarm that watches a metric.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.put_metric_alarm.main
     Python:
       versions:
         - sdk_version: 3
@@ -152,6 +179,15 @@ cloudwatch_DescribeAlarmsForMetric:
   synopsis: describe &CWlong; alarms for a metric.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.describe_alarms.main
     Python:
       versions:
         - sdk_version: 3
@@ -189,6 +225,15 @@ cloudwatch_EnableAlarmActions:
   synopsis: enable &CWlong; alarm actions.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.enable_alarm_actions.main
     Python:
       versions:
         - sdk_version: 3
@@ -226,6 +271,15 @@ cloudwatch_DisableAlarmActions:
   synopsis: disable &CWlong; alarm actions.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.disable_alarm_actions.main
     Python:
       versions:
         - sdk_version: 3
@@ -263,6 +317,15 @@ cloudwatch_DeleteAlarms:
   synopsis: delete &CWlong; alarms.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.delete_metrics.main
     Python:
       versions:
         - sdk_version: 3

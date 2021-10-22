@@ -1,9 +1,12 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
+# Purpose
 # This code example demonstrates how to use an RSA public key to
 # encrypt content and then upload that encrypted content
-# to an Amazon S3 bucket.
+# to an Amazon Simple Storage Service (Amazon S3) bucket.
+
+# snippet-start:[s3.ruby.s3_add_cspk_encrypt_item]
 
 require 'aws-sdk-s3'
 require 'openssl'
@@ -97,11 +100,11 @@ end
 # @param s3_client [Aws::S3::Client] An initialized Amazon S3 client.
 # @param bucket_name [String] The name of the bucket.
 # @param object_key [String] The name of the object to upload.
-# @param encrypted_object_content [String] The encrypted content of 
+# @param encrypted_object_content [String] The encrypted content of
 #   the object to upload.
 # @return [Boolean] true if the object was uploaded; otherwise, false.
 # @example
-#   s3_client = Aws::S3::Client.new(region: 'us-east-1')
+#   s3_client = Aws::S3::Client.new(region: 'us-west-2')
 #   if encrypted_object_uploaded?(
 #     s3_client,
 #     'doc-example-bucket',
@@ -130,6 +133,7 @@ rescue StandardError => e
 end
 
 # Full example call:
+# Replace us-west-2 with the AWS Region you're using for Amazon S3.
 def run_me
   key_strings = create_public_private_rsa_key_pair_strings
   public_key_string = key_strings['public_key_string']
@@ -139,7 +143,7 @@ def run_me
   content_to_encrypt = 'Hello, World!'
   bucket_name = 'doc-example-bucket'
   object_key = 'my-file.txt'
-  region = 'us-east-1'
+  region = 'us-west-2'
   s3_client = Aws::S3::Client.new(region: region)
 
   unless public_private_rsa_key_pair_files_created?(
@@ -172,3 +176,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[s3.ruby.s3_add_cspk_encrypt_item]

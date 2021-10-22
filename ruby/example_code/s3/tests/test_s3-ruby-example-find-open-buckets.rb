@@ -4,7 +4,7 @@
 require_relative '../s3-ruby-example-find-open-buckets'
 
 describe '#get_open_buckets' do
-  let(:region) { 'us-east-1' }
+  let(:region) { 'us-west-2' }
   let(:grantee_display_name) { 'Mary Doe' }
   let(:grantee_id) { 'examplee7a2f25102679df27bb0ae12b3f85be6f290b936c4393484be31' }
   let(:s3_client) do

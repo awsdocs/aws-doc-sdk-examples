@@ -42,7 +42,7 @@ async fn delete_group(client: &Client, name: &str, force: bool) -> Result<(), Er
 }
 // snippet-end:[autoscaling.rust.delete-autoscaling-group]
 
-/// Updates an Auto Scaling group in the Region to the specified maximum size.
+/// Deletes an Auto Scaling group in the Region.
 /// # Arguments
 ///
 /// * `-a AUTOSCALING-NAME` - The name of the Auto Scaling group.

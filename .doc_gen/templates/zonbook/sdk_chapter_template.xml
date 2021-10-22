@@ -39,6 +39,9 @@
                 <titleabbrev id="{{.ExampleId}}_{{$.LanguageSlug}}_topic.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
             </info>
             <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}_{{$.Language}}.xml"></xi:include>
+            {{- if .GuideTopic.Url}}
+            <para>For more information, see <ulink {{.GuideTopic.DocType}} url="{{.GuideTopic.Url}}">{{.GuideTopic.Text}}</ulink>.</para>
+            {{- end}}
         </section>
         {{- end}}
         {{- if .CrossServiceExamples}}
@@ -89,6 +92,9 @@
                         {{- end}}
                     </itemizedlist>
                         {{- end}}
+                    {{- end}}
+                    {{- if .GuideTopic.Url}}
+                    <para>For more information, see <ulink {{.GuideTopic.DocType}} url="{{.GuideTopic.Url}}">{{.GuideTopic.Text}}</ulink>.</para>
                     {{- end}}
                     <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}_{{$.Language}}.xml"></xi:include>
                 </section>

@@ -9,7 +9,7 @@ describe '#bucket_created?' do
     Aws::S3::Client.new(
       stub_responses: {
         create_bucket: {
-          location: 'http://doc-example-bucket.us-east-1.s3.amazonaws.com/'
+          location: 'http://doc-example-bucket.us-west-2.s3.amazonaws.com/'
         }
       }
     )

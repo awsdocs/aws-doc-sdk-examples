@@ -23,10 +23,11 @@ struct Opt {
 }
 
 // Lists the state of an instance.
+// snippet-start:[ec2.rust.describe-instances]
 async fn show_state(
-    client: &aws_sdk_ec2::Client,
+    client: &Client,
     ids: Vec<String>,
-) -> Result<(), aws_sdk_ec2::Error> {
+) -> Result<(), Error> {
     let resp = client
         .describe_instances()
         .set_instance_ids(Some(ids))
@@ -43,6 +44,7 @@ async fn show_state(
 
     Ok(())
 }
+// snippet-end:[ec2.rust.describe-instances]
 
 /// Lists the state of one or all of your Amazon EC2 instances.
 /// # Arguments

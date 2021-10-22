@@ -1,0 +1,381 @@
+# zexi 0.4.0
+kinesis-analytics-v2_CreateApplication:
+  title: Create a &AKA; application using an &AWS; SDK
+  title_abbrev: Create an application
+  synopsis: create a &AKA; application.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis-analytics-v2.ApplicationClass
+                - python.example_code.kinesis-analytics-v2.CreateApplication
+  services:
+    kinesis-analytics-v2: {CreateApplication}
+kinesis-analytics-v2_DeleteApplication:
+  title: Delete a &AKA; application using an &AWS; SDK
+  title_abbrev: Delete an application
+  synopsis: delete a &AKA; application.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis-analytics-v2.ApplicationClass
+                - python.example_code.kinesis-analytics-v2.DeleteApplication
+  services:
+    kinesis-analytics-v2: {DeleteApplication}
+kinesis-analytics-v2_DescribeApplication:
+  title: Describe a &AKA; application using an &AWS; SDK
+  title_abbrev: Describe an application
+  synopsis: describe a &AKA; application.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis-analytics-v2.ApplicationClass
+                - python.example_code.kinesis-analytics-v2.DescribeApplication
+  services:
+    kinesis-analytics-v2: {DescribeApplication}
+kinesis-analytics-v2_DescribeApplicationSnapshot:
+  title: Describe a &AKA; application snapshot using an &AWS; SDK
+  title_abbrev: Describe an application snapshot
+  synopsis: describe a &AKA; application snapshot.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis-analytics-v2.ApplicationClass
+                - python.example_code.kinesis-analytics-v2.DescribeApplicationSnapshot
+  services:
+    kinesis-analytics-v2: {DescribeApplicationSnapshot}
+kinesis-analytics-v2_DiscoverInputSchema:
+  title: Discover a data format for a &AKA; stream using an &AWS; SDK
+  title_abbrev: Discover a data format for a stream
+  synopsis: discover a data format for a &AKA; stream.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis-analytics-v2.ApplicationClass
+                - python.example_code.kinesis-analytics-v2.DiscoverInputSchema
+  services:
+    kinesis-analytics-v2: {DiscoverInputSchema}
+kinesis-analytics-v2_AddApplicationInput:
+  title: Add an input stream to a &AKA; application using an &AWS; SDK
+  title_abbrev: Add an input stream to an application
+  synopsis: add an input stream to a &AKA; application.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis-analytics-v2.ApplicationClass
+                - python.example_code.kinesis-analytics-v2.AddApplicationInput
+  services:
+    kinesis-analytics-v2: {AddApplicationInput}
+kinesis-analytics-v2_AddApplicationOutput:
+  title: Add an output stream to a &AKA; application using an &AWS; SDK
+  title_abbrev: Add an output stream to an application
+  synopsis: add an output stream to a &AKA; application.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis-analytics-v2.ApplicationClass
+                - python.example_code.kinesis-analytics-v2.AddApplicationOutput
+  services:
+    kinesis-analytics-v2: {AddApplicationOutput}
+kinesis-analytics-v2_UpdateApplication:
+  title: Update a &AKA; application using an &AWS; SDK
+  title_abbrev: Update an application
+  synopsis: update a &AKA; application.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description: This example updates the code that runs in an existing application.
+              snippet_tags:
+                - python.example_code.kinesis-analytics-v2.ApplicationClass
+                - python.example_code.kinesis-analytics-v2.UpdateApplication
+  services:
+    kinesis-analytics-v2: {UpdateApplication}
+kinesis-analytics-v2_StartApplication:
+  title: Start a &AKA; application using an &AWS; SDK
+  title_abbrev: Start an application
+  synopsis: start a &AKA; application.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis-analytics-v2.ApplicationClass
+                - python.example_code.kinesis-analytics-v2.StartApplication
+  services:
+    kinesis-analytics-v2: {StartApplication}
+kinesis-analytics-v2_StopApplication:
+  title: Stop a &AKA; application using an &AWS; SDK
+  title_abbrev: Stop an application
+  synopsis: stop a &AKA; application.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis-analytics-v2.ApplicationClass
+                - python.example_code.kinesis-analytics-v2.StopApplication
+  services:
+    kinesis-analytics-v2: {StopApplication}
+kinesis-analytics-v2_DataGenerator_Anomaly:
+  title: Generate a &AK; stream with heart rate anomalies using an &AWS; SDK
+  title_abbrev: Generate a stream with heart rate anomalies
+  synopsis: generate a &AK; stream with heart rate anomalies.
+  guide_topic:
+    title: "Example: Detecting data anomalies on a stream"
+    url: kinesisanalytics/latest/dev/app-anomaly-detection.html
+  category: Data generator
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesisanalytics.python.datagenerator.anomaly
+  services:
+    kinesis-analytics-v2: {}
+kinesis-analytics-v2_DataGenerator_AnomalyEx:
+  title: Generate a &AK; stream with blood pressure anomalies using an &AWS; SDK
+  title_abbrev: Generate a stream with blood pressure anomalies
+  synopsis: generate a &AK; stream with blood pressure anomalies.
+  category: Data generator
+  guide_topic:
+    title: "Example: Detecting data anomalies and getting an explanation"
+    url: kinesisanalytics/latest/dev/app-anomaly-detection-with-explanation.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesisanalytics.python.datagenerator.anomalyex
+  services:
+    kinesis-analytics-v2: {}
+kinesis-analytics-v2_DataGenerator_ColumnLog:
+  title: Generate a &AK; stream with data in columns using an &AWS; SDK
+  title_abbrev: Generate a stream with data in columns
+  synopsis: generate a &AK; stream with data in columns.
+  category: Data generator
+  guide_topic:
+    title: "Example: Split strings into multiple fields"
+    url: kinesisanalytics/latest/dev/examples-transforming-strings-variablecolumnlogparse.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesisanalytics.python.datagenerator.columnlog
+  services:
+    kinesis-analytics-v2: {}
+kinesis-analytics-v2_DataGenerator_Hotspots:
+  title: Generate a &AK; stream with hotspots using an &AWS; SDK
+  title_abbrev: Generate a stream with hotspots
+  synopsis: generate a &AK; stream with hotspots.
+  category: Data generator
+  guide_topic:
+    title: "Example: Detecting hotspot on a stream"
+    url: kinesisanalytics/latest/dev/app-hotspots-detection.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesisanalytics.python.datagenerator.hotspots
+  services:
+    kinesis-analytics-v2: {}
+kinesis-analytics-v2_DataGenerator_Referrer:
+  title: Generate a &AK; stream with a referrer using an &AWS; SDK
+  title_abbrev: Generate a stream with a referrer
+  synopsis: generate a &AK; stream with a referrer.
+  category: Data generator
+  guide_topic:
+    title: "Example: Extracting a portion of a stream"
+    url: kinesisanalytics/latest/dev/examples-transforming-strings-substring.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesisanalytics.python.datagenerator.referrer
+  services:
+    kinesis-analytics-v2: {}
+kinesis-analytics-v2_DataGenerator_RegexLog:
+  title: Generate a &AK; stream with log entries using an &AWS; SDK
+  title_abbrev: Generate a stream with log entries
+  synopsis: generate a &AK; stream with log entries.
+  category: Data generator
+  guide_topic:
+    title: "Example: Parsing log strings based on regular expressions"
+    url: kinesisanalytics/latest/dev/examples-transforming-strings-regexlogparse.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesisanalytics.python.datagenerator.regexlog
+  services:
+    kinesis-analytics-v2: {}
+kinesis-analytics-v2_DataGenerator_Stagger:
+  title: Generate a &AK; stream with stagger data using an &AWS; SDK
+  title_abbrev: Generate a stream with stagger data
+  synopsis: generate a &AK; stream with stagger data.
+  category: Data generator
+  guide_topic:
+    title: "Example: Stagger window"
+    url: kinesisanalytics/latest/dev/examples-window-stagger.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesisanalytics.python.datagenerator.stagger
+  services:
+    kinesis-analytics-v2: {}
+kinesis-analytics-v2_DataGenerator_StockTicker:
+  title: Generate a &AK; stream with stock ticker data using an &AWS; SDK
+  title_abbrev: Generate a stream with stock ticker data
+  synopsis: generate a &AK; stream with stock ticker data.
+  category: Data generator
+  guide_topic:
+    title: "Examples: Windows and aggregation"
+    url: kinesisanalytics/latest/dev/examples-window.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesisanalytics.python.datagenerator.stockticker
+  services:
+    kinesis-analytics-v2: {}
+kinesis-analytics-v2_DataGenerator_TwoRecordTypes:
+  title: Generate a &AK; stream with two data types using an &AWS; SDK
+  title_abbrev: Generate a stream with two data types
+  synopsis: generate a &AK; stream with two data types.
+  category: Data generator
+  guide_topic:
+    title: "Example: Transforming multiple data types"
+    url: kinesisanalytics/latest/dev/app-tworecordtypes.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesisanalytics.python.datagenerator.tworecordtypes
+  services:
+    kinesis-analytics-v2: {}
+kinesis-analytics-v2_DataGenerator_WebLog:
+  title: Generate a &AK; stream with web log data using an &AWS; SDK
+  title_abbrev: Generate a stream with web log data
+  synopsis: generate a &AK; stream with web log data.
+  category: Data generator
+  guide_topic:
+    title: "Example: Parsing web logs"
+    url: kinesisanalytics/latest/dev/examples-transforming-strings-w3clogparse.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesisanalytics.python.datagenerator.weblog
+  services:
+    kinesis-analytics-v2: {}

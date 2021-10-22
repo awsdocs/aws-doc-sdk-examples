@@ -7,5 +7,6 @@ service:
   short: include('entity_regex')
   sort: regex('^[^&]\w', name='non-entity')
   version: service_version()
+  caveat: str(required=False)
 
 entity_regex: regex('^[&]([\dA-Za-z-_])+[;]$|^&AWS; SDK for Kotlin Developer Guide$', name='valid entity')

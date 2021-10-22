@@ -5,6 +5,15 @@ cloudwatch-events_PutRule:
   synopsis: create an &CWElong; scheduled rule.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.put_rule.main
     JavaScript:
       versions:
         - sdk_version: 3
@@ -18,7 +27,7 @@ cloudwatch-events_PutRule:
               snippet_tags:
                 - cwEvents.JavaScript.cwe.putRuleV3
         - sdk_version: 2
-          github: javascript/example_code/cloudwatch
+          github: javascript/example_code/cloudwatch-events
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-rules
           excerpts:
             - description:
@@ -32,6 +41,15 @@ cloudwatch-events_PutEvents:
   synopsis: send &CWElong; events.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.put_events.main
     JavaScript:
       versions:
         - sdk_version: 3
@@ -45,7 +63,7 @@ cloudwatch-events_PutEvents:
               snippet_tags:
                 - cwEvents.JavaScript.cwe.putEventsV3
         - sdk_version: 2
-          github: javascript/example_code/cloudwatch
+          github: javascript/example_code/cloudwatch-events
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-putevents
           excerpts:
             - description:
@@ -59,6 +77,15 @@ cloudwatch-events_PutTargets:
   synopsis: add an &LAMlong; function target to an &CWElong; event.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.put_targets.main
     JavaScript:
       versions:
         - sdk_version: 3
@@ -72,7 +99,7 @@ cloudwatch-events_PutTargets:
               snippet_tags:
                 - cwEvents.JavaScript.cwe.putTargetsV3
         - sdk_version: 2
-          github: javascript/example_code/cloudwatch
+          github: javascript/example_code/cloudwatch-events
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-targets
           excerpts:
             - description:

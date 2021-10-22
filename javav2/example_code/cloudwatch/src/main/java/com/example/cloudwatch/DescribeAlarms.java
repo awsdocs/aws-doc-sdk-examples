@@ -37,12 +37,12 @@ public class DescribeAlarms {
                 .region(region)
                 .build();
 
-        deleteCWAlarms(cw) ;
+        desCWAlarms(cw) ;
         cw.close();
     }
 
     // snippet-start:[cloudwatch.java2.describe_alarms.main]
-    public static void deleteCWAlarms( CloudWatchClient cw) {
+    public static void desCWAlarms( CloudWatchClient cw) {
 
         try {
 
