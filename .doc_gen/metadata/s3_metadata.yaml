@@ -33,23 +33,6 @@ s3_CopyObject:
                 - s3.java2.copy_object.main
   services:
     s3: {CopyObject}
-s3_CreateJob:
-  title: Create an &S3; job using the &AWS; SDK
-  title_abbrev: Create a job
-  synopsis: create an &S3; job.
-  category:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/s3
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - s3.java2.create_job.main
-  services:
-    s3: {CreateJob}    
 s3_DeleteBucketPolicy:
   title: Delete a policy from an &S3; bucket using the &AWS; SDK
   title_abbrev: Delete a policy
@@ -117,7 +100,7 @@ s3_PresignPutObject:
               snippet_tags:
                 - presigned.java2.generatepresignedurl.main
   services:
-    s3: {PresignPutObject}   
+    s3: {}   
 s3_GetObjectAcl:
   title: Get the access control list (ACL) for an &S3; bucket using the &AWS; SDK
   title_abbrev: Get the access control list
@@ -189,6 +172,114 @@ s3_GetObject:
                 - s3.java2.getobjecttags.main 
             - description: Get an URL for an object.
               snippet_tags:
-                - s3.java2.getobjecturl.main    
+                - s3.java2.getobjecturl.main
+            - description: Get an object by using the S3Presigner client object.
+              snippet_tags:
+                - presigned.java2.getobjectpresigned.main    
   services:
-    s3: {GetObject}          
+    s3: {GetObject}
+s3_PutBucketLifecycleConfiguration:
+  title: Add a Lifecycle configuration for an &S3; bucket using the &AWS; SDK
+  title_abbrev: Add a Lifecycle configuration
+  synopsis: add a Lifecycle configuration for an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.manage_lifecycle.main
+  services:
+    s3: {PutBucketLifecycleConfiguration}    
+s3_PutBucketLifecycleConfiguration:
+  title: Add a Lifecycle configuration for an &S3; bucket using the &AWS; SDK
+  title_abbrev: Add a Lifecycle configuration
+  synopsis: add a Lifecycle configuration for an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.manage_lifecycle.main
+  services:
+    s3: {PutBucketLifecycleConfiguration}  
+s3_ListMultipartUploads:
+  title: Retrieve a list of in-progress multipart uploads to an &S3; bucket using the &AWS; SDK
+  title_abbrev: Retrieve a list of in-progress multipart uploads
+  synopsis: retrieve a list of in-progress multipart uploads to an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.list_multi_uploads.main
+  services:
+    s3: {ListMultipartUploads}    
+s3_ListObjects:
+  title: List objects located in a given &S3; bucket using the &AWS; SDK
+  title_abbrev: List objects in a given bucket
+  synopsis: list objects located in a given &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.list_objects.main
+  services:
+    s3: {ListObjects}     
+s3_ListObjects:
+  title: List objects located in a given &S3; bucket using the &AWS; SDK
+  title_abbrev: List objects in a given bucket
+  synopsis: list objects located in a given &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.list_objects.main
+  services:
+    s3: {ListObjects} :
+s3_PutObject:  
+  title: Upload an object to a given &S3; bucket using the &AWS; SDK
+  title_abbrev: Upload an object
+  synopsis: upload an object to a given &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: Upload an object to a bucket.
+              snippet_tags:
+                - s3.java2.s3_object_upload.main
+            - description: Upload an object to a bucket and set tags.
+              snippet_tags:
+                - s3.java2.s3_object_manage_tags.main   
+  services:
+    s3: {PutObject}     
