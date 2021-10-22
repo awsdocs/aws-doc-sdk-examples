@@ -224,6 +224,15 @@ comprehend_DetectKeyPhrases:
   synopsis: detect key phrases in a document with &CMP;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Comprehend/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Comprehend.dotnetv3.DetectingKeyPhraseExample
     Java:
       versions:
         - sdk_version: 2
@@ -314,6 +323,15 @@ comprehend_DetectSyntax:
   synopsis: detect syntactial elements of a document with &CMP;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Comprehend/
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - Comprehend.dotnetv3.DetectingSyntaxExample
     Java:
       versions:
         - sdk_version: 2
