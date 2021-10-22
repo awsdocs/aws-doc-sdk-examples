@@ -42,8 +42,7 @@ namespace DescribeAlarmHistoriesExample
         {
             var request = new DescribeAlarmHistoryRequest
             {
-                AlarmName =
-                "ALARM_NAME",
+                AlarmName = alarmName,
                 EndDateUtc = DateTime.Today,
                 HistoryItemType = HistoryItemType.Action,
                 MaxRecords = 1,
@@ -64,8 +63,8 @@ namespace DescribeAlarmHistoriesExample
                 }
 
                 request.NextToken = response.NextToken;
-
-            } while (!string.IsNullOrEmpty(response.NextToken));
+            }
+            while (!string.IsNullOrEmpty(response.NextToken));
         }
     }
 
