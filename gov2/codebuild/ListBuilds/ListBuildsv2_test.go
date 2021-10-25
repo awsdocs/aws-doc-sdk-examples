@@ -4,11 +4,12 @@ package main
 
 import (
 	"context"
+	"testing"
+	"time"
+
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/codebuild"
 	"github.com/aws/aws-sdk-go-v2/service/codebuild/types"
-	"testing"
-	"time"
 )
 
 type CodeBuildGetBuildsImpl struct{}
