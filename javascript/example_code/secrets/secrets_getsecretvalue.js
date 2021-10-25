@@ -26,7 +26,7 @@
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the AWS Secrets Manager.
 // In this sample we only handle the specific exceptions for the 'GetSecretValue' API.
 // If you need more information about configurations or implementing the sample code, visit the AWS docs:
-// https://aws.amazon.com/developers/getting-started/nodejs/
+// https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/getting-started-nodejs.html
 
 // snippet-start:[secretsmanager.JavaScript.secrets.GetSecretValue]
 // Load the AWS SDK
