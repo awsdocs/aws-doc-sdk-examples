@@ -10,11 +10,11 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.21-alpha", package = "aws-config" }
-aws-sdk-dynamodb = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.21-alpha", package = "aws-sdk-dynamodb" }
-aws-sdk-rekognition = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.21-alpha", package = "aws-sdk-rekognition" }
-aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.21-alpha", package = "aws-sdk-s3" }
-aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.21-alpha", package = "aws-types" }
+aws-config = "0.0.22-alpha"
+aws-sdk-dynamodb = "0.0.22-alpha"
+aws-sdk-rekognition = "0.0.22-alpha"
+aws-sdk-s3 = "0.0.22-alpha"
+aws-types = "0.0.22-alpha"
 tokio = { version = "1", features = ["full"] }
 structopt = { version = "0.3", default-features = false }
 tracing-subscriber = "0.2.18"

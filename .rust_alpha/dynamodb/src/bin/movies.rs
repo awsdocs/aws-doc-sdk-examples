@@ -16,10 +16,10 @@ use aws_sdk_dynamodb::model::{
 use aws_sdk_dynamodb::operation::DescribeTable;
 use aws_sdk_dynamodb::output::DescribeTableOutput;
 use aws_sdk_dynamodb::{Client, Config, Error, Region, PKG_VERSION};
+use aws_smithy_http::operation::Operation;
+use aws_smithy_http::retry::ClassifyResponse;
+use aws_smithy_types::retry::RetryKind;
 use serde_json::Value;
-use smithy_http::operation::Operation;
-use smithy_http::retry::ClassifyResponse;
-use smithy_types::retry::RetryKind;
 use std::collections::HashMap;
 use std::time::Duration;
 use structopt::StructOpt;
