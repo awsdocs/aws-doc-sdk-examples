@@ -56,6 +56,7 @@ class VocabularyReadyWaiter(CustomWaiter):
         self._wait(VocabularyName=vocabulary_name)
 
 
+# snippet-start:[python.example_code.transcribe.StartTranscriptionJob]
 def start_job(
         job_name, media_uri, media_format, language_code, transcribe_client,
         vocabulary_name=None):
@@ -92,8 +93,10 @@ def start_job(
         raise
     else:
         return job
+# snippet-end:[python.example_code.transcribe.StartTranscriptionJob]
 
 
+# snippet-start:[python.example_code.transcribe.ListTranscriptionJobs]
 def list_jobs(job_filter, transcribe_client):
     """
     Lists summaries of the transcription jobs for the current AWS account.
@@ -119,8 +122,10 @@ def list_jobs(job_filter, transcribe_client):
         raise
     else:
         return jobs
+# snippet-end:[python.example_code.transcribe.ListTranscriptionJobs]
 
 
+# snippet-start:[python.example_code.transcribe.GetTranscriptionJob]
 def get_job(job_name, transcribe_client):
     """
     Gets details about a transcription job.
@@ -139,8 +144,10 @@ def get_job(job_name, transcribe_client):
         raise
     else:
         return job
+# snippet-end:[python.example_code.transcribe.GetTranscriptionJob]
 
 
+# snippet-start:[python.example_code.transcribe.DeleteTranscriptionJob]
 def delete_job(job_name, transcribe_client):
     """
     Deletes a transcription job. This also deletes the transcript associated with
@@ -156,8 +163,10 @@ def delete_job(job_name, transcribe_client):
     except ClientError:
         logger.exception("Couldn't delete job %s.", job_name)
         raise
+# snippet-end:[python.example_code.transcribe.DeleteTranscriptionJob]
 
 
+# snippet-start:[python.example_code.transcribe.CreateVocabulary]
 def create_vocabulary(
         vocabulary_name, language_code, transcribe_client,
         phrases=None, table_uri=None):
@@ -189,8 +198,10 @@ def create_vocabulary(
         raise
     else:
         return response
+# snippet-end:[python.example_code.transcribe.CreateVocabulary]
 
 
+# snippet-start:[python.example_code.transcribe.ListVocabularies]
 def list_vocabularies(vocabulary_filter, transcribe_client):
     """
     Lists the custom vocabularies created for this AWS account.
@@ -218,8 +229,10 @@ def list_vocabularies(vocabulary_filter, transcribe_client):
         raise
     else:
         return vocabs
+# snippet-end:[python.example_code.transcribe.ListVocabularies]
 
 
+# snippet-start:[python.example_code.transcribe.GetVocabulary]
 def get_vocabulary(vocabulary_name, transcribe_client):
     """
     Gets information about a customer vocabulary.
@@ -236,8 +249,10 @@ def get_vocabulary(vocabulary_name, transcribe_client):
         raise
     else:
         return response
+# snippet-end:[python.example_code.transcribe.GetVocabulary]
 
 
+# snippet-start:[python.example_code.transcribe.UpdateVocabulary]
 def update_vocabulary(
         vocabulary_name, language_code, transcribe_client, phrases=None,
         table_uri=None):
@@ -264,8 +279,10 @@ def update_vocabulary(
     except ClientError:
         logger.exception("Couldn't update custom vocabulary %s.", vocabulary_name)
         raise
+# snippet-end:[python.example_code.transcribe.UpdateVocabulary]
 
 
+# snippet-start:[python.example_code.transcribe.DeleteVocabulary]
 def delete_vocabulary(vocabulary_name, transcribe_client):
     """
     Deletes a custom vocabulary.
@@ -279,8 +296,10 @@ def delete_vocabulary(vocabulary_name, transcribe_client):
     except ClientError:
         logger.exception("Couldn't delete vocabulary %s.", vocabulary_name)
         raise
+# snippet-end:[python.example_code.transcribe.DeleteVocabulary]
 
 
+# snippet-start:[python.example_code.transcribe.Scenario_CustomVocabulary]
 def usage_demo():
     """Shows how to use the Amazon Transcribe service."""
     logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
@@ -392,6 +411,7 @@ def usage_demo():
     bucket.objects.delete()
     bucket.delete()
     print("Thanks for watching!")
+# snippet-end:[python.example_code.transcribe.Scenario_CustomVocabulary]
 
 
 if __name__ == '__main__':
