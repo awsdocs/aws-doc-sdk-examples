@@ -36,7 +36,7 @@ s3_CopyObject:
 s3_DeleteBucketPolicy:
   title: Delete a policy from an &S3; bucket using the &AWS; SDK
   title_abbrev: Delete a policy
-  synopsis: delete an policy from an &S3; bucket.
+  synopsis: delete a policy from an &S3; bucket.
   category:
   languages:
     Java:
@@ -68,9 +68,9 @@ s3_DeleteObjects:
   services:
     s3: {DeleteObjects}    
 s3_DeleteBucketWebsite:
-  title: Delete the website configuration for an &S3; bucket using the &AWS; SDK
-  title_abbrev: Delete the website configuration
-  synopsis: delete website configuration from an &S3; bucket.
+  title: Delete the website configuration from an &S3; bucket using the &AWS; SDK
+  title_abbrev: Delete the website configuration from a bucket
+  synopsis: delete the website configuration from an &S3; bucket.
   category:
   languages:
     Java:
@@ -102,9 +102,9 @@ s3_PresignPutObject:
   services:
     s3: {}   
 s3_GetObjectAcl:
-  title: Get the access control list (ACL) for an &S3; bucket using the &AWS; SDK
+  title: Get the ACL for an &S3; bucket using the &AWS; SDK
   title_abbrev: Get the access control list
-  synopsis: get the access control list for an &S3; bucket.
+  synopsis: get the access control list (ACL) for an &S3; bucket.
   category:
   languages:
     Java:
@@ -136,8 +136,8 @@ s3_GetBucketPolicy:
   services:
     s3: {GetBucketPolicy}  
 s3_HeadObject:
-  title: Determines the content type of an object in an &S3; bucket using the &AWS; SDK
-  title_abbrev: Determines the content type
+  title: Determine the content type of an object in an &S3; bucket using the &AWS; SDK
+  title_abbrev: Determine the content type
   synopsis: get the content type of an object in an &S3; bucket.
   category:
   languages:
@@ -170,7 +170,7 @@ s3_GetObject:
             - description: Read tags that belong to an object.
               snippet_tags:
                 - s3.java2.getobjecttags.main 
-            - description: Get an URL for an object.
+            - description: Get a URL for an object.
               snippet_tags:
                 - s3.java2.getobjecturl.main
             - description: Get an object by using the S3Presigner client object.
@@ -179,26 +179,9 @@ s3_GetObject:
   services:
     s3: {GetObject}
 s3_PutBucketLifecycleConfiguration:
-  title: Add a Lifecycle configuration for an &S3; bucket using the &AWS; SDK
-  title_abbrev: Add a Lifecycle configuration
-  synopsis: add a Lifecycle configuration for an &S3; bucket.
-  category:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/s3
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - s3.java2.manage_lifecycle.main
-  services:
-    s3: {PutBucketLifecycleConfiguration}    
-s3_PutBucketLifecycleConfiguration:
-  title: Add a Lifecycle configuration for an &S3; bucket using the &AWS; SDK
-  title_abbrev: Add a Lifecycle configuration
-  synopsis: add a Lifecycle configuration for an &S3; bucket.
+  title: Add a lifecycle configuration for an &S3; bucket using the &AWS; SDK
+  title_abbrev: Add a lifecycle configuration
+  synopsis: add a lifecycle configuration for an &S3; bucket.
   category:
   languages:
     Java:
@@ -244,28 +227,9 @@ s3_ListObjects:
             - description: List objects in a given bucket.
               snippet_tags:
                 - s3.java2.list_objects.main
-            - description: Sets a client object using a virtual private cloud (VPC)
-              snippet_tags:
-                - s3.java2.vpc.example.main    
+            
   services:
     s3: {ListObjects}     
-s3_ListObjects:
-  title: List objects located in a given &S3; bucket using the &AWS; SDK
-  title_abbrev: List objects in a given bucket
-  synopsis: list objects located in a given &S3; bucket.
-  category:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/s3
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - s3.java2.list_objects.main
-  services:
-    s3: {ListObjects} 
 s3_PutObject:  
   title: Upload an object to a given &S3; bucket using the &AWS; SDK
   title_abbrev: Upload an object
@@ -293,9 +257,9 @@ s3_PutObject:
   services:
     s3: {PutObject} 
 s3_RestoreObject:
-  title: Restores an archived copy of an object back into an &S3; bucket using the &AWS; SDK
-  title_abbrev: Restores an archived copy of an object
-  synopsis: restores an archived copy of an object back into an &S3; bucket.
+  title: Restore an archived copy of an object back into an &S3; bucket using the &AWS; SDK
+  title_abbrev: Restore an archived copy of an object
+  synopsis: restore an archived copy of an object back into an &S3; bucket.
   category:
   languages:
     Java:
@@ -310,9 +274,9 @@ s3_RestoreObject:
   services:
     s3: {RestoreObject}   
 s3_DeleteBucket:
-  title: Deletes an empty &S3; bucket using the &AWS; SDK
-  title_abbrev: Deletes an empty bucket
-  synopsis: deletes an empty &S3; bucket.
+  title: Delete an empty &S3; bucket using the &AWS; SDK
+  title_abbrev: Delete an empty bucket
+  synopsis: delete an empty &S3; bucket.
   category:
   languages:
     Java:
@@ -327,9 +291,9 @@ s3_DeleteBucket:
   services:
     s3: {DeleteBucket}   
 s3_PutBucketCors:
-  title: Manages cross-origin resource sharing (CORS) for an &S3; bucket using the &AWS; SDK
-  title_abbrev: Manages cross-origin resource sharing for a bucket
-  synopsis: manages cross-origin resource sharing (CORS) for an &S3; bucket.
+  title: Manage cross-origin resource sharing CORS for an &S3; bucket using the &AWS; SDK
+  title_abbrev: Manage cross-origin resource sharing for a bucket
+  synopsis: manage cross-origin resource sharing CORS for an &S3; bucket.
   category:
   languages:
     Java:
@@ -344,9 +308,9 @@ s3_PutBucketCors:
   services:
     s3: {PutBucketCors} 
 s3_PutBucketAcl:
-  title: Set a new access control list (ACL) for an &S3; bucket using the &AWS; SDK
-  title_abbrev: Set a new access control list (ACL) for a bucket
-  synopsis: set a new access control list (ACL) for an &S3; bucket.
+  title: Set a new ACL for an &S3; bucket using the &AWS; SDK
+  title_abbrev: Set a new ACL for a bucket
+  synopsis: set a new access control list for an &S3; bucket.
   category:
   languages:
     Java:
@@ -361,9 +325,9 @@ s3_PutBucketAcl:
   services:
     s3: {PutBucketAcl}        
 s3_PutBucketPolicy:
-  title: Adds a bucket policy to an &S3; bucket using the &AWS; SDK
-  title_abbrev: Adds a bucket policy to a bucket
-  synopsis: adds a bucket policy to an &S3; bucket.
+  title: Add a bucket policy to an &S3; bucket using the &AWS; SDK
+  title_abbrev: Add a bucket policy to a bucket
+  synopsis: add a bucket policy to an &S3; bucket.
   category:
   languages:
     Java:
@@ -378,9 +342,9 @@ s3_PutBucketPolicy:
   services:
     s3: {PutBucketPolicy}   
 s3_PutBucketWebsite:
-  title: Sets the website configuration for an &S3; bucket using the &AWS; SDK
-  title_abbrev:  Sets the website configuration for a bucket
-  synopsis: sets the website configuration for an &S3; bucket.
+  title: Set the website configuration for an &S3; bucket using the &AWS; SDK
+  title_abbrev:  Set the website configuration for a bucket
+  synopsis: set the website configuration for an &S3; bucket.
   category:
   languages:
     Java:
