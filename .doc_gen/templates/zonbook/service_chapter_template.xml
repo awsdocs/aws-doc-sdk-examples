@@ -39,7 +39,7 @@
             <abstract>
                 <para>The following code examples show how to use {{$.ServiceEntity.Short}} with &AWS; SDKs.</para>
             </abstract>
-            </info>
+        </info>
         <para>The following code examples show how to use {{$.ServiceEntity.Short}} with &AWS; SDKs.</para>
         <para role="topiclist-abbrev">Examples</para>
         {{- range $cat_examples.Examples}}
