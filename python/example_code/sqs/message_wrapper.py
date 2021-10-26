@@ -3,38 +3,11 @@
 
 """
 Purpose
-    Demonstrate basic message operations in Amazon Simple Queue Service (Amazon SQS).
-    Learn how to send, receive, and delete messages from a queue.
-    Usage is shown in the test/test_message_wrapper.py file.
 
-Prerequisites
-    - You must have an AWS account, and have your default credentials and AWS Region
-      configured as described in the [AWS Tools and SDKs Shared Configuration and
-      Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-    - Python 3.6 or later
-    - Boto 3 1.11.10 or later
-    - PyTest 5.3.5 or later (to run unit tests)
-
-Running the tests
-    The best way to learn how to use this service is to run the tests.
-    For instructions on testing, see the docstring in test/test_message_wrapper.py.
-
-Running the code
-    Run individual functions in the Python shell to make requests to your AWS account.
-
-        > python
-        >>> import queue_wrapper
-        >>> queue = queue_wrapper.create_queue("My-test-queue")
-        >>> message_wrapper.send_message(queue, "Test message")
-        >>> messages = message_wrapper.receive_messages(queue, 10, 10)
-        >>> messages[0].body
-        'Test message'
-        >>> queue_wrapper.remove_queue(queue)
-
-Additional information
-    Running this code might result in charges to your AWS account.
+Demonstrate basic message operations in Amazon Simple Queue Service (Amazon SQS).
 """
 
+# snippet-start:[python.example_code.sqs.message_wrapper_imports]
 import logging
 import sys
 
@@ -45,13 +18,13 @@ import queue_wrapper
 
 logger = logging.getLogger(__name__)
 sqs = boto3.resource('sqs')
+# snippet-end:[python.example_code.sqs.message_wrapper_imports]
 
 
+# snippet-start:[python.example_code.sqs.SendMessage]
 def send_message(queue, message_body, message_attributes=None):
     """
     Send a message to an Amazon SQS queue.
-
-    Usage is shown in usage_demo at the end of this module.
 
     :param queue: The queue that receives the message.
     :param message_body: The body text of the message.
@@ -72,16 +45,16 @@ def send_message(queue, message_body, message_attributes=None):
         raise error
     else:
         return response
+# snippet-end:[python.example_code.sqs.SendMessage]
 
 
+# snippet-start:[python.example_code.sqs.SendMessageBatch]
 def send_messages(queue, messages):
     """
     Send a batch of messages in a single request to an SQS queue.
     This request may return overall success even when some messages were not sent.
     The caller must inspect the Successful and Failed lists in the response and
     resend any failed messages.
-
-    Usage is shown in usage_demo at the end of this module.
 
     :param queue: The queue to receive the messages.
     :param messages: The messages to send to the queue. These are simplified to
@@ -115,13 +88,13 @@ def send_messages(queue, messages):
         raise error
     else:
         return response
+# snippet-end:[python.example_code.sqs.SendMessageBatch]
 
 
+# snippet-start:[python.example_code.sqs.ReceiveMessage]
 def receive_messages(queue, max_number, wait_time):
     """
     Receive a batch of messages in a single request from an SQS queue.
-
-    Usage is shown in usage_demo at the end of this module.
 
     :param queue: The queue from which to receive messages.
     :param max_number: The maximum number of messages to receive. The actual number
@@ -145,14 +118,14 @@ def receive_messages(queue, max_number, wait_time):
         raise error
     else:
         return messages
+# snippet-end:[python.example_code.sqs.ReceiveMessage]
 
 
+# snippet-start:[python.example_code.sqs.DeleteMessage]
 def delete_message(message):
     """
     Delete a message from a queue. Clients must delete messages after they
     are received and processed to remove them from the queue.
-
-    Usage is shown in usage_demo at the end of this module.
 
     :param message: The message to delete. The message's queue URL is contained in
                     the message's metadata.
@@ -164,13 +137,13 @@ def delete_message(message):
     except ClientError as error:
         logger.exception("Couldn't delete message: %s", message.message_id)
         raise error
+# snippet-end:[python.example_code.sqs.DeleteMessage]
 
 
+# snippet-start:[python.example_code.sqs.DeleteMessageBatch]
 def delete_messages(queue, messages):
     """
     Delete a batch of messages from a queue in a single request.
-
-    Usage is shown in usage_demo at the end of this module.
 
     :param queue: The queue from which to delete the messages.
     :param messages: The list of messages to delete.
@@ -196,16 +169,17 @@ def delete_messages(queue, messages):
         logger.exception("Couldn't delete messages from queue %s", queue)
     else:
         return response
+# snippet-end:[python.example_code.sqs.DeleteMessageBatch]
 
 
+# snippet-start:[python.example_code.sqs.Scenario_SendReceiveBatch]
 def usage_demo():
     """
-    Demonstrates some ways to use the functions in this module.
-
-    This demonstration reads the lines from this Python file and sends the lines in
-    batches of 10 as messages to a queue. It then receives the messages in batches
-    until the queue is empty. It reassembles the lines of the file and verifies
-    they match the original file.
+    Shows how to:
+    * Read the lines from this Python file and send the lines in
+      batches of 10 as messages to a queue.
+    * Receive the messages in batches until the queue is empty.
+    * Reassemble the lines of the file and verify they match the original file.
     """
     def pack_message(msg_path, msg_body, msg_line):
         return {
@@ -220,6 +194,10 @@ def usage_demo():
         return (msg.message_attributes['path']['StringValue'],
                 msg.body,
                 int(msg.message_attributes['line']['StringValue']))
+
+    print('-'*88)
+    print("Welcome to the Amazon Simple Queue Service (Amazon SQS) demo!")
+    print('-'*88)
 
     queue = queue_wrapper.create_queue('sqs-usage-demo-message-wrapper')
 
@@ -261,17 +239,10 @@ def usage_demo():
 
     queue.delete()
 
-
-def main():
-    go = input("Running the usage demonstration uses your default AWS account "
-               "credentials and might incur charges on your account. Do you want "
-               "to continue (y/n)? ")
-    if go.lower() == 'y':
-        print("Starting the usage demo. Enjoy!")
-        usage_demo()
-    else:
-        print("Thanks anyway!")
+    print("Thanks for watching!")
+    print('-'*88)
+# snippet-end:[python.example_code.sqs.Scenario_SendReceiveBatch]
 
 
 if __name__ == '__main__':
-    main()
+    usage_demo()

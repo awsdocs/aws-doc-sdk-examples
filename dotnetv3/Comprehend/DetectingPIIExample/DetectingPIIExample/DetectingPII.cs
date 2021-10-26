@@ -3,6 +3,7 @@
 
 namespace DetectingPIIExample
 {
+    // snippet-start:[Comprehend.dotnetv3.DetectingPIIExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Comprehend;
@@ -45,4 +46,6 @@ namespace DetectingPIIExample
             }
         }
     }
+
+    // snippet-end:[Comprehend.dotnetv3.DetectingPIIExample]
 }

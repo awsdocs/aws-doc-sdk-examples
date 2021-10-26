@@ -3,6 +3,7 @@
 
 namespace DetectingSyntaxExample
 {
+    // snippet-start:[Comprehend.dotnetv3.DetectingSyntaxExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Comprehend;
@@ -41,4 +42,6 @@ namespace DetectingSyntaxExample
             Console.WriteLine("Done");
         }
     }
+
+    // snippet-end:[Comprehend.dotnetv3.DetectingSyntaxExample]
 }
