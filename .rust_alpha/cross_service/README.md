@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These code example demonstrate how to perform two or more service operations using the alpha version of the AWS SDK for Rust.
+These code examples demonstrate how to perform two or more service operations using the alpha version of the AWS SDK for Rust.
 
 Amazon Simple Storage Service (Amazon S3) is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web.
 
