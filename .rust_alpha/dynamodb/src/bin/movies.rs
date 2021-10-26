@@ -16,10 +16,10 @@ use aws_sdk_dynamodb::model::{
 use aws_sdk_dynamodb::operation::DescribeTable;
 use aws_sdk_dynamodb::output::DescribeTableOutput;
 use aws_sdk_dynamodb::{Client, Config, Error, Region, PKG_VERSION};
+use aws_smithy_http::operation::Operation;
+use aws_smithy_http::retry::ClassifyResponse;
+use aws_smithy_types::retry::RetryKind;
 use serde_json::Value;
-use smithy_http::operation::Operation;
-use smithy_http::retry::ClassifyResponse;
-use smithy_types::retry::RetryKind;
 use std::collections::HashMap;
 use std::time::Duration;
 use structopt::StructOpt;
@@ -105,13 +105,7 @@ async fn main() -> Result<(), Error> {
         data => panic!("data must be an array, got: {:?}", data),
     };
     for value in data {
-        client
-            .put_item()
-            .table_name(&table)
-            .set_item(Some(parse_item(value)))
-            .send()
-            .await
-            .expect("failed to insert item");
+        add_item(&client, &table, value).await?;
     }
     let films_2222 = movies_in_year(&client, &table.to_string(), 2222)
         .send()
@@ -139,9 +133,11 @@ async fn main() -> Result<(), Error> {
         ]
     );
 
-    Ok(())
+    // Delete table.
+    delete_table(&client, &table).await
 }
 
+// snippet-start:[dynamodb.rust.movies-create_table]
 fn create_table(
     client: &Client,
     table_name: &str,
@@ -180,6 +176,7 @@ fn create_table(
                 .build(),
         )
 }
+// snippet-end:[dynamodb.rust.movies-create_table]
 
 fn parse_item(value: Value) -> HashMap<String, AttributeValue> {
     match value_to_item(value) {
@@ -201,6 +198,21 @@ fn value_to_item(value: Value) -> AttributeValue {
     }
 }
 
+// Add an item to the table.
+// snippet-start:[dynamodb.rust.movies-add_item]
+async fn add_item(client: &Client, table: &str, value: serde_json::Value) -> Result<(), Error> {
+    client
+        .put_item()
+        .table_name(table)
+        .set_item(Some(parse_item(value)))
+        .send()
+        .await?;
+
+    Ok(())
+}
+// snippet-end:[dynamodb.rust.movies-add_item]
+
+// snippet-start:[dynamodb.rust.movies-movies_in_year]
 fn movies_in_year(client: &Client, table_name: &str, year: u16) -> Query {
     client
         .query()
@@ -209,6 +221,18 @@ fn movies_in_year(client: &Client, table_name: &str, year: u16) -> Query {
         .expression_attribute_names("#yr", "year")
         .expression_attribute_values(":yyyy", AttributeValue::N(year.to_string()))
 }
+// snippet-end:[dynamodb.rust.movies-movies_in_year]
+
+// Deletes a table.
+// snippet-start:[dynamodb.rust.movies-delete_table]
+async fn delete_table(client: &Client, table: &str) -> Result<(), Error> {
+    client.delete_table().table_name(table).send().await?;
+
+    println!("Deleted table");
+
+    Ok(())
+}
+// snippet-end:[dynamodb.rust.movies-delete_table]
 
 /// Hand-written waiter to retry every second until the table is out of `Creating` state
 #[derive(Clone)]

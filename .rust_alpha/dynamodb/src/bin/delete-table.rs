@@ -22,6 +22,17 @@ struct Opt {
     verbose: bool,
 }
 
+// Delete a table.
+// snippet-start:[dynamodb.rust.delete-table]
+async fn delete_table(client: &Client, table: &str) -> Result<(), Error> {
+    client.delete_table().table_name(table).send().await?;
+
+    println!("Deleted table");
+
+    Ok(())
+}
+// snippet-end:[dynamodb.rust.delete-table]
+
 /// Deletes a DynamoDB table.
 /// # Arguments
 ///
@@ -56,9 +67,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    client.delete_table().table_name(table).send().await?;
-
-    println!("Deleted table");
-
-    Ok(())
+    delete_table(&client, &table).await
 }
