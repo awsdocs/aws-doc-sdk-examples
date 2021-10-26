@@ -5,6 +5,15 @@ kinesis_CreateStream:
   synopsis: create a &AK; stream.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.java2.create.main
     Python:
       versions:
         - sdk_version: 3
@@ -41,6 +50,15 @@ kinesis_DeleteStream:
   synopsis: delete a &AK; stream.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.java2.delete.main
     Python:
       versions:
         - sdk_version: 3
@@ -59,6 +77,15 @@ kinesis_PutRecord:
   synopsis: put data into a &AK; stream.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.java2.putrecord.main
     Python:
       versions:
         - sdk_version: 3
@@ -77,6 +104,15 @@ kinesis_GetRecords:
   synopsis: get data in batches from a &AK; stream.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.java2.getrecord.main
     Python:
       versions:
         - sdk_version: 3
