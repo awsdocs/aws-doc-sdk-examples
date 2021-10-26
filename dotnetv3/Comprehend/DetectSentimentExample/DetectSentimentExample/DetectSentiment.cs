@@ -3,6 +3,7 @@
 
 namespace DetectSentimentExample
 {
+    // snippet-start:[Comprehend.dotnetv3.DetectingSentimentExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Comprehend;
@@ -13,7 +14,7 @@ namespace DetectSentimentExample
     /// text using the Amazon Comprehend service. The example was writing using
     /// the AWS SDK for .NET version 3.7 and .NET Core 5.0.
     /// </summary>
-    public class DetectSentiment
+    public static class DetectSentiment
     {
         /// <summary>
         /// This method calls the DetetectSentimentAsync method to analyze the
@@ -37,4 +38,6 @@ namespace DetectSentimentExample
             Console.WriteLine("Done");
         }
     }
+
+    // snippet-end:[Comprehend.dotnetv3.DetectingSentimentExample]
 }

@@ -11,12 +11,9 @@ dynamodb_CreateTable:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Create a table.
+            - description: 
               snippet_tags:
                 - dynamodb.java2.create_table.main
-            - description: Create a table using the DynamoDbAsyncClient client.
-              snippet_tags: 
-                - dynamodb.java2.dbasync.table.main      
     Python:
       versions:
         - sdk_version: 3
@@ -141,10 +138,7 @@ dynamodb_PutItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Put an item into a table.
-              snippet_tags:
-                - dynamodb.java2.put_item.main
-            - description: Put an item into a table by using the enhanced client.
+            - description:
               snippet_tags:
                 - dynamodb.java2.mapping.putitem.main
     Python:
@@ -173,15 +167,9 @@ dynamodb_GetItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Retrieve an item from a table.
-              snippet_tags: 
-                - dynamodb.java2.get_item.main
-            - description: Retrieve an item from a table using the enhanced client.
-              snippet_tags: 
+            - description:
+              snippet_tags:
                 - dynamodb.java2.mapping.getitem.main
-            - description: Retrieve an item from a table using the DynamoDbAsyncClient client.
-              snippet_tags: 
-                - dynamoasyc.java2.get_item.main        
     Python:
       versions:
         - sdk_version: 3
@@ -205,11 +193,8 @@ dynamodb_UpdateItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Update an item.
+            - description:
               snippet_tags:
-                - dynamodb.java2.update_item.main
-            - description: Update an item using the enhanced client.
-              snippet_tags: 
                 - dynamodb.java2.mapping.moditem.main
     Python:
       versions:
@@ -269,12 +254,9 @@ dynamodb_ListTables:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: List tables. 
+            - description: 
               snippet_tags:
                 - dynamodb.java2.list_tables.main
-            - description: List tables by using the DynamoDbAsyncClient client. 
-              snippet_tags:
-                - dynamodb.java2.dbasync.main   
     Python:
       versions:
         - sdk_version: 3
@@ -298,10 +280,7 @@ dynamodb_Query:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Query a table. 
-              snippet_tags:
-                - dynamodb.java2.query.main
-            - description:  Query a table by using the enhanced client. 
+            - description: 
               snippet_tags:
                 - dynamodb.java2.mapping.query.main
     Python:
@@ -330,12 +309,9 @@ dynamodb_Scan:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Scan a table by using the enhanced client.
+            - description:
               snippet_tags:
                 - dynamodb.java2.mapping.scan.main
-            - description: Scan a table by using the enhanced client and an Expression object.
-              snippet_tags:
-                - dynamodb.java2.mapping.scanEx.main  
     Python:
       versions:
         - sdk_version: 3

@@ -13,5 +13,14 @@ pinpoint-email_SendEmail:
             - description:
               snippet_tags:
                 - pinpoint.python.pinpoint_send_email_message_email_api.complete
+    JavaScript:
+      versions:
+        - sdk_version: 2
+          github: javascript/example_code/pinpoint-email
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pinpoint.javascript.pinpoint_send_email_message_email_api.complete
   services:
     pinpoint-email: {SendEmail}

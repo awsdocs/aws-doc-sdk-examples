@@ -125,20 +125,3 @@ kinesis_GetRecords:
                 - python.example_code.kinesis.GetRecords
   services:
     kinesis: {GetRecords, GetShardIterator}
-kinesis_ListShards:
-  title: List the shards in an &AK; stream using an &AWS; SDK
-  title_abbrev: List shards in a stream
-  synopsis: list shards in a &AK; stream.
-  category:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kinesis
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kinesis.java2.ListShards.main
-  services:
-    kinesis: {ListShards}    

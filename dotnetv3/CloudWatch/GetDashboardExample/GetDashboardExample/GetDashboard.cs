@@ -3,6 +3,7 @@
 
 namespace GetDashboardExample
 {
+    // snippet-start:[CloudWatch.dotnetv3.GetDashboardExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.CloudWatch;
@@ -46,4 +47,6 @@ namespace GetDashboardExample
             return response.DashboardBody;
         }
     }
+
+    // snippet-end:[CloudWatch.dotnetv3.GetDashboardExample]
 }
