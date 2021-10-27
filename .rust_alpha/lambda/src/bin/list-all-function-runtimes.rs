@@ -24,6 +24,7 @@ struct Opt {
 }
 
 /// Lists the ARNs and runtimes of all Lambda functions in all Regions.
+// snippet-start:[lambda.rust.list-all-function-runtimes]
 async fn show_lambdas(verbose: bool, language: &str, reg: &'static str) {
     let region_provider = RegionProviderChain::default_provider().or_else(reg);
     let config = aws_config::from_env().region(region_provider).load().await;
@@ -57,6 +58,7 @@ async fn show_lambdas(verbose: bool, language: &str, reg: &'static str) {
         println!();
     }
 }
+// snippet-end:[lambda.rust.list-all-function-runtimes]
 
 /// Lists the ARNs and runtimes of your Lambda functions in all available regions.
 /// # Arguments
