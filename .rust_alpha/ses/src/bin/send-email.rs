@@ -4,8 +4,8 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_ses::model::{Body, Content, Destination, EmailContent, Message};
-use aws_sdk_ses::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_sesv2::model::{Body, Content, Destination, EmailContent, Message};
+use aws_sdk_sesv2::{Client, Error, Region, PKG_VERSION};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
