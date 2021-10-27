@@ -19,6 +19,10 @@ struct Opt {
     #[structopt(short, long)]
     bucket: String,
 
+    /// The name of the file to upload.
+    #[structopt(short, long)]
+    filename: String,
+
     /// The name of the object in the bucket.
     #[structopt(short, long)]
     key: String,
@@ -28,46 +32,14 @@ struct Opt {
     verbose: bool,
 }
 
-/// Lists your buckets and uploads a file to a bucket.
-/// # Arguments
-///
-/// * `-b BUCKET` - The bucket to which the file is uploaded.
-/// * `-k KEY` - The name of the file to upload to the bucket.
-/// * `[-r REGION]` - The Region in which the client is created.
-///    If not supplied, uses the value of the **AWS_REGION** environment variable.
-///    If the environment variable is not set, defaults to **us-west-2**.
-/// * `[-v]` - Whether to display additional information.
-#[tokio::main]
-async fn main() -> Result<(), Error> {
-    tracing_subscriber::fmt::init();
-
-    let Opt {
-        bucket,
-        region,
-        key,
-        verbose,
-    } = Opt::from_args();
-
-    let region_provider = RegionProviderChain::first_try(region.map(Region::new))
-        .or_default_provider()
-        .or_else(Region::new("us-west-2"));
-
-    println!();
-
-    if verbose {
-        println!("S3 client version: {}", PKG_VERSION);
-        println!(
-            "Region:            {}",
-            region_provider.region().await.unwrap().as_ref()
-        );
-        println!("Bucket:            {}", &bucket);
-        println!("Key:               {}", &key);
-        println!();
-    }
-
-    let shared_config = aws_config::from_env().region(region_provider).load().await;
-    let client = Client::new(&shared_config);
-
+// Upload a file to a bucket.
+// snippet-start:[s3.rust.s3-helloworld]
+async fn upload_object(
+    client: &Client,
+    bucket: &str,
+    filename: &str,
+    key: &str,
+) -> Result<(), Error> {
     let resp = client.list_buckets().send().await?;
 
     for bucket in resp.buckets.unwrap_or_default() {
@@ -76,14 +48,14 @@ async fn main() -> Result<(), Error> {
 
     println!();
 
-    let body = ByteStream::from_path(Path::new("Cargo.toml")).await;
+    let body = ByteStream::from_path(Path::new(filename)).await;
 
     match body {
         Ok(b) => {
             let resp = client
                 .put_object()
-                .bucket(&bucket)
-                .key(&key)
+                .bucket(bucket)
+                .key(key)
                 .body(b)
                 .send()
                 .await?;
@@ -102,4 +74,50 @@ async fn main() -> Result<(), Error> {
     }
 
     Ok(())
+}
+// snippet-end:[s3.rust.s3-helloworld]
+
+/// Lists your buckets and uploads a file to a bucket.
+/// # Arguments
+///
+/// * `-b BUCKET` - The bucket to which the file is uploaded.
+/// * `-k KEY` - The name of the file to upload to the bucket.
+/// * `[-r REGION]` - The Region in which the client is created.
+///    If not supplied, uses the value of the **AWS_REGION** environment variable.
+///    If the environment variable is not set, defaults to **us-west-2**.
+/// * `[-v]` - Whether to display additional information.
+#[tokio::main]
+async fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt::init();
+
+    let Opt {
+        bucket,
+        filename,
+        key,
+        region,
+        verbose,
+    } = Opt::from_args();
+
+    let region_provider = RegionProviderChain::first_try(region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
+
+    println!();
+
+    if verbose {
+        println!("S3 client version: {}", PKG_VERSION);
+        println!(
+            "Region:            {}",
+            region_provider.region().await.unwrap().as_ref()
+        );
+        println!("Bucket:            {}", &bucket);
+        println!("Filename:          {}", &filename);
+        println!("Key:               {}", &key);
+        println!();
+    }
+
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
+    let client = Client::new(&shared_config);
+
+    upload_object(&client, &bucket, &filename, &key).await
 }

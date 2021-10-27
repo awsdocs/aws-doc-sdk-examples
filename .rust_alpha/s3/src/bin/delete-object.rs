@@ -26,6 +26,22 @@ struct Opt {
     verbose: bool,
 }
 
+// Delete an object from a bucket.
+// snippet-start:[s3.rust.delete-object]
+async fn remove_object(client: &Client, bucket: &str, key: &str) -> Result<(), Error> {
+    client
+        .delete_object()
+        .bucket(bucket)
+        .key(key)
+        .send()
+        .await?;
+
+    println!("Object deleted.");
+
+    Ok(())
+}
+// snippet-end:[s3.rust.delete-object]
+
 /// Deletes an object in an Amazon S3 bucket.
 /// # Arguments
 ///
@@ -66,14 +82,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    client
-        .delete_object()
-        .bucket(&bucket)
-        .key(key)
-        .send()
-        .await?;
-
-    println!("Object deleted.");
-
-    Ok(())
+    remove_object(&client, &bucket, &key).await
 }

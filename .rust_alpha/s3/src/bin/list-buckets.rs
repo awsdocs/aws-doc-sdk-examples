@@ -22,6 +22,46 @@ struct Opt {
     verbose: bool,
 }
 
+// Shows your buckets, or those just in the region.
+// snippet-start:[s3.rust.list-buckets]
+async fn show_buckets(strict: bool, client: &Client, region: &str) -> Result<(), Error> {
+    let resp = client.list_buckets().send().await?;
+    let buckets = resp.buckets.unwrap_or_default();
+    let num_buckets = buckets.len();
+
+    let mut in_region = 0;
+
+    for bucket in &buckets {
+        if strict {
+            let r = client
+                .get_bucket_location()
+                .bucket(bucket.name.as_deref().unwrap_or_default())
+                .send()
+                .await?;
+
+            if r.location_constraint.unwrap().as_ref() == region {
+                println!("{}", bucket.name.as_deref().unwrap_or_default());
+                in_region += 1;
+            }
+        } else {
+            println!("{}", bucket.name.as_deref().unwrap_or_default());
+        }
+    }
+
+    println!();
+    if strict {
+        println!(
+            "Found {} buckets in the {} region out of a total of {} buckets.",
+            in_region, region, num_buckets
+        );
+    } else {
+        println!("Found {} buckets in all regions.", num_buckets);
+    }
+
+    Ok(())
+}
+// snippet-end:[s3.rust.list-buckets]
+
 /// Lists your Amazon S3 buckets, or just the buckets in the Region.
 /// # Arguments
 ///
@@ -68,38 +108,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client.list_buckets().send().await?;
-    let buckets = resp.buckets.unwrap_or_default();
-    let num_buckets = buckets.len();
-
-    let mut in_region = 0;
-
-    for bucket in &buckets {
-        if strict {
-            let r = client
-                .get_bucket_location()
-                .bucket(bucket.name.as_deref().unwrap_or_default())
-                .send()
-                .await?;
-
-            if r.location_constraint.unwrap().as_ref() == region_str {
-                println!("{}", bucket.name.as_deref().unwrap_or_default());
-                in_region += 1;
-            }
-        } else {
-            println!("{}", bucket.name.as_deref().unwrap_or_default());
-        }
-    }
-
-    println!();
-    if strict {
-        println!(
-            "Found {} buckets in the {} region out of a total of {} buckets.",
-            in_region, region_str, num_buckets
-        );
-    } else {
-        println!("Found {} buckets in all regions.", num_buckets);
-    }
-
-    Ok(())
+    show_buckets(strict, &client, &region_str).await
 }

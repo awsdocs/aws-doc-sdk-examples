@@ -23,6 +23,26 @@ struct Opt {
     verbose: bool,
 }
 
+// Creates a bucket.
+// snippet-start:[s3.rust.create-bucket]
+async fn make_bucket(client: &Client, bucket: &str, region: &str) -> Result<(), Error> {
+    let constraint = BucketLocationConstraint::from(region);
+    let cfg = CreateBucketConfiguration::builder()
+        .location_constraint(constraint)
+        .build();
+
+    client
+        .create_bucket()
+        .create_bucket_configuration(cfg)
+        .bucket(bucket)
+        .send()
+        .await?;
+    println!("Created bucket.");
+
+    Ok(())
+}
+// snippet-end:[s3.rust.create-bucket]
+
 /// Creates an Amazon S3 bucket in the Region.
 /// # Arguments
 ///
@@ -63,18 +83,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let constraint = BucketLocationConstraint::from(r_str);
-    let cfg = CreateBucketConfiguration::builder()
-        .location_constraint(constraint)
-        .build();
-
-    client
-        .create_bucket()
-        .create_bucket_configuration(cfg)
-        .bucket(bucket)
-        .send()
-        .await?;
-    println!("Created bucket.");
-
-    Ok(())
+    make_bucket(&client, &bucket, r_str).await
 }
