@@ -18,6 +18,24 @@ struct Opt {
     verbose: bool,
 }
 
+// Lists your secrets.
+// snippet-start:[secretsmanager.rust.list-secrets]
+async fn show_secrets(client: &Client) -> Result<(), Error> {
+    let resp = client.list_secrets().send().await?;
+
+    println!("Secret names:");
+
+    let secrets = resp.secret_list.unwrap_or_default();
+    for secret in &secrets {
+        println!("  {}", secret.name.as_deref().unwrap_or("No name!"));
+    }
+
+    println!("Found {} secrets", secrets.len());
+
+    Ok(())
+}
+// snippet-end:[secretsmanager.rust.list-secrets]
+
 /// Lists the names of your secrets in the Region.
 /// # Arguments
 ///
@@ -49,16 +67,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client.list_secrets().send().await?;
-
-    println!("Secret names:");
-
-    let secrets = resp.secret_list.unwrap_or_default();
-    for secret in &secrets {
-        println!("  {}", secret.name.as_deref().unwrap_or("No name!"));
-    }
-
-    println!("Found {} secrets", secrets.len());
-
-    Ok(())
+    show_secrets(&client).await
 }
