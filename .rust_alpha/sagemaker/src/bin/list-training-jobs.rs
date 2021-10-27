@@ -18,8 +18,38 @@ struct Opt {
     verbose: bool,
 }
 
+// Lists your training jobs.
+// snippet-start:[sagemaker.rust.list-training-jobs]
+async fn show_jobs(client: &Client) -> Result<(), Error> {
+    let job_details = client.list_training_jobs().send().await?;
+
+    println!("Jobs:");
+
+    for j in job_details.training_job_summaries.unwrap_or_default() {
+        let name = j.training_job_name.as_deref().unwrap_or_default();
+        let creation_time = j.creation_time.unwrap().to_chrono();
+        let training_end_time = j.training_end_time.unwrap().to_chrono();
+
+        let status = j.training_job_status.unwrap();
+        let duration = training_end_time - creation_time;
+
+        println!("  Name:               {}", name);
+        println!(
+            "  Creation date/time: {}",
+            creation_time.format("%Y-%m-%d@%H:%M:%S")
+        );
+        println!("  Duration (seconds): {}", duration.num_seconds());
+        println!("  Status:             {}", status.as_ref());
+
+        println!();
+    }
+
+    Ok(())
+}
+// snippet-end:[sagemaker.rust.list-training-jobs]
+
 /// Lists your SageMaker jobs in the Region.
-/// /// # Arguments
+/// # Arguments
 ///
 /// * `[-r REGION]` - The Region in which the client is created.
 ///    If not supplied, uses the value of the **AWS_REGION** environment variable.
@@ -49,28 +79,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let job_details = client.list_training_jobs().send().await?;
-
-    println!("Jobs:");
-
-    for j in job_details.training_job_summaries.unwrap_or_default() {
-        let name = j.training_job_name.as_deref().unwrap_or_default();
-        let creation_time = j.creation_time.unwrap().to_chrono();
-        let training_end_time = j.training_end_time.unwrap().to_chrono();
-
-        let status = j.training_job_status.unwrap();
-        let duration = training_end_time - creation_time;
-
-        println!("  Name:               {}", name);
-        println!(
-            "  Creation date/time: {}",
-            creation_time.format("%Y-%m-%d@%H:%M:%S")
-        );
-        println!("  Duration (seconds): {}", duration.num_seconds());
-        println!("  Status:             {}", status.as_ref());
-
-        println!();
-    }
-
-    Ok(())
+    show_jobs(&client).await
 }
