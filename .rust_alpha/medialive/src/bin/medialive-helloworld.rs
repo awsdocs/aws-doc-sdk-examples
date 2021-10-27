@@ -18,6 +18,24 @@ struct Opt {
     verbose: bool,
 }
 
+// List input names and ARNs.
+// snippet-start:[medialive.rust.medialive-helloworld]
+async fn show_inputs(client: &Client) -> Result<(), Error> {
+    let input_list = client.list_inputs().send().await?;
+
+    for i in input_list.inputs.unwrap_or_default() {
+        let input_arn = i.arn.as_deref().unwrap_or_default();
+        let input_name = i.name.as_deref().unwrap_or_default();
+
+        println!("Input Name : {}", input_name);
+        println!("Input ARN : {}", input_arn);
+        println!();
+    }
+
+    Ok(())
+}
+// snippet-end:[medialive.rust.medialive-helloworld]
+
 /// Lists your AWS Elemental MediaLive input names and ARNs in the Region.
 /// # Arguments
 ///
@@ -48,16 +66,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let input_list = client.list_inputs().send().await?;
-
-    for i in input_list.inputs.unwrap_or_default() {
-        let input_arn = i.arn.as_deref().unwrap_or_default();
-        let input_name = i.name.as_deref().unwrap_or_default();
-
-        println!("Input Name : {}", input_name);
-        println!("Input ARN : {}", input_arn);
-        println!();
-    }
-
-    Ok(())
+    show_inputs(&client).await
 }
