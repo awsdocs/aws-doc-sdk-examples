@@ -58,5 +58,5 @@ namespace ListConsumersExample
         }
     }
 
-    // snippet-endv:[Kinesis.dotnetv3.ListConsumersExample]
+    // snippet-end:[Kinesis.dotnetv3.ListConsumersExample]
 }
