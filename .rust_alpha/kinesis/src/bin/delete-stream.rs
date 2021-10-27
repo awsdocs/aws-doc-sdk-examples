@@ -22,6 +22,17 @@ struct Opt {
     verbose: bool,
 }
 
+// Deletes a stream.
+// snippet-start:[kinesis.rust.delete-stream]
+async fn remove_stream(client: &Client, stream: &str) -> Result<(), Error> {
+    client.delete_stream().stream_name(stream).send().await?;
+
+    println!("Deleted stream.");
+
+    Ok(())
+}
+// snippet-end:[kinesis.rust.delete-stream]
+
 /// Deletes an Amazon Kinesis data stream.
 /// # Arguments
 ///
@@ -57,13 +68,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    client
-        .delete_stream()
-        .stream_name(stream_name)
-        .send()
-        .await?;
-
-    println!("Deleted stream.");
-
-    Ok(())
+    remove_stream(&client, &stream_name).await
 }
