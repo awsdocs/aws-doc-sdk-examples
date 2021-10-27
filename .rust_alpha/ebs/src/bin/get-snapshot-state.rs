@@ -23,6 +23,30 @@ struct Opt {
     verbose: bool,
 }
 
+// Shows the state of a snapshot.
+// snippet-start:[ebs.rust.get-snapshot-state]
+async fn show_state(client: &Client, id: &str) -> Result<(), Error> {
+    let resp = client
+        .describe_snapshots()
+        .filters(Filter::builder().name("snapshot-id").values(id).build())
+        .send()
+        .await?;
+
+    println!(
+        "State: {}",
+        resp.snapshots
+            .unwrap()
+            .pop()
+            .unwrap()
+            .state
+            .unwrap()
+            .as_ref()
+    );
+
+    Ok(())
+}
+// snippet-end:[ebs.rust.get-snapshot-state]
+
 /// Retrieves the state of an Amazon Elastic Block Store snapshot using Amazon EC2 API.
 /// It must be `completed` before you can use the snapshot.
 /// # Arguments
@@ -60,27 +84,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client
-        .describe_snapshots()
-        .filters(
-            Filter::builder()
-                .name("snapshot-id")
-                .values(snapshot_id)
-                .build(),
-        )
-        .send()
-        .await?;
-
-    println!(
-        "State: {}",
-        resp.snapshots
-            .unwrap()
-            .pop()
-            .unwrap()
-            .state
-            .unwrap()
-            .as_ref()
-    );
-
-    Ok(())
+    show_state(&client, &snapshot_id).await
 }
