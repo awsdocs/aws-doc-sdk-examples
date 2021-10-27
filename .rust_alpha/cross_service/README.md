@@ -1,16 +1,56 @@
 # AWS SDK for Rust cross-service code examples 
 
-These code examples in Rust use more than one Amazon or AWS service to perform a series of tasks.
-
 ## Purpose
 
-These examples demonstrate how to perform several operations using the alpha version of the AWS SDK for Rust.
+These code examples demonstrate how to perform two or more service operations using the alpha version of the AWS SDK for Rust.
 
-## Prerequisites
+Amazon Simple Storage Service (Amazon S3) is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web.
+
+Amazon Rekognition makes it easy to add image and video analysis to your applications.
+
+Amazon DynamoDB (DynamoDB) is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability.
+
+Amazon Polly is a Text-to-Speech (TTS) cloud service that converts text into lifelike speech.
+
+Amazon Transcribe provides transcription services for your audio files.
+
+## Code examples
+
+### Detect faces (detect_faces/)
+
+- [Save file to bucket](detect_faces/src/main.rs) (Amazon S3 PutObject)
+- [Display face information](detect_faces/src/main.rs) (Amazon Rekognition DetectFaces)
+
+### Detect labels (detect_labels/)
+
+- [Add file to bucket](detect_labels/src/main.rs) (Amazon S3 PutObject)
+- [Get EXIF data](detect_labels/src/main.rs)
+- [Get label data](detect_labels/src/main.rs) (Amazon Rekognition DetectLabels)
+- [Add data to table](detect_labels/src/main.rs) (DynamoDB PutItem)
+
+### Telephone (telephone/)
+
+- [Convert text to speech](telephone/src/main.rs) (Amazon Polly SynthesizeSpeech)
+- [Save file to bucket](telephone/src/main.rs) (Amazon S3 PutObject)
+- [Convert audio to text](telephone/src/main.rs) (Amazon Transcribe GetTranscriptionJob and StartTranscriptionJob)
+
+## ⚠ Important
+
+- We recommend that you grant this code least privilege,
+  or at most the minimum permissions required to perform the task.
+  For more information, see
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
+  in the AWS Identity and Access Management User Guide.
+- This code has not been tested in all AWS Regions.
+  Some AWS services are available only in specific
+  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+- Running this code might result in charges to your AWS account.
+
+## Running the code examples
+
+### Prerequisites
 
 You must have an AWS account, and have configured your default credentials and AWS Region as described in [https://github.com/awslabs/aws-sdk-rust](https://github.com/awslabs/aws-sdk-rust).
-
-## Running the code
 
 ### detect_faces
 
@@ -54,17 +94,33 @@ cargo run -- -b BUCKET -f FILENAME -t TABLE [-r REGION] [-v]
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
+### telephone
 
-### Notes
+This example synthesizes a plain text (UTF-8) input file to an audio file, converts that audio file to text, and displays the text.
 
-- We recommend that you grant this code least privilege,
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account.
+```
+cd telephone
+cargo run -- -f FILENAME -b BUCKET -j JOB-NAME  [-r REGION] [-v]
+```
+
+- __FILENAME__ is the name of the input file.
+  The output is saved in MP3 format in a file with the same basename, but with an __mp3__ extension.
+- __BUCKET__ is the Amazon S3 bucket to which the MP3 file is uploaded.
+- __JOB-NAME__ is the unique name of the job.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.
+
+## Resources
+
+- [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_cognitoidentityprovider/index.html) 
+
+## Contributing
+
+To propose a new code example to the AWS documentation team, 
+see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md). 
+The team prefers to create code examples that show broad scenarios rather than individual API calls. 
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
