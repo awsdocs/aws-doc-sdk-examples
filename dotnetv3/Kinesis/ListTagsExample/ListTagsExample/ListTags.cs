@@ -3,6 +3,7 @@
 
 namespace ListTagsExample
 {
+    // snippet-start:[Kinesis.dotnetv3.ListTagsExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -58,4 +59,6 @@ namespace ListTagsExample
                 .ForEach(t => Console.WriteLine($"Key: {t.Key} Value: {t.Value}"));
         }
     }
+
+    // snippet-end:[Kinesis.dotnetv3.ListTagsExample]
 }
