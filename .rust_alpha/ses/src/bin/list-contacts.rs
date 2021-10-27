@@ -22,6 +22,24 @@ struct Opt {
     verbose: bool,
 }
 
+// Lists the contacts in a contact list.
+async fn show_contacts(client: &Client, list: &str) -> Result<(), Error> {
+    let resp = client
+        .list_contacts()
+        .contact_list_name(list)
+        .send()
+        .await?;
+
+    println!("Contacts:");
+
+    for contact in resp.contacts.unwrap_or_default() {
+        println!("  {}", contact.email_address.as_deref().unwrap_or_default());
+    }
+
+    Ok(())
+}
+// snippet-end:[ses.rust.list-contacts]
+
 /// Lists the contacts in a contact list in the Region.
 /// # Arguments
 ///
@@ -59,17 +77,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client
-        .list_contacts()
-        .contact_list_name(contact_list)
-        .send()
-        .await?;
-
-    println!("Contacts:");
-
-    for contact in resp.contacts.unwrap_or_default() {
-        println!("  {}", contact.email_address.as_deref().unwrap_or_default());
-    }
-
-    Ok(())
+    show_contacts(&client, &contact_list).await
 }
