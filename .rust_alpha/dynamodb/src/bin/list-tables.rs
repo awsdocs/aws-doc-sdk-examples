@@ -18,6 +18,26 @@ struct Opt {
     verbose: bool,
 }
 
+// List your tables.
+// snippet-start:[dynamodb.rust.list-tables]
+async fn list_tables(client: &Client) -> Result<(), Error> {
+    let resp = client.list_tables().send().await?;
+
+    println!("Tables:");
+
+    let names = resp.table_names.unwrap_or_default();
+    let len = names.len();
+
+    for name in names {
+        println!("  {}", name);
+    }
+
+    println!("Found {} tables", len);
+
+    Ok(())
+}
+// snippet-end:[dynamodb.rust.list-tables]
+
 /// Lists your DynamoDB tables.
 /// # Arguments
 ///
@@ -48,18 +68,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client.list_tables().send().await?;
-
-    println!("Tables:");
-
-    let names = resp.table_names.unwrap_or_default();
-    let len = names.len();
-
-    for name in names {
-        println!("  {}", name);
-    }
-
-    println!("Found {} tables", len);
-
-    Ok(())
+    list_tables(&client).await
 }

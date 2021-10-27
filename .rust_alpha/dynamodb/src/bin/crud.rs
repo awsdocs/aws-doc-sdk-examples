@@ -51,6 +51,7 @@ fn random_string(n: usize) -> String {
 }
 
 /// Create a new table.
+// snippet-start:[dynamodb.rust.crud-make_table]
 async fn make_table(
     client: &Client,
     table: &str,
@@ -84,6 +85,7 @@ async fn make_table(
         Err(e) => Err(e),
     }
 }
+// snippet-end:[dynamodb.rust.crud-make_table]
 
 /// For add_item and query_item
 #[derive(Clone)]
@@ -98,6 +100,7 @@ struct Item {
 }
 
 /// Add an item to the table.
+// snippet-start:[dynamodb.rust.crud-add_item]
 async fn add_item(
     client: &Client,
     item: Item,
@@ -123,9 +126,11 @@ async fn add_item(
         Err(e) => Err(e),
     }
 }
+// snippet-end:[dynamodb.rust.crud-add_item]
 
 /// Query the table for an item matching the input values.
 /// Returns true if the item is found; otherwise false.
+// snippet-start:[dynamodb.rust.crud-query_item]
 async fn query_item(client: &Client, item: Item) -> bool {
     let value = &item.value;
     let key = &item.key;
@@ -158,6 +163,7 @@ async fn query_item(client: &Client, item: Item) -> bool {
         }
     }
 }
+// snippet-end:[dynamodb.rust.crud-query_item]
 
 /// Hand-written waiter to retry every second until the table is out of `Creating` state
 #[derive(Clone)]
