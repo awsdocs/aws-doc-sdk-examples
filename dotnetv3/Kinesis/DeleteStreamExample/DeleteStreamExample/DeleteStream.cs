@@ -56,5 +56,5 @@ namespace DeleteStreamExample
         }
     }
 
-    // snippet-end:[Kinesis.dotnetv3.DeleteStreamExample
+    // snippet-end:[Kinesis.dotnetv3.DeleteStreamExample]
 }
