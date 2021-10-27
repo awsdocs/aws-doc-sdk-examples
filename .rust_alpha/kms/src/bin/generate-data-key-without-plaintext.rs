@@ -23,6 +23,30 @@ struct Opt {
     verbose: bool,
 }
 
+// Create data key.
+// snippet-start:[kms.rust.generate-data-key-without-plaintext]
+async fn make_key(client: &Client, key: &str) -> Result<(), Error> {
+    let resp = client
+        .generate_data_key_without_plaintext()
+        .key_id(key)
+        .key_spec(DataKeySpec::Aes256)
+        .send()
+        .await?;
+
+    // Did we get an encrypted blob?
+    let blob = resp.ciphertext_blob.expect("Could not get encrypted text");
+    let bytes = blob.as_ref();
+
+    let s = base64::encode(&bytes);
+
+    println!();
+    println!("Data key:");
+    println!("{}", s);
+
+    Ok(())
+}
+// snippet-end:[kms.rust.generate-data-key-without-plaintext]
+
 /// Creates an AWS KMS data key without plaintext.
 /// # Arguments
 ///
@@ -59,22 +83,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client
-        .generate_data_key_without_plaintext()
-        .key_id(key)
-        .key_spec(DataKeySpec::Aes256)
-        .send()
-        .await?;
-
-    // Did we get an encrypted blob?
-    let blob = resp.ciphertext_blob.expect("Could not get encrypted text");
-    let bytes = blob.as_ref();
-
-    let s = base64::encode(&bytes);
-
-    println!();
-    println!("Data key:");
-    println!("{}", s);
-
-    Ok(())
+    make_key(&client, &key).await
 }

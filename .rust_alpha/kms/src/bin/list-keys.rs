@@ -17,6 +17,27 @@ struct Opt {
     #[structopt(short, long)]
     verbose: bool,
 }
+
+// Lists your keys.
+// snippet-start:[kms.rust.list-keys]
+async fn show_keys(client: &Client) -> Result<(), Error> {
+    let resp = client.list_keys().send().await?;
+
+    let keys = resp.keys.unwrap_or_default();
+
+    let len = keys.len();
+
+    for key in keys {
+        println!("Key ARN: {}", key.key_arn.as_deref().unwrap_or_default());
+    }
+
+    println!();
+    println!("Found {} keys", len);
+
+    Ok(())
+}
+// snippet-end:[kms.rust.list-keys]
+
 /// Lists your AWS KMS keys in the Region.
 /// # Arguments
 ///
@@ -47,18 +68,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client.list_keys().send().await?;
-
-    let keys = resp.keys.unwrap_or_default();
-
-    let len = keys.len();
-
-    for key in keys {
-        println!("Key ARN: {}", key.key_arn.as_deref().unwrap_or_default());
-    }
-
-    println!();
-    println!("Found {} keys", len);
-
-    Ok(())
+    show_keys(&client).await
 }
