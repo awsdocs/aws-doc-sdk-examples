@@ -359,18 +359,6 @@ rekognition_Usage_FindFacesInCollection:
     title: Searching faces in a collection
     url: rekognition/latest/dg/collections.html
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/rekognition/
-          sdkguide:
-          excerpts:
-            - description: Display information about a face that matches a face identified by its ID value.
-              snippet_tags:
-                - rekognition.java2.search_faces_collection.main
-            - description: Search for matching faces in a collection..
-              snippet_tags:
-                - rekognition.java2.search_faces_collection.main    
     Python:
       versions:
         - sdk_version: 3
@@ -650,18 +638,6 @@ rekognition_Usage_DetectAndDisplayImage:
     title: Displaying bounding boxes
     url: rekognition/latest/dg/images-displaying-bounding-boxes.html
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/rekognition/
-          sdkguide:
-          excerpts:
-            - description: Display a bounding box around faces in an image.
-              snippet_tags:
-                - rekognition.java2.display_faces.main
-            - description: Display a green bounding box around a mask in an image.
-              snippet_tags:
-                - rekognition.java2.display_mask.main  
     Python:
       versions:
         - sdk_version: 3
@@ -717,3 +693,38 @@ rekognition_GetCelebrityInfo:
                 - Rekognition.dotnetv3.CelebrityInfoExample
   services:
     rekognition: {GetCelebrityInfo}
+rekognition_VideoDetection:
+  title: Detect information in videos using &REK; and the &AWS; SDK
+  title_abbrev: Detect information in videos
+  synopsis: detect information in videos.
+  category: Usage
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rekognition/
+          sdkguide:
+          excerpts:
+            - description: Get celebrity results from a video located in an &S3; bucket.
+              snippet_tags:
+                - rekognition.java2.recognize_video_celebrity.main
+            - description: Detect labels in a video by a label detection operation.
+              snippet_tags:
+                - rekognition.java2.recognize_video_detect.main
+            - description: Detect faces in a video stored in an &S3; bucket.
+              snippet_tags:
+                - rekognition.java2.recognize_video_detect.main 
+            - description: Detect inappropriate or offensive content in a video stored in an &S3; bucket.
+              snippet_tags:
+                - rekognition.java2.recognize_video_moderation.main 
+            - description: Detect technical cue segments and shot detection segments in a video stored in an &S3; bucket.
+              snippet_tags:
+                - rekognition.java2.recognize_video_segments.main 
+            - description: Detect text in a video stored in a video stored in an &S3; bucket.
+              snippet_tags:
+                - rekognition.java2.recognize_video_text.main 
+            - description: Detect people in a video stored in a video stored in an &S3; bucket.
+              snippet_tags:
+                - rekognition.java2.recognize_video_person.main     
+  services:
+    rekognition: {}  
