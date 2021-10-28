@@ -57,6 +57,7 @@ struct Opt {
 }
 
 // Create an address.
+// snippet-start:[snowball.rust.create-address]
 async fn add_address(client: &Client, address: Address) -> Result<(), Error> {
     let result = client.create_address().address(address).send().await?;
 
