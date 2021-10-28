@@ -1,4 +1,7 @@
-﻿namespace SNSExample.Controllers
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier:  Apache-2.0
+
+namespace SNSExample.Controllers
 {
     using System.Diagnostics;
     using System.Threading.Tasks;
