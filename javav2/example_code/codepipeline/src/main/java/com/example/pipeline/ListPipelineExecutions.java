@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListPipelineExecutions.java demonstrates how to all executions for a specific pipeline.]
+//snippet-sourcedescription:[ListPipelineExecutions.java demonstrates how to get all executions for a specific pipeline.]
 //snippet-keyword:[SDK for Java 2.0]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS CodePipeline]
