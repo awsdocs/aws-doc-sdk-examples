@@ -5,15 +5,6 @@ sqs_CreateQueue:
   synopsis: create an &SQS; queue.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/sqs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sqs.java2.sqs_example.main
     Python:
       versions:
         - sdk_version: 3
@@ -31,15 +22,6 @@ sqs_GetQueueUrl:
   synopsis: get the URL of an &SQS; queue.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/sqs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sqs.java2.sqs_example.get_queue
     Python:
       versions:
         - sdk_version: 3
@@ -57,15 +39,6 @@ sqs_ListQueues:
   synopsis: list &SQS; queues.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/sqs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sqs.java2.sqs_example.list_queues
     Python:
       versions:
         - sdk_version: 3
@@ -83,15 +56,6 @@ sqs_DeleteQueue:
   synopsis: delete an &SQS; queue.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/sqs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sqs.java2.sqs_example.delete_queue
     Python:
       versions:
         - sdk_version: 3
@@ -109,15 +73,6 @@ sqs_SendMessage:
   synopsis: send a message to an &SQS; queue.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/sqs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sqs.java2.send_recieve_messages.main
     Python:
       versions:
         - sdk_version: 3
@@ -135,15 +90,6 @@ sqs_SendMessageBatch:
   synopsis: send a batch of messages to an &SQS; queue.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/sqs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sqs.java2.sqs_example.send__multiple_messages
     Python:
       versions:
         - sdk_version: 3
@@ -161,15 +107,6 @@ sqs_ReceiveMessage:
   synopsis: receive messages from an &SQS; queue.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/sqs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sqs.java2.sqs_example.retrieve_messages
     Python:
       versions:
         - sdk_version: 3
@@ -187,15 +124,6 @@ sqs_DeleteMessage:
   synopsis: delete a message from an &SQS; queue.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/sqs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sqs.java2.sqs_example.delete_message
     Python:
       versions:
         - sdk_version: 3
