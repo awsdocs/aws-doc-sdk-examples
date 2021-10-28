@@ -746,7 +746,7 @@ The **SendMessage** class uses the AWS SDK for Kotlin SES API to send an email m
 
 ### Create the WorkItem class
 
-The following Java code represents the **WorkItem** class.
+The following Kotlin code represents the **WorkItem** class.
 
 ```kotlin
     package com.example.demo
