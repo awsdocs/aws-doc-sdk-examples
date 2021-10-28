@@ -1,4 +1,3 @@
-
 #zexi 0.4.0
 sqs_CreateQueue:
   title: Create an &SQS; queue using an &AWS; SDK
