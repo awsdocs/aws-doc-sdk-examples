@@ -23,6 +23,7 @@ struct Opt {
 }
 
 // Lists the contacts in a contact list.
+// snippet-start:[ses.rust.list-contacts]
 async fn show_contacts(client: &Client, list: &str) -> Result<(), Error> {
     let resp = client
         .list_contacts()

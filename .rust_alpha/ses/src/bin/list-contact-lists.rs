@@ -19,6 +19,7 @@ struct Opt {
 }
 
 // Lists your contact lists.
+// snippet-start:[ses.rust.list-contact-lists]
 async fn show_lists(client: &Client) -> Result<(), Error> {
     let resp = client.list_contact_lists().send().await?;
 
