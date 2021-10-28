@@ -4,18 +4,6 @@ pinpoint_SendMessages:
   synopsis: send email and text messages with &PIN;.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/pinpoint
-          sdkguide:
-          excerpts:
-            - description: Send an email message.
-              snippet_tags:
-                - pinpoint.java2.send_email.main
-            - description: Send an SMS message.
-              snippet_tags:
-                - pinpoint.java2.sendmsg.main
     Python:
       versions:
         - sdk_version: 3
