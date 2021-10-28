@@ -1,9 +1,6 @@
 ﻿namespace SNSExample.Controllers
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading;
     using System.Threading.Tasks;
     using System.Xml;
     using Amazon;
@@ -14,7 +11,7 @@
 
     public class SnsService
     {
-        private static readonly string TopicArn = "arn:aws:sns:us-east-2:704825161248:ExampleSNSTopic";
+        private static readonly string TopicArn = "<PUT TOPIC ARN HERE>";
 
         public async Task<string> UnSubEmail(string email)
         {

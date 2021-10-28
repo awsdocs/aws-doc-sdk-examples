@@ -9,17 +9,17 @@ The application created in this AWS tutorial is an ASP.NET MVC application that 
 
 **Note**: Amazon SNS is a managed service that provides message delivery from publishers to subscribers (also known as producers and consumers). For more information, see [What is Amazon SNS?](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
 
+### Topics
 
-#### Topics
-
-+ Prerequisites
-+ Understand the Publish/Subscription application
-+ Create a .NET Web App project 
-+ Add the required AWS Packages to your project
-+ Create the .NET classes
-+ Modify the cshtml file
-+ Create the JS File
-+ Run the application
+- [Prerequisites](#prerequisites)
+- [Understand the application](#understand-the-application)
+- [Create a .NET Web App project](#create-the-project)
+- [Add the AWS Packages](#add-the-aws-packages)
+- [Create the classes](#create-the-classes)
+- [Modify the cshtml file](#modify-the-cshtml-file)
+- [Create the JS File](#create-the-js-file)
+- [Run the application](#run-the-application)
+- [Next Steps](#next-steps)
 
 ## Prerequisites
 
@@ -43,7 +43,7 @@ Create an Amazon SNS queue that is used in the .NET code. For information, see [
 
 In addition, make sure that you setup your .NET developer environment before following along with this tutorial. For more information, see [Setting up your AWS SDK for .NET environment](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-setup.html). 
 
-## Understand the Publish/Subscription application
+## Understand the application
 
 To subscribe to an Amazon SNS topic, the user enters a valid email address into the web application. 
 
@@ -68,7 +68,7 @@ This example application lets you view all of the subscribed email recipients by
 ![AWS Tracking Application](images/client4.png)
 
 
-## Create a .NET Web App project
+## Create the project
 
 Create a Net Web App project using Visual Studio named **SNSApplication**.
 
@@ -80,29 +80,31 @@ Create a Net Web App project using Visual Studio named **SNSApplication**.
 
 3. Choose **Next**.
 
-4. In the **Project Name** field, specify **SNSApplication**.  
+4. In the **Project Name** field, specify **SubscribePublishTranslate**.  
 
 5. Choose **Next**.
 
+6. Make sure that the Target Framework is set to .NET Core 5.0 (or the current version of .NET Core) has been selected. 
+
 6. Choose **Create**.
 
-## Add the required AWS Packages to your project
+## Add the AWS Packages
 
-At this point, you have a new project named **SNSApplication**. You must add the required AWS packages to your project, as shown in this illustration.
+At this point, you have a new project named **SubscribePublishTranslate**. You must add the required AWS packages to your project, as shown in this illustration.
 
 ![AWS Tracking Application](images/packages.png)
 
-Once you add these packages, you can use the AWS SDK for .NET in your project. 
+Once you add the packages, you can use the AWS SDK for .NET in your project. 
 
-1. In the Solution Explorer, right-click the project name, **SNSPubSubExample**.
+1. In the Solution Explorer, right-click the project name, **SubscribePublishTranslate**.
 
 2. Select **Manage NuGet Packages...**.
 
-3. Choose **Browse**.
+3. When the NuGet packages dialog opens, choose **Browse**.
 
 4. In the **Search** field, specify **AWSSDK.Core**.  
 
-5. Select it from the list, and then click the **Install** button in the right-hand pane.
+5. Select the AWSSDK.Core package from the list, and then click the **Install** button in the right-hand pane.
 
 ![Install NuGet Package](images/install_package.png)
 
@@ -112,8 +114,7 @@ Once you add these packages, you can use the AWS SDK for .NET in your project.
 
 ![AWS Tracking Application](images/nuget.png)
 
-
- ## Create the .NET classes
+ ## Create the classes
  
  By default, most of the .NET classes that you use to build this AWS application are created. Notice the project structure of your application. 
  
@@ -131,18 +132,16 @@ Once you add these packages, you can use the AWS SDK for .NET in your project.
 The following C# code represents the **HomeController** class. Becasue the Async version of the AWS SDK for .NET is used, notice that the controller methods have to use **async** keywords and the return values are defined using **Task**. 
 
 ```csharp
-     using Microsoft.AspNetCore.Mvc;
-     using Microsoft.Extensions.Logging;
-     using MyMVCApplication.Models;
-     using System;
-     using System.Diagnostics;
-     using System.Threading.Tasks;
+namespace SNSExample.Controllers
+{
+    using System.Diagnostics;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
+    using SNSExample.Models;
 
-     namespace MyMVCApplication.Controllers
+    public class HomeController : Controller
     {
-    
-     public class HomeController : Controller
-     {
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -151,22 +150,17 @@ The following C# code represents the **HomeController** class. Becasue the Async
         }
 
         [HttpPost]
-        public async Task<ActionResult> PublishMessage(String body, String lang)
+        public async Task<ActionResult> PublishMessage(string body, string lang)
         {
             var snsService = new SnsService();
-            var bodyValue = body;
-            var langValue = lang;
-            var id = await snsService.pubTopic(body, lang);
-            return Content("Message " +id +" was successfully published");
+            var id = await snsService.PubTopic(body, lang);
+            return Content($"Message {id} was successfully published");
         }
-
 
         [HttpPost]
         public async Task<ActionResult> RemoveEmailSub(string email)
         {
-
             var snsService = new SnsService();
-            var emailValue = email;
             var msg = await snsService.UnSubEmail(email);
             return Content(msg);
         }
@@ -174,20 +168,16 @@ The following C# code represents the **HomeController** class. Becasue the Async
         [HttpPost]
         public async Task<ActionResult> AddEmailSub(string email)
         {
-
             var snsService = new SnsService();
-            var emailValue = email;
-            var arn = await snsService.subEmail(email);
+            var arn = await snsService.SubEmail(email);
             return Content(arn);
         }
 
-
         [HttpGet]
-        public async Task<ActionResult> GetAjaxValue() 
+        public async Task<ActionResult> GetAjaxValue()
         {
-
             var snsService = new SnsService();
-            var xml = await snsService.getSubs();
+            var xml = await snsService.GetSubs();
             return Content(xml);
         }
 
@@ -206,9 +196,8 @@ The following C# code represents the **HomeController** class. Becasue the Async
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-      }
-     }
-
+    }
+}
 ```
 
 ### SnsService class
@@ -216,61 +205,59 @@ The following C# code represents the **HomeController** class. Becasue the Async
 The following C# code represents the **SnsService** class. This class uses the AWS .NET SNS API to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes from the Amazon SNS topic. The **pubTopic** publishes a message. The **TranslateBody** method uses the Amazon Translate Service to translate the message if requested by the user.  
 
 ```csharp
-     
-    using System;
-    using System.Threading;
+namespace SNSExample.Controllers
+{
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using System.Xml;
+    using Amazon;
     using Amazon.SimpleNotificationService;
     using Amazon.SimpleNotificationService.Model;
     using Amazon.Translate;
     using Amazon.Translate.Model;
-    using System.Xml;
-    using Amazon; 
 
-
-    namespace MyMVCApplication.Controllers
-    {
     public class SnsService
     {
+        private static readonly string TopicArn = "<PUT TOPIC ARN HERE>";
 
-        private static String topicArn = "<ENTER YOUR TOPIC ARN";
-
-        public async Task<String> UnSubEmail(String email)
+        public async Task<string> UnSubEmail(string email)
         {
-
             var client = new AmazonSimpleNotificationServiceClient();
             var arnValue = await GetSubArn(client, email);
             await RemoveSub(client, arnValue);
-            return email + " was successfully deleted!";
+            return $"{email} was successfully deleted!";
         }
 
-        public async Task<String> pubTopic(String body, String lang)
+        public async Task<string> PubTopic(string body, string lang)
         {
             var client = new AmazonSimpleNotificationServiceClient();
-            var message = "";
+            var message = string.Empty;
 
-            if (lang.Equals("French"))
-                message = TranslateBody(body, "fr");
-            else if (lang.Equals("Spanish"))
-                message = TranslateBody(body, "es");
-            else
-                message = body; 
+            switch (lang.ToLower())
+            {
+                case "french":
+                    message = TranslateBody(body, "fr");
+                    break;
+                case "spanish":
+                    message = TranslateBody(body, "es");
+                    break;
+                default:
+                    message = body;
+                    break;
+            }
 
             var msgId = await PublishMessage(client, message);
             return msgId;
         }
 
-
-        public async Task<String> subEmail(String email)
+        public async Task<string> SubEmail(string email)
         {
             var client = new AmazonSimpleNotificationServiceClient();
             var subArn = await SubscribeEmail(client, email);
             return subArn;
         }
 
-
-        public async Task<String> getSubs()
+        public async Task<string> GetSubs()
         {
             var client = new AmazonSimpleNotificationServiceClient();
             var subscriptions = await GetSubscriptionsListAsync(client);
@@ -278,24 +265,22 @@ The following C# code represents the **SnsService** class. This class uses the A
             return val;
         }
 
-        public static async Task<String> RemoveSub(IAmazonSimpleNotificationService client, String subArn)
+        public static async Task<string> RemoveSub(IAmazonSimpleNotificationService client, string subArn)
         {
             var request = new UnsubscribeRequest();
             request.SubscriptionArn = subArn;
-            var cancelToken = new CancellationToken();
-            await client.UnsubscribeAsync(request, cancelToken);
+            await client.UnsubscribeAsync(request);
 
-            return "";
+            return string.Empty;
         }
 
-        public static async Task<String> GetSubArn(IAmazonSimpleNotificationService client, String email)
+        public static async Task<string> GetSubArn(IAmazonSimpleNotificationService client, string email)
         {
             var request = new ListSubscriptionsByTopicRequest();
-            request.TopicArn = topicArn;
-            var subArn = "";
+            request.TopicArn = TopicArn;
+            var subArn = string.Empty;
 
-            var cancelToken = new CancellationToken();
-            var response = await client.ListSubscriptionsByTopicAsync(request, cancelToken);
+            var response = await client.ListSubscriptionsByTopicAsync(request);
             List<Subscription> allSubs = response.Subscriptions;
 
             // Get the ARN Value for this subscription.
@@ -305,66 +290,62 @@ The following C# code represents the **SnsService** class. This class uses the A
                 {
                     subArn = sub.SubscriptionArn;
                     return subArn;
-
                 }
             }
-            return "";
+
+            return string.Empty;
         }
 
-        public static async Task<String> PublishMessage(IAmazonSimpleNotificationService client, String body)
+        public static async Task<string> PublishMessage(IAmazonSimpleNotificationService client, string body)
         {
             var request = new PublishRequest();
             request.Message = body;
-            request.TopicArn = topicArn;
-           
-            var cancelToken = new CancellationToken();
-            var response = await client.PublishAsync(request, cancelToken);
+            request.TopicArn = TopicArn;
+
+            var response = await client.PublishAsync(request);
 
             return response.MessageId;
         }
 
-
-        public static async Task<String> SubscribeEmail(IAmazonSimpleNotificationService client, String email)
+        public static async Task<string> SubscribeEmail(IAmazonSimpleNotificationService client, string email)
         {
             var request = new SubscribeRequest();
             request.Protocol = "email";
             request.Endpoint = email;
-            request.TopicArn = topicArn;
+            request.TopicArn = TopicArn;
             request.ReturnSubscriptionArn = true;
 
-            var cancelToken = new CancellationToken();
-            var response = await client.SubscribeAsync(request, cancelToken);
-            
+            var response = await client.SubscribeAsync(request);
+
             return response.SubscriptionArn;
         }
 
-
         public static async Task<List<Subscription>> GetSubscriptionsListAsync(IAmazonSimpleNotificationService client)
         {
-            var request = new ListSubscriptionsByTopicRequest();
-            var cancelToken = new CancellationToken();
-            var response = await client.ListSubscriptionsByTopicAsync(topicArn, "", cancelToken);
+            var request = new ListSubscriptionsByTopicRequest
+            {
+                TopicArn = TopicArn,
+            };
+            var response = await client.ListSubscriptionsByTopicAsync(request);
             return response.Subscriptions;
         }
 
-     
-        public String DisplaySubscriptionList(List<Subscription> subscriptionList)
+        public string DisplaySubscriptionList(List<Subscription> subscriptionList)
         {
-
-            var email = ""; 
-            List<String> emailList = new List<string>();
+            var email = string.Empty;
+            List<string> emailList = new List<string>();
             foreach (var subscription in subscriptionList)
             {
                 emailList.Add(subscription.Endpoint);
                 email = subscription.Endpoint;
-             }
+            }
 
             var xml = GenerateXML(emailList);
-            return xml; 
+            return xml;
         }
 
         // Convert the list to XML to pass back to the view.
-        private String GenerateXML(List<string> subsList)
+        private string GenerateXML(List<string> subsList)
         {
             XmlDocument doc = new XmlDocument();
             XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
@@ -374,9 +355,8 @@ The following C# code represents the **SnsService** class. This class uses the A
             doc.AppendChild(subsNode);
 
             // Iterate through the collection.
-            foreach (String sub in subsList)
+            foreach (string sub in subsList)
             {
-
                 XmlNode subNode = doc.CreateElement("Sub");
                 subsNode.AppendChild(subNode);
 
@@ -385,23 +365,24 @@ The following C# code represents the **SnsService** class. This class uses the A
                 subNode.AppendChild(email);
             }
 
-           return doc.OuterXml; 
+            return doc.OuterXml;
         }
-    
-        
-        private String TranslateBody(String msg, String lan)
+
+        private string TranslateBody(string msg, string lan)
         {
             var translateClient = new AmazonTranslateClient(RegionEndpoint.USEast2);
-            var request = new TranslateTextRequest();
-            request.SourceLanguageCode = "en" ;
-            request.TargetLanguageCode= lan;
-            request.Text = msg;
-            var response = translateClient.TranslateTextAsync(request);
-            return response.Result.TranslatedText; 
-         }
-       }
-     }
+            var request = new TranslateTextRequest
+            {
+                SourceLanguageCode = "en",
+                TargetLanguageCode = lan,
+                Text = msg,
+            };
 
+            var response = translateClient.TranslateTextAsync(request);
+            return response.Result.TranslatedText;
+        }
+    }
+}
 ```
 
 **Note:** Make sure that you assign the SNS topic ARN to the **topicArn** data member. Otherwise, your code will not work. 
@@ -636,11 +617,12 @@ function validate(email) {
 
 ## Run the application
 
-Using Visual Studio, you can run your application. After it starts, you will see the HOME page, as shown in the following image. 
+You can run your application from your IDE. The home page will look like the following. 
 
 ![AWS Tracking Application](images/run.png)
 
 
 ### Next steps
-Congratulations! You have created a .NET MVC application that contains subscription and publish functionality. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
+Congratulations! You have created a .NET MVC application that contains subscription and publish functionality. When you're done working with the example, remember to terminate all of the resources you created while following this tutorial to ensure that your won't be charged.
 
+Copyright (c) Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
