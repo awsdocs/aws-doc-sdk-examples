@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateEndpoint.java demonstrates how to create an endpoint for an application in Amazon Pinpoint.]
+//snippet-sourcedescription:[CreateEndpoint.java demonstrates how to update an endpoint for an application in Amazon Pinpoint.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
@@ -44,7 +44,7 @@ import java.util.Date;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-public class CreateEndpoint {
+public class UpdateEndpoint {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
