@@ -1,0 +1,19 @@
+
+#zexi 0.4.0
+textract_AnalyzeDocument:
+  title: Analyze a document using &TEXTRACTlong; and the &AWS; SDK
+  title_abbrev: Analyze a document
+  synopsis: analyze a document using &TEXTRACTlong;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/textract
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.java2.create_instance.main
+  services:
+   textract: {AnalyzeDocument}
