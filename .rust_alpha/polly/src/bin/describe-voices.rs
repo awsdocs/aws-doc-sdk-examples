@@ -18,6 +18,33 @@ struct Opt {
     verbose: bool,
 }
 
+// Lists the available voices.
+// snippet-start:[polly.rust.describe-voices]
+async fn list_voices(client: &Client) -> Result<(), Error> {
+    let resp = client.describe_voices().send().await?;
+
+    println!("Voices:");
+
+    let voices = resp.voices.unwrap_or_default();
+    for voice in &voices {
+        println!(
+            "  Name:     {}",
+            voice.name.as_deref().unwrap_or("No name!")
+        );
+        println!(
+            "  Language: {}",
+            voice.language_name.as_deref().unwrap_or("No language!")
+        );
+
+        println!();
+    }
+
+    println!("Found {} voices", voices.len());
+
+    Ok(())
+}
+// snippet-end:[polly.rust.describe-voices]
+
 /// Displays a list of the voices in the Region.
 /// # Arguments
 ///
@@ -48,25 +75,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client.describe_voices().send().await?;
-
-    println!("Voices:");
-
-    let voices = resp.voices.unwrap_or_default();
-    for voice in &voices {
-        println!(
-            "  Name:     {}",
-            voice.name.as_deref().unwrap_or("No name!")
-        );
-        println!(
-            "  Language: {}",
-            voice.language_name.as_deref().unwrap_or("No language!")
-        );
-
-        println!();
-    }
-
-    println!("Found {} voices", voices.len());
-
-    Ok(())
+    list_voices(&client).await
 }
