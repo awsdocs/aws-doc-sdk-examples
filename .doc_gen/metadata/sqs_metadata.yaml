@@ -1,0 +1,202 @@
+#zexi 0.4.0
+sqs_CreateQueue:
+  title: Create an &SQS; queue using an &AWS; SDK
+  title_abbrev: Create a queue
+  synopsis: create an &SQS; queue.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sqs.CreateQueue
+  services:
+    sqs: {CreateQueue}
+sqs_GetQueueUrl:
+  title: Get the URL of an &SQS; queue using an &AWS; SDK
+  title_abbrev: Get the URL of a queue
+  synopsis: get the URL of an &SQS; queue.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sqs.GetQueueUrl
+  services:
+    sqs: {GetQueueUrl}
+sqs_ListQueues:
+  title: List &SQS; queues using an &AWS; SDK
+  title_abbrev: List queues
+  synopsis: list &SQS; queues.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sqs.ListQueues
+  services:
+    sqs: {ListQueues}
+sqs_DeleteQueue:
+  title: Delete an &SQS; queue using an &AWS; SDK
+  title_abbrev: Delete a queue
+  synopsis: delete an &SQS; queue.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sqs.DeleteQueue
+  services:
+    sqs: {DeleteQueue}
+sqs_SendMessage:
+  title: Send a message to an &SQS; queue using an &AWS; SDK
+  title_abbrev: Send a message to a queue
+  synopsis: send a message to an &SQS; queue.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sqs.SendMessage
+  services:
+    sqs: {SendMessage}
+sqs_SendMessageBatch:
+  title: Send a batch of messages to an &SQS; queue using an &AWS; SDK
+  title_abbrev: Send a batch of messages to a queue
+  synopsis: send a batch of messages to an &SQS; queue.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sqs.SendMessageBatch
+  services:
+    sqs: {SendMessageBatch}
+sqs_ReceiveMessage:
+  title: Receive messages from an &SQS; queue using an &AWS; SDK
+  title_abbrev: Receive messages from a queue
+  synopsis: receive messages from an &SQS; queue.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sqs.ReceiveMessage
+  services:
+    sqs: {ReceiveMessage}
+sqs_DeleteMessage:
+  title: Delete a message from an &SQS; queue using an &AWS; SDK
+  title_abbrev: Delete a message from a queue
+  synopsis: delete a message from an &SQS; queue.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sqs.DeleteMessage
+  services:
+    sqs: {DeleteMessage}
+sqs_DeleteMessageBatch:
+  title: Delete a batch of messages from an &SQS; queue using an &AWS; SDK
+  title_abbrev: Delete a batch of messages from a queue
+  synopsis: delete a batch of messages from an &SQS; queue.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sqs.DeleteMessageBatch
+  services:
+    sqs: {DeleteMessageBatch}
+sqs_Scenario_ManageQueues:
+  title: Manage &SQS; queues using an &AWS; SDK
+  title_abbrev: Manage queues
+  synopsis: manage &SQS; queues.
+  category: Scenario
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description: Create functions to wrap &SQS; queue actions.
+              snippet_tags:
+                - python.example_code.sqs.queue_wrapper_imports
+                - python.example_code.sqs.CreateQueue
+                - python.example_code.sqs.GetQueueUrl
+                - python.example_code.sqs.ListQueues
+                - python.example_code.sqs.DeleteQueue
+            - description: Use the wrapper functions to create and delete queues.
+              snippet_tags:
+                - python.example_code.sqs.Scenario_ManageQueues
+  services:
+    sqs: {}
+sqs_Scenario_SendReceiveBatch:
+  title: Send and receive batches of messages with &SQS; using an &AWS; SDK
+  title_abbrev: Send and receive batches of messages
+  synopsis: send and receive batches of messages with &SQS;.
+  category: Scenario
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description: Create functions to wrap &SQS; message functions.
+              snippet_tags:
+                - python.example_code.sqs.message_wrapper_imports
+                - python.example_code.sqs.SendMessageBatch
+                - python.example_code.sqs.ReceiveMessage
+                - python.example_code.sqs.DeleteMessageBatch
+            - description: Use the wrapper functions to send and receive messages
+                in batches.
+              snippet_tags:
+                - python.example_code.sqs.Scenario_SendReceiveBatch
+  services:
+    sqs: {}

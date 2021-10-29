@@ -7,10 +7,10 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.18-alpha", package = "aws-config" }
-aws-sdk-polly = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.18-alpha", package = "aws-sdk-polly" }
-aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.18-alpha", package = "aws-sdk-s3" }
-aws-sdk-transcribe = { git = "https://github.com/awslabs/aws-sdk-rust", tag = "v0.0.18-alpha", package = "aws-sdk-transcribe" }
+aws-config = "0.0.22-alpha"
+aws-sdk-polly = "0.0.22-alpha"
+aws-sdk-s3 = "0.0.22-alpha"
+aws-sdk-transcribe = "0.0.22-alpha"
 tokio = { version = "1", features = ["full"] }
 async-stream = "0.3"
 bytes = "1"

@@ -33,7 +33,7 @@ suspend fun main(args:Array<String>) {
             phoneNumber - the mobile phone number to which a message is sent (for example, +1XXX5550100). 
         """
 
-    if (args.size != 3) {
+    if (args.size != 2) {
         println(usage)
         exitProcess(0)
     }
