@@ -35,6 +35,55 @@ struct Opt {
     verbose: bool,
 }
 
+// Sends a message to all members of the contact list.
+// snippet-start:[ses.rust.send-email]
+async fn send_message(
+    client: &Client,
+    list: &str,
+    from: &str,
+    subject: &str,
+    message: &str,
+) -> Result<(), Error> {
+    // Get list of email addresses from contact list.
+    let resp = client
+        .list_contacts()
+        .contact_list_name(list)
+        .send()
+        .await?;
+
+    let contacts = resp.contacts.unwrap_or_default();
+
+    let cs: String = contacts
+        .into_iter()
+        .map(|i| i.email_address.unwrap_or_default())
+        .collect();
+
+    let dest = Destination::builder().to_addresses(cs).build();
+    let subject_content = Content::builder().data(subject).charset("UTF-8").build();
+    let body_content = Content::builder().data(message).charset("UTF-8").build();
+    let body = Body::builder().text(body_content).build();
+
+    let msg = Message::builder()
+        .subject(subject_content)
+        .body(body)
+        .build();
+
+    let email_content = EmailContent::builder().simple(msg).build();
+
+    client
+        .send_email()
+        .from_email_address(from)
+        .destination(dest)
+        .content(email_content)
+        .send()
+        .await?;
+
+    println!("Email sent to list");
+
+    Ok(())
+}
+// snippet-end:[ses.rust.send-email]
+
 /// Sends a message to the email addresses in the contact list in the Region.
 /// # Arguments
 ///
@@ -81,41 +130,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    // Get list of email addresses from contact list.
-    let resp = client
-        .list_contacts()
-        .contact_list_name(contact_list)
-        .send()
-        .await?;
-
-    let contacts = resp.contacts.unwrap_or_default();
-
-    let cs: String = contacts
-        .into_iter()
-        .map(|i| i.email_address.unwrap_or_default())
-        .collect();
-
-    let dest = Destination::builder().to_addresses(cs).build();
-    let subject_content = Content::builder().data(subject).charset("UTF-8").build();
-    let body_content = Content::builder().data(message).charset("UTF-8").build();
-    let body = Body::builder().text(body_content).build();
-
-    let msg = Message::builder()
-        .subject(subject_content)
-        .body(body)
-        .build();
-
-    let email_content = EmailContent::builder().simple(msg).build();
-
-    client
-        .send_email()
-        .from_email_address(from_address)
-        .destination(dest)
-        .content(email_content)
-        .send()
-        .await?;
-
-    println!("Email sent to list");
-
-    Ok(())
+    send_message(&client, &contact_list, &from_address, &subject, &message).await
 }
