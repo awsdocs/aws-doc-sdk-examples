@@ -14,7 +14,7 @@ namespace SNSExample.Controllers
 
     public class SnsService
     {
-        private static readonly string TopicArn = "<PUT TOPIC ARN HERE>";
+        private static readonly string TopicArn = "arn:aws:sns:us-east-2:704825161248:ExampleSNSTopic"; //"<PUT TOPIC ARN HERE>";
 
         public async Task<string> UnSubEmail(string email)
         {
