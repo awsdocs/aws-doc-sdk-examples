@@ -31,6 +31,30 @@ struct Opt {
     verbose: bool,
 }
 
+// Creates a parameter.
+// snippet-start:[ssm.rust.create-parameter]
+async fn make_parameter(
+    client: &Client,
+    name: &str,
+    value: &str,
+    description: &str,
+) -> Result<(), Error> {
+    let resp = client
+        .put_parameter()
+        .overwrite(true)
+        .r#type(ParameterType::String)
+        .name(name)
+        .value(value)
+        .description(description)
+        .send()
+        .await?;
+
+    println!("Success! Parameter now has version: {}", resp.version);
+
+    Ok(())
+}
+// snippet-end:[ssm.rust.create-parameter]
+
 /// Creates a new AWS Systems Manager parameter in the Region.
 /// # Arguments
 ///
@@ -73,17 +97,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client
-        .put_parameter()
-        .overwrite(true)
-        .r#type(ParameterType::String)
-        .name(name)
-        .value(parameter_value)
-        .description(title)
-        .send()
-        .await?;
-
-    println!("Success! Parameter now has version: {}", resp.version);
-
-    Ok(())
+    make_parameter(&client, &name, &parameter_value, &title).await
 }

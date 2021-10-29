@@ -18,6 +18,19 @@ struct Opt {
     verbose: bool,
 }
 
+// Lists your parameters.
+// snippet-start:[ssm.rust.describe-parameters]
+async fn show_parameters(client: &Client) -> Result<(), Error> {
+    let resp = client.describe_parameters().send().await?;
+
+    for param in resp.parameters.unwrap().iter() {
+        println!("  {}", param.name.as_deref().unwrap_or_default());
+    }
+
+    Ok(())
+}
+// snippet-end:[ssm.rust.describe-parameters]
+
 /// Lists the names of your AWS Systems Manager parameters in the Region.
 /// # Arguments
 ///
@@ -51,11 +64,5 @@ async fn main() -> Result<(), Error> {
 
     println!("Parameter names:");
 
-    let resp = client.describe_parameters().send().await?;
-
-    for param in resp.parameters.unwrap().iter() {
-        println!("  {}", param.name.as_deref().unwrap_or_default());
-    }
-
-    Ok(())
+    show_parameters(&client).await
 }
