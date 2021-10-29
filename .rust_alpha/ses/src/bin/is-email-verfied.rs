@@ -22,6 +22,25 @@ struct Opt {
     verbose: bool,
 }
 
+// Is email address has been verified?
+// snippet-start:[ses.rust.is-email-verfied]
+async fn is_verified(client: &Client, email: &str) -> Result<(), Error> {
+    let resp = client
+        .get_email_identity()
+        .email_identity(email)
+        .send()
+        .await?;
+
+    if resp.verified_for_sending_status {
+        println!("The address is verified");
+    } else {
+        println!("The address is not verified");
+    }
+
+    Ok(())
+}
+// snippet-end:[ses.rust.is-email-verfied]
+
 /// Determines whether the email address has been verified.
 /// # Arguments
 ///
@@ -59,17 +78,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client
-        .get_email_identity()
-        .email_identity(email_address)
-        .send()
-        .await?;
-
-    if resp.verified_for_sending_status {
-        println!("The address is verified");
-    } else {
-        println!("The address is not verified");
-    }
-
-    Ok(())
+    is_verified(&client, &email_address).await
 }

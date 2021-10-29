@@ -23,6 +23,22 @@ struct Opt {
     verbose: bool,
 }
 
+// Create a ledger.
+// snippet-start:[qldb.rust.create-ledger]
+async fn make_ledger(client: &Client, ledger: &str) -> Result<(), Error> {
+    let result = client
+        .create_ledger()
+        .name(ledger)
+        .permissions_mode(PermissionsMode::AllowAll)
+        .send()
+        .await?;
+
+    println!("ARN: {}", result.arn.unwrap());
+
+    Ok(())
+}
+// snippet-end:[qldb.rust.create-ledger]
+
 /// Creates an Amazon Quantum Ledger Database (Amazon QLDB) ledger in the Region.
 /// # Arguments
 ///
@@ -53,20 +69,12 @@ async fn main() -> Result<(), Error> {
             "Region:              {}",
             region_provider.region().await.unwrap().as_ref()
         );
+        println!("Ledger:              {}", &ledger);
         println!();
     }
 
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let result = client
-        .create_ledger()
-        .name(ledger)
-        .permissions_mode(PermissionsMode::AllowAll)
-        .send()
-        .await?;
-
-    println!("ARN: {}", result.arn.unwrap());
-
-    Ok(())
+    make_ledger(&client, &ledger).await
 }

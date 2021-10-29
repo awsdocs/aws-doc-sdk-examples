@@ -32,6 +32,28 @@ struct Opt {
     info: bool,
 }
 
+// Deletes an item from the table.
+// snippet-start:[dynamodb.rust.delete-item]
+async fn delete_item(client: &Client, table: &str, key: &str, value: &str) -> Result<(), Error> {
+    match client
+        .delete_item()
+        .table_name(table)
+        .key(key, AttributeValue::S(value.into()))
+        .send()
+        .await
+    {
+        Ok(_) => println!("Deleted item from table"),
+        Err(e) => {
+            println!("Got an error deleting item from table:");
+            println!("{}", e);
+            process::exit(1);
+        }
+    };
+
+    Ok(())
+}
+// snippet-end:[dynamodb.rust.delete-item]
+
 /// Deletes an item from an Amazon DynamoDB table.
 /// The table schema must use the key as the primary key.
 /// # Arguments
@@ -68,26 +90,12 @@ async fn main() -> Result<(), Error> {
         );
         println!("Table:                   {}", &table);
         println!("Key:                     {}", &key);
+        println!("Value:                   {}", &value);
         println!();
     }
 
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    match client
-        .delete_item()
-        .table_name(table)
-        .key(key, AttributeValue::S(value))
-        .send()
-        .await
-    {
-        Ok(_) => println!("Deleted item from table"),
-        Err(e) => {
-            println!("Got an error deleting item from table:");
-            println!("{}", e);
-            process::exit(1);
-        }
-    };
-
-    Ok(())
+    delete_item(&client, &table, &key, &value).await
 }

@@ -18,6 +18,35 @@ struct Opt {
     verbose: bool,
 }
 
+// Lists your IoT things.
+// snippet-start:[iot.rust.list-things]
+async fn show_things(client: &Client) -> Result<(), Error> {
+    let resp = client.list_things().send().await?;
+
+    println!("Things:");
+
+    for thing in resp.things.unwrap() {
+        println!(
+            "  Name:  {}",
+            thing.thing_name.as_deref().unwrap_or_default()
+        );
+        println!(
+            "  Type:  {}",
+            thing.thing_type_name.as_deref().unwrap_or_default()
+        );
+        println!(
+            "  ARN:   {}",
+            thing.thing_arn.as_deref().unwrap_or_default()
+        );
+        println!();
+    }
+
+    println!();
+
+    Ok(())
+}
+// snippet-end:[iot.rust.list-things]
+
 /// Lists the name, type, and ARN of your IoT things in the Region.
 ///
 /// # Arguments
@@ -48,27 +77,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client.list_things().send().await?;
-
-    println!("Things:");
-
-    for thing in resp.things.unwrap() {
-        println!(
-            "  Name:  {}",
-            thing.thing_name.as_deref().unwrap_or_default()
-        );
-        println!(
-            "  Type:  {}",
-            thing.thing_type_name.as_deref().unwrap_or_default()
-        );
-        println!(
-            "  ARN:   {}",
-            thing.thing_arn.as_deref().unwrap_or_default()
-        );
-        println!();
-    }
-
-    println!();
-
-    Ok(())
+    show_things(&client).await
 }

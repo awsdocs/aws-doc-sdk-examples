@@ -18,6 +18,25 @@ struct Opt {
     verbose: bool,
 }
 
+// Displays your endpoint descriptions and URLs.
+// snippet-start:[mediapackage.rust.list-endpoints]
+async fn show_endpoints(client: &Client) -> Result<(), Error> {
+    let or_endpoints = client.list_origin_endpoints().send().await?;
+
+    println!("Endpoints:");
+
+    for e in or_endpoints.origin_endpoints.unwrap_or_default() {
+        let endpoint_url = e.url.as_deref().unwrap_or_default();
+        let endpoint_description = e.description.as_deref().unwrap_or_default();
+        println!("  Description: {}", endpoint_description);
+        println!("  URL :        {}", endpoint_url);
+        println!();
+    }
+
+    Ok(())
+}
+// snippet-end:[mediapackage.rust.list-endpoints]
+
 /// Lists your AWS Elemental MediaPackage endpoint descriptions and URLs in the Region.
 /// # Arguments
 ///
@@ -48,17 +67,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let or_endpoints = client.list_origin_endpoints().send().await?;
-
-    println!("Endpoints:");
-
-    for e in or_endpoints.origin_endpoints.unwrap_or_default() {
-        let endpoint_url = e.url.as_deref().unwrap_or_default();
-        let endpoint_description = e.description.as_deref().unwrap_or_default();
-        println!("  Description: {}", endpoint_description);
-        println!("  URL :        {}", endpoint_url);
-        println!();
-    }
-
-    Ok(())
+    show_endpoints(&client).await
 }

@@ -44,6 +44,45 @@ struct Opt {
     verbose: bool,
 }
 
+// Add an item to a table.
+// snippet-start:[dynamodb.rust.add-item]
+async fn add_item(
+    client: &Client,
+    table: &str,
+    username: &str,
+    p_type: &str,
+    age: &str,
+    first: &str,
+    last: &str,
+) -> Result<(), Error> {
+    let user_av = AttributeValue::S(username.into());
+    let type_av = AttributeValue::S(p_type.into());
+    let age_av = AttributeValue::S(age.into());
+    let first_av = AttributeValue::S(first.into());
+    let last_av = AttributeValue::S(last.into());
+
+    let request = client
+        .put_item()
+        .table_name(table)
+        .item("username", user_av)
+        .item("account_type", type_av)
+        .item("age", age_av)
+        .item("first_name", first_av)
+        .item("last_name", last_av);
+
+    println!("Executing request [{:?}] to add item...", request);
+
+    request.send().await?;
+
+    println!(
+        "Added user {}, {} {}, age {} as {} user",
+        username, first, last, age, p_type
+    );
+
+    Ok(())
+}
+// snippet-end:[dynamodb.rust.add-item]
+
 /// Adds an item to an Amazon DynamoDB table.
 /// The table schema must use one of username, p_type, age, first, or last as the primary key.
 /// # Arguments
@@ -102,29 +141,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let user_av = AttributeValue::S(String::from(&username));
-    let type_av = AttributeValue::S(String::from(&p_type));
-    let age_av = AttributeValue::S(String::from(&age));
-    let first_av = AttributeValue::S(String::from(&first));
-    let last_av = AttributeValue::S(String::from(&last));
-
-    let request = client
-        .put_item()
-        .table_name(table)
-        .item("username", user_av)
-        .item("account_type", type_av)
-        .item("age", age_av)
-        .item("first_name", first_av)
-        .item("last_name", last_av);
-
-    println!("Executing request [{:?}] to add item...", request);
-
-    request.send().await?;
-
-    println!(
-        "Added user {}, {} {}, age {} as {} user",
-        username, first, last, age, p_type
-    );
-
-    Ok(())
+    add_item(&client, &table, &username, &p_type, &age, &first, &last).await
 }

@@ -32,6 +32,37 @@ struct Opt {
     verbose: bool,
 }
 
+// Encrypts a string.
+// snippet-start:[kms.rust.encrypt]
+async fn encrypt_string(
+    verbose: bool,
+    client: &Client,
+    text: &str,
+    key: &str,
+    out_file: &str,
+) -> Result<(), Error> {
+    let blob = Blob::new(text.as_bytes());
+
+    let resp = client.encrypt().key_id(key).plaintext(blob).send().await?;
+
+    // Did we get an encrypted blob?
+    let blob = resp.ciphertext_blob.expect("Could not get encrypted text");
+    let bytes = blob.as_ref();
+
+    let s = base64::encode(&bytes);
+
+    let mut ofile = File::create(&out_file).expect("unable to create file");
+    ofile.write_all(s.as_bytes()).expect("unable to write");
+
+    if verbose {
+        println!("Wrote the following to {:?}", out_file);
+        println!("{}", s);
+    }
+
+    Ok(())
+}
+// snippet-end:[kms.rust.encrypt]
+
 /// Encrypts a string using an AWS KMS key.
 /// # Arguments
 ///
@@ -74,23 +105,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let blob = Blob::new(text.as_bytes());
-
-    let resp = client.encrypt().key_id(key).plaintext(blob).send().await?;
-
-    // Did we get an encrypted blob?
-    let blob = resp.ciphertext_blob.expect("Could not get encrypted text");
-    let bytes = blob.as_ref();
-
-    let s = base64::encode(&bytes);
-
-    let mut ofile = File::create(&out_file).expect("unable to create file");
-    ofile.write_all(s.as_bytes()).expect("unable to write");
-
-    if verbose {
-        println!("Wrote the following to {:?}", out_file);
-        println!("{}", s);
-    }
-
-    Ok(())
+    encrypt_string(verbose, &client, &text, &key, &out_file).await
 }

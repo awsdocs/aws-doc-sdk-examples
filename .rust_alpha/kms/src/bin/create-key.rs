@@ -17,6 +17,24 @@ struct Opt {
     #[structopt(short, long)]
     verbose: bool,
 }
+
+// Create key.
+// snippet-start:[kms.rust.create-key]
+async fn make_key(client: &Client) -> Result<(), Error> {
+    let resp = client.create_key().send().await?;
+
+    let id = resp
+        .key_metadata
+        .unwrap()
+        .key_id
+        .unwrap_or_else(|| String::from("No ID!"));
+
+    println!("Key: {}", id);
+
+    Ok(())
+}
+// snippet-end:[kms.rust.create-key]
+
 /// Creates an AWS KMS key in the Region.
 /// # Arguments
 ///
@@ -47,15 +65,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client.create_key().send().await?;
-
-    let id = resp
-        .key_metadata
-        .unwrap()
-        .key_id
-        .unwrap_or_else(|| String::from("No ID!"));
-
-    println!("Key: {}", id);
-
-    Ok(())
+    make_key(&client).await
 }

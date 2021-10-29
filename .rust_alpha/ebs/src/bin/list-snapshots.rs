@@ -18,6 +18,37 @@ struct Opt {
     verbose: bool,
 }
 
+// Lists your snapshots.
+// snippet-start:[ebs.rust.list-snapshots]
+async fn show_snapshots(client: &Client) -> Result<(), Error> {
+    // "self" represents your account ID.
+    // You can list the snapshots for any account by replacing
+    // "self" with that account ID.
+    let resp = client.describe_snapshots().owner_ids("self").send().await?;
+    let snapshots = resp.snapshots.unwrap();
+    let length = snapshots.len();
+
+    for snapshot in snapshots {
+        println!(
+            "ID:          {}",
+            snapshot.snapshot_id.as_deref().unwrap_or_default()
+        );
+        println!(
+            "Description: {}",
+            snapshot.description.as_deref().unwrap_or_default()
+        );
+        println!("State:       {}", snapshot.state.unwrap().as_ref());
+        println!();
+    }
+
+    println!();
+    println!("Found {} snapshot(s)", length);
+    println!();
+
+    Ok(())
+}
+// snippet-end:[ebs.rust.list-snapshots]
+
 /// Displays some information about the Amazon Elastic Block Store snapshots you own in the Region.
 /// # Arguments
 ///
@@ -49,29 +80,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    // "self" represents your account ID.
-    // You can list the snapshots for any account by replacing
-    // "self" with that account ID.
-    let resp = client.describe_snapshots().owner_ids("self").send().await?;
-    let snapshots = resp.snapshots.unwrap();
-    let length = snapshots.len();
-
-    for snapshot in snapshots {
-        println!(
-            "ID:          {}",
-            snapshot.snapshot_id.as_deref().unwrap_or_default()
-        );
-        println!(
-            "Description: {}",
-            snapshot.description.as_deref().unwrap_or_default()
-        );
-        println!("State:       {}", snapshot.state.unwrap().as_ref());
-        println!();
-    }
-
-    println!();
-    println!("Found {} snapshot(s)", length);
-    println!();
-
-    Ok(())
+    show_snapshots(&client).await
 }
