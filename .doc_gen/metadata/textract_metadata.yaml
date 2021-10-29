@@ -32,7 +32,7 @@ textract_DetectDocumentText:
             - description: detect text from an input document.
               snippet_tags:
                 - textract.java2._detect_doc_text.main
-            - description: detect text from a document located in an "&S3; bucket.
+            - description: detect text from a document located in an &S3; bucket.
               snippet_tags:
                 - textract.java2._detect_s3_text.main   
   services:
