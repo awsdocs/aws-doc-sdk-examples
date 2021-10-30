@@ -57,6 +57,8 @@ The following tutorials use the Synchronous Java client:
 
 + **Creating_rds_item_tracker** - A tutorial that discusses using Amazon Relational Database Service (Amazon RDS), Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items.
 
++ **Creating the Serverless Amazon Aurora item tracker application using the Java RdsDataClient API** - A tutorial that discusses using Serverless Amazon Aurora, Amazon Simple Email Service (Amazon SES), and the **RdsDataClient** Java V2 client to create a web application that tracks work items.
+
 + **Creating_dynamodb_item_tracker** - A tutorial that discusses using Amazon DynamoDB, Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items.
 
 + **Creating_mongodb_item_tracker** - A tutorial that discusses using Amazon EC2 that hosts a MongoDB instance, Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items.
