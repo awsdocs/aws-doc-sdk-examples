@@ -26,6 +26,7 @@ from test_tools.iam_stubber import IamStubber
 from test_tools.kinesis_stubber import KinesisStubber
 from test_tools.kinesis_analytics_v2_stubber import KinesisAnalyticsV2Stubber
 from test_tools.lambda_stubber import LambdaStubber
+from test_tools.lookoutvision_stubber import LookoutVisionStubber
 from test_tools.organizations_stubber import OrganizationsStubber
 from test_tools.pinpoint_stubber import PinpointStubber
 from test_tools.pinpoint_email_stubber import PinpointEmailStubber
@@ -89,6 +90,8 @@ def stubber_factory(service_name):
         return KinesisAnalyticsV2Stubber
     elif service_name == 'lambda':
         return LambdaStubber
+    elif service_name == 'lookoutvision':
+        return LookoutVisionStubber
     elif service_name == 'organizations':
         return OrganizationsStubber
     elif service_name == 'pinpoint':
