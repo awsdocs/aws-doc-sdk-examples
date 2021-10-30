@@ -112,7 +112,7 @@ The user can select the email recipient from the **Select Manager** list and cho
 ![AWS Tracking Application](images/report.png)
 
 
-## Create an IntelliJ project named AWSItemTracker
+## Create an IntelliJ project named ItemTrackerRDS
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
 2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**.
@@ -136,36 +136,32 @@ Ensure that the **pom.xml** file looks like the following.
      <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-     <modelVersion>4.0.0</modelVersion>
-
-     <groupId>aws-spring</groupId>
-     <artifactId>AWSItemTracker</artifactId>
-     <version>1.0-SNAPSHOT</version>
-     <packaging>jar</packaging>
-
-     <parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.example</groupId>
+    <artifactId>ItemTrackerRDS</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.4.RELEASE</version>
         <relativePath /> <!-- lookup parent from repository -->
-     </parent>
-
-     <properties>
+    </parent>
+    <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-     </properties>
-     <dependencyManagement>
+    </properties>
+    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.10.30</version>
+                <version>2.17.46</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
-     </dependencyManagement>
-     <dependencies>
+    </dependencyManagement>
+    <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -212,9 +208,13 @@ Ensure that the **pom.xml** file looks like the following.
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>rdsdata</artifactId>
+        </dependency>
+        <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
-            <version>1.6.2</version>
+            <version>1.5.5</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
@@ -292,7 +292,7 @@ Ensure that the **pom.xml** file looks like the following.
             </exclusions>
         </dependency>
        </dependencies>
-       <build>
+      <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
