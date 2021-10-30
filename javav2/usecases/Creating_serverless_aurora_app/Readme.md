@@ -52,6 +52,8 @@ To use the **RdsDataClient** object, you require these two ARN values:
 + An ARN of the Amazon Serverless Amazon Aurora database.
 + An ARN of the AWS Secrets Manager secret that is used for authentication
 
+**Note:** You must set up inbound rules for the security group to connect to the database. You can set up an inbound rule for your development environment. Setting up an inbound rule essentially means enabling an IP address to use the database. Once you set up the inbound rules, you can connect to the database from a client. For information about setting up security group inbound rules, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).  
+
 #### Work table
 In the **jobs** database, create a table named **Work**. The table contains the following fields:
 
