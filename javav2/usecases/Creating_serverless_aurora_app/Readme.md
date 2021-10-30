@@ -56,10 +56,6 @@ The AWS Tracker application uses a model that is based on a work item and contai
 
 **Note**: The username is the user who logs into this application. In this example, the username is named **user**. 
 
-The following figure shows the login page.
-
-![AWS Tracking Application](images/newtrack1.png)
-
 When a user logs into the system, they see the **Home** page.
 
 ![AWS Tracking Application](images/home.png)
