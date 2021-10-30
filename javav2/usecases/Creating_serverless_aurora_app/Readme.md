@@ -45,7 +45,7 @@ To complete the tutorial, you need the following:
 
 ### Creating the resources
 
-Create Amazon Serverless Amazon Aurora database named **jobs**. For information, see [Creating an Aurora Serverless v1 DB cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.create.html).
+Create an Amazon Serverless Amazon Aurora database named **jobs**. For information, see [Creating an Aurora Serverless v1 DB cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.create.html).
 
 To successfully connect to the database using the **RdsDataClient** object, you must setup a Secrets Manager secret that is used for authentication. You must reference the ARN of this secret when using the API. For information, see [Rotate Amazon RDS database credentials automatically with AWS Secrets Manager](https://aws.amazon.com/blogs/security/rotate-amazon-rds-database-credentials-automatically-with-aws-secrets-manager/). 
 
@@ -78,7 +78,7 @@ A user can perform these tasks in the AWS Tracker application:
 
 The following figure shows the new item section.
 
-![AWS Tracking Application](images/AWT1.png)
+![AWS Tracking Application](images/items.png)
 
 A user can retrieve *active* or *archive* items. For example, a user can choose **Get Active Items** to get a dataset that's retrieved from an Amazon RDS database and displayed in the web application.
 
