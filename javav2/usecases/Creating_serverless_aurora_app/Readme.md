@@ -43,6 +43,12 @@ To complete the tutorial, you need the following:
 + Running this code might result in charges to your AWS account. 
 + Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
+### Creating the resources
+
+Create Amazon Serverless Amazon Aurora database named **jobs**. For information, see [Creating an Aurora Serverless v1 DB cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.create.html).
+
+To successfully connect to the database using the **RdsDataClient** object, you must setup a Secrets Manager secret that is used for authentication. You must reference the ARN of this secret when using the API. For information, see [Rotate Amazon RDS database credentials automatically with AWS Secrets Manager](https://aws.amazon.com/blogs/security/rotate-amazon-rds-database-credentials-automatically-with-aws-secrets-manager/). 
+
 ## Understand the AWS Tracker application
 
 The AWS Tracker application uses a model that is based on a work item and contains these attributes:
