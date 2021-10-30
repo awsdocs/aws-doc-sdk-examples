@@ -23,9 +23,7 @@ This AWS tutorial uses a [RdsDataClient](https://sdk.amazonaws.com/java/api/late
 + Create the Java classes
 + Create the HTML files
 + Create script files
-+ Set up the RDS instance
-+ Create a JAR file for the application
-+ Deploy the application to AWS Elastic Beanstalk
++ RUn the application
 
 ## Prerequisites
 
