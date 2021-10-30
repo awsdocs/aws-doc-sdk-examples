@@ -99,9 +99,9 @@ The database is MySQL and contains a table named **Work**. The table contains th
 + **username** - A VARCHAR(45) value that represents the user who entered the item.
 + **archive** - A TINYINT(4) value that represents whether this is an active or archive item.
 
-The following figure shows the **work** table.
+The following figure shows the **work** table in the Amazon RDS Management console.
 
-![AWS Tracking Application](images/trackMySQL2.png)
+![AWS Tracking Application](images/database.png)
 
 ## Create an IntelliJ project named AWSItemTracker
 
