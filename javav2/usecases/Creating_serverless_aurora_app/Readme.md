@@ -1,4 +1,4 @@
-#  Creating the Amazon Relational Database Service item tracker using the RdsDataClient API
+#  Creating the Serverless Amazon Aurora item tracker application using the RdsDataClient API
 
 ## Purpose
 
