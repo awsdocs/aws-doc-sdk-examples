@@ -2,7 +2,7 @@
 
 ## Purpose
 
-You can develop a dynamic web application that tracks and reports on work items by using the following AWS services
+You can develop a dynamic web application that tracks and reports on work items by using the following AWS services:
 
 + Amazon Serverless Amazon Aurora database
 + Amazon Simple Email Service (the AWS SDK for Java SDK version 2 is used to access Amazon SES)
