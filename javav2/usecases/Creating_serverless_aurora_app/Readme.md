@@ -2,11 +2,10 @@
 
 ## Purpose
 
-You can develop a web application that tracks and reports on work items by using the following AWS services
+You can develop a dynamic web application that tracks and reports on work items by using the following AWS services
 
-+ Amazon Relational Database Service (Amazon RDS)
++ Amazon Serverless Amazon Aurora database
 + Amazon Simple Email Service (the AWS SDK for Java SDK version 2 is used to access Amazon SES)
-+ AWS Elastic Beanstalk
 
 The application you create is named *AWS Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. 
 
