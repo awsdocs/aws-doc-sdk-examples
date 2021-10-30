@@ -52,6 +52,22 @@ To use the **RdsDataClient** object, you require these two ARN values:
 + An ARN of the Amazon Serverless Amazon Aurora database.
 + An ARN of the AWS Secrets Manager secret that is used for authentication
 
+#### Work table
+In the **jobs** database, create a table named **Work**. The table contains the following fields:
+
++ **idwork** - A VARCHAR(45) value that represents the PK.
++ **date** - A date value that specifies the date the item was created.
++ **description** - A VARCHAR(400) value that describes the item.
++ **guide** - A VARCHAR(45) value that represents the deliverable being worked on.
++ **status** - A VARCHAR(400) value that describes the status.
++ **username** - A VARCHAR(45) value that represents the user who entered the item.
++ **archive** - A TINYINT(4) value that represents whether this is an active or archive item.
+
+The following figure shows the **work** table in the Amazon RDS Management console.
+
+![AWS Tracking Application](images/database.png)
+
+
 ## Understand the AWS Tracker application
 
 The AWS Tracker application uses a model that is based on a work item and contains these attributes:
@@ -95,20 +111,6 @@ The user can select the email recipient from the **Select Manager** list and cho
 
 ![AWS Tracking Application](images/report.png)
 
-#### Work table
-The database is MySQL and contains a table named **Work**. The table contains the following fields:
-
-+ **idwork** - A VARCHAR(45) value that represents the PK.
-+ **date** - A date value that specifies the date the item was created.
-+ **description** - A VARCHAR(400) value that describes the item.
-+ **guide** - A VARCHAR(45) value that represents the deliverable being worked on.
-+ **status** - A VARCHAR(400) value that describes the status.
-+ **username** - A VARCHAR(45) value that represents the user who entered the item.
-+ **archive** - A TINYINT(4) value that represents whether this is an active or archive item.
-
-The following figure shows the **work** table in the Amazon RDS Management console.
-
-![AWS Tracking Application](images/database.png)
 
 ## Create an IntelliJ project named AWSItemTracker
 
