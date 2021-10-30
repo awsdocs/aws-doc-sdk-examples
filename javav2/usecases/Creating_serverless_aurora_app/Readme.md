@@ -87,6 +87,10 @@ A user can retrieve *active* or *archive* items. For example, a user can choose 
 
 ![AWS Tracking Application](images/activeItems2.png)
 
+Likewise, a user can choose **Get Archive Items** to get a dataset where all items are archived and displayed in the web application.
+
+![AWS Tracking Application](images/archiveItems.png)
+
 The user can select the email recipient from the **Select Manager** list and choose **Send Report** (see the dropdown in the previous figure). Active items are queried from the database and used to dynamically create an Excel document. Then the application uses Amazon SES to email the document to the selected email recipient. The following figure is an example of a report.
 
 ![AWS Tracking Application](images/report.png)
