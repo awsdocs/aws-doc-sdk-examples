@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 //snippet-sourcedescription:[Demonstrations of the AWS SDK for Go V2 SDK features]
 //snippet-keyword:[go,config]
 //snippet-sourcetype:[full-example]
