@@ -1016,7 +1016,179 @@ The following Java code represents the **RetrieveItems** class that retrieves da
       }
 ```
 
-#### WebSecurityConfig class
+### SendMessage class
+The **SendMessage** class uses the AWS SDK for Java V2 SES API to send an email message with an attachment (the Excel document) to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
+
+The following Java code represents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. 
+
+```java
+    package com.aws.services;
+
+    import org.apache.commons.io.IOUtils;
+    import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+    import software.amazon.awssdk.regions.Region;
+    import software.amazon.awssdk.services.ses.SesClient;
+    import javax.activation.DataHandler;
+    import javax.activation.DataSource;
+    import javax.mail.Message;
+    import javax.mail.MessagingException;
+    import javax.mail.Session;
+    import javax.mail.internet.InternetAddress;
+    import javax.mail.internet.MimeMessage;
+    import javax.mail.internet.MimeMultipart;
+    import javax.mail.internet.MimeBodyPart;
+    import javax.mail.util.ByteArrayDataSource;
+    import java.io.ByteArrayOutputStream;
+    import java.io.IOException;
+    import java.io.InputStream;
+    import java.nio.ByteBuffer;
+    import java.util.Properties;
+    import software.amazon.awssdk.core.SdkBytes;
+    import software.amazon.awssdk.services.ses.model.SendRawEmailRequest;
+    import software.amazon.awssdk.services.ses.model.RawMessage;
+    import software.amazon.awssdk.services.ses.model.SesException;
+    import org.springframework.stereotype.Component;
+
+    @Component
+    public class SendMessages {
+
+     private String sender = "<ENTER A VALID SEND EMAIL ADDRESS>";
+
+     // The subject line for the email.
+     private String subject = "Weekly AWS Status Report";
+
+     // The email body for recipients with non-HTML email clients.
+     private String bodyText = "Hello,\r\n" + "Please see the attached file for a weekly update.";
+
+     // The HTML body of the email.
+     private String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
+            + "<p>Please see the attached file for a weekly update.</p>" + "</body>" + "</html>";
+
+     public void sendReport(InputStream is, String emailAddress ) throws IOException {
+
+        // Convert the InputStream to a byte[].
+        byte[] fileContent = IOUtils.toByteArray(is);
+
+        try {
+            send(fileContent,emailAddress);
+        } catch (MessagingException e) {
+            e.getStackTrace();
+        }
+    }
+
+    public void send(byte[] attachment, String emailAddress) throws MessagingException, IOException {
+
+        MimeMessage message = null;
+        Session session = Session.getDefaultInstance(new Properties());
+
+        // Create a new MimeMessage object.
+        message = new MimeMessage(session);
+
+        // Add subject, from and to lines.
+        message.setSubject(subject, "UTF-8");
+        message.setFrom(new InternetAddress(sender));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
+
+        // Create a multipart/alternative child container.
+        MimeMultipart msgBody = new MimeMultipart("alternative");
+
+        // Create a wrapper for the HTML and text parts.
+        MimeBodyPart wrap = new MimeBodyPart();
+
+        // Define the text part.
+        MimeBodyPart textPart = new MimeBodyPart();
+        textPart.setContent(bodyText, "text/plain; charset=UTF-8");
+
+        // Define the HTML part.
+        MimeBodyPart htmlPart = new MimeBodyPart();
+        htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
+
+        // Add the text and HTML parts to the child container.
+        msgBody.addBodyPart(textPart);
+        msgBody.addBodyPart(htmlPart);
+
+        // Add the child container to the wrapper object.
+        wrap.setContent(msgBody);
+
+        // Create a multipart/mixed parent container.
+        MimeMultipart msg = new MimeMultipart("mixed");
+
+        // Add the parent container to the message.
+        message.setContent(msg);
+
+        // Add the multipart/alternative part to the message.
+        msg.addBodyPart(wrap);
+
+        // Define the attachment.
+        MimeBodyPart att = new MimeBodyPart();
+        DataSource fds = new ByteArrayDataSource(attachment, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        att.setDataHandler(new DataHandler(fds));
+
+        String reportName = "WorkReport.xls";
+        att.setFileName(reportName);
+
+        // Add the attachment to the message.
+        msg.addBodyPart(att);
+
+       // Send the email.
+        try {
+            System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
+
+            Region region = Region.US_WEST_2;
+            SesClient client = SesClient.builder()
+                    .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                    .region(region)
+                    .build();
+
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            message.writeTo(outputStream);
+
+            ByteBuffer buf = ByteBuffer.wrap(outputStream.toByteArray());
+
+            byte[] arr = new byte[buf.remaining()];
+            buf.get(arr);
+
+            SdkBytes data = SdkBytes.fromByteArray(arr);
+
+            RawMessage rawMessage = RawMessage.builder()
+                    .data(data)
+                    .build();
+
+            SendRawEmailRequest rawEmailRequest = SendRawEmailRequest.builder()
+                    .rawMessage(rawMessage)
+                    .build();
+
+            client.sendRawEmail(rawEmailRequest);
+
+        } catch (SesException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+        System.out.println("Email sent with attachment");
+      }
+     }
+```
+
+**Note:** Update the email **sender** address with a verified email address; otherwise, the email is not sent. For information, see [Verifying email addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).       
+
+### WebApplication class
+The following Java code represents the **WebApplication** class. This is the entry point into a Spring boot application.  
+
+```java
+    package com.aws;
+
+    import org.springframework.boot.SpringApplication;
+    import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+    @SpringBootApplication
+    public class WebApplication {
+
+    public static void main(String[] args) throws Throwable {
+        SpringApplication.run(WebApplication.class, args);
+     }
+    }
+```
+### WebSecurityConfig class
 The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application. Create this class in the **com.aws.securingweb** package. 
 
 ```java
@@ -1174,23 +1346,7 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
    }
 
 ```
-#### SecuringWebApplication class
-The following Java code represents the **SecuringWebApplication** class. This is the entry point into a Spring boot application. Create this class in the **com.aws** package. 
 
-```java
-    package com.aws;
-
-    import org.springframework.boot.SpringApplication;
-    import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-    @SpringBootApplication
-    public class SecuringWebApplication {
-
-    public static void main(String[] args) throws Throwable {
-        SpringApplication.run(SecuringWebApplication.class, args);
-     }
-    }
-```
 
 #### WebSecurityConfig class
 The following Java code represents the **WebSecurityConfig** class. The role of this class is to ensure only authenticated users can view the application. Create this class in the **com.aws.securingweb** package. 
@@ -1884,160 +2040,7 @@ The service classes contain Java application logic that uses AWS services. In th
 + **SendMessages** - Uses the Amazon SES API to send email messages.
 + **WriteExcel** - 
 
-#### SendMessage class
-The **SendMessage** class uses the AWS SDK for Java V2 SES API to send an email message with an attachment (the Excel document) to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
-The following Java code represents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials.
-
-```java
-    package com.aws.services;
-
-    import org.apache.commons.io.IOUtils;
-    import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-    import software.amazon.awssdk.regions.Region;
-    import software.amazon.awssdk.services.ses.SesClient;
-    import javax.activation.DataHandler;
-    import javax.activation.DataSource;
-    import javax.mail.Message;
-    import javax.mail.MessagingException;
-    import javax.mail.Session;
-    import javax.mail.internet.InternetAddress;
-    import javax.mail.internet.MimeMessage;
-    import javax.mail.internet.MimeMultipart;
-    import javax.mail.internet.MimeBodyPart;
-    import javax.mail.util.ByteArrayDataSource;
-    import java.io.ByteArrayOutputStream;
-    import java.io.IOException;
-    import java.io.InputStream;
-    import java.nio.ByteBuffer;
-    import java.util.Properties;
-    import software.amazon.awssdk.core.SdkBytes;
-    import software.amazon.awssdk.services.ses.model.SendRawEmailRequest;
-    import software.amazon.awssdk.services.ses.model.RawMessage;
-    import software.amazon.awssdk.services.ses.model.SesException;
-    import org.springframework.stereotype.Component;
-
-    @Component
-    public class SendMessages {
-
-     private String sender = "<ENTER A VALID SEND EMAIL ADDRESS>";
-
-     // The subject line for the email
-     private String subject = "Weekly AWS Status Report";
-
-     // The email body for recipients with non-HTML email clients
-     private String bodyText = "Hello,\r\n" + "Please see the attached file for a weekly update.";
-
-     // The HTML body of the email
-     private String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-            + "<p>Please see the attached file for a weekly update.</p>" + "</body>" + "</html>";
-
-     public void sendReport(InputStream is, String emailAddress ) throws IOException {
-
-        // Convert the InputStream to a byte[]
-        byte[] fileContent = IOUtils.toByteArray(is);
-
-        try {
-            send(fileContent,emailAddress);
-        } catch (MessagingException e) {
-            e.getStackTrace();
-        }
-    }
-
-    public void send(byte[] attachment, String emailAddress) throws MessagingException, IOException {
-
-        MimeMessage message = null;
-        Session session = Session.getDefaultInstance(new Properties());
-
-        // Create a new MimeMessage object
-        message = new MimeMessage(session);
-
-        // Add subject, from and to lines
-        message.setSubject(subject, "UTF-8");
-        message.setFrom(new InternetAddress(sender));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
-
-        // Create a multipart/alternative child container
-        MimeMultipart msgBody = new MimeMultipart("alternative");
-
-        // Create a wrapper for the HTML and text parts
-        MimeBodyPart wrap = new MimeBodyPart();
-
-        // Define the text part
-        MimeBodyPart textPart = new MimeBodyPart();
-        textPart.setContent(bodyText, "text/plain; charset=UTF-8");
-
-        // Define the HTML part
-        MimeBodyPart htmlPart = new MimeBodyPart();
-        htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
-
-        // Add the text and HTML parts to the child container
-        msgBody.addBodyPart(textPart);
-        msgBody.addBodyPart(htmlPart);
-
-        // Add the child container to the wrapper object
-        wrap.setContent(msgBody);
-
-        // Create a multipart/mixed parent container
-        MimeMultipart msg = new MimeMultipart("mixed");
-
-        // Add the parent container to the message
-        message.setContent(msg);
-
-        // Add the multipart/alternative part to the message
-        msg.addBodyPart(wrap);
-
-        // Define the attachment
-        MimeBodyPart att = new MimeBodyPart();
-        DataSource fds = new ByteArrayDataSource(attachment, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        att.setDataHandler(new DataHandler(fds));
-
-        String reportName = "WorkReport.xls";
-        att.setFileName(reportName);
-
-        // Add the attachment to the message
-        msg.addBodyPart(att);
-
-       // Send the email
-        try {
-            System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
-
-            Region region = Region.US_WEST_2;
-            SesClient client = SesClient.builder()
-                    .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                    .region(region)
-                    .build();
-
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            message.writeTo(outputStream);
-
-            ByteBuffer buf = ByteBuffer.wrap(outputStream.toByteArray());
-
-            byte[] arr = new byte[buf.remaining()];
-            buf.get(arr);
-
-            SdkBytes data = SdkBytes.fromByteArray(arr);
-
-            RawMessage rawMessage = RawMessage.builder()
-                    .data(data)
-                    .build();
-
-            SendRawEmailRequest rawEmailRequest = SendRawEmailRequest.builder()
-                    .rawMessage(rawMessage)
-                    .build();
-
-            client.sendRawEmail(rawEmailRequest);
-
-        } catch (SesException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        System.out.println("Email sent with attachment");
-      }
-     }
-```
-
-**Note:** Update the email **sender** address with a verified email address; otherwise, the email is not sent. For information, see [Verifying email addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).       
 
 #### WriteExcel class
 
