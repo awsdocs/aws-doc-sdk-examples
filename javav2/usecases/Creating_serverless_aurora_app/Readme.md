@@ -307,13 +307,9 @@ Ensure that the **pom.xml** file looks like the following.
 
 ## Set up the Java packages in your project
 
-Create a Java package in the **main/java** folder named **com.aws**.
+Create a Java package in the **main/java** folder named **com.aws.rds**. The Java files go into thispackage.
 
-![AWS Tracking Application](images/project1.png)
-
-The Java files go into the following subpackages.
-
-![AWS Tracking Application](images/project2.png)
+![AWS Tracking Application](images/package.png)
 
 These packages contain the following:
 
