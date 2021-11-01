@@ -19,7 +19,6 @@ This AWS tutorial uses a [RdsDataClient](https://sdk.amazonaws.com/java/api/late
 + Understand the AWS Tracker application
 + Create an IntelliJ project named AWSItemTracker
 + Add the Spring POM dependencies to your project
-+ Setup the Java packages in your project
 + Create the Java classes
 + Create the HTML files
 + Create script files
