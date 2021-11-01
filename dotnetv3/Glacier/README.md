@@ -1,4 +1,4 @@
-# AWS SDK for .NET Amazon S3 Glacier examples in C#
+# AWS SDK for .NET Amazon Simple Storage Service Glacier examples in C#
 
 ## Purpose
 
