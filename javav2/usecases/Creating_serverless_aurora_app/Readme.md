@@ -305,24 +305,127 @@ Ensure that the **pom.xml** file looks like the following.
      </project>
 ```
 
-## Set up the Java packages in your project
+## Create the Java classes
 
-Create a Java package in the **main/java** folder named **com.aws.rds**. The Java files go into thispackage.
+Create a Java package in the **main/java** folder named **com.aws.rds**. 
 
 ![AWS Tracking Application](images/package.png)
 
-These packages contain the following:
+The Java files go into this package.:
 
-+ **entities** - Contains Java files that represent the model. In this example, the model class is named **WorkItem**.
-+ **jdbc** - Contains Java files that use the JDBC API to interact with the RDS database.
-+ **services** - Contains Java files that invoke AWS services. For example, the **software.amazon.awssdk.services.ses.SesClient** object is used to send email messages.
-+ **securingweb** - Contains Java files required for Spring security.
++ **InjectWorkService** - Uses the **RDSDataClient** to submit a new record into the **work** table. 
++ **MainController** - Contains Java files that represent the model. In this example, the model class is named **WorkItem**.
++ **RetrieveItems** -  Uses the **RDSDataClient** to retrieve a data set from the **work** table. 
++ **SendMessage** - Uses the **software.amazon.awssdk.services.ses.SesClient** object is used to send email messages.
++ **WebApplication** - The entry point into the Spring boot application.  
++ **WebSecurityConfig** -Ensures only authenticated users can view the application..
++ **WorkItem** - Represents the application's data model.
++ **WriteExcel** - Uses the Java Excel API to dynamically create a report (this does not use AWS SDK for Java APIs).
 
-## Create the Java classes
+### InjectWorkService class 
 
-Create the Java classes, including the Spring classes. In this application, a Java class sets up an in-memory user store that contains a single user (the user name is **user** and the password is **password**.)
+The following Java code represents the **InjectWorkService** class. Notice that you need to specify ARN values for the secret manager and the Amazon Serverless Aurora database. Without both of these values, your code does not work. To use the the **RDSDataClient**, you need to create am **ExecuteStatementRequest** object and specify both ARN values and the SQL statement used to submit data to the **work** table. 
 
-### Create the Spring classes
+```java
+    package com.aws.rds;
+
+    import java.text.ParseException;
+    import java.text.SimpleDateFormat;
+    import java.time.LocalDateTime;
+    import java.time.format.DateTimeFormatter;
+    import java.util.Date;
+    import java.util.UUID;
+    import org.springframework.stereotype.Component;
+    import software.amazon.awssdk.regions.Region;
+    import software.amazon.awssdk.services.rdsdata.RdsDataClient;
+    import software.amazon.awssdk.services.rdsdata.model.ExecuteStatementRequest;
+    import software.amazon.awssdk.services.rdsdata.model.RdsDataException;
+
+    @Component
+    public class InjectWorkService {
+
+    private String secretArn = "<Enter the Secret Manager ARN>" ;
+    private String resourceArn = "<Enter the Databaser ARN>" ;
+
+   // Returns a RdsDataClient object.
+   private RdsDataClient getClient() {
+
+        Region region = Region.US_EAST_1;
+        RdsDataClient dataClient = RdsDataClient.builder()
+                .region(region)
+                .build();
+
+        return dataClient;
+    }
+
+    // Inject a new submission.
+    public String injestNewSubmission(WorkItem item) {
+
+        RdsDataClient dataClient = getClient();
+
+        try {
+
+            // Convert rev to int.
+            String name = item.getName();
+            String guide = item.getGuide();
+            String description = item.getDescription();
+            String status = item.getStatus();
+            int arc = 0;
+
+            // Generate the work item ID.
+            UUID uuid = UUID.randomUUID();
+            String workId = uuid.toString();
+
+            // Date conversion.
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+            String sDate1 = dtf.format(now);
+            Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(sDate1);
+            java.sql.Date sqlDate = new java.sql.Date( date1.getTime());
+
+            // Inject an item into the system.
+            String insert = "INSERT INTO work (idwork, username,date,description, guide, status, archive) VALUES('"+workId+"', '"+name+"', '"+sqlDate+"','"+description+"','"+guide+"','"+status+"','"+arc+"');";
+            ExecuteStatementRequest sqlRequest = ExecuteStatementRequest.builder()
+                    .secretArn(secretArn)
+                    .sql(insert)
+                    .database("jobs")
+                    .resourceArn(resourceArn)
+                    .build();
+            dataClient.executeStatement(sqlRequest);
+            return workId;
+
+        } catch (RdsDataException | ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+     }
+
+     // Inject a new submission.
+     public String modifySubmission(String id, String desc, String status) {
+
+        RdsDataClient dataClient = getClient();
+        try {
+
+           String query = "update work set description = '"+desc+"', status = '"+status+"' where idwork = '" +id +"'";
+           ExecuteStatementRequest sqlRequest = ExecuteStatementRequest.builder()
+                    .secretArn(secretArn)
+                    .sql(query)
+                    .database("jobs")
+                    .resourceArn(resourceArn)
+                    .build();
+            dataClient.executeStatement(sqlRequest);
+            return id;
+
+        } catch (RdsDataException e) {
+            e.printStackTrace();
+        }
+        return null;
+     }
+    }
+```    
+
+### MainController class
 
 Create a Java package named **com.aws.securingweb**. Next, create these classes in this package:
 
@@ -577,7 +680,7 @@ The following Java code represents the **MainController** class.
 
 ### Create the WorkItem class
 
-Create a Java package named **com.aws.entities**. Next, create a class, named **WorkItem**, that represents the application model.  
+Create a Java package named **com.aws.entities**. Next, create a class, named **WorkItem**, that   
 
 ```java
     package com.aws.entities;
@@ -639,168 +742,6 @@ Create a Java package named **com.aws.entities**. Next, create a class, named **
       return this.guide;
       }
      }
-```
-
-### Create the JDBC Classes
-
-Create a Java package named **com.aws.jdbc**. Next, create these Java classes that are required to perform database operations:
-
-+ **ConnectionHelper** - Creates a connection to the RDS MySQL instance.
-+ **InjectWorkService** - Injects items into the MySQL instance.
-+ **RetrieveItems** - Retrieves items from the MySQL instance.
-
-**Note**: This tutorial uses the JDBC API to interact with the MySQL instance. For more information about using Amazon RDS, see [Amazon Relational Database Service](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ConnectToInstance.html).  
-
-#### ConnectionHelper class
-
-The following Java code represents the **ConnectionHelper** class.
-
-```java
-    package com.aws.jdbc;
-
-    import java.sql.Connection;
-    import java.sql.DriverManager;
-    import java.sql.SQLException;
-
-    public class ConnectionHelper {
-
-      private String url;
-      private static ConnectionHelper instance;
-
-      private ConnectionHelper() {
-          url = "jdbc:mysql://localhost:3306/mydb?useSSL=false";
-       }
-
-      public static Connection getConnection() throws SQLException {
-         if (instance == null) {
-            instance = new ConnectionHelper();
-         }
-         try {
-
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            return DriverManager.getConnection(instance.url, "root","root");
-        } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            e.getStackTrace();
-        }
-        return null;
-    	}
-
-       public static void close(Connection connection) {
-         try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-      }
-     }
-```
-
-**Note:** The **URL** value is **localhost:3306**. This value is modified after the RDS instance is created. The AWS Tracker application uses this URL to communicate with the database. You must also ensure that you specify the user name and password for your RDS instance.
-
-#### InjectWorkService class
-
-The following Java code represents the **InjectWorkService** class.
-
-```java
-    package com.aws.jdbc;
-
-    import java.sql.Connection;
-    import java.sql.PreparedStatement;
-    import java.sql.SQLException;
-    import java.text.ParseException;
-    import java.text.SimpleDateFormat;
-    import java.time.LocalDateTime;
-    import java.time.format.DateTimeFormatter;
-    import java.util.Date;
-    import java.util.UUID;
-    import com.aws.entities.WorkItem;
-    import org.springframework.stereotype.Component;
-
-    @Component
-    public class InjectWorkService {
-
-      // Inject a new submission.
-      public String modifySubmission(String id, String desc, String status) {
-
-	Connection c = null;
-        int rowCount= 0;
-
-	try {
-
-	  // Create a Connection object.
-          c = ConnectionHelper.getConnection();
-
-          // Use prepared statements.
-          PreparedStatement ps = null;
-
-          String query = "update work set description = ?, status = ? where idwork = '" +id +"'";
-          ps = c.prepareStatement(query);
-          ps.setString(1, desc);
-          ps.setString(2, status);
-          ps.execute();
-          return id;
-      } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            ConnectionHelper.close(c);
-        }
-        return null;
-    }
-
-    // Inject a new submission.
-    public String injestNewSubmission(WorkItem item) {
-
-       Connection c = null;
-       int rowCount= 0;
-       try {
-
-          // Create a Connection object
-          c = ConnectionHelper.getConnection();
-
-         // Use a prepared statement
-         PreparedStatement ps = null;
-
-        // Convert rev to int.
-        String name = item.getName();
-        String guide = item.getGuide();
-        String description = item.getDescription();
-        String status = item.getStatus();
-
-        // Generate the work item ID.
-        UUID uuid = UUID.randomUUID();
-        String workId = uuid.toString();
-
-        // Date conversion
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        String sDate1 = dtf.format(now);
-        Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(sDate1);
-        java.sql.Date sqlDate = new java.sql.Date( date1.getTime());
-
-        // Inject an item into the system.
-        String insert = "INSERT INTO work (idwork, username,date,description, guide, status, archive) VALUES(?,?, ?,?,?,?,?);";
-        ps = c.prepareStatement(insert);
-        ps.setString(1, workId);
-        ps.setString(2, name);
-        ps.setDate(3, sqlDate);
-        ps.setString(4, description);
-        ps.setString(5, guide );
-        ps.setString(6, status );
-        ps.setBoolean(7, false);
-        ps.execute();
-        return workId;
-
-     } catch (SQLException | ParseException e) {
-            e.printStackTrace();
-        } finally {
-            ConnectionHelper.close(c);
-        }
-        return null;
-      }
-    }
 ```
 
 #### RetrieveItems class
@@ -1195,14 +1136,11 @@ The following Java code represents the **RetrieveItems** class.
         return null;
       }
      }
-```
-
-### Create the service classes
 
 The service classes contain Java application logic that uses AWS services. In this section, you create these classes:
 
 + **SendMessages** - Uses the Amazon SES API to send email messages.
-+ **WriteExcel** - Uses the Java Excel API to dynamically create a report (this does not use AWS SDK for Java APIs).
++ **WriteExcel** - 
 
 #### SendMessage class
 The **SendMessage** class uses the AWS SDK for Java V2 SES API to send an email message with an attachment (the Excel document) to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
