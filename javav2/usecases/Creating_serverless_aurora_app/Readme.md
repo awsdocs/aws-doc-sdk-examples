@@ -311,7 +311,7 @@ Create a Java package in the **main/java** folder named **com.aws.rds**.
 
 ![AWS Tracking Application](images/package.png)
 
-The Java files go into this package.:
+The following Java files go into this package:
 
 + **InjectWorkService** - Uses the **RDSDataClient** to submit a new record into the **work** table. 
 + **MainController** - Contains Java files that represent the model. In this example, the model class is named **WorkItem**.
