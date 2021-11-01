@@ -8,8 +8,8 @@ are designed to deliver 99.999999999% durability, and provide comprehensive
 security and compliance capabilities that can help meet even the most stringent
 regulatory requirements.
 
-The examples in this section how to use the AWS SDK for .NET with Amazon
-S3 Glacier towork with vaults and archives.
+The examples in this section show to use the AWS SDK for .NET with Amazon
+S3 Glacier to work with vaults and archives.
 
 ## Code examples
 
@@ -36,7 +36,7 @@ S3 Glacier towork with vaults and archives.
 
 The examples in this folder use the default user account. The call to
 initialize the client object does not specify the AWS region. Supply
-the AWS region to match your own as a parameter to the client constructor. For
+the AWS Region to match your own as a parameter to the client constructor. For
 example:
 
 ```
