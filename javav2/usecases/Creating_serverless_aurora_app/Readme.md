@@ -314,7 +314,7 @@ Create a Java package in the **main/java** folder named **com.aws.rds**.
 The following Java files go into this package:
 
 + **InjectWorkService** - Uses the **RDSDataClient** to submit a new record into the **work** table. 
-+ **MainController** - Contains Java files that represent the model. In this example, the model class is named **WorkItem**.
++ **MainController** - Represents the Spring Controller that handles HTTP requests.
 + **RetrieveItems** -  Uses the **RDSDataClient** to retrieve a data set from the **work** table. 
 + **SendMessage** - Uses the **software.amazon.awssdk.services.ses.SesClient** object is used to send email messages.
 + **WebApplication** - The entry point into the Spring boot application.  
@@ -427,21 +427,593 @@ The following Java code represents the **InjectWorkService** class. Notice that 
 
 ### MainController class
 
-The following Java code represents the MainController class which handles HTTP requests for the application.
+The following Java code represents the **MainController** class which handles HTTP requests for the application.
 
 ```java
-    package com.aws;
+   package com.aws.rds;
 
-    import org.springframework.boot.SpringApplication;
-    import org.springframework.boot.autoconfigure.SpringBootApplication;
+   import org.springframework.beans.factory.annotation.Autowired;
+   import org.springframework.security.core.context.SecurityContextHolder;
+   import org.springframework.stereotype.Controller;
+   import org.springframework.ui.Model;
+   import org.springframework.web.bind.annotation.GetMapping;
+   import org.springframework.web.bind.annotation.RequestMapping;
+   import org.springframework.web.bind.annotation.ResponseBody;
+   import org.springframework.web.bind.annotation.RequestMethod;
+   import javax.servlet.http.HttpServletRequest;
+   import javax.servlet.http.HttpServletResponse;
+   import java.io.IOException;
+   import java.util.List;
 
-    @SpringBootApplication
-    public class SecuringWebApplication {
+   @Controller
+   public class MainController {
 
-    public static void main(String[] args) throws Throwable {
-        SpringApplication.run(SecuringWebApplication.class, args);
-     }
+    @GetMapping("/")
+    public String root() {
+        return "index";
     }
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        return "login";
+    }
+
+    @GetMapping("/add")
+    public String designer() {
+        return "add";
+    }
+
+    @GetMapping("/items")
+    public String items() {
+        return "items";
+    }
+
+    @Autowired
+    InjectWorkService iw;
+
+    @Autowired
+    WriteExcel writeExcel;
+
+    @Autowired
+    SendMessage sm;
+
+    // Adds a new item to the database.
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ResponseBody
+    String addItems(HttpServletRequest request, HttpServletResponse response) {
+
+        //Get the Logged in User.
+        String name = getLoggedUser();
+
+        String guide = request.getParameter("guide");
+        String description = request.getParameter("description");
+        String status = request.getParameter("status");
+
+        // Create a Work Item object to pass to the injestNewSubmission method.
+        WorkItem myWork = new WorkItem();
+        myWork.setGuide(guide);
+        myWork.setDescription(description);
+        myWork.setStatus(status);
+        myWork.setName(name);
+
+        iw.injestNewSubmission(myWork);
+        return "Item added";
+    }
+
+    // Builds and emails a report.
+    @RequestMapping(value = "/report", method = RequestMethod.POST)
+    @ResponseBody
+    String getReport(HttpServletRequest request, HttpServletResponse response) {
+
+        // Get the logged in user.
+        String name = getLoggedUser();
+        String email = request.getParameter("email");
+        RetrieveItems ri = new RetrieveItems();
+        List<WorkItem> theList = ri.getItemsDataSQLReport(name);
+        java.io.InputStream is = writeExcel.exportExcel(theList);
+
+        try {
+            sm.sendReport(is, email);
+
+        }catch (IOException e) {
+            e.getStackTrace();
+        }
+        return "Report is created";
+    }
+
+    // Archives a work item.
+    @RequestMapping(value = "/archive", method = RequestMethod.POST)
+    @ResponseBody
+    String archieveWorkItem(HttpServletRequest request, HttpServletResponse response) {
+        String id = request.getParameter("id");
+        RetrieveItems ri = new RetrieveItems();
+        ri.flipItemArchive(id );
+        return id ;
+    }
+
+    // Modifies the value of a work item.
+    @RequestMapping(value = "/changewi", method = RequestMethod.POST)
+    @ResponseBody
+    String changeWorkItem(HttpServletRequest request, HttpServletResponse response) {
+        String id = request.getParameter("id");
+        String description = request.getParameter("description");
+        String status = request.getParameter("status");
+        String value = iw.modifySubmission(id, description, status);
+        return value;
+    }
+
+    // Retrieve all items for a given user.
+    @RequestMapping(value = "/retrieve", method = RequestMethod.POST)
+    @ResponseBody
+    String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
+
+        //Get the Logged in user.
+        String name = getLoggedUser();
+        String type = request.getParameter("type");
+
+        //Pass back all data from the database.
+        RetrieveItems ri = new RetrieveItems();
+        String xml="";
+
+        if (type.equals("active")) {
+            xml = ri.getItemsDataSQL(name);
+            return xml;
+        } else {
+            xml = ri.getArchiveData(name);
+            return xml;
+        }
+    }
+
+    // Returns a work item to modify.
+    @RequestMapping(value = "/modify", method = RequestMethod.POST)
+    @ResponseBody
+    String modifyWork(HttpServletRequest request, HttpServletResponse response) {
+        String id = request.getParameter("id");
+        RetrieveItems ri = new RetrieveItems();
+        String xmlRes = ri.getItemSQL(id) ;
+        return xmlRes;
+    }
+
+    private String getLoggedUser() {
+
+        // Get the logged-in user.
+        org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String name = user2.getUsername();
+        return name;
+    }
+   }
+
+```
+
+### RetrieveItems class
+
+The following Java code represents the **RetrieveItems** class that retrieved data from the **work** table. Like the **InjectWorkService** class, you need to specify ARN values for the secret manager and the Amazon Serverless Aurora database.
+
+```java
+     package com.aws.rds;
+
+    import java.io.StringWriter;
+    import java.util.ArrayList ;
+    import java.util.List;
+    import org.springframework.stereotype.Component;
+    import org.w3c.dom.Document;
+    import javax.xml.parsers.DocumentBuilder;
+    import javax.xml.parsers.DocumentBuilderFactory;
+    import org.w3c.dom.Element;
+    import software.amazon.awssdk.regions.Region;
+    import software.amazon.awssdk.services.rdsdata.RdsDataClient;
+    import software.amazon.awssdk.services.rdsdata.model.*;
+    import javax.xml.parsers.ParserConfigurationException;
+    import javax.xml.transform.Transformer;
+    import javax.xml.transform.TransformerException;
+    import javax.xml.transform.TransformerFactory;
+    import javax.xml.transform.dom.DOMSource;
+    import javax.xml.transform.stream.StreamResult;
+
+    @Component 
+    public class RetrieveItems {
+
+    private String secretArn = "<Enter the secret manager ARN>" ;
+    private String resourceArn = "<Enter the database ARN>" ;
+
+    private RdsDataClient getClient() {
+
+        Region region = Region.US_EAST_1;
+        RdsDataClient dataClient = RdsDataClient.builder()
+                .region(region)
+                .build();
+
+        return dataClient;
+     }
+
+    // Retrieves archive data from the MySQL database.
+    public String getArchiveData(String username) {
+
+        RdsDataClient dataClient = getClient();
+        int arch = 1;
+        List<WorkItem>records = new ArrayList<>();
+
+        try {
+
+            String  sqlStatement = "Select * FROM work where username = '" +username +"' and archive = " + arch +"";
+            ExecuteStatementRequest sqlRequest = ExecuteStatementRequest.builder()
+                    .secretArn(secretArn)
+                    .sql(sqlStatement)
+                    .database("jobs")
+                    .resourceArn(resourceArn)
+                    .build();
+
+            ExecuteStatementResponse response = dataClient.executeStatement(sqlRequest);
+            List<List<Field>> dataList = response.records();
+
+            WorkItem workItem ;
+            int index = 0 ;
+
+            // Get the records.
+            for (List list: dataList) {
+
+                // New WorkItem object.
+                workItem = new WorkItem();
+                index = 0;
+                for (Object myField : list) {
+
+                    Field field = (Field) myField;
+                    String value = field.stringValue();
+
+                    if (index == 0)
+                        workItem.setId(value);
+
+                    else if (index == 1)
+                        workItem.setDate(value);
+
+                    else if (index == 2)
+                        workItem.setDescription(value);
+
+
+                    else if (index == 3)
+                        workItem.setGuide(value);
+
+                    else if (index == 4)
+                        workItem.setStatus(value);
+
+                    else if (index == 5)
+                        workItem.setName(value);
+
+                    // Increment the index.
+                    index++;
+                }
+
+                // Push the object to the List.
+                records.add(workItem);
+            }
+
+            return convertToString(toXml(records));
+
+        } catch (RdsDataException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void flipItemArchive(String id ) {
+
+        RdsDataClient dataClient = getClient();
+        int arc = 1;
+
+        try {
+            // Specify the SQL statement to query data.
+            String sqlStatement = "update work set archive = '"+arc+"' where idwork ='" +id + "' ";
+            ExecuteStatementRequest sqlRequest = ExecuteStatementRequest.builder()
+                    .secretArn(secretArn)
+                    .sql(sqlStatement)
+                    .database("jobs")
+                    .resourceArn(resourceArn)
+                    .build();
+
+            dataClient.executeStatement(sqlRequest);
+        } catch (RdsDataException e) {
+            e.printStackTrace();
+        }
+      }
+
+    // Retrieves an item based on the ID.
+    public String getItemSQL(String id ) {
+
+        RdsDataClient dataClient = getClient();
+
+        // Define a list in which all work items are stored.
+        String sqlStatement = "";
+        String status="" ;
+        String description="";
+
+        try {
+
+            //Specify the SQL statement to query data.
+            sqlStatement = "Select description, status FROM work where idwork ='" +id + "' ";
+            ExecuteStatementRequest sqlRequest = ExecuteStatementRequest.builder()
+                    .secretArn(secretArn)
+                    .sql(sqlStatement)
+                    .database("jobs")
+                    .resourceArn(resourceArn)
+                    .build();
+
+            ExecuteStatementResponse response = dataClient.executeStatement(sqlRequest);
+            List<List<Field>> dataList = response.records();
+            int index = 0 ;
+            // Get the records.
+            for (List list: dataList) {
+
+                for (Object myField : list) {
+
+                    Field field = (Field) myField;
+                    String value = field.stringValue();
+
+                    if (index == 0)
+                        description  = (value);
+
+                    else if (index == 1)
+                        status = value;
+                    // Increment the index.
+                    index++;
+                }
+            }
+            return convertToString(toXmlItem(id,description,status));
+
+        } catch (RdsDataException e) {
+            e.printStackTrace();
+        } finally {
+            //ConnectionHelper.close(c);
+        }
+        return null;
+    }
+
+    // Get Items data from MySQL
+    public List<WorkItem> getItemsDataSQLReport(String username) {
+
+        RdsDataClient dataClient = getClient();
+        int arch = 0;
+        List<WorkItem>records = new ArrayList<>();
+
+        try {
+            String  sqlStatement = "Select * FROM work where username = '" +username +"' and archive = " + arch +"";
+            ExecuteStatementRequest sqlRequest = ExecuteStatementRequest.builder()
+                    .secretArn(secretArn)
+                    .sql(sqlStatement)
+                    .database("jobs")
+                    .resourceArn(resourceArn)
+                    .build();
+
+            ExecuteStatementResponse response = dataClient.executeStatement(sqlRequest);
+            List<List<Field>> dataList = response.records();
+
+            WorkItem workItem ;
+            int index = 0 ;
+
+            // Get the records.
+            for (List list: dataList) {
+
+                // New WorkItem object.
+                workItem = new WorkItem();
+                index = 0;
+                for (Object myField : list) {
+
+                    Field field = (Field) myField;
+                    String value = field.stringValue();
+
+                    if (index == 0)
+                        workItem.setId(value);
+
+                    else if (index == 1)
+                        workItem.setDate(value);
+
+                    else if (index == 2)
+                        workItem.setDescription(value);
+
+
+                    else if (index == 3)
+                        workItem.setGuide(value);
+
+                    else if (index == 4)
+                        workItem.setStatus(value);
+
+                    else if (index == 5)
+                        workItem.setName(value);
+
+                    // Increment the index.
+                    index++;
+                }
+
+                // Push the object to the List.
+                records.add(workItem);
+            }
+
+            return records;
+
+        } catch (RdsDataException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    // Get Items Data from MySQL
+    public String getItemsDataSQL(String username) {
+
+        RdsDataClient dataClient = getClient();
+        int arch = 0;
+        List<WorkItem>records = new ArrayList<>();
+
+        try {
+            String  sqlStatement = "Select * FROM work where username = '" +username +"' and archive = " + arch +"";
+            ExecuteStatementRequest sqlRequest = ExecuteStatementRequest.builder()
+                    .secretArn(secretArn)
+                    .sql(sqlStatement)
+                    .database("jobs")
+                    .resourceArn(resourceArn)
+                    .build();
+
+            ExecuteStatementResponse response = dataClient.executeStatement(sqlRequest);
+            List<List<Field>> dataList = response.records();
+
+            WorkItem workItem ;
+            int index = 0 ;
+
+            // Get the records.
+            for (List list: dataList) {
+
+                // New WorkItem object.
+                workItem = new WorkItem();
+                index = 0;
+                for (Object myField : list) {
+
+                    Field field = (Field) myField;
+                    String value = field.stringValue();
+
+                    if (index == 0)
+                        workItem.setId(value);
+
+                    else if (index == 1)
+                        workItem.setDate(value);
+
+                    else if (index == 2)
+                        workItem.setDescription(value);
+
+
+                    else if (index == 3)
+                        workItem.setGuide(value);
+
+                    else if (index == 4)
+                        workItem.setStatus(value);
+
+                    else if (index == 5)
+                        workItem.setName(value);
+
+                    // Increment the index.
+                    index++;
+                }
+
+                // Push the object to the List.
+                records.add(workItem);
+            }
+
+            return convertToString(toXml(records));
+
+        } catch (RdsDataException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // Convert Work item data retrieved from MySQL
+    // into XML to pass back to the view
+    private Document toXml(List<WorkItem> itemList) {
+
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.newDocument();
+
+            // Start building the XML
+            Element root = doc.createElement( "Items" );
+            doc.appendChild( root );
+
+            // Iterate through the collection
+            for (WorkItem myItem : itemList) {
+
+                // Get the WorkItem object from the collection
+                Element item = doc.createElement("Item");
+                root.appendChild(item);
+
+                // Set Id
+                Element id = doc.createElement("Id");
+                id.appendChild(doc.createTextNode(myItem.getId()));
+                item.appendChild(id);
+
+                // Set Name
+                Element name = doc.createElement("Name");
+                name.appendChild(doc.createTextNode(myItem.getName()));
+                item.appendChild(name);
+
+                // Set Date
+                Element date = doc.createElement("Date");
+                date.appendChild(doc.createTextNode(myItem.getDate()));
+                item.appendChild(date);
+
+                // Set Description
+                Element desc = doc.createElement("Description");
+                desc.appendChild(doc.createTextNode(myItem.getDescription()));
+                item.appendChild(desc);
+
+                // Set Guide
+                Element guide = doc.createElement("Guide");
+                guide.appendChild(doc.createTextNode(myItem.getGuide()));
+                item.appendChild(guide);
+
+                // Set Status
+                Element status = doc.createElement("Status");
+                status.appendChild(doc.createTextNode(myItem.getStatus()));
+                item.appendChild(status);
+            }
+
+            return doc;
+        } catch(ParserConfigurationException e) {
+            e.printStackTrace();
+        }
+        return null;
+     }
+
+     private String convertToString(Document xml) {
+        try {
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            StreamResult result = new StreamResult(new StringWriter());
+            DOMSource source = new DOMSource(xml);
+            transformer.transform(source, result);
+            return result.getWriter().toString();
+
+        } catch(TransformerException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+     }
+
+    // Convert Work item data retrieved from MySQL into an XML schema to pass back to client.
+    private Document toXmlItem(String id2, String desc2, String status2) {
+
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.newDocument();
+
+            // Start building the XML
+            Element root = doc.createElement( "Items" );
+            doc.appendChild( root );
+
+            Element item = doc.createElement( "Item" );
+            root.appendChild( item );
+
+            // Set Id
+            Element id = doc.createElement( "Id" );
+            id.appendChild( doc.createTextNode(id2 ) );
+            item.appendChild( id );
+
+            // Set Description
+            Element desc = doc.createElement( "Description" );
+            desc.appendChild( doc.createTextNode(desc2 ) );
+            item.appendChild( desc );
+
+            // Set Status
+            Element status = doc.createElement( "Status" );
+            status.appendChild( doc.createTextNode(status2 ) );
+            item.appendChild( status );
+
+            return doc;
+
+        } catch(ParserConfigurationException e) {
+            e.printStackTrace();
+        }
+        return null;
+       }
+      }
 ```
 
 #### WebSecurityConfig class
