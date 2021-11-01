@@ -324,7 +324,7 @@ The following Java files go into this package:
 
 ### InjectWorkService class 
 
-The following Java code represents the **InjectWorkService** class. Notice that you need to specify ARN values for the secret manager and the Amazon Serverless Aurora database. Without both of these values, your code does not work. To use the **RDSDataClient**, you need to create an **ExecuteStatementRequest** object and specify both ARN valuesm the database name, and the SQL statement used to submit data to the **work** table. 
+The following Java code represents the **InjectWorkService** class. Notice that you need to specify ARN values for the secret manager and the Amazon Serverless Aurora database. Without both of these values, your code does not work. To use the **RDSDataClient**, you need to create an **ExecuteStatementRequest** object and specify both ARN values, the database name, and the SQL statement used to submit data to the **work** table. 
 
 ```java
     package com.aws.rds;
