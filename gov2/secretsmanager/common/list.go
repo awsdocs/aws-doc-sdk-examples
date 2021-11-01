@@ -18,12 +18,14 @@ import (
 func ListSecrets(config aws.Config) ([]string, error) {
 	conn := secretsmanager.NewFromConfig(config)
 	secrets := make([]string, 0)
-	result, err := conn.ListSecrets(context.Background(), &secretsmanager.ListSecretsInput{})
-	if err == nil {
-		for _, secret := range result.SecretList {
-			secrets = append(secrets, *secret.ARN)
-		}
+	result, err := conn.ListSecrets(context.TODO(), &secretsmanager.ListSecretsInput{})
+	if err != nil {
+		return secrets, err
 	}
+	for _, secret := range result.SecretList {
+		secrets = append(secrets, *secret.ARN)
+	}
+
 	return secrets, err
 }
 
