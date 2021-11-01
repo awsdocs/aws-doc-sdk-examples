@@ -625,7 +625,7 @@ The following Java code represents the **RetrieveItems** class that retrieves da
         return dataClient;
      }
 
-    // Retrieves archive data from the MySQL database.
+    // Retrieves archive data from the database.
     public String getArchiveData(String username) {
 
         RdsDataClient dataClient = getClient();
@@ -766,7 +766,7 @@ The following Java code represents the **RetrieveItems** class that retrieves da
         return null;
     }
 
-    // Get Items data from MySQL
+    // Get Items data from the database.
     public List<WorkItem> getItemsDataSQLReport(String username) {
 
         RdsDataClient dataClient = getClient();
@@ -835,7 +835,7 @@ The following Java code represents the **RetrieveItems** class that retrieves da
     }
 
 
-    // Get Items Data from MySQL
+    // Get Items Data from the database.
     public String getItemsDataSQL(String username) {
 
         RdsDataClient dataClient = getClient();
@@ -903,8 +903,7 @@ The following Java code represents the **RetrieveItems** class that retrieves da
         return null;
     }
 
-    // Convert Work item data retrieved from MySQL
-    // into XML to pass back to the view
+    // Convert Work item data into XML to pass back to client.
     private Document toXml(List<WorkItem> itemList) {
 
         try {
@@ -975,7 +974,7 @@ The following Java code represents the **RetrieveItems** class that retrieves da
         return null;
      }
 
-    // Convert Work item data retrieved from MySQL into an XML schema to pass back to client.
+    // Convert Work item data into XML to pass back to client.
     private Document toXmlItem(String id2, String desc2, String status2) {
 
         try {
