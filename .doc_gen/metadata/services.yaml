@@ -116,7 +116,6 @@ pinpoint-email:
   short: "&PIN-Email-API;"
   sort: "Pinpoint Email"
   version: pinpoint-email-2018-07-26
-  bundle: pinpoint
 pinpoint-sms-voice:
   long: "&PIN-SMS-Voice-API;"
   short: "&PIN-SMS-Voice-API;"
