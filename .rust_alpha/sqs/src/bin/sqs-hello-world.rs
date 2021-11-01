@@ -19,36 +19,9 @@ struct Opt {
     verbose: bool,
 }
 
-/// Sends a message to and receives the message from a queue in the Region.
-/// /// # Arguments
-///
-/// * `[-r REGION]` - The Region in which the client is created.
-///    If not supplied, uses the value of the **AWS_REGION** environment variable.
-///    If the environment variable is not set, defaults to **us-west-2**.
-/// * `[-v]` - Whether to display additional information.
-#[tokio::main]
-async fn main() -> Result<(), Error> {
-    tracing_subscriber::fmt::init();
-
-    let Opt { region, verbose } = Opt::from_args();
-
-    let region_provider = RegionProviderChain::first_try(region.map(Region::new))
-        .or_default_provider()
-        .or_else(Region::new("us-west-2"));
-
-    println!();
-    if verbose {
-        println!("SQS client version: {}", PKG_VERSION);
-        println!(
-            "Region:             {}",
-            region_provider.region().await.unwrap().as_ref()
-        );
-        println!();
-    }
-
-    let shared_config = aws_config::from_env().region(region_provider).load().await;
-    let client = Client::new(&shared_config);
-
+// Send a message to and receive a message from a queue.
+// snippet-start:[sqs.rust.sqs-hello-world]
+async fn send_receive(client: &Client) -> Result<(), Error> {
     let queues = client.list_queues().send().await?;
     let mut queue_urls = queues.queue_urls.unwrap_or_default();
     let queue_url = match queue_urls.pop() {
@@ -85,4 +58,38 @@ async fn main() -> Result<(), Error> {
     }
 
     Ok(())
+}
+// snippet-end:[sqs.rust.sqs-hello-world]
+
+/// Sends a message to and receives the message from a queue in the Region.
+/// /// # Arguments
+///
+/// * `[-r REGION]` - The Region in which the client is created.
+///    If not supplied, uses the value of the **AWS_REGION** environment variable.
+///    If the environment variable is not set, defaults to **us-west-2**.
+/// * `[-v]` - Whether to display additional information.
+#[tokio::main]
+async fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt::init();
+
+    let Opt { region, verbose } = Opt::from_args();
+
+    let region_provider = RegionProviderChain::first_try(region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
+
+    println!();
+    if verbose {
+        println!("SQS client version: {}", PKG_VERSION);
+        println!(
+            "Region:             {}",
+            region_provider.region().await.unwrap().as_ref()
+        );
+        println!();
+    }
+
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
+    let client = Client::new(&shared_config);
+
+    send_receive(&client).await
 }
