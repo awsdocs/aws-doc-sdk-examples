@@ -4,7 +4,7 @@
 
 These examples demonstrate how to perform several Amazon Simple Queue Service (Amazon SQS) operations using the alpha version of the AWS SDK for Rust.
 
-Amazon SQS) is a fully managed message queuing service that makes it easy to decouple and scale microservices, distributed systems, and serverless applications.
+Amazon SQS is a fully managed message queuing service that makes it easy to decouple and scale microservices, distributed systems, and serverless applications.
 
 ## Code examples
 
