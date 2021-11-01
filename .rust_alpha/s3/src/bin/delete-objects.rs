@@ -27,7 +27,32 @@ struct Opt {
     verbose: bool,
 }
 
-/// Lists the objects in an Amazon S3 bucket.
+// Deletes objects from a bucket.
+// snippet-start:[s3.rust.delete-objects]
+async fn remove_objects(client: &Client, bucket: &str, objects: Vec<String>) -> Result<(), Error> {
+    let mut delete_objects: Vec<ObjectIdentifier> = vec![];
+
+    for obj in objects {
+        let obj_id = ObjectIdentifier::builder().set_key(Some(obj)).build();
+        delete_objects.push(obj_id);
+    }
+
+    let delete = Delete::builder().set_objects(Some(delete_objects)).build();
+
+    client
+        .delete_objects()
+        .bucket(bucket)
+        .delete(delete)
+        .send()
+        .await?;
+
+    println!("Objects deleted.");
+
+    Ok(())
+}
+// snippet-end:[s3.rust.delete-objects]
+
+/// Removes objects from an Amazon S3 bucket.
 /// # Arguments
 ///
 /// * `-b BUCKET` - The name of the bucket.
@@ -67,23 +92,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let mut delete_objects: Vec<ObjectIdentifier> = vec![];
-
-    for obj in objects {
-        let obj_id = ObjectIdentifier::builder().set_key(Some(obj)).build();
-        delete_objects.push(obj_id);
-    }
-
-    let delete = Delete::builder().set_objects(Some(delete_objects)).build();
-
-    client
-        .delete_objects()
-        .bucket(&bucket)
-        .delete(delete)
-        .send()
-        .await?;
-
-    println!("Objects deleted.");
-
-    Ok(())
+    remove_objects(&client, &bucket, objects).await
 }

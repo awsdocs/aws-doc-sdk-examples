@@ -22,6 +22,19 @@ struct Opt {
     verbose: bool,
 }
 
+// Lists the objects in a bucket.
+// snippet-start:[s3.rust.list-objects]
+async fn show_objects(client: &Client, bucket: &str) -> Result<(), Error> {
+    let resp = client.list_objects_v2().bucket(bucket).send().await?;
+
+    for object in resp.contents.unwrap_or_default() {
+        println!("{}", object.key.as_deref().unwrap_or_default());
+    }
+
+    Ok(())
+}
+// snippet-end:[s3.rust.list-objects]
+
 /// Lists the objects in an Amazon S3 bucket.
 /// # Arguments
 ///
@@ -59,11 +72,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client.list_objects_v2().bucket(&bucket).send().await?;
-
-    for object in resp.contents.unwrap_or_default() {
-        println!("{}", object.key.as_deref().unwrap_or_default());
-    }
-
-    Ok(())
+    show_objects(&client, &bucket).await
 }
