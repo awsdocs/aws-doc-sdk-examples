@@ -587,7 +587,7 @@ The following Java code represents the **MainController** class which handles HT
 
 ### RetrieveItems class
 
-The following Java code represents the **RetrieveItems** class that retrieved data from the **work** table. Like the **InjectWorkService** class, you need to specify ARN values for the secret manager and the Amazon Serverless Aurora database.
+The following Java code represents the **RetrieveItems** class that retrieves data from the **work** table. Like the **InjectWorkService** class, you need to specify ARN values for the secret manager and the Amazon Serverless Aurora database.
 
 ```java
      package com.aws.rds;
