@@ -4,7 +4,7 @@
 
 These examples demonstrate how to perform several Amazon Simple Storage Service (S3) operations using the alpha version of the AWS SDK for Rust.
 
-Amazon S3) is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web.
+Amazon S3 is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web.
 
 ## Code examples
 
