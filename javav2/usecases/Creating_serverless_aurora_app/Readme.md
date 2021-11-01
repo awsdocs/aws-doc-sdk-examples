@@ -1616,42 +1616,38 @@ The following HTML code represents the **index.html** file. This file represents
     <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
     <head>
-      <meta charset="utf-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <meta charset="utf-8" />
+     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+     <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
+     <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+     <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
 
-      <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
-      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-      <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
+     <title>AWS RDS Item Tracker</title>
+   </head>
 
-      <title>AWS Item Tracker</title>
-     </head>
+   <body>
+   <header th:replace="layout :: site-header"/>
+   <div class="container">
+     <h2>Serverless Amazon Aurora Item Tracker</h2>
+     <h4>Welcome <span sec:authentication="principal.username">User</span> to AWS RDS Item Tracker</h4>
+     <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
+     <p>The Serverless Amazon Aurora Item Tracker is a sample application that uses multiple AWS Services and the Java V2 API. Collecting and working with items has never been easier! Simply perform these steps:<p>
 
-     <body>
-      <header th:replace="layout :: site-header"/>
-      <div class="container">
-
-      <h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Item Tracker</h3>
-      <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
-
-      <h2>AWS Item Tracker</h2>
-
-      <p>The AWS Item Tracker application is a sample application that uses multiple AWS services and the Java V2 API. Collecting and  working with items has never been easier! Simply perform these steps:<p>
-
-     <ol>
-    <li>Enter work items into the system by choosing the <b>Add Items</b> menu item. Fill in the form and then choose <b>Create Item</b>.</li>
-    <li>The AWS Item Tracker application stores the data by using the Amazon Relational Database Service (Amazon RDS).</li>
-    <li>You can view all of your items by choosing the <b>Get Items</b> menu item. Next, choose <b>Get Active Items</b> in the dialog box.</li>
-    <li>You can modify an Active Item by selecting an item in the table and then choosing <b>Get Single Item</b>. The item appears in the Modify Item section where you can modify the description or status.</li>
-    <li>Modify the item and then choose <b>Update Item</b>. You cannot modify the ID value. </li>
-    <li>You can archive any item by selecting the item and choosing <b>Archive Item</b>. Notice that the table is updated with only active items.</li>
-    <li>You can display all archived items by choosing <b>Get Archived Items</b>. You cannot modify an archived item.</li>
-    <li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog box and then choosing <b>Send Report</b>.Only Active data is sent in a report.</li>
-    <li>The Amazon Simple Email Service is used to send an email with an Excel document to the selected email recipient.</li>
-    </ol>
+    <ol>
+     <li>Enter work items into the system by choosing the <i>Add Items</i> menu item. Fill in the form and then choose <i>Create Item</i>.</li>
+     <li>The AWS Item Tracker application stores the data by using the Amazon Relational Database Service (Amazon RDS) and the <b>RdsDataClient</b></li>
+     <li>You can view all of your items by choosing the <i>Get Items</i> menu item. Next, choose <i>Get Active Items</i> in the dialog box.</li>
+     <li>You can modify an Active Item by selecting an item in the table and then choosing <i>Get Single Item</i>. The item appears in the Modify Item section where you can modify the description or status.</li>
+     <li>Modify the item and then choose <i>Update Item</i>. You cannot modify the ID value. </li>
+     <li>You can archive any item by selecting the item and choosing <i>Archive Item</i>. Notice that the table is updated with only active items.</li>
+     <li>You can display all archived items by choosing <i>Get Archived Items</i>. You cannot modify an archived item.</li>
+     <li>You can send an email recipient an email message with a report attachment by selecting the email recipient from the dialog box and then choosing <i>Send Report</i>.Only Active data is sent in a report.</li>
+     <li>The Amazon Simple Email Service is used to send an email with an Excel document to the selected email recipient.</li>
+     </ol>
     <div>
-    </body>
-    </html>
+   </body>
+   </html>
 ```
 	     
 #### add.html
@@ -1659,57 +1655,57 @@ The following HTML code represents the **index.html** file. This file represents
 The following code represents the **add.html** file that enables users to add new items.
 
 ```html
-	<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-	<html>
-	<head>
-    	<title>Add Items</title>
-    	<script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
-    	<script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
-    	<script src="../public/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
+	<!DOCTYPE html>
+      <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      <head>
+     <title>Add Items</title>
+     <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
+     <script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
+     <script src="../public/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
 
-    	<!-- CSS files -->
-    	<link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
-    	<link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-	</head>
-	<body>
-	<header th:replace="layout :: site-header"/>
-	<div class="container">
-	<h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Item Tracker</h3>
-    	<p>Add new items by filling in this table and clicking <b>Create Item</b></p>
+    <!-- CSS files -->
+    <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
+    <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+   </head>
+    <body>
+    <header th:replace="layout :: site-header"/>
+<div class="container">
+    <h2>Serverless Amazon Aurora Item Tracker</h2>
+    <h4>Welcome <span sec:authentication="principal.username">User</span> to RDS Item Tracker</h4>
+    <p>Add new items by filling in this table and clicking <i>Create Item</i></p>
 
-	<div class="row">
-    	<div class="col-lg-8 mx-auto">
-
-        <form>
-            <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                    <label>Guide</label>
-                    <input class="form-control" id="guide" type="guide" placeholder="AWS Guide/AWS API" required="required" data-validation-required-message="Please enter the AWS Guide.">
-                    <p class="help-block text-danger"></p>
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <form>
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                        <label>Guide</label>
+                        <input class="form-control" id="guide" type="guide" placeholder="AWS Guide/AWS API" required="required" data-validation-required-message="Please enter the AWS Guide.">
+                        <p class="help-block text-danger"></p>
+                    </div>
                 </div>
-            </div>
-            <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                    <label>Description</label>
-                    <textarea class="form-control" id="description" rows="5" placeholder="Description" required="required" data-validation-required-message="Please enter a description."></textarea>
-                    <p class="help-block text-danger"></p>
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                        <label>Description</label>
+                        <textarea class="form-control" id="description" rows="5" placeholder="Description" required="required" data-validation-required-message="Please enter a description."></textarea>
+                        <p class="help-block text-danger"></p>
+                    </div>
                 </div>
-            </div>
-            <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                    <label>Status</label>
-                    <textarea class="form-control" id="status" rows="5" placeholder="Status" required="required" data-validation-required-message="Please enter the status."></textarea>
-                    <p class="help-block text-danger"></p>
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                        <label>Status</label>
+                        <textarea class="form-control" id="status" rows="5" placeholder="Status" required="required" data-validation-required-message="Please enter the status."></textarea>
+                        <p class="help-block text-danger"></p>
+                    </div>
                 </div>
-            </div>
-            <br>
-            <button type="submit" class="btn btn-primary btn-xl" id="SendButton">Create Item</button>
-        </form>
-    	</div>
-	</div>
-	</div>
-	</body>
-	</html>
+                <br>
+                <button type="submit" class="btn btn-primary btn-xl" id="SendButton">Create Item</button>
+            </form>
+        </div>
+       </div>
+     </div>
+     </body>
+    </html>
 ```
 		
 #### items.html
@@ -1743,9 +1739,10 @@ The following code represents the **items.html** file. This file enables users t
 
 	<div class="container">
 
-    	<h3>Welcome <span sec:authentication="principal.username">User</span> to AWS Item Tracker</h3>
-    	<h3 id="info3">Get Items</h3>
-	<p>You can manage items in this view.</p>
+    	 <h2>Serverless Amazon Aurora Item Tracker</h2>
+         <h4>Welcome <span sec:authentication="principal.username">User</span> to RDS Item Tracker</h4>
+         <h4 id="info3">Get Items</h4>
+         <p>You can manage items in this view.</p>
 
     	<table id="myTable" class="display" style="width:100%">
         <thead>
