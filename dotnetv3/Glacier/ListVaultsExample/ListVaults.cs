@@ -2,9 +2,9 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// Uses the Amazon Amazon Glacier Service to retrieve a list of the vaults
+/// Uses Amazon Simple Storage Service Glacier to retrieve a list of the vaults
 /// that belong to the default user. As it was written, it shows the vaults
-/// that ar in the same aWS Regioin as the default user. If you want to show
+/// that ar in the same AWS Regioin as the default user. If you want to show
 /// the vaults in another region, pass the region endpoint to the Amazon
 /// Glacier client constructor.
 ///

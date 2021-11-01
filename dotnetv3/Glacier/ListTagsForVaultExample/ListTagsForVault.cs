@@ -4,6 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+/// <summary>
+/// List the Amazon Simple Storage Service Glacier tags that are attached to
+/// a vault. This example was created using the AWS SDK for .NET version 3.7
+/// and .NET Core 5.0.
+/// </summary>
 namespace ListTagsForVaultExample
 {
     class ListTagsForVault
@@ -15,6 +20,9 @@ namespace ListTagsForVaultExample
 
             var request = new ListTagsForVaultRequest
             {
+                // Using a hyphen "=" for the Account Id will
+                // cause the SDK to use the Account Id associated
+                // with the default user.
                 AccountId = "-",
                 VaultName = vaultName,
             };
@@ -30,7 +38,7 @@ namespace ListTagsForVaultExample
             }
             else
             {
-                Console.WriteLine($"{vaultName} has not tags.");
+                Console.WriteLine($"{vaultName} has no tags.");
             }
         }
     }

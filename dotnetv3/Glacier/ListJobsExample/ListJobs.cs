@@ -2,8 +2,8 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// List the Amazon Glacier jobs for a vault. This example was created using
-/// the AWS .NET SDK version 3.7 and .NET Core 5.0.
+/// List the Amazon Simple Storage Service Glacier jobs for a vault. This
+/// example was created using the AWS .NET SDK version 3.7 and .NET Core 5.0.
 /// </summary>
 namespace ListJobsExample
 {
@@ -23,6 +23,9 @@ namespace ListJobsExample
 
             var request = new ListJobsRequest
             {
+                // Using a hyphen "=" for the Account Id will
+                // cause the SDK to use the Account Id associated
+                // with the default user.
                 AccountId = "-",
                 VaultName = vaultName,
             };

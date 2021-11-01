@@ -2,8 +2,8 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// Add tags to an Amazon Glacier vault. This example was created using the
-/// AWS SDK for .NET version 3.7 and .NET Core 5.0.
+/// Add tags to an Amazon Simple Storage Service Glacier vault. This example
+/// was created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
 /// </summary>
 namespace AddTagsToVaultExample
 {

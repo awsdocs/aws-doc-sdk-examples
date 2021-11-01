@@ -2,8 +2,8 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// This example creates an Amazon Glacier vault. It was created using the
-/// AWS SDK for .NET 3.7 and .NET Core 5.0.
+/// This example creates an Amazon Simple Storage Service Glacier vault. This
+/// example was created using the AWS SDK for .NET 3.7 and .NET Core 5.0.
 /// </summary>
 namespace CreateVaultExample
 {

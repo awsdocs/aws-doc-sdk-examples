@@ -2,8 +2,9 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// Download an Amazon Glacier archive using the high level API. This example
-/// was created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
+/// Download an Amazon Simple Storage Service Glacier archive using the
+/// high level API. This example was created using the AWS SDK for .NET version
+/// 3.7 and .NET Core 5.0.
 /// </summary>
 namespace DownloadArchiveHighLevelExample
 {
