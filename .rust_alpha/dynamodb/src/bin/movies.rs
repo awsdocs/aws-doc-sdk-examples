@@ -76,18 +76,10 @@ async fn main() -> Result<(), Error> {
 
     let raw_client = aws_hyper::Client::https();
 
-    let table_exists = client
-        .list_tables()
-        .send()
-        .await
-        .expect("should succeed")
-        .table_names
-        .as_ref()
-        .unwrap()
-        .contains(&table.to_string());
+    let table_exists = does_table_exist(&client, &table).await?;
 
     if !table_exists {
-        create_table(&client, &table.to_string())
+        create_table(&client, &table)
             .send()
             .await
             .expect("failed to create table");
@@ -136,6 +128,23 @@ async fn main() -> Result<(), Error> {
     // Delete table.
     delete_table(&client, &table).await
 }
+
+// Does table exist?
+// snippet-start:[dynamodb.rust.movies-does_table_exist]
+async fn does_table_exist(client: &Client, table: &str) -> Result<bool, Error> {
+    let table_exists = client
+        .list_tables()
+        .send()
+        .await
+        .expect("should succeed")
+        .table_names
+        .as_ref()
+        .unwrap()
+        .contains(&table.into());
+
+    Ok(table_exists)
+}
+// snippet-end:[dynamodb.rust.movies-does_table_exist]
 
 // snippet-start:[dynamodb.rust.movies-create_table]
 fn create_table(
