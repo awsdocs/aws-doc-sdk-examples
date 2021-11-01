@@ -15,7 +15,7 @@ import (
 )
 
 // This creates a secret and prints out its ARN
-//snippet-start:[gov2.secretsmanager.CreateSecret]
+//snippet-start:[secretsmanager.go-v2.CreateSecret]
 func CreateSecret(cfg aws.Config) (string, error) {
 
 	conn := secretsmanager.NewFromConfig(cfg)
@@ -34,4 +34,4 @@ func CreateSecret(cfg aws.Config) (string, error) {
 
 }
 
-//snippet-end:[gov2.secretsmanager.CreateSecret]
+//snippet-end:[secretsmanager.go-v2.CreateSecret]

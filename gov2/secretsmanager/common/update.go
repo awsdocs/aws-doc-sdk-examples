@@ -13,7 +13,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
 )
 
-//snippet-start:[gov2.secretsmanager.UpdateSecret]
+//snippet-start:[secretsmanager.go-v2.UpdateSecret]
 
 func UpdateSecret(config aws.Config, arn string, newValue string) error {
 	conn := secretsmanager.NewFromConfig(config)
@@ -25,4 +25,4 @@ func UpdateSecret(config aws.Config, arn string, newValue string) error {
 	return err
 }
 
-//snippet-end:[gov2.secretsmanager.UpdateSecret]
+//snippet-end:[secretsmanager.go-v2.UpdateSecret]

@@ -19,16 +19,16 @@ import (
 
 func main() {
 
-	//snippet-start:[go.sdk.LoadDefaultConfig]
+	//snippet-start:[sdk.go-v2.LoadDefaultConfig]
 	cfg, err := config.LoadDefaultConfig(context.Background())
 	if err != nil {
 		panic("Couldn't load config!")
 	}
 	fmt.Println("The loaded default region is:" + cfg.Region)
 
-	//snippet-end:[go.sdk.LoadDefaultConfig]
+	//snippet-end:[sdk.go-v2.LoadDefaultConfig]
 
-	//snippet-start:[go.sdk.AssumeRoleConfig]
+	//snippet-start:[sdk.go-v2.AssumeRoleConfig]
 
 	// To acquire credentials for temporary use, STS should be used.
 	// An AssumeRoleProvider can be used to retrieve the appropriate credentials as needed.
@@ -41,6 +41,6 @@ func main() {
 	cloneCfg := cfg.Copy()
 	cloneCfg.Credentials = aws.NewCredentialsCache(creds)
 
-	//snippet-end:[go.sdk.AssumeRoleConfig]
+	//snippet-end:[sdk.go-v2.AssumeRoleConfig]
 
 }

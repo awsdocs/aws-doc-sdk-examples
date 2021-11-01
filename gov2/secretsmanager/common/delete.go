@@ -13,7 +13,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
 )
 
-//snippet-start:[gov2.secretsmanager.DeleteSecret]
+//snippet-start:[secretsmanager.go-v2.DeleteSecret]
 
 func DeleteSecret(config aws.Config, arn string) error {
 	conn := secretsmanager.NewFromConfig(config)
@@ -24,4 +24,4 @@ func DeleteSecret(config aws.Config, arn string) error {
 	return err
 }
 
-//snippet-end:[gov2.secretsmanager.DeleteSecret]
+//snippet-end:[secretsmanager.go-v2.DeleteSecret]

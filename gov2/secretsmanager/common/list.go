@@ -13,7 +13,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
 )
 
-//snippet-start:[gov2.secretsmanager.ListSecrets]
+//snippet-start:[secretsmanager.go-v2.ListSecrets]
 
 func ListSecrets(config aws.Config) ([]string, error) {
 	conn := secretsmanager.NewFromConfig(config)
@@ -27,4 +27,4 @@ func ListSecrets(config aws.Config) ([]string, error) {
 	return secrets, err
 }
 
-//snippet-end:[gov2.secretsmanager.ListSecrets]
+//snippet-end:[secretsmanager.go-v2.ListSecrets]
