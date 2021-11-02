@@ -2,8 +2,8 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// Create a new Amazon Key Management Service grant. This example was created
-/// using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
+/// Create a new AWS Key Management Service grant (AWS KMS). This example
+/// was created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
 /// </summary>
 namespace CreateGrantExample
 {
@@ -24,7 +24,7 @@ namespace CreateGrantExample
             // specified in the grant.
             var grantee = "arn:aws:iam::111122223333:role/ExampleRole";
 
-            // The identifier of the KMS key to which the grant applies. You
+            // The identifier of the AWS KMS key to which the grant applies. You
             // can use the key ID or the Amazon Resource Name (ARN) of the KMS key.
             var keyId = "7c9eccc2-38cb-4c4f-9db3-766ee8dd3ad4";
 

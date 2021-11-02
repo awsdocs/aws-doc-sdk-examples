@@ -2,7 +2,7 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// List the Amazon Key Management Service aliases that have been defined for
+/// List the AWS Key Management Service (AWS KMS) aliases that have been defined for
 /// the keys in the same AWS Region as the default user. If you want to list
 /// the aliases in a different region, pass the region to the client
 /// constructor. This example was created using the AWS SDK for .NET version

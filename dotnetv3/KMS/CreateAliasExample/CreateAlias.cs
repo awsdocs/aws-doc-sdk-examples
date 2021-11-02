@@ -2,8 +2,8 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// Creates an alias for an Amazon Key Management Service key. This example was
-/// created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
+/// Creates an alias for an AWS Key Management Service (AWS KMS) key. This
+/// example was created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
 /// </summary>
 namespace CreateAliasExample
 {
@@ -23,8 +23,9 @@ namespace CreateAliasExample
             // up to 256 alphanumeric characters long.
             var aliasName = "alias/ExampleAlias";
 
-            // The value supplied as the alias Id can be either
-            // the key ID or key ARN of the KMS key
+            // The value supplied as the TargetKeyId can be either
+            // the key ID or key Amazon Resource Name (ARN) of the
+            // AWS KMS key.
             var keyId = "1234abcd-12ab-34cd-56ef-1234567890ab";
 
             var request = new CreateAliasRequest

@@ -1,4 +1,4 @@
-# Amazon Key Management Service (AWS KMS) .NET examples
+# AWS Key Management Service (AWS KMS) .NET examples
 Purpose
 
 The code examples in this directory demonstrate how to work with AWS KMS using
@@ -37,8 +37,8 @@ The following AWS KMS code examples use the AWS SDK for .NET version 3.5 or late
 ## Running the examples
 
 The examples in this folder use the default user account. The call to
-initialize the Rekognition client does not specify the AWS region. Supply
-the AWS region to match your own as a parameter to the client constructor. For
+initialize the AWS KMS client does not specify the AWS Region. Supply
+the AWS Region to match your own as a parameter to the client constructor. For
 example:
 
 ```

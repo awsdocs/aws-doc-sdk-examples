@@ -2,9 +2,9 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// Disable an Amazon Key Management Service key and then retrieve the key's
-/// status to show that it has been disabled. This example was created using
-/// the AWS SDK for .NET and .NET Core 5.0.
+/// Disable an AWS Key Management Service (AWS KMS) key and then retrieve
+/// the key's status to show that it has been disabled. This example was
+/// created using the AWS SDK for .NET and .NET Core 5.0.
 /// </summary>
 namespace DisableKeyExample
 {
@@ -20,8 +20,8 @@ namespace DisableKeyExample
         {
             var client = new AmazonKeyManagementServiceClient();
 
-            // The identifier of the KMS key to disable. You can use the
-            // key ID or the Amazon Resource Name (ARN) of the KMS key.
+            // The identifier of the AWS KMS key to disable. You can use the
+            // key Id or the Amazon Resource Name (ARN) of the AWS KMS key.
             var keyId = "1234abcd-12ab-34cd-56ef-1234567890ab";
 
             var request = new DisableKeyRequest

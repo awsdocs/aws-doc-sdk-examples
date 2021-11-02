@@ -2,10 +2,10 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// Retrieve information about an Amazon Key Management Service key. You can
-/// supply either the Key Id or the Key ARN to the DescribeKeyRequest KeyId
-/// property. The example was created using the AWS SDK for .NET version 3.7
-/// and .NET Core 5.0.
+/// Retrieve information about an AWS Key Management Service (AWS KMS) key.
+/// You can supply either the key Id or the key Amazon Resource Name (ARN)
+/// to the DescribeKeyRequest KeyId property. The example was created using the
+/// AWS SDK for .NET version 3.7 and .NET Core 5.0.
 /// </summary>
 namespace DescribeKeyExample
 {
