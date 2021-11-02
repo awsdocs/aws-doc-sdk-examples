@@ -1,10 +1,18 @@
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 package com.example.pinpoint;
 
+//snippet-start:[pinpoint.java2.updateemailchannel.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.*;
+//snippet-end:[pinpoint.java2.updateemailchannel.import]
 
 public class UpdateEmailChannel {
+    //snippet-start:[pinpoint.java2.updateemailchannel.main]
     public static void main(String[] args) {
 
         //TODO: Provide ApplicationId/ProjectId
@@ -18,7 +26,9 @@ public class UpdateEmailChannel {
         System.out.println("Response : " + getResponse);
         pinpoint.close();
     }
+    //snippet-end:[pinpoint.java2.updateemailchannel.main]
 
+    //snippet-start:[pinpoint.java2.updateemailchannel.helper]
     private static EmailChannelResponse getEmailChannel(PinpointClient client, String appId) {
 
         try {
@@ -43,5 +53,5 @@ public class UpdateEmailChannel {
         }
         return null;
     }
-
+    //snippet-end:[pinpoint.java2.updateemailchannel.helper]
 }
