@@ -1250,7 +1250,7 @@ The following Java code represents the **WebSecurityConfig** class. The role of 
 
 ### WorkItem class
 
-Create a Java package named **com.aws.entities**. Next, create a class, named **WorkItem**, that   
+The following Java code represents the **WorkItem** class.   
 
 ```java
     package com.aws.entities;
@@ -1343,7 +1343,7 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
     private WritableCellFormat timesBoldUnderline;
     private WritableCellFormat times;
 
-    // Returns an InputStream that represents the Excel report
+    // Returns an InputStream that represents the Excel report.
     public java.io.InputStream exportExcel( List<WorkItem> list) {
 
         try {
@@ -1355,7 +1355,7 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         return null;
     }
 
-    // Generates the report and returns an inputstream
+    // Generates the report and returns an inputstream.
     public java.io.InputStream write( List<WorkItem> list) throws IOException, WriteException {
         java.io.OutputStream os = new java.io.ByteArrayOutputStream() ;
         WorkbookSettings wbSettings = new WorkbookSettings();
@@ -1373,7 +1373,7 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         workbook.write();
         workbook.close();
 
-        // Get an inputStream that represents the Report
+        // Get an inputStream that represents the Report.
         java.io.ByteArrayOutputStream stream = new java.io.ByteArrayOutputStream();
         stream = (java.io.ByteArrayOutputStream)os;
         byte[] myBytes = stream.toByteArray();
@@ -1382,7 +1382,7 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         return is ;
     }
 
-    // Create Headings in the Excel spreadsheet
+    // Create Headings in the Excel spreadsheet.
     private void createLabel(WritableSheet sheet)
             throws WriteException {
         // Create a times font
@@ -1392,7 +1392,7 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         // Lets automatically wrap the cells
         times.setWrap(true);
 
-        // Create a bold font with underlining
+        // Create a bold font with underlining.
         WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false,
                 UnderlineStyle.SINGLE);
         timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
@@ -1412,7 +1412,7 @@ The **WriteExcel** class dynamically creates an Excel report with the data marke
         addCaption(sheet, 4, 0, "Status");
     }
 
-    // Write the Work Item Data to the Excel report
+    // Write the Work Item Data to the Excel report.
     private int createContent(WritableSheet sheet, List<WorkItem> list) throws WriteException {
 
         int size = list.size() ;
