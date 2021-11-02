@@ -36,8 +36,8 @@ suspend fun main() {
 //snippet-start:[emr.kotlin.list_cluster.main]
 suspend fun listAllClusters(emrClient: EmrClient) {
     try {
-        val clustersRequest = ListClustersRequest.builder()
-            .build()
+         val clustersRequest = ListClustersRequest {
+        }
         val response = emrClient.listClusters(clustersRequest)
         val clusters = response.clusters
 
