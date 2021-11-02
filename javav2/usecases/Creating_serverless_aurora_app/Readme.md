@@ -124,7 +124,7 @@ The user can select the email recipient from the **Select Manager** list and cho
 
 ## Add the POM dependencies to your project
 
-At this point, you have a new project named **AWSItemTracker**.
+At this point, you have a new project named **ItemTrackerRDS**.
 
 ![AWS Tracking Application](images/project.png)
 
