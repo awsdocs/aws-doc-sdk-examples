@@ -165,6 +165,33 @@ async fn query_item(client: &Client, item: Item) -> bool {
 }
 // snippet-end:[dynamodb.rust.crud-query_item]
 
+// Deletes an item from a table.
+// snippet-start:[dynamodb.rust.crud-remove_item]
+async fn remove_item(client: &Client, table: &str, key: &str, value: String) -> Result<(), Error> {
+    let user_av = AttributeValue::S(value);
+
+    client
+        .delete_item()
+        .table_name(table)
+        .key(key, user_av)
+        .send()
+        .await?;
+
+    println!("Deleted item.");
+
+    Ok(())
+}
+// snippet-end:[dynamodb.rust.crud-remove_item]
+
+// Deletes a table.
+// snippet-start:[dynamodb.rust.crud-remove_table]
+async fn remove_table(client: &Client, table: &str) -> Result<(), Error> {
+    client.delete_table().table_name(table).send().await?;
+
+    Ok(())
+}
+// snippet-end:[dynamodb.rust.crud-remove_table]
+
 /// Hand-written waiter to retry every second until the table is out of `Creating` state
 #[derive(Clone)]
 struct WaitForReadyTable<R> {
@@ -344,15 +371,8 @@ async fn main() -> Result<(), Error> {
 
     /* Delete item */
     println!("Deleting item.");
-    let user_av = AttributeValue::S(value);
-    client
-        .delete_item()
-        .table_name(&table)
-        .key(key, user_av)
-        .send()
-        .await?;
 
-    println!("Deleted item.");
+    remove_item(&client, &table, &key, value).await?;
 
     if interactive {
         pause();
@@ -360,7 +380,9 @@ async fn main() -> Result<(), Error> {
 
     /* Delete table */
     println!("Deleting table.");
-    client.delete_table().table_name(&table).send().await?;
+
+    remove_table(&client, &table).await?;
+
     println!("Deleted table.");
     println!();
 
