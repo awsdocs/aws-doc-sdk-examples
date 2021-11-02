@@ -125,7 +125,7 @@ def rollback_object(bucket, object_key, version_id):
     else:
         raise KeyError(f"{version_id} was not found in the list of versions for "
                        f"{object_key}.")
-# snippet-end:[s3.python.versioning.rollback_object]
+    # snippet-end:[s3.python.versioning.rollback_object]
 
 
 # snippet-start:[s3.python.versioning.revive_object]
@@ -184,6 +184,7 @@ def permanently_delete_object(bucket, object_key):
 # snippet-end:[s3.python.versioning.permanently_delete_object]
 
 
+# snippet-start:[python.example_code.s3.Scenario_ObjectVersions]
 def usage_demo_single_object(obj_prefix='demo-versioning/'):
     """
     Demonstrates usage of versioned object functions. This demo uploads a stanza
@@ -264,6 +265,7 @@ def usage_demo_single_object(obj_prefix='demo-versioning/'):
     bucket.delete()
     print(f"{bucket.name} deleted.")
     print("Demo done!")
+# snippet-end:[python.example_code.s3.Scenario_ObjectVersions]
 
 
 def main():
