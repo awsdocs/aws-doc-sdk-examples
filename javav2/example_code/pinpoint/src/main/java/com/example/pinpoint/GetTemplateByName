@@ -1,5 +1,4 @@
-package com.notification.poc;
-/* Created by Seemant Shukla on 25/10/21 */
+package com.example.pinpoint;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
@@ -8,6 +7,7 @@ import software.amazon.awssdk.services.pinpoint.model.*;
 public class GetTemplateByName {
     public static void main(String[] args) {
 
+        // Change "MyNewTemplate-1" to the name of the template to retrieve.
         String templateName = "MyNewTemplate-1";
         PinpointClient pinpoint = PinpointClient.builder()
                 .region(Region.US_EAST_1)
