@@ -55,32 +55,6 @@ pinpoint_SendMessages:
                 - pinpoint.javascript.pinpoint_send_sms_message_api.complete
   services:
     pinpoint: {SendMessages}
-pinpoint_Scenario_SendSmtpMessage:
-  title: Send an email with an &PIN; SMTP server using an &AWS; SDK
-  title_abbrev: Send an email with an SMTP server
-  synopsis: send an email with an &PIN; SMTP server.
-  category: Scenario
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/pinpoint
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - pinpoint.python.pinpoint_send_email_smtp.complete
-    JavaScript:
-      versions:
-        - sdk_version: 2
-          github: javascript/example_code/pinpoint
-          sdkguide:
-          excerpts:
-            - description: Send an email message.
-              snippet_tags:
-                - pinpoint.javascript.pinpoint_send_email_smtp.complete
-  services:
-    pinpoint: {}
 pinpoint_CreateApp:
   title: Create an &PIN; application
   title_abbrev: Create an application 
