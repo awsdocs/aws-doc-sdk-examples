@@ -1,0 +1,38 @@
+package com.example.pinpoint;
+
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.pinpoint.PinpointClient;
+import software.amazon.awssdk.services.pinpoint.model.*;
+
+public class GetSegmentById {
+    public static void main(String[] args) {
+
+        //TODO: Update applicationId and SegmentId to retrieve the required segment
+        String applicationId = "zsdfjhaksdfj";
+        String segmentId = "asdfjndsf";
+        PinpointClient pinpoint = PinpointClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
+
+        SegmentResponse segmentById = getSegmentById(pinpoint, applicationId, segmentId);
+
+        System.out.println("Segment by Id : " + segmentById);
+        pinpoint.close();
+    }
+
+    private static SegmentResponse getSegmentById(PinpointClient client, String applicationId, String segmentId) {
+
+        try {
+            SegmentResponse segmentResponse = client.getSegment(GetSegmentRequest.builder()
+                    .applicationId(applicationId).segmentId(segmentId).build()).segmentResponse();
+
+            return segmentResponse;
+
+        } catch (PinpointException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+        return null;
+    }
+
+}
