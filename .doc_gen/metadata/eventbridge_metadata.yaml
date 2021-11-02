@@ -90,7 +90,7 @@ eventbridge_PutEvents:
     eventbridge: {PutEvents}
 eventbridge_PutTargets:
   title: Add a &LAM; function target using an &AWS; SDK
-  title_abbrev: Adding a &LAM; function target
+  title_abbrev: Add a &LAM; function target
   synopsis: add an &LAMlong; function target to an &EVlong; event.
   category:
   languages:
