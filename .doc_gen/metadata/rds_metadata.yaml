@@ -1,9 +1,9 @@
 
 #zexi 0.4.0
 rds_CreateDBInstance:
-  title: Create an &RDSlong; instance and wait for it to be in an available state using an &AWS; SDK
+  title: Create an &RDS; instance using an &AWS; SDK
   title_abbrev: Create an instance
-  synopsis: create an &RDS; instance.
+  synopsis: create an &RDS; instance and wait for it to be in an available state.
   category:
   languages:
     Java:
@@ -18,7 +18,7 @@ rds_CreateDBInstance:
   services:
     rds: {CreateDBInstance}
 rds_DeleteDBInstance:
-  title: Delete an &RDSlong; instance using an &AWS; SDK
+  title: Delete an &RDS; instance using an &AWS; SDK
   title_abbrev: Delete an instance
   synopsis: delete an &RDS; instance.
   category:
@@ -35,7 +35,7 @@ rds_DeleteDBInstance:
   services:
     rds: {DeleteDBInstance} 
 rds_DescribeAccountAttributes:
-  title: Retrieve attributes that belongs to an &RDSlong; account using an &AWS; SDK
+  title: Retrieve attributes that belongs to an &RDS; account using an &AWS; SDK
   title_abbrev: Retrieve attributes
   synopsis: retrieve attributes that belong to an &RDS; account.
   category:
@@ -52,7 +52,7 @@ rds_DescribeAccountAttributes:
   services:
     rds: {DescribeAccountAttributes}     
 rds_DescribeDBInstances:
-  title: Describe an &RDSlong; instance using an &AWS; SDK
+  title: Describe an &RDS; instance using an &AWS; SDK
   title_abbrev: Describe an instance
   synopsis: describe an &RDS; instance.
   category:
@@ -69,7 +69,7 @@ rds_DescribeDBInstances:
   services:
     rds: {DescribeDBInstances}         
 rds_ModifyDBInstance:
-  title: Modify an &RDSlong; instance using an &AWS; SDK
+  title: Modify an &RDS; instance using an &AWS; SDK
   title_abbrev: Modify an instance
   synopsis: modify an &RDS; instance.
   category:
@@ -86,7 +86,7 @@ rds_ModifyDBInstance:
   services:
     rds: {ModifyDBInstance}             
 rds_RebootDBInstance:
-  title: Reboot an &RDSlong; instance using an &AWS; SDK
+  title: Reboot an &RDS; instance using an &AWS; SDK
   title_abbrev: Reboot an instance
   synopsis: reboot an &RDS; instance.
   category:

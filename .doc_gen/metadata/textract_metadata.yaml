@@ -1,7 +1,7 @@
 
 #zexi 0.4.0
 textract_AnalyzeDocument:
-  title: Analyze a document using &TEXTRACTlong; and the &AWS; SDK
+  title: Analyze a document using &TEXTRACT; and the &AWS; SDK
   title_abbrev: Analyze a document
   synopsis: analyze a document using &TEXTRACTlong;.
   category:
@@ -14,11 +14,11 @@ textract_AnalyzeDocument:
           excerpts:
             - description:
               snippet_tags:
-                - rds.java2.create_instance.main
+                - textract.java2._analyze_doc.main
   services:
    textract: {AnalyzeDocument}
 textract_DetectDocumentText:
-  title: Detect text in the input document using &TEXTRACTlong; and the &AWS; SDK
+  title: Detect text in the input document using &TEXTRACT; and the &AWS; SDK
   title_abbrev: Detect text in the input document
   synopsis: detect text in the input document using &TEXTRACTlong;.
   category:
@@ -29,16 +29,16 @@ textract_DetectDocumentText:
           github: javav2/example_code/textract
           sdkguide:
           excerpts:
-            - description: detect text from an input document.
+            - description: Detect text from an input document.
               snippet_tags:
                 - textract.java2._detect_doc_text.main
-            - description: detect text from a document located in an &S3; bucket.
+            - description: Detect text from a document located in an &S3; bucket.
               snippet_tags:
                 - textract.java2._detect_s3_text.main   
   services:
    textract: {DetectDocumentText}
 textract_StartDocumentAnalysis:
-  title: Start the asynchronous analysis of a document using &TEXTRACTlong; and the &AWS; SDK
+  title: Start the asynchronous analysis of a document using &TEXTRACT; and the &AWS; SDK
   title_abbrev: Start the asynchronous analysis of a document
   synopsis: start the asynchronous analysis of a document using &TEXTRACTlong;.
   category:
