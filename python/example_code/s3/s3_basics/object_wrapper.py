@@ -33,6 +33,7 @@ import bucket_wrapper
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.s3.PutObject]
 def put_object(bucket, object_key, data):
     """
     Upload data to a bucket and identify it with the specified object key.
@@ -65,8 +66,10 @@ def put_object(bucket, object_key, data):
     finally:
         if getattr(put_data, 'close', None):
             put_data.close()
+# snippet-end:[python.example_code.s3.PutObject]
 
 
+# snippet-start:[python.example_code.s3.GetObject]
 def get_object(bucket, object_key):
     """
     Gets an object from a bucket.
@@ -86,8 +89,10 @@ def get_object(bucket, object_key):
         raise
     else:
         return body
+# snippet-end:[python.example_code.s3.GetObject]
 
 
+# snippet-start:[python.example_code.s3.ListObjects]
 def list_objects(bucket, prefix=None):
     """
     Lists the objects in a bucket, optionally filtered by a prefix.
@@ -110,8 +115,10 @@ def list_objects(bucket, prefix=None):
         raise
     else:
         return objects
+# snippet-end:[python.example_code.s3.ListObjects]
 
 
+# snippet-start:[python.example_code.s3.CopyObject]
 def copy_object(source_bucket, source_object_key, dest_bucket, dest_object_key):
     """
     Copies an object from one bucket to another.
@@ -141,8 +148,10 @@ def copy_object(source_bucket, source_object_key, dest_bucket, dest_object_key):
         raise
     else:
         return obj
+# snippet-end:[python.example_code.s3.CopyObject]
 
 
+# snippet-start:[python.example_code.s3.DeleteObject]
 def delete_object(bucket, object_key):
     """
     Removes an object from a bucket.
@@ -161,8 +170,10 @@ def delete_object(bucket, object_key):
         logger.exception("Couldn't delete object '%s' from bucket '%s'.",
                          object_key, bucket.name)
         raise
+# snippet-end:[python.example_code.s3.DeleteObject]
 
 
+# snippet-start:[python.example_code.s3.DeleteObjects_Keys]
 def delete_objects(bucket, object_keys):
     """
     Removes a list of objects from a bucket.
@@ -196,8 +207,10 @@ def delete_objects(bucket, object_keys):
         raise
     else:
         return response
+# snippet-end:[python.example_code.s3.DeleteObjects_Keys]
 
 
+# snippet-start:[python.example_code.s3.DeleteObjects_All]
 def empty_bucket(bucket):
     """
     Remove all objects from a bucket.
@@ -210,8 +223,10 @@ def empty_bucket(bucket):
     except ClientError:
         logger.exception("Couldn't empty bucket '%s'.", bucket.name)
         raise
+# snippet-end:[python.example_code.s3.DeleteObjects_All]
 
 
+# snippet-start:[python.example_code.s3.PutObjectAcl]
 def put_acl(bucket, object_key, email):
     """
     Applies an ACL to an object that grants read access to an AWS user identified
@@ -245,8 +260,10 @@ def put_acl(bucket, object_key, email):
     except ClientError:
         logger.exception("Couldn't add ACL to object '%s'.", object_key)
         raise
+# snippet-end:[python.example_code.s3.PutObjectAcl]
 
 
+# snippet-start:[python.example_code.s3.GetObjectAcl]
 def get_acl(bucket, object_key):
     """
     Gets the ACL of an object.
@@ -266,10 +283,17 @@ def get_acl(bucket, object_key):
         raise
     else:
         return acl
+# snippet-end:[python.example_code.s3.GetObjectAcl]
 
 
+# snippet-start:[python.example_code.s3.Scenario_ObjectManagement]
 def usage_demo():
-    """Demonstrated ways to use the functions in this module."""
+    print('-'*88)
+    print("Welcome to the Amazon S3 object demo!")
+    print('-'*88)
+
+    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+
     bucket = bucket_wrapper.create_bucket(
         'usage-demo-object-wrapper-' + str(uuid.uuid1()),
         bucket_wrapper.s3_resource.meta.client.meta.region_name)
@@ -305,10 +329,12 @@ def usage_demo():
         print(f"Put ACL grants on object {object_key}: {json.dumps(acl.grants)}")
     except ClientError as error:
         if error.response['Error']['Code'] == 'UnresolvableGrantByEmailAddress':
-            print("Couldn't apply the ACL to the object because the specified "
-                  "email is for a test user who does not exist. For this request to "
-                  "succeed, you must replace the user email with one for an "
-                  "actual AWS user.")
+            print('*'*88)
+            print("This demo couldn't apply the ACL to the object because the email\n"
+                  "address specified as the grantee is for a test user who does not\n"
+                  "exist. For this request to succeed, you must replace the grantee\n"
+                  "email with one for an existing AWS user.")
+            print('*' * 88)
         else:
             raise
 
@@ -317,18 +343,10 @@ def usage_demo():
 
     bucket_wrapper.delete_bucket(bucket)
     print(f"Deleted bucket {bucket.name}.")
-
-
-def main():
-    go = input("Running the usage demonstration uses your default AWS account "
-               "credentials and might incur charges on your account. Do you want "
-               "to continue (y/n)? ")
-    if go.lower() == 'y':
-        print("Starting the usage demo. Enjoy!")
-        usage_demo()
-    else:
-        print("Thanks anyway!")
+    print("Thanks for watching!")
+    print('-'*88)
+# snippet-end:[python.example_code.s3.Scenario_ObjectManagement]
 
 
 if __name__ == '__main__':
-    main()
+    usage_demo()
