@@ -1,4 +1,5 @@
-// SPDX-Identifier: Apache 2.0
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 //snippet-sourcedescription:[Delete a secret in the AWS Secrets Manager ]
 //snippet-keyword:[secretsmanager]
 //snippet-sourcetype:[full-example]
