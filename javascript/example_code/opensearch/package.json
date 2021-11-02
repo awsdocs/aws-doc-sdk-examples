@@ -1,0 +1,14 @@
+{
+  "name": "aws-sdk-v3-opensearch-examples",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Liz Snyder <elizabsn@amazon.com>,",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "@aws-crypto/sha256-browser": "^1.2.2",
+    "@aws-sdk/credential-provider-node": "3.32.0",
+    "@aws-sdk/node-http-handler": "^3.36.0",
+    "@aws-sdk/protocol-http": "3.32.0",
+    "@aws-sdk/signature-v4": "3.32.0"
+  }
+}
