@@ -35,7 +35,7 @@ suspend fun main(args:Array<String>) {
      }
 
     val subArn = args[0]
-    val snsClient = SnsClient({ region = "us-east-1" })
+    val snsClient = SnsClient{ region = "us-east-1" }
     unSub(snsClient, subArn)
     snsClient.close()
 }

@@ -37,7 +37,7 @@ suspend fun main(args:Array<String>) {
      }
 
     val topicName = args[0]
-    val snsClient = SnsClient({ region = "us-east-1" })
+    val snsClient = SnsClient{ region = "us-east-1" }
     val topicArn = createSNSTopic(snsClient, topicName)
     println("The ARN of the new topic is $topicArn")
     snsClient.close()
