@@ -34,9 +34,6 @@ dynamodb_CreateTable:
             - description:
               snippet_tags:
                 - dynamodb.rust.create-table
-                - dynamodb.rust.crud-make_table
-                - dynamodb.rust.dynamodb-helloworld-create_table
-                - dynamodb.rust.movies-create_table
   services:
     dynamodb: { CreateTable }
 dynamodb_BatchGetItem:
@@ -143,9 +140,7 @@ dynamodb_DeleteTable:
           excerpts:
             - description:
               snippet_tags:
-                - dynamodb.rust.crud-remove_table
                 - dynamodb.rust.delete-table
-                - dynamodb.rust.movies-delete_table
   services:
     dynamodb: { DeleteTable }
 dynamodb_PutItem:
@@ -183,8 +178,6 @@ dynamodb_PutItem:
             - description:
               snippet_tags:
                 - dynamodb.rust.add-item
-                - dynamodb.rust.crud-add_item
-                - dynamodb.rust.movies-add_item
   services:
     dynamodb: { PutItem }
 dynamodb_GetItem:
@@ -279,7 +272,6 @@ dynamodb_DeleteItem:
           excerpts:
             - description:
               snippet_tags:
-                - dynamodb.rust.crud-remove_item
                 - dynamodb.rust.delete-item
   services:
     dynamodb: { DeleteItem }
@@ -314,8 +306,9 @@ dynamodb_ListTables:
           excerpts:
             - description:
               snippet_tags:
-                - dynamodb.rust.dynamodb-helloworld-list_tables
                 - dynamodb.rust.list-tables
+            - description: Determine whether table exists.
+              snippet_tags:
                 - dynamodb.rust.movies-does_table_exist
   services:
     dynamodb: { ListTables }
@@ -351,9 +344,8 @@ dynamodb_Query:
         - sdk_version: 1
           github: .rust_alpha/dynamodb
           excerpts:
-            - description:
+            - description: Find the movies made in the specified year.
               snippet_tags:
-                - dynamodb.rust.crud-query_item
                 - dynamodb.rust.movies-movies_in_year
   services:
     dynamodb: { Query }
