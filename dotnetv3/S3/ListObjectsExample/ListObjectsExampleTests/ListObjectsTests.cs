@@ -19,18 +19,18 @@ namespace ListObjectsExample.Tests
         private IAmazonS3 CreateMockS3Client()
         {
             var mockS3Client = new Mock<IAmazonS3>();
-            mockS3Client.Setup(client => client.ListObjectsAsync(
-                It.IsAny<ListObjectsRequest>(),
+            mockS3Client.Setup(client => client.ListObjectsV2Async(
+                It.IsAny<ListObjectsV2Request>(),
                 It.IsAny<CancellationToken>()
-            )).Callback<ListObjectsRequest, CancellationToken>((request, token) =>
+            )).Callback<ListObjectsV2Request, CancellationToken>((request, token) =>
             {
                 if (!String.IsNullOrEmpty(request.BucketName))
                 {
                     Assert.Equal(request.BucketName, BucketName);
                 }
-            }).Returns((ListObjectsRequest r, CancellationToken token) =>
+            }).Returns((ListObjectsV2Request r, CancellationToken token) =>
             {
-                return Task.FromResult(new ListObjectsResponse()
+                return Task.FromResult(new ListObjectsV2Response()
                 {
                     HttpStatusCode = System.Net.HttpStatusCode.OK,
                 });
@@ -44,14 +44,14 @@ namespace ListObjectsExample.Tests
         {
             IAmazonS3 client = CreateMockS3Client();
 
-            var request = new ListObjectsRequest
+            var request = new ListObjectsV2Request
             {
                 BucketName = BucketName,
             };
 
-            var response = await client.ListObjectsAsync(request);
+            var response = await client.ListObjectsV2Async(request);
 
-            bool gotResult = response != null;
+            bool gotResult = response is not null;
             Assert.True(gotResult, "List bucket objects failed.");
 
             bool ok = response.HttpStatusCode == HttpStatusCode.OK;

@@ -12,7 +12,7 @@ namespace ListObjectsExample
     {
         public static async Task Main()
         {
-            string bucketName = "doc-example-bucket";
+            string bucketName = "igsmithbucket"; // "doc-example-bucket";
             IAmazonS3 client;
 
             using (client = new AmazonS3Client())
@@ -34,31 +34,25 @@ namespace ListObjectsExample
         {
             try
             {
-                ListObjectsRequest request = new()
+                ListObjectsV2Request request = new()
                 {
                     BucketName = bucketName,
                     MaxKeys = 5,
                 };
 
+                var response = new ListObjectsV2Response();
+
                 do
                 {
-                    ListObjectsResponse response = await client.ListObjectsAsync(request);
+                    response = await client.ListObjectsV2Async(request);
 
-                    // Process the response.
                     response.S3Objects
                         .ForEach(obj => Console.WriteLine($"{obj.Key,-35}{obj.LastModified.ToShortDateString(),10}{obj.Size,10}"));
 
-                    // If the response is truncated, set the marker to get the next
-                    // set of keys.
-                    if (response.IsTruncated)
-                    {
-                        request.Marker = response.NextMarker;
-                    }
-                    else
-                    {
-                        request = null;
-                    }
-                } while (request != null);
+                    // If the response is truncated, set the request ContinuationToken
+                    // from the NextContinuationToken property of the response.
+                    request.ContinuationToken = response.NextContinuationToken;
+                } while (response.IsTruncated);
             }
             catch (AmazonS3Exception ex)
             {
