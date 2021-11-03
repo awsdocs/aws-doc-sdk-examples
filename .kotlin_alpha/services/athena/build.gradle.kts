@@ -10,11 +10,10 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    mavenLocal()
 }
 
 dependencies {
-    api("aws.sdk.kotlin:athena:0.4.0-alpha")
+    api("aws.sdk.kotlin:athena:0.9.0-alpha")
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1")
 
