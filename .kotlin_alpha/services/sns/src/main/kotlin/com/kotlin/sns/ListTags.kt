@@ -35,7 +35,7 @@ suspend fun main(args:Array<String>) {
      }
 
     val topicArn = args[0]
-    val snsClient = SnsClient({region = "us-east-1"})
+    val snsClient = SnsClient{ region = "us-east-1" }
     listTopicTags(snsClient, topicArn)
     snsClient.close()
 

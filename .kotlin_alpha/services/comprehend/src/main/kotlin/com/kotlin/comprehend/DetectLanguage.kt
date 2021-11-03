@@ -29,7 +29,9 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
 
-    val comprehendClient = ComprehendClient({region="us-east-1"})
+    val comprehendClient = ComprehendClient{
+        region="us-east-1"
+    }
     val text = "Il pleut aujourd'hui à Seattle"
     detectTheDominantLanguage(comprehendClient,text)
     comprehendClient.close()

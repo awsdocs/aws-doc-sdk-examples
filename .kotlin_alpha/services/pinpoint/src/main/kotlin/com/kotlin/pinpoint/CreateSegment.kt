@@ -85,10 +85,7 @@ suspend fun createPinpointSegment(pinpoint: PinpointClient, applicationIdVal: St
             val segmentDemographics = SegmentDemographics {
             }
 
-            val segmentLocation = SegmentLocation
-                .builder()
-                .build()
-
+            val segmentLocation = SegmentLocation{}
             val dimensionsOb = SegmentDimensions {
                 attributes= segmentAttributes
                 behavior = segmentBehaviors
