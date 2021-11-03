@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[07/14/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -30,13 +30,6 @@ import java.lang.RuntimeException
 import kotlin.system.exitProcess
 //snippet-end:[athena.kotlin.StartQueryExample.import]
 
-/**
-To run this Kotlin code example, ensure that you have setup your development environment,
-including your credentials.
-
-For information, see this documentation topic:
-https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
 
 suspend fun main(args:Array<String>) {
 
@@ -128,14 +121,13 @@ suspend fun waitForQueryToComplete(athenaClient: AthenaClient, queryExecutionIdV
 suspend fun processResultRows(athenaClient: AthenaClient, queryExecutionIdVal: String?) {
     try {
 
-        // Max Results can be set but if it's not set, it will choose the maximum page size.
+        // Max Results can be set but if its not set, it will choose the maximum page size.
         val getQueryResultsRequest = GetQueryResultsRequest {
             queryExecutionId = queryExecutionIdVal
         }
 
         val getQueryResultsResults  = athenaClient.getQueryResults(getQueryResultsRequest)
         val results = getQueryResultsResults.resultSet
-
         for (result in listOf(results)) {
             val columnInfoList = result?.resultSetMetadata?.columnInfo
             val results = result?.rows
@@ -145,12 +137,12 @@ suspend fun processResultRows(athenaClient: AthenaClient, queryExecutionIdVal: S
                 }
             }
         }
+
     } catch (e: AthenaException) {
         e.printStackTrace()
         exitProcess(0)
     }
 }
-
 
 private fun processRow(row: List<Row>) {
     for (myRow in row) {
