@@ -41,10 +41,10 @@ suspend fun main(args: Array<String>) {
     if (args.size != 1) {
         println(usage)
         exitProcess(0)
-     }
+    }
 
     val bucketName = args[0]
-    val s3Client = S3Client { region = "us-east-1" }
+    val s3Client = S3Client { region = "us-west-2" }
     listBucketObjects(s3Client,bucketName)
     s3Client.close()
 }
@@ -73,7 +73,7 @@ suspend fun listBucketObjects(s3Client: S3Client, bucketName: String) {
             exitProcess(0)
         }
     }
-    private fun calKb(intValue: Int): Int {
+    private fun calKb(intValue: Long): Long {
         return intValue / 1024
    }
 // snippet-end:[s3.kotlin.list_objects.main]
