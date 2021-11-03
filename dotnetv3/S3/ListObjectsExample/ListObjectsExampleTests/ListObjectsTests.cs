@@ -1,18 +1,17 @@
-﻿using Xunit;
-using ListObjectsExample;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Amazon.S3;
-using Moq;
-using Amazon.S3.Model;
-using System.Threading;
-using System.Net;
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier:  Apache-2.0
 
 namespace ListObjectsExample.Tests
 {
+    using Xunit;
+    using System;
+    using System.Threading.Tasks;
+    using Amazon.S3;
+    using Moq;
+    using Amazon.S3.Model;
+    using System.Threading;
+    using System.Net;
+
     public class ListObjectsTests
     {
         const string BucketName = "doc-example-bucket";
