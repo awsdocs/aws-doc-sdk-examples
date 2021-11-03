@@ -21,9 +21,9 @@ repositories {
 }
 
 dependencies {
-    api("aws.sdk.kotlin:apigateway:0.4.0-alpha")
+    api("aws.sdk.kotlin:apigateway:0.9.0-alpha")
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
 
 }
 tasks.withType<KotlinCompile>() {
