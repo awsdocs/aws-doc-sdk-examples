@@ -4,7 +4,7 @@
 // snippet-service:[AWS CloudFormation]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/31/2021]
+// snippet-sourcedate:[11/03/2021]
 // snippet-sourceauthor:[AWS-scmacdon]
 
 /*
@@ -23,14 +23,6 @@ import aws.sdk.kotlin.services.cloudformation.model.DescribeStacksRequest
 import kotlin.system.exitProcess
 // snippet-end:[cf.kotlin.get_stacks.import]
 
-/**
-To run this Kotlin code example, ensure that you have setup your development environment,
-including your credentials.
-
-For information, see this documentation topic:
-https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
-
 suspend fun main() {
 
     val cfClient = CloudFormationClient{region="us-east-1"}
@@ -42,13 +34,11 @@ suspend fun main() {
 suspend fun describeAllStacks(cfClient: CloudFormationClient) {
     try {
         val stacksResponse: DescribeStacksResponse = cfClient.describeStacks(DescribeStacksRequest{})
-        val stacks = stacksResponse.stacks
-        if (stacks != null) {
-            for (stack in stacks) {
-                println("The stack description is ${stack.description}")
-                println("The stack Id is ${stack.stackId}" )
-            }
+        stacksResponse.stacks?.forEach { stack ->
+            println("The stack description is ${stack.description}")
+            println("The stack Id is ${stack.stackId}" )
         }
+
     }catch (e: CloudFormationException) {
         println(e.message)
         cfClient.close()
