@@ -550,6 +550,14 @@ iam_CreateRole:
             - description:
               snippet_tags:
                 - python.example_code.iam.CreateRole
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.rust.create-role
   services:
     iam: {CreateRole}
 iam_DeleteRole:
