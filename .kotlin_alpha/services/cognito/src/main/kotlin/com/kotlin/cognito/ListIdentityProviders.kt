@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[08/01/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -45,12 +45,8 @@ suspend fun getPools(cognitoIdentityClient:CognitoIdentityClient) {
             }
 
             val response = cognitoIdentityClient.listIdentityPools(listIdentityPoolsInput)
-            val pools = response.identityPools
-            if (pools != null) {
-
-                for (pool in pools) {
-                    println("The identity pool name is ${pool.identityPoolName}")
-                }
+            response.identityPools?.forEach { pool ->
+                println("The identity pool name is ${pool.identityPoolName}")
             }
 
         } catch (ex: CognitoIdentityException) {

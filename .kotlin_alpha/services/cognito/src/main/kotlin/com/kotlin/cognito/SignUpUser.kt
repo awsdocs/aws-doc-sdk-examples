@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[08/01/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -76,8 +76,7 @@ suspend fun signUp( identityProviderClient: CognitoIdentityProviderClient, clien
 
         try {
             val secretVal = calculateSecretHash(clientId, secretKey, userName)
-
-            val signUpRequest = SignUpRequest() {
+            val signUpRequest = SignUpRequest {
                 userAttributes= attrs
                 username = userName
                 this.clientId = clientId

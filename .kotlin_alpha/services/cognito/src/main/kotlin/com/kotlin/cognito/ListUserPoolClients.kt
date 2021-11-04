@@ -56,16 +56,13 @@ suspend fun listAllUserPoolClients(cognitoClient: CognitoIdentityProviderClient,
 
         val listUserPoolClientsRequest = ListUserPoolClientsRequest{
             this.userPoolId = userPoolId
-        }
+         }
 
-        val clientsResponse = cognitoClient.listUserPoolClients(listUserPoolClientsRequest)
-        val pools = clientsResponse.userPoolClients
-            if (pools != null) {
-                for (userPoolClient in pools) {
-                    println("Client ID is ${userPoolClient.clientId}")
-                    println("Client Name ${userPoolClient.clientName}")
-                }
-            }
+        val response = cognitoClient.listUserPoolClients(listUserPoolClientsRequest)
+        response.userPoolClients?.forEach { pool ->
+           println("Client ID is ${pool.clientId}")
+           println("Client Name is ${pool.clientName}")
+        }
 
    } catch (ex: CognitoIdentityException) {
        println(ex.message)

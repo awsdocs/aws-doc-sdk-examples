@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[08/01/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -16,7 +16,6 @@ package com.kotlin.cognito
 //snippet-start:[cognito.kotlin.ListUserPools.import]
 import aws.sdk.kotlin.services.cognitoidentityprovider.CognitoIdentityProviderClient
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.ListUserPoolsRequest
-import aws.sdk.kotlin.services.cognitoidentityprovider.model.UserPoolDescriptionType
 import aws.sdk.kotlin.services.cognitoidentity.model.CognitoIdentityException
 import kotlin.system.exitProcess
 //snippet-end:[cognito.kotlin.ListUserPools.import]
@@ -44,14 +43,9 @@ suspend fun getPools(cognitoClient:CognitoIdentityProviderClient) {
             }
 
             val response = cognitoClient.listUserPools(listUserPoolsRequest)
-            val pools = response.userPools
-
-            if (pools != null) {
-
-                for (pool: UserPoolDescriptionType  in pools) {
-                    println("The user pool name is ${pool.name}")
-                }
-        }
+            response.userPools?.forEach { pool ->
+                println("The user pool name is ${pool.name}")
+            }
 
         } catch (ex: CognitoIdentityException) {
             println(ex.message)
