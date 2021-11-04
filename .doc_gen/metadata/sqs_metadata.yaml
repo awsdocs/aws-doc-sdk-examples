@@ -135,6 +135,14 @@ sqs_SendMessage:
             - description:
               snippet_tags:
                 - python.example_code.sqs.SendMessage
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/sqs
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.rust.sqs-hello-world
   services:
     sqs: { SendMessage }
 sqs_SendMessageBatch:
@@ -187,6 +195,14 @@ sqs_ReceiveMessage:
             - description:
               snippet_tags:
                 - python.example_code.sqs.ReceiveMessage
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/sqs
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.rust.sqs-hello-world
   services:
     sqs: { ReceiveMessage }
 sqs_DeleteMessage:
