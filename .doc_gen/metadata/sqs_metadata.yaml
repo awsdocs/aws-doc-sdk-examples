@@ -370,7 +370,7 @@ sqs_AuthorizeS3ToSendMessage:
   category:
   languages:
       .NET:
-      versions:
+        versions:
         - sdk_version: 3
           github: dotnetv3/SQS
           sdkguide:
@@ -387,7 +387,7 @@ sqs_GetQueueAttributes:
   category:
   languages:
       .NET:
-      versions:
+        versions:
         - sdk_version: 3
           github: dotnetv3/SQS
           sdkguide:
