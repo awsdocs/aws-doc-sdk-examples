@@ -90,6 +90,11 @@ kinesis-analytics-v2:
   short: "&AKA;"
   sort: "Kinesis DataAnalytics"
   version: kinesisanalyticsv2-2018-05-23
+kms:
+  long: "&KMSlong;"
+  short: "&KMS;"
+  sort: "KMS"
+  version: kms-2014-11-01
 lambda:
   long: "&LAMlong;"
   short: "&LAM;"

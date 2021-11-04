@@ -1,0 +1,24 @@
+{
+  "Endpoints": [
+    {
+      "Endpoint": "https://<cluster_endpoint_id1>.route53-recovery-cluster.us-west-2.amazonaws.com/v1",
+      "Region": "us-west-2"
+    },
+    {
+      "Endpoint": "https://<cluster_endpoint_id2>.route53-recovery-cluster.ap-southeast-2.amazonaws.com/v1",
+      "Region": "ap-southeast-2"
+    },
+    {
+      "Endpoint": "https://<cluster_endpoint_id3>.route53-recovery-cluster.us-east-1.amazonaws.com/v1",
+      "Region": "us-east-1"
+    },
+    {
+      "Endpoint": "https://<cluster_endpoint_id4>.route53-recovery-cluster.ap-northeast-1.amazonaws.com/v1",
+      "Region": "ap-northeast-1"
+    },
+    {
+      "Endpoint": "https://<cluster_endpoint_id5>.route53-recovery-cluster.eu-west-1.amazonaws.com/v1",
+      "Region": "eu-west-1"
+    }
+  ]
+}
