@@ -41,5 +41,5 @@ namespace DeleteQueueExample
         }
     }
 
-    // snippet-end:[SQS.dotnetv3.DeleteMessageExample]
+    // snippet-end:[SQS.dotnetv3.DeleteQueueExample]
 }
