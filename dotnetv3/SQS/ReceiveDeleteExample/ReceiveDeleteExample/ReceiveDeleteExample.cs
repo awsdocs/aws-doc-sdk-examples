@@ -20,7 +20,7 @@ namespace ReceiveDeleteExample
         // snippet-start:[SQS.dotnetv3.ReceiveDeleteExample]
         public static async Task Main()
         {
-            // If the AWS Regsion you want to use is different from
+            // If the AWS Region you want to use is different from
             // the AWS Region defined for the default user, supply
             // the specify your AWS Region to the client constructor.
             var client = new AmazonSQSClient();
