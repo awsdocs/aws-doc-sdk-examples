@@ -30,7 +30,7 @@ suspend fun main(args: Array<String>) {
         <trailName>  
 
     Where:
-        trailName - the name of the trail to delete. 
+        trailName - the name of the trail. 
         
     """
 
