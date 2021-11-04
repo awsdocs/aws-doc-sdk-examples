@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Kinesis]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/07/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -14,6 +14,7 @@ package com.kotlin.kinesis
 
 //snippet-start:[kinesis.kotlin.AddDataShards.import]
 import aws.sdk.kotlin.services.kinesis.KinesisClient
+
 import aws.sdk.kotlin.services.kinesis.model.KinesisException
 import aws.sdk.kotlin.services.kinesis.model.ScalingType
 import aws.sdk.kotlin.services.kinesis.model.UpdateShardCountRequest
@@ -41,6 +42,7 @@ suspend fun  main(args: Array<String>){
         println(usage)
         exitProcess(0)
     }
+
 
     val name = args[0]
     val kinesisClient = KinesisClient{region ="us-east-1"}
