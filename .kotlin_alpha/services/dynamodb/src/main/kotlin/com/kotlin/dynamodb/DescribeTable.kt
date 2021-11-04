@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/02/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -44,7 +44,7 @@ suspend fun main(args: Array<String>) {
 
     val tableName = args[0]
     val ddb = DynamoDbClient{ region = "us-east-1" }
-    describeDymamoDBTable(ddb, tableName);
+    describeDymamoDBTable(ddb, tableName)
     ddb.close()
 }
 
