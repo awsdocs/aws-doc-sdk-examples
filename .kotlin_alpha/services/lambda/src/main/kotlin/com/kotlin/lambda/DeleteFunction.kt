@@ -3,7 +3,7 @@
 // snippet-keyword:[AWS Lambda]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[04/14/2021]
+// snippet-sourcedate:[11/04/2021]
 // snippet-sourceauthor:[AWS-scmacdon]
 
 /*
@@ -66,4 +66,4 @@ suspend fun delLambdaFunction(awsLambda: LambdaClient, myFunctionName: String) {
             exitProcess(1)
         }
  }
-// snippet-end:[lambda.kotlin.delete.main]
+// snippet-start:[lambda.kotlin.delete.main]
