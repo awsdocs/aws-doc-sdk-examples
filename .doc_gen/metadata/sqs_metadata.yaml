@@ -6,6 +6,18 @@ sqs_CreateQueue:
   synopsis: create an &SQS; queue.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SQS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+              - SQS.dotnetv3.CreateQueueExample
+            - description: Create an &SQS; queue and send a message to it.
+              snippet_tags:
+              - SQS.dotnetv3.CreateSendExample
     Java:
       versions:
         - sdk_version: 2
@@ -32,6 +44,15 @@ sqs_GetQueueUrl:
   synopsis: get the URL of an &SQS; queue.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SQS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+              - SQS.dotnetv3.GetQueueUrlExample
     Java:
       versions:
         - sdk_version: 2
@@ -84,6 +105,15 @@ sqs_DeleteQueue:
   synopsis: delete an &SQS; queue.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SQS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+              - SQS.dotnetv3.DeleteQueueExample
     Java:
       versions:
         - sdk_version: 2
@@ -110,6 +140,18 @@ sqs_SendMessage:
   synopsis: send a message to an &SQS; queue.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SQS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+              - SQS.dotnetv3.SendMessageToQueueExample
+            - description: Create an &SQS; queue and send a message to it.
+              snippet_tags:
+              - SQS.dotnetv3.CreateSendExample
     Java:
       versions:
         - sdk_version: 2
@@ -162,6 +204,18 @@ sqs_ReceiveMessage:
   synopsis: receive messages from an &SQS; queue.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SQS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+              - SQS.dotnetv3.ReceiveFromQueueExample
+            - description:
+              snippet_tags: Receive a message from an &SQS; queue, then delete the message.
+              - SQS.dotnetv3.ReceiveDeleteExample
     Java:
       versions:
         - sdk_version: 2
@@ -188,6 +242,18 @@ sqs_DeleteMessage:
   synopsis: delete a message from an &SQS; queue.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SQS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+              - SQS.dotnetv3.DeleteMessageExample
+            - description: Receive a message from an &SQS; queue and then delete the message.
+              snippet_tags:
+              - SQS.dotnetv3.ReceiveDeleteExample
     Java:
       versions:
         - sdk_version: 2
@@ -273,3 +339,37 @@ sqs_Scenario_SendReceiveBatch:
                 - python.example_code.sqs.Scenario_SendReceiveBatch
   services:
     sqs: {}
+sqs_AuthorizeS3ToSendMessage:
+  title: Authorize an &S3; bucket to send messages to an &SQS; queue.
+  title_abbrev: Authorize a bucket to send messages to a queue
+  synopsis: authorize an &S3; bucket to send messages to an &SQS; queue.
+  category:
+  languages:
+      .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SQS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+              - SQS.dotnetv3.AuthorizeS3ToSendMessageExample
+  services:
+    sqs: {AuthorizeS3ToSendMessage}
+sqs_GetQueueAttributes:
+  title: Authorize an &S3; bucket to send messages to an &SQS; queue.
+  title_abbrev: Authorize a bucket to send messages to a queue
+  synopsis: authorize an &S3; bucket to send messages to an &SQS; queue.
+  category:
+  languages:
+      .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SQS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+              - SQS.dotnetv3.GetQueueAttributesExample
+  services:
+    sqs: {GetQueueAttributes}
