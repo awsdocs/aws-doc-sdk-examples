@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Identity and Access Management (IAM)]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/27/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -17,7 +17,6 @@ package com.kotlin.iam
 import aws.sdk.kotlin.services.iam.IamClient
 import aws.sdk.kotlin.services.iam.model.IamException
 import aws.sdk.kotlin.services.iam.model.ListUsersRequest
-import aws.sdk.kotlin.services.iam.model.ListUsersResponse
 import kotlin.system.exitProcess
 // snippet-end:[iam.kotlin.list_users.import]
 
@@ -39,30 +38,10 @@ suspend fun main() {
 // snippet-start:[iam.kotlin.list_users.main]
 suspend fun listAllUsers(iamClient: IamClient) {
         try {
-            var done = false
-            var newMarker: String? = null
-            while (!done) {
 
-                var response: ListUsersResponse
-                response = if (newMarker == null) {
-                    val request = ListUsersRequest { }
-                    iamClient.listUsers(request)
-
-                } else {
-                    val request = ListUsersRequest {
-                        marker = newMarker
-                    }
-                    iamClient.listUsers(request)
-                }
-
-                for (user in response.users!!) {
-                   println("Retrieved user ${user.userName}")
-                }
-                if (!response.isTruncated) {
-                    done = true
-                } else {
-                    newMarker = response.marker
-                }
+            val response = iamClient.listUsers(ListUsersRequest { })
+            response.users?.forEach { user ->
+                println("Retrieved user ${user.userName}")
             }
 
         } catch (e: IamException) {

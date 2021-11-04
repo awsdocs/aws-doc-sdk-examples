@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Identity and Access Management (IAM)]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/27/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -37,10 +37,10 @@ suspend fun main(args: Array<String>) {
              username - the name of the user for which access keys are retrieved. 
         """
 
-    if (args.size != 1) {
+   if (args.size != 1) {
         println(usage)
         exitProcess(0)
-    }
+   }
 
     val userName = args[0]
     val iamClient = IamClient{region="AWS_GLOBAL"}
@@ -54,14 +54,13 @@ suspend fun listKeys(iamClient: IamClient, userNameVal: String?) {
     try {
            val request = ListAccessKeysRequest {
                  userName = userNameVal
-              }
-
+           }
            val response = iamClient.listAccessKeys(request)
-           for (metadata in response.accessKeyMetadata!!) {
-                   println("Retrieved access key ${metadata.accessKeyId}")
+            response.accessKeyMetadata?.forEach { md ->
+            println("Retrieved access key ${md.accessKeyId}")
             }
 
-    } catch (e: IamException) {
+      } catch (e: IamException) {
         println(e.message)
         iamClient.close()
         exitProcess(0)
