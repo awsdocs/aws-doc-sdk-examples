@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/02/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -50,14 +50,14 @@ suspend fun main(args: Array<String>) {
     val key = args[1]
     val keyVal = args[2]
     val ddb = DynamoDbClient{ region = "us-east-1" }
-    deleteDymamoDBItem(ddb, tableName, key, keyVal);
+    deleteDymamoDBItem(ddb, tableName, key, keyVal)
     ddb.close()
 }
 
 // snippet-start:[dynamodb.kotlin.delete_item.main]
 suspend fun deleteDymamoDBItem(ddb: DynamoDbClient, tableNameVal: String, keyName: String, keyVal: String) {
 
-        val keyToGet =  mutableMapOf<String, AttributeValue>()
+        val keyToGet = mutableMapOf<String, AttributeValue>()
         keyToGet[keyName] = AttributeValue.S(keyVal)
 
         val deleteReq = DeleteItemRequest {
@@ -65,7 +65,7 @@ suspend fun deleteDymamoDBItem(ddb: DynamoDbClient, tableNameVal: String, keyNam
             key = keyToGet
         }
 
-    try {
+        try {
             ddb.deleteItem(deleteReq)
             println("Item with key matching $keyVal was deleted")
 
