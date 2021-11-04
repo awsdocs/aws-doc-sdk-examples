@@ -61,9 +61,9 @@ kinesis_DescribeStream:
   services:
     kinesis: { DescribeStream }
 kinesis_ListStreams:
-  title: Lists information about one or more &AK; streams using an &AWS; SDK
+  title: Lists &AK; streams using an &AWS; SDK
   title_abbrev: List streams
-  synopsis: list &AK; streams.
+  synopsis: list information about one or more &AK; streams.
   category:
   languages:
     Rust:
