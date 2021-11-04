@@ -121,7 +121,7 @@ suspend fun waitForQueryToComplete(athenaClient: AthenaClient, queryExecutionIdV
 suspend fun processResultRows(athenaClient: AthenaClient, queryExecutionIdVal: String?) {
     try {
 
-        // Max Results can be set but if its not set, it will choose the maximum page size.
+        // Max Results can be set but if it's not set, it will choose the maximum page size.
         val getQueryResultsRequest = GetQueryResultsRequest {
             queryExecutionId = queryExecutionIdVal
         }
