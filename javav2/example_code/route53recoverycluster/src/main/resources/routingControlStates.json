@@ -1,7 +1,7 @@
 {
   "RoutingControlStates": [
     {
-      "RoutingControlArn": "arn:aws:route53-recovery-control::308833258515:controlpanel/930a847cd870495da38a6da151c61aca/routingcontrol/1599063100e64982",
+      "RoutingControlArn": "arn:aws:route53-recovery-control::<aws-account-id>:controlpanel/<control-panel-id>/routingcontrol/<routing-control-id>",
       "RoutingControlState": "On"
     }
   ]
