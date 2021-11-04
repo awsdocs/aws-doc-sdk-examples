@@ -54,12 +54,10 @@ suspend fun main(args: Array<String>) {
             }
 
             val response = cloudTrailClient.describeTrails(trailsRequest)
-            val trails = response.trailList
-            if (trails != null) {
-                for (trail in trails) {
-                    println("The ARN of the trail is ${trail.trailArn}")
-                }
+            response.trailList?.forEach { trail ->
+                println("The ARN of the trail is ${trail.trailArn}")
            }
+           
 
         } catch (ex: CloudTrailException) {
             println(ex.message)
