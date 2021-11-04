@@ -228,8 +228,8 @@ sqs_ReceiveMessage:
             - description:
               snippet_tags:
               - SQS.dotnetv3.ReceiveFromQueueExample
-            - description:
-              snippet_tags: Receive a message from an &SQS; queue, and then delete the message.
+            - description: Receive a message from an &SQS; queue, and then delete the message.
+              snippet_tags:
               - SQS.dotnetv3.ReceiveDeleteExample
     Java:
       versions:
