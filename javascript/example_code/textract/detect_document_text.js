@@ -13,7 +13,7 @@ exports.handler = async(event, context) => {
         },
     };
     try {
-        let response = await textract.detectDocumentText(params).promise();
+        let response = await textract.detectDocumentText(textractParams).promise();
         console.log(JSON.stringify(response),null,2)
     }catch(e){
         console.log("Error: ",e)
