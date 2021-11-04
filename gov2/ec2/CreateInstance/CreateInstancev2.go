@@ -67,6 +67,7 @@ func main() {
 
 	client := ec2.NewFromConfig(cfg)
 
+	// Create separate values if required.
 	minMaxCount := int32(1)
 
 	input := &ec2.RunInstancesInput{

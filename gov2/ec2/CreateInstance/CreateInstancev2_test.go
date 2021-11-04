@@ -79,6 +79,7 @@ func TestCreateInstance(t *testing.T) {
 
 	api := &EC2CreateInstanceImpl{}
 
+	// Create separate values if required.
 	minMaxCount := int32(1)
 
 	input := &ec2.RunInstancesInput{
