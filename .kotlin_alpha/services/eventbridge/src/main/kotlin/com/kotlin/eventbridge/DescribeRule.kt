@@ -36,7 +36,7 @@ suspend fun main(args: Array<String>) {
         <ruleName> 
 
     Where:
-        ruleName - the name of the rule to create. 
+        ruleName - the name of the rule. 
     """
 
     if (args.size != 1) {
