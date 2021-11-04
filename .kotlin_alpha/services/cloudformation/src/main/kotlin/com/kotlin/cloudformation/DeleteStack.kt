@@ -4,7 +4,7 @@
 // snippet-service:[AWS CloudFormation]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/31/2021]
+// snippet-sourcedate:[11/03/2021]
 // snippet-sourceauthor:[AWS-scmacdon]
 
 /*
@@ -22,19 +22,11 @@ import aws.sdk.kotlin.services.cloudformation.model.CloudFormationException
 import kotlin.system.exitProcess
 // snippet-end:[cf.kotlin.delete_stack.import]
 
-/**
-To run this Kotlin code example, ensure that you have setup your development environment,
-including your credentials.
-
-For information, see this documentation topic:
-https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
-
 suspend fun main(args:Array<String>) {
 
     val usage = """
     Usage:
-        <stackName> <roleARN> <location> <key> <value> 
+        <stackName>
 
     Where:
         stackName - the name of the AWS CloudFormation stack. 

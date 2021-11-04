@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon API Gateway]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[08/09/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -50,7 +50,7 @@ suspend fun createAPI(apiGateway: ApiGatewayClient, restApiName: String?): Strin
             name = restApiName
         }
         val response = apiGateway.createRestApi(request)
-        println("The id of the new api is " + response.id)
+        println("The id of the new api is ${response.id}")
         return response.id
 
     } catch (e: ApiGatewayException) {

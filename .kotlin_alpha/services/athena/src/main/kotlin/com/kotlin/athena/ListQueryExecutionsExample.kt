@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[07/14/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -20,14 +20,6 @@ import aws.sdk.kotlin.services.athena.model.ListQueryExecutionsRequest
 import kotlin.system.exitProcess
 //snippet-end:[athena.kotlin.ListNamedQueryExecutionsExample.import]
 
-/**
-To run this Kotlin code example, ensure that you have setup your development environment,
-including your credentials.
-
-For information, see this documentation topic:
-https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
-
 suspend fun main() {
 
     val athenaClient = AthenaClient { region = "us-west-2" }
@@ -43,13 +35,10 @@ suspend fun main() {
                 maxResults = 10
             }
             val listQueryExecutionResponses =  athenaClient.listQueryExecutions(listQueryExecutionsRequest)
-            val listQueryIds = listQueryExecutionResponses.queryExecutionIds
-
-            if (listQueryIds != null) {
-                for (listQueryId in listQueryIds) {
-                     println("The value is $listQueryId")
-                   }
+            listQueryExecutionResponses.queryExecutionIds?.forEach { queries ->
+                println("The value is $queries")
             }
+
         } catch (ex: AwsServiceException) {
             println(ex.message)
             athenaClient.close()
