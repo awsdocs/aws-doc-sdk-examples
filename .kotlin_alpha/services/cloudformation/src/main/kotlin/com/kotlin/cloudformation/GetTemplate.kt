@@ -4,7 +4,7 @@
 // snippet-service:[AWS CloudFormation]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/31/2021]
+// snippet-sourcedate:[11/03/2021]
 // snippet-sourceauthor:[AWS-scmacdon]
 
 /*
@@ -22,14 +22,6 @@ import aws.sdk.kotlin.services.cloudformation.model.CloudFormationException
 import kotlin.system.exitProcess
 // snippet-end:[cf.kotlin._template.import]
 
-/**
-To run this Kotlin code example, ensure that you have setup your development environment,
-including your credentials.
-
-For information, see this documentation topic:
-https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
-
 suspend fun main(args:Array<String>) {
 
     val usage = """
@@ -41,8 +33,8 @@ suspend fun main(args:Array<String>) {
     """
 
     if (args.size != 1) {
-        println(usage);
-        System.exit(1);
+        println(usage)
+        exitProcess(1)
     }
 
     val stackName = args[0]
@@ -59,7 +51,7 @@ suspend fun getSpecificTemplate(cfClient: CloudFormationClient, stackNameVal: St
         }
 
         val response = cfClient.getTemplate(typeRequest)
-        val body: String? = response.templateBody
+        val body = response.templateBody
         println(body)
 
     } catch (e: CloudFormationException) {
