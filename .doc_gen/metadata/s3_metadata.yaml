@@ -921,6 +921,6 @@ s3_GetBucketLocation:
           excerpts:
             - description:
               snippet_tags:
-	        - s3.rust.list-buckets
+                - s3.rust.list-buckets
   services:
     s3: { GetBucketLocation }
