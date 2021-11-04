@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS CodePipeline]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/19/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -35,16 +35,16 @@ suspend fun main(args:Array<String>) {
         Usage:
             <name> 
         Where:
-           name - the name of the pipeline to retrieve 
+           name - the name of the pipeline to retrieve. 
     """
 
 
-   // if (args.size != 1) {
-   //     println(usage)
-   //     exitProcess(1)
-   // }
+   if (args.size != 1) {
+        println(usage)
+        exitProcess(1)
+   }
 
-    val name =  "MyFirstPipeline" //args[0]
+    val name = args[0]
     val  pipelineClient = CodePipelineClient{region = "us-east-1"}
     getSpecificPipeline(pipelineClient, name)
     pipelineClient.close()
@@ -59,19 +59,12 @@ suspend  fun getSpecificPipeline(pipelineClient: CodePipelineClient, nameVal: St
         }
 
         val response = pipelineClient.getPipeline(pipelineRequest)
-        val stages  = response.pipeline?.stages
-        if (stages != null) {
-            for (stage in stages) {
-                println("Stage name is " + stage.name.toString() + " and actions are:")
+        response.pipeline?.stages?.forEach { stage ->
+            println("Stage name is " + stage.name.toString() + " and actions are:")
 
-                //Get the stage actions
-                val actions = stage.actions
-                if (actions != null) {
-                    for (action in actions) {
-                        println("Action name is " + action.name)
-                        println("Action type id is " + action.actionTypeId)
-                    }
-                }
+            stage.actions?.forEach { action ->
+                println("Action name is ${action.name}")
+                println("Action type id is ${action.actionTypeId}")
             }
         }
 

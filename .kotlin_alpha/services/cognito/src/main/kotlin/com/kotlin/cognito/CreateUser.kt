@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[08/01/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -36,8 +36,8 @@ suspend fun main(args: Array<String>){
 
     Where:
         userPoolId - the Id value for the user pool where the user will be created.
-        userName - the user name for the admin user.
-        email - the email to use for verifying the admin account.
+        userName - the user name.
+        email - the email to use for verifying the account.
         password - the password to use (the characters that are allowed are uppercase, lowercase letters, numbers and at least one special character).
     """
 
@@ -47,9 +47,9 @@ suspend fun main(args: Array<String>){
     }
 
     val userPoolId = args[0]
-    val userName = args[1];
-    val email = args[2];
-    val password = args[3];
+    val userName = args[1]
+    val email = args[2]
+    val password = args[3]
 
     val cognitoClient = CognitoIdentityProviderClient { region = "us-east-1" }
     createNewUser(cognitoClient, userPoolId, userName, email, password)

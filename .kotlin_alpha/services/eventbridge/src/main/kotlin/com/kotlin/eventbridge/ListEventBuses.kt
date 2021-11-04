@@ -3,7 +3,7 @@
 // snippet-service:[Amazon EventBridge]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[03/04/2021]
+// snippet-sourcedate:[11/04/2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -45,13 +45,9 @@ suspend fun listBuses(eventBrClient: EventBridgeClient) {
         }
 
         val response: ListEventBusesResponse = eventBrClient.listEventBuses(busesRequest)
-        val buses = response.eventBuses
-
-        if (buses != null) {
-            for (bus in buses) {
-                println("The name of the event bus is ${bus.name}")
-                println("The ARN of the event bus is ${bus.arn}")
-            }
+        response.eventBuses?.forEach { bus ->
+            println("The name of the event bus is ${bus.name}")
+            println("The ARN of the event bus is ${bus.arn}")
         }
 
     } catch (ex: EventBridgeException) {

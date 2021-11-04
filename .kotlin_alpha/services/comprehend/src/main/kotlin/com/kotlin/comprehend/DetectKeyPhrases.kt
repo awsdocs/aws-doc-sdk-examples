@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Comprehend]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[03/04/2021]
+// snippet-sourcedate:[11/04/2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -45,12 +45,9 @@ suspend fun detectAllKeyPhrases(comClient: ComprehendClient, textVal: String) {
                  text = textVal
                  languageCode = LanguageCode.fromValue("en")
             }
-            val resp = comClient.detectKeyPhrases(detectKeyPhrasesRequest)
-            val phraseList = resp.keyPhrases
-            if (phraseList != null) {
-                for (phrase in phraseList) {
-                    println("Key phrase text is ${phrase.text}")
-                }
+            val response = comClient.detectKeyPhrases(detectKeyPhrasesRequest)
+            response.keyPhrases?.forEach { phrase ->
+                println("Key phrase text is ${phrase.text}")
             }
 
         } catch (ex: ComprehendException) {

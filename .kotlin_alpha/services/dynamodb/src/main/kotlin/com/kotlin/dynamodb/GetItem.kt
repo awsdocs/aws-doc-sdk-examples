@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/02/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -49,7 +49,7 @@ suspend fun main(args: Array<String>) {
     val key = args[1]
     val keyVal = args[2]
     val ddb = DynamoDbClient{ region = "us-east-1" }
-    getSpecificItem(ddb, tableName, key, keyVal);
+    getSpecificItem(ddb, tableName, key, keyVal)
     ddb.close()
 }
 
@@ -71,13 +71,11 @@ suspend fun getSpecificItem(ddb: DynamoDbClient,
             val returnedItem = ddb.getItem(request)
             val numbersMap = returnedItem.item
 
-            // Print out the values.
-            if (numbersMap != null) {
-                numbersMap.forEach { key1 ->
+                numbersMap?.forEach { key1 ->
                     println(key1.key)
                     println(key1.value)
                 }
-            }
+
 
         } catch (ex: DynamoDbException) {
             println(ex.message)

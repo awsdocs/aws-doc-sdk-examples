@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/11/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -17,18 +17,8 @@ package com.kotlin.cloudwatch
 import aws.sdk.kotlin.services.cloudwatch.model.CloudWatchException
 import aws.sdk.kotlin.services.cloudwatchlogs.CloudWatchLogsClient
 import aws.sdk.kotlin.services.cloudwatchlogs.model.DescribeSubscriptionFiltersRequest
-import aws.sdk.kotlin.services.cloudwatchlogs.model.DescribeSubscriptionFiltersResponse
-import aws.sdk.kotlin.services.cloudwatchlogs.model.SubscriptionFilter
 import kotlin.system.exitProcess
 // snippet-end:[cloudwatch.kotlin.describe_subscription_filters.import]
-
-/**
-To run this Kotlin code example, ensure that you have setup your development environment,
-including your credentials.
-
-For information, see this documentation topic:
-https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
 
 suspend fun main(args:Array<String>) {
 
@@ -41,10 +31,10 @@ suspend fun main(args:Array<String>) {
          logGroup - a log group name (testgroup).
     """
 
-    if (args.size != 1) {
+   if (args.size != 1) {
         println(usage)
         exitProcess(0)
-    }
+   }
 
     val logGroup = args[0]
     val cwlClient = CloudWatchLogsClient{region="us-west-2"}
@@ -55,40 +45,17 @@ suspend fun main(args:Array<String>) {
 // snippet-start:[cloudwatch.kotlin.describe_subscription_filters.main]
 suspend fun describeFilters(cwlClient: CloudWatchLogsClient, logGroup: String?) {
     try {
-        var done = false
-        var newToken: String? = null
-        while (!done) {
-            var response: DescribeSubscriptionFiltersResponse
 
-            if (newToken == null) {
-                val request = DescribeSubscriptionFiltersRequest {
-                    logGroupName = logGroup
-                    limit = 1
-                }
-                response = cwlClient.describeSubscriptionFilters(request)
-            } else {
+          val request = DescribeSubscriptionFiltersRequest {
+               logGroupName = logGroup
+               limit = 1
+           }
 
-                val request = DescribeSubscriptionFiltersRequest {
-                    nextToken = newToken
-                    logGroupName = logGroup
-                    limit = 1
-                }
-                response = cwlClient.describeSubscriptionFilters(request)
-            }
+          val response = cwlClient.describeSubscriptionFilters(request)
+          response.subscriptionFilters?.forEach { filter ->
+              println("Retrieved filter with name  ${filter.filterName} pattern ${filter.filterPattern} and destination ${filter.destinationArn}" )
+          }
 
-            val subList = response.subscriptionFilters
-            if (subList != null) {
-                for (filter:SubscriptionFilter in subList)
-                    println("Retrieved filter with name  ${filter.filterName} pattern ${filter.filterPattern} and destination ${filter.destinationArn}" )
-
-            }
-
-            if (response.nextToken == null) {
-                done = true
-            } else {
-                newToken = response.nextToken
-            }
-        }
     } catch (ex: CloudWatchException) {
         println(ex.message)
         cwlClient.close()
