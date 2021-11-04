@@ -920,6 +920,7 @@ s3_GetBucketLocation:
           github: .rust_alpha/s3
           excerpts:
             - description:
-              snippet_tags: s3.rust.list-buckets
+              snippet_tags:
+	        - s3.rust.list-buckets
   services:
     s3: { GetBucketLocation }
