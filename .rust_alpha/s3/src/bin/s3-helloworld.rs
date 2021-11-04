@@ -67,7 +67,7 @@ async fn upload_object(
             println!("data: {:?}", data.unwrap().into_bytes());
         }
         Err(e) => {
-            println!("Got an error DOING SOMETHING:");
+            println!("Got an error uploading object:");
             println!("{}", e);
             process::exit(1);
         }
