@@ -139,6 +139,11 @@ rekognition:
   version: rekognition-2016-06-27
   caveat: The code examples in this chapter are intended to supplement the
     code examples found throughout the rest of this guide.
+route53-recovery-cluster:
+  long: "&R53ARClong;"
+  short: "&R53ARC;"
+  sort: "Application Recovery Controller"
+  version: route53-recovery-cluster-2019-12-02
 s3:
   long: "&S3long;"
   short: "&S3;"
