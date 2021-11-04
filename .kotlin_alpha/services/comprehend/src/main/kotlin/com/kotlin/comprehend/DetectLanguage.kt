@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Comprehend]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[03/04/2021]
+// snippet-sourcedate:[11/04/2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -44,12 +44,9 @@ suspend fun detectTheDominantLanguage(comClient: ComprehendClient, textVal: Stri
                 text = textVal
             }
 
-            val resp = comClient.detectDominantLanguage(request)
-            val allLanList = resp.languages
-            if (allLanList != null) {
-                for (lang in allLanList) {
-                    println("Language is ${lang.languageCode}")
-                }
+            val response = comClient.detectDominantLanguage(request)
+            response.languages?.forEach { lang ->
+                println("Language is ${lang.languageCode}")
             }
 
         } catch (ex: ComprehendException) {
