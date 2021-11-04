@@ -23,6 +23,37 @@ struct Opt {
     verbose: bool,
 }
 
+// Change Java runtime in Lambda function.
+// snippet-start:[lambda.rust.change-java-runtime]
+async fn set_runtimes(client: &Client, arn: &str) -> Result<(), Error> {
+    // Get function's runtime
+    let resp = client.list_functions().send().await?;
+
+    for function in resp.functions.unwrap_or_default() {
+        // We only change the runtime for the specified function.
+        if arn == function.function_arn.unwrap() {
+            let rt = function.runtime.unwrap();
+            // We only change the Java runtime.
+            if rt == Runtime::Java11 || rt == Runtime::Java8 {
+                // Change it to Java8a12 (Corretto).
+                println!("Original runtime: {:?}", rt);
+                let result = client
+                    .update_function_configuration()
+                    .function_name(function.function_name.unwrap())
+                    .runtime(Runtime::Java8al2)
+                    .send()
+                    .await?;
+
+                let result_rt = result.runtime.unwrap();
+                println!("New runtime: {:?}", result_rt);
+            }
+        }
+    }
+
+    Ok(())
+}
+// snippet-end:[lambda.rust.change-java-runtime]
+
 /// Sets a Lambda function's Java runtime to Corretto.
 /// # Arguments
 ///
@@ -59,29 +90,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    // Get function's runtime
-    let resp = client.list_functions().send().await?;
-
-    for function in resp.functions.unwrap_or_default() {
-        // We only change the runtime for the specified function.
-        if arn == function.function_arn.unwrap() {
-            let rt = function.runtime.unwrap();
-            // We only change the Java runtime.
-            if rt == Runtime::Java11 || rt == Runtime::Java8 {
-                // Change it to Java8a12 (Corretto).
-                println!("Original runtime: {:?}", rt);
-                let result = client
-                    .update_function_configuration()
-                    .function_name(function.function_name.unwrap())
-                    .runtime(Runtime::Java8al2)
-                    .send()
-                    .await?;
-
-                let result_rt = result.runtime.unwrap();
-                println!("New runtime: {:?}", result_rt);
-            }
-        }
-    }
-
-    Ok(())
+    set_runtimes(&client, &arn).await
 }

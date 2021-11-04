@@ -22,9 +22,31 @@ struct Opt {
     verbose: bool,
 }
 
-/// Lists your Amazon Kinesis data streams in the Region.
+// Display stream information.
+// snippet-start:[kinesis.rust.describe-stream]
+async fn show_stream(client: &Client, stream: &str) -> Result<(), Error> {
+    let resp = client.describe_stream().stream_name(stream).send().await?;
+
+    let desc = resp.stream_description.unwrap();
+
+    println!("Stream description:");
+    println!("  Name:              {}:", desc.stream_name.unwrap());
+    println!("  Status:            {:?}", desc.stream_status.unwrap());
+    println!("  Open shards:       {:?}", desc.shards.unwrap().len());
+    println!(
+        "  Retention (hours): {}",
+        desc.retention_period_hours.unwrap()
+    );
+    println!("  Encryption:        {:?}", desc.encryption_type.unwrap());
+
+    Ok(())
+}
+// snippet-end:[kinesis.rust.describe-stream]
+
+/// Displays some information about an Amazon Kinesis data stream in the Region.
 /// # Arguments
 ///
+/// * `-s STREAM-NAME` - The name of the stream to describe.
 /// * `[-r REGION]` - The Region in which the client is created.
 ///    If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
@@ -56,23 +78,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client
-        .describe_stream()
-        .stream_name(stream_name)
-        .send()
-        .await?;
-
-    let desc = resp.stream_description.unwrap();
-
-    println!("Stream description:");
-    println!("  Name:              {}:", desc.stream_name.unwrap());
-    println!("  Status:            {:?}", desc.stream_status.unwrap());
-    println!("  Open shards:       {:?}", desc.shards.unwrap().len());
-    println!(
-        "  Retention (hours): {}",
-        desc.retention_period_hours.unwrap()
-    );
-    println!("  Encryption:        {:?}", desc.encryption_type.unwrap());
-
-    Ok(())
+    show_stream(&client, &stream_name).await
 }

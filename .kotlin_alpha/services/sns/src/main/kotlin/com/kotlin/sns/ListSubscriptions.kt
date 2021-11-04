@@ -22,7 +22,7 @@ import kotlin.system.exitProcess
 
 
 suspend fun main() {
-    val snsClient = SnsClient({ region = "us-east-1" })
+    val snsClient = SnsClient{ region = "us-east-1" }
     listSNSSubscriptions(snsClient)
     snsClient.close()
 }

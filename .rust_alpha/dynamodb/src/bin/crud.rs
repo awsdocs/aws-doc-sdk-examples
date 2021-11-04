@@ -51,6 +51,7 @@ fn random_string(n: usize) -> String {
 }
 
 /// Create a new table.
+// snippet-start:[dynamodb.rust.crud-make_table]
 async fn make_table(
     client: &Client,
     table: &str,
@@ -84,6 +85,7 @@ async fn make_table(
         Err(e) => Err(e),
     }
 }
+// snippet-end:[dynamodb.rust.crud-make_table]
 
 /// For add_item and query_item
 #[derive(Clone)]
@@ -98,6 +100,7 @@ struct Item {
 }
 
 /// Add an item to the table.
+// snippet-start:[dynamodb.rust.crud-add_item]
 async fn add_item(
     client: &Client,
     item: Item,
@@ -123,9 +126,11 @@ async fn add_item(
         Err(e) => Err(e),
     }
 }
+// snippet-end:[dynamodb.rust.crud-add_item]
 
 /// Query the table for an item matching the input values.
 /// Returns true if the item is found; otherwise false.
+// snippet-start:[dynamodb.rust.crud-query_item]
 async fn query_item(client: &Client, item: Item) -> bool {
     let value = &item.value;
     let key = &item.key;
@@ -158,6 +163,34 @@ async fn query_item(client: &Client, item: Item) -> bool {
         }
     }
 }
+// snippet-end:[dynamodb.rust.crud-query_item]
+
+// Deletes an item from a table.
+// snippet-start:[dynamodb.rust.crud-remove_item]
+async fn remove_item(client: &Client, table: &str, key: &str, value: String) -> Result<(), Error> {
+    let user_av = AttributeValue::S(value);
+
+    client
+        .delete_item()
+        .table_name(table)
+        .key(key, user_av)
+        .send()
+        .await?;
+
+    println!("Deleted item.");
+
+    Ok(())
+}
+// snippet-end:[dynamodb.rust.crud-remove_item]
+
+// Deletes a table.
+// snippet-start:[dynamodb.rust.crud-remove_table]
+async fn remove_table(client: &Client, table: &str) -> Result<(), Error> {
+    client.delete_table().table_name(table).send().await?;
+
+    Ok(())
+}
+// snippet-end:[dynamodb.rust.crud-remove_table]
 
 /// Hand-written waiter to retry every second until the table is out of `Creating` state
 #[derive(Clone)]
@@ -338,15 +371,8 @@ async fn main() -> Result<(), Error> {
 
     /* Delete item */
     println!("Deleting item.");
-    let user_av = AttributeValue::S(value);
-    client
-        .delete_item()
-        .table_name(&table)
-        .key(key, user_av)
-        .send()
-        .await?;
 
-    println!("Deleted item.");
+    remove_item(&client, &table, &key, value).await?;
 
     if interactive {
         pause();
@@ -354,7 +380,9 @@ async fn main() -> Result<(), Error> {
 
     /* Delete table */
     println!("Deleting table.");
-    client.delete_table().table_name(&table).send().await?;
+
+    remove_table(&client, &table).await?;
+
     println!("Deleted table.");
     println!();
 

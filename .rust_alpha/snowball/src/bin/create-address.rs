@@ -56,6 +56,18 @@ struct Opt {
     verbose: bool,
 }
 
+// Create an address.
+// snippet-start:[snowball.rust.create-address]
+async fn add_address(client: &Client, address: Address) -> Result<(), Error> {
+    let result = client.create_address().address(address).send().await?;
+
+    println!();
+    println!("Address: {:?}", result.address_id.unwrap());
+
+    Ok(())
+}
+// snippet-end:[snowball.rust.create-address]
+
 /// Creates an AWS Snowball address.
 /// # Arguments
 ///
@@ -142,10 +154,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let result = client.create_address().address(new_address).send().await?;
-
-    println!();
-    println!("Address: {:?}", result.address_id.unwrap());
-
-    Ok(())
+    add_address(&client, new_address).await
 }

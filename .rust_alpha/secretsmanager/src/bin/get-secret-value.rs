@@ -22,11 +22,24 @@ struct Opt {
     verbose: bool,
 }
 
+// Displays the value of a secret.
+// snippet-start:[secretsmanager.rust.get-secret-value]
+async fn show_secret(client: &Client, name: &str) -> Result<(), Error> {
+    let resp = client.get_secret_value().secret_id(name).send().await?;
+
+    println!(
+        "Value: {}",
+        resp.secret_string.as_deref().unwrap_or("No value!")
+    );
+
+    Ok(())
+}
+// snippet-end:[secretsmanager.rust.get-secret-value]
+
 /// Retrieves the value of a secret.
 /// # Arguments
 ///
 /// * `-n NAME` - The name of the secret.
-/// * `-s SECRET_VALUE` - The secret value.
 /// * `[-r REGION]` - The Region in which the client is created.
 ///    If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
@@ -59,12 +72,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client.get_secret_value().secret_id(name).send().await?;
-
-    println!(
-        "Value: {}",
-        resp.secret_string.as_deref().unwrap_or("No value!")
-    );
-
-    Ok(())
+    show_secret(&client, &name).await
 }

@@ -51,7 +51,9 @@ suspend fun main(args: Array<String>) {
     val s3Uri = args[1]
     val documentClassifierName = args[2]
 
-    val comprehendClient = ComprehendClient({region="us-east-1"})
+    val comprehendClient = ComprehendClient{
+        region="us-east-1"
+    }
     createDocumentClassifier(comprehendClient,dataAccessRoleArn,s3Uri, documentClassifierName)
     comprehendClient.close()
 }

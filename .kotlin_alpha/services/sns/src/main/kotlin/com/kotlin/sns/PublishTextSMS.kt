@@ -33,14 +33,14 @@ suspend fun main(args:Array<String>) {
             phoneNumber - the mobile phone number to which a message is sent (for example, +1XXX5550100). 
         """
 
-    if (args.size != 2) {
+    if (args.size != 3) {
         println(usage)
         exitProcess(0)
     }
 
     val message = args[0]
     val phoneNumber = args[1]
-    val snsClient = SnsClient({ region = "us-east-1" })
+    val snsClient = SnsClient{ region = "us-east-1" }
     pubTextSMS(snsClient, message, phoneNumber)
     snsClient.close()
 }

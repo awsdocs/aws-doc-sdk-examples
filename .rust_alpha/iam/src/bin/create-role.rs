@@ -37,7 +37,10 @@ struct Opt {
 
 // Creates a role.
 // snippet-start:[iam.rust.create-role]
-async fn create_role(client: &Client, name: &str, doc: &str) -> Result<(), Error> {
+async fn make_role(client: &Client, policy_file: &str, name: &str) -> Result<(), Error> {
+    // Read policy doc from file as a string
+    let doc = fs::read_to_string(policy_file).expect("Unable to read file");
+  
     let resp = client
         .create_role()
         .assume_role_policy_document(doc)
@@ -93,11 +96,8 @@ async fn main() -> Result<(), Error> {
         println!();
     }
 
-    // Read policy doc from file as a string
-    let doc = fs::read_to_string(policy_file).expect("Unable to read file");
-
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    create_role(&client, &name, &doc).await
+    make_role(&client, &policy_file, &name).await
 }

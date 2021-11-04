@@ -30,6 +30,25 @@ struct Opt {
     verbose: bool,
 }
 
+// Adds a record to a stream.
+// snippet-start:[kinesis.rust.put-record]
+async fn add_record(client: &Client, stream: &str, key: &str, data: &str) -> Result<(), Error> {
+    let blob = Blob::new(data);
+
+    client
+        .put_record()
+        .data(blob)
+        .partition_key(key)
+        .stream_name(stream)
+        .send()
+        .await?;
+
+    println!("Put data into stream.");
+
+    Ok(())
+}
+// snippet-end:[kinesis.rust.put-record]
+
 /// Adds a record to an Amazon Kinesis data stream.
 /// # Arguments
 ///
@@ -75,17 +94,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let blob = Blob::new(data);
-
-    client
-        .put_record()
-        .data(blob)
-        .partition_key(key)
-        .stream_name(stream_name)
-        .send()
-        .await?;
-
-    println!("Put data into stream.");
-
-    Ok(())
+    add_record(&client, &stream_name, &key, &data).await
 }

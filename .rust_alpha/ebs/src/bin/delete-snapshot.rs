@@ -22,6 +22,17 @@ struct Opt {
     verbose: bool,
 }
 
+// Delete a snapshot.
+// snippet-start:[ebs.rust.delete-snapshot]
+async fn delete_snapshot(client: &Client, id: &str) -> Result<(), Error> {
+    client.delete_snapshot().snapshot_id(id).send().await?;
+
+    println!("Deleted");
+
+    Ok(())
+}
+// snippet-end:[ebs.rust.delete-snapshot]
+
 /// Deletes an Amazon Elastic Block Store snapshot.
 /// It must be `completed` before you can use the snapshot.
 /// # Arguments
@@ -59,13 +70,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    client
-        .delete_snapshot()
-        .snapshot_id(snapshot_id)
-        .send()
-        .await?;
-
-    println!("Deleted");
-
-    Ok(())
+    delete_snapshot(&client, &snapshot_id).await
 }

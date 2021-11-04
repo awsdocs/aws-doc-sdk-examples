@@ -26,6 +26,22 @@ struct Opt {
     verbose: bool,
 }
 
+// Create a secret.
+// snippet-start:[secretsmanager.rust.create-secret]
+async fn make_secret(client: &Client, name: &str, value: &str) -> Result<(), Error> {
+    client
+        .create_secret()
+        .name(name)
+        .secret_string(value)
+        .send()
+        .await?;
+
+    println!("Created secret");
+
+    Ok(())
+}
+// snippet-end:[secretsmanager.rust.create-secret]
+
 /// Creates a secret.
 /// # Arguments
 ///
@@ -65,14 +81,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    client
-        .create_secret()
-        .name(name)
-        .secret_string(secret_value)
-        .send()
-        .await?;
-
-    println!("Created secret");
-
-    Ok(())
+    make_secret(&client, &name, &secret_value).await
 }

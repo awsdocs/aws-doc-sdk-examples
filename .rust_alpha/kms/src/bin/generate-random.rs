@@ -23,6 +23,29 @@ struct Opt {
     verbose: bool,
 }
 
+// Create a random string.
+// snippet-start:[kms.rust.generate-random]
+async fn make_string(client: &Client, length: i32) -> Result<(), Error> {
+    let resp = client
+        .generate_random()
+        .number_of_bytes(length)
+        .send()
+        .await?;
+
+    // Did we get an encrypted blob?
+    let blob = resp.plaintext.expect("Could not get encrypted text");
+    let bytes = blob.as_ref();
+
+    let s = base64::encode(&bytes);
+
+    println!();
+    println!("Data key:");
+    println!("{}", s);
+
+    Ok(())
+}
+// snippet-end:[kms.rust.generate-random]
+
 /// Creates a random byte string that is cryptographically secure.
 /// # Arguments
 ///
@@ -72,21 +95,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client
-        .generate_random()
-        .number_of_bytes(length)
-        .send()
-        .await?;
-
-    // Did we get an encrypted blob?
-    let blob = resp.plaintext.expect("Could not get encrypted text");
-    let bytes = blob.as_ref();
-
-    let s = base64::encode(&bytes);
-
-    println!();
-    println!("Data key:");
-    println!("{}", s);
-
-    Ok(())
+    make_string(&client, length).await
 }

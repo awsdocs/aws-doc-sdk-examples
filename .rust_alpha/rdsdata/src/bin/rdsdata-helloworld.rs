@@ -30,6 +30,30 @@ struct Opt {
     verbose: bool,
 }
 
+// Query a cluster.
+// snippet-start:[rdsdata.rust.rdsdata-helloworld]
+async fn query_cluster(
+    client: &Client,
+    cluster_arn: &str,
+    query: &str,
+    secret_arn: &str,
+) -> Result<(), Error> {
+    let st = client
+        .execute_statement()
+        .resource_arn(cluster_arn)
+        .database("postgres") // Do not confuse this with db instance name
+        .sql(query)
+        .secret_arn(secret_arn);
+
+    let result = st.send().await?;
+
+    println!("{:?}", result);
+    println!();
+
+    Ok(())
+}
+// snippet-end:[rdsdata.rust.rdsdata-helloworld]
+
 /// Sends a query to an Aurora serverless cluster in the Region.
 /// # Arguments
 ///
@@ -78,17 +102,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let st = client
-        .execute_statement()
-        .resource_arn(cluster_arn)
-        .database("postgres") // Do not confuse this with db instance name
-        .sql(query)
-        .secret_arn(secret_arn);
-
-    let result = st.send().await?;
-
-    println!("{:?}", result);
-    println!();
-
-    Ok(())
+    query_cluster(&client, &cluster_arn, &query, &secret_arn).await
 }

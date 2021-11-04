@@ -23,6 +23,24 @@ struct Opt {
     verbose: bool,
 }
 
+// Starts a session.
+// snippet-start:[qldb.rust.qldb-helloworld]
+async fn start(client: &Client, ledger: &str) -> Result<(), Error> {
+    let result = client
+        .send_command()
+        .start_session(StartSessionRequest::builder().ledger_name(ledger).build())
+        .send()
+        .await?;
+
+    println!(
+        "Session id: {:?}",
+        result.start_session.unwrap().session_token
+    );
+
+    Ok(())
+}
+// snippet-end:[qldb.rust.qldb-helloworld]
+
 /// Creates a low-level Amazon Quantum Ledger Database (Amazon QLDB) session in the Region.
 /// # Arguments
 ///
@@ -60,16 +78,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let result = client
-        .send_command()
-        .start_session(StartSessionRequest::builder().ledger_name(ledger).build())
-        .send()
-        .await?;
-
-    println!(
-        "Session id: {:?}",
-        result.start_session.unwrap().session_token
-    );
-
-    Ok(())
+    start(&client, &ledger).await
 }

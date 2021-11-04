@@ -18,6 +18,24 @@ struct Opt {
     verbose: bool,
 }
 
+// Lists your streams.
+// snippet-start:[kinesis.rust.list-streams]
+async fn show_streams(client: &Client) -> Result<(), Error> {
+    let resp = client.list_streams().send().await?;
+
+    println!("Stream names:");
+
+    let streams = resp.stream_names.unwrap_or_default();
+    for stream in &streams {
+        println!("  {}", stream);
+    }
+
+    println!("Found {} stream(s)", streams.len());
+
+    Ok(())
+}
+// snippet-end:[kinesis.rust.list-streams]
+
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
@@ -41,16 +59,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client.list_streams().send().await?;
-
-    println!("Stream names:");
-
-    let streams = resp.stream_names.unwrap_or_default();
-    for stream in &streams {
-        println!("  {}", stream);
-    }
-
-    println!("Found {} stream(s)", streams.len());
-
-    Ok(())
+    show_streams(&client).await
 }

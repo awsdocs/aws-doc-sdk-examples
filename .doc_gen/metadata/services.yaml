@@ -100,6 +100,11 @@ lex:
   short: "&LEX2;"
   sort: "Lex"
   version: runtime.lex.v2-2020-08-07
+lookoutvision:
+  long: "&LYRAlong;"
+  short: "&LYRA;"
+  sort: "Lookout for Vision"
+  version: lookoutvision-2020-11-20
 pinpoint:
   long: "&PINlong;"
   short: "&PIN;"
@@ -111,7 +116,6 @@ pinpoint-email:
   short: "&PIN-Email-API;"
   sort: "Pinpoint Email"
   version: pinpoint-email-2018-07-26
-  bundle: pinpoint
 pinpoint-sms-voice:
   long: "&PIN-SMS-Voice-API;"
   short: "&PIN-SMS-Voice-API;"

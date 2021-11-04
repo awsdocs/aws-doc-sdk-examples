@@ -5,6 +5,15 @@ sqs_CreateQueue:
   synopsis: create an &SQS; queue.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.java2.sqs_example.main
     Python:
       versions:
         - sdk_version: 3
@@ -15,13 +24,22 @@ sqs_CreateQueue:
               snippet_tags:
                 - python.example_code.sqs.CreateQueue
   services:
-    sqs: {CreateQueue}
+    sqs: { CreateQueue }
 sqs_GetQueueUrl:
   title: Get the URL of an &SQS; queue using an &AWS; SDK
   title_abbrev: Get the URL of a queue
   synopsis: get the URL of an &SQS; queue.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.java2.sqs_example.get_queue
     Python:
       versions:
         - sdk_version: 3
@@ -32,13 +50,22 @@ sqs_GetQueueUrl:
               snippet_tags:
                 - python.example_code.sqs.GetQueueUrl
   services:
-    sqs: {GetQueueUrl}
+    sqs: { GetQueueUrl }
 sqs_ListQueues:
   title: List &SQS; queues using an &AWS; SDK
   title_abbrev: List queues
   synopsis: list &SQS; queues.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.java2.sqs_example.list_queues
     Python:
       versions:
         - sdk_version: 3
@@ -48,14 +75,31 @@ sqs_ListQueues:
             - description:
               snippet_tags:
                 - python.example_code.sqs.ListQueues
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/sqs
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.rust.sqs-hello-world
   services:
-    sqs: {ListQueues}
+    sqs: { ListQueues }
 sqs_DeleteQueue:
   title: Delete an &SQS; queue using an &AWS; SDK
   title_abbrev: Delete a queue
   synopsis: delete an &SQS; queue.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.java2.sqs_example.delete_queue
     Python:
       versions:
         - sdk_version: 3
@@ -66,13 +110,22 @@ sqs_DeleteQueue:
               snippet_tags:
                 - python.example_code.sqs.DeleteQueue
   services:
-    sqs: {DeleteQueue}
+    sqs: { DeleteQueue }
 sqs_SendMessage:
   title: Send a message to an &SQS; queue using an &AWS; SDK
   title_abbrev: Send a message to a queue
   synopsis: send a message to an &SQS; queue.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.java2.send_recieve_messages.main
     Python:
       versions:
         - sdk_version: 3
@@ -82,14 +135,31 @@ sqs_SendMessage:
             - description:
               snippet_tags:
                 - python.example_code.sqs.SendMessage
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/sqs
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.rust.sqs-hello-world
   services:
-    sqs: {SendMessage}
+    sqs: { SendMessage }
 sqs_SendMessageBatch:
   title: Send a batch of messages to an &SQS; queue using an &AWS; SDK
   title_abbrev: Send a batch of messages to a queue
   synopsis: send a batch of messages to an &SQS; queue.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.java2.sqs_example.send__multiple_messages
     Python:
       versions:
         - sdk_version: 3
@@ -100,13 +170,22 @@ sqs_SendMessageBatch:
               snippet_tags:
                 - python.example_code.sqs.SendMessageBatch
   services:
-    sqs: {SendMessageBatch}
+    sqs: { SendMessageBatch }
 sqs_ReceiveMessage:
   title: Receive messages from an &SQS; queue using an &AWS; SDK
   title_abbrev: Receive messages from a queue
   synopsis: receive messages from an &SQS; queue.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.java2.sqs_example.retrieve_messages
     Python:
       versions:
         - sdk_version: 3
@@ -116,14 +195,31 @@ sqs_ReceiveMessage:
             - description:
               snippet_tags:
                 - python.example_code.sqs.ReceiveMessage
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/sqs
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.rust.sqs-hello-world
   services:
-    sqs: {ReceiveMessage}
+    sqs: { ReceiveMessage }
 sqs_DeleteMessage:
   title: Delete a message from an &SQS; queue using an &AWS; SDK
   title_abbrev: Delete a message from a queue
   synopsis: delete a message from an &SQS; queue.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.java2.sqs_example.delete_message
     Python:
       versions:
         - sdk_version: 3
@@ -134,7 +230,7 @@ sqs_DeleteMessage:
               snippet_tags:
                 - python.example_code.sqs.DeleteMessage
   services:
-    sqs: {DeleteMessage}
+    sqs: { DeleteMessage }
 sqs_DeleteMessageBatch:
   title: Delete a batch of messages from an &SQS; queue using an &AWS; SDK
   title_abbrev: Delete a batch of messages from a queue
@@ -151,7 +247,7 @@ sqs_DeleteMessageBatch:
               snippet_tags:
                 - python.example_code.sqs.DeleteMessageBatch
   services:
-    sqs: {DeleteMessageBatch}
+    sqs: { DeleteMessageBatch }
 sqs_Scenario_ManageQueues:
   title: Manage &SQS; queues using an &AWS; SDK
   title_abbrev: Manage queues
@@ -194,7 +290,8 @@ sqs_Scenario_SendReceiveBatch:
                 - python.example_code.sqs.SendMessageBatch
                 - python.example_code.sqs.ReceiveMessage
                 - python.example_code.sqs.DeleteMessageBatch
-            - description: Use the wrapper functions to send and receive messages
+            - description:
+                Use the wrapper functions to send and receive messages
                 in batches.
               snippet_tags:
                 - python.example_code.sqs.Scenario_SendReceiveBatch
