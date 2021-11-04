@@ -11,3 +11,8 @@
 <!ENTITY Rust 'SDK for Rust'>
 <!ENTITY guide-rust-dev '&Rustlong; developer guide'>
 <!ENTITY guide-rust-api '&Rustlong; API reference'>
+
+<!-- Route 53 Application Recovery Controller -->
+
+<!ENTITY R53ARClong "Amazon Route 53 Application Recovery Controller">
+<!ENTITY R53ARC "Application Recovery Controller">
