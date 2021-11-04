@@ -1,17 +1,18 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+/// <summary>
+/// Shows how to delete an Amazon Simple Queue Service (Amazon SQS) queue.
+/// This example was created using the AWS SDK for .NET version 3.7 and
+/// .NET Core 5.0.
+/// </summary>
 namespace DeleteQueueExample
 {
+    // snippet-start:[SQS.dotnetv3.DeleteQueueExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.SQS;
 
-    /// <summary>
-    /// Shows how to delete an Amazon Simple Queue Service (Amazon SQS) queue.
-    /// This example was created using the AWS SDK for .NET version 3.7 and
-    /// .NET Core 5.0.
-    /// </summary>
     public class DeleteQueue
     {
         /// <summary>
@@ -39,4 +40,6 @@ namespace DeleteQueueExample
             }
         }
     }
+
+    // snippet-end:[SQS.dotnetv3.DeleteMessageExample]
 }
