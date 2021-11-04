@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[07/22/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -44,7 +44,7 @@ suspend fun main(args:Array<String>) {
         exitProcess(0)
     }
 
-    val instanceID = args[0]
+    val instanceID = args[0];
     val ec2Client = Ec2Client{region = "us-west-2"}
     terminateEC2(ec2Client, instanceID)
 }
@@ -57,11 +57,10 @@ suspend fun terminateEC2(ec2: Ec2Client, instanceID: String) {
         }
 
         val response = ec2.terminateInstances(ti)
-        val list = response.terminatingInstances!!
-        for (i in list.indices) {
-            val sc = list[i]
-            println("The ID of the terminated instance is ${sc.instanceId}")
-        }
+        response.terminatingInstances?.forEach { instance ->
+                println("The ID of the terminated instance is ${instance.instanceId}")
+            }
+
     } catch (e: Ec2Exception) {
         println(e.message)
         exitProcess(0)

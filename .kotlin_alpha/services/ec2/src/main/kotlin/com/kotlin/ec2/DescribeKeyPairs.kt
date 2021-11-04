@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[07/21/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -38,8 +38,9 @@ suspend fun main() {
 suspend fun describeEC2Keys(ec2: Ec2Client) {
     try {
         val response = ec2.describeKeyPairs(DescribeKeyPairsRequest{})
-        for (keyPair in response.keyPairs!!)
+        response.keyPairs?.forEach { keyPair ->
             println("Found key pair with name ${keyPair.keyName} and fingerprint ${ keyPair.keyFingerprint}")
+        }
 
     } catch (e: Ec2Exception) {
         println(e.message)
