@@ -17,7 +17,7 @@ kms_CreateKey:
     kms: { CreateKey }
 kms_Decrypt:
   title: Decrypt ciphertext that was encrypted by a &kms-key; using an &AWS; SDK
-  title_abbrev: Decrypt a &kms-key
+  title_abbrev: Decrypt a &kms-key;
   synopsis: decrypt a &kms-key;
   category:
   languages:
@@ -34,7 +34,7 @@ kms_Decrypt:
 kms_Encrypt:
   title: Encrypt plaintext into ciphertext by using a &kms-key; using an &AWS; SDK
   title_abbrev: Encrypt text using a &kms-key;
-  synopsis: encrypt text using a &kms-key
+  synopsis: encrypt text using a &kms-key;
   category:
   languages:
     Rust:
@@ -114,7 +114,7 @@ kms_ListKeys:
 kms_ReEncrypt:
   title: Decrypts ciphertext and then reencrypts it entirely within &KMS; using an &AWS; SDK
   title_abbrev: Decrypt ciphertext and then reencrypt it
-  synopsis: ecrypt and then reencrypt text
+  synopsis: Decrypt and then reencrypt text
   category:
   languages:
     Rust:
