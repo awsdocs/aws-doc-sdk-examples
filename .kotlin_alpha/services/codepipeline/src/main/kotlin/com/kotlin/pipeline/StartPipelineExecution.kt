@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS CodePipeline]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/19/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -34,7 +34,7 @@ suspend fun main(args:Array<String>) {
         Usage:
             <name> 
         Where:
-           name - the name of the pipeline to retrieve 
+           name - the name of the pipeline. 
     """
 
 
