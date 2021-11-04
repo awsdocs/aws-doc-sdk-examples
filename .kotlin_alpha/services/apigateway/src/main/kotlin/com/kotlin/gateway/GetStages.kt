@@ -3,14 +3,13 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon API Gateway]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[08/09/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-
 
 package com.kotlin.gateway
 
@@ -29,12 +28,11 @@ suspend fun main(args:Array<String>) {
 
         Where:
             restApiId - The string identifier of an existing RestApi. (for example, xxxx99ewyg).
-             
         """
 
-    if (args.size != 2) {
+    if (args.size != 1) {
           println(usage)
-           exitProcess(0)
+          exitProcess(0)
     }
 
     val restApiId = args[0]
@@ -51,12 +49,8 @@ suspend fun getAllStages(apiGateway: ApiGatewayClient, restApiIdVal: String?) {
         }
 
         val response = apiGateway.getStages(stagesRequest)
-        val stages = response.item
-
-        if (stages != null) {
-            for (stage in stages) {
-                println("Stage name is ${stage.stageName}")
-            }
+        response.item?.forEach { stage ->
+            println("Stage name is ${stage.stageName}")
         }
 
     } catch (e: ApiGatewayException) {
