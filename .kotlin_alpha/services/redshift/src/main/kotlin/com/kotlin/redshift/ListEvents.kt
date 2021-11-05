@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Redshift ]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/31/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -58,18 +58,16 @@ suspend fun listRedShiftEvents(redshiftClient: RedshiftClient, clusterId: String
         val describeEventsRequest = DescribeEventsRequest {
             sourceIdentifier=clusterId
             sourceType = SourceType.fromValue(eventSourceType)
-            startTime =aws.smithy.kotlin.runtime.time.Instant.fromEpochSeconds("1626184457")
+            startTime =aws.smithy.kotlin.runtime.time.Instant.fromEpochSeconds("1634058260")
             maxRecords = 20
         }
 
         val eventsResponse = redshiftClient.describeEvents(describeEventsRequest)
-        val events = eventsResponse.events
-        if (events != null) {
-            for (event in events) {
-                println("Source type is ${event.sourceType}")
-                println("Event message is ${event.message}")
-            }
+        eventsResponse.events?.forEach { event ->
+              println("Source type is ${event.sourceType}")
+              println("Event message is ${event.message}")
         }
+
 
     } catch (e: RedshiftException) {
         println(e.message)
