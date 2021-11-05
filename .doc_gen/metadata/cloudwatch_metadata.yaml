@@ -450,12 +450,12 @@ cloudwatch_GetDashboard:
     .NET:
       versions:
         - sdk_version: 3
-        github: dotnetv3/CloudWatch
-        sdkguide:
-        excerpts:
-          - description:
-            snippet_tags:
-              - CloudWatch.dotnetv3.GetDashboardExample
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv3.GetDashboardExample
   services:
     cloudwatch: {GetDashboard}
 cloudwatch_ListDashboards:
@@ -467,11 +467,11 @@ cloudwatch_ListDashboards:
     .NET:
       versions:
         - sdk_version: 3
-        github: dotnetv3/CloudWatch
-        sdkguide:
-        excerpts:
-          - description:
-            snippet_tags:
-              - CloudWatch.dotnetv3.ListDashboardsExample
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv3.ListDashboardsExample
   services:
     cloudwatch: {ListDashboards}
