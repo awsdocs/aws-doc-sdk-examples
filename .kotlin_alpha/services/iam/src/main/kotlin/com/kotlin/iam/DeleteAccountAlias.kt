@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Identity and Access Management (IAM)]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/27/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -35,7 +35,6 @@ suspend fun main(args: Array<String>) {
             <alias> 
         Where:
             alias - the account alias to delete (for example, myawsaccount).  
-
         """
 
     if (args.size != 1) {
@@ -43,7 +42,7 @@ suspend fun main(args: Array<String>) {
         exitProcess(0)
     }
 
-    val alias =  args[0]
+    val alias = args[0]
     val iamClient = IamClient{region="AWS_GLOBAL"}
     deleteIAMAccountAlias(iamClient, alias)
     iamClient.close()
