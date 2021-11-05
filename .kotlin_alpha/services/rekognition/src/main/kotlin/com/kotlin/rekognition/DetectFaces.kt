@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[06-08-2021]
+// snippet-sourcedate:[11-05-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -41,10 +41,10 @@ suspend fun main(args: Array<String>){
             sourceImage - the path to the source image (for example, C:\AWS\pic1.png). 
      """
 
-     if (args.size != 1) {
-         println(usage)
-         exitProcess(0)
-     }
+   if (args.size != 1) {
+        println(usage)
+        exitProcess(0)
+    }
 
     val sourceImage = args[0]
     val rekClient = RekognitionClient{ region = "us-east-1"}
@@ -65,16 +65,13 @@ suspend fun detectFacesinImage(rekClient: RekognitionClient, sourceImage: String
             image = souImage
         }
 
-        val facesResponse = rekClient.detectFaces(facesRequest)
-        val faceDetails = facesResponse.faceDetails
-
-        if (faceDetails != null) {
-            for (face: FaceDetail in faceDetails) {
-                val ageRange = face.ageRange
+        val response = rekClient.detectFaces(facesRequest)
+        response.faceDetails?.forEach { face ->
+               val ageRange = face.ageRange
                 println("The detected face is estimated to be between ${ageRange?.low.toString()} and ${ageRange?.high.toString()} years old.")
                 println("There is a smile ${face.smile?.value.toString()}")
-            }
         }
+
     } catch (e: RekognitionException) {
         println(e.message)
         rekClient.close()

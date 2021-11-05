@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[06-08-2021]
+// snippet-sourcedate:[11-05-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -60,8 +60,8 @@ suspend fun getCelebrityInfo(rekClient: RekognitionClient, idVal: String?) {
         // Display celebrity information.
         println("The celebrity name is ${response.name}")
         println("Further information (if available):")
-        for (url in response.urls!!) {
-            println(url)
+        response.urls?.forEach { url ->
+           println(url)
         }
 
     } catch (e: RekognitionException) {

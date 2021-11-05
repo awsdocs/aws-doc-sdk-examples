@@ -35,7 +35,7 @@ suspend fun main() {
     keyClient.close()
 }
 
-// snippet-start:[kms.kotlin_list_aliases.main
+// snippet-start:[kms.kotlin_list_aliases.main]
 suspend fun listAllAliases(kmsClient: KmsClient) {
         try {
             val aliasesRequest = ListAliasesRequest {
@@ -53,4 +53,4 @@ suspend fun listAllAliases(kmsClient: KmsClient) {
             exitProcess(0)
         }
  }
-// snippet-end:[kms.kotlin_list_aliases.main
+// snippet-end:[kms.kotlin_list_aliases.main]

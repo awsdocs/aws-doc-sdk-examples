@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Personalize]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/02/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -33,7 +33,6 @@ suspend fun main(){
     val personalizeClient = PersonalizeClient{ region = "us-east-1" }
     listDSGroups(personalizeClient)
     personalizeClient.close()
-
 }
 
 //snippet-start:[personalize.kotlin.list_dsgroups.main]
@@ -43,13 +42,10 @@ suspend fun listDSGroups(personalizeClient: PersonalizeClient) {
                 maxResults = 15
             }
 
-            val groupsResponse = personalizeClient.listDatasetGroups(groupsRequest)
-            val groups = groupsResponse.datasetGroups
-            if (groups != null) {
-                for (group in groups) {
-                    println("The DataSet name is ${group.name}")
-                    println("The DataSet ARN is ${group.datasetGroupArn}")
-                }
+            val response = personalizeClient.listDatasetGroups(groupsRequest)
+            response.datasetGroups?.forEach { group ->
+                 println("The data set name is ${group.name}")
+                 println("The data set ARN is ${group.datasetGroupArn}")
             }
 
         } catch (ex: PersonalizeException) {

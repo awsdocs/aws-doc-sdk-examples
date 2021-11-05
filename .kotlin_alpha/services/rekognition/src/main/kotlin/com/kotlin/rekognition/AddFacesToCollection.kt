@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[06-08-2021]
+// snippet-sourcedate:[11-05-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -75,24 +75,19 @@ suspend fun addToCollection(rekClient: RekognitionClient, collectionIdVal: Strin
         // Display the results.
         println("Results for the image")
         println("\n Faces indexed:")
-        val faceRecords = facesResponse.faceRecords
-        if (faceRecords != null) {
-            for (faceRecord in faceRecords) {
-                println("Face ID: ${faceRecord.face?.faceId}")
-                println("Location: ${faceRecord.faceDetail?.boundingBox.toString()}")
-            }
+        facesResponse.faceRecords?.forEach { faceRecord ->
+              println("Face ID: ${faceRecord.face?.faceId}")
+              println("Location: ${faceRecord.faceDetail?.boundingBox.toString()}")
         }
-        val unindexedFaces = facesResponse.unindexedFaces
-        println("Faces not indexed:")
 
-        if (unindexedFaces != null) {
-            for (unindexedFace in unindexedFaces) {
+        println("Faces not indexed:")
+        facesResponse.unindexedFaces?.forEach { unindexedFace ->
                 println("Location: ${unindexedFace.faceDetail?.boundingBox.toString()}")
                 println("Reasons:")
-                for (reason in unindexedFace.reasons!!) {
-                    println("Reason:  $reason")
+
+                unindexedFace.reasons?.forEach { reason ->
+                  println("Reason:  $reason")
                 }
-            }
         }
 
     } catch (e: RekognitionException) {
