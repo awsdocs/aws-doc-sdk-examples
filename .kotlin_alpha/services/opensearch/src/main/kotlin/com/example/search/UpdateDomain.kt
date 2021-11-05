@@ -28,8 +28,7 @@ suspend fun main(args:Array<String>) {
         <domainName>
 
     Where:
-        domainName - The name of the domain to create.
-
+        domainName - The name of the domain to update.
     """
 
     if (args.size != 1) {
