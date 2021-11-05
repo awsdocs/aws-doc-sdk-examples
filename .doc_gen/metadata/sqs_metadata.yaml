@@ -364,7 +364,7 @@ sqs_Scenario_SendReceiveBatch:
   services:
     sqs: {}
 sqs_AuthorizeS3ToSendMessage:
-  title: Authorize an &S3; bucket to send messages to an &SQS; queue.
+  title: Authorize an &S3; bucket to send messages to an &SQS; queue
   title_abbrev: Authorize a bucket to send messages to a queue
   synopsis: authorize an &S3; bucket to send messages to an &SQS; queue.
   category:
@@ -379,9 +379,9 @@ sqs_AuthorizeS3ToSendMessage:
               snippet_tags:
               - SQS.dotnetv3.AuthorizeS3ToSendMessageExample
   services:
-    sqs: {AuthorizeS3ToSendMessage}
+    sqs: {}
 sqs_GetQueueAttributes:
-  title: Get attributes for an &SQS; queue.
+  title: Get attributes for an &SQS; queue
   title_abbrev: Get attributes for a queue
   synopsis: get attributes for an &SQS; queue.
   category:
