@@ -4,7 +4,7 @@
 // snippet-service:[Amazon Route 53]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[5-10-2021]
+// snippet-sourcedate:[11/5/2021]
 // snippet-sourceauthor:[AWS - scmacdon]
 
 /*
@@ -56,13 +56,11 @@ suspend  fun getHealthStatus(route53Client: Route53Client, healthCheckIdVal: Str
                 healthCheckId = healthCheckIdVal
             }
 
-            val statusResponse = route53Client.getHealthCheckStatus(statusRequest)
-            val observations = statusResponse.healthCheckObservations
-            if (observations != null) {
-                for (observation in observations) {
-                    println("(The health check observation status is ${observation.statusReport?.status}")
-                }
+            val response = route53Client.getHealthCheckStatus(statusRequest)
+            response.healthCheckObservations?.forEach { observation ->
+                   println("(The health check observation status is ${observation.statusReport?.status}")
             }
+
         } catch (e: Route53Exception) {
             System.err.println(e.message)
             exitProcess(0)
