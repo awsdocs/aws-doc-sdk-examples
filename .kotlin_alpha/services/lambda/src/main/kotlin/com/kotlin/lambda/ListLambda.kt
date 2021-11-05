@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Lambda]
 //snippet-sourcetype:[full-example]
-// snippet-sourcedate:[04/14/2021]
+// snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -15,7 +15,6 @@ package com.kotlin.lambda
 
 // snippet-start:[lambda.kotlin.list.import]
 import aws.sdk.kotlin.services.lambda.LambdaClient
-import aws.sdk.kotlin.services.lambda.model.FunctionConfiguration
 import aws.sdk.kotlin.services.lambda.model.ListFunctionsRequest
 import aws.sdk.kotlin.services.lambda.model.LambdaException
 import kotlin.system.exitProcess
@@ -46,11 +45,8 @@ suspend fun listFunctions(lambdaClient: LambdaClient) {
         }
 
         val response = lambdaClient.listFunctions(request)
-        val functions = response.functions
-        if (functions != null) {
-            for (function: FunctionConfiguration in functions) {
-                println("The function name is ${function.functionName}")
-            }
+        response.functions?.forEach { function ->
+             println("The function name is ${function.functionName}")
         }
 
     } catch (ex: LambdaException) {

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Elastic Container Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/20/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -39,12 +39,9 @@ suspend fun main(){
 suspend  fun listAllClusters(ecsClient: EcsClient) {
     try {
         val response = ecsClient.listClusters(ListClustersRequest{})
-        val clusters = response.clusterArns
-        if (clusters != null) {
-            for (cluster in clusters) {
-                println("The cluster arn is ${cluster}.")
-            }
-        }
+        response.clusterArns?.forEach { cluster ->
+            println("The cluster arn is ${cluster}.")
+       }
 
     } catch (ex: EcsException) {
         println(ex.message)

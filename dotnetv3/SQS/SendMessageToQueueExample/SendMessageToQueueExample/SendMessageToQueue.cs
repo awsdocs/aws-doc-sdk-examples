@@ -1,18 +1,19 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+/// <summary>
+/// Uses Amazon Simple Queue Service (Amazon SQS) to send a message to an
+/// Amazon SQS queue. This examples uses the AWS SDK for .NET version 3.7
+/// and .NET Core 5.0.
+/// </summary>
 namespace SendMessageToQueueExample
 {
+    // snippet-start:[SQS.dotnetv3.SendMessageToQueueExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.SQS;
     using Amazon.SQS.Model;
 
-    /// <summary>
-    /// Uses Amazon Simple Queue Service (Amazon SQS) to send a message to an
-    /// Amazon SQS queue. This examples uses the AWS SDK for .NET version 3.7
-    /// and .NET Core 5.0.
-    /// </summary>
     public class SendMessageToQueue
     {
         /// <summary>
@@ -47,4 +48,6 @@ namespace SendMessageToQueueExample
             }
         }
     }
+
+    // snippet-end:[SQS.dotnetv3.SendMessageToQueueExample]
 }

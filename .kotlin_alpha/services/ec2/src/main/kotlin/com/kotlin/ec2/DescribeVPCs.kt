@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[07/21/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -58,8 +58,9 @@ suspend fun describeEC2Vpcs(ec2: Ec2Client, vpcId: String) {
         }
 
         val response = ec2.describeVpcs(request)
-        for (vpc in response.vpcs!!)
-                println("Found VPC with id ${vpc.vpcId} VPC state ${vpc.state} and tenancy ${vpc.instanceTenancy}")
+        response.vpcs?.forEach { vpc ->
+            println("Found VPC with id ${vpc.vpcId} VPC state ${vpc.state} and tenancy ${vpc.instanceTenancy}")
+        }
 
     } catch (e: Ec2Exception) {
         println(e.message)

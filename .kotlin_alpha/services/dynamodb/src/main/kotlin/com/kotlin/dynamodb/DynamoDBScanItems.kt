@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/02/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -38,14 +38,14 @@ suspend fun main(args: Array<String>) {
         tableName - the Amazon DynamoDB table to scan (for example, Music3).
     """
 
-       if (args.size != 1) {
+     if (args.size != 1) {
            println(usage)
            exitProcess(0)
-      }
+       }
 
     val tableName = args[0]
     val ddb = DynamoDbClient{ region = "us-east-1" }
-    scanItems(ddb, tableName);
+    scanItems(ddb, tableName)
     ddb.close()
 }
 
@@ -55,15 +55,13 @@ suspend fun scanItems(ddb: DynamoDbClient, tableNameVal: String) {
 
             val scanRequest = ScanRequest {
                 tableName = tableNameVal
-
             }
 
             val response = ddb.scan(scanRequest)
-            for (item in response.items!!) {
-                val keys = item.keys
-                for (key in keys) {
-                    println("The key name is $key\n")
-                    println("The value is ${item[key]}")
+            response.items?.forEach { item ->
+                 item.keys.forEach { key ->
+                     println("The key name is $key\n")
+                     println("The value is ${item[key]}")
                 }
             }
 

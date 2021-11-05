@@ -1,19 +1,20 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+/// <summary>
+/// Shows how to receive Amazon Simple Queue Service messages from an
+/// Amazon SQS queue. The example was created using the AWS SDK for .NET
+/// version 3.7 and .NET Core 5.0.
+/// </summary>
 namespace ReceiveFromQueueExample
 {
+    // snippet-start:[SQS.dotnetv3.ReceiveFromQueueExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Amazon.SQS;
     using Amazon.SQS.Model;
 
-    /// <summary>
-    /// Shows how to receive Amazon Simple Queue Service messages from an
-    /// Amazon SQS queue. The example was created using the AWS SDK for .NET
-    /// version 3.7 and .NET Core 5.0.
-    /// </summary>
     public class ReceiveFromQueue
     {
         public static async Task Main(string[] args)
@@ -68,4 +69,6 @@ namespace ReceiveFromQueueExample
             });
         }
     }
+
+    // snippet-end:[SQS.dotnetv3.ReceiveFromQueueExample]
 }

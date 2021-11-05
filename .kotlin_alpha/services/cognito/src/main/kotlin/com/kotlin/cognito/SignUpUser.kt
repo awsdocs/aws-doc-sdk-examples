@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[08/01/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -52,11 +52,11 @@ suspend fun main(args: Array<String>) {
         exitProcess(0)
     }
 
-    val clientId: String = args.get(0)
-    val secretKey: String = args.get(1)
-    val userName: String = args.get(2)
-    val password: String = args.get(3)
-    val email: String = args.get(4)
+    val clientId: String = args[0]
+    val secretKey: String = args[1]
+    val userName: String = args[2]
+    val password: String = args[3]
+    val email: String = args[4]
 
     val identityProviderClient = CognitoIdentityProviderClient { region = "us-east-1" }
     signUp(identityProviderClient, clientId, secretKey, userName, password, email)
@@ -76,8 +76,7 @@ suspend fun signUp( identityProviderClient: CognitoIdentityProviderClient, clien
 
         try {
             val secretVal = calculateSecretHash(clientId, secretKey, userName)
-
-            val signUpRequest = SignUpRequest() {
+            val signUpRequest = SignUpRequest {
                 userAttributes= attrs
                 username = userName
                 this.clientId = clientId

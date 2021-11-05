@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Athena]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[07/14/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -19,14 +19,6 @@ import aws.sdk.kotlin.services.athena.AthenaClient
 import aws.sdk.kotlin.services.athena.model.ListNamedQueriesRequest
 import kotlin.system.exitProcess
 //snippet-end:[athena.kotlin.ListNamedQueryExample.import]
-
-/**
-To run this Kotlin code example, ensure that you have setup your development environment,
-including your credentials.
-
-For information, see this documentation topic:
-https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
 
 suspend fun main() {
 
@@ -44,9 +36,8 @@ suspend fun listNamedQueries(athenaClient: AthenaClient) {
         }
 
         val listNamedQueriesResponses =  athenaClient.listNamedQueries(listNamedQueriesRequest)
-        for (listNamedQueriesResponse in listNamedQueriesResponses.namedQueryIds!!) {
-
-            println("The Query ID is $listNamedQueriesResponse")
+        listNamedQueriesResponses.namedQueryIds?.forEach { queries ->
+            println("Retrieved account alias $queries")
         }
 
     } catch (ex: AwsServiceException) {

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/11/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -20,13 +20,7 @@ import aws.sdk.kotlin.services.cloudwatchlogs.model.GetLogEventsRequest
 import kotlin.system.exitProcess
 // snippet-end:[cloudwatch.kotlin.get_logs.import]
 
-/**
-To run this Kotlin code example, ensure that you have setup your development environment,
-including your credentials.
 
-For information, see this documentation topic:
-https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
 suspend fun main(args:Array<String>) {
 
     val usage = """
@@ -59,11 +53,9 @@ suspend fun getCWLogEvents(cloudWatchLogsClient: CloudWatchLogsClient, logGroupN
             startFromHead = true
         }
 
-        val eventsList = cloudWatchLogsClient.getLogEvents(getLogEventsRequest).events
-        if (eventsList != null) {
-            for (list in eventsList) {
-                println("Message is: " + list.message)
-            }
+        val eventsList = cloudWatchLogsClient.getLogEvents(getLogEventsRequest)
+        eventsList.events?.forEach { list ->
+            println("Message is: " + list.message)
         }
 
     } catch (ex: CloudWatchException) {

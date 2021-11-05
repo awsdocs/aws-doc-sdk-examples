@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[07/21/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -39,9 +39,10 @@ suspend fun main() {
 suspend fun describeEC2Address(ec2: Ec2Client) {
     try {
         val response = ec2.describeAddresses(DescribeAddressesRequest{})
-        for (address in response.addresses!!) {
+        response.addresses?.forEach { address ->
             println("Found address with public IP ${address.publicIp}, domain is ${address.domain}, allocation id ${address.allocationId} and NIC id: ${address.networkInterfaceId} ")
         }
+
     } catch (e: Ec2Exception) {
         println(e.message)
         exitProcess(0)

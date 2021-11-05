@@ -4,7 +4,7 @@
 // snippet-service:[AWS CloudTrail]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[06/02/2021]
+// snippet-sourcedate:[11/03/2021]
 // snippet-sourceauthor:[AWS - scmacdon]
 
 /*
@@ -22,14 +22,6 @@ import aws.sdk.kotlin.services.cloudtrail.model.CloudTrailException
 import kotlin.system.exitProcess
 //snippet-end:[cloudtrail.kotlin.logging.import]
 
-/**
-To run this Kotlin code example, ensure that you have setup your development environment,
-including your credentials.
-
-For information, see this documentation topic:
-https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
-
 suspend fun main(args: Array<String>) {
 
     val usage = """
@@ -38,7 +30,7 @@ suspend fun main(args: Array<String>) {
         <trailName>  
 
     Where:
-        trailName - the name of the trail to delete. 
+        trailName - the name of the trail. 
         
     """
 
@@ -47,7 +39,7 @@ suspend fun main(args: Array<String>) {
           exitProcess(0)
      }
 
-    val trailName = args.get(0)
+    val trailName = args[0]
     val cloudTrailClient = CloudTrailClient{ region = "us-east-1" }
     startLog(cloudTrailClient, trailName)
     stopLog(cloudTrailClient, trailName)

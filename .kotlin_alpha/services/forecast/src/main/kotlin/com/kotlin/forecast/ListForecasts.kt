@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[04/21/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -21,6 +21,14 @@ import aws.sdk.kotlin.services.forecast.model.ListForecastsRequest
 import kotlin.system.exitProcess
 // snippet-end:[forecast.kotlin.list_forecasts.import]
 
+/**
+To run this Kotlin code example, ensure that you have setup your development environment,
+including your credentials.
+
+For information, see this documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+
 suspend fun main() {
 
     val forecast = ForecastClient{ region = "us-west-2"}
@@ -37,13 +45,9 @@ suspend fun listAllForeCasts(forecast: ForecastClient) {
             }
 
             val response = forecast.listForecasts(request)
-            val forecasts = response.forecasts
-
-            if (forecasts != null) {
-                for (forecast in forecasts) {
-                    println("The name of the forecast is ${forecast.forecastName}")
-                    println("The ARN of the forecast is ${forecast.forecastArn}")
-                }
+            response.forecasts?.forEach { forecast ->
+                println("The name of the forecast is ${forecast.forecastName}")
+                println("The ARN of the forecast is ${forecast.forecastArn}")
             }
 
         } catch (ex: ForecastException) {

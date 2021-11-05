@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Elastic Container Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/20/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -61,12 +61,8 @@ suspend fun getAllTasks(ecsClient: EcsClient, clusterArn: String, taskId: String
         }
 
         val response = ecsClient.describeTasks(tasksRequest)
-
-        val tasks = response.tasks
-        if (tasks != null) {
-            for (task in tasks) {
-                System.out.println("The task ARN is " + task.taskDefinitionArn)
-            }
+        response.tasks?.forEach { task ->
+            println("The task ARN is " + task.taskDefinitionArn)
         }
 
     } catch (ex: EcsException) {

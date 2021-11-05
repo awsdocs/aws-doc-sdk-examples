@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kinesis Data Firehose]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/24/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -37,12 +37,9 @@ suspend fun main() {
 // snippet-start:[firehose.kotlin.list_streams.main]
 suspend fun listStreams(firehoseClient: FirehoseClient) {
     try {
-        val streamsResponse = firehoseClient.listDeliveryStreams(ListDeliveryStreamsRequest{})
-        val items = streamsResponse.deliveryStreamNames
-        if (items != null) {
-            for (item in items) {
-                println("The delivery stream name is $item")
-            }
+        val response = firehoseClient.listDeliveryStreams(ListDeliveryStreamsRequest{})
+        response.deliveryStreamNames?.forEach { item ->
+            println("The delivery stream name is $item")
         }
 
     } catch (ex: FirehoseException) {

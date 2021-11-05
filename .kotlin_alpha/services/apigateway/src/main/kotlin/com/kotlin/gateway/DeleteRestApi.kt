@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon API Gateway]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[08/09/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -29,12 +29,11 @@ suspend fun main(args:Array<String>) {
 
     Where:
         restApiId - The string identifier of an existing RestApi. (for example, xxxx99ewyg).
-        
     """
 
     if (args.size != 1) {
         println(usage)
-        System.exit(1)
+        exitProcess(1)
     }
 
     val restApiId = args[0]

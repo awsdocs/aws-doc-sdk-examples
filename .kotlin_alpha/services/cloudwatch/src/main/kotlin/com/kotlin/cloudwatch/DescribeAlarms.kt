@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/11/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -18,17 +18,8 @@ package com.kotlin.cloudwatch
 import aws.sdk.kotlin.services.cloudwatch.CloudWatchClient
 import aws.sdk.kotlin.services.cloudwatch.model.CloudWatchException
 import aws.sdk.kotlin.services.cloudwatch.model.DescribeAlarmsRequest
-import aws.sdk.kotlin.services.cloudwatch.model.DescribeAlarmsResponse
 import kotlin.system.exitProcess
 // snippet-end:[cloudwatch.kotlin.describe_alarms.import]
-
-/**
-To run this Kotlin code example, ensure that you have setup your development environment,
-including your credentials.
-
-For information, see this documentation topic:
-https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
 
 suspend fun main() {
 
@@ -41,29 +32,10 @@ suspend fun main() {
 suspend fun desCWAlarms(cwClient: CloudWatchClient) {
 
     try {
-        var done = false
-        var newToken: String? = null
-        while (!done) {
-            var response: DescribeAlarmsResponse
-
-            if (newToken == null) {
-                val request = DescribeAlarmsRequest{}
-                response = cwClient.describeAlarms(request)
-            } else {
-
-                val request = DescribeAlarmsRequest {
-                    nextToken = newToken
-                }
-                response = cwClient.describeAlarms(request)
-            }
-            for (alarm in response.metricAlarms!!)
-                println("Retrieved alarm ${alarm.alarmName}")
-
-            if (response.nextToken == null)
-                done = true
-            else
-                newToken = response.nextToken
-        }
+           val response = cwClient.describeAlarms(DescribeAlarmsRequest {})
+           response.metricAlarms?.forEach { alarm ->
+               println("Retrieved alarm ${alarm.alarmName}")
+           }
 
     } catch (ex: CloudWatchException) {
         println(ex.message)
