@@ -1,9 +1,9 @@
-/snippet-sourcedescription:[ListObjects.kt demonstrates how to list objects located in a given Amazon Simple Storage Service (Amazon S3) bucket.]
+//snippet-sourcedescription:[ListObjects.kt demonstrates how to list objects located in a given Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/06/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -57,14 +57,11 @@ suspend fun listBucketObjects(s3Client: S3Client, bucketName: String) {
                 bucket = bucketName
             }
 
-            val res = s3Client.listObjects(listObjects)
-            val objects: List<Object>? = res.contents
-            if (objects != null) {
-                for (myObject in objects) {
+            val response = s3Client.listObjects(listObjects)
+            response.contents?.forEach { myObject ->
                     println("The name of the key is ${myObject.key}")
                     println("The object is ${calKb(myObject.size)} KBs")
                     println("The owner is ${myObject.owner}" )
-                }
             }
 
         } catch (e: S3Exception) {
