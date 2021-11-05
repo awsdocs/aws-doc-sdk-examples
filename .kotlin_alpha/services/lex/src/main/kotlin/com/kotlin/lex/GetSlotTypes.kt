@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Lex]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/25/2020]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -38,15 +38,12 @@ suspend fun main() {
 // snippet-start:[lex.kotlin.get_slot_types.main]
 suspend fun getSlotsInfo(lexClient: LexModelBuildingClient) {
     try {
-        val slotTypesResponse = lexClient.getSlotTypes(GetSlotTypesRequest{ })
-        val slots = slotTypesResponse.slotTypes
-        if (slots != null) {
-            for (slot in slots) {
-                println("Slot name is ${slot.name}.")
-                println("Slot description is ${slot.description}.")
-                println("Slot version is ${slot.version}.")
-            }
-        }
+        val response = lexClient.getSlotTypes(GetSlotTypesRequest{ })
+        response.slotTypes?.forEach { slot ->
+              println("Slot name is ${slot.name}.")
+              println("Slot description is ${slot.description}.")
+              println("Slot version is ${slot.version}.")
+       }
 
     } catch (ex:  LexModelBuildingException) {
         println(ex.message)

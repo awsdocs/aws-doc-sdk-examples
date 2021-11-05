@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaStore]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -38,13 +38,11 @@ suspend fun main(){
 //snippet-start:[mediastore.kotlin.list_containers.main]
 suspend fun listAllContainers(mediaStoreClient: MediaStoreClient) {
         try {
-            val containersResponse = mediaStoreClient.listContainers(ListContainersRequest{})
-            val containers = containersResponse.containers
-            if (containers != null) {
-                for (container in containers) {
+            val response = mediaStoreClient.listContainers(ListContainersRequest{})
+            response.containers?.forEach { container ->
                     println("Container name is ${container.name}")
-                }
             }
+
         } catch (e: MediaStoreException) {
             println(e.message)
             mediaStoreClient.close()

@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[06-08-2021]
+// snippet-sourcedate:[11-05-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -36,14 +36,13 @@ suspend fun main(args: Array<String>){
             <sourceImage> 
 
         Where:
-            "sourceImage - the name of the image in an Amazon S3 bucket (for example, people.png).
-          
+            "sourceImage - the name of the image  (for example, people.png).
     """
 
-     if (args.size != 1) {
+    if (args.size != 1) {
          println(usage)
          exitProcess(0)
-     }
+    }
 
     val sourceImage = args[0]
     val rekClient = RekognitionClient{ region = "us-east-1"}
@@ -63,21 +62,17 @@ suspend fun recognizeAllCelebrities(rekClient: RekognitionClient, sourceImage: S
         val request = RecognizeCelebritiesRequest{
             image = souImage
         }
-        val result = rekClient.recognizeCelebrities(request)
-        val celebs = result.celebrityFaces
-        println("${celebs?.size} celebrity(s) were recognized." )
-
-        if (celebs != null) {
-            for (celebrity in celebs) {
+        val response = rekClient.recognizeCelebrities(request)
+        response.celebrityFaces?.forEach { celebrity ->
                 println("Celebrity recognized: ${celebrity.name}")
                 println("Celebrity ID:${celebrity.id}")
                 println("Further information (if available):")
-                for (url in celebrity.urls!!) {
-                    println(url)
+                celebrity.urls?.forEach { url ->
+                      println(url)
                 }
              }
-        }
-        println("${result.unrecognizedFaces?.size.toString()} face(s) were unrecognized.")
+
+        println("${response.unrecognizedFaces?.size.toString()} face(s) were unrecognized.")
 
     } catch (e: RekognitionException) {
         println(e.message)

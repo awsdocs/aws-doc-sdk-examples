@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/11/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -21,13 +21,6 @@ import aws.sdk.kotlin.services.cloudwatchevents.model.PutEventsRequestEntry
 import kotlin.system.exitProcess
 // snippet-end:[cloudwatch.kotlin.put_events.import]
 
-/**
-To run this Kotlin code example, ensure that you have setup your development environment,
-including your credentials.
-
-For information, see this documentation topic:
-https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
 suspend fun main(args:Array<String>) {
 
     val usage = """

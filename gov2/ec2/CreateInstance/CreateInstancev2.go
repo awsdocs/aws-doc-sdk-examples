@@ -67,11 +67,14 @@ func main() {
 
 	client := ec2.NewFromConfig(cfg)
 
+	// Create separate values if required.
+	minMaxCount := int32(1)
+
 	input := &ec2.RunInstancesInput{
 		ImageId:      aws.String("ami-e7527ed7"),
 		InstanceType: types.InstanceTypeT2Micro,
-		MinCount:     1,
-		MaxCount:     1,
+		MinCount:     &minMaxCount,
+		MaxCount:     &minMaxCount,
 	}
 
 	result, err := MakeInstance(context.TODO(), client, input)

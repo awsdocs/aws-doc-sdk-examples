@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Comprehend]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[03/04/2021]
+// snippet-sourcedate:[11/04/2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -47,15 +47,10 @@ suspend fun detectAllSyntax(comClient: ComprehendClient, textVal: String?) {
                  languageCode = SyntaxLanguageCode.fromValue("en")
              }
 
-            val resp = comClient.detectSyntax(detectSyntaxRequest)
-            val syntaxTokens = resp.syntaxTokens
-
-            if (syntaxTokens != null) {
-
-                for (token in syntaxTokens) {
-                    println("Language is ${token.text}")
-                    println("Part of speech is ${token.partOfSpeech.toString()}")
-                }
+            val response = comClient.detectSyntax(detectSyntaxRequest)
+            response.syntaxTokens?.forEach { token ->
+                println("Language is ${token.text}")
+                println("Part of speech is ${token.partOfSpeech.toString()}")
             }
 
         } catch (ex: ComprehendException) {

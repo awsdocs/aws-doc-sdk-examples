@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS CodePipeline]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/29/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -18,7 +18,6 @@ package com.kotlin.pipeline
 import aws.sdk.kotlin.services.codepipeline.CodePipelineClient
 import aws.sdk.kotlin.services.codepipeline.model.CodePipelineException
 import aws.sdk.kotlin.services.codepipeline.model.ListPipelinesRequest
-import aws.sdk.kotlin.services.codepipeline.model.PipelineSummary
 import kotlin.system.exitProcess
 // snippet-end:[pipeline.kotlin.list_pipelines.import]
 
@@ -33,21 +32,18 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun main() {
 
-        val  pipelineClient = CodePipelineClient{region = "us-east-1"}
-        getAllPipelines(pipelineClient)
-        pipelineClient.close()
- }
+    val pipelineClient = CodePipelineClient { region = "us-east-1" }
+    getAllPipelines(pipelineClient)
+    pipelineClient.close()
+}
 
 // snippet-start:[pipeline.kotlin.list_pipelines.main]
 suspend  fun getAllPipelines(pipelineClient: CodePipelineClient) {
 
     try {
-        val response = pipelineClient.listPipelines(ListPipelinesRequest{})
-        val pipelines: List<PipelineSummary>? = response.pipelines
-        if (pipelines != null) {
-            for (pipeline in pipelines) {
-                println("The name of the pipeline is " + pipeline.name)
-            }
+        val response = pipelineClient.listPipelines(ListPipelinesRequest {})
+        response.pipelines?.forEach { pipeline ->
+            println("The name of the pipeline is ${pipeline.name}")
         }
 
     } catch (e: CodePipelineException) {
@@ -55,5 +51,6 @@ suspend  fun getAllPipelines(pipelineClient: CodePipelineClient) {
         pipelineClient.close()
         exitProcess(0)
     }
+
 }
 // snippet-end:[pipeline.kotlin.list_pipelines.main]

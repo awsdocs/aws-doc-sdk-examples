@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon API Gateway]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[08/09/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -28,17 +28,16 @@ suspend fun main(args:Array<String>) {
 
     Where:
         restApiId - The string identifier of an existing RestApi. (for example, xxxx99ewyg).
-        
     """
 
-    if (args.size != 1) {
+   if (args.size != 1) {
         println(usage)
-        System.exit(1)
-    }
+        exitProcess(1)
+   }
 
     val restApiId = args[0]
     val apiGatewayClient = ApiGatewayClient{region ="us-east-1"}
-    getAllDeployments(apiGatewayClient, restApiId);
+    getAllDeployments(apiGatewayClient, restApiId)
     apiGatewayClient.close()
 }
 
@@ -50,12 +49,9 @@ suspend fun getAllDeployments(apiGateway: ApiGatewayClient, restApiIdVal: String
         }
 
         val response = apiGateway.getDeployments(request)
-        val deployments = response.items
-        if (deployments != null) {
-            for (deployment in deployments) {
-                println("The deployment id is ${deployment.id}")
-                println("The deployment description is ${deployment.description}")
-            }
+        response.items?.forEach { deployment ->
+            println("The deployment id is ${deployment.id}")
+            println("The deployment description is ${deployment.description}")
         }
 
     } catch (e: ApiGatewayException) {

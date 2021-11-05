@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[06-09-2021]
+// snippet-sourcedate:[11-05-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -108,7 +108,7 @@ suspend fun getFaceResults(rekClient: RekognitionClient) {
         var paginationToken: String? = null
         var faceDetectionResponse: GetFaceDetectionResponse? = null
         var finished = false
-        var status = ""
+        var status:String
         var yy = 0
         do {
             if (faceDetectionResponse != null)
@@ -135,32 +135,22 @@ suspend fun getFaceResults(rekClient: RekognitionClient) {
             finished = false
 
             // Proceed when the job is done - otherwise VideoMetadata is null
-            val videoMetaData = faceDetectionResponse!!.videoMetadata
-            if (videoMetaData != null)
-                println("Format: ${videoMetaData.format}")
+            val videoMetaData = faceDetectionResponse?.videoMetadata
+            println("Format: ${videoMetaData?.format}")
+            println("Codec: ${videoMetaData?.codec}")
+            println("Duration: ${videoMetaData?.durationMillis}")
+            println("FrameRate: ${videoMetaData?.frameRate}")
 
-            if (videoMetaData != null)
-                println("Codec: ${videoMetaData.codec}")
-
-            if (videoMetaData != null)
-                println("Duration: ${videoMetaData.durationMillis}")
-
-            if (videoMetaData != null)
-                println("FrameRate: ${videoMetaData.frameRate}")
-
-            // Show face information
-            val faces = faceDetectionResponse.faces
-            if (faces != null) {
-                for (face in faces) {
-                    println("Age: ${face.face?.ageRange.toString()}")
-                    println("Face: ${face.face?.beard.toString()}")
-                    println("Eye glasses: ${face?.face?.eyeglasses.toString()}")
-                    println("Mustache: ${face.face?.mustache.toString()}")
-                    println("Smile: ${face.face?.smile.toString()}")
-
-                }
+            // Show face information.
+            faceDetectionResponse?.faces?.forEach { face ->
+                  println("Age: ${face.face?.ageRange.toString()}")
+                  println("Face: ${face.face?.beard.toString()}")
+                  println("Eye glasses: ${face?.face?.eyeglasses.toString()}")
+                  println("Mustache: ${face.face?.mustache.toString()}")
+                  println("Smile: ${face.face?.smile.toString()}")
             }
-        } while (faceDetectionResponse != null && faceDetectionResponse.nextToken != null)
+
+        } while (faceDetectionResponse?.nextToken != null)
 
     } catch (e: RekognitionException) {
         println(e.message)

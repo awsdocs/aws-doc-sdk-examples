@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[07/21/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -61,14 +61,10 @@ suspend fun describeEC2Tags(ec2: Ec2Client, resourceIdVal: String) {
             filters = listOf(filter)
         }
 
-        val describeTagsResponse =  ec2.describeTags(request)
-        val tags = describeTagsResponse.tags
-
-        if (tags != null) {
-            for (tag in tags) {
-                println("Tag key is ${tag.key}")
-                println("Tag value is ${tag.value}")
-            }
+        val response =  ec2.describeTags(request)
+        response.tags?.forEach { tag ->
+            println("Tag key is ${tag.key}")
+            println("Tag value is ${tag.value}")
         }
 
     } catch (e: Ec2Exception) {

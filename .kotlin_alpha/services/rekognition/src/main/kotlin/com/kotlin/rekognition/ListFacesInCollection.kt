@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[06-08-2021]
+// snippet-sourcedate:[11-05-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -55,15 +55,11 @@ suspend fun listFacesCollection(rekClient: RekognitionClient, collectionIdVal: S
             maxResults =10
         }
 
-        val facesResponse = rekClient.listFaces(facesRequest)
-        val faces = facesResponse.faces
-
-        if (faces != null) {
-            for (face in faces) {
+        val response = rekClient.listFaces(facesRequest)
+        response.faces?.forEach { face ->
                 println("Confidence level there is a face: ${face.confidence}")
                 println("The face Id value is ${face.faceId}")
             }
-        }
 
     } catch (e: RekognitionException) {
         println(e.message)

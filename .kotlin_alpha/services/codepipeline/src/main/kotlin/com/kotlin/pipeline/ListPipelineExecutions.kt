@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS CodePipeline]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/19/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -27,16 +27,15 @@ suspend fun main(args:Array<String>) {
         Usage:
             <name> 
         Where:
-           name - the name of the pipeline to retrieve 
+           name - the name of the pipeline.
     """
 
+    if (args.size != 1) {
+         println(usage)
+         exitProcess(1)
+    }
 
-    // if (args.size != 1) {
-    //     println(usage)
-    //     exitProcess(1)
-    // }
-
-    val name =  "MyFirstPipeline" //args[0]
+    val name = args[0]
     val  pipelineClient = CodePipelineClient{region = "us-east-1"}
     listExecutions(pipelineClient, name)
     pipelineClient.close()
@@ -51,13 +50,9 @@ suspend fun listExecutions(pipelineClient: CodePipelineClient, name: String?) {
         }
 
         val response = pipelineClient.listPipelineExecutions(executionsRequest)
-        val executionSummaryList = response.pipelineExecutionSummaries
-
-        if (executionSummaryList != null) {
-            for (exe in executionSummaryList) {
-                println("The pipeline execution id is ${exe.pipelineExecutionId}")
-                println("The execution status is ${exe.status}")
-            }
+        response.pipelineExecutionSummaries?.forEach { exe ->
+            println("The pipeline execution id is ${exe.pipelineExecutionId}")
+            println("The execution status is ${exe.status}")
         }
 
     } catch (e: CodePipelineException) {

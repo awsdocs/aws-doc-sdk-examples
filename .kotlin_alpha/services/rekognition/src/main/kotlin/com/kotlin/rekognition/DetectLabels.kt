@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[06-08-2021]
+// snippet-sourcedate:[11-05-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -37,7 +37,6 @@ suspend fun main(args: Array<String>){
 
         Where:
             sourceImage - the path to the source image (for example, C:\AWS\pic1.png). 
-            
     """
 
      if (args.size != 1) {
@@ -53,7 +52,7 @@ suspend fun main(args: Array<String>){
 }
 
 // snippet-start:[rekognition.kotlin.detect_labels.main]
-suspend fun detectImageLabels(rekClient: RekognitionClient, sourceImage: String?) {
+suspend fun detectImageLabels(rekClient: RekognitionClient, sourceImage: String) {
     try {
 
         // Create an Image object for the source image.
@@ -65,14 +64,9 @@ suspend fun detectImageLabels(rekClient: RekognitionClient, sourceImage: String?
             maxLabels = 10
         }
 
-        val labelsResponse = rekClient.detectLabels(detectLabelsRequest)
-        val labels = labelsResponse.labels
-        println("Detected labels for the given photo")
-
-        if (labels != null) {
-            for (label in labels) {
-                println("${label.name.toString()} : ${label.confidence.toString()}")
-            }
+        val response = rekClient.detectLabels(detectLabelsRequest)
+        response.labels?.forEach { label ->
+               println("${label.name.toString()} : ${label.confidence.toString()}")
         }
 
     } catch (e: RekognitionException) {

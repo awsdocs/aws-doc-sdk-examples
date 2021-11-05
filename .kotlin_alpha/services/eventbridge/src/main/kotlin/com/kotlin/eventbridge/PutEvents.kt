@@ -3,7 +3,7 @@
 // snippet-service:[Amazon EventBridge]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[03/04/2021]
+// snippet-sourcedate:[11/04/2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -55,7 +55,7 @@ suspend fun main(args: Array<String>) {
 suspend fun putEBEvents(eventBrClient: EventBridgeClient, resourceArn: String, resourceArn2: String) {
         try {
             // Populate a List with the resource ARN values.
-            val resourcesOb: MutableList<String> = ArrayList()
+            val resourcesOb  = mutableListOf<String>()
             resourcesOb.add(resourceArn)
             resourcesOb.add(resourceArn2)
 
@@ -70,9 +70,10 @@ suspend fun putEBEvents(eventBrClient: EventBridgeClient, resourceArn: String, r
                 entries = listOf(reqEntry)
             }
 
-            val result = eventBrClient.putEvents(eventsRequest)
-            for (resultEntry in result.entries!!) {
-                if (resultEntry.eventId != null) {
+            val response = eventBrClient.putEvents(eventsRequest)
+            response.entries?.forEach { resultEntry ->
+
+               if (resultEntry.eventId != null) {
                     println("Event Id is ${resultEntry.eventId}")
                 } else {
                     println("Injection failed with Error Code ${resultEntry.errorCode}")

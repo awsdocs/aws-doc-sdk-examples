@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[07/21/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -44,15 +44,16 @@ suspend fun describeEC2Instances(ec2: Ec2Client) {
             }
 
         val response = ec2.describeInstances(request)
-            for (reservation in response.reservations!!) {
-                for (instance in reservation.instances!!) {
-                    println("Instance Id is ${instance.instanceId}")
-                    println("Image id is ${instance.imageId}")
-                    println("Instance type is ${instance.instanceType}")
-                    println("Instance state name is ${instance.state?.name}")
-                    println("monitoring information is ${instance.monitoring?.state}")
-                }
+        response.reservations?.forEach { reservation ->
+
+            reservation.instances?.forEach { instance ->
+                println("Instance Id is ${instance.instanceId}")
+                println("Image id is ${instance.imageId}")
+                println("Instance type is ${instance.instanceType}")
+                println("Instance state name is ${instance.state?.name}")
+                println("monitoring information is ${instance.monitoring?.state}")
             }
+        }
 
     } catch (e: Ec2Exception) {
         println(e.message)

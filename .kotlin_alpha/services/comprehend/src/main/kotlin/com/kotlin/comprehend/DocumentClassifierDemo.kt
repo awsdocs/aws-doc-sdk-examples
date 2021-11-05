@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Comprehend]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[03/04/2021]
+// snippet-sourcedate:[11/04/2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -50,7 +50,6 @@ suspend fun main(args: Array<String>) {
     val dataAccessRoleArn = args[0]
     val s3Uri = args[1]
     val documentClassifierName = args[2]
-
     val comprehendClient = ComprehendClient{
         region="us-east-1"
     }

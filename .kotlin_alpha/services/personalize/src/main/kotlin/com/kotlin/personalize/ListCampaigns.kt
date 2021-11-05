@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Personalize]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/02/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -55,16 +55,13 @@ suspend fun listAllCampaigns(personalizeClient: PersonalizeClient, solutionArnVa
 
             val campaignsRequest= ListCampaignsRequest {
                 maxResults =10
-                solutionArn = solutionArn
+                solutionArn = solutionArnVal
             }
 
             val response = personalizeClient.listCampaigns(campaignsRequest)
-            val campaigns = response.campaigns
-            if (campaigns != null) {
-                for (campaign in campaigns) {
+            response.campaigns?.forEach { campaign ->
                     println("Campaign name is ${campaign.name}")
                     println("Campaign ARN is ${campaign.campaignArn}")
-                }
             }
 
         } catch (ex: PersonalizeException) {

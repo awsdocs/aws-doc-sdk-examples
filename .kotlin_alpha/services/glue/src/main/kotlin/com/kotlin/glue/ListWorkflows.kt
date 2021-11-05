@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Glue]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[6/4/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -41,12 +41,9 @@ suspend fun listAllWorkflows(glueClient: GlueClient) {
             maxResults =10
         }
 
-        val workflowsResponse = glueClient.listWorkflows(workflowsRequest)
-        val workflows = workflowsResponse.workflows
-
-        if (workflows != null) {
-            for (workflow in workflows)
-                println("Workflow name is: $workflow")
+        val response = glueClient.listWorkflows(workflowsRequest)
+        response.workflows?.forEach { workflow ->
+           println("Workflow name is: $workflow")
         }
 
     } catch (e: GlueException) {

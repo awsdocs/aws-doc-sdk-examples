@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Identity and Access Management (IAM)]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/27/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -35,7 +35,6 @@ suspend fun main(args: Array<String>) {
             <accessId> 
         Where:
             accessId - an access key id that you can obtain from the AWS Management Console. 
-
         """
 
     if (args.size != 1) {
@@ -64,6 +63,5 @@ suspend fun getAccessKeyLastUsed(iamClient: IamClient, accessId: String?) {
         iamClient.close()
         exitProcess(0)
     }
-    println("Done")
 }
 // snippet-end:[iam.kotlin.access_key_last_used.main]

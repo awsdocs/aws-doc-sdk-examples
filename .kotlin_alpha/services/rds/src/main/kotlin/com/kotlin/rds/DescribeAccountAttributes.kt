@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[5/28/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -40,13 +40,10 @@ suspend fun getAccountAttributes(rdsClient: RdsClient) {
 
     try {
         val response = rdsClient.describeAccountAttributes(DescribeAccountAttributesRequest{})
-        val quotasList = response.accountQuotas
-
-        if (quotasList != null) {
-            for (quotas in quotasList) {
+        response.accountQuotas?.forEach { quotas ->
+        val response = response.accountQuotas
                 println("Name is: ${quotas.accountQuotaName}")
                 println("Max value is ${quotas.max}")
-            }
         }
 
     } catch (e: RdsException) {

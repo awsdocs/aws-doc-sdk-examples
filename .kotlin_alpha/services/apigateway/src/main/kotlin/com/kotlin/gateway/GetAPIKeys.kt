@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon API Gateway]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[08/09/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -31,12 +31,10 @@ suspend fun main() {
 suspend fun getKeys(apiGateway: ApiGatewayClient) {
     try {
         val response = apiGateway.getApiKeys(GetApiKeysRequest { })
-        val keys = response.items
-        if (keys != null) {
-            for (key in keys) {
-                println("key id is ${key.id}")
-            }
+        response.items?.forEach { key ->
+            println("Key is $key")
         }
+
     } catch (e: ApiGatewayException) {
         println(e.message)
         apiGateway.close()
