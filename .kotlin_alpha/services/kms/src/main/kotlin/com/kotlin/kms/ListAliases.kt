@@ -13,12 +13,12 @@
 
 package com.kotlin.kms
 
-// snippet-start:[kms.kotlin_list_aliases.import
+// snippet-start:[kms.kotlin_list_aliases.import]
 import aws.sdk.kotlin.services.kms.KmsClient
 import aws.sdk.kotlin.services.kms.model.ListAliasesRequest
 import aws.sdk.kotlin.services.kms.model.KmsException
 import kotlin.system.exitProcess
-// snippet-end:[kms.kotlin_list_aliases.import
+// snippet-end:[kms.kotlin_list_aliases.import]
 
 /**
 To run this Kotlin code example, ensure that you have setup your development environment,
