@@ -5,13 +5,13 @@
 
 package com.example.route53recoverycluster;
 
+//snippet-start:[route53_rec.java2.update_routing_state.import]
 import com.fasterxml.jackson.databind.ObjectMapper;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.route53recoverycluster.Route53RecoveryClusterClient;
 import software.amazon.awssdk.services.route53recoverycluster.model.UpdateRoutingControlStateRequest;
 import software.amazon.awssdk.services.route53recoverycluster.model.UpdateRoutingControlStateResponse;
 import software.amazon.awssdk.services.route53recoverycontrolconfig.model.ClusterEndpoint;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+//snippet-end:[route53_rec.java2.update_routing_state.import]
 
 /**
  * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
@@ -31,12 +32,12 @@ public class UpdateRoutingControlState {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
-            "UpdateRoutingControlState - update the current state of the routing \n\n" +
-            "Usage: UpdateRoutingControlState routingControlArn endpointsFile\n\n" +
-            "Where:\n" +
-            "  routingControlArn - Arn of the routing control.\n\n" +
-            "  routingControlState - New state for the routing control.\n\n" +
-            "  endpointsFile - path to the endpoints file.\n\n";
+                "UpdateRoutingControlState - update the current state of the routing \n\n" +
+                "Usage: UpdateRoutingControlState routingControlArn endpointsFile\n\n" +
+                "Where:\n" +
+                "  routingControlArn - Arn of the routing control.\n\n" +
+                "  routingControlState - New state for the routing control.\n\n" +
+                "  endpointsFile - path to the endpoints file.\n\n";
 
         if (args.length != 3) {
             System.out.println(USAGE);
@@ -48,18 +49,19 @@ public class UpdateRoutingControlState {
         List<ClusterEndpoint> clusterEndpoints = getClusterEndpoints(endpointsFile);
 
         UpdateRoutingControlStateResponse response = updateRoutingControlState(clusterEndpoints, routingControlArn,
-            routingControlState);
+                routingControlState);
         System.out.println("UpdateRoutingControlStateResponse: " + response);
     }
 
+    //snippet-start:[route53_rec.java2.update_routing_state.main]
     private static List<ClusterEndpoint> getClusterEndpoints(final String endpointsFile) {
         try {
             ClusterEndpoints endpoints =
-                (new ObjectMapper().readValue(new File(endpointsFile), ClusterEndpoints.class));
+                    (new ObjectMapper().readValue(new File(endpointsFile), ClusterEndpoints.class));
             return Arrays.asList(endpoints.getClusterEndpoints()).stream().map(
-                endpoint -> ClusterEndpoint.builder().endpoint(endpoint.getEndpoint()).region(endpoint.getRegion())
-                    .build()).collect(
-                Collectors.toList());
+                    endpoint -> ClusterEndpoint.builder().endpoint(endpoint.getEndpoint()).region(endpoint.getRegion())
+                            .build()).collect(
+                    Collectors.toList());
         } catch (IOException e) {
             System.out.println(e);
             return new ArrayList<>();
@@ -73,16 +75,17 @@ public class UpdateRoutingControlState {
             try {
                 System.out.println(clusterEndpoint);
                 Route53RecoveryClusterClient client = Route53RecoveryClusterClient.builder()
-                    .endpointOverride(URI.create(clusterEndpoint.endpoint()))
-                    .region(Region.of(clusterEndpoint.region())).build();
+                        .endpointOverride(URI.create(clusterEndpoint.endpoint()))
+                        .region(Region.of(clusterEndpoint.region()))
+                        .build();
                 return client.updateRoutingControlState(
-                    UpdateRoutingControlStateRequest.builder()
-                        .routingControlArn(routingControlArn).routingControlState(routingControlState).build());
+                        UpdateRoutingControlStateRequest.builder()
+                                .routingControlArn(routingControlArn).routingControlState(routingControlState).build());
             } catch (Exception exception) {
                 System.out.println(exception);
             }
         }
         return null;
     }
+    //snippet-end:[route53_rec.java2.update_routing_state.main]
 }
-
