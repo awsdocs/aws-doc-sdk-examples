@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Secrets Manager]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/02/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -23,7 +23,8 @@ import kotlin.system.exitProcess
 suspend fun main(args: Array<String>) {
 
     val usage = """
-    Usage: <secretName> <secretValue>
+    Usage: 
+        <secretName> <secretValue>
 
     Where:
          secretName - the name of the secret (for example, tutorials/MyFirstSecret).
@@ -47,7 +48,6 @@ suspend fun main(args: Array<String>) {
 suspend fun createNewSecret(secretsClient: SecretsManagerClient, secretName: String?, secretValue: String?): String? {
 
         try {
-
             val secretRequest  = CreateSecretRequest {
                 name = secretName
                 description = "This secret was created by the AWS Secrets Manager Kotlin API"

@@ -66,16 +66,11 @@ suspend fun analyzeDoc(textractClient: TextractClient, sourceDoc: String?) {
              document = myDoc
         }
 
-        val analyzeDocument = textractClient.analyzeDocument(analyzeDocumentRequest)
-        val docInfo = analyzeDocument.blocks
+        val response = textractClient.analyzeDocument(analyzeDocumentRequest)
+        response.blocks?.forEach { block ->
+               println("The block type is ${block.blockType.toString()}")
+         }
 
-        val blockIterator = docInfo?.iterator()
-        if (blockIterator != null) {
-            while (blockIterator.hasNext()) {
-                val block = blockIterator.next()
-                println("The block type is " + block.blockType.toString())
-            }
-        }
     } catch (ex: TextractException) {
         println(ex.message)
         textractClient.close()

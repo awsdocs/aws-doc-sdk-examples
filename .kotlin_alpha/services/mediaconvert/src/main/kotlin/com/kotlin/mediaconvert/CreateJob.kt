@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaConvert]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/28/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[smacdon - AWS ]
 
 /*
@@ -15,10 +15,12 @@ package com.kotlin.mediaconvert
 
 
 // snippet-start:[mediaconvert.kotlin.createjob.import]
-import aws.sdk.kotlin.runtime.endpoint.Endpoint
-import aws.sdk.kotlin.runtime.endpoint.EndpointResolver
+import aws.sdk.kotlin.runtime.endpoint.AwsEndpoint
+import aws.sdk.kotlin.runtime.endpoint.AwsEndpointResolver
+import aws.sdk.kotlin.runtime.endpoint.CredentialScope
 import aws.sdk.kotlin.services.mediaconvert.MediaConvertClient
 import aws.sdk.kotlin.services.mediaconvert.model.*
+import aws.smithy.kotlin.runtime.http.operation.EndpointResolver
 import java.net.URI
 import java.util.HashMap
 import kotlin.system.exitProcess
@@ -74,19 +76,15 @@ suspend fun createMediaJob(mcClient: MediaConvertClient, mcRoleARN: String, file
             println("Cannot find MediaConvert service endpoint URL!")
             exitProcess(0)
         }
-        val endpointURL = res.endpoints!!.get(0).url.toString()
-        val uri = URI(endpointURL)
-        val domain = uri.host
+        val endpointURL = res.endpoints!!.get(0).url!!
+        val mediaConvertClient = MediaConvertClient {
 
-        // Need to set an Endpoint override here
-        val emc = MediaConvertClient {
             region = "us-west-2"
-            endpointResolver = object : EndpointResolver {
-                override suspend fun resolve(service: String, region: String): Endpoint {
-                    return Endpoint(domain, "https")
-                }
+            endpointResolver = AwsEndpointResolver { service, region ->
+                AwsEndpoint(endpointURL, CredentialScope(region = "us-west-2"))
             }
         }
+
 
         // output group Preset HLS low profile
         val hlsLow = createOutput("hls_low", "_low", "_\$dt$", 750000, 7, 1920, 1080, 640)
@@ -301,7 +299,7 @@ suspend fun createMediaJob(mcClient: MediaConvertClient, mcRoleARN: String, file
             settings = jobSettings
         }
 
-         val createJobResponse = emc.createJob(createJobRequest)
+         val createJobResponse = mediaConvertClient.createJob(createJobRequest)
          return createJobResponse.job?.id
 
 

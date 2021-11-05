@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon SageMaker]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[9/20/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -38,13 +38,9 @@ suspend fun main() {
 suspend fun listAlgs(sageMakerClient:SageMakerClient) {
 
     try {
-        val algorithmsResponse = sageMakerClient.listAlgorithms( ListAlgorithmsRequest{})
-        val items = algorithmsResponse.algorithmSummaryList
-
-        if (items != null) {
-            for (item in items) {
-                println("Algorithm name is ${item.algorithmName}")
-            }
+        val response = sageMakerClient.listAlgorithms( ListAlgorithmsRequest{})
+        response.algorithmSummaryList?.forEach { item ->
+             println("Algorithm name is ${item.algorithmName}")
         }
 
     } catch (e: SageMakerException) {

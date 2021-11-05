@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/06/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -46,12 +46,11 @@ suspend fun main(args: Array<String>) {
     val bucketName = args[0]
     val objectKey = args[1]
     val s3Client = S3Client { region = "us-east-1" }
-    val grantee = getBucketACL(s3Client, objectKey, bucketName)
-    println("The grantee is $grantee")
+    getBucketACL(s3Client, objectKey, bucketName)
     s3Client.close()
 }
 // snippet-start:[s3.kotlin.get_acl.main]
- suspend fun getBucketACL(s3Client: S3Client, objectKey: String, bucketName: String): String {
+ suspend fun getBucketACL(s3Client: S3Client, objectKey: String, bucketName: String) {
 
         try {
             val aclReq = GetObjectAclRequest {
@@ -59,15 +58,10 @@ suspend fun main(args: Array<String>) {
                 key = objectKey
             }
 
-            val aclRes = s3Client.getObjectAcl(aclReq)
-            val grants = aclRes.grants
-            var grantee = ""
-            if (grants != null) {
-                for (grant in grants) {
-                    println( "Grant permission is ${grant.permission}")
-                }
+            val response = s3Client.getObjectAcl(aclReq)
+            response.grants?.forEach { grant ->
+               println( "Grant permission is ${grant.permission}")
             }
-            return grantee
 
         } catch (e: S3Exception) {
             println(e.message)

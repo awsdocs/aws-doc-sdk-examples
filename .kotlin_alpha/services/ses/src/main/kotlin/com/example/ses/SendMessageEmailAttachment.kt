@@ -3,7 +3,7 @@
 // snippet-keyword:[Amazon Simple Email Service]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[06/23/2020]
+// snippet-sourcedate:[11/05/2021]
 // snippet-sourceauthor:[AWS-scmacdon]
 
 /*

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Step Functions]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[04/06/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-AWS]
 
 /*
@@ -35,12 +35,9 @@ suspend fun listAllActivites(sfnClient: SfnClient) {
             }
 
             val response = sfnClient.listActivities(activitiesRequest)
-            val items = response.activities
-            if (items != null) {
-                for (item in items) {
-                    println("The activity ARN is " + item.activityArn)
-                    println("The activity name is " + item.name)
-                }
+            response.activities?.forEach { item ->
+                     println("The activity ARN is ${item.activityArn}")
+                    println("The activity name is ${item.name}")
             }
 
         } catch (ex: SfnException) {
