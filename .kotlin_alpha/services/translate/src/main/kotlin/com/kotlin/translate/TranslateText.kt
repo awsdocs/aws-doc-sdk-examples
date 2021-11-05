@@ -1,9 +1,9 @@
-//snippet-sourcedescription:[TranslateText.java demonstrates how to translate text from one language to another.]
+//snippet-sourcedescription:[TranslateText.kt demonstrates how to translate text from one language to another.]
 //snippet-keyword:[SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Translate]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/02/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
