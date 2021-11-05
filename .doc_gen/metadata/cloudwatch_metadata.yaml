@@ -317,6 +317,14 @@ cloudwatch_DeleteAlarms:
   synopsis: delete &CWlong; alarms.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv3.DeleteAlarmsExample
     Java:
       versions:
         - sdk_version: 2
@@ -389,3 +397,17 @@ cloudwatch_Usage_MetricsAlarms:
                 - python.example_code.cloudwatch.Usage_MetricsAlarms
   services:
     cloudwatch: {}
+cloudwatch_DescribeAlarmHistories
+  title: Describe &CW; alarms using an &AWS; SDK
+  title_abbrev: Describe alarm histories
+  synopsis: describe &CWlong; alarms.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv3.DeleteAlarmsExample
