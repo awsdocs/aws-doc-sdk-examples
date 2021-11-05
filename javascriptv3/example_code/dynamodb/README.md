@@ -9,7 +9,7 @@ This is a workspace where you can find the following AWS SDK for JavaScript vers
 - [Create a DyanamoDB table](src/ddb_createtable.js)
 - [Delete an item](src/ddb_deleteitem.js)
 - [Delete a DyanamoDB table](src/ddb_deletetable.js)
-- [Describe DyanamoDB tables](src/ddb_sescribetable.js)
+- [Describe DyanamoDB tables](src/ddb_describetable.js)
 - [Get items](src/ddb_getitem.js)
 - [List DyanamoDB tables](src/ddb_listtables.js)
 - [Put items](src/ddb_putitem.js)
@@ -19,7 +19,7 @@ This is a workspace where you can find the following AWS SDK for JavaScript vers
 - [Get items using Document Client](src/ddbdoc_get_item.js)
 - [Put items using Document Client](src/ddbdoc_put_item.js)
 - [Query a DyanamoDB table using Document Client](src/ddbdoc_query_item.js)
-- [Update a DyanamoDB table using Document Client](src/ddbdoc_update.js)
+- [Update a DyanamoDB table using Document Client](src/ddbdoc_update_item.js)
 
 **Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see 
 [JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html).
