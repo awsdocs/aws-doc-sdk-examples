@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/26/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -37,9 +37,9 @@ suspend fun listQueues(sqsClient: SqsClient) {
             queueNamePrefix = prefix
         }
 
-        val listQueuesResponse = sqsClient.listQueues(listQueuesRequest)
-        for (url in listQueuesResponse.queueUrls!!) {
-            println(url)
+        val response = sqsClient.listQueues(listQueuesRequest)
+        response.queueUrls?.forEach { url ->
+             println(url)
         }
 
     } catch (e: SqsException) {

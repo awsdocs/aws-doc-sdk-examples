@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/26/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -54,12 +54,8 @@ suspend fun receiveMessages(sqsClient: SqsClient, queueUrlVal: String?) {
         }
 
         val response =  sqsClient.receiveMessage(receiveMessageRequest)
-        val myMessages = response.messages
-
-        if (myMessages != null) {
-            for (message in myMessages) {
-                println(message.body)
-            }
+        response.messages?.forEach { message ->
+             println(message.body)
         }
 
     } catch (e: SqsException) {
