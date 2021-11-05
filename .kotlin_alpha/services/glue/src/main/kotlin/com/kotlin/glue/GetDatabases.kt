@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Glue]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[6/4/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -42,11 +42,9 @@ suspend fun getAllDatabases(glueClient: GlueClient) {
         }
 
         val response = glueClient.getDatabases(databasesRequest)
-        val databases = response.databaseList
-        if (databases != null) {
-            for (database in databases) {
-                println("The database name is ${database.name}")
-            }
+        response.databaseList?.forEach { database ->
+             println("The database name is ${database.name}")
+
         }
 
     } catch (e: GlueException) {

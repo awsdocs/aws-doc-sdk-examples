@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Glue]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[6/4/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -43,11 +43,8 @@ suspend fun getAllCrawlers(glueClient: GlueClient) {
         }
 
         val response = glueClient.getCrawlers(crawlersRequest)
-        val crawlers = response.crawlers
-        if (crawlers != null) {
-            for (crawler in crawlers) {
-                println("The crawler name is ${crawler.name}")
-            }
+        response.crawlers?.forEach { crawler ->
+            println("The crawler name is ${crawler.name}")
         }
 
     } catch (e: GlueException) {
