@@ -294,6 +294,7 @@ cloudwatch_DisableAlarmActions:
         - sdk_version: 3
           github: dotnetv3/CloudWatch
           sdkguide:
+          excerpts:
             - description:
               snippet_tags:
               - CloudWatch.dotnetv3.DisableAlarmActionsExammple
