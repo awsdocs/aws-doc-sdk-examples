@@ -144,6 +144,11 @@ route53-recovery-cluster:
   short: "&R53ARC;"
   sort: "Application Recovery Controller"
   version: route53-recovery-cluster-2019-12-02
+route-53:
+  long: "&R53long;"
+  short: "&R53;"
+  sort: "Route 53"
+  version: route53-2013-04-01
 s3:
   long: "&S3long;"
   short: "&S3;"
