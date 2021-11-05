@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Lex]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/25/2020]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -40,12 +40,9 @@ suspend fun getAllBots(lexModel: LexModelBuildingClient) {
     try {
 
         val response = lexModel.getBots(GetBotsRequest{})
-        val bots = response.bots
-        if (bots != null) {
-            for (bot in bots) {
-                println("The bot name is ${bot.name}")
+        response.bots?.forEach { bot ->
+               println("The bot name is ${bot.name}")
                 println("The bot version is ${bot.version}")
-            }
         }
 
     } catch (ex:  LexModelBuildingException) {

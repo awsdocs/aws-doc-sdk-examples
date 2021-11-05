@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Forecast]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[04/21/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -20,6 +20,14 @@ import aws.sdk.kotlin.services.forecast.model.ListDatasetGroupsRequest
 import kotlin.system.exitProcess
 // snippet-end:[forecast.kotlin.list_forecast_datasetgroups.import]
 
+/**
+To run this Kotlin code example, ensure that you have setup your development environment,
+including your credentials.
+
+For information, see this documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
+
 suspend fun main() {
 
     val forecast = ForecastClient{ region = "us-west-2"}
@@ -35,12 +43,8 @@ suspend fun listDataGroups(forecast: ForecastClient) {
             }
 
             val response = forecast.listDatasetGroups(group)
-            val groups= response.datasetGroups
-
-            if (groups != null) {
-                for (group in groups) {
-                    println("The data set group name is ${group.datasetGroupName}")
-                }
+            response.datasetGroups?.forEach { group ->
+                println("The data set group name is ${group.datasetGroupName}")
             }
 
         } catch (ex: ForecastException) {

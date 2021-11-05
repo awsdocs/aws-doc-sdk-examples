@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Identity and Access Management (IAM)]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/27/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -39,8 +39,7 @@ suspend fun main() {
 suspend  fun listAliases(iamClient: IamClient) {
     try {
         val response = iamClient.listAccountAliases(ListAccountAliasesRequest{})
-
-        for (alias in response.accountAliases!!) {
+        response.accountAliases?.forEach { alias ->
             println("Retrieved account alias $alias")
         }
 

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Kinesis]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/07/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -74,7 +74,7 @@ suspend fun getStockTrades(kinesisClient: KinesisClient, streamNameVal: String?)
 
         val id  = shards[0]?.shardId
 
-        // Create a GetShardIteratorRequest obejct.
+        // Create a GetShardIteratorRequest object.
         val itReq = GetShardIteratorRequest {
             streamName = streamNameVal
             shardIteratorType = ShardIteratorType.fromValue("TRIM_HORIZON")
@@ -92,12 +92,9 @@ suspend fun getStockTrades(kinesisClient: KinesisClient, streamNameVal: String?)
 
         // Continuously read data records from shard.
         val result = kinesisClient.getRecords(recordsRequest)
-        val records = result.records!!
-
-        // Print records.
-        for (record in records)
-            println("Seq No: ${record.sequenceNumber} - ${record.data?.let { String(it)}}")
-
+        result.records?.forEach { record ->
+            println("Seq No: ${record.sequenceNumber} - ${record.data?.let { String(it) }}")
+        }
     } catch (e: KinesisException) {
         println(e.message)
         kinesisClient.close()

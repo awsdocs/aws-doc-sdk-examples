@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/03/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -41,15 +41,11 @@ suspend fun listAllKeys(kmsClient: KmsClient) {
                     limit = 15
                 }
 
-                val keysResponse = kmsClient.listKeys(listKeysRequest)
-                val keyListEntries = keysResponse.keys
-
-                if (keyListEntries != null) {
-                    for (key in keyListEntries) {
-                        println("The key ARN is ${key.keyArn}")
-                        println("The key Id is ${key.keyId}")
-                    }
-              }
+                val response = kmsClient.listKeys(listKeysRequest)
+                response.keys?.forEach { key ->
+                    println("The key ARN is ${key.keyArn}")
+                    println("The key Id is ${key.keyId}")
+                }
 
             } catch (ex: KmsException) {
                 println(ex.message)

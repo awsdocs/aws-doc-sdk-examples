@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/03/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -13,12 +13,12 @@
 
 package com.kotlin.kms
 
-// snippet-start:[kms.kotlin_list_aliases.import]
+// snippet-start:[kms.kotlin_list_aliases.import
 import aws.sdk.kotlin.services.kms.KmsClient
 import aws.sdk.kotlin.services.kms.model.ListAliasesRequest
 import aws.sdk.kotlin.services.kms.model.KmsException
 import kotlin.system.exitProcess
-// snippet-end:[kms.kotlin_list_aliases.import]
+// snippet-end:[kms.kotlin_list_aliases.import
 
 /**
 To run this Kotlin code example, ensure that you have setup your development environment,
@@ -35,19 +35,16 @@ suspend fun main() {
     keyClient.close()
 }
 
-// snippet-start:[kms.kotlin_list_aliases.main]
+// snippet-start:[kms.kotlin_list_aliases.main
 suspend fun listAllAliases(kmsClient: KmsClient) {
         try {
             val aliasesRequest = ListAliasesRequest {
                 limit = 15
             }
 
-            val aliasesResponse = kmsClient.listAliases(aliasesRequest)
-            val aliases = aliasesResponse.aliases
-            if (aliases != null) {
-                for (alias in aliases) {
-                    println("The alias name is ${alias.aliasName}")
-                }
+            val response = kmsClient.listAliases(aliasesRequest)
+            response.aliases?.forEach { alias ->
+                println("The alias name is ${alias.aliasName}")
             }
 
         } catch (ex: KmsException) {
@@ -56,4 +53,4 @@ suspend fun listAllAliases(kmsClient: KmsClient) {
             exitProcess(0)
         }
  }
-// snippet-end:[kms.kotlin_list_aliases.main]
+// snippet-end:[kms.kotlin_list_aliases.main

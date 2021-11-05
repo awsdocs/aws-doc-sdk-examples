@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Kinesis Data Firehose]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/24/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -91,5 +91,5 @@ class StockTradeGenerator {
         }
 
     private class StockPrice internal constructor(var tickerSymbol: String, var price: Double)
-    
+
 }

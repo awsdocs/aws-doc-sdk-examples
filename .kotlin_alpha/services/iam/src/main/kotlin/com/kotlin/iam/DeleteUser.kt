@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Identity and Access Management (IAM)]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/27/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -35,7 +35,6 @@ suspend fun main(args: Array<String>) {
             <username> 
         Where:
             username - the name of the user to delete. 
-
         """
 
      if (args.size != 1) {
