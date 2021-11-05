@@ -242,7 +242,7 @@ cloudwatch_EnableAlarmActions:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv3.DisableAlarmActionsExammple
+                - CloudWatch.dotnetv3.EnableAlarmActionsExammple
     Java:
       versions:
         - sdk_version: 2
