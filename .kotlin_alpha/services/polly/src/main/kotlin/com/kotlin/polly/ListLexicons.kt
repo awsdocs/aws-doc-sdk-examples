@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Polly]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[06/02/2021]
+// snippet-sourcedate:[11/05/2021]
 // snippet-sourceauthor:[scmacdon AWS]
 
 /*
@@ -39,12 +39,9 @@ suspend fun main() {
 suspend fun listLexicons(client: PollyClient) {
         try {
 
-            val listLexiconsResult = client.listLexicons(ListLexiconsRequest{})
-            val lexiconDescription = listLexiconsResult.lexicons
-            if (lexiconDescription != null) {
-                for (lexDescription in lexiconDescription) {
-                    println("The name of the Lexicon is ${lexDescription.name}")
-                }
+            val response = client.listLexicons(ListLexiconsRequest{})
+            response.lexicons?.forEach { lexDescription ->
+                   println("The name of the Lexicon is ${lexDescription.name}")
             }
 
         } catch (ex: PollyException) {
