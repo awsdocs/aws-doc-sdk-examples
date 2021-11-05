@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/03/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
