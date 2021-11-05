@@ -5,6 +5,15 @@ route53-recovery-cluster_GetRoutingControlState:
   synopsis: get the state of an &R53ARC; routing control.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53recoverycluster
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route53_rec.java2.get_routing.main
     Python:
       versions:
         - sdk_version: 3
@@ -23,6 +32,15 @@ route53-recovery-cluster_UpdateRoutingControlState:
   synopsis: update the state of an &R53ARC; routing control.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53recoverycluster
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route53_rec.java2.update_routing_state.main
     Python:
       versions:
         - sdk_version: 3
@@ -42,6 +60,15 @@ route53-recovery-cluster_UpdateRoutingControlStates:
     cluster endpoints.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53recoverycluster
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route53_rec.java2.update_routing_states.main
     Python:
       versions:
         - sdk_version: 3
