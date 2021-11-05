@@ -3,8 +3,9 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Lex]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/25/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon - aws]
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -40,6 +41,11 @@ suspend fun main(args:Array<String>){
           botName - the name of the bot (for example, BookHotel).
           botAlias - the bot alias.
     """
+
+    if (args.size != 2) {
+        println(usage)
+        exitProcess(0)
+    }
 
     val botName = args[0]
     val botAlias = args[1]
