@@ -66,4 +66,4 @@ suspend fun delLambdaFunction(awsLambda: LambdaClient, myFunctionName: String) {
             exitProcess(1)
         }
  }
-// snippet-start:[lambda.kotlin.delete.main]
+// snippet-end:[lambda.kotlin.delete.main]
