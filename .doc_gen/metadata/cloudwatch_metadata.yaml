@@ -5,6 +5,15 @@ cloudwatch_ListMetrics:
   synopsis: list &CWlong; metrics.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv3.ListMetricsExample
     Java:
       versions:
         - sdk_version: 2
@@ -225,6 +234,15 @@ cloudwatch_EnableAlarmActions:
   synopsis: enable &CWlong; alarm actions.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv3.EnableAlarmActionsExample
     Java:
       versions:
         - sdk_version: 2
@@ -271,6 +289,15 @@ cloudwatch_DisableAlarmActions:
   synopsis: disable &CWlong; alarm actions.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+              - CloudWatch.dotnetv3.DisableAlarmActionsExammple
     Java:
       versions:
         - sdk_version: 2
@@ -317,6 +344,15 @@ cloudwatch_DeleteAlarms:
   synopsis: delete &CWlong; alarms.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv3.DeleteAlarmsExample
     Java:
       versions:
         - sdk_version: 2
@@ -389,3 +425,54 @@ cloudwatch_Usage_MetricsAlarms:
                 - python.example_code.cloudwatch.Usage_MetricsAlarms
   services:
     cloudwatch: {}
+cloudwatch_DescribeAlarmHistory:
+  title: Describe a &CW; alarm's history using an &AWS; SDK
+  title_abbrev: Describe alarm history
+  synopsis: describe &CWlong; alarm history.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description: Get a list of &CW; alarms, then retrieve the history for each alarm.
+              snippet_tags:
+                - CloudWatch.dotnetv3.DescribeAlarmHistoriesExample
+  services:
+    cloudwatch: {DescribeAlarmHistory}
+cloudwatch_GetDashboard:
+  title: Get the details of a &CW; dashboard
+  title_abbrev: Get dashboard details 
+  synopsis: get &CWlong; dashboard details.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv3.GetDashboardExample
+  services:
+    cloudwatch: {GetDashboard}
+cloudwatch_ListDashboards:
+  title: List &CW; dashboards
+  title_abbrev: List dashboards 
+  synopsis: list &CWlong; dashboards.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv3.ListDashboardsExample
+  services:
+    cloudwatch: {ListDashboards}
