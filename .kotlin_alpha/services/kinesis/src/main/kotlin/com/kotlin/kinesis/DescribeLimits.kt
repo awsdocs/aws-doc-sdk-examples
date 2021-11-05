@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Kinesis]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/07/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -32,7 +32,6 @@ suspend fun  main(){
     val kinesisClient = KinesisClient{region ="us-east-1"}
     describeKinLimits(kinesisClient)
     kinesisClient.close()
-
 }
 
 //snippet-start:[kinesis.kotlin.DescribeLimits.main]
