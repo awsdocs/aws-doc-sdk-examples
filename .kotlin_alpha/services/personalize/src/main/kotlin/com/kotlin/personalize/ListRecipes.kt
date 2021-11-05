@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Personalize]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/02/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -19,7 +19,7 @@ import aws.sdk.kotlin.services.personalize.model.ListRecipesRequest
 import aws.sdk.kotlin.services.personalize.model.RecipeSummary
 import aws.sdk.kotlin.services.personalize.model.PersonalizeException
 import kotlin.system.exitProcess
-//snippet-end:[personalize.kotlin.list_recipes.import]
+//snippet-kotlin:[personalize.kotlin.list_recipes.import]
 
 /**
 To run this Kotlin code example, ensure that you have setup your development environment,
@@ -46,12 +46,9 @@ suspend fun listAllRecipes(personalizeClient: PersonalizeClient) {
             }
 
             val response = personalizeClient.listRecipes(recipesRequest)
-            val recipes: List<RecipeSummary>? = response.recipes
-            if (recipes != null) {
-                for (recipe in recipes) {
+            response.recipes?.forEach { recipe ->
                     println("The recipe ARN is ${recipe.recipeArn}")
                     println("The recipe name is ${recipe.name}")
-                }
             }
 
         } catch (ex: PersonalizeException) {
