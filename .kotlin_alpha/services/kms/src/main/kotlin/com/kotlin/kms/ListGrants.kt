@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/03/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -59,11 +59,8 @@ suspend fun displayGrantIds(kmsClient: KmsClient, keyIdVal: String?) {
             }
 
             val response = kmsClient.listGrants(grantsRequest)
-            val grants: List<GrantListEntry>? = response.grants
-            if (grants != null) {
-                for (grant in grants) {
-                    println("The grant Id is ${grant.grantId}")
-                }
+            response.grants?.forEach { grant ->
+                  println("The grant Id is ${grant.grantId}")
             }
 
         } catch (ex: KmsException) {
