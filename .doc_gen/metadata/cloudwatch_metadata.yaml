@@ -439,7 +439,7 @@ cloudwatch_DescribeAlarmHistory:
           excerpts:
             - description: Get a list of &CW; alarms, then retrieve the history for each alarm.
               snippet_tags:
-                - CloudWatch.dotnetv3.DeleteAlarmsExample
+                - CloudWatch.dotnetv3.DescribeAlarmHistoriesExample
   services:
     cloudwatch: {DescribeAlarmHistory}
 cloudwatch_GetDashboard:
