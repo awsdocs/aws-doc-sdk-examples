@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Step Functions]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[04/06/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-AWS]
 
 /*
@@ -31,13 +31,11 @@ suspend fun main() {
 suspend fun listMachines(sfnClient: SfnClient) {
         try {
             val response = sfnClient.listStateMachines(ListStateMachinesRequest{})
-            val machines = response.stateMachines
-            if (machines != null) {
-                for (machine in machines) {
+            response.stateMachines?.forEach { machine ->
                     println("The name of the state machine is ${machine.name}")
                     println("The ARN value is ${machine.stateMachineArn}")
                 }
-            }
+
         } catch (ex: SfnException) {
             println(ex.message)
             sfnClient.close()
