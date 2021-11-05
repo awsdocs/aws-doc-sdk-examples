@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[5/28/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*

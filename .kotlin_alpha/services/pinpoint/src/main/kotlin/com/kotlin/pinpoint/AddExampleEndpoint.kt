@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/02/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -35,10 +35,11 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
 
     val usage = """
-        Usage: <appId>
+        Usage: 
+            <appId>
     
         Where:
-             appId - the Amazon Pinpoint project/application ID to use. 
+            appId - the Amazon Pinpoint project/application ID to use. 
        """
 
      if (args.size != 1) {

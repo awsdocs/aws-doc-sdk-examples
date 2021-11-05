@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[06-08-2021]
+// snippet-sourcedate:[11-05-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -40,13 +40,13 @@ suspend fun main(args: Array<String>){
             <sourceImage> 
 
         Where:
-            "sourceImage - the name of the image in an Amazon S3 bucket (for example, people.png).
+            "sourceImage - the name of the image that contains PPE information (for example, people.png).
     """
 
-     if (args.size != 1) {
+    if (args.size != 1) {
          println(usage)
          exitProcess(0)
-     }
+    }
 
     val sourceImage = args[0]
     val rekClient = RekognitionClient{ region = "us-east-1"}
@@ -55,10 +55,10 @@ suspend fun main(args: Array<String>){
 }
 
 // snippet-start:[rekognition.kotlin.detect_ppe.main]
-suspend fun displayGear(rekClient: RekognitionClient, sourceImage: String?) {
+suspend fun displayGear(rekClient: RekognitionClient, sourceImage: String) {
 
     try {
-        val summarizationAttributesOb =  ProtectiveEquipmentSummarizationAttributes {
+        val summarizationAttributesOb = ProtectiveEquipmentSummarizationAttributes {
             minConfidence = 80f
             this.requiredEquipmentTypes = listOf(ProtectiveEquipmentType.fromValue("FACE_COVER"), ProtectiveEquipmentType.fromValue("HEAD_COVER"))
         }
@@ -72,13 +72,10 @@ suspend fun displayGear(rekClient: RekognitionClient, sourceImage: String?) {
             summarizationAttributes  = summarizationAttributesOb
         }
 
-        val result = rekClient.detectProtectiveEquipment(request)
-        val persons = result.persons
-        if (persons != null) {
-            for (person: ProtectiveEquipmentPerson in persons) {
-                println("ID: " + person.id)
-
-                val bodyParts = person.bodyParts
+        val response = rekClient.detectProtectiveEquipment(request)
+        response.persons?.forEach { person ->
+             println("ID: " + person.id)
+             val bodyParts = person.bodyParts
 
                 if (bodyParts != null) {
                     if (bodyParts.isEmpty()) {
@@ -115,7 +112,6 @@ suspend fun displayGear(rekClient: RekognitionClient, sourceImage: String?) {
                         }
                     }
                 }
-            }
         }
 
     } catch (e: RekognitionException) {

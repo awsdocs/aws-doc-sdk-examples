@@ -13,12 +13,12 @@
 
 package com.kotlin.kms
 
-// snippet-start:[kms.kotlin_list_aliases.import
+// snippet-start:[kms.kotlin_list_aliases.import]
 import aws.sdk.kotlin.services.kms.KmsClient
 import aws.sdk.kotlin.services.kms.model.ListAliasesRequest
 import aws.sdk.kotlin.services.kms.model.KmsException
 import kotlin.system.exitProcess
-// snippet-end:[kms.kotlin_list_aliases.import
+// snippet-end:[kms.kotlin_list_aliases.import]
 
 /**
 To run this Kotlin code example, ensure that you have setup your development environment,
@@ -35,7 +35,7 @@ suspend fun main() {
     keyClient.close()
 }
 
-// snippet-start:[kms.kotlin_list_aliases.main
+// snippet-start:[kms.kotlin_list_aliases.main]
 suspend fun listAllAliases(kmsClient: KmsClient) {
         try {
             val aliasesRequest = ListAliasesRequest {
@@ -53,4 +53,4 @@ suspend fun listAllAliases(kmsClient: KmsClient) {
             exitProcess(0)
         }
  }
-// snippet-end:[kms.kotlin_list_aliases.main
+// snippet-end:[kms.kotlin_list_aliases.main]

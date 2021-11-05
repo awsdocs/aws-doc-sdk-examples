@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Personalize]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/02/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -59,13 +59,9 @@ suspend fun listAllSolutions(personalizeClient: PersonalizeClient, datasetGroupA
                 }
 
             val response = personalizeClient.listSolutions(solutionsRequest)
-            val solutions: List<SolutionSummary>? = response.solutions
-
-            if (solutions != null) {
-                for (solution in solutions) {
+            response.solutions?.forEach { solution ->
                     println("The solution ARN is ${solution.solutionArn}")
                     println("The solution name is ${solution.name}")
-                }
             }
 
         } catch (ex: PersonalizeException) {

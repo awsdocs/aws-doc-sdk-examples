@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Personalize]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/02/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -56,17 +56,16 @@ suspend fun describeSpecificCampaign(personalizeClient: PersonalizeClient, campa
                 campaignArn = campaignArnVal
             }
 
-            val campaignResponse = personalizeClient.describeCampaign(campaignRequest)
-            val myCampaign = campaignResponse.campaign
+            val response = personalizeClient.describeCampaign(campaignRequest)
+            val myCampaign = response.campaign
             if (myCampaign != null) {
                 println("The campaign name is ${myCampaign.name}")
                 println("The campaign status is ${myCampaign.status}")
             }
-
         } catch (ex: PersonalizeException) {
             println(ex.message)
             personalizeClient.close()
             exitProcess(0)
         }
-}
+        }
 //snippet-end:[personalize.kotlin.describe_campaign.main]

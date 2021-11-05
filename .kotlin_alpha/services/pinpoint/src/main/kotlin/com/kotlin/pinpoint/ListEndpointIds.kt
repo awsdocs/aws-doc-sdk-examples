@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/02/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -63,14 +63,9 @@ suspend fun listAllEndpoints(
             }
 
             val response = pinpoint.getUserEndpoints(endpointsRequest)
-            val endpoints = response.endpointsResponse?.item
-
-            // Display the results.
-            if (endpoints != null) {
-                for (endpoint in endpoints) {
+            response.endpointsResponse?.item?.forEach { endpoint ->
                     println("The channel type is ${endpoint.channelType}")
                     println("The address is  ${endpoint.address}")
-                }
             }
 
         } catch (ex: PinpointException) {
