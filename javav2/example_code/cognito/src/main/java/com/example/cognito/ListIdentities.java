@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
+//snippet-sourcedate:[11/06/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,11 +15,9 @@ package com.example.cognito;
 //snippet-start:[cognito.java2.listidentities.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentity.CognitoIdentityClient;
-import software.amazon.awssdk.services.cognitoidentity.model.IdentityDescription;
 import software.amazon.awssdk.services.cognitoidentity.model.ListIdentitiesRequest;
 import software.amazon.awssdk.services.cognitoidentity.model.ListIdentitiesResponse;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
-import java.util.List;
 //snippet-end:[cognito.java2.listidentities.import]
 
 /**
@@ -36,7 +34,7 @@ public class ListIdentities {
 
         final String usage = "\n" +
                 "Usage:\n" +
-                "    ListIdentities <identityPoolId>\n\n" +
+                "    <identityPoolId>\n\n" +
                 "Where:\n" +
                 "    identityPoolId - the id value of your identity pool (for example, us-east-1:00eb915b-c521-417b-af0d-ebad008axxxx).\n\n" ;
 
@@ -64,11 +62,10 @@ public class ListIdentities {
                     .build() ;
 
             ListIdentitiesResponse response = cognitoClient.listIdentities(identitiesRequest);
-            List<IdentityDescription> identities = response.identities();
-
-            for (IdentityDescription identity: identities) {
+            response.identities().forEach(identity -> {
                 System.out.println("The ID is : "+identity.identityId());
-            }
+                }
+            );
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());
