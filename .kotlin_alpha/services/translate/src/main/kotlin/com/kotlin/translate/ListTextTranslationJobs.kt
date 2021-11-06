@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Translate]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/02/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 package com.kotlin.translate
@@ -30,14 +30,10 @@ suspend fun getTranslationJobs(translateClient: TranslateClient) {
                 maxResults = 10
             }
 
-            val jobsResponse = translateClient.listTextTranslationJobs(textTranslationJobsRequest)
-            val props = jobsResponse.textTranslationJobPropertiesList
-
-            if (props != null) {
-                for (prop in props) {
+            val response = translateClient.listTextTranslationJobs(textTranslationJobsRequest)
+            response.textTranslationJobPropertiesList?.forEach { prop ->
                     println("The job name is ${prop.jobName}")
                     println("The job id is: ${prop.jobId}")
-                }
             }
 
         } catch (ex: TranslateException) {

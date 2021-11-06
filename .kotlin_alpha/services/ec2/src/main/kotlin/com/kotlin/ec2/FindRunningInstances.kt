@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[07/22/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -17,8 +17,6 @@ package com.kotlin.ec2
 import aws.sdk.kotlin.services.ec2.Ec2Client
 import aws.sdk.kotlin.services.ec2.model.DescribeInstancesRequest
 import aws.sdk.kotlin.services.ec2.model.Filter
-import aws.sdk.kotlin.services.ec2.model.Reservation
-import aws.sdk.kotlin.services.ec2.model.Instance
 import aws.sdk.kotlin.services.ec2.model.Ec2Exception
 import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.running_instances.import]
@@ -50,10 +48,11 @@ suspend fun findRunningEC2Instances(ec2: Ec2Client) {
          }
 
         val response = ec2.describeInstances(request)
-        for (reservation: Reservation in response.reservations!!) {
-            for (instance: Instance in reservation.instances!!)
-                 println("Found Reservation with id: ${instance.instanceId}, type: ${instance.instanceType} state: ${instance.state?.name} and monitoring state: ${instance.monitoring?.state}")
-       }
+        response.reservations?.forEach { reservation ->
+            reservation.instances?.forEach { instance ->
+                println("Found Reservation with id: ${instance.instanceId}, type: ${instance.instanceType} state: ${instance.state?.name} and monitoring state: ${instance.monitoring?.state}")
+            }
+        }
 
     } catch (e: Ec2Exception) {
         println(e.message)

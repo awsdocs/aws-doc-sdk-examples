@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS X-Ray Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[04/12/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -54,13 +54,11 @@ suspend fun getGraph(xRayClient: XRayClient, groupNameVal: String?) {
             endTime = time.now()
         }
 
-        val graphResponse = xRayClient.getServiceGraph(getServiceGraphRequest)
-        val services = graphResponse.services
-        if (services != null) {
-            for (service in services) {
+        val response = xRayClient.getServiceGraph(getServiceGraphRequest)
+        response.services?.forEach { service ->
                 println("The name of the service is  ${service.name}")
-            }
         }
+
 
     } catch (ex: XRayException) {
         println(ex.message)

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Elastic Container Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/20/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -58,11 +58,8 @@ suspend fun descCluster(ecsClient: EcsClient, clusterArn: String) {
         }
 
         val response = ecsClient.describeClusters(clustersRequest)
-        val clusters  = response.clusters
-        if (clusters != null) {
-            for (cluster in clusters) {
-                System.out.println("The cluster name is ${cluster.clusterName}.")
-            }
+        response.clusters?.forEach { cluster ->
+            println("The cluster name is ${cluster.clusterName}.")
         }
 
     } catch (ex: EcsException) {

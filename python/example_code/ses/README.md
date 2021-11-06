@@ -11,16 +11,65 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Simple Email Service
 * Create and manage rules to block, allow, or handle incoming emails. 
 * Copy email and domain identity configuration from one AWS Region to another.
 
-## Prerequisites
+*Amazon SES is a reliable, scalable, and cost-effective email service designed to help 
+digital marketers and application developers send marketing, notification, and 
+transactional emails.*
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.7 or later
-- Boto3 1.15.4 or later
-- PyTest 6.0.2 or later (to run unit tests)
+## Code examples
 
-## Cautions
+### Scenario examples
+
+* [Copy email and domain identities from one AWS Region to another](ses_replicate_identities.py)
+* [Create and manage rules and filters](ses_receipt_handler.py)
+* [Create and manage templates](ses_templates.py)
+* [Generate credentials to connect to an SMTP endpoint](ses_generate_smtp_credentials.py)
+* [Verify an email identity and send messages](ses_email.py)
+* [Verify and manage identities](ses_identities.py)
+
+### API examples
+
+* [Create a receipt filter](ses_receipt_handler.py)
+(`CreateReceiptFilter`)
+* [Create a receipt rule](ses_receipt_handler.py)
+(`CreateReceiptRule`)
+* [Create a receipt rule set](ses_receipt_handler.py)
+(`CreateReceiptRuleSet`)
+* [Create an email template](ses_templates.py)
+(`CreateTemplate`)
+* [Delete a receipt filter](ses_receipt_handler.py)
+(`DeleteReceiptFilter`)
+* [Delete a receipt rule](ses_receipt_handler.py)
+(`DeleteReceiptRule`)
+* [Delete a rule set](ses_receipt_handler.py)
+(`DeleteReceiptRuleSet`)
+* [Delete an email template](ses_templates.py)
+(`DeleteTemplate`)
+* [Delete an identity](ses_identities.py)
+(`DeleteIdentity`)
+* [Describe a receipt rule set](ses_receipt_handler.py)
+(`DescribeReceiptRuleSet`)
+* [Get an existing email template](ses_templates.py)
+(`GetTemplate`)
+* [Get the status of an identity](ses_identities.py)
+(`GetIdentityVerificationAttributes`)
+* [List email templates](ses_templates.py)
+(`ListTemplates`)
+* [List identities](ses_identities.py)
+(`ListIdentities`)
+* [List receipt filters](ses_receipt_handler.py)
+(`ListReceiptFilters`)
+* [Send email](ses_email.py)
+(`SendEmail`)
+* [Send templated email](ses_email.py)
+(`SendTemplatedEmail`)
+* [Update an email template](ses_templates.py)
+(`UpdateTemplate`)
+* [Verify a domain identity](ses_identities.py)
+(`VerifyDomainIdentity`)
+* [Verify an email identity](ses_identities.py)
+(`VerifyEmailIdentity`)
+
+## ⚠ Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -34,6 +83,17 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Simple Email Service
 - Running this code might result in charges to your AWS account.
 
 ## Running the code
+
+### Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.7 or later
+- Boto3 1.15.4 or later
+- PyTest 6.0.2 or later (to run unit tests)
+
+### Command
 
 There are six demonstrations in this set of examples.
 

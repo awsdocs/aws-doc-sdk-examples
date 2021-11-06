@@ -32,10 +32,8 @@ suspend fun listAllDomains(searchClient: OpenSearchClient) {
 
     try {
         val response: ListDomainNamesResponse = searchClient.listDomainNames(ListDomainNamesRequest {})
-        val domainInfoList = response.domainNames
-        if (domainInfoList != null) {
-            for (domain in domainInfoList)
-                println("Domain name is " + domain.domainName)
+        response.domainNames?.forEach { domain ->
+            println("Domain name is " + domain.domainName)
         }
     } catch (e: OpenSearchException) {
         System.err.println(e.message)

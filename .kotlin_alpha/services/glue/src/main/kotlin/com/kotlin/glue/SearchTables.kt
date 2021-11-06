@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Glue]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[6/4/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -57,15 +57,11 @@ suspend fun searchGlueTable(glueClient: GlueClient, text: String?) {
             maxResults = 10
         }
 
-        val tablesResponse = glueClient.searchTables(tablesRequest)
-        val tables = tablesResponse.tableList
-
-        if (tables != null) {
-            for (table in tables) {
+        val response = glueClient.searchTables(tablesRequest)
+        response.tableList?.forEach { table ->
                 println("Table name is ${table.name}")
                 println("Database name is ${table.databaseName}")
-            }
-        }
+       }
 
     } catch (e: GlueException) {
         println(e.message)

@@ -15,6 +15,7 @@ from botocore.exceptions import ClientError, WaiterError
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.ses.SesIdentity]
 class SesIdentity:
     """Encapsulates Amazon SES identity functions."""
     def __init__(self, ses_client):
@@ -22,7 +23,9 @@ class SesIdentity:
         :param ses_client: A Boto3 Amazon SES client.
         """
         self.ses_client = ses_client
+# snippet-end:[python.example_code.ses.SesIdentity]
 
+# snippet-start:[python.example_code.ses.VerifyDomainIdentity]
     def verify_domain_identity(self, domain_name):
         """
         Starts verification of a domain identity. To complete verification, you must
@@ -44,7 +47,9 @@ class SesIdentity:
             raise
         else:
             return token
+# snippet-end:[python.example_code.ses.VerifyDomainIdentity]
 
+# snippet-start:[python.example_code.ses.VerifyEmailIdentity]
     def verify_email_identity(self, email_address):
         """
         Starts verification of an email identity. This function causes an email
@@ -59,7 +64,9 @@ class SesIdentity:
         except ClientError:
             logger.exception("Couldn't start verification of %s.", email_address)
             raise
+# snippet-end:[python.example_code.ses.VerifyEmailIdentity]
 
+# snippet-start:[python.example_code.ses.helper.wait_until_identity_exists]
     def wait_until_identity_exists(self, identity):
         """
         Waits until an identity exists. The waiter polls Amazon SES until the
@@ -74,7 +81,9 @@ class SesIdentity:
         except WaiterError:
             logger.error("Waiting for identity %s failed or timed out.", identity)
             raise
+# snippet-end:[python.example_code.ses.helper.wait_until_identity_exists]
 
+# snippet-start:[python.example_code.ses.GetIdentityVerificationAttributes]
     def get_identity_status(self, identity):
         """
         Gets the status of an identity. This can be used to discover whether
@@ -94,7 +103,9 @@ class SesIdentity:
             raise
         else:
             return status
+# snippet-end:[python.example_code.ses.GetIdentityVerificationAttributes]
 
+# snippet-start:[python.example_code.ses.DeleteIdentity]
     def delete_identity(self, identity):
         """
         Deletes an identity.
@@ -107,7 +118,9 @@ class SesIdentity:
         except ClientError:
             logger.exception("Couldn't delete identity %s.", identity)
             raise
+# snippet-end:[python.example_code.ses.DeleteIdentity]
 
+# snippet-start:[python.example_code.ses.ListIdentities]
     def list_identities(self, identity_type, max_items):
         """
         Gets the identities of the specified type for the current account.
@@ -126,8 +139,10 @@ class SesIdentity:
             raise
         else:
             return identities
+# snippet-end:[python.example_code.ses.ListIdentities]
 
 
+# snippet-start:[python.example_code.ses.Scenario_EmailIdentity]
 def usage_demo():
     print('-'*88)
     print("Welcome to the Amazon Simple Email Service (Amazon SES) identities demo!")
@@ -164,6 +179,7 @@ def usage_demo():
 
     print("Thanks for watching!")
     print('-'*88)
+# snippet-end:[python.example_code.ses.Scenario_EmailIdentity]
 
 
 if __name__ == '__main__':

@@ -79,11 +79,14 @@ func TestCreateInstance(t *testing.T) {
 
 	api := &EC2CreateInstanceImpl{}
 
+	// Create separate values if required.
+	minMaxCount := int32(1)
+
 	input := &ec2.RunInstancesInput{
 		ImageId:      aws.String("ami-e7527ed7"),
 		InstanceType: types.InstanceTypeT2Micro,
-		MinCount:     1,
-		MaxCount:     1,
+		MinCount:     &minMaxCount,
+		MaxCount:     &minMaxCount,
 	}
 
 	result, err := MakeInstance(context.Background(), api, input)

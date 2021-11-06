@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Redshift ]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/31/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -34,7 +34,7 @@ suspend fun main(args:Array<String>) {
         <clusterId>  
 
     Where:
-        clusterId - the id of the cluster to delete. 
+        clusterId - the id of the cluster. 
        
     """
 

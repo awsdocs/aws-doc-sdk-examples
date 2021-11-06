@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/06/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -63,7 +63,7 @@ suspend fun main(args: Array<String>) {
                          objectKey: String,
                          toBucket: String): String {
 
-        var encodedUrl = ""
+        var encodedUrl=""
         try {
             encodedUrl = URLEncoder.encode("$fromBucket/$objectKey", StandardCharsets.UTF_8.toString())
 

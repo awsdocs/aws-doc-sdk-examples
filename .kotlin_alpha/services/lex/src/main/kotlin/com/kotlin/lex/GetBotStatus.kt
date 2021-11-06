@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Lex]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/25/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -36,7 +36,7 @@ suspend fun main(args:Array<String>) {
         <botName>  
 
     Where:
-        botName - the name of bot (for example, BookHotel).
+        botName - the name of the bot (for example, BookHotel).
 
     """
 
@@ -58,7 +58,7 @@ suspend fun getStatus(lexClient: LexModelBuildingClient, botName: String?) {
          versionOrAlias = "\$LATEST"
     }
     try {
-        var status = ""
+        var status: String
 
         // Loop until the bot is in a ready status.
         do {
@@ -76,8 +76,8 @@ suspend fun getStatus(lexClient: LexModelBuildingClient, botName: String?) {
         lexClient.close()
         exitProcess(0)
     } catch (e: InterruptedException) {
-        System.out.println(e.localizedMessage)
-        System.exit(1)
+        println(e.localizedMessage)
+        exitProcess(1)
     }
 }
 // snippet-end:[lex.kotlin.get_status.main]

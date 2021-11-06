@@ -3,7 +3,7 @@
 // snippet-service:[Amazon EventBridge]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[03/04/2021]
+// snippet-sourcedate:[11/04/2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -44,12 +44,9 @@ suspend  fun listAllRules(eventBrClient: EventBridgeClient) {
             }
 
             val response = eventBrClient.listRules(rulesRequest)
-            val rules = response.rules
-            if (rules != null) {
-                for (rule in rules) {
-                    println("The rule name is ${rule.name}")
-                    println("The rule ARN is ${rule.arn}")
-                }
+            response.rules?.forEach { rule ->
+                println("The rule name is ${rule.name}")
+                println("The rule ARN is ${rule.arn}")
             }
 
         } catch (ex: EventBridgeException) {

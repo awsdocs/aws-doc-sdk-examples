@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/21/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon- AWS]
 
 /*
@@ -31,8 +31,11 @@ suspend fun main() {
 suspend fun listSNSSubscriptions(snsClient: SnsClient) {
 
     try {
-        val result = snsClient.listSubscriptions(ListSubscriptionsRequest{})
-        println(result.subscriptions)
+        val response = snsClient.listSubscriptions(ListSubscriptionsRequest{})
+        response.subscriptions?.forEach { sub ->
+            println("Sub ARN is ${sub.subscriptionArn}")
+            println("Sub protocol is ${sub.protocol}")
+        }
 
     } catch (e: SnsException) {
         println(e.message)

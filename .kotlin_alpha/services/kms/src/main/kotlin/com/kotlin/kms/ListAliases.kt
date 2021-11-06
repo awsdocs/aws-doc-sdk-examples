@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/03/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -42,12 +42,9 @@ suspend fun listAllAliases(kmsClient: KmsClient) {
                 limit = 15
             }
 
-            val aliasesResponse = kmsClient.listAliases(aliasesRequest)
-            val aliases = aliasesResponse.aliases
-            if (aliases != null) {
-                for (alias in aliases) {
-                    println("The alias name is ${alias.aliasName}")
-                }
+            val response = kmsClient.listAliases(aliasesRequest)
+            response.aliases?.forEach { alias ->
+                println("The alias name is ${alias.aliasName}")
             }
 
         } catch (ex: KmsException) {

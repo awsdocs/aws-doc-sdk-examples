@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[07/21/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -40,7 +40,7 @@ suspend fun main(args:Array<String>) {
 
     if (args.size != 1) {
         println(usage)
-         exitProcess(0)
+        exitProcess(0)
     }
 
     val keyName = args[0]

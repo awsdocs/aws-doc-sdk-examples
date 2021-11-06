@@ -1,9 +1,9 @@
-//snippet-sourcedescription:[DynamoDBScanItems.kt demonstrates how to return items from an Amazon DynamoDB table.]
+//snippet-sourcedescription:[DynamoDBScanItems.kt demonstrates how to return items from an Amazon DynamoDB table using a filter expression.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/02/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -39,10 +39,10 @@ suspend fun main(args: Array<String>) {
         tableName - the Amazon DynamoDB table to scan (for example, Music3).
     """
 
-    if (args.size != 1) {
+   if (args.size != 1) {
         println(usage)
         exitProcess(0)
-    }
+   }
 
     val tableName = args[0]
     val ddb = DynamoDbClient{ region = "us-east-1" }
@@ -69,9 +69,8 @@ suspend fun scanItemsUsingFilter(ddb: DynamoDbClient, tableNameVal: String) {
 
         val response = ddb.scan(scanRequest)
         println("#######################################")
-        for (item in response.items!!) {
-            val keys = item.keys
-            for (key in keys) {
+        response.items?.forEach { item ->
+            item.keys.forEach { key ->
 
                 when (key) {
                     "date" -> {
@@ -106,8 +105,6 @@ suspend fun scanItemsUsingFilter(ddb: DynamoDbClient, tableNameVal: String) {
                        println("#######################################")
                     }
                 }
-
-                //println("The value is ${item[key]}")
             }
         }
 
@@ -116,8 +113,6 @@ suspend fun scanItemsUsingFilter(ddb: DynamoDbClient, tableNameVal: String) {
         ddb.close()
         exitProcess(0)
     }
-
-
 }
 
 fun splitMyString(str:String):String{

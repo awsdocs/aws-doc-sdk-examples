@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Translate]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/02/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -89,7 +89,7 @@ suspend fun main(args: Array<String>){
 
             // Keep checking until job is done.
             val jobDone = false
-            var jobStatus = ""
+            var jobStatus: String
             val jobIdVal: String? = textTranslationJobResponse?.jobId
 
             val jobRequest = DescribeTextTranslationJobRequest {

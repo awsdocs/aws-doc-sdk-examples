@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaConvert]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/28/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[smacdon - AWS ]
 
 /*
@@ -14,8 +14,7 @@
 package com.kotlin.mediaconvert
 
 // snippet-start:[mediaconvert.kotlin.get_job.import]
-import aws.sdk.kotlin.runtime.endpoint.Endpoint
-import aws.sdk.kotlin.runtime.endpoint.EndpointResolver
+import aws.sdk.kotlin.runtime.endpoint.*
 import aws.sdk.kotlin.services.mediaconvert.MediaConvertClient
 import aws.sdk.kotlin.services.mediaconvert.model.*
 import java.net.URI
@@ -64,17 +63,12 @@ suspend fun getSpecificJob(mcClient: MediaConvertClient, jobId: String?) {
             println("Cannot find MediaConvert service endpoint URL!")
             exitProcess(0)
         }
-        val endpointURL = res.endpoints!!.get(0).url.toString()
-        val uri = URI(endpointURL)
-        val domain = uri.host
+        val endpointURL = res.endpoints!!.get(0).url!!
+        val mediaConvertClient = MediaConvertClient {
 
-        // Need to set an Endpoint override here.
-        val emc = MediaConvertClient {
             region = "us-west-2"
-            endpointResolver = object : EndpointResolver {
-                override suspend fun resolve(service: String, region: String): Endpoint {
-                    return Endpoint(domain, "https")
-                }
+            endpointResolver = AwsEndpointResolver { service, region ->
+                AwsEndpoint(endpointURL, CredentialScope(region = "us-west-2"))
             }
         }
 
@@ -82,7 +76,7 @@ suspend fun getSpecificJob(mcClient: MediaConvertClient, jobId: String?) {
             id = jobId
         }
 
-        val response: GetJobResponse = emc.getJob(jobRequest)
+        val response: GetJobResponse = mediaConvertClient.getJob(jobRequest)
         System.out.println("The ARN of the job is ${response.job?.arn}.")
 
     } catch (ex: MediaConvertException) {

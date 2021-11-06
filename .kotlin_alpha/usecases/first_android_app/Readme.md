@@ -84,34 +84,27 @@ Notice that there is Gradle build file here:
 
 Add the following dependencies to the Gradle build file.
 
-    api("aws.sdk.kotlin:dynamodb:0.4.0-alpha")
-    api("aws.sdk.kotlin:sns:0.4.0-alpha")  {
-        exclude group: "xmlpull", module: "xmlpull"
-    }
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+    apply plugin: 'com.android.application'
+    apply plugin: 'kotlin-android'
+    apply plugin: 'kotlin-android-extensions'
 
-The following code represents this build file. 
-
-	apply plugin: 'com.android.application'
-        apply plugin: 'kotlin-android'
-        apply plugin: 'kotlin-android-extensions'
-
-     android {
+    android {
 
      compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
         coreLibraryDesugaringEnabled true
     }
-    
-     kotlinOptions {
+
+    kotlinOptions {
         jvmTarget = "1.8"
-     }
+    }
 
-     compileSdkVersion 30
-     buildToolsVersion "30.0.0"
 
-     packagingOptions {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.0"
+
+    packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE.txt'
@@ -138,15 +131,15 @@ The following code represents this build file.
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-      }
-     }
+     } 
+    }
 
     dependencies {
      implementation fileTree(dir: "libs", include: ["*.jar"])
-     api("aws.sdk.kotlin:dynamodb:0.4.0-alpha")
-     api("aws.sdk.kotlin:sns:0.4.0-alpha")  {
+     implementation("aws.sdk.kotlin:dynamodb:0.9.0-alpha")
+     implementation("aws.sdk.kotlin:sns:0.9.0-alpha")  {
         exclude group: "xmlpull", module: "xmlpull"
-     }
+    }
      coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
      implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
      implementation 'androidx.core:core-ktx:1.6.0'
@@ -156,6 +149,7 @@ The following code represents this build file.
      androidTestImplementation 'androidx.test.ext:junit:1.1.3'
      androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     }
+
     
 ## Create the layout XML file for your Android project
 
@@ -320,16 +314,16 @@ The following Kotlin code represents the **MainActivity** Kotlin class. To handl
 
      package com.example.aws
 
-     import androidx.appcompat.app.AppCompatActivity 
-     import android.os.Bundle
-     import android.view.View
-     import android.widget.Toast
-     import aws.sdk.kotlin.runtime.auth.StaticCredentialsProvider
-     import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
-     import aws.sdk.kotlin.services.sns.SnsClient
-     import kotlinx.android.synthetic.main.activity_main.*
-     import kotlinx.coroutines.runBlocking
-     import java.util.*
+    import androidx.appcompat.app.AppCompatActivity
+    import android.os.Bundle
+    import android.view.View
+    import android.widget.EditText
+    import android.widget.Toast
+    import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
+    import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
+    import aws.sdk.kotlin.services.sns.SnsClient
+    import kotlinx.coroutines.runBlocking
+    import java.util.*
 
     class MainActivity : AppCompatActivity() {
      override fun onCreate(savedInstanceState: Bundle?) {
@@ -338,7 +332,7 @@ The following Kotlin code represents the **MainActivity** Kotlin class. To handl
         }
 
      fun submitData(view: View) = runBlocking{
-     
+
         val dollarField: EditText =  findViewById(R.id.dollarText)
         val nameField: EditText =  findViewById(R.id.personName)
         val emailField: EditText =  findViewById(R.id.emailAddress)
@@ -346,15 +340,14 @@ The following Kotlin code represents the **MainActivity** Kotlin class. To handl
         val data = Database()
 
         val staticCredentials = StaticCredentialsProvider {
-            accessKeyId = "<ENTER KEY>"
-            secretAccessKey = "<ENTER SECRET KEY>
+            accessKeyId = "<Enter key>"
+            secretAccessKey = "<Enter secret key>"
         }
 
         val ddb = DynamoDbClient{
             region = "us-east-1"
             credentialsProvider = staticCredentials
         }
-
 
         //Set values
         val uuid: UUID = UUID.randomUUID()
@@ -378,14 +371,13 @@ The following Kotlin code represents the **MainActivity** Kotlin class. To handl
         }
 
         val sendMSG = SendMessage()
-        val mobileNum = "18195765654"
+        val mobileNum = "<Enter Mobile Number"
         val message = "Item $uuid was added!"
         sendMSG.pubTextSMS( snsClient,message, mobileNum )
         showToast("Item added")
-    }
+     }
 
-    fun showToast(value:String){
-
+     fun showToast(value:String){
         val toast = Toast.makeText(applicationContext, value, Toast.LENGTH_SHORT)
         toast.setMargin(50f, 50f)
         toast.show()

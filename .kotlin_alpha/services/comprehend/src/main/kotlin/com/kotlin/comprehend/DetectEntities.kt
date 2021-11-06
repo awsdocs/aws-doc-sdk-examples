@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Comprehend]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[03/04/2021]
+// snippet-sourcedate:[11/04/2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -47,12 +47,9 @@ suspend fun detectAllEntities(comClient: ComprehendClient, textVal: String?) {
                 languageCode = LanguageCode.fromValue("en")
             }
 
-            val resp = comClient.detectEntities(detectEntitiesRequest)
-            val entList= resp.entities
-            if (entList != null) {
-                for (entity in entList) {
-                    println("Entity text is ${entity.text}")
-                }
+            val response = comClient.detectEntities(detectEntitiesRequest)
+            response.entities?.forEach { entity ->
+                println("Entity text is ${entity.text}")
             }
 
         } catch (ex: ComprehendException) {

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[AWS Secrets Manager]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/02/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -33,15 +33,12 @@ suspend fun listAllSecrets(secretsClient: SecretsManagerClient) {
 
         try {
             val requestOb = ListSecretsRequest{}
-            val secretsResponse = secretsClient.listSecrets(requestOb)
-
-            val secrets: List<SecretListEntry>? = secretsResponse.secretList
-            if (secrets != null) {
-                for (secret in secrets) {
+            val response = secretsClient.listSecrets(requestOb)
+            response.secretList?.forEach { secret ->
                     println("The secret name is ${secret.name}")
                     println("The secret description is ${secret.description}")
-                }
             }
+
         } catch (ex: SecretsManagerException) {
             println(ex.message)
             secretsClient.close()

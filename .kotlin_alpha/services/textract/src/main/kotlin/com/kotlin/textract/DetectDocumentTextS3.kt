@@ -65,19 +65,14 @@ suspend fun detectDocTextS3(textractClient: TextractClient, bucketName: String?,
         }
 
         // Invoke the detectDocumentText method.
-        val textResponse = textractClient.detectDocumentText(detectDocumentTextRequest)
-        val docInfo= textResponse.blocks
-        val blockIterator = docInfo?.iterator()
-
-        if (blockIterator != null) {
-            while (blockIterator.hasNext()) {
-                val block = blockIterator.next()
-                println("The block type is " + block.blockType.toString())
-            }
+        val response = textractClient.detectDocumentText(detectDocumentTextRequest)
+        response.blocks?.forEach { block ->
+            println("The block type is ${block.blockType.toString()}")
         }
-        val documentMetadata = textResponse.documentMetadata
+
+        val documentMetadata = response.documentMetadata
         if (documentMetadata != null) {
-            println("The number of pages in the document is " + documentMetadata.pages)
+            println("The number of pages in the document is ${documentMetadata.pages}")
         }
 
     } catch (ex: TextractException) {

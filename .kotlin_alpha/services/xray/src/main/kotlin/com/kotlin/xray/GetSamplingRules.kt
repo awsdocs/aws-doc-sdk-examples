@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS X-Ray Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/30/2020]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -31,14 +31,11 @@ suspend fun main() {
 suspend fun getRules(xRayClient: XRayClient) {
         try {
             val response = xRayClient.getSamplingRules( GetSamplingRulesRequest{} )
-            val records = response.samplingRuleRecords
-
-            if (records != null) {
-                for (record in records) {
+            response.samplingRuleRecords?.forEach { record ->
                     println("The rule name is ${record.samplingRule?.ruleName}")
                     println("The related service is: ${record.samplingRule?.serviceName}")
-                }
             }
+
         } catch (ex: XRayException) {
             println(ex.message)
             xRayClient.close()

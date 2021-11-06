@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[06-08-2021]
+// snippet-sourcedate:[11-05-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -39,10 +39,10 @@ suspend fun main(args: Array<String>){
             "sourceImage - the path to the image (for example, C:\\AWS\\pic1.png).
         """
 
-     if (args.size != 1) {
+    if (args.size != 1) {
          println(usage)
          exitProcess(0)
-     }
+    }
 
     val sourceImage = args[0]
     val rekClient = RekognitionClient{ region = "us-east-1"}
@@ -63,13 +63,9 @@ suspend fun detectModLabels(rekClient: RekognitionClient, sourceImage: String?) 
             minConfidence = 60f
         }
 
-        val moderationLabelsResponse = rekClient.detectModerationLabels(moderationLabelsRequest)
-        val labels = moderationLabelsResponse.moderationLabels
-        println("Detected labels for image")
-
-        if (labels != null) {
-            for (label: ModerationLabel in labels)
-                println("Label: ${label.name} - Confidence: ${label.confidence.toString()} % Parent: ${label.parentName}")
+        val response = rekClient.detectModerationLabels(moderationLabelsRequest)
+        response.moderationLabels?.forEach { label ->
+              println("Label: ${label.name} - Confidence: ${label.confidence.toString()} % Parent: ${label.parentName}")
          }
 
     } catch (e: RekognitionException) {
