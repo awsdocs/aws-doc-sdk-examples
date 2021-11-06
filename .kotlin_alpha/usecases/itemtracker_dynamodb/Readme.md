@@ -152,8 +152,8 @@ Ensure that the **build.gradle.kts** file looks like the following.
       implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
       implementation ("javax.mail:javax.mail-api:1.5.5")
       implementation ("com.sun.mail:javax.mail:1.5.5")
-      api("aws.sdk.kotlin:dynamodb:0.4.0-alpha")
-      api("aws.sdk.kotlin:ses:0.4.0-alpha")
+      implementation("aws.sdk.kotlin:dynamodb:0.9.0-alpha")
+      implementation("aws.sdk.kotlin:ses:0.9.0-alpha")
       testImplementation("org.springframework.boot:spring-boot-starter-test")
      }
 
