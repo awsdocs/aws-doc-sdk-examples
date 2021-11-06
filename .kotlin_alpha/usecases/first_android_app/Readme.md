@@ -371,7 +371,7 @@ The following Kotlin code represents the **MainActivity** Kotlin class. To handl
         }
 
         val sendMSG = SendMessage()
-        val mobileNum = "18195765654"
+        val mobileNum = "<Enter Mobile Number"
         val message = "Item $uuid was added!"
         sendMSG.pubTextSMS( snsClient,message, mobileNum )
         showToast("Item added")
