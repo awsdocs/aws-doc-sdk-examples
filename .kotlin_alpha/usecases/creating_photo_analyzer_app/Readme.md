@@ -163,7 +163,7 @@ Create these Kotlin classes:
 The following Kotlin code represents the **AnalyzePhotos** class that uses the Amazon Rekognition API to analyze the images.
 
 ```kotlin
-     package com.aws.photo
+    package com.aws.photo
 
     import aws.sdk.kotlin.services.rekognition.RekognitionClient
     import aws.sdk.kotlin.services.rekognition.model.DetectLabelsRequest
@@ -183,7 +183,6 @@ The following Kotlin code represents the **AnalyzePhotos** class that uses the A
     suspend fun DetectLabels(bytesVal: ByteArray?, key: String?): MutableList<WorkItem>? {
 
         val rekClient =  getClient()
-
         try {
 
             // Create an Image object for the source image.
@@ -196,32 +195,26 @@ The following Kotlin code represents the **AnalyzePhotos** class that uses the A
                 maxLabels = 10
             }
 
-            val labelsResponse = rekClient.detectLabels(detectLabelsRequest)
+            val response = rekClient.detectLabels(detectLabelsRequest)
 
-            // Write the results to a WorkItem instance
-            val labels = labelsResponse.labels
-            println("Detected labels for the given photo")
+            // Write the results to a WorkItem instance.
             val list = mutableListOf<WorkItem>()
-
-            var item: WorkItem
-
-            if (labels != null) {
-                for (label in labels) {
+            println("Detected labels for the given photo")
+            response.labels?.forEach { label ->
+                    var item: WorkItem
                     item = WorkItem()
-                    item.key = key // identifies the photo
+                    item.key = key // identifies the photo.
                     item.confidence = label.confidence.toString()
                     item.name = label.name
-
                     list.add(item)
-                }
             }
             return list
         } catch (e: RekognitionException) {
             println(e.message)
             exitProcess(0)
-          }
-       }
+        }
       }
+     }
 ```
 
 ### BucketItem class
@@ -407,13 +400,13 @@ The following class uses the Amazon S3 Kotlin API to perform S3 operations. For 
     @Component
     class S3Service {
 
-     var myBytes: ByteArray? = null;
+    var myBytes: ByteArray? = null
 
-     // Create the S3Client object.
-     private fun getClient(): S3Client? {
+    // Create the S3Client object.
+    private fun getClient(): S3Client {
         val s3Client = S3Client { region = "us-west-2" }
         return s3Client
-     }
+    }
 
     // Returns the names of all images in the given bucket.
     suspend fun listBucketObjects(bucketName: String?): List<*>? {
@@ -425,32 +418,25 @@ The following class uses the Amazon S3 Kotlin API to perform S3 operations. For 
             val listObjects = ListObjectsRequest {
                 bucket = bucketName
             }
-            val res = s3Client?.listObjects(listObjects)
-            val objects = res?.contents
-
-            if (objects != null) {
-                for (myObject in objects) {
-                    keyName = myObject.key.toString()
-                    keys.add(keyName)
-                }
+            val response = s3Client.listObjects(listObjects)
+            response.contents?.forEach { myObject ->
+                   keyName = myObject.key.toString()
+                   keys.add(keyName)
             }
-
             return keys
 
         } catch (e: S3Exception) {
             println(e.message)
-            s3Client?.close()
+            s3Client.close()
             exitProcess(0)
-         }
-       }
+        }
+    }
 
-     // Returns the names of all images and data within an XML document.
-     suspend fun ListAllObjects(bucketName: String?): String? {
+    // Returns the names of all images and data within an XML document.
+    suspend fun ListAllObjects(bucketName: String?): String? {
         val s3Client = getClient()
         var sizeLg: Long
-        var myItem: BucketItem
         var dateIn: aws.smithy.kotlin.runtime.time.Instant?
-
         val bucketItems = mutableListOf<BucketItem>()
 
         try {
@@ -459,33 +445,27 @@ The following class uses the Amazon S3 Kotlin API to perform S3 operations. For 
              bucket = bucketName
             }
 
-            val res = s3Client?.listObjects(listObjects)
-            val objects = res?.contents
+            val res = s3Client.listObjects(listObjects)
+            res.contents?.forEach { myObject ->
+                val myItem = BucketItem()
+                myItem.key = myObject.key
+                myItem.owner = myObject.owner?.displayName.toString()
+                sizeLg = (myObject.size / 1024)
+                myItem.size = (sizeLg.toString())
+                dateIn = myObject.lastModified
+                myItem.date = dateIn.toString()
 
-            if (objects != null) {
-                for (myObject in objects) {
-                    var myItem = BucketItem()
-
-                    myItem.key = myObject.key
-                    myItem.owner = myObject.owner?.displayName.toString()
-                    sizeLg = (myObject.size / 1024).toLong()
-                    myItem.size = (sizeLg.toString())
-                    dateIn = myObject.lastModified
-                    myItem.date = dateIn.toString()
-
-                    // Push the items to the list.
-                    bucketItems.add(myItem)
-                }
+                // Push the items to the list.
+                bucketItems.add(myItem)
             }
-
             return convertToString(toXml(bucketItems))
 
         } catch (e: S3Exception) {
             println(e.message)
-            s3Client?.close()
+            s3Client.close()
             exitProcess(0)
         }
-      }
+       }
 
      // Places an image into an Amazon S3 bucket.
      suspend fun putObject(data: ByteArray, bucketName: String?, objectKey: String?): String? {
@@ -499,15 +479,15 @@ The following class uses the Amazon S3 Kotlin API to perform S3 operations. For 
                 this.body = ByteStream.fromBytes(data)
             }
 
-            val response = s3Client?.putObject(request)
-            return response?.eTag
+            val response = s3Client.putObject(request)
+            return response.eTag
 
         } catch (e: S3Exception) {
             println(e.message)
-            s3Client?.close()
+            s3Client.close()
             exitProcess(0)
         }
-     }
+      }
 
      // Get the byte[] from this Amazon S3 object.
      suspend fun getObjectBytes(bucketName: String?, keyName: String?): ByteArray? {
@@ -518,17 +498,17 @@ The following class uses the Amazon S3 Kotlin API to perform S3 operations. For 
                 bucket = bucketName
             }
 
-            s3Client?.getObject(objectRequest) { resp ->
+            s3Client.getObject(objectRequest) { resp ->
                 myBytes= resp.body?.toByteArray()
             }
             return myBytes
 
         } catch (e: S3Exception) {
             println(e.message)
-            s3Client?.close()
+            s3Client.close()
             exitProcess(0)
-         }
-       }
+        }
+      }
 
      // Convert items into XML to pass back to the view.
      private fun toXml(itemList: List<BucketItem>): Document {
@@ -576,10 +556,10 @@ The following class uses the Amazon S3 Kotlin API to perform S3 operations. For 
         } catch (e: ParserConfigurationException) {
             e.printStackTrace()
             exitProcess(0)
-         }
-       }
+        }
+      }
 
-     private fun convertToString(xml: Document): String? {
+     private fun convertToString(xml: Document): String {
         try {
             val transformer = TransformerFactory.newInstance().newTransformer()
             val result = StreamResult(StringWriter())
@@ -591,8 +571,8 @@ The following class uses the Amazon S3 Kotlin API to perform S3 operations. For 
             ex.printStackTrace()
             exitProcess(0)
         }
-       }
       }
+    }
 ```
 
  ### WorkItem class
