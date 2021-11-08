@@ -740,23 +740,6 @@ iam_DetachUserPolicy:
                 - python.example_code.iam.DetachUserPolicy
   services:
     iam: {DetachUserPolicy}
-iam_DetachRolePolicy:
-  title: Detach an &IAM; policy from a role using an &AWS; SDK
-  title_abbrev: Detach a policy from a role
-  synopsis: detach an &IAM; policy from a role.
-  category:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/iam
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - iam.java2.detach_role_policy.main
-  services:
-    iam: {DetachRolePolicy}
 iam_Scenario_UserPolicies:
   title: Create read-only and write-only &IAM; users using an &AWS; SDK
   title_abbrev: Create read-only and write-only users
