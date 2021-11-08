@@ -68,10 +68,9 @@ In the **jobs** database, create a table named **Work** that contains the follow
 + **username** - A VARCHAR(45) value that represents the user who entered the item.
 + **archive** - A TINYINT(4) value that represents whether this is an active or archive item.
 
-The following figure shows the **work** table in the Amazon RDS Management console.
+The following figure shows the **Work** table in the Amazon RDS Management console.
 
 ![AWS Tracking Application](images/database.png)
-
 
 ## Understand the RDS Item Tracker application
 
