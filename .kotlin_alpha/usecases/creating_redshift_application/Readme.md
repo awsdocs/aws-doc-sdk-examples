@@ -113,8 +113,8 @@ Ensure that the Gradle build file resembles the following code.
       implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
       implementation("org.jetbrains.kotlin:kotlin-reflect")
       implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-      api("aws.sdk.kotlin:redshiftdata:0.4.0-alpha")
-      api("aws.sdk.kotlin:translate:0.4.0-alpha")
+      implementation("aws.sdk.kotlin:redshiftdata:0.9.0-alpha")
+      implementation("aws.sdk.kotlin:translate:0.9.0-alpha")
       testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
    
