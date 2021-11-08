@@ -178,8 +178,8 @@ At this point, you have a new project named **LambdaKotlinMaven**.
 Make sure that the pom.xml file looks like the following.
 
 ```xml
-     <?xml version="1.0" encoding="UTF-8"?>
-     <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    <?xml version="1.0" encoding="UTF-8"?>
+    <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -260,6 +260,7 @@ Make sure that the pom.xml file looks like the following.
             <artifactId>kotlin-stdlib</artifactId>
             <version>1.5.21</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
@@ -280,52 +281,12 @@ Make sure that the pom.xml file looks like the following.
         <dependency>
             <groupId>aws.sdk.kotlin</groupId>
             <artifactId>dynamodb</artifactId>
-            <version>0.4.0-alpha</version>
+            <version>0.9.0-alpha</version>
         </dependency>
         <dependency>
             <groupId>aws.sdk.kotlin</groupId>
             <artifactId>sns</artifactId>
-            <version>0.4.0-alpha</version>
-        </dependency>
-        <dependency>
-            <groupId>aws.smithy.kotlin</groupId>
-            <artifactId>runtime-core-jvm</artifactId>
-            <version>0.4.0-alpha</version>
-        </dependency>
-        <dependency>
-            <groupId>aws.smithy.kotlin</groupId>
-            <artifactId>http-jvm</artifactId>
-            <version>0.4.0-alpha</version>
-        </dependency>
-        <dependency>
-            <groupId>aws.smithy.kotlin</groupId>
-            <artifactId>serde-json-jvm</artifactId>
-            <version>0.4.0-alpha</version>
-        </dependency>
-        <dependency>
-            <groupId>aws.smithy.kotlin</groupId>
-            <artifactId>serde-jvm</artifactId>
-            <version>0.4.0-alpha</version>
-        </dependency>
-        <dependency>
-            <groupId>aws.smithy.kotlin</groupId>
-            <artifactId>serde-form-url</artifactId>
-            <version>0.4.0-alpha</version>
-        </dependency>
-        <dependency>
-            <groupId>aws.smithy.kotlin</groupId>
-            <artifactId>serde-form-url-jvm</artifactId>
-            <version>0.4.0-alpha</version>
-        </dependency>
-        <dependency>
-            <groupId>aws.smithy.kotlin</groupId>
-            <artifactId>serde-xml</artifactId>
-            <version>0.4.0-alpha</version>
-        </dependency>
-        <dependency>
-            <groupId>aws.smithy.kotlin</groupId>
-            <artifactId>serde-xml-jvm</artifactId>
-            <version>0.4.0-alpha</version>
+            <version>0.9.0-alpha</version>
         </dependency>
         <dependency>
             <groupId>com.amazonaws</groupId>
@@ -337,7 +298,7 @@ Make sure that the pom.xml file looks like the following.
             <artifactId>gson</artifactId>
             <version>2.8.6</version>
         </dependency>
-     </dependencies>
+      </dependencies>
     </project>
 ```
 
