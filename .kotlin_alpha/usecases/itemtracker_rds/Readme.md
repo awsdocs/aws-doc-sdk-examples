@@ -197,11 +197,11 @@ Ensure that the **build.gradle.kts** file looks like the following.
 
 ## Create the Kotlin classes
 
-Create a new package in the **main/kotlin** folder named **com.example.demo**.
+Create a new package in the **main/kotlin** folder named **com.example.demo**. The following Kotlin classes go into this package.
 
-![AWS Tracking Application](images/kotlinpro3.png)
+![AWS Tracking Application](images/kotlinproject5.png)
 
-The following Kotlin classes go into this package.
+
 
 + **DemoApplication** - Used as the base class for the Spring Boot application. 
 + **MessageResource** - Represents the controller used in this application that handles HTTP requests.
