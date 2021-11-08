@@ -344,368 +344,98 @@ The following Kotlin code represents the **DemoApplication** and the **MessageRe
 
  ```
 
-### Create DynamoDBService class
+### InjectWorkService class 
 
-The **DynamoDBService** class uses the AWS SDK for Kotlin API to interact with the **Work** table. It adds new items, updates items, and performs queries. In the following code example, notice the use of an **Expression** object. This object is used to query either Open or Closed items. For example, in the **getOpenItems** method, if the value **true** is passed to this method, then only Open items are retrieved from the Amazon DynamoDB table. 
+The following Kotlin code represents the **InjectWorkService** class. Notice that you need to specify ARN values for the secret manager and the Amazon Serverless Aurora database (as discussed in the *Creating the resources* section). Without both of these values, your code does not work. To use the **RDSDataClient**, you need to create an **ExecuteStatementRequest** object and specify both ARN values, the database name, and the SQL statement used to submit data to the **work** table. 
+
 
  ```kotlin
-     package com.example.demo
+    package com.example.demo
 
     import org.springframework.stereotype.Component
-    import org.w3c.dom.Document
-    import java.io.StringWriter
+    import java.sql.Date
+    import java.sql.SQLException
+    import java.text.ParseException
     import java.text.SimpleDateFormat
+    import java.time.LocalDateTime
+    import java.time.format.DateTimeFormatter
     import java.util.*
-    import javax.xml.parsers.DocumentBuilderFactory
-    import javax.xml.parsers.ParserConfigurationException
-    import javax.xml.transform.TransformerException
-    import javax.xml.transform.TransformerFactory
-    import javax.xml.transform.dom.DOMSource
-    import javax.xml.transform.stream.StreamResult
-    import kotlin.system.exitProcess
-    import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
-    import aws.sdk.kotlin.services.dynamodb.model.*
+    import aws.sdk.kotlin.services.rdsdata.RdsDataClient
+    import aws.sdk.kotlin.services.rdsdata.model.ExecuteStatementRequest
 
-    /*
-    Before running this code example, create an Amazon DynamoDB table named Work with a primary key named id.
-    */
     @Component
-    class DynamoDBService {
+    class InjectWorkService {
 
-    // Update the archive column.
-    suspend fun archiveItemEC(id: String) {
-        val tableNameVal = "Work"
-        val dynamoDBClient = DynamoDbClient{ region = "us-east-1" }
-        val itemKey = mutableMapOf<String, AttributeValue>()
-        itemKey["id"] = AttributeValue.S(id)
+    private val secretArnVal = "arn:aws:secretsmanager:us-east-1:814548047983:secret:sqlscott2-WEJX1b"
+    private val resourceArnVal = "arn:aws:rds:us-east-1:814548047983:cluster:database-4"
 
-        val updatedValues = mutableMapOf<String, AttributeValueUpdate>()
-        updatedValues["archive"] = AttributeValueUpdate {
-            value = AttributeValue.S("Closed")
-            action = AttributeAction.Put
-        }
+    // Returns a RdsDataClient object.
+    private fun getClient(): RdsDataClient {
 
-        val request = UpdateItemRequest {
-            tableName = tableNameVal
-            key = itemKey
-            attributeUpdates= updatedValues
-        }
+        val rdsDataClient = RdsDataClient{region ="us-east-1"}
+        return rdsDataClient
+     }
 
+     // Modifies an existing record.
+     suspend fun modifySubmission(id: String, status: String?): String? {
+        val dataClient = getClient()
         try {
-            dynamoDBClient.updateItem(request)
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            dynamoDBClient.close()
-            exitProcess(0)
-        }
-       }
-
-    // Updates the status of a given item.
-    suspend fun updateTableItem( id: String, status: String) {
-
-        val tableNameVal = "Work"
-        val dynamoDBClient = DynamoDbClient{ region = "us-east-1" }
-        val itemKey = mutableMapOf<String, AttributeValue>()
-        itemKey["id"] = AttributeValue.S(id)
-
-        val updatedValues = mutableMapOf<String, AttributeValueUpdate>()
-        updatedValues["status"] = AttributeValueUpdate {
-            value = AttributeValue.S(status)
-            action = AttributeAction.Put
-        }
-
-        val request = UpdateItemRequest {
-            tableName = tableNameVal
-            key = itemKey
-            attributeUpdates= updatedValues
-        }
-
-        try {
-            dynamoDBClient.updateItem(request)
-            println("Item in $tableNameVal was updated")
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            dynamoDBClient.close()
-            exitProcess(0)
-        }
-       }
-
-      // Get a single item from the Work table based on idValue.
-      suspend fun getItem(idValue: String): String? {
-        val dynamoDBClient = DynamoDbClient{ region = "us-east-1" }
-        val tableNameVal = "Work"
-        val keyToGet = mutableMapOf<String, AttributeValue>()
-        keyToGet["id"] = AttributeValue.S(idValue)
-
-        val request = GetItemRequest {
-            key = keyToGet
-            tableName = tableNameVal
-        }
-
-        try {
-
-            var status = ""
-            var description = ""
-            val returnedItem = dynamoDBClient.getItem(request).item
-            // Get keys and values and get description and status.
-            for ((k, v) in returnedItem!!) {
-                if (k.compareTo("description") == 0) {
-                    description = splitMyString(v.toString())
-                } else if (k.compareTo("status") == 0) {
-                    status = splitMyString(v.toString())
-                }
+            val sqlStatement = "update work set status = '$status' where idwork = '$id'"
+            val sqlRequest = ExecuteStatementRequest {
+                secretArn = secretArnVal
+                sql = sqlStatement
+                database = "jobs"
+                resourceArn = resourceArnVal
             }
+            dataClient.executeStatement(sqlRequest)
+            return id
 
-            val myXML: Document = toXmlItem(idValue, description, status)!!
-            return convertToString(myXML)
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            dynamoDBClient.close()
+        } catch (e: SQLException) {
+            e.printStackTrace()
         }
+        return null
+     }
 
-        return ""
-       }
-
-      suspend fun getOpenItems(myArc:Boolean):String? {
-
-        val dynamoDBClient = DynamoDbClient{ region = "us-east-1" }
+     // Inject a new submission.
+     suspend fun injestNewSubmission(item: WorkItem): String? {
+        val arc = 0
+        val dataClient = getClient()
         try {
-            val tableNameVal = "Work"
-            val myList = mutableListOf<WorkItem>()
-            val myMap = HashMap<String, String>()
-            myMap.put("#archive2", "archive")
 
-            val myExMap = HashMap<String, AttributeValue>()
+             val name = item.name
+            val guide = item.guide
+            val description = item.description
+            val status = item.status
 
-            if (myArc)
-                myExMap.put(":val", AttributeValue.S("Open"))
-            else
-                myExMap.put(":val", AttributeValue.S("Closed"))
+            // generate the work item ID.
+            val uuid = UUID.randomUUID()
+            val workId = uuid.toString()
 
-            val scanRequest = ScanRequest {
-                this.expressionAttributeNames = myMap
-                this.expressionAttributeValues = myExMap
-                tableName = tableNameVal
-                filterExpression = "#archive2 = :val"
+            // Date conversion.
+            val dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")
+            val now = LocalDateTime.now()
+            val sDate1 = dtf.format(now)
+            val date1 = SimpleDateFormat("yyyy/MM/dd").parse(sDate1)
+            val sqlDate = Date(date1.time)
+
+            // Inject an item into the system.
+            val sqlStatement = "INSERT INTO work (idwork, username,date,description, guide, status, archive) VALUES('$workId', '$name', '$sqlDate','$description','$guide','$status','$arc');"
+            val sqlRequest = ExecuteStatementRequest {
+                secretArn = secretArnVal
+                sql = sqlStatement
+                database = "jobs"
+                resourceArn = resourceArnVal
             }
-
-            val response = dynamoDBClient.scan(scanRequest)
-            for (item in response.items!!) {
-                val keys = item.keys
-                val myItem = WorkItem()
-
-                for (key in keys) {
-                    when (key) {
-                        "date" -> {
-                            myItem.date = splitMyString(item[key].toString())
-                        }
-
-                        "status" -> {
-                            myItem.status = splitMyString(item[key].toString())
-                        }
-
-                        "username" -> {
-                            myItem.name = "user"
-                        }
-
-                        "archive" -> {
-                            myItem.arc = splitMyString(item[key].toString())
-                        }
-
-                        "description" -> {
-                            myItem.description = splitMyString(item[key].toString())
-                        }
-                        "id" -> {
-                            myItem.id = splitMyString(item[key].toString())
-                        }
-                        else -> {
-
-                            myItem.guide = splitMyString(item[key].toString())
-                            // Push to list
-                            myList.add(myItem)
-                        }
-                    }
-                 }
-              }
-
-            val myXML = toXml(myList)!!
-            return convertToString(myXML)
-
-         } catch (ex: DynamoDbException) {
-            println(ex.message)
-            dynamoDBClient.close()
+            dataClient.executeStatement(sqlRequest)
+            return workId
+         } catch (e: SQLException) {
+            e.printStackTrace()
+         } catch (e: ParseException) {
+            e.printStackTrace()
          }
-
-         return ""
+        return null
        }
-
-      // Puts an item into an Amazon DynamoDB table.
-      suspend fun putItemInTable( itemOb:WorkItem):String {
-
-        val tableNameVal = "Work"
-
-        // Get all the values to store in the Amazon DynamoDB table.
-        val myGuid = UUID.randomUUID().toString()
-        val user  = itemOb.name
-        val desc = itemOb.description
-        val status = itemOb.status
-        val guide = itemOb.guide
-
-        val date = Calendar.getInstance().time
-        val formatter = SimpleDateFormat.getDateTimeInstance()
-        val formatedDate = formatter.format(date)
-
-        // Add the data to the DynamoDB table.
-        val dynamoDBClient = DynamoDbClient{ region = "us-east-1" }
-        val itemValues = mutableMapOf<String, AttributeValue>()
-
-        // Add all content to the table.
-        itemValues["id"] = AttributeValue.S(myGuid)
-        itemValues["username"] = AttributeValue.S(user.toString())
-        itemValues["archive"] = AttributeValue.S("Open")
-        itemValues["date"] =  AttributeValue.S(formatedDate)
-        itemValues["description"] = AttributeValue.S(desc.toString())
-        itemValues["guide"] = AttributeValue.S(guide.toString())
-        itemValues["status"] = AttributeValue.S(status.toString())
-
-        val request = PutItemRequest {
-            tableName=tableNameVal
-            item = itemValues
-        }
-
-        try {
-            dynamoDBClient.putItem(request)
-            return myGuid
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            dynamoDBClient.close()
-        }
-
-        return ""
       }
-     }
-
-    // Splits the item[key] value.
-    fun splitMyString(str:String):String{
-
-    val del1 = "="
-    val del2 = ")"
-    val parts = str.split(del1, del2)
-    val myVal = parts[1]
-    return myVal
-    }
-
-    // Convert Work item data into XML to pass back to the view.
-    private fun toXml(itemList:MutableList<WorkItem>): Document? {
-    try {
-        val factory = DocumentBuilderFactory.newInstance()
-        val builder = factory.newDocumentBuilder()
-        val doc = builder.newDocument()
-
-        // Start building the XML.
-        val root = doc.createElement("Items")
-        doc.appendChild(root)
-
-        // Get the elements from the collection.
-        val custCount = itemList.size
-
-        // Iterate through the collection.
-        for (index in 0 until custCount) {
-
-            // Get the WorkItem object from the collection.
-            val myItem = itemList[index]
-            val item = doc.createElement("Item")
-            root.appendChild(item)
-
-            // Set Id.
-            val id = doc.createElement("Id")
-            id.appendChild(doc.createTextNode(myItem.id))
-            item.appendChild(id)
-
-            // Set Name.
-            val name = doc.createElement("Name")
-            name.appendChild(doc.createTextNode(myItem.name))
-            item.appendChild(name)
-
-            // Set Date.
-            val date = doc.createElement("Date")
-            date.appendChild(doc.createTextNode(myItem.date))
-            item.appendChild(date)
-
-            // Set Description.
-            val desc = doc.createElement("Description")
-            desc.appendChild(doc.createTextNode(myItem.description))
-            item.appendChild(desc)
-
-            // Set Guide.
-            val guide = doc.createElement("Guide")
-            guide.appendChild(doc.createTextNode(myItem.guide))
-            item.appendChild(guide)
-
-            // Set Status.
-            val status = doc.createElement("Status")
-            status.appendChild(doc.createTextNode(myItem.status))
-            item.appendChild(status)
-        }
-        return doc
-    
-     } catch (e: ParserConfigurationException) {
-        e.printStackTrace()
-     }
-     return null
-    }
-
-    private fun toXmlItem(id2: String, desc2: String, status2: String): Document? {
-     try {
-        val factory = DocumentBuilderFactory.newInstance()
-        val builder = factory.newDocumentBuilder()
-        val doc = builder.newDocument()
-
-        //Start building the XML.
-        val root = doc.createElement("Items")
-        doc.appendChild(root)
-        val item = doc.createElement("Item")
-        root.appendChild(item)
-
-        //Set Id.
-        val id = doc.createElement("Id")
-        id.appendChild(doc.createTextNode(id2))
-        item.appendChild(id)
-
-        //Set Description.
-        val desc = doc.createElement("Description")
-        desc.appendChild(doc.createTextNode(desc2))
-        item.appendChild(desc)
-
-        //Set Status.
-        val status = doc.createElement("Status")
-        status.appendChild(doc.createTextNode(status2))
-        item.appendChild(status)
-        return doc
-    
-      } catch (e: ParserConfigurationException) {
-        e.printStackTrace()
-     }
-     return null
-    }
-
-    private fun convertToString(xml: Document): String? {
-     try {
-        val transformer = TransformerFactory.newInstance().newTransformer()
-        val result = StreamResult(StringWriter())
-        val source = DOMSource(xml)
-        transformer.transform(source, result)
-        return result.writer.toString()
-
-    } catch (ex: TransformerException) {
-        ex.printStackTrace()
-    }
-    return null
-    }
  ```
 
 ### Create the SendMessage class
