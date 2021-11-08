@@ -121,7 +121,6 @@ The Amazon RDS table is named **Work** and contains the following fields:
 + **username** - A VARCHAR(45) value that represents the user who entered the item.
 + **archive** - A TINYINT(4) value that represents whether this is an active or archive item.
 
-
 The following figure shows the **Work** table.
 
 ![AWS Tracking Application](images/database.png)
@@ -143,7 +142,7 @@ Perform these steps.
 
 ## Add the dependencies to your Gradle build file
 
-At this point, you have a new project named **ItemDemo**.
+At this point, you have a new project named **ItemDemoRDS**.
 
 ![AWS Tracking Application](images/project0.png)
 
