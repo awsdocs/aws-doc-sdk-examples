@@ -203,9 +203,9 @@ Create a new package in the **main/kotlin** folder named **com.example.demo**. T
 
 
 
-+ **DemoApplication** - Used as the base class for the Spring Boot application. 
-+ **MessageResource** - Represents the controller used in this application that handles HTTP requests.
-+ **DynamoDBService** - Uses the Amazon DynamoDB Kotlin API to interact with the **Work** table.
++ **DemoApplication** - Used as the base class and Controller for the Spring Boot application. 
++ **InjectWorkService** - Uses the RDSDataClient to submit a new record into the work table..
++ **RetrieveItems** -  Uses the RDSDataClient to retrieve a data set from the work table..
 + **SendMessage** - Uses the Amazon SES Kotlin API to send email messages.
 + **WorkItem** - Represents the application model.
 
@@ -224,25 +224,27 @@ The following Kotlin code represents the **DemoApplication** and the **MessageRe
     import org.springframework.boot.runApplication
     import org.springframework.stereotype.Controller
     import org.springframework.web.bind.annotation.*
-    import java.io.IOException
     import javax.servlet.http.HttpServletRequest
     import javax.servlet.http.HttpServletResponse
 
     @SpringBootApplication
     class DemoApplication
 
-    fun main(args: Array<String>) {
+   fun main(args: Array<String>) {
      runApplication<DemoApplication>(*args)
-     }
+   }
 
-    @Controller
-    class MessageResource {
+  @Controller
+  class MessageResource {
 
     @Autowired
-    lateinit var dbService: DynamoDBService
+    lateinit var injectItems: InjectWorkService
 
     @Autowired
     lateinit var sendMsg: SendMessage
+
+    @Autowired
+    lateinit var ri: RetrieveItems
 
     @GetMapping("/")
     fun root(): String? {
@@ -259,10 +261,30 @@ The following Kotlin code represents the **DemoApplication** and the **MessageRe
         return "items"
     }
 
-    // Adds a new item to the DynamoDB database.
-    @RequestMapping(value = ["/additems"], method = [RequestMethod.POST])
+    // Retrieve all items for a given user.
+    @RequestMapping(value = ["/retrieve"], method = [RequestMethod.POST])
     @ResponseBody
-    fun addItems(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking{
+    fun retrieveItems(request: HttpServletRequest, response: HttpServletResponse?): String?  = runBlocking {
+
+        val type = request.getParameter("type")
+        val name = "user"
+
+        // Pass back all data from the database.
+        val xml: String?
+
+        return@runBlocking if (type == "active") {
+            xml = ri.getItemsDataSQL(name, 0)
+            xml
+        } else {
+            xml = ri.getItemsDataSQL(name, 1)
+            xml
+        }
+     }
+
+     // Adds a new item to the database.
+     @RequestMapping(value = ["/additems"], method = [RequestMethod.POST])
+     @ResponseBody
+     fun addItems(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking{
 
         val nameVal = "user"
         val guideVal = request.getParameter("guide")
@@ -275,67 +297,52 @@ The following Kotlin code represents the **DemoApplication** and the **MessageRe
         myWork.description = descriptionVal
         myWork.status = statusVal
         myWork.name = nameVal
-        val id =  dbService.putItemInTable(myWork)
+        val id =  injectItems.injestNewSubmission(myWork)
         return@runBlocking "Item $id added successfully!"
-    }
+      }
 
-    // Retrieve items.
-    @RequestMapping(value = ["/retrieve"], method = [RequestMethod.POST])
-    @ResponseBody
-    fun retrieveItems(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking{
-        val type = request.getParameter("type")
-
-        // Pass back items from the DynamoDB table.
-        var xml: String?
-        if (type.compareTo("archive") == 0)
-            xml = dbService.getOpenItems(false)
-        else
-            xml = dbService.getOpenItems(true)
-
-        return@runBlocking xml
-    }
-
-    // Returns a work item to modify.
-    @RequestMapping(value = ["/modify"], method = [RequestMethod.POST])
-    @ResponseBody
-    fun modifyWork(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking {
+      // Returns a work item to modify.
+      @RequestMapping(value = ["/modify"], method = [RequestMethod.POST])
+      @ResponseBody
+      fun modifyWork(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking {
         val id = request.getParameter("id")
-        return@runBlocking dbService.getItem(id)
-    }
+        return@runBlocking ri.getItemSQL(id)
+      }
 
-    // Modifies the value of a work item.
-    @RequestMapping(value = ["/modstatus"], method = [RequestMethod.POST])
-    @ResponseBody
-    fun changeWorkItem(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking {
+      // Modifies the value of a work item.
+      @RequestMapping(value = ["/modstatus"], method = [RequestMethod.POST])
+      @ResponseBody
+      fun changeWorkItem(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking {
         val id = request.getParameter("id")
         val status = request.getParameter("stat")
-        dbService.updateTableItem(id, status)
+        injectItems.modifySubmission(id, status)
         return@runBlocking id
-    }
+      }
 
-    // Archives a work item.
-    @RequestMapping(value = ["/archive"], method = [RequestMethod.POST])
-    @ResponseBody
-    fun archieveWorkItem(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking{
+     // Archives a work item.
+     @RequestMapping(value = ["/archive"], method = [RequestMethod.POST])
+     @ResponseBody
+     fun archieveWorkItem(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking{
         val id = request.getParameter("id")
-        dbService.archiveItemEC(id)
+        ri.flipItemArchive(id)
         return@runBlocking id
-    }
-
-    // Emails a report.
-    @RequestMapping(value = ["/report"], method = [RequestMethod.POST])
-    @ResponseBody
-    fun getReport(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking {
-        val email = request.getParameter("email")
-        val xml = dbService.getOpenItems(true)
-        try {
-            sendMsg.send(email, xml)
-        } catch (e: IOException) {
-            e.stackTrace
-        }
-        return@runBlocking "Report was sent"
      }
-    }
+
+     // Emails a report.
+      @RequestMapping(value = ["/report"], method = [RequestMethod.POST])
+      @ResponseBody
+      fun getReport(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking {
+         val email = request.getParameter("email")
+         val xml = ri.getItemsDataSQLReport("user", 0)
+         try {
+             sendMsg.send(email, xml)
+         } catch (e: Exception) {
+             e.stackTrace
+         }
+         return@runBlocking "Report was sent"
+      }
+     }
+
  ```
 
 ### Create DynamoDBService class
