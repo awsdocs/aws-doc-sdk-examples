@@ -122,8 +122,8 @@ Add the following dependencies to your Gradle buidle file.
       implementation("org.jetbrains.kotlin:kotlin-reflect")
       implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
       implementation("net.sourceforge.jexcelapi:jxl:2.6.10")
-      api("aws.sdk.kotlin:s3:0.4.0-alpha")
-      api("aws.sdk.kotlin:rekognition:0.4.0-alpha")
+      implementation("aws.sdk.kotlin:s3:0.9.0-alpha")
+      implementation("aws.sdk.kotlin:rekognition:0.9.0-alpha")
       implementation("commons-io:commons-io:2.10.0")
       testImplementation("org.springframework.boot:spring-boot-starter-test")
      }
