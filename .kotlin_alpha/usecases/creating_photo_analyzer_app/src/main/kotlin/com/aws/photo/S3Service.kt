@@ -23,10 +23,10 @@ import kotlin.system.exitProcess
 @Component
 class S3Service {
 
-    var myBytes: ByteArray? = null;
+    var myBytes: ByteArray? = null
 
     // Create the S3Client object.
-    private fun getClient(): S3Client? {
+    private fun getClient(): S3Client {
         val s3Client = S3Client { region = "us-west-2" }
         return s3Client
     }
@@ -41,20 +41,16 @@ class S3Service {
             val listObjects = ListObjectsRequest {
                 bucket = bucketName
             }
-            val res = s3Client?.listObjects(listObjects)
-            val objects = res?.contents
-
-            if (objects != null) {
-                for (myObject in objects) {
-                    keyName = myObject.key.toString()
-                    keys.add(keyName)
-                }
+            val response = s3Client.listObjects(listObjects)
+            response.contents?.forEach { myObject ->
+                   keyName = myObject.key.toString()
+                   keys.add(keyName)
             }
             return keys
 
         } catch (e: S3Exception) {
             println(e.message)
-            s3Client?.close()
+            s3Client.close()
             exitProcess(0)
         }
     }
@@ -72,30 +68,24 @@ class S3Service {
              bucket = bucketName
             }
 
-            val res = s3Client?.listObjects(listObjects)
-            val objects = res?.contents
+            val res = s3Client.listObjects(listObjects)
+            res.contents?.forEach { myObject ->
+                val myItem = BucketItem()
+                myItem.key = myObject.key
+                myItem.owner = myObject.owner?.displayName.toString()
+                sizeLg = (myObject.size / 1024)
+                myItem.size = (sizeLg.toString())
+                dateIn = myObject.lastModified
+                myItem.date = dateIn.toString()
 
-            if (objects != null) {
-                for (myObject in objects) {
-                    var myItem = BucketItem()
-
-                    myItem.key = myObject.key
-                    myItem.owner = myObject.owner?.displayName.toString()
-                    sizeLg = (myObject.size / 1024).toLong()
-                    myItem.size = (sizeLg.toString())
-                    dateIn = myObject.lastModified
-                    myItem.date = dateIn.toString()
-
-                    // Push the items to the list.
-                    bucketItems.add(myItem)
-                }
+                // Push the items to the list.
+                bucketItems.add(myItem)
             }
-
             return convertToString(toXml(bucketItems))
 
         } catch (e: S3Exception) {
             println(e.message)
-            s3Client?.close()
+            s3Client.close()
             exitProcess(0)
         }
     }
@@ -112,12 +102,12 @@ class S3Service {
                 this.body = ByteStream.fromBytes(data)
             }
 
-            val response = s3Client?.putObject(request)
-            return response?.eTag
+            val response = s3Client.putObject(request)
+            return response.eTag
 
         } catch (e: S3Exception) {
             println(e.message)
-            s3Client?.close()
+            s3Client.close()
             exitProcess(0)
         }
     }
@@ -131,14 +121,14 @@ class S3Service {
                 bucket = bucketName
             }
 
-            s3Client?.getObject(objectRequest) { resp ->
+            s3Client.getObject(objectRequest) { resp ->
                 myBytes= resp.body?.toByteArray()
             }
             return myBytes
 
         } catch (e: S3Exception) {
             println(e.message)
-            s3Client?.close()
+            s3Client.close()
             exitProcess(0)
         }
     }
@@ -192,7 +182,7 @@ class S3Service {
         }
    }
 
-    private fun convertToString(xml: Document): String? {
+    private fun convertToString(xml: Document): String {
         try {
             val transformer = TransformerFactory.newInstance().newTransformer()
             val result = StreamResult(StringWriter())

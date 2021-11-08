@@ -23,7 +23,6 @@ class AnalyzePhotos {
     suspend fun DetectLabels(bytesVal: ByteArray?, key: String?): MutableList<WorkItem>? {
 
         val rekClient =  getClient()
-
         try {
 
             // Create an Image object for the source image.
@@ -36,23 +35,18 @@ class AnalyzePhotos {
                 maxLabels = 10
             }
 
-            val labelsResponse = rekClient.detectLabels(detectLabelsRequest)
+            val response = rekClient.detectLabels(detectLabelsRequest)
 
             // Write the results to a WorkItem instance.
-            val labels = labelsResponse.labels
-            println("Detected labels for the given photo")
             val list = mutableListOf<WorkItem>()
-            var item: WorkItem
-
-            if (labels != null) {
-                for (label in labels) {
+            println("Detected labels for the given photo")
+            response.labels?.forEach { label ->
+                    var item: WorkItem
                     item = WorkItem()
                     item.key = key // identifies the photo.
                     item.confidence = label.confidence.toString()
                     item.name = label.name
-
                     list.add(item)
-                }
             }
             return list
         } catch (e: RekognitionException) {
