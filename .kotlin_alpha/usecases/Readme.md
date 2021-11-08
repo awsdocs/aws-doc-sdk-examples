@@ -11,3 +11,6 @@ In the use_cases folder, find step-by-step development tutorials that use multip
 + **Creating a dynamic web application that analyzes photos using the AWS SDK for Kotlin** - A tutorial that discusses using the AWS SDK for Kotlin and various AWS services, such as the Amazon Rekognition service, to analyze images. The application can analyze many images and generate a report that breaks down each image into a series of labels.
 
 + **Creating_dynamodb_item_tracker** - A tutorial that discusses using Amazon DynamoDB and Amazon Simple Email Service (Amazon SES) to create a web application that tracks work items.
+
++ **Creating the Serverless Amazon Aurora item tracker application using the Kotlin RdsDataClient API** - A tutorial that discusses using Serverless Amazon Aurora, Amazon Simple Email Service (Amazon SES), and the **RdsDataClient** Kotlin client to create a web application that tracks work items.
+
