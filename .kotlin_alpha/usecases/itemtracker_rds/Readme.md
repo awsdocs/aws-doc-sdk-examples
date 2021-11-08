@@ -200,11 +200,9 @@ Create a new package in the **main/kotlin** folder named **com.example.demo**. T
 
 ![AWS Tracking Application](images/kotlinproject5.png)
 
-
-
 + **DemoApplication** - Used as the base class and Controller for the Spring Boot application. 
-+ **InjectWorkService** - Uses the RDSDataClient to submit a new record into the work table..
-+ **RetrieveItems** -  Uses the RDSDataClient to retrieve a data set from the work table..
++ **InjectWorkService** - Uses the RDSDataClient to submit a new record into the work table.
++ **RetrieveItems** -  Uses the RDSDataClient to retrieve a data set from the work table.
 + **SendMessage** - Uses the Amazon SES Kotlin API to send email messages.
 + **WorkItem** - Represents the application model.
 
