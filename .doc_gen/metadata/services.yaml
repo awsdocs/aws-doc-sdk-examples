@@ -10,6 +10,11 @@ application-autoscaling:
   short: "&APP-AS;"
   sort: "Application Auto Scaling"
   version: application-autoscaling-2016-02-06
+autoscaling:
+  long: "&AWS-ASlong;"
+  short: "&AWS-AS;"
+  sort: "EC2 Auto Scaling"
+  version: autoscaling-2011-01-01  
 api-gateway:
   long: "&ABPlong;"
   short: "&ABP;"
@@ -20,6 +25,11 @@ auto-scaling:
   short: "&AS;"
   sort: "EC2 Auto Scaling"
   version: autoscaling-2011-01-01
+batch:
+  long: "&BATCHlong;"
+  short: "&BATCH;"
+  sort: "Batch"
+  version: batch-2016-08-10
 cloudformation:
   long: "&CFNlong;"
   short: "&CFN;"
@@ -50,6 +60,16 @@ cognito-identity:
   short: "&COGID;"
   sort: "Cognito Identity"
   version: cognito-identity-2014-06-30
+cognito-idp:
+  long: "&COGUP;"
+  short: "&COGUP;"
+  sort: "Cognito Identity Provider"
+  version: cognito-idp-2016-04-18
+cognito-sync:
+  long: "&COGSYNClong;"
+  short: "&COGSYNC;"
+  sort: "Cognito Sync"
+  version: cognito-sync-2014-06-30
 comprehend:
   long: "&CMPlong;"
   short: "&CMP;"
@@ -65,6 +85,11 @@ dynamodb:
   short: "&DDB;"
   sort: "DynamoDB"
   version: dynamodb-2012-08-10
+ebs:
+  long: "&EBSlong;"
+  short: "&EBS;"
+  sort: "EBS"
+  version: ebs-2019-11-02
 ec2:
   long: "&EC2long;"
   short: "&EC2;"
@@ -80,6 +105,16 @@ eventbridge:
   short: "&EV;"
   sort: "EventBridge"
   version: eventbridge-2015-10-07
+iam:
+  long: "&IAMlong;"
+  short: "&IAM;"
+  sort: "IAM"
+  version: iam-2010-05-08
+iot:
+  long: "&IoTlong;"
+  short: "&IoT;"
+  sort: "IOT"
+  version: iot-2015-05-28
 kinesis:
   long: "&AKlong;"
   short: "&AK;"
@@ -110,6 +145,16 @@ lookoutvision:
   short: "&LYRA;"
   sort: "Lookout for Vision"
   version: lookoutvision-2020-11-20
+medialive:
+  long: "&EMLlong;"
+  short: "&EML;"
+  sort: "MediaLive"
+  version: medialive-2017-10-14
+mediapackage:
+  long: "&EMPlong;"
+  short: "&EMP;"
+  sort: "MediaPackage"
+  version: mediapackage-2017-10-12
 pinpoint:
   long: "&PINlong;"
   short: "&PIN;"
@@ -127,11 +172,26 @@ pinpoint-sms-voice:
   sort: "Pinpoint SMS and Voice"
   version: pinpoint-sms-voice-2018-09-05
   bundle: pinpoint
+polly:
+  long: "&POLlong;"
+  short: "&POL;"
+  sort: "Polly"
+  version: polly-2016-06-10
+qldb:
+  long: "&QLDBlong;"
+  short: "&QLDB;"
+  sort: "QLDB"
+  version: qldb-2019-01-02
 rds:
   long: "&RDSlong;"
   short: "&RDS;"
   sort: "RDS"
   version: rds-2014-10-31
+rds-data:
+  long: "&RDSlong;"
+  short: "&RDS;"
+  sort: "RDS Data"
+  version: rds-data-2018-08-01
 rekognition:
   long: "&REKlong;"
   short: "&REK;"
@@ -154,11 +214,26 @@ s3:
   short: "&S3;"
   sort: "S3"
   version: s3-2006-03-01
+sagemaker:
+  long: "&;"
+  short: "&;"
+  sort: "SageMaker"
+  version: sagemaker-2017-07-24
 secrets-manager:
   long: "&ASMlong;"
   short: "&ASM;"
   sort: "Secrets Manager"
   version: secretsmanager-2017-10-17
+ses:
+  long: "&SESlong;"
+  short: "&SES;"
+  sort: "SES"
+  version: sesv2-2019-09-27
+snowball:
+  long: "&Frozenlong;"
+  short: "&Frozen;"
+  sort: "Snowball"
+  version: snowball-2016-06-30
 sns:
   long: "&SNSlong;"
   short: "&SNS;"
@@ -174,6 +249,11 @@ sfn:
   short: "&SFN;"
   sort: "Step Functions"
   version: states-2016-11-23
+ssm:
+  long: "&SYSlong;"
+  short: "&SYS;"
+  sort: "SSM"
+  version: ssm-2014-11-06
 textract:
   long: "&TEXTRACTlong;"
   short: "&TEXTRACT;"
