@@ -23,6 +23,25 @@ glacier_CreateVault:
               snippet_tags:
                 - python.example_code.glacier.GlacierWrapper
                 - python.example_code.glacier.CreateVault
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/glacier
+          sdkguide: sdk-for-javascript/v3/developer-guide/glacier-example-creating-a-vault
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - glacier.JavaScript.createclientv3
+            - description: Create the vault.
+              snippet_tags:
+                - glacier.JavaScript.vault.createVaultV3
+        - sdk_version: 2
+          github: javascript/example_code/glacier
+          sdkguide: sdk-for-javascript/v2/developer-guide/glacier-example-creating-a-vault
+          excerpts:
+            - description:
+              snippet_tags:
+                - glacier.JavaScript.vault.createVault
   services:
     glacier: {CreateVault}
 glacier_ListVaults:
@@ -75,8 +94,43 @@ glacier_UploadArchive:
               snippet_tags:
                 - python.example_code.glacier.GlacierWrapper
                 - python.example_code.glacier.UploadArchive
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/glacier
+          sdkguide: sdk-for-javascript/v3/developer-guide/glacier-example-uploadarchive
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - glacier.JavaScript.createclientv3
+            - description: Upload the archive.
+              snippet_tags:
+                - glacier.JavaScript.upload.uploadArchiveV3
+        - sdk_version: 2
+          github: javascript/example_code/glacier
+          sdkguide: sdk-for-javascript/v2/developer-guide/glacier-example-uploadrchive
+          excerpts:
+            - description:
+              snippet_tags:
+                - glacier.JavaScript.upload.uploadArchive
   services:
     glacier: {UploadArchive}
+glacier_UploadMultipartPart:
+  title: Create a multipart upload out of 1 megabyte chunks of a Buffer object using an &AWS; SDK
+  title_abbrev: Create a multipart upload
+  synopsis: create a multipart upload to an &GLlong; vault.
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 2
+          github: javascript/example_code/glacier
+          sdkguide: sdk-for-javascript/v2/developer-guide/glacier-example-multipart-upload
+          excerpts:
+            - description:
+              snippet_tags:
+                - glacier.JavaScript.multipartUpload.initiateMultipartUpload
+  services:
+    glacier: {UploadMultipartPart}
 glacier_InitiateJob_InventoryRetrieval:
   title: Retrieve an &GLlong; vault inventory using an &AWS; SDK
   title_abbrev: Retrieve a vault inventory
