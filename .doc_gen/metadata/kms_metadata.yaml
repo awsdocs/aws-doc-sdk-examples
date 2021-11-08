@@ -2,9 +2,18 @@
 kms_CreateKey:
   title: Create a unique &kms-key; using an &AWS; SDK
   title_abbrev: Create a &kms-key;
-  synopsis: create a &kms-key;
+  synopsis: create a &kms-key;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/KMS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - KMS.dotnetv3.CreateKeyExample
     Rust:
       versions:
         - sdk_version: 1
@@ -18,7 +27,7 @@ kms_CreateKey:
 kms_Decrypt:
   title: Decrypt ciphertext that was encrypted by a &kms-key; using an &AWS; SDK
   title_abbrev: Decrypt a &kms-key;
-  synopsis: decrypt a &kms-key;
+  synopsis: decrypt a &kms-key;.
   category:
   languages:
     Rust:
@@ -34,7 +43,7 @@ kms_Decrypt:
 kms_Encrypt:
   title: Encrypt plaintext into ciphertext by using a &kms-key; using an &AWS; SDK
   title_abbrev: Encrypt text using a &kms-key;
-  synopsis: encrypt text using a &kms-key;
+  synopsis: encrypt text using a &kms-key;.
   category:
   languages:
     Rust:
@@ -50,7 +59,7 @@ kms_Encrypt:
 kms_GenerateDataKey:
   title: Generate a unique symmetric data key for client-side encryption using an &AWS; SDK
   title_abbrev: Generate a data key
-  synopsis: generate a data key
+  synopsis: generate a data key.
   category:
   languages:
     Rust:
@@ -66,7 +75,7 @@ kms_GenerateDataKey:
 kms_GenerateDataKeyWithoutPlaintext:
   title: Generate a unique symmetric data key using an &AWS; SDK
   title_abbrev: Generate a symmetric data key
-  synopsis: generate a symmetric data key
+  synopsis: generate a symmetric data key.
   category:
   languages:
     Rust:
@@ -82,7 +91,7 @@ kms_GenerateDataKeyWithoutPlaintext:
 kms_GenerateRandom:
   title: Create a cryptographically secure, random byte string using an &AWS; SDK
   title_abbrev: Create a random byte string
-  synopsis: create a random byte string
+  synopsis: create a random byte string.
   category:
   languages:
     Rust:
@@ -98,9 +107,18 @@ kms_GenerateRandom:
 kms_ListKeys:
   title: List the &kms-keys; using an &AWS; SDK
   title_abbrev: List the &kms-keys;
-  synopsis: list the &kms-keys;
+  synopsis: list the &kms-keys;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/KMS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - KMS.dotnetv3.ListKeysExample
     Rust:
       versions:
         - sdk_version: 1
@@ -114,7 +132,7 @@ kms_ListKeys:
 kms_ReEncrypt:
   title: Decrypts ciphertext and then reencrypts it entirely within &KMS; using an &AWS; SDK
   title_abbrev: Decrypt ciphertext and then reencrypt it
-  synopsis: Decrypt and then reencrypt text
+  synopsis: decrypt and then reencrypt text.
   category:
   languages:
     Rust:
@@ -127,3 +145,122 @@ kms_ReEncrypt:
                 - kms.rust.reencrypt-data
   services:
     kms: { ReEncrypt }
+kms_CreateAlias:
+  title: Create an alias for an &KMS; key using an &AWS; SDK
+  title_abbrev: Create alias for a key
+  synopsis: create an alias for an &KMS; key.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/KMS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.dotnetv3.CreateAliasExample
+  services:
+    kms: {CreateAlias}
+kms_CreateGrant:
+  title: Create a grant for an &KMS; key using an &AWS; SDK
+  title_abbrev: Create a grant for a key
+  synopsis: create a grant for an &KMS; key which allows the user to use a key for encryption/decryption.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/KMS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - KMS.dotnetv3.CreateGrantExample
+  services:
+    kms: {CreateGrant}
+kms_DescribeKey:
+  title: Describe an &KMS; key using an &AWS; SDK
+  title_abbrev: Describe a key
+  synopsis: describe an &KMS; key.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/KMS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - KMS.dotnetv3.DescribeKeyExample
+  services:
+    kms: {DescribeKey}
+kms_DisableKey:
+  title: Disable an &KMS; key using an &AWS; SDK
+  title_abbrev: Disable a key
+  synopsis: disable an &KMS; key.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/KMS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - KMS.dotnetv3.DisableKeyExample
+  services:
+    kms: {DisableKey}
+kms_EnableKey:
+  title: Enable an &KMS; key using an &AWS; SDK
+  title_abbrev: Enable a key
+  synopsis: enable an &KMS; key.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/KMS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - KMS.dotnetv3.EnableKeyExample
+  services:
+    kms: {EnableKey}
+kms_ListAliases:
+  title: List the aliases defined for an &KMS; key using an &AWS; SDK
+  title_abbrev: List aliases for a key
+  synopsis: list aliases for an &KMS; key.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/KMS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - KMS.dotnetv3.ListAliasesExample
+  services:
+    kms: {ListAliases}
+kms_ListGrants:
+  title: List the grants defined for an &KMS; key using an &AWS; SDK
+  title_abbrev: List grants for a key
+  synopsis: list grants for an &KMS; key.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/KMS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - KMS.dotnetv3.ListGrantsExample
+  services:
+    kms: {ListGrants}
