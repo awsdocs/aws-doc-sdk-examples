@@ -169,17 +169,19 @@ Ensure that the **build.gradle.kts** file looks like the following.
     }
 
     dependencies {
-      implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-      implementation("org.springframework.boot:spring-boot-starter-web")
-      implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-      implementation("org.jetbrains.kotlin:kotlin-reflect")
-      implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-      implementation ("javax.mail:javax.mail-api:1.5.5")
-      implementation ("com.sun.mail:javax.mail:1.5.5")
-      api("aws.sdk.kotlin:dynamodb:0.4.0-SNAPSHOT")
-      api("aws.sdk.kotlin:ses:0.4.0-SNAPSHOT")
-      testImplementation("org.springframework.boot:spring-boot-starter-test")
-     }
+     implementation("aws.sdk.kotlin:rdsdata:0.9.0-alpha")
+     implementation("aws.sdk.kotlin:ses:0.9.0-alpha")
+     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+     implementation("org.springframework.boot:spring-boot-starter-web")
+     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+     implementation("org.jetbrains.kotlin:kotlin-reflect")
+     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+     implementation ("javax.mail:javax.mail-api:1.5.5")
+     implementation ("com.sun.mail:javax.mail:1.5.5")
+     implementation("mysql:mysql-connector-java:6.0.4")
+     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
+     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    }
 
     tasks.withType<KotlinCompile> {
      kotlinOptions {
