@@ -231,38 +231,38 @@ The following Kotlin code represents the **Post** class.
 The following Kotlin code represents the **RedshiftService** class. This class uses the Amazon Redshift Kotlin API to interact with data located in the **blog** table.  For example, the **getPosts** method returns a result set that is queried from the **blog** table and displayed in the view. Likewise, the **addRecord** method adds a new record to the **blog** table. This class also uses the Amazon Translate Kotlin API to translate the result set if requested by the user. 
 
 ```kotlin
-     package com.aws.job
+    package com.aws.job
 
-     import org.springframework.stereotype.Component
-     import java.util.*
-     import aws.sdk.kotlin.services.redshiftdata.RedshiftDataClient
-     import aws.sdk.kotlin.services.redshiftdata.model.*
-     import org.w3c.dom.Document
-     import java.io.StringWriter
-     import javax.xml.parsers.DocumentBuilderFactory
-     import javax.xml.parsers.ParserConfigurationException
-     import javax.xml.transform.TransformerException
-     import javax.xml.transform.TransformerFactory
-     import javax.xml.transform.dom.DOMSource
-     import javax.xml.transform.stream.StreamResult
-     import aws.sdk.kotlin.services.translate.TranslateClient
-     import aws.sdk.kotlin.services.translate.model.TranslateTextRequest
-     import aws.sdk.kotlin.services.translate.model.TranslateException
-     import kotlinx.coroutines.delay
-     import java.sql.Date
-     import java.text.ParseException
-     import java.text.SimpleDateFormat
-     import java.time.LocalDateTime
-     import java.time.format.DateTimeFormatter
-     import kotlin.system.exitProcess
+    import org.springframework.stereotype.Component
+    import java.util.*
+    import aws.sdk.kotlin.services.redshiftdata.RedshiftDataClient
+    import aws.sdk.kotlin.services.redshiftdata.model.*
+    import org.w3c.dom.Document
+    import java.io.StringWriter
+    import javax.xml.parsers.DocumentBuilderFactory
+    import javax.xml.parsers.ParserConfigurationException
+    import javax.xml.transform.TransformerException
+    import javax.xml.transform.TransformerFactory
+    import javax.xml.transform.dom.DOMSource
+    import javax.xml.transform.stream.StreamResult
+    import aws.sdk.kotlin.services.translate.TranslateClient
+    import aws.sdk.kotlin.services.translate.model.TranslateTextRequest
+    import aws.sdk.kotlin.services.translate.model.TranslateException
+    import kotlinx.coroutines.delay
+    import java.sql.Date
+    import java.text.ParseException
+    import java.text.SimpleDateFormat
+    import java.time.LocalDateTime
+    import java.time.format.DateTimeFormatter
+    import kotlin.system.exitProcess
 
-    @Component
-    class RedshiftService {
-     val clusterId = "redshift-cluster-1"
-     val databaseVal = "dev"
-     val dbUserVal = "awsuser"
+   @Component
+   class RedshiftService {
+    val clusterId = "redshift-cluster-1"
+    val databaseVal = "dev"
+    val dbUserVal = "awsuser"
 
-     private fun getClient(): RedshiftDataClient? {
+    private fun getClient(): RedshiftDataClient {
 
         val redshiftDataClient = RedshiftDataClient{region="us-west-2"}
         return redshiftDataClient
@@ -291,17 +291,16 @@ The following Kotlin code represents the **RedshiftService** class. This class u
                 sql = sqlStatement
             }
 
-            redshiftDataClient!!.executeStatement(statementRequest)
+            redshiftDataClient.executeStatement(statementRequest)
             return id
-     
         } catch (e: RedshiftDataException) {
-            println(e.message)
+            System.err.println(e.message)
             exitProcess(1)
         } catch (e: ParseException) {
-            println(e.message)
+            System.err.println(e.message)
             exitProcess(1)
-         }
         }
+       }
 
       // Returns a collection that returns the latest five posts from the Redshift table.
       suspend fun getPosts(lang: String, num: Int): String? {
@@ -316,17 +315,18 @@ The following Kotlin code represents the **RedshiftService** class. This class u
                 sql = sqlStatement
             }
 
-            val response = redshiftDataClient!!.executeStatement(statementRequest)
+            val response = redshiftDataClient.executeStatement(statementRequest)
             val myId = response.id
             checkStatement(redshiftDataClient, myId)
             val posts = getResults(redshiftDataClient, myId, lang)!!
+            redshiftDataClient.close()
             return convertToString(toXml(posts))
 
         } catch (e: RedshiftDataException) {
-            println(e.message)
+            System.err.println(e.message)
             exitProcess(1)
         }
-      }
+       }
 
       suspend fun getResults(redshiftDataClient: RedshiftDataClient, statementId: String?, lang: String): List<Post>? {
         try {
@@ -340,7 +340,7 @@ The following Kotlin code represents the **RedshiftService** class. This class u
             // Iterate through the List element where each element is a List object.
             val dataList = response.records
             var post: Post
-            var index = 0
+            var index: Int
 
             if (dataList != null) {
                 for (list in dataList) {
@@ -373,12 +373,13 @@ The following Kotlin code represents the **RedshiftService** class. This class u
                     records.add(post)
                 }
             }
+
             return records
         } catch (e: RedshiftDataException) {
             System.err.println(e.message)
             exitProcess(1)
          }
-        }
+       }
 
       // Return the String value of the field.
       fun parseValue(myField:Field) :String {
@@ -392,9 +393,9 @@ The following Kotlin code represents the **RedshiftService** class. This class u
 
         }
         return ""
-      }
+       }
 
-     suspend fun checkStatement(redshiftDataClient: RedshiftDataClient, sqlId: String?) {
+      suspend fun checkStatement(redshiftDataClient: RedshiftDataClient, sqlId: String?) {
         try {
             val statementRequest = DescribeStatementRequest {
                 id = sqlId
@@ -402,7 +403,7 @@ The following Kotlin code represents the **RedshiftService** class. This class u
 
             // Wait until the sql statement processing is finished.
             val finished = false
-            var status = ""
+            var status: String
             while (!finished) {
                 val response = redshiftDataClient.describeStatement(statementRequest)
                 status = response.status.toString()
@@ -414,17 +415,17 @@ The following Kotlin code represents the **RedshiftService** class. This class u
             }
             println("The statement is finished!")
 
-        } catch (e: RedshiftDataException) {
+          } catch (e: RedshiftDataException) {
             System.err.println(e.message)
             exitProcess(1)
-        } catch (e: InterruptedException) {
+          } catch (e: InterruptedException) {
             System.err.println(e.message)
             exitProcess(1)
-        }
-    }
+         }
+       }
 
-     // Convert the list to XML to pass back to the view.
-     private fun toXml(itemsList: List<Post>): Document {
+      // Convert the list to XML to pass back to the view.
+      private fun toXml(itemsList: List<Post>): Document {
         try {
             val factory = DocumentBuilderFactory.newInstance()
             val builder = factory.newDocumentBuilder()
@@ -469,9 +470,9 @@ The following Kotlin code represents the **RedshiftService** class. This class u
             e.printStackTrace()
             exitProcess(1)
         }
-    }
+      }
 
-    private fun convertToString(xml: Document): String? {
+      private fun convertToString(xml: Document): String? {
         try {
             val transformer = TransformerFactory.newInstance().newTransformer()
             val result = StreamResult(StringWriter())
@@ -482,11 +483,11 @@ The following Kotlin code represents the **RedshiftService** class. This class u
             ex.printStackTrace()
         }
         return null
-    }
+      }
 
-    private suspend fun translateText(textVal: String, lang: String): String {
+     private suspend fun translateText(textVal: String, lang: String): String {
         val translateClient = TranslateClient { region = "us-east-1" }
-        var transValue = ""
+        val transValue: String
         try {
             if (lang.compareTo("French") == 0) {
 
@@ -540,9 +541,9 @@ The following Kotlin code represents the **RedshiftService** class. This class u
         } catch (e: TranslateException) {
             System.err.println(e.message)
             exitProcess(1)
-         }
+        }
        }
-      }
+     }
 ```
 
 ## Create the HTML file
