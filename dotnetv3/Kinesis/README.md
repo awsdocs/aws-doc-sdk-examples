@@ -1,11 +1,15 @@
-# Amazon Kinesis code examples in C#
+# Amazon Kinesis .NET code examples
 
 ## Purpose
 
 This folder contains examples that show how to use the AWS SDK for .NET 3.x to
-get started working with Kinesis features such as streams and consumers.
+get started working with Amazon Kinesis features such as streams and consumers.
 
-With Amazon Kinesis, you can ingest real-time data such as video, audio, application logs, website clickstreams, and IoT telemetry data for machine learning, analytics, and other applications. Amazon Kinesis enables you to process and analyze data as it arrives and respond instantly instead of having to wait until all your data is collected before the processing can begin.
+With Kinesis, you can ingest real-time data such as video, audio, application
+logs, website clickstreams, and IoT telemetry data for machine learning,
+analytics, and other applications. Kinesis enables you to process and
+analyze data as it arrives and respond instantly instead of having to wait
+until all your data is collected before the processing can begin.
 
 ## Code examples
 
@@ -22,7 +26,7 @@ With Amazon Kinesis, you can ingest real-time data such as video, audio, applica
 - We recommend that you grant your code least privilege, or at most the minimum
   permissions required to perform the task. For more information, see
   [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide. 
+  in the AWS Identity and Access Management (IAM) User Guide. 
 - This code has not been tested in all AWS Regions. Some AWS services are
   available only in specific [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
 - Running this code might result in charges to your AWS account.
@@ -30,7 +34,7 @@ With Amazon Kinesis, you can ingest real-time data such as video, audio, applica
 ## Running the examples
 
 The examples in this folder use the default user account. The call to
-initialize the Amazon Kinesis client does not specify the AWS Region. Supply
+initialize the Kinesis client does not specify the AWS Region. Supply
 the AWS Region to match your own as a parameter to the client constructor. For
 example:
 
