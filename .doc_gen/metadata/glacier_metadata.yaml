@@ -27,7 +27,7 @@ glacier_CreateVault:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/glacier
-          sdkguide: sdk-for-javascript/v3/developer-guide/glacier-example-creating-a-vault
+          sdkguide: sdk-for-javascript/v3/developer-guide/glacier-example-creating-a-vault.html
           excerpts:
             - description: Create the client.
               snippet_tags:
@@ -37,7 +37,7 @@ glacier_CreateVault:
                 - glacier.JavaScript.vault.createVaultV3
         - sdk_version: 2
           github: javascript/example_code/glacier
-          sdkguide: sdk-for-javascript/v2/developer-guide/glacier-example-creating-a-vault
+          sdkguide: sdk-for-javascript/v2/developer-guide/glacier-example-creating-a-vault.html
           excerpts:
             - description:
               snippet_tags:
@@ -98,7 +98,7 @@ glacier_UploadArchive:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/glacier
-          sdkguide: sdk-for-javascript/v3/developer-guide/glacier-example-uploadarchive
+          sdkguide: sdk-for-javascript/v3/developer-guide/glacier-example-uploadarchive.html
           excerpts:
             - description: Create the client.
               snippet_tags:
@@ -108,7 +108,7 @@ glacier_UploadArchive:
                 - glacier.JavaScript.upload.uploadArchiveV3
         - sdk_version: 2
           github: javascript/example_code/glacier
-          sdkguide: sdk-for-javascript/v2/developer-guide/glacier-example-uploadrchive
+          sdkguide: sdk-for-javascript/v2/developer-guide/glacier-example-uploadrchive.html
           excerpts:
             - description:
               snippet_tags:
@@ -124,7 +124,7 @@ glacier_UploadMultipartPart:
       versions:
         - sdk_version: 2
           github: javascript/example_code/glacier
-          sdkguide: sdk-for-javascript/v2/developer-guide/glacier-example-multipart-upload
+          sdkguide: sdk-for-javascript/v2/developer-guide/glacier-example-multipart-upload.html
           excerpts:
             - description:
               snippet_tags:
