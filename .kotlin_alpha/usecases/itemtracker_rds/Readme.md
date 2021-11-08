@@ -780,30 +780,31 @@ The following Kotlin code represents the **RetrieveItems** class that retrieves 
 
 ### Create the SendMessage class
 
-The **SendMessage** class uses the AWS SDK for Kotlin SES API to send an email message that contains the data queried from the Amazon DynamoDB table to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
+The **SendMessage** class uses the AWS SDK for Kotlin SES API to send an email message that contains the data queried from the **Work** table. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
  ```kotlin
     package com.example.demo
-  
-    import org.springframework.stereotype.Component
-    import kotlin.system.exitProcess
-    import aws.sdk.kotlin.services.ses.SesClient
-    import aws.sdk.kotlin.services.ses.model.SesException
-    import aws.sdk.kotlin.services.ses.model.Destination
-    import aws.sdk.kotlin.services.ses.model.Content
-    import aws.sdk.kotlin.services.ses.model.Body
-    import aws.sdk.kotlin.services.ses.model.Message
-    import aws.sdk.kotlin.services.ses.model.SendEmailRequest
 
-    @Component
-    class SendMessage {
+   import org.springframework.stereotype.Component
+   import kotlin.system.exitProcess
+   import aws.sdk.kotlin.services.ses.SesClient
+   import aws.sdk.kotlin.services.ses.model.SesException
+   import aws.sdk.kotlin.services.ses.model.Destination
+   import aws.sdk.kotlin.services.ses.model.Content
+   import aws.sdk.kotlin.services.ses.model.Body
+   import aws.sdk.kotlin.services.ses.model.Message
+   import aws.sdk.kotlin.services.ses.model.SendEmailRequest
 
-    suspend fun send(recipient: String, strValue: String?) {
-        
-	val sesClient = SesClient { region = "us-east-1" }
-        
-	// The HTML body of the email.
-        val bodyHTML = ("<html>" + "<head></head>" + "<body>" + "<h1>Amazon DynamoDB Items!</h1>"
+   @Component
+   class SendMessage {
+
+    suspend fun send(
+        recipient: String,
+        strValue: String?
+    ) {
+        val sesClient = SesClient { region = "us-east-1" }
+        // The HTML body of the email.
+        val bodyHTML = ("<html>" + "<head></head>" + "<body>" + "<h1>Amazon RDS Items!</h1>"
                 + "<textarea>$strValue</textarea>" + "</body>" + "</html>")
 
         val destinationOb = Destination {
@@ -842,8 +843,8 @@ The **SendMessage** class uses the AWS SDK for Kotlin SES API to send an email m
             sesClient.close()
             exitProcess(0)
         }
-      }
     }
+  }
  ```
 
 ### Create the WorkItem class
@@ -867,7 +868,7 @@ The following Java code represents the **WorkItem** class.
 
 ## Create the HTML files
 
-At this point, you have created all of the Kotlin files required for the **DynamoDB Item Tracker** application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the resource folder, create a **templates** folder, and then create the following HTML files:
+At this point, you have created all of the Kotlin files required for the **Item Tracker** application. Now you create the HTML files that are required for the application's graphical user interface (GUI). Under the resource folder, create a **templates** folder, and then create the following HTML files:
 
 + **index.html**
 + **add.html**
@@ -884,32 +885,28 @@ The following HTML code represents the **index.html** file. This file represents
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org" >
 
-    <head>
+   <head>
      <meta charset="utf-8" />
      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
      <meta name="viewport" content="width=device-width, initial-scale=1" />
-
      <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
      <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
 
-     <title>AWS DynamoDB Item Tracker</title>
-    </head>
+    <title>AWS DynamoDB Item Tracker</title>
+  </head>
 
-    <body>
-     <header th:replace="layout :: site-header"/>
-     <div class="container">
+  <body>
+  <header th:replace="layout :: site-header"/>
+  <div class="container">
 
-     <h3>Welcome to AWS Item Tracker built using the AWS SDK for Kotlin</h3>
-     <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
+    <h3>Welcome to the Serverless Amazon Aurora Item Tracker built using the AWS SDK for Kotlin</h3>
+    <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
+    <p>The Amazon RDS Item Tracker example application uses multiple AWS Services and the Kotlin SDK. Collecting and working with items has never been easier! Simply perform these steps:<p>
 
-     <h2>Amazon DynamoDB Item Tracker</h2>
-
-     <p>The Amazon DynamoDB Item Tracker example application uses multiple AWS Services and the Kotlin SDK. Collecting and  working with items has never been easier! Simply perform these steps:<p>
-
-     <ol>
+    <ol>
         <li>Enter work items into the system by choosing the <i>Add Items</i> menu item. Fill in the form and then choose <i>Create Item</i>.</li>
-        <li>The AWS Item Tracker application stores the data into a DynamoDB table by using the DynamoDB Kotlin API.</li>
+        <li>The AWS RDS Item Tracker application stores the data into a Relational RDS database.</li>
         <li>You can view all of your items by choosing the <i>Get Items</i> menu item. Next, choose <i>Get Active Items</i> in the dialog box.</li>
         <li>You can modify an Active Item by selecting an item in the table and then choosing <i>Get Single Item</i>. The item appears in the Modify Item section where you can modify the description or status.</li>
         <li>Modify the item and then choose <i>Update Item</i>. You cannot modify the ID value. </li>
@@ -917,10 +914,10 @@ The following HTML code represents the **index.html** file. This file represents
         <li>You can display all archived items by choosing <i>Get Archived Items</i>. You cannot modify an archived item.</li>
         <li>You can send an email recipient an email message by selecting the email recipient from the dialog box and then choosing <i>Send Report</i>.</li>
         <li>The Amazon Simple Email Service is used to send an email that contains the active items to the selected email recipient.</li>
-     </ol>
-     <div>
-     </body>
-    </html>
+    </ol>
+    <div>
+   </body>
+   </html>
  ```
 	    
 #### add.html
@@ -928,25 +925,24 @@ The following HTML code represents the **index.html** file. This file represents
 The following code represents the **add.html** file that enables users to add new items.
 
  ```html
-	<html xmlns:th="http://www.thymeleaf.org">
-       <html>
-       <head>
-       <title>Add Items</title>
-        <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
-        <script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
-        <script src="../public/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+     <title>Add Items</title>
+     <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
+     <script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
+     <script src="../public/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
 
-        <!-- CSS files -->
-        <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
-        <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-     </head>
-     <body>
-     <header th:replace="layout :: site-header"/>
-     <div class="container">
-     <h3>Welcome to AWS DynamoDB Item Tracker</h3>
-     <p>Add new items by filling in this table and clicking <i>Create Item</i></p>
+     <!-- CSS files -->
+     <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
+     <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+   </head>
+   <body>
+    <header th:replace="layout :: site-header"/>
+  <div class="container">
+    <h3>Welcome to the Serverless Amazon Aurora Item Tracker built using the AWS SDK for Kotlin</h3>
+    <p>Add new items by filling in this table and clicking <i>Create Item</i></p>
 
-     <div class="row">
+    <div class="row">
         <div class="col-lg-8 mx-auto">
 
            <div class="control-group">
@@ -973,10 +969,10 @@ The following code represents the **add.html** file that enables users to add ne
                 <br>
                 <button type="submit" class="btn btn-primary btn-xl" id="SendButton">Create Item</button>
            </div>
-         </div>
-        </div>
-        </body>
-       </html>
+     </div>
+     </div>
+    </body>
+    </html>
  ```
 		
 #### items.html
@@ -1010,10 +1006,9 @@ The following code represents the **items.html** file. This file enables users t
 
     <div class="container">
 
-    <h3>Welcome to AWS DynamoDB Item Tracker</h3>
-    <h3 id="info3">Get Items</h3>
+    <h3>Welcome to the Serverless Amazon Aurora Item Tracker built using the AWS SDK for Kotlin</h3>
+    <h4 id="info3">Get Items</h4>
     <p>You can manage items in this view.</p>
-
     <table id="myTable" class="display" style="width:100%">
         <thead>
         <tr>
