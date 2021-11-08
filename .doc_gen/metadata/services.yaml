@@ -215,8 +215,8 @@ s3:
   sort: "S3"
   version: s3-2006-03-01
 sagemaker:
-  long: "&;"
-  short: "&;"
+  long: "&SMlong;"
+  short: "&SM;"
   sort: "SageMaker"
   version: sagemaker-2017-07-24
 secrets-manager:
