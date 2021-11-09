@@ -77,6 +77,7 @@ Perform these steps.
 
 At this point, you have a new project named **SpringKotlinSubPub**. Ensure that the gradle build  file resembles the following code.
 
+```yaml
      import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
      plugins {
@@ -118,6 +119,7 @@ At this point, you have a new project named **SpringKotlinSubPub**. Ensure that 
     tasks.withType<Test> {
      useJUnitPlatform()
     }
+ ```
      
  ## Create the Kotlin classes
  
@@ -137,6 +139,7 @@ At this point, you have a new project named **SpringKotlinSubPub**. Ensure that 
 
 The following Kotlin code represents the **SubApplication** and the **MessageResource** classes. Notice that the **SubApplication** uses the **@SpringBootApplication** annotation while the **MessageResource** class uses the **@Controller** annotation. In addition, the Spring Controller uses **runBlocking** and **@runBlocking**. Both are required and part of Kotlin Coroutine functionality. For more information, see [Coroutines basics](https://kotlinlang.org/docs/coroutines-basics.html).  
 
+```kotlin
      package com.aws.kotlin
 
      import kotlinx.coroutines.runBlocking
@@ -202,11 +205,13 @@ The following Kotlin code represents the **SubApplication** and the **MessageRes
         return@runBlocking sns?.getAllSubscriptions()
      }
     }
+```
 
 ### SnsService class
 
 The following Java code represents the **SnsService** class. This class uses the Java V2 SNS API to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes from the Amazon SNS topic. The **pubTopic** publishes a message. 
 
+```kotlin
      package com.aws.kotlin
 
      import org.springframework.stereotype.Component
@@ -225,9 +230,9 @@ The following Java code represents the **SnsService** class. This class uses the
      @Component
      class SnsService {
 
-    var topicArnVal = "<ENTER A TOPIC ARN>"
+     var topicArnVal = "<ENTER A TOPIC ARN>"
 
-    private fun getClient(): SnsClient {
+     private fun getClient(): SnsClient {
 
         val snsClient = SnsClient{ region = "us-west-2" }
         return snsClient
@@ -254,9 +259,9 @@ The following Java code represents the **SnsService** class. This class uses the
             snsClient.close()
             exitProcess(0)
         }
-       }
+     }
 
-    suspend fun pubTopic(messageVal: String, lang:String):String {
+     suspend fun pubTopic(messageVal: String, lang:String):String {
 
         val snsClient: SnsClient = getClient()
         var body: String
@@ -299,18 +304,17 @@ The following Java code represents the **SnsService** class. This class uses the
             val result = snsClient.publish(request)
             return "{$result.messageId.toString()}  message sent successfully in $lang."
 
-        } catch (e: SnsException) {
+         } catch (e: SnsException) {
             println(e.message)
             snsClient.close()
             exitProcess(0)
-        }
-      }
+         }
+       }
 
-     suspend fun unSubEmail(emailEndpoint: String) {
+      suspend fun unSubEmail(emailEndpoint: String) {
         val snsClient: SnsClient = getClient()
         try {
             val subscriptionArnVal = getTopicArnValue(emailEndpoint)
-
 
             val request = UnsubscribeRequest {
                 subscriptionArn = subscriptionArnVal
@@ -318,42 +322,41 @@ The following Java code represents the **SnsService** class. This class uses the
 
             snsClient.unsubscribe(request)
 
-        } catch (e: SnsException) {
+         } catch (e: SnsException) {
             println(e.message)
             snsClient.close()
             exitProcess(0)
-        }
+         }
        }
 
-      // Returns the Sub ARN based on the given endpoint
+      // Returns the Sub ARN based on the given endpoint used for unSub.
       suspend fun getTopicArnValue(endpoint: String): String? {
         val snsClient: SnsClient = getClient()
         try {
-            var subArn = ""
+            var subArn: String
 
             val request = ListSubscriptionsByTopicRequest {
                 topicArn = topicArnVal
             }
 
-            val result = snsClient.listSubscriptionsByTopic(request)
-            val allSubs: List<Subscription>? = result.subscriptions
-            if (allSubs != null) {
-                for (sub in allSubs) {
+            val response = snsClient.listSubscriptionsByTopic(request)
+            response.subscriptions?.forEach { sub ->
+
                     if (sub.endpoint?.compareTo(endpoint) ==0 ) {
                         subArn = sub.subscriptionArn.toString()
                         return subArn
                     }
-                }
-            }
+             }
+
             return ""
-        } catch (e: SnsException) {
+         } catch (e: SnsException) {
             println(e.message)
             snsClient.close()
             exitProcess(0)
-        }
-    }
+         }
+      }
 
-    suspend fun getAllSubscriptions(): String? {
+      suspend fun getAllSubscriptions(): String? {
         val subList = mutableListOf<String>()
         val snsClient: SnsClient = getClient()
 
@@ -362,24 +365,21 @@ The following Java code represents the **SnsService** class. This class uses the
             val request = ListSubscriptionsByTopicRequest {
                 topicArn = topicArnVal
             }
-            val result = snsClient.listSubscriptionsByTopic(request)
-            val allSubs = result.subscriptions
-            if (allSubs != null) {
-                for (sub in allSubs) {
-                    subList.add(sub.endpoint.toString())
-                }
+            val response = snsClient.listSubscriptionsByTopic(request)
+            response.subscriptions?.forEach { sub ->
+                              subList.add(sub.endpoint.toString())
             }
 
             return convertToString(toXml(subList))
-        } catch (e: SnsException) {
+         } catch (e: SnsException) {
             println(e.message)
             snsClient.close()
             exitProcess(0)
-        }
-    }
+         }
+       }
 
-    // Convert the list to XML to pass back to the view.
-    private fun toXml(subsList: List<String>): Document? {
+      // Convert the list to XML to pass back to the view.
+      private fun toXml(subsList: List<String>): Document? {
         try {
             val factory = DocumentBuilderFactory.newInstance()
             val builder = factory.newDocumentBuilder()
@@ -400,26 +400,26 @@ The following Java code represents the **SnsService** class. This class uses the
                 item.appendChild(email)
             }
             return doc
-        } catch (e: ParserConfigurationException) {
+         } catch (e: ParserConfigurationException) {
             e.printStackTrace()
-        }
+         }
         return null
        }
 
-     private fun convertToString(xml: Document?): String? {
+      private fun convertToString(xml: Document?): String? {
         try {
             val transformer = TransformerFactory.newInstance().newTransformer()
             val result = StreamResult(StringWriter())
             val source = DOMSource(xml)
             transformer.transform(source, result)
             return result.writer.toString()
-        } catch (ex: TransformerException) {
+         } catch (ex: TransformerException) {
             ex.printStackTrace()
-        }
+         }
         return null
+       }
       }
-     }
-
+```
 
 **Note:** Make sure that you assign the SNS topic ARN to the **topicArn** data member. Otherwise, your code does not work. 
 
@@ -434,6 +434,7 @@ At this point, you have created all of the Java files required for this example 
 ### index.html
 The **index.html** file is the application's home view. 
 
+```html
     <!DOCTYPE html>
     <html xmlns:th="https://www.thymeleaf.org">
     <head>
@@ -567,11 +568,13 @@ The **sub.html** file is the application's view that manages Amazon SNS Subscrip
        </div>
        </body>
       </html
-    
+ ```
+         
 ### Create the JS File
 
 This application has a **contact_me.js** file that is used to send HTTP requests to the Spring Controller using AJAX. Place this file in the **resources\public\js** folder. 
 
+```javascript
      $(function() {
      $("#SendButton" ).click(function($e) {
 
@@ -683,7 +686,7 @@ This application has a **contact_me.js** file that is used to send HTTP requests
         }
      });
      }
-
+```
 ## Run the application
 
 Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, you can run the application by clicking the run icon in the Spring Boot main class, as shown in this illustration. 
