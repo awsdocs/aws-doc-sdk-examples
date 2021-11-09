@@ -5,15 +5,6 @@ kms_CreateKey:
   synopsis: create a &kms-key;.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_create_key.main
     .NET:
       versions:
         - sdk_version: 3
@@ -39,15 +30,6 @@ kms_Decrypt:
   synopsis: decrypt a &kms-key;.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_decrypt_data.main
     Rust:
       versions:
         - sdk_version: 1
@@ -64,15 +46,6 @@ kms_Encrypt:
   synopsis: encrypt text using a &kms-key;.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_encrypt_data.main
     Rust:
       versions:
         - sdk_version: 1
@@ -137,15 +110,6 @@ kms_ListKeys:
   synopsis: list the &kms-keys;.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_list_keys.main
     .NET:
       versions:
         - sdk_version: 3
@@ -187,15 +151,6 @@ kms_CreateAlias:
   synopsis: create an alias for an &KMS; key.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2._create_alias.main
     .NET:
       versions:
         - sdk_version: 3
@@ -213,15 +168,6 @@ kms_CreateGrant:
   synopsis: create a grant for an &KMS; key which allows the user to use a key for encryption/decryption.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_create_grant.main
     .NET:
       versions:
         - sdk_version: 3
@@ -239,15 +185,6 @@ kms_DescribeKey:
   synopsis: describe an &KMS; key.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_describe_key.main
     .NET:
       versions:
         - sdk_version: 3
@@ -265,15 +202,6 @@ kms_DisableKey:
   synopsis: disable an &KMS; key.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_disable_key.main
     .NET:
       versions:
         - sdk_version: 3
@@ -291,15 +219,6 @@ kms_EnableKey:
   synopsis: enable an &KMS; key.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_enable_key.main
     .NET:
       versions:
         - sdk_version: 3
@@ -317,15 +236,6 @@ kms_ListAliases:
   synopsis: list aliases for an &KMS; key.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_list_aliases.main
     .NET:
       versions:
         - sdk_version: 3
@@ -343,15 +253,6 @@ kms_ListGrants:
   synopsis: list grants for an &KMS; key.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.java2_list_grant.main
     .NET:
       versions:
         - sdk_version: 3
