@@ -38,7 +38,7 @@ This tutorial guides you through creating a sample Native Android application th
 To complete the tutorial, you need the following:
 
 + An AWS account
-+ An IDE that lets you build Android projects (this example uses IntelliJ and the Android plugin. See [Android Studio Plugin Development](https://plugins.jetbrains.com/docs/intellij/android-studio.html) )
++ An IDE that lets you build Android projects (this example uses Android Studio)
 + Java 1.8 SDK
 + Gradle 6.8 or higher
 + Min API version is 24
