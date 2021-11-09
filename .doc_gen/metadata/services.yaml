@@ -188,8 +188,8 @@ rds:
   sort: "RDS"
   version: rds-2014-10-31
 rds-data:
-  long: "&RDSlong; Data Service"
-  short: "&RDS; Data Service"
+  long: "&RDSlong;"
+  short: "&RDS;"
   sort: "RDS Data"
   version: rds-data-2018-08-01
 rekognition:
