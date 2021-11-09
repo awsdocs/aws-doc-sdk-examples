@@ -12,7 +12,7 @@ The Amazon DynamoDB Kotlin API lets you perform the following tasks from within 
 
 The following shows the application you'll create.
 
-![AWS Blog Application](images/app0.png)
+![AWS Blog Application](images/app5.png)
 
 When you choose **Submit**, the data is persisted into an Amazon DynamoDB table named **Android**, as shown in the following illustration.
 
