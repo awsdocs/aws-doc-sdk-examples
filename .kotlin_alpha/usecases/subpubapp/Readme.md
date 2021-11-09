@@ -103,8 +103,8 @@ At this point, you have a new project named **SpringKotlinSubPub**. Ensure that 
      implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
      implementation ("javax.mail:javax.mail-api:1.5.5")
      implementation ("com.sun.mail:javax.mail:1.5.5")
-     api("aws.sdk.kotlin:sns:0.4.0-alpha")
-     api("aws.sdk.kotlin:translate:0.4.0-alpha")
+     implementation("aws.sdk.kotlin:sns:0.9.0-alpha")
+     implementation("aws.sdk.kotlin:translate:0.9.0-alpha")
      testImplementation("org.springframework.boot:spring-boot-starter-test")
      }
 
@@ -229,7 +229,7 @@ The following Java code represents the **SnsService** class. This class uses the
 
     private fun getClient(): SnsClient {
 
-        val snsClient = SnsClient({ region = "us-west-2" })
+        val snsClient = SnsClient{ region = "us-west-2" }
         return snsClient
      }
 
