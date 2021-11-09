@@ -621,7 +621,7 @@ sqs_LongPollingReceiveMessage:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/sqs
-          sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-send-receive-messages-receiving
+          sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-enable-long-polling-on-receive-message
           excerpts:
             - description: Create the client.
               snippet_tags:
@@ -631,7 +631,7 @@ sqs_LongPollingReceiveMessage:
                 - sqs.JavaScript.longPoll.receiveMessageV3
         - sdk_version: 2
           github: javascript/example_code/sqs
-          sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-send-receive-messages-receiving
+          sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-enable-long-polling-on-receive-message
           excerpts:
             - description: Receive a message from an  &SQS; queue using long-poll support.
               snippet_tags:
