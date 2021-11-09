@@ -16,3 +16,7 @@
 
 <!ENTITY R53ARClong "Amazon Route 53 Application Recovery Controller">
 <!ENTITY R53ARC "Application Recovery Controller">
+
+<!-- RDS Data Service -->
+<!ENTITY RDSDataServicelong '&RDSlong; Data Service'>
+<!ENTITY RDSDataService '&RDS; Data Service'>
