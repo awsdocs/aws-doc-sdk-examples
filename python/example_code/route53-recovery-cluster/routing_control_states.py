@@ -34,13 +34,13 @@ def create_recovery_client(cluster_endpoint):
 # snippet-start:[python.example_code.route53-recovery-cluster.GetRoutingControlState]
 def get_routing_control_state(routing_control_arn, cluster_endpoints):
     """
-    Gets the state of a routing control for a list of cluster endpoints.
+    Gets the state of a routing control for a cluster. Endpoints are tried in
+    sequence until the first successful response is received.
 
     :param routing_control_arn: The ARN of the routing control to look up.
     :param cluster_endpoints: The list of cluster endpoints to query.
-    :return: The routing control state response for each endpoint.
+    :return: The routing control state response.
     """
-    responses = {}
     for cluster_endpoint in cluster_endpoints:
         recovery_client = create_recovery_client(cluster_endpoint)
         try:
@@ -51,10 +51,9 @@ def get_routing_control_state(routing_control_arn, cluster_endpoints):
                     f"Request failed with error: {response['ResponseMetadata']}",
                     'GetRoutingControlState')
             else:
-                responses[cluster_endpoint['Endpoint']] = response
+                return response
         except ClientError as error:
             print(error)
-    return responses
 # snippet-end:[python.example_code.route53-recovery-cluster.GetRoutingControlState]
 
 
@@ -62,14 +61,14 @@ def get_routing_control_state(routing_control_arn, cluster_endpoints):
 def update_routing_control_state(
         routing_control_arn, cluster_endpoints, routing_control_state):
     """
-    Updates the state of a routing control for a list of cluster endpoints.
+    Updates the state of a routing control for a cluster. Endpoints are tried in
+    sequence until the first successful response is received.
 
     :param routing_control_arn: The ARN of the routing control to set.
     :param cluster_endpoints: The list of cluster endpoints to set.
     :param routing_control_state: The state to set for the routing control.
     :return: The routing control update response for each endpoint.
     """
-    responses = {}
     for cluster_endpoint in cluster_endpoints:
         recovery_client = create_recovery_client(cluster_endpoint)
         try:
@@ -81,10 +80,9 @@ def update_routing_control_state(
                     f"Request failed with error: {response['ResponseMetadata']}",
                     'UpdateRoutingControlState')
             else:
-                responses[cluster_endpoint['Endpoint']] = response
+                return response
         except ClientError as error:
             print(error)
-    return responses
 # snippet-end:[python.example_code.route53-recovery-cluster.UpdateRoutingControlState]
 
 
@@ -92,7 +90,8 @@ def update_routing_control_state(
 def update_routing_control_states(
         update_routing_control_state_entries, cluster_endpoints):
     """
-    Updates the state of a list of routing controls for a list of cluster endpoints.
+    Updates the state of a list of routing controls for cluster. Endpoints are tried in
+    sequence until the first successful response is received.
 
     :param update_routing_control_state_entries: The list of routing controls to
                                                  update for each endpoint and the state
@@ -100,7 +99,6 @@ def update_routing_control_states(
     :param cluster_endpoints: The list of cluster endpoints to set.
     :return: The routing control update response for each endpoint.
     """
-    responses = {}
     for cluster_endpoint in cluster_endpoints:
         recovery_client = create_recovery_client(cluster_endpoint)
         try:
@@ -111,30 +109,29 @@ def update_routing_control_states(
                     f"Request failed with error: {response['ResponseMetadata']}",
                     'UpdateRoutingControlStates')
             else:
-                responses[cluster_endpoint['Endpoint']] = response
+                return response
         except ClientError as error:
             print(error)
-    return responses
 # snippet-end:[python.example_code.route53-recovery-cluster.UpdateRoutingControlStates]
 
 
 # snippet-start:[python.example_code.route53-recovery-cluster.Scenario_SetControlState]
-def set_routing_control_state_on(routing_control_arn, cluster_endpoints):
+def toggle_routing_control_state(routing_control_arn, cluster_endpoints):
     """
-    Shows how to get and set the state of a routing control for a list of endpoints.
+    Shows how to get and set the state of a routing control for a cluster.
     """
-    responses = get_routing_control_state(routing_control_arn, cluster_endpoints)
+    response = get_routing_control_state(routing_control_arn, cluster_endpoints)
+    state = response['RoutingControlState']
     print('-'*88)
-    print(f"Starting state of control {routing_control_arn}:")
-    for url, response in responses.items():
-        print(f"{url}: {response['RoutingControlState']}")
+    print(
+        f"Starting state of control {routing_control_arn}: {state}")
     print('-'*88)
 
-    print(f"Setting all endpoints to 'On'.")
-    responses = update_routing_control_state(
-        routing_control_arn, cluster_endpoints, 'On')
-    for url, response in responses.items():
-        print(f"{url}: {response['ResponseMetadata']['HTTPStatusCode']}")
+    update_state = 'Off' if state == 'On' else 'On'
+    print(f"Setting control state to '{update_state}'.")
+    response = update_routing_control_state(routing_control_arn, cluster_endpoints, update_state)
+    if response['ResponseMetadata']['HTTPStatusCode'] == 200:
+        print('Success!')
     print('-'*88)
 # snippet-end:[python.example_code.route53-recovery-cluster.Scenario_SetControlState]
 
@@ -143,7 +140,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('routing_control_arn', help="The ARN of the routing control.")
     parser.add_argument(
-        'cluster_endpoints', help="The list of cluster endpoints to query in JSON format.")
+        'cluster_endpoints', help="The list of endpoints for the cluster, in JSON format.")
     args = parser.parse_args()
-    set_routing_control_state_on(
+    toggle_routing_control_state(
         args.routing_control_arn, json.loads(args.cluster_endpoints))
