@@ -383,9 +383,6 @@ The following Kotlin code represents the **SendMessage** Kotlin class that sends
 To run the application from the IDE, you must ensure that have you have installed an Android emulator which simulates an Android application. For more information, see [Run apps on the Android Emulator](https://developer.android.com/studio/run/emulator).  
 
 Once you install the emulator, you can run the application and then the application appears in the emulator. 
-![AWS Tracking Application](images/app4.png)
-
-
 
 ### Next steps
 Congratulations! You have created your first Native Android application that interacts with AWS services by using the AWS SDK for Kotlin. As stated at the beginning of this tutorial, be sure to terminate all of the resources that you created while going through this tutorial to ensure that you’re no longer charged for them.
