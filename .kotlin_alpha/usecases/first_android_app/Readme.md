@@ -16,7 +16,7 @@ The following shows the application you'll create.
 
 When you choose **Submit**, the data is persisted into an Amazon DynamoDB table named **Android**, as shown in the following illustration.
 
-![AWS Blog Application](images/table1.png)
+![AWS Blog Application](images/table2.png)
 
 After the table is updated with a new item, a text message is sent to notify a mobile user who monitors the submissions.
 
