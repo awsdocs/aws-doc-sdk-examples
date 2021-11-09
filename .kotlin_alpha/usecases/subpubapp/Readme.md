@@ -128,7 +128,7 @@ At this point, you have a new project named **SpringKotlinSubPub**. Ensure that 
  
  ![AWS Lex](images/project2.png)
  
- Create these Java classes:
+ Create these Kotlin classes:
 
 + **SubApplication** - Used as the base class for the Spring Boot application.
 + **MessageResource** - Used as the Spring Boot controller that handles HTTP requests. 
