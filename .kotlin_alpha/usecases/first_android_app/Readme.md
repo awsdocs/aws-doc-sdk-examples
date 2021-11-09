@@ -60,12 +60,11 @@ Create an Amazon DynamoDB table named **Android** that contains a partition key 
 ## Create an Android project named AWSAndroid
 The first step is to create an Android project.
 
-![AWS Blog Application](images/project1.png)
+![AWS Blog Application](images/projectNew.png)
 
-1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
-2. In the **New Project** dialog box, choose **Android**.
-3. Choose **Empty Activity**.
-4. Choose **Next**.
+1. In Android Studio, choose **File**, **New**, **Project**.
+2. In the **New Project** dialog box, choose **Empty Activity**.
+3. Choose **Next**.
 5. In the **Name** field, enter **AWSAndroid**.
 6. In the **Package name** field, enter **com.example.aws**. 
 7. From the **Language** field, choose **Kotlin**. 
