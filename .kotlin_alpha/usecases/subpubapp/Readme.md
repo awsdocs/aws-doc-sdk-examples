@@ -23,6 +23,7 @@ To complete the tutorial, you need the following:
 + A Java IDE (this tutorial uses the IntelliJ IDE)
 + Java JDK 1.8
 + Gradle 6.8 or higher
++ Setup your development environment. For more information, see [Setting up the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html)
 
 **Note**: Make sure that you have installed the Kotlin plug-in for IntelliJ. 
 
