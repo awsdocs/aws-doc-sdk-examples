@@ -116,7 +116,7 @@ glacier_UploadArchive:
   services:
     glacier: {UploadArchive}
 glacier_UploadMultipartPart:
-  title: Create a multipart upload out of 1 megabyte chunks of a Buffer object using an &AWS; SDK
+  title: Create a multipart upload to an &GLlong; vault using an &AWS; SDK
   title_abbrev: Create a multipart upload
   synopsis: create a multipart upload to an &GLlong; vault.
   languages:
@@ -126,7 +126,7 @@ glacier_UploadMultipartPart:
           github: javascript/example_code/glacier
           sdkguide: sdk-for-javascript/v2/developer-guide/glacier-example-multipart-upload.html
           excerpts:
-            - description:
+            - description: Create a multipart upload of 1 megabyte chunks of a Buffer object.
               snippet_tags:
                 - glacier.JavaScript.multipartUpload.initiateMultipartUpload
   services:
