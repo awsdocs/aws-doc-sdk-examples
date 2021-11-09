@@ -222,87 +222,86 @@ The Kotlin files in this package are the following:
 In the **com.example.aws** package, create a Kotlin class named **Database** that injects data into a DynamoDB table. The following code represents this class.
 
 	package com.example.aws
-
-        import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
-        import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
-        import aws.sdk.kotlin.services.dynamodb.model.PutItemRequest
-        import aws.sdk.kotlin.services.dynamodb.model.DynamoDbException
-        import kotlin.system.exitProcess
+       import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
+       import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
+       import aws.sdk.kotlin.services.dynamodb.model.PutItemRequest
+       import aws.sdk.kotlin.services.dynamodb.model.DynamoDbException
+       import kotlin.system.exitProcess
 
        class Database {
 
        suspend fun putItemInTable2(
-         ddb: DynamoDbClient,
-         tableNameVal: String,
-         key: String,
-         keyVal: String,
-         moneyTotal: String,
-         moneyTotalValue: String,
-         name: String,
-         nameValue: String,
-         email: String,
-         emailVal: String
-        ) {
-        
-	  val itemValues = mutableMapOf<String, AttributeValue>()
+        ddb: DynamoDbClient,
+        tableNameVal: String,
+        key: String,
+        keyVal: String,
+        moneyTotal: String,
+        moneyTotalValue: String,
+        name: String,
+        nameValue: String,
+        email: String,
+        emailVal: String
+    ) {
+        val itemValues = mutableMapOf<String, AttributeValue>()
 
-          // Add all content to the table.
-          itemValues[key] = AttributeValue.S(keyVal)
-          itemValues[moneyTotal] =  AttributeValue.S(moneyTotalValue)
-          itemValues[name] = AttributeValue.S(nameValue)
-          itemValues[email] = AttributeValue.S(emailVal)
+        // Add all content to the table.
+        itemValues[key] = AttributeValue.S(keyVal)
+        itemValues[moneyTotal] =  AttributeValue.S(moneyTotalValue)
+        itemValues[name] = AttributeValue.S(nameValue)
+        itemValues[email] = AttributeValue.S(emailVal)
 
-          val request = PutItemRequest {
+        val request = PutItemRequest {
             tableName=tableNameVal
-            item = itemValuesz
-          }
+            item = itemValues
+        }
 
-         try {
-            ddb.putItem(request)
+        try {
+         ddb.putItem(request)
             println(" A new item was placed into $tableNameVal.")
 
-         } catch (ex: DynamoDbException) {
+        } catch (ex: DynamoDbException) {
             println(ex.message)
             ddb.close()
             exitProcess(0)
-          }
         }
+      }
      }
 
 ### Create the MainActivity class
 
 The following Kotlin code represents the **MainActivity** Kotlin class. To handle the required AWS Credentials, notice the use of a **StaticCredentialsProvider** object. 
 
-     package com.example.aws
+    package com.example.awsapp
 
     import androidx.appcompat.app.AppCompatActivity
-    import android.os.Bundle
-    import android.view.View
-    import android.widget.EditText
-    import android.widget.Toast
     import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
     import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
     import aws.sdk.kotlin.services.sns.SnsClient
     import kotlinx.coroutines.runBlocking
+    import android.os.Bundle
+    import android.view.View
+    import android.widget.EditText
+    import android.widget.Toast
     import java.util.*
 
     class MainActivity : AppCompatActivity() {
      override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        }
+     }
 
-     fun submitData(view: View) = runBlocking{
+    fun submitData(view: View) = runBlocking{
 
         val dollarField: EditText =  findViewById(R.id.dollarText)
         val nameField: EditText =  findViewById(R.id.personName)
         val emailField: EditText =  findViewById(R.id.emailAddress)
+        val dateField: EditText = findViewById(R.id.editDate)
 
         val data = Database()
 
         val staticCredentials = StaticCredentialsProvider {
-            accessKeyId = "<Enter key>"
-            secretAccessKey = "<Enter secret key>"
+            accessKeyId = "<Enter your key>"
+            secretAccessKey = "<Enter your secret key>"
         }
 
         val ddb = DynamoDbClient{
@@ -321,9 +320,11 @@ The following Kotlin code represents the **MainActivity** Kotlin class. To handl
         val NameVal = nameField.text.toString()
         val email = "email"
         val emailVal = emailField.text.toString()
+        val date = "date"
+        val dateVal = dateField.text.toString()
 
-        data.putItemInTable2(ddb, tableName, key, keyVal, moneyTotal, moneyTotalValue, name, NameVal, email, emailVal);
-        ddb.close()
+        data.putItemInTable2(ddb, tableName, key, keyVal, moneyTotal, moneyTotalValue, name, NameVal, email, emailVal, date, dateVal)
+        showToast("Item added")
 
         // Notify user
         val snsClient = SnsClient{
@@ -332,13 +333,12 @@ The following Kotlin code represents the **MainActivity** Kotlin class. To handl
         }
 
         val sendMSG = SendMessage()
-        val mobileNum = "<Enter Mobile Number"
+        val mobileNum = "18195765654"
         val message = "Item $uuid was added!"
         sendMSG.pubTextSMS( snsClient,message, mobileNum )
-        showToast("Item added")
-     }
+    }
 
-     fun showToast(value:String){
+    fun showToast(value:String){
         val toast = Toast.makeText(applicationContext, value, Toast.LENGTH_SHORT)
         toast.setMargin(50f, 50f)
         toast.show()
