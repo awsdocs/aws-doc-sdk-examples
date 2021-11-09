@@ -23,7 +23,7 @@ import kotlin.system.exitProcess
 @Component
 class SnsService {
 
-    var topicArnVal = "arn:aws:sns:us-west-2:814548047983:MyMailTopic"
+    var topicArnVal =  "<ENTER A TOPIC ARN>"
 
     private fun getClient(): SnsClient {
 
@@ -214,4 +214,6 @@ class SnsService {
         }
         return null
     }
+
+
 }
