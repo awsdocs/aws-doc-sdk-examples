@@ -530,7 +530,7 @@ sqs_GetQueueAttributes:
               - SQS.dotnetv3.GetQueueAttributesExample
   services:
     sqs: {GetQueueAttributes}
-sqs_ManageVisibilityTimeout:
+sqs_ChangeMessageVisibility:
   title: Receive an &SQS; message and change it's timout visibility
   title_abbrev: Change an &SQS; message timeout visibitity
   synopsis: change an &SQS; message timeout visibility.
@@ -556,7 +556,7 @@ sqs_ManageVisibilityTimeout:
               snippet_tags:
                 - sqs.JavaScript.visibility.receiveMessage
   services:
-    sqs: {ManageVisibilityTimeout}
+    sqs: {ChangeMessageVisibility}
 sqs_EnableLongPollingCreatingQueue:
   title: Create an &SQS; queue that waits for a message
   title_abbrev: Create a queue that waits for a message
@@ -583,8 +583,8 @@ sqs_EnableLongPollingCreatingQueue:
               snippet_tags:
                 - sqs.JavaScript.longPoll.createQueue
   services:
-    sqs: {EnableLongPollingCreatingQueue}
-sqs_EnableLongPollingExistingQueue:
+    sqs: {}
+sqs_SetQueueAttributes:
   title: Change how long an &SQS; queue waits for a message.
   title_abbrev: Change how long a queue waits for a message
   synopsis: change how long an &SQS; queue waits for a message to arrive.
@@ -610,8 +610,8 @@ sqs_EnableLongPollingExistingQueue:
               snippet_tags:
                 - sqs.JavaScript.longPoll.setQueueAttributes
   services:
-    sqs: {EnableLongPollingExistingQueue}
-sqs_EnableLongPollingReceiveMessage:
+    sqs: {SetQueueAttributes}
+sqs_LongPollingReceiveMessage:
   title: Receive a message from an &SQS; queue using long-poll support
   title_abbrev: Receive &SQS; messages using long-poll support
   synopsis: receive messages from an  &SQS; queue using long-poll support.
@@ -637,5 +637,5 @@ sqs_EnableLongPollingReceiveMessage:
               snippet_tags:
                 - sqs.JavaScript.longPoll.receiveMessage
   services:
-    sqs: {EnableLongPollingReceiveMessage}
+    sqs: {}
 

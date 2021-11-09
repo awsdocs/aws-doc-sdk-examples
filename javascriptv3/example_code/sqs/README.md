@@ -3,17 +3,17 @@ Amazon SQS is a fully managed message queuing service that enables you to decoup
 
 ## Code examples
 This is a workspace where you can find the following AWS SDK for JavaScript v3 SQS examples. 
-- [Changing visibility](src/sqs_changingvisibility.js)
-- [Create a queue](src/sqs_createqueue.js)
-- [Create a dead letter queue](src/sqs_deadletterqueue.js)
-- [Delete a queue](src/sqs_deletequeue.js)
-- [Get a queue URL](src/sqs_getqueueurl.js)
-- [List queues](src/sqs_listqueues.js)
-- [Create long polling queue](src/sqs_longpolling_createqueue.js)
-- [Change time queue waits for messages](src/sqs_longpolling_existingqueue.js)
-- [Retrieve messages queue using long-polling support topics](src/sqs_longpolling_receivemessage.js)
-- [Receive messages](src/sqs_receivemessage.js)
-- [Send messages](src/sqs_sendmessage.js)
+- [Changing visibility](src/sqs_changingvisibility.js)(ChangeMessageVisibilityCommand)
+- [Create a queue](src/sqs_createqueue.js)(CreateQueueCommand)
+- [Create a dead letter queue](src/sqs_deadletterqueue.js)(SetQueueAttributesCommand)
+- [Delete a queue](src/sqs_deletequeue.js)(DeleteQueueCommand)
+- [Get a queue URL](src/sqs_getqueueurl.js)(GetQueueUrlCommand)
+- [List queues](src/sqs_listqueues.js)(ListQueuesCommand)
+- [Create long polling queue](src/sqs_longpolling_createqueue.js)(CreateQueueCommand)
+- [Change time queue waits for messages](src/sqs_longpolling_existingqueue.js)(SetQueueAttributesCommand)
+- [Retrieve messages queue using long-polling support topics](src/sqs_longpolling_receivemessage.js)()
+- [Receive messages](src/sqs_receivemessage.js)(ReceiveMessageCommand / DeleteMessageCommand)
+- [Send messages](src/sqs_sendmessage.js)(SendMessageCommand)
 
 **Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see 
 [JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-example-javascript-syntax.html).
