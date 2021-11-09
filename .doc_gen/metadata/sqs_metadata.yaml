@@ -413,7 +413,7 @@ sqs_DeleteMessage:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/sqs
-          sdkguide: sdk-for-javascript/v2/developer-guide/sqs-examples-send-receive-messages.html#sqs-examples-send-receive-messages-sending
+          sdkguide: sdk-for-javascript/v2/developer-guide/sqs-examples-send-receive-messages.html#sqs-examples-send-receive-messages-receiving
           excerpts:
             - description: Create the client.
               snippet_tags:
@@ -423,7 +423,7 @@ sqs_DeleteMessage:
                 - sqs.JavaScript.messages.receiveMessageV3
         - sdk_version: 2
           github: javascript/example_code/sqs
-          sdkguide: sdk-for-javascript/v2/developer-guide/sqs-examples-send-receive-messages.html#sqs-examples-send-receive-messages-sending
+          sdkguide: sdk-for-javascript/v2/developer-guide/sqs-examples-send-receive-messages.html#sqs-examples-send-receive-messages-receiving
           excerpts:
             - description: Receive and delete &SQS; messages.
               snippet_tags:
@@ -585,7 +585,7 @@ sqs_EnableLongPollingCreatingQueue:
   services:
     sqs: {}
 sqs_SetQueueAttributes:
-  title: Change how long an &SQS; queue waits for a message.
+  title: Change how long an &SQS; queue waits for a message
   title_abbrev: Change how long a queue waits for a message
   synopsis: change how long an &SQS; queue waits for a message to arrive.
   category:
@@ -621,7 +621,7 @@ sqs_LongPollingReceiveMessage:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/sqs
-          sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-enable-long-polling-on-receive-messagee
+          sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-send-receive-messages-receiving
           excerpts:
             - description: Create the client.
               snippet_tags:
@@ -631,8 +631,8 @@ sqs_LongPollingReceiveMessage:
                 - sqs.JavaScript.longPoll.receiveMessageV3
         - sdk_version: 2
           github: javascript/example_code/sqs
-          sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-enable-long-polling-on-receive-messagee
-          excerpts:
+          sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-send-receive-messages-receiving
+          excerpts: sqs-examples-send-receive-messages-receiving
             - description: Receive a message from an  &SQS; queue using long-poll support.
               snippet_tags:
                 - sqs.JavaScript.longPoll.receiveMessage
