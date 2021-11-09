@@ -30,8 +30,9 @@ To follow along with the tutorial, you need the following:
 + An AWS Account.
 + A Java IDE (for this tutorial, the IntelliJ IDE is used that has the Kotlin plug-in installed).
 + Java 1.8 JDK.
-+ Maven 3.6 or higher.+ 
-
++ Maven 3.6 or higher.
++ + Setup your development environment. For more information, see [Setting up the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html).
+ 
 ### Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
