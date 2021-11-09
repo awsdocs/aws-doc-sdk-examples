@@ -531,7 +531,7 @@ sqs_GetQueueAttributes:
   services:
     sqs: {GetQueueAttributes}
 sqs_ChangeMessageVisibility:
-  title: Receive an &SQS; message and change it's timout visibility
+  title: Receive an &SQS; message and change its timout visibility
   title_abbrev: Change an &SQS; message timeout visibitity
   synopsis: change an &SQS; message timeout visibility.
   category:
@@ -545,14 +545,14 @@ sqs_ChangeMessageVisibility:
             - description: Create the client.
               snippet_tags:
                 - sqs.JavaScript.createclientv3
-            - description: Receive an &SQS; message and change it's timeout visibility.
+            - description: Receive an &SQS; message and change its timeout visibility.
               snippet_tags:
                 - sqs.JavaScript.visibility.receiveMessageV3
         - sdk_version: 2
           github: javascript/example_code/sqs
           sdkguide: sdk-for-javascript/v2/developer-guide/sqs-examples-managing-visibility-timeout.html#sqs-examples-managing-visibility-timeout-setting
           excerpts:
-            - description: Receive an &SQS; message and change it's timeout visibility.
+            - description: Receive an &SQS; message and change its timeout visibility.
               snippet_tags:
                 - sqs.JavaScript.visibility.receiveMessage
   services:
