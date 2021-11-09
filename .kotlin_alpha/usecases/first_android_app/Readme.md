@@ -79,42 +79,19 @@ At this point, you have a new project named **AWSAndroid** with a default Kotlin
 
 Add the following dependencies to the Gradle build file.
 
-    apply plugin: 'com.android.application'
-    apply plugin: 'kotlin-android'
-    apply plugin: 'kotlin-android-extensions'
+```yaml
+   plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
 
-    android {
-
-     compileOptions {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
-        coreLibraryDesugaringEnabled true
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-
-
-    compileSdkVersion 30
-    buildToolsVersion "30.0.0"
-
-    packagingOptions {
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/license.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/notice.txt'
-        exclude 'META-INF/ASL2.0'
-        exclude("META-INF/*.kotlin_module")
-    }
+android {
+    compileSdk 30
 
     defaultConfig {
-        applicationId "com.example.aws"
-        minSdkVersion 26
-        targetSdkVersion 30
+        applicationId "com.example.awsapp"
+        minSdk 26
+        targetSdk 30
         versionCode 1
         versionName "1.0"
 
@@ -126,25 +103,33 @@ Add the following dependencies to the Gradle build file.
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-     } 
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
 
-    dependencies {
-     implementation fileTree(dir: "libs", include: ["*.jar"])
-     implementation("aws.sdk.kotlin:dynamodb:0.9.0-alpha")
-     implementation("aws.sdk.kotlin:sns:0.9.0-alpha")  {
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation("aws.sdk.kotlin:dynamodb:0.9.0-alpha")
+    implementation("aws.sdk.kotlin:sns:0.9.0-alpha")  {
         exclude group: "xmlpull", module: "xmlpull"
     }
-     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
-     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-     implementation 'androidx.core:core-ktx:1.6.0'
-     implementation 'androidx.appcompat:appcompat:1.3.1'
-     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
-     testImplementation 'junit:junit:4.12'
-     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    }
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}
 
+```
     
 ## Create the layout XML file for your Android project
 
@@ -158,8 +143,10 @@ You can modify this XML file to define the user interface in the Android applica
 
 Replace the XML code in the  **activity_main.xml** file with the following XML code. 
 
-       <?xml version="1.0" encoding="utf-8"?>
-       <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+```xml
+      <?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                                    xmlns:tools="http://schemas.android.com/tools"
                                                    android:layout_width="match_parent"
@@ -181,12 +168,12 @@ Replace the XML code in the  **activity_main.xml** file with the following XML c
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
             android:onClick="submitData"
             android:text="@string/convert_string"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" app:layout_constraintHorizontal_bias="0.498"/>
+            app:layout_constraintTop_toBottomOf="@+id/emailAddress" app:layout_constraintHorizontal_bias="0.537"
+            android:layout_marginTop="108dp"/>
     <EditText
             android:id="@+id/dollarText"
             android:layout_width="wrap_content"
@@ -206,44 +193,27 @@ Replace the XML code in the  **activity_main.xml** file with the following XML c
             android:ems="10"
             android:id="@+id/personName"
             app:layout_constraintTop_toBottomOf="@+id/dollarText"
-            android:layout_marginTop="80dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="96dp"
+            android:layout_marginTop="120dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="96dp"
             android:autofillHints=""/>
-    <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:ems="10"
-            android:id="@+id/editTextDate"
-            android:text="Date" app:layout_constraintTop_toBottomOf="@+id/personName"
-            android:layout_marginTop="88dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="96dp"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:ems="10"
             android:id="@+id/emailAddress"
-            app:layout_constraintTop_toBottomOf="@+id/editTextDate"
-            android:layout_marginTop="68dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="96dp"
+            app:layout_constraintTop_toBottomOf="@+id/personName"
+            android:layout_marginTop="128dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="88dp"
             android:text="email"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-### Update the Strings.xml file
-
-In the **strings.xml** file under **res/values**, ensure this file looks like this code. 
-
-     <resources>
-      <string name="app_name">Android Amazon DynamoDB Example</string>
-      <string name="convert_string">Submit</string>
-      <string name="dollars_hint">dollars</string>
-      <string name="no_value_string">No Value</string>
-     </resources>
+</androidx.constraintlayout.widget.ConstraintLayout>
+```
 
 ## Create the Kotlin classes for your Android project
 
 In the **com.example.aws** package, add additional Kotlin files, as shown in this illustration.
 
-![AWS Tracking Application](images/project6.png)
+![AWS Tracking Application](images/projectClasses.png)
 
 The Kotlin files in this package are the following:
 
