@@ -632,7 +632,7 @@ sqs_LongPollingReceiveMessage:
         - sdk_version: 2
           github: javascript/example_code/sqs
           sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-send-receive-messages-receiving
-          excerpts: sqs-examples-send-receive-messages-receiving
+          excerpts:
             - description: Receive a message from an  &SQS; queue using long-poll support.
               snippet_tags:
                 - sqs.JavaScript.longPoll.receiveMessage
