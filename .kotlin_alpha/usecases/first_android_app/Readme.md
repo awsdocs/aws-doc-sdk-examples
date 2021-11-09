@@ -221,7 +221,8 @@ The Kotlin files in this package are the following:
 
 In the **com.example.aws** package, create a Kotlin class named **Database** that injects data into a DynamoDB table. The following code represents this class.
 
-	package com.example.aws
+       package com.example.aws
+       
        import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
        import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
        import aws.sdk.kotlin.services.dynamodb.model.PutItemRequest
@@ -271,7 +272,7 @@ In the **com.example.aws** package, create a Kotlin class named **Database** tha
 
 The following Kotlin code represents the **MainActivity** Kotlin class. To handle the required AWS Credentials, notice the use of a **StaticCredentialsProvider** object. 
 
-    package com.example.awsapp
+     package com.example.awsapp
 
     import androidx.appcompat.app.AppCompatActivity
     import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
