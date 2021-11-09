@@ -73,13 +73,9 @@ The first step is to create an Android project.
 
 ## Add the dependencies to your Android project
 
-At this point, you have a new project named **AWSAndroid** with a default Kotlin class named **MainActivity**.
+At this point, you have a new project named **AWSAndroid** with a default Kotlin class named **MainActivity**. Notice that there is Gradle build file here:
 
-![AWS Blog Application](images/project2.png)
-
-Notice that there is Gradle build file here:
-
-![AWS Blog Application](images/project3.png)
+![AWS Blog Application](images/projectBuild.png)
 
 Add the following dependencies to the Gradle build file.
 
