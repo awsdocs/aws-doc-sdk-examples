@@ -135,18 +135,14 @@ dependencies {
 
 The user interface for your Android project is defined in an XML file named **activity_main.xml**, as shown in this illustration. 
 
-![AWS Tracking Application](images/project4.png)
+![AWS Tracking Application](images/projectUI.png)
 
-You can modify this XML file to define the user interface in the Android application.  
-
-![AWS Tracking Application](images/project5a.png)
-
-Replace the XML code in the  **activity_main.xml** file with the following XML code. 
+You can modify the **activity_main.xml** file with the following XML code. 
 
 
 ```xml
-      <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     <?xml version="1.0" encoding="utf-8"?>
+     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                                    xmlns:tools="http://schemas.android.com/tools"
                                                    android:layout_width="match_parent"
@@ -206,7 +202,7 @@ Replace the XML code in the  **activity_main.xml** file with the following XML c
             android:text="email"/>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 ```
 
 ## Create the Kotlin classes for your Android project
