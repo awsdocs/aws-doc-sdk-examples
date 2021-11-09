@@ -1,8 +1,8 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-comment:[This is a full sample when you include hello-cdk-stack.ts, which goes in the lib dir.]
+// snippet-comment:[This is a full sample when you include sns-sqs-example-stack.ts, which goes in the lib dir.]
 // snippet-sourceauthor:[Doug-AWS]
-// snippet-sourcedescription:[Instantiates the stack in hello-cdk-stack.ts.]
-// snippet-keyword:[CDK V1.0.0]
+// snippet-sourcedescription:[Instantiates a stack using sns-sqs-example-stack]
+// snippet-keyword:[CDK V1.0.0
 // snippet-keyword:[TypeScript]
 // snippet-sourcesyntax:[javascript]
 // snippet-service:[cdk]
@@ -20,11 +20,10 @@
 // This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
-// snippet-start:[cdk.typescript.hello-cdk]
-import * as core from '@aws-cdk/core';
+// snippet-start:[cdk.typescript.sns-sqs-example]
+import * as cdk from '@aws-cdk/core';
+import { SnsSqsExampleStack } from '../lib/sns-sqs-example-stack';
 
-import { HelloCdkStack } from '../lib/hello-cdk-stack';
-
-const app = new core.App();
-new HelloCdkStack(app, 'HelloCdkStack');
-// snippet-end:[cdk.typescript.hello-cdk]
+const app = new cdk.App();
+new SnsSqsExampleStack(app, 'SnsSqsExampleStack');
+// snippet-end:[cdk.typescript.sns-sqs-example]

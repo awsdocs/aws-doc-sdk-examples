@@ -1,8 +1,8 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 // snippet-comment:[This goes in the lib dir.]
-// snippet-comment:[This is a full sample when you include HelloCdk.ts, which goes in the bin dir.]
+// snippet-comment:[This is a full sample when you include sns-sqs-example.ts, which goes in the bin dir.]
 // snippet-sourceauthor:[Doug-AWS]
-// snippet-sourcedescription:[HelloCdk-stack.ts creates a stack with an SQS queue, SNS topic, subscribes the queue to the topic, and sets a CloudWatch metric and alarm on the SQS queue.]
+// snippet-sourcedescription:[sns-sqs-example-stack.ts creates a stack with an SQS queue, SNS topic, subscribes the queue to the topic, and sets a CloudWatch metric and alarm on the SQS queue.]
 // snippet-keyword:[CDK V1.0.0]
 // snippet-keyword:[sqs.Queue function]
 // snippet-keyword:[sns.Topic function]
@@ -26,14 +26,14 @@
 // This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
-// snippet-start:[cdk.typescript.HelloCdk-stack]
+// snippet-start:[cdk.typescript.sns-sqs-example-stack]
 import * as core from "@aws-cdk/core";
 import * as cloudwatch from "@aws-cdk/aws-cloudwatch";
 import * as sns from "@aws-cdk/aws-sns";
 import * as sqs from "@aws-cdk/aws-sqs";
 import * as subscriptions from "@aws-cdk/aws-sns-subscriptions";
 
-export class HelloCdkStack extends core.Stack {
+export class SnsSqsExampleStack extends core.Stack {
   constructor(scope: core.App, id: string, props?: core.StackProps) {
     super(scope, id, props);
 
@@ -41,7 +41,9 @@ export class HelloCdkStack extends core.Stack {
       visibilityTimeout: core.Duration.seconds(300)
     });
 
-    const topic = new sns.Topic(this, "HelloCdkTopic");
+    const topic = new sns.Topic(this, "HelloCdkTopic", {
+      topicName = "VisibleTopicName"
+    });
 
     const sub = new subscriptions.SqsSubscription(queue, {});
     sub.bind(topic);
@@ -51,7 +53,7 @@ export class HelloCdkStack extends core.Stack {
 
     // Do not change the spacing in the following example
     // otherwise you'll screw up the online docs
-    // snippet-start:[cdk.typescript.HelloCdk-stack_alarm]
+    // snippet-start:[cdk.typescript.sns-sqs-example-stack_alarm]
     const qMetric = queue.metric("ApproximateNumberOfMessagesVisible");
 
     new cloudwatch.Alarm(this, "Alarm", {
@@ -60,7 +62,7 @@ export class HelloCdkStack extends core.Stack {
       evaluationPeriods: 3,
       datapointsToAlarm: 2
     });
-    // snippet-end:[cdk.typescript.HelloCdk-stack_alarm]
+    // snippet-end:[cdk.typescript.sns-sqs-example-stack_alarm]
   }
 }
-// snippet-end:[cdk.typescript.HelloCdk-stack]
+// snippet-end:[cdk.typescript.sns-sqs-example-stack]
