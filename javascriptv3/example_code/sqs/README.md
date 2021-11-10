@@ -11,7 +11,7 @@ This is a workspace where you can find the following AWS SDK for JavaScript v3 S
 - [List queues](src/sqs_listqueues.js)(ListQueuesCommand)
 - [Create long polling queue](src/sqs_longpolling_createqueue.js)(CreateQueueCommand)
 - [Change time queue waits for messages](src/sqs_longpolling_existingqueue.js)(SetQueueAttributesCommand)
-- [Retrieve messages queue using long-polling support topics](src/sqs_longpolling_receivemessage.js)()
+- [Receive messages queue using long-polling support](src/sqs_longpolling_receivemessage.js)(ReceiveMessageCommand)
 - [Receive messages](src/sqs_receivemessage.js)(ReceiveMessageCommand / DeleteMessageCommand)
 - [Send messages](src/sqs_sendmessage.js)(SendMessageCommand)
 
