@@ -13,7 +13,6 @@ import json
 
 # snippet-start:[python.example_code.route53-recovery-cluster.helper.get_recovery_client]
 import boto3
-from botocore.exceptions import ClientError
 
 
 def create_recovery_client(cluster_endpoint):
@@ -42,17 +41,12 @@ def get_routing_control_state(routing_control_arn, cluster_endpoints):
     :return: The routing control state response.
     """
     for cluster_endpoint in cluster_endpoints:
-        recovery_client = create_recovery_client(cluster_endpoint)
         try:
+            recovery_client = create_recovery_client(cluster_endpoint)
             response = recovery_client.get_routing_control_state(
                 RoutingControlArn=routing_control_arn)
-            if response['ResponseMetadata']['HTTPStatusCode'] != 200:
-                raise ClientError(
-                    f"Request failed with error: {response['ResponseMetadata']}",
-                    'GetRoutingControlState')
-            else:
-                return response
-        except ClientError as error:
+            return response
+        except Exception as error:
             print(error)
 # snippet-end:[python.example_code.route53-recovery-cluster.GetRoutingControlState]
 
@@ -70,18 +64,13 @@ def update_routing_control_state(
     :return: The routing control update response for each endpoint.
     """
     for cluster_endpoint in cluster_endpoints:
-        recovery_client = create_recovery_client(cluster_endpoint)
         try:
+            recovery_client = create_recovery_client(cluster_endpoint)
             response = recovery_client.update_routing_control_state(
                 RoutingControlArn=routing_control_arn,
                 RoutingControlState=routing_control_state)
-            if response['ResponseMetadata']['HTTPStatusCode'] != 200:
-                raise ClientError(
-                    f"Request failed with error: {response['ResponseMetadata']}",
-                    'UpdateRoutingControlState')
-            else:
-                return response
-        except ClientError as error:
+            return response
+        except Exception as error:
             print(error)
 # snippet-end:[python.example_code.route53-recovery-cluster.UpdateRoutingControlState]
 
@@ -100,17 +89,12 @@ def update_routing_control_states(
     :return: The routing control update response for each endpoint.
     """
     for cluster_endpoint in cluster_endpoints:
-        recovery_client = create_recovery_client(cluster_endpoint)
         try:
+            recovery_client = create_recovery_client(cluster_endpoint)
             response = recovery_client.update_routing_control_states(
                 UpdateRoutingControlStateEntries=update_routing_control_state_entries)
-            if response['ResponseMetadata']['HTTPStatusCode'] != 200:
-                raise ClientError(
-                    f"Request failed with error: {response['ResponseMetadata']}",
-                    'UpdateRoutingControlStates')
-            else:
-                return response
-        except ClientError as error:
+            return response
+        except Exception as error:
             print(error)
 # snippet-end:[python.example_code.route53-recovery-cluster.UpdateRoutingControlStates]
 
