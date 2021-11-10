@@ -47,6 +47,9 @@ sqs_CreateQueue:
             - description: Create an &SQS; standard queue.
               snippet_tags:
                 - sqs.JavaScript.queues.createQueueV3
+        - description: Create an &SQS; queue that waits for a message to arrive.
+          snippet_tags:
+            - sqs.JavaScript.longPoll.createQueueV3
         - sdk_version: 2
           github: javascript/example_code/sqs
           sdkguide: sdk-for-javascript/v2/developer-guide/sqs-examples-using-queues.html#sqs-examples-using-queues-create-queue
@@ -54,8 +57,9 @@ sqs_CreateQueue:
             - description: Create an &SQS; standard queue.
               snippet_tags:
                 - sqs.JavaScript.queues.createQueue
-  services:
-    sqs: { CreateQueue }
+        - description: Create an &SQS; queue that waits for a message to arrive.
+          snippet_tags:
+            - sqs.JavaScript.longPoll.createQueue
 sqs_GetQueueUrl:
   title: Get the URL of an &SQS; queue using an &AWS; SDK
   title_abbrev: Get the URL of a queue
@@ -557,33 +561,6 @@ sqs_ChangeMessageVisibility:
                 - sqs.JavaScript.visibility.receiveMessage
   services:
     sqs: {ChangeMessageVisibility}
-sqs_EnableLongPollingCreatingQueue:
-  title: Create an &SQS; queue that waits for a message
-  title_abbrev: Create a queue that waits for a message
-  synopsis: create an &SQS; queue that waits for a message to arrive.
-  category:
-  languages:
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/sqs
-          sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-enable-long-polling-existing-queue
-          excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - sqs.JavaScript.createclientv3
-            - description: Create an &SQS; queue that waits for a message to arrive.
-              snippet_tags:
-                - sqs.JavaScript.longPoll.createQueueV3
-        - sdk_version: 2
-          github: javascript/example_code/sqs
-          sdkguide: sdk-for-javascript/v2/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-enable-long-polling-existing-queue
-          excerpts:
-            - description: Create an &SQS; queue that waits for a message to arrive.
-              snippet_tags:
-                - sqs.JavaScript.longPoll.createQueue
-  services:
-    sqs: {}
 sqs_SetQueueAttributes:
   title: Change how long an &SQS; queue waits for a message
   title_abbrev: Change how long a queue waits for a message
