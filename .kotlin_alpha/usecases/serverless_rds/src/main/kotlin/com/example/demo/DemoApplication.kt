@@ -3,7 +3,6 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-
 package com.example.demo
 
 import kotlinx.coroutines.runBlocking
@@ -69,7 +68,7 @@ class MessageResource {
         }
     }
 
-    // Adds a new item to the database.
+    // Add a new item to the database.
     @RequestMapping(value = ["/additems"], method = [RequestMethod.POST])
     @ResponseBody
     fun addItems(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking{
@@ -89,7 +88,7 @@ class MessageResource {
         return@runBlocking "Item $id added successfully!"
     }
 
-    // Returns a work item to modify.
+    // Return a work item to modify.
     @RequestMapping(value = ["/modify"], method = [RequestMethod.POST])
     @ResponseBody
     fun modifyWork(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking {
@@ -97,7 +96,7 @@ class MessageResource {
         return@runBlocking ri.getItemSQL(id)
     }
 
-    // Modifies the value of a work item.
+    // Modify the value of a work item.
     @RequestMapping(value = ["/modstatus"], method = [RequestMethod.POST])
     @ResponseBody
     fun changeWorkItem(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking {
@@ -107,7 +106,7 @@ class MessageResource {
         return@runBlocking id
     }
 
-    // Archives a work item.
+    // Archive a work item.
     @RequestMapping(value = ["/archive"], method = [RequestMethod.POST])
     @ResponseBody
     fun archieveWorkItem(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking{
@@ -116,7 +115,7 @@ class MessageResource {
         return@runBlocking id
     }
 
-     // Emails a report.
+     // Email a report.
      @RequestMapping(value = ["/report"], method = [RequestMethod.POST])
      @ResponseBody
      fun getReport(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking {
@@ -129,5 +128,4 @@ class MessageResource {
          }
          return@runBlocking "Report was sent"
      }
-
 }
