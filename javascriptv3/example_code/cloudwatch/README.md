@@ -1,4 +1,4 @@
-# Amazon Cloudwatch JavaScript SDK v3 code examples
+# Amazon Cloudwatch JavaScript SDK V3 code examples
 ## Purpose
 The code examples in this directory demonstrate how to work with Amazon CloudWatch
 using the AWS SDK for JavaScript (v3).
