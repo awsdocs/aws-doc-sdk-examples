@@ -25,7 +25,7 @@ class SnsService {
 
     var topicArnVal =  "<ENTER A TOPIC ARN>"
 
-    private fun getClient(): SnsClient {
+   private fun getClient(): SnsClient {
 
         val snsClient = SnsClient{ region = "us-west-2" }
         return snsClient
@@ -57,7 +57,7 @@ class SnsService {
     suspend fun pubTopic(messageVal: String, lang:String):String {
 
         val snsClient: SnsClient = getClient()
-        var body: String
+        val body: String
 
         val translateClient = TranslateClient {
             region = "us-west-2"
@@ -125,7 +125,7 @@ class SnsService {
     }
 
 
-    // Returns the Sub ARN based on the given endpoint used for unSub.
+    // Returns the Sub Amazon Resource Name (ARN) based on the given endpoint used for unSub.
     suspend fun getTopicArnValue(endpoint: String): String? {
         val snsClient: SnsClient = getClient()
         try {
@@ -190,7 +190,7 @@ class SnsService {
                 val item = doc.createElement("Sub")
                 root.appendChild(item)
 
-                // Set email
+                // Set email.
                 val email = doc.createElement("email")
                 email.appendChild(doc.createTextNode(sub))
                 item.appendChild(email)
@@ -214,6 +214,4 @@ class SnsService {
         }
         return null
     }
-
-
 }
