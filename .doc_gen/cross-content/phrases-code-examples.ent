@@ -20,3 +20,10 @@
 <!-- RDS Data Service -->
 <!ENTITY RDSDataServicelong '&RDSlong; Data Service'>
 <!ENTITY RDSDataService '&RDS; Data Service'>
+
+<!-- SES V2 -->
+<!ENTITY SESv2long "&SESlong; API v2">
+<!ENTITY SESv2 "&SES; API v2">
+
+<!-- Cognito Identity Provider -->
+<!ENTITY COGIDP "&COGID; Provider">
