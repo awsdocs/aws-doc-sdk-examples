@@ -23,7 +23,6 @@ import javax.xml.transform.stream.StreamResult
 @Component
 class RetrieveItems {
 
-
     private val secretArnVal = "<Enter ARN Value>"
     private val resourceArnVal = "<Enter ARN Value>"
 
