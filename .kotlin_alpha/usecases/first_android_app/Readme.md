@@ -12,11 +12,11 @@ The Amazon DynamoDB Kotlin API lets you perform the following tasks from within 
 
 The following shows the application you'll create.
 
-![AWS Blog Application](images/app0.png)
+![AWS Blog Application](images/app5.png)
 
 When you choose **Submit**, the data is persisted into an Amazon DynamoDB table named **Android**, as shown in the following illustration.
 
-![AWS Blog Application](images/table1.png)
+![AWS Blog Application](images/table2.png)
 
 After the table is updated with a new item, a text message is sent to notify a mobile user who monitors the submissions.
 
@@ -38,7 +38,7 @@ This tutorial guides you through creating a sample Native Android application th
 To complete the tutorial, you need the following:
 
 + An AWS account
-+ An IDE that lets you build Android projects (this example uses IntelliJ and the Android plugin. See [Android Studio Plugin Development](https://plugins.jetbrains.com/docs/intellij/android-studio.html) )
++ An IDE that lets you build Android projects (this example uses Android Studio)
 + Java 1.8 SDK
 + Gradle 6.8 or higher
 + Min API version is 24
@@ -60,12 +60,11 @@ Create an Amazon DynamoDB table named **Android** that contains a partition key 
 ## Create an Android project named AWSAndroid
 The first step is to create an Android project.
 
-![AWS Blog Application](images/project1.png)
+![AWS Blog Application](images/projectNew.png)
 
-1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
-2. In the **New Project** dialog box, choose **Android**.
-3. Choose **Empty Activity**.
-4. Choose **Next**.
+1. In Android Studio, choose **File**, **New**, **Project**.
+2. In the **New Project** dialog box, choose **Empty Activity**.
+3. Choose **Next**.
 5. In the **Name** field, enter **AWSAndroid**.
 6. In the **Package name** field, enter **com.example.aws**. 
 7. From the **Language** field, choose **Kotlin**. 
@@ -74,52 +73,25 @@ The first step is to create an Android project.
 
 ## Add the dependencies to your Android project
 
-At this point, you have a new project named **AWSAndroid** with a default Kotlin class named **MainActivity**.
+At this point, you have a new project named **AWSAndroid** with a default Kotlin class named **MainActivity**. Notice that there is Gradle build file here:
 
-![AWS Blog Application](images/project2.png)
-
-Notice that there is Gradle build file here:
-
-![AWS Blog Application](images/project3.png)
+![AWS Blog Application](images/projectBuild.png)
 
 Add the following dependencies to the Gradle build file.
 
-    apply plugin: 'com.android.application'
-    apply plugin: 'kotlin-android'
-    apply plugin: 'kotlin-android-extensions'
+```yaml
+   plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
 
-    android {
-
-     compileOptions {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
-        coreLibraryDesugaringEnabled true
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-
-
-    compileSdkVersion 30
-    buildToolsVersion "30.0.0"
-
-    packagingOptions {
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/license.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/notice.txt'
-        exclude 'META-INF/ASL2.0'
-        exclude("META-INF/*.kotlin_module")
-    }
+android {
+    compileSdk 30
 
     defaultConfig {
-        applicationId "com.example.aws"
-        minSdkVersion 26
-        targetSdkVersion 30
+        applicationId "com.example.awsapp"
+        minSdk 26
+        targetSdk 30
         versionCode 1
         versionName "1.0"
 
@@ -131,40 +103,46 @@ Add the following dependencies to the Gradle build file.
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-     } 
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
 
-    dependencies {
-     implementation fileTree(dir: "libs", include: ["*.jar"])
-     implementation("aws.sdk.kotlin:dynamodb:0.9.0-alpha")
-     implementation("aws.sdk.kotlin:sns:0.9.0-alpha")  {
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation("aws.sdk.kotlin:dynamodb:0.9.0-alpha")
+    implementation("aws.sdk.kotlin:sns:0.9.0-alpha")  {
         exclude group: "xmlpull", module: "xmlpull"
     }
-     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
-     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-     implementation 'androidx.core:core-ktx:1.6.0'
-     implementation 'androidx.appcompat:appcompat:1.3.1'
-     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
-     testImplementation 'junit:junit:4.12'
-     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    }
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}
 
+```
     
 ## Create the layout XML file for your Android project
 
 The user interface for your Android project is defined in an XML file named **activity_main.xml**, as shown in this illustration. 
 
-![AWS Tracking Application](images/project4.png)
+![AWS Tracking Application](images/projectUI.png)
 
-You can modify this XML file to define the user interface in the Android application.  
+You can modify the **activity_main.xml** file with the following XML code. 
 
-![AWS Tracking Application](images/project5a.png)
 
-Replace the XML code in the  **activity_main.xml** file with the following XML code. 
-
-       <?xml version="1.0" encoding="utf-8"?>
-       <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+```xml
+     <?xml version="1.0" encoding="utf-8"?>
+     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                                    xmlns:tools="http://schemas.android.com/tools"
                                                    android:layout_width="match_parent"
@@ -186,12 +164,12 @@ Replace the XML code in the  **activity_main.xml** file with the following XML c
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
             android:onClick="submitData"
             android:text="@string/convert_string"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" app:layout_constraintHorizontal_bias="0.498"/>
+            app:layout_constraintTop_toBottomOf="@+id/emailAddress" app:layout_constraintHorizontal_bias="0.537"
+            android:layout_marginTop="108dp"/>
     <EditText
             android:id="@+id/dollarText"
             android:layout_width="wrap_content"
@@ -211,44 +189,27 @@ Replace the XML code in the  **activity_main.xml** file with the following XML c
             android:ems="10"
             android:id="@+id/personName"
             app:layout_constraintTop_toBottomOf="@+id/dollarText"
-            android:layout_marginTop="80dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="96dp"
+            android:layout_marginTop="120dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="96dp"
             android:autofillHints=""/>
-    <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:ems="10"
-            android:id="@+id/editTextDate"
-            android:text="Date" app:layout_constraintTop_toBottomOf="@+id/personName"
-            android:layout_marginTop="88dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="96dp"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:ems="10"
             android:id="@+id/emailAddress"
-            app:layout_constraintTop_toBottomOf="@+id/editTextDate"
-            android:layout_marginTop="68dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="96dp"
+            app:layout_constraintTop_toBottomOf="@+id/personName"
+            android:layout_marginTop="128dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="88dp"
             android:text="email"/>
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-### Update the Strings.xml file
-
-In the **strings.xml** file under **res/values**, ensure this file looks like this code. 
-
-     <resources>
-      <string name="app_name">Android Amazon DynamoDB Example</string>
-      <string name="convert_string">Submit</string>
-      <string name="dollars_hint">dollars</string>
-      <string name="no_value_string">No Value</string>
-     </resources>
+```
 
 ## Create the Kotlin classes for your Android project
 
 In the **com.example.aws** package, add additional Kotlin files, as shown in this illustration.
 
-![AWS Tracking Application](images/project6.png)
+![AWS Tracking Application](images/projectClasses.png)
 
 The Kotlin files in this package are the following:
 
@@ -260,88 +221,88 @@ The Kotlin files in this package are the following:
 
 In the **com.example.aws** package, create a Kotlin class named **Database** that injects data into a DynamoDB table. The following code represents this class.
 
-	package com.example.aws
-
-        import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
-        import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
-        import aws.sdk.kotlin.services.dynamodb.model.PutItemRequest
-        import aws.sdk.kotlin.services.dynamodb.model.DynamoDbException
-        import kotlin.system.exitProcess
+       package com.example.aws
+       
+       import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
+       import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
+       import aws.sdk.kotlin.services.dynamodb.model.PutItemRequest
+       import aws.sdk.kotlin.services.dynamodb.model.DynamoDbException
+       import kotlin.system.exitProcess
 
        class Database {
 
        suspend fun putItemInTable2(
-         ddb: DynamoDbClient,
-         tableNameVal: String,
-         key: String,
-         keyVal: String,
-         moneyTotal: String,
-         moneyTotalValue: String,
-         name: String,
-         nameValue: String,
-         email: String,
-         emailVal: String
-        ) {
-        
-	  val itemValues = mutableMapOf<String, AttributeValue>()
+        ddb: DynamoDbClient,
+        tableNameVal: String,
+        key: String,
+        keyVal: String,
+        moneyTotal: String,
+        moneyTotalValue: String,
+        name: String,
+        nameValue: String,
+        email: String,
+        emailVal: String
+    ) {
+        val itemValues = mutableMapOf<String, AttributeValue>()
 
-          // Add all content to the table.
-          itemValues[key] = AttributeValue.S(keyVal)
-          itemValues[moneyTotal] =  AttributeValue.S(moneyTotalValue)
-          itemValues[name] = AttributeValue.S(nameValue)
-          itemValues[email] = AttributeValue.S(emailVal)
+        // Add all content to the table.
+        itemValues[key] = AttributeValue.S(keyVal)
+        itemValues[moneyTotal] =  AttributeValue.S(moneyTotalValue)
+        itemValues[name] = AttributeValue.S(nameValue)
+        itemValues[email] = AttributeValue.S(emailVal)
 
-          val request = PutItemRequest {
+        val request = PutItemRequest {
             tableName=tableNameVal
-            item = itemValuesz
-          }
+            item = itemValues
+        }
 
-         try {
-            ddb.putItem(request)
+        try {
+         ddb.putItem(request)
             println(" A new item was placed into $tableNameVal.")
 
-         } catch (ex: DynamoDbException) {
+        } catch (ex: DynamoDbException) {
             println(ex.message)
             ddb.close()
             exitProcess(0)
-          }
         }
+      }
      }
 
 ### Create the MainActivity class
 
 The following Kotlin code represents the **MainActivity** Kotlin class. To handle the required AWS Credentials, notice the use of a **StaticCredentialsProvider** object. 
 
-     package com.example.aws
+     package com.example.awsapp
 
     import androidx.appcompat.app.AppCompatActivity
-    import android.os.Bundle
-    import android.view.View
-    import android.widget.EditText
-    import android.widget.Toast
     import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
     import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
     import aws.sdk.kotlin.services.sns.SnsClient
     import kotlinx.coroutines.runBlocking
+    import android.os.Bundle
+    import android.view.View
+    import android.widget.EditText
+    import android.widget.Toast
     import java.util.*
 
     class MainActivity : AppCompatActivity() {
      override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        }
+     }
 
-     fun submitData(view: View) = runBlocking{
+    fun submitData(view: View) = runBlocking{
 
         val dollarField: EditText =  findViewById(R.id.dollarText)
         val nameField: EditText =  findViewById(R.id.personName)
         val emailField: EditText =  findViewById(R.id.emailAddress)
+        val dateField: EditText = findViewById(R.id.editDate)
 
         val data = Database()
 
         val staticCredentials = StaticCredentialsProvider {
-            accessKeyId = "<Enter key>"
-            secretAccessKey = "<Enter secret key>"
+            accessKeyId = "<Enter your key>"
+            secretAccessKey = "<Enter your secret key>"
         }
 
         val ddb = DynamoDbClient{
@@ -349,7 +310,7 @@ The following Kotlin code represents the **MainActivity** Kotlin class. To handl
             credentialsProvider = staticCredentials
         }
 
-        //Set values
+        // Set values to save in the Amazon DynamoDB table. 
         val uuid: UUID = UUID.randomUUID()
         val tableName = "Android"
         val key = "id"
@@ -360,31 +321,32 @@ The following Kotlin code represents the **MainActivity** Kotlin class. To handl
         val NameVal = nameField.text.toString()
         val email = "email"
         val emailVal = emailField.text.toString()
+        val date = "date"
+        val dateVal = dateField.text.toString()
 
-        data.putItemInTable2(ddb, tableName, key, keyVal, moneyTotal, moneyTotalValue, name, NameVal, email, emailVal);
-        ddb.close()
+        data.putItemInTable2(ddb, tableName, key, keyVal, moneyTotal, moneyTotalValue, name, NameVal, email, emailVal, date, dateVal)
+        showToast("Item added")
 
-        // Notify user
+        // Notify user.
         val snsClient = SnsClient{
             region = "us-east-1"
             credentialsProvider = staticCredentials
         }
 
         val sendMSG = SendMessage()
-        val mobileNum = "<Enter Mobile Number"
+        val mobileNum = "<ENTER MOBILE NUMBER>"
         val message = "Item $uuid was added!"
         sendMSG.pubTextSMS( snsClient,message, mobileNum )
-        showToast("Item added")
-     }
+    }
 
-     fun showToast(value:String){
+    fun showToast(value:String){
         val toast = Toast.makeText(applicationContext, value, Toast.LENGTH_SHORT)
         toast.setMargin(50f, 50f)
         toast.show()
      }
     }
 
-**Note**: Be sure to specify your key values; otherwise, your Android application does not work. 
+**Note**: Be sure to specify your key values and the Mobile number; otherwise, your Android application does not work. 
 
 ### Create the SendMessage class
 
@@ -421,9 +383,6 @@ The following Kotlin code represents the **SendMessage** Kotlin class that sends
 To run the application from the IDE, you must ensure that have you have installed an Android emulator which simulates an Android application. For more information, see [Run apps on the Android Emulator](https://developer.android.com/studio/run/emulator).  
 
 Once you install the emulator, you can run the application and then the application appears in the emulator. 
-![AWS Tracking Application](images/app4.png)
-
-
 
 ### Next steps
 Congratulations! You have created your first Native Android application that interacts with AWS services by using the AWS SDK for Kotlin. As stated at the beginning of this tutorial, be sure to terminate all of the resources that you created while going through this tutorial to ensure that you’re no longer charged for them.

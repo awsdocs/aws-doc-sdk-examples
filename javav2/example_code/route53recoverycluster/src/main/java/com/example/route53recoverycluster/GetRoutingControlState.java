@@ -50,7 +50,6 @@ public class GetRoutingControlState {
         System.out.println("GetRoutingControlStateResponse: " + response);
     }
 
-    //snippet-start:[route53_rec.java2.get_routing.main]
     private static List<ClusterEndpoint> getClusterEndpoints(final String endpointsFile) {
         try {
             ClusterEndpoints endpoints =
@@ -65,6 +64,7 @@ public class GetRoutingControlState {
         }
     }
 
+    //snippet-start:[route53_rec.java2.get_routing.main]
     public static GetRoutingControlStateResponse getRoutingControlState(List<ClusterEndpoint> clusterEndpoints,
                                                                         String routingControlArn) {
         for (ClusterEndpoint clusterEndpoint : clusterEndpoints) {

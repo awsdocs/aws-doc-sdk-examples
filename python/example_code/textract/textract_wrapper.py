@@ -15,6 +15,7 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.textract.TextractWrapper]
 class TextractWrapper:
     """Encapsulates Textract functions."""
     def __init__(self, textract_client, s3_resource, sqs_resource):
@@ -26,7 +27,9 @@ class TextractWrapper:
         self.textract_client = textract_client
         self.s3_resource = s3_resource
         self.sqs_resource = sqs_resource
+# snippet-end:[python.example_code.textract.TextractWrapper]
 
+# snippet-start:[python.example_code.textract.DetectDocumentText]
     def detect_file_text(self, *, document_file_name=None, document_bytes=None):
         """
         Detects text elements in a local image file or from in-memory byte data.
@@ -50,7 +53,9 @@ class TextractWrapper:
             raise
         else:
             return response
+# snippet-end:[python.example_code.textract.DetectDocumentText]
 
+# snippet-start:[python.example_code.textract.AnalyzeDocument]
     def analyze_file(
             self, feature_types, *, document_file_name=None, document_bytes=None):
         """
@@ -77,7 +82,9 @@ class TextractWrapper:
             raise
         else:
             return response
+# snippet-end:[python.example_code.textract.AnalyzeDocument]
 
+# snippet-start:[python.example_code.textract.helper.prepare_job]
     def prepare_job(self, bucket_name, document_name, document_bytes):
         """
         Prepares a document image for an asynchronous detection job by uploading
@@ -95,7 +102,9 @@ class TextractWrapper:
         except ClientError:
             logger.exception("Couldn't upload %s to %s.", document_name, bucket_name)
             raise
+# snippet-end:[python.example_code.textract.helper.prepare_job]
 
+# snippet-start:[python.example_code.textract.helper.check_job_queue]
     def check_job_queue(self, queue_url, job_id):
         """
         Polls an Amazon SQS queue for messages that indicate a specified Textract
@@ -124,7 +133,9 @@ class TextractWrapper:
             logger.exception("Couldn't get messages from queue %s.", queue_url)
         else:
             return status
+# snippet-end:[python.example_code.textract.helper.check_job_queue]
 
+# snippet-start:[python.example_code.textract.StartDocumentTextDetection]
     def start_detection_job(
             self, bucket_name, document_file_name, sns_topic_arn, sns_role_arn):
         """
@@ -156,7 +167,9 @@ class TextractWrapper:
             raise
         else:
             return job_id
+# snippet-end:[python.example_code.textract.StartDocumentTextDetection]
 
+# snippet-start:[python.example_code.textract.GetDocumentTextDetection]
     def get_detection_job(self, job_id):
         """
         Gets data for a previously started text detection job.
@@ -175,7 +188,9 @@ class TextractWrapper:
             raise
         else:
             return response
+# snippet-end:[python.example_code.textract.GetDocumentTextDetection]
 
+# snippet-start:[python.example_code.textract.StartDocumentAnalysis]
     def start_analysis_job(
             self, bucket_name, document_file_name, feature_types, sns_topic_arn,
             sns_role_arn):
@@ -210,7 +225,9 @@ class TextractWrapper:
             raise
         else:
             return job_id
+# snippet-end:[python.example_code.textract.StartDocumentAnalysis]
 
+# snippet-start:[python.example_code.textract.GetDocumentAnalysis]
     def get_analysis_job(self, job_id):
         """
         Gets data for a previously started detection job that includes additional
@@ -230,3 +247,4 @@ class TextractWrapper:
             raise
         else:
             return response
+# snippet-end:[python.example_code.textract.GetDocumentAnalysis]

@@ -54,10 +54,9 @@ route53-recovery-cluster_UpdateRoutingControlState:
   services:
     route53-recovery-cluster: {UpdateRoutingControlState}
 route53-recovery-cluster_UpdateRoutingControlStates:
-  title: Update the state of a list of &R53ARC; routing controls using an &AWS; SDK
-  title_abbrev: Update the state of a list of routing controls
-  synopsis: update the state of a list of &R53ARC; routing controls for a list of
-    cluster endpoints.
+  title: Update the states of multiple &R53ARC; routing controls using an &AWS; SDK
+  title_abbrev: Update the states of multiple routing controls
+  synopsis: update the states of multiple &R53ARC; routing controls for a cluster.
   category:
   languages:
     Java:
