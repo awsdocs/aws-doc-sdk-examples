@@ -330,7 +330,7 @@ The following Kotlin code represents the **SnsService** class. This class uses t
          }
        }
 
-      // Returns the Sub ARN based on the given endpoint used for unSub.
+      // Returns the Sub Amazon Resource Name (ARN) based on the given endpoint used for unSub.
       suspend fun getTopicArnValue(endpoint: String): String? {
         val snsClient: SnsClient = getClient()
         try {
