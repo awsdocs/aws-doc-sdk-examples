@@ -1,8 +1,8 @@
 # zexi 0.4.0
 polly_DescribeVoices:
-  title: Return the list of &POL; voices that are available for use when requesting speech synthesis using an &AWS; SDK
-  title_abbrev: Get available voices
-  synopsis: get the available &POL; voices.
+  title: Get the list of &POL; voices available for synthesis using an &AWS; SDK
+  title_abbrev: Get the voices available for synthesis
+  synopsis: get the &POL; voices available for synthesis.
   category:
   languages:
     Rust:
@@ -16,7 +16,7 @@ polly_DescribeVoices:
   services:
     polly: { DescribeVoices }
 polly_ListLexicons:
-  title: Get list of &POL; pronunciation lexicons stored in an &AWS; Region using an &AWS; SDK
+  title: Get the &POL; pronunciation lexicons using an &AWS; SDK
   title_abbrev: Get pronunciation lexicons
   synopsis: get &POL; pronunciation lexicons.
   category:
@@ -32,7 +32,7 @@ polly_ListLexicons:
   services:
     polly: { ListLexicons }
 polly_PutLexicon:
-  title: Store a &POL; pronunciation lexicon in an &AWS; Region using an &AWS; SDK
+  title: Store a &POL; pronunciation lexicon using an &AWS; SDK
   title_abbrev: Store a pronunciation lexicon
   synopsis: store a &POL; pronunciation lexicon.
   category:
@@ -48,7 +48,7 @@ polly_PutLexicon:
   services:
     polly: { PutLexicon }
 polly_SynthesizeSpeech:
-  title: Synthesize UTF-8 input, plain text or SSML, to a stream of bytes using an &AWS; SDK
+  title: Synthesize UTF-8 input to a stream of bytes using an &AWS; SDK
   title_abbrev: Synthesize speech
   synopsis: synthesize speech.
   category:
