@@ -217,7 +217,7 @@ The following Kotlin code represents the **DemoApplication** and the **MessageRe
  ```kotlin
     package com.example.demo
 
-    import kotlinx.coroutines.runBlocking
+    import kotlinx.coroutines.runBlocking 
     import org.springframework.beans.factory.annotation.Autowired
     import org.springframework.boot.autoconfigure.SpringBootApplication
     import org.springframework.boot.runApplication
@@ -233,8 +233,8 @@ The following Kotlin code represents the **DemoApplication** and the **MessageRe
      runApplication<DemoApplication>(*args)
    }
 
-  @Controller
-  class MessageResource {
+   @Controller
+   class MessageResource {
 
     @Autowired
     lateinit var injectItems: InjectWorkService
@@ -278,12 +278,12 @@ The following Kotlin code represents the **DemoApplication** and the **MessageRe
             xml = ri.getItemsDataSQL(name, 1)
             xml
         }
-     }
+    }
 
-     // Adds a new item to the database.
-     @RequestMapping(value = ["/additems"], method = [RequestMethod.POST])
-     @ResponseBody
-     fun addItems(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking{
+    // Add a new item to the database.
+    @RequestMapping(value = ["/additems"], method = [RequestMethod.POST])
+    @ResponseBody
+    fun addItems(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking{
 
         val nameVal = "user"
         val guideVal = request.getParameter("guide")
@@ -298,39 +298,39 @@ The following Kotlin code represents the **DemoApplication** and the **MessageRe
         myWork.name = nameVal
         val id =  injectItems.injestNewSubmission(myWork)
         return@runBlocking "Item $id added successfully!"
-      }
+    }
 
-      // Returns a work item to modify.
-      @RequestMapping(value = ["/modify"], method = [RequestMethod.POST])
-      @ResponseBody
-      fun modifyWork(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking {
+    // Return a work item to modify.
+    @RequestMapping(value = ["/modify"], method = [RequestMethod.POST])
+    @ResponseBody
+    fun modifyWork(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking {
         val id = request.getParameter("id")
         return@runBlocking ri.getItemSQL(id)
-      }
+    }
 
-      // Modifies the value of a work item.
-      @RequestMapping(value = ["/modstatus"], method = [RequestMethod.POST])
-      @ResponseBody
-      fun changeWorkItem(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking {
+    // Modify the value of a work item.
+    @RequestMapping(value = ["/modstatus"], method = [RequestMethod.POST])
+    @ResponseBody
+    fun changeWorkItem(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking {
         val id = request.getParameter("id")
         val status = request.getParameter("stat")
         injectItems.modifySubmission(id, status)
         return@runBlocking id
-      }
+    }
 
-     // Archives a work item.
-     @RequestMapping(value = ["/archive"], method = [RequestMethod.POST])
-     @ResponseBody
-     fun archieveWorkItem(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking{
+    // Archive a work item.
+    @RequestMapping(value = ["/archive"], method = [RequestMethod.POST])
+    @ResponseBody
+    fun archieveWorkItem(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking{
         val id = request.getParameter("id")
         ri.flipItemArchive(id)
         return@runBlocking id
-     }
+    }
 
-     // Emails a report.
-      @RequestMapping(value = ["/report"], method = [RequestMethod.POST])
-      @ResponseBody
-      fun getReport(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking {
+     // Email a report.
+     @RequestMapping(value = ["/report"], method = [RequestMethod.POST])
+     @ResponseBody
+     fun getReport(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking {
          val email = request.getParameter("email")
          val xml = ri.getItemsDataSQLReport("user", 0)
          try {
@@ -339,8 +339,8 @@ The following Kotlin code represents the **DemoApplication** and the **MessageRe
              e.stackTrace
          }
          return@runBlocking "Report was sent"
-      }
      }
+   }
 
  ```
 
