@@ -118,7 +118,6 @@ class RetrieveItems {
         return null
     }
 
-
     // Retrieve an item based on the ID.
     suspend fun getItemSQL(id: String): String? {
         val dataClient = getClient()
@@ -166,7 +165,6 @@ class RetrieveItems {
         }
         return null
     }
-
 
     // Get Items data.
     suspend fun getItemsDataSQLReport(username: String, arch:Int): String? {
