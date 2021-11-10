@@ -1,0 +1,65 @@
+# zexi 0.4.0
+polly_DescribeVoices:
+  title: Return the list of &POL; voices that are available for use when requesting speech synthesis using an &AWS; SDK
+  title_abbrev: Get available voices
+  synopsis: get the available &POL; voices.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/polly
+          excerpts:
+            - description:
+              snippet_tags:
+                - polly.rust.describe-voices
+  services:
+    polly: { DescribeVoices }
+polly_ListLexicons:
+  title: Get list of &POL; pronunciation lexicons stored in an &AWS; Region using an &AWS; SDK
+  title_abbrev: Get pronunciation lexicons
+  synopsis: get &POL; pronunciation lexicons.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/polly
+          excerpts:
+            - description:
+              snippet_tags:
+                - polly.rust.list-lexicons
+  services:
+    polly: { ListLexicons }
+polly_PutLexicon:
+  title: Store a &POL; pronunciation lexicon in an &AWS; Region using an &AWS; SDK
+  title_abbrev: Store a pronunciation lexicon
+  synopsis: store a &POL; pronunciation lexicon.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/polly
+          excerpts:
+            - description:
+              snippet_tags:
+                - polly.rust.put-lexicon
+  services:
+    polly: { PutLexicon }
+polly_SynthesizeSpeech:
+  title: Synthesize UTF-8 input, plain text or SSML, to a stream of bytes using an &AWS; SDK
+  title_abbrev: Synthesize speech
+  synopsis: synthesize speech.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/polly
+          excerpts:
+            - description:
+              snippet_tags:
+                - polly.rust.synthesize-speech
+  services:
+    polly: { SynthesizeSpeech }
