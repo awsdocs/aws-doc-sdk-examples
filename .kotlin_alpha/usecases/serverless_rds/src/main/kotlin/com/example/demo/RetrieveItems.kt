@@ -27,7 +27,7 @@ class RetrieveItems {
     private val resourceArnVal = "<Enter ARN Value>"
 
     // Return a RdsDataClient object.
-    private fun getClient(): RdsDataClient? {
+    private fun getClient(): RdsDataClient {
 
         val rdsDataClient = RdsDataClient{region ="us-east-1"}
         return rdsDataClient
@@ -47,7 +47,7 @@ class RetrieveItems {
                 database ="jobs"
                 resourceArn = resourceArnVal
             }
-            dataClient?.executeStatement(sqlRequest)
+            dataClient.executeStatement(sqlRequest)
         } catch (e: SQLException) {
             e.printStackTrace()
         }
@@ -58,14 +58,11 @@ class RetrieveItems {
     suspend fun getItemsDataSQL(username: String, arch:Int ): String? {
 
         val dataClient = getClient()
-
-        // Define a list.
         val records = mutableListOf<WorkItem>()
-        var sqlStatement: String
+        val sqlStatement: String
+       
         try {
-            // Specify the SQL Statement to query data.
             sqlStatement = "Select * FROM work where username = '$username ' and archive = $arch";
-
             val sqlRequest = ExecuteStatementRequest {
                 secretArn = secretArnVal
                 sql = sqlStatement
@@ -73,8 +70,8 @@ class RetrieveItems {
                 resourceArn = resourceArnVal
             }
 
-            val response = dataClient?.executeStatement(sqlRequest)
-            val dataList: List<List<Field>>? = response?.records
+            val response = dataClient.executeStatement(sqlRequest)
+            val dataList: List<List<Field>>? = response.records
             var workItem: WorkItem
             var index: Int
 
@@ -82,7 +79,6 @@ class RetrieveItems {
             if (dataList != null) {
                 for (list in dataList) {
 
-                    // New WorkItem object.
                     workItem = WorkItem()
                     index = 0
                     for (myField in list) {
@@ -103,11 +99,10 @@ class RetrieveItems {
                         else if (index == 5)
                             workItem.name = value
 
-                        // Increment the index.
                         index++
                     }
 
-                    // Push the object to the List.
+                    // Push the object to the list.
                    records.add(workItem)
                 }
             }
@@ -121,13 +116,10 @@ class RetrieveItems {
     // Retrieve an item based on the ID.
     suspend fun getItemSQL(id: String): String? {
         val dataClient = getClient()
-        // Define a list in which all work items are stored
-        var sqlStatement: String
+        val sqlStatement: String
         var status = ""
         var description = ""
         try {
-
-            //Specify the SQL Statement to query data.
             sqlStatement = "Select description, status FROM work where idwork ='$id' "
             val sqlRequest = ExecuteStatementRequest {
                 secretArn = secretArnVal
@@ -136,8 +128,8 @@ class RetrieveItems {
                 resourceArn = resourceArnVal
             }
 
-            val response = dataClient?.executeStatement(sqlRequest)
-            val dataList: List<List<Field>>? = response?.records
+            val response = dataClient.executeStatement(sqlRequest)
+            val dataList: List<List<Field>>? = response.records
 
             // Get the records.
             if (dataList != null) {
@@ -153,8 +145,7 @@ class RetrieveItems {
                             description = value
                         else
                             status = value
-
-                        // Increment the index.
+       
                         index++
                     }
                 }
@@ -169,14 +160,11 @@ class RetrieveItems {
     // Get Items data.
     suspend fun getItemsDataSQLReport(username: String, arch:Int): String? {
         val dataClient = getClient()
-
-        // Define a list.
         val records = mutableListOf<WorkItem>()
-        val rowCount = 0
-        var sqlStatement: String
+        val sqlStatement: String
         var item: WorkItem? = null
+        
         try {
-            // Specify the SQL Statement to query data.
             sqlStatement = "Select * FROM work where username = '" +username +"' and archive = " + arch +"";
             val sqlRequest = ExecuteStatementRequest {
                 secretArn = secretArnVal
@@ -185,8 +173,8 @@ class RetrieveItems {
                 resourceArn = resourceArnVal
             }
 
-            val response = dataClient?.executeStatement(sqlRequest)
-            val dataList: List<List<Field>>? = response?.records
+            val response = dataClient.executeStatement(sqlRequest)
+            val dataList: List<List<Field>>? = response.records
             var workItem: WorkItem
             var index: Int
 
@@ -194,7 +182,6 @@ class RetrieveItems {
             if (dataList != null) {
                 for (list in dataList) {
 
-                    // New WorkItem object.
                     workItem = WorkItem()
                     index = 0
                     for (myField in list) {
@@ -215,11 +202,9 @@ class RetrieveItems {
                         else if (index == 5)
                             workItem.name = value
 
-                        // Increment the index.
                         index++
                     }
 
-                    // Push the object to the List.
                     records.add(workItem)
                 }
             }
@@ -230,16 +215,12 @@ class RetrieveItems {
         return null
     }
 
-
-
     // Convert Work data into XML to pass back to the view.
     private fun toXml(itemList: List<WorkItem>): Document? {
         try {
             val factory = DocumentBuilderFactory.newInstance()
             val builder = factory.newDocumentBuilder()
             val doc = builder.newDocument()
-
-            // Start building the XML.
             val root = doc.createElement("Items")
             doc.appendChild(root)
 
@@ -311,23 +292,23 @@ class RetrieveItems {
             val builder = factory.newDocumentBuilder()
             val doc = builder.newDocument()
 
-            //Start building the XML.
+            // Start building the XML.
             val root = doc.createElement("Items")
             doc.appendChild(root)
             val item = doc.createElement("Item")
             root.appendChild(item)
 
-            //Set Id.
+            // Set Id.
             val id = doc.createElement("Id")
             id.appendChild(doc.createTextNode(id2))
             item.appendChild(id)
 
-            //Set Description.
+            // Set Description.
             val desc = doc.createElement("Description")
             desc.appendChild(doc.createTextNode(desc2))
             item.appendChild(desc)
 
-            //Set Status.
+            // Set Status.
             val status = doc.createElement("Status")
             status.appendChild(doc.createTextNode(status2))
             item.appendChild(status)
