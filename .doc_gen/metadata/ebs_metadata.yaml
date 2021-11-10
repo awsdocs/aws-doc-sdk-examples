@@ -59,7 +59,8 @@ ebs_DeleteSnapshot:
           github: .rust_alpha/ebs
           excerpts:
             - description:
-              snippet_tags: -ebs.rust.delete-snapshot
+              snippet_tags:
+                -ebs.rust.delete-snapshot
   services:
     ec2: { DeleteSnapshot }
 ebs_DescribeSnapshots:
