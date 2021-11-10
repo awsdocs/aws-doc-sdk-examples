@@ -5,21 +5,16 @@ acm:
   short: "&ACM;"
   sort: "ACM"
   version: acm-2015-12-08
-application-autoscaling:
-  long: "&APP-ASlong;"
-  short: "&APP-AS;"
-  sort: "Application Auto Scaling"
-  version: application-autoscaling-2016-02-06
-autoscaling:
-  long: "&AWS-ASlong;"
-  short: "&AWS-AS;"
-  sort: "EC2 Auto Scaling"
-  version: autoscaling-2011-01-01  
 api-gateway:
   long: "&ABPlong;"
   short: "&ABP;"
   sort: "API Gateway"
   version: apigateway-2015-07-09
+application-autoscaling:
+  long: "&APP-ASlong;"
+  short: "&APP-AS;"
+  sort: "Application Auto Scaling"
+  version: application-autoscaling-2016-02-06
 auto-scaling:
   long: "&ASlong;"
   short: "&AS;"
@@ -45,24 +40,24 @@ cloudwatch:
   short: "&CW;"
   sort: "CloudWatch"
   version: monitoring-2010-08-01
-cloudwatch-logs:
-  long: "&CWLlong;"
-  short: "&CWL;"
-  sort: "CloudWatch Logs"
-  version: logs-2014-03-28
 cloudwatch-events:
   long: "&CWElong;"
   short: "&CWE;"
   sort: "CloudWatch Events"
   version: eventbridge-2015-10-07
+cloudwatch-logs:
+  long: "&CWLlong;"
+  short: "&CWL;"
+  sort: "CloudWatch Logs"
+  version: logs-2014-03-28
 cognito-identity:
   long: "&COGID;"
   short: "&COGID;"
   sort: "Cognito Identity"
   version: cognito-identity-2014-06-30
-cognito-idp:
-  long: "&COGUP;"
-  short: "&COGUP;"
+cognito-identity-provider:
+  long: "&COGIDP;"
+  short: "&COGIDP;"
   sort: "Cognito Identity Provider"
   version: cognito-idp-2016-04-18
 cognito-sync:
@@ -105,6 +100,11 @@ eventbridge:
   short: "&EV;"
   sort: "EventBridge"
   version: eventbridge-2015-10-07
+glacier:
+  long: "&GLlong;"
+  short: "&GLshort;"
+  sort: "S3 Glacier"
+  version: glacier-2012-06-01
 iam:
   long: "&IAMlong;"
   short: "&IAM;"
@@ -199,16 +199,16 @@ rekognition:
   version: rekognition-2016-06-27
   caveat: The code examples in this chapter are intended to supplement the
     code examples found throughout the rest of this guide.
-route53-recovery-cluster:
-  long: "&R53ARClong;"
-  short: "&R53ARC;"
-  sort: "Application Recovery Controller"
-  version: route53-recovery-cluster-2019-12-02
 route-53:
   long: "&R53long;"
   short: "&R53;"
   sort: "Route 53"
   version: route53-2013-04-01
+route53-recovery-cluster:
+  long: "&R53ARClong;"
+  short: "&R53ARC;"
+  sort: "Application Recovery Controller"
+  version: route53-recovery-cluster-2019-12-02
 s3:
   long: "&S3long;"
   short: "&S3;"
@@ -229,6 +229,16 @@ ses:
   short: "&SES;"
   sort: "SES"
   version: sesv2-2019-09-27
+sesv2:
+  long: "&SESv2long;"
+  short: "&SESv2;"
+  sort: "SES v2 API"
+  version: sesv2-2019-09-27
+sfn:
+  long: "&SFNlong;"
+  short: "&SFN;"
+  sort: "Step Functions"
+  version: states-2016-11-23
 snowball:
   long: "&Frozenlong;"
   short: "&Frozen;"
@@ -244,15 +254,10 @@ sqs:
   short: "&SQS;"
   sort: "SQS"
   version: sqs-2012-11-05
-sfn:
-  long: "&SFNlong;"
-  short: "&SFN;"
-  sort: "Step Functions"
-  version: states-2016-11-23
 ssm:
   long: "&SYSlong;"
   short: "&SYS;"
-  sort: "SSM"
+  sort: "Systems Manager"
   version: ssm-2014-11-06
 textract:
   long: "&TEXTRACTlong;"
@@ -264,23 +269,8 @@ transcribe:
   short: "&TSC;"
   sort: "Transcribe"
   version: transcribe-2017-10-26
-iam:
-  long: "&IAMlong;"
-  short: "&IAM;"
-  sort: "IAM"
-  version: iam-2010-05-08
 translate:
   long: "&TSLlong;"
   short: "&TSL;"
   sort: "Translate"
   version: translate-2017-07-01
-ses:
-  long: "&SESlong;"
-  short: "&SES;"
-  sort: "SES"
-  version: email-2010-12-01
-glacier:
-  long: "&GLlong;"
-  short: "&GLshort;"
-  sort: "S3 Glacier"
-  version: glacier-2012-06-01
