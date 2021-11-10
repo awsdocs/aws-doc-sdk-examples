@@ -23,14 +23,14 @@ class InjectWorkService {
     private val secretArnVal = "<Enter ARN Value>"
     private val resourceArnVal = "<Enter ARN Value>"
 
-    // Returns a RdsDataClient object.
+   // Return a RdsDataClient object.
     private fun getClient(): RdsDataClient {
 
         val rdsDataClient = RdsDataClient{region ="us-east-1"}
         return rdsDataClient
     }
 
-    // Modifies an existing record.
+    // Modify an existing record.
     suspend fun modifySubmission(id: String, status: String?): String? {
         val dataClient = getClient()
         try {
@@ -61,7 +61,7 @@ class InjectWorkService {
             val description = item.description
             val status = item.status
 
-            // Generate the work item ID.
+            // generate the work item ID.
             val uuid = UUID.randomUUID()
             val workId = uuid.toString()
 
@@ -88,5 +88,5 @@ class InjectWorkService {
             e.printStackTrace()
         }
         return null
-    }
-}
+     }
+   }
