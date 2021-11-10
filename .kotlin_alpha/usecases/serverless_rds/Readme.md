@@ -440,7 +440,7 @@ The following Kotlin code represents the **InjectWorkService** class. Notice tha
 
 ### RetrieveItems class
 
-The following Kotlin code represents the **RetrieveItems** class that retrieves data from the **Work** table. Like the **InjectWorkService** class, you need to specify ARN values for the secret manager and the Amazon Serverless Aurora database.
+The following Kotlin code represents the **RetrieveItems** class that retrieves data from the **Work** table. Like the **InjectWorkService** class, you must specify ARN values for the secret manager and the Amazon Serverless Aurora database.
 
 ```kotlin
     package com.example.demo
