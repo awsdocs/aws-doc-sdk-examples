@@ -546,7 +546,7 @@ The following Kotlin code represents the **RetrieveItems** class that retrieves 
                         index++
                     }
 
-                    // Push the object to the List.
+                    // Push the object to the list.
                    records.add(workItem)
                 }
             }
@@ -566,7 +566,7 @@ The following Kotlin code represents the **RetrieveItems** class that retrieves 
         var description = ""
         try {
 
-            //Specify the SQL Statement to query data
+            // Specify the SQL Statement to query data.
             sqlStatement = "Select description, status FROM work where idwork ='$id' "
             val sqlRequest = ExecuteStatementRequest {
                 secretArn = secretArnVal
@@ -605,7 +605,7 @@ The following Kotlin code represents the **RetrieveItems** class that retrieves 
         return null
      }
 
-    // Get Items data from MySQL.
+    // Get Items data from the database.
     suspend fun getItemsDataSQLReport(username: String, arch:Int): String? {
         val dataClient = getClient()
 
