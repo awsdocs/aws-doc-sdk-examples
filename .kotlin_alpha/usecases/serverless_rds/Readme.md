@@ -369,14 +369,14 @@ The following Kotlin code represents the **InjectWorkService** class. Notice tha
     private val secretArnVal = "<Enter the secret manager ARN>"
     private val resourceArnVal =  "<Enter the database ARN>" ;
     
-    // Returns a RdsDataClient object.
+    // Return a RdsDataClient object.
     private fun getClient(): RdsDataClient {
 
         val rdsDataClient = RdsDataClient{region ="us-east-1"}
         return rdsDataClient
      }
 
-     // Modifies an existing record.
+     // Modify an existing record.
      suspend fun modifySubmission(id: String, status: String?): String? {
         val dataClient = getClient()
         try {
@@ -462,18 +462,17 @@ The following Kotlin code represents the **RetrieveItems** class that retrieves 
     @Component
    class RetrieveItems {
 
-
     private val secretArnVal = "<Enter the secret manager ARN>"
     private val resourceArnVal =  "<Enter the database ARN>" ;
 
-    // Returns a RdsDataClient object.
+    // Return a RdsDataClient object.
     private fun getClient(): RdsDataClient? {
 
         val rdsDataClient = RdsDataClient{region ="us-east-1"}
         return rdsDataClient
     }
 
-    // Retrieves an item based on the ID
+    // Retrieve an item based on the ID.
     suspend fun flipItemArchive(id: String): String? {
         val dataClient = getClient()
         val sqlStatement: String
@@ -494,7 +493,7 @@ The following Kotlin code represents the **RetrieveItems** class that retrieves 
         return null
     }
 
-    // Get Items Data
+    // Get Items Data.
     suspend fun getItemsDataSQL(username: String, arch:Int ): String? {
 
         val dataClient = getClient()
@@ -558,7 +557,7 @@ The following Kotlin code represents the **RetrieveItems** class that retrieves 
         return null
      }
 
-    // Retrieves an item based on the ID
+    // Retrieve an item based on the ID.
     suspend fun getItemSQL(id: String): String? {
         val dataClient = getClient()
         // Define a list in which all work items are stored
@@ -606,7 +605,7 @@ The following Kotlin code represents the **RetrieveItems** class that retrieves 
         return null
      }
 
-    // Get Items data from MySQL
+    // Get Items data from MySQL.
     suspend fun getItemsDataSQLReport(username: String, arch:Int): String? {
         val dataClient = getClient()
 
@@ -670,7 +669,7 @@ The following Kotlin code represents the **RetrieveItems** class that retrieves 
         return null
      }
 
-    // Convert Work data into XML to pass back to the view
+    // Convert Work data into XML to pass back to the view.
     private fun toXml(itemList: List<WorkItem>): Document? {
         try {
             val factory = DocumentBuilderFactory.newInstance()
@@ -681,43 +680,43 @@ The following Kotlin code represents the **RetrieveItems** class that retrieves 
             val root = doc.createElement("Items")
             doc.appendChild(root)
 
-            // Get the elements from the collection
+            // Get the elements from the collection.
             val custCount = itemList.size
 
             // Iterate through the collection
             for (index in 0 until custCount) {
 
-                // Get the WorkItem object from the collection
+                // Get the WorkItem object from the collection.
                 val myItem = itemList[index]
                 val item = doc.createElement("Item")
                 root.appendChild(item)
 
-                // Set Id
+                // Set Id.
                 val id = doc.createElement("Id")
                 id.appendChild(doc.createTextNode(myItem.id))
                 item.appendChild(id)
 
-                // Set Name
+                // Set Name.
                 val name = doc.createElement("Name")
                 name.appendChild(doc.createTextNode(myItem.name))
                 item.appendChild(name)
 
-                // Set Date
+                // Set Date.
                 val date = doc.createElement("Date")
                 date.appendChild(doc.createTextNode(myItem.date))
                 item.appendChild(date)
 
-                // Set Description
+                // Set Description.
                 val desc = doc.createElement("Description")
                 desc.appendChild(doc.createTextNode(myItem.description))
                 item.appendChild(desc)
 
-                // Set Guide
+                // Set Guide.
                 val guide = doc.createElement("Guide")
                 guide.appendChild(doc.createTextNode(myItem.guide))
                 item.appendChild(guide)
 
-                // Set Status
+                // Set Status.
                 val status = doc.createElement("Status")
                 status.appendChild(doc.createTextNode(myItem.status))
                 item.appendChild(status)
@@ -749,23 +748,23 @@ The following Kotlin code represents the **RetrieveItems** class that retrieves 
             val builder = factory.newDocumentBuilder()
             val doc = builder.newDocument()
 
-            //Start building the XML
+            //Start building the XML.
             val root = doc.createElement("Items")
             doc.appendChild(root)
             val item = doc.createElement("Item")
             root.appendChild(item)
 
-            //Set Id
+            //Set Id.
             val id = doc.createElement("Id")
             id.appendChild(doc.createTextNode(id2))
             item.appendChild(id)
 
-            //Set Description
+            //Set Description.
             val desc = doc.createElement("Description")
             desc.appendChild(doc.createTextNode(desc2))
             item.appendChild(desc)
 
-            //Set Status
+            //Set Status.
             val status = doc.createElement("Status")
             status.appendChild(doc.createTextNode(status2))
             item.appendChild(status)
