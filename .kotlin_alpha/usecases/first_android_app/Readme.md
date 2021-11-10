@@ -346,7 +346,7 @@ The following Kotlin code represents the **MainActivity** Kotlin class. To handl
      }
     }
 
-**Note**: Be sure to specify your key values; otherwise, your Android application does not work. 
+**Note**: Be sure to specify your key values and the Mobile number; otherwise, your Android application does not work. 
 
 ### Create the SendMessage class
 
