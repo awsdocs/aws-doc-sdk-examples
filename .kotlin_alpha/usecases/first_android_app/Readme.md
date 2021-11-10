@@ -310,7 +310,7 @@ The following Kotlin code represents the **MainActivity** Kotlin class. To handl
             credentialsProvider = staticCredentials
         }
 
-        //Set values
+        // Set values to save in the Amazon DynamoDB table. 
         val uuid: UUID = UUID.randomUUID()
         val tableName = "Android"
         val key = "id"
@@ -327,14 +327,14 @@ The following Kotlin code represents the **MainActivity** Kotlin class. To handl
         data.putItemInTable2(ddb, tableName, key, keyVal, moneyTotal, moneyTotalValue, name, NameVal, email, emailVal, date, dateVal)
         showToast("Item added")
 
-        // Notify user
+        // Notify user.
         val snsClient = SnsClient{
             region = "us-east-1"
             credentialsProvider = staticCredentials
         }
 
         val sendMSG = SendMessage()
-        val mobileNum = "18195765654"
+        val mobileNum = "<ENTER MOBILE NUMBER>"
         val message = "Item $uuid was added!"
         sendMSG.pubTextSMS( snsClient,message, mobileNum )
     }
