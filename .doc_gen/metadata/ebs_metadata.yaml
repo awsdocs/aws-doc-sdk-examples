@@ -32,7 +32,7 @@ ebs_PutSnapshotBlock:
   services:
     ebs: { PutSnapshotBlock }
 ebs_CompleteSnapshot:
-  title: Seal and complete the &EBS; snapshot after all of the required blocks of data have been written to it using an &AWS; SDK
+  title: Seal and complete the &EBS; snapshot using an &AWS; SDK
   title_abbrev: Seal and complete a snapshot
   synopsis: seal and complete an &EBS; snapshot.
   category:
@@ -47,38 +47,3 @@ ebs_CompleteSnapshot:
                 - ebs.rust.create-snapshot-finish
   services:
     ebs: { CompleteSnapshot }
-ebs_DeleteSnapshot:
-  title: Delete the specified an &EBS; snapshot using an &AWS; SDK
-  title_abbrev: Delete a snapshot
-  synopsis: delete an &EBS; snapshot.
-  category:
-  languages:
-    Rust:
-      versions:
-        - sdk_version: 1
-          github: .rust_alpha/ebs
-          excerpts:
-            - description:
-              snippet_tags:
-                - ebs.rust.delete-snapshot
-  services:
-    ec2: { DeleteSnapshot }
-ebs_DescribeSnapshots:
-  title: Describe one or more &EBS; snapshots using an &AWS; SDK
-  title_abbrev: Describe snapshots
-  synopsis: describe &EBS; snapshots.
-  category:
-  languages:
-    Rust:
-      versions:
-        - sdk_version: 1
-          github: .rust_alpha/ebs
-          excerpts:
-            - description: Shows the state of a snapshot
-              snippet_tags:
-                - ebs.rust.get-snapshot-state
-            - description:
-              snippet_tags:
-                - ebs.rust.list-snapshots
-  services:
-    ec2: { DescribeSnapshots }

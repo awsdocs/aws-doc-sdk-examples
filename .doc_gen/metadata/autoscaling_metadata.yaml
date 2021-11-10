@@ -33,7 +33,7 @@ auto-scaling_DeleteAutoScalingGroup:
     auto-scaling: { DeleteAutoScalingGroup }
 auto-scaling_DescribeAutoScalingGroups:
   title: Get information about the &AS; groups using an &AWS; SDK
-  title_abbrev: get group information
+  title_abbrev: Get group information
   synopsis: get information about &AS; groups.
   category:
   languages:
@@ -50,7 +50,7 @@ auto-scaling_DescribeAutoScalingGroups:
 auto-scaling_UpdateAutoScalingGroup:
   title: Update the configuration for the specified &AS; group using an &AWS; SDK
   title_abbrev: Update group configuration
-  synopsis: update the configuration for a &AS; group.
+  synopsis: update the configuration for an &AS; group.
   category:
   languages:
     Rust:

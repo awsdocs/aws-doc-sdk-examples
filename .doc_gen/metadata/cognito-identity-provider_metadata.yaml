@@ -1,8 +1,8 @@
 # zexi 0.4.0
 cognito-identity-provider_ListUserPools:
-  title: List the &COGIDP; associated with an &AWS; account using an &AWS; SDK
+  title: List the &COGIDP; user pools using an &AWS; SDK
   title_abbrev: List the user pools
-  synopsis: list the &COGIDP;.
+  synopsis: list the &COGIDP; user pools.
   category:
   languages:
     Rust:
