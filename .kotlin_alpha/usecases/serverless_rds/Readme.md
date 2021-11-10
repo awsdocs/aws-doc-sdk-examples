@@ -402,12 +402,12 @@ The following Kotlin code represents the **InjectWorkService** class. Notice tha
         val dataClient = getClient()
         try {
 
-             val name = item.name
+            val name = item.name
             val guide = item.guide
             val description = item.description
             val status = item.status
 
-            // generate the work item ID.
+            // Generate the work item ID.
             val uuid = UUID.randomUUID()
             val workId = uuid.toString()
 
