@@ -57,9 +57,9 @@ sqs_CreateQueue:
             - description: Create an &SQS; standard queue.
               snippet_tags:
                 - sqs.JavaScript.queues.createQueue
-        - description: Create an &SQS; queue that waits for a message to arrive.
-          snippet_tags:
-            - sqs.JavaScript.longPoll.createQueue
+            - description: Create an &SQS; queue that waits for a message to arrive.
+              snippet_tags:
+                - sqs.JavaScript.longPoll.createQueue
 sqs_GetQueueUrl:
   title: Get the URL of an &SQS; queue using an &AWS; SDK
   title_abbrev: Get the URL of a queue
