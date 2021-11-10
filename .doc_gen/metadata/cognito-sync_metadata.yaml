@@ -12,6 +12,6 @@ cognito-sync_ListIdentityPoolUsage:
           excerpts:
             - description:
               snippet_tags:
-                -
+                - cognitosync.rust.list-identity-pool-usage
   services:
     cognito-sync: { ListIdentityPoolUsage }
