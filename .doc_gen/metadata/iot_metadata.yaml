@@ -1,0 +1,33 @@
+# zexi 0.4.0
+iot_DescribeEndpoint:
+  title: Return a unique endpoint specific to the &AWS; account making the call using an &AWS; SDK
+  title_abbrev: Get endpoint
+  synopsis: get an &IoT; endpoint.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.rust.describe-endpoint
+  services:
+    iot: { DescribeEndpoint }
+iot_ListThings:
+  title: List you &IoT; things using an &AWS; SDK
+  title_abbrev: List your things
+  synopsis: list your &IoT; things.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.rust.list-things
+  services:
+    iot: { ListThings }
