@@ -1,5 +1,5 @@
 # zexi 0.4.0
-autoscaling_CreateAutoScalingGroup:
+auto-scaling_CreateAutoScalingGroup:
   title: Create an &AS; group using an &AWS; SDK
   title_abbrev: Create a group
   synopsis: create an &AS; group.
@@ -15,7 +15,7 @@ autoscaling_CreateAutoScalingGroup:
                 - autoscaling.rust.create-autoscaling-group
   services:
     auto-scaling: { CreateAutoScalingGroup }
-autoscaling_DeleteAutoScalingGroup:
+auto-scaling_DeleteAutoScalingGroup:
   title: Delete the specified &AS; group using an &AWS; SDK
   title_abbrev: Delete a group
   synopsis: delete an &AS; group.
@@ -31,7 +31,7 @@ autoscaling_DeleteAutoScalingGroup:
                 - autoscaling.rust.delete-autoscaling-group
   services:
     auto-scaling: { DeleteAutoScalingGroup }
-autoscaling_DescribeAutoScalingGroups:
+auto-scaling_DescribeAutoScalingGroups:
   title: Get information about the &AS; groups using an &AWS; SDK
   title_abbrev: get group information
   synopsis: get information about &AS; groups.
@@ -47,7 +47,7 @@ autoscaling_DescribeAutoScalingGroups:
                 - autoscaling.rust.list-autoscaling-groups
   services:
     auto-scaling: { DescribeAutoScalingGroups }
-autoscaling_UpdateAutoScalingGroup:
+auto-scaling_UpdateAutoScalingGroup:
   title: Update the configuration for the specified &AS; group using an &AWS; SDK
   title_abbrev: Update group configuration
   synopsis: update the configuration for a &AS; group.
