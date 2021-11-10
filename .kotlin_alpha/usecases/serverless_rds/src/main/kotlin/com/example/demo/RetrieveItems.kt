@@ -24,23 +24,23 @@ import javax.xml.transform.stream.StreamResult
 class RetrieveItems {
 
 
-    private val secretArnVal = "arn:aws:secretsmanager:us-east-1:814548047983:secret:sqlscott2-WEJX1b"
-    private val resourceArnVal = "arn:aws:rds:us-east-1:814548047983:cluster:database-4"
+    private val secretArnVal = "<Enter ARN Value>"
+    private val resourceArnVal = "<Enter ARN Value>"
 
-    // Returns a RdsDataClient object.
+    // Return a RdsDataClient object.
     private fun getClient(): RdsDataClient? {
 
         val rdsDataClient = RdsDataClient{region ="us-east-1"}
         return rdsDataClient
     }
 
-    // Retrieves an item based on the ID
+    // Retrieve an item based on the ID.
     suspend fun flipItemArchive(id: String): String? {
         val dataClient = getClient()
         val sqlStatement: String
         val arc = 1
         try {
-            // Specify the SQL Statement to query data
+            // Specify the SQL Statement to query data.
             sqlStatement = "update work set archive = '$arc' where idwork ='$id' "
             val sqlRequest = ExecuteStatementRequest {
                 secretArn = secretArnVal
@@ -55,7 +55,7 @@ class RetrieveItems {
         return null
     }
 
-    // Get Items Data
+    // Get Items Data.
     suspend fun getItemsDataSQL(username: String, arch:Int ): String? {
 
         val dataClient = getClient()
@@ -120,7 +120,7 @@ class RetrieveItems {
     }
 
 
-    // Retrieves an item based on the ID
+    // Retrieve an item based on the ID.
     suspend fun getItemSQL(id: String): String? {
         val dataClient = getClient()
         // Define a list in which all work items are stored
@@ -129,7 +129,7 @@ class RetrieveItems {
         var description = ""
         try {
 
-            //Specify the SQL Statement to query data
+            //Specify the SQL Statement to query data.
             sqlStatement = "Select description, status FROM work where idwork ='$id' "
             val sqlRequest = ExecuteStatementRequest {
                 secretArn = secretArnVal
@@ -169,7 +169,7 @@ class RetrieveItems {
     }
 
 
-    // Get Items data from MySQL
+    // Get Items data.
     suspend fun getItemsDataSQLReport(username: String, arch:Int): String? {
         val dataClient = getClient()
 
@@ -235,55 +235,54 @@ class RetrieveItems {
 
 
 
-    // Convert Work item data retrieved from MySQL
-    // into XML to pass back to the view
+    // Convert Work data into XML to pass back to the view.
     private fun toXml(itemList: List<WorkItem>): Document? {
         try {
             val factory = DocumentBuilderFactory.newInstance()
             val builder = factory.newDocumentBuilder()
             val doc = builder.newDocument()
 
-            // Start building the XML
+            // Start building the XML.
             val root = doc.createElement("Items")
             doc.appendChild(root)
 
-            // Get the elements from the collection
+            // Get the elements from the collection.
             val custCount = itemList.size
 
-            // Iterate through the collection
+            // Iterate through the collection.
             for (index in 0 until custCount) {
 
-                // Get the WorkItem object from the collection
+                // Get the WorkItem object from the collection.
                 val myItem = itemList[index]
                 val item = doc.createElement("Item")
                 root.appendChild(item)
 
-                // Set Id
+                // Set Id.
                 val id = doc.createElement("Id")
                 id.appendChild(doc.createTextNode(myItem.id))
                 item.appendChild(id)
 
-                // Set Name
+                // Set Name.
                 val name = doc.createElement("Name")
                 name.appendChild(doc.createTextNode(myItem.name))
                 item.appendChild(name)
 
-                // Set Date
+                // Set Date.
                 val date = doc.createElement("Date")
                 date.appendChild(doc.createTextNode(myItem.date))
                 item.appendChild(date)
 
-                // Set Description
+                // Set Description.
                 val desc = doc.createElement("Description")
                 desc.appendChild(doc.createTextNode(myItem.description))
                 item.appendChild(desc)
 
-                // Set Guide
+                // Set Guide.
                 val guide = doc.createElement("Guide")
                 guide.appendChild(doc.createTextNode(myItem.guide))
                 item.appendChild(guide)
 
-                // Set Status
+                // Set Status.
                 val status = doc.createElement("Status")
                 status.appendChild(doc.createTextNode(myItem.status))
                 item.appendChild(status)
@@ -308,31 +307,30 @@ class RetrieveItems {
         return null
     }
 
-    // Convert Work item data retrieved from MySQL
-    // into an XML schema to pass back to client
+    // Convert Work data into XML to pass back to the view.
     private fun toXmlItem(id2: String, desc2: String, status2: String): Document? {
         try {
             val factory = DocumentBuilderFactory.newInstance()
             val builder = factory.newDocumentBuilder()
             val doc = builder.newDocument()
 
-            //Start building the XML
+            //Start building the XML.
             val root = doc.createElement("Items")
             doc.appendChild(root)
             val item = doc.createElement("Item")
             root.appendChild(item)
 
-            //Set Id
+            //Set Id.
             val id = doc.createElement("Id")
             id.appendChild(doc.createTextNode(id2))
             item.appendChild(id)
 
-            //Set Description
+            //Set Description.
             val desc = doc.createElement("Description")
             desc.appendChild(doc.createTextNode(desc2))
             item.appendChild(desc)
 
-            //Set Status
+            //Set Status.
             val status = doc.createElement("Status")
             status.appendChild(doc.createTextNode(status2))
             item.appendChild(status)
