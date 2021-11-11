@@ -116,6 +116,23 @@ api-gateway_DeleteRestApi:
                 - python.example_code.api-gateway.DeleteRestApi
   services:
     api-gateway: {DeleteRestApi}
+api-gateway_GetBasePathMapping:
+  title: Get the base path mapping for a custom domain name in &ABP;
+  title_abbrev: Get base path mapping
+  synopsis: get an &ABP; base path mapping.
+  category:
+  languages:
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/apigateway
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - apigateway.php.get_base_path_mapping.complete
+  services:
+    - api-gateway
 api-gateway_GetResources:
   title: Get &ABP; REST resources using an &AWS; SDK
   title_abbrev: Get REST resources
@@ -161,6 +178,23 @@ api-gateway_GetRestApis:
                 - apigateway.rust.get_rest_apis
   services:
     api-gateway: {GetRestApis}
+api-gateway_ListBasePathmappings:
+  title: List the base path mapping for a custom domain name in &ABP;
+  title_abbrev: List base path mapping
+  synopsis: list an &ABP; base path mapping.
+  category:
+  languages:
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/apigateway
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - apigateway.php.list_base_path_mapping.complete
+  services:
+    - api-gateway
 api-gateway_PutIntegration:
   title: Integrate an &ABP; method with an &AWS; service using an &AWS; SDK
   title_abbrev: Integrate a method with an &AWS; service
@@ -233,6 +267,23 @@ api-gateway_PutMethodResponse:
                 - python.example_code.api-gateway.PutIntegration
   services:
     api-gateway: {PutMethodResponse}
+api-gateway_UpdateBasePathMapping:
+  title: Update the base path mapping for a custom domain name in &ABP;
+  title_abbrev: Update base path mapping
+  synopsis: update an &ABP; base path mapping.
+  category:
+  languages:
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/apigateway
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - apigateway.php.update_base_path_mapping.complete
+  services:
+    - api-gateway
 api-gateway_Usage_CreateDeployRest:
   title: Create and deploy a REST API using an &AWS; SDK
   title_abbrev: Create and deploy a REST API
