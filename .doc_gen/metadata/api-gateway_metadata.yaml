@@ -132,7 +132,7 @@ api-gateway_GetBasePathMapping:
               snippet_tags:
                 - apigateway.php.get_base_path_mapping.complete
   services:
-    - api-gateway
+    api-gateway: {GetBasePathMapping}
 api-gateway_GetResources:
   title: Get &ABP; REST resources using an &AWS; SDK
   title_abbrev: Get REST resources
@@ -194,7 +194,7 @@ api-gateway_ListBasePathmappings:
               snippet_tags:
                 - apigateway.php.list_base_path_mapping.complete
   services:
-    - api-gateway
+    api-gateway: {ListBasePathmappings}
 api-gateway_PutIntegration:
   title: Integrate an &ABP; method with an &AWS; service using an &AWS; SDK
   title_abbrev: Integrate a method with an &AWS; service
@@ -283,7 +283,7 @@ api-gateway_UpdateBasePathMapping:
               snippet_tags:
                 - apigateway.php.update_base_path_mapping.complete
   services:
-    - api-gateway
+    api-gateway: {UpdateBasePathMapping}
 api-gateway_Usage_CreateDeployRest:
   title: Create and deploy a REST API using an &AWS; SDK
   title_abbrev: Create and deploy a REST API
