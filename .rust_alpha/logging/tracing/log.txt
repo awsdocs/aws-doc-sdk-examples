@@ -1,0 +1,2 @@
+    Finished dev [unoptimized + debuginfo] target(s) in 0.24s
+     Running `target\debug\tracing-example.exe -r us-east-1`

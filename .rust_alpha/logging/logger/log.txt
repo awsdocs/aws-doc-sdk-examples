@@ -1,0 +1,25 @@
+    Finished dev [unoptimized + debuginfo] target(s) in 0.21s
+     Running `target\debug\loggerexample.exe -r us-east-1`
+[2021-11-11T13:35:38Z INFO  aws_config::meta::region] load_region; provider=Some(Region("us-east-1"))
+[2021-11-11T13:35:38Z DEBUG aws_config::profile::parser::source] loaded home directory src="HOME" 
+[2021-11-11T13:35:38Z DEBUG aws_config::profile::parser::source] performing home directory substitution home="C:\\Users\\dougsch" path="~/.aws/config" 
+[2021-11-11T13:35:38Z DEBUG aws_config::profile::parser::source] home directory expanded before="~/.aws/config" after="C:\\Users\\dougsch\\.aws\\config" 
+[2021-11-11T13:35:38Z INFO  aws_config::profile::parser::source] config file loaded path=~/.aws/config size=79 
+[2021-11-11T13:35:38Z DEBUG aws_config::profile::parser::source] performing home directory substitution home="C:\\Users\\dougsch" path="~/.aws/credentials" 
+[2021-11-11T13:35:38Z DEBUG aws_config::profile::parser::source] home directory expanded before="~/.aws/credentials" after="C:\\Users\\dougsch\\.aws\\credentials" 
+[2021-11-11T13:35:38Z INFO  aws_config::profile::parser::source] config file loaded path=~/.aws/credentials size=206 
+[2021-11-11T13:35:38Z INFO  aws_config::meta::credentials::chain] load_credentials; provider=Environment
+[2021-11-11T13:35:38Z INFO  aws_config::meta::credentials::chain] provider in chain did not provide credentials provider=Environment context=environment variable not set 
+[2021-11-11T13:35:38Z INFO  aws_config::meta::credentials::chain] load_credentials; provider=Profile
+[2021-11-11T13:35:38Z INFO  aws_config::profile::credentials] load_credentials; provider="Profile"
+[2021-11-11T13:35:38Z DEBUG aws_config::profile::parser::source] loaded home directory src="HOME" 
+[2021-11-11T13:35:38Z DEBUG aws_config::profile::parser::source] performing home directory substitution home="C:\\Users\\dougsch" path="~/.aws/config" 
+[2021-11-11T13:35:38Z DEBUG aws_config::profile::parser::source] home directory expanded before="~/.aws/config" after="C:\\Users\\dougsch\\.aws\\config" 
+[2021-11-11T13:35:38Z INFO  aws_config::profile::parser::source] config file loaded path=~/.aws/config size=79 
+[2021-11-11T13:35:38Z DEBUG aws_config::profile::parser::source] performing home directory substitution home="C:\\Users\\dougsch" path="~/.aws/credentials" 
+[2021-11-11T13:35:38Z DEBUG aws_config::profile::parser::source] home directory expanded before="~/.aws/credentials" after="C:\\Users\\dougsch\\.aws\\credentials" 
+[2021-11-11T13:35:38Z INFO  aws_config::profile::parser::source] config file loaded path=~/.aws/credentials size=206 
+[2021-11-11T13:35:38Z INFO  aws_config::profile::credentials] constructed abstract provider from config file chain=ProfileChain { base: AccessKey(Credentials { provider_name: "ProfileFile", access_key_id: "AKIASX2CKLZGZU3K3I4V", secret_access_key: "** redacted **" }), chain: [] } 
+[2021-11-11T13:35:38Z INFO  aws_config::profile::credentials::exec] first credentials will be loaded from AccessKey(Credentials { provider_name: "ProfileFile", access_key_id: "AKIASX2CKLZGZU3K3I4V", secret_access_key: "** redacted **" }) base=AccessKey(Credentials { provider_name: "ProfileFile", access_key_id: "AKIASX2CKLZGZU3K3I4V", secret_access_key: "** redacted **" }) 
+[2021-11-11T13:35:38Z INFO  aws_config::profile::credentials] loaded base credentials creds=Credentials { provider_name: "ProfileFile", access_key_id: "AKIASX2CKLZGZU3K3I4V", secret_access_key: "** redacted **" } 
+[2021-11-11T13:35:38Z INFO  aws_config::meta::credentials::chain] loaded credentials provider=Profile 
