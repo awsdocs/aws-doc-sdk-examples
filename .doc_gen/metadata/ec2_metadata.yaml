@@ -332,6 +332,41 @@ ec2_DeleteSecurityGroup:
                 - python.example_code.ec2.DeleteSecurityGroup
   services:
     ec2: { DeleteSecurityGroup }
+ec2_DeleteSnapshot:
+  title: Delete the &EBS; snapshot using an &AWS; SDK
+  title_abbrev: Delete a snapshot
+  synopsis: delete an &EBS; snapshot.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/ebs
+          excerpts:
+            - description:
+              snippet_tags:
+                - ebs.rust.delete-snapshot
+  services:
+    ec2: { DeleteSnapshot }
+ec2_DescribeSnapshots:
+  title: Describe one or more &EBS; snapshots using an &AWS; SDK
+  title_abbrev: Describe snapshots
+  synopsis: describe &EBS; snapshots.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/ebs
+          excerpts:
+            - description: Shows the state of a snapshot.
+              snippet_tags:
+                - ebs.rust.get-snapshot-state
+            - description:
+              snippet_tags:
+                - ebs.rust.list-snapshots
+  services:
+    ec2: { DescribeSnapshots }
 ec2_TerminateInstances:
   title: Terminate an &EC2; instance using an &AWS; SDK
   title_abbrev: Terminate an instance
