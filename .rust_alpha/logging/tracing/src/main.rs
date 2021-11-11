@@ -1,3 +1,7 @@
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0.
+ */
 // snippet-start:[logging.rust.main]
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_dynamodb::{Client, Error, Region, PKG_VERSION};
