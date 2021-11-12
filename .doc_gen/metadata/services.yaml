@@ -110,6 +110,7 @@ iam:
   short: "&IAM;"
   sort: "IAM"
   version: iam-2010-05-08
+  bundle: iam
 iot:
   long: "&IoTlong;"
   short: "&IoT;"
@@ -254,6 +255,12 @@ sqs:
   short: "&SQS;"
   sort: "SQS"
   version: sqs-2012-11-05
+sts:
+  long: "&STSlong;"
+  short: "&STS;"
+  sort: "STS"
+  version: sts-2011-06-15
+  bundle: iam
 ssm:
   long: "&SYSlong;"
   short: "&SYS;"
