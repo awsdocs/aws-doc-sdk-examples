@@ -68,7 +68,7 @@ sts_Scenario_AssumeRole:
             - description: Destroy the resources created for the demo.
               snippet_tags:
                 - python.example_code.sts.Scenario_AssumeRole_teardown
-            - description: Demonstrate how to use the previously defined functions.
+            - description: Run this scenario by using the previously defined functions.
               snippet_tags:
                 - python.example_code.sts.Scenario_AssumeRole_demo
   services:
@@ -86,7 +86,7 @@ sts_Scenario_AssumeRoleMfa:
           github: python/example_code/sts/sts_temporary_credentials
           sdkguide:
           excerpts:
-            - description: Create an &IAM; user, register a mulfi-factor authentication
+            - description: Create an &IAM; user, register a multi-factor authentication
                 (MFA) device, and create a role that grants permission to list &S3;
                 buckets. The user has rights only to assume the role.
               snippet_tags:
@@ -102,7 +102,7 @@ sts_Scenario_AssumeRoleMfa:
             - description: Destroy the resources created for the demo.
               snippet_tags:
                 - python.example_code.sts.Scenario_AssumeRoleMfa_teardown
-            - description: Demonstrate how to use the previously defined functions.
+            - description: Run this scenario by using the previously defined functions.
               snippet_tags:
                 - python.example_code.sts.Scenario_AssumeRoleMfa_demo
   services:
@@ -132,7 +132,7 @@ sts_Scenario_ConstructFederatedUrl:
             - description: Destroy the resources created for the demo.
               snippet_tags:
                 - python.example_code.sts.Scenario_ConstructFederatedUrl_teardown
-            - description: Demonstrate how to use the previously defined functions.
+            - description: Run this scenario by using the previously defined functions.
               snippet_tags:
                 - python.example_code.sts.Scenario_ConstructFederatedUrl_demo
   services:
@@ -140,8 +140,8 @@ sts_Scenario_ConstructFederatedUrl:
 sts_Scenario_SessionTokenMfa:
   title: Get a session token that requires an MFA token with &STS; using an &AWS; SDK
   title_abbrev: Get a session token that requires an MFA token
-  synopsis: get a session token that requires an MFA token with &STS; and use
-    temporary credentials to access an &AWS; resource.
+  synopsis: get a session token that requires a mulfi-factor authentication
+    (MFA) token with &STS; and use  temporary credentials to access an &AWS; resource.
   category: Scenario
   languages:
     Python:
@@ -150,9 +150,9 @@ sts_Scenario_SessionTokenMfa:
           github: python/example_code/sts/sts_temporary_credentials
           sdkguide:
           excerpts:
-            - description: Create an &IAM; user, register a mulfi-factor authentication
-                (MFA) device, and create a role that grants permission to let the user
-                list &S3; buckets only when MFA credentials are used.
+            - description: Create an &IAM; user, register an MFA device, and create a
+                role that grants permission to let the user list &S3; buckets only when
+                MFA credentials are used.
               snippet_tags:
                 - python.example_code.sts.Scenario_SessionTokenMfa_setup
             - description: Get temporary session credentials by passing an MFA token,
@@ -162,7 +162,7 @@ sts_Scenario_SessionTokenMfa:
             - description: Destroy the resources created for the demo.
               snippet_tags:
                 - python.example_code.sts.Scenario_SessionTokenMfa_teardown
-            - description: Demonstrate how to use the previously defined functions.
+            - description: Run this scenario by using the previously defined functions.
               snippet_tags:
                 - python.example_code.sts.Scenario_SessionTokenMfa_demo
   services:
