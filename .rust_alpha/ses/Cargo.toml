@@ -5,8 +5,8 @@ authors = ["Russell Cohen <rcoh@amazon.com>", "Doug Schwartz <dougsch@amazon.com
 edition = "2018"
 
 [dependencies]
-aws-config = "0.0.22-alpha"
-aws-sdk-sesv2 = "0.0.22-alpha"
+aws-config = "0.0.25-alpha"
+aws-sdk-sesv2 = "0.0.25-alpha"
 tokio = { version = "1", features = ["full"] }
 structopt = { version = "0.3", default-features = false }
 tracing-subscriber = "0.2.18"

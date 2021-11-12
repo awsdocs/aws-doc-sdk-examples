@@ -318,7 +318,7 @@ async fn main() -> Result<(), Error> {
     let raw_client = aws_hyper::Client::https();
 
     raw_client
-        .call(wait_for_ready_table(&table, client.conf()))
+        .call(wait_for_ready_table(&table, client.conf()).await)
         .await
         .expect("table should become ready.");
 
@@ -391,7 +391,7 @@ async fn main() -> Result<(), Error> {
 
 /// Construct a `DescribeTable` request with a policy to retry every second until the table
 /// is ready
-fn wait_for_ready_table(
+async fn wait_for_ready_table(
     table_name: &str,
     conf: &Config,
 ) -> Operation<DescribeTable, WaitForReadyTable<AwsErrorRetryPolicy>> {
@@ -400,9 +400,12 @@ fn wait_for_ready_table(
         .build()
         .expect("valid input")
         .make_operation(conf)
+        .await
         .expect("valid operation");
+
     let waiting_policy = WaitForReadyTable {
         inner: operation.retry_policy().clone(),
     };
+
     operation.with_retry_policy(waiting_policy)
 }
