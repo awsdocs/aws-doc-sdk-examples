@@ -194,7 +194,7 @@ api-gateway_ListBasePathMappings:
               snippet_tags:
                 - apigateway.php.list_base_path_mapping.complete
   services:
-    api-gateway: {ListBasePathmappings}
+    api-gateway: {ListBasePathMappings}
 api-gateway_PutIntegration:
   title: Integrate an &ABP; method with an &AWS; service using an &AWS; SDK
   title_abbrev: Integrate a method with an &AWS; service
