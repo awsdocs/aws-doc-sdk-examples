@@ -9,7 +9,7 @@
 /// </summary>
 namespace GenPresignedUrlExample
 {
-    // snippet-start:[S3.dotnetv3.GenPreesignedUrlExample]
+    // snippet-start:[S3.dotnetv3.GenPresignedUrlExample]
     using System;
     using Amazon;
     using Amazon.S3;

@@ -92,5 +92,5 @@ namespace ManageObjectACLExample
         }
     }
 
-    // snippet-start:[S3.dotnetv3.ManageObjectACLExample]
+    // snippet-end:[S3.dotnetv3.ManageObjectACLExample]
 }

@@ -118,5 +118,5 @@ namespace MPUapiCopyObjectExample
         }
     }
 
-    // snippet-end:[S3.dotnetv3.MPUapiCopyObjExample]
+    // snippet-end:[S3.dotnetv3.MPUapiCopyObjectExample]
 }
