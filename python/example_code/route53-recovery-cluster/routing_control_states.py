@@ -114,11 +114,10 @@ def toggle_routing_control_state(routing_control_arn, cluster_endpoints):
     update_state = 'Off' if state == 'On' else 'On'
     print(f"Setting control state to '{update_state}'.")
     response = update_routing_control_state(routing_control_arn, cluster_endpoints, update_state)
-    status = response.get('ResponseMetadata', {}).get('HTTPStatusCode', 'Unknown')
-    if status == 200:
+    if response:
         print('Success!')
     else:
-        print(f'Something went wrong. Status: {status}.')
+        print(f'Something went wrong.')
     print('-'*88)
 # snippet-end:[python.example_code.route53-recovery-cluster.Scenario_SetControlState]
 
@@ -130,5 +129,5 @@ if __name__ == '__main__':
         'cluster_endpoints', help="A JSON file containing the list of endpoints for the cluster.")
     args = parser.parse_args()
     with open(args.cluster_endpoints) as endpoints_file:
-        cluster_endpoints = json.load(endpoints_file)
+        cluster_endpoints = json.load(endpoints_file)['ClusterEndpoints']
     toggle_routing_control_state(args.routing_control_arn, cluster_endpoints)

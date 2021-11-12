@@ -58,16 +58,17 @@ The routing control ARN looks something like this:
 The cluster endpoints JSON looks something like this:
 
 ```json
-[{"Endpoint": "https://11111111.route53-recovery-cluster.us-east-1.amazonaws.com/v1", 
-  "Region": "us-east-1"}, 
- {"Endpoint": "https://22222222.route53-recovery-cluster.ap-northeast-1.amazonaws.com/v1",
-  "Region": "ap-northeast-1"},
- {"Endpoint": "https://33333333.route53-recovery-cluster.ap-southeast-2.amazonaws.com/v1",
-  "Region": "ap-southeast-2"},
- {"Endpoint": "https://44444444.route53-recovery-cluster.us-west-2.amazonaws.com/v1",
-  "Region": "us-west-2"},
- {"Endpoint": "https://55555555.route53-recovery-cluster.eu-west-1.amazonaws.com/v1",
-  "Region": "eu-west-1"}]
+{"ClusterEndpoints": 
+    [{"Endpoint": "https://11111111.route53-recovery-cluster.us-east-1.amazonaws.com/v1", 
+      "Region": "us-east-1"}, 
+     {"Endpoint": "https://22222222.route53-recovery-cluster.ap-northeast-1.amazonaws.com/v1",
+      "Region": "ap-northeast-1"},
+     {"Endpoint": "https://33333333.route53-recovery-cluster.ap-southeast-2.amazonaws.com/v1",
+      "Region": "ap-southeast-2"},
+     {"Endpoint": "https://44444444.route53-recovery-cluster.us-west-2.amazonaws.com/v1",
+      "Region": "us-west-2"},
+     {"Endpoint": "https://55555555.route53-recovery-cluster.eu-west-1.amazonaws.com/v1",
+      "Region": "eu-west-1"}]}
 ```
 
 ## Additional information
