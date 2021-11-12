@@ -46,7 +46,7 @@ Recovery Controller to manage routing control settings.
 Run this example at a command prompt with the following command.
 
 ```commandline
-python routing_control_state.py [routing_control_arn] [cluster_endpoints_json]
+python routing_control_state.py [routing_control_arn] [cluster_endpoints_json_file]
 ``` 
 
 #### Example arguments
