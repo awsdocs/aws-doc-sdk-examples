@@ -53,7 +53,6 @@ public class UpdateRoutingControlState {
         System.out.println("UpdateRoutingControlStateResponse: " + response);
     }
 
-    //snippet-start:[route53_rec.java2.update_routing_state.main]
     private static List<ClusterEndpoint> getClusterEndpoints(final String endpointsFile) {
         try {
             ClusterEndpoints endpoints =
@@ -68,6 +67,7 @@ public class UpdateRoutingControlState {
         }
     }
 
+    //snippet-start:[route53_rec.java2.update_routing_state.main]
     public static UpdateRoutingControlStateResponse updateRoutingControlState(List<ClusterEndpoint> clusterEndpoints,
                                                                               String routingControlArn,
                                                                               String routingControlState) {

@@ -55,7 +55,6 @@ public class UpdateRoutingControlStates {
         System.out.println("UpdateRoutingControlStatesResponse: " + response);
     }
 
-    //snippet-start:[route53_rec.java2.update_routing_states.main]
     private static List<UpdateRoutingControlStateEntry> getUpdateRoutingControlEntries(
             final String routingControlStatesFile) {
         try {
@@ -86,6 +85,7 @@ public class UpdateRoutingControlStates {
         }
     }
 
+    //snippet-start:[route53_rec.java2.update_routing_states.main]
     public static UpdateRoutingControlStatesResponse updateRoutingControlStates(List<ClusterEndpoint> clusterEndpoints,
                                                                                 Collection<UpdateRoutingControlStateEntry> updateRoutingControlStateEntries) {
         for (ClusterEndpoint clusterEndpoint : clusterEndpoints) {

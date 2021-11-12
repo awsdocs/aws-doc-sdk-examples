@@ -23,7 +23,7 @@ struct Opt {
 }
 
 // Is email address has been verified?
-// snippet-start:[ses.rust.is-email-verfied]
+// snippet-start:[ses.rust.is-email-verified]
 async fn is_verified(client: &Client, email: &str) -> Result<(), Error> {
     let resp = client
         .get_email_identity()
@@ -39,7 +39,7 @@ async fn is_verified(client: &Client, email: &str) -> Result<(), Error> {
 
     Ok(())
 }
-// snippet-end:[ses.rust.is-email-verfied]
+// snippet-end:[ses.rust.is-email-verified]
 
 /// Determines whether the email address has been verified.
 /// # Arguments
