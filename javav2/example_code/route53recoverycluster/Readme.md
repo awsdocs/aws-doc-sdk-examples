@@ -33,4 +33,3 @@ You can find the following examples that use the **Route53RecoveryClusterClient*
 
 + **GetRoutingControlState** - Demonstrates how to get the state for a routing control.
 + **UpdateRoutingControlState** - Demonstrates how to set the state of the routing control to reroute traffic. 
-+ **UpdateRoutingControlStates** - Demonstrates how to set multiple routing control states. 
