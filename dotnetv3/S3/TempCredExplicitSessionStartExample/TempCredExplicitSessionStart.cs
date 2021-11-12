@@ -97,5 +97,5 @@ namespace TempCredExplicitSessionStartExample
         }
     }
 
-    // snippet-start:[S3.dotnetv3.TempCredExplicitSessionStartExample]
+    // snippet-end:[S3.dotnetv3.TempCredExplicitSessionStartExample]
 }

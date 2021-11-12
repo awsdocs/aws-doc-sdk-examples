@@ -103,5 +103,5 @@ namespace ServerAccessLoggingExample
         }
     }
 
-    // snippet-start:[S3.dotnetv3.ServerAccessLoggingExample]
+    // snippet-end:[S3.dotnetv3.ServerAccessLoggingExample]
 }

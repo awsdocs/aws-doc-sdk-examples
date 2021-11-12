@@ -83,5 +83,5 @@ namespace WebsiteConfigExample
         }
     }
 
-    // snippet-start:[S3.dotnetv3.WebsiteConfigExample]
+    // snippet-end:[S3.dotnetv3.WebsiteConfigExample]
 }

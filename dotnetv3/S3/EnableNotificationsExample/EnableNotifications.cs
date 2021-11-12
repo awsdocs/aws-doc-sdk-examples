@@ -81,5 +81,5 @@ namespace EnableNotificationsExample
         }
     }
 
-    // snippet-start:[S3.dotnetv3.EnableNotificationsExample]
+    // snippet-end:[S3.dotnetv3.EnableNotificationsExample]
 }

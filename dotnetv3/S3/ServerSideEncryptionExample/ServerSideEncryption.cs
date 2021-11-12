@@ -72,5 +72,5 @@ namespace ServerSideEncryptionExample
         }
     }
 
-    // snippet-start:[S3.dotnetv3.ServerSideEncryptionExample]
+    // snippet-end:[S3.dotnetv3.ServerSideEncryptionExample]
 }

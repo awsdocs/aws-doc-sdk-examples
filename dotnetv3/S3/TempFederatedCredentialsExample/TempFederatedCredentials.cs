@@ -103,5 +103,5 @@ namespace TempFederatedCredentialsExample
         }
     }
 
-    // snippet-start:[S3.dotnetv3.TempFederatedCredentialsExample]
+    // snippet-end:[S3.dotnetv3.TempFederatedCredentialsExample]
 }

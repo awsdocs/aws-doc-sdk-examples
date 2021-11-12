@@ -83,5 +83,5 @@ namespace RestoreArchivedObjectExample
         }
     }
 
-    // snippet-start:[S3.dotnetv3.RestoreArchivedObjectExample]
+    // snippet-end:[S3.dotnetv3.RestoreArchivedObjectExample]
 }

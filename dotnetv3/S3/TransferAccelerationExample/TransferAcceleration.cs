@@ -68,5 +68,5 @@ namespace TransferAccelerationExample
         }
     }
 
-    // snippet-start:[S3.dotnetv3.TransferAccelerationExample]
+    // snippet-end:[S3.dotnetv3.TransferAccelerationExample]
 }

@@ -212,5 +212,5 @@ namespace SSEClientEncryptionExample
         }
     }
 
-    // snippet-start:[S3.dotnetv3.SSEClientEncryptionExample]
+    // snippet-end:[S3.dotnetv3.SSEClientEncryptionExample]
 }

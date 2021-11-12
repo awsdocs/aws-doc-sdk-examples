@@ -52,5 +52,5 @@ namespace ListObjectsPaginatorExample
         }
     }
 
-    // snippet-start:[S3.dotnetv3.ListObjectsPaginatorExample]
+    // snippet-end:[S3.dotnetv3.ListObjectsPaginatorExample]
 }

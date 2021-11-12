@@ -100,5 +100,5 @@ namespace UploadObjectExample
         }
     }
 
-    // snippet-start:[S3.dotnetv3.UploadObjectExample]
+    // snippet-end:[S3.dotnetv3.UploadObjectExample]
 }

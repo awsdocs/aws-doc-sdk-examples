@@ -79,5 +79,5 @@ namespace GetObjectExample
         }
     }
 
-    // snippet-start:[S3.dotnetv3.GetObjectExample]
+    // snippet-end:[S3.dotnetv3.GetObjectExample]
 }

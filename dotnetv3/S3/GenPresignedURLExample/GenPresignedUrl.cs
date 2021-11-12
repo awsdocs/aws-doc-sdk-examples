@@ -72,5 +72,5 @@ namespace GenPresignedUrlExample
         }
     }
 
-    // snippet-start:[S3.dotnetv3.GenPresignedUrlExample]
+    // snippet-end:[S3.dotnetv3.GenPresignedUrlExample]
 }
