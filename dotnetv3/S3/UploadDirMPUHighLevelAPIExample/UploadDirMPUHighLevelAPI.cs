@@ -96,5 +96,5 @@ namespace UploadDirMPUHighLevelAPIExample
         }
     }
 
-    // snippet-start:[S3.dotnetv3.UploadDirMPUHighLevelAPIExample]
+    // snippet-end:[S3.dotnetv3.UploadDirMPUHighLevelAPIExample]
 }

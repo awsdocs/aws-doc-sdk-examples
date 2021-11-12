@@ -113,5 +113,5 @@ namespace ObjectTagExample
         }
     }
 
-    // snippet-start:[S3.dotnetv3.ObjectTagExample]
+    // snippet-end:[S3.dotnetv3.ObjectTagExample]
 }

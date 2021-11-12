@@ -12,7 +12,6 @@ namespace LifecycleExample
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Amazon;
     using Amazon.S3;
     using Amazon.S3.Model;
 
@@ -201,5 +200,5 @@ namespace LifecycleExample
         }
     }
 
-    // snippet-start:[S3.dotnetv3.LifecycleExample]
+    // snippet-end:[S3.dotnetv3.LifecycleExample]
 }

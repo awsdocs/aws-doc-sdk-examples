@@ -186,5 +186,5 @@ namespace ManageACLsExample
         }
     }
 
-    // snippet-start:[S3.dotnetv3.ManageACLsExample]
+    // snippet-end:[S3.dotnetv3.ManageACLsExample]
 }

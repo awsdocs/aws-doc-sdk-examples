@@ -110,5 +110,5 @@ namespace UploadUsingPresignedURLExample
         }
     }
 
-    // snippet-start:[S3.dotnetv3.UploadUsingPresignedURLExample]
+    // snippet-end:[S3.dotnetv3.UploadUsingPresignedURLExample]
 }

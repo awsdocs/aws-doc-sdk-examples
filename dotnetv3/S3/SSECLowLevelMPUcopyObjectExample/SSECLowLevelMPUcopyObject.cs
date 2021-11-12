@@ -140,5 +140,5 @@ namespace SSECLowLevelMPUcopyObjectExample
         }
     }
 
-    // snippet-start:[S3.dotnetv3.SSECLowLevelMPUcopyObjectExample]
+    // snippet-end:[S3.dotnetv3.SSECLowLevelMPUcopyObjectExample]
 }
