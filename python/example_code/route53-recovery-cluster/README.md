@@ -13,8 +13,6 @@ Recovery Controller to manage routing control settings.
 
 * [Get the state of a routing control](routing_control_states.py)
 (`GetRoutingControlState`)
-* [Update the state of multiple routing controls](routing_control_states.py)
-(`UpdateRoutingControlStates`)
 * [Update the state of a routing control](routing_control_states.py)
 (`UpdateRoutingControlState`)
 
