@@ -1,8 +1,8 @@
 # zexi 0.2.0
 application-autoscaling_DescribeScalingPolicies:
-  title: Describes the Application Auto Scaling scaling policies for the specified service namespace.
+  title: Describe &APP-AS; scaling policies using an &AWS; SDK
   title_abbrev: Describes scaling policies
-  synopsis: describe scaling policies.
+  synopsis: describe &APP-AS; scaling policies for the specified service namespace.
   category:
   languages:
     Rust:
