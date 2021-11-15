@@ -35,7 +35,7 @@ cloudwatch_ListMetrics:
                 - python.example_code.cloudwatch.ListMetrics
     C++:
       versions:
-        - sdk_version: 1.8
+        - sdk_version: 1
           github: cpp/example_code/cloudwatch
           sdkguide:
           excerpts:
@@ -93,7 +93,7 @@ cloudwatch_PutMetricData:
                 - python.example_code.cloudwatch.PutMetricData
     C++:
       versions:
-        - sdk_version: 1.8
+        - sdk_version: 1
           github: cpp/example_code/cloudwatch
           sdkguide:
           excerpts:
@@ -187,7 +187,7 @@ cloudwatch_PutMetricAlarm:
                 - python.example_code.cloudwatch.PutMetricAlarm
     C++:
       versions:
-        - sdk_version: 1.8
+        - sdk_version: 1
           github: cpp/example_code/cloudwatch
           sdkguide:
           excerpts:
@@ -245,7 +245,7 @@ cloudwatch_DescribeAlarmsForMetric:
                 - python.example_code.cloudwatch.DescribeAlarmsForMetric
     C++:
       versions:
-        - sdk_version: 1.8
+        - sdk_version: 1
           github: cpp/example_code/cloudwatch
           sdkguide:
           excerpts:
@@ -312,7 +312,7 @@ cloudwatch_EnableAlarmActions:
                 - python.example_code.cloudwatch.EnableAlarmActions.DisableAlarmActions
         C++:
           versions:
-            - sdk_version: 1.8
+            - sdk_version: 1
               github: cpp/example_code/cloudwatch
               sdkguide:
               excerpts:
@@ -379,7 +379,7 @@ cloudwatch_DisableAlarmActions:
                 - python.example_code.cloudwatch.EnableAlarmActions.DisableAlarmActions
     C++:
       versions:
-        - sdk_version: 1.8
+        - sdk_version: 1
           github: cpp/example_code/cloudwatch
           sdkguide:
           excerpts:
@@ -446,7 +446,7 @@ cloudwatch_DeleteAlarms:
                 - python.example_code.cloudwatch.DeleteAlarms
     C++:
       versions:
-        - sdk_version: 1.8
+        - sdk_version: 1
           github: cpp/example_code/cloudwatch
           sdkguide:
           excerpts:

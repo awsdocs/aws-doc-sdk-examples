@@ -128,7 +128,7 @@ cloudwatch-logs_DescribeSubscriptionFilters:
                 - cloudwatch.java2.describe_subscription_filters.main
     C++:
       versions:
-        - sdk_version: 1.8
+        - sdk_version: 1
           github: cpp/example_code/cloudwatch-logs
           sdkguide:
           excerpts:
@@ -176,7 +176,7 @@ cloudwatch-logs_DeleteSubscriptionFilter:
                 - cloudwatch.java2.delete_subscription_filter.main
     C++:
       versions:
-        - sdk_version: 1.8
+        - sdk_version: 1
           github: cpp/example_code/cloudwatch-logs
           sdkguide:
           excerpts:
@@ -224,7 +224,7 @@ cloudwatch-logs_PutSubscriptionFilter:
                 - cloudwatch.java2.put_subscription_filter.main
     C++:
       versions:
-        - sdk_version: 1.8
+        - sdk_version: 1
           github: cpp/example_code/cloudwatch-logs
           sdkguide:
           excerpts:

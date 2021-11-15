@@ -33,7 +33,7 @@ eventbridge_PutRule:
                 - eventbridge.java2._create_rule.main
     C++:
       versions:
-        - sdk_version: 1.8
+        - sdk_version: 1
           github: cpp/example_code/eventbridge
           sdkguide:
           excerpts:
@@ -81,7 +81,7 @@ eventbridge_PutEvents:
                 - eventbridge.java2._put_event.main
     C++:
       versions:
-        - sdk_version: 1.8
+        - sdk_version: 1
           github: cpp/example_code/eventbridge
           sdkguide:
           excerpts:
@@ -120,7 +120,7 @@ eventbridge_PutTargets:
   languages:
     C++:
       versions:
-        - sdk_version: 1.8
+        - sdk_version: 1
           github: cpp/example_code/eventbridge
           sdkguide:
           excerpts:
