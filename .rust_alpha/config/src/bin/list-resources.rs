@@ -21,10 +21,7 @@ struct Opt {
 
 // Lists your resources.
 // snippet-start:[config.rust.list-resources]
-async fn show_resources(
-    verbose: bool,
-    client: &Client,
-) -> Result<(), Error> {
+async fn show_resources(verbose: bool, client: &Client) -> Result<(), Error> {
     for value in ResourceType::values() {
         let parsed = ResourceType::from(*value);
 
