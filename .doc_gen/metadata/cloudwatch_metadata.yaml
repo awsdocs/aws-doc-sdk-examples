@@ -33,6 +33,18 @@ cloudwatch_ListMetrics:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.ListMetrics
+    C++:
+      versions:
+        - sdk_version: 1.8
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.list_metrics.inc
+            - description: List the metrics.
+              snippet_tags:
+                - cw.cpp.list_metrics.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -79,6 +91,18 @@ cloudwatch_PutMetricData:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.PutMetricData
+    C++:
+      versions:
+        - sdk_version: 1.8
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.put_metric_data.inc
+            - description: Put data into a metric.
+              snippet_tags:
+                - cw.cpp.put_metric_data.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -161,6 +185,18 @@ cloudwatch_PutMetricAlarm:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.PutMetricAlarm
+    C++:
+      versions:
+        - sdk_version: 1.8
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.put_metric_alarm.inc
+            - description: Create the alarm to watches the metric.
+              snippet_tags:
+                - cw.cpp.put_metric_alarm.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -207,6 +243,18 @@ cloudwatch_DescribeAlarmsForMetric:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.DescribeAlarmsForMetric
+    C++:
+      versions:
+        - sdk_version: 1.8
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.describe_alarms.inc
+            - description: Describe the alarm.
+              snippet_tags:
+                - cw.cpp.describe_alarms.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -262,6 +310,18 @@ cloudwatch_EnableAlarmActions:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.EnableAlarmActions.DisableAlarmActions
+        C++:
+          versions:
+            - sdk_version: 1.8
+              github: cpp/example_code/cloudwatch
+              sdkguide:
+              excerpts:
+                - description: Include the required files.
+                  snippet_tags:
+                    - cw.cpp.enable_alarm_actions.inc
+                - description: Enable the alarm actions.
+                  snippet_tags:
+                    - cw.cpp.enable_alarm_actions.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -317,6 +377,18 @@ cloudwatch_DisableAlarmActions:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.EnableAlarmActions.DisableAlarmActions
+    C++:
+      versions:
+        - sdk_version: 1.8
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.disable_alarm_actions.inc
+            - description: Disable the alarm actions.
+              snippet_tags:
+                - cw.cpp.disable_alarm_actions.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -372,6 +444,18 @@ cloudwatch_DeleteAlarms:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.DeleteAlarms
+    C++:
+      versions:
+        - sdk_version: 1.8
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.delete_alarm.inc
+            - description: Delete the alarm.
+              snippet_tags:
+                - cw.cpp.delete_alarm.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -444,7 +528,7 @@ cloudwatch_DescribeAlarmHistory:
     cloudwatch: {DescribeAlarmHistory}
 cloudwatch_GetDashboard:
   title: Get the details of a &CW; dashboard
-  title_abbrev: Get dashboard details 
+  title_abbrev: Get dashboard details
   synopsis: get &CWlong; dashboard details.
   category:
   languages:
@@ -461,7 +545,7 @@ cloudwatch_GetDashboard:
     cloudwatch: {GetDashboard}
 cloudwatch_ListDashboards:
   title: List &CW; dashboards
-  title_abbrev: List dashboards 
+  title_abbrev: List dashboards
   synopsis: list &CWlong; dashboards.
   category:
   languages:
