@@ -8,12 +8,12 @@ Amazon SES is  a reliable, scalable, and cost-effective email service designed t
 
 ## Code examples
 
-- [Add a contact to a contact list] (src/bin/create-contact.rs) (CreateContact)
-- [Create contact list] (src/bin/create-contact-list.rs) (CreateContactList)
-- [Is email address verified?] (src/bin/is-email-verified.rs) (GetEmailIdentity)
-- [Lists your contact lists] (src/bin/list-contact-lists.rs) (ListContactLists)
-- [Lists the email addresses of the contacts in a contact list] (src/bin/list-contacts.rs) (ListContacts)
-- [Send message to all contacts] (src/bin/send-email.rs) (ListContacts, SendEmail)
+- [Add a contact to a contact list](src/bin/create-contact.rs) (CreateContact)
+- [Create contact list](src/bin/create-contact-list.rs) (CreateContactList)
+- [Is email address verified?](src/bin/is-email-verified.rs) (GetEmailIdentity)
+- [Lists your contact lists](src/bin/list-contact-lists.rs) (ListContactLists)
+- [Lists the email addresses of the contacts in a contact list](src/bin/list-contacts.rs) (ListContacts)
+- [Send message to all contacts](src/bin/send-email.rs) (ListContacts, SendEmail)
 
 ## ⚠ Important
 

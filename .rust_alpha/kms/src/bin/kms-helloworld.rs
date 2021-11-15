@@ -28,6 +28,7 @@ async fn main() {
                 .build()
                 .expect("valid operation")
                 .make_operation(&config)
+                .await
                 .expect("valid operation"),
         )
         .await

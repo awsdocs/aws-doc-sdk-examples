@@ -13,7 +13,6 @@ import json
 
 # snippet-start:[python.example_code.route53-recovery-cluster.helper.get_recovery_client]
 import boto3
-from botocore.exceptions import ClientError
 
 
 def create_recovery_client(cluster_endpoint):
@@ -42,17 +41,12 @@ def get_routing_control_state(routing_control_arn, cluster_endpoints):
     :return: The routing control state response.
     """
     for cluster_endpoint in cluster_endpoints:
-        recovery_client = create_recovery_client(cluster_endpoint)
         try:
+            recovery_client = create_recovery_client(cluster_endpoint)
             response = recovery_client.get_routing_control_state(
                 RoutingControlArn=routing_control_arn)
-            if response['ResponseMetadata']['HTTPStatusCode'] != 200:
-                raise ClientError(
-                    f"Request failed with error: {response['ResponseMetadata']}",
-                    'GetRoutingControlState')
-            else:
-                return response
-        except ClientError as error:
+            return response
+        except Exception as error:
             print(error)
 # snippet-end:[python.example_code.route53-recovery-cluster.GetRoutingControlState]
 
@@ -70,49 +64,15 @@ def update_routing_control_state(
     :return: The routing control update response for each endpoint.
     """
     for cluster_endpoint in cluster_endpoints:
-        recovery_client = create_recovery_client(cluster_endpoint)
         try:
+            recovery_client = create_recovery_client(cluster_endpoint)
             response = recovery_client.update_routing_control_state(
                 RoutingControlArn=routing_control_arn,
                 RoutingControlState=routing_control_state)
-            if response['ResponseMetadata']['HTTPStatusCode'] != 200:
-                raise ClientError(
-                    f"Request failed with error: {response['ResponseMetadata']}",
-                    'UpdateRoutingControlState')
-            else:
-                return response
-        except ClientError as error:
+            return response
+        except Exception as error:
             print(error)
 # snippet-end:[python.example_code.route53-recovery-cluster.UpdateRoutingControlState]
-
-
-# snippet-start:[python.example_code.route53-recovery-cluster.UpdateRoutingControlStates]
-def update_routing_control_states(
-        update_routing_control_state_entries, cluster_endpoints):
-    """
-    Updates the state of a list of routing controls for cluster. Endpoints are tried in
-    sequence until the first successful response is received.
-
-    :param update_routing_control_state_entries: The list of routing controls to
-                                                 update for each endpoint and the state
-                                                 to set them to.
-    :param cluster_endpoints: The list of cluster endpoints to set.
-    :return: The routing control update response for each endpoint.
-    """
-    for cluster_endpoint in cluster_endpoints:
-        recovery_client = create_recovery_client(cluster_endpoint)
-        try:
-            response = recovery_client.update_routing_control_states(
-                UpdateRoutingControlStateEntries=update_routing_control_state_entries)
-            if response['ResponseMetadata']['HTTPStatusCode'] != 200:
-                raise ClientError(
-                    f"Request failed with error: {response['ResponseMetadata']}",
-                    'UpdateRoutingControlStates')
-            else:
-                return response
-        except ClientError as error:
-            print(error)
-# snippet-end:[python.example_code.route53-recovery-cluster.UpdateRoutingControlStates]
 
 
 # snippet-start:[python.example_code.route53-recovery-cluster.Scenario_SetControlState]
@@ -130,8 +90,10 @@ def toggle_routing_control_state(routing_control_arn, cluster_endpoints):
     update_state = 'Off' if state == 'On' else 'On'
     print(f"Setting control state to '{update_state}'.")
     response = update_routing_control_state(routing_control_arn, cluster_endpoints, update_state)
-    if response['ResponseMetadata']['HTTPStatusCode'] == 200:
+    if response:
         print('Success!')
+    else:
+        print(f'Something went wrong.')
     print('-'*88)
 # snippet-end:[python.example_code.route53-recovery-cluster.Scenario_SetControlState]
 
@@ -140,7 +102,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('routing_control_arn', help="The ARN of the routing control.")
     parser.add_argument(
-        'cluster_endpoints', help="The list of endpoints for the cluster, in JSON format.")
+        'cluster_endpoints', help="A JSON file containing the list of endpoints for the cluster.")
     args = parser.parse_args()
-    toggle_routing_control_state(
-        args.routing_control_arn, json.loads(args.cluster_endpoints))
+    with open(args.cluster_endpoints) as endpoints_file:
+        cluster_endpoints = json.load(endpoints_file)['ClusterEndpoints']
+    toggle_routing_control_state(args.routing_control_arn, cluster_endpoints)
