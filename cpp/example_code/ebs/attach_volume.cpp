@@ -1,31 +1,17 @@
- 
-//snippet-sourcedescription:[attach_volume.cpp demonstrates how to attach an Amazon Elastic Block Store volume to an Amazon EC2 instance.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Elastic Block Store]
-//snippet-service:[ebs]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[tapasweni-pathak]
-
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
+Purpose:
+attach_volume.cpp demonstrates how to attach an Amazon Elastic Block Store volume to an Amazon EC2 instance.]
 
+*/
+//snippet-start:[ebs.cpp.attach_volume.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/AttachVolumeRequest.h>
 #include <aws/ec2/model/AttachVolumeResponse.h>
 #include <iostream>
+//snippet-end:[ebs.cpp.attach_volume.inc]
 
 int main(int argc, char ** argv)
 {
@@ -43,6 +29,7 @@ int main(int argc, char ** argv)
     Aws::String instance_id(argv[2]);
     Aws::String volume_id(argv[3]);
 
+    //snippet-start:[ebs.cpp.attach_volume]
     Aws::EC2::EC2Client ec2;
 
     Aws::EC2::Model::AttachVolumeRequest av_req;
@@ -63,6 +50,7 @@ int main(int argc, char ** argv)
       std::cout << "Error describing volumes" << av_out.GetError().GetMessage()
         << std::endl;
     }
+    //snippet-end:[ebs.cpp.attach_volume]
   }
 
   Aws::ShutdownAPI(options);

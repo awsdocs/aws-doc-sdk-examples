@@ -1,31 +1,17 @@
- 
-//snippet-sourcedescription:[create_volume.cpp demonstrates how to create an Amazon Elastic Block Store volume for an Amazon EC2 instance.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Elastic Block Store]
-//snippet-service:[ebs]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[tapasweni-pathak]
-
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
+Purpose:
+create_volume.cpp demonstrates how to create an Amazon Elastic Block Store volume for an Amazon EC2 instance.]
 
+*/
+//snippet-start:[ebs.cpp.create_volume.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/CreateVolumeRequest.h>
 #include <aws/ec2/model/CreateVolumeResponse.h>
 #include <iostream>
+//snippet-end:[ebs.cpp.create_volume.inc]
 
 int main(int argc, char ** argv)
 {
@@ -41,6 +27,7 @@ int main(int argc, char ** argv)
   {
     Aws::String az(argv[1]);
 
+    //snippet-start:[ebs.cpp.create_volume]
     Aws::EC2::EC2Client ec2;
 
     Aws::EC2::Model::CreateVolumeRequest av_req;
@@ -59,6 +46,7 @@ int main(int argc, char ** argv)
       std::cout << "Error creating volume." << av_out.GetError().GetMessage()
         << std::endl;
     }
+        //snippet-end:[ebs.cpp.create_volume]
   }
 
   Aws::ShutdownAPI(options);

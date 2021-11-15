@@ -1,25 +1,12 @@
- 
-//snippet-sourcedescription:[create_vault.cpp demonstrates how to create an Amazon Glacier vault.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Glacier]
-//snippet-service:[glacier]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[tapasweni-pathak]
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+Purpose:
+create_vault.cpp demonstrates how to create an Amazon Glacier vault.
+
 */
+// snippet-start:[glacier.cpp.create_vault.inc]
 
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h>
@@ -27,6 +14,7 @@
 #include <aws/glacier/model/CreateVaultRequest.h>
 #include <aws/glacier/model/CreateVaultResult.h>
 #include <iostream>
+// snippet-end:[glacier.cpp.create_vault.inc]
 
 /**
  * Creates a glacier vault based on command line input
@@ -43,6 +31,7 @@ int main(int argc, char **argv)
   Aws::InitAPI(options);
   {
     Aws::String vault_name(argv[1]);
+    // snippet-start:[glacier.cpp.create_vault]
     Aws::Glacier::GlacierClient glacier;
 
     Aws::Glacier::Model::CreateVaultRequest cv_req;
@@ -60,6 +49,8 @@ int main(int argc, char **argv)
       std::cout << "Error creating vault" << cv_out.GetError().GetMessage()
         << std::endl;
     }
+        // snippet-end:[glacier.cpp.create_vault]
+
   }
 
   Aws::ShutdownAPI(options);

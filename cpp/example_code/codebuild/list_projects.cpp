@@ -1,32 +1,17 @@
- 
-//snippet-sourcedescription:[list_projects.cpp demonstrates how to list AWS CodeBuild projects.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS CodeBuild]
-//snippet-service:[codebuild]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[tapasweni-pathak]
-
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+Purpose:
+list_projects.cpp demonstrates how to list AWS CodeBuild projects.
 */
-
+//snippet-start:[cb.cpp.list_projects.inc]
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h>
 #include <aws/codebuild/CodeBuildClient.h>
 #include <aws/codebuild/model/ListProjectsRequest.h>
 #include <aws/codebuild/model/ListProjectsResult.h>
 #include <iostream>
+//snippet-end:[cb.cpp.list_projects.inc]
 
 /**
  * Gets the list of projects based on command line input
@@ -43,6 +28,7 @@ int main(int argc, char **argv)
   Aws::InitAPI(options);
   {
     Aws::String sort_order_type(argv[1]);
+    //snippet-start:[cb.cpp.list_projects]
     Aws::CodeBuild::CodeBuildClient codebuild;
 
     Aws::CodeBuild::Model::ListProjectsRequest lp_req;
@@ -76,6 +62,7 @@ int main(int argc, char **argv)
       std::cout << "Error listing projects" << lp_out.GetError().GetMessage()
         << std::endl;
     }
+    //snippet-end:[cb.cpp.list_projects]
   }
 
   Aws::ShutdownAPI(options);

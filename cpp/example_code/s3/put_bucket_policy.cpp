@@ -12,12 +12,13 @@
 #include <awsdoc/s3/s3_examples.h>
 //snippet-end:[s3.cpp.put_bucket_policy.inc]
 
-/* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Gets a string representing a bucket policy. This particular string 
- * demonstrates allowing the s3:GetObject action by the specified account's 
- * root user for all objects in the target bucket. You can modify 
- * this function's signature and implementation to form other kinds of bucket 
- * policies, for example, by allowing various principals, actions, 
+/*
+Purpose:
+Gets a string representing a bucket policy. This particular string
+ * demonstrates allowing the s3:GetObject action by the specified account's
+ * root user for all objects in the target bucket. You can modify
+ * this function's signature and implementation to form other kinds of bucket
+ * policies, for example, by allowing various principals, actions,
  * and resources.
  *
  * Prerequisites: The AWS account ID and Amazon S3 bucket name to be inserted
@@ -52,10 +53,11 @@ Aws::String GetPolicyString(const Aws::String& accountID,
         // snippet-end:[s3.cpp.put_bucket_policy01.code]
 }
 
-/* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Adds a bucket policy to a bucket in Amazon S3.
+/*
+Purpose:
+Adds a bucket policy to a bucket in Amazon S3.
  *
- * Prerequisites: The bucket for the bucket policy to be added with 
+ * Prerequisites: The bucket for the bucket policy to be added with
  * the bucket policy to add.
  *
  * Inputs:
@@ -67,7 +69,7 @@ Aws::String GetPolicyString(const Aws::String& accountID,
  * ///////////////////////////////////////////////////////////////////////// */
 
 // snippet-start:[s3.cpp.put_bucket_policy02.code]
-bool AwsDoc::S3::PutBucketPolicy(const Aws::String& bucketName, 
+bool AwsDoc::S3::PutBucketPolicy(const Aws::String& bucketName,
     const Aws::String& policyBody,
     const Aws::String& region)
 {
@@ -80,7 +82,7 @@ bool AwsDoc::S3::PutBucketPolicy(const Aws::String& bucketName,
 
     Aws::S3::S3Client s3_client(config);
 
-    std::shared_ptr<Aws::StringStream> request_body = 
+    std::shared_ptr<Aws::StringStream> request_body =
         Aws::MakeShared<Aws::StringStream>("");
     *request_body << policyBody;
 
@@ -88,7 +90,7 @@ bool AwsDoc::S3::PutBucketPolicy(const Aws::String& bucketName,
     request.SetBucket(bucketName);
     request.SetBody(request_body);
 
-    Aws::S3::Model::PutBucketPolicyOutcome outcome = 
+    Aws::S3::Model::PutBucketPolicyOutcome outcome =
         s3_client.PutBucketPolicy(request);
 
     if (outcome.IsSuccess()) {
@@ -125,7 +127,7 @@ int main()
 
         if (!outcome.IsSuccess())
         {
-            std::cout << "Error: GetBucketPolicy setup: Get identity information: " 
+            std::cout << "Error: GetBucketPolicy setup: Get identity information: "
                 << outcome.GetError().GetMessage() << std::endl;
 
             return 1;

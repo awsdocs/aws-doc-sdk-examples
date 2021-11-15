@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0 
+// SPDX - License - Identifier: Apache - 2.0
 
 // snippet-start:[s3.cpp.delete_website_config.inc]
 #include <iostream>
@@ -9,14 +9,15 @@
 #include <awsdoc/s3/s3_examples.h>
 // snippet-end:[s3.cpp.delete_website_config.inc]
 
-/* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Removes the website configuration for a bucket in Amazon S3.
+/*
+Purpose:
+Removes the website configuration for a bucket in Amazon S3.
  *
- * Prerequisites: The bucket containing the website configuration to 
+ * Prerequisites: The bucket containing the website configuration to
  * be removed.
  *
  * Inputs:
- * - bucketName: The name of the bucket containing the website configuration to 
+ * - bucketName: The name of the bucket containing the website configuration to
  *   be removed.
  * - region: The AWS Region of the bucket.
  *
@@ -24,7 +25,7 @@
  * ///////////////////////////////////////////////////////////////////////// */
 
 // snippet-start:[s3.cpp.delete_website_config.code]
-bool AwsDoc::S3::DeleteBucketWebsite(const Aws::String& bucketName, 
+bool AwsDoc::S3::DeleteBucketWebsite(const Aws::String& bucketName,
     const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
@@ -63,7 +64,7 @@ int main()
     {
         if (AwsDoc::S3::DeleteBucketWebsite(bucket_name, region))
         {
-            std::cout << "Removed website configuration from '" << 
+            std::cout << "Removed website configuration from '" <<
                 bucket_name << "'." << std::endl;
         }
     }

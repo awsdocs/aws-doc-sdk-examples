@@ -17,7 +17,10 @@ find_package(AWSSDK REQUIRED COMPONENTS elasticfilesystem)
 # Example: create_file_system_with_modeled_exceptions is only for AWS SDK for C++ with version higher than 1.8.
 set(EXAMPLES "")
 list(APPEND EXAMPLES "create_file_system_with_modeled_exceptions")
-
+list(APPEND EXAMPLES "create_file_system")
+list(APPEND EXAMPLES "create_mount_target")
+list(APPEND EXAMPLES "delete_file_system")
+list(APPEND EXAMPLES "update_file_system")
 # The executables to build.
 foreach(EXAMPLE IN LISTS EXAMPLES)
   add_executable(${EXAMPLE} ${EXAMPLE}.cpp)

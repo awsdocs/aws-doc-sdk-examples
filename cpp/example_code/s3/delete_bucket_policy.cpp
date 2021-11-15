@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0 
+// SPDX - License - Identifier: Apache - 2.0
 
 // snippet-start:[s3.cpp.delete_bucket_policy.inc]
 #include <iostream>
@@ -9,13 +9,14 @@
 #include <awsdoc/s3/s3_examples.h>
 // snippet-end:[s3.cpp.delete_bucket_policy.inc]
 
-/* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Deletes the bucket policy from a bucket in Amazon S3.
+/*
+Purpose:
+Deletes the bucket policy from a bucket in Amazon S3.
  *
  * Prerequisites: The bucket containing the bucket policy to be deleted.
  *
  * Inputs:
- * - bucketName: The name of the bucket containing the bucket policy 
+ * - bucketName: The name of the bucket containing the bucket policy
      to be deleted.
  * - region: The AWS Region of the bucket.
  *

@@ -1,26 +1,10 @@
-//snippet-sourcedescription:[upload_archive_multipart.cpp demonstrates how to perform a multipart upload to Amazon S3 Glacier.]
-//snippet-service:[glacier]
-//snippet-keyword:[Amazon S3 Glacier]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-sourcetype:[snippet]
-//snippet-sourcedate:[2019-04-26]
-//snippet-sourceauthor:[AWS]
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-        http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+Purpose:
+upload_archive_multipart.cpp demonstrates how to perform a multipart upload to Amazon S3 Glacier.
 */
-
+ // snippet-start:[glacier.cpp.upload_archive_multipart.inc]
 #include <aws/core/Aws.h>
 #include <aws/core/utils/HashingUtils.h>
 #include <aws/core/utils/Outcome.h>
@@ -35,8 +19,9 @@
 #include <fstream>
 #include <iostream>
 #include <sys/stat.h>
+ // snippet-end:[glacier.cpp.upload_archive_multipart.inc]
 
-
+ // snippet-start:[glacier.cpp.upload_archive_multipart]
 /**
  * Determine file size
  *
@@ -132,13 +117,13 @@ Aws::String upload_parts(const Aws::Glacier::GlacierClient& glacier_client,
         part_checksums.push_back(byte_checksum);
 
         // Construct range string ("bytes %s-%s/*") --> Aws::String
-        std::string range = "bytes " + std::to_string(current_filepos) + "-" + 
+        std::string range = "bytes " + std::to_string(current_filepos) + "-" +
             std::to_string(current_filepos + chars_read - 1) + "/*";
         Aws::String range_aws(range.c_str(), range.size());
 
         // Set stream input to the loaded part buffer
         // std::stringstream buffer_ptr(buffer_std);
-        const std::shared_ptr<Aws::IOStream> buffer_ptr = 
+        const std::shared_ptr<Aws::IOStream> buffer_ptr =
             Aws::MakeShared<std::stringstream>("SampleAllocationTag", buffer_std);
 
         // Set up request
@@ -176,7 +161,7 @@ Aws::String upload_parts(const Aws::Glacier::GlacierClient& glacier_client,
     // Ideally, the file checksum is calculated from the checksums of the parts
     // by calling the TreeHashFinalCompute() method. However, that method is
     // not currently exposed.
-    Aws::Utils::ByteBuffer file_byte_checksum = 
+    Aws::Utils::ByteBuffer file_byte_checksum =
         Aws::Utils::HashingUtils::TreeHashFinalCompute(part_checksums);
 #else
     // Until TreeHashFinalComplete() becomes public, calculate the checksum
@@ -184,7 +169,7 @@ Aws::String upload_parts(const Aws::Glacier::GlacierClient& glacier_client,
     const std::shared_ptr<Aws::IOStream> file_contents =
         Aws::MakeShared<Aws::FStream>("SampleAllocationTag",
             file_name.c_str(), std::ios::in | std::ios::binary);
-    Aws::Utils::ByteBuffer file_byte_checksum = 
+    Aws::Utils::ByteBuffer file_byte_checksum =
         Aws::Utils::HashingUtils::CalculateSHA256TreeHash(*file_contents);
 #endif
     Aws::String file_checksum = Aws::Utils::HashingUtils::HexEncode(file_byte_checksum);
@@ -274,10 +259,10 @@ int main(int argc, char** argv)
         Aws::String part_size = "4194304";  // 4MB
         Aws::String account_id("-");        // Hyphen = Use current user's credentials
         Aws::String archive_description("TestArchiveUpload");
-
+         // snippet-start:[glacier.cpp.upload_archive_multipart.initiate_upload]
         // Initiate multipart upload
         Aws::Glacier::GlacierClient glacier_client;
-        Aws::String upload_id = initiate_multipart_upload(glacier_client, 
+        Aws::String upload_id = initiate_multipart_upload(glacier_client,
             vault_name, part_size, account_id, archive_description);
         if (upload_id.empty()) {
             exit(1);
@@ -296,8 +281,8 @@ int main(int argc, char** argv)
         Aws::String filesize(filesize_std.c_str(), filesize_std.size());
         Aws::String archive_id;
         Aws::String location;
-        bool result = complete_upload(glacier_client, 
-            vault_name, account_id, upload_id, checksum, filesize, 
+        bool result = complete_upload(glacier_client,
+            vault_name, account_id, upload_id, checksum, filesize,
             archive_id, location);
 
         // Process the result
@@ -309,6 +294,7 @@ int main(int argc, char** argv)
         else {
             abort_multipart_upload(glacier_client, vault_name, account_id, upload_id);
         }
+         // snippet-end:[glacier.cpp.upload_archive_multipart.initiate_upload]
     }
 
     Aws::ShutdownAPI(options);

@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0 
+// SPDX - License - Identifier: Apache - 2.0
 
 // snippet-start:[s3.cpp.get_bucket_policy.inc]
 #include <iostream>
@@ -9,8 +9,9 @@
 #include <awsdoc/s3/s3_examples.h>
 // snippet-end:[s3.cpp.get_bucket_policy.inc]
 
-/* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Gets information about a bucket policy for a bucket
+/*
+Purpose:
+Gets information about a bucket policy for a bucket
  * in Amazon S3.
  *
  * Prerequisites: The bucket to get bucket policy information about.
@@ -19,12 +20,12 @@
  * - bucketName: The name of the bucket to get bucket policy information about.
  * - region: The AWS Region for the bucket.
  *
- * Outputs: true if information about the bucket policy was retrieved; 
+ * Outputs: true if information about the bucket policy was retrieved;
  * otherwise, false.
  * ///////////////////////////////////////////////////////////////////////// */
 
 // snippet-start:[s3.cpp.get_bucket_policy.code]
-bool AwsDoc::S3::GetBucketPolicy(const Aws::String& bucketName, 
+bool AwsDoc::S3::GetBucketPolicy(const Aws::String& bucketName,
     const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
@@ -46,7 +47,7 @@ bool AwsDoc::S3::GetBucketPolicy(const Aws::String& bucketName,
         outcome.GetResult().GetPolicy() >> line;
         policy_stream << line;
 
-        std::cout << "Policy:" << std::endl << std::endl << 
+        std::cout << "Policy:" << std::endl << std::endl <<
             policy_stream.str() << std::endl;
 
         return true;

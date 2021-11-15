@@ -1,25 +1,9 @@
-//snippet-sourcedescription:[transferOnStream.cpp demonstrates how to transfer an S3 object using stream into local memory and verify the correctness of the transfer]
-//snippet-service:[s3]
-//snippet-keyword:[Amazon S3]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-sourcetype:[full-example]
-//snippet-sourceauthor:[AWS]
-
-/**
-  Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-  This file is licensed under the Apache License, Version 2.0 (the "License").
-  You may not use this file except in compliance with the License. A copy of
-  the License is located at
-
-http://aws.amazon.com/apache2.0/
-
-This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-CONDITIONS OF ANY KIND, either express or implied. See the License for the
-specific language governing permissions and limitations under the License.
- **/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
+/*
+Purpose:
+transferOnStream.cpp demonstrates how to transfer an S3 object using stream into local memory and verify the correctness of the transfer]
+*/
 
 #include <aws/core/Aws.h>
 #include <aws/core/utils/threading/Executor.h>
@@ -37,7 +21,7 @@ using namespace Aws;
 using namespace Aws::Utils;
 using namespace Aws::S3;
 
-static const size_t BUFFER_SIZE = 512 * 1024 * 1024; // 512MB Buffer 
+static const size_t BUFFER_SIZE = 512 * 1024 * 1024; // 512MB Buffer
 static size_t g_file_size = 0;
 
 /**
@@ -57,7 +41,7 @@ class MyUnderlyingStream : public Aws::IOStream
 
 int main(int argc, char** argv)
 {
-    if (argc < 4) 
+    if (argc < 4)
     {
         std::cout << "This program is used to demonstrate how transfer manager transfers large object in memory without copying it to a local file." << std::endl
             << "It first uploads [LocalFilePath] to your Amazon S3 [Bucket] with object name [Key], then downloads the object to memory." << std::endl
@@ -88,11 +72,11 @@ int main(int argc, char** argv)
 
         auto uploadHandle = transfer_manager->UploadFile(LOCAL_FILE, BUCKET, KEY, "text/plain", Aws::Map<Aws::String, Aws::String>());
         uploadHandle->WaitUntilFinished();
-        bool success = uploadHandle->GetStatus() == Transfer::TransferStatus::COMPLETED; 
-      
+        bool success = uploadHandle->GetStatus() == Transfer::TransferStatus::COMPLETED;
+
         if (!success)
         {
-            auto err = uploadHandle->GetLastError();           
+            auto err = uploadHandle->GetLastError();
             std::cout << "File upload failed:  "<< err.GetMessage() << std::endl;
         }
         else
@@ -103,7 +87,7 @@ int main(int argc, char** argv)
             assert(uploadHandle->GetBytesTotalSize() == uploadHandle->GetBytesTransferred());
             g_file_size = uploadHandle->GetBytesTotalSize();
 
-            // Create buffer to hold data received by the data stream. 
+            // Create buffer to hold data received by the data stream.
             Aws::Utils::Array<unsigned char> buffer(BUFFER_SIZE);
             auto downloadHandle = transfer_manager->DownloadFile(BUCKET,
                 KEY,
@@ -119,12 +103,12 @@ int main(int argc, char** argv)
             }
             std::cout << "File download to memory finished."  << std::endl;
             // snippet-end:[transfer-manager.cpp.transferOnStream.code]
-             
-            
+
+
             // Verify the download retrieved the expected length of data.
             assert(downloadHandle->GetBytesTotalSize() == downloadHandle->GetBytesTransferred());
 
-            // Verify that the length of the upload equals the download. 
+            // Verify that the length of the upload equals the download.
             assert(uploadHandle->GetBytesTotalSize() == downloadHandle->GetBytesTotalSize());
 
             // Write the buffered data to local file copy.

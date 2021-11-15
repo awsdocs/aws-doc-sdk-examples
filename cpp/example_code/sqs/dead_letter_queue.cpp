@@ -1,28 +1,14 @@
- 
-//snippet-sourcedescription:[dead_letter_queue.cpp demonstrates how to enable the dead-letter functionality of an Amazon SQS queue.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Queue Service]
-//snippet-service:[sqs]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
 
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Purpose:
+dead_letter_queue.cpp demonstrates how to enable the dead-letter functionality of an Amazon SQS queue.
 
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
 
-    http://aws.amazon.com/apache2.0/
 
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
+
+
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 //snippet-start:[sqs.cpp.make_redrive_policy.inc]
 #include <aws/core/Aws.h>
 #include <aws/core/utils/json/JsonSerializer.h>

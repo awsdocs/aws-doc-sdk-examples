@@ -1,4 +1,8 @@
-//snippet-sourcedescription:[This example demonstrates how to use the AWS SDK for C++, starting with SDK version 1.8, to specify aws-global as the AWS Region during Amazon S3 API client configuration to make requests to S3 across AWS Regions.]
+/*
+Purpose:
+This example demonstrates how to use the AWS SDK for C++, starting with SDK version 1.8, to specify aws-global as the AWS Region during Amazon S3 API client configuration to make requests to S3 across AWS Regions.
+
+
 //snippet-keyword:[C++]
 //snippet-sourcesyntax:[cpp]
 //snippet-keyword:[Code Sample]
@@ -29,16 +33,16 @@ using namespace Aws::S3::Model;
 static const char BUCKET_NAME[] = "aws-sdk-cpp-list-objects-with-aws-global-region";
 
 /**
- * Starting with the AWS SDK for C++ version 1.8, you can make requests to 
- * Amazon S3 across AWS Regions by specifying aws-global as the AWS Region 
- * during S3 API client configuration. In this example, an S3 API client 
- * set to the aws-global AWS Region is able to list objects in an S3 bucket 
+ * Starting with the AWS SDK for C++ version 1.8, you can make requests to
+ * Amazon S3 across AWS Regions by specifying aws-global as the AWS Region
+ * during S3 API client configuration. In this example, an S3 API client
+ * set to the aws-global AWS Region is able to list objects in an S3 bucket
  * that is located in the us-west-2 AWS Region.
  */
 
-/** 
- * Following are helper methods for creating the bucket, listing the objects 
- * in the new bucket, and then deleting the bucket. These methods are later 
+/**
+ * Following are helper methods for creating the bucket, listing the objects
+ * in the new bucket, and then deleting the bucket. These methods are later
  * called from this example's main method.
  */
 
@@ -53,11 +57,11 @@ bool CreateABucket(const S3Client& s3Client)
     auto createBucketOutcome = s3Client.CreateBucket(createBucketRequest);
 
     if (createBucketOutcome.IsSuccess()) {
-        std::cout << "Success. Created the bucket named '" << BUCKET_NAME << 
+        std::cout << "Success. Created the bucket named '" << BUCKET_NAME <<
             "'." << std::endl;
     }
     else {
-        std::cout << "Error. Could not create the bucket: " << 
+        std::cout << "Error. Could not create the bucket: " <<
             createBucketOutcome.GetError() << std::endl;
 
         return false;
@@ -83,23 +87,23 @@ bool CreateABucket(const S3Client& s3Client)
 
 bool ListTheObjects(const S3Client& s3Client)
 {
-    // An S3 API client set to the aws-global AWS Region should be able to get 
+    // An S3 API client set to the aws-global AWS Region should be able to get
     // access to a bucket in any AWS Region.
     ListObjectsRequest listObjectsRequest;
     listObjectsRequest.SetBucket(BUCKET_NAME);
     auto listObjectOutcome = s3Client.ListObjects(listObjectsRequest);
-    
+
     if (listObjectOutcome.IsSuccess()) {
-        std::cout << "Success. Number of objects in the bucket named '" << 
-            BUCKET_NAME << "' is " << 
-            listObjectOutcome.GetResult().GetContents().size() << "." << 
+        std::cout << "Success. Number of objects in the bucket named '" <<
+            BUCKET_NAME << "' is " <<
+            listObjectOutcome.GetResult().GetContents().size() << "." <<
             std::endl;
 
         return true;
     }
     else
     {
-        std::cout << "Error. Could not count the objects in the bucket: " << 
+        std::cout << "Error. Could not count the objects in the bucket: " <<
             listObjectOutcome.GetError() << std::endl;
 
         return false;
@@ -114,14 +118,14 @@ bool DeleteABucket(const S3Client& s3Client)
 
     if (deleteBucketOutcome.IsSuccess())
     {
-        std::cout << "Success. Deleted the bucket named '" << BUCKET_NAME << 
+        std::cout << "Success. Deleted the bucket named '" << BUCKET_NAME <<
             "'." << std::endl;
 
         return true;
     }
     else
     {
-        std::cout << "Error. Could not delete the bucket: " << 
+        std::cout << "Error. Could not delete the bucket: " <<
             deleteBucketOutcome.GetError() << std::endl;
         std::cout << "To clean up, you must delete the bucket named '" <<
             BUCKET_NAME << "' yourself." << std::endl;
@@ -146,7 +150,7 @@ int main()
         {
             return 1;
         }
-        
+
         if (!ListTheObjects(s3Client))
         {
             return 1;
@@ -158,6 +162,6 @@ int main()
         }
     }
     ShutdownAPI(options);
-    
+
     return 0;
 }

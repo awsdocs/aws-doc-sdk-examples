@@ -1,21 +1,20 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
-/* ////////////////////////////////////////////////////////////////////////////
- * Purpose: 
- *
- * Demonstrates how to use the AWS SDK for C++ to automate the various operations 
+/*
+Purpose:
+* Demonstrates how to use the AWS SDK for C++ to automate the various operations
  * for AWS Certificate Manager.
  *
- * Prerequisites: 
+ * Prerequisites:
  *
- * - An existing AWS account. For more information, see "How do I create and 
- *   activate a new AWS account" on the AWS Premium support website, at 
+ * - An existing AWS account. For more information, see "How do I create and
+ *   activate a new AWS account" on the AWS Premium support website, at
  *   https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/.
- * - AWS credentials. For more information, see the "AWS security credentials" 
- *   topic in the AWS General Reference Guide, at 
+ * - AWS credentials. For more information, see the "AWS security credentials"
+ *   topic in the AWS General Reference Guide, at
  *   https://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html.
- *   See also the "Providing AWS Credentials" topic in the 
+ *   See also the "Providing AWS Credentials" topic in the
  *   AWS SDK for C++ Developer Guide.
  * - The AWS SDK for C++. To install it, see the "Setting Up the AWS SDK for C++"
  *   topic in the AWS SDK for C++ Developer Guide.
@@ -23,14 +22,14 @@
  * Building the code:
  *
  * To build the following code, using CMake version 3.8 or later, generate this
- * project's makefiles by running the cmake command from the same directory as 
- * this file. Then build this project's makefiles by running the make command 
- * from the same directory as this file. For more information, see the 
- * "Building Your Application with CMake" topic in the 
+ * project's makefiles by running the cmake command from the same directory as
+ * this file. Then build this project's makefiles by running the make command
+ * from the same directory as this file. For more information, see the
+ * "Building Your Application with CMake" topic in the
  * AWS SDK for C++ Developer Guide.
  *
  * Running the code:
- * 
+ *
  * For usage instructions, run the acm_basic_operations executable that was built,
  * either without command-line arguments or with the "--help" option.
  * ///////////////////////////////////////////////////////////////////////// */
@@ -88,12 +87,12 @@
 // Additional includes for UpdateCertificateOptions.
 #include <aws/acm/model/UpdateCertificateOptionsRequest.h>
 
-// Begin helper functions to demonstrate the various operations 
+// Begin helper functions to demonstrate the various operations
 // for AWS Certificate Manager.
 
 // Helper function for Aws::ACM::ACMClient::AddTagsToCertificate.
 bool AwsDoc::ACM::AddTagToCertificate(const Aws::String& certificateArn,
-    const Aws::String& tagKey, const Aws::String& tagValue, 
+    const Aws::String& tagKey, const Aws::String& tagValue,
     const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
@@ -115,7 +114,7 @@ bool AwsDoc::ACM::AddTagToCertificate(const Aws::String& certificateArn,
 
     if (!outcome.IsSuccess())
     {
-        std::cout << "Error: AddTagToCertificate: " << 
+        std::cout << "Error: AddTagToCertificate: " <<
             outcome.GetError().GetMessage() << std::endl;
 
         return false;
@@ -123,8 +122,8 @@ bool AwsDoc::ACM::AddTagToCertificate(const Aws::String& certificateArn,
     else
     {
         std::cout << "Success: Tag with key '" << tagKey <<
-            "' and value '" << tagValue << 
-            "' added to certificate with ARN '" << 
+            "' and value '" << tagValue <<
+            "' added to certificate with ARN '" <<
             certificateArn << "'." << std::endl;
 
         return true;
@@ -149,7 +148,7 @@ bool AwsDoc::ACM::DeleteCertificate(const Aws::String& certificateArn,
 
     if (!outcome.IsSuccess())
     {
-        std::cout << "Error: DeleteCertificate: " << 
+        std::cout << "Error: DeleteCertificate: " <<
             outcome.GetError().GetMessage() << std::endl;
 
         return false;
@@ -180,7 +179,7 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
 
     if (!outcome.IsSuccess())
     {
-        std::cout << "Error: DescribeCertificate: " << 
+        std::cout << "Error: DescribeCertificate: " <<
             outcome.GetError().GetMessage() << std::endl;
 
         return false;
@@ -190,38 +189,38 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
         Aws::ACM::Model::CertificateDetail certificate =
             outcome.GetResult().GetCertificate();
 
-        std::cout << "Success: Information about certificate " 
+        std::cout << "Success: Information about certificate "
             "with ARN '" << certificateArn << "':" << std::endl << std::endl;
 
-        std::cout << "ARN:                 " << certificate.GetCertificateArn() 
+        std::cout << "ARN:                 " << certificate.GetCertificateArn()
             << std::endl;
-        std::cout << "Authority ARN:       " << 
+        std::cout << "Authority ARN:       " <<
             certificate.GetCertificateAuthorityArn() << std::endl;
-        std::cout << "Created at (GMT):    " << 
-            certificate.GetCreatedAt().ToGmtString(Aws::Utils::DateFormat::ISO_8601) 
+        std::cout << "Created at (GMT):    " <<
+            certificate.GetCreatedAt().ToGmtString(Aws::Utils::DateFormat::ISO_8601)
             << std::endl;
-        std::cout << "Domain name:         " << certificate.GetDomainName() 
+        std::cout << "Domain name:         " << certificate.GetDomainName()
             << std::endl;
-        
-        Aws::Vector<Aws::ACM::Model::DomainValidation> options = 
+
+        Aws::Vector<Aws::ACM::Model::DomainValidation> options =
             certificate.GetDomainValidationOptions();
 
         if (options.size() > 0)
         {
-            std::cout << std::endl << "Domain validation information: " 
+            std::cout << std::endl << "Domain validation information: "
                 << std::endl << std::endl;
 
             for (auto it = options.begin(); it != options.end(); it++)
             {
                 Aws::ACM::Model::DomainValidation validation = *it;
 
-                std::cout << "  Domain name:              " << 
+                std::cout << "  Domain name:              " <<
                     validation.GetDomainName() << std::endl;
 
-                Aws::ACM::Model::ResourceRecord record = 
+                Aws::ACM::Model::ResourceRecord record =
                     validation.GetResourceRecord();
 
-                std::cout << "  Resource record name:     " << 
+                std::cout << "  Resource record name:     " <<
                     record.GetName() << std::endl;
 
                 Aws::ACM::Model::RecordType record_type = record.GetType();
@@ -240,21 +239,21 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
                     break;
                 }
 
-                std::cout << "  Resource record type:     " << type << 
+                std::cout << "  Resource record type:     " << type <<
                     std::endl;
 
-                std::cout << "  Resource record value:    " << 
+                std::cout << "  Resource record value:    " <<
                     record.GetValue() << std::endl;
 
-                std::cout << "  Validation domain:        " << 
+                std::cout << "  Validation domain:        " <<
                     validation.GetValidationDomain() << std::endl;
 
-                Aws::Vector<Aws::String> emails = 
+                Aws::Vector<Aws::String> emails =
                     validation.GetValidationEmails();
 
                 if (emails.size() > 0)
                 {
-                    std::cout << "  Validation emails:" << std::endl << 
+                    std::cout << "  Validation emails:" << std::endl <<
                         std::endl;
 
                     for (auto it = emails.begin(); it != emails.end(); it++)
@@ -266,10 +265,10 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
                     std::cout << std::endl;
                 }
 
-                Aws::ACM::Model::ValidationMethod validation_method = 
+                Aws::ACM::Model::ValidationMethod validation_method =
                     validation.GetValidationMethod();
                 Aws::String method;
-                
+
                 switch (validation_method)
                 {
                 case Aws::ACM::Model::ValidationMethod::DNS:
@@ -285,12 +284,12 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
                     method = "Cannot determine";
                 }
 
-                std::cout << "  Validation method:        " << 
+                std::cout << "  Validation method:        " <<
                     method << std::endl;
 
-                Aws::ACM::Model::DomainStatus domain_status = 
+                Aws::ACM::Model::DomainStatus domain_status =
                     validation.GetValidationStatus();
-                Aws::String status; 
+                Aws::String status;
 
                 switch (domain_status)
                 {
@@ -310,25 +309,25 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
                     status = "Cannot determine";
                 }
 
-                std::cout << "  Domain validation status: " << status << 
+                std::cout << "  Domain validation status: " << status <<
                     std::endl << std::endl;
-                
+
             }
         }
 
-        Aws::Vector<Aws::ACM::Model::ExtendedKeyUsage> usages = 
+        Aws::Vector<Aws::ACM::Model::ExtendedKeyUsage> usages =
             certificate.GetExtendedKeyUsages();
 
         if (usages.size() > 0)
         {
-            std::cout << std::endl << "Extended key usages:" << 
+            std::cout << std::endl << "Extended key usages:" <<
                 std::endl << std::endl;
 
             for (auto it = usages.begin(); it != usages.end(); it++)
             {
                 Aws::ACM::Model::ExtendedKeyUsage usage = *it;
 
-                Aws::ACM::Model::ExtendedKeyUsageName usage_name = 
+                Aws::ACM::Model::ExtendedKeyUsageName usage_name =
                     usage.GetName();
                 Aws::String name;
 
@@ -378,14 +377,14 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
                 }
 
                 std::cout << "  Name: " << name << std::endl;
-                std::cout << "  OID:  " << usage.GetOID() << 
+                std::cout << "  OID:  " << usage.GetOID() <<
                     std::endl << std::endl;
             }
 
             std::cout << std::endl;
         }
-        
-        Aws::ACM::Model::CertificateStatus certificate_status = 
+
+        Aws::ACM::Model::CertificateStatus certificate_status =
             certificate.GetStatus();
         Aws::String status;
 
@@ -421,10 +420,10 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
 
         std::cout << "Status:              " << status << std::endl;
 
-        if (certificate.GetStatus() == 
+        if (certificate.GetStatus() ==
             Aws::ACM::Model::CertificateStatus::FAILED)
         {
-            Aws::ACM::Model::FailureReason failure_reason = 
+            Aws::ACM::Model::FailureReason failure_reason =
                 certificate.GetFailureReason();
             Aws::String reason;
 
@@ -486,15 +485,15 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
             }
 
             std::cout << "Failure reason:      " << reason << std::endl;
-        } 
-        
+        }
+
         if (certificate.GetStatus() == Aws::ACM::Model::CertificateStatus::REVOKED)
         {
             std::cout << "Revoked at (GMT):    " <<
                 certificate.GetRevokedAt().ToGmtString(Aws::Utils::DateFormat::ISO_8601)
                 << std::endl;
-            
-            Aws::ACM::Model::RevocationReason revocation_reason = 
+
+            Aws::ACM::Model::RevocationReason revocation_reason =
                 certificate.GetRevocationReason();
             Aws::String reason;
 
@@ -543,10 +542,10 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
         if (certificate.GetType() == Aws::ACM::Model::CertificateType::IMPORTED)
         {
             std::cout << "Imported at (GMT):   " <<
-                certificate.GetImportedAt().ToGmtString(Aws::Utils::DateFormat::ISO_8601) 
+                certificate.GetImportedAt().ToGmtString(Aws::Utils::DateFormat::ISO_8601)
                 << std::endl;
         }
-        
+
         Aws::Vector<Aws::String> in_use_bys = certificate.GetInUseBy();
 
         if (in_use_bys.size() > 0)
@@ -561,19 +560,19 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
 
             std::cout << std::endl;
         }
-        
-        if (certificate.GetType() == Aws::ACM::Model::CertificateType::AMAZON_ISSUED && 
+
+        if (certificate.GetType() == Aws::ACM::Model::CertificateType::AMAZON_ISSUED &&
             certificate.GetStatus() == Aws::ACM::Model::CertificateStatus::ISSUED)
         {
-            std::cout << "Issued at (GMT):     " << 
-                certificate.GetIssuedAt().ToGmtString(Aws::Utils::DateFormat::ISO_8601) 
+            std::cout << "Issued at (GMT):     " <<
+                certificate.GetIssuedAt().ToGmtString(Aws::Utils::DateFormat::ISO_8601)
                 << std::endl;
         }
-        
-        std::cout << "Issuer:              " << certificate.GetIssuer() << 
+
+        std::cout << "Issuer:              " << certificate.GetIssuer() <<
             std::endl;
-        
-        Aws::ACM::Model::KeyAlgorithm key_algorithm = 
+
+        Aws::ACM::Model::KeyAlgorithm key_algorithm =
             certificate.GetKeyAlgorithm();
         Aws::String algorithm;
 
@@ -605,7 +604,7 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
         }
 
         std::cout << "Key algorithm:       " << algorithm << std::endl;
-        
+
         if (certificate.GetStatus() == Aws::ACM::Model::CertificateStatus::ISSUED)
         {
             std::cout << "Not valid after (GMT): " <<
@@ -615,8 +614,8 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
                 certificate.GetNotBefore().ToGmtString(Aws::Utils::DateFormat::ISO_8601)
                 << std::endl;
         }
-        
-        Aws::ACM::Model::CertificateTransparencyLoggingPreference logging_preference = 
+
+        Aws::ACM::Model::CertificateTransparencyLoggingPreference logging_preference =
             certificate.GetOptions().GetCertificateTransparencyLoggingPreference();
         Aws::String preference;
 
@@ -634,16 +633,16 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
         default:
             preference = "Cannot determine";
         }
-        
+
         std::cout << "Logging preference:  " << preference << std::endl;
 
-        std::cout << "Serial:              " << certificate.GetSerial() << 
+        std::cout << "Serial:              " << certificate.GetSerial() <<
             std::endl;
-        std::cout << "Signature algorithm: " 
+        std::cout << "Signature algorithm: "
             << certificate.GetSignatureAlgorithm() << std::endl;
-        std::cout << "Subject:             " << certificate.GetSubject() << 
+        std::cout << "Subject:             " << certificate.GetSubject() <<
             std::endl;
-        
+
         Aws::ACM::Model::CertificateType certificate_type = certificate.GetType();
         Aws::String type;
 
@@ -667,12 +666,12 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
 
         std::cout << "Type:                " << type << std::endl;
 
-        Aws::Vector<Aws::String> alt_names = 
+        Aws::Vector<Aws::String> alt_names =
             certificate.GetSubjectAlternativeNames();
 
         if (alt_names.size() > 0)
         {
-            std::cout << std::endl << "Alternative names:" << 
+            std::cout << std::endl << "Alternative names:" <<
                 std::endl << std::endl;
 
             for (auto it = alt_names.begin(); it != alt_names.end(); it++)
@@ -692,12 +691,12 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
 bool AwsDoc::ACM::ExportCertificate(const Aws::String& certificateArn,
     const Aws::String& region)
 {
-    Aws::Utils::CryptoBuffer passphrase = 
+    Aws::Utils::CryptoBuffer passphrase =
         Aws::Utils::Crypto::SymmetricCipher::GenerateKey();
 
     Aws::Client::ClientConfiguration config;
     config.region = region;
-    
+
     Aws::ACM::ACMClient acm_client(config);
 
     Aws::ACM::Model::ExportCertificateRequest request;
@@ -708,14 +707,14 @@ bool AwsDoc::ACM::ExportCertificate(const Aws::String& certificateArn,
 
     if (!outcome.IsSuccess())
     {
-        std::cout << "Error: ExportCertificate: " << 
+        std::cout << "Error: ExportCertificate: " <<
             outcome.GetError().GetMessage() << std::endl;
 
         return false;
     }
     else
     {
-        std::cout << "Success: Information about certificate with ARN '" 
+        std::cout << "Success: Information about certificate with ARN '"
             << certificateArn << "':" << std::endl << std::endl;
 
         auto result = outcome.GetResult();
@@ -737,7 +736,7 @@ bool AwsDoc::ACM::GetCertificate(const Aws::String& certificateArn,
 {
     Aws::Client::ClientConfiguration config;
     config.region = region;
-    
+
     Aws::ACM::ACMClient acm_client(config);
 
     Aws::ACM::Model::GetCertificateRequest request;
@@ -810,7 +809,7 @@ bool AwsDoc::ACM::ImportCertificate(const Aws::String& certificateFile,
 
     if (!FileExists(certificateChainFile.c_str()))
     {
-        std::cout << "Error: The certificate chain file '" 
+        std::cout << "Error: The certificate chain file '"
             << certificateChainFile << "' does not exist." << std::endl;
 
         return false;
@@ -821,7 +820,7 @@ bool AwsDoc::ACM::ImportCertificate(const Aws::String& certificateFile,
     std::ifstream cert_chain_ifs(certificateChainFile.c_str());
 
     Aws::String certificate;
-    certificate.assign(std::istreambuf_iterator<char>(cert_ifs), 
+    certificate.assign(std::istreambuf_iterator<char>(cert_ifs),
         std::istreambuf_iterator<char>());
 
     Aws::String privateKey;
@@ -834,7 +833,7 @@ bool AwsDoc::ACM::ImportCertificate(const Aws::String& certificateFile,
 
     Aws::Client::ClientConfiguration config;
     config.region = region;
- 
+
     Aws::ACM::ACMClient acm_client(config);
 
     Aws::ACM::Model::ImportCertificateRequest request;
@@ -866,7 +865,7 @@ bool AwsDoc::ACM::ImportCertificate(const Aws::String& certificateFile,
         std::cout << "Success: Certificate associated with ARN '" <<
             outcome.GetResult().GetCertificateArn() << "' imported."
             << std::endl;
-            
+
         return true;
     }
 }
@@ -876,12 +875,12 @@ bool AwsDoc::ACM::ListCertificates(const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
     config.region = region;
-    
+
     Aws::ACM::ACMClient acm_client(config);
 
     Aws::ACM::Model::ListCertificatesRequest request;
 
-    Aws::ACM::Model::ListCertificatesOutcome outcome = 
+    Aws::ACM::Model::ListCertificatesOutcome outcome =
         acm_client.ListCertificates(request);
 
     if (!outcome.IsSuccess())
@@ -893,12 +892,12 @@ bool AwsDoc::ACM::ListCertificates(const Aws::String& region)
     }
     else
     {
-        std::cout << "Success: Information about certificates: " 
+        std::cout << "Success: Information about certificates: "
             << std::endl << std::endl;
 
         auto result = outcome.GetResult();
 
-        Aws::Vector<Aws::ACM::Model::CertificateSummary> certificates = 
+        Aws::Vector<Aws::ACM::Model::CertificateSummary> certificates =
             result.GetCertificateSummaryList();
 
         if (certificates.size() > 0)
@@ -913,7 +912,7 @@ bool AwsDoc::ACM::ListCertificates(const Aws::String& region)
         }
         else
         {
-            std::cout << "No available certificates found in AWS Region '" << 
+            std::cout << "No available certificates found in AWS Region '" <<
                 region << "'." << std::endl;
         }
 
@@ -922,12 +921,12 @@ bool AwsDoc::ACM::ListCertificates(const Aws::String& region)
 }
 
 // Helper function for Aws::ACM::ACMClient::ListTagsForCertificate.
-bool AwsDoc::ACM::ListTagsForCertificate(const Aws::String& certificateArn, 
+bool AwsDoc::ACM::ListTagsForCertificate(const Aws::String& certificateArn,
     const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
     config.region = region;
-    
+
     Aws::ACM::ACMClient acm_client(config);
 
     Aws::ACM::Model::ListTagsForCertificateRequest request;
@@ -945,7 +944,7 @@ bool AwsDoc::ACM::ListTagsForCertificate(const Aws::String& certificateArn,
     }
     else
     {
-        std::cout << "Success: Information about tags for " 
+        std::cout << "Success: Information about tags for "
             "certificate with ARN '"
             << certificateArn << "':" << std::endl << std::endl;
 
@@ -959,7 +958,7 @@ bool AwsDoc::ACM::ListTagsForCertificate(const Aws::String& certificateArn,
             for (const Aws::ACM::Model::Tag& tag : tags)
             {
                 std::cout << "Key:   " << tag.GetKey() << std::endl;
-                std::cout << "Value: " << tag.GetValue() 
+                std::cout << "Value: " << tag.GetValue()
                     << std::endl << std::endl;
             }
         }
@@ -979,11 +978,11 @@ bool AwsDoc::ACM::RemoveTagFromCertificate(const Aws::String& certificateArn,
 {
     Aws::Client::ClientConfiguration config;
     config.region = region;
-    
+
     Aws::ACM::ACMClient acm_client(config);
 
     Aws::Vector<Aws::ACM::Model::Tag> tags;
-    
+
     Aws::ACM::Model::Tag tag;
     tag.SetKey(tagKey);
 
@@ -1013,7 +1012,7 @@ bool AwsDoc::ACM::RemoveTagFromCertificate(const Aws::String& certificateArn,
 }
 
 // Helper function for Aws::ACM::ACMClient::RenewCertificate.
-bool AwsDoc::ACM::RenewCertificate(const Aws::String& certificateArn, 
+bool AwsDoc::ACM::RenewCertificate(const Aws::String& certificateArn,
     const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
@@ -1036,7 +1035,7 @@ bool AwsDoc::ACM::RenewCertificate(const Aws::String& certificateArn,
     }
     else
     {
-        std::cout << "Success: Renewed certificate with ARN '" 
+        std::cout << "Success: Renewed certificate with ARN '"
             << certificateArn << "'." << std::endl;
 
         return true;
@@ -1050,19 +1049,19 @@ bool AwsDoc::ACM::RequestCertificate(const Aws::String& domainName,
 {
     Aws::Client::ClientConfiguration config;
     config.region = region;
-    
+
     Aws::ACM::ACMClient acm_client(config);
 
     Aws::ACM::Model::RequestCertificateRequest request;
     request.WithDomainName(domainName)
         .WithIdempotencyToken(idempotencyToken);
 
-    Aws::ACM::Model::RequestCertificateOutcome outcome = 
+    Aws::ACM::Model::RequestCertificateOutcome outcome =
         acm_client.RequestCertificate(request);
 
     if (!outcome.IsSuccess())
     {
-        std::cout << "RequestCertificate error: " << 
+        std::cout << "RequestCertificate error: " <<
             outcome.GetError().GetMessage() << std::endl;
 
         return false;
@@ -1148,7 +1147,7 @@ bool AwsDoc::ACM::UpdateCertificateOption(const Aws::String& certificateArn,
     {
         options.SetCertificateTransparencyLoggingPreference(
             Aws::ACM::Model::CertificateTransparencyLoggingPreference::DISABLED);
-    }    
+    }
 
     request.SetOptions(options);
 
@@ -1214,7 +1213,7 @@ int main(int argc, char* argv[])
             if (argc != 6)
             {
                 std::cout << "Usage: " << PROGRAM_NAME << " --add-tag <certificate ARN> <tag key> <tag value> <region>" << std::endl;
-                std::cout << "Example: " << PROGRAM_NAME << 
+                std::cout << "Example: " << PROGRAM_NAME <<
                     " --add-tag arn:aws:acm:us-east-1:111111111111:certificate/62a108dc-0b56-49a9-a258-dc022EXAMPLE my-key my-value us-east-1" << std::endl;
 
                 return 1;
@@ -1234,7 +1233,7 @@ int main(int argc, char* argv[])
             if (argc != 4)
             {
                 std::cout << "Usage: " << PROGRAM_NAME << " --delete <certificate ARN> <region>" << std::endl;
-                std::cout << "Example: " << PROGRAM_NAME << 
+                std::cout << "Example: " << PROGRAM_NAME <<
                     " --delete arn:aws:acm:us-east-1:111111111111:certificate/d431cfe8-e627-45fb-9d6a-4410fEXAMPLE us-east-1" << std::endl;
 
                 return 1;
@@ -1246,7 +1245,7 @@ int main(int argc, char* argv[])
             {
                 return 1;
             }
-        }        
+        }
         else if (strcmp(argv[1], "--describe") == 0)
         {
             if (argc != 4)
@@ -1264,7 +1263,7 @@ int main(int argc, char* argv[])
             {
                 return 1;
             }
-        }        
+        }
         else if (strcmp(argv[1], "--export") == 0)
         {
             if (argc != 4)
@@ -1296,7 +1295,7 @@ int main(int argc, char* argv[])
 
             if (!AwsDoc::ACM::GetCertificate(
                 argv[2],  // For example, "arn:aws:acm:us-east-1:111111111111:certificate/9301d141-c7f8-4b02-9fb7-78eb2EXAMPLE".
-                argv[3])) // For example, "us-east-1". 
+                argv[3])) // For example, "us-east-1".
             {
                 return 1;
             }
@@ -1310,12 +1309,12 @@ int main(int argc, char* argv[])
 
                 return 1;
             }
-            
+
             if (!AwsDoc::ACM::ImportCertificate(
                 argv[2],  // For example, "Certificate.txt".
-                argv[3],  // For example, "decrypted_private_key.txt". 
+                argv[3],  // For example, "decrypted_private_key.txt".
                 argv[4],  // For example, "Certificate_chain.txt".
-                argv[5],  // For example, "us-east-1". 
+                argv[5],  // For example, "us-east-1".
                 argv[6])) // For example, "arn:aws:acm:us-east-1:111111111111:certificate/9301d141-c7f8-4b02-9fb7-78eb2EXAMPLE".
             {
                 return 1;
@@ -1333,7 +1332,7 @@ int main(int argc, char* argv[])
             }
 
             if (!AwsDoc::ACM::ListCertificates(
-                argv[2])) // For example, "us-east-1". 
+                argv[2])) // For example, "us-east-1".
             {
                 return 1;
             }
@@ -1351,7 +1350,7 @@ int main(int argc, char* argv[])
 
             if (!AwsDoc::ACM::ListTagsForCertificate(
                 argv[2],  // For example, "arn:aws:acm:us-east-1:111111111111:certificate/9301d141-c7f8-4b02-9fb7-78eb2EXAMPLE".
-                argv[3])) // For example, "us-east-1". 
+                argv[3])) // For example, "us-east-1".
             {
                 return 1;
             }
@@ -1362,15 +1361,15 @@ int main(int argc, char* argv[])
             {
                 std::cout << "Usage: " << PROGRAM_NAME << " --remove-tag  <certificate ARN> <tag key> <region>" << std::endl;
                 std::cout << "Example: " << PROGRAM_NAME <<
-                    " --remove-tag arn:aws:acm:us-east-1:111111111111:certificate/9301d141-c7f8-4b02-9fb7-78eb2EXAMPLE my-key us-east-1" << std::endl; 
-                
+                    " --remove-tag arn:aws:acm:us-east-1:111111111111:certificate/9301d141-c7f8-4b02-9fb7-78eb2EXAMPLE my-key us-east-1" << std::endl;
+
                 return 1;
             }
 
             if (!AwsDoc::ACM::RemoveTagFromCertificate(
                     argv[2],  // For example, "arn:aws:acm:us-east-1:111111111111:certificate/9301d141-c7f8-4b02-9fb7-78eb2EXAMPLE".
-                    argv[3],  // For example, "my-key". 
-                    argv[4])) // For example, "us-east-1". 
+                    argv[3],  // For example, "my-key".
+                    argv[4])) // For example, "us-east-1".
                 {
                     return 1;
                 }
@@ -1385,10 +1384,10 @@ int main(int argc, char* argv[])
 
                 return 1;
             }
-        
+
             if (!AwsDoc::ACM::RenewCertificate(
                 argv[2],  // For example, "arn:aws:acm:us-east-1:111111111111:certificate/9301d141-c7f8-4b02-9fb7-78eb2EXAMPLE".
-                argv[3])) // For example, "us-east-1". 
+                argv[3])) // For example, "us-east-1".
             {
                 return 1;
             }
@@ -1439,11 +1438,11 @@ int main(int argc, char* argv[])
 
                 return 1;
             }
-            
+
             if (!AwsDoc::ACM::UpdateCertificateOption(
                 argv[2],  // For example, "arn:aws:acm:us-east-1:111111111111:certificate/9301d141-c7f8-4b02-9fb7-78eb2EXAMPLE".
                 argv[3],  // For example, "us-east-1".
-                argv[4])) // For example, "logging-enabled". 
+                argv[4])) // For example, "logging-enabled".
             {
                 return 1;
             }
@@ -1456,6 +1455,6 @@ int main(int argc, char* argv[])
         }
     }
     Aws::ShutdownAPI(options);
-    
+
     return 0;
 }

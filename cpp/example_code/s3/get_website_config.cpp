@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0 
+// SPDX - License - Identifier: Apache - 2.0
 
 //snippet-start:[s3.cpp.get_website_config.inc]
 #include <iostream>
@@ -9,8 +9,9 @@
 #include <awsdoc/s3/s3_examples.h>
 //snippet-end:[s3.cpp.get_website_config.inc]
 
-/* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Gets information about a bucket in Amazon S3 that is 
+/*
+Purpose:
+Gets information about a bucket in Amazon S3 that is
  * configured for static website hosting.
  *
  * Prerequisites: A bucket that is configured for static website hosting.
@@ -19,12 +20,12 @@
  * - bucketName: The name of the bucket.
  * - region: The AWS Region where the bucket is hosted.
  *
- * Outputs: true if static website hosting information was retrieved for the 
+ * Outputs: true if static website hosting information was retrieved for the
  * bucket; otherwise, false.
  * ///////////////////////////////////////////////////////////////////////// */
 
 // snippet-start:[s3.cpp.get_website_config.code]
-bool AwsDoc::S3::GetWebsiteConfig(const Aws::String& bucketName, 
+bool AwsDoc::S3::GetWebsiteConfig(const Aws::String& bucketName,
     const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
@@ -39,7 +40,7 @@ bool AwsDoc::S3::GetWebsiteConfig(const Aws::String& bucketName,
     Aws::S3::Model::GetBucketWebsiteRequest request;
     request.SetBucket(bucketName);
 
-    Aws::S3::Model::GetBucketWebsiteOutcome outcome = 
+    Aws::S3::Model::GetBucketWebsiteOutcome outcome =
         s3_client.GetBucketWebsite(request);
 
     if (outcome.IsSuccess())
@@ -48,7 +49,7 @@ bool AwsDoc::S3::GetWebsiteConfig(const Aws::String& bucketName,
 
         std::cout << "Success: GetBucketWebsite: "
             << std::endl << std::endl
-            << "For bucket '" << bucketName << "':" 
+            << "For bucket '" << bucketName << "':"
             << std::endl
             << "Index page : "
             << result.GetIndexDocument().GetSuffix()

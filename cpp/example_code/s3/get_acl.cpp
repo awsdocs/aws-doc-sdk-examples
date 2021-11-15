@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0 
+// SPDX - License - Identifier: Apache - 2.0
 
 // snippet-start:[s3.cpp.get_acl.inc]
 #include <iostream>
@@ -14,8 +14,11 @@
 
 /* ////////////////////////////////////////////////////////////////////////////
  * GetBucketAcl:
- * 
- * Purpose: Gets information about an access control list (ACL) for a bucket 
+ *
+ * Purpose:
+
+
+Gets information about an access control list (ACL) for a bucket
  * in Amazon S3.
  *
  * Prerequisites: The bucket to get the ACL information about.
@@ -28,7 +31,10 @@
  * ////////////////////////////////////////////////////////////////////////////
  * GetGranteeTypeString:
  *
- * Purpose: Converts a type enumeration to a human-readable string.
+ * Purpose:
+
+
+Converts a type enumeration to a human-readable string.
  *
  * Inputs:
  * - permission: The type enumeration.
@@ -37,7 +43,10 @@
  * ////////////////////////////////////////////////////////////////////////////
  * GetPermissionString:
  *
- * Purpose: Converts a permission enumeration to a human-readable string.
+ * Purpose:
+
+
+Converts a permission enumeration to a human-readable string.
  *
  * Inputs:
  * - type: The type of resource (bucket or object).
@@ -63,7 +72,7 @@ Aws::String GetGranteeTypeString(const Aws::S3::Model::Type& type)
     }
 }
 
-Aws::String GetPermissionString(const Aws::String& type, 
+Aws::String GetPermissionString(const Aws::String& type,
     const Aws::S3::Model::Permission& permission)
 {
     if (type == "bucket")
@@ -114,7 +123,7 @@ Aws::String GetPermissionString(const Aws::String& type,
 }
 
 // snippet-start:[s3.cpp.get_acl_bucket.code]
-bool AwsDoc::S3::GetBucketAcl(const Aws::String& bucketName, 
+bool AwsDoc::S3::GetBucketAcl(const Aws::String& bucketName,
     const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
@@ -125,20 +134,20 @@ bool AwsDoc::S3::GetBucketAcl(const Aws::String& bucketName,
     Aws::S3::Model::GetBucketAclRequest request;
     request.SetBucket(bucketName);
 
-    Aws::S3::Model::GetBucketAclOutcome outcome = 
+    Aws::S3::Model::GetBucketAclOutcome outcome =
         s3_client.GetBucketAcl(request);
 
     if (outcome.IsSuccess())
     {
-        Aws::Vector<Aws::S3::Model::Grant> grants = 
+        Aws::Vector<Aws::S3::Model::Grant> grants =
             outcome.GetResult().GetGrants();
 
         for (auto it = grants.begin(); it != grants.end(); it++)
         {
             Aws::S3::Model::Grant grant = *it;
             Aws::S3::Model::Grantee grantee = grant.GetGrantee();
-            
-            std::cout << "For bucket " << bucketName << ": " 
+
+            std::cout << "For bucket " << bucketName << ": "
                 << std::endl << std::endl;
 
             if (grantee.TypeHasBeenSet())
@@ -146,40 +155,40 @@ bool AwsDoc::S3::GetBucketAcl(const Aws::String& bucketName,
                 std::cout << "Type:          "
                     << GetGranteeTypeString(grantee.GetType()) << std::endl;
             }
-            
+
             if (grantee.DisplayNameHasBeenSet())
             {
-                std::cout << "Display name:  " 
+                std::cout << "Display name:  "
                     << grantee.GetDisplayName() << std::endl;
             }
 
             if (grantee.EmailAddressHasBeenSet())
             {
-                std::cout << "Email address: " 
+                std::cout << "Email address: "
                     << grantee.GetEmailAddress() << std::endl;
             }
 
             if (grantee.IDHasBeenSet())
             {
-                std::cout << "ID:            " 
+                std::cout << "ID:            "
                     << grantee.GetID() << std::endl;
             }
-            
+
             if (grantee.URIHasBeenSet())
             {
-                std::cout << "URI:           " 
+                std::cout << "URI:           "
                     << grantee.GetURI() << std::endl;
             }
-            
-            std::cout << "Permission:    " << 
-                GetPermissionString("bucket", grant.GetPermission()) << 
+
+            std::cout << "Permission:    " <<
+                GetPermissionString("bucket", grant.GetPermission()) <<
                 std::endl << std::endl;
         }
     }
     else
     {
         auto err = outcome.GetError();
-        std::cout << "Error: GetBucketAcl: " 
+        std::cout << "Error: GetBucketAcl: "
             << err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
 
         return false;
@@ -190,7 +199,7 @@ bool AwsDoc::S3::GetBucketAcl(const Aws::String& bucketName,
 // snippet-end:[s3.cpp.get_acl_bucket.code]
 
 // snippet-start:[s3.cpp.get_acl_object.code]
-bool AwsDoc::S3::GetObjectAcl(const Aws::String& bucketName, 
+bool AwsDoc::S3::GetObjectAcl(const Aws::String& bucketName,
     const Aws::String& objectKey, const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
@@ -212,7 +221,7 @@ bool AwsDoc::S3::GetObjectAcl(const Aws::String& bucketName,
 
         for (auto it = grants.begin(); it != grants.end(); it++)
         {
-            std::cout << "For object " << objectKey << ": " 
+            std::cout << "For object " << objectKey << ": "
                 << std::endl << std::endl;
 
             Aws::S3::Model::Grant grant = *it;
@@ -268,7 +277,7 @@ bool AwsDoc::S3::GetObjectAcl(const Aws::String& bucketName,
 
 int main()
 {
-    //TODO: Name of your bucket that already contains "my-file.txt".  
+    //TODO: Name of your bucket that already contains "my-file.txt".
     //See create_bucket.cpp and put_object.cpp to create a bucket and load an object into that bucket.
     Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
     //TODO: Name of object already in bucket.

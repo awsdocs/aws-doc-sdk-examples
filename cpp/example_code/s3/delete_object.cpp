@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0 
+// SPDX - License - Identifier: Apache - 2.0
 
 // snippet-start:[s3.cpp.delete_object.inc]
 #include <iostream>
@@ -9,8 +9,9 @@
 #include <awsdoc/s3/s3_examples.h>
 // snippet-end:[s3.cpp.delete_object.inc]
 
-/* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Deletes an object from a bucket in Amazon S3.
+/*
+Purpose:
+Deletes an object from a bucket in Amazon S3.
  *
  * Prerequisites: The bucket containing the object to be deleted.
  *
@@ -23,7 +24,7 @@
  * ///////////////////////////////////////////////////////////////////////// */
 
 // snippet-start:[s3.cpp.delete_object.code]
-bool AwsDoc::S3::DeleteObject(const Aws::String& objectKey, 
+bool AwsDoc::S3::DeleteObject(const Aws::String& objectKey,
     const Aws::String& fromBucket,const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
@@ -40,7 +41,7 @@ bool AwsDoc::S3::DeleteObject(const Aws::String& objectKey,
     request.WithKey(objectKey)
         .WithBucket(fromBucket);
 
-    Aws::S3::Model::DeleteObjectOutcome outcome = 
+    Aws::S3::Model::DeleteObjectOutcome outcome =
         s3_client.DeleteObject(request);
 
     if (!outcome.IsSuccess())

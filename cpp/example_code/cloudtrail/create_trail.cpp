@@ -1,37 +1,18 @@
- 
-//snippet-sourcedescription:[create_trail.cpp demonstrates how to create an AWS CloudTrail resource using command-line input.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS CloudTrail]
-//snippet-service:[cloudtrail]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[tapasweni-pathak]
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+Purpose:
+create_trail.cpp demonstrates how to create an AWS CloudTrail resource using command-line input.
 */
-
+//snippet-start:[ct.cpp.create_trail.inc]
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h>
 #include <aws/cloudtrail/CloudTrailClient.h>
 #include <aws/cloudtrail/model/CreateTrailRequest.h>
 #include <aws/cloudtrail/model/CreateTrailResult.h>
 #include <iostream>
-
-/**
- * Creates a cloud trail on command line input
- */
-
+//snippet-end:[ct.cpp.create_trail.inc]
 int main(int argc, char **argv)
 {
   if (argc != 3)
@@ -44,7 +25,7 @@ int main(int argc, char **argv)
   {
     Aws::String trail_name(argv[1]);
     Aws::String bucket_name(argv[2]);
-
+    //snippet-start:[ct.cpp.create_trail]
     Aws::CloudTrail::CloudTrailClient ct;
 
     Aws::CloudTrail::Model::CreateTrailRequest ct_req;
@@ -63,8 +44,8 @@ int main(int argc, char **argv)
       std::cout << "Error creating cloud trail " << ct_out.GetError().GetMessage()
         << std::endl;
     }
+     //snippet-start:[ct.cpp.create_trail]
   }
-
   Aws::ShutdownAPI(options);
   return 0;
 }

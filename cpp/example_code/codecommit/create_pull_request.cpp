@@ -1,26 +1,11 @@
- 
-//snippet-sourcedescription:[create_pull_request.cpp demonstrates how to create a pull request with AWS CodeCommit.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS CodeCommit]
-//snippet-service:[codecommit]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[tapasweni-pathak]
-
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
+Purpose:
+create_pull_request.cpp demonstrates how to create a pull request with AWS CodeCommit.
 
+*/
+//snippet-start:[cc.cpp.create_pull_request.inc]
 #include <aws/core/Aws.h>
 #include <aws/codecommit/CodeCommitClient.h>
 #include <aws/codecommit/model/CreatePullRequestRequest.h>
@@ -28,6 +13,7 @@
 #include <aws/codecommit/model/Target.h>
 #include <aws/core/utils/Outcome.h>
 #include <iostream>
+//snippet-end:[cc.cpp.create_pull_request.inc]
 
 /**
  * Creates a pull request based with title, description, repository name, source branch
@@ -52,6 +38,7 @@ int main(int argc, char ** argv)
     Aws::String source_branch_name(argv[4]);
     Aws::String destination_branch_name(argv[5]);
 
+    //snippet-start:[cc.cpp.create_pull_request]
     Aws::CodeCommit::CodeCommitClient codecommit;
 
     Aws::CodeCommit::Model::Target targets;
@@ -76,6 +63,8 @@ int main(int argc, char ** argv)
       std::cout << "Error creating pull request " << cpr_out.GetError().GetMessage()
         << std::endl;
     }
+        //snippet-end:[cc.cpp.create_pull_request]
+
   }
 
   Aws::ShutdownAPI(options);

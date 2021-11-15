@@ -1,9 +1,0 @@
-# Disregard this file. AWS uses it internally to
-# track code coverage and unit test coverage
-# within this repository.
----
-files:
-  - path: s3-crt-demo.cpp
-    services:
-    - s3-crt
-...

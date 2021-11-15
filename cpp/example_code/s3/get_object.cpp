@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0 
+// SPDX - License - Identifier: Apache - 2.0
 
 //snippet-start:[s3.cpp.get_object.inc]
 #include <iostream>
@@ -10,8 +10,9 @@
 #include <awsdoc/s3/s3_examples.h>
 //snippet-end:[s3.cpp.get_object.inc]
 
-/* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Prints the beginning contents of a text file in a 
+/*
+Purpose:
+Prints the beginning contents of a text file in a
  * bucket in Amazon S3.
  * For an example of downloading an entire, larger object, see the s3-crt example.
  *
@@ -22,7 +23,7 @@
  * - fromBucket: The name of the bucket that contains the text file.
  * - region: The AWS Region for the bucket.
  *
- * Outputs: true if the contents of the text file were retrieved; 
+ * Outputs: true if the contents of the text file were retrieved;
  * otherwise, false.
  * ///////////////////////////////////////////////////////////////////////// */
 
@@ -43,7 +44,7 @@ bool AwsDoc::S3::GetObject(const Aws::String& objectKey,
     object_request.SetBucket(fromBucket);
     object_request.SetKey(objectKey);
 
-    Aws::S3::Model::GetObjectOutcome get_object_outcome = 
+    Aws::S3::Model::GetObjectOutcome get_object_outcome =
         s3_client.GetObject(object_request);
 
     if (get_object_outcome.IsSuccess())
@@ -76,7 +77,7 @@ int main()
     {
         //TODO: Change bucket_name to the name of a bucket in your account.
         const Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
-        //TODO: The bucket "DOC-EXAMPLE-BUCKET" must have been created and previously loaded with "my-file.txt". 
+        //TODO: The bucket "DOC-EXAMPLE-BUCKET" must have been created and previously loaded with "my-file.txt".
         //See create_bucket.cpp and put_object.cpp to create a bucket and load an object into that bucket.
         const Aws::String object_name = "my-file.txt";
         //TODO: Set to the AWS Region in which the bucket was created.

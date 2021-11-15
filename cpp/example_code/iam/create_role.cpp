@@ -1,13 +1,10 @@
-//snippet-sourcedescription:[create_role.cpp demonstrates how to create an Amazon IAM role.]
-//snippet-service:[iam]
-//snippet-keyword:[Amazon Identity and Access Management (IAM)]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-2-8]
-//snippet-sourceauthor:[AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 
+/*
+Purpose:
+create_role.cpp demonstrates how to create an Amazon IAM role.]
+*/
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/CreateRoleRequest.h>
@@ -34,7 +31,7 @@ Aws::IAM::Model::Role* CreateIamRole(
     auto outcome = iam_client.CreateRole(iam_req);
     if (!outcome.IsSuccess())
     {
-        std::cerr << "Error creating role. " << 
+        std::cerr << "Error creating role. " <<
             outcome.GetError().GetMessage() << std::endl;
         return NULL;
     }
@@ -55,7 +52,7 @@ int main()
     {
         // Set these configuration values before running the program
         Aws::String roleName = "RoleToAccessS3";
-        
+
         // Define a role trust policy
         Aws::String roleTrustPolicy = R"({
             "Version": "2012-10-17",
@@ -76,9 +73,9 @@ int main()
             std::cout << "ARN: " << iamRole.GetArn() << std::endl;
 
             // After creating a role, define its permissions by either:
-            //    -- Attaching a managed permissions policy by calling 
+            //    -- Attaching a managed permissions policy by calling
             //       AttachRolePolicy()
-            //    -- Putting an inline permissions policy by calling 
+            //    -- Putting an inline permissions policy by calling
             //       PutRolePolicy()
         }
     }

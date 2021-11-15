@@ -1,21 +1,12 @@
- 
-//snippet-sourcedescription:[get_item.cpp demonstrates how to perfrom scan operation on an Amazon DynamoDB table.]
-//snippet-service:[dynamodb]
-//snippet-keyword:[Amazon DynamoDB]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
-
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0 
-
+// SPDX - License - Identifier: Apache - 2.0
+/*
+Purpose:
+get_item.cpp demonstrates how to perfrom scan operation on an Amazon DynamoDB table.
+*/
 //snippet-start:[dynamodb.cpp.scan_table.inc]
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h> 
+#include <aws/core/utils/Outcome.h>
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/AttributeDefinition.h>
 #include <aws/dynamodb/model/ScanRequest.h>
@@ -28,9 +19,9 @@
 *
 * Takes the name of the table.
 *
-* The table is scanned and all items are displayed. By default, all fields and values 
+* The table is scanned and all items are displayed. By default, all fields and values
 * contained in the item are returned. If an optional projection expression is
-* specified on the command line, only the specified fields and values are 
+* specified on the command line, only the specified fields and values are
 * returned.
 *
 */
@@ -63,13 +54,13 @@ int main(int argc, char** argv)
 
         // snippet-start:[dynamodb.cpp.scan_table.code]
         Aws::Client::ClientConfiguration clientConfig;
-       
+
         Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
         Aws::DynamoDB::Model::ScanRequest req;
         req.SetTableName(table);
 
         if (!projection.empty())
-            req.SetProjectionExpression(projection);        
+            req.SetProjectionExpression(projection);
 
 
         // Perform scan on table
@@ -78,7 +69,7 @@ int main(int argc, char** argv)
         {
             // Reference the retrieved items
             const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>>& items = result.GetResult().GetItems();
-            if(items.size() > 0) 
+            if(items.size() > 0)
             {
                 std::cout << "Number of items retrieved from scan: " << items.size() << std::endl;
                 //Iterate each item and print

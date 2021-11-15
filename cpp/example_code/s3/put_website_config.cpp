@@ -11,8 +11,9 @@
 #include <awsdoc/s3/s3_examples.h>
 //snippet-end:[s3.cpp.put_website_config.inc]
 
-/* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Configures a bucket in Amazon S3 for static website hosting.
+/*
+Purpose:
+Configures a bucket in Amazon S3 for static website hosting.
  *
  * Prerequisites: An Amazon S3 bucket.
  *
@@ -27,8 +28,8 @@
  * ///////////////////////////////////////////////////////////////////////// */
 
 // snippet-start:[s3.cpp.put_website_config.code]
-bool AwsDoc::S3::PutWebsiteConfig(const Aws::String& bucketName, 
-    const Aws::String& indexPage, const Aws::String& errorPage, 
+bool AwsDoc::S3::PutWebsiteConfig(const Aws::String& bucketName,
+    const Aws::String& indexPage, const Aws::String& errorPage,
     const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
@@ -40,7 +41,7 @@ bool AwsDoc::S3::PutWebsiteConfig(const Aws::String& bucketName,
     }
 
     Aws::S3::S3Client s3_client(config);
-        
+
     Aws::S3::Model::IndexDocument index_doc;
     index_doc.SetSuffix(indexPage);
 
@@ -55,12 +56,12 @@ bool AwsDoc::S3::PutWebsiteConfig(const Aws::String& bucketName,
     request.SetBucket(bucketName);
     request.SetWebsiteConfiguration(website_config);
 
-    Aws::S3::Model::PutBucketWebsiteOutcome outcome = 
+    Aws::S3::Model::PutBucketWebsiteOutcome outcome =
         s3_client.PutBucketWebsite(request);
 
     if (outcome.IsSuccess())
     {
-        std::cout << "Success: Set website configuration for bucket '" 
+        std::cout << "Success: Set website configuration for bucket '"
             << bucketName << "'." << std::endl;
 
         return true;
@@ -72,7 +73,7 @@ bool AwsDoc::S3::PutWebsiteConfig(const Aws::String& bucketName,
 
         return false;
     }
-    
+
     return 1;
 }
 
@@ -94,7 +95,7 @@ int main()
         {
             return 1;
         }
-        
+
     }
     Aws::ShutdownAPI(options);
 
