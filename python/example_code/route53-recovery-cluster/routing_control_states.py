@@ -17,7 +17,7 @@ import boto3
 
 def create_recovery_client(cluster_endpoint):
     """
-    Creates a Boto3 Route 53 Application Recovery Controller for the specified
+    Creates a Boto3 Route 53 Application Recovery Controller client for the specified
     cluster endpoint URL and AWS Region.
 
     :param cluster_endpoint: The cluster endpoint URL and Region.
@@ -33,7 +33,7 @@ def create_recovery_client(cluster_endpoint):
 # snippet-start:[python.example_code.route53-recovery-cluster.GetRoutingControlState]
 def get_routing_control_state(routing_control_arn, cluster_endpoints):
     """
-    Gets the state of a routing control for a cluster. Endpoints are tried in
+    Gets the state of a routing control. Cluster endpoints are tried in
     sequence until the first successful response is received.
 
     :param routing_control_arn: The ARN of the routing control to look up.
@@ -55,13 +55,13 @@ def get_routing_control_state(routing_control_arn, cluster_endpoints):
 def update_routing_control_state(
         routing_control_arn, cluster_endpoints, routing_control_state):
     """
-    Updates the state of a routing control for a cluster. Endpoints are tried in
+    Updates the state of a routing control. Cluster endpoints are tried in
     sequence until the first successful response is received.
 
-    :param routing_control_arn: The ARN of the routing control to set.
-    :param cluster_endpoints: The list of cluster endpoints to set.
-    :param routing_control_state: The state to set for the routing control.
-    :return: The routing control update response for each endpoint.
+    :param routing_control_arn: The ARN of the routing control to update the state for.
+    :param cluster_endpoints: The list of cluster endpoints to try.
+    :param routing_control_state: The new routing control state.
+    :return: The routing control update response.
     """
     for cluster_endpoint in cluster_endpoints:
         try:
