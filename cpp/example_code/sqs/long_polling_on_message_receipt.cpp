@@ -1,12 +1,26 @@
+//snippet-sourcedescription:[long_polling_on_message_receipt.cpp demonstrates how to retrieve messages from an Amazon SQS queue using long-poll support.]
+//snippet-service:[sqs]
+//snippet-keyword:[Amazon Simple Queue Service]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
 /*
-Purpose:
-long_polling_on_message_receipt.cpp demonstrates how to retrieve messages from an Amazon SQS queue using long-poll support.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
+   This file is licensed under the Apache License, Version 2.0 (the "License").
+   You may not use this file except in compliance with the License. A copy of
+   the License is located at
 
+    http://aws.amazon.com/apache2.0/
 
-
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations under the License.
+*/
 //snippet-start:[sqs.cpp.long_polling_on_message_receipt.inc]
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
@@ -67,7 +81,7 @@ void ReceiveMessage(const Aws::String& queue_url, int wait_time)
     }
     else
     {
-        std::cout << "Error deleting message " << message.GetMessageId() <<
+        std::cout << "Error deleting message " << message.GetMessageId() << 
             " from queue " << queue_url << ": " <<
 
             delete_outcome.GetError().GetMessage() << std::endl;

@@ -1,21 +1,26 @@
-
-/*
-Purpose:
-batch_get_item.cpp demonstrates how to batch get items from different Amazon DynamoDB tables.
+ 
+//snippet-sourcedescription:[batch_get_item.cpp demonstrates how to batch get items from different Amazon DynamoDB tables.]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon DynamoDB]
+//snippet-service:[dynamodb]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 
 
 // BatchGetItem.cpp : Defines the entry point for the console application.
-*/
-//snippet-start:[cc.cpp.batch_get_item.inc]
+//
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h>
+#include <aws/core/utils/Outcome.h> 
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/AttributeDefinition.h>
 #include <aws/dynamodb/model/BatchGetItemRequest.h>
 #include <aws/dynamodb/model/KeysAndAttributes.h>
 #include <aws/core/http/HttpRequest.h>
 #include <iostream>
-//snippet-end:[cc.cpp.batch_get_item.inc]
+
 
 /**
 * Batch get items from different DynamoDB tables.
@@ -32,7 +37,6 @@ int main(int argc, char** argv)
 
 	Aws::InitAPI(options);
 	{
-	    //snippet-start:[cc.cpp.batch_get_item]
 		Aws::Client::ClientConfiguration clientConfig;
 		// Set the region where your DynamoDB tables exist
 		clientConfig.region = Aws::Region::US_WEST_2;
@@ -129,7 +133,6 @@ int main(int argc, char** argv)
 		{
 			std::cout << "Batch get item failed: " << result.GetError().GetMessage();
 		}
-			//snippet-end:[cc.cpp.batch_get_item]
 	}
 	Aws::ShutdownAPI(options);
 	return 0;

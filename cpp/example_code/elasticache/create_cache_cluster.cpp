@@ -1,18 +1,32 @@
+ 
+//snippet-sourcedescription:[create_cache_cluster.cpp demonstrates how to create an Amazon ElastiCache cluster.]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon ElastiCache]
+//snippet-service:[elasticache]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
 
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+
+
 /*
-Purpose:
-create_cache_cluster.cpp demonstrates how to create an Amazon ElastiCache cluster.
-
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   This file is licensed under the Apache License, Version 2.0 (the "License").
+   You may not use this file except in compliance with the License. A copy of
+   the License is located at
+    http://aws.amazon.com/apache2.0/
+   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations under the License.
 */
-//snippet-start:[ecache.cpp.create_cache_cluster.inc]
+
 #include <aws/core/Aws.h>
 #include <aws/elasticache/ElastiCacheClient.h>
 #include <aws/elasticache/model/CreateCacheClusterRequest.h>
 #include <aws/elasticache/model/CreateCacheClusterResult.h>
 #include <iostream>
-//snippet-end:[ecache.cpp.create_cache_cluster.inc]
 
 int main(int argc, char ** argv)
 {
@@ -31,7 +45,6 @@ int main(int argc, char ** argv)
     Aws::String cache_node_type(argv[3]);
     auto num_cache_nodes = Aws::Utils::StringUtils::ConvertToInt32(argv[4]);
 
-    //snippet-start:[ecache.cpp.create_cache_cluster]
     Aws::ElastiCache::ElastiCacheClient elasticache;
 
     Aws::ElastiCache::Model::CreateCacheClusterRequest ccc_req;
@@ -52,7 +65,6 @@ int main(int argc, char ** argv)
       std::cout << "Error creating cache cluster" << ccc_out.GetError().GetMessage()
         << std::endl;
     }
-        //snippet-end:[ecache.cpp.create_cache_cluster]
   }
 
   Aws::ShutdownAPI(options);

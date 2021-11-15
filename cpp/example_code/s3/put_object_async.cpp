@@ -13,20 +13,19 @@
 #include <awsdoc/s3/s3_examples.h>
 
 // snippet-start:[s3.cpp.put_object_async.mutex_vars]
-// A mutex is a synchronization primitive that can be used to protect shared
+// A mutex is a synchronization primitive that can be used to protect shared 
 // data from being simultaneously accessed by multiple threads.
 std::mutex upload_mutex;
 
-// A condition_variable is a synchronization primitive that can be used to
-// block a thread, or multiple threads at the same time, until another
-// thread both modifies a shared variable (the condition) and
-// notifies the condition_variable.
+// A condition_variable is a synchronization primitive that can be used to 
+// block a thread, or multiple threads at the same time, until another 
+// thread both modifies a shared variable (the condition) and 
+// notifies the condition_variable. 
 std::condition_variable upload_variable;
 // snippet-end:[s3.cpp.put_object_async.mutex_vars]
 
-/*
-Purpose:
-Signals to the caller whether an object was added to an
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: Signals to the caller whether an object was added to an
  * Amazon S3 bucket.
  *
  * Prerequisites: An Amazon S3 bucket and the object to be added.
@@ -39,13 +38,13 @@ Signals to the caller whether an object was added to an
  * ///////////////////////////////////////////////////////////////////////// */
 
 // snippet-start:[s3.cpp.put_object_async_finished.code]
-void PutObjectAsyncFinished(const Aws::S3::S3Client* s3Client,
-    const Aws::S3::Model::PutObjectRequest& request,
+void PutObjectAsyncFinished(const Aws::S3::S3Client* s3Client, 
+    const Aws::S3::Model::PutObjectRequest& request, 
     const Aws::S3::Model::PutObjectOutcome& outcome,
     const std::shared_ptr<const Aws::Client::AsyncCallerContext>& context)
 {
     if (outcome.IsSuccess()) {
-        std::cout << "Success: PutObjectAsyncFinished: Finished uploading '"
+        std::cout << "Success: PutObjectAsyncFinished: Finished uploading '" 
             << context->GetUUID() << "'." << std::endl;
     }
     else {
@@ -58,9 +57,8 @@ void PutObjectAsyncFinished(const Aws::S3::S3Client* s3Client,
 }
 // snippet-end:[s3.cpp.put_object_async_finished.code]
 
-/*
-Purpose:
-Adds an object to an Amazon S3 bucket, asynchronously.
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: Adds an object to an Amazon S3 bucket, asynchronously.
  *
  * Prerequisites: An Amazon S3 bucket and the object to be added.
  *
@@ -106,9 +104,9 @@ bool AwsDoc::S3::PutObjectAsync(const Aws::S3::S3Client& s3Client,
         Aws::MakeShared<Aws::Client::AsyncCallerContext>("PutObjectAllocationTag");
     context->SetUUID(objectName);
 
-    // Make the asynchronous put object call. Queue the request into a
-    // thread executor and call the PutObjectAsyncFinished function when the
-    // operation has finished.
+    // Make the asynchronous put object call. Queue the request into a 
+    // thread executor and call the PutObjectAsyncFinished function when the 
+    // operation has finished. 
     s3Client.PutObjectAsync(request, PutObjectAsyncFinished, context);
 
     return true;
@@ -128,14 +126,14 @@ int main()
         //TODO: Set to the AWS Region in which the bucket was created.
         const Aws::String region = "us-east-1";
 
-        // A unique_lock is a general-purpose mutex ownership wrapper allowing
-        // deferred locking, time-constrained attempts at locking, recursive
-        // locking, transfer of lock ownership, and use with
+        // A unique_lock is a general-purpose mutex ownership wrapper allowing 
+        // deferred locking, time-constrained attempts at locking, recursive 
+        // locking, transfer of lock ownership, and use with 
         // condition variables.
         std::unique_lock<std::mutex> lock(upload_mutex);
 
-        // Create and configure the Amazon S3 client.
-        // This client must be declared here, as this client must exist
+        // Create and configure the Amazon S3 client. 
+        // This client must be declared here, as this client must exist 
         // until the put object operation finishes.
         Aws::Client::ClientConfiguration config;
 
@@ -148,16 +146,16 @@ int main()
 
         if (AwsDoc::S3::PutObjectAsync(s3_client, bucket_name, object_name, region)) {
 
-            std::cout << "main: Waiting for file upload attempt..." <<
+            std::cout << "main: Waiting for file upload attempt..." << 
                 std::endl << std::endl;
-
-            // While the put object operation attempt is in progress,
+            
+            // While the put object operation attempt is in progress, 
             // you can perform other tasks.
-            // This example simply blocks until the put object operation
+            // This example simply blocks until the put object operation 
             // attempt finishes.
             upload_variable.wait(lock);
 
-            std::cout << std::endl << "main: File upload attempt completed."
+            std::cout << std::endl << "main: File upload attempt completed." 
                 << std::endl;
         }
         else

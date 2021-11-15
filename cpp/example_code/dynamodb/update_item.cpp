@@ -1,14 +1,31 @@
+ 
+//snippet-sourcedescription:[update_item.cpp demonstrates how to update an item in an Amazon DynamoDB table.]
+//snippet-service:[dynamodb]
+//snippet-keyword:[Amazon DynamoDB]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[05-24-2019]
+//snippet-sourceauthor:[AWS]
+
+
 /*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX - License - Identifier: Apache - 2.0
-*/
-/*
-Purpose:
-update_item.cpp demonstrates how to update an item in an Amazon DynamoDB table.]
+Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+This file is licensed under the Apache License, Version 2.0 (the "License").
+You may not use this file except in compliance with the License. A copy of
+the License is located at
+
+http://aws.amazon.com/apache2.0/
+
+This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for the
+specific language governing permissions and limitations under the License.
 */
 //snippet-start:[dynamodb.cpp.update_item.inc]
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h>
+#include <aws/core/utils/Outcome.h> 
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/UpdateItemRequest.h>
 #include <aws/dynamodb/model/UpdateItemResult.h>
@@ -24,9 +41,9 @@ update_item.cpp demonstrates how to update an item in an Amazon DynamoDB table.]
  * name does not exist, it is added to the key value.
  *
  * The specified table must have a key called "Name".
- *
+ * 
  * The example code only sets/updates an attribute value. It processes
- * the attribute value as a string, even if the value could be interpreted
+ * the attribute value as a string, even if the value could be interpreted 
  * as a number. Also, the example code does not remove an existing attribute
  * from the key value. Adding support for number values or removal of an
  * attribute would require simple modifications that should be self-evident.
@@ -86,8 +103,8 @@ int main(int argc, char** argv)
 
         // Construct attribute name argument
         // Note: Setting the ExpressionAttributeNames argument is required only
-        // when the name is a reserved word, such as "default". Otherwise, the
-        // name can be included in the update_expression, as in
+        // when the name is a reserved word, such as "default". Otherwise, the 
+        // name can be included in the update_expression, as in 
         // "SET MyAttributeName = :valueA"
         Aws::Map<Aws::String, Aws::String> expressionAttributeNames;
         expressionAttributeNames["#a"] = parsed[0];

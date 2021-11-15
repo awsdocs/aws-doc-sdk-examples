@@ -1,9 +1,13 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
-/*
-Purpose:
-put_role_policy.cpp demonstrates how to put a role policy on an Amazon IAM role.]
-*/
+//snippet-sourcedescription:[put_role_policy.cpp demonstrates how to put a role policy on an Amazon IAM role.]
+//snippet-service:[iam]
+//snippet-keyword:[Amazon Identity and Access Management (IAM)]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2019-2-8]
+//snippet-sourceauthor:[AWS]
+
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/PutRolePolicyRequest.h>
@@ -29,7 +33,7 @@ bool PutRolePolicy(
     auto outcome = iam_client.PutRolePolicy(iam_req);
     if (!outcome.IsSuccess())
     {
-        std::cerr << "Error putting policy on role. " <<
+        std::cerr << "Error putting policy on role. " << 
             outcome.GetError().GetMessage() << std::endl;
         return false;
     }
@@ -66,7 +70,7 @@ int main()
         // Create the IAM role
         if (PutRolePolicy(roleName, policyName, permissionsPolicy))
         {
-            std::cout << "Successfully put permissions policy on " <<
+            std::cout << "Successfully put permissions policy on " << 
                 roleName << std::endl;
         }
     }

@@ -1,5 +1,13 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+/*
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   This file is licensed under the Apache License, Version 2.0 (the "License").
+   You may not use this file except in compliance with the License. A copy of
+   the License is located at
+    http://aws.amazon.com/apache2.0/
+   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations under the License.
+*/
 
 #include <aws/core/Aws.h>
 #include <aws/sns/SNSClient.h>
@@ -10,8 +18,8 @@
 /**
  * Subscribe an email address endpoint to a topic - demonstrates how to initiate a subscription to an Amazon SNS topic with delivery
  *  to an email address.
- *
- * SNS will send a subscription confirmation email to the email address provided which you need to confirm to
+ * 
+ * SNS will send a subscription confirmation email to the email address provided which you need to confirm to 
  * receive messages.
  *
  * <protocol_value> set to "email" provides delivery of message via SMTP (see https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html for available protocols).

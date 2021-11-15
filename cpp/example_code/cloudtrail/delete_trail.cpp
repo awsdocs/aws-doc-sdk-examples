@@ -1,19 +1,36 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+ 
+//snippet-sourcedescription:[delete_trail.cpp demonstrates how to delete an AWS CloudTrail resource using command-line input.]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS CloudTrail]
+//snippet-service:[cloudtrail]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[tapasweni-pathak]
+
 
 /*
-Purpose:
-
-delete_trail.cpp demonstrates how to delete an AWS CloudTrail resource using command-line input.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   This file is licensed under the Apache License, Version 2.0 (the "License").
+   You may not use this file except in compliance with the License. A copy of
+   the License is located at
+    http://aws.amazon.com/apache2.0/
+   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations under the License.
 */
-//snippet-start:[ct.cpp.delete_trial.inc]
+
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h>
 #include <aws/cloudtrail/CloudTrailClient.h>
 #include <aws/cloudtrail/model/DeleteTrailRequest.h>
 #include <aws/cloudtrail/model/DeleteTrailResult.h>
 #include <iostream>
-//snippet-end:[ct.cpp.delete_trial.inc]
+
+/**
+ * Deletes a cloud trail on command line input
+ */
 
 int main(int argc, char **argv)
 {
@@ -26,7 +43,7 @@ int main(int argc, char **argv)
   Aws::InitAPI(options);
   {
     Aws::String trail_name(argv[1]);
-    //snippet-start:[ct.cpp.delete_trial]
+
     Aws::CloudTrail::CloudTrailClient ct;
 
     Aws::CloudTrail::Model::DeleteTrailRequest dt_req;
@@ -45,8 +62,7 @@ int main(int argc, char **argv)
         << std::endl;
     }
   }
-    //snippet-start:[ct.cpp.delete_trial]
+
   Aws::ShutdownAPI(options);
   return 0;
 }
-//snippet-end:[ct.cpp.delete_trial]

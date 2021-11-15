@@ -1,8 +1,24 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+//snippet-sourcedescription:[lambda_example.cpp demonstrates how to programatically create, invoke, and manage an AWS Lambda function.]
+//snippet-service:[lambda]
+//snippet-keyword:[AWS Lambda]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
+//snippet-sourcetype:[full-example]
+//snippet-sourceauthor:[AWS]
+
 /*
-Purpose:
-lambda_example.cpp demonstrates how to programatically create, invoke, and manage an AWS Lambda function.
+Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+This file is licensed under the Apache License, Version 2.0 (the "License").
+You may not use this file except in compliance with the License. A copy of
+the License is located at
+
+http://aws.amazon.com/apache2.0/
+
+This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for the
+specific language governing permissions and limitations under the License.
 */
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h>
@@ -21,7 +37,7 @@ static const char* ALLOCATION_TAG = "helloLambdaWorld";
 
 static std::shared_ptr<Aws::Lambda::LambdaClient> m_client;
 
-static void CreateFunction(Aws::String functionName, Aws::String handler,
+static void CreateFunction(Aws::String functionName, Aws::String handler, 
     Aws::Lambda::Model::Runtime runtime, Aws::String roleARN, Aws::String zipFile)
 {
     Aws::Lambda::Model::CreateFunctionRequest createFunctionRequest;
@@ -34,7 +50,7 @@ static void CreateFunction(Aws::String functionName, Aws::String handler,
     Aws::StringStream buffer;
     buffer << fc.rdbuf();
 
-    functionCode.SetZipFile(Aws::Utils::ByteBuffer((unsigned char*)buffer.str().c_str(),
+    functionCode.SetZipFile(Aws::Utils::ByteBuffer((unsigned char*)buffer.str().c_str(), 
                                                    buffer.str().length()));
     createFunctionRequest.SetCode(functionCode);
     createFunctionRequest.SetRuntime(runtime);
@@ -97,7 +113,7 @@ void InvokeFunction(Aws::String functionName)
         std::getline(payload, functionResult);
         std::cout << "Lambda result:\n" << functionResult << "\n\n";
 
-        // Decode the result header to see requested log information
+        // Decode the result header to see requested log information 
         auto byteLogResult = Aws::Utils::HashingUtils::Base64Decode(result.GetLogResult());
         Aws::StringStream logResult;
         for (unsigned i = 0; i < byteLogResult.GetLength(); i++)
@@ -159,7 +175,7 @@ int main(int argc, char **argv)
 
         const Aws::String functionName(argv[1]);
         const Aws::String functionHandler(argv[2]);
-        const Aws::Lambda::Model::Runtime functionRuntime =
+        const Aws::Lambda::Model::Runtime functionRuntime = 
             Aws::Lambda::Model::RuntimeMapper::GetRuntimeForName(Aws::String(argv[3]));
         const Aws::String functionRoleARN(argv[4]);
         const Aws::String functionZipFile(argv[5]);
@@ -168,7 +184,7 @@ int main(int argc, char **argv)
         Aws::Client::ClientConfiguration clientConfig;
         if (!region.empty())
             clientConfig.region = region;
-        m_client = Aws::MakeShared<Aws::Lambda::LambdaClient>(ALLOCATION_TAG,
+        m_client = Aws::MakeShared<Aws::Lambda::LambdaClient>(ALLOCATION_TAG, 
                                                               clientConfig);
 
         CreateFunction(functionName, functionHandler, functionRuntime,

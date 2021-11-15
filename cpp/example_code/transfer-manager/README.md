@@ -1,13 +1,18 @@
-# Amazon S3 C++ SDK code examples using AWS Transfer Family
+# Amazon S3 C++ SDK code examples using TransferManager
 
 ## Purpose
-The code examples in this directory demonstrate how to work with the Amazon Transfer Family using the AWS SDK for C++.
+The code examples in this directory demonstrate how to work with the Amazon Simple Storage Service 
+(Amazon S3) using the AWS SDK for C++.
 
-Amazon Transfer Family simplifies migration of SFTP, FTPS and FTP based workflows to AWS.
+Amazon S3 is an object storage service that offers industry-leading scalability, data availability, security, and performance. 
+
+This example uses the TransferManager for better upload/download performance over the S3Client.  For other classes provided by the AWS SDK for C++ that also interface to
+Amazon S3, see example folder [s3-crt](../s3-crt) and example folder [s3](../s3).
 
 ## Code examples
-### Usage scenario
-- [Transfer an S3 object using stream into local memory](./transferOnStream.cpp) - This example demonstrates upload and download of large object via memory stream using
+This is a workspace where you can find AWS SDK for C++ S3 examples utilizing the TransferManager class.
+
+- [Multipart upload and download of data with Amazon S3](./transferOnStream.cpp) - This example demonstrates upload and download of large object via memory stream using
 TransferManager.
  
 ## ⚠ Important
@@ -17,19 +22,14 @@ TransferManager.
 - Running the unit tests might result in charges to your AWS account. [optional]
 
 ## Running the Examples
+Before using the code examples, first complete the installation and setup steps of [Getting Started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for C++ Developer Guide.
+The Getting Started section covers how to obtain and build the SDK, and how to build your own code utilizing the SDK with a sample “Hello World”-style application. 
 
-### Prerequisites
-- An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
-- Complete the installation and setup steps of [Getting Started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for C++ Developer Guide.
-The Getting Started section covers how to obtain and build the SDK, and how to build your own code utilizing the SDK with a sample "Hello World"-style application. 
-- See [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html) for information on the structure of the code examples, building, and running the examples.
+Next, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html) for information on the structure of the code examples, building, and running the examples.
 
-To run these code examples, your AWS user must have permissions to perform these actions with AWS Transfer Family.  
-The AWS managed policy named "AmazonTransferFullAccess" may be used to bulk-grant the necessary permissions.  
-For more information on attaching policies to IAM user groups, 
-see [Attaching a policy to an IAM user group](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups_manage_attach-policy.html).
+## Additional Information
+See [Amazon S3 code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/examples-s3.html) in the AWS SDK for C++ Developer Guide for additional information on using the Amazon S3 service with the SDK.
 
 ## Resources
 - [AWS SDK for C++ Documentation](https://docs.aws.amazon.com/sdk-for-cpp/index.html) 
-- [Amazon Simple Storage Service Documentation](https://docs.aws.amazon.com/s3/)
 

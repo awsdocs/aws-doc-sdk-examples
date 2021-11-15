@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX - License - Identifier: Apache - 2.0 
 
 // snippet-start:[s3.cpp.list_buckets.inc]
 #include <iostream>
@@ -9,11 +9,10 @@
 #include <awsdoc/s3/s3_examples.h>
 // snippet-end:[s3.cpp.list_buckets.inc]
 
-/*
-Purpose:
-Lists all available Amazon S3 bucket names in the caller's account.
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: Lists all available Amazon S3 bucket names in the caller's account.
  *
- * Outputs: true if the list of available buckets was retrieved;
+ * Outputs: true if the list of available buckets was retrieved; 
  * otherwise, false.
  * ///////////////////////////////////////////////////////////////////////// */
 

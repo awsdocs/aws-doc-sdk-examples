@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX - License - Identifier: Apache - 2.0 
 
 #include <iostream>
 #include <aws/core/Aws.h>
@@ -7,11 +7,10 @@
 #include <aws/s3/model/CopyObjectRequest.h>
 #include <awsdoc/s3/s3_examples.h>
 
-/*
-Purpose:
-Copies an object from one bucket in Amazon S3 to another bucket.
- *
- * Prerequisites: Two buckets. One of the buckets must contain the object to
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: Copies an object from one bucket in Amazon S3 to another bucket.
+ * 
+ * Prerequisites: Two buckets. One of the buckets must contain the object to 
  * be copied to the other bucket.
  *
  * Inputs:
@@ -23,7 +22,7 @@ Copies an object from one bucket in Amazon S3 to another bucket.
  * Outputs: true if the object was copied; otherwise, false.
  * ///////////////////////////////////////////////////////////////////////// */
 
-bool AwsDoc::S3::CopyObject(const Aws::String& objectKey,
+bool AwsDoc::S3::CopyObject(const Aws::String& objectKey, 
     const Aws::String& fromBucket, const Aws::String& toBucket, const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
@@ -40,7 +39,7 @@ bool AwsDoc::S3::CopyObject(const Aws::String& objectKey,
     request.WithCopySource(fromBucket + "/" + objectKey)
         .WithKey(objectKey)
         .WithBucket(toBucket);
-
+    
     Aws::S3::Model::CopyObjectOutcome outcome = s3_client.CopyObject(request);
 
     if (!outcome.IsSuccess())
@@ -64,7 +63,7 @@ int main()
     {
         //TODO: Name of object already in bucket.
         Aws::String object_key = "my-file.txt";
-        //TODO: Change from_bucket to the name of your bucket that already contains "my-file.txt".
+        //TODO: Change from_bucket to the name of your bucket that already contains "my-file.txt". 
         //See create_bucket.cpp and put_object.cpp to create a bucket and load an object into that bucket.
         Aws::String from_bucket = "MY-FROM-BUCKET";
         //TODO: Change to the name of another bucket in your account.
@@ -75,7 +74,7 @@ int main()
         if (AwsDoc::S3::CopyObject(object_key, from_bucket, to_bucket, region))
         {
             std::cout << "Copied object '" << object_key <<
-                "' from '" << from_bucket << "' to '" << to_bucket << "'." <<
+                "' from '" << from_bucket << "' to '" << to_bucket << "'." << 
                 std::endl;
         }
         else

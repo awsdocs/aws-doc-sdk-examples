@@ -1,12 +1,27 @@
+//snippet-sourcedescription:[Upgrade AWS SDK for C++ to version 1.8 to build create_file_system_with_modeled_exception.cpp. This example demonstrates how to get modeled exception from CreateFileSystem operation outcome.]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Elastic File System]
+//snippet-service:[elasticfilesystem]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
 /**
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/*
-Purpose:
-Upgrade AWS SDK for C++ to version 1.8 to build create_file_system_with_modeled_exception.cpp. This example demonstrates how to get modeled exception from CreateFileSystem operation outcome.
-*/
+#include <iostream>
+#include <aws/core/Aws.h>
+#include <aws/core/utils/Outcome.h>
+#include <aws/core/utils/logging/LogLevel.h>
+#include <aws/elasticfilesystem/EFSClient.h>
+#include <aws/elasticfilesystem/model/CreateFileSystemRequest.h>
+#include <aws/elasticfilesystem/model/DescribeFileSystemsRequest.h>
+#include <aws/elasticfilesystem/model/DeleteFileSystemRequest.h>
+#include <aws/elasticfilesystem/model/FileSystemAlreadyExists.h>
 
 using namespace Aws;
 using namespace Aws::Http;

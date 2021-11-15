@@ -1,17 +1,30 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+//snippet-sourcedescription:[update_file_system.cpp demonstrates how to update the configuration of an Amazon Elastic File System.]
+//snippet-service:[elasticfilesystem]
+//snippet-keyword:[Amazon Elastic File System]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[tapasweni-pathak]
+
 /*
-Purpose:
-update_file_system.cpp demonstrates how to update the configuration of an Amazon Elastic File System.]
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   This file is licensed under the Apache License, Version 2.0 (the "License").
+   You may not use this file except in compliance with the License. A copy of
+   the License is located at
+    http://aws.amazon.com/apache2.0/
+   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations under the License.
 */
-//snippet-start:[efs.cpp.update_file_system.inc]
+
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h>
 #include <aws/elasticfilesystem/EFSClient.h>
 #include <aws/elasticfilesystem/model/UpdateFileSystemRequest.h>
 #include <aws/elasticfilesystem/model/UpdateFileSystemResult.h>
 #include <iostream>
-//snippet-end:[efs.cpp.update_file_system.inc]
 
 /**
  * Update file system based on command line input
@@ -29,7 +42,6 @@ int main(int argc, char **argv)
   {
     Aws::String file_system_id(argv[1]);
     Aws::String throughput_mode(argv[2]);
-    //snippet-start:[efs.cpp.update_file_system]
     Aws::EFS::EFSClient efs;
 
     Aws::EFS::Model::UpdateFileSystemRequest ufs_req;
@@ -61,7 +73,6 @@ int main(int argc, char **argv)
       std::cout << "Error updating file system " << ufs_out.GetError().GetMessage()
         << std::endl;
     }
-        //snippet-end:[efs.cpp.update_file_system]
   }
 
   Aws::ShutdownAPI(options);

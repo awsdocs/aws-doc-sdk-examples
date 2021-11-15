@@ -10,9 +10,8 @@
 #include <awsdoc/s3/s3_examples.h>
 //snippet-end:[s3.cpp.list_objects.inc]
 
-/*
-Purpose:
-Lists all available object names for an Amazon S3 bucket.
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: Lists all available object names for an Amazon S3 bucket.
  *
  * Prerequisites: A bucket containing at least one object.
  *
@@ -25,7 +24,7 @@ Lists all available object names for an Amazon S3 bucket.
  * ///////////////////////////////////////////////////////////////////////// */
 
 // snippet-start:[s3.cpp.list_objects.code]
-bool AwsDoc::S3::ListObjects(const Aws::String& bucketName,
+bool AwsDoc::S3::ListObjects(const Aws::String& bucketName, 
     const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
@@ -44,7 +43,7 @@ bool AwsDoc::S3::ListObjects(const Aws::String& bucketName,
 
     if (outcome.IsSuccess())
     {
-        std::cout << "Objects in bucket '" << bucketName << "':"
+        std::cout << "Objects in bucket '" << bucketName << "':" 
             << std::endl << std::endl;
 
         Aws::Vector<Aws::S3::Model::Object> objects =
@@ -83,7 +82,7 @@ int main()
         {
             return 1;
         }
-
+        
     }
     Aws::ShutdownAPI(options);
 

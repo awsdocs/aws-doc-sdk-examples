@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX - License - Identifier: Apache - 2.0 
 
 //snippet-start:[s3.cpp.get_put_object_acl.inc]
 #include <iostream>
@@ -20,10 +20,7 @@
 /* ////////////////////////////////////////////////////////////////////////////
  * Function: SetGranteePermission
  *
- * Purpose:
-
-
-Converts a human-readable string to a
+ * Purpose: Converts a human-readable string to a
  * built-in permission enumeration.
  *
  * Inputs: A human-readable string.
@@ -33,10 +30,7 @@ Converts a human-readable string to a
  * ////////////////////////////////////////////////////////////////////////////
  * Function: GetGranteeType
  *
- * Purpose:
-
-
-Converts a built-in permission enumeration to a
+ * Purpose: Converts a built-in permission enumeration to a
  * human-readable string.
  *
  * Inputs: A built-in permission enumeration.
@@ -46,10 +40,7 @@ Converts a built-in permission enumeration to a
  * ////////////////////////////////////////////////////////////////////////////
  * Function: SetGranteeType
  *
- * Purpose:
-
-
-Converts a human-readable string to a
+ * Purpose: Converts a human-readable string to a
  * built-in type enumeration.
  *
  * Prerequisites:
@@ -61,13 +52,10 @@ Converts a human-readable string to a
  * ////////////////////////////////////////////////////////////////////////////
  * Function: PutObjectAcl
  *
- * Purpose:
-
-
-Set the access control list (ACL) for an object in
+ * Purpose: Set the access control list (ACL) for an object in 
  * an Amazon S3 bucket.
  *
- * Prerequisites: An existing bucket that contains the object you want to set
+ * Prerequisites: An existing bucket that contains the object you want to set 
  * the ACL for.
  *
  * Inputs:
@@ -79,7 +67,7 @@ Set the access control list (ACL) for an object in
  *   "b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE".
  *   See https://docs.aws.amazon.com/AmazonS3/latest/userguide/finding-canonical-user-id.html for more information.
  * - granteePermission: The access level to enable for the grantee. For example:
- *   - "FULL_CONTROL": Can read the object's data and its metadata,
+ *   - "FULL_CONTROL": Can read the object's data and its metadata, 
  *     and read/write the object's permissions.
  *   - "READ": Can read the object's data and its metadata.
  *   - "WRITE_ACP": Can write the object's permissions.
@@ -102,19 +90,16 @@ Set the access control list (ACL) for an object in
  * ////////////////////////////////////////////////////////////////////////////
  * Function: GetObjectAcl
  *
- * Purpose:
-
-
-Gets information about the access control list (ACL) for an
+ * Purpose: Gets information about the access control list (ACL) for an
  * object in an Amazon S3 bucket.
  *
- * Prerequisites: An existing bucket that contains the object you want to get
+ * Prerequisites: An existing bucket that contains the object you want to get 
  * information about the ACL for.
  *
  * Inputs:
  * - bucketName: The name of the bucket. For example,
  *   "DOC-EXAMPLE-BUCKET".
- * - objectKey: The name of the object to get ACL information
+ * - objectKey: The name of the object to get ACL information 
  *   about. For example, "my-file.txt".
  * - region: The AWS Region identifier for the bucket. For example, "us-east-1".
  *
@@ -160,14 +145,14 @@ Aws::S3::Model::Type SetGranteeType(const Aws::String& type)
 }
 // snippet-start:[s3.cpp.put_object_acl.code]
 bool AwsDoc::S3::PutObjectAcl(const Aws::String& bucketName,
-    const Aws::String& objectKey,
-    const Aws::String& region,
-    const Aws::String& ownerID,
-    const Aws::String& granteePermission,
-    const Aws::String& granteeType,
-    const Aws::String& granteeID,
-    const Aws::String& granteeDisplayName,
-    const Aws::String& granteeEmailAddress,
+    const Aws::String& objectKey, 
+    const Aws::String& region, 
+    const Aws::String& ownerID, 
+    const Aws::String& granteePermission, 
+    const Aws::String& granteeType, 
+    const Aws::String& granteeID, 
+    const Aws::String& granteeDisplayName, 
+    const Aws::String& granteeEmailAddress, 
     const Aws::String& granteeURI)
 {
     Aws::Client::ClientConfiguration config;
@@ -237,7 +222,7 @@ bool AwsDoc::S3::PutObjectAcl(const Aws::String& bucketName,
 
 // snippet-start:[s3.cpp.get_object_acl.code]
 bool AwsDoc::S3::GetObjectAcl(const Aws::String& bucketName,
-    const Aws::String& objectKey,
+    const Aws::String& objectKey, 
     const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
@@ -308,11 +293,11 @@ int main()
         const Aws::String region = "us-east-1";
 
 
-        //TODO: Set owner_id to your canonical id.  It is your bucket so you are the ACL owner.
+        //TODO: Set owner_id to your canonical id.  It is your bucket so you are the ACL owner. 
         //See https://docs.aws.amazon.com/AmazonS3/latest/userguide/finding-canonical-user-id.html for more information.
-        //You can also find it by running the executable run_get_acl.exe of this project.
+        //You can also find it by running the executable run_get_acl.exe of this project. 
 
-        const Aws::String owner_id =
+        const Aws::String owner_id = 
             "b380d412791d395dbcdc1fb1728b32a7cd07edae6467220ac4b7c0769EXAMPLE";
 
         // Set the ACL's grantee information.
@@ -320,14 +305,14 @@ int main()
 
         //TODO: Select which form of grantee (grantee_type) you want, then you must update the data
         // corresponding to that selected type.
-        // If the grantee is by canonical user, then you must specify either the user's ID or
+        // If the grantee is by canonical user, then you must specify either the user's ID or 
         // grantee_display_name:
         const Aws::String grantee_type = "Canonical user";
-        const Aws::String grantee_id =
+        const Aws::String grantee_id = 
             "51ffd418eb142601651cc9d54984604a32b51a23153b4898fd2224772EXAMPLE";
         // const Aws::String grantee_display_name = "janedoe";
 
-        // If the grantee is by Amazon customer by email, then you must specify the email
+        // If the grantee is by Amazon customer by email, then you must specify the email 
         // address:
         // const Aws::String grantee_type = "Amazon customer by email";
         // const Aws::String grantee_email_address = "janedoe@example.com";
@@ -336,22 +321,22 @@ int main()
         //const Aws::String grantee_type = "Group";
         //// This example uses one of Amazon S3 predefined groups: Authenticated Users group (Access permission to this group allows any AWS account to access the resource. )
         //// See https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#specifying-grantee for more information.
-        // const Aws::String grantee_uri =
+        // const Aws::String grantee_uri = 
         //     "http://acs.amazonaws.com/groups/global/AllUsers";
 
         // Set the object's ACL.
-        //TODO: If you elected to use a grantee type other than canonical user above, update this method to
-        //uncomment the additional parameters so that you are supplying the information necessary for the
+        //TODO: If you elected to use a grantee type other than canonical user above, update this method to 
+        //uncomment the additional parameters so that you are supplying the information necessary for the 
         //grantee type you selected (e.g. the name, email address, etc).
         if (!AwsDoc::S3::PutObjectAcl(bucket_name,
-            object_name,
+            object_name, 
             region,
-            owner_id,
-            grantee_permission,
+            owner_id, 
+            grantee_permission, 
             grantee_type,
             grantee_id))
-            // grantee_display_name,
-            // grantee_email_address,
+            // grantee_display_name, 
+            // grantee_email_address, 
             // grantee_uri))
         {
             return 1;

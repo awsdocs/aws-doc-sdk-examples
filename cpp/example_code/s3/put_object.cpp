@@ -11,9 +11,8 @@
 #include <awsdoc/s3/s3_examples.h>
 //snippet-end:[s3.cpp.put_object.inc]
 
-/*
-Purpose:
-Adds an object to an Amazon S3 bucket.
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: Adds an object to an Amazon S3 bucket.
  * For an example of a multipart upload, see the s3-crt code example.
  *
  * Prerequisites: An Amazon S3 bucket and the object to be added.
@@ -27,7 +26,7 @@ Adds an object to an Amazon S3 bucket.
  * ///////////////////////////////////////////////////////////////////////// */
 
 // snippet-start:[s3.cpp.put_object.code]
-bool AwsDoc::S3::PutObject(const Aws::String& bucketName,
+bool AwsDoc::S3::PutObject(const Aws::String& bucketName, 
     const Aws::String& objectName,
     const Aws::String& region)
 {
@@ -50,21 +49,21 @@ bool AwsDoc::S3::PutObject(const Aws::String& bucketName,
     }
 
     Aws::S3::S3Client s3_client(config);
-
+    
     Aws::S3::Model::PutObjectRequest request;
     request.SetBucket(bucketName);
     //We are using the name of the file as the key for the object in the bucket.
     //However, this is just a string and can set according to your retrieval needs.
     request.SetKey(objectName);
 
-    std::shared_ptr<Aws::IOStream> input_data =
-        Aws::MakeShared<Aws::FStream>("SampleAllocationTag",
-            objectName.c_str(),
+    std::shared_ptr<Aws::IOStream> input_data = 
+        Aws::MakeShared<Aws::FStream>("SampleAllocationTag", 
+            objectName.c_str(), 
             std::ios_base::in | std::ios_base::binary);
 
     request.SetBody(input_data);
 
-    Aws::S3::Model::PutObjectOutcome outcome =
+    Aws::S3::Model::PutObjectOutcome outcome = 
         s3_client.PutObject(request);
 
     if (outcome.IsSuccess()) {
@@ -73,11 +72,11 @@ bool AwsDoc::S3::PutObject(const Aws::String& bucketName,
             << bucketName << "'.";
         return true;
     }
-    else
+    else 
     {
-        std::cout << "Error: PutObject: " <<
+        std::cout << "Error: PutObject: " << 
             outcome.GetError().GetMessage() << std::endl;
-
+       
         return false;
     }
 }
@@ -95,7 +94,7 @@ int main()
         const Aws::String region = "us-east-1";
 
         if (!AwsDoc::S3::PutObject(bucket_name, object_name, region)) {
-
+            
             return 1;
         }
     }

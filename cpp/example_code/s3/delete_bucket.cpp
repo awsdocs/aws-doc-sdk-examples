@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX - License - Identifier: Apache - 2.0 
 
 // snippet-start:[s3.cpp.delete_bucket.inc]
 #include <iostream>
@@ -9,9 +9,8 @@
 #include <awsdoc/s3/s3_examples.h>
 // snippet-end:[s3.cpp.delete_bucket.inc]
 
-/*
-Purpose:
-Deletes a bucket from Amazon S3.
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: Deletes a bucket from Amazon S3.
  *
  * Prerequisites: The bucket to be deleted.
  *
@@ -23,7 +22,7 @@ Deletes a bucket from Amazon S3.
  * ///////////////////////////////////////////////////////////////////////// */
 
 // snippet-start:[s3.cpp.delete_bucket.code]
-bool AwsDoc::S3::DeleteBucket(const Aws::String& bucketName,
+bool AwsDoc::S3::DeleteBucket(const Aws::String& bucketName, 
     const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
@@ -34,10 +33,10 @@ bool AwsDoc::S3::DeleteBucket(const Aws::String& bucketName,
     Aws::S3::Model::DeleteBucketRequest request;
     request.SetBucket(bucketName);
 
-    Aws::S3::Model::DeleteBucketOutcome outcome =
+    Aws::S3::Model::DeleteBucketOutcome outcome = 
         s3_client.DeleteBucket(request);
 
-    if (!outcome.IsSuccess())
+    if (!outcome.IsSuccess()) 
     {
         auto err = outcome.GetError();
         std::cout << "Error: DeleteBucket: " <<
@@ -58,7 +57,7 @@ int main()
     Aws::String bucket_name = "DOC-EXAMPLE-BUCKET";
     //TODO:  Set to the AWS Region of the bucket bucket_name.
     Aws::String region = "us-east-1";
-
+    
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {

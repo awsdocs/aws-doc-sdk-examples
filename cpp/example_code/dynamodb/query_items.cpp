@@ -1,12 +1,21 @@
+ 
+//snippet-sourcedescription:[query_items.cpp demonstrates how to perfrom Query operation and retrieve items from an Amazon DynamoDB table.]
+//snippet-service:[dynamodb]
+//snippet-keyword:[Amazon DynamoDB]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2021-01-23]
+//snippet-sourceauthor:[Sarfraz]
+
+
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
-/*
-Purpose:
-query_items.cpp demonstrates how to perfrom Query operation and retrieve items from an Amazon DynamoDB table.
-*/
+// SPDX - License - Identifier: Apache - 2.0 
+
 //snippet-start:[dynamodb.cpp.query_items.inc]
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h>
+#include <aws/core/utils/Outcome.h> 
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/AttributeDefinition.h>
 #include <aws/dynamodb/model/QueryRequest.h>
@@ -19,9 +28,9 @@ query_items.cpp demonstrates how to perfrom Query operation and retrieve items f
 *
 * Takes the name of the table and partition key attribute name and value to query.
 *
-* The partition key attribute is searched with the specified value. By default, all fields and values
+* The partition key attribute is searched with the specified value. By default, all fields and values 
 * contained in the item are returned. If an optional projection expression is
-* specified on the command line, only the specified fields and values are
+* specified on the command line, only the specified fields and values are 
 * returned.
 *
 */
@@ -77,10 +86,10 @@ int main(int argc, char** argv)
 
         // snippet-start:[dynamodb.cpp.query_items.code]
         Aws::Client::ClientConfiguration clientConfig;
-
+       
         Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
         Aws::DynamoDB::Model::QueryRequest req;
-
+        
         req.SetTableName(table);
 
         // Set query key condition expression
@@ -98,7 +107,7 @@ int main(int argc, char** argv)
         {
             // Reference the retrieved items
             const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>>& items = result.GetResult().GetItems();
-            if(items.size() > 0)
+            if(items.size() > 0) 
             {
                 std::cout << "Number of items retrieved from Query: " << items.size() << std::endl;
                 //Iterate each item and print

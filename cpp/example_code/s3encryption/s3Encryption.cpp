@@ -1,9 +1,15 @@
+//snippet-sourcedescription:[s3Encryption.cpp demonstrates how to perform client-side encryption on an Amazon S3 bucket object using AWS KMS.]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon S3]
+//snippet-service:[s3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
-/*
-Purpose:
-s3Encryption.cpp demonstrates how to perform client-side encryption on an Amazon S3 bucket object using AWS KMS.
-*/
 
 #define AWS_DISABLE_DEPRECATION
 #include <awsdoc/s3-encryption/s3_encryption_examples.h>

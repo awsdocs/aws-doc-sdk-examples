@@ -1,18 +1,32 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
-/*
-Purpose:
-list_pull_requests.cpp demonstrates how to list the pull requests for an AWS CodeCommit repository.
+ 
+//snippet-sourcedescription:[list_pull_requests.cpp demonstrates how to list the pull requests for an AWS CodeCommit repository.]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS CodeCommit]
+//snippet-service:[codecommit]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[tapasweni-pathak]
 
+
+/*
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   This file is licensed under the Apache License, Version 2.0 (the "License").
+   You may not use this file except in compliance with the License. A copy of
+   the License is located at
+    http://aws.amazon.com/apache2.0/
+   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations under the License.
 */
-//snippet-start:[cc.cpp.list_pull_requests.inc]
+
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h>
 #include <aws/codecommit/CodeCommitClient.h>
 #include <aws/codecommit/model/ListPullRequestsRequest.h>
 #include <aws/codecommit/model/ListPullRequestsResult.h>
 #include <iostream>
-//snippet-end:[cc.cpp.list_pull_requests.inc]
 
 /**
  * Lists pull requests of a repository based on command line inputs
@@ -32,7 +46,6 @@ int main(int argc, char ** argv)
   {
     Aws::String repository_name(argv[1]);
 
-    //snippet-start:[cc.cpp.list_pull_requests]
     Aws::CodeCommit::CodeCommitClient codecommit;
 
     Aws::CodeCommit::Model::ListPullRequestsRequest lpr_req;
@@ -55,7 +68,6 @@ int main(int argc, char ** argv)
       std::cout << "Error getting pull requests" << lpr_out.GetError().GetMessage()
                 << std::endl;
     }
-        //snippet-end:[cc.cpp.list_pull_requests]
   }
 
   Aws::ShutdownAPI(options);

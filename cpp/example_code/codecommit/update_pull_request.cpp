@@ -1,10 +1,26 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+ 
+//snippet-sourcedescription:[update_pull_request.cpp demonstrates how to update an AWS CodeCommit pull request.]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS CodeCommit]
+//snippet-service:[codecommit]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[tapasweni-pathak]
+
+
 /*
-Purpose:
-update_pull_request.cpp demonstrates how to update an AWS CodeCommit pull request.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   This file is licensed under the Apache License, Version 2.0 (the "License").
+   You may not use this file except in compliance with the License. A copy of
+   the License is located at
+    http://aws.amazon.com/apache2.0/
+   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations under the License.
 */
-//snippet-start:[cc.cpp.update_pull_request.inc]
+
 #include <aws/core/Aws.h>
 #include <aws/codecommit/CodeCommitClient.h>
 #include <aws/codecommit/model/UpdatePullRequestDescriptionRequest.h>
@@ -16,7 +32,6 @@ update_pull_request.cpp demonstrates how to update an AWS CodeCommit pull reques
 #include <aws/codecommit/model/Target.h>
 #include <aws/core/utils/Outcome.h>
 #include <iostream>
-//snippet-end:[cc.cpp.update_pull_request.inc]
 
 /**
  * Updates pull request based on command line input.
@@ -39,7 +54,6 @@ int main(int argc, char ** argv)
     Aws::String pull_request_status(argv[3]);
     Aws::String pull_request_title(argv[4]);
 
-    //snippet-start:[cc.cpp.update_pull_request]
     Aws::CodeCommit::CodeCommitClient codecommit;
 
     Aws::CodeCommit::Model::UpdatePullRequestDescriptionRequest uprd_req;
@@ -80,7 +94,6 @@ int main(int argc, char ** argv)
       std::cout << "Error updating pull request."
                 << std::endl;
     }
-        //snippet-end:[cc.cpp.update_pull_request]
   }
 
   Aws::ShutdownAPI(options);

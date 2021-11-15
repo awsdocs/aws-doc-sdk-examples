@@ -1,16 +1,31 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+ 
+//snippet-sourcedescription:[describe_volumes.cpp demonstrates how to retrieve information about the Amazon Elastic Block Store volumes attached to an Amazon EC2 instance.]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Elastic Block Store]
+//snippet-service:[ebs]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[tapasweni-pathak]
+
+
 /*
-Purpose:
-describe_volumes.cpp demonstrates how to retrieve information about the Amazon Elastic Block Store volumes attached to an Amazon EC2 instance.]
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   This file is licensed under the Apache License, Version 2.0 (the "License").
+   You may not use this file except in compliance with the License. A copy of
+   the License is located at
+    http://aws.amazon.com/apache2.0/
+   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations under the License.
 */
-//snippet-start:[ebs.cpp.describe_volumes.inc]
+
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DescribeVolumesRequest.h>
 #include <aws/ec2/model/DescribeVolumesResponse.h>
 #include <iostream>
-//snippet-end:[ebs.cpp.describe_volumes.inc]
 
 int main(int argc, char ** argv)
 {
@@ -25,7 +40,6 @@ int main(int argc, char ** argv)
   {
     Aws::EC2::EC2Client ec2;
 
-    //snippet-start:[ebs.cpp.describe_volumes]
     Aws::EC2::Model::DescribeVolumesRequest dv_req;
 
     auto dv_out = ec2.DescribeVolumes(dv_req);
@@ -44,7 +58,6 @@ int main(int argc, char ** argv)
       std::cout << "Error describing volumes" << dv_out.GetError().GetMessage()
         << std::endl;
     }
-        //snippet-end:[ebs.cpp.describe_volumes]
   }
 
   Aws::ShutdownAPI(options);

@@ -1,12 +1,25 @@
-/*Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX - License - Identifier: Apache - 2.0*/
+ 
+//snippet-sourcedescription:[describe_trails.cpp demonstrates how to retrieve information about an AWS CloudTrail resource.]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[AWS CloudTrail]
+//snippet-service:[cloudtrail]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[tapasweni-pathak]
+
 
 /*
-Purpose:
-describe_trails.cpp demonstrates how to retrieve information about an AWS CloudTrail resource.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   This file is licensed under the Apache License, Version 2.0 (the "License").
+   You may not use this file except in compliance with the License. A copy of
+   the License is located at
+    http://aws.amazon.com/apache2.0/
+   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations under the License.
 */
-
-//snippet-start:[ct.cpp.describe_trials.inc]
 
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h>
@@ -14,7 +27,10 @@ describe_trails.cpp demonstrates how to retrieve information about an AWS CloudT
 #include <aws/cloudtrail/model/DescribeTrailsRequest.h>
 #include <aws/cloudtrail/model/DescribeTrailsResult.h>
 #include <iostream>
-//snippet-end:[ct.cpp.describe_trials.inc]
+
+/**
+ * Describes all cloud trails in a AWS region on command line input
+ */
 
 int main(int argc, char **argv)
 {
@@ -26,7 +42,7 @@ int main(int argc, char **argv)
   Aws::SDKOptions options;
   Aws::InitAPI(options);
   {
-    //snippet-start:[ct.cpp.describe_trials]
+
     Aws::CloudTrail::CloudTrailClient ct;
 
     Aws::CloudTrail::Model::DescribeTrailsRequest dt_req;
@@ -48,10 +64,8 @@ int main(int argc, char **argv)
       std::cout << "Error describing cloud trails" << dt_out.GetError().GetMessage()
         << std::endl;
     }
-    //snippet-end:[ct.cpp.describe_trials]
   }
 
   Aws::ShutdownAPI(options);
   return 0;
 }
-

@@ -1,12 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
-/*
-Purpose:
-Adds content to an object and then adds the object to a bucket
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: Adds content to an object and then adds the object to a bucket 
  * in Amazon S3.
  *
- * Prerequisites: An Amazon S3 bucket and content to be added to the bucket
+ * Prerequisites: An Amazon S3 bucket and content to be added to the bucket 
  * as an object.
  *
  * Inputs:
@@ -32,7 +31,7 @@ bool AwsDoc::S3::PutObjectBuffer(const Aws::String& bucketName,
     const Aws::String& region)
 {
     Aws::Client::ClientConfiguration config;
-
+    
     if (!region.empty())
     {
         config.region = region;
@@ -53,7 +52,7 @@ bool AwsDoc::S3::PutObjectBuffer(const Aws::String& bucketName,
     Aws::S3::Model::PutObjectOutcome outcome = s3_client.PutObject(request);
 
     if (!outcome.IsSuccess()) {
-        std::cout << "Error: PutObjectBuffer: " <<
+        std::cout << "Error: PutObjectBuffer: " << 
             outcome.GetError().GetMessage() << std::endl;
 
         return false;
@@ -79,7 +78,7 @@ int main()
         //TODO: Set to the AWS Region in which the bucket was created.
         const Aws::String region = "us-east-1";
 
-        if (!AwsDoc::S3::PutObjectBuffer(bucket_name, object_name, object_content, region))
+        if (!AwsDoc::S3::PutObjectBuffer(bucket_name, object_name, object_content, region)) 
         {
             return 1;
         }

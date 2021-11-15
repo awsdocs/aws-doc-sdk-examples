@@ -1,5 +1,13 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+/*
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   This file is licensed under the Apache License, Version 2.0 (the "License").
+   You may not use this file except in compliance with the License. A copy of
+   the License is located at
+    http://aws.amazon.com/apache2.0/
+   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations under the License.
+*/
 
 #include <aws/core/Aws.h>
 #include <aws/sns/SNSClient.h>
@@ -9,7 +17,7 @@
 
 /**
  * Get the SMS type - demonstrates how to retrieve the settings for sending Amazon SMS messages.
- *
+ * 
  * For more information on SetSMSAttributes, see https://docs.aws.amazon.com/sns/latest/api/API_SetSMSAttributes.html.
  */
 
@@ -27,7 +35,7 @@ int main(int argc, char ** argv)
     Aws::SNS::SNSClient sns;
 
     Aws::SNS::Model::GetSMSAttributesRequest gsmst_req;
-    //Set the request to only retrieve the DefaultSMSType setting.
+    //Set the request to only retrieve the DefaultSMSType setting. 
     //Without the following line, GetSMSAttributes would retrieve all settings.
     gsmst_req.AddAttributes("DefaultSMSType");
 

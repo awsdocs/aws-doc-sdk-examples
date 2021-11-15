@@ -1,11 +1,26 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+//snippet-sourcedescription:[upload_archive.cpp demonstrates how to upload a file to Amazon S3 Glacier.]
+//snippet-service:[glacier]
+//snippet-keyword:[Amazon S3 Glacier]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
+//snippet-sourcetype:[snippet]
+//snippet-sourcedate:[2019-04-26]
+//snippet-sourceauthor:[AWS]
 
 /*
-Purpose:
-upload_archive.cpp demonstrates how to upload a file to Amazon S3 Glacier.
+   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   This file is licensed under the Apache License, Version 2.0 (the "License").
+   You may not use this file except in compliance with the License. A copy of
+   the License is located at
+
+        http://aws.amazon.com/apache2.0/
+
+   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations under the License.
 */
-// snippet-start:[glacier.cpp.upload_archive.inc]
+
 #include <aws/core/Aws.h>
 #include <aws/core/utils/HashingUtils.h>
 #include <aws/core/utils/Outcome.h>
@@ -14,12 +29,10 @@ upload_archive.cpp demonstrates how to upload a file to Amazon S3 Glacier.
 #include <aws/glacier/model/UploadArchiveResult.h>
 #include <fstream>
 #include <iostream>
-// snippet-end:[glacier.cpp.upload_archive.inc]
 
 /**
  * Upload a file to an archive in an Amazon S3 Glacier vault
  */
- // snippet-start:[glacier.cpp.upload_archive]
 int main(int argc, char **argv)
 {
     Aws::SDKOptions options;
@@ -34,11 +47,11 @@ int main(int argc, char **argv)
         Aws::String archive_description("TestArchiveUpload");
 
         // Calculate SHA-256 tree hash of file contents
-        const std::shared_ptr<Aws::IOStream> file_contents =
-            Aws::MakeShared<Aws::FStream>("SampleAllocationTag",
-                                          file_name.c_str(),
+        const std::shared_ptr<Aws::IOStream> file_contents = 
+            Aws::MakeShared<Aws::FStream>("SampleAllocationTag", 
+                                          file_name.c_str(), 
                                           std::ios::in | std::ios::binary);
-        Aws::Utils::ByteBuffer byte_checksum =
+        Aws::Utils::ByteBuffer byte_checksum = 
             Aws::Utils::HashingUtils::CalculateSHA256TreeHash(*file_contents);
         Aws::String checksum = Aws::Utils::HashingUtils::HexEncode(byte_checksum);
 
@@ -57,15 +70,14 @@ int main(int argc, char **argv)
         // Process the result
         if (upload_outcome.IsSuccess())
         {
-            std::cout << "Success: Archive ID: "
+            std::cout << "Success: Archive ID: " 
                 << upload_outcome.GetResult().GetArchiveId() << std::endl;
         }
         else
         {
-            std::cout << "ERROR: " << upload_outcome.GetError().GetMessage()
+            std::cout << "ERROR: " << upload_outcome.GetError().GetMessage() 
                 << std::endl;
         }
-         // snippet-end:[glacier.cpp.upload_archive]
     }
 
     Aws::ShutdownAPI(options);

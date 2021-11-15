@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX - License - Identifier: Apache - 2.0 
 
 // snippet-start:[s3.cpp.create_bucket.inc]
 #include <iostream>
@@ -12,19 +12,18 @@
 #include <awsdoc/s3/s3_examples.h>
 // snippet-end:[s3.cpp.create_bucket.inc]
 
-/*
-Purpose:
-Creates a bucket in Amazon S3.
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: Creates a bucket in Amazon S3.
  *
  * Inputs:
- * - bucketName: The name of the bucket to create.
+ * - bucketName: The name of the bucket to create. 
  * - region: The AWS Region to create the bucket in.
- *
+ * 
  * Outputs: true if the bucket was created; otherwise, false.
  * ///////////////////////////////////////////////////////////////////////// */
 
 // snippet-start:[s3.cpp.create_bucket.code]
-bool AwsDoc::S3::CreateBucket(const Aws::String& bucketName,
+bool AwsDoc::S3::CreateBucket(const Aws::String& bucketName, 
     const Aws::S3::Model::BucketLocationConstraint& region)
 {
     Aws::Client::ClientConfiguration config;
@@ -43,7 +42,7 @@ bool AwsDoc::S3::CreateBucket(const Aws::String& bucketName,
         request.SetCreateBucketConfiguration(bucket_config);
     }
 
-    Aws::S3::Model::CreateBucketOutcome outcome =
+    Aws::S3::Model::CreateBucketOutcome outcome = 
         s3_client.CreateBucket(request);
 
     if (!outcome.IsSuccess())
@@ -69,11 +68,11 @@ int main()
         Aws::S3::Model::BucketLocationConstraint region =
             Aws::S3::Model::BucketLocationConstraint::us_east_1;
 
-        // Create a unique bucket name to increase the chance of success
+        // Create a unique bucket name to increase the chance of success 
         // when trying to create the bucket.
         // Format: "my-bucket-" + lowercase UUID.
         Aws::String uuid = Aws::Utils::UUID::RandomUUID();
-        Aws::String bucket_name = "my-bucket-" +
+        Aws::String bucket_name = "my-bucket-" + 
             Aws::Utils::StringUtils::ToLower(uuid.c_str());
 
         // Create the bucket.

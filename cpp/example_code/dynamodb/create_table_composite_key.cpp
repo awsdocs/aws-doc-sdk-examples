@@ -1,15 +1,31 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+ 
+//snippet-sourcedescription:[create_table_composite_key.cpp demonstrates how to create an Amazon DynamoDB table that has a composite key.]
+//snippet-keyword:[C++]
+//snippet-sourcesyntax:[cpp]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon DynamoDB]
+//snippet-service:[dynamodb]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+
+
 /*
-Purpose:
-create_table_composite_key.cpp demonstrates how to create an Amazon DynamoDB table that has a composite key.
+Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
+This file is licensed under the Apache License, Version 2.0 (the "License").
+You may not use this file except in compliance with the License. A copy of
+the License is located at
+
+http://aws.amazon.com/apache2.0/
+
+This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for the
+specific language governing permissions and limitations under the License.
 */
-
-
 //snippet-start:[dynamodb.cpp.create_table_composite_key.inc]
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h>
+#include <aws/core/utils/Outcome.h> 
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/AttributeDefinition.h>
 #include <aws/dynamodb/model/CreateTableRequest.h>
