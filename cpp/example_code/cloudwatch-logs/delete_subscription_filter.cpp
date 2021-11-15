@@ -46,10 +46,9 @@ int main(int argc, char** argv)
             std::cout << "Successfully deleted CloudWatch logs subscription " <<
                 "filter " << filter_name << std::endl;
         }
-            //snippet-end:[cwl.cpp.delete_subscription_filter]
+    //snippet-end:[cwl.cpp.delete_subscription_filter]
 
     }
     Aws::ShutdownAPI(options);
     return 0;
 }
-//snippet-start:[cwl.cpp.delete_subscription_filter]
