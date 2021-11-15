@@ -30,6 +30,7 @@ def unique_name(base_name):
     return f'demo-assume-role-{base_name}-{time.time_ns()}'
 
 
+# snippet-start:[python.example_code.sts.Scenario_SessionTokenMfa_setup]
 def setup(iam_resource):
     """
     Creates a new user with no permissions.
@@ -100,8 +101,10 @@ def setup(iam_resource):
     progress_bar(10)
 
     return user, user_key, virtual_mfa_device
+# snippet-end:[python.example_code.sts.Scenario_SessionTokenMfa_setup]
 
 
+# snippet-start:[python.example_code.sts.Scenario_SessionTokenMfa_list_buckets]
 def list_buckets_with_session_token_with_mfa(mfa_serial_number, mfa_totp, sts_client):
     """
     Gets a session token with MFA credentials and uses the temporary session
@@ -130,8 +133,10 @@ def list_buckets_with_session_token_with_mfa(mfa_serial_number, mfa_totp, sts_cl
     print(f"Buckets for the account:")
     for bucket in s3_resource.buckets.all():
         print(bucket.name)
+# snippet-end:[python.example_code.sts.Scenario_SessionTokenMfa_list_buckets]
 
 
+# snippet-start:[python.example_code.sts.Scenario_SessionTokenMfa_teardown]
 def teardown(user, virtual_mfa_device):
     """
     Removes all resources created during setup.
@@ -150,8 +155,10 @@ def teardown(user, virtual_mfa_device):
     virtual_mfa_device.delete()
     user.delete()
     print(f"Deleted {user.name}.")
+# snippet-end:[python.example_code.sts.Scenario_SessionTokenMfa_teardown]
 
 
+# snippet-start:[python.example_code.sts.Scenario_SessionTokenMfa_demo]
 def usage_demo():
     """Drives the demonstration."""
     print('-'*88)
@@ -175,6 +182,7 @@ def usage_demo():
     finally:
         teardown(user, virtual_mfa_device)
         print("Thanks for watching!")
+# snippet-end:[python.example_code.sts.Scenario_SessionTokenMfa_demo]
 
 
 if __name__ == '__main__':
