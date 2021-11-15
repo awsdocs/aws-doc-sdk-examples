@@ -10,7 +10,7 @@ require 'vendor/autoload.php';
 
 use Aws\ApiGateway\ApiGatewayClient;
 use Aws\Exception\AwsException;
-//snippet-end:[apigateway.php.list_base_path_mapping.import]
+// snippet-end:[apigateway.php.list_base_path_mapping.import]
 
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: Lists the base path mapping for a custom domain name in 
@@ -28,7 +28,7 @@ use Aws\Exception\AwsException;
  * otherwise, the error message.
  * ///////////////////////////////////////////////////////////////////////// */
 
-//snippet-start:[apigateway.php.list_base_path_mapping.main]
+// snippet-start:[apigateway.php.list_base_path_mapping.main]
 function listBasePathMappings($apiGatewayClient, $domainName)
 {
     try {

@@ -4,7 +4,7 @@
 """
 Purpose
 
-Shows how to constructs a URL that gives federated users direct access to the
+Shows how to construct a URL that gives federated users direct access to the
 AWS Management Console.
 """
 
@@ -30,6 +30,7 @@ def unique_name(base_name):
     return f'demo-assume-role-{base_name}-{time.time_ns()}'
 
 
+# snippet-start:[python.example_code.sts.Scenario_ConstructFederatedUrl_setup]
 def setup(iam_resource):
     """
     Creates a role that can be assumed by the current user.
@@ -59,6 +60,7 @@ def setup(iam_resource):
     progress_bar(10)
 
     return role
+# snippet-end:[python.example_code.sts.Scenario_ConstructFederatedUrl_setup]
 
 
 # snippet-start:[iam.python.construct_federated_url]
@@ -120,6 +122,7 @@ def construct_federated_url(assume_role_arn, session_name, issuer, sts_client):
 # snippet-end:[iam.python.construct_federated_url]
 
 
+# snippet-start:[python.example_code.sts.Scenario_ConstructFederatedUrl_teardown]
 def teardown(role):
     """
     Removes all resources created during setup.
@@ -131,8 +134,10 @@ def teardown(role):
         print(f"Detached {attached.policy_name}.")
     role.delete()
     print(f"Deleted {role.name}.")
+# snippet-end:[python.example_code.sts.Scenario_ConstructFederatedUrl_teardown]
 
 
+# snippet-start:[python.example_code.sts.Scenario_ConstructFederatedUrl_demo]
 def usage_demo():
     """Drives the demonstration."""
     print('-'*88)
@@ -155,6 +160,7 @@ def usage_demo():
     finally:
         teardown(role)
         print("Thanks for watching!")
+# snippet-end:[python.example_code.sts.Scenario_ConstructFederatedUrl_demo]
 
 
 if __name__ == '__main__':
