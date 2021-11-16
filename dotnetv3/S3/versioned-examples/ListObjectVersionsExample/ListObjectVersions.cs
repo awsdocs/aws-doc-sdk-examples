@@ -22,7 +22,7 @@ namespace ListObjectVersionsExample
 
             // If the AWS Region where your bucket is defined is different from
             // the AWS Region where the Amazon S3 bucket is defined, pass the constant
-            // for the region to the client constructor like this:
+            // for the AWS Region to the client constructor like this:
             //      var client = new AmazonS3Client(RegionEndpoint.USWest2);
             IAmazonS3 client = new AmazonS3Client();
             await GetObjectListWithAllVersionsAsync(client, bucketName);
@@ -42,7 +42,7 @@ namespace ListObjectVersionsExample
             {
                 // When you instantiate the ListVersionRequest, you can
                 // optionally specify a key name prefix in the request
-                // if you want list of object versions of a specific object.
+                // if you want a list of object versions of a specific object.
 
                 // For this example we set a small limit in MaxKeys to return
                 // a small list of versions.

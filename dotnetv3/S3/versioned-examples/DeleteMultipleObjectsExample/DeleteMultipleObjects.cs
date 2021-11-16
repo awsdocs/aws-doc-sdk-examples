@@ -22,9 +22,10 @@ namespace DeleteMultipleObjectsExample
         {
             string bucketName = "doc-example-bucket";
 
-            // If the AWS region for your Amazon S3 bucket is different from
+            // If the AWS Region for your Amazon S3 bucket is different from
             // the AWS Region of the default user, define the AWS Region for
-            // the Amazon S3 bucket and pass it to the client constructor like this:
+            // the Amazon S3 bucket and pass it to the client constructor
+            // like this:
             // RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
             IAmazonS3 s3Client;
 
@@ -77,7 +78,7 @@ namespace DeleteMultipleObjectsExample
         }
 
         /// <summary>
-        /// This method creates several temporary objects and then delete them.
+        /// This method creates several temporary objects and then deletes them.
         /// </summary>
         public static async Task DeleteObjectVersionsAsync(IAmazonS3 client, string bucketName)
         {
@@ -156,7 +157,7 @@ namespace DeleteMultipleObjectsExample
 
             // Execute DeleteObjectsAsync.
             // The DeleteObjectsAsync method adds a delete marker for each
-            // object deleted. You can verify that the objects were removed by
+            // object deleted. You can verify that the objects were removed
             // using the Amazon S3 console.
             DeleteObjectsResponse response;
             try
@@ -168,7 +169,7 @@ namespace DeleteMultipleObjectsExample
             catch (DeleteObjectsException ex)
             {
                 DisplayDeletionErrors(ex);
-                throw; // Some delettions failed. Investigate before continuing.
+                throw; // Some deletions failed. Investigate before continuing.
             }
 
             // This response contains the DeletedObjects list which we use to delete the delete markers.

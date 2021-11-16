@@ -22,9 +22,10 @@ namespace DeleteObjectVersionExample
             string bucketName = "doc-example-bucket";
             string keyName = "verstioned-object.txt";
 
-            // If the AWS region of the default user is different from the AWS
-            // Region of the Amazon S3 bucket, pass the bucket region to the
-            // Amazon S3 client object's constructor. Define it like this:
+            // If the AWS Region of the default user is different from the AWS
+            // Region of the Amazon S3 bucket, pass the AWS Region of the
+            // bucket region to the Amazon S3 client object's constructor.
+            // Define it like this:
             //      RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
             IAmazonS3 client = new AmazonS3Client();
 
@@ -36,8 +37,8 @@ namespace DeleteObjectVersionExample
         /// </summary>
         /// <param name="client">The initialized Amazon S3 client object used to
         /// create and delete the object.</param>
-        /// <param name="bucketName">The name of the Amazon S3 bucket where the will
-        /// be created and deleted.</param>
+        /// <param name="bucketName">The name of the Amazon S3 bucket where the
+        /// object will be created and deleted.</param>
         /// <param name="keyName">The key name of the object to create.</param>
         public static async Task CreateAndDeleteObjectVersionAsync(IAmazonS3 client, string bucketName, string keyName)
         {

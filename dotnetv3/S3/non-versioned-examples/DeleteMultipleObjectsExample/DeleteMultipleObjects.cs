@@ -26,8 +26,9 @@ namespace DeleteMultipleObjectsExample
             const string bucketName = "doc-example-bucket";
 
             // If the Amazon S3 bucket from which you wish to delete objects is not
-            // located in the same AWS Region as the default user, specify the
-            // bucket Region as a parameter to the client constructor.
+            // located in the same AWS Region as the default user, define the
+            // AWS Region for the Amazon S3 bucket as a parameter to the client
+            // constructor.
             IAmazonS3 s3Client = new AmazonS3Client();
 
             await MultiObjectDeleteAsync(s3Client, bucketName);
