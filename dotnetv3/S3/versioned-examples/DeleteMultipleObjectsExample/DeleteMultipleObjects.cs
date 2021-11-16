@@ -8,7 +8,7 @@
 /// </summary>
 namespace DeleteMultipleObjectsExample
 {
-    // snippet-start:[S3.dotnetv3.DeleteMultipleObjectsExample]
+    // snippet-start:[S3.dotnetv3.DeleteMultipleVersionedObjectsExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -256,5 +256,5 @@ namespace DeleteMultipleObjectsExample
         }
     }
 
-    // snippet-end:[S3.dotnetv3.DeleteMultipleObjectsExample]
+    // snippet-end:[S3.dotnetv3.DeleteMultipleVersionedObjectsExample]
 }
