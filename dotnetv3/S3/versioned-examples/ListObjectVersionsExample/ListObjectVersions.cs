@@ -83,5 +83,5 @@ namespace ListObjectVersionsExample
         }
     }
 
-    // snippet-end:[<S3.dotnetv3.ListObjectVersionsExample]
+    // snippet-end:[S3.dotnetv3.ListObjectVersionsExample]
 }

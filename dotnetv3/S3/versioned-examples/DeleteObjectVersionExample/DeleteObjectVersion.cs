@@ -86,5 +86,5 @@ namespace DeleteObjectVersionExample
         }
     }
 
-    // snippet-end:[<S3.dotnetv3.DeleteObjectVersionExample]
+    // snippet-end:[S3.dotnetv3.DeleteObjectVersionExample]
 }

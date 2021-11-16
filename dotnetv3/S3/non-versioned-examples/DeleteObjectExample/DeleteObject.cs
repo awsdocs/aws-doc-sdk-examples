@@ -64,5 +64,5 @@ namespace DeleteObjectExample
         }
     }
 
-    // snippet-end:[<S3.dotnetv3.DeleteObjectExample]
+    // snippet-end:[S3.dotnetv3.DeleteObjectExample]
 }

@@ -126,5 +126,5 @@ namespace DeleteMultipleObjectsExample
         }
     }
 
-    // snippet-end:[<S3.dotnetv3.DeleteMultipleObjectsExample]
+    // snippet-end:[S3.dotnetv3.DeleteMultipleObjectsExample]
 }
