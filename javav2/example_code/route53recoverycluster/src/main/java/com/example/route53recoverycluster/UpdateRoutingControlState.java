@@ -32,12 +32,12 @@ public class UpdateRoutingControlState {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "UpdateRoutingControlState - update the current state of the routing \n\n" +
+                "UpdateRoutingControlState - Update the routing control current state. \n\n" +
                 "Usage: UpdateRoutingControlState routingControlArn endpointsFile\n\n" +
                 "Where:\n" +
-                "  routingControlArn - Arn of the routing control.\n\n" +
-                "  routingControlState - New state for the routing control.\n\n" +
-                "  endpointsFile - path to the endpoints file.\n\n";
+                "  routingControlArn - ARN of the routing control to update the state for.\n\n" +
+                "  routingControlState - New routing control state.\n\n" +
+                "  endpointsFile - Path to the endpoints file.\n\n";
 
         if (args.length != 3) {
             System.out.println(USAGE);
