@@ -14,7 +14,7 @@ iot_DescribeEndpoint:
               snippet_tags:
                 - iot.rust.describe-endpoint
   services:
-    iot: { DescribeEndpoint }
+    iot: {DescribeEndpoint}
 iot_ListThings:
   title: List your &IoT; things using an &AWS; SDK
   title_abbrev: List your things
@@ -30,4 +30,4 @@ iot_ListThings:
               snippet_tags:
                 - iot.rust.list-things
   services:
-    iot: { ListThings }
+    iot: {ListThings}

@@ -81,15 +81,38 @@ class StringExtension(String):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.check_aws = bool(kwargs.pop('check_aws', True))
+        self.upper_start = bool(kwargs.pop('upper_start', False))
+        self.lower_start = bool(kwargs.pop('lower_start', False))
+        self.end_punc = bool(kwargs.pop('end_punc', False))
+        self.no_end_punc = bool(kwargs.pop('no_end_punc', False))
+        self.last_err = 'valid string'
 
     def get_name(self):
-        return 'string or contains a non-entity usage of AWS'
+        return self.last_err
 
     def _is_valid(self, value):
         valid = True
         if self.check_aws:
             # All occurrences of AWS must be entities or within a word.
             valid = len(re.findall('(?<![&\\da-zA-Z])AWS|AWS(?![;\\da-zA-Z])', value)) == 0
+            if not valid:
+                self.last_err = 'valid string: it contains a non-entity usage of "AWS"'
+        if valid and self.upper_start:
+            valid = str.isupper(value[0])
+            if not valid:
+                self.last_err = 'valid string: it must start with an uppercase letter'
+        if valid and self.lower_start:
+            valid = str.islower(value[0])
+            if not valid:
+                self.last_err = 'valid string: it must start with a lowercase letter'
+        if valid and self.end_punc:
+            valid = value[-1] in '!.?'
+            if not valid:
+                self.last_err = 'valid sentence or phrase: it must end with punctuation'
+        if valid and self.no_end_punc:
+            valid = value[-1] not in '!.?'
+            if not valid:
+                self.last_err = 'valid string: it must not end with punctuation'
         if valid:
             valid = super()._is_valid(value)
         return valid

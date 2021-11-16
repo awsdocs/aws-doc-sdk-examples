@@ -14,7 +14,7 @@ ssm_DescribeParameters:
               snippet_tags:
                 - ssm.rust.describe-parameters
   services:
-    ssm: { DescribeParameters }
+    ssm: {DescribeParameters}
 ssm_PutParameter:
   title: Add a &SYS; parameter using an &AWS; SDK
   title_abbrev: Add a parameter
@@ -30,4 +30,4 @@ ssm_PutParameter:
               snippet_tags:
                 - ssm.rust.create-parameter
   services:
-    ssm: { PutParameter }
+    ssm: {PutParameter}

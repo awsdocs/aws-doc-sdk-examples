@@ -14,4 +14,4 @@ medialive_ListInputs:
               snippet_tags:
                 - medialive.rust.medialive-helloworld
   services:
-    medialive: { ListInputs }
+    medialive: {ListInputs}

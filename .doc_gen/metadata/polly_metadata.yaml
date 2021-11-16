@@ -14,7 +14,7 @@ polly_DescribeVoices:
               snippet_tags:
                 - polly.rust.describe-voices
   services:
-    polly: { DescribeVoices }
+    polly: {DescribeVoices}
 polly_ListLexicons:
   title: Get the &POL; pronunciation lexicons using an &AWS; SDK
   title_abbrev: Get pronunciation lexicons
@@ -30,7 +30,7 @@ polly_ListLexicons:
               snippet_tags:
                 - polly.rust.list-lexicons
   services:
-    polly: { ListLexicons }
+    polly: {ListLexicons}
 polly_PutLexicon:
   title: Store a &POL; pronunciation lexicon using an &AWS; SDK
   title_abbrev: Store a pronunciation lexicon
@@ -46,7 +46,7 @@ polly_PutLexicon:
               snippet_tags:
                 - polly.rust.put-lexicon
   services:
-    polly: { PutLexicon }
+    polly: {PutLexicon}
 polly_SynthesizeSpeech:
   title: Synthesize UTF-8 input to a stream of bytes using an &AWS; SDK
   title_abbrev: Synthesize speech
@@ -62,4 +62,4 @@ polly_SynthesizeSpeech:
               snippet_tags:
                 - polly.rust.synthesize-speech
   services:
-    polly: { SynthesizeSpeech }
+    polly: {SynthesizeSpeech}

@@ -10,7 +10,7 @@ sdk:
 version:
   long: include('entity_with_version_regex')
   short: include('entity_with_version_regex')
-  caveat: str(required=False)
+  caveat: str(required=False, upper_start=True, end_punc=True)
   bookmark: str(required=False)
   api_ref: include('api_ref', required=False)
 

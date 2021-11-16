@@ -14,4 +14,4 @@ batch_DescribeComputeEnvironments:
               snippet_tags:
                 - batch.rust.batch-helloworld
   services:
-    batch: { DescribeComputeEnvironments }
+    batch: {DescribeComputeEnvironments}

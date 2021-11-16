@@ -14,7 +14,7 @@ qldb_CreateLedger:
               snippet_tags:
                 - qldb.rust.create-ledger
   services:
-    qldb: { CreateLedger }
+    qldb: {CreateLedger}
 qldb_ListLedgers:
   title: List your &QLDB; ledgers using an &AWS; SDK
   title_abbrev: List your ledgers
@@ -30,4 +30,4 @@ qldb_ListLedgers:
               snippet_tags:
                 - qldb.rust.list-ledgers
   services:
-    qldb: { ListLedgers }
+    qldb: {ListLedgers}

@@ -35,10 +35,10 @@ dynamodb_CreateTable:
               snippet_tags:
                 - dynamodb.rust.create-table
   services:
-    dynamodb: { CreateTable }
+    dynamodb: {CreateTable}
 dynamodb_BatchGetItem:
   title: Get a batch of &DDB; items using an &AWS; SDK
-  title_abbrev: Get a batch of items.
+  title_abbrev: Get a batch of items
   synopsis: get a batch of &DDB; items.
   category:
   languages:
@@ -53,7 +53,7 @@ dynamodb_BatchGetItem:
                 - python.example_code.dynamodb.Batching_imports
                 - python.example_code.dynamodb.BatchGetItem
   services:
-    dynamodb: { BatchGetItem }
+    dynamodb: {BatchGetItem}
 dynamodb_BatchWriteItem:
   title: Write a batch of &DDB; items using an &AWS; SDK
   title_abbrev: Write a batch of items
@@ -79,7 +79,7 @@ dynamodb_BatchWriteItem:
               snippet_tags:
                 - python.example_code.dynamodb.PutItem_BatchWriter
   services:
-    dynamodb: { BatchWriteItem }
+    dynamodb: {BatchWriteItem}
 dynamodb_Usage_BatchGetWriteDelete:
   title: Get, write, and delete batches of &DDB; items using an &AWS; SDK
   title_abbrev: Get, write, and delete batches of items
@@ -142,7 +142,7 @@ dynamodb_DeleteTable:
               snippet_tags:
                 - dynamodb.rust.delete-table
   services:
-    dynamodb: { DeleteTable }
+    dynamodb: {DeleteTable}
 dynamodb_PutItem:
   title: Put an item in a &DDB; table using an &AWS; SDK
   title_abbrev: Put an item in a table
@@ -179,7 +179,7 @@ dynamodb_PutItem:
               snippet_tags:
                 - dynamodb.rust.add-item
   services:
-    dynamodb: { PutItem }
+    dynamodb: {PutItem}
 dynamodb_GetItem:
   title: Get an item from a &DDB; table using an &AWS; SDK
   title_abbrev: Get an item from a table
@@ -205,7 +205,7 @@ dynamodb_GetItem:
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesItemOps02
   services:
-    dynamodb: { GetItem }
+    dynamodb: {GetItem}
 dynamodb_UpdateItem:
   title: Update an item in a &DDB; table using an &AWS; SDK
   title_abbrev: Update an item in a table
@@ -236,11 +236,11 @@ dynamodb_UpdateItem:
             - description: Update an item by using an update expression.
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesItemOps04
-            - description: Conditionally update an item
+            - description: Conditionally update an item.
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesItemOps05
   services:
-    dynamodb: { UpdateItem }
+    dynamodb: {UpdateItem}
 dynamodb_DeleteItem:
   title: Delete an item from a &DDB; table using an &AWS; SDK
   title_abbrev: Delete an item from a table
@@ -274,7 +274,7 @@ dynamodb_DeleteItem:
               snippet_tags:
                 - dynamodb.rust.delete-item
   services:
-    dynamodb: { DeleteItem }
+    dynamodb: {DeleteItem}
 dynamodb_ListTables:
   title: List &DDB; tables using an &AWS; SDK
   title_abbrev: List tables
@@ -311,7 +311,7 @@ dynamodb_ListTables:
               snippet_tags:
                 - dynamodb.rust.movies-does_table_exist
   services:
-    dynamodb: { ListTables }
+    dynamodb: {ListTables}
 dynamodb_Query:
   title: Query a &DDB; table using an &AWS; SDK
   title_abbrev: Query a table
@@ -348,7 +348,7 @@ dynamodb_Query:
               snippet_tags:
                 - dynamodb.rust.movies-movies_in_year
   services:
-    dynamodb: { Query }
+    dynamodb: {Query}
 dynamodb_Scan:
   title: Scan a &DDB; table using an &AWS; SDK
   title_abbrev: Scan a table
@@ -382,7 +382,7 @@ dynamodb_Scan:
               snippet_tags:
                 - dynamodb.rust.list-items
   services:
-    dynamodb: { Scan }
+    dynamodb: {Scan}
 dynamodb_Usage_DaxDemo:
   title: Accelerate &DDB; reads with &DAX; using an &AWS; SDK
   title_abbrev: Accelerate reads with &DAX;
