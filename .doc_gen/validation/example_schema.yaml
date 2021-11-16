@@ -4,17 +4,17 @@
 map(include('example'), key=example_id())
 ---
 example:
-  title: str()
-  title_abbrev: str()
-  synopsis: str(required=False)
-  synopsis_list: list(str(), required=False)
-  category: str(required=False)
+  title: str(upper_start=True, no_end_punc=True)
+  title_abbrev: str(upper_start=True, no_end_punc=True)
+  synopsis: str(required=False, lower_start=True, end_punc=True)
+  synopsis_list: list(str(upper_start=True, end_punc=True), required=False)
+  category: str(required=False, upper_start=True, no_end_punc=True)
   guide_topic: include('guide_topic', required=False)
   languages: map(include('language'), key=enum('C++', 'Go', 'Java', 'JavaScript', 'Kotlin', '.NET', 'PHP', 'Python', 'Ruby', 'Rust'))
   services: map(map(key=str(), required=False), key=service_name())
 
 guide_topic:
-  title: str()
+  title: str(upper_start=True, no_end_punc=True)
   url: include('doc_url', required=False)
 
 language:
@@ -29,7 +29,7 @@ version:
   add_services: map(key=service_name(), required=False)
 
 excerpt:
-  description: str(required=False)
+  description: str(required=False, upper_start=True, end_punc=True)
   snippet_tags: list(str())
 
 service_slug_regex: regex('^[\da-z-]+$', name='service slug')

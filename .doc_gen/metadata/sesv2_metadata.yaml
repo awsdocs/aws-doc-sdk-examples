@@ -14,7 +14,7 @@ sesv2_CreateContactList:
               snippet_tags:
                 - ses.rust.create-contact-list
   services:
-    sesv2: { CreateContactList }
+    sesv2: {CreateContactList}
 sesv2_CreateContact:
   title: Create an &SESv2; contact in a contact list using an &AWS; SDK
   title_abbrev: Create a contact in a contact list
@@ -30,7 +30,7 @@ sesv2_CreateContact:
               snippet_tags:
                 - ses.rust.create-contact
   services:
-    sesv2: { CreateContact }
+    sesv2: {CreateContact}
 sesv2_GetEmailIdentity:
   title: Get information about an &SESv2; identity using an &AWS; SDK
   title_abbrev: Get identity information
@@ -46,7 +46,7 @@ sesv2_GetEmailIdentity:
               snippet_tags:
                 - ses.rust.is-email-verified
   services:
-    sesv2: { GetEmailIdentity }
+    sesv2: {GetEmailIdentity}
 sesv2_ListContactLists:
   title: List the &SESv2; contact lists using an &AWS; SDK
   title_abbrev: List the contact lists
@@ -62,7 +62,7 @@ sesv2_ListContactLists:
               snippet_tags:
                 - ses.rust.list-contact-lists
   services:
-    sesv2: { ListContactLists }
+    sesv2: {ListContactLists}
 sesv2_ListContacts:
   title: List the contacts in an &SESv2; contact list using an &AWS; SDK
   title_abbrev: List the contacts in a contact list
@@ -78,7 +78,7 @@ sesv2_ListContacts:
               snippet_tags:
                 - ses.rust.list-contacts
   services:
-    sesv2: { ListContacts }
+    sesv2: {ListContacts}
 sesv2_SendEmail:
   title: Send an &SESv2; email using an &AWS; SDK
   title_abbrev: Send an email
@@ -94,4 +94,4 @@ sesv2_SendEmail:
               snippet_tags:
                 - ses.rust.send-email
   services:
-    sesv2: { SendEmail }
+    sesv2: {SendEmail}

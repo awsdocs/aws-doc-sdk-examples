@@ -14,4 +14,4 @@ cognito-identity-provider_ListUserPools:
               snippet_tags:
                 - cognitoidentityprovider.rust.list-user-pools
   services:
-    cognito-identity-provider: { ListUserPools }
+    cognito-identity-provider: {ListUserPools}
