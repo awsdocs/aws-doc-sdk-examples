@@ -3,9 +3,10 @@
 ## Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) with Amazon Route 53 Application 
-Recovery Controller to manage routing control settings.
+Recovery Controller to manage routing control states.
 
-*Route 53 is a highly available and scalable Domain Name System (DNS) web service.*
+*Application Recovery Controller improves application availability, including by 
+centrally coordinating failovers within an AWS Region or across multiple Regions.*
 
 ## Code examples
 
@@ -49,11 +50,12 @@ python routing_control_state.py [routing_control_arn] [cluster_endpoints_json_fi
 
 #### Example arguments
 
-The routing control ARN looks something like this:
+A routing control ARN looks something like this:
 
 `arn:aws:route53-recovery-control::123456789012:controlpanel/ffa374e10db34a90bc56EXAMPLE/routingcontrol/60649aEXAMPLE`
 
-The cluster endpoints JSON looks something like this:
+The Region within the cluster endpoint and the Region you provide with that endpoint 
+must match. A cluster endpoints JSON looks something like this:
 
 ```json
 {"ClusterEndpoints": 
@@ -72,7 +74,7 @@ The cluster endpoints JSON looks something like this:
 ## Additional information
 
 - [Boto3 Amazon Route 53 Application Recovery Controller service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/route53-recovery-cluster.html)
-- [Amazon Route 53 documentation](https://docs.aws.amazon.com/route53)
+- [Amazon Route 53 Application Recovery Controller documentation](https://docs.aws.amazon.com/route53)
 
 ---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

@@ -14,7 +14,7 @@ mediapackage_ListChannels:
               snippet_tags:
                 - mediapackage.rust.mediapackage-helloworld
   services:
-    mediapackage: { ListChannels }
+    mediapackage: {ListChannels}
 mediapackage_ListOriginEndpoints:
   title: List your &EMP; origin endpoints using an &AWS; SDK
   title_abbrev: List your origin endpoints
@@ -30,4 +30,4 @@ mediapackage_ListOriginEndpoints:
               snippet_tags:
                 - mediapackage.rust.list-endpoints
   services:
-    mediapackage: { ListOriginEndpoints }
+    mediapackage: {ListOriginEndpoints}
