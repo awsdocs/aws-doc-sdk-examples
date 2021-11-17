@@ -1,18 +1,19 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
+/// <summary>
+/// This example shows how to delete an object from a non-versioned Amazon
+/// Simple Storage Service (Amazon S3) bucket. This example was created
+/// using the AWS SDK 3.7 for .NET and .NET Core 5.0.
+/// </summary>
 namespace DeleteObjectExample
 {
+    // snippet-start:[S3.dotnetv3.DeleteObjectExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.S3;
     using Amazon.S3.Model;
 
-    /// <summary>
-    /// This example shows how to delete an object from a non-versioned Amazon
-    /// Simple Storage Service (Amazon S3) bucket. This example was created
-    /// using the AWS SDK 3.7 for .NET and .NET Core 5.0.
-    /// </summary>
     public class DeleteObject
     {
         /// <summary>
@@ -25,9 +26,9 @@ namespace DeleteObjectExample
             const string bucketName = "doc-example-bucket";
             const string keyName = "testfile.txt";
 
-            // If the S3 bucket is located in an AWS Region other than the
-            // Region of the default account, specify the bucket's Region in
-            // your call to the AmazonS3Client constructor.
+            // If the Amazon S3 bucket is located in an AWS Region other than the
+            // Region of the default account, define the AWS Region for the
+            // Amazon S3 bucket in your call to the AmazonS3Client constructor.
             // For example RegionEndpoint.USWest2.
             IAmazonS3 client = new AmazonS3Client();
             await DeleteObjectNonVersionedBucketAsync(client, bucketName, keyName);
@@ -38,7 +39,7 @@ namespace DeleteObjectExample
         /// desired object from the named bucket.
         /// </summary>
         /// <param name="client">An initialized Amazon S3 client used to delete
-        /// an object from an S3 bucket.</param>
+        /// an object from an Amazon S3 bucket.</param>
         /// <param name="bucketName">The name of the bucket from which the
         /// object will be deleted.</param>
         /// <param name="keyName">The name of the object to delete.</param>
@@ -62,4 +63,6 @@ namespace DeleteObjectExample
             }
         }
     }
+
+    // snippet-end:[S3.dotnetv3.DeleteObjectExample]
 }

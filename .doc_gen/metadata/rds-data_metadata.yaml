@@ -14,4 +14,4 @@ rds-data_ExecuteStatement:
               snippet_tags:
                 - rdsdata.rust.rdsdata-helloworld
   services:
-    rds-data: { ExecuteStatement }
+    rds-data: {ExecuteStatement}
