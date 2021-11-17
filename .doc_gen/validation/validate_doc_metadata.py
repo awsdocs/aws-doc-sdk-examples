@@ -91,6 +91,8 @@ class StringExtension(String):
         return self.last_err
 
     def _is_valid(self, value):
+        if value == '':
+            return True
         valid = True
         if self.check_aws:
             # All occurrences of AWS must be entities or within a word.
