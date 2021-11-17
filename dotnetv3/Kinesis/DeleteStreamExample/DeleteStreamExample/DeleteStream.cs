@@ -3,6 +3,7 @@
 
 namespace DeleteStreamExample
 {
+    // snippet-start:[Kinesis.dotnetv3.DeleteStreamExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Kinesis;
@@ -54,4 +55,6 @@ namespace DeleteStreamExample
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
     }
+
+    // snippet-end:[Kinesis.dotnetv3.DeleteStreamExample]
 }

@@ -18,6 +18,27 @@ struct Opt {
     verbose: bool,
 }
 
+// Lists the ARNs of your Lambda functions.
+// snippet-start:[lambda.rust.list-functions]
+async fn show_arns(client: &Client) -> Result<(), Error> {
+    let resp = client.list_functions().send().await?;
+
+    println!("Function ARNs:");
+
+    let functions = resp.functions.unwrap_or_default();
+    let num_funcs = functions.len();
+
+    for function in functions {
+        println!("{}", function.function_arn.unwrap_or_default());
+    }
+
+    println!();
+    println!("Found {} functions in the region", num_funcs);
+
+    Ok(())
+}
+// snippet-end:[lambda.rust.list-functions]
+
 /// Lists the Amazon Resource Names (ARNs) of your AWS Lambda functions in the Region.
 /// # Arguments
 ///
@@ -48,19 +69,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client.list_functions().send().await?;
-
-    println!("Function ARNs:");
-
-    let functions = resp.functions.unwrap_or_default();
-    let num_funcs = functions.len();
-
-    for function in functions {
-        println!("{}", function.function_arn.unwrap_or_default());
-    }
-
-    println!();
-    println!("Found {} functions in the region", num_funcs);
-
-    Ok(())
+    show_arns(&client).await
 }

@@ -4,7 +4,7 @@
 // snippet-service:[Amazon Route 53]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[5-10-2021]
+// snippet-sourcedate:[11/5/2021]
 // snippet-sourceauthor:[AWS - scmacdon]
 
 /*

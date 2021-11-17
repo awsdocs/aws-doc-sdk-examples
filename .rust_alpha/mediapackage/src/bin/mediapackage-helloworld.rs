@@ -18,6 +18,26 @@ struct Opt {
     verbose: bool,
 }
 
+// Displays channel ARNs and descriptions.
+// snippet-start:[mediapackage.rust.mediapackage-helloworld]
+async fn show_channels(client: &Client) -> Result<(), Error> {
+    let list_channels = client.list_channels().send().await?;
+
+    println!("Channels:");
+
+    for c in list_channels.channels.unwrap_or_default() {
+        let description = c.description.as_deref().unwrap_or_default();
+        let arn = c.arn.as_deref().unwrap_or_default();
+
+        println!("  Description : {}", description);
+        println!("  ARN :         {}", arn);
+        println!();
+    }
+
+    Ok(())
+}
+// snippet-end:[mediapackage.rust.mediapackage-helloworld]
+
 /// Lists your AWS Elemental MediaPackage channel ARNs and descriptions in the Region.
 /// # Arguments
 ///
@@ -48,18 +68,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let list_channels = client.list_channels().send().await?;
-
-    println!("Channels:");
-
-    for c in list_channels.channels.unwrap_or_default() {
-        let description = c.description.as_deref().unwrap_or_default();
-        let arn = c.arn.as_deref().unwrap_or_default();
-
-        println!("  Description : {}", description);
-        println!("  ARN :         {}", arn);
-        println!();
-    }
-
-    Ok(())
+    show_channels(&client).await
 }

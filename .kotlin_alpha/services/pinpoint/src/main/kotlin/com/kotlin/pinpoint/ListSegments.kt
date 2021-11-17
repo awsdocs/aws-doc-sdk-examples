@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/02/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -56,11 +56,8 @@ suspend fun listSegs(pinpoint: PinpointClient, appId: String?) {
             }
 
             val response = pinpoint.getSegments(request)
-            val segments = response.segmentsResponse?.item
-            if (segments != null) {
-                for (segment in segments) {
-                    println("Segement id is ${segment.id.toString()}")
-                }
+            response.segmentsResponse?.item?.forEach { segment ->
+                 println("Segement id is ${segment.id.toString()}")
             }
 
         } catch (ex: PinpointException) {

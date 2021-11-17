@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/21/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon- AWS]
 
 /*
@@ -23,7 +23,7 @@ import kotlin.system.exitProcess
 
 suspend fun main() {
 
-    val snsClient = SnsClient({region = "us-east-1"})
+    val snsClient = SnsClient{region = "us-east-1"}
     listSNSTopics(snsClient)
     snsClient.close()
 }
@@ -33,12 +33,9 @@ suspend fun listSNSTopics(snsClient: SnsClient) {
 
     try {
 
-        val result = snsClient.listTopics(ListTopicsRequest { })
-        val topics = result.topics
-        if (topics != null) {
-            for (topic: Topic in topics) {
-                println("The topic ARN is ${topic.topicArn}")
-            }
+        val response = snsClient.listTopics(ListTopicsRequest { })
+        response.topics?.forEach { topic ->
+             println("The topic ARN is ${topic.topicArn}")
         }
 
     } catch (e: SnsException) {

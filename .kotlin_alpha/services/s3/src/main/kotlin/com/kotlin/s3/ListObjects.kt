@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/06/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -41,10 +41,10 @@ suspend fun main(args: Array<String>) {
     if (args.size != 1) {
         println(usage)
         exitProcess(0)
-     }
+    }
 
     val bucketName = args[0]
-    val s3Client = S3Client { region = "us-east-1" }
+    val s3Client = S3Client { region = "us-west-2" }
     listBucketObjects(s3Client,bucketName)
     s3Client.close()
 }
@@ -57,14 +57,11 @@ suspend fun listBucketObjects(s3Client: S3Client, bucketName: String) {
                 bucket = bucketName
             }
 
-            val res = s3Client.listObjects(listObjects)
-            val objects: List<Object>? = res.contents
-            if (objects != null) {
-                for (myObject in objects) {
+            val response = s3Client.listObjects(listObjects)
+            response.contents?.forEach { myObject ->
                     println("The name of the key is ${myObject.key}")
                     println("The object is ${calKb(myObject.size)} KBs")
                     println("The owner is ${myObject.owner}" )
-                }
             }
 
         } catch (e: S3Exception) {
@@ -73,7 +70,7 @@ suspend fun listBucketObjects(s3Client: S3Client, bucketName: String) {
             exitProcess(0)
         }
     }
-    private fun calKb(intValue: Int): Int {
+    private fun calKb(intValue: Long): Long {
         return intValue / 1024
    }
 // snippet-end:[s3.kotlin.list_objects.main]

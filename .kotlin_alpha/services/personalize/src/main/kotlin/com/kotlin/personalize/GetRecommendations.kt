@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Personalize]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/02/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -61,14 +61,11 @@ suspend fun getRecs(personalizeRuntimeClient: PersonalizeRuntimeClient, campaign
                 userId = userIdVal
             }
 
-            val recommendationsResponse =  personalizeRuntimeClient.getRecommendations(recommendationsRequest)
-            val items: List<PredictedItem>? = recommendationsResponse.itemList
-            if (items != null) {
-                for (item in items) {
+            val response =  personalizeRuntimeClient.getRecommendations(recommendationsRequest)
+            response.itemList?.forEach { item ->
                     println("Item Id is ${item.itemId}")
                     println("Item score is ${item.score}")
-                }
-            }
+             }
 
         } catch (ex: PersonalizeException) {
             println(ex.message)

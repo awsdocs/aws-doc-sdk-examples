@@ -20,6 +20,7 @@ TEMPLATE_REGEX = r'(?<={{).+?(?=}})'
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.ses.SesTemplate]
 class SesTemplate:
     """Encapsulates Amazon SES template functions."""
     def __init__(self, ses_client):
@@ -40,6 +41,7 @@ class SesTemplate:
         """
         self.template_tags = set(re.findall(TEMPLATE_REGEX, subject + text + html))
         logger.info("Extracted template tags: %s", self.template_tags)
+# snippet-end:[python.example_code.ses.SesTemplate]
 
     def verify_tags(self, template_data):
         """
@@ -64,6 +66,7 @@ class SesTemplate:
         """
         return self.template['TemplateName'] if self.template is not None else None
 
+# snippet-start:[python.example_code.ses.CreateTemplate]
     def create_template(self, name, subject, text, html):
         """
         Creates an email template.
@@ -86,7 +89,9 @@ class SesTemplate:
         except ClientError:
             logger.exception("Couldn't create template %s.", name)
             raise
+# snippet-end:[python.example_code.ses.CreateTemplate]
 
+# snippet-start:[python.example_code.ses.DeleteTemplate]
     def delete_template(self):
         """
         Deletes an email template.
@@ -100,7 +105,9 @@ class SesTemplate:
             logger.exception(
                 "Couldn't delete template %s.", self.template['TemplateName'])
             raise
+# snippet-end:[python.example_code.ses.DeleteTemplate]
 
+# snippet-start:[python.example_code.ses.GetTemplate]
     def get_template(self, name):
         """
         Gets a previously created email template.
@@ -120,7 +127,9 @@ class SesTemplate:
             raise
         else:
             return self.template
+# snippet-end:[python.example_code.ses.GetTemplate]
 
+# snippet-start:[python.example_code.ses.ListTemplates]
     def list_templates(self):
         """
         Gets a list of all email templates for the current account.
@@ -136,7 +145,9 @@ class SesTemplate:
             raise
         else:
             return templates
+# snippet-end:[python.example_code.ses.ListTemplates]
 
+# snippet-start:[python.example_code.ses.UpdateTemplate]
     def update_template(self, name, subject, text, html):
         """
         Updates a previously created email template.
@@ -159,8 +170,10 @@ class SesTemplate:
         except ClientError:
             logger.exception("Couldn't update template %s.", name)
             raise
+# snippet-end:[python.example_code.ses.UpdateTemplate]
 
 
+# snippet-start:[python.example_code.ses.Scenario_Templates]
 def usage_demo():
     print('-'*88)
     print("Welcome to the Amazon Simple Email Service (Amazon SES) email template "
@@ -189,6 +202,7 @@ def usage_demo():
 
     print("Thanks for watching!")
     print('-'*88)
+# snippet-end:[python.example_code.ses.Scenario_Templates]
 
 
 if __name__ == '__main__':

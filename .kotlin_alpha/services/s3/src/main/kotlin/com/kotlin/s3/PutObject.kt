@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/06/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -17,10 +17,8 @@ package com.kotlin.s3
 import aws.sdk.kotlin.services.s3.S3Client
 import aws.sdk.kotlin.services.s3.model.PutObjectRequest
 import aws.sdk.kotlin.services.s3.model.S3Exception
-import aws.smithy.kotlin.runtime.content.ByteStream
-import java.io.File
-import java.io.FileInputStream
-import java.io.IOException
+import aws.smithy.kotlin.runtime.content.asByteStream
+import java.nio.file.Paths
 import kotlin.system.exitProcess
 // snippet-end:[s3.kotlin.s3_object_upload.import]
 
@@ -72,7 +70,7 @@ suspend fun putS3Object(
                 bucket = bucketName
                 key = objectKey
                 metadata = metadataVal
-                this.body = ByteStream.fromBytes(getObjectFile(objectPath))
+                this.body = Paths.get(objectPath).asByteStream()
             }
 
             val response =s3Client.putObject(putOb)
@@ -83,29 +81,5 @@ suspend fun putS3Object(
             s3Client.close()
             exitProcess(0)
         }
-    }
-
-    fun getObjectFile(filePath: String): ByteArray {
-        var fileInputStream: FileInputStream? = null
-        lateinit var bytesArray: ByteArray
-        try {
-
-            val file = File(filePath)
-            bytesArray = ByteArray(file.length().toInt())
-            fileInputStream = FileInputStream(file)
-            fileInputStream.read(bytesArray)
-
-        } catch (e: IOException) {
-            println(e.message)
-        } finally {
-            if (fileInputStream != null) {
-                try {
-                    fileInputStream.close()
-                } catch (e: IOException) {
-                    println(e.message)
-                }
-            }
-        }
-        return bytesArray
     }
 // snippet-end:[s3.kotlin.s3_object_upload.main]

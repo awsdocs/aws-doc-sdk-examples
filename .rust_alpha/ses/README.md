@@ -1,16 +1,37 @@
 # AWS SDK for Rust code examples for Amazon SES
 
-Amazon Simple Email Service (Amazon SES) is  a reliable, scalable, and cost-effective email service designed to help digital marketers and application developers send marketing, notification, and transactional emails.
-
 ## Purpose
 
-These examples demonstrate how to perform several Amazon EC2 operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Amazon Simple Email Service (Amazon SES) operations using the alpha version of the AWS SDK for Rust.
 
-## Prerequisites
+Amazon SES is  a reliable, scalable, and cost-effective email service designed to help digital marketers and application developers send marketing, notification, and transactional emails.
+
+## Code examples
+
+- [Add a contact to a contact list](src/bin/create-contact.rs) (CreateContact)
+- [Create contact list](src/bin/create-contact-list.rs) (CreateContactList)
+- [Is email address verified?](src/bin/is-email-verified.rs) (GetEmailIdentity)
+- [Lists your contact lists](src/bin/list-contact-lists.rs) (ListContactLists)
+- [Lists the email addresses of the contacts in a contact list](src/bin/list-contacts.rs) (ListContacts)
+- [Send message to all contacts](src/bin/send-email.rs) (ListContacts, SendEmail)
+
+## ⚠ Important
+
+- We recommend that you grant this code least privilege, 
+  or at most the minimum permissions required to perform the task.
+  For more information, see
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
+  in the AWS Identity and Access Management User Guide.
+- This code has not been tested in all AWS Regions.
+  Some AWS services are available only in specific
+  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+- Running this code might result in charges to your AWS account.
+
+## Running the code examples
+
+### Prerequisites
 
 You must have an AWS account, and have configured your default credentials and AWS Region as described in [https://github.com/awslabs/aws-sdk-rust](https://github.com/awslabs/aws-sdk-rust).
-
-## Running the code
 
 ### create-contact
 
@@ -60,7 +81,7 @@ This example lists the names of the contact lists in the Region.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.  
 
-### list-contact
+### list-contacts
 
 This example lists the email addresses of the contacts in a contact list in the Region.
 
@@ -87,16 +108,15 @@ This example sends a message to the email addresses in the contact list.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.  
 
-### Notes
+## Resources
 
-- We recommend that you grant this code least privilege,
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account.
+- [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
+
+## Contributing
+
+To propose a new code example to the AWS documentation team, 
+see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md). 
+The team prefers to create code examples that show broad scenarios rather than individual API calls. 
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

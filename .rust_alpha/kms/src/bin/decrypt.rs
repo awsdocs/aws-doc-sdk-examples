@@ -27,6 +27,37 @@ struct Opt {
     verbose: bool,
 }
 
+// Decrypt a string.
+// snippet-start:[kms.rust.decrypt]
+async fn decrypt_key(client: &Client, key: &str, filename: &str) -> Result<(), Error> {
+    // Open input text file and get contents as a string
+    // input is a base-64 encoded string, so decode it:
+    let data = fs::read_to_string(filename)
+        .map(|input| {
+            base64::decode(input).expect("Input file does not contain valid base 64 characters.")
+        })
+        .map(Blob::new);
+
+    let resp = client
+        .decrypt()
+        .key_id(key)
+        .ciphertext_blob(data.unwrap())
+        .send()
+        .await?;
+
+    let inner = resp.plaintext.unwrap();
+    let bytes = inner.as_ref();
+
+    let s = String::from_utf8(bytes.to_vec()).expect("Could not convert to UTF-8");
+
+    println!();
+    println!("Decoded string:");
+    println!("{}", s);
+
+    Ok(())
+}
+// snippet-end:[kms.rust.decrypt]
+
 /// Decrypts a string encrypted by AWS KMS.
 /// # Arguments
 ///
@@ -66,29 +97,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    // Open input text file and get contents as a string
-    // input is a base-64 encoded string, so decode it:
-    let data = fs::read_to_string(input_file)
-        .map(|input| {
-            base64::decode(input).expect("Input file does not contain valid base 64 characters.")
-        })
-        .map(Blob::new);
-
-    let resp = client
-        .decrypt()
-        .key_id(key)
-        .ciphertext_blob(data.unwrap())
-        .send()
-        .await?;
-
-    let inner = resp.plaintext.unwrap();
-    let bytes = inner.as_ref();
-
-    let s = String::from_utf8(bytes.to_vec()).expect("Could not convert to UTF-8");
-
-    println!();
-    println!("Decoded string:");
-    println!("{}", s);
-
-    Ok(())
+    decrypt_key(&client, &key, &input_file).await
 }

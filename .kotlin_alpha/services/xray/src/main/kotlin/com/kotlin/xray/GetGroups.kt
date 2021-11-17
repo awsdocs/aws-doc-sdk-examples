@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS X-Ray Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/30/2020]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -31,13 +31,10 @@ suspend fun main() {
  suspend fun getAllGroups(xRayClient: XRayClient) {
         try {
 
-            val groupsResponse = xRayClient.getGroups(GetGroupsRequest{})
-            val groups = groupsResponse.groups
-            if (groups != null) {
-                for (group in groups) {
-                    println("The AWS X-Ray group name is ${group.groupName}")
+            val response = xRayClient.getGroups(GetGroupsRequest{})
+            response.groups?.forEach { group ->
+                 println("The AWS X-Ray group name is ${group.groupName}")
                 }
-            }
 
         } catch (ex: XRayException) {
             println(ex.message)

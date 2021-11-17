@@ -22,6 +22,23 @@ struct Opt {
     verbose: bool,
 }
 
+// Displays the address of an endpoint.
+// snippet-start:[iot.rust.describe-endpoint]
+async fn show_address(client: &Client, endpoint_type: &str) -> Result<(), Error> {
+    let resp = client
+        .describe_endpoint()
+        .endpoint_type(endpoint_type)
+        .send()
+        .await?;
+
+    println!("Endpoint address: {}", resp.endpoint_address.unwrap());
+
+    println!();
+
+    Ok(())
+}
+// snippet-end:[iot.rust.describe-endpoint]
+
 /// Returns a unique endpoint specific to the AWS account making the call, in the Region.
 ///
 /// # Arguments
@@ -63,15 +80,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client
-        .describe_endpoint()
-        .endpoint_type(endpoint_type)
-        .send()
-        .await?;
-
-    println!("Endpoint address: {}", resp.endpoint_address.unwrap());
-
-    println!();
-
-    Ok(())
+    show_address(&client, &endpoint_type).await
 }

@@ -4,7 +4,7 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_ses::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_sesv2::{Client, Error, Region, PKG_VERSION};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -26,7 +26,23 @@ struct Opt {
     verbose: bool,
 }
 
-/// Adds a new contact to the contact list in the Region.
+// Adds a contact to a contact list.
+// snippet-start:[ses.rust.create-contact]
+async fn add_contact(client: &Client, list: &str, email: &str) -> Result<(), Error> {
+    client
+        .create_contact()
+        .contact_list_name(list)
+        .email_address(email)
+        .send()
+        .await?;
+
+    println!("Created contact");
+
+    Ok(())
+}
+// snippet-end:[ses.rust.create-contact]
+
+/// Adds a contact to the contact list in the Region.
 /// # Arguments
 ///
 /// * `-c CONTACT-LIST` - The name of the contact list.
@@ -66,14 +82,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    client
-        .create_contact()
-        .contact_list_name(contact_list)
-        .email_address(email_address)
-        .send()
-        .await?;
-
-    println!("Created contact");
-
-    Ok(())
+    add_contact(&client, &contact_list, &email_address).await
 }

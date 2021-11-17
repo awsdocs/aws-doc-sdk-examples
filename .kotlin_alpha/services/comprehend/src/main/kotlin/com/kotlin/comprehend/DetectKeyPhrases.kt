@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Comprehend]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[03/04/2021]
+// snippet-sourcedate:[11/04/2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -30,7 +30,9 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
 
-    val comprehendClient = ComprehendClient({region="us-east-1"})
+    val comprehendClient = ComprehendClient{
+        region="us-east-1"
+    }
     val text = "Amazon.com, Inc. is located in Seattle, WA and was founded July 5th, 1994 by Jeff Bezos, allowing customers to buy everything from books to blenders. Seattle is north of Portland and south of Vancouver, BC. Other notable Seattle - based companies are Starbucks and Boeing."
     detectAllKeyPhrases(comprehendClient,text)
     comprehendClient.close()
@@ -43,12 +45,9 @@ suspend fun detectAllKeyPhrases(comClient: ComprehendClient, textVal: String) {
                  text = textVal
                  languageCode = LanguageCode.fromValue("en")
             }
-            val resp = comClient.detectKeyPhrases(detectKeyPhrasesRequest)
-            val phraseList = resp.keyPhrases
-            if (phraseList != null) {
-                for (phrase in phraseList) {
-                    println("Key phrase text is ${phrase.text}")
-                }
+            val response = comClient.detectKeyPhrases(detectKeyPhrasesRequest)
+            response.keyPhrases?.forEach { phrase ->
+                println("Key phrase text is ${phrase.text}")
             }
 
         } catch (ex: ComprehendException) {

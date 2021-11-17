@@ -4,7 +4,7 @@
 // snippet-service:[AWS CloudTrail]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[06/02/2021]
+// snippet-sourcedate:[11/03/2021]
 // snippet-sourceauthor:[AWS - scmacdon]
 
 /*
@@ -14,22 +14,14 @@
 
 package com.kotlin.cloudtrail
 
-//snippet-start:[cloudtrail.kotlin.selectors.import]
+//snippet-start:[cloudtrail.kotlin._selectors.import]
 import aws.sdk.kotlin.services.cloudtrail.CloudTrailClient
 import aws.sdk.kotlin.services.cloudtrail.model.EventSelector
 import aws.sdk.kotlin.services.cloudtrail.model.PutEventSelectorsRequest
 import aws.sdk.kotlin.services.cloudtrail.model.ReadWriteType
 import aws.sdk.kotlin.services.cloudtrail.model.CloudTrailException
 import kotlin.system.exitProcess
-//snippet-end:[cloudtrail.kotlin.selectors.import]
-
-/**
-To run this Kotlin code example, ensure that you have setup your development environment,
-including your credentials.
-
-For information, see this documentation topic:
-https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
+//snippet-end:[cloudtrail.kotlin._selectors.import]
 
 suspend fun main(args: Array<String>) {
 
@@ -48,13 +40,13 @@ suspend fun main(args: Array<String>) {
          exitProcess(0)
       }
 
-    val trailName = args.get(0)
+    val trailName = args[0]
     val cloudTrailClient = CloudTrailClient{ region = "us-east-1" }
     setSelector(cloudTrailClient, trailName)
     cloudTrailClient.close()
   }
 
-//snippet-start:[cloudtrail.kotlin.selectors.main]
+//snippet-start:[cloudtrail.kotlin._selectors.main]
 suspend fun setSelector(cloudTrailClient: CloudTrailClient, trailNameVal: String?) {
         try {
 
@@ -75,4 +67,4 @@ suspend fun setSelector(cloudTrailClient: CloudTrailClient, trailNameVal: String
             exitProcess(0)
         }
  }
-//snippet-end:[cloudtrail.kotlin.selectors.main]
+//snippet-end:[cloudtrail.kotlin._selectors.main]

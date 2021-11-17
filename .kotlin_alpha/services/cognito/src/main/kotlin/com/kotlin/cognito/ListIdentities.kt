@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[08/01/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -59,10 +59,8 @@ suspend fun listPoolIdentities(cognitoIdentityClient: CognitoIdentityClient, ide
             }
 
             val response = cognitoIdentityClient.listIdentities(listIdentitiesInput)
-            val identities = response.identities
-            if (identities != null) {
-                for (identity in identities)
-                    println("The identity Id value is ${identity.identityId}")
+            response.identities?.forEach { identity ->
+                println("The identity Id value is ${identity.identityId}")
             }
 
         } catch (ex: CognitoIdentityException) {

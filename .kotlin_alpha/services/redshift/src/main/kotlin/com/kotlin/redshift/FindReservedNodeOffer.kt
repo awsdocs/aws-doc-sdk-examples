@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Redshift ]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/31/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -42,10 +42,9 @@ suspend fun listReservedNodes(redshiftClient: RedshiftClient) {
     try {
         val reservedNodesResponse = redshiftClient.describeReservedNodes(DescribeReservedNodesRequest{})
         println("Listing nodes already purchased.")
-
-        for (node in reservedNodesResponse.reservedNodes!!) {
-            printReservedNodeDetails(node)
-        }
+        reservedNodesResponse.reservedNodes?.forEach { node ->
+               printReservedNodeDetails(node)
+       }
 
     } catch (e: RedshiftException) {
         println(e.message)
@@ -63,7 +62,7 @@ suspend fun findReservedNodeOffer(redshiftClient: RedshiftClient) {
         val response = redshiftClient.describeReservedNodeOfferings(DescribeReservedNodeOfferingsRequest{})
         var count = 0
         println("Finding nodes to purchase.")
-        for (offering in response.reservedNodeOfferings!!) {
+        response.reservedNodeOfferings?.forEach { offering ->
 
             if (offering.nodeType.equals(nodeTypeToPurchase)) {
                 if (offering.fixedPrice < fixedPriceLimit) {

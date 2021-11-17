@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/21/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon- AWS]
 
 /*
@@ -40,7 +40,7 @@ suspend fun main(args:Array<String>) {
     val attribute = args[0]
     val topicArn = args[1]
     val value = args[2]
-    val snsClient = SnsClient({ region = "us-east-1" })
+    val snsClient = SnsClient{ region = "us-east-1" }
     setTopAttr(snsClient, attribute, topicArn, value)
     snsClient.close()
 }

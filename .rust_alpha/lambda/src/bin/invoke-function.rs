@@ -22,6 +22,17 @@ struct Opt {
     verbose: bool,
 }
 
+// Runs a Lambda function.
+// snippet-start:[lambda.rust.invoke-function]
+async fn run_function(client: &Client, arn: &str) -> Result<(), Error> {
+    client.invoke().function_name(arn).send().await?;
+
+    println!("Invoked function.");
+
+    Ok(())
+}
+// snippet-end:[lambda.rust.invoke-function]
+
 /// Invokes a Lambda function by its ARN.
 /// # Arguments
 ///
@@ -56,9 +67,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    client.invoke().function_name(arn).send().await?;
-
-    println!("Invoked function.");
-
-    Ok(())
+    run_function(&client, &arn).await
 }

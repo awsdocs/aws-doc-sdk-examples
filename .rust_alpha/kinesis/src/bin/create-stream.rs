@@ -22,6 +22,22 @@ struct Opt {
     verbose: bool,
 }
 
+// Creates a stream.
+// snippet-start:[kinesis.rust.create-stream]
+async fn make_stream(client: &Client, stream: &str) -> Result<(), Error> {
+    client
+        .create_stream()
+        .stream_name(stream)
+        .shard_count(4)
+        .send()
+        .await?;
+
+    println!("Created stream");
+
+    Ok(())
+}
+// snippet-end:[kinesis.rust.create-stream]
+
 /// Creates an Amazon Kinesis data stream.
 /// # Arguments
 ///
@@ -57,14 +73,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    client
-        .create_stream()
-        .stream_name(stream_name)
-        .shard_count(4)
-        .send()
-        .await?;
-
-    println!("Created stream");
-
-    Ok(())
+    make_stream(&client, &stream_name).await
 }

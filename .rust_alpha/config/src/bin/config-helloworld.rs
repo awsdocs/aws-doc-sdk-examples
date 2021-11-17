@@ -29,11 +29,7 @@ struct Opt {
 
 // Retrieves the configuration history for a resource.
 // snippet-start:[config.rust.config-helloworld]
-async fn get_history(
-    client: &Client,
-    id: &str,
-    res: ResourceType,
-) -> Result<(), Error> {
+async fn get_history(client: &Client, id: &str, res: ResourceType) -> Result<(), Error> {
     let rsp = client
         .get_resource_config_history()
         .resource_id(id)

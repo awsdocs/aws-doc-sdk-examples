@@ -3,6 +3,7 @@
 
 namespace ListDashboardsExample
 {
+    // snippet-start:[CloudWatch.dotnetv3.ListDashboardsExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -56,4 +57,6 @@ namespace ListDashboardsExample
             }
         }
     }
+
+    // snippet-end:[CloudWatch.dotnetv3.ListDashboardsExample]
 }

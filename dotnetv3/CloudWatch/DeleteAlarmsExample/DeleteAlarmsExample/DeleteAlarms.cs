@@ -3,6 +3,7 @@
 
 namespace DeleteAlarmsExample
 {
+    // snippet-start:[CloudWatch.dotnetv3.DeleteAlarmsExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -61,7 +62,7 @@ namespace DeleteAlarmsExample
         {
             // The list of alarm names passed to DeleteAlarmsAsync
             // can contain up to 100 alarm names.
-            List<string> theList = new List<string>
+            var theList = new List<string>
             {
                 "ALARM_NAME_1",
                 "ALARM_NAME_2",
@@ -70,4 +71,6 @@ namespace DeleteAlarmsExample
             return theList;
         }
     }
+
+    // snippet-end:[CloudWatch.dotnetv3.DeleteAlarmsExample]
 }

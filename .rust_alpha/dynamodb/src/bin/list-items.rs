@@ -22,6 +22,21 @@ struct Opt {
     verbose: bool,
 }
 
+// Lists the items in a table.
+// snippet-start:[dynamodb.rust.list-items]
+async fn list_items(client: &Client, table: &str) -> Result<(), Error> {
+    let resp = client.scan().table_name(table).send().await?;
+
+    println!("Items in table:");
+
+    if let Some(item) = resp.items {
+        println!("   {:?}", item);
+    }
+
+    Ok(())
+}
+// snippet-end:[dynamodb.rust.list-items]
+
 /// Lists the items in a DynamoDB table.
 /// # Arguments
 ///
@@ -59,13 +74,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client.scan().table_name(table).send().await?;
-
-    println!("Items in table:");
-
-    if let Some(item) = resp.items {
-        println!("   {:?}", item);
-    }
-
-    Ok(())
+    list_items(&client, &table).await
 }

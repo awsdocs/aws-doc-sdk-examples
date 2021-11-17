@@ -1,0 +1,926 @@
+# zexi 0.4.0
+s3_CreateBucket:
+  title: Create an &S3; bucket using an &AWS; SDK
+  title_abbrev: Create a bucket
+  synopsis: create an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.create_bucket_waiters.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          excerpts:
+            - description: Create a bucket with default settings.
+              snippet_tags:
+                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.CreateBucket
+            - description: Create a versioned bucket with a lifecycle configuration.
+              snippet_tags:
+                - s3.python.versioning.create_versioned_bucket
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.rust.create-bucket
+  services:
+    s3: {CreateBucket}
+s3_CopyObject:
+  title: Copy an object from one &S3; bucket to another using an &AWS; SDK
+  title_abbrev: Copy an object from one bucket to another
+  synopsis: copy an &S3; object from one bucket to another.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.copy_object.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.CopyObject
+  services:
+    s3: {CopyObject}
+s3_DeleteBucketPolicy:
+  title: Delete a policy from an &S3; bucket using an &AWS; SDK
+  title_abbrev: Delete a policy from a bucket
+  synopsis: delete a policy from an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.delete_bucket_policy.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.DeleteBucketPolicy
+  services:
+    s3: {DeleteBucketPolicy}
+s3_DeleteObject:
+  title: Delete an &S3; object using an &AWS; SDK
+  title_abbrev: Delete an object
+  synopsis: delete an &S3; object.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.DeleteObject
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.rust.delete-object
+  services:
+    s3: {DeleteObject}
+s3_DeleteObjects:
+  title: Delete multiple objects from an &S3; bucket using an &AWS; SDK
+  title_abbrev: Delete multiple objects
+  synopsis: delete multiple objects from an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.delete_many_objects.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          excerpts:
+            - description: Delete a set of objects by using a list of object keys.
+              snippet_tags:
+                - python.example_code.s3.DeleteObjects_Keys
+            - description: Delete all objects in a bucket.
+              snippet_tags:
+                - python.example_code.s3.DeleteObjects_All
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/S3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.rust.delete-objects
+  services:
+    s3: {DeleteObjects}
+s3_DeleteBucketWebsite:
+  title: Delete the website configuration from an &S3; bucket using an &AWS; SDK
+  title_abbrev: Delete the website configuration from a bucket
+  synopsis: delete the website configuration from an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.delete_website_configuration.main
+  services:
+    s3: {DeleteBucketWebsite}
+s3_GetObjectAcl:
+  title: Get the ACL of an &S3; object using an &AWS; SDK
+  title_abbrev: Get the ACL of an object
+  synopsis: get the access control list (ACL) of an &S3; object.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.GetObjectAcl
+  services:
+    s3: {GetObjectAcl}
+s3_GetBucketPolicy:
+  title: Get the policy for an &S3; bucket using an &AWS; SDK
+  title_abbrev: Get the policy for a bucket
+  synopsis: get the policy for an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.get_bucket_policy.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.GetBucketPolicy
+  services:
+    s3: {GetBucketPolicy}
+s3_HeadObject:
+  title: Determine the content type of an object in an &S3; bucket using an &AWS; SDK
+  title_abbrev: Determine the content type
+  synopsis: get the content type of an object in an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.getobjectcontenttype.main
+  services:
+    s3: {HeadObject}
+s3_GetObject:
+  title: Read data from an &S3; bucket using an &AWS; SDK
+  title_abbrev: Read data from a bucket
+  synopsis: read data from an object located in an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: Read data as a byte array.
+              snippet_tags:
+                - s3.java2.getobjectdata.main
+            - description: Read tags that belong to an object.
+              snippet_tags:
+                - s3.java2.getobjecttags.main
+            - description: Get a URL for an object.
+              snippet_tags:
+                - s3.java2.getobjecturl.main
+            - description: Get an object by using the S3Presigner client object.
+              snippet_tags:
+                - presigned.java2.getobjectpresigned.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.GetObject
+  services:
+    s3: {GetObject}
+s3_GetBucketLifecycleConfiguration:
+  title: Get the lifecycle configuration of an &S3; bucket using an &AWS; SDK
+  title_abbrev: Get the lifecycle configuration of a bucket
+  synopsis: get the lifecycle configuration of an &S3; bucket.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.GetBucketLifecycleConfiguration
+  services:
+    s3: {GetBucketLifecycleConfiguration}
+s3_PutBucketLifecycleConfiguration:
+  title: Add a lifecycle configuration to an &S3; bucket using an &AWS; SDK
+  title_abbrev: Add a lifecycle configuration to a bucket
+  synopsis: add a lifecycle configuration to an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.manage_lifecycle.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.PutBucketLifecycleConfiguration
+  services:
+    s3: {PutBucketLifecycleConfiguration}
+s3_DeleteBucketLifecycle:
+  title: Delete the lifecycle configuration of an &S3; bucket using an &AWS; SDK
+  title_abbrev: Delete the lifecycle configuration of a bucket
+  synopsis: delete the lifecycle configuration of an &S3; bucket.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.DeleteBucketLifecycleConfiguration
+  services:
+    s3: {DeleteBucketLifecycle}
+s3_ListMultipartUploads:
+  title: List in-progress multipart uploads to an &S3; bucket using an &AWS; SDK
+  title_abbrev: List in-progress multipart uploads
+  synopsis: list in-progress multipart uploads to an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.list_multi_uploads.main
+  services:
+    s3: {ListMultipartUploads}
+s3_ListObjects:
+  title: List objects in an &S3; bucket using an &AWS; SDK
+  title_abbrev: List objects in a bucket
+  synopsis: list objects located in an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.list_objects.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.ListObjects
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.rust.list-objects
+  services:
+    s3: {ListObjects}
+s3_ListObjectVersions:
+  title: List the version of objects in an &S3; bucket using an &AWS; SDK
+  title_abbrev: List object versions in a bucket
+  synopsis: list object versions in an &S3; bucket.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.rust.list-object-versions
+  services:
+    s3: {ListObjectVersions}
+s3_PutObject:
+  title: Upload an object to an &S3; bucket using an &AWS; SDK
+  title_abbrev: Upload an object to a bucket
+  synopsis: upload an object to an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: Upload an object to a bucket.
+              snippet_tags:
+                - s3.java2.s3_object_upload.main
+            - description: Upload an object to a bucket and set tags.
+              snippet_tags:
+                - s3.java2.s3_object_manage_tags.main
+            - description: Upload an object to a bucket and set metadata.
+              snippet_tags:
+                - s3.java2.s3_object_upload.metadata.main
+            - description: Upload an object to a bucket and set an object retention value.
+              snippet_tags:
+                - s3.java2.retention_object.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.PutObject
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.rust.s3-helloworld
+  services:
+    s3: {PutObject}
+s3_RestoreObject:
+  title: Restore an archived copy of an object back into an &S3; bucket using an &AWS; SDK
+  title_abbrev: Restore an archived copy of an object
+  synopsis: restore an archived copy of an object back into an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.restore_object.main
+  services:
+    s3: {RestoreObject}
+s3_DeleteBucket:
+  title: Delete an empty &S3; bucket using an &AWS; SDK
+  title_abbrev: Delete an empty bucket
+  synopsis: delete an empty &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.s3_bucket_ops.delete_bucket
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.DeleteBucket
+  services:
+    s3: {DeleteBucket}
+s3_GetBucketCors:
+  title: Get CORS rules for an &S3; bucket using an &AWS; SDK
+  title_abbrev: Get CORS rules for a bucket
+  synopsis: get cross-origin resource sharing (CORS) rules for an &S3; bucket.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.GetBucketCors
+  services:
+    s3: {GetBucketCors}
+s3_PutBucketCors:
+  title: Add CORS rules to an &S3; bucket using an &AWS; SDK
+  title_abbrev: Add CORS rules to a bucket
+  synopsis: add cross-origin resource sharing (CORS) rules to an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.cors.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.PutBucketCors
+  services:
+    s3: {PutBucketCors}
+s3_DeleteBucketCors:
+  title: Delete CORS rules from an &S3; bucket using an &AWS; SDK
+  title_abbrev: Delete CORS rules from a bucket
+  synopsis: delete CORS rules from an &S3; bucket.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.DeleteBucketCors
+  services:
+    s3: {DeleteBucketCors}
+s3_GetBucketAcl:
+  title: Get the ACL of an &S3; bucket using an &AWS; SDK
+  title_abbrev: Get the ACL of a bucket
+  synopsis: get the ACL of an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.get_acl.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.GetBucketAcl
+  services:
+    s3: {GetBucketAcl}
+s3_PutBucketAcl:
+  title: Set a new ACL for an &S3; bucket using an &AWS; SDK
+  title_abbrev: Set a new ACL for a bucket
+  synopsis: set a new access control list (ACL) for an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.set_acl.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.PutBucketAcl
+  services:
+    s3: {PutBucketAcl}
+s3_PutBucketPolicy:
+  title: Add a policy to an &S3; bucket using an &AWS; SDK
+  title_abbrev: Add a policy to a bucket
+  synopsis: add a policy to an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.set_bucket_policy.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.PutBucketPolicy
+  services:
+    s3: {PutBucketPolicy}
+s3_PutBucketWebsite:
+  title: Set the website configuration for an &S3; bucket using an &AWS; SDK
+  title_abbrev: Set the website configuration for a bucket
+  synopsis: set the website configuration for an &S3; bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.set_website_configuration.main
+  services:
+    s3: {PutBucketWebsite}
+s3_HeadBucket:
+  title: Determine the existence of an &S3; bucket using an &AWS; SDK
+  title_abbrev: Determine the existence of a bucket
+  synopsis: determine the existence of an &S3; bucket.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.HeadBucket
+  services:
+    s3: {HeadBucket}
+s3_ListBuckets:
+  title: List &S3; buckets using an &AWS; SDK
+  title_abbrev: List buckets
+  synopsis: list &S3; buckets.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.ListBuckets
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.rust.list-buckets
+  services:
+    s3: {ListBuckets}
+s3_Scenario_BucketManagement:
+  title: Create and manage &S3; buckets using an &AWS; SDK
+  title_abbrev: Create and manage buckets
+  synopsis: create and manage &S3; buckets.
+  category: Scenario
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          sdkguide:
+          excerpts:
+            - description: Call some of the functions defined in the API example
+                section to create and manage buckets.
+              snippet_tags:
+                - python.example_code.s3.Scenario_BucketManagement
+  services:
+    s3: {}
+s3_PutObjectAcl:
+  title: Set the ACL of an &S3; object using an &AWS; SDK
+  title_abbrev: Set the ACL of an object
+  synopsis: set the access control list (ACL) of an &S3; object.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.PutObjectAcl
+  services:
+    s3: {PutObjectAcl}
+s3_Scenario_GettingStartedBuckets:
+  title: Create, list, and delete &S3; buckets using an &AWS; SDK
+  title_abbrev: Create, list, and delete buckets
+  synopsis: create, list, and delete &S3; buckets.
+  category: Scenario
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.python.bucket_operations.list_create_delete
+  services:
+    s3: {CreateBucket, ListBuckets, DeleteBucket}
+s3_Scenario_ObjectManagement:
+  title: Upload and manage &S3; objects using an &AWS; SDK
+  title_abbrev: Upload and manage objects
+  synopsis: upload and manage &S3; objects.
+  category: Scenario
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          sdkguide:
+          excerpts:
+            - description: Call some of the functions defined in the API example
+                section to upload and manage objects.
+              snippet_tags:
+                - python.example_code.s3.Scenario_ObjectManagement
+  services:
+    s3: {}
+s3_Scenario_TransferManager:
+  title: Use a transfer manager to upload and download files to and from &S3; using an &AWS; SDK
+  title_abbrev: Use a transfer manager to upload and download files
+  synopsis: use a transfer manager to upload and download files to and from &S3;.
+  category: Scenario
+  guide_topic:
+    title: Uploading an object using multipart upload
+    url: AmazonS3/latest/userguide/mpu-upload-object.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/file_transfer
+          sdkguide:
+          excerpts:
+            - description:
+                Create functions that transfer files using several of the
+                available transfer manager settings. Use a callback class to write
+                callback progress during file transfer.
+              snippet_tags:
+                - S3.Python.s3_file_transfer.complete
+            - description: Demonstrate the transfer manager functions and report
+                results.
+              snippet_tags:
+                - python.example_code.s3.Scenario_FileTransfer_Demo
+  services:
+    s3: {}
+s3_Scenario_RemoveDeleteMarkers:
+  title: Remove delete markers from versioned &S3; objects using an &AWS; SDK
+  title_abbrev: Remove delete markers from versioned objects
+  synopsis: remove delete markers from versioned &S3; objects.
+  category: Scenario
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_versioning
+          sdkguide:
+          excerpts:
+            - description:
+                Create a &LAM; handler that removes a delete marker from
+                an &S3; object. This handler can be used to efficiently clean up
+                extraneous delete markers in a versioned bucket.
+              snippet_tags:
+                - s3.python.lambda.remove_delete_marker
+  services:
+    s3: {}
+s3_Scenario_BatchObjectVersioning:
+  title: Manage versioned &S3; objects in batches with a &LAM; function using an &AWS; SDK
+  title_abbrev: Manage versioned objects in batches with a &LAM; function
+  synopsis: manage versioned &S3; objects in batches with a &LAM; function.
+  category: Scenario
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: scenario_S3BatchObjectVersioning_Python_block.xml
+  services:
+    s3: {}
+s3_Scenario_PresignedUrl:
+  title: Create a presigned URL for &S3; using an &AWS; SDK
+  title_abbrev: Create a presigned URL
+  synopsis: create a presigned URL for &S3; and upload an object.
+  category: Scenario
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - presigned.java2.generatepresignedurl.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          sdkguide:
+          excerpts:
+            - description:
+                Generate a presigned URL that can perform an &S3; action
+                for a limited time. Use the Requests package to make a request with
+                the URL.
+              snippet_tags:
+                - python.example_code.s3.Scenario_GeneratePresignedUrl
+            - description: Generate a presigned POST request to upload a file.
+              snippet_tags:
+                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.Scenario_GeneratePresignedPost
+  services:
+    s3: {}
+s3_Scenario_RollbackVersionedObject:
+  title: Roll back an &S3; object to a specific version using an &AWS; SDK
+  title_abbrev: Roll back an object to a specific version
+  synopsis:
+    roll back an &S3; object to a specific version by deleting more recent
+    versions.
+  category: Scenario
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_versioning
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.python.versioning.rollback_object
+  services:
+    s3: {ListObjectVersions, DeleteObject}
+s3_Scenario_ReviveVersionedObject:
+  title: Revive a deleted &S3; object using an &AWS; SDK
+  title_abbrev: Revive a deleted object
+  synopsis: revive a deleted &S3; object by removing the object's active delete marker.
+  category: Scenario
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_versioning
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.python.versioning.revive_object
+  services:
+    s3: {ListObjectVersions, DeleteObject}
+s3_Scenario_PermanentlyDeleteVersionedObject:
+  title: Permanently delete an &S3; versioned object using an &AWS; SDK
+  title_abbrev: Permanently delete a versioned object
+  synopsis: permanently delete an &S3; versioned object by deleting all of its versions.
+  category: Scenario
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_versioning
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.python.versioning.permanently_delete_object
+  services:
+    s3: {ListObjectVersions, DeleteObjects}
+s3_Scenario_ObjectVersioningUsage:
+  title: Work with &S3; versioned objects using an &AWS; SDK
+  title_abbrev: Work with versioned objects
+  synopsis: work with &S3; versioned objects.
+  category: Scenario
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_versioning
+          sdkguide:
+          excerpts:
+            - description:
+                Call some of the functions defined in the API examples
+                section to upload the stanza of a poem to a versioned object and
+                perform a series of actions on it.
+              snippet_tags:
+                - python.example_code.s3.Scenario_ObjectVersions
+  services:
+    s3: {}
+s3_GetBucketLocation:
+  title: Get the Region where the &S3; bucket resides using an &AWS; SDK
+  title_abbrev: Get the Region location for a bucket
+  synopsis: get the Region location for an &S3; bucket.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.rust.list-buckets
+  services:
+    s3: {GetBucketLocation}

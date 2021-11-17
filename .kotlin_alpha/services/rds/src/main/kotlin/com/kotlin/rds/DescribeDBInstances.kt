@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Relational Database Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[5/28/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -39,15 +39,11 @@ suspend fun main() {
 suspend fun describeInstances(rdsClient: RdsClient) {
     try {
         val response = rdsClient.describeDbInstances(DescribeDbInstancesRequest {})
-        val instanceList = response.dbInstances
-
-        if (instanceList != null) {
-            for (instance in instanceList) {
-                println("Instance Identifier is ${instance.dbInstanceIdentifier}")
-                println("The Engine is ${instance.engine}")
-                println("Connection endpoint is ${instance.endpoint?.address}")
-            }
-        }
+        response.dbInstances?.forEach { instance ->
+               println("Instance Identifier is ${instance.dbInstanceIdentifier}")
+               println("The Engine is ${instance.engine}")
+               println("Connection endpoint is ${instance.endpoint?.address}")
+         }
 
     } catch (e: RdsException) {
         println(e.message)

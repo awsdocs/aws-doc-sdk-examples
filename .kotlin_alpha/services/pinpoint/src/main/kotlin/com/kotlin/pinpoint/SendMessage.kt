@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/02/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -74,15 +74,15 @@ suspend fun main(args: Array<String>) {
      // The type of SMS message that you want to send. If you plan to send
      // time-sensitive content, specify TRANSACTIONAL. If you plan to send
      // marketing-related content, specify PROMOTIONAL.
-     var messageTypeVal = "TRANSACTIONAL"
+     val messageTypeVal = "TRANSACTIONAL"
 
      // The registered keyword associated with the originating short code.
-     var registeredKeyword = "myKeyword"
+     val registeredKeyword = "myKeyword"
 
      // The sender ID to use when sending the message. Support for sender ID
      // varies by country or region. For more information, see
      // https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-countries.html
-     var senderIdVal = "MySenderID"
+     val senderIdVal = "MySenderID"
 
       try {
             val addressMap = mutableMapOf<String, AddressConfiguration>()

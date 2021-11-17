@@ -3,6 +3,7 @@
 
 namespace DisableAlarmActionsExammple
 {
+    // snippet-start:[CloudWatch.dotnetv3.DisableAlarmActionsExammple]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -58,4 +59,6 @@ namespace DisableAlarmActionsExammple
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
     }
+
+    // snippet-end:[CloudWatch.dotnetv3.DisableAlarmActionsExammple]
 }

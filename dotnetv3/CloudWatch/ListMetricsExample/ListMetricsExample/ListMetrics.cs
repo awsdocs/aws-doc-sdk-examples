@@ -3,6 +3,7 @@
 
 namespace ListMetricsExample
 {
+    // snippet-start:[CloudWatch.dotnetv3.ListMetricsExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -79,8 +80,10 @@ namespace ListMetricsExample
                 }
 
                 request.NextToken = response.NextToken;
-
-            } while (!string.IsNullOrEmpty(response.NextToken));
+            }
+            while (!string.IsNullOrEmpty(response.NextToken));
         }
     }
+
+    // snippet-end:[CloudWatch.dotnetv3.ListMetricsExample]
 }

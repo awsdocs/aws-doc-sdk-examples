@@ -24,10 +24,7 @@ struct Opt {
 
 // Lists the state of an instance.
 // snippet-start:[ec2.rust.describe-instances]
-async fn show_state(
-    client: &Client,
-    ids: Vec<String>,
-) -> Result<(), Error> {
+async fn show_state(client: &Client, ids: Vec<String>) -> Result<(), Error> {
     let resp = client
         .describe_instances()
         .set_instance_ids(Some(ids))

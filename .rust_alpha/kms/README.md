@@ -1,16 +1,40 @@
 # AWS SDK for Rust code examples for AWS KMS
 
-AWS Key Management Service (AWS KMS) is an encryption and key management service scaled for the cloud. AWS KMS keys and functionality are used by other AWS services, and you can use them to protect data in your own applications that use AWS.
-
 ## Purpose
 
-These examples demonstrate how to perform several AWS KMS operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several AWS Key Management Service (AWS KMS) operations using the alpha version of the AWS SDK for Rust.
 
-## Prerequisites
+AWS KMS is an encryption and key management service scaled for the cloud. AWS KMS keys and functionality are used by other AWS services, and you can use them to protect data in your own applications that use AWS.
+
+## Code examples
+
+- [Create a key](src/bin/create-key.rs) (CreateKey)
+- [Decrypt an encrypted string](src/bin/decrypt.rs) (Decrypt)
+- [Encrypt a string](src/bin/encrypt.rs) (Encrypt)
+- [Create a data key](src/bin/generate-data-key.rs) (GenerateDataKey)
+- [Create a data key without plaintext](src/bin/generate-data-key-without-plaintext.rs) (GenerateDataKeyWithoutPlaintext)
+- [Create random string](src/bin/generate-random.rs) (GenerateRandom)
+- [Create random 64-bit string](src/bin/kms-helloworld.rs) (GenerateRandom using aws_hyper client)
+- [Lists your keys](src/bin/list-keys.rs) (ListKeys)
+- [Re-encrypts a string](src/bin/reencrypt-data.rs) (ReEncrypt)
+
+## ⚠ Important
+
+- We recommend that you grant this code least privilege, 
+  or at most the minimum permissions required to perform the task.
+  For more information, see
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
+  in the AWS Identity and Access Management User Guide.
+- This code has not been tested in all AWS Regions.
+  Some AWS services are available only in specific
+  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+- Running this code might result in charges to your AWS account.
+
+## Running the code examples
+
+### Prerequisites
 
 You must have an AWS account, and have configured your default credentials and AWS Region as described in [https://github.com/awslabs/aws-sdk-rust](https://github.com/awslabs/aws-sdk-rust).
-
-## Running the code
 
 ### create-key
 
@@ -93,6 +117,17 @@ This example creates a random, 64-byte string that is cryptographically secure i
 
 `cargo run --bin kms-helloworld`
 
+### list-keys
+
+This example lists your AWS KMS keys in the Region.
+
+`cargo run --bin list-keys -- [-r REGION] [-v]`
+
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.
+
 ### reencrypt-data
 
 This example re-encrypts a text string that was encrypted using an AWS KMS key with another AWS KMS key.
@@ -108,16 +143,15 @@ This example re-encrypts a text string that was encrypted using an AWS KMS key w
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
-### Notes
+## Resources
 
-- We recommend that you grant this code least privilege,
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account.
+- [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
+
+## Contributing
+
+To propose a new code example to the AWS documentation team, 
+see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md). 
+The team prefers to create code examples that show broad scenarios rather than individual API calls. 
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

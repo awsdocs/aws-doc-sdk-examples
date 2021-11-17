@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
+//snippet-sourcedate:[11/06/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -16,7 +16,6 @@ import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityPr
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.ListUsersRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.ListUsersResponse;
-import software.amazon.awssdk.services.cognitoidentityprovider.model.UserType;
 //snippet-end:[cognito.java2.ListUsers.import]
 
 /**
@@ -61,9 +60,10 @@ public class ListUsers {
                     .build();
 
             ListUsersResponse response = cognitoClient.listUsers(usersRequest);
-            for(UserType user : response.users()) {
-                System.out.println("User " + user.username() + " Status " + user.userStatus() + " Created " + user.userCreateDate() );
-            }
+            response.users().forEach(user -> {
+                        System.out.println("User " + user.username() + " Status " + user.userStatus() + " Created " + user.userCreateDate() );
+                    }
+            );
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -84,9 +84,10 @@ public class ListUsers {
                     .build();
 
             ListUsersResponse response = cognitoClient.listUsers(usersRequest);
-            for(UserType user : response.users()) {
-                System.out.println("User with filter applied " + user.username() + " Status " + user.userStatus() + " Created " + user.userCreateDate() );
-            }
+            response.users().forEach(user -> {
+                        System.out.println("User with filter applied " + user.username() + " Status " + user.userStatus() + " Created " + user.userCreateDate() );
+                    }
+            );
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());

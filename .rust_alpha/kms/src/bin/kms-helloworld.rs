@@ -7,6 +7,7 @@ use aws_hyper::StandardClient;
 use aws_sdk_kms::operation::GenerateRandom;
 use aws_sdk_kms::{Config, Region};
 
+// snippet-start:[kms.rust.kms-helloworld]
 /// Creates a random byte string that is cryptographically secure in __us-east-1__.
 #[tokio::main]
 async fn main() {
@@ -27,6 +28,7 @@ async fn main() {
                 .build()
                 .expect("valid operation")
                 .make_operation(&config)
+                .await
                 .expect("valid operation"),
         )
         .await
@@ -34,3 +36,4 @@ async fn main() {
     println!("{:?}", data);
     assert_eq!(data.plaintext.expect("should have data").as_ref().len(), 64);
 }
+// snippet-end:[kms.rust.kms-helloworld]

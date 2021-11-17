@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[07/21/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -16,7 +16,6 @@ package com.kotlin.ec2
 // snippet-start:[ec2.kotlin.describe_security_groups.import]
 import aws.sdk.kotlin.services.ec2.Ec2Client
 import aws.sdk.kotlin.services.ec2.model.DescribeSecurityGroupsRequest
-import aws.sdk.kotlin.services.ec2.model.SecurityGroup
 import aws.sdk.kotlin.services.ec2.model.Ec2Exception
 import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.describe_security_groups.import]
@@ -58,9 +57,9 @@ suspend fun describeEC2SecurityGroups(ec2: Ec2Client, groupId: String) {
             groupIds = listOf(groupId)
         }
         val response = ec2.describeSecurityGroups(request)
-        for (group: SecurityGroup in response.securityGroups!!)
+        response.securityGroups?.forEach { group ->
             println("Found Security Group with id ${group.groupId}, vpc id ${group.vpcId} and description ${group.description}")
-
+        }
 
     } catch (e: Ec2Exception) {
         println(e.message)

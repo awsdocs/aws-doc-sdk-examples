@@ -1,18 +1,19 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+/// <summary>
+/// Shows how to retrieve the Amazon Simple Queue Service (Amazon SQS)
+/// to retrieve the URL for an Amazon SQS queue. The example was created
+/// using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
+/// </summary>
 namespace GetQueueUrlExample
 {
+    // snippet-start:[SQS.dotnetv3.GetQueueUrlExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.SQS;
     using Amazon.SQS.Model;
 
-    /// <summary>
-    /// Shows how to retrieve the Amazon Simple Queue Service (Amazon SQS)
-    /// to retrieve the URL for an Amazon SQS queue. The example was created
-    /// using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
-    /// </summary>
     public class GetQueueUrl
     {
         /// <summary>
@@ -45,4 +46,6 @@ namespace GetQueueUrlExample
             }
         }
     }
+
+    // snippet-end:[SQS.dotnetv3.GetQueueUrlExample]
 }

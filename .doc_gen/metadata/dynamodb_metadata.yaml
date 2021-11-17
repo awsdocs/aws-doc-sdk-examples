@@ -11,7 +11,7 @@ dynamodb_CreateTable:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - dynamodb.java2.create_table.main
     Python:
@@ -26,11 +26,19 @@ dynamodb_CreateTable:
             - description: Create a table for storing movie data.
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesCreateTable
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.rust.create-table
   services:
     dynamodb: {CreateTable}
 dynamodb_BatchGetItem:
   title: Get a batch of &DDB; items using an &AWS; SDK
-  title_abbrev: Get a batch of items.
+  title_abbrev: Get a batch of items
   synopsis: get a batch of &DDB; items.
   category:
   languages:
@@ -94,7 +102,8 @@ dynamodb_Usage_BatchGetWriteDelete:
             - description: Create a function to archive data from one table to another.
               snippet_tags:
                 - python.example_code.dynamodb.Usage_ArchiveMovies
-            - description: Call your functions to create tables, fill them with movie
+            - description:
+                Call your functions to create tables, fill them with movie
                 data from a JSON file, and archive items in another table.
               snippet_tags:
                 - python.example_code.dynamodb.Usage_BatchFunctions
@@ -124,6 +133,14 @@ dynamodb_DeleteTable:
             - description:
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesDeleteTable
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.rust.delete-table
   services:
     dynamodb: {DeleteTable}
 dynamodb_PutItem:
@@ -153,6 +170,14 @@ dynamodb_PutItem:
             - description: Put items loaded from a JSON file into a table.
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesLoadData
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.rust.add-item
   services:
     dynamodb: {PutItem}
 dynamodb_GetItem:
@@ -211,7 +236,7 @@ dynamodb_UpdateItem:
             - description: Update an item by using an update expression.
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesItemOps04
-            - description: Conditionally update an item
+            - description: Conditionally update an item.
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesItemOps05
   services:
@@ -228,7 +253,7 @@ dynamodb_DeleteItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - dynamodb.java2.delete_item.main
     Python:
@@ -240,6 +265,14 @@ dynamodb_DeleteItem:
             - description:
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesItemOps06
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.rust.delete-item
   services:
     dynamodb: {DeleteItem}
 dynamodb_ListTables:
@@ -254,7 +287,7 @@ dynamodb_ListTables:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - dynamodb.java2.list_tables.main
     Python:
@@ -266,6 +299,17 @@ dynamodb_ListTables:
             - description:
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesListTables
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.rust.list-tables
+            - description: Determine whether table exists.
+              snippet_tags:
+                - dynamodb.rust.movies-does_table_exist
   services:
     dynamodb: {ListTables}
 dynamodb_Query:
@@ -280,7 +324,7 @@ dynamodb_Query:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - dynamodb.java2.mapping.query.main
     Python:
@@ -295,6 +339,14 @@ dynamodb_Query:
             - description: Query items and project them to return a subset of data.
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesQuery02
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/dynamodb
+          excerpts:
+            - description: Find the movies made in the specified year.
+              snippet_tags:
+                - dynamodb.rust.movies-movies_in_year
   services:
     dynamodb: {Query}
 dynamodb_Scan:
@@ -321,12 +373,21 @@ dynamodb_Scan:
             - description:
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesScan
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: .rust_alpha/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.rust.list-items
   services:
     dynamodb: {Scan}
 dynamodb_Usage_DaxDemo:
   title: Accelerate &DDB; reads with &DAX; using an &AWS; SDK
   title_abbrev: Accelerate reads with &DAX;
-  synopsis: accelerate &DDB; reads with &DAXlong;. This example requires additional
+  synopsis:
+    accelerate &DDB; reads with &DAXlong;. This example requires additional
     setup. For instructions, see
     <ulink type='documentation' url='amazondynamodb/latest/developerguide/DAX.client.html'>Developing with the &DAXlong; Client</ulink>
     in the <emphasis>&guide-ddb-dev;</emphasis>.

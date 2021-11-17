@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
+//snippet-sourcedate:[11/06/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -32,7 +32,7 @@ public class CreateUserPool {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateUserPool <userPoolName> \n\n" +
+                "    <userPoolName> \n\n" +
                 "Where:\n" +
                 "    userPoolName - the name to give your user pool when it's created.\n\n" ;
 

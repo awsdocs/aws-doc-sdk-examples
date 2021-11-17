@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/21/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon- AWS]
 
 /*
@@ -40,7 +40,7 @@ suspend fun main(args:Array<String>) {
 
     val message = args[0]
     val phoneNumber = args[1]
-    val snsClient = SnsClient({ region = "us-east-1" })
+    val snsClient = SnsClient{ region = "us-east-1" }
     pubTextSMS(snsClient, message, phoneNumber)
     snsClient.close()
 }

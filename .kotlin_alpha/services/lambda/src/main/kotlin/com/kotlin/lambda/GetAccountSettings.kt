@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Lambda]
 //snippet-sourcetype:[full-example]
-// snippet-sourcedate:[04/14/2021]
+// snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -42,7 +42,7 @@ suspend fun main() {
     suspend fun getSettings(awsLambda: LambdaClient) {
         try {
 
-            val response :GetAccountSettingsResponse = awsLambda.getAccountSettings(GetAccountSettingsRequest{ })
+            val response = awsLambda.getAccountSettings(GetAccountSettingsRequest{ })
             println( "Total code size for your account is ${response.accountLimit?.totalCodeSize.toString()} bytes"
             )
 

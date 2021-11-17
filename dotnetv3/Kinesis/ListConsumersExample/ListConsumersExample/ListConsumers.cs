@@ -3,6 +3,7 @@
 
 namespace ListConsumersExample
 {
+    // snippet-start:[Kinesis.dotnetv3.ListConsumersExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -56,4 +57,6 @@ namespace ListConsumersExample
             return response.Consumers;
         }
     }
+
+    // snippet-end:[Kinesis.dotnetv3.ListConsumersExample]
 }
