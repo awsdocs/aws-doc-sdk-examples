@@ -233,154 +233,111 @@ The following Kotlin code represents the **SnsService** class. This class uses t
 
      var topicArnVal = "<ENTER A TOPIC ARN>"
 
-     private fun getClient(): SnsClient {
-
-        val snsClient = SnsClient{ region = "us-west-2" }
-        return snsClient
-     }
-
      // Create a Subscription.
-     suspend fun subEmail(email: String?): String? {
+    suspend fun subEmail(email: String?): String? {
 
-        val snsClient: SnsClient = getClient()
-        try {
+        val request = SubscribeRequest {
+            protocol = "email"
+            endpoint = email
+            returnSubscriptionArn = true
+            topicArn = topicArnVal
+        }
 
-            val request = SubscribeRequest {
-                protocol = "email"
-                endpoint = email
-                returnSubscriptionArn = true
-                topicArn = topicArnVal
-            }
-
+        SnsClient { region = "us-west-2" }.use { snsClient ->
             val result = snsClient.subscribe(request)
             return result.subscriptionArn
-
-        } catch (e: SnsException) {
-            println(e.message)
-            snsClient.close()
-            exitProcess(0)
         }
-     }
+    }
 
-     suspend fun pubTopic(messageVal: String, lang:String):String {
+    suspend fun pubTopic(messageVal: String, lang:String):String {
 
-        val snsClient: SnsClient = getClient()
-        var body: String
+       val translateClient =  TranslateClient { region = "us-east-1" }
+        val body: String
 
-        val translateClient = TranslateClient {
-            region = "us-west-2"
-        }
-
-        try {
-
-            if (lang.compareTo("English") == 0) {
-                body = messageVal
-
-            } else if (lang.compareTo("French") == 0) {
-
-                val textRequest = TranslateTextRequest {
-                    sourceLanguageCode = "en"
-                    targetLanguageCode = "fr"
-                    text = messageVal
-                }
-
-                val textResponse = translateClient.translateText(textRequest)
-                body = textResponse.translatedText.toString()
-            } else {
-                val textRequest = TranslateTextRequest {
-                    sourceLanguageCode = "en"
-                    targetLanguageCode = "es"
-                    text = messageVal
-                }
-
-                val textResponse = translateClient.translateText(textRequest)
-                body = textResponse.translatedText.toString()
-            }
-
-            val request = PublishRequest {
-                message = body
-                topicArn = topicArnVal
-            }
-
-            val result = snsClient.publish(request)
-            return "{$result.messageId.toString()}  message sent successfully in $lang."
-
-         } catch (e: SnsException) {
-            println(e.message)
-            snsClient.close()
-            exitProcess(0)
-         }
-       }
-
-      suspend fun unSubEmail(emailEndpoint: String) {
-        val snsClient: SnsClient = getClient()
-        try {
-            val subscriptionArnVal = getTopicArnValue(emailEndpoint)
-
-            val request = UnsubscribeRequest {
-                subscriptionArn = subscriptionArnVal
-            }
-
-            snsClient.unsubscribe(request)
-
-         } catch (e: SnsException) {
-            println(e.message)
-            snsClient.close()
-            exitProcess(0)
-         }
-       }
-
-      // Returns the Sub Amazon Resource Name (ARN) based on the given endpoint used for unSub.
-      suspend fun getTopicArnValue(endpoint: String): String? {
-        val snsClient: SnsClient = getClient()
-        try {
-            var subArn: String
-
-            val request = ListSubscriptionsByTopicRequest {
-                topicArn = topicArnVal
-            }
-
-            val response = snsClient.listSubscriptionsByTopic(request)
-            response.subscriptions?.forEach { sub ->
-
-                    if (sub.endpoint?.compareTo(endpoint) ==0 ) {
-                        subArn = sub.subscriptionArn.toString()
-                        return subArn
-                    }
+        if (lang.compareTo("English") == 0) {
+             body = messageVal
+        } else if (lang.compareTo("French") == 0) {
+             val textRequest = TranslateTextRequest {
+                 sourceLanguageCode = "en"
+                  targetLanguageCode = "fr"
+                  text = messageVal
              }
 
-            return ""
-         } catch (e: SnsException) {
-            println(e.message)
-            snsClient.close()
-            exitProcess(0)
-         }
-      }
+             val textResponse = translateClient.translateText(textRequest)
+             body = textResponse.translatedText.toString()
 
-      suspend fun getAllSubscriptions(): String? {
-        val subList = mutableListOf<String>()
-        val snsClient: SnsClient = getClient()
-
-        try {
-
-            val request = ListSubscriptionsByTopicRequest {
-                topicArn = topicArnVal
+        } else {
+            val textRequest = TranslateTextRequest {
+                sourceLanguageCode = "en"
+                targetLanguageCode = "es"
+                text = messageVal
             }
+
+            val textResponse = translateClient.translateText(textRequest)
+            body = textResponse.translatedText.toString()
+        }
+
+        val request = PublishRequest {
+             message = body
+             topicArn = topicArnVal
+        }
+
+        SnsClient { region = "us-west-2" }.use { snsClient ->
+            val result = snsClient.publish(request)
+            return "{$result.messageId.toString()}  message sent successfully in $lang."
+        }
+    }
+
+    suspend fun unSubEmail(emailEndpoint: String) {
+
+       val subscriptionArnVal = getTopicArnValue(emailEndpoint)
+       val request = UnsubscribeRequest {
+           subscriptionArn = subscriptionArnVal
+       }
+
+        SnsClient { region = "us-west-2" }.use { snsClient ->
+            snsClient.unsubscribe(request)
+        }
+    }
+
+
+    // Returns the Sub Amazon Resource Name (ARN) based on the given endpoint used for unSub.
+    suspend fun getTopicArnValue(endpoint: String): String? {
+
+       var subArn: String
+       val request = ListSubscriptionsByTopicRequest {
+           topicArn = topicArnVal
+       }
+
+        SnsClient { region = "us-west-2" }.use { snsClient ->
+            val response = snsClient.listSubscriptionsByTopic(request)
+            response.subscriptions?.forEach { sub ->
+                 if (sub.endpoint?.compareTo(endpoint) ==0 ) {
+                     subArn = sub.subscriptionArn.toString()
+                     return subArn
+                }
+            }
+            return ""
+        }
+    }
+
+    suspend fun getAllSubscriptions(): String? {
+        val subList = mutableListOf<String>()
+        val request = ListSubscriptionsByTopicRequest {
+             topicArn = topicArnVal
+         }
+
+        SnsClient { region = "us-west-2" }.use { snsClient ->
             val response = snsClient.listSubscriptionsByTopic(request)
             response.subscriptions?.forEach { sub ->
                               subList.add(sub.endpoint.toString())
             }
-
             return convertToString(toXml(subList))
-         } catch (e: SnsException) {
-            println(e.message)
-            snsClient.close()
-            exitProcess(0)
-         }
-       }
+        }
+    }
 
-      // Convert the list to XML to pass back to the view.
-      private fun toXml(subsList: List<String>): Document? {
+    // Convert the list to XML to pass back to the view.
+    private fun toXml(subsList: List<String>): Document? {
         try {
             val factory = DocumentBuilderFactory.newInstance()
             val builder = factory.newDocumentBuilder()
@@ -395,31 +352,31 @@ The following Kotlin code represents the **SnsService** class. This class uses t
                 val item = doc.createElement("Sub")
                 root.appendChild(item)
 
-                // Set email
+                // Set email.
                 val email = doc.createElement("email")
                 email.appendChild(doc.createTextNode(sub))
                 item.appendChild(email)
             }
             return doc
-         } catch (e: ParserConfigurationException) {
+        } catch (e: ParserConfigurationException) {
             e.printStackTrace()
-         }
+        }
         return null
-       }
+    }
 
-      private fun convertToString(xml: Document?): String? {
+    private fun convertToString(xml: Document?): String? {
         try {
             val transformer = TransformerFactory.newInstance().newTransformer()
             val result = StreamResult(StringWriter())
             val source = DOMSource(xml)
             transformer.transform(source, result)
             return result.writer.toString()
-         } catch (ex: TransformerException) {
+        } catch (ex: TransformerException) {
             ex.printStackTrace()
-         }
+        }
         return null
-       }
-      }
+    }
+}
 ```
 
 **Note:** Make sure that you assign the SNS topic ARN to the **topicArn** data member. Otherwise, your code does not work. 
@@ -688,6 +645,40 @@ This application has a **contact_me.js** file that is used to send HTTP requests
      });
      }
 ```
+### Create the CSS File
+This application uses a CSS file named **styles.css** file that is used for the menu. Place this file in the resources\public\css folder.
+
+```css 
+  body>header {
+     background: #000;
+     padding: 5px;
+  }
+
+  body>header>a>img, body>header a {
+     display: inline-block;
+     vertical-align: middle;
+     padding: 0px 5px;
+     font-size: 1.2em;
+  }
+
+  body>footer {
+    background: #eee;
+    padding: 5px;
+    margin: 10px 0;
+    text-align: center;
+ }
+
+ #logged-in-info {
+    float: right;
+    margin-top: 18px;
+ }
+
+ #logged-in-info form {
+    display: inline-block;
+    margin-right: 10px;
+ }
+```
+
 ## Run the application
 
 Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, you can run the application by clicking the run icon in the Spring Boot main class, as shown in this illustration. 

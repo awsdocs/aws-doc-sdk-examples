@@ -4,10 +4,9 @@
 */
 
 package com.example.demo
+
 import org.springframework.stereotype.Component
-import kotlin.system.exitProcess
 import aws.sdk.kotlin.services.ses.SesClient
-import aws.sdk.kotlin.services.ses.model.SesException
 import aws.sdk.kotlin.services.ses.model.Destination
 import aws.sdk.kotlin.services.ses.model.Content
 import aws.sdk.kotlin.services.ses.model.Body
@@ -21,7 +20,6 @@ class SendMessage {
         recipient: String,
         strValue: String?
     ) {
-        val sesClient = SesClient { region = "us-east-1" }
         // The HTML body of the email.
         val bodyHTML = ("<html>" + "<head></head>" + "<body>" + "<h1>Amazon DynamoDB Items!</h1>"
                 + "<textarea>$strValue</textarea>" + "</body>" + "</html>")
@@ -53,14 +51,9 @@ class SendMessage {
             source = "scmacdon@amazon.com"
         }
 
-        try {
+        SesClient { region = "us-east-1" }.use { sesClient ->
             println("Attempting to send an email through Amazon SES using the AWS SDK for Kotlin...")
             sesClient.sendEmail(emailRequest)
-
-        } catch (e: SesException) {
-            println(e.message)
-            sesClient.close()
-            exitProcess(0)
         }
     }
 }
