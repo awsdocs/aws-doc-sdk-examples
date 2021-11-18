@@ -48,7 +48,7 @@ To complete the tutorial, you need the following:
 
 ### Creating the resources
 
-Create an Amazon DynamoDB table named **Work** that contains a partition key named **id**. For information about creating an Amazon DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html). 
+Create an Amazon DynamoDB table named **Work** that contains a partition key named **id**. For more information, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html). 
 
 
 ## Understand the DynamoDB Item Tracker application
@@ -317,7 +317,7 @@ The following Kotlin code represents the **DemoApplication** and the **MessageRe
 The **DynamoDBService** class uses the AWS SDK for Kotlin API to interact with the **Work** table. It adds new items, updates items, and performs queries. In the following code example, notice the use of an **Expression** object. This object is used to query either Open or Closed items. For example, in the **getOpenItems** method, if the value **true** is passed to this method, then only Open items are retrieved from the Amazon DynamoDB table. 
 
 ```kotlin
-     package com.example.demo
+    package com.example.demo
 
     import org.springframework.stereotype.Component
     import org.w3c.dom.Document
@@ -330,20 +330,18 @@ The **DynamoDBService** class uses the AWS SDK for Kotlin API to interact with t
     import javax.xml.transform.TransformerFactory
     import javax.xml.transform.dom.DOMSource
     import javax.xml.transform.stream.StreamResult
-    import kotlin.system.exitProcess
     import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
     import aws.sdk.kotlin.services.dynamodb.model.*
 
-    /*
-    Before running this code example, create an Amazon DynamoDB table named Work with a primary key named id.
-    */
-    @Component
-    class DynamoDBService {
+   /*
+   Before running this code example, create an Amazon DynamoDB table named Work with a primary key named id.
+   */
+   @Component
+   class DynamoDBService {
 
     // Update the archive column.
     suspend fun archiveItemEC(id: String) {
         val tableNameVal = "Work"
-        val dynamoDBClient = DynamoDbClient{ region = "us-east-1" }
         val itemKey = mutableMapOf<String, AttributeValue>()
         itemKey["id"] = AttributeValue.S(id)
 
@@ -359,21 +357,15 @@ The **DynamoDBService** class uses the AWS SDK for Kotlin API to interact with t
             attributeUpdates= updatedValues
         }
 
-        try {
+        DynamoDbClient { region = "us-east-1" }.use { dynamoDBClient ->
             dynamoDBClient.updateItem(request)
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            dynamoDBClient.close()
-            exitProcess(0)
         }
        }
 
-    // Updates the status of a given item.
-    suspend fun updateTableItem( id: String, status: String) {
+      // Updates the status of a given item.
+      suspend fun updateTableItem( id: String, status: String) {
 
         val tableNameVal = "Work"
-        val dynamoDBClient = DynamoDbClient{ region = "us-east-1" }
         val itemKey = mutableMapOf<String, AttributeValue>()
         itemKey["id"] = AttributeValue.S(id)
 
@@ -389,20 +381,14 @@ The **DynamoDBService** class uses the AWS SDK for Kotlin API to interact with t
             attributeUpdates= updatedValues
         }
 
-        try {
+        DynamoDbClient { region = "us-east-1" }.use { dynamoDBClient ->
             dynamoDBClient.updateItem(request)
             println("Item in $tableNameVal was updated")
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            dynamoDBClient.close()
-            exitProcess(0)
         }
-       }
+     }
 
-      // Get a single item from the Work table based on idValue.
-      suspend fun getItem(idValue: String): String? {
-        val dynamoDBClient = DynamoDbClient{ region = "us-east-1" }
+     // Get a single item from the Work table based on idValue.
+     suspend fun getItem(idValue: String): String? {
         val tableNameVal = "Work"
         val keyToGet = mutableMapOf<String, AttributeValue>()
         keyToGet["id"] = AttributeValue.S(idValue)
@@ -412,8 +398,7 @@ The **DynamoDBService** class uses the AWS SDK for Kotlin API to interact with t
             tableName = tableNameVal
         }
 
-        try {
-
+        DynamoDbClient { region = "us-east-1" }.use { dynamoDBClient ->
             var status = ""
             var description = ""
             val returnedItem = dynamoDBClient.getItem(request).item
@@ -428,39 +413,31 @@ The **DynamoDBService** class uses the AWS SDK for Kotlin API to interact with t
 
             val myXML: Document = toXmlItem(idValue, description, status)!!
             return convertToString(myXML)
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            dynamoDBClient.close()
-        }
-
-        return ""
+         }
        }
 
-      suspend fun getOpenItems(myArc:Boolean):String? {
+     suspend fun getOpenItems(myArc:Boolean):String? {
 
-        val dynamoDBClient = DynamoDbClient{ region = "us-east-1" }
-        try {
-            val tableNameVal = "Work"
-            val myList = mutableListOf<WorkItem>()
-            val myMap = HashMap<String, String>()
-            myMap.put("#archive2", "archive")
+       val tableNameVal = "Work"
+       val myList = mutableListOf<WorkItem>()
+       val myMap = HashMap<String, String>()
+       myMap.put("#archive2", "archive")
+       val myExMap = mutableMapOf<String, AttributeValue>()
 
-            val myExMap = HashMap<String, AttributeValue>()
+       if (myArc)
+          myExMap.put(":val", AttributeValue.S("Open"))
+       else
+          myExMap.put(":val", AttributeValue.S("Closed"))
 
-            if (myArc)
-                myExMap.put(":val", AttributeValue.S("Open"))
-            else
-                myExMap.put(":val", AttributeValue.S("Closed"))
+       val scanRequest = ScanRequest {
+           expressionAttributeNames = myMap
+           expressionAttributeValues = myExMap
+           tableName = tableNameVal
+           filterExpression = "#archive2 = :val"
+       }
 
-            val scanRequest = ScanRequest {
-                this.expressionAttributeNames = myMap
-                this.expressionAttributeValues = myExMap
-                tableName = tableNameVal
-                filterExpression = "#archive2 = :val"
-            }
-
-            val response = dynamoDBClient.scan(scanRequest)
+        DynamoDbClient { region = "us-east-1" }.use { dynamoDBClient ->
+           val response = dynamoDBClient.scan(scanRequest)
             for (item in response.items!!) {
                 val keys = item.keys
                 val myItem = WorkItem()
@@ -492,23 +469,14 @@ The **DynamoDBService** class uses the AWS SDK for Kotlin API to interact with t
                         else -> {
 
                             myItem.guide = splitMyString(item[key].toString())
-                            // Push to list
                             myList.add(myItem)
                         }
                     }
-                 }
+                }
               }
-
-            val myXML = toXml(myList)!!
-            return convertToString(myXML)
-
-         } catch (ex: DynamoDbException) {
-            println(ex.message)
-            dynamoDBClient.close()
-         }
-
-         return ""
-       }
+             return toXml(myList)?.let { convertToString(it) }
+           }
+        }
 
       // Puts an item into an Amazon DynamoDB table.
       suspend fun putItemInTable( itemOb:WorkItem):String {
@@ -527,7 +495,6 @@ The **DynamoDBService** class uses the AWS SDK for Kotlin API to interact with t
         val formatedDate = formatter.format(date)
 
         // Add the data to the DynamoDB table.
-        val dynamoDBClient = DynamoDbClient{ region = "us-east-1" }
         val itemValues = mutableMapOf<String, AttributeValue>()
 
         // Add all content to the table.
@@ -544,31 +511,25 @@ The **DynamoDBService** class uses the AWS SDK for Kotlin API to interact with t
             item = itemValues
         }
 
-        try {
+        DynamoDbClient { region = "us-east-1" }.use { dynamoDBClient ->
             dynamoDBClient.putItem(request)
             return myGuid
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            dynamoDBClient.close()
-        }
-
-        return ""
-      }
+         }
+       }
      }
 
-    // Splits the item[key] value.
-    fun splitMyString(str:String):String{
+   // Splits the item[key] value.
+   fun splitMyString(str:String):String{
 
     val del1 = "="
     val del2 = ")"
     val parts = str.split(del1, del2)
     val myVal = parts[1]
     return myVal
-    }
+   }
 
-    // Convert Work item data into XML to pass back to the view.
-    private fun toXml(itemList:MutableList<WorkItem>): Document? {
+  // Convert Work item data into XML to pass back to the view.
+  private fun toXml(itemList:MutableList<WorkItem>): Document? {
     try {
         val factory = DocumentBuilderFactory.newInstance()
         val builder = factory.newDocumentBuilder()
@@ -620,8 +581,7 @@ The **DynamoDBService** class uses the AWS SDK for Kotlin API to interact with t
             item.appendChild(status)
         }
         return doc
-    
-     } catch (e: ParserConfigurationException) {
+      } catch (e: ParserConfigurationException) {
         e.printStackTrace()
      }
      return null
@@ -654,8 +614,7 @@ The **DynamoDBService** class uses the AWS SDK for Kotlin API to interact with t
         status.appendChild(doc.createTextNode(status2))
         item.appendChild(status)
         return doc
-    
-      } catch (e: ParserConfigurationException) {
+     } catch (e: ParserConfigurationException) {
         e.printStackTrace()
      }
      return null
@@ -669,11 +628,11 @@ The **DynamoDBService** class uses the AWS SDK for Kotlin API to interact with t
         transformer.transform(source, result)
         return result.writer.toString()
 
-    } catch (ex: TransformerException) {
+     } catch (ex: TransformerException) {
         ex.printStackTrace()
-    }
-    return null
-    }
+     }
+     return null
+     }
 ```
 
 ### Create the SendMessage class
@@ -681,26 +640,24 @@ The **DynamoDBService** class uses the AWS SDK for Kotlin API to interact with t
 The **SendMessage** class uses the AWS SDK for Kotlin SES API to send an email message that contains the data queried from the Amazon DynamoDB table to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
 ```kotlin
-    package com.example.demo
-  
-    import org.springframework.stereotype.Component
-    import kotlin.system.exitProcess
-    import aws.sdk.kotlin.services.ses.SesClient
-    import aws.sdk.kotlin.services.ses.model.SesException
-    import aws.sdk.kotlin.services.ses.model.Destination
-    import aws.sdk.kotlin.services.ses.model.Content
-    import aws.sdk.kotlin.services.ses.model.Body
-    import aws.sdk.kotlin.services.ses.model.Message
-    import aws.sdk.kotlin.services.ses.model.SendEmailRequest
+  package com.example.demo
 
-    @Component
-    class SendMessage {
+   import org.springframework.stereotype.Component
+   import aws.sdk.kotlin.services.ses.SesClient
+   import aws.sdk.kotlin.services.ses.model.Destination
+   import aws.sdk.kotlin.services.ses.model.Content
+   import aws.sdk.kotlin.services.ses.model.Body
+   import aws.sdk.kotlin.services.ses.model.Message
+   import aws.sdk.kotlin.services.ses.model.SendEmailRequest
 
-    suspend fun send(recipient: String, strValue: String?) {
-        
-	val sesClient = SesClient { region = "us-east-1" }
-        
-	// The HTML body of the email.
+   @Component
+   class SendMessage {
+
+    suspend fun send(
+        recipient: String,
+        strValue: String?
+    ) {
+        // The HTML body of the email.
         val bodyHTML = ("<html>" + "<head></head>" + "<body>" + "<h1>Amazon DynamoDB Items!</h1>"
                 + "<textarea>$strValue</textarea>" + "</body>" + "</html>")
 
@@ -731,15 +688,10 @@ The **SendMessage** class uses the AWS SDK for Kotlin SES API to send an email m
             source = "scmacdon@amazon.com"
         }
 
-        try {
+        SesClient { region = "us-east-1" }.use { sesClient ->
             println("Attempting to send an email through Amazon SES using the AWS SDK for Kotlin...")
             sesClient.sendEmail(emailRequest)
-
-        } catch (e: SesException) {
-            println(e.message)
-            sesClient.close()
-            exitProcess(0)
-        }
+        } 
       }
     }
 ```
@@ -1548,7 +1500,39 @@ The following JavaScript code represents the **contact_me.js** file that is used
      }
 ```
 
-**Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.
+### Create the CSS File
+This application uses a CSS file named **styles.css** file that is used for the menu.
+
+```css 
+  body>header {
+     background: #000;
+     padding: 5px;
+  }
+
+  body>header>a>img, body>header a {
+     display: inline-block;
+     vertical-align: middle;
+     padding: 0px 5px;
+     font-size: 1.2em;
+  }
+
+  body>footer {
+    background: #eee;
+    padding: 5px;
+    margin: 10px 0;
+    text-align: center;
+ }
+
+ #logged-in-info {
+    float: right;
+    margin-top: 18px;
+ }
+
+ #logged-in-info form {
+    display: inline-block;
+    margin-right: 10px;
+ }
+```
 
 ## Run the application
 
