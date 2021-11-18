@@ -113,8 +113,8 @@ Ensure that the Gradle build file resembles the following code.
       implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
       implementation("org.jetbrains.kotlin:kotlin-reflect")
       implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-      api("aws.sdk.kotlin:redshiftdata:0.4.0-alpha")
-      api("aws.sdk.kotlin:translate:0.4.0-alpha")
+      api("aws.sdk.kotlin:redshiftdata:0.9.0-alpha")
+      api("aws.sdk.kotlin:translate:0.9.0-alpha")
       testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
    
@@ -231,30 +231,28 @@ The following Kotlin code represents the **Post** class.
 The following Kotlin code represents the **RedshiftService** class. This class uses the Amazon Redshift Kotlin API to interact with data located in the **blog** table.  For example, the **getPosts** method returns a result set that is queried from the **blog** table and displayed in the view. Likewise, the **addRecord** method adds a new record to the **blog** table. This class also uses the Amazon Translate Kotlin API to translate the result set if requested by the user. 
 
 ```kotlin
-     package com.aws.job
+    package com.aws.job
 
-     import org.springframework.stereotype.Component
-     import java.util.*
-     import aws.sdk.kotlin.services.redshiftdata.RedshiftDataClient
-     import aws.sdk.kotlin.services.redshiftdata.model.*
-     import org.w3c.dom.Document
-     import java.io.StringWriter
-     import javax.xml.parsers.DocumentBuilderFactory
-     import javax.xml.parsers.ParserConfigurationException
-     import javax.xml.transform.TransformerException
-     import javax.xml.transform.TransformerFactory
-     import javax.xml.transform.dom.DOMSource
-     import javax.xml.transform.stream.StreamResult
-     import aws.sdk.kotlin.services.translate.TranslateClient
-     import aws.sdk.kotlin.services.translate.model.TranslateTextRequest
-     import aws.sdk.kotlin.services.translate.model.TranslateException
-     import kotlinx.coroutines.delay
-     import java.sql.Date
-     import java.text.ParseException
-     import java.text.SimpleDateFormat
-     import java.time.LocalDateTime
-     import java.time.format.DateTimeFormatter
-     import kotlin.system.exitProcess
+    import org.springframework.stereotype.Component
+    import java.util.*
+    import aws.sdk.kotlin.services.redshiftdata.RedshiftDataClient
+    import aws.sdk.kotlin.services.redshiftdata.model.*
+    import org.w3c.dom.Document
+    import java.io.StringWriter
+    import javax.xml.parsers.DocumentBuilderFactory
+    import javax.xml.parsers.ParserConfigurationException
+    import javax.xml.transform.TransformerException
+    import javax.xml.transform.TransformerFactory
+    import javax.xml.transform.dom.DOMSource
+    import javax.xml.transform.stream.StreamResult
+    import aws.sdk.kotlin.services.translate.TranslateClient
+    import aws.sdk.kotlin.services.translate.model.TranslateTextRequest
+    import kotlinx.coroutines.delay
+    import java.sql.Date
+    import java.text.SimpleDateFormat
+    import java.time.LocalDateTime
+    import java.time.format.DateTimeFormatter
+    import kotlin.system.exitProcess
 
     @Component
     class RedshiftService {
@@ -262,87 +260,71 @@ The following Kotlin code represents the **RedshiftService** class. This class u
      val databaseVal = "dev"
      val dbUserVal = "awsuser"
 
-     private fun getClient(): RedshiftDataClient? {
 
-        val redshiftDataClient = RedshiftDataClient{region="us-west-2"}
-        return redshiftDataClient
-    }
+     // Add a new record to the Amazon Redshift table.
+     suspend fun addRecord(author: String, title: String, body: String): String? {
 
-    // Add a new record to the Amazon Redshift table.
-    suspend fun addRecord(author: String, title: String, body: String): String? {
-        try {
-            val redshiftDataClient = getClient()
-            val uuid = UUID.randomUUID()
-            val id = uuid.toString()
+        val uuid = UUID.randomUUID()
+        val id = uuid.toString()
 
-            // Date conversion.
-            val dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")
-            val now = LocalDateTime.now()
-            val sDate1 = dtf.format(now)
-            val date1 = SimpleDateFormat("yyyy/MM/dd").parse(sDate1)
-            val sqlDate = Date(date1.time)
+        // Date conversion.
+        val dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")
+        val now = LocalDateTime.now()
+        val sDate1 = dtf.format(now)
+        val date1 = SimpleDateFormat("yyyy/MM/dd").parse(sDate1)
+        val sqlDate = Date(date1.time)
 
-            // Inject an item into the system.
-            val sqlStatement = "INSERT INTO blog (idblog, date, title, body, author) VALUES( '$uuid' ,'$sqlDate','$title' , '$body', '$author');"
-            val statementRequest = ExecuteStatementRequest {
-                clusterIdentifier = clusterId
-                database = databaseVal
-                dbUser = dbUserVal
-                sql = sqlStatement
-            }
-
-            redshiftDataClient!!.executeStatement(statementRequest)
-            return id
-     
-        } catch (e: RedshiftDataException) {
-            println(e.message)
-            exitProcess(1)
-        } catch (e: ParseException) {
-            println(e.message)
-            exitProcess(1)
+        // Inject an item into the system.
+        val sqlStatement = "INSERT INTO blog (idblog, date, title, body, author) VALUES( '$uuid' ,'$sqlDate','$title' , '$body', '$author');"
+        val statementRequest = ExecuteStatementRequest {
+            clusterIdentifier = clusterId
+            database = databaseVal
+            dbUser = dbUserVal
+            sql = sqlStatement
          }
+
+        RedshiftDataClient { region = "us-west-2" }.use { redshiftDataClient ->
+            redshiftDataClient.executeStatement(statementRequest)
+            return id
+        }
+     }
+
+     // Returns a collection that returns the latest five posts from the Redshift table.
+     suspend fun getPosts(lang: String, num: Int): String? {
+
+        val sqlStatement = if (num == 5) "SELECT TOP 5 * FROM blog ORDER BY date DESC" else if (num == 10) "SELECT TOP 10 * FROM blog ORDER BY date DESC" else "SELECT * FROM blog ORDER BY date DESC"
+        val statementRequest = ExecuteStatementRequest {
+            clusterIdentifier = clusterId
+            database = databaseVal
+            dbUser = dbUserVal
+            sql = sqlStatement
         }
 
-      // Returns a collection that returns the latest five posts from the Redshift table.
-      suspend fun getPosts(lang: String, num: Int): String? {
-        try {
-            val redshiftDataClient = getClient()
-            val sqlStatement = if (num == 5) "SELECT TOP 5 * FROM blog ORDER BY date DESC" else if (num == 10) "SELECT TOP 10 * FROM blog ORDER BY date DESC" else "SELECT * FROM blog ORDER BY date DESC"
-
-            val statementRequest = ExecuteStatementRequest {
-                clusterIdentifier = clusterId
-                database = databaseVal
-                dbUser = dbUserVal
-                sql = sqlStatement
-            }
-
-            val response = redshiftDataClient!!.executeStatement(statementRequest)
+        RedshiftDataClient { region = "us-west-2" }.use { redshiftDataClient ->
+            val response = redshiftDataClient.executeStatement(statementRequest)
             val myId = response.id
             checkStatement(redshiftDataClient, myId)
             val posts = getResults(redshiftDataClient, myId, lang)!!
+            redshiftDataClient.close()
             return convertToString(toXml(posts))
-
-        } catch (e: RedshiftDataException) {
-            println(e.message)
-            exitProcess(1)
         }
-      }
+     }
 
-      suspend fun getResults(redshiftDataClient: RedshiftDataClient, statementId: String?, lang: String): List<Post>? {
-        try {
-            val records: MutableList<Post> = ArrayList<Post>()
-            val resultRequest = GetStatementResultRequest {
-                id = statementId
-            }
+     suspend fun getResults(redshiftDataClient: RedshiftDataClient, statementId: String?, lang: String): List<Post>? {
 
-            val response = redshiftDataClient.getStatementResult(resultRequest)
+        val records = mutableListOf<Post>()
+        val resultRequest = GetStatementResultRequest {
+            id = statementId
+        }
 
-            // Iterate through the List element where each element is a List object.
-            val dataList = response.records
-            var post: Post
-            var index = 0
+        val response = redshiftDataClient.getStatementResult(resultRequest)
 
-            if (dataList != null) {
+        // Iterate through the List element where each element is a List object.
+         val dataList = response.records
+         var post: Post
+         var index: Int
+
+         if (dataList != null) {
                 for (list in dataList) {
 
                     post = Post()
@@ -373,15 +355,12 @@ The following Kotlin code represents the **RedshiftService** class. This class u
                     records.add(post)
                 }
             }
-            return records
-        } catch (e: RedshiftDataException) {
-            System.err.println(e.message)
-            exitProcess(1)
-         }
-        }
 
-      // Return the String value of the field.
-      fun parseValue(myField:Field) :String {
+            return records
+     }
+
+     // Return the String value of the field.
+     fun parseValue(myField:Field) :String {
 
         val ss = myField.toString()
         if ("StringValue" in ss) {
@@ -392,36 +371,28 @@ The following Kotlin code represents the **RedshiftService** class. This class u
 
         }
         return ""
-      }
+    }
 
-     suspend fun checkStatement(redshiftDataClient: RedshiftDataClient, sqlId: String?) {
-        try {
-            val statementRequest = DescribeStatementRequest {
-                id = sqlId
+    suspend fun checkStatement(redshiftDataClient: RedshiftDataClient, sqlId: String?) {
+
+        val statementRequest = DescribeStatementRequest {
+            id = sqlId
+        }
+
+        // Wait until the sql statement processing is finished.
+        val finished = false
+        var status: String
+        while (!finished) {
+             val response = redshiftDataClient.describeStatement(statementRequest)
+             status = response.status.toString()
+             println("...$status")
+            if (status.compareTo("FINISHED") == 0) {
+                break
             }
-
-            // Wait until the sql statement processing is finished.
-            val finished = false
-            var status = ""
-            while (!finished) {
-                val response = redshiftDataClient.describeStatement(statementRequest)
-                status = response.status.toString()
-                println("...$status")
-                if (status.compareTo("FINISHED") == 0) {
-                    break
-                }
-                delay(500)
+               delay(500)
             }
             println("The statement is finished!")
-
-        } catch (e: RedshiftDataException) {
-            System.err.println(e.message)
-            exitProcess(1)
-        } catch (e: InterruptedException) {
-            System.err.println(e.message)
-            exitProcess(1)
-        }
-    }
+     }
 
      // Convert the list to XML to pass back to the view.
      private fun toXml(itemsList: List<Post>): Document {
@@ -469,9 +440,9 @@ The following Kotlin code represents the **RedshiftService** class. This class u
             e.printStackTrace()
             exitProcess(1)
         }
-    }
+     }
 
-    private fun convertToString(xml: Document): String? {
+     private fun convertToString(xml: Document): String? {
         try {
             val transformer = TransformerFactory.newInstance().newTransformer()
             val result = StreamResult(StringWriter())
@@ -485,37 +456,47 @@ The following Kotlin code represents the **RedshiftService** class. This class u
     }
 
     private suspend fun translateText(textVal: String, lang: String): String {
-        val translateClient = TranslateClient { region = "us-east-1" }
-        var transValue = ""
-        try {
-            if (lang.compareTo("French") == 0) {
+
+        val transValue: String
+        if (lang.compareTo("French") == 0) {
 
                 val textRequest = TranslateTextRequest {
                     sourceLanguageCode = "en"
                     targetLanguageCode = "fr"
                     text = textVal
                 }
-                val textResponse = translateClient.translateText(textRequest)
-                transValue = textResponse.translatedText.toString()
-            } else if (lang.compareTo("Russian") == 0) {
+
+                TranslateClient { region = "us-east-1" }.use { translateClient ->
+                    val textResponse = translateClient.translateText(textRequest)
+                    transValue = textResponse.translatedText.toString()
+                    return transValue
+                }
+        } else if (lang.compareTo("Russian") == 0) {
 
                 val textRequest = TranslateTextRequest {
                     sourceLanguageCode = "en"
                     targetLanguageCode = "ru"
                     text = textVal
                 }
-                val textResponse = translateClient.translateText(textRequest)
-                transValue = textResponse.translatedText.toString()
-            } else if (lang.compareTo("Japanese") == 0) {
+
+               TranslateClient { region = "us-east-1" }.use { translateClient ->
+                   val textResponse = translateClient.translateText(textRequest)
+                   transValue = textResponse.translatedText.toString()
+                   return transValue
+               }
+        } else if (lang.compareTo("Japanese") == 0) {
 
                 val textRequest = TranslateTextRequest {
                     sourceLanguageCode = "en"
                     targetLanguageCode = "ja"
                     text = textVal
                 }
-                val textResponse = translateClient.translateText(textRequest)
-                transValue = textResponse.translatedText.toString()
-            } else if (lang.compareTo("Spanish") == 0) {
+                TranslateClient { region = "us-east-1" }.use { translateClient ->
+                  val textResponse = translateClient.translateText(textRequest)
+                   transValue = textResponse.translatedText.toString()
+                   return transValue
+                }
+        } else if (lang.compareTo("Spanish") == 0) {
 
                 val textRequest = TranslateTextRequest {
                     sourceLanguageCode = "en"
@@ -523,26 +504,28 @@ The following Kotlin code represents the **RedshiftService** class. This class u
                     text = textVal
                 }
 
-                val textResponse = translateClient.translateText(textRequest)
-                transValue = textResponse.translatedText.toString()
-            } else {
+               TranslateClient { region = "us-east-1" }.use { translateClient ->
+                  val textResponse = translateClient.translateText(textRequest)
+                  transValue = textResponse.translatedText.toString()
+                  return transValue
+               }
+
+        } else {
 
                 val textRequest = TranslateTextRequest {
                     sourceLanguageCode = "en"
                     targetLanguageCode = "zh"
                     text = textVal
                 }
+
+               TranslateClient { region = "us-east-1" }.use { translateClient ->
                 val textResponse = translateClient.translateText(textRequest)
                 transValue = textResponse.translatedText.toString()
-            }
-            return transValue
-
-        } catch (e: TranslateException) {
-            System.err.println(e.message)
-            exitProcess(1)
-         }
-       }
+                  return transValue
+               }
+        }
       }
+     }
 ```
 
 ## Create the HTML file
@@ -626,48 +609,43 @@ The following code represents the **layout.html** file that represents the appli
 The **add.html** file is the application's view that lets users post new items. 
 
 ```html
-   <!DOCTYPE html>
-   <html xmlns:th="http://www.thymeleaf.org" >
+  <!DOCTYPE html>
+  <html xmlns:th="http://www.thymeleaf.org" >
 
    <head>
-     <meta charset="UTF-8" />
-     <title>Job Board</title>
-     <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
-     <script th:src="|https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js|"></script>
-     <script th:src="|https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js|"></script>
-     <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
-     <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-    </head>
-   <body>
-    <header th:replace="layout :: site-header"/>
-    <div class="container">
+    <meta charset="UTF-8" />
+    <title>Job Board</title>
+    <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
+    <script th:src="|https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js|"></script>
+    <script src="../public/js/contact_me.js" th:src="@{/js/contact_me.js}"></script>
+    <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+    <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
+
+    <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
+  </head>
+
+  <body>
+  <header th:replace="layout :: site-header"/>
+   <div class="container">
     <h3>Welcome to the Amazon Redshift Job Posting example app</h3>
     <p>Now is: <b th:text="${execInfo.now.time}"></b></p>
     <p>Add a new job posting by filling in this table and clicking <i>Create Item</i></p>
 
-    <div class="row">
-        <div class="col-lg-8 mx-auto">
-            <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                    <label>Title</label>
-                    <input class="form-control" id="title" placeholder="Title" required="required" data-validation-required-message="Please enter the AWS Guide.">
-                    <p class="help-block text-danger"></p>
-                </div>
-            </div>
-            <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                    <label>Body</label>
-                    <textarea class="form-control" id="body" rows="5" placeholder="Body" required="required" data-validation-required-message="Please enter a description."></textarea>
-                    <p class="help-block text-danger"></p>
-                </div>
-            </div>
-            <br>
-            <button type="submit" class="btn btn-primary btn-xl" id="SendButton">Create Item</button>
+    <div class="form-group">
+            <label>Title</label>
+            <input class="form-control" id="title" placeholder="Title" required="required" data-validation-required-message="Please enter the AWS Guide.">
+            <p class="help-block text-danger"></p>
         </div>
-       </div>
-      </div>
-      </body>
-      </html>
+        <div class="form-group">
+            <label>Body</label>
+            <textarea class="form-control" id="body" rows="5" placeholder="Body" required="required" data-validation-required-message="Please enter a description."></textarea>
+            <p class="help-block text-danger"></p>
+        </div>
+        <button id ="SendButton" type="submit" class="btn btn-primary">Submit</button>
+
+    </div>
+    </body>
+    </html>
 ```
 
 ### post.html
