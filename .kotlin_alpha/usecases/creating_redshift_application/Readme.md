@@ -783,8 +783,39 @@ This application has a **contact_me.js** file that is used to send requests to t
        });
      }
 ```
+### Create the CSS File
+This application uses a CSS file named **stles.css** file that is used for the menu.
 
-**Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.
+```css 
+  body>header {
+     background: #000;
+     padding: 5px;
+  }
+
+  body>header>a>img, body>header a {
+     display: inline-block;
+     vertical-align: middle;
+     padding: 0px 5px;
+     font-size: 1.2em;
+  }
+
+  body>footer {
+    background: #eee;
+    padding: 5px;
+    margin: 10px 0;
+    text-align: center;
+ }
+
+ #logged-in-info {
+    float: right;
+    margin-top: 18px;
+ }
+
+ #logged-in-info form {
+    display: inline-block;
+    margin-right: 10px;
+ }
+```
 
 ## Run the application
 
