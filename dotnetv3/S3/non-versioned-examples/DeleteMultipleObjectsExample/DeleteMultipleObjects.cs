@@ -1,19 +1,20 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+/// <summary>
+/// This example shows how to delete multiple objects from an Amazon Simple
+/// Storage Service (Amazon S3) bucket. The example was created using the
+/// AWS SDK for .NET 3.7 and .NET Core 5.0.
+/// </summary>
 namespace DeleteMultipleObjectsExample
 {
+    // snippet-start:[S3.dotnetv3.DeleteMultipleObjectsExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Amazon.S3;
     using Amazon.S3.Model;
 
-    /// <summary>
-    /// This example shows how to delete multiple objects from an Amazon Simple
-    /// Storage Service (Amazon S3) bucket. The example was created using the
-    /// AWS SDK for .NET 3.7 and .NET Core 5.0.
-    /// </summary>
     public class DeleteMultipleObjects
     {
         /// <summary>
@@ -24,21 +25,22 @@ namespace DeleteMultipleObjectsExample
         {
             const string bucketName = "doc-example-bucket";
 
-            // If the S3 bucket from which you wish to delete objects is not
-            // located in the same AWS Region as the default user, specify the
-            // bucket Region as a parameter to the client constructor.
+            // If the Amazon S3 bucket from which you wish to delete objects is not
+            // located in the same AWS Region as the default user, define the
+            // AWS Region for the Amazon S3 bucket as a parameter to the client
+            // constructor.
             IAmazonS3 s3Client = new AmazonS3Client();
 
             await MultiObjectDeleteAsync(s3Client, bucketName);
         }
 
         /// <summary>
-        /// This method uses the passed S3 client to first create and then
+        /// This method uses the passed Amazon S3 client to first create and then
         /// delete three files from the named bucket.
         /// </summary>
-        /// <param name="client">The initialized S3 client object used to call
-        /// S3 methods.</param>
-        /// <param name="bucketName">The name of the S3 bucket where objects
+        /// <param name="client">The initialized Amazon S3 client object used to call
+        /// Amazon S3 methods.</param>
+        /// <param name="bucketName">The name of the Amazon S3 bucket where objects
         /// will be created and then deleted.</param>
         public static async Task MultiObjectDeleteAsync(IAmazonS3 client, string bucketName)
         {
@@ -91,7 +93,7 @@ namespace DeleteMultipleObjectsExample
         /// This method creates simple text file objects that can be used in
         /// the delete method.
         /// </summary>
-        /// <param name="client">The S3 client used to call PutObjectAsync.</param>
+        /// <param name="client">The Amazon S3 client used to call PutObjectAsync.</param>
         /// <param name="number">The number of objects to create.</param>
         /// <param name="bucketName">The name of the bucket where the objects
         /// will be created.</param>
@@ -124,4 +126,6 @@ namespace DeleteMultipleObjectsExample
             return keys;
         }
     }
+
+    // snippet-end:[S3.dotnetv3.DeleteMultipleObjectsExample]
 }

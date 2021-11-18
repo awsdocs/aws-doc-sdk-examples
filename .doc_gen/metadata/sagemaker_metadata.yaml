@@ -14,7 +14,7 @@ sagemaker_ListNotebookInstances:
               snippet_tags:
                 - sagemaker.rust.sagemaker-helloworld
   services:
-    sagemaker: { ListNotebookInstances }
+    sagemaker: {ListNotebookInstances}
 sagemaker_ListTrainingJobs:
   title: List &SM; training jobs using an &AWS; SDK
   title_abbrev: List training jobs
@@ -30,4 +30,4 @@ sagemaker_ListTrainingJobs:
               snippet_tags:
                 - sagemaker.rust.list-training-jobs
   services:
-    sagemaker: { ListTrainingJobs }
+    sagemaker: {ListTrainingJobs}
