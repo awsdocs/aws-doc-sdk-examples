@@ -1,3 +1,4 @@
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -22,10 +23,8 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("net.sourceforge.jexcelapi:jxl:2.6.10")
-    api("aws.sdk.kotlin:s3:0.9.0-alpha")
-    api("aws.sdk.kotlin:rekognition:0.9.0-alpha")
-    implementation("commons-io:commons-io:2.10.0")
+    implementation("aws.sdk.kotlin:redshiftdata:0.9.0-alpha")
+    implementation("aws.sdk.kotlin:translate:0.9.0-alpha")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

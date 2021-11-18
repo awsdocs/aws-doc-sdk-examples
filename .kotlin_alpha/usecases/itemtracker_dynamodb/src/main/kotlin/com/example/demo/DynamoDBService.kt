@@ -16,7 +16,6 @@ import javax.xml.transform.TransformerException
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
-import kotlin.system.exitProcess
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.dynamodb.model.*
 
@@ -29,7 +28,6 @@ class DynamoDBService {
     // Update the archive column.
     suspend fun archiveItemEC(id: String) {
         val tableNameVal = "Work"
-        val dynamoDBClient = DynamoDbClient{ region = "us-east-1" }
         val itemKey = mutableMapOf<String, AttributeValue>()
         itemKey["id"] = AttributeValue.S(id)
 
@@ -45,13 +43,8 @@ class DynamoDBService {
             attributeUpdates= updatedValues
         }
 
-        try {
+        DynamoDbClient { region = "us-east-1" }.use { dynamoDBClient ->
             dynamoDBClient.updateItem(request)
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            dynamoDBClient.close()
-            exitProcess(0)
         }
     }
 
@@ -59,7 +52,6 @@ class DynamoDBService {
     suspend fun updateTableItem( id: String, status: String) {
 
         val tableNameVal = "Work"
-        val dynamoDBClient = DynamoDbClient{ region = "us-east-1" }
         val itemKey = mutableMapOf<String, AttributeValue>()
         itemKey["id"] = AttributeValue.S(id)
 
@@ -75,20 +67,14 @@ class DynamoDBService {
             attributeUpdates= updatedValues
         }
 
-        try {
+        DynamoDbClient { region = "us-east-1" }.use { dynamoDBClient ->
             dynamoDBClient.updateItem(request)
             println("Item in $tableNameVal was updated")
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            dynamoDBClient.close()
-            exitProcess(0)
         }
     }
 
     // Get a single item from the Work table based on idValue.
     suspend fun getItem(idValue: String): String? {
-        val dynamoDBClient = DynamoDbClient{ region = "us-east-1" }
         val tableNameVal = "Work"
         val keyToGet = mutableMapOf<String, AttributeValue>()
         keyToGet["id"] = AttributeValue.S(idValue)
@@ -98,8 +84,7 @@ class DynamoDBService {
             tableName = tableNameVal
         }
 
-        try {
-
+        DynamoDbClient { region = "us-east-1" }.use { dynamoDBClient ->
             var status = ""
             var description = ""
             val returnedItem = dynamoDBClient.getItem(request).item
@@ -114,40 +99,32 @@ class DynamoDBService {
 
             val myXML: Document = toXmlItem(idValue, description, status)!!
             return convertToString(myXML)
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            dynamoDBClient.close()
         }
-
-        return ""
     }
 
 
     suspend fun getOpenItems(myArc:Boolean):String? {
 
-        val dynamoDBClient = DynamoDbClient{ region = "us-east-1" }
-        try {
-            val tableNameVal = "Work"
-            val myList = mutableListOf<WorkItem>()
-            val myMap = HashMap<String, String>()
-            myMap.put("#archive2", "archive")
+       val tableNameVal = "Work"
+       val myList = mutableListOf<WorkItem>()
+       val myMap = HashMap<String, String>()
+       myMap.put("#archive2", "archive")
+       val myExMap = mutableMapOf<String, AttributeValue>()
 
-            val myExMap = HashMap<String, AttributeValue>()
+       if (myArc)
+          myExMap.put(":val", AttributeValue.S("Open"))
+       else
+          myExMap.put(":val", AttributeValue.S("Closed"))
 
-            if (myArc)
-                myExMap.put(":val", AttributeValue.S("Open"))
-            else
-                myExMap.put(":val", AttributeValue.S("Closed"))
+       val scanRequest = ScanRequest {
+           expressionAttributeNames = myMap
+           expressionAttributeValues = myExMap
+           tableName = tableNameVal
+           filterExpression = "#archive2 = :val"
+       }
 
-            val scanRequest = ScanRequest {
-                this.expressionAttributeNames = myMap
-                this.expressionAttributeValues = myExMap
-                tableName = tableNameVal
-                filterExpression = "#archive2 = :val"
-            }
-
-            val response = dynamoDBClient.scan(scanRequest)
+        DynamoDbClient { region = "us-east-1" }.use { dynamoDBClient ->
+           val response = dynamoDBClient.scan(scanRequest)
             for (item in response.items!!) {
                 val keys = item.keys
                 val myItem = WorkItem()
@@ -179,22 +156,13 @@ class DynamoDBService {
                         else -> {
 
                             myItem.guide = splitMyString(item[key].toString())
-                            // Push to list
                             myList.add(myItem)
                         }
                     }
                 }
             }
-
-            val myXML = toXml(myList)!!
-            return convertToString(myXML)
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            dynamoDBClient.close()
+           return toXml(myList)?.let { convertToString(it) }
         }
-
-        return ""
     }
 
     // Puts an item into an Amazon DynamoDB table.
@@ -214,7 +182,6 @@ class DynamoDBService {
         val formatedDate = formatter.format(date)
 
         // Add the data to the DynamoDB table.
-        val dynamoDBClient = DynamoDbClient{ region = "us-east-1" }
         val itemValues = mutableMapOf<String, AttributeValue>()
 
         // Add all content to the table.
@@ -231,16 +198,10 @@ class DynamoDBService {
             item = itemValues
         }
 
-        try {
+        DynamoDbClient { region = "us-east-1" }.use { dynamoDBClient ->
             dynamoDBClient.putItem(request)
             return myGuid
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            dynamoDBClient.close()
         }
-
-        return ""
     }
 }
 
