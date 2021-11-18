@@ -722,6 +722,16 @@ This application has a **contact_me.js** file that is used to send requests to t
 
         var title = $('#title').val();
         var body = $('#body').val();
+        
+        if (!$(title).val() ) {
+            alert("Please enter a title value");
+            return;
+        }
+
+        if (!$(body).val() ) {
+            alert("Please enter a body value");
+            return;
+        }
 
         $.ajax('/addPost', {
             type: 'POST',  // http method
