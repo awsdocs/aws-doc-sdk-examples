@@ -726,19 +726,20 @@ The following HTML represents the **index.html** file.
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org">
 
-    <head>
+   <head>
      <meta charset="utf-8" />
      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
      <meta name="viewport" content="width=device-width, initial-scale=1" />
-
      <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
      <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
      <script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
      <script th:src="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js|"></script>
+     <script th:src="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js|"></script>
+     <script src="../public/js/items.js" th:src="@{/js/items.js}"></script>
+     <link rel="stylesheet" th:href="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css|"/>
      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-     <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
      <title>AWS Kotlin Photo Analyzer Application</title>
-    </head>
+   </head>
     <body>
      <header th:replace="layout :: site-header"/>
      <div class="container">
@@ -772,16 +773,14 @@ The following HTML represents the **process.html** file.
      <meta charset="utf-8" />
      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
      <meta name="viewport" content="width=device-width, initial-scale=1" />
-
      <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
      <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
      <script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
      <script th:src="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js|"></script>
      <script src="../public/js/message.js" th:src="@{/js/message.js}"></script>
      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-     <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
      <title>Kotlin Photo Analyzer</title>
-    </head>
+   </head>
     <body>
     <header th:replace="layout :: site-header"/>
     <div class="container">
@@ -817,7 +816,6 @@ The following HTML represents the **upload.html** file.
      <meta charset="utf-8" />
      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
      <meta name="viewport" content="width=device-width, initial-scale=1" />
-
      <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
      <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
      <script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
@@ -826,8 +824,6 @@ The following HTML represents the **upload.html** file.
      <script src="../public/js/items.js" th:src="@{/js/items.js}"></script>
      <link rel="stylesheet" th:href="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css|"/>
      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-     <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
-
      <title>AWS Photo Analyzer</title>
 
      <script>
