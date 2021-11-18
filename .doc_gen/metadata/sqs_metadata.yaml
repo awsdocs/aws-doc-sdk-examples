@@ -65,7 +65,7 @@ sqs_CreateQueue:
         - sdk_version: 2
           github: gov2/sqs
           excerpts:
-            - description: Create an &SQS; queue
+            - description: Create an &SQS; queue.
               snippet_tags: ['sqs.go-v2.CreateQueue']
   services:
     sqs: {CreateQueue}
