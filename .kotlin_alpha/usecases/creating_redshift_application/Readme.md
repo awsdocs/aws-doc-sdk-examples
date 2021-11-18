@@ -794,7 +794,7 @@ This application has a **contact_me.js** file that is used to send requests to t
      }
 ```
 ### Create the CSS File
-This application uses a CSS file named **stles.css** file that is used for the menu.
+This application uses a CSS file named **styles.css** file that is used for the menu.
 
 ```css 
   body>header {
