@@ -54,7 +54,7 @@ async fn main() -> Result<(), Error> {
         println!();
     }
 
-    // snippet-start:[custom_retries.rust.default]
+    // snippet-start:[custom_retries.rust.disable_retries]
     let shared_config = aws_config::from_env()
         .region(region_provider)
         // Disable retries
@@ -62,7 +62,7 @@ async fn main() -> Result<(), Error> {
         .load()
         .await;
     let client = Client::new(&shared_config);
-    // snippet-end:[custom_retries.rust.default]
+    // snippet-end:[custom_retries.rust.disable_retries]
 
     show_num_buckets(&client).await
 }
