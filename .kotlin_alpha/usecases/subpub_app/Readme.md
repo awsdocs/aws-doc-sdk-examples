@@ -646,7 +646,7 @@ This application has a **contact_me.js** file that is used to send HTTP requests
      }
 ```
 ### Create the CSS File
-This application uses a CSS file named **styles.css** file that is used for the menu.
+This application uses a CSS file named **styles.css** file that is used for the menu. Place this file in the resources\public\css folder.
 
 ```css 
   body>header {
