@@ -1,4 +1,4 @@
-/* Sample code to create user from Cognito SDK */
+/* Sample code to admin create user from Cognito SDK by setting a temporary password.*/
 
 const aws = require('aws-sdk');
 /*Initializing CognitoIdentityServiceProvider from AWS SDK JS*/
