@@ -3,6 +3,7 @@
 
 namespace RegisterConsumerExample
 {
+    // snippet-start:[Kinesis.dotnetv3.RegisterConsumerExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Kinesis;
@@ -48,4 +49,6 @@ namespace RegisterConsumerExample
             return response.Consumer;
         }
     }
+
+    // snippet-end:[Kinesis.dotnetv3.RegisterConsumerExample]
 }

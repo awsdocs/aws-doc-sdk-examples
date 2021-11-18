@@ -26,8 +26,11 @@ from test_tools.iam_stubber import IamStubber
 from test_tools.kinesis_stubber import KinesisStubber
 from test_tools.kinesis_analytics_v2_stubber import KinesisAnalyticsV2Stubber
 from test_tools.lambda_stubber import LambdaStubber
+from test_tools.lookoutvision_stubber import LookoutVisionStubber
 from test_tools.organizations_stubber import OrganizationsStubber
 from test_tools.pinpoint_stubber import PinpointStubber
+from test_tools.pinpoint_email_stubber import PinpointEmailStubber
+from test_tools.pinpoint_sms_voice_stubber import PinpointSmsVoiceStubber
 from test_tools.polly_stubber import PollyStubber
 from test_tools.rdsdata_stubber import RdsDataStubber
 from test_tools.rds_stubber import RdsStubber
@@ -87,10 +90,16 @@ def stubber_factory(service_name):
         return KinesisAnalyticsV2Stubber
     elif service_name == 'lambda':
         return LambdaStubber
+    elif service_name == 'lookoutvision':
+        return LookoutVisionStubber
     elif service_name == 'organizations':
         return OrganizationsStubber
     elif service_name == 'pinpoint':
         return PinpointStubber
+    elif service_name == 'pinpoint-email':
+        return PinpointEmailStubber
+    elif service_name == 'pinpoint-sms-voice':
+        return PinpointSmsVoiceStubber
     elif service_name == 'polly':
         return PollyStubber
     elif service_name == 'rds':

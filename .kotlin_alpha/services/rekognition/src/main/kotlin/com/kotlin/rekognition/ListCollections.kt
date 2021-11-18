@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[06-08-2021]
+// snippet-sourcedate:[11-05-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -40,11 +40,8 @@ suspend fun listAllCollections(rekClient: RekognitionClient) {
             maxResults = 10
         }
         val response = rekClient.listCollections(listCollectionsRequest)
-        val collectionIds = response.collectionIds
-        if (collectionIds != null) {
-            for (resultId in collectionIds) {
+        response.collectionIds?.forEach { resultId ->
                 println(resultId)
-            }
         }
 
     } catch (e: RekognitionException) {

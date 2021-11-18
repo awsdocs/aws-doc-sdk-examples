@@ -3,7 +3,7 @@
 // snippet-service:[Amazon EventBridge]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[03/04/2021]
+// snippet-sourcedate:[11/04/2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -37,7 +37,7 @@ suspend fun main(args: Array<String>) {
         <ruleName> 
 
     Where:
-        ruleName - the name of the rule to create. 
+        ruleName - the name of the rule. 
     """
 
     if (args.size != 1) {

@@ -24,10 +24,7 @@ struct Opt {
 
 // Deletes a channel.
 // snippet-start:[config.rust.delete-delivery-channel]
-async fn delete_channel(
-    client: &Client,
-    channel: &str,
-) -> Result<(), Error> {
+async fn delete_channel(client: &Client, channel: &str) -> Result<(), Error> {
     client
         .delete_delivery_channel()
         .delivery_channel_name(channel)

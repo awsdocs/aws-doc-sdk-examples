@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Step Functions]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[04/06/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-AWS]
 
 /*
@@ -52,11 +52,8 @@ suspend fun getFailedExes(sfnClient: SfnClient, stateMachineARN: String?) {
             }
 
             val response = sfnClient.listExecutions(executionsRequest)
-            val items = response.executions
-            if (items != null) {
-                for (item in items) {
-                    println("The Amazon Resource Name (ARN) of the failed execution is ${item.executionArn}.")
-                }
+            response.executions?.forEach { item ->
+                   println("The Amazon Resource Name (ARN) of the failed execution is ${item.executionArn}.")
             }
 
         } catch (ex: SfnException) {

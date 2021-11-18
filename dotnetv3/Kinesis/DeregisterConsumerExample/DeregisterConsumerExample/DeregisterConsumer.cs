@@ -3,6 +3,7 @@
 
 namespace DeregisterConsumerExample
 {
+    // snippet-start:[Kinesis.dotnetv3.DeregisterConsumerExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Kinesis;
@@ -60,4 +61,6 @@ namespace DeregisterConsumerExample
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
     }
+
+    // snippet-end:[Kinesis.dotnetv3.DeregisterConsumerExample]
 }

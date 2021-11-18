@@ -4,7 +4,7 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_ses::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_sesv2::{Client, Error, Region, PKG_VERSION};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -17,6 +17,24 @@ struct Opt {
     #[structopt(short, long)]
     verbose: bool,
 }
+
+// Lists your contact lists.
+// snippet-start:[ses.rust.list-contact-lists]
+async fn show_lists(client: &Client) -> Result<(), Error> {
+    let resp = client.list_contact_lists().send().await?;
+
+    println!("Contact lists:");
+
+    for list in resp.contact_lists.unwrap_or_default() {
+        println!(
+            "  {}",
+            list.contact_list_name.as_deref().unwrap_or_default()
+        );
+    }
+
+    Ok(())
+}
+// snippet-end:[ses.rust.list-contact-lists]
 
 /// Lists your contact lists (there should only be one) in the Region.
 /// # Arguments
@@ -49,16 +67,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let resp = client.list_contact_lists().send().await?;
-
-    println!("Contact lists:");
-
-    for list in resp.contact_lists.unwrap_or_default() {
-        println!(
-            "  {}",
-            list.contact_list_name.as_deref().unwrap_or_default()
-        );
-    }
-
-    Ok(())
+    show_lists(&client).await
 }

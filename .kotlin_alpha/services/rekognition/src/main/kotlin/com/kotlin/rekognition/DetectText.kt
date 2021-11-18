@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[06-08-2021]
+// snippet-sourcedate:[11-05-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -39,10 +39,10 @@ suspend fun main(args: Array<String>){
            sourceImage - the name of the image in an Amazon S3 bucket (for example, people.png). 
     """
 
-     if (args.size != 1) {
+    if (args.size != 1) {
          println(usage)
          exitProcess(0)
-     }
+    }
 
     val sourceImage = args[0]
     val rekClient = RekognitionClient{ region = "us-east-1"}
@@ -62,18 +62,13 @@ suspend fun detectTextLabels(rekClient: RekognitionClient, sourceImage: String?)
             image = souImage
         }
 
-        val textResponse = rekClient.detectText(textRequest)
-        val textCollection = textResponse.textDetections
-        println("Detected lines and words")
-
-        if (textCollection != null) {
-            for (text in textCollection) {
-                println("Detected: ${text.detectedText}")
+        val response = rekClient.detectText(textRequest)
+        response.textDetections?.forEach { text ->
+                 println("Detected: ${text.detectedText}")
                 println("Confidence: ${text.confidence.toString()}")
                 println("Id: ${text.id}")
                 println("Parent Id:  ${text.parentId}")
                 println("Type: ${text.type}")
-            }
         }
 
     } catch (e: RekognitionException) {

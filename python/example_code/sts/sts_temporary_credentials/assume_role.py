@@ -27,6 +27,7 @@ def unique_name(base_name):
     return f'demo-assume-role-{base_name}-{time.time_ns()}'
 
 
+# snippet-start:[python.example_code.sts.Scenario_AssumeRole_setup]
 def setup(iam_resource):
     """
     Creates a new user with no permissions.
@@ -104,8 +105,10 @@ def setup(iam_resource):
     progress_bar(10)
 
     return user, user_key, role
+# snippet-end:[python.example_code.sts.Scenario_AssumeRole_setup]
 
 
+# snippet-start:[python.example_code.sts.Scenario_AssumeRole_access_denied]
 def show_access_denied_without_role(user_key):
     """
     Shows that listing buckets without first assuming the role is not allowed.
@@ -125,6 +128,7 @@ def show_access_denied_without_role(user_key):
             print("Attempt to list buckets with no permissions: AccessDenied.")
         else:
             raise
+# snippet-end:[python.example_code.sts.Scenario_AssumeRole_access_denied]
 
 
 # snippet-start:[iam.python.assume_role.complete]
@@ -159,6 +163,7 @@ def list_buckets_from_assumed_role(user_key, assume_role_arn, session_name):
 # snippet-end:[iam.python.assume_role.complete]
 
 
+# snippet-start:[python.example_code.sts.Scenario_AssumeRole_teardown]
 def teardown(user, role):
     """
     Removes all resources created during setup.
@@ -181,8 +186,10 @@ def teardown(user, role):
         print("Deleted user's access key.")
     user.delete()
     print(f"Deleted {user.name}.")
+# snippet-end:[python.example_code.sts.Scenario_AssumeRole_teardown]
 
 
+# snippet-start:[python.example_code.sts.Scenario_AssumeRole_demo]
 def usage_demo():
     """Drives the demonstration."""
     print('-'*88)
@@ -197,6 +204,7 @@ def usage_demo():
     finally:
         teardown(user, role)
         print("Thanks for watching!")
+# snippet-end:[python.example_code.sts.Scenario_AssumeRole_demo]
 
 
 if __name__ == '__main__':

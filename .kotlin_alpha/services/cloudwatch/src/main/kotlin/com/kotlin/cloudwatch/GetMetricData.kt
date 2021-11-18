@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/11/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -21,17 +21,9 @@ import aws.sdk.kotlin.services.cloudwatch.model.Metric
 import aws.sdk.kotlin.services.cloudwatch.model.MetricDataQuery
 import aws.sdk.kotlin.services.cloudwatch.model.GetMetricDataRequest
 import aws.sdk.kotlin.services.cloudwatch.model.CloudWatchException
-import aws.sdk.kotlin.services.cloudwatch.model.MetricDataResult
 import kotlin.system.exitProcess
 // snippet-end:[cloudwatch.kotlin.get_metric_data.import]
 
-/**
-To run this Kotlin code example, ensure that you have setup your development environment,
-including your credentials.
-
-For information, see this documentation topic:
-https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
 suspend fun main(args:Array<String>) {
 
     val cwClient = CloudWatchClient{region="us-east-1"}
@@ -42,7 +34,7 @@ suspend fun main(args:Array<String>) {
 // snippet-start:[cloudwatch.kotlin.get_metric_data.main]
 suspend fun getMetData(cwClient: CloudWatchClient) {
     try {
-        // Set the date
+
         val start = aws.smithy.kotlin.runtime.time.Instant.fromIso8601("2019-10-23T10:12:35Z")
         val endDate = aws.smithy.kotlin.runtime.time.Instant.now()
         val met = Metric {
@@ -71,15 +63,11 @@ suspend fun getMetData(cwClient: CloudWatchClient) {
              metricDataQueries= dq
         }
         val response = cwClient.getMetricData(getMetReq)
-        val data = response.metricDataResults
-
-        if (data != null) {
-            for (i in data.indices) {
-                val item = data[i] as MetricDataResult
-                println("The label is ${item.label}")
-                println("The status code is ${item.statusCode.toString()}")
-            }
+        response.metricDataResults?.forEach { item ->
+            println("The label is ${item.label}")
+            println("The status code is ${item.statusCode.toString()}")
         }
+
     } catch (ex: CloudWatchException) {
         println(ex.message)
         cwClient.close()

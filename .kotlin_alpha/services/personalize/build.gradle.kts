@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.4.10"
+    kotlin("jvm") version "1.5.31"
     application
 }
 
@@ -10,14 +10,13 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    mavenLocal()
 }
 
 dependencies {
-    api("aws.sdk.kotlin:personalize:0.4.0-alpha")
-    api("aws.sdk.kotlin:personalizeruntime:0.4.0-alpha")
+    implementation("aws.sdk.kotlin:personalize:0.9.0-alpha")
+    implementation("aws.sdk.kotlin:personalizeruntime:0.9.0-alpha")
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
 
 }
 tasks.withType<KotlinCompile>() {

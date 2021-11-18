@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Step Functions]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[04/06/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-AWS]
 
 /*
@@ -51,13 +51,10 @@ suspend fun getExeHistory(sfnClient: SfnClient, exeARN: String?) {
             maxResults = 10
         }
 
-        val historyResponse = sfnClient.getExecutionHistory(historyRequest)
-        val events = historyResponse.events
-        if (events != null) {
-            for (event in events) {
-                println("The event type is ${event.type.toString()}")
+        val response = sfnClient.getExecutionHistory(historyRequest)
+        response.events?.forEach { event ->
+            println("The event type is ${event.type.toString()}")
             }
-        }
 
     } catch (ex: SfnException) {
         println(ex.message)

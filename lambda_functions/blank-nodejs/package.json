@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "devDependencies": {
-    "aws-sdk": "2.631.0",
+    "aws-sdk": ">=2.814.0"
     "jest": "25.4.0"
   },
   "dependencies": {

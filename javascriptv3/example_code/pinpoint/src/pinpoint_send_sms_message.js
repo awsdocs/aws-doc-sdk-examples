@@ -5,7 +5,7 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript versi
 which is pending release.  For more information on this example, see https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ses-examples.html.
 
 Purpose:
-pinpoint_send_sms_message.js demonstrates how to send a transactional email message using Amazon Pinpoint.]
+pinpoint_send_sms_message.js demonstrates how to send a transactional email message using Amazon Pinpoint.
 
 Inputs (replace in code):
 - SENDER_NUMBER

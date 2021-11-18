@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Pinpoint]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/02/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -82,17 +82,11 @@ suspend fun createPinpointSegment(pinpoint: PinpointClient, applicationIdVal: St
                 recency = recencyDimension
             }
 
-            val segmentDemographics = SegmentDemographics {
-            }
-
-            val segmentLocation = SegmentLocation
-                .builder()
-                .build()
-
+            val segmentLocation = SegmentLocation {}
             val dimensionsOb = SegmentDimensions {
                 attributes= segmentAttributes
                 behavior = segmentBehaviors
-                demographic =segmentDemographics
+                demographic = SegmentDemographics {}
                 location =segmentLocation
             }
 

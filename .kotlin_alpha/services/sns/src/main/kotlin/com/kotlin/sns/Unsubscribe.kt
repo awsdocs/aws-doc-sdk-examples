@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/21/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[scmacdon- AWS]
 
 /*
@@ -35,7 +35,7 @@ suspend fun main(args:Array<String>) {
      }
 
     val subArn = args[0]
-    val snsClient = SnsClient({ region = "us-east-1" })
+    val snsClient = SnsClient{ region = "us-east-1" }
     unSub(snsClient, subArn)
     snsClient.close()
 }

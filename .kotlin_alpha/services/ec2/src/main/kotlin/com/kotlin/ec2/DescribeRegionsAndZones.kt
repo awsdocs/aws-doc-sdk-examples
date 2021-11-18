@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[07/21/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -16,9 +16,7 @@ package com.kotlin.ec2
 // snippet-start:[ec2.kotlin.describe_region_and_zones.import]
 import aws.sdk.kotlin.services.ec2.Ec2Client
 import aws.sdk.kotlin.services.ec2.model.DescribeRegionsRequest
-import aws.sdk.kotlin.services.ec2.model.Region
 import aws.sdk.kotlin.services.ec2.model.DescribeAvailabilityZonesRequest
-import aws.sdk.kotlin.services.ec2.model.AvailabilityZone
 import aws.sdk.kotlin.services.ec2.model.Ec2Exception
 import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.describe_region_and_zones.import]
@@ -43,15 +41,16 @@ suspend fun describeEC2RegionsAndZones(ec2: Ec2Client) {
 
     try {
         val regionsResponse = ec2.describeRegions(DescribeRegionsRequest{})
-        for (region: Region in regionsResponse.regions!!)
+        regionsResponse.regions?.forEach { region ->
             println("Found Region ${region.regionName} with endpoint ${region.endpoint}")
+        }
 
-
-        val zonesResponse = ec2.describeAvailabilityZones(DescribeAvailabilityZonesRequest{})
-        for (zone: AvailabilityZone in zonesResponse.availabilityZones!!)
+       val zonesResponse = ec2.describeAvailabilityZones(DescribeAvailabilityZonesRequest{})
+        zonesResponse.availabilityZones?.forEach { zone ->
             println("Found Availability Zone ${zone.zoneName} with status  ${zone.state} in Region ${zone.regionName}")
+        }
 
-    } catch (e: Ec2Exception) {
+     } catch (e: Ec2Exception) {
         println(e.message)
         exitProcess(0)
     }

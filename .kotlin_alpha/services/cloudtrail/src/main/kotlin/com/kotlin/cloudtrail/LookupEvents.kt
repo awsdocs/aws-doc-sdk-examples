@@ -4,7 +4,7 @@
 // snippet-service:[AWS CloudTrail]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[06/02/2021]
+// snippet-sourcedate:[11/03/2021]
 // snippet-sourceauthor:[AWS - scmacdon]
 
 /*
@@ -20,14 +20,6 @@ import aws.sdk.kotlin.services.cloudtrail.model.LookupEventsRequest
 import aws.sdk.kotlin.services.cloudtrail.model.CloudTrailException
 import kotlin.system.exitProcess
 //snippet-end:[cloudtrail.kotlin.events.import]
-
-/**
-To run this Kotlin code example, ensure that you have setup your development environment,
-including your credentials.
-
-For information, see this documentation topic:
-https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
 
 suspend fun main() {
 
@@ -45,13 +37,9 @@ suspend fun lookupAllEvents(cloudTrailClient: CloudTrailClient) {
             }
 
             val response = cloudTrailClient.lookupEvents(eventsRequest)
-            val events = response.events
-
-            if (events != null) {
-                for (event in events) {
-                    println("Event name is ${event.eventName}")
-                    println("The event source is ${event.eventSource}")
-                }
+            response.events?.forEach { event ->
+                println("Event name is ${event.eventName}")
+                println("The event source is ${event.eventSource}")
             }
 
         } catch (ex: CloudTrailException) {

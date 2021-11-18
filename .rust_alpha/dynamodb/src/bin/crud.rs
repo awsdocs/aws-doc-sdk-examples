@@ -15,11 +15,11 @@ use aws_sdk_dynamodb::model::{
 use aws_sdk_dynamodb::operation::DescribeTable;
 use aws_sdk_dynamodb::output::DescribeTableOutput;
 use aws_sdk_dynamodb::{Client, Config, Error, Region, PKG_VERSION};
+use aws_smithy_http::operation::Operation;
+use aws_smithy_http::retry::ClassifyResponse;
+use aws_smithy_types::retry::RetryKind;
 use rand::distributions::Alphanumeric;
 use rand::{thread_rng, Rng};
-use smithy_http::operation::Operation;
-use smithy_http::retry::ClassifyResponse;
-use smithy_types::retry::RetryKind;
 use std::io::{stdin, Read};
 use std::time::Duration;
 use std::{iter, process};
@@ -51,6 +51,7 @@ fn random_string(n: usize) -> String {
 }
 
 /// Create a new table.
+// snippet-start:[dynamodb.rust.crud-make_table]
 async fn make_table(
     client: &Client,
     table: &str,
@@ -84,6 +85,7 @@ async fn make_table(
         Err(e) => Err(e),
     }
 }
+// snippet-end:[dynamodb.rust.crud-make_table]
 
 /// For add_item and query_item
 #[derive(Clone)]
@@ -98,6 +100,7 @@ struct Item {
 }
 
 /// Add an item to the table.
+// snippet-start:[dynamodb.rust.crud-add_item]
 async fn add_item(
     client: &Client,
     item: Item,
@@ -123,9 +126,11 @@ async fn add_item(
         Err(e) => Err(e),
     }
 }
+// snippet-end:[dynamodb.rust.crud-add_item]
 
 /// Query the table for an item matching the input values.
 /// Returns true if the item is found; otherwise false.
+// snippet-start:[dynamodb.rust.crud-query_item]
 async fn query_item(client: &Client, item: Item) -> bool {
     let value = &item.value;
     let key = &item.key;
@@ -158,6 +163,34 @@ async fn query_item(client: &Client, item: Item) -> bool {
         }
     }
 }
+// snippet-end:[dynamodb.rust.crud-query_item]
+
+// Deletes an item from a table.
+// snippet-start:[dynamodb.rust.crud-remove_item]
+async fn remove_item(client: &Client, table: &str, key: &str, value: String) -> Result<(), Error> {
+    let user_av = AttributeValue::S(value);
+
+    client
+        .delete_item()
+        .table_name(table)
+        .key(key, user_av)
+        .send()
+        .await?;
+
+    println!("Deleted item.");
+
+    Ok(())
+}
+// snippet-end:[dynamodb.rust.crud-remove_item]
+
+// Deletes a table.
+// snippet-start:[dynamodb.rust.crud-remove_table]
+async fn remove_table(client: &Client, table: &str) -> Result<(), Error> {
+    client.delete_table().table_name(table).send().await?;
+
+    Ok(())
+}
+// snippet-end:[dynamodb.rust.crud-remove_table]
 
 /// Hand-written waiter to retry every second until the table is out of `Creating` state
 #[derive(Clone)]
@@ -285,7 +318,7 @@ async fn main() -> Result<(), Error> {
     let raw_client = aws_hyper::Client::https();
 
     raw_client
-        .call(wait_for_ready_table(&table, client.conf()))
+        .call(wait_for_ready_table(&table, client.conf()).await)
         .await
         .expect("table should become ready.");
 
@@ -338,15 +371,8 @@ async fn main() -> Result<(), Error> {
 
     /* Delete item */
     println!("Deleting item.");
-    let user_av = AttributeValue::S(value);
-    client
-        .delete_item()
-        .table_name(&table)
-        .key(key, user_av)
-        .send()
-        .await?;
 
-    println!("Deleted item.");
+    remove_item(&client, &table, &key, value).await?;
 
     if interactive {
         pause();
@@ -354,7 +380,9 @@ async fn main() -> Result<(), Error> {
 
     /* Delete table */
     println!("Deleting table.");
-    client.delete_table().table_name(&table).send().await?;
+
+    remove_table(&client, &table).await?;
+
     println!("Deleted table.");
     println!();
 
@@ -363,7 +391,7 @@ async fn main() -> Result<(), Error> {
 
 /// Construct a `DescribeTable` request with a policy to retry every second until the table
 /// is ready
-fn wait_for_ready_table(
+async fn wait_for_ready_table(
     table_name: &str,
     conf: &Config,
 ) -> Operation<DescribeTable, WaitForReadyTable<AwsErrorRetryPolicy>> {
@@ -372,9 +400,12 @@ fn wait_for_ready_table(
         .build()
         .expect("valid input")
         .make_operation(conf)
+        .await
         .expect("valid operation");
+
     let waiting_policy = WaitForReadyTable {
         inner: operation.retry_policy().clone(),
     };
+
     operation.with_retry_policy(waiting_policy)
 }

@@ -3,6 +3,7 @@
 
 namespace TagStreamExample
 {
+    // snippet-start:[Kinesis.dotnetv3.TagStreamExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -49,7 +50,8 @@ namespace TagStreamExample
         /// will be used to create the Kinesis tags.</param>
         /// <returns>A Boolean value which represents the success or failure
         /// of AddTagsToStreamAsync.</returns>
-        public static async Task<bool> ApplyTagsToStreamAsync(IAmazonKinesis client,
+        public static async Task<bool> ApplyTagsToStreamAsync(
+            IAmazonKinesis client,
             string streamName,
             Dictionary<string, string> tags)
         {
@@ -64,4 +66,6 @@ namespace TagStreamExample
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
     }
+
+    // snippet-end:[Kinesis.dotnetv3.TagStreamExample]
 }

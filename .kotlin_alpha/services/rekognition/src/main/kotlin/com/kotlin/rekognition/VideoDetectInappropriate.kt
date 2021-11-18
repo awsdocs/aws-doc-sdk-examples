@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[06-09-2021]
+// snippet-sourcedate:[11-05-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -101,7 +101,7 @@ suspend fun getModResults(rekClient: RekognitionClient) {
         var paginationToken: String? = null
         var modDetectionResponse: GetContentModerationResponse? = null
         var finished = false
-        var status = ""
+        var status:String
         var yy = 0
         do {
             if (modDetectionResponse != null)
@@ -128,28 +128,19 @@ suspend fun getModResults(rekClient: RekognitionClient) {
             finished = false
 
             // Proceed when the job is done - otherwise VideoMetadata is null
-            val videoMetaData = modDetectionResponse!!.videoMetadata
-            if (videoMetaData != null)
-                println("Format: ${videoMetaData.format}")
+            val videoMetaData = modDetectionResponse?.videoMetadata
+            println("Format: ${videoMetaData?.format}")
+            println("Codec: ${videoMetaData?.codec}")
+            println("Duration: ${videoMetaData?.durationMillis}")
+            println("FrameRate: ${videoMetaData?.frameRate}")
 
-            if (videoMetaData != null)
-                println("Codec: ${videoMetaData.codec}")
-
-            if (videoMetaData != null)
-                println("Duration: ${videoMetaData.durationMillis}")
-
-            if (videoMetaData != null)
-                println("FrameRate: ${videoMetaData.frameRate}")
-
-            val mods = modDetectionResponse.moderationLabels
-            if (mods != null) {
-                for (mod in mods) {
+            modDetectionResponse?.moderationLabels?.forEach { mod ->
                     val seconds: Long = mod.timestamp / 1000
                     print("Mod label: $seconds ")
                     println(mod.moderationLabel.toString())
                 }
-            }
-        } while (modDetectionResponse != null && modDetectionResponse.nextToken != null)
+
+        } while (modDetectionResponse?.nextToken != null)
 
     } catch (e: RekognitionException) {
         println(e.message)

@@ -4,7 +4,7 @@
 // snippet-service:[Amazon Route 53]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[5-10-2021]
+// snippet-sourcedate:[11/5/2021]
 // snippet-sourceauthor:[AWS - scmacdon]
 
 /*
@@ -40,12 +40,9 @@ suspend fun main() {
 //snippet-start:[route.kotlin.list_zones.main]
 suspend fun listZones(route53Client: Route53Client) {
         try {
-            val zonesResponse = route53Client.listHostedZones(ListHostedZonesRequest{})
-            val checklist: List<HostedZone>? = zonesResponse.hostedZones
-            if (checklist != null) {
-                for (check in checklist) {
-                    println("The name is ${check.name}")
-                }
+            val response = route53Client.listHostedZones(ListHostedZonesRequest{})
+            response.hostedZones?.forEach { check ->
+                 println("The name is ${check.name}")
             }
 
         } catch (e: Route53Exception) {

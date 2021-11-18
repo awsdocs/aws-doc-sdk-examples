@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Comprehend]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[03/04/2021]
+// snippet-sourcedate:[11/04/2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -30,7 +30,9 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
 
-    val comprehendClient = ComprehendClient({region="us-east-1"})
+    val comprehendClient = ComprehendClient{
+        region="us-east-1"
+    }
     val text = "Amazon.com, Inc. is located in Seattle, WA and was founded July 5th, 1994 by Jeff Bezos, allowing customers to buy everything from books to blenders. Seattle is north of Portland and south of Vancouver, BC. Other notable Seattle - based companies are Starbucks and Boeing."
     detectAllSyntax(comprehendClient,text)
     comprehendClient.close()
@@ -45,15 +47,10 @@ suspend fun detectAllSyntax(comClient: ComprehendClient, textVal: String?) {
                  languageCode = SyntaxLanguageCode.fromValue("en")
              }
 
-            val resp = comClient.detectSyntax(detectSyntaxRequest)
-            val syntaxTokens = resp.syntaxTokens
-
-            if (syntaxTokens != null) {
-
-                for (token in syntaxTokens) {
-                    println("Language is ${token.text}")
-                    println("Part of speech is ${token.partOfSpeech.toString()}")
-                }
+            val response = comClient.detectSyntax(detectSyntaxRequest)
+            response.syntaxTokens?.forEach { token ->
+                println("Language is ${token.text}")
+                println("Part of speech is ${token.partOfSpeech.toString()}")
             }
 
         } catch (ex: ComprehendException) {

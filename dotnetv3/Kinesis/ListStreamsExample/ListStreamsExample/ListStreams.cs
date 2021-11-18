@@ -3,6 +3,7 @@
 
 namespace ListStreamsExample
 {
+    // snippet-start:[Kinesis.dotnetv3.ListStreamsExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -33,4 +34,6 @@ namespace ListStreamsExample
             }
         }
     }
+
+    // snippet-end:[Kinesis.dotnetv3.ListStreamsExample]
 }

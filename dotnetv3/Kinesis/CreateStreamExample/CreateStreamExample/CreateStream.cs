@@ -3,6 +3,7 @@
 
 namespace CreateStreamExample
 {
+    // snippet-start:[Kinesis.dotnetv3.CreateStreamExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Kinesis;
@@ -51,4 +52,6 @@ namespace CreateStreamExample
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
     }
+
+    // snippet-end:[Kinesis.dotnetv3.CreateStreamExample]
 }

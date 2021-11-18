@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[03/02/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -38,14 +38,10 @@ suspend fun main() {
 suspend fun listAllTables(ddb: DynamoDbClient) {
 
         try {
-            val response =  ddb.listTables(ListTablesRequest{})
-            val tableNameVals = response.tableNames
-
-            if (tableNameVals != null) {
-                   for (curName:String in tableNameVals) {
-                        println("Table name is $curName")
-                    }
-           }
+            val response = ddb.listTables(ListTablesRequest {})
+            response.tableNames?.forEach { tableName ->
+                 println("Table name is $tableName")
+            }
 
         } catch (ex: DynamoDbException) {
             println(ex.message)

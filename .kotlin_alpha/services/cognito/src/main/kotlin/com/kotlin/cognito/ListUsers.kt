@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[08/01/2021]
+//snippet-sourcedate:[11/03/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -11,13 +11,11 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-
 package com.kotlin.cognito
 
 //snippet-start:[cognito.kotlin.ListUsers.import]
 import aws.sdk.kotlin.services.cognitoidentityprovider.CognitoIdentityProviderClient
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.ListUsersRequest
-import aws.sdk.kotlin.services.cognitoidentityprovider.model.UserType
 import aws.sdk.kotlin.services.cognitoidentity.model.CognitoIdentityException
 import kotlin.system.exitProcess
 //snippet-end:[cognito.kotlin.ListUsers.import]
@@ -59,12 +57,8 @@ suspend fun main(args: Array<String>){
             }
 
             val response = cognitoClient.listUsers(listUsersRequest)
-            val users = response.users
-
-            if (users != null) {
-               for (user: UserType in users) {
-                    println("The user name is ${user.username}")
-                }
+            response.users?.forEach { user ->
+                println("The user name is ${user.username}")
             }
 
         } catch (ex: CognitoIdentityException) {

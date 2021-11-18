@@ -4,7 +4,7 @@
 // snippet-service:[Amazon Route 53]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[5-10-2021]
+// snippet-sourcedate:[11/5/2021]
 // snippet-sourceauthor:[AWS - scmacdon]
 
 /*
@@ -17,7 +17,6 @@ package com.kotlin.route
 // snippet-start:[route53.kotlin.list_health_checks.import]
 import aws.sdk.kotlin.services.route53.Route53Client
 import aws.sdk.kotlin.services.route53.model.ListHealthChecksRequest
-import aws.sdk.kotlin.services.route53.model.HealthCheck
 import aws.sdk.kotlin.services.route53.model.Route53Exception
 import kotlin.system.exitProcess
 // snippet-end:[route53.kotlin.list_health_checks.import]
@@ -45,14 +44,11 @@ suspend fun listAllHealthChecks(route53Client: Route53Client) {
                 this.maxItems = 10
             }
 
-            val checksResponse = route53Client.listHealthChecks(requestOb)
-            val checklist: List<HealthCheck>? = checksResponse.healthChecks
-            if (checklist != null) {
-                for (check in checklist) {
-                    System.out.println("The health check id is ${check.id}")
-                    System.out.println("The health threshold is ${check.healthCheckConfig?.healthThreshold}")
-                    System.out.println("The type is ${check.healthCheckConfig?.type.toString()}")
-                }
+            val response = route53Client.listHealthChecks(requestOb)
+            response.healthChecks?.forEach { check ->
+                    println("The health check id is ${check.id}")
+                    println("The health threshold is ${check.healthCheckConfig?.healthThreshold}")
+                    println("The type is ${check.healthCheckConfig?.type.toString()}")
             }
 
         } catch (e: Route53Exception) {

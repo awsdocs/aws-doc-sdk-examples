@@ -26,7 +26,7 @@ cross_SnsPublishSubscription:
 cross_LexChatbotLanguages:
   title: Create an &LEX2; Chatbot within a web application to engage your web site visitors
   title_abbrev: Building an &LEX2; Chatbot 
-  synopsis: create a Chatbot to engage your web site visitors
+  synopsis: create a Chatbot to engage your web site visitors.
   languages:
     Java:
       versions:
@@ -39,7 +39,7 @@ cross_LexChatbotLanguages:
 cross_DynamoDBDataTracker:
   title: Create a dynamic web application to track &DDB; data
   title_abbrev: Create a web application to track &DDB; data
-  synopsis: create a web application that tracks and reports on work items
+  synopsis: create a web application that tracks and reports on work items.
   languages:
     Java:
       versions:

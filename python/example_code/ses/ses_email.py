@@ -21,6 +21,7 @@ from ses_generate_smtp_credentials import calculate_key
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.ses.SesDestination]
 class SesDestination:
     """Contains data about an email destination."""
     def __init__(self, tos, ccs=None, bccs=None):
@@ -43,8 +44,10 @@ class SesDestination:
         if self.bccs is not None:
             svc_format['BccAddresses'] = self.bccs
         return svc_format
+# snippet-end:[python.example_code.ses.SesDestination]
 
 
+# snippet-start:[python.example_code.ses.SesMailSender]
 class SesMailSender:
     """Encapsulates functions to send emails with Amazon SES."""
     def __init__(self, ses_client):
@@ -52,7 +55,9 @@ class SesMailSender:
         :param ses_client: A Boto3 Amazon SES client.
         """
         self.ses_client = ses_client
+# snippet-end:[python.example_code.ses.SesMailSender]
 
+# snippet-start:[python.example_code.ses.SendEmail]
     def send_email(self, source, destination, subject, text, html, reply_tos=None):
         """
         Sends an email.
@@ -88,7 +93,9 @@ class SesMailSender:
             raise
         else:
             return message_id
+# snippet-end:[python.example_code.ses.SendEmail]
 
+# snippet-start:[python.example_code.ses.SendTemplatedEmail]
     def send_templated_email(
             self, source, destination, template_name, template_data,
             reply_tos=None):
@@ -128,8 +135,10 @@ class SesMailSender:
             raise
         else:
             return message_id
+# snippet-end:[python.example_code.ses.SendTemplatedEmail]
 
 
+# snippet-start:[python.example_code.ses.Scenario_SendEmail]
 def usage_demo():
     print('-'*88)
     print("Welcome to the Amazon Simple Email Service (Amazon SES) email demo!")
@@ -216,6 +225,7 @@ This message is sent from the Amazon SES SMTP mail demo."""
             ses_identity.delete_identity(email)
     print("Thanks for watching!")
     print('-'*88)
+# snippet-end:[python.example_code.ses.Scenario_SendEmail]
 
 
 if __name__ == '__main__':

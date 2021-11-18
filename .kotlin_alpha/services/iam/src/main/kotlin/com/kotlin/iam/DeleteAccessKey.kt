@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Identity and Access Management (IAM)]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[05/27/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -36,7 +36,6 @@ suspend fun main(args: Array<String>) {
         Where:
             username - the name of the user.
             accessKey - the access key ID for the secret access key you want to delete.
-
         """
 
     if (args.size != 2) {

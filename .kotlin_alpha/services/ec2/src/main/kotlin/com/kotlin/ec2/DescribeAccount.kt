@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon EC2]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[07/21/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -40,21 +40,12 @@ suspend fun describeEC2Account(ec2: Ec2Client) {
 
     try {
         val accountResults = ec2.describeAccountAttributes(DescribeAccountAttributesRequest{})
-        val accountList = accountResults.accountAttributes
-        val iter= accountList?.listIterator()
-        if (iter != null) {
-            while (iter.hasNext()) {
-                val attribute = iter.next()
-                println("The name of the attribute is ${attribute.attributeName}")
-                val values =  attribute.attributeValues
-                val iterVals = values?.listIterator()
-                if (iterVals != null) {
-                    while (iterVals.hasNext()) {
-                        val myValue = iterVals.next()
-                        println("The value of the attribute is ${myValue.attributeValue}")
-                    }
+        accountResults.accountAttributes?.forEach { attribute ->
+            println("The name of the attribute is ${attribute.attributeName}")
+
+                attribute.attributeValues?.forEach {myValue->
+                    println("The value of the attribute is ${myValue.attributeValue}")
                 }
-            }
         }
 
     } catch (e: Ec2Exception) {

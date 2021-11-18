@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaConvert]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/28/2021]
+//snippet-sourcedate:[11/05/2021]
 //snippet-sourceauthor:[smacdon - AWS ]
 
 /*
@@ -15,14 +15,15 @@ package com.kotlin.mediaconvert
 
 
 // snippet-start:[mediaconvert.kotlin.list_jobs.import]
-import aws.sdk.kotlin.runtime.endpoint.Endpoint
-import aws.sdk.kotlin.runtime.endpoint.EndpointResolver
+
+import aws.sdk.kotlin.runtime.endpoint.AwsEndpoint
+import aws.sdk.kotlin.runtime.endpoint.AwsEndpointResolver
+import aws.sdk.kotlin.runtime.endpoint.CredentialScope
 import aws.sdk.kotlin.services.mediaconvert.MediaConvertClient
 import aws.sdk.kotlin.services.mediaconvert.model.DescribeEndpointsRequest
 import aws.sdk.kotlin.services.mediaconvert.model.JobStatus
 import aws.sdk.kotlin.services.mediaconvert.model.ListJobsRequest
 import aws.sdk.kotlin.services.mediaconvert.model.MediaConvertException
-import java.net.URI
 import kotlin.system.exitProcess
 
 // snippet-end:[mediaconvert.kotlin.list_jobs.import]
@@ -51,32 +52,25 @@ suspend fun listCompleteJobs(mcClient: MediaConvertClient) {
         }
 
         val res = mcClient.describeEndpoints(describeEndpoints)
-
         if (res.endpoints?.size!! <= 0) {
             println("Cannot find MediaConvert service endpoint URL!")
             exitProcess(0)
         }
-        val endpointURL = res.endpoints!!.get(0).url.toString()
-        val uri = URI(endpointURL)
-        val domain = uri.host
+        val endpointURL = res.endpoints!!.get(0).url!!
+        val client = MediaConvertClient {
 
-        // Need to set an Endpoint override here.
-       val emc = MediaConvertClient {
             region = "us-west-2"
-            endpointResolver = object : EndpointResolver {
-                override suspend fun resolve(service: String, region: String): Endpoint {
-                    return Endpoint(domain, "https")
-                }
+            endpointResolver = AwsEndpointResolver { service, region ->
+                AwsEndpoint(endpointURL, CredentialScope(region = "us-west-2"))
             }
-       }
+        }
 
         val jobsRequest = ListJobsRequest {
             maxResults = 10
             status = JobStatus.fromValue("COMPLETE")
         }
 
-        val jobsResponse = emc.listJobs(jobsRequest)
-
+        val jobsResponse = client.listJobs(jobsRequest)
         val jobs = jobsResponse.jobs
         if (jobs != null) {
             for (job in jobs) {

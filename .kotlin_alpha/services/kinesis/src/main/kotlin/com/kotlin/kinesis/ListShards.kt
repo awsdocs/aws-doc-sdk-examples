@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Kinesis]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/07/2021]
+//snippet-sourcedate:[11/04/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -41,9 +41,9 @@ suspend fun main(args: Array<String>){
         exitProcess(0)
     }
 
-    val name: String = args[0]
+    val streamName: String = args[0]
     val kinesisClient = KinesisClient{region ="us-east-1"}
-    listKinShards(kinesisClient, name)
+    listKinShards(kinesisClient, streamName)
     kinesisClient.close()
 }
 
@@ -53,24 +53,16 @@ suspend fun listKinShards(kinesisClient: KinesisClient, name: String?) {
         val request = ListShardsRequest {
             streamName = name
         }
+
         val response = kinesisClient.listShards(request)
-        val myIt = response.shards?.iterator()
-
-        var shardCount = 0
-        if (myIt != null) {
-            while (myIt.hasNext()) {
-                shardCount++
-                myIt.next()
-            }
+        response.shards?.forEach { shard ->
+            println("Shard id is ${shard.shardId}")
         }
-
-        println("${request.streamName} has $shardCount shards.")
 
     } catch (e: KinesisException) {
         println(e.message)
         kinesisClient.close()
         exitProcess(0)
     }
-    println("Done")
 }
 //snippet-end:[kinesis.kotlin.ListShards.main]

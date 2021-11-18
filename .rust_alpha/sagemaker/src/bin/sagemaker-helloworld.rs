@@ -18,6 +18,28 @@ struct Opt {
     verbose: bool,
 }
 
+// Lists your notebook instances.
+// snippet-start:[sagemaker.rust.sagemaker-helloworld]
+async fn show_instances(client: &Client) -> Result<(), Error> {
+    let notebooks = client.list_notebook_instances().send().await?;
+
+    println!("Notebooks:");
+
+    for n in notebooks.notebook_instances.unwrap_or_default() {
+        let n_instance_type = n.instance_type.unwrap();
+        let n_status = n.notebook_instance_status.unwrap();
+        let n_name = n.notebook_instance_name.as_deref().unwrap_or_default();
+
+        println!("  Name :          {}", n_name);
+        println!("  Status :        {}", n_status.as_ref());
+        println!("  Instance Type : {}", n_instance_type.as_ref());
+        println!();
+    }
+
+    Ok(())
+}
+// snippet-end:[sagemaker.rust.sagemaker-helloworld]
+
 /// Lists the name, status, and type of your SageMaker instances in the Region.
 /// /// # Arguments
 ///
@@ -49,20 +71,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let notebooks = client.list_notebook_instances().send().await?;
-
-    println!("Notebooks:");
-
-    for n in notebooks.notebook_instances.unwrap_or_default() {
-        let n_instance_type = n.instance_type.unwrap();
-        let n_status = n.notebook_instance_status.unwrap();
-        let n_name = n.notebook_instance_name.as_deref().unwrap_or_default();
-
-        println!("  Name :          {}", n_name);
-        println!("  Status :        {}", n_status.as_ref());
-        println!("  Instance Type : {}", n_instance_type.as_ref());
-        println!();
-    }
-
-    Ok(())
+    show_instances(&client).await
 }

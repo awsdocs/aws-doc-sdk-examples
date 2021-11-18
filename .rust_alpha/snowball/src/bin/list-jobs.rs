@@ -18,6 +18,18 @@ struct Opt {
     verbose: bool,
 }
 
+// Lists your jobs.
+// snippet-start:[snowball.rust.list-jobs]
+async fn show_jobs(client: &Client) -> Result<(), Error> {
+    let jobs = client.list_jobs().send().await?;
+    for job in jobs.job_list_entries.unwrap() {
+        println!("  JobId: {:?}", job.job_id);
+    }
+
+    Ok(())
+}
+// snippet-end:[snowball.rust.list-jobs]
+
 /// Lists your AWS Snowball jobs.
 /// # Arguments
 ///
@@ -51,10 +63,5 @@ async fn main() -> Result<(), Error> {
 
     println!("Jobs:");
 
-    let jobs = client.list_jobs().send().await?;
-    for job in jobs.job_list_entries.unwrap() {
-        println!("  JobId: {:?}", job.job_id);
-    }
-
-    Ok(())
+    show_jobs(&client).await
 }

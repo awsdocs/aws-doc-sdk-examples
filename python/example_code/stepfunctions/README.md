@@ -1,20 +1,35 @@
-# AWS Step Functions basics
+# AWS Step Functions examples
 
 ## Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) with AWS Step Functions to
 create and run state machines.
 
-## Prerequisites
+*AWS Step Functions makes it easy to coordinate the components of distributed 
+applications as a series of steps in a visual workflow.* 
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.7 or later
-- Boto3 1.14.47 or later
-- PyTest 5.3.5 or later (to run unit tests)
+## Code examples
 
-## Cautions
+### API examples
+
+* [Create a state machine](stepfunctions_basics.py)
+(`CreateStateMachine`)
+* [Delete a state machine](stepfunctions_basics.py)
+(`DeleteStateMachine`)
+* [Describe a state machine](stepfunctions_basics.py)
+(`DescribeStateMachine`)
+* [List state machine runs](stepfunctions_basics.py)
+(`ListExecutions`)
+* [List state machines](stepfunctions_basics.py)
+(`ListStateMachines`)
+* [Start a state machine run](stepfunctions_basics.py)
+(`StartExecution`)
+* [Stop a state machine run](stepfunctions_basics.py)
+(`StopExecution`)
+* [Update a state machine](stepfunctions_basics.py)
+(`UpdateStateMachine`)
+
+## ⚠ Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -29,11 +44,22 @@ create and run state machines.
 
 ## Running the code
 
+### Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.7 or later
+- Boto3 1.14.47 or later
+- PyTest 5.3.5 or later (to run unit tests)
+
+### Command
+
 This example shows how to implement basic Step Functions operations. For
 a full example that can be run at a command prompt, see 
 [python/cross_service/stepfunctions_messenger](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/cross_service/stepfunctions_messenger). 
 
-## Example structure
+### Example structure
 
 The example contains the following file.
 
