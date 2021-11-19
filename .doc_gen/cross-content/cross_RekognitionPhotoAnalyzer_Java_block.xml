@@ -13,4 +13,8 @@
         For complete source code and instructions on how to set up and run, see the full example on
         <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_photo_analyzer_app">GitHub</ulink>.
     </para>
+    <para>
+        For complete source code and instructions on how to set up and run this example that uses the Java Asynchronous client, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_photo_analyzer_async">GitHub</ulink>.
+    </para>
 </block>
