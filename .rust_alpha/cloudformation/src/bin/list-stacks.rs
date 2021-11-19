@@ -23,11 +23,12 @@ struct Opt {
 async fn list_stacks(client: &Client) -> Result<(), Error> {
     let stacks = client.list_stacks().send().await?;
 
-    for s in stacks.stack_summaries.unwrap_or_default() {
-        println!("{}", s.stack_name.as_deref().unwrap_or_default());
-        println!("  Status: {:?}", s.stack_status.unwrap());
+    for stack in stacks.stack_summaries().unwrap_or_default() {
+        println!("{}", stack.stack_name().unwrap_or_default());
+        println!("  Status: {:?}", stack.stack_status().unwrap());
         println!();
     }
+
 
     Ok(())
 }
