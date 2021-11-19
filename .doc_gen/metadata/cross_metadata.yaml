@@ -1,4 +1,32 @@
 # zexi 0.4.0
+cross_AuroraJob:
+  title: Create an application that stores and queries data by using Amazon Aurora
+  title_abbrev: Create an app that stores and queries Amazon Aurora data
+  synopsis: create an application that stores and queries data by using Amazon Aurora.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_AuroraApp_Java_block.xml
+  services:
+    rds:
+    translate:
+cross_LambdaTracker:
+  title: Create workflows that send notifications over multiple channels
+  title_abbrev: Create workflows that send notifications
+  synopsis: create workflows that send notifications over multiple channels.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_NoticationsWF_Java_block.xml
+  services:
+    rds:
+    ses:
+    sns:
+    sfn:
+    lambda:
+    pinpoint:
 cross_RDSDataTracker:
   title: Create an &RDSlong; item tracker
   title_abbrev: Create a web application to track &RDS; data
