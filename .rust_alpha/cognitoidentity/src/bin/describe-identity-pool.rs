@@ -31,16 +31,16 @@ async fn describe_pool(client: &Client, id: &str) -> Result<(), Error> {
         .send()
         .await?;
 
-    let allow_classic = response.allow_classic_flow.unwrap_or_default();
-    let allow_unauth_ids = response.allow_unauthenticated_identities;
+    let allow_classic = response.allow_classic_flow().unwrap_or_default();
+    let allow_unauth_ids = response.allow_unauthenticated_identities();
     println!("  Allow classic flow                {}", allow_classic);
     println!("  Allow unauthenticated identities: {}", allow_unauth_ids);
-    if let Some(providers) = response.cognito_identity_providers {
+    if let Some(providers) = response.cognito_identity_providers() {
         println!("  Identity Providers:");
         for provider in providers {
-            let client_id = provider.client_id.unwrap_or_default();
-            let name = provider.provider_name.unwrap_or_default();
-            let server_side_check = provider.server_side_token_check.unwrap_or_default();
+            let client_id = provider.client_id().unwrap_or_default();
+            let name = provider.provider_name().unwrap_or_default();
+            let server_side_check = provider.server_side_token_check().unwrap_or_default();
 
             println!("    Client ID:                {}", client_id);
             println!("    Name:                     {}", name);
@@ -49,15 +49,15 @@ async fn describe_pool(client: &Client, id: &str) -> Result<(), Error> {
         }
     }
 
-    let developer_provider = response.developer_provider_name.unwrap_or_default();
-    let id = response.identity_pool_id.unwrap_or_default();
-    let name = response.identity_pool_name.unwrap_or_default();
+    let developer_provider = response.developer_provider_name().unwrap_or_default();
+    let id = response.identity_pool_id().unwrap_or_default();
+    let name = response.identity_pool_name().unwrap_or_default();
 
     println!("  Developer provider:               {}", developer_provider);
     println!("  Identity pool ID:                 {}", id);
     println!("  Identity pool name:               {}", name);
 
-    if let Some(tags) = response.identity_pool_tags {
+    if let Some(tags) = response.identity_pool_tags() {
         println!("  Tags:");
         for (key, value) in tags {
             println!("    key:   {}", key);
@@ -65,14 +65,14 @@ async fn describe_pool(client: &Client, id: &str) -> Result<(), Error> {
         }
     }
 
-    if let Some(open_id_arns) = response.open_id_connect_provider_ar_ns {
+    if let Some(open_id_arns) = response.open_id_connect_provider_ar_ns() {
         println!("  Open ID provider ARNs:");
         for arn in open_id_arns {
             println!("    {}", arn);
         }
     }
 
-    if let Some(saml_arns) = response.saml_provider_ar_ns {
+    if let Some(saml_arns) = response.saml_provider_ar_ns() {
         println!("  SAML provider ARNs:");
         for arn in saml_arns {
             println!("    {}", arn);
@@ -80,7 +80,7 @@ async fn describe_pool(client: &Client, id: &str) -> Result<(), Error> {
     }
 
     // SupportedLoginProviders
-    if let Some(login_providers) = response.supported_login_providers {
+    if let Some(login_providers) = response.supported_login_providers() {
         println!("  Supported login providers:");
         for (key, value) in login_providers {
             println!("    key:   {}", key);

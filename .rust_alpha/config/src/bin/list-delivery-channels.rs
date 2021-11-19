@@ -23,7 +23,7 @@ struct Opt {
 async fn show_channels(client: &Client) -> Result<(), Error> {
     let resp = client.describe_delivery_channels().send().await?;
 
-    let channels = resp.delivery_channels.unwrap_or_default();
+    let channels = resp.delivery_channels().unwrap_or_default();
 
     let num_channels = channels.len();
 
@@ -31,7 +31,7 @@ async fn show_channels(client: &Client) -> Result<(), Error> {
         println!("You have no delivery channels")
     } else {
         for channel in channels {
-            println!("  Channel: {}", channel.name.as_deref().unwrap_or_default());
+            println!("  Channel: {}", channel.name().as_deref().unwrap_or_default());
         }
     }
 

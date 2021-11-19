@@ -32,18 +32,18 @@ async fn list_identities(client: &Client, pool_id: &str) -> Result<(), Error> {
         .send()
         .await?;
 
-    if let Some(ids) = response.identities {
+    if let Some(ids) = response.identities() {
         println!("Identitities:");
         for id in ids {
-            let creation_timestamp = id.creation_date.unwrap().to_chrono();
-            let idid = id.identity_id.unwrap_or_default();
-            let mod_timestamp = id.last_modified_date.unwrap().to_chrono();
+            let creation_timestamp = id.creation_date().unwrap().to_chrono();
+            let idid = id.identity_id().unwrap_or_default();
+            let mod_timestamp = id.last_modified_date().unwrap().to_chrono();
             println!("  Creation date:      {}", creation_timestamp);
             println!("  ID:                 {}", idid);
             println!("  Last modified date: {}", mod_timestamp);
 
             println!("  Logins:");
-            for login in id.logins.unwrap_or_default() {
+            for login in id.logins().unwrap_or_default() {
                 println!("    {}", login);
             }
 
@@ -51,7 +51,7 @@ async fn list_identities(client: &Client, pool_id: &str) -> Result<(), Error> {
         }
     }
 
-    println!("Next token: {:?}", response.next_token);
+    println!("Next token: {:?}", response.next_token());
 
     println!();
 
