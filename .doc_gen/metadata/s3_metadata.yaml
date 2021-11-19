@@ -850,7 +850,7 @@ s3_GetBucketWebsite:
           github: javascriptv3/example_code/s3
           sdkguide:
           excerpts:
-            - description: Create the client
+            - description: Create the client.
               snippet_tags:
                 - s3.JavaScript.buckets.createclientv3
             - description: Get the website configuration.
