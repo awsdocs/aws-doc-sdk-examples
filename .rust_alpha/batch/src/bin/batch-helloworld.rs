@@ -23,11 +23,11 @@ struct Opt {
 async fn show_envs(client: &Client) -> Result<(), Error> {
     let rsp = client.describe_compute_environments().send().await?;
 
-    let compute_envs = rsp.compute_environments.unwrap_or_default();
+    let compute_envs = rsp.compute_environments().unwrap_or_default();
     println!("Found {} compute environments:", compute_envs.len());
     for env in compute_envs {
-        let arn = env.compute_environment_arn.as_deref().unwrap_or_default();
-        let name = env.compute_environment_name.as_deref().unwrap_or_default();
+        let arn = env.compute_environment_arn().unwrap_or_default();
+        let name = env.compute_environment_name().as_deref().unwrap_or_default();
 
         println!("  Name : {}", name);
         println!("  ARN:   {}", arn);
