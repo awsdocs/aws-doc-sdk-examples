@@ -11,6 +11,8 @@ cross_LambdaTracker:
   services:
     rds:
     ses:
+    sfn:
+    lambda:
     sns:
     pinpoint:
 cross_RDSDataTracker:
