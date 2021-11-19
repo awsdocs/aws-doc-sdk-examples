@@ -1,38 +1,59 @@
 #  AWS Simple Storage Service (S3) JavaScript SDK v3 code examples
+The code examples in this directory demonstrate how to work with Amazon S3 using the AWS SDK for JavaScript version 3 (v3).
+
 Amazon S3 is an object storage service that offers industry-leading scalability, data availability, security, and performance.
 
 ## Code examples
 This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon S3 examples: 
 
-- [Create and upload objects](src/s3_create_and_upload_objects.js)
-- [Create a bucket](src/s3_createbucket.js)
-- [Delete a bucket](src/s3_deletebucket.js)
-- [Delete all objects from a bucket](src/s3_delete_all_objects.js)
-- [Delete multiple objects from a bucket](src/s3_delete_multiple_objects.js)
-- [Delete an object from a bucket](src/s3_delete_object.js)
-- [Delete a bucket policy](src/s3_deletebucketpolicy.js)
-- [Delete a bucket website policy](src/s3_deletebucketwebsite.js)
-- [Create a presigned URL to get objects](src/s3_get_presignedURL.js)
+### API Examples
+- [Copy object](src/s3_copyobject.js) (CopyObjectCommand)
+- [Create and upload objects](src/s3_create_and_upload_objects.js) (PutObjectCommand)
+- [Create a bucket](src/s3_createbucket.js) (CreateBucketCommand)
+- [Delete a bucket](src/s3_deletebucket.js) (DeleteBucketCommand)
+- [Delete all objects from a bucket](src/s3_delete_all_objects.js) (ListObjectsCommand, DeleteObjectCommand)
+- [Delete multiple objects from a bucket](src/s3_delete_multiple_objects.js) (DeleteObjectsCommand)
+- [Delete an object from a bucket](src/s3_delete_object.js) (DeleteObjectCommand)
+- [Delete a bucket policy](src/s3_deletebucketpolicy.js) (DeleteBucketPolicyCommand)
+- [Delete a bucket website policy](src/s3_deletebucketwebsite.js) (DeleteBucketWebsiteCommand)
+- [Create a pre-signed URL to get objects](src/s3_get_presignedURL.js)
 - [Get a bucket Access Control List (ACL)](src/s3_getbucketacl.js)
-- [Get a bucket policy](src/s3_getbucketpolicy.js)
-- [Get a bucket website policy](src/s3_getbucketwebsite.js)
-- [Get a bucket CORS policy](src/s3_getcors.js)
-- [Get objects from a bucket](src/s3_getobject.js)
-- [Get more than 1000 objects from a bucket](src/s3_list1000plusobjects.js)
-- [List buckets](src/s3_listbuckets.js)
-- [List objects](src/s3_listobjects.js)
+- [Get a bucket policy](src/s3_getbucketpolicy.js) (GetBucketPolicyCommand)
+- [Get a bucket website policy](src/s3_getbucketwebsite.js) (GetBucketWebsiteCommand)
+- [Get a bucket CORS policy](src/s3_getcors.js) (GetBucketCorsCommand)
+- [Get objects from a bucket](src/s3_getobject.js) (GetObjectCommand)
+- [Get more than 1000 objects from a bucket](src/s3_list1000plusobjects.js) (ListObjectsCommand)
+- [List buckets](src/s3_listbuckets.js) (ListBucketsCommand)
+- [List objects](src/s3_listobjects.js) (ListObjectsCommand)
 - [Multipart object upload](src/s3_multipartupload.js)
-- [Create a presigned URL to put objects](src/s3_put_presignedURL.js)
-- [Set a bucket ACL](src/s3_putbucketacl.js)
-- [Set a bucket policy](src/s3_putbucketpolicy.js)
-- [Set a bucket website policy](src/s3_setbucketwebsite.js)
-- [Set a bucket CORS policy](src/s3_setcors.js)
-- [Upload objects to a bucket](src/s3_upload_object.js)
+- [Create a pre-signed URL to put objects](src/s3_put_presignedURL.js)
+- [Set a bucket ACL](src/s3_putbucketacl.js) (PutBucketAclCommand)
+- [Set a bucket policy](src/s3_putbucketpolicy.js) (PutBucketPolicyCommand)
+- [Set a bucket website policy](src/s3_setbucketwebsite.js) (PutBucketWebsiteCommand)
+- [Set a bucket CORS policy](src/s3_setcors.js) (PutBucketCorsCommand)
+- [Upload objects to a bucket](src/s3_upload_object.js) (PutObjectCommand)
 
 **Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see 
 [JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html).
 
-## Getting started
+## Important
+
+- As an AWS best practice, grant this code least privilege, or only the
+  permissions required to perform a task. For more information, see
+  [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
+  in the *AWS Identity and Access Management User Guide*.
+- This code has not been tested in all AWS Regions. Some AWS services are
+  available only in specific AWS Regions. For more information, see the
+  [AWS Regional Services List](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
+  on the AWS website.
+- Running this code might result in charges to your AWS account.
+
+## Running the code
+
+### Prerequisites
+- An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
+- AWS credentials. For details, see  [Setting credentials in Node.js](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/setting-credentials-node.html) in the
+  *AWS SDK for Javascript (v3) Developer Guide*.
 
 1. Clone the [AWS SDK Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for instructions.
 

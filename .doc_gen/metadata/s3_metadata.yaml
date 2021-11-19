@@ -14,6 +14,18 @@ s3_CreateBucket:
             - description:
               snippet_tags:
                 - s3.java2.create_bucket_waiters.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-example-creating-buckets-new-bucket-2
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - s3.JavaScript.buckets.createclientv3
+            - description: Create the bucket.
+              snippet_tags:
+                - s3.JavaScript.buckets.createBucketV3
     Python:
       versions:
         - sdk_version: 3
@@ -51,6 +63,17 @@ s3_CopyObject:
             - description:
               snippet_tags:
                 - s3.java2.copy_object.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - s3.JavaScript.buckets.createclientv3
+            - description: Copy the object.
+              snippet_tags:
+                - s3.JavaScript.buckets.copyObjectV3
     Python:
       versions:
         - sdk_version: 3
@@ -85,6 +108,18 @@ s3_DeleteBucketPolicy:
               snippet_tags:
                 - python.example_code.s3.get_s3_helper
                 - python.example_code.s3.DeleteBucketPolicy
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-bucket-policies.html#s3-example-bucket-policies-delete-policy
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - s3.JavaScript.buckets.createclientv3
+            - description: Delete the bucket policy.
+              snippet_tags:
+                - s3.JavaScript.policy.deleteBucketPolicyV3
   services:
     s3: {DeleteBucketPolicy}
 s3_DeleteObject:
@@ -110,6 +145,17 @@ s3_DeleteObject:
             - description:
               snippet_tags:
                 - s3.rust.delete-object
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - s3.JavaScript.buckets.createclientv3
+            - description: Delete an object.
+              snippet_tags:
+                - s3.JavaScript.buckets.deleteobjectV3
   services:
     s3: {DeleteObject}
 s3_DeleteObjects:
@@ -138,6 +184,20 @@ s3_DeleteObjects:
             - description: Delete all objects in a bucket.
               snippet_tags:
                 - python.example_code.s3.DeleteObjects_All
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - s3.JavaScript.buckets.createclientv3
+            - description: Delete multiple objects.
+              snippet_tags:
+                - s3.JavaScript.buckets.deletemultipleobjectsV3
+            - description: Delete all objects in a bucket.
+              snippet_tags:
+                - s3.JavaScript.buckets.deleteoallbjectsV3
     Rust:
       versions:
         - sdk_version: 1
@@ -163,6 +223,18 @@ s3_DeleteBucketWebsite:
             - description:
               snippet_tags:
                 - s3.java2.delete_website_configuration.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-static-web-host.html#s3-example-static-web-host-delete-website
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - s3.JavaScript.buckets.createclientv3
+            - description: Delete the bucket website.
+              snippet_tags:
+                - s3.JavaScript.website.deleteBucketWebsiteV3
   services:
     s3: {DeleteBucketWebsite}
 s3_GetObjectAcl:
@@ -205,6 +277,18 @@ s3_GetBucketPolicy:
               snippet_tags:
                 - python.example_code.s3.get_s3_helper
                 - python.example_code.s3.GetBucketPolicy
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-bucket-policies.html#s3-example-bucket-policies-get-policy
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - s3.JavaScript.buckets.createclientv3
+            - description: Retrieve bucket policy.
+              snippet_tags:
+                - s3.JavaScript.policy.getBucketPolicyV3
   services:
     s3: {GetBucketPolicy}
 s3_HeadObject:
@@ -256,6 +340,18 @@ s3_GetObject:
             - description:
               snippet_tags:
                 - python.example_code.s3.GetObject
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-example-creating-buckets-get-object
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - s3.JavaScript.buckets.createclientv3
+            - description: Download the object.
+              snippet_tags:
+                - s3.JavaScript.buckets.getobjectV3
   services:
     s3: {GetObject}
 s3_GetBucketLifecycleConfiguration:
@@ -368,6 +464,20 @@ s3_ListObjects:
             - description:
               snippet_tags:
                 - s3.rust.list-objects
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - s3.JavaScript.buckets.createclientv3
+            - description: List the objects.
+              snippet_tags:
+                - s3.JavaScript.buckets.listObjectsV3
+            - description: List 1000 plus objects.
+              snippet_tags:
+                - s3.JavaScript.buckets.listManyObjectsV3
   services:
     s3: {ListObjects}
 s3_ListObjectVersions:
@@ -426,6 +536,21 @@ s3_PutObject:
             - description:
               snippet_tags:
                 - s3.rust.s3-helloworld
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-example-creating-buckets-new-bucket-2
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - s3.JavaScript.buckets.createclientv3
+            - description: Create and upload the object.
+              snippet_tags:
+                - s3.JavaScript.buckets.upload_putcommandV3
+            - description: Upload the object.
+              snippet_tags:
+                - s3.JavaScript.buckets.uploadV3
   services:
     s3: {PutObject}
 s3_RestoreObject:
@@ -469,6 +594,18 @@ s3_DeleteBucket:
               snippet_tags:
                 - python.example_code.s3.get_s3_helper
                 - python.example_code.s3.DeleteBucket
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-example-deleting-buckets
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - s3.JavaScript.buckets.createclientv3
+            - description: Delete the bucket.
+              snippet_tags:
+                - s3.JavaScript.buckets.deleteBucketV3
   services:
     s3: {DeleteBucket}
 s3_GetBucketCors:
@@ -487,6 +624,18 @@ s3_GetBucketCors:
               snippet_tags:
                 - python.example_code.s3.get_s3_helper
                 - python.example_code.s3.GetBucketCors
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-configuring-buckets.html#s3-example-configuring-buckets-get-cors
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - s3.JavaScript.buckets.createclientv3
+            - description: Get the bucket's CORs policy.
+              snippet_tags:
+                - s3.JavaScript.cors.getBucketCorsV3
   services:
     s3: {GetBucketCors}
 s3_PutBucketCors:
@@ -513,6 +662,18 @@ s3_PutBucketCors:
               snippet_tags:
                 - python.example_code.s3.get_s3_helper
                 - python.example_code.s3.PutBucketCors
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-configuring-buckets.html#s3-example-configuring-buckets-put-cors
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - s3.JavaScript.buckets.createclientv3
+            - description: Add a CORS rule.
+              snippet_tags:
+                - s3.JavaScript.v3.cors.putBucketCors
   services:
     s3: {PutBucketCors}
 s3_DeleteBucketCors:
@@ -558,6 +719,18 @@ s3_GetBucketAcl:
               snippet_tags:
                 - python.example_code.s3.get_s3_helper
                 - python.example_code.s3.GetBucketAcl
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-access-permissions.html#s3-example-access-permissions-get-acl
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - s3.JavaScript.buckets.createclientv3
+            - description: Retrieve the ACL permissions.
+              snippet_tags:
+                - s3.JavaScript.perms.getBucketAclV3
   services:
     s3: {GetBucketAcl}
 s3_PutBucketAcl:
@@ -584,6 +757,18 @@ s3_PutBucketAcl:
               snippet_tags:
                 - python.example_code.s3.get_s3_helper
                 - python.example_code.s3.PutBucketAcl
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-access-permissions.html#s3-example-access-permissions-put-acl
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - s3.JavaScript.buckets.createclientv3
+            - description: Put the bucket ACL.
+              snippet_tags:
+                - s3.JavaScript.perms.putBucketAclV3
   services:
     s3: {PutBucketAcl}
 s3_PutBucketPolicy:
@@ -610,6 +795,18 @@ s3_PutBucketPolicy:
               snippet_tags:
                 - python.example_code.s3.get_s3_helper
                 - python.example_code.s3.PutBucketPolicy
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-bucket-policies.html#s3-example-bucket-policies-set-policy
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - s3.JavaScript.buckets.createclientv3
+            - description: Create the bucket.
+              snippet_tags:
+                - s3.JavaScript.policy.putBucketPolicyV3
   services:
     s3: {PutBucketPolicy}
 s3_PutBucketWebsite:
@@ -627,8 +824,40 @@ s3_PutBucketWebsite:
             - description:
               snippet_tags:
                 - s3.java2.set_website_configuration.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-static-web-host.html#s3-example-static-web-host-set-website
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - s3.JavaScript.buckets.createclientv3
+            - description: Set the website configuration.
+              snippet_tags:
+                - s3.JavaScript.website.putBucketWebsiteV3
   services:
     s3: {PutBucketWebsite}
+s3_GetBucketWebsite:
+  title: Retrieve the website configuration for an &S3; bucket using an &AWS; SDK
+  title_abbrev: Get the website configuration for a bucket
+  synopsis: get the website configuration for an &S3; bucket.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: Create the client
+              snippet_tags:
+                - s3.JavaScript.buckets.createclientv3
+            - description: Get the website configuration.
+              snippet_tags:
+                - s3.JavaScript.website.getBucketWebsiteV3
+  services:
+    s3: {GetBucketWebsite}
 s3_HeadBucket:
   title: Determine the existence of an &S3; bucket using an &AWS; SDK
   title_abbrev: Determine the existence of a bucket
@@ -671,6 +900,18 @@ s3_ListBuckets:
             - description:
               snippet_tags:
                 - s3.rust.list-buckets
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-example-creating-buckets-list-buckets
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - s3.JavaScript.buckets.createclientv3
+            - description: List the buckets.
+              snippet_tags:
+                - s3.JavaScript.buckets.listBucketsV3
   services:
     s3: {ListBuckets}
 s3_Scenario_BucketManagement:
@@ -788,6 +1029,17 @@ s3_Scenario_RemoveDeleteMarkers:
                 extraneous delete markers in a versioned bucket.
               snippet_tags:
                 - s3.python.lambda.remove_delete_marker
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - s3.JavaScript.buckets.createclientv3
+            - description: Perform the multipart upload.
+              snippet_tags:
+                - s3.JavaScript.buckets.multipartupload_v3
   services:
     s3: {}
 s3_Scenario_BatchObjectVersioning:
@@ -833,6 +1085,21 @@ s3_Scenario_PresignedUrl:
               snippet_tags:
                 - python.example_code.s3.get_s3_helper
                 - python.example_code.s3.Scenario_GeneratePresignedPost
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-create-presigendurl
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - s3.JavaScript.buckets.createclientv3
+            - description: Create a presigned URL to upload an object to a bucket.
+              snippet_tags:
+                - s3.JavaScript.buckets.presignedurlv3
+            - description: Create a presigned URL to download an object from a bucket.
+              snippet_tags:
+                - s3.JavaScript.buckets.getpresignedurlv3
   services:
     s3: {}
 s3_Scenario_RollbackVersionedObject:
