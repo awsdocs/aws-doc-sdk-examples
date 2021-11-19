@@ -18,7 +18,7 @@ s3_CreateBucket:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-example-creating-buckets-new-bucket-2
+          sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-example-creating-buckets-new-bucket-2
           excerpts:
             - description: Create the client.
               snippet_tags:
@@ -112,7 +112,7 @@ s3_DeleteBucketPolicy:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-bucket-policies.html#s3-example-bucket-policies-delete-policy
+          sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-bucket-policies.html#s3-example-bucket-policies-delete-policy
           excerpts:
             - description: Create the client.
               snippet_tags:
@@ -227,7 +227,7 @@ s3_DeleteBucketWebsite:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-static-web-host.html#s3-example-static-web-host-delete-website
+          sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-static-web-host.html#s3-example-static-web-host-delete-website
           excerpts:
             - description: Create the client.
               snippet_tags:
@@ -281,7 +281,7 @@ s3_GetBucketPolicy:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-bucket-policies.html#s3-example-bucket-policies-get-policy
+          sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-bucket-policies.html#s3-example-bucket-policies-get-policy
           excerpts:
             - description: Create the client.
               snippet_tags:
@@ -344,7 +344,7 @@ s3_GetObject:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-example-creating-buckets-get-object
+          sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-example-creating-buckets-get-object
           excerpts:
             - description: Create the client.
               snippet_tags:
@@ -540,7 +540,7 @@ s3_PutObject:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-example-creating-buckets-new-bucket-2
+          sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-example-creating-buckets-new-bucket-2
           excerpts:
             - description: Create the client.
               snippet_tags:
@@ -598,7 +598,7 @@ s3_DeleteBucket:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-example-deleting-buckets
+          sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-example-deleting-buckets
           excerpts:
             - description: Create the client.
               snippet_tags:
@@ -628,7 +628,7 @@ s3_GetBucketCors:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-configuring-buckets.html#s3-example-configuring-buckets-get-cors
+          sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-configuring-buckets.html#s3-example-configuring-buckets-get-cors
           excerpts:
             - description: Create the client.
               snippet_tags:
@@ -666,7 +666,7 @@ s3_PutBucketCors:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-configuring-buckets.html#s3-example-configuring-buckets-put-cors
+          sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-configuring-buckets.html#s3-example-configuring-buckets-put-cors
           excerpts:
             - description: Create the client.
               snippet_tags:
@@ -723,7 +723,7 @@ s3_GetBucketAcl:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-access-permissions.html#s3-example-access-permissions-get-acl
+          sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-access-permissions.html#s3-example-access-permissions-get-acl
           excerpts:
             - description: Create the client.
               snippet_tags:
@@ -761,7 +761,7 @@ s3_PutBucketAcl:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-access-permissions.html#s3-example-access-permissions-put-acl
+          sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-access-permissions.html#s3-example-access-permissions-put-acl
           excerpts:
             - description: Create the client.
               snippet_tags:
@@ -799,7 +799,7 @@ s3_PutBucketPolicy:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-bucket-policies.html#s3-example-bucket-policies-set-policy
+          sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-bucket-policies.html#s3-example-bucket-policies-set-policy
           excerpts:
             - description: Create the client.
               snippet_tags:
@@ -828,7 +828,7 @@ s3_PutBucketWebsite:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-static-web-host.html#s3-example-static-web-host-set-website
+          sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-static-web-host.html#s3-example-static-web-host-set-website
           excerpts:
             - description: Create the client.
               snippet_tags:
@@ -904,7 +904,7 @@ s3_ListBuckets:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-example-creating-buckets-list-buckets
+          sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-example-creating-buckets-list-buckets
           excerpts:
             - description: Create the client.
               snippet_tags:
@@ -1089,7 +1089,7 @@ s3_Scenario_PresignedUrl:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
-          sdkguide: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-create-presigendurl
+          sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-create-presigendurl
           excerpts:
             - description: Create the client.
               snippet_tags:
