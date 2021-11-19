@@ -12,9 +12,9 @@ cross_AuroraJob:
     rds:
     translate:
 cross_LambdaTracker:
-  title: Create workflows that sends notifications over multiple channels
-  title_abbrev: Create workflows that sends notifications
-  synopsis: create workflows that sends notifications over multiple channels.
+  title: Create workflows that send notifications over multiple channels
+  title_abbrev: Create workflows that send notifications
+  synopsis: create workflows that send notifications over multiple channels.
   languages:
     Java:
       versions:
