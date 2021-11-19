@@ -25,19 +25,19 @@ async fn list_groups(client: &Client) -> Result<(), Error> {
 
     println!("Groups:");
 
-    let groups = resp.auto_scaling_groups.unwrap_or_default();
+    let groups = resp.auto_scaling_groups().unwrap_or_default();
 
-    for group in &groups {
+    for group in groups {
         println!(
             "  {}",
-            group.auto_scaling_group_name.as_deref().unwrap_or_default()
+            group.auto_scaling_group_name().unwrap_or_default()
         );
         println!(
             "  ARN:          {}",
-            group.auto_scaling_group_arn.as_deref().unwrap_or_default()
+            group.auto_scaling_group_arn().unwrap_or_default()
         );
-        println!("  Minimum size: {}", group.min_size.unwrap_or_default());
-        println!("  Maximum size: {}", group.max_size.unwrap_or_default());
+        println!("  Minimum size: {}", group.min_size().unwrap_or_default());
+        println!("  Maximum size: {}", group.max_size().unwrap_or_default());
         println!();
     }
 

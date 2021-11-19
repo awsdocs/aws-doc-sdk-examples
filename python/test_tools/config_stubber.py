@@ -32,12 +32,15 @@ class ConfigStubber(ExampleStubber):
         self._stub_bifurcator(
             'put_config_rule', expected_params, response, error_code=error_code)
 
-    def stub_describe_config_rules(self, rule_names, error_code=None):
+    def stub_describe_config_rules(self, rule_names, source_ids=None, error_code=None):
         expected_params = {'ConfigRuleNames': rule_names}
         response = {'ConfigRules': [{
             'ConfigRuleName': name,
             'Source': {'Owner': 'Test', 'SourceIdentifier': 'TestID'}}
             for name in rule_names]}
+        if source_ids is not None:
+            for rule, source_id in zip(response['ConfigRules'], source_ids):
+                rule['Source']['SourceIdentifier'] = source_id
         self._stub_bifurcator(
             'describe_config_rules', expected_params, response, error_code=error_code)
 
@@ -46,3 +49,23 @@ class ConfigStubber(ExampleStubber):
         response = {}
         self._stub_bifurcator(
             'delete_config_rule', expected_params, response, error_code=error_code)
+
+    def stub_describe_conformance_packs(self, packs, error_code=None):
+        expected_params = {}
+        response = {'ConformancePackDetails': [{
+            'ConformancePackName': pack,
+            'ConformancePackArn': f'arn:{pack}',
+            'ConformancePackId': f'{pack}-id'
+        } for pack in packs]}
+        self._stub_bifurcator(
+            'describe_conformance_packs', expected_params, response, error_code=error_code)
+
+    def stub_describe_conformance_pack_compliance(self, pack_name, rule_names, error_code=None):
+        expected_params = {'ConformancePackName': pack_name}
+        response = {
+            'ConformancePackName': pack_name,
+            'ConformancePackRuleComplianceList': [{
+                'ConfigRuleName': rule_name
+            } for rule_name in rule_names]}
+        self._stub_bifurcator(
+            'describe_conformance_pack_compliance', expected_params, response, error_code=error_code)

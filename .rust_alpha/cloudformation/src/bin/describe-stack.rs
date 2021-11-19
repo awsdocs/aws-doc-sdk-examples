@@ -28,9 +28,9 @@ async fn describe_stack(client: &Client, name: &str) -> Result<(), Error> {
     // Return an error if stack_name does not exist
     let resp = client.describe_stacks().stack_name(name).send().await?;
 
-    // Otherwise we get a list of stacks that match the stack_name.
-    // The list should only have one item, so just access it via pop().
-    let status = resp.stacks.unwrap_or_default().pop().unwrap().stack_status;
+    // Otherwise we get an array of stacks that match the stack_name.
+    // The array should only have one item, so just access it via first().
+    let status = resp.stacks().unwrap_or_default().first().unwrap().stack_status();
 
     println!("Stack status: {}", status.unwrap().as_ref());
 

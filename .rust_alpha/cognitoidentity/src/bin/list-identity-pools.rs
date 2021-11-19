@@ -24,18 +24,18 @@ async fn list_pools(client: &Client) -> Result<(), Error> {
     let response = client.list_identity_pools().max_results(10).send().await?;
 
     // Print IDs and names of pools.
-    if let Some(pools) = response.identity_pools {
+    if let Some(pools) = response.identity_pools() {
         println!("Identity pools:");
         for pool in pools {
-            let id = pool.identity_pool_id.unwrap_or_default();
-            let name = pool.identity_pool_name.unwrap_or_default();
+            let id = pool.identity_pool_id().unwrap_or_default();
+            let name = pool.identity_pool_name().unwrap_or_default();
             println!("  Identity pool ID:   {}", id);
             println!("  Identity pool name: {}", name);
             println!();
         }
     }
 
-    println!("Next token: {:?}", response.next_token);
+    println!("Next token: {:?}", response.next_token());
 
     Ok(())
 }

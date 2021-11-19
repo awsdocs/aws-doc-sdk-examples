@@ -79,6 +79,7 @@ lookoutvision_DescribeDataset:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.lookoutvision.Datasets
                 - python.example_code.lookoutvision.DescribeDataset
   services:
     lookoutvision: {DescribeDataset}

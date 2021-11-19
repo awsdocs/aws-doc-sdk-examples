@@ -31,7 +31,7 @@ async fn show_resources(verbose: bool, client: &Client) -> Result<(), Error> {
             .send()
             .await?;
 
-        let resources = resp.resource_identifiers.unwrap_or_default();
+        let resources = resp.resource_identifiers().unwrap_or_default();
 
         if !resources.is_empty() || verbose {
             println!();
@@ -41,7 +41,7 @@ async fn show_resources(verbose: bool, client: &Client) -> Result<(), Error> {
         for resource in resources {
             println!(
                 "  Resource ID: {}",
-                resource.resource_id.as_deref().unwrap_or_default()
+                resource.resource_id().as_deref().unwrap_or_default()
             );
         }
     }
