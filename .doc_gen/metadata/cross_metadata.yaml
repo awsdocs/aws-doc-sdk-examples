@@ -1,4 +1,18 @@
 # zexi 0.4.0
+cross_LambdaTracker:
+  title: Create workflows that sends notifications over multiple channels
+  title_abbrev: Create workflows that sends notifications
+  synopsis: create workflows that sends notifications over multiple channels.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_NoticationsWF_Java_block.xml
+  services:
+    rds:
+    ses:
+    sns:
+    pinpoint:
 cross_RDSDataTracker:
   title: Create an &RDSlong; item tracker
   title_abbrev: Create a web application to track &RDS; data
