@@ -29,7 +29,7 @@ dynamodb_CreateTable:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/dynamodb
+          github: rust_dev_preview/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -136,7 +136,7 @@ dynamodb_DeleteTable:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/dynamodb
+          github: rust_dev_preview/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -173,7 +173,7 @@ dynamodb_PutItem:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/dynamodb
+          github: rust_dev_preview/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -268,7 +268,7 @@ dynamodb_DeleteItem:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/dynamodb
+          github: rust_dev_preview/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -302,7 +302,7 @@ dynamodb_ListTables:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/dynamodb
+          github: rust_dev_preview/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -342,7 +342,7 @@ dynamodb_Query:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/dynamodb
+          github: rust_dev_preview/dynamodb
           excerpts:
             - description: Find the movies made in the specified year.
               snippet_tags:
@@ -376,7 +376,7 @@ dynamodb_Scan:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/dynamodb
+          github: rust_dev_preview/dynamodb
           excerpts:
             - description:
               snippet_tags:

@@ -105,7 +105,6 @@ class TestHelloSuite:
   [
     pytest.param('Seattle', 'Seattle (/siˈætəl/ (listen) see-AT-əl) is a seaport city on the West Coast of the United States.'),
     pytest.param('Selenium', "Selenium is a chemical element with the symbol Se and atomic number 34."),
-    pytest.param('Space Needle','The Space Needle is an observation tower in Seattle, Washington, United States.'),
     pytest.param('Amazon Locker', 'Amazon Locker is a self-service package delivery service offered by online retailer Amazon.'),
     pytest.param('Kootenai Falls','Kootenai Falls is a waterfall on the Kootenay River located in Lincoln County, Montana, just off U.S. Route 2.'),
     pytest.param('Dorayaki', 'Dorayaki (どら焼き, どらやき, 銅鑼焼き, ドラ焼き) is a type of Japanese confection.'),

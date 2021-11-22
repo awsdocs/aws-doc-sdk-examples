@@ -95,7 +95,7 @@ ec2_StartInstances:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/ec2
+          github: rust_dev_preview/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -129,7 +129,7 @@ ec2_StopInstances:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/ec2
+          github: rust_dev_preview/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -341,7 +341,7 @@ ec2_DeleteSnapshot:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/ebs
+          github: rust_dev_preview/ebs
           excerpts:
             - description:
               snippet_tags:
@@ -357,7 +357,7 @@ ec2_DescribeSnapshots:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/ebs
+          github: rust_dev_preview/ebs
           excerpts:
             - description: Shows the state of a snapshot.
               snippet_tags:
@@ -423,7 +423,7 @@ ec2_DescribeInstances:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/ec2
+          github: rust_dev_preview/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -439,7 +439,7 @@ ec2_DescribeRegions:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/ec2
+          github: rust_dev_preview/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -455,7 +455,7 @@ ec2_DescribeInstanceStatus:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/ec2
+          github: rust_dev_preview/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -471,7 +471,7 @@ ec2_MonitorInstances:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/ec2
+          github: rust_dev_preview/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -487,7 +487,7 @@ ec2_RebootInstances:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/ec2
+          github: rust_dev_preview/ec2
           excerpts:
             - description:
               snippet_tags:
