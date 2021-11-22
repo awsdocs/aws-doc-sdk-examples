@@ -293,7 +293,7 @@ cross_DetectFaces:
   title: Detect faces in an image using an &AWS; SDK
   title_abbrev: Detect faces in an image
   synopsis_list:
-    - Save an image in an &S3long; (&S3;).
+    - Save an image in an &S3long; (&S3;) bucket.
     - Displays facial details, such as age range, gender, and emotion (smiling, etc.).
   languages:
     Rust:
