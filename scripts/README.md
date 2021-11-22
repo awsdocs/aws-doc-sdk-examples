@@ -144,7 +144,7 @@ To run this script, you must have the following installed:
 
 You must also set the following environment variables:
 
-- ``RustRoot`` is the fully-qualified path to the **.rust_alpha** directory on your computer.
+- ``RustRoot`` is the fully-qualified path to the **rust_dev_preview** directory on your computer.
 - ``FromVersion`` is the version number of the previous SDK crates.
 - ``ToVersion`` is the version number of the SDK crates for the current release.
 

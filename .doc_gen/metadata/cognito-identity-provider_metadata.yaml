@@ -8,7 +8,7 @@ cognito-identity-provider_ListUserPools:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/cognitoidentityprovider
+          github: rust_dev_preview/cognitoidentityprovider
           excerpts:
             - description:
               snippet_tags:

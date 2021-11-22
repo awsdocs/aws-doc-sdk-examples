@@ -60,7 +60,7 @@ vetService () {
 }
 
 # We need three environment variables:
-# RustRoot is where we can find aws-doc-sdk-examples/.rust_alpha locally
+# RustRoot is where we can find aws-doc-sdk-examples/rust_dev_preview locally
 if [[ -z "${RustRoot}" ]]; then
     echo You must define the environment variable RustRoot
     exit 1
