@@ -8,13 +8,13 @@ mediapackage_ListChannels:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/mediapackage
+          github: rust_dev_preview/mediapackage
           excerpts:
             - description: List channel ARNs and descriptions.
               snippet_tags:
                 - mediapackage.rust.mediapackage-helloworld
   services:
-    mediapackage: { ListChannels }
+    mediapackage: {ListChannels}
 mediapackage_ListOriginEndpoints:
   title: List your &EMP; origin endpoints using an &AWS; SDK
   title_abbrev: List your origin endpoints
@@ -24,10 +24,10 @@ mediapackage_ListOriginEndpoints:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/mediapackage
+          github: rust_dev_preview/mediapackage
           excerpts:
             - description: List your endpoint descriptions and URLs.
               snippet_tags:
                 - mediapackage.rust.list-endpoints
   services:
-    mediapackage: { ListOriginEndpoints }
+    mediapackage: {ListOriginEndpoints}

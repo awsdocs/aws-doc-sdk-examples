@@ -8,10 +8,10 @@ batch_DescribeComputeEnvironments:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/batch
+          github: rust_dev_preview/batch
           excerpts:
             - description:
               snippet_tags:
                 - batch.rust.batch-helloworld
   services:
-    batch: { DescribeComputeEnvironments }
+    batch: {DescribeComputeEnvironments}

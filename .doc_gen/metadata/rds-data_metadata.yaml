@@ -8,10 +8,10 @@ rds-data_ExecuteStatement:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/rdsdata
+          github: rust_dev_preview/rdsdata
           excerpts:
             - description:
               snippet_tags:
                 - rdsdata.rust.rdsdata-helloworld
   services:
-    rds-data: { ExecuteStatement }
+    rds-data: {ExecuteStatement}

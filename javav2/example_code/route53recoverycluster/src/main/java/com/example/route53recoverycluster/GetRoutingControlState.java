@@ -32,11 +32,11 @@ public class GetRoutingControlState {
 
     public static void main(String[] args) {
         final String USAGE = "\n" +
-                "GetRoutingControlState - get the current state of the routing \n\n" +
+                "GetRoutingControlState - Get the current routing control state \n\n" +
                 "Usage: GetRoutingControlState routingControlArn endpointsFile\n\n" +
                 "Where:\n" +
-                "  routingControlArn - Arn of the routing control.\n\n" +
-                "  endpointsFile - path to the endpoints file.\n\n";
+                "  routingControlArn - ARN of the routing control to look up the state for.\n\n" +
+                "  endpointsFile - Path to the endpoints file.\n\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);

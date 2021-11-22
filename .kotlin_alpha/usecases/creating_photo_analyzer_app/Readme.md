@@ -122,8 +122,8 @@ Add the following dependencies to your Gradle buidle file.
       implementation("org.jetbrains.kotlin:kotlin-reflect")
       implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
       implementation("net.sourceforge.jexcelapi:jxl:2.6.10")
-      api("aws.sdk.kotlin:s3:0.4.0-alpha")
-      api("aws.sdk.kotlin:rekognition:0.4.0-alpha")
+      api("aws.sdk.kotlin:s3:0.9.0-alpha")
+      api("aws.sdk.kotlin:rekognition:0.9.0-alpha")
       implementation("commons-io:commons-io:2.10.0")
       testImplementation("org.springframework.boot:spring-boot-starter-test")
      }
@@ -163,65 +163,45 @@ Create these Kotlin classes:
 The following Kotlin code represents the **AnalyzePhotos** class that uses the Amazon Rekognition API to analyze the images.
 
 ```kotlin
-     package com.aws.photo
+    package com.aws.photo
 
     import aws.sdk.kotlin.services.rekognition.RekognitionClient
     import aws.sdk.kotlin.services.rekognition.model.DetectLabelsRequest
     import aws.sdk.kotlin.services.rekognition.model.Image
-    import aws.sdk.kotlin.services.rekognition.model.RekognitionException
     import org.springframework.stereotype.Component
-    import kotlin.system.exitProcess
 
     @Component
     class AnalyzePhotos {
 
-    fun getClient() :RekognitionClient  {
-        val rekognitionClient = RekognitionClient { region = "us-west-2" }
-        return rekognitionClient
-    }
-
     suspend fun DetectLabels(bytesVal: ByteArray?, key: String?): MutableList<WorkItem>? {
 
-        val rekClient =  getClient()
+        // Create an Image object for the source image.
+        val souImage = Image {
+            bytes = bytesVal
+        }
 
-        try {
+        val detectLabelsRequest = DetectLabelsRequest {
+            image = souImage
+            maxLabels = 10
+        }
 
-            // Create an Image object for the source image.
-            val souImage = Image {
-                bytes = bytesVal
-            }
+        RekognitionClient { region = "us-west-2" }.use { rekClient ->
+            val response = rekClient.detectLabels(detectLabelsRequest)
 
-            val detectLabelsRequest  = DetectLabelsRequest {
-                image = souImage
-                maxLabels = 10
-            }
-
-            val labelsResponse = rekClient.detectLabels(detectLabelsRequest)
-
-            // Write the results to a WorkItem instance
-            val labels = labelsResponse.labels
-            println("Detected labels for the given photo")
+            // Write the results to a WorkItem instance.
             val list = mutableListOf<WorkItem>()
-
-            var item: WorkItem
-
-            if (labels != null) {
-                for (label in labels) {
-                    item = WorkItem()
-                    item.key = key // identifies the photo
-                    item.confidence = label.confidence.toString()
-                    item.name = label.name
-
-                    list.add(item)
-                }
+            println("Detected labels for the given photo")
+            response.labels?.forEach { label ->
+                val item = WorkItem()
+                item.key = key // identifies the photo.
+                item.confidence = label.confidence.toString()
+                item.name = label.name
+                list.add(item)
             }
             return list
-        } catch (e: RekognitionException) {
-            println(e.message)
-            exitProcess(0)
-          }
-       }
+        }
       }
+    }
 ```
 
 ### BucketItem class
@@ -407,128 +387,85 @@ The following class uses the Amazon S3 Kotlin API to perform S3 operations. For 
     @Component
     class S3Service {
 
-     var myBytes: ByteArray? = null;
-
-     // Create the S3Client object.
-     private fun getClient(): S3Client? {
-        val s3Client = S3Client { region = "us-west-2" }
-        return s3Client
-     }
+    var myBytes: ByteArray? = null
 
     // Returns the names of all images in the given bucket.
     suspend fun listBucketObjects(bucketName: String?): List<*>? {
-        val s3Client = getClient()
+
         var keyName: String
         val keys  = mutableListOf<String>()
 
-        try {
-            val listObjects = ListObjectsRequest {
-                bucket = bucketName
-            }
-            val res = s3Client?.listObjects(listObjects)
-            val objects = res?.contents
+        val listObjects = ListObjectsRequest {
+            bucket = bucketName
+        }
 
-            if (objects != null) {
-                for (myObject in objects) {
-                    keyName = myObject.key.toString()
-                    keys.add(keyName)
-                }
+        S3Client { region = "us-west-2" }.use { s3Client ->
+            val response = s3Client.listObjects(listObjects)
+            response.contents?.forEach { myObject ->
+                   keyName = myObject.key.toString()
+                   keys.add(keyName)
             }
-
             return keys
+        }
+    }
 
-        } catch (e: S3Exception) {
-            println(e.message)
-            s3Client?.close()
-            exitProcess(0)
-         }
-       }
+    // Returns the names of all images and data within an XML document.
+    suspend fun ListAllObjects(bucketName: String?): String? {
 
-     // Returns the names of all images and data within an XML document.
-     suspend fun ListAllObjects(bucketName: String?): String? {
-        val s3Client = getClient()
         var sizeLg: Long
-        var myItem: BucketItem
         var dateIn: aws.smithy.kotlin.runtime.time.Instant?
-
         val bucketItems = mutableListOf<BucketItem>()
 
-        try {
+        val listObjects = ListObjectsRequest {
+            bucket = bucketName
+         }
 
-            val listObjects = ListObjectsRequest {
-             bucket = bucketName
+        S3Client { region = "us-west-2" }.use { s3Client ->
+            val res = s3Client.listObjects(listObjects)
+            res.contents?.forEach { myObject ->
+                val myItem = BucketItem()
+                myItem.key = myObject.key
+                myItem.owner = myObject.owner?.displayName.toString()
+                sizeLg = (myObject.size / 1024)
+                myItem.size = (sizeLg.toString())
+                dateIn = myObject.lastModified
+                myItem.date = dateIn.toString()
+
+                // Push the items to the list.
+                bucketItems.add(myItem)
             }
-
-            val res = s3Client?.listObjects(listObjects)
-            val objects = res?.contents
-
-            if (objects != null) {
-                for (myObject in objects) {
-                    var myItem = BucketItem()
-
-                    myItem.key = myObject.key
-                    myItem.owner = myObject.owner?.displayName.toString()
-                    sizeLg = (myObject.size / 1024).toLong()
-                    myItem.size = (sizeLg.toString())
-                    dateIn = myObject.lastModified
-                    myItem.date = dateIn.toString()
-
-                    // Push the items to the list.
-                    bucketItems.add(myItem)
-                }
-            }
-
             return convertToString(toXml(bucketItems))
-
-        } catch (e: S3Exception) {
-            println(e.message)
-            s3Client?.close()
-            exitProcess(0)
         }
       }
 
      // Places an image into an Amazon S3 bucket.
      suspend fun putObject(data: ByteArray, bucketName: String?, objectKey: String?): String? {
-        val s3Client = getClient()
-
-        try {
-
-            val request =  PutObjectRequest{
+        val request =  PutObjectRequest{
                 bucket = bucketName
                 key = objectKey
-                this.body = ByteStream.fromBytes(data)
-            }
+                body = ByteStream.fromBytes(data)
+         }
 
-            val response = s3Client?.putObject(request)
-            return response?.eTag
-
-        } catch (e: S3Exception) {
-            println(e.message)
-            s3Client?.close()
-            exitProcess(0)
+        S3Client { region = "us-west-2" }.use { s3Client ->
+            val response = s3Client.putObject(request)
+            return response.eTag
         }
-     }
+      }
 
      // Get the byte[] from this Amazon S3 object.
      suspend fun getObjectBytes(bucketName: String?, keyName: String?): ByteArray? {
-        val s3Client = getClient()
-        try {
-            val objectRequest = GetObjectRequest {
+           val objectRequest = GetObjectRequest {
                 key = keyName
                 bucket = bucketName
             }
 
-            s3Client?.getObject(objectRequest) { resp ->
-                myBytes= resp.body?.toByteArray()
-            }
+           S3Client { region = "us-west-2" }.use { s3Client ->
+             s3Client.getObject(objectRequest) { resp ->
+                myBytes = resp.body?.toByteArray()
+             }
             return myBytes
-
-        } catch (e: S3Exception) {
-            println(e.message)
-            s3Client?.close()
-            exitProcess(0)
-         }
-       }
+           }
+     }
 
      // Convert items into XML to pass back to the view.
      private fun toXml(itemList: List<BucketItem>): Document {
@@ -576,10 +513,10 @@ The following class uses the Amazon S3 Kotlin API to perform S3 operations. For 
         } catch (e: ParserConfigurationException) {
             e.printStackTrace()
             exitProcess(0)
-         }
-       }
+        }
+     }
 
-     private fun convertToString(xml: Document): String? {
+    private fun convertToString(xml: Document): String {
         try {
             val transformer = TransformerFactory.newInstance().newTransformer()
             val result = StreamResult(StringWriter())
@@ -591,8 +528,8 @@ The following class uses the Amazon S3 Kotlin API to perform S3 operations. For 
             ex.printStackTrace()
             exitProcess(0)
         }
-       }
-      }
+     }
+    }
 ```
 
  ### WorkItem class
@@ -789,19 +726,20 @@ The following HTML represents the **index.html** file.
     <!DOCTYPE html>
     <html xmlns:th="http://www.thymeleaf.org">
 
-    <head>
+   <head>
      <meta charset="utf-8" />
      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
      <meta name="viewport" content="width=device-width, initial-scale=1" />
-
      <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
      <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
      <script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
      <script th:src="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js|"></script>
+     <script th:src="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js|"></script>
+     <script src="../public/js/items.js" th:src="@{/js/items.js}"></script>
+     <link rel="stylesheet" th:href="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css|"/>
      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-     <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
      <title>AWS Kotlin Photo Analyzer Application</title>
-    </head>
+   </head>
     <body>
      <header th:replace="layout :: site-header"/>
      <div class="container">
@@ -835,16 +773,14 @@ The following HTML represents the **process.html** file.
      <meta charset="utf-8" />
      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
      <meta name="viewport" content="width=device-width, initial-scale=1" />
-
      <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
      <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
      <script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
      <script th:src="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js|"></script>
      <script src="../public/js/message.js" th:src="@{/js/message.js}"></script>
      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-     <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
      <title>Kotlin Photo Analyzer</title>
-    </head>
+   </head>
     <body>
     <header th:replace="layout :: site-header"/>
     <div class="container">
@@ -880,7 +816,6 @@ The following HTML represents the **upload.html** file.
      <meta charset="utf-8" />
      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
      <meta name="viewport" content="width=device-width, initial-scale=1" />
-
      <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
      <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
      <script th:src="|https://code.jquery.com/ui/1.11.4/jquery-ui.min.js|"></script>
@@ -889,8 +824,6 @@ The following HTML represents the **upload.html** file.
      <script src="../public/js/items.js" th:src="@{/js/items.js}"></script>
      <link rel="stylesheet" th:href="|https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css|"/>
      <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
-     <link rel="icon" href="../public/images/favicon.ico" th:href="@{/images/favicon.ico}" />
-
      <title>AWS Photo Analyzer</title>
 
      <script>
@@ -1048,8 +981,39 @@ The following JavaScript represents the **message.js** file. The **ProcessImages
     }
 ```
 
-**Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.   
+### Create the CSS File
+This application uses a CSS file named **styles.css** file that is used for the menu.
 
+```css 
+  body>header {
+     background: #000;
+     padding: 5px;
+  }
+
+  body>header>a>img, body>header a {
+     display: inline-block;
+     vertical-align: middle;
+     padding: 0px 5px;
+     font-size: 1.2em;
+  }
+
+  body>footer {
+    background: #eee;
+    padding: 5px;
+    margin: 10px 0;
+    text-align: center;
+ }
+
+ #logged-in-info {
+    float: right;
+    margin-top: 18px;
+ }
+
+ #logged-in-info form {
+    display: inline-block;
+    margin-right: 10px;
+ }
+```
 ## Run the application
 
 Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, you can run the application by clicking the run icon in the Spring Boot main class, as shown in this illustration. 

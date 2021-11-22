@@ -8,10 +8,10 @@ cognito-sync_ListIdentityPoolUsage:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/cognitosync
+          github: rust_dev_preview/cognitosync
           excerpts:
             - description:
               snippet_tags:
                 - cognitosync.rust.list-identity-pool-usage
   services:
-    cognito-sync: { ListIdentityPoolUsage }
+    cognito-sync: {ListIdentityPoolUsage}

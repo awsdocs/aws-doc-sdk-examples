@@ -553,7 +553,7 @@ iam_CreateRole:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/iam
+          github: rust_dev_preview/iam
           excerpts:
             - description:
               snippet_tags:
