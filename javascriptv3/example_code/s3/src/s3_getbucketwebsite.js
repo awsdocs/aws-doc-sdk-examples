@@ -12,9 +12,9 @@ Inputs :
 
 Running the code:
 nodes3_getbucketwebsite.js
-
+*/
 // snippet-start:[s3.JavaScript.website.getBucketWebsiteV3]
- */
+
 
 // Import required AWS SDK clients and commands for Node.js
 import { GetBucketWebsiteCommand } from "@aws-sdk/client-s3";
