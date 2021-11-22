@@ -10,5 +10,14 @@ The Kotlin code examples perform AWS operations for the account and AWS Region f
 
 Some of these examples perform *destructive* operations on AWS resources. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
+You will find these examples: 
+
+- **DetectEntities** - Demonstrates how to retrieve named entities from within specified text.
+- **DetectKeyPhrases** - Demonstrates how to detect key phrases.
+- **DetectLanguage** - Demonstrates how to detect the language of the text.
+- **DetectSentiment** - Demonstrates how to detect sentiments in the text.
+- **DetectSyntax** - Demonstrates how to detect syntax in the text.
+- **DocumentClassifierDemo** - demonstrates how to train a custom classifier.
+
 To run these examples, you can setup your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
 see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html). 
