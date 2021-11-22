@@ -13,10 +13,9 @@ This example demonstrates using mutliple services together to create a word freq
 
 In order to run this example, you must first
 
-* Have the AWS CDK installed and `cdk bootstrap` run with your account.
-* Have Go 1.16 or later installed
-* Have Docker running on your computer
-
+* Confirm the CDK is installed with `cdk --version` and that `cdk bootstrap` has been run with your account; for information on getting started with the CDK, see [Getting Started](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html) in the CDK Developer Guide.
+* Confirm Go 1.16 or later is installed with `go version`; for information on installing Go, see [the Golang documentation](https://go.dev/doc/install).
+* Confirm Docker is running using `docker container ls`; for information on installing Docker, see [the Docker documentation](https://docs.docker.com/get-docker/).
 
 # Running the example
 
