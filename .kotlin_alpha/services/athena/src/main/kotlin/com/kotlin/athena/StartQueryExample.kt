@@ -23,7 +23,6 @@ import aws.sdk.kotlin.services.athena.model.QueryExecutionState
 import aws.sdk.kotlin.services.athena.model.GetQueryResultsRequest
 import aws.sdk.kotlin.services.athena.model.Row
 import kotlinx.coroutines.delay
-import java.lang.RuntimeException
 import kotlin.system.exitProcess
 //snippet-end:[athena.kotlin.StartQueryExample.import]
 
