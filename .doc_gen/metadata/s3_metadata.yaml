@@ -804,7 +804,7 @@ s3_PutBucketPolicy:
             - description: Create the client.
               snippet_tags:
                 - s3.JavaScript.buckets.createclientv3
-            - description: Create the bucket.
+            - description: Add the policy.
               snippet_tags:
                 - s3.JavaScript.policy.putBucketPolicyV3
   services:
@@ -1029,17 +1029,6 @@ s3_Scenario_RemoveDeleteMarkers:
                 extraneous delete markers in a versioned bucket.
               snippet_tags:
                 - s3.python.lambda.remove_delete_marker
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/s3
-          excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - s3.JavaScript.buckets.createclientv3
-            - description: Perform the multipart upload.
-              snippet_tags:
-                - s3.JavaScript.buckets.multipartupload_v3
   services:
     s3: {}
 s3_Scenario_BatchObjectVersioning:
