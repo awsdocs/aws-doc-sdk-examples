@@ -143,7 +143,7 @@ sqs_ListQueues:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/sqs
+          github: rust_dev_preview/sqs
           excerpts:
             - description:
               snippet_tags:
@@ -262,7 +262,7 @@ sqs_SendMessage:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/sqs
+          github: rust_dev_preview/sqs
           excerpts:
             - description:
               snippet_tags:
@@ -353,7 +353,7 @@ sqs_ReceiveMessage:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/sqs
+          github: rust_dev_preview/sqs
           excerpts:
             - description:
               snippet_tags:

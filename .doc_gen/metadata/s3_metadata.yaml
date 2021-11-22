@@ -29,7 +29,7 @@ s3_CreateBucket:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/s3
+          github: rust_dev_preview/s3
           excerpts:
             - description:
               snippet_tags:
@@ -105,7 +105,7 @@ s3_DeleteObject:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/s3
+          github: rust_dev_preview/s3
           excerpts:
             - description:
               snippet_tags:
@@ -141,7 +141,7 @@ s3_DeleteObjects:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/S3
+          github: rust_dev_preview/S3
           excerpts:
             - description:
               snippet_tags:
@@ -363,7 +363,7 @@ s3_ListObjects:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/s3
+          github: rust_dev_preview/s3
           excerpts:
             - description:
               snippet_tags:
@@ -379,7 +379,7 @@ s3_ListObjectVersions:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/s3
+          github: rust_dev_preview/s3
           excerpts:
             - description:
               snippet_tags:
@@ -421,7 +421,7 @@ s3_PutObject:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/s3
+          github: rust_dev_preview/s3
           excerpts:
             - description:
               snippet_tags:
@@ -666,7 +666,7 @@ s3_ListBuckets:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/s3
+          github: rust_dev_preview/s3
           excerpts:
             - description:
               snippet_tags:
@@ -917,7 +917,7 @@ s3_GetBucketLocation:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/s3
+          github: rust_dev_preview/s3
           excerpts:
             - description:
               snippet_tags:

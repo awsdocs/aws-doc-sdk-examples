@@ -26,7 +26,7 @@ kms_CreateKey:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
@@ -51,7 +51,7 @@ kms_Decrypt:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
@@ -76,7 +76,7 @@ kms_Encrypt:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
@@ -92,7 +92,7 @@ kms_GenerateDataKey:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
@@ -108,7 +108,7 @@ kms_GenerateDataKeyWithoutPlaintext:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
@@ -124,7 +124,7 @@ kms_GenerateRandom:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
@@ -158,7 +158,7 @@ kms_ListKeys:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
@@ -174,7 +174,7 @@ kms_ReEncrypt:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
