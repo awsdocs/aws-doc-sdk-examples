@@ -286,7 +286,7 @@ s3_GetBucketPolicy:
             - description: Create the client.
               snippet_tags:
                 - s3.JavaScript.buckets.createclientv3
-            - description: Retrieve bucket policy.
+            - description: Get the bucket policy.
               snippet_tags:
                 - s3.JavaScript.policy.getBucketPolicyV3
   services:
@@ -728,7 +728,7 @@ s3_GetBucketAcl:
             - description: Create the client.
               snippet_tags:
                 - s3.JavaScript.buckets.createclientv3
-            - description: Retrieve the ACL permissions.
+            - description: Get the ACL permissions.
               snippet_tags:
                 - s3.JavaScript.perms.getBucketAclV3
   services:
@@ -839,7 +839,7 @@ s3_PutBucketWebsite:
   services:
     s3: {PutBucketWebsite}
 s3_GetBucketWebsite:
-  title: Retrieve the website configuration for an &S3; bucket using an &AWS; SDK
+  title: Get the website configuration for an &S3; bucket using an &AWS; SDK
   title_abbrev: Get the website configuration for a bucket
   synopsis: get the website configuration for an &S3; bucket.
   category:

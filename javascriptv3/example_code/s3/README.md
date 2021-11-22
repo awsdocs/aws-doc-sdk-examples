@@ -1,5 +1,5 @@
-#  AWS Simple Storage Service (S3) JavaScript SDK v3 code examples
-The code examples in this directory demonstrate how to work with Amazon S3 using the AWS SDK for JavaScript version 3 (v3).
+#  Amazon S3 JavaScript SDK v3 code examples
+The code examples in this directory demonstrate how to work with Amazon Simple Storage Service (Amazon S3) using the AWS SDK for JavaScript version 3 (v3).
 
 Amazon S3 is an object storage service that offers industry-leading scalability, data availability, security, and performance.
 
@@ -25,7 +25,6 @@ This is a workspace where you can find the following AWS SDK for JavaScript vers
 - [Get more than 1000 objects from a bucket](src/s3_list1000plusobjects.js) (ListObjectsCommand)
 - [List buckets](src/s3_listbuckets.js) (ListBucketsCommand)
 - [List objects](src/s3_listobjects.js) (ListObjectsCommand)
-- [Multipart object upload](src/s3_multipartupload.js)
 - [Create a pre-signed URL to put objects](src/s3_put_presignedURL.js)
 - [Set a bucket ACL](src/s3_putbucketacl.js) (PutBucketAclCommand)
 - [Set a bucket policy](src/s3_putbucketpolicy.js) (PutBucketPolicyCommand)
