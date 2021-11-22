@@ -10,8 +10,8 @@ DynamoDB is a fully managed NoSQL database service that provides fast and predic
 ## Code examples
 
 - [Add item to table](src/bin/add-item.rs) (PutItem)
-- [Create a table](src/bin/create-table) (CreateTable)
-- [Create, read, update, delete table](src/bin/CRUD) (CreateTable, DeleteItem, DeleteTable, PutItem, Query)
+- [Create a table](src/bin/create-table.rs) (CreateTable)
+- [Create, read, update, delete table](src/bin/CRUD.rs) (CreateTable, DeleteItem, DeleteTable, PutItem, Query)
 - [Delete table item](src/bin/delete-item.rs) (DeleteItem)
 - [Delete a table](src/bin/delete-table.rs) (DeleteTable)
 - [List tables and create a table](src/bin/dynamodb-helloworld.rs) (CreateTable, ListTables)

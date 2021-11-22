@@ -8,7 +8,7 @@ Amazon Cognito user pools enable you to sign in to your web or mobile app throug
 
 ## Code examples
 
-- [List user pools](src/bin/list-user-pools) (ListUserPools)
+- [List user pools](src/bin/list-user-pools.rs) (ListUserPools)
 
 ## ⚠ Important
 
