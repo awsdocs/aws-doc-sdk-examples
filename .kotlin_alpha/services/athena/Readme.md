@@ -10,11 +10,6 @@ The Kotlin code examples perform AWS operations for the account and AWS Region f
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting a named query example. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
-To run these examples, you can setup your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
-see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html). 
-
-### Code examples
-
 You will find these examples: 
 
 - **CreateNamedQueryExample** - Demonstrates how to create a named query.
@@ -22,3 +17,8 @@ You will find these examples:
 - **ListNamedQueryExample** - Demonstrates how to obtain a list of named query Id values.
 - **ListQueryExecutionsExample** - Demonstrates how to obtain a list of query execution Id values.
 - **StartQueryExample** - demonstrates how to submit a query to Amazon Athena for execution, wait until the results are available, and then process the results.
+
+To run these examples, you can setup your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
+see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html). 
+
+
