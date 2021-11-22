@@ -12,3 +12,13 @@ Some of these examples perform *destructive* operations on AWS resources, such a
 
 To run these examples, you can setup your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
 see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html). 
+
+### Code examples
+
+You will find these examples: 
+
+- **CreateNamedQueryExample** - Demonstrates how to create a named query.
+- **DeleteNamedQueryExample** - Demonstrates how to delete a named query by using the named query Id value.
+- **ListNamedQueryExample** - Demonstrates how to obtain a list of named query Id values.
+- **ListQueryExecutionsExample** - Demonstrates how to obtain a list of query execution Id values.
+- **StartQueryExample** - demonstrates how to submit a query to Amazon Athena for execution, wait until the results are available, and then process the results.
