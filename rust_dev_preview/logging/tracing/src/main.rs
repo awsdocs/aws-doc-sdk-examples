@@ -2,7 +2,7 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0.
  */
-// snippet-start:[logging.rust.main]
+// snippet-start:[tracing.rust.main]
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_dynamodb::{Client, Error, Region, PKG_VERSION};
 use structopt::StructOpt;
@@ -59,4 +59,4 @@ async fn main() -> Result<(), Error> {
     println!("Found {} tables", len);
     Ok(())
 }
-// snippet-end:[logging.rust.main]
+// snippet-end:[tracing.rust.main]
