@@ -256,6 +256,7 @@ cross_RekognitionPhotoAnalyzer:
       versions:
         - sdk_version: 3
           block_content: cross_RekognitionPhotoAnalyzer_JavaScript_block.xml
+    
   services:
     rekognition:
     s3:
@@ -289,3 +290,52 @@ cross_RekognitionVideoDetection:
             sqs:
   services:
     rekognition:
+cross_DetectFaces:
+  title: Detect faces in an image using an &AWS; SDK
+  title_abbrev: Detect faces in an image
+  synopsis_list:
+    - Save an image in an &S3long; &S3;) bucket.
+    - Use &REKlong; (&REK;) to detect facial details, such as age range, gender, and emotion (smiling, etc.).
+    - Display those details.
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          block_content: cross_detect_faces_rust_block.xml
+  services:
+    rekognition: {}
+    s3: {}
+cross_DetectLabels:
+  title: Save EXIF and other image information using an &AWS; SDK
+  title_abbrev: Save EXIF and other image information
+  synopsis_list:
+    - Get EXIF information from a a JPG, JPEG, or PNG file.
+    - Upload the image file to an &S3long; (&S3;) bucket.
+    - Use &REKlong; (&REK;) to identify the three top attributes (labels in &REK;) in the file.
+    - Add the EXIF and label information to a &DDBlong; (&DDB;) table in the Region.
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          block_content: cross_detect_labels_rust_block.xml
+  services:
+    dynamodb: {}
+    rekognition: {}
+    s3: {}
+cross_Telephone:
+  title: Synthesises a text file into an audio file and converts that back to text using an &AWS; SDK
+  title_abbrev: Synthesises a text file into an audio file and converts that back to text
+  synopsis_list:
+    - Use &POLlong; (&POL;) to synthesizes a plain text (UTF-8) input file to an audio file.
+    - Upload the audio file to an &S3long; (&S3;) bucket.
+    - Use &TSClong; (&TSC;) to convert that audio file to text.
+    - Display the text.
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          block_content: cross_telephone_rust_block.xml
+  services:
+    polly: {}
+    s3: {}
+    transcribe: {}
