@@ -15,7 +15,6 @@ package com.kotlin.ec2
 // snippet-start:[ec2.kotlin.terminate_instance.import]
 import aws.sdk.kotlin.services.ec2.Ec2Client
 import aws.sdk.kotlin.services.ec2.model.TerminateInstancesRequest
-import aws.sdk.kotlin.services.ec2.model.Ec2Exception
 import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.terminate_instance.import]
 
@@ -36,7 +35,6 @@ suspend fun main(args:Array<String>) {
 
     Where:
         instanceID - an instance id value that you can obtain from the AWS Management Console. 
-         
     """
 
     if (args.size != 1) {
@@ -44,26 +42,22 @@ suspend fun main(args:Array<String>) {
         exitProcess(0)
     }
 
-    val instanceID = args[0];
-    val ec2Client = Ec2Client{region = "us-west-2"}
-    terminateEC2(ec2Client, instanceID)
+    val instanceID = args[0]
+     terminateEC2(instanceID)
 }
 
 // snippet-start:[ec2.kotlin.terminate_instance.main]
-suspend fun terminateEC2(ec2: Ec2Client, instanceID: String) {
-    try {
-        val ti  = TerminateInstancesRequest {
-            instanceIds = listOf(instanceID)
-        }
+suspend fun terminateEC2(instanceID: String) {
 
-        val response = ec2.terminateInstances(ti)
+    val request = TerminateInstancesRequest {
+        instanceIds = listOf(instanceID)
+    }
+
+    Ec2Client { region = "us-west-2" }.use { ec2 ->
+        val response = ec2.terminateInstances(request)
         response.terminatingInstances?.forEach { instance ->
                 println("The ID of the terminated instance is ${instance.instanceId}")
             }
-
-    } catch (e: Ec2Exception) {
-        println(e.message)
-        exitProcess(0)
     }
 }
 // snippet-end:[ec2.kotlin.terminate_instance.main]

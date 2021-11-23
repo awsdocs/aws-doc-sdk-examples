@@ -15,7 +15,6 @@ package com.kotlin.ec2
 // snippet-start:[ec2.kotlin.create_key_pair.import]
 import aws.sdk.kotlin.services.ec2.Ec2Client
 import aws.sdk.kotlin.services.ec2.model.CreateKeyPairRequest
-import aws.sdk.kotlin.services.ec2.model.Ec2Exception
 import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.create_key_pair.import]
 
@@ -44,24 +43,19 @@ suspend fun main(args:Array<String>) {
     }
 
     val keyName = args[0]
-    val ec2Client = Ec2Client{region = "us-west-2"}
-    createEC2KeyPair(ec2Client, keyName)
-    ec2Client.close()
+    createEC2KeyPair(keyName)
 }
 
 // snippet-start:[ec2.kotlin.create_key_pair.main]
-suspend fun createEC2KeyPair(ec2: Ec2Client, keyNameVal: String?) {
-    try {
-        val request = CreateKeyPairRequest {
-            keyName = keyNameVal
-        }
+suspend fun createEC2KeyPair(keyNameVal: String) {
 
+    val request = CreateKeyPairRequest {
+        keyName = keyNameVal
+    }
+
+    Ec2Client { region = "us-west-2" }.use { ec2 ->
         val response = ec2.createKeyPair(request)
         println("The key ID is ${response.keyPairId}")
-
-    } catch (e: Ec2Exception) {
-        println(e.message)
-        exitProcess(0)
     }
 }
 // snippet-end:[ec2.kotlin.create_key_pair.main]

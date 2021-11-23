@@ -15,7 +15,6 @@ package com.kotlin.ec2
 // snippet-start:[ec2.kotlin.delete_security_group.import]
 import aws.sdk.kotlin.services.ec2.Ec2Client
 import aws.sdk.kotlin.services.ec2.model.DeleteSecurityGroupRequest
-import aws.sdk.kotlin.services.ec2.model.Ec2Exception
 import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.delete_security_group.import]
 
@@ -43,23 +42,19 @@ suspend fun main(args:Array<String>) {
     }
 
     val groupId = args[0]
-    val ec2Client = Ec2Client{region = "us-west-2"}
-    deleteEC2SecGroup(ec2Client, groupId)
-    ec2Client.close()
+    deleteEC2SecGroup(groupId)
 }
 
 // snippet-start:[ec2.kotlin.delete_security_group.main]
-suspend fun deleteEC2SecGroup(ec2: Ec2Client, groupIdVal: String?) {
-    try {
-        val request = DeleteSecurityGroupRequest {
-            groupId = groupIdVal
-        }
-        ec2.deleteSecurityGroup(request)
-        println("Successfully deleted Security Group with id $groupIdVal")
+suspend fun deleteEC2SecGroup(groupIdVal: String) {
 
-    } catch (e: Ec2Exception) {
-        println(e.message)
-        exitProcess(0)
+    val request = DeleteSecurityGroupRequest {
+        groupId = groupIdVal
+    }
+
+    Ec2Client { region = "us-west-2" }.use { ec2 ->
+       ec2.deleteSecurityGroup(request)
+        println("Successfully deleted Security Group with id $groupIdVal")
     }
 }
 // snippet-end:[ec2.kotlin.delete_security_group.main]

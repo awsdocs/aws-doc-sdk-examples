@@ -15,7 +15,6 @@ package com.kotlin.ec2
 // snippet-start:[ec2.kotlin.delete_key_pair.import]
 import aws.sdk.kotlin.services.ec2.Ec2Client
 import aws.sdk.kotlin.services.ec2.model.DeleteKeyPairRequest
-import aws.sdk.kotlin.services.ec2.model.Ec2Exception
 import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.delete_key_pair.import]
 
@@ -44,22 +43,19 @@ suspend fun main(args:Array<String>) {
     }
 
     val keyName = args[0]
-    val ec2Client = Ec2Client{region = "us-west-2"}
-    deleteKeys(ec2Client, keyName)
+    deleteKeys( keyName)
 }
 
 // snippet-start:[ec2.kotlin.delete_key_pair.main]
-suspend fun deleteKeys(ec2: Ec2Client, keyPair: String?) {
-    try {
-        val request = DeleteKeyPairRequest {
-            keyName = keyPair
-        }
+suspend fun deleteKeys(keyPair: String?) {
+
+    val request = DeleteKeyPairRequest {
+        keyName = keyPair
+    }
+
+    Ec2Client { region = "us-west-2" }.use { ec2 ->
         ec2.deleteKeyPair(request)
         println("Successfully deleted key pair named $keyPair")
-
-    } catch (e: Ec2Exception) {
-        println(e.message)
-        exitProcess(0)
     }
 }
 // snippet-end:[ec2.kotlin.delete_key_pair.main]

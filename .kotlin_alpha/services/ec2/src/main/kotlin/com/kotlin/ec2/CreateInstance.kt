@@ -18,7 +18,6 @@ import aws.sdk.kotlin.services.ec2.model.RunInstancesRequest
 import aws.sdk.kotlin.services.ec2.model.InstanceType
 import aws.sdk.kotlin.services.ec2.model.Tag
 import aws.sdk.kotlin.services.ec2.model.CreateTagsRequest
-import aws.sdk.kotlin.services.ec2.model.Ec2Exception
 import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.create_instance.import]
 
@@ -49,43 +48,34 @@ suspend fun main(args:Array<String>) {
 
     val name = args[0]
     val amiId = args[1]
-    val ec2Client = Ec2Client{region = "us-west-2"}
-    createEC2Instance(ec2Client, name, amiId)
-    ec2Client.close()
+    createEC2Instance(name, amiId)
 }
 
 // snippet-start:[ec2.kotlin.create_instance.main]
-suspend fun createEC2Instance(ec2: Ec2Client, name: String?, amiId: String?): String? {
+suspend fun createEC2Instance(name: String, amiId: String): String? {
 
-    try {
+    val request = RunInstancesRequest {
+        imageId = amiId
+        instanceType = InstanceType.T1Micro
+        maxCount = 1
+        minCount = 1
+    }
 
-        val runRequest = RunInstancesRequest {
-            imageId = amiId
-            instanceType = InstanceType.T1Micro
-            maxCount = 1
-            minCount = 1
-        }
-
-        val response = ec2.runInstances(runRequest)
+    Ec2Client { region = "us-west-2" }.use { ec2 ->
+        val response = ec2.runInstances(request)
         val instanceId = response.instances?.get(0)?.instanceId
-
         val tag = Tag{
             key = "Name"
             value = name
         }
 
-        val tagRequest = CreateTagsRequest {
+        val requestTags = CreateTagsRequest {
             resources = listOf(instanceId.toString())
             tags = listOf(tag)
         }
-
-        ec2.createTags(tagRequest)
-        println("Successfully started EC2 Instance $instanceId based on AMI $amiId")
-        return instanceId
-
-    } catch (e: Ec2Exception) {
-        println(e.message)
-        exitProcess(0)
-    }
+        ec2.createTags(requestTags)
+          println("Successfully started EC2 Instance $instanceId based on AMI $amiId")
+          return instanceId
+      }
 }
 // snippet-end:[ec2.kotlin.create_instance.main]

@@ -16,8 +16,6 @@ package com.kotlin.ec2
 // snippet-start:[ec2.kotlin.describe_instances.import]
 import aws.sdk.kotlin.services.ec2.Ec2Client
 import aws.sdk.kotlin.services.ec2.model.DescribeInstancesRequest
-import aws.sdk.kotlin.services.ec2.model.Ec2Exception
-import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.describe_instances.import]
 
 /**
@@ -29,23 +27,19 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
-    val ec2Client = Ec2Client{region = "us-west-2"}
-    describeEC2Instances(ec2Client)
+    describeEC2Instances()
 }
 
 // snippet-start:[ec2.kotlin.describe_instances.main]
-suspend fun describeEC2Instances(ec2: Ec2Client) {
+suspend fun describeEC2Instances() {
 
-    try {
+    val request = DescribeInstancesRequest{
+        maxResults = 6
+    }
 
-        val request = DescribeInstancesRequest{
-                maxResults = 6
-            }
-
-        val response = ec2.describeInstances(request)
-        response.reservations?.forEach { reservation ->
-
+    Ec2Client { region = "us-west-2" }.use { ec2 ->
+         val response = ec2.describeInstances(request )
+         response.reservations?.forEach { reservation ->
             reservation.instances?.forEach { instance ->
                 println("Instance Id is ${instance.instanceId}")
                 println("Image id is ${instance.imageId}")
@@ -54,10 +48,6 @@ suspend fun describeEC2Instances(ec2: Ec2Client) {
                 println("monitoring information is ${instance.monitoring?.state}")
             }
         }
-
-    } catch (e: Ec2Exception) {
-        println(e.message)
-        exitProcess(0)
     }
 }
 // snippet-end:[ec2.kotlin.describe_instances.main]

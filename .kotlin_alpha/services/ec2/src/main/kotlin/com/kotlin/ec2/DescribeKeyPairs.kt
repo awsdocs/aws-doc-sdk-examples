@@ -16,8 +16,6 @@ package com.kotlin.ec2
 // snippet-start:[ec2.kotlin.describe_key_pairs.import]
 import aws.sdk.kotlin.services.ec2.Ec2Client
 import aws.sdk.kotlin.services.ec2.model.DescribeKeyPairsRequest
-import aws.sdk.kotlin.services.ec2.model.Ec2Exception
-import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.describe_key_pairs.import]
 
 /**
@@ -29,22 +27,17 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
-    val ec2Client = Ec2Client{region = "us-east-1"}
-    describeEC2Keys(ec2Client)
+    describeEC2Keys()
 }
 
 // snippet-start:[ec2.kotlin.describe_key_pairs.main]
-suspend fun describeEC2Keys(ec2: Ec2Client) {
-    try {
+suspend fun describeEC2Keys() {
+
+    Ec2Client { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeKeyPairs(DescribeKeyPairsRequest{})
         response.keyPairs?.forEach { keyPair ->
             println("Found key pair with name ${keyPair.keyName} and fingerprint ${ keyPair.keyFingerprint}")
         }
-
-    } catch (e: Ec2Exception) {
-        println(e.message)
-        exitProcess(0)
     }
 }
 // snippet-end:[ec2.kotlin.describe_key_pairs.main]

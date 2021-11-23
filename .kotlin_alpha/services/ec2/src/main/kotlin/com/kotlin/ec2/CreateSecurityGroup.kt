@@ -18,7 +18,6 @@ import aws.sdk.kotlin.services.ec2.model.CreateSecurityGroupRequest
 import aws.sdk.kotlin.services.ec2.model.IpRange
 import aws.sdk.kotlin.services.ec2.model.IpPermission
 import aws.sdk.kotlin.services.ec2.model.AuthorizeSecurityGroupIngressRequest
-import aws.sdk.kotlin.services.ec2.model.Ec2Exception
 import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.create_security_group.import]
 
@@ -50,23 +49,21 @@ suspend fun main(args:Array<String>) {
     val groupName = args[0]
     val groupDesc = args[1]
     val vpcId = args[2]
-    val ec2Client = Ec2Client{region = "us-west-2"}
-    val id = createEC2SecurityGroup(ec2Client, groupName, groupDesc, vpcId)
+    val id = createEC2SecurityGroup(groupName, groupDesc, vpcId)
     println("Successfully created Security Group with ID $id")
-    ec2Client.close()
 }
 
 // snippet-start:[ec2.kotlin.create_security_group.main]
-suspend fun createEC2SecurityGroup(ec2Client: Ec2Client, groupNameVal: String?, groupDescVal: String?, vpcIdVal: String?): String? {
-    try {
+suspend fun createEC2SecurityGroup(groupNameVal: String?, groupDescVal: String?, vpcIdVal: String?): String? {
 
-        val createRequest = CreateSecurityGroupRequest {
-            groupName = groupNameVal
-            description = groupDescVal
-            vpcId = vpcIdVal
-        }
+    val request =  CreateSecurityGroupRequest {
+        groupName = groupNameVal
+        description = groupDescVal
+        vpcId = vpcIdVal
+    }
 
-        val resp = ec2Client.createSecurityGroup(createRequest)
+    Ec2Client { region = "us-west-2" }.use { ec2 ->
+        val resp = ec2.createSecurityGroup(request)
         val ipRange = IpRange {
             cidrIp = "0.0.0.0/0"
         }
@@ -89,14 +86,9 @@ suspend fun createEC2SecurityGroup(ec2Client: Ec2Client, groupNameVal: String?, 
             groupName = groupNameVal
             ipPermissions = listOf(ipPerm, ipPerm2)
         }
-
-        ec2Client.authorizeSecurityGroupIngress(authRequest)
+        ec2.authorizeSecurityGroupIngress(authRequest)
         println("Successfully added ingress policy to Security Group $groupNameVal")
         return resp.groupId
-
-    } catch (e: Ec2Exception) {
-        println(e.message)
-        exitProcess(0)
-    }
+      }
 }
 // snippet-end:[ec2.kotlin.create_security_group.main]
