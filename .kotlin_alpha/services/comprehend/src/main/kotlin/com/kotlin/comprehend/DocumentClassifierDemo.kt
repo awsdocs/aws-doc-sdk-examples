@@ -18,7 +18,6 @@ import aws.sdk.kotlin.services.comprehend.ComprehendClient
 import aws.sdk.kotlin.services.comprehend.model.DocumentClassifierInputDataConfig
 import aws.sdk.kotlin.services.comprehend.model.CreateDocumentClassifierRequest
 import aws.sdk.kotlin.services.comprehend.model.LanguageCode
-import aws.sdk.kotlin.services.comprehend.model.ComprehendException
 import kotlin.system.exitProcess
 //snippet-end:[comprehend.kotlin.classifier.import]
 
@@ -50,40 +49,26 @@ suspend fun main(args: Array<String>) {
     val dataAccessRoleArn = args[0]
     val s3Uri = args[1]
     val documentClassifierName = args[2]
-    val comprehendClient = ComprehendClient{
-        region="us-east-1"
-    }
-    createDocumentClassifier(comprehendClient,dataAccessRoleArn,s3Uri, documentClassifierName)
-    comprehendClient.close()
-}
+    createDocumentClassifier(dataAccessRoleArn,s3Uri, documentClassifierName)
+  }
 
 //snippet-start:[comprehend.kotlin.classifier.main]
-suspend fun createDocumentClassifier(
-        comClient: ComprehendClient,
-        dataAccessRoleArnVal: String?,
-        s3UriVal: String?,
-        documentClassifierNameVal: String?
-    ) {
-        try {
-            val config = DocumentClassifierInputDataConfig {
-                s3Uri = s3UriVal
-            }
+suspend fun createDocumentClassifier(dataAccessRoleArnVal: String, s3UriVal: String, documentClassifierNameVal: String) {
 
-            val createDocumentClassifierRequest = CreateDocumentClassifierRequest {
-                documentClassifierName = documentClassifierNameVal
-                dataAccessRoleArn = dataAccessRoleArnVal
-                languageCode = LanguageCode.fromValue("en")
-                inputDataConfig = config
-            }
+    val config = DocumentClassifierInputDataConfig {
+        s3Uri = s3UriVal
+    }
+    val request = CreateDocumentClassifierRequest {
+        documentClassifierName = documentClassifierNameVal
+        dataAccessRoleArn = dataAccessRoleArnVal
+        languageCode = LanguageCode.fromValue("en")
+        inputDataConfig = config
+    }
 
-            val resp = comClient.createDocumentClassifier(createDocumentClassifierRequest)
-            val documentClassifierArn = resp.documentClassifierArn
-            println("Document Classifier ARN is $documentClassifierArn")
-
-        } catch (ex: ComprehendException) {
-            println(ex.message)
-            comClient.close()
-            exitProcess(0)
-        }
-}
+    ComprehendClient { region = "us-east-1" }.use { comClient ->
+      val resp = comClient.createDocumentClassifier(request)
+      val documentClassifierArn = resp.documentClassifierArn
+      println("Document Classifier ARN is $documentClassifierArn")
+     }
+  }
 //snippet-end:[comprehend.kotlin.classifier.main]
