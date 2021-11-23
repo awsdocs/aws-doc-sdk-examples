@@ -16,7 +16,6 @@ package com.kotlin.cognito
 //snippet-start:[cognito.kotlin.DeleteUserPool.import]
 import aws.sdk.kotlin.services.cognitoidentityprovider.CognitoIdentityProviderClient
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.DeleteUserPoolRequest
-import aws.sdk.kotlin.services.cognitoidentity.model.CognitoIdentityException
 import kotlin.system.exitProcess
 //snippet-end:[cognito.kotlin.DeleteUserPool.import]
 
@@ -43,27 +42,19 @@ suspend fun main(args: Array<String>){
      }
 
     val userPoolId= args[0]
-    val cognitoClient = CognitoIdentityProviderClient { region = "us-east-1" }
-    delPool(cognitoClient,userPoolId)
-    cognitoClient.close()
-}
+    delPool(userPoolId)
+    }
 
 //snippet-start:[cognito.kotlin.DeleteUserPool.main]
-suspend fun delPool(cognitoClient: CognitoIdentityProviderClient, userPoolId:String) {
+suspend fun delPool(userPoolId:String) {
 
-        try {
+    val request = DeleteUserPoolRequest{
+        this.userPoolId = userPoolId
+    }
 
-            val deleteUserPoolRequest =  DeleteUserPoolRequest{
-                 this.userPoolId = userPoolId
-            }
-
-            cognitoClient.deleteUserPool(deleteUserPoolRequest)
+   CognitoIdentityProviderClient { region = "us-east-1" }.use { cognitoClient ->
+            cognitoClient.deleteUserPool(request)
             print("$userPoolId was successfully deleted")
-
-        } catch (ex: CognitoIdentityException) {
-            println(ex.message)
-            cognitoClient.close()
-            exitProcess(0)
-        }
-  }
+    }
+ }
 //snippet-end:[cognito.kotlin.DeleteUserPool.main]

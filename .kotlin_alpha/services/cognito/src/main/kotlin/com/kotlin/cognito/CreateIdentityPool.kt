@@ -16,7 +16,6 @@ package com.kotlin.cognito
 //snippet-start:[cognito.kotlin.create_identity_pool.import]
 import aws.sdk.kotlin.services.cognitoidentity.CognitoIdentityClient
 import aws.sdk.kotlin.services.cognitoidentity.model.CreateIdentityPoolRequest
-import aws.sdk.kotlin.services.cognitoidentity.model.CognitoIdentityException
 import kotlin.system.exitProcess
 //snippet-end:[cognito.kotlin.create_identity_pool.import]
 
@@ -43,29 +42,23 @@ suspend fun main(args: Array<String>){
     }
 
     val identityPoolName = args[0]
-    val cognitoIdentityClient = CognitoIdentityClient { region = "us-east-1" }
-    val idPool = createIdPool(cognitoIdentityClient,identityPoolName)
+    val idPool = createIdPool(identityPoolName)
     println("Identity pool Id value is $idPool")
-    cognitoIdentityClient.close()
-}
+  }
 
 
 //snippet-start:[cognito.kotlin.create_identity_pool.main]
-suspend fun createIdPool(cognitoIdentityClient: CognitoIdentityClient, identityPoolName: String?): String? {
-        try {
+suspend fun createIdPool(identityPoolName: String?): String? {
 
-            val createIdentityPoolInput = CreateIdentityPoolRequest{
-                this.allowUnauthenticatedIdentities = false
-                this.identityPoolName = identityPoolName
-            }
+        val request = CreateIdentityPoolRequest{
+            this.allowUnauthenticatedIdentities = false
+            this.identityPoolName = identityPoolName
+        }
 
-           val response = cognitoIdentityClient.createIdentityPool(createIdentityPoolInput)
+        CognitoIdentityClient { region = "us-east-1" }.use { cognitoIdentityClient ->
+
+           val response = cognitoIdentityClient.createIdentityPool(request)
            return response.identityPoolId
-
-        } catch (ex: CognitoIdentityException) {
-            println(ex.message)
-            cognitoIdentityClient.close()
-            exitProcess(0)
         }
   }
 //snippet-end:[cognito.kotlin.create_identity_pool.main]

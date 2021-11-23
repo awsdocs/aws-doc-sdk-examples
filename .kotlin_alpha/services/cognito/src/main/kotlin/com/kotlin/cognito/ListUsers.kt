@@ -16,7 +16,6 @@ package com.kotlin.cognito
 //snippet-start:[cognito.kotlin.ListUsers.import]
 import aws.sdk.kotlin.services.cognitoidentityprovider.CognitoIdentityProviderClient
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.ListUsersRequest
-import aws.sdk.kotlin.services.cognitoidentity.model.CognitoIdentityException
 import kotlin.system.exitProcess
 //snippet-end:[cognito.kotlin.ListUsers.import]
 
@@ -43,28 +42,21 @@ suspend fun main(args: Array<String>){
       }
 
     val userPoolId = args[0]
-    val cognitoClient = CognitoIdentityProviderClient { region = "us-east-1" }
-    listAllUsers(cognitoClient,userPoolId)
-    cognitoClient.close()
+    listAllUsers(userPoolId)
 }
 
 //snippet-start:[cognito.kotlin.ListUsers.main]
- suspend fun listAllUsers(cognitoClient: CognitoIdentityProviderClient, userPoolId: String) {
+ suspend fun listAllUsers(userPoolId: String) {
 
-        try {
-            val listUsersRequest = ListUsersRequest {
-                this.userPoolId = userPoolId
-            }
+    val request = ListUsersRequest {
+        this.userPoolId = userPoolId
+    }
 
-            val response = cognitoClient.listUsers(listUsersRequest)
+    CognitoIdentityProviderClient { region = "us-east-1" }.use { cognitoClient ->
+            val response = cognitoClient.listUsers(request)
             response.users?.forEach { user ->
                 println("The user name is ${user.username}")
             }
-
-        } catch (ex: CognitoIdentityException) {
-            println(ex.message)
-            cognitoClient.close()
-            exitProcess(0)
-        }
+    }
  }
 //snippet-end:[cognito.kotlin.ListUsers.main]

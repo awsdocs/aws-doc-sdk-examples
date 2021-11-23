@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateUser.java demonstrates how to add a new user to your user pool.]
+//snippet-sourcedescription:[CreateUser.kt demonstrates how to add a new user to your user pool.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Cognito]
@@ -16,7 +16,6 @@ package com.kotlin.cognito
 import aws.sdk.kotlin.services.cognitoidentityprovider.CognitoIdentityProviderClient
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.AdminCreateUserRequest
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.AttributeType
-import aws.sdk.kotlin.services.cognitoidentity.model.CognitoIdentityException
 import kotlin.system.exitProcess
 //snippet-end:[cognito.kotlin.new_admin_user.import]
 
@@ -50,42 +49,27 @@ suspend fun main(args: Array<String>){
     val userName = args[1]
     val email = args[2]
     val password = args[3]
-
-    val cognitoClient = CognitoIdentityProviderClient { region = "us-east-1" }
-    createNewUser(cognitoClient, userPoolId, userName, email, password)
-    cognitoClient.close()
-}
+    createNewUser(userPoolId, userName, email, password)
+   }
 
 //snippet-start:[cognito.kotlin.new_admin_user.main]
-suspend fun createNewUser(
-    cognitoClient: CognitoIdentityProviderClient,
-        userPoolId: String?,
-        name: String?,
-        email: String?,
-        password : String?
-    ) {
+suspend fun createNewUser(userPoolId: String, name: String, email: String, password : String) {
 
-        try {
-
-            val attType = AttributeType{
+           val attType = AttributeType{
                 this.name = "email"
                 value = email
             }
 
-            val adminCreateUserRequest = AdminCreateUserRequest{
-                this.userPoolId = userPoolId
-                username = name!!
-                temporaryPassword = password
-                userAttributes = listOf(attType)
-            }
+           val request = AdminCreateUserRequest{
+               this.userPoolId = userPoolId
+               username = name
+               temporaryPassword = password
+               userAttributes = listOf(attType)
+           }
 
-            val response = cognitoClient.adminCreateUser(adminCreateUserRequest)
-            println("User ${response.user?.username.toString()} is created. Status is ${response.user?.userStatus}")
-
-        } catch (ex: CognitoIdentityException) {
-            println(ex.message)
-            cognitoClient.close()
-            exitProcess(0)
-        }
+           CognitoIdentityProviderClient { region = "us-east-1" }.use { cognitoClient ->
+              val response = cognitoClient.adminCreateUser(request )
+              println("User ${response.user?.username.toString()} is created. Status is ${response.user?.userStatus}")
+           }
     }
 //snippet-end:[cognito.kotlin.new_admin_user.main]

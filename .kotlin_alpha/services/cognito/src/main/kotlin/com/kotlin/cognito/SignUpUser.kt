@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[SignUpUser.java demonstrates how to register a user in the specified Amazon Cognito user pool.]
+//snippet-sourcedescription:[SignUpUser.kt demonstrates how to register a user in the specified Amazon Cognito user pool.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Cognito]
@@ -17,7 +17,6 @@ package com.kotlin.cognito
 import aws.sdk.kotlin.services.cognitoidentityprovider.CognitoIdentityProviderClient
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.AttributeType
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.SignUpRequest
-import aws.sdk.kotlin.services.cognitoidentity.model.CognitoIdentityException
 import java.io.UnsupportedEncodingException
 import java.nio.charset.StandardCharsets
 import java.util.*
@@ -57,40 +56,31 @@ suspend fun main(args: Array<String>) {
     val userName: String = args[2]
     val password: String = args[3]
     val email: String = args[4]
-
-    val identityProviderClient = CognitoIdentityProviderClient { region = "us-east-1" }
-    signUp(identityProviderClient, clientId, secretKey, userName, password, email)
-    identityProviderClient.close()
-}
+    signUp(clientId, secretKey, userName, password, email)
+ }
 
 //snippet-start:[cognito.kotlin.signup.main]
-suspend fun signUp( identityProviderClient: CognitoIdentityProviderClient, clientId: String, secretKey: String, userName: String, password: String?, email: String?) {
+suspend fun signUp(clientIdVal: String, secretKey: String, userName: String, passwordVal: String, email: String) {
 
-     val attributeType =  AttributeType() {
+       val attributeType =  AttributeType {
             this.name = "email"
             this.value = email
         }
 
-        val attrs: MutableList<AttributeType> = ArrayList<AttributeType>()
+        val attrs = mutableListOf<AttributeType>()
         attrs.add(attributeType)
+        val secretVal = calculateSecretHash(clientIdVal, secretKey, userName)
 
-        try {
-            val secretVal = calculateSecretHash(clientId, secretKey, userName)
-            val signUpRequest = SignUpRequest {
-                userAttributes= attrs
-                username = userName
-                this.clientId = clientId
-                this.password = password
-                this.secretHash=secretVal
-            }
-
-            identityProviderClient.signUp(signUpRequest)
+       val request = SignUpRequest {
+          userAttributes= attrs
+          username = userName
+          clientId = clientIdVal
+          password = passwordVal
+          secretHash=secretVal
+       }
+       CognitoIdentityProviderClient { region = "us-east-1" }.use { identityProviderClient ->
+            identityProviderClient.signUp(request)
             println("User has been signed up")
-
-        } catch (ex: CognitoIdentityException) {
-            println(ex.message)
-            identityProviderClient.close()
-            exitProcess(0)
         }
     }
 
