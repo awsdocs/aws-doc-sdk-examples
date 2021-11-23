@@ -15,7 +15,6 @@ package com.kotlin.pipeline
 
 // snippet-start:[pipeline.kotlin.delete_pipeline.import]
 import aws.sdk.kotlin.services.codepipeline.CodePipelineClient
-import aws.sdk.kotlin.services.codepipeline.model.CodePipelineException
 import aws.sdk.kotlin.services.codepipeline.model.DeletePipelineRequest
 import kotlin.system.exitProcess
 // snippet-end:[pipeline.kotlin.delete_pipeline.import]
@@ -35,25 +34,18 @@ suspend fun main(args:Array<String>) {
     }
 
     val name =  args[0]
-    val pipelineClient = CodePipelineClient{region = "us-east-1"}
-    deleteSpecificPipeline(pipelineClient, name)
-    pipelineClient.close()
-}
+    deleteSpecificPipeline(name)
+   }
 
 // snippet-start:[pipeline.kotlin.delete_pipeline.main]
-suspend fun deleteSpecificPipeline(pipelineClient: CodePipelineClient, nameVal: String) {
-    try {
-        val deletePipelineRequest = DeletePipelineRequest {
-            name = nameVal
-        }
+suspend fun deleteSpecificPipeline(nameVal: String) {
 
-        pipelineClient.deletePipeline(deletePipelineRequest)
+    val request = DeletePipelineRequest {
+        name = nameVal
+    }
+    CodePipelineClient { region = "us-east-1" }.use { pipelineClient ->
+        pipelineClient.deletePipeline(request)
         println("$nameVal was successfully deleted")
-
-    } catch (e: CodePipelineException) {
-        println(e.message)
-        pipelineClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[pipeline.kotlin.delete_pipeline.main]

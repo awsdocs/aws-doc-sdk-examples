@@ -15,7 +15,6 @@ package com.kotlin.pipeline
 
 // snippet-start:[pipeline.kotlin.get_pipeline.import]
 import aws.sdk.kotlin.services.codepipeline.CodePipelineClient
-import aws.sdk.kotlin.services.codepipeline.model.CodePipelineException
 import aws.sdk.kotlin.services.codepipeline.model.GetPipelineRequest
 import kotlin.system.exitProcess
 // snippet-end:[pipeline.kotlin.get_pipeline.import]
@@ -45,21 +44,19 @@ suspend fun main(args:Array<String>) {
    }
 
     val name = args[0]
-    val  pipelineClient = CodePipelineClient{region = "us-east-1"}
-    getSpecificPipeline(pipelineClient, name)
-    pipelineClient.close()
-}
+    getSpecificPipeline(name)
+    }
 
 // snippet-start:[pipeline.kotlin.get_pipeline.main]
-suspend  fun getSpecificPipeline(pipelineClient: CodePipelineClient, nameVal: String?) {
-    try {
-        val pipelineRequest = GetPipelineRequest {
-            name = nameVal
-            version = 1
-        }
+suspend  fun getSpecificPipeline(nameVal: String?) {
 
-        val response = pipelineClient.getPipeline(pipelineRequest)
-        response.pipeline?.stages?.forEach { stage ->
+    val request = GetPipelineRequest {
+        name = nameVal
+        version = 1
+    }
+    CodePipelineClient { region = "us-east-1" }.use { pipelineClient ->
+          val response = pipelineClient.getPipeline(request)
+          response.pipeline?.stages?.forEach { stage ->
             println("Stage name is " + stage.name.toString() + " and actions are:")
 
             stage.actions?.forEach { action ->
@@ -67,11 +64,6 @@ suspend  fun getSpecificPipeline(pipelineClient: CodePipelineClient, nameVal: St
                 println("Action type id is ${action.actionTypeId}")
             }
         }
-
-    } catch (e: CodePipelineException) {
-        println(e.message)
-        pipelineClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[pipeline.kotlin.get_pipeline.main]
