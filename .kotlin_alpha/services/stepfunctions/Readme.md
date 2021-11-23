@@ -12,9 +12,8 @@ Some of these examples perform *destructive* operations on AWS resources,  such 
 
 You will find these examples: 
 
-- **CreateStateMachine** - Demonstrates how to creates a state machine for AWS Step Functions.
+- **CreateStateMachine** - Demonstrates how to create a state machine for AWS Step Functions.
 - **DeleteStateMachine** - Demonstrates how to delete a state machine for AWS Step Functions.
-- **GetExecutionHistory** - Demonstrates how to retrieve the history of the specified execution as a list of events.
 - **GetExecutionHistory** - Demonstrates how to retrieve the history of the specified execution as a list of events.
 - **ListActivities** - Demonstrates how to list existing activities for AWS Step Functions.
 
