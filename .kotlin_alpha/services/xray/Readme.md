@@ -8,7 +8,7 @@ This README discusses how to run the Kotlin code examples for AWS X-Ray.
 
 The Kotlin code examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting an AWS XRay group. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
+Some of these examples perform *destructive* operations on AWS resources, such as deleting an AWS X-Ray group. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
 You will find these examples: 
 
