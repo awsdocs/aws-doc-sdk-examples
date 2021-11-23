@@ -15,7 +15,7 @@ You will find these examples:
 - **CreateFunction** - Demonstrates how to create an AWS Lambda function.
 - **DeleteFunction** - Demonstrates how to delete an AWS Lambda function.
 - **GetAccountSettings** - Demonstrates how to get AWS Lambda account settings.
-- **LambdaInvoke** - Demonstrates how to invoke a Lambda function.
+- **LambdaInvoke** - Demonstrates how to invoke an AWS Lambda function.
 - **ListLambda** - Demonstrates how to list your AWS Lambda functions.
  
 To run these examples, you can setup your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
