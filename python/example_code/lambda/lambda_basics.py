@@ -8,6 +8,7 @@ Shows how to use the AWS SDK for Python (Boto3) to create an AWS Lambda function
 invoke it, and delete it.
 """
 
+# snippet-start:[python.example_code.lambda.Scenario_DeployInvokeFunction_Functions]
 import io
 import json
 import logging
@@ -49,6 +50,7 @@ def exponential_retry(func, error_code, *func_args, **func_kwargs):
     return func_return
 
 
+# snippet-start:[python.example_code.lambda.helper.create_deployment_package]
 def create_lambda_deployment_package(function_file_name):
     """
     Creates a Lambda deployment package in ZIP format in an in-memory buffer. This
@@ -63,6 +65,7 @@ def create_lambda_deployment_package(function_file_name):
         zipped.write(function_file_name)
     buffer.seek(0)
     return buffer.read()
+# snippet-end:[python.example_code.lambda.helper.create_deployment_package]
 
 
 def create_iam_role_for_lambda(iam_resource, iam_role_name):
@@ -111,6 +114,7 @@ def create_iam_role_for_lambda(iam_resource, iam_role_name):
     return role
 
 
+# snippet-start:[python.example_code.lambda.CreateFunction]
 def deploy_lambda_function(
         lambda_client, function_name, handler_name, iam_role, deployment_package):
     """
@@ -142,8 +146,10 @@ def deploy_lambda_function(
         raise
     else:
         return function_arn
+# snippet-end:[python.example_code.lambda.CreateFunction]
 
 
+# snippet-start:[python.example_code.lambda.DeleteFunction]
 def delete_lambda_function(lambda_client, function_name):
     """
     Deletes an AWS Lambda function.
@@ -156,8 +162,10 @@ def delete_lambda_function(lambda_client, function_name):
     except ClientError:
         logger.exception("Couldn't delete function %s.", function_name)
         raise
+# snippet-end:[python.example_code.lambda.DeleteFunction]
 
 
+# snippet-start:[python.example_code.lambda.Invoke]
 def invoke_lambda_function(lambda_client, function_name, function_params):
     """
     Invokes an AWS Lambda function.
@@ -177,8 +185,11 @@ def invoke_lambda_function(lambda_client, function_name, function_params):
         logger.exception("Couldn't invoke function %s.", function_name)
         raise
     return response
+# snippet-end:[python.example_code.lambda.Invoke]
+# snippet-end:[python.example_code.lambda.Scenario_DeployInvokeFunction_Functions]
 
 
+# snippet-start:[python.example_code.lambda.Scenario_DeployInvokeFunction_Demo]
 def usage_demo():
     """
     Shows how to create, invoke, and delete an AWS Lambda function.
@@ -223,6 +234,7 @@ def usage_demo():
     delete_lambda_function(lambda_client, lambda_function_name)
     print(f"Deleted function {lambda_function_name}.")
     print("Thanks for watching!")
+# snippet-end:[python.example_code.lambda.Scenario_DeployInvokeFunction_Demo]
 
 
 if __name__ == '__main__':
