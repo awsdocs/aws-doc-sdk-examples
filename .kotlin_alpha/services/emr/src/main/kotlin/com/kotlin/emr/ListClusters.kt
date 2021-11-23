@@ -15,8 +15,6 @@ package com.kotlin.emr
 //snippet-start:[erm.kotlin.list_cluster.import]
 import aws.sdk.kotlin.services.emr.EmrClient
 import aws.sdk.kotlin.services.emr.model.ListClustersRequest
-import aws.sdk.kotlin.services.emr.model.EmrException
-import kotlin.system.exitProcess
 //snippet-end:[erm.kotlin.list_cluster.import]
 
 /**
@@ -29,23 +27,18 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun main() {
 
-    val emrClient = EmrClient{region = "us-west-2" }
-    listAllClusters(emrClient)
+     listAllClusters()
 }
 
 //snippet-start:[erm.kotlin.list_cluster.main]
-suspend fun listAllClusters(emrClient: EmrClient) {
-    try {
+suspend fun listAllClusters() {
 
-        val response = emrClient.listClusters( ListClustersRequest {})
-        response.clusters?.forEach { cluster ->
+        EmrClient { region = "us-west-2" }.use { emrClient ->
+          val response = emrClient.listClusters( ListClustersRequest {})
+          response.clusters?.forEach { cluster ->
             println("The cluster name is ${cluster.name}")
             println("The cluster ARN is ${cluster.clusterArn}")
-        }
-
-    } catch (e: EmrException) {
-        println(e.message)
-        exitProcess(0)
+          }
     }
 }
 //snippet-end:[erm.kotlin.list_cluster.main]

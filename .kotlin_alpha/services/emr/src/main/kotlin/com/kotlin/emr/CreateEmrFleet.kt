@@ -19,9 +19,7 @@ import aws.sdk.kotlin.services.emr.model.InstanceFleetConfig
 import aws.sdk.kotlin.services.emr.model.InstanceFleetType
 import aws.sdk.kotlin.services.emr.model.JobFlowInstancesConfig
 import aws.sdk.kotlin.services.emr.model.RunJobFlowRequest
-import aws.sdk.kotlin.services.emr.model.EmrException
 import aws.sdk.kotlin.services.emr.model.Application
-import kotlin.system.exitProcess
 //snippet-end:[erm.kotlin.create_fleet.import]
 
 /*
@@ -40,15 +38,11 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
-    val emrClient = EmrClient { region = "us-west-2" }
-    createFleet(emrClient)
-    emrClient.close()
-}
+    createFleet()
+ }
 
 //snippet-start:[erm.kotlin.create_fleet.main]
-suspend fun createFleet(emr: EmrClient) {
-    try {
+suspend fun createFleet() {
 
         // Instance Types
         // M Family
@@ -57,7 +51,6 @@ suspend fun createFleet(emr: EmrClient) {
             instanceType = "m3.xlarge"
             weightedCapacity = 1
         }
-
 
         val m4xLarge = InstanceTypeConfig {
             bidPriceAsPercentageOfOnDemandPrice = 100.0
@@ -136,7 +129,7 @@ suspend fun createFleet(emr: EmrClient) {
             ec2SubnetId = "subnet-cca64baa"
         }
 
-        val flowRequest = RunJobFlowRequest {
+        val request = RunJobFlowRequest {
             name = "emr-spot-example"
             instances = flowInstancesConfig
             serviceRole = "EMR_DefaultRole"
@@ -145,12 +138,10 @@ suspend fun createFleet(emr: EmrClient) {
             applications = listOf( Application{name = "Spark"})
             releaseLabel= "emr-5.29.0"
         }
-        val response = emr.runJobFlow(flowRequest)
-        println(response.toString())
 
-    } catch (e: EmrException) {
-        println(e.message)
-        exitProcess(0)
-    }
+        EmrClient { region = "us-west-2" }.use { emrClient ->
+          val response = emrClient.runJobFlow(request)
+          println(response.toString())
+       }
 }
 //snippet-end:[erm.kotlin.create_fleet.main]
