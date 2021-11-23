@@ -5,13 +5,13 @@
 ]>
 <block>
   <para>
-    Uses &POLlong; (&POL;) to synthesizes a plain text (UTF-8) input file to an audio file,
-    uploads the audio file to an &S3long; (&S3;) bucket,
-    uses &TSClong; (&TSC;) to convert that audio file to text,
-    and displays the text.
+    Use &POLlong; to synthesize a plain text (UTF-8) input file to an audio file,
+    upload the audio file to an &S3long; bucket,
+    use &TSClong; to convert that audio file to text,
+    and display the text.
   </para>
   <para>
     For complete source code and instructions on how to set up and run, see the full example on
-    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/rust_dev_preview/cross_service/telelphone/src/main.rs">GitHub</ulink>.
+    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/rust_dev_preview/cross_service/telephone/src/main.rs">GitHub</ulink>.
   </para>
 </block>

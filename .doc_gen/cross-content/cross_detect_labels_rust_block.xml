@@ -5,10 +5,10 @@
 ]>
 <block>
   <para>
-    Gets EXIF information from a a JPG, JPEG, or PNG file,
-    uploads the image file to an &S3long; (&S3;) bucket,
-    uses &REKlong; (&REK;) to identify the three top attributes (labels in &REK;) in the file,
-    and adds the EXIF and label information to a &DDBlong; (&DDB;) table in the Region.
+    Get EXIF information from a JPG, JPEG, or PNG file,
+    upload the image file to an &S3long; bucket,
+    use &REKlong; to identify the three top attributes (<emphasis>labels</emphasis> in &REK;) in the file,
+    and add the EXIF and label information to a &DDBlong; table in the Region.
   </para>
   <para>
     For complete source code and instructions on how to set up and run, see the full example on

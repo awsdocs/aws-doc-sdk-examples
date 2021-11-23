@@ -5,8 +5,9 @@
 ]>
 <block>
   <para>
-    Saves the image in an &S3long; (&S3;) bucket with an <emphasis role="bold">uploads</emphasis> prefix,
-    and displays facial details, such as age range, gender, and emotion (smiling, etc.).
+    Save the image in an &S3long; bucket with an <emphasis role="bold">uploads</emphasis> prefix,
+    use &REKlong; to detect facial details, such as age range, gender, and emotion (smiling, etc.),
+    and display those details.
   </para>
   <para>
     For complete source code and instructions on how to set up and run, see the full example on
