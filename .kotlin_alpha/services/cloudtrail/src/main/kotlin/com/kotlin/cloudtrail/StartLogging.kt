@@ -18,7 +18,6 @@ package com.kotlin.cloudtrail
 import aws.sdk.kotlin.services.cloudtrail.CloudTrailClient
 import aws.sdk.kotlin.services.cloudtrail.model.StartLoggingRequest
 import aws.sdk.kotlin.services.cloudtrail.model.StopLoggingRequest
-import aws.sdk.kotlin.services.cloudtrail.model.CloudTrailException
 import kotlin.system.exitProcess
 //snippet-end:[cloudtrail.kotlin.logging.import]
 
@@ -34,51 +33,36 @@ suspend fun main(args: Array<String>) {
         
     """
 
-      if (args.size != 1) {
-          println(usage)
-          exitProcess(0)
-     }
+    if (args.size != 1) {
+        println(usage)
+        exitProcess(0)
+    }
 
     val trailName = args[0]
-    val cloudTrailClient = CloudTrailClient{ region = "us-east-1" }
-    startLog(cloudTrailClient, trailName)
-    stopLog(cloudTrailClient, trailName)
-    cloudTrailClient.close()
+    startLog(trailName)
+    stopLog(trailName)
 }
 
 //snippet-start:[cloudtrail.kotlin.logging.main]
- suspend fun stopLog(cloudTrailClient: CloudTrailClient, trailName: String) {
+ suspend fun stopLog(trailName: String) {
 
-     try {
-
-            val loggingRequest = StopLoggingRequest {
-                name = trailName
-            }
-
-            cloudTrailClient.stopLogging(loggingRequest)
+    val request = StopLoggingRequest {
+        name = trailName
+    }
+    CloudTrailClient { region = "us-east-1" }.use { cloudTrail ->
+          cloudTrail.stopLogging(request)
             println("$trailName has stopped logging")
-
-        } catch (ex: CloudTrailException) {
-            println(ex.message)
-            cloudTrailClient.close()
-            exitProcess(0)
         }
     }
 
-   suspend fun startLog(cloudTrailClient: CloudTrailClient, trailName: String) {
+   suspend fun startLog(trailName: String) {
 
-       try {
-            val loggingRequest = StartLoggingRequest {
-                name = trailName
-            }
-
-            cloudTrailClient.startLogging(loggingRequest)
+       val request = StartLoggingRequest {
+           name = trailName
+       }
+       CloudTrailClient { region = "us-east-1" }.use { cloudTrail ->
+            cloudTrail.startLogging(request)
             println("$trailName has started logging")
-
-        } catch (ex: CloudTrailException) {
-            println(ex.message)
-            cloudTrailClient.close()
-            exitProcess(0)
         }
     }
 //snippet-end:[cloudtrail.kotlin.logging.main]

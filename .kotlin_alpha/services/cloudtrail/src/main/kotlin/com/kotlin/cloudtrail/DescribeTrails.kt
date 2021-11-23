@@ -17,7 +17,6 @@ package com.kotlin.cloudtrail
 //snippet-start:[cloudtrail.kotlin.describe_trail.import]
 import aws.sdk.kotlin.services.cloudtrail.CloudTrailClient
 import aws.sdk.kotlin.services.cloudtrail.model.DescribeTrailsRequest
-import aws.sdk.kotlin.services.cloudtrail.model.CloudTrailException
 import kotlin.system.exitProcess
 //snippet-end:[cloudtrail.kotlin.describe_trail.import]
 
@@ -30,7 +29,6 @@ suspend fun main(args: Array<String>) {
 
     Where:
         trailName - the name of the trail. 
-      
     """
 
     if (args.size != 1) {
@@ -39,30 +37,21 @@ suspend fun main(args: Array<String>) {
       }
 
     val trailName = args[0]
-    val cloudTrailClient = CloudTrailClient{ region = "us-east-1" }
-    describeSpecificTrails(cloudTrailClient, trailName)
-    cloudTrailClient.close()
-}
+    describeSpecificTrails(trailName)
+    }
 
   //snippet-start:[cloudtrail.kotlin.describe_trail.main]
-  suspend fun describeSpecificTrails(cloudTrailClient: CloudTrailClient, trailName: String) {
+  suspend fun describeSpecificTrails(trailName: String) {
 
-        try {
+      val request  = DescribeTrailsRequest {
+          trailNameList = listOf(trailName)
+      }
 
-            val trailsRequest = DescribeTrailsRequest {
-                trailNameList = listOf(trailName)
-            }
-
-            val response = cloudTrailClient.describeTrails(trailsRequest)
+      CloudTrailClient { region = "us-east-1" }.use { cloudTrail ->
+            val response = cloudTrail.describeTrails(request)
             response.trailList?.forEach { trail ->
                 println("The ARN of the trail is ${trail.trailArn}")
            }
-           
-
-        } catch (ex: CloudTrailException) {
-            println(ex.message)
-            cloudTrailClient.close()
-            exitProcess(0)
         }
     }
 //snippet-end:[cloudtrail.kotlin.describe_trail.main]

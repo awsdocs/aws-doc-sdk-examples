@@ -19,7 +19,6 @@ import aws.sdk.kotlin.services.cloudtrail.CloudTrailClient
 import aws.sdk.kotlin.services.cloudtrail.model.EventSelector
 import aws.sdk.kotlin.services.cloudtrail.model.PutEventSelectorsRequest
 import aws.sdk.kotlin.services.cloudtrail.model.ReadWriteType
-import aws.sdk.kotlin.services.cloudtrail.model.CloudTrailException
 import kotlin.system.exitProcess
 //snippet-end:[cloudtrail.kotlin._selectors.import]
 
@@ -32,7 +31,6 @@ suspend fun main(args: Array<String>) {
 
     Where:
         trailName - the name of the trail. 
-        
     """
 
      if (args.size != 1) {
@@ -41,30 +39,21 @@ suspend fun main(args: Array<String>) {
       }
 
     val trailName = args[0]
-    val cloudTrailClient = CloudTrailClient{ region = "us-east-1" }
-    setSelector(cloudTrailClient, trailName)
-    cloudTrailClient.close()
-  }
+    setSelector(trailName)
+    }
 
 //snippet-start:[cloudtrail.kotlin._selectors.main]
-suspend fun setSelector(cloudTrailClient: CloudTrailClient, trailNameVal: String?) {
-        try {
+suspend fun setSelector(trailNameVal: String?) {
 
             val selector = EventSelector {
                 readWriteType = ReadWriteType.fromValue("All")
             }
 
-            val selectorsRequest = PutEventSelectorsRequest {
-                trailName = trailNameVal
-                eventSelectors = listOf(selector)
+            CloudTrailClient { region = "us-east-1" }.use { cloudTrail ->
+                cloudTrail.putEventSelectors(PutEventSelectorsRequest {
+                    trailName = trailNameVal
+                    eventSelectors = listOf(selector)
+                } )
             }
-
-            cloudTrailClient.putEventSelectors(selectorsRequest)
-
-        } catch (ex: CloudTrailException) {
-            println(ex.message)
-            cloudTrailClient.close()
-            exitProcess(0)
-        }
- }
+    }
 //snippet-end:[cloudtrail.kotlin._selectors.main]
