@@ -10,7 +10,7 @@ The Kotlin code examples perform AWS operations for the account and AWS Region f
 
 You will find these examples: 
 
-- **BatchTranslation** - Demonstrates how to translate multiple text documents located in an Amazon S3 bucket.
+- **BatchTranslation** - Demonstrates how to translate multiple text documents located in an Amazon Simple Storage Service (Amazon S3) bucket.
 - **DescribeTextTranslationJob** - Demonstrates how to describe a translation job.
 - **ListTextTranslationJobs** - Demonstrates how to list all translation jobs.
 - **TranslateText** - Demonstrates how to translate text from one language to another.
