@@ -1,6 +1,16 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+/// <summary>
+/// Shows how to receive messages from an existing Amazon SQS queue.
+/// Reads a single message from the SQS queue, displays the message, then deletes it from the queue.
+/// Can be used in conjunction with SQSSendMessagesExample to see an example of message flow.
+/// See the following for more information:
+/// https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/ReceiveMessage.html
+/// 
+/// This example was created using the AWS SDK for .NET version 3.7 and .NET 5.0.
+/// </summary>
+
 // snippet-start:[sqs.dotnetv3.SQSReceiveMessagesExample.complete]
 using System;
 using System.Threading.Tasks;
@@ -49,9 +59,13 @@ namespace SQSReceiveMessagesExample
 
 
     // snippet-start:[sqs.dotnetv3.SQSReceiveMessagesExample.GetMessage]
-    //
-    // Method to read a message from the given queue
-    // In this example, it gets one message at a time
+    /// <summary>
+    /// Method to read a message from the given queue.
+    /// In this example, it gets one message at a time.
+    /// </summary>
+    /// <param name="sqsClient">The SQS client, created in Main.</param>
+    /// <param name="qUrl">The URL of the queue, given as a command line argument.</param>
+    /// <param name="waitTime">The time to wait for a message to arrive in the queue. </param>
     private static async Task<ReceiveMessageResponse> GetMessage(
       IAmazonSQS sqsClient, string qUrl, int waitTime = 0)
     {
@@ -66,9 +80,11 @@ namespace SQSReceiveMessagesExample
     // snippet-end:[sqs.dotnetv3.SQSReceiveMessagesExample.GetMessage]
 
 
-    //
-    // Method to process a message
-    // In this example, it simply prints the message
+    /// <summary>
+    /// Method to process a message.
+    /// In this example, it simply prints the message.
+    /// </summary>
+    /// <param name="message">The message received from the queue.</param>
     private static bool ProcessMessage(Message message)
     {
       Console.WriteLine($"\nMessage body of {message.MessageId}:");
@@ -78,8 +94,12 @@ namespace SQSReceiveMessagesExample
 
 
     // snippet-start:[sqs.dotnetv3.SQSReceiveMessagesExample.DeleteMessage]
-    //
-    // Method to delete a message from a queue
+    /// <summary>
+    /// Method to delete a message from a queue.
+    /// </summary>
+    /// <param name="sqsClient">The SQS client, created in Main.</param>
+    /// <param name="message">The message received from the queue.</param>
+    /// <param name="qUrl">The URL of the queue, given as a command line argument.</param>
     private static async Task DeleteMessage(
       IAmazonSQS sqsClient, Message message, string qUrl)
     {

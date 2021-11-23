@@ -1,6 +1,17 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+/// <summary>
+/// Shows how to send messages to an existing Amazon SQS queue.
+/// Sends a single message to the SQS queue, then a batch of messages. Then allows the user
+/// to send their own messages.
+/// Can be used in conjunction with SQSReceiveMessagesExample to see an example of message flow.
+/// See the following for more information:
+/// https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/SendMessage.html
+/// 
+/// This example was created using the AWS SDK for .NET version 3.7 and .NET 5.0.
+/// </summary>
+
 // snippet-start:[sqs.dotnetv3.SQSSendMessagesExample.complete]
 using System;
 using System.Collections.Generic;
@@ -60,9 +71,14 @@ namespace SQSSendMessagesExample
 
 
     // snippet-start:[sqs.dotnetv3.SQSSendMessagesExample.SendMessage]
-    //
-    // Method to put a message on a queue
-    // Could be expanded to include message attributes, etc., in a SendMessageRequest
+    /// <summary>
+    /// Method to put a message on a queue.
+    /// Could be expanded to include message attributes, etc.,
+    /// in a SendMessageRequest object.
+    /// </summary>
+    /// <param name="sqsClient">The SQS client, created in Main.</param>
+    /// <param name="qUrl">The URL of the queue, given as a command line argument.</param>
+    /// <param name="messageBody">The message to send to the queue.</param>
     private static async Task SendMessage(
       IAmazonSQS sqsClient, string qUrl, string messageBody)
     {
@@ -75,10 +91,14 @@ namespace SQSSendMessagesExample
 
 
     // snippet-start:[sqs.dotnetv3.SQSSendMessagesExample.SendMessageBatch]
-    //
-    // Method to put a batch of messages on a queue
-    // Could be expanded to include message attributes, etc.,
-    // in the SendMessageBatchRequestEntry objects
+    /// <summary>
+    /// Method to put a batch of messages on an SQS queue.
+    /// Could be expanded to include message attributes, etc.,
+    /// in the SendMessageBatchRequestEntry objects.
+    /// </summary>
+    /// <param name="sqsClient">The SQS client, created in Main.</param>
+    /// <param name="qUrl">The URL of the queue, given as a command line argument.</param>
+    /// <param name="messages">The messages to send to the queue.</param>
     private static async Task SendMessageBatch(
       IAmazonSQS sqsClient, string qUrl, List<SendMessageBatchRequestEntry> messages)
     {
@@ -92,9 +112,12 @@ namespace SQSSendMessagesExample
     // snippet-end:[sqs.dotnetv3.SQSSendMessagesExample.SendMessageBatch]
 
 
-    //
-    // Method to get input from the user
-    // They can provide messages to put in the queue or exit the application
+    /// <summary>
+    /// Method to get input from the user.
+    /// They can provide messages to put in the queue or exit the application.
+    /// </summary>
+    /// <param name="sqsClient">The SQS client, created in Main.</param>
+    /// <param name="qUrl">The URL of the queue, given as a command line argument.</param>
     private static async Task InteractWithUser(IAmazonSQS sqsClient, string qUrl)
     {
       string response;
@@ -112,8 +135,11 @@ namespace SQSSendMessagesExample
 
 
     // snippet-start:[sqs.dotnetv3.SQSSendMessagesExample.DeleteAllMessages]
-    //
-    // Method to delete all messages from the queue
+    /// <summary>
+    /// Method to delete all messages from the queue.
+    /// </summary>
+    /// <param name="sqsClient">The SQS client, created in Main.</param>
+    /// <param name="qUrl">The URL of the queue, given as a command line argument.</param>
     private static async Task DeleteAllMessages(IAmazonSQS sqsClient, string qUrl)
     {
       Console.WriteLine($"\nPurging messages from queue\n  {qUrl}...");
