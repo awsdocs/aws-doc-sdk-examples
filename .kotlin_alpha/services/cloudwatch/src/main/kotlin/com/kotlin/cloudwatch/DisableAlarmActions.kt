@@ -16,7 +16,6 @@ package com.kotlin.cloudwatch
 // snippet-start:[cloudwatch.kotlin.disable_alarm_actions.import]
 import aws.sdk.kotlin.services.cloudwatch.CloudWatchClient
 import aws.sdk.kotlin.services.cloudwatch.model.DisableAlarmActionsRequest
-import aws.sdk.kotlin.services.cloudwatch.model.CloudWatchException
 import kotlin.system.exitProcess
 // snippet-end:[cloudwatch.kotlin.disable_alarm_actions.import]
 
@@ -37,24 +36,18 @@ suspend fun main(args:Array<String>) {
      }
 
     val alarmName = args[0]
-    val cwClient = CloudWatchClient{region="us-east-1"}
-    disableActions(cwClient, alarmName)
-    cwClient.close()
-}
+    disableActions(alarmName)
+   }
 
 // snippet-start:[cloudwatch.kotlin.disable_alarm_actions.main]
-suspend fun disableActions(cwClient: CloudWatchClient, alarmName: String) {
-    try {
-        val request = DisableAlarmActionsRequest {
-            alarmNames = listOf(alarmName)
-        }
+suspend fun disableActions(alarmName: String) {
+
+    val request = DisableAlarmActionsRequest {
+        alarmNames = listOf(alarmName)
+    }
+    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         cwClient.disableAlarmActions(request)
         println("Successfully disabled actions on alarm ${alarmName}")
-
-    } catch (ex: CloudWatchException) {
-        println(ex.message)
-        cwClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[cloudwatch.kotlin.disable_alarm_actions.main]

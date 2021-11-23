@@ -15,7 +15,6 @@ package com.kotlin.cloudwatch
 
 // snippet-start:[cloudwatch.kotlin.delete_subscription_filter.import]
 import aws.sdk.kotlin.services.cloudwatchlogs.CloudWatchLogsClient
-import aws.sdk.kotlin.services.cloudwatch.model.CloudWatchException
 import aws.sdk.kotlin.services.cloudwatchlogs.model.DeleteSubscriptionFilterRequest
 import kotlin.system.exitProcess
 // snippet-end:[cloudwatch.kotlin.delete_subscription_filter.import]
@@ -40,25 +39,20 @@ suspend fun main(args:Array<String>) {
 
     val filter = args[0]
     val pattern = args[1]
-    val cwlClient = CloudWatchLogsClient{region="us-west-2"}
-    deleteSubFilter(cwlClient, filter, pattern)
-    cwlClient.close()
-}
+    deleteSubFilter(filter, pattern)
+   }
 
 // snippet-start:[cloudwatch.kotlin.delete_subscription_filter.main]
-suspend fun deleteSubFilter(logs: CloudWatchLogsClient, filter: String?, logGroup: String?) {
-    try {
-        val request = DeleteSubscriptionFilterRequest {
-            filterName = filter
-            logGroupName = logGroup
-        }
+suspend fun deleteSubFilter( filter: String?, logGroup: String?) {
+
+     val request = DeleteSubscriptionFilterRequest {
+         filterName = filter
+         logGroupName = logGroup
+     }
+
+     CloudWatchLogsClient { region = "us-west-2" }.use { logs ->
         logs.deleteSubscriptionFilter(request)
         println( "Successfully deleted CloudWatch logs subscription filter named $filter")
-
-    } catch (ex: CloudWatchException) {
-        println(ex.message)
-        logs.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[cloudwatch.kotlin.delete_subscription_filter.main]

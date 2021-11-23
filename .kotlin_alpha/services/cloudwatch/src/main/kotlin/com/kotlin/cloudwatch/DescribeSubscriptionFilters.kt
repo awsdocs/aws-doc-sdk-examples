@@ -14,7 +14,6 @@
 package com.kotlin.cloudwatch
 
 // snippet-start:[cloudwatch.kotlin.describe_subscription_filters.import]
-import aws.sdk.kotlin.services.cloudwatch.model.CloudWatchException
 import aws.sdk.kotlin.services.cloudwatchlogs.CloudWatchLogsClient
 import aws.sdk.kotlin.services.cloudwatchlogs.model.DescribeSubscriptionFiltersRequest
 import kotlin.system.exitProcess
@@ -23,10 +22,8 @@ import kotlin.system.exitProcess
 suspend fun main(args:Array<String>) {
 
     val usage = """
-
     Usage:
         <logGroup>  
-
     Where:
          logGroup - a log group name (testgroup).
     """
@@ -37,29 +34,22 @@ suspend fun main(args:Array<String>) {
    }
 
     val logGroup = args[0]
-    val cwlClient = CloudWatchLogsClient{region="us-west-2"}
-    describeFilters(cwlClient, logGroup)
-    cwlClient.close()
-}
+    describeFilters(logGroup)
+ }
 
 // snippet-start:[cloudwatch.kotlin.describe_subscription_filters.main]
-suspend fun describeFilters(cwlClient: CloudWatchLogsClient, logGroup: String?) {
-    try {
+suspend fun describeFilters(logGroup: String) {
 
-          val request = DescribeSubscriptionFiltersRequest {
-               logGroupName = logGroup
-               limit = 1
-           }
+        val request =  DescribeSubscriptionFiltersRequest {
+          logGroupName = logGroup
+          limit = 1
+        }
 
+        CloudWatchLogsClient { region = "us-west-2" }.use { cwlClient ->
           val response = cwlClient.describeSubscriptionFilters(request)
           response.subscriptionFilters?.forEach { filter ->
               println("Retrieved filter with name  ${filter.filterName} pattern ${filter.filterPattern} and destination ${filter.destinationArn}" )
           }
-
-    } catch (ex: CloudWatchException) {
-        println(ex.message)
-        cwlClient.close()
-        exitProcess(0)
-    }
+        }
  }
 // snippet-end:[cloudwatch.kotlin.describe_subscription_filters.main]

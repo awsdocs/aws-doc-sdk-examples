@@ -16,31 +16,21 @@ package com.kotlin.cloudwatch
 
 // snippet-start:[cloudwatch.kotlin.describe_alarms.import]
 import aws.sdk.kotlin.services.cloudwatch.CloudWatchClient
-import aws.sdk.kotlin.services.cloudwatch.model.CloudWatchException
 import aws.sdk.kotlin.services.cloudwatch.model.DescribeAlarmsRequest
-import kotlin.system.exitProcess
 // snippet-end:[cloudwatch.kotlin.describe_alarms.import]
 
 suspend fun main() {
-
-    val cwClient = CloudWatchClient{region="us-east-1"}
-    desCWAlarms(cwClient)
-    cwClient.close()
+    desCWAlarms()
 }
 
 // snippet-start:[cloudwatch.kotlin.describe_alarms.main]
-suspend fun desCWAlarms(cwClient: CloudWatchClient) {
+suspend fun desCWAlarms() {
 
-    try {
+    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
            val response = cwClient.describeAlarms(DescribeAlarmsRequest {})
            response.metricAlarms?.forEach { alarm ->
                println("Retrieved alarm ${alarm.alarmName}")
            }
-
-    } catch (ex: CloudWatchException) {
-        println(ex.message)
-        cwClient.close()
-        exitProcess(0)
     }
  }
 // snippet-end:[cloudwatch.kotlin.describe_alarms.main]

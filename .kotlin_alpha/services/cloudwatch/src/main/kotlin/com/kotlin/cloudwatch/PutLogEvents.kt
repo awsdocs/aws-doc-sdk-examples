@@ -14,9 +14,9 @@
 package com.kotlin.cloudwatch
 
 // snippet-start:[cloudwatch.kotlin.put_log_events.import]
-import aws.sdk.kotlin.services.cloudwatch.model.CloudWatchException
 import aws.sdk.kotlin.services.cloudwatchlogs.CloudWatchLogsClient
 import aws.sdk.kotlin.services.cloudwatchlogs.model.DescribeLogStreamsRequest
+import aws.sdk.kotlin.services.cloudwatchlogs.model.DescribeLogStreamsResponse
 import aws.sdk.kotlin.services.cloudwatchlogs.model.InputLogEvent
 import aws.sdk.kotlin.services.cloudwatchlogs.model.PutLogEventsRequest
 import kotlin.system.exitProcess
@@ -41,42 +41,36 @@ suspend fun main(args:Array<String>) {
 
     val streamName = args[0]
     val logGroup = args[1]
-    val cwlClient = CloudWatchLogsClient{region="us-west-2"}
-    putCWLogEvents(cwlClient, logGroup, streamName)
-    cwlClient.close()
-}
+    putCWLogEvents(logGroup, streamName)
+   }
 
 // snippet-start:[cloudwatch.kotlin.put_log_events.main]
-suspend fun putCWLogEvents(logsClient: CloudWatchLogsClient, logGroupNameVal: String?, streamNameVal: String?) {
-    try {
-        val logStreamRequest = DescribeLogStreamsRequest {
+suspend fun putCWLogEvents(logGroupNameVal: String, streamNameVal: String) {
+
+        lateinit var describeLogStreamsResponse: DescribeLogStreamsResponse
+        val request = DescribeLogStreamsRequest {
             logGroupName = logGroupNameVal
             logStreamNamePrefix = streamNameVal
         }
-        val describeLogStreamsResponse = logsClient.describeLogStreams(logStreamRequest)
-        val sequenceTokenVal = describeLogStreamsResponse.logStreams?.get(0)?.uploadSequenceToken
 
-        // Build an input log message to put to CloudWatch.
-        val inputLogEvent = InputLogEvent {
-            message  = "{ \"key1\": \"value1\", \"key2\": \"value2\" }"
-            timestamp =  System.currentTimeMillis()
-        }
+       CloudWatchLogsClient { region = "us-west-2" }.use { logsClient ->
+            describeLogStreamsResponse =   logsClient.describeLogStreams(request)
+            println("Successfully put the CloudWatch log event")
 
-        // Specify the request parameters.
-        val putLogEventsRequest = PutLogEventsRequest {
-            logEvents = listOf(inputLogEvent)
-            logGroupName = logGroupNameVal
-            logStreamName = streamNameVal
-            sequenceToken = sequenceTokenVal
-        }
+           val sequenceTokenVal = describeLogStreamsResponse.logStreams?.get(0)?.uploadSequenceToken
+           val inputLogEvent = InputLogEvent {
+              message  = "{ \"key1\": \"value1\", \"key2\": \"value2\" }"
+              timestamp =  System.currentTimeMillis()
+           }
 
-        logsClient.putLogEvents(putLogEventsRequest)
-        println("Successfully put the CloudWatch log event")
-
-    } catch (e: CloudWatchException) {
-        println(e.message)
-        logsClient.close()
-        exitProcess(0)
-    }
+           val request2 =  PutLogEventsRequest {
+                logEvents = listOf(inputLogEvent)
+                logGroupName = logGroupNameVal
+                logStreamName = streamNameVal
+                sequenceToken = sequenceTokenVal
+           }
+           logsClient.putLogEvents(request2)
+           println("Successfully put the CloudWatch log event")
+       }
 }
 // snippet-end:[cloudwatch.kotlin.put_log_events.main]
