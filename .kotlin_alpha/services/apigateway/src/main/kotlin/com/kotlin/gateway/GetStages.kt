@@ -15,7 +15,6 @@ package com.kotlin.gateway
 
 // snippet-start:[apigateway.kotlin.get_stages.import]
 import aws.sdk.kotlin.services.apigateway.ApiGatewayClient
-import aws.sdk.kotlin.services.apigateway.model.ApiGatewayException
 import aws.sdk.kotlin.services.apigateway.model.GetStagesRequest
 import kotlin.system.exitProcess
 // snippet-end:[apigateway.kotlin.get_stages.import]
@@ -36,27 +35,21 @@ suspend fun main(args:Array<String>) {
     }
 
     val restApiId = args[0]
-    val apiGatewayClient = ApiGatewayClient{region ="us-east-1"}
-    getAllStages(apiGatewayClient, restApiId)
-    apiGatewayClient.close()
+    getAllStages(restApiId)
 }
 
 // snippet-start:[apigateway.kotlin.get_stages.main]
-suspend fun getAllStages(apiGateway: ApiGatewayClient, restApiIdVal: String?) {
-    try {
-        val stagesRequest = GetStagesRequest {
-            restApiId = restApiIdVal
-        }
+suspend fun getAllStages(restApiIdVal: String?) {
 
+    val stagesRequest = GetStagesRequest {
+        restApiId = restApiIdVal
+    }
+
+    ApiGatewayClient { region = "us-east-1" }.use { apiGateway ->
         val response = apiGateway.getStages(stagesRequest)
         response.item?.forEach { stage ->
             println("Stage name is ${stage.stageName}")
         }
-
-    } catch (e: ApiGatewayException) {
-        println(e.message)
-        apiGateway.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[apigateway.kotlin.get_stages.main]

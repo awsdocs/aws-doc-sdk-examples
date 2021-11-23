@@ -15,7 +15,6 @@ package com.kotlin.gateway
 
 // snippet-start:[apigateway.kotlin.create_deployment.import]
 import aws.sdk.kotlin.services.apigateway.ApiGatewayClient
-import aws.sdk.kotlin.services.apigateway.model.ApiGatewayException
 import aws.sdk.kotlin.services.apigateway.model.CreateDeploymentRequest
 import kotlin.system.exitProcess
 // snippet-end:[apigateway.kotlin.create_deployment.import]
@@ -38,28 +37,22 @@ suspend fun main(args:Array<String>) {
 
     val restApiId = args[0]
     val stageName = args[1]
-    val apiGatewayClient = ApiGatewayClient{region ="us-east-1"}
-    createNewDeployment(apiGatewayClient, restApiId, stageName)
-    apiGatewayClient.close()
+    createNewDeployment(restApiId, stageName)
 }
 
 // snippet-start:[apigateway.kotlin.create_deployment.main]
-suspend fun createNewDeployment(apiGateway: ApiGatewayClient, restApiIdVal: String?, stageNameVal: String?): String? {
-    try {
+suspend fun createNewDeployment(restApiIdVal: String?, stageNameVal: String?): String? {
+
         val request = CreateDeploymentRequest {
              restApiId = restApiIdVal
              description = "Created using the AWS API Gateway Kotlin API"
              stageName = stageNameVal
         }
 
-        val response = apiGateway.createDeployment(request)
-        println("The id of the deployment is " + response.id)
-        return response.id
-
-    } catch (e: ApiGatewayException) {
-        println(e.message)
-        apiGateway.close()
-        exitProcess(0)
-    }
+        ApiGatewayClient { region = "us-east-1" }.use { apiGateway ->
+          val response = apiGateway.createDeployment(request)
+          println("The id of the deployment is " + response.id)
+          return response.id
+       }
  }
 // snippet-end:[apigateway.kotlin.create_deployment.main]

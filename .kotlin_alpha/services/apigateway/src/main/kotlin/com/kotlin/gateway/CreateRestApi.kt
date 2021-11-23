@@ -15,7 +15,6 @@ package com.kotlin.gateway
 
 // snippet-start:[apigateway.kotlin.create_api.import]
 import aws.sdk.kotlin.services.apigateway.ApiGatewayClient
-import aws.sdk.kotlin.services.apigateway.model.ApiGatewayException
 import aws.sdk.kotlin.services.apigateway.model.CreateRestApiRequest
 import kotlin.system.exitProcess
 // snippet-end:[apigateway.kotlin.create_api.import]
@@ -37,26 +36,21 @@ suspend fun main(args:Array<String>) {
     }
 
     val restApiId = args[0]
-    val apiGatewayClient = ApiGatewayClient{region ="us-east-1"}
-    createAPI(apiGatewayClient, restApiId)
-    apiGatewayClient.close()
+    createAPI(restApiId)
 }
 
 // snippet-start:[apigateway.kotlin.create_api.main]
-suspend fun createAPI(apiGateway: ApiGatewayClient, restApiName: String?): String? {
-    try {
-        val request = CreateRestApiRequest {
-            description = "Created using the Gateway Kotlin API"
-            name = restApiName
-        }
+suspend fun createAPI(restApiName: String?): String? {
+
+    val request = CreateRestApiRequest {
+        description = "Created using the Gateway Kotlin API"
+        name = restApiName
+    }
+
+    ApiGatewayClient { region = "us-east-1" }.use { apiGateway ->
         val response = apiGateway.createRestApi(request)
         println("The id of the new api is ${response.id}")
         return response.id
-
-    } catch (e: ApiGatewayException) {
-        println(e.message)
-        apiGateway.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[apigateway.kotlin.create_api.main]

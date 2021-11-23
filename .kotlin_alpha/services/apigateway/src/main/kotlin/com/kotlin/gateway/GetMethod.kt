@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[GetMethod.kt demonstrates how to describe an existing method resource..]
+//snippet-sourcedescription:[GetMethod.kt demonstrates how to describe an existing method resource.]
 //snippet-keyword:[SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon API Gateway]
@@ -15,7 +15,6 @@ package com.kotlin.gateway
 
 // snippet-start:[apigateway.kotlin.get_method.import]
 import aws.sdk.kotlin.services.apigateway.ApiGatewayClient
-import aws.sdk.kotlin.services.apigateway.model.ApiGatewayException
 import aws.sdk.kotlin.services.apigateway.model.GetMethodRequest
 import kotlin.system.exitProcess
 // snippet-end:[apigateway.kotlin.get_method.import]
@@ -23,7 +22,7 @@ import kotlin.system.exitProcess
 
 suspend fun main(args:Array<String>) {
 
-    val USAGE = """
+    val usage = """
     Usage:
         <restApiId> <resourceId> <httpMethod> 
 
@@ -34,32 +33,26 @@ suspend fun main(args:Array<String>) {
     """
 
     if (args.size != 3) {
-        println(USAGE)
+        println(usage)
         exitProcess(0)
     }
 
     val restApiId = args[0]
     val resourceId = args[1]
     val httpMethod = args[2]
-    val apiGatewayClient = ApiGatewayClient{region ="us-east-1"}
-    getSpecificMethod(apiGatewayClient, restApiId, resourceId, httpMethod)
-    apiGatewayClient.close()
+    getSpecificMethod(restApiId, resourceId, httpMethod)
 }
 
 // snippet-start:[apigateway.kotlin.get_method.main]
-suspend fun getSpecificMethod(
-    apiGateway: ApiGatewayClient,
-    restApiIdVal: String?,
-    resourceIdVal: String?,
-    httpMethodVal: String?
-) {
-    try {
-        val methodRequest = GetMethodRequest {
-            httpMethod = httpMethodVal
-            restApiId = restApiIdVal
-            resourceId = resourceIdVal
-        }
+suspend fun getSpecificMethod(restApiIdVal: String?, resourceIdVal: String?, httpMethodVal: String? ) {
 
+     val methodRequest = GetMethodRequest {
+         httpMethod = httpMethodVal
+         restApiId = restApiIdVal
+         resourceId = resourceIdVal
+     }
+
+    ApiGatewayClient { region = "us-east-1" }.use { apiGateway ->
         val response = apiGateway.getMethod(methodRequest)
 
         // Retrieve a method response associated with a given HTTP status code.
@@ -68,11 +61,6 @@ suspend fun getSpecificMethod(
             for ((key, value) in details)
                 println("Key is $key and Value is $value")
         }
-
-    } catch (e: ApiGatewayException) {
-        println(e.message)
-        apiGateway.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[apigateway.kotlin.get_method.main]
