@@ -17,7 +17,6 @@ package com.kotlin.dynamodb
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
 import aws.sdk.kotlin.services.dynamodb.model.QueryRequest
-import aws.sdk.kotlin.services.dynamodb.model.DynamoDbException
 import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.query.import]
 
@@ -52,15 +51,12 @@ suspend fun main(args: Array<String>) {
     // For more information about an alias, see:
     // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ExpressionAttributeNames.html
     val partitionAlias = "#a"
-    val ddb = DynamoDbClient{ region = "us-east-1" }
-    val count =  queryDynTable(ddb, tableName, partitionKeyName, partitionKeyVal, partitionAlias);
+    val count =  queryDynTable(tableName, partitionKeyName, partitionKeyVal, partitionAlias)
     print("There is $count item in $tableName")
-    ddb.close()
 }
 
 // snippet-start:[dynamodb.kotlin.query.main]
 suspend fun queryDynTable(
-        ddb: DynamoDbClient,
         tableNameVal: String,
         partitionKeyName: String,
         partitionKeyVal: String,
@@ -74,23 +70,16 @@ suspend fun queryDynTable(
         val attrValues = mutableMapOf<String, AttributeValue>()
         attrValues[":$partitionKeyName"] = AttributeValue.S(partitionKeyVal)
 
-        val queryReq = QueryRequest {
+        val request = QueryRequest {
             tableName = tableNameVal
             keyConditionExpression = "$partitionAlias = :$partitionKeyName"
             expressionAttributeNames = attrNameAlias
             this.expressionAttributeValues = attrValues
         }
 
-        try {
-            val response = ddb.query(queryReq)
+        DynamoDbClient { region = "us-east-1" }.use { ddb ->
+            val response = ddb.query(request)
             return response.count
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            ddb.close()
-            exitProcess(0)
         }
-        return -1
   }
-
 // snippet-end:[dynamodb.kotlin.query.main]

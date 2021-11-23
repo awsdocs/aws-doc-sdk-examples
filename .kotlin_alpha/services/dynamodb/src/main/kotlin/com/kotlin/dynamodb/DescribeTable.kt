@@ -16,7 +16,6 @@ package com.kotlin.dynamodb
 // snippet-start:[dynamodb.kotlin.describe_table.import]
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.dynamodb.model.DescribeTableRequest
-import aws.sdk.kotlin.services.dynamodb.model.DynamoDbException
 import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.describe_table.import]
 
@@ -43,30 +42,23 @@ suspend fun main(args: Array<String>) {
     }
 
     val tableName = args[0]
-    val ddb = DynamoDbClient{ region = "us-east-1" }
-    describeDymamoDBTable(ddb, tableName)
-    ddb.close()
+    describeDymamoDBTable(tableName)
 }
 
 // snippet-start:[dynamodb.kotlin.describe_table.main]
-suspend fun describeDymamoDBTable(ddb: DynamoDbClient, tableNameVal: String?) {
+suspend fun describeDymamoDBTable(tableNameVal: String?) {
 
-        val request = DescribeTableRequest {
-            tableName= tableNameVal
-        }
+    val request = DescribeTableRequest {
+        tableName= tableNameVal
+    }
 
-        try {
+    DynamoDbClient { region = "us-east-1" }.use { ddb ->
             val tableInfo = ddb.describeTable(request)
             println("Table name ${tableInfo.table?.tableName}")
             println("Table Arn:  ${tableInfo.table?.tableArn}")
             println("Table Status: ${tableInfo.table?.tableStatus}")
             println("Item count:  ${tableInfo.table?.itemCount}")
             println("Size (bytes): ${tableInfo.table?.tableSizeBytes}")
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            ddb.close()
-            exitProcess(0)
         }
  }
 // snippet-end:[dynamodb.kotlin.describe_table.main]

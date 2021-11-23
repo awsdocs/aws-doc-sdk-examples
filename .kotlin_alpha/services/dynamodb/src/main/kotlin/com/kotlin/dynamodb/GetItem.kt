@@ -17,7 +17,6 @@ package com.kotlin.dynamodb
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
 import aws.sdk.kotlin.services.dynamodb.model.GetItemRequest
-import aws.sdk.kotlin.services.dynamodb.model.DynamoDbException
 import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.get_item.import]
 
@@ -48,39 +47,27 @@ suspend fun main(args: Array<String>) {
     val tableName = args[0]
     val key = args[1]
     val keyVal = args[2]
-    val ddb = DynamoDbClient{ region = "us-east-1" }
-    getSpecificItem(ddb, tableName, key, keyVal)
-    ddb.close()
-}
+    getSpecificItem(tableName, key, keyVal)
+    }
 
 // snippet-start:[dynamodb.kotlin.get_item.main]
-suspend fun getSpecificItem(ddb: DynamoDbClient,
-                        tableNameVal: String,
-                        keyName: String,
-                        keyVal: String) {
+suspend fun getSpecificItem(tableNameVal: String, keyName: String, keyVal: String) {
 
         val keyToGet = mutableMapOf<String, AttributeValue>()
         keyToGet[keyName] = AttributeValue.S(keyVal)
 
         val request = GetItemRequest {
-            key = keyToGet
-            tableName = tableNameVal
+           key = keyToGet
+           tableName = tableNameVal
         }
 
-        try {
+         DynamoDbClient { region = "us-east-1" }.use { ddb ->
             val returnedItem = ddb.getItem(request)
             val numbersMap = returnedItem.item
-
-                numbersMap?.forEach { key1 ->
+            numbersMap?.forEach { key1 ->
                     println(key1.key)
                     println(key1.value)
-                }
-
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            ddb.close()
-            exitProcess(0)
-        }
+            }
+         }
  }
 // snippet-end:[dynamodb.kotlin.get_item.main]
