@@ -10,10 +10,10 @@ The Kotlin code examples perform AWS operations for the account and AWS Region f
 
 You will find these examples: 
 
-- **CreateContainer** - Demonstrates how to create an AWS Elemental MediaStore container.
-- **DeleteContainer** - Demonstrates how to delete a given AWS Elemental MediaStore container.
-- **DescribeContainer** - Demonstrates how to describe a given AWS Elemental MediaStore container.
-- **ListContainers** - Demonstrates how to list your AWS Elemental MediaStore containers.
+- **CreateContainer** - Demonstrates how to create a MediaStore container.
+- **DeleteContainer** - Demonstrates how to delete a given MediaStore container.
+- **DescribeContainer** - Demonstrates how to describe a given MediaStore container.
+- **ListContainers** - Demonstrates how to list your MediaStore containers.
 
 To run these examples, you can setup your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
 see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html). 
