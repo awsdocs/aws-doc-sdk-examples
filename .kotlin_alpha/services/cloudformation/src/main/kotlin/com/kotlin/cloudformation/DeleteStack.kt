@@ -18,7 +18,6 @@ package com.kotlin.cloudformation
 // snippet-start:[cf.kotlin.delete_stack.import]
 import aws.sdk.kotlin.services.cloudformation.CloudFormationClient
 import aws.sdk.kotlin.services.cloudformation.model.DeleteStackRequest
-import aws.sdk.kotlin.services.cloudformation.model.CloudFormationException
 import kotlin.system.exitProcess
 // snippet-end:[cf.kotlin.delete_stack.import]
 
@@ -30,7 +29,6 @@ suspend fun main(args:Array<String>) {
 
     Where:
         stackName - the name of the AWS CloudFormation stack. 
-      
     """
 
      if (args.size != 1) {
@@ -39,25 +37,19 @@ suspend fun main(args:Array<String>) {
     }
 
     val stackName =  args[0]
-    val cfClient = CloudFormationClient{region="us-east-1"}
-    deleteSpecificTemplate(cfClient, stackName)
-    cfClient.close()
-}
+    deleteSpecificTemplate(stackName)
+ }
 
 // snippet-start:[cf.kotlin.delete_stack.main]
-suspend fun deleteSpecificTemplate(cfClient: CloudFormationClient, stackNameVal: String?) {
-    try {
-        val stackRequest = DeleteStackRequest {
+suspend fun deleteSpecificTemplate(stackNameVal: String?) {
+
+    val request =  DeleteStackRequest {
         stackName = stackNameVal
-        }
+    }
 
-        cfClient.deleteStack(stackRequest)
-        println("The AWS CloudFormation stack was successfully deleted!")
-
-    } catch (e: CloudFormationException) {
-        println(e.message)
-        cfClient.close()
-        exitProcess(0)
+    CloudFormationClient { region = "us-east-1" }.use { cfClient ->
+         cfClient.deleteStack(request)
+         println("The AWS CloudFormation stack was successfully deleted!")
     }
 }
 // snippet-end:[cf.kotlin.delete_stack.main]
