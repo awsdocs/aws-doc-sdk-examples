@@ -26,12 +26,13 @@
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/emc-examples-getendpoint.html
 
 // snippet-start:[mediaconvert.JavaScript.endoint.describeEndpoints]
-// Load the SDK for JavaScript
-// Load the SDK for JavaScript
+// Load the SDK for JavaScript.
 const aws = require('aws-sdk');
-// Set the Region
+
+// Set the AWS Region.
 aws.config.update({region: 'us-west-2'});
 
+// Create the client.
 const mediaConvert = new aws.MediaConvert({apiVersion: '2017-08-29'});
 
 exports.handler = async (event, context) => {
