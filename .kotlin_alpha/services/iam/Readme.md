@@ -10,5 +10,25 @@ The Kotlin code examples perform AWS operations for the account and AWS Region f
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting a user. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
+You will find these examples: 
+
+- **AccessKeyLastUsed** - Demonstrates how to display the time that an access key was last used.
+- **AttachRolePolicy** - Demonstrates how to attach a policy to an existing AWS IAM role.
+- **CreateAccessKey** - Demonstrates how to create an access key for an AWS IAM user.
+- **CreateAccountAlias** - Demonstrates how to create an alias for an AWS account.
+- **CreatePolicy** - Demonstrates how to create a policy.
+- **CreateUser** - Demonstrates how to create an AWS IAM user.
+- **DeleteAccessKey** - Demonstrates how to delete an access key from an AWS IAM user.
+- **DeleteAccountAlias** - Demonstrates how to delete an alias from an AWS account.
+- **DeletePolicy** - Demonstrates how to delete a fixed policy with a provided policy name.
+- **DeleteUser** - Demonstrates how to delete an AWS IAM user.
+- **DetachRolePolicy** - Demonstrates how to detach a policy from an AWS IAM role.
+- **GetPolicy** - Demonstrates how to get the details for an AWS IAM policy.
+- **ListAccessKeys** - Demonstrates how to list access keys associated with an AWS IAM user.
+- **ListAccountAliases** - Demonstrates how to list all aliases associated with an AWS account.
+- **ListUsers** - Demonstrates how to list all AWS IAM users.
+- **UpdateUser** - Demonstrates how to update the name of an AWS IAM user.
+
+
 To run these examples, you can setup your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
 see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html). 
