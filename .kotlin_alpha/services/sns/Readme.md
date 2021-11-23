@@ -23,7 +23,7 @@ You will find these examples:
 - **PublishTextSMS** - Demonstrates how to send an Amazon SNS text message.
 - **PublishTopic** - Demonstrates how to publish an Amazon SNS topic.
 - **SetTopicAttributes** - Demonstrates how to set attributes for an Amazon SNS topic.
-- **SubscribeEmail** - Demonstrates how to subscribe to an Amazo SNS email endpoint.
+- **SubscribeEmail** - Demonstrates how to subscribe to an Amazon SNS email endpoint.
 - **SubscribeLambda** - Demonstrates how to subscribe to an Amazon SNS lambda function.
 - **SubscribeTextSMS** - Demonstrates how to subscribe to an Amazon SNS text endpoint.
 - **SubscribeTextSMS** - Demonstrates how to subscribe to an Amazon SNS text endpoint.
