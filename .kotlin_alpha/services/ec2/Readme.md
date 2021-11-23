@@ -15,10 +15,10 @@ You will find these examples:
 - **AllocateAddress** - Demonstrates how to allocate an elastic IP address for an Amazon EC2 instance.
 - **CreateInstance** - Demonstrates how to create an Amazon EC2 instance.
 - **CreateKeyPair** - Demonstrates how to create an Amazon EC2 key pair.
-- **CreateSecurityGroup** - Demonstrates how to create an AmazonEC2 security group.
+- **CreateSecurityGroup** - Demonstrates how to create an Amazon EC2 security group.
 - **DeleteKeyPair** - Demonstrates how to delete an Amazon EC2 key pair.
 - **DeleteSecurityGroup** - Demonstrates how to delete an Amazon EC2 security group.
-- **DescribeAccount** - Demonstrates how to get information about the Amazon Elastic Compute Cloud (Amazon EC2) account.
+- **DescribeAccount** - Demonstrates how to get information about the Amazon EC2 account.
 - **DescribeAddresses** - Demonstrates how to get information about elastic IP addresses.
 - **DescribeInstances** - Demonstrates how to get information about all the Amazon EC2 Instances associated with an AWS account.
 - **DescribeInstanceTags** - Demonstrates how to describe the specified tags for your Amazon EC2 resource.
