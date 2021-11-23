@@ -16,7 +16,7 @@ You will find these examples:
 - **CreateDBSnapshot** - Demonstrates how to create an Amazon RDS snapshot.
 - **DeleteDBInstance** - Demonstrates how to delete an Amazon RDS snapshot.
 - **DescribeAccountAttributes** - Demonstrates how to retrieve attributes that belong to an Amazon RDS account.
-- **DescribeDBInstances** - Demonstrates how to describe Amazon Relational Database Service (RDS) instances.
+- **DescribeDBInstances** - Demonstrates how to describe Amazon RDS instances.
 - **ModifyDBInstance** - Demonstrates how to modify an Amazon RDS instance.
 
 To run these examples, you can setup your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
