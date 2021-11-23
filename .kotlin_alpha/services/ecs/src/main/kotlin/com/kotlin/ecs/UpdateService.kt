@@ -16,7 +16,6 @@ package com.kotlin.ecs
 // snippet-start:[ecs.kotlin.update_service.import]
 import aws.sdk.kotlin.services.ecs.EcsClient
 import aws.sdk.kotlin.services.ecs.model.UpdateServiceRequest
-import aws.sdk.kotlin.services.ecs.model.EcsException
 import kotlin.system.exitProcess
 // snippet-end:[ecs.kotlin.update_service.import]
 
@@ -46,27 +45,21 @@ suspend fun main(args:Array<String>){
 
     val clusterName = args[0]
     val serviceArn = args[1]
-    val ecsClient = EcsClient{ region = "us-east-1"}
-    updateSpecificService(ecsClient, clusterName, serviceArn)
-    ecsClient.close()
-}
+    updateSpecificService(clusterName, serviceArn)
+ }
 
 // snippet-start:[ecs.kotlin.update_service.main]
-suspend fun updateSpecificService(ecsClient: EcsClient, clusterName: String?, serviceArn: String?) {
-    try {
-        val serviceRequest = UpdateServiceRequest {
-             cluster = clusterName
-             service = serviceArn
-             desiredCount = 0
-        }
+suspend fun updateSpecificService(clusterName: String?, serviceArn: String?) {
 
-        ecsClient.updateService(serviceRequest)
+    val request = UpdateServiceRequest {
+        cluster = clusterName
+        service = serviceArn
+        desiredCount = 0
+    }
+
+    EcsClient { region = "us-east-1" }.use { ecsClient ->
+        ecsClient.updateService(request)
         println("The service was modified")
-
-    } catch (ex: EcsException) {
-        println(ex.message)
-        ecsClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[ecs.kotlin.update_service.main]

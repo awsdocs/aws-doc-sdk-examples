@@ -16,7 +16,6 @@ package com.kotlin.ecs
 // snippet-start:[ecs.kotlin.des_cluster.import]
 import aws.sdk.kotlin.services.ecs.EcsClient
 import aws.sdk.kotlin.services.ecs.model.DescribeClustersRequest
-import aws.sdk.kotlin.services.ecs.model.EcsException
 import kotlin.system.exitProcess
 // snippet-end:[ecs.kotlin.des_cluster.import]
 
@@ -45,27 +44,21 @@ suspend fun main(args:Array<String>){
      }
 
     val clusterArn = args[0]
-    val ecsClient = EcsClient{ region = "us-east-1"}
-    descCluster(ecsClient, clusterArn)
-    ecsClient.close()
-}
+    descCluster(clusterArn)
+    }
 
 // snippet-start:[ecs.kotlin.des_cluster.main]
-suspend fun descCluster(ecsClient: EcsClient, clusterArn: String) {
-    try {
-        val clustersRequest = DescribeClustersRequest {
-            clusters = listOf(clusterArn)
-        }
+suspend fun descCluster(clusterArn: String) {
 
-        val response = ecsClient.describeClusters(clustersRequest)
+    val request = DescribeClustersRequest {
+        clusters = listOf(clusterArn)
+    }
+
+    EcsClient {region = "us-east-1" }.use { ecsClient ->
+        val response = ecsClient.describeClusters(request)
         response.clusters?.forEach { cluster ->
             println("The cluster name is ${cluster.clusterName}.")
         }
-
-    } catch (ex: EcsException) {
-        println(ex.message)
-        ecsClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[ecs.kotlin.des_cluster.main]

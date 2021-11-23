@@ -16,8 +16,6 @@ package com.kotlin.ecs
 // snippet-start:[ecs.kotlin.list_clusters.import]
 import aws.sdk.kotlin.services.ecs.EcsClient
 import aws.sdk.kotlin.services.ecs.model.ListClustersRequest
-import aws.sdk.kotlin.services.ecs.model.EcsException
-import kotlin.system.exitProcess
 // snippet-end:[ecs.kotlin.list_clusters.import]
 
 /**
@@ -29,24 +27,17 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(){
-
-    val ecsClient = EcsClient{ region = "us-east-1"}
-    listAllClusters(ecsClient)
-    ecsClient.close()
-}
+    listAllClusters()
+ }
 
 // snippet-start:[ecs.kotlin.list_clusters.main]
-suspend  fun listAllClusters(ecsClient: EcsClient) {
-    try {
+suspend  fun listAllClusters() {
+
+    EcsClient { region = "us-east-1" }.use { ecsClient ->
         val response = ecsClient.listClusters(ListClustersRequest{})
         response.clusterArns?.forEach { cluster ->
             println("The cluster arn is ${cluster}.")
        }
-
-    } catch (ex: EcsException) {
-        println(ex.message)
-        ecsClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[ecs.kotlin.list_clusters.main]
