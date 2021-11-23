@@ -14,36 +14,26 @@
 package com.kotlin.athena
 
 //snippet-start:[athena.kotlin.ListNamedQueryExample.import]
-import aws.sdk.kotlin.runtime.AwsServiceException
 import aws.sdk.kotlin.services.athena.AthenaClient
 import aws.sdk.kotlin.services.athena.model.ListNamedQueriesRequest
-import kotlin.system.exitProcess
 //snippet-end:[athena.kotlin.ListNamedQueryExample.import]
 
 suspend fun main() {
-
-    val athenaClient = AthenaClient { region = "us-west-2" }
-    listNamedQueries(athenaClient)
-    athenaClient.close()
+    listNamedQueries()
 }
 
 //snippet-start:[athena.kotlin.ListNamedQueryExample.main]
-suspend fun listNamedQueries(athenaClient: AthenaClient) {
+suspend fun listNamedQueries() {
 
-    try {
-        val listNamedQueriesRequest = ListNamedQueriesRequest{
+        val request = ListNamedQueriesRequest{
             this.maxResults = 10
         }
 
-        val listNamedQueriesResponses =  athenaClient.listNamedQueries(listNamedQueriesRequest)
-        listNamedQueriesResponses.namedQueryIds?.forEach { queries ->
-            println("Retrieved account alias $queries")
+        AthenaClient { region = "us-west-2" }.use { athenaClient ->
+            val responses = athenaClient.listNamedQueries(request)
+            responses.namedQueryIds?.forEach { queries ->
+                println("Retrieved account alias $queries")
+            }
         }
-
-    } catch (ex: AwsServiceException) {
-        println(ex.message)
-        athenaClient.close()
-        exitProcess(0)
-    }
 }
 //snippet-end:[athena.kotlin.ListNamedQueryExample.main]

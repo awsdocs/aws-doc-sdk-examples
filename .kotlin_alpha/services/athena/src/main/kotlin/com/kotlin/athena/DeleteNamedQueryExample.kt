@@ -14,7 +14,6 @@
 package com.kotlin.athena
 
 //snippet-start:[athena.kotlin.DeleteNamedQueryExample.import]
-import aws.sdk.kotlin.runtime.AwsServiceException
 import aws.sdk.kotlin.services.athena.AthenaClient
 import aws.sdk.kotlin.services.athena.model.DeleteNamedQueryRequest
 import kotlin.system.exitProcess
@@ -28,34 +27,26 @@ suspend fun main(args:Array<String>) {
 
     Where:
         queryId - the id of the Amazon Athena query (for example, b34e7780-903b-4842-9d2c-6c99bebc82aa).
-        
     """
 
      if (args.size != 1) {
          println(usage)
          exitProcess(0)
      }
-
     val queryId = args[0]
-    val athenaClient = AthenaClient { region = "us-west-2" }
-    deleteQueryName(athenaClient,queryId)
-    athenaClient.close()
+    deleteQueryName(queryId)
 }
 
 //snippet-start:[athena.kotlin.DeleteNamedQueryExample.main]
-suspend fun deleteQueryName(athenaClient: AthenaClient, sampleNamedQueryId: String?) {
-    try {
-        val deleteNamedQueryRequest = DeleteNamedQueryRequest {
-            namedQueryId = sampleNamedQueryId
-        }
+suspend fun deleteQueryName(sampleNamedQueryId: String?) {
 
-        athenaClient.deleteNamedQuery(deleteNamedQueryRequest)
+    val request = DeleteNamedQueryRequest {
+        namedQueryId = sampleNamedQueryId
+    }
+
+    AthenaClient { region = "us-west-2" }.use { athenaClient->
+        athenaClient.deleteNamedQuery(request)
         println("$sampleNamedQueryId was deleted!")
-
-    } catch (ex: AwsServiceException) {
-        println(ex.message)
-        athenaClient.close()
-        exitProcess(0)
     }
 }
 //snippet-end:[athena.kotlin.DeleteNamedQueryExample.main]
