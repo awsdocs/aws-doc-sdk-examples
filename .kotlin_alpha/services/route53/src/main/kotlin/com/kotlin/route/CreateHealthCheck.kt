@@ -19,7 +19,6 @@ import aws.sdk.kotlin.services.route53.Route53Client
 import aws.sdk.kotlin.services.route53.model.HealthCheckConfig
 import aws.sdk.kotlin.services.route53.model.HealthCheckType
 import aws.sdk.kotlin.services.route53.model.CreateHealthCheckRequest
-import aws.sdk.kotlin.services.route53.model.Route53Exception
 import java.util.UUID
 import kotlin.system.exitProcess
 // snippet-end:[route53.kotlin.create_health_check.import]
@@ -48,15 +47,12 @@ suspend fun main(args: Array<String>) {
     }
 
     val domainName = args[0]
-    val route53Client = Route53Client{region = "AWS_GLOBAL"}
-    val id = createCheck(route53Client, domainName)
+    val id = createCheck(domainName)
     println("The health check id is $id")
-    route53Client.close()
-}
+    }
 
 // snippet-start:[route53.kotlin.create_health_check.main]
-suspend fun createCheck(route53Client: Route53Client, domainName: String?): String? {
-        try {
+suspend fun createCheck(domainName: String?): String? {
 
             // You must use a unique CallerReference string.
             val callerReferenceVal = UUID.randomUUID().toString()
@@ -72,13 +68,9 @@ suspend fun createCheck(route53Client: Route53Client, domainName: String?): Stri
                 healthCheckConfig = config
             }
 
-            // Create the Health Check and return the id value.
-            val healthResponse = route53Client.createHealthCheck(healthCheckRequest)
-            return healthResponse.healthCheck?.id
-
-        } catch (e: Route53Exception) {
-            System.err.println(e.message)
-            exitProcess(0)
+            Route53Client { region = "AWS_GLOBAL" }.use { route53Client ->
+              val healthResponse = route53Client.createHealthCheck(healthCheckRequest)
+              return healthResponse.healthCheck?.id
         }
       }
 // snippet-end:[route53.kotlin.create_health_check.main]

@@ -17,7 +17,6 @@ package com.kotlin.route
 // snippet-start:[route53.kotlin.update_health_check.import]
 import aws.sdk.kotlin.services.route53.Route53Client
 import aws.sdk.kotlin.services.route53.model.UpdateHealthCheckRequest
-import aws.sdk.kotlin.services.route53.model.Route53Exception
 import kotlin.system.exitProcess
 // snippet-end:[route53.kotlin.update_health_check.import]
 
@@ -44,26 +43,21 @@ suspend fun main(args: Array<String>) {
       }
 
     val healthCheckId = args[0]
-    val route53Client = Route53Client{region = "AWS_GLOBAL"}
-    updateSpecificHealthCheck(route53Client, healthCheckId)
-    route53Client.close()
-}
+    updateSpecificHealthCheck(healthCheckId)
+    }
 
 // snippet-start:[route53.kotlin.update_health_check.main]
-suspend fun updateSpecificHealthCheck(route53Client: Route53Client, id: String?) {
-        try {
-            val checkRequest = UpdateHealthCheckRequest {
+suspend fun updateSpecificHealthCheck(id: String?) {
+
+        val checkRequest = UpdateHealthCheckRequest {
                 healthCheckId = id
                 disabled = true
-            }
+        }
 
-            // Update the Health Check.
+        Route53Client { region = "AWS_GLOBAL" }.use { route53Client ->
             val healthResponse = route53Client.updateHealthCheck(checkRequest)
             println("The health check with id ${healthResponse.healthCheck?.id.toString()} was updated!" )
 
-        } catch (e: Route53Exception) {
-            System.err.println(e.message)
-            exitProcess(0)
         }
  }
 // snippet-end:[route53.kotlin.update_health_check.main]

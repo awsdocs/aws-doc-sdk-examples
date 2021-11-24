@@ -17,7 +17,6 @@ package com.kotlin.route
 // snippet-start:[route53.kotlin.get_health_check_status.import]
 import aws.sdk.kotlin.services.route53.Route53Client
 import aws.sdk.kotlin.services.route53.model.GetHealthCheckStatusRequest
-import aws.sdk.kotlin.services.route53.model.Route53Exception
 import kotlin.system.exitProcess
 // snippet-end:[route53.kotlin.get_health_check_status.import]
 
@@ -44,26 +43,21 @@ suspend fun main(args: Array<String>) {
       }
 
     val healthCheckId = args[0]
-    val route53Client = Route53Client{region = "AWS_GLOBAL"}
-    getHealthStatus(route53Client, healthCheckId)
-    route53Client.close()
-}
+    getHealthStatus( healthCheckId)
+    }
 
 // snippet-start:[route53.kotlin.get_health_check_status.main]
-suspend  fun getHealthStatus(route53Client: Route53Client, healthCheckIdVal: String?) {
-        try {
-            val statusRequest = GetHealthCheckStatusRequest {
+suspend  fun getHealthStatus(healthCheckIdVal: String?) {
+
+        val statusRequest = GetHealthCheckStatusRequest {
                 healthCheckId = healthCheckIdVal
-            }
-
-            val response = route53Client.getHealthCheckStatus(statusRequest)
-            response.healthCheckObservations?.forEach { observation ->
-                   println("(The health check observation status is ${observation.statusReport?.status}")
-            }
-
-        } catch (e: Route53Exception) {
-            System.err.println(e.message)
-            exitProcess(0)
         }
+
+       Route53Client { region = "AWS_GLOBAL" }.use { route53Client ->
+          val response = route53Client.getHealthCheckStatus(statusRequest)
+          response.healthCheckObservations?.forEach { observation ->
+                  println("(The health check observation status is ${observation.statusReport?.status}")
+         }
+       }
  }
 // snippet-end:[route53.kotlin.get_health_check_status.main]

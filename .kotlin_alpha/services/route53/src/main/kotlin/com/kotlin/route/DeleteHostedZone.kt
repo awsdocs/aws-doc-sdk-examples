@@ -17,7 +17,6 @@ package com.kotlin.route
 // snippet-start:[route53.kotlin.delete_hosted_zone.import]
 import aws.sdk.kotlin.services.route53.Route53Client
 import aws.sdk.kotlin.services.route53.model.DeleteHostedZoneRequest
-import aws.sdk.kotlin.services.route53.model.Route53Exception
 import kotlin.system.exitProcess
 // snippet-end:[route53.kotlin.delete_hosted_zone.import]
 
@@ -45,24 +44,19 @@ suspend fun main(args: Array<String>) {
       }
 
     val hostedZoneId = args[0]
-    val route53Client = Route53Client{region = "AWS_GLOBAL"}
-    delHostedZone(route53Client, hostedZoneId)
-    route53Client.close()
-}
+    delHostedZone(hostedZoneId)
+    }
 
 // snippet-start:[route53.kotlin.delete_hosted_zone.main]
-suspend fun delHostedZone(route53Client: Route53Client, hostedZoneId: String?) {
-        try {
-            val deleteHostedZoneRequestRequest = DeleteHostedZoneRequest {
-                id = hostedZoneId
-            }
+suspend fun delHostedZone(hostedZoneId: String?) {
 
+         val deleteHostedZoneRequestRequest = DeleteHostedZoneRequest {
+                id = hostedZoneId
+          }
+
+        Route53Client { region = "AWS_GLOBAL" }.use { route53Client ->
             route53Client.deleteHostedZone(deleteHostedZoneRequestRequest)
             println("The hosted zone with id $hostedZoneId was deleted")
-
-        } catch (e: Route53Exception) {
-            System.err.println(e.message)
-            exitProcess(0)
         }
 }
 // snippet-end:[route53.kotlin.delete_hosted_zone.main]

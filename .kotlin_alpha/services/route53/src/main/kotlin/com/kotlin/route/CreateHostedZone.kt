@@ -17,7 +17,6 @@ package com.kotlin.route
 // snippet-start:[route53.kotlin.create_hosted_zone.import]
 import aws.sdk.kotlin.services.route53.Route53Client
 import aws.sdk.kotlin.services.route53.model.CreateHostedZoneRequest
-import aws.sdk.kotlin.services.route53.model.Route53Exception
 import java.util.UUID
 import kotlin.system.exitProcess
 // snippet-end:[route53.kotlin.create_hosted_zone.import]
@@ -46,15 +45,12 @@ suspend fun main(args: Array<String>) {
      }
 
     val domainName = args[0]
-    val route53Client = Route53Client{region = "AWS_GLOBAL"}
-    val id = createZone(route53Client, domainName)
+    val id = createZone( domainName)
     println("The hosted zone id is $id")
-    route53Client.close()
-}
+    }
 
 // snippet-start:[route53.kotlin.create_hosted_zone.main]
-suspend fun createZone(route53Client: Route53Client, domainName: String?): String? {
-        try {
+suspend fun createZone(domainName: String?): String? {
 
             // You must use a unique CallerReference string.
             val callerReferenceVal = UUID.randomUUID().toString()
@@ -63,12 +59,9 @@ suspend fun createZone(route53Client: Route53Client, domainName: String?): Strin
                 name= domainName
             }
 
-            val zoneResponse = route53Client.createHostedZone(zoneRequest)
-            return zoneResponse.hostedZone?.id
-
-        } catch (e: Route53Exception) {
-            System.err.println(e.message)
-            exitProcess(0)
-        }
+           Route53Client { region = "AWS_GLOBAL" }.use { route53Client ->
+              val zoneResponse = route53Client.createHostedZone(zoneRequest)
+              return zoneResponse.hostedZone?.id
+          }
     }
 // snippet-end:[route53.kotlin.create_hosted_zone.main]
