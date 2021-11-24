@@ -16,7 +16,6 @@ package com.kotlin.kms
 // snippet-start:[kms.kotlin_disable_key.import]
 import aws.sdk.kotlin.services.kms.KmsClient
 import aws.sdk.kotlin.services.kms.model.DisableKeyRequest
-import aws.sdk.kotlin.services.kms.model.KmsException
 import kotlin.system.exitProcess
 // snippet-end:[kms.kotlin_disable_key.import]
 
@@ -43,25 +42,19 @@ suspend fun main(args: Array<String>) {
     }
 
     val keyId = args[0]
-    val keyClient = KmsClient{region="us-west-2"}
-    disableKey(keyClient,keyId)
-    keyClient.close()
-}
+    disableKey(keyId)
+    }
 
 // snippet-start:[kms.kotlin_disable_key.main]
-suspend fun disableKey(kmsClient: KmsClient, keyIdVal: String?) {
-        try {
-            val keyRequest = DisableKeyRequest {
-                keyId = keyIdVal
-            }
+suspend fun disableKey(keyIdVal: String?) {
 
-            kmsClient.disableKey(keyRequest)
+        val request = DisableKeyRequest {
+            keyId = keyIdVal
+        }
+
+        KmsClient { region = "us-west-2" }.use { kmsClient ->
+            kmsClient.disableKey(request)
             println("$keyIdVal was successfully disabled")
-
-        } catch (ex: KmsException) {
-            println(ex.message)
-            kmsClient.close()
-            exitProcess(0)
         }
 }
 // snippet-end:[kms.kotlin_disable_key.main]

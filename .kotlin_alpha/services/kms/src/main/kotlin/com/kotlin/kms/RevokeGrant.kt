@@ -16,7 +16,6 @@ package com.kotlin.kms
 // snippet-start:[kms.kotlin_revoke_grant.import]
 import aws.sdk.kotlin.services.kms.KmsClient
 import aws.sdk.kotlin.services.kms.model.RevokeGrantRequest
-import aws.sdk.kotlin.services.kms.model.KmsException
 import kotlin.system.exitProcess
 // snippet-end:[kms.kotlin_revoke_grant.import]
 
@@ -45,26 +44,20 @@ suspend fun main(args: Array<String>) {
 
     val keyId = args[0]
     val grantId = args[1]
-    val keyClient = KmsClient{region="us-west-2"}
-    revokeKeyGrant(keyClient, keyId, grantId)
-    keyClient.close()
-}
+    revokeKeyGrant(keyId, grantId)
+   }
 
 // snippet-start:[kms.kotlin_revoke_grant.main]
-suspend  fun revokeKeyGrant(kmsClient: KmsClient, keyIdVal: String?, grantIdVal: String?) {
-        try {
-            val grantRequest = RevokeGrantRequest {
-                keyId = keyIdVal
-                grantId = grantIdVal
-            }
+suspend fun revokeKeyGrant(keyIdVal: String?, grantIdVal: String?) {
 
-            kmsClient.revokeGrant(grantRequest)
-            println("$grantIdVal was successfully revoked.")
+         val request = RevokeGrantRequest {
+             keyId = keyIdVal
+             grantId = grantIdVal
+         }
 
-        } catch (ex: KmsException) {
-            println(ex.message)
-            kmsClient.close()
-            exitProcess(0)
+         KmsClient { region = "us-west-2" }.use { kmsClient ->
+              kmsClient.revokeGrant(request)
+              println("$grantIdVal was successfully revoked.")
         }
  }
 // snippet-end:[kms.kotlin_revoke_grant.main]

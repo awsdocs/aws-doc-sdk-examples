@@ -16,7 +16,6 @@ package com.kotlin.kms
 // snippet-start:[kms.kotlin_enable_key.import]
 import aws.sdk.kotlin.services.kms.KmsClient
 import aws.sdk.kotlin.services.kms.model.EnableKeyRequest
-import aws.sdk.kotlin.services.kms.model.KmsException
 import kotlin.system.exitProcess
 // snippet-end:[kms.kotlin_enable_key.import]
 
@@ -43,25 +42,20 @@ suspend fun main(args: Array<String>) {
      }
 
     val keyId = args[0]
-    val keyClient = KmsClient{region="us-west-2"}
-    enableKey(keyClient,keyId)
-    keyClient.close()
-}
+    enableKey(keyId)
+    }
 
 // snippet-start:[kms.kotlin_enable_key.main]
-suspend fun enableKey(kmsClient: KmsClient, keyIdVal: String?) {
-        try {
-            val enableKeyRequest = EnableKeyRequest {
-                keyId = keyIdVal
-            }
+suspend fun enableKey(keyIdVal: String?) {
 
-            kmsClient.enableKey(enableKeyRequest)
+        val request = EnableKeyRequest {
+            keyId = keyIdVal
+        }
+
+        KmsClient { region = "us-west-2" }.use { kmsClient ->
+            kmsClient.enableKey(request)
             println("$keyIdVal was successfully enabled.")
 
-        } catch (ex: KmsException) {
-            println(ex.message)
-            kmsClient.close()
-            exitProcess(0)
         }
 }
 // snippet-end:[kms.kotlin_enable_key.main]

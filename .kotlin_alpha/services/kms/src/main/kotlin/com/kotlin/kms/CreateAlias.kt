@@ -16,7 +16,6 @@ package com.kotlin.kms
 // snippet-start:[kms.kotlin_create_alias.import]
 import aws.sdk.kotlin.services.kms.KmsClient
 import aws.sdk.kotlin.services.kms.model.CreateAliasRequest
-import aws.sdk.kotlin.services.kms.model.KmsException
 import kotlin.system.exitProcess
 // snippet-end:[kms.kotlin_create_alias.import]
 
@@ -46,27 +45,20 @@ suspend fun main(args: Array<String>) {
 
     val targetKeyId = args[0]
     val aliasName = args[1]
-    val keyClient = KmsClient{region="us-west-2"}
-    createCustomAlias(keyClient, targetKeyId, aliasName)
-    keyClient.close()
+    createCustomAlias(targetKeyId, aliasName)
 }
 
 // snippet-start:[kms.kotlin_create_alias.main]
- suspend fun createCustomAlias(kmsClient: KmsClient, targetKeyIdVal: String?, aliasNameVal: String?) {
-        try {
+ suspend fun createCustomAlias(targetKeyIdVal: String?, aliasNameVal: String?) {
 
-            val aliasRequest = CreateAliasRequest {
-                aliasName = aliasNameVal
-                targetKeyId = targetKeyIdVal
-            }
+    val request = CreateAliasRequest {
+        aliasName = aliasNameVal
+        targetKeyId = targetKeyIdVal
+    }
 
-            kmsClient.createAlias(aliasRequest)
-            println("$aliasNameVal was successfully created")
-
-        } catch (ex: KmsException) {
-            println(ex.message)
-            kmsClient.close()
-            exitProcess(0)
-        }
+    KmsClient { region = "us-west-2" }.use { kmsClient ->
+             kmsClient.createAlias(request)
+             println("$aliasNameVal was successfully created")
+    }
 }
 // snippet-end:[kms.kotlin_create_alias.main]

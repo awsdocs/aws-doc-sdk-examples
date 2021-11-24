@@ -16,7 +16,6 @@ package com.kotlin.kms
 // snippet-start:[kms.kotlin_describe_key.import]
 import aws.sdk.kotlin.services.kms.KmsClient
 import aws.sdk.kotlin.services.kms.model.DescribeKeyRequest
-import aws.sdk.kotlin.services.kms.model.KmsException
 import kotlin.system.exitProcess
 // snippet-end:[kms.kotlin_describe_key.import]
 
@@ -44,27 +43,20 @@ suspend fun main(args: Array<String>) {
     }
 
     val keyId = args[0]
-    val keyClient = KmsClient{region="us-west-2"}
-    describeSpecifcKey(keyClient,keyId)
-    keyClient.close()
-}
+    describeSpecifcKey(keyId)
+ }
 
 // snippet-start:[kms.kotlin_describe_key.main]
-suspend  fun describeSpecifcKey(kmsClient: KmsClient, keyIdVal: String?) {
-        try {
+suspend  fun describeSpecifcKey(keyIdVal: String?) {
 
-            val keyRequest = DescribeKeyRequest {
-                keyId = keyIdVal
+           val request = DescribeKeyRequest {
+               keyId = keyIdVal
+           }
+
+           KmsClient { region = "us-west-2" }.use { kmsClient ->
+               val response = kmsClient.describeKey(request)
+               println("The key description is ${response.keyMetadata?.description}")
+               println("The key ARN is ${response.keyMetadata?.arn}")
             }
-
-            val response = kmsClient.describeKey(keyRequest)
-            println("The key description is " + (response.keyMetadata?.description))
-            println("The key ARN is " + response.keyMetadata?.arn)
-
-        } catch (ex: KmsException) {
-            println(ex.message)
-            kmsClient.close()
-            exitProcess(0)
-        }
  }
 // snippet-end:[kms.kotlin_describe_key.main]

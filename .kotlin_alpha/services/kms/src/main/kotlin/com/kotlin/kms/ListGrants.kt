@@ -16,8 +16,6 @@ package com.kotlin.kms
 // snippet-start:[kms.kotlin_list_grant.import]
 import aws.sdk.kotlin.services.kms.KmsClient
 import aws.sdk.kotlin.services.kms.model.ListGrantsRequest
-import aws.sdk.kotlin.services.kms.model.KmsException
-import aws.sdk.kotlin.services.kms.model.GrantListEntry
 import kotlin.system.exitProcess
 // snippet-end:[kms.kotlin_list_grant.import]
 
@@ -44,29 +42,22 @@ suspend fun main(args: Array<String>) {
      }
 
     val keyId = args[0]
-    val keyClient = KmsClient{region="us-west-2"}
-    displayGrantIds(keyClient, keyId)
-    keyClient.close()
-}
+    displayGrantIds(keyId)
+    }
 
 // snippet-start:[kms.kotlin_list_grant.main]
-suspend fun displayGrantIds(kmsClient: KmsClient, keyIdVal: String?) {
-        try {
+suspend fun displayGrantIds(keyIdVal: String?) {
 
-            val grantsRequest = ListGrantsRequest {
-                keyId = keyIdVal
-                limit = 15
-            }
+         val request = ListGrantsRequest {
+             keyId = keyIdVal
+             limit = 15
+         }
 
-            val response = kmsClient.listGrants(grantsRequest)
+         KmsClient { region = "us-west-2" }.use { kmsClient ->
+            val response = kmsClient.listGrants(request)
             response.grants?.forEach { grant ->
                   println("The grant Id is ${grant.grantId}")
             }
-
-        } catch (ex: KmsException) {
-            println(ex.message)
-            kmsClient.close()
-            exitProcess(0)
         }
  }
 // snippet-end:[kms.kotlin_list_grant.main]

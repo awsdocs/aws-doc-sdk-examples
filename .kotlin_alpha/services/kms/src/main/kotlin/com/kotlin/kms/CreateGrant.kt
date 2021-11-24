@@ -17,7 +17,6 @@ package com.kotlin.kms
 import aws.sdk.kotlin.services.kms.KmsClient
 import aws.sdk.kotlin.services.kms.model.CreateGrantRequest
 import aws.sdk.kotlin.services.kms.model.GrantOperation
-import aws.sdk.kotlin.services.kms.model.KmsException
 import kotlin.system.exitProcess
 // snippet-end:[kms.kotlin_create_grant.import]
 
@@ -48,33 +47,26 @@ suspend fun main(args: Array<String>) {
     val keyId = args[0]
     val granteePrincipal = args[1]
     val operation = args[2]
-    val keyClient = KmsClient{region="us-west-2"}
-    val grantId = createNewGrant(keyClient,keyId,granteePrincipal,operation )
+    val grantId = createNewGrant(keyId,granteePrincipal,operation )
     println("Successfully created a grant with ID $grantId")
-    keyClient.close()
-}
+    }
 
 // snippet-start:[kms.kotlin_create_grant.main]
-suspend fun createNewGrant(kmsClient: KmsClient, keyIdVal: String?, granteePrincipalVal: String?, operation: String): String? {
-        try {
+suspend fun createNewGrant(keyIdVal: String?, granteePrincipalVal: String?, operation: String): String? {
 
             val operationOb = GrantOperation.fromValue(operation)
             val grantOperationList = ArrayList<GrantOperation>()
             grantOperationList.add(operationOb)
 
-            val grantRequest = CreateGrantRequest {
+            val request = CreateGrantRequest {
                 keyId = keyIdVal
                 granteePrincipal = granteePrincipalVal
                 operations = grantOperationList
             }
 
-            val response = kmsClient.createGrant(grantRequest)
+            KmsClient { region = "us-west-2" }.use { kmsClient ->
+              val response = kmsClient.createGrant(request)
             return response.grantId
-
-        } catch (ex: KmsException) {
-            println(ex.message)
-            kmsClient.close()
-            exitProcess(0)
         }
   }
 // snippet-end:[kms.kotlin_create_grant.main]
