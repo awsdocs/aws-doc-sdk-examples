@@ -16,7 +16,6 @@ package com.kotlin.translate
 // snippet-start:[translate.kotlin._describe_jobs.import]
 import aws.sdk.kotlin.services.translate.TranslateClient
 import aws.sdk.kotlin.services.translate.model.DescribeTextTranslationJobRequest
-import aws.sdk.kotlin.services.translate.model.TranslateException
 import kotlin.system.exitProcess
 // snippet-end:[translate.kotlin._describe_jobs.import]
 
@@ -36,24 +35,19 @@ suspend fun main(args: Array<String>){
        }
 
     val jobId = args[0]
-    val translateClient = TranslateClient { region = "us-west-2" }
-    describeTranslationJob(translateClient, jobId)
-    translateClient.close()
+    describeTranslationJob(jobId)
 }
 
 // snippet-start:[translate.kotlin._describe_jobs.main]
-suspend fun describeTranslationJob(translateClient: TranslateClient, id: String?) {
-        try {
-            val textTranslationJobRequest = DescribeTextTranslationJobRequest {
-                jobId = id!!
-            }
+suspend fun describeTranslationJob(id: String?) {
 
+        val textTranslationJobRequest = DescribeTextTranslationJobRequest {
+            jobId = id!!
+         }
+
+        TranslateClient { region = "us-west-2" }.use { translateClient ->
             val jobResponse =  translateClient.describeTextTranslationJob(textTranslationJobRequest)
             println("The job status is ${jobResponse.textTranslationJobProperties?.jobStatus}.")
-
-        } catch (ex: TranslateException) {
-            println(ex.message)
-            exitProcess(0)
         }
     }
 // snippet-end:[translate.kotlin._describe_jobs.main]

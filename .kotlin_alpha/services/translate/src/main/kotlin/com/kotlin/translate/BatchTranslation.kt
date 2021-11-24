@@ -14,7 +14,6 @@
 package com.kotlin.translate
 
 // snippet-start:[translate.kotlin._batch.import]
-import aws.sdk.kotlin.services.translate.model.TranslateException
 import aws.sdk.kotlin.services.translate.TranslateClient
 import aws.sdk.kotlin.services.translate.model.DescribeTextTranslationJobRequest
 import aws.sdk.kotlin.services.translate.model.InputDataConfig
@@ -46,55 +45,50 @@ suspend fun main(args: Array<String>){
     val s3UriOut = args[1]
     val jobName = args[2]
     val dataAccessRoleArn = args[3]
-
-    val translateClient = TranslateClient { region = "us-west-2" }
-    translateDocuments(translateClient, s3Uri, s3UriOut, jobName, dataAccessRoleArn)
-    translateClient.close()
+    translateDocuments(s3Uri, s3UriOut, jobName, dataAccessRoleArn)
 }
 
 // snippet-start:[translate.kotlin._batch.main]
     suspend fun translateDocuments(
-        translateClient: TranslateClient,
         s3UriVal: String?,
         s3UriOutVal: String?,
         jobNameVal: String?,
         dataAccessRoleArnVal: String?
     ): String? {
 
-        var sleepTime: Long = 5
-        try {
+        val sleepTime: Long = 5
+        val dataConfig = InputDataConfig {
+            s3Uri = s3UriVal
+            contentType = "text/plain"
+        }
 
-            val dataConfig = InputDataConfig {
-                s3Uri = s3UriVal
-                contentType = "text/plain"
-            }
+        val outputDataConfigVal = OutputDataConfig {
+            s3Uri = s3UriOutVal
+        }
 
-            val outputDataConfigVal = OutputDataConfig {
-                s3Uri = s3UriOutVal
-            }
+        val myList = mutableListOf<String>()
+        myList.add("fr")
 
-            val myList = ArrayList<String>()
-            myList.add("fr")
+        val textTranslationJobRequest = StartTextTranslationJobRequest {
+            jobName = jobNameVal
+            dataAccessRoleArn = dataAccessRoleArnVal
+            inputDataConfig = dataConfig
+            outputDataConfig = outputDataConfigVal
+            sourceLanguageCode = "en"
+            targetLanguageCodes = myList
+        }
 
-            val textTranslationJobRequest = StartTextTranslationJobRequest {
-                jobName = jobNameVal
-                dataAccessRoleArn = dataAccessRoleArnVal
-                inputDataConfig = dataConfig
-                outputDataConfig = outputDataConfigVal
-                sourceLanguageCode = "en"
-                targetLanguageCodes = myList
-            }
-
+         TranslateClient { region = "us-west-2" }.use { translateClient ->
              val textTranslationJobResponse =  translateClient.startTextTranslationJob(textTranslationJobRequest)
 
-            // Keep checking until job is done.
-            val jobDone = false
-            var jobStatus: String
-            val jobIdVal: String? = textTranslationJobResponse?.jobId
+             // Keep checking until job is done.
+             val jobDone = false
+             var jobStatus: String
+             val jobIdVal: String? = textTranslationJobResponse.jobId
 
-            val jobRequest = DescribeTextTranslationJobRequest {
+             val jobRequest = DescribeTextTranslationJobRequest {
                 jobId = jobIdVal
-            }
+             }
 
             while (!jobDone) {
 
@@ -112,11 +106,6 @@ suspend fun main(args: Array<String>){
                 }
             }
             return textTranslationJobResponse.jobId
-
-        } catch (ex: TranslateException) {
-            println(ex.message)
-            translateClient.close()
-            exitProcess(0)
         }
     }
 // snippet-end:[translate.kotlin._batch.main]

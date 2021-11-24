@@ -16,32 +16,24 @@ package com.kotlin.translate
 // snippet-start:[translate.kotlin._text.import]
 import aws.sdk.kotlin.services.translate.TranslateClient
 import aws.sdk.kotlin.services.translate.model.TranslateTextRequest
-import aws.sdk.kotlin.services.translate.model.TranslateException
-import kotlin.system.exitProcess
 // snippet-end:[translate.kotlin._text.import]
 
 suspend fun main(){
-
-    val translateClient = TranslateClient { region = "us-east-1" }
-    textTranslate(translateClient)
-    translateClient.close()
+    textTranslate()
 }
 
 // snippet-start:[translate.kotlin._text.main]
-suspend fun textTranslate(translateClient: TranslateClient) {
-        try {
-            val textRequest = TranslateTextRequest {
-                 sourceLanguageCode = "en"
-                 targetLanguageCode = "fr"
-                 text = "Its a sunny day today"
-            }
+suspend fun textTranslate() {
 
+        val textRequest = TranslateTextRequest {
+            sourceLanguageCode = "en"
+            targetLanguageCode = "fr"
+            text = "Its a sunny day today"
+        }
+
+        TranslateClient { region = "us-west-2" }.use { translateClient ->
             val textResponse = translateClient.translateText(textRequest)
             println(textResponse.translatedText)
-
-        } catch (ex: TranslateException) {
-            println(ex.message)
-            exitProcess(0)
         }
  }
 // snippet-end:[translate.kotlin._text.main]
