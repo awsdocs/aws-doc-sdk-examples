@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[DeleteRule.java demonstrates how to delete an Amazon EventBridge rule.]
+// snippet-sourcedescription:[DeleteRule.kt demonstrates how to delete an Amazon EventBridge rule.]
 //snippet-keyword:[AWS SDK for Kotlin]
 // snippet-service:[Amazon EventBridge]
 // snippet-keyword:[Code Sample]
@@ -17,7 +17,6 @@ package com.kotlin.eventbridge
 import aws.sdk.kotlin.services.eventbridge.EventBridgeClient
 import aws.sdk.kotlin.services.eventbridge.model.DeleteRuleRequest
 import aws.sdk.kotlin.services.eventbridge.model.DisableRuleRequest
-import aws.sdk.kotlin.services.eventbridge.model.EventBridgeException
 import kotlin.system.exitProcess
 // snippet-end:[eventbridge.kotlin._delete_rule.import]
 
@@ -46,22 +45,19 @@ suspend fun main(args: Array<String>) {
      }
 
     val ruleName = args[0]
-    val eventbridgeClient = EventBridgeClient{region="us-east-1"}
-    deleteEBRule(eventbridgeClient, ruleName)
-    eventbridgeClient.close()
-}
+    deleteEBRule(ruleName)
+ }
 
 // snippet-start:[eventbridge.kotlin._delete_rule.main]
-suspend fun deleteEBRule(eventBrClient: EventBridgeClient, ruleName: String) {
-        try {
+suspend fun deleteEBRule(ruleName: String) {
 
-            // Disable the rule - an Enabled Rule cannot be deleted.
-            val disableRuleRequest = DisableRuleRequest {
-                name = ruleName
-                eventBusName = "default"
-            }
+        val request =  DisableRuleRequest {
+            name = ruleName
+            eventBusName = "default"
+        }
 
-            eventBrClient.disableRule(disableRuleRequest)
+        EventBridgeClient { region = "us-west-2" }.use { eventBrClient ->
+            eventBrClient.disableRule(request)
             val ruleRequest = DeleteRuleRequest {
                 name = ruleName
                 eventBusName = "default"
@@ -69,11 +65,6 @@ suspend fun deleteEBRule(eventBrClient: EventBridgeClient, ruleName: String) {
 
             eventBrClient.deleteRule(ruleRequest)
             println("Rule $ruleName was successfully deleted!")
-
-        } catch (ex: EventBridgeException) {
-            println(ex.message)
-            eventBrClient.close()
-            exitProcess(0)
         }
 }
 // snippet-end:[eventbridge.kotlin._delete_rule.main]

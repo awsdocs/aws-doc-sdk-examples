@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[DescribeRule.java demonstrates how to describe an Amazon EventBridge rule.]
+// snippet-sourcedescription:[DescribeRule.kt demonstrates how to describe an Amazon EventBridge rule.]
 //snippet-keyword:[AWS SDK for Kotlin]
 // snippet-service:[Amazon EventBridge]
 // snippet-keyword:[Code Sample]
@@ -16,7 +16,6 @@ package com.kotlin.eventbridge
 // snippet-start:[eventbridge.kotlin._describe_rule.import]
 import aws.sdk.kotlin.services.eventbridge.EventBridgeClient
 import aws.sdk.kotlin.services.eventbridge.model.DescribeRuleRequest
-import aws.sdk.kotlin.services.eventbridge.model.EventBridgeException
 import kotlin.system.exitProcess
 // snippet-end:[eventbridge.kotlin._describe_rule.import]
 
@@ -45,28 +44,21 @@ suspend fun main(args: Array<String>) {
      }
 
     val ruleName = args[0]
-    val eventbridgeClient = EventBridgeClient{region="us-east-1"}
-    describeSpecificRule(eventbridgeClient, ruleName)
-    eventbridgeClient.close()
-}
+    describeSpecificRule(ruleName)
+    }
 
 // snippet-start:[eventbridge.kotlin._describe_rule.main]
-suspend fun describeSpecificRule(eventBrClient: EventBridgeClient, ruleName: String?) {
-        try {
+suspend fun describeSpecificRule(ruleName: String) {
 
-            val ruleRequest = DescribeRuleRequest {
-                name = ruleName
-                eventBusName = "default"
-            }
+           val request = DescribeRuleRequest {
+               name = ruleName
+               eventBusName = "default"
+           }
 
-            val ruleResponse = eventBrClient.describeRule(ruleRequest)
-            println("The rule ARN is ${ruleResponse.arn}")
-            println("The rule description is ${ruleResponse.description}")
-
-        } catch (ex: EventBridgeException) {
-            println(ex.message)
-            eventBrClient.close()
-            exitProcess(0)
-        }
+           EventBridgeClient { region = "us-west-2" }.use { eventBrClient ->
+              val ruleResponse = eventBrClient.describeRule(request)
+              println("The rule ARN is ${ruleResponse.arn}")
+              println("The rule description is ${ruleResponse.description}")
+           }
 }
 // snippet-end:[eventbridge.kotlin._describe_rule.main]

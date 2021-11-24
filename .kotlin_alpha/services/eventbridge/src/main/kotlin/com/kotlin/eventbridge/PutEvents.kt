@@ -17,8 +17,6 @@ package com.kotlin.eventbridge
 import aws.sdk.kotlin.services.eventbridge.EventBridgeClient
 import aws.sdk.kotlin.services.eventbridge.model.PutEventsRequest
 import aws.sdk.kotlin.services.eventbridge.model.PutEventsRequestEntry
-import aws.sdk.kotlin.services.eventbridge.model.EventBridgeException
-import java.util.ArrayList
 import kotlin.system.exitProcess
 // snippet-end:[eventbridge.kotlin._put_event.import]
 
@@ -46,14 +44,12 @@ suspend fun main(args: Array<String>) {
 
     val resourceArn = args[0]
     val resourceArn2 = args[1]
-    val eventbridgeClient = EventBridgeClient{region="us-west-2"}
-    putEBEvents(eventbridgeClient,resourceArn,resourceArn2)
-    eventbridgeClient.close()
-}
+    putEBEvents(resourceArn,resourceArn2)
+ }
 
 // snippet-start:[eventbridge.kotlin._put_event.main]
-suspend fun putEBEvents(eventBrClient: EventBridgeClient, resourceArn: String, resourceArn2: String) {
-        try {
+suspend fun putEBEvents(resourceArn: String, resourceArn2: String) {
+
             // Populate a List with the resource ARN values.
             val resourcesOb  = mutableListOf<String>()
             resourcesOb.add(resourceArn)
@@ -66,12 +62,13 @@ suspend fun putEBEvents(eventBrClient: EventBridgeClient, resourceArn: String, r
                 detail = "{ \"key1\": \"value1\", \"key2\": \"value2\" }"
             }
 
-            val eventsRequest = PutEventsRequest {
+            val request = PutEventsRequest {
                 entries = listOf(reqEntry)
             }
 
-            val response = eventBrClient.putEvents(eventsRequest)
-            response.entries?.forEach { resultEntry ->
+            EventBridgeClient { region = "us-west-2" }.use { eventBrClient ->
+              val response = eventBrClient.putEvents(request)
+              response.entries?.forEach { resultEntry ->
 
                if (resultEntry.eventId != null) {
                     println("Event Id is ${resultEntry.eventId}")
@@ -79,11 +76,6 @@ suspend fun putEBEvents(eventBrClient: EventBridgeClient, resourceArn: String, r
                     println("Injection failed with Error Code ${resultEntry.errorCode}")
                 }
             }
-
-        } catch (ex: EventBridgeException) {
-            println(ex.message)
-            eventBrClient.close()
-            exitProcess(0)
         }
  }
 // snippet-end:[eventbridge.kotlin._put_event.main]

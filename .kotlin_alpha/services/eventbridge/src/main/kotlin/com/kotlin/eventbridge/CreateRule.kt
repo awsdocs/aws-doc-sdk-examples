@@ -16,7 +16,6 @@ package com.kotlin.eventbridge
 // snippet-start:[eventbridge.kotlin._create_rule.import]
 import aws.sdk.kotlin.services.eventbridge.EventBridgeClient
 import aws.sdk.kotlin.services.eventbridge.model.PutRuleRequest
-import aws.sdk.kotlin.services.eventbridge.model.EventBridgeException
 import kotlin.system.exitProcess
 // snippet-end:[eventbridge.kotlin._create_rule.import]
 
@@ -45,29 +44,22 @@ suspend fun main(args: Array<String>) {
     }
 
     val ruleName = args[0]
-    val eventbridgeClient = EventBridgeClient{region="us-east-1"}
-    createEBRule(eventbridgeClient, ruleName)
-    eventbridgeClient.close()
-}
+    createEBRule(ruleName)
+ }
 
 // snippet-start:[eventbridge.kotlin._create_rule.main]
-suspend fun createEBRule(eventBrClient: EventBridgeClient, ruleNameVal: String?) {
-        try {
+suspend fun createEBRule(ruleNameVal: String) {
 
-            val ruleRequest = PutRuleRequest {
-                 name = ruleNameVal
-                 eventBusName = "default"
-                 eventPattern = "{\"source\":[\"aws.s3\"],\"detail-type\":[\"AWS API Call via CloudTrail\"],\"detail\":{\"eventSource\":[\"s3.amazonaws.com\"],\"eventName\":[\"DeleteBucket\"]}}"
-                 description = "A test rule created by the AWS SDK for Kotlin"
-            }
+     val request = PutRuleRequest {
+         name = ruleNameVal
+         eventBusName = "default"
+         eventPattern = "{\"source\":[\"aws.s3\"],\"detail-type\":[\"AWS API Call via CloudTrail\"],\"detail\":{\"eventSource\":[\"s3.amazonaws.com\"],\"eventName\":[\"DeleteBucket\"]}}"
+         description = "A test rule created by the AWS SDK for Kotlin"
+      }
 
-            val ruleResponse = eventBrClient.putRule(ruleRequest)
+      EventBridgeClient { region = "us-west-2" }.use { eventBrClient ->
+            val ruleResponse = eventBrClient.putRule(request)
             println("The ARN of the new rule is ${ruleResponse.ruleArn}")
-
-        } catch (ex: EventBridgeException) {
-            println(ex.message)
-            eventBrClient.close()
-            exitProcess(0)
-        }
+      }
 }
 // snippet-end:[eventbridge.kotlin._create_rule.main]

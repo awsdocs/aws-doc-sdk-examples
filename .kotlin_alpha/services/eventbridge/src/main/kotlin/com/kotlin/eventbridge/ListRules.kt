@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[ListRules.java demonstrates how to list your Amazon EventBridge rules.]
+// snippet-sourcedescription:[ListRules.kt demonstrates how to list your Amazon EventBridge rules.]
 //snippet-keyword:[AWS SDK for Kotlin]
 // snippet-service:[Amazon EventBridge]
 // snippet-keyword:[Code Sample]
@@ -16,8 +16,6 @@ package com.kotlin.eventbridge
 // snippet-start:[eventbridge.kotlin._list_rules.import]
 import aws.sdk.kotlin.services.eventbridge.EventBridgeClient
 import aws.sdk.kotlin.services.eventbridge.model.ListRulesRequest
-import aws.sdk.kotlin.services.eventbridge.model.EventBridgeException
-import kotlin.system.exitProcess
 // snippet-end:[eventbridge.kotlin._list_rules.import]
 
 /**
@@ -29,30 +27,23 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
-    val eventbridgeClient = EventBridgeClient{region="us-east-1"}
-    listAllRules(eventbridgeClient)
-    eventbridgeClient.close()
+     listAllRules()
 }
 
 // snippet-start:[eventbridge.kotlin._list_rules.main]
-suspend  fun listAllRules(eventBrClient: EventBridgeClient) {
-        try {
-            val rulesRequest = ListRulesRequest {
-                eventBusName = "default"
-                limit = 10
-            }
+suspend  fun listAllRules() {
 
-            val response = eventBrClient.listRules(rulesRequest)
+          val request = ListRulesRequest {
+              eventBusName = "default"
+              limit = 10
+          }
+
+          EventBridgeClient { region = "us-west-2" }.use { eventBrClient ->
+            val response = eventBrClient.listRules(request)
             response.rules?.forEach { rule ->
                 println("The rule name is ${rule.name}")
                 println("The rule ARN is ${rule.arn}")
             }
-
-        } catch (ex: EventBridgeException) {
-            println(ex.message)
-            eventBrClient.close()
-            exitProcess(0)
-        }
+          }
  }
 // snippet-end:[eventbridge.kotlin._list_rules.main]
