@@ -14,7 +14,6 @@
 package com.kotlin.secrets
 
 //snippet-start:[secretsmanager.kotlin.create_secret.import]
-import aws.sdk.kotlin.services.secretsmanager.model.SecretsManagerException
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.CreateSecretRequest
 import kotlin.system.exitProcess
@@ -38,29 +37,22 @@ suspend fun main(args: Array<String>) {
 
     val secretName = args[0]
     val secretValue = args[1]
-    val secretsClient = SecretsManagerClient { region = "us-east-1" }
-    val secArn = createNewSecret(secretsClient, secretName, secretValue)
+    val secArn = createNewSecret(secretName, secretValue)
     println("The secret ARN value is $secArn")
-    secretsClient.close()
 }
 
 //snippet-start:[secretsmanager.kotlin.create_secret.main]
-suspend fun createNewSecret(secretsClient: SecretsManagerClient, secretName: String?, secretValue: String?): String? {
+suspend fun createNewSecret(secretName: String?, secretValue: String?): String? {
 
-        try {
-            val secretRequest  = CreateSecretRequest {
-                name = secretName
-                description = "This secret was created by the AWS Secrets Manager Kotlin API"
-                secretString = secretValue
-            }
+        val request  = CreateSecretRequest {
+            name = secretName
+            description = "This secret was created by the AWS Secrets Manager Kotlin API"
+            secretString = secretValue
+        }
 
-            val secretResponse = secretsClient.createSecret(secretRequest)
-            return secretResponse.arn
-
-        } catch (ex: SecretsManagerException) {
-            println(ex.message)
-            secretsClient.close()
-            exitProcess(0)
+        SecretsManagerClient { region = "us-east-1" }.use { secretsClient ->
+            val response = secretsClient.createSecret(request)
+            return response.arn
         }
    }
 //snippet-end:[secretsmanager.kotlin.create_secret.main]

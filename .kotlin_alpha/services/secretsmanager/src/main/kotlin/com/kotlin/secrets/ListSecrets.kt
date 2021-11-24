@@ -14,35 +14,23 @@
 package com.kotlin.secrets
 
 //snippet-start:[secretsmanager.kotlin.list_secrets.import]
-import aws.sdk.kotlin.services.secretsmanager.model.SecretsManagerException
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.ListSecretsRequest
-import aws.sdk.kotlin.services.secretsmanager.model.SecretListEntry
-import kotlin.system.exitProcess
 //snippet-end:[secretsmanager.kotlin.list_secrets.import]
 
 suspend fun main() {
-
-    val secretsClient = SecretsManagerClient { region = "us-east-1" }
-    listAllSecrets(secretsClient)
-    secretsClient.close()
+    listAllSecrets()
 }
 
 //snippet-start:[secretsmanager.kotlin.list_secrets.main]
-suspend fun listAllSecrets(secretsClient: SecretsManagerClient) {
+suspend fun listAllSecrets() {
 
-        try {
-            val requestOb = ListSecretsRequest{}
-            val response = secretsClient.listSecrets(requestOb)
+        SecretsManagerClient { region = "us-east-1" }.use { secretsClient ->
+        val response = secretsClient.listSecrets(ListSecretsRequest{})
             response.secretList?.forEach { secret ->
                     println("The secret name is ${secret.name}")
                     println("The secret description is ${secret.description}")
             }
-
-        } catch (ex: SecretsManagerException) {
-            println(ex.message)
-            secretsClient.close()
-            exitProcess(0)
         }
 }
 //snippet-end:[secretsmanager.kotlin.list_secrets.main]

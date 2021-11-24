@@ -14,7 +14,6 @@
 package com.kotlin.secrets
 
 //snippet-start:[secretsmanager.kotlin.update_secret.import]
-import aws.sdk.kotlin.services.secretsmanager.model.SecretsManagerException
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.UpdateSecretRequest
 import kotlin.system.exitProcess
@@ -38,26 +37,20 @@ suspend fun main(args: Array<String>) {
 
     val secretName = args[0]
     val secretValue = args[1]
-    val secretsClient = SecretsManagerClient { region = "us-east-1" }
-    updateMySecret(secretsClient, secretName, secretValue)
-    secretsClient.close()
-}
+    updateMySecret(secretName, secretValue)
+    }
 
 //snippet-start:[secretsmanager.kotlin.update_secret.main]
-suspend fun updateMySecret(secretsClient: SecretsManagerClient, secretName: String?, secretValue: String?) {
-        try {
-            val secretRequest = UpdateSecretRequest {
-                secretId = secretName
-                secretString = secretValue
-            }
+suspend fun updateMySecret(secretName: String?, secretValue: String?) {
 
-            secretsClient.updateSecret(secretRequest)
+        val request = UpdateSecretRequest {
+            secretId = secretName
+            secretString = secretValue
+        }
+
+        SecretsManagerClient { region = "us-east-1" }.use { secretsClient ->
+            secretsClient.updateSecret(request)
             println("The secret value was updated")
-
-        } catch (ex: SecretsManagerException) {
-            println(ex.message)
-            secretsClient.close()
-            exitProcess(0)
         }
  }
 //snippet-end:[secretsmanager.kotlin.update_secret.main]

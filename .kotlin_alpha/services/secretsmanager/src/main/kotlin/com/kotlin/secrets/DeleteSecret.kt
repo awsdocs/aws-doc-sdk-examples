@@ -14,7 +14,6 @@
 package com.kotlin.secrets
 
 //snippet-start:[secretsmanager.kotlin.delete_secret.import]
-import aws.sdk.kotlin.services.secretsmanager.model.SecretsManagerException
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.DeleteSecretRequest
 import kotlin.system.exitProcess
@@ -36,25 +35,19 @@ suspend fun main(args: Array<String>) {
     }
 
     val secretName = args[0]
-    val secretsClient = SecretsManagerClient { region = "us-east-1" }
-    deleteSpecificSecret(secretsClient, secretName)
-    secretsClient.close()
-}
+    deleteSpecificSecret(secretName)
+    }
 
 //snippet-start:[secretsmanager.kotlin.delete_secret.main]
-suspend fun deleteSpecificSecret(secretsClient: SecretsManagerClient, secretName: String) {
-        try {
-            val secretRequest = DeleteSecretRequest {
-                secretId=secretName
-            }
+suspend fun deleteSpecificSecret(secretName: String) {
 
-            secretsClient.deleteSecret(secretRequest)
+        val request = DeleteSecretRequest {
+            secretId=secretName
+        }
+
+         SecretsManagerClient { region = "us-east-1" }.use { secretsClient ->
+            secretsClient.deleteSecret(request)
             println("$secretName is deleted.")
-
-        } catch (ex: SecretsManagerException) {
-            println(ex.message)
-            secretsClient.close()
-            exitProcess(0)
         }
 }
 //snippet-end:[secretsmanager.kotlin.delete_secret.main]
