@@ -30,24 +30,17 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun main() {
 
-    val polly = PollyClient{ region = "us-west-2" }
-    listLexicons(polly)
-    polly.close()
-}
+    listLexicons()
+    }
 
 // snippet-start:[polly.kotlin.list_icons.main]
-suspend fun listLexicons(client: PollyClient) {
-        try {
+suspend fun listLexicons() {
 
-            val response = client.listLexicons(ListLexiconsRequest{})
+        PollyClient { region = "us-west-2" }.use { polly ->
+            val response = polly.listLexicons(ListLexiconsRequest{})
             response.lexicons?.forEach { lexDescription ->
                    println("The name of the Lexicon is ${lexDescription.name}")
             }
-
-        } catch (ex: PollyException) {
-            println(ex.message)
-            client.close()
-            exitProcess(0)
         }
 }
 // snippet-end:[polly.kotlin.list_icons.main]
