@@ -14,7 +14,6 @@ package com.kotlin.kinesis
 
 //snippet-start:[kinesis.kotlin.ListShards.import]
 import aws.sdk.kotlin.services.kinesis.KinesisClient
-import aws.sdk.kotlin.services.kinesis.model.KinesisException
 import aws.sdk.kotlin.services.kinesis.model.ListShardsRequest
 import kotlin.system.exitProcess
 //snippet-end:[kinesis.kotlin.ListShards.import]

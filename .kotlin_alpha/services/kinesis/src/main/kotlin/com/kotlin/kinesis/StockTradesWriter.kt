@@ -73,25 +73,29 @@ private suspend fun sendStockTrade( trade: StockTrade, streamNameVal: String ) {
         return
     }
     println("Putting trade: $trade")
+    val request = PutRecordRequest {
+        partitionKey = trade.getTheTickerSymbol() // We use the ticker symbol as the partition key, explained in the Supplemental Information section below.
+        streamName = streamNameVal
+        data = bytes
+    }
+
     KinesisClient { region = "us-east-1" }.use { kinesisClient ->
-        kinesisClient.putRecord( PutRecordRequest {
-            partitionKey = trade.getTheTickerSymbol() // We use the ticker symbol as the partition key, explained in the Supplemental Information section below.
-            streamName = streamNameVal
-            data = bytes
-       })
+        kinesisClient.putRecord(request)
    }
 }
 
 suspend fun validateStream(streamNameVal: String) {
 
+    val request = DescribeStreamRequest {
+        streamName = streamNameVal
+    }
+
     KinesisClient { region = "us-east-1" }.use { kinesisClient ->
-        val describeStreamResponse = kinesisClient.describeStream(DescribeStreamRequest {
-            streamName = streamNameVal
-        })
+        val describeStreamResponse = kinesisClient.describeStream(request)
 
         if (describeStreamResponse.streamDescription?.streamStatus.toString() != "ACTIVE") {
             System.err.println("Stream $streamNameVal is not active. Please wait a few moments and try again.")
-            System.exit(1)
+            exitProcess(1)
         }
     }
  }

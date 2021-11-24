@@ -14,7 +14,6 @@ package com.kotlin.kinesis
 
 //snippet-start:[kinesis.kotlin.AddDataShards.import]
 import aws.sdk.kotlin.services.kinesis.KinesisClient
-import aws.sdk.kotlin.services.kinesis.model.KinesisException
 import aws.sdk.kotlin.services.kinesis.model.ScalingType
 import aws.sdk.kotlin.services.kinesis.model.UpdateShardCountRequest
 import kotlin.system.exitProcess
