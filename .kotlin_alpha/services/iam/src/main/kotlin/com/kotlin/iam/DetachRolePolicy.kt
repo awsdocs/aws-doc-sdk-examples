@@ -16,7 +16,6 @@ package com.kotlin.iam
 // snippet-start:[iam.kotlin.detach_role_policy.import]
 import aws.sdk.kotlin.services.iam.IamClient
 import aws.sdk.kotlin.services.iam.model.DetachRolePolicyRequest
-import aws.sdk.kotlin.services.iam.model.IamException
 import kotlin.system.exitProcess
 // snippet-end:[iam.kotlin.detach_role_policy.import]
 
@@ -45,26 +44,20 @@ suspend fun main(args: Array<String>) {
 
     val roleName = args[0]
     val policyArn = args[1]
-    val iamClient = IamClient{region="AWS_GLOBAL"}
-    detachPolicy(iamClient, roleName, policyArn)
-    iamClient.close()
-}
+    detachPolicy(roleName, policyArn)
+    }
 
 // snippet-start:[iam.kotlin.detach_role_policy.main]
-suspend fun detachPolicy(iamClient: IamClient, roleNameVal: String, policyArnVal: String) {
-    try {
-        val request = DetachRolePolicyRequest {
-            roleName = roleNameVal
-            policyArn = policyArnVal
-        }
+suspend fun detachPolicy(roleNameVal: String, policyArnVal: String) {
 
+    val request = DetachRolePolicyRequest {
+        roleName = roleNameVal
+        policyArn = policyArnVal
+    }
+
+    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
         iamClient.detachRolePolicy(request)
         println( "Successfully detached policy $policyArnVal from role $roleNameVal")
-
-    } catch (e: IamException) {
-        println(e.message)
-        iamClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[iam.kotlin.detach_role_policy.main]

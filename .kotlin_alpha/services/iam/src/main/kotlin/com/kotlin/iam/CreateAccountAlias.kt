@@ -16,7 +16,6 @@ package com.kotlin.iam
 // snippet-start:[iam.kotlin.create_account_alias.import]
 import aws.sdk.kotlin.services.iam.IamClient
 import aws.sdk.kotlin.services.iam.model.CreateAccountAliasRequest
-import aws.sdk.kotlin.services.iam.model.IamException
 import kotlin.system.exitProcess
 // snippet-end:[iam.kotlin.create_account_alias.import]
 
@@ -44,25 +43,19 @@ suspend fun main(args: Array<String>) {
     }
 
     val alias = args[0]
-    val iamClient = IamClient{region="AWS_GLOBAL"}
-    createIAMAccountAlias(iamClient, alias)
-    iamClient.close()
+    createIAMAccountAlias(alias)
 }
 
 // snippet-start:[iam.kotlin.create_account_alias.main]
-suspend fun createIAMAccountAlias(iamClient: IamClient, alias: String) {
-    try {
-        val request = CreateAccountAliasRequest {
-            accountAlias = alias
-        }
+suspend fun createIAMAccountAlias(alias: String) {
 
-        iamClient.createAccountAlias(request)
-        println("Successfully created account alias named $alias")
+    val request = CreateAccountAliasRequest {
+        accountAlias = alias
+    }
 
-    } catch (e: IamException) {
-        println(e.message)
-        iamClient.close()
-        exitProcess(0)
+    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+          iamClient.createAccountAlias(request)
+          println("Successfully created account alias named $alias")
     }
 }
 // snippet-end:[iam.kotlin.create_account_alias.main]

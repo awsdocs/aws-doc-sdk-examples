@@ -16,7 +16,6 @@ package com.kotlin.iam
 // snippet-start:[iam.kotlin.access_key_last_used.import]
 import aws.sdk.kotlin.services.iam.IamClient
 import aws.sdk.kotlin.services.iam.model.GetAccessKeyLastUsedRequest
-import aws.sdk.kotlin.services.iam.model.IamException
 import kotlin.system.exitProcess
 // snippet-end:[iam.kotlin.access_key_last_used.import]
 
@@ -43,25 +42,20 @@ suspend fun main(args: Array<String>) {
     }
 
     val accessId = args[0]
-    val iamClient = IamClient{region="AWS_GLOBAL"}
-    getAccessKeyLastUsed(iamClient, accessId)
-    iamClient.close()
+    getAccessKeyLastUsed(accessId)
+
 }
 
 // snippet-start:[iam.kotlin.access_key_last_used.main]
-suspend fun getAccessKeyLastUsed(iamClient: IamClient, accessId: String?) {
-    try {
-        val request = GetAccessKeyLastUsedRequest {
-            accessKeyId = accessId
-        }
+suspend fun getAccessKeyLastUsed(accessId: String?) {
 
-        val response = iamClient.getAccessKeyLastUsed(request)
-        println( "Access key was last used on ${response.accessKeyLastUsed?.lastUsedDate}")
+    val request = GetAccessKeyLastUsedRequest {
+        accessKeyId = accessId
+    }
 
-    } catch (e: IamException) {
-        println(e.message)
-        iamClient.close()
-        exitProcess(0)
+    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+          val response = iamClient.getAccessKeyLastUsed(request)
+          println( "Access key was last used on ${response.accessKeyLastUsed?.lastUsedDate}")
     }
 }
 // snippet-end:[iam.kotlin.access_key_last_used.main]

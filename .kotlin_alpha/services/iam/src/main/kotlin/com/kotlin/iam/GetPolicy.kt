@@ -16,7 +16,6 @@ package com.kotlin.iam
 // snippet-start:[iam.kotlin.get_policy.import]
 import aws.sdk.kotlin.services.iam.IamClient
 import aws.sdk.kotlin.services.iam.model.GetPolicyRequest
-import aws.sdk.kotlin.services.iam.model.IamException
 import kotlin.system.exitProcess
 // snippet-end:[iam.kotlin.get_policy.import]
 
@@ -43,26 +42,19 @@ suspend fun main(args: Array<String>) {
     }
 
     val policyARN = args[0]
-    val iamClient = IamClient{region="AWS_GLOBAL"}
-    getIAMPolicy(iamClient, policyARN)
-    iamClient.close()
-}
+    getIAMPolicy(policyARN)
+    }
 
 // snippet-start:[iam.kotlin.get_policy.main]
-suspend fun getIAMPolicy(iamClient: IamClient, policyArnVal: String?) {
+suspend fun getIAMPolicy(policyArnVal: String?) {
 
-    try {
-        val request = GetPolicyRequest {
-            policyArn = policyArnVal
-        }
+    val request = GetPolicyRequest {
+        policyArn = policyArnVal
+    }
 
+    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.getPolicy(request)
         println("Successfully retrieved policy ${response.policy?.policyName}")
-
-    } catch (e: IamException) {
-        println(e.message)
-        iamClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[iam.kotlin.get_policy.main]

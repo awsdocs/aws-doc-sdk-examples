@@ -16,7 +16,6 @@ package com.kotlin.iam
 // snippet-start:[iam.kotlin.delete_user.import]
 import aws.sdk.kotlin.services.iam.IamClient
 import aws.sdk.kotlin.services.iam.model.DeleteUserRequest
-import aws.sdk.kotlin.services.iam.model.IamException
 import kotlin.system.exitProcess
 // snippet-end:[iam.kotlin.delete_user.import]
 
@@ -43,26 +42,20 @@ suspend fun main(args: Array<String>) {
      }
 
     val username = args[0]
-    val iamClient = IamClient{region="AWS_GLOBAL"}
-    deleteIAMUser(iamClient, username)
-    iamClient.close()
-}
+    deleteIAMUser(username)
+    }
 
 // snippet-start:[iam.kotlin.delete_user.main]
-suspend fun deleteIAMUser(iamClient: IamClient, userNameVal: String) {
-    try {
-        val request = DeleteUserRequest {
-            userName= userNameVal
-        }
+suspend fun deleteIAMUser(userNameVal: String) {
 
-        // To delete a user, ensure that the user's access keys are deleted first.
+    val request = DeleteUserRequest {
+        userName= userNameVal
+    }
+
+    // To delete a user, ensure that the user's access keys are deleted first.
+    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
         iamClient.deleteUser(request)
         println("Successfully deleted user $userNameVal")
-
-    } catch (e: IamException) {
-        println(e.message)
-        iamClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[iam.kotlin.delete_user.main]

@@ -16,7 +16,6 @@ package com.kotlin.iam
 // snippet-start:[iam.kotlin.delete_policy.import]
 import aws.sdk.kotlin.services.iam.IamClient
 import aws.sdk.kotlin.services.iam.model.DeletePolicyRequest
-import aws.sdk.kotlin.services.iam.model.IamException
 import kotlin.system.exitProcess
 // snippet-end:[iam.kotlin.delete_policy.import]
 
@@ -42,26 +41,21 @@ suspend fun main(args: Array<String>) {
         exitProcess(0)
     }
 
-    val policyARN = "arn:aws:iam::814548047983:policy/DynamoDBTest96" //args[0]
-    val iamClient = IamClient{region="AWS_GLOBAL"}
-    deleteIAMPolicy(iamClient, policyARN)
-    iamClient.close()
-}
+    val policyARN = args[0]
+    deleteIAMPolicy(policyARN)
+   }
 
 // snippet-start:[iam.kotlin.delete_policy.main]
-suspend fun deleteIAMPolicy(iamClient: IamClient, policyARNVal: String?) {
-    try {
-        val request = DeletePolicyRequest {
-            policyArn = policyARNVal
-        }
+suspend fun deleteIAMPolicy(policyARNVal: String?) {
 
-        iamClient.deletePolicy(request)
+    val request = DeletePolicyRequest {
+        policyArn = policyARNVal
+    }
+
+    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+       iamClient.deletePolicy(request)
         println("Successfully deleted $policyARNVal")
 
-    } catch (e: IamException) {
-        println(e.message)
-        iamClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[iam.kotlin.delete_policy.main]
