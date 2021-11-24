@@ -14,8 +14,6 @@ package com.kotlin.rekognition
 // snippet-start:[rekognition.kotlin.list_collections.import]
 import aws.sdk.kotlin.services.rekognition.RekognitionClient
 import aws.sdk.kotlin.services.rekognition.model.ListCollectionsRequest
-import aws.sdk.kotlin.services.rekognition.model.RekognitionException
-import kotlin.system.exitProcess
 // snippet-end:[rekognition.kotlin.list_collections.import]
 
 /**
@@ -28,26 +26,21 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun main(){
 
-    val rekClient = RekognitionClient{ region = "us-east-1"}
-    listAllCollections(rekClient)
-    rekClient.close()
+    listAllCollections()
 }
 
 // snippet-start:[rekognition.kotlin.list_collections.main]
-suspend fun listAllCollections(rekClient: RekognitionClient) {
-    try {
-        val listCollectionsRequest = ListCollectionsRequest {
+suspend fun listAllCollections() {
+
+        val request = ListCollectionsRequest {
             maxResults = 10
         }
-        val response = rekClient.listCollections(listCollectionsRequest)
-        response.collectionIds?.forEach { resultId ->
-                println(resultId)
-        }
 
-    } catch (e: RekognitionException) {
-        println(e.message)
-        rekClient.close()
-        exitProcess(0)
-    }
+        RekognitionClient { region = "us-east-1" }.use { rekClient ->
+          val response = rekClient.listCollections(request)
+          response.collectionIds?.forEach { resultId ->
+            println(resultId)
+          }
+        }
 }
 // snippet-end:[rekognition.kotlin.list_collections.main]

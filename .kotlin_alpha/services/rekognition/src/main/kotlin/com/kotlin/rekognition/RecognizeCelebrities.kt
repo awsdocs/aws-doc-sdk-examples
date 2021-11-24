@@ -15,9 +15,7 @@ package com.kotlin.rekognition
 import aws.sdk.kotlin.services.rekognition.RekognitionClient
 import aws.sdk.kotlin.services.rekognition.model.RecognizeCelebritiesRequest
 import aws.sdk.kotlin.services.rekognition.model.Image
-import aws.sdk.kotlin.services.rekognition.model.RekognitionException
 import java.io.File
-import java.io.FileNotFoundException
 import kotlin.system.exitProcess
 // snippet-end:[rekognition.kotlin.recognize_celebs.import]
 
@@ -45,15 +43,11 @@ suspend fun main(args: Array<String>){
     }
 
     val sourceImage = args[0]
-    val rekClient = RekognitionClient{ region = "us-east-1"}
-    recognizeAllCelebrities(rekClient, sourceImage)
-    rekClient.close()
-}
+    recognizeAllCelebrities(sourceImage)
+   }
 
 // snippet-start:[rekognition.kotlin.recognize_celebs.main]
-suspend fun recognizeAllCelebrities(rekClient: RekognitionClient, sourceImage: String?) {
-
-    try {
+suspend fun recognizeAllCelebrities(sourceImage: String?) {
 
         val souImage = Image {
             bytes = (File(sourceImage).readBytes())
@@ -62,8 +56,10 @@ suspend fun recognizeAllCelebrities(rekClient: RekognitionClient, sourceImage: S
         val request = RecognizeCelebritiesRequest{
             image = souImage
         }
-        val response = rekClient.recognizeCelebrities(request)
-        response.celebrityFaces?.forEach { celebrity ->
+
+        RekognitionClient { region = "us-east-1" }.use { rekClient ->
+          val response = rekClient.recognizeCelebrities(request)
+          response.celebrityFaces?.forEach { celebrity ->
                 println("Celebrity recognized: ${celebrity.name}")
                 println("Celebrity ID:${celebrity.id}")
                 println("Further information (if available):")
@@ -71,16 +67,7 @@ suspend fun recognizeAllCelebrities(rekClient: RekognitionClient, sourceImage: S
                       println(url)
                 }
              }
-
-        println("${response.unrecognizedFaces?.size.toString()} face(s) were unrecognized.")
-
-    } catch (e: RekognitionException) {
-        println(e.message)
-        rekClient.close()
-        exitProcess(0)
-    } catch (e: FileNotFoundException) {
-        System.out.println(e.message)
-        System.exit(1)
-    }
+          println("${response.unrecognizedFaces?.size} face(s) were unrecognized.")
+        }
   }
 // snippet-end:[rekognition.kotlin.recognize_celebs.main]

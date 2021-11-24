@@ -14,7 +14,6 @@ package com.kotlin.rekognition
 // snippet-start:[rekognition.kotlin.describe_collection.import]
 import aws.sdk.kotlin.services.rekognition.RekognitionClient
 import aws.sdk.kotlin.services.rekognition.model.DescribeCollectionRequest
-import aws.sdk.kotlin.services.rekognition.model.RekognitionException
 import kotlin.system.exitProcess
 // snippet-end:[rekognition.kotlin.describe_collection.import]
 
@@ -43,27 +42,21 @@ suspend fun main(args: Array<String>){
     }
 
     val collectionId = args[0]
-    val rekClient = RekognitionClient{ region = "us-east-1"}
-    println("Decribing $collectionId")
-    describeColl(rekClient, collectionId)
-    rekClient.close()
-}
+    println("Describing the Amazon Rekognition  $collectionId")
+    describeColl(collectionId)
+    }
 
 // snippet-start:[rekognition.kotlin.describe_collection.main]
-suspend  fun describeColl(rekClient: RekognitionClient, collectionName: String?) {
-    try {
-        val describeCollectionRequest = DescribeCollectionRequest {
+suspend fun describeColl(collectionName: String) {
+
+     val request = DescribeCollectionRequest {
             collectionId = collectionName
-        }
+     }
 
-        val describeCollectionResponse = rekClient.describeCollection(describeCollectionRequest)
-        println("The collection Arn is ${describeCollectionResponse.collectionArn}" )
-        println("The collection contains this many faces ${describeCollectionResponse.faceCount}")
-
-    } catch (e: RekognitionException) {
-        println(e.message)
-        rekClient.close()
-        exitProcess(0)
+    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+        val response = rekClient.describeCollection(request)
+        println("The collection Arn is ${response.collectionArn}" )
+        println("The collection contains this many faces ${response.faceCount}")
     }
 }
 // snippet-end:[rekognition.kotlin.describe_collection.main]

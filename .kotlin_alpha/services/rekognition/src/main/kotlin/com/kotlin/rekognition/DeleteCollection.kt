@@ -14,7 +14,6 @@ package com.kotlin.rekognition
 // snippet-start:[rekognition.kotlin.delete_collection.import]
 import aws.sdk.kotlin.services.rekognition.RekognitionClient
 import aws.sdk.kotlin.services.rekognition.model.DeleteCollectionRequest
-import aws.sdk.kotlin.services.rekognition.model.RekognitionException
 import kotlin.system.exitProcess
 // snippet-end:[rekognition.kotlin.delete_collection.import]
 
@@ -42,26 +41,20 @@ suspend fun main(args: Array<String>){
     }
 
     val collectionId = args[0]
-    val rekClient = RekognitionClient{ region = "us-east-1"}
     println("Deleting collection $collectionId")
-    deleteMyCollection(rekClient, collectionId)
-    rekClient.close()
+    deleteMyCollection(collectionId)
 }
 
 // snippet-start:[rekognition.kotlin.delete_collection.main]
-suspend fun deleteMyCollection(rekClient: RekognitionClient, collectionIdVal: String) {
-    try {
-        val deleteCollectionRequest = DeleteCollectionRequest {
-            collectionId = collectionIdVal
-        }
+suspend fun deleteMyCollection(collectionIdVal: String) {
 
-        val deleteCollectionResponse = rekClient.deleteCollection(deleteCollectionRequest)
-        println("The collectionId status is ${deleteCollectionResponse.statusCode.toString()}")
+    val request = DeleteCollectionRequest {
+        collectionId = collectionIdVal
+    }
 
-    } catch (e: RekognitionException) {
-        println(e.message)
-        rekClient.close()
-        exitProcess(0)
+    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+        val response = rekClient.deleteCollection(request)
+        println("The collectionId status is ${response.statusCode.toString()}")
     }
 }
 // snippet-end:[rekognition.kotlin.delete_collection.main]

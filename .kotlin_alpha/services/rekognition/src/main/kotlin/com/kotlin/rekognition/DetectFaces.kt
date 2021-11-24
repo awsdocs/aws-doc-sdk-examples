@@ -16,10 +16,7 @@ import aws.sdk.kotlin.services.rekognition.RekognitionClient
 import aws.sdk.kotlin.services.rekognition.model.Image
 import aws.sdk.kotlin.services.rekognition.model.DetectFacesRequest
 import aws.sdk.kotlin.services.rekognition.model.Attribute
-import aws.sdk.kotlin.services.rekognition.model.RekognitionException
-import aws.sdk.kotlin.services.rekognition.model.FaceDetail
 import java.io.File
-import java.io.FileNotFoundException
 import kotlin.system.exitProcess
 // snippet-end:[rekognition.kotlin.detect_faces.import]
 
@@ -47,38 +44,28 @@ suspend fun main(args: Array<String>){
     }
 
     val sourceImage = args[0]
-    val rekClient = RekognitionClient{ region = "us-east-1"}
-    detectFacesinImage(rekClient, sourceImage)
-    rekClient.close()
+    detectFacesinImage(sourceImage)
 }
 
 // snippet-start:[rekognition.kotlin.detect_faces.main]
-suspend fun detectFacesinImage(rekClient: RekognitionClient, sourceImage: String?) {
-    try {
-        // Create an Image object for the source image
+suspend fun detectFacesinImage(sourceImage: String?) {
+
         val souImage = Image {
             bytes = (File(sourceImage).readBytes())
         }
 
-        val facesRequest = DetectFacesRequest {
+        val request = DetectFacesRequest {
             attributes = listOf(Attribute.All)
             image = souImage
         }
 
-        val response = rekClient.detectFaces(facesRequest)
-        response.faceDetails?.forEach { face ->
+        RekognitionClient { region = "us-east-1" }.use { rekClient ->
+          val response = rekClient.detectFaces(request)
+          response.faceDetails?.forEach { face ->
                val ageRange = face.ageRange
                 println("The detected face is estimated to be between ${ageRange?.low.toString()} and ${ageRange?.high.toString()} years old.")
                 println("There is a smile ${face.smile?.value.toString()}")
-        }
-
-    } catch (e: RekognitionException) {
-        println(e.message)
-        rekClient.close()
-        exitProcess(0)
-    } catch (e: FileNotFoundException) {
-        println(e.message)
-        System.exit(1)
-    }
+          }
+       }
 }
 // snippet-end:[rekognition.kotlin.detect_faces.main]

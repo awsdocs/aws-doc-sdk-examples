@@ -16,7 +16,6 @@ import aws.sdk.kotlin.services.rekognition.RekognitionClient
 import  aws.sdk.kotlin.services.rekognition.model.CompareFacesMatch
 import aws.sdk.kotlin.services.rekognition.model.CompareFacesRequest
 import aws.sdk.kotlin.services.rekognition.model.Image
-import aws.sdk.kotlin.services.rekognition.model.RekognitionException
 import java.io.File
 import kotlin.system.exitProcess
 // snippet-end:[rekognition.kotlin.compare_faces.import]
@@ -47,20 +46,11 @@ suspend fun main(args: Array<String>){
     val similarityThreshold = 70f
     val sourceImage = args[0]
     val targetImage = args[1]
-
-    val rekClient = RekognitionClient{ region = "us-east-1"}
-    compareTwoFaces(rekClient, similarityThreshold, sourceImage, targetImage)
-    rekClient.close()
+    compareTwoFaces(similarityThreshold, sourceImage, targetImage)
 }
 
 // snippet-start:[rekognition.kotlin.compare_faces.main]
-suspend fun compareTwoFaces(
-        rekClient: RekognitionClient,
-        similarityThresholdVal: Float?,
-        sourceImageVal: String,
-        targetImageVal: String?
-    ) {
-        try {
+suspend fun compareTwoFaces(similarityThresholdVal: Float, sourceImageVal: String, targetImageVal: String) {
 
            val sourceBytes = (File(sourceImageVal).readBytes())
            val targetBytes = (File(targetImageVal).readBytes())
@@ -80,30 +70,26 @@ suspend fun compareTwoFaces(
                 similarityThreshold = similarityThresholdVal
             }
 
-            // Compare the two images.
-            val compareFacesResult = rekClient.compareFaces(facesRequest)
-            val faceDetails = compareFacesResult.faceMatches
+            RekognitionClient { region = "us-east-1" }.use { rekClient ->
 
-            if (faceDetails != null) {
+              val compareFacesResult = rekClient.compareFaces(facesRequest)
+              val faceDetails = compareFacesResult.faceMatches
+
+              if (faceDetails != null) {
                 for (match: CompareFacesMatch in faceDetails) {
                     val face = match.face
                     val position = face?.boundingBox
                     if (position != null)
                         println("Face at ${position.left.toString()} ${position.top} matches with ${face.confidence.toString()} % confidence.")
                 }
-            }
+              }
 
-            val uncompared = compareFacesResult.unmatchedFaces
-            if (uncompared != null)
+              val uncompared = compareFacesResult.unmatchedFaces
+              if (uncompared != null)
                 println("There was ${uncompared.size} face(s) that did not match")
 
-            println("Source image rotation: ${compareFacesResult.sourceImageOrientationCorrection}")
-            println("target image rotation: ${compareFacesResult.targetImageOrientationCorrection}")
-
-        } catch (e: RekognitionException) {
-            println(e.message)
-            rekClient.close()
-            exitProcess(0)
-        }
- }
+               println("Source image rotation: ${compareFacesResult.sourceImageOrientationCorrection}")
+               println("target image rotation: ${compareFacesResult.targetImageOrientationCorrection}")
+           }
+   }
 // snippet-end:[rekognition.kotlin.compare_faces.main]

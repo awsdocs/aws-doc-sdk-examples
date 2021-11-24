@@ -14,7 +14,6 @@ package com.kotlin.rekognition
 // snippet-start:[rekognition.kotlin.list_faces_collection.import]
 import aws.sdk.kotlin.services.rekognition.RekognitionClient
 import aws.sdk.kotlin.services.rekognition.model.ListFacesRequest
-import aws.sdk.kotlin.services.rekognition.model.RekognitionException
 import kotlin.system.exitProcess
 // snippet-end:[rekognition.kotlin.list_faces_collection.import]
 
@@ -42,29 +41,23 @@ suspend fun main(args: Array<String>){
      }
 
     val collectionId = args[0]
-    val rekClient = RekognitionClient{ region = "us-east-1"}
-    listFacesCollection(rekClient, collectionId)
-    rekClient.close()
+    listFacesCollection(collectionId)
 }
 
 // snippet-start:[rekognition.kotlin.list_faces_collection.main]
-suspend fun listFacesCollection(rekClient: RekognitionClient, collectionIdVal: String?) {
-    try {
-        val facesRequest = ListFacesRequest {
+suspend fun listFacesCollection(collectionIdVal: String?) {
+
+        val request = ListFacesRequest {
             collectionId = collectionIdVal
             maxResults =10
         }
 
-        val response = rekClient.listFaces(facesRequest)
+        RekognitionClient { region = "us-east-1" }.use { rekClient ->
+        val response = rekClient.listFaces(request)
         response.faces?.forEach { face ->
                 println("Confidence level there is a face: ${face.confidence}")
                 println("The face Id value is ${face.faceId}")
             }
-
-    } catch (e: RekognitionException) {
-        println(e.message)
-        rekClient.close()
-        exitProcess(0)
-    }
+       }
   }
 // snippet-end:[rekognition.kotlin.list_faces_collection.main]

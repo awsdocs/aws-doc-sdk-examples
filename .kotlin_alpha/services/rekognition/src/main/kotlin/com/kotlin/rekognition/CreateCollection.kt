@@ -15,7 +15,6 @@ package com.kotlin.rekognition
 // snippet-start:[rekognition.kotlin.create_collection.import]
 import aws.sdk.kotlin.services.rekognition.RekognitionClient
 import aws.sdk.kotlin.services.rekognition.model.CreateCollectionRequest
-import aws.sdk.kotlin.services.rekognition.model.RekognitionException
 import kotlin.system.exitProcess
 // snippet-end:[rekognition.kotlin.create_collection.import]
 
@@ -30,11 +29,11 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>){
 
     val usage = """
-        Usage: <collectionName> 
+        Usage: 
+            <collectionName> 
 
         Where:
             collectionName - the name of the collection. 
-       
     """
 
      if (args.size != 1) {
@@ -43,28 +42,20 @@ suspend fun main(args: Array<String>){
      }
 
     val collectionName = args[0]
-    val rekClient = RekognitionClient{ region = "us-east-1"}
-    createMyCollection(rekClient, collectionName)
-    rekClient.close()
-
+    createMyCollection(collectionName)
 }
 
 // snippet-start:[rekognition.kotlin.create_collection.main]
- suspend fun createMyCollection(rekClient: RekognitionClient, collectionIdVal: String?) {
-        try {
+ suspend fun createMyCollection(collectionIdVal: String) {
 
-            val collectionRequest = CreateCollectionRequest {
-                collectionId = collectionIdVal
-            }
+        val request = CreateCollectionRequest {
+            collectionId = collectionIdVal
+        }
 
-            val collectionResponse = rekClient.createCollection(collectionRequest)
-            println("Collection ARN is ${collectionResponse.collectionArn}")
-            println("Status code is ${collectionResponse.statusCode.toString()}" )
-
-        } catch (e: RekognitionException) {
-            println(e.message)
-            rekClient.close()
-            exitProcess(0)
+        RekognitionClient { region = "us-east-1" }.use { rekClient ->
+            val response = rekClient.createCollection(request)
+            println("Collection ARN is ${response.collectionArn}")
+            println("Status code is ${response.statusCode}" )
         }
     }
 // snippet-end:[rekognition.kotlin.create_collection.main]

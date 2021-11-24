@@ -13,10 +13,8 @@ package com.kotlin.rekognition
 
 // snippet-start:[rekognition.kotlin.detect_text.import]
 import aws.sdk.kotlin.services.rekognition.RekognitionClient
-import aws.sdk.kotlin.services.rekognition.model.RekognitionException
 import aws.sdk.kotlin.services.rekognition.model.Image
 import aws.sdk.kotlin.services.rekognition.model.DetectTextRequest
-import java.io.FileNotFoundException
 import java.io.File
 import kotlin.system.exitProcess
 // snippet-end:[rekognition.kotlin.detect_text.import]
@@ -45,39 +43,29 @@ suspend fun main(args: Array<String>){
     }
 
     val sourceImage = args[0]
-    val rekClient = RekognitionClient{ region = "us-east-1"}
-    detectTextLabels(rekClient, sourceImage)
-    rekClient.close()
+    detectTextLabels(sourceImage)
 }
 
 // snippet-start:[rekognition.kotlin.detect_text.main]
-suspend fun detectTextLabels(rekClient: RekognitionClient, sourceImage: String?) {
-    try {
+suspend fun detectTextLabels(sourceImage: String?) {
 
         val souImage = Image {
             bytes = (File(sourceImage).readBytes())
         }
 
-        val textRequest = DetectTextRequest {
+        val request = DetectTextRequest {
             image = souImage
         }
 
-        val response = rekClient.detectText(textRequest)
-        response.textDetections?.forEach { text ->
+        RekognitionClient { region = "us-east-1" }.use { rekClient ->
+          val response = rekClient.detectText(request)
+          response.textDetections?.forEach { text ->
                  println("Detected: ${text.detectedText}")
-                println("Confidence: ${text.confidence.toString()}")
+                println("Confidence: ${text.confidence}")
                 println("Id: ${text.id}")
                 println("Parent Id:  ${text.parentId}")
                 println("Type: ${text.type}")
+          }
         }
-
-    } catch (e: RekognitionException) {
-        println(e.message)
-        rekClient.close()
-        exitProcess(0)
-    } catch (e: FileNotFoundException) {
-        println(e.message)
-        exitProcess(0)
-    }
 }
 // snippet-end:[rekognition.kotlin.detect_text.main]
