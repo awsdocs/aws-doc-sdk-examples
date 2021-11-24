@@ -14,7 +14,6 @@
 package com.kotlin.xray
 
 // snippet-start:[xray.kotlin_delete_group.import]
-import aws.sdk.kotlin.services.xray.model.XRayException
 import aws.sdk.kotlin.services.xray.XRayClient
 import aws.sdk.kotlin.services.xray.model.DeleteGroupRequest
 import kotlin.system.exitProcess
@@ -38,26 +37,19 @@ suspend fun main(args:Array<String>) {
      }
 
     val groupName = args[0]
-    val xRayClient = XRayClient{region = "us-east-1"}
-    deleteSpecificGroup(xRayClient,groupName)
-    xRayClient.close()
-
+    deleteSpecificGroup(groupName)
 }
 
 // snippet-start:[xray.kotlin_delete_group.main]
-suspend fun deleteSpecificGroup(xRayClient: XRayClient, groupNameVal: String) {
-        try {
-            val groupRequest = DeleteGroupRequest {
-                groupName = groupNameVal
-            }
+suspend fun deleteSpecificGroup(groupNameVal: String) {
 
+        val groupRequest = DeleteGroupRequest {
+            groupName = groupNameVal
+        }
+
+        XRayClient { region = "us-east-1" }.use { xRayClient ->
             xRayClient.deleteGroup(groupRequest)
             println("$groupNameVal was deleted!")
-
-        } catch (ex: XRayException) {
-            println(ex.message)
-            xRayClient.close()
-            exitProcess(0)
         }
     }
 // snippet-end:[xray.kotlin_delete_group.main]

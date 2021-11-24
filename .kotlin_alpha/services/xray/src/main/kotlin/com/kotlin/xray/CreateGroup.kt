@@ -14,7 +14,6 @@
 package com.kotlin.xray
 
 // snippet-start:[xray.kotlin_create_group.import]
-import aws.sdk.kotlin.services.xray.model.XRayException
 import aws.sdk.kotlin.services.xray.XRayClient
 import aws.sdk.kotlin.services.xray.model.CreateGroupRequest
 import kotlin.system.exitProcess
@@ -38,26 +37,20 @@ suspend fun main(args:Array<String>) {
     }
 
     val groupName = args[0]
-    val xRayClient = XRayClient{region = "us-east-1"}
-    createNewGroup(xRayClient,groupName)
-    xRayClient.close()
+    createNewGroup(groupName)
 }
 
 // snippet-start:[xray.kotlin_create_group.main]
-suspend fun createNewGroup(xRayClient: XRayClient, groupNameVal: String?) {
-        try {
-            val groupRequest = CreateGroupRequest {
-                filterExpression = "fault = true AND http.url CONTAINS \"example/game\" AND responsetime >= 5"
-                groupName = groupNameVal
-            }
+suspend fun createNewGroup(groupNameVal: String?) {
 
+        val groupRequest = CreateGroupRequest {
+             filterExpression = "fault = true AND http.url CONTAINS \"example/game\" AND responsetime >= 5"
+             groupName = groupNameVal
+         }
+
+       XRayClient { region = "us-east-1" }.use { xRayClient ->
             val groupResponse = xRayClient.createGroup(groupRequest)
             println("The Group ARN is " + (groupResponse.group?.groupArn))
-
-        } catch (ex: XRayException) {
-            println(ex.message)
-            xRayClient.close()
-            exitProcess(0)
         }
  }
 // snippet-end:[xray.kotlin_create_group.main]

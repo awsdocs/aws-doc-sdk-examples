@@ -16,30 +16,23 @@ package com.kotlin.xray
 // snippet-start:[xray.kotlin_get_rules.import]
 import aws.sdk.kotlin.services.xray.XRayClient
 import aws.sdk.kotlin.services.xray.model.GetSamplingRulesRequest
-import aws.sdk.kotlin.services.xray.model.XRayException
-import kotlin.system.exitProcess
 // snippet-end:[xray.kotlin_get_rules.import]
 
 suspend fun main() {
 
-    val xRayClient = XRayClient{region = "us-east-1"}
-    getRules(xRayClient)
-    xRayClient.close()
+    getRules()
 }
 
 // snippet-start:[xray.kotlin_get_rules.main]
-suspend fun getRules(xRayClient: XRayClient) {
-        try {
+suspend fun getRules() {
+
+        XRayClient { region = "us-east-1" }.use { xRayClient ->
             val response = xRayClient.getSamplingRules( GetSamplingRulesRequest{} )
             response.samplingRuleRecords?.forEach { record ->
                     println("The rule name is ${record.samplingRule?.ruleName}")
                     println("The related service is: ${record.samplingRule?.serviceName}")
             }
 
-        } catch (ex: XRayException) {
-            println(ex.message)
-            xRayClient.close()
-            exitProcess(0)
         }
  }
 // snippet-end:[xray.kotlin_get_rules.main]
