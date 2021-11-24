@@ -17,7 +17,6 @@ package com.kotlin.sns
 import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.Tag
 import aws.sdk.kotlin.services.sns.model.TagResourceRequest
-import aws.sdk.kotlin.services.sns.model.SnsException
 import kotlin.system.exitProcess
 //snippet-end:[sns.kotlin.add_tags.import]
 
@@ -25,7 +24,7 @@ suspend fun main(args:Array<String>) {
 
     val usage = """
         Usage: 
-         <topicArn>
+            <topicArn>
 
         Where:
             topicArn - the ARN of the topic to which tags are added.
@@ -37,41 +36,34 @@ suspend fun main(args:Array<String>) {
      }
 
     val topicArn = args[0]
-    val snsClient = SnsClient{ region = "us-east-1" }
-    addTopicTags(snsClient, topicArn)
-    snsClient.close()
-}
+    addTopicTags(topicArn)
+    }
 
 //snippet-start:[sns.kotlin.add_tags.main]
-suspend fun addTopicTags(snsClient: SnsClient, topicArn: String) {
+suspend fun addTopicTags(topicArn: String) {
 
-    try {
-        val tag = Tag {
-            key ="Team"
-            value = "Development"
-        }
+    val tag = Tag {
+        key ="Team"
+        value = "Development"
+    }
 
-        val tag2 = Tag {
-            key = "Environment"
-            value = "Gamma"
-        }
+    val tag2 = Tag {
+        key = "Environment"
+        value = "Gamma"
+    }
 
-        val tagList  = mutableListOf<Tag>()
+    val tagList = mutableListOf<Tag>()
         tagList.add(tag)
         tagList.add(tag2)
 
-        val tagResourceRequest = TagResourceRequest {
-            resourceArn=topicArn
-            tags = tagList
-        }
+    val request = TagResourceRequest {
+        resourceArn=topicArn
+        tags = tagList
+    }
 
-        snsClient.tagResource(tagResourceRequest)
+    SnsClient { region = "us-east-1" }.use { snsClient ->
+        snsClient.tagResource(request)
         println("Tags have been added to $topicArn")
-
-    } catch (e: SnsException) {
-        println(e.message)
-        snsClient.close()
-        exitProcess(0)
     }
 }
 //snippet-end:[sns.kotlin.add_tags.main]

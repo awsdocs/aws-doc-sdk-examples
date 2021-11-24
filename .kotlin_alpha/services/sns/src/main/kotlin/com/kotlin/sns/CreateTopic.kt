@@ -16,7 +16,6 @@ package com.kotlin.sns
 //snippet-start:[sns.kotlin.CreateTopic.import]
 import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.CreateTopicRequest
-import aws.sdk.kotlin.services.sns.model.SnsException
 import kotlin.system.exitProcess
 //snippet-end:[sns.kotlin.CreateTopic.import]
 
@@ -37,27 +36,20 @@ suspend fun main(args:Array<String>) {
      }
 
     val topicName = args[0]
-    val snsClient = SnsClient{ region = "us-east-1" }
-    val topicArn = createSNSTopic(snsClient, topicName)
+    val topicArn = createSNSTopic(topicName)
     println("The ARN of the new topic is $topicArn")
-    snsClient.close()
 }
 
 //snippet-start:[sns.kotlin.CreateTopic.main]
-suspend fun createSNSTopic(snsClient: SnsClient, topicName: String): String {
+suspend fun createSNSTopic(topicName: String): String {
 
-    try {
-        val request = CreateTopicRequest {
+       val request = CreateTopicRequest {
             name = topicName
         }
 
+       SnsClient { region = "us-east-1" }.use { snsClient ->
         val result = snsClient.createTopic(request)
         return result.topicArn.toString()
-
-    } catch (e: SnsException) {
-        println(e.message)
-        snsClient.close()
-        exitProcess(0)
-    }
+       }
  }
 //snippet-end:[sns.kotlin.CreateTopic.main]

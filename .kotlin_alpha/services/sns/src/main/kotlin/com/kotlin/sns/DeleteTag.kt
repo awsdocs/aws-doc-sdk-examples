@@ -16,7 +16,6 @@ package com.kotlin.sns
 //snippet-start:[sns.kotlin.delete_tags.import]
 import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.UntagResourceRequest
-import aws.sdk.kotlin.services.sns.model.SnsException
 import kotlin.system.exitProcess
 //snippet-end:[sns.kotlin.delete_tags.import]
 
@@ -24,7 +23,7 @@ suspend fun main(args:Array<String>) {
 
     val usage = """
         Usage: 
-         <topicArn> <tagKey>
+            <topicArn> <tagKey>
 
         Where:
             topicArn - the ARN of the topic to which tags are removed.
@@ -39,27 +38,20 @@ suspend fun main(args:Array<String>) {
 
     val topicArn = args[0]
     val tagKey = args[1]
-    val snsClient = SnsClient{ region = "us-east-1" }
-    removeTag(snsClient, topicArn, tagKey)
-    snsClient.close()
+    removeTag(topicArn, tagKey)
 }
 
 //snippet-start:[sns.kotlin.delete_tags.main]
-suspend fun removeTag(snsClient: SnsClient, topicArn: String, tagKey: String) {
-    try {
+suspend fun removeTag(topicArn: String, tagKey: String) {
 
-        val resourceRequest = UntagResourceRequest {
-            resourceArn = topicArn
-            tagKeys = listOf(tagKey)
-        }
 
+    val resourceRequest = UntagResourceRequest {
+        resourceArn = topicArn
+        tagKeys = listOf(tagKey)
+    }
+    SnsClient { region = "us-east-1" }.use { snsClient ->
         snsClient.untagResource(resourceRequest)
         println("$tagKey was deleted from $topicArn")
-
-    } catch (e: SnsException) {
-        println(e.message)
-        snsClient.close()
-        exitProcess(0)
     }
 }
 //snippet-end:[sns.kotlin.delete_tags.main]

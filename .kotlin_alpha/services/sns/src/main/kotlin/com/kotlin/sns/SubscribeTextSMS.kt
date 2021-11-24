@@ -16,7 +16,6 @@ package com.kotlin.sns
 //snippet-start:[sns.kotlin.SubscribeTextSMS.import]
 import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.SubscribeRequest
-import aws.sdk.kotlin.services.sns.model.SnsException
 import kotlin.system.exitProcess
 //snippet-end:[sns.kotlin.SubscribeTextSMS.import]
 
@@ -24,7 +23,8 @@ suspend fun main(args:Array<String>) {
 
     val usage = """
         
-        Usage: <topicArn> <phoneNumber>
+        Usage: 
+            <topicArn> <phoneNumber>
 
         Where:
             topicArn - the ARN of the topic to publish.
@@ -38,29 +38,22 @@ suspend fun main(args:Array<String>) {
 
     val topicArn = args[0]
     val phoneNumber = args[1]
-    val snsClient = SnsClient{ region = "us-east-1" }
-    subTextSNS(snsClient, topicArn, phoneNumber)
-    snsClient.close()
+    subTextSNS(topicArn, phoneNumber)
 }
 
 //snippet-start:[sns.kotlin.SubscribeTextSMS.main]
-suspend fun subTextSNS(snsClient: SnsClient, topicArnVal: String?, phoneNumber: String?) {
-    try {
+suspend fun subTextSNS( topicArnVal: String?, phoneNumber: String?) {
 
-        val request = SubscribeRequest {
-            protocol ="sms"
-            endpoint = phoneNumber
-            returnSubscriptionArn = true
-            topicArn = topicArnVal
-        }
+    val request = SubscribeRequest {
+        protocol ="sms"
+        endpoint = phoneNumber
+        returnSubscriptionArn = true
+        topicArn = topicArnVal
+    }
 
+    SnsClient { region = "us-east-1" }.use { snsClient ->
         val result = snsClient.subscribe(request)
         println("The subscription Arn is ${result.subscriptionArn}")
-
-    } catch (e: SnsException) {
-        println(e.message)
-        snsClient.close()
-        exitProcess(0)
     }
 }
 //snippet-end:[sns.kotlin.SubscribeTextSMS.main]

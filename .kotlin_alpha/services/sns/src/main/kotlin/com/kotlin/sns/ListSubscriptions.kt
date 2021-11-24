@@ -16,31 +16,22 @@ package com.kotlin.sns
 //snippet-start:[sns.kotlin.ListSubscriptions.import]
 import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.ListSubscriptionsRequest
-import aws.sdk.kotlin.services.sns.model.SnsException
-import kotlin.system.exitProcess
 //snippet-end:[sns.kotlin.ListSubscriptions.import]
 
 
 suspend fun main() {
-    val snsClient = SnsClient{ region = "us-east-1" }
-    listSNSSubscriptions(snsClient)
-    snsClient.close()
+    listSNSSubscriptions()
 }
 
 //snippet-start:[sns.kotlin.ListSubscriptions.main]
-suspend fun listSNSSubscriptions(snsClient: SnsClient) {
+suspend fun listSNSSubscriptions() {
 
-    try {
+    SnsClient { region = "us-east-1" }.use { snsClient ->
         val response = snsClient.listSubscriptions(ListSubscriptionsRequest{})
         response.subscriptions?.forEach { sub ->
             println("Sub ARN is ${sub.subscriptionArn}")
             println("Sub protocol is ${sub.protocol}")
         }
-
-    } catch (e: SnsException) {
-        println(e.message)
-        snsClient.close()
-        exitProcess(0)
     }
 }
 //snippet-end:[sns.kotlin.ListSubscriptions.main]
