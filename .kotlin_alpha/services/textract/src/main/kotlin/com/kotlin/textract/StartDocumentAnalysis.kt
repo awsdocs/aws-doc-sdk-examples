@@ -20,7 +20,6 @@ import aws.sdk.kotlin.services.textract.model.FeatureType
 import aws.sdk.kotlin.services.textract.model.DocumentLocation
 import aws.sdk.kotlin.services.textract.model.S3Object
 import aws.sdk.kotlin.services.textract.model.StartDocumentAnalysisRequest
-import aws.sdk.kotlin.services.textract.model.TextractException
 import kotlin.system.exitProcess
 // snippet-end:[textract.kotlin._start_doc_analysis.import]
 
@@ -37,48 +36,42 @@ suspend fun main(args:Array<String>) {
 
     if (args.size != 2) {
         println(usage)
-        System.exit(1)
+        exitProcess(1)
      }
 
     val bucketName = args[0]
     val docName =  args[1]
-    val textractClient = TextractClient{ region = "us-west-2"}
-    startDocAnalysisS3(textractClient, bucketName, docName)
-    textractClient.close()
+    startDocAnalysisS3(bucketName, docName)
 }
 
 // snippet-start:[textract.kotlin._start_doc_analysis.main]
-suspend fun startDocAnalysisS3(textractClient: TextractClient, bucketName: String?, docName: String?) {
-    try {
-        val myList = mutableListOf<FeatureType>()
-        myList.add(FeatureType.Tables)
-        myList.add(FeatureType.Forms)
+suspend fun startDocAnalysisS3(bucketName: String?, docName: String?) {
 
-        val s3ObjectOb = S3Object {
-            bucket = bucketName
-            name = docName
-        }
+    val myList = mutableListOf<FeatureType>()
+    myList.add(FeatureType.Tables)
+    myList.add(FeatureType.Forms)
 
-        val location = DocumentLocation {
-            s3Object = s3ObjectOb
-        }
+    val s3ObjectOb = S3Object {
+        bucket = bucketName
+        name = docName
+    }
 
-        val documentAnalysisRequest = StartDocumentAnalysisRequest {
-            documentLocation = location
-            featureTypes = myList
-        }
+    val location = DocumentLocation {
+        s3Object = s3ObjectOb
+    }
 
+    val documentAnalysisRequest = StartDocumentAnalysisRequest {
+        documentLocation = location
+        featureTypes = myList
+    }
+
+    TextractClient { region = "us-west-2" }.use { textractClient ->
         val response = textractClient.startDocumentAnalysis(documentAnalysisRequest)
 
         // Get the job ID.
         val jobId = response.jobId
         val result = getJobResults(textractClient, jobId)
         println("The status of the job is: $result")
-
-    } catch (ex: TextractException) {
-        println(ex.message)
-        textractClient.close()
-        exitProcess(0)
     }
 }
 

@@ -16,14 +16,12 @@ package com.kotlin.sqs
 // snippet-start:[sqs.kotlin.send_messages.import]
 import aws.sdk.kotlin.services.sqs.SqsClient
 import aws.sdk.kotlin.services.sqs.model.SendMessageRequest
-import aws.sdk.kotlin.services.sqs.model.SqsException
 import aws.sdk.kotlin.services.sqs.model.SendMessageBatchRequestEntry
 import aws.sdk.kotlin.services.sqs.model.SendMessageBatchRequest
 import kotlin.system.exitProcess
 // snippet-end:[sqs.kotlin.send_messages.import]
 
 suspend fun main(args:Array<String>) {
-
 
     val usage = """
         Usage: 
@@ -41,61 +39,48 @@ suspend fun main(args:Array<String>) {
 
     val queueUrl = args[0]
     val message = args[1]
-    val sqsClient = SqsClient { region = "us-east-1" }
-    sendMessages(sqsClient, queueUrl, message)
-    sendBatchMessages(sqsClient, queueUrl)
+    sendMessages(queueUrl, message)
+    sendBatchMessages(queueUrl)
     println("The multi AWS SQS operation example is complete!")
-    sqsClient.close()
 }
 
 // snippet-start:[sqs.kotlin.send_messages.main]
-suspend fun sendMessages(sqsClient: SqsClient, queueUrlVal: String, message : String) {
+suspend fun sendMessages(queueUrlVal: String, message : String) {
     println("Sending multiple messages")
-    try {
+    println("\nSend message")
+    val sendRequest = SendMessageRequest {
+        queueUrl = queueUrlVal
+        messageBody = message
+        delaySeconds = 10
+     }
 
-        println("\nSend message")
-        val sendRequest = SendMessageRequest {
-            queueUrl = queueUrlVal
-            messageBody = message
-            delaySeconds = 10
-        }
-
+    SqsClient { region = "us-east-1" }.use { sqsClient ->
         sqsClient.sendMessage(sendRequest)
         println("A single message was successfully sent.")
-
-    } catch (e: SqsException) {
-        println(e.message)
-        sqsClient.close()
-        exitProcess(0)
     }
 }
 
-suspend fun sendBatchMessages(sqsClient: SqsClient, queueUrlVal: String?) {
+suspend fun sendBatchMessages(queueUrlVal: String?) {
     println("Sending multiple messages")
 
-    try {
-        val msg1 = SendMessageBatchRequestEntry {
-            id = "id1"
-            messageBody = "Hello from msg 1"
-        }
+    val msg1 = SendMessageBatchRequestEntry {
+         id = "id1"
+         messageBody = "Hello from msg 1"
+    }
 
-        val msg2 = SendMessageBatchRequestEntry {
-            id = "id2"
-            messageBody = "Hello from msg 2"
-        }
+    val msg2 = SendMessageBatchRequestEntry {
+          id = "id2"
+          messageBody = "Hello from msg 2"
+    }
 
-        val sendMessageBatchRequest = SendMessageBatchRequest {
-            queueUrl = queueUrlVal
-            this.entries = listOf(msg1,msg2)
-        }
+    val sendMessageBatchRequest = SendMessageBatchRequest {
+        queueUrl = queueUrlVal
+         entries = listOf(msg1,msg2)
+    }
 
-        sqsClient.sendMessageBatch(sendMessageBatchRequest)
-        println("Batch message were successfully sent.")
-
-    } catch (e: SqsException) {
-        println(e.message)
-        sqsClient.close()
-        exitProcess(0)
+    SqsClient { region = "us-east-1" }.use { sqsClient ->
+          sqsClient.sendMessageBatch(sendMessageBatchRequest)
+          println("Batch message were successfully sent.")
     }
 }
 // snippet-end:[sqs.kotlin.send_messages.main]

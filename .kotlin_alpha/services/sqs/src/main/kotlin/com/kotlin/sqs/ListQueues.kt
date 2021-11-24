@@ -16,36 +16,26 @@ package com.kotlin.sqs
 // snippet-start:[sqs.kotlin.list_queues.import]
 import aws.sdk.kotlin.services.sqs.SqsClient
 import aws.sdk.kotlin.services.sqs.model.ListQueuesRequest
-import aws.sdk.kotlin.services.sqs.model.SqsException
-import kotlin.system.exitProcess
 // snippet-end:[sqs.kotlin.list_queues.import]
 
 suspend fun main() {
-
-    val sqsClient = SqsClient { region = "us-east-1" }
-    listQueues(sqsClient)
-    sqsClient.close()
+    listQueues()
 }
 
 // snippet-start:[sqs.kotlin.list_queues.main]
-suspend fun listQueues(sqsClient: SqsClient) {
+suspend fun listQueues() {
     println("\nList Queues")
 
     val prefix = "que"
-    try {
-        val listQueuesRequest = ListQueuesRequest {
-            queueNamePrefix = prefix
-        }
+    val listQueuesRequest = ListQueuesRequest {
+        queueNamePrefix = prefix
+    }
 
-        val response = sqsClient.listQueues(listQueuesRequest)
+    SqsClient { region = "us-east-1" }.use { sqsClient ->
+      val response = sqsClient.listQueues(listQueuesRequest)
         response.queueUrls?.forEach { url ->
              println(url)
         }
-
-    } catch (e: SqsException) {
-        println(e.message)
-        sqsClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[sqs.kotlin.list_queues.main]

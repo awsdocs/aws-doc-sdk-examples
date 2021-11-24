@@ -13,10 +13,8 @@
 package com.kotlin.personalize
 
 //snippet-start:[personalize.kotlin.get_recommendations.import]
-import aws.sdk.kotlin.services.personalize.model.PersonalizeException
 import aws.sdk.kotlin.services.personalizeruntime.PersonalizeRuntimeClient
 import aws.sdk.kotlin.services.personalizeruntime.model.GetRecommendationsRequest
-import aws.sdk.kotlin.services.personalizeruntime.model.PredictedItem
 import kotlin.system.exitProcess
 //snippet-end:[personalize.kotlin.get_recommendations.import]
 
@@ -46,31 +44,24 @@ suspend fun main(args:Array<String>){
 
     val campaignArn = args[0]
     val userId = args[1]
-    val personalizeRuntimeClient = PersonalizeRuntimeClient{region = "us-east-1" }
-    getRecs(personalizeRuntimeClient, campaignArn, userId )
-    personalizeRuntimeClient.close()
-}
+    getRecs(campaignArn, userId )
+   }
 
 //snippet-start:[personalize.kotlin.get_recommendations.main]
-suspend fun getRecs(personalizeRuntimeClient: PersonalizeRuntimeClient, campaignArnVal: String?, userIdVal: String?) {
-        try {
+suspend fun getRecs(campaignArnVal: String?, userIdVal: String?) {
 
-            val recommendationsRequest = GetRecommendationsRequest {
-                campaignArn = campaignArnVal
-                numResults = 20
-                userId = userIdVal
-            }
+           val request = GetRecommendationsRequest {
+               campaignArn = campaignArnVal
+               numResults = 20
+               userId = userIdVal
+           }
 
-            val response =  personalizeRuntimeClient.getRecommendations(recommendationsRequest)
-            response.itemList?.forEach { item ->
+           PersonalizeRuntimeClient { region = "us-east-1" }.use { personalizeRuntimeClient ->
+              val response =  personalizeRuntimeClient.getRecommendations(request)
+              response.itemList?.forEach { item ->
                     println("Item Id is ${item.itemId}")
                     println("Item score is ${item.score}")
              }
-
-        } catch (ex: PersonalizeException) {
-            println(ex.message)
-            personalizeRuntimeClient.close()
-            exitProcess(0)
-        }
+          }
     }
 //snippet-end:[personalize.kotlin.get_recommendations.main]

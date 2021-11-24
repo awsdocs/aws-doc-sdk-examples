@@ -17,10 +17,7 @@ package com.kotlin.kms
 import aws.sdk.kotlin.services.kms.KmsClient
 import aws.sdk.kotlin.services.kms.model.DecryptRequest
 import aws.sdk.kotlin.services.kms.model.EncryptRequest
-import aws.sdk.kotlin.services.kms.model.KmsException
-import java.io.FileOutputStream
 import java.io.File
-import java.io.OutputStream
 import kotlin.system.exitProcess
 // snippet-end:[kms.kotlin_encrypt_data.import]
 
@@ -49,55 +46,45 @@ suspend fun main (args: Array<String>) {
 
     val keyId = args[0]
     val path = args[1]
-    val keyClient = KmsClient{region="us-west-2"}
-    val encryptedData = encryptData(keyClient, keyId)
-    decryptData(keyClient, encryptedData, keyId, path)
-    keyClient.close()
+    val encryptedData = encryptData(keyId)
+    decryptData(encryptedData, keyId, path)
 }
 
 // snippet-start:[kms.kotlin_encrypt_data.main]
-suspend fun encryptData(kmsClient: KmsClient, keyIdValue: String): ByteArray? {
-        try {
+suspend fun encryptData(keyIdValue: String): ByteArray? {
 
-            val text = "This is the text to encrypt by using the AWS KMS Service"
-            val myBytes: ByteArray = text.toByteArray()
+        val text = "This is the text to encrypt by using the AWS KMS Service"
+        val myBytes: ByteArray = text.toByteArray()
 
-            val encryptRequest = EncryptRequest {
+        val encryptRequest = EncryptRequest {
                 keyId = keyIdValue
                 plaintext = myBytes
-            }
+        }
 
+        KmsClient { region = "us-west-2" }.use { kmsClient ->
             val response = kmsClient.encrypt(encryptRequest)
             val algorithm: String = response.encryptionAlgorithm.toString()
             println("The encryption algorithm is $algorithm")
 
             // Return the encrypted data.
             return response.ciphertextBlob
-
-        } catch (ex: KmsException) {
-            println(ex.message)
-            kmsClient.close()
-            exitProcess(0)
         }
      }
 
-   suspend fun decryptData(kmsClient: KmsClient, encryptedDataVal: ByteArray?, keyIdVal: String?, path: String?) {
-        try {
+   suspend fun decryptData(encryptedDataVal: ByteArray?, keyIdVal: String?, path: String) {
+
             val decryptRequest = DecryptRequest{
                 ciphertextBlob = encryptedDataVal
                 keyId=keyIdVal
             }
-            val decryptResponse = kmsClient.decrypt(decryptRequest)
-            val myVal = decryptResponse.plaintext
+            KmsClient { region = "us-west-2" }.use { kmsClient ->
+              val decryptResponse = kmsClient.decrypt(decryptRequest)
+              val myVal = decryptResponse.plaintext
 
-            // Write the decrypted data to a file.
-            val myFile: File = File(path)
-            val os: OutputStream = FileOutputStream(myFile)
-            os.write(myVal)
-
-        } catch (ex: KmsException) {
-            println(ex.message)
-            exitProcess(1)
+              // Write the decrypted data to a file.
+              if (myVal != null) {
+                    File(path).writeBytes(myVal)
+              }
         }
   }
 // snippet-end:[kms.kotlin_encrypt_data.main]

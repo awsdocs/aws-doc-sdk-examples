@@ -18,10 +18,8 @@ import aws.sdk.kotlin.services.textract.TextractClient
 import aws.sdk.kotlin.services.textract.model.AnalyzeDocumentRequest
 import aws.sdk.kotlin.services.textract.model.Document
 import aws.sdk.kotlin.services.textract.model.FeatureType
-import aws.sdk.kotlin.services.textract.model.TextractException
 import java.io.File
 import java.io.FileInputStream
-import java.io.FileNotFoundException
 import kotlin.system.exitProcess
 // snippet-end:[textract.kotlin._analyze_doc.import]
 
@@ -41,43 +39,34 @@ suspend fun main(args:Array<String>) {
     }
 
     val sourceDoc = args[0]
-    val textractClient = TextractClient{ region = "us-west-2"}
-    analyzeDoc(textractClient, sourceDoc)
-    textractClient.close()
+    analyzeDoc(sourceDoc)
 }
 
 // snippet-start:[textract.kotlin._analyze_doc.main]
-suspend fun analyzeDoc(textractClient: TextractClient, sourceDoc: String?) {
-    try {
-        val sourceStream = FileInputStream(File(sourceDoc))
-        val sourceBytes = sourceStream.readBytes()
+suspend fun analyzeDoc(sourceDoc: String?) {
 
-        // Get the input Document object as bytes.
-        val myDoc = Document {
-            bytes = sourceBytes
-        }
+    val sourceStream = FileInputStream(File(sourceDoc))
+    val sourceBytes = sourceStream.readBytes()
 
-        val featureTypesOb = mutableListOf<FeatureType>()
-        featureTypesOb.add(FeatureType.Forms)
-        featureTypesOb.add(FeatureType.Tables)
+    // Get the input Document object as bytes.
+    val myDoc = Document {
+        bytes = sourceBytes
+    }
 
-        val analyzeDocumentRequest = AnalyzeDocumentRequest {
-             featureTypes = featureTypesOb
-             document = myDoc
-        }
+    val featureTypesOb = mutableListOf<FeatureType>()
+    featureTypesOb.add(FeatureType.Forms)
+    featureTypesOb.add(FeatureType.Tables)
 
+    val analyzeDocumentRequest = AnalyzeDocumentRequest {
+        featureTypes = featureTypesOb
+        document = myDoc
+    }
+
+    TextractClient { region = "us-east-1" }.use { textractClient ->
         val response = textractClient.analyzeDocument(analyzeDocumentRequest)
         response.blocks?.forEach { block ->
                println("The block type is ${block.blockType.toString()}")
          }
-
-    } catch (ex: TextractException) {
-        println(ex.message)
-        textractClient.close()
-        exitProcess(0)
-    } catch (e: FileNotFoundException) {
-        println(e.message)
-        exitProcess(0)
     }
 }
 // snippet-end:[textract.kotlin._analyze_doc.main]

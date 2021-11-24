@@ -18,7 +18,6 @@ import aws.sdk.kotlin.services.firehose.FirehoseClient
 import aws.sdk.kotlin.services.firehose.model.ExtendedS3DestinationConfiguration
 import aws.sdk.kotlin.services.firehose.model.CreateDeliveryStreamRequest
 import aws.sdk.kotlin.services.firehose.model.DeliveryStreamType
-import aws.sdk.kotlin.services.firehose.model.FirehoseException
 import kotlin.system.exitProcess
 // snippet-end:[firehose.kotlin.create_stream.import]
 
@@ -51,34 +50,26 @@ suspend fun main(args:Array<String>) {
     val bucketARN = args[0]
     val roleARN = args[1]
     val streamName = args[2]
-
-    val firehoseClient = FirehoseClient{region="us-east-1"}
-    createStream(firehoseClient, bucketARN, roleARN, streamName)
-    firehoseClient.close()
+    createStream(bucketARN, roleARN, streamName)
 }
 
 // snippet-start:[firehose.kotlin.create_stream.main]
-suspend fun createStream(firehoseClient: FirehoseClient, bucketARNVal: String?, roleARNVal: String?, streamName: String?) {
-    try {
+suspend fun createStream(bucketARNVal: String?, roleARNVal: String?, streamName: String?) {
 
         val destinationConfiguration = ExtendedS3DestinationConfiguration {
             bucketArn = bucketARNVal
             roleArn = roleARNVal
         }
 
-        val deliveryStreamRequest= CreateDeliveryStreamRequest {
-            deliveryStreamName = streamName
-            extendedS3DestinationConfiguration = destinationConfiguration
-            deliveryStreamType = DeliveryStreamType.DirectPut
-        }
+       val request = CreateDeliveryStreamRequest {
+           deliveryStreamName = streamName
+           extendedS3DestinationConfiguration = destinationConfiguration
+           deliveryStreamType = DeliveryStreamType.DirectPut
+       }
 
-        val streamResponse = firehoseClient.createDeliveryStream(deliveryStreamRequest)
+       FirehoseClient { region = "us-west-2" }.use { firehoseClient ->
+        val streamResponse = firehoseClient.createDeliveryStream(request)
         println("Delivery Stream ARN is ${streamResponse.deliveryStreamArn}")
-
-    } catch (ex: FirehoseException) {
-        println(ex.message)
-        firehoseClient.close()
-        exitProcess(0)
-    }
+       }
 }
 // snippet-end:[firehose.kotlin.create_stream.main]

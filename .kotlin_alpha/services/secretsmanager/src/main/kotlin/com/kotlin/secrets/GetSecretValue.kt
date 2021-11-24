@@ -14,7 +14,6 @@
 package com.kotlin.secrets
 
 //snippet-start:[secretsmanager.kotlin.get_secret.import]
-import aws.sdk.kotlin.services.secretsmanager.model.SecretsManagerException
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import kotlin.system.exitProcess
@@ -36,27 +35,20 @@ suspend fun main(args: Array<String>) {
     }
 
     val secretName = args[0]
-    val secretsClient = SecretsManagerClient { region = "us-east-1" }
-    getValue(secretsClient, secretName)
-    secretsClient.close()
-}
+    getValue(secretName)
+    }
 
 //snippet-start:[secretsmanager.kotlin.get_secret.main]
-suspend fun getValue(secretsClient: SecretsManagerClient, secretName: String?) {
-        try {
+suspend fun getValue(secretName: String?) {
 
-            val valueRequest = GetSecretValueRequest {
-                secretId = secretName
-            }
+        val valueRequest = GetSecretValueRequest {
+            secretId = secretName
+        }
 
-            val valueResponse = secretsClient.getSecretValue(valueRequest)
-            val secret = valueResponse.secretString
+        SecretsManagerClient { region = "us-east-1" }.use { secretsClient ->
+            val response = secretsClient.getSecretValue(valueRequest)
+            val secret = response.secretString
             println("The secret value is $secret")
-
-        } catch (ex: SecretsManagerException) {
-            println(ex.message)
-            secretsClient.close()
-            exitProcess(0)
         }
  }
 //snippet-end:[secretsmanager.kotlin.get_secret.main]

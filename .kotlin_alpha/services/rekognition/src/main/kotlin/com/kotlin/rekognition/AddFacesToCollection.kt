@@ -17,9 +17,7 @@ import aws.sdk.kotlin.services.rekognition.model.IndexFacesRequest
 import aws.sdk.kotlin.services.rekognition.model.Image
 import aws.sdk.kotlin.services.rekognition.model.Attribute
 import aws.sdk.kotlin.services.rekognition.model.QualityFilter
-import aws.sdk.kotlin.services.rekognition.model.RekognitionException
 import java.io.File
-import java.io.FileNotFoundException
 import kotlin.system.exitProcess
 // snippet-end:[rekognition.kotlin.add_faces_collection.import]
 
@@ -31,7 +29,7 @@ For information, see this documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-suspend fun main(args: Array<String>){
+suspend fun main(args: Array<String>) {
 
     val usage = """
     Usage: 
@@ -42,27 +40,24 @@ suspend fun main(args: Array<String>){
         sourceImage - the path to the image (for example, C:\AWS\pic1.png). 
     """
 
-   if (args.size != 2) {
+    if (args.size != 2) {
         println(usage)
         exitProcess(0)
     }
 
     val collectionId = args[0]
     val sourceImage = args[1]
-    val rekClient = RekognitionClient{ region = "us-east-1"}
-    addToCollection(rekClient, collectionId, sourceImage)
-    rekClient.close()
-
+    addToCollection( collectionId, sourceImage)
 }
 
 // snippet-start:[rekognition.kotlin.add_faces_collection.main]
-suspend fun addToCollection(rekClient: RekognitionClient, collectionIdVal: String?, sourceImage: String) {
-    try {
+suspend fun addToCollection(collectionIdVal: String?, sourceImage: String) {
+
         val souImage = Image {
             bytes = (File(sourceImage).readBytes())
         }
 
-        val facesRequest = IndexFacesRequest {
+        val request = IndexFacesRequest {
             collectionId = collectionIdVal
             image = souImage
             maxFaces = 1
@@ -70,33 +65,26 @@ suspend fun addToCollection(rekClient: RekognitionClient, collectionIdVal: Strin
             detectionAttributes = listOf(Attribute.Default)
         }
 
-        val facesResponse = rekClient.indexFaces(facesRequest)
+        RekognitionClient { region = "us-east-1" }.use { rekClient ->
+            val facesResponse = rekClient.indexFaces(request)
 
-        // Display the results.
-        println("Results for the image")
-        println("\n Faces indexed:")
-        facesResponse.faceRecords?.forEach { faceRecord ->
-              println("Face ID: ${faceRecord.face?.faceId}")
-              println("Location: ${faceRecord.faceDetail?.boundingBox.toString()}")
-        }
+            // Display the results.
+            println("Results for the image")
+            println("\n Faces indexed:")
+            facesResponse.faceRecords?.forEach { faceRecord ->
+                println("Face ID: ${faceRecord.face?.faceId}")
+                println("Location: ${faceRecord.faceDetail?.boundingBox.toString()}")
+            }
 
-        println("Faces not indexed:")
-        facesResponse.unindexedFaces?.forEach { unindexedFace ->
+            println("Faces not indexed:")
+            facesResponse.unindexedFaces?.forEach { unindexedFace ->
                 println("Location: ${unindexedFace.faceDetail?.boundingBox.toString()}")
                 println("Reasons:")
 
                 unindexedFace.reasons?.forEach { reason ->
-                  println("Reason:  $reason")
+                    println("Reason:  $reason")
                 }
+            }
         }
-
-    } catch (e: RekognitionException) {
-        println(e.message)
-        rekClient.close()
-        exitProcess(0)
-    } catch (e: FileNotFoundException) {
-        System.out.println(e.message)
-        exitProcess(1)
-    }
 }
 // snippet-end:[rekognition.kotlin.add_faces_collection.main]

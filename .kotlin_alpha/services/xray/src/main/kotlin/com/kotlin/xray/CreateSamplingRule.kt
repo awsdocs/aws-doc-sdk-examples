@@ -14,7 +14,6 @@
 package com.kotlin.xray
 
 // snippet-start:[xray.kotlin_create_rule.import]
-import aws.sdk.kotlin.services.xray.model.XRayException
 import aws.sdk.kotlin.services.xray.XRayClient
 import aws.sdk.kotlin.services.xray.model.CreateSamplingRuleRequest
 import aws.sdk.kotlin.services.xray.model.CreateSamplingRuleResponse
@@ -39,18 +38,16 @@ suspend fun main(args:Array<String>) {
         exitProcess(0)
      }
 
-    val ruleName = args[0];
-    val xRayClient = XRayClient{region = "us-east-1"}
-    createRule(xRayClient,ruleName)
-    xRayClient.close()
+    val ruleName = args[0]
+    createRule(ruleName)
 }
 
 // snippet-start:[xray.kotlin_create_rule.main]
-suspend fun createRule(xRayClient: XRayClient, ruleNameVal: String?) {
-        try {
+suspend fun createRule(ruleNameVal: String?) {
 
-            val rule = SamplingRule {
-                ruleName = ruleNameVal
+
+        val rule = SamplingRule {
+            ruleName = ruleNameVal
                 priority = 1
                 httpMethod = "*"
                 serviceType = "*"
@@ -59,19 +56,15 @@ suspend fun createRule(xRayClient: XRayClient, ruleNameVal: String?) {
                 version = 1
                 host = "*"
                 resourceArn = "*"
-            }
+        }
 
-            val ruleRequest = CreateSamplingRuleRequest {
-                samplingRule = rule
-            }
+        val ruleRequest = CreateSamplingRuleRequest {
+            samplingRule = rule
+        }
 
+        XRayClient { region = "us-east-1" }.use { xRayClient ->
             val ruleResponse: CreateSamplingRuleResponse = xRayClient.createSamplingRule(ruleRequest)
-            System.out.println("The ARN of the new rule is ${ruleResponse.samplingRuleRecord?.samplingRule?.ruleArn}")
-
-        } catch (ex: XRayException) {
-            println(ex.message)
-            xRayClient.close()
-            exitProcess(0)
+            println("The ARN of the new rule is ${ruleResponse.samplingRuleRecord?.samplingRule?.ruleArn}")
         }
  }
 // snippet-end:[xray.kotlin_create_rule.main]

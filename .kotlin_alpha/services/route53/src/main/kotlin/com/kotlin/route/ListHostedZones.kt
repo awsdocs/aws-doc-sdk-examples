@@ -16,10 +16,7 @@ package com.kotlin.route
 
 //snippet-start:[route.kotlin.list_zones.import]
 import aws.sdk.kotlin.services.route53.Route53Client
-import aws.sdk.kotlin.services.route53.model.HostedZone
 import aws.sdk.kotlin.services.route53.model.ListHostedZonesRequest
-import aws.sdk.kotlin.services.route53.model.Route53Exception
-import kotlin.system.exitProcess
 //snippet-end:[route.kotlin.list_zones.import]
 
 /**
@@ -31,23 +28,17 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
-    val route53Client = Route53Client{region = "AWS_GLOBAL"}
-    listZones(route53Client)
-    route53Client.close()
+    listZones()
 }
 
 //snippet-start:[route.kotlin.list_zones.main]
-suspend fun listZones(route53Client: Route53Client) {
-        try {
+suspend fun listZones() {
+
+        Route53Client { region = "AWS_GLOBAL" }.use { route53Client ->
             val response = route53Client.listHostedZones(ListHostedZonesRequest{})
             response.hostedZones?.forEach { check ->
                  println("The name is ${check.name}")
             }
-
-        } catch (e: Route53Exception) {
-            println(e.message)
-            exitProcess(0)
         }
  }
 //snippet-end:[route.kotlin.list_zones.main]

@@ -22,7 +22,6 @@ import aws.sdk.kotlin.services.pinpoint.model.EndpointDemographic
 import aws.sdk.kotlin.services.pinpoint.model.EndpointLocation
 import aws.sdk.kotlin.services.pinpoint.model.ChannelType
 import aws.sdk.kotlin.services.pinpoint.model.EndpointUser
-import aws.sdk.kotlin.services.pinpoint.model.PinpointException
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.UUID
@@ -54,56 +53,48 @@ suspend fun main(args: Array<String>) {
     }
 
     val appId =  args[0]
-    val pinpointClient = PinpointClient { region = "us-east-1" }
-    val endId = createPinpointEndpoint(pinpointClient, appId)
+    val endId = createPinpointEndpoint(appId)
     if (endId != null)
         println("The Endpoint id is: ${endId}")
-    pinpointClient.close()
-}
+     }
 
 //snippet-start:[pinpoint.kotlin.createendpoint.main]
-suspend fun createPinpointEndpoint(pinpoint: PinpointClient, applicationIdVal: String?): String? {
+suspend fun createPinpointEndpoint(applicationIdVal: String?): String? {
 
         val endpointIdVal = UUID.randomUUID().toString()
         println("Endpoint ID: $endpointIdVal")
 
-        try {
+       val endpointRequestOb = createEndpointRequestData()
+       val updateEndpointRequest = UpdateEndpointRequest {
+           applicationId = applicationIdVal
+           endpointId = endpointIdVal
+           endpointRequest = endpointRequestOb
+       }
 
-            val endpointRequestOb = createEndpointRequestData()
-            val updateEndpointRequest = UpdateEndpointRequest {
-                applicationId = applicationIdVal
-                endpointId = endpointIdVal
-                endpointRequest = endpointRequestOb
-            }
+       PinpointClient { region = "us-west-2" }.use { pinpoint ->
 
-            val updateEndpointResponse = pinpoint.updateEndpoint(updateEndpointRequest)
-            println("Update Endpoint Response ${updateEndpointResponse.messageBody}")
+         val updateEndpointResponse = pinpoint.updateEndpoint(updateEndpointRequest)
+         println("Update Endpoint Response ${updateEndpointResponse.messageBody}")
 
-            val getEndpointRequest = GetEndpointRequest {
-                applicationId = applicationIdVal
-                endpointId = endpointIdVal
-            }
+         val getEndpointRequest = GetEndpointRequest {
+            applicationId = applicationIdVal
+            endpointId = endpointIdVal
+         }
 
-            val endpointResponse = pinpoint.getEndpoint(getEndpointRequest)
-            println(endpointResponse.endpointResponse?.address)
-            println(endpointResponse.endpointResponse?.channelType)
-            println(endpointResponse.endpointResponse?.applicationId)
-            println(endpointResponse.endpointResponse?.endpointStatus)
-            println(endpointResponse.endpointResponse?.requestId)
-            println(endpointResponse.endpointResponse?.user)
+         val endpointResponse = pinpoint.getEndpoint(getEndpointRequest)
+         println(endpointResponse.endpointResponse?.address)
+         println(endpointResponse.endpointResponse?.channelType)
+         println(endpointResponse.endpointResponse?.applicationId)
+         println(endpointResponse.endpointResponse?.endpointStatus)
+         println(endpointResponse.endpointResponse?.requestId)
+         println(endpointResponse.endpointResponse?.user)
 
-            // Return the endpoint Id value.
-            return endpointResponse.endpointResponse?.id
-
-        } catch (ex: PinpointException) {
-            println(ex.message)
-            pinpoint.close()
-            exitProcess(0)
+         // Return the endpoint Id value.
+         return endpointResponse.endpointResponse?.id
         }
      }
 
     private fun createEndpointRequestData(): EndpointRequest? {
-        try {
 
             val favoriteTeams = mutableListOf<String>()
             favoriteTeams.add("Lakers")
@@ -155,10 +146,5 @@ suspend fun createPinpointEndpoint(pinpoint: PinpointClient, applicationIdVal: S
                 requestId = UUID.randomUUID().toString()
                 user = userOb
             }
-
-        } catch (ex: PinpointException) {
-            println(ex.message)
-            exitProcess(0)
-        }
     }
 //snippet-end:[pinpoint.kotlin.createendpoint.main]

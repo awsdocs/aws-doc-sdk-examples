@@ -15,7 +15,7 @@ package com.kotlin.lex
 
 // snippet-start:[lex.kotlin.get_status.import]
 import aws.sdk.kotlin.services.lexmodelbuildingservice.LexModelBuildingClient
-import aws.sdk.kotlin.services.lexmodelbuildingservice.model.*
+import aws.sdk.kotlin.services.lexmodelbuildingservice.model.GetBotRequest
 import kotlinx.coroutines.delay
 import kotlin.system.exitProcess
 // snippet-end:[lex.kotlin.get_status.import]
@@ -46,38 +46,29 @@ suspend fun main(args:Array<String>) {
     }
 
     val botName = args[0]
-    val lexModel = LexModelBuildingClient{region="us-west-2"}
-    getStatus(lexModel, botName)
+    getStatus(botName)
 }
 
 // snippet-start:[lex.kotlin.get_status.main]
-suspend fun getStatus(lexClient: LexModelBuildingClient, botName: String?) {
+suspend fun getStatus(botName: String?) {
 
-    val botRequest = GetBotRequest {
-         name = botName
-         versionOrAlias = "\$LATEST"
+
+    val request = GetBotRequest {
+        name = botName
+        versionOrAlias = "\$LATEST"
     }
-    try {
+
+    LexModelBuildingClient { region = "us-west-2" }.use { lexClient ->
         var status: String
 
-        // Loop until the bot is in a ready status.
         do {
-
-            // Wait 2 secs
             delay(2000)
-            val response: GetBotResponse = lexClient.getBot(botRequest)
+            val response = lexClient.getBot(request)
             status = response.status.toString()
             println("The status is $status")
 
         } while (status.compareTo("READY") != 0)
 
-    } catch (ex:  LexModelBuildingException) {
-        println(ex.message)
-        lexClient.close()
-        exitProcess(0)
-    } catch (e: InterruptedException) {
-        println(e.localizedMessage)
-        exitProcess(1)
     }
 }
 // snippet-end:[lex.kotlin.get_status.main]

@@ -15,7 +15,6 @@ package com.kotlin.kinesis
 //snippet-start:[kinesis.kotlin.putrecord.import]
 import aws.sdk.kotlin.services.kinesis.KinesisClient
 import aws.sdk.kotlin.services.kinesis.model.PutRecordRequest
-import aws.sdk.kotlin.services.kinesis.model.KinesisException
 import aws.sdk.kotlin.services.kinesis.model.DescribeStreamRequest
 import kotlinx.coroutines.delay
 import kotlin.system.exitProcess
@@ -40,20 +39,17 @@ suspend fun  main(args: Array<String>){
 
     if (args.size != 1) {
         println(usage)
-        System.exit(1)
+        exitProcess(1)
      }
 
     val streamName = args[0]
-    val kinesisClient = KinesisClient{region ="us-east-1"}
-    validateStream(kinesisClient, streamName)
-    setStockData(kinesisClient, streamName)
-    kinesisClient.close()
-
-}
+    validateStream(streamName)
+    setStockData(streamName)
+    }
 
 //snippet-start:[kinesis.kotlin.putrecord.main]
-suspend fun setStockData(kinesisClient: KinesisClient, streamName: String) {
-    try {
+suspend fun setStockData(streamName: String) {
+
         // Repeatedly send stock trades with a 100 milliseconds wait in between.
         val stockTradeGenerator = StockTradeGenerator()
 
@@ -61,21 +57,12 @@ suspend fun setStockData(kinesisClient: KinesisClient, streamName: String) {
         val index = 50
         for (x in 0 until index) {
             val trade: StockTrade = stockTradeGenerator.getSampleData()
-            sendStockTrade(trade, kinesisClient, streamName)
+            sendStockTrade(trade, streamName)
             delay(100)
         }
-
-    } catch (e: KinesisException) {
-        println(e.message)
-        exitProcess(0)
-    } catch (e: InterruptedException) {
-        println(e.message)
-        exitProcess(0)
-    }
-    println("Done")
 }
 
-private suspend fun sendStockTrade( trade: StockTrade, kinesisClient: KinesisClient, streamNameVal: String ) {
+private suspend fun sendStockTrade( trade: StockTrade, streamNameVal: String ) {
 
     val bytes = trade.toJsonAsBytes()
 
@@ -91,32 +78,24 @@ private suspend fun sendStockTrade( trade: StockTrade, kinesisClient: KinesisCli
         data = bytes
     }
 
-    try {
+    KinesisClient { region = "us-east-1" }.use { kinesisClient ->
         kinesisClient.putRecord(request)
-
-    } catch (e: KinesisException) {
-        println(e.message)
-        kinesisClient.close()
-        exitProcess(0)
-    }
+   }
 }
 
-suspend fun validateStream(kinesisClient: KinesisClient, streamNameVal: String) {
-    try {
-        val describeStreamRequest = DescribeStreamRequest {
-            streamName = streamNameVal
-         }
-        val describeStreamResponse = kinesisClient.describeStream(describeStreamRequest)
+suspend fun validateStream(streamNameVal: String) {
+
+    val request = DescribeStreamRequest {
+        streamName = streamNameVal
+    }
+
+    KinesisClient { region = "us-east-1" }.use { kinesisClient ->
+        val describeStreamResponse = kinesisClient.describeStream(request)
 
         if (describeStreamResponse.streamDescription?.streamStatus.toString() != "ACTIVE") {
             System.err.println("Stream $streamNameVal is not active. Please wait a few moments and try again.")
-            System.exit(1)
+            exitProcess(1)
         }
-
-    } catch (e: KinesisException) {
-        println(e.message)
-        kinesisClient.close()
-        exitProcess(0)
     }
  }
 //snippet-end:[kinesis.kotlin.putrecord.main]

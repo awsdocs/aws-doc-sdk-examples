@@ -17,7 +17,6 @@ package com.kotlin.route
 // snippet-start:[route53.kotlin.delete_health_check.import]
 import aws.sdk.kotlin.services.route53.Route53Client
 import aws.sdk.kotlin.services.route53.model.DeleteHealthCheckRequest
-import aws.sdk.kotlin.services.route53.model.Route53Exception
 import kotlin.system.exitProcess
 // snippet-end:[route53.kotlin.delete_health_check.import]
 
@@ -44,26 +43,19 @@ suspend fun main(args: Array<String>) {
      }
 
     val id = args[0]
-    val route53Client = Route53Client{region = "AWS_GLOBAL"}
-    delHealthCheck(route53Client, id)
-    route53Client.close()
+    delHealthCheck(id)
 }
 
 // snippet-start:[route53.kotlin.delete_health_check.main]
- suspend fun delHealthCheck(route53Client: Route53Client, id: String?) {
+ suspend fun delHealthCheck(id: String?) {
 
-        try {
-            val delRequest = DeleteHealthCheckRequest {
+           val delRequest = DeleteHealthCheckRequest {
                 healthCheckId = id
             }
 
-            // Delete the Health Check.
-            route53Client.deleteHealthCheck(delRequest)
-            println("The HealthCheck with id $id was deleted")
-
-        } catch (e: Route53Exception) {
-            System.err.println(e.message)
-            exitProcess(0)
-        }
+            Route53Client { region = "AWS_GLOBAL" }.use { route53Client ->
+                route53Client.deleteHealthCheck(delRequest)
+                println("The HealthCheck with id $id was deleted")
+            }
  }
 // snippet-end:[route53.kotlin.delete_health_check.main]

@@ -16,7 +16,6 @@ package com.kotlin.sns
 //snippet-start:[sns.kotlin.GetTopicAttributes.import]
 import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.GetTopicAttributesRequest
-import aws.sdk.kotlin.services.sns.model.SnsException
 import kotlin.system.exitProcess
 //snippet-end:[sns.kotlin.GetTopicAttributes.import]
 
@@ -37,25 +36,19 @@ suspend fun main(args:Array<String>) {
      }
 
     val topicArn = args[0]
-    val snsClient = SnsClient{ region = "us-east-1" }
-    getSNSTopicAttributes(snsClient, topicArn)
-    snsClient.close()
+    getSNSTopicAttributes(topicArn)
 }
 
 //snippet-start:[sns.kotlin.GetTopicAttributes.main]
-suspend fun getSNSTopicAttributes(snsClient: SnsClient, topicArnVal: String) {
-    try {
-        val request = GetTopicAttributesRequest {
-            topicArn = topicArnVal
-        }
+suspend fun getSNSTopicAttributes(topicArnVal: String) {
 
+    val request = GetTopicAttributesRequest {
+        topicArn = topicArnVal
+    }
+
+    SnsClient { region = "us-east-1" }.use { snsClient ->
         val result = snsClient.getTopicAttributes(request)
         println("${result.attributes}")
-
-    } catch (e: SnsException) {
-        println(e.message)
-        snsClient.close()
-        exitProcess(0)
     }
  }
 //snippet-end:[sns.kotlin.GetTopicAttributes.main]

@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteAlias.java demonstrates how to delete an AWS Key Management Service (AWS KMS) alias.]
+//snippet-sourcedescription:[DeleteAlias.kt demonstrates how to delete an AWS Key Management Service (AWS KMS) alias.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Key Management Service]
@@ -16,7 +16,6 @@ package com.kotlin.kms
 // snippet-start:[kms.kotlin_delete_alias.import]
 import aws.sdk.kotlin.services.kms.KmsClient
 import aws.sdk.kotlin.services.kms.model.DeleteAliasRequest
-import aws.sdk.kotlin.services.kms.model.KmsException
 import kotlin.system.exitProcess
 // snippet-end:[kms.kotlin_delete_alias.import]
 
@@ -44,25 +43,20 @@ suspend fun main(args: Array<String>) {
     }
 
     val aliasName = args[0]
-    val keyClient = KmsClient{region="us-west-2"}
-    deleteSpecificAlias(keyClient,aliasName)
-    keyClient.close()
-}
+    deleteSpecificAlias(aliasName)
+    }
 
 // snippet-start:[kms.kotlin_delete_alias.main]
-suspend fun deleteSpecificAlias(kmsClient: KmsClient, aliasNameVal: String?) {
-        try {
-            val deleteAliasRequest = DeleteAliasRequest {
-                aliasName= aliasNameVal
-            }
+suspend fun deleteSpecificAlias(aliasNameVal: String?) {
 
-            kmsClient.deleteAlias(deleteAliasRequest)
+        val request = DeleteAliasRequest {
+            aliasName= aliasNameVal
+        }
+
+        KmsClient { region = "us-west-2" }.use { kmsClient ->
+            kmsClient.deleteAlias(request)
             println("$aliasNameVal was deleted.")
 
-        } catch (ex: KmsException) {
-            println(ex.message)
-            kmsClient.close()
-            exitProcess(0)
         }
     }
 // snippet-end:[kms.kotlin_delete_alias.main]

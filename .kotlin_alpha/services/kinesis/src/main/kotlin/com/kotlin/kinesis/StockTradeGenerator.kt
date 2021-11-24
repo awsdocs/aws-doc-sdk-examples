@@ -90,5 +90,5 @@ class StockTradeGenerator {
         return StockTrade(stockPrice.tickerSymbol, tradeType, price, quantity, id.getAndIncrement())
     }
 
-    private class StockPrice internal constructor(var tickerSymbol: String, var price: Double)
+    private class StockPrice constructor(var tickerSymbol: String, var price: Double)
 }

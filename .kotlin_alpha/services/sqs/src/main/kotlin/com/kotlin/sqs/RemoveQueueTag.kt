@@ -17,7 +17,6 @@ package com.kotlin.sqs
 import aws.sdk.kotlin.services.sqs.SqsClient
 import aws.sdk.kotlin.services.sqs.model.GetQueueUrlRequest
 import aws.sdk.kotlin.services.sqs.model.UntagQueueRequest
-import aws.sdk.kotlin.services.sqs.model.SqsException
 import kotlin.system.exitProcess
 // snippet-end:[sqs.kotlin.remove_tag.import]
 
@@ -40,18 +39,17 @@ suspend fun main(args:Array<String>) {
 
     val queueName = args[0]
     val tagName = args[1]
-    val sqsClient = SqsClient { region = "us-east-1" }
-    removeTag(sqsClient, queueName, tagName)
-    sqsClient.close()
+    removeTag(queueName, tagName)
 }
 
 // snippet-start:[sqs.kotlin.remove_tag.main]
-suspend fun removeTag(sqsClient: SqsClient, queueNameVal: String, tagName: String) {
-    try {
-        val urlRequest = GetQueueUrlRequest {
-            queueName = queueNameVal
-        }
+suspend fun removeTag(queueNameVal: String, tagName: String) {
 
+    val urlRequest = GetQueueUrlRequest {
+        queueName = queueNameVal
+    }
+
+    SqsClient { region = "us-east-1" }.use { sqsClient ->
         val getQueueUrlResponse = sqsClient.getQueueUrl(urlRequest)
         val queueUrlVal = getQueueUrlResponse.queueUrl
 
@@ -62,11 +60,6 @@ suspend fun removeTag(sqsClient: SqsClient, queueNameVal: String, tagName: Strin
 
         sqsClient.untagQueue(untagQueueRequest)
         println("The $tagName tag was removed from  $queueNameVal")
-
-    } catch (e: SqsException) {
-        println(e.message)
-        sqsClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[sqs.kotlin.remove_tag.main]

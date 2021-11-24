@@ -14,7 +14,6 @@ package com.kotlin.rekognition
 // snippet-start:[rekognition.kotlin.celebrityInfo.import]
 import aws.sdk.kotlin.services.rekognition.RekognitionClient
 import aws.sdk.kotlin.services.rekognition.model.GetCelebrityInfoRequest
-import aws.sdk.kotlin.services.rekognition.model.RekognitionException
 import kotlin.system.exitProcess
 // snippet-end:[rekognition.kotlin.celebrityInfo.import]
 
@@ -42,20 +41,18 @@ suspend fun main(args: Array<String>){
     }
 
     val id = args[0]
-    val rekClient = RekognitionClient{ region = "us-east-1"}
-    getCelebrityInfo(rekClient, id)
-    rekClient.close()
-
-}
+    getCelebrityInfo(id)
+    }
 
 // snippet-start:[rekognition.kotlin.celebrityInfo.main]
-suspend fun getCelebrityInfo(rekClient: RekognitionClient, idVal: String?) {
+suspend fun getCelebrityInfo(idVal: String?) {
 
-    try {
-        val info = GetCelebrityInfoRequest {
-            id = idVal
-        }
-        val response = rekClient.getCelebrityInfo(info)
+    val request = GetCelebrityInfoRequest {
+        id = idVal
+    }
+
+    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+        val response = rekClient.getCelebrityInfo(request)
 
         // Display celebrity information.
         println("The celebrity name is ${response.name}")
@@ -63,11 +60,6 @@ suspend fun getCelebrityInfo(rekClient: RekognitionClient, idVal: String?) {
         response.urls?.forEach { url ->
            println(url)
         }
-
-    } catch (e: RekognitionException) {
-        println(e.message)
-        rekClient.close()
-        exitProcess(0)
     }
  }
 // snippet-end:[rekognition.kotlin.celebrityInfo.main]

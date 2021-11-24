@@ -15,7 +15,6 @@ package com.kotlin.redshift
 // snippet-start:[redshift.kotlin._events.import]
 import aws.sdk.kotlin.services.redshift.RedshiftClient
 import aws.sdk.kotlin.services.redshift.model.DescribeEventsRequest
-import aws.sdk.kotlin.services.redshift.model.RedshiftException
 import aws.sdk.kotlin.services.redshift.model.SourceType
 import kotlin.system.exitProcess
 // snippet-end:[redshift.kotlin._events.import]
@@ -45,36 +44,25 @@ suspend fun main(args:Array<String>) {
 
     val clusterId = args[0]
     val eventSourceType = args[1]
-
-    val redshiftClient = RedshiftClient{region="us-west-2"}
-    listRedShiftEvents(redshiftClient, clusterId, eventSourceType)
-    redshiftClient.close()
+    listRedShiftEvents(clusterId, eventSourceType)
 }
 
 // snippet-start:[redshift.kotlin._events.main]
-suspend fun listRedShiftEvents(redshiftClient: RedshiftClient, clusterId: String?, eventSourceType: String) {
-    try {
+suspend fun listRedShiftEvents(clusterId: String?, eventSourceType: String) {
 
-        val describeEventsRequest = DescribeEventsRequest {
+   val request = DescribeEventsRequest {
             sourceIdentifier=clusterId
             sourceType = SourceType.fromValue(eventSourceType)
             startTime =aws.smithy.kotlin.runtime.time.Instant.fromEpochSeconds("1634058260")
             maxRecords = 20
-        }
+   }
 
-        val eventsResponse = redshiftClient.describeEvents(describeEventsRequest)
+    RedshiftClient { region = "us-west-2" }.use { redshiftClient ->
+        val eventsResponse = redshiftClient.describeEvents(request)
         eventsResponse.events?.forEach { event ->
               println("Source type is ${event.sourceType}")
               println("Event message is ${event.message}")
         }
-
-
-    } catch (e: RedshiftException) {
-        println(e.message)
-        redshiftClient.close()
-        exitProcess(0)
     }
-    println("The example is done")
-
-}
+  }
 // snippet-end:[redshift.kotlin._events.main]

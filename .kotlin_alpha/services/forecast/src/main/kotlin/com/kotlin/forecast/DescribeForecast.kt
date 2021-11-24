@@ -14,7 +14,6 @@
 package com.kotlin.forecast
 
 // snippet-start:[forecast.kotlin.describe_forecast.import]
-import aws.sdk.kotlin.services.forecast.model.ForecastException
 import aws.sdk.kotlin.services.forecast.ForecastClient
 import aws.sdk.kotlin.services.forecast.model.DescribeForecastRequest
 import kotlin.system.exitProcess
@@ -44,26 +43,19 @@ suspend fun main(args:Array<String>) {
       }
 
     val forecastArn = args[0]
-    val forecast = ForecastClient{ region = "us-west-2"}
-    describe(forecast, forecastArn)
-    forecast.close()
-}
+    describe(forecastArn)
+   }
 
 // snippet-start:[forecast.kotlin.describe_forecast.main]
-suspend fun describe(forecast: ForecastClient, forecastarn: String?) {
+suspend fun describe(forecastarn: String?) {
 
-    try {
             val request = DescribeForecastRequest {
                 forecastArn = forecastarn
             }
 
-            val response = forecast.describeForecast(request)
-            println("The name of the forecast is ${response.forecastName}")
-
-       } catch (ex: ForecastException) {
-            println(ex.message)
-            forecast.close()
-            exitProcess(0)
-        }
+            ForecastClient { region = "us-west-2" }.use { forecast ->
+              val response = forecast.describeForecast(request)
+              println("The name of the forecast is ${response.forecastName}")
+            }
  }
 // snippet-end:[forecast.kotlin.describe_forecast.main]

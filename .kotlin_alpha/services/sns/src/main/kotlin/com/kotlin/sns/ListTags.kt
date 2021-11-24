@@ -16,7 +16,6 @@ package com.kotlin.sns
 //snippet-start:[sns.kotlin.list_tags.import]
 import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.ListTagsForResourceRequest
-import aws.sdk.kotlin.services.sns.model.SnsException
 import kotlin.system.exitProcess
 //snippet-end:[sns.kotlin.list_tags.import]
 
@@ -35,26 +34,19 @@ suspend fun main(args:Array<String>) {
      }
 
     val topicArn = args[0]
-    val snsClient = SnsClient{ region = "us-east-1" }
-    listTopicTags(snsClient, topicArn)
-    snsClient.close()
-
+    listTopicTags(topicArn)
 }
+
 //snippet-start:[sns.kotlin.list_tags.main]
-suspend fun listTopicTags(snsClient: SnsClient, topicArn: String?) {
+suspend fun listTopicTags(topicArn: String?) {
 
-    try {
-        val tagsForResourceRequest = ListTagsForResourceRequest {
-            resourceArn = topicArn
-        }
+    val tagsForResourceRequest = ListTagsForResourceRequest {
+        resourceArn = topicArn
+    }
 
+    SnsClient { region = "us-east-1" }.use { snsClient ->
         val response = snsClient.listTagsForResource(tagsForResourceRequest)
         println("Tags for topic $topicArn are "+response.tags)
-
-    } catch (e: SnsException) {
-        println(e.message)
-        snsClient.close()
-        exitProcess(0)
     }
 }
 //snippet-end:[sns.kotlin.list_tags.main]

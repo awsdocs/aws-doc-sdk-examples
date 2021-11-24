@@ -15,10 +15,8 @@
 package com.kotlin.forecast
 
 // snippet-start:[forecast.kotlin.list_forecasts.import]
-import aws.sdk.kotlin.services.forecast.model.ForecastException
 import aws.sdk.kotlin.services.forecast.ForecastClient
 import aws.sdk.kotlin.services.forecast.model.ListForecastsRequest
-import kotlin.system.exitProcess
 // snippet-end:[forecast.kotlin.list_forecasts.import]
 
 /**
@@ -31,29 +29,22 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun main() {
 
-    val forecast = ForecastClient{ region = "us-west-2"}
-    listAllForeCasts(forecast)
-    forecast.close()
+    listAllForeCasts()
 }
 
 // snippet-start:[forecast.kotlin.list_forecasts.main]
-suspend fun listAllForeCasts(forecast: ForecastClient) {
-        try {
+suspend fun listAllForeCasts() {
 
-            val request = ListForecastsRequest{
-                maxResults = 10
-            }
+        val request =ListForecastsRequest{
+            maxResults = 10
+        }
 
+        ForecastClient { region = "us-west-2" }.use { forecast ->
             val response = forecast.listForecasts(request)
             response.forecasts?.forEach { forecast ->
                 println("The name of the forecast is ${forecast.forecastName}")
                 println("The ARN of the forecast is ${forecast.forecastArn}")
             }
-
-        } catch (ex: ForecastException) {
-            println(ex.message)
-            forecast.close()
-            exitProcess(0)
         }
  }
 // snippet-end:[forecast.kotlin.list_forecasts.main]

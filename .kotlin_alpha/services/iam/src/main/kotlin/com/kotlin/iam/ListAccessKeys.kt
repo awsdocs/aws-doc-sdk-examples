@@ -15,7 +15,6 @@ package com.kotlin.iam
 
 // snippet-start:[iam.kotlin.list_access_keys.import]
 import aws.sdk.kotlin.services.iam.IamClient
-import aws.sdk.kotlin.services.iam.model.IamException
 import aws.sdk.kotlin.services.iam.model.ListAccessKeysRequest
 import kotlin.system.exitProcess
 // snippet-end:[iam.kotlin.list_access_keys.import]
@@ -43,27 +42,20 @@ suspend fun main(args: Array<String>) {
    }
 
     val userName = args[0]
-    val iamClient = IamClient{region="AWS_GLOBAL"}
-    listKeys(iamClient, userName)
-    iamClient.close()
-}
+    listKeys(userName)
+    }
 
 // snippet-start:[iam.kotlin.list_access_keys.main]
-suspend fun listKeys(iamClient: IamClient, userNameVal: String?) {
+suspend fun listKeys(userNameVal: String?) {
 
-    try {
-           val request = ListAccessKeysRequest {
-                 userName = userNameVal
-           }
-           val response = iamClient.listAccessKeys(request)
+      val request = ListAccessKeysRequest {
+          userName = userNameVal
+      }
+      IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+        val response = iamClient.listAccessKeys(request)
             response.accessKeyMetadata?.forEach { md ->
                 println("Retrieved access key ${md.accessKeyId}")
             }
-
-      } catch (e: IamException) {
-        println(e.message)
-        iamClient.close()
-        exitProcess(0)
-    }
+      }
 }
 // snippet-end:[iam.kotlin.list_access_keys.main]

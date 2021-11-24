@@ -16,7 +16,6 @@ package com.kotlin.pinpoint
 //snippet-start:[pinpoint.kotlin.deleteapp.import]
 import aws.sdk.kotlin.services.pinpoint.PinpointClient
 import aws.sdk.kotlin.services.pinpoint.model.DeleteAppRequest
-import aws.sdk.kotlin.services.pinpoint.model.PinpointException
 import kotlin.system.exitProcess
 //snippet-end:[pinpoint.kotlin.deleteapp.import]
 
@@ -43,26 +42,18 @@ suspend fun main(args: Array<String>) {
     }
 
     val appId = args[0]
-    val pinpointClient = PinpointClient { region = "us-east-1" }
-    deletePinApp(pinpointClient, appId)
-    pinpointClient.close()
+    deletePinApp(appId)
 }
 
 //snippet-start:[pinpoint.kotlin.deleteapp.main]
- suspend fun deletePinApp(pinpoint: PinpointClient, appId: String?) {
-        try {
-            val delRequest = DeleteAppRequest {
-                applicationId = appId
-            }
+ suspend fun deletePinApp(appId: String?) {
 
-            val result = pinpoint.deleteApp(delRequest)
-            val appName= result.applicationResponse?.name
-            println("Application $appName has been deleted.")
-
-        } catch (ex: PinpointException) {
-            println(ex.message)
-            pinpoint.close()
-            exitProcess(0)
-        }
+             PinpointClient { region = "us-west-2" }.use { pinpoint ->
+               val result = pinpoint.deleteApp(DeleteAppRequest {
+                 applicationId = appId
+               })
+               val appName= result.applicationResponse?.name
+               println("Application $appName has been deleted.")
+             }
   }
 //snippet-end:[pinpoint.kotlin.deleteapp.main]

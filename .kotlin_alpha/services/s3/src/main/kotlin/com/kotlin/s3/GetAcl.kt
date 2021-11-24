@@ -16,7 +16,6 @@ package com.kotlin.s3
 // snippet-start:[s3.kotlin.get_acl.import]
 import aws.sdk.kotlin.services.s3.S3Client
 import aws.sdk.kotlin.services.s3.model.GetObjectAclRequest
-import aws.sdk.kotlin.services.s3.model.S3Exception
 import kotlin.system.exitProcess
 // snippet-end:[s3.kotlin.get_acl.import]
 
@@ -45,28 +44,22 @@ suspend fun main(args: Array<String>) {
 
     val bucketName = args[0]
     val objectKey = args[1]
-    val s3Client = S3Client { region = "us-east-1" }
-    getBucketACL(s3Client, objectKey, bucketName)
-    s3Client.close()
+    getBucketACL(objectKey, bucketName)
+
 }
 // snippet-start:[s3.kotlin.get_acl.main]
- suspend fun getBucketACL(s3Client: S3Client, objectKey: String, bucketName: String) {
+ suspend fun getBucketACL(objectKey: String, bucketName: String) {
 
-        try {
-            val aclReq = GetObjectAclRequest {
-                bucket = bucketName
-                key = objectKey
-            }
+        val request = GetObjectAclRequest {
+            bucket = bucketName
+            key = objectKey
+        }
 
-            val response = s3Client.getObjectAcl(aclReq)
-            response.grants?.forEach { grant ->
-               println( "Grant permission is ${grant.permission}")
-            }
-
-        } catch (e: S3Exception) {
-            println(e.message)
-            s3Client.close()
-            exitProcess(0)
+        S3Client { region = "us-east-1" }.use { s3 ->
+                val response = s3.getObjectAcl(request)
+                response.grants?.forEach { grant ->
+                    println("Grant permission is ${grant.permission}")
+                }
         }
   }
 // snippet-end:[s3.kotlin.get_acl.main]

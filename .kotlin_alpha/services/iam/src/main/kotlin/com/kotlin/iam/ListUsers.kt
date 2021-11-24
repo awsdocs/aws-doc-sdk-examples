@@ -15,9 +15,7 @@ package com.kotlin.iam
 
 // snippet-start:[iam.kotlin.list_users.import]
 import aws.sdk.kotlin.services.iam.IamClient
-import aws.sdk.kotlin.services.iam.model.IamException
 import aws.sdk.kotlin.services.iam.model.ListUsersRequest
-import kotlin.system.exitProcess
 // snippet-end:[iam.kotlin.list_users.import]
 
 /**
@@ -29,25 +27,17 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
-    val iamClient = IamClient{region="AWS_GLOBAL"}
-    listAllUsers(iamClient)
-    iamClient.close()
-}
+    listAllUsers()
+    }
 
 // snippet-start:[iam.kotlin.list_users.main]
-suspend fun listAllUsers(iamClient: IamClient) {
-        try {
+suspend fun listAllUsers() {
 
+        IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
             val response = iamClient.listUsers(ListUsersRequest { })
             response.users?.forEach { user ->
                 println("Retrieved user ${user.userName}")
             }
-
-        } catch (e: IamException) {
-            println(e.message)
-            iamClient.close()
-            exitProcess(0)
         }
  }
 // snippet-end:[iam.kotlin.list_users.main]

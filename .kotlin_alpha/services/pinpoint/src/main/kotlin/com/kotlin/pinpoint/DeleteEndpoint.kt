@@ -16,7 +16,6 @@ package com.kotlin.pinpoint
 //snippet-start:[pinpoint.kotlin.deleteendpoint.import]
 import aws.sdk.kotlin.services.pinpoint.PinpointClient
 import aws.sdk.kotlin.services.pinpoint.model.DeleteEndpointRequest
-import aws.sdk.kotlin.services.pinpoint.model.PinpointException
 import kotlin.system.exitProcess
 //snippet-end:[pinpoint.kotlin.deleteendpoint.import]
 
@@ -46,27 +45,21 @@ suspend fun main(args: Array<String>) {
 
     val appId = args[0]
     val endpointId = args[1]
-    val pinpointClient = PinpointClient { region = "us-east-1" }
-    deletePinEncpoint(pinpointClient, appId, endpointId)
-    pinpointClient.close()
-}
+    deletePinEncpoint(appId, endpointId)
+    }
 
 //snippet-start:[pinpoint.kotlin.deleteendpoint.main]
-suspend fun deletePinEncpoint(pinpoint: PinpointClient, appIdVal: String?, endpointIdVal: String?) {
-        try {
-            val deleteEndpointRequest = DeleteEndpointRequest {
+suspend fun deletePinEncpoint(appIdVal: String?, endpointIdVal: String?) {
+
+        val deleteEndpointRequest = DeleteEndpointRequest {
                 applicationId =  appIdVal
                 endpointId = endpointIdVal
-            }
+        }
 
+       PinpointClient { region = "us-west-2" }.use { pinpoint ->
             val result = pinpoint.deleteEndpoint(deleteEndpointRequest)
             val id = result.endpointResponse?.id
             println("The deleted endpoint is  $id")
-
-        } catch (ex: PinpointException) {
-            println(ex.message)
-            pinpoint.close()
-            exitProcess(0)
         }
  }
 //snippet-end:[pinpoint.kotlin.deleteendpoint.main]

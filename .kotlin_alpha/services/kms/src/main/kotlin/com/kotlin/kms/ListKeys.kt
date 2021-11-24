@@ -15,8 +15,6 @@ package com.kotlin.kms
 // snippet-start:[kms.kotlin_list_keys.import]
 import aws.sdk.kotlin.services.kms.KmsClient
 import aws.sdk.kotlin.services.kms.model.ListKeysRequest
-import aws.sdk.kotlin.services.kms.model.KmsException
-import kotlin.system.exitProcess
 // snippet-end:[kms.kotlin_list_keys.import]
 
 /**
@@ -28,29 +26,22 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
-    val keyClient = KmsClient { region = "us-east-1" }
-    listAllKeys(keyClient)
-    keyClient.close()
-}
+    listAllKeys()
+    }
 
 // snippet-start:[kms.kotlin_list_keys.main]
-suspend fun listAllKeys(kmsClient: KmsClient) {
-            try {
-                val listKeysRequest = ListKeysRequest {
-                    limit = 15
-                }
+suspend fun listAllKeys() {
 
-                val response = kmsClient.listKeys(listKeysRequest)
+            val request = ListKeysRequest {
+                limit = 15
+            }
+
+            KmsClient { region = "us-west-2" }.use { kmsClient ->
+                val response = kmsClient.listKeys(request)
                 response.keys?.forEach { key ->
                     println("The key ARN is ${key.keyArn}")
                     println("The key Id is ${key.keyId}")
                 }
-
-            } catch (ex: KmsException) {
-                println(ex.message)
-                kmsClient.close()
-                exitProcess(0)
             }
    }
 // snippet-end:[kms.kotlin_list_keys.main]

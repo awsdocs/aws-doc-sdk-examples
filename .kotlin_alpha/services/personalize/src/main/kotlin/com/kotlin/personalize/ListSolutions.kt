@@ -16,8 +16,6 @@ package com.kotlin.personalize
 //snippet-start:[personalize.kotlin.list_solutions.import]
 import aws.sdk.kotlin.services.personalize.PersonalizeClient
 import aws.sdk.kotlin.services.personalize.model.ListSolutionsRequest
-import aws.sdk.kotlin.services.personalize.model.SolutionSummary
-import aws.sdk.kotlin.services.personalize.model.PersonalizeException
 import kotlin.system.exitProcess
 //snippet-end:[personalize.kotlin.list_solutions.import]
 
@@ -45,29 +43,22 @@ suspend fun main(args:Array<String>){
     }
 
     val datasetGroupArn = args[0]
-    val personalizeClient = PersonalizeClient{ region = "us-east-1" }
-    listAllSolutions(personalizeClient,datasetGroupArn)
-    personalizeClient.close()
-}
+    listAllSolutions(datasetGroupArn)
+    }
 
 //snippet-start:[personalize.kotlin.list_solutions.main]
-suspend fun listAllSolutions(personalizeClient: PersonalizeClient, datasetGroupArnValue: String?) {
-        try {
-            val solutionsRequest = ListSolutionsRequest{
-                maxResults = 10
-                datasetGroupArn = datasetGroupArnValue
-                }
+suspend fun listAllSolutions(datasetGroupArnValue: String?) {
 
-            val response = personalizeClient.listSolutions(solutionsRequest)
+          val request = ListSolutionsRequest{
+              maxResults = 10
+              datasetGroupArn = datasetGroupArnValue
+          }
+          PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
+            val response = personalizeClient.listSolutions(request)
             response.solutions?.forEach { solution ->
                     println("The solution ARN is ${solution.solutionArn}")
                     println("The solution name is ${solution.name}")
             }
-
-        } catch (ex: PersonalizeException) {
-            println(ex.message)
-            personalizeClient.close()
-            exitProcess(0)
-        }
+         }
  }
 //snippet-end:[personalize.kotlin.list_solutions.main]

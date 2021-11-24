@@ -14,7 +14,6 @@ package com.kotlin.kinesis
 
 //snippet-start:[kinesis.kotlin.ListShards.import]
 import aws.sdk.kotlin.services.kinesis.KinesisClient
-import aws.sdk.kotlin.services.kinesis.model.KinesisException
 import aws.sdk.kotlin.services.kinesis.model.ListShardsRequest
 import kotlin.system.exitProcess
 //snippet-end:[kinesis.kotlin.ListShards.import]
@@ -42,27 +41,21 @@ suspend fun main(args: Array<String>){
     }
 
     val streamName: String = args[0]
-    val kinesisClient = KinesisClient{region ="us-east-1"}
-    listKinShards(kinesisClient, streamName)
-    kinesisClient.close()
-}
+    listKinShards(streamName)
+    }
 
 //snippet-start:[kinesis.kotlin.ListShards.main]
-suspend fun listKinShards(kinesisClient: KinesisClient, name: String?) {
-    try {
-        val request = ListShardsRequest {
-            streamName = name
-        }
+suspend fun listKinShards(name: String?) {
 
+     val request = ListShardsRequest {
+         streamName = name
+     }
+
+    KinesisClient { region = "us-east-1" }.use { kinesisClient ->
         val response = kinesisClient.listShards(request)
         response.shards?.forEach { shard ->
             println("Shard id is ${shard.shardId}")
-        }
-
-    } catch (e: KinesisException) {
-        println(e.message)
-        kinesisClient.close()
-        exitProcess(0)
+       }
     }
 }
 //snippet-end:[kinesis.kotlin.ListShards.main]

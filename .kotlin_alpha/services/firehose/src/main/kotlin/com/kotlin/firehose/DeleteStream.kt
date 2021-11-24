@@ -16,7 +16,6 @@ package com.kotlin.firehose
 // snippet-start:[firehose.kotlin.delete_stream.import]
 import aws.sdk.kotlin.services.firehose.FirehoseClient
 import aws.sdk.kotlin.services.firehose.model.DeleteDeliveryStreamRequest
-import aws.sdk.kotlin.services.firehose.model.FirehoseException
 import kotlin.system.exitProcess
 // snippet-end:[firehose.kotlin.delete_stream.import]
 
@@ -45,24 +44,19 @@ suspend fun main(args:Array<String>) {
      }
 
     val streamName = args[0]
-    val firehoseClient = FirehoseClient{region="us-east-1"}
-    delStream(firehoseClient, streamName)
+    delStream(streamName)
 }
 
 // snippet-start:[firehose.kotlin.delete_stream.main]
-suspend fun delStream(firehoseClient: FirehoseClient, streamName: String) {
-    try {
-        val deleteDeliveryStreamRequest = DeleteDeliveryStreamRequest {
-            deliveryStreamName = streamName
-        }
+suspend fun delStream(streamName: String) {
 
-        firehoseClient.deleteDeliveryStream(deleteDeliveryStreamRequest)
-        println("Delivery Stream $streamName is deleted")
+    val request = DeleteDeliveryStreamRequest {
+        deliveryStreamName = streamName
+    }
 
-    } catch (ex: FirehoseException) {
-        println(ex.message)
-        firehoseClient.close()
-        exitProcess(0)
+    FirehoseClient { region = "us-west-2" }.use { firehoseClient ->
+          firehoseClient.deleteDeliveryStream(request)
+          println("Delivery Stream $streamName is deleted")
     }
 }
 // snippet-end:[firehose.kotlin.delete_stream.main]

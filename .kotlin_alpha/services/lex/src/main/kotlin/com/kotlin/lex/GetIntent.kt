@@ -16,7 +16,6 @@ package com.kotlin.lex
 // snippet-start:[lex.kotlin.get_intent.import]
 import aws.sdk.kotlin.services.lexmodelbuildingservice.LexModelBuildingClient
 import aws.sdk.kotlin.services.lexmodelbuildingservice.model.GetIntentRequest
-import aws.sdk.kotlin.services.lexmodelbuildingservice.model.LexModelBuildingException
 import kotlin.system.exitProcess
 // snippet-end:[lex.kotlin.get_intent.import]
 
@@ -48,27 +47,20 @@ suspend fun main(args:Array<String>) {
 
     val intentName = args[0]
     val intentVersion = args[1]
-
-    val lexModel = LexModelBuildingClient{region="us-west-2"}
-    getSpecificIntent(lexModel, intentName,intentVersion )
-    lexModel.close()
-}
+    getSpecificIntent(intentName,intentVersion )
+    }
 
 // snippet-start:[lex.kotlin.get_intent.main]
-suspend fun getSpecificIntent(lexClient: LexModelBuildingClient, intentName: String?, intentVersion: String?) {
-    try {
-        val intentRequest = GetIntentRequest {
-            name = intentName
-            version = intentVersion
-        }
+suspend fun getSpecificIntent(intentName: String?, intentVersion: String?) {
 
-        val intentResponse = lexClient.getIntent(intentRequest)
-        System.out.println("The description is  ${intentResponse.description}.")
+    val request = GetIntentRequest {
+        name = intentName
+        version = intentVersion
+    }
 
-    } catch (ex:  LexModelBuildingException) {
-        println(ex.message)
-        lexClient.close()
-        exitProcess(0)
+    LexModelBuildingClient { region = "us-west-2" }.use { lexClient ->
+        val intentResponse = lexClient.getIntent(request)
+        println("The description is  ${intentResponse.description}.")
     }
 }
 // snippet-end:[lex.kotlin.get_intent.main]

@@ -16,7 +16,6 @@ package com.kotlin.xray
 // snippet-start:[xray.kotlin_get_graph.import]
 import aws.sdk.kotlin.services.xray.XRayClient
 import aws.sdk.kotlin.services.xray.model.GetServiceGraphRequest
-import aws.sdk.kotlin.services.xray.model.XRayException
 import kotlin.system.exitProcess
 // snippet-end:[xray.kotlin_get_graph.import]
 
@@ -38,31 +37,24 @@ suspend fun main(args:Array<String>) {
     }
 
     val groupName = args[0]
-    val xRayClient = XRayClient{region = "us-east-1"}
-    getGraph(xRayClient,groupName)
-    xRayClient.close()
-}
+    getGraph(groupName)
+    }
 
 // snippet-start:[xray.kotlin_get_graph.main]
-suspend fun getGraph(xRayClient: XRayClient, groupNameVal: String?) {
-    try {
+suspend fun getGraph(groupNameVal: String?) {
 
-        val time = aws.smithy.kotlin.runtime.time.Instant
-        val getServiceGraphRequest = GetServiceGraphRequest {
-            groupName = groupNameVal
-            this.startTime = time.now()
-            endTime = time.now()
-        }
 
+    val time = aws.smithy.kotlin.runtime.time.Instant
+    val getServiceGraphRequest = GetServiceGraphRequest {
+        groupName = groupNameVal
+        this.startTime = time.now()
+        endTime = time.now()
+    }
+    XRayClient { region = "us-east-1" }.use { xRayClient ->
         val response = xRayClient.getServiceGraph(getServiceGraphRequest)
         response.services?.forEach { service ->
                 println("The name of the service is  ${service.name}")
         }
-
-
-    } catch (ex: XRayException) {
-        println(ex.message)
-        exitProcess(0)
     }
 }
 // snippet-end:[xray.kotlin_get_graph.main]

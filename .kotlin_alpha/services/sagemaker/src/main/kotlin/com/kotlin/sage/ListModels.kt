@@ -16,8 +16,6 @@ package com.kotlin.sage
 //snippet-start:[sagemaker.kotlin.list_models.import]
 import aws.sdk.kotlin.services.sagemaker.SageMakerClient
 import aws.sdk.kotlin.services.sagemaker.model.ListModelsRequest
-import aws.sdk.kotlin.services.sagemaker.model.SageMakerException
-import kotlin.system.exitProcess
 //snippet-end:[sagemaker.kotlin.list_models.import]
 
 /**
@@ -29,32 +27,21 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
     suspend fun main() {
 
-        val sageMakerClient = SageMakerClient{region = "us-west-2" }
-        listAllModels(sageMakerClient)
-        sageMakerClient.close()
+     listAllModels()
     }
 
     //snippet-start:[sagemaker.kotlin.list_models.main]
-    suspend fun listAllModels(sageMakerClient:SageMakerClient) {
+    suspend fun listAllModels() {
 
-        try {
-            val modelsRequest = ListModelsRequest {
+         val request = ListModelsRequest {
                 maxResults = 15
-            }
-
-            val modelResponse = sageMakerClient.listModels(modelsRequest)
-            val items = modelResponse.models
-            if (items != null) {
-                for (item in items) {
-                    println("Model name is ${item.modelName}")
-                }
-            }
-
-        } catch (e: SageMakerException) {
-            println(e.message)
-            sageMakerClient.close()
-            exitProcess(0)
+         }
+        SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
+           val response = sageMakerClient.listModels(request)
+           response.models?.forEach { item ->
+              println("Model name is ${item.modelName}")
+           }
         }
-    }
+   }
 //snippet-end:[sagemaker.kotlin.list_models.main]
 

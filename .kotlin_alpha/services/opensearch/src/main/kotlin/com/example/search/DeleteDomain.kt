@@ -16,7 +16,6 @@ package com.example.search
 // snippet-start:[opensearch.kotlin.delete_domain.import]
 import aws.sdk.kotlin.services.opensearch.OpenSearchClient
 import aws.sdk.kotlin.services.opensearch.model.DeleteDomainRequest
-import aws.sdk.kotlin.services.opensearch.model.OpenSearchException
 import kotlin.system.exitProcess
 // snippet-end:[opensearch.kotlin.delete_domain.import]
 
@@ -36,23 +35,18 @@ suspend fun main(args:Array<String>) {
         exitProcess(1)
     }
     val domainName = args[0]
-    val searchClient = OpenSearchClient{region ="us-east-1"}
-    deleteSpecificDomain(searchClient, domainName)
+    deleteSpecificDomain(domainName)
 }
 
 // snippet-start:[opensearch.kotlin.delete_domain.main]
-suspend fun deleteSpecificDomain(searchClient: OpenSearchClient, domainNameVal: String) {
-    try {
-        val domainRequest = DeleteDomainRequest {
-            domainName = domainNameVal
-        }
+suspend fun deleteSpecificDomain(domainNameVal: String) {
 
-        searchClient.deleteDomain(domainRequest)
+    val request = DeleteDomainRequest {
+        domainName = domainNameVal
+    }
+    OpenSearchClient { region = "us-east-1" }.use { searchClient ->
+        searchClient.deleteDomain(request)
         println("$domainNameVal was successfully deleted.")
-
-    } catch (e: OpenSearchException) {
-        System.err.println(e.message)
-        exitProcess(0)
     }
 }
 // snippet-end:[opensearch.kotlin.delete_domain.main]

@@ -16,7 +16,6 @@ package com.kotlin.iam
 // snippet-start:[iam.kotlin.create_user.import]
 import aws.sdk.kotlin.services.iam.IamClient
 import aws.sdk.kotlin.services.iam.model.CreateUserRequest
-import aws.sdk.kotlin.services.iam.model.IamException
 import kotlin.system.exitProcess
 // snippet-end:[iam.kotlin.create_user.import]
 
@@ -43,27 +42,20 @@ suspend fun main(args: Array<String>) {
      }
 
     val username = args[0]
-    val iamClient = IamClient{region="AWS_GLOBAL"}
-    val result = createIAMUser(iamClient, username)
+    val result = createIAMUser(username)
     println("Successfully created user: $result")
-    iamClient.close()
-}
+    }
 
 // snippet-start:[iam.kotlin.create_user.main]
-suspend fun createIAMUser(iamClient: IamClient, usernameVal: String?): String? {
-    try {
+suspend fun createIAMUser(usernameVal: String?): String? {
 
-      val request = CreateUserRequest {
-          userName = usernameVal
-      }
+    val request = CreateUserRequest {
+        userName = usernameVal
+    }
 
-        val response = iamClient.createUser(request)
-        return response.user?.userName
-
-    } catch (e: IamException) {
-        println(e.message)
-        iamClient.close()
-        exitProcess(0)
+    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+         val response = iamClient.createUser(request)
+         return response.user?.userName
     }
  }
 // snippet-end:[iam.kotlin.create_user.main]

@@ -16,7 +16,6 @@ package com.kotlin.rds
 // snippet-start:[rds.kotlin.modify_instance.import]
 import aws.sdk.kotlin.services.rds.RdsClient
 import aws.sdk.kotlin.services.rds.model.ModifyDbInstanceRequest
-import aws.sdk.kotlin.services.rds.model.RdsException
 import kotlin.system.exitProcess
 // snippet-end:[rds.kotlin.modify_instance.import]
 
@@ -40,34 +39,29 @@ suspend fun main(args:Array<String>) {
     """
 
      if (args.size != 2) {
-          System.out.println(usage)
+          println(usage)
           exitProcess(0)
       }
 
     val dbInstanceIdentifier = args[0]
     val masterUserPassword = args[1]
-    val rdsClient = RdsClient{region="us-west-2"}
-    updateIntance(rdsClient, dbInstanceIdentifier, masterUserPassword)
-    rdsClient.close()
-}
+    updateIntance(dbInstanceIdentifier, masterUserPassword)
+    }
 
 // snippet-start:[rds.kotlin.modify_instance.main]
-suspend  fun updateIntance(rdsClient: RdsClient, dbInstanceIdentifierVal: String?, masterUserPasswordVal: String?) {
-    try {
+suspend  fun updateIntance(dbInstanceIdentifierVal: String?, masterUserPasswordVal: String?) {
 
-        val modifyDbInstanceRequest = ModifyDbInstanceRequest {
+
+    val request = ModifyDbInstanceRequest {
             dbInstanceIdentifier = dbInstanceIdentifierVal
             publiclyAccessible = true
             masterUserPassword = masterUserPasswordVal
-        }
+    }
 
-        val instanceResponse = rdsClient.modifyDbInstance(modifyDbInstanceRequest)
+    RdsClient { region = "us-west-2" }.use { rdsClient ->
+        val instanceResponse = rdsClient.modifyDbInstance(request)
         println("The ARN of the modified database is ${instanceResponse.dbInstance?.dbInstanceArn}")
 
-    } catch (e: RdsException) {
-        println(e.message)
-        rdsClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[rds.kotlin.modify_instance.main]

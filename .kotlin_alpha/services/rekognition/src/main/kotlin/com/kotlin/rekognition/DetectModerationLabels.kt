@@ -15,10 +15,7 @@ package com.kotlin.rekognition
 import aws.sdk.kotlin.services.rekognition.RekognitionClient
 import aws.sdk.kotlin.services.rekognition.model.Image
 import aws.sdk.kotlin.services.rekognition.model.DetectModerationLabelsRequest
-import aws.sdk.kotlin.services.rekognition.model.ModerationLabel
-import aws.sdk.kotlin.services.rekognition.model.RekognitionException
 import java.io.File
-import java.io.FileNotFoundException
 import kotlin.system.exitProcess
 // snippet-end:[rekognition.kotlin.detect_mod_labels.import]
 
@@ -42,39 +39,29 @@ suspend fun main(args: Array<String>){
     if (args.size != 1) {
          println(usage)
          exitProcess(0)
-    }
+     }
 
     val sourceImage = args[0]
-    val rekClient = RekognitionClient{ region = "us-east-1"}
-    detectModLabels(rekClient, sourceImage)
-    rekClient.close()
+    detectModLabels( sourceImage)
 }
 
 // snippet-start:[rekognition.kotlin.detect_mod_labels.main]
-suspend fun detectModLabels(rekClient: RekognitionClient, sourceImage: String?) {
-    try {
+suspend fun detectModLabels(sourceImage: String) {
 
         val myImage = Image {
             this.bytes = (File(sourceImage).readBytes())
         }
 
-        val moderationLabelsRequest = DetectModerationLabelsRequest {
+        val request = DetectModerationLabelsRequest {
             image = myImage
             minConfidence = 60f
         }
 
-        val response = rekClient.detectModerationLabels(moderationLabelsRequest)
-        response.moderationLabels?.forEach { label ->
-              println("Label: ${label.name} - Confidence: ${label.confidence.toString()} % Parent: ${label.parentName}")
-         }
-
-    } catch (e: RekognitionException) {
-        println(e.message)
-        rekClient.close()
-        exitProcess(0)
-    } catch (e: FileNotFoundException) {
-        println(e.message)
-        exitProcess(0)
-    }
+        RekognitionClient { region = "us-east-1" }.use { rekClient ->
+          val response = rekClient.detectModerationLabels(request)
+          response.moderationLabels?.forEach { label ->
+              println("Label: ${label.name} - Confidence: ${label.confidence} % Parent: ${label.parentName}")
+           }
+       }
 }
 // snippet-end:[rekognition.kotlin.detect_mod_labels.main]

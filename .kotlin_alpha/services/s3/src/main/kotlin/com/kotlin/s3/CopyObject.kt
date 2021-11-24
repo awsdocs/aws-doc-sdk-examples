@@ -16,7 +16,6 @@ package com.kotlin.s3
 // snippet-start:[s3.kotlin.copy_object.import]
 import aws.sdk.kotlin.services.s3.S3Client
 import aws.sdk.kotlin.services.s3.model.CopyObjectRequest
-import aws.sdk.kotlin.services.s3.model.S3Exception
 import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
@@ -44,24 +43,21 @@ suspend fun main(args: Array<String>) {
     """
 
     if (args.size != 3) {
-       println(usage)
-       exitProcess(0)
+        println(usage)
+        exitProcess(0)
     }
 
     val objectKey = args[0]
     val fromBucket = args[1]
     val toBucket = args[2]
-    val s3Client = S3Client { region = "us-east-1" }
-    val response = copyBucketObject(s3Client, fromBucket, objectKey, toBucket)
-    println(response)
-    s3Client.close()
+    copyBucketObject(fromBucket, objectKey, toBucket)
 }
 
 // snippet-start:[s3.kotlin.copy_object.main]
- suspend fun copyBucketObject(s3Client: S3Client,
+ suspend fun copyBucketObject(
                          fromBucket: String,
                          objectKey: String,
-                         toBucket: String): String {
+                         toBucket: String) {
 
         var encodedUrl=""
         try {
@@ -71,20 +67,13 @@ suspend fun main(args: Array<String>) {
             println("URL could not be encoded: " + e.message)
         }
 
-        val copyReq = CopyObjectRequest {
+        val request = CopyObjectRequest {
             copySource = encodedUrl
-            this.bucket = toBucket
-            this.key= objectKey
+            bucket = toBucket
+            key= objectKey
         }
-
-        try {
-            val copyRes = s3Client.copyObject(copyReq)
-            return copyRes.copyObjectResult.toString()
-
-        } catch (e: S3Exception) {
-            println(e.message)
-            s3Client.close()
-            exitProcess(0)
+        S3Client { region = "us-east-1" }.use { s3 ->
+           s3.copyObject(request)
         }
   }
 // snippet-end:[s3.kotlin.copy_object.main]

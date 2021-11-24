@@ -15,9 +15,7 @@ package com.kotlin.firehose
 
 // snippet-start:[firehose.kotlin.list_streams.import]
 import aws.sdk.kotlin.services.firehose.FirehoseClient
-import aws.sdk.kotlin.services.firehose.model.FirehoseException
 import aws.sdk.kotlin.services.firehose.model.ListDeliveryStreamsRequest
-import kotlin.system.exitProcess
 // snippet-end:[firehose.kotlin.list_streams.import]
 
 /**
@@ -29,23 +27,18 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
-    val firehoseClient = FirehoseClient{region="us-east-1"}
-    listStreams(firehoseClient)
+    listStreams()
 }
 
 // snippet-start:[firehose.kotlin.list_streams.main]
-suspend fun listStreams(firehoseClient: FirehoseClient) {
-    try {
+suspend fun listStreams() {
+
+     FirehoseClient { region = "us-west-2" }.use { firehoseClient ->
         val response = firehoseClient.listDeliveryStreams(ListDeliveryStreamsRequest{})
         response.deliveryStreamNames?.forEach { item ->
             println("The delivery stream name is $item")
         }
 
-    } catch (ex: FirehoseException) {
-        println(ex.message)
-        firehoseClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[firehose.kotlin.list_streams.main]

@@ -11,7 +11,6 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-
 package com.kotlin.s3
 
 // snippet-start:[s3.kotlin.set_bucket_policy.import]
@@ -20,7 +19,6 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import aws.sdk.kotlin.services.s3.S3Client
 import aws.sdk.kotlin.services.s3.model.PutBucketPolicyRequest
-import aws.sdk.kotlin.services.s3.model.S3Exception
 import java.io.IOException
 import kotlin.system.exitProcess
 // snippet-end:[s3.kotlin.set_bucket_policy.import]
@@ -49,35 +47,29 @@ suspend fun main(args: Array<String>) {
     }
 
     val bucketName = args[0]
-    val polFile =  args[1]
-    val s3Client = S3Client { region = "us-east-1" }
-    setPolicy(s3Client, bucketName, polFile)
-    s3Client.close()
+    val polFile = args[1]
+    setPolicy(bucketName, polFile)
 }
+
 // snippet-start:[s3.kotlin.set_bucket_policy.main]
-suspend fun setPolicy(s3Client: S3Client, bucketName: String, polText: String) {
+suspend fun setPolicy( bucketName: String, polText: String) {
 
-        val policyText = getBucketPolicyFromFile(polText)
-        println("Setting policy:")
-        println("----")
-        println(policyText)
-        println("----")
-        println("On Amazon S3 bucket $bucketName")
+    val policyText = getBucketPolicyFromFile(polText)
+    println("Setting policy:")
+    println("----")
+    println(policyText)
+    println("----")
+    println("On Amazon S3 bucket $bucketName")
 
-        try {
-            val policyReq = PutBucketPolicyRequest {
-                bucket = bucketName
-                policy = policyText
-            }
+    val request = PutBucketPolicyRequest {
+        bucket = bucketName
+        policy = policyText
+    }
 
-            s3Client.putBucketPolicy(policyReq)
-
-        } catch (e: S3Exception) {
-            println(e.message)
-            s3Client.close()
-            exitProcess(0)
-        }
+    S3Client { region = "us-east-1" }.use { s3 ->
+        s3.putBucketPolicy(request)
         println("Done!")
+     }
     }
 
     // Loads a JSON-formatted policy from a file.

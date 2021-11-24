@@ -17,7 +17,6 @@ package com.kotlin.sts
 // snippet-start:[sts.kotlin.get_access_key.import]
 import aws.sdk.kotlin.services.sts.StsClient
 import aws.sdk.kotlin.services.sts.model.GetAccessKeyInfoRequest
-import aws.sdk.kotlin.services.sts.model.StsException
 import kotlin.system.exitProcess
 // snippet-end:[sts.kotlin.get_access_key.import]
 
@@ -44,24 +43,19 @@ suspend fun main(args:Array<String>) {
     }
 
     val accessKeyId = args[0]
-    val stsClient = StsClient{region ="us-east-1"}
-    getKeyInfo(stsClient, accessKeyId)
+    getKeyInfo(accessKeyId)
 }
 
 // snippet-start:[sts.kotlin.get_access_key.main]
-suspend fun getKeyInfo(stsClient: StsClient, accessKeyIdVal: String?) {
-    try {
-        val accessRequest = GetAccessKeyInfoRequest {
-            accessKeyId = accessKeyIdVal
-        }
+suspend fun getKeyInfo(accessKeyIdVal: String?) {
 
+    val accessRequest = GetAccessKeyInfoRequest {
+        accessKeyId = accessKeyIdVal
+    }
+
+    StsClient { region = "us-east-1" }.use { stsClient ->
         val accessResponse = stsClient.getAccessKeyInfo(accessRequest)
         println("The account associated with the access key is ${accessResponse.account}")
-
-    } catch (e: StsException) {
-        println(e.message)
-        stsClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[sts.kotlin.get_access_key.main]

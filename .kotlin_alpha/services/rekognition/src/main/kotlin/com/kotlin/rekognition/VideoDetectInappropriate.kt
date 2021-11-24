@@ -11,16 +11,14 @@
 */
 package com.kotlin.rekognition
 
-
 // snippet-start:[rekognition.kotlin.recognize_video_moderation.import]
 import aws.sdk.kotlin.services.rekognition.RekognitionClient
+import aws.sdk.kotlin.services.rekognition.model.StartContentModerationRequest
 import aws.sdk.kotlin.services.rekognition.model.NotificationChannel
 import aws.sdk.kotlin.services.rekognition.model.S3Object
 import aws.sdk.kotlin.services.rekognition.model.Video
-import aws.sdk.kotlin.services.rekognition.model.StartContentModerationRequest
-import aws.sdk.kotlin.services.rekognition.model.RekognitionException
-import aws.sdk.kotlin.services.rekognition.model.GetContentModerationRequest
 import aws.sdk.kotlin.services.rekognition.model.GetContentModerationResponse
+import aws.sdk.kotlin.services.rekognition.model.GetContentModerationRequest
 import kotlinx.coroutines.delay
 import kotlin.system.exitProcess
 // snippet-end:[rekognition.kotlin.recognize_video_moderation.import]
@@ -51,7 +49,7 @@ suspend fun main(args: Array<String>){
 
      if (args.size != 4) {
          println(usage)
-         System.exit(1)
+         exitProcess(1)
      }
 
     val bucket = args[0]
@@ -65,90 +63,69 @@ suspend fun main(args: Array<String>){
         roleArn = roleArnVal
     }
 
-    startModerationDetection(rekClient, channel, bucket, video)
-    getModResults(rekClient)
+    startModerationDetection(channel, bucket, video)
+    getModResults()
     rekClient.close()
 }
+// snippet-start:[rekognition.kotlin.recognize_video_moderation.main]
+suspend fun startModerationDetection(channel: NotificationChannel?, bucketVal: String?, videoVal: String?) {
 
-suspend fun startModerationDetection(rekClient: RekognitionClient, channel: NotificationChannel?, bucketVal: String?, videoVal: String?) {
-    try {
-        val s3Obj = S3Object {
-            bucket = bucketVal
-            name = videoVal
-        }
-        val vidOb = Video {
-            s3Object = s3Obj
-        }
-        val modDetectionRequest = StartContentModerationRequest {
-            jobTag = "Moderation"
-            notificationChannel = channel
-            video = vidOb
-        }
+    val s3Obj = S3Object {
+        bucket = bucketVal
+        name = videoVal
+    }
+    val vidOb = Video {
+        s3Object = s3Obj
+    }
+    val request = StartContentModerationRequest {
+        jobTag = "Moderation"
+        notificationChannel = channel
+        video = vidOb
+    }
 
-        val startModDetectionResult = rekClient.startContentModeration(modDetectionRequest)
+    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+        val startModDetectionResult = rekClient.startContentModeration(request)
         startJobId = startModDetectionResult.jobId.toString()
-
-    } catch (e: RekognitionException) {
-        println(e.message)
-        rekClient.close()
-        exitProcess(0)
     }
 }
 
-// snippet-start:[rekognition.kotlin.recognize_video_moderation.main]
-suspend fun getModResults(rekClient: RekognitionClient) {
-    try {
-        var paginationToken: String? = null
+suspend fun getModResults() {
+    var finished = false
+    var status: String
+    var yy = 0
+    RekognitionClient { region = "us-east-1" }.use { rekClient ->
         var modDetectionResponse: GetContentModerationResponse? = null
-        var finished = false
-        var status:String
-        var yy = 0
-        do {
-            if (modDetectionResponse != null)
-                paginationToken = modDetectionResponse.nextToken
 
-            val modRequest = GetContentModerationRequest {
-                jobId = startJobId
-                nextToken = paginationToken
-                maxResults = 10
+        val modRequest = GetContentModerationRequest {
+            jobId = startJobId
+            maxResults = 10
+        }
+
+        // Wait until the job succeeds.
+        while (!finished) {
+            modDetectionResponse = rekClient.getContentModeration(modRequest)
+            status = modDetectionResponse.jobStatus.toString()
+            if (status.compareTo("SUCCEEDED") == 0)
+                finished = true
+            else {
+                println("$yy status is: $status")
+                delay(1000)
             }
+            yy++
+        }
 
-            // Wait until the job succeeds.
-            while (!finished) {
-                modDetectionResponse = rekClient.getContentModeration(modRequest)
-                status = modDetectionResponse.jobStatus.toString()
-                if (status.compareTo("SUCCEEDED") == 0)
-                    finished = true
-                else {
-                    println("$yy status is: $status")
-                    delay(1000)
-                }
-                yy++
-            }
-            finished = false
+        // Proceed when the job is done - otherwise VideoMetadata is null.
+        val videoMetaData = modDetectionResponse?.videoMetadata
+        println("Format: ${videoMetaData?.format}")
+        println("Codec: ${videoMetaData?.codec}")
+        println("Duration: ${videoMetaData?.durationMillis}")
+        println("FrameRate: ${videoMetaData?.frameRate}")
 
-            // Proceed when the job is done - otherwise VideoMetadata is null
-            val videoMetaData = modDetectionResponse?.videoMetadata
-            println("Format: ${videoMetaData?.format}")
-            println("Codec: ${videoMetaData?.codec}")
-            println("Duration: ${videoMetaData?.durationMillis}")
-            println("FrameRate: ${videoMetaData?.frameRate}")
-
-            modDetectionResponse?.moderationLabels?.forEach { mod ->
-                    val seconds: Long = mod.timestamp / 1000
-                    print("Mod label: $seconds ")
-                    println(mod.moderationLabel.toString())
-                }
-
-        } while (modDetectionResponse?.nextToken != null)
-
-    } catch (e: RekognitionException) {
-        println(e.message)
-        rekClient.close()
-        exitProcess(0)
-    } catch (e: InterruptedException) {
-        println(e.message)
-        exitProcess(0)
+        modDetectionResponse?.moderationLabels?.forEach { mod ->
+            val seconds: Long = mod.timestamp / 1000
+            print("Mod label: $seconds ")
+            println(mod.moderationLabel)
+        }
     }
 }
 // snippet-end:[rekognition.kotlin.recognize_video_moderation.main]

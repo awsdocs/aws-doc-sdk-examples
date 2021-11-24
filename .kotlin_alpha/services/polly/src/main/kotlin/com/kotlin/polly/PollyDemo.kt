@@ -19,14 +19,12 @@ import aws.sdk.kotlin.services.polly.model.DescribeVoicesRequest
 import aws.sdk.kotlin.services.polly.model.SynthesizeSpeechRequest
 import aws.sdk.kotlin.services.polly.model.OutputFormat
 import aws.sdk.kotlin.services.polly.model.Engine
-import aws.sdk.kotlin.services.polly.model.PollyException
 import javazoom.jl.player.FactoryRegistry
 import javazoom.jl.player.advanced.AdvancedPlayer
 import javazoom.jl.player.advanced.PlaybackEvent
 import javazoom.jl.player.advanced.PlaybackListener
 import aws.smithy.kotlin.runtime.content.toByteArray
 import java.io.ByteArrayInputStream
-import kotlin.system.exitProcess
 // snippet-end:[polly.kotlin.demo.import]
 
 /**
@@ -38,33 +36,28 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
-    val polly = PollyClient{ region = "us-east-1" }
-    talkPolly(polly)
-    polly.close()
-}
+   talkPolly()
+   }
 
 // snippet-start:[polly.kotlin.demo.main]
- suspend fun talkPolly(polly: PollyClient) {
+ suspend fun talkPolly() {
 
      val sample = "Congratulations. You have successfully built this working demo " +
              " of Amazon Polly in Kotlin. Have fun building voice enabled apps with Amazon Polly (that's me!), and always " +
              " look at the AWS website for tips and tricks on using Amazon Polly and other great services from AWS"
 
-     try {
-            val describeVoiceRequest = DescribeVoicesRequest {
-                engine = Engine.Standard
-            }
+     val describeVoiceRequest = DescribeVoicesRequest {
+         engine = Engine.Standard
+     }
 
-            val describeVoicesResult = polly.describeVoices(describeVoiceRequest)
+    PollyClient { region = "us-west-2" }.use { polly ->
+    val describeVoicesResult = polly.describeVoices(describeVoiceRequest)
             val voice = describeVoicesResult.voices?.get(26)
-            val synthReq = SynthesizeSpeechRequest {
+            polly.synthesizeSpeech(SynthesizeSpeechRequest {
                 text = sample
                 voiceId = voice?.id
                 outputFormat = OutputFormat.Mp3
-            }
-
-            polly.synthesizeSpeech(synthReq) { resp ->
+            }) { resp ->
 
                 // inside this block you can access `resp` and play the audio stream.
                 val audioData = resp.audioStream?.toByteArray()
@@ -83,11 +76,6 @@ suspend fun main() {
                 // play it!
                 player.play()
             }
-
-        } catch (ex: PollyException) {
-            println(ex.message)
-            polly.close()
-            exitProcess(0)
         }
  }
 // snippet-end:[polly.kotlin.demo.main]

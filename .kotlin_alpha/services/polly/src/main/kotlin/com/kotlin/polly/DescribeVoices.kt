@@ -31,33 +31,23 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
-    val polly = PollyClient{ region = "us-east-1" }
-    describeVoice(polly)
-    polly.close()
+    describeVoice()
 }
 
 // snippet-start:[polly.kotlin.describe_voice.main]
-suspend fun describeVoice(polly: PollyClient) {
-        try {
+suspend fun describeVoice() {
 
-            val voicesRequest = DescribeVoicesRequest{
-                languageCode = LanguageCode.fromValue("en-US")
-            }
-
-            val enUsVoicesResult = polly.describeVoices(voicesRequest)
-            val voices = enUsVoicesResult.voices
-            if (voices != null) {
+         PollyClient { region = "us-west-2" }.use { polly ->
+          val enUsVoicesResult = polly.describeVoices(DescribeVoicesRequest{
+              languageCode = LanguageCode.fromValue("en-US")
+          })
+          val voices = enUsVoicesResult.voices
+          if (voices != null) {
                 for (voice in voices) {
                     println("The ID of the voice is ${voice.id}")
                     println("The gender of the voice is ${voice.gender}")
                 }
             }
-
-        } catch (ex: PollyException) {
-            println(ex.message)
-            polly.close()
-            exitProcess(0)
-        }
+          }
  }
 // snippet-end:[polly.kotlin.describe_voice.main]

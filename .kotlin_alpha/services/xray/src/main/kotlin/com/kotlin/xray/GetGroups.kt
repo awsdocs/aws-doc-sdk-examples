@@ -15,31 +15,21 @@ package com.kotlin.xray
 
 // snippet-start:[xray.kotlin_get_groups.import]
 import aws.sdk.kotlin.services.xray.XRayClient
-import aws.sdk.kotlin.services.xray.model.XRayException
 import aws.sdk.kotlin.services.xray.model.GetGroupsRequest
-import kotlin.system.exitProcess
 // snippet-end:[xray.kotlin_get_groups.import]
 
 suspend fun main() {
-
-    val xRayClient = XRayClient{region = "us-east-1"}
-    getAllGroups(xRayClient)
-    xRayClient.close()
+    getAllGroups()
 }
 
 // snippet-start:[xray.kotlin_get_groups.main]
- suspend fun getAllGroups(xRayClient: XRayClient) {
-        try {
+ suspend fun getAllGroups() {
 
-            val response = xRayClient.getGroups(GetGroupsRequest{})
-            response.groups?.forEach { group ->
-                 println("The AWS X-Ray group name is ${group.groupName}")
-                }
-
-        } catch (ex: XRayException) {
-            println(ex.message)
-            xRayClient.close()
-            exitProcess(0)
+        XRayClient { region = "us-east-1" }.use { xRayClient ->
+          val response = xRayClient.getGroups(GetGroupsRequest{})
+          response.groups?.forEach { group ->
+              println("The AWS X-Ray group name is ${group.groupName}")
+          }
         }
  }
 // snippet-end:[xray.kotlin_get_groups.main]

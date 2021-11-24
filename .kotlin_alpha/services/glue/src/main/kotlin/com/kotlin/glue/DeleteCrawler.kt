@@ -15,7 +15,6 @@ package com.kotlin.glue
 //snippet-start:[glue.kotlin.delete_crawler.import]
 import aws.sdk.kotlin.services.glue.GlueClient
 import aws.sdk.kotlin.services.glue.model.DeleteCrawlerRequest
-import aws.sdk.kotlin.services.glue.model.GlueException
 import kotlin.system.exitProcess
 //snippet-end:[glue.kotlin.delete_crawler.import]
 
@@ -43,27 +42,18 @@ suspend fun main(args:Array<String>) {
     }
 
     val crawlerName = args[0]
-    val glueClient= GlueClient{region ="us-east-1"}
-    deleteSpecificCrawler(glueClient, crawlerName)
-    glueClient.close()
-}
+    deleteSpecificCrawler(crawlerName)
+   }
 
 //snippet-start:[glue.kotlin.delete_crawler.main]
-suspend fun deleteSpecificCrawler(glueClient: GlueClient, crawlerName: String) {
-    try {
+suspend fun deleteSpecificCrawler(crawlerName: String) {
 
-        val deleteCrawlerRequest = DeleteCrawlerRequest {
-            name = crawlerName
-        }
-
-        // Delete the Crawler.
-        glueClient.deleteCrawler(deleteCrawlerRequest)
+    val request = DeleteCrawlerRequest {
+        name = crawlerName
+    }
+    GlueClient { region = "us-east-1" }.use { glueClient ->
+        glueClient.deleteCrawler(request)
         println("$crawlerName was deleted")
-
-    } catch (e: GlueException) {
-        println(e.message)
-        glueClient.close()
-        exitProcess(0)
     }
 }
 //snippet-end:[glue.kotlin.delete_crawler.main]

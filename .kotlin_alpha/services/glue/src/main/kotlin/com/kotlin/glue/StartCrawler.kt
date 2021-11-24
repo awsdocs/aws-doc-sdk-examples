@@ -15,7 +15,6 @@ package com.kotlin.glue
 //snippet-start:[glue.kotlin.start_crawler.import]
 import aws.sdk.kotlin.services.glue.GlueClient
 import aws.sdk.kotlin.services.glue.model.StartCrawlerRequest
-import aws.sdk.kotlin.services.glue.model.GlueException
 import kotlin.system.exitProcess
 //snippet-end:[glue.kotlin.start_crawler.import]
 
@@ -37,33 +36,25 @@ suspend fun main(args:Array<String>) {
         crawlerName - the name of the crawler. 
     """
 
-
     if (args.size != 1) {
         println(usage)
         exitProcess(0)
     }
 
     val crawlerName = args[0]
-    val glueClient= GlueClient{region ="us-east-1"}
-    startSpecificCrawler(glueClient,crawlerName)
-    glueClient.close()
+    startSpecificCrawler(crawlerName)
 }
 
 //snippet-start:[glue.kotlin.start_crawler.main]
-suspend fun startSpecificCrawler(glueClient: GlueClient, crawlerName: String?) {
-    try {
+suspend fun startSpecificCrawler(crawlerName: String?) {
 
-        val crawlerRequest = StartCrawlerRequest {
-            name = crawlerName
-        }
-
-        glueClient.startCrawler(crawlerRequest)
-        println("$crawlerName was successfully started.")
-
-    } catch (e: GlueException) {
-        println(e.message)
-        glueClient.close()
-        exitProcess(0)
+    val request = StartCrawlerRequest {
+        name = crawlerName
     }
+
+    GlueClient { region = "us-west-2" }.use { glueClient ->
+          glueClient.startCrawler(request)
+          println("$crawlerName was successfully started.")
+       }
 }
 //snippet-end:[glue.kotlin.start_crawler.main]

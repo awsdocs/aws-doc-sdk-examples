@@ -16,7 +16,6 @@ package com.kotlin.sage
 //snippet-start:[sagemaker.kotlin.describe_train_job.import]
 import aws.sdk.kotlin.services.sagemaker.SageMakerClient
 import aws.sdk.kotlin.services.sagemaker.model.DescribeTrainingJobRequest
-import aws.sdk.kotlin.services.sagemaker.model.SageMakerException
 import kotlin.system.exitProcess
 //snippet-end:[sagemaker.kotlin.describe_train_job.import]
 
@@ -44,25 +43,19 @@ suspend fun main(args:Array<String>) {
     }
 
     val trainingJobName = args[0]
-    val sageMakerClient = SageMakerClient{region = "us-west-2" }
-    describeTrainJob(sageMakerClient, trainingJobName)
-    sageMakerClient.close()
-}
+    describeTrainJob(trainingJobName)
+   }
 
 //snippet-start:[sagemaker.kotlin.describe_train_job.main]
-suspend fun describeTrainJob(sageMakerClient: SageMakerClient, trainingJobNameVal: String?) {
-    try {
-        val trainingJobRequest = DescribeTrainingJobRequest {
+suspend fun describeTrainJob(trainingJobNameVal: String?) {
+
+    val request = DescribeTrainingJobRequest {
             trainingJobName = trainingJobNameVal
-        }
+    }
 
-        val jobResponse = sageMakerClient.describeTrainingJob(trainingJobRequest)
-        println("The job status is ${jobResponse.trainingJobStatus.toString()}")
-
-    } catch (e: SageMakerException) {
-        println(e.message)
-        sageMakerClient.close()
-        exitProcess(0)
+    SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
+      val jobResponse = sageMakerClient.describeTrainingJob(request)
+      println("The job status is ${jobResponse.trainingJobStatus}")
     }
 }
 //snippet-end:[sagemaker.kotlin.describe_train_job.main]

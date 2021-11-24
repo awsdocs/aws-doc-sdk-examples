@@ -14,8 +14,6 @@ package com.kotlin.rekognition
 // snippet-start:[rekognition.kotlin.delete_faces_collection.import]
 import aws.sdk.kotlin.services.rekognition.RekognitionClient
 import aws.sdk.kotlin.services.rekognition.model.DeleteFacesRequest
-import aws.sdk.kotlin.services.rekognition.model.RekognitionException
-import kotlin.system.exitProcess
 // snippet-end:[rekognition.kotlin.delete_faces_collection.import]
 
 /**
@@ -44,27 +42,20 @@ suspend fun main(args: Array<String>){
 
     val collectionId = args[0]
     val faceId = args[1]
-    val rekClient = RekognitionClient{ region = "us-east-1"}
-    deleteFacesCollection(rekClient, collectionId, faceId)
-    rekClient.close()
+    deleteFacesCollection(collectionId, faceId)
 }
 
 // snippet-start:[rekognition.kotlin.delete_faces_collection.main]
-suspend fun deleteFacesCollection(rekClient: RekognitionClient, collectionIdVal: String?, faceIdVal: String ) {
+suspend fun deleteFacesCollection(collectionIdVal: String?, faceIdVal: String ) {
 
-    try {
-        val deleteFacesRequest = DeleteFacesRequest {
+       val deleteFacesRequest = DeleteFacesRequest {
             collectionId = collectionIdVal
             faceIds = listOf(faceIdVal)
         }
 
+      RekognitionClient { region = "us-east-1" }.use { rekClient ->
         rekClient.deleteFaces(deleteFacesRequest)
         println("$faceIdVal was deleted from the collection")
-
-    } catch (e: RekognitionException) {
-        println(e.message)
-        rekClient.close()
-        exitProcess(0)
-    }
+      }
 }
 // snippet-end:[rekognition.kotlin.delete_faces_collection.main]

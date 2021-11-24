@@ -17,19 +17,16 @@ package com.kotlin.sqs
 import aws.sdk.kotlin.services.sqs.SqsClient
 import aws.sdk.kotlin.services.sqs.model.GetQueueUrlRequest
 import aws.sdk.kotlin.services.sqs.model.ListQueueTagsRequest
-import aws.sdk.kotlin.services.sqs.model.SqsException
 import kotlin.system.exitProcess
 // snippet-end:[sqs.kotlin.list_tags.import]
 
 suspend fun main(args:Array<String>) {
-
 
     val usage = """
         Usage: 
             <queueName>
         Where:
             queueName - the name of the queue.
-
         """
 
       if (args.size != 1) {
@@ -38,18 +35,17 @@ suspend fun main(args:Array<String>) {
      }
 
     val queueName = args[0]
-    val sqsClient = SqsClient { region = "us-east-1" }
-    listTags(sqsClient, queueName)
-    sqsClient.close()
+    listTags(queueName)
 }
 
 // snippet-start:[sqs.kotlin.list_tags.main]
-suspend  fun listTags(sqsClient: SqsClient, queueNameVal: String?) {
-    try {
-        val urlRequest = GetQueueUrlRequest {
-            queueName = queueNameVal
-        }
+suspend  fun listTags(queueNameVal: String?) {
 
+    val urlRequest = GetQueueUrlRequest {
+        queueName = queueNameVal
+    }
+
+    SqsClient { region = "us-east-1" }.use { sqsClient ->
         val getQueueUrlResponse = sqsClient.getQueueUrl(urlRequest)
         val queueUrlVal = getQueueUrlResponse.queueUrl
         val listQueueTagsRequest = ListQueueTagsRequest {
@@ -58,11 +54,6 @@ suspend  fun listTags(sqsClient: SqsClient, queueNameVal: String?) {
 
         val listQueueTagsResponse = sqsClient.listQueueTags(listQueueTagsRequest)
         println("ListQueueTags: tags for queue $queueNameVal are ${listQueueTagsResponse.tags}")
-
-    } catch (e: SqsException) {
-        println(e.message)
-        sqsClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[sqs.kotlin.list_tags.main]

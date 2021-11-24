@@ -16,14 +16,14 @@ package com.kotlin.sns
 //snippet-start:[sns.kotlin.Unsubscribe.import]
 import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.UnsubscribeRequest
-import aws.sdk.kotlin.services.sns.model.SnsException
 import kotlin.system.exitProcess
 //snippet-end:[sns.kotlin.Unsubscribe.import]
 
 suspend fun main(args:Array<String>) {
 
     val usage = """
-        Usage: <subscriptionArn>
+        Usage: 
+            <subscriptionArn>
 
         Where:
             subscriptionArn - the ARN of the subscription.
@@ -35,26 +35,19 @@ suspend fun main(args:Array<String>) {
      }
 
     val subArn = args[0]
-    val snsClient = SnsClient{ region = "us-east-1" }
-    unSub(snsClient, subArn)
-    snsClient.close()
+    unSub(subArn)
 }
 
 //snippet-start:[sns.kotlin.Unsubscribe.main]
-suspend fun unSub(snsClient: SnsClient, subscriptionArnVal: String) {
+suspend fun unSub(subscriptionArnVal: String) {
 
-    try {
-        val request = UnsubscribeRequest {
+       val request = UnsubscribeRequest {
            subscriptionArn = subscriptionArnVal
         }
 
-        snsClient.unsubscribe(request)
-        println("Subscription was removed for ${request.subscriptionArn}")
-
-    } catch (e: SnsException) {
-        println(e.message)
-        snsClient.close()
-        exitProcess(0)
-    }
+       SnsClient { region = "us-east-1" }.use { snsClient ->
+         snsClient.unsubscribe(request)
+         println("Subscription was removed for ${request.subscriptionArn}")
+       }
 }
 //snippet-end:[sns.kotlin.Unsubscribe.main]

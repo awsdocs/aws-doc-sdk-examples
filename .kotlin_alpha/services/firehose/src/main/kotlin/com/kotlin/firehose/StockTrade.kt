@@ -20,17 +20,10 @@ import java.io.IOException
  * number of shares, the type of the trade (buy or sell), and an id uniquely identifying
  * the trade.
  */
-class StockTrade {
+class StockTrade(tickerSymbol: String?, tradeType: TradeType?, price: Double, quantity: Long, id: Long) {
 
     companion object {
         private val JSON = ObjectMapper()
-        fun fromJsonAsBytes(bytes: ByteArray?): StockTrade? {
-            return try {
-                JSON.readValue(bytes, StockTrade::class.java)
-            } catch (e: IOException) {
-                null
-            }
-        }
 
         init {
             JSON.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
@@ -44,33 +37,20 @@ class StockTrade {
         BUY, SELL
     }
 
-    var tickerSymbol: String? = null
+    var tickerSymbol: String? = tickerSymbol
         private set
 
-    var tradeType: TradeType? = null
+    var tradeType: TradeType? = tradeType
         private set
 
-    var price = 0.0
+    var price = price
         private set
 
-    var quantity: Long = 0
+    var quantity: Long = quantity
         private set
 
-    var id: Long = 0
+    var id: Long = id
         private set
-
-    constructor() {}
-    constructor(tickerSymbol: String?, tradeType: TradeType?, price: Double, quantity: Long, id: Long) {
-        this.tickerSymbol = tickerSymbol
-        this.tradeType = tradeType
-        this.price = price
-        this.quantity = quantity
-        this.id = id
-    }
-
-    fun getTheTickerSymbol(): String {
-        return tickerSymbol!!
-    }
 
     fun toJsonAsBytes(): ByteArray? {
         return try {

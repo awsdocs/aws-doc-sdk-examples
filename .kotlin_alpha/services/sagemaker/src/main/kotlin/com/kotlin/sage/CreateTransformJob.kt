@@ -24,7 +24,6 @@ import aws.sdk.kotlin.services.sagemaker.model.TransformOutput
 import aws.sdk.kotlin.services.sagemaker.model.TransformResources
 import aws.sdk.kotlin.services.sagemaker.model.TransformInstanceType
 import aws.sdk.kotlin.services.sagemaker.model.CreateTransformJobRequest
-import aws.sdk.kotlin.services.sagemaker.model.SageMakerException
 import kotlin.system.exitProcess
 //snippet-end:[sagemaker.kotlin.transform_job.import]
 
@@ -53,25 +52,21 @@ suspend fun main(args:Array<String>) {
         exitProcess(1)
    }
 
-    val s3Uri = args[0];
-    val s3OutputPath = args[1];
-    val modelName = args[2];
-    val transformJobName = args[3];
-
-    val sageMakerClient = SageMakerClient{region = "us-west-2" }
-    transformJob(sageMakerClient, s3Uri, s3OutputPath, modelName, transformJobName);
-    sageMakerClient.close()
-}
+    val s3Uri = args[0]
+    val s3OutputPath = args[1]
+    val modelName = args[2]
+    val transformJobName = args[3]
+    transformJob(s3Uri, s3OutputPath, modelName, transformJobName)
+    }
 
 //snippet-start:[sagemaker.kotlin.transform_job.main]
 suspend fun transformJob(
-    sageMakerClient: SageMakerClient,
     s3UriVal: String?,
     s3OutputPathVal: String?,
     modelNameVal: String?,
     transformJobNameVal: String?
 ) {
-    try {
+
         val s3DataSourceOb = TransformS3DataSource {
             s3DataType = S3DataType.S3Prefix
             s3Uri = s3UriVal
@@ -96,7 +91,7 @@ suspend fun transformJob(
             instanceType = TransformInstanceType.MlC4_4_Xlarge
         }
 
-        val jobRequest = CreateTransformJobRequest {
+        val request = CreateTransformJobRequest {
             transformJobName = transformJobNameVal
             modelName = modelNameVal
             transformInput = input
@@ -104,13 +99,9 @@ suspend fun transformJob(
             transformResources = resources
         }
 
-        val jobResponse = sageMakerClient.createTransformJob(jobRequest)
-        println("Response ${jobResponse.transformJobArn}")
-
-    } catch (e: SageMakerException) {
-        println(e.message)
-        sageMakerClient.close()
-        exitProcess(0)
-    }
+        SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
+          val jobResponse = sageMakerClient.createTransformJob(request)
+          println("Response ${jobResponse.transformJobArn}")
+        }
 }
 //snippet-end:[sagemaker.kotlin.transform_job.main]

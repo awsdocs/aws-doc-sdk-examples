@@ -16,7 +16,6 @@ package com.kotlin.lambda
 // snippet-start:[lambda.kotlin.invoke.import]
 import aws.sdk.kotlin.services.lambda.LambdaClient
 import aws.sdk.kotlin.services.lambda.model.InvokeRequest
-import aws.sdk.kotlin.services.lambda.model.LambdaException
 import kotlin.system.exitProcess
 // snippet-end:[lambda.kotlin.invoke.import]
 
@@ -42,31 +41,22 @@ suspend fun main(args: Array<String>) {
     }
 
     val functionName = args[0]
-    val lambdaClient = LambdaClient { region = "us-east-1" }
-    invokeFunction(lambdaClient, functionName)
-    lambdaClient.close()
-}
+    invokeFunction(functionName)
+   }
 
 // snippet-start:[lambda.kotlin.invoke.main]
-suspend fun invokeFunction(lambdaClient: LambdaClient, functionNameVal:String) {
+suspend fun invokeFunction(functionNameVal:String) {
 
         val json = """{"Hello ":"Paris"}"""
         val byteArray = json.trimIndent().encodeToByteArray()
+        val request = InvokeRequest {
+            functionName = functionNameVal
+            payload = byteArray
+        }
 
-        try {
-
-            val invokeRequest = InvokeRequest {
-                functionName = functionNameVal
-                payload = byteArray
-            }
-
-           val res = lambdaClient.invoke(invokeRequest)
+        LambdaClient { region = "us-west-2" }.use { awsLambda ->
+           val res = awsLambda.invoke(request)
            println(res)
-
-        } catch (ex: LambdaException) {
-            println(ex.message)
-            lambdaClient.close()
-            exitProcess(1)
         }
  }
 // snippet-end:[lambda.kotlin.invoke.main]

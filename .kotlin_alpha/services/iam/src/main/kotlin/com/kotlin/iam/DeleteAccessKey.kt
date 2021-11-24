@@ -16,7 +16,6 @@ package com.kotlin.iam
 // snippet-start:[iam.kotlin.delete_access_key.import]
 import aws.sdk.kotlin.services.iam.IamClient
 import aws.sdk.kotlin.services.iam.model.DeleteAccessKeyRequest
-import aws.sdk.kotlin.services.iam.model.IamException
 import kotlin.system.exitProcess
 // snippet-end:[iam.kotlin.delete_access_key.import]
 
@@ -45,27 +44,20 @@ suspend fun main(args: Array<String>) {
 
     val userName = args[0]
     val accessKey = args[1]
-    val iamClient = IamClient{region="AWS_GLOBAL"}
-    deleteKey(iamClient, userName, accessKey)
-    iamClient.close()
+    deleteKey(userName, accessKey)
 }
 
 // snippet-start:[iam.kotlin.delete_access_key.main]
-suspend fun deleteKey(iamClient: IamClient, userNameVal: String, accessKey: String) {
-    try {
+suspend fun deleteKey(userNameVal: String, accessKey: String) {
 
-        val request = DeleteAccessKeyRequest {
-            accessKeyId =accessKey
-            userName = userNameVal
-        }
+    val request = DeleteAccessKeyRequest {
+        accessKeyId =accessKey
+        userName = userNameVal
+    }
 
+    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
         iamClient.deleteAccessKey(request)
         println( "Successfully deleted access key $accessKey from $userNameVal")
-
-    } catch (e: IamException) {
-        println(e.message)
-        iamClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[iam.kotlin.delete_access_key.main]

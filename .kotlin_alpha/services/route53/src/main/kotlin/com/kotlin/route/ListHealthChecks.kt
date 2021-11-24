@@ -17,8 +17,6 @@ package com.kotlin.route
 // snippet-start:[route53.kotlin.list_health_checks.import]
 import aws.sdk.kotlin.services.route53.Route53Client
 import aws.sdk.kotlin.services.route53.model.ListHealthChecksRequest
-import aws.sdk.kotlin.services.route53.model.Route53Exception
-import kotlin.system.exitProcess
 // snippet-end:[route53.kotlin.list_health_checks.import]
 
 /**
@@ -30,30 +28,23 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
-    val route53Client = Route53Client{region = "AWS_GLOBAL"}
-    listAllHealthChecks(route53Client)
-    route53Client.close()
+    listAllHealthChecks()
 }
 
 // snippet-start:[route53.kotlin.list_health_checks.main]
-suspend fun listAllHealthChecks(route53Client: Route53Client) {
-        try {
+suspend fun listAllHealthChecks() {
 
-            val requestOb = ListHealthChecksRequest{
-                this.maxItems = 10
-            }
+        val requestOb = ListHealthChecksRequest{
+            this.maxItems = 10
+        }
 
-            val response = route53Client.listHealthChecks(requestOb)
+        Route53Client { region = "AWS_GLOBAL" }.use { route53Client ->
+          val response = route53Client.listHealthChecks(requestOb)
             response.healthChecks?.forEach { check ->
                     println("The health check id is ${check.id}")
                     println("The health threshold is ${check.healthCheckConfig?.healthThreshold}")
                     println("The type is ${check.healthCheckConfig?.type.toString()}")
             }
-
-        } catch (e: Route53Exception) {
-            System.err.println(e.message)
-            exitProcess(0)
         }
  }
 // snippet-end:[route53.kotlin.list_health_checks.main]

@@ -15,7 +15,6 @@ package com.kotlin.firehose
 
 // snippet-start:[firehose.kotlin.put_record.import]
 import aws.sdk.kotlin.services.firehose.FirehoseClient
-import aws.sdk.kotlin.services.firehose.model.FirehoseException
 import aws.sdk.kotlin.services.firehose.model.PutRecordRequest
 import aws.sdk.kotlin.services.firehose.model.Record
 import kotlin.system.exitProcess
@@ -46,31 +45,26 @@ suspend fun main(args:Array<String>) {
 
     val textValue = args[0]
     val streamName = args[1]
-    val firehoseClient = FirehoseClient{region="us-east-1"}
-    putSingleRecord(firehoseClient, textValue, streamName)
+    putSingleRecord(textValue, streamName)
 }
 
 // snippet-start:[firehose.kotlin.put_record.main]
-suspend fun putSingleRecord(firehoseClient: FirehoseClient, textValue: String, streamName: String?) {
-    try {
+suspend fun putSingleRecord(textValue: String, streamName: String?) {
+
         val bytes = textValue.toByteArray()
 
         val recordOb = Record {
             data = bytes
         }
 
-        val recordRequest = PutRecordRequest {
+        val request = PutRecordRequest {
             deliveryStreamName = streamName
             record = recordOb
         }
 
-        val recordResponse = firehoseClient.putRecord(recordRequest)
-        println("The record ID is ${recordResponse.recordId}")
-
-    } catch (ex: FirehoseException) {
-        println(ex.message)
-        firehoseClient.close()
-        exitProcess(0)
-    }
+        FirehoseClient { region = "us-west-2" }.use { firehoseClient ->
+          val recordResponse = firehoseClient.putRecord(request)
+          println("The record ID is ${recordResponse.recordId}")
+       }
 }
 // snippet-end:[firehose.kotlin.put_record.main]

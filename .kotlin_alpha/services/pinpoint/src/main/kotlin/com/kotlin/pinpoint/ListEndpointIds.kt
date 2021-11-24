@@ -16,7 +16,6 @@ package com.kotlin.pinpoint
 //snippet-start:[pinpoint.kotlin.list_endpoints.import]
 import aws.sdk.kotlin.services.pinpoint.PinpointClient
 import aws.sdk.kotlin.services.pinpoint.model.GetUserEndpointsRequest
-import aws.sdk.kotlin.services.pinpoint.model.PinpointException
 import kotlin.system.exitProcess
 //snippet-end:[pinpoint.kotlin.list_endpoints.import]
 
@@ -45,32 +44,20 @@ suspend fun main(args: Array<String>) {
 
     val applicationId = args[0]
     val userId = args[1]
-    val pinpointClient = PinpointClient { region = "us-east-1" }
-    listAllEndpoints(pinpointClient, applicationId, userId)
-    pinpointClient.close()
-}
+    listAllEndpoints(applicationId, userId)
+    }
 
+suspend fun listAllEndpoints(applicationIdVal: String?, userIdVal: String?) {
 
-suspend fun listAllEndpoints(
-        pinpoint: PinpointClient,
-        applicationIdVal: String?,
-        userIdVal: String?
-    ) {
-        try {
-            val endpointsRequest = GetUserEndpointsRequest {
-                userId = userIdVal
-                applicationId = applicationIdVal
-            }
+    PinpointClient { region = "us-east-1" }.use { pinpoint ->
 
-            val response = pinpoint.getUserEndpoints(endpointsRequest)
-            response.endpointsResponse?.item?.forEach { endpoint ->
-                    println("The channel type is ${endpoint.channelType}")
-                    println("The address is  ${endpoint.address}")
-            }
-
-        } catch (ex: PinpointException) {
-            println(ex.message)
-            pinpoint.close()
-            System.exit(1)
+        val response = pinpoint.getUserEndpoints(GetUserEndpointsRequest {
+            userId = userIdVal
+            applicationId = applicationIdVal
+        })
+        response.endpointsResponse?.item?.forEach { endpoint ->
+            println("The channel type is ${endpoint.channelType}")
+            println("The address is  ${endpoint.address}")
         }
- }
+    }
+}

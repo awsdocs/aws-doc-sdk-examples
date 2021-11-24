@@ -16,32 +16,21 @@ package com.kotlin.sns
 //snippet-start:[sns.kotlin.ListTopics.import]
 import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.ListTopicsRequest
-import aws.sdk.kotlin.services.sns.model.SnsException
-import aws.sdk.kotlin.services.sns.model.Topic
-import kotlin.system.exitProcess
 //snippet-end:[sns.kotlin.ListTopics.import]
 
 suspend fun main() {
 
-    val snsClient = SnsClient{region = "us-east-1"}
-    listSNSTopics(snsClient)
-    snsClient.close()
+    listSNSTopics()
 }
 
 //snippet-start:[sns.kotlin.ListTopics.main]
-suspend fun listSNSTopics(snsClient: SnsClient) {
+suspend fun listSNSTopics() {
 
-    try {
-
+    SnsClient { region = "us-east-1" }.use { snsClient ->
         val response = snsClient.listTopics(ListTopicsRequest { })
         response.topics?.forEach { topic ->
              println("The topic ARN is ${topic.topicArn}")
         }
-
-    } catch (e: SnsException) {
-        println(e.message)
-        snsClient.close()
-        exitProcess(0)
     }
 }
 //snippet-end:[sns.kotlin.ListTopics.main]

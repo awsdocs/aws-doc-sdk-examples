@@ -17,10 +17,8 @@ import aws.sdk.kotlin.services.rekognition.model.ProtectiveEquipmentSummarizatio
 import aws.sdk.kotlin.services.rekognition.model.ProtectiveEquipmentType
 import aws.sdk.kotlin.services.rekognition.model.Image
 import aws.sdk.kotlin.services.rekognition.model.DetectProtectiveEquipmentRequest
-import aws.sdk.kotlin.services.rekognition.model.ProtectiveEquipmentPerson
 import aws.sdk.kotlin.services.rekognition.model.ProtectiveEquipmentBodyPart
 import aws.sdk.kotlin.services.rekognition.model.EquipmentDetection
-import aws.sdk.kotlin.services.rekognition.model.RekognitionException
 import java.io.File
 import kotlin.system.exitProcess
 // snippet-end:[rekognition.kotlin.detect_ppe.import]
@@ -49,15 +47,12 @@ suspend fun main(args: Array<String>){
     }
 
     val sourceImage = args[0]
-    val rekClient = RekognitionClient{ region = "us-east-1"}
-    displayGear(rekClient, sourceImage)
-    rekClient.close()
-}
+    displayGear(sourceImage)
+ }
 
 // snippet-start:[rekognition.kotlin.detect_ppe.main]
-suspend fun displayGear(rekClient: RekognitionClient, sourceImage: String) {
+suspend fun displayGear(sourceImage: String) {
 
-    try {
         val summarizationAttributesOb = ProtectiveEquipmentSummarizationAttributes {
             minConfidence = 80f
             this.requiredEquipmentTypes = listOf(ProtectiveEquipmentType.fromValue("FACE_COVER"), ProtectiveEquipmentType.fromValue("HEAD_COVER"))
@@ -72,8 +67,9 @@ suspend fun displayGear(rekClient: RekognitionClient, sourceImage: String) {
             summarizationAttributes  = summarizationAttributesOb
         }
 
-        val response = rekClient.detectProtectiveEquipment(request)
-        response.persons?.forEach { person ->
+        RekognitionClient { region = "us-east-1" }.use { rekClient ->
+           val response = rekClient.detectProtectiveEquipment(request)
+           response.persons?.forEach { person ->
              println("ID: " + person.id)
              val bodyParts = person.bodyParts
 
@@ -81,7 +77,7 @@ suspend fun displayGear(rekClient: RekognitionClient, sourceImage: String) {
                     if (bodyParts.isEmpty()) {
                         println("\tNo body parts detected")
                     } else for (bodyPart: ProtectiveEquipmentBodyPart in bodyParts) {
-                        println("${bodyPart.name.toString()}  -  Confidence: ${bodyPart.confidence.toString()}")
+                        println("${bodyPart.name}  -  Confidence: ${bodyPart.confidence}")
 
                         val equipmentDetections = bodyPart.equipmentDetections
                         if (equipmentDetections != null) {
@@ -89,35 +85,24 @@ suspend fun displayGear(rekClient: RekognitionClient, sourceImage: String) {
                                 println("No PPE Detected on ${bodyPart.name}")
                             } else {
                                 for (item: EquipmentDetection in equipmentDetections) {
-                                    println("Item ${item.type.toString()}  - confidence: ${item.confidence.toString()}" )
-                                    println("Covers body part:  ${item.coversBodyPart?.value.toString()}  - confidence is  ${item.coversBodyPart?.confidence.toString()}")
+                                    println("Item ${item.type}  - confidence: ${item.confidence}" )
+                                    println("Covers body part:  ${item.coversBodyPart?.value}  - confidence is  ${item.coversBodyPart?.confidence}")
                                     println("\t\tBounding Box")
                                     val box = item.boundingBox
                                     if (box != null) {
-                                        println("Left: ${box.left.toString()}")
+                                        println("Left: ${box.left}")
+                                        println("Top: ${box.top}")
+                                        println("Width: ${box.width}")
+                                        println("Height: ${box.height}")
+                                        println("Confidence: ${item.confidence}")
+                                        println()
                                     }
-                                    if (box != null) {
-                                        println("Top: ${box.top.toString()}")
-                                    }
-                                    if (box != null) {
-                                        println("Width: ${box.width.toString()}")
-                                    }
-                                    if (box != null) {
-                                        println("Height: ${box.height.toString()}")
-                                    }
-                                   println("Confidence: ${item.confidence.toString()}")
-                                    println()
                                 }
                             }
                         }
                     }
                 }
         }
-
-    } catch (e: RekognitionException) {
-        println(e.message)
-        rekClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[rekognition.kotlin.detect_ppe.main]

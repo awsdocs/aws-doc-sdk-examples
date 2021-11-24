@@ -14,36 +14,27 @@
 package com.kotlin.stepfunctions
 
 // snippet-start:[stepfunctions.kotlin.list_activities.import]
-import aws.sdk.kotlin.services.sfn.model.SfnException
 import aws.sdk.kotlin.services.sfn.SfnClient
 import aws.sdk.kotlin.services.sfn.model.ListActivitiesRequest
-import kotlin.system.exitProcess
 // snippet-end:[stepfunctions.kotlin.list_activities.import]
 
 suspend fun main() {
-
-    val sfnClient = SfnClient{region = "us-east-1" }
-    listAllActivites(sfnClient)
-    sfnClient.close()
+    listAllActivites()
 }
 
 // snippet-start:[stepfunctions.kotlin.list_activities.main]
-suspend fun listAllActivites(sfnClient: SfnClient) {
-        try {
-            val activitiesRequest = ListActivitiesRequest {
-                maxResults = 10
-            }
+suspend fun listAllActivites() {
 
+        val activitiesRequest = ListActivitiesRequest {
+            maxResults = 10
+        }
+
+        SfnClient { region = "us-east-1" }.use { sfnClient ->
             val response = sfnClient.listActivities(activitiesRequest)
             response.activities?.forEach { item ->
-                     println("The activity ARN is ${item.activityArn}")
+                    println("The activity ARN is ${item.activityArn}")
                     println("The activity name is ${item.name}")
             }
-
-        } catch (ex: SfnException) {
-            println(ex.message)
-            sfnClient.close()
-            exitProcess(0)
         }
 }
 // snippet-end:[stepfunctions.kotlin.list_activities.main]

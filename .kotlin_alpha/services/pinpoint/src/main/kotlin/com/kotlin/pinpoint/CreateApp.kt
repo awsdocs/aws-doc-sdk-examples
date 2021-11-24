@@ -17,7 +17,6 @@ package com.kotlin.pinpoint
 import aws.sdk.kotlin.services.pinpoint.PinpointClient
 import aws.sdk.kotlin.services.pinpoint.model.CreateAppRequest
 import aws.sdk.kotlin.services.pinpoint.model.CreateApplicationRequest
-import aws.sdk.kotlin.services.pinpoint.model.PinpointException
 import kotlin.system.exitProcess
 //snippet-end:[pinpoint.kotlin.createapp.import]
 
@@ -44,31 +43,22 @@ suspend fun main(args: Array<String>) {
      }
 
     val appName = args[0]
-    val pinpointClient = PinpointClient { region = "us-east-1" }
-    val appId = createApplication(pinpointClient, appName)
+    val appId = createApplication(appName)
     println("The app Id is: $appId")
-    pinpointClient.close()
-}
+ }
 
 //snippet-start:[pinpoint.kotlin.createapp.main]
- suspend fun createApplication(pinpoint: PinpointClient, applicationName: String?):String? {
+ suspend fun createApplication(applicationName: String?):String? {
 
-        try {
             val createApplicationRequestOb = CreateApplicationRequest{
                 name = applicationName
             }
 
-            val request = CreateAppRequest {
+            PinpointClient { region = "us-west-2" }.use { pinpoint ->
+             val result = pinpoint.createApp(CreateAppRequest {
                 createApplicationRequest = createApplicationRequestOb
-            }
-
-            val result = pinpoint.createApp(request)
-            return result.applicationResponse?.id
-
-        } catch (ex: PinpointException) {
-            println(ex.message)
-            pinpoint.close()
-            exitProcess(0)
+             })
+             return result.applicationResponse?.id
         }
     }
 //snippet-end:[pinpoint.kotlin.createapp.main]

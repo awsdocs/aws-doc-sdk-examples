@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreatePolicy.kt demonstrates how to create a policy by using waiters.]
+//snippet-sourcedescription:[CreatePolicy.kt demonstrates how to create a policy.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Identity and Access Management (IAM)]
@@ -16,7 +16,6 @@ package com.kotlin.iam
 // snippet-start:[iam.kotlin.create_policy.import]
 import aws.sdk.kotlin.services.iam.IamClient
 import aws.sdk.kotlin.services.iam.model.CreatePolicyRequest
-import aws.sdk.kotlin.services.iam.model.IamException
 import kotlin.system.exitProcess
 // snippet-end:[iam.kotlin.create_policy.import]
 
@@ -43,14 +42,13 @@ suspend fun main(args: Array<String>) {
      }
 
     val policyName = args[0]
-    val iamClient = IamClient{region="AWS_GLOBAL"}
-    val result = createIAMPolicy(iamClient, policyName)
+    val result = createIAMPolicy(policyName)
     println("Successfully created a policy with this ARN value: $result")
-    iamClient.close()
+
 }
 
 // snippet-start:[iam.kotlin.create_policy.main]
-suspend fun createIAMPolicy(iamClient:IamClient, policyNameVal: String?): String {
+suspend fun createIAMPolicy(policyNameVal: String?): String {
 
     val policyDocumentVal = "{" +
             "  \"Version\": \"2012-10-17\"," +
@@ -69,21 +67,14 @@ suspend fun createIAMPolicy(iamClient:IamClient, policyNameVal: String?): String
             "   ]" +
             "}"
 
-    try {
-
-        val request = CreatePolicyRequest {
-            policyName = policyNameVal
-            policyDocument = policyDocumentVal
-        }
-
-        val response = iamClient.createPolicy(request)
-        return response.policy?.arn.toString()
-
-    } catch (e: IamException) {
-        println(e.message)
-        iamClient.close()
-        exitProcess(0)
+    val request = CreatePolicyRequest {
+        policyName = policyNameVal
+        policyDocument = policyDocumentVal
     }
-    return ""
+
+    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+          val response = iamClient.createPolicy(request)
+          return response.policy?.arn.toString()
+    }
 }
 // snippet-end:[iam.kotlin.create_policy.main]

@@ -18,7 +18,6 @@ import aws.sdk.kotlin.services.rekognition.model.NotificationChannel
 import aws.sdk.kotlin.services.rekognition.model.S3Object
 import aws.sdk.kotlin.services.rekognition.model.Video
 import aws.sdk.kotlin.services.rekognition.model.FaceAttributes
-import aws.sdk.kotlin.services.rekognition.model.RekognitionException
 import aws.sdk.kotlin.services.rekognition.model.GetFaceDetectionResponse
 import aws.sdk.kotlin.services.rekognition.model.GetFaceDetectionRequest
 import kotlinx.coroutines.delay
@@ -58,26 +57,19 @@ suspend fun main(args: Array<String>){
     val video = args[1]
     val topicArn = args[2]
     val roleArnVal = args[3]
-    val rekClient = RekognitionClient{ region = "us-east-1"}
 
     val channel = NotificationChannel {
         snsTopicArn = topicArn
         roleArn = roleArnVal
     }
 
-    startFaceDetection(rekClient, channel, bucket, video)
-    getFaceResults(rekClient)
-    rekClient.close()
-}
+    startFaceDetection(channel, bucket, video)
+    getFaceResults()
+    }
 
 // snippet-start:[rekognition.kotlin.recognize_video_faces.main]
-suspend fun startFaceDetection(
-    rekClient: RekognitionClient,
-    channelVal: NotificationChannel?,
-    bucketVal: String?,
-    videoVal: String?
-) {
-    try {
+suspend fun startFaceDetection(channelVal: NotificationChannel?, bucketVal: String, videoVal: String) {
+
         val s3Obj = S3Object {
             bucket = bucketVal
             name = videoVal
@@ -86,79 +78,60 @@ suspend fun startFaceDetection(
             s3Object = s3Obj
         }
 
-        val faceDetectionRequest = StartFaceDetectionRequest {
+        val request = StartFaceDetectionRequest {
              jobTag = "Faces"
              faceAttributes = FaceAttributes.All
              notificationChannel = channelVal
              video = vidOb
         }
 
-        val startLabelDetectionResult = rekClient.startFaceDetection(faceDetectionRequest)
-        startJobId = startLabelDetectionResult.jobId.toString()
-
-    } catch (e: RekognitionException) {
-        println(e.message)
-        rekClient.close()
-        exitProcess(0)
-    }
+        RekognitionClient { region = "us-east-1" }.use { rekClient ->
+          val startLabelDetectionResult = rekClient.startFaceDetection(request)
+          startJobId = startLabelDetectionResult.jobId.toString()
+        }
 }
 
-suspend fun getFaceResults(rekClient: RekognitionClient) {
-    try {
-        var paginationToken: String? = null
-        var faceDetectionResponse: GetFaceDetectionResponse? = null
-        var finished = false
-        var status:String
-        var yy = 0
-        do {
-            if (faceDetectionResponse != null)
-                paginationToken = faceDetectionResponse.nextToken
+suspend fun getFaceResults() {
 
-            val recognitionRequest = GetFaceDetectionRequest {
-                jobId = startJobId
-                nextToken = paginationToken
-                maxResults = 10
+    var finished = false
+    var status: String
+    var yy = 0
+    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+        var response : GetFaceDetectionResponse? = null
+
+        val recognitionRequest = GetFaceDetectionRequest {
+            jobId = startJobId
+            maxResults = 10
+        }
+
+        // Wait until the job succeeds.
+        while (!finished) {
+            response = rekClient.getFaceDetection(recognitionRequest)
+            status = response.jobStatus.toString()
+            if (status.compareTo("SUCCEEDED") == 0)
+                finished = true
+            else {
+                println("$yy status is: $status")
+                delay(1000)
             }
+            yy++
+        }
 
-            // Wait until the job succeeds
-            while (!finished) {
-                faceDetectionResponse = rekClient.getFaceDetection(recognitionRequest)
-                status = faceDetectionResponse.jobStatus.toString()
-                if (status.compareTo("SUCCEEDED") == 0)
-                    finished = true
-                else {
-                    println("$yy status is: $status")
-                    delay(1000)
-                }
-                yy++
-            }
-            finished = false
+        // Proceed when the job is done - otherwise VideoMetadata is null.
+        val videoMetaData = response?.videoMetadata
+        println("Format: ${videoMetaData?.format}")
+        println("Codec: ${videoMetaData?.codec}")
+        println("Duration: ${videoMetaData?.durationMillis}")
+        println("FrameRate: ${videoMetaData?.frameRate}")
 
-            // Proceed when the job is done - otherwise VideoMetadata is null
-            val videoMetaData = faceDetectionResponse?.videoMetadata
-            println("Format: ${videoMetaData?.format}")
-            println("Codec: ${videoMetaData?.codec}")
-            println("Duration: ${videoMetaData?.durationMillis}")
-            println("FrameRate: ${videoMetaData?.frameRate}")
-
-            // Show face information.
-            faceDetectionResponse?.faces?.forEach { face ->
-                  println("Age: ${face.face?.ageRange.toString()}")
-                  println("Face: ${face.face?.beard.toString()}")
-                  println("Eye glasses: ${face?.face?.eyeglasses.toString()}")
-                  println("Mustache: ${face.face?.mustache.toString()}")
-                  println("Smile: ${face.face?.smile.toString()}")
-            }
-
-        } while (faceDetectionResponse?.nextToken != null)
-
-    } catch (e: RekognitionException) {
-        println(e.message)
-        rekClient.close()
-        exitProcess(0)
-    } catch (e: InterruptedException) {
-        println(e.message)
-        exitProcess(0)
+        // Show face information.
+        response?.faces?.forEach { face ->
+            println("Age: ${face.face?.ageRange}")
+            println("Face: ${face.face?.beard}")
+            println("Eye glasses: ${face?.face?.eyeglasses}")
+            println("Mustache: ${face.face?.mustache}")
+            println("Smile: ${face.face?.smile}")
+        }
     }
 }
 // snippet-end:[rekognition.kotlin.recognize_video_faces.main]

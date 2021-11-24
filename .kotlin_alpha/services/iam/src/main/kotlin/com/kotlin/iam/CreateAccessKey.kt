@@ -16,7 +16,6 @@ package com.kotlin.iam
 // snippet-start:[iam.kotlin.create_access_key.import]
 import aws.sdk.kotlin.services.iam.IamClient
 import aws.sdk.kotlin.services.iam.model.CreateAccessKeyRequest
-import aws.sdk.kotlin.services.iam.model.IamException
 import kotlin.system.exitProcess
 // snippet-end:[iam.kotlin.create_access_key.import]
 
@@ -44,26 +43,20 @@ suspend fun main(args: Array<String>) {
     }
 
     val user = args[0]
-    val iamClient = IamClient{region="AWS_GLOBAL"}
-    val keyId = createIAMAccessKey(iamClient, user)
+    val keyId = createIAMAccessKey(user)
     println("The Key Id is $keyId")
-    iamClient.close()
-}
+    }
 
 // snippet-start:[iam.kotlin.create_access_key.main]
-suspend  fun createIAMAccessKey(iamClient: IamClient, user: String?): String {
-    try {
-        val request = CreateAccessKeyRequest {
-            userName = user
-        }
+suspend  fun createIAMAccessKey(user: String?): String {
 
+    val request = CreateAccessKeyRequest {
+        userName = user
+    }
+
+    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.createAccessKey(request)
         return response.accessKey?.accessKeyId.toString()
-
-    } catch (e: IamException) {
-        println(e.message)
-        iamClient.close()
-        exitProcess(0)
-    }
+     }
  }
 // snippet-end:[iam.kotlin.create_access_key.main]

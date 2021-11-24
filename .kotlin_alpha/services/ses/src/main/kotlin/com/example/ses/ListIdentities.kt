@@ -17,31 +17,22 @@ package com.kotlin.ses
 // snippet-start:[ses.kotlin.identities.import]
 import aws.sdk.kotlin.services.ses.SesClient
 import aws.sdk.kotlin.services.ses.model.ListIdentitiesRequest
-import aws.sdk.kotlin.services.ses.model.SesException
-import kotlin.system.exitProcess
 // snippet-end:[ses.kotlin.identities.import]
 
 suspend fun main() {
-
-    val sesClient = SesClient{region="us-east-1"}
-    listSESIdentities(sesClient)
+    listSESIdentities()
 }
 
 // snippet-start:[ses.kotlin.identities.main]
-suspend fun listSESIdentities(sesClient: SesClient) {
-    try {
-        val identitiesResponse = sesClient.listIdentities(ListIdentitiesRequest{})
-        val identities = identitiesResponse.identities
-        if (identities != null) {
-            for (identity in identities) {
-                println("The identity is $identity")
-            }
+suspend fun listSESIdentities() {
+
+    SesClient { region = "us-east-1" }.use { sesClient ->
+        val response = sesClient.listIdentities(ListIdentitiesRequest{})
+        response.identities?.forEach { identity ->
+                 println("The identity is $identity")
+
         }
 
-    } catch (e: SesException) {
-        println(e.message)
-        sesClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[ses.kotlin.identities.main]

@@ -16,7 +16,6 @@ package com.kotlin.sns
 //snippet-start:[sns.kotlin.PublishTextSMS.import]
 import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.PublishRequest
-import aws.sdk.kotlin.services.sns.model.SnsException
 import kotlin.system.exitProcess
 //snippet-end:[sns.kotlin.PublishTextSMS.import]
 
@@ -33,33 +32,27 @@ suspend fun main(args:Array<String>) {
             phoneNumber - the mobile phone number to which a message is sent (for example, +1XXX5550100). 
         """
 
-    if (args.size != 3) {
+    if (args.size != 2) {
         println(usage)
         exitProcess(0)
     }
 
     val message = args[0]
     val phoneNumber = args[1]
-    val snsClient = SnsClient{ region = "us-east-1" }
-    pubTextSMS(snsClient, message, phoneNumber)
-    snsClient.close()
+    pubTextSMS(message, phoneNumber)
 }
 
 //snippet-start:[sns.kotlin.PublishTextSMS.main]
-suspend fun pubTextSMS(snsClient: SnsClient, messageVal: String?, phoneNumberVal: String?) {
-    try {
+suspend fun pubTextSMS(messageVal: String?, phoneNumberVal: String?) {
+
         val request = PublishRequest {
             message = messageVal
             phoneNumber = phoneNumberVal
         }
 
-        val result = snsClient.publish(request)
-        println("${result.messageId} message sent.")
-
-    } catch (e: SnsException) {
-        println(e.message)
-        snsClient.close()
-        exitProcess(0)
-    }
+        SnsClient { region = "us-east-1" }.use { snsClient ->
+          val result = snsClient.publish(request)
+          println("${result.messageId} message sent.")
+        }
 }
 //snippet-end:[sns.kotlin.PublishTextSMS.main]

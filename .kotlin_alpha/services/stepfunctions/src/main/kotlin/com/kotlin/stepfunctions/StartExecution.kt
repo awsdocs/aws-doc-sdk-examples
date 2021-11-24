@@ -14,7 +14,6 @@
 package com.kotlin.stepfunctions
 
 // snippet-start:[stepfunctions.kotlin.start_execute.import]
-import aws.sdk.kotlin.services.sfn.model.SfnException
 import  aws.sdk.kotlin.services.sfn.SfnClient
 import org.json.simple.JSONObject
 import org.json.simple.parser.JSONParser
@@ -26,7 +25,7 @@ import java.util.*
 import kotlin.system.exitProcess
 // snippet-end:[stepfunctions.kotlin.start_execute.import]
 
-suspend fun main(args:Array<String>){
+suspend fun main(args:Array<String>) {
 
     val usage = """
       Usage:
@@ -38,40 +37,32 @@ suspend fun main(args:Array<String>){
     """
 
     if (args.size != 2) {
-       println(usage)
-       exitProcess(0)
-     }
+        println(usage)
+        exitProcess(0)
+    }
 
     val stateMachineARN = args[0]
     val jsonFile = args[1]
-    val sfnClient = SfnClient{region = "us-east-1" }
-    val exeArn = startWorkflow(sfnClient,stateMachineARN,jsonFile)
+    val exeArn = startWorkflow(stateMachineARN, jsonFile)
     println("The execution ARN is $exeArn")
-    sfnClient.close()
 }
 
 // snippet-start:[stepfunctions.kotlin.start_execute.main]
-suspend fun startWorkflow(sfnClient: SfnClient, stateMachineArnVal: String?, jsonFile: String): String? {
+suspend fun startWorkflow(stateMachineArnVal: String?, jsonFile: String): String? {
         val json = getJSONString(jsonFile)
 
         // Specify the name of the execution by using a GUID value.
         val uuid = UUID.randomUUID()
         val uuidValue = uuid.toString()
-        try {
+        val request = StartExecutionRequest {
+            input  = json
+            stateMachineArn = stateMachineArnVal
+            name = uuidValue
+        }
 
-            val executionRequest = StartExecutionRequest {
-                input  = json
-                stateMachineArn = stateMachineArnVal
-                name = uuidValue
-            }
-
-            val response = sfnClient.startExecution(executionRequest)
+        SfnClient { region = "us-east-1" }.use { sfnClient ->
+            val response = sfnClient.startExecution(request)
             return response.executionArn
-
-        } catch (ex: SfnException) {
-            println(ex.message)
-            sfnClient.close()
-            exitProcess(0)
         }
      }
 

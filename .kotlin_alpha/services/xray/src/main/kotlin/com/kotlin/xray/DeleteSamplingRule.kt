@@ -15,8 +15,7 @@ package com.kotlin.xray
 
 // snippet-start:[xray.kotlin_delete_rule.import]
 import aws.sdk.kotlin.services.xray.XRayClient
-import aws.sdk.kotlin.services.xray.model.*
-import aws.sdk.kotlin.services.xray.model.XRayException
+import aws.sdk.kotlin.services.xray.model.DeleteSamplingRuleRequest
 import kotlin.system.exitProcess
 // snippet-end:[xray.kotlin_delete_rule.import]
 
@@ -38,25 +37,19 @@ suspend fun main(args:Array<String>) {
      }
 
     val ruleName = args[0]
-    val xRayClient = XRayClient{region = "us-east-1"}
-    deleteRule(xRayClient,ruleName)
-    xRayClient.close()
-}
+    deleteRule(ruleName)
+   }
 
 // snippet-start:[xray.kotlin_delete_rule.main]
-suspend fun deleteRule(xRayClient: XRayClient, ruleNameVal: String?) {
-        try {
-            val ruleRequest = DeleteSamplingRuleRequest {
-                ruleName = ruleNameVal
-            }
+suspend fun deleteRule(ruleNameVal: String?) {
 
+        val ruleRequest = DeleteSamplingRuleRequest {
+            ruleName = ruleNameVal
+        }
+
+        XRayClient { region = "us-east-1" }.use { xRayClient ->
             xRayClient.deleteSamplingRule(ruleRequest)
             println("$ruleNameVal was deleted")
-
-        } catch (ex: XRayException) {
-            println(ex.message)
-            xRayClient.close()
-            exitProcess(0)
         }
  }
 // snippet-end:[xray.kotlin_delete_rule.main]

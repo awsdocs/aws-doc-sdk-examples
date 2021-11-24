@@ -16,8 +16,6 @@ package com.kotlin.lambda
 // snippet-start:[lambda.kotlin.list.import]
 import aws.sdk.kotlin.services.lambda.LambdaClient
 import aws.sdk.kotlin.services.lambda.model.ListFunctionsRequest
-import aws.sdk.kotlin.services.lambda.model.LambdaException
-import kotlin.system.exitProcess
 // snippet-end:[lambda.kotlin.list.import]
 
 /**
@@ -31,28 +29,21 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main() {
 
     println("List your AWS Lambda functions")
-    val lambdaClient = LambdaClient {region = "us-east-1" }
-    listFunctions(lambdaClient)
-    lambdaClient.close()
-}
+    listFunctions()
+   }
 
 // snippet-start:[lambda.kotlin.list.main]
-suspend fun listFunctions(lambdaClient: LambdaClient) {
+suspend fun listFunctions() {
 
-    try {
-        val request = ListFunctionsRequest {
-            maxItems = 10
-        }
+     val request = ListFunctionsRequest {
+         maxItems = 10
+     }
 
-        val response = lambdaClient.listFunctions(request)
+      LambdaClient { region = "us-west-2" }.use { awsLambda ->
+        val response = awsLambda.listFunctions(request)
         response.functions?.forEach { function ->
              println("The function name is ${function.functionName}")
         }
-
-    } catch (ex: LambdaException) {
-        println(ex.message)
-        lambdaClient.close()
-        exitProcess(1)
     }
 }
 // snippet-end:[lambda.kotlin.list.main]

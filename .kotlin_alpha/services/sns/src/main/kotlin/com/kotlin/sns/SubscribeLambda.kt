@@ -16,7 +16,6 @@ package com.kotlin.sns
 //snippet-start:[sns.kotlin.SubscribeLambda.import]
 import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.SubscribeRequest
-import aws.sdk.kotlin.services.sns.model.SnsException
 import kotlin.system.exitProcess
 //snippet-end:[sns.kotlin.SubscribeLambda.import]
 
@@ -38,28 +37,22 @@ suspend fun main(args:Array<String>) {
 
     val topicArn = args[0]
     val lambdaArn = args[1]
-    val snsClient = SnsClient{ region = "us-east-1" }
-    subLambda(snsClient, topicArn, lambdaArn)
-    snsClient.close()
-}
+    subLambda(topicArn, lambdaArn)
+    }
 
 //snippet-start:[sns.kotlin.SubscribeLambda.main]
-suspend fun subLambda(snsClient: SnsClient, topicArnVal: String?, lambdaArn: String?) {
-    try {
-        val request = SubscribeRequest {
-            protocol = "lambda"
-            endpoint = lambdaArn
-            returnSubscriptionArn = true
-            topicArn = topicArnVal
-        }
+suspend fun subLambda(topicArnVal: String?, lambdaArn: String?) {
 
+    val request = SubscribeRequest {
+        protocol = "lambda"
+        endpoint = lambdaArn
+        returnSubscriptionArn = true
+        topicArn = topicArnVal
+    }
+
+    SnsClient { region = "us-east-1" }.use { snsClient ->
         val result = snsClient.subscribe(request)
         println(" The subscription Arn is ${result.subscriptionArn}")
-
-    } catch (e: SnsException) {
-        println(e.message)
-        snsClient.close()
-        exitProcess(0)
     }
 }
 //snippet-end:[sns.kotlin.SubscribeLambda.main]

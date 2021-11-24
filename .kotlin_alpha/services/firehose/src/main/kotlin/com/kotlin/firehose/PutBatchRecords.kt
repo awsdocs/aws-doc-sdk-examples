@@ -15,12 +15,10 @@ package com.kotlin.firehose
 
 // snippet-start:[firehose.kotlin.put_batch_records.import]
 import aws.sdk.kotlin.services.firehose.FirehoseClient
-import aws.sdk.kotlin.services.firehose.model.FirehoseException
 import aws.sdk.kotlin.services.firehose.model.PutRecordBatchRequest
 import aws.sdk.kotlin.services.firehose.model.Record
 import com.example.firehose.StockTradeGenerator
 import kotlinx.coroutines.delay
-import java.util.ArrayList
 import kotlin.system.exitProcess
 // snippet-end:[firehose.kotlin.put_batch_records.import]
 
@@ -47,14 +45,14 @@ suspend fun main(args:Array<String>) {
      }
 
     val streamName = args[0]
-    val firehoseClient = FirehoseClient{region="us-east-1"}
-    addStockTradeData(firehoseClient, streamName)
+    addStockTradeData(streamName)
 }
 
 // snippet-start:[firehose.kotlin.put_batch_records.main]
-suspend fun addStockTradeData(firehoseClient: FirehoseClient, streamName: String?) {
-    val recordList: MutableList<Record> = ArrayList()
+suspend fun addStockTradeData(streamName: String?) {
+
     try {
+        val recordList = mutableListOf<Record> ()
 
         // Repeatedly send stock trades with a 100 milliseconds wait in between.
         val stockTradeGenerator = StockTradeGenerator()
@@ -72,19 +70,16 @@ suspend fun addStockTradeData(firehoseClient: FirehoseClient, streamName: String
             recordList.add(myRecord)
             delay(100)
         }
-        val recordBatchRequest = PutRecordBatchRequest {
+        val request = PutRecordBatchRequest {
              deliveryStreamName = streamName
              records = recordList
         }
 
-        val recordResponse = firehoseClient.putRecordBatch(recordBatchRequest)
+       FirehoseClient { region = "us-west-2" }.use { firehoseClient ->
+        val recordResponse = firehoseClient.putRecordBatch(request)
         println("The number of records added is ${recordResponse.requestResponses?.size}")
 
-
-    } catch (ex: FirehoseException) {
-        println(ex.message)
-        firehoseClient.close()
-        exitProcess(0)
+       }
     } catch (e: InterruptedException) {
         println(e.localizedMessage)
         exitProcess(0)

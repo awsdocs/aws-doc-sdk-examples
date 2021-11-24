@@ -16,14 +16,14 @@ package com.kotlin.sns
 //snippet-start:[sns.kotlin.PublishTopic.import]
 import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.PublishRequest
-import aws.sdk.kotlin.services.sns.model.SnsException
 import kotlin.system.exitProcess
 //snippet-end:[sns.kotlin.PublishTopic.import]
 
 suspend fun main(args:Array<String>) {
 
     val usage = """
-          Usage: <message> <topicArn>
+          Usage: 
+            <message> <topicArn>
 
         Where:
             message - the message text to send.
@@ -37,28 +37,20 @@ suspend fun main(args:Array<String>) {
 
     val message = args[0]
     val topicArn = args[1]
-    val snsClient = SnsClient{ region = "us-east-1" }
-    pubTopic(snsClient,  topicArn, message)
-    snsClient.close()
+    pubTopic(topicArn, message)
 }
 
 //snippet-start:[sns.kotlin.PublishTopic.main]
-suspend fun pubTopic(snsClient: SnsClient,  topicArnVal: String, messageVal: String) {
+suspend fun pubTopic(topicArnVal: String, messageVal: String) {
 
-    try {
+    val request = PublishRequest{
+        message = messageVal
+        topicArn = topicArnVal
+     }
 
-        val request = PublishRequest{
-            message = messageVal
-            topicArn = topicArnVal
-         }
-
+    SnsClient { region = "us-east-1" }.use { snsClient ->
         val result = snsClient.publish(request)
         println("${result.messageId} message sent.")
-
-    } catch (e: SnsException) {
-        println(e.message)
-        snsClient.close()
-        exitProcess(0)
     }
 }
 //snippet-end:[sns.kotlin.PublishTopic.main]

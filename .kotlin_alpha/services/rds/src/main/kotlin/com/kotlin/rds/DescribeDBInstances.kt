@@ -16,8 +16,6 @@ package com.kotlin.rds
 // snippet-start:[rds.kotlin.describe_instances.import]
 import aws.sdk.kotlin.services.rds.RdsClient
 import aws.sdk.kotlin.services.rds.model.DescribeDbInstancesRequest
-import aws.sdk.kotlin.services.rds.model.RdsException
-import kotlin.system.exitProcess
 // snippet-end:[rds.kotlin.describe_instances.import]
 
 /**
@@ -29,26 +27,19 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
-    val rdsClient = RdsClient{region="us-west-2"}
-    describeInstances(rdsClient)
-    rdsClient.close()
+    describeInstances()
 }
 
 // snippet-start:[rds.kotlin.describe_instances.main]
-suspend fun describeInstances(rdsClient: RdsClient) {
-    try {
+suspend fun describeInstances() {
+
+    RdsClient { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.describeDbInstances(DescribeDbInstancesRequest {})
         response.dbInstances?.forEach { instance ->
                println("Instance Identifier is ${instance.dbInstanceIdentifier}")
                println("The Engine is ${instance.engine}")
                println("Connection endpoint is ${instance.endpoint?.address}")
          }
-
-    } catch (e: RdsException) {
-        println(e.message)
-        rdsClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[rds.kotlin.describe_instances.main]

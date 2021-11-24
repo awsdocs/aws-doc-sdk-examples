@@ -15,9 +15,7 @@ package com.kotlin.iam
 
 // snippet-start:[iam.kotlin.list_account_aliases.import]
 import aws.sdk.kotlin.services.iam.IamClient
-import aws.sdk.kotlin.services.iam.model.IamException
 import aws.sdk.kotlin.services.iam.model.ListAccountAliasesRequest
-import kotlin.system.exitProcess
 // snippet-end:[iam.kotlin.list_account_aliases.import]
 
 /**
@@ -30,23 +28,18 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun main() {
 
-    val iamClient = IamClient{region="AWS_GLOBAL"}
-    listAliases(iamClient)
-    iamClient.close()
+    listAliases()
 }
 
 // snippet-start:[iam.kotlin.list_account_aliases.main]
-suspend  fun listAliases(iamClient: IamClient) {
-    try {
-        val response = iamClient.listAccountAliases(ListAccountAliasesRequest{})
+suspend  fun listAliases() {
+
+    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+      val response = iamClient.listAccountAliases(ListAccountAliasesRequest{})
         response.accountAliases?.forEach { alias ->
             println("Retrieved account alias $alias")
         }
 
-    } catch (e: IamException) {
-        println(e.message)
-        iamClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[iam.kotlin.list_account_aliases.main]

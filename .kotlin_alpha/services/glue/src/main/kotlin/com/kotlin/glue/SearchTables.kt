@@ -15,7 +15,6 @@ package com.kotlin.glue
 //snippet-start:[glue.kotlin.search_table.import]
 import aws.sdk.kotlin.services.glue.GlueClient
 import aws.sdk.kotlin.services.glue.model.SearchTablesRequest
-import aws.sdk.kotlin.services.glue.model.GlueException
 import aws.sdk.kotlin.services.glue.model.ResourceShareType
 import kotlin.system.exitProcess
 //snippet-end:[glue.kotlin.search_table.import]
@@ -43,30 +42,24 @@ suspend fun main(args:Array<String>) {
     }
 
     val text = args[0]
-    val glueClient= GlueClient{region ="us-east-1"}
-    searchGlueTable(glueClient, text)
-    glueClient.close()
-}
+    searchGlueTable(text)
+ }
 
 //snippet-start:[glue.kotlin.search_table.main]
-suspend fun searchGlueTable(glueClient: GlueClient, text: String?) {
-    try {
-        val tablesRequest = SearchTablesRequest {
-            searchText = text
-            resourceShareType = ResourceShareType.fromValue("All")
-            maxResults = 10
-        }
+suspend fun searchGlueTable(text: String?) {
 
-        val response = glueClient.searchTables(tablesRequest)
-        response.tableList?.forEach { table ->
+    val request = SearchTablesRequest {
+        searchText = text
+        resourceShareType = ResourceShareType.fromValue("All")
+        maxResults = 10
+    }
+
+    GlueClient { region = "us-west-2" }.use { glueClient ->
+          val response = glueClient.searchTables(request)
+          response.tableList?.forEach { table ->
                 println("Table name is ${table.name}")
                 println("Database name is ${table.databaseName}")
-       }
-
-    } catch (e: GlueException) {
-        println(e.message)
-        glueClient.close()
-        exitProcess(0)
+         }
     }
 }
 //snippet-end:[glue.kotlin.search_table.main]

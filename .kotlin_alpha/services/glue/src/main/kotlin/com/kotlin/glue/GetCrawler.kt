@@ -15,7 +15,6 @@ package com.kotlin.glue
 //snippet-start:[glue.kotlin.get_crawler.import]
 import aws.sdk.kotlin.services.glue.GlueClient
 import aws.sdk.kotlin.services.glue.model.GetCrawlerRequest
-import aws.sdk.kotlin.services.glue.model.GlueException
 import kotlin.system.exitProcess
 //snippet-end:[glue.kotlin.get_crawler.import]
 
@@ -43,27 +42,19 @@ suspend fun main(args:Array<String>) {
     }
 
     val crawlerName = args[0]
-    val glueClient= GlueClient{region ="us-east-1"}
-    getSpecificCrawler(glueClient, crawlerName)
-    glueClient.close()
-}
+     getSpecificCrawler(crawlerName)
+    }
 
 //snippet-start:[glue.kotlin.get_crawler.main]
-suspend fun getSpecificCrawler(glueClient: GlueClient, crawlerName: String?) {
-    try {
+suspend fun getSpecificCrawler(crawlerName: String?) {
 
-        val crawlerRequest = GetCrawlerRequest {
-            name = crawlerName
-        }
-
-        val response = glueClient.getCrawler(crawlerRequest)
+    val request = GetCrawlerRequest {
+        name = crawlerName
+    }
+    GlueClient { region = "us-east-1" }.use { glueClient ->
+        val response = glueClient.getCrawler(request)
         val role = response.crawler?.role
         println("The role associated with this crawler is $role")
-
-    } catch (e: GlueException) {
-        println(e.message)
-        glueClient.close()
-        exitProcess(0)
     }
 }
 //snippet-end:[glue.kotlin.get_crawler.main]

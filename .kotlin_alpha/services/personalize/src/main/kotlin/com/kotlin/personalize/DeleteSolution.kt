@@ -16,7 +16,6 @@ package com.kotlin.personalize
 //snippet-start:[personalize.kotlin.delete_solution.import]
 import aws.sdk.kotlin.services.personalize.PersonalizeClient
 import aws.sdk.kotlin.services.personalize.model.DeleteSolutionRequest
-import aws.sdk.kotlin.services.personalize.model.PersonalizeException
 import kotlin.system.exitProcess
 //snippet-end:[personalize.kotlin.delete_solution.import]
 
@@ -44,24 +43,20 @@ suspend fun main(args:Array<String>){
      }
 
     val solutionArn = args[0]
-    val personalizeClient = PersonalizeClient{ region = "us-east-1" }
-    deleteGivenSolution(personalizeClient,solutionArn)
-    personalizeClient.close()
-}
+    deleteGivenSolution(solutionArn)
+    }
 
 //snippet-start:[personalize.kotlin.delete_solution.main]
-suspend fun deleteGivenSolution(personalizeClient: PersonalizeClient, solutionArnVal: String?) {
-        try {
-            val solutionRequest = DeleteSolutionRequest{
-                solutionArn =  solutionArnVal
-            }
-            personalizeClient.deleteSolution(solutionRequest)
+suspend fun deleteGivenSolution(solutionArnVal: String?) {
+
+    val request = DeleteSolutionRequest{
+        solutionArn =  solutionArnVal
+    }
+
+    PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
+            personalizeClient.deleteSolution(request)
             println("$solutionArnVal was successfully deleted.")
 
-        } catch (ex: PersonalizeException) {
-            println(ex.message)
-            personalizeClient.close()
-            exitProcess(0)
-        }
+    }
 }
 //snippet-end:[personalize.kotlin.delete_solution.main]

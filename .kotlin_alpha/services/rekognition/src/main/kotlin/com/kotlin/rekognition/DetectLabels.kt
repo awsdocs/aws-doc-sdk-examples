@@ -15,8 +15,6 @@ package com.kotlin.rekognition
 import aws.sdk.kotlin.services.rekognition.RekognitionClient
 import aws.sdk.kotlin.services.rekognition.model.Image
 import aws.sdk.kotlin.services.rekognition.model.DetectLabelsRequest
-import aws.sdk.kotlin.services.rekognition.model.RekognitionException
-import java.io.FileNotFoundException
 import java.io.File
 import kotlin.system.exitProcess
 // snippet-end:[rekognition.kotlin.detect_labels.import]
@@ -45,37 +43,25 @@ suspend fun main(args: Array<String>){
      }
 
     val sourceImage = args[0]
-    val rekClient = RekognitionClient{ region = "us-east-1"}
-    detectImageLabels(rekClient, sourceImage)
-    rekClient.close()
-
-}
+    detectImageLabels(sourceImage)
+    }
 
 // snippet-start:[rekognition.kotlin.detect_labels.main]
-suspend fun detectImageLabels(rekClient: RekognitionClient, sourceImage: String) {
-    try {
+suspend fun detectImageLabels(sourceImage: String) {
 
-        // Create an Image object for the source image.
         val souImage = Image {
             bytes = (File(sourceImage).readBytes())
         }
-        val detectLabelsRequest = DetectLabelsRequest {
+        val request = DetectLabelsRequest {
             image = souImage
             maxLabels = 10
         }
 
-        val response = rekClient.detectLabels(detectLabelsRequest)
-        response.labels?.forEach { label ->
-               println("${label.name.toString()} : ${label.confidence.toString()}")
+        RekognitionClient { region = "us-east-1" }.use { rekClient ->
+          val response = rekClient.detectLabels(request)
+          response.labels?.forEach { label ->
+               println("${label.name} : ${label.confidence}")
         }
-
-    } catch (e: RekognitionException) {
-        println(e.message)
-        rekClient.close()
-        exitProcess(0)
-    } catch (e: FileNotFoundException) {
-        println(e.message)
-        exitProcess(0)
-    }
+      }
 }
 // snippet-end:[rekognition.kotlin.detect_labels.main]

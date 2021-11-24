@@ -16,7 +16,6 @@ package com.kotlin.iam
 // snippet-start:[iam.kotlin.delete_account_alias.import]
 import aws.sdk.kotlin.services.iam.IamClient
 import aws.sdk.kotlin.services.iam.model.DeleteAccountAliasRequest
-import aws.sdk.kotlin.services.iam.model.IamException
 import kotlin.system.exitProcess
 // snippet-end:[iam.kotlin.delete_account_alias.import]
 
@@ -43,25 +42,19 @@ suspend fun main(args: Array<String>) {
     }
 
     val alias = args[0]
-    val iamClient = IamClient{region="AWS_GLOBAL"}
-    deleteIAMAccountAlias(iamClient, alias)
-    iamClient.close()
-}
+    deleteIAMAccountAlias(alias)
+    }
 
 // snippet-start:[iam.kotlin.delete_account_alias.main]
-suspend fun deleteIAMAccountAlias(iamClient: IamClient, alias: String) {
-    try {
-        val request = DeleteAccountAliasRequest {
-            accountAlias =alias
-        }
+suspend fun deleteIAMAccountAlias(alias: String) {
+
+    val request = DeleteAccountAliasRequest {
+        accountAlias =alias
+    }
+
+    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
         iamClient.deleteAccountAlias(request)
         println("Successfully deleted account alias $alias")
-
-    } catch (e: IamException) {
-        println(e.message)
-        iamClient.close()
-        exitProcess(0)
     }
-    println("Done")
 }
 // snippet-end:[iam.kotlin.delete_account_alias.main]

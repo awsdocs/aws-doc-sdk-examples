@@ -11,34 +11,25 @@ package com.kotlin.translate
 // snippet-start:[translate.kotlin._list_jobs.import]
 import aws.sdk.kotlin.services.translate.TranslateClient
 import aws.sdk.kotlin.services.translate.model.ListTextTranslationJobsRequest
-import aws.sdk.kotlin.services.translate.model.TranslateException
-import kotlin.system.exitProcess
-
 // snippet-end:[translate.kotlin._list_jobs.import]
 
 suspend fun main(){
-
-    val translateClient = TranslateClient { region = "us-west-2" }
-    getTranslationJobs(translateClient)
-    translateClient.close()
+    getTranslationJobs()
 }
 
 // snippet-start:[translate.kotlin._list_jobs.main]
-suspend fun getTranslationJobs(translateClient: TranslateClient) {
-        try {
-            val textTranslationJobsRequest = ListTextTranslationJobsRequest {
-                maxResults = 10
-            }
+suspend fun getTranslationJobs() {
 
-            val response = translateClient.listTextTranslationJobs(textTranslationJobsRequest)
+        val textTranslationJobsRequest = ListTextTranslationJobsRequest {
+            maxResults = 10
+        }
+
+        TranslateClient { region = "us-west-2" }.use { translateClient ->
+           val response = translateClient.listTextTranslationJobs(textTranslationJobsRequest)
             response.textTranslationJobPropertiesList?.forEach { prop ->
                     println("The job name is ${prop.jobName}")
                     println("The job id is: ${prop.jobId}")
             }
-
-        } catch (ex: TranslateException) {
-            println(ex.message)
-            exitProcess(0)
         }
   }
 // snippet-end:[translate.kotlin._list_jobs.main]

@@ -16,7 +16,6 @@ package com.kotlin.personalize
 //snippet-start:[personalize.kotlin.describe_solution.import]
 import aws.sdk.kotlin.services.personalize.PersonalizeClient
 import aws.sdk.kotlin.services.personalize.model.DescribeSolutionRequest
-import aws.sdk.kotlin.services.personalize.model.PersonalizeException
 import kotlin.system.exitProcess
 //snippet-end:[personalize.kotlin.describe_solution.import]
 
@@ -44,25 +43,19 @@ suspend fun main(args:Array<String>){
      }
 
     val solutionArn = args[0]
-    val personalizeClient = PersonalizeClient{ region = "us-east-1" }
-    describeSpecificSolution(personalizeClient,solutionArn)
-    personalizeClient.close()
-}
+    describeSpecificSolution(solutionArn)
+    }
 
 //snippet-start:[personalize.kotlin.describe_solution.main]
-suspend  fun describeSpecificSolution(personalizeClient: PersonalizeClient, solutionArnVal: String?) {
-        try {
-            val solutionRequest = DescribeSolutionRequest {
-                solutionArn= solutionArnVal
-            }
+suspend  fun describeSpecificSolution(solutionArnVal: String?) {
 
-            val response = personalizeClient.describeSolution(solutionRequest)
+        val request =  DescribeSolutionRequest {
+            solutionArn= solutionArnVal
+        }
+
+        PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
+            val response = personalizeClient.describeSolution(request)
             println("The solution name is ${response.solution?.name}")
-
-        } catch (ex: PersonalizeException) {
-            println(ex.message)
-            personalizeClient.close()
-            exitProcess(0)
         }
   }
 //snippet-end:[personalize.kotlin.describe_solution.main]

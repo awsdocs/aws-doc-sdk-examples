@@ -27,7 +27,6 @@ import aws.sdk.kotlin.services.sagemaker.model.StoppingCondition
 import aws.sdk.kotlin.services.sagemaker.model.AlgorithmSpecification
 import aws.sdk.kotlin.services.sagemaker.model.TrainingInputMode
 import aws.sdk.kotlin.services.sagemaker.model.CreateTrainingJobRequest
-import aws.sdk.kotlin.services.sagemaker.model.SageMakerException
 import aws.sdk.kotlin.services.sagemaker.model.Channel
 import kotlin.system.exitProcess
 //snippet-end:[sagemaker.kotlin.train_job.import]
@@ -58,7 +57,7 @@ suspend fun main(args:Array<String>) {
 
     if (args.size != 7) {
        println(usage)
-        System.exit(1)
+       exitProcess(1)
     }
 
     val s3UriData = args[0]
@@ -68,15 +67,11 @@ suspend fun main(args:Array<String>) {
     val s3OutputPath = args[4]
     val channelName = args[5]
     val trainingImage = args[6]
-
-    val sageMakerClient = SageMakerClient{region = "us-west-2" }
-    trainJob(sageMakerClient, s3UriData, s3Uri, trainingJobName, roleArn, s3OutputPath, channelName, trainingImage)
-    sageMakerClient.close()
-}
+    trainJob(s3UriData, s3Uri, trainingJobName, roleArn, s3OutputPath, channelName, trainingImage)
+    }
 
 //snippet-start:[sagemaker.kotlin.train_job.main]
 suspend fun trainJob(
-    sageMakerClient: SageMakerClient,
     s3UriData: String?,
     s3UriVal:String,
     trainingJobNameVal: String?,
@@ -85,7 +80,7 @@ suspend fun trainJob(
     channelNameVal: String?,
     trainingImageVal: String?
 ) {
-    try {
+
         val s3DataSourceOb = S3DataSource {
             s3Uri = s3UriData
             s3DataType = S3DataType.S3Prefix
@@ -102,7 +97,6 @@ suspend fun trainJob(
             dataSource = dataSourceOb
         }
 
-        // Build a list of channels
         val myChannel = mutableListOf<Any>()
         myChannel.add(channel)
 
@@ -140,7 +134,7 @@ suspend fun trainJob(
         hyperParametersOb["silent"] = "0"
         hyperParametersOb["subsample"] = "0.8"
 
-        val trainingJobRequest = CreateTrainingJobRequest{
+        val request = CreateTrainingJobRequest{
             trainingJobName = trainingJobNameVal
             algorithmSpecification = algorithmSpecificationOb
             roleArn = roleArnVal
@@ -151,13 +145,10 @@ suspend fun trainJob(
             stoppingCondition = stoppingConditionOb
             hyperParameters = hyperParametersOb
             }
-        val jobResponse = sageMakerClient.createTrainingJob(trainingJobRequest)
-        println("The Amazon Resource Name (ARN) of the training job is ${jobResponse.trainingJobArn}")
 
-    } catch (e: SageMakerException) {
-        println(e.message)
-        sageMakerClient.close()
-        exitProcess(0)
-    }
+        SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
+          val response = sageMakerClient.createTrainingJob(request)
+          println("The Amazon Resource Name (ARN) of the training job is ${response.trainingJobArn}")
+        }
 }
 //snippet-end:[sagemaker.kotlin.train_job.main]

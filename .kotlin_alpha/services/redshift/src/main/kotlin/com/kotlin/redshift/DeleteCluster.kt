@@ -15,7 +15,6 @@ package com.kotlin.redshift
 // snippet-start:[redshift.kotlin.delete_cluster.import]
 import aws.sdk.kotlin.services.redshift.RedshiftClient
 import aws.sdk.kotlin.services.redshift.model.DeleteClusterRequest
-import aws.sdk.kotlin.services.redshift.model.RedshiftException
 import kotlin.system.exitProcess
 // snippet-end:[redshift.kotlin.delete_cluster.import]
 
@@ -44,28 +43,21 @@ suspend fun main(args:Array<String>) {
     }
 
     val clusterId = args[0]
-    val redshiftClient = RedshiftClient{region="us-west-2"}
-    deleteRedshiftCluster(redshiftClient, clusterId)
+    deleteRedshiftCluster(clusterId)
     println("The example is done")
-    redshiftClient.close()
-}
+   }
 
 // snippet-start:[redshift.kotlin.delete_cluster.main]
-suspend fun deleteRedshiftCluster(redshiftClient: RedshiftClient, clusterId: String?) {
-    try {
-        val deleteClusterRequest = DeleteClusterRequest {
+suspend fun deleteRedshiftCluster(clusterId: String?) {
+
+    val request = DeleteClusterRequest {
             clusterIdentifier = clusterId
             skipFinalClusterSnapshot = true
-        }
+    }
 
-        // Delete the Cluster.
-        val response = redshiftClient.deleteCluster(deleteClusterRequest)
+    RedshiftClient { region = "us-west-2" }.use { redshiftClient ->
+        val response = redshiftClient.deleteCluster(request)
         println("The status is ${response.cluster?.clusterStatus}")
-
-    } catch (e: RedshiftException) {
-        println(e.message)
-        redshiftClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[redshift.kotlin.delete_cluster.main]

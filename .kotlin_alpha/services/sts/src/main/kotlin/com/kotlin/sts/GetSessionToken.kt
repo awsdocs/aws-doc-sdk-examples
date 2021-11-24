@@ -17,8 +17,6 @@ package com.kotlin.sts
 // snippet-start:[sts.kotlin.get_session_token.import]
 import aws.sdk.kotlin.services.sts.StsClient
 import aws.sdk.kotlin.services.sts.model.GetSessionTokenRequest
-import aws.sdk.kotlin.services.sts.model.StsException
-import kotlin.system.exitProcess
 // snippet-end:[sts.kotlin.get_session_token.import]
 
 
@@ -29,26 +27,19 @@ For information, see this documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
-
-    val stsClient = StsClient{region ="us-east-1"}
-    getToken(stsClient)
-    stsClient.close()
+    getToken()
 }
 
 // snippet-start:[sts.kotlin.get_session_token.main]
-suspend fun getToken(stsClient: StsClient) {
-    try {
-        val tokenRequest = GetSessionTokenRequest{
-            durationSeconds = 1500
-        }
+suspend fun getToken() {
 
-        val tokenResponse = stsClient.getSessionToken(tokenRequest)
-        System.out.println("The token value is ${tokenResponse.credentials?.sessionToken}")
+    val request = GetSessionTokenRequest{
+        durationSeconds = 1500
+    }
 
-    } catch (e: StsException) {
-        println(e.message)
-        stsClient.close()
-        exitProcess(0)
+    StsClient { region = "us-east-1" }.use { stsClient ->
+        val tokenResponse = stsClient.getSessionToken(request)
+        println("The token value is ${tokenResponse.credentials?.sessionToken}")
     }
 }
 // snippet-end:[sts.kotlin.get_session_token.main]

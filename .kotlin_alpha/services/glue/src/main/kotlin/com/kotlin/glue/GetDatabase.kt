@@ -15,7 +15,6 @@ package com.kotlin.glue
 //snippet-start:[glue.kotlin.get_database.import]
 import aws.sdk.kotlin.services.glue.GlueClient
 import aws.sdk.kotlin.services.glue.model.GetDatabaseRequest
-import aws.sdk.kotlin.services.glue.model.GlueException
 import kotlin.system.exitProcess
 //snippet-end:[glue.kotlin.get_database.import]
 
@@ -45,28 +44,20 @@ suspend fun main(args:Array<String>) {
      }
 
     val databaseName = args[0]
-    val glueClient= GlueClient{region ="us-east-1"}
-    getSpecificDatabase(glueClient, databaseName)
-    glueClient.close()
-}
+    getSpecificDatabase(databaseName)
+   }
 
 //snippet-start:[glue.kotlin.get_database.main]
-suspend fun getSpecificDatabase(glueClient: GlueClient, databaseName: String?) {
+suspend fun getSpecificDatabase(databaseName: String?) {
 
-    try {
+    val request = GetDatabaseRequest {
+        name = databaseName
+    }
 
-        val databasesRequest = GetDatabaseRequest {
-            name = databaseName
-        }
-
-        val response = glueClient.getDatabase(databasesRequest)
+    GlueClient { region = "us-east-1" }.use { glueClient ->
+        val response = glueClient.getDatabase(request)
         val dbDesc = response.database?.description
         println("The database description is $dbDesc")
-
-    } catch (e: GlueException) {
-        println(e.message)
-        glueClient.close()
-        exitProcess(0)
     }
 }
 //snippet-end:[glue.kotlin.get_database.main]
