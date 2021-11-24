@@ -16,8 +16,6 @@ package com.kotlin.rds
 // snippet-start:[rds.kotlin.describe_account.import]
 import aws.sdk.kotlin.services.rds.RdsClient
 import aws.sdk.kotlin.services.rds.model.DescribeAccountAttributesRequest
-import aws.sdk.kotlin.services.rds.model.RdsException
-import kotlin.system.exitProcess
 // snippet-end:[rds.kotlin.describe_account.import]
 
 /**
@@ -29,27 +27,19 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
-    val rdsClient = RdsClient{region="us-west-2"}
-    getAccountAttributes(rdsClient)
-    rdsClient.close()
+   getAccountAttributes()
 }
 
 // snippet-start:[rds.kotlin.describe_account.main]
-suspend fun getAccountAttributes(rdsClient: RdsClient) {
+suspend fun getAccountAttributes() {
 
-    try {
-        val response = rdsClient.describeAccountAttributes(DescribeAccountAttributesRequest{})
-        response.accountQuotas?.forEach { quotas ->
+    RdsClient { region = "us-west-2" }.use { rdsClient ->
+      val response = rdsClient.describeAccountAttributes(DescribeAccountAttributesRequest{})
+      response.accountQuotas?.forEach { quotas ->
         val response = response.accountQuotas
                 println("Name is: ${quotas.accountQuotaName}")
                 println("Max value is ${quotas.max}")
         }
-
-    } catch (e: RdsException) {
-        println(e.message)
-        rdsClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[rds.kotlin.describe_account.main]

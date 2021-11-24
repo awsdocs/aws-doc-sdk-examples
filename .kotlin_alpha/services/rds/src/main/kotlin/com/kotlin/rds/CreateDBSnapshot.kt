@@ -16,7 +16,6 @@ package com.kotlin.rds
 // snippet-start:[rds.kotlin.create_snap.import]
 import aws.sdk.kotlin.services.rds.RdsClient
 import aws.sdk.kotlin.services.rds.model.CreateDbSnapshotRequest
-import aws.sdk.kotlin.services.rds.model.RdsException
 import kotlin.system.exitProcess
 // snippet-end:[rds.kotlin.create_snap.import]
 
@@ -46,26 +45,20 @@ suspend fun main(args:Array<String>) {
 
     val dbInstanceIdentifier = args[0]
     val dbSnapshotIdentifier = args[1]
-    val rdsClient = RdsClient{region="us-west-2"}
-    createSnapshot(rdsClient, dbInstanceIdentifier, dbSnapshotIdentifier)
-    rdsClient.close()
-}
+    createSnapshot( dbInstanceIdentifier, dbSnapshotIdentifier)
+    }
 
 // snippet-start:[rds.kotlin.create_snap.main]
-suspend fun createSnapshot(rdsClient: RdsClient, dbInstanceIdentifierVal: String?, dbSnapshotIdentifierVal: String?) {
-    try {
-        val snapshotRequest = CreateDbSnapshotRequest {
-            dbInstanceIdentifier = dbInstanceIdentifierVal
-            dbSnapshotIdentifier = dbSnapshotIdentifierVal
-        }
+suspend fun createSnapshot(dbInstanceIdentifierVal: String?, dbSnapshotIdentifierVal: String?) {
 
+    val snapshotRequest = CreateDbSnapshotRequest {
+        dbInstanceIdentifier = dbInstanceIdentifierVal
+        dbSnapshotIdentifier = dbSnapshotIdentifierVal
+    }
+
+    RdsClient { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.createDbSnapshot(snapshotRequest)
         print("The Snapshot id is ${response.dbSnapshot?.dbiResourceId}")
-
-    } catch (e: RdsException) {
-        println(e.message)
-        rdsClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[rds.kotlin.create_snap.main]

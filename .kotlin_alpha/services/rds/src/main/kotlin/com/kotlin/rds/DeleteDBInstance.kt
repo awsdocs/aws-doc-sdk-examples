@@ -16,7 +16,6 @@ package com.kotlin.rds
 // snippet-start:[rds.kotlin.delete_instance.import]
 import aws.sdk.kotlin.services.rds.RdsClient
 import aws.sdk.kotlin.services.rds.model.DeleteDbInstanceRequest
-import aws.sdk.kotlin.services.rds.model.RdsException
 import kotlin.system.exitProcess
 // snippet-end:[rds.kotlin.delete_instance.import]
 
@@ -41,30 +40,24 @@ suspend fun main(args:Array<String>) {
     if (args.size != 1) {
         println(usage)
         exitProcess(0)
-     }
+    }
 
     val dbInstanceIdentifier = args[0]
-    val rdsClient = RdsClient{region="us-west-2"}
-    deleteDatabaseInstance(rdsClient, dbInstanceIdentifier)
-    rdsClient.close()
+    deleteDatabaseInstance(dbInstanceIdentifier)
 }
 
 // snippet-start:[rds.kotlin.delete_instance.main]
-suspend fun deleteDatabaseInstance(rdsClient: RdsClient, dbInstanceIdentifierVal: String?) {
-    try {
+suspend fun deleteDatabaseInstance(dbInstanceIdentifierVal: String?) {
+
         val deleteDbInstanceRequest = DeleteDbInstanceRequest {
             dbInstanceIdentifier = dbInstanceIdentifierVal
             deleteAutomatedBackups = true
             skipFinalSnapshot = true
         }
 
-        val response = rdsClient.deleteDbInstance(deleteDbInstanceRequest)
-        print("The status of the database is ${response.dbInstance?.dbInstanceStatus}")
-
-    } catch (e: RdsException) {
-        println(e.message)
-        rdsClient.close()
-        exitProcess(0)
-    }
+        RdsClient { region = "us-west-2" }.use { rdsClient ->
+          val response = rdsClient.deleteDbInstance(deleteDbInstanceRequest)
+          print("The status of the database is ${response.dbInstance?.dbInstanceStatus}")
+       }
 }
 // snippet-end:[rds.kotlin.delete_instance.main]

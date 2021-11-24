@@ -17,7 +17,6 @@ package com.kotlin.rds
 import aws.sdk.kotlin.services.rds.RdsClient
 import aws.sdk.kotlin.services.rds.model.CreateDbInstanceRequest
 import aws.sdk.kotlin.services.rds.model.DescribeDbInstancesRequest
-import aws.sdk.kotlin.services.rds.model.RdsException
 import kotlinx.coroutines.delay
 import kotlin.system.exitProcess
 // snippet-end:[rds.kotlin.create_instance.import]
@@ -52,23 +51,19 @@ suspend fun main(args:Array<String>) {
     val dbName = args[1]
     val masterUsername = args[2]
     val masterUserPassword = args[3]
-    val rdsClient = RdsClient{region="us-west-2"}
-    createDatabaseInstance(rdsClient, dbInstanceIdentifier, dbName, masterUsername, masterUserPassword)
-    waitForInstanceReady(rdsClient,dbInstanceIdentifier)
-    rdsClient.close()
+    createDatabaseInstance(dbInstanceIdentifier, dbName, masterUsername, masterUserPassword)
+    waitForInstanceReady(dbInstanceIdentifier)
 }
 
 // snippet-start:[rds.kotlin.create_instance.main]
 suspend fun createDatabaseInstance(
-    rdsClient: RdsClient,
     dbInstanceIdentifierVal: String?,
     dbNamedbVal: String?,
     masterUsernameVal: String?,
     masterUserPasswordVal: String?
 ) {
 
-    try {
-        val instanceRequest = CreateDbInstanceRequest{
+     val instanceRequest = CreateDbInstanceRequest{
             dbInstanceIdentifier = dbInstanceIdentifierVal
             allocatedStorage = 100
             dbName = dbNamedbVal
@@ -78,31 +73,27 @@ suspend fun createDatabaseInstance(
             storageType = "standard"
             masterUsername = masterUsernameVal
             masterUserPassword = masterUserPasswordVal
-            }
+     }
 
+    RdsClient { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.createDbInstance(instanceRequest)
         print("The status is ${response.dbInstance?.dbInstanceStatus}")
-
-    } catch (e: RdsException) {
-        println(e.message)
-        rdsClient.close()
-        exitProcess(0)
     }
 }
 
 // Waits until the database instance is available.
-suspend  fun waitForInstanceReady(rdsClient: RdsClient, dbInstanceIdentifierVal: String?) {
+suspend  fun waitForInstanceReady(dbInstanceIdentifierVal: String?) {
     val sleepTime: Long = 20
     var instanceReady = false
     var instanceReadyStr = ""
     println("Waiting for instance to become available.")
-    try {
-        val instanceRequest = DescribeDbInstancesRequest {
-            dbInstanceIdentifier = dbInstanceIdentifierVal
-        }
 
-        // Loop until the instance is ready.
-        while (!instanceReady) {
+    val instanceRequest = DescribeDbInstancesRequest {
+        dbInstanceIdentifier = dbInstanceIdentifierVal
+    }
+
+    RdsClient { region = "us-west-2" }.use { rdsClient ->
+       while (!instanceReady) {
             val response = rdsClient.describeDbInstances(instanceRequest)
             val instanceList = response.dbInstances
             if (instanceList != null) {
@@ -117,14 +108,8 @@ suspend  fun waitForInstanceReady(rdsClient: RdsClient, dbInstanceIdentifierVal:
                     }
                 }
             }
-        }
+       }
         println("Database instance is available!")
-    } catch (e: RdsException) {
-        println(e.message)
-        exitProcess(0)
-    } catch (e: InterruptedException) {
-        println(e.message)
-        exitProcess(0)
     }
 }
 // snippet-end:[rds.kotlin.create_instance.main]
