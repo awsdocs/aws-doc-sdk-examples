@@ -16,7 +16,6 @@ package com.kotlin.sqs
 // snippet-start:[sqs.kotlin.del_messages.import]
 import aws.sdk.kotlin.services.sqs.SqsClient
 import aws.sdk.kotlin.services.sqs.model.PurgeQueueRequest
-import aws.sdk.kotlin.services.sqs.model.SqsException
 import aws.sdk.kotlin.services.sqs.model.DeleteQueueRequest
 import kotlin.system.exitProcess
 // snippet-end:[sqs.kotlin.del_messages.import]
@@ -37,42 +36,35 @@ suspend fun main(args:Array<String>) {
      }
 
     val queueUrl = args[0]
-    val sqsClient = SqsClient { region = "us-east-1" }
-    deleteMessages(sqsClient, queueUrl)
-    deleteQueue(sqsClient, queueUrl)
-    sqsClient.close()
+    deleteMessages(queueUrl)
+    deleteQueue(queueUrl)
 }
 
 // snippet-start:[sqs.kotlin.del_messages.main]
-suspend fun deleteMessages(sqsClient: SqsClient, queueUrlVal: String?) {
+suspend fun deleteMessages(queueUrlVal: String) {
     println("Delete Messages from $queueUrlVal")
 
-    try {
-        val purgeRequest = PurgeQueueRequest{
-             this.queueUrl = queueUrlVal
-        }
 
+    val purgeRequest = PurgeQueueRequest{
+       queueUrl = queueUrlVal
+    }
+
+    SqsClient { region = "us-east-1" }.use { sqsClient ->
         sqsClient.purgeQueue(purgeRequest)
         println("Messages are successfully deleted from $queueUrlVal")
-
-    } catch (e: SqsException) {
-        println(e.message)
-        sqsClient.close()
-        exitProcess(0)
     }
 }
 
 
-suspend fun deleteQueue(sqsClient: SqsClient, queueUrlVal: String?) {
+suspend fun deleteQueue(queueUrlVal: String) {
 
-    try {
-        sqsClient.deleteQueue(DeleteQueueRequest{queueUrl=queueUrlVal})
+    val request = DeleteQueueRequest{
+        queueUrl=queueUrlVal
+    }
+
+    SqsClient { region = "us-east-1" }.use { sqsClient ->
+        sqsClient.deleteQueue(request)
         println("$queueUrlVal was deleted!")
-
-    } catch (e: SqsException) {
-        println(e.message)
-        sqsClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[sqs.kotlin.del_messages.main]

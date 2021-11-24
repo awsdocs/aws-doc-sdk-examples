@@ -17,7 +17,6 @@ package com.kotlin.sqs
 import aws.sdk.kotlin.services.sqs.SqsClient
 import aws.sdk.kotlin.services.sqs.model.CreateQueueRequest
 import aws.sdk.kotlin.services.sqs.model.GetQueueUrlRequest
-import aws.sdk.kotlin.services.sqs.model.SqsException
 import kotlin.system.exitProcess
 // snippet-end:[sqs.kotlin.create_queue.import]
 
@@ -36,21 +35,19 @@ suspend fun main(args:Array<String>) {
      }
 
     val queueName = args[0]
-    val sqsClient = SqsClient { region = "us-east-1" }
-    val queueURL = createQueue(sqsClient, queueName)
+    val queueURL = createQueue(queueName)
     println("The URL: of the new queue is $queueURL")
-    sqsClient.close()
 }
 
 // snippet-start:[sqs.kotlin.create_queue.main]
-suspend fun createQueue(sqsClient: SqsClient, queueNameVal: String): String {
+suspend fun createQueue(queueNameVal: String): String {
 
-    try {
-        println("Create Queue")
-        val createQueueRequest = CreateQueueRequest {
-            queueName = queueNameVal
-        }
+    println("Create Queue")
+    val createQueueRequest = CreateQueueRequest {
+        queueName = queueNameVal
+    }
 
+    SqsClient { region = "us-east-1" }.use { sqsClient ->
         sqsClient.createQueue(createQueueRequest)
         println("Get queue url")
 
@@ -60,12 +57,6 @@ suspend fun createQueue(sqsClient: SqsClient, queueNameVal: String): String {
 
         val getQueueUrlResponse =  sqsClient.getQueueUrl(getQueueUrlRequest)
         return getQueueUrlResponse.queueUrl.toString()
-
-
-    } catch (e: SqsException) {
-        println(e.message)
-        sqsClient.close()
-        exitProcess(0)
     }
   }
 // snippet-end:[sqs.kotlin.create_queue.main]

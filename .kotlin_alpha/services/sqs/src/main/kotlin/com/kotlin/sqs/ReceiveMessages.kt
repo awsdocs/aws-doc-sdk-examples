@@ -16,7 +16,6 @@ package com.kotlin.sqs
 // snippet-start:[sqs.kotlin.get_messages.import]
 import aws.sdk.kotlin.services.sqs.SqsClient
 import aws.sdk.kotlin.services.sqs.model.ReceiveMessageRequest
-import aws.sdk.kotlin.services.sqs.model.SqsException
 import kotlin.system.exitProcess
 // snippet-end:[sqs.kotlin.get_messages.import]
 
@@ -36,32 +35,25 @@ suspend fun main(args:Array<String>) {
     }
 
     val queueUrl = args[0]
-    val sqsClient = SqsClient { region = "us-east-1" }
-    receiveMessages(sqsClient, queueUrl)
+    receiveMessages(queueUrl)
     println("The AWS SQS operation example is complete!")
-    sqsClient.close()
-}
+    }
 
 // snippet-start:[sqs.kotlin.get_messages.main]
-suspend fun receiveMessages(sqsClient: SqsClient, queueUrlVal: String?) {
+suspend fun receiveMessages(queueUrlVal: String?) {
 
     println("Retrieving messages from $queueUrlVal")
-    try {
 
-        val receiveMessageRequest = ReceiveMessageRequest {
-            queueUrl = queueUrlVal
-            maxNumberOfMessages =5
-        }
+    val receiveMessageRequest = ReceiveMessageRequest {
+        queueUrl = queueUrlVal
+        maxNumberOfMessages =5
+    }
 
+    SqsClient { region = "us-east-1" }.use { sqsClient ->
         val response =  sqsClient.receiveMessage(receiveMessageRequest)
         response.messages?.forEach { message ->
              println(message.body)
         }
-
-    } catch (e: SqsException) {
-        println(e.message)
-        sqsClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[sqs.kotlin.get_messages.main]
