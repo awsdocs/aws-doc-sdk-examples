@@ -15,6 +15,7 @@ from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
+
 def send_templated_sms_message(
         pinpoint_client,
         project_id,
@@ -66,6 +67,7 @@ def send_templated_sms_message(
     else:
         return response['MessageResponse']['Result'][destination_number]['MessageId']
 
+
 def main():
     region = "us-east-1"
     origination_number = "+18555550001"
@@ -75,12 +77,12 @@ def main():
     template_name = "My_SMS_Template"
     template_version = "1"
     message_id = send_templated_sms_message(
-        boto3.client('pinpoint',region_name=region), project_id,
+        boto3.client('pinpoint', region_name=region), project_id,
         destination_number, message_type, origination_number, template_name,
         template_version)
     print(f"Message sent! Message ID: {message_id}.")
 
+
 if __name__ == '__main__':
     main()
-
 # snippet-end:[pinpoint.python.pinpoint_send_templated_sms_message.complete]
