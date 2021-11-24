@@ -14,10 +14,8 @@
 package com.kotlin.forecast
 
 // snippet-start:[forecast.kotlin.list_datasets.import]
-import aws.sdk.kotlin.services.forecast.model.ForecastException
 import aws.sdk.kotlin.services.forecast.ForecastClient
 import aws.sdk.kotlin.services.forecast.model.ListDatasetsRequest
-import kotlin.system.exitProcess
 // snippet-end:[forecast.kotlin.list_datasets.import]
 
 /**
@@ -29,28 +27,21 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
-    val forecast = ForecastClient{ region = "us-west-2"}
-    listForecastDataSets(forecast)
-    forecast.close()
-}
+   listForecastDataSets()
+ }
 
 // snippet-start:[forecast.kotlin.list_datasets.main]
-suspend fun listForecastDataSets(forecast: ForecastClient) {
-        try {
-            val group = ListDatasetsRequest {
-                maxResults = 10
-            }
+suspend fun listForecastDataSets() {
 
-            val response= forecast.listDatasets(group)
+        val request = ListDatasetsRequest {
+            maxResults = 10
+        }
+
+        ForecastClient { region = "us-west-2" }.use { forecast ->
+            val response= forecast.listDatasets(request)
             response.datasets?.forEach { group ->
                 println("The Data Set name is ${group.datasetName}")
             }
-
-        } catch (ex: ForecastException) {
-            println(ex.message)
-            forecast.close()
-            exitProcess(0)
-        }
+          }
 }
 // snippet-end:[forecast.kotlin.list_datasets.main]

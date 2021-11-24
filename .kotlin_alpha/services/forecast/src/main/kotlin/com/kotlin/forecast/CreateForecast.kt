@@ -14,7 +14,6 @@
 package com.kotlin.forecast
 
 // snippet-start:[forecast.kotlin.create_forecast.import]
-import aws.sdk.kotlin.services.forecast.model.ForecastException
 import aws.sdk.kotlin.services.forecast.ForecastClient
 import aws.sdk.kotlin.services.forecast.model.CreateForecastRequest
 import kotlin.system.exitProcess
@@ -46,28 +45,21 @@ suspend fun main(args:Array<String>) {
 
     val name = args[0]
     val predictorArn = args[1]
-    val forecast = ForecastClient{ region = "us-west-2"}
-    val forecastArn= createNewForecast(forecast, name, predictorArn)
+    val forecastArn= createNewForecast(name, predictorArn)
     println("The ARN of the new forecast is $forecastArn")
-    forecast.close()
-}
+    }
 
 // snippet-start:[forecast.kotlin.create_forecast.main]
-suspend  fun createNewForecast(forecast: ForecastClient, name: String?, predictorArnVal: String?): String? {
+suspend  fun createNewForecast(name: String?, predictorArnVal: String?): String? {
 
-        try {
-            val forecastRequest = CreateForecastRequest {
-                forecastName = name
-                predictorArn = predictorArnVal
-            }
+          val request = CreateForecastRequest {
+              forecastName = name
+              predictorArn = predictorArnVal
+          }
 
-            val response = forecast.createForecast(forecastRequest)
+          ForecastClient { region = "us-west-2" }.use { forecast ->
+            val response = forecast.createForecast(request)
             return response.forecastArn
-
-        } catch (ex: ForecastException) {
-            println(ex.message)
-            forecast.close()
-            exitProcess(0)
-        }
+          }
   }
 // snippet-end:[forecast.kotlin.create_forecast.main]

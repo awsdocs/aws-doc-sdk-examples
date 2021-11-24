@@ -14,7 +14,6 @@
 package com.kotlin.forecast
 
 // snippet-start:[forecast.kotlin.create_forecast_dataset.import]
-import aws.sdk.kotlin.services.forecast.model.ForecastException
 import aws.sdk.kotlin.services.forecast.ForecastClient
 import aws.sdk.kotlin.services.forecast.model.Schema
 import aws.sdk.kotlin.services.forecast.model.SchemaAttribute
@@ -49,21 +48,18 @@ suspend fun main(args:Array<String>) {
      }
 
     val name = args[0]
-    val forecast = ForecastClient{ region = "us-west-2"}
-    val myDataSetARN = createForecastDataSet(forecast, name)
+    val myDataSetARN = createForecastDataSet(name)
     println("The ARN of the new data set is $myDataSetARN")
-    forecast.close()
-}
+    }
 
 // snippet-start:[forecast.kotlin.create_forecast_dataset.main]
-suspend fun createForecastDataSet(forecast: ForecastClient, name: String?): String? {
-        try {
+suspend fun createForecastDataSet(name: String?): String? {
 
            val schemaOb = Schema {
                 attributes = getSchema()
             }
 
-            val datasetRequest = CreateDatasetRequest {
+           val request = CreateDatasetRequest {
                 datasetName = name
                 domain = Domain.fromValue("CUSTOM")
                 datasetType = DatasetType.fromValue("RELATED_TIME_SERIES")
@@ -71,14 +67,10 @@ suspend fun createForecastDataSet(forecast: ForecastClient, name: String?): Stri
                 schema = schemaOb
             }
 
-            val response = forecast.createDataset(datasetRequest)
-            return response.datasetArn
-
-        } catch (ex: ForecastException) {
-            println(ex.message)
-            forecast.close()
-            exitProcess(0)
-        }
+           ForecastClient { region = "us-west-2" }.use { forecast ->
+              val response = forecast.createDataset(request)
+              return response.datasetArn
+           }
     }
 
  // Create a SchemaAttribute list required to create a data set.

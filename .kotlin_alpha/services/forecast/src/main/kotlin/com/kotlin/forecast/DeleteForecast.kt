@@ -14,7 +14,6 @@
 package com.kotlin.forecast
 
 // snippet-start:[forecast.kotlin.delete_forecast.import]
-import aws.sdk.kotlin.services.forecast.model.ForecastException
 import aws.sdk.kotlin.services.forecast.ForecastClient
 import aws.sdk.kotlin.services.forecast.model.DeleteForecastRequest
 import kotlin.system.exitProcess
@@ -44,25 +43,19 @@ suspend fun main(args:Array<String>) {
       }
 
     val forecastArn = args[0]
-    val forecast = ForecastClient{ region = "us-west-2"}
-    delForecast(forecast, forecastArn)
-    forecast.close()
+    delForecast(forecastArn)
 }
 
 // snippet-start:[forecast.kotlin.delete_forecast.main]
-suspend  fun delForecast(forecast: ForecastClient, forecastArnVal: String?) {
-        try {
-            val forecastRequest = DeleteForecastRequest {
-                forecastArn = forecastArnVal
-            }
+suspend fun delForecast(forecastArnVal: String) {
 
-            forecast.deleteForecast(forecastRequest)
+          val request = DeleteForecastRequest {
+              forecastArn = forecastArnVal
+          }
+
+          ForecastClient { region = "us-west-2" }.use { forecast ->
+            forecast.deleteForecast(request)
             println("$forecastArnVal was successfully deleted")
-
-        } catch (ex: ForecastException) {
-            println(ex.message)
-            forecast.close()
-            exitProcess(0)
-        }
+          }
 }
 // snippet-end:[forecast.kotlin.delete_forecast.main]

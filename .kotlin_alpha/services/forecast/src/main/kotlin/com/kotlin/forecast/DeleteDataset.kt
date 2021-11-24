@@ -14,7 +14,6 @@
 package com.kotlin.forecast
 
 // snippet-start:[forecast.kotlin.delete_forecast_dataset.import]
-import aws.sdk.kotlin.services.forecast.model.ForecastException
 import aws.sdk.kotlin.services.forecast.ForecastClient
 import aws.sdk.kotlin.services.forecast.model.DeleteDatasetRequest
 import kotlin.system.exitProcess
@@ -44,26 +43,19 @@ suspend fun main(args:Array<String>) {
       }
 
     val dataSetARN = args[0]
-    val forecast = ForecastClient{ region = "us-west-2"}
-    deleteForecastDataSet(forecast, dataSetARN)
-    forecast.close()
-}
+    deleteForecastDataSet(dataSetARN)
+    }
 
 // snippet-start:[forecast.kotlin.delete_forecast_dataset.main]
-suspend fun deleteForecastDataSet(forecast: ForecastClient, myDataSetARN: String?) {
+suspend fun deleteForecastDataSet(myDataSetARN: String?) {
 
-        try {
-            val deleteRequest = DeleteDatasetRequest {
-                datasetArn = myDataSetARN
-            }
-
-            forecast.deleteDataset(deleteRequest)
-            println("$myDataSetARN data set was deleted")
-
-        } catch (ex: ForecastException) {
-            println(ex.message)
-            forecast.close()
-            exitProcess(0)
+       val request = DeleteDatasetRequest {
+        datasetArn = myDataSetARN
         }
+
+        ForecastClient { region = "us-west-2" }.use { forecast ->
+            forecast.deleteDataset(request)
+            println("$myDataSetARN data set was deleted")
+    }
 }
 // snippet-end:[forecast.kotlin.delete_forecast_dataset.main]
