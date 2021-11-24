@@ -20,7 +20,6 @@ import aws.sdk.kotlin.services.kinesis.model.GetShardIteratorRequest
 import aws.sdk.kotlin.services.kinesis.model.Shard
 import aws.sdk.kotlin.services.kinesis.model.ShardIteratorType
 import aws.sdk.kotlin.services.kinesis.model.GetRecordsRequest
-import aws.sdk.kotlin.services.kinesis.model.KinesisException
 import kotlin.system.exitProcess
 //snippet-end:[kinesis.kotlin.get_records.import]
 
@@ -47,58 +46,44 @@ suspend fun  main(args: Array<String>){
         exitProcess(0)
      }
 
-    val name = args[0]
-    val kinesisClient = KinesisClient{region ="us-east-1"}
-    getStockTrades(kinesisClient, name)
-    kinesisClient.close()
-}
+    val streamName = args[0]
+    getStockTrades( streamName)
+  }
 
 //snippet-start:[kinesis.kotlin.get_records.main]
-suspend fun getStockTrades(kinesisClient: KinesisClient, streamNameVal: String?) {
+suspend fun getStockTrades(streamNameVal: String?) {
+
     val shardIteratorVal: String
-
-    try {
-        // Retrieve the Shards from a Stream.
-        val describeStreamRequest = DescribeStreamRequest {
-            streamName = streamNameVal
-        }
-
-        val shards  = mutableListOf<Shard?>()
-        var streamRes: DescribeStreamResponse
-
+    val shards = mutableListOf<Shard?>()
+    var streamRes: DescribeStreamResponse
+    val request =  DescribeStreamRequest {
+        streamName = streamNameVal
+    }
+    KinesisClient { region = "us-east-1" }.use { kinesisClient ->
         do {
-            streamRes = kinesisClient.describeStream(describeStreamRequest)
+            streamRes = kinesisClient.describeStream(request)
             shards.add(streamRes.streamDescription?.shards?.get(0))
 
         } while (streamRes.streamDescription?.hasMoreShards == true)
 
-        val id  = shards[0]?.shardId
-
-        // Create a GetShardIteratorRequest object.
-        val itReq = GetShardIteratorRequest {
+        val id = shards[0]?.shardId
+        val shardIteratorResult = kinesisClient.getShardIterator(GetShardIteratorRequest {
             streamName = streamNameVal
             shardIteratorType = ShardIteratorType.fromValue("TRIM_HORIZON")
-            shardId =id
-        }
-
-        val shardIteratorResult = kinesisClient.getShardIterator(itReq)
+            shardId = id
+        })
         shardIteratorVal = shardIteratorResult.shardIterator.toString()
 
-        // Create new GetRecordsRequest with existing shardIterator.
-        val recordsRequest = GetRecordsRequest {
-            shardIterator = shardIteratorVal
-            limit = 1000
+        val recRequest =  GetRecordsRequest {
+        shardIterator = shardIteratorVal
+        limit = 1000
         }
 
         // Continuously read data records from shard.
-        val result = kinesisClient.getRecords(recordsRequest)
+        val result = kinesisClient.getRecords(recRequest)
         result.records?.forEach { record ->
             println("Seq No: ${record.sequenceNumber} - ${record.data?.let { String(it) }}")
         }
-    } catch (e: KinesisException) {
-        println(e.message)
-        kinesisClient.close()
-        exitProcess(0)
     }
 }
 //snippet-end:[kinesis.kotlin.get_records.main]

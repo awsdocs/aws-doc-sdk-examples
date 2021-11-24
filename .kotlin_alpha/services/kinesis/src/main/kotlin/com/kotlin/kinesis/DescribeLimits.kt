@@ -14,9 +14,7 @@ package com.kotlin.kinesis
 
 //snippet-start:[kinesis.kotlin.DescribeLimits.import]
 import aws.sdk.kotlin.services.kinesis.KinesisClient
-import aws.sdk.kotlin.services.kinesis.model.KinesisException
 import aws.sdk.kotlin.services.kinesis.model.DescribeLimitsRequest
-import kotlin.system.exitProcess
 //snippet-end:[kinesis.kotlin.DescribeLimits.import]
 
 /**
@@ -29,23 +27,17 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun  main(){
 
-    val kinesisClient = KinesisClient{region ="us-east-1"}
-    describeKinLimits(kinesisClient)
-    kinesisClient.close()
-}
+    describeKinLimits()
+    }
 
 //snippet-start:[kinesis.kotlin.DescribeLimits.main]
-suspend fun describeKinLimits(kinesisClient: KinesisClient) {
+suspend fun describeKinLimits() {
 
-    try {
+    KinesisClient { region = "us-east-1" }.use { kinesisClient ->
         val response = kinesisClient.describeLimits(DescribeLimitsRequest{})
         println("Number of open shards is ${response.openShardCount}")
         println("Maximum shards allowed is ${response.shardLimit}")
 
-    } catch (e: KinesisException) {
-        System.err.println(e.message)
-        exitProcess(0)
     }
-    println("Done")
 }
 //snippet-end:[kinesis.kotlin.DescribeLimits.main]

@@ -42,30 +42,24 @@ suspend fun  main(args: Array<String>){
         exitProcess(0)
     }
 
-    val name = args[0]
-    val kinesisClient = KinesisClient{region ="us-east-1"}
+    val streamName = args[0]
     val inputShards = 1
-    addShards(kinesisClient, name, inputShards)
-    kinesisClient.close()
-
-}
+    addShards(streamName, inputShards)
+   }
 
 //snippet-start:[kinesis.kotlin.AddDataShards.main]
-suspend fun addShards(kinesisClient: KinesisClient, name: String?, goalShards: Int) {
-    try {
-        val request = UpdateShardCountRequest {
-            scalingType = ScalingType.fromValue("UNIFORM_SCALING")
-            streamName = name
-            targetShardCount= goalShards
-        }
+suspend fun addShards(name: String?, goalShards: Int) {
 
+    val request = UpdateShardCountRequest {
+        scalingType = ScalingType.fromValue("UNIFORM_SCALING")
+        streamName = name
+        targetShardCount= goalShards
+    }
+
+    KinesisClient { region = "us-east-1" }.use { kinesisClient ->
         val response = kinesisClient.updateShardCount(request)
         println("${response.streamName} has updated shard count to ${response.currentShardCount}")
 
-    } catch (e: KinesisException) {
-        println(e.message)
-        kinesisClient.close()
-        exitProcess(0)
     }
 }
 //snippet-end:[kinesis.kotlin.AddDataShards.main]

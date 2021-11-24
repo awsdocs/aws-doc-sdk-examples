@@ -14,7 +14,6 @@ package com.kotlin.kinesis
 //snippet-start:[kinesis.kotlin.create.import]
 import aws.sdk.kotlin.services.kinesis.KinesisClient
 import aws.sdk.kotlin.services.kinesis.model.CreateStreamRequest
-import aws.sdk.kotlin.services.kinesis.model.KinesisException
 import kotlin.system.exitProcess
 //snippet-end:[kinesis.kotlin.create.import]
 
@@ -41,26 +40,21 @@ suspend fun  main(args: Array<String>){
         exitProcess(0)
     }
 
-    val name = args[0]
-    val kinesisClient = KinesisClient{region ="us-east-1"}
-    createStream(kinesisClient, name)
-    kinesisClient.close()
-}
+    val streamName = args[0]
+    createStream(streamName)
+    }
 
 //snippet-start:[kinesis.kotlin.create.main]
-suspend fun createStream(kinesisClient: KinesisClient, streamNameVal: String?) {
-    try {
-        val streamReq = CreateStreamRequest {
-            streamName = streamNameVal
-            shardCount = 1
-        }
-        kinesisClient.createStream(streamReq)
-        println("The $streamNameVal data stream was created" )
+suspend fun createStream(streamNameVal: String?) {
 
-    } catch (e: KinesisException) {
-        println(e.message)
-        kinesisClient.close()
-        exitProcess(0)
+     val request = CreateStreamRequest {
+         streamName = streamNameVal
+         shardCount = 1
+     }
+
+     KinesisClient { region = "us-east-1" }.use { kinesisClient ->
+        kinesisClient.createStream(request)
+        println("The $streamNameVal data stream was created" )
     }
 }
 //snippet-end:[kinesis.kotlin.create.main]

@@ -15,7 +15,6 @@ package com.kotlin.kinesis
 //snippet-start:[kinesis.kotlin.delete.import]
 import aws.sdk.kotlin.services.kinesis.KinesisClient
 import aws.sdk.kotlin.services.kinesis.model.DeleteStreamRequest
-import aws.sdk.kotlin.services.kinesis.model.KinesisException
 import kotlin.system.exitProcess
 //snippet-end:[kinesis.kotlin.delete.import]
 
@@ -41,26 +40,20 @@ suspend fun  main(args: Array<String>){
         exitProcess(0)
     }
 
-    val name = args[0]
-    val kinesisClient = KinesisClient{region ="us-east-1"}
-    deleteStream(kinesisClient, name)
-    kinesisClient.close()
-
-}
+    val streamName = args[0]
+    deleteStream(streamName)
+   }
 
 //snippet-start:[kinesis.kotlin.delete.main]
-suspend fun deleteStream(kinesisClient: KinesisClient, streamNameVal: String?) {
-    try {
-        val delStream = DeleteStreamRequest {
-            streamName = streamNameVal
-        }
-        kinesisClient.deleteStream(delStream)
-        println("$streamNameVal was deleted.")
+suspend fun deleteStream(streamNameVal: String?) {
 
-    } catch (e: KinesisException) {
-        println(e.message)
-        kinesisClient.close()
-        exitProcess(0)
+    val request = DeleteStreamRequest {
+        streamName = streamNameVal
+    }
+
+    KinesisClient { region = "us-east-1" }.use { kinesisClient ->
+        kinesisClient.deleteStream(request)
+        println("$streamNameVal was deleted.")
     }
 }
 //snippet-end:[kinesis.kotlin.delete.main]
