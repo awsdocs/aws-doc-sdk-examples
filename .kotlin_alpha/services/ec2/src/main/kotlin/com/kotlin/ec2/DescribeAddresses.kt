@@ -16,8 +16,6 @@ package com.kotlin.ec2
 // snippet-start:[ec2.kotlin.describe_addresses.import]
 import aws.sdk.kotlin.services.ec2.Ec2Client
 import aws.sdk.kotlin.services.ec2.model.DescribeAddressesRequest
-import aws.sdk.kotlin.services.ec2.model.Ec2Exception
-import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.describe_addresses.import]
 
 
@@ -30,22 +28,16 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
-    val ec2Client = Ec2Client{region = "us-east-1"}
-    describeEC2Address(ec2Client)
+  describeEC2Address()
 }
 
 // snippet-start:[ec2.kotlin.describe_addresses.main]
-suspend fun describeEC2Address(ec2: Ec2Client) {
-    try {
+suspend fun describeEC2Address() {
+    Ec2Client { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeAddresses(DescribeAddressesRequest{})
         response.addresses?.forEach { address ->
             println("Found address with public IP ${address.publicIp}, domain is ${address.domain}, allocation id ${address.allocationId} and NIC id: ${address.networkInterfaceId} ")
         }
-
-    } catch (e: Ec2Exception) {
-        println(e.message)
-        exitProcess(0)
     }
 }
 // snippet-end:[ec2.kotlin.describe_addresses.main]

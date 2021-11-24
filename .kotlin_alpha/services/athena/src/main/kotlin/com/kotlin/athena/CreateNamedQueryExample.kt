@@ -14,7 +14,6 @@
 package com.kotlin.athena
 
 //snippet-start:[athena.kotlin.CreateNamedQueryExample.import]
-import aws.sdk.kotlin.runtime.AwsServiceException
 import aws.sdk.kotlin.services.athena.AthenaClient
 import aws.sdk.kotlin.services.athena.model.CreateNamedQueryRequest
 import kotlin.system.exitProcess
@@ -41,31 +40,21 @@ suspend fun main(args:Array<String>) {
     val queryString = args[0]
     val namedQuery = args[1]
     val database = args[2]
-    val athenaClient = AthenaClient { region = "us-west-2" }
-    val id = createNamedQuery(athenaClient,queryString, namedQuery,database)
+    val id = createNamedQuery(queryString, namedQuery, database)
     println("The query ID is $id")
-    athenaClient.close()
 }
 
     //snippet-start:[athena.kotlin.CreateNamedQueryExample.main]
-    suspend  fun createNamedQuery(athenaClient: AthenaClient, queryStringVal:String, namedQuery:String, databaseVal:String ):String? {
+    suspend  fun createNamedQuery(queryStringVal:String, namedQuery:String, databaseVal:String ):String? {
 
-        try {
-            // Create the named query request.
-            val createNamedQueryRequest =  CreateNamedQueryRequest {
-                 database = databaseVal
-                 queryString = queryStringVal
-                 description = "Created via the AWS SDK for Kotlin"
-                 this.name = namedQuery
-            }
-
-            val resp =  athenaClient.createNamedQuery(createNamedQueryRequest)
+            AthenaClient { region = "us-west-2" }.use { athenaClient->
+            val resp =  athenaClient.createNamedQuery(CreateNamedQueryRequest {
+                database = databaseVal
+                queryString = queryStringVal
+                description = "Created via the AWS SDK for Kotlin"
+                this.name = namedQuery
+            })
             return resp.namedQueryId
-
-        } catch (ex: AwsServiceException) {
-            println(ex.message)
-            athenaClient.close()
-            exitProcess(0)
         }
     }
 //snippet-end:[athena.kotlin.CreateNamedQueryExample.main]

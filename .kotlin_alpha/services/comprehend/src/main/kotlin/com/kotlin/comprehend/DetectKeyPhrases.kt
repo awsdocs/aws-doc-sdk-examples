@@ -17,8 +17,6 @@ package com.kotlin.comprehend
 import aws.sdk.kotlin.services.comprehend.ComprehendClient
 import aws.sdk.kotlin.services.comprehend.model.DetectKeyPhrasesRequest
 import aws.sdk.kotlin.services.comprehend.model.LanguageCode
-import aws.sdk.kotlin.services.comprehend.model.ComprehendException
-import kotlin.system.exitProcess
 //snippet-end:[comprehend.kotlin.detect_keyphrases.import]
 
 /**
@@ -29,30 +27,23 @@ For information, see this documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
-
-    val comprehendClient = ComprehendClient{
-        region="us-east-1"
-    }
     val text = "Amazon.com, Inc. is located in Seattle, WA and was founded July 5th, 1994 by Jeff Bezos, allowing customers to buy everything from books to blenders. Seattle is north of Portland and south of Vancouver, BC. Other notable Seattle - based companies are Starbucks and Boeing."
-    detectAllKeyPhrases(comprehendClient,text)
-    comprehendClient.close()
+    detectAllKeyPhrases(text)
 }
 
 //snippet-start:[comprehend.kotlin.detect_keyphrases.main]
-suspend fun detectAllKeyPhrases(comClient: ComprehendClient, textVal: String) {
-        try {
-            val detectKeyPhrasesRequest = DetectKeyPhrasesRequest {
-                 text = textVal
-                 languageCode = LanguageCode.fromValue("en")
-            }
-            val response = comClient.detectKeyPhrases(detectKeyPhrasesRequest)
+suspend fun detectAllKeyPhrases(textVal: String) {
+
+     val request = DetectKeyPhrasesRequest {
+         text = textVal
+         languageCode = LanguageCode.fromValue("en")
+     }
+
+     ComprehendClient { region = "us-east-1" }.use { comClient ->
+            val response = comClient.detectKeyPhrases(request)
             response.keyPhrases?.forEach { phrase ->
                 println("Key phrase text is ${phrase.text}")
             }
-
-        } catch (ex: ComprehendException) {
-            println(ex.message)
-            exitProcess(0)
-        }
+     }
 }
 //snippet-end:[comprehend.kotlin.detect_keyphrases.main]

@@ -26,7 +26,6 @@ import aws.sdk.kotlin.services.codepipeline.model.ActionOwner
 import aws.sdk.kotlin.services.codepipeline.model.ArtifactStore
 import aws.sdk.kotlin.services.codepipeline.model.CreatePipelineRequest
 import aws.sdk.kotlin.services.codepipeline.model.ArtifactStoreType
-import aws.sdk.kotlin.services.codepipeline.model.CodePipelineException
 import kotlin.system.exitProcess
 // snippet-end:[pipeline.kotlin.create_pipeline.import]
 
@@ -52,21 +51,17 @@ suspend fun main(args:Array<String>) {
     val roleArn = args[1]
     val s3Bucket = args[2]
     val s3OuputBucket = args[3]
-    val  pipelineClient = CodePipelineClient{region = "us-east-1"}
-    createNewPipeline(pipelineClient, name, roleArn, s3Bucket, s3OuputBucket)
-    pipelineClient.close()
-}
+    createNewPipeline(name, roleArn, s3Bucket, s3OuputBucket)
+    }
 
 // snippet-start:[pipeline.kotlin.create_pipeline.main]
 suspend fun createNewPipeline(
-    pipelineClient: CodePipelineClient,
     nameVal: String,
     roleArnVal: String,
     s3Bucket: String,
     s3OuputBucket: String) {
 
-    try {
-        val actionTypeSource = ActionTypeId {
+       val actionTypeSource = ActionTypeId {
             category = ActionCategory.fromValue("Source")
             owner = ActionOwner.fromValue("AWS")
             provider = "S3"
@@ -144,17 +139,13 @@ suspend fun createNewPipeline(
             stages = stagesOb
         }
 
-        val pipelineRequest = CreatePipelineRequest {
-            pipeline = pipelineDeclaration
-        }
+       val request = CreatePipelineRequest {
+           pipeline = pipelineDeclaration
+       }
 
-        val response = pipelineClient.createPipeline(pipelineRequest)
-        println("Pipeline ${response.pipeline?.name} was successfully created")
-
-    } catch (e: CodePipelineException) {
-        println(e.message)
-        pipelineClient.close()
-        exitProcess(0)
-    }
+       CodePipelineClient { region = "us-east-1" }.use { pipelineClient ->
+          val response = pipelineClient.createPipeline(request)
+          println("Pipeline ${response.pipeline?.name} was successfully created")
+       }
 }
 // snippet-end:[pipeline.kotlin.create_pipeline.main]

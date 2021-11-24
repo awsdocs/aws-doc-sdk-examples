@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListIdentities.java demonstrates how to list identities that belong to an Amazon Cognito identity pool.]
+//snippet-sourcedescription:[ListIdentities.kt demonstrates how to list identities that belong to an Amazon Cognito identity pool.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Cognito]
@@ -16,7 +16,6 @@ package com.kotlin.cognito
 //snippet-start:[cognito.kotlin.listidentities.import]
 import aws.sdk.kotlin.services.cognitoidentity.CognitoIdentityClient
 import aws.sdk.kotlin.services.cognitoidentity.model.ListIdentitiesRequest
-import aws.sdk.kotlin.services.cognitoidentity.model.CognitoIdentityException
 import kotlin.system.exitProcess
 //snippet-end:[cognito.kotlin.listidentities.import]
 
@@ -44,29 +43,22 @@ suspend fun main(args: Array<String>){
     }
 
     val identityPoolId = args[0]
-    val cognitoIdentityClient = CognitoIdentityClient { region = "us-east-1" }
-    listPoolIdentities(cognitoIdentityClient,identityPoolId)
-    cognitoIdentityClient.close()
-}
+    listPoolIdentities(identityPoolId)
+    }
 
 //snippet-start:[cognito.kotlin.listidentities.main]
-suspend fun listPoolIdentities(cognitoIdentityClient: CognitoIdentityClient, identityPoolId: String?) {
-        try {
+suspend fun listPoolIdentities(identityPoolId: String?) {
 
-            val listIdentitiesInput =  ListIdentitiesRequest{
-                this.identityPoolId = identityPoolId
-                maxResults = 15
-            }
+    val request =ListIdentitiesRequest{
+        this.identityPoolId = identityPoolId
+        maxResults = 15
+    }
 
-            val response = cognitoIdentityClient.listIdentities(listIdentitiesInput)
+    CognitoIdentityClient { region = "us-east-1" }.use { cognitoIdentityClient ->
+            val response = cognitoIdentityClient.listIdentities(request)
             response.identities?.forEach { identity ->
                 println("The identity Id value is ${identity.identityId}")
             }
-
-        } catch (ex: CognitoIdentityException) {
-            println(ex.message)
-            cognitoIdentityClient.close()
-            exitProcess(0)
-        }
     }
+}
 //snippet-end:[cognito.kotlin.listidentities.main]

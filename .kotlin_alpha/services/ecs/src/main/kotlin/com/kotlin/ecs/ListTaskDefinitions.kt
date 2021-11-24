@@ -16,7 +16,6 @@ package com.kotlin.ecs
 // snippet-start:[ecs.kotlin.list_tasks.import]
 import aws.sdk.kotlin.services.ecs.EcsClient
 import aws.sdk.kotlin.services.ecs.model.DescribeTasksRequest
-import aws.sdk.kotlin.services.ecs.model.EcsException
 import kotlin.system.exitProcess
 // snippet-end:[ecs.kotlin.list_tasks.import]
 
@@ -47,28 +46,22 @@ suspend fun main(args:Array<String>){
 
     val clusterArn = args[0]
     val taskId =   args[1]
-    val ecsClient = EcsClient{ region = "us-east-1"}
-    getAllTasks(ecsClient, clusterArn, taskId)
-    ecsClient.close()
-}
+    getAllTasks(clusterArn, taskId)
+   }
 
 // snippet-start:[ecs.kotlin.list_tasks.main]
-suspend fun getAllTasks(ecsClient: EcsClient, clusterArn: String, taskId: String) {
-    try {
-        val tasksRequest = DescribeTasksRequest {
-             cluster = clusterArn
-             tasks = listOf(taskId)
-        }
+suspend fun getAllTasks( clusterArn: String, taskId: String) {
 
-        val response = ecsClient.describeTasks(tasksRequest)
+    val request = DescribeTasksRequest {
+        cluster = clusterArn
+        tasks = listOf(taskId)
+    }
+
+    EcsClient { region = "us-east-1" }.use { ecsClient ->
+        val response = ecsClient.describeTasks(request)
         response.tasks?.forEach { task ->
             println("The task ARN is " + task.taskDefinitionArn)
         }
-
-    } catch (ex: EcsException) {
-        println(ex.message)
-        ecsClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[ecs.kotlin.list_tasks.main]

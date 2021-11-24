@@ -18,7 +18,6 @@ package com.kotlin.dynamodb
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
 import aws.sdk.kotlin.services.dynamodb.model.DeleteItemRequest
-import aws.sdk.kotlin.services.dynamodb.model.DynamoDbException
 import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.delete_item.import]
 
@@ -49,30 +48,23 @@ suspend fun main(args: Array<String>) {
     val tableName = args[0]
     val key = args[1]
     val keyVal = args[2]
-    val ddb = DynamoDbClient{ region = "us-east-1" }
-    deleteDymamoDBItem(ddb, tableName, key, keyVal)
-    ddb.close()
+    deleteDymamoDBItem(tableName, key, keyVal)
 }
 
 // snippet-start:[dynamodb.kotlin.delete_item.main]
-suspend fun deleteDymamoDBItem(ddb: DynamoDbClient, tableNameVal: String, keyName: String, keyVal: String) {
+suspend fun deleteDymamoDBItem(tableNameVal: String, keyName: String, keyVal: String) {
 
         val keyToGet = mutableMapOf<String, AttributeValue>()
         keyToGet[keyName] = AttributeValue.S(keyVal)
 
-        val deleteReq = DeleteItemRequest {
+        val request = DeleteItemRequest {
             tableName = tableNameVal
             key = keyToGet
         }
 
-        try {
-            ddb.deleteItem(deleteReq)
+        DynamoDbClient { region = "us-east-1" }.use { ddb ->
+            ddb.deleteItem(request)
             println("Item with key matching $keyVal was deleted")
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            ddb.close()
-            exitProcess(0)
         }
- }
+    }
 // snippet-end:[dynamodb.kotlin.delete_item.main]

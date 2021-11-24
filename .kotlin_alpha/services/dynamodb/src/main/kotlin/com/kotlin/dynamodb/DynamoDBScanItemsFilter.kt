@@ -16,7 +16,6 @@ package com.kotlin.dynamodb
 // snippet-start:[dynamodb.kotlin.scan_items_filter.import]
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.dynamodb.model.ScanRequest
-import aws.sdk.kotlin.services.dynamodb.model.DynamoDbException
 import kotlin.system.exitProcess
 import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
 import java.util.HashMap
@@ -45,14 +44,11 @@ suspend fun main(args: Array<String>) {
    }
 
     val tableName = args[0]
-    val ddb = DynamoDbClient{ region = "us-east-1" }
-    scanItemsUsingFilter(ddb, tableName);
-    ddb.close()
-}
+    scanItemsUsingFilter(tableName)
+    }
 
 // snippet-start:[dynamodb.kotlin.scan_items_filter.main]
-suspend fun scanItemsUsingFilter(ddb: DynamoDbClient, tableNameVal: String) {
-    try {
+suspend fun scanItemsUsingFilter(tableNameVal: String) {
 
         val myMap = HashMap<String, String>()
         myMap.put("#archive2", "archive")
@@ -60,16 +56,17 @@ suspend fun scanItemsUsingFilter(ddb: DynamoDbClient, tableNameVal: String) {
         val myExMap = HashMap<String, AttributeValue>()
         myExMap.put(":val", AttributeValue.S("Open"))
 
-        val scanRequest = ScanRequest {
-            this.expressionAttributeNames = myMap
-            this.expressionAttributeValues = myExMap
-            tableName = tableNameVal
-            filterExpression = "#archive2 = :val"
-        }
+       val request = ScanRequest {
+           this.expressionAttributeNames = myMap
+           this.expressionAttributeValues = myExMap
+           tableName = tableNameVal
+           filterExpression = "#archive2 = :val"
+       }
 
-        val response = ddb.scan(scanRequest)
-        println("#######################################")
-        response.items?.forEach { item ->
+        DynamoDbClient { region = "us-east-1" }.use { ddb ->
+          val response = ddb.scan(request)
+          println("#######################################")
+          response.items?.forEach { item ->
             item.keys.forEach { key ->
 
                 when (key) {
@@ -107,18 +104,13 @@ suspend fun scanItemsUsingFilter(ddb: DynamoDbClient, tableNameVal: String) {
                 }
             }
         }
-
-    } catch (ex: DynamoDbException) {
-        println(ex.message)
-        ddb.close()
-        exitProcess(0)
     }
 }
 
 fun splitMyString(str:String):String{
 
-    var del1 = "="
-    var del2 = ")"
+    val del1 = "="
+    val del2 = ")"
     val parts = str.split(del1, del2)
     val myVal = parts[1]
     return myVal

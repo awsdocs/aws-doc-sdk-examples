@@ -14,7 +14,6 @@
 package com.kotlin.cloudwatch
 
 // snippet-start:[cloudwatch.kotlin.get_logs.import]
-import aws.sdk.kotlin.services.cloudwatch.model.CloudWatchException
 import aws.sdk.kotlin.services.cloudwatchlogs.CloudWatchLogsClient
 import aws.sdk.kotlin.services.cloudwatchlogs.model.GetLogEventsRequest
 import kotlin.system.exitProcess
@@ -40,28 +39,23 @@ suspend fun main(args:Array<String>) {
 
     val logGroup = args[0]
     val logStreamName = args[1]
-    val cwlClient = CloudWatchLogsClient{region="us-west-2"}
-    getCWLogEvents(cwlClient, logGroup, logStreamName)
+    getCWLogEvents(logGroup, logStreamName)
 }
 
 // snippet-start:[cloudwatch.kotlin.get_logs.main]
-suspend fun getCWLogEvents(cloudWatchLogsClient: CloudWatchLogsClient, logGroupNameVal: String?, logStreamNameVal: String?) {
-    try {
-        val getLogEventsRequest = GetLogEventsRequest {
-            logGroupName = logGroupNameVal
-            logStreamName = logStreamNameVal
-            startFromHead = true
-        }
+suspend fun getCWLogEvents(logGroupNameVal: String, logStreamNameVal: String) {
 
-        val eventsList = cloudWatchLogsClient.getLogEvents(getLogEventsRequest)
+    val request = GetLogEventsRequest {
+        logGroupName = logGroupNameVal
+        logStreamName = logStreamNameVal
+        startFromHead = true
+    }
+
+    CloudWatchLogsClient { region = "us-west-2" }.use { cwlClient ->
+        val eventsList = cwlClient.getLogEvents(request)
         eventsList.events?.forEach { list ->
             println("Message is: " + list.message)
         }
-
-    } catch (ex: CloudWatchException) {
-        println(ex.message)
-        cloudWatchLogsClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[cloudwatch.kotlin.get_logs.main]

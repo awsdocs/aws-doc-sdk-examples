@@ -15,7 +15,6 @@ package com.kotlin.gateway
 
 // snippet-start:[apigateway.kotlin.delete_api.import]
 import aws.sdk.kotlin.services.apigateway.ApiGatewayClient
-import aws.sdk.kotlin.services.apigateway.model.ApiGatewayException
 import aws.sdk.kotlin.services.apigateway.model.DeleteRestApiRequest
 import kotlin.system.exitProcess
 // snippet-end:[apigateway.kotlin.delete_api.import]
@@ -37,25 +36,19 @@ suspend fun main(args:Array<String>) {
     }
 
     val restApiId = args[0]
-    val apiGatewayClient = ApiGatewayClient{region ="us-east-1"}
-    deleteAPI(apiGatewayClient, restApiId)
-    apiGatewayClient.close()
+    deleteAPI(restApiId)
 }
 
 // snippet-start:[apigateway.kotlin.delete_api.main]
-suspend fun deleteAPI(apiGateway: ApiGatewayClient, restApiIdVal: String?) {
-    try {
-        val request = DeleteRestApiRequest {
-            restApiId = restApiIdVal
-        }
+suspend fun deleteAPI(restApiIdVal: String?) {
 
+    val request = DeleteRestApiRequest {
+        restApiId = restApiIdVal
+    }
+
+    ApiGatewayClient { region = "us-east-1" }.use { apiGateway ->
         apiGateway.deleteRestApi(request)
         println("The API was successfully deleted")
-
-    } catch (e: ApiGatewayException) {
-        println(e.message)
-        apiGateway.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[apigateway.kotlin.delete_api.main]

@@ -16,13 +16,12 @@ package com.kotlin.cloudwatch
 // snippet-start:[cloudwatch.kotlin.enable_alarm_actions.import]
 import aws.sdk.kotlin.services.cloudwatch.CloudWatchClient
 import aws.sdk.kotlin.services.cloudwatch.model.EnableAlarmActionsRequest
-import aws.sdk.kotlin.services.cloudwatch.model.CloudWatchException
 import kotlin.system.exitProcess
 // snippet-end:[cloudwatch.kotlin.enable_alarm_actions.import]
 
 suspend fun main(args:Array<String>) {
 
-    val usage  = """
+    val usage = """
 
     Usage:
         <alarmName> 
@@ -34,28 +33,22 @@ suspend fun main(args:Array<String>) {
     if (args.size != 1) {
         println(usage)
         exitProcess(0)
-     }
+    }
 
     val alarmName = args[0]
-    val cwClient = CloudWatchClient{region="us-east-1"}
-    enableActions(cwClient, alarmName)
-    cwClient.close()
+    enableActions(alarmName)
 }
 
 // snippet-start:[cloudwatch.kotlin.enable_alarm_actions.main]
-suspend fun enableActions(cwClient: CloudWatchClient, alarm: String) {
-    try {
-        val request = EnableAlarmActionsRequest {
-            alarmNames = listOf(alarm)
-        }
+suspend fun enableActions(alarm: String) {
 
+    val request = EnableAlarmActionsRequest {
+        alarmNames = listOf(alarm)
+    }
+
+    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         cwClient.enableAlarmActions(request)
         println( "Successfully enabled actions on alarm $alarm")
-
-    } catch (ex: CloudWatchException) {
-        println(ex.message)
-        cwClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[cloudwatch.kotlin.enable_alarm_actions.main]

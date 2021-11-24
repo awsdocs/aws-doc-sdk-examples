@@ -15,7 +15,6 @@ package com.kotlin.dynamodb
 // snippet-start:[dynamodb.kotlin.delete_table.import]
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.dynamodb.model.DeleteTableRequest
-import aws.sdk.kotlin.services.dynamodb.model.DynamoDbException
 import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.delete_table.import]
 
@@ -27,41 +26,33 @@ For information, see this documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
          <tableName>  
 
     Where:
         tableName - the Amazon DynamoDB table to delete (for example, Music3).
-              
     """
 
-   if (args.size != 1) {
-       println(usage)
-       exitProcess(0)
-   }
+    if (args.size != 1) {
+        println(usage)
+        exitProcess(0)
+    }
 
     val tableName = args[0]
-    val ddb = DynamoDbClient{ region = "us-east-1" }
-    deleteDynamoDBTable(ddb, tableName)
-    ddb.close()
+    deleteDynamoDBTable(tableName)
 }
 
 // snippet-start:[dynamodb.kotlin.delete_table.main]
-suspend fun deleteDynamoDBTable(ddb: DynamoDbClient, tableNameVal: String) {
-        val request = DeleteTableRequest {
-            tableName = tableNameVal
-        }
+suspend fun deleteDynamoDBTable(tableNameVal: String) {
 
-        try {
+    val request = DeleteTableRequest {
+        tableName = tableNameVal
+    }
+
+    DynamoDbClient { region = "us-east-1" }.use { ddb ->
             ddb.deleteTable(request)
             println("$tableNameVal was deleted")
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            ddb.close()
-            exitProcess(0)
         }
   }
 // snippet-end:[dynamodb.kotlin.delete_table.main]

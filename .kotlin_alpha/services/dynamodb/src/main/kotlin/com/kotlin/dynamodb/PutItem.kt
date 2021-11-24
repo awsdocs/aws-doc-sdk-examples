@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[PutItem.java demonstrates how to place an item into an Amazon DynamoDB table.]
+//snippet-sourcedescription:[PutItem.kt demonstrates how to place an item into an Amazon DynamoDB table.]
 //snippet-keyword:[SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -17,7 +17,6 @@ package com.kotlin.dynamodb
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
 import aws.sdk.kotlin.services.dynamodb.model.PutItemRequest
-import aws.sdk.kotlin.services.dynamodb.model.DynamoDbException
 import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.put_item.import]
 
@@ -61,14 +60,11 @@ suspend fun main(args: Array<String>) {
     val songTitle = args[7]
     val songTitleVal = args[8]
 
-    val ddb = DynamoDbClient{ region = "us-east-1" }
-    putItemInTable(ddb, tableName, key, keyVal, albumTitle, albumTitleValue, awards, awardVal, songTitle, songTitleVal);
-    ddb.close()
+    putItemInTable(tableName, key, keyVal, albumTitle, albumTitleValue, awards, awardVal, songTitle, songTitleVal)
 }
 
 // snippet-start:[dynamodb.kotlin.put_item.main]
 suspend fun putItemInTable(
-        ddb: DynamoDbClient,
         tableNameVal: String,
         key: String,
         keyVal: String,
@@ -92,14 +88,9 @@ suspend fun putItemInTable(
             item = itemValues
         }
 
-        try {
+       DynamoDbClient { region = "us-east-1" }.use { ddb ->
             ddb.putItem(request)
             println(" A new item was placed into $tableNameVal.")
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            ddb.close()
-            exitProcess(0)
         }
  }
 // snippet-end:[dynamodb.kotlin.put_item.main]

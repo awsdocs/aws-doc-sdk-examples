@@ -16,8 +16,6 @@ package com.kotlin.cognito
 //snippet-start:[cognito.kotlin.listproviders.import]
 import aws.sdk.kotlin.services.cognitoidentity.CognitoIdentityClient
 import aws.sdk.kotlin.services.cognitoidentity.model.ListIdentityPoolsRequest
-import aws.sdk.kotlin.services.cognitoidentity.model.CognitoIdentityException
-import kotlin.system.exitProcess
 //snippet-end:[cognito.kotlin.listproviders.import]
 
 /**
@@ -30,29 +28,21 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun main(){
 
-    val cognitoIdentityClient = CognitoIdentityClient { region = "us-east-1" }
-    getPools(cognitoIdentityClient)
-    cognitoIdentityClient.close()
-}
+    getPools()
+    }
 
 //snippet-start:[cognito.kotlin.listproviders.main]
-suspend fun getPools(cognitoIdentityClient:CognitoIdentityClient) {
+suspend fun getPools() {
 
-    try {
+    val request = ListIdentityPoolsRequest {
+        maxResults = 10
+    }
 
-        val listIdentityPoolsInput = ListIdentityPoolsRequest {
-            maxResults = 10
-        }
-
-        val response = cognitoIdentityClient.listIdentityPools(listIdentityPoolsInput)
+    CognitoIdentityClient { region = "us-east-1" }.use { cognitoIdentityClient ->
+        val response = cognitoIdentityClient.listIdentityPools(request)
         response.identityPools?.forEach { pool ->
             println("The identity pool name is ${pool.identityPoolName}")
         }
-
-    } catch (ex: CognitoIdentityException) {
-        println(ex.message)
-        cognitoIdentityClient.close()
-        exitProcess(0)
     }
 }
 //snippet-end:[cognito.kotlin.listproviders.main]

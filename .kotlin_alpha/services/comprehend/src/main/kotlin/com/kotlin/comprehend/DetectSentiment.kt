@@ -17,8 +17,6 @@ package com.kotlin.comprehend
 import aws.sdk.kotlin.services.comprehend.ComprehendClient
 import aws.sdk.kotlin.services.comprehend.model.DetectSentimentRequest
 import aws.sdk.kotlin.services.comprehend.model.LanguageCode
-import aws.sdk.kotlin.services.comprehend.model.ComprehendException
-import kotlin.system.exitProcess
 //snippet-end:[comprehend.kotlin.detect_sentiment.import]
 
 /**
@@ -30,29 +28,22 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
 
-    val comprehendClient = ComprehendClient{
-        region="us-east-1"
-    }
     val text = "Amazon.com, Inc. is located in Seattle, WA and was founded July 5th, 1994 by Jeff Bezos, allowing customers to buy everything from books to blenders. Seattle is north of Portland and south of Vancouver, BC. Other notable Seattle - based companies are Starbucks and Boeing."
-    detectSentiments(comprehendClient,text)
-    comprehendClient.close()
+    detectSentiments(text)
+
 }
 
 //snippet-start:[comprehend.kotlin.detect_sentiment.main]
-suspend fun detectSentiments(comClient: ComprehendClient, textVal: String) {
-        try {
+suspend fun detectSentiments( textVal: String) {
 
-            val detectSentimentRequest = DetectSentimentRequest{
-                text = textVal
-                languageCode = LanguageCode.fromValue("en")
-            }
+    val request =  DetectSentimentRequest{
+        text = textVal
+        languageCode = LanguageCode.fromValue("en")
+    }
 
-            val resp = comClient.detectSentiment(detectSentimentRequest)
-            println("The Neutral value is ${resp.sentimentScore?.neutral}")
-
-        } catch (ex: ComprehendException) {
-            println(ex.message)
-            exitProcess(0)
-        }
+    ComprehendClient { region = "us-east-1" }.use { comClient ->
+        val resp = comClient.detectSentiment(request)
+        println("The Neutral value is ${resp.sentimentScore?.neutral}")
+    }
 }
 //snippet-end:[comprehend.kotlin.detect_sentiment.main]

@@ -15,7 +15,6 @@ package com.kotlin.emr
 //snippet-start:[erm.kotlin.describe_cluster.import]
 import aws.sdk.kotlin.services.emr.EmrClient
 import aws.sdk.kotlin.services.emr.model.DescribeClusterRequest
-import aws.sdk.kotlin.services.emr.model.EmrException
 import kotlin.system.exitProcess
 //snippet-end:[erm.kotlin.describe_cluster.import]
 
@@ -43,24 +42,20 @@ suspend fun main(args:Array<String>) {
       }
 
     val clusterIdVal = args[0]
-    val emrClient = EmrClient{region = "us-west-2" }
-    describeMyCluster(emrClient,clusterIdVal )
-    emrClient.close()
-}
+    describeMyCluster(clusterIdVal )
+  }
 
 //snippet-start:[erm.kotlin.describe_cluster.main]
-suspend fun describeMyCluster(emrClient: EmrClient, clusterIdVal: String?) {
-    try {
-        val clusterRequest = DescribeClusterRequest {
-        clusterId = clusterIdVal
-        }
+suspend fun describeMyCluster(clusterIdVal: String?) {
 
-        val response = emrClient.describeCluster(clusterRequest)
+     val request = DescribeClusterRequest {
+         clusterId = clusterIdVal
+     }
+
+     EmrClient { region = "us-west-2" }.use { emrClient ->
+        val response = emrClient.describeCluster(request)
         println("The name of the cluster is ${response.cluster?.name}")
 
-    } catch (e: EmrException) {
-        println(e.message)
-        exitProcess(0)
-    }
+     }
 }
 //snippet-end:[erm.kotlin.describe_cluster.main]

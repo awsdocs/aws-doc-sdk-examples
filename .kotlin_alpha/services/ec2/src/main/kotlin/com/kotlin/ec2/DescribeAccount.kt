@@ -16,8 +16,6 @@ package com.kotlin.ec2
 // snippet-start:[ec2.kotlin.describe_account.import]
 import aws.sdk.kotlin.services.ec2.Ec2Client
 import aws.sdk.kotlin.services.ec2.model.DescribeAccountAttributesRequest
-import aws.sdk.kotlin.services.ec2.model.Ec2Exception
-import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.describe_account.import]
 
 
@@ -31,14 +29,13 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun main() {
 
-    val ec2Client = Ec2Client{region = "us-east-1"}
-    describeEC2Account(ec2Client)
+   describeEC2Account()
 }
 
 // snippet-start:[ec2.kotlin.describe_account.main]
-suspend fun describeEC2Account(ec2: Ec2Client) {
+suspend fun describeEC2Account() {
 
-    try {
+    Ec2Client { region = "us-west-2" }.use { ec2 ->
         val accountResults = ec2.describeAccountAttributes(DescribeAccountAttributesRequest{})
         accountResults.accountAttributes?.forEach { attribute ->
             println("The name of the attribute is ${attribute.attributeName}")
@@ -47,10 +44,6 @@ suspend fun describeEC2Account(ec2: Ec2Client) {
                     println("The value of the attribute is ${myValue.attributeValue}")
                 }
         }
-
-    } catch (e: Ec2Exception) {
-        println(e.message)
-        exitProcess(0)
     }
  }
 // snippet-end:[ec2.kotlin.describe_account.main]

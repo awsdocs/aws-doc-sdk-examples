@@ -21,7 +21,6 @@ import aws.sdk.kotlin.services.emr.model.StepConfig
 import aws.sdk.kotlin.services.emr.model.ActionOnFailure
 import aws.sdk.kotlin.services.emr.model.RunJobFlowRequest
 import aws.sdk.kotlin.services.emr.model.RunJobFlowResponse
-import aws.sdk.kotlin.services.emr.model.EmrException
 import kotlin.system.exitProcess
 //snippet-end:[erm.kotlin.create_cluster.import]
 
@@ -57,14 +56,12 @@ suspend fun main(args:Array<String>) {
     val keys = args[2]
     val logUri = args[3]
     val name = args[4]
-    val emrClient = EmrClient{region = "us-west-2" }
-    val jobFlowId: String = createAppCluster(emrClient, jar, myClass, keys, logUri, name).toString()
+    val jobFlowId: String = createAppCluster(jar, myClass, keys, logUri, name).toString()
     println("The job flow id is $jobFlowId")
 }
 
 //snippet-start:[erm.kotlin.create_cluster.main]
 suspend fun createAppCluster(
-    emrClient: EmrClient,
     jarVal: String?,
     myClassVal: String?,
     keysVal: String?,
@@ -72,7 +69,6 @@ suspend fun createAppCluster(
     nameVal: String?
 ): String? {
 
-    try {
         val jarStepConfig = HadoopJarStepConfig {
             jar = jarVal
             mainClass = myClassVal
@@ -108,7 +104,7 @@ suspend fun createAppCluster(
              slaveInstanceType = "m4.large"
         }
 
-        val jobFlowRequest = RunJobFlowRequest {
+        val request = RunJobFlowRequest {
             name = nameVal
             releaseLabel = "emr-5.20.0"
             steps = listOf(enabledebugging)
@@ -119,12 +115,9 @@ suspend fun createAppCluster(
             instances = instancesConfig
         }
 
-        val response: RunJobFlowResponse = emrClient.runJobFlow(jobFlowRequest)
-        return response.jobFlowId
-
-    } catch (e: EmrException) {
-        println(e.message)
-        exitProcess(0)
-    }
+        EmrClient { region = "us-west-2" }.use { emrClient ->
+            val response: RunJobFlowResponse = emrClient.runJobFlow(request)
+            return response.jobFlowId
+        }
  }
 //snippet-end:[erm.kotlin.create_cluster.main]

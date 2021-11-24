@@ -15,7 +15,6 @@ package com.kotlin.gateway
 
 // snippet-start:[apigateway.kotlin.get_deployments.import]
 import aws.sdk.kotlin.services.apigateway.ApiGatewayClient
-import aws.sdk.kotlin.services.apigateway.model.ApiGatewayException
 import aws.sdk.kotlin.services.apigateway.model.GetDeploymentsRequest
 import kotlin.system.exitProcess
 // snippet-end:[apigateway.kotlin.get_deployments.import]
@@ -36,28 +35,22 @@ suspend fun main(args:Array<String>) {
    }
 
     val restApiId = args[0]
-    val apiGatewayClient = ApiGatewayClient{region ="us-east-1"}
-    getAllDeployments(apiGatewayClient, restApiId)
-    apiGatewayClient.close()
+    getAllDeployments(restApiId)
 }
 
 // snippet-start:[apigateway.kotlin.get_deployments.main]
-suspend fun getAllDeployments(apiGateway: ApiGatewayClient, restApiIdVal: String?) {
-    try {
-        val request = GetDeploymentsRequest {
-            restApiId = restApiIdVal
-        }
+suspend fun getAllDeployments(restApiIdVal: String?) {
 
+    val request = GetDeploymentsRequest {
+        restApiId = restApiIdVal
+    }
+
+    ApiGatewayClient { region = "us-east-1" }.use { apiGateway ->
         val response = apiGateway.getDeployments(request)
         response.items?.forEach { deployment ->
             println("The deployment id is ${deployment.id}")
             println("The deployment description is ${deployment.description}")
         }
-
-    } catch (e: ApiGatewayException) {
-        println(e.message)
-        apiGateway.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[apigateway.kotlin.get_deployments.main]

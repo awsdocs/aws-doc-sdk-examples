@@ -19,8 +19,8 @@ import aws.sdk.kotlin.services.ecs.model.ExecuteCommandConfiguration
 import aws.sdk.kotlin.services.ecs.model.ExecuteCommandLogging
 import aws.sdk.kotlin.services.ecs.model.ClusterConfiguration
 import aws.sdk.kotlin.services.ecs.model.CreateClusterRequest
-import aws.sdk.kotlin.services.ecs.model.EcsException
 import kotlin.system.exitProcess
+
 // snippet-end:[ecs.kotlin.create_cluster.import]
 
 /**
@@ -48,36 +48,29 @@ suspend fun main(args:Array<String>){
     }
 
     val clusterName = args[0]
-    val ecsClient = EcsClient{ region = "us-east-1"}
-    val clusterArn = createGivenCluster(ecsClient, clusterName)
+    val clusterArn = createGivenCluster(clusterName)
     println("The cluster ARN is $clusterArn")
-    ecsClient.close()
 }
 
 // snippet-start:[ecs.kotlin.create_cluster.main]
-suspend fun createGivenCluster(ecsClient: EcsClient, clusterNameVal: String?): String? {
+suspend fun createGivenCluster(clusterNameVal: String?): String? {
 
-    try {
         val commandConfiguration = ExecuteCommandConfiguration {
-            logging = ExecuteCommandLogging.fromValue("Default")
+            logging = ExecuteCommandLogging.Default
         }
 
         val clusterConfiguration = ClusterConfiguration {
             executeCommandConfiguration = commandConfiguration
-           }
+        }
 
-        val clusterRequest = CreateClusterRequest {
+        val request = CreateClusterRequest {
             clusterName = clusterNameVal
             configuration = clusterConfiguration
         }
 
-        val response = ecsClient.createCluster(clusterRequest)
-        return response.cluster?.clusterArn
-
-    } catch (ex: EcsException) {
-        println(ex.message)
-        ecsClient.close()
-        exitProcess(0)
+        EcsClient { region = "us-east-1" }.use { ecsClient ->
+         val response = ecsClient.createCluster(request)
+         return response.cluster?.clusterArn
     }
 }
 

@@ -20,7 +20,6 @@ import aws.sdk.kotlin.services.emr.model.StepConfig
 import aws.sdk.kotlin.services.emr.model.ActionOnFailure
 import aws.sdk.kotlin.services.emr.model.JobFlowInstancesConfig
 import aws.sdk.kotlin.services.emr.model.RunJobFlowRequest
-import aws.sdk.kotlin.services.emr.model.EmrException
 import kotlin.system.exitProcess
 //snippet-end:[erm.kotlin.create_spark.import]
 
@@ -57,14 +56,12 @@ suspend fun main(args:Array<String>) {
     val keys = args[2]
     val logUri = args[3]
     val name = args[4]
-    val emrClient = EmrClient{region = "us-west-2" }
-    val jobFlowId: String = createSparkCluster(emrClient, jar, myClass, keys, logUri, name).toString()
+    val jobFlowId: String = createSparkCluster(jar, myClass, keys, logUri, name).toString()
     println("The job flow id is $jobFlowId")
 }
 
 //snippet-start:[erm.kotlin.create_spark.main]
 suspend fun createSparkCluster(
-    emrClient: EmrClient,
     jarVal: String?,
     myClass: String?,
     keysVal: String?,
@@ -72,7 +69,6 @@ suspend fun createSparkCluster(
     nameVal: String?
 ): String? {
 
-    try {
         val jarStepConfig = HadoopJarStepConfig {
             jar = jarVal
             mainClass = myClass
@@ -97,7 +93,7 @@ suspend fun createSparkCluster(
             slaveInstanceType = "m4.large"
         }
 
-        val jobFlowRequest = RunJobFlowRequest {
+        val request = RunJobFlowRequest {
             name = nameVal
             releaseLabel = "emr-5.20.0"
             steps = listOf(enabledebugging)
@@ -108,12 +104,10 @@ suspend fun createSparkCluster(
             instances = instancesConfig
         }
 
-        val response = emrClient.runJobFlow(jobFlowRequest)
-        return response.jobFlowId
-
-    } catch (e: EmrException) {
-        println(e.message)
-        exitProcess(0)
+        EmrClient { region = "us-west-2" }.use { emrClient ->
+            val response = emrClient.runJobFlow(request)
+            return response.jobFlowId
+        }
     }
-}
+
 //snippet-end:[erm.kotlin.create_spark.main]

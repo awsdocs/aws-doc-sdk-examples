@@ -15,7 +15,6 @@ package com.kotlin.pipeline
 
 // snippet-start:[pipeline.kotlin.start_pipeline.import]
 import aws.sdk.kotlin.services.codepipeline.CodePipelineClient
-import aws.sdk.kotlin.services.codepipeline.model.CodePipelineException
 import aws.sdk.kotlin.services.codepipeline.model.StartPipelineExecutionRequest
 import kotlin.system.exitProcess
 // snippet-end:[pipeline.kotlin.start_pipeline.import]
@@ -37,34 +36,24 @@ suspend fun main(args:Array<String>) {
            name - the name of the pipeline. 
     """
 
-
     if (args.size != 1) {
          println(usage)
          exitProcess(1)
      }
 
     val name = args[0]
-    val pipelineClient = CodePipelineClient{region = "us-east-1"}
-    executePipeline( pipelineClient, name)
-    pipelineClient.close()
-}
+    executePipeline(name)
+ }
 
 // snippet-start:[pipeline.kotlin.start_pipeline.main]
-suspend fun executePipeline( pipelineClient:CodePipelineClient, nameVal:String) {
+suspend fun executePipeline( nameVal:String) {
 
-    try {
-
-        val pipelineExecutionRequest = StartPipelineExecutionRequest {
-            name = nameVal
-        }
-
-        val response = pipelineClient.startPipelineExecution (pipelineExecutionRequest)
+    val request = StartPipelineExecutionRequest {
+        name = nameVal
+    }
+    CodePipelineClient { region = "us-east-1" }.use { pipelineClient ->
+        val response = pipelineClient.startPipelineExecution (request)
         println("Piepline ${response.pipelineExecutionId} was successfully executed")
-
-    } catch (e: CodePipelineException) {
-        println(e.message)
-        pipelineClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[pipeline.kotlin.start_pipeline.main]

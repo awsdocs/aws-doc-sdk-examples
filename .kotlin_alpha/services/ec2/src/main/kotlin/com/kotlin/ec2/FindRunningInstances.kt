@@ -17,8 +17,6 @@ package com.kotlin.ec2
 import aws.sdk.kotlin.services.ec2.Ec2Client
 import aws.sdk.kotlin.services.ec2.model.DescribeInstancesRequest
 import aws.sdk.kotlin.services.ec2.model.Filter
-import aws.sdk.kotlin.services.ec2.model.Ec2Exception
-import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.running_instances.import]
 
 /**
@@ -30,33 +28,28 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
-    val ec2Client = Ec2Client{region = "us-east-1"}
-    findRunningEC2Instances(ec2Client)
+    findRunningEC2Instances()
 }
 
 // snippet-start:[ec2.kotlin.running_instances.main]
-suspend fun findRunningEC2Instances(ec2: Ec2Client) {
-    try {
+suspend fun findRunningEC2Instances() {
+
         val filter = Filter {
                 name = "instance-state-name"
                 values = listOf("running")
          }
 
         val request = DescribeInstancesRequest {
-                filters = listOf(filter)
-         }
+           filters = listOf(filter)
+        }
 
-        val response = ec2.describeInstances(request)
-        response.reservations?.forEach { reservation ->
-            reservation.instances?.forEach { instance ->
+        Ec2Client { region = "us-west-2" }.use { ec2 ->
+            val response = ec2.describeInstances(request)
+            response.reservations?.forEach { reservation ->
+                reservation.instances?.forEach { instance ->
                 println("Found Reservation with id: ${instance.instanceId}, type: ${instance.instanceType} state: ${instance.state?.name} and monitoring state: ${instance.monitoring?.state}")
             }
         }
-
-    } catch (e: Ec2Exception) {
-        println(e.message)
-        exitProcess(0)
     }
 }
 // snippet-end:[ec2.kotlin.running_instances.main]

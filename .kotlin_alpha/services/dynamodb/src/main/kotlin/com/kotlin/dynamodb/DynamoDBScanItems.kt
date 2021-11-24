@@ -17,7 +17,6 @@ package com.kotlin.dynamodb
 // snippet-start:[dynamodb.kotlin.scan_items.import]
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.dynamodb.model.ScanRequest
-import aws.sdk.kotlin.services.dynamodb.model.DynamoDbException
 import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.scan_items.import]
 
@@ -44,31 +43,24 @@ suspend fun main(args: Array<String>) {
        }
 
     val tableName = args[0]
-    val ddb = DynamoDbClient{ region = "us-east-1" }
-    scanItems(ddb, tableName)
-    ddb.close()
+    scanItems(tableName)
 }
 
 // snippet-start:[dynamodb.kotlin.scan_items.main]
-suspend fun scanItems(ddb: DynamoDbClient, tableNameVal: String) {
-        try {
+suspend fun scanItems(tableNameVal: String) {
 
-            val scanRequest = ScanRequest {
-                tableName = tableNameVal
-            }
+    val request = ScanRequest {
+        tableName = tableNameVal
+    }
 
-            val response = ddb.scan(scanRequest)
+    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+            val response = ddb.scan(request)
             response.items?.forEach { item ->
                  item.keys.forEach { key ->
                      println("The key name is $key\n")
                      println("The value is ${item[key]}")
                 }
             }
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            ddb.close()
-            exitProcess(0)
         }
  }
 // snippet-end:[dynamodb.kotlin.scan_items.main]

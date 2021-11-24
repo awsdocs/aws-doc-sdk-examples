@@ -14,35 +14,26 @@
 package com.kotlin.athena
 
 //snippet-start:[athena.kotlin.ListNamedQueryExecutionsExample.import]
-import aws.sdk.kotlin.runtime.AwsServiceException
 import aws.sdk.kotlin.services.athena.AthenaClient
 import aws.sdk.kotlin.services.athena.model.ListQueryExecutionsRequest
-import kotlin.system.exitProcess
 //snippet-end:[athena.kotlin.ListNamedQueryExecutionsExample.import]
 
 suspend fun main() {
-
-    val athenaClient = AthenaClient { region = "us-west-2" }
-    listQueryIds(athenaClient)
-    athenaClient.close()
+   listQueryIds()
 }
 
 //snippet-start:[athena.kotlin.ListNamedQueryExecutionsExample.main]
- suspend fun listQueryIds(athenaClient: AthenaClient) {
-        try {
+ suspend fun listQueryIds() {
 
-            val listQueryExecutionsRequest = ListQueryExecutionsRequest{
-                maxResults = 10
-            }
-            val listQueryExecutionResponses =  athenaClient.listQueryExecutions(listQueryExecutionsRequest)
-            listQueryExecutionResponses.queryExecutionIds?.forEach { queries ->
-                println("The value is $queries")
-            }
-
-        } catch (ex: AwsServiceException) {
-            println(ex.message)
-            athenaClient.close()
-            exitProcess(0)
+        val request = ListQueryExecutionsRequest{
+            maxResults = 10
         }
-    }
+
+        AthenaClient { region = "us-west-2" }.use { athenaClient ->
+                val response =  athenaClient.listQueryExecutions(request)
+                response.queryExecutionIds?.forEach { queries ->
+                   println("The value is $queries")
+                }
+           }
+       }
 //snippet-end:[athena.kotlin.ListNamedQueryExecutionsExample.main]

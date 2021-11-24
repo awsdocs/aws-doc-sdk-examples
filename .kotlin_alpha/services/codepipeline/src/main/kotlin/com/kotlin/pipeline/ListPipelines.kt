@@ -16,9 +16,7 @@ package com.kotlin.pipeline
 
 // snippet-start:[pipeline.kotlin.list_pipelines.import]
 import aws.sdk.kotlin.services.codepipeline.CodePipelineClient
-import aws.sdk.kotlin.services.codepipeline.model.CodePipelineException
 import aws.sdk.kotlin.services.codepipeline.model.ListPipelinesRequest
-import kotlin.system.exitProcess
 // snippet-end:[pipeline.kotlin.list_pipelines.import]
 
 /**
@@ -29,28 +27,18 @@ For information, see this documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-
 suspend fun main() {
-
-    val pipelineClient = CodePipelineClient { region = "us-east-1" }
-    getAllPipelines(pipelineClient)
-    pipelineClient.close()
+    getAllPipelines()
 }
 
 // snippet-start:[pipeline.kotlin.list_pipelines.main]
-suspend  fun getAllPipelines(pipelineClient: CodePipelineClient) {
+suspend  fun getAllPipelines() {
 
-    try {
+    CodePipelineClient { region = "us-east-1" }.use { pipelineClient ->
         val response = pipelineClient.listPipelines(ListPipelinesRequest {})
         response.pipelines?.forEach { pipeline ->
             println("The name of the pipeline is ${pipeline.name}")
         }
-
-    } catch (e: CodePipelineException) {
-        println(e.message)
-        pipelineClient.close()
-        exitProcess(0)
     }
-
 }
 // snippet-end:[pipeline.kotlin.list_pipelines.main]

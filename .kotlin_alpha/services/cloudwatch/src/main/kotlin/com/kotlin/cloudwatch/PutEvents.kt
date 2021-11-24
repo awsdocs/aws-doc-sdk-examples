@@ -14,7 +14,6 @@
 package com.kotlin.cloudwatch
 
 // snippet-start:[cloudwatch.kotlin.put_events.import]
-import aws.sdk.kotlin.services.cloudwatch.model.CloudWatchException
 import aws.sdk.kotlin.services.cloudwatchevents.CloudWatchEventsClient
 import aws.sdk.kotlin.services.cloudwatchevents.model.PutEventsRequest
 import aws.sdk.kotlin.services.cloudwatchevents.model.PutEventsRequestEntry
@@ -37,15 +36,13 @@ suspend fun main(args:Array<String>) {
    }
 
     val resourceArn = args[0]
-    val cwEventsClient = CloudWatchEventsClient{region="us-east-1"}
-    putCWEvents(cwEventsClient, resourceArn)
+    putCWEvents(resourceArn)
 }
 
 // snippet-start:[cloudwatch.kotlin.put_events.main]
-suspend fun putCWEvents(cwe: CloudWatchEventsClient, resourceArn: String) {
-    try {
-        val eventDetails = "{ \"key1\": \"value1\", \"key2\": \"value2\" }"
+suspend fun putCWEvents(resourceArn: String) {
 
+        val eventDetails = "{ \"key1\": \"value1\", \"key2\": \"value2\" }"
         val requestEntry = PutEventsRequestEntry {
             detail = eventDetails
             detailType = "sampleSubmitted"
@@ -53,17 +50,13 @@ suspend fun putCWEvents(cwe: CloudWatchEventsClient, resourceArn: String) {
             source = "aws-sdk-java-cloudwatch-example"
         }
 
-        val request = PutEventsRequest {
-            entries = listOf(requestEntry)
-        }
+       val request = PutEventsRequest {
+           entries = listOf(requestEntry)
+       }
 
+       CloudWatchEventsClient { region = "us-west-2" }.use { cwe ->
         cwe.putEvents(request)
         println("Successfully put CloudWatch event")
-
-    } catch (ex: CloudWatchException) {
-        println(ex.message)
-        cwe.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[cloudwatch.kotlin.put_events.main]

@@ -15,7 +15,6 @@ package com.kotlin.ec2
 // snippet-start:[ec2.kotlin.describe_instances_tags.import]
 import aws.sdk.kotlin.services.ec2.Ec2Client
 import aws.sdk.kotlin.services.ec2.model.DescribeTagsRequest
-import aws.sdk.kotlin.services.ec2.model.Ec2Exception
 import aws.sdk.kotlin.services.ec2.model.Filter
 import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.describe_instances_tags.import]
@@ -44,32 +43,27 @@ suspend fun main(args:Array<String>) {
     }
 
     val resourceIdVal = args[0]
-    val ec2Client = Ec2Client{region = "us-west-2"}
-    describeEC2Tags(ec2Client, resourceIdVal)
-    ec2Client.close()
+    describeEC2Tags(resourceIdVal)
 }
 
 // snippet-start:[ec2.kotlin.describe_instances_tags.main]
-suspend fun describeEC2Tags(ec2: Ec2Client, resourceIdVal: String) {
-    try {
+suspend fun describeEC2Tags(resourceIdVal: String) {
+
         val filter = Filter {
             name = "resource-id"
             values = listOf(resourceIdVal)
         }
 
-        val request  = DescribeTagsRequest {
+        val request = DescribeTagsRequest {
             filters = listOf(filter)
         }
 
-        val response =  ec2.describeTags(request)
-        response.tags?.forEach { tag ->
+        Ec2Client { region = "us-west-2" }.use { ec2 ->
+         val response =  ec2.describeTags(request)
+         response.tags?.forEach { tag ->
             println("Tag key is ${tag.key}")
             println("Tag value is ${tag.value}")
         }
-
-    } catch (e: Ec2Exception) {
-        println(e.message)
-        exitProcess(0)
     }
 }
 // snippet-end:[ec2.kotlin.describe_instances_tags.main]

@@ -14,12 +14,14 @@ package com.kotlin.emr
 
 //snippet-start:[erm.kotlin.add_steps.import]
 import aws.sdk.kotlin.services.emr.EmrClient
-import aws.sdk.kotlin.services.emr.model.*
+import aws.sdk.kotlin.services.emr.model.HadoopJarStepConfig
+import aws.sdk.kotlin.services.emr.model.StepConfig
+import aws.sdk.kotlin.services.emr.model.AddJobFlowStepsRequest
 import kotlin.system.exitProcess
 //snippet-end:[erm.kotlin.add_steps.import]
 
 /**
-To run this Kotlin code example, ensure that you have setup your development environment,
+To run this Kotlin code example, ensure that you have set up your development environment,
 including your credentials.
 
 For information, see this documentation topic:
@@ -46,14 +48,13 @@ suspend fun main(args:Array<String>) {
     val jar = args[0]
     val myClass = args[1]
     val jobFlowId = args[2]
-    val emrClient = EmrClient{region = "us-west-2" }
-    addNewStep(emrClient, jobFlowId, jar, myClass)
+    addNewStep(jobFlowId, jar, myClass)
 
 }
 
 //snippet-start:[erm.kotlin.add_steps.main]
-suspend fun addNewStep(emrClient: EmrClient, jobFlowIdVal: String?, jarVal: String?, myClass: String?) {
-    try {
+suspend fun addNewStep(jobFlowIdVal: String?, jarVal: String?, myClass: String?) {
+
         val jarStepConfig = HadoopJarStepConfig {
             jar = jarVal
             mainClass = myClass
@@ -64,17 +65,14 @@ suspend fun addNewStep(emrClient: EmrClient, jobFlowIdVal: String?, jarVal: Stri
             name = "Run a bash script"
         }
 
-        val jobFlowStepsRequest = AddJobFlowStepsRequest {
+        val request = AddJobFlowStepsRequest {
             jobFlowId = jobFlowIdVal
             steps = listOf(stepConfig)
         }
 
-        emrClient.addJobFlowSteps(jobFlowStepsRequest)
-        println("You have successfully added a step!")
-
-    } catch (e: EmrException) {
-        println(e.message)
-        exitProcess(0)
-    }
+        EmrClient { region = "us-west-2" }.use { emrClient ->
+            emrClient.addJobFlowSteps(request)
+            println("You have successfully added a step!")
+        }
 }
 //snippet-end:[erm.kotlin.add_steps.main]

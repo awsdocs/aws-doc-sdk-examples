@@ -17,7 +17,6 @@ package com.kotlin.cloudtrail
 //snippet-start:[cloudtrail.kotlin.create_trail.import]
 import aws.sdk.kotlin.services.cloudtrail.CloudTrailClient
 import aws.sdk.kotlin.services.cloudtrail.model.CreateTrailRequest
-import aws.sdk.kotlin.services.cloudtrail.model.CloudTrailException
 import kotlin.system.exitProcess
 //snippet-end:[cloudtrail.kotlin.create_trail.import]
 
@@ -37,32 +36,23 @@ suspend fun main(args: Array<String>) {
         println(usage)
         exitProcess(0)
     }
-
     val trailName = args[0]
     val s3BucketName = args[1]
-    val cloudTrailClient = CloudTrailClient{ region = "us-east-1" }
-    createNewTrail(cloudTrailClient, trailName, s3BucketName)
-    cloudTrailClient.close()
-}
+    createNewTrail(trailName, s3BucketName)
+    }
 
     //snippet-start:[cloudtrail.kotlin.create_trail.main]
-    suspend fun createNewTrail(cloudTrailClient: CloudTrailClient, trailName: String, s3BucketNameVal: String) {
+    suspend fun createNewTrail(trailName: String, s3BucketNameVal: String) {
 
-        try {
+        val request = CreateTrailRequest {
+            name = trailName
+            s3BucketName = s3BucketNameVal
+            isMultiRegionTrail = true
+        }
 
-            val trailRequest = CreateTrailRequest {
-                name =trailName
-                s3BucketName =s3BucketNameVal
-                isMultiRegionTrail = true
-            }
-
-            val trailResponse = cloudTrailClient.createTrail(trailRequest)
+        CloudTrailClient { region = "us-east-1" }.use { cloudTrail ->
+            val trailResponse = cloudTrail.createTrail(request)
             println("The trail ARN is ${trailResponse.trailArn}")
-
-        } catch (ex: CloudTrailException) {
-            println(ex.message)
-            cloudTrailClient.close()
-            exitProcess(0)
         }
     }
 //snippet-end:[cloudtrail.kotlin.create_trail.main]

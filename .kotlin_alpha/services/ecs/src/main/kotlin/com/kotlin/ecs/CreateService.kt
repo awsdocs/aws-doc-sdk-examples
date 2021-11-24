@@ -19,7 +19,6 @@ import aws.sdk.kotlin.services.ecs.model.AwsVpcConfiguration
 import aws.sdk.kotlin.services.ecs.model.NetworkConfiguration
 import aws.sdk.kotlin.services.ecs.model.CreateServiceRequest
 import aws.sdk.kotlin.services.ecs.model.LaunchType
-import aws.sdk.kotlin.services.ecs.model.EcsException
 import kotlin.system.exitProcess
 // snippet-end:[ecs.kotlin.create_service.import]
 
@@ -55,15 +54,12 @@ suspend fun main(args:Array<String>){
     val securityGroups = args[2]
     val subnets = args[3]
     val taskDefinition = args[4]
-    val ecsClient = EcsClient{ region = "us-east-1"}
-    val serviceArn = createNewService(ecsClient, clusterName, serviceName, securityGroups, subnets, taskDefinition )
+    val serviceArn = createNewService(clusterName, serviceName, securityGroups, subnets, taskDefinition )
     println("The ARN of the service is $serviceArn")
-    ecsClient.close()
 }
 
 // snippet-start:[ecs.kotlin.create_service.main]
 suspend fun createNewService(
-    ecsClient: EcsClient,
     clusterNameVal: String,
     serviceNameVal: String,
     securityGroupsVal: String,
@@ -71,7 +67,6 @@ suspend fun createNewService(
     taskDefinitionVal: String
     ): String? {
 
-    try {
 
         val vpcConfiguration = AwsVpcConfiguration {
             securityGroups = listOf(securityGroupsVal)
@@ -82,7 +77,7 @@ suspend fun createNewService(
             awsvpcConfiguration = vpcConfiguration
         }
 
-        val serviceRequest = CreateServiceRequest {
+        val request = CreateServiceRequest {
             cluster = clusterNameVal
             networkConfiguration = configuration
             desiredCount = 1
@@ -91,13 +86,9 @@ suspend fun createNewService(
             taskDefinition = taskDefinitionVal
         }
 
-        val response = ecsClient.createService(serviceRequest)
-        return response.service?.serviceArn
-
-    } catch (ex: EcsException) {
-        println(ex.message)
-        ecsClient.close()
-        exitProcess(0)
-    }
+        EcsClient { region = "us-east-1" }.use { ecsClient ->
+          val response = ecsClient.createService(request)
+          return response.service?.serviceArn
+        }
 }
 // snippet-end:[ecs.kotlin.create_service.main]

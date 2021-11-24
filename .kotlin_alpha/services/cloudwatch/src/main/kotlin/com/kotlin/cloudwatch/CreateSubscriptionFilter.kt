@@ -16,7 +16,6 @@ package com.kotlin.cloudwatch
 // snippet-start:[cloudwatch.kotlin.create_filter.import]
 import aws.sdk.kotlin.services.cloudwatchlogs.CloudWatchLogsClient
 import aws.sdk.kotlin.services.cloudwatchlogs.model.PutSubscriptionFilterRequest
-import aws.sdk.kotlin.services.cloudwatch.model.CloudWatchException
 import kotlin.system.exitProcess
 // snippet-end:[cloudwatch.kotlin.create_filter.import]
 
@@ -38,40 +37,26 @@ suspend fun main(args:Array<String>) {
         println(usage)
         exitProcess(0)
     }
-
     val filter =  args[0]
     val pattern = args[1]
     val logGroup = args[2]
     val functionArn = args[3]
-
-    val cwlClient = CloudWatchLogsClient{region="us-west-2"}
-    putSubFilters(cwlClient, filter, pattern, logGroup, functionArn)
-    cwlClient.close()
-}
+    putSubFilters(filter, pattern, logGroup, functionArn)
+  }
 
 // snippet-start:[cloudwatch.kotlin.create_filter.main]
-suspend fun putSubFilters(
-    cwlClient: CloudWatchLogsClient,
-    filter: String?,
-    pattern: String?,
-    logGroup: String?,
-    functionArn: String?
-) {
-    try {
-        val request = PutSubscriptionFilterRequest {
-            filterName = filter
-            filterPattern = pattern
-            logGroupName = logGroup
-            destinationArn = functionArn
-        }
+suspend fun putSubFilters(filter: String, pattern: String, logGroup: String, functionArn: String) {
 
-        cwlClient.putSubscriptionFilter(request)
-        println("Successfully created CloudWatch logs subscription filter named $filter")
-
-    } catch (ex: CloudWatchException) {
-        println(ex.message)
-        cwlClient.close()
-        exitProcess(0)
+    val request = PutSubscriptionFilterRequest {
+        filterName = filter
+        filterPattern = pattern
+        logGroupName = logGroup
+        destinationArn = functionArn
     }
-}
+
+    CloudWatchLogsClient { region = "us-west-2" }.use { cwlClient ->
+            cwlClient.putSubscriptionFilter(request)
+            println("Successfully created CloudWatch logs subscription filter named $filter")
+           }
+    }
 // snippet-end:[cloudwatch.kotlin.create_filter.main]

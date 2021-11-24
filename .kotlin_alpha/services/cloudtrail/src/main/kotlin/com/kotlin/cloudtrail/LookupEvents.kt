@@ -17,35 +17,25 @@ package com.kotlin.cloudtrail
 //snippet-start:[cloudtrail.kotlin.events.import]
 import aws.sdk.kotlin.services.cloudtrail.CloudTrailClient
 import aws.sdk.kotlin.services.cloudtrail.model.LookupEventsRequest
-import aws.sdk.kotlin.services.cloudtrail.model.CloudTrailException
-import kotlin.system.exitProcess
 //snippet-end:[cloudtrail.kotlin.events.import]
 
 suspend fun main() {
-
-    val cloudTrailClient = CloudTrailClient{ region = "us-east-1" }
-    lookupAllEvents(cloudTrailClient)
-    cloudTrailClient.close()
+   lookupAllEvents()
 }
 
 //snippet-start:[cloudtrail.kotlin.events.main]
-suspend fun lookupAllEvents(cloudTrailClient: CloudTrailClient) {
-        try {
+suspend fun lookupAllEvents() {
 
-            val eventsRequest = LookupEventsRequest {
-                maxResults =20
-            }
+    val request = LookupEventsRequest {
+        maxResults =20
+    }
 
-            val response = cloudTrailClient.lookupEvents(eventsRequest)
+    CloudTrailClient { region = "us-east-1" }.use { cloudTrail ->
+           val response = cloudTrail.lookupEvents(request)
             response.events?.forEach { event ->
                 println("Event name is ${event.eventName}")
                 println("The event source is ${event.eventSource}")
             }
-
-        } catch (ex: CloudTrailException) {
-            println(ex.message)
-            cloudTrailClient.close()
-            exitProcess(0)
         }
   }
 //snippet-end:[cloudtrail.kotlin.events.main]

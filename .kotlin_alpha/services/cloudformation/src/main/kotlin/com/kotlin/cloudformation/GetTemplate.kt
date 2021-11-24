@@ -18,7 +18,6 @@ package com.kotlin.cloudformation
 // snippet-start:[cf.kotlin._template.import]
 import aws.sdk.kotlin.services.cloudformation.CloudFormationClient
 import aws.sdk.kotlin.services.cloudformation.model.GetTemplateRequest
-import aws.sdk.kotlin.services.cloudformation.model.CloudFormationException
 import kotlin.system.exitProcess
 // snippet-end:[cf.kotlin._template.import]
 
@@ -38,26 +37,20 @@ suspend fun main(args:Array<String>) {
     }
 
     val stackName = args[0]
-    val cfClient = CloudFormationClient{region="us-east-1"}
-    getSpecificTemplate(cfClient, stackName)
-    cfClient.close()
-}
+    getSpecificTemplate(stackName)
+ }
 
 // snippet-start:[cf.kotlin._template.main]
-suspend fun getSpecificTemplate(cfClient: CloudFormationClient, stackNameVal: String) {
-    try {
-        val typeRequest = GetTemplateRequest {
+suspend fun getSpecificTemplate( stackNameVal: String) {
+
+        val request = GetTemplateRequest {
             stackName = stackNameVal
         }
 
-        val response = cfClient.getTemplate(typeRequest)
-        val body = response.templateBody
-        println(body)
-
-    } catch (e: CloudFormationException) {
-        println(e.message)
-        cfClient.close()
-        exitProcess(0)
-    }
+        CloudFormationClient { region = "us-east-1" }.use { cfClient ->
+         val response = cfClient.getTemplate(request)
+         val body = response.templateBody
+         println(body)
+        }
 }
 // snippet-end:[cf.kotlin._template.main]

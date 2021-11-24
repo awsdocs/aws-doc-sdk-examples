@@ -15,11 +15,9 @@ package com.kotlin.pipeline
 
 // snippet-start:[pipeline.kotlin.list_pipeline_exe.import]
 import aws.sdk.kotlin.services.codepipeline.CodePipelineClient
-import aws.sdk.kotlin.services.codepipeline.model.CodePipelineException
 import aws.sdk.kotlin.services.codepipeline.model.ListPipelineExecutionsRequest
 import kotlin.system.exitProcess
 // snippet-end:[pipeline.kotlin.list_pipeline_exe.import]
-
 
 suspend fun main(args:Array<String>) {
 
@@ -36,29 +34,23 @@ suspend fun main(args:Array<String>) {
     }
 
     val name = args[0]
-    val  pipelineClient = CodePipelineClient{region = "us-east-1"}
-    listExecutions(pipelineClient, name)
-    pipelineClient.close()
-}
+    listExecutions(name)
+    }
 
 // snippet-start:[pipeline.kotlin.list_pipeline_exe.main]
-suspend fun listExecutions(pipelineClient: CodePipelineClient, name: String?) {
-    try {
-        val executionsRequest = ListPipelineExecutionsRequest {
-            maxResults = 10
-            pipelineName = name
-        }
+suspend fun listExecutions(name: String?) {
 
-        val response = pipelineClient.listPipelineExecutions(executionsRequest)
+     val request = ListPipelineExecutionsRequest {
+         maxResults = 10
+         pipelineName = name
+     }
+
+     CodePipelineClient { region = "us-east-1" }.use { pipelineClient ->
+        val response = pipelineClient.listPipelineExecutions(request)
         response.pipelineExecutionSummaries?.forEach { exe ->
             println("The pipeline execution id is ${exe.pipelineExecutionId}")
             println("The execution status is ${exe.status}")
         }
-
-    } catch (e: CodePipelineException) {
-        println(e.message)
-        pipelineClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[pipeline.kotlin.list_pipeline_exe.main]

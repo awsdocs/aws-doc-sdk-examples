@@ -17,8 +17,6 @@ package com.kotlin.ec2
 import aws.sdk.kotlin.services.ec2.Ec2Client
 import aws.sdk.kotlin.services.ec2.model.DescribeRegionsRequest
 import aws.sdk.kotlin.services.ec2.model.DescribeAvailabilityZonesRequest
-import aws.sdk.kotlin.services.ec2.model.Ec2Exception
-import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.describe_region_and_zones.import]
 
 /**
@@ -31,15 +29,13 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun main() {
 
-    val ec2Client = Ec2Client{region = "us-east-1"}
-    describeEC2RegionsAndZones(ec2Client)
-    ec2Client.close()
+    describeEC2RegionsAndZones()
 }
 
 // snippet-start:[ec2.kotlin.describe_region_and_zones.main]
-suspend fun describeEC2RegionsAndZones(ec2: Ec2Client) {
+suspend fun describeEC2RegionsAndZones() {
 
-    try {
+    Ec2Client { region = "us-west-2" }.use { ec2 ->
         val regionsResponse = ec2.describeRegions(DescribeRegionsRequest{})
         regionsResponse.regions?.forEach { region ->
             println("Found Region ${region.regionName} with endpoint ${region.endpoint}")
@@ -49,10 +45,6 @@ suspend fun describeEC2RegionsAndZones(ec2: Ec2Client) {
         zonesResponse.availabilityZones?.forEach { zone ->
             println("Found Availability Zone ${zone.zoneName} with status  ${zone.state} in Region ${zone.regionName}")
         }
-
-     } catch (e: Ec2Exception) {
-        println(e.message)
-        exitProcess(0)
-    }
+     }
 }
 // snippet-end:[ec2.kotlin.describe_region_and_zones.main]

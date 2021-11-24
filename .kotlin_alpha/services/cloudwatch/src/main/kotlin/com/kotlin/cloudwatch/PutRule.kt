@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[PutRule.kt demonstrates how to creates a CloudWatch event-routing rule.]
+//snippet-sourcedescription:[PutRule.kt demonstrates how to create an Amazon CloudWatch event-routing rule.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon CloudWatch]
@@ -14,7 +14,6 @@
 package com.kotlin.cloudwatch
 
 // snippet-start:[cloudwatch.kotlin.put_rule.import]
-import aws.sdk.kotlin.services.cloudwatch.model.CloudWatchException
 import aws.sdk.kotlin.services.cloudwatchevents.CloudWatchEventsClient
 import aws.sdk.kotlin.services.cloudwatchevents.model.PutRuleRequest
 import aws.sdk.kotlin.services.cloudwatchevents.model.RuleState
@@ -39,26 +38,21 @@ suspend fun main(args:Array<String>) {
 
     val ruleName = args[0]
     val roleArn = args[1]
-    val cwEventsClient = CloudWatchEventsClient{region="us-west-2"}
-    putCWRule(cwEventsClient, ruleName, roleArn)
+    putCWRule(ruleName, roleArn)
 }
 // snippet-start:[cloudwatch.kotlin.put_rule.main]
-suspend fun putCWRule(cwe: CloudWatchEventsClient, ruleNameVal: String?, roleArnVal: String?) {
-    try {
-        val request = PutRuleRequest {
-             name = ruleNameVal
-             roleArn = roleArnVal
-             scheduleExpression = "rate(5 minutes)"
-             state = RuleState.Enabled
-        }
+suspend fun putCWRule(ruleNameVal: String, roleArnVal: String) {
 
+    val request =  PutRuleRequest {
+        name = ruleNameVal
+        roleArn = roleArnVal
+        scheduleExpression = "rate(5 minutes)"
+        state = RuleState.Enabled
+    }
+
+    CloudWatchEventsClient { region = "us-east-1" }.use { cwe ->
         val response = cwe.putRule(request)
         println( "Successfully created CloudWatch events ${roleArnVal}rule with ARN ${response.ruleArn}")
-
-    } catch (ex: CloudWatchException) {
-        println(ex.message)
-        cwe.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[cloudwatch.kotlin.put_rule.main]

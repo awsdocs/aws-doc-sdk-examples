@@ -17,7 +17,6 @@ import aws.sdk.kotlin.services.ec2.Ec2Client
 import aws.sdk.kotlin.services.ec2.model.AllocateAddressRequest
 import aws.sdk.kotlin.services.ec2.model.AssociateAddressRequest
 import aws.sdk.kotlin.services.ec2.model.DomainType
-import aws.sdk.kotlin.services.ec2.model.Ec2Exception
 import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.allocate_address.import]
 
@@ -39,7 +38,6 @@ suspend fun main(args:Array<String>) {
 
     Where:
         instanceId - an instance id value that you can obtain from the AWS Management Console.  
-    
     """
 
     if (args.size != 1) {
@@ -48,32 +46,28 @@ suspend fun main(args:Array<String>) {
     }
 
     val instanceId = args[0]
-    val ec2Client = Ec2Client{region = "us-west-2"}
-    val idValue = getAllocateAddress(ec2Client, instanceId)
+    val idValue = getAllocateAddress(instanceId)
     println("The id value for the allocated elastic IP address is $idValue")
 }
 
 // snippet-start:[ec2.kotlin.allocate_address.main]
-suspend fun getAllocateAddress(ec2: Ec2Client, instanceIdVal: String?): String? {
-    try {
+suspend fun getAllocateAddress(instanceIdVal: String?): String? {
+
         val allocateRequest = AllocateAddressRequest {
             domain = DomainType.Vpc
         }
 
-        val allocateResponse = ec2.allocateAddress(allocateRequest)
-        val allocationIdVal = allocateResponse.allocationId
+        Ec2Client { region = "us-west-2" }.use { ec2 ->
+          val allocateResponse = ec2.allocateAddress(allocateRequest)
+          val allocationIdVal = allocateResponse.allocationId
 
-        val associateRequest = AssociateAddressRequest {
-            instanceId = instanceIdVal
-            allocationId = allocationIdVal
-        }
+          val request = AssociateAddressRequest {
+                instanceId = instanceIdVal
+                allocationId = allocationIdVal
+          }
 
-        val associateResponse = ec2.associateAddress(associateRequest)
-        return associateResponse.associationId
-
-    } catch (e: Ec2Exception) {
-        println(e.message)
-        exitProcess(0)
+          val associateResponse = ec2.associateAddress(request)
+          return associateResponse.associationId
     }
  }
 // snippet-end:[ec2.kotlin.allocate_address.main]

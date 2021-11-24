@@ -16,7 +16,6 @@ package com.kotlin.ec2
 // snippet-start:[ec2.kotlin.describe_vpc.import]
 import aws.sdk.kotlin.services.ec2.Ec2Client
 import aws.sdk.kotlin.services.ec2.model.DescribeVpcsRequest
-import aws.sdk.kotlin.services.ec2.model.Ec2Exception
 import kotlin.system.exitProcess
 // snippet-end:[ec2.kotlin.describe_vpc.import]
 
@@ -45,26 +44,21 @@ suspend fun main(args:Array<String>) {
     }
 
     val vpcId = args[0]
-    val ec2Client = Ec2Client{region = "us-west-2"}
-    describeEC2Vpcs(ec2Client,vpcId )
-    ec2Client.close()
-}
+    describeEC2Vpcs(vpcId )
+ }
 
 // snippet-start:[ec2.kotlin.describe_vpc.main]
-suspend fun describeEC2Vpcs(ec2: Ec2Client, vpcId: String) {
-    try {
-        val request = DescribeVpcsRequest {
-            vpcIds = listOf(vpcId)
-        }
+suspend fun describeEC2Vpcs(vpcId: String) {
 
+    val request = DescribeVpcsRequest {
+        vpcIds = listOf(vpcId)
+    }
+
+    Ec2Client { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeVpcs(request)
         response.vpcs?.forEach { vpc ->
             println("Found VPC with id ${vpc.vpcId} VPC state ${vpc.state} and tenancy ${vpc.instanceTenancy}")
         }
-
-    } catch (e: Ec2Exception) {
-        println(e.message)
-        exitProcess(0)
     }
 }
 // snippet-end:[ec2.kotlin.describe_vpc.main]

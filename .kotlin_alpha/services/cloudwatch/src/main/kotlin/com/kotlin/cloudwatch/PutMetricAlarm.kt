@@ -20,13 +20,12 @@ import aws.sdk.kotlin.services.cloudwatch.model.PutMetricAlarmRequest
 import aws.sdk.kotlin.services.cloudwatch.model.ComparisonOperator
 import aws.sdk.kotlin.services.cloudwatch.model.StandardUnit
 import aws.sdk.kotlin.services.cloudwatch.model.Statistic
-import aws.sdk.kotlin.services.cloudwatch.model.CloudWatchException
 import kotlin.system.exitProcess
 // snippet-end:[cloudwatch.kotlin.put_metric_alarm.import]
 
 suspend fun main(args:Array<String>) {
 
-    val usage  = """
+    val usage = """
 
     Usage:
         <alarmName> <instanceId> 
@@ -43,41 +42,35 @@ suspend fun main(args:Array<String>) {
 
     val alarmName = args[0]
     val instanceId = args[1]
-    val cwClient = CloudWatchClient{region="us-east-1"}
-    putMetricAlarm(cwClient, alarmName, instanceId)
-    cwClient.close()
+    putMetricAlarm(alarmName, instanceId)
 }
 
 // snippet-start:[cloudwatch.kotlin.put_metric_alarm.main]
-suspend fun putMetricAlarm(cwClient: CloudWatchClient, alarmNameVal: String?, instanceIdVal: String?) {
-    try {
+suspend fun putMetricAlarm(alarmNameVal: String, instanceIdVal: String) {
+
         val dimensionOb = Dimension {
              name = "InstanceId"
              value = instanceIdVal
         }
 
-        val request = PutMetricAlarmRequest {
-            alarmName = alarmNameVal
-            comparisonOperator =  ComparisonOperator.GreaterThanThreshold
-            evaluationPeriods = 1
-            metricName = "CPUUtilization"
-            namespace = "AWS/EC2"
-            period = 60
-            statistic = Statistic.fromValue("Average")
-            threshold = 70.0
-            actionsEnabled = false
-            alarmDescription = "An Alarm created by the Kotlin SDK when server CPU utilization exceeds 70%"
-            unit  = StandardUnit.fromValue("Seconds")
-            dimensions = listOf(dimensionOb)
-        }
+       val request = PutMetricAlarmRequest {
+           alarmName = alarmNameVal
+           comparisonOperator =  ComparisonOperator.GreaterThanThreshold
+           evaluationPeriods = 1
+           metricName = "CPUUtilization"
+           namespace = "AWS/EC2"
+           period = 60
+           statistic = Statistic.fromValue("Average")
+           threshold = 70.0
+           actionsEnabled = false
+           alarmDescription = "An Alarm created by the Kotlin SDK when server CPU utilization exceeds 70%"
+           unit  = StandardUnit.fromValue("Seconds")
+           dimensions = listOf(dimensionOb)
+       }
 
+       CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         cwClient.putMetricAlarm(request)
         println( "Successfully created an alarm with name $alarmNameVal")
-
-    } catch (ex: CloudWatchException) {
-        println(ex.message)
-        cwClient.close()
-        exitProcess(0)
-    }
+      }
 }
 // snippet-end:[cloudwatch.kotlin.put_metric_alarm.main]

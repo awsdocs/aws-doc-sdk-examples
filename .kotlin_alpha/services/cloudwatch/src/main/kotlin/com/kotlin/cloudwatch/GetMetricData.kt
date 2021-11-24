@@ -24,16 +24,12 @@ import aws.sdk.kotlin.services.cloudwatch.model.CloudWatchException
 import kotlin.system.exitProcess
 // snippet-end:[cloudwatch.kotlin.get_metric_data.import]
 
-suspend fun main(args:Array<String>) {
-
-    val cwClient = CloudWatchClient{region="us-east-1"}
-    getMetData(cwClient)
-    cwClient.close()
+suspend fun main() {
+    getMetData()
 }
 
 // snippet-start:[cloudwatch.kotlin.get_metric_data.main]
-suspend fun getMetData(cwClient: CloudWatchClient) {
-    try {
+suspend fun getMetData() {
 
         val start = aws.smithy.kotlin.runtime.time.Instant.fromIso8601("2019-10-23T10:12:35Z")
         val endDate = aws.smithy.kotlin.runtime.time.Instant.now()
@@ -56,22 +52,20 @@ suspend fun getMetData(cwClient: CloudWatchClient) {
 
         val dq = mutableListOf<MetricDataQuery>()
         dq.add(dataQUery)
-        val getMetReq = GetMetricDataRequest {
-             maxDatapoints = 100
-             startTime = start
-             endTime = endDate
-             metricDataQueries= dq
-        }
-        val response = cwClient.getMetricData(getMetReq)
-        response.metricDataResults?.forEach { item ->
+
+       val request = GetMetricDataRequest {
+           maxDatapoints = 100
+           startTime = start
+           endTime = endDate
+           metricDataQueries= dq
+       }
+
+       CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+         val response = cwClient.getMetricData(request)
+         response.metricDataResults?.forEach { item ->
             println("The label is ${item.label}")
             println("The status code is ${item.statusCode.toString()}")
         }
-
-    } catch (ex: CloudWatchException) {
-        println(ex.message)
-        cwClient.close()
-        exitProcess(0)
-    }
+       }
 }
 // snippet-end:[cloudwatch.kotlin.get_metric_data.main]

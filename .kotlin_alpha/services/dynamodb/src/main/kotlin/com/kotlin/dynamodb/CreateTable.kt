@@ -22,7 +22,6 @@ import aws.sdk.kotlin.services.dynamodb.model.ProvisionedThroughput
 import aws.sdk.kotlin.services.dynamodb.model.KeyType
 import aws.sdk.kotlin.services.dynamodb.model.CreateTableRequest
 import aws.sdk.kotlin.services.dynamodb.model.DescribeTableRequest
-import aws.sdk.kotlin.services.dynamodb.model.DynamoDbException
 import kotlinx.coroutines.delay
 import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.create_table.import]
@@ -44,7 +43,6 @@ suspend fun main(args: Array<String>) {
     Where:
         tableName - the Amazon DynamoDB table to create (for example, Music3).
         key - the key for the Amazon DynamoDB table (for example, Artist).
-       
     """
 
     if (args.size != 2) {
@@ -55,14 +53,12 @@ suspend fun main(args: Array<String>) {
     val tableName = args[0]
     val key = args[1]
     println("Creating an Amazon DynamoDB table named $tableName with a key named $key" )
-    val ddb = DynamoDbClient{ region = "us-east-1" }
-    val tableArn = createNewTable(ddb, tableName, key)
+    val tableArn = createNewTable(tableName, key)
     println("The new table ARN is $tableArn")
-    ddb.close()
 }
 
 // snippet-start:[dynamodb.kotlin.create_table.main]
-suspend fun createNewTable(ddb: DynamoDbClient, tableNameVal: String, key: String): String {
+suspend fun createNewTable(tableNameVal: String, key: String): String? {
 
         val  attDef = AttributeDefinition {
             attributeName = key
@@ -86,7 +82,8 @@ suspend fun createNewTable(ddb: DynamoDbClient, tableNameVal: String, key: Strin
             tableName = tableNameVal
         }
 
-        try {
+        DynamoDbClient { region = "us-east-1" }.use { ddb ->
+
             val response = ddb.createTable(request)
             val tableActive = false
 
@@ -97,30 +94,16 @@ suspend fun createNewTable(ddb: DynamoDbClient, tableNameVal: String, key: Strin
                 if (tableStatus.equals("ACTIVE"))
                     break
                 delay(500)
-          }
-            return response.tableDescription?.tableArn.toString()
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            ddb.close()
-            exitProcess(0)
+            }
+            return response.tableDescription?.tableArn
         }
     }
 
     suspend fun checkTableStatus(ddb: DynamoDbClient, tableNameVal: String) : String {
 
-        val request = DescribeTableRequest {
-            tableName= tableNameVal
-        }
-
-        try {
-            val tableInfo = ddb.describeTable(request)
-            return tableInfo.table?.tableStatus.toString()
-
-        } catch (ex: DynamoDbException) {
-            println(ex.message)
-            ddb.close()
-            exitProcess(0)
-        }
-    }
+             val tableInfo = ddb.describeTable(DescribeTableRequest {
+                 tableName = tableNameVal
+             })
+             return tableInfo.table?.tableStatus.toString()
+         }
 // snippet-end:[dynamodb.kotlin.create_table.main]

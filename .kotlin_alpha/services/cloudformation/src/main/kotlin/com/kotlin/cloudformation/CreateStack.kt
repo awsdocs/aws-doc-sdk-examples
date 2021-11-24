@@ -1,5 +1,5 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[CreateStack.kt demonstrates how to create a stack based on a template and wait until it's ready by using a waiter.]
+// snippet-sourcedescription:[CreateStack.kt demonstrates how to create a stack based on a template.]
 //snippet-keyword:[AWS SDK for Kotlin]
 // snippet-service:[AWS CloudFormation]
 // snippet-keyword:[Code Sample]
@@ -20,7 +20,6 @@ import aws.sdk.kotlin.services.cloudformation.CloudFormationClient
 import aws.sdk.kotlin.services.cloudformation.model.CreateStackRequest
 import aws.sdk.kotlin.services.cloudformation.model.Parameter
 import aws.sdk.kotlin.services.cloudformation.model.OnFailure
-import aws.sdk.kotlin.services.cloudformation.model.CloudFormationException
 import kotlin.system.exitProcess
 // snippet-end:[cf.kotlin.create_stack.import]
 
@@ -48,41 +47,33 @@ suspend fun main(args:Array<String>) {
     val location = args[2]
     val key = args[3]
     val value = args[4]
-    val cfClient = CloudFormationClient{region="us-east-1"}
-    createCFStack(cfClient, stackName, roleARN, location, key, value)
-    cfClient.close()
+    createCFStack(stackName, roleARN, location, key, value)
 }
 
 // snippet-start:[cf.kotlin.create_stack.main]
 suspend fun createCFStack(
-    cfClient: CloudFormationClient,
     stackNameVal: String,
     roleARNVal: String?,
     location: String?,
     key: String?,
     value: String?
 ) {
-    try {
-
-        val myParameter = Parameter {
+       val myParameter = Parameter {
             parameterKey = key
             parameterValue = value
         }
 
-        val stackRequest = CreateStackRequest {
-            stackName = stackNameVal
-            templateUrl = location
-            this.roleArn = roleARNVal
-            onFailure = OnFailure.Rollback
-            parameters = listOf(myParameter)
-        }
-        cfClient.createStack(stackRequest)
-        println("$stackNameVal was created")
+       val request = CreateStackRequest {
+           stackName = stackNameVal
+           templateUrl = location
+           roleArn = roleARNVal
+           onFailure = OnFailure.Rollback
+           parameters = listOf(myParameter)
+       }
 
-    } catch (e: CloudFormationException) {
-        println(e.message)
-        cfClient.close()
-        exitProcess(0)
+        CloudFormationClient { region = "us-east-1" }.use { cfClient ->
+            cfClient.createStack(request)
+            println("$stackNameVal was created")
     }
-}
+ }
 // snippet-end:[cf.kotlin.create_stack.main]
