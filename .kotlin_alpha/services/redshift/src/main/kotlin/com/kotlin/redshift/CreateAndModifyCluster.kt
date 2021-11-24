@@ -15,7 +15,6 @@ package com.kotlin.redshift
 // snippet-start:[redshift.kotlin.create_cluster.import]
 import aws.sdk.kotlin.services.redshift.RedshiftClient
 import aws.sdk.kotlin.services.redshift.model.CreateClusterRequest
-import aws.sdk.kotlin.services.redshift.model.RedshiftException
 import aws.sdk.kotlin.services.redshift.model.DescribeClustersRequest
 import aws.sdk.kotlin.services.redshift.model.ModifyClusterRequest
 import kotlinx.coroutines.delay
@@ -50,23 +49,16 @@ suspend fun main(args:Array<String>) {
     val clusterId = args[0]
     val masterUsername = args[1]
     val masterUserPassword = args[2]
-
-    val redshiftClient = RedshiftClient{region="us-west-2"}
-    createCluster( redshiftClient, clusterId, masterUsername, masterUserPassword)
-    waitForClusterReady(redshiftClient, clusterId)
-    modifyCluster(redshiftClient, clusterId)
+    createCluster(clusterId, masterUsername, masterUserPassword)
+    waitForClusterReady(clusterId)
+    modifyCluster(clusterId)
     println("The example is done")
-    redshiftClient.close()
+
 }
 
 // snippet-start:[redshift.kotlin.create_cluster.main]
-suspend fun createCluster(
-    redshiftClient: RedshiftClient,
-    clusterId: String?,
-    masterUsernameVal: String?,
-    masterUserPasswordVal: String?
-) {
-    try {
+suspend fun createCluster(clusterId: String?, masterUsernameVal: String?, masterUserPasswordVal: String?) {
+
         val clusterRequest = CreateClusterRequest {
             clusterIdentifier = clusterId
             masterUsername = masterUsernameVal // set the user name here
@@ -76,28 +68,24 @@ suspend fun createCluster(
             numberOfNodes = 2
         }
 
-        val clusterResponse = redshiftClient.createCluster(clusterRequest)
-        println("Created cluster ${clusterResponse.cluster?.clusterIdentifier}")
-
-    } catch (e: RedshiftException) {
-        println(e.message)
-        redshiftClient.close()
-        exitProcess(0)
+        RedshiftClient { region = "us-west-2" }.use { redshiftClient ->
+          val clusterResponse = redshiftClient.createCluster(clusterRequest)
+          println("Created cluster ${clusterResponse.cluster?.clusterIdentifier}")
     }
 }
 
 // Waits until the cluster is available.
-suspend fun waitForClusterReady(redshiftClient: RedshiftClient, clusterId: String?) {
+suspend fun waitForClusterReady( clusterId: String?) {
     var clusterReady = false
-    var clusterReadyStr = ""
+    var clusterReadyStr: String
     val sleepTime: Long = 20
     println("Waiting for the cluster to become available.")
 
-    try {
-        val clustersRequest = DescribeClustersRequest {
-            clusterIdentifier = clusterId
-        }
 
+    val clustersRequest = DescribeClustersRequest {
+            clusterIdentifier = clusterId
+     }
+    RedshiftClient { region = "us-west-2" }.use { redshiftClient ->
         // Loop until the cluster is ready.
         while (!clusterReady) {
             val clusterResponse = redshiftClient.describeClusters(clustersRequest)
@@ -117,31 +105,18 @@ suspend fun waitForClusterReady(redshiftClient: RedshiftClient, clusterId: Strin
             }
         }
         println("Cluster is available!")
-
-    } catch (e: RedshiftException) {
-        println(e.message)
-        redshiftClient.close()
-        exitProcess(0)
-    } catch (e: InterruptedException) {
-        System.err.println(e.message)
-        exitProcess(1)
     }
 }
 
-suspend fun modifyCluster(redshiftClient: RedshiftClient, clusterId: String?) {
-    try {
+suspend fun modifyCluster( clusterId: String?) {
         val modifyClusterRequest = ModifyClusterRequest {
             clusterIdentifier = clusterId
             preferredMaintenanceWindow = "wed:07:30-wed:08:00"
         }
 
-        val clusterResponse = redshiftClient.modifyCluster(modifyClusterRequest)
-        println("The modified cluster was successfully modified and has ${clusterResponse.cluster?.preferredMaintenanceWindow.toString()} as the maintenance window")
-
-    } catch (e: RedshiftException) {
-        println(e.message)
-        redshiftClient.close()
-        exitProcess(0)
+        RedshiftClient { region = "us-west-2" }.use { redshiftClient ->
+          val clusterResponse = redshiftClient.modifyCluster(modifyClusterRequest)
+          println("The modified cluster was successfully modified and has ${clusterResponse.cluster?.preferredMaintenanceWindow.toString()} as the maintenance window")
     }
 }
 // snippet-end:[redshift.kotlin.create_cluster.main]
