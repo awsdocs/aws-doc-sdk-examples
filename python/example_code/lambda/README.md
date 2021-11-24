@@ -9,9 +9,9 @@ AWS Lambda functions. Learn to accomplish the following tasks:
     * By an invoke call through Boto3
     * By Amazon API Gateway as the target of a REST request
     * By Amazon EventBridge on a schedule
-* Create and deploy a REST API on Amazon API Gateway. The REST API targets an 
+* Create and deploy a REST API on Amazon API Gateway. The REST API targets a 
 Lambda function to handle REST requests.
-* Create a schedule rule on Amazon EventBridge that targets an Lambda function.
+* Create a scheduled rule on Amazon EventBridge that targets a Lambda function.
 
 These examples show how to use the low-level Boto3 client APIs to accomplish tasks
 like creating a REST API and setting an event schedule. You can also use
@@ -105,7 +105,7 @@ The examples are divided into the following files:
 
 **api_gateway_rest.py**
 
-Shows how to create and use an Amazon API Gateway REST API that targets an 
+Shows how to create and use an Amazon API Gateway REST API that targets a 
 Lambda function.
 
 * Deploys a Lambda function.
@@ -125,16 +125,16 @@ Shows how to deploy and invoke a Lambda function with Boto3.
 
 **lambda_handler_basic.py**
 
-An Lambda function that handles invocation from Boto3.  
+A Lambda function that handles invocation from Boto3.  
 
 **lambda_handler_rest.py**
 
-An Lambda function that handles invocation as a REST API target from Amazon
+A Lambda function that handles invocation as a REST API target from Amazon
 API Gateway.
 
 **lambda_handler_scheduled.py**
 
-An Lambda function that handles scheduled invocation from Amazon EventBridge.
+A Lambda function that handles scheduled invocation from Amazon EventBridge.
 
 **scheduled_lambda.py**
 
