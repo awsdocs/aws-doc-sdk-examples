@@ -27,6 +27,15 @@ sns_GetTopicAttributes:
           excerpts:
             - snippet_tags:
                 - sns.php.get_topic_attributes.main
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: .kotlin_alpha/services/sns
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.kotlin.GetTopicAttributes.main
     Java:
       versions:
         - sdk_version: 2
@@ -88,6 +97,15 @@ sns_ListSubscriptions:
           excerpts:
             - snippet_tags:
                 - sns.php.list_subscriptions.complete
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: .kotlin_alpha/services/sns
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.kotlin.ListSubscriptions.main
     Java:
       versions:
         - sdk_version: 2
