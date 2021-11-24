@@ -15,7 +15,6 @@ package com.kotlin.glue
 //snippet-start:[glue.kotlin.stop_crawler.import]
 import aws.sdk.kotlin.services.glue.GlueClient
 import aws.sdk.kotlin.services.glue.model.StopCrawlerRequest
-import aws.sdk.kotlin.services.glue.model.GlueException
 import kotlin.system.exitProcess
 //snippet-end:[glue.kotlin.stop_crawler.import]
 
@@ -43,27 +42,19 @@ suspend fun main(args:Array<String>) {
      }
 
     val crawlerName = args[0]
-    val glueClient= GlueClient{region ="us-east-1"}
-    stopSpecificCrawler(glueClient, crawlerName)
-    glueClient.close()
-}
+    stopSpecificCrawler(crawlerName)
+   }
 
 //snippet-start:[glue.kotlin.stop_crawler.main]
-suspend fun stopSpecificCrawler(glueClient: GlueClient, crawlerName: String) {
-    try {
+suspend fun stopSpecificCrawler(crawlerName: String) {
 
-        val stopCrawlerRequest = StopCrawlerRequest {
-            name = crawlerName
-        }
+    val request = StopCrawlerRequest {
+        name = crawlerName
+    }
 
-        // Stop the Crawler.
-        glueClient.stopCrawler(stopCrawlerRequest)
+    GlueClient { region = "us-west-2" }.use { glueClient ->
+        glueClient.stopCrawler(request)
         println("$crawlerName was stopped")
-
-    } catch (e: GlueException) {
-        println(e.message)
-        glueClient.close()
-        exitProcess(0)
     }
 }
 //snippet-end:[glue.kotlin.stop_crawler.main]

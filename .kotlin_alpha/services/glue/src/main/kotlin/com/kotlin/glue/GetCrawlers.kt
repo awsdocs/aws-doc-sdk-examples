@@ -15,8 +15,6 @@ package com.kotlin.glue
 //snippet-start:[glue.kotlin.get_crawlers.import]
 import aws.sdk.kotlin.services.glue.GlueClient
 import aws.sdk.kotlin.services.glue.model.GetCrawlersRequest
-import aws.sdk.kotlin.services.glue.model.GlueException
-import kotlin.system.exitProcess
 //snippet-end:[glue.kotlin.get_crawlers.import]
 
 /**
@@ -28,29 +26,21 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
-    val glueClient= GlueClient{region ="us-east-1"}
-    getAllCrawlers(glueClient)
-    glueClient.close()
+    getAllCrawlers()
 }
 
 //snippet-start:[glue.kotlin.get_crawlers.main]
-suspend fun getAllCrawlers(glueClient: GlueClient) {
-    try {
+suspend fun getAllCrawlers() {
 
-        val crawlersRequest = GetCrawlersRequest {
-            maxResults = 10
-        }
+    val request = GetCrawlersRequest {
+        maxResults = 10
+    }
 
-        val response = glueClient.getCrawlers(crawlersRequest)
+    GlueClient { region = "us-east-1" }.use { glueClient ->
+        val response = glueClient.getCrawlers(request)
         response.crawlers?.forEach { crawler ->
             println("The crawler name is ${crawler.name}")
         }
-
-    } catch (e: GlueException) {
-        println(e.message)
-        glueClient.close()
-        exitProcess(0)
     }
 }
 //snippet-end:[glue.kotlin.get_crawlers.main]

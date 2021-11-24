@@ -16,7 +16,6 @@ package com.kotlin.glue
 import aws.sdk.kotlin.services.glue.GlueClient
 import aws.sdk.kotlin.services.glue.model.CrawlerTargets
 import aws.sdk.kotlin.services.glue.model.CreateCrawlerRequest
-import aws.sdk.kotlin.services.glue.model.GlueException
 import aws.sdk.kotlin.services.glue.model.S3Target
 import kotlin.system.exitProcess
 //snippet-end:[glue.kotlin.create_crawler.import]
@@ -53,23 +52,18 @@ suspend fun main(args:Array<String>) {
     val cron = args[2]
     val dbName = args[3]
     val crawlerName = args[4]
-
-    val glueClient= GlueClient{region ="us-east-1"}
-    createGlueCrawler(glueClient,iam, s3Path, cron,dbName, crawlerName)
-    glueClient.close()
-}
+    createGlueCrawler(iam, s3Path, cron,dbName, crawlerName)
+ }
 
 //snippet-start:[glue.kotlin.create_crawler.main]
 suspend fun createGlueCrawler(
-    glueClient: GlueClient,
     iam: String?,
     s3Path: String?,
     cron: String?,
     dbName: String?,
     crawlerName: String
 ) {
-    try {
-        val s3Target = S3Target {
+       val s3Target = S3Target {
             path = s3Path
         }
 
@@ -81,22 +75,18 @@ suspend fun createGlueCrawler(
             s3Targets = targetList
         }
 
-        val crawlerRequest = CreateCrawlerRequest {
-            databaseName = dbName
-            name = crawlerName
-            description = "Created by the AWS Glue Kotlin API"
-            targets = targetOb
-            role = iam
-            schedule = cron
-        }
+       val request = CreateCrawlerRequest {
+           databaseName = dbName
+           name = crawlerName
+           description = "Created by the AWS Glue Kotlin API"
+           targets = targetOb
+           role = iam
+           schedule = cron
+       }
 
-        glueClient.createCrawler(crawlerRequest)
+       GlueClient { region = "us-west-2" }.use { glueClient ->
+        glueClient.createCrawler(request)
         println("$crawlerName was successfully created")
-
-    } catch (e: GlueException) {
-        println(e.message)
-        glueClient.close()
-        exitProcess(0)
-    }
+       }
 }
 //snippet-end:[glue.kotlin.create_crawler.main]

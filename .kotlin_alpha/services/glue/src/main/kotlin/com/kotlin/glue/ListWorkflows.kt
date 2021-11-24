@@ -15,8 +15,6 @@ package com.kotlin.glue
 //snippet-start:[glue.kotlin.list_wfs.import]
 import aws.sdk.kotlin.services.glue.GlueClient
 import aws.sdk.kotlin.services.glue.model.ListWorkflowsRequest
-import aws.sdk.kotlin.services.glue.model.GlueException
-import kotlin.system.exitProcess
 //snippet-end:[glue.kotlin.list_wfs.import]
 
 /**
@@ -28,28 +26,21 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
-    val glueClient= GlueClient{region ="us-east-1"}
-    listAllWorkflows(glueClient)
-    glueClient.close()
-}
+    listAllWorkflows()
+  }
 
 //snippet-start:[glue.kotlin.list_wfs.main]
-suspend fun listAllWorkflows(glueClient: GlueClient) {
-    try {
-        val workflowsRequest = ListWorkflowsRequest {
-            maxResults =10
-        }
+suspend fun listAllWorkflows() {
 
-        val response = glueClient.listWorkflows(workflowsRequest)
-        response.workflows?.forEach { workflow ->
+    val request = ListWorkflowsRequest {
+        maxResults =10
+    }
+
+    GlueClient { region = "us-east-1" }.use { glueClient ->
+          val response = glueClient.listWorkflows(request)
+          response.workflows?.forEach { workflow ->
            println("Workflow name is: $workflow")
         }
-
-    } catch (e: GlueException) {
-        println(e.message)
-        glueClient.close()
-        exitProcess(0)
     }
 }
 //snippet-end:[glue.kotlin.list_wfs.main]

@@ -15,8 +15,6 @@ package com.kotlin.glue
 //snippet-start:[glue.kotlin.get_jobs.import]
 import aws.sdk.kotlin.services.glue.GlueClient
 import aws.sdk.kotlin.services.glue.model.GetJobsRequest
-import aws.sdk.kotlin.services.glue.model.GlueException
-import kotlin.system.exitProcess
 //snippet-end:[glue.kotlin.get_jobs.import]
 
 /**
@@ -28,29 +26,22 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
-    val glueClient= GlueClient{region ="us-east-1"}
-    getAllJobs(glueClient)
-    glueClient.close()
+    getAllJobs()
 }
 
 //snippet-start:[glue.kotlin.get_jobs.main]
-suspend fun getAllJobs(glueClient: GlueClient) {
+suspend fun getAllJobs() {
 
-    try {
+    val request = GetJobsRequest {
+        maxResults = 10
+    }
 
-        val jobsRequest = GetJobsRequest {
-            maxResults = 10
-        }
-        val response = glueClient.getJobs(jobsRequest)
+    GlueClient { region = "us-east-1" }.use { glueClient ->
+        val response = glueClient.getJobs(request)
         response.jobs?.forEach { job ->
             println("Job name is ${job.name}")
         }
 
-    } catch (e: GlueException) {
-        println(e.message)
-        glueClient.close()
-        exitProcess(0)
     }
 }
 //snippet-end:[glue.kotlin.get_jobs.main]

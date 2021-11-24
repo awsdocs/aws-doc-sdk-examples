@@ -15,7 +15,6 @@ package com.kotlin.glue
 //snippet-start:[glue.kotlin.get_job.import]
 import aws.sdk.kotlin.services.glue.GlueClient
 import aws.sdk.kotlin.services.glue.model.GetJobRunRequest
-import aws.sdk.kotlin.services.glue.model.GlueException
 import kotlin.system.exitProcess
 //snippet-end:[glue.kotlin.get_job.import]
 
@@ -45,28 +44,20 @@ suspend fun main(args:Array<String>) {
 
     val jobName = args[0]
     val runId = args[1]
-    val glueClient= GlueClient{region ="us-east-1"}
-    getGlueJobRun(glueClient, jobName, runId)
-    glueClient.close()
-}
+    getGlueJobRun(jobName, runId)
+    }
 
 //snippet-start:[glue.kotlin.get_job.main]
-suspend fun getGlueJobRun(glueClient: GlueClient, jobNameVal: String?, runIdVal: String?) {
+suspend fun getGlueJobRun(jobNameVal: String?, runIdVal: String?) {
 
-    try {
+    val request = GetJobRunRequest {
+        jobName = jobNameVal
+        runId = runIdVal
+    }
 
-        val jobRunRequest = GetJobRunRequest {
-            jobName = jobNameVal
-            runId = runIdVal
-        }
-
-        val runResponse = glueClient.getJobRun(jobRunRequest)
-        println("Job status is ${runResponse.jobRun?.toString()}")
-
-    } catch (e: GlueException) {
-        println(e.message)
-        glueClient.close()
-        exitProcess(0)
+    GlueClient { region = "us-east-1" }.use { glueClient ->
+          val runResponse = glueClient.getJobRun(request)
+          println("Job status is ${runResponse.jobRun?.toString()}")
     }
 }
 //snippet-end:[glue.kotlin.get_job.main]
