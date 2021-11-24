@@ -1,3 +1,12 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+"""
+Purpose
+
+Shows how to create a fully serverless REST API for Rekognition Content Moderation Solution with URL Support.
+"""
+
 import json
 import boto3
 import botocore.vendored.requests.packages.urllib3 as urllib3
