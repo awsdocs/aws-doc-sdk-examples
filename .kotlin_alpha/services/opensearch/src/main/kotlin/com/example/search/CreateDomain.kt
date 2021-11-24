@@ -21,7 +21,6 @@ import aws.sdk.kotlin.services.opensearch.model.EbsOptions
 import aws.sdk.kotlin.services.opensearch.model.VolumeType
 import aws.sdk.kotlin.services.opensearch.model.NodeToNodeEncryptionOptions
 import aws.sdk.kotlin.services.opensearch.model.CreateDomainRequest
-import aws.sdk.kotlin.services.opensearch.model.OpenSearchException
 import kotlin.system.exitProcess
 // snippet-end:[opensearch.kotlin.create_domain.import]
 
@@ -33,7 +32,6 @@ suspend fun main(args:Array<String>) {
 
     Where:
         domainName - The name of the domain to create.
-
     """
 
     if (args.size != 1) {
@@ -41,14 +39,13 @@ suspend fun main(args:Array<String>) {
         exitProcess(1)
     }
     val domainName = args[0]
-    val searchClient = OpenSearchClient{region ="us-east-1"}
-    createNewDomain(searchClient, domainName)
+    createNewDomain(domainName)
 }
 
 // snippet-start:[opensearch.kotlin.create_domain.main]
-suspend fun createNewDomain(searchClient: OpenSearchClient, domainNameVal: String?) {
+suspend fun createNewDomain(domainNameVal: String?) {
 
-    try {
+
         val clusterConfigOb = ClusterConfig {
             dedicatedMasterEnabled = true
             dedicatedMasterCount = 3
@@ -67,7 +64,7 @@ suspend fun createNewDomain(searchClient: OpenSearchClient, domainNameVal: Strin
             enabled = true
         }
 
-        val domainRequest= CreateDomainRequest {
+        val request = CreateDomainRequest {
             domainName = domainNameVal
             engineVersion = "OpenSearch_1.0"
             clusterConfig = clusterConfigOb
@@ -76,13 +73,11 @@ suspend fun createNewDomain(searchClient: OpenSearchClient, domainNameVal: Strin
         }
 
         println("Sending domain creation request...")
-        val createResponse = searchClient.createDomain(domainRequest)
-        println("Domain status is ${createResponse.domainStatus.toString()}")
-        println("Domain Id is ${createResponse.domainStatus?.domainId}")
+        OpenSearchClient { region = "us-east-1" }.use { searchClient ->
+         val createResponse = searchClient.createDomain(request)
+         println("Domain status is ${createResponse.domainStatus.toString()}")
+         println("Domain Id is ${createResponse.domainStatus?.domainId}")
 
-    } catch (e: OpenSearchException) {
-        System.err.println(e.message)
-        exitProcess(0)
-    }
+        }
 }
 // snippet-end:[opensearch.kotlin.create_domain.main]

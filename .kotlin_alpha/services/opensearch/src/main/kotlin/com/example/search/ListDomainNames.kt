@@ -16,28 +16,21 @@ package com.example.search
 // snippet-start:[opensearch.kotlin.list_domains.import]
 import aws.sdk.kotlin.services.opensearch.OpenSearchClient
 import aws.sdk.kotlin.services.opensearch.model.ListDomainNamesResponse
-import aws.sdk.kotlin.services.opensearch.model.OpenSearchException
 import aws.sdk.kotlin.services.opensearch.model.ListDomainNamesRequest
-import kotlin.system.exitProcess
 // snippet-end:[opensearch.kotlin.list_domains.import]
 
 suspend fun main() {
-
-  val searchClient = OpenSearchClient{region ="us-east-1"}
-    listAllDomains(searchClient)
+    listAllDomains()
 }
 
 // snippet-start:[opensearch.kotlin.list_domains.main]
-suspend fun listAllDomains(searchClient: OpenSearchClient) {
+suspend fun listAllDomains() {
 
-    try {
-        val response: ListDomainNamesResponse = searchClient.listDomainNames(ListDomainNamesRequest {})
-        response.domainNames?.forEach { domain ->
+    OpenSearchClient { region = "us-east-1" }.use { searchClient ->
+     val response: ListDomainNamesResponse = searchClient.listDomainNames(ListDomainNamesRequest {})
+     response.domainNames?.forEach { domain ->
             println("Domain name is " + domain.domainName)
         }
-    } catch (e: OpenSearchException) {
-        System.err.println(e.message)
-        exitProcess(0)
     }
 }
 // snippet-end:[opensearch.kotlin.list_domains.main]
