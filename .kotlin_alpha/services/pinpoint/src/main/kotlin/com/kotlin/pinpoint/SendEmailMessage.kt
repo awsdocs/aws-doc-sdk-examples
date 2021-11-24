@@ -23,7 +23,6 @@ import aws.sdk.kotlin.services.pinpoint.model.SimpleEmail
 import aws.sdk.kotlin.services.pinpoint.model.EmailMessage
 import aws.sdk.kotlin.services.pinpoint.model.DirectMessageConfiguration
 import aws.sdk.kotlin.services.pinpoint.model.MessageRequest
-import aws.sdk.kotlin.services.pinpoint.model.PinpointException
 import kotlin.system.exitProcess
 //snippet-end:[pinpoint.kotlin.send_email.import]
 
@@ -57,26 +56,15 @@ suspend fun main(args: Array<String>) {
     val appId = args[1]
     val senderAddress = args[2]
     val toAddress = args[3]
-
-    val pinpointClient = PinpointClient { region = "us-east-1" }
-    sendEmail(pinpointClient, subject, appId, senderAddress, toAddress)
-    pinpointClient.close()
+    sendEmail(subject, appId, senderAddress, toAddress)
 }
 
 //snippet-start:[pinpoint.kotlin.send_email.main]
     suspend fun sendEmail(
-        pinpoint: PinpointClient,
         msgSubject: String?,
         appId: String?,
         senderAddress: String?,
         toAddress: String) {
-
-        // The email body for recipients with non-HTML email clients.
-        val textBody = """
-        Amazon Pinpoint Test (SDK for Kotlin)
-        ---------------------------------
-        This email was sent using the Amazon Pinpoint Kotlin API.
-        """.trimIndent()
 
         // The body of the email for recipients whose email clients support HTML content.
         val htmlBody = ("<h1>Amazon Pinpoint test (AWS SDK for Kotlin)</h1>"
@@ -84,58 +72,50 @@ suspend fun main(args: Array<String>) {
                 + "Amazon Pinpoint</a> Email API")
 
         // The character encoding to use for the subject line and the message body.
-        var charset = "UTF-8"
+        val charsetVal = "UTF-8"
 
-        try {
-
-            val addressMap = mutableMapOf<String, AddressConfiguration>()
-            val configuration = AddressConfiguration {
+        val addressMap = mutableMapOf<String, AddressConfiguration>()
+        val configuration = AddressConfiguration {
                 channelType = ChannelType.Email
             }
 
-            addressMap[toAddress] = configuration
-            val emailPart = SimpleEmailPart {
+        addressMap[toAddress] = configuration
+        val emailPart = SimpleEmailPart {
                 data=htmlBody
-                charset=charset
-            }
-
-            val subjectPartOb = SimpleEmailPart {
-                data = msgSubject
-                charset = charset
-            }
-
-            val simpleEmailOb = SimpleEmail {
-                htmlPart = emailPart
-                subject = subjectPartOb
-            }
-
-            val emailMessageOb = EmailMessage {
-                body = htmlBody
-                fromAddress = senderAddress
-                simpleEmail = simpleEmailOb
-            }
-
-            val directMessageConfigurationOb = DirectMessageConfiguration {
-                emailMessage = emailMessageOb
-              }
-
-            val messageRequestOb = MessageRequest {
-                addresses = addressMap
-                messageConfiguration = directMessageConfigurationOb
-            }
-
-            val messagesRequestOb = SendMessagesRequest{
-                applicationId = appId
-                messageRequest = messageRequestOb
-            }
-
-            pinpoint.sendMessages(messagesRequestOb)
-            println("The email message was successfully sent")
-
-        } catch (ex: PinpointException) {
-            println(ex.message)
-            pinpoint.close()
-            exitProcess(0)
+                charset=charsetVal
         }
- }
+
+        val subjectPartOb = SimpleEmailPart {
+              data = msgSubject
+              charset = charsetVal
+        }
+
+        val simpleEmailOb = SimpleEmail {
+            htmlPart = emailPart
+            subject = subjectPartOb
+        }
+
+        val emailMessageOb = EmailMessage {
+            body = htmlBody
+            fromAddress = senderAddress
+            simpleEmail = simpleEmailOb
+        }
+
+        val directMessageConfigurationOb = DirectMessageConfiguration {
+            emailMessage = emailMessageOb
+        }
+
+        val messageRequestOb = MessageRequest {
+            addresses = addressMap
+            messageConfiguration = directMessageConfigurationOb
+        }
+
+        PinpointClient { region = "us-west-2" }.use { pinpoint ->
+           pinpoint.sendMessages(SendMessagesRequest{
+               applicationId = appId
+               messageRequest = messageRequestOb
+           })
+           println("The email message was successfully sent")
+        }
+   }
 //snippet-end:[pinpoint.kotlin.send_email.main]

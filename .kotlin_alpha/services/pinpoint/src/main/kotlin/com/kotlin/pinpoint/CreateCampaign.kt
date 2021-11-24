@@ -22,7 +22,6 @@ import aws.sdk.kotlin.services.pinpoint.model.MessageConfiguration
 import aws.sdk.kotlin.services.pinpoint.model.WriteCampaignRequest
 import aws.sdk.kotlin.services.pinpoint.model.CreateCampaignRequest
 import aws.sdk.kotlin.services.pinpoint.model.CreateCampaignResponse
-import aws.sdk.kotlin.services.pinpoint.model.PinpointException
 import kotlin.system.exitProcess
 //snippet-end:[pinpoint.kotlin.createcampaign.import]
 
@@ -51,15 +50,12 @@ suspend fun main(args: Array<String>) {
 
     val appId = args[0]
     val segmentId = args[1]
-    val pinpointClient = PinpointClient { region = "us-east-1"}
-    createPinCampaign(pinpointClient, appId, segmentId)
-    pinpointClient.close()
+    createPinCampaign(appId, segmentId)
 }
 
 //snippet-start:[pinpoint.kotlin.createcampaign.main]
-suspend fun createPinCampaign(pinpoint: PinpointClient, appId: String, segmentIdVal: String) {
+suspend fun createPinCampaign(appId: String, segmentIdVal: String) {
 
-        try {
             val scheduleOb = Schedule {
                 startTime = "IMMEDIATE"
             }
@@ -82,18 +78,12 @@ suspend fun createPinCampaign(pinpoint: PinpointClient, appId: String, segmentId
                 messageConfiguration= messageConfigurationOb
             }
 
-            val camRequest = CreateCampaignRequest {
-                applicationId = appId
-                writeCampaignRequest = writeCampaign
-            }
-
-            val result: CreateCampaignResponse = pinpoint.createCampaign(camRequest)
-            println("Campaign ID is ${result.campaignResponse?.id}")
-
-        } catch (ex: PinpointException) {
-            println(ex.message)
-            pinpoint.close()
-            exitProcess(0)
+            PinpointClient { region = "us-west-2" }.use { pinpoint ->
+             val result: CreateCampaignResponse = pinpoint.createCampaign(CreateCampaignRequest {
+                 applicationId = appId
+                 writeCampaignRequest = writeCampaign
+             })
+             println("Campaign ID is ${result.campaignResponse?.id}")
         }
  }
 //snippet-end:[pinpoint.kotlin.createcampaign.main]

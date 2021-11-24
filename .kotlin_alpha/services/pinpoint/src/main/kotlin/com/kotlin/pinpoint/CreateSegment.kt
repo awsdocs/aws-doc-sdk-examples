@@ -27,7 +27,6 @@ import aws.sdk.kotlin.services.pinpoint.model.SegmentDimensions
 import aws.sdk.kotlin.services.pinpoint.model.WriteSegmentRequest
 import aws.sdk.kotlin.services.pinpoint.model.CreateSegmentRequest
 import aws.sdk.kotlin.services.pinpoint.model.CreateSegmentResponse
-import aws.sdk.kotlin.services.pinpoint.model.PinpointException
 import kotlin.system.exitProcess
 //snippet-end:[pinpoint.kotlin.createsegment.import]
 
@@ -54,60 +53,51 @@ suspend fun main(args: Array<String>) {
      }
 
     val appId = args[0]
-    val pinpointClient = PinpointClient { region = "us-east-1" }
-    createPinpointSegment(pinpointClient, appId)
-    pinpointClient.close()
-}
+    createPinpointSegment(appId)
+    }
 
 //snippet-start:[pinpoint.kotlin.createsegment.main]
-suspend fun createPinpointSegment(pinpoint: PinpointClient, applicationIdVal: String?): String? {
+suspend fun createPinpointSegment(applicationIdVal: String?): String? {
 
-        try {
-            val segmentAttributes = mutableMapOf<String, AttributeDimension>()
-            val myList = mutableListOf<String>()
-            myList.add("Lakers")
+    val segmentAttributes = mutableMapOf<String, AttributeDimension>()
+    val myList = mutableListOf<String>()
+    myList.add("Lakers")
 
-            val atts = AttributeDimension {
-                attributeType = AttributeType.Inclusive
-                values = myList
-            }
+    val atts = AttributeDimension {
+        attributeType = AttributeType.Inclusive
+        values = myList
+    }
 
-            segmentAttributes["Team"] = atts
-            val recencyDimension = RecencyDimension {
-                duration = Duration.fromValue("DAY_30")
-                recencyType = RecencyType.fromValue("ACTIVE")
-                }
+    segmentAttributes["Team"] = atts
+    val recencyDimension = RecencyDimension {
+        duration = Duration.fromValue("DAY_30")
+        recencyType = RecencyType.fromValue("ACTIVE")
+    }
 
-            val segmentBehaviors = SegmentBehaviors {
-                recency = recencyDimension
-            }
+    val segmentBehaviors = SegmentBehaviors {
+        recency = recencyDimension
+    }
 
-            val segmentLocation = SegmentLocation {}
-            val dimensionsOb = SegmentDimensions {
-                attributes= segmentAttributes
-                behavior = segmentBehaviors
-                demographic = SegmentDemographics {}
-                location =segmentLocation
-            }
+    val segmentLocation = SegmentLocation {}
+    val dimensionsOb = SegmentDimensions {
+        attributes = segmentAttributes
+        behavior = segmentBehaviors
+        demographic = SegmentDemographics {}
+        location = segmentLocation
+    }
 
-            val writeSegmentRequestOb = WriteSegmentRequest {
-                name ="MySegment101"
-                dimensions =dimensionsOb
-            }
+    val writeSegmentRequestOb = WriteSegmentRequest {
+        name = "MySegment101"
+        dimensions = dimensionsOb
+    }
 
-            val createSegmentRequest = CreateSegmentRequest{
-                applicationId =applicationIdVal
-                writeSegmentRequest = writeSegmentRequestOb
-                }
-
-            val createSegmentResult: CreateSegmentResponse = pinpoint.createSegment(createSegmentRequest)
-            println("Segment ID is ${createSegmentResult.segmentResponse?.id}")
-            return createSegmentResult.segmentResponse?.id
-
-        } catch (ex: PinpointException) {
-            println(ex.message)
-            pinpoint.close()
-            exitProcess(0)
-        }
- }
+    PinpointClient { region = "us-west-2" }.use { pinpoint ->
+        val createSegmentResult: CreateSegmentResponse = pinpoint.createSegment(CreateSegmentRequest {
+            applicationId = applicationIdVal
+            writeSegmentRequest = writeSegmentRequestOb
+        })
+        println("Segment ID is ${createSegmentResult.segmentResponse?.id}")
+        return createSegmentResult.segmentResponse?.id
+    }
+}
 //snippet-end:[pinpoint.kotlin.createsegment.main]

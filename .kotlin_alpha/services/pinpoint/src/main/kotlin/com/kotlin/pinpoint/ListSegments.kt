@@ -16,7 +16,6 @@ package com.kotlin.pinpoint
 //snippet-start:[pinpoint.kotlin.listsegments.import]
 import aws.sdk.kotlin.services.pinpoint.PinpointClient
 import aws.sdk.kotlin.services.pinpoint.model.GetSegmentsRequest
-import aws.sdk.kotlin.services.pinpoint.model.PinpointException
 import kotlin.system.exitProcess
 //snippet-end:[pinpoint.kotlin.listsegments.import]
 
@@ -43,27 +42,20 @@ suspend fun main(args: Array<String>) {
     }
 
     val appId = args[0]
-    val pinpointClient = PinpointClient { region = "us-east-1" }
-    listSegs(pinpointClient, appId)
-    pinpointClient.close()
-}
+    listSegs(appId)
+    }
 
 //snippet-start:[pinpoint.kotlin.listsegments.main]
-suspend fun listSegs(pinpoint: PinpointClient, appId: String?) {
-        try {
-            val request = GetSegmentsRequest {
-                applicationId = appId
-            }
+suspend fun listSegs(appId: String?) {
 
-            val response = pinpoint.getSegments(request)
-            response.segmentsResponse?.item?.forEach { segment ->
+    PinpointClient { region = "us-west-2" }.use { pinpoint ->
+
+        val response = pinpoint.getSegments(GetSegmentsRequest {
+            applicationId = appId
+        })
+        response.segmentsResponse?.item?.forEach { segment ->
                  println("Segement id is ${segment.id.toString()}")
             }
-
-        } catch (ex: PinpointException) {
-            println(ex.message)
-            pinpoint.close()
-            exitProcess(0)
         }
  }
 //snippet-end:[pinpoint.kotlin.listsegments.main]

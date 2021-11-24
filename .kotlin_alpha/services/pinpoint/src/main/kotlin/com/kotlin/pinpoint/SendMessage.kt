@@ -22,7 +22,6 @@ import aws.sdk.kotlin.services.pinpoint.model.SmsMessage
 import aws.sdk.kotlin.services.pinpoint.model.MessageType
 import aws.sdk.kotlin.services.pinpoint.model.MessageRequest
 import aws.sdk.kotlin.services.pinpoint.model.SendMessagesRequest
-import aws.sdk.kotlin.services.pinpoint.model.PinpointException
 import kotlin.system.exitProcess
 //snippet-end:[pinpoint.kotlin.sendmsg.import]
 
@@ -56,15 +55,11 @@ suspend fun main(args: Array<String>) {
     val originationNumber = args[2]
     val destinationNumber = args[3]
     println("Sending a message")
-
-    val pinpointClient = PinpointClient { region = "us-east-1" }
-    sendSMSMessage(pinpointClient, message, appId, originationNumber, destinationNumber)
-    pinpointClient.close()
-}
+    sendSMSMessage(message, appId, originationNumber, destinationNumber)
+ }
 
 //snippet-start:[pinpoint.kotlin.sendmsg.main]
  suspend fun sendSMSMessage(
-        pinpoint: PinpointClient,
         message: String,
         appId: String,
         originationNumberVal: String,
@@ -84,44 +79,35 @@ suspend fun main(args: Array<String>) {
      // https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-countries.html
      val senderIdVal = "MySenderID"
 
-      try {
-            val addressMap = mutableMapOf<String, AddressConfiguration>()
-            val addConfig = AddressConfiguration {
-                channelType = ChannelType.Sms
-            }
-            addressMap[destinationNumberVal] = addConfig
-
-            val smsMessageOb = SmsMessage {
-                body = message
-                messageType = MessageType.fromValue(messageTypeVal)
-                originationNumber = originationNumberVal
-                senderId = senderIdVal
-                keyword = registeredKeyword
-            }
-
-            // Create a DirectMessageConfiguration object.
-            val directOb = DirectMessageConfiguration {
-                smsMessage = smsMessageOb
-            }
-
-            val msgReq = MessageRequest{
-                addresses = addressMap
-                messageConfiguration = directOb
-            }
-
-            // create a  SendMessagesRequest object.
-            val request = SendMessagesRequest {
-                applicationId = appId
-                messageRequest = msgReq
-            }
-
-            pinpoint.sendMessages(request)
-            println("The SMS message was successfully sent to $destinationNumberVal")
-
-      } catch (ex: PinpointException) {
-          println(ex.message)
-          pinpoint.close()
-          exitProcess(0)
+     val addressMap = mutableMapOf<String, AddressConfiguration>()
+     val addConfig = AddressConfiguration {
+         channelType = ChannelType.Sms
       }
- }
+     addressMap[destinationNumberVal] = addConfig
+
+     val smsMessageOb = SmsMessage {
+         body = message
+         messageType = MessageType.fromValue(messageTypeVal)
+         originationNumber = originationNumberVal
+         senderId = senderIdVal
+         keyword = registeredKeyword
+     }
+
+     val directOb = DirectMessageConfiguration {
+         smsMessage = smsMessageOb
+     }
+
+     val msgReq = MessageRequest{
+         addresses = addressMap
+         messageConfiguration = directOb
+     }
+
+     PinpointClient { region = "us-west-2" }.use { pinpoint ->
+        pinpoint.sendMessages(SendMessagesRequest {
+            applicationId = appId
+            messageRequest = msgReq
+        })
+        println("The SMS message was successfully sent to $destinationNumberVal")
+       }
+    }
 //snippet-end:[pinpoint.kotlin.sendmsg.main]

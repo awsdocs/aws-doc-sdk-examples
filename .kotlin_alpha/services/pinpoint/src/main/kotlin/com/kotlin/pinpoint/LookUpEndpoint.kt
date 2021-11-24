@@ -16,7 +16,6 @@ package com.kotlin.pinpoint
 //snippet-start:[pinpoint.kotlin.lookup.import]
 import aws.sdk.kotlin.services.pinpoint.PinpointClient
 import aws.sdk.kotlin.services.pinpoint.model.GetEndpointRequest
-import aws.sdk.kotlin.services.pinpoint.model.PinpointException
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import kotlin.system.exitProcess
@@ -47,20 +46,17 @@ suspend fun main(args: Array<String>) {
 
     val appId = args[0]
     val endpoint =  args[1]
-    val pinpointClient = PinpointClient { region = "us-east-1" }
-    lookupPinpointEndpoint(pinpointClient, appId, endpoint)
-    pinpointClient.close()
-}
+    lookupPinpointEndpoint(appId, endpoint)
+    }
 
 //snippet-start:[pinpoint.kotlin.lookup.main]
-suspend fun lookupPinpointEndpoint(pinpoint: PinpointClient, appId: String?, endpoint: String?) {
-        try {
-            val  getEndpointRequest = GetEndpointRequest {
+suspend fun lookupPinpointEndpoint(appId: String?, endpoint: String?) {
+
+          PinpointClient { region = "us-west-2" }.use { pinpoint ->
+            val result = pinpoint.getEndpoint(GetEndpointRequest {
                 applicationId = appId
                 endpointId = endpoint
-            }
-
-            val result = pinpoint.getEndpoint(getEndpointRequest)
+            })
             val endResponse = result.endpointResponse
 
             // Uses the Google Gson library to pretty print the endpoint JSON.
@@ -72,11 +68,6 @@ suspend fun lookupPinpointEndpoint(pinpoint: PinpointClient, appId: String?, end
             val endpointJson: String = gson.toJson(endResponse)
             println(endpointJson)
 
-        } catch (ex: PinpointException) {
-            println(ex.message)
-            pinpoint.close()
-            exitProcess(0)
-        }
-        println("Done")
+          }
    }
 //snippet-end:[pinpoint.kotlin.lookup.main]

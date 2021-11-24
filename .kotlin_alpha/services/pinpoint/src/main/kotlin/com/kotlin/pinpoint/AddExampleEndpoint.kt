@@ -20,7 +20,6 @@ import aws.sdk.kotlin.services.pinpoint.model.EndpointUser
 import aws.sdk.kotlin.services.pinpoint.model.ChannelType
 import aws.sdk.kotlin.services.pinpoint.model.EndpointBatchRequest
 import aws.sdk.kotlin.services.pinpoint.model.UpdateEndpointsBatchRequest
-import aws.sdk.kotlin.services.pinpoint.model.PinpointException
 import kotlin.system.exitProcess
 //snippet-end:[pinpoint.kotlin.add_endpoint.import]
 
@@ -48,15 +47,11 @@ suspend fun main(args: Array<String>) {
     }
 
     val appId = args[0]
-    val pinpointClient = PinpointClient {region = "us-east-1"}
-    updateEndpointsViaBatch(pinpointClient, appId)
-    pinpointClient.close()
-}
+    updateEndpointsViaBatch(appId)
+    }
 
 //snippet-start:[pinpoint.kotlin.add_endpoint.main]
- suspend fun updateEndpointsViaBatch(pinpoint: PinpointClient, applicationIdVal: String?) {
-
-        try {
+ suspend fun updateEndpointsViaBatch(applicationIdVal: String?) {
 
             val myNames = mutableListOf<String>()
             myNames.add("Richard")
@@ -87,20 +82,13 @@ suspend fun main(args: Array<String>) {
                 item = richardList
             }
 
-            // Create the UpdateEndpointsBatchRequest.
-            val batchRequest = UpdateEndpointsBatchRequest {
-                applicationId= applicationIdVal
-                endpointBatchRequest = endpointList
+             //  Updates the endpoints with Amazon Pinpoint.
+             PinpointClient { region = "us-west-2" }.use { pinpoint ->
+              val result = pinpoint.updateEndpointsBatch( UpdateEndpointsBatchRequest {
+                  applicationId= applicationIdVal
+                  endpointBatchRequest = endpointList
+              })
+              println("Update endpoint result ${result.messageBody?.message}")
             }
-
-            //  Updates the endpoints with Amazon Pinpoint.
-            val result = pinpoint.updateEndpointsBatch(batchRequest)
-            println("Update endpoint result ${result.messageBody?.message}")
-
-        } catch (ex: PinpointException) {
-            println(ex.message)
-            pinpoint.close()
-            exitProcess(0)
-        }
  }
 //snippet-end:[pinpoint.kotlin.add_endpoint.main]
