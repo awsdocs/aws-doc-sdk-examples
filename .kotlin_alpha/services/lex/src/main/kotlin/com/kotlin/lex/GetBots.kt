@@ -16,8 +16,6 @@ package com.kotlin.lex
 // snippet-start:[lex.kotlin.get_bots.import]
 import aws.sdk.kotlin.services.lexmodelbuildingservice.LexModelBuildingClient
 import aws.sdk.kotlin.services.lexmodelbuildingservice.model.GetBotsRequest
-import aws.sdk.kotlin.services.lexmodelbuildingservice.model.LexModelBuildingException
-import kotlin.system.exitProcess
 // snippet-end:[lex.kotlin.get_bots.import]
 
 /**
@@ -29,26 +27,18 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
-    val lexModel = LexModelBuildingClient{region="us-west-2"}
-    getAllBots(lexModel)
+    getAllBots()
 }
 
 // snippet-start:[lex.kotlin.get_bots.main]
-suspend fun getAllBots(lexModel: LexModelBuildingClient) {
+suspend fun getAllBots() {
 
-    try {
-
-        val response = lexModel.getBots(GetBotsRequest{})
+    LexModelBuildingClient { region = "us-west-2" }.use { lexClient ->
+        val response = lexClient.getBots(GetBotsRequest{})
         response.bots?.forEach { bot ->
                println("The bot name is ${bot.name}")
                 println("The bot version is ${bot.version}")
         }
-
-    } catch (ex:  LexModelBuildingException) {
-        println(ex.message)
-        lexModel.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[lex.kotlin.get_bots.main]

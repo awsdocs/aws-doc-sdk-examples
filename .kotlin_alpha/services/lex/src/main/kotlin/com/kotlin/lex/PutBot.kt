@@ -21,7 +21,6 @@ import aws.sdk.kotlin.services.lexmodelbuildingservice.model.Statement
 import aws.sdk.kotlin.services.lexmodelbuildingservice.model.ContentType
 import aws.sdk.kotlin.services.lexmodelbuildingservice.model.PutBotRequest
 import aws.sdk.kotlin.services.lexmodelbuildingservice.model.Locale
-import aws.sdk.kotlin.services.lexmodelbuildingservice.model.LexModelBuildingException
 import java.util.ArrayList
 import kotlin.system.exitProcess
 // snippet-end:[lex.kotlin.create_bot.import]
@@ -56,20 +55,15 @@ suspend fun main(args:Array<String>) {
     val botName = args[0]
     val intentName = args[1]
     val intentVersion = args[2]
-
-    val lexModel = LexModelBuildingClient{region="us-west-2"}
-    createBot(lexModel, botName, intentName, intentVersion)
-    lexModel.close()
+    createBot(botName, intentName, intentVersion)
 }
 
 // snippet-start:[lex.kotlin.create_bot.main]
 suspend fun createBot(
-    lexClient: LexModelBuildingClient,
     botNameVal: String?,
     intentNameVal: String?,
     intentVersionVal: String?
 ) {
-    try {
 
         // Create an Intent object for the bot.
         val weatherIntent = Intent {
@@ -77,7 +71,7 @@ suspend fun createBot(
             intentVersion = intentVersionVal
         }
 
-        val intentObs: MutableList<Intent> = mutableListOf()
+        val intentObs = mutableListOf<Intent>()
         intentObs.add(weatherIntent)
 
         val msg = Message {
@@ -92,22 +86,18 @@ suspend fun createBot(
             messages = abortMsg
         }
 
-        val botRequest = PutBotRequest {
-            abortStatement = statement
-            description = "Created by using the Amazon Lex Kotlin API"
-            childDirected = true
-            locale = Locale.fromValue("en-US")
-            name = botNameVal
-            intents = intentObs
-        }
+       val request = PutBotRequest {
+           abortStatement = statement
+           description = "Created by using the Amazon Lex Kotlin API"
+           childDirected = true
+           locale = Locale.fromValue("en-US")
+           name = botNameVal
+           intents = intentObs
+       }
 
-        lexClient.putBot(botRequest)
+       LexModelBuildingClient { region = "us-west-2" }.use { lexClient ->
+         lexClient.putBot(request)
         println("The Amazon Lex bot was successfully created")
-
-    } catch (ex:  LexModelBuildingException) {
-        println(ex.message)
-        lexClient.close()
-        exitProcess(0)
-    }
+      }
 }
 // snippet-end:[lex.kotlin.create_bot.main]

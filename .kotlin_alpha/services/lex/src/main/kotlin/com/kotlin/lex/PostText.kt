@@ -50,33 +50,28 @@ suspend fun main(args:Array<String>){
     val botName = args[0]
     val botAlias = args[1]
     val inputText = "I need a hotel room"
-    val lexClient = LexRuntimeClient{region = "us-east-1"}
-    val textReponse = getText(lexClient,inputText, botName,botAlias )
+    val textReponse = getText(inputText, botName,botAlias )
     println(textReponse)
 }
 
 // snippet-start:[lex.kotlin.text.main]
-suspend fun getText(lexClient : LexRuntimeClient, text: String,botNameVal:String, botAliasVal:String ): String? {
-
-    try{
+suspend fun getText(text: String,botNameVal:String, botAliasVal:String ): String? {
 
         val userIdVal = "chatbot-demo"
         val sessionAttributesVal =  mutableMapOf<String, String>()
-        val textRequest = PostTextRequest {
+
+        val request = PostTextRequest {
             botName = botNameVal
             botAlias = botAliasVal
             inputText=text
             userId = userIdVal
             sessionAttributes = sessionAttributesVal
-         }
+        }
 
-        val textResponse = lexClient.postText(textRequest)
-        val message = textResponse.message
-        return message
-
-    } catch (e: InterruptedException) {
-        System.out.println(e.localizedMessage)
-        exitProcess(1)
-    }
+        LexRuntimeClient { region = "us-west-2" }.use { lexClient ->
+          val textResponse = lexClient.postText(request)
+          val message = textResponse.message
+          return message
+        }
 }
 // snippet-end:[lex.kotlin.text.main]

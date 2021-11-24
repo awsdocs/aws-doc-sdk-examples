@@ -17,8 +17,6 @@ package com.kotlin.lex
 // snippet-start:[lex.kotlin.get_slot_types.import]
 import aws.sdk.kotlin.services.lexmodelbuildingservice.LexModelBuildingClient
 import aws.sdk.kotlin.services.lexmodelbuildingservice.model.GetSlotTypesRequest
-import aws.sdk.kotlin.services.lexmodelbuildingservice.model.LexModelBuildingException
-import kotlin.system.exitProcess
 // snippet-end:[lex.kotlin.get_slot_types.import]
 
 /**
@@ -31,24 +29,20 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun main() {
 
-    val lexModel = LexModelBuildingClient{region="us-west-2"}
-    getSlotsInfo(lexModel)
+    getSlotsInfo()
 }
 
 // snippet-start:[lex.kotlin.get_slot_types.main]
-suspend fun getSlotsInfo(lexClient: LexModelBuildingClient) {
-    try {
+suspend fun getSlotsInfo() {
+
+    LexModelBuildingClient { region = "us-west-2" }.use { lexClient ->
+
         val response = lexClient.getSlotTypes(GetSlotTypesRequest{ })
         response.slotTypes?.forEach { slot ->
               println("Slot name is ${slot.name}.")
               println("Slot description is ${slot.description}.")
               println("Slot version is ${slot.version}.")
        }
-
-    } catch (ex:  LexModelBuildingException) {
-        println(ex.message)
-        lexClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[lex.kotlin.get_slot_types.main]
