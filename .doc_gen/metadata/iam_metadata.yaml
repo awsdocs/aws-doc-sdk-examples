@@ -465,7 +465,7 @@ iam_ListPolicies:
 iam_GetPolicy:
   title: Get an &IAM; policy using an &AWS; SDK
   title_abbrev: Get a policy
-  synopsis: get am &IAM; policy.
+  synopsis: get an &IAM; policy.
   category:
   services:
     iam: {ListPolicies}
