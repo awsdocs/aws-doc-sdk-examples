@@ -17,8 +17,6 @@ package com.kotlin.sts
 // snippet-start:[sts.kotlin.get_session_token.import]
 import aws.sdk.kotlin.services.sts.StsClient
 import aws.sdk.kotlin.services.sts.model.GetSessionTokenRequest
-import aws.sdk.kotlin.services.sts.model.StsException
-import kotlin.system.exitProcess
 // snippet-end:[sts.kotlin.get_session_token.import]
 
 
