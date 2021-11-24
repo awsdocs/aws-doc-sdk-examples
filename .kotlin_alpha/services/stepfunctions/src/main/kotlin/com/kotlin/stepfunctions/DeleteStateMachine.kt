@@ -14,7 +14,6 @@
 package com.kotlin.stepfunctions
 
 // snippet-start:[stepfunctions.kotlin.delete_machine.import]
-import aws.sdk.kotlin.services.sfn.model.SfnException
 import  aws.sdk.kotlin.services.sfn.SfnClient
 import aws.sdk.kotlin.services.sfn.model.DeleteStateMachineRequest
 import kotlin.system.exitProcess
@@ -36,24 +35,18 @@ suspend fun main(args:Array<String>){
     }
 
      val stateMachineARN = args[0]
-     val sfnClient = SfnClient{region = "us-east-1" }
-     deleteMachine(sfnClient,stateMachineARN)
-     sfnClient.close()
+     deleteMachine(stateMachineARN)
 }
 
 // snippet-start:[stepfunctions.kotlin.delete_machine.main]
-suspend fun deleteMachine(sfnClient: SfnClient, stateMachineArnVal: String) {
-        try {
-            val deleteStateMachineRequest = DeleteStateMachineRequest {
-                stateMachineArn = stateMachineArnVal
-            }
+suspend fun deleteMachine(stateMachineArnVal: String) {
+        val deleteStateMachineRequest = DeleteStateMachineRequest {
+            stateMachineArn = stateMachineArnVal
+        }
+
+        SfnClient { region = "us-east-1" }.use { sfnClient ->
             sfnClient.deleteStateMachine(deleteStateMachineRequest)
             println("$stateMachineArnVal was successfully deleted.")
-
-        } catch (ex: SfnException) {
-            println(ex.message)
-            sfnClient.close()
-            exitProcess(0)
         }
  }
 // snippet-end:[stepfunctions.kotlin.delete_machine.main]

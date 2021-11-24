@@ -14,7 +14,6 @@
 package com.kotlin.stepfunctions
 
 // snippet-start:[stepfunctions.kotlin.get_history.import]
-import aws.sdk.kotlin.services.sfn.model.SfnException
 import  aws.sdk.kotlin.services.sfn.SfnClient
 import aws.sdk.kotlin.services.sfn.model.GetExecutionHistoryRequest
 import kotlin.system.exitProcess
@@ -36,30 +35,23 @@ suspend fun main(args:Array<String>){
      }
 
     val exeARN = args[0]
-    val sfnClient = SfnClient{region = "us-east-1" }
-    val smARN = getExeHistory(sfnClient, exeARN)
+    val smARN = getExeHistory(exeARN)
     println("The ARN of the new state machine is $smARN")
-    sfnClient.close()
-}
+    }
 
 // snippet-start:[stepfunctions.kotlin.get_history.main]
-suspend fun getExeHistory(sfnClient: SfnClient, exeARN: String?) {
+suspend fun getExeHistory(exeARN: String?) {
 
-    try {
-        val historyRequest = GetExecutionHistoryRequest {
-            executionArn = exeARN
-            maxResults = 10
-        }
+    val historyRequest = GetExecutionHistoryRequest {
+        executionArn = exeARN
+        maxResults = 10
+    }
 
+    SfnClient { region = "us-east-1" }.use { sfnClient ->
         val response = sfnClient.getExecutionHistory(historyRequest)
         response.events?.forEach { event ->
             println("The event type is ${event.type.toString()}")
-            }
-
-    } catch (ex: SfnException) {
-        println(ex.message)
-        sfnClient.close()
-        exitProcess(0)
+        }
     }
  }
 // snippet-end:[stepfunctions.kotlin.get_history.main]

@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateStateMachine.kt demonstrates how to creates a state machine for AWS Step Functions.]
+//snippet-sourcedescription:[CreateStateMachine.kt demonstrates how to create a state machine for AWS Step Functions.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Step Functions]
@@ -14,7 +14,6 @@
 package com.kotlin.stepfunctions
 
 // snippet-start:[stepfunctions.kotlin.create_machine.import]
-import aws.sdk.kotlin.services.sfn.model.SfnException
 import org.json.simple.JSONObject
 import org.json.simple.parser.JSONParser
 import aws.sdk.kotlin.services.sfn.SfnClient
@@ -45,34 +44,25 @@ suspend fun main(args:Array<String>){
     val jsonFile = args[0]
     val roleARN = args[1]
     val stateMachineName = args[2]
-
-    val sfnClient = SfnClient{region = "us-east-1" }
-    val smARN = createMachine(sfnClient, roleARN, stateMachineName, jsonFile)
+    val smARN = createMachine(roleARN, stateMachineName, jsonFile)
     println("The ARN of the new state machine is $smARN")
-    sfnClient.close()
-}
+ }
 
 // snippet-start:[stepfunctions.kotlin.create_machine.main]
-suspend fun createMachine(sfnClient: SfnClient, roleARNVal: String?, stateMachineName: String?, jsonFile: String): String? {
+suspend fun createMachine(roleARNVal: String?, stateMachineName: String?, jsonFile: String): String? {
         val json = getJSONString(jsonFile)
 
-        try {
-            val machineRequest = CreateStateMachineRequest {
-                definition= json
-                name = stateMachineName
-                roleArn= roleARNVal
-                type = StateMachineType.Standard
-            }
+        val machineRequest = CreateStateMachineRequest {
+            definition= json
+            name = stateMachineName
+            roleArn= roleARNVal
+            type = StateMachineType.Standard
+        }
 
+        SfnClient { region = "us-east-1" }.use { sfnClient ->
             val response = sfnClient.createStateMachine(machineRequest)
             return response.stateMachineArn
-
-        } catch (ex: SfnException) {
-            println(ex.message)
-            sfnClient.close()
-            exitProcess(0)
         }
-        return ""
     }
 
     private fun getJSONString(path: String): String {

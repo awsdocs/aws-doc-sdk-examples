@@ -14,32 +14,23 @@
 package com.kotlin.stepfunctions
 
 // snippet-start:[stepfunctions.kotlin.list_machines.import]
-import aws.sdk.kotlin.services.sfn.model.SfnException
 import  aws.sdk.kotlin.services.sfn.SfnClient
 import aws.sdk.kotlin.services.sfn.model.ListStateMachinesRequest
-import kotlin.system.exitProcess
 // snippet-end:[stepfunctions.kotlin.list_machines.import]
 
 suspend fun main() {
-
-    val sfnClient = SfnClient{region = "us-east-1" }
-    listMachines(sfnClient)
-    sfnClient.close()
+    listMachines()
 }
 
 // snippet-start:[stepfunctions.kotlin.list_machines.main]
-suspend fun listMachines(sfnClient: SfnClient) {
-        try {
-            val response = sfnClient.listStateMachines(ListStateMachinesRequest{})
-            response.stateMachines?.forEach { machine ->
+suspend fun listMachines() {
+
+       SfnClient { region = "us-east-1" }.use { sfnClient ->
+         val response = sfnClient.listStateMachines(ListStateMachinesRequest{})
+          response.stateMachines?.forEach { machine ->
                     println("The name of the state machine is ${machine.name}")
                     println("The ARN value is ${machine.stateMachineArn}")
                 }
-
-        } catch (ex: SfnException) {
-            println(ex.message)
-            sfnClient.close()
-            exitProcess(0)
         }
  }
 // snippet-end:[stepfunctions.kotlin.list_machines.main]

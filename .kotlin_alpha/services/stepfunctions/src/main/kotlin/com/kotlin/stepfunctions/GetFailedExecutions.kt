@@ -14,7 +14,6 @@
 package com.kotlin.stepfunctions
 
 // snippet-start:[stepfunctions.kotlin.get_failed_exes.import]
-import aws.sdk.kotlin.services.sfn.model.SfnException
 import aws.sdk.kotlin.services.sfn.SfnClient
 import aws.sdk.kotlin.services.sfn.model.ExecutionStatus
 import aws.sdk.kotlin.services.sfn.model.ListExecutionsRequest
@@ -28,7 +27,6 @@ suspend fun main(args:Array<String>){
          <stateMachineARN> 
     Where:
         stateMachineARN - The ARN of the state machine.
-
     """
 
     if (args.size != 1) {
@@ -37,29 +35,23 @@ suspend fun main(args:Array<String>){
      }
 
     val stateMachineARN = args[0]
-    val sfnClient = SfnClient{region = "us-east-1" }
-    getFailedExes(sfnClient, stateMachineARN)
-    sfnClient.close()
-}
+    getFailedExes(stateMachineARN)
+    }
 
 // snippet-start:[stepfunctions.kotlin.get_failed_exes.main]
-suspend fun getFailedExes(sfnClient: SfnClient, stateMachineARN: String?) {
-        try {
-            val executionsRequest = ListExecutionsRequest {
-                 maxResults= 10
-                 stateMachineArn = stateMachineARN
-                 statusFilter = ExecutionStatus.Failed
-            }
+suspend fun getFailedExes(stateMachineARN: String?) {
 
+        val executionsRequest = ListExecutionsRequest {
+            maxResults= 10
+            stateMachineArn = stateMachineARN
+            statusFilter = ExecutionStatus.Failed
+        }
+
+        SfnClient { region = "us-east-1" }.use { sfnClient ->
             val response = sfnClient.listExecutions(executionsRequest)
             response.executions?.forEach { item ->
                    println("The Amazon Resource Name (ARN) of the failed execution is ${item.executionArn}.")
             }
-
-        } catch (ex: SfnException) {
-            println(ex.message)
-            sfnClient.close()
-            exitProcess(0)
         }
  }
 // snippet-end:[stepfunctions.kotlin.get_failed_exes.main]
