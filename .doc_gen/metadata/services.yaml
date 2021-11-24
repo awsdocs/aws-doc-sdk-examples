@@ -161,6 +161,11 @@ mediapackage:
   short: "&EMP;"
   sort: "MediaPackage"
   version: mediapackage-2017-10-12
+organizations:
+  long: "&AOlong;"
+  short: "&AO;"
+  sort: "Organizations"
+  version: organizations-2016-11-28
 pinpoint:
   long: "&PINlong;"
   short: "&PIN;"
