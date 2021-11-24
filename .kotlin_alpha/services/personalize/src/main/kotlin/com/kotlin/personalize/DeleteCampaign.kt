@@ -13,11 +13,11 @@
 
 package com.kotlin.personalize
 
-//snippet-start:[personalize.kotlin.create_campaign.import]
+//snippet-start:[personalize.kotlin.del_campaign.import]
 import aws.sdk.kotlin.services.personalize.PersonalizeClient
 import aws.sdk.kotlin.services.personalize.model.DeleteCampaignRequest
 import kotlin.system.exitProcess
-//snippet-end:[personalize.kotlin.create_campaign.import]
+//snippet-end:[personalize.kotlin.del_campaign.import]
 
 /**
 To run this Kotlin code example, ensure that you have setup your development environment,
@@ -46,7 +46,7 @@ suspend fun main(args:Array<String>){
     deleteSpecificCampaign(campaignArn)
     }
 
-//snippet-start:[personalize.kotlin.create_campaign.main]
+//snippet-start:[personalize.kotlin.del_campaign.main]
 suspend fun deleteSpecificCampaign(campaignArnVal: String?) {
 
         val request = DeleteCampaignRequest {
@@ -58,4 +58,4 @@ suspend fun deleteSpecificCampaign(campaignArnVal: String?) {
             println("$campaignArnVal was successfully deleted.")
         }
 }
-//snippet-end:[personalize.kotlin.create_campaign.main]
+//snippet-end:[personalize.kotlin.del_campaign.main]
