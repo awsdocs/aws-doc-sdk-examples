@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateJob.kt demonstrates how to create AWS Elemental MediaConvert jobs.]
+//snippet-sourcedescription:[CreateJob.kt demonstrates how to create an AWS Elemental MediaConvert job.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaConvert]
