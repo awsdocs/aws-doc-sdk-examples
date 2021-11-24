@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateJob.kt demonstrates how to create an AWS Elemental MediaConvert job.]
+//snippet-sourcedescription:[CreateJob.kt demonstrates how to create AWS Elemental MediaConvert jobs.]
 //snippet-keyword:[AWS SDK for Kotlin]
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Elemental MediaConvert]
@@ -20,8 +20,6 @@ import aws.sdk.kotlin.runtime.endpoint.AwsEndpointResolver
 import aws.sdk.kotlin.runtime.endpoint.CredentialScope
 import aws.sdk.kotlin.services.mediaconvert.MediaConvertClient
 import aws.sdk.kotlin.services.mediaconvert.model.*
-import aws.smithy.kotlin.runtime.http.operation.EndpointResolver
-import java.net.URI
 import java.util.HashMap
 import kotlin.system.exitProcess
 // snippet-end:[mediaconvert.kotlin.createjob.import]

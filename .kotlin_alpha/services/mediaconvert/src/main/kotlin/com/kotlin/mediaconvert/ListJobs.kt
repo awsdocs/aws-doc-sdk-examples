@@ -4,7 +4,7 @@
 //snippet-service:[AWS Elemental MediaConvert]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[11/05/2021]
-//snippet-sourceauthor:[smacdon - AWS ]
+//snippet-sourceauthor:[smacdon - AWS]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

@@ -17,7 +17,6 @@ package com.kotlin.mediaconvert
 import aws.sdk.kotlin.runtime.endpoint.*
 import aws.sdk.kotlin.services.mediaconvert.MediaConvertClient
 import aws.sdk.kotlin.services.mediaconvert.model.*
-import java.net.URI
 import kotlin.system.exitProcess
 // snippet-end:[mediaconvert.kotlin.get_job.import]
 
