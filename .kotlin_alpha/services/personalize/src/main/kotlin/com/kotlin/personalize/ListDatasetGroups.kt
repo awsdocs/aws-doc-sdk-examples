@@ -16,8 +16,6 @@ package com.kotlin.personalize
 //snippet-start:[personalize.kotlin.list_dsgroups.import]
 import aws.sdk.kotlin.services.personalize.PersonalizeClient
 import aws.sdk.kotlin.services.personalize.model.ListDatasetGroupsRequest
-import aws.sdk.kotlin.services.personalize.model.PersonalizeException
-import kotlin.system.exitProcess
 //snippet-end:[personalize.kotlin.list_dsgroups.import]
 
 /**
@@ -29,29 +27,21 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(){
-
-    val personalizeClient = PersonalizeClient{ region = "us-east-1" }
-    listDSGroups(personalizeClient)
-    personalizeClient.close()
+    listDSGroups()
 }
 
 //snippet-start:[personalize.kotlin.list_dsgroups.main]
-suspend fun listDSGroups(personalizeClient: PersonalizeClient) {
-        try {
-            val groupsRequest = ListDatasetGroupsRequest {
-                maxResults = 15
-            }
+suspend fun listDSGroups() {
 
-            val response = personalizeClient.listDatasetGroups(groupsRequest)
+        val request = ListDatasetGroupsRequest {
+            maxResults = 15
+        }
+        PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
+            val response = personalizeClient.listDatasetGroups(request)
             response.datasetGroups?.forEach { group ->
                  println("The data set name is ${group.name}")
                  println("The data set ARN is ${group.datasetGroupArn}")
             }
-
-        } catch (ex: PersonalizeException) {
-            println(ex.message)
-            personalizeClient.close()
-            exitProcess(0)
-        }
+          }
  }
 //snippet-end:[personalize.kotlin.list_dsgroups.main]

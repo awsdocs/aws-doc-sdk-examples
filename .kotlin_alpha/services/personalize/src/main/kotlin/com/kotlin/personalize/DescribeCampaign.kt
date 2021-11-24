@@ -16,7 +16,6 @@ package com.kotlin.personalize
 //snippet-start:[personalize.kotlin.describe_campaign.import]
 import aws.sdk.kotlin.services.personalize.PersonalizeClient
 import aws.sdk.kotlin.services.personalize.model.DescribeCampaignRequest
-import aws.sdk.kotlin.services.personalize.model.PersonalizeException
 import kotlin.system.exitProcess
 //snippet-end:[personalize.kotlin.describe_campaign.import]
 
@@ -44,28 +43,24 @@ suspend fun main(args:Array<String>){
      }
 
     val campaignArn = args[0]
-    val personalizeClient = PersonalizeClient{ region = "us-east-1" }
-    describeSpecificCampaign(personalizeClient,campaignArn)
-    personalizeClient.close()
-}
+    describeSpecificCampaign(campaignArn)
+    }
 
 //snippet-start:[personalize.kotlin.describe_campaign.main]
-suspend fun describeSpecificCampaign(personalizeClient: PersonalizeClient, campaignArnVal: String?) {
-        try {
-            val campaignRequest = DescribeCampaignRequest {
-                campaignArn = campaignArnVal
-            }
+suspend fun describeSpecificCampaign(campaignArnVal: String?) {
 
-            val response = personalizeClient.describeCampaign(campaignRequest)
+
+    val request = DescribeCampaignRequest {
+        campaignArn = campaignArnVal
+    }
+    PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
+
+            val response = personalizeClient.describeCampaign(request)
             val myCampaign = response.campaign
             if (myCampaign != null) {
                 println("The campaign name is ${myCampaign.name}")
                 println("The campaign status is ${myCampaign.status}")
             }
-        } catch (ex: PersonalizeException) {
-            println(ex.message)
-            personalizeClient.close()
-            exitProcess(0)
         }
-        }
+   }
 //snippet-end:[personalize.kotlin.describe_campaign.main]

@@ -16,7 +16,6 @@ package com.kotlin.personalize
 //snippet-start:[personalize.kotlin.create_campaign.import]
 import aws.sdk.kotlin.services.personalize.PersonalizeClient
 import aws.sdk.kotlin.services.personalize.model.CreateCampaignRequest
-import aws.sdk.kotlin.services.personalize.model.PersonalizeException
 import kotlin.system.exitProcess
 //snippet-end:[personalize.kotlin.create_campaign.import]
 
@@ -37,7 +36,6 @@ suspend fun main(args:Array<String>){
     Where:
          solutionVersionArn - The ARN of the solution version.
          campaignName - The name of the Amazon Personalize campaign to create.
-
     """
 
     if (args.size != 2) {
@@ -47,27 +45,22 @@ suspend fun main(args:Array<String>){
 
     val solutionVersionArn = args[0]
     val campaignName = args[1]
-    val personalizeClient = PersonalizeClient{ region = "us-east-1" }
-    val campaignARN = createPersonalCompaign(personalizeClient,solutionVersionArn, campaignName)
+    val campaignARN = createPersonalCompaign(solutionVersionArn, campaignName)
     println("The campaign ARN is $campaignARN")
-    personalizeClient.close()
-}
+    }
 
 //snippet-start:[personalize.kotlin.create_campaign.main]
-suspend fun createPersonalCompaign(personalizeClient: PersonalizeClient, solutionVersionArnVal: String?, campaignName: String?) : String? {
-    try {
-        val createCampaignRequest = CreateCampaignRequest {
-            minProvisionedTps = 1
-            solutionVersionArn = solutionVersionArnVal
-            name = campaignName
-        }
-        val campaignResponse = personalizeClient.createCampaign(createCampaignRequest)
-        return campaignResponse.campaignArn
+suspend fun createPersonalCompaign(solutionVersionArnVal: String?, campaignName: String?) : String? {
 
-    } catch (ex: PersonalizeException) {
-        println(ex.message)
-        personalizeClient.close()
-        exitProcess(0)
-    }
+      val request = CreateCampaignRequest {
+          minProvisionedTps = 1
+          solutionVersionArn = solutionVersionArnVal
+          name = campaignName
+      }
+
+      PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
+        val campaignResponse = personalizeClient.createCampaign(request)
+        return campaignResponse.campaignArn
+     }
 }
 //snippet-end:[personalize.kotlin.create_campaign.main]

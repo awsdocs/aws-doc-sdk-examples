@@ -16,7 +16,6 @@ package com.kotlin.personalize
 //snippet-start:[personalize.kotlin.list_campaigns.import]
 import aws.sdk.kotlin.services.personalize.PersonalizeClient
 import aws.sdk.kotlin.services.personalize.model.ListCampaignsRequest
-import aws.sdk.kotlin.services.personalize.model.PersonalizeException
 import kotlin.system.exitProcess
 //snippet-end:[personalize.kotlin.list_campaigns.import]
 
@@ -44,30 +43,22 @@ suspend fun main(args:Array<String>){
      }
 
     val solutionArn = args[0]
-    val personalizeClient = PersonalizeClient{ region = "us-east-1" }
-    listAllCampaigns(personalizeClient,solutionArn)
-    personalizeClient.close()
-}
+    listAllCampaigns(solutionArn)
+    }
 
 //snippet-start:[personalize.kotlin.list_campaigns.main]
-suspend fun listAllCampaigns(personalizeClient: PersonalizeClient, solutionArnVal: String?) {
-        try {
+suspend fun listAllCampaigns(solutionArnVal: String?) {
 
-            val campaignsRequest= ListCampaignsRequest {
-                maxResults =10
-                solutionArn = solutionArnVal
-            }
-
-            val response = personalizeClient.listCampaigns(campaignsRequest)
+        val request = ListCampaignsRequest {
+            maxResults =10
+            solutionArn = solutionArnVal
+        }
+        PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
+            val response = personalizeClient.listCampaigns(request)
             response.campaigns?.forEach { campaign ->
                     println("Campaign name is ${campaign.name}")
                     println("Campaign ARN is ${campaign.campaignArn}")
             }
-
-        } catch (ex: PersonalizeException) {
-            println(ex.message)
-            personalizeClient.close()
-            exitProcess(0)
         }
 }
 //snippet-end:[personalize.kotlin.list_campaigns.main]

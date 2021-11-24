@@ -16,7 +16,6 @@ package com.kotlin.personalize
 //snippet-start:[personalize.kotlin.create_solution.import]
 import aws.sdk.kotlin.services.personalize.PersonalizeClient
 import aws.sdk.kotlin.services.personalize.model.CreateSolutionRequest
-import aws.sdk.kotlin.services.personalize.model.PersonalizeException
 import kotlin.system.exitProcess
 //snippet-end:[personalize.kotlin.create_solution.import]
 
@@ -48,36 +47,22 @@ suspend fun main(args:Array<String>){
     val datasetGroupArn = args[0]
     val solutionName = args[1]
     val recipeArn = args[2]
-
-    val personalizeClient = PersonalizeClient{ region = "us-east-1" }
-    val solutionArn = createPersonalizeSolution(personalizeClient,datasetGroupArn, solutionName, recipeArn)
+    val solutionArn = createPersonalizeSolution(datasetGroupArn, solutionName, recipeArn)
     println("The Amazon Personalize solution ARN is $solutionArn")
-    personalizeClient.close()
 }
 
 //snippet-start:[personalize.kotlin.create_solution.main]
-suspend fun createPersonalizeSolution(
-        personalizeClient: PersonalizeClient,
-        datasetGroupArnVal: String?,
-        solutionName: String?,
-        recipeArnVal: String?
-    ): String? {
+suspend fun createPersonalizeSolution(datasetGroupArnVal: String?, solutionName: String?, recipeArnVal: String?): String? {
 
-    try {
+    val request = CreateSolutionRequest {
+        name = solutionName
+        datasetGroupArn = datasetGroupArnVal
+        recipeArn = recipeArnVal
+    }
 
-        val solutionRequest = CreateSolutionRequest {
-            name = solutionName
-            datasetGroupArn = datasetGroupArnVal
-            recipeArn = recipeArnVal
-        }
-
-        val solutionResponse = personalizeClient.createSolution(solutionRequest)
+    PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
+        val solutionResponse = personalizeClient.createSolution(request)
         return solutionResponse.solutionArn
-
-    } catch (ex: PersonalizeException) {
-        println(ex.message)
-        personalizeClient.close()
-        exitProcess(0)
     }
 }
 //snippet-end:[personalize.kotlin.create_solution.main]

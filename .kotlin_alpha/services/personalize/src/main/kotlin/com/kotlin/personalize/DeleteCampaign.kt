@@ -16,7 +16,6 @@ package com.kotlin.personalize
 //snippet-start:[personalize.kotlin.create_campaign.import]
 import aws.sdk.kotlin.services.personalize.PersonalizeClient
 import aws.sdk.kotlin.services.personalize.model.DeleteCampaignRequest
-import aws.sdk.kotlin.services.personalize.model.PersonalizeException
 import kotlin.system.exitProcess
 //snippet-end:[personalize.kotlin.create_campaign.import]
 
@@ -44,25 +43,19 @@ suspend fun main(args:Array<String>){
      }
 
     val campaignArn = args[0]
-    val personalizeClient = PersonalizeClient{ region = "us-east-1" }
-    deleteSpecificCampaign(personalizeClient,campaignArn)
-    personalizeClient.close()
-}
+    deleteSpecificCampaign(campaignArn)
+    }
 
 //snippet-start:[personalize.kotlin.create_campaign.main]
-suspend fun deleteSpecificCampaign(personalizeClient: PersonalizeClient, campaignArnVal: String?) {
-        try {
-            val campaignRequest = DeleteCampaignRequest {
-                campaignArn = campaignArnVal
-            }
+suspend fun deleteSpecificCampaign(campaignArnVal: String?) {
 
-            personalizeClient.deleteCampaign(campaignRequest)
+        val request = DeleteCampaignRequest {
+            campaignArn = campaignArnVal
+        }
+
+        PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
+            personalizeClient.deleteCampaign(request)
             println("$campaignArnVal was successfully deleted.")
-
-        } catch (ex: PersonalizeException) {
-            println(ex.message)
-            personalizeClient.close()
-            exitProcess(0)
         }
 }
 //snippet-end:[personalize.kotlin.create_campaign.main]
