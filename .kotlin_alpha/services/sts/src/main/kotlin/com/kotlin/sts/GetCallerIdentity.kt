@@ -17,8 +17,6 @@ package com.kotlin.sts
 // snippet-start:[sts.kotlin.get_call_id.import]
 import aws.sdk.kotlin.services.sts.StsClient
 import aws.sdk.kotlin.services.sts.model.GetCallerIdentityRequest
-import aws.sdk.kotlin.services.sts.model.StsException
-import kotlin.system.exitProcess
 // snippet-end:[sts.kotlin.get_call_id.import]
 
 
@@ -29,23 +27,17 @@ For information, see this documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
+    getCallerId()
 
-    val stsClient = StsClient{region ="us-east-1"}
-    getCallerId(stsClient)
-    stsClient.close()
 }
 
 // snippet-start:[sts.kotlin.get_call_id.main]
-suspend fun getCallerId(stsClient: StsClient) {
-    try {
-        val response = stsClient.getCallerIdentity(GetCallerIdentityRequest{})
-        println("The user id is ${response.userId}")
-        println("The ARN value is ${response.arn}")
+suspend fun getCallerId() {
 
-    } catch (e: StsException) {
-        println(e.message)
-        stsClient.close()
-        exitProcess(0)
+    StsClient { region = "us-east-1" }.use { stsClient ->
+      val response = stsClient.getCallerIdentity(GetCallerIdentityRequest{})
+      println("The user id is ${response.userId}")
+      println("The ARN value is ${response.arn}")
     }
 }
 // snippet-end:[sts.kotlin.get_call_id.main]

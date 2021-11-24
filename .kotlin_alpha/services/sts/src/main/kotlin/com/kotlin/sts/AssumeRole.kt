@@ -17,7 +17,6 @@ package com.kotlin.sts
 // snippet-start:[sts.kotlin.assume_role.import]
 import aws.sdk.kotlin.services.sts.StsClient
 import aws.sdk.kotlin.services.sts.model.AssumeRoleRequest
-import aws.sdk.kotlin.services.sts.model.StsException
 import kotlin.system.exitProcess
 // snippet-end:[sts.kotlin.assume_role.import]
 
@@ -65,31 +64,23 @@ suspend fun main(args:Array<String>) {
 
     val roleArn = args[0]
     val roleSessionName = args[1]
-    val stsClient = StsClient{region ="us-east-1"}
-    assumeGivenRole(stsClient, roleArn, roleSessionName)
-    stsClient.close()
+    assumeGivenRole(roleArn, roleSessionName)
 }
 
 // snippet-start:[sts.kotlin.assume_role.main]
-suspend fun assumeGivenRole(stsClient: StsClient, roleArnVal: String?, roleSessionNameVal: String?) {
-    try {
-        val roleRequest = AssumeRoleRequest {
-            roleArn = roleArnVal
-            roleSessionName = roleSessionNameVal
-        }
+suspend fun assumeGivenRole(roleArnVal: String?, roleSessionNameVal: String?) {
 
-        val roleResponse = stsClient.assumeRole(roleRequest)
+    val roleRequest = AssumeRoleRequest {
+        roleArn = roleArnVal
+        roleSessionName = roleSessionNameVal
+    }
+
+    StsClient { region = "us-east-1" }.use { stsClient ->
+      val roleResponse = stsClient.assumeRole(roleRequest)
         val myCreds = roleResponse.credentials
-
-        // Display the time when the temp creds expire.
         val exTime = myCreds?.expiration
         val tokenInfo = myCreds?.sessionToken
         println("The token $tokenInfo  expires on $exTime.")
-
-    } catch (e: StsException) {
-        println(e.message)
-        stsClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[sts.kotlin.assume_role.main]
