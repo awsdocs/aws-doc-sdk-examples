@@ -15,7 +15,6 @@ package com.kotlin.iam
 
 // snippet-start:[iam.kotlin.list_account_aliases.import]
 import aws.sdk.kotlin.services.iam.IamClient
-import aws.sdk.kotlin.services.iam.model.IamException
 import aws.sdk.kotlin.services.iam.model.ListAccountAliasesRequest
 // snippet-end:[iam.kotlin.list_account_aliases.import]
 
