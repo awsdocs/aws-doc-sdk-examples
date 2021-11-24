@@ -128,7 +128,7 @@ sqs_GetQueueUrl:
           excerpts:
             - description: Get the URL for an &SQS; queue.
               snippet_tags:
-                - sqs.go-v2.getQueueUrl
+                - sqs.go-v2.GetQueueUrl
   services:
     sqs: {GetQueueUrl}
 sqs_ListQueues:
