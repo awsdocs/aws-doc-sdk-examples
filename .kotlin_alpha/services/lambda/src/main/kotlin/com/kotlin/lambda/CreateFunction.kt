@@ -18,7 +18,6 @@ import aws.sdk.kotlin.services.lambda.LambdaClient
 import aws.sdk.kotlin.services.lambda.model.CreateFunctionRequest
 import aws.sdk.kotlin.services.lambda.model.FunctionCode
 import aws.sdk.kotlin.services.lambda.model.Runtime
-import aws.sdk.kotlin.services.lambda.model.LambdaException
 import kotlin.system.exitProcess
 // snippet-end:[lambda.kotlin.create.import]
 
@@ -55,44 +54,36 @@ suspend fun main(args: Array<String>) {
     val role = args[3]
     val handler = args[4]
 
-    val lambdaClient = LambdaClient { region = "us-west-2" }
-    val functionArn = createNewFunction(lambdaClient, functionName, s3BucketName, s3Key, handler, role)
+    val functionArn = createNewFunction(functionName, s3BucketName, s3Key, handler, role)
     println("The function ARN is $functionArn")
 }
 
 // snippet-start:[lambda.kotlin.create.main]
 suspend fun createNewFunction (
-        awsLambda: LambdaClient,
-        myFunctionName: String,
+         myFunctionName: String,
         s3BucketName: String,
         myS3Key: String,
         myHandler: String,
         myRole: String
     ): String? {
 
-        try {
-
-            val functionCode = FunctionCode {
+        val functionCode = FunctionCode {
                 s3Bucket = s3BucketName
                 s3Key = myS3Key
             }
 
-            val functionRequest = CreateFunctionRequest {
-                functionName = myFunctionName
-                code = functionCode
-                description = "Created by the Lambda Kotlin API"
-                handler = myHandler
-                role = myRole
-                runtime = Runtime.Java8
-            }
+        val request = CreateFunctionRequest {
+            functionName = myFunctionName
+            code = functionCode
+            description = "Created by the Lambda Kotlin API"
+            handler = myHandler
+            role = myRole
+            runtime = Runtime.Java8
+        }
 
-            val functionResponse = awsLambda.createFunction(functionRequest)
+        LambdaClient { region = "us-west-2" }.use { awsLambda ->
+            val functionResponse = awsLambda.createFunction(request)
             return functionResponse.functionArn
-
-        } catch (ex: LambdaException) {
-            println(ex.message)
-            awsLambda.close()
-            exitProcess(0)
         }
     }
 // snippet-end:[lambda.kotlin.create.main]

@@ -16,7 +16,6 @@ package com.kotlin.lambda
 // snippet-start:[lambda.kotlin.delete.import]
 import aws.sdk.kotlin.services.lambda.LambdaClient
 import aws.sdk.kotlin.services.lambda.model.DeleteFunctionRequest
-import aws.sdk.kotlin.services.lambda.model.LambdaException
 import kotlin.system.exitProcess
 // snippet-end:[lambda.kotlin.delete.import]
 
@@ -44,26 +43,20 @@ suspend fun main(args: Array<String>) {
     }
 
     val functionName = args[0]
-    val lambdaClient = LambdaClient { region = "us-west-2" }
-    delLambdaFunction(lambdaClient,functionName )
-    lambdaClient.close()
+    delLambdaFunction(functionName )
+
 }
 
 // snippet-start:[lambda.kotlin.delete.main]
-suspend fun delLambdaFunction(awsLambda: LambdaClient, myFunctionName: String) {
+suspend fun delLambdaFunction(myFunctionName: String) {
 
-        try {
-           val functionRequest = DeleteFunctionRequest {
-                functionName = myFunctionName
-            }
-
-            awsLambda.deleteFunction(functionRequest)
-            println("$myFunctionName was deleted")
-
-        } catch (ex: LambdaException) {
-            println(ex.message)
-            awsLambda.close()
-            exitProcess(1)
+        val request = DeleteFunctionRequest {
+            functionName = myFunctionName
         }
+
+        LambdaClient { region = "us-west-2" }.use { awsLambda ->
+            awsLambda.deleteFunction(request)
+            println("$myFunctionName was deleted")
+         }
  }
 // snippet-end:[lambda.kotlin.delete.main]
