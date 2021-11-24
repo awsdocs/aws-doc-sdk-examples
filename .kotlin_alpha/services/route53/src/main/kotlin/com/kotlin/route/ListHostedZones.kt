@@ -16,10 +16,7 @@ package com.kotlin.route
 
 //snippet-start:[route.kotlin.list_zones.import]
 import aws.sdk.kotlin.services.route53.Route53Client
-import aws.sdk.kotlin.services.route53.model.HostedZone
 import aws.sdk.kotlin.services.route53.model.ListHostedZonesRequest
-import aws.sdk.kotlin.services.route53.model.Route53Exception
-import kotlin.system.exitProcess
 //snippet-end:[route.kotlin.list_zones.import]
 
 /**
