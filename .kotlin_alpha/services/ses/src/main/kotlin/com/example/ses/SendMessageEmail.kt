@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[SendMessageEmail.kt demonstrates how to send an email message with an attachment by using the Amazon Simple Email Service (Amazon SES).]
+// snippet-sourcedescription:[SendMessageEmail.kt demonstrates how to send an email message by using the Amazon Simple Email Service (Amazon SES).]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[11/05/2021]
@@ -18,7 +18,6 @@ import aws.sdk.kotlin.services.ses.model.Content
 import aws.sdk.kotlin.services.ses.model.Body
 import aws.sdk.kotlin.services.ses.model.Message
 import aws.sdk.kotlin.services.ses.model.SendEmailRequest
-import aws.sdk.kotlin.services.ses.model.SesException
 import kotlin.system.exitProcess
 // snippet-end:[ses.kotlin.sendmessage.import]
 
@@ -48,13 +47,11 @@ suspend fun main(args:Array<String>) {
     val bodyHTML = ("<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
             + "<p> See the list of customers.</p>" + "</body>" + "</html>")
 
-    val sesClient = SesClient { region = "us-east-1" }
-    send(sesClient, sender, recipient, subject, bodyHTML)
+    send(sender, recipient, subject, bodyHTML)
 }
 
 // snippet-start:[ses.kotlin.sendmessage.main]
 suspend fun send(
-    sesClient: SesClient,
     sender: String?,
     recipient: String,
     subjectVal: String?,
@@ -87,14 +84,9 @@ suspend fun send(
         source = sender
        }
 
-    try {
+    SesClient { region = "us-east-1" }.use { sesClient ->
         println("Attempting to send an email through Amazon SES using the AWS SDK for Kotlin...")
         sesClient.sendEmail(emailRequest)
-
-    } catch (e: SesException) {
-        println(e.message)
-        sesClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[ses.kotlin.sendmessage.main]

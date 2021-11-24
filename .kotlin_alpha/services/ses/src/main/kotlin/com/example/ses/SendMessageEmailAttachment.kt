@@ -17,7 +17,6 @@ package com.kotlin.ses
 import aws.sdk.kotlin.services.ses.SesClient
 import aws.sdk.kotlin.services.ses.model.RawMessage
 import aws.sdk.kotlin.services.ses.model.SendRawEmailRequest
-import aws.sdk.kotlin.services.ses.model.SesException
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.nio.file.Files
@@ -64,9 +63,8 @@ suspend fun main(args:Array<String>) {
             + "<p> See the list of customers.</p>" + "</body>" + "</html>")
 
 
-    val sesClient = SesClient{region="us-east-1"}
-    try{
-        sendemailAttachment(sesClient, sender, recipient, subject, bodyHTML, bodyHTML, fileLocation)
+     try{
+        sendemailAttachment(sender, recipient, subject, bodyHTML, bodyHTML, fileLocation)
 
     } catch (e: MessagingException) {
         e.stackTrace
@@ -75,7 +73,6 @@ suspend fun main(args:Array<String>) {
 
 // snippet-start:[ses.kotlin.sendmessageattachment.main]
 suspend fun sendemailAttachment(
-    sesClient: SesClient,
     sender: String,
     recipient: String,
     subject: String,
@@ -139,26 +136,21 @@ suspend fun sendemailAttachment(
     // Add the attachment to the message.
     msg.addBodyPart(att)
 
-    try {
-        println("Attempting to send an email through Amazon SES using the AWS SDK for Kotlin...")
-        val outputStream = ByteArrayOutputStream()
-        message.writeTo(outputStream)
+    println("Attempting to send an email through Amazon SES using the AWS SDK for Kotlin...")
+    val outputStream = ByteArrayOutputStream()
+    message.writeTo(outputStream)
 
-        val rawMessageOb = RawMessage {
-           this.data = outputStream.toByteArray()
-        }
-
-        val rawEmailRequest = SendRawEmailRequest {
-            rawMessage = rawMessageOb
-        }
-
-        sesClient.sendRawEmail(rawEmailRequest)
-
-    } catch (e: SesException) {
-        println(e.message)
-        sesClient.close()
-        exitProcess(0)
+    val rawMessageOb = RawMessage {
+        this.data = outputStream.toByteArray()
     }
+
+    val rawEmailRequest = SendRawEmailRequest {
+        rawMessage = rawMessageOb
+    }
+
+    SesClient { region = "us-east-1" }.use { sesClient ->
+        sesClient.sendRawEmail(rawEmailRequest)
+     }
     println("Email sent with attachment")
 }
 // snippet-end:[ses.kotlin.sendmessageattachment.main]
