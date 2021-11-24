@@ -16,7 +16,6 @@ package com.kotlin.mediastore
 //snippet-start:[mediastore.kotlin.create_container.import]
 import aws.sdk.kotlin.services.mediastore.MediaStoreClient
 import aws.sdk.kotlin.services.mediastore.model.CreateContainerRequest
-import aws.sdk.kotlin.services.mediastore.model.MediaStoreException
 import kotlinx.coroutines.delay
 import kotlin.system.exitProcess
 //snippet-end:[mediastore.kotlin.create_container.import]
@@ -46,36 +45,29 @@ suspend fun main(args:Array<String>){
      }
 
     val containerName = args[0]
-    val mediastoreClient = MediaStoreClient { region = "us-east-1" }
-    println("Status is " + createMediaContainer(mediastoreClient, containerName))
-    mediastoreClient.close()
-}
+    println("Status is " + createMediaContainer(containerName))
+   }
 
 //snippet-start:[mediastore.kotlin.create_container.main]
-suspend fun createMediaContainer(mediaStoreClient: MediaStoreClient, containerNameVal: String?) {
+suspend fun createMediaContainer(containerNameVal: String?) {
 
         val sleepTime: Long = 10
-        try {
-            val containerRequest = CreateContainerRequest {
-                containerName = containerNameVal
-            }
+        val request = CreateContainerRequest {
+            containerName = containerNameVal
+        }
 
-            val containerResponse = mediaStoreClient.createContainer(containerRequest)
-            var status = containerResponse.container?.status.toString()
+        MediaStoreClient { region = "us-west-2" }.use { mediaStoreClient ->
+            val containerResponse = mediaStoreClient.createContainer(request)
+             var status = containerResponse.container?.status.toString()
 
             // Wait until the container is in an active state.
             while (!status.equals("Active", ignoreCase = true)) {
-                status = checkContainer(mediaStoreClient, containerNameVal).toString()
+                status = checkContainer(containerNameVal).toString()
                 println("Status - $status")
                 delay(sleepTime * 1000)
             }
             println("The container ARN value is ${containerResponse.container?.arn}")
             println("The $containerNameVal is created")
-
-        } catch (e: MediaStoreException) {
-            println(e.message)
-            mediaStoreClient.close()
-            exitProcess(0)
-        }
+         }
 }
 //snippet-end:[mediastore.kotlin.create_container.main]

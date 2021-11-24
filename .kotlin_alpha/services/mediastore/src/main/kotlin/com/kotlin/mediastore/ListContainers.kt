@@ -16,8 +16,6 @@ package com.kotlin.mediastore
 //snippet-start:[mediastore.kotlin.list_containers.import]
 import aws.sdk.kotlin.services.mediastore.MediaStoreClient
 import aws.sdk.kotlin.services.mediastore.model.ListContainersRequest
-import aws.sdk.kotlin.services.mediastore.model.MediaStoreException
-import kotlin.system.exitProcess
 //snippet-end:[mediastore.kotlin.list_containers.import]
 
 /**
@@ -29,24 +27,17 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(){
-
-    val mediastoreClient = MediaStoreClient { region = "us-east-1" }
-    listAllContainers(mediastoreClient)
-    mediastoreClient.close()
+    listAllContainers()
 }
 
 //snippet-start:[mediastore.kotlin.list_containers.main]
-suspend fun listAllContainers(mediaStoreClient: MediaStoreClient) {
-        try {
+suspend fun listAllContainers() {
+
+         MediaStoreClient { region = "us-west-2" }.use { mediaStoreClient ->
             val response = mediaStoreClient.listContainers(ListContainersRequest{})
             response.containers?.forEach { container ->
                     println("Container name is ${container.name}")
             }
-
-        } catch (e: MediaStoreException) {
-            println(e.message)
-            mediaStoreClient.close()
-            exitProcess(0)
         }
  }
 //snippet-end:[mediastore.kotlin.list_containers.main]

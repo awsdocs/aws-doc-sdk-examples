@@ -17,7 +17,6 @@ package com.kotlin.mediastore
 //snippet-start:[mediastore.kotlin.describe_container.import]
 import aws.sdk.kotlin.services.mediastore.MediaStoreClient
 import aws.sdk.kotlin.services.mediastore.model.DescribeContainerRequest
-import aws.sdk.kotlin.services.mediastore.model.MediaStoreException
 import kotlin.system.exitProcess
 //snippet-end:[mediastore.kotlin.describe_container.import]
 
@@ -33,12 +32,12 @@ suspend fun main(args:Array<String>){
 
     val usage = """
     
-        Usage: <containerName> 
+        Usage: 
+            <containerName> 
 
         Where:
-               containerName - the name of the container.
-              
-    """
+            containerName - the name of the container.
+       """
 
       if (args.size != 1) {
          println(usage)
@@ -46,27 +45,21 @@ suspend fun main(args:Array<String>){
      }
 
     val containerName = args[0]
-    val mediastoreClient = MediaStoreClient { region = "us-east-1" }
-    println("Status is ${checkContainer(mediastoreClient, containerName)}")
-    mediastoreClient.close()
-}
+    println("Status is ${checkContainer(containerName)}")
+    }
 
 //snippet-start:[mediastore.kotlin.describe_container.main]
-suspend fun checkContainer(mediaStoreClient: MediaStoreClient, containerNameVal: String?): String? {
-        try {
-            val describeContainerRequest = DescribeContainerRequest {
+suspend fun checkContainer(containerNameVal: String?): String? {
+
+            val request = DescribeContainerRequest {
                 containerName = containerNameVal
             }
 
-            val containerResponse = mediaStoreClient.describeContainer(describeContainerRequest)
-            println("The container name is ${containerResponse.container?.name}")
-            println("The container ARN is ${containerResponse.container?.arn}")
-            return containerResponse.container?.status.toString()
-
-        } catch (e: MediaStoreException) {
-            println(e.message)
-            mediaStoreClient.close()
-            exitProcess(0)
-        }
+            MediaStoreClient { region = "us-west-2" }.use { mediaStoreClient ->
+              val containerResponse = mediaStoreClient.describeContainer(request)
+              println("The container name is ${containerResponse.container?.name}")
+              println("The container ARN is ${containerResponse.container?.arn}")
+              return containerResponse.container?.status.toString()
+            }
   }
 //snippet-end:[mediastore.kotlin.describe_container.main]

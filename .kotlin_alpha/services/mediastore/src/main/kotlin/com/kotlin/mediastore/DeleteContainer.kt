@@ -16,7 +16,6 @@ package com.kotlin.mediastore
 //snippet-start:[mediastore.kotlin.delete_container.import]
 import aws.sdk.kotlin.services.mediastore.MediaStoreClient
 import aws.sdk.kotlin.services.mediastore.model.DeleteContainerRequest
-import aws.sdk.kotlin.services.mediastore.model.MediaStoreException
 import kotlin.system.exitProcess
 //snippet-end:[mediastore.kotlin.delete_container.import]
 
@@ -32,10 +31,11 @@ suspend fun main(args:Array<String>){
 
     val usage = """
     
-        Usage: <containerName> 
+        Usage: 
+            <containerName> 
 
         Where:
-               containerName - the name of the container to delete.
+            containerName - the name of the container to delete.
     """
 
        if (args.size != 1) {
@@ -44,25 +44,19 @@ suspend fun main(args:Array<String>){
      }
 
     val containerName = args[0]
-    val mediastoreClient = MediaStoreClient { region = "us-east-1" }
-    deleteMediaContainer(mediastoreClient, containerName)
-    mediastoreClient.close()
-}
+    deleteMediaContainer(containerName)
+    }
 
 //snippet-start:[mediastore.kotlin.delete_container.main]
-suspend fun deleteMediaContainer(mediaStoreClient: MediaStoreClient, containerNameVal: String?) {
-        try {
-            val deleteContainerRequest = DeleteContainerRequest {
-                containerName = containerNameVal
-            }
+suspend fun deleteMediaContainer(containerNameVal: String?) {
 
-            mediaStoreClient.deleteContainer(deleteContainerRequest)
+        val request = DeleteContainerRequest {
+            containerName = containerNameVal
+        }
+
+        MediaStoreClient { region = "us-west-2" }.use { mediaStoreClient ->
+            mediaStoreClient.deleteContainer(request)
             println("The $containerNameVal was deleted")
-
-        } catch (e: MediaStoreException) {
-            println(e.message)
-            mediaStoreClient.close()
-            exitProcess(0)
         }
  }
 //snippet-end:[mediastore.kotlin.delete_container.main]
