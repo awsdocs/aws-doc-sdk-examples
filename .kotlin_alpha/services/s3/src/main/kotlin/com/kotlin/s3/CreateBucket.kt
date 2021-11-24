@@ -16,7 +16,6 @@ package com.kotlin.s3
 // snippet-start:[s3.kotlin.create_bucket.import]
 import aws.sdk.kotlin.services.s3.S3Client
 import aws.sdk.kotlin.services.s3.model.CreateBucketRequest
-import aws.sdk.kotlin.services.s3.model.S3Exception
 import kotlin.system.exitProcess
 // snippet-end:[s3.kotlin.create_bucket.import]
 
@@ -37,32 +36,24 @@ suspend fun main(args: Array<String>) {
         bucketName - the name of the Amazon S3 bucket to create. The Amazon S3 bucket name must be unique, or an error occurs.
     """
 
-    if (args.size != 1) {
+   if (args.size != 1) {
         println(usage)
         exitProcess(0)
-    }
-
+   }
     val bucketName = args[0]
-    val s3Client = S3Client { region = "us-east-1" }
-    createNewBucket(s3Client,bucketName)
-    s3Client.close()
+    createNewBucket(bucketName)
 }
 
 // snippet-start:[s3.kotlin.create_bucket.main]
-    suspend fun createNewBucket(s3Client: S3Client, bucketName: String) {
+    suspend fun createNewBucket(bucketName: String) {
 
-        try {
-            s3Client.createBucket(
-                CreateBucketRequest {
-                    bucket = bucketName
-            })
+        val request = CreateBucketRequest {
+             bucket = bucketName
+         }
 
+        S3Client { region = "us-east-1" }.use { s3 ->
+            s3.createBucket(request)
             println("$bucketName is ready")
-
-        } catch (e: S3Exception) {
-            println(e.message)
-            s3Client.close()
-            exitProcess(0)
         }
  }
 // snippet-end:[s3.kotlin.create_bucket.main]

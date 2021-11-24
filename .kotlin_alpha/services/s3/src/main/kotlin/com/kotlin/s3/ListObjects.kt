@@ -16,8 +16,6 @@ package com.kotlin.s3
 // snippet-start:[s3.kotlin.list_objects.import]
 import aws.sdk.kotlin.services.s3.S3Client
 import aws.sdk.kotlin.services.s3.model.ListObjectsRequest
-import aws.sdk.kotlin.services.s3.model.Object
-import aws.sdk.kotlin.services.s3.model.S3Exception
 import kotlin.system.exitProcess
 // snippet-end:[s3.kotlin.list_objects.import]
 
@@ -38,38 +36,33 @@ suspend fun main(args: Array<String>) {
         bucketName - the Amazon S3 bucket from which objects are read.
     """
 
-    if (args.size != 1) {
-        println(usage)
+   if (args.size != 1) {
+       println(usage)
         exitProcess(0)
-    }
+   }
 
     val bucketName = args[0]
-    val s3Client = S3Client { region = "us-west-2" }
-    listBucketObjects(s3Client,bucketName)
-    s3Client.close()
+    listBucketObjects(bucketName)
 }
 
 // snippet-start:[s3.kotlin.list_objects.main]
-suspend fun listBucketObjects(s3Client: S3Client, bucketName: String) {
+suspend fun listBucketObjects(bucketName: String) {
 
-        try {
-            val listObjects = ListObjectsRequest {
-                bucket = bucketName
-            }
+        val request = ListObjectsRequest {
+            bucket = bucketName
+        }
 
-            val response = s3Client.listObjects(listObjects)
-            response.contents?.forEach { myObject ->
+        S3Client { region = "us-east-1" }.use { s3 ->
+
+                val response = s3.listObjects(request)
+                response.contents?.forEach { myObject ->
                     println("The name of the key is ${myObject.key}")
                     println("The object is ${calKb(myObject.size)} KBs")
-                    println("The owner is ${myObject.owner}" )
+                    println("The owner is ${myObject.owner}")
+                }
             }
+       }
 
-        } catch (e: S3Exception) {
-            println(e.message)
-            s3Client.close()
-            exitProcess(0)
-        }
-    }
     private fun calKb(intValue: Long): Long {
         return intValue / 1024
    }

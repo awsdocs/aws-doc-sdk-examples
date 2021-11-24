@@ -16,7 +16,6 @@ package com.kotlin.s3
 // snippet-start:[s3.kotlin.getobjectdata.import]
 import aws.sdk.kotlin.services.s3.S3Client
 import aws.sdk.kotlin.services.s3.model.GetObjectRequest
-import aws.sdk.kotlin.services.s3.model.S3Exception
 import aws.smithy.kotlin.runtime.content.writeToFile
 import java.io.File
 import kotlin.system.exitProcess
@@ -49,29 +48,23 @@ suspend fun main(args: Array<String>) {
     val bucketName = args[0]
     val objectKey = args[1]
     val objectPath = args[2]
-    val s3Client = S3Client { region = "us-east-1" }
-    getObjectBytes(s3Client, bucketName, objectKey, objectPath)
-    s3Client.close()
+    getObjectBytes(bucketName, objectKey, objectPath)
 }
 
 // snippet-start:[s3.kotlin.getobjectdata.main]
-suspend fun getObjectBytes(s3Client: S3Client, bucketName: String, keyName: String, path: String) {
-        try {
-            val objectRequest = GetObjectRequest {
-                key = keyName
-                bucket= bucketName
-            }
+suspend fun getObjectBytes(bucketName: String, keyName: String, path: String) {
 
-            s3Client.getObject(objectRequest) { resp ->
+         val request =  GetObjectRequest {
+             key = keyName
+             bucket= bucketName
+         }
+
+         S3Client { region = "us-east-1" }.use { s3 ->
+             s3.getObject(request) { resp ->
                     val myFile = File(path)
                     resp.body?.writeToFile(myFile)
                     println("Successfully read $keyName from $bucketName")
-            }
-
-        } catch (e: S3Exception) {
-            println(e.message)
-            s3Client.close()
-            exitProcess(0)
-        }
+               }
+         }
  }
 // snippet-end:[s3.kotlin.getobjectdata.main]

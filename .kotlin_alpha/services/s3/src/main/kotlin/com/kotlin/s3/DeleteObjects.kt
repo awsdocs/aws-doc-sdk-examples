@@ -18,7 +18,6 @@ import aws.sdk.kotlin.services.s3.S3Client
 import aws.sdk.kotlin.services.s3.model.ObjectIdentifier
 import aws.sdk.kotlin.services.s3.model.Delete
 import aws.sdk.kotlin.services.s3.model.DeleteObjectsRequest
-import aws.sdk.kotlin.services.s3.model.S3Exception
 import kotlin.system.exitProcess
 // snippet-end:[s3.kotlin.delete_objects.import]
 
@@ -47,13 +46,11 @@ suspend fun main(args: Array<String>) {
 
     val bucketName = args[0]
     val objectKey = args[1]
-    val s3Client = S3Client { region = "us-east-1" }
-    deleteBucketObjects(s3Client, bucketName, objectKey)
-    s3Client.close()
-}
+    deleteBucketObjects(bucketName, objectKey)
+   }
 
 // snippet-start:[s3.kotlin.delete_objects.main]
-  suspend fun deleteBucketObjects(s3Client: S3Client, bucketName: String, objectName: String) {
+  suspend fun deleteBucketObjects(bucketName: String, objectName: String) {
 
         val objectId = ObjectIdentifier{
             key = objectName
@@ -63,19 +60,14 @@ suspend fun main(args: Array<String>) {
             objects = listOf(objectId)
         }
 
-        try {
-            val deleteObjectsRequest = DeleteObjectsRequest {
-                bucket = bucketName
-                delete= delOb
-            }
+        val request = DeleteObjectsRequest {
+            bucket = bucketName
+            delete= delOb
+        }
 
-            s3Client.deleteObjects(deleteObjectsRequest)
-            println("$objectName was deleted from $bucketName")
-
-        } catch (e: S3Exception) {
-            println(e.message)
-            s3Client.close()
-            exitProcess(0)
+        S3Client { region = "us-east-1" }.use { s3 ->
+                 s3.deleteObjects(request)
+                 println("$objectName was deleted from $bucketName")
         }
    }
 // snippet-end:[s3.kotlin.delete_objects.main]

@@ -16,7 +16,6 @@ package com.kotlin.s3
 // snippet-start:[s3.kotlin.s3_object_upload.import]
 import aws.sdk.kotlin.services.s3.S3Client
 import aws.sdk.kotlin.services.s3.model.PutObjectRequest
-import aws.sdk.kotlin.services.s3.model.S3Exception
 import aws.smithy.kotlin.runtime.content.asByteStream
 import java.nio.file.Paths
 import kotlin.system.exitProcess
@@ -41,45 +40,33 @@ suspend fun main(args: Array<String>) {
         objectPath - the path where the file is located (for example, C:/AWS/book2.pdf).
     """
 
-   if (args.size != 1) {
-       println(usage)
-       exitProcess(0)
-   }
+    if (args.size != 1) {
+        println(usage)
+        exitProcess(0)
+    }
 
     val bucketName = args[0]
     val objectKey = args[1]
     val objectPath = args[2]
-    val s3Client = S3Client { region = "us-east-1" }
-    putS3Object(s3Client, bucketName, objectKey, objectPath)
-    s3Client.close()
+    putS3Object(bucketName, objectKey, objectPath)
 }
 
 // snippet-start:[s3.kotlin.s3_object_upload.main]
-suspend fun putS3Object(
-        s3Client: S3Client,
-        bucketName: String,
-        objectKey: String,
-        objectPath: String
-    ){
+suspend fun putS3Object(bucketName: String, objectKey: String, objectPath: String) {
 
-        try {
             val metadataVal = mutableMapOf<String, String>()
             metadataVal["myVal"] = "test"
 
-            val putOb = PutObjectRequest {
+            val request = PutObjectRequest {
                 bucket = bucketName
                 key = objectKey
                 metadata = metadataVal
                 this.body = Paths.get(objectPath).asByteStream()
             }
 
-            val response =s3Client.putObject(putOb)
-            println("Tag information is ${response.eTag}")
-
-        } catch (e: S3Exception) {
-            println(e.message)
-            s3Client.close()
-            exitProcess(0)
-        }
-    }
+            S3Client { region = "us-east-1" }.use { s3 ->
+               val response =s3.putObject(request)
+               println("Tag information is ${response.eTag}")
+            }
+      }
 // snippet-end:[s3.kotlin.s3_object_upload.main]

@@ -16,7 +16,6 @@ package com.kotlin.s3
 // snippet-start:[s3.kotlin.del_bucket.import]
 import aws.sdk.kotlin.services.s3.S3Client
 import aws.sdk.kotlin.services.s3.model.DeleteBucketRequest
-import aws.sdk.kotlin.services.s3.model.S3Exception
 import kotlin.system.exitProcess
 // snippet-end:[s3.kotlin.del_bucket.import]
 
@@ -43,25 +42,18 @@ suspend fun main(args: Array<String>) {
      }
 
     val bucketName = args[0]
-    val s3Client = S3Client { region = "us-east-1" }
-    deleteExistingBucket(s3Client,bucketName)
-    s3Client.close()
+    deleteExistingBucket(bucketName)
 }
 
 // snippet-start:[s3.kotlin.del_bucket.main]
- suspend fun deleteExistingBucket(s3Client: S3Client, bucketName: String?) {
+ suspend fun deleteExistingBucket(bucketName: String?) {
 
-        try {
-            val deleteBucketRequest = DeleteBucketRequest {
-                bucket = bucketName
-            }
-            s3Client.deleteBucket(deleteBucketRequest)
+        val request = DeleteBucketRequest {
+            bucket = bucketName
+        }
+        S3Client { region = "us-east-1" }.use { s3 ->
+            s3.deleteBucket(request)
             println("The $bucketName was successfully deleted!")
-
-        } catch (e: S3Exception) {
-            println(e.message)
-            s3Client.close()
-            exitProcess(0)
         }
     }
 // snippet-end:[s3.kotlin.del_bucket.main]
