@@ -18,7 +18,6 @@ import aws.sdk.kotlin.services.textract.TextractClient
 import aws.sdk.kotlin.services.textract.model.S3Object
 import aws.sdk.kotlin.services.textract.model.DetectDocumentTextRequest
 import aws.sdk.kotlin.services.textract.model.Document
-import aws.sdk.kotlin.services.textract.model.TextractException
 import kotlin.system.exitProcess
 // snippet-end:[textract.kotlin._detect_s3_text.import]
 
@@ -40,32 +39,27 @@ suspend fun main(args:Array<String>) {
 
     val bucketName = args[0]
     val docName = args[1]
-    val textractClient = TextractClient{ region = "us-west-2"}
-    detectDocTextS3(textractClient, bucketName, docName)
-    textractClient.close()
+    detectDocTextS3(bucketName, docName)
 }
 
 // snippet-start:[textract.kotlin._detect_s3_text.main]
-suspend fun detectDocTextS3(textractClient: TextractClient, bucketName: String?, docName: String?) {
-    try {
+suspend fun detectDocTextS3(bucketName: String?, docName: String?) {
 
-        val s3ObjectOb = S3Object {
-            bucket = bucketName
-            name = docName
-        }
+    val s3ObjectOb = S3Object {
+        bucket = bucketName
+        name = docName
+    }
 
-        // Create a Document object and reference the s3Object instance.
-        val myDoc = Document {
-            s3Object = s3ObjectOb
-        }
+    val myDoc = Document {
+        s3Object = s3ObjectOb
+    }
 
-        // Create a DetectDocumentTextRequest object.
-        val detectDocumentTextRequest = DetectDocumentTextRequest {
-            document = myDoc
-        }
+    val detectDocumentTextRequest = DetectDocumentTextRequest {
+        document = myDoc
+    }
 
-        // Invoke the detectDocumentText method.
-        val response = textractClient.detectDocumentText(detectDocumentTextRequest)
+    TextractClient { region = "us-west-2" }.use { textractClient ->
+      val response = textractClient.detectDocumentText(detectDocumentTextRequest)
         response.blocks?.forEach { block ->
             println("The block type is ${block.blockType.toString()}")
         }
@@ -74,11 +68,6 @@ suspend fun detectDocTextS3(textractClient: TextractClient, bucketName: String?,
         if (documentMetadata != null) {
             println("The number of pages in the document is ${documentMetadata.pages}")
         }
-
-    } catch (ex: TextractException) {
-        println(ex.message)
-        textractClient.close()
-        exitProcess(0)
     }
 }
 // snippet-end:[textract.kotlin._detect_s3_text.main]
