@@ -18,7 +18,6 @@ import aws.sdk.kotlin.services.kinesis.model.PutRecordRequest
 import aws.sdk.kotlin.services.kinesis.model.DescribeStreamRequest
 import kotlinx.coroutines.delay
 import kotlin.system.exitProcess
-
 //snippet-end:[kinesis.kotlin.putrecord.import]
 
 /**
