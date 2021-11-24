@@ -16,7 +16,6 @@ package com.kotlin.sage
 //snippet-start:[sagemaker.kotlin.delete_model.import]
 import aws.sdk.kotlin.services.sagemaker.SageMakerClient
 import aws.sdk.kotlin.services.sagemaker.model.DeleteModelRequest
-import aws.sdk.kotlin.services.sagemaker.model.SageMakerException
 import kotlin.system.exitProcess
 //snippet-end:[sagemaker.kotlin.delete_model.import]
 
@@ -29,7 +28,7 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args:Array<String>) {
 
-    val USAGE = """
+    val usage = """
     Usage:
         <modelName>
 
@@ -38,29 +37,23 @@ suspend fun main(args:Array<String>) {
     """
 
     if (args.size != 1) {
-        println(USAGE)
+        println(usage)
         exitProcess(1)
     }
 
     val modelName = args[0]
-    val sageMakerClient = SageMakerClient{region = "us-west-2" }
-    deleteSagemakerModel(sageMakerClient, modelName)
-    sageMakerClient.close()
-}
+    deleteSagemakerModel(modelName)
+    }
 
 //snippet-start:[sagemaker.kotlin.delete_model.main]
-suspend fun deleteSagemakerModel(sageMakerClient: SageMakerClient, modelNameVal: String?) {
+suspend fun deleteSagemakerModel(modelNameVal: String?) {
 
-    try {
-        val deleteModelRequest = DeleteModelRequest {
+     val request = DeleteModelRequest {
             modelName = modelNameVal
-        }
-        sageMakerClient.deleteModel(deleteModelRequest)
+     }
 
-    } catch (e: SageMakerException) {
-        println(e.message)
-        sageMakerClient.close()
-        exitProcess(0)
+    SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
+        sageMakerClient.deleteModel(request)
     }
 }
 //snippet-end:[sagemaker.kotlin.delete_model.main]

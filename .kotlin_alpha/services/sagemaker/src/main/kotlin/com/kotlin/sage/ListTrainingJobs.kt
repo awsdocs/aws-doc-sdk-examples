@@ -16,8 +16,6 @@ package com.kotlin.sage
 //snippet-start:[sagemaker.kotlin.list_jobs.import]
 import aws.sdk.kotlin.services.sagemaker.SageMakerClient
 import aws.sdk.kotlin.services.sagemaker.model.ListTrainingJobsRequest
-import aws.sdk.kotlin.services.sagemaker.model.SageMakerException
-import kotlin.system.exitProcess
 //snippet-end:[sagemaker.kotlin.list_jobs.import]
 
 /**
@@ -28,30 +26,19 @@ For information, see this documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
-
-    val sageMakerClient = SageMakerClient{region = "us-west-2" }
-    listJobs(sageMakerClient)
-    sageMakerClient.close()
-}
+    listJobs()
+   }
 
 //snippet-start:[sagemaker.kotlin.list_jobs.main]
-suspend fun listJobs(sageMakerClient:SageMakerClient) {
+suspend fun listJobs() {
 
-    try {
-
+    SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
         val response = sageMakerClient.listTrainingJobs(ListTrainingJobsRequest{ })
-        val items = response.trainingJobSummaries
-        if (items != null) {
-            for (item in items) {
+        response.trainingJobSummaries?.forEach { item ->
                 println("Name is ${item.trainingJobName}")
                 println("Status is ${item.trainingJobStatus.toString()}")
-            }
-        }
 
-    } catch (e: SageMakerException) {
-        println(e.message)
-        sageMakerClient.close()
-        exitProcess(0)
+        }
     }
 }
 //snippet-end:[sagemaker.kotlin.list_jobs.main]

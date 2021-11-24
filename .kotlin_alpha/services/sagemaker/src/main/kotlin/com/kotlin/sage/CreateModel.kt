@@ -18,7 +18,6 @@ import aws.sdk.kotlin.services.sagemaker.SageMakerClient
 import aws.sdk.kotlin.services.sagemaker.model.ContainerDefinition
 import aws.sdk.kotlin.services.sagemaker.model.CreateModelRequest
 import aws.sdk.kotlin.services.sagemaker.model.ContainerMode
-import aws.sdk.kotlin.services.sagemaker.model.SageMakerException
 import kotlin.system.exitProcess
 //snippet-end:[sagemaker.kotlin.create_model.import]
 
@@ -44,7 +43,7 @@ suspend fun main(args:Array<String>) {
     """
 
     if (args.size != 4) {
-       println(usage)
+        println(usage)
         exitProcess(1)
     }
 
@@ -52,41 +51,31 @@ suspend fun main(args:Array<String>) {
     val image = args[1]
     val modelName = args[2]
     val executionRoleArn = args[3]
-
-    val sageMakerClient = SageMakerClient{region = "us-west-2" }
-    createSagemakerModel(sageMakerClient, dataUrl, image, modelName, executionRoleArn)
-    sageMakerClient.close()
+    createSagemakerModel(dataUrl, image, modelName, executionRoleArn)
 }
 
 //snippet-start:[sagemaker.kotlin.create_model.main]
 suspend fun createSagemakerModel(
-        sageMakerClient: SageMakerClient,
-        dataUrl: String?,
-        imageVal: String?,
-        modelNameVal: String?,
-        executionRoleArnVal: String?) {
+        dataUrl: String,
+        imageVal: String,
+        modelNameVal: String,
+        executionRoleArnVal: String) {
 
-        try {
-
-            val containerDefinition = ContainerDefinition {
+           val containerDefinition = ContainerDefinition {
               modelDataUrl = dataUrl
               image = imageVal
               mode = ContainerMode.SingleModel
             }
 
-           val modelRequest = CreateModelRequest {
+           val request = CreateModelRequest {
               modelName = modelNameVal
               executionRoleArn = executionRoleArnVal
               primaryContainer = containerDefinition
            }
 
-           val response = sageMakerClient.createModel(modelRequest)
-           println("The ARN of the model is ${response.modelArn}")
-
-       } catch (e: SageMakerException) {
-         println(e.message)
-         sageMakerClient.close()
-         exitProcess(0)
-       }
+           SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
+             val response = sageMakerClient.createModel(request)
+             println("The ARN of the model is ${response.modelArn}")
+           }
   }
 //snippet-end:[sagemaker.kotlin.create_model.main]

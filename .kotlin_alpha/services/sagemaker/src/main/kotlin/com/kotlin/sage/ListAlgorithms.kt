@@ -16,8 +16,6 @@ package com.kotlin.sage
 //snippet-start:[sagemaker.kotlin.list_algs.import]
 import aws.sdk.kotlin.services.sagemaker.SageMakerClient
 import aws.sdk.kotlin.services.sagemaker.model.ListAlgorithmsRequest
-import aws.sdk.kotlin.services.sagemaker.model.SageMakerException
-import kotlin.system.exitProcess
 //snippet-end:[sagemaker.kotlin.list_algs.import]
 
 /**
@@ -28,25 +26,17 @@ For information, see this documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
-
-    val sageMakerClient = SageMakerClient{region = "us-west-2" }
-    listAlgs(sageMakerClient)
-    sageMakerClient.close()
-}
+    listAlgs()
+ }
 
 //snippet-start:[sagemaker.kotlin.list_algs.main]
-suspend fun listAlgs(sageMakerClient:SageMakerClient) {
+suspend fun listAlgs() {
 
-    try {
-        val response = sageMakerClient.listAlgorithms( ListAlgorithmsRequest{})
+    SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
+     val response = sageMakerClient.listAlgorithms( ListAlgorithmsRequest{})
         response.algorithmSummaryList?.forEach { item ->
              println("Algorithm name is ${item.algorithmName}")
         }
-
-    } catch (e: SageMakerException) {
-     println(e.message)
-     sageMakerClient.close()
-    exitProcess(0)
-   }
+    }
 }
 //snippet-end:[sagemaker.kotlin.list_algs.main]

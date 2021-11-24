@@ -16,8 +16,6 @@ package com.kotlin.sage
 //snippet-start:[sagemaker.kotlin.list_books.import]
 import aws.sdk.kotlin.services.sagemaker.SageMakerClient
 import aws.sdk.kotlin.services.sagemaker.model.ListNotebookInstancesRequest
-import aws.sdk.kotlin.services.sagemaker.model.SageMakerException
-import kotlin.system.exitProcess
 //snippet-end:[sagemaker.kotlin.list_books.import]
 
 /**
@@ -28,29 +26,17 @@ For information, see this documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
-
-    val sageMakerClient = SageMakerClient{region = "us-west-2" }
-    listBooks(sageMakerClient)
-    sageMakerClient.close()
-}
+     listBooks()
+    }
 
 //snippet-start:[sagemaker.kotlin.list_books.main]
-suspend fun listBooks(sageMakerClient:SageMakerClient) {
+suspend fun listBooks() {
 
-    try {
-        val notebookInstancesResponse = sageMakerClient.listNotebookInstances(ListNotebookInstancesRequest{})
-        val items = notebookInstancesResponse.notebookInstances
-
-        if (items != null) {
-            for (item in items) {
-                println("The notebook name is: ${item.notebookInstanceName}")
-            }
+    SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
+        val response = sageMakerClient.listNotebookInstances(ListNotebookInstancesRequest{})
+        response.notebookInstances?.forEach { item ->
+            println("The notebook name is: ${item.notebookInstanceName}")
         }
-
-    } catch (e: SageMakerException) {
-        println(e.message)
-        sageMakerClient.close()
-        exitProcess(0)
     }
 }
 //snippet-end:[sagemaker.kotlin.list_books.main]
