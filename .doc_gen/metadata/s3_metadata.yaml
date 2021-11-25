@@ -5,15 +5,6 @@ s3_CreateBucket:
   synopsis: create an &S3; bucket.
   category:
   languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/s3
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - s3.kotlin.create_bucket.main
     Java:
       versions:
         - sdk_version: 2
@@ -55,6 +46,13 @@ s3_CreateBucket:
             - description:
               snippet_tags:
                 - s3.rust.create-bucket
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3
+          excerpts:
+            - description:
+              snippet_tags: ['s3.go-v2.CreateBucket']
   services:
     s3: {CreateBucket}
 s3_CopyObject:
@@ -63,15 +61,6 @@ s3_CopyObject:
   synopsis: copy an &S3; object from one bucket to another.
   category:
   languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/s3
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - s3.kotlin.copy_object.main
     Java:
       versions:
         - sdk_version: 2
@@ -100,6 +89,13 @@ s3_CopyObject:
             - description:
               snippet_tags:
                 - python.example_code.s3.CopyObject
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3
+          excerpts:
+            - description:
+              snippet_tags: ['s3.go-v2.CopyObject']
   services:
     s3: {CopyObject}
 s3_DeleteBucketPolicy:
@@ -108,15 +104,6 @@ s3_DeleteBucketPolicy:
   synopsis: delete a policy from an &S3; bucket.
   category:
   languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/s3
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - s3.kotlin.delete_bucket_policy.main
     Java:
       versions:
         - sdk_version: 2
@@ -155,7 +142,7 @@ s3_DeleteObject:
   synopsis: delete an &S3; object.
   category:
   languages:
-     Python:
+    Python:
       versions:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
@@ -172,6 +159,13 @@ s3_DeleteObject:
             - description:
               snippet_tags:
                 - s3.rust.delete-object
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3
+          excerpts:
+            - description:
+              snippet_tags: ['s3.go-v2.DeleteObject']
     JavaScript:
       versions:
         - sdk_version: 3
@@ -191,15 +185,6 @@ s3_DeleteObjects:
   synopsis: delete multiple objects from an &S3; bucket.
   category:
   languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/s3
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - s3.kotlin.delete_objects.main
     Java:
       versions:
         - sdk_version: 2
@@ -279,24 +264,6 @@ s3_GetObjectAcl:
   synopsis: get the access control list (ACL) of an &S3; object.
   category:
   languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/s3
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - s3.kotlin.get_acl.main
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/s3
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - s3.java2.get_acl.main
     Python:
       versions:
         - sdk_version: 3
@@ -305,6 +272,13 @@ s3_GetObjectAcl:
             - description:
               snippet_tags:
                 - python.example_code.s3.GetObjectAcl
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3
+          excerpts:
+            - description:
+              snippet_tags: ['s3.go-v2.GetObjectAcl']
   services:
     s3: {GetObjectAcl}
 s3_GetBucketPolicy:
@@ -313,15 +287,6 @@ s3_GetBucketPolicy:
   synopsis: get the policy for an &S3; bucket.
   category:
   languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/s3
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - s3.kotlin.get_bucket_policy.main
     Java:
       versions:
         - sdk_version: 2
@@ -377,15 +342,6 @@ s3_GetObject:
   synopsis: read data from an object located in an &S3; bucket.
   category:
   languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/s3
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - s3.kotlin.getobjectdata.main
     Java:
       versions:
         - sdk_version: 2
@@ -511,15 +467,6 @@ s3_ListObjects:
   synopsis: list objects located in an &S3; bucket.
   category:
   languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/s3
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - s3.kotlin.list_objects.main
     Java:
       versions:
         - sdk_version: 2
@@ -545,6 +492,13 @@ s3_ListObjects:
             - description:
               snippet_tags:
                 - s3.rust.list-objects
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3
+          excerpts:
+            - description:
+              snippet_tags: ['s3.go-v2.ListObjects']
     JavaScript:
       versions:
         - sdk_version: 3
@@ -583,15 +537,6 @@ s3_PutObject:
   synopsis: upload an object to an &S3; bucket.
   category:
   languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/s3
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - s3.kotlin.s3_object_upload.main
     Java:
       versions:
         - sdk_version: 2
@@ -626,6 +571,13 @@ s3_PutObject:
             - description:
               snippet_tags:
                 - s3.rust.s3-helloworld
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3
+          excerpts:
+            - description:
+              snippet_tags: ['s3.go-v2.PutObject']
     JavaScript:
       versions:
         - sdk_version: 3
@@ -666,15 +618,6 @@ s3_DeleteBucket:
   synopsis: delete an empty &S3; bucket.
   category:
   languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/s3
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - s3.kotlin.del_bucket.main
     Java:
       versions:
         - sdk_version: 2
@@ -693,6 +636,13 @@ s3_DeleteBucket:
               snippet_tags:
                 - python.example_code.s3.get_s3_helper
                 - python.example_code.s3.DeleteBucket
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3
+          excerpts:
+            - description:
+              snippet_tags: ['s3.go-v2.DeleteBucket']
     JavaScript:
       versions:
         - sdk_version: 3
@@ -818,6 +768,13 @@ s3_GetBucketAcl:
               snippet_tags:
                 - python.example_code.s3.get_s3_helper
                 - python.example_code.s3.GetBucketAcl
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3
+          excerpts:
+            - description:
+              snippet_tags: ['s3.go-v2.GetBucketAcl']
     JavaScript:
       versions:
         - sdk_version: 3
@@ -876,15 +833,6 @@ s3_PutBucketPolicy:
   synopsis: add a policy to an &S3; bucket.
   category:
   languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/s3
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - s3.kotlin.set_bucket_policy.main
     Java:
       versions:
         - sdk_version: 2
@@ -1008,6 +956,13 @@ s3_ListBuckets:
             - description:
               snippet_tags:
                 - s3.rust.list-buckets
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3
+          excerpts:
+            - description:
+              snippet_tags: ['s3.go-v2.ListBuckets']
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1182,6 +1137,13 @@ s3_Scenario_PresignedUrl:
               snippet_tags:
                 - python.example_code.s3.get_s3_helper
                 - python.example_code.s3.Scenario_GeneratePresignedPost
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3
+          excerpts:
+            - description:
+              snippet_tags: ['s3.go-v2.generate_presigned_url']
     JavaScript:
       versions:
         - sdk_version: 3
