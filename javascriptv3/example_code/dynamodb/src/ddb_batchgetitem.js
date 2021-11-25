@@ -16,7 +16,7 @@ INPUTS:
 - ATTRIBUTE_NAME
 
 Running the code:
-ts-node ddb_batchgetitem.js
+node ddb_batchgetitem.js
 */
 // snippet-start:[dynamodb.JavaScript.batch.GetItemV3]
 // Import required AWS SDK clients and commands for Node.js
@@ -24,7 +24,7 @@ import { BatchGetItemCommand } from "@aws-sdk/client-dynamodb";
 import { ddbClient } from "./libs/ddbClient.js";
 
 // Set the parameters
-const params = {
+export const params = {
   RequestItems: {
     TABLE_NAME: {
       Keys: [
@@ -39,7 +39,7 @@ const params = {
   },
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await ddbClient.send(new BatchGetItemCommand(params));
     console.log("Success, items retrieved", data);
@@ -50,5 +50,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[dynamodb.JavaScript.batch.GetItemV3]
-// For unit tests only.
-// module.exports ={run, params};
+

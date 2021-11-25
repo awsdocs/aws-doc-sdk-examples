@@ -1,25 +1,31 @@
 # Amazon DynamoDB JavaScript SDK v3 code examples
+The code examples in this directory demonstrate how to work with Amazon DynamoDB using the AWS SDK for JavaScript version 3 (v3).
+
 Amazon DynamoDB is a key-value and document database that delivers single-digit millisecond performance at any scale. It's a fully managed, multiregion, multimaster, durable database with built-in security, backup and restore, and in-memory caching for internet-scale applications. 
 
 ## Code examples
 This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon DynamoDB examples: 
 
-- [Get batch items](src/ddb_batchgetitem.js)
-- [Write batch items](src/ddb_batchwriteitem.js)
-- [Create a DyanamoDB table](src/ddb_createtable.js)
-- [Delete an item](src/ddb_deleteitem.js)
-- [Delete a DyanamoDB table](src/ddb_deletetable.js)
-- [Describe DyanamoDB tables](src/ddb_describetable.js)
-- [Get items](src/ddb_getitem.js)
-- [List DyanamoDB tables](src/ddb_listtables.js)
-- [Put items](src/ddb_putitem.js)
-- [Query a DyanamoDB table](src/ddb_query.js)
-- [Scan a DyanamoDB table](src/ddb_scan.js)
-- [Delete items using Document Client](src/ddbdoc_delete_item.js)
-- [Get items using Document Client](src/ddbdoc_get_item.js)
-- [Put items using Document Client](src/ddbdoc_put_item.js)
-- [Query a DyanamoDB table using Document Client](src/ddbdoc_query_item.js)
-- [Update a DyanamoDB table using Document Client](src/ddbdoc_update_item.js)
+### API Examples
+
+- [Get batch items](src/ddb_batchgetitem.js) (BatchGetItemCommand)
+- [Write batch items](src/ddb_batchwriteitem.js) (BatchGetWriteCommand)
+- [Write batch items - TV example](src/QueryExample/ddb_batchwriteitem_tv.js)
+- [Create a DyanamoDB table](src/ddb_createtable.js) (CreateTableCommand)
+- [Create a DyanamoDB table - TV example](src/QueryExample/ddb_createtable_tv.js)
+- [Delete an item](src/ddb_deleteitem.js) (DeleteItemCommand)
+- [Delete a DyanamoDB table](src/ddb_deletetable.js) (DeleteTableCommand)
+- [Describe DyanamoDB tables](src/ddb_describetable.js) (DescribeTableCommand)
+- [Get items](src/ddb_getitem.js) (GetItemCommand)
+- [List DyanamoDB tables](src/ddb_listtables.js) (ListTablesCommand)
+- [Put items](src/ddb_putitem.js) (PutItemCommand)
+- [Query a DyanamoDB table](src/ddb_query.js) (QueryCommand)
+- [Scan a DyanamoDB table](src/ddb_scan.js) (ScanCommand)
+- [Delete items using Document Client](src/ddbdoc_delete_item.js) (DeleteCommand)
+- [Get items using Document Client](src/ddbdoc_get_item.js) (GetCommand)
+- [Put items using Document Client](src/ddbdoc_put_item.js) {(PutCommand)
+- [Query a DyanamoDB table using Document Client](src/ddbdoc_query_item.js) (QueryCommand)
+- [Update a DyanamoDB table using Document Client](src/ddbdoc_update_item.js) (UpdateCommand)
 
 **Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see 
 [JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html).
@@ -46,6 +52,9 @@ npm install
 cd src
 node [example name].js // For example, node ddb_batchgetitem.js
 ```
+
+## Unit tests
+For more information see, the [README](../README.rst).
 
 ## Resources
 - [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) is available. 
