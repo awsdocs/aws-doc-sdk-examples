@@ -16,4 +16,6 @@ For example:
 
 ## License Summary
 
-This sample code is made available under a modified MIT license. See the LICENSE file.
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

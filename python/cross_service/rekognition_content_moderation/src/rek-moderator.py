@@ -45,6 +45,8 @@ def getModerationForUrl(url):
         return 503, "Unexpected error: " + str(e)
 
 def lambda_handler(event, context):
+    print(f'event: {json.dumps(event)}')
+
     body = event.get('body')
     if body is None:
         raise KeyError("payload is missing")
@@ -55,6 +57,7 @@ def lambda_handler(event, context):
         raise KeyError("url is missing from the payload")
         
     moderationResponse = getModerationForUrl(url)
+    print(f'returning moderationResponse: {json.dumps(moderationResponse)}')
    
     return {
         'statusCode': moderationResponse[0],
