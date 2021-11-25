@@ -8,6 +8,7 @@ Shows how to implement an AWS Lambda function that handles input from direct
 invocation.
 """
 
+# snippet-start:[python.example_code.lambda.handler.calculate]
 import logging
 import math
 
@@ -40,3 +41,4 @@ def lambda_handler(event, context):
 
     response = {'result': result}
     return response
+# snippet-end:[python.example_code.lambda.handler.calculate]
