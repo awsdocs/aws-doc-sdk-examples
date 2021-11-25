@@ -635,7 +635,7 @@ sns_DeleteTopic:
           excerpts:
             - description: 
               snippet_tags:
-                - sns.kotlin.CreateTopic.main
+                - sns.kotlin.DeleteTopic.main
     Java:
       versions:
         - sdk_version: 2
