@@ -60,6 +60,13 @@ sqs_CreateQueue:
             - description: Create an &SQS; queue that waits for a message to arrive.
               snippet_tags:
                 - sqs.JavaScript.longPoll.createQueue
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/sqs
+          excerpts:
+            - description: ''
+              snippet_tags: ['sqs.go-v2.CreateQueue']
   services:
     sqs: {CreateQueue}
 sqs_GetQueueUrl:
@@ -114,6 +121,14 @@ sqs_GetQueueUrl:
             - description: Get the URL for an &SQS; queue.
               snippet_tags:
                 - sqs.JavaScript.queues.getQueueUrl
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/sqs
+          excerpts:
+            - description: Get the URL for an &SQS; queue.
+              snippet_tags:
+                - sqs.go-v2.GetQueueUrl
   services:
     sqs: {GetQueueUrl}
 sqs_ListQueues:
@@ -167,6 +182,14 @@ sqs_ListQueues:
             - description: List your &SQS; queues.
               snippet_tags:
                 - sqs.JavaScript.queues.listQueues
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/sqs
+          excerpts:
+            - description: List your &SQS; queues.
+              snippet_tags:
+                - sqs.go-v2.ListQueues
   services:
     sqs: {ListQueues}
 sqs_DeleteQueue:
@@ -221,6 +244,15 @@ sqs_DeleteQueue:
             - description: Delete an &SQS; queue.
               snippet_tags:
                 - sqs.JavaScript.queues.deleteQueue
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/sqs
+          excerpts:
+            - description: Delete an &SQS; queue.
+              snippet_tags:
+                - sqs.go-v2.DeleteQueue
+
   services:
     sqs: {DeleteQueue}
 sqs_SendMessage:
@@ -286,6 +318,14 @@ sqs_SendMessage:
             - description: Send a message to an &SQS; queue.
               snippet_tags:
                 - sqs.JavaScript.messages.sendMessage
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/sqs
+          excerpts:
+            - description: Send a message to an &SQS; queue.
+              snippet_tags:
+                - sqs.go-v2.SendMessage
   services:
     sqs: {SendMessage}
 sqs_SendMessageBatch:
@@ -377,6 +417,14 @@ sqs_ReceiveMessage:
             - description: Receive a message from an  &SQS; queue using long-poll support.
               snippet_tags:
                 - sqs.JavaScript.longPoll.receiveMessage
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/sqs
+          excerpts:
+            - description: Receive a message from an &SQS; queue.
+              snippet_tags:
+                - sqs.go-v2.ReceiveMessage
   services:
     sqs: {ReceiveMessage}
 sqs_DeleteMessage:
@@ -434,6 +482,14 @@ sqs_DeleteMessage:
             - description: Receive and delete &SQS; messages.
               snippet_tags:
                 - sqs.JavaScript.messages.receiveMessage
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/sqs
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.go-v2.DeleteMessage
   services:
     sqs: {DeleteMessage}
 sqs_DeleteMessageBatch:
@@ -561,6 +617,14 @@ sqs_ChangeMessageVisibility:
             - description: Receive an &SQS; message and change its timeout visibility.
               snippet_tags:
                 - sqs.JavaScript.visibility.receiveMessage
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/sqs
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.go-v2.ChangeMessageVisibility
   services:
     sqs: {ChangeMessageVisibility}
 sqs_SetQueueAttributes:

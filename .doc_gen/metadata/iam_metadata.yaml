@@ -23,6 +23,14 @@ iam_CreateAccountAlias:
             - description:
               snippet_tags:
                 - python.example_code.iam.CreateAccountAlias
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description:
+              snippet_tags: ['iam.go-v2.CreateAccountAlias']
+
   services:
     iam: {CreateAccountAlias}
 iam_DeleteAccountAlias:
@@ -75,6 +83,14 @@ iam_ListAccountAliases:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListAccountAliases
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - iam.go-v2.ListAccountAliases
   services:
     iam: {ListAccountAliases}
 iam_GetAccountAuthorizationDetails:
@@ -198,6 +214,14 @@ iam_CreateAccessKey:
             - description:
               snippet_tags:
                 - python.example_code.iam.CreateAccessKey
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - iam.go-v2.CreateAccessKey
   services:
     iam: {CreateAccessKey}
 iam_DeleteAccessKey:
@@ -224,6 +248,14 @@ iam_DeleteAccessKey:
             - description:
               snippet_tags:
                 - python.example_code.iam.DeleteAccessKey
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - iam.go-v2.DeleteAccessKey
   services:
     iam: {DeleteAccessKey}
 iam_GetAccessKeyLastUsed:
@@ -241,6 +273,14 @@ iam_GetAccessKeyLastUsed:
             - description:
               snippet_tags:
                 - python.example_code.iam.GetAccessKeyLastUsed
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - iam.go-v2.AccessKeyLastUsed
   services:
     iam: {GetAccessKeyLastUsed}
 iam_ListAccessKeys:
@@ -267,6 +307,14 @@ iam_ListAccessKeys:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListAccessKeys
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - iam.go-v2.ListAccessKeys
   services:
     iam: {ListAccessKeys}
 iam_UpdateAccessKey:
@@ -293,6 +341,13 @@ iam_UpdateAccessKey:
             - description:
               snippet_tags:
                 - python.example_code.iam.UpdateAccessKey
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description:
+              snippet_tags: ['iam.go-v2.UpdateAccessKey']
   services:
     iam: {UpdateAccessKey}
 iam_Scenario_ManageAccessKeys:
@@ -407,6 +462,23 @@ iam_ListPolicies:
                 - python.example_code.iam.ListPolicies
   services:
     iam: {ListPolicies}
+iam_GetPolicy:
+  title: Get an &IAM; policy using an &AWS; SDK
+  title_abbrev: Get a policy
+  synopsis: get an &IAM; policy.
+  category:
+  services:
+    iam: {ListPolicies}
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - iam.go-v2.GetPolicy
+
 iam_GetPolicyVersion:
   title: Get an &IAM; policy version using an &AWS; SDK
   title_abbrev: Get a policy version
@@ -626,6 +698,14 @@ iam_CreateUser:
             - description:
               snippet_tags:
                 - python.example_code.iam.CreateUser
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - iam.go-v2.CreateUser
   services:
     iam: {CreateUser}
 iam_DeleteUser:
@@ -652,6 +732,14 @@ iam_DeleteUser:
             - description:
               snippet_tags:
                 - python.example_code.iam.DeleteUser
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - iam.go-v2.DeleteUser
   services:
     iam: {DeleteUser}
 iam_ListUsers:
@@ -678,6 +766,14 @@ iam_ListUsers:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListUsers
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - iam.go-v2.ListUsers
   services:
     iam: {ListUsers}
 iam_UpdateUser:
@@ -704,6 +800,14 @@ iam_UpdateUser:
             - description:
               snippet_tags:
                 - python.example_code.iam.UpdateUser
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description:
+              snippet_tags: ['iam.go-v2.UpdateUser']
+
   services:
     iam: {UpdateUser}
 iam_AttachUserPolicy:
@@ -721,6 +825,14 @@ iam_AttachUserPolicy:
             - description:
               snippet_tags:
                 - python.example_code.iam.AttachUserPolicy
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - iam.go-v2.AttachUserPolicy
   services:
     iam: {AttachUserPolicy}
 iam_DetachUserPolicy:
@@ -738,6 +850,14 @@ iam_DetachUserPolicy:
             - description:
               snippet_tags:
                 - python.example_code.iam.DetachUserPolicy
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description:
+              snippet_tags: ['iam.go-v2.DetachUserPolicy']
+
   services:
     iam: {DetachUserPolicy}
 iam_Scenario_UserPolicies:
