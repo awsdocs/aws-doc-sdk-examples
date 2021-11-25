@@ -135,6 +135,10 @@ cross_SubmitDataApp:
   synopsis: build an application that submits data to an &DDBlong; table and notifies
     you when a user updates the table.
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 2
+          block_content: cross_Android_Kotlin_block.xml
     Java:
       versions:
         - sdk_version: 2
