@@ -161,7 +161,7 @@ rekognition_ListFaces:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.ListFacesExample
-     Kotlin:
+    Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/rekognition
