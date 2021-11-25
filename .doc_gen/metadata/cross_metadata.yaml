@@ -252,6 +252,10 @@ cross_RekognitionPhotoAnalyzer:
   title_abbrev: Detect objects in images
   synopsis: build an app that uses &REK; to detect objects by category in images.
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          block_content: cross_RekognitionPhotoAnalyzer_Kotlin_block.xml
     Java:
       versions:
         - sdk_version: 2
