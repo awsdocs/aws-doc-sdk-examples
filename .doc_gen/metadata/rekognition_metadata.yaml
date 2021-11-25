@@ -17,15 +17,6 @@ rekognition_DescribeCollection:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.DescribeCollectionExample
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/rekognition
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - rekognition.kotlin.describe_collection.main
     Java:
       versions:
         - sdk_version: 2
@@ -65,15 +56,6 @@ rekognition_DeleteCollection:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.DeleteCollectionExample
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/rekognition
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - rekognition.kotlin.delete_collection.main
     Java:
       versions:
         - sdk_version: 2
@@ -113,15 +95,6 @@ rekognition_IndexFaces:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.AddFacesExample
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/rekognition
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - rekognition.kotlin.add_faces_collection.main
     Java:
       versions:
         - sdk_version: 2
@@ -161,15 +134,6 @@ rekognition_ListFaces:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.ListFacesExample
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/rekognition
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - rekognition.kotlin.list_faces_collection.main
     Java:
       versions:
         - sdk_version: 2
@@ -287,15 +251,6 @@ rekognition_DeleteFaces:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.DeleteFacesExample
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/rekognition
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - rekognition.kotlin.delete_faces_collection.main
     Java:
       versions:
         - sdk_version: 2
@@ -335,15 +290,6 @@ rekognition_CreateCollection:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.CreateCollectionExample
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/rekognition
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - rekognition.kotlin.create_collection.main
     Java:
       versions:
         - sdk_version: 2
@@ -383,15 +329,6 @@ rekognition_ListCollections:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.ListCollectionsExample
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/rekognition
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - rekognition.kotlin.list_collections.main
     Java:
       versions:
         - sdk_version: 2
@@ -472,15 +409,6 @@ rekognition_DetectFaces:
             - description: Display bounding box information for all faces in an image.
               snippet_tags:
                 - Rekognition.dotnetv3.ImageOrientationBoundingBox
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/rekognition
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - rekognition.kotlin.detect_faces.main
     Java:
       versions:
         - sdk_version: 2
@@ -520,15 +448,6 @@ rekognition_CompareFaces:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.CompareFacesExample
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/rekognition
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - rekognition.kotlin.compare_faces.main
     Java:
       versions:
         - sdk_version: 2
@@ -571,15 +490,6 @@ rekognition_DetectLabels:
             - description: Detect labels in an image file stored on your computer.
               snippet_tags:
                 - Rekognition.dotnetv3.DetectLabelsLocalFile
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/rekognition
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - rekognition.kotlin.detect_labels.main
     Java:
       versions:
         - sdk_version: 2
@@ -620,15 +530,6 @@ rekognition_DetectModerationLabels:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.DetectModerationLabelsExample
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/rekognition
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - rekognition.kotlin.detect_mod_labels.main
     Java:
       versions:
         - sdk_version: 2
@@ -668,15 +569,6 @@ rekognition_DetectText:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.DetectTextExample
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/rekognition
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - rekognition.kotlin.detect_text.main
     Java:
       versions:
         - sdk_version: 2
@@ -716,15 +608,6 @@ rekognition_RecognizeCelebrities:
             - description:
               snippet_tags:
                 - Rekognition.dotnetv3.CelebritiesInImageExample
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/rekognition
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - rekognition.kotlin.recognize_celebs.main
     Java:
       versions:
         - sdk_version: 2
@@ -816,18 +699,6 @@ rekognition_VideoDetection:
   synopsis: detect information in videos.
   category: Usage
   languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/rekognition
-          sdkguide:
-          excerpts:
-            - description:  Detect faces in a video stored in an Amazon S3 bucket
-              snippet_tags:
-                - rekognition.kotlin.recognize_video_faces.main
-            - description: Detect inappropriate or offensive content in a video stored in an &S3; bucket.
-              snippet_tags:
-                - rekognition.kotlin.recognize_video_moderation.main   
     Java:
       versions:
         - sdk_version: 2
