@@ -16,6 +16,10 @@ cross_SnsPublishSubscription:
   title_abbrev: Building an &SNS; web application 
   synopsis: create a web application that has subscription and publish functionality and translates messages.
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          block_content: cross_SNSSubPub_Kotlin_block.xml
     Java:
       versions:
         - sdk_version: 2
@@ -131,6 +135,10 @@ cross_SubmitDataApp:
   synopsis: build an application that submits data to an &DDBlong; table and notifies
     you when a user updates the table.
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          block_content: cross_Android_Kotlin_block.xml
     Java:
       versions:
         - sdk_version: 2
@@ -145,57 +153,40 @@ cross_SubmitDataApp:
 cross_LambdaAPIGateway:
   title: Use &ABP; to invoke a &LAM; function
   title_abbrev: Use &ABP; to invoke a &LAM; function
-  synopsis: create an &LAMlong; function invoked by &ABPlong;.
+  synopsis: create an &LAMlong; function invoked by &ABPlong; that sends anniversary text messages.
   languages:
     Java:
       versions:
         - sdk_version: 2
           block_content: cross_LambdaAPIGateway_Java_block.xml
-          add_services:
-            dynamodb:
-            sns:
     JavaScript:
       versions:
         - sdk_version: 3
           block_content: cross_LambdaAPIGateway_JavaScript_block.xml
-          add_services:
-            dynamodb:
-            sns:
-    Python:
-      versions:
-        - sdk_version: 3
-          block_content: cross_LambdaAPIGateway_Python_block.xml
   services:
     api-gateway:
     lambda:
+    dynamodb:
+    sns:
 cross_LambdaScheduledEvents:
   title: Use scheduled events to invoke a &LAM; function
   title_abbrev: Use scheduled events to invoke a &LAM; function
-  synopsis: create an &LAMlong; function invoked by an &EVlong; scheduled event.
+  synopsis: create an &LAMlong; function invoked by an &EVlong; scheduled event that
+    sends anniversary text messages.
   languages:
     Java:
       versions:
         - sdk_version: 2
           block_content: cross_LambdaScheduledEvents_Java_block.xml
-          add_services:
-            dynamodb:
-            sns:
     JavaScript:
       versions:
         - sdk_version: 3
           block_content: cross_LambdaScheduledEvents_JavaScript_block.xml
-          add_services:
-            dynamodb:
-            sns:
-    Python:
-      versions:
-        - sdk_version: 3
-          block_content: cross_LambdaScheduledEvents_Python_block.xml
-          add_services:
-            cloudwatch-logs:
   services:
+    dynamodb:
     eventbridge:
     lambda:
+    sns:
 cross_ServerlessWorkflows:
   title: Use &SFN; to invoke &LAM; functions
   title_abbrev: Use &SFN; to invoke &LAM; functions
@@ -265,6 +256,10 @@ cross_RekognitionPhotoAnalyzer:
   title_abbrev: Detect objects in images
   synopsis: build an app that uses &REK; to detect objects by category in images.
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          block_content: cross_RekognitionPhotoAnalyzer_Kotlin_block.xml
     Java:
       versions:
         - sdk_version: 2
