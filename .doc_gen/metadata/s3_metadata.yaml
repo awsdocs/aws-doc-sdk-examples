@@ -5,6 +5,15 @@ s3_CreateBucket:
   synopsis: create an &S3; bucket.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.kotlin.create_bucket.main
     Java:
       versions:
         - sdk_version: 2
@@ -54,6 +63,15 @@ s3_CopyObject:
   synopsis: copy an &S3; object from one bucket to another.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.kotlin.copy_object.main
     Java:
       versions:
         - sdk_version: 2
@@ -90,6 +108,15 @@ s3_DeleteBucketPolicy:
   synopsis: delete a policy from an &S3; bucket.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.kotlin.delete_bucket_policy.main
     Java:
       versions:
         - sdk_version: 2
@@ -128,7 +155,7 @@ s3_DeleteObject:
   synopsis: delete an &S3; object.
   category:
   languages:
-    Python:
+     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
@@ -164,6 +191,15 @@ s3_DeleteObjects:
   synopsis: delete multiple objects from an &S3; bucket.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.kotlin.delete_objects.main
     Java:
       versions:
         - sdk_version: 2
@@ -243,6 +279,24 @@ s3_GetObjectAcl:
   synopsis: get the access control list (ACL) of an &S3; object.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.kotlin.get_acl.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.get_acl.main
     Python:
       versions:
         - sdk_version: 3
@@ -259,6 +313,15 @@ s3_GetBucketPolicy:
   synopsis: get the policy for an &S3; bucket.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.kotlin.get_bucket_policy.main
     Java:
       versions:
         - sdk_version: 2
@@ -314,6 +377,15 @@ s3_GetObject:
   synopsis: read data from an object located in an &S3; bucket.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.kotlin.getobjectdata.main
     Java:
       versions:
         - sdk_version: 2
@@ -439,6 +511,15 @@ s3_ListObjects:
   synopsis: list objects located in an &S3; bucket.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.kotlin.list_objects.main
     Java:
       versions:
         - sdk_version: 2
@@ -502,6 +583,15 @@ s3_PutObject:
   synopsis: upload an object to an &S3; bucket.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.kotlin.s3_object_upload.main
     Java:
       versions:
         - sdk_version: 2
@@ -576,6 +666,15 @@ s3_DeleteBucket:
   synopsis: delete an empty &S3; bucket.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.kotlin.del_bucket.main
     Java:
       versions:
         - sdk_version: 2
@@ -777,6 +876,15 @@ s3_PutBucketPolicy:
   synopsis: add a policy to an &S3; bucket.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.kotlin.set_bucket_policy.main
     Java:
       versions:
         - sdk_version: 2
