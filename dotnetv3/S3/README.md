@@ -1,52 +1,65 @@
-# Amazon Simple Storage Service (Amazon S3) code examples in C#
+# Amazon Simple Storage Service (Amazon S3) code examples for .NET
 
 ## Purpose
 
-Customers of all sizes and industries can use Amazon S3 to store and protect any amount of data for a range of use cases, such as data lakes, websites, mobile applications, backup and restore, archive, enterprise applications, IoT devices, and big data analytics. Amazon S3 provides management features so that you can optimize, organize, and configure access to your data to meet your specific business, organizational, and compliance requirements.
+Customers of all sizes and industries can use Amazon S3 to store and
+protect any amount of data for a range of use cases, such as data lakes,
+websites, mobile applications, backup and restore, archive, enterprise
+applications, IoT devices, and big data analytics. Amazon S3 provides
+management features so that you can optimize, organize, and configure access
+to your data to meet your specific business, organizational, and compliance
+requirements.
 
-The code examples in this directory demonstrate how to work with Amazon S3 features using the AWS SDK for .NET v3.5 or later.
+The code examples in this directory demonstrate how to work with Amazon S3
+features using the AWS SDK for .NET v3.5 or later.
 
 ## Code examples
 
-- [AbortMPUExample](AbortMPUExample/)
-- [BucketACLExample](BucketACLExample/)
-- [CopyObjectExample](CopyObjectExample/)
-- [CreateBucketExample](CreateBucketExample/)
+- [AbortMPUExample](AbortMPUExample/) (`AbortMultipartUploadsAsync`)
+- [BucketACLExample](BucketACLExample/) (`PutBucketACLAsync`, `GetBucketAclAsync`, )
+- [CopyObjectExample](CopyObjectExample/) (`CopyObjectAsync`)
+- [CreateBucketExample](CreateBucketExample/) (`CreateBucketAsync`)
 - [CrossRegionReplicationExample](CrossRegionReplicationExample/)
-- [DeleteBucketExample](DeleteBucketExample/)
-- [DualStackEndpointExample](DualStackEndpointExample/)
-- [EnableNotificationsExample](EnableNotificationsExample/)
-- [GenPresignedUrlExample](GenPresignedUrlExample/)
-- [GetObjectExample](GetObjectExample/)
+(`PutBucketReplicationAsync`, `GetBucketReplicationAsync`)
+- [DeleteBucketExample](DeleteBucketExample/) (`DeleteBucketAsync`)
+- [DualStackEndpointExample](DualStackEndpointExample/) (`ListObjectsV2Async`)
+- [EnableNotificationsExample](EnableNotificationsExample/) (`PutBucketNotificationAsync`)
+- [GenPresignedUrlExample](GenPresignedUrlExample/) (`GetPreSignedURLAsync`)
+- [GetObjectExample](GetObjectExample/) (`GetObjectAsync`)
 - [LifecycleExample](LifecycleExample/)
-- [ListBucketsExample](ListBucketsExample/)
-- [ListObjectsExample](ListObjectsExample/)
-- [ListObjectsPaginatorExample](ListObjectsPaginatorExample/)
-- [ManageACLsExample](ManageACLsExample/)
-- [ManageObjectACLExample](ManageObjectACLExample/)
+(`GetBucketLifecycleConfigurationAsync`, `PutBucketLifecycleConfigurationAsync`, `DeleteLifecycleConfigurationAsync`)
+- [ListBucketsExample](ListBucketsExample/) (`ListBucketsAsync`)
+- [ListObjectsExample](ListObjectsExample/) (`ListObjectsV2Async`)
+- [ListObjectsPaginatorExample](ListObjectsPaginatorExample/) (`ListObjectsV2Async`)
+- [ManageACLsExample](ManageACLsExample/) (`PutBucketAsync`, `GetACLAsync`, `PutACLAsync`)
+- [ManageObjectACLExample](ManageObjectACLExample/) (`PubtObjectACLAsync`, `GetObjectAclAsync`)
 - [MPUapiCopyObjExample](MPUapiCopyObjExample/)
-- [DeleteMultipleObjectsExample](non-versioned-examples/DeleteMultipleObjectsExample/)
-- [DeleteObjectExample](non-versioned-examples/DeleteObjectExample/)
-- [ObjectTagExample](ObjectTagExample/)
-- [RestoreArchivedObjectExample](RestoreArchivedObjectExample/)
-- [S3CORSExample](S3CORSExample/) - 
-- [ServerAccessLoggingExample](ServerAccessLoggingExample/)
-- [ServerSideEncryptionExample](ServerSideEncryptionExample/)
-- [SSEClientEncryptionExample](SSEClientEncryptionExample/) 
+(`InitiateMultipartUploadAsync`, `CopyPartAsync`, `CompleteMultipartUploadAsync`)
+- [DeleteMultipleObjectsExample](non-versioned-examples/DeleteMultipleObjectsExample/) (`DeleteObjectsAsync`)
+- [DeleteObjectExample](non-versioned-examples/DeleteObjectExample/) (`DeleteObjectAsync`)
+- [ObjectTagExample](ObjectTagExample/) (`PutOjectAsync`, `PutObjectTaggingAsync`)
+- [RestoreArchivedObjectExample](RestoreArchivedObjectExample/) (`RestoreObjectAsync`)
+- [S3CORSExample](S3CORSExample/) (`GetBucketCorsAsync`, `PutBucketCorsAsync`, `DeleteBucketCorsAsync`)
+- [ServerAccessLoggingExample](ServerAccessLoggingExample/) (`PutACLAsync`, `PutBucketLoggingAsync`)
+- [ServerSideEncryptionExample](ServerSideEncryptionExample/) (`PutObjectAsync`, `GetObjectMetadataAsync`)
+- [SSEClientEncryptionExample](SSEClientEncryptionExample/) (`PutObjectAsync`, `GetObjectAsync`, `GetObjectMetadataAsync`)
 - [SSECLowLevelMPUcopyObjectExample](SSECLowLevelMPUcopyObjectExample/)
-- [TempCredExplicitSessionStartExample](TempCredExplicitSessionStartExample/)
+(`InitiateMultipartUploadAsync`, `UploadPartAsync`, `CompleteMultipartUploadAsync`)
+- [TempCredExplicitSessionStartExample](TempCredExplicitSessionStartExample/) (`GetSessionTokenAsync`)
 - [TempFederatedCredentialsExample](TempFederatedCredentialsExample/)
-- [TrackMPUUsingHighLevelAPIExample](TrackMPUUsingHighLevelAPIExample/)
-- [TransferAccelerationExample](TransferAccelerationExample/)
-- [UploadDirMPUHighLevelAPIExample](UploadDirMPUHighLevelAPIExample/)
-- [UploadFileMPUHighLevelAPIExample](UploadFileMPUHighLevelAPIExample/)
-- [UploadFileMPULowLevelAPIExample](UploadFileMPULowLevelAPIExample/)
-- [UploadObjectExample](UploadObjectExample/)
-- [UploadUsingPresignedURLExample](UploadUsingPresignedURLExample/)
-- [versioned-examples/DeleteMultipleObjectsExample](versioned-examples/DeleteMultipleObjectsExample/)
+(`GetTemporaryFederatedCredentialsAsync`, `GetFederationTokenAsync`)
+- [TrackMPUUsingHighLevelAPIExample](TrackMPUUsingHighLevelAPIExample/) (`FileTransferUtility.UploadAsync`)
+- [TransferAccelerationExample](TransferAccelerationExample/) (``)
+- [UploadDirMPUHighLevelAPIExample](UploadDirMPUHighLevelAPIExample/) (``)
+- [UploadFileMPUHighLevelAPIExample](UploadFileMPUHighLevelAPIExample/) (``)
+- [UploadFileMPULowLevelAPIExample](UploadFileMPULowLevelAPIExample/) (``)
+- [UploadObjectExample](UploadObjectExample/) (`PutObjectAsync`) (``)
+- [UploadUsingPresignedURLExample](UploadUsingPresignedURLExample/) (`GetPreSignedURLAsync`)
+- [versioned-examples/DeleteMultipleObjectsExample](versioned-examples/DeleteMultipleObjectsExample/) (``)
 - [versioned-examples/DeleteObjectVersionExample](versioned-examples/DeleteObjectVersionExample/)
-- [versioned-examples/ListObjectVersionsExample](versioned-examples/ListObjectVersionsExample/)
-- [WebsiteConfigExample](WebsiteConfigExample/)
+(`DeleteObjectVersionAsync`)
+- [versioned-examples/ListObjectVersionsExample](versioned-examples/ListObjectVersionsExample/) (`ListObjectVersionsAsync`)
+- [WebsiteConfigExample](WebsiteConfigExample/) (`PutBucketWebsiteAsync`)
 
 
 ## ⚠️ Important
@@ -63,7 +76,7 @@ The code examples in this directory demonstrate how to work with Amazon S3 featu
 ## Running the Examples
 
 The examples in this folder use the default user account. The call to
-initialize the Amazon SQS client supplies the region. Change the region to
+initialize the Amazon S3 client supplies the region. Change the region to
 match your own before running the example.
 
 Once the example has been compiled, you can run it from the commandline by
