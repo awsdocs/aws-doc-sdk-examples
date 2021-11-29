@@ -5,7 +5,7 @@
 ]>
 <block>
     <para>
-        Shows how to use the &SNSlong; Kotlin API to
+        Shows how to use the &SNS; Kotlin API to
         create a web application that has 
         subscription and publish functionality. In addition, this
         example application also translates messages. 
