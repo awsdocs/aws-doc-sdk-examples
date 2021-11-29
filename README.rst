@@ -79,7 +79,7 @@ We also have code examples for two SDKs currently in alpha,
 **DO NOT USE THIS EXAMPLE CODE IN PRODUCTION**:
 
 * **.kotlin_alpha** for the alpha version of the AWS SDK for Kotlin.
-* **.rust_alpha** for the alpha version of the AWS SDK for Rust.
+* **rust_dev_preview** for the developer preview version of the AWS SDK for Rust.
 
 Code examples for older AWS SDK versions are archived in this repository but no longer maintained. These include:
 

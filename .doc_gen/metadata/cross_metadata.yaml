@@ -26,7 +26,7 @@ cross_SnsPublishSubscription:
 cross_LexChatbotLanguages:
   title: Create an &LEX2; Chatbot within a web application to engage your web site visitors
   title_abbrev: Building an &LEX2; Chatbot 
-  synopsis: create a Chatbot to engage your web site visitors
+  synopsis: create a Chatbot to engage your web site visitors.
   languages:
     Java:
       versions:
@@ -39,7 +39,7 @@ cross_LexChatbotLanguages:
 cross_DynamoDBDataTracker:
   title: Create a dynamic web application to track &DDB; data
   title_abbrev: Create a web application to track &DDB; data
-  synopsis: create a web application that tracks and reports on work items
+  synopsis: create a web application that tracks and reports on work items.
   languages:
     Java:
       versions:
@@ -145,40 +145,57 @@ cross_SubmitDataApp:
 cross_LambdaAPIGateway:
   title: Use &ABP; to invoke a &LAM; function
   title_abbrev: Use &ABP; to invoke a &LAM; function
-  synopsis: create an &LAMlong; function invoked by &ABPlong; that sends anniversary text messages.
+  synopsis: create an &LAMlong; function invoked by &ABPlong;.
   languages:
     Java:
       versions:
         - sdk_version: 2
           block_content: cross_LambdaAPIGateway_Java_block.xml
+          add_services:
+            dynamodb:
+            sns:
     JavaScript:
       versions:
         - sdk_version: 3
           block_content: cross_LambdaAPIGateway_JavaScript_block.xml
+          add_services:
+            dynamodb:
+            sns:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_LambdaAPIGateway_Python_block.xml
   services:
     api-gateway:
     lambda:
-    dynamodb:
-    sns:
 cross_LambdaScheduledEvents:
   title: Use scheduled events to invoke a &LAM; function
   title_abbrev: Use scheduled events to invoke a &LAM; function
-  synopsis: create an &LAMlong; function invoked by an &EVlong; scheduled event that
-    sends anniversary text messages.
+  synopsis: create an &LAMlong; function invoked by an &EVlong; scheduled event.
   languages:
     Java:
       versions:
         - sdk_version: 2
           block_content: cross_LambdaScheduledEvents_Java_block.xml
+          add_services:
+            dynamodb:
+            sns:
     JavaScript:
       versions:
         - sdk_version: 3
           block_content: cross_LambdaScheduledEvents_JavaScript_block.xml
+          add_services:
+            dynamodb:
+            sns:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_LambdaScheduledEvents_Python_block.xml
+          add_services:
+            cloudwatch-logs:
   services:
-    dynamodb:
     eventbridge:
     lambda:
-    sns:
 cross_ServerlessWorkflows:
   title: Use &SFN; to invoke &LAM; functions
   title_abbrev: Use &SFN; to invoke &LAM; functions
@@ -256,6 +273,7 @@ cross_RekognitionPhotoAnalyzer:
       versions:
         - sdk_version: 3
           block_content: cross_RekognitionPhotoAnalyzer_JavaScript_block.xml
+    
   services:
     rekognition:
     s3:
@@ -289,3 +307,52 @@ cross_RekognitionVideoDetection:
             sqs:
   services:
     rekognition:
+cross_DetectFaces:
+  title: Detect faces in an image using an &AWS; SDK
+  title_abbrev: Detect faces in an image
+  synopsis_list:
+    - Save an image in an &S3long; &S3;) bucket.
+    - Use &REKlong; (&REK;) to detect facial details, such as age range, gender, and emotion (smiling, etc.).
+    - Display those details.
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          block_content: cross_detect_faces_rust_block.xml
+  services:
+    rekognition: {}
+    s3: {}
+cross_DetectLabels:
+  title: Save EXIF and other image information using an &AWS; SDK
+  title_abbrev: Save EXIF and other image information
+  synopsis_list:
+    - Get EXIF information from a a JPG, JPEG, or PNG file.
+    - Upload the image file to an &S3long; (&S3;) bucket.
+    - Use &REKlong; (&REK;) to identify the three top attributes (labels in &REK;) in the file.
+    - Add the EXIF and label information to a &DDBlong; (&DDB;) table in the Region.
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          block_content: cross_detect_labels_rust_block.xml
+  services:
+    dynamodb: {}
+    rekognition: {}
+    s3: {}
+cross_Telephone:
+  title: Synthesises a text file into an audio file and converts that back to text using an &AWS; SDK
+  title_abbrev: Synthesises a text file into an audio file and converts that back to text
+  synopsis_list:
+    - Use &POLlong; (&POL;) to synthesizes a plain text (UTF-8) input file to an audio file.
+    - Upload the audio file to an &S3long; (&S3;) bucket.
+    - Use &TSClong; (&TSC;) to convert that audio file to text.
+    - Display the text.
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          block_content: cross_telephone_rust_block.xml
+  services:
+    polly: {}
+    s3: {}
+    transcribe: {}

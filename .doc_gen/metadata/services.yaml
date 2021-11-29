@@ -15,6 +15,11 @@ application-autoscaling:
   short: "&APP-AS;"
   sort: "Application Auto Scaling"
   version: application-autoscaling-2016-02-06
+auditmanager:
+  long: "&AMlong;"
+  short: "&AM;"
+  sort: Audit Manager
+  version: auditmanager-2017-07-25
 auto-scaling:
   long: "&ASlong;"
   short: "&AS;"
@@ -156,6 +161,11 @@ mediapackage:
   short: "&EMP;"
   sort: "MediaPackage"
   version: mediapackage-2017-10-12
+organizations:
+  long: "&AOlong;"
+  short: "&AO;"
+  sort: "Organizations"
+  version: organizations-2016-11-28
 pinpoint:
   long: "&PINlong;"
   short: "&PIN;"
@@ -229,12 +239,14 @@ ses:
   long: "&SESlong;"
   short: "&SES;"
   sort: "SES"
-  version: sesv2-2019-09-27
+  version: email-2010-12-01
+  bundle: ses
 sesv2:
   long: "&SESv2long;"
   short: "&SESv2;"
   sort: "SES v2 API"
   version: sesv2-2019-09-27
+  bundle: ses
 sfn:
   long: "&SFNlong;"
   short: "&SFN;"

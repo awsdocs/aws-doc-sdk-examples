@@ -27,13 +27,13 @@ kinesis_CreateStream:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kinesis
+          github: rust_dev_preview/kinesis
           excerpts:
             - description:
               snippet_tags:
                 - kinesis.rust.create-stream
   services:
-    kinesis: { CreateStream }
+    kinesis: {CreateStream}
 kinesis_DescribeStream:
   title: Describe a &AK; stream using an &AWS; SDK
   title_abbrev: Describe a stream
@@ -53,13 +53,13 @@ kinesis_DescribeStream:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kinesis
+          github: rust_dev_preview/kinesis
           excerpts:
             - description:
               snippet_tags:
                 - kinesis.rust.describe-stream
   services:
-    kinesis: { DescribeStream }
+    kinesis: {DescribeStream}
 kinesis_ListStreams:
   title: List &AK; streams using an &AWS; SDK
   title_abbrev: List streams
@@ -69,13 +69,13 @@ kinesis_ListStreams:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kinesis
+          github: rust_dev_preview/kinesis
           excerpts:
             - description:
               snippet_tags:
                 - kinesis.rust.list-streams
   services:
-    kinesis: { ListStreams }
+    kinesis: {ListStreams}
 kinesis_DeleteStream:
   title: Delete a &AK; stream using an &AWS; SDK
   title_abbrev: Delete a stream
@@ -104,13 +104,13 @@ kinesis_DeleteStream:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kinesis
+          github: rust_dev_preview/kinesis
           excerpts:
             - description:
               snippet_tags:
                 - kinesis.rust.delete-stream
   services:
-    kinesis: { DeleteStream }
+    kinesis: {DeleteStream}
 kinesis_PutRecord:
   title: Put data into a &AK; stream using an &AWS; SDK
   title_abbrev: Put data into a stream
@@ -139,13 +139,13 @@ kinesis_PutRecord:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kinesis
+          github: rust_dev_preview/kinesis
           excerpts:
             - description:
               snippet_tags:
                 - kinesis.rust.put-record
   services:
-    kinesis: { PutRecord }
+    kinesis: {PutRecord}
 kinesis_GetRecords:
   title: Get data in batches from a &AK; stream using an &AWS; SDK
   title_abbrev: Get data in batches from a stream
@@ -172,4 +172,4 @@ kinesis_GetRecords:
                 - python.example_code.kinesis.KinesisStream.class
                 - python.example_code.kinesis.GetRecords
   services:
-    kinesis: { GetRecords, GetShardIterator }
+    kinesis: {GetRecords, GetShardIterator}

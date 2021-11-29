@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+    <para>
+        This example shows how to create and use an &ABPlong; REST API that targets an
+        &LAMlong; function. The &LAM; handler demonstrates how to route based on HTTP
+        methods; how to get data from the query string, header, and body; and how to
+        return a JSON response.
+    </para>
+    <itemizedlist>
+        <listitem><para>Deploy a &LAM; function.</para></listitem>
+        <listitem><para>Create an &ABP; REST API.</para></listitem>
+        <listitem><para>Create a REST resource that targets the &LAM; function.</para></listitem>
+        <listitem><para>Grant permission to let &ABP; invoke the &LAM; function.</para></listitem>
+        <listitem><para>Use the Requests package to send requests to the REST API.</para></listitem>
+        <listitem><para>Clean up all resources created during the demo.</para></listitem>
+    </itemizedlist>
+    <para>
+        This example is best viewed on GitHub. For complete source code and
+        instructions on how to set up and run, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/lambda#readme">GitHub</ulink>.
+    </para>
+</block>
