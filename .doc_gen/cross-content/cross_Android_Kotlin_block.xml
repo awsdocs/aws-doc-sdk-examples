@@ -5,7 +5,7 @@
 ]>
 <block>
     <para>
-      Shows how to create a native Android application that submits data using the &DDBlong; Kotlin API and sends a text message using the &SNSlong; Kotlin API.
+      Shows how to create a native Android application that submits data using the &DDBlong; Kotlin API and sends a text message using the &SNS; Kotlin API.
     </para>
      <para>
         For complete source code and instructions on how to set up and run, see the full example on
