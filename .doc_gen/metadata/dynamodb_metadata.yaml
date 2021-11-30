@@ -664,6 +664,25 @@ dynamodb_Query:
             - description: Find the movies made in the specified year.
               snippet_tags:
                 - dynamodb.rust.movies-movies_in_year
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-query-scan.html#dynamodb-example-table-query-scan-querying
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - dynamodb.JavaScript.tables.createclientv3
+            - description: Create the bucket.
+              snippet_tags:
+                - dynamodb.JavaScript.table.queryV3
+        - sdk_version: 2
+          github: javascript/example_code/s3
+          sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-query-scan.html#dynamodb-example-table-query-scan-querying
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.JavaScript.docClient.query
   services:
     dynamodb: {Query}
 dynamodb_Scan:
