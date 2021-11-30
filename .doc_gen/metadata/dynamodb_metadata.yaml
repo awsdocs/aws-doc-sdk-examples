@@ -452,6 +452,18 @@ dynamodb_UpdateItem:
             - description: Conditionally update an item.
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesItemOps05
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-update-an-item
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - dynamodb.JavaScript.tables.createclientv3
+            - description: Create the bucket.
+              snippet_tags:
+                - dynamodb.JavaScript.item.updateItemV3
   services:
     dynamodb: {UpdateItem}
 dynamodb_DeleteItem:
