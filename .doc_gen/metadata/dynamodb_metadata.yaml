@@ -56,7 +56,7 @@ dynamodb_CreateTable:
               snippet_tags:
                 - dynamodb.JavaScript.table.createTableV3
         - sdk_version: 2
-          github: javascript/example_code/s3
+          github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-examples-using-tables.html#dynamodb-examples-using-tables-creating-a-table
           excerpts:
             - description:
@@ -93,7 +93,7 @@ dynamodb_BatchGetItem:
               snippet_tags:
                 - dynamodb.JavaScript.batch.GetItemV3
         - sdk_version: 2
-          github: javascript/example_code/s3
+          github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write-batch.html#dynamodb-example-table-read-write-batch-reading
           excerpts:
             - description:
@@ -120,7 +120,7 @@ dynamodb_DescribeTable:
               snippet_tags:
                 - dynamodb.JavaScript.table.describeTableV3
         - sdk_version: 2
-          github: javascript/example_code/s3
+          github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-examples-using-tables.html#dynamodb-examples-using-tables-describing-a-table
           excerpts:
             - description:
@@ -140,21 +140,24 @@ dynamodb_Get:
           github: javascriptv3/example_code/dynamodb
           sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-get
           excerpts:
-            - description: Create the client.
+            - description: Create the &DDB; document client.
               snippet_tags:
-                - dynamodb.JavaScript.tables.createclientv3
+                - dynamodb.JavaScript.tables.createdocclientv3
+            - description: Create the &DDB; client.
+              snippet_tags:
+                - dynamodb.JavaScript.tables.createdocclientv3
             - description: Get the item.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.getV3
         - sdk_version: 2
-          github: javascript/example_code/s3
+          github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-get
           excerpts:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.docClient.get
   services:
-    dynamodb: {}
+    dynamodb: {Get}
 dynamodb_BatchWriteItem:
   title: Write a batch of &DDB; items using an &AWS; SDK
   title_abbrev: Write a batch of items
@@ -192,7 +195,7 @@ dynamodb_BatchWriteItem:
               snippet_tags:
                 - dynamodb.JavaScript.batch.WriteItemV3
         - sdk_version: 2
-          github: javascript/example_code/s3
+          github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write-batch.html#dynamodb-example-table-read-write-batch-writing
           excerpts:
             - description:
@@ -283,7 +286,7 @@ dynamodb_DeleteTable:
               snippet_tags:
                 - dynamodb.JavaScript.item.deleteTableV3
         - sdk_version: 2
-          github: javascript/example_code/s3
+          github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-examples-using-tables.html#dynamodb-examples-using-tables-deleting-a-table
           excerpts:
             - description:
@@ -348,7 +351,7 @@ dynamodb_PutItem:
               snippet_tags:
                 - dynamodb.JavaScript.item.putItemV3
         - sdk_version: 2
-          github: javascript/example_code/s3
+          github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-writing-an-item
           excerpts:
             - description:
@@ -368,14 +371,17 @@ dynamodb_Put:
           github: javascriptv3/example_code/dynamodb
           sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-put
           excerpts:
-            - description: Create the client.
+            - description: Create the &DDB; document client.
+              snippet_tags:
+                - dynamodb.JavaScript.tables.createdocclientv3
+            - description: Create the &DDB; client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createdocclientv3
             - description: Put the item.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.putV3
         - sdk_version: 2
-          github: javascript/example_code/s3
+          github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-put
           excerpts:
             - description:
@@ -429,7 +435,7 @@ dynamodb_GetItem:
               snippet_tags:
                 - dynamodb.JavaScript.item.getItemV3
         - sdk_version: 2
-          github: javascript/example_code/s3
+          github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-get
           excerpts:
             - description:
@@ -553,7 +559,7 @@ dynamodb_DeleteItem:
               snippet_tags:
                 - dynamodb.JavaScript.item.deleteItemV3
         - sdk_version: 2
-          github: javascript/example_code/s3
+          github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-deleting-an-item
           excerpts:
             - description:
@@ -573,14 +579,17 @@ dynamodb_Delete:
           github: javascriptv3/example_code/dynamodb
           sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-delete
           excerpts:
-            - description: Create the client.
+            - description: Create the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createdocclientv3
+            - description: Create the &DDB; client.
+              snippet_tags:
+                - dynamodb.JavaScript.tables.createclientv3
             - description: Delete the item.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.deleteV3
         - sdk_version: 2
-          github: javascript/example_code/s3
+          github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-delete
           excerpts:
             - description:
@@ -645,7 +654,7 @@ dynamodb_ListTables:
               snippet_tags:
                 - dynamodb.JavaScript.table.listTablesV3
         - sdk_version: 2
-          github: javascript/example_code/s3
+          github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-examples-using-tables.html#dynamodb-examples-using-tables-listing-tables
           excerpts:
             - description:
@@ -716,7 +725,7 @@ dynamodb_Query:
               snippet_tags:
                 - dynamodb.JavaScript.docClient.queryV3
         - sdk_version: 2
-          github: javascript/example_code/s3
+          github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-query-scan.html#dynamodb-example-table-query-scan-querying
           excerpts:
             - description:
@@ -778,7 +787,7 @@ dynamodb_Scan:
               snippet_tags:
                 - dynamodb.JavaScript.table.scanV3
         - sdk_version: 2
-          github: javascript/example_code/s3
+          github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-query-scan.html#dynamodb-example-table-query-scan-scanning
           excerpts:
             - description:
