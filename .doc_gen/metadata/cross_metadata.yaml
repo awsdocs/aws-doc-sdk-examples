@@ -352,12 +352,12 @@ cross_DetectLabels:
     rekognition: {}
     s3: {}
 cross_Telephone:
-  title: Synthesises a text file into an audio file and converts that back to text using an &AWS; SDK
-  title_abbrev: Synthesises a text file into an audio file and converts that back to text
+  title: Convert text to speech and back to text using an &AWS; SDK
+  title_abbrev: Convert text to speech and back to text
   synopsis_list:
-    - Use &POLlong; (&POL;) to synthesizes a plain text (UTF-8) input file to an audio file.
+    - Use &POLlong; to synthesize a plain text (UTF-8) input file to an audio file.
     - Upload the audio file to an &S3long; (&S3;) bucket.
-    - Use &TSClong; (&TSC;) to convert that audio file to text.
+    - Use &TSClong; to convert the audio file to text.
     - Display the text.
   languages:
     Rust:
