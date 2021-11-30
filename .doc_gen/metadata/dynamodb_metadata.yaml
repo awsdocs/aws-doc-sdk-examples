@@ -43,27 +43,6 @@ dynamodb_CreateTable:
             - description:
               snippet_tags:
                 - dynamodb.rust.create-table
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/s3
-          sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-examples-using-tables.html#dynamodb-examples-using-tables-creating-a-table
-          excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - dynamodb.JavaScript.tables.createclientv3
-            - description: Create the bucket.
-              snippet_tags:
-                - dynamodb.JavaScript.table.createTableV
-        - sdk_version: 2
-          github: javascript/example_code/s3
-          sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-examples-using-tables.html#dynamodb-examples-using-tables-creating-a-table
-          excerpts:
-            - description:
-              snippet_tags:
-                - dynamodb.JavaScript.table.createTable
-  services:
-    dynamodb: {CreateTable}
 dynamodb_BatchGetItem:
   title: Get a batch of &DDB; items using an &AWS; SDK
   title_abbrev: Get a batch of items
@@ -137,7 +116,7 @@ dynamodb_BatchWriteItem:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/dynamodb/
+          github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
             - description:
