@@ -152,6 +152,25 @@ dynamodb_BatchWriteItem:
             - description:
               snippet_tags:
                 - python.example_code.dynamodb.PutItem_BatchWriter
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write-batch.html#dynamodb-example-table-read-write-batch-writing
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - dynamodb.JavaScript.tables.createclientv3
+            - description: Create the bucket.
+              snippet_tags:
+                - dynamodb.JavaScript.batch.WriteItemV3
+        - sdk_version: 2
+          github: javascript/example_code/s3
+          sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write-batch.html#dynamodb-example-table-read-write-batch-writing
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.JavaScript.batch.WriteItem
   services:
     dynamodb: {BatchWriteItem}
 dynamodb_Usage_BatchGetWriteDelete:
