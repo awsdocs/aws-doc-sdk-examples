@@ -101,6 +101,33 @@ dynamodb_BatchGetItem:
                 - dynamodb.JavaScript.batch.GetItem
   services:
     dynamodb: {BatchGetItem}
+dynamodb_Get:
+  title: Get an item from a &DDB; table using the &DDB; document client using an &AWS; SDK
+  title_abbrev: Delete an item from a table using the document client
+  synopsis: delete an item from a &DDB; table using the &DDB; document client.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-get
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - dynamodb.JavaScript.tables.createclientv3
+            - description: Create the bucket.
+              snippet_tags:
+                - dynamodb.JavaScript.docClient.getV3
+        - sdk_version: 2
+          github: javascript/example_code/s3
+          sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-get
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.JavaScript.docClient.get
+  services:
+    dynamodb: {Get}
 dynamodb_BatchWriteItem:
   title: Write a batch of &DDB; items using an &AWS; SDK
   title_abbrev: Write a batch of items
