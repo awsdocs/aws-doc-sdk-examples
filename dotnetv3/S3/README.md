@@ -1,17 +1,11 @@
-# Amazon Simple Storage Service (Amazon S3) code examples for .NET
+# Amazon Amazon S3 code examples for .NET
 
 ## Purpose
 
-Customers of all sizes and industries can use Amazon S3 to store and
-protect any amount of data for a range of use cases, such as data lakes,
-websites, mobile applications, backup and restore, archive, enterprise
-applications, IoT devices, and big data analytics. Amazon S3 provides
-management features so that you can optimize, organize, and configure access
-to your data to meet your specific business, organizational, and compliance
-requirements.
-
-The code examples in this directory demonstrate how to work with Amazon S3
-features using the AWS SDK for .NET v3.5 or later.
+The code examples in this directory demonstrate how to work with Amazon Simple
+Storage Service (Amazon S3) features using the AWS SDK for .NET v3.5 or later.
+Amazon S3 is storage for the internet. You can use Amazon S3 to store and
+retrieve any amount of data at any time, from anywhere on the web.
 
 ## Code examples
 
@@ -24,7 +18,7 @@ features using the AWS SDK for .NET v3.5 or later.
 - [DeleteBucketExample](DeleteBucketExample/) (`DeleteBucketAsync`)
 - [DualStackEndpointExample](DualStackEndpointExample/) (`ListObjectsV2Async`)
 - [EnableNotificationsExample](EnableNotificationsExample/) (`PutBucketNotificationAsync`)
-- [GenPresignedUrlExample](GenPresignedUrlExample/) (`GetPreSignedURLAsync`)
+- [GenPresignedURLExample](GenPresignedURLExample/) (`GetPreSignedURLAsync`)
 - [GetObjectExample](GetObjectExample/) (`GetObjectAsync`)
 - [LifecycleExample](LifecycleExample/)
 (`GetBucketLifecycleConfigurationAsync`, `PutBucketLifecycleConfigurationAsync`, `DeleteLifecycleConfigurationAsync`)
@@ -49,16 +43,16 @@ features using the AWS SDK for .NET v3.5 or later.
 - [TempFederatedCredentialsExample](TempFederatedCredentialsExample/)
 (`GetTemporaryFederatedCredentialsAsync`, `GetFederationTokenAsync`)
 - [TrackMPUUsingHighLevelAPIExample](TrackMPUUsingHighLevelAPIExample/) (`FileTransferUtility.UploadAsync`)
-- [TransferAccelerationExample](TransferAccelerationExample/) (``)
-- [UploadDirMPUHighLevelAPIExample](UploadDirMPUHighLevelAPIExample/) (``)
-- [UploadFileMPUHighLevelAPIExample](UploadFileMPUHighLevelAPIExample/) (``)
-- [UploadFileMPULowLevelAPIExample](UploadFileMPULowLevelAPIExample/) (``)
-- [UploadObjectExample](UploadObjectExample/) (`PutObjectAsync`) (``)
+- [TransferAccelerationExample](TransferAccelerationExample/) (`GetBucketAccelerateConfigurationAsync`)
+- [UploadDirMPUHighLevelAPIExample](UploadDirMPUHighLevelAPIExample/) (`UploadDirectoryAsync`)
+- [UploadFileMPUHighLevelAPIExample](UploadFileMPUHighLevelAPIExample/) (`UploadAsync`)
+- [UploadFileMPULowLevelAPIExample](UploadFileMPULowLevelAPIExample/) (`UploadPartAsync`)
+- [UploadObjectExample](UploadObjectExample/) (`PutObjectAsync`)
 - [UploadUsingPresignedURLExample](UploadUsingPresignedURLExample/) (`GetPreSignedURLAsync`)
-- [versioned-examples/DeleteMultipleObjectsExample](versioned-examples/DeleteMultipleObjectsExample/) (``)
-- [versioned-examples/DeleteObjectVersionExample](versioned-examples/DeleteObjectVersionExample/)
+- [DeleteMultipleObjectsExample](versioned-examples/DeleteMultipleObjectsExample/) (`DeleteObjectsAsync`)
+- [DeleteObjectVersionExample](versioned-examples/DeleteObjectVersionExample/)
 (`DeleteObjectVersionAsync`)
-- [versioned-examples/ListObjectVersionsExample](versioned-examples/ListObjectVersionsExample/) (`ListObjectVersionsAsync`)
+- [ListObjectVersionsExample](versioned-examples/ListObjectVersionsExample/) (`ListObjectVersionsAsync`)
 - [WebsiteConfigExample](WebsiteConfigExample/) (`PutBucketWebsiteAsync`)
 
 
@@ -71,7 +65,6 @@ features using the AWS SDK for .NET v3.5 or later.
 - This code has not been tested in all AWS Regions. Some AWS services are
   available only in specific [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
 - Running this code might result in charges to your AWS account. 
-- Running the unit tests might result in charges to your AWS account. [optional]
 
 ## Running the Examples
 
@@ -92,6 +85,7 @@ Or you can execute the example from within your IDE.
 ## Resources and documentation
 
 [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
+
 [AWS SDK for .NET API Reference Guide](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
 
 ## Contributing
