@@ -6,9 +6,9 @@ edition = "2018"
 description = "Example usage of the KMS service"
 
 [dependencies]
-aws-config = "0.0.25-alpha"
-aws-sdk-kms = "0.0.25-alpha"
-aws-hyper = "0.0.25-alpha"
+aws-config = "0.0.26-alpha"
+aws-sdk-kms = "0.0.26-alpha"
+aws-hyper = "0.0.26-alpha"
 tokio = { version = "1", features = ["full"]}
 base64 = "0.13.0"
 structopt = { version = "0.3", default-features = false }

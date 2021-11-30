@@ -27,7 +27,7 @@ async fn show_envs(client: &Client) -> Result<(), Error> {
     println!("Found {} compute environments:", compute_envs.len());
     for env in compute_envs {
         let arn = env.compute_environment_arn().unwrap_or_default();
-        let name = env.compute_environment_name().as_deref().unwrap_or_default();
+        let name = env.compute_environment_name().unwrap_or_default();
 
         println!("  Name : {}", name);
         println!("  ARN:   {}", arn);

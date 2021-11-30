@@ -5,6 +5,7 @@
 
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_cognitoidentity::{Client, Error, Region, PKG_VERSION};
+use aws_smithy_types_convert::date_time::DateTimeExt;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -35,9 +36,9 @@ async fn list_identities(client: &Client, pool_id: &str) -> Result<(), Error> {
     if let Some(ids) = response.identities() {
         println!("Identitities:");
         for id in ids {
-            let creation_timestamp = id.creation_date().unwrap().to_chrono();
+            let creation_timestamp = id.creation_date().unwrap().to_chrono_utc();
             let idid = id.identity_id().unwrap_or_default();
-            let mod_timestamp = id.last_modified_date().unwrap().to_chrono();
+            let mod_timestamp = id.last_modified_date().unwrap().to_chrono_utc();
             println!("  Creation date:      {}", creation_timestamp);
             println!("  ID:                 {}", idid);
             println!("  Last modified date: {}", mod_timestamp);
