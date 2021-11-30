@@ -8,13 +8,13 @@ sagemaker_ListNotebookInstances:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/sagemaker
+          github: rust_dev_preview/sagemaker
           excerpts:
             - description:
               snippet_tags:
                 - sagemaker.rust.sagemaker-helloworld
   services:
-    sagemaker: { ListNotebookInstances }
+    sagemaker: {ListNotebookInstances}
 sagemaker_ListTrainingJobs:
   title: List &SM; training jobs using an &AWS; SDK
   title_abbrev: List training jobs
@@ -24,10 +24,10 @@ sagemaker_ListTrainingJobs:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/sagemaker
+          github: rust_dev_preview/sagemaker
           excerpts:
             - description:
               snippet_tags:
                 - sagemaker.rust.list-training-jobs
   services:
-    sagemaker: { ListTrainingJobs }
+    sagemaker: {ListTrainingJobs}

@@ -42,9 +42,9 @@ cloudwatch-logs_CreateLogGroup:
         - sdk_version: 3
           github: dotnetv3/CloudWatchLogs
           excerpts:
-          - description:
-            snippet_tags:
-              - CloudWatchLogs.dotnetv3.CreateLogGroupExample
+            - description:
+              snippet_tags:
+                - CloudWatchLogs.dotnetv3.CreateLogGroupExample
   services:
     cloudwatch-logs: {CreateLogGroup}
 cloudwatch-logs_CreateLogStream:
@@ -58,9 +58,9 @@ cloudwatch-logs_CreateLogStream:
         - sdk_version: 3
           github: dotnetv3/CloudWatchLogs
           excerpts:
-          - description:
-            snippet_tags:
-              - CloudWatchLogs.dotnetv3.CreateLogStreamExample
+            - description:
+              snippet_tags:
+                - CloudWatchLogs.dotnetv3.CreateLogStreamExample
   services:
     cloudwatch-logs: {CreateLogStream}
 cloudwatch-logs_DeleteLogGroup:
@@ -74,9 +74,9 @@ cloudwatch-logs_DeleteLogGroup:
         - sdk_version: 3
           github: dotnetv3/CloudWatchLogs
           excerpts:
-          - description:
-            snippet_tags:
-              - CloudWatchLogs.dotnetv3.DeleteLogGroupExample
+            - description:
+              snippet_tags:
+                - CloudWatchLogs.dotnetv3.DeleteLogGroupExample
   services:
     cloudwatch-logs: {DeleteLogGroup}
 cloudwatch-logs_DescribeExportTasks:
@@ -90,9 +90,9 @@ cloudwatch-logs_DescribeExportTasks:
         - sdk_version: 3
           github: dotnetv3/CloudWatchLogs
           excerpts:
-          - description:
-            snippet_tags:
-              - CloudWatchLogs.dotnetv3.DescribeExportTasksExammple
+            - description:
+              snippet_tags:
+                - CloudWatchLogs.dotnetv3.DescribeExportTasksExammple
   services:
     cloudwatch-logs: {DescribeExportTasks}
 cloudwatch-logs_DescribeLogGroups:
@@ -106,9 +106,9 @@ cloudwatch-logs_DescribeLogGroups:
         - sdk_version: 3
           github: dotnetv3/CloudWatchLogs
           excerpts:
-          - description:
-            snippet_tags:
-              - CloudWatchLogs.dotnetv3.DescribeLogGroupsExample
+            - description:
+              snippet_tags:
+                - CloudWatchLogs.dotnetv3.DescribeLogGroupsExample
   services:
     cloudwatch-logs: {DescribeLogGroups}
 cloudwatch-logs_DescribeSubscriptionFilters:
