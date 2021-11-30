@@ -787,7 +787,6 @@ dynamodb_DescribeTable:
   title: Get information about a &DDB; table
   title_abbrev: Get information about a table
   synopsis: get information about a &DDB; table.
-  category:
   languages:
     JavaScript:
       versions:
