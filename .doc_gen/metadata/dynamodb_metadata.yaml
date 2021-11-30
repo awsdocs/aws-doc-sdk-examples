@@ -54,7 +54,7 @@ dynamodb_CreateTable:
                 - dynamodb.JavaScript.tables.createclientv3
             - description: Create the bucket.
               snippet_tags:
-                - dynamodb.JavaScript.table.createTableV
+                - dynamodb.JavaScript.table.createTableV3
         - sdk_version: 2
           github: javascript/example_code/s3
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-examples-using-tables.html#dynamodb-examples-using-tables-creating-a-table
