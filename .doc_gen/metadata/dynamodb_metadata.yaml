@@ -130,7 +130,7 @@ dynamodb_DeleteTable:
           github: kotlin/services/dynamodb
           sdkguide:
           excerpts:
-        g    - description: 
+            - description:
               snippet_tags:
                 - dynamodb.kotlin.delete_table.main
     Java:
