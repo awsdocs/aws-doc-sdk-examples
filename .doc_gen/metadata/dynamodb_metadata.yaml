@@ -362,25 +362,6 @@ dynamodb_GetItem:
   synopsis: get an item from a &DDB; table.
   category:
   languages:
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/s3
-          sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-get
-          excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - dynamodb.JavaScript.tables.createdocclientv3
-            - description: Create the bucket.
-              snippet_tags:
-                - dynamodb.JavaScript.docClient.getV3
-        - sdk_version: 2
-          github: javascript/example_code/s3
-          sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-get
-          excerpts:
-            - description:
-              snippet_tags:
-                - dynamodb.JavaScript.docClient.get
     Kotlin:
       versions:
         - sdk_version: 1
@@ -408,6 +389,25 @@ dynamodb_GetItem:
             - description:
               snippet_tags:
                 - dynamodb.python.codeexample.MoviesItemOps02
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-get
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - dynamodb.JavaScript.tables.createclientv3
+            - description: Create the bucket.
+              snippet_tags:
+                - dynamodb.JavaScript.item.getItemV3
+        - sdk_version: 2
+          github: javascript/example_code/s3
+          sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-get
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.JavaScript.item.getItem
   services:
     dynamodb: {GetItem}
 dynamodb_UpdateItem:
