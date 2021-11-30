@@ -27,6 +27,15 @@ sns_GetTopicAttributes:
           excerpts:
             - snippet_tags:
                 - sns.php.get_topic_attributes.main
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/sns
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.kotlin.GetTopicAttributes.main
     Java:
       versions:
         - sdk_version: 2
@@ -88,6 +97,15 @@ sns_ListSubscriptions:
           excerpts:
             - snippet_tags:
                 - sns.php.list_subscriptions.complete
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/sns
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.kotlin.ListSubscriptions.main
     Java:
       versions:
         - sdk_version: 2
@@ -158,6 +176,15 @@ sns_ListTopics:
           excerpts:
             - snippet_tags:
                 - sns.php.list_topics.complete
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/sns
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.kotlin.ListTopics.main
     Java:
       versions:
         - sdk_version: 2
@@ -267,6 +294,15 @@ sns_Subscribe_Lambda:
           excerpts:
             - snippet_tags:
                 - sns.cpp.subscribe_lamda.code
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/sns
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.kotlin.SubscribeLambda.main
     Java:
       versions:
         - sdk_version: 2
@@ -346,6 +382,15 @@ sns_PublishTextSMS:
           excerpts:
             - snippet_tags:
                 - sns.cpp.publish_sms.code
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/sns
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.kotlin.PublishTextSMS.main
     Java:
       versions:
         - sdk_version: 2
@@ -458,6 +503,15 @@ sns_TagResource:
   synopsis: add tags to an &SNS; topic.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/sns
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.kotlin.add_tags.main
     Java:
       versions:
         - sdk_version: 2
@@ -491,6 +545,15 @@ sns_CreateTopic:
       versions:
         - sdk_version: 2
           github: gov2/sns/CreateTopic
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/sns
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.kotlin.CreateTopic.main
     Java:
       versions:
         - sdk_version: 2
@@ -564,6 +627,15 @@ sns_DeleteTopic:
           excerpts:
             - snippet_tags:
                 - sns.cpp.delete_topic.code
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/sns
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.kotlin.DeleteTopic.main
     Java:
       versions:
         - sdk_version: 2
@@ -643,6 +715,15 @@ sns_Publish:
       versions:
         - sdk_version: 2
           github: gov2/sns/Publish
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/secretsmanager
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.kotlin.PublishTopic.main
     Java:
       versions:
         - sdk_version: 2
@@ -779,6 +860,15 @@ sns_SetTopicAttributes:
   synopsis: set &SNS; topic attributes.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/secretsmanager
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.kotlin.SetTopicAttributes.main
     Java:
       versions:
         - sdk_version: 2
@@ -834,6 +924,15 @@ sns_Subscribe:
       versions:
         - sdk_version: 2
           github: gov2/sns/Subscribe
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/secretsmanager
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.kotlin.SubscribeEmail.main
     Java:
       versions:
         - sdk_version: 2
@@ -900,6 +999,15 @@ sns_Unsubscribe:
           excerpts:
             - snippet_tags:
                 - sns.cpp.unsubscribe.code
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/secretsmanager
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.kotlin.Unsubscribe.main
     Java:
       versions:
         - sdk_version: 2
