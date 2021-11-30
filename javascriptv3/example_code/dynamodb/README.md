@@ -8,24 +8,24 @@ This is a workspace where you can find the following AWS SDK for JavaScript vers
 
 ### API Examples
 
-- [Get batch items](src/ddb_batchgetitem.js) (BatchGetItemCommand)
-- [Write batch items](src/ddb_batchwriteitem.js) (BatchGetWriteCommand)
-- [Write batch items - TV example](src/QueryExample/ddb_batchwriteitem_tv.js)
 - [Create a DyanamoDB table](src/ddb_createtable.js) (CreateTableCommand)
 - [Create a DyanamoDB table - TV example](src/QueryExample/ddb_createtable_tv.js)
-- [Delete an item](src/ddb_deleteitem.js) (DeleteItemCommand)
-- [Delete a DyanamoDB table](src/ddb_deletetable.js) (DeleteTableCommand)
 - [Describe DyanamoDB tables](src/ddb_describetable.js) (DescribeTableCommand)
+- [Delete a DyanamoDB table](src/ddb_deletetable.js) (DeleteTableCommand)
+- [Delete an item](src/ddb_deleteitem.js) (DeleteItemCommand)
+- [Delete items using Document Client](src/ddbdoc_delete_item.js) (DeleteCommand)
 - [Get items](src/ddb_getitem.js) (GetItemCommand)
+- [Get batch items](src/ddb_batchgetitem.js) (BatchGetItemCommand)
+- [Get items using Document Client](src/ddbdoc_get_item.js) (GetCommand)
 - [List DyanamoDB tables](src/ddb_listtables.js) (ListTablesCommand)
 - [Put items](src/ddb_putitem.js) (PutItemCommand)
-- [Query a DyanamoDB table](src/ddb_query.js) (QueryCommand)
-- [Scan a DyanamoDB table](src/ddb_scan.js) (ScanCommand)
-- [Delete items using Document Client](src/ddbdoc_delete_item.js) (DeleteCommand)
-- [Get items using Document Client](src/ddbdoc_get_item.js) (GetCommand)
 - [Put items using Document Client](src/ddbdoc_put_item.js) {(PutCommand)
+- [Query a DyanamoDB table](src/ddb_query.js) (QueryCommand)
 - [Query a DyanamoDB table using Document Client](src/ddbdoc_query_item.js) (QueryCommand)
+- [Scan a DyanamoDB table](src/ddb_scan.js) (ScanCommand)
 - [Update a DyanamoDB table using Document Client](src/ddbdoc_update_item.js) (UpdateCommand)
+- [Write batch items](src/ddb_batchwriteitem.js) (BatchGetWriteCommand)
+- [Write batch items - TV example](src/QueryExample/ddb_batchwriteitem_tv.js)
 
 **Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see 
 [JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html).
