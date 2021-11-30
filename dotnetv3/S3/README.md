@@ -33,7 +33,7 @@ retrieve any amount of data at any time, from anywhere on the web.
 - [DeleteObjectExample](non-versioned-examples/DeleteObjectExample/) (`DeleteObjectAsync`)
 - [ObjectTagExample](ObjectTagExample/) (`PutOjectAsync`, `PutObjectTaggingAsync`)
 - [RestoreArchivedObjectExample](RestoreArchivedObjectExample/) (`RestoreObjectAsync`)
-- [S3CORSExample](S3CORSExample/) (`GetBucketCorsAsync`, `PutBucketCorsAsync`, `DeleteBucketCorsAsync`)
+- [S3CORSExample](s3CORSExample/) (`GetBucketCorsAsync`, `PutBucketCorsAsync`, `DeleteBucketCorsAsync`)
 - [ServerAccessLoggingExample](ServerAccessLoggingExample/) (`PutACLAsync`, `PutBucketLoggingAsync`)
 - [ServerSideEncryptionExample](ServerSideEncryptionExample/) (`PutObjectAsync`, `GetObjectMetadataAsync`)
 - [SSEClientEncryptionExample](SSEClientEncryptionExample/) (`PutObjectAsync`, `GetObjectAsync`, `GetObjectMetadataAsync`)
