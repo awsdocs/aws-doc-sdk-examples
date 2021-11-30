@@ -1,4 +1,4 @@
-# Amazon Amazon S3 code examples for .NET
+# Amazon S3 code examples for .NET
 
 ## Purpose
 
