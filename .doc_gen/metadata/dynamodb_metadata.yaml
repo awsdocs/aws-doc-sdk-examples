@@ -52,7 +52,7 @@ dynamodb_CreateTable:
             - description: Create the client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createclientv3
-            - description: Create the bucket.
+            - description: Create the table.
               snippet_tags:
                 - dynamodb.JavaScript.table.createTableV3
         - sdk_version: 2
@@ -89,7 +89,7 @@ dynamodb_BatchGetItem:
             - description: Create the client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createclientv3
-            - description: Create the bucket.
+            - description: Get the items.
               snippet_tags:
                 - dynamodb.JavaScript.batch.GetItemV3
         - sdk_version: 2
@@ -116,7 +116,7 @@ dynamodb_DescribeTable:
             - description: Create the client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createclientv3
-            - description: Create the bucket.
+            - description: Describe the table.
               snippet_tags:
                 - dynamodb.JavaScript.table.describeTableV3
         - sdk_version: 2
@@ -143,7 +143,7 @@ dynamodb_Get:
             - description: Create the client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createclientv3
-            - description: Create the bucket.
+            - description: Get the item.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.getV3
         - sdk_version: 2
@@ -188,7 +188,7 @@ dynamodb_BatchWriteItem:
             - description: Create the client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createclientv3
-            - description: Create the bucket.
+            - description: Add the items to the table.
               snippet_tags:
                 - dynamodb.JavaScript.batch.WriteItemV3
         - sdk_version: 2
@@ -279,7 +279,7 @@ dynamodb_DeleteTable:
             - description: Create the client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createclientv3
-            - description: Create the bucket.
+            - description: Delete the table.
               snippet_tags:
                 - dynamodb.JavaScript.item.deleteTableV3
         - sdk_version: 2
@@ -344,7 +344,7 @@ dynamodb_PutItem:
             - description: Create the client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createclientv3
-            - description: Create the bucket.
+            - description: Add the item.
               snippet_tags:
                 - dynamodb.JavaScript.item.putItemV3
         - sdk_version: 2
@@ -371,7 +371,7 @@ dynamodb_Put:
             - description: Create the client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createdocclientv3
-            - description: Create the bucket.
+            - description: Add the item.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.putV3
         - sdk_version: 2
@@ -425,7 +425,7 @@ dynamodb_GetItem:
             - description: Create the client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createclientv3
-            - description: Create the bucket.
+            - description: Get the item.
               snippet_tags:
                 - dynamodb.JavaScript.item.getItemV3
         - sdk_version: 2
@@ -488,9 +488,15 @@ dynamodb_UpdateItem:
             - description: Create the client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createclientv3
-            - description: Create the bucket.
+            - description: Update the item.
               snippet_tags:
                 - dynamodb.JavaScript.item.updateItemV3
+            - description: Create the client for the &DDB; document client.
+              snippet_tags:
+                - dynamodb.JavaScript.tables.createdocclientv3
+            - description: Update the item using the &DDB; document client.
+              snippet_tags:
+                - dynamodb.JavaScript.docClient.updateV3
   services:
     dynamodb: {UpdateItem}
 dynamodb_DeleteItem:
@@ -543,7 +549,7 @@ dynamodb_DeleteItem:
             - description: Create the client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createclientv3
-            - description: Create the bucket.
+            - description: Delete the item.
               snippet_tags:
                 - dynamodb.JavaScript.item.deleteItemV3
         - sdk_version: 2
@@ -570,7 +576,7 @@ dynamodb_Delete:
             - description: Create the client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createdocclientv3
-            - description: Create the bucket.
+            - description: Delete the item.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.deleteV3
         - sdk_version: 2
@@ -635,7 +641,7 @@ dynamodb_ListTables:
             - description: Create the client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createclientv3
-            - description: Create the bucket.
+            - description: List the tables.
               snippet_tags:
                 - dynamodb.JavaScript.table.listTablesV3
         - sdk_version: 2
@@ -700,9 +706,15 @@ dynamodb_Query:
             - description: Create the client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createclientv3
-            - description: Create the bucket.
+            - description: Query the table.
               snippet_tags:
                 - dynamodb.JavaScript.table.queryV3
+            - description: Create the client for the &DDB; document client.
+              snippet_tags:
+                - dynamodb.JavaScript.tables.createdocclientv3
+            - description: Query the table using the &DDB; document client.
+              snippet_tags:
+                - dynamodb.JavaScript.docClient.queryV3
         - sdk_version: 2
           github: javascript/example_code/s3
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-query-scan.html#dynamodb-example-table-query-scan-querying
@@ -762,7 +774,7 @@ dynamodb_Scan:
             - description: Create the client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createclientv3
-            - description: Create the bucket.
+            - description: Scan the table.
               snippet_tags:
                 - dynamodb.JavaScript.table.scanV3
         - sdk_version: 2
