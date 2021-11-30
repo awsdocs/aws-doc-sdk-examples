@@ -5,6 +5,15 @@ dynamodb_CreateTable:
   synopsis: create a &DDB; table.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.kotlin.create_table.main
     Java:
       versions:
         - sdk_version: 2
@@ -199,6 +208,15 @@ dynamodb_DeleteTable:
   synopsis: delete a &DDB; table.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.kotlin.delete_table.main
     Java:
       versions:
         - sdk_version: 2
@@ -252,6 +270,15 @@ dynamodb_PutItem:
   synopsis: put an item in a &DDB; table.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.kotlin.put_item.main
     Java:
       versions:
         - sdk_version: 2
@@ -335,6 +362,15 @@ dynamodb_GetItem:
   synopsis: get an item from a &DDB; table.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.kotlin.get_item.main
     Java:
       versions:
         - sdk_version: 2
@@ -380,6 +416,15 @@ dynamodb_UpdateItem:
   synopsis: update an item in a &DDB; table.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.kotlin.update_item.main
     Java:
       versions:
         - sdk_version: 2
@@ -427,6 +472,15 @@ dynamodb_DeleteItem:
   synopsis: delete an item from a &DDB; table.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.kotlin.delete_item.main
     Java:
       versions:
         - sdk_version: 2
@@ -507,6 +561,15 @@ dynamodb_ListTables:
   synopsis: list &DDB; tables.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.kotlin.list_tables.main
     Java:
       versions:
         - sdk_version: 2
@@ -563,6 +626,15 @@ dynamodb_Query:
   synopsis: query a &DDB; table.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.kotlin.query.main
     Java:
       versions:
         - sdk_version: 2
@@ -619,6 +691,15 @@ dynamodb_Scan:
   synopsis: scan a &DDB; table.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.kotlin.scan_items.main
     Java:
       versions:
         - sdk_version: 2
