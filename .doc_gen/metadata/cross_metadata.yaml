@@ -16,6 +16,10 @@ cross_SnsPublishSubscription:
   title_abbrev: Building an &SNS; web application 
   synopsis: create a web application that has subscription and publish functionality and translates messages.
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          block_content: cross_SNSSubPub_Kotlin_block.xml
     Java:
       versions:
         - sdk_version: 2
@@ -131,6 +135,10 @@ cross_SubmitDataApp:
   synopsis: build an application that submits data to an &DDBlong; table and notifies
     you when a user updates the table.
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          block_content: cross_Android_Kotlin_block.xml
     Java:
       versions:
         - sdk_version: 2
@@ -265,6 +273,10 @@ cross_RekognitionPhotoAnalyzer:
   title_abbrev: Detect objects in images
   synopsis: build an app that uses &REK; to detect objects by category in images.
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          block_content: cross_RekognitionPhotoAnalyzer_Kotlin_block.xml
     Java:
       versions:
         - sdk_version: 2

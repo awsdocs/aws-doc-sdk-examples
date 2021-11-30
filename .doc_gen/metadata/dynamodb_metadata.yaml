@@ -11,7 +11,7 @@ dynamodb_CreateTable:
           github: kotlin/services/dynamodb
           sdkguide:
           excerpts:
-            - description:
+            - description: 
               snippet_tags:
                 - dynamodb.kotlin.create_table.main
     Java:
@@ -137,7 +137,7 @@ dynamodb_BatchWriteItem:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/dynamodb
+          github: javav2/example_code/dynamodb/
           sdkguide:
           excerpts:
             - description:
@@ -214,7 +214,7 @@ dynamodb_DeleteTable:
           github: kotlin/services/dynamodb
           sdkguide:
           excerpts:
-            - description:
+        g    - description: 
               snippet_tags:
                 - dynamodb.kotlin.delete_table.main
     Java:
@@ -276,7 +276,7 @@ dynamodb_PutItem:
           github: kotlin/services/dynamodb
           sdkguide:
           excerpts:
-            - description:
+            - description: 
               snippet_tags:
                 - dynamodb.kotlin.put_item.main
     Java:
@@ -422,7 +422,7 @@ dynamodb_UpdateItem:
           github: kotlin/services/dynamodb
           sdkguide:
           excerpts:
-            - description:
+            - description: 
               snippet_tags:
                 - dynamodb.kotlin.update_item.main
     Java:
@@ -567,7 +567,7 @@ dynamodb_ListTables:
           github: kotlin/services/dynamodb
           sdkguide:
           excerpts:
-            - description:
+            - description: 
               snippet_tags:
                 - dynamodb.kotlin.list_tables.main
     Java:
@@ -632,7 +632,7 @@ dynamodb_Query:
           github: kotlin/services/dynamodb
           sdkguide:
           excerpts:
-            - description:
+            - description: 
               snippet_tags:
                 - dynamodb.kotlin.query.main
     Java:
@@ -697,7 +697,7 @@ dynamodb_Scan:
           github: kotlin/services/dynamodb
           sdkguide:
           excerpts:
-            - description:
+            - description: 
               snippet_tags:
                 - dynamodb.kotlin.scan_items.main
     Java:
