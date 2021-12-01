@@ -11,8 +11,8 @@ api-gateway:
   sort: "API Gateway"
   version: apigateway-2015-07-09
 apigatewaymanagementapi:
-  long: ""
-  short: ""
+  long: "ABPMAlong"
+  short: "ABPMA"
   sort: "API Gateway Management"
   version: apigatewaymanagementapi-2018-11-29
 application-autoscaling:
@@ -100,6 +100,21 @@ ec2:
   short: "&EC2;"
   sort: "EC2"
   version: ec2-2016-11-15
+ecr:
+  long: "ECRlong"
+  short: "ECR"
+  sort: "ECR"
+  version: ecr-2015-09-21
+ecs:
+  long: "ECSlong"
+  short: "ECS"
+  sort: "ECS"
+  version: ecs-2014-11-13
+eks:
+  long: "EKSlong"
+  short: "EKS"
+  sort: "EKS"
+  version: eks-2017-11-01
 emr:
   long: "&EMRlong;"
   short: "&EMR;"
