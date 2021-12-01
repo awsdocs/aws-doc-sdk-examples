@@ -20,7 +20,7 @@ node ddb_updateitem.js
 import { UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 import { ddbClient } from "./libs/ddbClient.js";
 
-const params = {
+export const params = {
     TableName: "TABLE_NAME",
     /*
     Convert the attribute JavaScript object you are updating to the required
@@ -45,7 +45,7 @@ const params = {
     },
     ReturnValues: "ALL_NEW"
 };
-const run = async () => {
+export const run = async () => {
     try {
         const data = await ddbClient.send(new UpdateItemCommand(params));
         console.log(data);
