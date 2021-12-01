@@ -1,49 +1,58 @@
-# CI Runner example for AWS Device Farm
+# AWS Device Farm CI runner example
 
 ## Purpose
-This example covers a common use case of AWS Device Farm: uploading a compiled Android (or iOS) application and test package to Device Farm, starting a test, waiting for pass/fail, and reporting those results. 
 
-## ⚠️ Important
+Shows how to upload a compiled Android (or iOS) application and test package to 
+AWS Device Farm, start a test, wait for test completion, and report the results. 
 
-* We recommend that you grant this code least privilege, or at most the minimum permissions required to perform the task. For more information, see Grant Least Privilege (https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) in the AWS Identity and Access Management User Guide.
-* This code works only in `us-west-2`, the only region Device Farm is located.
-* Running this code might result in charges to your AWS account. 
+*Device Farm is an app testing service that enables you to test your iOS, Android and 
+Fire OS apps on real, physical phones and tablets that are hosted by AWS.* 
 
-## Prerequisites
+## ⚠ Important
 
-This example requires
+- As an AWS best practice, grant this code least privilege, or only the 
+  permissions required to perform a task. For more information, see 
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
+  in the *AWS Identity and Access Management 
+  User Guide*.
+- This code works in `us-west-2`, the only AWS Region where Device Farm is located.
+- Running this code might result in charges to your AWS account.
 
-* A test package
-* A compiled application executable
-* A project ARN in Device Farm device testing
-* A device pool ARN
-* A prefix to use to distinguish runs of the test (such as a git branch)
-3. `pipenv`: This example uses Pipenv to contain its dependencies. If you are uncomfortable or unable to use such, 
+## Running the code
+
+### Prerequisites
+
+* A test package.
+* A compiled application executable.
+* A project ARN in Device Farm device testing.
+* A device pool ARN.
+* A prefix to use to distinguish runs of the test (such as a Git branch).
+* `pipenv`: This example uses Pipenv to contain its dependencies.  
     The following dependencies are used:
-    
     * boto3
     * requests
 
-## Running the sample
+### Command
 
-Modify the `run_tests.py` script to use your ARNs and test/application packages in this directory. 
+Modify the `run_tests.py` script to use your ARNs and test and application packages in 
+this directory. 
 
-Make sure that pipenv has installed the appropriate packages:
+Make sure that Pipenv has installed the appropriate packages:
 
 ```
 pipenv lock
 pipenv install
 ```
 
-and run the sample:
+Run the example:
 
 ```
 pipenv run python run_tests.py
 ```
 
-The results of your tests will be in `results/`. 
+The results of your tests are written to the `results` folder. 
 
---
+---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 SPDX-License-Identifier: Apache-2.0
