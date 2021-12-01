@@ -11,7 +11,7 @@ import 'regenerator-runtime/runtime'
 import { run } from "../src/ddbdoc_get_item";
 import { GetCommand } from "@aws-sdk/lib-dynamodb";
 
-it("should get and item from a DynamoDB table", async () => {
+it("should get an item from a DynamoDB table", async () => {
     ddbMock.on(GetCommand).resolves({
         Item: { id: "user1", name: "John" },
     });

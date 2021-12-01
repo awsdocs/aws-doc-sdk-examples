@@ -127,7 +127,7 @@ dynamodb_DescribeTable:
               snippet_tags:
                 - dynamodb.JavaScript.table.describeTable
   services:
-    dynamodb: {Get}
+    dynamodb: {DescribeTable}
 dynamodb_Get:
   title: Get an item from a &DDB; table using the &DDB; document client using an &AWS; SDK
   title_abbrev: Get an item from a table using the document client
@@ -140,10 +140,10 @@ dynamodb_Get:
           github: javascriptv3/example_code/dynamodb
           sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-get
           excerpts:
-            - description: Create the &DDB; document client.
-              snippet_tags:
-                - dynamodb.JavaScript.tables.createdocclientv3
             - description: Create the &DDB; client.
+              snippet_tags:
+                - dynamodb.JavaScript.tables.createclientv3
+            - description: Create the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createdocclientv3
             - description: Get the item.
@@ -157,7 +157,7 @@ dynamodb_Get:
               snippet_tags:
                 - dynamodb.JavaScript.docClient.get
   services:
-    dynamodb: {Get}
+    dynamodb: {}
 dynamodb_BatchWriteItem:
   title: Write a batch of &DDB; items using an &AWS; SDK
   title_abbrev: Write a batch of items
@@ -371,10 +371,10 @@ dynamodb_Put:
           github: javascriptv3/example_code/dynamodb
           sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-put
           excerpts:
-            - description: Create the &DDB; document client.
-              snippet_tags:
-                - dynamodb.JavaScript.tables.createdocclientv3
             - description: Create the &DDB; client.
+              snippet_tags:
+                - dynamodb.JavaScript.tables.createclientv3
+            - description: Create the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createdocclientv3
             - description: Put the item.
@@ -579,12 +579,12 @@ dynamodb_Delete:
           github: javascriptv3/example_code/dynamodb
           sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-delete
           excerpts:
-            - description: Create the &DDB; document client.
-              snippet_tags:
-                - dynamodb.JavaScript.tables.createdocclientv3
             - description: Create the &DDB; client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createclientv3
+            - description: Create the &DDB; document client.
+              snippet_tags:
+                - dynamodb.JavaScript.tables.createdocclientv3
             - description: Delete the item.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.deleteV3
