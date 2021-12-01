@@ -10,6 +10,11 @@ api-gateway:
   short: "&ABP;"
   sort: "API Gateway"
   version: apigateway-2015-07-09
+apigatewaymanagementapi:
+  long: ""
+  short: ""
+  sort: "API Gateway Management"
+  version: apigatewaymanagementapi-2018-11-29
 application-autoscaling:
   long: "&APP-ASlong;"
   short: "&APP-AS;"
