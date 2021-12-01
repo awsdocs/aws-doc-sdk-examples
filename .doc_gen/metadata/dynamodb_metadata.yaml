@@ -267,7 +267,7 @@ dynamodb_DeleteTable:
 dynamodb_PutItem:
   title: Put an item in a &DDB; table using an &AWS; SDK
   title_abbrev: Put an item in a table
-  synopsis: put an item in a &DDB; table.
+  synopsis: put an item in a &DDB; table, with the option of using the &DDB; document client.
   category:
   languages:
     Kotlin:
@@ -341,7 +341,7 @@ dynamodb_PutItem:
 dynamodb_GetItem:
   title: Get an item from a &DDB; table using an &AWS; SDK
   title_abbrev: Get an item from a table
-  synopsis: get an item from a &DDB; table.
+  synopsis: get an item from a &DDB; table, with the option of using the &DDB; document client.
   category:
   languages:
     Kotlin:
@@ -466,7 +466,7 @@ dynamodb_UpdateItem:
 dynamodb_DeleteItem:
   title: Delete an item from a &DDB; table using an &AWS; SDK
   title_abbrev: Delete an item from a table
-  synopsis: delete an item from a &DDB; table.
+  synopsis: delete an item from a &DDB; table, with the option of using the &DDB; document client.
   category:
   languages:
     Kotlin:
