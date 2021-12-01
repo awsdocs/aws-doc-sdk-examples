@@ -519,9 +519,9 @@ dynamodb_DeleteItem:
             - description: Create the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createdocclientv3
-                - description: Delete an item from a table using the &DDB; document client.
-                  snippet_tags:
-                    - dynamodb.JavaScript.docClient.deleteV3
+            - description: Delete an item from a table using the &DDB; document client.
+              snippet_tags:
+                - dynamodb.JavaScript.docClient.deleteV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-deleting-an-item
