@@ -128,36 +128,6 @@ dynamodb_DescribeTable:
                 - dynamodb.JavaScript.table.describeTable
   services:
     dynamodb: {DescribeTable}
-dynamodb_Get:
-  title: Get an item from a &DDB; table using the &DDB; document client using an &AWS; SDK
-  title_abbrev: Get an item from a table using the document client
-  synopsis: get an item from a &DDB; table using the &DDB; document client.
-  category:
-  languages:
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/dynamodb
-          sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-get
-          excerpts:
-            - description: Create the &DDB; client.
-              snippet_tags:
-                - dynamodb.JavaScript.tables.createclientv3
-            - description: Create the &DDB; document client.
-              snippet_tags:
-                - dynamodb.JavaScript.tables.createdocclientv3
-            - description: Get the item.
-              snippet_tags:
-                - dynamodb.JavaScript.docClient.getV3
-        - sdk_version: 2
-          github: javascript/example_code/dynamodb
-          sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-get
-          excerpts:
-            - description:
-              snippet_tags:
-                - dynamodb.JavaScript.docClient.get
-  services:
-    dynamodb: {}
 dynamodb_BatchWriteItem:
   title: Write a batch of &DDB; items using an &AWS; SDK
   title_abbrev: Write a batch of items
@@ -347,48 +317,27 @@ dynamodb_PutItem:
             - description: Create the client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createclientv3
-            - description: Add the item.
+            - description: Put an item in a table.
               snippet_tags:
                 - dynamodb.JavaScript.item.putItemV3
-        - sdk_version: 2
-          github: javascript/example_code/dynamodb
-          sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-writing-an-item
-          excerpts:
-            - description:
-              snippet_tags:
-                - dynamodb.JavaScript.item.putItem
-  services:
-    dynamodb: {PutItem}
-dynamodb_Put:
-  title: Put an item in a &DDB; table using the &DDB; document client using an &AWS; SDK
-  title_abbrev: Put an item in a table using the document client
-  synopsis: put an item in a &DDB; table using the &DDB; document client.
-  category:
-  languages:
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/dynamodb
-          sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-put
-          excerpts:
-            - description: Create the &DDB; client.
-              snippet_tags:
-                - dynamodb.JavaScript.tables.createclientv3
             - description: Create the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createdocclientv3
-            - description: Put the item.
+            - description: Put an item in a table using the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.putV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
-          sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-put
+          sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-writing-an-item
           excerpts:
-            - description:
+            - description: Put an item in a table.
+              snippet_tags:
+                - dynamodb.JavaScript.item.putItem
+            - description: Put an item in a table using the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.put
   services:
-    dynamodb: {}
+    dynamodb: {PutItem}
 dynamodb_GetItem:
   title: Get an item from a &DDB; table using an &AWS; SDK
   title_abbrev: Get an item from a table
@@ -431,16 +380,25 @@ dynamodb_GetItem:
             - description: Create the client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createclientv3
-            - description: Get the item.
+            - description: Get an item from a table.
               snippet_tags:
                 - dynamodb.JavaScript.item.getItemV3
+            - description: Create the &DDB; document client.
+              snippet_tags:
+                - dynamodb.JavaScript.tables.createdocclientv3
+            - description: Get an item from a table using the &DDB; document client.
+              snippet_tags:
+                - dynamodb.JavaScript.docClient.getV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-get
           excerpts:
-            - description:
+            - description: Get an item from a table.
               snippet_tags:
                 - dynamodb.JavaScript.item.getItem
+            - description: Get an item from a table using the &DDB; document client.
+              snippet_tags:
+                - dynamodb.JavaScript.docClient.get
   services:
     dynamodb: {GetItem}
 dynamodb_UpdateItem:
@@ -555,48 +513,27 @@ dynamodb_DeleteItem:
             - description: Create the client.
               snippet_tags:
                 - dynamodb.JavaScript.tables.createclientv3
-            - description: Delete the item.
+            - description: Delete an item from a table.
               snippet_tags:
                 - dynamodb.JavaScript.item.deleteItemV3
+            - description: Create the &DDB; document client.
+              snippet_tags:
+                - dynamodb.JavaScript.tables.createdocclientv3
+                - description: Delete an item from a table using the &DDB; document client.
+                  snippet_tags:
+                    - dynamodb.JavaScript.docClient.deleteV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-deleting-an-item
           excerpts:
-            - description:
+            - description: Delete an item from a table.
               snippet_tags:
                 - dynamodb.JavaScript.item.deleteItem
-  services:
-    dynamodb: {DeleteItem}
-dynamodb_Delete:
-  title: Delete an item from a &DDB; table using the &DDB; document client using an &AWS; SDK
-  title_abbrev: Delete an item from a table using the document client
-  synopsis: delete an item from a &DDB; table using the &DDB; document client.
-  category:
-  languages:
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/dynamodb
-          sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-delete
-          excerpts:
-            - description: Create the &DDB; client.
-              snippet_tags:
-                - dynamodb.JavaScript.tables.createclientv3
-            - description: Create the &DDB; document client.
-              snippet_tags:
-                - dynamodb.JavaScript.tables.createdocclientv3
-            - description: Delete the item.
-              snippet_tags:
-                - dynamodb.JavaScript.docClient.deleteV3
-        - sdk_version: 2
-          github: javascript/example_code/dynamodb
-          sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-delete
-          excerpts:
-            - description:
+            - description: Delete an item from a table using the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.delete
   services:
-    dynamodb: {}
+    dynamodb: {DeleteItem}
 dynamodb_ListTables:
   title: List &DDB; tables using an &AWS; SDK
   title_abbrev: List tables
