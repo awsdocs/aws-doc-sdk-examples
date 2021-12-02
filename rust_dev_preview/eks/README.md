@@ -1,15 +1,15 @@
-# AWS SDK for Rust code examples for Amazon ECR
+# AWS SDK for Rust code examples for Amazon EKS
 
 ## Purpose
 
-These examples demonstrate how to perform several Amazon Elastic Container Registry (Amazon ECR) operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Amazon Elastic Kubernetes Service (Amazon EKS) operations using the developer preview version of the AWS SDK for Rust.
 
-Amazon ECR is a fully managed Docker container registry that makes it easy for developers to store, manage, and deploy Docker container images.
+Amazon EKS is managed service that makes it easy for you to run Kubernetes on AWS without needing to install and operate your own Kubernetes clusters.
 
 ## Code examples
 
-- [Describe repositories](src/bin/describe-repos.rs) (DescribeRepositories)
-- [List images](src/bin/list-images.rs) (ListImages)
+- [Create and delete a cluster](src/bin/create-delete-cluster.rs) (CreateCluster DeleteCluster)
+- [List clusters](src/bin/list-clusters.rs) (ListClusters)
 
 ## ⚠ Important
 
@@ -29,24 +29,27 @@ Amazon ECR is a fully managed Docker container registry that makes it easy for d
 
 You must have an AWS account, and have configured your default credentials and AWS Region as described in [https://github.com/awslabs/aws-sdk-rust](https://github.com/awslabs/aws-sdk-rust).
 
-### describe-repos
+### create-delete-cluster
 
-This example lists your Amazon ECR images for a repository.
+This example creates and deletes an Amazon EKS cluster.
 
-`cargo run --bin describe-repos -- [-r REGION] [-v]`
+`cargo run --bin create-delete-cluster -- -a ARN -c CLUSTER-NAME -s SUBNET-IDS [-r REGION] [-v]`
 
+- _ARN_ is the Amazon Resource Name (ARN) of the role for the cluster.
+- _CLUSTER-NAME_ is the name of the cluster.
+- _SUBNET-IDS_ are the IDs of the subnets for the cluster. 
+  There must be at least two subnet IDs, and each must be in a separate Availabiliy Zone (AZ).
 - _REGION_ is name of the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
-### list-images
+### list-clusters
 
-This example lists the images for an Amazon ECR repository.
+This example your Amazon EKS clusters in the Region.
 
-`cargo run --bin list-images -- --repository REPOSITORY [-r REGION] [-v]`
+`cargo run --bin list-clusters -- [-r REGION] [-v]`
 
-- _REPOSITORY_ is the name of the repository. 
 - _REGION_ is name of the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
@@ -55,7 +58,7 @@ This example lists the images for an Amazon ECR repository.
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
-- [AWS SDK for Rust API Reference for Amazon ECR](https://docs.rs/aws-sdk-ecr)
+- [AWS SDK for Rust API Reference for Amazon EKS](https://docs.rs/aws-sdk-eks)
 - [AWS SDK for Rust Developer Guide](https://docs.aws.amazon.com/sdk-for-rust/latest/dg)
 
 ## Contributing
