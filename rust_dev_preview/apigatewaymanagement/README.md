@@ -1,13 +1,13 @@
-# AWS SDK for Rust code examples for API Gateway
+# AWS SDK for Rust code examples for API Gateway Management API
 
 The Amazon API Gateway Management API allows you to directly manage runtime aspects of your deployed APIs. To use it,
-you must explicitly set the SDK's endpoint to point to the endpoint of your deployed API. The endpoint will be of the
+you must explicitly set the SDK's endpoint to point to the endpoint of your deployed API. The endpoint must be of the
 form `https://[api-id].execute-api.[region].amazonaws.com/[stage]` where:
-* `api-id` is the ID of your API (eg. `xy4n5r0m12`)
-* `region` is the region of your API (eg. `us-east-1`)
-* `stage` is the deployment stage of your API (eg. `test`, `prod`, `beta`)
-, or will be the endpoint corresponding to your API's
-custom domain and base path, if applicable.
+* `api-id` is the ID of your API.
+* `region` is the Region of your API.
+* `stage` is the deployment stage of your API,
+  or the endpoint corresponding to your API's
+  custom domain and base path.
 
 ### Notes
 

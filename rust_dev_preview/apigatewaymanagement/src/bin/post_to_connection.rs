@@ -13,8 +13,8 @@ use structopt::StructOpt;
 /// Usage:
 /// 1. Setup a Websocket API Gateway endpoint with a route configured.
 /// 2. Connect to the route with `wscat`: `wscat -c wss://<api-id>.execute-api.<region>.amazonaws.com/<stage>/`
-/// 2. Determine the connection id (eg. by configuring your route to echo the connection id into the websocket)
-/// 3. Invoke this example. The `data` sent should appear in `wscat`
+/// 3. Determine the connection ID (eg. by configuring your route to echo the connection ID into the websocket)
+/// 4. Invoke this example. The `data` sent should appear in `wscat`
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -32,7 +32,7 @@ struct Opt {
     #[structopt(short, long)]
     stage: String,
 
-    /// Connection Id to send data to.
+    /// Connection ID to send data to.
     #[structopt(short, long)]
     connection_id: String,
 
