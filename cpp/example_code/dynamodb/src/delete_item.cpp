@@ -10,12 +10,14 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
+//snippet-start:[dynamodb.cpp.delete_item.inc]
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h> 
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/AttributeDefinition.h>
 #include <aws/dynamodb/model/DeleteItemRequest.h>
 #include <iostream>
+//snippet-end:[dynamodb.cpp.delete_item.inc]
 
 
 /*
@@ -48,6 +50,7 @@ int main(int argc, char** argv)
         return 1;
     }
 
+    //snippet-start:[dynamodb.cpp.delete_item.code]
     Aws::SDKOptions options;
 
     Aws::InitAPI(options);
@@ -83,4 +86,5 @@ int main(int argc, char** argv)
     }
     Aws::ShutdownAPI(options);
     return 0;
+    //snippet-end:[dynamodb.cpp.delete_item.code]
 }
