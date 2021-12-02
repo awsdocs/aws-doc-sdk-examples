@@ -30,6 +30,7 @@ def unique_name(base_name):
     return f'demo-assume-role-{base_name}-{time.time_ns()}'
 
 
+# snippet-start:[python.example_code.sts.Scenario_AssumeRoleMfa_setup]
 def setup(iam_resource):
     """
     Creates a new user with no permissions.
@@ -136,8 +137,10 @@ def setup(iam_resource):
     progress_bar(10)
 
     return user, user_key, virtual_mfa_device, role
+# snippet-end:[python.example_code.sts.Scenario_AssumeRoleMfa_setup]
 
 
+# snippet-start:[python.example_code.sts.Scenario_AssumeRoleMfa_access_denied]
 def try_to_assume_role_without_mfa(assume_role_arn, session_name, sts_client):
     """
     Shows that attempting to assume the role without sending MFA credentials results
@@ -156,8 +159,10 @@ def try_to_assume_role_without_mfa(assume_role_arn, session_name, sts_client):
             print("Got AccessDenied.")
         else:
             raise
+# snippet-end:[python.example_code.sts.Scenario_AssumeRoleMfa_access_denied]
 
 
+# snippet-start:[python.example_code.sts.Scenario_AssumeRoleMfa_list_buckets]
 def list_buckets_from_assumed_role_with_mfa(
         assume_role_arn, session_name, mfa_serial_number, mfa_totp, sts_client):
     """
@@ -192,8 +197,10 @@ def list_buckets_from_assumed_role_with_mfa(
     print(f"Listing buckets for the assumed role's account:")
     for bucket in s3_resource.buckets.all():
         print(bucket.name)
+# snippet-end:[python.example_code.sts.Scenario_AssumeRoleMfa_list_buckets]
 
 
+# snippet-start:[python.example_code.sts.Scenario_AssumeRoleMfa_teardown]
 def teardown(user, virtual_mfa_device, role):
     """
     Removes all resources created during setup.
@@ -219,8 +226,10 @@ def teardown(user, virtual_mfa_device, role):
     virtual_mfa_device.delete()
     user.delete()
     print(f"Deleted {user.name}.")
+# snippet-end:[python.example_code.sts.Scenario_AssumeRoleMfa_teardown]
 
 
+# snippet-start:[python.example_code.sts.Scenario_AssumeRoleMfa_demo]
 def usage_demo():
     """Drives the demonstration."""
     print('-'*88)
@@ -241,6 +250,7 @@ def usage_demo():
     finally:
         teardown(user, virtual_mfa_device, role)
         print("Thanks for watching!")
+# snippet-end:[python.example_code.sts.Scenario_AssumeRoleMfa_demo]
 
 
 if __name__ == '__main__':

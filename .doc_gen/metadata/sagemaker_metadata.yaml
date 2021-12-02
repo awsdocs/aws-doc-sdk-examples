@@ -1,0 +1,33 @@
+# zexi 0.4.0
+sagemaker_ListNotebookInstances:
+  title: List the &SM; notebook instances using an &AWS; SDK
+  title_abbrev: List notebook instances
+  synopsis: list &SM; notebook instances.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/sagemaker
+          excerpts:
+            - description:
+              snippet_tags:
+                - sagemaker.rust.sagemaker-helloworld
+  services:
+    sagemaker: {ListNotebookInstances}
+sagemaker_ListTrainingJobs:
+  title: List &SM; training jobs using an &AWS; SDK
+  title_abbrev: List training jobs
+  synopsis: list &SM; training jobs.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/sagemaker
+          excerpts:
+            - description:
+              snippet_tags:
+                - sagemaker.rust.list-training-jobs
+  services:
+    sagemaker: {ListTrainingJobs}

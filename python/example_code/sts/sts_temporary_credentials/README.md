@@ -15,19 +15,20 @@ perform permitted actions.
 AWS Management Console.
 * Get a session token that can be used to call an API function that requires MFA.
 
-## Prerequisites
+*AWS STS is a web service that enables you to request temporary, limited-privilege 
+credentials for AWS Identity and Access Management (IAM) users or for users you 
+authenticate (federated users).*
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.8.0 or later
-- Boto3 1.13.2 or later
-- PyTest 5.3.5 or later (to run unit tests)
-- Requests 2.23.0 (to run federated_url.py)
-- A multi-factor authentication device or application, such as LastPass Authenticator,
-  Microsoft Authenticator, or Google Authenticator
+## Code examples
 
-## Cautions
+### Scenario examples
+
+* [Assume an IAM role](assume_role.py)
+* [Assume an IAM role that requires an MFA token](assume_role_mfa.py)
+* [Construct a URL for federated users](federated_url.py)
+* [Get a session token that requires an MFA token](session_token.py)
+
+## ⚠ Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -42,6 +43,20 @@ AWS Management Console.
 
 ## Running the code
 
+### Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.8.0 or later
+- Boto3 1.13.2 or later
+- PyTest 5.3.5 or later (to run unit tests)
+- Requests 2.23.0 (to run federated_url.py)
+- A multi-factor authentication device or application, such as LastPass Authenticator,
+  Microsoft Authenticator, or Google Authenticator
+
+### Command
+
 This module contains several demonstrations of how to get temporary credentials:
 * Assume a role with and without MFA.
 * Get a session token to access APIs that require MFA.
@@ -54,8 +69,6 @@ demo, run the following at a command prompt.
 ```
 python assume_role.py
 ``` 
-
-*Running this code might result in charges to your AWS account.*
 
 #### assume_role.py
 
@@ -184,11 +197,12 @@ The demonstration has three parts: setup, usage, and teardown.
 
 ## Running the tests
 
-All tests use the botocore Stubber, which captures requests before they are sent to 
-AWS, and returns a mocked response. Run the following in your 
-`[GitHub root]/python/example_code/sts/sts_assume_role` folder.
+The unit tests in this module use the botocore Stubber. This captures requests before 
+they are sent to AWS, and returns a mocked response. To run all of the tests, 
+run the following in your [GitHub root]/python/example_code/sts/sts_temporary_credentials 
+folder.
 
-```
+```commandline
 python -m pytest
 ```
 

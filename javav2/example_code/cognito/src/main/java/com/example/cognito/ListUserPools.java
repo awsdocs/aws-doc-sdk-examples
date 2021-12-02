@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
+//snippet-sourcedate:[11/06/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -18,7 +18,6 @@ import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityPr
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.ListUserPoolsResponse;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.ListUserPoolsRequest;
-import software.amazon.awssdk.services.cognitoidentityprovider.model.UserPoolDescriptionType;
 //snippet-end:[cognito.java2.ListUserPools.import]
 
 /**
@@ -50,9 +49,10 @@ public class ListUserPools {
                     .build();
 
             ListUserPoolsResponse response = cognitoClient.listUserPools(request);
-           for (UserPoolDescriptionType userpool : response.userPools()) {
-                System.out.println("User pool " + userpool.name() + ", User ID " + userpool.id() + ", Status " + userpool.status());
-            }
+            response.userPools().forEach(userpool -> {
+                        System.out.println("User pool " + userpool.name() + ", User ID " + userpool.id() );
+                    }
+            );
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());

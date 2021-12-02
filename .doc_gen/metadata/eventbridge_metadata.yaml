@@ -1,4 +1,21 @@
 # zexi 0.4.0
+eventbridge_DeleteRule:
+  title: Delete an &EV; scheduled rule using an &AWS; SDK
+  title_abbrev: Delete a scheduled rule
+  synopsis: delete an &EVlong; scheduled rule.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.java2._delete_rule.main
+  services:
+    eventbridge: {DeleteRule}
 eventbridge_PutRule:
   title: Create an &EV; scheduled rule using an &AWS; SDK
   title_abbrev: Create a scheduled rule
@@ -8,12 +25,12 @@ eventbridge_PutRule:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/cloudwatch
+          github: javav2/example_code/eventbridge
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.java2.put_rule.main
+                - eventbridge.java2._create_rule.main
     JavaScript:
       versions:
         - sdk_version: 3
@@ -44,12 +61,12 @@ eventbridge_PutEvents:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/cloudwatch
+          github: javav2/example_code/eventbridge
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.java2.put_events.main
+                - eventbridge.java2._put_event.main
     JavaScript:
       versions:
         - sdk_version: 3
@@ -73,19 +90,10 @@ eventbridge_PutEvents:
     eventbridge: {PutEvents}
 eventbridge_PutTargets:
   title: Add a &LAM; function target using an &AWS; SDK
-  title_abbrev: Adding a &LAM; function target
+  title_abbrev: Add a &LAM; function target
   synopsis: add an &LAMlong; function target to an &EVlong; event.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/cloudwatch
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - cloudwatch.java2.put_targets.main
     JavaScript:
       versions:
         - sdk_version: 3

@@ -1,0 +1,65 @@
+# zexi 0.4.0
+auto-scaling_CreateAutoScalingGroup:
+  title: Create an &AS; group using an &AWS; SDK
+  title_abbrev: Create a group
+  synopsis: create an &AS; group.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscaling.rust.create-autoscaling-group
+  services:
+    auto-scaling: {CreateAutoScalingGroup}
+auto-scaling_DeleteAutoScalingGroup:
+  title: Delete the specified &AS; group using an &AWS; SDK
+  title_abbrev: Delete a group
+  synopsis: delete an &AS; group.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscaling.rust.delete-autoscaling-group
+  services:
+    auto-scaling: {DeleteAutoScalingGroup}
+auto-scaling_DescribeAutoScalingGroups:
+  title: Get information about the &AS; groups using an &AWS; SDK
+  title_abbrev: Get group information
+  synopsis: get information about &AS; groups.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscaling.rust.list-autoscaling-groups
+  services:
+    auto-scaling: {DescribeAutoScalingGroups}
+auto-scaling_UpdateAutoScalingGroup:
+  title: Update the configuration for the specified &AS; group using an &AWS; SDK
+  title_abbrev: Update group configuration
+  synopsis: update the configuration for an &AS; group.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscaling.rust.update-autoscaling-group
+  services:
+    auto-scaling: {UpdateAutoScalingGroup}

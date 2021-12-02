@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
+//snippet-sourcedate:[11/06/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -15,11 +15,9 @@ package com.example.cognito;
 //snippet-start:[cognito.java2.listidentitypools.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentity.CognitoIdentityClient;
-import software.amazon.awssdk.services.cognitoidentity.model.IdentityPoolShortDescription;
 import software.amazon.awssdk.services.cognitoidentity.model.ListIdentityPoolsRequest;
 import software.amazon.awssdk.services.cognitoidentity.model.ListIdentityPoolsResponse;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
-import java.util.List;
 //snippet-end:[cognito.java2.listidentitypools.import]
 
 /**
@@ -51,13 +49,12 @@ public class ListIdentityPools {
                     .maxResults(15)
                     .build();
 
-            ListIdentityPoolsResponse poolResponse = cognitoClient.listIdentityPools(poolsRequest);
-            List<IdentityPoolShortDescription> pools = poolResponse.identityPools();
-
-            for (IdentityPoolShortDescription pool: pools) {
-                System.out.println("Pool ID: "+pool.identityPoolId());
-                System.out.println("Pool name: "+pool.identityPoolName());
-            }
+            ListIdentityPoolsResponse response = cognitoClient.listIdentityPools(poolsRequest);
+            response.identityPools().forEach(pool -> {
+                        System.out.println("Pool ID: " + pool.identityPoolId());
+                        System.out.println("Pool name: "+pool.identityPoolName());
+                    }
+            );
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());

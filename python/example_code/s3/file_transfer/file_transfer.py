@@ -1,7 +1,6 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# snippet-start:[S3.Python.s3_file_transfer.complete]
 """
 Use Boto 3 managed file transfers to manage multipart uploads to and downloads
 from an Amazon S3 bucket.
@@ -12,6 +11,7 @@ shows how to use several of the available transfer manager settings and reports
 thread usage and time to transfer.
 """
 
+# snippet-start:[S3.Python.s3_file_transfer.complete]
 import sys
 import threading
 

@@ -1,0 +1,118 @@
+# zexi 0.4.0
+textract_AnalyzeDocument:
+  title: Analyze a document using &TEXTRACT; and an &AWS; SDK
+  title_abbrev: Analyze a document
+  synopsis: analyze a document using &TEXTRACTlong;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/textract
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - textract.java2._analyze_doc.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/textract
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.textract.TextractWrapper
+                - python.example_code.textract.AnalyzeDocument
+  services:
+    textract: {AnalyzeDocument}
+textract_DetectDocumentText:
+  title: Detect text in a document using &TEXTRACT; and an &AWS; SDK
+  title_abbrev: Detect text in a document
+  synopsis: detect text in a document using &TEXTRACTlong;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/textract
+          sdkguide:
+          excerpts:
+            - description: Detect text from an input document.
+              snippet_tags:
+                - textract.java2._detect_doc_text.main
+            - description: Detect text from a document located in an &S3; bucket.
+              snippet_tags:
+                - textract.java2._detect_s3_text.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/textract
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.textract.TextractWrapper
+                - python.example_code.textract.DetectDocumentText
+  services:
+    textract: {DetectDocumentText}
+textract_StartDocumentAnalysis:
+  title: Start asynchronous analysis of a document using &TEXTRACT; and an &AWS; SDK
+  title_abbrev: Start asynchronous analysis of a document
+  synopsis: start asynchronous analysis of a document using &TEXTRACTlong;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/textract
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - textract.java2._start_doc_analysis.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/textract
+          excerpts:
+            - description: Start an asynchronous job to analyze a document.
+              snippet_tags:
+                - python.example_code.textract.TextractWrapper
+                - python.example_code.textract.StartDocumentAnalysis
+  services:
+    textract: {StartDocumentAnalysis}
+textract_StartDocumentTextDetection:
+  title: Start asynchronous text detection using &TEXTRACT; and an &AWS; SDK
+  title_abbrev: Start asynchronous text detection
+  synopsis: start asynchronous text detection in a document using &TEXTRACT;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/textract
+          sdkguide:
+          excerpts:
+            - description: Start an asynchronous job to detect text in a document.
+              snippet_tags:
+                - python.example_code.textract.TextractWrapper
+                - python.example_code.textract.StartDocumentTextDetection
+  services:
+    textract: {StartDocumentTextDetection}
+textract_GetDocumentAnalysis:
+  title: Get data about an &TEXTRACT; document analysis job using an &AWS; SDK
+  title_abbrev: Get data about a document analysis job
+  synopsis: get data about an &TEXTRACT; document analysis job.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/textract
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.textract.TextractWrapper
+                - python.example_code.textract.GetDocumentAnalysis
+  services:
+    textract: {GetDocumentAnalysis}

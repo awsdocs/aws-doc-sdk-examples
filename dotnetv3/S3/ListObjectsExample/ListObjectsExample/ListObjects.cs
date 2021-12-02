@@ -1,8 +1,14 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+/// <summary>
+/// List the objects in an Amazon Simple Storage Service (Amazon S3) bucket.
+/// The example was created using the AWS SDK for .NET version 3.7 and
+/// .NET Core 5.0.
+/// </summary>
 namespace ListObjectsExample
 {
+    // snippet-start:[S3.dotNET.ListObjectsExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.S3;
@@ -23,8 +29,8 @@ namespace ListObjectsExample
         }
 
         /// <summary>
-        /// Uses the client object to get a  list of the objects in the S3
-        /// bucket in the bucketName parameter.
+        /// Uses the client object to get a  list of the objects in the Amazon
+        /// S3 bucket in the bucketName parameter.
         /// </summary>
         /// <param name="client">The initialized S3 client obect used to call
         /// the ListObjectsAsync method.</param>
@@ -34,31 +40,25 @@ namespace ListObjectsExample
         {
             try
             {
-                ListObjectsRequest request = new()
+                ListObjectsV2Request request = new()
                 {
                     BucketName = bucketName,
                     MaxKeys = 5,
                 };
 
+                var response = new ListObjectsV2Response();
+
                 do
                 {
-                    ListObjectsResponse response = await client.ListObjectsAsync(request);
+                    response = await client.ListObjectsV2Async(request);
 
-                    // Process the response.
                     response.S3Objects
                         .ForEach(obj => Console.WriteLine($"{obj.Key,-35}{obj.LastModified.ToShortDateString(),10}{obj.Size,10}"));
 
-                    // If the response is truncated, set the marker to get the next
-                    // set of keys.
-                    if (response.IsTruncated)
-                    {
-                        request.Marker = response.NextMarker;
-                    }
-                    else
-                    {
-                        request = null;
-                    }
-                } while (request != null);
+                    // If the response is truncated, set the request ContinuationToken
+                    // from the NextContinuationToken property of the response.
+                    request.ContinuationToken = response.NextContinuationToken;
+                } while (response.IsTruncated);
             }
             catch (AmazonS3Exception ex)
             {
@@ -66,4 +66,6 @@ namespace ListObjectsExample
             }
         }
     }
+
+    // snippet-end:[S3.dotNET.ListObjectsExample]
 }

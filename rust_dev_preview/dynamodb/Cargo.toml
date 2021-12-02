@@ -1,0 +1,20 @@
+[package]
+name = "dynamodb-code-examples"
+version = "0.1.0"
+authors = ["Russell Cohen <rcoh@amazon.com>", "Doug Schwartz <dougsch@amazon.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+aws-config = "0.0.26-alpha"
+aws-sdk-dynamodb = "0.0.26-alpha"
+aws-hyper = "0.0.26-alpha"
+aws-http = "0.0.26-alpha"
+aws-smithy-http = "0.30.0-alpha"
+aws-smithy-types = "0.30.0-alpha"
+rand = "0.8.3"
+structopt = { version = "0.3", default-features = false }
+tokio = { version = "1", features = ["full"] }
+serde_json = "1"
+tracing-subscriber = { version = "0.2.16", features = ["fmt"] }
