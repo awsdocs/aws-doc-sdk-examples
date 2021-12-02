@@ -23,8 +23,8 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("aws.sdk.kotlin:redshiftdata:0.9.0-alpha")
-    implementation("aws.sdk.kotlin:translate:0.9.0-alpha")
+    implementation("aws.sdk.kotlin:redshiftdata:0.9.4-beta")
+    implementation("aws.sdk.kotlin:translate:0.9.4-beta")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

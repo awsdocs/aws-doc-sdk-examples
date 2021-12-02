@@ -106,12 +106,12 @@
         <dependency>
             <groupId>aws.sdk.kotlin</groupId>
             <artifactId>sns</artifactId>
-            <version>0.4.0-alpha</version>
+            <version>0.9.4-beta</version>
         </dependency>
         <dependency>
             <groupId>aws.smithy.kotlin</groupId>
             <artifactId>runtime-core-jvm</artifactId>
-            <version>0.4.0-alpha</version>
+            <version>0.9.4-beta</version>
         </dependency>
         <dependency>
             <groupId>aws.smithy.kotlin</groupId>
@@ -121,32 +121,32 @@
         <dependency>
             <groupId>aws.smithy.kotlin</groupId>
             <artifactId>serde-json-jvm</artifactId>
-            <version>0.4.0-alpha</version>
+            <version>0.9.4-beta</version>
         </dependency>
         <dependency>
             <groupId>aws.smithy.kotlin</groupId>
             <artifactId>serde-jvm</artifactId>
-            <version>0.4.0-alpha</version>
+            <version>0.9.4-beta</version>
         </dependency>
         <dependency>
             <groupId>aws.smithy.kotlin</groupId>
             <artifactId>serde-form-url</artifactId>
-            <version>0.4.0-alpha</version>
+            <version>0.9.4-beta</version>
         </dependency>
         <dependency>
             <groupId>aws.smithy.kotlin</groupId>
             <artifactId>serde-form-url-jvm</artifactId>
-            <version>0.4.0-alpha</version>
+            <version>0.9.4-beta</version>
         </dependency>
         <dependency>
             <groupId>aws.smithy.kotlin</groupId>
             <artifactId>serde-xml</artifactId>
-            <version>0.4.0-alpha</version>
+            <version>0.9.4-beta</version>
         </dependency>
         <dependency>
             <groupId>aws.smithy.kotlin</groupId>
             <artifactId>serde-xml-jvm</artifactId>
-            <version>0.4.0-alpha</version>
+            <version>0.9.4-beta</version>
         </dependency>
         <dependency>
             <groupId>com.amazonaws</groupId>

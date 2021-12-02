@@ -116,8 +116,8 @@ android {
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.6.0'
-    implementation("aws.sdk.kotlin:dynamodb:0.9.0-alpha")
-    implementation("aws.sdk.kotlin:sns:0.9.0-alpha")  {
+    implementation("aws.sdk.kotlin:dynamodb:0.9.4-beta")
+    implementation("aws.sdk.kotlin:sns:0.9.4-beta")  {
         exclude group: "xmlpull", module: "xmlpull"
     }
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
