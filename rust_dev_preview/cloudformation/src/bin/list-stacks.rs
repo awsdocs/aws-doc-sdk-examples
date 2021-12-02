@@ -29,7 +29,6 @@ async fn list_stacks(client: &Client) -> Result<(), Error> {
         println!();
     }
 
-
     Ok(())
 }
 // snippet-end:[cloudformation.rust.list-stacks]

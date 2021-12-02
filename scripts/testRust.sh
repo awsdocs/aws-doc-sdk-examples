@@ -20,6 +20,22 @@ vetService () {
 	return
     fi
 
+    # Special case for logging
+    if [ $SERVICE == "logging" ]
+    then
+	for d in ./*
+	do
+	    if [ -d "$d" ]; then
+		pushd $d > /dev/null
+         	vetService $from $to
+	        popd > /dev/null
+		echo
+           fi
+        done
+
+	return
+    fi
+
     # Does Cargo.toml have the old version?
     foundOld=`grep "$1" Cargo.toml`
 
@@ -69,7 +85,8 @@ else
     echo The Rust source is found at $root
 fi
 
-# FromVersion is the old version of the Rust SDK crates that we are replacing
+# FromVersion is the old version of the Rust SDK crates that we are replacing,
+# such as 0.0.NN-alpha"
 if [[ -z "${FromVersion}" ]]; then
     echo You must define the environment variable FromVersion
     exit 1
@@ -88,6 +105,8 @@ else
 fi
 
 echo
+echo Started vetting code examples at
+date
 
 for f in $root/*
 do
@@ -100,3 +119,6 @@ do
 done
 
 echo
+echo Finished vetting code examples at
+date
+

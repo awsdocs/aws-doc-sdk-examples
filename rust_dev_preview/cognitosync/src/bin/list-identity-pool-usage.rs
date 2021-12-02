@@ -5,6 +5,7 @@
 
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_cognitosync::{Client, Error, Region, PKG_VERSION};
+use aws_smithy_types_convert::date_time::DateTimeExt;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -45,7 +46,7 @@ async fn show_pools(client: &Client) -> Result<(), Error> {
             );
             println!(
                 "  Last modified:       {}",
-                pool.last_modified_date().unwrap().to_chrono()
+                pool.last_modified_date().unwrap().to_chrono_utc()
             );
             println!();
         }

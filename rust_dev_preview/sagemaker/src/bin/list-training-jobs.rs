@@ -5,6 +5,7 @@
 
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_sagemaker::{Client, Error, Region, PKG_VERSION};
+use aws_smithy_types_convert::date_time::DateTimeExt;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -27,8 +28,8 @@ async fn show_jobs(client: &Client) -> Result<(), Error> {
 
     for j in job_details.training_job_summaries.unwrap_or_default() {
         let name = j.training_job_name.as_deref().unwrap_or_default();
-        let creation_time = j.creation_time.unwrap().to_chrono();
-        let training_end_time = j.training_end_time.unwrap().to_chrono();
+        let creation_time = j.creation_time.unwrap().to_chrono_utc();
+        let training_end_time = j.training_end_time.unwrap().to_chrono_utc();
 
         let status = j.training_job_status.unwrap();
         let duration = training_end_time - creation_time;

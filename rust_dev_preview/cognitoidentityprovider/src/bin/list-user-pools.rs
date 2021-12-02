@@ -5,6 +5,7 @@
 
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_cognitoidentityprovider::{Client, Error, Region, PKG_VERSION};
+use aws_smithy_types_convert::date_time::DateTimeExt;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -31,11 +32,11 @@ async fn show_pools(client: &Client) -> Result<(), Error> {
             println!("  Lambda Config:   {:?}", pool.lambda_config().unwrap());
             println!(
                 "  Last modified:   {}",
-                pool.last_modified_date().unwrap().to_chrono()
+                pool.last_modified_date().unwrap().to_chrono_utc()
             );
             println!(
                 "  Creation date:   {:?}",
-                pool.creation_date().unwrap().to_chrono()
+                pool.creation_date().unwrap().to_chrono_utc()
             );
             println!();
         }

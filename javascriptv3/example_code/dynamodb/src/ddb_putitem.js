@@ -12,7 +12,7 @@ INPUTS:
 - TABLE_NAME
 
 Running the code:
-ts-node ddb_putitem.js
+node ddb_putitem.js
 */
 // snippet-start:[dynamodb.JavaScript.item.putItemV3]
 
@@ -21,7 +21,7 @@ import { PutItemCommand } from "@aws-sdk/client-dynamodb";
 import { ddbClient } from "./libs/ddbClient.js";
 
 // Set the parameters
-const params = {
+export const params = {
   TableName: "TABLE_NAME",
   Item: {
     CUSTOMER_ID: { N: "001" },
@@ -29,7 +29,7 @@ const params = {
   },
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await ddbClient.send(new PutItemCommand(params));
     console.log(data);

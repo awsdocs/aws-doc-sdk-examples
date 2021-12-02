@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    implementation("aws.sdk.kotlin:sfn:0.9.0-alpha")
+    implementation("aws.sdk.kotlin:sfn:0.9.4-beta")
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.0")
     implementation ("com.googlecode.json-simple:json-simple:1.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")

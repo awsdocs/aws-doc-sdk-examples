@@ -72,7 +72,10 @@ async fn enable_config(
         println!("Use delete-configuration-recorder to delete it before you call this again.");
 
         for recorder in recorders {
-            println!("Recorder: {}", recorder.name().as_deref().unwrap_or_default());
+            println!(
+                "Recorder: {}",
+                recorder.name().as_deref().unwrap_or_default()
+            );
         }
 
         process::exit(1);
@@ -90,7 +93,10 @@ async fn enable_config(
         println!("Use delete-delivery-channel to delete it before you call this again.");
 
         for channel in channels {
-            println!("  Channel: {}", channel.name().as_deref().unwrap_or_default());
+            println!(
+                "  Channel: {}",
+                channel.name().as_deref().unwrap_or_default()
+            );
         }
 
         process::exit(1);

@@ -17,8 +17,8 @@ repositories {
 }
 
 dependencies {
-    implementation("aws.sdk.kotlin:rdsdata:0.9.0-alpha")
-    implementation("aws.sdk.kotlin:ses:0.9.0-alpha")
+    implementation("aws.sdk.kotlin:rdsdata:0.9.4-beta")
+    implementation("aws.sdk.kotlin:ses:0.9.4-beta")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
