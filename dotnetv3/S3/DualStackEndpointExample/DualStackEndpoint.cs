@@ -3,7 +3,7 @@
 
 /// <summary>
 /// This example configures the endpoint calculation for a service to go
-/// to a dual stack (ipv6 enabled) endpoint for the configured AWS region.
+/// to a dual stack (ipv6 enabled) endpoint for the configured AWS Region.
 /// The example was created using the AWS SDK for .NET verion 3.7 and .NET
 /// Core version 5.0.
 /// </summary>

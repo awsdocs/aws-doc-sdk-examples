@@ -18,9 +18,9 @@ namespace ListBucketsExample
     {
         private static IAmazonS3 _s3Client;
 
-        static async Task Main(string[] args)
+        static async Task Main()
         {
-            // The client uses the AWS Region of the default user
+            // The client uses the AWS Region of the default user.
             // If the region where the buckts were created is different,
             // pass the region to the client constructor. For example:
             // _s3Client = new AmazonS3Client(RegionEndpoint.USEast1);

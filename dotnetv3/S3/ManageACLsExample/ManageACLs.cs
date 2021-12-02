@@ -125,7 +125,7 @@ namespace ManageACLsExample
         /// <param name="client">The initialized client object used to call
         /// PutBucketAsync.</param>
         /// <param name="bucketName">A string representing the name of the Amazon S3
-        /// bucket where the object we want to which we want to apply a new ACL.</param>
+        /// bucket containing the object to which we want to apply a new ACL.</param>
         /// <param name="keyName">A string representing the name of the object
         /// to which we want to apply the new ACL.</param>
         /// <param name="emailAddress">The email address of the person to whom

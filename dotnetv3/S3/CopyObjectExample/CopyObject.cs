@@ -23,7 +23,7 @@ namespace CopyObject
             // different from the AWS Region of the default user.
             IAmazonS3 s3Client = new AmazonS3Client();
 
-            // Remember to change these values to refer to your own Amazon S3 objects.
+            // Remember to change these values to refer to your Amazon S3 objects.
             string sourceBucketName = "doc-example-bucket1";
             string destinationBucketName = "doc-example-bucket2";
             string sourceObjectKey = "testfile.txt";

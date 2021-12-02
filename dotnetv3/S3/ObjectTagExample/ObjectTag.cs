@@ -75,7 +75,6 @@ namespace ObjectTagExample
                 objectTags.Tagging
                     .ForEach(t => Console.WriteLine($"Key: {t.Key}, Value: {t.Value}"));
 
-                // Replace the tagset new tags.
                 Tagging newTagSet = new()
                 {
                     TagSet = new List<Tag>
@@ -85,7 +84,7 @@ namespace ObjectTagExample
                     },
                 };
 
-                PutObjectTaggingRequest putObjTagsRequest = new()
+                PutObjectTaggingRequest putObjTagsRequest = new ()
                 {
                     BucketName = bucketName,
                     Key = keyName,

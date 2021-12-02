@@ -36,8 +36,8 @@ namespace BucketACLExample
         }
 
         /// <summary>
-        /// Creates an Amazon S3 bucket with an Access Control List (ACL) to
-        /// control access to to the bucket and the objects stored in it.
+        /// Creates an Amazon S3 bucket with an ACL to control access to to the
+        /// bucket and the objects stored in it.
         /// </summary>
         /// <param name="client">The initialized client object used to create
         /// an Amazon S3 bucket, with an ACL applied to the bucket.
@@ -78,8 +78,8 @@ namespace BucketACLExample
         /// <returns>An S3AccessControlList.</returns>
         public static async Task<S3AccessControlList> GetACLForBucketAsync(IAmazonS3 client, string newBucketName)
         {
-            // Retrieve bucket ACL to show that the Access Control List
-            // was properly applied to the new bucket.
+            // Retrieve bucket ACL to show that the ACL was properly applied to
+            // the new bucket.
             GetACLResponse getACLResponse = await client.GetACLAsync(new GetACLRequest
             {
                 BucketName = newBucketName,
@@ -89,8 +89,7 @@ namespace BucketACLExample
         }
 
         /// <summary>
-        /// Display the contents of the Access Control List (ACL) applied to
-        /// the newly created bucket.
+        /// Display the contents of the ACL applied to the newly created bucket.
         /// </summary>
         /// <param name="acl">An S3AccessControlList for the newly created
         /// Amazon S3 bucket.</param>

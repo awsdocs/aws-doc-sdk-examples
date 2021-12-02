@@ -28,7 +28,7 @@ namespace CrossRegionReplicationExample
             // write to an Amazon S3 bucket.
             //
             // The following values are not valid ARNs. You should replace them
-            // with valid ARNS from your account.
+            // with valid ARNs from your account.
             string destinationBucketArn = "arn:aws:s3:::doc-example-bucket2";
             string roleArn = "arn:aws:iam::0123456789ab:role/s3-replication-example";
 
@@ -94,7 +94,7 @@ namespace CrossRegionReplicationExample
 
         /// <summary>
         /// This method retrieves the replication configuration for the Amazon S3
-        /// source bucket and displays the information in the console.
+        /// source bucket and displays the information in the Amazon S3 console.
         /// </summary>
         /// <param name="client">The initialized Amazon S3 client object used to call
         /// GetBucketReplicationAsync.</param>

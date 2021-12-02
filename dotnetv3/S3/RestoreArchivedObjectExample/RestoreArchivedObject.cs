@@ -35,7 +35,7 @@ namespace RestoreArchivedObjectExample
         /// <param name="client">The initialized Amazon S3 client object used to call
         /// RestoreObjectAsync.</param>
         /// <param name="bucketName">A string representing the name of the
-        /// bucket where the object to restore was located.</param>
+        /// bucket where the object was located before it was archived.</param>
         /// <param name="objectKey">A string representing the name of the
         /// archived object to restore.</param>
         public static async Task RestoreObjectAsync(IAmazonS3 client, string bucketName, string objectKey)

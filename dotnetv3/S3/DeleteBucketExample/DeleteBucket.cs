@@ -2,7 +2,7 @@
 // SPDX - License - Identifier: Apache - 2.0
 
 /// <summary>
-/// This example shows how to delete an existing empty Amazin Simple Storage
+/// This example shows how to delete an existing empty Amazon Simple Storage
 /// Service (Amazon S3) bucket.  The examples uses AWS SDK for .NET 3.5 and
 /// .NET Core 5.0.
 /// </summary>
