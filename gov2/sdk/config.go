@@ -5,7 +5,7 @@
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[10/27/2021]
 //snippet-sourceauthor:[gangwere]
-package sdk
+package main
 
 import (
 	"context"
