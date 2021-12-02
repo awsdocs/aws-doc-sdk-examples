@@ -1,0 +1,12 @@
+[package]
+name = "ecs"
+version = "0.1.0"
+authors = ["Russell Cohen <rcoh@amazon.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+aws-config = { path = "../../build/aws-sdk/sdk/aws-config" }
+tokio = { version = "1", features = ["full"]}
+aws-sdk-ecs = { path = "../../build/aws-sdk/sdk/ecs" }
