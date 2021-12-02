@@ -523,15 +523,6 @@ dynamodb_DeleteItem:
   synopsis: delete an item from a &DDB; table, with the option of using the &DDB; document client.
   category:
   languages:
-    C++:
-      versions:
-        - sdk_version: 1
-          github: cpp/example_code/dynamodb
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - dynamodb.cpp.update_item.code
     Kotlin:
       versions:
         - sdk_version: 1
