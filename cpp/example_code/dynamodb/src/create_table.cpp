@@ -41,7 +41,7 @@ int main(int argc, char** argv)
         "Example:\n"
         "    create_table HelloTable \n";
 
-    if (argc < 2)
+    if (argc < 1)
     {
         std::cout << USAGE;
         return 1;
