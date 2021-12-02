@@ -53,7 +53,8 @@ class TestHelloSuite:
         command line by setting the AWS_ACCESS_KEY_ID and AWS_SECRET_KEY environment
         variables.
 
-        The project ARN is determined by the PROJECT_ARN environment variable.
+        The project Amazon Resource Name (ARN) is determined by the PROJECT_ARN
+        environment variable.
         """
         devicefarm_client = boto3.client("devicefarm")
         project_arn = os.environ.get("PROJECT_ARN", None)

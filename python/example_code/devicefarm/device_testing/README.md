@@ -24,7 +24,7 @@ Fire OS apps on real, physical phones and tablets that are hosted by AWS.*
 
 * A test package.
 * A compiled application executable.
-* A project ARN in Device Farm device testing.
+* A project Amazon Resource Name (ARN) in Device Farm device testing.
 * A device pool ARN.
 * A prefix to use to distinguish runs of the test (such as a Git branch).
 * `pipenv`: This example uses Pipenv to contain its dependencies.  

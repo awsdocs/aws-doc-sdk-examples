@@ -123,7 +123,7 @@ for job in jobs_response['jobs']:
                 artifacts = client.list_artifacts(
                     type=artifact_type, arn=test['arn'])['artifacts']
                 for artifact in artifacts:
-                    # Replace `:` because it has a special meaning in Windows & macos.
+                    # Replace `:` because it has a special meaning in Windows & macOS.
                     path_to = os.path.join(
                         save_path, job_name, suite['name'], test['name'].replace(':', '_'))
                     os.makedirs(path_to, exist_ok=True)
