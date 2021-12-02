@@ -308,6 +308,11 @@ transcribe:
   short: "&TSC;"
   sort: "Transcribe"
   version: transcribe-2017-10-26
+transcribe-medical:
+  long: "&TSClong;"
+  short: "&TSC;"
+  sort: "Transcribe medical"
+  version: transcribe-2017-10-26
 translate:
   long: "&TSLlong;"
   short: "&TSL;"

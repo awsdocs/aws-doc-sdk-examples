@@ -1,0 +1,61 @@
+# zexi 0.4.0
+transcribe_StartMedicalTranscriptionJobCommand:
+  title: Start an &TSC; medical transcription job using an &AWS; SDK
+  title_abbrev: Start a medical transcription job
+  synopsis: start an &TSC; medical transcription job.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/transcribe
+          sdkguide: sdk-for-javascript/v3/developer-guide/transcribe-medical-examples-section.html#transcribe-start-medical-transcription
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - transcribe.JavaScript.createclientv3
+            - description: Start the medical transcription job.
+              snippet_tags:
+                - transcribe.JavaScript.jobs.createMedicalJobV3
+  services:
+    transcribe: {StartMedicalTranscriptionJobCommand}
+transcribe_DeleteMedicalTranscriptionJobCommand:
+  title: Start an &TSC; medical transcription job using an &AWS; SDK
+  title_abbrev: Start a medical transcription job
+  synopsis: start an &TSC; medical transcription job.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/transcribe
+          sdkguide: sdk-for-javascript/v3/developer-guide/transcribe-medical-examples-section.html#transcribe-delete-medical-job
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - transcribe.JavaScript.createclientv3
+            - description: Delete a medical transcription job.
+              snippet_tags:
+                - transcribe.JavaScript.jobs.deleteMedicalJobV3
+  services:
+    transcribe: {DeleteMedicalTranscriptionJobCommand}
+transcribe_ListMedicalTranscriptionJobsCommand:
+  title: List &TSC; medical transcription jobs using an &AWS; SDK
+  title_abbrev: List medical transcription jobs
+  synopsis: list &TSC; medical transcription jobs.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/transcribe
+          sdkguide: sdk-for-javascript/v3/developer-guide/transcribe-medical-examples-section.html#transcribe-list-medical-jobs
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - transcribe.JavaScript.createclientv3
+            - description: Start the medical transcription job.
+              snippet_tags:
+                - transcribe.JavaScript.jobs.createMedicalJobV3
+  services:
+    transcribe: {StartMedicalTranscriptionJobCommand}
