@@ -1,8 +1,8 @@
 # zexi 0.4.0
 transcribe_StartMedicalTranscriptionJobCommand:
-  title: Start an &TSC; medical transcription job using an &AWS; SDK
+  title: Start an &TSCM; transcription job using an &AWS; SDK
   title_abbrev: Start a medical transcription job
-  synopsis: start an &TSC; medical transcription job.
+  synopsis: start an &TSCM; transcription job.
   category:
   languages:
     JavaScript:
@@ -20,9 +20,9 @@ transcribe_StartMedicalTranscriptionJobCommand:
   services:
     transcribe: {StartMedicalTranscriptionJobCommand}
 transcribe_DeleteMedicalTranscriptionJobCommand:
-  title: Start an &TSC; medical transcription job using an &AWS; SDK
+  title: Start an &TSCM; transcription job using an &AWS; SDK
   title_abbrev: Start a medical transcription job
-  synopsis: start an &TSC; medical transcription job.
+  synopsis: start an &TSCM; transcription job.
   category:
   languages:
     JavaScript:
@@ -40,9 +40,9 @@ transcribe_DeleteMedicalTranscriptionJobCommand:
   services:
     transcribe: {DeleteMedicalTranscriptionJobCommand}
 transcribe_ListMedicalTranscriptionJobsCommand:
-  title: List &TSC; medical transcription jobs using an &AWS; SDK
+  title: List &TSCM; transcription jobs using an &AWS; SDK
   title_abbrev: List medical transcription jobs
-  synopsis: list &TSC; medical transcription jobs.
+  synopsis: list &TSCM; transcription jobs.
   category:
   languages:
     JavaScript:
