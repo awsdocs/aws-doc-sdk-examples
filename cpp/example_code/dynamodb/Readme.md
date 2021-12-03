@@ -12,19 +12,19 @@ Some of these examples perform *destructive* operations on AWS resources, such a
 
 You will find these examples: 
 
-- **batch_get_item.cpp** - Demonstrates how to batch get items from different Amazon DynamoDB tables.
-- **create_table.cpp** - Demonstrates how to create an Amazon DynamoDB table.
-- **create_table_composite_key.cpp** - Demonstrates how to create an Amazon DynamoDB table that has a composite key.
-- **delete_item.cpp** - Demonstrates how to delete an item from an Amazon DynamoDB table.
-- **delete_table.cpp** - Demonstrates how to delete an Amazon DynamoDB table.
-- **describe_table.cpp** - Demonstrates how to retrieve information about an Amazon DynamoDB table.
-- **get_item.cpp** - Demonstrates how to retrieve an item from an Amazon DynamoDB table.
-- **list_tables.cpp** - Demonstrates how to list all Amazon DynamoDB tables.
-- **put_item.cpp** - Demonstrates how to place an item into an Amazon DynamoDB table.
-- **query_items.cpp** - Demonstrates how to query an Amazon DynamoDB table.
-- **scan_table.cpp** - Demonstrates how to scan an Amazon DynamoDB table.
-- **update_item.cpp** - Demonstrates how to update an item in an Amazon DynamoDB table.
-- **update_table.cpp** - Demonstrates how to update information about an Amazon DynamoDB table.
+- **batch_get_item.cpp** - Get batch items from different Amazon DynamoDB tables.
+- **create_table.cpp** - Create an Amazon DynamoDB table.
+- **create_table_composite_key.cpp** -Create an Amazon DynamoDB table that has a composite key.
+- **delete_item.cpp** - Delete an item from an Amazon DynamoDB table.
+- **delete_table.cpp** - Delete an Amazon DynamoDB table.
+- **describe_table.cpp** - Retrieve information about an Amazon DynamoDB table.
+- **get_item.cpp** - Retrieve an item from an Amazon DynamoDB table.
+- **list_tables.cpp** - List all Amazon DynamoDB tables.
+- **put_item.cpp** - Place an item into an Amazon DynamoDB table.
+- **query_items.cpp** - Query an Amazon DynamoDB table.
+- **scan_table.cpp** - Scan an Amazon DynamoDB table.
+- **update_item.cpp** - Update an item in an Amazon DynamoDB table.
+- **update_table.cpp** - Update information about an Amazon DynamoDB table.
 
 To run these examples, you can setup your development environment. For more information, 
 see [Getting started using the AWS SDK for C++](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html). 
