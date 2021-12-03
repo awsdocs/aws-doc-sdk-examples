@@ -13,7 +13,7 @@
  *
  */
  
-//snippet-sourcedescription:[iam_attachrolepolicy.test.js demonstrates how to attach a managed policy to an IAM role.]
+//snippet-sourcedescription:[iam_attachrolepolicy.js demonstrates how to attach a managed policy to an IAM role.]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]

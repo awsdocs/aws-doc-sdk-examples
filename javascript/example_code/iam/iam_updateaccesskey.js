@@ -13,7 +13,7 @@
  *
  */
  
-//snippet-sourcedescription:[iam_updateaccesskey.test.js demonstrates how to update the status of an IAM user's access key.]
+//snippet-sourcedescription:[iam_updateaccesskey.js demonstrates how to update the status of an IAM user's access key.]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]

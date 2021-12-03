@@ -13,7 +13,7 @@
  *
  */
  
-//snippet-sourcedescription:[iam_listaccesskeys.test.js demonstrates how to retrieve information about the access keys of an IAM user.]
+//snippet-sourcedescription:[iam_listaccesskeys.js demonstrates how to retrieve information about the access keys of an IAM user.]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]

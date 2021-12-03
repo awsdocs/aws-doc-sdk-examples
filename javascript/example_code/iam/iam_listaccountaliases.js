@@ -13,7 +13,7 @@
  *
  */
  
-//snippet-sourcedescription:[iam_listaccountaliases.test.js demonstrates how to retrieve information about the aliases for an AWS account.]
+//snippet-sourcedescription:[iam_listaccountaliases.js demonstrates how to retrieve information about the aliases for an AWS account.]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]

@@ -13,7 +13,7 @@
  *
  */
  
-//snippet-sourcedescription:[iam_getservercert.test.js demonstrates how to retrieve information about an IAM SSL/TLS server certificate.]
+//snippet-sourcedescription:[iam_getservercert.js demonstrates how to retrieve information about an IAM SSL/TLS server certificate.]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]

@@ -13,7 +13,7 @@
  *
  */
  
-//snippet-sourcedescription:[iam_createaccountalias.test.js demonstrates how to create an alias for an AWS account.]
+//snippet-sourcedescription:[iam_createaccountalias.js demonstrates how to create an alias for an AWS account.]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]

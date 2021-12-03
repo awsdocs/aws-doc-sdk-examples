@@ -13,7 +13,7 @@
  *
  */
  
-//snippet-sourcedescription:[iam_deleteuser.test.js demonstrates how to delete an IAM user from an AWS account.]
+//snippet-sourcedescription:[iam_deleteuser.js demonstrates how to delete an IAM user from an AWS account.]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
