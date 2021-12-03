@@ -5,12 +5,22 @@
 These examples demonstrate how to perform several AWS Secrets Manager
 operations using version 2 of the AWS SDK for Go.
 
-## Prerequisites
+AWS Secrets Manager helps you to securely encrypt, store, and retrieve credentials for your databases
+and other services. Instead of hardcoding credentials in your apps, you can make calls to Secrets Manager
+to retrieve your credentials whenever needed. Secrets Manager helps you protect access to your IT resources
+and data by enabling you to rotate and manage access to your secrets. 
 
-You must have an AWS account, and have your default credentials and AWS Region
-configured as described in
-[Configuring the AWS SDK for Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html)
-in the AWS SDK for Go Developer Guide.
+## Code Examples
+
+The following samples are included:
+
+* Create a secret
+* Get the value of a secret secret
+* Change the value of the secret
+* List secrets in your account
+* Delete a secret
+
+
 
 ## Running the code
 
@@ -22,14 +32,15 @@ go run main.go
 
 This example will
 
-* Create a secret (with only an ARN to identify it)
-* Get the value of that secret
-* Change the value of the secret
-* Show the change has taken effect
-* List secrets in your account by their ARNs
-* Delete the secret that was created
 
-### Notes
+### Prerequisites
+
+You must have an AWS account, and have your default credentials and AWS Region
+configured as described in
+[Configuring the AWS SDK for Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html)
+in the AWS SDK for Go Developer Guide.
+
+### Important!
 
 - We recommend that you grant this code least privilege,
   or at most the minimum permissions required to perform the task.
