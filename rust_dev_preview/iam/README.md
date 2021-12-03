@@ -32,7 +32,7 @@ You must have an AWS account, and have configured your default credentials and A
 
 This example creates an IAM role in the Region.
 
-`cargo run --bin create-role -- -a ACCOUNT-ID -b BUCKET -n NAME -p POLICY-NAME [-r REGION] [-v]`
+`cargo run --bin create-role -- -a ACCOUNT-ID -b BUCKET -n NAME -p POLICY-FILE [-r REGION] [-v]`
 
 - _NAME_ is the name of the role.
 - _POLICY-FILE_ is the name of the JSON file containing the policy document.
