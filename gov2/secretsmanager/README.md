@@ -52,6 +52,17 @@ in the AWS SDK for Go Developer Guide.
   [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 - Running this code might result in charges to your AWS account.
 
+# Resources
+
+For more information, see
+
+* The [AWS SDK for Go V2 documentation](https://docs.aws.amazon.com/sdk-for-go/).
+* The [AWS Secerts Manager documentation](https://docs.aws.amazon.com/secretsmanager/?id=docs_gateway).
+
+
+#Contributing
+
+To propose a new code example to the AWS documentation team, see the CONTRIBUTING.md (https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md). The team prefers to create code examples that show broad scenarios rather than individual API calls.
 
 # License
 
