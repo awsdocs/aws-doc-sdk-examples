@@ -23,13 +23,13 @@ struct Opt {
 async fn show_repos(client: &aws_sdk_ecr::Client) -> Result<(), aws_sdk_ecr::Error> {
     let rsp = client.describe_repositories().send().await?;
 
-    let repos = rsp.repositories.unwrap_or_default();
+    let repos = rsp.repositories().unwrap_or_default();
 
     println!("Found {} repositories:", repos.len());
 
     for repo in repos {
-        println!("  ARN:  {}", repo.repository_arn.unwrap());
-        println!("  Name: {}", repo.repository_name.unwrap());
+        println!("  ARN:  {}", repo.repository_arn().unwrap());
+        println!("  Name: {}", repo.repository_name().unwrap());
     }
 
     Ok(())
