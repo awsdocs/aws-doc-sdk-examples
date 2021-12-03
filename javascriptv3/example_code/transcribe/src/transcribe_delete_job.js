@@ -11,7 +11,7 @@ Inputs (replace in code):
 - JOB_NAME
 
 Running the code:
-node transcribe_create_job.js
+node transcribe_create_job.test.js
  */
 // snippet-start:[transcribe.JavaScript.jobs.deleteJobV3]
 // Import the required AWS SDK clients and commands for Node.js
@@ -19,11 +19,11 @@ import { DeleteTranscriptionJobCommand } from "@aws-sdk/client-transcribe";
 import { transcribeClient } from "./libs/transcribeClient.js";
 
 // Set the parameters
-const params = {
+export const params = {
   TranscriptionJobName: "JOB_NAME", // Required. For example, 'transciption_demo'
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await transcribeClient.send(
       new DeleteTranscriptionJobCommand(params)
