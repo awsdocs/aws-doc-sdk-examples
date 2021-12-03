@@ -6,13 +6,13 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html.
 
 Purpose:
-iam_createuser.js demonstrates how to create an IAM user for an AWS account.
+iam_createuser.test.js demonstrates how to create an IAM user for an AWS account.
 
 Inputs :
 - USER_NAME
 
 Running the code:
-node iam_createuser.js
+node iam_createuser.test.js
  */
 
 // snippet-start:[iam.JavaScript.users.getUserV3]
@@ -21,9 +21,9 @@ import { iamClient } from "./libs/iamClient.js";
 import { GetUserCommand, CreateUserCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = { UserName: "USER_NAME" }; //USER_NAME
+export const params = { UserName: "USER_NAME" }; //USER_NAME
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new GetUserCommand(params));
     console.log(
@@ -43,4 +43,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.users.getUserV3]
-// module.exports =  { run, params }; // For unit tests.
+

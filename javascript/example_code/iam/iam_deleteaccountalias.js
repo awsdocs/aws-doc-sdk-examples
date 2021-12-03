@@ -13,7 +13,7 @@
  *
  */
  
-//snippet-sourcedescription:[iam_deleteaccountalias.js demonstrates how to delete an alias for an AWS account.]
+//snippet-sourcedescription:[iam_deleteaccountalias.test.js demonstrates how to delete an alias for an AWS account.]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]

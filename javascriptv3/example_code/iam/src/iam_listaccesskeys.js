@@ -6,13 +6,13 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html.
 
 Purpose:
-iam_listaccesskeys.js demonstrates how to retrieve information about the access keys of an IAM user.
+iam_listaccesskeys.test.js demonstrates how to retrieve information about the access keys of an IAM user.
 
 Inputs :
 - IAM_USER_NAME
 
 Running the code:
-node iam_listaccesskeys.js
+node iam_listaccesskeys.test.js
  */
 
 // snippet-start:[iam.JavaScript.keys.listAccessKeysV3]
@@ -21,12 +21,12 @@ import { iamClient } from "./libs/iamClient.js";
 import { ListAccessKeysCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = {
+export const params = {
   MaxItems: 5,
   UserName: "IAM_USER_NAME", //IAM_USER_NAME
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new ListAccessKeysCommand(params));
     console.log("Success", data);
@@ -37,4 +37,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.keys.listAccessKeysV3]
-// module.exports =  { run, params }; // For unit tests.
+

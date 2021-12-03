@@ -6,13 +6,13 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-server-certificates.html.
 
 Purpose:
-iam_getservercert.js demonstrates how to retrieve information about an IAM SSL/TLS server certificate.
+iam_getservercert.test.js demonstrates how to retrieve information about an IAM SSL/TLS server certificate.
 
 Inputs :
 - CERTIFICATE_NAME
 
 Running the code:
-node iam_getservercert.js
+node iam_getservercert.test.js
  */
 // snippet-start:[iam.JavaScript.certs.getServerCertificateV3]
 // Import required AWS SDK clients and commands for Node.js
@@ -20,9 +20,9 @@ import { iamClient } from "./libs/iamClient.js";
 import { GetServerCertificateCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = { ServerCertificateName: "CERTIFICATE_NAME" }; //CERTIFICATE_NAME
+export const params = { ServerCertificateName: "CERTIFICATE_NAME" }; //CERTIFICATE_NAME
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new GetServerCertificateCommand(params));
     console.log("Success", data);
@@ -32,4 +32,4 @@ const run = async () => {
   }
 };
 // snippet-end:[iam.JavaScript.certs.getServerCertificateV3]
-// module.exports =  { run, params }; // For unit tests.
+

@@ -6,13 +6,13 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-account-aliases.html.
 
 Purpose:
-iam_createaccountalias.js demonstrates how to create an alias for an AWS account.
+iam_createaccountalias.test.js demonstrates how to create an alias for an AWS account.
 
 Inputs :
 - ACCOUNT_ALIAS
 
 Running the code:
-node iam_createaccountalias.js
+node iam_createaccountalias.test.js
  */
 // snippet-start:[iam.JavaScript.alias.createAccountAliasV3]
 // Import required AWS SDK clients and commands for Node.js
@@ -20,9 +20,9 @@ import { iamClient } from "./libs/iamClient.js";
 import { CreateAccountAliasCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = { AccountAlias: "ACCOUNT_ALIAS" }; //ACCOUNT_ALIAS
+export const params = { AccountAlias: "ACCOUNT_ALIAS" }; //ACCOUNT_ALIAS
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new CreateAccountAliasCommand(params));
     console.log("Success", data);
@@ -33,4 +33,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.alias.createAccountAliasV3]
-// module.exports =  { run, params }; // For unit tests.
+

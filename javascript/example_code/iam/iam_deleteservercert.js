@@ -13,7 +13,7 @@
  *
  */
  
-//snippet-sourcedescription:[iam_deleteservercert.js demonstrates how to delete an IAM SSL/TLS server certificate.]
+//snippet-sourcedescription:[iam_deleteservercert.test.js demonstrates how to delete an IAM SSL/TLS server certificate.]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]

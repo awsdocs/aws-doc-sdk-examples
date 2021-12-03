@@ -13,7 +13,7 @@
  *
  */
  
-//snippet-sourcedescription:[iam_createaccesskeys.js demonstrates how to create a new AWS access key and AWS access key ID for an IAM user.]
+//snippet-sourcedescription:[iam_createaccesskeys.test.js demonstrates how to create a new AWS access key and AWS access key ID for an IAM user.]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]

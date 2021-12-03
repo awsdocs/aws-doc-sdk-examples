@@ -6,10 +6,10 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-account-aliases.html.
 
 Purpose:
-iam_listaccountaliases.js demonstrates how to retrieve information about the aliases for an AWS account.
+iam_listaccountaliases.test.js demonstrates how to retrieve information about the aliases for an AWS account.
 
 Running the code:
-node iam_listaccountaliases.js
+node iam_listaccountaliases.test.js
  */
 // snippet-start:[iam.JavaScript.alias.listAccountAliasesV3]
 // Import required AWS SDK clients and commands for Node.js
@@ -17,9 +17,9 @@ import { iamClient } from "./libs/iamClient.js";
 import { ListAccountAliasesCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = { MaxItems: 5 };
+export const params = { MaxItems: 5 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new ListAccountAliasesCommand(params));
     console.log("Success", data);
@@ -30,4 +30,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.alias.listAccountAliasesV3]
-// module.exports =  { run, params }; // For unit tests.
+

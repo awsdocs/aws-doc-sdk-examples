@@ -6,17 +6,17 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-server-certificates.html.
 
 Purpose:
-iam_listservercerts.js demonstrates how to list the IAM SSL/TLS server certificates.
+iam_listservercerts.test.js demonstrates how to list the IAM SSL/TLS server certificates.
 
 Running the code:
-node iam_listservercerts.js
+node iam_listservercerts.test.js
  */
 // snippet-start:[iam.JavaScript.certs.listServerCertificatesV3]
 // Import required AWS SDK clients and commands for Node.js
 import { iamClient } from "./libs/iamClient.js";
 import { ListServerCertificatesCommand } from "@aws-sdk/client-iam";
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new ListServerCertificatesCommand({}));
     console.log("Success", data);

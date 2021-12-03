@@ -6,14 +6,14 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-policies.html.
 
 Purpose:
-iam_createpolicy.js demonstrates how to create a managed policy for an AWS account.
+iam_createpolicy.test.js demonstrates how to create a managed policy for an AWS account.
 
 Inputs :
 - RESOURCE_ARN
 - DYNAMODB_POLICY_NAME
 
 Running the code:
-node iam_createpolicy.js
+node iam_createpolicy.test.js
  */
 // snippet-start:[iam.JavaScript.policies.createPolicyV3]
 // Import required AWS SDK clients and commands for Node.js
@@ -42,12 +42,12 @@ const myManagedPolicy = {
     },
   ],
 };
-const params = {
+export const params = {
   PolicyDocument: JSON.stringify(myManagedPolicy),
   PolicyName: process.argv[4],
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new CreatePolicyCommand(params));
     console.log("Success", data);
@@ -58,4 +58,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.policies.createPolicyV3]
-// module.exports =  { run, params }; // For unit tests.
+

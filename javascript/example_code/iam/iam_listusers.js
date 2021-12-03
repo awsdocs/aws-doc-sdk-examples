@@ -13,7 +13,7 @@
  *
  */
  
-//snippet-sourcedescription:[iam_listusers.js demonstrates how to list IAM users.]
+//snippet-sourcedescription:[iam_listusers.test.js demonstrates how to list IAM users.]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]

@@ -6,13 +6,13 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-policies.html.
 
 Purpose:
-iam_detachrolepolicy.js demonstrates how to detach a managed policy from an IAM role.
+iam_detachrolepolicy.test.js demonstrates how to detach a managed policy from an IAM role.
 
 Inputs :
 - ROLE_NAME
 
 Running the code:
-node iam_detachrolepolicy.js
+node iam_detachrolepolicy.test.js
  */
 // snippet-start:[iam.JavaScript.policies.detachRolePolicyV3]
 // Import required AWS SDK clients and commands for Node.js
@@ -23,9 +23,9 @@ import {
 } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = { RoleName: "ROLE_NAME" }; //ROLE_NAME
+export const params = { RoleName: "ROLE_NAME" }; //ROLE_NAME
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(
       new ListAttachedRolePoliciesCommand(params)
@@ -34,7 +34,7 @@ const run = async () => {
     const myRolePolicies = data.AttachedPolicies;
     myRolePolicies.forEach(function (val, index, array) {
       if (myRolePolicies[index].PolicyName === "AmazonDynamoDBFullAccess") {
-        const params = {
+         const params = {
           PolicyArn: "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess",
           paramsRoleList,
         };
@@ -56,4 +56,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.policies.detachRolePolicyV3]
-// module.exports =  { run, params }; // For unit tests.
+

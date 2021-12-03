@@ -13,7 +13,7 @@
  *
  */
  
-//snippet-sourcedescription:[iam_listservercerts.js demonstrates how to list the IAM SSL/TLS server certificates.]
+//snippet-sourcedescription:[iam_listservercerts.test.js demonstrates how to list the IAM SSL/TLS server certificates.]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]

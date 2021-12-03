@@ -13,7 +13,7 @@
  *
  */
  
-//snippet-sourcedescription:[iam_createpolicy.js demonstrates how to create a managed policy for an AWS account.]
+//snippet-sourcedescription:[iam_createpolicy.test.js demonstrates how to create a managed policy for an AWS account.]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]

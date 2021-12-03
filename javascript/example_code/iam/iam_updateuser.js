@@ -13,7 +13,7 @@
  *
  */
  
-//snippet-sourcedescription:[iam_updateuser.js demonstrates how to update the name of an IAM user.]
+//snippet-sourcedescription:[iam_updateuser.test.js demonstrates how to update the name of an IAM user.]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]

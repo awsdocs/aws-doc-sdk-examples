@@ -6,14 +6,14 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-server-certificates.html.
 
 Purpose:
-iam_updateservercert.js demonstrates how to update the name of an IAM SSL/TLS server certificate.
+iam_updateservercert.test.js demonstrates how to update the name of an IAM SSL/TLS server certificate.
 
 Inputs :
 - CERTIFICATE_NAME
 - NEW_CERTIFICATE_NAME
 
 Running the code:
-node iam_updateservercert.js
+node iam_updateservercert.test.js
  */
 // snippet-start:[iam.JavaScript.certs.updateServerCertificateV3]
 // Import required AWS SDK clients and commands for Node.js
@@ -21,12 +21,12 @@ import { iamClient } from "./libs/iamClient.js";
 import { UpdateServerCertificateCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = {
+export const params = {
   ServerCertificateName: "CERTIFICATE_NAME", //CERTIFICATE_NAME
   NewServerCertificateName: "NEW_CERTIFICATE_NAME", //NEW_CERTIFICATE_NAME
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(
       new UpdateServerCertificateCommand(params)
@@ -39,4 +39,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.certs.updateServerCertificateV3]
-// module.exports =  { run, params }; // For unit tests.
+

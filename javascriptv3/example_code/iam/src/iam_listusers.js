@@ -6,10 +6,10 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html.
 
 Purpose:
-iam_listusers.js demonstrates how to list IAM users.
+iam_listusers.test.js demonstrates how to list IAM users.
 
 Running the code:
-node iam_listusers.js
+node iam_listusers.test.js
  */
 
 // snippet-start:[iam.JavaScript.users.listUsersV3]
@@ -18,9 +18,9 @@ import { iamClient } from "./libs/iamClient.js";
 import { ListUsersCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = { MaxItems: 10 };
+export const params = { MaxItems: 10 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new ListUsersCommand(params));
     return data;
@@ -34,4 +34,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.users.listUsersV3]
-// module.exports =  { run, params }; // For unit tests.
+

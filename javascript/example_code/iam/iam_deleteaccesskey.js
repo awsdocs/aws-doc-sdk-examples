@@ -13,7 +13,7 @@
  *
  */
  
-//snippet-sourcedescription:[iam_deleteaccesskey.js demonstrates how to delete the AWS access key pair for an IAM user.]
+//snippet-sourcedescription:[iam_deleteaccesskey.test.js demonstrates how to delete the AWS access key pair for an IAM user.]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]

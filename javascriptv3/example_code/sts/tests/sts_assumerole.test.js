@@ -6,7 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sts-examples-policies.html.
 
 Purpose:
-sts_assumerole.js demonstrates how to use AWS STS to assume an IAM role.
+sts_assumerole.test.js demonstrates how to use AWS STS to assume an IAM role.
 
 Inputs :
 - ROLE_TO_ASSUME_ARN

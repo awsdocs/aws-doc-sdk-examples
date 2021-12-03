@@ -6,10 +6,10 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-policies.html.
 
 Purpose:
-iam_getpolicy.js demonstrates how to retrieve information about an IAM managed policy.
+iam_getpolicy.test.js demonstrates how to retrieve information about an IAM managed policy.
 
 Running the code:
-node iam_getpolicy.js
+node iam_getpolicy.test.js
  */
 // snippet-start:[iam.JavaScript.policies.getPolicyV3]
 // Import required AWS SDK clients and commands for Node.js
@@ -17,11 +17,11 @@ import { iamClient } from "./libs/iamClient.js";
 import { GetPolicyCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = {
+export const params = {
   PolicyArn: "arn:aws:iam::aws:policy/AWSLambdaExecute",
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new GetPolicyCommand(params));
     console.log("Success", data);
@@ -32,4 +32,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.policies.getPolicyV3]
-// module.exports =  { run, params }; // For unit tests.
+
