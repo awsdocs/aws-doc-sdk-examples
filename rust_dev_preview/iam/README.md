@@ -34,10 +34,8 @@ This example creates an IAM role in the Region.
 
 `cargo run --bin create-role -- -a ACCOUNT-ID -b BUCKET -n NAME -p POLICY-NAME [-r REGION] [-v]`
 
-- _ACCOUNT-ID_ is the ID of an instance to stop.
-- _BUCKET_ is the name of the bucket where Config stores information about resources.
 - _NAME_ is the name of the role.
-- _POLICY-NAME_ is the name of the JSON file containing the policy document.
+- _POLICY-FILE_ is the name of the JSON file containing the policy document.
 - _REGION_ the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
