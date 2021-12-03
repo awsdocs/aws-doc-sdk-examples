@@ -1,16 +1,27 @@
-# AWS SDK for Go V2 code examples for the SDK 
+# AWS SDK for Go V2 examples
 
 ## Purpose
 
 These examples show ways to work with Go-specific aspects of the
 AWS SDK for Go V2. 
 
-### `config.go`: Configuring the credentials used by the SDK
+The AWS SDK for Go provides easy-to-use APIs and utilities developers can 
+use to quickly integrate Go applications with AWS services like Amazon S3 and Amazon EC2.
+
+## AWS Usage Scenario Examples
+
+### `config.go`: Loading configurations and using STS for roles. 
 
 This example demonstrates
 
 * Loading the default configuration
 * Assuming a role using STS 
+
+To run this example, run
+
+```
+go run config.go
+```
 
 ## Prerequisites
 
@@ -19,7 +30,7 @@ configured as described in
 [Configuring the AWS SDK for Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html)
 in the AWS SDK for Go Developer Guide.
 
-### Notes
+### Important
 
 - We recommend that you grant this code least privilege,
   or at most the minimum permissions required to perform the task.
