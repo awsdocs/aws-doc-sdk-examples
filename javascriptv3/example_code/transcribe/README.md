@@ -2,7 +2,7 @@
 Amazon Transcribe makes it easy for developers to add speech to text capabilities to their applications.
 
 ## Code examples
-This is a workspace where you can find the following AWS SDK for JavaScript v3 Transcribe examples:
+This is a workspace where you can find the following AWS SDK for JavaScript v3 Amazon Transcribe examples:
 - [Create Transcribe job](src/transcribe_create_job.js) (StartTranscriptionJobCommand)
 - [Create Transcribe medical job](src/transcribe_create_medical_job.js) (StartMedicalTranscriptionJobCommand)
 - [Delete Transcribe job](src/transcribe_delete_job.js) (DeleteTranscriptionJobCommand)
