@@ -34,7 +34,7 @@ int main(int argc, char** argv)
         "Usage:\n"
         "    describe_table <table>\n\n"
         "Where:\n"
-        "    table - the table to delete.\n";
+        "    table - the table to describe.\n";
 
     if (argc < 1)
     {

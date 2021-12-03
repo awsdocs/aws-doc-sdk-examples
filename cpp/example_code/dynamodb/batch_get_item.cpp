@@ -43,7 +43,8 @@ int main(int argc, char** argv)
 	Aws::InitAPI(options);
 	{
 		Aws::Client::ClientConfiguration clientConfig;
-		// Set the region where your DynamoDB tables exist.
+		
+		// Set the AWS Region where your DynamoDB tables exist.
 		clientConfig.region = Aws::Region::US_WEST_2;
 		Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
 
@@ -52,27 +53,23 @@ int main(int argc, char** argv)
 		// Table1: Forum.
 		Aws::String t1Name = "Forum";
 		Aws::DynamoDB::Model::KeysAndAttributes t1KeyAttrs;
+		
 		//Table1: Projection expression.
 		t1KeyAttrs.SetProjectionExpression("#n, Category, Messages, #v");
 
-		// Table1: Expression attribute names
+		// Table1: Expression attribute names.
 		Aws::Http::HeaderValueCollection hvc;
 		hvc.emplace("#n", "Name");
 		hvc.emplace("#v", "Views");
 		t1KeyAttrs.SetExpressionAttributeNames(hvc);
 
 		// Table1: Set key name, type and value to search.
-		//
-		// Since we are searching for two possible values of "Name",
-		// we have to use to separate key maps.
-		//
-	    Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> t1KeysA;
+		Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> t1KeysA;
 		Aws::DynamoDB::Model::AttributeValue t1key1;
 		t1key1.SetS("Amazon DynamoDB");
 		t1KeysA.emplace("Name", t1key1);
 		t1KeyAttrs.AddKeys(t1KeysA);
 
-		// Name = "Amazon S3"
 		Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> t1KeysB;
 		Aws::DynamoDB::Model::AttributeValue t1key2;
 		t1key2.SetS("Amazon S3");
@@ -83,12 +80,9 @@ int main(int argc, char** argv)
 		// Table2: ProductCatalog.
 		Aws::String t2Name = "ProductCatalog";
 		Aws::DynamoDB::Model::KeysAndAttributes t2KeyAttrs;
-		//Table2: Projection expression
-		t2KeyAttrs.SetProjectionExpression("Title, Price, Color");
+		2KeyAttrs.SetProjectionExpression("Title, Price, Color");
 
 		// Table2: Set key name, type and value to search.
-		//
-		// Name = "Id", value = 201
 		Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> t2KeysA;
 		Aws::DynamoDB::Model::AttributeValue t2key1;
 		t2key1.SetN("201");
