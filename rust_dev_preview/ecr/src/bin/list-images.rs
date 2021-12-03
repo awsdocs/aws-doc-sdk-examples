@@ -34,15 +34,15 @@ async fn show_images(
         .send()
         .await?;
 
-    let images = rsp.image_ids.unwrap_or_default();
+    let images = rsp.image_ids().unwrap_or_default();
 
     println!("found {} images", images.len());
 
     for image in images {
         println!(
             "image: {}:{}",
-            image.image_tag.unwrap(),
-            image.image_digest.unwrap()
+            image.image_tag().unwrap(),
+            image.image_digest().unwrap()
         );
     }
 
