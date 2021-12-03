@@ -85,6 +85,11 @@ config-service:
   short: "&CC;"
   sort: "Config"
   version: config-2014-11-12
+device-farm:
+  long: "&ATPlong;"
+  short: "&ATP;"
+  sort: "Device Farm"
+  version: devicefarm-2015-06-23
 dynamodb:
   long: "&DDBlong;"
   short: "&DDB;"
