@@ -6,13 +6,13 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html.
 
 Purpose:
-iam_accesskeylastused.test.js demonstrates how to retrieve information about the last time an IAM access key was used.
+iam_accesskeylastused.js demonstrates how to retrieve information about the last time an IAM access key was used.
 
 Inputs:
 - ACCESS_KEY_ID
 
 Running the code:
-node iam_accesskeylastused.test.js
+node iam_accesskeylastused.js
  */
 // snippet-start:[iam.JavaScript.keys.getAccessKeyLastUsedV3]
 // Import required AWS SDK clients and commands for Node.js

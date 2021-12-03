@@ -1,0 +1,25 @@
+---
+# Amazon Transcribe basic usage examples
+files:
+  - path: .libs/transcribeClient.js
+    services:
+      - Transcribe
+  - path: transcribe_create_job.js
+    services:
+      - Transcribe
+  - path: transcribe_delete_job.js
+    services:
+      - Transcribe
+  - path: transcribe_list_jobs.js
+    services:
+      - Transcribe
+  - path: transcribe_create_medical_job.js
+      services:
+        - Transcribe
+  - path: transcribe_delete_medical_job.js
+    services:
+      - Transcribe
+  - path: transcribe_list_medical_jobs.js
+    services:
+      - Transcribe
+...

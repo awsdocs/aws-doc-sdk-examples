@@ -6,13 +6,13 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-account-aliases.html.
 
 Purpose:
-iam_deleteaccountalias.test.js demonstrates how to delete an alias for an AWS account.
+iam_deleteaccountalias.js demonstrates how to delete an alias for an AWS account.
 
 Inputs :
 - ALIAS
 
 Running the code:
-node iam_createaccountalias.test.js
+node iam_createaccountalias.js
  */
 // snippet-start:[iam.JavaScript.alias.deleteAccountAliasV3]
 // Import required AWS SDK clients and commands for Node.js

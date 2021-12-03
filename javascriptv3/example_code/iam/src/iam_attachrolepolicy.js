@@ -6,13 +6,13 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-policies.html.
 
 Purpose:
-iam_attachrolepolicy.test.js demonstrates how to attach a managed policy to an IAM role.
+iam_attachrolepolicy.js demonstrates how to attach a managed policy to an IAM role.
 
 Inputs :
 - ROLE_NAME
 
 Running the code:
-node iam_attachrolepolicy.test.js
+node iam_attachrolepolicy.js
 
  */
 // snippet-start:[iam.JavaScript.policies.attachRolePolicyV3]

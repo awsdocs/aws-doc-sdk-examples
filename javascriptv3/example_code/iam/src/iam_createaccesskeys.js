@@ -6,13 +6,13 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html.
 
 Purpose:
-iam_createaccesskeys.test.js demonstrates how to create a new AWS access key and AWS access key ID for an IAM user.
+iam_createaccesskeys.js demonstrates how to create a new AWS access key and AWS access key ID for an IAM user.
 
 Inputs :
  - IAM_USER_NAME
 
 Running the code:
-node iam_createaccesskeys.test.js >newuserkeys.txt
+node iam_createaccesskeys.js >newuserkeys.txt
 (This create newuserkeys.txt and adds the access key ID and secret key to it.)
  */
 // snippet-start:[iam.JavaScript.keys.createAccessKeyV3]

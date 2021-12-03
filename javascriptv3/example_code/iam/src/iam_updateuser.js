@@ -6,14 +6,14 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html.
 
 Purpose:
-iam_updateuser.test.js demonstrates how to update the name of an IAM user.
+iam_updateuser.js demonstrates how to update the name of an IAM user.
 
 Inputs :
 - ORIGINAL_USER_NAME
 - NEW_USER_NAME
 
 Running the code:
-node iam_updateuser.test.js
+node iam_updateuser.js
  */
 // snippet-start:[iam.JavaScript.users.updateUserV3]
 

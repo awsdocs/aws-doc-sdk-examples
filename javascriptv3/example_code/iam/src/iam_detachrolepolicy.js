@@ -6,13 +6,13 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-policies.html.
 
 Purpose:
-iam_detachrolepolicy.test.js demonstrates how to detach a managed policy from an IAM role.
+iam_detachrolepolicy.js demonstrates how to detach a managed policy from an IAM role.
 
 Inputs :
 - ROLE_NAME
 
 Running the code:
-node iam_detachrolepolicy.test.js
+node iam_detachrolepolicy.js
  */
 // snippet-start:[iam.JavaScript.policies.detachRolePolicyV3]
 // Import required AWS SDK clients and commands for Node.js
