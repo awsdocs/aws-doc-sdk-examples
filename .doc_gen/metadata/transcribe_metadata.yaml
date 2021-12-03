@@ -23,7 +23,7 @@ transcribe_StartTranscriptionJob:
             - description: Create the client.
               snippet_tags:
                 - transcribe.JavaScript.createclientv3
-            - description: Start the transcription job.
+            - description: Start a transcription job.
               snippet_tags:
                 - transcribe.JavaScript.jobs.createJobV3
   services:
@@ -52,7 +52,7 @@ transcribe_ListTranscriptionJobs:
             - description: Create the client.
               snippet_tags:
                 - transcribe.JavaScript.createclientv3
-            - description: List the transcription jobs.
+            - description: List transcription jobs.
               snippet_tags:
                 - transcribe.JavaScript.jobs.listJobsV3
   services:

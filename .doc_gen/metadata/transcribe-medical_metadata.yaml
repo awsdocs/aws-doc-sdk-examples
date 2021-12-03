@@ -1,5 +1,5 @@
 # zexi 0.4.0
-transcribe_StartMedicalTranscriptionJobCommand:
+transcribe_StartMedicalTranscriptionJob:
   title: Start an &TSCM; transcription job using an &AWS; SDK
   title_abbrev: Start a medical transcription job
   synopsis: start an &TSCM; transcription job.
@@ -14,12 +14,12 @@ transcribe_StartMedicalTranscriptionJobCommand:
             - description: Create the client.
               snippet_tags:
                 - transcribe.JavaScript.createclientv3
-            - description: Start the medical transcription job.
+            - description: Start a medical transcription job.
               snippet_tags:
                 - transcribe.JavaScript.jobs.createMedicalJobV3
   services:
-    transcribe: {StartMedicalTranscriptionJobCommand}
-transcribe_DeleteMedicalTranscriptionJobCommand:
+    transcribe: {StartMedicalTranscriptionJob}
+transcribe_DeleteMedicalTranscriptionJob:
   title: Start an &TSCM; transcription job using an &AWS; SDK
   title_abbrev: Start a medical transcription job
   synopsis: start an &TSCM; transcription job.
@@ -38,8 +38,8 @@ transcribe_DeleteMedicalTranscriptionJobCommand:
               snippet_tags:
                 - transcribe.JavaScript.jobs.deleteMedicalJobV3
   services:
-    transcribe: {DeleteMedicalTranscriptionJobCommand}
-transcribe_ListMedicalTranscriptionJobsCommand:
+    transcribe: {DeleteMedicalTranscriptionJob}
+transcribe_ListMedicalTranscriptionJobs:
   title: List &TSCM; transcription jobs using an &AWS; SDK
   title_abbrev: List medical transcription jobs
   synopsis: list &TSCM; transcription jobs.
@@ -54,8 +54,8 @@ transcribe_ListMedicalTranscriptionJobsCommand:
             - description: Create the client.
               snippet_tags:
                 - transcribe.JavaScript.createclientv3
-            - description: Start the medical transcription job.
+            - description: List medical transcription jobs.
               snippet_tags:
                 - transcribe.JavaScript.jobs.createMedicalJobV3
   services:
-    transcribe: {StartMedicalTranscriptionJobCommand}
+    transcribe: {ListMedicalTranscriptionJobs}
