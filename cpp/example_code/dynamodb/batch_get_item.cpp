@@ -80,7 +80,7 @@ int main(int argc, char** argv)
 		// Table2: ProductCatalog.
 		Aws::String t2Name = "ProductCatalog";
 		Aws::DynamoDB::Model::KeysAndAttributes t2KeyAttrs;
-		2KeyAttrs.SetProjectionExpression("Title, Price, Color");
+		t2KeyAttrs.SetProjectionExpression("Title, Price, Color");
 
 		// Table2: Set key name, type and value to search.
 		Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> t2KeysA;
