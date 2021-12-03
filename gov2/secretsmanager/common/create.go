@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 package common
 
-//snippet-purpose:[Create a secret in the AWS Secrets Manager]
 //snippet-keyword:[secretsmanager]
 //snippet-sourcetype:[snippet]
 //snippet-sourcedate:[10/27/2021]
