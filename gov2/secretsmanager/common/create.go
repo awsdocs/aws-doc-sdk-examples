@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 package common
 
-//snippet-sourcedescription:[Create a secret in the AWS Secrets Manager]
+//snippet-purpose:[Create a secret in the AWS Secrets Manager]
 //snippet-keyword:[secretsmanager]
 //snippet-sourcetype:[snippet]
 //snippet-sourcedate:[10/27/2021]
@@ -15,7 +15,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
 )
 
-// This creates a secret and prints out its ARN
+// This creates a secret and returns out its ARN
 //snippet-start:[secretsmanager.go-v2.CreateSecret]
 func CreateSecret(cfg aws.Config, name string, value string) (string, error) {
 

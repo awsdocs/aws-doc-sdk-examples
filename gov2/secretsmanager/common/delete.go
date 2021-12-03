@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-//snippet-sourcedescription:[Delete a secret in the AWS Secrets Manager ]
+//snippet-purpose:[Delete a secret in the AWS Secrets Manager ]
 //snippet-keyword:[secretsmanager]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[10/27/2021]
@@ -15,12 +15,12 @@ import (
 )
 
 //snippet-start:[secretsmanager.go-v2.DeleteSecret]
-
-func DeleteSecret(config aws.Config, arn string) error {
+// Delete a secret given an identifier (ARN or name) for that secret
+func DeleteSecret(config aws.Config, secretId string) error {
 	conn := secretsmanager.NewFromConfig(config)
 
 	_, err := conn.DeleteSecret(context.TODO(), &secretsmanager.DeleteSecretInput{
-		SecretId: aws.String(arn),
+		SecretId: aws.String(secretId),
 	})
 	return err
 }

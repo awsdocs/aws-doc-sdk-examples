@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-//snippet-sourcedescription:[List secrets kept in the AWS Secrets Manager service]
+//snippet-purpose:[List secrets kept in the AWS Secrets Manager service]
 //snippet-keyword:[secretsmanager]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[10/27/2021]
@@ -15,7 +15,7 @@ import (
 )
 
 //snippet-start:[secretsmanager.go-v2.ListSecrets]
-
+// Retrieve the ARNs of all secrets available to the requesting account.
 func ListSecrets(config aws.Config) ([]string, error) {
 	conn := secretsmanager.NewFromConfig(config)
 	secrets := make([]string, 0)

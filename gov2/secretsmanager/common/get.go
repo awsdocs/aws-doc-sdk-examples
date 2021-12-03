@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-//snippet-sourcedescription:[Get a secret in the AWS Secrets Manager ]
+//snippet-purpose:[Get a secret in the AWS Secrets Manager ]
 //snippet-keyword:[secretsmanager]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[10/27/2021]
@@ -15,12 +15,12 @@ import (
 )
 
 //snippet-start:[secretsmanager.go-v2.GetSecret]
-
-func GetSecret(config aws.Config, arn string) (string, error) {
+// Retrieve the plaintext of a secret given its identifier (ARN or name)
+func GetSecret(config aws.Config, secretId string) (string, error) {
 	conn := secretsmanager.NewFromConfig(config)
 
 	result, err := conn.GetSecretValue(context.TODO(), &secretsmanager.GetSecretValueInput{
-		SecretId: aws.String(arn),
+		SecretId: aws.String(secretId),
 	})
 
 	if err != nil {

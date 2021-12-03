@@ -15,12 +15,12 @@ import (
 )
 
 //snippet-start:[secretsmanager.go-v2.UpdateSecret]
-
-func UpdateSecret(config aws.Config, arn string, newValue string) error {
+// Change the value of a secret, given the secret identifier and a new value. 
+func UpdateSecret(config aws.Config, secretId string, newValue string) error {
 	conn := secretsmanager.NewFromConfig(config)
 
 	_, err := conn.UpdateSecret(context.TODO(), &secretsmanager.UpdateSecretInput{
-		SecretId:     aws.String(arn),
+		SecretId:     aws.String(secretId),
 		SecretString: aws.String(newValue),
 	})
 	return err
