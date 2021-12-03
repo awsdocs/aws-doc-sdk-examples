@@ -14,7 +14,7 @@ You will find these examples:
 
 - **batch_get_item.cpp** - Get batch items from different Amazon DynamoDB tables.
 - **create_table.cpp** - Create an Amazon DynamoDB table.
-- **create_table_composite_key.cpp** -Create an Amazon DynamoDB table that has a composite key.
+- **create_table_composite_key.cpp** - Create an Amazon DynamoDB table that has a composite key.
 - **delete_item.cpp** - Delete an item from an Amazon DynamoDB table.
 - **delete_table.cpp** - Delete an Amazon DynamoDB table.
 - **describe_table.cpp** - Retrieve information about an Amazon DynamoDB table.
