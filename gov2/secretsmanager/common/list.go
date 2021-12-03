@@ -1,6 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-//snippet-purpose:[List secrets kept in the AWS Secrets Manager service]
 //snippet-keyword:[secretsmanager]
 //snippet-sourcetype:[full-example]
 //snippet-sourcedate:[10/27/2021]
