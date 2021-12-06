@@ -1228,3 +1228,84 @@ iam_ListServerCertificates:
                 - iam.JavaScript.certs.listServerCertificates
   services:
     iam: {ListServerCertificates}
+iam_GetServerCertificate:
+  title: Get an &IAM; server certificate using an &AWS; SDK
+  title_abbrev: Get a server certificate
+  synopsis: get an &IAM; server certificate.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-getting
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Get a server certificate.
+              snippet_tags:
+                - iam.JavaScript.certs.getServerCertificateV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-getting
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.certs.getServerCertificate
+  services:
+    iam: {GetServerCertificate}
+iam_UpdateServerCertificate:
+  title: Update an &IAM; server certificate using an &AWS; SDK
+  title_abbrev: Update a server certificate
+  synopsis: update an &IAM; server certificate.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-updating
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Update a server certificate.
+              snippet_tags:
+                - iam.JavaScript.certs.updateServerCertificateV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-updating
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.certs.updateServerCertificate
+  services:
+    iam: {UpdateServerCertificate}
+iam_DeleteServerCertificate:
+  title: Delete an &IAM; server certificate using an &AWS; SDK
+  title_abbrev: Delete a server certificate
+  synopsis: delete an &IAM; server certificate.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-deleting
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Delete a server certificate.
+              snippet_tags:
+                - iam.JavaScript.certs.deleteServerCertificateV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-deleting
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.certs.deleteServerCertificate
+  services:
+    iam: {DeleteServerCertificate}
