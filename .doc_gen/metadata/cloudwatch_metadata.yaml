@@ -142,6 +142,15 @@ cloudwatch_PutMetricAlarm:
   synopsis: create an &CWlong; alarm that watches a metric.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.put_metric_alarm.main
     Java:
       versions:
         - sdk_version: 2
@@ -188,6 +197,15 @@ cloudwatch_DescribeAlarmsForMetric:
   synopsis: describe &CWlong; alarms for a metric.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.describe_alarms.main
     Java:
       versions:
         - sdk_version: 2
@@ -243,6 +261,15 @@ cloudwatch_EnableAlarmActions:
             - description:
               snippet_tags:
                 - CloudWatch.dotnetv3.EnableAlarmActionsExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.enable_alarm_actions.main
     Java:
       versions:
         - sdk_version: 2
@@ -298,6 +325,15 @@ cloudwatch_DisableAlarmActions:
             - description:
               snippet_tags:
                 - CloudWatch.dotnetv3.DisableAlarmActionsExammple
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                -cloudwatch.kotlin.disable_alarm_actions.main
     Java:
       versions:
         - sdk_version: 2
@@ -353,6 +389,15 @@ cloudwatch_DeleteAlarms:
             - description:
               snippet_tags:
                 - CloudWatch.dotnetv3.DeleteAlarmsExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                -cloudwatch.kotlin.delete_metrics.main
     Java:
       versions:
         - sdk_version: 2
