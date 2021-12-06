@@ -728,6 +728,25 @@ iam_AttachRolePolicy:
             - description: Attach a policy to a role using the Boto3 Role object.
               snippet_tags:
                 - python.example_code.iam.AttachRolePolicy_Role
+  JavaScript:
+    versions:
+      - sdk_version: 3
+        github: javascriptv3/example_code/iam
+        sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-creating#iam-examples-policies-attaching-role-policy
+        excerpts:
+          - description: Create the client.
+            snippet_tags:
+              - iam.JavaScript.createclientv3
+          - description: Attach the policy.
+            snippet_tags:
+              - iam.JavaScript.policies.attachRolePolicyV3
+      - sdk_version: 2
+        github: javascript/example_code/iam
+        sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-creating#iam-examples-policies-attaching-role-policy
+    excerpts:
+      - description:
+        snippet_tags:
+          - iam.JavaScript.policies.attachRolePolicy
   services:
     iam: {AttachRolePolicy}
 iam_DetachRolePolicy:
