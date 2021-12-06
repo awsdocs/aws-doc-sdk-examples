@@ -1,36 +1,15 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
+jest.mock("../src/libs/iamClient");
+jest.mock("@aws-sdk/client-iam");
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-account-aliases.html.
+// Get service clients module and commands.
+import 'regenerator-runtime/runtime'
+import { run, params } from "../src/iam_createaccountalias";
+import { iamClient } from "../src/libs/iamClient";
 
-Purpose:
-iam_createaccountalias.test.js demonstrates how to create an alias for an AWS account.
-
-Inputs :
-- ACCOUNT_ALIAS
-
-Running the code:
-node iam_createaccountalias.test.js
- */
-// snippet-start:[iam.JavaScript.alias.createAccountAliasV3]
-// Import required AWS SDK clients and commands for Node.js
-import { iamClient } from "./libs/iamClient.js";
-import { CreateAccountAliasCommand } from "@aws-sdk/client-iam";
-
-// Set the parameters
-const params = { AccountAlias: "ACCOUNT_ALIAS" }; //ACCOUNT_ALIAS
-
-const run = async () => {
-  try {
-    const data = await iamClient.send(new CreateAccountAliasCommand(params));
-    console.log("Success", data);
-    return data;
-  } catch (err) {
-    console.log("Error", err);
-  }
-};
-run();
-// snippet-end:[iam.JavaScript.alias.createAccountAliasV3]
-// module.exports =  { run, params }; // For unit tests.
+describe("@aws-sdk/client-iam mock", () => {
+  it("should successfully mock IAM client", async () => {
+    iamClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
+});

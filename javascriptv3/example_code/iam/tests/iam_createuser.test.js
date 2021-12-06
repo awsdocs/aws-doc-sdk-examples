@@ -1,46 +1,15 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
+jest.mock("../src/libs/iamClient");
+jest.mock("@aws-sdk/client-iam");
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html.
+// Get service clients module and commands.
+import 'regenerator-runtime/runtime'
+import { run, params } from "../src/iam_createuser";
+import { iamClient } from "../src/libs/iamClient";
 
-Purpose:
-iam_createuser.test.js demonstrates how to create an IAM user for an AWS account.
-
-Inputs :
-- USER_NAME
-
-Running the code:
-node iam_createuser.test.js
- */
-
-// snippet-start:[iam.JavaScript.users.getUserV3]
-// Import required AWS SDK clients and commands for Node.js
-import { iamClient } from "./libs/iamClient.js";
-import { GetUserCommand, CreateUserCommand } from "@aws-sdk/client-iam";
-
-// Set the parameters
-const params = { UserName: "USER_NAME" }; //USER_NAME
-
-const run = async () => {
-  try {
-    const data = await iamClient.send(new GetUserCommand(params));
-    console.log(
-      "User " + process.argv[3] + " already exists",
-      data.User.UserId
-    );
-    return data;
-  } catch (err) {
-    try {
-      const results = await iamClient.send(new CreateUserCommand(params));
-      console.log("Success", results);
-      return results;
-    } catch (err) {
-      console.log("Error", err);
-    }
-  }
-};
-run();
-// snippet-end:[iam.JavaScript.users.getUserV3]
-// module.exports =  { run, params }; // For unit tests.
+describe("@aws-sdk/client-iam mock", () => {
+  it("should successfully mock IAM client", async () => {
+    iamClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
+});

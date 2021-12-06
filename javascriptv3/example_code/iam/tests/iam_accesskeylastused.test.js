@@ -1,9 +1,9 @@
-jest.mock("../src/libs/iamClient.js");
+jest.mock("../src/libs/iamClient");
 jest.mock("@aws-sdk/client-iam");
 
 // Get service clients module and commands.
 import 'regenerator-runtime/runtime'
-import { run, params } from "../src/";
+import { run, params } from "../src/iam_accesskeylastused";
 import { iamClient } from "../src/libs/iamClient";
 
 describe("@aws-sdk/client-iam mock", () => {
