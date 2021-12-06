@@ -397,7 +397,7 @@ cloudwatch_DeleteAlarms:
           excerpts:
             - description:
               snippet_tags:
-                -cloudwatch.kotlin.delete_metrics.main
+                - cloudwatch.kotlin.delete_metrics.main
     Java:
       versions:
         - sdk_version: 2
