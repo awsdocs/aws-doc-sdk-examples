@@ -743,10 +743,10 @@ iam_AttachRolePolicy:
         - sdk_version: 2
           github: javascript/example_code/iam
           sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-creating#iam-examples-policies-attaching-role-policy
-      excerpts:
-        - description:
-          snippet_tags:
-            - iam.JavaScript.policies.attachRolePolicy
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.policies.attachRolePolicy
   services:
     iam: {AttachRolePolicy}
 iam_DetachRolePolicy:
