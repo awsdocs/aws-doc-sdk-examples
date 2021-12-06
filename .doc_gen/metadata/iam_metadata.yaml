@@ -75,6 +75,25 @@ iam_DeleteAccountAlias:
             - description:
               snippet_tags:
                 - python.example_code.iam.DeleteAccountAlias
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-account-aliases.html#iam-examples-account-aliases-deleting
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Delete the account alias.
+              snippet_tags:
+                - iam.JavaScript.alias.deleteAccountAliasV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-account-aliases.html#iam-examples-account-aliases-deleting
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.alias.deleteAccountAlias
   services:
     iam: {DeleteAccountAlias}
 iam_ListAccountAliases:
