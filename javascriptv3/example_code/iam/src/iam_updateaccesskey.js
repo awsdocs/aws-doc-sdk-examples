@@ -21,13 +21,13 @@ import { iamClient } from "./libs/iamClient.js";
 import { UpdateAccessKeyCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = {
+export const params = {
   AccessKeyId: "ACCESS_KEY_ID", //ACCESS_KEY_ID
   Status: "Active",
   UserName: "USER_NAME", //USER_NAME
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new UpdateAccessKeyCommand(params));
     console.log("Success", data);
@@ -38,4 +38,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.keys.updateAccessKeyV3]
-// module.exports =  { run, params }; // For unit tests.
+
