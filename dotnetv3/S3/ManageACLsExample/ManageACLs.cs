@@ -107,7 +107,7 @@ namespace ManageACLsExample
         /// PutBucketAsync.</param>
         /// <param name="bucketName">The Amazon S3 bucket for which we want to get the
         /// ACL list.</param>
-        /// <returns>Returns an S3AccessCntrolList returned from the call to
+        /// <returns>Returns an S3AccessControlList returned from the call to
         /// GetACLAsync.</returns>
         public static async Task<S3AccessControlList> GetBucketACLAsync(IAmazonS3 client, string bucketName)
         {
