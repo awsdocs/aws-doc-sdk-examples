@@ -19,12 +19,11 @@ This is a workspace where you can find the following AWS SDK for JavaScript vers
 - [Get a server certificate](src/iam_getservercert.js) (GetServerCertificateCommand)
 - [List access keys](src/iam_listaccesskeys.js) (ListAccessKeysCommand)
 - [List account aliases](src/iam_listaccountaliases.js) (ListAccountAliasesCommand)
-- [List server certificated](src/iam_listservercerts.js) (ListServerCertificatesCommand)
+- [List server certificates](src/iam_listservercerts.js) (ListServerCertificatesCommand)
 - [List IAM users](src/iam_listusers.js) (ListUsersCommand)
 - [Update access key](src/iam_updateaccesskey.js) (UpdateAccessKeyCommand)
 - [Update server certificate](src/iam_updateservercert.js) (UpdateServerCertificateCommand)
 - [Update an IAM user](src/iam_updateuser.js) (UpdateUserCommand)
-- [Assume a role](src/sts_assumerole.js) (AssumeRoleCommand)
 
 **Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see
 [JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html).
@@ -69,7 +68,7 @@ node [example name].js
 For more information see, the [README](../README.rst).
 
 ## Resources
-[AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3)
-[AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples.html)
-[AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-iam/index.html) 
-[Amazon DynamoDB documentation]()
+- [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3)
+- [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples.html)
+- [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-iam/index.html) 
+- [Amazon DynamoDB documentation]()

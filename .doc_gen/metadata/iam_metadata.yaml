@@ -39,7 +39,7 @@ iam_CreateAccountAlias:
             - description: Create the client.
               snippet_tags:
                 - iam.JavaScript.createclientv3
-            - description: Create the access key.
+            - description: Create the account alias.
               snippet_tags:
                 - iam.JavaScript.alias.createAccountAliasV3
         - sdk_version: 2
@@ -137,7 +137,7 @@ iam_ListAccountAliases:
             - description: Create the client.
               snippet_tags:
                 - iam.JavaScript.createclientv3
-            - description: Create the access key.
+            - description: List the account aliases.
               snippet_tags:
                 - iam.JavaScript.alias.listAccountAliasesV3
         - sdk_version: 2
@@ -437,7 +437,7 @@ iam_ListAccessKeys:
             - description: Create the client.
               snippet_tags:
                 - iam.JavaScript.createclientv3
-            - description: List the access key.
+            - description: List the access keys.
               snippet_tags:
                 - iam.JavaScript.keys.listAccessKeysV3
         - sdk_version: 2
@@ -1099,7 +1099,7 @@ iam_UpdateUser:
             - description: Create the client.
               snippet_tags:
                 - iam.JavaScript.createclientv3
-            - description: List the users.
+            - description: Update the user.
               snippet_tags:
                 - iam.JavaScript.users.updateUserV3
         - sdk_version: 2
@@ -1204,7 +1204,7 @@ iam_Scenario_UserPolicies:
 iam_ListServerCertificates:
   title: List &IAM; server certificates using an &AWS; SDK
   title_abbrev: List server certificates
-  synopsis: list &IAM; server certificate.
+  synopsis: list &IAM; server certificates.
   category:
   languages:
     JavaScript:
