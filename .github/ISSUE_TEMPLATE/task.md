@@ -1,6 +1,6 @@
 ---
 name: Task
-about: Internal use.
+about: Internal use. Changes not part of other formal processes / stories.
 title: 'TASK: '
 labels: task
 assignees: ''
