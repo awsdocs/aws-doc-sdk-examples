@@ -666,7 +666,7 @@ iam_GetPolicy:
               snippet_tags:
                 - iam.JavaScript.policies.getPolicy
   services:
-    iam: { GetPolicy }
+    iam: {GetPolicy}
 iam_GetPolicyVersion:
   title: Get an &IAM; policy version using an &AWS; SDK
   title_abbrev: Get a policy version
