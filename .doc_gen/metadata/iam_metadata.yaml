@@ -932,6 +932,25 @@ iam_CreateUser:
             - description: ''
               snippet_tags:
                 - iam.go-v2.CreateUser
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-creating-users
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Create the user.
+              snippet_tags:
+                - iam.JavaScript.users.getUserV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-creating-users
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.users.getUser
   services:
     iam: {CreateUser}
 iam_DeleteUser:
