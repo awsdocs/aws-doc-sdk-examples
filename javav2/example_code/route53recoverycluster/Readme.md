@@ -1,6 +1,6 @@
 # Amazon Route 53 Application Recovery Java code examples
 
-This README discusses how to run and test the Java code examples for Amazon Route 53 Application Recovery.
+This README discusses how to run and test Java code examples for Amazon Route 53 Application Recovery Controller.
 
 ## Running the Amazon Route 53 Application Recovery Java files
 
@@ -22,8 +22,7 @@ To run these examples, you need the following:
 
 ### Important
 
-+ The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
 + Running this code might result in charges to your AWS account. 
 + Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
@@ -33,4 +32,3 @@ You can find the following examples that use the **Route53RecoveryClusterClient*
 
 + **GetRoutingControlState** - Demonstrates how to get the state for a routing control.
 + **UpdateRoutingControlState** - Demonstrates how to set the state of the routing control to reroute traffic. 
-+ **UpdateRoutingControlStates** - Demonstrates how to set multiple routing control states. 

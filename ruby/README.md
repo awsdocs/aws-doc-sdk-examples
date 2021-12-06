@@ -31,7 +31,7 @@ This folder contains examples of how to use the following services with the AWS 
 ### Cross-service examples
 Cross-service examples are examples that use multiple AWS services.
 
-There are currently no cross service examples for the AWS SDK for Ruby. 
+There are currently no cross-service examples for the AWS SDK for Ruby. 
 To request a cross-service example, please create an issue in the [AWS SDK Code Examples](https://github.com/awsdocs/aws-doc-sdk-examples/) repo.
 
 ## Additional information

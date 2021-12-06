@@ -18,14 +18,14 @@ Inputs (replace in code):
 - NEW_ATTRIBUTE_VALUE_2
 
 Running the code:
-ts-node ddbdoc_update_item.js
+node ddbdoc_update_item.js
 */
 // snippet-start:[dynamodb.JavaScript.docClient.updateV3]
 import { UpdateCommand } from "@aws-sdk/lib-dynamodb";
-import { ddbDocClient } from "./libs/ddbDocClient.js";
+import { ddbDocClient } from "./libs/ddbDocClient";
 
 // Set the parameters
-const params = {
+export const params = {
   TableName: "TABLE_NAME",
   /*
   Convert the attribute JavaScript object you are updating to the required
@@ -48,9 +48,10 @@ const params = {
     ":t": "NEW_ATTRIBUTE_VALUE_1", // For example ':t' : 'NEW_TITLE'
     ":s": "NEW_ATTRIBUTE_VALUE_2", // For example ':s' : 'NEW_SUBTITLE'
   },
+  ReturnValues: "ALL_NEW"
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await ddbDocClient.send(new UpdateCommand(params));
     console.log("Success - item added or updated", data);
@@ -61,5 +62,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[dynamodb.JavaScript.docClient.updateV3]
-// For unit tests only.
-// module.exports ={run, params};
+

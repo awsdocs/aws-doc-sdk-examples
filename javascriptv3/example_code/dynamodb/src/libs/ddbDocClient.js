@@ -14,7 +14,7 @@ INPUTS:
 // snippet-start:[dynamodb.JavaScript.tables.createdocclientv3]
 // Create service client module using ES6 syntax.
 import { DynamoDBDocumentClient} from "@aws-sdk/lib-dynamodb";
-import {ddbClient} from "./ddbClient.js";
+import {ddbClient} from "./ddbClient";
 // Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"
 

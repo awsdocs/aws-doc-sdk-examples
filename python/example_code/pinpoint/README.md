@@ -12,11 +12,17 @@ messages, and push notifications.*
 
 ### Scenario examples
 
-* [Send a text message with an SMTP server](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/pinpoint/pinpoint_send_email_smtp.py)
+* [Send a text message with an SMTP server](pinpoint_send_email_smtp.py)
 
 ### API examples
 
-* [Send email and text messages](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/pinpoint/pinpoint_send_email_message_api.py)
+* [Send email messages](pinpoint_send_email_message_api.py)
+(`SendMessages`)
+* [Send templated email messages](pinpoint_send_templated_email_message.py)
+(`SendMessages`)
+* [Send templated text messages](pinpoint_send_templated_sms_message.py)
+(`SendMessages`)
+* [Send text messages](pinpoint_send_sms_message_api.py)
 (`SendMessages`)
 
 ## ⚠ Important

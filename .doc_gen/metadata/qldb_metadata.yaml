@@ -8,13 +8,13 @@ qldb_CreateLedger:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/qldb
+          github: rust_dev_preview/qldb
           excerpts:
             - description:
               snippet_tags:
                 - qldb.rust.create-ledger
   services:
-    qldb: { CreateLedger }
+    qldb: {CreateLedger}
 qldb_ListLedgers:
   title: List your &QLDB; ledgers using an &AWS; SDK
   title_abbrev: List your ledgers
@@ -24,10 +24,10 @@ qldb_ListLedgers:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/qldb
+          github: rust_dev_preview/qldb
           excerpts:
             - description:
               snippet_tags:
                 - qldb.rust.list-ledgers
   services:
-    qldb: { ListLedgers }
+    qldb: {ListLedgers}

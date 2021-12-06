@@ -5,6 +5,15 @@ kms_CreateKey:
   synopsis: create a &kms-key;.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_create_key.main
     Java:
       versions:
         - sdk_version: 2
@@ -26,19 +35,36 @@ kms_CreateKey:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
                 - kms.rust.create-key
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/kms
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - kms.go-v2.CreateKey
   services:
-    kms: { CreateKey }
+    kms: {CreateKey}
 kms_Decrypt:
   title: Decrypt ciphertext that was encrypted by a &kms-key; using an &AWS; SDK
   title_abbrev: Decrypt a &kms-key;
   synopsis: decrypt a &kms-key;.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_encrypt_data.main
     Java:
       versions:
         - sdk_version: 2
@@ -51,19 +77,37 @@ kms_Decrypt:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
                 - kms.rust.decrypt
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/kms
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - kms.go-v2.DecryptData
+
   services:
-    kms: { Decrypt }
+    kms: {Decrypt}
 kms_Encrypt:
   title: Encrypt plaintext into ciphertext by using a &kms-key; using an &AWS; SDK
   title_abbrev: Encrypt text using a &kms-key;
   synopsis: encrypt text using a &kms-key;.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_encrypt_data.main
     Java:
       versions:
         - sdk_version: 2
@@ -76,13 +120,21 @@ kms_Encrypt:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
                 - kms.rust.encrypt
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/kms
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - kms.go-v2.EncryptData
   services:
-    kms: { Encrypt }
+    kms: {Encrypt}
 kms_GenerateDataKey:
   title: Generate a unique symmetric data key for client-side encryption using an &AWS; SDK
   title_abbrev: Generate a data key
@@ -92,13 +144,13 @@ kms_GenerateDataKey:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
                 - kms.rust.generate-data-key
   services:
-    kms: { GenerateDataKey }
+    kms: {GenerateDataKey}
 kms_GenerateDataKeyWithoutPlaintext:
   title: Generate a unique symmetric data key using an &AWS; SDK
   title_abbrev: Generate a symmetric data key
@@ -108,13 +160,13 @@ kms_GenerateDataKeyWithoutPlaintext:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
                 - kms.rust.generate-data-key-without-plaintext
   services:
-    kms: { GenerateDataKeyWithoutPlaintext }
+    kms: {GenerateDataKeyWithoutPlaintext}
 kms_GenerateRandom:
   title: Create a cryptographically secure, random byte string using an &AWS; SDK
   title_abbrev: Create a random byte string
@@ -124,19 +176,28 @@ kms_GenerateRandom:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
                 - kms.rust.generate-random
   services:
-    kms: { GenerateRandom }
+    kms: {GenerateRandom}
 kms_ListKeys:
   title: List the &kms-keys; using an &AWS; SDK
   title_abbrev: List the &kms-keys;
   synopsis: list the &kms-keys;.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_list_keys.main
     Java:
       versions:
         - sdk_version: 2
@@ -158,13 +219,13 @@ kms_ListKeys:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
                 - kms.rust.list-keys
   services:
-    kms: { ListKeys }
+    kms: {ListKeys}
 kms_ReEncrypt:
   title: Decrypts ciphertext and then reencrypts it entirely within &KMS; using an &AWS; SDK
   title_abbrev: Decrypt ciphertext and then reencrypt it
@@ -174,19 +235,36 @@ kms_ReEncrypt:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
                 - kms.rust.reencrypt-data
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/kms
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - kms.go-v2.ReencryptData
   services:
-    kms: { ReEncrypt }
+    kms: {ReEncrypt}
 kms_CreateAlias:
   title: Create an alias for an &KMS; key using an &AWS; SDK
   title_abbrev: Create alias for a key
   synopsis: create an alias for an &KMS; key.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_create_alias.main
     Java:
       versions:
         - sdk_version: 2
@@ -213,6 +291,15 @@ kms_CreateGrant:
   synopsis: create a grant for an &KMS; key which allows the user to use a key for encryption/decryption.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_create_grant.main
     Java:
       versions:
         - sdk_version: 2
@@ -239,6 +326,15 @@ kms_DescribeKey:
   synopsis: describe an &KMS; key.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_describe_key.main
     Java:
       versions:
         - sdk_version: 2
@@ -265,6 +361,15 @@ kms_DisableKey:
   synopsis: disable an &KMS; key.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_disable_key.main
     Java:
       versions:
         - sdk_version: 2
@@ -291,6 +396,15 @@ kms_EnableKey:
   synopsis: enable an &KMS; key.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_enable_key.main
     Java:
       versions:
         - sdk_version: 2
@@ -317,6 +431,15 @@ kms_ListAliases:
   synopsis: list aliases for an &KMS; key.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_list_aliases.main
     Java:
       versions:
         - sdk_version: 2
@@ -343,6 +466,15 @@ kms_ListGrants:
   synopsis: list grants for an &KMS; key.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_list_grant.main
     Java:
       versions:
         - sdk_version: 2

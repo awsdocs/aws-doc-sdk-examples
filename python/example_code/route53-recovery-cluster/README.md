@@ -3,9 +3,10 @@
 ## Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) with Amazon Route 53 Application 
-Recovery Controller to manage routing control settings.
+Recovery Controller to manage routing control states.
 
-*Route 53 is a highly available and scalable Domain Name System (DNS) web service.*
+*Application Recovery Controller improves application availability, including by 
+centrally coordinating failovers within an AWS Region or across multiple Regions.*
 
 ## Code examples
 
@@ -13,8 +14,6 @@ Recovery Controller to manage routing control settings.
 
 * [Get the state of a routing control](routing_control_states.py)
 (`GetRoutingControlState`)
-* [Update the state of multiple routing controls](routing_control_states.py)
-(`UpdateRoutingControlStates`)
 * [Update the state of a routing control](routing_control_states.py)
 (`UpdateRoutingControlState`)
 
@@ -46,34 +45,36 @@ Recovery Controller to manage routing control settings.
 Run this example at a command prompt with the following command.
 
 ```commandline
-python routing_control_state.py [routing_control_arn] [cluster_endpoints_json]
+python routing_control_state.py [routing_control_arn] [cluster_endpoints_json_file]
 ``` 
 
 #### Example arguments
 
-The routing control ARN looks something like this:
+A routing control ARN looks something like this:
 
 `arn:aws:route53-recovery-control::123456789012:controlpanel/ffa374e10db34a90bc56EXAMPLE/routingcontrol/60649aEXAMPLE`
 
-The cluster endpoints JSON looks something like this:
+The Region within the cluster endpoint and the Region you provide with that endpoint 
+must match. A cluster endpoints JSON looks something like this:
 
 ```json
-[{"Endpoint": "https://11111111.route53-recovery-cluster.us-east-1.amazonaws.com/v1", 
-  "Region": "us-east-1"}, 
- {"Endpoint": "https://22222222.route53-recovery-cluster.ap-northeast-1.amazonaws.com/v1",
-  "Region": "ap-northeast-1"},
- {"Endpoint": "https://33333333.route53-recovery-cluster.ap-southeast-2.amazonaws.com/v1",
-  "Region": "ap-southeast-2"},
- {"Endpoint": "https://44444444.route53-recovery-cluster.us-west-2.amazonaws.com/v1",
-  "Region": "us-west-2"},
- {"Endpoint": "https://55555555.route53-recovery-cluster.eu-west-1.amazonaws.com/v1",
-  "Region": "eu-west-1"}]
+{"ClusterEndpoints": 
+    [{"Endpoint": "https://11111111.route53-recovery-cluster.us-east-1.amazonaws.com/v1", 
+      "Region": "us-east-1"}, 
+     {"Endpoint": "https://22222222.route53-recovery-cluster.ap-northeast-1.amazonaws.com/v1",
+      "Region": "ap-northeast-1"},
+     {"Endpoint": "https://33333333.route53-recovery-cluster.ap-southeast-2.amazonaws.com/v1",
+      "Region": "ap-southeast-2"},
+     {"Endpoint": "https://44444444.route53-recovery-cluster.us-west-2.amazonaws.com/v1",
+      "Region": "us-west-2"},
+     {"Endpoint": "https://55555555.route53-recovery-cluster.eu-west-1.amazonaws.com/v1",
+      "Region": "eu-west-1"}]}
 ```
 
 ## Additional information
 
 - [Boto3 Amazon Route 53 Application Recovery Controller service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/route53-recovery-cluster.html)
-- [Amazon Route 53 documentation](https://docs.aws.amazon.com/route53)
+- [Amazon Route 53 Application Recovery Controller documentation](https://docs.aws.amazon.com/route53)
 
 ---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
