@@ -24,19 +24,19 @@ async fn show_metrics(
     client: &aws_sdk_cloudwatch::Client,
 ) -> Result<(), aws_sdk_cloudwatch::Error> {
     let rsp = client.list_metrics().send().await?;
-    let metrics = rsp.metrics.unwrap_or_default();
+    let metrics = rsp.metrics().unwrap_or_default();
 
     let num_metrics = metrics.len();
 
     for metric in metrics {
-        println!("Namespace: {}", metric.namespace.unwrap_or_default());
-        println!("Name:      {}", metric.metric_name.unwrap_or_default());
+        println!("Namespace: {}", metric.namespace().unwrap_or_default());
+        println!("Name:      {}", metric.metric_name().unwrap_or_default());
         println!("Dimensions:");
 
-        for dimension in metric.dimensions {
+        if let Some(dimension) = metric.dimensions.as_ref() {
             for d in dimension {
-                println!("  Name:  {}", d.name.unwrap_or_default());
-                println!("  Value: {}", d.value.unwrap_or_default());
+                println!("  Name:  {}", d.name().unwrap_or_default());
+                println!("  Value: {}", d.value().unwrap_or_default());
                 println!();
             }
         }
