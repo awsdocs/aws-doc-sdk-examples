@@ -1228,4 +1228,3 @@ iam_ListServerCertificates:
                 - iam.JavaScript.certs.listServerCertificates
   services:
     iam: {ListServerCertificates}
-
