@@ -1,5 +1,5 @@
  
-//snippet-sourcedescription:[sts_assumerole.js demonstrates how to use STS to assume an IAM Role.]
+//snippet-sourcedescription:[sts_assumerole.test.js demonstrates how to use STS to assume an IAM Role.]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
@@ -15,6 +15,8 @@
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/sts-examples-policies.html
+
+// snippet-start:[sts.JavaScript.assumeRole]
 // Load the AWS SDK for Node.js
 const AWS = require('aws-sdk');
 // Set the region 
@@ -54,3 +56,5 @@ function stsGetCallerIdentity(creds) {
         }
     });    
 }
+// snippet-end:[sts.JavaScript.assumeRole]
+

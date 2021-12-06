@@ -23,13 +23,13 @@ import {
 } from "@aws-sdk/client-sts";
 
 // Set the parameters
-const params = {
+export const params = {
   RoleArn: "ARN_OF_ROLE_TO_ASSUME", //ARN_OF_ROLE_TO_ASSUME
   RoleSessionName: "session1",
   DurationSeconds: 900,
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     //Assume Role
     const data = await stsClient.send(new AssumeRoleCommand(params));
@@ -56,4 +56,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.sts.AssumeRoleV3]
-// module.exports =  { run, params }; // For unit tests.
+

@@ -21,12 +21,12 @@ import { iamClient } from "./libs/iamClient.js";
 import { ListAccessKeysCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = {
+export const params = {
   MaxItems: 5,
   UserName: "IAM_USER_NAME", //IAM_USER_NAME
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new ListAccessKeysCommand(params));
     console.log("Success", data);
@@ -37,4 +37,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.keys.listAccessKeysV3]
-// module.exports =  { run, params }; // For unit tests.
+

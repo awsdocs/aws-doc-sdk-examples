@@ -20,9 +20,9 @@ import { iamClient } from "./libs/iamClient.js";
 import { GetAccessKeyLastUsedCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = { AccessKeyId: "ACCESS_KEY_ID" }; //ACCESS_KEY_ID
+export const params = { AccessKeyId: "ACCESS_KEY_ID" }; //ACCESS_KEY_ID
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new GetAccessKeyLastUsedCommand(params));
     console.log("Success", data);
@@ -33,4 +33,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.keys.getAccessKeyLastUsedV3]
-// module.exports =  { run, params }; // For unit tests.
+
