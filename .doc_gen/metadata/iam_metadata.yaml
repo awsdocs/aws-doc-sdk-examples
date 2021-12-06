@@ -51,8 +51,6 @@ iam_CreateAccountAlias:
                 - iam.JavaScript.alias.createAccountAlias
   services:
     iam: {CreateAccountAlias}
-  services:
-    iam: {CreateAccountAlias}
 iam_DeleteAccountAlias:
   title: Delete an &IAM; account alias using an &AWS; SDK
   title_abbrev: Delete an account alias
