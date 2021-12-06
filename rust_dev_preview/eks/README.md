@@ -4,7 +4,7 @@
 
 These examples demonstrate how to perform several Amazon Elastic Kubernetes Service (Amazon EKS) operations using the developer preview version of the AWS SDK for Rust.
 
-Amazon EKS is managed service that makes it easy for you to run Kubernetes on AWS without needing to install and operate your own Kubernetes clusters.
+Amazon EKS is a managed service that makes it easy for you to run Kubernetes on AWS without needing to install and operate your own Kubernetes clusters.
 
 ## Code examples
 
@@ -46,7 +46,7 @@ This example creates and deletes an Amazon EKS cluster.
 
 ### list-clusters
 
-This example your Amazon EKS clusters in the Region.
+This example lists your Amazon EKS clusters in the Region.
 
 `cargo run --bin list-clusters -- [-r REGION] [-v]`
 

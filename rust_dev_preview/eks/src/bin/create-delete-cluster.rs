@@ -24,7 +24,7 @@ struct Opt {
     /// 1. Follow instructions to create an IAM role:
     /// https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html
     ///
-    /// 2. Copy role arn
+    /// 2. Copy role ARN
     #[structopt(long)]
     arn: String,
 
@@ -75,7 +75,7 @@ async fn remove_cluster(
 }
 // snippet-end:[eks.rust.create-delete-cluster-delete]
 
-/// Creates and deletes an Amazon Elastic Container Service cluster.
+/// Creates and deletes an Amazon Elastic Kubernetes Service cluster.
 /// # Arguments
 ///
 /// * `-a ARN]` - The ARN of the role for the cluster.
