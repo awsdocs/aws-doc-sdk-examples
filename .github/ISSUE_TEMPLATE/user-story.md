@@ -3,7 +3,7 @@ name: User story
 about: Internal use.
 title: 'STORY:'
 labels: user story
-assignees: ''
+assignees: brmur
 
 ---
 
