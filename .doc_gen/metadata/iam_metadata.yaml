@@ -278,6 +278,25 @@ iam_CreateAccessKey:
             - description: ''
               snippet_tags:
                 - iam.go-v2.CreateAccessKey
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-creating
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Create the access key.
+              snippet_tags:
+                - iam.JavaScript.keys.createAccessKeyV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-creating
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.keys.createAccessKey
   services:
     iam: {CreateAccessKey}
 iam_DeleteAccessKey:
