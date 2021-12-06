@@ -20,9 +20,9 @@ import { iamClient } from "./libs/iamClient.js";
 import { DeleteAccountAliasCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = { AccountAlias: "ALIAS" }; // ALIAS
+export const params = { AccountAlias: "ALIAS" }; // ALIAS
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new DeleteAccountAliasCommand(params));
     console.log("Success", data);
@@ -33,4 +33,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.alias.deleteAccountAliasV3]
-// module.exports =  { run, params }; // For unit tests.
+
