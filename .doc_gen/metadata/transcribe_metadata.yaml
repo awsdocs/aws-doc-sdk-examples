@@ -43,6 +43,18 @@ transcribe_ListTranscriptionJobs:
             - description:
               snippet_tags:
                 - python.example_code.transcribe.ListTranscriptionJobs
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/transcribe
+          sdkguide: sdk-for-javascript/v3/developer-guide/transcribe-examples-section.html#transcribe-list-jobs
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - transcribe.JavaScript.createclientv3
+            - description: List transcription jobs.
+              snippet_tags:
+                - transcribe.JavaScript.jobs.listJobsV3
   services:
     transcribe: {ListTranscriptionJobs}
 transcribe_GetTranscriptionJob:
