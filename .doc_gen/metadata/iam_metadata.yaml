@@ -30,7 +30,27 @@ iam_CreateAccountAlias:
           excerpts:
             - description:
               snippet_tags: ['iam.go-v2.CreateAccountAlias']
-
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-account-aliases.html#iam-examples-account-aliases-creating
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Create the access key.
+              snippet_tags:
+                - iam.JavaScript.alias.createAccountAliasV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-account-aliases.html#iam-examples-account-aliases-creating
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.alias.createAccountAlias
+  services:
+    iam: {CreateAccountAlias}
   services:
     iam: {CreateAccountAlias}
 iam_DeleteAccountAlias:
