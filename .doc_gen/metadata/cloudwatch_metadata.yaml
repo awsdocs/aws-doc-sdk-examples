@@ -333,7 +333,7 @@ cloudwatch_DisableAlarmActions:
           excerpts:
             - description:
               snippet_tags:
-                -cloudwatch.kotlin.disable_alarm_actions.main
+                - cloudwatch.kotlin.disable_alarm_actions.main
     Java:
       versions:
         - sdk_version: 2
