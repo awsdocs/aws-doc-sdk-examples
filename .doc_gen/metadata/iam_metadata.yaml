@@ -1090,7 +1090,25 @@ iam_UpdateUser:
           excerpts:
             - description:
               snippet_tags: ['iam.go-v2.UpdateUser']
-
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-updating-users
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the users.
+              snippet_tags:
+                - iam.JavaScript.users.updateUserV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-updating-users
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.users.updateUser
   services:
     iam: {UpdateUser}
 iam_AttachUserPolicy:
