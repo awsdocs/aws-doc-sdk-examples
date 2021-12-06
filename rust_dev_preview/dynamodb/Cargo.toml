@@ -13,6 +13,7 @@ aws-hyper = "0.2.0"
 aws-http = "0.2.0"
 aws-smithy-http = "0.32.0"
 aws-smithy-types = "0.32.0"
+http = "0.2.5"
 rand = "0.8.3"
 structopt = { version = "0.3", default-features = false }
 tokio = { version = "1", features = ["full"] }
