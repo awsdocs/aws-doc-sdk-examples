@@ -648,7 +648,25 @@ iam_GetPolicy:
             - description: ''
               snippet_tags:
                 - iam.go-v2.GetPolicy
-
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-getting
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Get the policy.
+              snippet_tags:
+                - iam.JavaScript.policies.getPolicyV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-policies.html#iam-examples-policies-getting
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.policies.getPolicy
 iam_GetPolicyVersion:
   title: Get an &IAM; policy version using an &AWS; SDK
   title_abbrev: Get a policy version
