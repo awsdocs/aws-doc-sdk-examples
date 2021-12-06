@@ -142,7 +142,7 @@ iam_ListAccountAliases:
                 - iam.JavaScript.alias.listAccountAliasesV3
         - sdk_version: 2
           github: javascript/example_code/iam
-          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-account-aliases.html4#iam-examples-account-aliases-listing
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-account-aliases.html4#iam-examples-account-aliases-listing
           excerpts:
             - description:
               snippet_tags:
@@ -637,8 +637,6 @@ iam_GetPolicy:
   title_abbrev: Get a policy
   synopsis: get an &IAM; policy.
   category:
-  services:
-    iam: {ListPolicies}
   languages:
     Go:
       versions:
@@ -667,6 +665,8 @@ iam_GetPolicy:
             - description:
               snippet_tags:
                 - iam.JavaScript.policies.getPolicy
+  services:
+    iam: { GetPolicy }
 iam_GetPolicyVersion:
   title: Get an &IAM; policy version using an &AWS; SDK
   title_abbrev: Get a policy version
@@ -732,7 +732,7 @@ iam_AttachRolePolicy:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/iam
-          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-creating#iam-examples-policies-attaching-role-policy
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-attaching-role-policy
           excerpts:
             - description: Create the client.
               snippet_tags:
@@ -742,7 +742,7 @@ iam_AttachRolePolicy:
                 - iam.JavaScript.policies.attachRolePolicyV3
         - sdk_version: 2
           github: javascript/example_code/iam
-          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-creating#iam-examples-policies-attaching-role-policy
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-policies.html#iam-examples-policies-attaching-role-policy
           excerpts:
             - description:
               snippet_tags:
@@ -780,7 +780,7 @@ iam_DetachRolePolicy:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/iam
-          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-creating#iam-examples-policies-detaching-role-policy
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-detaching-role-policy
           excerpts:
             - description: Create the client.
               snippet_tags:
@@ -790,7 +790,7 @@ iam_DetachRolePolicy:
                 - iam.JavaScript.policies.detachRolePolicyV3
         - sdk_version: 2
           github: javascript/example_code/iam
-          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-creating#iam-examples-policies-detaching-role-policy
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-policies.html#iam-examples-policies-detaching-role-policy
           excerpts:
             - description:
               snippet_tags:
@@ -946,7 +946,7 @@ iam_CreateUser:
                 - iam.JavaScript.users.getUserV3
         - sdk_version: 2
           github: javascript/example_code/iam
-          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-creating-users
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-creating-users
           excerpts:
             - description:
               snippet_tags:
@@ -999,7 +999,7 @@ iam_DeleteUser:
                 - iam.JavaScript.users.deleteUserV3
         - sdk_version: 2
           github: javascript/example_code/iam
-          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-deleting-users
+          sdkguide: sdk-for-javascript/23/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-deleting-users
           excerpts:
             - description:
               snippet_tags:
@@ -1052,7 +1052,7 @@ iam_ListUsers:
                 - iam.JavaScript.users.listUsersV3
         - sdk_version: 2
           github: javascript/example_code/iam
-          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-listing-users
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-listing-users
           excerpts:
             - description:
               snippet_tags:
@@ -1104,7 +1104,7 @@ iam_UpdateUser:
                 - iam.JavaScript.users.updateUserV3
         - sdk_version: 2
           github: javascript/example_code/iam
-          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-updating-users
+          sdkguide: sdk-for-javascript/23/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-updating-users
           excerpts:
             - description:
               snippet_tags:

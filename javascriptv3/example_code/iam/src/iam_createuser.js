@@ -27,7 +27,7 @@ export const run = async () => {
   try {
     const data = await iamClient.send(new GetUserCommand(params));
     console.log(
-      "User " + process.argv[3] + " already exists",
+      "User " + "USER_NAME" + " already exists",
       data.User.UserId
     );
     return data;

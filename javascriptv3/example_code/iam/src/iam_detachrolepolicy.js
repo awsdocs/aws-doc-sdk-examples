@@ -10,6 +10,7 @@ iam_detachrolepolicy.js demonstrates how to detach a managed policy from an IAM 
 
 Inputs :
 - ROLE_NAME
+- USER_NAME
 
 Running the code:
 node iam_detachrolepolicy.js
@@ -51,7 +52,7 @@ export const run = async () => {
       }
     });
   } catch (err) {
-    console.log("User " + process.argv[2] + " does not exist.");
+    console.log("User " + "USER_NAME" + " does not exist.");
   }
 };
 run();

@@ -34,7 +34,7 @@ export const run = async () => {
       console.log("Error", err);
     }
   } catch (err) {
-    console.log("User " + process.argv[2] + " does not exist.");
+    console.log("User " + "USER_NAME" + " does not exist.");
   }
 };
 run();
