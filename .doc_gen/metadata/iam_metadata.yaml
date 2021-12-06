@@ -375,6 +375,25 @@ iam_GetAccessKeyLastUsed:
             - description: ''
               snippet_tags:
                 - iam.go-v2.AccessKeyLastUsed
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-last-used
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Get the access key.
+              snippet_tags:
+                - iam.JavaScript.keys.getAccessKeyLastUsedV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-last-used
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.keys.getAccessKeyLastUsed
   services:
     iam: {GetAccessKeyLastUsed}
 iam_ListAccessKeys:
