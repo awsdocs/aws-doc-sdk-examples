@@ -480,6 +480,25 @@ iam_UpdateAccessKey:
           excerpts:
             - description:
               snippet_tags: ['iam.go-v2.UpdateAccessKey']
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-updating
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Update the access key.
+              snippet_tags:
+                - iam.JavaScript.keys.updateAccessKeyV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-updating
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.keys.updateAccessKey
   services:
     iam: {UpdateAccessKey}
 iam_Scenario_ManageAccessKeys:
