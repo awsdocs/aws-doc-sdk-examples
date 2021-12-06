@@ -1,59 +1,26 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
+jest.mock("../src/libs/iamClient");
+jest.mock("../src/libs/stsClient");
+jest.mock("@aws-sdk/client-sts");
+jest.mock("@aws-sdk/client-iam");
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sts-examples-policies.html.
+// Get service clients module and commands.
+import 'regenerator-runtime/runtime'
+import { run, params } from "../src/iam_updateuser";
+import { iamClient } from "../src/libs/iamClient";
+import { stsClient } from "../src/libs/stsClient";
 
-Purpose:
-sts_assumerole.test.js demonstrates how to use AWS STS to assume an IAM role.
+describe("@aws-sdk/client-iam mock", () => {
+  it("should successfully mock IAM client", async () => {
+    iamClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
+});
 
-Inputs :
-- ROLE_TO_ASSUME_ARN
-
-Running the code:
-node sts_assumerule.js
- */
-// snippet-start:[iam.JavaScript.sts.AssumeRoleV3]
-// Import required AWS SDK clients and commands for Node.js
-import { stsClient } from "./libs/stsClient.js";
-import {
-  AssumeRoleCommand,
-  GetCallerIdentityCommand,
-} from "@aws-sdk/client-sts";
-
-// Set the parameters
-const params = {
-  RoleArn: "ARN_OF_ROLE_TO_ASSUME", //ARN_OF_ROLE_TO_ASSUME
-  RoleSessionName: "session1",
-  DurationSeconds: 900,
-};
-
-const run = async () => {
-  try {
-    //Assume Role
-    const data = await stsClient.send(new AssumeRoleCommand(params));
-    return data;
-    const rolecreds = {
-      accessKeyId: data.Credentials.AccessKeyId,
-      secretAccessKey: data.Credentials.SecretAccessKey,
-      sessionToken: data.Credentials.SessionToken,
-    };
-    //Get Amazon Resource Name (ARN) of current identity
-    try {
-      const stsParams = { credentials: rolecreds };
-      const stsClient = new STSClient(stsParams);
-      const results = await stsClient.send(
-        new GetCallerIdentityCommand(rolecreds)
-      );
-      console.log("Success", results);
-    } catch (err) {
-      console.log(err, err.stack);
-    }
-  } catch (err) {
-    console.log("Error", err);
-  }
-};
-run();
-// snippet-end:[iam.JavaScript.sts.AssumeRoleV3]
-// module.exports =  { run, params }; // For unit tests.
+describe("@aws-sdk/client-sts mock", () => {
+  it("should successfully mock STS client", async () => {
+    stsClient.send.mockResolvedValue({ isMock: true });
+    const response = await run(params);
+    expect(response.isMock).toEqual(true);
+  });
+});
