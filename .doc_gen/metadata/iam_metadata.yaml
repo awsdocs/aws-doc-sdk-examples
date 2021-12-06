@@ -1038,6 +1038,25 @@ iam_ListUsers:
             - description: ''
               snippet_tags:
                 - iam.go-v2.ListUsers
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-listing-users
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the users.
+              snippet_tags:
+                - iam.JavaScript.users.listUsersV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-listing-users
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.users.listUsers
   services:
     iam: {ListUsers}
 iam_UpdateUser:
