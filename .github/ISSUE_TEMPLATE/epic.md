@@ -1,6 +1,6 @@
 ---
 name: Epic
-about: Internal use only.
+about: Internal use.
 title: 'EPIC:'
 labels: epic
 assignees: brmur
@@ -17,9 +17,6 @@ assignees: brmur
 
 
 **Acceptance Criteria**
-
+*High-level*
 
 **Additional detail**
-
-
-**Dependencies**

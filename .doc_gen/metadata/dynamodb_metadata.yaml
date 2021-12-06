@@ -5,6 +5,15 @@ dynamodb_CreateTable:
   synopsis: create a &DDB; table.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.cpp.create_table.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -107,6 +116,15 @@ dynamodb_DescribeTable:
   synopsis: get information about a &DDB; table.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.cpp.describe_table.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -208,6 +226,15 @@ dynamodb_DeleteTable:
   synopsis: delete a &DDB; table.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.cpp.delete_table.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -270,6 +297,15 @@ dynamodb_PutItem:
   synopsis: put an item in a &DDB; table, with the option of using the &DDB; document client.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.cpp.put_item.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -344,6 +380,15 @@ dynamodb_GetItem:
   synopsis: get an item from a &DDB; table, with the option of using the &DDB; document client.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.cpp.get_item.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -407,6 +452,15 @@ dynamodb_UpdateItem:
   synopsis: update an item in a &DDB; table.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.cpp.update_item.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -540,6 +594,15 @@ dynamodb_ListTables:
   synopsis: list &DDB; tables.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.cpp.list_tables.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -605,6 +668,15 @@ dynamodb_Query:
   synopsis: query a &DDB; table.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.cpp.query_items.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -676,6 +748,15 @@ dynamodb_Scan:
   synopsis: scan a &DDB; table.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.cpp.scan_table.code
     Kotlin:
       versions:
         - sdk_version: 1
