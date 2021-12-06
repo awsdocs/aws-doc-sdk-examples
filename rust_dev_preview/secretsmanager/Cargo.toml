@@ -6,8 +6,8 @@ edition = "2018"
 description = "Example usage of the SecretManager service"
 
 [dependencies]
-aws-config = "0.0.26-alpha"
-aws-sdk-secretsmanager = "0.0.26-alpha"
+aws-config = "0.2.0"
+aws-sdk-secretsmanager = "0.2.0"
 tokio = { version = "1", features = ["full"]}
 structopt = { version = "0.3", default-features = false }
 tracing-subscriber = { version = "0.2.16", features = ["fmt"] }

@@ -1,5 +1,5 @@
 [package]
-name = "qldb-code-examples"
+name = "apigatewaymanagement-code-examples"
 version = "0.1.0"
 authors = ["Russell Cohen <rcoh@amazon.com>", "Doug Schwartz <dougsch@amazon.com>"]
 edition = "2018"
@@ -8,8 +8,8 @@ edition = "2018"
 
 [dependencies]
 aws-config = "0.2.0"
-aws-sdk-qldb = "0.2.0"
-aws-sdk-qldbsession = "0.2.0"
+aws-sdk-apigatewaymanagement = "0.2.0"
+http = "0.2.5"
 tokio = { version = "1", features = ["full"] }
 structopt = { version = "0.3", default-features = false }
-tracing-subscriber = { version = "0.2.16", features = ["fmt"] }
+tracing-subscriber = "0.2.18"
