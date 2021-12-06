@@ -985,6 +985,25 @@ iam_DeleteUser:
             - description: ''
               snippet_tags:
                 - iam.go-v2.DeleteUser
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-deleting-users
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Delete the user.
+              snippet_tags:
+                - iam.JavaScript.users.deleteUserV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-deleting-users
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.users.deleteUser
   services:
     iam: {DeleteUser}
 iam_ListUsers:
