@@ -89,6 +89,18 @@ transcribe_DeleteTranscriptionJob:
             - description:
               snippet_tags:
                 - python.example_code.transcribe.DeleteTranscriptionJob
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/transcribe
+          sdkguide: sdk-for-javascript/v3/developer-guide/transcribe-examples-section.html#transcribe-delete-job
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - transcribe.JavaScript.createclientv3
+            - description: Delete a transcription job.
+              snippet_tags:
+                - transcribe.JavaScript.jobs.deleteJobV3
   services:
     transcribe: {DeleteTranscriptionJob}
 transcribe_CreateVocabulary:
