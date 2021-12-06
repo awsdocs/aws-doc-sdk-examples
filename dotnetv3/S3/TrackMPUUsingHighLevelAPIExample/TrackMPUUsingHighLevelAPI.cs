@@ -2,7 +2,7 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// This example shows how to track the progress of a multi-part upload
+/// This example shows how to track the progress of a multipart upload
 /// using the Amazon Simple Storage Service (Amazon S3) TransferUtility to
 /// upload to an Amazon S3 bucket. The example was created using the AWS
 /// SDK for .NET version 3.7 and .NET Core 5.0.
@@ -34,11 +34,11 @@ namespace TrackMPUUsingHighLevelAPIExample
         }
 
         /// <summary>
-        /// Starts an Amazon S3 multi-part upload and assigns an event handler to
+        /// Starts an Amazon S3 multipart upload and assigns an event handler to
         /// track the progress of the upload.
         /// </summary>
         /// <param name="client">The initialized Amazon S3 client object used to
-        /// perform the multi-part upload.</param>
+        /// perform the multipart upload.</param>
         /// <param name="bucketName">The name of the bucket to which to upload
         /// the file.</param>
         /// <param name="filePath">The path, including the file name of the
@@ -79,10 +79,10 @@ namespace TrackMPUUsingHighLevelAPIExample
         }
 
         /// <summary>
-        /// Event handler to check the progress of the multi-part upload.
+        /// Event handler to check the progress of the multipart upload.
         /// </summary>
         /// <param name="sender">The object that raised the event.</param>
-        /// <param name="e">The object that contains multi-part upload
+        /// <param name="e">The object that contains multipart upload
         /// information.</param>
         public static void UploadRequest_UploadPartProgressEvent(object sender, UploadProgressArgs e)
         {

@@ -3,7 +3,7 @@
 
 /// <summary>
 /// This example shows how to manage Amazon Simple Storage Service
-/// (Amazon S3) Access Control Lists (ACLs) to control Amazon S3 bucket
+/// (Amazon S3) access control lists (ACLs) to control Amazon S3 bucket
 /// access. The example was created with the AWS SDK for .NET version 3.7
 /// and .NET Core 5.0.
 /// </summary>
@@ -26,8 +26,8 @@ namespace ManageACLsExample
             string keyName = "sample-object.txt";
             string emailAddress = "someone@example.com";
 
-            // If the AWS region where your bucket is located is different from
-            // the region defined for the default user, pass the Amazon S3 bucket's
+            // If the AWS Region where your bucket is located is different from
+            // the Region defined for the default user, pass the Amazon S3 bucket's
             // name to the client constructor. It should look like this:
             // RegionEndpoint bucketRegion = RegionEndpoint.USEast1;
             IAmazonS3 client = new AmazonS3Client();
@@ -37,7 +37,7 @@ namespace ManageACLsExample
 
         /// <summary>
         /// Creates a new Amazon S3 bucket with a canned ACL, then retrieves the ACL
-        /// infrmation and then adds a new ACL to one of the objects in the
+        /// information and then adds a new ACL to one of the objects in the
         /// Amazon S3 bucket.
         /// </summary>
         /// <param name="client">The initialized Amazon S3 client object used to call
@@ -107,7 +107,7 @@ namespace ManageACLsExample
         /// PutBucketAsync.</param>
         /// <param name="bucketName">The Amazon S3 bucket for which we want to get the
         /// ACL list.</param>
-        /// <returns>Returns an Amazon S3AccessCntrolList returned from the call to
+        /// <returns>Returns an S3AccessCntrolList returned from the call to
         /// GetACLAsync.</returns>
         public static async Task<S3AccessControlList> GetBucketACLAsync(IAmazonS3 client, string bucketName)
         {

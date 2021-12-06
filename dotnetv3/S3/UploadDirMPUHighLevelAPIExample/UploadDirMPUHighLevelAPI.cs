@@ -36,11 +36,11 @@ namespace UploadDirMPUHighLevelAPIExample
         }
 
         /// <summary>
-        /// Uses an Amazon S3 multi-part transfer to upload all of the text files in
+        /// Uses an Amazon S3 multipart transfer to upload all of the text files in
         /// a local directory to an Amazon S3 bucket.
         /// </summary>
         /// <param name="client">The initialized Amazon S3 client object used to
-        /// perform the multi-part upload.</param>
+        /// perform the multipart upload.</param>
         /// <param name="bucketName">The name of the bucket to which the files
         /// will be uploaded from the local directory.</param>
         /// <param name="directoryPath">The path of the local directory that

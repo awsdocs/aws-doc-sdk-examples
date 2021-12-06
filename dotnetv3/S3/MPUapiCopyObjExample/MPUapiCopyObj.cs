@@ -17,9 +17,9 @@ namespace MPUapiCopyObjectExample
 
     public class MPUapiCopyObj
     {
-        private const string SourceBucket = "igsmith-doc-example-bucket1"; // "doc-example-bucket1";
-        private const string TargetBucket = "igsmith-doc-example-bucket2"; // "doc-example-bucket2";
-        private const string SourceObjectKey = "ssaver.mov";
+        private const string SourceBucket = "doc-example-bucket1";
+        private const string TargetBucket = "doc-example-bucket2";
+        private const string SourceObjectKey = "example.mov";
         private const string TargetObjectKey = "copied_video_file.mov";
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace MPUapiCopyObjectExample
         }
 
         /// <summary>
-        /// This method uses the passed client object to perform a multi-part
+        /// This method uses the passed client object to perform a multipart
         /// copy operation.
         /// </summary>
         /// <param name="client">An Amazon S3 client object that will be used

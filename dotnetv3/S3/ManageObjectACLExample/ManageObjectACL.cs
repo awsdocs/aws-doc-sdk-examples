@@ -2,7 +2,7 @@
 // SPDX - License - Identifier: Apache - 2.0
 
 /// <summary>
-/// This example shows how to work with the Access Control List (ACL) of an
+/// This example shows how to work with the access control list (ACL) of an
 /// object in an Amazon Simple Storage Service (Amazon S3) bucket. The
 /// example was created with the AWS SDK for .NET version 3.7 and .NET
 /// Core 5.0.

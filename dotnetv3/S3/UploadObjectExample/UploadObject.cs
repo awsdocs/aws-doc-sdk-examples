@@ -41,7 +41,7 @@ namespace UploadObjectExample
         /// example method also adds metadata for the uploaded file.
         /// </summary>
         /// <param name="client">An initialized Amazon S3 client object.</param>
-        /// <param name="bucketName">The name of theAmazon S3 bucket to upload the
+        /// <param name="bucketName">The name of the Amazon S3 bucket to upload the
         /// file to.</param>
         /// <param name="objectName">The destination file name.</param>
         /// <param name="filePath">The full path, including file name, to the

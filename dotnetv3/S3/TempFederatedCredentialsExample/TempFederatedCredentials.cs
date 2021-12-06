@@ -2,7 +2,7 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// This example uses gets a Security Token to access the contents of an
+/// This example gets a security token to access the contents of an
 /// Amazon Simple Storage Service (Amazon S3) bucket. The example was
 /// created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
 /// </summary>

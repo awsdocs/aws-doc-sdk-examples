@@ -4,8 +4,8 @@
 /// <summary>
 /// Amazon Simple Storage Service (Amazon S3) Transfer Acceleration is a
 /// bucket-level feature that enables you to perform faster data transfers
-/// to Amazon S3. This example shows how to configure transfer
-/// acceleration. The example was written using the AWS SDK for .NET 3.7
+/// to Amazon S3. This example shows how to configure Transfer
+/// Acceleration. The example was written using the AWS SDK for .NET 3.7
 /// and .NET Core 5.0.
 /// </summary>
 namespace TransferAccelerationExample

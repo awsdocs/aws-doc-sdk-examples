@@ -32,7 +32,7 @@ namespace ListObjectsExample
         /// Uses the client object to get a list of the objects in the Amazon
         /// S3 bucket in the bucketName parameter.
         /// </summary>
-        /// <param name="client">The initialized Amazon S3 client obect used to call
+        /// <param name="client">The initialized Amazon S3 client object used to call
         /// the ListObjectsAsync method.</param>
         /// <param name="bucketName">The bucket name for which you want to
         /// retrieve a list of objects.</param>

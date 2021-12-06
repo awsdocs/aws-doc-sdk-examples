@@ -3,7 +3,7 @@
 
 /// <summary>
 /// Uses the Amazon Simple Storage Service (Amazon S3) low level API to
-/// perform a multi-part upload to an Amazon S3 bucket. The example was
+/// perform a multipart upload to an Amazon S3 bucket. The example was
 /// created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
 /// </summary>
 namespace SSECLowLevelMPUcopyObjectExample
@@ -41,10 +41,10 @@ namespace SSECLowLevelMPUcopyObjectExample
         }
 
         /// <summary>
-        /// Creates the encryption key to use with the multi-part upload.
+        /// Creates the encryption key to use with the multipart upload.
         /// </summary>
         /// <returns>A string containing the base64-encoded key for encrypting
-        /// the multi-part upload.</returns>
+        /// the multipart upload.</returns>
         public static string CreateEncryptionKey()
         {
             Aes aesEncryption = Aes.Create();
@@ -55,10 +55,10 @@ namespace SSECLowLevelMPUcopyObjectExample
         }
 
         /// <summary>
-        /// Creates and uploads an object using a multi-part upload.
+        /// Creates and uploads an object using a multipart upload.
         /// </summary>
         /// <param name="client">The initialized Amazon S3 object used to
-        /// initialize and perform the multi-part upload.</param>
+        /// initialize and perform the multipart upload.</param>
         /// <param name="existingBucketName">The name of the bucket to which
         /// the object will be uploaded.</param>
         /// <param name="sourceKeyName">The source object name.</param>
@@ -127,7 +127,7 @@ namespace SSECLowLevelMPUcopyObjectExample
             {
                 Console.WriteLine($"Exception occurred: {exception.Message}");
 
-                // If there was an error, abort the multi-part upload.
+                // If there was an error, abort the multipart upload.
                 AbortMultipartUploadRequest abortMPURequest = new AbortMultipartUploadRequest
                 {
                     BucketName = existingBucketName,

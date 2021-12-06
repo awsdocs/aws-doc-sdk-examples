@@ -2,7 +2,7 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// This example shows how to use the Amazon Simple Storage System
+/// This example shows how to use the Amazon Simple Storage Service
 /// (Amazon S3) client to copy an object from an Amazon S3 bucket to
 /// another location such as your local system. The code uses the AWS
 /// SDK for .NET version 3.7 and .NET Core 5.0.
@@ -35,7 +35,7 @@ namespace GetObjectExample
         /// This method copies the contents of the object keyName to another
         /// location, for example, to your local system.
         /// </summary>
-        /// <param name="client">The initialize Amazon S3 client used to call
+        /// <param name="client">The initialized Amazon S3 client used to call
         /// GetObjectAsync.</param>
         /// <param name="bucketName">The name of the Amazon S3 bucket which contains
         /// the object to copy.</param>

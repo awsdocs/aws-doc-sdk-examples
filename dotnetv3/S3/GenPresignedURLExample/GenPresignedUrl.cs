@@ -3,7 +3,7 @@
 
 /// <summary>
 /// This example generates a presigned URL for an object in an Amazon
-/// Simple Storage Service (Amazon S3) bucket. The generated example
+/// Simple Storage Service (Amazon S3) bucket. The generated URL
 /// remains valid for the specified number of hours. This example was
 /// created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
 /// </summary>
@@ -26,8 +26,8 @@ namespace GenPresignedUrlExample
             const double timeoutDuration = 12;
 
             // Specify the AWS Region of your Amazon S3 bucket if it is
-            // different from the region defined for the default user,
-            // pass the region to the constructor for the client. For
+            // different from the Region defined for the default user,
+            // pass the Region to the constructor for the client. For
             // example:
             //      RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
             IAmazonS3 s3Client = new AmazonS3Client();

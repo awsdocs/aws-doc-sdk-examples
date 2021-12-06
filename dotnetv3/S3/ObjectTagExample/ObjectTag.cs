@@ -3,7 +3,7 @@
 
 /// <summary>
 /// This example shows how to work with tags in Amazon Simple Storage
-/// System (Amazon S3) objects. The example was created using the AWS SDK
+/// Service (Amazon S3) objects. The example was created using the AWS SDK
 /// for .NET version 3.7 and .NET Core 5.0.
 /// </summary>
 namespace ObjectTagExample

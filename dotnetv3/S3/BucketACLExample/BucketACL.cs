@@ -2,7 +2,7 @@
 // SPDX - License - Identifier: Apache - 2.0
 
 /// <summary>
-/// This example shows how to work with Access control lists (ACLs) in an
+/// This example shows how to work with access control lists (ACLs) in an
 /// Amazon Simple Storage Service (Amazon S3) bucket. The example was
 /// created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
 /// </summary>
@@ -36,7 +36,7 @@ namespace BucketACLExample
         }
 
         /// <summary>
-        /// Creates an Amazon S3 bucket with an ACL to control access to to the
+        /// Creates an Amazon S3 bucket with an ACL to control access to the
         /// bucket and the objects stored in it.
         /// </summary>
         /// <param name="client">The initialized client object used to create
@@ -70,10 +70,10 @@ namespace BucketACLExample
         }
 
         /// <summary>
-        /// Get the Access Control List (ACL) for the new bucket.
+        /// Get the access control list (ACL) for the new bucket.
         /// </summary>
         /// <param name="client">The initialized client object used to get the
-        /// Access Control List (ACL) of the bucket.</param>
+        /// access control list (ACL) of the bucket.</param>
         /// <param name="newBucketName">The name of the newly created bucket.</param>
         /// <returns>An S3AccessControlList.</returns>
         public static async Task<S3AccessControlList> GetACLForBucketAsync(IAmazonS3 client, string newBucketName)

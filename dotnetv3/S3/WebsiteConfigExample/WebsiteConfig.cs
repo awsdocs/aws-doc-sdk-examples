@@ -28,7 +28,7 @@ namespace WebsiteConfigExample
             const string indexDocumentSuffix = "index.html";
             const string errorDocument = "error.html";
 
-            // Specify the region for your Amazon S3 bucket if it is different from the region
+            // Specify the Region for your Amazon S3 bucket if it is different from the Region
             // of the default user. RegionEndpoint.USWest2 for example.
             IAmazonS3 client = new AmazonS3Client(RegionEndpoint.USEast1);
 
