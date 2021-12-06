@@ -14,6 +14,18 @@ transcribe_StartTranscriptionJob:
             - description:
               snippet_tags:
                 - python.example_code.transcribe.StartTranscriptionJob
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/transcribe
+          sdkguide: sdk-for-javascript/v3/developer-guide/transcribe-examples-section.html#transcribe-start-transcription
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - transcribe.JavaScript.createclientv3
+            - description: Start a transcription job.
+              snippet_tags:
+                - transcribe.JavaScript.jobs.createJobV3
   services:
     transcribe: {StartTranscriptionJob}
 transcribe_ListTranscriptionJobs:
