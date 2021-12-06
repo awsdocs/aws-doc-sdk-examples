@@ -34,7 +34,7 @@ async fn cluster_ops(client: &aws_sdk_ecs::Client, name: &str) -> Result<(), aws
 }
 // snippet-end:[ecs.rust.cluster]
 
-/// Creates and deletes an Amazon Elastic Container S? cluster in the Region.
+/// Creates and deletes an Amazon Elastic Container Service cluster in the Region.
 /// # Arguments
 ///
 /// * `-n NAME]` - The name of the cluster.
