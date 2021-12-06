@@ -22,17 +22,28 @@ struct Opt {
     verbose: bool,
 }
 
-// Create and delete a cluster.
-// snippet-start:[ecs.rust.cluster]
-async fn cluster_ops(client: &aws_sdk_ecs::Client, name: &str) -> Result<(), aws_sdk_ecs::Error> {
+// Create a cluster.
+// snippet-start:[ecs.rust.cluster-create]
+async fn make_cluster(client: &aws_sdk_ecs::Client, name: &str) -> Result<(), aws_sdk_ecs::Error> {
     let cluster = client.create_cluster().cluster_name(name).send().await?;
     println!("cluster created: {:?}", cluster);
 
-    let cluster_deleted = client.delete_cluster().cluster(name).send().await?;
-    println!("cluster deleted: {:?}", cluster_deleted);
     Ok(())
 }
-// snippet-end:[ecs.rust.cluster]
+// snippet-end:[ecs.rust.cluster-create]
+
+// Delete a cluster.
+// snippet-start:[ecs.rust.cluster-delete]
+async fn remove_cluster(
+    client: &aws_sdk_ecs::Client,
+    name: &str,
+) -> Result<(), aws_sdk_ecs::Error> {
+    let cluster_deleted = client.delete_cluster().cluster(name).send().await?;
+    println!("cluster deleted: {:?}", cluster_deleted);
+
+    Ok(())
+}
+// snippet-end:[ecs.rust.cluster-delete]
 
 /// Creates and deletes an Amazon Elastic Container Service cluster in the Region.
 /// # Arguments
@@ -61,5 +72,6 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = aws_sdk_ecs::Client::new(&shared_config);
 
-    cluster_ops(&client, &name).await
+    make_cluster(&client, &name).await?;
+    remove_cluster(&client, &name).await
 }
