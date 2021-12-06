@@ -24,10 +24,10 @@ async fn show_log_groups(
     client: &aws_sdk_cloudwatchlogs::Client,
 ) -> Result<(), aws_sdk_cloudwatchlogs::Error> {
     let resp = client.describe_log_groups().send().await?;
-    let groups = resp.log_groups.unwrap_or_default();
+    let groups = resp.log_groups().unwrap_or_default();
     let num_groups = groups.len();
     for group in groups {
-        println!("  {}", group.log_group_name.unwrap_or_default());
+        println!("  {}", group.log_group_name().unwrap_or_default());
     }
 
     println!();
@@ -37,7 +37,7 @@ async fn show_log_groups(
 }
 // snippet-end:[cloudwatchlogs.rust.list-log-groups]
 
-/// Lists your Amazon CloudWatch log groups in the Region.
+/// Lists your log groups in the Region.
 /// # Arguments
 ///
 /// * `[-r REGION]` - The Region in which the client is created.

@@ -39,17 +39,17 @@ async fn show_log_events(
         .log_stream_name(stream)
         .send()
         .await?;
-    let events = log_events.events.unwrap_or_default();
+    let events = log_events.events().unwrap_or_default();
     println!("Found {} events:", events.len());
     for event in events {
-        println!("message: {}", event.message.unwrap_or_default());
+        println!("message: {}", event.message().unwrap_or_default());
     }
 
     Ok(())
 }
 // snippet-end:[cloudwatchlogs.rust.get-log-events]
 
-/// Lists the events for an Amazon CloudWatch log stream in the Region.
+/// Lists the events for a log stream in the Region.
 /// # Arguments
 ///
 /// * `-g LOG-GROUP` - The name of the log group.

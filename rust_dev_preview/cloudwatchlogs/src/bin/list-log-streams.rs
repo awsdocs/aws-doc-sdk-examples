@@ -37,17 +37,17 @@ async fn show_log_streams(
         .log_group_name(name)
         .send()
         .await?;
-    let streams = resp.log_streams.unwrap_or_default();
+    let streams = resp.log_streams().unwrap_or_default();
     println!("Found {} streams:", streams.len());
     for stream in streams {
-        println!("  {}", stream.log_stream_name.unwrap_or_default());
+        println!("  {}", stream.log_stream_name().unwrap_or_default());
     }
 
     Ok(())
 }
 // snippet-end:[cloudwatchlogs.rust.list-log-streams]
 
-/// Lists the log streams for an Amazon CloudWatch log group in the Region.
+/// Lists the log streams for a log group in the Region.
 /// # Arguments
 ///
 /// * `-g LOG-GROUP` - The name of the log group.

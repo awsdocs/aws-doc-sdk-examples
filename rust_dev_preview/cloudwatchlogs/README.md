@@ -2,13 +2,13 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several Amazon CloudWatch Logs (CloudWatch Logs) operations using the developer preview version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Amazon CloudWatch Logs operations using the developer preview version of the AWS SDK for Rust.
 
 Use CloudWatch Logs to monitor, store, and access your log files from Amazon Elastic Compute Cloud instances, AWS CloudTrail, or other sources.
 
 ## Code examples
 
-- [Get log eventss](src/bin/get-log-events.rs) (GetLogEvents)
+- [Get log events](src/bin/get-log-events.rs) (GetLogEvents)
 - [List log groups](src/bin/list-log-groups.rs) (DescribeLogGroups)
 - [List log streams](src/bin/list-log-streams.rs) (DescribeLogStreams)
 
@@ -32,7 +32,7 @@ You must have an AWS account, and have configured your default credentials and A
 
 ### get-log-events
 
-This example lists the events for a CloudWatch log stream in the Region.
+This example lists the events for a log stream in the Region.
 
 `cargo run --bin get-log-events -- -g GROUP -s STREAM [-r REGION] [-v]`
 
@@ -45,7 +45,7 @@ This example lists the events for a CloudWatch log stream in the Region.
 
 ### list-log-groups
 
-This example lists your CloudWatch log groups in the Region.
+This example lists your log groups in the Region.
 
 `cargo run --bin list-log-groups -- [-r REGION] [-v]`
  
@@ -56,7 +56,7 @@ This example lists your CloudWatch log groups in the Region.
 
 ### list-log-streams
 
-This example lists the log streams for a CloudWatch log group in the Region.
+This example lists the log streams for a log group in the Region.
 
 `cargo run --bin list-log-streams -- -g GROUP [-r REGION] [-v]`
  
