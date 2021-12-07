@@ -225,7 +225,7 @@ sqs_DeleteQueue:
             - description:
               snippet_tags:
                 - SQS.dotnetv3.DeleteQueueExample
-   Kotlin:
+    Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/sqs
@@ -234,7 +234,7 @@ sqs_DeleteQueue:
             - description:
               snippet_tags:
                 - sqs.kotlin.del_messages.main
-   Java:
+    Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/sqs
