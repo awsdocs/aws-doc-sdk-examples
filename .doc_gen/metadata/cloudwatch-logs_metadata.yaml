@@ -117,6 +117,15 @@ cloudwatch-logs_DescribeSubscriptionFilters:
   synopsis: describe &CWLlong; existing subscription filters.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.describe_subscription_filters.main
     Java:
       versions:
         - sdk_version: 2
@@ -153,6 +162,15 @@ cloudwatch-logs_DeleteSubscriptionFilter:
   synopsis: delete an &CWLlong; subscription filter.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.delete_subscription_filter.main
     Java:
       versions:
         - sdk_version: 2
@@ -219,3 +237,4 @@ cloudwatch-logs_PutSubscriptionFilter:
                 - cwLogs.JavaScript.cwl.putSubscriptionFilter
   services:
     cloudwatch-logs: {PutSubscriptionFilter}
+    

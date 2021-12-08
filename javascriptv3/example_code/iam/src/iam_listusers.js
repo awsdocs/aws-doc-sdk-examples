@@ -18,9 +18,9 @@ import { iamClient } from "./libs/iamClient.js";
 import { ListUsersCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = { MaxItems: 10 };
+export const params = { MaxItems: 10 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new ListUsersCommand(params));
     return data;
@@ -34,4 +34,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.users.listUsersV3]
-// module.exports =  { run, params }; // For unit tests.
+
