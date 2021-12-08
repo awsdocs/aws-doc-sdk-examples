@@ -18,7 +18,7 @@ transcribe_StartMedicalTranscriptionJob:
               snippet_tags:
                 - transcribe.JavaScript.jobs.createMedicalJobV3
   services:
-    transcribe-medical: {StartMedicalTranscriptionJob}
+    transcribe: {StartMedicalTranscriptionJob}
 transcribe_DeleteMedicalTranscriptionJob:
   title: Delete a &TSCM; transcription job using an &AWS; SDK
   title_abbrev: Delete a medical transcription job
@@ -38,7 +38,7 @@ transcribe_DeleteMedicalTranscriptionJob:
               snippet_tags:
                 - transcribe.JavaScript.jobs.deleteMedicalJobV3
   services:
-    transcribe-medical: {DeleteMedicalTranscriptionJob}
+    transcribe: {DeleteMedicalTranscriptionJob}
 transcribe_ListMedicalTranscriptionJobs:
   title: List &TSCM; transcription jobs using an &AWS; SDK
   title_abbrev: List medical transcription jobs
@@ -58,4 +58,4 @@ transcribe_ListMedicalTranscriptionJobs:
               snippet_tags:
                 - transcribe.JavaScript.jobs.createMedicalJobV3
   services:
-    transcribe-medical: {ListMedicalTranscriptionJobs}
+    transcribe: {ListMedicalTranscriptionJobs}
