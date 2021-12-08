@@ -20,9 +20,9 @@ import { iamClient } from "./libs/iamClient.js";
 import { DeleteUserCommand, GetUserCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = { UserName: "USER_NAME" }; //USER_NAME
+export const params = { UserName: "USER_NAME" }; //USER_NAME
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new GetUserCommand(params));
     return data;
@@ -34,9 +34,9 @@ const run = async () => {
       console.log("Error", err);
     }
   } catch (err) {
-    console.log("User " + process.argv[2] + " does not exist.");
+    console.log("User " + "USER_NAME" + " does not exist.");
   }
 };
 run();
 // snippet-end:[iam.JavaScript.users.deleteUserV3]
-// module.exports =  { run, params }; // For unit tests.
+

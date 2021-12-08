@@ -20,9 +20,9 @@ import { iamClient } from "./libs/iamClient.js";
 import { GetServerCertificateCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = { ServerCertificateName: "CERTIFICATE_NAME" }; //CERTIFICATE_NAME
+export const params = { ServerCertificateName: "CERTIFICATE_NAME" }; //CERTIFICATE_NAME
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new GetServerCertificateCommand(params));
     console.log("Success", data);
@@ -32,4 +32,4 @@ const run = async () => {
   }
 };
 // snippet-end:[iam.JavaScript.certs.getServerCertificateV3]
-// module.exports =  { run, params }; // For unit tests.
+
