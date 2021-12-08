@@ -29,6 +29,8 @@ Amazon EKS is a managed service that makes it easy for you to run Kubernetes on 
 
 You must have an AWS account, and have configured your default credentials and AWS Region as described in [https://github.com/awslabs/aws-sdk-rust](https://github.com/awslabs/aws-sdk-rust).
 
+You must also create a role for the cluster. See [https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html](https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html) for details.
+
 ### create-delete-cluster
 
 This example creates and deletes an Amazon EKS cluster.

@@ -14,21 +14,16 @@ struct Opt {
     #[structopt(short, long)]
     region: Option<String>,
 
-    /// The name of the cluster.
+    /// The unique name to give to your cluster.
     #[structopt(short, long)]
     cluster_name: String,
 
-    /// ARN for the role for the cluster
-    /// To create an ARN:
-    ///
-    /// 1. Follow instructions to create an IAM role:
-    /// https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html
-    ///
-    /// 2. Copy role ARN
+    /// The Amazon Resource Name (ARN) of the IAM role that provides permissions
+    /// for the Kubernetes control plane to make calls to AWS API operations on your behalf.
     #[structopt(long)]
     arn: String,
 
-    /// The subnet IDs of the cluster.
+    /// The subnet IDs for your Amazon EKS nodes.
     #[structopt(short, long)]
     subnet_ids: Vec<String>,
 
