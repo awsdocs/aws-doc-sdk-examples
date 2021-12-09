@@ -17,11 +17,11 @@ import { iamClient } from "./libs/iamClient.js";
 import { GetPolicyCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = {
+export const params = {
   PolicyArn: "arn:aws:iam::aws:policy/AWSLambdaExecute",
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new GetPolicyCommand(params));
     console.log("Success", data);
@@ -32,4 +32,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.policies.getPolicyV3]
-// module.exports =  { run, params }; // For unit tests.
+

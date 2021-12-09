@@ -19,6 +19,25 @@ sts_AssumeRole:
                 temporary credentials to list &S3; buckets for the account.
               snippet_tags:
                 - python.example_code.sts.Scenario_AssumeRoleMfa_list_buckets
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/sts
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - sts.JavaScript.createclientv3
+            - description: Assume the &IAM; role.
+              snippet_tags:
+                - iam.JavaScript.sts.AssumeRoleV3
+        - sdk_version: 2
+          github: javascript/example_code/sts
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sts.JavaScript.assumeRole
   services:
     sts: {AssumeRole}
 sts_GetSessionToken:
