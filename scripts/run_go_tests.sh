@@ -18,16 +18,22 @@ echo $hasgotest
 
 if [[ $hasgotest -eq 1 ]]; then
     echo "Go files have been modified. Running tests..."
+    hasfailedtest=0
     for mod in $( find . -name go.mod ); do
         moddir=$(dirname $mod)
-        echo "Testing ${moddir}"
         pushd $moddir
-        go test ./...
-        if [[ $? -ne 0 ]]; then
-            exit 0
+        if [[ -f .nocitest ]]; then
+            echo "Skipping ${moddir} - found .nocitest"
+        else
+            echo "Testing ${moddir} via go test"
+            go test ./...
+            if [[ $? -ne 0 ]]; then
+                hasfailedtest=1
+            fi
         fi
         popd
     done
+    exit $hasfailedtest
 fi
 
 exit 0
