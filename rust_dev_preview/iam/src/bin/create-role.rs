@@ -14,14 +14,6 @@ struct Opt {
     #[structopt(short, long)]
     region: Option<String>,
 
-    /// Your account ID.
-    #[structopt(short, long)]
-    account: String,
-
-    /// The name of the bucket.
-    #[structopt(short, long)]
-    bucket: String,
-
     /// The name of the role.
     #[structopt(short, long)]
     name: String,
@@ -48,7 +40,7 @@ async fn make_role(client: &Client, policy_file: &str, name: &str) -> Result<(),
         .send()
         .await?;
 
-    println!("Created role with ARN {}", resp.role.unwrap().arn.unwrap());
+    println!("Created role with ARN {}", resp.role().unwrap().arn().unwrap());
 
     Ok(())
 }
@@ -70,8 +62,6 @@ async fn make_role(client: &Client, policy_file: &str, name: &str) -> Result<(),
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
     let Opt {
-        account,
-        bucket,
         name,
         policy_file,
         region,
@@ -89,8 +79,6 @@ async fn main() -> Result<(), Error> {
             "Region:             {}",
             region_provider.region().await.unwrap().as_ref()
         );
-        println!("Account ID:         {}", &account);
-        println!("Bucket:             {}", &bucket);
         println!("Role name:          {}", &name);
         println!("Policy doc filename {}", &policy_file);
         println!();
