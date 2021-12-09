@@ -21,9 +21,9 @@ import { iamClient } from "./libs/iamClient.js";
 import { CreateAccessKeyCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = {UserName: "IAM_USER_NAME"}; //IAM_USER_NAME
+export const params = {UserName: "IAM_USER_NAME"}; //IAM_USER_NAME
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new CreateAccessKeyCommand(params));
     console.log("Success", data);

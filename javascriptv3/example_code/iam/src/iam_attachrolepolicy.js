@@ -26,11 +26,11 @@ import {
 // Set the parameters
 const ROLENAME = "ROLE_NAME";
 const paramsRoleList = { RoleName: ROLENAME }; //ROLE_NAME
-const params = {
+export const params = {
   PolicyArn: "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess",
   RoleName: ROLENAME,
 };
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(
       new ListAttachedRolePoliciesCommand(paramsRoleList)
@@ -58,4 +58,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.policies.attachRolePolicyV3]
-// module.exports =  { run, params }; // For unit tests.
+

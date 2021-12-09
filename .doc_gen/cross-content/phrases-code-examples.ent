@@ -36,3 +36,7 @@
 <!-- QLDB Session -->
 <!ENTITY QLDBSessionlong '&QLDBlong; Session'>
 <!ENTITY QLDBSession '&QLDB; Session'>
+
+<!-- Transcribe Medical -->
+<!ENTITY TSCMlong '&TSClong; Medical'>
+<!ENTITY TSCM '&TSC; Medical'>
