@@ -10,7 +10,7 @@ AWS Secrets Manager helps you to securely encrypt, store, and retrieve credentia
 
 ## Code Examples
 
-The following samples are included:
+The following examples are included:
 
 * Create a secret
 * Get the value of a secret
