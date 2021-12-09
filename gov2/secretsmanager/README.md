@@ -51,7 +51,7 @@ in the AWS SDK for Go Developer Guide.
 For more information, see
 
 * The [AWS SDK for Go V2 documentation](https://docs.aws.amazon.com/sdk-for-go/).
-* The [AWS Secerts Manager documentation](https://docs.aws.amazon.com/secretsmanager/?id=docs_gateway).
+* The [AWS Secrets Manager documentation](https://docs.aws.amazon.com/secretsmanager/?id=docs_gateway).
 
 
 # Contributing
