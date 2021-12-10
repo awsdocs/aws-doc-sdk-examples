@@ -8,7 +8,7 @@
 /// </summary>
 namespace DescribeTextTranslationExample
 {
-    // snippet-start:[Translate.dotnetv3.DescribeTextTranslationExample]
+    // snippet-start:[Translate.dotnetv3.DescribeTextTranslationJobExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Translate;
