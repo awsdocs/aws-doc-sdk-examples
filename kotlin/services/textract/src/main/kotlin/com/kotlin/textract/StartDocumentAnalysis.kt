@@ -15,11 +15,8 @@ package com.kotlin.textract
 
 // snippet-start:[textract.kotlin._start_doc_analysis.import]
 import aws.sdk.kotlin.services.textract.TextractClient
-import aws.sdk.kotlin.services.textract.model.GetDocumentAnalysisRequest
-import aws.sdk.kotlin.services.textract.model.FeatureType
-import aws.sdk.kotlin.services.textract.model.DocumentLocation
-import aws.sdk.kotlin.services.textract.model.S3Object
-import aws.sdk.kotlin.services.textract.model.StartDocumentAnalysisRequest
+import aws.sdk.kotlin.services.textract.model.*
+import kotlinx.coroutines.delay
 import kotlin.system.exitProcess
 // snippet-end:[textract.kotlin._start_doc_analysis.import]
 
@@ -77,11 +74,26 @@ suspend fun startDocAnalysisS3(bucketName: String?, docName: String?) {
 
 private suspend fun getJobResults(textractClient: TextractClient, jobIdVal: String?): String {
 
-    val analysisRequest = GetDocumentAnalysisRequest {
-        jobId = jobIdVal
-        maxResults = 1000
+
+    var finished = false
+    var index = 0
+    var status = ""
+
+    while (!finished) {
+
+        val analysisRequest = GetDocumentAnalysisRequest {
+            jobId = jobIdVal
+            maxResults = 1000
+        }
+        val response = textractClient.getDocumentAnalysis(analysisRequest)
+        status = response.jobStatus.toString()
+
+        if (status.compareTo("SUCCEEDED") == 0) finished = true else {
+            println("$index status is: $status")
+            delay(1000)
+        }
+        index ++
     }
-    val response = textractClient.getDocumentAnalysis(analysisRequest)
-    return response.jobStatus.toString()
+    return status
 }
 // snippet-end:[textract.kotlin._start_doc_analysis.main]
