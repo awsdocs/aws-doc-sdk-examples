@@ -1,7 +1,21 @@
-/* Sample code to admin create user from Cognito SDK by setting a temporary password.*/
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
 
+ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 2 (v2)
+
+Purpose:
+admin-create-user.js demonstrates how to create admin create user from Amazon Cognito by setting a temporary password.
+
+Inputs:
+ - USERPOOLID
+ - EMAIL
+
+*/
+
+// snippet-start:[ses.JavaScript.filters.admin-create-user-v2]
 const aws = require('aws-sdk');
-/*Initializing CognitoIdentityServiceProvider from AWS SDK JS*/
+
+// Initialize CognitoIdentityServiceProvider.
 const cognito = new AWS.CognitoIdentityServiceProvider({
     apiVersion: "2016-04-18",
 });
@@ -28,3 +42,4 @@ exports.handler = async (event, context) => {
     let response = await cognito.adminCreateUser(cognitoParams).promise();
     console.log(JSON.stringify(response, null, 2));
 }
+// snippet-start:[ses.JavaScript.filters.admin-create-user-v2]
