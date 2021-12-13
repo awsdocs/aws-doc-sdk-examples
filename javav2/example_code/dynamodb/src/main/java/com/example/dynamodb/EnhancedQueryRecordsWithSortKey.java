@@ -17,15 +17,16 @@ import java.time.Instant;
 import java.util.Map;
 import java.util.Iterator;
 import java.util.HashMap;
-import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
-import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
-import software.amazon.awssdk.enhanced.dynamodb.Expression;
-import software.amazon.awssdk.enhanced.dynamodb.Key;
-import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import software.amazon.awssdk.core.pagination.sync.SdkIterable;
+import software.amazon.awssdk.enhanced.dynamodb.*;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
+import software.amazon.awssdk.enhanced.dynamodb.model.Page;
 import software.amazon.awssdk.enhanced.dynamodb.model.PageIterable;
+import software.amazon.awssdk.enhanced.dynamodb.model.QueryEnhancedRequest;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
 import software.amazon.awssdk.regions.Region;
@@ -68,21 +69,38 @@ public class EnhancedQueryRecordsWithSortKey {
     public static void queryTableSortKeyBetween(DynamoDbEnhancedClient enhancedClient) {
 
         try {
-            DynamoDbTable<Customer> mappedTable =
-                    enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
 
-            // Querying the sort key Name between two values
-            Key fromKey = Key.builder().partitionValue("id101").sortValue("S").build();
-            Key toKey = Key.builder().partitionValue("id101").sortValue("T").build();
+            // Create a DynamoDbTable object based on Issues.
+            DynamoDbTable<Issues> table = enhancedClient.table("Issues", TableSchema.fromBean(Issues.class));
+            String dateVal = "2013-11-19";
+            DynamoDbIndex<Issues> secIndex =
+                    enhancedClient.table("Issues",
+                                    TableSchema.fromBean(Issues.class))
+                            .index("dueDateIndex");
 
-            QueryConditional queryConditional = QueryConditional.sortBetween(fromKey, toKey);
+            AttributeValue attVal = AttributeValue.builder()
+                    .s(dateVal)
+                    .build();
 
-            PageIterable<Customer> customers =
-                    mappedTable.query(r -> r.queryConditional(queryConditional));
+            // Create a QueryConditional object that's used in the query operation.
+            QueryConditional queryConditional = QueryConditional
+                    .keyEqualTo(Key.builder().partitionValue(attVal)
+                            .build());
 
-            customers.stream()
-                    .forEach(p -> p.items().forEach(item -> System.out.println(item.getCustName())));
+            // Get items in the Issues table.
+            SdkIterable<Page<Issues>> results =  secIndex.query(
+                    QueryEnhancedRequest.builder()
+                            .queryConditional(queryConditional)
+                            .build());
 
+            AtomicInteger atomicInteger = new AtomicInteger();
+            atomicInteger.set(0);
+            results.forEach(page -> {
+
+                Issues issue = (Issues) page.items().get(atomicInteger.get());
+                System.out.println("The issue title is "+issue.getTitle());
+                atomicInteger.incrementAndGet();
+            });
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
