@@ -12,7 +12,7 @@ Inputs:
 
 */
 
-// snippet-start:[ses.JavaScript.filters.admin-create-user-v2]
+// snippet-start:[cognito.JavaScript.admin-create-user-v2]
 const aws = require('aws-sdk');
 
 // Initialize CognitoIdentityServiceProvider.
@@ -42,4 +42,4 @@ exports.handler = async (event, context) => {
     let response = await cognito.adminCreateUser(cognitoParams).promise();
     console.log(JSON.stringify(response, null, 2));
 }
-// snippet-start:[ses.JavaScript.filters.admin-create-user-v2]
+// snippet-end:[cognito.JavaScript.admin-create-user-v2]
