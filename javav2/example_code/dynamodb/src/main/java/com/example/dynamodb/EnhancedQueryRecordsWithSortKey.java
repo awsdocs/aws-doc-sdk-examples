@@ -18,7 +18,6 @@ import java.util.Map;
 import java.util.Iterator;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import software.amazon.awssdk.core.pagination.sync.SdkIterable;
 import software.amazon.awssdk.enhanced.dynamodb.*;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
@@ -61,12 +60,12 @@ public class EnhancedQueryRecordsWithSortKey {
                 .dynamoDbClient(ddb)
                 .build();
 
-        queryTableSortKeyBetween(enhancedClient);
+        queryTableSort(enhancedClient);
         ddb.close();
     }
 
     // snippet-start:[dynamodb.java2.mapping.querykey.main]
-    public static void queryTableSortKeyBetween(DynamoDbEnhancedClient enhancedClient) {
+    public static void queryTableSort(DynamoDbEnhancedClient enhancedClient) {
 
         try {
 
