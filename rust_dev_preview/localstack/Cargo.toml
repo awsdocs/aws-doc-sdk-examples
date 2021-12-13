@@ -1,3 +1,4 @@
+# snippet-start:[localstack.rust.use-localstack-cargo.toml]
 [package]
 name = "localstack-example"
 version = "0.1.0"
@@ -13,3 +14,4 @@ aws-smithy-http = "0.32.0"
 tokio = { version = "1", features = ["full"] }
 http = "0.2"
 tracing-subscriber = "0.2"
+# snippet-end:[localstack.rust.use-localstack-cargo.toml]
