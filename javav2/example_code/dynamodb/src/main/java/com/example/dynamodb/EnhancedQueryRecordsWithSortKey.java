@@ -34,11 +34,7 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 // snippet-end:[dynamodb.java2.mapping.querykey.import]
 
 /*
- * Prior to running this code example, create an Amazon DynamoDB table named Customer with these columns:
- *   - id - the id of the record that is the key
- *   - custName - the customer name
- *   - email - the email value
- *   - registrationDate - an instant value when the item was added to the table
+ * Prior to running this code example, run the EnhancedScanRecordsWithExpression example to create the Issues table.
  *
  * Also, ensure that you have setup your development environment, including your credentials.
  *
