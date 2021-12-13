@@ -18,7 +18,6 @@ import aws.sdk.kotlin.services.textract.TextractClient
 import aws.sdk.kotlin.services.textract.model.*
 import kotlinx.coroutines.delay
 import kotlin.system.exitProcess
-
 // snippet-end:[textract.kotlin._start_doc_analysis.import]
 
 suspend fun main(args:Array<String>) {
