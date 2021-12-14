@@ -1,34 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
-MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UploadFileMPUHighLevelAPIExample", "UploadFileMPUHighLevelAPIExample\UploadFileMPUHighLevelAPIExample.csproj", "{1A71D43D-CC9F-444C-8B1A-677437978F7A}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31829.152
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UploadFileMPUHighLevelAPIExample", "UploadFileMPUHighLevelAPIExample.csproj", "{6226CA90-0F8F-4387-85EC-8C4DC76F29EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
-		Release|x64 = Release|x64
-		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6226CA90-0F8F-4387-85EC-8C4DC76F29EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6226CA90-0F8F-4387-85EC-8C4DC76F29EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6226CA90-0F8F-4387-85EC-8C4DC76F29EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6226CA90-0F8F-4387-85EC-8C4DC76F29EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1A71D43D-CC9F-444C-8B1A-677437978F7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1A71D43D-CC9F-444C-8B1A-677437978F7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1A71D43D-CC9F-444C-8B1A-677437978F7A}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{1A71D43D-CC9F-444C-8B1A-677437978F7A}.Debug|x64.Build.0 = Debug|Any CPU
-		{1A71D43D-CC9F-444C-8B1A-677437978F7A}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{1A71D43D-CC9F-444C-8B1A-677437978F7A}.Debug|x86.Build.0 = Debug|Any CPU
-		{1A71D43D-CC9F-444C-8B1A-677437978F7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1A71D43D-CC9F-444C-8B1A-677437978F7A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1A71D43D-CC9F-444C-8B1A-677437978F7A}.Release|x64.ActiveCfg = Release|Any CPU
-		{1A71D43D-CC9F-444C-8B1A-677437978F7A}.Release|x64.Build.0 = Release|Any CPU
-		{1A71D43D-CC9F-444C-8B1A-677437978F7A}.Release|x86.ActiveCfg = Release|Any CPU
-		{1A71D43D-CC9F-444C-8B1A-677437978F7A}.Release|x86.Build.0 = Release|Any CPU
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F63B75CF-EE5E-41B9-AA7E-CD858F93E687}
 	EndGlobalSection
 EndGlobal

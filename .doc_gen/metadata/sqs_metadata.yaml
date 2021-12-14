@@ -17,6 +17,15 @@ sqs_CreateQueue:
             - description: Create an &SQS; queue and send a message to it.
               snippet_tags:
                 - SQS.dotnetv3.CreateSendExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.kotlin.create_queue.main
     Java:
       versions:
         - sdk_version: 2
@@ -137,6 +146,15 @@ sqs_ListQueues:
   synopsis: list &SQS; queues.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.kotlin.list_queues.main
     Java:
       versions:
         - sdk_version: 2
@@ -207,6 +225,15 @@ sqs_DeleteQueue:
             - description:
               snippet_tags:
                 - SQS.dotnetv3.DeleteQueueExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.kotlin.del_messages.main
     Java:
       versions:
         - sdk_version: 2
@@ -273,6 +300,15 @@ sqs_SendMessage:
             - description: Create an &SQS; queue and send a message to it.
               snippet_tags:
                 - SQS.dotnetv3.CreateSendExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.kotlin.send_messages.main
     Java:
       versions:
         - sdk_version: 2
@@ -372,6 +408,15 @@ sqs_ReceiveMessage:
             - description: Receive a message from an &SQS; queue, and then delete the message.
               snippet_tags:
                 - SQS.dotnetv3.ReceiveDeleteExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.kotlin.get_messages.main
     Java:
       versions:
         - sdk_version: 2
@@ -445,6 +490,15 @@ sqs_DeleteMessage:
             - description: Receive a message from an &SQS; queue and then delete the message.
               snippet_tags:
                 - SQS.dotnetv3.ReceiveDeleteExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.kotlin.del_messages.main
     Java:
       versions:
         - sdk_version: 2
