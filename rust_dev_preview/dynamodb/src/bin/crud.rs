@@ -149,7 +149,7 @@ async fn query_item(client: &Client, item: Item) -> bool {
         Ok(resp) => {
             if resp.count > 0 {
                 println!("Found a matching entry in the table:");
-                println!("{:?}", resp.items.unwrap_or_default().pop());
+                println!("{:?}", resp.items().unwrap_or_default().first());
                 true
             } else {
                 println!("Did not find a match.");
@@ -214,13 +214,13 @@ where
         match response {
             Ok(SdkSuccess { parsed, .. }) => {
                 if parsed
-                    .table
+                    .table()
                     .as_ref()
                     .unwrap()
-                    .table_status
+                    .table_status()
                     .as_ref()
                     .unwrap()
-                    == &TableStatus::Creating
+                    == &&TableStatus::Creating
                 {
                     RetryKind::Explicit(Duration::from_secs(1))
                 } else {

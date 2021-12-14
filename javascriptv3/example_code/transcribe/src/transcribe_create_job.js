@@ -15,7 +15,7 @@ Inputs (replace in code):
 - SOURCE_LOCATION
 
 Running the code:
-node transcribe_create_job.js
+node transcribe_create_job.test.js
  */
 // snippet-start:[transcribe.JavaScript.jobs.createJobV3]
 // Import the required AWS SDK clients and commands for Node.js
@@ -23,7 +23,7 @@ import { StartTranscriptionJobCommand } from "@aws-sdk/client-transcribe";
 import { transcribeClient } from "./libs/transcribeClient.js";
 
 // Set the parameters
-const params = {
+export const params = {
   TranscriptionJobName: "JOB_NAME",
   LanguageCode: "LANGUAGE_CODE", // For example, 'en-US'
   MediaFormat: "SOURCE_FILE_FORMAT", // For example, 'wav'
@@ -33,7 +33,7 @@ const params = {
   },
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await transcribeClient.send(
       new StartTranscriptionJobCommand(params)
