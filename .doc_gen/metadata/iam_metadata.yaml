@@ -5,6 +5,15 @@ iam_CreateAccountAlias:
   synopsis: create an alias for an &IAM; account.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.create_account_alias.main
     Java:
       versions:
         - sdk_version: 2
@@ -57,6 +66,15 @@ iam_DeleteAccountAlias:
   synopsis: delete an &IAM; account alias.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.delete_account_alias.main
     Java:
       versions:
         - sdk_version: 2
@@ -102,6 +120,15 @@ iam_ListAccountAliases:
   synopsis: list &IAM; account aliases.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.list_account_aliases.main
     Java:
       versions:
         - sdk_version: 2
@@ -252,6 +279,15 @@ iam_CreateAccessKey:
   synopsis: create an &IAM; access key.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.create_access_key.main
     Java:
       versions:
         - sdk_version: 2
@@ -305,6 +341,15 @@ iam_DeleteAccessKey:
   synopsis: delete an &IAM; access key.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.delete_access_key.main
     Java:
       versions:
         - sdk_version: 2
@@ -402,6 +447,15 @@ iam_ListAccessKeys:
   synopsis: list a user's &IAM; access keys.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.list_access_keys.main
     Java:
       versions:
         - sdk_version: 2
@@ -533,6 +587,15 @@ iam_CreatePolicy:
   synopsis: create an &IAM; policy.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.create_policy.main
     Java:
       versions:
         - sdk_version: 2
@@ -578,6 +641,15 @@ iam_DeletePolicy:
   synopsis: delete an &IAM; policy.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.delete_policy.main
     Java:
       versions:
         - sdk_version: 2
@@ -638,6 +710,15 @@ iam_GetPolicy:
   synopsis: get an &IAM; policy.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.get_policy.main
     Go:
       versions:
         - sdk_version: 2
@@ -707,6 +788,15 @@ iam_AttachRolePolicy:
   synopsis: attach an &IAM; policy to a role.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.attach_role_policy.main
     Java:
       versions:
         - sdk_version: 2
@@ -755,6 +845,15 @@ iam_DetachRolePolicy:
   synopsis: detach an &IAM; policy from a role.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.detach_role_policy.main
     Java:
       versions:
         - sdk_version: 2
@@ -906,6 +1005,15 @@ iam_CreateUser:
   synopsis: create an &IAM; user.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.create_user.main
     Java:
       versions:
         - sdk_version: 2
@@ -959,6 +1067,15 @@ iam_DeleteUser:
   synopsis: delete an &IAM; user.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.delete_user.main
     Java:
       versions:
         - sdk_version: 2
@@ -1012,6 +1129,15 @@ iam_ListUsers:
   synopsis: list &IAM; users.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.list_users.main
     Java:
       versions:
         - sdk_version: 2
@@ -1065,6 +1191,15 @@ iam_UpdateUser:
   synopsis: update an &IAM; user.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.update_user.main
     Java:
       versions:
         - sdk_version: 2

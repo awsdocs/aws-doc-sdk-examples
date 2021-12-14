@@ -60,7 +60,7 @@ async fn create_table(client: &Client) -> Result<(), Error> {
         .await?;
     println!(
         "new table: {:#?}",
-        &new_table.table_description.unwrap().table_arn.unwrap()
+        &new_table.table_description().unwrap().table_arn().unwrap()
     );
 
     Ok(())
