@@ -16,7 +16,7 @@ node iam_listservercerts.js
 import { iamClient } from "./libs/iamClient.js";
 import { ListServerCertificatesCommand } from "@aws-sdk/client-iam";
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new ListServerCertificatesCommand({}));
     console.log("Success", data);

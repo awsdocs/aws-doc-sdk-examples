@@ -1,34 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+VisualStudioVersion = 16.0.31829.152
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSECLowLevelMPUcopyObjectExample", "SSECLowLevelMPUcopyObjectExample\SSECLowLevelMPUcopyObjectExample.csproj", "{F04B7F93-4FD8-4F6B-B72E-01C12E5F8344}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSECLowLevelMPUcopyObjectExample", "SSECLowLevelMPUcopyObjectExample.csproj", "{D69E5711-ADC0-48A1-8388-8859188F028F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
-		Release|x64 = Release|x64
-		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D69E5711-ADC0-48A1-8388-8859188F028F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D69E5711-ADC0-48A1-8388-8859188F028F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D69E5711-ADC0-48A1-8388-8859188F028F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D69E5711-ADC0-48A1-8388-8859188F028F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F04B7F93-4FD8-4F6B-B72E-01C12E5F8344}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F04B7F93-4FD8-4F6B-B72E-01C12E5F8344}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F04B7F93-4FD8-4F6B-B72E-01C12E5F8344}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{F04B7F93-4FD8-4F6B-B72E-01C12E5F8344}.Debug|x64.Build.0 = Debug|Any CPU
-		{F04B7F93-4FD8-4F6B-B72E-01C12E5F8344}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F04B7F93-4FD8-4F6B-B72E-01C12E5F8344}.Debug|x86.Build.0 = Debug|Any CPU
-		{F04B7F93-4FD8-4F6B-B72E-01C12E5F8344}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F04B7F93-4FD8-4F6B-B72E-01C12E5F8344}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F04B7F93-4FD8-4F6B-B72E-01C12E5F8344}.Release|x64.ActiveCfg = Release|Any CPU
-		{F04B7F93-4FD8-4F6B-B72E-01C12E5F8344}.Release|x64.Build.0 = Release|Any CPU
-		{F04B7F93-4FD8-4F6B-B72E-01C12E5F8344}.Release|x86.ActiveCfg = Release|Any CPU
-		{F04B7F93-4FD8-4F6B-B72E-01C12E5F8344}.Release|x86.Build.0 = Release|Any CPU
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E2B531F6-F59E-41DA-B62D-09B75664EE5F}
 	EndGlobalSection
 EndGlobal

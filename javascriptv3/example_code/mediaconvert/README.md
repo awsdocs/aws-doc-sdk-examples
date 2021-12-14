@@ -33,7 +33,7 @@ npm install
 4. Run sample code:
 ```
 cd src
-node [example name].js // For example, node iam_accesskeylastused.js
+node [example name].js // For example, node iam_accesskeylastused.test.js
 ```
  ## Resources
 - [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) 
