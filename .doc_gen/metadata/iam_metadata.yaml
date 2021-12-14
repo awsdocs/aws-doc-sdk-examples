@@ -5,6 +5,15 @@ iam_CreateAccountAlias:
   synopsis: create an alias for an &IAM; account.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.create_account_alias.main
     Java:
       versions:
         - sdk_version: 2
@@ -30,7 +39,25 @@ iam_CreateAccountAlias:
           excerpts:
             - description:
               snippet_tags: ['iam.go-v2.CreateAccountAlias']
-
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-account-aliases.html#iam-examples-account-aliases-creating
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Create the account alias.
+              snippet_tags:
+                - iam.JavaScript.alias.createAccountAliasV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-account-aliases.html#iam-examples-account-aliases-creating
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.alias.createAccountAlias
   services:
     iam: {CreateAccountAlias}
 iam_DeleteAccountAlias:
@@ -39,6 +66,15 @@ iam_DeleteAccountAlias:
   synopsis: delete an &IAM; account alias.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.delete_account_alias.main
     Java:
       versions:
         - sdk_version: 2
@@ -57,6 +93,25 @@ iam_DeleteAccountAlias:
             - description:
               snippet_tags:
                 - python.example_code.iam.DeleteAccountAlias
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-account-aliases.html#iam-examples-account-aliases-deleting
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Delete the account alias.
+              snippet_tags:
+                - iam.JavaScript.alias.deleteAccountAliasV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-account-aliases.html#iam-examples-account-aliases-deleting
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.alias.deleteAccountAlias
   services:
     iam: {DeleteAccountAlias}
 iam_ListAccountAliases:
@@ -65,6 +120,15 @@ iam_ListAccountAliases:
   synopsis: list &IAM; account aliases.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.list_account_aliases.main
     Java:
       versions:
         - sdk_version: 2
@@ -91,6 +155,25 @@ iam_ListAccountAliases:
             - description: ''
               snippet_tags:
                 - iam.go-v2.ListAccountAliases
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-account-aliases.html#iam-examples-account-aliases-listing
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the account aliases.
+              snippet_tags:
+                - iam.JavaScript.alias.listAccountAliasesV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-account-aliases.html4#iam-examples-account-aliases-listing
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.alias.listAccountAliases
   services:
     iam: {ListAccountAliases}
 iam_GetAccountAuthorizationDetails:
@@ -196,6 +279,15 @@ iam_CreateAccessKey:
   synopsis: create an &IAM; access key.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.create_access_key.main
     Java:
       versions:
         - sdk_version: 2
@@ -222,6 +314,25 @@ iam_CreateAccessKey:
             - description: ''
               snippet_tags:
                 - iam.go-v2.CreateAccessKey
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-creating
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Create the access key.
+              snippet_tags:
+                - iam.JavaScript.keys.createAccessKeyV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-creating
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.keys.createAccessKey
   services:
     iam: {CreateAccessKey}
 iam_DeleteAccessKey:
@@ -230,6 +341,15 @@ iam_DeleteAccessKey:
   synopsis: delete an &IAM; access key.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.delete_access_key.main
     Java:
       versions:
         - sdk_version: 2
@@ -256,6 +376,25 @@ iam_DeleteAccessKey:
             - description: ''
               snippet_tags:
                 - iam.go-v2.DeleteAccessKey
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-deleting
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Delete the access key.
+              snippet_tags:
+                - iam.JavaScript.keys.deleteAccessKeyV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-deleting
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.keys.deleteAccessKey
   services:
     iam: {DeleteAccessKey}
 iam_GetAccessKeyLastUsed:
@@ -281,6 +420,25 @@ iam_GetAccessKeyLastUsed:
             - description: ''
               snippet_tags:
                 - iam.go-v2.AccessKeyLastUsed
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-last-used
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Get the access key.
+              snippet_tags:
+                - iam.JavaScript.keys.getAccessKeyLastUsedV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-last-used
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.keys.getAccessKeyLastUsed
   services:
     iam: {GetAccessKeyLastUsed}
 iam_ListAccessKeys:
@@ -289,6 +447,15 @@ iam_ListAccessKeys:
   synopsis: list a user's &IAM; access keys.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.list_access_keys.main
     Java:
       versions:
         - sdk_version: 2
@@ -315,6 +482,25 @@ iam_ListAccessKeys:
             - description: ''
               snippet_tags:
                 - iam.go-v2.ListAccessKeys
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-listing
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the access keys.
+              snippet_tags:
+                - iam.JavaScript.keys.listAccessKeysV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-access-keys.html#iiam-examples-managing-access-keys-listing
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.keys.listAccessKeys
   services:
     iam: {ListAccessKeys}
 iam_UpdateAccessKey:
@@ -348,6 +534,25 @@ iam_UpdateAccessKey:
           excerpts:
             - description:
               snippet_tags: ['iam.go-v2.UpdateAccessKey']
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-updating
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Update the access key.
+              snippet_tags:
+                - iam.JavaScript.keys.updateAccessKeyV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-updating
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.keys.updateAccessKey
   services:
     iam: {UpdateAccessKey}
 iam_Scenario_ManageAccessKeys:
@@ -382,6 +587,15 @@ iam_CreatePolicy:
   synopsis: create an &IAM; policy.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.create_policy.main
     Java:
       versions:
         - sdk_version: 2
@@ -400,6 +614,25 @@ iam_CreatePolicy:
             - description:
               snippet_tags:
                 - python.example_code.iam.CreatePolicy
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-creating
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Create the policy.
+              snippet_tags:
+                - iam.JavaScript.policies.createPolicyV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-policies.html#iam-examples-policies-creating
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.policies.createPolicy
   services:
     iam: {CreatePolicy}
 iam_DeletePolicy:
@@ -408,6 +641,15 @@ iam_DeletePolicy:
   synopsis: delete an &IAM; policy.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.delete_policy.main
     Java:
       versions:
         - sdk_version: 2
@@ -467,9 +709,16 @@ iam_GetPolicy:
   title_abbrev: Get a policy
   synopsis: get an &IAM; policy.
   category:
-  services:
-    iam: {ListPolicies}
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.get_policy.main
     Go:
       versions:
         - sdk_version: 2
@@ -478,7 +727,27 @@ iam_GetPolicy:
             - description: ''
               snippet_tags:
                 - iam.go-v2.GetPolicy
-
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-getting
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Get the policy.
+              snippet_tags:
+                - iam.JavaScript.policies.getPolicyV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-policies.html#iam-examples-policies-getting
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.policies.getPolicy
+  services:
+    iam: {GetPolicy}
 iam_GetPolicyVersion:
   title: Get an &IAM; policy version using an &AWS; SDK
   title_abbrev: Get a policy version
@@ -519,6 +788,15 @@ iam_AttachRolePolicy:
   synopsis: attach an &IAM; policy to a role.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.attach_role_policy.main
     Java:
       versions:
         - sdk_version: 2
@@ -540,6 +818,25 @@ iam_AttachRolePolicy:
             - description: Attach a policy to a role using the Boto3 Role object.
               snippet_tags:
                 - python.example_code.iam.AttachRolePolicy_Role
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-attaching-role-policy
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Attach the policy.
+              snippet_tags:
+                - iam.JavaScript.policies.attachRolePolicyV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-policies.html#iam-examples-policies-attaching-role-policy
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.policies.attachRolePolicy
   services:
     iam: {AttachRolePolicy}
 iam_DetachRolePolicy:
@@ -548,6 +845,15 @@ iam_DetachRolePolicy:
   synopsis: detach an &IAM; policy from a role.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.detach_role_policy.main
     Java:
       versions:
         - sdk_version: 2
@@ -569,6 +875,25 @@ iam_DetachRolePolicy:
             - description: Detach a policy from a role using the Boto3 Role object.
               snippet_tags:
                 - python.example_code.iam.DetachRolePolicy_Role
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-detaching-role-policy
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Detach the policy.
+              snippet_tags:
+                - iam.JavaScript.policies.detachRolePolicyV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-policies.html#iam-examples-policies-detaching-role-policy
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.policies.detachRolePolicy
   services:
     iam: {DetachRolePolicy}
 iam_Scenario_PolicyManagement:
@@ -680,6 +1005,15 @@ iam_CreateUser:
   synopsis: create an &IAM; user.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.create_user.main
     Java:
       versions:
         - sdk_version: 2
@@ -706,6 +1040,25 @@ iam_CreateUser:
             - description: ''
               snippet_tags:
                 - iam.go-v2.CreateUser
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-creating-users
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Create the user.
+              snippet_tags:
+                - iam.JavaScript.users.getUserV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-creating-users
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.users.getUser
   services:
     iam: {CreateUser}
 iam_DeleteUser:
@@ -714,6 +1067,15 @@ iam_DeleteUser:
   synopsis: delete an &IAM; user.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.delete_user.main
     Java:
       versions:
         - sdk_version: 2
@@ -740,6 +1102,25 @@ iam_DeleteUser:
             - description: ''
               snippet_tags:
                 - iam.go-v2.DeleteUser
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-deleting-users
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Delete the user.
+              snippet_tags:
+                - iam.JavaScript.users.deleteUserV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/23/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-deleting-users
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.users.deleteUser
   services:
     iam: {DeleteUser}
 iam_ListUsers:
@@ -748,6 +1129,15 @@ iam_ListUsers:
   synopsis: list &IAM; users.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.list_users.main
     Java:
       versions:
         - sdk_version: 2
@@ -774,6 +1164,25 @@ iam_ListUsers:
             - description: ''
               snippet_tags:
                 - iam.go-v2.ListUsers
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-listing-users
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the users.
+              snippet_tags:
+                - iam.JavaScript.users.listUsersV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-listing-users
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.users.listUsers
   services:
     iam: {ListUsers}
 iam_UpdateUser:
@@ -782,6 +1191,15 @@ iam_UpdateUser:
   synopsis: update an &IAM; user.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.kotlin.update_user.main
     Java:
       versions:
         - sdk_version: 2
@@ -807,7 +1225,25 @@ iam_UpdateUser:
           excerpts:
             - description:
               snippet_tags: ['iam.go-v2.UpdateUser']
-
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-updating-users
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Update the user.
+              snippet_tags:
+                - iam.JavaScript.users.updateUserV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/23/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-updating-users
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.users.updateUser
   services:
     iam: {UpdateUser}
 iam_AttachUserPolicy:
@@ -900,3 +1336,111 @@ iam_Scenario_UserPolicies:
                 - python.example_code.iam.Scenario_UserPolicies
   services:
     iam: {}
+iam_ListServerCertificates:
+  title: List &IAM; server certificates using an &AWS; SDK
+  title_abbrev: List server certificates
+  synopsis: list &IAM; server certificates.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-listing
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the certificates.
+              snippet_tags:
+                - iam.JavaScript.certs.listServerCertificatesV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-listing
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.certs.listServerCertificates
+  services:
+    iam: {ListServerCertificates}
+iam_GetServerCertificate:
+  title: Get an &IAM; server certificate using an &AWS; SDK
+  title_abbrev: Get a server certificate
+  synopsis: get an &IAM; server certificate.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-getting
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Get a server certificate.
+              snippet_tags:
+                - iam.JavaScript.certs.getServerCertificateV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-getting
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.certs.getServerCertificate
+  services:
+    iam: {GetServerCertificate}
+iam_UpdateServerCertificate:
+  title: Update an &IAM; server certificate using an &AWS; SDK
+  title_abbrev: Update a server certificate
+  synopsis: update an &IAM; server certificate.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-updating
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Update a server certificate.
+              snippet_tags:
+                - iam.JavaScript.certs.updateServerCertificateV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-updating
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.certs.updateServerCertificate
+  services:
+    iam: {UpdateServerCertificate}
+iam_DeleteServerCertificate:
+  title: Delete an &IAM; server certificate using an &AWS; SDK
+  title_abbrev: Delete a server certificate
+  synopsis: delete an &IAM; server certificate.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-deleting
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Delete a server certificate.
+              snippet_tags:
+                - iam.JavaScript.certs.deleteServerCertificateV3
+        - sdk_version: 2
+          github: javascript/example_code/iam
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-deleting
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.certs.deleteServerCertificate
+  services:
+    iam: {DeleteServerCertificate}

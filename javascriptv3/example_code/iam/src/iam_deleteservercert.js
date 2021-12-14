@@ -20,9 +20,9 @@ import { iamClient } from "./libs/iamClient.js";
 import { DeleteServerCertificateCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = { ServerCertificateName: "CERTIFICATE_NAME" }; // CERTIFICATE_NAME
+export const params = { ServerCertificateName: "CERTIFICATE_NAME" }; // CERTIFICATE_NAME
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(
       new DeleteServerCertificateCommand(params)
@@ -35,4 +35,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.certs.deleteServerCertificateV3]
-// module.exports =  { run, params }; // For unit tests.
+

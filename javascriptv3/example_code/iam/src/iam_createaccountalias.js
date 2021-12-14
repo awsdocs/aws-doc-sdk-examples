@@ -20,9 +20,9 @@ import { iamClient } from "./libs/iamClient.js";
 import { CreateAccountAliasCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = { AccountAlias: "ACCOUNT_ALIAS" }; //ACCOUNT_ALIAS
+export const params = { AccountAlias: "ACCOUNT_ALIAS" }; //ACCOUNT_ALIAS
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new CreateAccountAliasCommand(params));
     console.log("Success", data);
@@ -33,4 +33,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.alias.createAccountAliasV3]
-// module.exports =  { run, params }; // For unit tests.
+
