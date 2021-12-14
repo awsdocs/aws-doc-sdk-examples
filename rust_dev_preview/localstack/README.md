@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This example demonstrate how to use LocalStack with of the AWS SDK for Rust.
+This example demonstrate how to use LocalStack with the AWS SDK for Rust.
 
 LocalStack is a cloud service emulator that runs in a single container on your computer. 
 
