@@ -6,6 +6,7 @@
 use async_trait::async_trait;
 use aws_sdk_s3 as s3;
 use std::error::Error;
+use std::str::FromStr;
 
 // snippet-start:[testing.rust.traits-trait]
 pub struct ListObjectsResult {
@@ -56,7 +57,7 @@ impl ListObjects for S3ListObjects {
         Ok(ListObjectsResult {
             objects: response.contents().unwrap_or_default().to_vec(),
             continuation_token: response.continuation_token().map(|t| t.to_string()),
-            has_more: response.is_truncated,
+            has_more: response.is_truncated(),
         })
     }
 }
@@ -81,7 +82,6 @@ impl ListObjects for TestListObjects {
         assert_eq!(self.expected_bucket, bucket);
         assert_eq!(self.expected_prefix, prefix);
 
-        use std::str::FromStr;
         let index = continuation_token
             .map(|t| usize::from_str(&t).expect("valid token"))
             .unwrap_or_default();
