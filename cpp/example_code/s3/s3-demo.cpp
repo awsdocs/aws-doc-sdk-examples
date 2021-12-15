@@ -1,8 +1,17 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0 
+//snippet-sourcedescription:[s3-demo.cpp demonstrates how to perform various operations for Amazon Simple Storage Service (Amazon S3).]
+//snippet-keyword:[AWS SDK for C++]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon S3]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[12/15/2021]
+//snippet-sourceauthor:[scmacdon - aws]
+
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 #include <awsdoc/s3/s3-demo.h>
-// snippet-start:[s3.cpp.bucket_operations.list_create_delete]
 #include <iostream>
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
@@ -104,17 +113,12 @@ bool DeleteTheBucket(const Aws::S3::S3Client& s3Client,
 // try to determine whether that bucket still exists. 
 int main(int argc, char* argv[]) {
 
-    if (argc < 3) {
-        std::cout << "Usage: s3-demo <bucket name> <AWS Region>" << std::endl
-            << "Example: s3-demo my-bucket us-east-1" << std::endl;
-        return false;
-    }
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        Aws::String bucket_name = argv[1];
-        Aws::String region = argv[2];
+        Aws::String bucket_name = "scottaug1011"; 
+        Aws::String region = "us-east-1"; 
 
         Aws::Client::ClientConfiguration config;
 
