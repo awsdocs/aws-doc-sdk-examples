@@ -1,3 +1,9 @@
+<!-- SDK for Swift -->
+<!ENTITY Swiftlong '&AWS; SDK for Swift'>
+<!ENTITY Swift 'SDK for Swift'>
+<!ENTITY guide-swift-dev '&Swiftlong; developer guide'>
+<!ENTITY guide-swift-api '&Swiftlong; API reference'>
+
 <!-- SDK for Kotlin Alpha -->
 
 <!ENTITY Kotlinlong '&AWS; SDK for Kotlin'>
