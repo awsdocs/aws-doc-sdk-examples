@@ -8,6 +8,9 @@ edition = "2018"
 
 [dependencies]
 aws-config = "0.2.0"
+# 
+aws-endpoint = "0.2.0"
+# 
 aws-sdk-s3 = "0.2.0"
 tokio = { version = "1", features = ["full"] }
 structopt = { version = "0.3", default-features = false }
