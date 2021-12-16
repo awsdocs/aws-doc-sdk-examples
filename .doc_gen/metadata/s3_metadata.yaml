@@ -5,6 +5,15 @@ s3_CreateBucket:
   synopsis: create an &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.create_bucket.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -70,6 +79,15 @@ s3_CopyObject:
   synopsis: copy an &S3; object from one bucket to another.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.copy_objects.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -122,6 +140,15 @@ s3_DeleteBucketPolicy:
   synopsis: delete a policy from an &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.delete_bucket_policy.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -169,6 +196,15 @@ s3_DeleteObject:
   synopsis: delete an &S3; object.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.delete_object.code
     Python:
       versions:
         - sdk_version: 3
@@ -271,6 +307,15 @@ s3_DeleteBucketWebsite:
   synopsis: delete the website configuration from an &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.delete_website_config.code
     Java:
       versions:
         - sdk_version: 2
@@ -300,6 +345,15 @@ s3_GetObjectAcl:
   synopsis: get the access control list (ACL) of an &S3; object.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.get_acl_bucket.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -332,6 +386,15 @@ s3_GetBucketPolicy:
   synopsis: get the policy for an &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.get_bucket_policy.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -396,6 +459,15 @@ s3_GetObject:
   synopsis: read data from an object located in an &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.get_object.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -530,6 +602,15 @@ s3_ListObjects:
   synopsis: list objects located in an &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.list_objects.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -609,6 +690,15 @@ s3_PutObject:
   synopsis: upload an object to an &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.put_object.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -699,6 +789,15 @@ s3_DeleteBucket:
   synopsis: delete an empty &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.delete_bucket.code
     Java:
       versions:
         - sdk_version: 2
@@ -923,6 +1022,15 @@ s3_PutBucketPolicy:
   synopsis: add a policy to an &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.put_bucket_policy02.code
     Java:
       versions:
         - sdk_version: 2
@@ -961,6 +1069,15 @@ s3_PutBucketWebsite:
   synopsis: set the website configuration for an &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.put_website_config.code
     Java:
       versions:
         - sdk_version: 2
@@ -990,6 +1107,15 @@ s3_GetBucketWebsite:
   synopsis: get the website configuration for an &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.get_website_config.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1028,6 +1154,15 @@ s3_ListBuckets:
   synopsis: list &S3; buckets.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.list_buckets.code
     Python:
       versions:
         - sdk_version: 3
