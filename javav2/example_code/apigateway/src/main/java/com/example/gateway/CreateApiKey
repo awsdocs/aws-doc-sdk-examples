@@ -1,0 +1,92 @@
+//snippet-sourcedescription:[GetAPIKeys.java demonstrates how to obtain create ApiKeys resource.]
+//snippet-keyword:[SDK for Java v2]
+//snippet-keyword:[Code Sample]
+//snippet-service:[Amazon API Gateway]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[12/16/2021]
+//snippet-sourceauthor:[scmacdon - aws]
+
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
+package com.example.gateway;
+
+// snippet-start:[apigateway.java2.get_apikeys.import]
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
+
+import software.amazon.awssdk.services.apigateway.ApiGatewayClient;
+import software.amazon.awssdk.services.apigateway.model.ApiKey;
+import software.amazon.awssdk.services.apigateway.model.CreateApiKeyRequest;
+import software.amazon.awssdk.services.apigateway.model.CreateApiKeyResponse;
+import software.amazon.awssdk.services.apigateway.model.CreateUsagePlanKeyRequest;
+import software.amazon.awssdk.services.apigateway.model.CreateUsagePlanKeyResponse;
+import software.amazon.awssdk.services.apigateway.model.DeleteApiKeyRequest;
+import software.amazon.awssdk.services.apigateway.model.DeleteApiKeyResponse;
+// snippet-end:[apigateway.java2.get_apikeys.import]
+
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
+
+public class CreateAPIKey {
+
+    public static void main(String[] args) {
+
+        Region region = Region.US_EAST_1;
+        ApiGatewayClient apiGateway = ApiGatewayClient.builder()
+                .region(region)
+                .build();
+
+        createApiKey("accessKey", "secretKey");
+        apiGateway.close();
+    }
+
+    // snippet-start:[apigateway.java2.get_apikeys.main]
+    public static void createApiKey(String accessKey, String secretKey) {
+
+        try {
+           	AwsBasicCredentials awsCreds = AwsBasicCredentials.create(accessKey, secretKey);
+		Region region = Region.US_EAST_1;
+		ApiGatewayClient apiGateway = ApiGatewayClient.builder()
+				.credentialsProvider(StaticCredentialsProvider.create(awsCreds)).region(region).build();
+		CreateApiKeyRequest apiKeyRequest = CreateApiKeyRequest.builder().name("Key Name")
+				.description("Key description").enabled(true).generateDistinctId(true).build();
+
+//Creating a api key
+		CreateApiKeyResponse apicreatedResponse = apiGateway.createApiKey(apiKeyRequest);
+
+
+/* 
+If we have a plan for the api keys, we can set it for the created api key.
+*/
+		CreateUsagePlanKeyRequest planRequest = CreateUsagePlanKeyRequest.builder().usagePlanId("planId")
+				.keyId(apicreatedResponse.id()).keyType("API_KEY").build();
+
+		CreateUsagePlanKeyResponse planResponse = apiGateway.createUsagePlanKey(planRequest);
+		apiGateway.close();
+
+		return apicreatedResponse;
+            }
+
+        } catch (ApiGatewayException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+    }
+    // snippet-end:[apigateway.java2.get_apikeys.main]
+}
