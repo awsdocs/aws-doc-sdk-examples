@@ -1,0 +1,52 @@
+# zexi 0.4.0
+ecs_CreateCluster:
+  title: Create an &ECS; cluster using an &AWS; SDK
+  title_abbrev: Create a cluster
+  synopsis: create an &ECS; cluster.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ecs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecs.rust.cluster-create
+  services:
+    ecs: {CreateCluster}
+ecs_DeleteCluster:
+  title: Delete an &ECS; cluster using an &AWS; SDK
+  title_abbrev: Delete a cluster
+  synopsis: delete an &ECS; cluster.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ecs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecs.rust.cluster-delete
+  services:
+    ecs: {DeleteCluster}
+ecs_DescribeClusters:
+  title: List your &ECS; clusters using an &AWS; SDK
+  title_abbrev: List your clusters
+  synopsis: list your &ECS; clusters.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ecs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecs.rust.describe-clusters
+  services:
+    ecs: {DescribeClusters}
