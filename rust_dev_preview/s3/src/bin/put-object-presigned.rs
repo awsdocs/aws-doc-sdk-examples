@@ -33,6 +33,8 @@ struct Opt {
     verbose: bool,
 }
 
+// Adds an object to a bucket and returns a public URI.
+// snippet-start:[s3.rust.put-object-presigned]
 async fn put_object(
     client: &Client,
     bucket: &str,
@@ -52,12 +54,15 @@ async fn put_object(
 
     Ok(())
 }
+// snippet-end:[s3.rust.put-object-presigned]
 
-/// Generates a presigned request for S3 PutObject.
+/// Adds an object to a bucket and returns a public URI.
 /// # Arguments
 ///
 /// * `[-r REGION]` - The Region in which the client is created.
 ///   If not supplied, uses the value of the **AWS_REGION** environment variable.
+/// * `-b BUCKET` - The bucket where the object is uploaded.
+/// * `-o OBJECT` - The name of the file to upload to the bucket.
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-e EXPIRES_IN]` - The amount of time the presigned request should be valid for.
 ///   If not given, this defaults to 15 minutes.

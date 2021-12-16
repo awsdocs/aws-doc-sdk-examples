@@ -17,21 +17,16 @@ struct Opt {
     #[structopt(short, long)]
     region: Option<String>,
 
-    /// The bucket name to select from.
+    /// The name of the bucket containing the object (CSV file).
     #[structopt(short, long)]
     bucket: String,
 
     /// The object key to scan. This example expects the object to be an uncompressed CSV file with:
-    /// ```csv
+
     /// Name,PhoneNumber,City,Occupation
-    /// Sam,(949) 555-6701,Irvine,Solutions Architect
-    /// Vinod,(949) 555-6702,Los Angeles,Solutions Architect
-    /// Jeff,(949) 555-6703,Seattle,AWS Evangelist
-    /// Jane,(949) 555-6704,Chicago,Developer
-    /// Sean,(949) 555-6705,Chicago,Developer
-    /// Mary,(949) 555-6706,Chicago,Developer
-    /// Kate,(949) 555-6707,Chicago,Developer
-    /// ```
+    /// Person1,(nnn) nnn-nnnn,City1,Occupation1
+    /// ...
+    /// PersonN,(nnn) nnn-nnnn,CityN,OccupationN
     #[structopt(short, long)]
     object: String,
 
@@ -44,6 +39,8 @@ struct Opt {
     verbose: bool,
 }
 
+// Get object content.
+// snippet-start:[s3.rust.select-object-content]
 async fn get_content(client: &Client, bucket: &str, object: &str, name: &str) -> Result<(), Error> {
     let mut person: String = "SELECT * FROM s3object s WHERE s.\"Name\" = '".to_owned();
     person.push_str(name);
@@ -102,7 +99,16 @@ async fn get_content(client: &Client, bucket: &str, object: &str, name: &str) ->
 
     Ok(())
 }
+// snippet-end:[s3.rust.select-object-content]
 
+/// Uses an SQL expression to retrieve content from an object in a bucket.
+/// # Arguments
+///
+/// * `-b BUCKET` - The name of the bucket.
+/// * `[-r REGION]` - The Region in which the client is created.
+///   If not supplied, uses the value of the **AWS_REGION** environment variable.
+///   If the environment variable is not set, defaults to **us-west-2**.
+/// * `[-v]` - Whether to display additional information.
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();

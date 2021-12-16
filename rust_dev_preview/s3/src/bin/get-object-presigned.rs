@@ -34,6 +34,7 @@ struct Opt {
 }
 
 // Get object using presigned request.
+// snippet-start:[s3.rust.get-object-presigned]
 async fn get_object(
     client: &Client,
     bucket: &str,
@@ -52,6 +53,7 @@ async fn get_object(
 
     Ok(())
 }
+// snippet-end:[s3.rust.get-object-presigned]
 
 /// Gets an S3 object using a presigned request.
 /// # Arguments
