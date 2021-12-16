@@ -11,9 +11,9 @@ apigatewaymanagementapi_PostToConnection:
           github: rust_dev_preview/apigatewaymanagement
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - apigatewaymanagement.rust.post_to_connection
-        - apigatewaymanagement.rust.post_to_connection_client
+                - apigatewaymanagement.rust.post_to_connection_client
   services:
-    apigatewaymanagementapi: {PostToConnection}
+    apigatewaymanagementapi: { PostToConnection }
