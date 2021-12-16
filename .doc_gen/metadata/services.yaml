@@ -10,6 +10,11 @@ api-gateway:
   short: "&ABP;"
   sort: "API Gateway"
   version: apigateway-2015-07-09
+apigatewaymanagementapi:
+  long: "&ABPMAlong;"
+  short: "&ABPMA;"
+  sort: "API Gateway Management"
+  version: apigatewaymanagementapi-2018-11-29
 application-autoscaling:
   long: "&APP-ASlong;"
   short: "&APP-AS;"
@@ -80,6 +85,11 @@ config-service:
   short: "&CC;"
   sort: "Config"
   version: config-2014-11-12
+device-farm:
+  long: "&ATPlong;"
+  short: "&ATP;"
+  sort: "Device Farm"
+  version: devicefarm-2015-06-23
 dynamodb:
   long: "&DDBlong;"
   short: "&DDB;"
@@ -95,6 +105,21 @@ ec2:
   short: "&EC2;"
   sort: "EC2"
   version: ec2-2016-11-15
+ecr:
+  long: "&ECRlong;"
+  short: "&ECR;"
+  sort: "ECR"
+  version: ecr-2015-09-21
+ecs:
+  long: "&ECSlong;"
+  short: "&ECS;"
+  sort: "ECS"
+  version: ecs-2014-11-13
+eks:
+  long: "&EKSlong;"
+  short: "&EKS;"
+  sort: "EKS"
+  version: eks-2017-11-01
 emr:
   long: "&EMRlong;"
   short: "&EMR;"
@@ -161,6 +186,11 @@ mediapackage:
   short: "&EMP;"
   sort: "MediaPackage"
   version: mediapackage-2017-10-12
+organizations:
+  long: "&AOlong;"
+  short: "&AO;"
+  sort: "Organizations"
+  version: organizations-2016-11-28
 pinpoint:
   long: "&PINlong;"
   short: "&PIN;"
@@ -282,6 +312,11 @@ transcribe:
   long: "&TSClong;"
   short: "&TSC;"
   sort: "Transcribe"
+  version: transcribe-2017-10-26
+transcribe-medical:
+  long: "&TSClong;"
+  short: "&TSC;"
+  sort: "Transcribe medical"
   version: transcribe-2017-10-26
 translate:
   long: "&TSLlong;"

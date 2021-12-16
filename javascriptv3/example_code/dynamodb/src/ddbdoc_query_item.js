@@ -12,14 +12,14 @@ Inputs (replace in code):
 - TABLE_NAME
 
 Running the code:
-ts-node ddbdoc_update_query.js
+node ddbdoc_update_query.js
 */
 // snippet-start:[dynamodb.JavaScript.docClient.queryV3]
 import { QueryCommand } from "@aws-sdk/lib-dynamodb";
-import { ddbDocClient } from "./libs/ddbDocClient.js";
+import { ddbDocClient } from "./libs/ddbDocClient";
 
 // Set the parameters
-const params = {
+export const params = {
   TableName: "TABLE_NAME",
   /*
   Convert the JavaScript object defining the objects to the required
@@ -43,10 +43,11 @@ const params = {
   FilterExpression: "contains (Subtitle, :topic)",
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await ddbDocClient.send(new QueryCommand(params));
-    console.log("Success. Item details: ", data.Items);
+    console.log("Success. Item details: ", data);
+    // console.log("Success. Item details: ", data.Items);
     return data;
   } catch (err) {
     console.log("Error", err);

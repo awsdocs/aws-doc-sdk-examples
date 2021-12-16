@@ -5,6 +5,15 @@ kms_CreateKey:
   synopsis: create a &kms-key;.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_create_key.main
     Java:
       versions:
         - sdk_version: 2
@@ -26,11 +35,19 @@ kms_CreateKey:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
                 - kms.rust.create-key
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/kms
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - kms.go-v2.CreateKey
   services:
     kms: {CreateKey}
 kms_Decrypt:
@@ -39,6 +56,15 @@ kms_Decrypt:
   synopsis: decrypt a &kms-key;.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_encrypt_data.main
     Java:
       versions:
         - sdk_version: 2
@@ -51,11 +77,20 @@ kms_Decrypt:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
                 - kms.rust.decrypt
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/kms
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - kms.go-v2.DecryptData
+
   services:
     kms: {Decrypt}
 kms_Encrypt:
@@ -64,6 +99,15 @@ kms_Encrypt:
   synopsis: encrypt text using a &kms-key;.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_encrypt_data.main
     Java:
       versions:
         - sdk_version: 2
@@ -76,11 +120,19 @@ kms_Encrypt:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
                 - kms.rust.encrypt
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/kms
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - kms.go-v2.EncryptData
   services:
     kms: {Encrypt}
 kms_GenerateDataKey:
@@ -92,7 +144,7 @@ kms_GenerateDataKey:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
@@ -108,7 +160,7 @@ kms_GenerateDataKeyWithoutPlaintext:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
@@ -124,7 +176,7 @@ kms_GenerateRandom:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
@@ -137,6 +189,15 @@ kms_ListKeys:
   synopsis: list the &kms-keys;.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_list_keys.main
     Java:
       versions:
         - sdk_version: 2
@@ -158,7 +219,7 @@ kms_ListKeys:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
@@ -174,11 +235,19 @@ kms_ReEncrypt:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/kms
+          github: rust_dev_preview/kms
           excerpts:
             - description:
               snippet_tags:
                 - kms.rust.reencrypt-data
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/kms
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - kms.go-v2.ReencryptData
   services:
     kms: {ReEncrypt}
 kms_CreateAlias:
@@ -187,6 +256,15 @@ kms_CreateAlias:
   synopsis: create an alias for an &KMS; key.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_create_alias.main
     Java:
       versions:
         - sdk_version: 2
@@ -213,6 +291,15 @@ kms_CreateGrant:
   synopsis: create a grant for an &KMS; key which allows the user to use a key for encryption/decryption.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_create_grant.main
     Java:
       versions:
         - sdk_version: 2
@@ -239,6 +326,15 @@ kms_DescribeKey:
   synopsis: describe an &KMS; key.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_describe_key.main
     Java:
       versions:
         - sdk_version: 2
@@ -265,6 +361,15 @@ kms_DisableKey:
   synopsis: disable an &KMS; key.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_disable_key.main
     Java:
       versions:
         - sdk_version: 2
@@ -291,6 +396,15 @@ kms_EnableKey:
   synopsis: enable an &KMS; key.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_enable_key.main
     Java:
       versions:
         - sdk_version: 2
@@ -317,6 +431,15 @@ kms_ListAliases:
   synopsis: list aliases for an &KMS; key.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_list_aliases.main
     Java:
       versions:
         - sdk_version: 2
@@ -343,6 +466,15 @@ kms_ListGrants:
   synopsis: list grants for an &KMS; key.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_list_grant.main
     Java:
       versions:
         - sdk_version: 2

@@ -4,6 +4,15 @@ pinpoint_SendMessages:
   synopsis: send email and text messages with &PIN;.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/pinpoint
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pinpoint.kotlin.send_email.main
     Java:
       versions:
         - sdk_version: 2
@@ -55,11 +64,40 @@ pinpoint_SendMessages:
                 - pinpoint.javascript.pinpoint_send_sms_message_api.complete
   services:
     pinpoint: {SendMessages}
+pinpoint_SendMessages_Templated:
+  title: Send templated email and text messages with &PIN; using an &AWS; SDK
+  title_abbrev: Send templated email and text messages
+  synopsis: send templated email and text messages with &PIN;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/pinpoint
+          sdkguide:
+          excerpts:
+            - description: Send an email message with an existing email template.
+              snippet_tags:
+                - pinpoint.python.pinpoint_send_templated_email_message.complete
+            - description: Send a text message with an existing SMS template.
+              snippet_tags:
+                - pinpoint.python.pinpoint_send_templated_sms_message.complete
+  services:
+    pinpoint: {SendMessages}
 pinpoint_CreateApp:
   title: Create an &PIN; application
   title_abbrev: Create an application 
   synopsis: create an appliation.
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/pinpoint
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pinpoint.kotlin.createapp.main
     Java:
       versions:
         - sdk_version: 2
@@ -76,6 +114,15 @@ pinpoint_CreateCampaign:
   title_abbrev: Create a campaign 
   synopsis: create a campaign.
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/pinpoint
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pinpoint.kotlin.createcampaign.main
     Java:
       versions:
         - sdk_version: 2
@@ -108,6 +155,15 @@ pinpoint_CreateSegment:
   title_abbrev: Create a segment 
   synopsis: create a segment.
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/pinpoint
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pinpoint.kotlin.createsegment.main
     Java:
       versions:
         - sdk_version: 2
@@ -124,6 +180,15 @@ pinpoint_DeleteApp:
   title_abbrev: Delete an application
   synopsis: delete an application.
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/pinpoint
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pinpoint.kotlin.deleteapp.main
     Java:
       versions:
         - sdk_version: 2
@@ -140,6 +205,15 @@ pinpoint_DeleteEndpoint:
   title_abbrev: Delete an endpoint
   synopsis: delete an endpoint.
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/pinpoint
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pinpoint.kotlin.deleteendpoint.main
     Java:
       versions:
         - sdk_version: 2
@@ -204,6 +278,15 @@ pinpoint_GetSegments:
   title_abbrev: List segments
   synopsis: list segments.
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/pinpoint
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pinpoint.kotlin.listsegments.main
     Java:
       versions:
         - sdk_version: 2
@@ -220,6 +303,15 @@ pinpoint_GetEndpoint:
   title_abbrev: Get endpoints
   synopsis: get endpoints.
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/pinpoint
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - pinpoint.kotlin.lookup.main
     Java:
       versions:
         - sdk_version: 2

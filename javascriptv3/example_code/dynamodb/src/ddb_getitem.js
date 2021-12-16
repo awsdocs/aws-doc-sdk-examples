@@ -14,7 +14,7 @@ INPUTS:
 - ATTRIBUTE_NAME: the name of the attribute column containing the attribute value
 
 Running the code:
-ts-node ddb_getitem.js
+node ddb_getitem.js
 */
 // snippet-start:[dynamodb.JavaScript.item.getItemV3]
 // Import required AWS SDK clients and commands for Node.js
@@ -22,7 +22,7 @@ import { GetItemCommand } from "@aws-sdk/client-dynamodb";
 import { ddbClient } from "./libs/ddbClient.js";
 
 // Set the parameters
-const params = {
+export const params = {
   TableName: "TABLE_NAME", //TABLE_NAME
   Key: {
     KEY_NAME: { N: "KEY_VALUE" },
@@ -30,10 +30,10 @@ const params = {
   ProjectionExpression: "ATTRIBUTE_NAME",
 };
 
-const run = async () => {
+export const run = async () => {
   const data = await ddbClient.send(new GetItemCommand(params));
-  console.log("Success", data.Item);
   return data;
+  console.log("Success", data.Item);
 };
 run();
 // snippet-end:[dynamodb.JavaScript.item.getItemV3]

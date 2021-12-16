@@ -1,34 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
-MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UploadFileMPULowLevelAPIExample", "UploadFileMPULowLevelAPIExample\UploadFileMPULowLevelAPIExample.csproj", "{FB2B2A6E-EAE2-468E-B714-4DB97F911F40}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31829.152
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UploadFileMPULowLevelAPIExample", "UploadFileMPULowLevelAPIExample.csproj", "{D2EF1EBE-9697-4751-B0F9-37261A8CA589}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
-		Release|x64 = Release|x64
-		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D2EF1EBE-9697-4751-B0F9-37261A8CA589}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2EF1EBE-9697-4751-B0F9-37261A8CA589}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2EF1EBE-9697-4751-B0F9-37261A8CA589}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2EF1EBE-9697-4751-B0F9-37261A8CA589}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FB2B2A6E-EAE2-468E-B714-4DB97F911F40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FB2B2A6E-EAE2-468E-B714-4DB97F911F40}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FB2B2A6E-EAE2-468E-B714-4DB97F911F40}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{FB2B2A6E-EAE2-468E-B714-4DB97F911F40}.Debug|x64.Build.0 = Debug|Any CPU
-		{FB2B2A6E-EAE2-468E-B714-4DB97F911F40}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{FB2B2A6E-EAE2-468E-B714-4DB97F911F40}.Debug|x86.Build.0 = Debug|Any CPU
-		{FB2B2A6E-EAE2-468E-B714-4DB97F911F40}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FB2B2A6E-EAE2-468E-B714-4DB97F911F40}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FB2B2A6E-EAE2-468E-B714-4DB97F911F40}.Release|x64.ActiveCfg = Release|Any CPU
-		{FB2B2A6E-EAE2-468E-B714-4DB97F911F40}.Release|x64.Build.0 = Release|Any CPU
-		{FB2B2A6E-EAE2-468E-B714-4DB97F911F40}.Release|x86.ActiveCfg = Release|Any CPU
-		{FB2B2A6E-EAE2-468E-B714-4DB97F911F40}.Release|x86.Build.0 = Release|Any CPU
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D8F62DF2-68B7-43F2-BF59-FD59325BF3FA}
 	EndGlobalSection
 EndGlobal

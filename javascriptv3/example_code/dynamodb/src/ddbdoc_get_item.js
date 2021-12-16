@@ -16,15 +16,15 @@ Inputs (replace in code):
 - VALUE_2: Value for the primary key (The format for the datatype must match the schema.)
 
 Running the code:
-ts-node ddbdoc_get_item.js
+node ddbdoc_get_item.js
 */
 // snippet-start:[dynamodb.JavaScript.docClient.getV3]
 
 import { GetCommand } from "@aws-sdk/lib-dynamodb";
-import { ddbDocClient } from "./libs/ddbDocClient.js";
+import { ddbDocClient } from "./libs/ddbDocClient";
 
 // Set the parameters.
-const params = {
+export const params = {
   TableName: "TABLE_NAME",
   /*
   Convert the key JavaScript object you are retrieving to the
@@ -44,10 +44,11 @@ const params = {
   },
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await ddbDocClient.send(new GetCommand(params));
-    console.log("Success :", data.Item);
+    console.log("Success :", data);
+    // console.log("Success :", data.Item);
     return data;
   } catch (err) {
     console.log("Error", err);
