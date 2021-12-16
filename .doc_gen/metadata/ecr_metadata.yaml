@@ -12,7 +12,8 @@ ecr_DescribeRepositories:
           sdkguide:
           excerpts:
             - description:
-              snippet_tags: -ecr.rust.describe-repos
+              snippet_tags:
+                - ecr.rust.describe-repos
   services:
     ecr: { DescribeRepositories }
 ecr_ListImages:
