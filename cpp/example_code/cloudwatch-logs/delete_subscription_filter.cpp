@@ -1,9 +1,17 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
-/*
-Purpose:
-delete_subscription_filter.cpp demonstrates how to delete an Amazon CloudWatch Logs subscription filter.
-*/
+
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: delete_subscription_filter.cpp demonstrates how to delete an Amazon CloudWatch Logs subscription filter.
+
+ *
+ * Prerequisites:
+ *
+ * Inputs:
+ * - :
+ *
+ * Outputs:
+ * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cwl.cpp.delete_subscription_filter.inc]
 
 #include <aws/core/Aws.h>

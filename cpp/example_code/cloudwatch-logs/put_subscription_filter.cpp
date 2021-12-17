@@ -1,9 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
-/*
-Purpose:
-put_subscription_filter.cpp demonstrates how to create an Amazon Cloudwatch Logs subscription filter.
-*/
+
+/* ////////////////////////////////////////////////////////////////////////////
+   * Purpose: put_subscription_filter.cpp demonstrates how to create an Amazon Cloudwatch Logs subscription filter.
+   *
+   * Prerequisites:
+   *
+   * Inputs:
+   * - :
+   *
+   * Outputs:
+   * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cwl.cpp.put_subscription_filter.inc]
 #include <aws/core/Aws.h>
 #include <aws/logs/CloudWatchLogsClient.h>

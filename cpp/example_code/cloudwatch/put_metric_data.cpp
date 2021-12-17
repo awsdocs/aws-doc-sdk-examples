@@ -1,10 +1,17 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
-/*
-Purpose:
-put_metric_data.cpp demonstrates how to submit Amazon CloudWatch metric data.
 
-*/
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: put_metric_data.cpp demonstrates how to submit Amazon CloudWatch metric data.
+
+ *
+ * Prerequisites:
+ *
+ * Inputs:
+ * - :
+ *
+ * Outputs:
+ * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cw.cpp.put_metric_data.inc]
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>

@@ -1,10 +1,17 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 /*
-Purpose:
-list_metrics.cpp demonstrates how to retrieve and filter Amazon CloudWatch metrics.
-*/
 
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: list_metrics.cpp demonstrates how to retrieve and filter Amazon CloudWatch metrics.
+ *
+ * Prerequisites:
+ *
+ * Inputs:
+ * - :
+ *
+ * Outputs:
+ * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cw.cpp.list_metrics.inc]
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>

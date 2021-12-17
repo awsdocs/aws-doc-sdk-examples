@@ -1,11 +1,18 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 /*
-Purpose:
-disable_alarm_actions.cpp demonstrates how to disable actions on an Amazon CloudWatch alarm.
-
 
 */
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: disable_alarm_actions.cpp demonstrates how to disable actions on an Amazon CloudWatch alarm.
+ *
+ * Prerequisites:
+ *
+ * Inputs:
+ * - :
+ *
+ * Outputs:
+ * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cw.cpp.disable_alarm_actions.inc]
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>

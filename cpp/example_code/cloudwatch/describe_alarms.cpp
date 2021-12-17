@@ -1,12 +1,17 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 /*
-Purpose:
-describe_alarms.cpp demonstrates how to list Amazon CloudWatch alarms.
 
-
-*/
-
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: describe_alarms.cpp demonstrates how to list Amazon CloudWatch alarms.
+ *
+ * Prerequisites:
+ *
+ * Inputs:
+ * - :
+ *
+ * Outputs:
+ * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cw.cpp.describe_alarms.inc]
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>

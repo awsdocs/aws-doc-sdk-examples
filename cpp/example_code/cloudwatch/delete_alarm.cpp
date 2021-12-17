@@ -1,11 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 /*
-Purpose:
-delete_alarm.cpp demonstrates how to delete an Amazon CloudWatch alarm.
-
-
-*/
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: delete_alarm.cpp demonstrates how to delete an Amazon CloudWatch alarm.
+ *
+ * Prerequisites:
+ *
+ * Inputs:
+ * - :
+ *
+ * Outputs:
+ * ///////////////////////////////////////////////////////////////////////// */
 
 //snippet-start:[cw.cpp.delete_alarm.inc]
 #include <aws/core/Aws.h>
