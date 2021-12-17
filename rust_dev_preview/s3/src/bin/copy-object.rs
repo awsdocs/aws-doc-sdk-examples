@@ -38,21 +38,23 @@ struct Opt {
 // snippet-start:[bin.rust.copy-object]
 async fn cp_object(
     client: &Client,
-    source: &str,
-    destination: &str,
-    key: &str,
-    new_name: &str,
+    source_bucket: &str,
+    destination_bucket: &str,
+    source_object: &str,
+    destination_object: &str,
 ) -> Result<(), Error> {
-    let mut src: String = "".to_owned();
-    src.push_str(source);
-    src.push('/');
-    src.push_str(key);
+    // Create source of object:
+    //   source-bucket-name/source-object-name
+    let mut source_bucket_and_object: String = "".to_owned();
+    source_bucket_and_object.push_str(source_bucket);
+    source_bucket_and_object.push('/');
+    source_bucket_and_object.push_str(source_object);
 
     client
         .copy_object()
-        .bucket(destination)
-        .copy_source(src)
-        .key(new_name)
+        .copy_source(source_bucket_and_object)
+        .bucket(destination_bucket)
+        .key(destination_object)
         .send()
         .await?;
 
@@ -98,7 +100,7 @@ async fn main() -> Result<(), Error> {
     if name == None {
         new_name = key.clone();
     } else {
-        new_name = name.unwrap().clone();
+        new_name = name.unwrap();
     }
 
     if verbose {
@@ -108,8 +110,8 @@ async fn main() -> Result<(), Error> {
             region_provider.region().await.unwrap().as_ref()
         );
         println!("Source bucket:      {}", &source);
-        println!("Destination bucket: {}", &destination);
         println!("Source key:         {}", &key);
+        println!("Destination bucket: {}", &destination);
         println!("Destination key:    {}", &new_name);
         println!();
     }
