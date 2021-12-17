@@ -19,7 +19,7 @@ ecr_DescribeRepositories:
 ecr_ListImages:
   title: List the image IDs for an &ECR; repository using an &AWS; SDK
   title_abbrev: List the image IDs
-  synopsis: list the image IDs; for a repository.
+  synopsis: list the image IDs for a repository.
   category:
   languages:
     Rust:
