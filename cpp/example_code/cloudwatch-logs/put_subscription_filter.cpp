@@ -2,14 +2,16 @@
 // SPDX - License - Identifier: Apache - 2.0
 
 /* ////////////////////////////////////////////////////////////////////////////
-   * Purpose: put_subscription_filter.cpp demonstrates how to create an Amazon Cloudwatch Logs subscription filter.
-   *
-   * Prerequisites:
-   *
-   * Inputs:
-   * - :
-   *
-   * Outputs:
+ * Purpose: put_subscription_filter.cpp demonstrates how to create an Amazon Cloudwatch Logs subscription filter.
+ *
+ * Inputs:
+ * - filter_name: The name of the filter.
+ * - filter_pattern: The filter pattern.
+ * - log_group_name: The name of the log group.
+ * - lambda_function_arn: The Amazon Resource Number (ARN) of the Amazon Lambda function.
+ *
+ * Outputs:
+ * A subscription filter is created.
    * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cwl.cpp.put_subscription_filter.inc]
 #include <aws/core/Aws.h>

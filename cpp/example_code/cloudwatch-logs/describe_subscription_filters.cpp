@@ -2,14 +2,15 @@
 // SPDX - License - Identifier: Apache - 2.0
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: describe_subscription_filters.cpp demonstrates how to list the subscription filters for an Amazon CloudWatch Logs resource.
-
  *
  * Prerequisites:
+ * A CloudWatch Logs subscription with a filter.
  *
  * Inputs:
- * - :
+ * - log_group_name: The name of the log group.
  *
  * Outputs:
+ * This list of subscription filters are listed.
  * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cwl.cpp.describe_subscription_filters.inc]
 #include <aws/core/Aws.h>

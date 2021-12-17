@@ -3,14 +3,16 @@
 
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: delete_subscription_filter.cpp demonstrates how to delete an Amazon CloudWatch Logs subscription filter.
-
  *
  * Prerequisites:
+ * A CloudWatch Logs subscription with a filter.
  *
  * Inputs:
- * - :
+ * - filter_name: The name of the filter.
+ * - log_group: The name of the log group.
  *
  * Outputs:
+ * The subscription filter is deleted.
  * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cwl.cpp.delete_subscription_filter.inc]
 

@@ -7,11 +7,15 @@
  * Purpose: enable_alarm_actions.cpp demonstrates how to enable actions on an Amazon CloudWatch alarm.
  *
  * Prerequisites:
+ * An Amazon CloudWatch alarm.
  *
  * Inputs:
- * - :
+ * - alarm_name: The name of the alarm (entered as the second argument in the command line).
+ * - instancdId: The instance ID of the alarm (entered as the third argument in the command line).
+ * - actionArn: The Amazon Resource Name (ARN) of the action (entered as the third argument in the command line).
  *
  * Outputs:
+ * The alarm is enabled.
  * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cw.cpp.enable_alarm_actions.inc]
 #include <aws/core/Aws.h>

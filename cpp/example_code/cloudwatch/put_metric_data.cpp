@@ -3,14 +3,13 @@
 
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: put_metric_data.cpp demonstrates how to submit Amazon CloudWatch metric data.
-
  *
  * Prerequisites:
+ * An Amazon CloudWatch with an alarm.
  *
  * Inputs:
- * - :
+ * - value_stream: The CloudWatch metric stream (entered as the second argument in the command line).
  *
- * Outputs:
  * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cw.cpp.put_metric_data.inc]
 #include <aws/core/Aws.h>

@@ -5,11 +5,15 @@
  * Purpose: put_metric_alarm.cpp demonstrates how to attach an Amazon CloudWatch metrics alarm.
  *
  * Prerequisites:
+ * An Amazon CloudWatch with an alarm.
  *
  * Inputs:
- * - :
+ * - put_metric_alarm: The name of the alarm metric (entered as the first argument in the command line).
+ * - alarm_name: The name of the alarm (entered as the second argument in the command line).
+ * - instance_id: The instance id of the alarm (entered as the third argument in the command line).
  *
- * Outputs:
+ * Output:
+ * - The metric is added to the alarm.
  * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cw.cpp.put_metric_alarm.inc]
 #include <aws/core/Aws.h>

@@ -5,12 +5,9 @@
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: describe_alarms.cpp demonstrates how to list Amazon CloudWatch alarms.
  *
- * Prerequisites:
+ * Prerequisites: More than one Amazon CloudWatch alarm.
  *
- * Inputs:
- * - :
- *
- * Outputs:
+ * Outputs: A list of alarms.
  * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cw.cpp.describe_alarms.inc]
 #include <aws/core/Aws.h>

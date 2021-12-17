@@ -7,11 +7,13 @@
  * Purpose: disable_alarm_actions.cpp demonstrates how to disable actions on an Amazon CloudWatch alarm.
  *
  * Prerequisites:
+ * An Amazon CloudWatch alarm with at least one action.
  *
  * Inputs:
- * - :
+ * - alarm_name (entered as second argument in command line)
  *
  * Outputs:
+ * The alarm is disabled.
  * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cw.cpp.disable_alarm_actions.inc]
 #include <aws/core/Aws.h>

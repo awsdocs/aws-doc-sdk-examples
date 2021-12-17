@@ -8,9 +8,10 @@
  * Prerequisites:
  *
  * Inputs:
- * - :
+ * - metric_name: The name of the metric (entered as the second argument in the command line).
+ * - metric_namespace: The name of the namespace (entered as the third argument in the command line).
  *
- * Outputs:
+ * Outputs: A list of metrics.
  * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cw.cpp.list_metrics.inc]
 #include <aws/core/Aws.h>
