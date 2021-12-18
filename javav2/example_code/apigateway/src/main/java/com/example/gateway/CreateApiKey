@@ -45,15 +45,17 @@ import software.amazon.awssdk.services.apigateway.model.DeleteApiKeyResponse;
 
 public class CreateAPIKey {
 
-    public static void main(String[] args) {
-
+    public static CreateApiKeyResponse main(String[] args) {
+    
+  
         Region region = Region.US_EAST_1;
         ApiGatewayClient apiGateway = ApiGatewayClient.builder()
                 .region(region)
                 .build();
 
-        createApiKey("accessKey", "secretKey");
+        CreateApiKeyResponse apicreatedResponse = createApiKey("accessKey", "secretKey");
         apiGateway.close();
+	return apicreatedResponse;
     }
 
     // snippet-start:[apigateway.java2.get_apikeys.main]
