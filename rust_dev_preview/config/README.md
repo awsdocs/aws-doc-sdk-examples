@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several AWS Config operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several AWS Config operations using the develoer preview version of the AWS SDK for Rust.
 
 AWS Config provides a detailed view of the resources associated with your AWS account, including how they are configured, how they are related to one another, and how the configurations and their relationships have changed over time.
 
@@ -140,8 +140,9 @@ This example displays the configuration history for a resource.
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
-- [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
-
+- [AWS SDK for Rust API Reference for AWS Config](https://docs.rs/aws-sdk-config)
+- [AWS SDK for Rust Developer Guide](https://docs.aws.amazon.com/sdk-for-rust/latest/dg)
+- 
 ## Contributing
 
 To propose a new code example to the AWS documentation team, 
