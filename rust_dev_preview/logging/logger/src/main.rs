@@ -49,7 +49,7 @@ async fn main() -> Result<(), Error> {
 
     println!("Tables:");
 
-    let names = resp.table_names.unwrap_or_default();
+    let names = resp.table_names().unwrap_or_default();
     let len = names.len();
 
     for name in names {
