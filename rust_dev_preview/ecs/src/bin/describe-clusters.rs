@@ -34,7 +34,7 @@ async fn show_clusters(client: &aws_sdk_ecs::Client) -> Result<(), aws_sdk_ecs::
 }
 // snippet-end:[ecs.rust.describe-clusters]
 
-/// Lists your Amazon Elastic Container Service cluster in the Region.
+/// Lists your Amazon Elastic Container Service clusters in the Region.
 /// # Arguments
 ///
 /// * `[-r REGION]` - The Region in which the client is created.
