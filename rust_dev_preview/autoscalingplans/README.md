@@ -28,7 +28,7 @@ Use scaling plans to set up scaling policies across a collection of supported re
 
 This example lists your auto scaling plans in the Region.
 
-`cargo run --bin descibe-scaling-plans -- [-r REGION] [-v]`
+`cargo run --bin describe-scaling-plans -- [-r REGION] [-v]`
 
 - _REGION_ is name of the Region where the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
