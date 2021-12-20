@@ -1,0 +1,21 @@
+[package]
+name = "testing-examples"
+version = "0.1.0"
+authors = ["John Disanti <jdisanti@amazon.com>", "Doug Schwartz <dougsch@amazon.com>"]
+edition = "2018"
+
+# snippet-start:[testing.rust.Cargo.toml]
+[dependencies]
+async-trait = "0.1.51"
+# snippet-end:[testing.rust.Cargo.toml]
+aws-config = "0.2.0"
+aws-sdk-s3 = "0.2.0"
+aws-smithy-client = { version = "0.32.0", features = ["test-util"] }
+tokio = { version = "1", features = ["full"] }
+serde_json = "1"
+structopt = { version = "0.3", default-features = false }
+tracing-subscriber = { version = "0.2.16", features = ["fmt"] }
+
+[[bin]]
+name = "intro"
+path = "src/intro.rs"
