@@ -37,7 +37,7 @@ This example lists your Amazon Simple Storage Service buckets and Amazon Simple 
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
-- [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust) 
+- [LocalStack topic in AWS SDK for Rust API Reference Guide](https://docs.aws.amazon.com/sdk-for-rust/latest/dg/localstack.html)
 
 ## Contributing
 
