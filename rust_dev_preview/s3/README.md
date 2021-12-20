@@ -16,6 +16,8 @@ Use Amazon S3 to store and retrieve any amount of data at any time, from anywher
 - [Lists the objects in a bucket](src/bin/list-objects.rs) (ListObjectsV2)
 - [Lists the versions of the objects in a bucket](src/bin/list-object-versions.rs) (ListObjectVersions)
 - [Lists your buckets and uploads a file to a bucket](src/bin/s3-helloworld.rs) (ListBuckets, PutObject)
+- [Lists your buckets at a specified endpoint](src/bin/s3-object-lambda.rs) (ListBuckets)
+
 
 ## ⚠ Important
 
@@ -122,12 +124,26 @@ This example lists the versions of the objects in an Amazon S3 bucket.
 
 ### s3-helloworld
 
-This example uploads a file to a bucket.
+This example lists your buckets and uploads a file to a bucket.
 
-`cargo run --bin hello-world -- -b BUCKET -f FILENAME -k KEY [-r REGION] [-v]`
+`cargo run --bin s3-helloworld -- -b BUCKET -f FILENAME -k KEY [-r REGION] [-v]`
 
 - _BUCKET_ is the name of the bucket.
 - _FILENAME_ is the name of the file to upload.
+- _KEY_ is the name of the file to upload to the bucket.
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.
+
+### s3-object-lambda
+
+This example lists your buckets in a specified endpoint.
+
+`cargo run --bin s3-object-lambda -- -a ACCOUNT -e ENDPOINT [-r REGION] [-v]`
+
+- _ACCOUNT_ is the your account number.
+- _ENDPOINT_ is the endpoint.
 - _KEY_ is the name of the file to upload to the bucket.
 - _REGION_ is the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
