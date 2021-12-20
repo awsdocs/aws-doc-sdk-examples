@@ -10,12 +10,15 @@ DynamoDB is a fully managed NoSQL database service that provides fast and predic
 ## Code examples
 
 - [Add item to table](src/bin/add-item.rs) (PutItem)
+- [Are there more tables](src/bin/are-more-tables.rs) (ListTables)
 - [Create a table](src/bin/create-table.rs) (CreateTable)
 - [Create, read, update, delete table](src/bin/CRUD.rs) (CreateTable, DeleteItem, DeleteTable, PutItem, Query)
 - [Delete table item](src/bin/delete-item.rs) (DeleteItem)
 - [Delete a table](src/bin/delete-table.rs) (DeleteTable)
 - [List tables and create a table](src/bin/dynamodb-helloworld.rs) (CreateTable, ListTables)
+- [List 10 tables](src/bin/list10-tables.rs) (ListTables)
 - [List the items in a table](src/bin/list-items.rs) (Scan)
+- [List more tables](src/bin/list-more-tables.rs) (ListTables)
 - [Lists your tables](src/bin/list-tables.rs) (ListTables)
 - [Lists your local tables](src/bin/list-tables-local.rs) (ListTables)
 - [Minimal version of listing tables](src/bin/list-tables-main.rs) (ListTables)
@@ -45,7 +48,7 @@ You must have an AWS account, and have configured your default credentials and A
 
 This example adds a new item to the specified table.
 
-`cargo run --bin add-item -- -t TABLE -u USERNAME -p PERMISSION-TYPE -a AGE -f FIRST-NAME -l LAST-NAME [-d DEFAULT-REGION] [-v]`
+`cargo run --bin add-item -- -t TABLE -u USERNAME -p PERMISSION-TYPE -a AGE -f FIRST-NAME -l LAST-NAME [-r REGION] [-v]`
 
 - _TABLE_ is the name of the table to which the item is added.
 - _USERNAME_ is the username of the user to add to the table. This is the key index to the table.
@@ -53,8 +56,20 @@ This example adds a new item to the specified table.
 - _AGE_ is the age of the user.
 - _FIRST-NAME_ is the first name of the user.
 - _LAST-NAME_ is the last name of the user.
-- _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the table is located.
-  If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
+- _REGION_ is name of the AWS Region, such as __us-east-1__, where the table is located.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.
+
+### are-more-tables
+
+This example lists up to 10 tables,
+and if there are more tables, displays "There are more tables".
+
+`cargo run --bin are-more-tables -- [-r REGION] [-v]`
+
+- _REGION_ is name of the AWS Region, such as __us-east-1__, where the table is located.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
@@ -63,12 +78,12 @@ This example adds a new item to the specified table.
 This example creates a table.
 Use __delete-table__ to delete the table you've created.
 
-`cargo run --bin create-table -- -t TABLE -k KEY [-d DEFAULT-REGION] [-v]`
+`cargo run --bin create-table -- -t TABLE -k KEY [-r REGION] [-v]`
 
 - _TABLE_ is the name of the table to which the item is added.
 - _KEY_ is the primary key for the table.
-- _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the table is located.
-  If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
+- _REGION_ is name of the AWS Region, such as __us-east-1__, where the table is located.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
@@ -76,11 +91,11 @@ Use __delete-table__ to delete the table you've created.
 
 This example creates a table, adds an item to the table, updates the item, deletes the item, and deletes the table.
 
-`cargo run --bin crud -- [-i] [-d DEFAULT-REGION] [-v]`
+`cargo run --bin crud -- [-i] [-r REGION] [-v]`
 
 - __-i__ enables interactive mode, which pauses the code between operations.
-- _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the table is located.
-  If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
+- _REGION_ is name of the AWS Region, such as __us-east-1__, where the table is located.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
@@ -88,13 +103,13 @@ This example creates a table, adds an item to the table, updates the item, delet
 
 This example deletes an item from a DynamoDB table.
 
-`cargo run --bin delete-item -- -t TABLE -k KEY -v VALUE [-d DEFAULT-REGION] [-i]`
+`cargo run --bin delete-item -- -t TABLE -k KEY -v VALUE [-r REGION] [-i]`
 
 - _TABLE_ is the name of the table containing the item to delete.
 - _KEY_ is the name of the primary key of the item to delete.
 - _VALUE_ is the value of the primary key of the item to delete.
-- _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the table is located.
-  If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
+- _REGION_ is name of the AWS Region, such as __us-east-1__, where the table is located.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-i__ displays additional information.
 
@@ -102,11 +117,11 @@ This example deletes an item from a DynamoDB table.
 
 This example deletes a DynamoDB table.
 
-`cargo run --bin delete-table -- -t TABLE [-d DEFAULT-REGION] [-v]`
+`cargo run --bin delete-table -- -t TABLE [-r REGION] [-v]`
 
 - _TABLE_ is the name of the table to delete.
-- _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the table is located.
-  If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
+- _REGION_ is name of the AWS Region, such as __us-east-1__, where the table is located.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
@@ -117,14 +132,37 @@ Use __delete-table__ to delete __test-table__.
 
 `cargo run --bin dynamodb-helloworld`
 
+### list10-tables
+
+This example lists up to 10 of your DynamoDB tables.
+
+`cargo run --bin list10-tables -- [-r REGION] [-v]`
+
+- _REGION_ is name of the AWS Region, such as __us-east-1__, where the tables are located.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.
+
 ### list-items
 
 This example lists the items in a DynamoDB table.
 
-`cargo run --bin list-items -- [-d DEFAULT-REGION] [-v]`
+`cargo run --bin list-items -- [-r REGION] [-v]`
 
-- _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the tables are located.
-  If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
+- _REGION_ is name of the AWS Region, such as __us-east-1__, where the tables are located.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.
+
+### list-more-tables
+
+This example lists your DynamoDB tables,
+and every 10 tables displays "-- more --".
+
+`cargo run --bin list-more-tables -- [-r REGION] [-v]`
+
+- _REGION_ is name of the AWS Region, such as __us-east-1__, where the tables are located.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
@@ -146,10 +184,10 @@ This is a minimal example of listing your DynamoDB tables.
 
 This example lists your DynamoDB tables.
 
-`cargo run --bin list-tables -- [-d DEFAULT-REGION] [-v]`
+`cargo run --bin list-tables -- [-r REGION] [-v]`
 
-- _DEFAULT-REGION_ is name of the AWS Region, such as __us-east-1__, where the tables are located.
-  If not supplied, uses the value of the __AWS_DEFAULT_REGION__ or __AWS_REGION__ environment variable.
+- _REGION_ is name of the AWS Region, such as __us-east-1__, where the tables are located.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
