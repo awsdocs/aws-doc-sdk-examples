@@ -8,8 +8,9 @@ Use Amazon S3 to store and retrieve any amount of data at any time, from anywher
 
 ## Code examples
 
-
+- [Adds an object to a bucket and returns a public URI to the object.](src/bin/put-object-presigned.rs) (PutObject)
 - [Create basic client](src/bin/client.rs) (ListBuckets)
+- [Copies an object from one bucket to another](src/bin/copy-object.rs) (CopyObject)
 - [Create a bucket](src/bin/create-bucket.rs) (CreateBucket)
 - [Delete an object from a bucket](src/bin/delete-object.rs) (DeleteObject)
 - [Deletes one or more objects from a bucket](src/bin/delete-objects.rs) (DeleteObjects)
@@ -18,7 +19,8 @@ Use Amazon S3 to store and retrieve any amount of data at any time, from anywher
 - [Lists the versions of the objects in a bucket](src/bin/list-object-versions.rs) (ListObjectVersions)
 - [Lists the objects in a bucket](src/bin/list-objects.rs) (ListObjectsV2)
 - [Lists the versions of the objects in a bucket](src/bin/list-object-versions.rs) (ListObjectVersions)
-- [Adds an object to a bucket and returns a public URI to the object.](src/bin/put-object-presigned.rs) (PutObject)
+- [Lists your buckets and uploads a file to a bucket](src/bin/s3-helloworld.rs) (ListBuckets, PutObject)
+- [Lists your buckets at a specified endpoint](src/bin/s3-object-lambda.rs) (ListBuckets)
 - [Lists the objects in a bucket and uploads a file to the bucket](src/bin/s3_helloworld.rs) (ListObjects, PutObject)
 - [Lists your buckets at a specified endpoint](src/bin/s3-object-lambda.rs) (ListBuckets)
 - [Uses an SQL expression to retrieve content from an object in a bucket](src/bin/select-object-content.rs) (SelectObjectContent)
@@ -52,10 +54,26 @@ Use Amazon S3 to store and retrieve any amount of data at any time, from anywher
 
 ## Running the code examples
 
-## Prerequisites
+
+## ⚠ Important
+
+- We recommend that you grant this code least privilege, 
+  or at most the minimum permissions required to perform the task.
+  For more information, see
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
+  in the AWS Identity and Access Management User Guide.
+- This code has not been tested in all AWS Regions.
+  Some AWS services are available only in specific
+  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+- Running this code might result in charges to your AWS account.
+
+## Running the code examples
+
+### Prerequisites
 
 You must have an AWS account, and have configured your default credentials and AWS Region as described in [https://github.com/awslabs/aws-sdk-rust](https://github.com/awslabs/aws-sdk-rust).
-=======
+
+
 ### client
 
 This example creates a basic client and lists your Amazon S3 buckets.
@@ -66,6 +84,19 @@ This example creates a basic client and lists your Amazon S3 buckets.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
+
+### copy-object
+
+This example copies an object from one Amazon S3 bucket to another.
+
+`cargo run --bin copy-object -- -s SOURCE-BUCKET -d DESTINATION-BUCKET -k KEY [-n NEW-NAME] [-r REGION] [-v]`
+
+- _SOURCE-BUCKET_ is the name of the bucket containing the object to copy.
+- _DESTINATION-BUCKET_ is the name of the bucket where the object is copied to.
+- _KEY_ is the name of the object to copy.
+- _NEW-NAME_ is the optioal name of the object in the destination bucket.
+  If not supplied, defaults to the value of _KEY_.
+
 
 ### create-bucket
 
@@ -193,7 +224,7 @@ This example uses an SQL query to retrive information from an object, in CSV for
 - _BUCKET_ is the name of the bucket.
 - _OBJECT_ is the name of the object to query.
 - _NAME_ is the name of the person to retrieve infomation about.
-=======
+
 ### s3-object-lambda
 
 This example lists your buckets in a specified endpoint.
@@ -217,7 +248,6 @@ Person1,(nnn) nnn-nnnn,City1,Occupation1
 PersonN,(nnn) nnn-nnnn,CityN,OccupationN
 ```
 
-=======
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
