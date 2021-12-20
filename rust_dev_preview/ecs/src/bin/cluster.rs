@@ -4,7 +4,7 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_s3::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_ecs::{Error, Region};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -13,66 +13,65 @@ struct Opt {
     #[structopt(short, long)]
     region: Option<String>,
 
-    /// The name of the bucket.
+    /// The name of the cluster.
     #[structopt(short, long)]
-    bucket: String,
+    name: String,
 
     /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
 
-// Lists the objects in a bucket.
-// snippet-start:[s3.rust.list-objects]
-async fn show_objects(client: &Client, bucket: &str) -> Result<(), Error> {
-    let resp = client.list_objects_v2().bucket(bucket).send().await?;
-
-    for object in resp.contents.unwrap_or_default() {
-        println!("{}", object.key.as_deref().unwrap_or_default());
-    }
+// Create a cluster.
+// snippet-start:[ecs.rust.cluster-create]
+async fn make_cluster(client: &aws_sdk_ecs::Client, name: &str) -> Result<(), aws_sdk_ecs::Error> {
+    let cluster = client.create_cluster().cluster_name(name).send().await?;
+    println!("cluster created: {:?}", cluster);
 
     Ok(())
 }
-// snippet-end:[s3.rust.list-objects]
+// snippet-end:[ecs.rust.cluster-create]
 
-/// Lists the objects in an Amazon S3 bucket.
+// Delete a cluster.
+// snippet-start:[ecs.rust.cluster-delete]
+async fn remove_cluster(
+    client: &aws_sdk_ecs::Client,
+    name: &str,
+) -> Result<(), aws_sdk_ecs::Error> {
+    let cluster_deleted = client.delete_cluster().cluster(name).send().await?;
+    println!("cluster deleted: {:?}", cluster_deleted);
+
+    Ok(())
+}
+// snippet-end:[ecs.rust.cluster-delete]
+
+/// Creates and deletes an Amazon Elastic Container Service cluster in the Region.
 /// # Arguments
 ///
-/// * `-b BUCKET` - The name of the bucket.
-/// * `-o OBJECT` - The name of the object in the bucket.
-/// * `-n NAME` - The name of person.
+/// * `-n NAME]` - The name of the cluster.
 /// * `[-r REGION]` - The Region in which the client is created.
 ///   If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-    tracing_subscriber::fmt::init();
-
     let Opt {
+        name,
         region,
-        bucket,
         verbose,
     } = Opt::from_args();
+
+    if verbose {
+        tracing_subscriber::fmt::init();
+    }
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()
         .or_else(Region::new("us-west-2"));
 
-    println!();
-
-    if verbose {
-        println!("S3 client version: {}", PKG_VERSION);
-        println!(
-            "Region:            {}",
-            region_provider.region().await.unwrap().as_ref()
-        );
-        println!("Bucket:            {}", &bucket);
-        println!();
-    }
-
     let shared_config = aws_config::from_env().region(region_provider).load().await;
-    let client = Client::new(&shared_config);
+    let client = aws_sdk_ecs::Client::new(&shared_config);
 
-    show_objects(&client, &bucket).await
+    make_cluster(&client, &name).await?;
+    remove_cluster(&client, &name).await
 }

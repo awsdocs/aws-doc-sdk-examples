@@ -1,0 +1,35 @@
+# zexi 0.4.0
+ecr_DescribeRepositories:
+  title: List your &ECR; repositories using an &AWS; SDK
+  title_abbrev: List your repositories
+  synopsis: list your repositories.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.rust.describe-repos
+  services:
+    ecr: {DescribeRepositories}
+ecr_ListImages:
+  title: List the image IDs for an &ECR; repository using an &AWS; SDK
+  title_abbrev: List the image IDs
+  synopsis: list the image IDs for a repository.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.rust.list-images
+  services:
+    ecr: {ListImages}

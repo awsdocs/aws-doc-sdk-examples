@@ -13,6 +13,7 @@ Amazon Polly is a Text-to-Speech (TTS) cloud service that converts text into lif
 - [Lists the available voices and language](src/bin/polly-helloworld.rs) (DescribeVoices)
 - [Creates a lexicon](src/bin/put-lexicon.rs) (PutLexicon)
 - [Create speech from text](src/bin/synthesize-speech.rs) (SynthesizeSpeech)
+- [Create speech from text and return a presigned URI](src/bin/synthesize-speech-presigned.rs) (SynthesizeSpeech)
 
 ## ⚠ Important
 
@@ -89,10 +90,26 @@ This example reads a text file and creates an MP3 file with the text synthesized
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
+### synthesize-speech-presigned.rs) (SynthesizeSpeech)
+
+This example reads a text file, creates an MP3 file with the text synthesized into speech by Amazon Polly, and returns a public URI to access the MP3 file.
+
+`cargo run --bin synthesize-speech-presigned -- -f FILENAME [-e EXPIRES-IN] [-r REGION] [-v]`
+
+- _FILENAME_ is name of the file containing the text to synthesize.
+  The MP3 output is saved in a file with the same basename and an ".MP3" extension.
+- _EXPIRES-IN_ is the number of seconds the URI is valid.
+  If not supplied, this defaults to 900 (15 minutes).
+- _REGION_ is the Region in which the client is created.
+  If not supplied, uses the value of the __AWS_REGION__ environment variable.
+  If the environment variable is not set, defaults to __us-west-2__.
+- __-v__ displays additional information.
+
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
-- [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
+- [AWS SDK for Rust API Reference for Amazon Polly](https://docs.rs/aws-sdk-polly)
+- [AWS SDK for Rust Developer Guide](https://docs.aws.amazon.com/sdk-for-rust/latest/dg)
 
 ## Contributing
 
