@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several Amazon DynamoDB (DynamoDB) operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Amazon DynamoDB (DynamoDB) operations using the developer preview version of the AWS SDK for Rust.
 Most use the schema defined in the __create-table__ example.
 
 DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability.
@@ -17,6 +17,8 @@ DynamoDB is a fully managed NoSQL database service that provides fast and predic
 - [List tables and create a table](src/bin/dynamodb-helloworld.rs) (CreateTable, ListTables)
 - [List the items in a table](src/bin/list-items.rs) (Scan)
 - [Lists your tables](src/bin/list-tables.rs) (ListTables)
+- [Lists your local tables](src/bin/list-tables-local.rs) (ListTables)
+- [Minimal version of listing tables](src/bin/list-tables-main.rs) (ListTables)
 - [Create a table, adds some items from a file to the table, queries the table, and deletes the table](src/bin/movies.rs) (CreateTable, DeleteTable, ListTables, PutItem, Query)
 
 ## ⚠ Important
@@ -126,6 +128,20 @@ This example lists the items in a DynamoDB table.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
+### list-tables-local
+
+This example lists your DynamoDB tables using LocalStack.
+
+`cargo run --bin list-tables-local`
+
+See the [Localstack with the AWS SDK for Rust](https://docs.aws.amazon.com/sdk-for-rust/latest/dg/localstack.html) topic in the developer guide for details.
+
+### list-tables-main
+
+This is a minimal example of listing your DynamoDB tables.
+
+`cargo run --bin list-tables-main`
+
 ### list-tables
 
 This example lists your DynamoDB tables.
@@ -147,6 +163,7 @@ Use __delete-table__ to delete __dynamo-movies-example__.
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- [AWS SDK for Rust API Reference for DynamoDB](https://docs.rs/aws-sdk-dynamodb)
 - [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
 
 ## Contributing
