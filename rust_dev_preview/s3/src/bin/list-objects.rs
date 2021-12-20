@@ -39,6 +39,8 @@ async fn show_objects(client: &Client, bucket: &str) -> Result<(), Error> {
 /// # Arguments
 ///
 /// * `-b BUCKET` - The name of the bucket.
+/// * `-o OBJECT` - The name of the object in the bucket.
+/// * `-n NAME` - The name of person.
 /// * `[-r REGION]` - The Region in which the client is created.
 ///   If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///   If the environment variable is not set, defaults to **us-west-2**.
