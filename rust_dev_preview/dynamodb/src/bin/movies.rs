@@ -103,28 +103,28 @@ async fn main() -> Result<(), Error> {
         .send()
         .await
         .expect("query should succeed");
-    // this isn't back to the future, there are no movies from 2022
-    assert_eq!(films_2222.count, 0);
+    // this isn't back to the future, there are no movies from 2222
+    assert_eq!(films_2222.count(), 0);
 
     let films_2013 = movies_in_year(&client, &table.to_string(), 2013)
         .send()
         .await
         .expect("query should succeed");
-    assert_eq!(films_2013.count, 2);
-    let titles: Vec<AttributeValue> = films_2013
-        .items
-        .unwrap()
-        .into_iter()
-        .map(|mut row| row.remove("title").expect("row should have title"))
-        .collect();
+    assert_eq!(films_2013.count(), 2);
+    let titles = films_2013
+        .items()
+        .unwrap();
+
     assert_eq!(
-        titles,
         vec![
-            AttributeValue::S("Rush".to_string()),
-            AttributeValue::S("Turn It Down, Or Else!".to_string())
+            *titles.get(0).unwrap().get("title").as_ref().unwrap(),
+            *titles.get(1).unwrap().get("title").as_ref().unwrap(),
+        ],
+        vec![
+            &AttributeValue::S("Rush".to_string()),
+            &AttributeValue::S("Turn It Down, Or Else!".to_string())
         ]
     );
-
     // Delete table.
     delete_table(&client, &table).await
 }
@@ -137,7 +137,7 @@ async fn does_table_exist(client: &Client, table: &str) -> Result<bool, Error> {
         .send()
         .await
         .expect("should succeed")
-        .table_names
+        .table_names()
         .as_ref()
         .unwrap()
         .contains(&table.into());
@@ -265,13 +265,13 @@ where
         match response {
             Ok(SdkSuccess { parsed, .. }) => {
                 if parsed
-                    .table
+                    .table()
                     .as_ref()
                     .unwrap()
-                    .table_status
+                    .table_status()
                     .as_ref()
                     .unwrap()
-                    == &TableStatus::Creating
+                    == &&TableStatus::Creating
                 {
                     RetryKind::Explicit(Duration::from_secs(1))
                 } else {

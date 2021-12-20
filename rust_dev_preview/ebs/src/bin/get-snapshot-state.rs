@@ -34,11 +34,11 @@ async fn show_state(client: &Client, id: &str) -> Result<(), Error> {
 
     println!(
         "State: {}",
-        resp.snapshots
+        resp.snapshots()
             .unwrap()
-            .pop()
+            .first()
             .unwrap()
-            .state
+            .state()
             .unwrap()
             .as_ref()
     );
