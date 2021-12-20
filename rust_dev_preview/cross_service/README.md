@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These code examples demonstrate how to perform two or more service operations using the alpha version of the AWS SDK for Rust.
+These code examples demonstrate how to perform two or more service operations using the developer preview version of the AWS SDK for Rust.
 
 Amazon Simple Storage Service (Amazon S3) is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web.
 
@@ -115,7 +115,12 @@ cargo run -- -f FILENAME -b BUCKET -j JOB-NAME  [-r REGION] [-v]
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
-- [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_cognitoidentityprovider/index.html) 
+- [AWS SDK for Rust API Reference for Amazon DynamoDB](https://docs.rs/aws-sdk-dynamodb)
+- [AWS SDK for Rust API Reference for Amazon Polly](https://docs.rs/aws-sdk-polly)
+- [AWS SDK for Rust API Reference for Amazon Rekognition](https://docs.rs/aws-sdk-rekognition)
+- [AWS SDK for Rust API Reference for Amazon S3](https://docs.rs/aws-sdk-s3)
+- [AWS SDK for Rust API Reference for Amazon Transcribe](https://docs.rs/aws-sdk-transcribe)
+- [AWS SDK for Rust Developer Guide](https://docs.aws.amazon.com/sdk-for-rust/latest/dg)
 
 ## Contributing
 
