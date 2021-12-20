@@ -15,10 +15,10 @@ DynamoDB is a fully managed NoSQL database service that provides fast and predic
 - [Create, read, update, delete table](src/bin/CRUD.rs) (CreateTable, DeleteItem, DeleteTable, PutItem, Query)
 - [Delete table item](src/bin/delete-item.rs) (DeleteItem)
 - [Delete a table](src/bin/delete-table.rs) (DeleteTable)
-- [List 10 tables](src/bin/list10-tables.rs) (ListTables)
-- [List more tables](src/bin/list-more-tables.rs) (ListTables)
 - [List tables and create a table](src/bin/dynamodb-helloworld.rs) (CreateTable, ListTables)
+- [List 10 tables](src/bin/list10-tables.rs) (ListTables)
 - [List the items in a table](src/bin/list-items.rs) (Scan)
+- [List more tables](src/bin/list-more-tables.rs) (ListTables)
 - [Lists your tables](src/bin/list-tables.rs) (ListTables)
 - [Create a table, adds some items from a file to the table, queries the table, and deletes the table](src/bin/movies.rs) (CreateTable, DeleteTable, ListTables, PutItem, Query)
 
@@ -130,22 +130,22 @@ Use __delete-table__ to delete __test-table__.
 
 `cargo run --bin dynamodb-helloworld`
 
-### list-items
+### list10-tables
 
-This example lists the items in a DynamoDB table.
+This example lists up to 10 of your DynamoDB tables.
 
-`cargo run --bin list-items -- [-r REGION] [-v]`
+`cargo run --bin list10-tables -- [-r REGION] [-v]`
 
 - _REGION_ is name of the AWS Region, such as __us-east-1__, where the tables are located.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
-### list10-tables
+### list-items
 
-This example lists up to 10 of your DynamoDB tables.
+This example lists the items in a DynamoDB table.
 
-`cargo run --bin list10-tables -- [-r REGION] [-v]`
+`cargo run --bin list-items -- [-r REGION] [-v]`
 
 - _REGION_ is name of the AWS Region, such as __us-east-1__, where the tables are located.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
@@ -185,6 +185,7 @@ Use __delete-table__ to delete __dynamo-movies-example__.
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- [AWS SDK for Rust API Reference for DynamoDB](https://docs.rs/aws-sdk-dynamodb)
 - [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
 
 ## Contributing
