@@ -22,7 +22,7 @@ struct Opt {
 // snippet-start:[autoscalingplans.rust.describe-scaling-plans]
 async fn list_plans(client: &Client) -> Result<(), Error> {
     let response = client.describe_scaling_plans().send().await?;
-    
+
     if let Some(plans) = response.scaling_plans() {
         println!("Auto Scaling Plans:");
         for plan in plans {
@@ -54,10 +54,7 @@ async fn main() -> Result<(), Error> {
     println!();
 
     if verbose {
-        println!(
-            "Auto Scaling Plans client version: {}",
-            PKG_VERSION
-        );
+        println!("Auto Scaling Plans client version: {}", PKG_VERSION);
         println!(
             "Region:                            {}",
             region_provider.region().await.unwrap().as_ref()
