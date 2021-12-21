@@ -1,5 +1,4 @@
-
-#zexi 0.4.0
+# zexi 0.4.0
 rds_CreateDBInstance:
   title: Create an &RDS; instance using an &AWS; SDK
   title_abbrev: Create an instance
@@ -101,4 +100,4 @@ rds_RebootDBInstance:
               snippet_tags:
                 - rds.java2.describe_instances.main
   services:
-    rds: {RebootDBInstance}           
+    rds: {RebootDBInstance}

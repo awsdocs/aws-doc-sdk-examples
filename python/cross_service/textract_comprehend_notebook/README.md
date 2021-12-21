@@ -1,57 +1,67 @@
-# Using Amazon Textract and Amazon Comprehend to detect entities in extracted text
+# Detect entities in extracted text using a Jupyter notebook
 
 ## Purpose
 
-This AWS cross-service example guides you through the process of using Amazon Textract and Amazon Comprehend to extract text from an image and then detect entities in that extracted text. The guide also connects to Amazon Simple Storage Service (Amazon S3) to retrieve an image stored there. The AWS SDK for Python (Boto3) is used to connect to the following services:
+Shows how to use the AWS SDK for Python (Boto3) in a Jupyter notebook to detect entities 
+in text that is extracted from an image. This example uses Amazon Textract to
+extract text from an image stored in Amazon Simple Storage Service (Amazon S3) and 
+Amazon Comprehend to detect entities in the extracted text.
 
-* Amazon S3
-* Amazon Textract
-* Amazon Comprehend
+## ⚠ Important
 
-## Prerequisites
+- As an AWS best practice, grant this code least privilege, or only the 
+  permissions required to perform a task. For more information, see 
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
+  in the *AWS Identity and Access Management 
+  User Guide*.
+- This code has not been tested in all AWS Regions. Some AWS services are 
+  available only in specific Regions. For more information, see the 
+  [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
+  on the AWS website.
+- Running this code might result in charges to your AWS account.
 
-To complete the tutorial, you need the following:
+## Running the code
 
-* An AWS account. For more information see [AWS SDKs and Tools Reference Guide](https://docs.aws.amazon.com/sdkref/latest/guide/overview.html)
-* Python 3.5 or later
-* The AWS SDK for Python (Boto3)
-* The Python libraries PIL and Pandas
+### Prerequisites
 
-## ⚠️ Important
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.5 or later
+- Boto3 1.17.96 or later
+- Pillow 8.1.1 or later
+- Pandas 1.3.2 or later
 
-- This code has not been tested in all AWS Regions. Some AWS services are available only in specific [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account. 
-- Running the unit tests might result in charges to your AWS account. [optional]
+### Creating the resources
 
-## Creating the resources
+For this example, you need the following resources:
 
-For this example, you require the following resources:
+* An Amazon S3 bucket.
+* An image in the Amazon S3 bucket containing text.
 
-* AWS Access Credentials.
-* An Amazon Simple Storage Service (Amazon S3) bucket.
-* An image in the S3 bucket containing text.
+Create these resources by using the AWS Management Console or the AWS SDK for Python.
 
-You can create these resources by using the console or the AWS SDK for Python.
+### Running the code
 
-## Building the code
+This example is a Jupyter notebook and must be run in an environment that can host
+notebooks. For instructions on how to run the example using Amazon SageMaker, see
+the directions in [TextractAndComprehendNotebook.ipynb](TextractAndComprehendNotebook.ipynb).
 
-In order to build the code, follow the directions in the notebook.
+### Deleting the resources
 
-## Running the unit tests
+After running the example, remember to delete any resources you are no longer using, 
+including your Amazon S3 bucket.
 
-In order to run the unit tests:
+## Running the tests
 
-1) Ensure that the [Testbook](https://testbook.readthedocs.io/en/latest/) library is installed 
+To run the unit tests:
 
-2. Replace the values of the indicated variables, specified in the `test-textract-comprehend` Python file, with the values that you want to use.
+1. Install the [Testbook](https://testbook.readthedocs.io/en/latest/) library. 
+1. Replace the values of the indicated variables, specified in the 
+`test-textract-comprehend.py` Python file, with the values that you want to use.
+1. Run the test file at a command prompt: `python test-textract-comprehend.py`.
 
-3. Run the Python file.
-
-## Deleting the resources
-
-Remember to delete any resources you are no longer using, including your Amazon S3 bucket.
-
-
-
+---
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
 SPDX-License-Identifier: Apache-2.0
