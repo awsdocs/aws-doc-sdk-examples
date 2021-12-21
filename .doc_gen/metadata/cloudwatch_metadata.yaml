@@ -309,15 +309,15 @@ cloudwatch_EnableAlarmActions:
             - description:
               snippet_tags:
                 - CloudWatch.dotnetv3.EnableAlarmActionsExample
-      Kotlin:
-        versions:
-          - sdk_version: 1
-            github: kotlin/services/cloudwatch
-            sdkguide:
-            excerpts:
-              - description:
-                snippet_tags:
-                  - cloudwatch.kotlin.enable_alarm_actions.main
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.enable_alarm_actions.main
     Java:
       versions:
         - sdk_version: 2
