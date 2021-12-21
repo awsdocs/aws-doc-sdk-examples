@@ -100,7 +100,7 @@ cloudwatch_PutMetricData:
             - description: Include the required files.
               snippet_tags:
                 - cw.cpp.put_metric_data.inc
-            - description: Put data into a metric.
+            - description: Put data into the metric.
               snippet_tags:
                 - cw.cpp.put_metric_data.code
     JavaScript:
@@ -194,7 +194,7 @@ cloudwatch_PutMetricAlarm:
             - description: Include the required files.
               snippet_tags:
                 - cw.cpp.put_metric_alarm.inc
-            - description: Create the alarm to watches the metric.
+            - description: Create the alarm to watch the metric.
               snippet_tags:
                 - cw.cpp.put_metric_alarm.code
     JavaScript:
@@ -252,7 +252,7 @@ cloudwatch_DescribeAlarmsForMetric:
             - description: Include the required files.
               snippet_tags:
                 - cw.cpp.describe_alarms.inc
-            - description: Describe the alarm.
+            - description: Describe the alarms.
               snippet_tags:
                 - cw.cpp.describe_alarms.code
     JavaScript:

@@ -231,7 +231,7 @@ cloudwatch-logs_PutSubscriptionFilter:
             - description: Include the required files.
               snippet_tags:
                 - cwl.cpp.put_subscription_filter.inc
-            - description: Put the subscription filter.
+            - description: Create the subscription filter.
               snippet_tags:
                 - cwl.cpp.put_subscription_filter
     JavaScript:

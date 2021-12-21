@@ -3,11 +3,12 @@
 /*
 
 /* ////////////////////////////////////////////////////////////////////////////
- * Purpose: describe_alarms.cpp demonstrates how to list Amazon CloudWatch alarms.
+ * Purpose: describe_alarms.cpp demonstrates how to get detail about Amazon CloudWatch alarms.
  *
- * Prerequisites: More than one Amazon CloudWatch alarm.
+ * Prerequisites: An Amazon CloudWatch metric with one or more alarms.
  *
- * Outputs: A list of alarms.
+ * Outputs:
+ * The name, Amazon Resource Number (ARN), description and date last updated of your alarms.
  * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cw.cpp.describe_alarms.inc]
 #include <aws/core/Aws.h>
@@ -21,7 +22,7 @@
 static const char* SIMPLE_DATE_FORMAT_STR = "%Y-%m-%d";
 
 /**
- * Lists all cloud watch alarms
+ * Lists all cloud watch alarms.
  */
 int main(int argc, char** argv)
 {

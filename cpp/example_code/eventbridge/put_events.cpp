@@ -1,10 +1,17 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
-/*
-Purpose:
-put_events.cpp demonstrates how to post an Amazon CloudWatch event.
-*/
 
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: put_events.cpp demonstrates how to post an Amazon CloudWatch event.
+ *
+ * Inputs:
+ * - resource_arn: The Amazon Resource Number (ARN) of the event.
+ * - event_key: The event key.
+ * - event_value: The event value.
+ *
+ * Outputs:
+ * The event is posted.
+   * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cw.cpp.put_events.inc]
 #include <aws/core/Aws.h>
 #include <aws/events/CloudWatchEventsClient.h>

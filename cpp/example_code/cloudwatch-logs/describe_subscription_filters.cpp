@@ -10,7 +10,7 @@
  * - log_group_name: The name of the log group.
  *
  * Outputs:
- * This list of subscription filters are listed.
+ * This subscription filters are described.
  * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cwl.cpp.describe_subscription_filters.inc]
 #include <aws/core/Aws.h>

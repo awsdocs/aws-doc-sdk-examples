@@ -4,11 +4,12 @@
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: delete_alarm.cpp demonstrates how to delete an Amazon CloudWatch alarm.
  *
+ * Prerequisites:
+ * - An Amazon CloudWatch metric alarm.
+ *
  * Inputs:
  * - alarm_name (entered as second argument in command line).
  *
- * Prerequisites:
- * An Amazon CloudWatch alarm.
  * ///////////////////////////////////////////////////////////////////////// */
 
 //snippet-start:[cw.cpp.delete_alarm.inc]

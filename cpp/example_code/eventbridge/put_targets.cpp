@@ -1,11 +1,19 @@
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
-/*
-Purpose:
-put_targets.cpp demonstrates how to create an Amazon CloudWatch Events routing rule target.
-*/
 
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: put_targets.cpp demonstrates how to create an Amazon CloudWatch Events routing rule target.
+ *
+ * Inputs:
+ * - filter_name: The name of the filter.
+ * - filter_pattern: The filter pattern.
+ * - log_group_name: The name of the log group.
+ * - lambda_function_arn: The Amazon Resource Number (ARN) of the Amazon Lambda function.
+ *
+ * Outputs:
+ * The routing rule is target is created.
+   * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cw.cpp.put_targets.inc]
 #include <aws/core/Aws.h>
 #include <aws/events/CloudWatchEventsClient.h>

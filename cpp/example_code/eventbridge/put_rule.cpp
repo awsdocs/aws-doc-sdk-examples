@@ -1,10 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
-/*
-Purpose:
-put_rule.cpp demonstrates how to create an Amazon CloudWatch Events routing rule.
-*/
 
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: put_rule.cpp demonstrates how to create an Amazon CloudWatch Events routing rule.
+ *
+ * Inputs:
+ * - rule_name: The name of the rule.
+ * - role_arn: The Amazon Resource Name (ARN) of the IAM role associated with the rule.
+ *
+ * Outputs:
+ * The routing rule is created.
+   * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cw.cpp.put_rule.inc]
 #include <aws/core/Aws.h>
 #include <aws/events/CloudWatchEventsClient.h>
