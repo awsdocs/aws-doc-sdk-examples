@@ -345,7 +345,7 @@ cloudwatch_EnableAlarmActions:
           excerpts:
             - description: Include the required files.
               snippet_tags:
-               - cw.cpp.enable_alarm_actions.inc
+                - cw.cpp.enable_alarm_actions.inc
             - description: Enable the alarm actions.
               snippet_tags:
                 - cw.cpp.enable_alarm_actions.code
@@ -590,7 +590,7 @@ cloudwatch_GetDashboard:
     cloudwatch: {GetDashboard}
 cloudwatch_ListDashboards:
   title: List &CW; dashboards
-  title_abbrev: List dashboards 
+  title_abbrev: List dashboards
   synopsis: list &CWlong; dashboards.
   category:
   languages:
