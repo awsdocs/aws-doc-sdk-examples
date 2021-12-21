@@ -129,7 +129,7 @@ async fn add_item(
         Err(e) => Err(e),
     }
 }
-// snippet-start:[dynamodb.rust.crud-add_item]
+// snippet-end:[dynamodb.rust.crud-add_item]
 
 /// Query the table for an item matching the input values.
 /// Returns true if the item is found; otherwise false.
