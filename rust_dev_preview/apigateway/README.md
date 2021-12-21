@@ -2,9 +2,9 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several API Gateway operations using the developer preview version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Amazon API Gateway (API Gateway) operations using the developer preview version of the AWS SDK for Rust.
 
-Amazon API Gateway (API Gateway) enables you to create and deploy your own REST and WebSocket APIs at any scale. You can create robust, secure, and scalable APIs that access Amazon Web Services or other web services, as well as data that’s stored in the AWS Cloud.
+API Gateway enables you to create and deploy your own REST and WebSocket APIs at any scale. You can create robust, secure, and scalable APIs that access Amazon Web Services or other web services, as well as data that’s stored in the AWS Cloud.
 
 ## Code examples
 

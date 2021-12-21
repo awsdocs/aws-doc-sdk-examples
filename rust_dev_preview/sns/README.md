@@ -2,9 +2,9 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several Amazon SNS operations using the developer preview version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Amazon Simple Notification Service (Amazon SNS) operations using the developer preview version of the AWS SDK for Rust.
 
-Amazon Simple Notification Service (Amazon SNS) is a web service that enables applications, end-users, and devices to instantly send and receive notifications from the cloud.
+Amazon SNS is a web service that enables applications, end-users, and devices to instantly send and receive notifications from the cloud.
 
 ## Code examples
 

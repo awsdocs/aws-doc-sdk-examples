@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several API Gateway Management API operations using the developer preview version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Amazon API Gateway Management API (API Gateway Management API) operations using the developer preview version of the AWS SDK for Rust.
 
 The Amazon API Gateway Management API allows you to directly manage runtime aspects of your deployed APIs. To use it,
 you must explicitly set the SDK's endpoint to point to the endpoint of your deployed API. The endpoint must be of the
@@ -37,7 +37,7 @@ You must have an AWS account, and have configured your default credentials and A
 
 ### post_to_connection
 
-This example 
+This example sends data to a connection.
 
 `cargo run --bin post_to_connection -- -a APP-ID -s STAGE -c CONNECTION-ID -d DATA [-r REGION] [-v]`
 
@@ -53,7 +53,7 @@ This example
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
-- [AWS SDK for Rust API Reference for API Gateway Management API](https://docs.rs/aws-sdk-apigatewaymanagementapi)
+- [AWS SDK for Rust API Reference for API Gateway Management API](https://docs.rs/aws-sdk-apigatewaymanagement)
 - [AWS SDK for Rust Developer Guide](https://docs.aws.amazon.com/sdk-for-rust/latest/dg)
 
 ## Contributing

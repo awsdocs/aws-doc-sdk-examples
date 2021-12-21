@@ -1,10 +1,10 @@
 # AWS SDK for Rust code examples for Application Auto Scaling
 
-Application Auto Scaling enables auto scaling for resources beyond just EC2, either with scaling policies or with scheduled scaling.
-
 ## Purpose
 
-These examples demonstrate how to perform several Application Auto Scaling operations using the developer preview version of the AWS SDK for Rust.
+These examples demonstrate how to perform several AWS Application Auto Scaling (Application Auto Scaling) operations using the developer preview version of the AWS SDK for Rust.
+
+Application Auto Scaling enables auto scaling for resources beyond just EC2, either with scaling policies or with scheduled scaling.
 
 ## Code examples
 

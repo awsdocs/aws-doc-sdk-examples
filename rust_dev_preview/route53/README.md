@@ -1,8 +1,8 @@
-# AWS SDK for Rust code examples for Amazon Route53
+# AWS SDK for Rust code examples for Amazon Route 53
 
 ## Purpose
 
-These examples demonstrate how to perform several Amazon Route53 operations using the developer preview version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Amazon Route 53 operations using the developer preview version of the AWS SDK for Rust.
 
 Amazon Route 53 is a highly available and scalable Domain Name System (DNS) web service.
 
@@ -42,7 +42,7 @@ This example displays the IDs and names of the hosted zones in the Region.
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
-- [AWS SDK for Rust API Reference for Amazon Route53](https://docs.rs/aws-sdk-route53)
+- [AWS SDK for Rust API Reference for Amazon Route 53](https://docs.rs/aws-sdk-route53)
 - [AWS SDK for Rust Developer Guide](https://docs.aws.amazon.com/sdk-for-rust/latest/dg)
 
 ## Contributing
