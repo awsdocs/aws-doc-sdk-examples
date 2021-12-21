@@ -9,7 +9,9 @@ and shows how to mock the call using traits or an enum.
 
 ## Code example
 
+- [Get object sizes mocked by enum](src/enums.rs) (ListObjectsV2)
 - [Get object sizes](src/intro.rs) (ListObjectsV2)
+- [Get object sizes mocked by trait](src/traits.rs) (ListObjectsV2)
 
 ## ⚠ Important
 
