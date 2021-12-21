@@ -18,6 +18,33 @@ struct Opt {
     verbose: bool,
 }
 
+// Get hosted zone IDs and names.
+// snippet-start:[route53.rust.route53-helloworld]
+async fn show_host_info(client: &aws_sdk_route53::Client) -> Result<(), aws_sdk_route53::Error> {
+    let hosted_zone_count = client.get_hosted_zone_count().send().await?;
+
+    println!(
+        "Number of hosted zones in region : {}",
+        hosted_zone_count.hosted_zone_count.unwrap_or_default(),
+    );
+
+    let hosted_zones = client.list_hosted_zones().send().await?;
+
+    println!("Zones:");
+
+    for hz in hosted_zones.hosted_zones.unwrap_or_default() {
+        let zone_name = hz.name.as_deref().unwrap_or_default();
+        let zone_id = hz.id.as_deref().unwrap_or_default();
+
+        println!("  ID :   {}", zone_id);
+        println!("  Name : {}", zone_name);
+        println!();
+    }
+
+    Ok(())
+}
+// snippet-end:[route53.rust.route53-helloworld]
+
 /// Displays the IDs and names of the hosted zones in the Region.
 /// # Arguments
 ///
@@ -49,25 +76,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let hosted_zone_count = client.get_hosted_zone_count().send().await?;
-
-    println!(
-        "Number of hosted zones in region : {}",
-        hosted_zone_count.hosted_zone_count.unwrap_or_default(),
-    );
-
-    let hosted_zones = client.list_hosted_zones().send().await?;
-
-    println!("Zones:");
-
-    for hz in hosted_zones.hosted_zones.unwrap_or_default() {
-        let zone_name = hz.name.as_deref().unwrap_or_default();
-        let zone_id = hz.id.as_deref().unwrap_or_default();
-
-        println!("  ID :   {}", zone_id);
-        println!("  Name : {}", zone_name);
-        println!();
-    }
-
-    Ok(())
+    show_host_info(&client).await
 }
