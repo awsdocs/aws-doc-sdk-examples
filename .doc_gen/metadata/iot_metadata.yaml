@@ -8,13 +8,13 @@ iot_DescribeEndpoint:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/iot
+          github: rust_dev_preview/iot
           excerpts:
             - description:
               snippet_tags:
                 - iot.rust.describe-endpoint
   services:
-    iot: { DescribeEndpoint }
+    iot: {DescribeEndpoint}
 iot_ListThings:
   title: List your &IoT; things using an &AWS; SDK
   title_abbrev: List your things
@@ -24,10 +24,10 @@ iot_ListThings:
     Rust:
       versions:
         - sdk_version: 1
-          github: .rust_alpha/iot
+          github: rust_dev_preview/iot
           excerpts:
             - description:
               snippet_tags:
                 - iot.rust.list-things
   services:
-    iot: { ListThings }
+    iot: {ListThings}

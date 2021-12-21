@@ -12,6 +12,7 @@ from test_tools.acm_stubber import AcmStubber
 from test_tools.apigateway_stubber import ApiGatewayStubber
 from test_tools.apigatewaymanagementapi_stubber import ApiGatewayManagementApiStubber
 from test_tools.apigateway_v2_stubber import ApiGatewayV2Stubber
+from test_tools.auditmanager_stubber import AuditManagerStubber
 from test_tools.cloudfront_stubber import CloudFrontStubber
 from test_tools.cloudwatch_stubber import CloudWatchStubber
 from test_tools.cloudwatch_logs_stubber import CloudWatchLogsStubber
@@ -25,6 +26,7 @@ from test_tools.glacier_stubber import GlacierStubber
 from test_tools.iam_stubber import IamStubber
 from test_tools.kinesis_stubber import KinesisStubber
 from test_tools.kinesis_analytics_v2_stubber import KinesisAnalyticsV2Stubber
+from test_tools.kms_stubber import KmsStubber
 from test_tools.lambda_stubber import LambdaStubber
 from test_tools.lookoutvision_stubber import LookoutVisionStubber
 from test_tools.organizations_stubber import OrganizationsStubber
@@ -59,9 +61,11 @@ def stubber_factory(service_name):
     elif service_name == 'apigateway':
         return ApiGatewayStubber
     elif service_name == 'apigatewaymanagementapi':
-        return  ApiGatewayManagementApiStubber
+        return ApiGatewayManagementApiStubber
     elif service_name == 'apigatewayv2':
         return ApiGatewayV2Stubber
+    elif service_name == 'auditmanager':
+        return AuditManagerStubber
     elif service_name == 'cloudfront':
         return CloudFrontStubber
     elif service_name == 'cloudwatch':
@@ -88,6 +92,8 @@ def stubber_factory(service_name):
         return KinesisStubber
     elif service_name == 'kinesisanalyticsv2':
         return KinesisAnalyticsV2Stubber
+    elif service_name == 'kms':
+        return KmsStubber
     elif service_name == 'lambda':
         return LambdaStubber
     elif service_name == 'lookoutvision':

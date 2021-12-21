@@ -12,7 +12,7 @@ INPUTS:
 - TABLE_NAME
 
 Running the code:
-ts-node ddb_deletetable.js
+node ddb_deletetable.js
 
 */
 // snippet-start:[dynamodb.JavaScript.item.deleteTableV3]
@@ -21,24 +21,19 @@ import { DeleteTableCommand } from "@aws-sdk/client-dynamodb";
 import { ddbClient } from "./libs/ddbClient.js";
 
 // Set the parameters
-const params = {
-  TableName: "TABLE_NAME",
+export const params = {
+  TableName: "CUSTOMER_LIST_NEW",
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await ddbClient.send(new DeleteTableCommand(params));
     console.log("Success, table deleted", data);
     return data;
   } catch (err) {
-    if (err && err.code === "ResourceNotFoundException") {
-      console.log("Error: Table not found");
-    } else if (err && err.code === "ResourceInUseException") {
-      console.log("Error: Table in use");
+      console.log("Error", err);
     }
-  }
 };
 run();
 // snippet-end:[dynamodb.JavaScript.item.deleteTableV3]
-// For unit tests only.
-// module.exports ={run, params};
+

@@ -17,9 +17,9 @@ import { iamClient } from "./libs/iamClient.js";
 import { ListAccountAliasesCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = { MaxItems: 5 };
+export const params = { MaxItems: 5 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new ListAccountAliasesCommand(params));
     console.log("Success", data);
@@ -30,4 +30,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.alias.listAccountAliasesV3]
-// module.exports =  { run, params }; // For unit tests.
+

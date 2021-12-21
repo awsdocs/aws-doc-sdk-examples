@@ -1,0 +1,103 @@
+# zexi 0.4.2
+organizations_CreatePolicy:
+  title: Create an &AO; policy using an &AWS; SDK
+  title_abbrev: Create a policy
+  synopsis: create an &AO; policy.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/organizations
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.organizations.CreatePolicy
+  services:
+    organizations: {CreatePolicy}
+organizations_ListPolicies:
+  title: List &AO; policies using an &AWS; SDK
+  title_abbrev: List policies
+  synopsis: list &AO; policies.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/organizations
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.organizations.ListPolicies
+  services:
+    organizations: {ListPolicies}
+organizations_DescribePolicy:
+  title: Describe an &AO; policy using an &AWS; SDK
+  title_abbrev: Describe a policy
+  synopsis: describe an &AO; policy.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/organizations
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.organizations.DescribePolicy
+  services:
+    organizations: {DescribePolicy}
+organizations_AttachPolicy:
+  title: Attach an &AO; policy to a target using an &AWS; SDK
+  title_abbrev: Attach a policy to a target
+  synopsis: attach an &AO; policy to a target.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/organizations
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.organizations.AttachPolicy
+  services:
+    organizations: {AttachPolicy}
+organizations_DetachPolicy:
+  title: Detach an &AO; policy from a target using an &AWS; SDK
+  title_abbrev: Detach a policy from a target
+  synopsis: detach an &AO; policy from a target.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/organizations
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.organizations.DetachPolicy
+  services:
+    organizations: {DetachPolicy}
+organizations_DeletePolicy:
+  title: Delete an &AO; policy using an &AWS; SDK
+  title_abbrev: Delete a policy
+  synopsis: delete an &AO; policy.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/organizations
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.organizations.DeletePolicy
+  services:
+    organizations: {DeletePolicy}

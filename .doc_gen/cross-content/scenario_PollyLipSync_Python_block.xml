@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+    <para>
+        Shows how to use &POLlong; and Tkinter to create a lip-sync application that
+        displays an animated face speaking along with the speech synthesized by &POL;.
+        Lip-sync is accomplished by requesting a list of visemes from &POL; that match
+        up with the synthesized speech.
+    </para>
+    <itemizedlist>
+        <listitem><para>Get voice metadata from &POL; and display it in a Tkinter application.</para></listitem>
+        <listitem><para>Get synthesized speech audio and matching viseme speech marks from &POL;.</para></listitem>
+        <listitem><para>Play the audio with synchronized mouth movements in an animated face.</para></listitem>
+        <listitem><para>Submit asynchronous synthesis tasks for long texts and retrieve the output from
+            an &S3long; (&S3;) bucket.</para></listitem>
+    </itemizedlist>
+    <para>
+        For complete source code and instructions on how to set up and run, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/polly#code-examples">GitHub</ulink>.
+    </para>
+</block>

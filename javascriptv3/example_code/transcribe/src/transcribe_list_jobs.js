@@ -5,13 +5,13 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript versi
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-transcribe_list_jobs.js demonstrates how to retrieve a list of Amazon Transcribe transcription jobs.
+transcribe_list_jobs.test.js demonstrates how to retrieve a list of Amazon Transcribe transcription jobs.
 
 Inputs (replace in code):
 - KEYWORD
 
 Running the code:
-node transcribe_list_jobs.js
+node transcribe_list_jobs.test.js
  */
 // snippet-start:[transcribe.JavaScript.jobs.listJobsV3]
 // Import the required AWS SDK clients and commands for Node.js
@@ -20,12 +20,12 @@ import { ListTranscriptionJobsCommand } from "@aws-sdk/client-transcribe";
 import { transcribeClient } from "./libs/transcribeClient.js";
 
 // Set the parameters
-const params = {
+export const params = {
   JobNameContains: "KEYWORD", // Not required. Returns only transcription
   // job names containing this string
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await transcribeClient.send(
       new ListTranscriptionJobsCommand(params)

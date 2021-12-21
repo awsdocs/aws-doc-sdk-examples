@@ -1,0 +1,13 @@
+{
+  "name": "aws-sdk-v3-iam-examples",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/iam.git",
+  "author": "Brian Murray <brmur@amazon.com>, Alex Forsyth <alex-git@amazon.com>",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "@aws-sdk/client-sts": "^3.32.0"
+  },
+  "type": "module"
+}
+

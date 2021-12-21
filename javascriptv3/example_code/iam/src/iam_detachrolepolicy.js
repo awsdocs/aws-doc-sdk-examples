@@ -10,6 +10,7 @@ iam_detachrolepolicy.js demonstrates how to detach a managed policy from an IAM 
 
 Inputs :
 - ROLE_NAME
+- USER_NAME
 
 Running the code:
 node iam_detachrolepolicy.js
@@ -23,9 +24,9 @@ import {
 } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = { RoleName: "ROLE_NAME" }; //ROLE_NAME
+export const params = { RoleName: "ROLE_NAME" }; //ROLE_NAME
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(
       new ListAttachedRolePoliciesCommand(params)
@@ -34,7 +35,7 @@ const run = async () => {
     const myRolePolicies = data.AttachedPolicies;
     myRolePolicies.forEach(function (val, index, array) {
       if (myRolePolicies[index].PolicyName === "AmazonDynamoDBFullAccess") {
-        const params = {
+         const params = {
           PolicyArn: "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess",
           paramsRoleList,
         };
@@ -51,9 +52,9 @@ const run = async () => {
       }
     });
   } catch (err) {
-    console.log("User " + process.argv[2] + " does not exist.");
+    console.log("User " + "USER_NAME" + " does not exist.");
   }
 };
 run();
 // snippet-end:[iam.JavaScript.policies.detachRolePolicyV3]
-// module.exports =  { run, params }; // For unit tests.
+

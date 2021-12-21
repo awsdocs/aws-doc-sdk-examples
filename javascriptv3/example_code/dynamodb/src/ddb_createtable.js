@@ -15,7 +15,7 @@ INPUTS:
 - ATTRIBUTE_TYPE: the type of the attribute (e.g., N [for a number], S [for a string] etc.)
 
 Running the code:
-ts-node ddb_createtable.js
+node ddb_createtable.js
 */
 
 // snippet-start:[dynamodb.JavaScript.table.createTableV3]
@@ -24,7 +24,7 @@ import { CreateTableCommand } from "@aws-sdk/client-dynamodb";
 import { ddbClient } from "./libs/ddbClient.js";
 
 // Set the parameters
-const params = {
+export const params = {
   AttributeDefinitions: [
     {
       AttributeName: "Season", //ATTRIBUTE_NAME_1
@@ -55,7 +55,7 @@ const params = {
   },
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await ddbClient.send(new CreateTableCommand(params));
     console.log("Table Created", data);
@@ -66,5 +66,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[dynamodb.JavaScript.table.createTableV3]
-// For unit tests only.
-// module.exports ={run, params};
+

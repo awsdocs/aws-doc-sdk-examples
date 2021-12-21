@@ -5,6 +5,15 @@ eventbridge_DeleteRule:
   synopsis: delete an &EVlong; scheduled rule.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin._delete_rule.main
     Java:
       versions:
         - sdk_version: 2
@@ -22,6 +31,15 @@ eventbridge_PutRule:
   synopsis: create an &EVlong; scheduled rule.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin._create_rule.main
     Java:
       versions:
         - sdk_version: 2
@@ -70,6 +88,15 @@ eventbridge_PutEvents:
   synopsis: send &EVlong; events.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin._put_event.main
     Java:
       versions:
         - sdk_version: 2

@@ -21,13 +21,13 @@ import { iamClient } from "./libs/iamClient.js";
 import { GetUserCommand, CreateUserCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-const params = { UserName: "USER_NAME" }; //USER_NAME
+export const params = { UserName: "USER_NAME" }; //USER_NAME
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await iamClient.send(new GetUserCommand(params));
     console.log(
-      "User " + process.argv[3] + " already exists",
+      "User " + "USER_NAME" + " already exists",
       data.User.UserId
     );
     return data;
@@ -43,4 +43,4 @@ const run = async () => {
 };
 run();
 // snippet-end:[iam.JavaScript.users.getUserV3]
-// module.exports =  { run, params }; // For unit tests.
+
