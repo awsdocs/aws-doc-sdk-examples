@@ -1,6 +1,6 @@
 # zexi 0.4.3
 route-53_GetHostedZoneCount:
-  title: Get the number of hosted zones that are associated with the current AWS account using an &AWS; SDK
+  title: Get the number of hosted zones that are associated with the current &AWS; account using an &AWS; SDK
   title_abbrev: Get the number of hosted zones
   synopsis: get the number of hosted zones.
   category:
@@ -17,7 +17,7 @@ route-53_GetHostedZoneCount:
   services:
     route-53: {GetHostedZoneCount}
 route-53_ListHostedZones:
-  title: Get a list of the public and private hosted zones associated with the current AWS account using an &AWS; SDK
+  title: Get a list of the public and private hosted zones associated with the current &AWS; account using an &AWS; SDK
   title_abbrev: Get a list of the public and private hosted zones
   synopsis: get a list of the public and private hosted zones.
   category:
