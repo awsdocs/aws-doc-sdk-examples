@@ -40,7 +40,10 @@ async fn make_role(client: &Client, policy_file: &str, name: &str) -> Result<(),
         .send()
         .await?;
 
-    println!("Created role with ARN {}", resp.role().unwrap().arn().unwrap());
+    println!(
+        "Created role with ARN {}",
+        resp.role().unwrap().arn().unwrap()
+    );
 
     Ok(())
 }

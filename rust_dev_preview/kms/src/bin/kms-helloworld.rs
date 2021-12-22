@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_hyper::StandardClient;
+use aws_sdk_kms::middleware::DefaultMiddleware;
 use aws_sdk_kms::operation::GenerateRandom;
 use aws_sdk_kms::{Config, Region};
+use aws_smithy_client::erase::DynConnector;
 
 // snippet-start:[kms.rust.kms-helloworld]
 /// Creates a random byte string that is cryptographically secure in __us-east-1__.
@@ -20,7 +21,8 @@ async fn main() {
     // NB: This example uses the "low level internal API" for demonstration purposes
     // This is sometimes necessary to get precise control over behavior, but in most cases
     // using `kms::Client` is recommended.
-    let client: StandardClient = aws_hyper::Client::https();
+    let client = aws_smithy_client::Client::<DynConnector, DefaultMiddleware>::dyn_https();
+
     let data = client
         .call(
             GenerateRandom::builder()
