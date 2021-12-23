@@ -8,7 +8,7 @@
  * Prerequisites: An Amazon CloudWatch metric with one or more alarms.
  *
  * Outputs:
- * The name, Amazon Resource Number (ARN), description and date last updated of your alarms.
+ * The name, Amazon Resource Name (ARN), description and date last updated of your alarms.
  * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cw.cpp.describe_alarms.inc]
 #include <aws/core/Aws.h>

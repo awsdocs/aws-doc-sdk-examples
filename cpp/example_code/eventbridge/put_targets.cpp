@@ -9,14 +9,14 @@
  * - filter_name: The name of the filter.
  * - filter_pattern: The filter pattern.
  * - log_group_name: The name of the log group.
- * - lambda_function_arn: The Amazon Resource Number (ARN) of the Amazon Lambda function.
+ * - lambda_function_arn: The Amazon Resource Name (ARN) of the AWS Lambda function.
  *
  * Outputs:
- * The routing rule is target is created.
+ * The routing rule target is created.
    * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cw.cpp.put_targets.inc]
 #include <aws/core/Aws.h>
-#include <aws/events/CloudWatchEventsClient.h>
+#include <aws/events/EventBridgeClient.h>
 #include <aws/events/model/PutTargetsRequest.h>
 #include <aws/events/model/PutTargetsResult.h>
 #include <aws/core/utils/Outcome.h>
@@ -43,7 +43,7 @@ int main(int argc, char** argv)
         Aws::String target_id(argv[3]);
 
         // snippet-start:[cw.cpp.put_targets.code]
-        Aws::CloudWatchEvents::CloudWatchEventsClient cwe;
+        Aws::CloudWatchEvents::EventBridgeClient cwe;
 
         Aws::CloudWatchEvents::Model::Target target;
         target.SetArn(lambda_arn);

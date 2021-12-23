@@ -5,7 +5,7 @@
  * Purpose: put_events.cpp demonstrates how to post an Amazon CloudWatch event.
  *
  * Inputs:
- * - resource_arn: The Amazon Resource Number (ARN) of the event.
+ * - resource_arn: The Amazon Resource Name (ARN) of the event.
  * - event_key: The event key.
  * - event_value: The event value.
  *
@@ -14,7 +14,7 @@
    * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cw.cpp.put_events.inc]
 #include <aws/core/Aws.h>
-#include <aws/events/CloudWatchEventsClient.h>
+#include <aws/events/EventBridgeClient.h>
 #include <aws/events/model/PutEventsRequest.h>
 #include <aws/events/model/PutEventsResult.h>
 #include <aws/core/utils/Outcome.h>
@@ -53,7 +53,7 @@ int main(int argc, char** argv)
         Aws::String event_value(argv[3]);
 
         // snippet-start:[cw.cpp.put_events.code]
-        Aws::CloudWatchEvents::CloudWatchEventsClient cwe;
+        Aws::CloudWatchEvents::EventBridgeClient cwe;
 
         Aws::CloudWatchEvents::Model::PutEventsRequestEntry event_entry;
         event_entry.SetDetail(MakeDetails(event_key, event_value));

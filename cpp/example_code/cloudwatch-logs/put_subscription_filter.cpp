@@ -8,7 +8,7 @@
  * - filter_name: The name of the filter.
  * - filter_pattern: The filter pattern.
  * - log_group_name: The name of the log group.
- * - lambda_function_arn: The Amazon Resource Number (ARN) of the Amazon Lambda function.
+ * - lambda_function_arn: The Amazon Resource Name (ARN) of the AWS Lambda function.
  *
  * Outputs:
  * A subscription filter is created.

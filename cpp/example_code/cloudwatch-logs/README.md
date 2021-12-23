@@ -1,12 +1,11 @@
 # Amazon CloudWatch Logs C++ SDK code examples
 
 ## Purpose
-The code examples in this directory demonstrate how to work with the Amazon CloudWatch Logs 
+The code examples in this directory demonstrate how to work with Amazon CloudWatch Logs 
 using the AWS SDK for C++.
 
 Amazon CloudWatch Logs enables you to monitor, store, and access your log files from Amazon Elastic Compute Cloud (EC2)
-instances, AWS CloudTrail, or other sources. provides a reliable, scalable, and flexible monitoring solution that you can 
-start using within minutes. You no longer need to set up, manage, and scale your own monitoring systems and infrastructure.
+instances, AWS CloudTrail, or other sources. 
 
 ## Code examples
 
@@ -19,9 +18,9 @@ start using within minutes. You no longer need to set up, manage, and scale your
 - We recommend that you grant your code least privilege, or at most the minimum permissions required to perform the task. For more information, see [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) in the AWS Identity and Access Management User Guide.
 - This code has not been tested in all AWS Regions. Some AWS services are available only in specific [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 - Running this code might result in charges to your AWS account. 
-- Running the unit tests might result in charges to your AWS account. [optional]
 
-## Running the Examples
+
+## Running the examples
 
 ### Prerequisites
 - An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.

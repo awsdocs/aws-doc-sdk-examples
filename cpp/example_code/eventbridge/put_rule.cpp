@@ -13,7 +13,7 @@
    * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cw.cpp.put_rule.inc]
 #include <aws/core/Aws.h>
-#include <aws/events/CloudWatchEventsClient.h>
+#include <aws/events/EventBridgeClient.h>
 #include <aws/events/model/PutRuleRequest.h>
 #include <aws/events/model/PutRuleResult.h>
 #include <aws/core/utils/Outcome.h>
@@ -38,7 +38,7 @@ int main(int argc, char** argv)
         Aws::String role_arn(argv[2]);
 
         // snippet-start:[cw.cpp.put_rule.code]
-        Aws::CloudWatchEvents::CloudWatchEventsClient cwe;
+        Aws::CloudWatchEvents::EventBridgeClient cwe;
         Aws::CloudWatchEvents::Model::PutRuleRequest request;
         request.SetName(rule_name);
         request.SetRoleArn(role_arn);
