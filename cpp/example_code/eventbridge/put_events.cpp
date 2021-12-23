@@ -1,31 +1,20 @@
- 
-//snippet-sourcedescription:[put_events.cpp demonstrates how to post an Amazon CloudWatch event.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon CloudWatch Events]
-//snippet-service:[events]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 
-
-/*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: put_events.cpp demonstrates how to post an Amazon CloudWatch event.
+ *
+ * Inputs:
+ * - resource_arn: The Amazon Resource Name (ARN) of the event.
+ * - event_key: The event key.
+ * - event_value: The event value.
+ *
+ * Outputs:
+ * The event is posted.
+   * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cw.cpp.put_events.inc]
 #include <aws/core/Aws.h>
-#include <aws/events/CloudWatchEventsClient.h>
+#include <aws/events/EventBridgeClient.h>
 #include <aws/events/model/PutEventsRequest.h>
 #include <aws/events/model/PutEventsResult.h>
 #include <aws/core/utils/Outcome.h>
@@ -64,7 +53,7 @@ int main(int argc, char** argv)
         Aws::String event_value(argv[3]);
 
         // snippet-start:[cw.cpp.put_events.code]
-        Aws::CloudWatchEvents::CloudWatchEventsClient cwe;
+        Aws::CloudWatchEvents::EventBridgeClient cwe;
 
         Aws::CloudWatchEvents::Model::PutEventsRequestEntry event_entry;
         event_entry.SetDetail(MakeDetails(event_key, event_value));

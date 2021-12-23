@@ -1,31 +1,22 @@
- 
-//snippet-sourcedescription:[put_targets.cpp demonstrates how to create an Amazon CloudWatch Events routing rule target.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon CloudWatch Events]
-//snippet-service:[events]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 
-/*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: put_targets.cpp demonstrates how to create an Amazon CloudWatch Events routing rule target.
+ *
+ * Inputs:
+ * - filter_name: The name of the filter.
+ * - filter_pattern: The filter pattern.
+ * - log_group_name: The name of the log group.
+ * - lambda_function_arn: The Amazon Resource Name (ARN) of the AWS Lambda function.
+ *
+ * Outputs:
+ * The routing rule target is created.
+   * ///////////////////////////////////////////////////////////////////////// */
 //snippet-start:[cw.cpp.put_targets.inc]
 #include <aws/core/Aws.h>
-#include <aws/events/CloudWatchEventsClient.h>
+#include <aws/events/EventBridgeClient.h>
 #include <aws/events/model/PutTargetsRequest.h>
 #include <aws/events/model/PutTargetsResult.h>
 #include <aws/core/utils/Outcome.h>
@@ -52,7 +43,7 @@ int main(int argc, char** argv)
         Aws::String target_id(argv[3]);
 
         // snippet-start:[cw.cpp.put_targets.code]
-        Aws::CloudWatchEvents::CloudWatchEventsClient cwe;
+        Aws::CloudWatchEvents::EventBridgeClient cwe;
 
         Aws::CloudWatchEvents::Model::Target target;
         target.SetArn(lambda_arn);

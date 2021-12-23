@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several Amazon Quantum Ledger Database (Amazon QLDB) operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Amazon Quantum Ledger Database (Amazon QLDB) operations using the developer preview version of the AWS SDK for Rust.
 
 Amazon QLDB) is a fully managed ledger database that provides a transparent, immutable, and cryptographically verifiable transaction log owned by a central trusted authority.
 
@@ -82,6 +82,7 @@ where:
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- [AWS SDK for Rust API Reference for Amazon QLDB](https://docs.rs/aws-sdk-qldb)
 - [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
 
 ## Contributing

@@ -18,9 +18,9 @@ struct Opt {
     verbose: bool,
 }
 
-// Show IDs and names of hosted zones.
+// Get hosted zone IDs and names.
 // snippet-start:[route53.rust.route53-helloworld]
-async fn show_zones(client: &aws_sdk_route53::Client) -> Result<(), aws_sdk_route53::Error> {
+async fn show_host_info(client: &aws_sdk_route53::Client) -> Result<(), aws_sdk_route53::Error> {
     let hosted_zone_count = client.get_hosted_zone_count().send().await?;
 
     println!(
@@ -76,5 +76,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    show_zones(&client).await
+    show_host_info(&client).await
 }

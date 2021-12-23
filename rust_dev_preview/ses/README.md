@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several Amazon Simple Email Service (Amazon SES) operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Amazon Simple Email Service (Amazon SES) operations using the developer preview version of the AWS SDK for Rust.
 
 Amazon SES is  a reliable, scalable, and cost-effective email service designed to help digital marketers and application developers send marketing, notification, and transactional emails.
 
@@ -111,6 +111,7 @@ This example sends a message to the email addresses in the contact list.
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- [AWS SDK for Rust API Reference for Amazon SES](https://docs.rs/aws-sdk-ses)
 - [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
 
 ## Contributing

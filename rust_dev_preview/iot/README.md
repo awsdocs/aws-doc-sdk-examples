@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several AWS IoT operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several AWS IoT operations using the developer preview version of the AWS SDK for Rust.
 
 AWS IoT provides secure, bi-directional communication for Internet-connected devices (such as sensors, actuators, embedded devices, wireless devices, and smart appliances) to connect to the AWS Cloud over MQTT, HTTPS, and LoRaWAN.
 
@@ -59,6 +59,7 @@ This example lists the name, type, and ARN of your IoT things in the Region.
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- - [AWS SDK for Rust API Reference for IoT](https://docs.rs/aws-sdk-iot)
 - [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
 
 ## Contributing
