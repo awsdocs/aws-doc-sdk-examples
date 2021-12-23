@@ -43,9 +43,6 @@ You can create the AWS resources required for this cross-service example the [AW
 6. Choose **Create Pool**.
 7. Choose **Allow**.
 8. Take note of the **Identity pool ID**, which is highlighted in red in the **Get AWS Credentials** section.
-
-![ ](images/readme_images/identity_pool_ids.png)
-
 9.Choose **Edit identity pool**.
 10. Take note of the name of the role in the **Unauthenticated role** field.
 
@@ -209,7 +206,7 @@ There are two JavaScript scripts
 - **index.js**
 - **main.js**
 
-#### backend-js
+#### index.js
 **index.js** is the AWS Lambda function. It uses the Amazon DynamoDB Document client to pass the user's browser selections to a
 DynamoDB table.
 ```javascript
