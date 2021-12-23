@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This code example demonstrate how to perform an Amazon Cognito user pool operation using the alpha version of the AWS SDK for Rust.
+This code example demonstrate how to perform an Amazon Cognito user pool operation using the developer preview version of the AWS SDK for Rust.
 
 Amazon Cognito user pools enable you to sign in to your web or mobile app through Amazon Cognito.
 
@@ -42,7 +42,8 @@ This example lists your Amazon Cognito user pools in the Region.
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
-- [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_cognitoidentityprovider/index.html) 
+- [AWS SDK for Rust API Reference for Amazon Cognito User Pools](https://docs.rs/aws-sdk-cognitoidentityprovider)
+- [AWS SDK for Rust Developer Guide](https://docs.aws.amazon.com/sdk-for-rust/latest/dg)
 
 ## Contributing
 

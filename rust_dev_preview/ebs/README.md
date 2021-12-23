@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several Amazon Elastic Block Store (Amazon EBS) operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Amazon Elastic Block Store (Amazon EBS) operations using the developer preview version of the AWS SDK for Rust.
 
 Amazon EBS is a web service that provides block level storage volumes for use with Amazon Elastic Compute Cloud instances.
 
@@ -81,6 +81,7 @@ This example lists the Amazon EBS snapshots in the Region.
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- [AWS SDK for Rust API Reference for Amazon EBS](https://docs.rs/aws-sdk-ebs)
 - [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
 
 ## Contributing

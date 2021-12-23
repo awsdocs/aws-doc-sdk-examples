@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several AWS Elemental MediaLive (MediaLive) operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several AWS Elemental MediaLive (MediaLive) operations using the developer preview version of the AWS SDK for Rust.
 
 MediaLive is a video service that allows easy and reliable creation of live outputs for broadcast and streaming delivery.
 
@@ -42,6 +42,7 @@ This example lists your MediaLive input names and ARNs.
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- [AWS SDK for Rust API Reference for MediaLive](https://docs.rs/aws-sdk-medialive)
 - [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
 
 ## Contributing

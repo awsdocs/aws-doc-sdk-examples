@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several Amazon Polly operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Amazon Polly operations using the developer preview version of the AWS SDK for Rust.
 
 Amazon Polly is a Text-to-Speech (TTS) cloud service that converts text into lifelike speech.
 
