@@ -1,33 +1,27 @@
- 
-//snippet-sourcedescription:[delete_subscription_filter.cpp demonstrates how to delete an Amazon CloudWatch Logs subscription filter.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon CloudWatch Logs]
-//snippet-service:[logs]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 
+/* ////////////////////////////////////////////////////////////////////////////
+ * Purpose: delete_subscription_filter.cpp demonstrates how to delete an Amazon CloudWatch Logs subscription filter.
+ *
+ * Prerequisites:
+ * A CloudWatch Logs subscription with a filter.
+ *
+ * Inputs:
+ * - filter_name: The name of the filter.
+ * - log_group: The name of the log group.
+ *
+ * Outputs:
+ * The subscription filter is deleted.
+ * ///////////////////////////////////////////////////////////////////////// */
+//snippet-start:[cwl.cpp.delete_subscription_filter.inc]
 
-/*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h>
 #include <aws/logs/CloudWatchLogsClient.h>
 #include <aws/logs/model/DeleteSubscriptionFilterRequest.h>
 #include <iostream>
+//snippet-end:[cwl.cpp.delete_subscription_filter.inc]
 
 /**
  * Delete a CloudWatch Logs subscription filter based on command-line input
@@ -46,6 +40,8 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+    //snippet-start:[cwl.cpp.delete_subscription_filter]
+
         Aws::CloudWatchLogs::CloudWatchLogsClient cwl;
         Aws::CloudWatchLogs::Model::DeleteSubscriptionFilterRequest request;
         request.SetFilterName(filter_name);
@@ -60,8 +56,9 @@ int main(int argc, char** argv)
             std::cout << "Successfully deleted CloudWatch logs subscription " <<
                 "filter " << filter_name << std::endl;
         }
+    //snippet-end:[cwl.cpp.delete_subscription_filter]
+
     }
     Aws::ShutdownAPI(options);
     return 0;
 }
-

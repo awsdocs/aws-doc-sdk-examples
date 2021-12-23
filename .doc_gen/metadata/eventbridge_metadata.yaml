@@ -49,6 +49,18 @@ eventbridge_PutRule:
             - description:
               snippet_tags:
                 - eventbridge.java2._create_rule.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.put_rule.inc
+            - description: Create the rule.
+              snippet_tags:
+                - cw.cpp.put_rule.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -94,6 +106,18 @@ eventbridge_PutEvents:
             - description:
               snippet_tags:
                 - eventbridge.java2._put_event.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.put_events.inc
+            - description: Send the event.
+              snippet_tags:
+                - cw.cpp.put_events.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -121,6 +145,18 @@ eventbridge_PutTargets:
   synopsis: add an &LAMlong; function target to an &EVlong; event.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.put_targets.inc
+            - description: Add the target.
+              snippet_tags:
+                - cw.cpp.put_targets.code
     JavaScript:
       versions:
         - sdk_version: 3
