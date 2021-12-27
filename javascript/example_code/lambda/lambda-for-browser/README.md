@@ -264,44 +264,32 @@ Your Lambda function is displayed.
 **main.js** contains the JavaScript function that invokes the Lambda function. It is triggered when the user clicks the button on
 the UI of the app.
 ```javascript
-'use strict'
-
-console.log('Loading function');
-
-var AWS = require('aws-sdk');
-
-// Initialize the Amazon Cognito credentials provider.
 AWS.config.region = "REGION";
 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
     IdentityPoolId: "IDENTITY_POOL_ID",
 });
 
-
 // Create client.
-const docClient = new AWS.DynamoDB.DocumentClient();
+const lambda = new AWS.Lambda();
 
-
-exports.handler = async(event, context, callback) => {
+const myFunction = async () => {
+    const color = document.getElementById("c1").value
+    const pattern = document.getElementById("p1").value
+    const id = Math.floor(Math.random() * (10000 - 1 + 1)) + 1;
     const params = {
-        Item: {
-            Id: event.Item.Id,
-            Color: event.Item.Color,
-            Pattern: event.Item.Pattern
-        },
-        TableName: event.TableName
+        FunctionName: 'forPathryusah', /* required */
+        Payload: JSON.stringify( { Item: {
+                Id: id,
+                Color: color,
+                Pattern: pattern
+            },
+            TableName: "DesignRequests",
+        })
     };
-    await docClient.put(params, async function (err, data) {
-        if (err) {
-            console.error(
-                "Unable to add item. Error JSON:",
-                JSON.stringify(err, null, 2)
-            );
-        } else {
-            console.log("Adding data to dynamodb...");
-            console.log("Added item:", JSON.stringify(data, null, 2));
-        }
-    });
-    callback(null, event);
+    lambda.invoke(params,  function (err, data){
+        if (err) console.log(err, err.stack); // an error occurred
+        else console.log('Success, payload', data);           // successful response
+    })
 };
 ```
 
