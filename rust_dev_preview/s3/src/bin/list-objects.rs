@@ -27,8 +27,8 @@ struct Opt {
 async fn show_objects(client: &Client, bucket: &str) -> Result<(), Error> {
     let resp = client.list_objects_v2().bucket(bucket).send().await?;
 
-    for object in resp.contents.unwrap_or_default() {
-        println!("{}", object.key.as_deref().unwrap_or_default());
+    for object in resp.contents().unwrap_or_default() {
+        println!("{}", object.key().unwrap_or_default());
     }
 
     Ok(())

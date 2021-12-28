@@ -29,7 +29,7 @@ async fn show_secret(client: &Client, name: &str) -> Result<(), Error> {
 
     println!(
         "Value: {}",
-        resp.secret_string.as_deref().unwrap_or("No value!")
+        resp.secret_string().unwrap_or("No value!")
     );
 
     Ok(())
