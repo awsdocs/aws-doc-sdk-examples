@@ -26,10 +26,7 @@ async fn show_lists(client: &Client) -> Result<(), Error> {
     println!("Contact lists:");
 
     for list in resp.contact_lists().unwrap_or_default() {
-        println!(
-            "  {}",
-            list.contact_list_name().unwrap_or_default()
-        );
+        println!("  {}", list.contact_list_name().unwrap_or_default());
     }
 
     Ok(())

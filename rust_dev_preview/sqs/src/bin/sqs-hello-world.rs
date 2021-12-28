@@ -47,11 +47,7 @@ async fn send_receive(client: &Client) -> Result<(), Error> {
 
     println!("Response from sending a message: {:#?}", rsp);
 
-    let rcv_message_output = client
-        .receive_message()
-        .queue_url(queue_url)
-        .send()
-        .await?;
+    let rcv_message_output = client.receive_message().queue_url(queue_url).send().await?;
 
     for message in rcv_message_output.messages.unwrap_or_default() {
         println!("Got the message: {:#?}", message);

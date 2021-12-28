@@ -48,7 +48,9 @@ async fn show_instances(client: &Client) -> Result<(), Error> {
         );
         println!(
             "DB instance endpoint:   {:?}",
-            db_instance.endpoint().expect("instance should have endpoint")
+            db_instance
+                .endpoint()
+                .expect("instance should have endpoint")
         );
         println!();
     }

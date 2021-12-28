@@ -27,10 +27,7 @@ struct Opt {
 async fn show_secret(client: &Client, name: &str) -> Result<(), Error> {
     let resp = client.get_secret_value().secret_id(name).send().await?;
 
-    println!(
-        "Value: {}",
-        resp.secret_string().unwrap_or("No value!")
-    );
+    println!("Value: {}", resp.secret_string().unwrap_or("No value!"));
 
     Ok(())
 }

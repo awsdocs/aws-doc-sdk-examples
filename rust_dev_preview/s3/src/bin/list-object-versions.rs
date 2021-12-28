@@ -29,10 +29,7 @@ async fn show_versions(client: &Client, bucket: &str) -> Result<(), Error> {
 
     for version in resp.versions().unwrap_or_default() {
         println!("{}", version.key().unwrap_or_default());
-        println!(
-            "  version ID: {}",
-            version.version_id().unwrap_or_default()
-        );
+        println!("  version ID: {}", version.version_id().unwrap_or_default());
         println!();
     }
 
