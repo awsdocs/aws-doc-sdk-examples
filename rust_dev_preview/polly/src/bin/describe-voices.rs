@@ -25,15 +25,15 @@ async fn list_voices(client: &Client) -> Result<(), Error> {
 
     println!("Voices:");
 
-    let voices = resp.voices.unwrap_or_default();
-    for voice in &voices {
+    let voices = resp.voices().unwrap_or_default();
+    for voice in voices {
         println!(
             "  Name:     {}",
-            voice.name.as_deref().unwrap_or("No name!")
+            voice.name().unwrap_or("No name!")
         );
         println!(
             "  Language: {}",
-            voice.language_name.as_deref().unwrap_or("No language!")
+            voice.language_name().unwrap_or("No language!")
         );
 
         println!();
