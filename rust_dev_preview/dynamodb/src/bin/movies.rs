@@ -118,14 +118,14 @@ async fn main() -> Result<(), Error> {
         .expect("query should succeed");
 
     // this isn't back to the future, there are no movies from 2022
-    assert_eq!(films_2222.count, 0);
+    assert_eq!(films_2222.count(), 0);
 
     let films_2013 = movies_in_year(&client, &table.to_string(), 2013)
         .send()
         .await
         .expect("query should succeed");
 
-    assert_eq!(films_2013.count, 2);
+    assert_eq!(films_2013.count(), 2);
 
     let titles: Vec<AttributeValue> = films_2013
         .items()
