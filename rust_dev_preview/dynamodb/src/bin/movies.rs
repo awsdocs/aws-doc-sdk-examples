@@ -128,7 +128,7 @@ async fn main() -> Result<(), Error> {
     assert_eq!(films_2013.count(), 2);
 
     let titles: Vec<AttributeValue> = films_2013
-        .items()
+        .items
         .unwrap()
         .iter_mut()
         .map(|row| row.remove("title").expect("row should have title"))
