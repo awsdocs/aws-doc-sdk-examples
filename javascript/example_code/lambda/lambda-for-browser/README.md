@@ -297,6 +297,6 @@ const myFunction = async () => {
 Open the index.html in your favorite browser, and follow the onscreen instructions.
 
 ### Next steps
-Congratulations! You have created and deployed the AWS Photo Analyzer application.
+Congratulations! You have created and deployed the AWS Lambda Browser application.
 For more AWS multiservice examples, see
 [cross-services](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/cross-services).
