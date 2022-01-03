@@ -5,7 +5,7 @@
         ]>
 <block>
     <para>
-        You can create a browser-based application that uses an &LAMlong; function to update a &DDBlong;
+        You can create a browser-based application that uses an &LAMlong; function to update an &DDBlong;
         table with user selections. This app uses &JSBlong; v3.
     </para>
     <para>

@@ -77,8 +77,8 @@ lambda_Scenario_DeployInvokeFunction:
   services:
     lambda: {CreateFunction, DeleteFunction, Invoke}
 cross_LambdaForBrowser:
-  title: Invoke a &LAM; function from the browser
-  title_abbrev: Invoke a &LAM; function from browser
+  title: Invoke a &LAM; function from a browser
+  title_abbrev: Invoke a &LAM; function from a browser
   synopsis: invoke an &LAMlong; function from a browser.
   languages:
     JavaScript:
