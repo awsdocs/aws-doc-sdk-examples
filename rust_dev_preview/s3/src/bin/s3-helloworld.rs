@@ -42,8 +42,8 @@ async fn upload_object(
 ) -> Result<(), Error> {
     let resp = client.list_buckets().send().await?;
 
-    for bucket in resp.buckets.unwrap_or_default() {
-        println!("bucket: {:?}", bucket.name.as_deref().unwrap_or_default())
+    for bucket in resp.buckets().unwrap_or_default() {
+        println!("bucket: {:?}", bucket.name().unwrap_or_default())
     }
 
     println!();

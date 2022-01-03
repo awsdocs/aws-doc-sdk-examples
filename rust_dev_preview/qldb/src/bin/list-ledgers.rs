@@ -23,12 +23,12 @@ struct Opt {
 async fn show_ledgers(client: &Client) -> Result<(), Error> {
     let result = client.list_ledgers().send().await?;
 
-    if let Some(ledgers) = result.ledgers {
+    if let Some(ledgers) = result.ledgers() {
         for ledger in ledgers {
             println!("* {:?}", ledger);
         }
 
-        if result.next_token.is_some() {
+        if result.next_token().is_some() {
             todo!("pagination is not yet demonstrated")
         }
     }

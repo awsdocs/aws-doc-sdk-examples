@@ -22,7 +22,7 @@ struct Opt {
 // Lists the available voices and language.
 // snippet-start:[polly.rust.polly-helloworld]
 async fn show_voices(client: &Client) -> Result<(), Error> {
-    let mut tok = None;
+    let mut tok: Option<String> = None;
     let mut voices: Vec<Voice> = vec![];
 
     // Below is an an example of how pagination can be implemented manually.
@@ -35,17 +35,17 @@ async fn show_voices(client: &Client) -> Result<(), Error> {
 
         let resp = req.send().await?;
 
-        for voice in resp.voices.unwrap_or_default() {
+        for voice in resp.voices().unwrap_or_default() {
             println!(
                 "I can speak as: {} in {:?}",
-                voice.name.as_ref().unwrap(),
-                voice.language_name.as_ref().unwrap()
+                voice.name().as_ref().unwrap(),
+                voice.language_name().as_ref().unwrap()
             );
-            voices.push(voice);
+            voices.push(Voice::clone(voice));
         }
 
-        tok = match resp.next_token {
-            Some(next) => Some(next),
+        tok = match &resp.next_token() {
+            Some(next) => Some(next.to_string()),
             None => break,
         };
     }
@@ -54,12 +54,11 @@ async fn show_voices(client: &Client) -> Result<(), Error> {
         .iter()
         .filter(|voice| {
             voice
-                .supported_engines
-                .as_deref()
+                .supported_engines()
                 .unwrap_or_default()
                 .contains(&Engine::Neural)
         })
-        .map(|voice| voice.id.as_ref().unwrap())
+        .map(|voice| voice.id().unwrap())
         .collect::<Vec<_>>();
 
     println!();

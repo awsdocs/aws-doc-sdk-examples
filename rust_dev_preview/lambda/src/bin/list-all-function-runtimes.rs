@@ -36,13 +36,13 @@ async fn show_lambdas(verbose: bool, language: &str, reg: &'static str) {
     let mut num_functions = 0;
 
     for function in functions {
-        let rt_str: String = String::from(function.runtime.unwrap().as_ref());
+        let rt_str: String = String::from(function.runtime().unwrap().as_ref());
         // If language is set (!= ""), show only those with that runtime.
         let ok = rt_str
             .to_ascii_lowercase()
             .contains(&language.to_ascii_lowercase());
         if ok || language.is_empty() {
-            println!("  ARN:     {}", function.function_arn.unwrap());
+            println!("  ARN:     {}", function.function_arn().unwrap());
             println!("  Runtime: {}", rt_str);
             println!();
 

@@ -25,11 +25,11 @@ async fn show_arns(client: &Client) -> Result<(), Error> {
 
     println!("Function ARNs:");
 
-    let functions = resp.functions.unwrap_or_default();
+    let functions = resp.functions().unwrap_or_default();
     let num_funcs = functions.len();
 
     for function in functions {
-        println!("{}", function.function_arn.unwrap_or_default());
+        println!("{}", function.function_arn().unwrap_or_default());
     }
 
     println!();
