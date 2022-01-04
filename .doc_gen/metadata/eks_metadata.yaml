@@ -1,0 +1,35 @@
+# zexi 0.4.0
+eks_CreateCluster:
+  title: Create an &EKS; cluster control plane using an &AWS; SDK
+  title_abbrev: Create a cluster control plane
+  synopsis: create an &EKS; cluster control plane.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/eks
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eks.rust.create-delete-cluster-create
+  services:
+    eks: {CreateCluster}
+eks_DeleteCluster:
+  title: Delete an &EKS; cluster control plane using an &AWS; SDK
+  title_abbrev: Delete a cluster control plane
+  synopsis: delete an &EKS; cluster.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/eks
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eks.rust.create-delete-cluster-delete
+  services:
+    eks: {DeleteCluster}

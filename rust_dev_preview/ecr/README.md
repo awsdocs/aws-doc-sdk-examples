@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several Amazon Elastic Container Registry (Amazon ECR) operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Amazon Elastic Container Registry (Amazon ECR) operations using the developer preview version of the AWS SDK for Rust.
 
 Amazon ECR is a fully managed Docker container registry that makes it easy for developers to store, manage, and deploy Docker container images.
 
