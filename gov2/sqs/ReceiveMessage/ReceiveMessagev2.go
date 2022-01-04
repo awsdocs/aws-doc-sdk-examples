@@ -104,8 +104,12 @@ func main() {
 		return
 	}
 
-	fmt.Println("Message ID:     " + *msgResult.Messages[0].MessageId)
-	fmt.Println("Message Handle: " + *msgResult.Messages[0].ReceiptHandle)
+	if msgResult.Messages != nil {
+		fmt.Println("Message ID:     " + *msgResult.Messages[0].MessageId)
+		fmt.Println("Message Handle: " + *msgResult.Messages[0].ReceiptHandle)
+	} else {
+		fmt.Println("No messages found")
+	}
 }
 
 // snippet-end:[sqs.go-v2.ReceiveMessage]
