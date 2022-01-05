@@ -125,9 +125,9 @@ In the **pom.xml** file's **project** element, add the **spring-boot-starter-par
      <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
-      </parent>
+        <version>2.6.1</version>
+        <relativePath/> 
+    </parent>
 
 **Note:** Ensure that you are using Java 1.8 (as shown below).
 
