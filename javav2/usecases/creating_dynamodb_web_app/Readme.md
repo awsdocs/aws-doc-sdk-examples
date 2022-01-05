@@ -315,7 +315,7 @@ These packages contain the following:
 
 + **entities** - Contains Java files that represent the model. In this example, the model class is named **WorkItem**.
 + **services** - Contains Java files that invoke AWS services. For example, the **software.amazon.awssdk.services.dynamodb.DynamoDbClient** object is used to perform DynamoDB operations.
-+ **secureweb** - Contains the SpringJava classes.
++ **secureweb** - Contains the Spring Java classes.
 
 **Note:** The only class that is in **com.example** is **SecureWebApp**. All other classes are in the subpackages.
 
