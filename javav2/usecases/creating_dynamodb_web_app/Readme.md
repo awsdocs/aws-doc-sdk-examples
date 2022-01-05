@@ -159,7 +159,7 @@ Ensure that the **pom.xml** file looks like the following.
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.11.11</version>
+                <version>2.17.46</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
