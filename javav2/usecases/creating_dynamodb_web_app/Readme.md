@@ -50,6 +50,8 @@ To complete the tutorial, you need the following:
 
 Create an Amazon DynamoDB table named **Work** with a key named **id**. For information, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 
+In addition, make sure that you setup your Java developer environment before following along with this tutorial. For more information, see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). .
+
 
 ## Understand the DynamoDB Item Tracker application
 The **DynamoDB Item Tracker** application uses a model that is based on a work item and contains these attributes:
