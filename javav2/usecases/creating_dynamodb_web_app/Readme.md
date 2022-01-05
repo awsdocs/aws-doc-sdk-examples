@@ -103,7 +103,7 @@ The DynamoDB table is named **Work** and contains the following fields:
 
 The following figure shows the **Work** table.
 
-![AWS Tracking Application](images/pic7.png)
+![AWS Tracking Application](images/worktable.png)
 
 ## Create an IntelliJ project named ItemTrackerDynamoDB
 
