@@ -145,11 +145,11 @@ Ensure that the **pom.xml** file looks like the following.
     <groupId>ItemTrackerDynamoDB</groupId>
     <artifactId>ItemTrackerDynamoDB</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <parent>
+      <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
+        <version>2.6.1</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <properties>
        <java.version>1.8</java.version>
