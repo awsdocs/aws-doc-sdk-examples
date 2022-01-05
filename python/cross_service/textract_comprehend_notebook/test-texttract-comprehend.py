@@ -8,6 +8,7 @@ import boto3
 session = boto3.Session()
 creds = session.get_credentials()
 
+
 @testbook('TextractAndComprehendNotebook.ipynb', execute=[6, 8])
 def test_text_detection(tb):
     detect_func = tb.ref("process_text_detection")
@@ -24,6 +25,7 @@ def test_text_detection(tb):
     print(res)
     assert len(res)
 
+
 @testbook('TextractAndComprehendNotebook.ipynb', execute=[6, 11])
 def test_entity_detection(tb):
     entity_func = tb.ref("entity_detection")
@@ -38,6 +40,7 @@ def test_entity_detection(tb):
     print(res)
     # check if list returned
     assert len(res)
+
 
 if __name__ == "__main__":
     test_text_detection()

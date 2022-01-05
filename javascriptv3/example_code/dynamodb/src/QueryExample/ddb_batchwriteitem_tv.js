@@ -5,12 +5,12 @@ SPDX-License-Identifier: Apache-2.0
 // https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-query-scan.html.
 
 Purpose:
-ddb_batchwriteitem_tv.js populates the table used for the match query example
+ddb_batchwriteitem_tv.test.js populates the table used for the match query example
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-query-scan.html.
 
 
 Running the code:
-ts-node ddb_batchwriteitem_tv.js
+node ddb_batchwriteitem_tv.test.js
 */
 // snippet-start:[dynamodb.JavaScript.batch.BatchWriterItemTVV3]
 // Import required AWS SDK clients and commands for Node.js
@@ -20,7 +20,7 @@ import {
 } from "@aws-sdk/client-dynamodb";
 import { ddbClient } from "../libs/ddbClient.js";
 // Set the parameters
-const params = {
+export const params = {
   RequestItems: {
     EPISODES_TABLE: [
       {
@@ -67,7 +67,7 @@ const params = {
   },
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await ddbClient.send(new BatchWriteItemCommand(params));
     console.log("Success", data);

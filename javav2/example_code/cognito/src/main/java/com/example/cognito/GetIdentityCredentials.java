@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[09/28/2021]
+//snippet-sourcedate:[11/06/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,9 +34,7 @@ public class GetIdentityCredentials {
                 "Usage:\n" +
                 "    <identityId> \n\n" +
                 "Where:\n" +
-                "    identityId - the Id of an existing identity.\n\n" +
-                "Example:\n" +
-                "    GetIdentityCredentials us-east-2:0000007890000-abcdefgc\n";
+                "    identityId - the Id of an existing identity.\n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);

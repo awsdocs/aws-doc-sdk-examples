@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+    <para>
+        Shows how to manipulate &S3long; (&S3;) versioned objects in batches by creating
+        jobs that call &LAMlong; functions to perform processing. This example creates
+        a version-enabled bucket, uploads the stanzas from the poem
+        <emphasis>You Are Old, Father William</emphasis> by Lewis Carroll, and uses
+        &S3; batch jobs to twist the poem in various ways.
+    </para>
+    <itemizedlist>
+        <title>Learn how to:</title>
+        <listitem><para>Create &LAM; functions that operate on versioned objects.</para></listitem>
+        <listitem><para>Create a manifest of objects to update.</para></listitem>
+        <listitem><para>Create batch jobs that invoke &LAM; functions to update objects.</para></listitem>
+        <listitem><para>Delete &LAM; functions.</para></listitem>
+        <listitem><para>Empty and delete a versioned bucket.</para></listitem>
+    </itemizedlist>
+    <para>
+        This example is best viewed on GitHub.
+        For complete source code and instructions on how to set up and run, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/s3/s3_versioning#batch-operation-demo">GitHub</ulink>.
+    </para>
+</block>

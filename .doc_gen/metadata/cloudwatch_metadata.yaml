@@ -5,6 +5,15 @@ cloudwatch_ListMetrics:
   synopsis: list &CWlong; metrics.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv3.ListMetricsExample
     Java:
       versions:
         - sdk_version: 2
@@ -24,6 +33,18 @@ cloudwatch_ListMetrics:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.ListMetrics
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.list_metrics.inc
+            - description: List the metrics.
+              snippet_tags:
+                - cw.cpp.list_metrics.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -70,6 +91,18 @@ cloudwatch_PutMetricData:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.PutMetricData
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.put_metric_data.inc
+            - description: Put data into the metric.
+              snippet_tags:
+                - cw.cpp.put_metric_data.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -133,6 +166,15 @@ cloudwatch_PutMetricAlarm:
   synopsis: create an &CWlong; alarm that watches a metric.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.put_metric_alarm.main
     Java:
       versions:
         - sdk_version: 2
@@ -152,6 +194,18 @@ cloudwatch_PutMetricAlarm:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.PutMetricAlarm
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.put_metric_alarm.inc
+            - description: Create the alarm to watch the metric.
+              snippet_tags:
+                - cw.cpp.put_metric_alarm.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -179,6 +233,15 @@ cloudwatch_DescribeAlarmsForMetric:
   synopsis: describe &CWlong; alarms for a metric.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.describe_alarms.main
     Java:
       versions:
         - sdk_version: 2
@@ -198,6 +261,18 @@ cloudwatch_DescribeAlarmsForMetric:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.DescribeAlarmsForMetric
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.describe_alarms.inc
+            - description: Describe the alarms.
+              snippet_tags:
+                - cw.cpp.describe_alarms.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -225,6 +300,24 @@ cloudwatch_EnableAlarmActions:
   synopsis: enable &CWlong; alarm actions.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv3.EnableAlarmActionsExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.enable_alarm_actions.main
     Java:
       versions:
         - sdk_version: 2
@@ -244,6 +337,18 @@ cloudwatch_EnableAlarmActions:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.EnableAlarmActions.DisableAlarmActions
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.enable_alarm_actions.inc
+            - description: Enable the alarm actions.
+              snippet_tags:
+                - cw.cpp.enable_alarm_actions.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -271,6 +376,24 @@ cloudwatch_DisableAlarmActions:
   synopsis: disable &CWlong; alarm actions.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.disable_alarm_actions.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv3.DisableAlarmActionsExammple
     Java:
       versions:
         - sdk_version: 2
@@ -290,6 +413,18 @@ cloudwatch_DisableAlarmActions:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.EnableAlarmActions.DisableAlarmActions
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.disable_alarm_actions.inc
+            - description: Disable the alarm actions.
+              snippet_tags:
+                - cw.cpp.disable_alarm_actions.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -317,6 +452,24 @@ cloudwatch_DeleteAlarms:
   synopsis: delete &CWlong; alarms.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.delete_metrics.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv3.DeleteAlarmsExample
     Java:
       versions:
         - sdk_version: 2
@@ -336,6 +489,18 @@ cloudwatch_DeleteAlarms:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.DeleteAlarms
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.delete_alarm.inc
+            - description: Delete the alarm.
+              snippet_tags:
+                - cw.cpp.delete_alarm.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -389,3 +554,54 @@ cloudwatch_Usage_MetricsAlarms:
                 - python.example_code.cloudwatch.Usage_MetricsAlarms
   services:
     cloudwatch: {}
+cloudwatch_DescribeAlarmHistory:
+  title: Describe a &CW; alarm's history using an &AWS; SDK
+  title_abbrev: Describe alarm history
+  synopsis: describe &CWlong; alarm history.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description: Get a list of &CW; alarms, then retrieve the history for each alarm.
+              snippet_tags:
+                - CloudWatch.dotnetv3.DescribeAlarmHistoriesExample
+  services:
+    cloudwatch: {DescribeAlarmHistory}
+cloudwatch_GetDashboard:
+  title: Get the details of a &CW; dashboard
+  title_abbrev: Get dashboard details
+  synopsis: get &CWlong; dashboard details.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv3.GetDashboardExample
+  services:
+    cloudwatch: {GetDashboard}
+cloudwatch_ListDashboards:
+  title: List &CW; dashboards
+  title_abbrev: List dashboards
+  synopsis: list &CWlong; dashboards.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv3.ListDashboardsExample
+  services:
+    cloudwatch: {ListDashboards}

@@ -18,15 +18,15 @@ Inputs (replace in code):
 - NEW_ATTRIBUTE_1_VALUE
 
 Running the code:
-ts-node ddbdoc_put_item.js
+node ddbdoc_put_item.js
 */
 // snippet-start:[dynamodb.JavaScript.docClient.putV3]
 
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
-import { ddbDocClient } from "./libs/ddbDocClient.js";
+import { ddbDocClient } from "./libs/ddbDocClient";
 
 // Set the parameters.
-const params = {
+export const params = {
   TableName: "TABLE_NAME",
   /*
     Convert the key JavaScript object you are adding to the
@@ -47,7 +47,7 @@ const params = {
   },
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await ddbDocClient.send(new PutCommand(params));
     console.log("Success - item added or updated", data);

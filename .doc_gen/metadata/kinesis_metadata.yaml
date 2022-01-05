@@ -24,6 +24,14 @@ kinesis_CreateStream:
               snippet_tags:
                 - python.example_code.kinesis.KinesisStream.class
                 - python.example_code.kinesis.CreateStream
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.rust.create-stream
   services:
     kinesis: {CreateStream}
 kinesis_DescribeStream:
@@ -42,8 +50,32 @@ kinesis_DescribeStream:
               snippet_tags:
                 - python.example_code.kinesis.KinesisStream.class
                 - python.example_code.kinesis.DescribeStream
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.rust.describe-stream
   services:
     kinesis: {DescribeStream}
+kinesis_ListStreams:
+  title: List &AK; streams using an &AWS; SDK
+  title_abbrev: List streams
+  synopsis: list information about one or more &AK; streams.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.rust.list-streams
+  services:
+    kinesis: {ListStreams}
 kinesis_DeleteStream:
   title: Delete a &AK; stream using an &AWS; SDK
   title_abbrev: Delete a stream
@@ -69,6 +101,14 @@ kinesis_DeleteStream:
               snippet_tags:
                 - python.example_code.kinesis.KinesisStream.class
                 - python.example_code.kinesis.DeleteStream
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.rust.delete-stream
   services:
     kinesis: {DeleteStream}
 kinesis_PutRecord:
@@ -96,6 +136,14 @@ kinesis_PutRecord:
               snippet_tags:
                 - python.example_code.kinesis.KinesisStream.class
                 - python.example_code.kinesis.PutRecord
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.rust.put-record
   services:
     kinesis: {PutRecord}
 kinesis_GetRecords:

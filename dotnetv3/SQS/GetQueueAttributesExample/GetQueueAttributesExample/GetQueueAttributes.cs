@@ -1,19 +1,20 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+/// <summary>
+/// Uses Amazon Simple Queue Service (Amazon SQS) to retrieve attributes
+/// of the Amazon SQS queue. This example was created using AWS SDK for
+/// .NET version 3.7 and .NET Core 5.0.
+/// </summary>
 namespace GetQueueAttributesExample
 {
+    // snippet-start:[SQS.dotnetv3.GetQueueAttributesExample]
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Amazon.SQS;
     using Amazon.SQS.Model;
 
-    /// <summary>
-    /// Uses Amazon Simple Queue Service (Amazon SQS) to retrieve attributes
-    /// of the Amazon SQS queue. This example was created using AWS SDK for
-    /// .NET version 3.7 and .NET Core 5.0.
-    /// </summary>
     public class GetQueueAttributes
     {
         /// <summary>
@@ -70,4 +71,6 @@ namespace GetQueueAttributesExample
             }
         }
     }
+
+    // snippet-end:[SQS.dotnetv3.GetQueueAttributesExample]
 }

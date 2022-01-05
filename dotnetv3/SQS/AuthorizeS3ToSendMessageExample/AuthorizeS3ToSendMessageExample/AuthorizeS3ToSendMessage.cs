@@ -1,18 +1,19 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+/// <summary>
+/// Shows how to authorize an Amazon Simple Storage Service (Amazon S3)
+/// bucket to send messages to an Amazon Simple Queue Service (Amazon SQS)
+/// queue. The example was created using the AWS SDK for .NET version 3.7
+/// and .NET Core 5.0.
+/// </summary>
 namespace AuthorizeS3ToSendMessageExample
 {
+    // snippet-start:[SQS.dotnetv3.AuthorizeS3ToSendMessageExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.SQS;
 
-    /// <summary>
-    /// Shows how to authorize an Amazon Simple Storage Service (Amazon S3)
-    /// bucket to send messages to an Amazon Simple Queue Service (Amazon SQS)
-    /// queue. The example was created using the AWS SDK for .NET version 3.7
-    /// and .NET Core 5.0.
-    /// </summary>
     public class AuthorizeS3ToSendMessage
     {
         /// <summary>
@@ -39,4 +40,6 @@ namespace AuthorizeS3ToSendMessageExample
             }
         }
     }
+
+    // snippet-end:[SQS.dotnetv3.AuthorizeS3ToSendMessageExample]
 }

@@ -41,7 +41,9 @@ export class HelloCdkStack extends core.Stack {
       visibilityTimeout: core.Duration.seconds(300)
     });
 
-    const topic = new sns.Topic(this, "HelloCdkTopic");
+    const topic = new sns.Topic(this, "HelloCdkTopic", {
+      topicName = "VisibleTopicName"
+    }
 
     const sub = new subscriptions.SqsSubscription(queue, {});
     sub.bind(topic);

@@ -1,19 +1,66 @@
 # zexi 0.4.0
+eventbridge_DeleteRule:
+  title: Delete an &EV; scheduled rule using an &AWS; SDK
+  title_abbrev: Delete a scheduled rule
+  synopsis: delete an &EVlong; scheduled rule.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin._delete_rule.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.java2._delete_rule.main
+  services:
+    eventbridge: {DeleteRule}
 eventbridge_PutRule:
   title: Create an &EV; scheduled rule using an &AWS; SDK
   title_abbrev: Create a scheduled rule
   synopsis: create an &EVlong; scheduled rule.
   category:
   languages:
-    Java:
+    Kotlin:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/cloudwatch
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.java2.put_rule.main
+                - eventbridge.kotlin._create_rule.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.java2._create_rule.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.put_rule.inc
+            - description: Create the rule.
+              snippet_tags:
+                - cw.cpp.put_rule.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -41,15 +88,36 @@ eventbridge_PutEvents:
   synopsis: send &EVlong; events.
   category:
   languages:
-    Java:
+    Kotlin:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/cloudwatch
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.java2.put_events.main
+                - eventbridge.kotlin._put_event.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.java2._put_event.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.put_events.inc
+            - description: Send the event.
+              snippet_tags:
+                - cw.cpp.put_events.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -73,19 +141,22 @@ eventbridge_PutEvents:
     eventbridge: {PutEvents}
 eventbridge_PutTargets:
   title: Add a &LAM; function target using an &AWS; SDK
-  title_abbrev: Adding a &LAM; function target
+  title_abbrev: Add a &LAM; function target
   synopsis: add an &LAMlong; function target to an &EVlong; event.
   category:
   languages:
-    Java:
+    C++:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/cloudwatch
+        - sdk_version: 1
+          github: cpp/example_code/eventbridge
           sdkguide:
           excerpts:
-            - description:
+            - description: Include the required files.
               snippet_tags:
-                - cloudwatch.java2.put_targets.main
+                - cw.cpp.put_targets.inc
+            - description: Add the target.
+              snippet_tags:
+                - cw.cpp.put_targets.code
     JavaScript:
       versions:
         - sdk_version: 3

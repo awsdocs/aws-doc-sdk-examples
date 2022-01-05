@@ -29,6 +29,7 @@ from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
+# snippet-start:[python.example_code.s3.get_s3_helper]
 s3_resource = boto3.resource('s3')
 
 
@@ -39,8 +40,10 @@ def get_s3(region=None):
         return s3_resource
     else:
         return boto3.resource('s3', region_name=region)
+# snippet-end:[python.example_code.s3.get_s3_helper]
 
 
+# snippet-start:[python.example_code.s3.CreateBucket]
 def create_bucket(name, region=None):
     """
     Create an Amazon S3 bucket with the specified name and in the specified Region.
@@ -83,8 +86,10 @@ def create_bucket(name, region=None):
         raise error
     else:
         return bucket
+# snippet-end:[python.example_code.s3.CreateBucket]
 
 
+# snippet-start:[python.example_code.s3.HeadBucket]
 def bucket_exists(bucket_name):
     """
     Determine whether a bucket with the specified name exists.
@@ -104,8 +109,10 @@ def bucket_exists(bucket_name):
                        bucket_name)
         exists = False
     return exists
+# snippet-end:[python.example_code.s3.HeadBucket]
 
 
+# snippet-start:[python.example_code.s3.ListBuckets]
 def get_buckets():
     """
     Get the buckets in all Regions for the current account.
@@ -123,8 +130,10 @@ def get_buckets():
         raise
     else:
         return buckets
+# snippet-end:[python.example_code.s3.ListBuckets]
 
 
+# snippet-start:[python.example_code.s3.DeleteBucket]
 def delete_bucket(bucket):
     """
     Delete a bucket. The bucket must be empty or an error is raised.
@@ -140,8 +149,10 @@ def delete_bucket(bucket):
     except ClientError:
         logger.exception("Couldn't delete bucket %s.", bucket.name)
         raise
+# snippet-end:[python.example_code.s3.DeleteBucket]
 
 
+# snippet-start:[python.example_code.s3.PutBucketAcl]
 def grant_log_delivery_access(bucket_name):
     """
     Grant the AWS Log Delivery group write access to the specified bucket so that
@@ -176,8 +187,10 @@ def grant_log_delivery_access(bucket_name):
     except ClientError:
         logger.exception("Couldn't add ACL to bucket '%s'.", bucket_name)
         raise
+# snippet-end:[python.example_code.s3.PutBucketAcl]
 
 
+# snippet-start:[python.example_code.s3.GetBucketAcl]
 def get_acl(bucket_name):
     """
     Get the ACL of the specified bucket.
@@ -197,8 +210,10 @@ def get_acl(bucket_name):
         raise
     else:
         return acl
+# snippet-end:[python.example_code.s3.GetBucketAcl]
 
 
+# snippet-start:[python.example_code.s3.PutBucketCors]
 def put_cors(bucket_name, cors_rules):
     """
     Apply CORS rules to a bucket. CORS rules specify the HTTP actions that are
@@ -218,8 +233,10 @@ def put_cors(bucket_name, cors_rules):
     except ClientError:
         logger.exception("Couldn't put CORS rules for bucket %s.", bucket_name)
         raise
+# snippet-end:[python.example_code.s3.PutBucketCors]
 
 
+# snippet-start:[python.example_code.s3.GetBucketCors]
 def get_cors(bucket_name):
     """
     Get the CORS rules for the specified bucket.
@@ -238,8 +255,10 @@ def get_cors(bucket_name):
         raise
     else:
         return cors
+# snippet-end:[python.example_code.s3.GetBucketCors]
 
 
+# snippet-start:[python.example_code.s3.DeleteBucketCors]
 def delete_cors(bucket_name):
     """
     Delete the CORS rules from the specified bucket.
@@ -255,8 +274,10 @@ def delete_cors(bucket_name):
     except ClientError:
         logger.exception("Couldn't delete CORS from bucket '%s'.", bucket_name)
         raise
+# snippet-end:[python.example_code.s3.DeleteBucketCors]
 
 
+# snippet-start:[python.example_code.s3.PutBucketPolicy]
 def put_policy(bucket_name, policy):
     """
     Apply a security policy to a bucket. Policies typically grant users the ability
@@ -275,8 +296,10 @@ def put_policy(bucket_name, policy):
     except ClientError:
         logger.exception("Couldn't apply policy to bucket '%s'.", bucket_name)
         raise
+# snippet-end:[python.example_code.s3.PutBucketPolicy]
 
 
+# snippet-start:[python.example_code.s3.GetBucketPolicy]
 def get_policy(bucket_name):
     """
     Get the security policy of a bucket.
@@ -295,8 +318,10 @@ def get_policy(bucket_name):
         raise
     else:
         return json.loads(policy.policy)
+# snippet-end:[python.example_code.s3.GetBucketPolicy]
 
 
+# snippet-start:[python.example_code.s3.DeleteBucketPolicy]
 def delete_policy(bucket_name):
     """
     Delete the security policy from the specified bucket.
@@ -312,8 +337,10 @@ def delete_policy(bucket_name):
     except ClientError:
         logger.exception("Couldn't delete policy for bucket '%s'.", bucket_name)
         raise
+# snippet-end:[python.example_code.s3.DeleteBucketPolicy]
 
 
+# snippet-start:[python.example_code.s3.PutBucketLifecycleConfiguration]
 def put_lifecycle_configuration(bucket_name, lifecycle_rules):
     """
     Apply a lifecycle configuration to a bucket. The lifecycle configuration can
@@ -337,8 +364,10 @@ def put_lifecycle_configuration(bucket_name, lifecycle_rules):
     except ClientError:
         logger.exception("Couldn't put lifecycle rules for bucket '%s'.", bucket_name)
         raise
+# snippet-end:[python.example_code.s3.PutBucketLifecycleConfiguration]
 
 
+# snippet-start:[python.example_code.s3.GetBucketLifecycleConfiguration]
 def get_lifecycle_configuration(bucket_name):
     """
     Get the lifecycle configuration of the specified bucket.
@@ -359,8 +388,10 @@ def get_lifecycle_configuration(bucket_name):
         raise
     else:
         return config.rules
+# snippet-end:[python.example_code.s3.GetBucketLifecycleConfiguration]
 
 
+# snippet-start:[python.example_code.s3.DeleteBucketLifecycleConfiguration]
 def delete_lifecycle_configuration(bucket_name):
     """
     Remove the lifecycle configuration from the specified bucket.
@@ -377,8 +408,10 @@ def delete_lifecycle_configuration(bucket_name):
         logger.exception("Couldn't delete lifecycle configuration for bucket '%s'.",
                          bucket_name)
         raise
+# snippet-end:[python.example_code.s3.DeleteBucketLifecycleConfiguration]
 
 
+# snippet-start:[python.example_code.s3.Scenario_GeneratePresignedPost]
 def generate_presigned_post(bucket_name, object_key, expires_in):
     """
     Generate a presigned Amazon S3 POST request to upload a file.
@@ -403,10 +436,17 @@ def generate_presigned_post(bucket_name, object_key, expires_in):
                          "and object '%s'", bucket_name, object_key)
         raise
     return response
+# snippet-end:[python.example_code.s3.Scenario_GeneratePresignedPost]
 
 
+# snippet-start:[python.example_code.s3.Scenario_BucketManagement]
 def usage_demo():
-    """Demonstrates ways to use the functions in this module."""
+    print('-'*88)
+    print("Welcome to the Amazon S3 bucket demo!")
+    print('-'*88)
+
+    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+
     prefix = 'usage-demo-bucket-wrapper-'
 
     created_buckets = [create_bucket(prefix + str(uuid.uuid1()),
@@ -465,9 +505,11 @@ def usage_demo():
         delete_policy(bucket.name)
     except ClientError as error:
         if error.response['Error']['Code'] == 'MalformedPolicy':
-            print("Couldn't put the policy because the specified principal user does "
-                  "not exist. For this request to succeed, you must replace the user "
-                  "ARN with an actual AWS user.")
+            print('*'*88)
+            print("This demo couldn't set the bucket policy because the principal user\n"
+                  "specified in the demo policy does not exist. For this request to\n"
+                  "succeed, you must replace the user ARN with an existing AWS user.")
+            print('*' * 88)
         else:
             raise
 
@@ -491,17 +533,10 @@ def usage_demo():
         bucket.delete()
         print(f"Deleted bucket {bucket.name}.")
 
-
-def main():
-    go = input("Running the usage demonstration uses your default AWS account "
-               "credentials and might incur charges on your account. Do you want "
-               "to continue (y/n)? ")
-    if go.lower() == 'y':
-        print("Starting the usage demo. Enjoy!")
-        usage_demo()
-    else:
-        print("Thanks anyway!")
+    print('Thanks for watching!')
+    print('-'*88)
+# snippet-end:[python.example_code.s3.Scenario_BucketManagement]
 
 
 if __name__ == '__main__':
-    main()
+    usage_demo()

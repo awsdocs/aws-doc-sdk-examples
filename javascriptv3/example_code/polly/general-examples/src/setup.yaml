@@ -33,7 +33,7 @@ Resources:
               - cognito-sync:*
             Effect: Allow
             Resource: "*"
-          - Action: polly:*
+          - Action: polly:SynthesizeSpeech
             Effect: Allow
             Resource: "*"
         Version: "2012-10-17"

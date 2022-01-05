@@ -7,11 +7,6 @@ Purpose
 Demonstrates how to manipulate Amazon S3 versioned objects in batches by creating jobs
 that call AWS Lambda functions to perform processing. The demo has three phases: setup,
 processing, and teardown.
-
-For more detail, including usage and testing instructions, see the README.
-
-Running this demo uses your default AWS credentials to create resources in your
-account and may incur charges.
 """
 
 from contextlib import contextmanager
@@ -21,7 +16,7 @@ import logging
 import random
 from shutil import get_terminal_size
 from sys import stdout
-from time import sleep
+import time
 from urllib import parse
 import uuid
 from zipfile import ZipFile
@@ -75,7 +70,7 @@ def custom_retry(callback, error_code, max_tries):
         except ClientError as error:
             if error.response['Error']['Code'] == error_code:
                 logger.debug("Got retryable error %s.", error_code)
-                sleep(sleepy_time)
+                time.sleep(sleepy_time)
                 sleepy_time = min(sleepy_time*2, 32)
                 tries += 1
                 if tries == max_tries:
@@ -161,7 +156,7 @@ def create_iam_role(role_name):
         logger.info("Created policy %s with arn %s.", policy_name, policy.arn)
 
         role.attach_policy(PolicyArn=policy.arn)
-        sleep(1)
+        time.sleep(1)
         logger.info("Attached policy %s to role %s.", policy_name, role.name)
     except ClientError:
         logger.exception("Couldn't create or attach policy %s.", policy_name)
@@ -419,7 +414,7 @@ def report_job_status(account_id, job_id):
             else:
                 print('.', end='')
             stdout.flush()
-            sleep(1)
+            time.sleep(1)
         print('')
     except ClientError:
         logger.exception("Couldn't get status for job %s.", job_id)
@@ -602,8 +597,8 @@ def main():
     """
     prefix = 'demo-versioning'
     obj_prefix = f'{prefix}/'
-    bucket_name = f'{prefix}-bucket-' + str(uuid.uuid1())
-    role_name = f'{prefix}-s3-batch-role'
+    bucket_name = f'{prefix}-bucket-{uuid.uuid1()}'
+    role_name = f'{prefix}-s3-batch-role-{time.time_ns()}'
     function_info = {
         'revise_stanza': {
             'file_name': 'revise_stanza.py',
