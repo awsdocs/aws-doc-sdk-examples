@@ -16,7 +16,7 @@ namespace StopTextTranslationJobExample
 
     class StopTextTranslationJob
     {
-        static async Task Main()
+        public static async Task Main()
         {
             var client = new AmazonTranslateClient();
             var jobId = "sample-job-id";
