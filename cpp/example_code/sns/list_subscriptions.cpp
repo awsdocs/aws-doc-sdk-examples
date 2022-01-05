@@ -1,15 +1,3 @@
- 
-//snippet-sourcedescription:[list_subscriptions.cpp demonstrates how to retrieve a list of Amazon SNS subscriptions.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[tapasweni-pathak]
-
-
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -28,17 +16,17 @@
 #include <iostream>
 
 /**
- * Lists subscriptions
+ * Lists subscriptions - demonstrates how to retrieve a list of Amazon SNS subscriptions.
  */
 
 int main(int argc, char ** argv)
 {
-  if (argc != 2)
+  if (argc != 1)
   {
     std::cout << "Usage: list_subscriptions" << std::endl;
     return 1;
   }
-
+  // snippet-start:[sns.cpp.list_subscriptions.code]
   Aws::SDKOptions options;
   Aws::InitAPI(options);
   {
@@ -50,7 +38,11 @@ int main(int argc, char ** argv)
 
     if (ls_out.IsSuccess())
     {
-      //std::cout << "Subscriptions list " << ls_out.GetResult().GetSubscriptions() << std::endl;
+        std::cout << "Subscriptions list:" << std::endl;
+        for (auto const& subscription : ls_out.GetResult().GetSubscriptions())
+        {
+            std::cout << "  * " << subscription.GetSubscriptionArn() << std::endl;
+        }
     }
     else
     {
@@ -60,5 +52,6 @@ int main(int argc, char ** argv)
   }
 
   Aws::ShutdownAPI(options);
+  // snippet-end:[sns.cpp.list_subscriptions.code]
   return 0;
 }

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Simple Queue Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -36,9 +36,9 @@ public class DeleteQueue {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "DeleteQueue <queueName>\n\n" +
+                "   <queueName>\n\n" +
                 "Where:\n" +
-                "  queueName - the name of the Amazon SQS queue to delete.\n\n" ;
+                "   queueName - the name of the Amazon SQS queue to delete.\n\n" ;
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -75,7 +75,7 @@ public class DeleteQueue {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        // snippet-end:[sqs.java2.sqs_example.delete_queue]
     }
+    // snippet-end:[sqs.java2.sqs_example.delete_queue]
 }
 // snippet-end:[sqs.java2.long_polling.complete]

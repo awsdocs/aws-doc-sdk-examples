@@ -1,12 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
-# The following code example shows how to:
+# Purpose:
+# iam-ruby-example-manage-policies.rb shows how to:
 # 1. Create a policy in AWS Identity and Access Management (IAM).
 # 2. Attach the policy to a role.
 # 3. List the policies that are attached to the role.
 # 4. Detach the policy from the role.
 
+# snippet-start:[elastictranscoder.ruby.managePolicies]
 require 'aws-sdk-iam'
 
 # Creates a policy in AWS Identity and Access Management (IAM).
@@ -171,3 +173,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[elastictranscoder.ruby.managePolicies]

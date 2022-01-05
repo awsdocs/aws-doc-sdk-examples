@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Elastic Container Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[06/20/2021]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -13,6 +13,7 @@
 
 package com.example.ecs;
 
+// snippet-start:[ecs.java2.create_cluster.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ecs.EcsClient;
 import software.amazon.awssdk.services.ecs.model.ExecuteCommandConfiguration;
@@ -21,6 +22,7 @@ import software.amazon.awssdk.services.ecs.model.ClusterConfiguration;
 import software.amazon.awssdk.services.ecs.model.CreateClusterResponse;
 import software.amazon.awssdk.services.ecs.model.EcsException;
 import software.amazon.awssdk.services.ecs.model.CreateClusterRequest;
+// snippet-end:[ecs.java2.create_cluster.import]
 
 /**
  To run this Java V2 code example, ensure that you have setup your development environment,
@@ -34,10 +36,9 @@ public class CreateCluster {
 
         final String usage = "\n" +
                 "Usage:\n" +
-                "  CreateCluster " +
                 "   <clusterName> \n\n" +
                 "Where:\n" +
-                "  clusterName - the name of the ECS cluster to create.\n" ;
+                "   clusterName - the name of the ECS cluster to create.\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -56,6 +57,7 @@ public class CreateCluster {
 
     }
 
+    // snippet-start:[ecs.java2.create_cluster.main]
     public static String createGivenCluster( EcsClient ecsClient, String clusterName) {
 
         try {
@@ -82,4 +84,5 @@ public class CreateCluster {
         }
         return "";
     }
+    // snippet-end:[ecs.java2.create_cluster.main]
 }

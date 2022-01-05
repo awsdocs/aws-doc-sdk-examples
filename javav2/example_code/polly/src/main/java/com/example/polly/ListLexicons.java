@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Polly]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/05/2020]
+// snippet-sourcedate:[09/27/2021]
 // snippet-sourceauthor:[scmacdon AWS]
 
 /*

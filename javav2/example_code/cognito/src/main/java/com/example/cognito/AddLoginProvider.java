@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[11/06/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -97,6 +97,6 @@ public class AddLoginProvider {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        //snippet-end:[cognito.java2.add_login_provider.main]
     }
+    //snippet-end:[cognito.java2.add_login_provider.main]
 }

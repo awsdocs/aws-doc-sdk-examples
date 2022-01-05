@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Rekognition]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11-03-2020]
+// snippet-sourcedate:[09-27-2021]
 // snippet-sourceauthor:[scmacdon - AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -96,7 +96,7 @@ public class PPEBoundingBoxFrame extends JPanel {
             SdkBytes sourceBytes = SdkBytes.fromInputStream(is);
             image = ImageIO.read(sourceBytes.asInputStream());
 
-            // Create an Image object for the source image
+            // Create an Image object for the source image.
             software.amazon.awssdk.services.rekognition.model.Image souImage = Image.builder()
                     .bytes(sourceBytes)
                     .build();

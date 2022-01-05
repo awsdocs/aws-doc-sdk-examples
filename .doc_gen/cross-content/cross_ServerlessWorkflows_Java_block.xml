@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+    <para>
+        Shows how to create an &AWS; serverless workflow by using &SFNlong; and the &JavaV2long;.
+        Each workflow step is implemented using an &LAMlong; function.
+    </para>
+    <para>
+        For complete source code and instructions on how to set up and run, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_workflows_stepfunctions">GitHub</ulink>.
+    </para>
+</block>

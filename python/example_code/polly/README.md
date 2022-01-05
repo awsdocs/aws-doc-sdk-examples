@@ -1,4 +1,4 @@
-# Amazon Polly lip-sync example
+# Amazon Polly code examples
 
 ## Purpose
 
@@ -13,18 +13,33 @@ of visemes from Amazon Polly that match up with the synthesized speech.
 * Submit asynchronous synthesis tasks for long texts and retrieve the output from
 an Amazon Simple Storage Service (Amazon S3) bucket.
 
-## Prerequisites
+*Amazon Polly is a Text-to-Speech (TTS) cloud service that converts text into lifelike 
+speech.*
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.8.5 or later
-- Boto3 1.16.49 or later
-- Playsound 1.2.2 or later
-- Requests 2.24.0 or later
-- PyTest 6.0.2 or later (for unit tests)
+## Code examples
 
-## Cautions
+### Scenario examples
+
+* [Create a lip-sync application](polly_wrapper.py)
+
+### API examples
+
+* [Get a lexicon](polly_wrapper.py)
+(`GetLexicon`)
+* [Get data about a speech synthesis task](polly_wrapper.py)
+(`GetSpeechSynthesisTask`)
+* [Get voices available for synthesis](polly_wrapper.py)
+(`DescribeVoices`)
+* [List pronunciation lexicons](polly_wrapper.py)
+(`ListLexicons`)
+* [Start a speech synthesis task](polly_wrapper.py)
+(`StartSpeechSynthesisTask`)
+* [Store a pronunciation lexicon](polly_wrapper.py)
+(`PutLexicon`)
+* [Synthesize speech from text](polly_wrapper.py)
+(`SynthesizeSpeech`)
+
+## ⚠ Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -38,6 +53,19 @@ an Amazon Simple Storage Service (Amazon S3) bucket.
 - Running this code might result in charges to your AWS account.
 
 ## Running the code
+
+### Prerequisites
+
+- You must have an AWS account, and have your default credentials and AWS Region
+  configured as described in the [AWS Tools and SDKs Shared Configuration and
+  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
+- Python 3.8.5 or later
+- Boto3 1.16.49 or later
+- Playsound 1.2.2 or later
+- Requests 2.24.0 or later
+- PyTest 6.0.2 or later (for unit tests)
+
+### Command
 
 Run this example at a command prompt with the following command.
 

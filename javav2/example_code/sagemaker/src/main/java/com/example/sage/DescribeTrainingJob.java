@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon SageMaker]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/05/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -34,7 +34,7 @@ public class DescribeTrainingJob {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DescribeTrainingJob <trainingJobName>\n\n" +
+                "    <trainingJobName>\n\n" +
                 "Where:\n" +
                 "    trainingJobName - the name of the training job.\n\n";
 
@@ -49,12 +49,12 @@ public class DescribeTrainingJob {
                 .region(region)
                 .build();
 
-        desribeTrainJob(sageMakerClient, trainingJobName);
+        describeTrainJob(sageMakerClient, trainingJobName);
         sageMakerClient.close();
     }
 
     //snippet-start:[sagemaker.java2.describe_train_job.main]
-    public static void desribeTrainJob(SageMakerClient sageMakerClient, String trainingJobName) {
+    public static void describeTrainJob(SageMakerClient sageMakerClient, String trainingJobName) {
 
        try {
             DescribeTrainingJobRequest trainingJobRequest = DescribeTrainingJobRequest.builder()

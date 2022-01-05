@@ -1,15 +1,3 @@
- 
-//snippet-sourcedescription:[subscribe_lambda.cpp demonstrates how to initiate a subscription to an Amazon SNS topic with delivery to an AWS Lambda function.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[tapasweni-pathak]
-
-
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -26,17 +14,26 @@
 #include <aws/sns/model/SubscribeRequest.h>
 #include <aws/sns/model/SubscribeResult.h>
 #include <iostream>
-
+// snippet-start:[sns.cpp.subscribe_lamda.code]
 /**
- * Subscribe to lambda
+ * Subscribe an AWS Lambda endpoint to a topic - demonstrates how to initiate a subscription to an Amazon SNS topic with delivery
+ *  to an AWS Lambda function.
+ * 
+ *  NOTE: You must first configure AWS Lambda to run this example.  
+ *         See https://docs.amazonaws.cn/en_us/lambda/latest/dg/with-sns-example.html for more information.
+ *
+ * <protocol_value> set to "lambda" provides delivery of JSON-encoded message to an AWS Lambda function
+ *        (see https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html for available protocols).
+ * <topic_arn_value> can be obtained from run_list_topics executable and includes the "arn:" prefix.
+ * <lambda_function_arn> is the ARN of an AWS Lambda function.
  */
 
 int main(int argc, char ** argv)
 {
   if (argc != 4)
   {
-    std::cout << "Usage: subscribe <protocol_value/lambda> <topic_arn_value>"
-                 "lambda_function_arn" << std::endl;
+    std::cout << "Usage: subscribe_lamda <protocol_value=lambda> <topic_arn_value>"
+                 " <lambda_function_arn>" << std::endl;
     return 1;
   }
 
@@ -69,3 +66,4 @@ int main(int argc, char ** argv)
   Aws::ShutdownAPI(options);
   return 0;
 }
+// snippet-end:[sns.cpp.subscribe_lamda.code]

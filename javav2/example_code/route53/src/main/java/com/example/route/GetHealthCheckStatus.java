@@ -4,7 +4,7 @@
 // snippet-service:[Amazon Route 53]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-09-28]
+// snippet-sourcedate:[09/28/2021]
 // snippet-sourceauthor:[AWS - scmacdon]
 
 /*
@@ -37,7 +37,7 @@ public class GetHealthCheckStatus {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    GetHealthCheckStatus <healthCheckId> \n\n" +
+                "    <healthCheckId> \n\n" +
                 "Where:\n" +
                 "    healthCheckId - the health check id. \n";
 

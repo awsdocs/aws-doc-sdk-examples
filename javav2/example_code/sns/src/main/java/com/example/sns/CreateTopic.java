@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon- AWS]
 
 /*
@@ -32,9 +32,9 @@ public class CreateTopic {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage: " +
-                "CreateTopic <topicName>\n\n" +
+                "   <topicName>\n\n" +
                 "Where:\n" +
-                "  topicName - the name of the topic to create (for example, mytopic).\n\n";
+                "   topicName - the name of the topic to create (for example, mytopic).\n\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -70,6 +70,6 @@ public class CreateTopic {
             System.exit(1);
         }
         return "";
-        //snippet-end:[sns.java2.CreateTopic.main]
     }
+    //snippet-end:[sns.java2.CreateTopic.main]
 }

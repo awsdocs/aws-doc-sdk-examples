@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[AWS Secrets Manager]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/6/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-AWS]
 
 /*
@@ -39,7 +39,7 @@ public class DescribeSecret {
 
        final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DescribeSecret  <secretName> \n\n" +
+                "    <secretName> \n\n" +
                 "Where:\n" +
                 "    secretName - the name of the secret (for example, tutorials/MyFirstSecret). \n";
 

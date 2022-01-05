@@ -1,10 +1,15 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# Purpose:
+# dynamodb-ruby-example-create-users-table.rb demonstrates how to create a table
+# in Amazon DynamoDB using the AWS SDK for Ruby.
+
+# snippet-start:[dynamodb.Ruby.createUserTable]
+
 require 'aws-sdk-dynamodb'
 
-# Creates a table in Amazon DynamoDB.
-#
+
 # @param dynamodb_client [Aws::DynamoDB::Client] An initialized
 #   Amazon DynamoDB client.
 # @param table_name [String] The name of the table to create.
@@ -83,7 +88,7 @@ def table_created?(
       key_schema: key_schema,
       global_secondary_indexes: global_secondary_indexes,
       provisioned_throughput: provisioned_throughput
-    }  
+    }
   )
   dynamodb_client.wait_until(:table_exists, table_name: table_name)
   true
@@ -94,6 +99,7 @@ end
 
 # Full example call:
 def run_me
+# Replace us-west-2 with the AWS Region you're using for Amazon DynamoDB.
   region = 'us-west-2'
   table_name = 'Users'
 
@@ -164,3 +170,5 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+
+# snippet-end:[dynamodb.Ruby.createUserTable]

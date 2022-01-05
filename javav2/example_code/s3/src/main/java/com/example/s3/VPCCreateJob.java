@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[1/19/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -17,7 +17,6 @@ package com.example.s3;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3control.S3ControlClient;
 import software.amazon.awssdk.services.s3control.model.*;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class VPCCreateJob {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateJob <accountId> <iamRoleArn> <manifestLocation> <reportBucketName> <tagKey> <tagValue> <eTag> <vpcBucketURL>\n\n" +
+                "    <accountId> <iamRoleArn> <manifestLocation> <reportBucketName> <tagKey> <tagValue> <eTag> <vpcBucketURL>\n\n" +
                 "Where:\n" +
                 "    accountId - the account id value that owns the Amazon S3 bucket.\n\n" +
                 "    iamRoleArn - the ARN of the AWS Identity and Access Management (IAM) role that has permissions to create a batch job.\n" +

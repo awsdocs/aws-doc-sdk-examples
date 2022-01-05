@@ -1,0 +1,175 @@
+# zexi 0.4.0
+kinesis_CreateStream:
+  title: Create a &AK; stream using an &AWS; SDK
+  title_abbrev: Create a stream
+  synopsis: create a &AK; stream.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.java2.create.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis.KinesisStream.class
+                - python.example_code.kinesis.CreateStream
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.rust.create-stream
+  services:
+    kinesis: {CreateStream}
+kinesis_DescribeStream:
+  title: Describe a &AK; stream using an &AWS; SDK
+  title_abbrev: Describe a stream
+  synopsis: describe a &AK; stream.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis.KinesisStream.class
+                - python.example_code.kinesis.DescribeStream
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.rust.describe-stream
+  services:
+    kinesis: {DescribeStream}
+kinesis_ListStreams:
+  title: List &AK; streams using an &AWS; SDK
+  title_abbrev: List streams
+  synopsis: list information about one or more &AK; streams.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.rust.list-streams
+  services:
+    kinesis: {ListStreams}
+kinesis_DeleteStream:
+  title: Delete a &AK; stream using an &AWS; SDK
+  title_abbrev: Delete a stream
+  synopsis: delete a &AK; stream.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.java2.delete.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis.KinesisStream.class
+                - python.example_code.kinesis.DeleteStream
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.rust.delete-stream
+  services:
+    kinesis: {DeleteStream}
+kinesis_PutRecord:
+  title: Put data into a &AK; stream using an &AWS; SDK
+  title_abbrev: Put data into a stream
+  synopsis: put data into a &AK; stream.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.java2.putrecord.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis.KinesisStream.class
+                - python.example_code.kinesis.PutRecord
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/kinesis
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.rust.put-record
+  services:
+    kinesis: {PutRecord}
+kinesis_GetRecords:
+  title: Get data in batches from a &AK; stream using an &AWS; SDK
+  title_abbrev: Get data in batches from a stream
+  synopsis: get data in batches from a &AK; stream.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kinesis.java2.getrecord.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis.KinesisStream.class
+                - python.example_code.kinesis.GetRecords
+  services:
+    kinesis: {GetRecords, GetShardIterator}

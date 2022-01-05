@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[01/08/2021]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -38,7 +38,7 @@ public class CopyObject {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CopyObject <objectKey> <fromBucket> <toBucket>\n\n" +
+                "    <objectKey> <fromBucket> <toBucket>\n\n" +
                 "Where:\n" +
                 "    objectKey - the name of the object (for example, book.pdf).\n\n" +
                 "    fromBucket - the S3 bucket name that contains the object (for example, bucket1).\n" +
@@ -50,8 +50,8 @@ public class CopyObject {
        }
 
         String objectKey = args[0];
-        String fromBucket = args[1];;
-        String toBucket =  args[2];;
+        String fromBucket = args[1];
+        String toBucket =  args[2];
 
         System.out.format("Copying object %s from bucket %s to %s\n",
                 objectKey, fromBucket, toBucket);

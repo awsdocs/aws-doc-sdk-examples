@@ -2,22 +2,26 @@
 
 ## Purpose
 
-This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to get started with automating Amazon DynamoDB.
+This folder contains code examples that demonstrate how to use the AWS SDK for Ruby to get 
+started with automating Amazon DynamoDB.
 
-## Prerequisites
+## Code examples
 
-- An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
-- AWS credentials or an AWS Security Token Service (AWS STS) access token. For details, see 
-  [Configuring the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html) in the 
-  *AWS SDK for Ruby Developer Guide*.
-- To run the code examples, Ruby version 1.9 or later. For Ruby download and installation instructions, see 
-  [Download Ruby](https://www.ruby-lang.org/en/downloads/) on the Ruby Progamming Language website.
-- To test the code examples, RSpec 3.9 or later. For RSpec download and installation instructions, see the [rspec/rspec](https://github.com/rspec/rspec) repository in GitHub.
-- The AWS SDK for Ruby. For AWS SDK for Ruby download and installation instructions, see 
-  [Install the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html) in the 
-  *AWS SDK for Ruby Developer Guide*.
+### API examples
+- [Add an item to a table](./MoviesItemOps01.rb)
+- [Create a table](./MoviesCreateTable.rb)
+- [Get an item from a table](./MoviesItemOps02.rb)
+- [Delete a table](./MoviesDeleteTable.rb)
+- [Delete an item from a table](./MoviesItemOps06.rb)
+- [Load JSON to a table](./MoviesLoadData.rb)
+- [Query for items from a table](./MoviesQuery01.rb)
+- [Query for items from a table (including Projection Expression)](./MoviesQuery02.rb)
+- [Scan for items on a table](./MoviesScan.rb)
+- [Update an item in a table - example 1](./MoviesItemOps03.rb)
+- [Update an item in a table - example 2](./MoviesItemOps04.rb)
+- [Update an item in a table - example 3](./MoviesItemOps05.rb)
 
-## Cautions
+## Important
 
 - As an AWS best practice, grant this code least privilege, or only the 
   permissions required to perform a task. For more information, see 
@@ -30,6 +34,19 @@ This folder contains code examples that demonstrate how to use the AWS SDK for R
 - Running this code might result in charges to your AWS account.
 
 ## Running the code
+
+### Prerequisites
+
+- An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
+- AWS credentials or an AWS Security Token Service (AWS STS) access token. For details, see 
+  [Configuring the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html) in the 
+  *AWS SDK for Ruby Developer Guide*.
+- To run the code examples, Ruby version 1.9 or later. For Ruby download and installation instructions, see 
+  [Download Ruby](https://www.ruby-lang.org/en/downloads/) on the Ruby Progamming Language website.
+- To test the code examples, RSpec 3.9 or later. For RSpec download and installation instructions, see the [rspec/rspec](https://github.com/rspec/rspec) repository in GitHub.
+- The AWS SDK for Ruby. For AWS SDK for Ruby download and installation instructions, see 
+  [Install the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-install.html) in the 
+  *AWS SDK for Ruby Developer Guide*.
 
 Most of these code example files can be run with very little to no modification. For example, to use Ruby to run the `MoviesCreateTable.rb` file, simply run the file. For example:
 

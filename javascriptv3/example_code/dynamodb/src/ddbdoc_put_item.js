@@ -13,20 +13,20 @@ Inputs (replace in code):
 - primaryKey - The name of the primary key. For example, "id".
 - VALUE_1: Value for the primary key (The format for the datatype must match the schema. For example, if the primaryKey is a number, VALUE_1 has no inverted commas.)
 - sortKey - The name of the sort key. Only required if table has sort key. For example, "firstName".
-- VALUE_2: Value for the primary key (The format for the datatype must match the schema.)
+- VALUE_2: Value for the sort key (The format for the datatype must match the schema.)
 - NEW_ATTRIBUTE_1
 - NEW_ATTRIBUTE_1_VALUE
 
 Running the code:
-ts-node ddbdoc_put_item.js
+node ddbdoc_put_item.js
 */
 // snippet-start:[dynamodb.JavaScript.docClient.putV3]
 
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
-import { ddbDocClient } from "./libs/ddbDocClient.js";
+import { ddbDocClient } from "./libs/ddbDocClient";
 
 // Set the parameters.
-const params = {
+export const params = {
   TableName: "TABLE_NAME",
   /*
     Convert the key JavaScript object you are adding to the
@@ -47,7 +47,7 @@ const params = {
   },
 };
 
-const run = async () => {
+export const run = async () => {
   try {
     const data = await ddbDocClient.send(new PutCommand(params));
     console.log("Success - item added or updated", data);

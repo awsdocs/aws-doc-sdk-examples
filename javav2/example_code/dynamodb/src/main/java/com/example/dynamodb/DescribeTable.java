@@ -36,7 +36,7 @@ public class DescribeTable {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    DescribeTable <tableName>\n\n" +
+                "    <tableName>\n\n" +
                 "Where:\n" +
                 "    tableName - the Amazon DynamoDB table to get information about (for example, Music3).\n\n" ;
 
@@ -101,8 +101,8 @@ public class DescribeTable {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java2.describe_table.main]
         System.out.println("\nDone!");
     }
+    // snippet-end:[dynamodb.java2.describe_table.main]
 }
 

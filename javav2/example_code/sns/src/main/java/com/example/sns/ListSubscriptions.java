@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon- AWS]
 
 /*
@@ -54,6 +54,6 @@ public class ListSubscriptions {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        //snippet-end:[sns.java2.ListSubscriptions.main]
     }
+    //snippet-end:[sns.java2.ListSubscriptions.main]
 }

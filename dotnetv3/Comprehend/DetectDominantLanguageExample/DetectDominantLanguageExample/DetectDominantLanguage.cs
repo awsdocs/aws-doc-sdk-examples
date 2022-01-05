@@ -3,6 +3,7 @@
 
 namespace DetectDominantLanguageExample
 {
+    // snippet-start:[Comprehend.dotnetv3.DetectDominantLanguageExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.Comprehend;
@@ -13,7 +14,7 @@ namespace DetectDominantLanguageExample
     /// dominant language. The example was created using the AWS SDK for .NET
     /// 3.7 and .NET Core 5.0.
     /// </summary>
-    public class DetectDominantLanguage
+    public static class DetectDominantLanguage
     {
         /// <summary>
         /// Calls Amazon Comprehend to determine the dominant language used in
@@ -40,4 +41,6 @@ namespace DetectDominantLanguageExample
             Console.WriteLine("Done");
         }
     }
+
+    // snippet-end:[Comprehend.dotnetv3.DetectDominantLanguageExample]
 }

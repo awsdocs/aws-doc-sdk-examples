@@ -34,7 +34,7 @@ public class CreateDBSnapshot {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    CreateDBSnapshot <dbInstanceIdentifier> <dbSnapshotIdentifier> \n\n" +
+                "    <dbInstanceIdentifier> <dbSnapshotIdentifier> \n\n" +
                 "Where:\n" +
                 "    dbInstanceIdentifier - the database instance identifier \n" +
                 "    dbSnapshotIdentifier - the snapshot identifier \n";
@@ -72,6 +72,6 @@ public class CreateDBSnapshot {
             System.out.println(e.getLocalizedMessage());
             System.exit(1);
         }
-        // snippet-end:[rds.java2.create_instance.main]
     }
+    // snippet-end:[rds.java2.create_instance.main]
 }

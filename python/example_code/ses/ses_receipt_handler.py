@@ -19,6 +19,7 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.ses.SesReceiptHandler]
 class SesReceiptHandler:
     """Encapsulates Amazon SES receipt handling functions."""
     def __init__(self, ses_client, s3_resource):
@@ -28,7 +29,9 @@ class SesReceiptHandler:
         """
         self.ses_client = ses_client
         self.s3_resource = s3_resource
+# snippet-end:[python.example_code.ses.SesReceiptHandler]
 
+# snippet-start:[python.example_code.ses.CreateReceiptFilter]
     def create_receipt_filter(self, filter_name, ip_address_or_range, allow):
         """
         Creates a filter that allows or blocks incoming mail from an IP address or
@@ -53,7 +56,9 @@ class SesReceiptHandler:
         except ClientError:
             logger.exception("Couldn't create receipt filter %s.", filter_name)
             raise
+# snippet-end:[python.example_code.ses.CreateReceiptFilter]
 
+# snippet-start:[python.example_code.ses.ListReceiptFilters]
     def list_receipt_filters(self):
         """
         Gets the list of receipt filters for the current account.
@@ -69,7 +74,9 @@ class SesReceiptHandler:
             raise
         else:
             return filters
+# snippet-end:[python.example_code.ses.ListReceiptFilters]
 
+# snippet-start:[python.example_code.ses.DeleteReceiptFilter]
     def delete_receipt_filter(self, filter_name):
         """
         Deletes a receipt filter.
@@ -82,7 +89,9 @@ class SesReceiptHandler:
         except ClientError:
             logger.exception("Couldn't delete receipt filter %s.", filter_name)
             raise
+# snippet-end:[python.example_code.ses.DeleteReceiptFilter]
 
+# snippet-start:[python.example_code.ses.CreateReceiptRuleSet]
     def create_receipt_rule_set(self, rule_set_name):
         """
         Creates an empty rule set. Rule sets contain individual rules and can be
@@ -96,7 +105,9 @@ class SesReceiptHandler:
         except ClientError:
             logger.exception("Couldn't create receipt rule set %s.", rule_set_name)
             raise
+# snippet-end:[python.example_code.ses.CreateReceiptRuleSet]
 
+# snippet-start:[python.example_code.ses.helper.create_bucket_for_copy]
     def create_bucket_for_copy(self, bucket_name):
         """
         Creates a bucket that can receive copies of emails from Amazon SES. This
@@ -132,7 +143,9 @@ class SesReceiptHandler:
             raise
         else:
             return bucket
+# snippet-end:[python.example_code.ses.helper.create_bucket_for_copy]
 
+# snippet-start:[python.example_code.ses.CreateReceiptRule]
     def create_s3_copy_rule(
             self, rule_set_name, rule_name, recipients, bucket_name, prefix):
         """
@@ -166,7 +179,9 @@ class SesReceiptHandler:
         except ClientError:
             logger.exception("Couldn't create rule %s.", rule_name)
             raise
+# snippet-end:[python.example_code.ses.CreateReceiptRule]
 
+# snippet-start:[python.example_code.ses.DescribeReceiptRuleSet]
     def describe_receipt_rule_set(self, rule_set_name):
         """
         Gets data about a rule set.
@@ -183,7 +198,9 @@ class SesReceiptHandler:
             raise
         else:
             return response
+# snippet-end:[python.example_code.ses.DescribeReceiptRuleSet]
 
+# snippet-start:[python.example_code.ses.DeleteReceiptRule]
     def delete_receipt_rule(self, rule_set_name, rule_name):
         """
         Deletes a rule.
@@ -199,7 +216,9 @@ class SesReceiptHandler:
             logger.exception(
                 "Couldn't remove rule %s from rule set %s.", rule_name, rule_set_name)
             raise
+# snippet-end:[python.example_code.ses.DeleteReceiptRule]
 
+# snippet-start:[python.example_code.ses.DeleteReceiptRuleSet]
     def delete_receipt_rule_set(self, rule_set_name):
         """
         Deletes a rule set. When a rule set is deleted, all of the rules it contains
@@ -213,8 +232,10 @@ class SesReceiptHandler:
         except ClientError:
             logger.exception("Couldn't delete rule set %s.", rule_set_name)
             raise
+# snippet-end:[python.example_code.ses.DeleteReceiptRuleSet]
 
 
+# snippet-start:[python.example_code.ses.Scenario_ReceiptRulesFilters]
 def usage_demo():
     print('-'*88)
     print("Welcome to the Amazon Simple Email Service (Amazon SES) receipt rules "
@@ -261,6 +282,7 @@ def usage_demo():
 
     print("Thanks for watching!")
     print('-'*88)
+# snippet-end:[python.example_code.ses.Scenario_ReceiptRulesFilters]
 
 
 if __name__ == '__main__':

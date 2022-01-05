@@ -1,4 +1,4 @@
-# TypeScript environment for tutorial building an Amazon Messaging app
+# JavaScript environment for tutorial building an Amazon Messaging app
 This is a workspace where you can find an AWS SDK for JavaScript version 3 (v3) tutorial demonstrating how to build an app 
 that sends and receives messages using Amazon Simple Queue Service (Amazon SQS).
 
@@ -20,3 +20,4 @@ They also include third-party Node.js modules, including webpack.
 npm install node -g 
 cd javascriptv3/example_code/cross-services/message-app/
 npm install
+```

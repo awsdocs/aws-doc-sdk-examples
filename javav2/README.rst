@@ -43,19 +43,33 @@ The **javav2** folder in this repository contains examples of complete use cases
 Use cases
 ---------
 
-In the **use_cases** folder, find step-by-step development tutorials that use multiple AWS services. By following these tutorials, you will gain a deeper understanding of how to create Java-based applications that use the AWS SDK for Java V2. These tutorials include:
+In the **use_cases** folder, find step-by-step development tutorials that use multiple AWS services. By following these tutorials, you will gain a deeper understanding of how to create Java-based applications that use the AWS SDK for Java V2. Most of these AWS SDK for Java V2 tutorials use the Synchronous Java client.
+
+If you are interested in using the Asynchronous Java client, see one of these tutorials:
+
++ **Creating a dynamic web application that asynchronously analyzes photos using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java (Asynchronous client) and various AWS services, such as the  Amazon Rekognition service, to analyze images. The application can analyze many images and generate a report that breaks down each image into a series of labels.
+
++ **Creating an asynchronous publish/subscription web application that translates messages using the AWS SDK for Java** - A tutorial that discusses how to create a web application that has subscription and publish functionality. In this tutorial, the Spring Framework along with AWS SDK for Simple Notification Service Java Asynchronous client is used.
+
+The following tutorials use the Synchronous Java client:
 
 + **Creating your first AWS Java web application** - A tutorial that discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS), and AWS Elastic Beanstalk.
 
-+ **Creating_rds_item_tracker** - A tutorial that discusses using Amazon Relational Database Service (Amazon RDS), Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items.
++ **Creating_rds_item_tracker** - A tutorial that discusses using Amazon Relational Database Service (Amazon RDS), Amazon Simple Email Service (Amazon SES), and the Java JDBC API to create a web application that tracks work items.
+
++ **Creating the Serverless Amazon Aurora item tracker application using the Java RdsDataClient API** - A tutorial that discusses using Serverless Amazon Aurora, Amazon Simple Email Service (Amazon SES), and the **RdsDataClient** Java V2 client to create a web application that tracks work items.
 
 + **Creating_dynamodb_item_tracker** - A tutorial that discusses using Amazon DynamoDB, Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items.
+
++ **Creating a Job Posting Site using Amazon Aurora and Amazon Translation Services** - A tutorial that discusses how to create a web application that uses Amazon Aurora (Amazon Relational Database Service), the Java JDBC API, and the Amazon Translate Service to display job listing data. In this tutorial, the Spring Framework along with AWS SDK for Java API V2 is used to create the application. 
+
++ **Creating a Job Posting Site using Amazon Redshift and Amazon Translation Services** - A tutorial that discusses how to create a web application that uses the Redshift Data Client API and the Amazon Translate Service to display job listing data. In this tutorial, the Spring Framework along with AWS SDK for Java API V2 is used to create the application. 
 
 + **Creating_mongodb_item_tracker** - A tutorial that discusses using Amazon EC2 that hosts a MongoDB instance, Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items.
 
 + **Creating AWS serverless workflows using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and AWS Step Functions to create a workflow that invokes AWS services. Each workflow step is implemented by using an AWS Lambda function.
 
-+ **Creating a sample AWS photo analyzer application using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and various AWS services, such as the  Amazon Rekognition service, to analyze images. The application can analyze many images and generate a report that breaks down each image into a series of labels.
++ **Creating a dynamic web application that analyzes photos using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and various AWS services, such as the  Amazon Rekognition service, to analyze images. The application can analyze many images and generate a report that breaks down each image into a series of labels.
 
 + **Creating_message_application** - A tutorial that discusses using the AWS SDK for Java and the Amazon Simple Queue Service (Amazon SQS) to create a basic messaging web application.
 
@@ -77,13 +91,13 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 
 + **Creating an Amazon Web Services Lambda function that detects images with Personal Protective Equipment** - A tutorial that discusses how to create a Lambda function that detects personal protective equipment (PPE) in digital assets located in an Amazon S3 bucket. The Lambda function updates an Amazon DynamoDB table with the results as well as sends an email message.  
 
-+ **Creating a Job Posting Site using Amazon Redshift and Amazon Translation Services** - A tutorial that discusses how to create a web application that uses the Redshift Data Client API and the Amazon Translate Service to display job listing data. In this tutorial, the Spring Framework along with AWS SDK for Java API V2 is used to create the application. 
-
 + **Creating a Spring Boot Application that has publish/subscription functionality** - A tutorial that discusses how to create a web application that has subscription and publish functionality. In this tutorial, the Spring Framework along with AWS SDK for Simple Notification Service Java API V2 is used to create the application.
 
-+ **Creating a Job Posting Site using Amazon Aurora and Amazon Translation Services** - A tutorial that discusses how to create a web application that uses Amazon Aurora (Amazon Relational Database Service) and the Amazon Translate Service to display job listing data. In this tutorial, the Spring Framework along with AWS SDK for Java API V2 is used to create the application. 
++ **Creating an ETL workflow by using AWS Step Functions and the AWS SDK for Java** -  A tutorial that discusses how to develop an AWS serverless workflow that performs an Extract, Transform, and Load (ETL) job. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function.
 
-+ **Creating an ETL workflow by using AWS Step Functions and the AWS SDK for Java** -  A tutorial that discusses how to develop an AWS serverless workflow that performs an Extract, Transform, and Load (ETL) job. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function. 
++ **Create an Amazon Personalize app with the AWS SDK for Java** - This tutorial shows you how to complete the Amazon Personalize workflow from start to finish with the AWS Java V2 SDK. The project trains two different models with the movie-lens dataset: one with the User-Personalization (`aws-user-personalization`) recipe for creating personalized recommendations for your users, and one with the item-to-item similarities (`aws-sims`) recipe to generate recommendations for items that are similar to a given item.
+
++ **Creating an AWS document analyzer application using the AWS SDK for Java** - This tutorial shows you how to use the Amazon Textract service and the Amazon Simple Storage Service to analyze PDF document images.
 
 AWS service examples
 --------------------

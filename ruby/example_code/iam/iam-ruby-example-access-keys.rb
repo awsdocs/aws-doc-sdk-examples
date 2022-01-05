@@ -1,12 +1,15 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
-# This code example demonstrates how to:
+# Purpose:
+# iam-ruby-example-access-keys.rb demonstrates how to do the following using the AWS SDK for Ruby:
 # 1. List access keys for a user in AWS Identity and Access Management (IAM).
 # 2. Create an access key for a user.
 # 3. Determine when a user's access keys were last used.
 # 4. Deactivate an access key for a user.
 # 5. Delete an access key for a user.
+
+# snippet-start:[iam.ruby.exampleAccessKeys]
 
 require 'aws-sdk-iam'
 
@@ -204,3 +207,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
+# snippet-end:[iam.ruby.exampleAccessKeys]

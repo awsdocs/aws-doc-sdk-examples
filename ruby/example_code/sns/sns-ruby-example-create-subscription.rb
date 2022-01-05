@@ -1,36 +1,47 @@
-# snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-# snippet-sourceauthor:[Doug-AWS]
-# snippet-sourcedescription:[Subscribes a user to an SNS topic.]
-# snippet-keyword:[Amazon Simple Notification Service]
-# snippet-keyword:[topic method]
-# snippet-keyword:[Topic.subscribe method]
-# snippet-keyword:[Ruby]
-# snippet-sourcesyntax:[ruby]
-# snippet-service:[sns]
-# snippet-keyword:[Code Sample]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2018-03-16]
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of the
-# License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-# OF ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Purpose:
+# sns-ruby-example-create-subscription.rb demonstrates how to create an Amazon Simple Notification Service (SNS) subscription using
+# the AWS SDK for Ruby.
+
+# Inputs:
+# - REGION
+# - SNS_TOPIC_ARN
+# - EMAIL_ADDRESS
+
+# snippet-start:[sns.Ruby.createSubscription]
 
 require 'aws-sdk-sns'  # v2: require 'aws-sdk'
 
-sns = Aws::SNS::Resource.new(region: 'us-west-2')
+def subscription_created?(sns_client, topic_arn, protocol, endpoint)
 
-topic = sns.topic('arn:aws:sns:us-west-2:123456789:MyGroovyTopic')
+  sns_client.subscribe(topic_arn: topic_arn, protocol: protocol, endpoint: endpoint)
 
-sub = topic.subscribe({
-  protocol: 'email',
-  endpoint: 'MyGroovyUser@MyGroovy.com'
-})
+rescue StandardError => e
+  puts "Error while creating the subscription: #{e.message}"
+end
 
-puts sub.arn
+# Full example call:
+def run_me
+
+protocol = 'email'
+endpoint = 'EMAIL_ADDRESS'
+topic_arn = 'TOPIC_ARN'
+region = 'REGION'
+
+sns_client = Aws::SNS::Client.new(region: region)
+
+puts "Creating the subscription."
+
+  if subscription_created?(sns_client, topic_arn, protocol, endpoint)
+    puts 'The subscriptions was created.'
+  else
+    puts 'The subscription was not created. Stopping program.'
+    exit 1
+  end
+end
+
+run_me if $PROGRAM_NAME == __FILE__
+
+# snippet-end:[sns.Ruby.createSubscription]

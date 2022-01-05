@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon S3]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/28/2020]
+//snippet-sourcedate:[09/27/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -39,7 +39,7 @@ public class S3BucketDeletion {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    S3BucketDeletion <bucket>\n\n" +
+                "    <bucket>\n\n" +
                 "Where:\n" +
                 "    bucket - the bucket to delete (for example, bucket1). \n\n" ;
 
@@ -90,5 +90,6 @@ public class S3BucketDeletion {
             System.exit(1);
         }
     }
+    // snippet-end:[s3.java2.bucket_deletion.main]
 }
-// snippet-end:[s3.java2.bucket_deletion.main]
+

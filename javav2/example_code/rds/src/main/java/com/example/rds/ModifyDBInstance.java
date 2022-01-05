@@ -34,7 +34,7 @@ public class ModifyDBInstance {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    ModifyDBInstance <dbInstanceIdentifier> <dbSnapshotIdentifier> \n\n" +
+                "    <dbInstanceIdentifier> <dbSnapshotIdentifier> \n\n" +
                 "Where:\n" +
                 "    dbInstanceIdentifier - the database instance identifier. \n" +
                 "    masterUserPassword - the updated password that corresponds to the master user name. \n";
@@ -46,7 +46,6 @@ public class ModifyDBInstance {
 
         String dbInstanceIdentifier = args[0];
         String masterUserPassword = args[1];
-
         Region region = Region.US_WEST_2;
         RdsClient rdsClient = RdsClient.builder()
                 .region(region)
@@ -56,6 +55,7 @@ public class ModifyDBInstance {
         rdsClient.close();
     }
 
+    // snippet-start:[rds.java2.modify_instance.main]
     public static void updateIntance(RdsClient rdsClient, String dbInstanceIdentifier, String masterUserPassword) {
 
         try {
@@ -73,7 +73,7 @@ public class ModifyDBInstance {
             System.out.println(e.getLocalizedMessage());
             System.exit(1);
         }
-
     }
+    // snippet-end:[rds.java2.modify_instance.main]
 }
 

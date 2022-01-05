@@ -1,0 +1,16 @@
+[package]
+name = "cognitoidentity-code-examples"
+version = "0.1.0"
+authors = ["John DiSanti <jdisanti@amazon.com>", "Doug Schwartz <dougsch@amazon.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+aws-config = "0.3.0"
+aws-sdk-cognitoidentity = "0.3.0"
+aws-smithy-types-convert = { version = "0.33.1", features = ["convert-chrono"] }
+tokio = { version = "1", features = ["full"] }
+chrono = "0.4"
+structopt = { version = "0.3", default-features = false }
+tracing-subscriber = "0.2.18"

@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon Translate]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -40,7 +40,7 @@ public class BatchTranslation {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    BatchTranslation <s3Uri> <s3UriOut> <jobName> <dataAccessRoleArn> \n\n" +
+                "    <s3Uri> <s3UriOut> <jobName> <dataAccessRoleArn> \n\n" +
                 "Where:\n" +
                 "    s3Uri - the URI of the Amazon S3 bucket where the documents to translate are located. \n" +
                 "    s3UriOut - the URI of the Amazon S3 bucket where the translated documents are saved to.  \n" +
@@ -126,6 +126,6 @@ public class BatchTranslation {
         System.exit(1);
     }
      return "";
-        // snippet-end:[translate.java2._batch.main]
   }
+    // snippet-end:[translate.java2._batch.main]
 }

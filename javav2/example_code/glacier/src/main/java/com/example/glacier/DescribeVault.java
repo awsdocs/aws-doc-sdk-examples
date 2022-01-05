@@ -1,9 +1,9 @@
-//snippet-sourcedescription:[DescribeVault.java demonstrates how to describe an Amazon Simple Storage Service Glacier (Amazon S3 Glacier) vault.]
+//snippet-sourcedescription:[DescribeVault.java demonstrates how to describe an Amazon Glacier vault.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Code Sample]
-//snippet-service:[Amazon S3 Glacier]
+//snippet-service:[Amazon Glacier]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -20,15 +20,22 @@ import software.amazon.awssdk.services.glacier.model.DescribeVaultResponse;
 import software.amazon.awssdk.services.glacier.model.GlacierException;
 // snippet-end:[glacier.java2.describe.import]
 
+/**
+ * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ *
+ * For information, see this documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class DescribeVault {
 
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "DescribeVault <vaultName>\n\n" +
+                "   <vaultName>\n\n" +
                 "Where:\n" +
-                "  vaultName - the name of the vault to describe.\n\n";
+                "   vaultName - the name of the vault to describe.\n\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -65,6 +72,6 @@ public class DescribeVault {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        // snippet-end:[glacier.java2.describe.main]
     }
+    // snippet-end:[glacier.java2.describe.main]
 }

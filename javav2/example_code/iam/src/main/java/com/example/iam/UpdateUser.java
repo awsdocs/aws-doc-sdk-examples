@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[IAM]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/02/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon-aws]
 
 /*
@@ -31,7 +31,7 @@ public class UpdateUser {
 
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    UpdateUser <curName> <newName> \n\n" +
+                "    <curName> <newName> \n\n" +
                 "Where:\n" +
                 "    curName - the current user name. \n\n" +
                 "    newName - an updated user name. \n\n" ;

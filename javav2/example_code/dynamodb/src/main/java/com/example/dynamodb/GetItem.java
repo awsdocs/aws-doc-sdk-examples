@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/30/2020]
+//snippet-sourcedate:[09/28/2021]
 //snippet-sourceauthor:[scmacdon - aws]
 
 /*
@@ -40,7 +40,7 @@ public class GetItem {
     public static void main(String[] args) {
         final String USAGE = "\n" +
                 "Usage:\n" +
-                "    GetItem <tableName> <key> <keyVal>\n\n" +
+                "    <tableName> <key> <keyVal>\n\n" +
                 "Where:\n" +
                 "    tableName - the Amazon DynamoDB table from which an item is retrieved (for example, Music3). \n" +
                 "    key - the key used in the Amazon DynamoDB table (for example, Artist). \n" +
@@ -97,6 +97,6 @@ public class GetItem {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        // snippet-end:[dynamodb.java2.get_item.main]
     }
+    // snippet-end:[dynamodb.java2.get_item.main]
 }

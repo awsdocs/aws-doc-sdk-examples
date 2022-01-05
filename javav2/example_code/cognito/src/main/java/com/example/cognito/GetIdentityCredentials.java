@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[11/06/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -34,9 +34,7 @@ public class GetIdentityCredentials {
                 "Usage:\n" +
                 "    <identityId> \n\n" +
                 "Where:\n" +
-                "    identityId - the Id of an existing identity.\n\n" +
-                "Example:\n" +
-                "    GetIdentityCredentials us-east-2:0000007890000-abcdefgc\n";
+                "    identityId - the Id of an existing identity.\n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,29 +42,29 @@ public class GetIdentityCredentials {
         }
 
         String identityId = args[0];
-        CognitoIdentityClient cognitoclient = CognitoIdentityClient.builder()
+        CognitoIdentityClient cognitoClient = CognitoIdentityClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
-        getCredsForIdentity(cognitoclient, identityId);
-        cognitoclient.close();
+        getCredsForIdentity(cognitoClient, identityId);
+        cognitoClient.close();
     }
 
     //snippet-start:[cognito.java2.GetIdentityCredentials.main]
-    public static void getCredsForIdentity(CognitoIdentityClient cognitoclient, String identityId) {
+    public static void getCredsForIdentity(CognitoIdentityClient cognitoClient, String identityId) {
 
         try {
             GetCredentialsForIdentityRequest getCredentialsForIdentityRequest = GetCredentialsForIdentityRequest.builder()
                     .identityId(identityId)
                     .build();
 
-            GetCredentialsForIdentityResponse response = cognitoclient.getCredentialsForIdentity(getCredentialsForIdentityRequest);
+            GetCredentialsForIdentityResponse response = cognitoClient.getCredentialsForIdentity(getCredentialsForIdentityRequest);
             System.out.println("Identity ID " + response.identityId() + ", Access key ID " + response.credentials().accessKeyId());
 
         } catch (CognitoIdentityProviderException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        //snippet-end:[cognito.java2.GetIdentityCredentials.main]
     }
+    //snippet-end:[cognito.java2.GetIdentityCredentials.main]
 }

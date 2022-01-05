@@ -161,7 +161,9 @@ class StubRunner:
         self.error_code = error_code
         self.stop_on_method = stop_on_method
 
-    def add(self, func, *func_args, keep_going=False, **func_kwargs):
+    def add(
+            self, func, *func_args, keep_going=False, raise_and_continue=False,
+            **func_kwargs):
         """
         Adds a stubbed function response to the list.
 
@@ -174,6 +176,7 @@ class StubRunner:
         """
         self.stubs.append({
             'func': func, 'keep_going': keep_going,
+            'raise_and_continue': raise_and_continue,
             'func_args': func_args, 'func_kwargs': func_kwargs
         })
 
@@ -190,7 +193,8 @@ class StubRunner:
             if self.stop_on_method == stub['func'].__name__ and not stub['keep_going']:
                 stub['func_kwargs']['error_code'] = self.error_code
             stub['func'](*stub['func_args'], **stub['func_kwargs'])
-            if self.stop_on_method == stub['func'].__name__ and not stub['keep_going']:
+            if (self.stop_on_method == stub['func'].__name__ and not stub['keep_going']
+                    and not stub['raise_and_continue']):
                 break
 
 

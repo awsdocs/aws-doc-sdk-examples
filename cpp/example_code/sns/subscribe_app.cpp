@@ -1,15 +1,3 @@
- 
-//snippet-sourcedescription:[subscribe_app.cpp demonstrates how to initiate a subscription to an Amazon SNS topic with delivery to a mobile app.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[tapasweni-pathak]
-
-
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -26,17 +14,25 @@
 #include <aws/sns/model/SubscribeRequest.h>
 #include <aws/sns/model/SubscribeResult.h>
 #include <iostream>
-
+// snippet-start:[sns.cpp.subscribe_app.code]
 /**
- * Subscribe to app
+ * Subscribe an app endpoint to a topic - demonstrates how to initiate a subscription to an Amazon SNS topic
+ * with delivery to a mobile app.
+ * 
+ *  NOTE: You must first create an endpoint by registering an app and device.  
+ *     See https://docs.aws.amazon.com/sns/latest/dg/mobile-push-send-devicetoken.html for more information.
+ * 
+ * <protocol_value> set to "application" provides delivery of JSON-encoded message to an EndpointArn
+ *         for a mobile app and device (see https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html for available protocols).
+ * <topic_arn_value> can be obtained from run_list_topics executable and includes the "arn:" prefix.
+ * <mobile_endpoint_arn> is the EndpointArn of a mobile app and device.
  */
-
 int main(int argc, char ** argv)
 {
   if (argc != 4)
   {
-    std::cout << "Usage: subscribe <protocol_value/application> <topic_arn_value>"
-                 "mobile_endpoint_arn" << std::endl;
+    std::cout << "Usage: subscribe_app <protocol_value/application> <topic_arn_value>"
+                 " <mobile_endpoint_arn>" << std::endl;
     return 1;
   }
 
@@ -69,3 +65,4 @@ int main(int argc, char ** argv)
   Aws::ShutdownAPI(options);
   return 0;
 }
+// snippet-end:[sns.cpp.subscribe_app.code]

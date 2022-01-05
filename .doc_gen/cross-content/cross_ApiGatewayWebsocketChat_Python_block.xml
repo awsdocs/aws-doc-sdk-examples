@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+    <para>
+        Shows how to use the &Python3long; with &ABPlong; V2 to
+        create a websocket API that integrates with &LAMlong; and &DDBlong;.
+    </para>
+
+    <itemizedlist>
+        <listitem><para>Create a websocket API served by &ABP;.</para></listitem>
+        <listitem><para>Define a &LAM; handler that stores connections in &DDB; and posts messages to
+        other chat participants.</para></listitem>
+        <listitem><para>Connect to the websocket chat application and send messages with the Websockets
+        package.</para></listitem>
+    </itemizedlist>
+    <para>
+        For complete source code and instructions on how to set up and run, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/cross_service/apigateway_websocket_chat">GitHub</ulink>.
+    </para>
+</block>

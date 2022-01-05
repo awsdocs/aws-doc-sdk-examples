@@ -1,15 +1,3 @@
- 
-//snippet-sourcedescription:[delete_topic.cpp demonstrates how to delete an Amazon SNS topic and all its subscriptions.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Simple Notification Service]
-//snippet-service:[sns]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[tapasweni-pathak]
-
-
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -27,7 +15,7 @@
 #include <iostream>
 
 /**
- * Creates an sns topic based on command line input
+ * Delete an SNS topic - demonstrates how to delete an Amazon SNS topic and all its subscriptions.
  */
 
 int main(int argc, char ** argv)
@@ -37,7 +25,7 @@ int main(int argc, char ** argv)
     std::cout << "Usage: delete_topic <topic_arn>" << std::endl;
     return 1;
   }
-
+  // snippet-start:[sns.cpp.delete_topic.code]
   Aws::SDKOptions options;
   Aws::InitAPI(options);
   {
@@ -61,5 +49,6 @@ int main(int argc, char ** argv)
   }
 
   Aws::ShutdownAPI(options);
+  // snippet-end:[sns.cpp.delete_topic.code]
   return 0;
 }

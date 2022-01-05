@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Cognito]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/04/2020]
+//snippet-sourcedate:[11/06/2021]
 //snippet-sourceauthor:[scmacdon AWS]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -17,7 +17,6 @@ import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityPr
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.ListUserPoolClientsRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.ListUserPoolClientsResponse;
-import software.amazon.awssdk.services.cognitoidentityprovider.model.UserPoolClientDescription;
 //snippet-end:[cognito.java2.ListUserPoolClients.import]
 
 /**
@@ -43,30 +42,31 @@ public class ListUserPoolClients {
         }
 
         String userPoolId = args[0];
-        CognitoIdentityProviderClient cognitoclient = CognitoIdentityProviderClient.builder()
+        CognitoIdentityProviderClient cognitoClient = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
-        listAllUserPoolClients(cognitoclient, userPoolId ) ;
-        cognitoclient.close();
+        listAllUserPoolClients(cognitoClient, userPoolId ) ;
+        cognitoClient.close();
     }
 
     //snippet-start:[cognito.java2.ListUserPoolClients.main]
-    public static void listAllUserPoolClients(CognitoIdentityProviderClient cognitoclient, String userPoolId) {
+    public static void listAllUserPoolClients(CognitoIdentityProviderClient cognitoClient, String userPoolId) {
 
         try {
-            ListUserPoolClientsResponse response = cognitoclient.listUserPoolClients(ListUserPoolClientsRequest.builder()
+            ListUserPoolClientsResponse response = cognitoClient.listUserPoolClients(ListUserPoolClientsRequest.builder()
                     .userPoolId(userPoolId)
                     .build());
 
-            for(UserPoolClientDescription userPoolClient : response.userPoolClients()) {
+            response.userPoolClients().forEach(userPoolClient -> {
                 System.out.println("User pool client " + userPoolClient.clientName() + ", Pool ID " + userPoolClient.userPoolId() + ", Client ID " + userPoolClient.clientId() );
-            }
+                    }
+            );
 
         } catch (CognitoIdentityProviderException e){
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        //snippet-end:[cognito.java2.ListUserPoolClients.main]
     }
+    //snippet-end:[cognito.java2.ListUserPoolClients.main]
 }

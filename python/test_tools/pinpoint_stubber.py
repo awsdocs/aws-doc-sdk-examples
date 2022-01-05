@@ -78,3 +78,110 @@ class PinpointStubber(ExampleStubber):
             expected_params={'ApplicationId': app['Id']},
             service_error_code=error_code
         )
+
+    def stub_send_email_messages(
+            self, app_id, sender, to_addresses, char_set, subject,
+            html_message, text_message, message_ids, error_code=None):
+        expected_params = {
+            'ApplicationId': app_id,
+            'MessageRequest': {
+                'Addresses': {
+                    to_address: {'ChannelType': 'EMAIL'} for to_address in to_addresses
+                },
+                'MessageConfiguration': {
+                    'EmailMessage': {
+                        'FromAddress': sender,
+                        'SimpleEmail': {
+                            'Subject': {'Charset': char_set, 'Data': subject},
+                            'HtmlPart': {'Charset': char_set, 'Data': html_message},
+                            'TextPart': {'Charset': char_set, 'Data': text_message}}}}}}
+        response = {
+            'MessageResponse': {
+                'ApplicationId': app_id,
+                'Result': {
+                    to_address: {
+                        'MessageId': message_id,
+                        'DeliveryStatus': 'SUCCESSFUL',
+                        'StatusCode': 200
+                    }
+                    for to_address, message_id in zip(to_addresses, message_ids)
+                }
+            }
+        }
+        self._stub_bifurcator(
+            'send_messages', expected_params, response, error_code=error_code)
+
+    def stub_send_templated_email_messages(
+            self, app_id, sender, to_addresses, template_name, template_version,
+            message_ids, error_code=None):
+        expected_params = {
+            'ApplicationId': app_id,
+            'MessageRequest': {
+                'Addresses': {
+                    to_address: {'ChannelType': 'EMAIL'} for to_address in to_addresses
+                },
+                'MessageConfiguration': {'EmailMessage': {'FromAddress': sender}},
+                'TemplateConfiguration': {
+                    'EmailTemplate': {
+                        'Name': template_name, 'Version': template_version}}}}
+        response = {
+            'MessageResponse': {
+                'ApplicationId': app_id,
+                'Result': {
+                    to_address: {
+                        'MessageId': message_id,
+                        'DeliveryStatus': 'SUCCESSFUL',
+                        'StatusCode': 200
+                    }
+                    for to_address, message_id in zip(to_addresses, message_ids)
+                }
+            }
+        }
+        self._stub_bifurcator(
+            'send_messages', expected_params, response, error_code=error_code)
+
+    def stub_send_sms_message(
+            self, app_id, origination_number, destination_number, message, message_type,
+            message_id, error_code=None):
+        expected_params = {
+            'ApplicationId': app_id,
+            'MessageRequest': {
+                'Addresses': {destination_number: {'ChannelType': 'SMS'}},
+                'MessageConfiguration': {
+                    'SMSMessage': {
+                        'Body': message,
+                        'MessageType': message_type,
+                        'OriginationNumber': origination_number}}}}
+        response = {'MessageResponse': {
+            'ApplicationId': app_id,
+            'Result': {
+                destination_number: {
+                    'DeliveryStatus': 'SUCCESSFUL',
+                    'StatusCode': 200,
+                    'MessageId': message_id}}}}
+        self._stub_bifurcator(
+            'send_messages', expected_params, response, error_code=error_code)
+
+    def stub_send_templated_sms_message(
+            self, app_id, origination_number, destination_number, message_type,
+            template_name, template_version, message_id, error_code=None):
+        expected_params = {
+            'ApplicationId': app_id,
+            'MessageRequest': {
+                'Addresses': {destination_number: {'ChannelType': 'SMS'}},
+                'MessageConfiguration': {
+                    'SMSMessage': {
+                        'MessageType': message_type,
+                        'OriginationNumber': origination_number}},
+                'TemplateConfiguration': {
+                    'SMSTemplate': {
+                        'Name': template_name, 'Version': template_version}}}}
+        response = {'MessageResponse': {
+            'ApplicationId': app_id,
+            'Result': {
+                destination_number: {
+                    'DeliveryStatus': 'SUCCESSFUL',
+                    'StatusCode': 200,
+                    'MessageId': message_id}}}}
+        self._stub_bifurcator(
+            'send_messages', expected_params, response, error_code=error_code)

@@ -1,93 +1,82 @@
-# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#
-# This file is licensed under the Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License. A copy of
-# the License is located at
-#
-# http://aws.amazon.com/apache2.0/
-#
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-# CONDITIONS OF ANY KIND, either express or implied. See the License for the
-# specific language governing permissions and limitations under the License.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-# snippet-sourcedescription:[pinpoint_send_voice_message_sms_voice_api demonstrates how to send a transactional voice message by using the SendVoiceMessage operation in the Amazon Pinpoint SMS and Voice API.]
-# snippet-service:[mobiletargeting]
-# snippet-keyword:[Python]
-# snippet-sourcesyntax:[python]
-# snippet-sourcesyntax:[python]
-# snippet-keyword:[Amazon Pinpoint SMS and Voice API]
-# snippet-keyword:[Code Sample]
-# snippet-keyword:[SendVoiceMessage]
-# snippet-sourcetype:[full-example]
-# snippet-sourcedate:[2019-01-20]
-# snippet-sourceauthor:[AWS]
+"""
+Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Pinpoint SMS and Voice API
+to send synthesized voice messages.
+"""
+
 # snippet-start:[pinpoint.python.pinpoint_send_voice_message_sms_voice_api.complete]
 
+import logging
 import boto3
 from botocore.exceptions import ClientError
 
-# The AWS Region that you want to use to send the voice message. For a list of
-# AWS Regions where the Amazon Pinpoint SMS and Voice API is available, see
-# https://docs.aws.amazon.com/pinpoint-sms-voice/latest/APIReference/
-region = "us-east-1"
+logger = logging.getLogger(__name__)
 
-# The phone number that the message is sent from. The phone number that you
-# specify has to be associated with your Amazon Pinpoint account. For best results, you
-# should specify the phone number in E.164 format.
-originationNumber = "+12065550110"
 
-# The recipient's phone number. For best results, you should specify the phone
-# number in E.164 format.
-destinationNumber = "+12065550142"
+def send_voice_message(
+        sms_voice_client, origination_number, caller_id, destination_number,
+        language_code, voice_id, ssml_message):
+    """
+    Sends a voice message using speech synthesis provided by Amazon Polly.
 
-# The language to use when sending the message. For a list of supported
-# languages, see https://docs.aws.amazon.com/polly/latest/dg/SupportedLanguage.html
-languageCode = "en-US"
+    :param sms_voice_client: A Boto3 PinpointSMSVoice client.
+    :param origination_number: The phone number that the message is sent from.
+                               The phone number must be associated with your Amazon
+                               Pinpoint account and be in E.164 format.
+    :param caller_id: The phone number that you want to appear on the recipient's
+                      device. The phone number must be associated with your Amazon
+                      Pinpoint account and be in E.164 format.
+    :param destination_number: The recipient's phone number. Specify the phone
+                               number in E.164 format.
+    :param language_code: The language to use when sending the message.
+    :param voice_id: The Amazon Polly voice that you want to use to send the message.
+    :param ssml_message: The content of the message. This example uses SSML to control
+                         certain aspects of the message, such as the volume and the
+                         speech rate. The message must not contain line breaks.
+    :return: The ID of the message.
+    """
+    try:
+        response = sms_voice_client.send_voice_message(
+            DestinationPhoneNumber=destination_number,
+            OriginationPhoneNumber=origination_number,
+            CallerId=caller_id,
+            Content={
+                'SSMLMessage': {
+                    'LanguageCode': language_code,
+                    'VoiceId': voice_id,
+                    'Text': ssml_message}})
+    except ClientError:
+        logger.exception(
+            "Couldn't send message from %s to %s.", origination_number, destination_number)
+        raise
+    else:
+        return response['MessageId']
 
-# The Amazon Polly voice that you want to use to send the message. For a list
-# of voices, see https://docs.aws.amazon.com/polly/latest/dg/voicelist.html
-voiceId = "Matthew"
 
-# The content of the message. This example uses SSML to customize and control
-# certain aspects of the message, such as the volume or the speech rate.
-# The message can't contain any line breaks.
-ssmlMessage = ("<speak>"
-               "This is a test message sent from <emphasis>Amazon Pinpoint</emphasis> "
-               "using the <break strength='weak'/>AWS SDK for Python. "
-               "<amazon:effect phonation='soft'>Thank you for listening."
-               "</amazon:effect>"
-               "</speak>")
+def main():
+    origination_number = "+12065550110"
+    caller_id = "+12065550199"
+    destination_number = "+12065550142"
+    language_code = "en-US"
+    voice_id = "Matthew"
+    ssml_message = (
+        "<speak>"
+        "This is a test message sent from <emphasis>Amazon Pinpoint</emphasis> "
+        "using the <break strength='weak'/>AWS SDK for Python (Boto3). "
+        "<amazon:effect phonation='soft'>Thank you for listening."
+        "</amazon:effect>"
+        "</speak>")
+    print(f"Sending voice message from {origination_number} to {destination_number}.")
+    message_id = send_voice_message(
+        boto3.client('pinpoint-sms-voice'), origination_number, caller_id,
+        destination_number, language_code, voice_id, ssml_message)
+    print(f"Message sent!\nMessage ID: {message_id}")
 
-# The phone number that you want to appear on the recipient's device. The phone
-# number that you specify has to be associated with your Amazon Pinpoint account.
-callerId = "+12065550199"
 
-# The configuration set that you want to use to send the message.
-configurationSet = "ConfigSet"
-
-# Create a new SMS and Voice client and specify an AWS Region.
-client = boto3.client('sms-voice',region_name=region)
-
-try:
-    response = client.send_voice_message(
-        DestinationPhoneNumber = destinationNumber,
-        OriginationPhoneNumber = originationNumber,
-        CallerId = callerId,
-        ConfigurationSetName = configurationSet,
-        Content={
-            'SSMLMessage':{
-                'LanguageCode': languageCode,
-                'VoiceId': voiceId,
-                'Text': ssmlMessage
-            }
-        }
-    )
-# Display an error message if something goes wrong.
-except ClientError as e:
-    print(e.response['Error']['Message'])
-# If the message is sent successfully, show the message ID.
-else:
-    print("Message sent!"),
-    print("Message ID: " + response['MessageId'])
-
+if __name__ == '__main__':
+    main()
 # snippet-end:[pinpoint.python.pinpoint_send_voice_message_sms_voice_api.complete]

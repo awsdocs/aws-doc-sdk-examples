@@ -3,7 +3,7 @@
 //snippet-keyword:[Code Sample]
 //snippet-keyword:[Amazon Simple Notification Service]
 //snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/06/2020]
+//snippet-sourcedate:[09-27-2021]
 //snippet-sourceauthor:[scmacdon- AWS]
 
 /*
@@ -34,10 +34,10 @@ public class SubscribeEmail {
 
         final String USAGE = "\n" +
                 "Usage: " +
-                "SubscribeEmail  <topicArn> <email>\n\n" +
+                "    <topicArn> <email>\n\n" +
                 "Where:\n" +
-                "  topicArn - the ARN of the topic to subscribe.\n\n" +
-                "  email - the email address to use.\n\n";
+                "   topicArn - the ARN of the topic to subscribe.\n\n" +
+                "   email - the email address to use.\n\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -67,12 +67,12 @@ public class SubscribeEmail {
                 .build();
 
             SubscribeResponse result = snsClient.subscribe(request);
-            System.out.println("Subscription ARN: " + result.subscriptionArn() + "\n\n Status was " + result.sdkHttpResponse().statusCode());
+            System.out.println("Subscription ARN: " + result.subscriptionArn() + "\n\n Status is " + result.sdkHttpResponse().statusCode());
 
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        //snippet-end:[sns.java2.SubscribeEmail.main]
     }
+    //snippet-end:[sns.java2.SubscribeEmail.main]
 }
