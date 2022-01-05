@@ -50,6 +50,8 @@ To complete the tutorial, you need the following:
 
 Create an Amazon DynamoDB table named **Work** with a key named **id**. For information, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 
+In addition, make sure that you setup your Java developer environment before following along with this tutorial. For more information, see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). .
+
 
 ## Understand the DynamoDB Item Tracker application
 The **DynamoDB Item Tracker** application uses a model that is based on a work item and contains these attributes:
@@ -67,7 +69,7 @@ The following figure shows the login page.
 
 When a user logs into the application, they see the **Home** page.
 
-![AWS Tracking Application](images/homepage.png)
+![AWS Tracking Application](images/homepage2.png)
 
 #### Application functionality
 A user can perform these tasks in the **DynamoDB Item Tracker** application:
@@ -103,7 +105,7 @@ The DynamoDB table is named **Work** and contains the following fields:
 
 The following figure shows the **Work** table.
 
-![AWS Tracking Application](images/pic7.png)
+![AWS Tracking Application](images/worktable.png)
 
 ## Create an IntelliJ project named ItemTrackerDynamoDB
 
@@ -125,9 +127,9 @@ In the **pom.xml** file's **project** element, add the **spring-boot-starter-par
      <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
-      </parent>
+        <version>2.6.1</version>
+        <relativePath/> 
+    </parent>
 
 **Note:** Ensure that you are using Java 1.8 (as shown below).
 
@@ -143,11 +145,11 @@ Ensure that the **pom.xml** file looks like the following.
     <groupId>ItemTrackerDynamoDB</groupId>
     <artifactId>ItemTrackerDynamoDB</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <parent>
+      <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
+        <version>2.6.1</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <properties>
        <java.version>1.8</java.version>
@@ -157,7 +159,7 @@ Ensure that the **pom.xml** file looks like the following.
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.11.11</version>
+                <version>2.17.46</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -313,7 +315,7 @@ These packages contain the following:
 
 + **entities** - Contains Java files that represent the model. In this example, the model class is named **WorkItem**.
 + **services** - Contains Java files that invoke AWS services. For example, the **software.amazon.awssdk.services.dynamodb.DynamoDbClient** object is used to perform DynamoDB operations.
-+ **secureweb** - Contains the SpringJava classes.
++ **secureweb** - Contains the Spring Java classes.
 
 **Note:** The only class that is in **com.example** is **SecureWebApp**. All other classes are in the subpackages.
 
