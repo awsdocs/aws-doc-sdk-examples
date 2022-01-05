@@ -29,7 +29,7 @@ async fn make_topic(client: &Client, topic_name: &str) -> Result<(), Error> {
 
     println!(
         "Created topic with ARN: {}",
-        resp.topic_arn.as_deref().unwrap_or_default()
+        resp.topic_arn().unwrap_or_default()
     );
 
     Ok(())

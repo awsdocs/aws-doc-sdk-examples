@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several AWS Secrets Manager (Secrets Manager) operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several AWS Secrets Manager (Secrets Manager) operations using the developer preview version of the AWS SDK for Rust.
 
 Secrets Manager helps you to securely encrypt, store, and retrieve credentials for your databases and other services.
 
@@ -69,6 +69,7 @@ This example lists the names of the Secrets Manager secrets in the Region.
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- [AWS SDK for Rust API Reference for Secrets Manager](https://docs.rs/aws-sdk-secretsmanager)
 - [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
 
 ## Contributing

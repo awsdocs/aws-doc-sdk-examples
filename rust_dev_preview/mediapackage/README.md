@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several AWS Elemental MediaPackage (MediaPackage) operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several AWS Elemental MediaPackage (MediaPackage) operations using the developer preview version of the AWS SDK for Rust.
 
 MediaPackage is a just-in-time video packaging and origination service that delivers highly secure, scalable, and reliable video streams to a wide variety of playback devices.
 
@@ -54,6 +54,7 @@ This example lists your MediaPackage channel ARNs and descriptions in the Region
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- [AWS SDK for Rust API Reference for MediaPackage](https://docs.rs/aws-sdk-mediapackage)
 - [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
 
 ## Contributing

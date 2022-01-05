@@ -1,10 +1,31 @@
-# AWS SDK for Rust code examples for Amazon EC2 Auto Scaling groups
-
-An Amazon EC2 Auto Scaling group (Auto Scaling group) enables you to treat a collection of Amazon EC2 instances as a logical grouping for the purposes of automatic scaling and management.
+# AWS SDK for Rust code examples for Auto Scaling group
 
 ## Purpose
 
-These examples demonstrate how to perform several Auto Scaling group operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Amazon Elastic Compute Cloud (Amazon EC2) Auto Scaling group (Auto Scaling group) operations using the developer preview version of the AWS SDK for Rust.
+
+Use Auto Scaling group enables to treat a collection of Amazon EC2 instances as a logical grouping for the purposes of automatic scaling and management.
+
+## Code examples
+
+- [Create an autoscaling group](src/bin/create-autoscaling-group.rs) (CreateAutoscalingGroup)
+- [Delete an autoscaling group](src/bin/delete-autoscaling-group.rs) (DeleteAutoscalingGroup)
+- [List your autscaling groups](src/bin/list-autoscaling-groups.rs) (DescribeAutoscalingGroups)
+- [Update an autoscaling group](src/bin/update-autoscaling-group.rs) (UpdateAutoscalingGroup) 
+
+## ⚠ Important
+
+- We recommend that you grant this code least privilege, 
+  or at most the minimum permissions required to perform the task.
+  For more information, see
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
+  in the AWS Identity and Access Management User Guide.
+- This code has not been tested in all AWS Regions.
+  Some AWS services are available only in specific
+  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+- Running this code might result in charges to your AWS account.
+
+## Running the code examples
 
 ## Prerequisites
 
@@ -62,16 +83,16 @@ This example updates an Auto Scaling group in the Region to a new maximum size.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
-### Notes
+## Resources
 
-- We recommend that you grant this code least privilege,
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account.
+- [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- [AWS SDK for Rust API Reference for Auto Scaling grep](https://docs.rs/aws-sdk-autoscaling)
+- [AWS SDK for Rust Developer Guide](https://docs.aws.amazon.com/sdk-for-rust/latest/dg)
+
+## Contributing
+
+To propose a new code example to the AWS documentation team, 
+see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md). 
+The team prefers to create code examples that show broad scenarios rather than individual API calls.
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

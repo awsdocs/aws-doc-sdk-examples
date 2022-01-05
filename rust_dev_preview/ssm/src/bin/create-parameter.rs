@@ -49,7 +49,7 @@ async fn make_parameter(
         .send()
         .await?;
 
-    println!("Success! Parameter now has version: {}", resp.version);
+    println!("Success! Parameter now has version: {}", resp.version());
 
     Ok(())
 }

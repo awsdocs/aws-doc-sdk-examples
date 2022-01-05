@@ -25,9 +25,9 @@ async fn show_channels(client: &Client) -> Result<(), Error> {
 
     println!("Channels:");
 
-    for c in list_channels.channels.unwrap_or_default() {
-        let description = c.description.as_deref().unwrap_or_default();
-        let arn = c.arn.as_deref().unwrap_or_default();
+    for c in list_channels.channels().unwrap_or_default() {
+        let description = c.description().unwrap_or_default();
+        let arn = c.arn().unwrap_or_default();
 
         println!("  Description : {}", description);
         println!("  ARN :         {}", arn);

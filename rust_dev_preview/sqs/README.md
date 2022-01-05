@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several Amazon Simple Queue Service (Amazon SQS) operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Amazon Simple Queue Service (Amazon SQS) operations using the developer preview version of the AWS SDK for Rust.
 
 Amazon SQS is a fully managed message queuing service that makes it easy to decouple and scale microservices, distributed systems, and serverless applications.
 
@@ -42,6 +42,7 @@ This example sends a message to and receives the message from a queue in the Reg
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- [AWS SDK for Rust API Reference for Amazon SQS](https://docs.rs/aws-sdk-sqs)
 - [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
 
 ## Contributing

@@ -31,7 +31,7 @@ async fn is_verified(client: &Client, email: &str) -> Result<(), Error> {
         .send()
         .await?;
 
-    if resp.verified_for_sending_status {
+    if resp.verified_for_sending_status() {
         println!("The address is verified");
     } else {
         println!("The address is not verified");
