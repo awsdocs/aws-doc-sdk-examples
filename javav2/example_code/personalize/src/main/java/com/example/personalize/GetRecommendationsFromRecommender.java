@@ -14,7 +14,7 @@
 
 package com.example.personalize;
 
-//snippet-start:[personalize.java2.get_recommendations_from_recommender_from_recommender.import]
+//snippet-start:[personalize.java2.get_recommendations_from_recommender.import]
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.personalizeruntime.PersonalizeRuntimeClient;
