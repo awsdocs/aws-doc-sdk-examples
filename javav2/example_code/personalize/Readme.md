@@ -16,18 +16,23 @@ see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-
 
  ## Testing the Amazon Personalize Java files
 
-You can test the Java code examples for Amazon Personalize by running a test file named **PersonalizeTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for Amazon Personalize by running a test file named **PersonalizeTest** to create
+a custom dataset group, or **PersonalizeDomainTest*** to create a domain dataset group. 
+These files use JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
-You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
+You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line with Maven. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
 	Test 3 passed
 
 **WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
 
  ### Properties file
-Before running the Amazon Personalize JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you specify a solution name used in the tests. If you do not define all values, the JUnit tests fail.
+Before running the Amazon Personalize JUnit tests, you must define values in either of the following .properties files 
+in the **resources** folder: complete the **config.properties** file for custom dataset groups or the **domain-dsg-config.properties** 
+for domain dataset groups. These files contain values that are required to run the JUnit tests. 
+For example, you specify a solution name used in the tests. If you do not define all values, the JUnit tests fail.
 
-**Note**: To set up the data and other requirements needed for the unit tests, follow [Getting Started](https://docs.aws.amazon.com/personalize/latest/dg/getting-started-console.html).
+**Note**: To make sure you have completed permissions requirements, complete [Setting up Amazon Personalize](https://docs.aws.amazon.com/personalize/latest/dg/setup.html).
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.

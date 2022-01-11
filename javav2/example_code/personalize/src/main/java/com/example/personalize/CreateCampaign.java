@@ -52,12 +52,12 @@ public class CreateCampaign {
                 .region(region)
                 .build();
 
-        createPersonalCompaign(personalizeClient, solutionVersionArn, name);
+        createPersonalCampaign(personalizeClient, solutionVersionArn, name);
         personalizeClient.close();
     }
 
     //snippet-start:[personalize.java2.create_campaign.main]
-    public static void createPersonalCompaign(PersonalizeClient personalizeClient, String solutionVersionArn, String name) {
+    public static String createPersonalCampaign(PersonalizeClient personalizeClient, String solutionVersionArn, String name) {
 
         try {
             CreateCampaignRequest createCampaignRequest = CreateCampaignRequest.builder()
@@ -67,12 +67,15 @@ public class CreateCampaign {
                 .build();
 
             CreateCampaignResponse campaignResponse = personalizeClient.createCampaign(createCampaignRequest);
-            System.out.println("The campaign ARN is "+campaignResponse.campaignArn());
+            String campaignArn = campaignResponse.campaignArn();
+            System.out.println("The campaign ARN is " + campaignArn);
+            return campaignArn;
 
         } catch (PersonalizeException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+        return "";
     }
     //snippet-end:[personalize.java2.create_campaign.main]
 }
