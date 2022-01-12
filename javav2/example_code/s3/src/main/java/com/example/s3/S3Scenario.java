@@ -53,7 +53,7 @@ public class S3Scenario {
                 "    savePath - the path where the file is saved after it's downloaded (for example, C:/AWS/book2.pdf). " +
                 "    toBucket - an Amazon S3 bucket to where an object is copied to (for example, C:/AWS/book2.pdf). ";
 
-        if (args.length != 4) {
+        if (args.length != 5) {
              System.out.println(usage);
              System.exit(1);
         }
