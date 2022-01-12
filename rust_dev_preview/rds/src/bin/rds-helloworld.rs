@@ -23,32 +23,34 @@ struct Opt {
 async fn show_instances(client: &Client) -> Result<(), Error> {
     let result = client.describe_db_instances().send().await?;
 
-    for db_instance in result.db_instances.unwrap_or_default() {
+    for db_instance in result.db_instances().unwrap_or_default() {
         println!(
             "DB instance identifier: {:?}",
             db_instance
-                .db_instance_identifier
+                .db_instance_identifier()
                 .expect("instance should have identifiers")
         );
         println!(
             "DB instance class:      {:?}",
             db_instance
-                .db_instance_class
+                .db_instance_class()
                 .expect("instance should have class")
         );
         println!(
             "DB instance engine:     {:?}",
-            db_instance.engine.expect("instance should have engine")
+            db_instance.engine().expect("instance should have engine")
         );
         println!(
             "DB instance status:     {:?}",
             db_instance
-                .db_instance_status
+                .db_instance_status()
                 .expect("instance should have status")
         );
         println!(
             "DB instance endpoint:   {:?}",
-            db_instance.endpoint.expect("instance should have endpoint")
+            db_instance
+                .endpoint()
+                .expect("instance should have endpoint")
         );
         println!();
     }

@@ -34,7 +34,7 @@ async fn start(client: &Client, ledger: &str) -> Result<(), Error> {
 
     println!(
         "Session id: {:?}",
-        result.start_session.unwrap().session_token
+        result.start_session().unwrap().session_token()
     );
 
     Ok(())

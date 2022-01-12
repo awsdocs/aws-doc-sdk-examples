@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several AWS Snowball (Snowball) operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several AWS Snowball (Snowball) operations using the developer preview version of the AWS SDK for Rust.
 
 Snowball uses physical storage devices to transfer large amounts of data between Amazon Simple Storage Service (Amazon S3) and your onsite data storage location at faster-than-internet speeds.
 
@@ -78,6 +78,7 @@ This example lists your AWS Snowball jobs.
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- [AWS SDK for Rust API Reference for Snowball](https://docs.rs/aws-sdk-snowball)
 - [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
 
 ## Contributing

@@ -5,9 +5,9 @@
 
 use aws_config::meta::region::RegionProviderChain;
 use aws_http::AwsErrorRetryPolicy;
-use aws_hyper::{SdkError, SdkSuccess};
 use aws_sdk_dynamodb::error::DescribeTableError;
 use aws_sdk_dynamodb::input::DescribeTableInput;
+use aws_sdk_dynamodb::middleware::DefaultMiddleware;
 use aws_sdk_dynamodb::model::{
     AttributeDefinition, AttributeValue, KeySchemaElement, KeyType, ProvisionedThroughput,
     ScalarAttributeType, Select, TableStatus,
@@ -15,6 +15,9 @@ use aws_sdk_dynamodb::model::{
 use aws_sdk_dynamodb::operation::DescribeTable;
 use aws_sdk_dynamodb::output::DescribeTableOutput;
 use aws_sdk_dynamodb::{Client, Config, Error, Region, PKG_VERSION};
+use aws_smithy_client::erase::DynConnector;
+use aws_smithy_http::result::{SdkError, SdkSuccess};
+
 use aws_smithy_http::operation::Operation;
 use aws_smithy_http::retry::ClassifyResponse;
 use aws_smithy_types::retry::RetryKind;
@@ -35,7 +38,7 @@ struct Opt {
     #[structopt(short, long)]
     region: Option<String>,
 
-    /// Activate verbose mode    
+    /// Activate verbose mode
     #[structopt(short, long)]
     verbose: bool,
 }
@@ -56,7 +59,7 @@ async fn make_table(
     client: &Client,
     table: &str,
     key: &str,
-) -> Result<(), aws_hyper::SdkError<aws_sdk_dynamodb::error::CreateTableError>> {
+) -> Result<(), SdkError<aws_sdk_dynamodb::error::CreateTableError>> {
     let ad = AttributeDefinition::builder()
         .attribute_name(key)
         .attribute_type(ScalarAttributeType::S)
@@ -149,7 +152,7 @@ async fn query_item(client: &Client, item: Item) -> bool {
         Ok(resp) => {
             if resp.count > 0 {
                 println!("Found a matching entry in the table:");
-                println!("{:?}", resp.items().unwrap_or_default().first());
+                println!("{:?}", resp.items.unwrap_or_default().pop());
                 true
             } else {
                 println!("Did not find a match.");
@@ -214,13 +217,13 @@ where
         match response {
             Ok(SdkSuccess { parsed, .. }) => {
                 if parsed
-                    .table()
+                    .table
                     .as_ref()
                     .unwrap()
-                    .table_status()
+                    .table_status
                     .as_ref()
                     .unwrap()
-                    == &&TableStatus::Creating
+                    == &TableStatus::Creating
                 {
                     RetryKind::Explicit(Duration::from_secs(1))
                 } else {
@@ -261,7 +264,7 @@ async fn main() -> Result<(), Error> {
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()
         .or_else(Region::new("us-west-2"));
-    println!();
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
 
     // Create 10-character random table name
     let table = random_string(10);
@@ -284,7 +287,7 @@ async fn main() -> Result<(), Error> {
         println!("DynamoDB client version: {}", PKG_VERSION);
         println!(
             "Region:                  {}",
-            region_provider.region().await.unwrap().as_ref()
+            shared_config.region().unwrap()
         );
         println!("Table:                   {}", table);
         println!("Key:                     {}", key);
@@ -297,7 +300,6 @@ async fn main() -> Result<(), Error> {
         println!();
     }
 
-    let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
     /* Create table */
@@ -315,7 +317,7 @@ async fn main() -> Result<(), Error> {
 
     println!("Waiting for table to be ready.");
 
-    let raw_client = aws_hyper::Client::https();
+    let raw_client = aws_smithy_client::Client::<DynConnector, DefaultMiddleware>::dyn_https();
 
     raw_client
         .call(wait_for_ready_table(&table, client.conf()).await)
@@ -371,8 +373,7 @@ async fn main() -> Result<(), Error> {
 
     /* Delete item */
     println!("Deleting item.");
-
-    remove_item(&client, &table, &key, value).await?;
+    remove_item(&client, &table, &key, value.clone()).await?;
 
     if interactive {
         pause();
@@ -380,10 +381,7 @@ async fn main() -> Result<(), Error> {
 
     /* Delete table */
     println!("Deleting table.");
-
     remove_table(&client, &table).await?;
-
-    println!("Deleted table.");
     println!();
 
     Ok(())
@@ -402,10 +400,8 @@ async fn wait_for_ready_table(
         .make_operation(conf)
         .await
         .expect("valid operation");
-
     let waiting_policy = WaitForReadyTable {
         inner: operation.retry_policy().clone(),
     };
-
     operation.with_retry_policy(waiting_policy)
 }

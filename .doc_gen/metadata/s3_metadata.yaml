@@ -5,6 +5,15 @@ s3_CreateBucket:
   synopsis: create an &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.create_bucket.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -42,11 +51,19 @@ s3_CreateBucket:
           excerpts:
             - description: Create a bucket with default settings.
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.CreateBucket
             - description: Create a versioned bucket with a lifecycle configuration.
               snippet_tags:
                 - s3.python.versioning.create_versioned_bucket
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.ruby.create_bucket_snippet.rb
     Rust:
       versions:
         - sdk_version: 1
@@ -70,6 +87,15 @@ s3_CopyObject:
   synopsis: copy an &S3; object from one bucket to another.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.copy_objects.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -106,6 +132,7 @@ s3_CopyObject:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.CopyObject
     Go:
       versions:
@@ -114,6 +141,17 @@ s3_CopyObject:
           excerpts:
             - description:
               snippet_tags: ['s3.go-v2.CopyObject']
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/s3
+          excerpts:
+            - description: Copy an object.
+              snippet_tags:
+                - s3.ruby.copy_object_between_buckets.rb
+            - description: Copy an object and add server-side encryption to the destination object.
+              snippet_tags:
+                - s3.ruby.copy_object_encrypt_copy.rb
   services:
     s3: {CopyObject}
 s3_DeleteBucketPolicy:
@@ -122,6 +160,15 @@ s3_DeleteBucketPolicy:
   synopsis: delete a policy from an &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.delete_bucket_policy.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -147,7 +194,7 @@ s3_DeleteBucketPolicy:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.DeleteBucketPolicy
     JavaScript:
       versions:
@@ -161,6 +208,16 @@ s3_DeleteBucketPolicy:
             - description: Delete the bucket policy.
               snippet_tags:
                 - s3.JavaScript.policy.deleteBucketPolicyV3
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.s3.helper.BucketPolicyWrapper
+                - ruby.example_code.s3.DeleteBucketPolicy
+                - ruby.example_code.s3.helper.end.BucketPolicyWrapper
   services:
     s3: {DeleteBucketPolicy}
 s3_DeleteObject:
@@ -169,15 +226,32 @@ s3_DeleteObject:
   synopsis: delete an &S3; object.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.delete_object.code
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
           sdkguide:
           excerpts:
-            - description:
+            - description: Delete an object.
               snippet_tags:
+                - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.DeleteObject
+            - description: Roll an object back to a previous version by deleting
+                later versions of the object.
+              snippet_tags:
+                - s3.python.versioning.rollback_object
+            - description: Revive a deleted object by removing the object's active delete marker.
+              snippet_tags:
+                - s3.python.versioning.revive_object
     Rust:
       versions:
         - sdk_version: 1
@@ -237,10 +311,15 @@ s3_DeleteObjects:
           excerpts:
             - description: Delete a set of objects by using a list of object keys.
               snippet_tags:
+                - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.DeleteObjects_Keys
             - description: Delete all objects in a bucket.
               snippet_tags:
+                - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.DeleteObjects_All
+            - description: Permanently delete a versioned object by deleting all of its versions.
+              snippet_tags:
+                - s3.python.versioning.permanently_delete_object
     JavaScript:
       versions:
         - sdk_version: 3
@@ -271,6 +350,15 @@ s3_DeleteBucketWebsite:
   synopsis: delete the website configuration from an &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.delete_website_config.code
     Java:
       versions:
         - sdk_version: 2
@@ -300,6 +388,15 @@ s3_GetObjectAcl:
   synopsis: get the access control list (ACL) of an &S3; object.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.get_acl_bucket.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -316,6 +413,7 @@ s3_GetObjectAcl:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.GetObjectAcl
     Go:
       versions:
@@ -332,6 +430,15 @@ s3_GetBucketPolicy:
   synopsis: get the policy for an &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.get_bucket_policy.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -357,7 +464,7 @@ s3_GetBucketPolicy:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.GetBucketPolicy
     JavaScript:
       versions:
@@ -371,12 +478,22 @@ s3_GetBucketPolicy:
             - description: Get the bucket policy.
               snippet_tags:
                 - s3.JavaScript.policy.getBucketPolicyV3
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.s3.helper.BucketPolicyWrapper
+                - ruby.example_code.s3.GetBucketPolicy
+                - ruby.example_code.s3.helper.end.BucketPolicyWrapper
   services:
     s3: {GetBucketPolicy}
 s3_HeadObject:
-  title: Determine the content type of an object in an &S3; bucket using an &AWS; SDK
-  title_abbrev: Determine the content type
-  synopsis: get the content type of an object in an &S3; bucket.
+  title: Determine the existence and content type of an object in an &S3; bucket using an &AWS; SDK
+  title_abbrev: Determine the existence and content type of an object
+  synopsis: determine the existence and content type of an object in an &S3; bucket.
   category:
   languages:
     Java:
@@ -388,14 +505,31 @@ s3_HeadObject:
             - description:
               snippet_tags:
                 - s3.java2.getobjectcontenttype.main
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.s3.exists
   services:
     s3: {HeadObject}
 s3_GetObject:
-  title: Read data from an &S3; bucket using an &AWS; SDK
-  title_abbrev: Read data from a bucket
-  synopsis: read data from an object located in an &S3; bucket.
+  title: Get an object from an &S3; bucket using an &AWS; SDK
+  title_abbrev: Get an object from a bucket
+  synopsis: read data from an object in an &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.get_object.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -430,6 +564,7 @@ s3_GetObject:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.GetObject
     JavaScript:
       versions:
@@ -443,6 +578,17 @@ s3_GetObject:
             - description: Download the object.
               snippet_tags:
                 - s3.JavaScript.buckets.getobjectV3
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/s3
+          excerpts:
+            - description: Get an object.
+              snippet_tags:
+                - ruby.example_code.s3.GetObject
+            - description: Get an object and report its server-side encryption state.
+              snippet_tags:
+                - s3.ruby.determine_object_encryption_state.rb
   services:
     s3: {GetObject}
 s3_GetBucketLifecycleConfiguration:
@@ -459,7 +605,7 @@ s3_GetBucketLifecycleConfiguration:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.GetBucketLifecycleConfiguration
   services:
     s3: {GetBucketLifecycleConfiguration}
@@ -485,7 +631,7 @@ s3_PutBucketLifecycleConfiguration:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.PutBucketLifecycleConfiguration
   services:
     s3: {PutBucketLifecycleConfiguration}
@@ -503,7 +649,7 @@ s3_DeleteBucketLifecycle:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.DeleteBucketLifecycleConfiguration
   services:
     s3: {DeleteBucketLifecycle}
@@ -530,6 +676,15 @@ s3_ListObjects:
   synopsis: list objects located in an &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.list_objects.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -555,6 +710,7 @@ s3_ListObjects:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.ListObjects
     Rust:
       versions:
@@ -585,6 +741,14 @@ s3_ListObjects:
             - description: List 1000 plus objects.
               snippet_tags:
                 - s3.JavaScript.buckets.listManyObjectsV3
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.s3.ListObjects
   services:
     s3: {ListObjects}
 s3_ListObjectVersions:
@@ -609,6 +773,15 @@ s3_PutObject:
   synopsis: upload an object to an &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.put_object.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -643,6 +816,7 @@ s3_PutObject:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.PutObject
     Rust:
       versions:
@@ -674,6 +848,20 @@ s3_PutObject:
             - description: Upload the object.
               snippet_tags:
                 - s3.JavaScript.buckets.uploadV3
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/s3
+          excerpts:
+            - description: Upload a file using a managed uploader (Object.upload_file).
+              snippet_tags:
+                - s3.ruby.upload_files_using_managed_file_uploader.rb
+            - description: Upload a file using Object.put.
+              snippet_tags:
+                - s3.ruby.upload_files_using_put_object_method.rb
+            - description: Upload a file using Object.put and add server-side encryption.
+              snippet_tags:
+                - s3.ruby.s3_encrypt_file_upload.rb
   services:
     s3: {PutObject}
 s3_RestoreObject:
@@ -699,6 +887,15 @@ s3_DeleteBucket:
   synopsis: delete an empty &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.delete_bucket.code
     Java:
       versions:
         - sdk_version: 2
@@ -715,7 +912,7 @@ s3_DeleteBucket:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.DeleteBucket
     Go:
       versions:
@@ -752,7 +949,7 @@ s3_GetBucketCors:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.GetBucketCors
     JavaScript:
       versions:
@@ -766,6 +963,16 @@ s3_GetBucketCors:
             - description: Get the bucket's CORs policy.
               snippet_tags:
                 - s3.JavaScript.cors.getBucketCorsV3
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.s3.helper.BucketCorsWrapper
+                - ruby.example_code.s3.GetBucketCors
+                - ruby.example_code.s3.helper.end.BucketCorsWrapper
   services:
     s3: {GetBucketCors}
 s3_PutBucketCors:
@@ -790,7 +997,7 @@ s3_PutBucketCors:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.PutBucketCors
     JavaScript:
       versions:
@@ -804,6 +1011,16 @@ s3_PutBucketCors:
             - description: Add a CORS rule.
               snippet_tags:
                 - s3.JavaScript.v3.cors.putBucketCors
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.s3.helper.BucketCorsWrapper
+                - ruby.example_code.s3.PutBucketCors
+                - ruby.example_code.s3.helper.end.BucketCorsWrapper
   services:
     s3: {PutBucketCors}
 s3_DeleteBucketCors:
@@ -820,8 +1037,18 @@ s3_DeleteBucketCors:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.DeleteBucketCors
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.s3.helper.BucketCorsWrapper
+                - ruby.example_code.s3.DeleteBucketCors
+                - ruby.example_code.s3.helper.end.BucketCorsWrapper
   services:
     s3: {DeleteBucketCors}
 s3_GetBucketAcl:
@@ -847,7 +1074,7 @@ s3_GetBucketAcl:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.GetBucketAcl
     Go:
       versions:
@@ -901,7 +1128,7 @@ s3_PutBucketAcl:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.PutBucketAcl
     JavaScript:
       versions:
@@ -923,6 +1150,15 @@ s3_PutBucketPolicy:
   synopsis: add a policy to an &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.put_bucket_policy02.code
     Java:
       versions:
         - sdk_version: 2
@@ -939,7 +1175,7 @@ s3_PutBucketPolicy:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.PutBucketPolicy
     JavaScript:
       versions:
@@ -953,6 +1189,16 @@ s3_PutBucketPolicy:
             - description: Add the policy.
               snippet_tags:
                 - s3.JavaScript.policy.putBucketPolicyV3
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.s3.helper.BucketPolicyWrapper
+                - ruby.example_code.s3.PutBucketPolicy
+                - ruby.example_code.s3.helper.end.BucketPolicyWrapper
   services:
     s3: {PutBucketPolicy}
 s3_PutBucketWebsite:
@@ -961,6 +1207,15 @@ s3_PutBucketWebsite:
   synopsis: set the website configuration for an &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.put_website_config.code
     Java:
       versions:
         - sdk_version: 2
@@ -982,6 +1237,14 @@ s3_PutBucketWebsite:
             - description: Set the website configuration.
               snippet_tags:
                 - s3.JavaScript.website.putBucketWebsiteV3
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.s3.PutBucketWebsite
   services:
     s3: {PutBucketWebsite}
 s3_GetBucketWebsite:
@@ -990,6 +1253,15 @@ s3_GetBucketWebsite:
   synopsis: get the website configuration for an &S3; bucket.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.get_website_config.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1018,7 +1290,7 @@ s3_HeadBucket:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.HeadBucket
   services:
     s3: {HeadBucket}
@@ -1028,6 +1300,15 @@ s3_ListBuckets:
   synopsis: list &S3; buckets.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.list_buckets.code
     Python:
       versions:
         - sdk_version: 3
@@ -1036,7 +1317,7 @@ s3_ListBuckets:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.ListBuckets
     Rust:
       versions:
@@ -1065,26 +1346,16 @@ s3_ListBuckets:
             - description: List the buckets.
               snippet_tags:
                 - s3.JavaScript.buckets.listBucketsV3
-  services:
-    s3: {ListBuckets}
-s3_Scenario_BucketManagement:
-  title: Create and manage &S3; buckets using an &AWS; SDK
-  title_abbrev: Create and manage buckets
-  synopsis: create and manage &S3; buckets.
-  category: Scenario
-  languages:
-    Python:
+    Ruby:
       versions:
         - sdk_version: 3
-          github: python/example_code/s3/s3_basics
-          sdkguide:
+          github: ruby/example_code/s3
           excerpts:
-            - description: Call some of the functions defined in the API example
-                section to create and manage buckets.
+            - description:
               snippet_tags:
-                - python.example_code.s3.Scenario_BucketManagement
+                - ruby.example_code.s3.ListBuckets
   services:
-    s3: {}
+    s3: {ListBuckets}
 s3_PutObjectAcl:
   title: Set the ACL of an &S3; object using an &AWS; SDK
   title_abbrev: Set the ACL of an object
@@ -1099,44 +1370,10 @@ s3_PutObjectAcl:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.PutObjectAcl
   services:
     s3: {PutObjectAcl}
-s3_Scenario_GettingStartedBuckets:
-  title: Create, list, and delete &S3; buckets using an &AWS; SDK
-  title_abbrev: Create, list, and delete buckets
-  synopsis: create, list, and delete &S3; buckets.
-  category: Scenario
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/s3/s3_basics
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - s3.python.bucket_operations.list_create_delete
-  services:
-    s3: {CreateBucket, ListBuckets, DeleteBucket}
-s3_Scenario_ObjectManagement:
-  title: Upload and manage &S3; objects using an &AWS; SDK
-  title_abbrev: Upload and manage objects
-  synopsis: upload and manage &S3; objects.
-  category: Scenario
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/s3/s3_basics
-          sdkguide:
-          excerpts:
-            - description: Call some of the functions defined in the API example
-                section to upload and manage objects.
-              snippet_tags:
-                - python.example_code.s3.Scenario_ObjectManagement
-  services:
-    s3: {}
 s3_Scenario_TransferManager:
   title: Use a transfer manager to upload and download files to and from &S3; using an &AWS; SDK
   title_abbrev: Use a transfer manager to upload and download files
@@ -1225,7 +1462,7 @@ s3_Scenario_PresignedUrl:
                 - python.example_code.s3.Scenario_GeneratePresignedUrl
             - description: Generate a presigned POST request to upload a file.
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.Scenario_GeneratePresignedPost
     Go:
       versions:
@@ -1249,61 +1486,16 @@ s3_Scenario_PresignedUrl:
             - description: Create a presigned URL to download an object from a bucket.
               snippet_tags:
                 - s3.JavaScript.buckets.getpresignedurlv3
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.ruby.upload_object_presigned_url.rb
   services:
     s3: {}
-s3_Scenario_RollbackVersionedObject:
-  title: Roll back an &S3; object to a specific version using an &AWS; SDK
-  title_abbrev: Roll back an object to a specific version
-  synopsis:
-    roll back an &S3; object to a specific version by deleting more recent
-    versions.
-  category: Scenario
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/s3/s3_versioning
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - s3.python.versioning.rollback_object
-  services:
-    s3: {ListObjectVersions, DeleteObject}
-s3_Scenario_ReviveVersionedObject:
-  title: Revive a deleted &S3; object using an &AWS; SDK
-  title_abbrev: Revive a deleted object
-  synopsis: revive a deleted &S3; object by removing the object's active delete marker.
-  category: Scenario
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/s3/s3_versioning
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - s3.python.versioning.revive_object
-  services:
-    s3: {ListObjectVersions, DeleteObject}
-s3_Scenario_PermanentlyDeleteVersionedObject:
-  title: Permanently delete an &S3; versioned object using an &AWS; SDK
-  title_abbrev: Permanently delete a versioned object
-  synopsis: permanently delete an &S3; versioned object by deleting all of its versions.
-  category: Scenario
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/s3/s3_versioning
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - s3.python.versioning.permanently_delete_object
-  services:
-    s3: {ListObjectVersions, DeleteObjects}
 s3_Scenario_ObjectVersioningUsage:
   title: Work with &S3; versioned objects using an &AWS; SDK
   title_abbrev: Work with versioned objects
@@ -1340,3 +1532,27 @@ s3_GetBucketLocation:
                 - s3.rust.list-buckets
   services:
     s3: {GetBucketLocation}
+s3_Scenario_GettingStarted:
+  title: Getting started with &S3; buckets and objects using an &AWS; SDK
+  title_abbrev: Getting started with buckets and objects
+  synopsis_list:
+    - Create a bucket.
+    - Upload a file to the bucket.
+    - Download an object from a bucket.
+    - Copy an object to a subfolder in a bucket.
+    - List the objects in a bucket.
+    - Delete the objects in a bucket.
+    - Delete a bucket.
+  category: Scenario
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.Scenario_GettingStarted
+  services:
+    s3: {CreateBucket, PutObject, GetObject, CopyObject, ListObjects, DeleteObjects, DeleteBucket}

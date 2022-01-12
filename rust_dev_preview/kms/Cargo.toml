@@ -6,9 +6,9 @@ edition = "2018"
 description = "Example usage of the KMS service"
 
 [dependencies]
-aws-config = "0.2.0"
-aws-sdk-kms = "0.2.0"
-aws-hyper = "0.2.0"
+aws-config = "0.3.0"
+aws-sdk-kms = "0.3.0"
+aws-smithy-client = { version = "0.33.1", features = ["client-hyper", "rustls", "rt-tokio"] }
 tokio = { version = "1", features = ["full"]}
 base64 = "0.13.0"
 structopt = { version = "0.3", default-features = false }

@@ -51,11 +51,11 @@ async fn send_message(
         .send()
         .await?;
 
-    let contacts = resp.contacts.unwrap_or_default();
+    let contacts = resp.contacts().unwrap_or_default();
 
     let cs: String = contacts
         .into_iter()
-        .map(|i| i.email_address.unwrap_or_default())
+        .map(|i| i.email_address().unwrap_or_default())
         .collect();
 
     let dest = Destination::builder().to_addresses(cs).build();

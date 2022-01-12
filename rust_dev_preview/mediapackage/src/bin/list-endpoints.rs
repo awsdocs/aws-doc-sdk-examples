@@ -25,9 +25,9 @@ async fn show_endpoints(client: &Client) -> Result<(), Error> {
 
     println!("Endpoints:");
 
-    for e in or_endpoints.origin_endpoints.unwrap_or_default() {
-        let endpoint_url = e.url.as_deref().unwrap_or_default();
-        let endpoint_description = e.description.as_deref().unwrap_or_default();
+    for e in or_endpoints.origin_endpoints().unwrap_or_default() {
+        let endpoint_url = e.url().unwrap_or_default();
+        let endpoint_description = e.description().unwrap_or_default();
         println!("  Description: {}", endpoint_description);
         println!("  URL :        {}", endpoint_url);
         println!();

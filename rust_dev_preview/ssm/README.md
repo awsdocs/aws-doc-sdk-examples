@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several AWS Systems Manager (Systems Manager) operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several AWS Systems Manager (Systems Manager) operations using the developer preview version of the AWS SDK for Rust.
 
 Use Systems Manager to organize, monitor, and automate management tasks on your AWS resources.
 
@@ -61,6 +61,7 @@ Where:
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- [AWS SDK for Rust API Reference for Systems Manager](https://docs.rs/aws-sdk-ssm)
 - [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
 
 ## Contributing
