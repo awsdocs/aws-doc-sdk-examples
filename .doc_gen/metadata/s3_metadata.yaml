@@ -1545,6 +1545,15 @@ s3_Scenario_GettingStarted:
     - Delete a bucket.
   category: Scenario
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.kotlin.s3_operations.main
     Python:
       versions:
         - sdk_version: 3
