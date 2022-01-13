@@ -34,7 +34,6 @@ type Response = Result<SuccessResponse, FailureResponse>;
 
 #[tokio::main]
 async fn main() -> Result<(), lambda_runtime::Error> {
-
     let func = handler_fn(handler);
     lambda_runtime::run(func).await?;
 
