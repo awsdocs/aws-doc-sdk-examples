@@ -21,7 +21,7 @@ This AWS tutorial uses an Amazon DynamoDB table named **Employee** that contains
 -	**phone** – the employee’s phone number.
 -	**startDate** – the employee’s start date.
 
-![AWS Tracking Application](images/pic00.png)
+![AWS Tracking Application](images/employeetable2.png)
 
 **Note**: To learn how to invoke an AWS Lambda function using scheduled events, see [Creating scheduled events to invoke Lambda functions](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_scheduled_events).
 
