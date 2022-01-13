@@ -36,12 +36,12 @@ public class CreateAPIKey {
                 .region(region)
                 .build();
 
-        createApiKey(apiGateway,"accessKey", "secretKey");
+        createApiKey(apiGateway);
         apiGateway.close();
     }
 
     // snippet-start:[apigateway.java2.createapikeys.main]
-    public static void createApiKey(ApiGatewayClient apiGateway, String accessKey, String secretKey) {
+    public static void createApiKey(ApiGatewayClient apiGateway) {
 
         try {
 
