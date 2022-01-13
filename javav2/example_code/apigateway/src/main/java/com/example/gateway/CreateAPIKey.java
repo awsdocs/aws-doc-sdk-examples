@@ -58,7 +58,7 @@ public class CreateAPIKey {
           If we have a plan for the api keys, we can set it for the created api key.
          */
             CreateUsagePlanKeyRequest planRequest = CreateUsagePlanKeyRequest.builder()
-                    .usagePlanId("q18zxs")
+                    .usagePlanId("<Enter Value>")
                     .keyId(response.id())
                     .keyType("API_KEY")
                     .build();
