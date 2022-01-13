@@ -14,4 +14,4 @@ tokio = { version = "1", features = ["full"]}
 base64 = "0.13.0"
 sha2 = "0.9.5"
 structopt = { version = "0.3", default-features = false }
-tracing-subscriber = "0.2.19"
+tracing-subscriber = { version = "0.3.5", features = ["env-filter"] }

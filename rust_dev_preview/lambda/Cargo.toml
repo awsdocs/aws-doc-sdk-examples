@@ -12,5 +12,5 @@ aws-sdk-ec2 = "0.3.0"
 aws-sdk-lambda = "0.3.0"
 tokio = { version = "1", features = ["full"] }
 structopt = { version = "0.3", default-features = false }
-tracing-subscriber = { version = "0.2.16", features = ["fmt"] }
+tracing-subscriber = { version = "0.3.5", features = ["env-filter"] }
 env_logger = "0.9.0"
