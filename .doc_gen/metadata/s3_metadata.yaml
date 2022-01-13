@@ -51,7 +51,7 @@ s3_CreateBucket:
           excerpts:
             - description: Create a bucket with default settings.
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.CreateBucket
             - description: Create a versioned bucket with a lifecycle configuration.
               snippet_tags:
@@ -132,6 +132,7 @@ s3_CopyObject:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.CopyObject
     Go:
       versions:
@@ -193,7 +194,7 @@ s3_DeleteBucketPolicy:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.DeleteBucketPolicy
     JavaScript:
       versions:
@@ -240,9 +241,17 @@ s3_DeleteObject:
           github: python/example_code/s3/s3_basics
           sdkguide:
           excerpts:
-            - description:
+            - description: Delete an object.
               snippet_tags:
+                - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.DeleteObject
+            - description: Roll an object back to a previous version by deleting
+                later versions of the object.
+              snippet_tags:
+                - s3.python.versioning.rollback_object
+            - description: Revive a deleted object by removing the object's active delete marker.
+              snippet_tags:
+                - s3.python.versioning.revive_object
     Rust:
       versions:
         - sdk_version: 1
@@ -302,10 +311,15 @@ s3_DeleteObjects:
           excerpts:
             - description: Delete a set of objects by using a list of object keys.
               snippet_tags:
+                - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.DeleteObjects_Keys
             - description: Delete all objects in a bucket.
               snippet_tags:
+                - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.DeleteObjects_All
+            - description: Permanently delete a versioned object by deleting all of its versions.
+              snippet_tags:
+                - s3.python.versioning.permanently_delete_object
     JavaScript:
       versions:
         - sdk_version: 3
@@ -399,6 +413,7 @@ s3_GetObjectAcl:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.GetObjectAcl
     Go:
       versions:
@@ -449,7 +464,7 @@ s3_GetBucketPolicy:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.GetBucketPolicy
     JavaScript:
       versions:
@@ -549,6 +564,7 @@ s3_GetObject:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.GetObject
     JavaScript:
       versions:
@@ -589,7 +605,7 @@ s3_GetBucketLifecycleConfiguration:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.GetBucketLifecycleConfiguration
   services:
     s3: {GetBucketLifecycleConfiguration}
@@ -615,7 +631,7 @@ s3_PutBucketLifecycleConfiguration:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.PutBucketLifecycleConfiguration
   services:
     s3: {PutBucketLifecycleConfiguration}
@@ -633,7 +649,7 @@ s3_DeleteBucketLifecycle:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.DeleteBucketLifecycleConfiguration
   services:
     s3: {DeleteBucketLifecycle}
@@ -694,6 +710,7 @@ s3_ListObjects:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.ListObjects
     Rust:
       versions:
@@ -799,6 +816,7 @@ s3_PutObject:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.PutObject
     Rust:
       versions:
@@ -894,7 +912,7 @@ s3_DeleteBucket:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.DeleteBucket
     Go:
       versions:
@@ -931,7 +949,7 @@ s3_GetBucketCors:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.GetBucketCors
     JavaScript:
       versions:
@@ -979,7 +997,7 @@ s3_PutBucketCors:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.PutBucketCors
     JavaScript:
       versions:
@@ -1019,7 +1037,7 @@ s3_DeleteBucketCors:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.DeleteBucketCors
     Ruby:
       versions:
@@ -1056,7 +1074,7 @@ s3_GetBucketAcl:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.GetBucketAcl
     Go:
       versions:
@@ -1110,7 +1128,7 @@ s3_PutBucketAcl:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.PutBucketAcl
     JavaScript:
       versions:
@@ -1157,7 +1175,7 @@ s3_PutBucketPolicy:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.PutBucketPolicy
     JavaScript:
       versions:
@@ -1272,7 +1290,7 @@ s3_HeadBucket:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.HeadBucket
   services:
     s3: {HeadBucket}
@@ -1299,7 +1317,7 @@ s3_ListBuckets:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.ListBuckets
     Rust:
       versions:
@@ -1338,24 +1356,6 @@ s3_ListBuckets:
                 - ruby.example_code.s3.ListBuckets
   services:
     s3: {ListBuckets}
-s3_Scenario_BucketManagement:
-  title: Create and manage &S3; buckets using an &AWS; SDK
-  title_abbrev: Create and manage buckets
-  synopsis: create and manage &S3; buckets.
-  category: Scenario
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/s3/s3_basics
-          sdkguide:
-          excerpts:
-            - description: Call some of the functions defined in the API example
-                section to create and manage buckets.
-              snippet_tags:
-                - python.example_code.s3.Scenario_BucketManagement
-  services:
-    s3: {}
 s3_PutObjectAcl:
   title: Set the ACL of an &S3; object using an &AWS; SDK
   title_abbrev: Set the ACL of an object
@@ -1370,44 +1370,10 @@ s3_PutObjectAcl:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.PutObjectAcl
   services:
     s3: {PutObjectAcl}
-s3_Scenario_GettingStartedBuckets:
-  title: Create, list, and delete &S3; buckets using an &AWS; SDK
-  title_abbrev: Create, list, and delete buckets
-  synopsis: create, list, and delete &S3; buckets.
-  category: Scenario
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/s3/s3_basics
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - s3.python.bucket_operations.list_create_delete
-  services:
-    s3: {CreateBucket, ListBuckets, DeleteBucket}
-s3_Scenario_ObjectManagement:
-  title: Upload and manage &S3; objects using an &AWS; SDK
-  title_abbrev: Upload and manage objects
-  synopsis: upload and manage &S3; objects.
-  category: Scenario
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/s3/s3_basics
-          sdkguide:
-          excerpts:
-            - description: Call some of the functions defined in the API example
-                section to upload and manage objects.
-              snippet_tags:
-                - python.example_code.s3.Scenario_ObjectManagement
-  services:
-    s3: {}
 s3_Scenario_TransferManager:
   title: Use a transfer manager to upload and download files to and from &S3; using an &AWS; SDK
   title_abbrev: Use a transfer manager to upload and download files
@@ -1496,7 +1462,7 @@ s3_Scenario_PresignedUrl:
                 - python.example_code.s3.Scenario_GeneratePresignedUrl
             - description: Generate a presigned POST request to upload a file.
               snippet_tags:
-                - python.example_code.s3.get_s3_helper
+                - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.Scenario_GeneratePresignedPost
     Go:
       versions:
@@ -1530,59 +1496,6 @@ s3_Scenario_PresignedUrl:
                 - s3.ruby.upload_object_presigned_url.rb
   services:
     s3: {}
-s3_Scenario_RollbackVersionedObject:
-  title: Roll back an &S3; object to a specific version using an &AWS; SDK
-  title_abbrev: Roll back an object to a specific version
-  synopsis:
-    roll back an &S3; object to a specific version by deleting more recent
-    versions.
-  category: Scenario
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/s3/s3_versioning
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - s3.python.versioning.rollback_object
-  services:
-    s3: {ListObjectVersions, DeleteObject}
-s3_Scenario_ReviveVersionedObject:
-  title: Revive a deleted &S3; object using an &AWS; SDK
-  title_abbrev: Revive a deleted object
-  synopsis: revive a deleted &S3; object by removing the object's active delete marker.
-  category: Scenario
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/s3/s3_versioning
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - s3.python.versioning.revive_object
-  services:
-    s3: {ListObjectVersions, DeleteObject}
-s3_Scenario_PermanentlyDeleteVersionedObject:
-  title: Permanently delete an &S3; versioned object using an &AWS; SDK
-  title_abbrev: Permanently delete a versioned object
-  synopsis: permanently delete an &S3; versioned object by deleting all of its versions.
-  category: Scenario
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/s3/s3_versioning
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - s3.python.versioning.permanently_delete_object
-  services:
-    s3: {ListObjectVersions, DeleteObjects}
 s3_Scenario_ObjectVersioningUsage:
   title: Work with &S3; versioned objects using an &AWS; SDK
   title_abbrev: Work with versioned objects
@@ -1619,3 +1532,36 @@ s3_GetBucketLocation:
                 - s3.rust.list-buckets
   services:
     s3: {GetBucketLocation}
+s3_Scenario_GettingStarted:
+  title: Getting started with &S3; buckets and objects using an &AWS; SDK
+  title_abbrev: Getting started with buckets and objects
+  synopsis_list:
+    - Create a bucket.
+    - Upload a file to the bucket.
+    - Download an object from a bucket.
+    - Copy an object to a subfolder in a bucket.
+    - List the objects in a bucket.
+    - Delete the objects in a bucket.
+    - Delete a bucket.
+  category: Scenario
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/s3
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - s3.kotlin.s3_operations.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/s3_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.Scenario_GettingStarted
+  services:
+    s3: {CreateBucket, PutObject, GetObject, CopyObject, ListObjects, DeleteObjects, DeleteBucket}
