@@ -6,11 +6,11 @@ authors = ["Doug Schwartz <dougsch@amazon.com>"]
 edition = "2018"
 
 [dependencies]
-aws-config = "0.3.0"
-aws-sdk-s3 = "0.3.0"
-aws-sdk-sqs = "0.3.0"
-aws-types = "0.3.0"
-aws-smithy-http = "0.33.1"
+aws-config = "0.4.1"
+aws-sdk-s3 = "0.4.1"
+aws-sdk-sqs = "0.4.1"
+aws-types = "0.4.1"
+aws-smithy-http = "0.34.1"
 tokio = { version = "1", features = ["full"] }
 http = "0.2"
 tracing-subscriber = { version = "0.3.5", features = ["env-filter"] }
