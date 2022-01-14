@@ -3,19 +3,11 @@
 
 """
 Purpose
-    Demonstrate create, list, and delete buckets in Amazon S3.
 
-    This example is part of the AWS Cloud9 User Guide topic at
-    https://docs.aws.amazon.com/cloud9/latest/user-guide/sample-python.html
+Demonstrate create, list, and delete buckets in Amazon S3.
 
-Running the code
-    Run this demo from the command line. To get command line usage, run the
-    following command.
-
-        python -m demo_bucket_basics -h
-
-Additional information
-    Running this code might result in charges to your AWS account.
+This example is part of the AWS Cloud9 User Guide topic at
+https://docs.aws.amazon.com/cloud9/latest/user-guide/sample-python.html
 """
 
 
@@ -25,44 +17,35 @@ import boto3
 from botocore.exceptions import ClientError
 
 
-def get_s3(region=None):
-    """
-    Get a Boto 3 Amazon S3 resource with a specific AWS Region or with your
-    default AWS Region.
-    """
-    return boto3.resource('s3', region_name=region) if region else boto3.resource('s3')
+def list_my_buckets(s3_resource):
+    print('Buckets:\n\t', *[b.name for b in s3_resource.buckets.all()], sep="\n\t")
 
 
-def list_my_buckets(s3):
-    print('Buckets:\n\t', *[b.name for b in s3.buckets.all()], sep="\n\t")
-
-
-def create_and_delete_my_bucket(bucket_name, region, keep_bucket):
-    s3 = get_s3(region)
-
-    list_my_buckets(s3)
+def create_and_delete_my_bucket(s3_resource, bucket_name, keep_bucket):
+    list_my_buckets(s3_resource)
 
     try:
         print('\nCreating new bucket:', bucket_name)
-        bucket = s3.create_bucket(
+        bucket = s3_resource.create_bucket(
             Bucket=bucket_name,
             CreateBucketConfiguration={
-                'LocationConstraint': region
+                'LocationConstraint': s3_resource.meta.client.meta.region_name
             }
         )
     except ClientError as e:
-        print(e)
-        sys.exit('Exiting the script because bucket creation failed.')
+        print(f"Couldn't create a bucket for the demo. Here's why: "
+              f"{e.response['Error']['Message']}")
+        raise
 
     bucket.wait_until_exists()
-    list_my_buckets(s3)
+    list_my_buckets(s3_resource)
 
     if not keep_bucket:
         print('\nDeleting bucket:', bucket.name)
         bucket.delete()
 
         bucket.wait_until_not_exists()
-        list_my_buckets(s3)
+        list_my_buckets(s3_resource)
     else:
         print('\nKeeping bucket:', bucket.name)
 
@@ -79,8 +62,13 @@ def main():
                         action='store_true')
 
     args = parser.parse_args()
-
-    create_and_delete_my_bucket(args.bucket_name, args.region, args.keep_bucket)
+    s3_resource = (
+        boto3.resource('s3', region_name=args.region) if args.region
+        else boto3.resource('s3'))
+    try:
+        create_and_delete_my_bucket(s3_resource, args.bucket_name, args.keep_bucket)
+    except ClientError:
+        print('Exiting the demo.')
 
 
 if __name__ == '__main__':

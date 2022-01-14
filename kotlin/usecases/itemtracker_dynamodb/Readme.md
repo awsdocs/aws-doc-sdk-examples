@@ -1,5 +1,14 @@
 #  Create an Amazon DynamoDB web application by using the AWS SDK for Kotlin
 
+## Overview
+
+| Heading      | Description |
+| ----------- | ----------- |
+| Description | Dicusses how to develop a dynamic web application that tracks and reports on Amazon DynamoDB data by using the AWS SDK for Kotlin.     |
+| Audience   |  Developer (beginner / intermediate)        |
+| Updated   | 1/14/2022        |
+| Required Skills   | Kotlin, Gradle  |
+
 ## Purpose
 
 You can develop a dynamic web application that tracks and reports on work items by using the following AWS services:
@@ -50,6 +59,7 @@ To complete the tutorial, you need the following:
 
 Create an Amazon DynamoDB table named **Work** that contains a partition key named **id**. For more information, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html). 
 
+In addition, ensure that you have setup your Kotlin developer environment. For more information, see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
 
 ## Understand the DynamoDB Item Tracker application
 
@@ -100,7 +110,7 @@ The DynamoDB table is named **Work** and contains the following fields:
 
 The following figure shows the **Work** table.
 
-![AWS Tracking Application](images/work.png)
+![AWS Tracking Application](images/worktable.png)
 
 ## Create an IntelliJ project named ItemDemo
 
