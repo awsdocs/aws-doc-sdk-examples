@@ -135,6 +135,18 @@ cloudwatch-logs_DescribeSubscriptionFilters:
             - description:
               snippet_tags:
                 - cloudwatch.java2.describe_subscription_filters.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch-logs
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cwl.cpp.describe_subscription_filters.inc
+            - description: List the subscription filters.
+              snippet_tags:
+                - cwl.cpp.describe_subscription_filters
     JavaScript:
       versions:
         - sdk_version: 3
@@ -180,6 +192,18 @@ cloudwatch-logs_DeleteSubscriptionFilter:
             - description:
               snippet_tags:
                 - cloudwatch.java2.delete_subscription_filter.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch-logs
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cwl.cpp.delete_subscription_filter.inc
+            - description: Delete the subscription filter.
+              snippet_tags:
+                - cwl.cpp.delete_subscription_filter
     JavaScript:
       versions:
         - sdk_version: 3
@@ -216,6 +240,18 @@ cloudwatch-logs_PutSubscriptionFilter:
             - description:
               snippet_tags:
                 - cloudwatch.java2.put_subscription_filter.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch-logs
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cwl.cpp.put_subscription_filter.inc
+            - description: Create the subscription filter.
+              snippet_tags:
+                - cwl.cpp.put_subscription_filter
     JavaScript:
       versions:
         - sdk_version: 3

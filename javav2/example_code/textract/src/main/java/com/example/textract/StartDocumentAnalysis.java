@@ -3,7 +3,7 @@
 // snippet-service:[Amazon Textract]
 // snippet-keyword:[Code Sample]
 // snippet-sourcetype:[full-example]
-// snippet-sourcedate:[09/29/2021]
+// snippet-sourcedate:[01/07/2022]
 // snippet-sourceauthor:[scmacdon - AWS]
 
 /*
@@ -33,7 +33,7 @@ public class StartDocumentAnalysis {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
+        final String usage = "\n" +
                 "Usage:\n" +
                 "    <bucketName> <docName> \n\n" +
                 "Where:\n" +
@@ -41,24 +41,26 @@ public class StartDocumentAnalysis {
                 "    docName - the document name (must be an image, for example, book.png). \n";
 
         if (args.length != 2) {
-            System.out.println(USAGE);
+            System.out.println(usage);
             System.exit(1);
         }
 
+        String bucketName =  args[0];
+        String docName = args[1];
         Region region = Region.US_WEST_2;
         TextractClient textractClient = TextractClient.builder()
                 .region(region)
                 .build();
 
-        String bucketName = args[0];
-        String docName = args[1];
-
-        startDocAnalysisS3 (textractClient, bucketName, docName);
+        String jobId = startDocAnalysisS3 (textractClient, bucketName, docName);
+        System.out.println("Getting results for job "+jobId);
+        String status = getJobResults(textractClient, jobId);
+        System.out.println("The job status is "+status);
         textractClient.close();
     }
 
     // snippet-start:[textract.java2._start_doc_analysis.main]
-    public static void startDocAnalysisS3 (TextractClient textractClient, String bucketName, String docName) {
+    public static String startDocAnalysisS3 (TextractClient textractClient, String bucketName, String docName) {
 
         try {
 
@@ -84,29 +86,47 @@ public class StartDocumentAnalysis {
 
             // Get the job ID
             String jobId = response.jobId();
-
-            String result = getJobResults(textractClient,jobId);
-
-            System.out.println("The status of the job is: "+result);
+            return jobId;
 
         } catch (TextractException e) {
 
             System.err.println(e.getMessage());
             System.exit(1);
         }
+        return "" ;
     }
 
     private static String getJobResults(TextractClient textractClient, String jobId) {
 
-        GetDocumentAnalysisRequest analysisRequest = GetDocumentAnalysisRequest.builder()
-                .jobId(jobId)
-                .maxResults(1000)
-                .build();
+        boolean finished = false;
+        int index = 0 ;
+        String status = "" ;
 
-        GetDocumentAnalysisResponse response = textractClient.getDocumentAnalysis(analysisRequest);
-        String status = response.jobStatus().toString();
+       try {
+        while (!finished) {
+            GetDocumentAnalysisRequest analysisRequest = GetDocumentAnalysisRequest.builder()
+                    .jobId(jobId)
+                    .maxResults(1000)
+                    .build();
 
+            GetDocumentAnalysisResponse response = textractClient.getDocumentAnalysis(analysisRequest);
+            status = response.jobStatus().toString();
+
+            if (status.compareTo("SUCCEEDED") == 0)
+                finished = true;
+            else {
+                System.out.println(index + " status is: " + status);
+                Thread.sleep(1000);
+            }
+            index++ ;
+        }
         return status;
+
+       } catch( InterruptedException e) {
+           System.out.println(e.getMessage());
+           System.exit(1);
+       }
+       return "";
     }
     // snippet-end:[textract.java2._start_doc_analysis.main]
 }

@@ -25,17 +25,14 @@ async fn show_lexicons(client: &Client) -> Result<(), Error> {
 
     println!("Lexicons:");
 
-    let lexicons = resp.lexicons.unwrap_or_default();
+    let lexicons = resp.lexicons().unwrap_or_default();
 
-    for lexicon in &lexicons {
-        println!(
-            "  Name:     {}",
-            lexicon.name.as_deref().unwrap_or_default()
-        );
+    for lexicon in lexicons {
+        println!("  Name:     {}", lexicon.name().unwrap_or_default());
         println!(
             "  Language: {:?}\n",
             lexicon
-                .attributes
+                .attributes()
                 .as_ref()
                 .map(|attrib| attrib
                     .language_code

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several AWS Identity and Access Management (IAM) operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several AWS Identity and Access Management (IAM) operations using the developer preview version of the AWS SDK for Rust.
 
 IAM is a web service for securely controlling access to AWS services.
 
@@ -32,12 +32,10 @@ You must have an AWS account, and have configured your default credentials and A
 
 This example creates an IAM role in the Region.
 
-`cargo run --bin create-role -- -a ACCOUNT-ID -b BUCKET -n NAME -p POLICY-NAME [-r REGION] [-v]`
+`cargo run --bin create-role -- -a ACCOUNT-ID -b BUCKET -n NAME -p POLICY-FILE [-r REGION] [-v]`
 
-- _ACCOUNT-ID_ is the ID of an instance to stop.
-- _BUCKET_ is the name of the bucket where Config stores information about resources.
 - _NAME_ is the name of the role.
-- _POLICY-NAME_ is the name of the JSON file containing the policy document.
+- _POLICY-FILE_ is the name of the JSON file containing the policy document.
 - _REGION_ the Region in which the client is created.
   If not supplied, uses the value of the __AWS_REGION__ environment variable.
   If the environment variable is not set, defaults to __us-west-2__.
@@ -48,6 +46,7 @@ If the example succeeds, it displays the ARN of the new role.
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- - [AWS SDK for Rust API Reference for IAM](https://docs.rs/aws-sdk-iam)
 - [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
 
 ## Contributing

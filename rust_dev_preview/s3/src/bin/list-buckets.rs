@@ -26,25 +26,25 @@ struct Opt {
 // snippet-start:[s3.rust.list-buckets]
 async fn show_buckets(strict: bool, client: &Client, region: &str) -> Result<(), Error> {
     let resp = client.list_buckets().send().await?;
-    let buckets = resp.buckets.unwrap_or_default();
+    let buckets = resp.buckets().unwrap_or_default();
     let num_buckets = buckets.len();
 
     let mut in_region = 0;
 
-    for bucket in &buckets {
+    for bucket in buckets {
         if strict {
             let r = client
                 .get_bucket_location()
-                .bucket(bucket.name.as_deref().unwrap_or_default())
+                .bucket(bucket.name().as_deref().unwrap_or_default())
                 .send()
                 .await?;
 
-            if r.location_constraint.unwrap().as_ref() == region {
-                println!("{}", bucket.name.as_deref().unwrap_or_default());
+            if r.location_constraint().unwrap().as_ref() == region {
+                println!("{}", bucket.name().as_deref().unwrap_or_default());
                 in_region += 1;
             }
         } else {
-            println!("{}", bucket.name.as_deref().unwrap_or_default());
+            println!("{}", bucket.name().as_deref().unwrap_or_default());
         }
     }
 

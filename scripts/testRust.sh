@@ -1,4 +1,10 @@
 #!/usr/bin/bash
+# This script requires five environment variables:
+#   RustRoot    where we can find aws-doc-sdk-examples/rust_dev_preview locally
+#   FromVersion the old aws-sdk-* crate version
+#   ToVersion   the new aws-sdk-* crate version
+#   FromSmithy  the old Smithy crate version
+#   ToSmithy    the new Smithy crate version
 
 vetService () {
     SERVICE=$(basename $PWD)
@@ -11,7 +17,7 @@ vetService () {
 	do
 	    if [ -d "$d" ]; then
 		pushd $d > /dev/null
-         	vetService $from $to
+         	vetService $from $to $from_smithy $to_smithy
 	        popd > /dev/null
 		echo
            fi
@@ -27,7 +33,7 @@ vetService () {
 	do
 	    if [ -d "$d" ]; then
 		pushd $d > /dev/null
-         	vetService $from $to
+         	vetService $from $to $from_smithy $to_smithy
 	        popd > /dev/null
 		echo
            fi
@@ -44,6 +50,9 @@ vetService () {
         # Convert $from to $to
 	echo Converting $from to $to
         sed -i s/$from/$to/ Cargo.toml
+	# Convert $from_smithy to $to_smithy
+	echo Converting $from_smithy to $to_smithy
+        sed -i s/$from_smithy/$to_smithy/ Cargo.toml
     fi
 
     foundNew=`grep "$2" Cargo.toml`
@@ -75,8 +84,6 @@ vetService () {
     cargo fmt
 }
 
-# We need three environment variables:
-# RustRoot is where we can find aws-doc-sdk-examples/rust_dev_preview locally
 if [[ -z "${RustRoot}" ]]; then
     echo You must define the environment variable RustRoot
     exit 1
@@ -86,7 +93,7 @@ else
 fi
 
 # FromVersion is the old version of the Rust SDK crates that we are replacing,
-# such as 0.0.NN-alpha"
+# such as 0.3.0
 if [[ -z "${FromVersion}" ]]; then
     echo You must define the environment variable FromVersion
     exit 1
@@ -104,6 +111,23 @@ else
     echo The new crate version is $to
 fi
 
+if [[ -z "${FromSmithy}" ]]; then
+    echo You must define the environment variable FromSmithy
+    exit 1
+else
+    from_smithy="${FromSmithy}"
+    echo The old Smithy crate version is $from_smithy
+fi
+
+# ToSmithy is the current version of the Smithy SDK crate
+if [[ -z "${ToSmithy}" ]]; then
+    echo You must define the environment variable ToSmithy
+    exit 1
+else
+    to_smithy="${ToSmithy}"
+    echo The new Smithy crate version is $to_smithy
+fi
+
 echo
 echo Started vetting code examples at
 date
@@ -112,7 +136,7 @@ for f in $root/*
 do
     if [ -d "$f" ]; then
 	pushd $f > /dev/null
-	vetService $from $to
+	vetService $from $to $from_smithy $to_smithy
 	popd > /dev/null
 	echo
   fi

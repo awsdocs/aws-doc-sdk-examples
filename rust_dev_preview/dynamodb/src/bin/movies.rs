@@ -3,12 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+use std::collections::HashMap;
+use std::time::Duration;
+
 use aws_config::meta::region::RegionProviderChain;
 use aws_http::AwsErrorRetryPolicy;
-use aws_hyper::{SdkError, SdkSuccess};
 use aws_sdk_dynamodb::client::fluent_builders::Query;
 use aws_sdk_dynamodb::error::DescribeTableError;
 use aws_sdk_dynamodb::input::DescribeTableInput;
+use aws_sdk_dynamodb::middleware::DefaultMiddleware;
 use aws_sdk_dynamodb::model::{
     AttributeDefinition, AttributeValue, KeySchemaElement, KeyType, ProvisionedThroughput,
     ScalarAttributeType, TableStatus,
@@ -16,12 +19,12 @@ use aws_sdk_dynamodb::model::{
 use aws_sdk_dynamodb::operation::DescribeTable;
 use aws_sdk_dynamodb::output::DescribeTableOutput;
 use aws_sdk_dynamodb::{Client, Config, Error, Region, PKG_VERSION};
+use aws_smithy_client::erase::DynConnector;
 use aws_smithy_http::operation::Operation;
+use aws_smithy_http::result::{SdkError, SdkSuccess};
 use aws_smithy_http::retry::ClassifyResponse;
 use aws_smithy_types::retry::RetryKind;
 use serde_json::Value;
-use std::collections::HashMap;
-use std::time::Duration;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -39,7 +42,8 @@ struct Opt {
     verbose: bool,
 }
 
-/// A partial reimplementation of https://docs.amazonaws.cn/en_us/amazondynamodb/latest/developerguide/GettingStarted.Ruby.html
+/// A partial reimplementation of
+/// <https://docs.amazonaws.cn/en_us/amazondynamodb/latest/developerguide/GettingStarted.Ruby.html>
 /// in Rust
 ///
 /// - Create table
@@ -59,27 +63,30 @@ async fn main() -> Result<(), Error> {
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()
         .or_else(Region::new("us-west-2"));
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
+
     println!();
 
     if verbose {
         println!("DynamoDB client version: {}", PKG_VERSION);
         println!(
             "Region:                  {}",
-            region_provider.region().await.unwrap().as_ref()
+            shared_config.region().unwrap()
         );
         println!("Table:                   {}", &table);
         println!();
     }
 
-    let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let raw_client = aws_hyper::Client::https();
+    let raw_client = aws_smithy_client::Client::<DynConnector, DefaultMiddleware>::dyn_https();
 
     let table_exists = does_table_exist(&client, &table).await?;
 
     if !table_exists {
-        create_table(&client, &table)
+        println!("Creating table.");
+
+        create_table(&client, &table.to_string())
             .send()
             .await
             .expect("failed to create table");
@@ -96,27 +103,37 @@ async fn main() -> Result<(), Error> {
         Value::Array(inner) => inner,
         data => panic!("data must be an array, got: {:?}", data),
     };
+
+    println!("Adding items to table.");
+
     for value in data {
         add_item(&client, &table, value).await?;
     }
+
+    println!("Making sure table has items.");
+
     let films_2222 = movies_in_year(&client, &table.to_string(), 2222)
         .send()
         .await
         .expect("query should succeed");
+
     // this isn't back to the future, there are no movies from 2022
-    assert_eq!(films_2222.count, 0);
+    assert_eq!(films_2222.count(), 0);
 
     let films_2013 = movies_in_year(&client, &table.to_string(), 2013)
         .send()
         .await
         .expect("query should succeed");
-    assert_eq!(films_2013.count, 2);
+
+    assert_eq!(films_2013.count(), 2);
+
     let titles: Vec<AttributeValue> = films_2013
         .items
         .unwrap()
-        .into_iter()
-        .map(|mut row| row.remove("title").expect("row should have title"))
+        .iter_mut()
+        .map(|row| row.remove("title").expect("row should have title"))
         .collect();
+
     assert_eq!(
         titles,
         vec![
@@ -125,7 +142,8 @@ async fn main() -> Result<(), Error> {
         ]
     );
 
-    // Delete table.
+    println!("Deleting table.");
+
     delete_table(&client, &table).await
 }
 
@@ -137,7 +155,7 @@ async fn does_table_exist(client: &Client, table: &str) -> Result<bool, Error> {
         .send()
         .await
         .expect("should succeed")
-        .table_names
+        .table_names()
         .as_ref()
         .unwrap()
         .contains(&table.into());
@@ -237,8 +255,6 @@ fn movies_in_year(client: &Client, table_name: &str, year: u16) -> Query {
 async fn delete_table(client: &Client, table: &str) -> Result<(), Error> {
     client.delete_table().table_name(table).send().await?;
 
-    println!("Deleted table");
-
     Ok(())
 }
 // snippet-end:[dynamodb.rust.movies-delete_table]
@@ -296,10 +312,8 @@ async fn wait_for_ready_table(
         .make_operation(conf)
         .await
         .expect("valid operation");
-
     let waiting_policy = WaitForReadyTable {
         inner: operation.retry_policy().clone(),
     };
-
     operation.with_retry_policy(waiting_policy)
 }

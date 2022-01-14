@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several AWS Key Management Service (AWS KMS) operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several AWS Key Management Service (AWS KMS) operations using the developer preview version of the AWS SDK for Rust.
 
 AWS KMS is an encryption and key management service scaled for the cloud. AWS KMS keys and functionality are used by other AWS services, and you can use them to protect data in your own applications that use AWS.
 
@@ -146,6 +146,7 @@ This example re-encrypts a text string that was encrypted using an AWS KMS key w
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- - [AWS SDK for Rust API Reference for AWS KMS](https://docs.rs/aws-sdk-kms)
 - [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
 
 ## Contributing

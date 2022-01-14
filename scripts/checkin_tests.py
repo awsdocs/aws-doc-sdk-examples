@@ -38,6 +38,7 @@ EXT_LOOKUP = {
     'py': 'Python',
     'rb': 'Ruby',
     'rs': 'Rust',
+    'swift': 'Swift',
     'ts': 'TypeScript',
     'sh': 'AWS-CLI',
     'cmd': 'AWS-CLI',

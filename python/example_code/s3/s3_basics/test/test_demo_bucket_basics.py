@@ -6,65 +6,40 @@ Unit tests for demo_bucket_basics.py.
 """
 
 import pytest
-from botocore.exceptions import ClientError, ParamValidationError
+
+import boto3
+from botocore.exceptions import ClientError
 
 import demo_bucket_basics
 
 
-@pytest.mark.parametrize("region,keep", [
-    ('us-west-2', False), ('us-east-2', True), ('ap-southeast-1', False)])
-def test_create_and_delete_my_bucket(stub_and_patch, make_unique_name, region, keep):
-    """Test that running the demo with various AWS Regions and arguments works as
-    expected."""
-    stubber = stub_and_patch(demo_bucket_basics, 'get_s3', region)
-    s3 = demo_bucket_basics.get_s3(region)
-    bucket_name = make_unique_name('bucket')
+@pytest.mark.parametrize("keep, error_code, stop_on_method", [
+    (True, None, None),
+    (False, None, None),
+    (False, 'TestException', 'stub_list_buckets'),
+    (False, 'TestException', 'stub_create_bucket'),
+    (False, 'TestException', 'stub_delete_bucket'),
+])
+def test_create_and_delete_my_bucket(
+        make_stubber, stub_runner, keep, error_code, stop_on_method):
+    s3_resource = boto3.resource('s3')
+    s3_stubber = make_stubber(s3_resource.meta.client)
+    bucket_name = 'test-bucket_name'
+    region = s3_resource.meta.client.meta.region_name
 
-    stubber.stub_list_buckets([])
-    stubber.stub_create_bucket(bucket_name, region)
-    stubber.stub_head_bucket(bucket_name)
-    stubber.stub_list_buckets([s3.Bucket(bucket_name)])
-    if keep:
-        stubber.stub_head_bucket(bucket_name)
-        stubber.stub_delete_bucket(bucket_name)
-    else:
-        stubber.stub_delete_bucket(bucket_name)
-        stubber.stub_head_bucket(bucket_name, 404)
-        stubber.stub_list_buckets([])
-        stubber.stub_head_bucket(bucket_name, error_code=404)
+    with stub_runner(error_code, stop_on_method) as runner:
+        runner.add(s3_stubber.stub_list_buckets, [])
+        runner.add(s3_stubber.stub_create_bucket, bucket_name, region)
+        runner.add(s3_stubber.stub_head_bucket, bucket_name)
+        runner.add(s3_stubber.stub_list_buckets, [s3_resource.Bucket(bucket_name)])
+        if not keep:
+            runner.add(s3_stubber.stub_delete_bucket, bucket_name)
+            runner.add(s3_stubber.stub_head_bucket, bucket_name, 404)
+            runner.add(s3_stubber.stub_list_buckets, [])
 
-    demo_bucket_basics.create_and_delete_my_bucket(bucket_name, region, keep)
-    if keep:
-        response = s3.meta.client.head_bucket(Bucket=bucket_name)
-        assert response['ResponseMetadata']['HTTPStatusCode'] == 200
-        s3.Bucket(bucket_name).delete()
+    if error_code is None:
+        demo_bucket_basics.create_and_delete_my_bucket(s3_resource, bucket_name, keep)
     else:
         with pytest.raises(ClientError) as exc_info:
-            s3.meta.client.head_bucket(Bucket=bucket_name)
-        assert exc_info.value.response['Error']['Code'] == '404'
-
-
-def test_create_bucket_fails(stub_and_patch, make_unique_name, make_bucket):
-    """Test that the demo exits gracefully when bucket creation fails."""
-    stubber = stub_and_patch(demo_bucket_basics, 'get_s3')
-    s3 = demo_bucket_basics.get_s3()
-    bucket_name = make_unique_name('bucket')
-
-    stubber.stub_create_bucket(bucket_name, stubber.region_name)
-    stubber.stub_list_buckets([])
-    stubber.stub_create_bucket(bucket_name, stubber.region_name,
-                               error_code='BucketAlreadyOwnedByYou')
-
-    bucket = s3.create_bucket(
-        Bucket=bucket_name,
-        CreateBucketConfiguration={
-            'LocationConstraint': stubber.region_name
-        }
-    )
-
-    with pytest.raises(SystemExit):
-        demo_bucket_basics.create_and_delete_my_bucket(
-            bucket_name, stubber.region_name, False)
-
-    if not stubber.use_stubs:
-        bucket.delete()
+            demo_bucket_basics.create_and_delete_my_bucket(s3_resource, bucket_name, keep)
+        assert exc_info.value.response['Error']['Code'] == error_code

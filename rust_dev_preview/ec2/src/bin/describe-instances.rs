@@ -31,10 +31,13 @@ async fn show_state(client: &Client, ids: Vec<String>) -> Result<(), Error> {
         .send()
         .await?;
 
-    for reservation in resp.reservations.unwrap_or_default() {
-        for instance in reservation.instances.unwrap_or_default() {
-            println!("Instance ID: {}", instance.instance_id.unwrap());
-            println!("State:       {:?}", instance.state.unwrap().name.unwrap());
+    for reservation in resp.reservations().unwrap_or_default() {
+        for instance in reservation.instances().unwrap_or_default() {
+            println!("Instance ID: {}", instance.instance_id().unwrap());
+            println!(
+                "State:       {:?}",
+                instance.state().unwrap().name().unwrap()
+            );
             println!();
         }
     }

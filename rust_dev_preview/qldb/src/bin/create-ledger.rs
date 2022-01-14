@@ -33,7 +33,7 @@ async fn make_ledger(client: &Client, ledger: &str) -> Result<(), Error> {
         .send()
         .await?;
 
-    println!("ARN: {}", result.arn.unwrap());
+    println!("ARN: {}", result.arn().unwrap());
 
     Ok(())
 }

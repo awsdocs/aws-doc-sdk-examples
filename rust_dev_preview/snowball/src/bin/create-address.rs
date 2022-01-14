@@ -62,7 +62,7 @@ async fn add_address(client: &Client, address: Address) -> Result<(), Error> {
     let result = client.create_address().address(address).send().await?;
 
     println!();
-    println!("Address: {:?}", result.address_id.unwrap());
+    println!("Address: {:?}", result.address_id().unwrap());
 
     Ok(())
 }
