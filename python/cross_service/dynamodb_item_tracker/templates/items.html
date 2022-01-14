@@ -13,20 +13,37 @@
       <div class="col"></div>
       <div class="col">
           <h1>{{table}}</h1>
-          <div class="btn-group" role="group" aria-label="Status filter radio buttons">
-            <input type="radio" class="btn-check" name="status_filter" id="status_all" autocomplete="off" checked>
-            <label class="btn btn-outline-primary" for="status_all">All</label>
+          <form>
+            <div class="btn-group" role="group" aria-label="Status filter radio buttons">
+              <input type="radio" class="btn-check" name="status_filter" id="status_all" autocomplete="off" value="All"
+                {% if status_filter == 'All' %}checked{% endif %}>
+              <label class="btn btn-outline-primary" for="status_all">All</label>
 
-            <input type="radio" class="btn-check" name="status_filter" id="status_open" autocomplete="off">
-            <label class="btn btn-outline-primary" for="status_open">Open</label>
+              <input type="radio" class="btn-check" name="status_filter" id="status_open" value="Open" autocomplete="off"
+                {% if status_filter == 'Open' %}checked{% endif %}>
+              <label class="btn btn-outline-primary" for="status_open">Open</label>
 
-            <input type="radio" class="btn-check" name="status_filter" id="status_archived" autocomplete="off">
-            <label class="btn btn-outline-primary" for="status_archived">Archived</label>
+              <input type="radio" class="btn-check" name="status_filter" id="status_archived" value="Archived" autocomplete="off"
+                {% if status_filter == 'Archived' %}checked{% endif %}>
+              <label class="btn btn-outline-primary" for="status_archived">Archived</label>
 
-            <input type="radio" class="btn-check" name="status_filter" id="status_closed" autocomplete="off">
-            <label class="btn btn-outline-primary" for="status_closed">Closed</label>
-          </div>
+              <input type="radio" class="btn-check" name="status_filter" id="status_closed" value="Closed" autocomplete="off"
+                {% if status_filter == 'Closed' %}checked{% endif %}>
+              <label class="btn btn-outline-primary" for="status_closed">Closed</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button>
+          </form>
         </div>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="alert alert-danger mt-3" role="alert">
+              {% for message in messages %}
+                <p>{{ message }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+        {% if items %}
         <table class="table table-hover">
           <thead>
           <tr>
@@ -46,12 +63,26 @@
             <td>{{item.status}}</td>
             <td>
               <a class="btn btn-primary" href="/item/{{item.item_id}}">Edit</a>
-              <a class="btn btn-primary" href="/item/delete/{{item.item_id}}">Delete</a>
+              <a class="btn btn-primary" href="/items/delete/{{item.item_id}}">Delete</a>
             </td>
           </tr>
           {% endfor %}
           </tbody>
         </table>
+        {% else %}
+        {% if error %}
+        <div class="alert alert-danger mt-3" role="alert">
+          <p>Couldn't get items from table '{{table}}' with status '{{status_filter}}'!</p>
+          <hr>
+          <p class="mb-0">{{error}}</p>
+        </div>
+        {% else %}
+        <div class="alert alert-warning mt-3" role="alert">
+          No items found in table '{{table}}' with status '{{status_filter}}'.
+          Do you need to add some?
+        </div>
+        {% endif %}
+        {% endif %}
         <a class="btn btn-primary" href="/item">Add item</a>
       </div>
       <div class="col"></div>
