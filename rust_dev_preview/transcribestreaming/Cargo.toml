@@ -7,8 +7,8 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = { path = "../../build/aws-sdk/sdk/aws-config" }
-aws-sdk-transcribestreaming = { package = "aws-sdk-transcribestreaming", path = "../../build/aws-sdk/sdk/transcribestreaming"}
+aws-config = "0.3.0"
+aws-sdk-transcribestreaming = "0.3.0"
 async-stream = "0.3"
 bytes = "1"
 hound = "3.4"
