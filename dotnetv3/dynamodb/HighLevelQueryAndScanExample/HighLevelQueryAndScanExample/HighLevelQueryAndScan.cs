@@ -66,7 +66,7 @@ namespace HighLevelQueryAndScanExample
       times.Add(twoWeeksAgoDate);
 
       List<ScanCondition> scs = new List<ScanCondition>();
-      var sc = new ScanCondition("LastPostedBy", ScanOperator.GreaterThan, times.ToArray());
+      var sc = new ScanCondition("PostedBy", ScanOperator.GreaterThan, times.ToArray());
       scs.Add(sc);
 
       var cfg = new DynamoDBOperationConfig
