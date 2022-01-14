@@ -464,7 +464,7 @@ Package up the project into a .jar (JAR) file that you can deploy as a Lambda fu
 
 The JAR file is located in the **target** folder (which is a child folder of the project folder).
 
-![AWS Tracking Application](images/pic6.png)
+![AWS Tracking Application](images/lamdeploy.png)
 
 **Note**: Notice the use of the **maven-shade-plugin** in the project’s POM file. This plugin is responsible for creating a JAR that contains the required dependencies. If you attempt to package up the project without this plugin, the required dependences are not included in the JAR file and you will encounter a **ClassNotFoundException**. 
 
