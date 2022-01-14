@@ -9,7 +9,7 @@ INPUTS:
 - REGION
 
 */
-// snippet-start:[cross-service.JavaScript.ddb-item-tracker.ddbDocClient]
+// snippet-start:[cross-service.JavaScript.ddb-item-tracker.appjs]
 import express from 'express';
 import {v4 as uuidv4} from 'uuid';
 const port = process.env.PORT || 3000;
@@ -192,3 +192,5 @@ app.post("/report", (req, res) => {
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 })
+
+// snippet-end:[cross-service.JavaScript.ddb-item-tracker.appjs]
