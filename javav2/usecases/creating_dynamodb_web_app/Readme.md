@@ -15,7 +15,7 @@ This tutorial guides you through creating the **DynamoDB Item Tracker** applicat
 
 The following figure shows you the structure of the Java project.
 
-![AWS Tracking Application](images/pic1a.png)
+![AWS Tracking Application](images/awsprojectitem)
 
 #### Topics
 
