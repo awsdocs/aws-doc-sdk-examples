@@ -2,11 +2,14 @@
 
 ## Summary
 
+| Heading      | Description |
 | ----------- | ----------- |
-| Summary      | Dicusses how to develop a dynamic web application that tracks and reports on Amazon DynamoDB data.       |
-| Audience   | Developer (beginner / intermediate)        |
+| Summary      |Dicusses how to develop a dynamic web application that tracks and reports on Amazon DynamoDB data.     |
+| Audience   |  Developer (beginner / intermediate)        |
 | Updated   | 1/14/2022        |
 | Required Skills   | Java, Maven  |
+
+
 
 ## Purpose
 You can develop a web application that tracks and reports on work items by using the following AWS services:
