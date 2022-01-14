@@ -113,7 +113,7 @@ This tutorial uses the DynamoDB and Amazon SNS services. The **lambda-support** 
 
 At this point, you have a new project named **LambdaCronFunctions**.
 
-![AWS Tracking Application](images/pic4.png)
+![AWS Tracking Application](images/pomlam.png)
 
 The pom.xml file looks like the following.
 
