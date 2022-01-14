@@ -1,5 +1,14 @@
 #  Create an Amazon DynamoDB web application by using the AWS SDK for Kotlin
 
+## Overview
+
+| Heading      | Description |
+| ----------- | ----------- |
+| Description | Dicusses how to develop a dynamic web application that tracks and reports on Amazon DynamoDB data by using the AWS SDK for Kotlin.     |
+| Audience   |  Developer (beginner / intermediate)        |
+| Updated   | 1/14/2022        |
+| Required Skills   | Kotlin, Gradle  |
+
 ## Purpose
 
 You can develop a dynamic web application that tracks and reports on work items by using the following AWS services:
