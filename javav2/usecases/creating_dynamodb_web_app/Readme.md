@@ -1,10 +1,10 @@
 #  Creating the Amazon DynamoDB web application item tracker
 
-## Summary
+## Overview
 
 | Heading      | Description |
 | ----------- | ----------- |
-| Summary      |Dicusses how to develop a dynamic web application that tracks and reports on Amazon DynamoDB data by using the AWS SDK for Java V2.     |
+| Description | Dicusses how to develop a dynamic web application that tracks and reports on Amazon DynamoDB data by using the AWS SDK for Java V2.     |
 | Audience   |  Developer (beginner / intermediate)        |
 | Updated   | 1/14/2022        |
 | Required Skills   | Java, Maven  |
