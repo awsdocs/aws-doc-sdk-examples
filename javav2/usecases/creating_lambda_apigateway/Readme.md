@@ -236,7 +236,7 @@ The pom.xml file looks like the following.
 
 Use the AWS Lambda runtime Java API to create the Java class that defines the Lamdba function. In this example, there is one Java class for the Lambda function and two extra classes required for this use case. The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **com.aws.example**. 
 
-![AWS Tracking Application](images/pic5.png)
+![AWS Tracking Application](images/lampro1.png)
 
 Create these Java classes:
 
