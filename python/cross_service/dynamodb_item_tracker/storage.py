@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from datetime import datetime
+from flask import current_app, g
 import logging
-import os
 from uuid import uuid4
 import boto3
 from boto3.dynamodb.conditions import Attr
@@ -23,15 +23,19 @@ class Storage:
         self.ddb_resource = ddb_resource
 
     @classmethod
-    def from_env(cls):
+    def from_context(cls):
         """
-        Creates a storage object based on environment variables.
+        Creates a storage object based on context.
         """
-        table_name = os.environ.get('TABLE_NAME', '')
-        ddb_resource = boto3.resource('dynamodb')
-        table = ddb_resource.Table(table_name)
-        logger.info("Table %s ready.", table.name)
-        return cls(table, ddb_resource)
+        storage = getattr(g, 'storage', None)
+        if storage is None:
+            table_name = current_app.config['TABLE_NAME']
+            ddb_resource = boto3.resource('dynamodb')
+            table = ddb_resource.Table(table_name)
+            logger.info("Table %s ready.", table.name)
+            storage = cls(table, ddb_resource)
+            g.storage = storage
+        return storage
 
     def get_items(self, status_filter='All'):
         try:
