@@ -95,33 +95,33 @@ Ensure that the **pom.xml** file looks like the following.
      <?xml version="1.0" encoding="UTF-8"?>
      <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-     <modelVersion>4.0.0</modelVersion>
-     <groupId>com.example.photo</groupId>
-     <artifactId>photo</artifactId>
-     <version>0.0.1-SNAPSHOT</version>
-     <name>photo</name>
-     <description>Demo project for Spring Boot</description>
-     <parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example.photo</groupId>
+    <artifactId>photo</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>photo</name>
+    <description>Demo project for Spring Boot</description>
+    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
+        <version>2.6.1</version>
         <relativePath/> <!-- lookup parent from repository -->
-     </parent>
-     <properties>
+    </parent>
+    <properties>
         <java.version>1.8</java.version>
-     </properties>
-     <dependencyManagement>
+    </properties>
+    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.10.54</version>
+                <version>2.17.102</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
-     </dependencyManagement>
-     <dependencies>
+    </dependencyManagement>
+    <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -133,27 +133,17 @@ Ensure that the **pom.xml** file looks like the following.
         <dependency>
             <groupId>net.sourceforge.jexcelapi</groupId>
             <artifactId>jxl</artifactId>
-            <version>2.6.10</version>
+            <version>2.6.12</version>
         </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.6</version>
-        </dependency>
-        <dependency>
+         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
             <version>1.6.2</version>
         </dependency>
         <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>javax.mail-api</artifactId>
-            <version>1.5.5</version>
-        </dependency>
-        <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
-            <version>1.5.5</version>
+            <version>1.6.2</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -165,10 +155,6 @@ Ensure that the **pom.xml** file looks like the following.
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-         <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>dynamodb</artifactId>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
@@ -182,16 +168,26 @@ Ensure that the **pom.xml** file looks like the following.
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>s3</artifactId>
         </dependency>
-      </dependencies>
-      <build>
+        <dependency>
+            <groupId>org.apache.maven.surefire</groupId>
+            <artifactId>surefire-booter</artifactId>
+            <version>3.0.0-M3</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+        </dependency>
+    </dependencies>
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-      </build>
-     </project>
+    </build>
+  </project>
 ```
 
 ## Create the Java classes
