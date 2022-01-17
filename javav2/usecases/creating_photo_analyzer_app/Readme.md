@@ -18,7 +18,7 @@ After the application analyzes all images in the Amazon S3 bucket, it uses the A
 
 ![AWS Photo Analyzer](images/excelreport.png)
 
-In this tutorial, you create a Spring Boot application named **AWS Photo Analyzer**. The Spring Boot APIs are used to build a model, different views, and a controller. For more information, see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
+In this tutorial, you create a Spring Boot application named **AWS Photo Analyzer**. The Spring Boot APIs are used to build a model, different views, and a controller. For more information, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/spring_boot_introduction.htm).
 
 This application uses the following AWS services:
 *	Amazon Rekognition
