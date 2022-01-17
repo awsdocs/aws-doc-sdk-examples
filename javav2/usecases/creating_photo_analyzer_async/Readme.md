@@ -99,14 +99,13 @@ Ensure that the **pom.xml** file looks like the following.
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>org.example</groupId>
     <artifactId>SpringPhotoAnalyzerAsync</artifactId>
     <version>1.0-SNAPSHOT</version>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
+        <version>2.6.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <properties>
@@ -117,7 +116,7 @@ Ensure that the **pom.xml** file looks like the following.
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.10.54</version>
+                <version>2.17.102</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -135,22 +134,22 @@ Ensure that the **pom.xml** file looks like the following.
         <dependency>
             <groupId>net.sourceforge.jexcelapi</groupId>
             <artifactId>jxl</artifactId>
-            <version>2.6.10</version>
+            <version>2.6.12</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.6</version>
+            <version>2.7</version>
         </dependency>
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
-            <version>1.5.5</version>
+            <version>1.6.2</version>
         </dependency>
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
-            <version>1.5.5</version>
+            <version>1.6.2</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -165,10 +164,6 @@ Ensure that the **pom.xml** file looks like the following.
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
-            <artifactId>dynamodb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
             <artifactId>ses</artifactId>
         </dependency>
         <dependency>
@@ -179,8 +174,8 @@ Ensure that the **pom.xml** file looks like the following.
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>s3</artifactId>
         </dependency>
-     </dependencies>
-     <build>
+    </dependencies>
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -188,7 +183,7 @@ Ensure that the **pom.xml** file looks like the following.
             </plugin>
         </plugins>
      </build>
-   </project>
+    </project>
 ```
 
 ## Create the Java classes
