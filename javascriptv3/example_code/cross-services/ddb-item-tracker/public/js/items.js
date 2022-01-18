@@ -1,3 +1,5 @@
+// snippet-start:[cross-service.JavaScript.ddb-item-tracker.items]
+
 $(function() {
     $( "#dialogtemplate2" ).dialog();
     $('#myTable tbody').on('click', 'tr', function () {
@@ -217,3 +219,4 @@ function addItem(){
     });
 };
 
+// snippet-end:[cross-service.JavaScript.ddb-item-tracker.items]
