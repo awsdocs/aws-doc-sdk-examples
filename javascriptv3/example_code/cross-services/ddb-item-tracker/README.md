@@ -726,4 +726,4 @@ However, if you created your resources using Amazon CloudFormation, you can dele
 ### Next steps
 Congratulations! You have created and deployed the Amazon Simple Notification Service example app.
 For more AWS multiservice examples, see
-[usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptV3/cross-services).
+[cross-services](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptV3/cross-services).
