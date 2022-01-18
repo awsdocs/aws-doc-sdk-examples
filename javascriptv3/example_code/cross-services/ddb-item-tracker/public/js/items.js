@@ -16,43 +16,43 @@ $(function() {
 
 // Populate the table with work items.
 function GetItems() {
-        $.ajax("/request", {
-                type: 'POST',
-                success: function (data, status, xhr) {
-                    console.log('it works');
-                    console.log('data.Items', data.Items);
+    $.ajax("/request", {
+        type: 'POST',
+        success: function (data, status, xhr) {
+            console.log('it works');
+            console.log('data.Items', data.Items);
 
-                // Enable the buttons.
-                $('#singlebutton').prop("disabled",false);
-                $('#updatebutton').prop("disabled",false);
-                $('#reportbutton').prop("disabled",false);
-                $('#reportbutton').css("color", "#FFFFFF");
-                $('#singlebutton').css("color", "#FFFFFF");
-                $('#updatebutton').css("color", "#FFFFFF");
+            // Enable the buttons.
+            $('#singlebutton').prop("disabled",false);
+            $('#updatebutton').prop("disabled",false);
+            $('#reportbutton').prop("disabled",false);
+            $('#reportbutton').css("color", "#FFFFFF");
+            $('#singlebutton').css("color", "#FFFFFF");
+            $('#updatebutton').css("color", "#FFFFFF");
 
 
-               $('#myTable').dataTable({
-                        "bAutoWidth" : false,
-                        "aaData" : data.Items,
-                   "bDestroy": true,
-                        "columns" : [ {
-                            "data" : "id"
-                        }, {
-                            "data" : "guide"
-                        }, {
-                            "data" : "date"
-                        } , {
-                            "data" : "description"
-                        }, {
-                            "data" : "status"
-                        }    ]
-                    });
-                    document.getElementById("info3").innerHTML = "Active Items";
-                },
-            error: function (jqXhr, textStatus, errorMessage) {
-                $('p').append('Error' + errorMessage);
-            }
-        });
+            $('#myTable').dataTable({
+                "bAutoWidth" : false,
+                "aaData" : data.Items,
+                "bDestroy": true,
+                "columns" : [ {
+                    "data" : "id"
+                }, {
+                    "data" : "guide"
+                }, {
+                    "data" : "date"
+                } , {
+                    "data" : "description"
+                }, {
+                    "data" : "status"
+                }    ]
+            });
+            document.getElementById("info3").innerHTML = "Active Items";
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            $('p').append('Error' + errorMessage);
+        }
+    });
 };
 
 
@@ -62,22 +62,51 @@ function Report() {
     const value = e.options[e.selectedIndex].value;// get selected option value
     const email = e.options[e.selectedIndex].text;
 
-    $.ajax('/report', {
+    $.ajax("/request", {
         type: 'POST',
-        data: 'email=' + email,
         success: function (data, status, xhr) {
-            alert('Email message sent.');
+            console.log('it works');
+            console.log('data.Items', data.Items);
+
+            const tableArray = [];
+            const noOfItems = data.Items.length;
+            var csv = "Item, Guide, Date Created, Description, Status,\n";
+            var i;
+            for (i = 0; i < noOfItems; i++) {
+                csv += "\"" + data.Items[i].id  + "\",";
+                csv += "\"" + data.Items[i].guide + "\",";
+                csv += "\"" + data.Items[i].date + "\",";
+                csv += "\"" +  data.Items[i].description + "\"";
+                csv += "\"" +  data.Items[i].status + "\"";
+                csv += "\n";
+            }
+            console.log('csv', csv)
+
+            // Merge the data with CSV.
+
+            // Upload the CSV file to Amazon S3.
+            $.ajax('/uploadCSV', {
+                type: 'POST',
+                data: 'csv=' + csv,
+                data: 'email=' + email,
+                success: function (data, status, xhr) {
+                    alert('Email message sent.')
+
+                }
+            })
         },
         error: function (jqXhr, textStatus, errorMessage) {
             $('p').append('Error' + errorMessage);
         }
     });
-};
+}
+
+
 
 function UpdateItem()
 {
     $("#modform").show();
-   const id = document.getElementById('id').value;
+    const id = document.getElementById('id').value;
     const description = document.getElementById('description').value
     const status = document.getElementById('status').value;
 
@@ -114,7 +143,7 @@ function UpdateItem()
 
             //Refresh the grid.
             GetItems();
-
+            $("#modform").hide();
         },
         error: function (jqXhr, textStatus, errorMessage) {
             $('p').append('Error' + errorMessage);
@@ -141,50 +170,50 @@ function GetSingleItem() {
 
 function addItem(){
 
-        const guide = document.getElementById('guide').value
-        const description = document.getElementById('description').value
-        const status = document.getElementById('status').value
+    const guide = document.getElementById('guide').value
+    const description = document.getElementById('description').value
+    const status = document.getElementById('status').value
 
-        //var description = $("textarea#description").val();
-        if (description.length > 350)
-        {
-            alert("Description has too many characters");
-            return;
-        }
-        if (description.length == 0)
-        {
-            alert("Enter a description.");
-            return;
-        }
-        if (guide.length == 0)
-        {
-            alert("Enter a guide.");
-            return;
-        }
-        if (status.length == 0)
-        {
-            alert("Enter a status.");
-            return;
-        }
-        //var status = $("textarea#status").val();
-        if (status.length > 350)
-        {
-            alert("Status has too many characters");
-            return;
-        }
+    //var description = $("textarea#description").val();
+    if (description.length > 350)
+    {
+        alert("Description has too many characters");
+        return;
+    }
+    if (description.length == 0)
+    {
+        alert("Enter a description.");
+        return;
+    }
+    if (guide.length == 0)
+    {
+        alert("Enter a guide.");
+        return;
+    }
+    if (status.length == 0)
+    {
+        alert("Enter a status.");
+        return;
+    }
+    //var status = $("textarea#status").val();
+    if (status.length > 350)
+    {
+        alert("Status has too many characters");
+        return;
+    }
 
-        $.ajax('/add', {
-            type: 'POST',  // http GET method
-            data: 'guide=' + guide + '&description=' + description+ '&status=' + status,
-            success: function (data) {
-                alert("You have successfully added the item.")
-                console.log("You have successfully added the item.")
-                location.reload();
-            },
-            error: function (jqXhr, textStatus, errorMessage) {
-                console.log('An error!')
-                $('p').append('Error' + errorMessage);
-            }
-        });
-    };
+    $.ajax('/add', {
+        type: 'POST',  // http GET method
+        data: 'guide=' + guide + '&description=' + description+ '&status=' + status,
+        success: function (data) {
+            alert("You have successfully added the item.")
+            console.log("You have successfully added the item.")
+            location.reload();
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            console.log('An error!')
+            $('p').append('Error' + errorMessage);
+        }
+    });
+};
 
