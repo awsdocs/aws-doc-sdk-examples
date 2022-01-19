@@ -1,0 +1,139 @@
+<?php
+
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+/**
+Purpose
+
+Shows how to use AWS SDK for PHP v3 to get started using Amazon Simple Storage
+Service (Amazon S3). Create a bucket, move objects into and out of it, and delete all
+resources at the end of the demo.
+
+This example follows the steps in "Getting started with Amazon S3" in the Amazon S3
+user guide.
+    - https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html
+/**/
+
+# snippet-start:[php.example_code.s3.Scenario_GettingStarted]
+require 'vendor/autoload.php';
+
+use Aws\S3\S3Client;
+
+echo("--------------------------------------\n");
+print("Welcome to the Amazon S3 getting started demo using PHP!\n");
+echo("--------------------------------------\n");
+
+$region = 'us-west-2';
+$version = 'latest';
+
+$client = new S3Client([
+    'region' => $region,
+    'version' => $version
+]);
+$bucket_name = "doc-example-bucket-" . uniqid();
+
+//create bucket
+try {
+    $client->createBucket([
+        'Bucket' => $bucket_name,
+        'CreateBucketConfiguration' => ['LocationConstraint' => $region],
+    ]);
+    echo "Created bucket named: $bucket_name \n";
+} catch (Exception $exception){
+    echo "Failed to create bucket $bucket_name with error: " . $exception->getMessage();
+    exit("Please fix error with bucket creation before continuing.");
+}
+
+//upload file (PutObject)
+$file_name = "local-file-" . uniqid();
+try {
+    $client->putObject([
+        'Bucket' => $bucket_name,
+        'Key' => $file_name,
+        'SourceFile' => 'testfile.txt'
+    ]);
+    echo "Uploaded $file_name to $bucket_name.\n";
+} catch (Exception $exception){
+    echo "Failed to upload $file_name with error: " . $exception->getMessage();
+    exit("Please fix error with file upload before continuing.");
+}
+
+//download file (GetObject)
+try {
+    $file = $client->getObject([
+        'Bucket' => $bucket_name,
+        'Key' => $file_name,
+    ]);
+    $body = $file->get('Body');
+    $body->rewind();
+    echo "Downloaded the file and it begins with: {$body->read(26)}.\n";
+} catch (Exception $exception){
+    echo "Failed to download $file_name from $bucket_name with error: " . $exception->getMessage();
+    exit("Please fix error with file downloading before continuing.");
+}
+
+//copy object
+try {
+    $folder = "copied-folder";
+    $client->copyObject([
+        'Bucket' => $bucket_name,
+        'CopySource' => "$bucket_name/$file_name",
+        'Key' => "$folder/$file_name-copy",
+    ]);
+    echo "Copied $file_name to $folder/$file_name-copy.\n";
+} catch (Exception $exception){
+    echo "Failed to copy $file_name with error: " . $exception->getMessage();
+    exit("Please fix error with object copying before continuing.");
+}
+
+//list objects
+try {
+    $contents = $client->listObjects([
+        'Bucket' => $bucket_name,
+    ]);
+    echo "The contents of your bucket are: \n";
+    foreach($contents['Contents'] as $content){
+        echo $content['Key'] . "\n";
+    }
+} catch (Exception $exception){
+    echo "Failed to list objects in $bucket_name with error: " . $exception->getMessage();
+    exit("Please fix error with listing objects before continuing.");
+}
+
+//delete objects
+try {
+    $client->deleteObject([
+        'Bucket' => $bucket_name,
+        'Key' => $file_name,
+    ]);
+    echo "Deleted $file_name from $bucket_name.\n";
+    $client->deleteObject([
+        'Bucket' => $bucket_name,
+        'Key' => "$folder/$file_name-copy",
+    ]);
+    echo "Deleted $folder/$file_name-copy from $bucket_name.\n";
+    $client->deleteObject([
+        'Bucket' => $bucket_name,
+        'Key' => $folder,
+    ]);
+    echo "Deleted $folder from $bucket_name.\n";
+} catch (Exception $exception){
+    echo "Failed to delete $file_name from $bucket_name with error: " . $exception->getMessage();
+    exit("Please fix error with object deletion before continuing.");
+}
+
+//delete bucket
+try {
+    $client->deleteBucket([
+        'Bucket' => $bucket_name,
+    ]);
+    echo "Deleted bucket $bucket_name.\n";
+} catch (Exception $exception){
+    echo "Failed to delete $bucket_name with error: " . $exception->getMessage();
+    exit("Please fix error with bucket deletion before continuing.");
+}
+
+echo "Successfully ran the Amazon S3 with PHP demo.\n";
+
+# snippet-end:[php.example_code.s3.Scenario_GettingStarted]
