@@ -278,11 +278,17 @@ You can modify the **activity_main.xml** file with the following XML code.
 
  ## Create the Kotlin classes for your Android project
  
-In the **com.example.androidsubpub** package, notice there is a class named **MainActivity**. This is the class that contains the logic to perform the the AWS Service operations. 
- 
-### MainActivity class
+In the **com.example.androidsubpub** package, notice there is a class named **MainActivity**. This is the class that contains the logic to perform the the AWS Service operations. To handle the required AWS Credentials, notice the use of a **StaticCredentialsProvider** object. 
 
-The following Kotlin code represents the **MainActivity** Kotlin class. To handle the required AWS Credentials, notice the use of a **StaticCredentialsProvider** object. 
+Notice the following methods that use the AWS SDK for Kotlin to perform various AWS Service operations:
+
++ **onItemSelected** - Retrieves the value selected from the Spinner control. 
++ **pubTopic** -  Publishes a message. 
++ **getSubs** - Gets all subscriptions. 
++ **unSubUser** - Removes a subscription based on an email address.
++ **subUser** - Creates a new subscription.
+ 
+The following Kotlin code represents the **MainActivity** Kotlin class. 
 
 ```kotlin
      package com.example.androidsubpub
