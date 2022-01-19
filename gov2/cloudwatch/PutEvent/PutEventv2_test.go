@@ -71,10 +71,14 @@ func TestPutEvents(t *testing.T) {
 	}
 
 	myDetails := "{ "
-	for _, d := range event.Details {
-		myDetails = myDetails + "\"" + d.Key + "\": \"" + d.Value + "\","
+	for i, d := range event.Details {
+		if i == (len(event.Details) - 1) {
+			myDetails = myDetails + "\"" + d.Key + "\": \"" + d.Value + "\""	
+		} else {
+			myDetails = myDetails + "\"" + d.Key + "\": \"" + d.Value + "\","
+		}
 	}
-
+	
 	myDetails = myDetails + " }"
 
 	input := &cloudwatchevents.PutEventsInput{
