@@ -1,5 +1,14 @@
 #  Create an Amazon DynamoDB item tracker web application
 
+## Overview
+
+| Heading      | Description |
+| ----------- | ----------- |
+| Description | Dicusses how to develop a dynamic web application that tracks and reports on Amazon DynamoDB data by using the AWS SDK for JavaScript V3.     |
+| Audience   |  Developer (beginner / intermediate)        |
+| Updated   | 1/14/2022        |
+| Required Skills   | JavaScript, Node.js  |
+
 ## Purpose
 You can develop a web application to track and report on work items
 using the AWS SDK for JavaScript version 3 to access the following services:
