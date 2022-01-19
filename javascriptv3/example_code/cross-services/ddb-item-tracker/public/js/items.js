@@ -67,8 +67,6 @@ function Report() {
     $.ajax("/request", {
         type: 'POST',
         success: function (data, status, xhr) {
-            console.log('it works');
-            console.log('data.Items', data.Items);
 
             const tableArray = [];
             const noOfItems = data.Items.length;
@@ -89,8 +87,7 @@ function Report() {
             // Upload the CSV file to Amazon S3.
             $.ajax('/uploadCSV', {
                 type: 'POST',
-                data: 'csv=' + csv,
-                data: 'email=' + email,
+                data: { csv: csv, email: email },
                 success: function (data, status, xhr) {
                     alert('Email message sent.')
 

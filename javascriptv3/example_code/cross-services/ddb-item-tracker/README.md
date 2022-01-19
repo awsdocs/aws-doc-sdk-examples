@@ -1,7 +1,7 @@
-#  Creating the Amazon DynamoDB web application item tracker
+#  Create an Amazon DynamoDB item tracker web application
 
 ## Purpose
-You can develop a web application to tracks and reports on work items
+You can develop a web application to track and report on work items
 using the AWS SDK for JavaScript version 3 to access the following services:
 
 + Amazon DynamoDB to store the data
@@ -19,15 +19,15 @@ This tutorial guides you through creating the **DynamoDB Item Tracker** applicat
 
 #### Topics
 
-+ [Understand the AWS tracker application](#understand)
-+ [Prerequisites](#prereqs)
++ [Understand the AWS tracker application](#understand-the-aws-tracker-application)
++ [Prerequisites](#prerequisites)
 + [Create the resources](#create-the-resources)
-+ [Run the app](#runApp)
-+ [About project files](#projectFiles)
-+ [Destroy the resources](#destroy)
++ [Run the app](#run-the-app)
++ [About the project files](#about-the-project-files)
++ [Destroy the resources](#destroy-the-resources)
 
 
-## <a name="understand"></a>Understand the AWS tracker application
+## Understand the AWS tracker application
 The **DynamoDB Item Tracker** application uses a model that is based on a work item and contains these attributes:
 
 + **date** - The start date of the item.
@@ -57,8 +57,8 @@ A user can retrieve *active* or *archive* items. For example, a user can choose 
 
 ![AWS Tracking Application](images/pic5.png)
 
-The user can select the email recipient from the **Select Manager** list and choose **Send Report** (see the List in the previous figure). The email contains
-a link to the Amazon S3 bucket table with the .CSV file.
+The user can select the email recipient from the **Select Manager** list and choose **Send Report** (see the list in the previous figure). The email contains
+a link to the Amazon S3 bucket with the table as a .CSV file.
 
 ![AWS Tracking Application](images/pic6.png)
 
@@ -71,9 +71,9 @@ The DynamoDB table is named **Work** and contains the following fields:
 + **guide** - A value that represents the deliverable being worked on.
 + **status** - A value that describes the status.
 
-## <a name="buildTheApp"></a>Build the app
+## Build the app
 
-###<a name="prereqs"></a>Prerequisites
+### Prerequisites
 
 To complete the tutorial, you need the following:
 
@@ -88,26 +88,26 @@ To complete the tutorial, you need the following:
 + Be sure to terminate the resources you create while going through this tutorial to ensure that you’re not charged.
 
 
-### <a name="createTheResources"></a>Create the resources
+### Create the resources
 You need the following resources for this app:
-1. An Amazon Cognito unauthenticated user role
-2. Amazon IAM permissions attached to the user role
-3. An Amazon DynamoDB table named 'Work', with a primary key named 'id', of type 'STRING'
-4. An Amazon S3 bucket (this is used to store the CSV file)
-5. Two email addresses verified in Amazon SES
+1. An Amazon Cognito unauthenticated user role.
+2. IAM permissions attached to the user role.
+3. An Amazon DynamoDB table named 'Work', with a primary key named 'id', of type 'STRING'.
+4. An Amazon S3 bucket (this is used to store the CSV file).
+5. Two email addresses verified in Amazon SES.
 
 
 You can create the AWS resources required for this cross-service example using either of the following:
-- [Option 1: Amazon CloudFormation](#create-the-resources-using-amazon-cloudformation)
+- [Option 1: AWS CloudFormation](#create-the-resources-using-cloudformation)
 - [Option 2: The AWS Management Console](#create-the-resources-using-the-aws-management-console)
 
-#### <a name="create-the-resources-using-amazon-cloudformation"></a>Option 1: Create the resources using Amazon CloudFormation
+#### <a name="create-the-resources-using-cloudformation"></a>Option 1: Create the resources using  CloudFormation
 
-You can run a single Amazon CloudFormation script to provision all the required resources for this example.
+You can run a single CloudFormation script to provision all the required resources for this example.
 
 1. Install and configure the AWS CLI following the instructions in the AWS CLI User Guide.
 
-2. Open the AWS Command Console from the *./ddb-item-tracker* folder.
+2. Open a command prompt in the **./ddb-item-tracker** folder.
 
 3. Run the following command, replacing *STACK_NAME* with a unique name for the stack.
 ```
@@ -115,11 +115,12 @@ aws cloudformation create-stack --stack-name STACK_NAME --template-body file://s
 ```
 **Important**: The stack name must be unique within an AWS Region and AWS account. You can specify up to 128 characters, and numbers and hyphens are allowed.
 
-4. Open [AWS CloudFormation in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the **Stacks** page, and chose the **Resources** tab.
+To see your stack, do the following: 
+1. Open [AWS CloudFormation in the AWS Management Console](https://console.aws.amazon.com/cloudformation/), and open the **Stacks** page, and chose the **Resources** tab.
 
 ![ ](images/cloud_formation_stacks.png)
 
-5. Choose the **Resources** tab. The resources required for this cross-service example are listed in the **Physical ID** column.
+2. Choose the **Resources** tab. The resources required for this cross-service example are listed in the **Physical ID** column.
 
 ![ ](images/cloud_formation_resources_tab.png)
 
@@ -128,7 +129,7 @@ For more information on the create-stack command parameters, see the [AWS CLI Co
 #### <a name="create-the-resources-using-the-aws-management-console"></a>Option 2: Create the resources using the AWS Management Console
 
 #### 1. Create an unauthenticated user role
-1. Open [AWS Cognito in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the *Stacks* page.
+1. Open the [AWS Cognito in the AWS Management Console](https://console.aws.amazon.com/cognito).
 2. Choose **Manage Identity Pools**.
 3. Choose **Create new identity pool**.
 4. In the **Identity pool name** field, give your identity pool a name.
@@ -140,10 +141,11 @@ For more information on the create-stack command parameters, see the [AWS CLI Co
 ![ ](images/identity_pool_ids.png)
 
 9.Choose **Edit identity pool**.
+
 10. Take note of the name of the role in the **Unauthenticated role** field.
 
 #### 2. Adding permissions to an unauthenticated user role
-1. Open [IAM in the AWS Management Console](https://aws.amazon.com/iam/), and open the *Roles* page.
+1. Open [IAM in the AWS Management Console](https://console.aws.amazon.com/iam/), and open the *Roles* page.
 2. Search for the unauthenticated role you just created.
 3. Open the role.
 4. Click the down arrow beside the policy name.
@@ -191,20 +193,20 @@ For more information on the create-stack command parameters, see the [AWS CLI Co
 9. Choose **Save Changes**.
 
 #### 3. Create the Amazon DynamoDB table
-Create an Amazon DynamoDB table named **Work** with a key named **id**. For information, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+Create an Amazon DynamoDB table named **Work** with a key named **id**. For information, see [dynamoAppHelperFiles folder](#dynamoAppHelperFiles-folder).
 
 #### 4. Verify to and from email address on Amazon SES
 This example requires a minimum of two verified email address.
 
-To verify and email address:
+To verify an email address:
 
-1. Open [AWS SES in the AWS Management Console](https://aws.amazon.com/SES/), and open the **Email Addresses** page.
+1. Open [AWS SES in the AWS Management Console](https://console.aws.amazon.com/ses/), and open the **Email Addresses** page.
 2. Choose **Verify a New Email Address**.
 3. Enter a working email address, and choose **Verify This Email Address**.
 4. Open the email in your email application, and verify it.
 
 
-## <a name="runApp"></a>Run the app
+## Run the app
 
 1. Clone the [AWS Code Examples Repository](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment.
    See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for
@@ -224,42 +226,43 @@ npm install
    2. **BUCKET_NAME** with the name of the Amazon S3 bucket
    3. **SENDER_EMAIL_ADDRESS** with the address of the email sender. This address must first be verified on Amazon SES.
 4. Start the app.
+
 ```
 node app.js
 ```
 The app is now running at [http://localhost:3000/index.html](http://localhost:3000).
 
 
-## <a name="projectFiles"></a>About the project files
+## About the project files
 
 The following figure shows you the structure of the project.
 
 ![AWS Tracking Application](images/item_tracker_projects.png)
 
 - **images**: contains images used by this tutorial. You can safely delete it from your project.
-- **public folder**: contains most of the code for the app. See [Folder in the public folder](#public) for more details.
-- **app.js**: the main file in the app. It interacts with the Express web framework to execute code. See [app.js file](#appjs) for more details.
+- **public folder**: contains most of the code for the app. See [Folder in the public folder](#folders-in-the-public-folder) for more details.
+- **app.js**: the main file in the app. It interacts with the Express web framework to execute code. See [app js file](#app-js-file) for more details.
 - **package.json**: defines functional attributes of a project that npm uses to install dependencies.
 - **README.md**: the page you're reading.
-- **setup.yaml**: the Amazon Cloud Formation script used to create the resources for this project. See [Create the resources](#createTheResources) for more details.
+- **setup.yaml**: the CloudFormation script used to create the resources for this project. See [Create the resources](#create-the-resources) for more details.
 
-### <a name="public"></a>Folders in the **public** folder
+### Folders in the public folder
 
-#### <a name="css"></a>'css' folder
+#### css folder
 Contains the CSS style files for the app.
-#### <a name="dynamoAppHelperFiles"></a>'dynamoAppHelperFiles' folder
-Contains script that creates a table using the AWS SDK for JavaScript (v3).
+
+#### dynamoAppHelperFiles folder
+Contains a script that creates a table using the AWS SDK for JavaScript (v3).
 
 To create the table for the app:
-1. Update the **dynamoClient.js** as described in [libs](#libs)
-2. Update the client files in the **libs** folder as described in ### Folders in the **public** folder
+2. Update the client files in the **libs** folder as described in [libs folder](#libs-folder).
 3. Change **TABLE_NAME** to **Work**,  and enter the following in the command line:
 ```
   cd javascriptv3/example_code/cross-services/ddb-item-tracker/public/dynamoAppHelperFiles
   node create-table.js
 ```
-#### <a name="js"></a>'js' folder
-Contains **items.js folder**, which contains all the functions triggers by buttons in the app.
+#### js folder
+Contains **items.js folder**, which contains all the functions triggered by buttons in the app.
 - **GetItems()** - sends an Ajax post request to the '/request' route defined in the **app.js**, which returns all the items in the table.
 The items are then posted to the UI table using [DataTables](https://cdn.datatables.net/).
 ```javascript
@@ -308,6 +311,7 @@ function then iterates through the data table, parses it into a CSV compatible f
 The function then sends an Ajax post request to the '/uploadCSV' route in the **app.js**, which uploads the CSV file to the
 Amazon S3 bucket, then sends an email to the email address selected from the **Manager** dropdown on the **Basic dialog** on the 
 **Add** page of the app. The email contains a link to the CSV file uploaded to the Amazon S3 bucket.
+
 ```javascript
 function Report() {
     // Get the email address.
@@ -340,8 +344,7 @@ function Report() {
             // Upload the CSV file to Amazon S3.
             $.ajax('/uploadCSV', {
                 type: 'POST',
-                data: 'csv=' + csv,
-                data: 'email=' + email,
+                data: { csv: csv, email: email },
                 success: function (data, status, xhr) {
                     console.log('CSV uploaded.');
                     $.ajax('/report', {
@@ -381,8 +384,10 @@ function GetSingleItem() {
     $('#modform').show()
 };
 ```
+
 - **UpdateItem()** - gets the updated item's details from the **Modify item** form on the UI and updates them in the **Work** table. To do this
 it sends an Ajax post request to the '/changewi' route defined in the **app.js**
+
 ```javascript
 function UpdateItem()
 {
@@ -433,8 +438,10 @@ function UpdateItem()
 };
 
 ```
+
 - **addItem()** - gets the new item's details from the **Add item** form and adds the item to the **Work** table. To do this, 
 it sends an Ajax post request to the '/add' route defined in the **app.js**.
+
 ```javascript
 function addItem(){
 
@@ -486,18 +493,18 @@ function addItem(){
     };
 ```
 
-#### <a name="libs"></a>'libs' folder
-Contains a javascript files for each AWS SDK for JavaScript module clients required for the app:
+#### libs folder
+Contains Javascript files for each AWS SDK for JavaScript module clients required for the app:
 - **ddbDocClient.js** - creates a client for the Amazon DynamoDB Document Client. Update **REGION** to your 
 AWS Region.
 - **dynamoClient.js** - creates a client for the Amazon DynamoDB. Update **REGION** to your
-  AWS Region, and **IDENTITY_POOL_ID** with the Amazon Cognito Idenfity Pool Id you created in [Create the resources](#createTheResources).
+  AWS Region, and **IDENTITY_POOL_ID** with the Amazon Cognito Idenfity Pool Id you created in [Create the resources](#create-the-resources).
 - **sesClient.js** - creates a client for the Amazon SES. Update **REGION** to your
-  AWS Region, and **IDENTITY_POOL_ID** with the Amazon Cognito Idenfity Pool Id you created in [Create the resources](#createTheResources).
+  AWS Region, and **IDENTITY_POOL_ID** with the Amazon Cognito Idenfity Pool Id you created in [Create the resources](#create-the-resources).
 
-### <a name="appjs"></a>app.js file
+### app js file
 
-The first section imports all the require modules.
+The first section imports all the required modules.
 ```javascript
 import express from 'express';
 import {v4 as uuidv4} from 'uuid';
@@ -520,7 +527,7 @@ const static_path = path.join(__dirname, "/public");
 app.use(express.static(static_path));
 app.use(express.urlencoded({ extended: true }));
 ```
-The next section defines the tablename. Replace **TABLE_NAME** with the name of the Amazon DynamoDB table (for example, **Work**), 
+The next section defines the variables required for the app. Replace **TABLE_NAME** with the name of the Amazon DynamoDB table (for example, **Work**), 
 **BUCKET_NAME** with the name of the Amazon S3 bucket, and **SENDER_EMAIL_ADDRESS** with the address of the email sender. 
 This address must first be verified on Amazon SES.
 
@@ -630,9 +637,11 @@ app.post("/uploadCSV", (req, res) => {
     const d = new Date();
     const month = d.getMonth() + 1;
     const day = d.getDate();
-    const todaydate = d.getFullYear() + '/' +
-        (month < 10 ? '0' : '') + month + '/' +
-        (day < 10 ? '0' : '') + day;
+    const hour = d.getHours();
+    const minute = d.getMinutes();
+    const todaydate = d.getFullYear() +
+        (month < 10 ? '0' : '') + month  +
+        (day < 10 ? '0' : '') + day + hour + minute
     const uploadParams = {
         Bucket: bucketName,
         Body: req.body.csv,
@@ -699,7 +708,7 @@ app.post("/uploadCSV", (req, res) => {
 
 
 ```
-The final section binds and listens the connections on the specified host and port, which in this case is 3000, 
+The final section binds and listens to the connections on the specified host and port, which in this case is 3000, 
 as defined at the top of **app.js**.
 ```javascript
 app.listen(port, () => {
@@ -707,14 +716,15 @@ app.listen(port, () => {
 })
 ```
 
-### <a name="destroy"></a>Destroy the resources
+### Destroy the resources
 
 If you created your resources through the Amazon Management Console, you must delete all your resource manually through Console.
 
-However, if you created your resources using Amazon CloudFormation, you can delete them by deleting the stack.
+However, if you created your resources using AWS CloudFormation, you can delete them by deleting the stack.
+
 **Note:** By running the app you modified the table, and the bucket, so before you can delete the stack,  you must delete these resources manually via the Amazon Management Console before deleting the Stack.
 
-4. Open [AWS CloudFormation in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the *Stacks* page.
+4. Open [AWS CloudFormation in the AWS Management Console](https://console.aws.amazon.com/cloudformation/), and open the *Stacks* page.
 
 ![ ](images/cloud_formation_stacks.png)
 
@@ -724,6 +734,6 @@ However, if you created your resources using Amazon CloudFormation, you can dele
 
 
 ### Next steps
-Congratulations! You have created and deployed the Amazon Simple Notification Service example app.
-For more AWS multiservice examples, see
-[cross-services](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptV3/cross-services).
+Congratulations! You have created and deployed the Amazon DynamoDB Tracker example web app.
+For more AWS cross-service examples, see
+[cross-services](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/cross-services).

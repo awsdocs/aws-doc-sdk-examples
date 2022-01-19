@@ -123,9 +123,11 @@ app.post("/uploadCSV", (req, res) => {
     const d = new Date();
     const month = d.getMonth() + 1;
     const day = d.getDate();
+    const hour = d.getHours();
+    const minute = d.getMinutes();
     const todaydate = d.getFullYear() +
         (month < 10 ? '0' : '') + month  +
-        (day < 10 ? '0' : '') + day;
+        (day < 10 ? '0' : '') + day + hour + minute;
     const uploadParams = {
         Bucket: bucketName,
         Body: req.body.csv,
