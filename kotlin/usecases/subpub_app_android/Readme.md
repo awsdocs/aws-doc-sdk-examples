@@ -287,38 +287,37 @@ The following Kotlin code represents the **MainActivity** Kotlin class. To handl
 ```kotlin
      package com.example.androidsubpub
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.view.View
-import android.widget.*
-import kotlinx.coroutines.runBlocking
-import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
-import aws.sdk.kotlin.services.sns.SnsClient
-import aws.sdk.kotlin.services.sns.model.*
-import java.util.regex.Pattern
-import kotlin.system.exitProcess
-import aws.sdk.kotlin.services.sns.model.SnsException
-import aws.sdk.kotlin.services.sns.model.ListSubscriptionsByTopicRequest
-import aws.sdk.kotlin.services.translate.TranslateClient
-import aws.sdk.kotlin.services.translate.model.TranslateTextRequest
+     import androidx.appcompat.app.AppCompatActivity
+     import android.os.Bundle
+     import android.view.View
+     import android.widget.*
+     import kotlinx.coroutines.runBlocking
+     import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
+     import aws.sdk.kotlin.services.sns.SnsClient
+     import aws.sdk.kotlin.services.sns.model.*
+     import java.util.regex.Pattern
+     import kotlin.system.exitProcess
+     import aws.sdk.kotlin.services.sns.model.SnsException
+     import aws.sdk.kotlin.services.sns.model.ListSubscriptionsByTopicRequest
+     import aws.sdk.kotlin.services.translate.TranslateClient
+     import aws.sdk.kotlin.services.translate.model.TranslateTextRequest
 
-class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+    class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
-    var topicArnVal = "<Enter topic ARN>"
-    val items = arrayOf("En", "Fr", "Sp")
-    var chosenLan: String =""
+     var topicArnVal = "<Enter topic ARN>"
+     val items = arrayOf("En", "Fr", "Sp")
+     var chosenLan: String =""
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val dropdown =  findViewById<Spinner>(R.id.spinner)
         dropdown.onItemSelectedListener = this
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, items)
         dropdown.adapter = adapter
+     }
 
-    }
-
-    override fun onItemSelected(parent: AdapterView<*>?,
+     override fun onItemSelected(parent: AdapterView<*>?,
                                 view: View, position: Int,
                                 id: Long) {
 
@@ -326,50 +325,46 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         val toast = Toast.makeText(applicationContext, chosenLan, Toast.LENGTH_SHORT)
         toast.setMargin(50f, 50f)
         toast.show()
-    }
+     }
 
-    override fun onNothingSelected(parent: AdapterView<*>?) {
+     override fun onNothingSelected(parent: AdapterView<*>?) {
         TODO("Not yet implemented")
-    }
+     }
 
-
+    // Publish a message.
     fun pubTopic(view: View) = runBlocking {
 
         val snsClient = getClient()
+        val translateClient = getTranslateClient()
         val bodyMessage: EditText = findViewById(R.id.txtMessage)
         val body = bodyMessage.text.toString()
-        var translateBody = ""
-        val translateClient = getTranslateClient()
+        var translateBody: String
 
         // Need to translate the message if user selected another language.
         if (chosenLan == "Fr" ) {
 
-                val textRequest = TranslateTextRequest {
-                    sourceLanguageCode = "en"
-                    targetLanguageCode = "fr"
-                    text = body
-                }
-
-                val textResponse = translateClient.translateText(textRequest)
-                 translateBody = textResponse.translatedText.toString()
+            val textRequest = TranslateTextRequest {
+                sourceLanguageCode = "en"
+                targetLanguageCode = "fr"
+                text = body
             }
 
-        if (chosenLan == "Sp" ) {
+            val textResponse = translateClient.translateText(textRequest)
+            translateBody = textResponse.translatedText.toString()
+
+        } else if (chosenLan == "Sp" ) {
 
             val textRequest = TranslateTextRequest {
                     sourceLanguageCode = "en"
-                    targetLanguageCode = "sp"
+                    targetLanguageCode = "es"
                     text = body
                 }
 
             val textResponse = translateClient.translateText(textRequest)
             translateBody = textResponse.translatedText.toString()
 
-        }
-
-        if (chosenLan == "En" ) {
-                translateBody = body
-        }
+        } else
+            translateBody = body
 
         try {
 
@@ -385,12 +380,13 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             println(e.message)
             snsClient.close()
         }
-    }
+      }
 
+     // Get all subscriptions.
      fun getSubs(view: View) = runBlocking {
 
         val subList = mutableListOf<String>()
-         val snsClient: SnsClient = getClient()
+        val snsClient: SnsClient = getClient()
         try {
 
             val request = ListSubscriptionsByTopicRequest {
@@ -408,12 +404,12 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             println(e.message)
             snsClient.close()
         }
-    }
+       }
 
-    fun unSubUser(view: View) = runBlocking {
+      // Remove a subscription based on an email.
+      fun unSubUser(view: View) = runBlocking {
 
         val snsClient = getClient()
-
         val emailVal: EditText = findViewById(R.id.txtEmail)
         val emailStr = emailVal.text.toString()
         val isValidEmail = checkEmail(emailStr)
@@ -447,10 +443,11 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     snsClient.close()
                     exitProcess(0)
                 }
-        }
-    }
+          }
+       }
 
-    fun subUser(view: View) = runBlocking{
+      // Create a new subscription.
+     fun subUser(view: View) = runBlocking{
 
         val snsClient = getClient()
 
@@ -480,10 +477,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 exitProcess(0)
             }
         }
-    }
+      }
 
-     // Returns the Sub Amazon Resource Name (ARN) based on the given endpoint used for unSub.
-     suspend fun getTopicArnValue(snsClient: SnsClient, endpoint: String): String? {
+      // Returns the Sub Amazon Resource Name (ARN) based on the given endpoint used for unSub.
+      suspend fun getTopicArnValue(snsClient: SnsClient, endpoint: String): String? {
 
                 try {
                     var subArn: String
@@ -510,11 +507,11 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             }
 
 
-    fun getTranslateClient() : TranslateClient{
+      fun getTranslateClient() : TranslateClient{
 
         val staticCredentials = StaticCredentialsProvider {
             accessKeyId = "<Enter key>"
-            secretAccessKey = "<Enter secret key>"
+            secretAccessKey = "<Enter key>"
         }
 
         val translateClient = TranslateClient{
@@ -523,14 +520,13 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         }
 
         return translateClient
-    }
-
+     }
 
     fun getClient() : SnsClient{
 
         val staticCredentials = StaticCredentialsProvider {
-             accessKeyId = "<Enter key>"
-            secretAccessKey = "<Enter secret key>"
+            accessKeyId = "<Enter key>"
+            secretAccessKey = "<Enter key>"
         }
 
         val snsClient = SnsClient{
@@ -559,8 +555,8 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 "\\." +
                 "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
                 ")+"
-    )
-}
+      )
+    }
 
 ```
 
