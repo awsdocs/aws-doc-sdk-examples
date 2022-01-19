@@ -35,7 +35,12 @@
           </form>
         </div>
         {% with messages = get_flashed_messages() %}
-          {% if messages %}
+          {% if messages|length == 1 %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              {{messages[0]}}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% elif messages %}
             <div class="alert alert-danger mt-3" role="alert">
               {% for message in messages %}
                 <p>{{ message }}</p>
@@ -84,6 +89,7 @@
         {% endif %}
         {% endif %}
         <a class="btn btn-primary" href="/item">Add item</a>
+        <a class="btn btn-primary" href="/report/{{status_filter}}">Report</a>
       </div>
       <div class="col"></div>
     </div>
