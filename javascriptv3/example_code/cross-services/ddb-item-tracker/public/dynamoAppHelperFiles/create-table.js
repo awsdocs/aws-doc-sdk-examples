@@ -20,29 +20,29 @@ node create-table.js
 import { CreateTableCommand, PutItemCommand } from "@aws-sdk/client-dynamodb";
 import { dynamoClient } from "../libs/dynamoClient.js";
 
-const TABLE_NAME = "TABLE_NAME" // For example, "Work".
+const TABLE_NAME = "TABLE_NAME"; // For example, "Work".
 
 export const createTable = async () => {
   try {
     // Set the table parameters.
-     const tableParams = {
+    const tableParams = {
       AttributeDefinitions: [
         {
           AttributeName: "id",
-          AttributeType: "S"
-        }
+          AttributeType: "S",
+        },
       ],
       KeySchema: [
         {
           AttributeName: "id",
-          KeyType: "HASH"
-        }
+          KeyType: "HASH",
+        },
       ],
       ProvisionedThroughput: {
         ReadCapacityUnits: 5,
-        WriteCapacityUnits: 5
+        WriteCapacityUnits: 5,
       },
-      TableName: TABLE_NAME
+      TableName: TABLE_NAME,
     };
     const data = await dynamoClient.send(new CreateTableCommand(tableParams));
     console.log("Success. Table created.");

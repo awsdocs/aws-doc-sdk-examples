@@ -10,13 +10,13 @@ INPUTS:
 
 */
 // snippet-start:[cross-service.JavaScript.ddb-item-tracker.app]
-import express from 'express';
-import {v4 as uuidv4} from 'uuid';
+import express from "express";
+import { v4 as uuidv4 } from "uuid";
 const port = process.env.PORT || 3000;
 const app = express();
-import bodyParser from 'body-parser';
-import path from 'path';
-import {fileURLToPath} from 'url';
+import bodyParser from "body-parser";
+import path from "path";
+import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 import { UpdateCommand, PutCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import { ddbDocClient } from "./public/libs/ddbDocClient.js";
@@ -32,226 +32,238 @@ app.use(express.static(static_path));
 app.use(express.urlencoded({ extended: true }));
 
 // Variables to update.
-export const tableName = 'TABLE_NAME';
-export const bucketName = 'BUCKET_NAME';
-export const senderEmail = 'SENDER_EMAIL_ADDRESS'
+export const tableName = "TABLE_NAME";
+export const bucketName = "BUCKET_NAME";
+export const senderEmail = "SENDER_EMAIL_ADDRESS";
 
 app.use(bodyParser.json());
 
 app.post("/add", (req, res) => {
-    const body = req.body;
-    const id = uuidv4();
-    const d = new Date();
-    const month = d.getMonth() + 1;
-    const day = d.getDate();
-    const todaydate = d.getFullYear() + '/' +
-        (month < 10 ? '0' : '') + month + '/' +
-        (day < 10 ? '0' : '') + day;
-    const params = {
-        TableName: tableName,
-        Item: {
-            id: id,
-            guide: body.guide,
-            description: body.description,
-            status: body.status,
-            date: todaydate
-        }
-    };
-    const run = async () => {
-        try {
-            const data = await ddbDocClient.send(new PutCommand(params));
-            console.log("Added item:", JSON.stringify(data, null, 2));
-            console.log(data);
-            res.contentType = "application/json";
-            res.send(data);
-        } catch (err) {
-            console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
-        }
-    };
-    run();
+  const body = req.body;
+  const id = uuidv4();
+  const d = new Date();
+  const month = d.getMonth() + 1;
+  const day = d.getDate();
+  const todaydate =
+    d.getFullYear() +
+    "/" +
+    (month < 10 ? "0" : "") +
+    month +
+    "/" +
+    (day < 10 ? "0" : "") +
+    day;
+  const params = {
+    TableName: tableName,
+    Item: {
+      id: id,
+      guide: body.guide,
+      description: body.description,
+      status: body.status,
+      date: todaydate,
+    },
+  };
+  const run = async () => {
+    try {
+      const data = await ddbDocClient.send(new PutCommand(params));
+      console.log("Added item:", JSON.stringify(data, null, 2));
+      console.log(data);
+      res.contentType = "application/json";
+      res.send(data);
+    } catch (err) {
+      console.error(
+        "Unable to add item. Error JSON:",
+        JSON.stringify(err, null, 2)
+      );
+    }
+  };
+  run();
 });
 
-
 app.post("/request", (req, res) => {
-    var params = {
-        TableName: tableName
-    };
+  var params = {
+    TableName: tableName,
+  };
 
-    const run = async () => {
-        try {
-            const data = await ddbDocClient.send(new ScanCommand(params));
-            console.log('data', data);
-            res.send(data);
-        } catch (err) {
-            console.log("Error", err);
-        }
+  const run = async () => {
+    try {
+      const data = await ddbDocClient.send(new ScanCommand(params));
+      console.log("data", data);
+      res.send(data);
+    } catch (err) {
+      console.log("Error", err);
     }
-    run();
+  };
+  run();
 });
 
 app.post("/changewi", (req, res) => {
-    const body = req.body;
-    console.log(req.body)
-    var params = {
-        TableName: tableName,
-        Key: {
-            "id": req.body.id
-        },
-        UpdateExpression: 'set #description=:d, #status=:s',
-        ExpressionAttributeValues: {
-            ':d': req.body.description,
-            ':s': req.body.status
-        },
-        ExpressionAttributeNames: {
-            '#description': "description",
-            '#status': "status"
-        }
-    };
-    const run = async () => {
-        try {
-            const data = await ddbDocClient.send(new UpdateCommand(params));
-            res.contentType = "application/json";
-            res.send(data);
-        } catch (err) {
-            console.error(err);
-        }
-    };
-    run();
+  const body = req.body;
+  console.log(req.body);
+  var params = {
+    TableName: tableName,
+    Key: {
+      id: req.body.id,
+    },
+    UpdateExpression: "set #description=:d, #status=:s",
+    ExpressionAttributeValues: {
+      ":d": req.body.description,
+      ":s": req.body.status,
+    },
+    ExpressionAttributeNames: {
+      "#description": "description",
+      "#status": "status",
+    },
+  };
+  const run = async () => {
+    try {
+      const data = await ddbDocClient.send(new UpdateCommand(params));
+      res.contentType = "application/json";
+      res.send(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  run();
 });
 
 app.post("/uploadCSV", (req, res) => {
-    const d = new Date();
-    const month = d.getMonth() + 1;
-    const day = d.getDate();
-    const hour = d.getHours();
-    const minute = d.getMinutes();
-    const todaydate = d.getFullYear() +
-        (month < 10 ? '0' : '') + month  +
-        (day < 10 ? '0' : '') + day + hour + minute;
-    const uploadParams = {
-        Bucket: bucketName,
-        Body: req.body.csv,
-        Key: "Items_" + todaydate +".csv"
-    };
-   const run = async () => {
-        try {
-            const data = await s3Client.send(new PutObjectCommand(uploadParams));
-            const linkToCSV =
-                "https://s3.console.aws.amazon.com/s3/buckets/" +
-                uploadParams.Bucket +
-                "?region=" +
-                REGION +
-                "&tab=objects"
-            console.log("Success. Report uploaded to " + linkToCSV + ".");
-            console.log('Email', req.body.email)
-            try{
-                const emailParams = {
-                    Destination: {
-                        /* required */
-                        CcAddresses: [
-                            /* more items */
-                        ],
-                        ToAddresses: [
-                            req.body.email, //RECEIVER_ADDRESS
-                            /* more To-email addresses */
-                        ],
-                    },
-                    Message: {
-                        /* required */
-                        Body: {
-                            /* required */
-                            Html: {
-                                Charset: "UTF-8",
-                                Data:
-                                    "<h1>Hello!</h1>" +
-                                    "<p> The CSV has been uploaded to <a href=" +linkToCSV +
-                                    ">here.</a></p>"
-                            },
-                        },
-                        Subject: {
-                            Charset: "UTF-8",
-                            Data: "Report ready.",
-                        },
-                    },
-                    Source: "brmur@amazon.com",
-                    ReplyToAddresses: [
-                        /* more items */
-                    ],
-                };
-                const data = await sesClient.send(new SendEmailCommand(emailParams));
-                console.log("Success. Email sent.", data);
-                res.contentType = "application/json";
-                res.send(data);
-            } catch (err) {
-                console.log("Error", err);
-            };
-        } catch (err) {
-            console.log("Error", err);
-        }
+  const d = new Date();
+  const month = d.getMonth() + 1;
+  const day = d.getDate();
+  const hour = d.getHours();
+  const minute = d.getMinutes();
+  const todaydate =
+    d.getFullYear() +
+    (month < 10 ? "0" : "") +
+    month +
+    (day < 10 ? "0" : "") +
+    day +
+    hour +
+    minute;
+  const uploadParams = {
+    Bucket: bucketName,
+    Body: req.body.csv,
+    Key: "Items_" + todaydate + ".csv",
+  };
+  const run = async () => {
+    try {
+      const data = await s3Client.send(new PutObjectCommand(uploadParams));
+      const linkToCSV =
+        "https://s3.console.aws.amazon.com/s3/buckets/" +
+        uploadParams.Bucket +
+        "?region=" +
+        REGION +
+        "&tab=objects";
+      console.log("Success. Report uploaded to " + linkToCSV + ".");
+      console.log("Email", req.body.email);
+      try {
+        const emailParams = {
+          Destination: {
+            /* required */
+            CcAddresses: [
+              /* more items */
+            ],
+            ToAddresses: [
+              req.body.email, //RECEIVER_ADDRESS
+              /* more To-email addresses */
+            ],
+          },
+          Message: {
+            /* required */
+            Body: {
+              /* required */
+              Html: {
+                Charset: "UTF-8",
+                Data:
+                  "<h1>Hello!</h1>" +
+                  "<p> The CSV has been uploaded to <a href=" +
+                  linkToCSV +
+                  ">here.</a></p>",
+              },
+            },
+            Subject: {
+              Charset: "UTF-8",
+              Data: "Report ready.",
+            },
+          },
+          Source: "brmur@amazon.com",
+          ReplyToAddresses: [
+            /* more items */
+          ],
+        };
+        const data = await sesClient.send(new SendEmailCommand(emailParams));
+        console.log("Success. Email sent.", data);
+        res.contentType = "application/json";
+        res.send(data);
+      } catch (err) {
+        console.log("Error", err);
+      }
+    } catch (err) {
+      console.log("Error", err);
     }
-    run();
-   module.exports = run()
+  };
+  run();
+  module.exports = run();
 });
 
 app.post("/report", (req, res) => {
-    // Helper function to send an email to user.
-    // Set the parameters
-    console.log('This is the email address: ', req.body.email)
-    const params = {
-        Destination: {
-            /* required */
-            CcAddresses: [
-                /* more items */
-            ],
-            ToAddresses: [
-                req.body.email, //RECEIVER_ADDRESS
-                /* more To-email addresses */
-            ],
+  // Helper function to send an email to user.
+  // Set the parameters
+  console.log("This is the email address: ", req.body.email);
+  const params = {
+    Destination: {
+      /* required */
+      CcAddresses: [
+        /* more items */
+      ],
+      ToAddresses: [
+        req.body.email, //RECEIVER_ADDRESS
+        /* more To-email addresses */
+      ],
+    },
+    Message: {
+      /* required */
+      Body: {
+        /* required */
+        Html: {
+          Charset: "UTF-8",
+          Data:
+            "<h1>Hello!</h1>" +
+            "<p> The Amazon DynamoDB table " +
+            tableName +
+            " has been updated with PPE information <a href='https://" +
+            REGION +
+            ".console.aws.amazon.com/dynamodb/home?region=" +
+            REGION +
+            "#item-explorer?table=" +
+            tableName +
+            "'>here.</a></p>",
         },
-        Message: {
-            /* required */
-            Body: {
-                /* required */
-                Html: {
-                    Charset: "UTF-8",
-                    Data:
-                        "<h1>Hello!</h1>" +
-                        "<p> The Amazon DynamoDB table " +
-                        tableName +
-                        " has been updated with PPE information <a href='https://" +
-                        REGION +
-                        ".console.aws.amazon.com/dynamodb/home?region=" +
-                        REGION +
-                        "#item-explorer?table=" +
-                        tableName +
-                        "'>here.</a></p>"
-                },
-            },
-            Subject: {
-                Charset: "UTF-8",
-                Data: "PPE image report ready.",
-            },
-        },
-        Source: senderEmail,
-        ReplyToAddresses: [
-            /* more items */
-        ],
-    };
-    const run = async () => {
-        try {
-            const data = await sesClient.send(new SendEmailCommand(params));
-            console.log("Success. Email sent.", data);
-            res.contentType = "application/json";
-            res.send(data);
-        } catch (err) {
-            console.log("Error", err);
-        }
-    };
-    run();
+      },
+      Subject: {
+        Charset: "UTF-8",
+        Data: "PPE image report ready.",
+      },
+    },
+    Source: senderEmail,
+    ReplyToAddresses: [
+      /* more items */
+    ],
+  };
+  const run = async () => {
+    try {
+      const data = await sesClient.send(new SendEmailCommand(params));
+      console.log("Success. Email sent.", data);
+      res.contentType = "application/json";
+      res.send(data);
+    } catch (err) {
+      console.log("Error", err);
+    }
+  };
+  run();
 });
 
-
 app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
-})
+  console.log(`Listening on port ${port}`);
+});
 // snippet-end:[cross-service.JavaScript.ddb-item-tracker.app]
