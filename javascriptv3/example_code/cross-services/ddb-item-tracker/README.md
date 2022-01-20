@@ -15,7 +15,7 @@ using the AWS SDK for JavaScript version 3 to access the following services:
 
 + Amazon DynamoDB to store the data
 + Amazon Simple Email Service (Amazon SES) to send email messages
-+ Amazon Simple Storage Solution (Amazon S3)
++ Amazon Simple Storage Service (Amazon S3)
 + Amazon Cognito
 + AWS Identity and Access Management (IAM)
 
@@ -503,12 +503,12 @@ function addItem(){
 ```
 
 #### libs folder
-Contains Javascript files for each AWS SDK for JavaScript module clients required for the app:
+Contains Javascript files for each AWS SDK for JavaScript module client required for the app:
 - **ddbDocClient.js** - creates a client for the Amazon DynamoDB Document Client. Update **REGION** to your 
 AWS Region.
 - **dynamoClient.js** - creates a client for the Amazon DynamoDB. Update **REGION** to your
   AWS Region, and **IDENTITY_POOL_ID** with the Amazon Cognito Idenfity Pool Id you created in [Create the resources](#create-the-resources).
-- **sesClient.js** - creates a client for the Amazon SES. Update **REGION** to your
+- **sesClient.js** - creates a client for Amazon SES. Update **REGION** to your
   AWS Region, and **IDENTITY_POOL_ID** with the Amazon Cognito Idenfity Pool Id you created in [Create the resources](#create-the-resources).
 
 ### app js file
@@ -727,11 +727,11 @@ app.listen(port, () => {
 
 ### Destroy the resources
 
-If you created your resources through the Amazon Management Console, you must delete all your resource manually through Console.
+If you created your resources through the Amazon Management Console, you must delete all your resource manually through the console.
 
 However, if you created your resources using AWS CloudFormation, you can delete them by deleting the stack.
 
-**Note:** By running the app you modified the table, and the bucket, so before you can delete the stack,  you must delete these resources manually via the Amazon Management Console before deleting the Stack.
+**Note:** By running the app you modified the table, and the bucket, so before you can delete the stack,  you must delete these resources manually via the console before deleting the Stack.
 
 4. Open [AWS CloudFormation in the AWS Management Console](https://console.aws.amazon.com/cloudformation/), and open the *Stacks* page.
 

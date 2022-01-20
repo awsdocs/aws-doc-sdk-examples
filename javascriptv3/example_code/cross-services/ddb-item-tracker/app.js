@@ -32,9 +32,9 @@ app.use(express.static(static_path));
 app.use(express.urlencoded({ extended: true }));
 
 // Variables to update.
-const tableName = 'TABLE_NAME';
-const bucketName = 'BUCKET_NAME';
-const senderEmail = 'SENDER_EMAIL_ADDRESS'
+export const tableName = 'TABLE_NAME';
+export const bucketName = 'BUCKET_NAME';
+export const senderEmail = 'SENDER_EMAIL_ADDRESS'
 
 app.use(bodyParser.json());
 
@@ -133,7 +133,7 @@ app.post("/uploadCSV", (req, res) => {
         Body: req.body.csv,
         Key: "Items_" + todaydate +".csv"
     };
-    const run = async () => {
+   const run = async () => {
         try {
             const data = await s3Client.send(new PutObjectCommand(uploadParams));
             const linkToCSV =
@@ -190,6 +190,7 @@ app.post("/uploadCSV", (req, res) => {
         }
     }
     run();
+   module.exports = run()
 });
 
 app.post("/report", (req, res) => {

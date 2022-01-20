@@ -5,7 +5,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-dataupload.html.
 
 Purpose:
-snsClient.js is a helper function that creates the Amazon Simple Storage Solution (Amazon S3) service clients.
+s3Client.js is a helper function that creates the Amazon Simple Storage Service (Amazon S3) service clients.
 
 Inputs (replace in code):
 - REGION

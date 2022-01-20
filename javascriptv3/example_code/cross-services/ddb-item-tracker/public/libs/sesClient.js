@@ -5,7 +5,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-dataupload.html.
 
 Purpose:
-snsClient.js is a helper function that creates the Amazon Simple Notification Service (Amazon SNS) service clients.
+sesClient.js is a helper function that creates the Amazon Simple Email Service (Amazon SES) service clients.
 
 Inputs (replace in code):
 - REGION
