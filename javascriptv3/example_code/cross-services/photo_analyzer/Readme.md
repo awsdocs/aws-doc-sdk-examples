@@ -1,11 +1,11 @@
 #  Creating an example AWS photo analyzer application using the AWS SDK for JavaScript (v3)
 
 ## Purpose
-The cross-service example demonstrates how to build an app that analyzes nature images located in an Amazon Simple Storage Service (Amazon S3) bucket 
-by using the AWS Rekognition service. For example, the following image shows a lake. 
+The cross-service example demonstrates how to build an app that analyzes nature images located in an Amazon Simple Storage Service (Amazon S3) bucket
+by using the AWS Rekognition service. For example, the following image shows a lake.
 
 ![AWS Photo Analyzer](images/Lake1.png)
-                                         
+
 After the application analyzes this image, it creates this data:
 *	Panoramic - 99.99971
 *	Outdoors - 99.99971
@@ -16,8 +16,8 @@ After the application analyzes this image, it creates this data:
 *	Water - 93.501465
 *	Lake - 87.28128
 
-The application can analyze many images and generate reports for each image in a 
-seperate Amazon S3 bucket, breaking the image down into a series of labels. In addition, this application uses Amazon Simple Email Service (Amazon SES) 
+The application can analyze many images and generate reports for each image in a
+seperate Amazon S3 bucket, breaking the image down into a series of labels. In addition, this application uses Amazon Simple Email Service (Amazon SES)
 to send emails with a link to each reports to the recipient.The app uses the following AWS services:
 
 - [AWS Rekognition](https://aws.amazon.com/rekognition/)
@@ -35,12 +35,12 @@ To build this cross-service example, you need the following:
     - An unauthenticated AWS Identity and Access Management (IAM) user role with the following permissions:
         - sns:*
 
-**Note**: An unauthenticated role enables you to provide permissions to unauthenticated users to use the AWS Services. To create an authenticated role, see [Amazon Cognito Identity Pools (Federated Identities)](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html).    
- 
+**Note**: An unauthenticated role enables you to provide permissions to unauthenticated users to use the AWS Services. To create an authenticated role, see [Amazon Cognito Identity Pools (Federated Identities)](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html).
+
  For instructions on creating the minimum resources required for this tutorial, see [Create the resources](#create-the-resources) on this page.
 
 ## ⚠ Important
-* We recommend that you grant this code least privilege, or at most the minimum permissions required to perform the task. For more information, see [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) in the *AWS Identity and Access Management User Guide*. 
+* We recommend that you grant this code least privilege, or at most the minimum permissions required to perform the task. For more information, see [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) in the *AWS Identity and Access Management User Guide*.
 * This code has not been tested in all AWS Regions. Some AWS services are available only in specific [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 * Running this code might result in charges to your AWS account. We recommend you destroy the resources when you are finished. For instructions, see [Destroying the resources](#destroying-the-resources).
 * Running the unit tests might result in charges to your AWS account.
@@ -76,29 +76,29 @@ aws cloudformation create-stack --stack-name STACK_NAME --template-body file://s
 For more information on the create-stack command parameters, see the [AWS CLI Command Reference guide](https://docs.aws.amazon.com/cli/latest/reference/cloudformation/create-stack.html), and the [AWS CloudFormation User Guide](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-cli-creating-stack.html).
 
 ### Create the resources using the AWS Management Console
-####Create an unauthenticated user role
-4. Open [AWS Cognito in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the *Stacks* page.
-5. Choose **Manage Identity Pools**.
-6. Choose **Create new identity pool**.
-7. In the **Identity pool name** field, give your identity pool a name.
-7. Select the **Enable access to unauthenticated identities** checkbox.
-8. Choose **Create Pool**.
-9. Choose **Allow**.
-10. Take note of the **Identity pool ID**, which is highlighted in red in the **Get AWS Credentials** section.
+#### Create an unauthenticated user role
+1. Open [AWS Cognito in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the *Stacks* page.
+2. Choose **Manage Identity Pools**.
+3. Choose **Create new identity pool**.
+4. In the **Identity pool name** field, give your identity pool a name.
+5. Select the **Enable access to unauthenticated identities** checkbox.
+6. Choose **Create Pool**.
+7. Choose **Allow**.
+8. Take note of the **Identity pool ID**, which is highlighted in red in the **Get AWS Credentials** section.
 
 ![ ](images/identity_pool_ids.png)
 
-11.Choose **Edit identity pool**.
-12. Take note of the name of the role in the **Unauthenticated role** field.
+9. Choose **Edit identity pool**.
+10. Take note of the name of the role in the **Unauthenticated role** field.
 
-####Adding permissions to an unauthenticated user role
-13. Open [IAM in the AWS Management Console](https://aws.amazon.com/iam/), and open the *Roles* page.
-14. Search for the unauthenticated role you just created.
-15. Open the role. 
-16. Click the down arrow beside the policy name.
-17. Choose **Edit Policy**.
-18. Choose the **JSON** tab.
-18. Delete the existing content, and paste the code below into it.
+#### Adding permissions to an unauthenticated user role
+11. Open [IAM in the AWS Management Console](https://aws.amazon.com/iam/), and open the *Roles* page.
+12. Search for the unauthenticated role you just created.
+13. Open the role.
+14. Click the down arrow beside the policy name.
+15. Choose **Edit Policy**.
+16. Choose the **JSON** tab.
+17. Delete the existing content, and paste the code below into it.
 ```json
 {
     "Version": "2012-10-17",
@@ -134,10 +134,10 @@ For more information on the create-stack command parameters, see the [AWS CLI Co
     ]
 }
 ```
-19. Choose **Review Policy**.
-20. Choose **Save Changes**.   
+18. Choose **Review Policy**.
+19. Choose **Save Changes**.
 
-### Verifying an email address on Amazon SES 
+### Verifying an email address on Amazon SES
 1. Open [AWS SES in the AWS Management Console](https://aws.amazon.com/SES/), and open the **Email Addresses** page.
 2. Choose **Verify a New Email Address**.
 3. Enter a working email address, and choose **Verify This Email Address**.
@@ -145,8 +145,8 @@ For more information on the create-stack command parameters, see the [AWS CLI Co
 
 ## Create a Node.js project environment
 
-1. Clone the [AWS Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. 
-See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for 
+1. Clone the [AWS Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment.
+See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for
 instructions.
 
 2. Run the following commands in sequence in the AWS CLI command line to install the AWS service client modules and third-party modules listed in the *package.json*:
@@ -157,11 +157,11 @@ cd javascriptv3/example_code/cross-services/photo-analyzer
 npm install
 ```
 ## Building the code
-This app runs from the browser, so we create the interface using HTML and CSS. 
+This app runs from the browser, so we create the interface using HTML and CSS.
 The app uses JavaScript to provide basic interactive features, and Node.js to invoke the AWS Services.
 
 ### Creating the HTML and CSS
-In **index.html**, the **head** section loads [JQuery](https://jquery.com/), [DataTables CDN](https://cdn.datatables.net/), and [BootStrap](https://getbootstrap.com/) libraries. 
+In **index.html**, the **head** section loads [JQuery](https://jquery.com/), [DataTables CDN](https://cdn.datatables.net/), and [BootStrap](https://getbootstrap.com/) libraries.
 It also loads **stlyes.css**, which applies styles to the HTML,
 and the **main.js**, which contains the following JavaScript and Node.js functions used in the app.
 
@@ -254,8 +254,8 @@ The remaining code defines the interface features, including a table and buttons
 The **./js/libs/** folders contains a file for each of the AWS Service clients required. You must
 replace "REGION" with your AWS Region, and replace "IDENTITY_POOL_ID" with the Amazon Cognito identity pool id
 you created in [Create the resources](#create-the-resources) on this page. Here's an example of one of these client configuration files:
- 
- 
+
+
 ```javascript
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
@@ -286,7 +286,7 @@ import { SendEmailCommand } from "@aws-sdk/client-ses";
 
 // Set global parameters.
 const BUCKET_IMAGES = "BUCKET_IMAGES";
-const BUCKET_REPORTS ="BUCKET_REPORTs";
+const BUCKET_REPORTS ="BUCKET_REPORTS";
 const EMAIL_SENDER_ADDRESS = "EMAIL_SENDER_ADDRESS"; // A verified Amazon SES email.
 ```
 
@@ -337,7 +337,7 @@ const getImages = async () => {
 };
 window.getImages = getImages;
 ```
-Next you define the functions for adding an image to the Amazon S3 bucket (*addToBucket*), analyzing the image (*ProcessImages*), creating the CSV report (*create_csv_file*), 
+Next you define the functions for adding an image to the Amazon S3 bucket (*addToBucket*), analyzing the image (*ProcessImages*), creating the CSV report (*create_csv_file*),
 uploading the report to the Amazon S3 bucket (*uploadFile*), and sending the specified recepient email notification about each image (*sendEmail*).
 ```javascript
 const addToBucket = async () => {
@@ -512,10 +512,10 @@ const sendEmail = async (bucket, key, linkToCSV) => {
 
 
 ### Bundling the scripts
-This is a static site consisting only of HTML, CSS, and client-side JavaScript. 
+This is a static site consisting only of HTML, CSS, and client-side JavaScript.
 However, a build step is required to enable the modules to work natively in the browser.
 
-To bundle the JavaScript and Node.js for this example in a single file named main.js, 
+To bundle the JavaScript and Node.js for this example in a single file named main.js,
 enter the following commands in sequence in the AWS CLI command line:
 
 ```
@@ -535,6 +535,6 @@ Open the index.html in your favorite browser, and follow the onscreen instructio
 6. Choose **Delete**.
 
 ### Next steps
-Congratulations! You have created and deployed the AWS Photo Analyzer application. 
+Congratulations! You have created and deployed the AWS Photo Analyzer application.
 For more AWS multiservice examples, see
 [usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).
