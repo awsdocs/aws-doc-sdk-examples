@@ -1,50 +1,55 @@
-## Set up restricted profile
+## Deploy the example
 
-Best practice is to grant this application only the permissions it needs. To do this,
-follow these steps:
+1. Run `setup.py` with the `deploy` flag to create and deploy a CloudFormation stack 
+that manages creation of a Amazon DynamoDB table and an IAM role that grants limited 
+permissions to the table and to Amazon SES.
+   ```
+   python setup.py deploy
+   ```
+1. The setup script outputs the name of the table and the Amazon Resource Name (ARN)
+of the role. If you want to run app with restricted permissions, take the following
+steps:
+    1. Use the AWS CLI to create an assume role profile. In the following commands,
+    replace the value of `role_arn` with the RoleArn from the setup script output, 
+    replace the value of `source_profile` with the user profile you use to connect to 
+    AWS from Boto3 (the default is `default`), and replace the value of `region` with
+    your AWS Region.
+       ```
+       aws configure set role_arn arn:aws:iam::111122223333:role/doc-example-work-item-tracker-role --profile item_tracker_role
+       aws configure set source_profile default --profile item_tracker_role
+       aws configure set region YOUR-AWS-REGION --profile item_tracker_role
+       ``` 
+    1. You can find the entry for this profile in your `~/.aws/config` file under the
+    heading `[profile item_tracker_role]`. Or verify it with the AWS CLI.
+       ```
+       aws configure list --profile item_tracker_role
+       ```
+    1. Add an 'ITEM_TRACKER_PROFILE' value to the `config.py` file created by the setup
+    script.
+       ```
+       ITEM_TRACKER_PROFILE = 'item_tracker_role'
+       ```  
 
-1. Open AWS Identity and Access Management (IAM) in the 
-[AWS Management Console](console.aws.amazon.com/iam). 
-1. Select **Users**.
-1. Search for the user created by the setup script. You can find the UserName in the 
-outputs from the setup script. The default value is `doc-example-work-item-tracker-user`.
-1. Select the user in the console.
-1. Select the **Security credentials** tab.
-1. Select **Create access key**.
-1. A **Create access key** window appears. Select **Download .csv file**.
-1. Edit the .csv file to add a "User Name" heading and value. Your .csv file will look
-something like this:
+**Note:** The example can be run with default permissions or with restricted 
+permissions. When you run the app, it checks the `ITEM_TRACKER_PROFILE` value in 
+`config.py`. If this entry exists, Boto3 is configured to use that profile to assume the 
+specified role. The result is that Boto3 is granted restricted permissions instead of
+the default user permissions, and the app is only able to make AWS requests that are 
+allowed by the role. 
+
+## Run the example
+
+This example uses Flask to host a local web server, so running the app requires a
+browser as well as the command line.
+
+1. Run the app at the a command prompt to start the Flask web server.
    ```
-   User Name,Access key ID,Secret access key
-   item_tracker,AIDACKCEVSQ6C2EXAMPLE,wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+   python app.py
    ```
-1. Use the AWS CLI to import the access keys to your credentials file:
+   Among other things, the app will log whether it is using default credentials or 
+   restricted credentials and the URL where the app is hosted.
    ```
-   aws configure import --csv file://doc-example-work-item-tracker-user_accessKeys.csv
+   INFO: Using credentials from restricted profile item_tracker_role.
+   INFO:  * Running on http://127.0.0.1:5000/
    ```
-1. This creates an `item_tracker` profile in your AWS credentials file that contains
-the access keys for the user.
-1. You can find the entry for this profile in your `~/.aws/credentials` file.
-1. Use the AWS CLI to create an assume role profile. The `role_arn` is the RoleArn
-value output from the setup script and the `source_profile` is the user profile created 
-in the previous steps.
-   ```
-   aws configure set role_arn arn:aws:iam::111122223333:role/doc-example-work-item-tracker-role --profile item_tracker_role
-   aws configure set source_profile item_tracker --profile item_tracker_role
-   aws configure set region YOUR-AWS-REGION --profile item_tracker_role
-   ``` 
-1. You can find the entry for this profile in your `~/.aws/config` file.
-1. Set an 'ITEM_TRACKER_PROFILE' environment variable with the name of the role profile.
-   Windows
-   ```
-   set ITEM_TRACKER_PROFILE=item_tracker_role
-   ```  
-   Linux
-   ```
-   export ITEM_TRACKER_PROFILE=item_tracker_role
-   ```
-1. Now when you run the example, it configures Boto3 to use the `item_tracker_role` 
-profile. This causes Boto3 to use the source `item_tracker` profile credentials to 
-assume the role specified by the role ARN. Because the role has restricted permissions, 
-the application is prevented from making AWS requests other than those granted by the 
-role.
+1. Start a web browser and browse to the app URL. 
