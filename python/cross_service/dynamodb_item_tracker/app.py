@@ -15,11 +15,18 @@ def create_app(test_config=None):
     app = Flask(__name__)
     app.config.from_mapping(
         SECRET_KEY='change-for-production!',
-        TABLE_NAME='doc-example-work-item-tracker')
+        TABLE_NAME='doc-example-work-item-tracker',
+        ITEM_TRACKER_PROFILE=None)
     if test_config is None:
         app.config.from_pyfile("config.py", silent=True)
     else:
         app.config.update(test_config)
+    restricted_profile = app.config.get('ITEM_TRACKER_PROFILE')
+    if restricted_profile is not None:
+        logger.info("Using credentials from restricted profile %s.", restricted_profile)
+        boto3.setup_default_session(profile_name=restricted_profile)
+    else:
+        logger.info("Using default credentials.")
 
     def add_formatted_date(work_item):
         work_item['formatted_date'] = datetime.fromisoformat(
@@ -121,10 +128,4 @@ def create_app(test_config=None):
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
-    restricted_profile = os.environ.get('ITEM_TRACKER_PROFILE')
-    if restricted_profile is not None:
-        logger.info("Using credentials from restricted profile %s.", restricted_profile)
-        boto3.setup_default_session(profile_name=restricted_profile)
-    else:
-        logger.info("Using default credentials.")
     create_app().run(debug=True)
