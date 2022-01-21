@@ -19,7 +19,7 @@ You can create a native Android application that has subscription and publish fu
 #### Topics
 
 + Prerequisites
-+ Understand the Publish/Subscription application
++ Understand the Publish-Subscribe application
 + Create an Android project 
 + Add the dependencies to your Andorid project
 + Create the layout XML file for your Android project
@@ -53,7 +53,7 @@ Create an Amazon SNS queue that is used. For information, see [Creating an Amazo
 
 In addition, make sure that you setup your Kotlin developer environment before following along with this tutorial. For more information, see [Setting up the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html). 
 
-## Understand the Publish/Subscription application
+## Understand the Publish-Subscribe application
 
 To subscribe to an Amazon SNS topic, the user enters a valid email address into the Android application and chooses the **Subscribe** button. 
 
