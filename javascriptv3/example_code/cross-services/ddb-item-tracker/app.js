@@ -186,7 +186,7 @@ app.post("/uploadCSV", (req, res) => {
               Data: "Report ready.",
             },
           },
-          Source: "brmur@amazon.com",
+          Source: "SENDER_EMAIL_ADDRESS",
           ReplyToAddresses: [
             /* more items */
           ],
