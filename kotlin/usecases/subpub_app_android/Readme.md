@@ -575,4 +575,4 @@ To run the application from the IDE, you must ensure that have you have installe
 Once you install the emulator, you can run the application and then the application appears in the emulator. 
 
 ### Next steps
-Congratulations! You have created a Native Android application that interacts with AWS services by using the AWS SDK for Kotlin. As stated at the beginning of this tutorial, be sure to terminate all of the resources that you created while going through this tutorial to ensure that you’re no longer charged for them.
+Congratulations! You have created a native Android application that interacts with AWS services by using the AWS SDK for Kotlin. As stated at the beginning of this tutorial, be sure to terminate all of the resources that you created while going through this tutorial to ensure that you’re no longer charged for them.
