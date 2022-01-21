@@ -15,7 +15,8 @@ aws-smithy-http = { version = "0.34.1", features = ["rt-tokio"] }
 aws-smithy-types = "0.34.1"
 http = "0.2.5"
 rand = "0.8.3"
+serde_json = "1"
 structopt = { version = "0.3", default-features = false }
 tokio = { version = "1", features = ["full"] }
-serde_json = "1"
-tracing-subscriber = { version = "0.2.16", features = ["fmt"] }
+#tokio-stream = "0.1.8"
+tracing-subscriber = { version = "0.3.5", features = ["env-filter"] }

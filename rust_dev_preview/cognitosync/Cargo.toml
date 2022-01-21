@@ -12,4 +12,4 @@ aws-sdk-cognitosync = "0.4.1"
 aws-smithy-types-convert = { version = "0.34.1", features = ["convert-chrono"] }
 tokio = { version = "1", features = ["full"] }
 structopt = { version = "0.3", default-features = false }
-tracing-subscriber = "0.2.18"
+tracing-subscriber = { version = "0.3.5", features = ["env-filter"] }

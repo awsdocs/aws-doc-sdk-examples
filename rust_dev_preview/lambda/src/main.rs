@@ -3,6 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+use lambda_runtime::handler_fn;
+use log::{error, info};
+use serde::{Deserialize, Serialize};
+
 // snippet-start:[lambda.rust.main]
 #[derive(Deserialize)]
 struct Request {

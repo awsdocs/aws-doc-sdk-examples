@@ -54,7 +54,7 @@ async fn send_message(
     let contacts = resp.contacts().unwrap_or_default();
 
     let cs: String = contacts
-        .into_iter()
+        .iter()
         .map(|i| i.email_address().unwrap_or_default())
         .collect();
 

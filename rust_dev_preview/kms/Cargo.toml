@@ -12,4 +12,4 @@ aws-smithy-client = { version = "0.34.1", features = ["client-hyper", "rustls", 
 tokio = { version = "1", features = ["full"]}
 base64 = "0.13.0"
 structopt = { version = "0.3", default-features = false }
-tracing-subscriber = { version = "0.2.16", features = ["fmt"] }
+tracing-subscriber = { version = "0.3.5", features = ["env-filter"] }
