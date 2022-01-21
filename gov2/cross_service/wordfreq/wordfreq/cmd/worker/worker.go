@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 package main
 
 import (
@@ -23,7 +25,7 @@ func countTopWords(reader io.Reader, top int) ([]wordfreq.Word, error) {
 }
 
 // countWords collects the counts of all words received from an io.Reader. Using
-// a word scanner unique words are counted. This is a fairly simplistic implementation
+// a word scanner, every word gets counted. This is a fairly simplistic implementation
 // of word counting and only splits words based on whitespace. Extra characters
 // such as `.,"'?!` are trimmed from the front and end of each string
 func countWords(reader io.Reader) (map[string]int, error) {

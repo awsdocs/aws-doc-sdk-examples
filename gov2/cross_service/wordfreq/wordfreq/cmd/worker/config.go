@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 package main
 
 import (
@@ -67,12 +69,13 @@ func GetConfig() (Config, error) {
 	if c.AwsConfig.Region == "" {
 		// imds gives us information about where we are
 		imdsClient := imds.NewFromConfig(*c.AwsConfig, nil)
-		// Get the region
+		// Get the region ...
 		regionInfo, err := imdsClient.GetRegion(context.TODO(), &imds.GetRegionInput{})
 		if err != nil {
 			log.Fatal("Couldn't get EC2 metadata based region", zap.Error(err))
 		}
-		// and set our region to the region we're in so that there's no ambiguity.
+		// ... and set our configuration's region to the region we're
+		// actually in so that there's no ambiguity.
 		c.AwsConfig.Region = regionInfo.Region
 	}
 

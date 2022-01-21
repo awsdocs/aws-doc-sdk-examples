@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 package shared
 
 import (
@@ -47,8 +49,7 @@ type JobMessage struct {
 }
 
 // Turn an SQS message into a batch
-// TODO: should take a JobMessage
-// TODO: This does not filter out s3:objectDelete events.
+// NOTE: This does not filter out s3:objectDelete events.
 func (batch *JobBatch) FromSQSMessage(BatchID string, ReceiptHandle string, QueueUrl string, Records []s3events.Record) error {
 
 	batch.Message = JobMessage{

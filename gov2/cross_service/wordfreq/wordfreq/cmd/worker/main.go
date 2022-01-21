@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX - License - Identifier: Apache - 2.0
 package main
 
 import (
@@ -94,16 +96,6 @@ func JobParser(config Config, JobQueue chan<- shared.JobBatch) {
 		if len(queueItem.Messages) == 0 {
 			time.Sleep(10 * time.Second)
 			log.Debug("Waiting for more messages...")
-
-			/*
-
-				A discussion on long polling:
-
-
-
-
-			*/
-
 		} else {
 			log.Info("Processing message from SQS", zap.Int("messageCount", len(queueItem.Messages)))
 			for _, queueMessage := range queueItem.Messages {
