@@ -1,4 +1,4 @@
-# Creating a publish/subscription Android application that translates messages using the AWS SDK for Kotlin
+# Creating a publish-subscription Android application that translates messages using the AWS SDK for Kotlin
 
 ## Overview
 
