@@ -334,7 +334,7 @@ The following Kotlin code represents the **MainActivity** Kotlin class.
      }
 
      override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
+     
      }
 
     // Publish a message.
