@@ -1,6 +1,10 @@
 from datetime import datetime
-from flask import Flask, render_template, redirect, url_for, request, flash
 import logging
+import os
+
+import boto3
+from flask import Flask, render_template, redirect, url_for, request, flash
+
 from report import Report, ReportError
 from storage import Storage, StorageError
 
@@ -11,7 +15,7 @@ def create_app(test_config=None):
     app = Flask(__name__)
     app.config.from_mapping(
         SECRET_KEY='change-for-production!',
-        TABLE_NAME='work-items')
+        TABLE_NAME='doc-example-work-item-tracker')
     if test_config is None:
         app.config.from_pyfile("config.py", silent=True)
     else:
@@ -117,4 +121,10 @@ def create_app(test_config=None):
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+    restricted_profile = os.environ.get('ITEM_TRACKER_PROFILE')
+    if restricted_profile is not None:
+        logger.info("Using credentials from restricted profile %s.", restricted_profile)
+        boto3.setup_default_session(profile_name=restricted_profile)
+    else:
+        logger.info("Using default credentials.")
     create_app().run(debug=True)

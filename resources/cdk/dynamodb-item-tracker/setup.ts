@@ -12,17 +12,15 @@
 //
 //  * An AWS Identity and Access Management (IAM) role that grants permission to read
 //  from and write to the table, and send email through Amazon Simple Email Service
-//  (Amazon SES).
-//
-//  * An IAM user that has permission only to assume the previously created role.
+//  (Amazon SES). This role can be assumed by the current user.
 //
 // This stack is used by the python/cross_service/dynamodb_item_tracker example.
 
 import 'source-map-support/register';
-import { Construct } from "constructs";
-import { App, Stack, StackProps, RemovalPolicy, CfnOutput } from 'aws-cdk-lib';
-import { Table, AttributeType } from 'aws-cdk-lib/aws-dynamodb'
-import { User, AccessKey, Effect, PolicyStatement, Role } from "aws-cdk-lib/aws-iam";
+import {Construct} from "constructs";
+import {App, CfnOutput, RemovalPolicy, Stack, StackProps} from 'aws-cdk-lib';
+import {AttributeType, Table} from 'aws-cdk-lib/aws-dynamodb'
+import {Effect, PolicyStatement, Role, User, AccountPrincipal} from "aws-cdk-lib/aws-iam";
 
 export class SetupStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -37,16 +35,9 @@ export class SetupStack extends Stack {
       removalPolicy: RemovalPolicy.DESTROY
     });
 
-    const item_tracker_user: User = new User(this, 'doc-example-work-item-tracker-user', {
-      userName: 'doc-example-work-item-tracker-user'
-    });
-    const item_tracker_user_keys = new AccessKey(this, 'doc-example-work-item-tracker-user-key', {
-      user: item_tracker_user
-    });
-
     const item_tracker_role: Role = new Role(this, 'doc-example-work-item-tracker-role', {
       roleName: 'doc-example-work-item-tracker-role',
-      assumedBy: item_tracker_user,
+      assumedBy: new AccountPrincipal(this.account) //item_tracker_user
     });
     table.grantReadWriteData(item_tracker_role)
     item_tracker_role.addToPolicy(new PolicyStatement({
@@ -56,9 +47,6 @@ export class SetupStack extends Stack {
     }));
 
     new CfnOutput(this, 'TableName', {value: table.tableName})
-    new CfnOutput(this, 'UserName', {value: item_tracker_user.userName})
-    new CfnOutput(this, 'UserAccessKey', {value: item_tracker_user_keys.accessKeyId})
-    new CfnOutput(this, 'UserAccessSecretKey', {value: item_tracker_user_keys.secretAccessKey.toString()})
     new CfnOutput(this, 'RoleArn', {value: item_tracker_role.roleArn})
   }
 }
