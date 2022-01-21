@@ -88,7 +88,7 @@ namespace S3_BasicsScenario
             }
         }
 
-        // snippet-start:[S3.dotnetv3.S3_Basics-UploadFile]
+        // snippet-end:[S3.dotnetv3.S3_Basics-UploadFile]
 
         // snippet-start:[S3.dotnetv3.S3_Basics-DownloadObject]
 
@@ -137,7 +137,7 @@ namespace S3_BasicsScenario
             }
         }
 
-        // snippet-start:[S3.dotnetv3.S3_Basics-DownloadObject]
+        // snippet-end:[S3.dotnetv3.S3_Basics-DownloadObject]
 
         // snippet-start:[S3.dotnetv3.S3_Basics-CopyObject]
 
