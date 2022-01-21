@@ -11,6 +11,51 @@ The Java examples perform AWS operations for the account and AWS Region for whic
 Some of these examples perform *destructive* operations on AWS resources, such as deleting a user. **Be very careful** when running an operation that
 deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
+You will find these IAM Java examples:
+
+- **AccessKeyLastUsed** - Demonstrates how to display the time that an access key was last used.
+- **AttachRolePolicy** - Demonstrates how to attach a policy to an existing AWS IAM role.
+- **CreateAccessKey** - Demonstrates how to create an access key for an AWS IAM user.
+- **CreateAccountAlias** - Demonstrates how to create an alias for an AWS account.
+- **CreatePolicy** - Demonstrates how to create a policy.
+- **CreateRole** - Demonstrates how to create an AWS IAM role
+- **CreateUser** - Demonstrates how to create an AWS IAM user.
+- **DeleteAccessKey** - Demonstrates how to delete an access key from an AWS IAM user.
+- **DeleteAccountAlias** - Demonstrates how to delete an alias from an AWS account.
+- **DeletePolicy** - Demonstrates how to delete a fixed policy with a provided policy name.
+- **DeleteServerCertificate** - Demonstrates how to delete an AWS IAM server certificate.
+- **DeleteUser** - Demonstrates how to delete an AWS IAM user.
+- **DetachRolePolicy** - Demonstrates how to detach a policy from an AWS IAM role.
+- **GetPolicy** - Demonstrates how to get the details for an AWS IAM policy.
+- **GetRole** - Demonstrates how to get information about the specified AWS IAM role.
+- **GetServerCertificate** - Demonstrates how to get information about an AWS IAM server certificate.
+- **IAMScenario** - Demonstrates how to perform various AWS IAM operations.
+- **ListAccessKeys**  - Demonstrates how to list access keys associated with an AWS IAM user.
+- **ListAccountAliases** - Demonstrates how to list all aliases associated with an AWS account.
+- **ListServerCertificates** - Demonstrates how to list all server certificates associated with an AWS account.
+- **ListUsers** - Demonstrates how to list all AWS IAM users.
+- **UpdateServerCertificate** - Demonstrates how to update the name of an AWS IAM server certificate.
+- **UpdateUser** - Demonstrates how to update the name of an AWS IAM user.
+
+
+**JSON File**
+
+To successfully run the **IAMScenario**, you need a JSON file that contains the information to create a role. Included in this file is the ARN of the IAM user for the trust relationship. The following JSON shows an example. 
+
+    {
+     "Version": "2012-10-17",
+      "Statement": [
+       {
+       "Effect": "Allow",
+       "Principal": {
+         "AWS": "<Enter the IAM User ARN value>"
+       },
+       "Action": "sts:AssumeRole",
+       "Condition": {}
+      }
+     ]
+    }
+
 To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
@@ -34,6 +79,12 @@ Define these values to successfully run the JUnit tests:
 - **policyName** – A policy name that is used to create a policy.
 - **roleName** – A role name. You can obtain this value from the AWS Management Console.
 - **accountAlias** – A value that is used to create an account alias. For example, **myawsaccount10**.-
+- **usernameSc** -  The name of the IAM user to create for the IAMScenario test.
+- **policyNameSc** - The name of the policy to create for the IAMScenario test.
+- **roleNameSc** - The name of the role to create for the IAMScenario test.
+- **roleSessionName** - The name of the session required for the assumeRole operation for the IAMScenario test.
+- **fileLocationSc** - The file location of the JSON file for the IAMScenario test. 
+- **bucketNameSc** - The name of the Amazon S3 bucket from which objects are read for the IAMScenario test.
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.

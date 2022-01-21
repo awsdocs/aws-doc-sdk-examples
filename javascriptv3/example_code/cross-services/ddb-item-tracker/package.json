@@ -1,0 +1,28 @@
+{
+  "name": "Amazon DynamoDB Item Tracker cross-service example (AWS SDK for JavaScript)",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity": "^3.32.0",
+    "@aws-sdk/client-dynamodb": "^3.32.0",
+    "@aws-sdk/client-ses": "^3.32.0",
+    "@aws-sdk/credential-provider-cognito-identity": "^3.32.0",
+    "@aws-sdk/lib-dynamodb": "^3.32.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jest": "^26.6.3",
+    "node-uuid": "^1.4.8",
+    "uuid": "^8.1.0"
+  },
+  "author": "",
+  "license": "Apache 2.0",
+  "type": "module",
+  "devDependencies": {
+    "prettier": "2.5.1"
+  }
+}

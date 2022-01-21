@@ -9,6 +9,7 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"os"
 
 	"github.com/aws/aws-sdk-go-v2/config"
 
@@ -105,10 +106,14 @@ func main() {
 	}
 
 	myDetails := "{ "
-	for _, d := range event.Details {
-		myDetails = myDetails + "\"" + d.Key + "\": \"" + d.Value + "\","
+	for i, d := range event.Details {
+		if i == (len(event.Details) - 1) {
+			myDetails = myDetails + "\"" + d.Key + "\": \"" + d.Value + "\""	
+		} else {
+			myDetails = myDetails + "\"" + d.Key + "\": \"" + d.Value + "\","
+		}
 	}
-
+	
 	myDetails = myDetails + " }"
 
 	input := &cloudwatchevents.PutEventsInput{
@@ -124,13 +129,24 @@ func main() {
 		},
 	}
 
-	_, err = CreateEvent(context.TODO(), client, input)
+	resp, err := CreateEvent(context.TODO(), client, input)
 	if err != nil {
 		fmt.Println("Could not create event:")
 		fmt.Println(err)
 		return
 	}
 
+	if resp.FailedEntryCount != 0 {
+		fmt.Println("Error Sending Event")
+	}
+
+	for _, entry := range resp.Entries {
+		if entry.EventId == nil {
+			fmt.Printf("Error Code is '%s', ", *entry.ErrorCode)
+			fmt.Printf("Error Message is '%s'", *entry.ErrorMessage)
+			os.Exit(1)
+		}
+	}
 	fmt.Println("Created event")
 }
 
