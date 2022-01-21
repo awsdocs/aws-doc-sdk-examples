@@ -566,7 +566,7 @@ The following Kotlin code represents the **MainActivity** Kotlin class.
 
 ```
 
-**Note**: Be sure that you enter your topic ARN and your credential key values; otherwise, you code does not work. 
+**Note**: Be sure that you enter your topic ARN and your credential key values; otherwise, your code does not work. 
 
 ## Run the Android application
 
