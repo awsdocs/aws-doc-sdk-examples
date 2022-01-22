@@ -25,7 +25,7 @@ This example displays a transcription of a WAV audio file.
   If the environment variable is not set, defaults to __us-west-2__.
 - __-v__ displays additional information.
 
-If you run it with the WAV file in __audio/hello-transcribe-8000.wav__, you should see the following transcribed text:
+If you run it with the WAV file in __.audio/hello-transcribe-8000.wav__, you should see the following transcribed text:
 
 ```
 Good day to you transcribe.
