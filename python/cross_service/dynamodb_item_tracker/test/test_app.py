@@ -1,14 +1,17 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 from contextlib import contextmanager
 from datetime import datetime
 
 import boto3
-from boto3.dynamodb.conditions import Attr
 from botocore.stub import ANY
 from flask import appcontext_pushed, g
 import pytest
 
 from app import create_app
 from storage import Storage
+from report import Report
 
 
 _TABLE_NAME = 'test-table'
@@ -18,6 +21,13 @@ _TABLE_NAME = 'test-table'
 def storage_set(app, storage):
     def handler(sender, **kwargs):
         g.storage = storage
+    with appcontext_pushed.connected_to(handler, app):
+        yield
+
+@contextmanager
+def report_set(app, report):
+    def handler(sender, **kwargs):
+        g.report = report
     with appcontext_pushed.connected_to(handler, app):
         yield
 
@@ -205,3 +215,92 @@ def test_item_delete(make_stubber, error_code):
                 assert b"Couldn't delete item"
                 assert b"TestException" in rv.data
                 assert b'<div class="alert' in rv.data
+
+
+@pytest.mark.parametrize('item_count, error_code', [
+    (5, None),
+    (0, None),
+    (5, 'TestException')])
+def test_report_get(make_stubber, item_count, error_code):
+    ddb_resource = boto3.resource('dynamodb')
+    ddb_stubber = make_stubber(ddb_resource.meta.client)
+    ses_client = boto3.client('ses')
+    ses_stubber = make_stubber(ses_client)
+    table = ddb_resource.Table(_TABLE_NAME)
+    storage = Storage(table, ddb_resource)
+    report = Report(ses_client)
+    app = create_app({'TESTING': True, 'TABLE_NAME': _TABLE_NAME})
+    status_filter = 'Open'
+    items = [{
+        'item_id': f'id-{ind}',
+        'name': f'Name {ind}',
+        'description': f'Description {ind}!',
+        'created_date': str(datetime.now()),
+        'status': f'Open'
+    } for ind in range(5)]
+
+    ddb_stubber.stub_scan(
+        _TABLE_NAME, items, filter_expression=ANY, error_code=error_code)
+
+    with storage_set(app, storage):
+        with app.test_client() as client:
+            rv = client.get(f'/report/{status_filter}')
+            if error_code is None:
+                for item in items:
+                    assert item['name'].encode() in rv.data
+                    assert item['description'].encode() in rv.data
+                    assert datetime.fromisoformat(
+                        item['created_date']).strftime('%b %d %Y').encode() in rv.data
+                    assert item['status'].encode() in rv.data
+                    assert b'<div class="alert' not in rv.data
+                if not items:
+                    assert b'No items found in table' in rv.data
+            else:
+                assert b"Couldn't get items from table"
+                assert b"TestException" in rv.data
+                assert b'<div class="alert' in rv.data
+
+@pytest.mark.parametrize('item_count, error_code', [
+    (5, None),
+    (0, None),
+    (5, 'TestException')])
+def test_report_post(make_stubber, item_count, error_code):
+    ddb_resource = boto3.resource('dynamodb')
+    ddb_stubber = make_stubber(ddb_resource.meta.client)
+    ses_client = boto3.client('ses')
+    ses_stubber = make_stubber(ses_client)
+    table = ddb_resource.Table(_TABLE_NAME)
+    storage = Storage(table, ddb_resource)
+    report = Report(ses_client)
+    app = create_app({'TESTING': True, 'TABLE_NAME': _TABLE_NAME})
+    status_filter = 'Open'
+    items = [{
+        'item_id': f'id-{ind}',
+        'name': f'Name {ind}',
+        'description': f'Description {ind}!',
+        'created_date': str(datetime.now()),
+        'status': f'Open'
+    } for ind in range(5)]
+    post_data = {
+        'message': 'Test message',
+        'sender': 'test-sender',
+        'recipient': 'test-recipient'
+    }
+
+    ddb_stubber.stub_scan(_TABLE_NAME, items, filter_expression=ANY)
+    ses_stubber.stub_send_email(
+        post_data['sender'], {'ToAddresses': [post_data['recipient']]},
+        f"Report for items with status '{status_filter}'",
+        ANY, ANY, 'test-id', error_code=error_code)
+    ddb_stubber.stub_scan(_TABLE_NAME, items)
+
+    with storage_set(app, storage):
+        with report_set(app, report):
+            with app.test_client() as client:
+                rv = client.post(
+                    f'/report/{status_filter}', data=post_data, follow_redirects=True)
+                if error_code is None:
+                    assert b"Report sent" in rv.data
+                else:
+                    assert b"Report not sent" in rv.data
+                    assert b"TestException" in rv.data
