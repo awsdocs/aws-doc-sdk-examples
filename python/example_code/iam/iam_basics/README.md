@@ -20,7 +20,7 @@ that control which AWS resources users and applications can access.*
 
 ### Scenario examples
 
-* [Create read-only and write-only users](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/user_wrapper.py)
+* [Create read-only and read-write users](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/user_wrapper.py)
 * [Manage access keys](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/access_key_wrapper.py)
 * [Manage policies](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/policy_wrapper.py)
 * [Manage roles](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/role_wrapper.py)
