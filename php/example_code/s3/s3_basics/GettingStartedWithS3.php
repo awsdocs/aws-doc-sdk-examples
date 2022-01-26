@@ -13,6 +13,16 @@ resources at the end of the demo.
 This example follows the steps in "Getting started with Amazon S3" in the Amazon S3
 user guide.
     - https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html
+
+You will need to run the following command to install dependencies:
+ composer install
+
+Then run the example either directly with:
+ php GettingStartedWithS3.php
+
+or as a PHPUnit test:
+ vendor/bin/phpunit S3Tests.php
+
 /**/
 
 # snippet-start:[php.example_code.s3.Scenario_GettingStarted]
