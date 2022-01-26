@@ -44,6 +44,7 @@ members = [
     "s3",
     "sagemaker",
     "secretsmanager",
+    "sending-presigned-requests",
     "ses",
     "setting_timeouts",
     "snowball",
@@ -52,5 +53,5 @@ members = [
     "ssm",
     "testing",
     "transcribestreaming",
-    "using_native_tls_instead_of_rustls"
+    "using-native-tls-instead-of-rustls"
 ]
