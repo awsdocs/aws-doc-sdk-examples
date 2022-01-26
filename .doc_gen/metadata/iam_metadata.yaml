@@ -1297,9 +1297,9 @@ iam_DetachUserPolicy:
   services:
     iam: {DetachUserPolicy}
 iam_Scenario_UserPolicies:
-  title: Create read-only and write-only &IAM; users using an &AWS; SDK
-  title_abbrev: Create read-only and write-only users
-  synopsis: create two &IAMlong; (&IAM;) users, where one user can only put
+  title: Create read-only and read-write &IAM; users using an &AWS; SDK
+  title_abbrev: Create read-only and read-write users
+  synopsis: create two &IAMlong; (&IAM;) users, where one user can get and put
     objects in an &S3long; (&S3;) bucket and the other can only get objects from
     the bucket. The users' credentials are then used to move objects in and out of
     the bucket.
