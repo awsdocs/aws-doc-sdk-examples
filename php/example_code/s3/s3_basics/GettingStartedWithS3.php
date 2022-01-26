@@ -4,26 +4,26 @@
 # SPDX-License-Identifier: Apache-2.0
 
 /**
-Purpose
-
-Shows how to use AWS SDK for PHP v3 to get started using Amazon Simple Storage
-Service (Amazon S3). Create a bucket, move objects into and out of it, and delete all
-resources at the end of the demo.
-
-This example follows the steps in "Getting started with Amazon S3" in the Amazon S3
-user guide.
-    - https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html
-
-You will need to run the following command to install dependencies:
- composer install
-
-Then run the example either directly with:
- php GettingStartedWithS3.php
-
-or as a PHPUnit test:
- vendor/bin/phpunit S3Tests.php
-
-/**/
+ * Purpose
+ *
+ * Shows how to use AWS SDK for PHP v3 to get started using Amazon Simple Storage
+ * Service (Amazon S3). Create a bucket, move objects into and out of it, and delete all
+ * resources at the end of the demo.
+ *
+ * This example follows the steps in "Getting started with Amazon S3" in the Amazon S3
+ * user guide.
+ * - https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html
+ *
+ * You will need to run the following command to install dependencies:
+ * composer install
+ *
+ * Then run the example either directly with:
+ * php GettingStartedWithS3.php
+ *
+ * or as a PHPUnit test:
+ * vendor/bin/phpunit S3Tests.php
+ *
+ * /**/
 
 # snippet-start:[php.example_code.s3.Scenario_GettingStarted]
 require 'vendor/autoload.php';
@@ -50,7 +50,7 @@ try {
         'CreateBucketConfiguration' => ['LocationConstraint' => $region],
     ]);
     echo "Created bucket named: $bucket_name \n";
-} catch (Exception $exception){
+} catch (Exception $exception) {
     echo "Failed to create bucket $bucket_name with error: " . $exception->getMessage();
     exit("Please fix error with bucket creation before continuing.");
 }
@@ -64,7 +64,7 @@ try {
         'SourceFile' => 'testfile.txt'
     ]);
     echo "Uploaded $file_name to $bucket_name.\n";
-} catch (Exception $exception){
+} catch (Exception $exception) {
     echo "Failed to upload $file_name with error: " . $exception->getMessage();
     exit("Please fix error with file upload before continuing.");
 }
@@ -78,7 +78,7 @@ try {
     $body = $file->get('Body');
     $body->rewind();
     echo "Downloaded the file and it begins with: {$body->read(26)}.\n";
-} catch (Exception $exception){
+} catch (Exception $exception) {
     echo "Failed to download $file_name from $bucket_name with error: " . $exception->getMessage();
     exit("Please fix error with file downloading before continuing.");
 }
@@ -92,7 +92,7 @@ try {
         'Key' => "$folder/$file_name-copy",
     ]);
     echo "Copied $file_name to $folder/$file_name-copy.\n";
-} catch (Exception $exception){
+} catch (Exception $exception) {
     echo "Failed to copy $file_name with error: " . $exception->getMessage();
     exit("Please fix error with object copying before continuing.");
 }
@@ -103,10 +103,10 @@ try {
         'Bucket' => $bucket_name,
     ]);
     echo "The contents of your bucket are: \n";
-    foreach($contents['Contents'] as $content){
+    foreach ($contents['Contents'] as $content) {
         echo $content['Key'] . "\n";
     }
-} catch (Exception $exception){
+} catch (Exception $exception) {
     echo "Failed to list objects in $bucket_name with error: " . $exception->getMessage();
     exit("Please fix error with listing objects before continuing.");
 }
@@ -128,7 +128,7 @@ try {
         'Key' => $folder,
     ]);
     echo "Deleted $folder from $bucket_name.\n";
-} catch (Exception $exception){
+} catch (Exception $exception) {
     echo "Failed to delete $file_name from $bucket_name with error: " . $exception->getMessage();
     exit("Please fix error with object deletion before continuing.");
 }
@@ -139,7 +139,7 @@ try {
         'Bucket' => $bucket_name,
     ]);
     echo "Deleted bucket $bucket_name.\n";
-} catch (Exception $exception){
+} catch (Exception $exception) {
     echo "Failed to delete $bucket_name with error: " . $exception->getMessage();
     exit("Please fix error with bucket deletion before continuing.");
 }
