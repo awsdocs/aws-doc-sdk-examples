@@ -68,22 +68,22 @@ namespace S3_BasicsScenario
             string objectName,
             string filePath)
         {
-            using ITransferUtility transfer = new TransferUtility(client);
-            try
+            var request = new PutObjectRequest
             {
-                var request = new TransferUtilityUploadRequest
-                {
-                    BucketName = bucketName,
-                    Key = objectName,
-                    FilePath = filePath,
-                };
+                BucketName = bucketName,
+                Key = objectName,
+                FilePath = filePath,
+            };
 
-                await transfer.UploadAsync(request);
+            var response = await client.PutObjectAsync(request);
+            if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
+            {
+                Console.WriteLine($"Successfully uploaded {objectName} to {bucketName}.");
                 return true;
             }
-            catch (AmazonS3Exception ex)
+            else
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                Console.WriteLine($"Could not upload {objectName} to {bucketName}.");
                 return false;
             }
         }
@@ -93,7 +93,7 @@ namespace S3_BasicsScenario
         // snippet-start:[S3.dotnetv3.S3_Basics-DownloadObject]
 
         /// <summary>
-        /// Sows how to download an object from and Amazon S3 bucket to the
+        /// Sows how to download an object from an Amazon S3 bucket to the
         /// local computer.
         /// </summary>
         /// <param name="client">An initialized Amazon S3 client object.</param>
@@ -110,29 +110,25 @@ namespace S3_BasicsScenario
             string objectName,
             string filePath)
         {
-            using ITransferUtility transfer = new TransferUtility(client);
+            // Create a GetObject request
+            GetObjectRequest request = new GetObjectRequest
+            {
+                BucketName = bucketName,
+                Key = objectName,
+            };
+
+            // Issue request and remember to dispose of the response
+            using GetObjectResponse response = await client.GetObjectAsync(request);
+
             try
             {
-                var request = new TransferUtilityDownloadRequest
-                {
-                    BucketName = bucketName,
-                    FilePath = filePath,
-                    Key = objectName,
-                };
-
-                await transfer.DownloadAsync(request);
-
-                if (File.Exists($"{filePath}\\{objectName}"))
-                {
-                    return true;
-                }
-
-                return false;
+                // Save object to local file
+                await response.WriteResponseStreamToFileAsync($"{filePath}\\{objectName}", true, System.Threading.CancellationToken.None);
+                return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
             }
-            catch (AmazonS3Exception e)
+            catch (AmazonS3Exception ex)
             {
-                // If the bucket or the object do not exist
-                Console.WriteLine($"Error: '{e.Message}'");
+                Console.WriteLine($"Error saving {objectName}: {ex.Message}");
                 return false;
             }
         }
