@@ -21,7 +21,7 @@
  * php GettingStartedWithS3.php
  *
  * or as a PHPUnit test:
- * vendor/bin/phpunit S3Tests.php
+ * vendor/bin/phpunit S3BasicsTests.php
  *
  * /**/
 
@@ -43,7 +43,7 @@ $client = new S3Client([
 ]);
 $bucket_name = "doc-example-bucket-" . uniqid();
 
-//create bucket
+# snippet-start:[php.example_code.s3.basics.createBucket]
 try {
     $client->createBucket([
         'Bucket' => $bucket_name,
@@ -54,8 +54,9 @@ try {
     echo "Failed to create bucket $bucket_name with error: " . $exception->getMessage();
     exit("Please fix error with bucket creation before continuing.");
 }
+# snippet-end:[php.example_code.s3.basics.createBucket]
 
-//upload file (PutObject)
+# snippet-start:[php.example_code.s3.basics.putObject]
 $file_name = "local-file-" . uniqid();
 try {
     $client->putObject([
@@ -68,8 +69,9 @@ try {
     echo "Failed to upload $file_name with error: " . $exception->getMessage();
     exit("Please fix error with file upload before continuing.");
 }
+# snippet-end:[php.example_code.s3.basics.putObject]
 
-//download file (GetObject)
+# snippet-start:[php.example_code.s3.basics.getObject]
 try {
     $file = $client->getObject([
         'Bucket' => $bucket_name,
@@ -82,8 +84,9 @@ try {
     echo "Failed to download $file_name from $bucket_name with error: " . $exception->getMessage();
     exit("Please fix error with file downloading before continuing.");
 }
+# snippet-end:[php.example_code.s3.basics.getObject]
 
-//copy object
+# snippet-start:[php.example_code.s3.basics.copyObject]
 try {
     $folder = "copied-folder";
     $client->copyObject([
@@ -96,8 +99,9 @@ try {
     echo "Failed to copy $file_name with error: " . $exception->getMessage();
     exit("Please fix error with object copying before continuing.");
 }
+# snippet-end:[php.example_code.s3.basics.copyObject]
 
-//list objects
+# snippet-start:[php.example_code.s3.basics.listObjects]
 try {
     $contents = $client->listObjects([
         'Bucket' => $bucket_name,
@@ -110,30 +114,37 @@ try {
     echo "Failed to list objects in $bucket_name with error: " . $exception->getMessage();
     exit("Please fix error with listing objects before continuing.");
 }
+# snippet-end:[php.example_code.s3.basics.listObjects]
 
-//delete objects
+# snippet-start:[php.example_code.s3.basics.deleteObjects]
 try {
-    $client->deleteObject([
+    $objects = [];
+    foreach ($contents['Contents'] as $content) {
+        $objects[] = [
+            'Key' => $content['Key'],
+        ];
+    }
+    $client->deleteObjects([
         'Bucket' => $bucket_name,
         'Key' => $file_name,
+        'Delete' => [
+            'Objects' => $objects,
+        ],
     ]);
-    echo "Deleted $file_name from $bucket_name.\n";
-    $client->deleteObject([
+    $check = $client->listObjects([
         'Bucket' => $bucket_name,
-        'Key' => "$folder/$file_name-copy",
     ]);
-    echo "Deleted $folder/$file_name-copy from $bucket_name.\n";
-    $client->deleteObject([
-        'Bucket' => $bucket_name,
-        'Key' => $folder,
-    ]);
-    echo "Deleted $folder from $bucket_name.\n";
+    if (count($check) <= 0) {
+        throw new Exception("Bucket wasn't empty.");
+    }
+    echo "Deleted all objects and folders from $bucket_name.\n";
 } catch (Exception $exception) {
     echo "Failed to delete $file_name from $bucket_name with error: " . $exception->getMessage();
     exit("Please fix error with object deletion before continuing.");
 }
+# snippet-end:[php.example_code.s3.basics.deleteObjects]
 
-//delete bucket
+# snippet-start:[php.example_code.s3.basics.deleteBucket]
 try {
     $client->deleteBucket([
         'Bucket' => $bucket_name,
@@ -143,6 +154,7 @@ try {
     echo "Failed to delete $bucket_name with error: " . $exception->getMessage();
     exit("Please fix error with bucket deletion before continuing.");
 }
+# snippet-end:[php.example_code.s3.basics.deleteBucket]
 
 echo "Successfully ran the Amazon S3 with PHP demo.\n";
 

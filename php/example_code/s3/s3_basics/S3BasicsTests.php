@@ -4,7 +4,7 @@ namespace S3Basics;
 
 use PHPUnit\Framework\TestCase;
 
-class S3Tests extends TestCase
+class S3BasicsTests extends TestCase
 {
     public function testItRunsWithoutThrowingAnException()
     {
