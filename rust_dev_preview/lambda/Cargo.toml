@@ -7,10 +7,10 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = "0.4.1"
-aws-sdk-ec2 = "0.4.1"
-aws-sdk-lambda = "0.4.1"
-aws-sdk-s3 = "0.4.1"
+aws-config = "0.6.0"
+aws-sdk-ec2 = "0.6.0"
+aws-sdk-lambda = "0.6.0"
+aws-sdk-s3 = "0.6.0"
 env_logger = "0.9.0"
 lambda_runtime = "0.4"
 log = "0.4"
