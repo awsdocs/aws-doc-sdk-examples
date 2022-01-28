@@ -44,7 +44,7 @@ $client = new S3Client([
 $bucket_name = "doc-example-bucket-" . uniqid();
 
 # snippet-start:[php.example_code.s3.basics.createBucket]
-try {
+try{
     $client->createBucket([
         'Bucket' => $bucket_name,
         'CreateBucketConfiguration' => ['LocationConstraint' => $region],
@@ -95,7 +95,7 @@ try {
         'Key' => "$folder/$file_name-copy",
     ]);
     echo "Copied $file_name to $folder/$file_name-copy.\n";
-} catch (Exception $exception) {
+} catch (Exception $exception            ) {
     echo "Failed to copy $file_name with error: " . $exception->getMessage();
     exit("Please fix error with object copying before continuing.");
 }
