@@ -140,6 +140,7 @@ def show_access_denied_without_role(user_key):
             raise
 
 
+# snippet-start:[iam.python.assume_role.complete]
 def list_buckets_from_assumed_role(user_key, assume_role_arn, session_name):
     """
     Assumes a role that grants permission to list the Amazon S3 buckets in the account.
@@ -177,6 +178,7 @@ def list_buckets_from_assumed_role(user_key, assume_role_arn, session_name):
         print(f"Couldn't list buckets for the account. Here's why: "
               f"{error.response['Error']['Message']}")
         raise
+# snippet-end:[iam.python.assume_role.complete]
 
 
 def teardown(user, role):
