@@ -1631,10 +1631,10 @@ s3_Scenario_GettingStarted:
         - sdk_version: 3
           github: php/example_code/s3/s3_basics
           sdkguide:
-            excerpts:
-              - description:
-                snippet_tags:
-                  - php.example_code.s3.Scenario_GettingStarted
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.s3.Scenario_GettingStarted
     Python:
       versions:
         - sdk_version: 3
