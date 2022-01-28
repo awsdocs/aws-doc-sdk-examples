@@ -1632,7 +1632,7 @@ s3_Scenario_GettingStarted:
           github: php/example_code/s3/s3_basics
           sdkguide:
             excerpts:
-              - description
+              - description:
                 snippet_tags:
                   - php.example_code.s3.Scenario_GettingStarted
     Python:
