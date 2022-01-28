@@ -37,15 +37,23 @@ echo("--------------------------------------\n");
 $region = 'us-west-2';
 $version = 'latest';
 
-$client = new S3Client([
+$s3client = new S3Client([
     'region' => $region,
     'version' => $version
 ]);
+/* Inline declaration example
+# snippet-start:[php.example_code.s3.basics.createClient]
+$s3client = new Aws\S3\S3Client(['region' => 'us-west-2', 'version' => 'latest']);
+# snippet-end:[php.example_code.s3.basics.createClient]
+*/
+
+# snippet-start:[php.example_code.s3.basics.bucketName]
 $bucket_name = "doc-example-bucket-" . uniqid();
+# snippet-end:[php.example_code.s3.basics.bucketName]
 
 # snippet-start:[php.example_code.s3.basics.createBucket]
 try {
-    $client->createBucket([
+    $s3client->createBucket([
         'Bucket' => $bucket_name,
         'CreateBucketConfiguration' => ['LocationConstraint' => $region],
     ]);
@@ -59,7 +67,7 @@ try {
 # snippet-start:[php.example_code.s3.basics.putObject]
 $file_name = "local-file-" . uniqid();
 try {
-    $client->putObject([
+    $s3client->putObject([
         'Bucket' => $bucket_name,
         'Key' => $file_name,
         'SourceFile' => 'testfile.txt'
@@ -73,7 +81,7 @@ try {
 
 # snippet-start:[php.example_code.s3.basics.getObject]
 try {
-    $file = $client->getObject([
+    $file = $s3client->getObject([
         'Bucket' => $bucket_name,
         'Key' => $file_name,
     ]);
@@ -89,7 +97,7 @@ try {
 # snippet-start:[php.example_code.s3.basics.copyObject]
 try {
     $folder = "copied-folder";
-    $client->copyObject([
+    $s3client->copyObject([
         'Bucket' => $bucket_name,
         'CopySource' => "$bucket_name/$file_name",
         'Key' => "$folder/$file_name-copy",
@@ -103,7 +111,7 @@ try {
 
 # snippet-start:[php.example_code.s3.basics.listObjects]
 try {
-    $contents = $client->listObjects([
+    $contents = $s3client->listObjects([
         'Bucket' => $bucket_name,
     ]);
     echo "The contents of your bucket are: \n";
@@ -124,14 +132,14 @@ try {
             'Key' => $content['Key'],
         ];
     }
-    $client->deleteObjects([
+    $s3client->deleteObjects([
         'Bucket' => $bucket_name,
         'Key' => $file_name,
         'Delete' => [
             'Objects' => $objects,
         ],
     ]);
-    $check = $client->listObjects([
+    $check = $s3client->listObjects([
         'Bucket' => $bucket_name,
     ]);
     if (count($check) <= 0) {
@@ -146,7 +154,7 @@ try {
 
 # snippet-start:[php.example_code.s3.basics.deleteBucket]
 try {
-    $client->deleteBucket([
+    $s3client->deleteBucket([
         'Bucket' => $bucket_name,
     ]);
     echo "Deleted bucket $bucket_name.\n";
