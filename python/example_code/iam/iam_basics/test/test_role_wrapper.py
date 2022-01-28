@@ -71,6 +71,40 @@ def test_attach_policy(make_stubber, make_unique_name, error_code):
         assert exc_info.value.response['Error']['Code'] == error_code
 
 
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_list_policies(make_stubber, error_code):
+    iam_stubber = make_stubber(role_wrapper.iam.meta.client)
+    role_name = 'test-role'
+    policies = [f'policy-{ind}' for ind in range(3)]
+
+    iam_stubber.stub_list_role_policies(role_name, policies, error_code=error_code)
+
+    if error_code is None:
+        role_wrapper.list_policies(role_name)
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            role_wrapper.list_policies(role_name)
+        assert exc_info.value.response['Error']['Code'] == error_code
+
+
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_list_attached_policies(make_stubber, error_code):
+    iam_stubber = make_stubber(role_wrapper.iam.meta.client)
+    role_name = 'test-role'
+    policies = {
+        f'policy-{ind}': f'arn:aws:iam::111122223333:policy/test-policy-{ind}'
+        for ind in range(3)}
+
+    iam_stubber.stub_list_attached_role_policies(role_name, policies, error_code=error_code)
+    
+    if error_code is None:
+        role_wrapper.list_attached_policies(role_name)
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            role_wrapper.list_attached_policies(role_name)
+        assert exc_info.value.response['Error']['Code'] == error_code
+
+
 @pytest.mark.parametrize("error_code", [None, "UnmodifiableEntity"])
 def test_detach_policy(make_stubber, make_unique_name, error_code):
     iam_stubber = make_stubber(role_wrapper.iam.meta.client)
