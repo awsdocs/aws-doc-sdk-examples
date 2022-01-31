@@ -6,6 +6,7 @@
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_dynamodb::{Client, Error, Region, PKG_VERSION};
 use structopt::StructOpt;
+use tokio_stream::StreamExt;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
@@ -21,19 +22,16 @@ struct Opt {
 // List your tables.
 // snippet-start:[dynamodb.rust.list-tables]
 async fn list_tables(client: &Client) -> Result<(), Error> {
-    let resp = client.list_tables().send().await?;
+    let paginator = client.list_tables().into_paginator().items().send();
+    let table_names = paginator.collect::<Result<Vec<_>, _>>().await?;
 
     println!("Tables:");
 
-    let names = resp.table_names().unwrap_or_default();
-    let len = names.len();
-
-    for name in names {
+    for name in &table_names {
         println!("  {}", name);
     }
 
-    println!("Found {} tables", len);
-
+    println!("Found {} tables", table_names.len());
     Ok(())
 }
 // snippet-end:[dynamodb.rust.list-tables]
