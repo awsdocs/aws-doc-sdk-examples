@@ -135,6 +135,7 @@ def list_policies(scope):
 # snippet-end:[python.example_code.iam.ListPolicies]
 
 
+# snippet-start:[python.example_code.iam.GetPolicy]
 # snippet-start:[python.example_code.iam.GetPolicyVersion]
 def get_default_policy_statement(policy_arn):
     """
@@ -145,6 +146,7 @@ def get_default_policy_statement(policy_arn):
     """
     try:
         policy = iam.Policy(policy_arn)
+        # To get an attribute of a policy, the SDK first calls get_policy.
         policy_doc = policy.default_version.document
         policy_statement = policy_doc.get('Statement', None)
         logger.info("Got default policy doc for %s.", policy.policy_name)
@@ -155,6 +157,7 @@ def get_default_policy_statement(policy_arn):
     else:
         return policy_statement
 # snippet-end:[python.example_code.iam.GetPolicyVersion]
+# snippet-end:[python.example_code.iam.GetPolicy]
 
 
 # snippet-start:[python.example_code.iam.Scenario_RollbackPolicyVersion]
