@@ -245,6 +245,40 @@ iam_GetCredentialReport:
                 - python.example_code.iam.GetCredentialReport
   services:
     iam: {GetCredentialReport}
+iam_GetAccountPasswordPolicy:
+  title: Get the &IAM; account password policy using an &AWS; SDK
+  title_abbrev: Get the account password policy
+  synopsis: get the &IAM; account password policy.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.GetAccountPasswordPolicy
+  services:
+    iam: {GetAccountPasswordPolicy}
+iam_ListSAMLProviders:
+  title: List SAML providers for &IAM; using an &AWS; SDK
+  title_abbrev: List SAML providers
+  synopsis: list SAML providers for &IAM;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListSAMLProviders
+  services:
+    iam: {ListSAMLProviders}
 iam_Scenario_AccountManagement:
   title: Manage your &IAM; account using an &AWS; SDK
   title_abbrev: Manage your account
@@ -746,6 +780,14 @@ iam_GetPolicy:
             - description:
               snippet_tags:
                 - iam.JavaScript.policies.getPolicy
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.GetPolicy
   services:
     iam: {GetPolicy}
 iam_GetPolicyVersion:
@@ -839,6 +881,23 @@ iam_AttachRolePolicy:
                 - iam.JavaScript.policies.attachRolePolicy
   services:
     iam: {AttachRolePolicy}
+iam_ListAttachedRolePolicies:
+  title: List policies attached to an &IAM; role using an &AWS; SDK
+  title_abbrev: List policies attached to a role
+  synopsis: list policies attached to an &IAM; role.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListAttachedRolePolicies
+  services:
+    iam: {ListAttachedRolePolicies}
 iam_DetachRolePolicy:
   title: Detach an &IAM; policy from a role using an &AWS; SDK
   title_abbrev: Detach a policy from a role
@@ -957,6 +1016,40 @@ iam_CreateRole:
                 - iam.rust.create-role
   services:
     iam: {CreateRole}
+iam_ListRoles:
+  title: List &IAM; roles using an &AWS; SDK
+  title_abbrev: List roles
+  synopsis: list &IAM; roles.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListRoles
+  services:
+    iam: {ListRoles}
+iam_GetRole:
+  title: Get an &IAM; role using an &AWS; SDK
+  title_abbrev: Get a role
+  synopsis: get an &IAM; role.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.GetRole
+  services:
+    iam: {GetRole}
 iam_DeleteRole:
   title: Delete an &IAM; role using an &AWS; SDK
   title_abbrev: Delete a role
@@ -974,6 +1067,23 @@ iam_DeleteRole:
                 - python.example_code.iam.DeleteRole
   services:
     iam: {DeleteRole}
+iam_ListRolePolicies:
+  title: List inline policies for an &IAM; role using an &AWS; SDK
+  title_abbrev: List inline policies for a role
+  synopsis: list inline policies for an &IAM; role.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListRolePolicies
+  services:
+    iam: {ListRolePolicies}
 iam_Scenario_RoleManagement:
   title: Manage &IAM; roles using an &AWS; SDK
   title_abbrev: Manage roles
@@ -1444,3 +1554,59 @@ iam_DeleteServerCertificate:
                 - iam.JavaScript.certs.deleteServerCertificate
   services:
     iam: {DeleteServerCertificate}
+iam_ListGroups:
+  title: List &IAM; groups using an &AWS; SDK
+  title_abbrev: List groups
+  synopsis: list &IAM; groups.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.ListGroups
+  services:
+    iam: {ListGroups}
+iam_CreateServiceLinkedRole:
+  title: Create an &IAM; service-linked role using an &AWS; SDK
+  title_abbrev: Create a service-linked role
+  synopsis: create an &IAM; service-linked role.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iam.CreateServiceLinkedRole
+  services:
+    iam: {CreateServiceLinkedRole}
+
+iam_Scenario_CreateUserAssumeRole:
+  title: Create an &IAM; user and assume a role with &STS; using an &AWS; SDK
+  title_abbrev: Create a user and assume a role
+  synopsis: create an &IAM; user, assume a role with &STS;, and use temporary security
+    credentials to access an &AWS; resource.
+  category: Scenario
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description: Create an &IAM; user and a role that grants permission
+                to list &S3; buckets. The user has rights only to assume the role.
+                After assuming the role, use temporary credentials to list buckets for
+                the account.
+              snippet_tags:
+                - python.example_code.iam.Scenario_CreateUserAssumeRole
+  services:
+    iam: {}

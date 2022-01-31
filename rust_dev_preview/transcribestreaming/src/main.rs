@@ -8,7 +8,8 @@ use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_transcribestreaming::model::{
     AudioEvent, AudioStream, LanguageCode, MediaEncoding, TranscriptResultStream,
 };
-use aws_sdk_transcribestreaming::{Blob, Client, Error, Region, PKG_VERSION};
+use aws_sdk_transcribestreaming::types::Blob;
+use aws_sdk_transcribestreaming::{Client, Error, Region, PKG_VERSION};
 use bytes::BufMut;
 use std::time::Duration;
 use structopt::StructOpt;

@@ -8,6 +8,7 @@ Management (IAM) resources. Learn to accomplish the following tasks:
 * Create and manage IAM user access keys.
 * Manage the alias of an account.
 * Acquire reports about account usage.
+* Create a user and assume a role with new permissions.
 * Create and manage IAM policies, including versioned policies.
 * Create and manage IAM roles, including how to attach and detach policies.
 * Create and manage IAM users, including how to attach a policy to a user.
@@ -20,68 +21,87 @@ that control which AWS resources users and applications can access.*
 
 ### Scenario examples
 
-* [Create read-only and read-write users](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/user_wrapper.py)
-* [Manage access keys](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/access_key_wrapper.py)
-* [Manage policies](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/policy_wrapper.py)
-* [Manage roles](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/role_wrapper.py)
-* [Manage your account](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/account_wrapper.py)
-* [Rollback a policy version](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/policy_wrapper.py)
+* [Create a user and assume a role](scenario_create_user_assume_role.py)
+* [Create read-only and write-only users](user_wrapper.py)
+* [Manage access keys](access_key_wrapper.py)
+* [Manage policies](policy_wrapper.py)
+* [Manage roles](role_wrapper.py)
+* [Manage your account](account_wrapper.py)
+* [Rollback a policy version](policy_wrapper.py)
 
 ### API examples
 
-* [Attach a policy to a role](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/role_wrapper.py)
+* [Attach a policy to a role](role_wrapper.py)
 (`AttachRolePolicy`)
-* [Attach a policy to a user](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/user_wrapper.py)
+* [Attach a policy to a user](user_wrapper.py)
 (`AttachUserPolicy`)
-* [Create a policy](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/policy_wrapper.py)
+* [Create a policy](policy_wrapper.py)
 (`CreatePolicy`)
-* [Create a policy version](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/policy_wrapper.py)
+* [Create a policy version](policy_wrapper.py)
 (`CreatePolicyVersion`)
-* [Create a role](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/role_wrapper.py)
+* [Create a role](role_wrapper.py)
 (`CreateRole`)
-* [Create a user](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/user_wrapper.py)
+* [Create a service-linked role](service_linked_roles.py)
+(`CreateServiceLinkedRole`)
+* [Create a user](user_wrapper.py)
 (`CreateUser`)
-* [Create an access key](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/access_key_wrapper.py)
+* [Create an access key](access_key_wrapper.py)
 (`CreateAccessKey`)
-* [Create an alias for an account](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/account_wrapper.py)
+* [Create an alias for an account](account_wrapper.py)
 (`CreateAccountAlias`)
-* [Delete a policy](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/policy_wrapper.py)
+* [Delete a policy](policy_wrapper.py)
 (`DeletePolicy`)
-* [Delete a role](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/role_wrapper.py)
+* [Delete a role](role_wrapper.py)
 (`DeleteRole`)
-* [Delete a user](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/user_wrapper.py)
+* [Delete a user](user_wrapper.py)
 (`DeleteUser`)
-* [Delete an account alias](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/account_wrapper.py)
+* [Delete an account alias](account_wrapper.py)
 (`DeleteAccountAlias`)
-* [Detach a policy from a role](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/role_wrapper.py)
+* [Detach a policy from a role](role_wrapper.py)
 (`DetachRolePolicy`)
-* [Detach a policy from a user](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/user_wrapper.py)
+* [Detach a policy from a user](user_wrapper.py)
 (`DetachUserPolicy`)
-* [Delete an access key](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/access_key_wrapper.py)
+* [Delete an access key](access_key_wrapper.py)
 (`DeleteAccessKey`)
-* [Generate a credential report](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/account_wrapper.py)
+* [Generate a credential report](account_wrapper.py)
 (`GenerateCredentialReport`)
-* [Get a credential report](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/account_wrapper.py)
+* [Get a credential report](account_wrapper.py)
 (`GetCredentialReport`)
-* [Get a detailed authorization report for your account](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/account_wrapper.py)
+* [Get a detailed authorization report for your account](account_wrapper.py)
 (`GetAccountAuthorizationDetails`)
-* [Get a policy version](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/policy_wrapper.py)
+* [Get a policy](policy_wrapper.py)
+(`GetPolicy`)
+* [Get a policy version](policy_wrapper.py)
 (`GetPolicyVersion`)
-* [Get a summary of account usage](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/account_wrapper.py)
+* [Get a role](role_wrapper.py)
+(`GetRole`)
+* [Get a summary of account usage](account_wrapper.py)
 (`GetAccountSummary`)
-* [Get data about the last use of an access key](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/access_key_wrapper.py)
+* [Get data about the last use of an access key](access_key_wrapper.py)
 (`GetAccessKeyLastUsed`)
-* [List a user's access keys](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/access_key_wrapper.py)
+* [Get the account passwordy policy](account_wrapper.py)
+(`GetAccountPasswordPolicy`)
+* [List a user's access keys](access_key_wrapper.py)
 (`ListAccessKeys`)
-* [List account aliases](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/account_wrapper.py)
+* [List account aliases](account_wrapper.py)
 (`ListAccountAliases`)
-* [List policies](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/policy_wrapper.py)
+* [List groups](group_wrapper.py)
+(`ListGroups`)
+* [List inline policies for a role](role_wrapper.py)
+(`ListRolePolicies`)
+* [List policies](policy_wrapper.py)
 (`ListPolicies`)
-* [List users](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/user_wrapper.py)
+* [List policies attached to a role](role_wrapper.py)
+(`ListAttachedRolePolicies`)
+* [List roles](role_wrapper.py)
+(`ListRoles`)
+* [List SAML providers](account_wrapper.py)
+(`ListSAMLProviders`)
+* [List users](user_wrapper.py)
 (`ListUsers`)
-* [Update a user](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/user_wrapper.py)
+* [Update a user](user_wrapper.py)
 (`UpdateUser`)
-* [Update an access key](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/example_code/iam/access_key_wrapper.py)
+* [Update an access key](access_key_wrapper.py)
 (`UpdateAccessKey`)
 
 ## ⚠ Important
@@ -139,6 +159,16 @@ set a default policy version, and roll back to a previous policy version.
 **role_wrapper.py**
 
 Shows how to create and manage IAM roles, including how to attach and detach policies.
+
+**scenario_create_user_assume_role.py**
+
+Shows how to create an IAM user, assume a role, and perform AWS actions.
+
+1. Create a user who has no permissions.
+2. Create a role that grants permission to list Amazon S3 buckets for the account.
+3. Add a policy to let the user assume the role.
+4. Assume the role and list Amazon S3 buckets using temporary credentials.
+5. Delete the policy, role, and user.
 
 **user_wrapper.py**
 
