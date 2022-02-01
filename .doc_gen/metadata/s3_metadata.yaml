@@ -1378,7 +1378,7 @@ s3_Scenario_TransferManager:
   title: Use a transfer manager to upload and download files to and from &S3; using an &AWS; SDK
   title_abbrev: Use a transfer manager to upload and download files
   synopsis: use a transfer manager to upload and download files to and from &S3;.
-  category: Scenario
+  category: Scenarios
   guide_topic:
     title: Uploading an object using multipart upload
     url: AmazonS3/latest/userguide/mpu-upload-object.html
@@ -1405,7 +1405,7 @@ s3_Scenario_RemoveDeleteMarkers:
   title: Remove delete markers from versioned &S3; objects using an &AWS; SDK
   title_abbrev: Remove delete markers from versioned objects
   synopsis: remove delete markers from versioned &S3; objects.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -1425,7 +1425,7 @@ s3_Scenario_BatchObjectVersioning:
   title: Manage versioned &S3; objects in batches with a &LAM; function using an &AWS; SDK
   title_abbrev: Manage versioned objects in batches with a &LAM; function
   synopsis: manage versioned &S3; objects in batches with a &LAM; function.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -1437,7 +1437,7 @@ s3_Scenario_PresignedUrl:
   title: Create a presigned URL for &S3; using an &AWS; SDK
   title_abbrev: Create a presigned URL
   synopsis: create a presigned URL for &S3; and upload an object.
-  category: Scenario
+  category: Scenarios
   languages:
     Java:
       versions:
@@ -1500,7 +1500,7 @@ s3_Scenario_ObjectVersioningUsage:
   title: Work with &S3; versioned objects using an &AWS; SDK
   title_abbrev: Work with versioned objects
   synopsis: work with &S3; versioned objects.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -1543,7 +1543,7 @@ s3_Scenario_GettingStarted:
     - List the objects in a bucket.
     - Delete the objects in a bucket.
     - Delete a bucket.
-  category: Scenario
+  category: Scenarios
   languages:
     Java:
       versions:

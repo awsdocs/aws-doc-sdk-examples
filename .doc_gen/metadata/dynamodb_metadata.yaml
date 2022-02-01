@@ -195,7 +195,7 @@ dynamodb_Usage_BatchGetWriteDelete:
   title: Get, write, and delete batches of &DDB; items using an &AWS; SDK
   title_abbrev: Get, write, and delete batches of items
   synopsis: get, write, and delete batches of &DDB; items.
-  category: Usage
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -821,7 +821,7 @@ dynamodb_Usage_DaxDemo:
     setup. For instructions, see
     <ulink type='documentation' url='amazondynamodb/latest/developerguide/DAX.client.html'>Developing with the &DAXlong; Client</ulink>
     in the <emphasis>&guide-ddb-dev;</emphasis>.
-  category: Usage
+  category: Scenarios
   languages:
     Python:
       versions:

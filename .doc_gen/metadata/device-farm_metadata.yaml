@@ -3,7 +3,7 @@ device-farm_Scenario_BrowserTesting:
   title: Run browser tests with &ATP; and take screenshots using an &AWS; SDK
   title_abbrev: Run browser tests and take screenshots
   synopsis: run browser tests with &ATP; and take screenshots.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -22,7 +22,7 @@ device-farm_Scenario_DeviceTesting:
   title: Upload and test mobile device packages with &ATP; using an &AWS; SDK
   title_abbrev: Upload and test mobile device packages
   synopsis: upload and test mobile device packages with &ATP;.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
