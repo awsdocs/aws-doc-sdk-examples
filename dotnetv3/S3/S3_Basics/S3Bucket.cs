@@ -1,11 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-/// <summary>
-/// This interactive example shows some of the standard procedures for Amazon
-/// Simple Storage Service (Amazon S3) buckets. It will walk through the
-/// process of creating an Amazon S3 bucket, uploading
-/// </summary>
 namespace S3_BasicsScenario
 {
     using System;
@@ -15,6 +10,10 @@ namespace S3_BasicsScenario
     using Amazon.S3.Model;
     using Amazon.S3.Transfer;
 
+    /// <summary>
+    /// This class contains all of the methods for working with Amazon Simple
+    /// Storage Service (Amazon S3) buckets.
+    /// </summary>
     public class S3Bucket
     {
         // snippet-start:[S3.dotnetv3.S3_Basics-CreateBucket]
@@ -111,7 +110,7 @@ namespace S3_BasicsScenario
             string filePath)
         {
             // Create a GetObject request
-            GetObjectRequest request = new GetObjectRequest
+            var request = new GetObjectRequest
             {
                 BucketName = bucketName,
                 Key = objectName,
@@ -196,6 +195,10 @@ namespace S3_BasicsScenario
                     BucketName = bucketName,
                     MaxKeys = 5,
                 };
+
+                Console.WriteLine("--------------------------------------");
+                Console.WriteLine($"Listing the contents of {bucketName}:");
+                Console.WriteLine("--------------------------------------");
 
                 var response = new ListObjectsV2Response();
 

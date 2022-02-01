@@ -40,56 +40,87 @@ namespace S3_BasicsScenario
             var success = await S3Bucket.CreateBucketAsync(client, bucketName);
             if (success)
             {
-                Console.WriteLine($"Successfully created bucket: {bucketName}.");
+                Console.WriteLine($"Successfully created bucket: {bucketName}.\n");
             }
             else
             {
-                Console.WriteLine($"Could not create bucket: {bucketName}.");
+                Console.WriteLine($"Could not create bucket: {bucketName}.\n");
             }
 
-            // Upload a file to the bucket.
+            Console.WriteLine("Upload a file to the new bucket.");
+
+            // Get the local path and filename for the file to upload.
             while (string.IsNullOrEmpty(filePath))
             {
-                // First get the path and name of the file to upload.
                 Console.Write("Please enter the path and filename of the file to upload: ");
                 filePath = Console.ReadLine();
 
                 // Confirm that the file exists on the local computer.
                 if (!File.Exists(filePath))
                 {
-                    Console.WriteLine($"Couldn't find {filePath}. Try again.");
+                    Console.WriteLine($"Couldn't find {filePath}. Try again.\n");
                     filePath = string.Empty;
                 }
             }
 
-            while (string.IsNullOrEmpty(keyName))
-            {
-                // Get the name to give to the object once uploaded.
-                Console.Write("Now enter the name that the file will have once uploaded: ");
-                keyName = Console.ReadLine();
-            }
+            // Get the file name from the full path.
+            keyName = Path.GetFileName(filePath);
 
             success = await S3Bucket.UploadFileAsync(client, bucketName, keyName, filePath);
 
             if (success)
             {
-                Console.WriteLine($"Successfully uploaded {filePath} to {bucketName}.");
+                Console.WriteLine($"Successfully uploaded {keyName} from {filePath} to {bucketName}.\n");
             }
             else
             {
-                Console.WriteLine($"Could not upload {filePath}.");
+                Console.WriteLine($"Could not upload {keyName}.\n");
+            }
+
+            // Set the file p ath to an empty string to avoid overwriting the
+            // file we just uploaded to the bucket.
+            filePath = string.Empty;
+
+            // Now get a new location where we can save the file.
+            while (string.IsNullOrEmpty(filePath))
+            {
+                // First get the path to which the file will be downloaded.
+                Console.Write("Please enter the path where the file will be downloaded: ");
+                filePath = Console.ReadLine();
+
+                // Confirm that the file exists on the local computer.
+                if (File.Exists($"{filePath}\\{keyName}"))
+                {
+                    Console.WriteLine($"Sorry, the file already exists in that location.\n");
+                    filePath = string.Empty;
+                }
             }
 
             // Download an object from a bucket.
             success = await S3Bucket.DownloadObjectFromBucketAsync(client, bucketName, keyName, filePath);
 
+            if (success)
+            {
+                Console.WriteLine($"Successfully downloaded {keyName}.\n");
+            }
+            else
+            {
+                Console.WriteLine($"Sorry, could not download {keyName}.\n");
+            }
+
             // Copy the object to a different folder in the bucket.
             string folderName = string.Empty;
+
+            while (string.IsNullOrEmpty(folderName))
+            {
+                Console.Write("Please enter the name of the folder to copy your object to: ");
+                folderName = Console.ReadLine();
+            }
 
             while (string.IsNullOrEmpty(keyName))
             {
                 // Get the name to give to the object once uploaded.
-                Console.Write("Enter the name where the file will be copies: ");
+                Console.Write("Enter the name of the object to copy: ");
                 keyName = Console.ReadLine();
             }
 
@@ -100,6 +131,11 @@ namespace S3_BasicsScenario
 
             // Delete the contents of the bucket.
             await S3Bucket.DeleteBucketContentsAsync(client, bucketName);
+
+            // Deleting the bucket too quickly after deleting its contents will
+            // cause an error that the bucket isn't empty. So...
+            Console.WriteLine("Press <Enter> when you are ready to delete the bucket.");
+            _ = Console.ReadLine();
 
             // Delete the bucket.
             await S3Bucket.DeleteBucketAsync(client, bucketName);
