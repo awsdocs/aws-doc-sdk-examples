@@ -5,6 +5,15 @@ s3_CreateBucket:
   synopsis: create an &S3; bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/S3_Basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.S3_Basics-CreateBucket
     C++:
       versions:
         - sdk_version: 1
@@ -87,6 +96,14 @@ s3_CopyObject:
   synopsis: copy an &S3; object from one bucket to another.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/S3_Basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.S3_Basics-CopyObject
     C++:
       versions:
         - sdk_version: 1
@@ -226,6 +243,15 @@ s3_DeleteObject:
   synopsis: delete an &S3; object.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_versioin: 3
+          github: dotnetv3/S3/S3_Basics
+          sdkguide:
+          excerpts:
+            - description: Delete all objects in an &S3; bucket.
+              snippet_tags:
+                - S3.dotnetv3.S3_Basics-DeleteBucketContents
     C++:
       versions:
         - sdk_version: 1
@@ -521,6 +547,14 @@ s3_GetObject:
   synopsis: read data from an object in an &S3; bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+        sdkguide:
+        excerpts:
+          - description:
+            snippet_tags:
+              - S3.dotnetv3.S3_Basics-DownloadObject
     C++:
       versions:
         - sdk_version: 1
@@ -676,6 +710,15 @@ s3_ListObjects:
   synopsis: list objects located in an &S3; bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_versions: 3
+          github: dotnetv3/S3/S3_Basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.S3_Basics-ListBucketContents
     C++:
       versions:
         - sdk_version: 1
@@ -773,6 +816,15 @@ s3_PutObject:
   synopsis: upload an object to an &S3; bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/S3_Basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.S3_Basics-UploadFile
     C++:
       versions:
         - sdk_version: 1
@@ -887,6 +939,15 @@ s3_DeleteBucket:
   synopsis: delete an empty &S3; bucket.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/S3_Basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.S3_Basics-DeleteBucket
     C++:
       versions:
         - sdk_version: 1
@@ -1545,6 +1606,15 @@ s3_Scenario_GettingStarted:
     - Delete a bucket.
   category: Scenario
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/S3_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.S3_BasicsScenario
     Python:
       versions:
         - sdk_version: 3
