@@ -19,7 +19,9 @@ The Node.js examples are all run from the command line.
 
 Unit tests
 =============
-`Unit tests<./tests>`_ are provided for all examples, using the `Jest <https://jestjs.io/>`_ framework.
+`Unit tests<./tests>`_ are provided for many examples, using the `Jest <https://jestjs.io/>`_ framework.
+
+To run tests, navigate to the **tests** folder.
 
 For example, to run tests on the S3 folder, enter the following sequence of commands at the command prompt:
 

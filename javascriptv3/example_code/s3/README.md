@@ -6,7 +6,10 @@ Amazon S3 is an object storage service that offers industry-leading scalability,
 ## Code examples
 This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon S3 examples: 
 
-### API Examples
+### Scenario examples
+- [S3_basics](scenarios/s3_basics/src/s3_basics.js) 
+
+### Single action examples
 - [Copy object](src/s3_copyobject.js) (CopyObjectCommand)
 - [Create and upload objects](src/s3_create_and_upload_objects.js) (PutObjectCommand)
 - [Create a bucket](src/s3_createbucket.js) (CreateBucketCommand)
