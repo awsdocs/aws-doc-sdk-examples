@@ -31,8 +31,18 @@ namespace S3_BasicsScenario
             string filePath = string.Empty;
             string keyName = string.Empty;
 
+            Console.WriteLine("AAmazon Simple Storage Service (Amazon S3) basic");
+            Console.WriteLine("procedures. This application will:");
+            Console.WriteLine("\n\t1. Create a bucket");
+            Console.WriteLine("\n\t2. Upload an object to the new bucket");
+            Console.WriteLine("\n\t3. Copy the uploaded object to a folder in the bucket");
+            Console.WriteLine("\n\t4. List the items in the new bucket");
+            Console.WriteLine("\n\t5. Delete all the items in the bucket");
+            Console.WriteLine("\n\t6. Delete the bucket");
+            Console.WriteLine("----------------------------------------------------------");
+
             // Create a bucket.
-            Console.WriteLine("Create a new Amazon S3 bucket.\n");
+            Console.WriteLine("\nCreate a new Amazon S3 bucket.\n");
 
             Console.Write("Please enter a name for the new bucket: ");
             bucketName = Console.ReadLine();
