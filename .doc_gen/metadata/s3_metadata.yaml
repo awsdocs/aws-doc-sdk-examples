@@ -44,6 +44,15 @@ s3_CreateBucket:
             - description: Create the bucket.
               snippet_tags:
                 - s3.JavaScript.buckets.createBucketV3
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/s3/s3_basics
+          excerpts:
+            - description: Create a bucket.
+              snippet_tags:
+                - php.example_code.s3.basics.createClient
+                - php.example_code.s3.basics.createBucket
     Python:
       versions:
         - sdk_version: 3
@@ -125,6 +134,15 @@ s3_CopyObject:
             - description: Copy the object.
               snippet_tags:
                 - s3.JavaScript.buckets.copyObjectV3
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/s3/s3_basics
+          excerpts:
+            - description: Simple copy of an object.
+              snippet_tags:
+                - php.example_code.s3.basics.createClient
+                - php.example_code.s3.basics.copyObject
     Python:
       versions:
         - sdk_version: 3
@@ -304,6 +322,15 @@ s3_DeleteObjects:
             - description:
               snippet_tags:
                 - s3.java2.delete_many_objects.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/s3/s3_basics
+          excerpts:
+            - description: Delete a set of objects from a list of keys.
+              snippet_tags:
+                - php.example_code.s3.basics.createClient
+                - php.example_code.s3.basics.deleteObjects
     Python:
       versions:
         - sdk_version: 3
@@ -557,6 +584,15 @@ s3_GetObject:
             - description: Get an object by using the S3Presigner client object.
               snippet_tags:
                 - presigned.java2.getobjectpresigned.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/s3/s3_basics
+          excerpts:
+            - description: Get an object.
+              snippet_tags:
+                - php.example_code.s3.basics.createClient
+                - php.example_code.s3.basics.getObject
     Python:
       versions:
         - sdk_version: 3
@@ -703,6 +739,15 @@ s3_ListObjects:
             - description:
               snippet_tags:
                 - s3.java2.list_objects.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/s3/s3_basics
+          excerpts:
+            - description: List objects in a bucket.
+              snippet_tags:
+                - php.example_code.s3.basics.createClient
+                - php.example_code.s3.basics.listObjects
     Python:
       versions:
         - sdk_version: 3
@@ -809,6 +854,15 @@ s3_PutObject:
             - description: Upload an object to a bucket and set an object retention value.
               snippet_tags:
                 - s3.java2.retention_object.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/s3/s3_basics
+          excerpts:
+            - description: Upload an object to a bucket.
+              snippet_tags:
+                - php.example_code.s3.basics.createClient
+                - php.example_code.s3.basics.putObject
     Python:
       versions:
         - sdk_version: 3
@@ -905,6 +959,15 @@ s3_DeleteBucket:
             - description:
               snippet_tags:
                 - s3.java2.s3_bucket_ops.delete_bucket
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/s3/s3_basics
+          excerpts:
+            - description: Delete an empty bucket.
+              snippet_tags:
+                - php.example_code.s3.basics.createClient
+                - php.example_code.s3.basics.deleteBucket
     Python:
       versions:
         - sdk_version: 3
@@ -1563,6 +1626,15 @@ s3_Scenario_GettingStarted:
             - description: 
               snippet_tags:
                 - s3.kotlin.s3_operations.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/s3/s3_basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.s3.Scenario_GettingStarted
     Python:
       versions:
         - sdk_version: 3
