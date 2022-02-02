@@ -12,9 +12,9 @@ cross_RDSDataTracker:
     rds:
     ses:
 cross_SnsPublishSubscription:
-  title: Build a publish and subscription web application that translates messages
-  title_abbrev: Building an &SNS; web application 
-  synopsis: create a web application that has subscription and publish functionality and translates messages.
+  title: Build a publish and subscription application that translates messages
+  title_abbrev: Building an &SNS; application 
+  synopsis: create an application that has subscription and publish functionality and translates messages.
   languages:
     Kotlin:
       versions:
@@ -57,6 +57,14 @@ cross_DynamoDBDataTracker:
       versions:
         - sdk_version: 1
           block_content: cross_DynamoDBDataTracker_Kotlin_block.xml
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_DynamoDBDataTracker_Python_block.xml
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          block_content: cross_DynamoDBDataTracker_JavaScript_block.xml
   services:
     dynamodb:
     ses:

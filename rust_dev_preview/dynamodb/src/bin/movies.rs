@@ -7,7 +7,7 @@ use std::collections::HashMap;
 use std::time::Duration;
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_http::AwsErrorRetryPolicy;
+use aws_http::retry::AwsErrorRetryPolicy;
 use aws_sdk_dynamodb::client::fluent_builders::Query;
 use aws_sdk_dynamodb::error::DescribeTableError;
 use aws_sdk_dynamodb::input::DescribeTableInput;

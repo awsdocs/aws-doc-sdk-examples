@@ -1,0 +1,80 @@
+<!--Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+
+Purpose:
+add.html is a HTML template for an Amazon DynamoDB item tracker app.-->
+
+<!--snippet-start:[cross-service.HTML.ddb-item-tracker.add]-->
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html>
+<head>
+    <title>Modify Items</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+      <script src="../js/items.js" ></script>
+
+    <!-- CSS files  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
+    <link rel="stylesheet" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/col.css" />
+    <link rel="stylesheet" href="/css/button.css" />
+    <link rel="stylesheet" href="/css/common.css" />
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="index.html">Welcome</a>
+      <a class="nav-item nav-link" href="add.html">Add items <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="items.html">Get items</a>
+    </div>
+  </div>
+</nav>
+<div class="container" id="newItem">
+    <h3>Welcome to Amazon DynamoDB Item Tracker</h3>
+    <p>Add new items by filling in this table and clicking <i>Create Item</i></p>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+
+            <form>
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                        <label>Guide</label>
+                        <input class="form-control" id="guide" type="guide" placeholder="AWS Guide/AWS API" required="required" data-validation-required-message="Please enter the AWS Guide.">
+                        <p class="help-block text-danger"></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                        <label>Description</label>
+                        <textarea class="form-control" id="description" rows="5" placeholder="Description" required="required" data-validation-required-message="Please enter a description."></textarea>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                        <label>Status</label>
+                        <textarea class="form-control" id="status" rows="5" placeholder="Status" required="required" data-validation-required-message="Please enter the status."></textarea>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                </div>
+                <br>
+            </form>
+                            <button  onclick="addItem()">Create Item</button>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<!--snippet-end:[cross-service.HTML.ddb-item-tracker.add]-->

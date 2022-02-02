@@ -41,8 +41,10 @@ class StsStubber(ExampleStubber):
         self._stub_bifurcator(
             'get_caller_identity', response=response, error_code=error_code)
 
-    def stub_assume_role(self, role_arn, session_name, mfa_serial_number=None,
-                         mfa_totp=None, error_code=None):
+    def stub_assume_role(
+            self, role_arn, session_name, mfa_serial_number=None, mfa_totp=None,
+            key_id='test-access-key-id', secret_key='test-secret-key',
+            session_token='test-session-token', error_code=None):
         expected_params = {'RoleArn': role_arn, 'RoleSessionName': session_name}
         if mfa_serial_number is not None:
             expected_params['SerialNumber'] = mfa_serial_number
@@ -50,9 +52,9 @@ class StsStubber(ExampleStubber):
             expected_params['TokenCode'] = mfa_totp
         response = {
             'Credentials': {
-                'AccessKeyId': 'test-access-key-id',
-                'SecretAccessKey': 'test-secret-key',
-                'SessionToken': 'test-session-token',
+                'AccessKeyId': key_id,
+                'SecretAccessKey': secret_key,
+                'SessionToken': session_token,
                 'Expiration': datetime.datetime.now() + datetime.timedelta(minutes=5)
             }
         }

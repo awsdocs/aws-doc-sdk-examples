@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(dead_code)]
+
 use aws_sdk_s3 as s3;
 use std::error::Error;
 
