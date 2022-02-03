@@ -156,4 +156,4 @@ export const run = async (bucket_name, object_key, object_content) => {
   }
 };
 run(bucket_name, object_content, object_key);
-// snippet-start:[s3_basics.JavaScript.s3_basics]
+// snippet-end:[s3_basics.JavaScript.s3_basics]
