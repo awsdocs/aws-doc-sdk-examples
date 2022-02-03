@@ -50,7 +50,7 @@ def encrypted_object_uploaded?(
     body: object_content
   )
   return true
-rescue StandardError => e
+rescue Aws::Errors::ServiceError => e
   puts "Error uploading object: #{e.message}"
   return false
 end

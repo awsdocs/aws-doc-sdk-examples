@@ -9,7 +9,7 @@
 require 'aws-sdk-s3'
 
 # Wraps Amazon S3 resource actions.
-class S3Wrapper
+class BucketListWrapper
   attr_reader :s3_resource
 
   # @param s3_resource [Aws::S3::Resource] An Amazon S3 resource.
@@ -28,14 +28,14 @@ class S3Wrapper
       break if count.zero?
     end
     true
-  rescue StandardError => e
+  rescue Aws::Errors::ServiceError => e
     puts "Couldn't list buckets. Here's why: #{e.message}"
     false
   end
 end
 
 def run_demo
-  wrapper = S3Wrapper.new(Aws::S3::Resource.new)
+  wrapper = BucketListWrapper.new(Aws::S3::Resource.new)
   wrapper.list_buckets(25)
 end
 

@@ -4,21 +4,22 @@
 require 'rspec'
 require_relative '../bucket_list'
 
-describe S3Wrapper do
+describe BucketListWrapper do
   let(:resource) { Aws::S3::Resource.new(stub_responses: true) }
-  let(:wrapper) { S3Wrapper.new(resource) }
+  subject { BucketListWrapper.new(resource) }
 
   it 'confirms buckets were listed' do
     data = resource.client.stub_data(
       :list_buckets,
-      { 'buckets': [{ 'name': 'bucket-1' }, { 'name': 'bucket-2' }] })
+      { 'buckets': [{ 'name': 'bucket-1' }, { 'name': 'bucket-2' }] }
+    )
     resource.client.stub_responses(:list_buckets, data)
-    expect(wrapper.list_buckets(20)).to be(true)
+    expect(subject.list_buckets(20)).to be(true)
   end
 
   it "confirms error is caught when bucket can't be created" do
-    resource.client.stub_responses(:list_buckets, StandardError)
-    expect(wrapper.list_buckets(20)).to be(false)
+    resource.client.stub_responses(:list_buckets, 'TestError')
+    expect(subject.list_buckets(20)).to be(false)
   end
 end
 

@@ -48,7 +48,7 @@ def get_decrypted_object_content(
   else
     return 'Error: Object content empty or unavailable.'
   end
-rescue StandardError => e
+rescue Aws::Errors::ServiceError => e
   return "Error getting object content: #{e.message}"
 end
 

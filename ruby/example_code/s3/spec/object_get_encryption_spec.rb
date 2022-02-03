@@ -4,9 +4,9 @@
 require 'rspec'
 require_relative '../object_get_encryption'
 
-describe ObjectWrapper do
+describe ObjectGetEncryptionWrapper do
   let(:object) { Aws::S3::Object.new('test-bucket', 'test-key', stub_responses: true) }
-  let(:wrapper) { ObjectWrapper.new(object) }
+  let(:wrapper) { ObjectGetEncryptionWrapper.new(object) }
 
   it 'confirms the object encryption state was retrieved' do
     obj_data = object.client.stub_data(:get_object, { server_side_encryption: 'TEST' })
@@ -16,7 +16,7 @@ describe ObjectWrapper do
   end
 
   it "confirms error is caught when object can't be retrieved" do
-    object.client.stub_responses(:get_object, StandardError)
+    object.client.stub_responses(:get_object, 'TestError')
     expect(wrapper.get_object).to be_nil
   end
 end
