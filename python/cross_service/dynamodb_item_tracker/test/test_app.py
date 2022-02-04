@@ -23,6 +23,7 @@ _TABLE_NAME = 'test-table'
 
 @contextmanager
 def storage_set(app, storage):
+    # pylint: disable=assigning-non-slot
     def handler(sender, **kwargs):
         g.storage = storage
     with appcontext_pushed.connected_to(handler, app):
@@ -31,6 +32,7 @@ def storage_set(app, storage):
 
 @contextmanager
 def report_set(app, report):
+    # pylint: disable=assigning-non-slot
     def handler(sender, **kwargs):
         g.report = report
     with appcontext_pushed.connected_to(handler, app):
