@@ -749,7 +749,7 @@ s3_ListObjects:
   languages:
     .NET:
       versions:
-        - sdk_versions: 3
+        - sdk_version: 3
           github: dotnetv3/S3/S3_Basics
           sdkguide:
           excerpts:
