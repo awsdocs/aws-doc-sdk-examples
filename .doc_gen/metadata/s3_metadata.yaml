@@ -1617,6 +1617,15 @@ s3_Scenario_GettingStarted:
             - description: 
               snippet_tags:
                 - s3.java2.s3_scenario.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3/scenarios/s3_basics/src
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3_basics.JavaScript.s3_basics
     Kotlin:
       versions:
         - sdk_version: 1
