@@ -4,18 +4,18 @@
 require 'rspec'
 require_relative '../bucket_put_encryption'
 
-describe S3Wrapper do
+describe BucketEncryptionWrapper do
   let(:client) { Aws::S3::Client.new(stub_responses: true) }
-  let(:wrapper) { S3Wrapper.new(client) }
+  subject { BucketEncryptionWrapper.new(client) }
 
   it 'confirms the encryption state was set' do
     client.stub_responses(:put_bucket_encryption)
-    expect(wrapper.set_encryption('test-bucket')).to be_eql(true)
+    expect(subject.set_encryption('test-bucket')).to be_eql(true)
   end
 
   it "confirms error is caught when objects can't be listed" do
-    client.stub_responses(:put_bucket_encryption, StandardError)
-    expect(wrapper.set_encryption('test-bucket')).to be_eql(false)
+    client.stub_responses(:put_bucket_encryption, 'TestError')
+    expect(subject.set_encryption('test-bucket')).to be_eql(false)
   end
 end
 

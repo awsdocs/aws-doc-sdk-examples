@@ -4,10 +4,10 @@
 require 'rspec'
 require_relative '../bucket_create'
 
-describe BucketWrapper do
+describe BucketCreateWrapper do
   let(:bucket_name) { 'doc-example-bucket' }
   let(:bucket) { Aws::S3::Bucket.new(bucket_name, stub_responses: true) }
-  let(:wrapper) { BucketWrapper.new(bucket) }
+  let(:wrapper) { BucketCreateWrapper.new(bucket) }
 
   it 'confirms the bucket was created' do
     bucket.client.stub_responses(:create_bucket)
@@ -16,7 +16,7 @@ describe BucketWrapper do
   end
 
   it "confirms error is caught when bucket can't be created" do
-    bucket.client.stub_responses(:create_bucket, StandardError)
+    bucket.client.stub_responses(:create_bucket, 'TestError')
     expect(wrapper.create?('us-test-2')).to be_eql(false)
   end
 
@@ -28,7 +28,7 @@ describe BucketWrapper do
   end
 
   it "confirms error is caught when bucket location can't be retrieved" do
-    bucket.client.stub_responses(:get_bucket_location, StandardError)
+    bucket.client.stub_responses(:get_bucket_location, 'TestError')
     expect(wrapper.location).to start_with("Couldn't get the location")
   end
 end

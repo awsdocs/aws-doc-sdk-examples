@@ -15,7 +15,7 @@ describe BucketCorsWrapper do
   end
 
   it "confirms error is caught when CORS can't be set" do
-    bucket_cors.client.stub_responses(:put_bucket_cors, StandardError)
+    bucket_cors.client.stub_responses(:put_bucket_cors, 'TestError')
     expect(wrapper.set_cors(%w[GET DELETE], %w[http://www.example1.com])).to be_eql(false)
   end
 
@@ -30,7 +30,7 @@ describe BucketCorsWrapper do
   end
 
   it "confirms error is caught when CORS can't be retrieved" do
-    bucket_cors.client.stub_responses(:get_bucket_cors, StandardError)
+    bucket_cors.client.stub_responses(:get_bucket_cors, 'TestError')
     expect(wrapper.get_cors).to be_nil
   end
 
@@ -40,7 +40,7 @@ describe BucketCorsWrapper do
   end
 
   it "confirms error is caught when CORS can't be deleted" do
-    bucket_cors.client.stub_responses(:delete_bucket_cors, StandardError)
+    bucket_cors.client.stub_responses(:delete_bucket_cors, 'TestError')
     expect(wrapper.delete_cors).to be_eql(false)
   end
 end

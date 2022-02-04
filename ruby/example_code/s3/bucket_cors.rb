@@ -25,7 +25,7 @@ class BucketCorsWrapper
   # @return [Aws::S3::Type::GetBucketCorsOutput, nil] The current CORS configuration for the bucket.
   def get_cors
     @bucket_cors.data
-  rescue StandardError => e
+  rescue Aws::Errors::ServiceError => e
     puts "Couldn't get CORS configuration for #{@bucket_cors.bucket.name}. Here's why: #{e.message}"
     nil
   end
@@ -51,7 +51,7 @@ class BucketCorsWrapper
       }
     )
     true
-  rescue StandardError => e
+  rescue Aws::Errors::ServiceError => e
     puts "Couldn't set CORS rules for #{@bucket_cors.bucket.name}. Here's why: #{e.message}"
     false
   end
@@ -64,7 +64,7 @@ class BucketCorsWrapper
   def delete_cors
     @bucket_cors.delete
     true
-  rescue StandardError => e
+  rescue Aws::Errors::ServiceError => e
     puts "Couldn't delete CORS rules for #{@bucket_cors.bucket.name}. Here's why: #{e.message}"
     false
   end
