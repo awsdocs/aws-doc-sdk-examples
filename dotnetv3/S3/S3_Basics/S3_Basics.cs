@@ -2,8 +2,8 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// This examples shows the basic API calls for the AWS Simple Storage System
-/// (Amazon S3) service. The example steps you through the process of creating
+/// This examples shows the basic API calls for the Amazon Simple Storage Service
+/// (Amazon S3). The example steps you through the process of creating
 /// an Amazon S3 bucket and uploading objects to the bucket from the local
 /// computer. It also shows how to copy an object within an Amazon S3 bucket,
 /// list the bucket's contents, and finally how to delete the objects in the
@@ -16,7 +16,6 @@ namespace S3_BasicsScenario
     using System.IO;
     using System.Threading.Tasks;
     using Amazon.S3;
-    using Amazon.S3.Model;
 
     public class S3_Basics
     {

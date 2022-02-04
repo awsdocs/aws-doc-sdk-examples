@@ -4,11 +4,9 @@
 namespace S3_BasicsScenario
 {
     using System;
-    using System.IO;
     using System.Threading.Tasks;
     using Amazon.S3;
     using Amazon.S3.Model;
-    using Amazon.S3.Transfer;
 
     /// <summary>
     /// This class contains all of the methods for working with Amazon Simple
@@ -92,7 +90,7 @@ namespace S3_BasicsScenario
         // snippet-start:[S3.dotnetv3.S3_Basics-DownloadObject]
 
         /// <summary>
-        /// Sows how to download an object from an Amazon S3 bucket to the
+        /// Shows how to download an object from an Amazon S3 bucket to the
         /// local computer.
         /// </summary>
         /// <param name="client">An initialized Amazon S3 client object.</param>
@@ -143,7 +141,7 @@ namespace S3_BasicsScenario
         /// <param name="client">An initialized Amazon S3 client object.</param>
         /// <param name="bucketName">The name of the Amazon S3 bucket where the
         /// object to copy is located.</param>
-        /// <param name="objectName">The object to be coped.</param>
+        /// <param name="objectName">The object to be copied.</param>
         /// <param name="folderName">The folder to which the object will
         /// be copied.</param>
         /// <returns>A boolean value that indicates the success or failure of
@@ -178,8 +176,7 @@ namespace S3_BasicsScenario
         // snippet-start:[S3.dotnetv3.S3_Basics-ListBucketContents]
 
         /// <summary>
-        /// Shows how to copy an object in n Amazon S3 bucket to another folder
-        /// in the same bucket.
+        /// Shows how to list the objects in n Amazon S3 bucket.
         /// </summary>
         /// <param name="client">An initialized Amazon S3 client object.</param>
         /// <param name="bucketName">The name of the bucket for which to list
