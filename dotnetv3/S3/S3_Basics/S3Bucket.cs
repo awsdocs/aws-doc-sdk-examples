@@ -251,7 +251,7 @@ namespace S3_BasicsScenario
                 do
                 {
                     response.S3Objects
-                        .ForEach(obj => client.DeleteObjectAsync(bucketName, obj.Key));
+                        .ForEach(async obj => await client.DeleteObjectAsync(bucketName, obj.Key));
 
                     // If the response is truncated, set the request ContinuationToken
                     // from the NextContinuationToken property of the response.

@@ -323,7 +323,7 @@ s3_DeleteObjects:
   languages:
     .NET:
       versions:
-        - sdk_versioin: 3
+        - sdk_version: 3
           github: dotnetv3/S3/S3_Basics
           sdkguide:
           excerpts:
@@ -577,11 +577,12 @@ s3_GetObject:
     .NET:
       versions:
         - sdk_version: 3
-        sdkguide:
-        excerpts:
-          - description:
-            snippet_tags:
-              - S3.dotnetv3.S3_Basics-DownloadObject
+          github: dotnetv3/S3/S3_Basics
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.S3_Basics-DownloadObject
     C++:
       versions:
         - sdk_version: 1
