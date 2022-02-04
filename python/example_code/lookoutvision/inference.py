@@ -83,7 +83,7 @@ class Inference:
             bucket, key = photo.replace("s3://", "").split("/", 1)
             local_file = os.path.basename(photo)
         except ValueError as err:
-            logger.exception("Couldn't get S3 info for %s: %s", photo)
+            logger.exception("Couldn't get S3 info for %s", photo)
             raise
 
         try:
