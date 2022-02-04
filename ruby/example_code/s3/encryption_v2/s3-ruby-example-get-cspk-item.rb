@@ -45,7 +45,7 @@ def download_object_with_private_key_encryption(
     key: object_key
   )
   return response.body.read
-rescue StandardError => e
+rescue Aws::Errors::ServiceError => e
   puts "Error downloading object: #{e.message}"
 end
 

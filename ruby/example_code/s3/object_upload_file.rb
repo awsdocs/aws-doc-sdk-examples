@@ -9,7 +9,7 @@
 require 'aws-sdk-s3'
 
 # Wraps Amazon S3 object actions.
-class ObjectWrapper
+class ObjectUploadFileWrapper
   attr_reader :object
 
   # @param object [Aws::S3::Object] An existing Amazon S3 object.
@@ -24,7 +24,7 @@ class ObjectWrapper
   def upload_file(file_path)
     @object.upload_file(file_path)
     true
-  rescue StandardError => e
+  rescue Aws::Errors::ServiceError => e
     puts "Couldn't upload file #{file_path} to #{@object.key}. Here's why: #{e.message}"
     false
   end
@@ -35,7 +35,7 @@ def run_demo
   object_key = 'my-uploaded-file'
   file_path = "object_upload_file.rb"
 
-  wrapper = ObjectWrapper.new(Aws::S3::Object.new(bucket_name, object_key))
+  wrapper = ObjectUploadFileWrapper.new(Aws::S3::Object.new(bucket_name, object_key))
   return unless wrapper.upload_file(file_path)
 
   puts "File #{file_path} successfully uploaded to #{bucket_name}:#{object_key}."

@@ -27,7 +27,7 @@ class BucketPolicyWrapper
   def get_policy
     policy = @bucket_policy.data.policy
     policy.respond_to?(:read) ? policy.read : policy
-  rescue StandardError => e
+  rescue Aws::Errors::ServiceError => e
     puts "Couldn't get the policy for #{@bucket_policy.bucket.name}. Here's why: #{e.message}"
     nil
   end
@@ -39,7 +39,7 @@ class BucketPolicyWrapper
   def set_policy(policy)
     @bucket_policy.put(policy: policy)
     true
-  rescue StandardError => e
+  rescue Aws::Errors::ServiceError => e
     puts "Couldn't set the policy for #{@bucket_policy.bucket.name}. Here's why: #{e.message}"
     false
   end
@@ -49,7 +49,7 @@ class BucketPolicyWrapper
   def delete_policy
     @bucket_policy.delete
     true
-  rescue StandardError => e
+  rescue Aws::Errors::ServiceError => e
     puts "Couldn't delete the policy from #{@bucket_policy.bucket.name}. Here's why: #{e.message}"
     false
   end

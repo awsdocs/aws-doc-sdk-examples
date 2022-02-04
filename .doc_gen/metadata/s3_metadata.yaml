@@ -361,6 +361,14 @@ s3_DeleteObjects:
             - description: Delete all objects in a bucket.
               snippet_tags:
                 - s3.JavaScript.buckets.deleteoallbjectsV3
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.s3.DeleteObjects
     Rust:
       versions:
         - sdk_version: 1
@@ -996,6 +1004,14 @@ s3_DeleteBucket:
             - description: Delete the bucket.
               snippet_tags:
                 - s3.JavaScript.buckets.deleteBucketV3
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.s3.DeleteBucket
   services:
     s3: {DeleteBucket}
 s3_GetBucketCors:
@@ -1644,5 +1660,13 @@ s3_Scenario_GettingStarted:
             - description:
               snippet_tags:
                 - python.example_code.s3.Scenario_GettingStarted
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.s3.Scenario_GettingStarted
   services:
     s3: {CreateBucket, PutObject, GetObject, CopyObject, ListObjects, DeleteObjects, DeleteBucket}

@@ -30,7 +30,7 @@ class BucketWebsiteWrapper
       }
     )
     true
-  rescue StandardError => e
+  rescue Aws::Errors::ServiceError => e
     puts "Couldn't configure #{@bucket_website.bucket.name} as a website. Here's why: #{e.message}"
     false
   end

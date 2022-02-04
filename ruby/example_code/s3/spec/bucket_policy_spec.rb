@@ -15,7 +15,7 @@ describe BucketPolicyWrapper do
   end
 
   it "confirms error is caught when policy can't be set" do
-    bucket_policy.client.stub_responses(:put_bucket_policy, StandardError)
+    bucket_policy.client.stub_responses(:put_bucket_policy, 'TestError')
     expect(wrapper.set_policy('test policy')).to be_eql(false)
   end
 
@@ -29,7 +29,7 @@ describe BucketPolicyWrapper do
   end
 
   it "confirms error is caught when policy can't be retrieved" do
-    bucket_policy.client.stub_responses(:get_bucket_policy, StandardError)
+    bucket_policy.client.stub_responses(:get_bucket_policy, 'TestError')
     expect(wrapper.get_policy).to be_nil
   end
 
@@ -39,7 +39,7 @@ describe BucketPolicyWrapper do
   end
 
   it "confirms error is caught when policy can't be deleted" do
-    bucket_policy.client.stub_responses(:delete_bucket_policy, StandardError)
+    bucket_policy.client.stub_responses(:delete_bucket_policy, 'TestError')
     expect(wrapper.delete_policy).to be_eql(false)
   end
 end

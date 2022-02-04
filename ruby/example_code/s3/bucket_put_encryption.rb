@@ -10,7 +10,7 @@
 require 'aws-sdk-s3'
 
 # Wraps Amazon S3 actions.
-class S3Wrapper
+class BucketEncryptionWrapper
   attr_reader :s3_client
 
   # @param s3_client [Aws::S3::Client] An Amazon S3 client.
@@ -33,7 +33,7 @@ class S3Wrapper
       }
     )
     true
-  rescue StandardError => e
+  rescue Aws::Errors::ServiceError => e
     puts "Couldn't set default encryption on #{bucket_name}. Here's why: #{e.message}"
     false
   end
@@ -41,7 +41,7 @@ end
 
 def run_demo
   bucket_name = 'doc-example-bucket'
-  wrapper = S3Wrapper.new(Aws::S3::Client.new)
+  wrapper = BucketEncryptionWrapper.new(Aws::S3::Client.new)
   return unless wrapper.set_encryption(bucket_name)
 
   puts "Set default encryption on #{bucket_name}."

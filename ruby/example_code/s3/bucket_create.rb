@@ -9,7 +9,7 @@
 require 'aws-sdk-s3'
 
 # Wraps Amazon S3 bucket actions.
-class BucketWrapper
+class BucketCreateWrapper
   attr_reader :bucket
 
   # @param bucket [Aws::S3::Bucket] An Amazon S3 bucket initialized with a name. This is a client-side object until
@@ -25,7 +25,7 @@ class BucketWrapper
   def create?(region)
     @bucket.create(create_bucket_configuration: { location_constraint: region })
     true
-  rescue StandardError => e
+  rescue Aws::Errors::ServiceError => e
     puts "Couldn't create bucket. Here's why: #{e.message}"
     false
   end
@@ -39,14 +39,14 @@ class BucketWrapper
     else
       @bucket.client.get_bucket_location(bucket: @bucket.name).location_constraint
     end
-  rescue StandardError => e
+  rescue Aws::Errors::ServiceError => e
     "Couldn't get the location of #{@bucket.name}. Here's why: #{e.message}"
   end
 end
 
 def run_demo
   region = 'us-west-2'
-  wrapper = BucketWrapper.new(Aws::S3::Bucket.new("doc-example-bucket-#{Random.uuid}"))
+  wrapper = BucketCreateWrapper.new(Aws::S3::Bucket.new("doc-example-bucket-#{Random.uuid}"))
   return unless wrapper.create?(region)
 
   puts "Created bucket #{wrapper.bucket.name}."
