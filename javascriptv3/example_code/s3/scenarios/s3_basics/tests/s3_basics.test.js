@@ -3,7 +3,7 @@ function getRandomInt(max) {
 }
 const value = getRandomInt(1000);
 const bucket_name = "bucket-" + value;
-process.argv.push("node", "s3_basics_full.js", bucket_name, "test.txt", "Test Content");
+process.argv.push("node", "s3_basics.js", bucket_name, "test.txt", "Test Content");
 console.log('argv', process.argv[4], process.argv[5], process.argv[6])
 const expected = "Run successfully";
 
