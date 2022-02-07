@@ -176,7 +176,7 @@ namespace S3_BasicsScenario
         // snippet-start:[S3.dotnetv3.S3_Basics-ListBucketContents]
 
         /// <summary>
-        /// Shows how to list the objects in n Amazon S3 bucket.
+        /// Shows how to list the objects in an Amazon S3 bucket.
         /// </summary>
         /// <param name="client">An initialized Amazon S3 client object.</param>
         /// <param name="bucketName">The name of the bucket for which to list

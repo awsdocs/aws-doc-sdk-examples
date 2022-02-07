@@ -30,7 +30,7 @@ namespace S3_BasicsScenario
             string filePath = string.Empty;
             string keyName = string.Empty;
 
-            Console.WriteLine("AAmazon Simple Storage Service (Amazon S3) basic");
+            Console.WriteLine("Amazon Simple Storage Service (Amazon S3) basic");
             Console.WriteLine("procedures. This application will:");
             Console.WriteLine("\n\t1. Create a bucket");
             Console.WriteLine("\n\t2. Upload an object to the new bucket");
@@ -86,7 +86,7 @@ namespace S3_BasicsScenario
                 Console.WriteLine($"Could not upload {keyName}.\n");
             }
 
-            // Set the file p ath to an empty string to avoid overwriting the
+            // Set the file path to an empty string to avoid overwriting the
             // file we just uploaded to the bucket.
             filePath = string.Empty;
 
