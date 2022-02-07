@@ -8,14 +8,14 @@
 import PackageDescription
 
 let package = Package(
-    name: "CognitoIdentityDemo",
+    name: "FindOrCreateIdentityPool",
     platforms: [
         .macOS(.v11),
         .iOS(.v13)
     ],
     products: [
       .library(name: "CognitoIdentityHandler", targets: ["CognitoIdentityHandler"]),
-      .executable(name: "CognitoIdentityDemo", targets: ["CognitoIdentityDemo"])
+      .executable(name: "FindOrCreateIdentityPool", targets: ["FindOrCreateIdentityPool"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -38,18 +38,18 @@ let package = Package(
         .testTarget(
             name: "CognitoIdentityHandlerTests",
             dependencies: [
-                "CognitoIdentityDemo",
+                "FindOrCreateIdentityPool",
                 .product(name: "AWSCognitoIdentity", package: "AWSSwiftSDK"),
             ],
             path: "./Tests/CognitoIdentityHandlerTests"
         ),
         // The target of the main executable program
         .executableTarget(
-            name: "CognitoIdentityDemo",
+            name: "FindOrCreateIdentityPool",
             dependencies: [
                 "CognitoIdentityHandler"
             ],
-            path: "./Sources/CognitoIdentityDemo"
+            path: "./Sources/FindOrCreateIdentityPool"
         ),
     ]
 )

@@ -9,7 +9,7 @@ import CognitoIdentityHandler
 // Instantiate the main identity functions object
 
 @main
-struct CognitoIdentityDemo {
+struct FindOrCreateIdentityPool {
     static func main() async {
         
         let identityDemo = CognitoIdentityHandler()
