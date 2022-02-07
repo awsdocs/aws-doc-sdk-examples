@@ -46,7 +46,7 @@ members = [
     "secretsmanager",
     "sending-presigned-requests",
     "ses",
-    "setting_timeouts",
+    "setting-timeouts",
     "snowball",
     "sns",
     "sqs",
