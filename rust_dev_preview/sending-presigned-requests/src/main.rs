@@ -93,8 +93,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     // Presigned requests can be used in several ways. Here are a few examples:
     print_as_curl_request(&presigned_request, Some(body.as_str()));
-    send_presigned_request_with_reqwest(&presigned_request, body.as_str()).await;
-    send_presigned_request_with_hyper(presigned_request, hyper::Body::from(body.as_str())).await;
+    send_presigned_request_with_reqwest(&presigned_request, body.clone()).await;
+    send_presigned_request_with_hyper(presigned_request, hyper::Body::from(body.clone())).await;
 
     Ok(())
 }
