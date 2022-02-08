@@ -34,19 +34,20 @@
         {{- if $actions.Examples}}
         <varlistentry>
             <term>Actions</term>
-            <listitem><para>Excerpts that illustrate how to write code to call individual service functions.</para></listitem>
+            <listitem><para>Code excerpts that show you how to call individual service functions.</para></listitem>
         </varlistentry>
         {{- end}}
         {{- if $scenarios.Examples}}
         <varlistentry>
             <term>Scenarios</term>
-            <listitem><para>Examples that demonstrate ways you can write code to accomplish a specific task with a single service.</para></listitem>
+            <listitem><para>Code examples that show you how to accomplish a specific task by calling multiple
+                functions within the same service.</para></listitem>
         </varlistentry>
         {{- end }}
         {{- if $cross_service.Examples}}
         <varlistentry>
-            <term>Cross-service</term>
-            <listitem><para>Sample applications that combine multiple &AWS; services.</para></listitem>
+            <term>Cross-service examples</term>
+            <listitem><para>Sample applications that work across multiple &AWS; services.</para></listitem>
         </varlistentry>
         {{- end }}
     </variablelist>
@@ -66,22 +67,21 @@
         </info>
         {{- if eq $cat_examples.CategoryName "Cross-service examples"}}
         <para>The following sample applications use &AWS; SDKs to combine {{$.ServiceEntity.Short}}
-            with other &AWS; services. Each example includes a link to GitHub where you can find
+            with other &AWS; services. Each example includes a link to GitHub, where you can find
             instructions on how to set up and run the application.</para>
         {{- else if eq $cat_examples.CategoryName "Scenarios"}}
-        <para>The following code examples show how to implement common scenarios in {{$.ServiceEntity.Short}}
-            with &AWS; SDKs. These scenarios illustrate ways you can write code to use
-            an &AWS; SDK to accomplish a specific task. Each scenario includes a link to GitHub where you can find
-            instructions on how to set up and run the code.</para>
+        <para>The following code examples show you how to implement common scenarios in {{$.ServiceEntity.Short}}
+            with &AWS; SDKs. These scenarios show you how to accomplish specific tasks by calling multiple functions
+            within {{$.ServiceEntity.Short}}. Each scenario includes a link to GitHub, where you can find instructions
+            on how to set up and run the code.</para>
         {{- else if eq $cat_examples.CategoryName "Actions"}}
-        <para>The following code examples show how to perform individual {{$.ServiceEntity.Short}}
-            actions with &AWS; SDKs. These excerpts illustrate how to write code
-            to call the {{$.ServiceEntity.Short}} API and are not intended to be run in
-            isolation. Each example includes a link to GitHub where you can find
+        <para>The following code examples demonstrate how to perform individual {{$.ServiceEntity.Short}}
+            actions with &AWS; SDKs. These excerpts call the {{$.ServiceEntity.Short}} API and are not
+            intended to be run in isolation. Each example includes a link to GitHub, where you can find
             instructions on how to set up and run the code in context.</para>
         <para>
-            Only the most commonly used actions are demonstrated.
-            For a complete list, see the API reference for {{$.ServiceEntity.Short}}.</para>
+            The following examples include only the most commonly used actions.
+            For a complete list, see the <emphasis>{{$.ServiceEntity.Short}} API Reference</emphasis>.</para>
         {{- else}}
         <para>The following code examples show how to use {{$.ServiceEntity.Short}} with &AWS; SDKs.</para>
         {{- end}}

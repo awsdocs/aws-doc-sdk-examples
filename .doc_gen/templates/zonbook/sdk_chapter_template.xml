@@ -28,37 +28,39 @@
             <para>Code examples that show how to use {{.SdkEntity.Long}} with &AWS;.</para>
         </abstract>
     </info>
-    <para>The following code examples show how to use {{.SdkEntity.Long}} with &AWS;.</para>
+    <para>The code examples in this topic show you how to use the {{.SdkEntity.Long}} with &AWS;.</para>
     <variablelist role="termdef">
         <para>The examples are divided into the following categories:</para>
         <varlistentry>
             <term>Single-service actions</term>
-            <listitem><para>Excerpts that illustrate how to write code to call individual service functions.</para></listitem>
+            <listitem><para>Code excerpts that show you how to call individual service functions.</para></listitem>
         </varlistentry>
         <varlistentry>
             <term>Single-service scenarios</term>
-            <listitem><para>Examples that show how to write code to accomplish a specific task with a single service.</para></listitem>
+            <listitem><para>Code examples that show you how to accomplish a specific task by
+                calling multiple functions within the same service.</para></listitem>
         </varlistentry>
         <varlistentry>
-            <term>Cross-service</term>
-            <listitem><para>Sample applications that combine multiple &AWS; services.</para></listitem>
+            <term>Cross-service examples</term>
+            <listitem><para>Sample applications that work across multiple &AWS; services.</para></listitem>
         </varlistentry>
     </variablelist>
     <para role="topiclist-abbrev">Examples</para>
     {{- if .ApiExamples}}
     <section id="{{$.LanguageSlug}}_code_examples_categorized" role="topic">
         <info>
-            <title id="{{$.LanguageSlug}}_code_examples_categorized.title">Single-service examples using {{$.SdkEntity.Short}}</title>
-            <titleabbrev id="{{$.LanguageSlug}}_code_examples_categorized.titleabbrev">Single-service</titleabbrev>
+            <title id="{{$.LanguageSlug}}_code_examples_categorized.title">Single-service actions and scenarios using {{$.SdkEntity.Short}}</title>
+            <titleabbrev id="{{$.LanguageSlug}}_code_examples_categorized.titleabbrev">Single-service actions and scenarios</titleabbrev>
             <abstract>
                 <para>The following code examples show how to implement common scenarios and perform individual service actions by using
                     {{$.SdkEntity.Short}} with &AWS; services.</para>
             </abstract>
         </info>
         <para>The following code examples show how to perform actions and implement common scenarios by using
-            {{$.SdkEntity.Short}} with &AWS; services.
-            <emphasis>Actions</emphasis> are excerpts that illustrate how to write code to call individual service functions.
-            <emphasis>Scenarios</emphasis> demonstrate ways you can write code to accomplish a specific task with a single service.</para>
+            the {{$.SdkEntity.Long}} with &AWS; services.</para>
+        <para><emphasis>Actions</emphasis> are code excerpts that show you how to call individual service functions.</para>
+        <para><emphasis>Scenarios</emphasis> are code examples that show you how to accomplish a specific task by
+            calling multiple functions within the same service.</para>
         <para role="topiclist-abbrev">Services</para>
         {{- end}}
         {{- range $service, $svc_examples := .ApiExamples}}
@@ -71,11 +73,12 @@
                 </abstract>
             </info>
             <para>The following code examples show how to perform actions and implement common scenarios by using
-                {{$.SdkEntity.Short}} with {{$svc_examples.ServiceEntity.Short}}.
-                <emphasis>Actions</emphasis> are excerpts that illustrate how to write code
-                to call individual {{$svc_examples.ServiceEntity.Short}} functions.
-                <emphasis>Scenarios</emphasis> demonstrate ways you can write code to accomplish a specific task.</para>
-            <para>Each example includes a link to GitHub where you can find
+                the {{$.SdkEntity.Long}} with {{$svc_examples.ServiceEntity.Short}}.</para>
+            <para><emphasis>Actions</emphasis>are code excerpts that show you how to call individual
+                {{$svc_examples.ServiceEntity.Short}} functions.</para>
+            <para><emphasis>Scenarios</emphasis> are code examples that show you how to accomplish a specific task
+                by calling multiple {{$svc_examples.ServiceEntity.Short}} functions.</para>
+            <para>Each example includes a link to GitHub, where you can find
                 instructions on how to set up and run the code in context.</para>
             <para role="topiclist-abbrev"/>
             {{- range $category := $svc_examples.CategoryNamesSorted}}
@@ -126,14 +129,14 @@
     <section id="{{.LanguageSlug}}_code_examples_cross_service" role="topic">
         <info>
             <title id="{{.LanguageSlug}}_code_examples_cross_service.title">Cross-service examples using {{.SdkEntity.Short}}</title>
-            <titleabbrev id="{{.LanguageSlug}}_code_examples_cross_service.titleabbrev">Cross-service</titleabbrev>
+            <titleabbrev id="{{.LanguageSlug}}_code_examples_cross_service.titleabbrev">Cross-service examples</titleabbrev>
             <abstract>
-                <para>The following sample applications use {{.SdkEntity.Long}}
-                    to combine multiple &AWS; services.</para>
+                <para>The following sample applications use the {{.SdkEntity.Long}}
+                    to work across multiple &AWS; services.</para>
             </abstract>
         </info>
-        <para>The following sample applications use {{.SdkEntity.Long}} to combine
-            multiple &AWS; services.</para>
+        <para>The following sample applications use the {{.SdkEntity.Long}}
+            to work across multiple &AWS; services.</para>
         <para role="topiclist-abbrev">Examples</para>
         {{- end}}
         {{- range .CrossServiceExamples}}
