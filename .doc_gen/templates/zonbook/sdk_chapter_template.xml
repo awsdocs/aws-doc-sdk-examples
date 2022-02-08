@@ -72,9 +72,9 @@
                     <para>Code examples that show how to use {{$.SdkEntity.Long}} with {{$svc_examples.ServiceEntity.Short}}.</para>
                 </abstract>
             </info>
-            <para>The following code examples show how to perform actions and implement common scenarios by using
+            <para>The following code examples show you how to perform actions and implement common scenarios by using
                 the {{$.SdkEntity.Long}} with {{$svc_examples.ServiceEntity.Short}}.</para>
-            <para><emphasis>Actions</emphasis>are code excerpts that show you how to call individual
+            <para><emphasis>Actions</emphasis> are code excerpts that show you how to call individual
                 {{$svc_examples.ServiceEntity.Short}} functions.</para>
             <para><emphasis>Scenarios</emphasis> are code examples that show you how to accomplish a specific task
                 by calling multiple {{$svc_examples.ServiceEntity.Short}} functions.</para>
