@@ -15,7 +15,7 @@ describe BucketWebsiteWrapper do
   end
 
   it "confirms error is caught when the website can't be set" do
-    bucket_website.client.stub_responses(:put_bucket_website, StandardError)
+    bucket_website.client.stub_responses(:put_bucket_website, 'TestError')
     expect(wrapper.set_website('index-test', 'error-test')).to be_eql(false)
   end
 end

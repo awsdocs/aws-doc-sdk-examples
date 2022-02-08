@@ -42,6 +42,7 @@ class Storage:
         Creates a storage object based on context. The object is stored in Flask
         session globals and reused if it exists.
         """
+        # pylint: disable=assigning-non-slot
         storage = getattr(g, 'storage', None)
         if storage is None:
             table_name = current_app.config['TABLE_NAME']

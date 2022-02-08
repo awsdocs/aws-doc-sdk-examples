@@ -37,6 +37,7 @@ class Report:
         Creates a report object based on context. The object is stored in Flask
         session globals and reused if it exists.
         """
+        # pylint: disable=assigning-non-slot
         report = getattr(g, 'report', None)
         if report is None:
             report = cls(boto3.client('ses'))

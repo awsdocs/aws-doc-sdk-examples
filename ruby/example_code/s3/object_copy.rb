@@ -9,7 +9,7 @@
 require 'aws-sdk-s3'
 
 # Wraps Amazon S3 object actions.
-class ObjectWrapper
+class ObjectCopyWrapper
   attr_reader :source_object
 
   # @param source_object [Aws::S3::Object] An existing Amazon S3 object. This is used as the source object for
@@ -26,7 +26,7 @@ class ObjectWrapper
   def copy_object(target_bucket, target_object_key)
     @source_object.copy_to(bucket: target_bucket.name, key: target_object_key)
     target_bucket.object(target_object_key)
-  rescue StandardError => e
+  rescue Aws::Errors::ServiceError => e
     puts "Couldn't copy #{@source_object.key} to #{target_object_key}. Here's why: #{e.message}"
   end
 end
@@ -40,7 +40,7 @@ def run_demo
   target_key = 'my-target-file.txt'
 
   source_bucket = Aws::S3::Bucket.new(source_bucket_name)
-  wrapper = ObjectWrapper.new(source_bucket.object(source_key))
+  wrapper = ObjectCopyWrapper.new(source_bucket.object(source_key))
   target_bucket = Aws::S3::Bucket.new(target_bucket_name)
   target_object = wrapper.copy_object(target_bucket, target_key)
   return unless target_object

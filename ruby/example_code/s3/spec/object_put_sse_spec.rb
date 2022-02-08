@@ -4,9 +4,9 @@
 require 'rspec'
 require_relative '../object_put_sse'
 
-describe ObjectWrapper do
+describe ObjectPutSseWrapper do
   let(:object) { Aws::S3::Object.new('test-bucket', 'test-key', stub_responses: true) }
-  let(:wrapper) { ObjectWrapper.new(object) }
+  let(:wrapper) { ObjectPutSseWrapper.new(object) }
 
   it 'confirms the object was put' do
     object.client.stub_responses(:put_object)
@@ -15,7 +15,7 @@ describe ObjectWrapper do
   end
 
   it "confirms error is caught when object can't be put" do
-    object.client.stub_responses(:put_object, StandardError)
+    object.client.stub_responses(:put_object, 'TestError')
     expect(wrapper.put_object_encrypted('Test content', 'TEST')).to be_eql(false)
   end
 end
