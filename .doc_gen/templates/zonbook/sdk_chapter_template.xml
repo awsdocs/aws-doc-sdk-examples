@@ -75,7 +75,7 @@
                 {{- range $cat_examples.Examples}}
                 <section id="{{.ExampleId}}_{{$.LanguageSlug}}_topic" role="topic">
                     <info>
-                        <title id="{{.ExampleId}}_{{$.LanguageSlug}}_topic.titleabbrev">{{.TitleAbbrev}}</title>
+                        <title id="{{.ExampleId}}_{{$.LanguageSlug}}_topic.title">{{.TitleAbbrev}}</title>
                         <titleabbrev id="{{.ExampleId}}_{{$.LanguageSlug}}_topic.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
                     </info>
                     {{- if or .Synopsis .SynopsisList}}

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several Amazon SageMaker (SageMaker) operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Amazon SageMaker (SageMaker) operations using the developer preview version of the AWS SDK for Rust.
 
 SageMaker is a fully managed machine learning service that you can use to quickly and easily build and train machine learning models, and then directly deploy them into a production-ready hosted environment.
 
@@ -54,6 +54,7 @@ This example lists the name, status, and type of your SageMaker instances in the
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- [AWS SDK for Rust API Reference for Amazon SageMaker](https://docs.rs/aws-sdk-sagemaker)
 - [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
 
 ## Contributing

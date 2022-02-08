@@ -104,7 +104,7 @@ def test_send_sms_message(make_stubber, error_code):
 
 
 @pytest.mark.parametrize('error_code', [None, 'TestException'])
-def test_send_sms_message(make_stubber, error_code):
+def test_send_templated_sms_message(make_stubber, error_code):
     pinpoint_client = boto3.client('pinpoint')
     pinpoint_stubber = make_stubber(pinpoint_client)
     app_id = 'test-app-id'

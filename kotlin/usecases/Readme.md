@@ -14,4 +14,6 @@ In the use_cases folder, find step-by-step development tutorials that use multip
 
 + **Creating the Serverless Amazon Aurora item tracker application using the Kotlin RdsDataClient API** - A tutorial that discusses using Serverless Amazon Aurora, Amazon SES, and the **RdsDataClient** Kotlin client to create a web application that tracks work items.
 
-+ **Creating a Spring Boot Application that has publish/subscription functionality** - A tutorial that discusses how to create a web application that has subscription and publish functionality. In this tutorial, the Spring Framework along with AWS SDK for Kotlin is used to create the application.
++ **Creating a Spring Boot Application that has publish-subscribe functionality** - A tutorial that discusses how to create a web application that has subscription and publish functionality. In this tutorial, the Spring Framework along with AWS SDK for Kotlin is used to create the application.
+
++ **Creating a publish-subscribe Android application that translates messages using the AWS SDK for Kotlin** - A tutorial that discusses how to create a native Android application that has subscription and publish functionality. 

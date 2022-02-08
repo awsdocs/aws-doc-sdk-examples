@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several AWS Identity and Access Management (IAM) operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several AWS Identity and Access Management (IAM) operations using the developer preview version of the AWS SDK for Rust.
 
 IAM is a web service for securely controlling access to AWS services.
 
@@ -46,6 +46,7 @@ If the example succeeds, it displays the ARN of the new role.
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- - [AWS SDK for Rust API Reference for IAM](https://docs.rs/aws-sdk-iam)
 - [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
 
 ## Contributing

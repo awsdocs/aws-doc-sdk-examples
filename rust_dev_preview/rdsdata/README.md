@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These code examples demonstrate how to perform several Amazon Relational Database Service Data Service (Data Service) operations using the alpha version of the AWS SDK for Rust.
+These code examples demonstrate how to perform several Amazon Relational Database Service Data Service (Data Service) operations using the developer preview version of the AWS SDK for Rust.
 
 The Data Service (Data Service) provides a secure HTTP endpoint and integration with AWS SDKs so you can SQL statements without managing connections.
 
@@ -49,6 +49,7 @@ where:
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- [AWS SDK for Rust API Reference for Amazon RDS Data Service](https://docs.rs/aws-sdk-rdsdata)
 - [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
 
 ## Contributing

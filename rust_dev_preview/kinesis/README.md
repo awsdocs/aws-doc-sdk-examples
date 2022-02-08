@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several Amazon Kinesis (Kinesis) operations using the alpha version of the AWS SDK for Rust.
+These examples demonstrate how to perform several Amazon Kinesis (Kinesis) operations using the developer preview version of the AWS SDK for Rust.
 
 Kinesis makes it easy to collect, process, and analyze video and data streams in real time.
 
@@ -96,6 +96,7 @@ This example adds a record to a Kinesis data streams.
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
+- - [AWS SDK for Rust API Reference for Kinesis](https://docs.rs/aws-sdk-kinesis)
 - [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
 
 ## Contributing

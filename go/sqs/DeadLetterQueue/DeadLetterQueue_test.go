@@ -136,7 +136,7 @@ func TestDeadLetterQueue(t *testing.T) {
             t.Fatal(err)
         }
 
-        dlARN = GetQueueArn(&dlQueueURL)
+        dlARN = *GetQueueArn(&dlQueueURL)
 
         t.Log("Created dead-letter queue " + globalConfig.DlQueue)
         dlQueueCreated = true

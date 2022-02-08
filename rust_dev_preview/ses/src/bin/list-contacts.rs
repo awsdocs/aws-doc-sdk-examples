@@ -33,8 +33,8 @@ async fn show_contacts(client: &Client, list: &str) -> Result<(), Error> {
 
     println!("Contacts:");
 
-    for contact in resp.contacts.unwrap_or_default() {
-        println!("  {}", contact.email_address.as_deref().unwrap_or_default());
+    for contact in resp.contacts().unwrap_or_default() {
+        println!("  {}", contact.email_address().unwrap_or_default());
     }
 
     Ok(())

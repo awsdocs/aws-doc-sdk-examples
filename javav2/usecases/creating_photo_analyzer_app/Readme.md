@@ -1,7 +1,16 @@
 #  Creating a dynamic web application that analyzes photos using the AWS SDK for Java
 
+## Overview
+
+| Heading      | Description |
+| ----------- | ----------- |
+| Description | Discusses how to develop a dynamic web application that analyzes nature images located in an Amazon Simple Storage Service (Amazon S3) bucket by using the AWS SDK for Java V2.     |
+| Audience   |  Developer (beginner / intermediate)        |
+| Updated   | 1/17/2022        |
+| Required Skills   | Java, Maven  |
+
 ## Purpose
-You can create a dynamic web application that analyzes nature images located in an Amazon Simple Storage Service (Amazon S3) bucket by using the Amazon Rekognition service. The application analyzes many images and generates a report that breaks down each image into a series of labels. For example, the following image shows a lake.
+You can create a dynamic web application that analyzes nature images located in an Amazon S3 bucket by using the Amazon Rekognition service. The application analyzes many images and generates a report that breaks down each image into a series of labels. For example, the following image shows a lake.
 
 ![AWS Photo Analyzer](images/Lake1.png)
 
@@ -9,7 +18,7 @@ After the application analyzes all images in the Amazon S3 bucket, it uses the A
 
 ![AWS Photo Analyzer](images/excelreport.png)
 
-In this tutorial, you create a Spring Boot application named **AWS Photo Analyzer**. The Spring Boot APIs are used to build a model, different views, and a controller. For more information, see [Spring Boot - Securing Web Applications](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
+In this tutorial, you create a Spring Boot application named **AWS Photo Analyzer**. The Spring Boot APIs are used to build a model, different views, and a controller. For more information, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/spring_boot_introduction.htm).
 
 This application uses the following AWS services:
 *	Amazon Rekognition
@@ -49,6 +58,8 @@ To complete the tutorial, you need the following:
 
 Create an Amazon S3 bucket named **photos[somevalue]**. Be sure to use this bucket name in your Amazon S3 Java code. For information, see [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html).
 
+In addition, make sure that you have properly setup your development environment. For information, see [Setting up the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html).
+
 ## Understand the AWS Photo Analyzer application
 
 The AWS Photo Analyzer application supports uploading images to an Amazon S3 bucket. After the images are uploaded, you can view the images that are analyzed.
@@ -86,33 +97,33 @@ Ensure that the **pom.xml** file looks like the following.
      <?xml version="1.0" encoding="UTF-8"?>
      <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-     <modelVersion>4.0.0</modelVersion>
-     <groupId>com.example.photo</groupId>
-     <artifactId>photo</artifactId>
-     <version>0.0.1-SNAPSHOT</version>
-     <name>photo</name>
-     <description>Demo project for Spring Boot</description>
-     <parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example.photo</groupId>
+    <artifactId>photo</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>photo</name>
+    <description>Demo project for Spring Boot</description>
+    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
+        <version>2.6.1</version>
         <relativePath/> <!-- lookup parent from repository -->
-     </parent>
-     <properties>
+    </parent>
+    <properties>
         <java.version>1.8</java.version>
-     </properties>
-     <dependencyManagement>
+    </properties>
+    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.10.54</version>
+                <version>2.17.102</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
-     </dependencyManagement>
-     <dependencies>
+    </dependencyManagement>
+    <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -124,27 +135,17 @@ Ensure that the **pom.xml** file looks like the following.
         <dependency>
             <groupId>net.sourceforge.jexcelapi</groupId>
             <artifactId>jxl</artifactId>
-            <version>2.6.10</version>
+            <version>2.6.12</version>
         </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.6</version>
-        </dependency>
-        <dependency>
+         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
             <version>1.6.2</version>
         </dependency>
         <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>javax.mail-api</artifactId>
-            <version>1.5.5</version>
-        </dependency>
-        <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
-            <version>1.5.5</version>
+            <version>1.6.2</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -156,10 +157,6 @@ Ensure that the **pom.xml** file looks like the following.
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-         <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>dynamodb</artifactId>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
@@ -173,16 +170,26 @@ Ensure that the **pom.xml** file looks like the following.
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>s3</artifactId>
         </dependency>
-      </dependencies>
-      <build>
+        <dependency>
+            <groupId>org.apache.maven.surefire</groupId>
+            <artifactId>surefire-booter</artifactId>
+            <version>3.0.0-M3</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+        </dependency>
+    </dependencies>
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-      </build>
-     </project>
+    </build>
+  </project>
 ```
 
 ## Create the Java classes
@@ -202,7 +209,7 @@ Create these Java classes:
 + **PhotoApplication** - Used as the base class for the Spring Boot application.
 + **PhotoController** - Used as the Spring Boot controller that handles HTTP requests.
 + **SendMessages** - Uses the Amazon SES API to send an email message with an attachment.
-+ **S3Service** - Uses the Amazon S3 API to perform S3 operations.
++ **S3Service** - Uses the Amazon S3 API to perform operations.
 + **WorkItem** - Used as a model that stores Amazon Rekognition data.
 + **WriteExcel** – Uses the JXL API (this is not an AWS API) to dynamically generate a report.     
 

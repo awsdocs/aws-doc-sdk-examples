@@ -1,5 +1,16 @@
 #  Creating the Amazon DynamoDB web application item tracker
 
+## Overview
+
+| Heading      | Description |
+| ----------- | ----------- |
+| Description | Dicusses how to develop a dynamic web application that tracks and reports on Amazon DynamoDB data by using the AWS SDK for Java V2.     |
+| Audience   |  Developer (beginner / intermediate)        |
+| Updated   | 1/14/2022        |
+| Required Skills   | Java, Maven  |
+
+
+
 ## Purpose
 You can develop a web application that tracks and reports on work items by using the following AWS services:
 
@@ -15,7 +26,7 @@ This tutorial guides you through creating the **DynamoDB Item Tracker** applicat
 
 The following figure shows you the structure of the Java project.
 
-![AWS Tracking Application](images/pic1a.png)
+![AWS Tracking Application](images/awsprojectitem.png)
 
 #### Topics
 
@@ -50,6 +61,8 @@ To complete the tutorial, you need the following:
 
 Create an Amazon DynamoDB table named **Work** with a key named **id**. For information, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 
+In addition, make sure that you setup your Java developer environment before following along with this tutorial. For more information, see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). .
+
 
 ## Understand the DynamoDB Item Tracker application
 The **DynamoDB Item Tracker** application uses a model that is based on a work item and contains these attributes:
@@ -67,7 +80,7 @@ The following figure shows the login page.
 
 When a user logs into the application, they see the **Home** page.
 
-![AWS Tracking Application](images/homepage.png)
+![AWS Tracking Application](images/homepage2.png)
 
 #### Application functionality
 A user can perform these tasks in the **DynamoDB Item Tracker** application:
@@ -103,7 +116,7 @@ The DynamoDB table is named **Work** and contains the following fields:
 
 The following figure shows the **Work** table.
 
-![AWS Tracking Application](images/pic7.png)
+![AWS Tracking Application](images/worktable.png)
 
 ## Create an IntelliJ project named ItemTrackerDynamoDB
 
@@ -125,178 +138,177 @@ In the **pom.xml** file's **project** element, add the **spring-boot-starter-par
      <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
-      </parent>
+        <version>2.6.1</version>
+        <relativePath/> 
+    </parent>
 
 **Note:** Ensure that you are using Java 1.8 (as shown below).
 
 Ensure that the **pom.xml** file looks like the following.
 
 ```xml
-     <?xml version="1.0" encoding="UTF-8"?>
-	<project xmlns="http://maven.apache.org/POM/4.0.0"
+   <?xml version="1.0" encoding="UTF-8"?>
+   <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>ItemTrackerDynamoDB</groupId>
-    <artifactId>ItemTrackerDynamoDB</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <parent>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>ItemTrackerDynamoDB</groupId>
+   <artifactId>ItemTrackerDynamoDB</artifactId>
+   <version>1.0-SNAPSHOT</version>
+   <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
+        <version>2.6.1</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <properties>
-       <java.version>1.8</java.version>
-    </properties>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>software.amazon.awssdk</groupId>
-                <artifactId>bom</artifactId>
-                <version>2.11.11</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+   <properties>
+    <java.version>1.8</java.version>
+   </properties>
+   <dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
-            <artifactId>dynamodb</artifactId>
-            <version>2.5.10</version>
+            <artifactId>bom</artifactId>
+            <version>2.17.102</version>
+            <type>pom</type>
+            <scope>import</scope>
         </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>dynamodb-enhanced</artifactId>
-            <version>2.11.4-PREVIEW</version>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.4.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.4.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-commons</artifactId>
-            <version>1.4.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-launcher</artifactId>
-            <version>1.4.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>ses</artifactId>
-        </dependency>
-         <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>3.8.0</version>
-            <scope>test</scope>
-        </dependency>
-         <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>javax.mail-api</artifactId>
-            <version>1.6.0</version>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>protocol-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.5</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>javax.mail-api</artifactId>
-            <version>1.5.5</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>1.5.5</version>
-        </dependency>
-        <dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>dynamodb</artifactId>
+        <version>2.17.102</version>
+    </dependency>
+    <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>dynamodb-enhanced</artifactId>
+        <version>2.17.102</version>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>5.8.2</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>5.8.2</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.platform</groupId>
+        <artifactId>junit-platform-commons</artifactId>
+        <version>1.8.2</version>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.platform</groupId>
+        <artifactId>junit-platform-launcher</artifactId>
+        <version>1.8.2</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>ses</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>3.8.0</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>javax.mail</groupId>
+        <artifactId>javax.mail-api</artifactId>
+        <version>1.6.0</version>
+    </dependency>
+    <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>protocol-core</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.13.2</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>javax.mail</groupId>
+        <artifactId>javax.mail-api</artifactId>
+        <version>1.6.2</version>
+    </dependency>
+    <dependency>
+        <groupId>com.sun.mail</groupId>
+        <artifactId>javax.mail</artifactId>
+        <version>1.6.2</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+    <!-- bootstrap and jquery -->
+    <dependency>
+        <groupId>org.webjars</groupId>
+        <artifactId>bootstrap</artifactId>
+        <version>5.1.1</version>
+    </dependency>
+    <dependency>
+        <groupId>org.webjars</groupId>
+        <artifactId>jquery</artifactId>
+        <version>3.6.0</version>
+    </dependency>
+     <dependency>
+        <groupId>net.sourceforge.jexcelapi</groupId>
+        <artifactId>jxl</artifactId>
+        <version>2.6.12</version>
+    </dependency>
+    <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>20030203.000550</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-test</artifactId>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <scope>test</scope>
+        <exclusions>
+            <exclusion>
+                <groupId>org.junit.vintage</groupId>
+                <artifactId>junit-vintage-engine</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+    <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>2.7</version>
+    </dependency>
+   </dependencies>
+   <build>
+    <plugins>
+        <plugin>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <!-- bootstrap and jquery -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>3.3.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>3.2.1</version>
-        </dependency>
-        <!-- mysql connector -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.sourceforge.jexcelapi</groupId>
-            <artifactId>jxl</artifactId>
-            <version>2.6.10</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-       </dependencies>
-       <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-       </build>
-      </project>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>${project.parent.version}</version>
+        </plugin>
+    </plugins>
+   </build>
+   </project>
 ```
 
 ## Set up the Java packages in your project
@@ -313,7 +325,7 @@ These packages contain the following:
 
 + **entities** - Contains Java files that represent the model. In this example, the model class is named **WorkItem**.
 + **services** - Contains Java files that invoke AWS services. For example, the **software.amazon.awssdk.services.dynamodb.DynamoDbClient** object is used to perform DynamoDB operations.
-+ **secureweb** - Contains the SpringJava classes.
++ **secureweb** - Contains the Spring Java classes.
 
 **Note:** The only class that is in **com.example** is **SecureWebApp**. All other classes are in the subpackages.
 
