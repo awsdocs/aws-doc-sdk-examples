@@ -55,7 +55,7 @@ lambda_Scenario_DeployInvokeFunction:
   title: Deploy and invoke a &LAM; function using an &AWS; SDK
   title_abbrev: Deploy and invoke a function
   synopsis: deploy and invoke a &LAM; function.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:

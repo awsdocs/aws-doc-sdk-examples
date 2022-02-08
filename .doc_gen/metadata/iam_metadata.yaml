@@ -283,7 +283,7 @@ iam_Scenario_AccountManagement:
   title: Manage your &IAM; account using an &AWS; SDK
   title_abbrev: Manage your account
   synopsis: manage your &IAM; account.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -593,7 +593,7 @@ iam_Scenario_ManageAccessKeys:
   title: Manage &IAM; access keys using an &AWS; SDK
   title_abbrev: Manage access keys
   synopsis: manage &IAM; access keys.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -811,7 +811,7 @@ iam_Scenario_RollbackPolicyVersion:
   title: Rollback an &IAM; policy version using an &AWS; SDK
   title_abbrev: Rollback a policy version
   synopsis: rollback an &IAM; policy version.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -959,7 +959,7 @@ iam_Scenario_PolicyManagement:
   title: Manage &IAM; policies using an &AWS; SDK
   title_abbrev: Manage policies
   synopsis: manage &IAM; policies.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -1088,7 +1088,7 @@ iam_Scenario_RoleManagement:
   title: Manage &IAM; roles using an &AWS; SDK
   title_abbrev: Manage roles
   synopsis: manage &IAM; roles.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -1413,7 +1413,7 @@ iam_Scenario_UserPolicies:
     objects in an &S3long; (&S3;) bucket and the other can only get objects from
     the bucket. The users' credentials are then used to move objects in and out of
     the bucket.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -1594,7 +1594,7 @@ iam_Scenario_CreateUserAssumeRole:
   title_abbrev: Create a user and assume a role
   synopsis: create an &IAM; user, assume a role with &STS;, and use temporary security
     credentials to access an &AWS; resource.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
