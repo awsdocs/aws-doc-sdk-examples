@@ -132,9 +132,13 @@ func main() {
 	//snippet-start:[s3.go-v2.CopyObject]
 	// Copy an object to another name
 
+	// CopyObject is "Pull an object from another place"
+	// The semantics of CopySource varies depending on if you are using S3 on Outposts
+	// or via Access Points.
+	// See https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html#API_CopyObject_RequestSyntax
 	_, err = s3client.CopyObject(context.TODO(), &s3.CopyObjectInput{
 		Bucket:     aws.String(myBucketName),
-		CopySource: aws.String("path/myfile.jpg"),
+		CopySource: aws.String(myBucketName+"/path/myfile.jpg"),
 		Key:        aws.String("other/file.jpg"),
 	})
 
