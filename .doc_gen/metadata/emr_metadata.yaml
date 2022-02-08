@@ -107,7 +107,7 @@ emr_Usage_RunEmrfsCommand:
   synopsis: run an &EMR; file system (EMRFS) command as a job step on a cluster.
     This can be used to automate EMRFS commands on a cluster instead of running
     commands manually through an SSH connection.
-  category: Usage
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -126,7 +126,7 @@ emr_Usage_InstallLibrariesWithSsm:
   synopsis: use &SYSlong; to run a shell script on &EMR; instances to install
     additional libraries. This can be used to automate instance management instead
     of running commands manually through an SSH connection.
-  category: Usage
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -144,7 +144,7 @@ emr_Usage_ShortLivedCluster:
   title_abbrev: Create a short-lived cluster and run a step
   synopsis: create an &EMR; short-lived cluster that runs a step and automatically
     terminates after the step completes.
-  category: Usage
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -156,7 +156,7 @@ emr_Usage_LongLivedCluster:
   title: Create an &EMR; long-lived cluster and run several steps using an &AWS; SDK
   title_abbrev: Create a long-lived cluster and run several steps
   synopsis: create an &EMR; long-lived cluster and run several steps.
-  category: Usage
+  category: Scenarios
   languages:
     Python:
       versions:
