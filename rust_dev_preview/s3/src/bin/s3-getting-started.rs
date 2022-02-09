@@ -11,7 +11,7 @@ use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_s3::{Client, Error, Region};
 use uuid::Uuid;
 
-// snippet-end:[rust.example_code.s3.basics.import]
+// snippet-end:[rust.example_code.s3.basics.imports]
 
 // snippet-start:[rust.example_code.s3.basics.main]
 #[tokio::main]
