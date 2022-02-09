@@ -413,4 +413,4 @@ export const run = async (
   }
 };
 run(userName, s3_policy_name, role_name, assume_policy_name);
-// snippet-start:[s3_basics.JavaScript.iam_basics]
+// snippet-end:[s3_basics.JavaScript.iam_basics]
