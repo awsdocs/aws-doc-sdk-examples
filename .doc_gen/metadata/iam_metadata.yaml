@@ -1131,7 +1131,7 @@ iam_GetRole:
                 - iam.JavaScript.createclientv3
             - description: Get the role.
               snippet_tags:
-                - iam.JavaScript.getPolicyV3
+                - iam.JavaScript.getRoleV3
   services:
     iam: {GetRole}
 iam_DeleteRole:
@@ -1685,7 +1685,7 @@ iam_ListGroups:
                 - iam.JavaScript.createclientv3
             - description: List the groups.
               snippet_tags:
-                - javascriptv3/example_code/iam/src
+                - iam.JavaScript.listgroupsV3
   services:
     iam: {ListGroups}
 iam_CreateServiceLinkedRole:
