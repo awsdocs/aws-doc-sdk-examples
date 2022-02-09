@@ -42,7 +42,7 @@ async fn initialize_variables() -> (Region, Client, String, String, String, Stri
 
     (region, client, bucket_name, file_name, key, target_key)
 }
-// snippet-end:[rust.example_code.initialize_variables]
+// snippet-end:[rust.example_code.s3.basics.initialize_variables]
 
 // snippet-start:[rust.example_code.s3.basics.run_s3_operations]
 async fn run_s3_operations(
