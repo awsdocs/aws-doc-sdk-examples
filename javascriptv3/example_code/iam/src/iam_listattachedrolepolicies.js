@@ -14,7 +14,7 @@ Running the code:
 node iam_listattachedrolepriorities.js
  */
 
-// snippet-start:[iam.JavaScript.listattachedroleprioritiesV3]
+// snippet-start:[iam.JavaScript.listattachedrolepoliciesV3]
 // Import required AWS SDK clients and commands for Node.js
 import { iamClient } from "./libs/iamClient.js";
 import {ListAttachedRolePoliciesCommand} from "@aws-sdk/client-iam";
@@ -33,4 +33,4 @@ export const run = async () => {
     }
 }
 run();
-// snippet-end:[iam.JavaScript.listattachedroleprioritiesV3]
+// snippet-end:[iam.JavaScript.listattachedrolepoliciesV3]

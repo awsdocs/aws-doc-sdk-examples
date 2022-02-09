@@ -19,7 +19,7 @@ node iam_basics.js <user name> <s3 policy name> <role name> <assume policy name>
 Running the code:
 node iam_basics.js
 */
-// snippet-start:[s3_basics.JavaScript.iam_basics]
+// snippet-start:[javascript.iam_scenarios.iam_basics]
 // Import required AWS SDK clients and commands for Node.js.
 import { iamClient, REGION } from "../libs/iamClient.js";
 import {
@@ -320,7 +320,6 @@ export const run = async (
                                 })
                             );
                             // snippet-end:[iam.JavaScript.deletePolicyv3]
-                            // snippet-start:[iam.JavaScript.deleteAccessKeysv3]
                             try {
                               console.log("Deleting access keys ... \n");
                               const data = await iamClient.send(
@@ -329,7 +328,6 @@ export const run = async (
                                     AccessKeyId: myAccessKey,
                                   })
                               );
-                              // snippet-end:[iam.JavaScript.deleteAccessKeysv3]
                               try {
                                 console.log(
                                     "Deleting user " + user_name + " ... \n"
@@ -413,4 +411,4 @@ export const run = async (
   }
 };
 run(userName, s3_policy_name, role_name, assume_policy_name);
-// snippet-end:[s3_basics.JavaScript.iam_basics]
+// snippet-end:[javascript.iam_scenarios.iam_basics]

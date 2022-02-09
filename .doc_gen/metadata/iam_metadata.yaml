@@ -260,6 +260,18 @@ iam_GetAccountPasswordPolicy:
             - description:
               snippet_tags:
                 - python.example_code.iam.GetAccountPasswordPolicy
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam/src
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Get the account password policy.
+              snippet_tags:
+                - iam.JavaScript.getaccountpasswordpolicyV3
   services:
     iam: {GetAccountPasswordPolicy}
 iam_ListSAMLProviders:
@@ -277,6 +289,18 @@ iam_ListSAMLProviders:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListSAMLProviders
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam/src
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description:
+              snippet_tags:
+                - iam.JavaScript.listsamlprovidersV3
   services:
     iam: {ListSAMLProviders}
 iam_Scenario_AccountManagement:
@@ -702,6 +726,18 @@ iam_DeletePolicy:
             - description:
               snippet_tags:
                 - python.example_code.iam.DeletePolicy
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam/scenario/src
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.scenario.createclientv3
+            - description:
+              snippet_tags:
+                - iam.JavaScript.deletePolicyv3
   services:
     iam: {DeletePolicy}
 iam_CreatePolicyVersion:
@@ -736,6 +772,18 @@ iam_ListPolicies:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListPolicies
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam/src
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description:
+              snippet_tags:
+                - iam.JavaScript.listpoliciesv3
   services:
     iam: {ListPolicies}
 iam_GetPolicy:
@@ -896,6 +944,18 @@ iam_ListAttachedRolePolicies:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListAttachedRolePolicies
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam/src
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Liat attached role policies.
+              snippet_tags:
+                - iam.JavaScript.listattachedrolepoliciesV3
   services:
     iam: {ListAttachedRolePolicies}
 iam_DetachRolePolicy:
@@ -1031,6 +1091,18 @@ iam_ListRoles:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListRoles
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam/src
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the roles.
+              snippet_tags:
+                - iam.JavaScript.listrolesV3
   services:
     iam: {ListRoles}
 iam_GetRole:
@@ -1048,6 +1120,18 @@ iam_GetRole:
             - description:
               snippet_tags:
                 - python.example_code.iam.GetRole
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam/src
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Get the role.
+              snippet_tags:
+                - iam.JavaScript.getPolicyV3
   services:
     iam: {GetRole}
 iam_DeleteRole:
@@ -1065,6 +1149,15 @@ iam_DeleteRole:
             - description:
               snippet_tags:
                 - python.example_code.iam.DeleteRole
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam/scenario/src
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.JavaScript.deleteRolev3
   services:
     iam: {DeleteRole}
 iam_ListRolePolicies:
@@ -1082,6 +1175,18 @@ iam_ListRolePolicies:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListRolePolicies
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam/src
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description:
+              snippet_tags:
+                - iam.JavaScript.listrolepoliciesv3
   services:
     iam: {ListRolePolicies}
 iam_Scenario_RoleManagement:
@@ -1569,6 +1674,18 @@ iam_ListGroups:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListGroups
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam/src
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the groups.
+              snippet_tags:
+                - javascriptv3/example_code/iam/src
   services:
     iam: {ListGroups}
 iam_CreateServiceLinkedRole:
@@ -1586,9 +1703,20 @@ iam_CreateServiceLinkedRole:
             - description:
               snippet_tags:
                 - python.example_code.iam.CreateServiceLinkedRole
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam/src
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Create the service linked role.
+              snippet_tags:
+                - iam.JavaScript.createservicelinkedrolev3
   services:
     iam: {CreateServiceLinkedRole}
-
 iam_Scenario_CreateUserAssumeRole:
   title: Create an &IAM; user and assume a role with &STS; using an &AWS; SDK
   title_abbrev: Create a user and assume a role
@@ -1608,5 +1736,20 @@ iam_Scenario_CreateUserAssumeRole:
                 the account.
               snippet_tags:
                 - python.example_code.iam.Scenario_CreateUserAssumeRole
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam/scenarios/src/iam_basics
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.scenario.createclientv3
+            - description: Create an &IAM; user and a role that grants permission
+                to list &S3; buckets. The user has rights only to assume the role.
+                After assuming the role, use temporary credentials to list buckets for
+                the account.
+              snippet_tags:
+                - javascript.iam_scenarios.iam_basics
   services:
     iam: {}
