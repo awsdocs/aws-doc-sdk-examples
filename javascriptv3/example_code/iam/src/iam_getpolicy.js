@@ -17,15 +17,14 @@ import { iamClient } from "./libs/iamClient.js";
 import { GetPolicyCommand } from "@aws-sdk/client-iam";
 
 // Set the parameters
-export const params = {
-  PolicyArn: "arn:aws:iam::aws:policy/AWSLambdaExecute",
+const params = {
+  PolicyArn: "POLICY_ARN" /* required */,
 };
 
-export const run = async () => {
+const run = async () => {
   try {
     const data = await iamClient.send(new GetPolicyCommand(params));
-    console.log("Success", data);
-    return data;
+    console.log("Success", data.Policy);
   } catch (err) {
     console.log("Error", err);
   }
