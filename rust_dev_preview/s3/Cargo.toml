@@ -1,8 +1,16 @@
 [package]
-name = "s3-code-examples"
+name = "s3_code_examples"
 version = "0.1.0"
 authors = ["Russell Cohen <rcoh@amazon.com>", "Doug Schwartz <dougsch@amazon.com>"]
 edition = "2018"
+
+[lib]
+name = "s3_service"
+path = "src/s3-service-lib.rs"
+
+[[bin]]
+name = "s3_getting_started"
+path = "src/bin/s3-getting-started.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
