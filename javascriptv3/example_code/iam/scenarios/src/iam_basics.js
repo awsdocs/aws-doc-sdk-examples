@@ -9,7 +9,7 @@ and perform AWS actions.
 1. Create a user who has no permissions.
 2. Create a role that grants permission to list Amazon S3 buckets for the account.
 3. Add a policy to let the user assume the role.
-4. Assume the role and list Amazon S3 buckets using temporary credentials.
+4. Assume the role and list S3 buckets using temporary credentials.
 5. Delete the policy, role, and user.
 
 
@@ -21,7 +21,7 @@ node iam_basics.js
 */
 // snippet-start:[javascript.iam_scenarios.iam_basics]
 // Import required AWS SDK clients and commands for Node.js.
-import { iamClient, REGION } from "../libs/iamClient.js";
+import { iamClient, REGION } from "../libs/iamClient.js"; // Helper function that creates an Amazon IAM service client module.
 import {
   CreateUserCommand,
   CreateAccessKeyCommand,
@@ -69,7 +69,7 @@ export const run = async (
 ) => {
   try {
     // Create a new user.
-    const user_params = { UserName: userName }; // A name for the new user.
+    const user_params = { UserName: userName };
     console.log("\nCreating a user name " + user_params.UserName + "...\n");
     const data = await iamClient.send(
         new CreateUserCommand({ UserName: userName })
@@ -93,13 +93,13 @@ export const run = async (
       var mySecretAccessKey = data.AccessKey.SecretAccessKey;
 
       try {
-        // Attempt to list Amazon S3 buckets.
+        // Attempt to list S3 buckets.
         console.log(
             "\nWaiting 10 seconds for user and access keys to be created...\n"
         );
         wait(10000);
         console.log(
-            "Attempt to list Amazon S3 buckets with the new user (without permissions)...\n"
+            "Attempt to list S3 buckets with the new user (without permissions)...\n"
         );
         // Use the credentials for the new user you created.
         var user_creds = {
@@ -137,7 +137,7 @@ export const run = async (
             new CreatePolicyCommand(policy_params)
         );
         console.log(
-            "Success. Policy created that allows listing of all Amazon S3 buckets.\n" +
+            "Success. Policy created that allows listing of all S3 buckets.\n" +
             "Policy ARN: " +
             data.Policy.Arn +
             "\n" +
@@ -170,7 +170,7 @@ export const run = async (
           const role_params = {
             AssumeRolePolicyDocument: myJson, // Trust relationship policy document.
             Path: "/",
-            RoleName: role_name, // The name of the new role.
+            RoleName: role_name // The name of the new role.
           };
           const data = await iamClient.send(new CreateRoleCommand(role_params));
           console.log("Success. Role created. Role Arn: ", data.Role.Arn);
@@ -260,7 +260,7 @@ export const run = async (
                       "\nWaiting 10 seconds for the user to assume the role with permission to list all buckets...\n"
                   );
                   wait(10000);
-                  // Set the parameters for the temporary credentials, which will give the user permissions to list buckets.
+                  // Set the parameters for the temporary credentials, which gives permission to list S3 buckets.
                   var new_role_creds = {
                     accessKeyId: newAccessKey,
                     secretAccessKey: newSecretAccessKey,
@@ -278,7 +278,7 @@ export const run = async (
                     const data = await s3ClientWithNewCreds.send(
                         new ListBucketsCommand({})
                     );
-                    console.log("Success. Your buckets are:", data.Buckets);
+                    console.log("Success. Your S3 buckets are:", data.Buckets);
                     try {
                       console.log(
                           "Detaching s3 policy from user " + userName + " ... \n"
@@ -311,7 +311,6 @@ export const run = async (
                               })
                           );
                           console.log("Success, S3 policy deleted.");
-                          // snippet-start:[iam.JavaScript.deletePolicyv3]
                           try {
                             console.log("Deleting assume role policy ... \n");
                             const data = await iamClient.send(
@@ -319,7 +318,6 @@ export const run = async (
                                   PolicyArn: assume_policy_arn,
                                 })
                             );
-                            // snippet-end:[iam.JavaScript.deletePolicyv3]
                             try {
                               console.log("Deleting access keys ... \n");
                               const data = await iamClient.send(
@@ -340,14 +338,12 @@ export const run = async (
                                   console.log(
                                       "Deleting role " + role_name + " ... \n"
                                   );
-                                  // snippet-start:[iam.JavaScript.deleteRolev3]
                                   const data = await iamClient.send(
                                       new DeleteRoleCommand({
                                         RoleName: role_name,
                                       })
                                   );
                                   console.log("Success, role deleted.");
-                                  // snippet-end:[iam.JavaScript.deleteRolev3]
                                   return "Run successfully"; // For unit tests.
                                 } catch (err) {
                                   console.log("Error deleting  role .", err);
@@ -375,7 +371,7 @@ export const run = async (
                       process.exit(1);
                     }
                   } catch (err) {
-                    console.log("Error listing buckets.", err);
+                    console.log("Error listing S3 buckets.", err);
                     process.exit(1);
                   }
                 } catch (err) {

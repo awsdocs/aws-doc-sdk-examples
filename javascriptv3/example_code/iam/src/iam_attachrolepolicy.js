@@ -16,14 +16,14 @@ node iam_attachrolepolicy.js
 
  */
 // snippet-start:[iam.JavaScript.policies.attachRolePolicyV3]
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 import { iamClient } from "./libs/iamClient.js";
 import {
   ListAttachedRolePoliciesCommand,
   AttachRolePolicyCommand,
 } from "@aws-sdk/client-iam";
 
-// Set the parameters
+// Set the parameters.
 const ROLENAME = "ROLE_NAME";
 const paramsRoleList = { RoleName: ROLENAME }; //ROLE_NAME
 export const params = {

@@ -15,11 +15,11 @@ node iam_listattachedrolepriorities.js
  */
 
 // snippet-start:[iam.JavaScript.listattachedrolepoliciesV3]
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 import { iamClient } from "./libs/iamClient.js";
 import {ListAttachedRolePoliciesCommand} from "@aws-sdk/client-iam";
 
-// Set the parameters
+// Set the parameters.
 export const params = {
     RoleName: 'ROLE_NAME' /* required */
 };

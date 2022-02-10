@@ -15,11 +15,11 @@ Running the code:
 node iam_getservercert.js
  */
 // snippet-start:[iam.JavaScript.certs.getServerCertificateV3]
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 import { iamClient } from "./libs/iamClient.js";
 import { GetServerCertificateCommand } from "@aws-sdk/client-iam";
 
-// Set the parameters
+// Set the parameters.
 export const params = { ServerCertificateName: "CERTIFICATE_NAME" }; //CERTIFICATE_NAME
 
 export const run = async () => {

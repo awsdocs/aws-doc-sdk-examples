@@ -263,7 +263,7 @@ iam_GetAccountPasswordPolicy:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/iam/src
+          github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
             - description: Create the client.
@@ -292,13 +292,13 @@ iam_ListSAMLProviders:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/iam/src
+          github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
             - description: Create the client.
               snippet_tags:
                 - iam.JavaScript.createclientv3
-            - description:
+            - description: List the SAML providers.
               snippet_tags:
                 - iam.JavaScript.listsamlprovidersV3
   services:
@@ -729,15 +729,15 @@ iam_DeletePolicy:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/iam/scenario/src
+          github: javascriptv3/example_code/iam/
           sdkguide:
           excerpts:
             - description: Create the client.
               snippet_tags:
-                - iam.JavaScript.scenario.createclientv3
-            - description:
+                - iam.JavaScript.createclientv3
+            - description: Delete the policy.
               snippet_tags:
-                - iam.JavaScript.deletePolicyv3
+                - iam.JavaScript.users.deletepolicyv3
   services:
     iam: {DeletePolicy}
 iam_CreatePolicyVersion:
@@ -775,13 +775,13 @@ iam_ListPolicies:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/iam/src
+          github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
             - description: Create the client.
               snippet_tags:
                 - iam.JavaScript.createclientv3
-            - description:
+            - description: List the policies.
               snippet_tags:
                 - iam.JavaScript.listpoliciesv3
   services:
@@ -947,13 +947,13 @@ iam_ListAttachedRolePolicies:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/iam/src
+          github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
             - description: Create the client.
               snippet_tags:
                 - iam.JavaScript.createclientv3
-            - description: Liat attached role policies.
+            - description: List policies attached to a role.
               snippet_tags:
                 - iam.JavaScript.listattachedrolepoliciesV3
   services:
@@ -1074,6 +1074,17 @@ iam_CreateRole:
             - description:
               snippet_tags:
                 - iam.rust.create-role
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Create the role.
+              snippet_tags:
+                - iam.JavaScript.users.createrolev3
   services:
     iam: {CreateRole}
 iam_ListRoles:
@@ -1094,7 +1105,7 @@ iam_ListRoles:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/iam/src
+          github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
             - description: Create the client.
@@ -1123,7 +1134,7 @@ iam_GetRole:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/iam/src
+          github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
             - description: Create the client.
@@ -1152,12 +1163,15 @@ iam_DeleteRole:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/iam/scenario/src
+          github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
-            - description:
+            - description: Create the client.
               snippet_tags:
-                - iam.JavaScript.deleteRolev3
+                - iam.JavaScript.createclientv3
+            - description: Delete the role.
+              snippet_tags:
+                - iam.JavaScript.users.deleterolev3
   services:
     iam: {DeleteRole}
 iam_ListRolePolicies:
@@ -1178,13 +1192,13 @@ iam_ListRolePolicies:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/iam/src
+          github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
             - description: Create the client.
               snippet_tags:
                 - iam.JavaScript.createclientv3
-            - description:
+            - description: List the policies.
               snippet_tags:
                 - iam.JavaScript.listrolepoliciesv3
   services:
@@ -1677,7 +1691,7 @@ iam_ListGroups:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/iam/src
+          github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
             - description: Create the client.
@@ -1706,13 +1720,13 @@ iam_CreateServiceLinkedRole:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/iam/src
+          github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
             - description: Create the client.
               snippet_tags:
                 - iam.JavaScript.createclientv3
-            - description: Create the service linked role.
+            - description: Create a service linked role.
               snippet_tags:
                 - iam.JavaScript.createservicelinkedrolev3
   services:
@@ -1739,7 +1753,7 @@ iam_Scenario_CreateUserAssumeRole:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/iam/scenarios/src/iam_basics
+          github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
             - description: Create the client.

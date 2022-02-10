@@ -15,10 +15,10 @@ node iam_createservicelinkedrole.js
  */
 
 // snippet-start:[iam.JavaScript.createservicelinkedrolev3]
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 import { iamClient } from "./libs/iamClient.js";
 import { CreateServiceLinkedRoleCommand } from "@aws-sdk/client-iam";
-// Set the parameters
+// Set the parameters.
 const params = {
   AWSServiceName: "AWS_SERVICE_NAME" /* required */,
 };

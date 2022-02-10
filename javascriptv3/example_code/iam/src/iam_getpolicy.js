@@ -12,11 +12,11 @@ Running the code:
 node iam_getpolicy.js
  */
 // snippet-start:[iam.JavaScript.policies.getPolicyV3]
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 import { iamClient } from "./libs/iamClient.js";
 import { GetPolicyCommand } from "@aws-sdk/client-iam";
 
-// Set the parameters
+// Set the parameters.
 const params = {
   PolicyArn: "POLICY_ARN" /* required */,
 };

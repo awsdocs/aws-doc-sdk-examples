@@ -16,14 +16,14 @@ Running the code:
 node iam_detachrolepolicy.js
  */
 // snippet-start:[iam.JavaScript.policies.detachRolePolicyV3]
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 import { iamClient } from "./libs/iamClient.js";
 import {
   ListAttachedRolePoliciesCommand,
   DetachRolePolicyCommand,
 } from "@aws-sdk/client-iam";
 
-// Set the parameters
+// Set the parameters.
 export const params = { RoleName: "ROLE_NAME" }; //ROLE_NAME
 
 export const run = async () => {

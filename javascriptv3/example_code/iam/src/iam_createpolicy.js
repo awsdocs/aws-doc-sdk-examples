@@ -17,11 +17,11 @@ Running the code:
 node iam_createpolicy.js
  */
 // snippet-start:[iam.JavaScript.policies.createPolicyV3]
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 import { iamClient } from "./libs/iamClient.js";
 import { CreatePolicyCommand } from "@aws-sdk/client-iam";
 
-// Set the parameters
+// Set the parameters.
 const myManagedPolicy = {
   Version: "2012-10-17",
   Statement: [
@@ -39,7 +39,7 @@ const myManagedPolicy = {
         "dynamodb:Scan",
         "dynamodb:UpdateItem",
       ],
-      Resource: "DYNAMODB_POLICY_NAME", // DYNAMODB_POLICY_NAME; e.g., "myDynamoDBName"
+      Resource: "DYNAMODB_POLICY_NAME", // DYNAMODB_POLICY_NAME; For example, "myDynamoDBName".
     },
   ],
 };

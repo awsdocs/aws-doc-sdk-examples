@@ -16,11 +16,11 @@ node iam_listaccesskeys.js
  */
 
 // snippet-start:[iam.JavaScript.keys.listAccessKeysV3]
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 import { iamClient } from "./libs/iamClient.js";
 import { ListAccessKeysCommand } from "@aws-sdk/client-iam";
 
-// Set the parameters
+// Set the parameters.
 export const params = {
   MaxItems: 5,
   UserName: "IAM_USER_NAME", //IAM_USER_NAME

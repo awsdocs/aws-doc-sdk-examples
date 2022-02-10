@@ -15,11 +15,11 @@ Running the code:
 node iam_accesskeylastused.js
  */
 // snippet-start:[iam.JavaScript.keys.getAccessKeyLastUsedV3]
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 import { iamClient } from "./libs/iamClient.js";
 import { GetAccessKeyLastUsedCommand } from "@aws-sdk/client-iam";
 
-// Set the parameters
+// Set the parameters.
 export const params = { AccessKeyId: "ACCESS_KEY_ID" }; //ACCESS_KEY_ID
 
 export const run = async () => {

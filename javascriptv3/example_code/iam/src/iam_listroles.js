@@ -18,11 +18,11 @@ node iam_listroles.js
  */
 
 // snippet-start:[iam.JavaScript.listrolesV3]
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 import { iamClient } from "./libs/iamClient.js";
 import { ListRolesCommand } from "@aws-sdk/client-iam";
 
-// Set the parameters
+// Set the parameters.
 const params = {
     Marker: 'MARKER', // This is a string value.
     MaxItems: 'MAX_ITEMS' // This is a number value.

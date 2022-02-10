@@ -12,7 +12,7 @@ node iam_listsamlproviders.js
  */
 
 // snippet-start:[iam.JavaScript.listsamlprovidersV3]
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 import { iamClient } from "./libs/iamClient.js";
 import {ListSAMLProvidersCommand} from "@aws-sdk/client-iam";
 

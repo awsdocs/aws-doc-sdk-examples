@@ -16,11 +16,11 @@ node iam_createuser.js
  */
 
 // snippet-start:[iam.JavaScript.users.getUserV3]
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 import { iamClient } from "./libs/iamClient.js";
 import { GetUserCommand, CreateUserCommand } from "@aws-sdk/client-iam";
 
-// Set the parameters
+// Set the parameters.
 export const params = { UserName: "USER_NAME" }; //USER_NAME
 
 export const run = async () => {

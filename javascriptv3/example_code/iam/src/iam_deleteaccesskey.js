@@ -16,11 +16,11 @@ Running the code:
 node iam_deleteaccesskey.js
  */
 // snippet-start:[iam.JavaScript.keys.deleteAccessKeyV3]
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 import { iamClient } from "./libs/iamClient.js";
 import { DeleteAccessKeyCommand } from "@aws-sdk/client-iam";
 
-// Set the parameters
+// Set the parameters.
 export const params = {
   AccessKeyId: "ACCESS_KEY_ID", // ACCESS_KEY_ID
   UserName: "USER_NAME", // USER_NAME

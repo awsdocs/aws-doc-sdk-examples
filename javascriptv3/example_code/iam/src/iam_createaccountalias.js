@@ -15,11 +15,11 @@ Running the code:
 node iam_createaccountalias.js
  */
 // snippet-start:[iam.JavaScript.alias.createAccountAliasV3]
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 import { iamClient } from "./libs/iamClient.js";
 import { CreateAccountAliasCommand } from "@aws-sdk/client-iam";
 
-// Set the parameters
+// Set the parameters.
 export const params = { AccountAlias: "ACCOUNT_ALIAS" }; //ACCOUNT_ALIAS
 
 export const run = async () => {

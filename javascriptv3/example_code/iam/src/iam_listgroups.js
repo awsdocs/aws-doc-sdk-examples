@@ -18,11 +18,11 @@ node iam_listgroups.js
  */
 
 // snippet-start:[iam.JavaScript.listgroupsV3]
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 import { iamClient } from "./libs/iamClient.js";
 import {ListGroupsCommand} from "@aws-sdk/client-iam";
 
-// Set the parameters
+// Set the parameters.
 export const params = {
     RoleName: 'ROLE_NAME', /* This is a number value. Required */
     Marker: 'MARKER', /* This is a string value. Optional */

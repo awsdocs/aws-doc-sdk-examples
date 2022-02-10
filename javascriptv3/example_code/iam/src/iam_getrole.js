@@ -15,11 +15,11 @@ node iam_getrole.js
  */
 
 // snippet-start:[iam.JavaScript.getRoleV3]
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 import { iamClient } from "./libs/iamClient.js";
 import { GetRoleCommand } from "@aws-sdk/client-iam";
 
-// Set the parameters
+// Set the parameters.
 const params = {
   RoleName: "ROLE_NAME" /* required */
 };

@@ -16,11 +16,11 @@ node iam_createaccesskeys.js >newuserkeys.txt
 (This create newuserkeys.txt and adds the access key ID and secret key to it.)
  */
 // snippet-start:[iam.JavaScript.keys.createAccessKeyV3]
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 import { iamClient } from "./libs/iamClient.js";
 import { CreateAccessKeyCommand } from "@aws-sdk/client-iam";
 
-// Set the parameters
+// Set the parameters.
 export const params = {UserName: "IAM_USER_NAME"}; //IAM_USER_NAME
 
 export const run = async () => {
