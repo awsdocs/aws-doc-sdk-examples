@@ -13,11 +13,16 @@ version:
   caveat: str(required=False, upper_start=True, end_punc=True)
   bookmark: str(required=False)
   api_ref: include('api_ref', required=False)
+  title_override: include('title_override', required=False)
 
 api_ref:
   uid: str(check_aws=False)
   name: include('entity_regex')
   link_template: str(required=False, check_aws=False)
+
+title_override:
+  title: str()
+  title_abbrev: str()
 
 syntax_enum: enum('cpp', 'go', 'java', 'javascript', 'kotlin', 'csharp', 'php', 'python', 'ruby', 'rust', 'swift')
 entity_regex: regex('^[&]([\dA-Za-z-_])+[;]$', name='valid entity')
