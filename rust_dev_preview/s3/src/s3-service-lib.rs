@@ -86,6 +86,7 @@ pub async fn copy_object(
 // snippet-end:[rust.example_code.s3.basics.copy_object]
 
 // snippet-start:[rust.example_code.s3.basics.download_object]
+// snippet-start:[rust.example_code.s3.basics.get_object]
 pub async fn download_object(client: &Client, bucket_name: &str, key: &str) -> Result<(), Error> {
     let resp = client
         .get_object()
@@ -101,9 +102,11 @@ pub async fn download_object(client: &Client, bucket_name: &str, key: &str) -> R
 
     Ok(())
 }
+// snippet-end:[rust.example_code.s3.basics.get_object]
 // snippet-end:[rust.example_code.s3.basics.download_object]
 
 // snippet-start:[rust.example_code.s3.basics.upload_object]
+// snippet-start:[rust.example_code.s3.basics.put_object]
 pub async fn upload_object(
     client: &Client,
     bucket_name: &str,
@@ -122,6 +125,7 @@ pub async fn upload_object(
     println!("Uploaded file: {}", file_name);
     Ok(())
 }
+// snippet-end:[rust.example_code.s3.basics.put_object]
 // snippet-end:[rust.example_code.s3.basics.upload_object]
 
 // snippet-start:[rust.example_code.s3.basics.create_bucket]
