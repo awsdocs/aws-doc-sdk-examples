@@ -29,7 +29,7 @@ import {
   CreateBucketCommand,
   DeleteBucketCommand}
 from "@aws-sdk/client-s3";
-import {s3Client} from "./libs/s3Client" // Helper function that creates Amazon S3 service client module.
+import {s3Client} from "./libs/s3Client" // Helper function that creates an Amazon S3 service client module.
 
 const async = require("async"); // To call AWS operations asynchronously.
 

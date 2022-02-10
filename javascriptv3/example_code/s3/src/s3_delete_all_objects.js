@@ -15,7 +15,7 @@ nodes3_delete_all_objectS.js
 */
 // snippet-start:[s3.JavaScript.buckets.deleteoallbjectsV3]
 import { ListObjectsCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
-import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+import { s3Client } from "./libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
 
 export const bucketParams = { Bucket: "BUCKET_NAME" };
 
