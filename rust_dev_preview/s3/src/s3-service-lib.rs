@@ -13,15 +13,15 @@ use aws_sdk_s3::{ByteStream, Client, Error};
 use std::path::Path;
 use std::str;
 
-// snippet-start:[rust.example_code.s3.delete_bucket]
+// snippet-start:[rust.example_code.s3.basics.delete_bucket]
 pub async fn delete_bucket(client: &Client, bucket_name: &str) -> Result<(), Error> {
     client.delete_bucket().bucket(bucket_name).send().await?;
     println!("bucket deleted");
     Ok(())
 }
-// snippet-end:[rust.example_code.s3.delete_bucket]
+// snippet-end:[rust.example_code.s3.basics.delete_bucket]
 
-// snippet-start:[rust.example_code.s3.delete_objects]
+// snippet-start:[rust.example_code.s3.basics.delete_objects]
 pub async fn delete_objects(client: &Client, bucket_name: &str) -> Result<(), Error> {
     let objects = client.list_objects_v2().bucket(bucket_name).send().await?;
 
@@ -47,9 +47,9 @@ pub async fn delete_objects(client: &Client, bucket_name: &str) -> Result<(), Er
         ))),
     }
 }
-// snippet-end:[rust.example_code.s3.delete_objects]
+// snippet-end:[rust.example_code.s3.basics.delete_objects]
 
-// snippet-start:[rust.example_code.s3.list_objects]
+// snippet-start:[rust.example_code.s3.basics.list_objects]
 pub async fn list_objects(client: &Client, bucket_name: &str) -> Result<(), Error> {
     let objects = client.list_objects_v2().bucket(bucket_name).send().await?;
     println!("Objects in bucket:");
@@ -59,9 +59,9 @@ pub async fn list_objects(client: &Client, bucket_name: &str) -> Result<(), Erro
 
     Ok(())
 }
-// snippet-end:[rust.example_code.s3.list_objects]
+// snippet-end:[rust.example_code.s3.basics.list_objects]
 
-// snippet-start:[rust.example_code.s3.copy_object]
+// snippet-start:[rust.example_code.s3.basics.copy_object]
 pub async fn copy_object(
     client: &Client,
     bucket_name: &str,
@@ -83,9 +83,9 @@ pub async fn copy_object(
 
     Ok(())
 }
-// snippet-end:[rust.example_code.s3.copy_object]
+// snippet-end:[rust.example_code.s3.basics.copy_object]
 
-// snippet-start:[rust.example_code.s3.download_object]
+// snippet-start:[rust.example_code.s3.basics.download_object]
 pub async fn download_object(client: &Client, bucket_name: &str, key: &str) -> Result<(), Error> {
     let resp = client
         .get_object()
@@ -101,9 +101,9 @@ pub async fn download_object(client: &Client, bucket_name: &str, key: &str) -> R
 
     Ok(())
 }
-// snippet-end:[rust.example_code.s3.download_object]
+// snippet-end:[rust.example_code.s3.basics.download_object]
 
-// snippet-start:[rust.example_code.s3.upload_object]
+// snippet-start:[rust.example_code.s3.basics.upload_object]
 pub async fn upload_object(
     client: &Client,
     bucket_name: &str,
@@ -122,7 +122,7 @@ pub async fn upload_object(
     println!("Uploaded file: {}", file_name);
     Ok(())
 }
-// snippet-end:[rust.example_code.s3.upload_object]
+// snippet-end:[rust.example_code.s3.basics.upload_object]
 
 // snippet-start:[rust.example_code.s3.basics.create_bucket]
 pub async fn create_bucket(client: &Client, bucket_name: &str, region: &str) -> Result<(), Error> {
