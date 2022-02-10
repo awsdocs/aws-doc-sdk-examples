@@ -12,14 +12,7 @@ amount of data at any time, from anywhere on the web.*
 
 ### Scenario examples
 
-* [Getting started with buckets and objects](src/bin/s3_getting_started) 
-  (CreateBucket)
-  (PutObject)
-  (GetObject)
-  (CopyObject)
-  (ListObjects)
-  (DeleteObjects)
-  (DeleteBucket)
+* [Getting started with buckets and objects](src/bin/s3-getting-started.rs) 
 
 ### API examples
 

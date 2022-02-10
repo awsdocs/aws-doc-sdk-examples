@@ -3,6 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+/*
+Purpose
+
+Shows how to use the developer preview version of the AWS SDK for Rust to get started using
+Amazon Simple Storage Service (Amazon S3). Create a bucket, move objects into and out of it,
+and delete all resources at the end of the demo.
+
+This example follows the steps in "Getting started with Amazon S3" in the Amazon S3
+user guide.
+    - https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html
+*/
+
 // snippet-start:[rust.example_code.s3.scenario_getting_started.bin]
 
 // snippet-start:[rust.example_code.s3.basics.imports]
