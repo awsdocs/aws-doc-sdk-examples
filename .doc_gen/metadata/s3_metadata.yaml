@@ -1770,6 +1770,7 @@ s3_Scenario_GettingStarted:
           excerpts:
             - description:
               snippet_tags:
-                - rust.example_code.s3.basics.rust.example_code.s3.scenario_getting_started
+                - rust.example_code.s3.scenario_getting_started.bin
+                - rust.example_code.s3.scenario_getting_started.lib
   services:
     s3: {CreateBucket, PutObject, GetObject, CopyObject, ListObjects, DeleteObjects, DeleteBucket}
