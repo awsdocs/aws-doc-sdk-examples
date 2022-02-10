@@ -2,11 +2,11 @@
 SPDX-License-Identifier: Apache-2.0
 ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3. This example follows the steps in "Getting started with Amazon S3" in the Amazon S3
-user guide.
+User Guide.
     - https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html
 
 Purpose:
-Shows how to use AWS SDK for JavaScript (v3) to get started using Amazon Simple Storage
+Shows how to use the AWS SDK for JavaScript (v3) to get started using Amazon Simple Storage
 Service (Amazon S3). Create a bucket, move objects into and out of it, and delete all
 resources at the end of the demo.
 
@@ -25,7 +25,7 @@ import {
   DeleteBucketCommand,
   GetObjectCommand
 } from "@aws-sdk/client-s3";
-import { s3Client, REGION } from "../libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+import { s3Client, REGION } from "../libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
 
 if (process.argv.length < 5) {
   console.log(
@@ -65,7 +65,7 @@ export const run = async (bucket_name, object_key, object_content) => {
         // Content of the new object.
         Body: object_content,
       };
-      // Create and upload the object to the first Amazon S3 bucket.
+      // Create and upload the object to the first S3 bucket.
       await s3Client.send(new PutObjectCommand(object_upload_params));
       console.log(
           "Successfully uploaded object: " +
@@ -85,7 +85,7 @@ export const run = async (bucket_name, object_key, object_content) => {
             bucket_name +
             " ...\n"
         );
-        // Create a helper function to convert a ReadableStream to a string.
+        // Create a helper function to convert a ReadableStream into a string.
         const streamToString = (stream) =>
             new Promise((resolve, reject) => {
               const chunks = [];
@@ -94,7 +94,7 @@ export const run = async (bucket_name, object_key, object_content) => {
               stream.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
             });
 
-        // Get the object} from the Amazon S3 bucket. It is returned as a ReadableStream.
+        // Get the object from the Amazon S3 bucket. It is returned as a ReadableStream.
         const data = await s3Client.send(new GetObjectCommand(download_bucket_params));
         // Convert the ReadableStream to a string.
         const bodyContents = await streamToString(data.Body);

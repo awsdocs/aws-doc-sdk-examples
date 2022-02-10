@@ -404,7 +404,7 @@ s3_DeleteBucketWebsite:
             - description: Create the client.
               snippet_tags:
                 - s3.JavaScript.buckets.createclientv3
-            - description: Delete the bucket website.
+            - description: Delete the website configuration from the bucket.
               snippet_tags:
                 - s3.JavaScript.website.deleteBucketWebsiteV3
   services:
@@ -709,7 +709,7 @@ s3_ListMultipartUploads:
 s3_ListObjects:
   title: List objects in an &S3; bucket using an &AWS; SDK
   title_abbrev: List objects in a bucket
-  synopsis: list objects located in an &S3; bucket.
+  synopsis: list objects in an &S3; bucket.
   category:
   languages:
     C++:
@@ -783,7 +783,7 @@ s3_ListObjects:
             - description: List the objects.
               snippet_tags:
                 - s3.JavaScript.buckets.listObjectsV3
-            - description: List 1000 plus objects.
+            - description: List 1000 or more objects.
               snippet_tags:
                 - s3.JavaScript.buckets.listManyObjectsV3
     Ruby:
@@ -1023,7 +1023,7 @@ s3_GetBucketCors:
             - description: Create the client.
               snippet_tags:
                 - s3.JavaScript.buckets.createclientv3
-            - description: Get the bucket's CORs policy.
+            - description: Get the CORS policy for the bucket.
               snippet_tags:
                 - s3.JavaScript.cors.getBucketCorsV3
     Ruby:
@@ -1117,7 +1117,7 @@ s3_DeleteBucketCors:
 s3_GetBucketAcl:
   title: Get the ACL of an &S3; bucket using an &AWS; SDK
   title_abbrev: Get the ACL of a bucket
-  synopsis: get the ACL of an &S3; bucket.
+  synopsis: get the access control list (ACL) of an &S3; bucket.
   category:
   languages:
     Java:
