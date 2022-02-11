@@ -17,21 +17,15 @@ Inputs (replace in code):
 - IAM_ROLE_ARN
 
 Running the code:
-node lambda-function-setup.ts
+node lambda-function-setup.js
 */
 
 // snippet-start:[lambda.JavaScript.general-examples-lambda-create-function.LambdaFunctionSetUpV3]
 // Load the Lambda client.
 const {
-    LambdaClient,
-    CreateFunctionCommand
+        CreateFunctionCommand
 } = require("@aws-sdk/client-lambda");
-
-//Set the AWS Region.
-const REGION = "REGION"; //e.g. "us-east-1"
-
-// Instantiate an AWS Lambda client service object.
-const lambda = new LambdaClient({ region: REGION });
+const {lambdaClient} = require("./libs/lambaClient")
 
 // Set the parameters.
 const params = {
@@ -48,7 +42,7 @@ const params = {
 
 const run = async () => {
     try {
-        const data = await lambda.send(new CreateFunctionCommand(params));
+        const data = await lambdaClient.send(new CreateFunctionCommand(params));
         console.log("Success", data); // successful response
     } catch (err) {
         console.log("Error", err); // an error occurred
