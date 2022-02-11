@@ -27,6 +27,8 @@ public class CognitoIdentityHandler {
     /// - Parameters:
     ///   - name: The name of the identity pool whose ID should be returned
     /// - Returns: A string containing the ID of the specified identity pool or `nil` on error or if not found
+    ///
+    /// snippet-start:[cognitoidentity.swift.get-pool-id]
     func getIdentityPoolID(name: String) async throws -> String? {
         var token: String? = nil
         
@@ -64,11 +66,14 @@ public class CognitoIdentityHandler {
         
         return nil
     }
+    // snippet-end:[cognitoidentity.swift.get-pool-id]
     
     /// Returns the ID of the identity pool with the specified name.
     /// - Parameters:
     ///   - name: The name of the identity pool whose ID should be returned
     /// - Returns: A string containing the ID of the specified identity pool or `nil` on error or if not found
+    ///
+    /// snippet-start:[cognitoidentity.swift.get-or-create-pool-id]
     public func getOrCreateIdentityPoolID(name: String) async throws -> String? {
         // See if the pool already exists
         
@@ -85,11 +90,14 @@ public class CognitoIdentityHandler {
             return nil
         }
     }
+    // snippet-end:[cognitoidentity.swift.get-or-create-pool-id]
     
     /// Create a new identity pool, returning its ID.
     /// - Parameters:
     ///     - name: The name to give the new identity pool
     /// - Returns: A string containing the newly created pool's ID, or `nil` if an error occurred
+    ///
+    /// snippet-start:[cognitoidentity.swift.create-identity-pool]
     func createIdentityPool(name: String) async throws -> String? {
         let cognitoInputCall = CreateIdentityPoolInput(developerProviderName: "com.exampleco.CognitoIdentityDemo",
                                                        identityPoolName: name)
@@ -108,4 +116,5 @@ public class CognitoIdentityHandler {
         
         return nil
     }
+    // snippet-end:[cognitoidentity.swift.create-identity-pool]
 }
