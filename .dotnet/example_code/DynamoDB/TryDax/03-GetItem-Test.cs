@@ -38,7 +38,6 @@ namespace ClientTest
             var clientConfig = new DaxClientConfig(endpointUri)
             {
                 AwsCredentials = FallbackCredentialsFactory.GetCredentials()
-                   
             };
             var client = new ClusterDaxClient(clientConfig);
 
@@ -52,7 +51,6 @@ namespace ClientTest
 
             for (var i = 0; i < iterations; i++)
             {
-
                 for (var ipk = 1; ipk <= pk; ipk++)
                 {
                     for (var isk = 1; isk <= sk; isk++)
@@ -69,7 +67,6 @@ namespace ClientTest
                         Console.WriteLine("GetItem succeeded for pk: " + ipk + ", sk: " + isk);
                     }
                 }
-
             }
 
             var endTime = DateTime.Now;
