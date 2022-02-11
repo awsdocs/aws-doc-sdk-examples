@@ -21,6 +21,7 @@ amount of data at any time, from anywhere on the web.*
 - [Create a bucket](src/bin/create-bucket.rs) (CreateBucket)
 - [Delete an object from a bucket](src/bin/delete-object.rs) (DeleteObject)
 - [Deletes one or more objects from a bucket](src/bin/delete-objects.rs) (DeleteObjects)
+- [Delete an empty bucket](src/s3-service-lib.rs) (DeleteBucket)
 - [Gets a presigned URI for an object](src/bin/get-object-presigned.rs) (GetObject)
 - [Lists your buckets](src/bin/list-buckets.rs) (ListBuckets)
 - [Lists the objects in a bucket](src/bin/list-objects.rs) (ListObjectsV2)
