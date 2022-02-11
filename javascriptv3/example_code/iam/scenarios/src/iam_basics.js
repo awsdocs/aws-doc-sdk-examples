@@ -54,10 +54,10 @@ const assume_policy_name = process.argv[5];
 
 // Helper function to delay code execution while AWS Service calls wait for responses.
 function wait(ms) {
-  var start = new Date().getTime();
-  var end = start;
-  while (end < start + ms) {
-    end = new Date().getTime();
+  var start = Date.now();
+  var end = start
+  while (end < start + ms){
+    end = Date.now()
   }
 }
 
