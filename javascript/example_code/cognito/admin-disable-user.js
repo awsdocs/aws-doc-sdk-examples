@@ -1,4 +1,16 @@
-/* Sample code to admin disable user from Cognito SDK as an administrator.*/
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+
+ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 2 (v2)
+
+Purpose:
+admin-disable-user.js demonstrates how disable a user from Amazon Cognito as an administrator.
+
+Inputs:
+ - USERPOOLID
+ - EMAIL
+
+*/
 
 // snippet-start:[cognito.JavaScript.admin-disable-user-v2]
 const aws = require('aws-sdk');
