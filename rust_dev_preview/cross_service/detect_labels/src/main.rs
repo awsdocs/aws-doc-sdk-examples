@@ -58,7 +58,7 @@ struct Ldata {
 
 // snippet-start:[detect_labels-add_file_to_bucket.rust.main]
 async fn add_file_to_bucket(client: &aws_sdk_s3::Client, bucket: &str, filename: &str) {
-    let body = aws_sdk_s3::ByteStream::from_path(std::path::Path::new(filename)).await;
+    let body = aws_sdk_s3::types::ByteStream::from_path(std::path::Path::new(filename)).await;
 
     match body {
         Ok(b) => {

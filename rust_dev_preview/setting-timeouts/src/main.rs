@@ -4,7 +4,7 @@
  */
 
 use aws_config::TimeoutConfig;
-use aws_smithy_client::{conns, erase::DynConnector, hyper_ext, timeout};
+use aws_smithy_client::{conns, erase::DynConnector, hyper_ext};
 use std::time::Duration;
 
 /// The SDK divides timeouts into two groups:
