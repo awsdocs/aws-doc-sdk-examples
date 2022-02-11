@@ -31,7 +31,6 @@ namespace ClientTest
     {
         static void Main(string[] args)
         {
-
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
 
             var tableName = "TryDaxTable";
@@ -43,12 +42,10 @@ namespace ClientTest
 
             var response = client.DeleteTableAsync(request).Result;
 
-
             Console.WriteLine("Hit <enter> to continue...");
             Console.ReadLine();
         }
     }
-
 }
 
 // snippet-end:[dynamodb.dotNET.trydax.06-DeleteTable] 
