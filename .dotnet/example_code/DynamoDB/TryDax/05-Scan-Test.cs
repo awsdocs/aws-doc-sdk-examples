@@ -25,10 +25,6 @@
 using Amazon.Runtime;
 using Amazon.DAX;
 using Amazon.DynamoDBv2.Model;
-using System.Collections.Generic;
-using System;
-using Amazon.DynamoDBv2;
-using Amazon;
 
 namespace ClientTest
 {
@@ -36,14 +32,10 @@ namespace ClientTest
     {
         static void Main(string[] args)
         {
+            string endpointUri = args[0];
+            Console.WriteLine("Using DAX client - endpointUri=" + endpointUri);
 
-
-            String hostName = args[0].Split(':')[0];
-            int port = Int32.Parse(args[0].Split(':')[1]);
-            Console.WriteLine("Using DAX client - hostname=" + hostName + ", port=" + port);
-
-
-            var clientConfig = new DaxClientConfig(hostName, port)
+            var clientConfig = new DaxClientConfig(endpointUri)
             {
                 AwsCredentials = FallbackCredentialsFactory.GetCredentials(
 
@@ -68,7 +60,7 @@ namespace ClientTest
 
             var endTime = DateTime.Now;
             TimeSpan timeSpan = endTime - startTime;
-            Console.WriteLine("Total time: " + (int)timeSpan.TotalMilliseconds + " milliseconds");
+            Console.WriteLine("Total time: " + timeSpan.TotalMilliseconds + " milliseconds");
 
             Console.WriteLine("Hit <enter> to continue...");
             Console.ReadLine();
