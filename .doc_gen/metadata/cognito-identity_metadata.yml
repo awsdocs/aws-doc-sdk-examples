@@ -17,8 +17,7 @@ cognito-identity_FindOrCreateIdentityPool:
             - description: Create a new identity pool with the given name.
               snippet_tags:
                 - cognitoidentity.swift.create-identity-pool
-            - description: Given an identity pool name, get the pool's ID if it
-            exists, or create the pool and return the new pool ID.
+            - description: Given an identity pool name, get the pool's ID if it exists, or create the pool and return the new pool ID.
               snippet_tags:
                 - cognitoidentity.swift.get-or-create-pool-id
   services:
