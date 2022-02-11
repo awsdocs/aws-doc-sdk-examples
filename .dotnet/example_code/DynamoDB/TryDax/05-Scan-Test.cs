@@ -37,8 +37,7 @@ namespace ClientTest
 
             var clientConfig = new DaxClientConfig(endpointUri)
             {
-                AwsCredentials = FallbackCredentialsFactory.GetCredentials(
-
+                AwsCredentials = FallbackCredentialsFactory.GetCredentials()
             };
             var client = new ClusterDaxClient(clientConfig);
 
