@@ -31,7 +31,6 @@ namespace ClientTest
     {
         static void Main(string[] args)
         {
-
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
 
             var tableName = "TryDaxTable";
