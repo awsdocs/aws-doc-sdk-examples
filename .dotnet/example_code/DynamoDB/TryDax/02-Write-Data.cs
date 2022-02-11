@@ -31,7 +31,6 @@ namespace ClientTest
     {
         static void Main(string[] args)
         {
-
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
 
             var tableName = "TryDaxTable";
@@ -57,7 +56,6 @@ namespace ClientTest
                     };
 
                     var response = client.PutItemAsync(request).Result;
-
                 }
             }
 
