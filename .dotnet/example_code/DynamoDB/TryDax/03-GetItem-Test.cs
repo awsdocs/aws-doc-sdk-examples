@@ -74,7 +74,7 @@ namespace ClientTest
 
             var endTime = DateTime.Now;
             TimeSpan timeSpan = endTime - startTime;
-            Console.WriteLine("Total time: " + (int)timeSpan.TotalMilliseconds + " milliseconds");
+            Console.WriteLine("Total time: " + timeSpan.TotalMilliseconds + " milliseconds");
 
             Console.WriteLine("Hit <enter> to continue...");
             Console.ReadLine();
