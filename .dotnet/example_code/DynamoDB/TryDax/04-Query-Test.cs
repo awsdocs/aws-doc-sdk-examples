@@ -38,7 +38,6 @@ namespace ClientTest
             var clientConfig = new DaxClientConfig(endpointUri)
             {
                 AwsCredentials = FallbackCredentialsFactory.GetCredentials()
-
             };
             var client = new ClusterDaxClient(clientConfig);
 
@@ -65,7 +64,6 @@ namespace ClientTest
                 };
                 var response = client.QueryAsync(request).Result;
                 Console.WriteLine(i + ": Query succeeded");
-
             }
 
             var endTime = DateTime.Now;
