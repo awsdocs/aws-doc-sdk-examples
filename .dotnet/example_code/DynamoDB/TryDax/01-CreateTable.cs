@@ -23,7 +23,7 @@
  * specific language governing permissions and limitations under the License.
 */
 using Amazon.DynamoDBv2.Model;
-using System.Collections.Generic;
+using System.Collections.Generic; 
 using System;
 using Amazon.DynamoDBv2;
 
