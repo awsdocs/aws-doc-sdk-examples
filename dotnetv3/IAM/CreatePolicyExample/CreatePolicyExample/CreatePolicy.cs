@@ -1,18 +1,19 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+/// <summary>
+/// Shows how to create an AWS Identity and Access Management (IAM) Policy.
+/// The example was created using the AWS SDK for .NET version 3.7 and
+/// .NET Core 5.0.
+/// </summary>
 namespace CreatePolicyExample
 {
+    // snippet-start:[IAM.dotnetv3.CreatePolicyExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.IdentityManagement;
     using Amazon.IdentityManagement.Model;
 
-    /// <summary>
-    /// Shows how to create an AWS Identity and Access Management (IAM) Policy.
-    /// The example was created using the AWS SDK for .NET version 3.7 and
-    /// .NET Core 5.0.
-    /// </summary>
     public class CreatePolicy
     {
         /// <summary>
@@ -43,7 +44,7 @@ namespace CreatePolicyExample
             if (response is not null)
             {
                 var policy = response.Policy;
-                Console.WriteLine($"{policy.PolicyName} created with ID: {policy.PolicyId}.")
+                Console.WriteLine($"{policy.PolicyName} created with ID: {policy.PolicyId}.");
             }
             else
             {
@@ -51,4 +52,6 @@ namespace CreatePolicyExample
             }
         }
     }
+
+    // snippet-end:[IAM.dotnetv3.CreatePolicyExample]
 }
