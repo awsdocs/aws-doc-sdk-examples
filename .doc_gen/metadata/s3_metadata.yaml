@@ -8,7 +8,7 @@ s3_CreateBucket:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/S3_Basics
+          github: dotnetv3/S3
           sdkguide:
           excerpts:
             - description:
@@ -89,7 +89,7 @@ s3_CreateBucket:
           excerpts:
             - description:
               snippet_tags:
-                - s3.rust.create-bucket
+                - rust.example_code.s3.basics.create_bucket
     Go:
       versions:
         - sdk_version: 2
@@ -108,7 +108,7 @@ s3_CopyObject:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/S3_Basics
+          github: dotnetv3/S3
           excerpts:
             - description:
               snippet_tags:
@@ -187,6 +187,14 @@ s3_CopyObject:
             - description: Copy an object and add server-side encryption to the destination object.
               snippet_tags:
                 - s3.ruby.copy_object_encrypt_copy.rb
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.s3.basics.copy_object
   services:
     s3: {CopyObject}
 s3_DeleteBucketPolicy:
@@ -324,7 +332,7 @@ s3_DeleteObjects:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/S3_Basics
+          github: dotnetv3/S3
           sdkguide:
           excerpts:
             - description: Delete all objects in an &S3; bucket.
@@ -402,7 +410,7 @@ s3_DeleteObjects:
           excerpts:
             - description:
               snippet_tags:
-                - s3.rust.delete-objects
+                - rust.example_code.s3.basics.delete_objects
   services:
     s3: {DeleteObjects}
 s3_DeleteBucketWebsite:
@@ -585,7 +593,7 @@ s3_GetObject:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/S3_Basics
+          github: dotnetv3/S3
           sdkguide:
           excerpts:
             - description:
@@ -668,6 +676,14 @@ s3_GetObject:
             - description: Get an object and report its server-side encryption state.
               snippet_tags:
                 - s3.ruby.determine_object_encryption_state.rb
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.s3.basics.get_object
   services:
     s3: {GetObject}
 s3_GetBucketLifecycleConfiguration:
@@ -758,7 +774,7 @@ s3_ListObjects:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/S3_Basics
+          github: dotnetv3/S3
           sdkguide:
           excerpts:
             - description:
@@ -816,7 +832,7 @@ s3_ListObjects:
           excerpts:
             - description:
               snippet_tags:
-                - s3.rust.list-objects
+                - rust.example_code.s3.basics.list_objects
     Go:
       versions:
         - sdk_version: 2
@@ -873,7 +889,7 @@ s3_PutObject:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/S3_Basics
+          github: dotnetv3/S3
           sdkguide:
           excerpts:
             - description:
@@ -940,7 +956,7 @@ s3_PutObject:
           excerpts:
             - description:
               snippet_tags:
-                - s3.rust.s3-helloworld
+                - rust.example_code.s3.basics.put_object
     Go:
       versions:
         - sdk_version: 2
@@ -1005,7 +1021,7 @@ s3_DeleteBucket:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/S3_Basics
+          github: dotnetv3/S3
           sdkguide:
           excerpts:
             - description:
@@ -1074,6 +1090,14 @@ s3_DeleteBucket:
             - description:
               snippet_tags:
                 - ruby.example_code.s3.DeleteBucket
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.s3.basics.delete_bucket
   services:
     s3: {DeleteBucket}
 s3_GetBucketCors:
@@ -1689,7 +1713,7 @@ s3_Scenario_GettingStarted:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/S3_basics
+          github: dotnetv3/S3
           sdkguide:
           excerpts:
             - description:
@@ -1748,5 +1772,16 @@ s3_Scenario_GettingStarted:
             - description:
               snippet_tags:
                 - ruby.example_code.s3.Scenario_GettingStarted
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/s3
+          excerpts:
+            - description: Code for the binary crate which runs the scenario.
+              snippet_tags:
+                - rust.example_code.s3.scenario_getting_started.bin
+            - description: A library crate with common actions called by the binary.
+              snippet_tags:
+                - rust.example_code.s3.scenario_getting_started.lib
   services:
     s3: {CreateBucket, PutObject, GetObject, CopyObject, ListObjects, DeleteObjects, DeleteBucket}
