@@ -13,6 +13,20 @@ Some of these examples perform *destructive* operations on AWS resources, such a
 To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
+You will find these examples: 
+
+- **CreateTable** - Demonstrates how to create an Amazon DynamoDB table.
+- **DeleteItem** - Demonstrates how to delete an item from an Amazon DynamoDB table.
+- **DeleteTable** - Demonstrates how to delete an Amazon DynamoDB table.
+- **DescribeTable** - Demonstrates how to retrieve information about an Amazon DynamoDB table.
+- **DynamoDBScanItems** - Demonstrates how to return items from an Amazon DynamoDB table.
+- **DynamoDBScanItemsFilter** - Demonstrates how to return items from an Amazon DynamoDB table using a filter expression.
+- **GetItem** - Demonstrates how to retrieve an item from an Amazon DynamoDB table.
+- **ListTables** - Demonstrates how to list all Amazon DynamoDB tables.
+- **PutItem** - Demonstrates how to place an item into an Amazon DynamoDB table.
+- **QueryTable** - Demonstrates how to query an Amazon DynamoDB table.
+- **UpdateItem** - Demonstrates how to update a value located in an Amazon DynamoDB table.
+
 
  ## Testing the DynamoDB Java files
 
