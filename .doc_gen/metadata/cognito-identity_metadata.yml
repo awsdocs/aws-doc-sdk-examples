@@ -11,18 +11,14 @@ cognito-identity_ListIdentityPools:
           github: swift/example_code/cognito-identity/FindOrCreateIdentityPool
           sdkguide: sdk-for-swift/latest/developer-guide/getting-started.html
           excerpts:
-            - description: Get the ID of an identity pool given its name.
+            - description:
               snippet_tags:
                 - cognitoidentity.swift.get-pool-id
-            - description: Create a new identity pool with the given name.
-              snippet_tags:
-                - cognitoidentity.swift.create-identity-pool
-            - description: Given an identity pool name, get the pool's ID if it exists, or create the pool and return the new pool ID.
+            - description:
               snippet_tags:
                 - cognitoidentity.swift.get-or-create-pool-id
   services:
     cognito-identity: {CreateIdentityPool, ListIdentityPools}
-
 cognito-identity_CreateIdentityPool:
   title: Find or create a &COGID; with a specified name
   title_abbrev: Find or create an identity pool
@@ -35,14 +31,8 @@ cognito-identity_CreateIdentityPool:
           github: swift/example_code/cognito-identity/FindOrCreateIdentityPool
           sdkguide: sdk-for-swift/latest/developer-guide/getting-started.html
           excerpts:
-            - description: Get the ID of an identity pool given its name.
-              snippet_tags:
-                - cognitoidentity.swift.get-pool-id
-            - description: Create a new identity pool with the given name.
+            - description:
               snippet_tags:
                 - cognitoidentity.swift.create-identity-pool
-            - description: Given an identity pool name, get the pool's ID if it exists, or create the pool and return the new pool ID.
-              snippet_tags:
-                - cognitoidentity.swift.get-or-create-pool-id
   services:
     cognito-identity: {CreateIdentityPool, ListIdentityPools}
