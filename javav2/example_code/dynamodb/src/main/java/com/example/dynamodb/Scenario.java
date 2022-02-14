@@ -376,5 +376,5 @@ public class Scenario {
             }
     }
 }
-// snippet-start:[dynamodb.java2.scenario.main]
+// snippet-end:[dynamodb.java2.scenario.main]
 
