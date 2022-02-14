@@ -55,11 +55,10 @@ export const run = async () => {
       `\nPutting "${bucketParams.Key}" using signedUrl with body "${bucketParams.Body}" in v3`
     );
     console.log(signedUrl);
-    const response = await fetch(signedUrl);
+    const response = await fetch(signedUrl, {method: 'PUT', body: bucketParams.Body});
     console.log(
       `\nResponse returned by signed URL: ${await response.text()}\n`
     );
-    return response;
   } catch (err) {
     console.log("Error creating presigned URL", err);
   }
