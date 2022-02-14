@@ -24,12 +24,12 @@ import {
   PutObjectCommand,
   DeleteBucketCommand }
 from "@aws-sdk/client-s3";
-import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+import { s3Client } from "./libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import fetch from "node-fetch";
 
 // Set parameters
-// Create a random names for the Amazon Simple Storage Service (Amazon S3) bucket and key
+// Create a random name for the Amazon Simple Storage Service (Amazon S3) bucket and key
 export const bucketParams = {
   Bucket: `test-bucket-${Math.ceil(Math.random() * 10 ** 10)}`,
   Key: `test-object-${Math.ceil(Math.random() * 10 ** 10)}`,
@@ -37,7 +37,7 @@ export const bucketParams = {
 };
 export const run = async () => {
   try {
-    // Create an Amazon S3 bucket.
+    // Create an S3 bucket.
     console.log(`Creating bucket ${bucketParams.Bucket}`);
     await s3Client.send(new CreateBucketCommand({ Bucket: bucketParams.Bucket }));
     console.log(`Waiting for "${bucketParams.Bucket}" bucket creation...`);
@@ -45,9 +45,8 @@ export const run = async () => {
     console.log("Error creating bucket", err);
   }
   try {
-    // Create the command.
+    // Create a command to put the object in the S3 bucket.
     const command = new PutObjectCommand(bucketParams);
-
     // Create the presigned URL.
     const signedUrl = await getSignedUrl(s3Client, command, {
       expiresIn: 3600,
@@ -73,7 +72,7 @@ export const run = async () => {
     console.log("Error deleting object", err);
   }
   try {
-    // Delete the Amazon S3 bucket.
+    // Delete the S3 bucket.
     console.log(`\nDeleting bucket ${bucketParams.Bucket}`);
     await s3.send(new DeleteBucketCommand({ Bucket: bucketParams.Bucket }));
   } catch (err) {
