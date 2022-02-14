@@ -13,6 +13,7 @@
 
 package com.example.dynamodb;
 
+// snippet-start:[dynamodb.java2.scenario.import]
 import com.fasterxml.jackson.databind.JsonNode;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.enhanced.dynamodb.*;
@@ -29,6 +30,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+// snippet-end:[dynamodb.java2.scenario.import]
 
 
 /**
@@ -50,6 +52,7 @@ import java.util.*;
  * 8. Delete the table.
  */
 
+// snippet-start:[dynamodb.java2.scenario.main]
 public class Scenario {
 
     public static void main(String[] args) throws IOException {
@@ -373,4 +376,5 @@ public class Scenario {
             }
     }
 }
+// snippet-start:[dynamodb.java2.scenario.main]
 
