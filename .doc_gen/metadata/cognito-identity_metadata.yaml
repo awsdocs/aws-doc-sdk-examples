@@ -18,7 +18,7 @@ cognito-identity_ListIdentityPools:
               snippet_tags:
                 - cognitoidentity.swift.get-or-create-pool-id
   services:
-    cognito-identity: {CreateIdentityPool, ListIdentityPools}
+    cognito-identity: {createIdentityPool, listIdentityPools}
 cognito-identity_CreateIdentityPool:
   title: Find or create a &COGID; with a specified name
   title_abbrev: Find or create an identity pool
@@ -35,4 +35,4 @@ cognito-identity_CreateIdentityPool:
               snippet_tags:
                 - cognitoidentity.swift.create-identity-pool
   services:
-    cognito-identity: {CreateIdentityPool, ListIdentityPools}
+    cognito-identity: {createIdentityPool, listIdentityPools}
