@@ -131,5 +131,5 @@ Swift:
       api_ref:
         uid: "SdkForSwift"
         name: "&guide-swift-api;"
-        #link_template: "https://awslabs.github.io/aws-sdk-swift/reference/0.x/AWS{{.Service}}/{{.Service}}Client/{{.ActionLower}}inputcompletion"
+        link_template: "https://awslabs.github.io/aws-sdk-swift/reference/0.x/AWS{{.Service}}/{{.Service}}Client/{{.ActionLower}}inputcompletion"
   guide: "&guide-swift-dev;"
