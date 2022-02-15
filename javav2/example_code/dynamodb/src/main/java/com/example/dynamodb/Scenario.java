@@ -85,13 +85,13 @@ public class Scenario {
                 "Where:\n" +
                 "    fileName - the path to the moviedata.json file that you can download from the Amazon DynamoDB Developer Guide.\n" ;
 
-      //  if (args.length != 1) {
-      //        System.out.println(USAGE);
-      //        System.exit(1);
-      //  }
+        if (args.length != 1) {
+              System.out.println(USAGE);
+              System.exit(1);
+        }
 
         String tableName = "Movies";
-        String fileName = "" ;// args[0];
+        String fileName = args[0];
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                     .region(region)
