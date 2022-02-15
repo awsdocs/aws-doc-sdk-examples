@@ -1,13 +1,13 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
-ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-Shows how to use AWS SDK for JavaScript (v3) to create an AWS Identity and Access Management (IAM) user, assume a role,
+Shows how to use the AWS SDK for JavaScript (v3) to create an AWS Identity and Access Management (IAM) user, assume a role,
 and perform AWS actions.
 1. Create a user who has no permissions.
-2. Create a role that grants permission to list Amazon S3 buckets for the account.
+2. Create a role that grants the user permission to list Amazon S3 buckets for the account.
 3. Add a policy to let the user assume the role.
 4. Assume the role and list S3 buckets using temporary credentials.
 5. Delete the policy, role, and user.
@@ -21,7 +21,7 @@ node iam_basics.js
 */
 // snippet-start:[javascript.iam_scenarios.iam_basics]
 // Import required AWS SDK clients and commands for Node.js.
-import { iamClient, REGION } from "../libs/iamClient.js"; // Helper function that creates an Amazon IAM service client module.
+import { iamClient, REGION } from "../libs/iamClient.js"; // Helper function that creates an IAM service client module.
 import {
   CreateUserCommand,
   CreateAccessKeyCommand,
@@ -52,7 +52,7 @@ const s3_policy_name = process.argv[3];
 const role_name = process.argv[4];
 const assume_policy_name = process.argv[5];
 
-// Helper function to delay code execution while AWS Service calls wait for responses.
+// Helper function to delay running the code while the AWS service calls wait for responses.
 function wait(ms) {
   var start = Date.now();
   var end = start
@@ -101,7 +101,7 @@ export const run = async (
         console.log(
             "Attempt to list S3 buckets with the new user (without permissions)...\n"
         );
-        // Use the credentials for the new user you created.
+        // Use the credentials for the new user that you created.
         var user_creds = {
           accessKeyId: myAccessKey,
           secretAccessKey: mySecretAccessKey,
@@ -236,7 +236,7 @@ export const run = async (
                     RoleSessionName: "session1",
                     DurationSeconds: 900,
                   };
-                  // Create Amazon STS client with the credentials for the user. Remember, the user has permissions to assume roles using Amazon STS.
+                  // Create an AWS STS client with the credentials for the user. Remember, the user has permissions to assume roles using AWS STS.
                   const stsClientWithUsersCreds = new STSClient({
                     credentials: user_creds,
                     region: REGION,
@@ -260,7 +260,7 @@ export const run = async (
                       "\nWaiting 10 seconds for the user to assume the role with permission to list all buckets...\n"
                   );
                   wait(10000);
-                  // Set the parameters for the temporary credentials, which gives permission to list S3 buckets.
+                  // Set the parameters for the temporary credentials. This grants permission to list S3 buckets.
                   var new_role_creds = {
                     accessKeyId: newAccessKey,
                     secretAccessKey: newSecretAccessKey,
@@ -270,7 +270,7 @@ export const run = async (
                     console.log(
                         "Listing the S3 buckets using the credentials of the assumed role... \n"
                     );
-                    // Create and S3 client with the temporary credentials.
+                    // Create an S3 client with the temporary credentials.
                     const s3ClientWithNewCreds = new S3Client({
                       credentials: new_role_creds,
                       region: REGION,

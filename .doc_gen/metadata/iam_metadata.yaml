@@ -953,7 +953,7 @@ iam_ListAttachedRolePolicies:
             - description: Create the client.
               snippet_tags:
                 - iam.JavaScript.createclientv3
-            - description: List policies attached to a role.
+            - description: List the policies that are attached to a role.
               snippet_tags:
                 - iam.JavaScript.listattachedrolepoliciesV3
   services:
@@ -1726,7 +1726,7 @@ iam_CreateServiceLinkedRole:
             - description: Create the client.
               snippet_tags:
                 - iam.JavaScript.createclientv3
-            - description: Create a service linked role.
+            - description: Create a service-linked role.
               snippet_tags:
                 - iam.JavaScript.createservicelinkedrolev3
   services:

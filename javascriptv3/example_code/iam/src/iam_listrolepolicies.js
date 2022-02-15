@@ -1,11 +1,11 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
-ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html.
 
 Purpose:
-iam_listrolepolicies.js demonstrates how list the names of the inline policies that are embedded in the specified IAM role.
+iam_listrolepolicies.js demonstrates how to list the names of inline policies that are embedded in the specified IAM role.
 
 Inputs:
 - ROLE_NAME (required)

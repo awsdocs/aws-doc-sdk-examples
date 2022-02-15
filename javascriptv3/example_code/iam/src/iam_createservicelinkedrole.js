@@ -1,12 +1,11 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
-ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html.
 
 Purpose:
-iam_createservicelinkedrole.js demonstrates how to createe an IAM role that is linked to a specific Amazon Web Services service.
-
+iam_getaccountpasswordpolicy.js demonstrates how to retrieve the password policy for the AWS account.
 Inputs :
 - AWS_SERVICE_NAME. For example: 'elasticbeanstalk.amazonaws.com' (required)
 
