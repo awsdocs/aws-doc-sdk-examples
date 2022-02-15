@@ -1,4 +1,16 @@
-/* Sample code to admin enable user from Cognito SDK as an administrator.*/
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 2 (v2).
+
+Purpose:
+admin-enable-user.js demonstrates how an administrator can enable a user in Amazon Cognito.
+
+Inputs:
+ - USERPOOLID
+ - EMAIL
+
+*/
 
 // snippet-start:[cognito.JavaScript.admin-enable-user-v2]
 const aws = require('aws-sdk');

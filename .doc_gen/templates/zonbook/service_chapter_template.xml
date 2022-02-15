@@ -51,9 +51,9 @@
         </varlistentry>
         {{- end }}
     </variablelist>
-    <para>For a complete list of &AWS; SDK developer guides and code examples, including help getting started
-        and information about previous versions, see
-        <xref linkend="sdk-general-information-section" endterm="sdk-general-information-section.title"></xref>.</para>
+    <para>For a complete list of &AWS; SDK developer guides and code examples, see
+        <xref linkend="sdk-general-information-section" endterm="sdk-general-information-section.title"></xref>.
+        This topic also includes information about getting started and details about previous SDK versions.</para>
     <para role="contents-abbrev">Code examples</para>
     {{- range $category := .CategoryNamesSorted}}
     {{- with $cat_examples := index $.CategorizedExampleSets $category}}
@@ -112,9 +112,9 @@
             <para>For more information, see <ulink {{.GuideTopic.DocType}} url="{{.GuideTopic.Url}}">{{.GuideTopic.Text}}</ulink>.</para>
             {{- end}}
             <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}{{$addSvc}}_tablist.xml"></xi:include>
-            <para>For a complete list of &AWS; SDK developer guides and code examples, including help getting started
-                and information about previous versions, see
-                <xref linkend="sdk-general-information-section" endterm="sdk-general-information-section.title"></xref>.</para>
+            <para>For a complete list of &AWS; SDK developer guides and code examples, see
+                <xref linkend="sdk-general-information-section" endterm="sdk-general-information-section.title"></xref>.
+                This topic also includes information about getting started and details about previous SDK versions.</para>
         </section>
         {{- end}}
     </section>
