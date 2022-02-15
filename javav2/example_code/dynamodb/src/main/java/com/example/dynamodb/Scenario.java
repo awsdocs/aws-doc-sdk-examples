@@ -65,7 +65,7 @@ import java.util.Set;
  *  This Java example performs these tasks:
  *
  * 1. Create the Amazon DynamoDB Movie table with partition and sort key.
- * 2. Put data into the Amazon DynamoDB table from a JSON document.
+ * 2. Put data into the Amazon DynamoDB table from a JSON document using the Enhanced client.
  * 3. Add a new item.
  * 4. Get an item by the composite key (the Partition key and Sort key).
  * 5. Update an item.
@@ -85,13 +85,13 @@ public class Scenario {
                 "Where:\n" +
                 "    fileName - the path to the moviedata.json file that you can download from the Amazon DynamoDB Developer Guide.\n" ;
 
-        if (args.length != 1) {
-              System.out.println(USAGE);
-              System.exit(1);
-        }
+      //  if (args.length != 1) {
+      //        System.out.println(USAGE);
+      //        System.exit(1);
+      //  }
 
         String tableName = "Movies";
-        String fileName = args[0];
+        String fileName = "" ;// args[0];
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                     .region(region)
@@ -249,6 +249,11 @@ public class Scenario {
         // Load data into the table.
         public static void loadData(DynamoDbClient ddb, String tableName, String fileName) throws IOException {
 
+            DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+                    .dynamoDbClient(ddb)
+                    .build();
+            DynamoDbTable<Movies> mappedTable = enhancedClient.table("Movies", TableSchema.fromBean(Movies.class));
+
             JsonParser parser = new JsonFactory().createParser(new File(fileName));
             com.fasterxml.jackson.databind.JsonNode rootNode = new ObjectMapper().readTree(parser);
             Iterator<JsonNode> iter = rootNode.iterator();
@@ -265,39 +270,17 @@ public class Scenario {
                 String title = currentNode.path("title").asText();
                 String info = currentNode.path("info").toString();
 
-                putMovie(ddb, tableName, year, title, info);
+                Movies movies = new Movies();
+                movies.setYear(year);
+                movies.setTitle(title);
+                movies.setInfo(info);
+
+                // Put the data into the Amazon DynamoDB Movie table
+                mappedTable.putItem(movies);
                 t++;
             }
        }
 
-        // Populate the table with data.
-        public static void putMovie(DynamoDbClient ddb,
-                String tableName,
-                int year,
-                String title,
-                String info) {
-
-            String yr =String.valueOf(year);
-            HashMap<String, AttributeValue> item = new HashMap<String, AttributeValue>();
-
-            item.put("year", AttributeValue.builder().n(yr).build());
-            item.put("title", AttributeValue.builder().s(title).build());
-            item.put("info", AttributeValue.builder().s(info).build());
-
-            PutItemRequest request = PutItemRequest.builder()
-                    .tableName(tableName)
-                    .item(item)
-                    .build();
-
-            try {
-                ddb.putItem(request);
-                System.out.println("Added "+ title +" to the Movie table.");
-
-            } catch (DynamoDbException e) {
-                System.err.println(e.getMessage());
-                System.exit(1);
-            }
-        }
     // snippet-end:[dynamodb.java2.scenario.populate_table.main]
 
     // Update the record to include show only directors.
