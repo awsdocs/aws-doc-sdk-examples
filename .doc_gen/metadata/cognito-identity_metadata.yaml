@@ -2,7 +2,7 @@
 cognito-identity_ListIdentityPools:
   title: List &COGID; pools
   title_abbrev: List identity pools
-  synopsis: get a list of &COGID; pools
+  synopsis: get a list of &COGID; pools.
   category:
   languages:
     Swift:
