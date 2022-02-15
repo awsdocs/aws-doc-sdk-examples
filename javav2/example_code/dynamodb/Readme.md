@@ -54,6 +54,7 @@ Before running the Amazon DynamoDB JUnit tests, you must define values in the **
 Define these values to successfully run the JUnit tests:
 
 - **tableName** - The name of an Amazon DynamoDB table. For example, **Music3**.
+- **fileName** - The path to the JSON document that contains movie data that you can download from the Amazon DynamoDB Developer Guide.
 - **enhancedTableName** - the name of the DynamoDB table used with the enhanced client. For example, **Customer**.
 - **key** – The name of a key to use. For example, **Artist**.
 - **enhancedTableKey** the  name of a key to use for the enhanced client tests. For example, **Id**.
