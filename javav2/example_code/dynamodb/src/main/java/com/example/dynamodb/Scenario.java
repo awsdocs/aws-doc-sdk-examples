@@ -123,6 +123,7 @@ public class Scenario {
         ddb.close();
     }
 
+    // snippet-start:[dynamodb.java2.scenario.create_table.import]
     // Create a table with a Sort key.
     public static void createTable(DynamoDbClient ddb, String tableName) {
 
@@ -182,7 +183,9 @@ public class Scenario {
             System.exit(1);
         }
     }
+    // snippet-end:[dynamodb.java2.scenario.create_table.import]
 
+    // snippet-start:[dynamodb.java2.scenario.query.import]
     // Query the table.
     public static void queryTable(DynamoDbClient ddb) {
             try {
@@ -213,7 +216,9 @@ public class Scenario {
                     System.exit(1);
                 }
         }
+        // snippet-end:[dynamodb.java2.scenario.query.import]
 
+        // snippet-start:[dynamodb.java2.scenario.scan.import]
         // Scan the table.
         public static void scanMovies(DynamoDbClient ddb, String tableName) {
 
@@ -238,7 +243,9 @@ public class Scenario {
                 System.exit(1);
             }
         }
+        // snippet-end:[dynamodb.java2.scenario.scan.import]
 
+        // snippet-start:[dynamodb.java2.scenario.populate_table.import]
         // Load data into the table.
         public static void loadData(DynamoDbClient ddb, String tableName, String fileName) throws IOException {
 
@@ -291,6 +298,7 @@ public class Scenario {
                 System.exit(1);
             }
         }
+    // snippet-end:[dynamodb.java2.scenario.populate_table.import]
 
     // Update the record to include show only directors.
     public static void updateTableItem(DynamoDbClient ddb, String tableName){
@@ -373,6 +381,7 @@ public class Scenario {
         System.out.println("Added a new issue to the table.");
     }
 
+    // snippet-start:[dynamodb.java2.scenario.get_item.import]
     public static void getItem(DynamoDbClient ddb) {
 
             HashMap<String,AttributeValue> keyToGet = new HashMap<String,AttributeValue>();
@@ -408,5 +417,7 @@ public class Scenario {
                 System.exit(1);
             }
     }
+    // snippet-start:[dynamodb.java2.scenario.get_item.import]
 }
 // snippet-end:[dynamodb.java2.scenario.main]
+
