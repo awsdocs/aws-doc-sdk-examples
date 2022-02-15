@@ -16,16 +16,26 @@ see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-
 You will find these examples: 
 
 - **CreateTable** - Demonstrates how to create an Amazon DynamoDB table.
+- **CreateTableCompositeKey** - Demonstrates how to create an Amazon DynamoDB table with a composite key.
 - **DeleteItem** - Demonstrates how to delete an item from an Amazon DynamoDB table.
 - **DeleteTable** - Demonstrates how to delete an Amazon DynamoDB table.
 - **DescribeTable** - Demonstrates how to retrieve information about an Amazon DynamoDB table.
+- **EnhancedBatchWriteItems** - Demonstrates how to insert many items into an Amazon DynamoDB table by using the enhanced client.
+- **EnhancedGetItem.** - Demonstrates how to retrieve an item from an Amazon DynamoDB table by using the enhanced client.
 - **DynamoDBScanItems** - Demonstrates how to return items from an Amazon DynamoDB table.
-- **DynamoDBScanItemsFilter** - Demonstrates how to return items from an Amazon DynamoDB table using a filter expression.
+- **EnhancedModifyItem** - Demonstrates how to modify an item located in an Amazon DynamoDB table by using the enhanced client.
+- **EnhancedPutItem** - Demonstrates how to put an item into an Amazon DynamoDB table by using the enhanced client.
+- **EnhancedQueryRecords** - Demonstrates how to query an Amazon DynamoDB table by using the enhanced client.
+- **EnhancedQueryRecordsWithFilter** - Demonstrates how to query an Amazon DynamoDB table with a filter and by using the enhanced client.
+- **EnhancedQueryRecordsWithSortKey** - Demonstrates how to query a table with a sort key.
+- **EnhancedScanRecords** - Demonstrates how to scan an Amazon DynamoDB table by using the enhanced client.
 - **GetItem** - Demonstrates how to retrieve an item from an Amazon DynamoDB table.
 - **ListTables** - Demonstrates how to list all Amazon DynamoDB tables.
 - **PutItem** - Demonstrates how to place an item into an Amazon DynamoDB table.
-- **QueryTable** - Demonstrates how to query an Amazon DynamoDB table.
+- **Query** - Demonstrates how to query an Amazon DynamoDB table.
+- **Scenario** - Demonstrates how to perform various Amazon DynamoDB operations.
 - **UpdateItem** - Demonstrates how to update a value located in an Amazon DynamoDB table.
+- **UpdateTable** - Demonstrates how to update an Amazon DynamoDB table.
 
 
  ## Testing the DynamoDB Java files
