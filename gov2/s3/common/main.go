@@ -18,6 +18,7 @@ import (
 )
 
 func main() {
+	//snippet-start:[s3.go-v2.s3_basics]
 
 	// This bucket name is 100% unique.
 	// Remember that bucket names must be globally unique among all buckets.
@@ -104,7 +105,7 @@ func main() {
 	})
 
 	if err == nil {
-		file, err = os.Open("download.jpg")
+		file, _ = os.Open("download.jpg")
 		io.Copy(file, getObjectResponse.Body)
 		file.Close()
 	} else {
@@ -138,7 +139,7 @@ func main() {
 	// See https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html#API_CopyObject_RequestSyntax
 	_, err = s3client.CopyObject(context.TODO(), &s3.CopyObjectInput{
 		Bucket:     aws.String(myBucketName),
-		CopySource: aws.String(myBucketName+"/path/myfile.jpg"),
+		CopySource: aws.String(myBucketName + "/path/myfile.jpg"),
 		Key:        aws.String("other/file.jpg"),
 	})
 
@@ -206,4 +207,5 @@ func main() {
 	})
 	// snippet-end:[s3.go-v2.DeleteBucket]
 
+	//snippet-end:[s3.go-v2.s3_basics]
 }
