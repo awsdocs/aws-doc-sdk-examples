@@ -127,8 +127,9 @@ Swift:
     1:
       long: "&Swiftlong;"
       short: "&Swift;"
+      caveat: "This is prerelease documentation for an SDK in preview release. It is subject to change."
       api_ref:
         uid: "SdkForSwift"
         name: "&guide-swift-api;"
-        link_template: "https://awslabs.github.io/aws-sdk-swift/reference/0.x/AWS{{.Service}}/{{.Service}}Client/{{.ActionLower}}inputcompletion"
+        #link_template: "https://awslabs.github.io/aws-sdk-swift/reference/0.x/AWS{{.Service}}/{{.Service}}Client/{{.ActionLower}}inputcompletion"
   guide: "&guide-swift-dev;"
