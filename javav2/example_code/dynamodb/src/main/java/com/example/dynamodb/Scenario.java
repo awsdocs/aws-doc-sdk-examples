@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[Scenario.java demonstrates how to perform various operations.]
+//snippet-sourcedescription:[Scenario.java demonstrates how to perform various Amazon DynamoDB operations.]
 //snippet-keyword:[SDK for Java v2]
 //snippet-keyword:[Code Sample]
 //snippet-service:[Amazon DynamoDB]
@@ -16,12 +16,30 @@ package com.example.dynamodb;
 // snippet-start:[dynamodb.java2.scenario.import]
 import com.fasterxml.jackson.databind.JsonNode;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
-import software.amazon.awssdk.enhanced.dynamodb.*;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
+import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
-import software.amazon.awssdk.enhanced.dynamodb.model.ScanEnhancedRequest;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-import software.amazon.awssdk.services.dynamodb.model.*;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
+import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement;
+import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
+import software.amazon.awssdk.services.dynamodb.model.KeyType;
+import software.amazon.awssdk.services.dynamodb.model.CreateTableResponse;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
+import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValueUpdate;
+import software.amazon.awssdk.services.dynamodb.model.ResourceNotFoundException;
+import software.amazon.awssdk.services.dynamodb.model.DescribeTableRequest;
+import software.amazon.awssdk.services.dynamodb.model.DescribeTableResponse;
+import software.amazon.awssdk.services.dynamodb.model.UpdateItemRequest;
+import software.amazon.awssdk.services.dynamodb.model.AttributeAction;
+import software.amazon.awssdk.services.dynamodb.model.DeleteTableRequest;
+import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
 import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
@@ -29,26 +47,30 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 // snippet-end:[dynamodb.java2.scenario.import]
 
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * To run this Java V2 code example, ensure that you have set up your development environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
- *  This example performs these tasks:
+ *  This Java example performs these tasks:
  *
- * 1. Create the Movie table with partition and sort key.
+ * 1. Create the Amazon DynamoDB Movie table with partition and sort key.
  * 2. Put data into the Amazon DynamoDB table from a JSON document.
  * 3. Add a new item.
- * 4. Get an item by Key and sort key
+ * 4. Get an item by the composite key (the Partition key and Sort key).
  * 5. Update an item.
- * 6. Use a Scan to query items using the Enhanced client
- * 7. Query all items where the year is 2013 using the Enhanced Client
+ * 6. Use a Scan to query items using the Enhanced client.
+ * 7. Query all items where the year is 2013 using the Enhanced Client.
  * 8. Delete the table.
  */
 
@@ -57,38 +79,49 @@ public class Scenario {
 
     public static void main(String[] args) throws IOException {
 
-            String tableName = "Movies";
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    <fileName>\n\n" +
+                "Where:\n" +
+                "    fileName - the path to the moviedata.json file that you can download from the Amazon DynamoDB Developer Guide.\n" ;
 
-            Region region = Region.US_EAST_1;
-            DynamoDbClient ddb = DynamoDbClient.builder()
+        if (args.length != 1) {
+              System.out.println(USAGE);
+              System.exit(1);
+        }
+
+        String tableName = "Movies";
+        String fileName = args[0];
+        Region region = Region.US_EAST_1;
+        DynamoDbClient ddb = DynamoDbClient.builder()
                     .region(region)
                     .build();
 
-            System.out.println("******* Creating an Amazon DynamoDB table named Movies with a key named year and a sort key named title.");
-            createTable(ddb, tableName);
+        System.out.println("******* Creating an Amazon DynamoDB table named Movies with a key named year and a sort key named title.");
+        createTable(ddb, tableName);
 
-            System.out.println("******* Loading data into the Amazon DynamoDB table.");
-            loadData(ddb, tableName);
+        System.out.println("******* Loading data into the Amazon DynamoDB table.");
+        loadData(ddb, tableName, fileName);
 
-            System.out.println("******* Getting data from the Movie table.");
-            getItem(ddb) ;
+        System.out.println("******* Getting data from the Movie table.");
+        getItem(ddb) ;
 
-            System.out.println("******* Putting a record into the Amazon DynamoDB table.");
-            putRecord(ddb);
+        System.out.println("******* Putting a record into the Amazon DynamoDB table.");
+        putRecord(ddb);
 
-            System.out.println("******* Updating a record");
-            updateTableItem(ddb, tableName)  ;
+        System.out.println("******* Updating a record.");
+        updateTableItem(ddb, tableName);
 
-            System.out.println("******* Scanning the Amazon DynamoDB table.");
-            scanMovies(ddb, tableName);
+        System.out.println("******* Scanning the Amazon DynamoDB table.");
+        scanMovies(ddb, tableName);
 
-            System.out.println("******* Querying the Movies released in 2013.");
-            queryTable(ddb);
+        System.out.println("******* Querying the Movies released in 2013.");
+        queryTable(ddb);
 
-            System.out.println("******* Deleting the Amazon DynamoDB table.");
-            deleteDynamoDBTable(ddb, tableName);
-            ddb.close();
-        }
+        System.out.println("******* Deleting the Amazon DynamoDB table.");
+        deleteDynamoDBTable(ddb, tableName);
+        ddb.close();
+    }
 
     // Create a table with a Sort key.
     public static void createTable(DynamoDbClient ddb, String tableName) {
@@ -139,7 +172,7 @@ public class Scenario {
                     .build();
 
             // Wait until the Amazon DynamoDB table is created.
-            WaiterResponse<DescribeTableResponse> waiterResponse =  dbWaiter.waitUntilTableExists(tableRequest);
+            WaiterResponse<DescribeTableResponse> waiterResponse = dbWaiter.waitUntilTableExists(tableRequest);
             waiterResponse.matched().response().ifPresent(System.out::println);
             String newTable = response.tableDescription().tableName();
             System.out.println("The " +newTable + " was successfully created.");
@@ -150,7 +183,7 @@ public class Scenario {
         }
     }
 
-    // Query the table
+    // Query the table.
     public static void queryTable(DynamoDbClient ddb) {
             try {
 
@@ -207,23 +240,23 @@ public class Scenario {
         }
 
         // Load data into the table.
-        public static void loadData(DynamoDbClient ddb, String tableName) throws IOException {
+        public static void loadData(DynamoDbClient ddb, String tableName, String fileName) throws IOException {
 
-            JsonParser parser = new JsonFactory().createParser(new File("C:\\AWS\\moviedata.json"));
+            JsonParser parser = new JsonFactory().createParser(new File(fileName));
             com.fasterxml.jackson.databind.JsonNode rootNode = new ObjectMapper().readTree(parser);
             Iterator<JsonNode> iter = rootNode.iterator();
             ObjectNode currentNode;
             int t = 0 ;
             while (iter.hasNext()) {
 
-                //only add 200 Movies to the table
+                // Only add 200 Movies to the table.
                 if (t == 200)
                     break ;
                 currentNode = (ObjectNode) iter.next();
 
                 int year = currentNode.path("year").asInt();
                 String title = currentNode.path("title").asText();
-                String info =  currentNode.path("info").toString();
+                String info = currentNode.path("info").toString();
 
                 putMovie(ddb, tableName, year, title, info);
                 t++;
@@ -242,7 +275,7 @@ public class Scenario {
 
             item.put("year", AttributeValue.builder().n(yr).build());
             item.put("title", AttributeValue.builder().s(title).build());
-            item.put("info",  AttributeValue.builder().s(info).build());
+            item.put("info", AttributeValue.builder().s(info).build());
 
             PutItemRequest request = PutItemRequest.builder()
                     .tableName(tableName)
@@ -259,19 +292,19 @@ public class Scenario {
             }
         }
 
-    // Update the record to include show directors.
-    public static void updateTableItem(DynamoDbClient ddb, String tableName  ){
+    // Update the record to include show only directors.
+    public static void updateTableItem(DynamoDbClient ddb, String tableName){
 
         HashMap<String,AttributeValue> itemKey = new HashMap<String,AttributeValue>();
 
-        // Specify the key and sort key
+        // Specify the key and sort key.
         itemKey.put("year", AttributeValue.builder().n("1933").build());
         itemKey.put("title", AttributeValue.builder().s("King Kong").build());
 
         HashMap<String,AttributeValueUpdate> updatedValues =
                 new HashMap<String,AttributeValueUpdate>();
 
-        // Update the column specified by name with updatedVal
+        // Update the column specified by info with updatedVal.
         updatedValues.put("info", AttributeValueUpdate.builder()
                 .value(AttributeValue.builder().s("{\"directors\":[\"Merian C. Cooper\",\"Ernest B. Schoedsack\"]").build())
                 .action(AttributeAction.PUT)
@@ -316,21 +349,21 @@ public class Scenario {
 
         try {
 
-            // Create a DynamoDbEnhancedClient and use the DynamoDbClient object.
+            // Create a DynamoDbEnhancedClient.
             DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                     .dynamoDbClient(ddb)
                     .build();
 
-            // Create a DynamoDbTable object based on Issues.
+            // Create a DynamoDbTable object.
             DynamoDbTable<Movies> table = enhancedClient.table("Movies", TableSchema.fromBean(Movies.class));
 
-                // Populate the Table
+            // Populate the Table.
             Movies record = new Movies();
             record.setYear(2020);
             record.setTitle("My Movie2");
             record.setInfo("no info");
 
-            // Put the data into a DynamoDB table
+            // Put the data into a DynamoDB table.
             table.putItem(record);
 
         } catch (DynamoDbException e) {
@@ -377,4 +410,3 @@ public class Scenario {
     }
 }
 // snippet-end:[dynamodb.java2.scenario.main]
-
