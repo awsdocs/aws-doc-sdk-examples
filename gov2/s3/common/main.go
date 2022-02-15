@@ -59,6 +59,7 @@ func main() {
 	}
 	//snippet-end:[s3.go-v2.CreateBucket]
 
+	//snippet-start:[s3.go-v2.PutObject]
 	// Place an object in a bucket
 	// Get our object body.
 	// The included image is https://unsplash.com/photos/iz58d89q3ss
@@ -79,9 +80,11 @@ func main() {
 		panic("Couldn't upload file")
 	}
 
+	//snippet-end:[s3.go-v2.PutObject]
+
 	// Get a presigned URL for the object.
 
-	//snippet-start:[s3.go-v2.PresignGetObject]
+	//snippet-start:[s3.go-v2.generate_presigned_url]
 	presignClient := s3.NewPresignClient(s3client)
 
 	presignResult, err := presignClient.PresignGetObject(context.TODO(), &s3.GetObjectInput{
@@ -95,7 +98,7 @@ func main() {
 
 	fmt.Printf("Presigned URL For object: %v", presignResult.URL)
 
-	//snippet-end:[s3.go-v2.PresignGetObject]
+	//snippet-end:[s3.go-v2.generate_presigned_url]
 	// Download the file
 
 	//snippet-start:[s3.go-v2.GetObject]
