@@ -22,17 +22,17 @@ Applies an ACL to an Amazon S3 bucket.
 //snippet-start:[s3.JavaScript.perms.putBucketAclV3]
 // Import required AWS SDK clients and commands for Node.js.
 import { PutBucketAclCommand } from "@aws-sdk/client-s3";
-import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+import { s3Client } from "./libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
 
 // Set the parameters. For more information,
 // see https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putBucketAcl-property.
 export const bucketParams = {
   Bucket: "BUCKET_NAME",
-  // 'GrantFullControl' allows grantee the read, write, read ACP, and write ACP permissions on the bucket.
-  // For example, an AWS account Canonical User ID in the format:
+  // 'GrantFullControl' allows grantee the read, write, read ACP, and write ACL permissions on the bucket.
+  // Use a canonical user ID for an AWS account, formatted as follows:
   // id=002160194XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXa7a49125274
   GrantFullControl: "GRANTEE_1",
-  // 'GrantWrite' allows grantee to create, overwrite, and delete any object in the bucket..
+  // 'GrantWrite' allows grantee to create, overwrite, and delete any object in the bucket.
   // For example, 'uri=http://acs.amazonaws.com/groups/s3/LogDelivery'
   GrantWrite: "GRANTEE_2",
 };

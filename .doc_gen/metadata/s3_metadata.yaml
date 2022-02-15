@@ -8,7 +8,7 @@ s3_CreateBucket:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/S3_Basics
+          github: dotnetv3/S3
           sdkguide:
           excerpts:
             - description:
@@ -89,7 +89,7 @@ s3_CreateBucket:
           excerpts:
             - description:
               snippet_tags:
-                - s3.rust.create-bucket
+                - rust.example_code.s3.basics.create_bucket
     Go:
       versions:
         - sdk_version: 2
@@ -108,7 +108,7 @@ s3_CopyObject:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/S3_Basics
+          github: dotnetv3/S3
           excerpts:
             - description:
               snippet_tags:
@@ -187,6 +187,14 @@ s3_CopyObject:
             - description: Copy an object and add server-side encryption to the destination object.
               snippet_tags:
                 - s3.ruby.copy_object_encrypt_copy.rb
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.s3.basics.copy_object
   services:
     s3: {CopyObject}
 s3_DeleteBucketPolicy:
@@ -324,7 +332,7 @@ s3_DeleteObjects:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/S3_Basics
+          github: dotnetv3/S3
           sdkguide:
           excerpts:
             - description: Delete all objects in an &S3; bucket.
@@ -402,7 +410,7 @@ s3_DeleteObjects:
           excerpts:
             - description:
               snippet_tags:
-                - s3.rust.delete-objects
+                - rust.example_code.s3.basics.delete_objects
   services:
     s3: {DeleteObjects}
 s3_DeleteBucketWebsite:
@@ -438,7 +446,7 @@ s3_DeleteBucketWebsite:
             - description: Create the client.
               snippet_tags:
                 - s3.JavaScript.buckets.createclientv3
-            - description: Delete the bucket website.
+            - description: Delete the website configuration from the bucket.
               snippet_tags:
                 - s3.JavaScript.website.deleteBucketWebsiteV3
   services:
@@ -585,7 +593,7 @@ s3_GetObject:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/S3_Basics
+          github: dotnetv3/S3
           sdkguide:
           excerpts:
             - description:
@@ -668,6 +676,14 @@ s3_GetObject:
             - description: Get an object and report its server-side encryption state.
               snippet_tags:
                 - s3.ruby.determine_object_encryption_state.rb
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.s3.basics.get_object
   services:
     s3: {GetObject}
 s3_GetBucketLifecycleConfiguration:
@@ -752,13 +768,13 @@ s3_ListMultipartUploads:
 s3_ListObjects:
   title: List objects in an &S3; bucket using an &AWS; SDK
   title_abbrev: List objects in a bucket
-  synopsis: list objects located in an &S3; bucket.
+  synopsis: list objects in an &S3; bucket.
   category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/S3_Basics
+          github: dotnetv3/S3
           sdkguide:
           excerpts:
             - description:
@@ -816,7 +832,7 @@ s3_ListObjects:
           excerpts:
             - description:
               snippet_tags:
-                - s3.rust.list-objects
+                - rust.example_code.s3.basics.list_objects
     Go:
       versions:
         - sdk_version: 2
@@ -835,7 +851,7 @@ s3_ListObjects:
             - description: List the objects.
               snippet_tags:
                 - s3.JavaScript.buckets.listObjectsV3
-            - description: List 1000 plus objects.
+            - description: List 1000 or more objects.
               snippet_tags:
                 - s3.JavaScript.buckets.listManyObjectsV3
     Ruby:
@@ -873,7 +889,7 @@ s3_PutObject:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/S3_Basics
+          github: dotnetv3/S3
           sdkguide:
           excerpts:
             - description:
@@ -940,7 +956,7 @@ s3_PutObject:
           excerpts:
             - description:
               snippet_tags:
-                - s3.rust.s3-helloworld
+                - rust.example_code.s3.basics.put_object
     Go:
       versions:
         - sdk_version: 2
@@ -1005,7 +1021,7 @@ s3_DeleteBucket:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/S3_Basics
+          github: dotnetv3/S3
           sdkguide:
           excerpts:
             - description:
@@ -1074,6 +1090,14 @@ s3_DeleteBucket:
             - description:
               snippet_tags:
                 - ruby.example_code.s3.DeleteBucket
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.example_code.s3.basics.delete_bucket
   services:
     s3: {DeleteBucket}
 s3_GetBucketCors:
@@ -1101,7 +1125,7 @@ s3_GetBucketCors:
             - description: Create the client.
               snippet_tags:
                 - s3.JavaScript.buckets.createclientv3
-            - description: Get the bucket's CORs policy.
+            - description: Get the CORS policy for the bucket.
               snippet_tags:
                 - s3.JavaScript.cors.getBucketCorsV3
     Ruby:
@@ -1195,7 +1219,7 @@ s3_DeleteBucketCors:
 s3_GetBucketAcl:
   title: Get the ACL of an &S3; bucket using an &AWS; SDK
   title_abbrev: Get the ACL of a bucket
-  synopsis: get the ACL of an &S3; bucket.
+  synopsis: get the access control list (ACL) of an &S3; bucket.
   category:
   languages:
     Java:
@@ -1519,7 +1543,7 @@ s3_Scenario_TransferManager:
   title: Use a transfer manager to upload and download files to and from &S3; using an &AWS; SDK
   title_abbrev: Use a transfer manager to upload and download files
   synopsis: use a transfer manager to upload and download files to and from &S3;.
-  category: Scenario
+  category: Scenarios
   guide_topic:
     title: Uploading an object using multipart upload
     url: AmazonS3/latest/userguide/mpu-upload-object.html
@@ -1546,7 +1570,7 @@ s3_Scenario_RemoveDeleteMarkers:
   title: Remove delete markers from versioned &S3; objects using an &AWS; SDK
   title_abbrev: Remove delete markers from versioned objects
   synopsis: remove delete markers from versioned &S3; objects.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -1566,7 +1590,7 @@ s3_Scenario_BatchObjectVersioning:
   title: Manage versioned &S3; objects in batches with a &LAM; function using an &AWS; SDK
   title_abbrev: Manage versioned objects in batches with a &LAM; function
   synopsis: manage versioned &S3; objects in batches with a &LAM; function.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -1578,7 +1602,7 @@ s3_Scenario_PresignedUrl:
   title: Create a presigned URL for &S3; using an &AWS; SDK
   title_abbrev: Create a presigned URL
   synopsis: create a presigned URL for &S3; and upload an object.
-  category: Scenario
+  category: Scenarios
   languages:
     Java:
       versions:
@@ -1641,7 +1665,7 @@ s3_Scenario_ObjectVersioningUsage:
   title: Work with &S3; versioned objects using an &AWS; SDK
   title_abbrev: Work with versioned objects
   synopsis: work with &S3; versioned objects.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -1684,12 +1708,12 @@ s3_Scenario_GettingStarted:
     - List the objects in a bucket.
     - Delete the objects in a bucket.
     - Delete a bucket.
-  category: Scenario
+  category: Scenarios
   languages:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/S3_basics
+          github: dotnetv3/S3
           sdkguide:
           excerpts:
             - description:
@@ -1704,6 +1728,15 @@ s3_Scenario_GettingStarted:
             - description: 
               snippet_tags:
                 - s3.java2.s3_scenario.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3/scenarios/s3_basics/src
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3_basics.JavaScript.s3_basics
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1747,5 +1780,16 @@ s3_Scenario_GettingStarted:
             - description:
               snippet_tags:
                 - s3.go-v2.s3_basics
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/s3
+          excerpts:
+            - description: Code for the binary crate which runs the scenario.
+              snippet_tags:
+                - rust.example_code.s3.scenario_getting_started.bin
+            - description: A library crate with common actions called by the binary.
+              snippet_tags:
+                - rust.example_code.s3.scenario_getting_started.lib
   services:
     s3: {CreateBucket, PutObject, GetObject, CopyObject, ListObjects, DeleteObjects, DeleteBucket}

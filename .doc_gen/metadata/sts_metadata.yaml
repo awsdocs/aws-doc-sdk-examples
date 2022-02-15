@@ -61,7 +61,7 @@ sts_Scenario_AssumeRoleMfa:
   synopsis: assume an &IAM; role that requires a multi-factor authentication
     (MFA) token with &STS; and use temporary security credentials to access an &AWS;
     resource.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -95,7 +95,7 @@ sts_Scenario_ConstructFederatedUrl:
   title_abbrev: Construct a URL for federated users
   synopsis: construct a URL with &STS; to give federated users limited access to the
     &AWS; Management Console.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -125,7 +125,7 @@ sts_Scenario_SessionTokenMfa:
   title_abbrev: Get a session token that requires an MFA token
   synopsis: get a session token that requires a mulfi-factor authentication
     (MFA) token with &STS; and use  temporary credentials to access an &AWS; resource.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:

@@ -192,7 +192,7 @@ transcribe_Scenario_GettingStartedTranscriptionJobs:
   title: Transcribe audio and get job data with &TSC; using an &AWS; SDK
   title_abbrev: Transcribe audio and get job data
   synopsis: transcribe audio and get job data with &TSC;.
-  category: Scenario
+  category: Scenarios
   guide_topic:
     title: Getting started with &TSC;
     url: transcribe/latest/dg/getting-started.html
@@ -213,7 +213,7 @@ transcribe_Scenario_CustomVocabulary:
   title_abbrev: Create and refine a custom vocabulary
   synopsis: create and refine an &TSC; custom vocabulary to improve transcription
     accuracy.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:

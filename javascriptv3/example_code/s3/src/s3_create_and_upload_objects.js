@@ -16,9 +16,9 @@ nodes3_create_and_upload_object.js
 */
 // snippet-start:[s3.JavaScript.buckets.upload_putcommandV3]
 
-// Import required AWS SDK clients and commands for Node.js
+// Import required AWS SDK clients and commands for Node.js.
 import { PutObjectCommand } from "@aws-sdk/client-s3";
-import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+import { s3Client } from "./libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
 
 // Set the parameters.
 export const bucketParams = {
@@ -30,7 +30,7 @@ export const bucketParams = {
   Body: "BODY",
 };
 
-// Create and upload the object to the specified Amazon S3 bucket.
+// Create and upload the object to the S3 bucket.
 export const run = async () => {
   try {
     const data = await s3Client.send(new PutObjectCommand(bucketParams));

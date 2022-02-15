@@ -764,7 +764,7 @@ kms_Scenario_AliasManagement:
   title: Manage &KMS; aliases using an &AWS; SDK
   title_abbrev: Manage aliases
   synopsis: manage &KMS; aliases.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -781,7 +781,7 @@ kms_Scenario_GrantManagement:
   title: Manage &KMS; grants using an &AWS; SDK
   title_abbrev: Manage grants
   synopsis: manage &KMS; grants.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -798,7 +798,7 @@ kms_Scenario_KeyEncryption:
   title: Encrypt and decrypt text with &kms-keys-long; using an &AWS; SDK
   title_abbrev: Encrypt and decrypt text
   synopsis: encrypt and decrypt text with &kms-keys;.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -815,7 +815,7 @@ kms_Scenario_KeyManagement:
   title: Manage &kms-keys-long; using an &AWS; SDK
   title_abbrev: Manage keys
   synopsis: manage &kms-keys-long;.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -832,7 +832,7 @@ kms_Scenario_ManageKeyPolicies:
   title: Manage &kms-key-long; policies using an &AWS; SDK
   title_abbrev: Manage key policies
   synopsis: manage &kms-key; policies.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:

@@ -4,8 +4,8 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
+use aws_sdk_apigatewaymanagement::Blob;
 use aws_sdk_apigatewaymanagement::{config, Client, Endpoint, Error, Region, PKG_VERSION};
-use aws_sdk_apigatewaymanagement::types::Blob;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
