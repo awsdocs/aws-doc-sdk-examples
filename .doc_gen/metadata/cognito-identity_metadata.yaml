@@ -1,6 +1,6 @@
 # zexi 0.4.0
 cognito-identity_ListIdentityPools:
-  title: List &COGID pools
+  title: List &COGID; pools
   title_abbrev: List identity pools
   synopsis: get a list of &COGID; pools
   category:
