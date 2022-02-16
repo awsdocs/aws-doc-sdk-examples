@@ -87,7 +87,7 @@ class DynamoStubber(ExampleStubber):
         }
         self._add_table_schema(table_output, table_name, schema)
         self._stub_bifurcator(
-            'create_table', table_input,{'TableDescription': table_output},
+            'create_table', table_input, {'TableDescription': table_output},
             error_code=error_code)
 
     def stub_describe_table(
