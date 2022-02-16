@@ -14,12 +14,12 @@ Running the code:
 node s3_setcors.js BUCKET_NAME REGION
  */
 // snippet-start:[s3.JavaScript.v3.cors.putBucketCors]
-  // Import required AWS-SDK clients and commands for Node.js
+// Import required AWS-SDK clients and commands for Node.js.
  import { PutBucketCorsCommand } from "@aws-sdk/client-s3";
- import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+ import { s3Client } from "./libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
 
-  // Set params
-  // Create initial parameters JSON for putBucketCors
+  // Set parameters.
+  // Create initial parameters JSON for putBucketCors.
   const thisConfig = {
     AllowedHeaders: ["Authorization"],
     AllowedMethods: [],
@@ -54,10 +54,10 @@ node s3_setcors.js BUCKET_NAME REGION
   // Copy the array of allowed methods into the config object
   thisConfig.AllowedMethods = allowedMethods;
 
-  // Create array of configs then add the config object to it
+  // Create an array of configs then add the config object to it.
   const corsRules = new Array(thisConfig);
 
-  // Create CORS params
+  // Create CORS parameters.
 export  const corsParams = {
     Bucket: "BUCKET_NAME",
     CORSConfiguration: { CORSRules: corsRules },

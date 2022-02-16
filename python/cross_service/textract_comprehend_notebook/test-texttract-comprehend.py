@@ -8,6 +8,7 @@ import boto3
 session = boto3.Session()
 creds = session.get_credentials()
 
+# pylint: disable=no-value-for-parameter
 
 @testbook('TextractAndComprehendNotebook.ipynb', execute=[6, 8])
 def test_text_detection(tb):

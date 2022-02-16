@@ -1050,7 +1050,7 @@ sns_PublishFifoTopic:
   title: Create and publish to a FIFO &SNS; topic using an &AWS; SDK
   title_abbrev: Create and publish to a FIFO topic
   synopsis: create and publish to a FIFO &SNS; topic.
-  category: Scenario
+  category: Scenarios
   languages:
     Java:
       versions:
@@ -1075,7 +1075,7 @@ sns_PublishLargeMessage:
   title: Publish a large message to &SNS; with &S3; using an &AWS; SDK
   title_abbrev: Publish a large message
   synopsis: publish a large message to &SNS; using &S3; to store the message payload.
-  category: Scenario
+  category: Scenarios
   languages:
     Java:
       versions:
@@ -1110,7 +1110,7 @@ sns_CreatePlatformEndpoint:
   title: Create a platform endpoint for &SNS; push notifications using an &AWS; SDK
   title_abbrev: Create a platform endpoint for push notifications
   synopsis: create a platform endpoint for &SNS; push notifications.
-  category: Scenario
+  category: Scenarios
   languages:
     Java:
       versions:
@@ -1130,7 +1130,7 @@ sns_UsageSmsTopic:
     - Create an &SNS; topic.
     - Subscribe phone numbers to the topic.
     - Publish SMS messages to the topic so that all subscribed phone numbers receive the message at once.
-  category: Scenario
+  category: Scenarios
   languages:
     Java:
       versions:

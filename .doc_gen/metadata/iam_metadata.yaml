@@ -260,6 +260,18 @@ iam_GetAccountPasswordPolicy:
             - description:
               snippet_tags:
                 - python.example_code.iam.GetAccountPasswordPolicy
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Get the account password policy.
+              snippet_tags:
+                - iam.JavaScript.getaccountpasswordpolicyV3
   services:
     iam: {GetAccountPasswordPolicy}
 iam_ListSAMLProviders:
@@ -277,13 +289,25 @@ iam_ListSAMLProviders:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListSAMLProviders
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the SAML providers.
+              snippet_tags:
+                - iam.JavaScript.listsamlprovidersV3
   services:
     iam: {ListSAMLProviders}
 iam_Scenario_AccountManagement:
   title: Manage your &IAM; account using an &AWS; SDK
   title_abbrev: Manage your account
   synopsis: manage your &IAM; account.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -593,7 +617,7 @@ iam_Scenario_ManageAccessKeys:
   title: Manage &IAM; access keys using an &AWS; SDK
   title_abbrev: Manage access keys
   synopsis: manage &IAM; access keys.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -702,6 +726,18 @@ iam_DeletePolicy:
             - description:
               snippet_tags:
                 - python.example_code.iam.DeletePolicy
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam/
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Delete the policy.
+              snippet_tags:
+                - iam.JavaScript.users.deletepolicyv3
   services:
     iam: {DeletePolicy}
 iam_CreatePolicyVersion:
@@ -736,6 +772,18 @@ iam_ListPolicies:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListPolicies
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the policies.
+              snippet_tags:
+                - iam.JavaScript.listpoliciesv3
   services:
     iam: {ListPolicies}
 iam_GetPolicy:
@@ -811,7 +859,7 @@ iam_Scenario_RollbackPolicyVersion:
   title: Rollback an &IAM; policy version using an &AWS; SDK
   title_abbrev: Rollback a policy version
   synopsis: rollback an &IAM; policy version.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -896,6 +944,18 @@ iam_ListAttachedRolePolicies:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListAttachedRolePolicies
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the policies that are attached to a role.
+              snippet_tags:
+                - iam.JavaScript.listattachedrolepoliciesV3
   services:
     iam: {ListAttachedRolePolicies}
 iam_DetachRolePolicy:
@@ -959,7 +1019,7 @@ iam_Scenario_PolicyManagement:
   title: Manage &IAM; policies using an &AWS; SDK
   title_abbrev: Manage policies
   synopsis: manage &IAM; policies.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -1014,6 +1074,17 @@ iam_CreateRole:
             - description:
               snippet_tags:
                 - iam.rust.create-role
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Create the role.
+              snippet_tags:
+                - iam.JavaScript.users.createrolev3
   services:
     iam: {CreateRole}
 iam_ListRoles:
@@ -1031,6 +1102,18 @@ iam_ListRoles:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListRoles
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the roles.
+              snippet_tags:
+                - iam.JavaScript.listrolesV3
   services:
     iam: {ListRoles}
 iam_GetRole:
@@ -1048,6 +1131,18 @@ iam_GetRole:
             - description:
               snippet_tags:
                 - python.example_code.iam.GetRole
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Get the role.
+              snippet_tags:
+                - iam.JavaScript.getRoleV3
   services:
     iam: {GetRole}
 iam_DeleteRole:
@@ -1065,6 +1160,18 @@ iam_DeleteRole:
             - description:
               snippet_tags:
                 - python.example_code.iam.DeleteRole
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Delete the role.
+              snippet_tags:
+                - iam.JavaScript.users.deleterolev3
   services:
     iam: {DeleteRole}
 iam_ListRolePolicies:
@@ -1082,13 +1189,25 @@ iam_ListRolePolicies:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListRolePolicies
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the policies.
+              snippet_tags:
+                - iam.JavaScript.listrolepoliciesv3
   services:
     iam: {ListRolePolicies}
 iam_Scenario_RoleManagement:
   title: Manage &IAM; roles using an &AWS; SDK
   title_abbrev: Manage roles
   synopsis: manage &IAM; roles.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -1413,7 +1532,7 @@ iam_Scenario_UserPolicies:
     objects in an &S3long; (&S3;) bucket and the other can only get objects from
     the bucket. The users' credentials are then used to move objects in and out of
     the bucket.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -1569,6 +1688,18 @@ iam_ListGroups:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListGroups
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: List the groups.
+              snippet_tags:
+                - iam.JavaScript.listgroupsV3
   services:
     iam: {ListGroups}
 iam_CreateServiceLinkedRole:
@@ -1586,15 +1717,26 @@ iam_CreateServiceLinkedRole:
             - description:
               snippet_tags:
                 - python.example_code.iam.CreateServiceLinkedRole
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.createclientv3
+            - description: Create a service-linked role.
+              snippet_tags:
+                - iam.JavaScript.createservicelinkedrolev3
   services:
     iam: {CreateServiceLinkedRole}
-
 iam_Scenario_CreateUserAssumeRole:
   title: Create an &IAM; user and assume a role with &STS; using an &AWS; SDK
   title_abbrev: Create a user and assume a role
   synopsis: create an &IAM; user, assume a role with &STS;, and use temporary security
     credentials to access an &AWS; resource.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -1608,5 +1750,20 @@ iam_Scenario_CreateUserAssumeRole:
                 the account.
               snippet_tags:
                 - python.example_code.iam.Scenario_CreateUserAssumeRole
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - iam.JavaScript.scenario.createclientv3
+            - description: Create an &IAM; user and a role that grants permission
+                to list &S3; buckets. The user has rights only to assume the role.
+                After assuming the role, use temporary credentials to list buckets for
+                the account.
+              snippet_tags:
+                - javascript.iam_scenarios.iam_basics
   services:
     iam: {}

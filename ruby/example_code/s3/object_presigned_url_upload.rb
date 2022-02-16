@@ -18,7 +18,7 @@ def get_presigned_url(bucket, object_key)
   url = bucket.object(object_key).presigned_url(:put)
   puts "Created presigned URL: #{url}."
   URI(url)
-rescue StandardError => e
+rescue Aws::Errors::ServiceError => e
   puts "Couldn't create presigned URL for #{bucket.name}:#{object_key}. Here's why: #{e.message}"
 end
 

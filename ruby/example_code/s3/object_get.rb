@@ -9,7 +9,7 @@
 require 'aws-sdk-s3'
 
 # Wraps Amazon S3 object actions.
-class ObjectWrapper
+class ObjectGetWrapper
   attr_reader :object
 
   # @param object [Aws::S3::Object] An existing Amazon S3 object.
@@ -23,7 +23,7 @@ class ObjectWrapper
   # @return [Aws::S3::Types::GetObjectOutput, nil] The retrieved object data if successful; otherwise nil.
   def get_object(target_path)
     @object.get(response_target: target_path)
-  rescue StandardError => e
+  rescue Aws::Errors::ServiceError => e
     puts "Couldn't get object #{@object.key}. Here's why: #{e.message}"
   end
 end
@@ -34,7 +34,7 @@ def run_demo
   object_key = 'my-object.txt'
   target_path = 'my-object-as-file.txt'
 
-  wrapper = ObjectWrapper.new(Aws::S3::Object.new(bucket_name, object_key))
+  wrapper = ObjectGetWrapper.new(Aws::S3::Object.new(bucket_name, object_key))
   obj_data = wrapper.get_object(target_path)
   return unless obj_data
 

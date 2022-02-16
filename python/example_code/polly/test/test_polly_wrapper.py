@@ -252,7 +252,7 @@ def test_get_languages(engine, langs):
     ('neural', 'en-US', {'Joey': 'Joey', 'Kimberly': 'Kimberly'}),
     ('standard', 'pl-PL', {'Jan': 'Jan-ID'}),
     ('neural', 'ts-TS', {})])
-def test_get_languages(engine, lang_code, voices):
+def test_get_voices(engine, lang_code, voices):
     polly_wrapper = PollyWrapper(None, None)
     polly_wrapper.voice_metadata = voice_metadata
     got_voices = polly_wrapper.get_voices(engine, lang_code)

@@ -1,6 +1,6 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
-ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/cross-service-example-dataupload.html.
 
@@ -15,16 +15,15 @@ Running the code:
 node s3_putbucketpolicy.js
  */
 // snippet-start:[s3.JavaScript.policy.putBucketPolicyV3]
-// Import required AWS SDK clients and commands for Node.js
-import { PutBucketPolicyCommand } from "@aws-sdk/client-s3";
-import { s3Client } from "./libs/s3Client.js"; // Helper function that creates Amazon S3 service client module.
+// Import required AWS SDK clients and commands for Node.js.
+import { CreateBucketCommand, PutBucketPolicyCommand } from "@aws-sdk/client-s3";
+import { s3Client } from "./libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
 
-// Create params JSON for S3.createBucket
 const BUCKET_NAME = "BUCKET_NAME";
 export const bucketParams = {
   Bucket: BUCKET_NAME,
 };
-// Create the policy
+// Create the policy in JSON for the S3 bucket.
 const readOnlyAnonUserPolicy = {
   Version: "2012-10-17",
   Statement: [
@@ -38,11 +37,11 @@ const readOnlyAnonUserPolicy = {
   ],
 };
 
-// create selected bucket resource string for bucket policy
+// Create selected bucket resource string for bucket policy.
 const bucketResource = "arn:aws:s3:::" + BUCKET_NAME + "/*"; //BUCKET_NAME
 readOnlyAnonUserPolicy.Statement[0].Resource[0] = bucketResource;
 
-// // convert policy JSON into string and assign into params
+// Convert policy JSON into string and assign into parameters.
 const bucketPolicyParams = {
   Bucket: BUCKET_NAME,
   Policy: JSON.stringify(readOnlyAnonUserPolicy),
@@ -50,17 +49,23 @@ const bucketPolicyParams = {
 
 export const run = async () => {
   try {
-    // const response = await s3.putBucketPolicy(bucketPolicyParams);
-    const response = await s3Client.send(
-      new PutBucketPolicyCommand(bucketPolicyParams)
+    const data = await s3Client.send(
+        new CreateBucketCommand(bucketParams)
     );
-    return response;
-    console.log("Success, permissions added to bucket", response);
+    console.log('Success, bucket created.', data)
+    try {
+      const response = await s3Client.send(
+          new PutBucketPolicyCommand(bucketPolicyParams)
+      );
+      console.log("Success, permissions added to bucket", response);
+    }
+    catch (err) {
+        console.log("Error adding policy to S3 bucket.", err);
+      }
   } catch (err) {
-    console.log("Error", err);
+    console.log("Error creating S3 bucket.", err);
   }
 };
 run();
 // snippet-end:[s3.JavaScript.policy.putBucketPolicyV3]
-// For unit testing only.
-// module.exports ={run, bucketPolicyParams};
+
