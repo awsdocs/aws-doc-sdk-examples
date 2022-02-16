@@ -13,6 +13,30 @@ Some of these examples perform *destructive* operations on AWS resources, such a
 To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
+You will find these examples: 
+
+- **CreateTable** - Demonstrates how to create an Amazon DynamoDB table.
+- **CreateTableCompositeKey** - Demonstrates how to create an Amazon DynamoDB table with a composite key.
+- **DeleteItem** - Demonstrates how to delete an item from an Amazon DynamoDB table.
+- **DeleteTable** - Demonstrates how to delete an Amazon DynamoDB table.
+- **DescribeTable** - Demonstrates how to retrieve information about an Amazon DynamoDB table.
+- **EnhancedBatchWriteItems** - Demonstrates how to insert many items into an Amazon DynamoDB table by using the enhanced client.
+- **EnhancedGetItem.** - Demonstrates how to retrieve an item from an Amazon DynamoDB table by using the enhanced client.
+- **DynamoDBScanItems** - Demonstrates how to return items from an Amazon DynamoDB table.
+- **EnhancedModifyItem** - Demonstrates how to modify an item located in an Amazon DynamoDB table by using the enhanced client.
+- **EnhancedPutItem** - Demonstrates how to put an item into an Amazon DynamoDB table by using the enhanced client.
+- **EnhancedQueryRecords** - Demonstrates how to query an Amazon DynamoDB table by using the enhanced client.
+- **EnhancedQueryRecordsWithFilter** - Demonstrates how to query an Amazon DynamoDB table with a filter and by using the enhanced client.
+- **EnhancedQueryRecordsWithSortKey** - Demonstrates how to query a table with a sort key.
+- **EnhancedScanRecords** - Demonstrates how to scan an Amazon DynamoDB table by using the enhanced client.
+- **GetItem** - Demonstrates how to retrieve an item from an Amazon DynamoDB table.
+- **ListTables** - Demonstrates how to list all Amazon DynamoDB tables.
+- **PutItem** - Demonstrates how to place an item into an Amazon DynamoDB table.
+- **Query** - Demonstrates how to query an Amazon DynamoDB table.
+- **Scenario** - Demonstrates how to perform various Amazon DynamoDB operations.
+- **UpdateItem** - Demonstrates how to update a value located in an Amazon DynamoDB table.
+- **UpdateTable** - Demonstrates how to update an Amazon DynamoDB table.
+
 
  ## Testing the DynamoDB Java files
 
@@ -30,6 +54,7 @@ Before running the Amazon DynamoDB JUnit tests, you must define values in the **
 Define these values to successfully run the JUnit tests:
 
 - **tableName** - The name of an Amazon DynamoDB table. For example, **Music3**.
+- **fileName** - The path to the JSON document that contains movie data that you can download from the Amazon DynamoDB Developer Guide.
 - **enhancedTableName** - the name of the DynamoDB table used with the enhanced client. For example, **Customer**.
 - **key** – The name of a key to use. For example, **Artist**.
 - **enhancedTableKey** the  name of a key to use for the enhanced client tests. For example, **Id**.

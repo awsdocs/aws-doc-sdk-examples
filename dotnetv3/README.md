@@ -21,7 +21,7 @@ Each example in the cross-services example directory includes a README.md file t
 To build and run the code examples for the AWS SDK for .NET, you need the following:
 
 - The AWS SDK for .NET. For more information, see the [AWS SDK for .NET
-Developer Guide](https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide).
+Developer Guide](https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/welcome.html).
 
 - AWS credentials, either configured in a local AWS credentials file, or by
 setting the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables.
