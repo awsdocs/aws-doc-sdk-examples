@@ -4,7 +4,7 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_kinesis::Blob;
+use aws_sdk_kinesis::types::Blob;
 use aws_sdk_kinesis::{Client, Error, Region, PKG_VERSION};
 use structopt::StructOpt;
 
