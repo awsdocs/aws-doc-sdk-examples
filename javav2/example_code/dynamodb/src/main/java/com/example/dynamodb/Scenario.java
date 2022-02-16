@@ -275,7 +275,7 @@ public class Scenario {
                 movies.setTitle(title);
                 movies.setInfo(info);
 
-                // Put the data into the Amazon DynamoDB Movie table
+                // Put the data into the Amazon DynamoDB Movie table.
                 mappedTable.putItem(movies);
                 t++;
             }
