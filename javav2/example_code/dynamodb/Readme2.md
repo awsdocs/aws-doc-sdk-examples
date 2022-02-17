@@ -18,7 +18,7 @@ Amazon DynamoDB is a fully managed NoSQL database service that provides fast and
 
 You will find these examples: 
 
-- **CreateTable** - Demonstrates how to create an Amazon DynamoDB table.
+- [Creating an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/CreateTable.java) (CreateTable command)
 - **CreateTableCompositeKey** - Demonstrates how to create an Amazon DynamoDB table with a composite key.
 - **DeleteItem** - Demonstrates how to delete an item from an Amazon DynamoDB table.
 - **DeleteTable** - Demonstrates how to delete an Amazon DynamoDB table.
