@@ -48,7 +48,10 @@ You will find these examples that use the **DynamoDbEnhancedClient** object:
 
 ### Cross-service
 
+- [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project) 
 - [Creating the Amazon DynamoDB web application item tracker](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_dynamodb_web_app) 
+- [Creating scheduled events to invoke Lambda functions](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_scheduled_events) 
+- [Create AWS serverless workflows by using the AWS SDK for Java](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_workflows_stepfunctions) 
 
 
 ## Running the examples
