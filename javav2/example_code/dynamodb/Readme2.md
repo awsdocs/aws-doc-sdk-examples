@@ -19,12 +19,14 @@ Amazon DynamoDB is a fully managed NoSQL database service that provides fast and
 You will find these examples: 
 
 - [Creating an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/CreateTable.java) (CreateTable command)
-- **CreateTableCompositeKey** - Demonstrates how to create an Amazon DynamoDB table with a composite key.
-- **DeleteItem** - Demonstrates how to delete an item from an Amazon DynamoDB table.
-- **DeleteTable** - Demonstrates how to delete an Amazon DynamoDB table.
-- **DescribeTable** - Demonstrates how to retrieve information about an Amazon DynamoDB table.
-- **EnhancedBatchWriteItems** - Demonstrates how to insert many items into an Amazon DynamoDB table by using the enhanced client.
-- **EnhancedGetItem.** - Demonstrates how to retrieve an item from an Amazon DynamoDB table by using the enhanced client.
+- [Creating an Amazon DynamoDB table with a composite key](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/CreateTableCompositeKey.java) (CreateTable command)
+- [Deleting an item from an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/DeleteItem.java) (DeleteItem command)
+- [Delete an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/DeleteTable.java) (DeleteTable command)
+- [Describing an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/DescribeTable.java) (DescribeTable command)
+- [Inserting many items into an Amazon DynamoDB table by using the enhanced client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/EnhancedBatchWriteItems.java) (BatchWriteItem command)
+- [Retrieve an item from an Amazon DynamoDB table by using the enhanced client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/EnhancedGetItem.java) (GetItem command)
+
+- **EnhancedGetItem.** - Demonstrates how to .
 - **DynamoDBScanItems** - Demonstrates how to return items from an Amazon DynamoDB table.
 - **EnhancedModifyItem** - Demonstrates how to modify an item located in an Amazon DynamoDB table by using the enhanced client.
 - **EnhancedPutItem** - Demonstrates how to put an item into an Amazon DynamoDB table by using the enhanced client.
