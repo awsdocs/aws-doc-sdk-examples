@@ -75,7 +75,7 @@ predictable performance with seamless scalability.*
 - Python 3.8.8 or later
 - Boto 3 1.18.50 or later
 - Requests 2.25.1 or later (to download the movie data JSON file)
-- Amazon DAX client 1.1.7 or later (to run the DAX example)
+- Amazon DynamoDB Accelerator (DAX) client 1.1.7 or later (to run the DAX example)
 - pytest 5.3.5 or later (to run unit tests)
 
 You can install these prerequisites by running the following command in a
@@ -87,7 +87,7 @@ python -m pip install -r requirements.txt
 
 ### Getting started with tables, items, and queries
 
-This scenario shows you how to create a DynamoDB table for storing movie data. 
+This scenario shows you how to create an Amazon DynamoDB table for storing movie data. 
 The scenario loads movies into the table from a JSON-formatted file, walks you 
 through an interactive demo to add, update, and delete movies one at a time, and 
 shows you how to query for sets of movies with various parameters.
@@ -95,7 +95,7 @@ shows you how to query for sets of movies with various parameters.
 The demo uses the Requests package to download a `moviedata.json` file of movie data.
 If you prefer, you can download and extract the file to the `GettingStarted` folder
 from the 
-[Amazon DynamoDB developer guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip). 
+[Amazon DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip). 
 
 To start the scenario, navigate to the `GettingStarted` folder and run the following 
 at a command prompt:
@@ -111,12 +111,12 @@ This scenario shows you how to write and retrieve DynamoDB data using batch func
 Boto3 features a 
 [batch_writer](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/dynamodb.html#batch-writing) 
 function that handles all of the necessary intricacies
-of the Amazon DynamoDB batch API on your behalf. This includes buffering, removing
+of the DynamoDB batch API on your behalf. This includes buffering, removing
 duplicates, and retrying unprocessed items.
 
 The demo requires a `moviedata.json` file of movie data in the `batching` folder.
 You can download and extract the file from the 
-[Amazon DynamoDB developer guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip). 
+[Amazon DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip). 
 
 To start the scenario, navigate to the `batching` folder and run the following at a 
 command prompt:
@@ -148,24 +148,24 @@ python 01-create-table.py
 
 #### Running on a DAX cluster
 
-To run the scripts with the DAX client, you must run them on an Amazon EC2 instance 
-within your VPC, as described in the Python sample application tutorial in the  
+To run the scripts with the DAX client, you must run them on an Amazon Elastic Compute 
+Cloud (Amazon EC2) instance within your virtual private cloud (VPC). This process is 
+described in the Python sample application tutorial in the  
 [Developing with the DAX Client](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.client.html) 
 section of the *Amazon DynamoDB Developer Guide*.
 
 The tutorial shows you how to set up the following additional resources:
 
-- An Amazon Virtual Private Cloud (Amazon VPC)
+- A VPC from Amazon Virtual Private Cloud (Amazon VPC)
 - A DAX cluster set up in your VPC 
-- An Amazon Elastic Compute Cloud (Amazon EC2) instance running in your VPC with the
-  following installed:
+- An EC2 instance running in your VPC with the following installed:
     - Python 3.7 or later
     - Boto3 1.11.10 or later
     - Amazon DAX Client for Python 1.1.7 or later
 
 On an EC2 instance, run the get item, query, and scan test scripts with the DAX client
-by specifying a DAX cluster endpoint as the first positional argument. For example,
-to run the query test script with the DAX client, run the following from a command 
+by specifying a DAX cluster endpoint as the first positional argument.
+To run the query test script with the DAX client, run the following from a command 
 prompt window.
 
 ```commandline
@@ -174,13 +174,13 @@ python 04-query-test.py YOUR-CLUSTER-NAME.111111.clustercfg.dax.usw2.cache.amazo
 
 ## Running the tests
 
-All tests use pytest and can be found in the `test` folder of each example.
+All tests use pytest, and you can find them in the `test` folder of each example.
 
 ### Unit tests
 
-The unit tests in this module use the botocore Stubber, which captures requests before 
-they are sent to AWS and returns a mocked response so no charges are incurred on your 
-account.
+The unit tests in this module use the botocore Stubber. Stubber captures requests before 
+they are sent to AWS and returns a mocked response so that no charges are incurred on 
+your account.
 
 Run unit tests at a command prompt from the example subfolder by including the 
 `"not integ"` marker.
@@ -191,9 +191,9 @@ python -m pytest -m "not integ"
 
 ### Integration tests
 
-The integration tests in this module do make requests to AWS, creating and destroying
-resources in your account. Integration tests must be approached with caution and
-may incur charges.
+**Note:** The integration tests in this module make actual requests to AWS, which means 
+they can create and destroy resources in your account. These tests might also incur 
+charges. Proceed with caution.
 
 Run integration tests at a command prompt by including the `"integ"` marker.
 

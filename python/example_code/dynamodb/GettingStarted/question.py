@@ -48,7 +48,7 @@ class Question:
         is asked again.
 
         :param question: The question to ask.
-        :param validators: The list of validators the answer must pass.
+        :param validators: The list of validators that the answer must pass.
         :return: The answer, converted to its final form by the validators.
         """
         answer = None
@@ -64,7 +64,7 @@ class Question:
     @staticmethod
     def non_empty(answer):
         """
-        Validates the answer is not empty.
+        Validates that the answer is not empty.
         :return: The non-empty answer, or None.
         """
         return answer if answer != '' else None, "I need an answer. Please?"
@@ -80,7 +80,7 @@ class Question:
     @staticmethod
     def is_int(answer):
         """
-        Validates the answer can be converted to an int.
+        Validates that the answer can be converted to an int.
         :return: The int answer; otherwise, None.
         """
         try:
@@ -92,16 +92,16 @@ class Question:
     @staticmethod
     def is_letter(answer):
         """
-        Validates the answer is a letter.
-        :return The letter answer, converted to uppercase; otherwise None.
+        Validates that the answer is a letter.
+        :return The letter answer, converted to uppercase; otherwise, None.
         """
         return answer.upper() if answer.isalpha() else None, f"{answer} must be a single letter."
 
     @staticmethod
     def is_float(answer):
         """
-        Validate the answer can be converted to a float.
-        :return The float answer; otherwise None.
+        Validate that the answer can be converted to a float.
+        :return The float answer; otherwise, None.
         """
         try:
             float_answer = float(answer)
@@ -112,7 +112,7 @@ class Question:
     @staticmethod
     def in_range(lower, upper):
         """
-        Validate the answer is within a range. The answer must be of a type that can
+        Validate that the answer is within a range. The answer must be of a type that can
         be compared to the lower and upper bounds.
         :return: The answer, if it is within the range; otherwise, None.
         """

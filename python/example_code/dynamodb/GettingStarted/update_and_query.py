@@ -5,8 +5,8 @@
 Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) with Amazon DynamoDB to
-perform more advanced actions, such as arithmetic and conditional updates and
-queries with multiple conditions combined with projection expressions.
+perform more advanced actions, such as arithmetic and conditional updates. You can also
+run queries with multiple conditions that are combined with projection expressions.
 """
 
 from decimal import Decimal
@@ -136,7 +136,7 @@ class UpdateQueryWrapper:
         except ClientError as err:
             if err.response['Error']['Code'] == "ValidationException":
                 logger.warning(
-                    "Oops, got a validation error. Here's the message: %s: %s",
+                    "There's a validation error. Here's the message: %s: %s",
                     err.response['Error']['Code'], err.response['Error']['Message'])
             else:
                 logger.error(
@@ -161,7 +161,7 @@ def usage_demo(table):
         if err.response['Error']['Code'] == 'ResourceNotFoundException':
             print('\nThis demo is intended to be used with an existing table filled with'
                   '\nmovie data. To create one, run scenario_getting_started_movies.py '
-                  '\nand keep the table it creates.')
+                  '\nand keep the table that it creates.')
             print('-' * 88)
         raise
 
@@ -185,7 +185,7 @@ def usage_demo(table):
         wrapper.remove_actors(title, 2001, actor_count)
     except ClientError as err:
         if err.response['Error']['Code'] == "ConditionalCheckFailedException":
-            print(f"\nOops, there are not more than {actor_count} actors listed! "
+            print(f"\nMore than {actor_count} actors must be listed. "
                   f"Let's try again with a limit of 2.")
             actor_count = 2
             updated = wrapper.remove_actors(title, 2001, actor_count)
@@ -216,7 +216,7 @@ def usage_demo(table):
     print(
         f"\nYou can combine query conditions, such as to query for movies released in"
         f"\na certain year that start with letters in a range, and you can "
-        f"\nproject the output to return only the fields you want.")
+        f"\nproject the output to return only the fields that you want.")
     releases = wrapper.query_and_project_movies(release_year, letters)
     if releases:
         print(f"\nFound {len(releases)} movies released in {release_year} with titles"
