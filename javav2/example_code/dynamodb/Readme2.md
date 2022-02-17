@@ -1,9 +1,10 @@
-[Example](link to example) **<-- Delete this sentence from template**
-# [*short service name*] code examples for [*short SDK name*]
-## Overview
-*High-level description of the purpose of the folder*
+# Amazon DynamoDB code examples for the AWS SDK for Java V2
 
-*A brief description of the service*
+## Overview
+This README discusses how to run and test the Java V2 code examples for Amazon DynamoDB.
+
+Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability.
+
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 
 * Running the tests might result in charges to your AWS account.
