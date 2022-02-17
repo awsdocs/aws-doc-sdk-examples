@@ -1,32 +1,30 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using Amazon;
-using Amazon.Polly;
-using Amazon.Polly.Model;
-using System.IO;
-using System.Threading.Tasks;
-
+/// <summary>
+/// This example uses the Amazon Polly service to convert text to
+/// speech. It then saves the converted text to an MP3 file. The
+/// code was written against the AWS SDK for .NET 3.5 and .NET 5.
+/// </summary>
 namespace SynthesizeSpeech
 {
-    class SynthesizeSpeech
+    // snippet-start:[Polly.dotnetv3.SynthesizeSpeechExample]
+    using System;
+    using System.IO;
+    using System.Threading.Tasks;
+    using Amazon.Polly;
+    using Amazon.Polly.Model;
+
+    public class SynthesizeSpeech
     {
-        // This example uses the Amazon Polly service to convert text to
-        // speech. It then saves the converted text to an MP3 file. The
-        // code was written against the AWS SDK for .NET 3.5 and .NET 5.0.
-
-        // Specify your AWS Region (an example Region is shown).
-        private static readonly RegionEndpoint serviceRegion = RegionEndpoint.USEast2;
-        private static IAmazonPolly polyClient;
-
-        private const string outputFileName = "speech.mp3";
-        private const string text = "Twas brillig, and the slithy toves did gyre and gimbol in the wabe";
-
-        static async Task Main()
+        public static async Task Main()
         {
-            polyClient = new AmazonPollyClient(serviceRegion);
-            var response = await PollySynthesizeSpeech(polyClient, text);
-            
+            string outputFileName = "speech.mp3";
+            string text = "Twas brillig, and the slithy toves did gyre and gimbol in the wabe";
+
+            var client = new AmazonPollyClient();
+            var response = await PollySynthesizeSpeech(client, text);
+
             WriteSpeechToStream(response.AudioStream, outputFileName);
         }
 
@@ -39,18 +37,18 @@ namespace SynthesizeSpeech
         /// <param name="text">The text which will be converted to speech.</param>
         /// <returns>A SynthesizeSpeechResponse object that includes an AudioStream
         /// object with the converted text.</returns>
-        private static async Task<SynthesizeSpeechResponse> PollySynthesizeSpeech (IAmazonPolly client, string text)
+        private static async Task<SynthesizeSpeechResponse> PollySynthesizeSpeech(IAmazonPolly client, string text)
         {
             var synthesizeSpeechRequest = new SynthesizeSpeechRequest()
             {
                 OutputFormat = OutputFormat.Mp3,
                 VoiceId = VoiceId.Joanna,
-                Text = text
+                Text = text,
             };
 
             var synthesizeSpeechResponse =
                 await client.SynthesizeSpeechAsync(synthesizeSpeechRequest);
-            
+
             return synthesizeSpeechResponse;
         }
 
@@ -64,17 +62,24 @@ namespace SynthesizeSpeech
         /// save the audio stream.</param>
         private static void WriteSpeechToStream(Stream audioStream, string outputFileName)
         {
-            var outputStream = new FileStream(outputFileName, FileMode.Create,
+            var outputStream = new FileStream(
+                outputFileName,
+                FileMode.Create,
                 FileAccess.Write);
             byte[] buffer = new byte[2 * 1024];
             int readBytes;
 
             while ((readBytes = audioStream.Read(buffer, 0, 2 * 1024)) > 0)
+            {
                 outputStream.Write(buffer, 0, readBytes);
+            }
 
             // If we don't flush the buffer, we lose the last second or so of
             // the synthesized text.
             outputStream.Flush();
+            Console.WriteLine($"Saved {outputFileName} to disk.");
         }
     }
+
+    // snippet-end:[Polly.dotnetv3.SynthesizeSpeechExample]
 }
