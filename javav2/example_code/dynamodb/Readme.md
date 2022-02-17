@@ -12,7 +12,6 @@ Amazon DynamoDB is a fully managed NoSQL database service that provides fast and
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
-*Each section contain a list of the relevent type of code examples available for the service.* **<-- Delete this sentence from template**
 
 ### Single action
 
