@@ -25,24 +25,25 @@ You will find these examples:
 - [Describing an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/DescribeTable.java) (DescribeTable command)
 - [Inserting many items into an Amazon DynamoDB table by using the enhanced client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/EnhancedBatchWriteItems.java) (BatchWriteItem command)
 - [Retrieve an item from an Amazon DynamoDB table by using the enhanced client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/EnhancedGetItem.java) (GetItem command)
+- [Scanning items from an Amazon DynamoDB table by using the enhanced client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/EnhancedScanRecords.java) (Scan command)
+- [Modifying an item from an Amazon DynamoDB table by using the enhanced client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/EnhancedModifyItem.java) (UpdateItem command)
+- [Putting an item into an Amazon DynamoDB table by using the enhanced client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/EnhancedPutItem.java) (PutItem command)
+- [Quering items from an Amazon DynamoDB table by using the enhanced client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/EnhancedQueryRecords.java) (Query command)
+- [Querying an Amazon DynamoDB table with a filter by using the enhanced client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/EnhancedQueryRecordsWithFilter.java) (Query command)
+- [Scanning an Amazon DynamoDB table using the enhanced client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/EnhancedQueryRecordsWithSortKey.java) (Query command)
+- [Querying an Amazon DynamoDB table with a sort key by using the enhanced client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/EnhancedScanRecords.java) (Scan command)
+- [Retrieving an item from an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/GetItem.java) (GetItem command)
+- [Listing Amazon DynamoDB tables](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/ListTables.java) (ListTables command)
+- [Putting items into an Amazon DynamoDB tables](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/PutItem.java) (PutItem command)
+- [Querying items from an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/Query.java) (Query command)
+- [Updating a value located in an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/UpdateItem.java) (UpdateItem command)
+- [Updating an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/UpdateTable.java) (UpdateTable command)
 
-- **EnhancedGetItem.** - Demonstrates how to .
-- **DynamoDBScanItems** - Demonstrates how to return items from an Amazon DynamoDB table.
-- **EnhancedModifyItem** - Demonstrates how to modify an item located in an Amazon DynamoDB table by using the enhanced client.
-- **EnhancedPutItem** - Demonstrates how to put an item into an Amazon DynamoDB table by using the enhanced client.
-- **EnhancedQueryRecords** - Demonstrates how to query an Amazon DynamoDB table by using the enhanced client.
-- **EnhancedQueryRecordsWithFilter** - Demonstrates how to query an Amazon DynamoDB table with a filter and by using the enhanced client.
-- **EnhancedQueryRecordsWithSortKey** - Demonstrates how to query a table with a sort key.
-- **EnhancedScanRecords** - Demonstrates how to scan an Amazon DynamoDB table by using the enhanced client.
-- **GetItem** - Demonstrates how to retrieve an item from an Amazon DynamoDB table.
-- **ListTables** - Demonstrates how to list all Amazon DynamoDB tables.
-- **PutItem** - Demonstrates how to place an item into an Amazon DynamoDB table.
-- **Query** - Demonstrates how to query an Amazon DynamoDB table.
-- **UpdateItem** - Demonstrates how to update a value located in an Amazon DynamoDB table.
-- **UpdateTable** - Demonstrates how to update an Amazon DynamoDB table.
 
 ### Scenario
-* **Scenario** - Demonstrates how to perform various Amazon DynamoDB operations.
+
+- [Performing various Amazon DynamoDB operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/Scenario.java) (Multiple commands)
+
 
 ### Cross-service
 
