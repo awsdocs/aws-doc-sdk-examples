@@ -197,6 +197,16 @@ dynamodb_Usage_BatchGetWriteDelete:
   synopsis: get, write, and delete batches of &DDB; items.
   category: Scenarios
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: Create functions to wrap &DDB; batch operations.
+              snippet_tags:
+                - dynamodb.java2.scenario.import
+                - dynamodb.java2.scenario.main
     Python:
       versions:
         - sdk_version: 3
