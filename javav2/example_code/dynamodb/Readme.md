@@ -15,7 +15,7 @@ Amazon DynamoDB is a fully managed NoSQL database service that provides fast and
 
 ### Single action
 
-You will find these examples that use the ** DynamoDbClient** object: 
+You will find these examples that use the **DynamoDbClient** object: 
 
 - [Creating an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/CreateTable.java) (CreateTable command)
 - [Creating an Amazon DynamoDB table with a composite key](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/CreateTableCompositeKey.java) (CreateTable command)
