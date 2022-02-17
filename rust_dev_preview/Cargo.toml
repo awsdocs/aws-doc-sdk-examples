@@ -47,6 +47,7 @@ members = [
     "sending-presigned-requests",
     "ses",
     "setting-timeouts",
+    "sitewise",
     "snowball",
     "sns",
     "sqs",
