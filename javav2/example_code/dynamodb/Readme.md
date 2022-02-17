@@ -48,7 +48,8 @@ You will find these examples that use the **DynamoDbEnhancedClient** object:
 
 ### Cross-service
 
-* [*Title of code example*](*relative link to code example*)
+- [Creating the Amazon DynamoDB web application item tracker](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_dynamodb_web_app) 
+
 
 ## Running the examples
 To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
