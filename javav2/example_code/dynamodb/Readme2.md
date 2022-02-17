@@ -13,13 +13,40 @@ Amazon DynamoDB is a fully managed NoSQL database service that provides fast and
 ## Code examples
 *Each section contain a list of the relevent type of code examples available for the service.* **<-- Delete this sentence from template**
 ### Single action
-* [*Short description of code example, using gerund form of verb*](*relative link to code example*)(*API command*)
+
+You will find these examples: 
+
+- **CreateTable** - Demonstrates how to create an Amazon DynamoDB table.
+- **CreateTableCompositeKey** - Demonstrates how to create an Amazon DynamoDB table with a composite key.
+- **DeleteItem** - Demonstrates how to delete an item from an Amazon DynamoDB table.
+- **DeleteTable** - Demonstrates how to delete an Amazon DynamoDB table.
+- **DescribeTable** - Demonstrates how to retrieve information about an Amazon DynamoDB table.
+- **EnhancedBatchWriteItems** - Demonstrates how to insert many items into an Amazon DynamoDB table by using the enhanced client.
+- **EnhancedGetItem.** - Demonstrates how to retrieve an item from an Amazon DynamoDB table by using the enhanced client.
+- **DynamoDBScanItems** - Demonstrates how to return items from an Amazon DynamoDB table.
+- **EnhancedModifyItem** - Demonstrates how to modify an item located in an Amazon DynamoDB table by using the enhanced client.
+- **EnhancedPutItem** - Demonstrates how to put an item into an Amazon DynamoDB table by using the enhanced client.
+- **EnhancedQueryRecords** - Demonstrates how to query an Amazon DynamoDB table by using the enhanced client.
+- **EnhancedQueryRecordsWithFilter** - Demonstrates how to query an Amazon DynamoDB table with a filter and by using the enhanced client.
+- **EnhancedQueryRecordsWithSortKey** - Demonstrates how to query a table with a sort key.
+- **EnhancedScanRecords** - Demonstrates how to scan an Amazon DynamoDB table by using the enhanced client.
+- **GetItem** - Demonstrates how to retrieve an item from an Amazon DynamoDB table.
+- **ListTables** - Demonstrates how to list all Amazon DynamoDB tables.
+- **PutItem** - Demonstrates how to place an item into an Amazon DynamoDB table.
+- **Query** - Demonstrates how to query an Amazon DynamoDB table.
+- **UpdateItem** - Demonstrates how to update a value located in an Amazon DynamoDB table.
+- **UpdateTable** - Demonstrates how to update an Amazon DynamoDB table.
+
 ### Scenario
-* [*Title of code example*](*relative link to code example*)
+* **Scenario** - Demonstrates how to perform various Amazon DynamoDB operations.
+
 ### Cross-service
+
 * [*Title of code example*](*relative link to code example*)
+
 ## Running the examples
-*Minimum instructions required to run examples. This will vary from language to language.* **<-- Delete this sentence from template**
+To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
 ### Prerequisites
 *If there are language level prerequisites (i.e. that apply to all examples) put them in the language level README, and link to it as one of the prerequisites for the service level.* **<-- Delete this sentence from template**
