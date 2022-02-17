@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31829.152
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSEClientEncryptionExample", "SSEClientEncryptionExample.csproj", "{401A1197-E99A-41FF-AAF6-BB526BFED955}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{401A1197-E99A-41FF-AAF6-BB526BFED955}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{401A1197-E99A-41FF-AAF6-BB526BFED955}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{401A1197-E99A-41FF-AAF6-BB526BFED955}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{401A1197-E99A-41FF-AAF6-BB526BFED955}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9D9B5969-3788-4583-ADBA-4C3AA13559D7}
+	EndGlobalSection
+EndGlobal

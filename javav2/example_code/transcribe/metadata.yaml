@@ -1,0 +1,29 @@
+--- 
+files:
+ - path: src/main/java/com/amazonaws/transcribe/AudioStreamPublisher.java
+   services:
+     - transcribe
+ - path: src/main/java/com/amazonaws/transcribe/BidirectionalStreaming.java
+   services:
+     - transcribe
+ - path: src/main/java/com/amazonaws/transcribe/Microphone.java
+   services:
+     - transcribe
+ - path: src/main/java/com/amazonaws/transcribestreaming/TranscribeStreamingDemoApp.java
+   services:
+     - transcribe  
+ - path: src/main/java/com/amazonaws/transcribestreaming/StreamingRetryApp.java
+   services:
+     - transcribe     
+ - path: src/main/java/com/amazonaws/transcribestreaming/StreamTranscriptionBehavior.java
+   services:
+     - transcribe     
+ - path: src/main/java/com/amazonaws/transcribestreaming/StreamTranscriptionBehaviorImpl.java
+   services:
+     - transcribe     
+ - path: src/main/java/com/amazonaws/transcribestreaming/TranscribeStreamingRetryClient.java
+   services:
+     - transcribe          
+ - path: src/test/java/TranscribeTest.java
+   services:
+     - transcribe

@@ -1,0 +1,14 @@
+{
+  "name": "aws-sdk-v3-iam-examples",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.32.0",
+    "@aws-sdk/node-http-handler": "^3.32.0",
+    "@aws-sdk/types": "^3.32.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.23"
+  },
+  "type": "module"
+}

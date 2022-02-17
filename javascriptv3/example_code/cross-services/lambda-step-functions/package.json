@@ -1,0 +1,24 @@
+{
+  "name": "lambda-api-gateway-example",
+  "version": "1.0.0",
+  "description": "Using the AWS SDK for JavaScript V3 to build and deploy Lambda functions on API Gateway.",
+  "main": "index.js",
+  "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/iam.git",
+  "author": "brmur",
+  "license": "Apache 2.0",
+  "scripts": {
+    "build-lambda-1": "webpack getid.js --mode development --target node --devtool false --output-library-target umd -o index.js",
+    "build-lambda-2": "webpack additem.js --mode development --target node --devtool false --output-library-target umd -o index.js",
+    "build-lambda-3": "webpack sendemail.js --mode development --target node --devtool false --output-library-target umd -o index.js",
+    "build-cdk": "aws cloudformation create-stack --stack-name STACK_NAME --template-body file://setup.yaml --capabilities CAPABILITY_IAM",
+    "test": "exit 0"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.32.0",
+    "@aws-sdk/client-ses": "^3.7.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
+  }
+}

@@ -1,0 +1,166 @@
+# zexi 0.4.0
+emr_RunJobFlow:
+  title: Run an &EMR; job flow using an &AWS; SDK
+  title_abbrev: Run a job flow
+  synopsis: run an &EMR; job flow.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/emr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.emr.RunJobFlow
+  services:
+    emr: {RunJobFlow}
+emr_DescribeCluster:
+  title: Describe an &EMR; cluster using an &AWS; SDK
+  title_abbrev: Describe a cluster
+  synopsis: describe an &EMR; cluster.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/emr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.emr.DescribeCluster
+  services:
+    emr: {DescribeCluster}
+emr_TerminateJobFlows:
+  title: Terminate &EMR; job flows using an &AWS; SDK
+  title_abbrev: Terminate job flows
+  synopsis: terminate &EMR; job flows.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/emr
+          sdkguide: 
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.emr.TerminateJobFlows
+  services:
+    emr: {TerminateJobFlows}
+emr_AddJobFlowSteps:
+  title: Add steps to an &EMR; job flow using an &AWS; SDK
+  title_abbrev: Add steps to a job flow
+  synopsis: add steps to an &EMR; job flow.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/emr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.emr.AddJobFlowSteps
+  services:
+    emr: {AddJobFlowSteps}
+emr_ListSteps:
+  title: List steps for an &EMR; cluster using an &AWS; SDK
+  title_abbrev: List steps for a cluster
+  synopsis: list steps for an &EMR; cluster.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/emr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.emr.ListSteps
+  services:
+    emr: {ListSteps}
+emr_DescribeStep:
+  title: Describe a step on an &EMR; cluster using an &AWS; SDK
+  title_abbrev: Describe a step
+  synopsis: describe a step on an &EMR; cluster.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/emr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.emr.DescribeStep
+  services:
+    emr: {DescribeStep}
+emr_Usage_RunEmrfsCommand:
+  title: Run an &EMR; file system command on a cluster using an &AWS; SDK
+  title_abbrev: Run an EMRFS command on a cluster
+  synopsis: run an &EMR; file system (EMRFS) command as a job step on a cluster.
+    This can be used to automate EMRFS commands on a cluster instead of running
+    commands manually through an SSH connection.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/emr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - emr.python.addstep.emrfs
+  services:
+    emr: {}
+emr_Usage_InstallLibrariesWithSsm:
+  title: Run a shell script to install libraries on &EMR; instances using an &AWS; SDK
+  title_abbrev: Run a shell script to install libraries on instances
+  synopsis: use &SYSlong; to run a shell script on &EMR; instances to install
+    additional libraries. This can be used to automate instance management instead
+    of running commands manually through an SSH connection.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/emr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - emr.python.jupyterhub.installlibraries
+  services:
+    emr: {}
+emr_Usage_ShortLivedCluster:
+  title: Create an &EMR; short-lived cluster and run a step using an &AWS; SDK
+  title_abbrev: Create a short-lived cluster and run a step
+  synopsis: create an &EMR; short-lived cluster that runs a step and automatically
+    terminates after the step completes.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: usage_EmrShortLivedCluster_Python_block.xml
+  services:
+    emr: {}
+emr_Usage_LongLivedCluster:
+  title: Create an &EMR; long-lived cluster and run several steps using an &AWS; SDK
+  title_abbrev: Create a long-lived cluster and run several steps
+  synopsis: create an &EMR; long-lived cluster and run several steps.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: usage_EmrLongLivedCluster_Python_block.xml
+  services:
+    emr: {}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+    <para>
+        Shows how to use the &SNS; Kotlin API to
+        create an application that has 
+        subscription and publish functionality. In addition, this
+        example application also translates messages. 
+    </para>
+    <para>
+        For complete source code and instructions on how to create a web app, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/subpub_app">GitHub</ulink>.
+    </para>
+        <para>
+        For complete source code and instructions on how to create a native Android app, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/subpub_app_android">GitHub</ulink>.
+    </para>
+</block>

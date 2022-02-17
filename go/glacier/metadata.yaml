@@ -1,0 +1,13 @@
+files:
+  - path: CreateVault/CreateVault.go
+    services:
+      - glacier
+  - path: CreateVault/CreateVault_test.go
+    services:
+      - glacier
+  - path: UploadArchive/UploadArchive.go
+    services:
+      - glacier
+  - path: UploadArchive/UploadArchive_test.go
+    services:
+      - glacier

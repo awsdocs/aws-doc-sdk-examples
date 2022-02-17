@@ -1,0 +1,29 @@
+2017/10/25 11:10:57 DEBUG: Request dynamodb/ListTables Details:
+---[ REQUEST POST-SIGN ]-----------------------------
+POST / HTTP/1.1
+Host: dynamodb.us-west-2.amazonaws.com
+User-Agent: aws-sdk-go/1.10.34 (go1.8; windows; amd64)
+Content-Length: 2
+Accept-Encoding: identity
+Authorization: AWS4-HMAC-SHA256 Credential=ACCESS-KEY/20171025/us-west-2/dynamodb/aws4_request, SignedHeaders=accept-encoding;content-length;content-type;host;x-amz-date;x-amz-target, Signature=9c92efe5d6c597cf29e4f7cc74de6dc2e39f8010a0d4957a397c59ef9cde21f2
+Content-Type: application/x-amz-json-1.0
+CustomHeader: 10
+X-Amz-Date: 20171025T181057Z
+X-Amz-Target: DynamoDB_20120810.ListTables
+
+{}
+-----------------------------------------------------
+2017/10/25 11:10:58 DEBUG: Response dynamodb/ListTables Details:
+---[ RESPONSE ]--------------------------------------
+HTTP/1.1 200 OK
+Content-Length: 177
+Connection: keep-alive
+Content-Type: application/x-amz-json-1.0
+Date: Wed, 25 Oct 2017 18:10:58 GMT
+Server: Server
+X-Amz-Crc32: 3023160996
+X-Amzn-Requestid: M5B4BM4UU569MVBSDG5O2O9ITJVV4KQNSO5AEMVJF66Q9ASUAAJG
+
+
+-----------------------------------------------------
+2017/10/25 11:10:58 {"TableNames":["TABLE-1","...","TABLE-N"]}

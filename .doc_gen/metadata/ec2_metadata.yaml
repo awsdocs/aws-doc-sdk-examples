@@ -1,0 +1,496 @@
+# zexi 0.4.0
+ec2_CreateKeyPair:
+  title: Create a security key pair for &EC2; using an &AWS; SDK
+  title_abbrev: Create a security key pair
+  synopsis: create a security key pair for &EC2;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.create_key_pair.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.CreateKeyPair
+  services:
+    ec2: {CreateKeyPair}
+ec2_CreateSecurityGroup:
+  title: Create an &EC2; security group using an &AWS; SDK
+  title_abbrev: Create a security group
+  synopsis: create an &EC2; security group.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.create_security_group.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.CreateSecurityGroup_AuthorizeIngress
+  services:
+    ec2: {CreateSecurityGroup}
+ec2_RunInstances:
+  title: Create and run an &EC2; instance using an &AWS; SDK
+  title_abbrev: Create and run an instance
+  synopsis: create and run an &EC2; instance.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.RunInstances
+  services:
+    ec2: {RunInstances}
+ec2_StartInstances:
+  title: Start an &EC2; instance using an &AWS; SDK
+  title_abbrev: Start an instance
+  synopsis: start an &EC2; instance.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.start_stop_instance.start
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.StartInstances
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.rust.start-instance
+  services:
+    ec2: {StartInstances}
+ec2_StopInstances:
+  title: Stop an &EC2; instance using an &AWS; SDK
+  title_abbrev: Stop an instance
+  synopsis: stop an &EC2; instance.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.start_stop_instance.stop
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.StopInstances
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.rust.stop-instance
+  services:
+    ec2: {StopInstances}
+ec2_AllocateAddress:
+  title: Allocate an Elastic IP address for &EC2; using an &AWS; SDK
+  title_abbrev: Allocate an Elastic IP address
+  synopsis: allocate an Elastic IP address for &EC2;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.allocate_address.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.AllocateAddress
+  services:
+    ec2: {AllocateAddress}
+ec2_AssociateAddress:
+  title: Associate an Elastic IP address with an &EC2; instance using an &AWS; SDK
+  title_abbrev: Associate an Elastic IP address with an instance
+  synopsis: associate an Elastic IP address with an &EC2; instance.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.AssociateAddress
+  services:
+    ec2: {AssociateAddress}
+ec2_DisassociateAddress:
+  title: Disassociate an Elastic IP address from an &EC2; instance using an &AWS; SDK
+  title_abbrev: Disassociate an Elastic IP address from an instance
+  synopsis: disassociate an Elastic IP address from an &EC2; instance.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.DisassociateAddress
+  services:
+    ec2: {DisassociateAddress}
+ec2_ReleaseAddress:
+  title: Release an Elastic IP address using an &AWS; SDK
+  title_abbrev: Release an Elastic IP address
+  synopsis: release an Elastic IP address.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.release_instance.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.ReleaseAddress
+  services:
+    ec2: {ReleaseAddress}
+ec2_GetConsoleOutput:
+  title: Get the console output of an &EC2; instance using an &AWS; SDK
+  title_abbrev: Get the console output of an instance
+  synopsis: get the console output of an &EC2; instance.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.GetConsoleOutput
+  services:
+    ec2: {GetConsoleOutput}
+ec2_ModifyNetworkInterfaceAttribute:
+  title: Change the security group of an &EC2; instance using an &AWS; SDK
+  title_abbrev: Change the security group on an instance
+  synopsis: change the security group of an &EC2; instance.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.ModifyNetworkInterfaceAttribute
+  services:
+    ec2: {ModifyNetworkInterfaceAttribute}
+ec2_AuthorizeSecurityGroupIngress:
+  title: Set inbound rules for an &EC2; security group using an &AWS; SDK
+  title_abbrev: Set inbound rules for a security group
+  synopsis: set inbound rules for an &EC2; security group.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+                Create an &EC2long; (&EC2;) security group and add rules
+                to filter incoming traffic.
+              snippet_tags:
+                - python.example_code.ec2.CreateSecurityGroup_AuthorizeIngress
+            - description:
+                Authorize incoming traffic to a security group from instances
+                in another security group.
+              snippet_tags:
+                - python.example_code.ec2.AuthorizeSecurityGroupIngress
+  services:
+    ec2: {AuthorizeSecurityGroupIngress}
+ec2_DeleteKeyPair:
+  title: Delete an &EC2; security key pair using an &AWS; SDK
+  title_abbrev: Delete a security key pair
+  synopsis: delete an &EC2; security key pair.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.delete_key_pair.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.DeleteKeyPair
+  services:
+    ec2: {DeleteKeyPair}
+ec2_DeleteSecurityGroup:
+  title: Delete an &EC2; security group using an &AWS; SDK
+  title_abbrev: Delete a security group
+  synopsis: delete an &EC2; security group.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.delete_security_group.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.DeleteSecurityGroup
+  services:
+    ec2: {DeleteSecurityGroup}
+ec2_DeleteSnapshot:
+  title: Delete the &EBS; snapshot using an &AWS; SDK
+  title_abbrev: Delete a snapshot
+  synopsis: delete an &EBS; snapshot.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ebs
+          excerpts:
+            - description:
+              snippet_tags:
+                - ebs.rust.delete-snapshot
+  services:
+    ec2: {DeleteSnapshot}
+ec2_DescribeSnapshots:
+  title: Describe one or more &EBS; snapshots using an &AWS; SDK
+  title_abbrev: Describe snapshots
+  synopsis: describe &EBS; snapshots.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ebs
+          excerpts:
+            - description: Shows the state of a snapshot.
+              snippet_tags:
+                - ebs.rust.get-snapshot-state
+            - description:
+              snippet_tags:
+                - ebs.rust.list-snapshots
+  services:
+    ec2: {DescribeSnapshots}
+ec2_TerminateInstances:
+  title: Terminate an &EC2; instance using an &AWS; SDK
+  title_abbrev: Terminate an instance
+  synopsis: terminate an &EC2; instance.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.terminate_instance
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.TerminateInstances
+  services:
+    ec2: {TerminateInstances}
+ec2_Usage_InstanceCreationAndManagement:
+  title: Create and manage &EC2; instances using an &AWS; SDK
+  title_abbrev: Create and manage instances
+  synopsis: create and manage &EC2; instances.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.create_instance.main
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: usage_EC2InstanceManagement_Python_block.xml
+  services:
+    ec2: {}
+ec2_DescribeInstances:
+  title: Describe the specified or all &EC2; instances using an &AWS; SDK
+  title_abbrev: Describe instances
+  synopsis: describe &EC2; instances.
+  category: Scenarios
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.rust.describe-instances
+  services:
+    ec2: {}
+ec2_DescribeRegions:
+  title: Describes the Regions that are enabled for your account, or all Regions, using an &AWS; SDK
+  title_abbrev: Describe Regions
+  synopsis: describe &EC2; Regions.
+  category: Scenarios
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.rust.ec2-helloworld
+  services:
+    ec2: {}
+ec2_DescribeInstanceStatus:
+  title: Describes the status of the specified instances or all of your instances using an &AWS; SDK
+  title_abbrev: Describe status
+  synopsis: describe &EC2; status.
+  category: Scenarios
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.rust.list-all-instance-events
+  services:
+    ec2: {}
+ec2_MonitorInstances:
+  title: Enables detailed monitoring for a running instance using an &AWS; SDK
+  title_abbrev: Enable monitoring
+  synopsis: enable &EC2; monitoring.
+  category: Scenarios
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.rust.monitor-instance
+  services:
+    ec2: {}
+ec2_RebootInstances:
+  title: Requests a reboot of the specified instances using an &AWS; SDK
+  title_abbrev: Reboot instances
+  synopsis: reboot &EC2; instance.
+  category: Scenarios
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.rust.reboot-instance
+  services:
+    ec2: {}

@@ -1,0 +1,252 @@
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#
+# This file is licensed under the Apache License, Version 2.0 (the "License").
+# You may not use this file except in compliance with the License. A copy of
+# the License is located at
+#
+# http://aws.amazon.com/apache2.0/
+#
+# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+# CONDITIONS OF ANY KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations under the License.
+
+# snippet-sourcedescription:[template-codepipeline-s3-events-yaml.yml provides a CloudFormation template that creates a pipeline with an S3 source and a CodeDeploy deployment. This template also creates the CloudWatch Events rule for detecting push events. This template stack should be created along with the template-codepipeline-s3-cloudtrail-yaml.yml template that creates the CloudTrail resources for change detection.]
+# snippet-service:[codepipeline]
+# snippet-keyword:[CloudFormation]
+# snippet-keyword:[AWS CodePipeline]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourceauthor:[AWS]
+# snippet-sourcedate:[2018-10-10]
+# snippet-start:[codepipeline.cloudformation.CodePipeline-S3-events-yaml.complete]
+
+###################################################################################
+# Prerequisites: 
+#   - CodeDeploy deploy exists. Update ApplicationName and BetaFleet as needed.
+###################################################################################
+
+Parameters:
+  SourceObjectKey:
+    Description: 'S3 source artifact'
+    Type: String
+    Default: SampleApp_Linux.zip
+  ApplicationName:
+    Description: 'CodeDeploy application name'
+    Type: String
+    Default: DemoApplication
+  BetaFleet:
+    Description: 'Fleet configured in CodeDeploy'
+    Type: String
+    Default: DemoFleet
+    
+Resources:
+  SourceBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      VersioningConfiguration: 
+        Status: Enabled
+  CodePipelineArtifactStoreBucket:
+    Type: AWS::S3::Bucket
+  CodePipelineArtifactStoreBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref CodePipelineArtifactStoreBucket
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          -
+            Sid: DenyUnEncryptedObjectUploads
+            Effect: Deny
+            Principal: '*'
+            Action: s3:PutObject
+            Resource: !Join [ '', [ !GetAtt CodePipelineArtifactStoreBucket.Arn, '/*' ] ]
+            Condition:
+              StringNotEquals: 
+                s3:x-amz-server-side-encryption: aws:kms
+          -
+            Sid: DenyInsecureConnections
+            Effect: Deny
+            Principal: '*'
+            Action: s3:*
+            Resource: !Join [ '', [ !GetAtt CodePipelineArtifactStoreBucket.Arn, '/*' ] ]
+            Condition:
+              Bool:
+                aws:SecureTransport: false
+  CodePipelineServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          -
+            Effect: Allow
+            Principal:
+              Service:
+                - codepipeline.amazonaws.com
+            Action: sts:AssumeRole
+      Path: /
+      Policies:
+        -
+          PolicyName: AWS-CodePipeline-Service-3
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              -
+                Effect: Allow
+                Action:
+                  - codecommit:CancelUploadArchive
+                  - codecommit:GetBranch
+                  - codecommit:GetCommit
+                  - codecommit:GetUploadArchiveStatus
+                  - codecommit:UploadArchive
+                Resource: '*'
+              -
+                Effect: Allow
+                Action:
+                  - codedeploy:CreateDeployment
+                  - codedeploy:GetApplicationRevision
+                  - codedeploy:GetDeployment
+                  - codedeploy:GetDeploymentConfig
+                  - codedeploy:RegisterApplicationRevision
+                Resource: '*'
+              -
+                Effect: Allow
+                Action:
+                  - codebuild:BatchGetBuilds
+                  - codebuild:StartBuild
+                Resource: '*'
+              -
+                Effect: Allow
+                Action:
+                  - devicefarm:ListProjects
+                  - devicefarm:ListDevicePools
+                  - devicefarm:GetRun
+                  - devicefarm:GetUpload
+                  - devicefarm:CreateUpload
+                  - devicefarm:ScheduleRun
+                Resource: '*'
+              -
+                Effect: Allow
+                Action:
+                  - lambda:InvokeFunction
+                  - lambda:ListFunctions
+                Resource: '*'
+              -
+                Effect: Allow
+                Action:
+                  - iam:PassRole
+                Resource: '*'
+              -
+                Effect: Allow
+                Action:
+                  - elasticbeanstalk:*
+                  - ec2:*
+                  - elasticloadbalancing:*
+                  - autoscaling:*
+                  - cloudwatch:*
+                  - s3:*
+                  - sns:*
+                  - cloudformation:*
+                  - rds:*
+                  - sqs:*
+                  - ecs:*
+                Resource: '*'
+  AppPipeline: 
+    Type: AWS::CodePipeline::Pipeline
+    Properties: 
+      Name: s3-events-pipeline
+      RoleArn: 
+        !GetAtt CodePipelineServiceRole.Arn
+      Stages: 
+        - 
+          Name: Source
+          Actions: 
+            - 
+              Name: SourceAction
+              ActionTypeId: 
+                Category: Source
+                Owner: AWS
+                Version: 1
+                Provider: S3
+              OutputArtifacts: 
+                - Name: SourceOutput
+              Configuration: 
+                S3Bucket: !Ref SourceBucket
+                S3ObjectKey: !Ref SourceObjectKey
+                PollForSourceChanges: false
+              RunOrder: 1
+        - 
+          Name: Beta
+          Actions: 
+            - 
+              Name: BetaAction
+              InputArtifacts: 
+                - Name: SourceOutput
+              ActionTypeId: 
+                Category: Deploy
+                Owner: AWS
+                Version: 1
+                Provider: CodeDeploy
+              Configuration: 
+                ApplicationName: !Ref ApplicationName
+                DeploymentGroupName: !Ref BetaFleet
+              RunOrder: 1
+      ArtifactStore: 
+        Type: S3
+        Location: !Ref CodePipelineArtifactStoreBucket
+  AmazonCloudWatchEventRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          -
+            Effect: Allow
+            Principal:
+              Service:
+                - events.amazonaws.com
+            Action: sts:AssumeRole
+      Path: /
+      Policies:
+        -
+          PolicyName: cwe-pipeline-execution
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              -
+                Effect: Allow
+                Action: codepipeline:StartPipelineExecution
+                Resource: !Join [ '', [ 'arn:aws:codepipeline:', !Ref 'AWS::Region', ':', !Ref 'AWS::AccountId', ':', !Ref AppPipeline ] ]
+  AmazonCloudWatchEventRule:
+    Type: AWS::Events::Rule
+    Properties:
+      EventPattern:
+        source:
+          - aws.s3
+        detail-type:
+          - 'AWS API Call via CloudTrail'
+        detail:
+          eventSource:
+            - s3.amazonaws.com
+          eventName:
+            - PutObject
+            - CompleteMultipartUpload
+          resources:
+            ARN:
+              - !Join [ '', [ !GetAtt SourceBucket.Arn, '/', !Ref SourceObjectKey ] ]
+      Targets:
+        -
+          Arn:
+            !Join [ '', [ 'arn:aws:codepipeline:', !Ref 'AWS::Region', ':', !Ref 'AWS::AccountId', ':', !Ref AppPipeline ] ]
+          RoleArn: !GetAtt AmazonCloudWatchEventRole.Arn
+          Id: codepipeline-AppPipeline
+            
+Outputs:
+  SourceBucketARN:
+    Description: "S3 bucket ARN that Cloudtrail will use"
+    Value: !GetAtt SourceBucket.Arn
+    Export:
+      Name: SourceBucketARN
+
+
+# snippet-end:[codepipeline.cloudformation.CodePipeline-S3-events-yaml.complete]

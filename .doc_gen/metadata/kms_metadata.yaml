@@ -1,0 +1,847 @@
+# zexi 0.4.0
+kms_CreateKey:
+  title: Create an &kms-key-long; using an &AWS; SDK
+  title_abbrev: Create a key
+  synopsis: create an &kms-key-long;.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_create_key.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_create_key.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.KeyManager
+                - python.example_code.kms.CreateKey
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/KMS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - KMS.dotnetv3.CreateKeyExample
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.rust.create-key
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/kms
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - kms.go-v2.CreateKey
+  services:
+    kms: {CreateKey}
+kms_Decrypt:
+  title: Decrypt ciphertext with an &kms-key-long; using an &AWS; SDK
+  title_abbrev: Decrypt ciphertext
+  synopsis: decrypt ciphertext that was encrypted by a &kms-key;.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_encrypt_data.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_decrypt_data.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.KeyEncrypt
+                - python.example_code.kms.Decrypt
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.rust.decrypt
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/kms
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - kms.go-v2.DecryptData
+
+  services:
+    kms: {Decrypt}
+kms_Encrypt:
+  title: Encrypt text using an &kms-key-long; using an &AWS; SDK
+  title_abbrev: Encrypt text using a key
+  synopsis: encrypt text using a &kms-key;.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_encrypt_data.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_encrypt_data.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.KeyEncrypt
+                - python.example_code.kms.Encrypt
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.rust.encrypt
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/kms
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - kms.go-v2.EncryptData
+  services:
+    kms: {Encrypt}
+kms_GenerateDataKey:
+  title: Generate a plaintext data key for client-side encryption using an &AWS; SDK
+  title_abbrev: Generate a plaintext data key for client-side encryption
+  synopsis: generate a unique symmetric data key for client-side encryption from an
+    &kms-key-long;. The key contains both plaintext and ciphertext versions.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.KeyManager
+                - python.example_code.kms.GenerateDataKey
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.rust.generate-data-key
+  services:
+    kms: {GenerateDataKey}
+kms_GenerateDataKeyWithoutPlaintext:
+  title: Generate an encrypted data key using an &AWS; SDK
+  title_abbrev: Generate an encrypted data key
+  synopsis: generate an encrypted data key from an &kms-key-long;. The key contains
+    only a ciphertext version.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.rust.generate-data-key-without-plaintext
+  services:
+    kms: {GenerateDataKeyWithoutPlaintext}
+kms_GenerateRandom:
+  title: Generate a random byte string using an &AWS; SDK
+  title_abbrev: Create a random byte string
+  synopsis: create a random byte string that is cryptographically secure using &KMS;.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.rust.generate-random
+  services:
+    kms: {GenerateRandom}
+kms_ListKeys:
+  title: List &kms-keys-long; using an &AWS; SDK
+  title_abbrev: List keys
+  synopsis: list &kms-keys;.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_list_keys.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_list_keys.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/KMS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - KMS.dotnetv3.ListKeysExample
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.KeyManager
+                - python.example_code.kms.ListKeys
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.rust.list-keys
+  services:
+    kms: {ListKeys}
+kms_ReEncrypt:
+  title: Reencrypt ciphertext from one &kms-key-long; to another using an &AWS; SDK
+  title_abbrev: Recencrypt ciphertext from one key to another
+  synopsis: reencrypt ciphertext from one &kms-key; to another.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.KeyEncrypt
+                - python.example_code.kms.ReEncrypt
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.rust.reencrypt-data
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/kms
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - kms.go-v2.ReencryptData
+  services:
+    kms: {ReEncrypt}
+kms_CreateAlias:
+  title: Create an alias for an &kms-key-long; using an &AWS; SDK
+  title_abbrev: Create an alias for a key
+  synopsis: create an alias for a &kms-key; key.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_create_alias.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2._create_alias.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/KMS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.dotnetv3.CreateAliasExample
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.AliasManager
+                - python.example_code.kms.CreateAlias
+  services:
+    kms: {CreateAlias}
+kms_CreateGrant:
+  title: Create a grant for an &kms-key-long; using an &AWS; SDK
+  title_abbrev: Create a grant for a key
+  synopsis: create a grant for a &kms-key;.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_create_grant.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_create_grant.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/KMS
+          sdkguide:
+          excerpts:
+            - description: This examples grants a user permission to use a key for
+                encryption and decryption.
+              snippet_tags:
+                - KMS.dotnetv3.CreateGrantExample
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description: This example grants permission to let a user generate a
+                data key that can be used for encryption.
+              snippet_tags:
+                - python.example_code.kms.GrantManager
+                - python.example_code.kms.CreateGrant
+  services:
+    kms: {CreateGrant}
+kms_DescribeKey:
+  title: Describe an &kms-key-long; using an &AWS; SDK
+  title_abbrev: Describe a key
+  synopsis: describe a &kms-key;.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_describe_key.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_describe_key.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/KMS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - KMS.dotnetv3.DescribeKeyExample
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.KeyManager
+                - python.example_code.kms.DescribeKey
+  services:
+    kms: {DescribeKey}
+kms_DisableKey:
+  title: Disable an &kms-key-long; using an &AWS; SDK
+  title_abbrev: Disable a key
+  synopsis: disable a &kms-key;.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_disable_key.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_disable_key.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/KMS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - KMS.dotnetv3.DisableKeyExample
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.KeyManager
+                - python.example_code.kms.EnableDisableKey
+  services:
+    kms: {DisableKey}
+kms_EnableKey:
+  title: Enable an &kms-key-long; using an &AWS; SDK
+  title_abbrev: Enable a key
+  synopsis: enable a &kms-key;.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_enable_key.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_enable_key.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/KMS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - KMS.dotnetv3.EnableKeyExample
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.KeyManager
+                - python.example_code.kms.EnableDisableKey
+  services:
+    kms: {EnableKey}
+kms_ScheduleKeyDeletion:
+  title: Schedule deletion of an &kms-key-long; using an &AWS; SDK
+  title_abbrev: Schedule deletion of a key
+  synopsis: schedule deletion of a &kms-key;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.KeyManager
+                - python.example_code.kms.ScheduleKeyDeletion
+  services:
+    kms: {ScheduleKeyDeletion}
+kms_ListAliases:
+  title: List the aliases defined for an &kms-key-long; using an &AWS; SDK
+  title_abbrev: List aliases for a key
+  synopsis: list aliases for a &kms-key;.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_list_aliases.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_list_aliases.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/KMS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - KMS.dotnetv3.ListAliasesExample
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.AliasManager
+                - python.example_code.kms.ListAliases
+  services:
+    kms: {ListAliases}
+kms_UpdateAlias:
+  title: Update the &kms-key-long; referred to by an alias using an &AWS; SDK
+  title_abbrev: Update the key referred to by an alias
+  synopsis: update the &kms-key; referred to by an alias.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.AliasManager
+                - python.example_code.kms.UpdateAlias
+  services:
+    kms: {UpdateAlias}
+kms_DeleteAlias:
+  title: Delete an &KMS; alias using an &AWS; SDK
+  title_abbrev: Delete an alias
+  synopsis: delete an &KMS; alias.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.AliasManager
+                - python.example_code.kms.DeleteAlias
+  services:
+    kms: {DeleteAlias}
+kms_ListGrants:
+  title: List grants for an &kms-key-long; using an &AWS; SDK
+  title_abbrev: List grants for a key
+  synopsis: list grants for a &kms-key;.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/kms
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - kms.kotlin_list_grant.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_list_grant.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/KMS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - KMS.dotnetv3.ListGrantsExample
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.GrantManager
+                - python.example_code.kms.ListGrants
+  services:
+    kms: {ListGrants}
+kms_RetireGrant:
+  title: Retire a grant for an &kms-key-long; using an &AWS; SDK
+  title_abbrev: Retire a grant for a key
+  synopsis: retire a grant for a &kms-key;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.GrantManager
+                - python.example_code.kms.RetireGrant
+  services:
+    kms: {RetireGrant}
+kms_RevokeGrant:
+  title: Revoke a grant for an &kms-key-long; using an &AWS; SDK
+  title_abbrev: Revoke a grant for a key
+  synopsis: revoke a grant for a &kms-key;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.GrantManager
+                - python.example_code.kms.RevokeGrant
+  services:
+    kms: {RevokeGrant}
+kms_ListKeyPolicies:
+  title: List policies for an &kms-key-long; using an &AWS; SDK
+  title_abbrev: List policies for a key
+  synopsis: list policies for a &kms-key;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.KeyPolicy
+                - python.example_code.kms.ListKeyPolicies
+  services:
+    kms: {ListKeyPolicies}
+kms_GetKeyPolicy:
+  title: Get a policy for an &kms-key-long; using an &AWS; SDK
+  title_abbrev: Get a policy for a key
+  synopsis: get a policy by name for a &kms-key;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.KeyPolicy
+                - python.example_code.kms.GetKeyPolicy
+  services:
+    kms: {GetKeyPolicy}
+kms_PutKeyPolicy:
+  title: Set the policy for an &kms-key-long; using an &AWS; SDK
+  title_abbrev: Set the policy for a key
+  synopsis: set the policy for a &kms-key;.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.KeyPolicy
+                - python.example_code.kms.PutKeyPolicy
+  services:
+    kms: {PutKeyPolicy}
+kms_Scenario_AliasManagement:
+  title: Manage &KMS; aliases using an &AWS; SDK
+  title_abbrev: Manage aliases
+  synopsis: manage &KMS; aliases.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.Scenario_AliasManagement
+  services:
+    kms: {CreateAlias, ListAliases, UpdateAlias, DeleteAlias}
+kms_Scenario_GrantManagement:
+  title: Manage &KMS; grants using an &AWS; SDK
+  title_abbrev: Manage grants
+  synopsis: manage &KMS; grants.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.Scenario_GrantManagement
+  services:
+    kms: {CreateGrant, ListGrants, RetireGrant, RevokeGrant}
+kms_Scenario_KeyEncryption:
+  title: Encrypt and decrypt text with &kms-keys-long; using an &AWS; SDK
+  title_abbrev: Encrypt and decrypt text
+  synopsis: encrypt and decrypt text with &kms-keys;.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.Scenario_KeyEncryption
+  services:
+    kms: {Encrypt, Decrypt, ReEncrypt}
+kms_Scenario_KeyManagement:
+  title: Manage &kms-keys-long; using an &AWS; SDK
+  title_abbrev: Manage keys
+  synopsis: manage &kms-keys-long;.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.Scenario_KeyManagement
+  services:
+    kms: {CreateKey, ListKeys, DescribeKey, GenerateDataKey, EnableKey, DisableKey, ScheduleKeyDeletion}
+kms_Scenario_ManageKeyPolicies:
+  title: Manage &kms-key-long; policies using an &AWS; SDK
+  title_abbrev: Manage key policies
+  synopsis: manage &kms-key; policies.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.Scenario_ManageKeyPolicies
+  services:
+    kms: {ListKeyPolicies, GetKeyPolicy, PutKeyPolicy}

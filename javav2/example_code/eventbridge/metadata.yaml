@@ -1,0 +1,23 @@
+--- 
+files:
+  - path: src/main/java/com/example/eventbridge/CreateRule.java
+    services:
+      - eventbridge
+  - path: src/main/java/com/example/eventbridge/DeleteRule.java
+    services:
+      - eventbridge
+  - path: src/main/java/com/example/eventbridge/DescribeRule.java
+    services:
+      - eventbridge
+  - path: src/main/java/com/example/eventbridge/ListEventBuses.java
+    services:
+      - eventbridge
+  - path: src/main/java/com/example/eventbridge/ListRules.java
+    services:
+      - eventbridge
+  - path: src/main/java/com/example/eventbridge/PutEvents.java
+    services:
+      - eventbridge   
+  - path: src/test/java/EventBridgeTest.java
+    services:
+      - eventbridge      

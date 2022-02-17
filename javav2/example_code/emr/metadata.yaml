@@ -1,0 +1,6 @@
+--- 
+files:
+ - path: src/main/java/aws/example/emr/CreateEmrFleet.java
+   services:
+     - emr
+ 

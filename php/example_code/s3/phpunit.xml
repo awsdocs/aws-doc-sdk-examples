@@ -1,0 +1,13 @@
+<phpunit bootstrap="vendor/autoload.php" testdox="true">
+  <php>
+    <const name="AWS_ACCOUNT_PROFILE_NAME" value="default"/>
+    <const name="AWS_REGION_ID" value="us-east-1"/>
+    <const name="S3_API_VERSION" value="2006-03-01"/>
+    <const name="S3_BUCKET_NAME" value="my-bucket"/>
+  </php>
+  <testsuites>
+    <testsuite name="s3-createbucket">
+      <file>tests/CreateBucketTest.php</file>
+    </testsuite>
+  </testsuites>
+</phpunit>

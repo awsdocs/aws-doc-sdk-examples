@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenPresignedUrlExample", "GenPresignedUrlExample.csproj", "{2F6C1E3F-F59F-46C6-8688-8DF955065CEA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2F6C1E3F-F59F-46C6-8688-8DF955065CEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F6C1E3F-F59F-46C6-8688-8DF955065CEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F6C1E3F-F59F-46C6-8688-8DF955065CEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F6C1E3F-F59F-46C6-8688-8DF955065CEA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {63752B22-677B-4CEF-AA99-A78F407855EC}
+	EndGlobalSection
+EndGlobal

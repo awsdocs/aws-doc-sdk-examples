@@ -1,0 +1,92 @@
+# zexi 0.4.2
+lambda_CreateFunction:
+  title: Create a &LAM; function using an &AWS; SDK
+  title_abbrev: Create a function
+  synopsis: create a &LAM; function.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.lambda.helper.create_deployment_package
+                - python.example_code.lambda.CreateFunction
+  services:
+    lambda: {CreateFunction}
+lambda_DeleteFunction:
+  title: Delete a &LAM; function using an &AWS; SDK
+  title_abbrev: Delete a function
+  synopsis: delete a &LAM; function.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.lambda.DeleteFunction
+  services:
+    lambda: {DeleteFunction}
+lambda_Invoke:
+  title: Invoke a &LAM; function using an &AWS; SDK
+  title_abbrev: Invoke a function
+  synopsis: invoke a &LAM; function.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.lambda.Invoke
+  services:
+    lambda: {Invoke}
+lambda_Scenario_DeployInvokeFunction:
+  title: Deploy and invoke a &LAM; function using an &AWS; SDK
+  title_abbrev: Deploy and invoke a function
+  synopsis: deploy and invoke a &LAM; function.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description: Define a &LAM; handler that performs a math operation on
+                a number.
+              snippet_tags:
+                - python.example_code.lambda.handler.calculate
+            - description: Create functions that wrap &LAM; actions.
+              snippet_tags:
+                - python.example_code.lambda.Scenario_DeployInvokeFunction_Functions
+            - description: Deploy the &LAM; handler as a ZIP file, set up permissions,
+                and invoke the handler.
+              snippet_tags:
+                - python.example_code.lambda.Scenario_DeployInvokeFunction_Demo
+  services:
+    lambda: {CreateFunction, DeleteFunction, Invoke}
+cross_LambdaForBrowser:
+  title: Invoke a &LAM; function from a browser
+  title_abbrev: Invoke a &LAM; function from a browser
+  synopsis: invoke an &LAMlong; function from a browser.
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 2
+          block_content: cross_LambdaForBrowser_JavaScript_block.xml
+        - sdk_version: 3
+          block_content: cross_LambdaForBrowser_JavaScriptV3_block.xml
+  services:
+    lambda:
+    dynamodb:

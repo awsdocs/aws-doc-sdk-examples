@@ -1,0 +1,69 @@
+---
+files:
+  - path: DeleteAlarms.php
+    services: 
+      - cloudwatch
+  - path: tests/DeleteAlarmsTest.php
+    services: 
+      - cloudwatch
+  - path: DescribeAlarmHistory.php
+    services: 
+      - cloudwatch
+  - path: tests/DescribeAlarmHistoryTest.php
+    services: 
+      - cloudwatch
+  - path: DescribeAlarms.php
+    services: 
+      - cloudwatch
+  - path: tests/DescribeAlarmsTest.php
+    services: 
+      - cloudwatch
+  - path: DescribeAlarmsForMetric.php
+    services: 
+      - cloudwatch
+  - path: tests/DescribeAlarmsForMetricTest.php
+    services: 
+      - cloudwatch
+  - path: DisableAlarmActions.php
+    services: 
+      - cloudwatch
+  - path: tests/DisableAlarmActionsTest.php
+    services: 
+      - cloudwatch
+  - path: EnableAlarmActions.php
+    services: 
+      - cloudwatch
+  - path: tests/EnableAlarmActionsTest.php
+    services: 
+      - cloudwatch
+  - path: GetMetricStatistics.php
+    services: 
+      - cloudwatch
+  - path: tests/GetMetricStatisticsTest.php
+    services: 
+      - cloudwatch
+  - path: ListMetrics.php
+    services: 
+      - cloudwatch
+  - path: tests/ListMetricsTest.php
+    services: 
+      - cloudwatch
+  - path: PutMetricAlarm.php
+    services: 
+      - cloudwatch
+  - path: tests/PutMetricAlarmTest.php
+    services: 
+      - cloudwatch
+  - path: PutMetricData.php
+    services: 
+      - cloudwatch
+  - path: tests/PutMetricDataTest.php
+    services: 
+      - cloudwatch
+  - path: SetAlarmState.php
+    services: 
+      - cloudwatch
+  - path: tests/SetAlarmStateTest.php
+    services: 
+      - cloudwatch
+...

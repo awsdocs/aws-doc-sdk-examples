@@ -1,0 +1,1 @@
+mvn exec:java -Dexec.mainClass=aws.example.hellosfn.StepFunctionsSample -Dexec.cleanupDaemonThreads=false

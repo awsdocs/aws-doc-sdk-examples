@@ -1,0 +1,36 @@
+# Yamale Schema for example metadata, which is all .yaml files in the metadata folder
+# with a _metadata.yaml suffix.
+
+map(include('example'), key=example_id())
+---
+example:
+  title: str(upper_start=True, no_end_punc=True)
+  title_abbrev: str(upper_start=True, no_end_punc=True)
+  synopsis: str(required=False, lower_start=True, end_punc=True)
+  synopsis_list: list(str(upper_start=True, end_punc=True), required=False)
+  category: str(required=False, upper_start=True, no_end_punc=True)
+  guide_topic: include('guide_topic', required=False)
+  languages: map(include('language'), key=enum('C++', 'Go', 'Java', 'JavaScript', 'Kotlin', '.NET', 'PHP', 'Python', 'Ruby', 'Rust', 'Swift'))
+  services: map(map(key=str(), required=False), key=service_name())
+
+guide_topic:
+  title: str(upper_start=True, no_end_punc=True)
+  url: include('doc_url', required=False)
+
+language:
+  versions: list(include('version'))
+
+version:
+  sdk_version: int(min=1)
+  github: regex('^(?!http).+', name="relative URL", required=False)
+  sdkguide: include('doc_url', required=False)
+  excerpts: list(include('excerpt'), required=False)
+  block_content: block_content(required=False)
+  add_services: map(key=service_name(), required=False)
+
+excerpt:
+  description: str(required=False, upper_start=True, end_punc=True)
+  snippet_tags: list(str())
+
+service_slug_regex: regex('^[\da-z-]+$', name='service slug')
+doc_url: regex('^(?!https://docs.aws.amazon.com/).+', name="relative documentation URL")

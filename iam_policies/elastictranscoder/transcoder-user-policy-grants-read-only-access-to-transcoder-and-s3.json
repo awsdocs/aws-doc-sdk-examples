@@ -1,0 +1,24 @@
+//snippet-sourcedescription:[This IAM identity-based permission policy demonstrates how to grant a user read-only access to Elastic Transcoder and S3.]
+//snippet-keyword:[IAM Policy]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon Elastic Transcoder]
+//snippet-service:[elastictranscoder]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[]
+//snippet-sourceauthor:[AWS]
+//snippet-start:[elastictranscoder.iam_policy.grants_attached_user_access_to_view_transcoder_and_s3]
+{
+   "Version":"2012-10-17",
+   "Statement": [
+      {
+         "Effect": "Allow",
+         "Action": [
+            "elastictranscoder:Read*",
+            "elastictranscoder:List*",
+            "s3:List*"
+         ],
+         "Resource": "*"
+      }
+   ]
+}
+//snippet-end:[elastictranscoder.iam_policy.grants_attached_user_access_to_view_transcoder_and_s3]

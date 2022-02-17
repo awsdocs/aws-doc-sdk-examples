@@ -1,0 +1,57 @@
+<!-- Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
+which is available at https://github.com/aws/aws-sdk-js-v3.
+
+Purpose:
+index.js cis front end HTML for a tutorial demonstrating how to build a web app that
+analyzes photos for Personal Protective Equipment (PPE) using AWS Rekognition through the
+JavaScript SDK for JavaScript v3.
+
+Running the code:
+To run the full tutorial, see
+https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/javascriptv3/example_code/cross-services/photo-analyzer-ppe/Readme.md
+-->
+
+<!-- snippet-start:[rekognition.HTML.detect-ppe.complete]-->
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script src="./js/main.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+    <title>AWS Personal Protective Equipment (PPE) photo analyzer</title>
+
+    <script>
+        function myFunction() {
+            alert("The form was submitted");
+        }
+    </script>
+
+</head>
+
+<body>
+<div class="container">
+
+    <h2>AWS Photo Analyzer Application</h2>
+</div>
+<div class="container">
+    <p>You can analyze photos in an Amazon S3 bucket for personal protective equipement (PPE). You can send the report to the following email address. </p>
+    <label for="email">Email address:</label><br>
+    <input type="text" id="email" name="email" value=""><br>
+
+    <div>
+        <br>
+        <p>Select the following button analyze the photos, and update the Amazon DynamoDB table with the results.</p>
+        <button onclick="processImages()">Analyze Photos</button>
+    </div>
+</div>
+</body>
+</html>
+<!-- snippet-end:[rekognition.HTML.detect-ppe.complete]-->

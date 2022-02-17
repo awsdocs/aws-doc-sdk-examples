@@ -1,0 +1,93 @@
+<!-- Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
+which is available at https://github.com/aws/aws-sdk-js-v3.
+
+Purpose:
+index.html is front end HTML for a tutorial demonstrating how to build a web app that analyzes photos using AWS Rekognition through the
+JavaScript SDK for JavaScript v3.
+To run the full tutorial, see https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/cross-services/video-analyzer.
+-->
+
+<!-- snippet-start:[rekognition.HTML.photo-analyzer.complete]-->
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
+    <script src="./js/main.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
+    <link rel="stylesheet" href="./css/styles.css"/>
+
+
+    <title>AWS Photo Analyzer</title>
+
+    <script>
+        function myFunction() {
+            alert("The form was submitted");
+        }
+    </script>
+
+</head>
+
+<body>
+<div class="container">
+
+<h2>AWS Photo Analyzer Application</h2>
+<p>Upload images to an S3 Bucket. Each image will be analysed!</p>
+
+    <input id="imageupload" type="file" name="file" /><br/><br/>
+    <button id="addimage" onclick="addToBucket()">Add image</button>
+</div>
+</div>
+<div class ="container" >
+    <br>
+
+    <p>Select the following button to determine the number of images in the bucket.</p>
+
+    <button onclick="getImages()">Get Images</button>
+    <table id="myTable" class="display" style="width:100%">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Owner</th>
+            <th>Date</th>
+            <th>Size</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>Name</th>
+            <th>Owner</th>
+            <th>Date</th>
+            <th>Size</th>
+        </tr>
+        </tfoot>
+        <div id="success3"></div>
+    </table>
+
+</div>
+<div class="container">
+<p>You can generate a report that analyzes the images in the S3 bucket. You can send the report to the following email address. </p>
+<label for="email">Email address:</label><br>
+<input type="text" id="email" name="email" value=""><br>
+
+<div>
+    <br>
+
+    <p>Select the following button to obtain a report.</p>
+    <button onclick="ProcessImages()">Analyze Photos</button>
+</div>
+</div>
+</body>
+</html>
+<!-- snippet-end:[rekognition.HTML.photo-analyzer.complete]-->

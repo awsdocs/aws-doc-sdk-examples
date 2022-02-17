@@ -1,0 +1,39 @@
+# zexi 0.4.2
+device-farm_Scenario_BrowserTesting:
+  title: Run browser tests with &ATP; and take screenshots using an &AWS; SDK
+  title_abbrev: Run browser tests and take screenshots
+  synopsis: run browser tests with &ATP; and take screenshots.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/devicefarm/browser_testing
+          sdkguide:
+          excerpts:
+            - description: Use PyTest and Selenium to browse to specified websites,
+                take screenshots, and compare actual website content with expected
+                content.
+              snippet_tags:
+                - python.example_code.device-farm.Scenario_BrowserTesting
+  services:
+    device-farm: {}
+device-farm_Scenario_DeviceTesting:
+  title: Upload and test mobile device packages with &ATP; using an &AWS; SDK
+  title_abbrev: Upload and test mobile device packages
+  synopsis: upload and test mobile device packages with &ATP;.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/devicefarm/device_testing
+          sdkguide:
+          excerpts:
+            - description: Upload compiled Android application and test packages to
+                &ATP;, start a test, wait for test completion, and report
+                the results.
+              snippet_tags:
+                - python.example_code.device-farm.Scenario_DeviceTesting
+  services:
+    device-farm: {}

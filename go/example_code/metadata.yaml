@@ -1,0 +1,19 @@
+files:
+  - path: cloudformation/CfnCrudOps.go
+    services:
+      - cloudformation
+  - path: cloudformation/CfnCrudOps_test.go
+    services:
+      - cloudformation
+  - path: s3/crud/s3_crud_ops.go
+    services:
+      - s3
+  - path: s3/crud/s3_crud_ops_test.go
+    services:
+      - s3
+  - path: s3/delete-buckets-by-prefix/s3_delete_buckets.go
+    services:
+      - s3
+  - path: s3/delete-buckets-by-prefix/s3_delete_buckets_test.go
+    services:
+      - s3

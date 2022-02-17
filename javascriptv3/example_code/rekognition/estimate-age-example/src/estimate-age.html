@@ -1,0 +1,35 @@
+<!-- Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
+which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the Amazon Rekognition Developer Guide' at
+https://docs.aws.amazon.com/rekognition/latest/dg/image-bytes-javascript.html.
+
+Purpose:
+estimate-age.js is part of an sample that demonstrates how to use Amazon Rekognition to estimate the ages of faces in an photo.
+
+Inputs :
+- REGION
+- IDENTITY_POOL_ID
+
+-->
+<!-- snippet-start:[rekognition.HTML.detect_faces_v3] -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Rekognition</title>
+</head>
+
+<body>
+<H1>Age Estimator</H1>
+<input type="file" name="fileToUpload" id="fileToUpload" accept="image/*">
+<p id="opResult"></p>
+<script>
+document.getElementById("fileToUpload").addEventListener("change", function (event) {
+ProcessImage();
+}, false);
+</script>
+<script src="main.js"></script>
+</body>
+    </html>
+<!-- snippet-end:[rekognition.HTML.detect_faces_v3] -->

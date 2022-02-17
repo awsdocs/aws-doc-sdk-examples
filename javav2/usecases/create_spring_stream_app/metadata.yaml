@@ -1,0 +1,16 @@
+--- 
+files:
+  - path: src/main/java/com/example/Application.java
+    services:
+      - S3
+  - path: src/main/java/com/example/Tags.java
+    services:
+      - S3
+  - path: src/main/java/com/example/VideoStreamController.java
+    services:
+      - S3
+  - path: src/main/java/com/example/VideoStreamService.java
+    services:
+      - S3
+ 
+    

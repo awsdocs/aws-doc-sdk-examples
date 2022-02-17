@@ -1,0 +1,19 @@
+files:
+  - path: DescribeVoices/DescribeVoices.go
+    services:
+      - polly
+  - path: DescribeVoices/DescribeVoices_test.go
+    services:
+      - polly
+  - path: ListLexicons/ListLexicons.go
+    services:
+      - polly
+  - path: ListLexicons/ListLexicons_test.go
+    services:
+      - polly
+  - path: SynthesizeSpeech/SynthesizeSpeech.go
+    services:
+      - polly
+  - path: SynthesizeSpeech/SynthesizeSpeech_test.go
+    services:
+      - polly

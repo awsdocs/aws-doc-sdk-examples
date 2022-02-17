@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+    <para>
+        Shows how to create an &EVlong; scheduled event that invokes an &LAMlong; function.
+        Configure &EV; to use a cron expression to schedule when the &LAM; function is invoked.
+        In this example, you create a &LAM; function by using the &LAM; Java runtime API.
+        This example invokes different &AWS; services to perform a specific use case. This example demonstrates how to
+        create an app that sends a mobile text message to your employees that congratulates 
+        them at the one year anniversary date. 
+    </para>
+    <para>
+        For complete source code and instructions on how to set up and run, see the full example on
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_scheduled_events">GitHub</ulink>.
+    </para>
+</block>

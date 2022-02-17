@@ -1,0 +1,13 @@
+files:
+  - path: ShowUsers/ShowUsers.go
+    services:
+      - workdocs
+  - path: ShowUsers/ShowUsers_test.go
+    services:
+      - workdocs
+  - path: ShowUsersDocs/ShowUsersDocs.go
+    services:
+      - workdocs
+  - path: ShowUsersDocs/ShowUsersDocs_test.go
+    services:
+      - workdocs

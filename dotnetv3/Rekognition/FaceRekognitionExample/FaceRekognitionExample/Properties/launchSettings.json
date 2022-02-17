@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FaceRekognitionExample": {
+      "commandName": "Project",
+      "commandLineArgs": "face_test.png"
+    }
+  }
+}

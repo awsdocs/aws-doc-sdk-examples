@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DualStackEndpointExample", "DualStackEndpointExample.csproj", "{1F6C008D-3B3A-45CF-9B58-03AF2C6DC36A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F6C008D-3B3A-45CF-9B58-03AF2C6DC36A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F6C008D-3B3A-45CF-9B58-03AF2C6DC36A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F6C008D-3B3A-45CF-9B58-03AF2C6DC36A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F6C008D-3B3A-45CF-9B58-03AF2C6DC36A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DF18828C-B463-4790-B107-82CB1495EBA1}
+	EndGlobalSection
+EndGlobal

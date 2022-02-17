@@ -1,0 +1,45 @@
+---
+# Complex example with simplified format that does not allow
+# for file -> api linking
+name: Complex SQS + RDS example
+description: Does lots of neat things.
+created: 2020-01-31
+author: Laren-AWS
+tier: 4,
+files:
+  - start_the_things.py
+  - middle_the_things.py
+  - cleanup_the_things.py
+  - data/send_the_things.py
+  - data/receive_the_things.py
+apis:
+  - service: lambda
+    operations: [GetPolicy, GetFunction]
+  - service: s3
+    operations:
+      - CreateBucket
+      - CreateObject
+      - DeleteObject
+      - DeleteBucket
+      - PutObject
+      - PutObject
+  - service: sqs
+    operations:
+      - CreateQueue
+      - SetQueueAttributes
+      - GetQueueUrl
+      - ListQueues
+      - DeleteMessageBatch
+      - DeleteQueue
+      - SendMessage
+      - ReceiveMessage
+      - DeleteMessage
+  - service: rds
+    operations:
+      - CreateDBCluster
+      - CreateDBInstance
+      - DeleteDBInstance
+      - DeleteDBCluster
+      - ExecuteStatement
+      - BeginTransaction
+      - CommitTransaction

@@ -1,0 +1,55 @@
+# zexi 0.4.3
+route53-recovery-cluster_GetRoutingControlState:
+  title: Get the state of an &R53ARC; routing control using an &AWS; SDK
+  title_abbrev: Get the state of a routing control
+  synopsis: get the state of an &R53ARC; routing control.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53recoverycluster
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route53_rec.java2.get_routing.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/route53-recovery-cluster
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.route53-recovery-cluster.helper.get_recovery_client
+                - python.example_code.route53-recovery-cluster.GetRoutingControlState
+  services:
+    route53-recovery-cluster: {GetRoutingControlState}
+route53-recovery-cluster_UpdateRoutingControlState:
+  title: Update the state of an &R53ARC; routing control using an &AWS; SDK
+  title_abbrev: Update the state of a routing control
+  synopsis: update the state of an &R53ARC; routing control.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53recoverycluster
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route53_rec.java2.update_routing_state.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/route53-recovery-cluster
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.route53-recovery-cluster.helper.get_recovery_client
+                - python.example_code.route53-recovery-cluster.UpdateRoutingControlState
+  services:
+    route53-recovery-cluster: {UpdateRoutingControlState}

@@ -1,0 +1,607 @@
+# zexi 0.4.0
+cloudwatch_ListMetrics:
+  title: List &CW; metrics using an &AWS; SDK
+  title_abbrev: List metrics
+  synopsis: list &CWlong; metrics.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv3.ListMetricsExample
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.list_metrics.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchWrapper
+                - python.example_code.cloudwatch.ListMetrics
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.list_metrics.inc
+            - description: List the metrics.
+              snippet_tags:
+                - cw.cpp.list_metrics.code
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-getting-metrics.html#cloudwatch-examples-getting-metrics-listing
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - cloudwatch.JavaScript.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cw.JavaScript.metrics.listMetricsV3
+        - sdk_version: 2
+          github: javascript/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-getting-metrics.html#cloudwatch-examples-getting-metrics-listing
+          excerpts:
+            - description:
+              snippet_tags:
+                - cw.JavaScript.metrics.listMetrics
+  services:
+    cloudwatch: {ListMetrics}
+cloudwatch_PutMetricData:
+  title: Put data into a &CW; metric using an &AWS; SDK
+  title_abbrev: Put data into a metric
+  synopsis: put data into a &CWlong; metric.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.put_metric_data.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchWrapper
+                - python.example_code.cloudwatch.PutMetricData
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.put_metric_data.inc
+            - description: Put data into the metric.
+              snippet_tags:
+                - cw.cpp.put_metric_data.code
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-getting-metrics.html#cloudwatch-examples-getting-metrics-publishing-custom
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - cloudwatch.JavaScript.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cw.JavaScript.metrics.putMetricDataV3
+        - sdk_version: 2
+          github: javascript/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-getting-metrics.html#cloudwatch-examples-getting-metrics-publishing-custom
+          excerpts:
+            - description:
+              snippet_tags:
+                - cw.JavaScript.metrics.putMetricData
+  services:
+    cloudwatch: {PutMetricData}
+cloudwatch_PutMetricData_DataSet:
+  title: Put a set of data into a &CW; metric using an &AWS; SDK
+  title_abbrev: Put a set of data into a metric
+  synopsis: put a set of data into a &CWlong; metric.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchWrapper
+                - python.example_code.cloudwatch.PutMetricData_DataSet
+  services:
+    cloudwatch: {PutMetricData}
+cloudwatch_GetMetricStatistics:
+  title: Get &CW; metric statistics using an &AWS; SDK
+  title_abbrev: Get metric statistics
+  synopsis: get &CWlong; metric statistics.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchWrapper
+                - python.example_code.cloudwatch.GetMetricStatistics
+  services:
+    cloudwatch: {GetMetricStatistics}
+cloudwatch_PutMetricAlarm:
+  title: Create a &CW; alarm that watches a metric using an &AWS; SDK
+  title_abbrev: Create an alarm that watches a metric
+  synopsis: create an &CWlong; alarm that watches a metric.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.put_metric_alarm.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.put_metric_alarm.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchWrapper
+                - python.example_code.cloudwatch.PutMetricAlarm
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.put_metric_alarm.inc
+            - description: Create the alarm to watch the metric.
+              snippet_tags:
+                - cw.cpp.put_metric_alarm.code
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-putmetricalarm
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - cloudwatch.JavaScript.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cw.JavaScript.alarms.putMetricAlarmV3
+        - sdk_version: 2
+          github: javascript/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-putmetricalarm
+          excerpts:
+            - description:
+              snippet_tags:
+                - cw.JavaScript.alarms.putMetricAlarm
+  services:
+    cloudwatch: {PutMetricAlarm}
+cloudwatch_DescribeAlarmsForMetric:
+  title: Describe &CW; alarms for a metric using an &AWS; SDK
+  title_abbrev: Describe alarms for a metric
+  synopsis: describe &CWlong; alarms for a metric.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.describe_alarms.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.describe_alarms.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchWrapper
+                - python.example_code.cloudwatch.DescribeAlarmsForMetric
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.describe_alarms.inc
+            - description: Describe the alarms.
+              snippet_tags:
+                - cw.cpp.describe_alarms.code
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-describing
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - cloudwatch.JavaScript.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cw.JavaScript.alarms.describeAlarmsV3
+        - sdk_version: 2
+          github: javascript/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-describing
+          excerpts:
+            - description:
+              snippet_tags:
+                - cw.JavaScript.alarms.describeAlarms
+  services:
+    cloudwatch: {DescribeAlarmsForMetric}
+cloudwatch_EnableAlarmActions:
+  title: Enable &CW; alarm actions using an &AWS; SDK
+  title_abbrev: Enable alarm actions
+  synopsis: enable &CWlong; alarm actions.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv3.EnableAlarmActionsExample
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.enable_alarm_actions.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.enable_alarm_actions.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchWrapper
+                - python.example_code.cloudwatch.EnableAlarmActions.DisableAlarmActions
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.enable_alarm_actions.inc
+            - description: Enable the alarm actions.
+              snippet_tags:
+                - cw.cpp.enable_alarm_actions.code
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-using-alarm-actions.html#cloudwatch-examples-using-alarm-actions-enabling
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - cloudwatch.JavaScript.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cw.JavaScript.alarms.enableAlarmActionsV3
+        - sdk_version: 2
+          github: javascript/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-using-alarm-actions.html#cloudwatch-examples-using-alarm-actions-enabling
+          excerpts:
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cw.JavaScript.alarms.enableAlarmActions
+  services:
+    cloudwatch: {EnableAlarmActions}
+cloudwatch_DisableAlarmActions:
+  title: Disable &CW; alarm actions using an &AWS; SDK
+  title_abbrev: Disable alarm actions
+  synopsis: disable &CWlong; alarm actions.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.disable_alarm_actions.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv3.DisableAlarmActionsExammple
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.disable_alarm_actions.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchWrapper
+                - python.example_code.cloudwatch.EnableAlarmActions.DisableAlarmActions
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.disable_alarm_actions.inc
+            - description: Disable the alarm actions.
+              snippet_tags:
+                - cw.cpp.disable_alarm_actions.code
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-using-alarm-actions.html#cloudwatch-examples-using-alarm-actions-disabling
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - cloudwatch.JavaScript.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cw.JavaScript.alarms.disableAlarmActionsV3
+        - sdk_version: 2
+          github: javascript/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-using-alarm-actions.html#cloudwatch-examples-using-alarm-actions-disabling
+          excerpts:
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cw.JavaScript.alarms.disableAlarmActions
+  services:
+    cloudwatch: {DisableAlarmActions}
+cloudwatch_DeleteAlarms:
+  title: Delete &CW; alarms using an &AWS; SDK
+  title_abbrev: Delete alarms
+  synopsis: delete &CWlong; alarms.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.delete_metrics.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv3.DeleteAlarmsExample
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.delete_metrics.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchWrapper
+                - python.example_code.cloudwatch.DeleteAlarms
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Include the required files.
+              snippet_tags:
+                - cw.cpp.delete_alarm.inc
+            - description: Delete the alarm.
+              snippet_tags:
+                - cw.cpp.delete_alarm.code
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-deleting
+          excerpts:
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - cloudwatch.JavaScript.createclientv3
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cw.JavaScript.alarms.deleteAlarmsV3
+        - sdk_version: 2
+          github: javascript/example_code/cloudwatch
+          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-deleting
+          excerpts:
+            - description: Import the SDK and client modules and call the API.
+              snippet_tags:
+                - cw.JavaScript.alarms.deleteAlarms
+  services:
+    cloudwatch: {DeleteAlarms}
+cloudwatch_Usage_MetricsAlarms:
+  title: Manage &CW; metrics and alarms using an &AWS; SDK
+  title_abbrev: Manage &CWlong; metrics and alarms
+  synopsis_list:
+    - Create an alarm that watches a metric.
+    - Put data into a &CW; metric and trigger the alarm.
+    - Get data from the alarm.
+    - Delete the alarm.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description: Create a class that wraps &CW; operations.
+              snippet_tags:
+                - python.example_code.cloudwatch.imports
+                - python.example_code.cloudwatch.CloudWatchWrapper
+                - python.example_code.cloudwatch.PutMetricData_DataSet
+                - python.example_code.cloudwatch.PutMetricAlarm
+                - python.example_code.cloudwatch.PutMetricData
+                - python.example_code.cloudwatch.GetMetricStatistics
+                - python.example_code.cloudwatch.DescribeAlarmsForMetric
+                - python.example_code.cloudwatch.DeleteAlarms
+            - description: Use the wrapper class to put data in a metric, trigger an
+                alarm that watches the metric, and get data from the alarm.
+              snippet_tags:
+                - python.example_code.cloudwatch.Usage_MetricsAlarms
+  services:
+    cloudwatch: {}
+cloudwatch_DescribeAlarmHistory:
+  title: Describe a &CW; alarm's history using an &AWS; SDK
+  title_abbrev: Describe alarm history
+  synopsis: describe &CWlong; alarm history.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description: Get a list of &CW; alarms, then retrieve the history for each alarm.
+              snippet_tags:
+                - CloudWatch.dotnetv3.DescribeAlarmHistoriesExample
+  services:
+    cloudwatch: {DescribeAlarmHistory}
+cloudwatch_GetDashboard:
+  title: Get the details of a &CW; dashboard
+  title_abbrev: Get dashboard details
+  synopsis: get &CWlong; dashboard details.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv3.GetDashboardExample
+  services:
+    cloudwatch: {GetDashboard}
+cloudwatch_ListDashboards:
+  title: List &CW; dashboards
+  title_abbrev: List dashboards
+  synopsis: list &CWlong; dashboards.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudWatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudWatch.dotnetv3.ListDashboardsExample
+  services:
+    cloudwatch: {ListDashboards}

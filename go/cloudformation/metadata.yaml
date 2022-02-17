@@ -1,0 +1,19 @@
+files:
+  - path: ListStacks/ListStacks.go
+    services:
+      - cloudformation
+  - path: ListStacks/ListStacks_test.go
+    services:
+      - cloudformation
+  - path: CreateStack/CreateStack.go
+    services:
+      - cloudformation
+  - path: CreateStack/CreateStack_test.go
+    services:
+      - cloudformation
+  - path: DeleteStack/DeleteStack.go
+    services:
+      - cloudformation
+  - path: DeleteStack/DeleteStack_test.go
+    services:
+      - cloudformation

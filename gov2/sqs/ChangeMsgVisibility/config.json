@@ -1,0 +1,5 @@
+{
+  "QueueName": "aws-docs-example-queue-name",
+  "Handle": "aws-docs-example-receipt-handle",
+  "Visibility": "30"
+}

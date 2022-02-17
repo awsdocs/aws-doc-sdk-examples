@@ -1,0 +1,19 @@
+--- 
+files:
+  - path: src/main/java/example/Handler.java
+    services:
+      - lambda
+  - path: src/main/java/example/Handler2.java
+    services:
+      - lambda
+  - path: src/main/java/example/Handler3.java
+    services:
+      - lambda
+  - path: src/main/java/example/PersistCase.java
+    services:
+      - lambda
+  - path: src/main/java/example/SendMessage.java
+    services:
+      - lambda
+
+  

@@ -1,0 +1,30 @@
+<!-- Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+
+Purpose:
+polly.html is the front-end code for an exmaple demonstrating how to get started using the AWS SDK for
+JavaScript (V3) in the browser. For more information, see
+https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-browser.html.
+
+-->
+<!-- snippet-start:[Polly.HTML.BrowserExample.completeV3] -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AWS SDK for JavaScript - Browser Getting Started Application</title>
+    <!--Add script tag to import bundled JavaScript file-->
+    <script type="text/javascript" src="./dist/main.js"></script>
+</head>
+
+<body>
+<div id="textToSynth">
+    <input autofocus size="23" type="text" id="textEntry" value="Hello world!"/>
+    <button class="btn default" onClick="speakText()">Synthesize</button>
+    <p id="result">Enter text above then click <b>Synthesize</b></p>
+</div>
+<audio id="audioPlayback" controls>
+    <source id="audioSource" type="audio/mp3" src="">
+</audio>
+</body>
+</html>
+<!-- snippet-end:[Polly.HTML.BrowserExample.completeV3] -->

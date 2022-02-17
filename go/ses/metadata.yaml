@@ -1,0 +1,31 @@
+files:
+  - path: DeleteAddress/DeleteAddress.go
+    services:
+      - ses
+  - path: DeleteAddress/DeleteAddress_test.go
+    services:
+      - ses
+  - path: GetStatistics/GetStatistics.go
+    services:
+      - ses
+  - path: GetStatistics/GetStatistics_test.go
+    services:
+      - ses
+  - path: ListAddresses/ListAddresses.go
+    services:
+      - ses
+  - path: ListAddresses/ListAddresses_test.go
+    services:
+      - ses
+  - path: SendMessage/SendMessage.go
+    services:
+      - ses
+  - path: SendMessage/SendMessage_test.go
+    services:
+      - ses
+  - path: VerifyAddress/VerifyAddress.go
+    services:
+      - ses
+  - path: VerifyAddress/VerifyAddress_test.go
+    services:
+      - ses

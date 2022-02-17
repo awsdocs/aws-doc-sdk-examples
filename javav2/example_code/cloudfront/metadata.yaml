@@ -1,0 +1,24 @@
+--- 
+files:
+  - path: src/main/java/com/example/cloudfront/CreateFunction.java
+    services:
+      - CloudFront
+  - path: src/main/java/com/example/cloudfront/DeleteFunction.java
+    services:
+      - CloudFront
+  - path: src/main/java/com/example/cloudfront/DescribeFunction.java
+    services:
+      - CloudFront
+  - path: src/main/java/com/example/cloudfront/GetDistrubutions.java
+    services:
+      - CloudFront
+  - path: src/main/java/com/example/cloudfront/ListFunctions.java
+    services:
+      - CloudFront
+  - path: src/main/java/com/example/cloudfront/ModifyDistribution.java
+    services:
+      - CloudFront
+  - path: src/test/java/CloudFrontTest.java
+    services:
+      - CloudFront
+        

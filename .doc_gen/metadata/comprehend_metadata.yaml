@@ -1,0 +1,458 @@
+# zexi 0.4.0
+comprehend_CreateDocumentClassifier:
+  title: Create an &CMP; document classifier using an &AWS; SDK
+  title_abbrev: Create a document classifier
+  synopsis: create an &CMP; document classifier.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - comprehend.java2.classifier.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.comprehend.ComprehendClassifier
+                - python.example_code.comprehend.CreateDocumentClassifier
+  services:
+    comprehend: {CreateDocumentClassifier}
+comprehend_DescribeDocumentClassifier:
+  title: Describe an &CMP; document classifier using an &AWS; SDK
+  title_abbrev: Describe a document classifier
+  synopsis: describe an &CMP; document classifier.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.comprehend.ComprehendClassifier
+                - python.example_code.comprehend.DescribeDocumentClassifier
+  services:
+    comprehend: {DescribeDocumentClassifier}
+comprehend_ListDocumentClassifiers:
+  title: List &CMP; document classifiers using an &AWS; SDK
+  title_abbrev: List document classifiers
+  synopsis: list &CMP; document classifiers.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.comprehend.ComprehendClassifier
+                - python.example_code.comprehend.ListDocumentClassifiers
+  services:
+    comprehend: {ListDocumentClassifiers}
+comprehend_DeleteDocumentClassifier:
+  title: Delete an &CMP; document classifier using an &AWS; SDK
+  title_abbrev: Delete a document classifier
+  synopsis: delete an &CMP; document classifier.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.comprehend.ComprehendClassifier
+                - python.example_code.comprehend.DeleteDocumentClassifier
+  services:
+    comprehend: {DeleteDocumentClassifier}
+comprehend_StartDocumentClassificationJob:
+  title: Start an &CMP; document classification job using an &AWS; SDK
+  title_abbrev: Start a document classification job
+  synopsis: start an &CMP; document classification job.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.comprehend.ComprehendClassifier
+                - python.example_code.comprehend.StartDocumentClassificationJob
+  services:
+    comprehend: {StartDocumentClassificationJob}
+comprehend_DescribeDocumentClassificationJob:
+  title: Describe an &CMP; document classification job using an &AWS; SDK
+  title_abbrev: Describe a document classification job
+  synopsis: describe an &CMP; document classification job.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.comprehend.ComprehendClassifier
+                - python.example_code.comprehend.DescribeDocumentClassificationJob
+  services:
+    comprehend: {DescribeDocumentClassificationJob}
+comprehend_ListDocumentClassificationJobs:
+  title: List &CMP; document classification jobs using an &AWS; SDK
+  title_abbrev: List document classification jobs
+  synopsis: list &CMP; document classification jobs.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.comprehend.ComprehendClassifier
+                - python.example_code.comprehend.ListDocumentClassificationJobs
+  services:
+    comprehend: {ListDocumentClassificationJobs}
+comprehend_Usage_ComprehendClassifier:
+  title: Train a custom &CMP; classifier and classify documents using an &AWS; SDK
+  title_abbrev: Train a custom classifier and classify documents
+  synopsis: train a custom &CMP; classifier and classify documents.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: usage_ComprehendClassifier_Python_block.xml
+  services:
+    comprehend: {}
+comprehend_DetectDominantLanguage:
+  title: Detect the dominant language in a document with &CMP; using an &AWS; SDK
+  title_abbrev: Detect the dominant language in a document
+  synopsis: detect the dominant language in a document with &CMP;.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Comprehend/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Comprehend.dotnetv3.DetectDominantLanguageExample
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - comprehend.java2.detect_language.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.comprehend.ComprehendDetect
+                - python.example_code.comprehend.DetectDominantLanguage
+  services:
+    comprehend: {DetectDominantLanguage}
+comprehend_DetectEntities:
+  title: Detect entities in a document with &CMP; using an &AWS; SDK
+  title_abbrev: Detect entities in a document
+  synopsis: detect entities in a document with &CMP;.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Comprehend/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Comprehend.dotnetv3.DetectEntitiesExample
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - comprehend.java2.detect_entities.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.comprehend.ComprehendDetect
+                - python.example_code.comprehend.DetectEntities
+  services:
+    comprehend: {DetectEntities}
+comprehend_DetectKeyPhrases:
+  title: Detect key phrases in a document with &CMP; using an &AWS; SDK
+  title_abbrev: Detect key phrases in a document
+  synopsis: detect key phrases in a document with &CMP;.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Comprehend/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Comprehend.dotnetv3.DetectingKeyPhraseExample
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - comprehend.java2.detect_keyphrases.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.comprehend.ComprehendDetect
+                - python.example_code.comprehend.DetectKeyPhrases
+  services:
+    comprehend: {DetectKeyPhrases}
+comprehend_DetectPiiEntities:
+  title: Detect personally identifiable information in a document with &CMP; using an &AWS; SDK
+  title_abbrev: Detect personally identifiable information in a document
+  synopsis: detect personally identifiable information (PII) in a document with &CMP;.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Comprehend/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Comprehend.dotnetv3.DetectingPIIExample
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.comprehend.ComprehendDetect
+                - python.example_code.comprehend.DetectPiiEntities
+  services:
+    comprehend: {DetectPiiEntities}
+comprehend_DetectSentiment:
+  title: Detect the sentiment of a document with &CMP; using an &AWS; SDK
+  title_abbrev: Detect the sentiment of a document
+  synopsis: detect the sentiment of a document with &CMP;.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Comprehend/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Comprehend.dotnetv3.DetectingSentimentExample
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - comprehend.java2.detect_sentiment.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.comprehend.ComprehendDetect
+                - python.example_code.comprehend.DetectSentiment
+  services:
+    comprehend: {DetectSentiment}
+comprehend_DetectSyntax:
+  title: Detect syntactial elements of a document with &CMP; using an &AWS; SDK
+  title_abbrev: Detect syntactical elements of a document
+  synopsis: detect syntactial elements of a document with &CMP;.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Comprehend/
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - Comprehend.dotnetv3.DetectingSyntaxExample
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - comprehend.java2.detect_syntax.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.comprehend.ComprehendDetect
+                - python.example_code.comprehend.DetectSyntax
+  services:
+    comprehend: {DetectSyntax}
+comprehend_Usage_DetectApis:
+  title: Use &CMP; detection APIs with an &AWS; SDK
+  title_abbrev: Use detection APIs with a document
+  synopsis: use &CMP; detection APIs with a document.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description: Create a class that wraps &CMPlong; operations.
+              snippet_tags:
+                - python.example_code.comprehend.ComprehendDetect_imports
+                - python.example_code.comprehend.ComprehendDetect
+                - python.example_code.comprehend.DetectDominantLanguage
+                - python.example_code.comprehend.DetectEntities
+                - python.example_code.comprehend.DetectKeyPhrases
+                - python.example_code.comprehend.DetectPiiEntities
+                - python.example_code.comprehend.DetectSentiment
+                - python.example_code.comprehend.DetectSyntax
+            - description: Call functions on the wrapper class to detect entities,
+                phrases, and more in a document.
+              snippet_tags:
+                - python.example_code.comprehend.Usage_DetectApis
+  services:
+    comprehend: {}
+comprehend_StartTopicsDetectionJob:
+  title: Start an &CMP; topic modeling job using an &AWS; SDK
+  title_abbrev: Start a topic modeling job
+  synopsis: start an &CMP; topic modeling job.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Comprehend/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Comprehend.dotnetv3.TopicModelingExample
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.comprehend.ComprehendTopicModeler
+                - python.example_code.comprehend.StartTopicsDetectionJob
+  services:
+    comprehend: {StartTopicsDetectionJob}
+comprehend_DescribeTopicsDetectionJob:
+  title: Describe an &CMP; topic modeling job using an &AWS; SDK
+  title_abbrev: Describe a topic modeling job
+  synopsis: describe an &CMP; topic modeling job.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.comprehend.ComprehendTopicModeler
+                - python.example_code.comprehend.DescribeTopicsDetectionJob
+  services:
+    comprehend: {DescribeTopicsDetectionJob}
+comprehend_ListTopicsDetectionJobs:
+  title: List &CMP; topic modeling jobs using an &AWS; SDK
+  title_abbrev: List topic modeling jobs
+  synopsis: list &CMP; topic modeling jobs.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.comprehend.ComprehendTopicModeler
+                - python.example_code.comprehend.ListTopicsDetectionJobs
+  services:
+    comprehend: {ListTopicsDetectionJobs}
+comprehend_Usage_TopicModeler:
+  title: Run an &CMP; topic modeling job on sample data using an &AWS; SDK
+  title_abbrev: Run a topic modeling job on sample data
+  synopsis: run an &CMP; topic modeling job on sample data.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: usage_ComprehendTopicModeler_Python_block.xml
+  services:
+    comprehend: {}

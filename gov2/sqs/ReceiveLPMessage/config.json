@@ -1,0 +1,4 @@
+{
+  "QueueName": "aws-docs-example-queue-name",
+  "WaitTime": "10"
+}

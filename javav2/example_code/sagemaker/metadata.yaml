@@ -1,0 +1,29 @@
+--- 
+files:
+ - path: src/main/java/com/example/sage/CreateModel.java
+   services:
+     - sagemaker
+ - path: src/main/java/com/example/sage/CreateTrainingJob.java
+   services:
+     - sagemaker
+ - path: src/main/java/com/example/sage/DeleteModel.java
+   services:
+     - sagemaker
+ - path: src/main/java/com/example/sage/DescribeTrainingJob.java
+   services:
+     - sagemaker
+ - path: src/main/java/com/example/sage/ListAlgorithms.java
+   services:
+     - sagemaker
+ - path: src/main/java/com/example/sage/ListModels.java
+   services:
+     - sagemaker
+ - path: src/main/java/com/example/sage/ListNotebooks.java
+   services:
+     - sagemaker
+ - path: src/main/java/com/example/sage/ListTrainingJobs.java
+   services:
+     - sagemaker
+ - path: src/test/java/SageMakerTest.java
+   services:
+     - sagemaker

@@ -1,0 +1,4 @@
+{
+  "QueueName": "aws-docs-example-queue-name",
+  "MessageHandle": "aws-docs-example-message-handle"
+}

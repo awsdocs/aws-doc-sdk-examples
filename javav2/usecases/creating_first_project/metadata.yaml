@@ -1,0 +1,24 @@
+--- 
+files:
+  - path: src/main/java/com/example/GreetingApplication.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/handlingformsubmission/DynamoDBEnhanced.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/handlingformsubmission/Greeting.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/handlingformsubmission/GreetingController.java
+    services:
+      - dynamodb
+  - path: src/main/java/com/example/handlingformsubmission/PublishTextSMS.java
+    services:
+      - dynamodb
+  - path: src/main/resources/templates/greeting.html
+    services:
+      - dynamodb
+  - path: src/main/resources/templates/result.html
+    services:
+      - dynamodb
+  

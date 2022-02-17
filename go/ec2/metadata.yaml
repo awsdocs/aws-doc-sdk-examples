@@ -1,0 +1,97 @@
+files:
+  - path: AllocateAddress/AllocateAddress.go
+    services:
+      - ec2
+  - path: AllocateAddress/AllocateAddress_test.go
+    services:
+      - ec2
+  - path: CreateInstance/CreateInstance.go
+    services:
+      - ec2
+  - path: CreateInstance/CreateInstance_test.go
+    services:
+      - ec2
+  - path: CreateImage/CreateImage.go
+    services:
+      - ec2
+  - path: CreateImage/CreateImage_test.go
+    services:
+      - ec2
+  - path: CreateKeyPair/CreateKeyPair.go
+    services:
+      - ec2
+  - path: CreateKeyPair/CreateKeyPair_test.go
+    services:
+      - ec2
+  - path: CreateSecurityGroup/CreateSecurityGroup.go
+    services:
+      - ec2
+  - path: CreateSecurityGroup/CreateSecurityGroup_test.go
+    services:
+      - ec2
+  - path: DeleteKeyPair/DeleteKeyPair.go
+    services:
+      - ec2
+  - path: DeleteKeyPair/DeleteKeyPair_test.go
+    services:
+      - ec2
+  - path: DeleteSecurityGroup/DeleteSecurityGroup.go
+    services:
+      - ec2
+  - path: DeleteSecurityGroup/DeleteSecurityGroup_test.go
+    services:
+      - ec2
+  - path: DescribeAddresses/DescribeAddresses.go
+    services:
+      - ec2
+  - path: DescribeAddresses/DescribeAddresses_test.go
+    services:
+      - ec2
+  - path: DescribeInstances/DescribeInstances.go
+    services:
+      - ec2
+  - path: DescribeInstances/DescribeInstances_test.go
+    services:
+      - ec2
+  - path: DescribeKeyPairs/DescribeKeyPairs.go
+    services:
+      - ec2
+  - path: DescribeKeyPairs/DescribeKeyPairs_test.go
+    services:
+      - ec2
+  - path: DescribeSecurityGroups/DescribeSecurityGroups.go
+    services:
+      - ec2
+  - path: DescribeSecurityGroups/DescribeSecurityGroups_test.go
+    services:
+      - ec2
+  - path: MonitorInstances/MonitorInstances.go
+    services:
+      - ec2
+  - path: MonitorInstances/MonitorInstances_test.go
+    services:
+      - ec2
+  - path: RebootInstances/RebootInstances.go
+    services:
+      - ec2
+  - path: RebootInstances/RebootInstances_test.go
+    services:
+      - ec2
+  - path: RegionsAndZones/RegionsAndZones.go
+    services:
+      - ec2
+  - path: RegionsAndZones/RegionsAndZones_test.go
+    services:
+      - ec2
+  - path: ReleaseAddress/ReleaseAddress.go
+    services:
+      - ec2
+  - path: ReleaseAddress/ReleaseAddress_test.go
+    services:
+      - ec2
+  - path: StartStopInstances/StartStopInstances.go
+    services:
+      - ec2
+  - path: StartStopInstances/StartStopInstances_test.go
+    services:
+      - ec2

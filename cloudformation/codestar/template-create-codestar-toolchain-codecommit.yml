@@ -1,0 +1,371 @@
+# Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#
+# This file is licensed under the Apache License, Version 2.0 (the "License").
+# You may not use this file except in compliance with the License. A copy of
+# the License is located at
+#
+# http://aws.amazon.com/apache2.0/
+#
+# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+# CONDITIONS OF ANY KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations under the License.
+
+# snippet-sourcedescription:[template-create-codestar-toolchain-codecommit.yml provides a CloudFormation template that creates a CodeStar project toolchain with a CodePipeline pipeline, a CodeCommit source, and a CloudFormation deployment. This template also creates the CloudWatch Events rule for detecting push events.]
+# snippet-service:[codestar]
+# snippet-keyword:[CloudFormation]
+# snippet-keyword:[AWS CodePipeline]
+# snippet-keyword:[AWS CodeStar]
+# snippet-keyword:[Code Sample]
+# snippet-sourcetype:[full-example]
+# snippet-sourceauthor:[AWS]
+# snippet-sourcedate:[2018-10-10]
+# snippet-start:[codestar.cloudformation.codestar-toolchain-codecommit.complete]
+
+AWSTemplateFormatVersion: 2010-09-09
+Description: My custom toolchain
+
+Parameters:
+  # You can provide these parameters in your CreateProject API call.
+  ProjectId:
+    Description: Name of your application.
+    Type: String
+
+Resources:
+  CodeCommitRepo:
+    Description: Creating AWS CodeCommit repository for application source code
+    Properties:
+      RepositoryDescription: !Sub "${ProjectId} repository"
+      RepositoryName: !Ref ProjectId
+    Type: AWS::CodeCommit::Repository
+
+  # Each AWS CodeBuild project requires a role for AWS CodeBuild to operate on your code.
+  CodeBuildRole:
+    Description: Creating service role in IAM for AWS CodeBuild
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Action: sts:AssumeRole
+          Effect: Allow
+          Principal:
+            Service: codebuild.amazonaws.com
+      Path: /
+      RoleName: !Sub "CodeStarWorker-${ProjectId}-CodeBuild"
+    Type: AWS::IAM::Role
+
+  # This minimal set of permissions lets AWS CodeBuild retrieve your encrypted code artifact from Amazon S3
+  # and store its logs in Amazon CloudWatch Logs.
+  CodeBuildPolicy:
+    Description: Setting IAM policy for AWS CodeBuild role
+    Properties:
+      PolicyDocument:
+        Statement:
+        - Action:
+          - logs:*
+          - s3:*
+          - kms:GenerateDataKey*
+          - kms:Encrypt
+          - kms:Decrypt
+          Effect: Allow
+          Resource: '*'
+      PolicyName: CodeStarWorkerCodeBuildPolicy
+      Roles:
+      - !Ref 'CodeBuildRole'
+    Type: AWS::IAM::Policy
+
+  CodeBuildProject:
+    DependsOn:
+    - CodeBuildPolicy
+    Properties:
+      Artifacts:
+        Packaging: zip
+        Type: codepipeline
+      Description: !Sub "AWS CodeStar created CodeBuild Project for ${ProjectId}"
+      Environment:
+        ComputeType: small
+        # This environment variable informs AWS CodeBuild where it can retrieve your code artifact.
+        # You can specify any other environment variables your buildspec.yml is looking for.
+        EnvironmentVariables:
+        - Name: S3_BUCKET
+          Value: !Ref 'S3Bucket'
+        # Replace this Docker image if necessary: https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html
+        Image: aws/codebuild/eb-nodejs-6.10.0-amazonlinux-64:4.0.0
+        Type: LINUX_CONTAINER
+      Name: !Ref 'ProjectId'
+      ServiceRole: !Ref 'CodeBuildRole'
+      Source:
+        Type: codepipeline
+    Type: AWS::CodeBuild::Project
+
+  # If your pipeline will create resources through AWS CloudFormation as well as deploy your source code,
+  # then specify a role for AWS CloudFormation to use. These permissions dictate which runtime resources
+  # AWS CloudFormation can create and modify on your behalf.
+  CloudFormationTrustRole:
+    Description: Creating service role in IAM for AWS CloudFormation
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Action: sts:AssumeRole
+          Effect: Allow
+          Principal:
+            Service:
+            - cloudformation.amazonaws.com
+      Path: /
+      Policies:
+      - PolicyDocument:
+          Statement:
+          - Action:
+            - codestar:*
+            - s3:*
+            - lambda:*
+            - dynamodb:*
+            - kinesis:*
+            - cloudformation:*
+            - sns:*
+            - config:*
+            - iam:*
+            - apigateway:*
+            Effect: Allow
+            Resource: '*'
+        PolicyName: CloudFormationRolePolicy
+      RoleName: !Sub "CodeStarWorker-${ProjectId}-CFRole"
+    Type: AWS::IAM::Role
+
+  # This policy is applied to the Amazon S3 bucket that AWS CodePipeline will use as your artifact store.
+  S3ArtifactBucketPolicy:
+    Description: Setting Amazon S3 bucket policy for AWS CodePipeline access
+    Properties:
+      Bucket: !Ref 'S3Bucket'
+      PolicyDocument:
+        Id: SSEAndSSLPolicy
+        Statement:
+        - Action:
+          - s3:GetObject
+          - s3:GetObjectVersion
+          - s3:GetBucketVersioning
+          Condition:
+            Bool:
+              aws:SecureTransport: false
+          Effect: Allow
+          Principal:
+            AWS:
+            - !GetAtt 'CodePipelineTrustRole.Arn'
+            # AWS CodeBuild retrieves the source code from the artifact bucket.
+            - !GetAtt 'CodeBuildRole.Arn'
+            # AWS CloudFormation retrieves a template file from this bucket to create
+            # the runtime resources.
+            - !GetAtt 'CloudFormationTrustRole.Arn'
+          Resource:
+          - !Sub 'arn:aws:s3:::${S3Bucket}'
+          - !Sub 'arn:aws:s3:::${S3Bucket}/*'
+          Sid: WhitelistedGet
+        - Action:
+          - s3:PutObject
+          Effect: Allow
+          Principal:
+            AWS:
+            - !GetAtt 'CodePipelineTrustRole.Arn'
+            - !GetAtt 'CodeBuildRole.Arn'
+          Resource:
+          - !Sub 'arn:aws:s3:::${S3Bucket}'
+          - !Sub 'arn:aws:s3:::${S3Bucket}/*'
+          Sid: WhitelistedPut
+        Version: 2012-10-17
+    Type: AWS::S3::BucketPolicy
+
+  S3Bucket:
+    DeletionPolicy: Retain
+    Description: Creating Amazon S3 bucket for AWS CodePipeline artifacts
+    Properties:
+      BucketName: !Sub "aws-codestar-${AWS::Region}-${AWS::AccountId}-${ProjectId}"
+      Tags:
+      - Key: Name
+        Value: !Sub "${ProjectId}-S3Bucket"
+      VersioningConfiguration:
+        Status: Enabled
+    Type: AWS::S3::Bucket
+
+  CodePipelineTrustRole:
+    Description: Creating service role in IAM for AWS CodePipeline
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Action: sts:AssumeRole
+          Effect: Allow
+          Principal:
+            Service:
+            - codepipeline.amazonaws.com
+          Sid: 1
+      Path: /
+      Policies:
+      - PolicyDocument:
+          Statement:
+          # Your pipeline will generally need permissions to store and retrieve artifacts in Amazon S3.
+          # It will also need permissions to detect changes to your repository, start
+          # a build against your AWS CodeBuild project, and create an AWS CloudFormation stack
+          # containing your runtime resources.
+          - Action:
+            - s3:*
+            - codecommit:*
+            - codebuild:*
+            - cloudformation:*
+            Effect: Allow
+            Resource: '*'
+          # If your pipeline will not create AWS CloudFormation stacks, remove 
+          # the following action.
+          - Action:
+            - iam:PassRole
+            Effect: Allow
+            Resource:
+            - !GetAtt 'CloudFormationTrustRole.Arn'
+        PolicyName: CodeStarWorkerCodePipelineRolePolicy
+      RoleName: !Sub "CodeStarWorker-${ProjectId}-CodePipeline"
+    Type: AWS::IAM::Role
+
+  # This sample pipeline contains three Stages: Source, Build, and Deploy.
+  # The Source stage contains a single action that picks up changes from your repository.
+  # The Build stage executes your AWS CodeBuild project.
+  # The Deploy stage contains two actions:
+   # The first action either creates a new stack / changeset containing your runtime resources.
+   # The second action executes the changeset made in the previous action.
+  ProjectPipeline:
+    # The pipeline should only be created once all the resources it links to have been created.
+    # This includes the AWS CodePipeline service role, the artifact bucket, the AWS CodeBuild build projectTemplateId,
+    # and the role it will pass to AWS CloudFormation to create stacks.
+    DependsOn:
+    - CodePipelineTrustRole
+    - S3Bucket
+    - CodeBuildProject
+    - CloudFormationTrustRole
+    Description: Creating a deployment pipeline for your project in AWS CodePipeline
+    Properties:
+      ArtifactStore:
+        Location: !Ref 'S3Bucket'
+        Type: S3
+      Name: !Sub "${ProjectId}-Pipeline"
+      RoleArn: !GetAtt 'CodePipelineTrustRole.Arn'
+      Stages:
+      - Actions:
+        - ActionTypeId:
+            Category: Source
+            Owner: AWS
+            Provider: CodeCommit
+            Version: 1
+          Configuration:
+            BranchName: master
+            PollForSourceChanges: false
+            RepositoryName: !Ref 'ProjectId'
+          InputArtifacts: []
+          Name: ApplicationSource
+          OutputArtifacts:
+          - Name: !Sub "${ProjectId}-SourceArtifact"
+          RunOrder: 1
+        Name: Source
+      - Actions:
+        - ActionTypeId:
+            Category: Build
+            Owner: AWS
+            Provider: CodeBuild
+            Version: 1
+          Configuration:
+            ProjectName: !Ref 'ProjectId'
+          InputArtifacts:
+          - Name: !Sub "${ProjectId}-SourceArtifact"
+          Name: PackageExport
+          OutputArtifacts:
+          - Name: !Sub "${ProjectId}-BuildArtifact"
+          RunOrder: 1
+        Name: Build
+      - Actions:
+        - ActionTypeId:
+            Category: Deploy
+            Owner: AWS
+            Provider: CloudFormation
+            Version: 1
+          Configuration:
+            ActionMode: CHANGE_SET_REPLACE
+            Capabilities: CAPABILITY_NAMED_IAM
+            ChangeSetName: pipeline-changeset
+            RoleArn: !GetAtt 'CloudFormationTrustRole.Arn'
+            StackName: !Sub "awscodestar-${ProjectId}-lambda"
+            # These are the parameters that will be set in your AWS CloudFormation stack.
+            ParameterOverrides: !Sub '{"ProjectId":"${ProjectId}"}'
+            # Our sample AWS CodeBuild project uses the following yml file to run a build, 
+            # and then AWS CodeBuild places the file into the build artifact.
+            # Modify this line to point to a different yml file you want AWS CodeBuild to use.
+            TemplatePath: !Sub "${ProjectId}-BuildArtifact::template-export.yml"
+          Name: GenerateChangeSet
+          InputArtifacts:
+          - Name: !Sub "${ProjectId}-BuildArtifact"
+          OutputArtifacts: []
+          RunOrder: 1
+        - ActionTypeId:
+            Category: Deploy
+            Owner: AWS
+            Provider: CloudFormation
+            Version: 1
+          Configuration:
+            ActionMode: CHANGE_SET_EXECUTE
+            ChangeSetName: pipeline-changeset
+            StackName: !Sub "awscodestar-${ProjectId}-lambda"
+          InputArtifacts: []
+          Name: ExecuteChangeSet
+          OutputArtifacts: []
+          RunOrder: 2
+        Name: Deploy
+    Type: AWS::CodePipeline::Pipeline
+
+  # This Amazon CloudWatch event rule ensures that AWS CodePipeline detects changes to your AWS CodeCommit repository
+  # and starts your pipeline automatically.
+  # To learn more, see the AWS CodePipeline documentation:  
+  #  https://docs.aws.amazon.com/codepipeline/latest/userguide/triggering.html
+  SourceEvent:
+    Properties:
+      Description: Rule for Amazon CloudWatch Events to detect changes to the source repository and trigger pipeline execution
+      EventPattern:
+        detail:
+          event:
+          - referenceCreated
+          - referenceUpdated
+          referenceName:
+          - master
+          referenceType:
+          - branch
+        detail-type:
+        - CodeCommit Repository State Change
+        resources:
+        - !GetAtt 'CodeCommitRepo.Arn'
+        source:
+        - aws.codecommit
+      Name: !Sub "awscodestar-${ProjectId}-SourceEvent"
+      State: ENABLED
+      Targets:
+      - Arn: !Sub 'arn:aws:codepipeline:${AWS::Region}:${AWS::AccountId}:${ProjectId}-Pipeline'
+        Id: ProjectPipelineTarget
+        RoleArn: !GetAtt 'SourceEventRole.Arn'
+    Type: AWS::Events::Rule
+
+  SourceEventRole:
+    Description: IAM role to allow Amazon CloudWatch Events to trigger AWS CodePipeline execution
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Action: sts:AssumeRole
+          Effect: Allow
+          Principal:
+            Service:
+            - events.amazonaws.com
+          Sid: 1
+      Policies:
+      - PolicyDocument:
+          Statement:
+          - Action:
+            - codepipeline:StartPipelineExecution
+            Effect: Allow
+            Resource:
+            - !Sub "arn:aws:codepipeline:${AWS::Region}:${AWS::AccountId}:${ProjectId}-Pipeline"
+        PolicyName: CodeStarWorkerCloudWatchEventPolicy
+      RoleName: !Sub "CodeStarWorker-${ProjectId}-event-rule"
+    Type: AWS::IAM::Role
+
+
+# snippet-end:[codestar.cloudformation.codestar-toolchain-codecommit.complete]

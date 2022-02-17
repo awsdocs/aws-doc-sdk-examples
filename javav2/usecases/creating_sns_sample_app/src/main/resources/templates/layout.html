@@ -1,0 +1,16 @@
+<!--  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="site-head">
+    <meta charset="UTF-8" />
+    <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
+    <script th:src="|https://code.jquery.com/jquery-1.12.4.min.js|"></script>
+    <meta th:include="this :: head" th:remove="tag"/>
+</head>
+<header th:fragment="site-header">
+    <a href="#" style="color: white" th:href="@{/}">Home</a>
+    <a href="#" style="color: white" th:href="@{/subscribe}">Manage Subscriptions</a>
+</header>
+</html>

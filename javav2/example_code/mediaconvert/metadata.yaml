@@ -1,0 +1,17 @@
+--- 
+files:
+  - path: src/main/java/com/example/mediaconvert/CreateJob.java
+    services:
+      - mediaconvert
+  - path: src/main/java/com/example/mediaconvert/GetEndpointURL.java
+    services:
+      - mediaconvert
+  - path: src/main/java/com/example/mediaconvert/GetJob.java
+    services:
+      - mediaconvert
+  - path: src/main/java/com/example/mediaconvert/ListJobs.java
+    services:
+      - mediaconvert
+  - path: src/test/java/AmazonMediaConvertTest.java
+    services:
+      - mediaconvert  
