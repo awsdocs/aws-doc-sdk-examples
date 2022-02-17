@@ -50,10 +50,11 @@ You will find these examples:
 To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
-### Prerequisites
-*If there are language level prerequisites (i.e. that apply to all examples) put them in the language level README, and link to it as one of the prerequisites for the service level.* **<-- Delete this sentence from template**
+Some of these examples perform *destructive* operations on AWS resources, such as deleting a table. **Be very careful** when running an operation that deletes or modifies AWS resources in your account.
+
 ## Tests
 ⚠️ Running the tests might result in charges to your AWS account.
+
 You can test the Java code examples for Amazon DynamoDB by running a test file named **DynamoDBTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is run, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
@@ -122,8 +123,8 @@ If you do not define the correct values in the properties file, your JUnit tests
 
 
 ## Additional resources
-* [*Service developer guide*](*link to developer guide*)
-* [*Service API reference guide*](*link to developer guide*)
-* [*SDK API reference guide*](*link to API reference guide*) 
+* [Developer guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+* [Amazon DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html).
+* [Interface DynamoDbClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/dynamodb/DynamoDbClient.html).
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
