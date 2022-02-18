@@ -207,13 +207,13 @@ The following C# code represents the **SnsService** class. This class uses the A
 In the code for the SnsService controller, be sure to change the AWS Region in the constructor call for the client object to the region where your rescources are defined. For example, in the first l ine of the UnSubEmail method, change:
 
 ```csharp
-var client = newAmazonSimpleNotificationServiceClient(RegionEndpoint.USEast2);
+var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USEast2);
 ```
 
 to:
 
 ```csharp
-var client = newAmazonSimpleNotificationServiceClient(RegionEndpoint.USWest2);
+var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USWest2);
 ```
 or whatever AWS region is appropriate for you.
 
