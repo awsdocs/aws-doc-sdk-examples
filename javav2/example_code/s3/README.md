@@ -65,10 +65,6 @@ You will find these examples that use the **S3AsyncClient** object:
 - [Reading data from an Amazon S3 object using the Async client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/async/GetObjectDataAsync.java) (GetObject command)
 - [Using the asynchronous client to place an object into an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/async/S3AsyncOps.java) (PutObject command)
 
-
-
-
-
 You will find these examples that use the **S3TransferManager** object: 
 
 - [Downloading an object from an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/GetObject.java) (DownloadFile command)
@@ -85,8 +81,6 @@ You will find these examples that use the **S3TransferManager** object:
 - [Building a Spring Boot web application that Streams Amazon S3 content over HTTP](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_spring_stream_app) 
 - [Detect PPE in images with Amazon Rekognition using an AWS SDK](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lambda_ppe) 
 - [Creating a dynamic web application that analyzes photos using the AWS SDK for Java](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_photo_analyzer_app) 
-- [Detect people and objects in a video with Amazon Rekognition using an AWS SDK](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/video_analyzer_application) 
-
 
 ## Running the examples
 To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
