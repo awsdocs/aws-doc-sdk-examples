@@ -1,16 +1,15 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier:  Apache-2.0
-
 """
 Purpose
-Shows how to create an Amazon Lookout for Vision manifest file from a CSV file. 
-The CSV file format is <image location>,<anomaly classification> (normal or anomaly)
+Shows how to create an Amazon Lookout for Vision manifest file from a CSV file.
+The CSV file format is image location,anomaly classification (normal or anomaly)
 For example:
 s3://s3bucket/circuitboard/train/anomaly/train_11.jpg,anomaly
 s3://s3bucket/circuitboard/train/normal/train_1.jpg,normal
 
 If necessary, use the bucket argument to specify the S3 bucket folder for the images.
-For more information, see https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/ex-csv-manifest.html
+More information: https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/ex-csv-manifest.html
 """
 
 # snippet-start:[python.example_code.lookoutvision.Scenario_CSVtoManifest]
@@ -20,33 +19,32 @@ import argparse
 import logging
 import csv
 import os
+import json
 
 logger = logging.getLogger(__name__)
 
 
 def check_errors(csv_file):
     """
-    Checks for duplicate images and incorrect classifications in a CSV file. 
+    Checks for duplicate images and incorrect classifications in a CSV file.
     If duplicate images or invalid anomaly assignments are found, an errors CSV file
-    and deduplicated CSV file are created. Only the first 
-    occurence of a duplicate is recorded. Other duplicates are recorded in the errors file.  
+    and deduplicated CSV file are created. Only the first
+    occurence of a duplicate is recorded. Other duplicates are recorded in the errors file.
     :param csv_file: The source CSV file
     :return: True if errors or duplicates are found, otherwise false.
     """
 
-    logger.info(f"Checking {csv_file}.")
+    logger.info("Checking %s.", csv_file)
 
     errors_found = False
+    errors_file = f"{os.path.splitext(csv_file)[0]}_errors.csv"
+    deduplicated_file = f"{os.path.splitext(csv_file)[0]}_deduplicated.csv"
 
-    errors_file = f"{csv_file}_errors.csv"
-    deduplicated_file = f"{csv_file}_deduplicated.csv"
-
-    # Find errors
-    with open(csv_file, 'r') as f,\
+    with open(csv_file, 'r') as input_file,\
             open(deduplicated_file, 'w') as dedup,\
             open(errors_file, 'w') as errors:
 
-        reader = csv.reader(f,  delimiter=',')
+        reader = csv.reader(input_file, delimiter=',')
         dedup_writer = csv.writer(dedup)
         error_writer = csv.writer(errors)
         line = 1
@@ -74,7 +72,7 @@ def check_errors(csv_file):
             line += 1
 
     if errors_found:
-        logger.info(f"Errors found check {errors_file}.")
+        logger.info("Errors found check %s", errors_file)
     else:
         os.remove(errors_file)
         os.remove(deduplicated_file)
@@ -89,7 +87,7 @@ def create_manifest_file(csv_file, manifest_file, s3_path):
     :param manifest_file: The name of the manifest file to create.
     :param s3_path: The S3 path to the folder that contains the images.
     """
-    logger.info(f"Processing CSV file {csv_file}.")
+    logger.info("Processing CSV file %s", csv_file)
 
     image_count = 0
     anomalous_count = 0
@@ -112,22 +110,30 @@ def create_manifest_file(csv_file, manifest_file, s3_path):
                 classification = 1
                 anomalous_count += 1
 
-            json_line = '{"source-ref": "' + source_ref + '",'\
-                '"anomaly-label": ' + str(classification) + ','\
-                '"anomaly-label-metadata": {' \
-                '"confidence": 1,'\
-                '"job-name": "labeling-job/anomaly-classification",'\
-                '"class-name": "' + row[1] + '",'\
-                '"human-annotated": "yes",'\
-                '"creation-date": "' + datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S.%f') + '",'\
-                '"type": "groundtruth/image-classification"'\
-                '}}\n'
+           # Create the JSON line
+            json_line = {}
+            json_line['source-ref'] = source_ref
+            json_line['anomaly-label'] = str(classification)
 
-            output_file.write(json_line)
+            metadata = {}
+            metadata['confidence'] = 1
+            metadata['job-name'] = "labeling-job/anomaly-classification"
+            metadata['class-name'] = row[1]
+            metadata['human-annotated'] = "yes"
+            metadata['creation-date'] = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S.%f')
+            metadata['type'] = "groundtruth/image-classification"
+
+            json_line['anomaly-label-metadata'] = metadata
+
+            output_file.write(json.dumps(json_line))
+            output_file.write('\n')
             image_count += 1
 
-    logger.info(f"Finished creating manifest file {manifest_file}.\n"
-                f"Images: {image_count}\nAnomalous: {anomalous_count}")
+    logger.info("Finished creating manifest file %s.\n"
+                "Images: %s\nAnomalous: %s",
+                manifest_file,
+                image_count,
+                anomalous_count)
     return image_count, anomalous_count
 
 
@@ -142,7 +148,7 @@ def add_arguments(parser):
     )
 
     parser.add_argument(
-        "--s3_path",  help="The S3 bucket and folder path for the images."
+        "--s3_path", help="The S3 bucket and folder path for the images."
         " If not supplied, column 1 is assumed to include the S3 path.", required=False
     )
 
@@ -163,21 +169,21 @@ def main():
             s3_path = ""
 
         csv_file = args.csv_file
-        manifest_file = os.path.splitext(csv_file)[0] + '.manifest'
+        csv_file_no_extension = os.path.splitext(csv_file)[0]
+        manifest_file = csv_file_no_extension + '.manifest'
 
         # Create manifest file if there are no duplicate images.
         if check_errors(csv_file):
-            print(
-                f"Issues found. Use {csv_file}_errors to view duplicates and errors.")
-            print(f"{csv_file}_deduplicated.csv contains the first occurence of a duplicate."
+            print(f"Issues found. Use {csv_file_no_extension}_errors.csv "\
+                "to view duplicates and errors.")
+            print(f"{csv_file}_deduplicated.csv contains the first"\
+                "occurence of a duplicate.\n"
                   "Update as necessary with the correct information.")
-            print(f"Re-run the script with {csv_file}_deduplicated.csv")
+            print(f"Re-run the script with {csv_file_no_extension}_deduplicated.csv")
         else:
             print('No duplicates found. Creating manifest file')
 
-            image_count, anomalous_count = create_manifest_file(csv_file,
-                manifest_file,
-                s3_path)
+            image_count, anomalous_count = create_manifest_file(csv_file, manifest_file, s3_path)
 
             print(f"Finished creating manifest file: {manifest_file} \n")
 
@@ -187,13 +193,8 @@ def main():
             print(f"Anomalous: {anomalous_count}")
 
     except FileNotFoundError as err:
-        logger.exception(f"File not found.:{err}")
+        logger.exception("File not found.:%s", err)
         print(f"File not found: {err}. Check your input CSV file")
-
-    except Exception as err:
-        logger.exception(f"An error occured:{err}")
-        print(f"An error occured:{err}")
-
 
 if __name__ == "__main__":
     main()

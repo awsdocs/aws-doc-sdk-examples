@@ -2,6 +2,7 @@
 from csv_to_manifest import check_errors, create_manifest_file
 from os.path import exists
 from os import remove
+from os import path
 import pytest
 
 """
@@ -29,15 +30,17 @@ def test_check_no_errors(csv_file, result):
     Confirms that valid CSV checks OK
     """
 
-    deduplicated_file=f"{csv_file}_deduplicated.csv"
-    errors_file=f"{csv_file}_errors.csv"
-    manifest_file = f"{csv_file}_manifest"
+    errors_file=f"{path.splitext(csv_file)[0]}_errors.csv"
+    deduplicated_file = f"{path.splitext(csv_file)[0]}_deduplicated.csv"
+    manifest_file = f"{path.splitext(csv_file)[0]}.manifest"
     
     clean_up(deduplicated_file, errors_file,manifest_file)
 
     assert check_errors(csv_file) == result
     assert not exists(deduplicated_file)
     assert not exists(errors_file)
+    
+    clean_up(deduplicated_file, errors_file,manifest_file)
 
 
 @pytest.mark.parametrize("csv_file,result",
@@ -51,9 +54,10 @@ def test_check_errors(csv_file, result):
     errors creates the deduplication and errors CSV file.
     """
     
-    deduplicated_file=f"{csv_file}_deduplicated.csv"
-    errors_file=f"{csv_file}_errors.csv"
-    manifest_file = f"{csv_file}_manifest"
+
+    errors_file=f"{path.splitext(csv_file)[0]}_errors.csv"
+    deduplicated_file = f"{path.splitext(csv_file)[0]}_deduplicated.csv"
+    manifest_file = f"{path.splitext(csv_file)[0]}.manifest"
     
     clean_up(deduplicated_file, errors_file,manifest_file)
     
@@ -77,9 +81,9 @@ def test_create_manifest_s3_supplied(csv_file, img_count, anom_count):
     """
 
     s3_path="s3://docexamplebucket1/circuitboard/train/"
-    deduplicated_file=f"{csv_file}_deduplicated.csv"
-    errors_file=f"{csv_file}_errors.csv"
-    manifest_file = f"{csv_file}_manifest"
+    errors_file=f"{path.splitext(csv_file)[0]}_errors.csv"
+    deduplicated_file = f"{path.splitext(csv_file)[0]}_deduplicated.csv"
+    manifest_file = f"{path.splitext(csv_file)[0]}.manifest"
     
     clean_up(deduplicated_file, errors_file,manifest_file)
     
@@ -91,6 +95,8 @@ def test_create_manifest_s3_supplied(csv_file, img_count, anom_count):
     assert exists(manifest_file)
     assert not exists(deduplicated_file)
     assert not exists(errors_file)
+    
+    clean_up(deduplicated_file, errors_file,manifest_file)
     
 
 @pytest.mark.parametrize("csv_file,img_count,anom_count",
@@ -105,9 +111,9 @@ def test_create_manifest_no_s3_supplied(csv_file,img_count, anom_count):
     """
 
     s3_path=""
-    deduplicated_file=f"{csv_file}_deduplicated.csv"
-    errors_file=f"{csv_file}_errors.csv"
-    manifest_file = f"{csv_file}_manifest"
+    errors_file=f"{path.splitext(csv_file)[0]}_errors.csv"
+    deduplicated_file = f"{path.splitext(csv_file)[0]}_deduplicated.csv"
+    manifest_file = f"{path.splitext(csv_file)[0]}.manifest"
     
     clean_up(deduplicated_file, errors_file,manifest_file)
     
@@ -119,5 +125,7 @@ def test_create_manifest_no_s3_supplied(csv_file,img_count, anom_count):
     assert exists(manifest_file)
     assert not exists(deduplicated_file)
     assert not exists(errors_file)
+    
+    clean_up(deduplicated_file, errors_file,manifest_file)
     
 
