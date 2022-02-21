@@ -12,7 +12,7 @@
 #   - https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html
 
 # snippet-start:[ruby.example_code.s3.Scenario_GettingStarted]
-require 'aws-sdk-s3'
+require "aws-sdk-s3"
 
 # Wraps the getting started scenario actions.
 class ScenarioGettingStarted
@@ -36,7 +36,7 @@ class ScenarioGettingStarted
     )
     puts("Created demo bucket named #{bucket.name}.")
   rescue Aws::Errors::ServiceError => e
-    puts('Tried and failed to create demo bucket.')
+    puts("Tried and failed to create demo bucket.")
     puts("\t#{e.code}: #{e.message}")
     puts("\nCan't continue the demo without a bucket!")
     raise
@@ -48,13 +48,13 @@ class ScenarioGettingStarted
   #
   # @return The name of the file.
   def request_file_name
-    file_name = ''
+    file_name = ""
     while file_name.empty?
       puts("\nEnter a file you want to upload to your bucket: ")
       file_name = gets.chomp
       unless File.file?(file_name)
         puts("Couldn't find file #{file_name}. Are you sure it exists?")
-        file_name = ''
+        file_name = ""
       end
     end
     file_name
@@ -83,8 +83,8 @@ class ScenarioGettingStarted
   def download_file(s3_object)
     puts("\nDo you want to download #{s3_object.key} to a local file (y/n)? ")
     answer = gets.chomp.downcase
-    if answer == 'y'
-      puts('Enter a name for the downloaded file: ')
+    if answer == "y"
+      puts("Enter a name for the downloaded file: ")
       file_name = gets.chomp
       s3_object.download_file(file_name)
       puts("Object #{s3_object.key} successfully downloaded to #{file_name}.")
@@ -103,7 +103,7 @@ class ScenarioGettingStarted
     dest_object = nil
     puts("\nDo you want to copy #{source_object.key} to a subfolder in your bucket (y/n)? ")
     answer = gets.chomp.downcase
-    if answer == 'y'
+    if answer == "y"
       dest_object = source_object.bucket.object("demo-folder/#{source_object.key}")
       dest_object.copy_from(source_object)
       puts("Copied #{source_object.key} to #{dest_object.key}.")
@@ -138,7 +138,7 @@ class ScenarioGettingStarted
   def delete_bucket(bucket)
     puts("\nDo you want to delete all of the objects as well as the bucket (y/n)? ")
     answer = gets.chomp.downcase
-    if answer == 'y'
+    if answer == "y"
       bucket.objects.batch_delete!
       bucket.delete
       puts("Emptied and deleted bucket #{bucket.name}.\n")
@@ -154,9 +154,9 @@ end
 
 # Runs the Amazon S3 getting started scenario.
 def run_scenario(scenario)
-  puts('-' * 88)
-  puts('Welcome to the Amazon S3 getting started demo!')
-  puts('-' * 88)
+  puts("-" * 88)
+  puts("Welcome to the Amazon S3 getting started demo!")
+  puts("-" * 88)
 
   bucket = scenario.create_bucket
   s3_object = scenario.upload_file(bucket)
@@ -165,10 +165,10 @@ def run_scenario(scenario)
   scenario.list_objects(bucket)
   scenario.delete_bucket(bucket)
 
-  puts('Thanks for watching!')
-  puts('-' * 88)
+  puts("Thanks for watching!")
+  puts("-" * 88)
 rescue Aws::Errors::ServiceError
-  puts('Something went wrong with the demo!')
+  puts("Something went wrong with the demo!")
 end
 
 run_scenario(ScenarioGettingStarted.new(Aws::S3::Resource.new)) if $PROGRAM_NAME == __FILE__
