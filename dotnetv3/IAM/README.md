@@ -9,7 +9,7 @@ The examples in this section show how to manage AWS permissions for users and gr
 ### Scenario examples
 
 - [IAMUserExample](IAMUserExample/IAMUserExample/) (``)
-- []
+- [IAM Basics](IAM_Basics_Scenario/)
 
 ### API examples
 
