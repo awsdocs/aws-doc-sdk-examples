@@ -15,6 +15,14 @@ sts_AssumeRole:
                 temporary credentials to list &S3; buckets for the account.
               snippet_tags:
                 - python.example_code.sts.Scenario_AssumeRoleMfa_list_buckets
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/sts
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.sts.AssumeRole
     JavaScript:
       versions:
         - sdk_version: 3
