@@ -325,7 +325,7 @@ cross_RekognitionVideoDetection:
   title: Detect people and objects in a video with &REK; using an &AWS; SDK
   title_abbrev: Detect people and objects in a video
   synopsis: detect people and objects in a video with &REK;.
-  category: Cross-service
+  category: Cross-service examples
   languages:
     Java:
       versions:

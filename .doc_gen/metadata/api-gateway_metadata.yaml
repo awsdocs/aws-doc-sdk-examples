@@ -288,7 +288,7 @@ api-gateway_Usage_CreateDeployRest:
   title: Create and deploy a REST API using an &AWS; SDK
   title_abbrev: Create and deploy a REST API
   synopsis: create and deploy a REST API.
-  category: Usage
+  category: Scenarios
   languages:
     Python:
       versions:

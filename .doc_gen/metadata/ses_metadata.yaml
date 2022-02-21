@@ -368,7 +368,7 @@ ses_Scenario_GenerateSmtpCredentials:
   title: Generate credentials to connect to an &SES; SMTP endpoint
   title_abbrev: Generate credentials to connect to an SMTP endpoint
   synopsis: generate credentials to connect to an &SES; SMTP endpoint.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -385,7 +385,7 @@ ses_Scenario_SendEmail:
   title: Verify an email identity and send messages with &SES;  using an &AWS; SDK
   title_abbrev: Verify an email identity and send messages
   synopsis: verify an email identity and send messages with &SES;.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -405,7 +405,7 @@ ses_Scenario_EmailIdentity:
   title: Verify and manage &SES; identities using an &AWS; SDK
   title_abbrev: Verify and manage identities
   synopsis: verify and manage &SES; identities.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -423,7 +423,7 @@ ses_Scenario_ReceiptRulesFilters:
   title_abbrev: Create and manage rules and filters
   synopsis: create and manage rules and filters for &SES; that affect how incoming
     emails are handled.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -443,7 +443,7 @@ ses_Scenario_ReplicateIdentities:
   synopsis: copy &SES; email and domain identities from one &AWS; Region to another.
     When domain identities are managed by &R53;, verification records are copied to the
     domain for the destination Region.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -460,7 +460,7 @@ ses_Scenario_Templates:
   title: Create and manage &SES; templates using an &AWS; SDK
   title_abbrev: Create and manage templates
   synopsis: create and manage &SES; templates.
-  category: Scenario
+  category: Scenarios
   languages:
     Python:
       versions:
