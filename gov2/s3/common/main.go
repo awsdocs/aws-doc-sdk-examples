@@ -48,7 +48,7 @@ func main() {
 
 	//snippet-start:[s3.go-v2.CreateBucket]
 	// Create a bucket: We're going to create a bucket to hold content.
-	// Best practice is to use the Pre-canned Private ACL.
+	// Best practice is to use the preset private access control list (ACL).
 	_, err = s3client.CreateBucket(context.TODO(), &s3.CreateBucketInput{
 		Bucket: aws.String(myBucketName),
 		ACL:    types.BucketCannedACLPrivate,
@@ -60,7 +60,8 @@ func main() {
 	//snippet-end:[s3.go-v2.CreateBucket]
 
 	//snippet-start:[s3.go-v2.PutObject]
-	// Place an object in a bucket
+	// Place an object in a bucket.
+
 	// Get our object body.
 	// The included image is https://unsplash.com/photos/iz58d89q3ss
 	file, err := os.Open("image.jpg")
@@ -99,7 +100,7 @@ func main() {
 	fmt.Printf("Presigned URL For object: %v", presignResult.URL)
 
 	//snippet-end:[s3.go-v2.generate_presigned_url]
-	// Download the file
+	// Download the file.
 
 	//snippet-start:[s3.go-v2.GetObject]
 	getObjectResponse, err := s3client.GetObject(context.TODO(), &s3.GetObjectInput{
@@ -117,7 +118,7 @@ func main() {
 	//snippet-end:[s3.go-v2.GetObject]
 
 	//snippet-start:[s3.go-v2.ListObjects]
-	// List objects in the bucket
+	// List objects in the bucket.
 
 	listObjsResponse, err := s3client.ListObjectsV2(context.TODO(), &s3.ListObjectsV2Input{
 		Bucket: aws.String(myBucketName),
@@ -134,7 +135,7 @@ func main() {
 
 	//snippet-end:[s3.go-v2.ListObjects]
 	//snippet-start:[s3.go-v2.CopyObject]
-	// Copy an object to another name
+	// Copy an object to another name.
 
 	// CopyObject is "Pull an object from another place"
 	// The semantics of CopySource varies depending on if you are using S3 on Outposts
@@ -152,6 +153,8 @@ func main() {
 	//snippet-end:[s3.go-v2.CopyObject]
 
 	//snippet-start:[s3.go-v2.DeleteObject]
+	// Delete a single object.
+
 	_, err = s3client.DeleteObject(context.TODO(), &s3.DeleteObjectInput{
 		Bucket: aws.String(myBucketName),
 		Key:    aws.String("other/file.jpg"),
@@ -163,9 +166,11 @@ func main() {
 	//snippet-end:[s3.go-v2.DeleteObject]
 
 	//snippet-start:[s3.go-v2.EmptyBucket]
-	// Delete all objects in a bucket
+	// Delete all objects in a bucket.
+
+
 	// Note: For versioned buckets, you must also delete all versions of
-	// all objects within the bucket with ListVersions and DeleteVersion
+	// all objects within the bucket with ListVersions and DeleteVersion.
 	listObjectsV2Response, err := s3client.ListObjectsV2(context.TODO(),
 		&s3.ListObjectsV2Input{
 			Bucket: aws.String(myBucketName),
@@ -204,7 +209,8 @@ func main() {
 
 	// snippet-start:[s3.go-v2.DeleteBucket]
 
-	// Delete the bucket
+	// Delete the bucket.
+
 	s3client.DeleteBucket(context.TODO(), &s3.DeleteBucketInput{
 		Bucket: aws.String(myBucketName),
 	})

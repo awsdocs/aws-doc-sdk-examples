@@ -8,10 +8,10 @@ These examples demonstrate how to perform several Amazon Simple Storage Service
 ## Code examples
 
 ### Scenario examples
-* [`common/`](common/) -- The most common S3 operations: Creating a bucket, managing objects within it, and deleting objects/buckets.
+* [`common/`](common/) -- These examples show you how to complete common Amazon S3 operations such as creating a bucket, managing bucket objects, and deleting objects and buckets.
 
 ### API Examples
-- [`GetBucketAcl`](GetBucketAcl/) and [`GetObjectAcl`](GetObjectAcl/) -- Two examples of working with ACLs on S3 objects.
+- [`GetBucketAcl`](GetBucketAcl/) and [`GetObjectAcl`](GetObjectAcl/) -- These two examples show you how to work with access control lists (ACLs) on Amazon S3 objects.
 
 
 
@@ -31,7 +31,7 @@ These examples demonstrate how to perform several Amazon Simple Storage Service
 
 ## Running the code
 
-From the directory you wish to run the sample of, do the following:
+Go to the directory where you want to run the sample, and do the following:
 
 ```
 go mod tidy
@@ -46,16 +46,16 @@ From a directory containing `go.mod`, sue `go test` to run all unit tests:
 go test ./...
 ```
 
-This will test all modules in the current folder and any submodules.
+This tests all modules in the current folder and any submodules.
 
 ### Prerequisites
 
 You must have an AWS account, and have your default credentials and AWS Region
 configured as described in
 [Configuring the AWS SDK for Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html)
-in the AWS SDK for Go Developer Guide.
+in the *AWS SDK for Go Developer Guide*.
 
-You must have at least Go 1.17 installed. 
+You must have Go 1.17 or later installed.
 
 ## Additional information
 
