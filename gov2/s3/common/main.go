@@ -62,8 +62,8 @@ func main() {
 	//snippet-start:[s3.go-v2.PutObject]
 	// Place an object in a bucket.
 
-	// Get our object body.
-	// The included image is https://unsplash.com/photos/iz58d89q3ss
+	// Get the object body to upload.
+	// Image credit: https://unsplash.com/photos/iz58d89q3ss
 	file, err := os.Open("image.jpg")
 
 	if err != nil {
@@ -137,9 +137,9 @@ func main() {
 	//snippet-start:[s3.go-v2.CopyObject]
 	// Copy an object to another name.
 
-	// CopyObject is "Pull an object from another place"
-	// The semantics of CopySource varies depending on if you are using S3 on Outposts
-	// or via Access Points.
+	// CopyObject is "Pull an object from the source bucket + path".
+	// The semantics of CopySource varies depending on whether you're using Amazon S3 on Outposts,
+	// or through access points.
 	// See https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html#API_CopyObject_RequestSyntax
 	_, err = s3client.CopyObject(context.TODO(), &s3.CopyObjectInput{
 		Bucket:     aws.String(myBucketName),
