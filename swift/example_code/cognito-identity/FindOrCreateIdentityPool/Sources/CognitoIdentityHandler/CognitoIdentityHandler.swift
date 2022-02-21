@@ -14,9 +14,9 @@ public class CognitoIdentityHandler {
     /// Initialize and return a new ``CognitoIdentityHandler`` object, which is used to drive the AWS calls
     /// used for the example.
     /// - Returns: A new ``CognitoIdentityHandler`` object, ready to run the demo code.
-    public init() {
+    public init() async {
         do {
-            cognitoIdentityClient = try CognitoIdentityClient()
+            cognitoIdentityClient = try await CognitoIdentityClient()
         } catch {
             print("ERROR: ", dump(error, name: "Initializing CognitoIdentityClient"))
             exit(1)
@@ -101,7 +101,7 @@ public class CognitoIdentityHandler {
     func createIdentityPool(name: String) async throws -> String? {
         let cognitoInputCall = CreateIdentityPoolInput(developerProviderName: "com.exampleco.CognitoIdentityDemo",
                                                        identityPoolName: name)
-        
+
         do {
             let result = try await cognitoIdentityClient.createIdentityPool(input: cognitoInputCall)
             guard let poolId = result.identityPoolId  else {

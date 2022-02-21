@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/awslabs/aws-crt-swift.git",
         "state": {
           "branch": null,
-          "revision": "674835439925011c833bc052ec8a153369ec0dc8",
-          "version": "0.1.0"
+          "revision": "901867ba1d72ce296f0cbcbf0fe88c8bbb536c33",
+          "version": "0.2.1"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/awslabs/aws-sdk-swift",
         "state": {
           "branch": null,
-          "revision": "f29d8a45b22e597d527e39bde4389f72ae38c40a",
-          "version": "0.1.2"
+          "revision": "5a4d5b0ccccf7c8f484f1d5f754f6901b1638e5f",
+          "version": "0.2.1"
         }
       },
       {
@@ -24,8 +24,17 @@
         "repositoryURL": "https://github.com/awslabs/smithy-swift.git",
         "state": {
           "branch": null,
-          "revision": "0faded826d80bd98f8c362daa6cab3d29a8f6340",
-          "version": "0.1.2"
+          "revision": "25a813ddc48c3c8b8279bf2bc1fd4f016be55d9b",
+          "version": "0.2.1"
+        }
+      },
+      {
+        "package": "swift-collections",
+        "repositoryURL": "https://github.com/apple/swift-collections",
+        "state": {
+          "branch": null,
+          "revision": "48254824bb4248676bf7ce56014ff57b142b77eb",
+          "version": "1.0.2"
         }
       },
       {
@@ -42,8 +51,8 @@
         "repositoryURL": "https://github.com/MaxDesiatov/XMLCoder.git",
         "state": {
           "branch": null,
-          "revision": "887de88b37b2d691d67db950770e09776229cf6d",
-          "version": "0.13.0"
+          "revision": "f30119af03996939cc4f54e0bf0dda9f88a84da5",
+          "version": "0.13.1"
         }
       }
     ]

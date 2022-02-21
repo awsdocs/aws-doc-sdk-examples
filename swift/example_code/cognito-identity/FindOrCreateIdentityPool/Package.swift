@@ -22,7 +22,7 @@ let package = Package(
         .package(
             name: "AWSSwiftSDK",
             url: "https://github.com/awslabs/aws-sdk-swift",
-            from: "0.1.1"
+            from: "0.2.0"
         )
     ],
     targets: [

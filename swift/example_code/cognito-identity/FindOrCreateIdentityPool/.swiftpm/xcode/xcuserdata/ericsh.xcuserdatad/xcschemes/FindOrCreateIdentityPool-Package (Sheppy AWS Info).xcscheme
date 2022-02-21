@@ -96,17 +96,17 @@
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "AWS_ACCESS_KEY_ID"
-            value = "ASIAYAXAUTGDXGXPPAFH"
+            value = "ASIAYAXAUTGDSO26VPHW"
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "AWS_SECRET_ACCESS_KEY"
-            value = "r/OqG42P6EJRYMUFV4KScIhrYcYAZqt1pS4BLJXj"
+            value = "UWkBzlGncLbREycJGncpChAZjnbEYAibzwSlmz6F"
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "AWS_SESSION_TOKEN"
-            value = "IQoJb3JpZ2luX2VjEKH//////////wEaCXVzLWVhc3QtMSJHMEUCICG3H8E2u+hl2cR5Jp/j84YvyjpxcdPy5EYnzZPmos3JAiEA+RlWACSt5ICBi8iWXebqofvbPXJpI4RfzXZ5Vm/AeZsqpgII2f//////////ARAAGgw1NTEzMDA2Njc3ODMiDMqAjxbNcQdC2sg3MCr6Acts9pphEhZ6acC71zkg7PKF0zWmoTGum7CKWPbXPEaGd+42Ipfk7A3GwpCXtnr3HlDjp0MbwUhpUqzbdbSJl5rbodMfGcVvIFeS788aTDU1NyaW5Ts/OCORbNq6+tYNgBt1jpJjal7WSStntwv+PTUsH/dD+kUkJQMgIa5psHWwHmC/AuIo8P4bQcG2X7vUHes3zgoOOOTezC4LByt/wFqmNvpEwCyATWu3zYzON9kOGhVrrVkRhtutFBs+ltkaFYvdK0BynpnAk/QwwbautoAsHq/XHVVMWcwUVdTJMYJ2zpRNpBT7f2nMLIvS0l1fTxYa64Ww99KD6YAw64uFkAY6nQF5xGqS1vfpaqjsmQfb4alXw6Vj+73ANaEizvgXSRpavY1VjpbKT9FQHHAYOFg77MnWZWjA9z1MFktQu/BrEQWzKXZYxDB+OICRmsnBc2XS+BLT+31LlMscmlcbAFNegwH8pEe3bO68br5lSitYIKeV5kHpMmJjr5g1PnW4manrMqoJfuqqcts5Hot4G74Ih+V7zwhkIQOx1I0W7Xf6"
+            value = "IQoJb3JpZ2luX2VjEJX//////////wEaCXVzLWVhc3QtMSJHMEUCICkOSjiqIWzK5UorXPUvHHRpI61wsIR5iwsUQfm45XHrAiEA+kTa0v2wbd1WJM//HWYJVTu1fi0mQ04Og/xZaZZASZ4qpgII3v//////////ARAAGgw1NTEzMDA2Njc3ODMiDJLzilL0W0rtDA4rvir6AZ14Jj3uVz24Ho+HHgkMUfQ6dn38zMp99kXzQhKfIZMUwttpCVN/b4Iif32E175Y0EWvmY+0bxY7xmV3GoRCAl0TDfitE53peP7QW7hZkWLZEjunKQHEl7t8H6A1g+DvLaRj29NsMBOgDq9/i68wK9FaVGSTvdgLN7XHOtPHVYUzrJTKdKyEk9Aq2nbisS1idSZHETJw4vo5PZ2JgELzS9YWgq6Ri8mPaK9DT8+q5IEJjXzN0rCX0mO4IsECqGY7vHmzzXJkf+zET5GHjZRiVaq+rN5YUVp7luVyMN5JMM/z3C3xB79AR+EszkTovs6syzpmJof/LFQZvAwwrt26kAY6nQHToo6N+wtXFs92AKN2bNiTDXU3aI+pxtLNFH3MLDIwTIYAlVchOjZXkyoxqIF9eSWeoVYfy8cORaluhh9QGPjr9uNoki+l81cafFjal0mIYl0WNpTYm3N+BBR0bv3ElggvtUXaGhzzknqPwn2gU4luyQ5SBFjBDdmC5UdwrjYRekcOWytjXs4xFGSJL3Ujt7RW2MrFKy6Rx2awxRgn"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>

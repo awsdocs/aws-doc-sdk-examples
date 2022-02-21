@@ -5,6 +5,7 @@
 
 import XCTest
 import class Foundation.Bundle
+import Dispatch
 @testable import CognitoIdentityHandler
 
 /// Class based on `XCTestCase` that's run to perform testing of the project code.
@@ -13,8 +14,14 @@ final class CognitoIdentityDemoTests: XCTestCase {
     
     /// Perform setup work needed by all tests.
     override func setUp() {
-        identityTester = CognitoIdentityHandler()
-    }
+        let testSem = DispatchSemaphore(value: 0)
+        Task() {
+            self.identityTester = await CognitoIdentityHandler()
+            testSem.signal()
+        }
+        
+        testSem.wait()
+}
     
     /// **Test:** Attempt to find an identity pool that doesn't exist. If no error occurs, the test
     /// fails.

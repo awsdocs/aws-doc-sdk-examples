@@ -12,7 +12,7 @@ import CognitoIdentityHandler
 struct FindOrCreateIdentityPool {
     static func main() async {
         
-        let identityDemo = CognitoIdentityHandler()
+        let identityDemo = await CognitoIdentityHandler()
 
         // Get the ID of the identity pool, creating it if necesssary
 
