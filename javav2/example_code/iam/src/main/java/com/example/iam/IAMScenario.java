@@ -89,7 +89,7 @@ public class IAMScenario {
            System.exit(1);
         }
 
-        String userName = args[0];
+        String userName =  args[0];
         String policyName = args[1];
         String roleName = args[2];
         String roleSessionName = args[3];
@@ -104,6 +104,7 @@ public class IAMScenario {
         // Create the IAM user.
        Boolean createUser = createIAMUser(iam, userName);
 
+
        if (createUser) {
            System.out.println(userName + " was successfully created.");
 
@@ -113,7 +114,8 @@ public class IAMScenario {
            String roleArn = createIAMRole(iam, roleName, fileLocation);
            System.out.println(roleArn + " was successfully created.");
            attachIAMRolePolicy(iam, roleName, polArn);
-           createServiceLinkedRole(iam);
+           String name = createServiceLinkedRole(iam);
+           System.out.println("The Service Linked Role name is "+ name );
 
            System.out.println("*** Wait for 1 MIN so the resource is available");
            TimeUnit.MINUTES.sleep(1);
@@ -130,33 +132,53 @@ public class IAMScenario {
 
 
            System.out.println("*** Getting ready to delete the AWS resources");
+           deleteServiceLinkedRole(iam,name);
            deleteRole(iam, roleName, polArn);
            deleteIAMUser(iam, userName);
            System.out.println("This IAM Scenario has successfully completed");
        } else {
            System.out.println(userName +" was not successfully created.");
        }
+
     }
 
 
-    public static void  createServiceLinkedRole(IamClient iam) {
+    public static String createServiceLinkedRole(IamClient iam) {
 
         try {
 
             CreateServiceLinkedRoleRequest request = CreateServiceLinkedRoleRequest.builder()
-                    .awsServiceName("elasticbeanstalk.amazonaws.com")
-                    .description("An IAM elastic beanstalk role")
+                    .awsServiceName("email.cognito-idp.amazonaws.com")
+                    .description("An email.cognito role")
                     .build();
 
             CreateServiceLinkedRoleResponse response = iam.createServiceLinkedRole(request);
-            System.out.println("The ARN of the linked role is " +response.role().arn());
+            return response.role().roleName();
+
+        } catch (IamException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+
+        return "" ;
+    }
+
+    public static void  deleteServiceLinkedRole(IamClient iam, String roleName) {
+
+        try {
+
+            DeleteServiceLinkedRoleRequest request = DeleteServiceLinkedRoleRequest.builder()
+                    .roleName(roleName)
+                    .build();
+
+            iam.deleteServiceLinkedRole(request);
+            System.out.println("Deleted the service linked role");
 
         } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-
 
 
     public static Boolean createIAMUser(IamClient iam, String username ) {
@@ -489,7 +511,6 @@ public class IAMScenario {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
     }
 
 
