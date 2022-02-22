@@ -50,13 +50,17 @@ namespace IAM_Basics_Scenario
 
 public static async Task Main()
         {
+            DisplayInstructions();
+
             // First create the IAM client object.
             var client = new AmazonIdentityManagementServiceClient(Region);
 
             // First create a user. When created, the new user has
             // no permissions.
+            Console.WriteLine($"Creating a new user with user name: {UserName}.")
             var user = await CreateUserAsync(client, UserName);
             var userArn = user.Arn;
+            Console.WriteLine($"Successfully created user: {UserName} with ARN: {userArn}.");
 
             // Create an AccessKey for the user.
             var accessKey = await CreateAccessKeyAsync(client, userArn);
@@ -220,6 +224,34 @@ public static async Task Main()
         }
 
         // snippet-end:[S3.dotnetv3.ListBucketsAsync]
+
+        /// <summary>
+        /// Shows the information for the application.
+        /// </summary>
+        public static void DisplayInstructions()
+        {
+            var separator = new string('-', 80);
+
+            Console.WriteLine(separator);
+            Console.WriteLine("IAM Basics");
+            Console.WriteLine("This application uses the basic features of the AWS Identity and Access");
+            Console.WriteLine("Management (IAM) creating, managing, and controlling access to resources for");
+            Console.WriteLine("users. The application was created using the AWS SDK for .NET version 3.7 and");
+            Console.WriteLine(".NET Core 5. The application performs the following actions:");
+            Console.WriteLine();
+            Console.WriteLine("1. Creates a user with no permissions");
+            Console.WriteLine("2. Creates a rolw and policy that grants s3:ListAllMyBuckets permission");
+            Console.WriteLine("3. Grants the user permission to assume the role");
+            Console.WriteLine("4. Creates an Amazon Simple Storage Service (Amazon S3) client and tries");
+            Console.WriteLine("   to list buckets. (This should fail.)");
+            Console.WriteLine("5. Gets temporary credentials by assuming the role.");
+            Console.WriteLine("6. Creates an Amazon S3 client object with the temporary credentials and");
+            Console.WriteLine("   lists the buckets. (This time it should work.)");
+            Console.WriteLine("7. Deletes all of the resources created.");
+            Console.WriteLine(separator);
+            Console.WriteLine("Press <Enter> to continue.");
+            Console.ReadLine();
+        }
     }
 
     // snippet-end:[IAM.dotnetv3.IAM_BasicsScenario]
