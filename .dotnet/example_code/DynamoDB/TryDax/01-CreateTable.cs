@@ -1,12 +1,3 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[dotNET]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[dynamodb.dotNET.trydax.01-CreateTable] 
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
