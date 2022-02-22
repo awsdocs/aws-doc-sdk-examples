@@ -8,7 +8,18 @@ The examples in this section show how to manage AWS permissions for users and gr
 
 ### Scenario examples
 
-- [IAMUserExample](IAMUserExample/IAMUserExample/) (``)
+- [IAMUserExample](IAMUserExample/IAMUserExample/) - This application uses the
+  basic features of the AWS Identity and Access Management (IAM) creating,
+  managing, and controlling access to resources for users. The application was
+  created using the AWS SDK for .NET version 3.7 and .NET Core 5. The application
+  the following API commands:
+
+  - CreateUsserAsync
+  - CreatePolicyAsync
+  - CreateAccessKeyAsync
+  - CreatePolicyAsync
+  - DeleteUserAsync
+
 - [IAM Basics](IAM_Basics_Scenario/)
 
 ### API examples
