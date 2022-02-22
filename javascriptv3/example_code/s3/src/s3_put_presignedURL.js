@@ -1,6 +1,6 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
-ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
 which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
 
@@ -55,11 +55,10 @@ export const run = async () => {
       `\nPutting "${bucketParams.Key}" using signedUrl with body "${bucketParams.Body}" in v3`
     );
     console.log(signedUrl);
-    const response = await fetch(signedUrl);
+    const response = await fetch(signedUrl, {method: 'PUT', body: bucketParams.Body});
     console.log(
       `\nResponse returned by signed URL: ${await response.text()}\n`
     );
-    return response;
   } catch (err) {
     console.log("Error creating presigned URL", err);
   }

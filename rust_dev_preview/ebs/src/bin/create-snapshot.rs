@@ -5,7 +5,7 @@
 
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_ebs::model::ChecksumAlgorithm;
-use aws_sdk_ebs::ByteStream;
+use aws_sdk_ebs::types::ByteStream;
 use aws_sdk_ebs::{Client, Error, Region, PKG_VERSION};
 use sha2::Digest;
 use structopt::StructOpt;

@@ -4,7 +4,8 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_s3::{ByteStream, Client, Error, Region, PKG_VERSION};
+use aws_sdk_s3::types::ByteStream;
+use aws_sdk_s3::{Client, Error, Region, PKG_VERSION};
 use std::path::Path;
 use std::process;
 use structopt::StructOpt;

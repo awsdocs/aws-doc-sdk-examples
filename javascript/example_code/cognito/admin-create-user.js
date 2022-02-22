@@ -1,10 +1,10 @@
 /* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 2 (v2)
+ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 2 (v2).
 
 Purpose:
-admin-create-user.js demonstrates how to create admin create user from Amazon Cognito by setting a temporary password.
+admin-create-user.js demonstrates how an administrator can use Amazon Cognito to create a user.
 
 Inputs:
  - USERPOOLID
