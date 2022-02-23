@@ -223,7 +223,7 @@ namespace IAMUserExample
 
         // snippet-end:[IAM.dotnetv3.AddUserToGroup]
 
-        // snippet-start:[IAM.dotnetv3.CreateAccessKey]
+        // snippet-start:[IAM.dotnetv3.CreateNewAccessKey]
 
         /// <summary>
         /// Creates a new access key for the user represented by the userName
@@ -256,7 +256,7 @@ namespace IAMUserExample
             }
         }
 
-        // snippet-end:[IAM.dotnetv3.CreateAccessKey]
+        // snippet-end:[IAM.dotnetv3.CreateNewAccessKey]
 
         /// <summary>
         /// Proves that the user has the proper permissions to view the
