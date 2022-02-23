@@ -11,7 +11,7 @@ The examples in this section show how to use Amazon Polly to create applications
 - [GetLexiconExample](GetLexiconExample/) (`GetLexiconAsync`)
 - [ListLexiconsExample](ListLexiconsExample/) (`ListLexiconsAsync`)
 - [PutLexiconExample](PutLexiconExample/) (`PutLexiconAsync`)
-- [SynthesizeSpeechExample/SynthesizeSpeech](SynthesizeSpeechExample/SynthesizeSpeech/) (`SynthesizeSpeechAsync`)
+- [SynthesizeSpeech](SynthesizeSpeechExample/) (`SynthesizeSpeechAsync`)
 - [SynthesizeSpeechMarksExample](SynthesizeSpeechMarksExample/) (`SynthesizeSpeechAsync`)
 
 
