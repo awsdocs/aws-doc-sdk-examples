@@ -56,5 +56,5 @@ namespace ListLexiconsExample
         }
     }
 
-    // snippet-start:[Polly.dotnetv3.ListLexiconsExample]
+    // snippet-end:[Polly.dotnetv3.ListLexiconsExample]
 }

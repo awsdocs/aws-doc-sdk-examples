@@ -55,5 +55,5 @@ namespace DeleteLexiconExample
         }
     }
 
-    // snippet-end:[Polly.dotnetv3.DeleteLexisonExample]
+    // snippet-end:[Polly.dotnetv3.DeleteLexiconExample]
 }
