@@ -27,8 +27,8 @@ struct Opt {
     verbose: bool,
 }
 
-// Displays the address of an endpoint.
-// snippet-start:[iot.rust.describe-endpoint]
+// List the assets under IoT SiteWise.
+// snippet-start:[sitewise.rust.list-assets]
 async fn list_assets(client: &Client, filter: ListAssetsFilter, asset_model_id: Option<String>) -> Result<(), Error> {  
     let resp = client.list_assets()
         .filter(filter)
