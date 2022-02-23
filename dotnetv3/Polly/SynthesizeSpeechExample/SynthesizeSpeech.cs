@@ -6,7 +6,7 @@
 /// speech. It then saves the converted text to an MP3 file. The
 /// code was written against the AWS SDK for .NET 3.5 and .NET 5.
 /// </summary>
-namespace SynthesizeSpeech
+namespace SynthesizeSpeechExample
 {
     // snippet-start:[Polly.dotnetv3.SynthesizeSpeechExample]
     using System;
