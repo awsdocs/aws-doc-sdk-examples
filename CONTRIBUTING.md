@@ -63,8 +63,8 @@ When you submit a new code example to us, we strongly encourage you to include t
 
 * **Provide a README.md file at the root level of your submission to help users save time and effort when they work with your example.** 
   At a minimum, your README.md file should describe what your example demonstrates, call out any prerequisites needed to run it, and then tell users how to run it. 
-  [Here's a good example](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/gov2/s3/README.md) 
-  of a useful README.md file.
+  [Here's a are the README template](https://github.com/awsdocs/aws-doc-sdk-examples/wiki/README-templates) 
+  to use.
 * **Write your code in a modular style to help users more easily copy and reuse it in their own solutions.** 
   By "modular," we mean that your code should accept inputs from the caller and return outputs to the caller. Provide comments in the code that describe these inputs and outputs. Also, don't hard-code input values in modularized code. Instead, provide these values through your unit tests, as described in the next point. 
   [Here's a good example](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/gov2/sts/AssumeRole/AssumeRolev2.go) 
