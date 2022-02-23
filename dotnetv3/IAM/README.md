@@ -24,14 +24,14 @@ The examples in this section show how to manage AWS permissions for users and gr
 
 ### API examples
 
-- [AttachRolePolicyExample](AttachRolePolicyExample/AttachRolePolicyExample/) (`AttachRolePolicyAsync`)
-- [CreateAccessKeyExample](CreateAccessKeyExample/CreateAccessKeyExample/) (`CreateAccessKeyAsync`)
-- [CreatePolicyExample](CreatePolicyExample/CreatePolicyExample/) (`CreatePolicyAsync`)
-- [CreateUserExample](CreateUserExample/CreateUserExample/) (`CreateUserAsync`)
-- [DeleteAccessKeyExample](DeleteAccessKeyExample/DeleteAccessKeyExample/) (`DeleteAccessKeyAsync`)
-- [DeleteRolePolicyExample](DeleteRolePolicyExample/DeleteRolePolicyExample/) (`DeletePolicyAsync`)
-- [DeleteUserExample](DeleteUserExample/DeleteUserExample/) (`DeleteUserAsync`)
-- [DetachRolePolicyExample](DetachRolePolicyExample/DetachRolePolicyExample/) (`DeletePolicyAsync`)
+- [AttachRolePolicyExample](AttachRolePolicyExample/) -  (`AttachRolePolicyAsync`)
+- [CreateAccessKeyExample](CreateAccessKeyExample/) - Creates an access key for an IAM user. (`CreateAccessKeyAsync`)
+- [CreatePolicyExample](CreatePolicyExample/) - Creates an IAM Policy. (`CreatePolicyAsync`)
+- [CreateUserExample](CreateUserExample/) - Creates a new IAM user. (`CreateUserAsync`)
+- [DeleteAccessKeyExample](DeleteAccessKeyExample/) - Deletes an IAM access key. (`DeleteAccessKeyAsync`)
+- [DeleteRolePolicyExample](DeleteRolePolicyExample/) - Deletes an IAM policy. (`DeletePolicyAsync`)
+- [DeleteUserExample](DeleteUserExample/) - Deletes an IAM user. (`DeleteUserAsync`)
+- [DetachRolePolicyExample](DetachRolePolicyExample/) - Deletes an IAM policy. (`DeletePolicyAsync`)
 
 
 ## ⚠️ Important

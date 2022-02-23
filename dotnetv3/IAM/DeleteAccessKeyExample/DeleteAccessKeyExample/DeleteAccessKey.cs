@@ -21,7 +21,7 @@ namespace DeleteAccessKeyExample
         /// </summary>
         public static async Task Main()
         {
-            string accessKeyId = "AKIA2IGW2OYQN4D7PKW3";
+            string accessKeyId = "Put access key ID here.";
             string userName = "DocExampleUser";
             var client = new AmazonIdentityManagementServiceClient();
 
