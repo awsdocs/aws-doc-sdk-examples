@@ -4,7 +4,7 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_iotsitewise::{Client, Error, Region, model::ListAssetsFilter, PKG_VERSION};
+use aws_sdk_iotsitewise::{model::ListAssetsFilter, Client, Error, Region, PKG_VERSION};
 use aws_smithy_types_convert::date_time::DateTimeExt;
 use structopt::StructOpt;
 
@@ -29,8 +29,13 @@ struct Opt {
 
 // List the assets under IoT SiteWise.
 // snippet-start:[sitewise.rust.list-assets]
-async fn list_assets(client: &Client, filter: ListAssetsFilter, asset_model_id: Option<String>) -> Result<(), Error> {  
-    let resp = client.list_assets()
+async fn list_assets(
+    client: &Client,
+    filter: ListAssetsFilter,
+    asset_model_id: Option<String>,
+) -> Result<(), Error> {
+    let resp = client
+        .list_assets()
         .filter(filter)
         .set_asset_model_id(asset_model_id)
         .send()
@@ -42,16 +47,34 @@ async fn list_assets(client: &Client, filter: ListAssetsFilter, asset_model_id: 
         println!("  ID:  {}", asset.id.as_deref().unwrap_or_default());
         println!("  ARN:  {}", asset.arn.as_deref().unwrap_or_default());
         println!("  Name:   {}", asset.name.as_deref().unwrap_or_default());
-        println!("  Asset Model ID:   {}", asset.asset_model_id.as_deref().unwrap_or_default());
-        println!("  Creation Date:   {}", asset.creation_date.unwrap().to_chrono_utc());
-        println!("  Last Update Date:   {}", asset.last_update_date.unwrap().to_chrono_utc());
-        println!("  Current Status:   {}", asset.status.unwrap().state.unwrap().as_str());
+        println!(
+            "  Asset Model ID:   {}",
+            asset.asset_model_id.as_deref().unwrap_or_default()
+        );
+        println!(
+            "  Creation Date:   {}",
+            asset.creation_date.unwrap().to_chrono_utc()
+        );
+        println!(
+            "  Last Update Date:   {}",
+            asset.last_update_date.unwrap().to_chrono_utc()
+        );
+        println!(
+            "  Current Status:   {}",
+            asset.status.unwrap().state.unwrap().as_str()
+        );
 
         println!("  Assets Hierarchies:");
 
         for hierarchy in asset.hierarchies.unwrap() {
-            println!("    Hierarchy ID:   {}", hierarchy.id.as_deref().unwrap_or_default());
-            println!("    Hierarchy Name:   {}", hierarchy.name.as_deref().unwrap_or_default());
+            println!(
+                "    Hierarchy ID:   {}",
+                hierarchy.id.as_deref().unwrap_or_default()
+            );
+            println!(
+                "    Hierarchy Name:   {}",
+                hierarchy.name.as_deref().unwrap_or_default()
+            );
         }
 
         println!();
@@ -82,7 +105,7 @@ async fn list_assets(client: &Client, filter: ListAssetsFilter, asset_model_id: 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
-    let Opt { 
+    let Opt {
         region,
         asset_model_id,
         filter,
@@ -106,7 +129,7 @@ async fn main() -> Result<(), Error> {
 
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
-    let filter : ListAssetsFilter = ListAssetsFilter::from(filter.as_str());
+    let filter: ListAssetsFilter = ListAssetsFilter::from(filter.as_str());
 
     list_assets(&client, filter, asset_model_id).await
 }
