@@ -6,6 +6,7 @@ Contains common test fixtures used to run Amazon S3 tests.
 """
 
 import sys
+import pytest
 # This is needed so Python can find test_tools on the path.
 sys.path.append('../../..')
 from test_tools.fixtures.common import *

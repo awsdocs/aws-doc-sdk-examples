@@ -182,7 +182,7 @@ eventbridge_Scenario_createAndTriggerARule:
   title: Create and trigger a rule in &EVlong; using an &AWS; SDK
   title_abbrev: Create and trigger a rule
   synopsis: create and trigger a rule in &EVlong;.
-  category: Scenario
+  category: Scenarios
   languages:
     Ruby:
       versions:

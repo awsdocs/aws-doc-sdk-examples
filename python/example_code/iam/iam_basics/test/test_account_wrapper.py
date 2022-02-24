@@ -121,3 +121,37 @@ def test_get_credential_report(make_stubber, error_code):
         with pytest.raises(ClientError) as exc_info:
             account_wrapper.get_credential_report()
         assert exc_info.value.response['Error']['Code'] == error_code
+
+
+@pytest.mark.parametrize('error_code', [None, 'TestException', 'NoSuchEntity'])
+def test_get_account_password_policy(make_stubber, error_code):
+    iam_stubber = make_stubber(account_wrapper.iam.meta.client)
+
+    iam_stubber.stub_get_account_password_policy(error_code=error_code)
+    
+    if error_code is None or error_code == 'NoSuchEntity':
+        got_policy = account_wrapper.print_password_policy()
+        assert got_policy if error_code is None else not got_policy
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            account_wrapper.print_password_policy()
+        assert exc_info.value.response['Error']['Code'] == error_code
+
+
+@pytest.mark.parametrize('count, error_code', [
+    (3, None),
+    (0, None),
+    (3, 'TestException')])
+def test_list_saml_providers(make_stubber, count, error_code):
+    iam_stubber = make_stubber(account_wrapper.iam.meta.client)
+    providers = [
+        f"arn:aws:iam::1111222333:saml-provider/provider-{ind}" for ind in range(3)]
+
+    iam_stubber.stub_list_saml_providers(providers, error_code=error_code)
+
+    if error_code is None:
+        account_wrapper.list_saml_providers(3)
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            account_wrapper.list_saml_providers(3)
+        assert exc_info.value.response['Error']['Code'] == error_code

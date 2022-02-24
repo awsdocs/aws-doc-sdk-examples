@@ -1,0 +1,12 @@
+{
+  "name": "s3_basics",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.32.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module"
+}

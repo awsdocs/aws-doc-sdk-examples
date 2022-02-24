@@ -1,0 +1,5 @@
+amazon-dax-client>=1.1.7
+boto3>=1.18.50
+botocore>=1.21.50
+pytest>=6.0.2
+requests>=2.25.1

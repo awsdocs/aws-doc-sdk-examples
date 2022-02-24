@@ -23,7 +23,6 @@ authenticate (federated users).*
 
 ### Scenario examples
 
-* [Assume an IAM role](assume_role.py)
 * [Assume an IAM role that requires an MFA token](assume_role_mfa.py)
 * [Construct a URL for federated users](federated_url.py)
 * [Get a session token that requires an MFA token](session_token.py)
@@ -58,51 +57,17 @@ authenticate (federated users).*
 ### Command
 
 This module contains several demonstrations of how to get temporary credentials:
-* Assume a role with and without MFA.
+* Assume a role with MFA.
 * Get a session token to access APIs that require MFA.
 * Construct a federated URL that lets you connect to another AWS account through 
 the AWS Management Console with limited permissions.
 
-You can run each script from a command window. For example, to see the *assume role*
+You can run each script from a command window. For example, to see the *assume role MFA*
 demo, run the following at a command prompt.
 
 ```
-python assume_role.py
+python assume_role_mfa.py
 ``` 
-
-#### assume_role.py
-
-Shows how to get temporary credentials by assuming a role that grants specific 
-permissions, and how to use those credentials to perform permitted actions.
-
-This example shows how to use AWS STS when you need more control than is available 
-from the Boto3 credential provider. For many scenarios, you can add a profile to 
-your credentials file so that Boto3 assumes a role on your behalf. 
-For more information, see 
-[Assume role provider](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html#assume-role-provider) 
-in the Boto3 *Credentials user guide*.
-
-The demonstration has three parts: setup, usage, and teardown.
-
-##### Setup
-
-* Creates a user, a role, and a policy.
-* The user has permission only to assume the role.
-* For demo purposes, the user is created in the current account, but in practice
-  the user could be from another account. 
-* The role allows the user to assume it.
-* The policy is attached to the role and allows listing all buckets in the account.
-
-##### Usage
-
-* Tries to list buckets without first assuming the role. This fails with an
-  AccessDenied error.
-* Assumes the role and uses temporary credentials to list the buckets for the
-  account. This succeeds because the temporary credentials grant the permissions
-  defined in the assumed role's policy.
-
-##### Teardown
-* Removes all resources created during setup.
 
 #### assume_role_mfa.py
 

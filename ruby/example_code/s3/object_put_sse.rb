@@ -8,10 +8,10 @@
 # block cipher.
 
 # snippet-start:[s3.ruby.s3_encrypt_file_upload.rb]
-require 'aws-sdk-s3'
+require "aws-sdk-s3"
 
 # Wraps Amazon S3 object actions.
-class ObjectWrapper
+class ObjectPutSseWrapper
   attr_reader :object
 
   # @param object [Aws::S3::Object] An existing Amazon S3 object.
@@ -22,19 +22,19 @@ class ObjectWrapper
   def put_object_encrypted(object_content, encryption)
     @object.put(body: object_content, server_side_encryption: encryption)
     true
-  rescue StandardError => e
+  rescue Aws::Errors::ServiceError => e
     puts "Couldn't put your content to #{object.key}. Here's why: #{e.message}"
     false
   end
 end
 
 def run_demo
-  bucket_name = 'doc-example-bucket'
-  object_key = 'my-encrypted-content'
-  object_content = 'This is my super-secret content.'
-  encryption = 'AES256'
+  bucket_name = "doc-example-bucket"
+  object_key = "my-encrypted-content"
+  object_content = "This is my super-secret content."
+  encryption = "AES256"
 
-  wrapper = ObjectWrapper.new(Aws::S3::Object.new(bucket_name, object_content))
+  wrapper = ObjectPutSseWrapper.new(Aws::S3::Object.new(bucket_name, object_content))
   return unless wrapper.put_object_encrypted(object_content, encryption)
 
   puts "Put your content into #{bucket_name}:#{object_key} and encrypted it with #{encryption}."

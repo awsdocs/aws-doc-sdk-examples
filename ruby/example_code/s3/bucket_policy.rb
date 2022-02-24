@@ -7,7 +7,7 @@
 # Amazon Simple Storage Service (Amazon S3) bucket.
 
 # snippet-start:[ruby.example_code.s3.Scenario_BucketPolicyBasics]
-require 'aws-sdk-s3'
+require "aws-sdk-s3"
 
 # snippet-start:[ruby.example_code.s3.helper.BucketPolicyWrapper]
 # Wraps an Amazon S3 bucket policy.
@@ -27,7 +27,7 @@ class BucketPolicyWrapper
   def get_policy
     policy = @bucket_policy.data.policy
     policy.respond_to?(:read) ? policy.read : policy
-  rescue StandardError => e
+  rescue Aws::Errors::ServiceError => e
     puts "Couldn't get the policy for #{@bucket_policy.bucket.name}. Here's why: #{e.message}"
     nil
   end
@@ -39,7 +39,7 @@ class BucketPolicyWrapper
   def set_policy(policy)
     @bucket_policy.put(policy: policy)
     true
-  rescue StandardError => e
+  rescue Aws::Errors::ServiceError => e
     puts "Couldn't set the policy for #{@bucket_policy.bucket.name}. Here's why: #{e.message}"
     false
   end
@@ -49,7 +49,7 @@ class BucketPolicyWrapper
   def delete_policy
     @bucket_policy.delete
     true
-  rescue StandardError => e
+  rescue Aws::Errors::ServiceError => e
     puts "Couldn't delete the policy from #{@bucket_policy.bucket.name}. Here's why: #{e.message}"
     false
   end
@@ -59,14 +59,14 @@ end
 # snippet-end:[ruby.example_code.s3.helper.end.BucketPolicyWrapper]
 
 def run_demo
-  bucket_name = 'doc-example-bucket'
-  policy_user = 'arn:aws:iam::111122223333:user/Martha'
+  bucket_name = "doc-example-bucket"
+  policy_user = "arn:aws:iam::111122223333:user/Martha"
   policy = {
-    'Version': '2012-10-17',
-    'Id': 'DemoBucketPolicy',
+    'Version': "2012-10-17",
+    'Id': "DemoBucketPolicy",
     'Statement': [
       {
-        'Effect': 'Allow',
+        'Effect': "Allow",
         'Principal': { 'AWS': policy_user },
         'Action': %w[s3:GetObject s3:ListBucket],
         'Resource': %W[arn:aws:s3:::#{bucket_name}/* arn:aws:s3:::#{bucket_name}]

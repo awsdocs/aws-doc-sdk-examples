@@ -7,10 +7,10 @@
 # target object.
 
 # snippet-start:[s3.ruby.copy_object_encrypt_copy.rb]
-require 'aws-sdk-s3'
+require "aws-sdk-s3"
 
 # Wraps Amazon S3 object actions.
-class ObjectWrapper
+class ObjectCopyEncryptWrapper
   attr_reader :source_object
 
   # @param source_object [Aws::S3::Object] An existing Amazon S3 object. This is used as the source object for
@@ -27,7 +27,7 @@ class ObjectWrapper
   def copy_object(target_bucket, target_object_key, encryption)
     @source_object.copy_to(bucket: target_bucket.name, key: target_object_key, server_side_encryption: encryption)
     target_bucket.object(target_object_key)
-  rescue StandardError => e
+  rescue Aws::Errors::ServiceError => e
     puts "Couldn't copy #{@source_object.key} to #{target_object_key}. Here's why: #{e.message}"
   end
 end
@@ -35,14 +35,14 @@ end
 # Replace the source and target bucket names with existing buckets you own and replace the source object key
 # with an existing object in the source bucket.
 def run_demo
-  source_bucket_name = 'doc-example-bucket1'
-  source_key = 'my-source-file.txt'
-  target_bucket_name = 'doc-example-bucket2'
-  target_key = 'my-target-file.txt'
-  target_encryption = 'AES256'
+  source_bucket_name = "doc-example-bucket1"
+  source_key = "my-source-file.txt"
+  target_bucket_name = "doc-example-bucket2"
+  target_key = "my-target-file.txt"
+  target_encryption = "AES256"
 
   source_bucket = Aws::S3::Bucket.new(source_bucket_name)
-  wrapper = ObjectWrapper.new(source_bucket.object(source_key))
+  wrapper = ObjectCopyEncryptWrapper.new(source_bucket.object(source_key))
   target_bucket = Aws::S3::Bucket.new(target_bucket_name)
   target_object = wrapper.copy_object(target_bucket, target_key, target_encryption)
   return unless target_object
