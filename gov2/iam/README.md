@@ -15,6 +15,10 @@ in the AWS SDK for Go Developer Guide.
 
 ## Running the code
 
+### common/main.go
+
+This example demonstrates the most common IAM actions. 
+
 ### AccessKeyLastUsed/AccessKeyLastUsedv2.go
 
 This example retrieves when an IAM access key was last used, 
@@ -54,26 +58,6 @@ This example creates an alias for your IAM account.
 
 The unit test accepts a similar value in _config.json_.
 
-### CreatePolicy/CreatePolicyv2.go
-
-This example creates an IAM policy.
-
-`go run CreatePolicyv2.go -n POLICY-NAME`
-
-- _POLICY-NAME_ is the name of the policy to create.
-
-The unit test accepts a similar value in _config.json_.
-
-### CreateUser/CreateUserv2.go
-
-This example creates an IAM user. 
-
-`go run CreateUserv2.go -u USER-NAME`
-
-- _USER-NAME_ is the name of the user to create.
-
-The unit test accepts a similar value in _config.json_.
-
 ### DeleteAccessKey/DeleteAccessKeyv2.go
 
 This example deletes an IAM access key.
@@ -105,16 +89,6 @@ This example deletes an IAM server certificate.
 
 The unit test accepts a similar value in _config.json_.
 
-### DeleteUser/DeleteUserv2.go
-
-This example deletes an IAM user.
-
-`go run DeleteUserv2.go -u USER-NAME`
-
-- _USER-NAME_ is the name of the user to delete.
-
-The unit test accepts a similar value in _config.json_.
-
 ### DetachUserPolicy/DetachUserPolicyv2.go
 
 This example detaches an Amazon DynamoDB full-access policy from an IAM role.
@@ -125,15 +99,6 @@ This example detaches an Amazon DynamoDB full-access policy from an IAM role.
 
 The unit test accepts a similar value in _config.json_.
 
-### GetPolicy/GetPolicyv2.go
-
-This example retrieves the description of the IAM policy with the specified ARN.
-
-`go run GetPolicyv2.go -p POLICY-ARN`
-
-- _POLICY-ARN_ is the ARN of the policy.
-
-The unit test accepts a similar value in _config.json_.
 
 ### GetServerCert/GetServerCertv2.go
 
@@ -184,16 +149,7 @@ This example retrieves the server certificates.
 
 `go run ListServerCertsv2.go`
 
-### ListUsers/ListUsersv2.go
 
-This example retrieves a list of your IAM users.
-
-`go run ListUsersv2.go [-m MAX-USERS]`
-
-- _MAX-USERS_ is the maximum number of users to list.
-  The code example restricts this to the range of 0 to 100.
-  The default value is 10.
-  
 ### UpdateAccessKey/UpdateAccessKeyv2.go
 
 This example sets the status of an IAM access key to active.

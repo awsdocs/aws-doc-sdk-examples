@@ -1,3 +1,9 @@
+//snippet-sourcedescription:[Common IAM actions with the AWS SDK for Go v2]
+//snippet-keyword:[iam]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[02/22/2022]
+//snippet-sourceauthor:[gangwere]
+//snippet-start:[iam.go-v2.iam_basics]
 package main
 
 import (
@@ -7,6 +13,11 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/iam"
+)
+
+const (
+	UserName = "bob"
+	RoleName = "SandwichRole"
 )
 
 func main() {
@@ -22,6 +33,7 @@ func main() {
 
 	service := iam.NewFromConfig(cfg)
 
+	//snippet-start:[iam.go-v2.ListRoles]
 	// ListRoles
 
 	roles, err := service.ListRoles(context.Background(), &iam.ListRolesInput{})
@@ -39,10 +51,12 @@ func main() {
 			idxRole.Description)
 	}
 
-	// CreateRole
+	//snippet-end:[iam.go-v2.ListRoles]
 
+	//snippet-start:[iam.go-v2.CreateRole]
+	// CreateRole
 	myRole, err := service.CreateRole(context.Background(), &iam.CreateRoleInput{
-		RoleName:    aws.String("MySuperAwesomeRole"),
+		RoleName:    aws.String(RoleName),
 		Description: aws.String("My super awesome example role"),
 	})
 
@@ -52,8 +66,10 @@ func main() {
 
 	fmt.Printf("The new role's ARN is %v \n", myRole.Role.Arn)
 
+	//snippet-end:[iam.go-v2.CreateRole]
 	roleName := myRole.Role.RoleName
 
+	//snippet-start:[iam.go-v2.GetRole]
 	// GetRole
 
 	getRoleResult, err := service.GetRole(context.Background(), &iam.GetRoleInput{
@@ -68,6 +84,9 @@ func main() {
 	fmt.Println("Name: ", getRoleResult.Role.RoleName)
 	fmt.Println("Created On: ", getRoleResult.Role.CreateDate)
 
+	//snippet-end:[iam.go-v2.GetRole]
+
+	//snippet-start:[iam.go-v2.AttachRolePolicy]
 	// AttachRolePolicy
 
 	_, err = service.AttachRolePolicy(context.Background(), &iam.AttachRolePolicyInput{
@@ -78,6 +97,8 @@ func main() {
 	if err != nil {
 		panic("Couldn't apply a policy to the role!")
 	}
+	//snippet-end:[iam.go-v2.AttachRolePolicy]
+	//snippet-start:[iam.go-v2.ListRolePolicies]
 
 	// ListRolePolicies
 
@@ -85,9 +106,15 @@ func main() {
 		RoleName: roleName,
 	})
 
+	if err != nil {
+		panic("Couldn't list policies for role: " + err.Error())
+	}
+
 	for _, rolePolicy := range rolePoliciesList.PolicyNames {
 		fmt.Printf("Policy ARN: %v", rolePolicy)
 	}
+	//snippet-end:[iam.go-v2.ListRolePolicies]
+	//snippet-start:[iam.go-v2.ListAttachedRolePolicies]
 
 	// ListAttachedRolePolicies
 
@@ -102,7 +129,9 @@ func main() {
 	for _, attachedPolicy := range attachedPoliciesList.AttachedPolicies {
 		fmt.Printf("attached policy: %v\n (%v) \n", attachedPolicy.PolicyArn, attachedPolicy.PolicyName)
 	}
+	//snippet-end:[iam.go-v2.ListAttachedRolePolicies]
 
+	//snippet-start:[iam.go-v2.CreateServiceLinkedRole]
 	// CreateServiceLinkedRole
 
 	createSlrResult, err := service.CreateServiceLinkedRole(context.Background(), &iam.CreateServiceLinkedRoleInput{
@@ -116,10 +145,12 @@ func main() {
 
 	fmt.Printf("Created Service Linked Role with ARN %v\n", createSlrResult.Role.Arn)
 
+	//snippet-end:[iam.go-v2.CreateServiceLinkedRole]
+	//snippet-start:[iam.go-v2.CreateUser]
 	// CreateUser
 
 	createUserResult, err := service.CreateUser(context.Background(), &iam.CreateUserInput{
-		UserName: aws.String("dademurphy"),
+		UserName: aws.String(UserName),
 	})
 
 	if err != nil {
@@ -127,7 +158,9 @@ func main() {
 	}
 
 	fmt.Printf("Created user %v\n", createUserResult.User.Arn)
+	//snippet-end:[iam.go-v2.CreateUser]
 
+	//snippet-start:[iam.go-v2.ListUsers]
 	// ListUsers
 
 	userListResult, err := service.ListUsers(context.Background(), &iam.ListUsersInput{})
@@ -137,6 +170,8 @@ func main() {
 	for _, userResult := range userListResult.Users {
 		fmt.Printf("%v\t%v\n", userResult.UserName, userResult.UserName)
 	}
+	//snippet-end:[iam.go-v2.ListUsers]
+	//snippet-start:[iam.go-v2.GetAccountPasswordPolicy]
 	// GetAccountPasswordPolicy
 
 	accountPasswordPolicy, err := service.GetAccountPasswordPolicy(context.Background(), &iam.GetAccountPasswordPolicyInput{})
@@ -149,6 +184,8 @@ func main() {
 	fmt.Println("Passwords expire: ", accountPasswordPolicy.PasswordPolicy.ExpirePasswords)
 	fmt.Println("Minimum password length: ", accountPasswordPolicy.PasswordPolicy.MinimumPasswordLength)
 
+	//snippet-end:[iam.go-v2.GetAccountPasswordPolicy]
+	//snippet-start:[iam.go-v2.CreatePolicy]
 	// CreatePolicy
 
 	policyDocument := `{
@@ -182,9 +219,11 @@ func main() {
 	}
 
 	fmt.Print("Created a new policy: " + *createPolicyResult.Policy.Arn)
+	//snippet-end:[iam.go-v2.CreatePolicy]
 
 	policyArn := createPolicyResult.Policy.Arn
 
+	//snippet-start:[iam.go-v2.ListPolicies]
 	// ListPolicies
 
 	policyListResponse, err := service.ListPolicies(context.Background(), &iam.ListPoliciesInput{})
@@ -197,6 +236,8 @@ func main() {
 		fmt.Printf("%v\t%v\n%v\n", policy.PolicyName, policy.Arn, policy.Description)
 	}
 
+	//snippet-end:[iam.go-v2.ListPolicies]
+	//snippet-start:[iam.go-v2.Getpolicy]
 	// GetPolicy
 
 	getPolicyResponse, err := service.GetPolicy(context.Background(), &iam.GetPolicyInput{
@@ -212,6 +253,8 @@ func main() {
 		getPolicyResponse.Policy.PolicyName,
 		getPolicyResponse.Policy.Description)
 
+	//snippet-end:[iam.go-v2.Getpolicy]
+	//snippet-start:[iam.go-v2.ListGroups]
 	// ListGroups
 
 	listGroupsResult, err := service.ListGroups(context.Background(), &iam.ListGroupsInput{})
@@ -223,7 +266,9 @@ func main() {
 	for _, group := range listGroupsResult.Groups {
 		fmt.Printf("group %v - %v\n", group.GroupName, group.Arn)
 	}
+	//snippet-end:[iam.go-v2.ListGroups]
 
+	//snippet-start:[iam.go-v2.ListSAMLProviders]
 	// ListSAMLProviders
 
 	samlProviderList, err := service.ListSAMLProviders(context.Background(), &iam.ListSAMLProvidersInput{})
@@ -236,14 +281,19 @@ func main() {
 		fmt.Printf("%v %v -> %v", provider.Arn, provider.CreateDate, provider.ValidUntil)
 	}
 
+	//snippet-end:[iam.go-v2.ListSAMLProviders]
+	//snippet-start:[iam.go-v2.DeleteUser]
 	// DeleteUser
 
 	_, err = service.DeleteUser(context.Background(), &iam.DeleteUserInput{
-		UserName: aws.String("dademurphy"),
+		UserName: aws.String(UserName),
 	})
 
 	if err != nil {
 		panic("Couldn't delete user")
 	}
+	//snippet-end:[iam.go-v2.DeleteUser]
 
 }
+
+//snippet-end:[iam.go-v2.iam_basics]
