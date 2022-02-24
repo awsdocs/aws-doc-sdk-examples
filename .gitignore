@@ -12,3 +12,4 @@ vendor/
 venv
 .*~
 xcuserdata
+.swiftpm
