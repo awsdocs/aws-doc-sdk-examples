@@ -1534,24 +1534,6 @@ iam_Scenario_UserPolicies:
     the bucket.
   category: Scenarios
   languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/iam
-          sdkguide:
-          excerpts:
-            - description: Create functions that wrap &IAM; user actions.
-              snippet_tags:
-                - iam.kotlin.scenario.main
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/iam
-          sdkguide:
-          excerpts:
-            - description: Create functions that wrap &IAM; user actions.
-              snippet_tags:
-                - iam.java2.scenario.main
     Python:
       versions:
         - sdk_version: 3
@@ -1756,6 +1738,24 @@ iam_Scenario_CreateUserAssumeRole:
     credentials to access an &AWS; resource.
   category: Scenarios
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iam
+          sdkguide:
+          excerpts:
+            - description: Create functions that wrap &IAM; user actions.
+              snippet_tags:
+                - iam.kotlin.scenario.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create functions that wrap &IAM; user actions.
+              snippet_tags:
+                - iam.java2.scenario.main
     Python:
       versions:
         - sdk_version: 3
