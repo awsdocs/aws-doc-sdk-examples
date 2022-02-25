@@ -15,6 +15,7 @@ namespace IAM_Basics_Scenario
     using Amazon.IdentityManagement.Model;
     using Amazon.S3;
     using Amazon.S3.Model;
+    using Amazon.SecurityToken;
 
     public class IAM_Basics
     {
@@ -72,7 +73,11 @@ public static async Task Main()
             // have permissions to perform this task.
             var s3Client = new AmazonS3Client(accessKeyId, secretAccessKey);
 
+            // Try to list the buckets using the client created with
+            // the new user's credentials.
+            _ = await ListMyBucketsAsync(s3Client);
 
+            // Trust the user to assume the role.
             string AccessPermissions = @"{
                 'Version': '2012-10-17',
                 'Statement': [
@@ -90,8 +95,9 @@ public static async Task Main()
             // (Amazon S3) buckets. Role names are not case sensitive and must
             // be unique to the account for which it is created.
             var role = await CreateRoleAsync(client, RoleName, RolePermissions);
-            var policyArn = role.Arn;
+            var roleArn = role.Arn;
 
+            var stsClient = new AmazonSecurityTokenServiceClient();
 
         }
 
@@ -122,6 +128,12 @@ public static async Task Main()
 
         // snippet-start:[IAM.dotnetv3.CreateAccessKey]
 
+        /// <summary>
+        /// Create a new AccessKey for the user.
+        /// </summary>
+        /// <param name="client">The initialized IAM client object.</param>
+        /// <param name="userName">The name of the user for whom to create the key.</param>
+        /// <returns></returns>
         public static async Task<AccessKey> CreateAccessKeyAsync(
             AmazonIdentityManagementServiceClient client,
             string userName)
@@ -209,7 +221,7 @@ public static async Task Main()
 
                 // Loop through the list and print each bucket's name
                 // and creation date.
-                Console.WriteLine("\n--------------------------------------------------------------------------------------------------------------");
+                Console.WriteLine(new string('-', 80);
                 Console.WriteLine("Listing S3 buckets:\n");
                 response.Buckets
                     .ForEach(b => Console.WriteLine($"Bucket name: {b.BucketName}, created on: {b.CreationDate}"));
@@ -226,7 +238,7 @@ public static async Task Main()
         // snippet-end:[S3.dotnetv3.ListBucketsAsync]
 
         /// <summary>
-        /// Shows the information for the application.
+        /// Shows the a description of the features of the program.
         /// </summary>
         public static void DisplayInstructions()
         {
