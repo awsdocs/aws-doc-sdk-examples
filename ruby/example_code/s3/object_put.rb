@@ -6,7 +6,7 @@
 # Shows how to put a local file into an object in an Amazon Simple Storage Service (Amazon S3) bucket.
 
 # snippet-start:[s3.ruby.upload_files_using_put_object_method.rb]
-require 'aws-sdk-s3'
+require "aws-sdk-s3"
 
 # Wraps Amazon S3 object actions.
 class ObjectPutWrapper
@@ -18,7 +18,7 @@ class ObjectPutWrapper
   end
 
   def put_object(source_file_path)
-    File.open(source_file_path, 'rb') do |file|
+    File.open(source_file_path, "rb") do |file|
       @object.put(body: file)
     end
     true
@@ -29,9 +29,9 @@ class ObjectPutWrapper
 end
 
 def run_demo
-  bucket_name = 'doc-example-bucket'
-  object_key = 'my-object-key'
-  file_path = 'my-local-file.txt'
+  bucket_name = "doc-example-bucket"
+  object_key = "my-object-key"
+  file_path = "my-local-file.txt"
 
   wrapper = ObjectPutWrapper.new(Aws::S3::Object.new(bucket_name, object_key))
   success = wrapper.put_object(file_path)
