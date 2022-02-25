@@ -10,7 +10,6 @@ use tokio_stream::StreamExt;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-   
     /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
@@ -19,10 +18,7 @@ struct Opt {
 // List accelerator names and ARNs.
 // snippet-start:[globalaccelerator.rust.globalaccelerator-helloworld]
 async fn show_accelerators(client: &Client) -> Result<(), Error> {
-    let mut paginator = client
-        .list_accelerators()
-        .into_paginator()
-        .send();
+    let mut paginator = client.list_accelerators().into_paginator().send();
 
     while let Some(page) = paginator.try_next().await? {
         for accelerator in page.accelerators().unwrap_or_default().iter() {
@@ -33,7 +29,6 @@ async fn show_accelerators(client: &Client) -> Result<(), Error> {
             println!("Accelerator ARN : {}", accelerator_arn);
             println!();
         }
-
     }
 
     Ok(())
