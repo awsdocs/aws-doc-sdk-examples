@@ -12,3 +12,5 @@ vendor/
 venv
 .*~
 xcuserdata
+.swiftpm
+Package.resolved
