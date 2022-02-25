@@ -881,6 +881,25 @@ dynamodb_Scenario_GettingStartedMovies:
     - Delete the table.
   category: Scenarios
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: Create a &DDB; table.
+              snippet_tags:
+                - dynamodb.java2.scenario.create_table.main
+            - description: Create a helper function to download and extract the
+                  sample JSON file.
+              snippet_tags:
+                - dynamodb.java2.scenario.populate_table.main
+            - description: Get an item from a table.
+              snippet_tags:
+                - dynamodb.java2.scenario.get_item.main
+            - description: Full example.
+              snippet_tags:
+                - dynamodb.java2.scenario.main
     Python:
       versions:
         - sdk_version: 3
