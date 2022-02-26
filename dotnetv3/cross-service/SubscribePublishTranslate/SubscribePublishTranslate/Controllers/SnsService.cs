@@ -14,11 +14,11 @@ namespace SNSExample.Controllers
 
     public class SnsService
     {
-        private static readonly string TopicArn = "arn:aws:sns:us-east-2:704825161248:ExampleSNSTopic"; //"<PUT TOPIC ARN HERE>";
+        private static readonly string TopicArn = "<PUT TOPIC ARN HERE>";
 
         public async Task<string> UnSubEmail(string email)
         {
-            var client = new AmazonSimpleNotificationServiceClient();
+            var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USEast2);
             var arnValue = await GetSubArn(client, email);
             await RemoveSub(client, arnValue);
             return $"{email} was successfully deleted!";
@@ -26,7 +26,7 @@ namespace SNSExample.Controllers
 
         public async Task<string> PubTopic(string body, string lang)
         {
-            var client = new AmazonSimpleNotificationServiceClient();
+            var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USEast2);
             var message = string.Empty;
 
             switch (lang.ToLower())
@@ -48,14 +48,14 @@ namespace SNSExample.Controllers
 
         public async Task<string> SubEmail(string email)
         {
-            var client = new AmazonSimpleNotificationServiceClient();
+            var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USEast2);
             var subArn = await SubscribeEmail(client, email);
             return subArn;
         }
 
         public async Task<string> GetSubs()
         {
-            var client = new AmazonSimpleNotificationServiceClient();
+            var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USEast2);
             var subscriptions = await GetSubscriptionsListAsync(client);
             var val = DisplaySubscriptionList(subscriptions);
             return val;

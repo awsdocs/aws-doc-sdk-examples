@@ -13,3 +13,4 @@ venv
 .*~
 xcuserdata
 .swiftpm
+Package.resolved
