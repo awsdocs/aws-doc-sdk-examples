@@ -203,6 +203,7 @@ int main(int argc, char* argv[]) {
     // Uncomment the following code to override default global TLS connection options for AWS common runtime libraries.
     // options.ioOptions.tlsConnectionOptions_create_fn = []() {
     //     Aws::Crt::Io::TlsContextOptions tlsCtxOptions = Aws::Crt::Io::TlsContextOptions::InitDefaultClient();
+    //     tlsCtxOptions.OverrideDefaultTrustStore(<CaPathString>, <CaCertString>);
     //     Aws::Crt::Io::TlsContext tlsContext(tlsCtxOptions, Aws::Crt::Io::TlsMode::CLIENT);
     //     return Aws::MakeShared<Aws::Crt::Io::TlsConnectionOptions>(ALLOCATION_TAG, tlsContext.NewConnectionOptions());
     // };
