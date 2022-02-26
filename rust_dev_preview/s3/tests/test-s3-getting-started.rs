@@ -7,6 +7,7 @@ use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_s3::{Client, Error, Region};
 use uuid::Uuid;
 
+#[ignore]
 #[tokio::test]
 async fn test_it_runs() {
     let (region, client, bucket_name, file_name, key, target_key) = setup().await;

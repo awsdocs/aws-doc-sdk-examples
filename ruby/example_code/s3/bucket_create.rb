@@ -6,7 +6,7 @@
 # Shows how to use the AWS SDK for Ruby to create an Amazon Simple Storage Service (Amazon S3) bucket.
 
 # snippet-start:[s3.ruby.create_bucket_snippet.rb]
-require 'aws-sdk-s3'
+require "aws-sdk-s3"
 
 # Wraps Amazon S3 bucket actions.
 class BucketCreateWrapper
@@ -45,7 +45,7 @@ class BucketCreateWrapper
 end
 
 def run_demo
-  region = 'us-west-2'
+  region = "us-west-2"
   wrapper = BucketCreateWrapper.new(Aws::S3::Bucket.new("doc-example-bucket-#{Random.uuid}"))
   return unless wrapper.create?(region)
 

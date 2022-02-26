@@ -99,17 +99,6 @@ Python:
         uid: "boto3"
         name: "&guide-python3-api;"
   guide: "&guide-python3-gsg;"
-Swift:
-  property: swift
-  sdk:
-    1:
-      long: "&Swiftlong;"
-      short: "&Swift;"
-      api_ref:
-        uid: "SdkForSwift"
-        name: "&guide-swift-api;"
-        link_template: "https://awslabs.github.io/aws-sdk-swift/reference/0.x"
-  guide: "&guide-swift-dev;"
 Ruby:
   property: ruby
   sdk:
@@ -132,3 +121,15 @@ Rust:
         name: "&guide-rust-api;"
         link_template: "https://docs.rs/releases/search?query=aws-sdk"
   guide: "&guide-rust-dev;"
+Swift:
+  property: swift
+  sdk:
+    1:
+      long: "&Swiftlong;"
+      short: "&Swift;"
+      caveat: "This is prerelease documentation for an SDK in preview release. It is subject to change."
+      api_ref:
+        uid: "SdkForSwift"
+        name: "&guide-swift-api;"
+        link_template: "https://awslabs.github.io/aws-sdk-swift/reference/0.x"
+  guide: "&guide-swift-dev;"
