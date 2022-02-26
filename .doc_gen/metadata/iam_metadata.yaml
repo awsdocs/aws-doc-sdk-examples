@@ -272,6 +272,13 @@ iam_GetAccountPasswordPolicy:
             - description: Get the account password policy.
               snippet_tags:
                 - iam.JavaScript.getaccountpasswordpolicyV3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam/common
+          excerpts:
+            - snippet_tags: ['iam.go-v2.GetAccountpasswordPolicy']
+              description: ''
   services:
     iam: {GetAccountPasswordPolicy}
 iam_ListSAMLProviders:
@@ -301,6 +308,13 @@ iam_ListSAMLProviders:
             - description: List the SAML providers.
               snippet_tags:
                 - iam.JavaScript.listsamlprovidersV3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam/common
+          excerpts:
+            - snippet_tags: ['iam.go-v2.ListSAMLProviders']
+              description: ''
   services:
     iam: {ListSAMLProviders}
 iam_Scenario_AccountManagement:
@@ -691,6 +705,13 @@ iam_CreatePolicy:
             - description:
               snippet_tags:
                 - iam.JavaScript.policies.createPolicy
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam/common
+          excerpts:
+            - snippet_tags: ['iam.go-v2.CreatePolicy']
+              description: ''
   services:
     iam: {CreatePolicy}
 iam_DeletePolicy:
@@ -784,6 +805,13 @@ iam_ListPolicies:
             - description: List the policies.
               snippet_tags:
                 - iam.JavaScript.listpoliciesv3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam/common
+          excerpts:
+            - snippet_tags: ['iam.go-v2.ListPolicies']
+              description: ''
   services:
     iam: {ListPolicies}
 iam_GetPolicy:
@@ -836,6 +864,13 @@ iam_GetPolicy:
             - description:
               snippet_tags:
                 - python.example_code.iam.GetPolicy
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam/common
+          excerpts:
+            - snippet_tags: ['iam.go-v2.GetPolicy']
+              description: ''
   services:
     iam: {GetPolicy}
 iam_GetPolicyVersion:
@@ -927,6 +962,13 @@ iam_AttachRolePolicy:
             - description:
               snippet_tags:
                 - iam.JavaScript.policies.attachRolePolicy
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam/common
+          excerpts:
+            - snippet_tags: ['iam.go-v2.AttachRolePolicy']
+              description: ''
   services:
     iam: {AttachRolePolicy}
 iam_ListAttachedRolePolicies:
@@ -956,6 +998,13 @@ iam_ListAttachedRolePolicies:
             - description: List the policies that are attached to a role.
               snippet_tags:
                 - iam.JavaScript.listattachedrolepoliciesV3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam/common
+          excerpts:
+            - snippet_tags: ['iam.go-v2.ListAttachedRolePolicies']
+              description: ''
   services:
     iam: {ListAttachedRolePolicies}
 iam_DetachRolePolicy:
@@ -1085,6 +1134,13 @@ iam_CreateRole:
             - description: Create the role.
               snippet_tags:
                 - iam.JavaScript.users.createrolev3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam/common
+          excerpts:
+            - snippet_tags: ['iam.go-v2.CreateRole']
+              description: ''
   services:
     iam: {CreateRole}
 iam_ListRoles:
@@ -1102,6 +1158,13 @@ iam_ListRoles:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListRoles
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam/common
+          excerpts:
+            - snippet_tags: ['iam.go-v2.ListRoles']
+              description: ''
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1143,6 +1206,13 @@ iam_GetRole:
             - description: Get the role.
               snippet_tags:
                 - iam.JavaScript.getRoleV3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam/common
+          excerpts:
+            - snippet_tags: ['iam.go-v2.GetRole']
+              description: ''
   services:
     iam: {GetRole}
 iam_DeleteRole:
@@ -1201,6 +1271,13 @@ iam_ListRolePolicies:
             - description: List the policies.
               snippet_tags:
                 - iam.JavaScript.listrolepoliciesv3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam/common
+          excerpts:
+            - snippet_tags: ['iam.go-v2.ListRolePolicies']
+              description: ''
   services:
     iam: {ListRolePolicies}
 iam_Scenario_RoleManagement:
@@ -1264,7 +1341,7 @@ iam_CreateUser:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/iam
+          github: gov2/iam/common
           excerpts:
             - description: ''
               snippet_tags:
@@ -1388,7 +1465,7 @@ iam_ListUsers:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/iam
+          github: gov2/iam/common
           excerpts:
             - description: ''
               snippet_tags:
@@ -1700,6 +1777,13 @@ iam_ListGroups:
             - description: List the groups.
               snippet_tags:
                 - iam.JavaScript.listgroupsV3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam/common
+          excerpts:
+            - snippet_tags: ['iam.go-v2.ListGroups']
+              description: ''
   services:
     iam: {ListGroups}
 iam_CreateServiceLinkedRole:
@@ -1729,6 +1813,13 @@ iam_CreateServiceLinkedRole:
             - description: Create a service-linked role.
               snippet_tags:
                 - iam.JavaScript.createservicelinkedrolev3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam/common
+          excerpts:
+            - snippet_tags: ['iam.go-v2.CreateServiceLinkedRole']
+              description: ''
   services:
     iam: {CreateServiceLinkedRole}
 iam_Scenario_CreateUserAssumeRole:
