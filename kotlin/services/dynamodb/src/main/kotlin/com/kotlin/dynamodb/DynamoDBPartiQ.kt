@@ -21,13 +21,12 @@ import aws.sdk.kotlin.services.dynamodb.model.ExecuteStatementResponse
 // snippet-end:[dynamodb.kotlin.partiql.import]
 
 /**
-To run this Kotlin code example, ensure that you have set up your development environment,
-including your credentials.
+Before running this Kotlin code example, set up your development environment,
+including your credentials. For more information, see the following topic:
 
-For information, see this documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
- In addition, create the Music table as discussed in this topic:
+ You must also create the Music table as discussed in the following topic:
  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-gettingstarted.html
  */
 
