@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[TranscribeStreamingDemoApp.java transcribes a WAV file. The output is presented on your computer's standard output.]
+// snippet-sourcedescription:[TranscribeStreamingDemoApp.java transcribes a PCM file. The output is presented on your computer's standard output.]
 // snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Amazon Transcribe]
 // snippet-keyword:[Code Sample]
