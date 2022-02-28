@@ -28,9 +28,9 @@ import java.util.List;
  *
  * https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-gettingstarted.html
  *
- * Also, ensure that you have set up your development environment, including your credentials.
+ * You must also have set up your development environment, including your credentials.
  *
- * For information, see this documentation topic:
+ * For more information, see this documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
@@ -68,22 +68,22 @@ public class DynamoDBPartiQ {
         ExecuteStatementResponse resp2 = executeStatementRequest(ddb, "UPDATE Music SET AwardDetail.Grammys =LIST_APPEND(AwardDetail.Grammys,[2016])  where Artist=? and SongTitle=?", parameters);
         processResults(resp2);
 
-        //Add a new string set attribute for an item in the Music table.
+        // Add a new string set attribute for an item in the Music table.
         processResults(executeStatementRequest(ddb, "UPDATE Music SET BandMembers =<<'member1', 'member2'>> where Artist=? and SongTitle=?", parameters));
 
-        //Add a list value for an item in the Music table.
+        // Add a list value for an item in the Music table.
         processResults(executeStatementRequest(ddb, "UPDATE Music SET AwardDetail.Grammys =list_append(AwardDetail.Grammys,[2016])  where Artist=? and SongTitle=?", parameters));
 
-        //Remove a list value for an item in the Music table.
+        // Remove a list value for an item in the Music table.
         processResults(executeStatementRequest(ddb, "UPDATE Music REMOVE AwardDetail.Grammys[2]   where Artist=? and SongTitle=?", parameters));
 
-        //Add a new map member for an item in the Music table.
+        // Add a new map member for an item in the Music table.
         processResults(executeStatementRequest(ddb, "UPDATE Music set AwardDetail.BillBoard=[2020] where Artist=? and SongTitle=?", parameters));
 
-        //Add a new string set attribute for an item in the Music table.
+        // Add a new string set attribute for an item in the Music table.
         processResults(executeStatementRequest(ddb, "UPDATE Music SET BandMembers =<<'member1', 'member2'>> where Artist=? and SongTitle=?", parameters));
 
-        //update a string set attribute for an item in the Music table.
+        // Update a string set attribute for an item in the Music table.
         processResults(executeStatementRequest(ddb, "UPDATE Music SET BandMembers =set_add(BandMembers, <<'newmember'>>) where Artist=? and SongTitle=?", parameters));
 
         System.out.println("This code example has completed");
