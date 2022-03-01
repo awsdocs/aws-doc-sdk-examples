@@ -21,30 +21,22 @@ var request = new ListRolesRequest
     MaxItems = 10,
 };
 
-try
-{
-    var response = new ListRolesResponse();
+var response = new ListRolesResponse();
 
-    do
+do
+{
+    response = await client.ListRolesAsync(request);
+    response.Roles.ForEach(role =>
     {
-        response = await client.ListRolesAsync(request);
-        response.Roles.ForEach(role =>
-        {
-            Console.WriteLine($"{role.RoleName} - ARN {role.Arn}");
-        });
+        Console.WriteLine($"{role.RoleName} - ARN {role.Arn}");
+    });
 
-        // As long as response.IsTruncated is true, set request.Marker equal
-        // to response.Marker and call ListRolesAsync again.
-        if (response.IsTruncated)
-        {
-            request.Marker = response.Marker;
-        }
-    } while (response.IsTruncated);
-
-}
-catch (AmazonIdentityManagementServiceException ex)
-{
-    Console.WriteLine($"Error: {ex.Message}");
-}
+    // As long as response.IsTruncated is true, set request.Marker equal
+    // to response.Marker and call ListRolesAsync again.
+    if (response.IsTruncated)
+    {
+        request.Marker = response.Marker;
+    }
+} while (response.IsTruncated);
 
 // snippet-end:[IAM.dotnetv3.ListRolesExample]

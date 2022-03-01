@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreatePolicyExample", "CreatePolicyExample\CreatePolicyExample.csproj", "{F34E11EF-E60F-480E-84F1-8BD981EF2B1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreatePolicyExample", "CreatePolicyExample.csproj", "{5874F03C-54C4-4422-83AC-280F4DFD5581}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F34E11EF-E60F-480E-84F1-8BD981EF2B1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F34E11EF-E60F-480E-84F1-8BD981EF2B1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F34E11EF-E60F-480E-84F1-8BD981EF2B1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F34E11EF-E60F-480E-84F1-8BD981EF2B1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5874F03C-54C4-4422-83AC-280F4DFD5581}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5874F03C-54C4-4422-83AC-280F4DFD5581}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5874F03C-54C4-4422-83AC-280F4DFD5581}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5874F03C-54C4-4422-83AC-280F4DFD5581}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

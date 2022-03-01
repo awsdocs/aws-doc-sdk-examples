@@ -52,7 +52,7 @@ The examples in this section show how to use AWS Identity and Access Management 
 
 - [AttachRolePolicyExample](AttachRolePolicyExample/AttachRolePolicyExample/)
 - [CreateAccessKeyExample](CreateAccessKeyExample/CreateAccessKeyExample/)
-- [CreatePolicyExample](CreatePolicyExample/CreatePolicyExample/)
+- [CreatePolicyExample](CreatePolicyExample/)
 - [CreateRoleExample](CreateRoleExample/)
 - [CreateServiceLinkedRole](CreateServiceLinkedRole/)
 - [CreateUserExample](CreateUserExample/CreateUserExample/)
