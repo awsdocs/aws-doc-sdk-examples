@@ -40,5 +40,5 @@ namespace AttachRolePolicyExample
         }
     }
 
-    // snippet-end:[IAM.dotnetv3.AttachRolePolicyExample]
+    // snippet-end:[IAM.dotnetv3.AttachRoleExample]
 }

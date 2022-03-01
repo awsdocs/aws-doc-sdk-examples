@@ -1,12 +1,22 @@
 # AWS Identity and Access Management (IAM) code examples for .NET
 
-## Purpose
+## Overview
 
-The examples in this section show how to manage AWS permissions for users and groups.
+The examples in this section show how to use AWS Identity and Access Management (IAM) to manage IAM users, groups, roles, and policies.
+
+## ⚠️ Important
+
+- Running this code might result in charges to your AWS account. 
+- We recommend that you grant your code least privilege, or at most the minimum
+  permissions required to perform the task. For more information, see
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+- This code is not tested in all AWS Regions. For more information, see 
+  [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
+
 
 ## Code examples
 
-### Scenario examples
+### Scenario
 
 - [IAMUserExample](IAMUserExample/IAMUserExample/) - This application uses the
   basic features of the AWS Identity and Access Management (IAM) creating,
@@ -20,36 +30,50 @@ The examples in this section show how to manage AWS permissions for users and gr
   - CreatePolicyAsync
   - DeleteUserAsync
 
-- [IAM Basics](IAM_Basics_Scenario/)
+- [IAM Basics](IAM_Basics_Scenario/) - This example uses AWS Identity and Access
+  Management (IAM) to create a user, and then create a role that can use Amazon Simple
+  Storage Service (Amazon S3) read-only permissions. This example was created using
+  the AWS SDK for .NET version 3.7 and .NET Core 5. The application deletes all
+  resources before exiting. This scenario uses the following API commands:
 
-### API examples
+  - CreateUserAsync
+  - CreateAccessKeyAsync
+  - CreatePolicyAsync
+  - CreateRoleAsync
+  - ListBucketsAsync
+  - AssumeRoleAsync
+  - DeleteUserAsync
+  - DeleteAccessKeyAsync
+  - DeletePolicyAsync
+  - DeleteRoleAsync
+  - DeleteRolePolicyAsync
 
-- [AttachRolePolicyExample](AttachRolePolicyExample/) -  (`AttachRolePolicyAsync`)
-- [CreateAccessKeyExample](CreateAccessKeyExample/) - Creates an access key for an IAM user. (`CreateAccessKeyAsync`)
-- [CreatePolicyExample](CreatePolicyExample/) - Creates an IAM Policy. (`CreatePolicyAsync`)
-- [CreateUserExample](CreateUserExample/) - Creates a new IAM user. (`CreateUserAsync`)
-- [DeleteAccessKeyExample](DeleteAccessKeyExample/) - Deletes an IAM access key. (`DeleteAccessKeyAsync`)
-- [DeleteRolePolicyExample](DeleteRolePolicyExample/) - Deletes an IAM policy. (`DeletePolicyAsync`)
-- [DeleteUserExample](DeleteUserExample/) - Deletes an IAM user. (`DeleteUserAsync`)
-- [DetachRolePolicyExample](DetachRolePolicyExample/) - Deletes an IAM policy. (`DeletePolicyAsync`)
+### Single action
 
+- [AttachRolePolicyExample](AttachRolePolicyExample/AttachRolePolicyExample/)
+- [CreateAccessKeyExample](CreateAccessKeyExample/CreateAccessKeyExample/)
+- [CreatePolicyExample](CreatePolicyExample/CreatePolicyExample/)
+- [CreateRoleExample](CreateRoleExample/)
+- [CreateServiceLinkedRole](CreateServiceLinkedRole/)
+- [CreateUserExample](CreateUserExample/CreateUserExample/)
+- [DeleteAccessKeyExample](DeleteAccessKeyExample/DeleteAccessKeyExample/)
+- [DeleteRolePolicyExample](DeleteRolePolicyExample/DeleteRolePolicyExample/)
+- [DeleteUserExample](DeleteUserExample/DeleteUserExample/)
+- [DetachRolePolicyExample](DetachRolePolicyExample/DetachRolePolicyExample/)
+- [GetAccountPasswordPolicy](GetAccountPasswordPolicy/)
+- [GetAccountPasswordPolicyExample](GetAccountPasswordPolicyExample/)
+- [GetPolicyExample](GetPolicyExample/)
+- [GetRoleExample](GetRoleExample/)
+- [ListAttachedRolePoliciesExample](ListAttachedRolePoliciesExample/)
+- [ListGroupsExample](ListGroupsExample/)
+- [ListPoliciesExample](ListPoliciesExample/)
+- [ListRolePoliciesExample](ListRolePoliciesExample/)
+- [ListRolesExample](ListRolesExample/)
+- [ListSAMLProvidersExample](ListSAMLProvidersExample/)
+- [ListUsersExample](ListUsersExample/)
 
-## ⚠️ Important
-
-- We recommend that grant your code least privilege, or at most the minimum
-  permissions required to perform the task. For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide. 
-- This code has not been tested in all AWS Regions. Some AWS services are
-  available only in specific [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
-- Running this code might result in charges to your AWS account. 
-- Running the unit tests might result in charges to your AWS account. [optional]
 
 ## Running the Examples
-
-The examples in this folder use the default user account. The call to
-initialize the Amazon SQS client supplies the region. Change the region to
-match your own before running the example.
 
 Once the example has been compiled, you can run it from the commandline by
 first navigating to the folder that contains the .csproj file, and then
@@ -65,13 +89,6 @@ Or you can execute the example from within your IDE.
 
 [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
 [AWS SDK for .NET API Reference Guide](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
-
-## Contributing
-
-To propose a new code example to the AWS documentation team, see the
-[CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/CONTRIBUTING.md).
-The team prefers to create code examples that show broad scenarios rather than
-individual API calls. 
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
 
