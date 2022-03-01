@@ -2,7 +2,7 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// Shows how to receive messages from an existing Amazon SQS queue.
+/// Shows how to receive messages from an existing Amazon Simple Queue Service (Amazon SQS) queue.
 /// Reads a single message from the SQS queue, displays the message, then deletes it from the queue.
 /// Can be used in conjunction with SQSSendMessagesExample to see an example of message flow.
 /// See the following for more information:
