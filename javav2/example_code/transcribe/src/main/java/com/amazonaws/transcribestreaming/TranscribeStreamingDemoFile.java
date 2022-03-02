@@ -55,7 +55,7 @@ public class TranscribeStreamingDemoFile {
                 System.exit(1);
            }
 
-        String file = "C:\\AWS\\pcm\\UtteranceA.pcm"; //args[0];
+        String file = args[0];
         client = TranscribeStreamingAsyncClient.builder()
                 .region(REGION)
                 .build();
