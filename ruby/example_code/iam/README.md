@@ -51,11 +51,11 @@ that control which AWS resources users and applications can access.*
 
 ## Running the examples
 
-The scenarios and usage demos can each be run from the command prompt. Some 
+Each scenario and usage demo can be run from the command prompt. Some 
 scenarios run through a script without requiring input. Others interactively ask for 
 more information as they run.
 
-Start a scenario by running it at a command prompt.
+To start a scenario, run it at a command prompt.
 
 ```
 ruby scenario_create_user_assume_role.rb
@@ -73,7 +73,7 @@ Instructions for running the tests for this service can be found in the
 
 ## Additional resources
 
-* [AWS Identity and Access Management Documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
+* [AWS Identity and Access Management User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
 * [AWS Identity and Access Management API Reference](https://docs.aws.amazon.com/IAM/latest/APIReference/welcome.html)
 * [AWS SDK for Ruby Aws::IAM Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/IAM.html)
 

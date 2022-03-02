@@ -3,13 +3,14 @@
 
 # Purpose
 #
-# Shows how to use AWS SDK for Ruby to create an IAM user, assume a role,
-# and perform AWS actions.
+# Shows how to use the AWS SDK for Ruby to create an AWS Identity and Access
+# Management (IAM) user, assume a role, and perform AWS actions.
 #
 # 1. Create a user who has no permissions.
-# 2. Create a role that grants permission to list Amazon S3 buckets for the account.
+# 2. Create a role that grants permission to list Amazon Simple Storage Service
+#    (Amazon S3) buckets for the account.
 # 3. Add a policy to let the user assume the role.
-# 4. Assume the role and list Amazon S3 buckets using temporary credentials.
+# 4. Assume the role and list S3 buckets using temporary credentials.
 # 5. Delete the policy, role, and user.
 
 # snippet-start:[ruby.example_code.iam.Scenario_CreateUserAssumeRole]
@@ -97,8 +98,8 @@ class ScenarioCreateUserAssumeRole
 
   # snippet-start:[ruby.example_code.iam.CreatePolicy]
   # snippet-start:[ruby.example_code.iam.AttachRolePolicy]
-  # Creates a policy that grants permission to list buckets in the account and attaches
-  # it to a role.
+  # Creates a policy that grants permission to list S3 buckets in the account, and
+  # then attaches the policy to a role.
   #
   # @param policy_name [String] The name to give the policy.
   # @param role [Aws::IAM::Role] The role that the policy is attached to.
@@ -162,8 +163,9 @@ class ScenarioCreateUserAssumeRole
     Aws::S3::Resource.new(client: Aws::S3::Client.new(credentials: credentials))
   end
 
-  # Lists buckets for the account, using the specified Amazon S3 resource. The resource
-  # uses credentials with limited access, so it may not be able to list buckets.
+  # Lists the S3 buckets for the account, using the specified Amazon S3 resource.
+  # Because the resource uses credentials with limited access, it may not be able to
+  # list the S3 buckets.
   #
   # @param s3_resource [Aws::S3::Resource] An Amazon S3 resource.
   def list_buckets(s3_resource)
@@ -184,8 +186,8 @@ class ScenarioCreateUserAssumeRole
   end
 
   # snippet-start:[ruby.example_code.sts.AssumeRole]
-  # Creates an AWS STS client with specified credentials. This is separated into a
-  # factory function so that it can be mocked for unit testing.
+  # Creates an AWS Security Token Service (AWS STS) client with specified credentials.
+  # This is separated into a factory function so that it can be mocked for unit testing.
   #
   # @param key_id [String] The ID of the access key used by the STS client.
   # @param key_secret [String] The secret part of the access key used by the STS client.
@@ -193,7 +195,7 @@ class ScenarioCreateUserAssumeRole
     Aws::STS::Client.new(access_key_id: key_id, secret_access_key: key_secret)
   end
 
-  # Get temporary credentials that can be used to assume a role.
+  # Gets temporary credentials that can be used to assume a role.
   #
   # @param role_arn [String] The ARN of the role that is assumed when these credentials
   #                          are used.
@@ -233,7 +235,7 @@ class ScenarioCreateUserAssumeRole
   # snippet-end:[ruby.example_code.iam.DeleteRole]
 
   # snippet-start:[ruby.example_code.iam.DeleteUser]
-  # Deletes a user. If the user has inline policies or access keys, the are deleted
+  # Deletes a user. If the user has inline policies or access keys, they are deleted
   # before the user is deleted.
   #
   # @param user [Aws::IAM::User] The user to delete.
@@ -257,10 +259,10 @@ class ScenarioCreateUserAssumeRole
   # snippet-end:[ruby.example_code.iam.DeleteUser]
 end
 
-# Runs the AWS IAM create a user and assume a role scenario.
+# Runs the IAM create a user and assume a role scenario.
 def run_scenario(scenario)
   puts('-' * 88)
-  puts('Welcome to the AWS IAM create a user and assume a role demo!')
+  puts('Welcome to the IAM create a user and assume a role demo!')
   puts('-' * 88)
 
   user = scenario.create_user("doc-example-user-#{Random.uuid}")
@@ -270,7 +272,7 @@ def run_scenario(scenario)
   scenario.create_and_attach_role_policy("doc-example-role-policy-#{Random.uuid}", role)
   scenario.create_user_policy("doc-example-user-policy-#{Random.uuid}", user, role)
   scenario.wait(10)
-  puts('Try to list buckets with credentials for user who has no permissions.')
+  puts('Try to list buckets with credentials for a user who has no permissions.')
   puts('Expect AccessDenied from this call.')
   scenario.list_buckets(
     scenario.create_s3_resource(Aws::Credentials.new(user_key.id, user_key.secret)))
@@ -287,7 +289,7 @@ def run_scenario(scenario)
   puts('Thanks for watching!')
   puts('-' * 88)
 rescue Aws::Errors::ServiceError => e
-  puts('Something went wrong with the demo!')
+  puts('Something went wrong with the demo.')
   puts("\t#{e.code}: #{e.message}")
 end
 

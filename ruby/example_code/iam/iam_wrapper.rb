@@ -3,8 +3,8 @@
 
 # Purpose
 #
-# Shows how to use the AWS SDK for Ruby to perform common IAM service actions that are
-# not covered in other scenarios.
+# Shows how to use the AWS SDK for Ruby to perform common AWS Identity and Access
+# Management (IAM) actions that are not covered in other scenarios.
 
 require 'aws-sdk-iam'
 
@@ -213,10 +213,10 @@ class IamWrapper
   # snippet-end:[ruby.example_code.iam.DeleteServiceLinkedRole]
 end
 
-# Runs the AWS IAM common service actions demo.
+# Runs the IAM common service actions demo.
 def usage_demo(wrapper)
   puts('-' * 88)
-  puts('Welcome to the AWS IAM common service actions demo!')
+  puts('Welcome to the IAM common actions demo!')
   puts('-' * 88)
 
   count = 10
@@ -252,7 +252,7 @@ def usage_demo(wrapper)
   puts('-' * 88)
 
 rescue Aws::Errors::ServiceError => e
-  puts("Something went wrong with the demo! Here's what:")
+  puts("Something went wrong with the demo. Here are the details:")
   puts("\t#{e.code}: #{e.message}")
 end
 

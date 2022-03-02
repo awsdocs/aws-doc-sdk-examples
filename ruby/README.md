@@ -5,9 +5,9 @@
 The code examples in this topic show you how to use the AWS SDK for Ruby Version 3 
 with AWS. 
 
-The AWS SDK for Ruby Version 3 provides a Ruby API for AWS infrastructure services. 
-Using the SDK, you can build applications on top of Amazon S3, Amazon EC2, 
-Amazon DynamoDB, and more.
+The AWS SDK for Ruby Version 3 provides a Ruby API for AWS infrastructure services.
+Using the SDK, you can build applications on top of AWS services such as Amazon Simple 
+Storage Service (Amazon S3), Amazon Elastic Compute Cloud (Amazon EC2), and Amazon DynamoDB.
 
 ## Types of code examples
 
