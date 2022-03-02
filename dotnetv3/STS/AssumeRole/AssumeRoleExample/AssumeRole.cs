@@ -53,7 +53,7 @@ namespace AssumeRoleExample
             var client2 = new AmazonSecurityTokenServiceClient(credentials: assumeRoleRes.Credentials);
 
             // Get and display information about the caller that has assumed the defined role.
-            var caller2 = await client.GetCallerIdentityAsync(callerIdRequest);
+            var caller2 = await client2.GetCallerIdentityAsync(callerIdRequest);
             Console.WriteLine($"AssumedRole Caller: {caller2.Arn}");
         }
     }
