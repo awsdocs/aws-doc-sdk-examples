@@ -6,7 +6,7 @@
 # Shows how to use the AWS SDK for Ruby to perform common AWS Identity and Access
 # Management (IAM) actions that are not covered in other scenarios.
 
-require 'aws-sdk-iam'
+require "aws-sdk-iam"
 
 # Wraps common IAM service actions.
 class IamWrapper
@@ -135,10 +135,10 @@ class IamWrapper
   def print_account_password_policy
     policy = @iam_resource.account_password_policy
     policy.load
-    puts('The account password policy is:')
+    puts("The account password policy is:")
     puts(policy.data.to_h)
   rescue Aws::Errors::ServiceError => e
-    if e.code == 'NoSuchEntity'
+    if e.code == "NoSuchEntity"
       puts("The account does not have a password policy.")
     else
       puts("Couldn't print the account password policy. Here's why:")
@@ -204,7 +204,7 @@ class IamWrapper
   rescue Aws::Errors::ServiceError => e
     # If AWS has not yet fully propagated the role, it deletes the role but
     # returns NoSuchEntity.
-    if e.code != 'NoSuchEntity'
+    if e.code != "NoSuchEntity"
       puts("Couldn't delete #{role.name}. Here's why:")
       puts("\t#{e.code}: #{e.message}")
       raise
@@ -215,9 +215,9 @@ end
 
 # Runs the IAM common service actions demo.
 def usage_demo(wrapper)
-  puts('-' * 88)
-  puts('Welcome to the IAM common actions demo!')
-  puts('-' * 88)
+  puts("-" * 88)
+  puts("Welcome to the IAM common actions demo!")
+  puts("-" * 88)
 
   count = 10
   puts("Listing up to #{count} roles for the account:")
@@ -237,19 +237,19 @@ def usage_demo(wrapper)
   puts("Listing up to #{count} SAML providers for the account:")
   wrapper.list_saml_providers(count)
   service_name = wrapper.ask_question(
-    'Enter the name of a service to create a service-linked role. '\
+    "Enter the name of a service to create a service-linked role. "\
     "For example, 'elasticbeanstalk.amazonaws.com' or 'batch.amazonaws.com': ")
   role = wrapper.create_service_linked_role(service_name, "Example service-linked role.")
   answer = wrapper.ask_question(
-    'Do you want to delete the role? You should only do this if you are sure '\
-    'it is not being used. (y/n)? ').downcase
-  if answer == 'y'
+    "Do you want to delete the role? You should only do this if you are sure "\
+    "it is not being used. (y/n)? ").downcase
+  if answer == "y"
     puts("Deleting the service-linked role '#{role.name}'.")
     wrapper.delete_service_linked_role(role)
   end
 
-  puts('Thanks for watching!')
-  puts('-' * 88)
+  puts("Thanks for watching!")
+  puts("-" * 88)
 
 rescue Aws::Errors::ServiceError => e
   puts("Something went wrong with the demo. Here are the details:")
