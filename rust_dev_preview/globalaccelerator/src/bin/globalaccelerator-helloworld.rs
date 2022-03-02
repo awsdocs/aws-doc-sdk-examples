@@ -18,6 +18,8 @@ struct Opt {
 // List accelerator names and ARNs.
 // snippet-start:[globalaccelerator.rust.globalaccelerator-helloworld]
 async fn show_accelerators(client: &Client) -> Result<(), Error> {
+    println!("Welcome to the AWS Rust SDK Global Accelerator example!");
+    println!();
     let mut paginator = client.list_accelerators().into_paginator().send();
 
     while let Some(page) = paginator.try_next().await? {
