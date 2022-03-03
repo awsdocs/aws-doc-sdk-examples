@@ -1,4 +1,4 @@
-# AWS SDK for Rust code examples for Amazon S3
+# AWS SDK for Rust code examples for TLS
 
 ## Purpose
 
