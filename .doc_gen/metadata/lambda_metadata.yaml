@@ -5,6 +5,15 @@ lambda_CreateFunction:
   synopsis: create a &LAM; function.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.kotlin.create.main
     Java:
       versions:
         - sdk_version: 2
@@ -32,6 +41,15 @@ lambda_DeleteFunction:
   synopsis: delete a &LAM; function.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.kotlin.delete.main
     Java:
       versions:
         - sdk_version: 2
@@ -58,6 +76,15 @@ lambda_Invoke:
   synopsis: invoke a &LAM; function.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.kotlin.invoke.main
     Java:
       versions:
         - sdk_version: 2
