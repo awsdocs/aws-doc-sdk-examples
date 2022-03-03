@@ -5,7 +5,7 @@ dynamodb_PartiQL:
   synopsis: queries a &DDB; table.
   category:
   languages:
-   Kotlin:
+    Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/dynamodb
