@@ -6,8 +6,8 @@
 /*
 Purpose
 
-Shows how to use rustls, hyper-rustls, and webpki-roots to set up a connection using forcing a
-minimum version of TLS 1.3.
+Shows how to use rustls, hyper-rustls, and webpki-roots to set the minimum TLS version to 1.3 for
+outgoing connections.
 A sample call is then made using TLS 1.3 to AWS Key Management System (KMS) for a proof of concept.
 
 This example assumes you have set up environment variables for authentication.
@@ -23,7 +23,7 @@ use rustls::RootCertStore;
 pub async fn connect_via_tls_13() -> Result<(), Error> {
     println!("Attempting to connect to KMS using TLS 1.3: ");
 
-    // let webpki load the Mozilla root certificates
+    // Let webpki load the Mozilla root certificates
     let mut root_store = RootCertStore::empty();
     root_store.add_server_trust_anchors(webpki_roots::TLS_SERVER_ROOTS.0.iter().map(|ta| {
         rustls::OwnedTrustAnchor::from_subject_spki_name_constraints(
@@ -33,7 +33,7 @@ pub async fn connect_via_tls_13() -> Result<(), Error> {
         )
     }));
 
-    // the .with_protocol_versions call is where we set TLS1.3. You can add rustls::version::TLS12 or replace them both with rustls::ALL_VERSIONS
+    // The .with_protocol_versions call is where we set TLS1.3. You can add rustls::version::TLS12 or replace them both with rustls::ALL_VERSIONS
     let config = rustls::ClientConfig::builder()
         .with_safe_default_cipher_suites()
         .with_safe_default_kx_groups()
@@ -42,7 +42,7 @@ pub async fn connect_via_tls_13() -> Result<(), Error> {
         .with_root_certificates(root_store)
         .with_no_client_auth();
 
-    // finish setup of the rustls connector
+    // Finish setup of the rustls connector
     let rustls_connector = hyper_rustls::HttpsConnectorBuilder::new()
         .with_tls_config(config)
         .https_only()

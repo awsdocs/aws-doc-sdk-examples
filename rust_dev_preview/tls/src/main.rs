@@ -6,8 +6,10 @@
 /*
 Purpose
 
-Shows how to use rustls, hyper-rustls, and webpki-roots to set up a connection using forcing a
-minimum version of TLS 1.3.
+Set up a connection using a minimum version of
+
+Shows how to use rustls, hyper-rustls, and webpki-roots to set the minimum TLS version to 1.3 for
+outgoing connections.
 A sample call is then made using TLS 1.3 to AWS Key Management System (KMS) for a proof of concept.
 
 This example assumes you have set up environment variables for authentication.
@@ -18,5 +20,5 @@ This example assumes you have set up environment variables for authentication.
 async fn main() {
     tls::connect_via_tls_13()
         .await
-        .expect("Could not connect via tls 1.3");
+        .expect("Could not connect via TLS 1.3");
 }
