@@ -52,6 +52,7 @@ members = [
     "sqs",
     "ssm",
     "testing",
+    "tls",
     "transcribestreaming",
     "using-native-tls-instead-of-rustls"
 ]
