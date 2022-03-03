@@ -14,8 +14,9 @@ This example assumes you have set up environment variables for authentication.
 
 */
 
-
 #[tokio::main]
 async fn main() {
-    tls::connect_via_tls_13().await.expect("Could not connect via tls 1.3");
+    tls::connect_via_tls_13()
+        .await
+        .expect("Could not connect via tls 1.3");
 }
