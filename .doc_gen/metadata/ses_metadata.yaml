@@ -5,6 +5,15 @@ ses_SendEmail:
   synopsis: send email with &SES;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.java2.sendmessage.request.main
     Python:
       versions:
         - sdk_version: 3
@@ -17,6 +26,33 @@ ses_SendEmail:
                 - python.example_code.ses.SendEmail
   services:
     ses: {SendEmail}
+ses_SendEmailAtt:
+  title: Send email with an attachment using an &AWS; SDK
+  title_abbrev: Send email with an attachment
+  synopsis: send email with an attachmenty with &SES;.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.java2.sendmessageattachment.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ses.SesMailSender
+                - python.example_code.ses.SendEmail
+  services:
+    ses: {SendEmailAtt}    
 ses_SendTemplatedEmail:
   title: Send templated email with &SES; using an &AWS; SDK
   title_abbrev: Send templated email
@@ -113,6 +149,15 @@ ses_ListIdentities:
   synopsis: list &SES; identities.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ses
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ses.java2.identities.main
     Python:
       versions:
         - sdk_version: 3
