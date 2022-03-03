@@ -13,6 +13,7 @@
 
 package com.amazonaws.transcribestreaming;
 
+// snippet-start:[transcribe.java-streaming-demo-file.import]
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
@@ -28,8 +29,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
+// snippet-end:[transcribe.java-streaming-demo-file.import]
 
-
+// snippet-start:[transcribe.java-streaming-demo-file.main]
 /**
  * To run this AWS code example, ensure that you have set up your development environment, including your AWS credentials.
  *
@@ -205,3 +207,4 @@ public class TranscribeStreamingDemoFile {
         }
     }
 }
+// snippet-end:[transcribe.java-streaming-demo-file.main]
