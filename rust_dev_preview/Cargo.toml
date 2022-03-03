@@ -26,6 +26,7 @@ members = [
     "ecr",
     "ecs",
     "eks",
+    "globalaccelerator",
     "iam",
     "iot",
     "kinesis",
