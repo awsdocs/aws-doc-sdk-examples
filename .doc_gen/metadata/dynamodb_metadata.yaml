@@ -1,4 +1,30 @@
 # zexi 0.4.0
+dynamodb_PartiQL:
+  title: Queries a &DDB; table using an &AWS; SDK and PartiQL.
+  title_abbrev:  Queries a &DDB; table using PartiQL
+  synopsis: queries a &DDB; table.
+  category:
+  languages:
+   Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.kotlin.partiql.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.partiql.main
+  services:
+    dynamodb: {PartiQL}
 dynamodb_CreateTable:
   title: Create a &DDB; table using an &AWS; SDK
   title_abbrev: Create a table
