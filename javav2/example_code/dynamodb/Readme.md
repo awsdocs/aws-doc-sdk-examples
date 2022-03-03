@@ -23,6 +23,7 @@ You will find these examples that use the **DynamoDbClient** object:
 - [Deleting an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/DeleteTable.java) (DeleteTable command)
 - [Describing an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/DescribeTable.java) (DescribeTable command)
 - [Listing Amazon DynamoDB tables](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/ListTables.java) (ListTables command)
+- [Working with PartiQL for Amazon DynamoDB](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/DynamoDBPartiQ.java) (ExecuteStatement command)
 - [Putting items into an Amazon DynamoDB tables](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/PutItem.java) (PutItem command)
 - [Querying items from an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/Query.java) (Query command)
 - [Updating a value located in an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/UpdateItem.java) (UpdateItem command)
