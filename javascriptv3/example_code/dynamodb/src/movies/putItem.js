@@ -22,7 +22,7 @@ import { PutCommand } from "@aws-sdk/lib-dynamodb";
 import { ddbDocClient } from "../libs/ddbDocClient.js";
 
 export const putItem = async () => {
-  // Set the parameters.
+  // Set the parameters..
   export const params = {
     TableName: "TABLE_NAME",
     Item: {

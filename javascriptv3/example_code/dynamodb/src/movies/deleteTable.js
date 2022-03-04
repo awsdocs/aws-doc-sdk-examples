@@ -19,7 +19,7 @@ node deleteTable.js
 import { DeleteTableCommand } from "@aws-sdk/client-dynamodb";
 import { ddbClient } from "../libs/ddbClient.js";
 
-// Set the parameters
+// Set the parameters.
 export const params = {
   TableName: "TABLE_NAME",
 };

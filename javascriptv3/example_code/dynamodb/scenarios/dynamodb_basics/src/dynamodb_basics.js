@@ -24,7 +24,8 @@ For example, node dynamodb_basics.js myNewTable myMovieName 2022 'This Is the En
 // snippet-start:[javascript.dynamodb_scenarios.dynamodb_basics]
 */
 import fs from "fs";
-import * as R from "ramda"; // A practical functional library used to  the table into segments.
+// A practical functional library used to  the table into segments.
+import * as R from "ramda";
 import { ddbClient } from "../libs/ddbClient.js";
 import {
   CreateTableCommand,
@@ -56,10 +57,10 @@ function wait(ms) {
     end = Date.now();
   }
 }
-// Set the parameters.
+// Set the parameters..
 const tableName = process.argv[2];
 const newMovieName = process.argv[3];
-const newMovieYear = parseInt(process.argv[4]); // parseInt() converts the string into a number, as required by the table.
+const newMovieYear = parseInt(process.argv[4]); // parseInt() converts the string into a number.
 const existingMovieName = process.argv[5];
 const existingMovieYear = parseInt(process.argv[6]);
 const newMovieRank = parseInt(process.argv[7]);
@@ -76,7 +77,7 @@ export const run = async (
 ) => {
   try {
     console.log("Creating table ...");
-    // Set the parameters.
+    // Set the parameters..
     const params = {
       AttributeDefinitions: [
         {
@@ -124,7 +125,8 @@ export const run = async (
       console.log("Success - single movie added.");
       try {
         // Get the movie data parse to convert into a JSON object.
-        const allMovies = JSON.parse(fs.readFileSync("moviedata.json", "utf8")); // moviedata.json is in the root folder of this project.
+        // moviedata.json is in the root folder of this project.
+        const allMovies = JSON.parse(fs.readFileSync("moviedata.json", "utf8"));
         // Split the table into segments of 25.
         const dataSegments = R.splitEvery(25, allMovies);
         // Loop batch write operation 10 times to upload 250 items.

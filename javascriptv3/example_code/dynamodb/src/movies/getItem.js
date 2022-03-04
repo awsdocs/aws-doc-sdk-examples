@@ -22,7 +22,7 @@ node getItem.js
 import { GetCommand } from "@aws-sdk/lib-dynamodb";
 import { ddbDocClient } from "../libs/ddbDocClient.js";
 
-// Set the parameters.
+// Set the parameters..
 export const params = {
     TableName: "TABLE_NAME",
     Key: {

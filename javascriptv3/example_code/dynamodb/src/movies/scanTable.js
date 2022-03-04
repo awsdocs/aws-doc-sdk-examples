@@ -23,9 +23,9 @@ node scanTable.js
 // Import required AWS SDK clients and commands for Node.js
 import { ddbDocClient } from "../libs/ddbDocClient.js";
 import { ScanCommand } from "@aws-sdk/lib-dynamodb";
-// Set the parameters.
+// Set the parameters..
 
-// Set the parameters.
+// Set the parameters..
 export const params = {
   TableName: "TABLE_NAME",
   ProjectionExpression: "#r, #y, title",

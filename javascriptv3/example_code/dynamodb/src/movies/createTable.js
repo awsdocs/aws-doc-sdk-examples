@@ -21,7 +21,7 @@ import { ddbClient } from "../libs/ddbClient.js";
 
 const tableName = process.argv[2];
 export const createTable = async () => {
-  // Set the parameters.
+  // Set the parameters..
   const params = {
     AttributeDefinitions: [
       {
