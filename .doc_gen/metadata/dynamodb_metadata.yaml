@@ -796,20 +796,16 @@ dynamodb_Scan:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
-          JavaScript:
-            versions:
-              - sdk_version: 3
-                github: javascriptv3/example_code/dynamodb
-                excerpts:
-                  - description: Create the client.
-                    snippet_tags:
-                      - dynamodb.JavaScript.scenario.basics.createclientv3
-                  - description: Create the &DDB; document client.
-                    snippet_tags:
-                      - dynamodb.JavaScript.scenario.basics.createdocclientv3
-                  - description: Scan a table using the &DDB; document client.
-                    snippet_tags:
-                      - dynamodb.JavaScript.movies.scanV3
+          excerpts:
+            - description: Create the client.
+              snippet_tags:
+                - dynamodb.JavaScript.scenario.basics.createclientv3
+            - description: Create the &DDB; document client.
+              snippet_tags:
+                - dynamodb.JavaScript.scenario.basics.createdocclientv3
+            - description: Scan a table using the &DDB; document client.
+              snippet_tags:
+                - dynamodb.JavaScript.movies.scanV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-query-scan.html#dynamodb-example-table-query-scan-scanning
