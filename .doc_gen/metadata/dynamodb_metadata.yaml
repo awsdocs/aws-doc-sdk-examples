@@ -1,8 +1,8 @@
 # zexi 0.4.0
 dynamodb_PartiQL:
-  title: Queries a &DDB; table using an &AWS; SDK and PartiQL
-  title_abbrev:  Queries a &DDB; table using PartiQL
-  synopsis: queries a &DDB; table.
+  title: Query a &DDB; table using PartiQL and &AWS; SDK 
+  title_abbrev:  Query a &DDB; table using PartiQL
+  synopsis: query a &DDB; table.
   category:
   languages:
     Kotlin:
