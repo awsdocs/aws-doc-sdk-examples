@@ -360,13 +360,12 @@ dynamodb_PutItem:
             - description: Create the client.
               snippet_tags:
                 - dynamodb.JavaScript.scenario.basics.createclientv3
-            - description: Put an item in a table.
-              snippet_tags:
-                - dynamodb.JavaScript.scenario.basics.createdocclientv3
             - description: Create the &DDB; document client.
               snippet_tags:
-                - dynamodb.JavaScript.movies.putItemV3
+                - dynamodb.JavaScript.scenario.basics.createdocclientv3
             - description: Put an item in a table using the &DDB; document client.
+              snippet_tags:
+                - dynamodb.JavaScript.movies.putItemV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-writing-an-item
@@ -430,13 +429,12 @@ dynamodb_GetItem:
             - description: Create the client.
               snippet_tags:
                 - dynamodb.JavaScript.scenario.basics.createclientv3
-            - description: Put an item in a table.
-              snippet_tags:
-                - dynamodb.JavaScript.scenario.basics.createdocclientv3
             - description: Create the &DDB; document client.
               snippet_tags:
+                - dynamodb.JavaScript.scenario.basics.createdocclientv3
+            - description: Put an item in a table.
+              snippet_tags:
                 - dynamodb.JavaScript.movies.getItemV3
-            - description: Get an item from a table using the &DDB; document client.
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-get
@@ -509,13 +507,12 @@ dynamodb_UpdateItem:
             - description: Create the client.
               snippet_tags:
                 - dynamodb.JavaScript.scenario.basics.createclientv3
-            - description: Put an item in a table.
-              snippet_tags:
-                - dynamodb.JavaScript.scenario.basics.createdocclientv3
             - description: Create the &DDB; document client.
               snippet_tags:
+                - dynamodb.JavaScript.scenario.basics.createdocclientv3
+            - description: Put an item in a table using the &DDB; document client.
+              snippet_tags:
                 - dynamodb.JavaScript.movies.getItemV3
-            - description: Update an item in a table using the &DDB; document client.
   services:
     dynamodb: {UpdateItem}
 dynamodb_DeleteItem:
@@ -810,10 +807,9 @@ dynamodb_Scan:
                   - description: Create the &DDB; document client.
                     snippet_tags:
                       - dynamodb.JavaScript.scenario.basics.createdocclientv3
-                  - description: Put an item in a table.
+                  - description: Scan a table using the &DDB; document client.
                     snippet_tags:
                       - dynamodb.JavaScript.movies.scanV3
-                  - description: Scan a table using the &DDB; document client.
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-query-scan.html#dynamodb-example-table-query-scan-scanning
