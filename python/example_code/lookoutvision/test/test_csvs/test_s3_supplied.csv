@@ -1,0 +1,13 @@
+s3://docexamplebucket1/circuitboard/train/anomaly/train-anomaly_1.jpg,anomaly
+s3://docexamplebucket1/circuitboard/train/anomaly/train-anomaly_10.jpg,anomaly
+s3://docexamplebucket1/circuitboard/train/anomaly/train-anomaly_11.jpg,anomaly
+s3://docexamplebucket1/circuitboard/train/anomaly/train-anomaly_12.jpg,anomaly
+s3://docexamplebucket1/circuitboard/train/anomaly/train-anomaly_13.jpg,anomaly
+s3://docexamplebucket1/circuitboard/train/normal/train-normal_1.jpg,normal
+s3://docexamplebucket1/circuitboard/train/normal/train-normal_10.jpg,normal
+s3://docexamplebucket1/circuitboard/train/normal/train-normal_11.jpg,normal
+s3://docexamplebucket1/circuitboard/train/normal/train-normal_12.jpg,normal
+
+
+
+
