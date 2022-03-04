@@ -7,7 +7,10 @@ Amazon DynamoDB is a key-value and document database that delivers single-digit 
 This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon DynamoDB examples: 
 
 ### API Examples
+### Scenario examples
+- [DynamoDB_basics](scenarios/dynamodb_basics/src/dynamodb_basics.js)
 
+### Single action examples
 - [Create a DyanamoDB table](src/ddb_createtable.js) (CreateTableCommand)
 - [Create a DyanamoDB table - TV example](src/QueryExample/ddb_createtable_tv.js)
 - [Describe DyanamoDB tables](src/ddb_describetable.js) (DescribeTableCommand)

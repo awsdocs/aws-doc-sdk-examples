@@ -11,7 +11,7 @@ import "regenerator-runtime/runtime";
 import { run } from "../src/s3_basics.js";
 
 describe("Test function runs", () => {
-  it("should successfully run",  async() => {
+  it("should successfully run",  async() =>
     /*    console.log(value);*/
     const response = await run(process.argv[4], process.argv[5], process.argv[6]);
     console.log("Response ", Promise.resolve(response));
