@@ -12,3 +12,5 @@ Metrics/AbcSize:
   Max: 20
 Style/FrozenStringLiteralComment:
   Enabled: false
+Layout/EndOfLine:
+   Enabled: false
