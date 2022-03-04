@@ -5,6 +5,15 @@ ec2_CreateKeyPair:
   synopsis: create a security key pair for &EC2;.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.create_key_pair.main
     Java:
       versions:
         - sdk_version: 2
@@ -31,6 +40,15 @@ ec2_CreateSecurityGroup:
   synopsis: create an &EC2; security group.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.create_security_group.main
     Java:
       versions:
         - sdk_version: 2
@@ -142,6 +160,15 @@ ec2_AllocateAddress:
   synopsis: allocate an Elastic IP address for &EC2;.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.allocate_address.main
     Java:
       versions:
         - sdk_version: 2
@@ -286,6 +313,15 @@ ec2_DeleteKeyPair:
   synopsis: delete an &EC2; security key pair.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.delete_key_pair.main
     Java:
       versions:
         - sdk_version: 2
@@ -312,6 +348,15 @@ ec2_DeleteSecurityGroup:
   synopsis: delete an &EC2; security group.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.delete_security_group.main
     Java:
       versions:
         - sdk_version: 2
@@ -373,6 +418,15 @@ ec2_TerminateInstances:
   synopsis: terminate an &EC2; instance.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.kotlin.terminate_instance.main
     Java:
       versions:
         - sdk_version: 2
