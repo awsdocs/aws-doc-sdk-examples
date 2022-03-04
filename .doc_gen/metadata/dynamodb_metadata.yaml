@@ -190,8 +190,8 @@ dynamodb_BatchWriteItem:
               snippet_tags:
                 - dynamodb.JavaScript.scenario.basics.createdocclientv3
             - description: Add the items to the table.
-                snippet_tags:
-                  - dynamodb.JavaScript.scenario.basics.createdocclientv3
+              snippet_tags:
+                - dynamodb.JavaScript.scenario.basics.createdocclientv3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write-batch.html#dynamodb-example-table-read-write-batch-writing
