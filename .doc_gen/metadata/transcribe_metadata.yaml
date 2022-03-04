@@ -1,4 +1,4 @@
- zexi 0.4.3
+# zexi 0.4.3
 transcribe_StartTranscriptionJob:
   title: Start an &TSC; transcription job using an &AWS; SDK
   title_abbrev: Start a transcription job
@@ -11,9 +11,6 @@ transcribe_StartTranscriptionJob:
           github: javav2/example_code/transcribe
           sdkguide:
           excerpts:
-            - description: Streams audio from your computer's microphone.
-              snippet_tags:
-                - transcribe.java-streaming-demo
             - description: Shows how to transcribe a PCM file.
               snippet_tags:
                 - transcribe.java-streaming-demo-file.main
