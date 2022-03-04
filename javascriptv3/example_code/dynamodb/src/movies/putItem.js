@@ -38,4 +38,4 @@ export const putItem = async () => {
   }
 };
 putItem();
-// snippet-start:[dynamodb.JavaScript.movies.putItemV3]
+// snippet-end:[dynamodb.JavaScript.movies.putItemV3]

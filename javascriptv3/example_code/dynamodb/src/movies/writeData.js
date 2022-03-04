@@ -19,7 +19,7 @@ Inputs (replace in code):
 Running the code:
 node writeData.js
 */
-// snippet-start:[dynamodb.JavaScript.movies.scanV3]
+// snippet-start:[dynamodb.JavaScript.movies.batchwriteV3]
 
 import fs from "fs";
 import * as R from "ramda";
@@ -62,4 +62,4 @@ export const writeData = async () => {
   }
 };
 writeData();
-// snippet-start:[dynamodb.JavaScript.scenario.basics.updateV3]
+// snippet-start:[dynamodb.JavaScript.movies.batchwriteV3]
