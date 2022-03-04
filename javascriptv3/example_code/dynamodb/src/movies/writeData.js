@@ -62,4 +62,4 @@ export const writeData = async () => {
   }
 };
 writeData();
-// snippet-start:[dynamodb.JavaScript.movies.batchwriteV3]
+// snippet-end:[dynamodb.JavaScript.movies.batchwriteV3]

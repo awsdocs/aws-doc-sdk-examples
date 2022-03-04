@@ -14,7 +14,7 @@ Running the code:
 node deleteTable.js
 
 */
-// snippet-start:[dynamodb.JavaScript.item.deleteTableV3]
+// snippet-start:[dynamodb.JavaScript.movies.deleteTableV3]
 // Import required AWS SDK clients and commands for Node.js.
 import { DeleteTableCommand } from "@aws-sdk/client-dynamodb";
 import { ddbClient } from "../libs/ddbClient.js";
@@ -34,4 +34,4 @@ export const deleteTable = async () => {
   }
 };
 deleteTable();
-// snippet-end:[dynamodb.JavaScript.item.deleteTableV3]
+// snippet-end:[dynamodb.JavaScript.movies.deleteTableV3]
