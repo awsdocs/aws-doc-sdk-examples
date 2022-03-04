@@ -286,7 +286,8 @@ iam_GetAccountPasswordPolicy:
           excerpts:
             - description:
               snippet_tags:
-                - ruby.example_code.iam.GetAccountPasswordPolicy  services:
+                - ruby.example_code.iam.GetAccountPasswordPolicy
+  services:
     iam: {GetAccountPasswordPolicy}
 iam_ListSAMLProviders:
   title: List SAML providers for &IAM; using an &AWS; SDK
