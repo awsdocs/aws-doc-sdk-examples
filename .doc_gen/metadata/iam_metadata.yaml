@@ -892,14 +892,6 @@ iam_GetPolicy:
             - description:
               snippet_tags:
                 - iam.kotlin.get_policy.main
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/iam
-          excerpts:
-            - description: ''
-              snippet_tags:
-                - iam.go-v2.GetPolicy
     JavaScript:
       versions:
         - sdk_version: 3
