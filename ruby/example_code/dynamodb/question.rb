@@ -57,7 +57,7 @@ def is_int(answer)
   [int_answer, "#{answer} must be a valid integer."]
 end
 
-# Validate that the answer can be converted to a float.
+# Validates that the answer can be converted to a float.
 # :return [Array] The float answer; otherwise, None.
 def is_float(answer)
   float_answer = answer.to_f
@@ -67,9 +67,9 @@ def is_float(answer)
   [float_answer, "#{answer} must be a valid float."]
 end
 
-# Validate that the answer is within a range. The answer must be of a type that can
+# Validates that the answer is within a range. The answer must be of a type that can
 # be compared to the lower and upper bounds.
-# @return [Proc] A Proc that can be called to determine whether the answer, is within
+# @return [Proc] A Proc that can be called to determine whether the answer is within
 #                the expected range.
 def in_range(lower, upper)
   Proc.new { |answer|

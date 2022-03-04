@@ -6,7 +6,7 @@
 # Shows how to use the AWS SDK for Ruby with Amazon DynamoDB to
 # create and use a table that stores data about movies.
 #
-# 1. Load the table with data from a JSON file
+# 1. Load the table with data from a JSON file.
 # 2. Perform basic operations like adding, getting, and updating data for individual movies.
 # 3. Use conditional expressions to update movie data only when it meets certain criteria.
 # 4. Query and scan the table to retrieve movie data that meets varying criteria.
@@ -147,7 +147,7 @@ class Movies
   #
   # @param title [String] The title of the movie to update.
   # @param year [Int] The release year of the movie to update.
-  # @param rating [Float] The updated rating to the give the movie.
+  # @param rating [Float] The updated rating to give the movie.
   # @param plot [String] The updated plot summary to give the movie.
   # @return [Hash] The fields that were updated, with their new values.
   def update_movie(title:, year:, rating:, plot:)
@@ -247,7 +247,7 @@ end
 
 # snippet-start:[ruby.example_code.dynamodb.helper.get_sample_movie_data]
 # Gets sample movie data, either from a local file or by first downloading it from
-# the Amazon DynamoDB developer guide.
+# the Amazon DynamoDB Developer Guide.
 #
 # @param movie_file_name [String] The local file name where the movie data is stored in JSON format.
 # @return [Hash] The movie data as a Hash.
@@ -267,11 +267,11 @@ def get_sample_movie_data(movie_file_name)
     movie_json = File.read(movie_file_name)
   end
   movie_data = JSON.parse(movie_json)
-  # The sample file lists over 4000 movies, return only the first 250.
+  # The sample file lists over 4000 movies. This returns only the first 250.
   movie_data.slice(0, 250)
 rescue Errno::ENOENT
-  puts("File #{movie_file_name} not found. You must first download the file to "\
-       "run this demo. See the README for instructions.")
+  puts("File #{movie_file_name} not found. Before you can run this demo, you must "\
+       "download the file. For instructions, see the README.")
   raise
 end
 # snippet-end:[ruby.example_code.dynamodb.helper.get_sample_movie_data]
@@ -297,7 +297,7 @@ def run_scenario(movies, table_name, movie_file_name)
   end
 
   my_movie = {}
-  my_movie[:title] = Question.ask("Enter the title of a movie you want to add to the table: ")
+  my_movie[:title] = Question.ask("Enter the title of a movie to add to the table: ")
   my_movie[:year] = Question.ask("What year was it released? ", method(:is_int))
   my_movie[:rating] = Question.ask(
     "On a scale of 1 - 10, how do you rate it? ", method(:is_float), in_range(1, 10)
@@ -327,7 +327,7 @@ def run_scenario(movies, table_name, movie_file_name)
   end
 
   title = "The Lord of the Rings: The Fellowship of the Ring"
-  if Question.ask("Let's move on...do you want to get info about '#{title}'? (y/n) ",
+  if Question.ask("Let's move on. Do you want to get info about '#{title}'? (y/n) ",
          method(:is_yesno))
     movie = movies.get_movie(title, 2001)
     puts("\nHere's what I found:")
