@@ -1,6 +1,6 @@
 # zexi 0.4.0
 dynamodb_PartiQL:
-  title: Queries a &DDB; table using an &AWS; SDK and PartiQL.
+  title: Queries a &DDB; table using an &AWS; SDK and PartiQL
   title_abbrev:  Queries a &DDB; table using PartiQL
   synopsis: queries a &DDB; table.
   category:
