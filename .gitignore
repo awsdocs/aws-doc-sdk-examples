@@ -11,6 +11,9 @@ vendor/
 .idea
 venv
 .*~
+
+# Xcode and Swift Package Manager
 xcuserdata
 .swiftpm
 Package.resolved
+.build/
