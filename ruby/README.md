@@ -45,6 +45,7 @@ Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/
 * Ruby 3.0.0 or later
 * RSpec 3.10 or later (to run tests)
 * aws-sdk gem 3.1.0 or later
+* bundler 2.3.8 or later (to use bundler to install gems)
 
 ## Tests
 
