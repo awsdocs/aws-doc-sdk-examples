@@ -277,16 +277,8 @@ iam_GetAccountPasswordPolicy:
         - sdk_version: 2
           github: gov2/iam/common
           excerpts:
-            - snippet_tags: ['iam.go-v2.GetAccountpasswordPolicy']
+            - snippet_tags: ['iam.go-v2.GetAccountPasswordPolicy']
               description: ''
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.GetAccountPasswordPolicy
   services:
     iam: {GetAccountPasswordPolicy}
 iam_ListSAMLProviders:
@@ -323,14 +315,6 @@ iam_ListSAMLProviders:
           excerpts:
             - snippet_tags: ['iam.go-v2.ListSAMLProviders']
               description: ''
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.ListSamlProviders
   services:
     iam: {ListSAMLProviders}
 iam_Scenario_AccountManagement:
@@ -421,14 +405,6 @@ iam_CreateAccessKey:
             - description:
               snippet_tags:
                 - iam.JavaScript.keys.createAccessKey
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.CreateAccessKey
   services:
     iam: {CreateAccessKey}
 iam_DeleteAccessKey:
@@ -491,14 +467,6 @@ iam_DeleteAccessKey:
             - description:
               snippet_tags:
                 - iam.JavaScript.keys.deleteAccessKey
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.DeleteUser
   services:
     iam: {DeleteAccessKey}
 iam_GetAccessKeyLastUsed:
@@ -605,14 +573,6 @@ iam_ListAccessKeys:
             - description:
               snippet_tags:
                 - iam.JavaScript.keys.listAccessKeys
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.DeleteUser
   services:
     iam: {ListAccessKeys}
 iam_UpdateAccessKey:
@@ -752,14 +712,6 @@ iam_CreatePolicy:
           excerpts:
             - snippet_tags: ['iam.go-v2.CreatePolicy']
               description: ''
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.CreatePolicy
   services:
     iam: {CreatePolicy}
 iam_DeletePolicy:
@@ -807,14 +759,6 @@ iam_DeletePolicy:
             - description: Delete the policy.
               snippet_tags:
                 - iam.JavaScript.users.deletepolicyv3
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.DeleteRole
   services:
     iam: {DeletePolicy}
 iam_CreatePolicyVersion:
@@ -868,14 +812,6 @@ iam_ListPolicies:
           excerpts:
             - snippet_tags: ['iam.go-v2.ListPolicies']
               description: ''
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.ListPolicies
   services:
     iam: {ListPolicies}
 iam_GetPolicy:
@@ -893,6 +829,14 @@ iam_GetPolicy:
             - description:
               snippet_tags:
                 - iam.kotlin.get_policy.main
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam
+          excerpts:
+            - description: ''
+              snippet_tags:
+                - iam.go-v2.GetPolicy
     JavaScript:
       versions:
         - sdk_version: 3
@@ -920,21 +864,6 @@ iam_GetPolicy:
             - description:
               snippet_tags:
                 - python.example_code.iam.GetPolicy
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/iam/common
-          excerpts:
-            - snippet_tags: ['iam.go-v2.GetPolicy']
-              description: ''
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.GetPolicy
   services:
     iam: {GetPolicy}
 iam_GetPolicyVersion:
@@ -1007,14 +936,6 @@ iam_AttachRolePolicy:
             - description: Attach a policy to a role using the Boto3 Role object.
               snippet_tags:
                 - python.example_code.iam.AttachRolePolicy_Role
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.AttachRolePolicy
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1077,14 +998,6 @@ iam_ListAttachedRolePolicies:
           excerpts:
             - snippet_tags: ['iam.go-v2.ListAttachedRolePolicies']
               description: ''
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.DeleteRole
   services:
     iam: {ListAttachedRolePolicies}
 iam_DetachRolePolicy:
@@ -1123,14 +1036,6 @@ iam_DetachRolePolicy:
             - description: Detach a policy from a role using the Boto3 Role object.
               snippet_tags:
                 - python.example_code.iam.DetachRolePolicy_Role
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.DeleteRole
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1203,14 +1108,6 @@ iam_CreateRole:
             - description:
               snippet_tags:
                 - python.example_code.iam.CreateRole
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.CreateRole
     Rust:
       versions:
         - sdk_version: 1
@@ -1273,14 +1170,6 @@ iam_ListRoles:
             - description: List the roles.
               snippet_tags:
                 - iam.JavaScript.listrolesV3
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.ListRoles
   services:
     iam: {ListRoles}
 iam_GetRole:
@@ -1317,14 +1206,6 @@ iam_GetRole:
           excerpts:
             - snippet_tags: ['iam.go-v2.GetRole']
               description: ''
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.GetRole
   services:
     iam: {GetRole}
 iam_DeleteRole:
@@ -1354,14 +1235,6 @@ iam_DeleteRole:
             - description: Delete the role.
               snippet_tags:
                 - iam.JavaScript.users.deleterolev3
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.DeleteRole
   services:
     iam: {DeleteRole}
 iam_ListRolePolicies:
@@ -1458,14 +1331,6 @@ iam_CreateUser:
             - description:
               snippet_tags:
                 - python.example_code.iam.CreateUser
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.CreateUser
     Go:
       versions:
         - sdk_version: 2
@@ -1528,14 +1393,6 @@ iam_DeleteUser:
             - description:
               snippet_tags:
                 - python.example_code.iam.DeleteUser
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.DeleteUser
     Go:
       versions:
         - sdk_version: 2
@@ -1598,14 +1455,6 @@ iam_ListUsers:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListUsers
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.ListUsers
     Go:
       versions:
         - sdk_version: 2
@@ -1746,40 +1595,6 @@ iam_DetachUserPolicy:
 
   services:
     iam: {DetachUserPolicy}
-iam_PutUserPolicy:
-  title: Create an inline &IAM; policy for a user using an &AWS; SDK
-  title_abbrev: Create an inline policy for a user
-  synopsis: create an inline &IAM; policy for a user.
-  category:
-  languages:
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.PutUserPolicy
-  services:
-    iam: {PutUserPolicy}
-iam_DeleteUserPolicy:
-  title: Delete an inline &IAM; policy from a user using an &AWS; SDK
-  title_abbrev: Delete an inline policy from a user
-  synopsis: delete an inline &IAM; policy from a user.
-  category:
-  languages:
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.DeleteUser
-  services:
-    iam: {DeleteUserPolicy}
 iam_Scenario_UserPolicies:
   title: Create read-only and read-write &IAM; users using an &AWS; SDK
   title_abbrev: Create read-only and read-write users
@@ -1962,14 +1777,6 @@ iam_ListGroups:
           excerpts:
             - snippet_tags: ['iam.go-v2.ListGroups']
               description: ''
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.ListGroups
   services:
     iam: {ListGroups}
 iam_CreateServiceLinkedRole:
@@ -2006,42 +1813,13 @@ iam_CreateServiceLinkedRole:
           excerpts:
             - snippet_tags: ['iam.go-v2.CreateServiceLinkedRole']
               description: ''
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.CreateServiceLinkedRole
   services:
     iam: {CreateServiceLinkedRole}
-iam_DeleteServiceLinkedRole:
-  title: Delete an &IAM; service-linked role using an &AWS; SDK
-  title_abbrev: Delete a service-linked role
-  synopsis: delete an &IAM; service-linked role.
-  category:
-  languages:
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.DeleteServiceLinkedRole
-  services:
-    iam: {DeleteServiceLinkedRole}
 iam_Scenario_CreateUserAssumeRole:
   title: Create an &IAM; user and assume a role with &STS; using an &AWS; SDK
   title_abbrev: Create a user and assume a role
-  synopsis_list:
-    - Create a user who has no permissions.
-    - Create a role that grants permission to list &S3; buckets for the account.
-    - Add a policy to let the user assume the role.
-    - Assume the role and list &S3; buckets using temporary credentials.
-    - Delete the policy, role, and user.
+  synopsis: create an &IAM; user, assume a role with &STS;, and use temporary security
+    credentials to access an &AWS; resource.
   category: Scenarios
   languages:
     Kotlin:
@@ -2089,15 +1867,5 @@ iam_Scenario_CreateUserAssumeRole:
                 the account.
               snippet_tags:
                 - javascript.iam_scenarios.iam_basics
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.Scenario_CreateUserAssumeRole
   services:
-    iam: {CreateUser, CreateAccessKey, CreateRole, CreatePolicy, AttachRolePolicy,
-          PutUserPolicy, DeleteUserPolicy, DetachRolePolicy, DeletePolicy, DeleteRole,
-          DeleteAccessKey, DeleteUser}
+    iam: {}
