@@ -5,13 +5,25 @@ transcribe_StartTranscriptionJob:
   synopsis: start an &TSC; transcription job.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/transcribe
+          sdkguide:
+          excerpts:
+            - description: Streams audio from your computer's microphone.
+              snippet_tags:
+                - transcribe.java-streaming-demo
+            - description: Shows how to transcribe a PCM file.
+              snippet_tags:
+                - transcribe.java-streaming-demo-file.main
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/transcribe
           sdkguide:
           excerpts:
-            - description:
+            - description: 
               snippet_tags:
                 - python.example_code.transcribe.StartTranscriptionJob
     JavaScript:

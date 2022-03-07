@@ -44,6 +44,7 @@ You will find these examples that use the **DynamoDbEnhancedClient** object:
 ### Scenario
 
 - [Performing various Amazon DynamoDB operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/Scenario.java) (Multiple commands)
+- [Working with PartiQL for Amazon DynamoDB](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/DynamoDBPartiQ.java) (ExecuteStatement command)
 
 
 ### Cross-service
