@@ -102,7 +102,7 @@
             <xi:include href="file://AWSShared/code-samples/docs/{{.ExampleId}}_desc.xml"></xi:include>
             <note buildtype="markdown">
                 <para>The source code for these examples is in the
-                    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples">AWS Code Examples GitHub repository</ulink>.
+                    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples">&AWS; Code Examples GitHub repository</ulink>.
                     Have feedback on a code example?
                     <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/issues/new/choose">Create an Issue</ulink>
                     in the code examples repo.
