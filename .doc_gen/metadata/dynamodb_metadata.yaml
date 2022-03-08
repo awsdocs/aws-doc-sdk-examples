@@ -1,4 +1,30 @@
 # zexi 0.4.0
+dynamodb_ExecuteStatement:
+  title: Query a &DDB; table using PartiQL and an &AWS; SDK 
+  title_abbrev: Query a &DDB; table using PartiQL
+  synopsis: query a &DDB; table using PartiQL.
+  category: Scenarios
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.kotlin.partiql.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.partiql.main
+  services:
+    dynamodb: {ExecuteStatement}
 dynamodb_CreateTable:
   title: Create a &DDB; table using an &AWS; SDK
   title_abbrev: Create a table
@@ -122,6 +148,15 @@ dynamodb_DescribeTable:
   synopsis: get information about a &DDB; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - dynamodb.java2.describe_table.main
     C++:
       versions:
         - sdk_version: 1
@@ -181,7 +216,7 @@ dynamodb_BatchWriteItem:
           github: javav2/example_code/dynamodb/
           sdkguide:
           excerpts:
-            - description:
+            - description: Inserts many items into a table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.batchitems.main
     Python:
@@ -363,7 +398,7 @@ dynamodb_PutItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description:
+            - description: Puts an item into a table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.putitem.main
     Python:
@@ -448,7 +483,7 @@ dynamodb_GetItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description:
+            - description: Gets an item from a table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.getitem.main
     Python:
@@ -525,7 +560,7 @@ dynamodb_UpdateItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description:
+            - description: Updates an item located in a table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.moditem.main
     Python:
@@ -757,7 +792,7 @@ dynamodb_Query:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description:
+            - description: Queries a table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.query.main
     Python:
@@ -847,7 +882,7 @@ dynamodb_Scan:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description:
+            - description: Scans an Amazon DynamoDB table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.scan.main
     Python:
