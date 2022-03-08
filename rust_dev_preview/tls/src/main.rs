@@ -6,11 +6,9 @@
 /*
 Purpose
 
-Set up a connection using a minimum version of
-
 Shows how to use rustls, hyper-rustls, and webpki-roots to set the minimum TLS version to 1.3 for
 outgoing connections.
-A sample call is then made using TLS 1.3 to AWS Key Management System (KMS) for a proof of concept.
+Then, uses TLS 1.3 to make a sample call to AWS Key Management Service (AWS KMS) as proof of concept.
 
 This example assumes you have set up environment variables for authentication.
 
