@@ -59,21 +59,22 @@ func scenario() {
 
 		var existsAlready *types.EntityAlreadyExistsException
 		if errors.As(err, &existsAlready) {
+			// The user possibly exists.
+			// Check if we can get the user from iam.
 			uuser, err := iamSvc.GetUser(context.Background(), &iam.GetUserInput{UserName: aws.String(scenario_UserName)})
 			if err != nil {
 				panic("Can't get user: " + err.Error())
+			} else {
+				// make sure that the user info is set
+				userInfo = *uuser.User
+				fmt.Println("User already existed...")
 			}
-			userInfo = *uuser.User
-			fmt.Println("User already existed...")
-			goto userexists
+		} else {
+			fmt.Println("Couldn't create user! " + err.Error())
 		}
-
-		// See if the user already exists
-		fmt.Println("Couldn't create user! " + err.Error())
+	} else {
+		userInfo = *user.User
 	}
-
-	userInfo = *user.User
-userexists:
 
 	fmt.Printf("User %s has id %s\n", scenario_UserName, *userInfo.Arn)
 
@@ -117,25 +118,26 @@ userexists:
 	})
 	var bucketListerRoleArn string
 	if err != nil {
+		// Check to see if the role exists
 		var existsException *types.EntityAlreadyExistsException
 		if errors.As(err, &existsException) {
-
+			// Check if we can look up the role as it stands already
 			tRole, err := iamSvc.GetRole(context.Background(), &iam.GetRoleInput{
 				RoleName: aws.String(scenario_BucketListerRoleName),
 			})
 			if err != nil {
+				// Told it already exists but now whoops it's gone?
 				panic("Couldn't find seemingly extant role: " + err.Error())
+			} else {
+				bucketListerRoleArn = *tRole.Role.Arn
 			}
-			bucketListerRoleArn = *tRole.Role.Arn
-			goto roleexists
-
+		} else {
+			panic("Couldn't create role! " + err.Error())
 		}
-		panic("Couldn't create role! " + err.Error())
+	} else {
+		bucketListerRoleArn = *bucketListerRole.Role.Arn
 	}
 
-	bucketListerRoleArn = *bucketListerRole.Role.Arn
-
-roleexists:
 	fmt.Printf("✔️ The ARN for the bucket lister role is %s", bucketListerRoleArn)
 
 	fmt.Println("⏺️ Create policy to allow bucket listing")
