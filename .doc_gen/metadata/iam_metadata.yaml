@@ -1867,5 +1867,13 @@ iam_Scenario_CreateUserAssumeRole:
                 the account.
               snippet_tags:
                 - javascript.iam_scenarios.iam_basics
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/iam/common
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.go-v2.iam_basics
   services:
     iam: {}
