@@ -101,7 +101,7 @@ If you do not define the correct values in the properties file, your JUnit tests
 ## Additional resources
 * [Developer guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 * [Amazon Kendra Developer Guide](https://docs.aws.amazon.com/kendra/latest/dg/what-is-kendra.html).
-* [Interface KendraClient](sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/kendra/KendraClient.html).
+* [Interface KendraClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/kendra/KendraClient.html).
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
 
