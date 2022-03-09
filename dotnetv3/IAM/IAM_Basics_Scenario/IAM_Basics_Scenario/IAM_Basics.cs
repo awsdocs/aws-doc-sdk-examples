@@ -19,15 +19,13 @@ namespace IAM_Basics_Scenario
 
     public class IAM_Basics
     {
-        public static RegionEndpoint Region = RegionEndpoint.USEast2;
-
         // Values needed for user, role, and policies.
-        const string UserName = "example-user";
-        const string S3PolicyName = "s3-list-buckets-policy";
-        const string RoleName = "temporary-role";
-        const string AssumePolicyName = "sts-trust-user";
+        private const string UserName = "example-user";
+        private const string S3PolicyName = "s3-list-buckets-policy";
+        private const string RoleName = "temporary-role";
+        private const string AssumePolicyName = "sts-trust-user";
 
-        const string RolePermissions = @"{
+        private const string RolePermissions = @"{
                 'Version': '2012-10-17',
                 'Statement': [
                     {
@@ -38,7 +36,7 @@ namespace IAM_Basics_Scenario
                 ]
             }";
 
-        const string ManagedPolicy = @"{
+        private const string ManagedPolicy = @"{
           'Version': '2012-10-17',
           'Statement': [
             {
@@ -49,22 +47,24 @@ namespace IAM_Basics_Scenario
           ],
         }";
 
-public static async Task Main()
+        private static readonly RegionEndpoint Region = RegionEndpoint.USEast2;
+
+        public static async Task Main()
         {
             DisplayInstructions();
 
-            // First create the IAM client object.
+            // Create the IAM client object.
             var client = new AmazonIdentityManagementServiceClient(Region);
 
             // First create a user. When created, the new user has
             // no permissions.
-            Console.WriteLine($"Creating a new user with user name: {UserName}.")
+            Console.WriteLine($"Creating a new user with user name: {UserName}.");
             var user = await CreateUserAsync(client, UserName);
             var userArn = user.Arn;
             Console.WriteLine($"Successfully created user: {UserName} with ARN: {userArn}.");
 
             // Create an AccessKey for the user.
-            var accessKey = await CreateAccessKeyAsync(client, userArn);
+            var accessKey = await CreateAccessKeyAsync(client, UserName);
             var accessKeyId = accessKey.AccessKeyId;
             var secretAccessKey = accessKey.SecretAccessKey;
 
@@ -75,10 +75,10 @@ public static async Task Main()
 
             // Try to list the buckets using the client created with
             // the new user's credentials.
-            _ = await ListMyBucketsAsync(s3Client);
+            await ListMyBucketsAsync(s3Client);
 
             // Trust the user to assume the role.
-            string AccessPermissions = @"{
+            string accessPermissions = @"{
                 'Version': '2012-10-17',
                 'Statement': [
                     {
@@ -221,7 +221,7 @@ public static async Task Main()
 
                 // Loop through the list and print each bucket's name
                 // and creation date.
-                Console.WriteLine(new string('-', 80);
+                Console.WriteLine(new string('-', 80));
                 Console.WriteLine("Listing S3 buckets:\n");
                 response.Buckets
                     .ForEach(b => Console.WriteLine($"Bucket name: {b.BucketName}, created on: {b.CreationDate}"));
@@ -236,6 +236,22 @@ public static async Task Main()
         }
 
         // snippet-end:[S3.dotnetv3.ListBucketsAsync]
+
+        /// <summary>
+        /// Delete the user, and other resources created for this example.
+        /// </summary>
+        /// <param name="client">The initialized client object.</param>
+        /// <returns>A Boolean value indicating the success or failure of the
+        /// delete operations.</returns>
+        public static async Task DeleteResources(AmazonIdentityManagementServiceClient client)
+        {
+            var request = new DeleteUserRequest
+            {
+                UserName = UserName,
+            };
+
+            await client.DeleteUserAsync(request);
+        }
 
         /// <summary>
         /// Shows the a description of the features of the program.
