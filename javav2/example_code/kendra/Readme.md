@@ -15,16 +15,16 @@ Amazon Kendra is an intelligent search service powered by machine learning (ML).
 
 ### Single action
 
-You will find these examples that use the **KendraClient** object: 
+The following examples use the **KendraClient** object: 
 
 - [Deleting an Amazon Kendra data source](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/kendra/src/main/java/com/example/kendra/DeleteDataSource.java) (DeleteDataSource command)
 - [Deleting an Amazon Kendra index](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/kendra/src/main/java/com/example/kendra/DeleteIndex.java) (DeleteIndex command)
-- [Getting statistics about synchronizing Amazon Kendra with a data source.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/ListDataSourceSyncJobs.java) (ListDataSourceSyncJobs command)
+- [Getting statistics about synchronizing Amazon Kendra with a data source](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/ListDataSourceSyncJobs.java) (ListDataSourceSyncJobs command)
 - [Querying an Amazon Kendra index](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/dynamodb/src/main/java/com/example/dynamodb/QueryIndex.java) (Query command)
 
 ### Scenario
 
-- [Creating an Amazon Kendra index, data source, and how to sync the data source.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/kendra/src/main/java/com/example/kendra/CreateIndexAndDataSourceExample.java) (Multiple commands)
+- [Creating an Amazon Kendra index and data source, and syncing the data source](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/kendra/src/main/java/com/example/kendra/CreateIndexAndDataSourceExample.java) (Multiple commands)
 
 ## Running the examples
 To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
