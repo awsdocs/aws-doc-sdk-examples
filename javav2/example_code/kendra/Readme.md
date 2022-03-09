@@ -30,36 +30,32 @@ You will find these examples that use the **KendraClient** object:
 To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting a table. **Be very careful** when running an operation that deletes or modifies AWS resources in your account.
+Some of these examples perform *destructive* operations on AWS resources, such as deleting an index. **Be very careful** when running an operation that deletes or modifies AWS resources in your account.
 
 ## Tests
 ⚠️ Running the tests might result in charges to your AWS account.
 
-You can test the Java code examples for Amazon DynamoDB by running a test file named **DynamoDBTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for Amazon Kendra by running a test file named **KendraTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is run, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
 	Test 3 passed
 
-**WARNING**: _Running these JUnit tests manipulates real Amazon DynamoDB resources and might incur charges on your account._
+**WARNING**: _Running these JUnit tests manipulates real AWS resources and might incur charges on your account.
 
  ### Properties file
-Before running the Amazon DynamoDB JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a table name used for various tests. If you do not define all values, the JUnit tests fail.
+Before running the Amazon DynamoDB JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define an index name used for various tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
-- **tableName** - The name of an Amazon DynamoDB table. For example, **Music3**.
-- **fileName** - The path to the JSON document that contains movie data that you can download from the Amazon DynamoDB Developer Guide.
-- **enhancedTableName** - the name of the DynamoDB table used with the enhanced client. For example, **Customer**.
-- **key** – The name of a key to use. For example, **Artist**.
-- **enhancedTableKey** the  name of a key to use for the enhanced client tests. For example, **Id**.
-- **keyValue** – The key value. For example, **Famous Band**.
-- **albumTitle** – An album title to use. For example, **AlbumTitle**.
-- **AlbumTitleValue** – An album title value. For example, **Songs About Life**.
-- **Awards** – A value for a column. For example, **Awards**.
-- **AwardVal** – The value for the Awards column. For example, **10**.
-- **SongTitle** – A value for another column. For example, **SongTitle**.
-- **SongTitleVal** – The value for the SongTitle column. For example, **Happy Summer Day**.
+- **indexName** - The name for the new index.
+- **dataSourceName** - The name for the new data source.
+- **indexDescription** - The description for the index. 
+- **indexRoleArn** – The name of a key to use. For example, **Artist**.
+- **s3BucketName** - An Amazon S3 bucket name used as your data source.
+- **dataSourceDescription** – The ARN of am IAM role with permission to access the data source.
+- **text** – The text used to perform a query operation.
+- **dataSourceRoleArn** – The ARN of am IAM role with permission to access the data source..
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
@@ -71,14 +67,14 @@ You will see output from the JUnit tests, as shown here.
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
 	[INFO] -------------------------------------------------------
-	[INFO] Running DynamoDBTest
-	Running Amazon DynamoDB   Test 1
-	Running Amazon DynamoDB  Test 2
+	[INFO] Running Kendra Tests
+	Running Amazon Kendra   Test 1
+	Running Amazon Kendra  Test 2
 	...
 	Done!
 	[INFO] Results:
 	[INFO]
-	[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0
+	[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0
 	[INFO]
 	INFO] --------------------------------------------
 	[INFO] BUILD SUCCESS
@@ -104,8 +100,8 @@ If you do not define the correct values in the properties file, your JUnit tests
 
 ## Additional resources
 * [Developer guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
-* [Amazon DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html).
-* [Interface DynamoDbClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/dynamodb/DynamoDbClient.html).
+* [Amazon Kendra Developer Guide](https://docs.aws.amazon.com/kendra/latest/dg/what-is-kendra.html).
+* [Interface KendraClient](sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/kendra/KendraClient.html).
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
 
