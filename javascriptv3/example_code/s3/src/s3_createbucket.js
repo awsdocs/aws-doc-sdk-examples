@@ -20,7 +20,7 @@ import { s3Client } from "./libs/s3Client.js";
 
 // Set the bucket parameters.
 
-export const bucketParams = { Bucket: "brmurbucket" };
+export const bucketParams = { Bucket: "BUCKET_NAME" };
 
 // Create the Amazon S3 bucket.
 export const run = async () => {

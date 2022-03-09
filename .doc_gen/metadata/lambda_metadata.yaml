@@ -5,6 +5,24 @@ lambda_CreateFunction:
   synopsis: create a &LAM; function.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.kotlin.create.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.java2.create.main
     Python:
       versions:
         - sdk_version: 3
@@ -23,6 +41,24 @@ lambda_DeleteFunction:
   synopsis: delete a &LAM; function.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.kotlin.delete.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.java2.delete.main
     Python:
       versions:
         - sdk_version: 3
@@ -40,6 +76,24 @@ lambda_Invoke:
   synopsis: invoke a &LAM; function.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.kotlin.invoke.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.java2.invoke.main
     Python:
       versions:
         - sdk_version: 3

@@ -9,7 +9,8 @@ use aws_sdk_s3::model::{
     BucketLocationConstraint, CreateBucketConfiguration, Delete, ObjectIdentifier,
 };
 use aws_sdk_s3::output::ListObjectsV2Output;
-use aws_sdk_s3::{ByteStream, Client, Error};
+use aws_sdk_s3::types::ByteStream;
+use aws_sdk_s3::{Client, Error};
 use std::path::Path;
 use std::str;
 

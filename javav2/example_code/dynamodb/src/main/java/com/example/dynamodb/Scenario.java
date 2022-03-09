@@ -65,7 +65,7 @@ import java.util.Set;
  *  This Java example performs these tasks:
  *
  * 1. Create the Amazon DynamoDB Movie table with partition and sort key.
- * 2. Put data into the Amazon DynamoDB table from a JSON document.
+ * 2. Put data into the Amazon DynamoDB table from a JSON document using the Enhanced client.
  * 3. Add a new item.
  * 4. Get an item by the composite key (the Partition key and Sort key).
  * 5. Update an item.
@@ -123,6 +123,7 @@ public class Scenario {
         ddb.close();
     }
 
+    // snippet-start:[dynamodb.java2.scenario.create_table.main]
     // Create a table with a Sort key.
     public static void createTable(DynamoDbClient ddb, String tableName) {
 
@@ -182,7 +183,9 @@ public class Scenario {
             System.exit(1);
         }
     }
+    // snippet-end:[dynamodb.java2.scenario.create_table.main]
 
+    // snippet-start:[dynamodb.java2.scenario.query.main]
     // Query the table.
     public static void queryTable(DynamoDbClient ddb) {
             try {
@@ -213,7 +216,9 @@ public class Scenario {
                     System.exit(1);
                 }
         }
+        // snippet-end:[dynamodb.java2.scenario.query.main]
 
+        // snippet-start:[dynamodb.java2.scenario.scan.main]
         // Scan the table.
         public static void scanMovies(DynamoDbClient ddb, String tableName) {
 
@@ -238,9 +243,16 @@ public class Scenario {
                 System.exit(1);
             }
         }
+        // snippet-end:[dynamodb.java2.scenario.scan.main]
 
+        // snippet-start:[dynamodb.java2.scenario.populate_table.main]
         // Load data into the table.
         public static void loadData(DynamoDbClient ddb, String tableName, String fileName) throws IOException {
+
+            DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+                    .dynamoDbClient(ddb)
+                    .build();
+            DynamoDbTable<Movies> mappedTable = enhancedClient.table("Movies", TableSchema.fromBean(Movies.class));
 
             JsonParser parser = new JsonFactory().createParser(new File(fileName));
             com.fasterxml.jackson.databind.JsonNode rootNode = new ObjectMapper().readTree(parser);
@@ -258,39 +270,18 @@ public class Scenario {
                 String title = currentNode.path("title").asText();
                 String info = currentNode.path("info").toString();
 
-                putMovie(ddb, tableName, year, title, info);
+                Movies movies = new Movies();
+                movies.setYear(year);
+                movies.setTitle(title);
+                movies.setInfo(info);
+
+                // Put the data into the Amazon DynamoDB Movie table.
+                mappedTable.putItem(movies);
                 t++;
             }
        }
 
-        // Populate the table with data.
-        public static void putMovie(DynamoDbClient ddb,
-                String tableName,
-                int year,
-                String title,
-                String info) {
-
-            String yr =String.valueOf(year);
-            HashMap<String, AttributeValue> item = new HashMap<String, AttributeValue>();
-
-            item.put("year", AttributeValue.builder().n(yr).build());
-            item.put("title", AttributeValue.builder().s(title).build());
-            item.put("info", AttributeValue.builder().s(info).build());
-
-            PutItemRequest request = PutItemRequest.builder()
-                    .tableName(tableName)
-                    .item(item)
-                    .build();
-
-            try {
-                ddb.putItem(request);
-                System.out.println("Added "+ title +" to the Movie table.");
-
-            } catch (DynamoDbException e) {
-                System.err.println(e.getMessage());
-                System.exit(1);
-            }
-        }
+    // snippet-end:[dynamodb.java2.scenario.populate_table.main]
 
     // Update the record to include show only directors.
     public static void updateTableItem(DynamoDbClient ddb, String tableName){
@@ -373,6 +364,7 @@ public class Scenario {
         System.out.println("Added a new issue to the table.");
     }
 
+    // snippet-start:[dynamodb.java2.scenario.get_item.main]
     public static void getItem(DynamoDbClient ddb) {
 
             HashMap<String,AttributeValue> keyToGet = new HashMap<String,AttributeValue>();
@@ -408,5 +400,7 @@ public class Scenario {
                 System.exit(1);
             }
     }
+    // snippet-end:[dynamodb.java2.scenario.get_item.main]
 }
 // snippet-end:[dynamodb.java2.scenario.main]
+
