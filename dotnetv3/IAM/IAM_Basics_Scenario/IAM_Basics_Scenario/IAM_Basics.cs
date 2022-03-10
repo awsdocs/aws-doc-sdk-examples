@@ -133,7 +133,7 @@ namespace IAM_Basics_Scenario
         /// </summary>
         /// <param name="client">The initialized IAM client object.</param>
         /// <param name="userName">The name of the user for whom to create the key.</param>
-        /// <returns></returns>
+        /// <returns>A new IAM access key for the user.</returns>
         public static async Task<AccessKey> CreateAccessKeyAsync(
             AmazonIdentityManagementServiceClient client,
             string userName)
@@ -241,16 +241,22 @@ namespace IAM_Basics_Scenario
         /// Delete the user, and other resources created for this example.
         /// </summary>
         /// <param name="client">The initialized client object.</param>
+        /// <param name="userName">The user name of the user to delete.</param>
         /// <returns>A Boolean value indicating the success or failure of the
         /// delete operations.</returns>
-        public static async Task DeleteResources(AmazonIdentityManagementServiceClient client)
+        public static async Task DeleteResources(
+            AmazonIdentityManagementServiceClient client,
+            string userName)
         {
+            bool success = false;
+
             var request = new DeleteUserRequest
             {
-                UserName = UserName,
+                UserName = userName,
             };
 
-            await client.DeleteUserAsync(request);
+            var response = await client.DeleteUserAsync(request);
+            success = response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
 
         /// <summary>
