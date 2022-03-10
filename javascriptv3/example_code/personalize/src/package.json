@@ -1,0 +1,25 @@
+{
+  "name": "personalize-js-project",
+  "version": "1.0.0",
+  "description": "personalize operations",
+  "main": "personalizeClients.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "type": "module",
+  "author": "Samuel Ashman <seashman@amazon.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-personalize": "^3.53.0",
+    "@aws-sdk/client-personalize-events": "^3.53.0",
+    "@aws-sdk/client-personalize-runtime": "^3.53.0",
+    "fs": "^0.0.1-security"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
+  },
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "esModuleInterop": true
+  }
+}
