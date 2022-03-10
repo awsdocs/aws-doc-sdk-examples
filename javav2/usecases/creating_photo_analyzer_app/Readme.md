@@ -282,7 +282,7 @@ The following Java code represents the **AnalyzePhotos** class. This class uses 
     }
 ```
 
-**Note:** In this example, an **EnvironmentVariableCredentialsProvider** is used for the credentials. This is because this application is deployed to Elastic Beanstalk where environment variables are set (shown later in this tutorial).
+**Note:** In this example, an **EnvironmentVariableCredentialsProvider** is used for the credentials. This is to support this application being deployed to Elastic Beanstalk where environment variables are set (see the link at the end of this tutorial).
 
 ### BucketItem class
 
