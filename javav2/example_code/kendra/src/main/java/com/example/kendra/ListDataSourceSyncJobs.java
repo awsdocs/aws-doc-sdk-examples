@@ -39,8 +39,8 @@ public class ListDataSourceSyncJobs {
                 "Usage:\n" +
                 "    <indexId> <dataSourceId> \n\n" +
                 "Where:\n" +
-                "    indexId - the id value of the index.\n" +
-                "    dataSourceId - the id value of the data source.\n" ;
+                "    indexId - The id value of the index.\n" +
+                "    dataSourceId - The id value of the data source.\n" ;
 
         if (args.length != 2) {
             System.out.println(usage);

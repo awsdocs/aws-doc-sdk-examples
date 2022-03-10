@@ -51,13 +51,13 @@ public class CreateIndexAndDataSourceExample {
                     "Usage:\n" +
                     "    <indexDescription> <indexName> <indexRoleArn> <dataSourceRoleArn> <dataSourceName> <dataSourceDescription> <s3BucketName>\n\n" +
                     "Where:\n" +
-                    "    indexDescription - a description for the index.\n" +
-                    "    indexName - the name for the new index.\n" +
-                    "    indexRoleArn - an Identity and Access Management (IAM) role that gives Amazon Kendra permissions to access your Amazon CloudWatch logs and metrics.\n\n" +
-                    "    dataSourceRoleArn - the ARN of am IAM role with permission to access the data source.\n\n" +
-                    "    dataSourceName - the name for the new data source.\n\n" +
-                    "    dataSourceDescription - a description for the data source.\n\n" +
-                    "    s3BucketName - an Amazon S3 bucket used as your data source.\n\n" ;
+                    "    indexDescription - A description for the index.\n" +
+                    "    indexName - The name for the new index.\n" +
+                    "    indexRoleArn - An Identity and Access Management (IAM) role that gives Amazon Kendra permissions to access your Amazon CloudWatch logs and metrics.\n\n" +
+                    "    dataSourceRoleArn - The ARN of am IAM role with permission to access the data source.\n\n" +
+                    "    dataSourceName - The name for the new data source.\n\n" +
+                    "    dataSourceDescription - A description for the data source.\n\n" +
+                    "    s3BucketName - An Amazon S3 bucket used as your data source.\n\n" ;
 
         if (args.length != 7) {
             System.out.println(usage);
@@ -153,7 +153,6 @@ public class CreateIndexAndDataSourceExample {
 
             while (true) {
                 DescribeDataSourceResponse describeDataSourceResponse = kendra.describeDataSource(describeDataSourceRequest);
-
                 DataSourceStatus status = describeDataSourceResponse.status();
                 System.out.println("Creating data source. Status is " +status);
                 if (status != DataSourceStatus.CREATING) {

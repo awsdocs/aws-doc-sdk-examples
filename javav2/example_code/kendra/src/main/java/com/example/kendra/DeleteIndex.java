@@ -36,7 +36,7 @@ public class DeleteIndex {
                 "Usage:\n" +
                 "    <indexId> \n\n" +
                 "Where:\n" +
-                "    indexId - the id value of the index.\n" ;
+                "    indexId - The id value of the index.\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);

@@ -41,8 +41,8 @@ public class QueryIndex {
                 "Usage:\n" +
                 "    <indexId> <text> \n\n" +
                 "Where:\n" +
-                "    indexId - the id value of the index.\n" +
-                "    text - the text to use.\n" ;
+                "    indexId - The Id value of the index.\n" +
+                "    text - The text to use.\n" ;
 
         if (args.length != 2) {
             System.out.println(usage);

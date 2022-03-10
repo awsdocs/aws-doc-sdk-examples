@@ -31,16 +31,14 @@ import software.amazon.awssdk.services.kendra.model.KendraException;
  */
 public class DeleteDataSource {
 
-
     public static void main(String[] args) {
-
 
         final String usage = "\n" +
                 "Usage:\n" +
                 "    <dataSourceId> <indexId> \n\n" +
                 "Where:\n" +
-                "    dataSourceId - the id value of the data source.\n" +
-                "    indexId - the id value of the index.\n" ;
+                "    dataSourceId - The id value of the data source.\n" +
+                "    indexId - The id value of the index.\n" ;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -54,7 +52,6 @@ public class DeleteDataSource {
                 .region(Region.US_EAST_1)
                 .build();
         deleteSpecificDataSource(kendra, indexId, dataSourceId);
-
     }
 
     // snippet-start:[kendra.java2.delete.datasource.main]
