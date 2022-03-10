@@ -12,11 +12,11 @@
 ## Purpose
 You can create a dynamic web application that analyzes nature images located in an Amazon S3 bucket by using the Amazon Rekognition service. The application analyzes many images and generates a report that breaks down each image into a series of labels. For example, the following image shows a lake.
 
-![AWS Photo Analyzer](images/Lake1.png)
+![AWS Photo Analyzer](images/lakesun.png)
 
 After the application analyzes all images in the Amazon S3 bucket, it uses the Amazon Simple Email Service (Amazon SES) to send a dynamically created report to a given email recipient. The report is a Microsoft Excel document that contains label data for each image. 
 
-![AWS Photo Analyzer](images/excelreport.png)
+![AWS Photo Analyzer](images/excel2.png)
 
 In this tutorial, you create a Spring Boot application named **AWS Photo Analyzer**. The Spring Boot APIs are used to build a model, different views, and a controller. For more information, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/spring_boot_introduction.htm).
 
