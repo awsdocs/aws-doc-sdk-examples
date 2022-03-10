@@ -27,7 +27,7 @@ The following examples use the **KendraClient** object:
 - [Creating an Amazon Kendra index and data source, and syncing the data source](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/kendra/src/main/java/com/example/kendra/CreateIndexAndDataSourceExample.java) (Multiple commands)
 
 ## Running the examples
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+To run these examples, you can set up your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting an index. **Be very careful** when running an operation that deletes or modifies AWS resources in your account.
@@ -55,7 +55,7 @@ Define these values to successfully run the JUnit tests:
 - **s3BucketName** - An Amazon S3 bucket name used as your data source.
 - **dataSourceDescription** – The ARN of am IAM role with permission to access the data source.
 - **text** – The text used to perform a query operation.
-- **dataSourceRoleArn** – The ARN of am IAM role with permission to access the data source..
+- **dataSourceRoleArn** – The ARN of am IAM role with permission to access the data source.
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
