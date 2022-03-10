@@ -32,7 +32,7 @@ public class KendraTest {
     @BeforeAll
     public static void setUp() throws IOException {
 
-        // Run tests on Real AWS Resources
+        // Run tests on real AWS resources.
         Region region = Region.US_EAST_1;
         kendra = KendraClient.builder().region(region).build();
 
@@ -45,10 +45,10 @@ public class KendraTest {
                 return;
             }
 
-            //load a properties file from class path, inside static method
+            // Load a properties file from the class path.
             prop.load(input);
 
-            // Populate the data members required for all tests
+            // Populate the data members required for all tests.
             indexName = prop.getProperty("indexName");
             indexRoleArn = prop.getProperty("indexRoleArn");
             indexDescription = prop.getProperty("indexDescription");
@@ -89,7 +89,7 @@ public class KendraTest {
 
     @Test
     @Order(4)
-    public void syncDataSource() {
+    public void SyncDataSource() {
         CreateIndexAndDataSourceExample.startDataSource(kendra, indexId, dataSourceId);
         System.out.println("Test 4 passed");
     }
