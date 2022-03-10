@@ -609,6 +609,7 @@ You can invoke the workflow on the Step Functions console.  An execution receive
         "inputID1": "5f376586-ca17-4a9c-b1e0-1b520e46b089"
       }
 
+**Note**: Make sure that the value that you specify corresponds to a PK value of a record. 
 
 #### To execute your workflow
 
