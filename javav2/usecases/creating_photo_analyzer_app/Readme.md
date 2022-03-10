@@ -1424,7 +1424,7 @@ The following JavaScript represents the **message.js** file. The **ProcessImages
 
 ## Run the application
 
-Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, you can run the application by clicking the run icon in the Spring Boot main class, as shown in this illustration. 
+Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, click the run icon in the Spring Boot main class, as shown in this illustration. 
 
 ![AWS Tracking Application](images/runapp.png)
 
