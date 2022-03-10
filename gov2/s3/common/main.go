@@ -23,7 +23,7 @@ func main() {
 	// This bucket name is 100% unique.
 	// Remember that bucket names must be globally unique among all buckets.
 
-	myBucketName := "myBucket-" + (xid.New().String())
+	myBucketName := "mybucket-" + (xid.New().String())
 	fmt.Printf("Bucket name: %v\n", myBucketName)
 
 	cfg, err := config.LoadDefaultConfig(context.TODO())
@@ -35,6 +35,7 @@ func main() {
 	s3client := s3.NewFromConfig(cfg)
 
 	//snippet-start:[s3.go-v2.ListBuckets]
+	fmt.Println("List buckets: ")
 	listBucketsResult, err := s3client.ListBuckets(context.TODO(), &s3.ListBucketsInput{})
 
 	if err != nil {
@@ -42,50 +43,62 @@ func main() {
 	}
 
 	for _, bucket := range listBucketsResult.Buckets {
-		fmt.Printf("Bucket name: %v\t\tcreated at: %v\n", bucket.Name, bucket.CreationDate)
+		fmt.Printf("Bucket name: %s\t\tcreated at: %v\n", *bucket.Name, bucket.CreationDate)
 	}
 	//snippet-end:[s3.go-v2.ListBuckets]
 
 	//snippet-start:[s3.go-v2.CreateBucket]
 	// Create a bucket: We're going to create a bucket to hold content.
 	// Best practice is to use the preset private access control list (ACL).
+	// If you are not creating a bucket from us-east-1, you must specify a bucket location constraint.
+	// Bucket names must conform to several rules; read more at https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html
 	_, err = s3client.CreateBucket(context.TODO(), &s3.CreateBucketInput{
-		Bucket: aws.String(myBucketName),
-		ACL:    types.BucketCannedACLPrivate,
+		Bucket:                    aws.String(myBucketName),
+		ACL:                       types.BucketCannedACLPrivate,
+		CreateBucketConfiguration: &types.CreateBucketConfiguration{LocationConstraint: types.BucketLocationConstraintUsWest2},
 	})
 
 	if err != nil {
-		panic("could not create bucket")
+		panic("could not create bucket: " + err.Error())
 	}
+
 	//snippet-end:[s3.go-v2.CreateBucket]
 
 	//snippet-start:[s3.go-v2.PutObject]
 	// Place an object in a bucket.
-
+	fmt.Println("Upload an object to the bucket")
 	// Get the object body to upload.
 	// Image credit: https://unsplash.com/photos/iz58d89q3ss
+	stat, err := os.Stat("image.jpg")
+	if err != nil {
+		panic("Couldn't stat image: " + err.Error())
+	}
 	file, err := os.Open("image.jpg")
 
 	if err != nil {
 		panic("Couldn't open local file")
 	}
+
 	_, err = s3client.PutObject(context.TODO(), &s3.PutObjectInput{
-		Bucket: aws.String(myBucketName),
-		Key:    aws.String("path/myfile.jpg"),
-		Body:   file,
+		Bucket:        aws.String(myBucketName),
+		Key:           aws.String("path/myfile.jpg"),
+		Body:          file,
+		ContentLength: stat.Size(),
 	})
 
 	file.Close()
 
 	if err != nil {
-		panic("Couldn't upload file")
+		panic("Couldn't upload file: " + err.Error())
 	}
 
 	//snippet-end:[s3.go-v2.PutObject]
 
-	// Get a presigned URL for the object.
-
 	//snippet-start:[s3.go-v2.generate_presigned_url]
+	// Get a presigned URL for the object.
+	// In order to get a presigned URL for an object, you must
+	// create a Presignclient
+	fmt.Println("Create Presign client")
 	presignClient := s3.NewPresignClient(s3client)
 
 	presignResult, err := presignClient.PresignGetObject(context.TODO(), &s3.GetObjectInput{
@@ -97,43 +110,38 @@ func main() {
 		panic("Couldn't get presigned URL for GetObject")
 	}
 
-	fmt.Printf("Presigned URL For object: %v", presignResult.URL)
+	fmt.Printf("Presigned URL For object: %s\n", presignResult.URL)
 
 	//snippet-end:[s3.go-v2.generate_presigned_url]
 	// Download the file.
 
 	//snippet-start:[s3.go-v2.GetObject]
+	fmt.Println("Download a file")
 	getObjectResponse, err := s3client.GetObject(context.TODO(), &s3.GetObjectInput{
 		Bucket: aws.String(myBucketName),
 		Key:    aws.String("path/myfile.jpg"),
 	})
 
 	if err == nil {
-		file, _ = os.Open("download.jpg")
-		io.Copy(file, getObjectResponse.Body)
+		file, err = os.Create("download.jpg")
+
+		if err != nil {
+			panic("didnt open file to write: " + err.Error())
+		}
+		written, err := io.Copy(file, getObjectResponse.Body)
+		if err != nil {
+			panic("Failed to write file contents! " + err.Error())
+		} else if written != getObjectResponse.ContentLength {
+			panic("wrote a different size than was given to us")
+		}
+		fmt.Println("Done pulling file")
 		file.Close()
+
 	} else {
 		panic("Couldn't download object")
 	}
 	//snippet-end:[s3.go-v2.GetObject]
 
-	//snippet-start:[s3.go-v2.ListObjects]
-	// List objects in the bucket.
-
-	listObjsResponse, err := s3client.ListObjectsV2(context.TODO(), &s3.ListObjectsV2Input{
-		Bucket: aws.String(myBucketName),
-		Prefix: aws.String("/"),
-	})
-
-	if err != nil {
-		panic("Couldn't list bucket contents")
-	}
-
-	for _, object := range listObjsResponse.Contents {
-		fmt.Printf("%v (%v bytes, class %v) \n", object.Key, object.Size, object.StorageClass)
-	}
-
-	//snippet-end:[s3.go-v2.ListObjects]
 	//snippet-start:[s3.go-v2.CopyObject]
 	// Copy an object to another name.
 
@@ -141,6 +149,7 @@ func main() {
 	// The semantics of CopySource varies depending on whether you're using Amazon S3 on Outposts,
 	// or through access points.
 	// See https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html#API_CopyObject_RequestSyntax
+	fmt.Println("Copy an object from another bucket to our bucket.")
 	_, err = s3client.CopyObject(context.TODO(), &s3.CopyObjectInput{
 		Bucket:     aws.String(myBucketName),
 		CopySource: aws.String(myBucketName + "/path/myfile.jpg"),
@@ -151,10 +160,28 @@ func main() {
 		panic("Couldn't copy the object to a new key")
 	}
 	//snippet-end:[s3.go-v2.CopyObject]
+	//snippet-start:[s3.go-v2.ListObjects]
+	// List objects in the bucket.
+	// n.b. object keys in Amazon S3 do not begin with '/'. You do not need to lead your
+	// prefix with it.
+	fmt.Println("Listing the objects in the bucket:")
+	listObjsResponse, err := s3client.ListObjectsV2(context.TODO(), &s3.ListObjectsV2Input{
+		Bucket: aws.String(myBucketName),
+		Prefix: aws.String(""),
+	})
 
+	if err != nil {
+		panic("Couldn't list bucket contents")
+	}
+
+	for _, object := range listObjsResponse.Contents {
+		fmt.Printf("%s (%d bytes, class %v) \n", *object.Key, object.Size, object.StorageClass)
+	}
+
+	//snippet-end:[s3.go-v2.ListObjects]
 	//snippet-start:[s3.go-v2.DeleteObject]
 	// Delete a single object.
-
+	fmt.Println("Delete an object from a bucket")
 	_, err = s3client.DeleteObject(context.TODO(), &s3.DeleteObjectInput{
 		Bucket: aws.String(myBucketName),
 		Key:    aws.String("other/file.jpg"),
@@ -168,7 +195,7 @@ func main() {
 	//snippet-start:[s3.go-v2.EmptyBucket]
 	// Delete all objects in a bucket.
 
-
+	fmt.Println("Delete the objects in a bucket")
 	// Note: For versioned buckets, you must also delete all versions of
 	// all objects within the bucket with ListVersions and DeleteVersion.
 	listObjectsV2Response, err := s3client.ListObjectsV2(context.TODO(),
@@ -181,17 +208,16 @@ func main() {
 		if err != nil {
 			panic("Couldn't list objects...")
 		}
-		ids := make([]types.ObjectIdentifier, listObjectsV2Response.KeyCount)
-		for idx, item := range listObjectsV2Response.Contents {
-			ids[idx] = types.ObjectIdentifier{Key: item.Key}
-		}
+		for _, item := range listObjectsV2Response.Contents {
+			fmt.Printf("- Deleting object %s\n", *item.Key)
+			_, err = s3client.DeleteObject(context.Background(), &s3.DeleteObjectInput{
+				Bucket: aws.String(myBucketName),
+				Key:    item.Key,
+			})
 
-		_, err = s3client.DeleteObjects(context.TODO(), &s3.DeleteObjectsInput{
-			Bucket: aws.String(myBucketName),
-			Delete: &types.Delete{Objects: ids},
-		})
-		if err != nil {
-			panic("Couldn't delete items")
+			if err != nil {
+				panic("Couldn't delete items")
+			}
 		}
 
 		if listObjectsV2Response.IsTruncated {
@@ -208,12 +234,15 @@ func main() {
 	//snippet-end:[s3.go-v2.EmptyBucket]
 
 	// snippet-start:[s3.go-v2.DeleteBucket]
-
+	fmt.Println("Delete a bucket")
 	// Delete the bucket.
 
-	s3client.DeleteBucket(context.TODO(), &s3.DeleteBucketInput{
+	_, err = s3client.DeleteBucket(context.TODO(), &s3.DeleteBucketInput{
 		Bucket: aws.String(myBucketName),
 	})
+	if err != nil {
+		panic("Couldn't delete bucket: " + err.Error())
+	}
 	// snippet-end:[s3.go-v2.DeleteBucket]
 
 	//snippet-end:[s3.go-v2.s3_basics]
