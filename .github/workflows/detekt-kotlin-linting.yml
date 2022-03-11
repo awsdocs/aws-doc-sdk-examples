@@ -16,3 +16,6 @@ jobs:
 
        - name: "detekt"
          uses: natiginfo/action-detekt-all@1.20.0-RC1
+         with:
+          args: --fail-fast --config detekt-config.yml
+          
