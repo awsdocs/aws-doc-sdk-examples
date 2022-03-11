@@ -15,7 +15,7 @@ jobs:
          uses: actions/checkout@v2
 
        - name: "detekt"
-         uses: natiginfo/action-detekt-all@1.20.0-RC1
+         uses: natiginfo/action-detekt-all@1.16.0-RC1
          with:
           args: --fail-fast --config .github/workflows/detekt-config
           
