@@ -1,18 +1,19 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+/// <summary>
+/// Shows how to create an AWS Identity and Access Management (IAM) Access
+/// Key for an IAM User. The example was created using the AWS SDK for .NET
+/// version 3.7 and .NET Core 5.0.
+/// </summary>
 namespace CreateAccessKeyExample
 {
+    // snippet-start:[IAM.dotnetv3.CreateAccessKeyExample]
     using System;
     using System.Threading.Tasks;
     using Amazon.IdentityManagement;
     using Amazon.IdentityManagement.Model;
 
-    /// <summary>
-    /// Shows how to create an AWS Identity and Access Management (IAM) Access
-    /// Key for an IAM User. The example was created using the AWS SDK for .NET
-    /// version 3.7 and .NET Core 5.0.
-    /// </summary>
     public class CreateAccssKey
     {
         /// <summary>
@@ -34,4 +35,6 @@ namespace CreateAccessKeyExample
             Console.WriteLine($"{accessKey.AccessKeyId} created for {accessKey.UserName}");
         }
     }
+
+    // snippet-end:[IAM.dotnetv3.CreateAccessKeyExample]
 }
