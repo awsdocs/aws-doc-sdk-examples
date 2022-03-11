@@ -4,6 +4,8 @@ Thank you for your interest in contributing to AWS documentation! We greatly val
 
 Please read through this document before you submit any pull requests or issues. It will help us work together more effectively.
 
+
+
 ## What to expect when you contribute
 
 When you submit a pull request, our team is notified and will respond as quickly as we can. We'll do our best to work with you to ensure that your pull request adheres to our style and standards. If we merge your pull request, we might make additional edits later for style or clarity.
@@ -19,6 +21,13 @@ We look forward to receiving your pull requests for:
 * Suggested rewrites that improve clarity and reduce confusion
 
 **Note:** We all write differently, and you might not like how we've written or organized something currently. We want that feedback. But please be sure that your request for a rewrite is supported by the previous criteria. If it isn't, we might decline to merge it.
+
+### Types of examples
+There are three types of examples of AWS SDK usage in this repo:
+1. **Single action** - show how to call individual service functions, such as [creating an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javascriptv3/example_code/s3/src/s3_createbucket.js).
+2. **Scenario** - show how to accomplish specific tasks by calling multiple functions within a single service, such as [Getting started with Amazon S3 buckets and objects](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javascriptv3/example_code/s3/scenarios/s3_basics/src/s3_basics.js). 
+3. **Cross-service**  - show how to build sample applications across multiple AWS services, such as the [AWS Photo Analyzer](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_photo_analyzer_app), which demonstrates how to build web application that analyzes nature images located in an Amazon Simple Storage Service (Amazon S3) bucket by using the AWS SDK for Java V2.
+
 
 ## Where to put a new code example
 
