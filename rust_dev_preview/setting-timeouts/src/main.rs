@@ -3,8 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_config::TimeoutConfig;
 use aws_smithy_client::{conns, erase::DynConnector, hyper_ext};
+// A note about `TriState`: `TriState` allows us to distinguish between configuration that was
+// intentionally set or disabled from configuration that was unset. If you're familiar with
+// languages like SQL or JavaScript, you can think of `TriState::Unset` as being like `undefined`,
+// `TriState::Disabled` as being like `null`, and `TriState::Set(value)` as being a set value.
+// With this distinction, it's simpler to merge configuration from multiple sources, overwriting
+// unset values, but keeping set or disabled values.
+use aws_smithy_types::{timeout, tristate::TriState};
 use std::time::Duration;
 
 /// The SDK divides timeouts into two groups:
@@ -35,22 +41,28 @@ async fn main() -> Result<(), aws_sdk_s3::Error> {
     // Here we create an object that holds timeout-related configuration. We'll have to pass this
     // config into two places. This is because different timeouts are handled at different
     // "levels" of the AWS SDK Client networking stack. We'll note which timeouts are getting
-    // set each time we pass in this cofiguration.
-    let timeout_config = TimeoutConfig::new()
-        // This timeout acts at the "Request to a service" level. When the SDK makes a request to a
-        // service, that "request" may actually comprise of several HTTP requests in order to retry
-        // failures that are likely spurious or to refresh credentials.
-        .with_api_call_timeout(Some(Duration::from_secs(2)))
-        // This timeout acts at the "HTTP request" level and will set a separate timeout for each
-        // HTTP request made as part of a "service request"
-        .with_api_call_attempt_timeout(Some(Duration::from_secs(2)))
-        // A limit on the amount of time an application takes to attempt to read the first byte over
-        // an established, open connection after write request.
-        // Also known as the "time to first byte" timeout
-        .with_read_timeout(Some(Duration::from_secs(2)))
-        // A limit on the amount of time after making an initial connect attempt on a socket to
-        // complete the connect-handshake
-        .with_connect_timeout(Some(Duration::from_secs(2)));
+    // set each time we pass in this configuration.
+    let timeout_config = timeout::Config::new()
+        .with_api_timeouts(
+            timeout::Api::new()
+                // This timeout acts at the "Request to a service" level. When the SDK makes a request to a
+                // service, that "request" may actually comprise of several HTTP requests in order to retry
+                // failures that are likely spurious or to refresh credentials.
+                .with_call_timeout(TriState::Set(Duration::from_secs(2)))
+                // This timeout acts at the "HTTP request" level and will set a separate timeout for each
+                // HTTP request made as part of a "service request"
+                .with_call_attempt_timeout(TriState::Set(Duration::from_secs(2))),
+        )
+        .with_http_timeouts(
+            timeout::Http::new()
+                // A limit on the amount of time an application takes to attempt to read the first byte over
+                // an established, open connection after write request.
+                // Also known as the "time to first byte" timeout
+                .with_read_timeout(TriState::Set(Duration::from_secs(2)))
+                // A limit on the amount of time after making an initial connect attempt on a socket to
+                // complete the connect-handshake
+                .with_connect_timeout(TriState::Set(Duration::from_secs(2))),
+        );
 
     // Timeouts can be defined in your environment or AWS profile but in this example we
     // overrule any that happen to be set
@@ -65,7 +77,7 @@ async fn main() -> Result<(), aws_sdk_s3::Error> {
     // NOTE: The read and connect timeouts get set here
     let conn = DynConnector::new(
         hyper_ext::Adapter::builder()
-            .timeout(&timeout_config)
+            .timeout(&timeout_config.http)
             .build(conns::https()),
     );
     let s3_config = aws_sdk_s3::Config::from(&shared_config);
