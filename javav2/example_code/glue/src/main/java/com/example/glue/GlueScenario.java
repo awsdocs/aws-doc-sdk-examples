@@ -55,7 +55,7 @@ import software.amazon.awssdk.services.glue.model.DeleteCrawlerRequest;
 
 /**
  *
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * To run this Java V2 code example, ensure that you have set up your development environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
