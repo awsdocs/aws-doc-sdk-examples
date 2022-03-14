@@ -1,6 +1,37 @@
 # AWS Glue Java code examples
 
-This README discusses how to run and test the Java code examples for AWS Glue.
+## Overview
+This README discusses how to run and test the Java V2 code examples for Amazon DynamoDB.
+
+Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability.
+
+## ⚠️ Important
+* Running this code might result in charges to your AWS account. 
+* Running the tests might result in charges to your AWS account.
+*  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+## Code examples
+
+### Single action
+
+You will find these examples that use the **GlueClient** object: 
+
+- [Creating an AWS Glue crawler](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/CreateCrawler.java) (CreateCrawler command)
+- [Deleting an AWS Glue crawler](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/DeleteCrawler.java) (DeleteCrawler command)
+- [Getting a specific AWS Glue crawler](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/GetCrawler.java) (GetCrawler command)
+- [Getting AWS Glue crawlers](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/GetCrawlers.java) (GetCrawlers command)
+- [Getting a database](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/GetDatabase.java) (GetDatabase command)
+- [Getting a job run request](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/GetJobRun.java) (GetJobRun command)
+- [Getting all AWS Glue jobs](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/GetJobs.java) (GetJobs command)
+- [Getting an AWS Glue table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/GetTable.java) (GetTable command)
+- [Getting all AWS Glue workflows](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/ListWorkflows.java) (ListWorkflows command)
+- [Searching AWS Glue tables based on properties](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/SearchTables.java) (SearchTables command)
+- [Starting an AWS Glue crawler](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/StartCrawler.java) (StartCrawler command)
+
+### Scenario
+
+- [Performing various AWS Glue operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/GlueScenario.java) (Multiple commands)
 
 ## Running the AWS Glue Java files
 
