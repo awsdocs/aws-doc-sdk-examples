@@ -69,9 +69,14 @@ Define these values to successfully run the JUnit tests:
 - **existingDatabaseName** - The name of an existing database.
 - **tableName** - The name of a database table used in the **GetTable** test.
 - **text** - A string used for a text search and used in the **SearchTables** test.
+- **jobNameSc** - A Job name used for the Scenario test.
+- **s3PathSc** - The Amazon S3 target that contains data used for the Scenario test.
+- **dbNameSc** - The name of the database used for the Scenario test.
+- **crawlerNameSc** - The crawler name used for the Scenario test.
+- **scriptLocationSc** - The Amazon S3 path to a script that runs a job used for the Scenario test. 
+- **locationUri** - The location of the database used for the Scenario test. 
 
-
-**Note:** To set up the CSV data and other requirements needed for the unit tests, follow [Getting started using AWS Glue](https://docs.aws.amazon.com/glue/latest/dg/getting-started.html).
+**Note:** To set up the CSV data and other requirements needed for the unit tests, follow [Tutorial: Adding an AWS Glue crawler](https://docs.aws.amazon.com/glue/latest/ug/tutorial-add-crawler.html).
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
@@ -116,6 +121,7 @@ If you do not define the correct values in the properties file, your JUnit tests
 ## Additional resources
 * [Developer guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 * [AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/what-is-glue.html).
+* [AWS Glue Studio User Guide](https://docs.aws.amazon.com/glue/latest/ug/notebooks-chapter.html).
 * [Interface GlueClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/glue/GlueClient.html).
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
