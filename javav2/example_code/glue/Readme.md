@@ -1,9 +1,9 @@
 # AWS Glue Java code examples
 
 ## Overview
-This README discusses how to run and test the Java V2 code examples for Amazon DynamoDB.
+This README discusses how to run and test the Java V2 code examples for AWS Glue.
 
-Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability.
+AWS Glue is a serverless data integration service that makes it easy to discover, prepare, and combine data for analytics, machine learning, and application development.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. 
@@ -112,3 +112,10 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[INFO] ---------------------------------------
 	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project GlueServiceTest:  There are test failures.
 	[ERROR];
+
+## Additional resources
+* [Developer guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+* [AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/what-is-glue.html).
+* [Interface GlueClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/glue/GlueClient.html).
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
