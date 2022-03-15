@@ -502,13 +502,12 @@ The following Java code represents the **MainController** class.
     @ResponseBody
     String getReport(HttpServletRequest request, HttpServletResponse response) {
 
-        //Get the Logged in User
+        //Get the Logged in User.
         String name = getLoggedUser();
 
         String email = request.getParameter("email");
         List<WorkItem> theList = ri.getItemsDataSQLReport(name);
-
-       java.io.InputStream is = writeExcel.exportExcel(theList);
+        java.io.InputStream is = writeExcel.exportExcel(theList);
 
         try {
             sm.sendReport(is, email);
@@ -544,11 +543,11 @@ The following Java code represents the **MainController** class.
      @ResponseBody
      String retrieveItems(HttpServletRequest request, HttpServletResponse response) {
 
-        //Get the Logged in User
+        //Get the Logged in User.
         String name = getLoggedUser();
         String type = request.getParameter("type");
 
-        //Pass back all data from the database
+        //Pass back all data from the database.
         String xml="";
 
         if (type.equals("active")) {
@@ -570,12 +569,10 @@ The following Java code represents the **MainController** class.
       }
 
      private String getLoggedUser() {
-
-        // Get the logged-in user.
         org.springframework.security.core.userdetails.User user2 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String name = user2.getUsername();
         return name;
-    }
+      }
     }
 ```
 
@@ -653,7 +650,7 @@ Create a Java package named **com.aws.jdbc**. Next, create these Java classes th
 + **InjectWorkService** - Injects items into the MySQL instance.
 + **RetrieveItems** - Retrieves items from the MySQL instance.
 
-**Note**: This tutorial uses the JDBC API to interact with the MySQL instance. For more information about using Amazon RDS, see [Amazon Relational Database Service](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ConnectToInstance.html).  
+**Note**: This tutorial uses the JDBC API to interact with the MySQL instance.   
 
 #### ConnectionHelper class
 
@@ -701,7 +698,7 @@ The following Java code represents the **ConnectionHelper** class.
      }
 ```
 
-**Note:** The **URL** value is **localhost:3306**. Replace this value with the endpoint value you obtained while setting up the Amazon RDS database; otherwise, you code not not work. You must also ensure that you specify the user name and password for your RDS instance.
+**Note:** The **URL** value is **localhost:3306**. Replace this value with the endpoint value you obtained while setting up the Amazon RDS database; otherwise, your code does not work. You must also ensure that you specify the user name and password for your RDS instance.
 
 #### InjectWorkService class
 
@@ -760,10 +757,10 @@ The following Java code represents the **InjectWorkService** class.
        int rowCount= 0;
        try {
 
-          // Create a Connection object
+          // Create a Connection object.
           c = ConnectionHelper.getConnection();
 
-         // Use a prepared statement
+         // Use a prepared statement.
          PreparedStatement ps = null;
 
         // Convert rev to int.
@@ -776,7 +773,7 @@ The following Java code represents the **InjectWorkService** class.
         UUID uuid = UUID.randomUUID();
         String workId = uuid.toString();
 
-        // Date conversion
+        // Date conversion.
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
@@ -893,7 +890,7 @@ The following Java code represents the **RetrieveItems** class.
             Statement s = c.createStatement();
             Statement scount = c.createStatement();
 
-            // Use prepared statements
+            // Use prepared statements.
             PreparedStatement pstmt = null;
             PreparedStatement ps = null;
 
@@ -905,10 +902,10 @@ The following Java code represents the **RetrieveItems** class.
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                // For each record, create a WorkItem object
+                // For each record, create a WorkItem object.
                 item = new WorkItem();
 
-                // Populate the WorkItem object
+                // Populate the WorkItem object.
                 item.setId(rs.getString(1));
                 item.setName(rs.getString(2));
                 item.setDate(rs.getDate(3).toString().trim());
@@ -916,7 +913,7 @@ The following Java code represents the **RetrieveItems** class.
                 item.setGuide(rs.getString(5));
                 item.setStatus(rs.getString(6));
 
-                // Push the WorkItem object to the list
+                // Push the WorkItem object to the list.
                 itemList.add(item);
             }
 
@@ -948,11 +945,11 @@ The following Java code represents the **RetrieveItems** class.
             Statement s = c.createStatement();
             Statement scount = c.createStatement();
 
-            // Use prepared statements
+            // Use prepared statements.
             PreparedStatement pstmt = null;
             PreparedStatement ps = null;
 
-            //Specify the SQL statement to query data
+            // Specify the SQL statement to query data.
             query = "Select description, status FROM work where idwork ='" +id + "' ";
             pstmt = c.prepareStatement(query);
             rs = pstmt.executeQuery();
@@ -977,7 +974,7 @@ The following Java code represents the **RetrieveItems** class.
 
         Connection c = null;
 
-        // Define a list in which all work items are stored
+        // Define a list in which all work items are stored.
         List<WorkItem> itemList = new ArrayList<WorkItem>();
         int rowCount = 0;
         String query = "";
@@ -997,16 +994,16 @@ The following Java code represents the **RetrieveItems** class.
 
             int arch = 0;
 
-            // Specify the SQL statement to query data
+            // Specify the SQL statement to query data.
             query = "Select idwork,username,date,description,guide,status FROM work where username = '" +username +"' and archive = " +arch +"";
             pstmt = c.prepareStatement(query);
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                // For each record-- create a WorkItem instance
+                // For each record-- create a WorkItem instance.
                 item = new WorkItem();
 
-                // Populate WorkItem with data from MySQL
+                // Populate WorkItem with data from MySQL.
                 item.setId(rs.getString(1));
                 item.setName(rs.getString(2));
                 item.setDate(rs.getDate(3).toString().trim());
@@ -1014,7 +1011,7 @@ The following Java code represents the **RetrieveItems** class.
                 item.setGuide(rs.getString(5));
                 item.setStatus(rs.getString(6));
 
-                // Push the WorkItem Object to the list
+                // Push the WorkItem Object to the list.
                 itemList.add(item);
             }
             return itemList;
@@ -1028,12 +1025,12 @@ The following Java code represents the **RetrieveItems** class.
     }
 
 
-    // Get Items Data from MySQL
+    // Get Items Data from MySQL.
     public String getItemsDataSQL(String username) {
 
         Connection c = null;
 
-        // Define a list in which all work items are stored
+        // Define a list in which all work items are stored.
         List<WorkItem> itemList = new ArrayList<WorkItem>();
         int rowCount = 0;
         String query = "";
@@ -1046,23 +1043,23 @@ The following Java code represents the **RetrieveItems** class.
             Statement s = c.createStatement();
             Statement scount = c.createStatement();
 
-            // Use prepared statements
+            // Use prepared statements.
             PreparedStatement pstmt = null;
             PreparedStatement ps = null;
 
             int arch = 0;
 
-            // Specify the SQL statement to query data
+            // Specify the SQL statement to query data.
             query = "Select idwork,username,date,description,guide,status FROM work where username = '" +username +"' and archive = " +arch +"";
             pstmt = c.prepareStatement(query);
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
 
-                // For each record-- create a WorkItem instance
+                // For each record-- create a WorkItem instance.
                 item = new WorkItem();
 
-                //Populate WorkItem object with data
+                // Populate WorkItem object with data.
                 item.setId(rs.getString(1));
                 item.setName(rs.getString(2));
                 item.setDate(rs.getDate(3).toString().trim());
@@ -1070,7 +1067,7 @@ The following Java code represents the **RetrieveItems** class.
                 item.setGuide(rs.getString(5));
                 item.setStatus(rs.getString(6));
 
-                // Push the WorkItem Object to the list
+                // Push the WorkItem Object to the list.
                 itemList.add(item);
             }
             return convertToString(toXml(itemList));
@@ -1084,7 +1081,7 @@ The following Java code represents the **RetrieveItems** class.
     }
 
     // Convert Work item data retrieved from MySQL
-    // into XML to pass back to the view
+    // into XML to pass back to the view.
     private Document toXml(List<WorkItem> itemList) {
 
         try {
@@ -1092,48 +1089,48 @@ The following Java code represents the **RetrieveItems** class.
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 
-            // Start building the XML
+            // Start building the XML.
             Element root = doc.createElement( "Items" );
             doc.appendChild( root );
 
-            // Get the elements from the collection
+            // Get the elements from the collection.
             int custCount = itemList.size();
 
-            // Iterate through the collection
+            // Iterate through the collection.
             for ( int index=0; index < custCount; index++) {
 
-                // Get the WorkItem object from the collection
+                // Get the WorkItem object from the collection.
                 WorkItem myItem = itemList.get(index);
 
                 Element item = doc.createElement( "Item" );
                 root.appendChild( item );
 
-                // Set Id
+                // Set Id.
                 Element id = doc.createElement( "Id" );
                 id.appendChild( doc.createTextNode(myItem.getId() ) );
                 item.appendChild( id );
 
-                // Set Name
+                // Set Name.
                 Element name = doc.createElement( "Name" );
                 name.appendChild( doc.createTextNode(myItem.getName() ) );
                 item.appendChild( name );
 
-                // Set Date
+                // Set Date.
                 Element date = doc.createElement( "Date" );
                 date.appendChild( doc.createTextNode(myItem.getDate() ) );
                 item.appendChild( date );
 
-                // Set Description
+                // Set Description.
                 Element desc = doc.createElement( "Description" );
                 desc.appendChild( doc.createTextNode(myItem.getDescription() ) );
                 item.appendChild( desc );
 
-                // Set Guide
+                // Set Guide.
                 Element guide = doc.createElement( "Guide" );
                 guide.appendChild( doc.createTextNode(myItem.getGuide() ) );
                 item.appendChild( guide );
 
-                // Set Status
+                // Set Status.
                 Element status = doc.createElement( "Status" );
                 status.appendChild( doc.createTextNode(myItem.getStatus() ) );
                 item.appendChild( status );
@@ -1169,24 +1166,24 @@ The following Java code represents the **RetrieveItems** class.
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 
-            // Start building the XML
+            // Start building the XML.
             Element root = doc.createElement( "Items" );
             doc.appendChild( root );
 
             Element item = doc.createElement( "Item" );
             root.appendChild( item );
 
-            // Set Id
+            // Set Id.
             Element id = doc.createElement( "Id" );
             id.appendChild( doc.createTextNode(id2 ) );
             item.appendChild( id );
 
-            // Set Description
+            // Set Description.
             Element desc = doc.createElement( "Description" );
             desc.appendChild( doc.createTextNode(desc2 ) );
             item.appendChild( desc );
 
-            // Set Status
+            // Set Status.
             Element status = doc.createElement( "Status" );
             status.appendChild( doc.createTextNode(status2 ) );
             item.appendChild( status );
@@ -1211,7 +1208,7 @@ The service classes contain Java application logic that uses AWS services. In th
 #### SendMessage class
 The **SendMessage** class uses the AWS SDK for Java V2 SES API to send an email message with an attachment (the Excel document) to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
-The following Java code represents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials.
+The following Java code represents the **SendMessage** class. 
 
 ```java
     package com.aws.services;
@@ -1246,19 +1243,19 @@ The following Java code represents the **SendMessage** class. Notice that an **E
 
      private String sender = "<ENTER A VALID SEND EMAIL ADDRESS>";
 
-     // The subject line for the email
+     // The subject line for the email.
      private String subject = "Weekly AWS Status Report";
 
-     // The email body for recipients with non-HTML email clients
+     // The email body for recipients with non-HTML email clients.
      private String bodyText = "Hello,\r\n" + "Please see the attached file for a weekly update.";
 
-     // The HTML body of the email
+     // The HTML body of the email.
      private String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
             + "<p>Please see the attached file for a weekly update.</p>" + "</body>" + "</html>";
 
      public void sendReport(InputStream is, String emailAddress ) throws IOException {
 
-        // Convert the InputStream to a byte[]
+        // Convert the InputStream to a byte[].
         byte[] fileContent = IOUtils.toByteArray(is);
 
         try {
@@ -1273,45 +1270,45 @@ The following Java code represents the **SendMessage** class. Notice that an **E
         MimeMessage message = null;
         Session session = Session.getDefaultInstance(new Properties());
 
-        // Create a new MimeMessage object
+        // Create a new MimeMessage object.
         message = new MimeMessage(session);
 
-        // Add subject, from and to lines
+        // Add subject, from and to lines.
         message.setSubject(subject, "UTF-8");
         message.setFrom(new InternetAddress(sender));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
 
-        // Create a multipart/alternative child container
+        // Create a multipart/alternative child container.
         MimeMultipart msgBody = new MimeMultipart("alternative");
 
-        // Create a wrapper for the HTML and text parts
+        // Create a wrapper for the HTML and text parts.
         MimeBodyPart wrap = new MimeBodyPart();
 
-        // Define the text part
+        // Define the text part.
         MimeBodyPart textPart = new MimeBodyPart();
         textPart.setContent(bodyText, "text/plain; charset=UTF-8");
 
-        // Define the HTML part
+        // Define the HTML part.
         MimeBodyPart htmlPart = new MimeBodyPart();
         htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
 
-        // Add the text and HTML parts to the child container
+        // Add the text and HTML parts to the child container.
         msgBody.addBodyPart(textPart);
         msgBody.addBodyPart(htmlPart);
 
-        // Add the child container to the wrapper object
+        // Add the child container to the wrapper object.
         wrap.setContent(msgBody);
 
-        // Create a multipart/mixed parent container
+        // Create a multipart/mixed parent container.
         MimeMultipart msg = new MimeMultipart("mixed");
 
-        // Add the parent container to the message
+        // Add the parent container to the message.
         message.setContent(msg);
 
         // Add the multipart/alternative part to the message
         msg.addBodyPart(wrap);
 
-        // Define the attachment
+        // Define the attachment.
         MimeBodyPart att = new MimeBodyPart();
         DataSource fds = new ByteArrayDataSource(attachment, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         att.setDataHandler(new DataHandler(fds));
@@ -1319,16 +1316,15 @@ The following Java code represents the **SendMessage** class. Notice that an **E
         String reportName = "WorkReport.xls";
         att.setFileName(reportName);
 
-        // Add the attachment to the message
+        // Add the attachment to the message.
         msg.addBodyPart(att);
 
-       // Send the email
+       // Send the email.
         try {
             System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
 
             Region region = Region.US_WEST_2;
             SesClient client = SesClient.builder()
-                    .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                     .region(region)
                     .build();
 
@@ -1336,12 +1332,10 @@ The following Java code represents the **SendMessage** class. Notice that an **E
             message.writeTo(outputStream);
 
             ByteBuffer buf = ByteBuffer.wrap(outputStream.toByteArray());
-
             byte[] arr = new byte[buf.remaining()];
             buf.get(arr);
 
             SdkBytes data = SdkBytes.fromByteArray(arr);
-
             RawMessage rawMessage = RawMessage.builder()
                     .data(data)
                     .build();
@@ -1393,7 +1387,7 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
     private WritableCellFormat timesBoldUnderline;
     private WritableCellFormat times;
 
-    // Returns an InputStream that represents the Excel report
+    // Returns an InputStream that represents the Excel report.
     public java.io.InputStream exportExcel( List<WorkItem> list) {
 
         try {
@@ -1405,25 +1399,25 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
         return null;
     }
 
-    // Generates the report and returns an inputstream
+    // Generates the report and returns an inputstream.
     public java.io.InputStream write( List<WorkItem> list) throws IOException, WriteException {
         java.io.OutputStream os = new java.io.ByteArrayOutputStream() ;
         WorkbookSettings wbSettings = new WorkbookSettings();
 
         wbSettings.setLocale(new Locale("en", "EN"));
 
-        // Create a Workbook - pass the OutputStream
+        // Create a Workbook - pass the OutputStream.
         WritableWorkbook workbook = Workbook.createWorkbook(os, wbSettings);
         workbook.createSheet("Work Item Report", 0);
         WritableSheet excelSheet = workbook.getSheet(0);
         createLabel(excelSheet) ;
         int size = createContent(excelSheet, list);
 
-        // Close the workbook
+        // Close the workbook.
         workbook.write();
         workbook.close();
 
-        // Get an inputStream that represents the Report
+        // Get an inputStream that represents the Report.
         java.io.ByteArrayOutputStream stream = new java.io.ByteArrayOutputStream();
         stream = (java.io.ByteArrayOutputStream)os;
         byte[] myBytes = stream.toByteArray();
@@ -1432,21 +1426,21 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
         return is ;
     }
 
-    // Create Headings in the Excel spreadsheet
+    // Create Headings in the Excel spreadsheet.
     private void createLabel(WritableSheet sheet)
             throws WriteException {
-        // Create a times font
+        // Create a times font.
         WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
-        // Define the cell format
+        // Define the cell format.
         times = new WritableCellFormat(times10pt);
-        // Lets automatically wrap the cells
+        // Lets automatically wrap the cells.
         times.setWrap(true);
 
-        // Create a bold font with underlining
+        // Create a bold font with underlining.
         WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false,
                 UnderlineStyle.SINGLE);
         timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
-        // Automatically wrap the cells
+        // Automatically wrap the cells.
         timesBoldUnderline.setWrap(true);
 
         CellView cv = new CellView();
@@ -1454,7 +1448,7 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
         cv.setFormat(timesBoldUnderline);
         cv.setAutosize(true);
 
-        // Write a few headers
+        // Write a few headers.
         addCaption(sheet, 0, 0, "Writer");
         addCaption(sheet, 1, 0, "Date");
         addCaption(sheet, 2, 0, "Guide");
@@ -1462,37 +1456,29 @@ The **WriteExcel** class dynamically creates an Excel report with the MySQL data
         addCaption(sheet, 4, 0, "Status");
     }
 
-    // Write the Work Item Data to the Excel report
+    // Write the Work Item Data to the Excel report.
     private int createContent(WritableSheet sheet, List<WorkItem> list) throws WriteException {
 
         int size = list.size() ;
 
-        // Add customer data to the Excel report
+        // Add customer data to the Excel report.
         for (int i = 0; i < size; i++) {
 
             WorkItem wi = list.get(i);
 
-            //Get tne work item values
+            //Get tne work item values.
             String name = wi.getName();
             String guide = wi.getGuide();
             String date = wi.getDate();
             String des = wi.getDescription();
             String status = wi.getStatus();
 
-            // First column
+            // Set the columns.
             addLabel(sheet, 0, i+2, name);
-            // Second column
             addLabel(sheet, 1, i+2, date);
-
-            // Third column
             addLabel(sheet, 2, i+2,guide);
-
-            // Forth column
             addLabel(sheet, 3, i+2, des);
-
-            // Fifth column
             addLabel(sheet, 4, i+2, status);
-
         }
         return size;
     }
