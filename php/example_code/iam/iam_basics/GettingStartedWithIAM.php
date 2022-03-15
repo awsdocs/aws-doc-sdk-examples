@@ -126,7 +126,6 @@ try {
 }
 
 $service->detachRolePolicy($assumeRoleRole['RoleName'], $listAllBucketsPolicy['Arn']);
-//$service->detachUserPolicy($user['UserName'], $inlinePolicy['Arn']);
 
 $deletePolicy = $service->deletePolicy($listAllBucketsPolicy['Arn']);
 echo "Delete policy: {$listAllBucketsPolicy['PolicyName']}\n";
