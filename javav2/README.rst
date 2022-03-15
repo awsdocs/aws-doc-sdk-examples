@@ -75,42 +75,37 @@ The following tutorials use the Synchronous Java client:
 
 + `Creating an  Amazon Simple Queue Service message application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_message_application>`_ - discusses using the AWS SDK for Java and the Amazon Simple Queue Service (Amazon SQS) to create a basic messaging web application.
 
++ `Creating scheduled events to invoke  Lambda functions <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_scheduled_events>`_ - Discusses how to create a scheduled event that invokes an AWS Lambda function by using Amazon CloudWatch Events. In addition, the AWS Lambda function is created by using the AWS Lambda Java runtime API and invokes multiple AWS services to perform a specific use case.
 
++ `Using Amazon Cognito to require a user to log into a web application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_amazon_cognito_app>`_ - Discusses how to use Amazon Cognito to require a web application to authenticate with users defined in an Amazon Cognito User Pool.
 
-+ **** - A tutorial that 
++ `Creating AWS video analyzer applications using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/video_analyzer_application>`_ - Discusses using the AWS SDK for Java and various AWS services, such as the  Amazon Rekognition service, to analyze videos. The application analyzes a video located in an Amazon S3 bucket and generates and emails a report that breaks the video into a series of labels.
 
-+ **Creating scheduled events to invoke  Lambda functions** - A tutorial that discusses how to create a scheduled event that invokes an AWS Lambda function by using Amazon CloudWatch Events. In addition, the AWS Lambda function is created by using the AWS Lambda Java runtime API and invokes multiple AWS services to perform a specific use case.
++ `Using Amazon API Gateway to invoke Lambda functions <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lambda_apigateway>`_ - Discusses how to use Amazon API Gateway to invoke a Lambda function. In addition, the AWS Lambda function is created by using the AWS Lambda Java runtime API and invokes multiple AWS services to perform a specific use case.
 
-+ **Using Amazon Cognito to require a user to log into a web application** - A tutorial that discusses how to use Amazon Cognito to require a web application to authenticate with users defined in an Amazon Cognito User Pool. 
++ `Building an Amazon Lex Chatbot that handles multiple languages <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lex_chatbot>`_ - Discusses how to create an Amazon Lex chatbot within a web application to engage your web site visitors. In addition, this chatbot supports multiple languages that lets users interact with the chatbot in the languages of their choice (for example, French).
 
-+ **Creating AWS video analyzer applications using the AWS SDK for Java** - A tutorial that discusses using the AWS SDK for Java and various AWS services, such as the  Amazon Rekognition service, to analyze videos. The application analyzes a video located in an Amazon S3 bucket and generates and emails a report that breaks the video into a series of labels.
++ `Building an AWS Workflow that sends notifications over multiple channels <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/workflow_multiple_channels>`_ - Discusses how to develop an AWS serverless workflow that sends notifications over multiple channels. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function. 
 
-+ **Using Amazon API Gateway to invoke Lambda functions** - A tutorial that discusses how to use Amazon API Gateway to invoke a Lambda function. In addition, the AWS Lambda function is created by using the AWS Lambda Java runtime API and invokes multiple AWS services to perform a specific use case.
++ `Building a Spring Boot web application that Streams Amazon S3 content over HTTP <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_spring_stream_app>`_ - Discusses how to create a web application that streams Amazon S3 video content over HTTP. The video is displayed in the application’s view. In this tutorial, the Spring Framework along with AWS SDK for Java API is used to create the application.
 
-+ **Building an Amazon Lex Chatbot that handles multiple languages** - A tutorial that discusses how to create an Amazon Lex chatbot within a web application to engage your web site visitors. In addition, this chatbot supports multiple languages that lets users interact with the chatbot in the languages of their choice (for example, French). 
++ `Creating Lambda functions that tags digital assets located in Amazon S3 buckets <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lambda_tag_assets>`_ - Discusses how to create a Lambda function that automatically tag digital assets located in an Amazon Simple Storage Service (Amazon S3) bucket.
 
-+ **Building an AWS Workflow that sends notifications over multiple channels** - A tutorial that discusses how to develop an AWS serverless workflow that sends notifications over multiple channels. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function. 
++ `Creating an Amazon Web Services Lambda function that detects images with Personal Protective Equipment <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lambda_ppe>`_ - Discusses how to create a Lambda function that detects personal protective equipment (PPE) in digital assets located in an Amazon S3 bucket. The Lambda function updates an Amazon DynamoDB table with the results as well as sends an email message. 
 
-+ **Building a Spring Boot web application that Streams Amazon S3 content over HTTP** - A tutorial that discusses how to create a web application that streams Amazon S3 video content over HTTP. The video is displayed in the application’s view. In this tutorial, the Spring Framework along with AWS SDK for Java API is used to create the application.
++ `Creating a Spring Boot Application that has publish/subscription functionality <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_sns_sample_app>`_ - Discusses how to create a web application that has subscription and publish functionality. In this tutorial, the Spring Framework along with AWS SDK for Simple Notification Service Java API V2 is used to create the application. 
 
-+ **Creating Lambda functions that tags digital assets located in Amazon S3 buckets** - A tutorial that discusses how to create a Lambda function that automatically tag digital assets located in an Amazon Simple Storage Service (Amazon S3) bucket.
++ `Creating an AWS document analyzer application using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_document_analyzer>`_ - Discusses how to use the Amazon Textract service and the Amazon Simple Storage Service to analyze PDF document images.
 
-+ **Creating an Amazon Web Services Lambda function that detects images with Personal Protective Equipment** - A tutorial that discusses how to create a Lambda function that detects personal protective equipment (PPE) in digital assets located in an Amazon S3 bucket. The Lambda function updates an Amazon DynamoDB table with the results as well as sends an email message.  
++ `Creating an ETL workflow by using AWS Step Functions and the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_etl_workflow>`_ - Discusses how to develop an AWS serverless workflow that performs an Extract, Transform, and Load (ETL) job. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function.
 
-+ **Creating a Spring Boot Application that has publish/subscription functionality** - A tutorial that discusses how to create a web application that has subscription and publish functionality. In this tutorial, the Spring Framework along with AWS SDK for Simple Notification Service Java API V2 is used to create the application.
-
-+ **Creating an ETL workflow by using AWS Step Functions and the AWS SDK for Java** -  A tutorial that discusses how to develop an AWS serverless workflow that performs an Extract, Transform, and Load (ETL) job. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function.
-
-+ **Create an Amazon Personalize app with the AWS SDK for Java** - This tutorial shows you how to complete the Amazon Personalize workflow from start to finish with the AWS Java V2 SDK. The project trains two different models with the movie-lens dataset: one with the User-Personalization (`aws-user-personalization`) recipe for creating personalized recommendations for your users, and one with the item-to-item similarities (`aws-sims`) recipe to generate recommendations for items that are similar to a given item.
-
-+ **Creating an AWS document analyzer application using the AWS SDK for Java** - This tutorial shows you how to use the Amazon Textract service and the Amazon Simple Storage Service to analyze PDF document images.
++ `Create an Amazon Personalize app with the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_amazon_personalize_app>`_ - Discusses how to complete the Amazon Personalize workflow from start to finish with the AWS Java V2 SDK. The project trains two different models with the movie-lens dataset: one with the User-Personalization (`aws-user-personalization`) recipe for creating personalized recommendations for your users, and one with the item-to-item similarities (`aws-sims`) recipe to generate recommendations for items that are similar to a given item.
 
 AWS service examples
 --------------------
 
 The AWS service-specific Java examples are located in the **example_code** folder. The examples are divided into directories by AWS service (**s3**, **sqs**, and so on). Within
-each, you'll find a **pom.xml** file used for building the examples with Maven, and a **Makefile**
-that wraps the Maven commands for those of you who also have **make** installed.
+each, you'll find a **pom.xml** file used for building the examples with Maven.
 
 
 Build and run the service examples
