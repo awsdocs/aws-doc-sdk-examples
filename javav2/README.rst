@@ -59,11 +59,10 @@ The following tutorials use the Synchronous Java client:
 
 + `Creating_rds_item_tracker <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_rds_item_tracker>`_ - Discusses using Amazon Relational Database Service (Amazon RDS), Amazon Simple Email Service (Amazon SES), and the Java JDBC API to create a web application that tracks work items.
 
-
++ `Creating_dynamodb_item_tracker <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_dynamodb_web_app>`_ - Discusses using Amazon DynamoDB, Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items.
 
 + **Creating the Serverless Amazon Aurora item tracker application using the Java RdsDataClient API** - A tutorial that discusses using Serverless Amazon Aurora, Amazon Simple Email Service (Amazon SES), and the **RdsDataClient** Java V2 client to create a web application that tracks work items.
 
-+ **Creating_dynamodb_item_tracker** - A tutorial that discusses using Amazon DynamoDB, Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items.
 
 + **Creating a Job Posting Site using Amazon Aurora and Amazon Translation Services** - A tutorial that discusses how to create a web application that uses Amazon Aurora (Amazon Relational Database Service), the Java JDBC API, and the Amazon Translate Service to display job listing data. In this tutorial, the Spring Framework along with AWS SDK for Java API V2 is used to create the application. 
 
