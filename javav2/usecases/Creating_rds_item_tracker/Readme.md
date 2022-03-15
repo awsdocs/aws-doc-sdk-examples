@@ -1,14 +1,22 @@
 #  Creating the Amazon Relational Database Service item tracker
 
+## Overview
+
+| Heading      | Description |
+| ----------- | ----------- |
+| Description | Dicusses how to develop a dynamic web application that tracks and reports on Amazon Relational Database data.     |
+| Audience   |  Developer (beginner / intermediate)        |
+| Updated   | 1/14/2022        |
+| Required Skills   | Java, Maven  |
+
 ## Purpose
 
 You can develop a web application that tracks and reports on work items by using the following AWS services
 
 + Amazon Relational Database Service (Amazon RDS)
 + Amazon Simple Email Service (the AWS SDK for Java SDK version 2 is used to access Amazon SES)
-+ AWS Elastic Beanstalk
 
-The application you create is named *AWS Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. This application requires a user to log in. For more information, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/spring_boot_securing_web_applications.htm).
+The application you create is named *AWS Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. This application requires a user to log in. For more information, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/index.htm).
 
 This tutorial guides you through creating the AWS Tracker application. Once the application is developed, you'll learn how to deploy it to AWS Elastic Beanstalk.
 
