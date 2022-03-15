@@ -657,8 +657,6 @@ The service classes contain Java application logic that invokes AWS services. In
 
 The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to interact with the **Work** table. It adds new items, updates items, and perform queries. The following Java code represents the **DynamoDBService** class. In the following code example, notice the use of an **Expression** object. This object is used to query active or closed items. For example, in the **getClosedItems** method, only closed items are retrieved.
 
-Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials.
-
 ```java
      package com.example.services;
 
@@ -702,8 +700,7 @@ Also, notice that an **EnvironmentVariableCredentialsProvider** is used. This is
       // Create a DynamoDbClient object
       Region region = Region.US_EAST_1;
       DynamoDbClient ddb = DynamoDbClient.builder()
-         .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-	 .region(region)
+         .region(region)
          .build();
 
        return ddb;
@@ -1288,7 +1285,7 @@ The **Work** class is used with the DynamoDB enhanced client and maps the **Work
 
 The **SendMessage** class uses the AWS SDK for Java V2 SES API to send an email message with an attachment (the Excel document) to an email recipient. An email address that you send an email message to must be verified. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
-The following Java code represents the **SendMessage** class. Notice that an **EnvironmentVariableCredentialsProvider** is used. This is because this code is deployed to Elastic Beanstalk. As a result, you need to use a credential provider that can be used on this platform. You can set up environment variables on Elastic Beanstalk to reflect your AWS credentials.
+The following Java code represents the **SendMessage** class. 
 
 ```java
     package com.example.services;
