@@ -54,7 +54,9 @@ After you create the database, in the **Connectivity & security** section, view 
 
 ![AWS Tracking Application](images/trackEndpoint2.png)
       
-**Note:** You must set up an inbound rules for the security group to connect to the database from your development environment. Setting up an inbound rule essentially means enabling an IP address to use the database. Once you set up an inbound rule, you can connect to the database from a client such as MySQL Workbench. For more information, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).        
+**Note:** You must set up an inbound rules for the security group to connect to the database from your development environment. Setting up an inbound rule essentially means enabling an IP address to use the database. Once you set up an inbound rule, you can connect to the database from a client such as MySQL Workbench. For more information, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).  
+
+In addition, make sure that you setup your Java developer environment before following along with this tutorial. For more information, see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
 ## Understand the AWS Tracker application
 
