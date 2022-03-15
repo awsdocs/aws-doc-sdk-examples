@@ -701,7 +701,7 @@ The following Java code represents the **ConnectionHelper** class.
      }
 ```
 
-**Note:** The **URL** value is **localhost:3306**. This value is modified after the RDS instance is created. The AWS Tracker application uses this URL to communicate with the database. You must also ensure that you specify the user name and password for your RDS instance.
+**Note:** The **URL** value is **localhost:3306**. Replace this value with the endpoint value you obtained while setting up the Amazon RDS database; otherwise, you code not not work. You must also ensure that you specify the user name and password for your RDS instance.
 
 #### InjectWorkService class
 
