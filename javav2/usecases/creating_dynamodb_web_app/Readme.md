@@ -6,7 +6,7 @@
 | ----------- | ----------- |
 | Description | Dicusses how to develop a dynamic web application that tracks and reports on Amazon DynamoDB data by using the AWS SDK for Java V2.     |
 | Audience   |  Developer (beginner / intermediate)        |
-| Updated   | 1/14/2022        |
+| Updated   | 3/14/2022        |
 | Required Skills   | Java, Maven  |
 
 
