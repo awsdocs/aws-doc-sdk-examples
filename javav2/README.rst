@@ -47,7 +47,7 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 
 If you are interested in using the Asynchronous Java client, see one of these tutorials:
 
-- [Creating a dynamic web application that asynchronously analyzes photos using the AWS SDK for Java](https://github.com/scmacdon/aws-doc-sdk-examples-2/tree/main/javav2/usecases/creating_photo_analyzer_async) - A tutorial that discusses using the AWS SDK for Java (Asynchronous client) and various AWS services, such as the  Amazon Rekognition service, to analyze images. The application can analyze many images and generate a report that breaks down each image into a series of labels.
+- [Creating a dynamic web application that asynchronously analyzes photos using the AWS SDK for Java](https://github.com/scmacdon/aws-doc-sdk-examples-2/tree/main/javav2/usecases/creating_photo_analyzer_async)
 
 + **Creating an asynchronous publish/subscription web application that translates messages using the AWS SDK for Java** - A tutorial that discusses how to create a web application that has subscription and publish functionality. In this tutorial, the Spring Framework along with AWS SDK for Simple Notification Service Java Asynchronous client is used.
 
