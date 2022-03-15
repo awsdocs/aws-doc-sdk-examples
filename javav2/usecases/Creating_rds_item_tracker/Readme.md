@@ -60,7 +60,7 @@ Create an Amazon RDS MySQL DB instance that maintains the data used by the AWS T
 
 After you create the database, in the **Connectivity & security** section, view the **Endpoint** and **Port** of the DB instance. You need these values when you create a connection to the database using Java (this is shown later in this tutorial). 
 
-![AWS Tracking Application](images/project0.png)
+![AWS Tracking Application](images/trackEndpoint2.png)
       
 **Note:** You must set up inbound rules for the security group to connect to the database. You can set up one inbound rule for your development environment and another for Elastic Beanstalk (which will host the application). Setting up an inbound rule essentially means enabling an IP address to use the database. Once you set up the inbound rules, you can connect to the database from a client such as MySQL Workbench. For information about setting up security group inbound rules, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).        
 
