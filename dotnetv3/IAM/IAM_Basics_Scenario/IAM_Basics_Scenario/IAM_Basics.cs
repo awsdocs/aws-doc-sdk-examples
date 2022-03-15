@@ -16,6 +16,7 @@ namespace IAM_Basics_Scenario
     using Amazon.S3;
     using Amazon.S3.Model;
     using Amazon.SecurityToken;
+    using Amazon.SecurityToken.Model;
 
     public class IAM_Basics
     {
@@ -97,7 +98,10 @@ namespace IAM_Basics_Scenario
             var role = await CreateRoleAsync(client, RoleName, RolePermissions);
             var roleArn = role.Arn;
 
+            // Use the Security Token Service (AWS STS) to have the user assume
+            // the role we created.
             var stsClient = new AmazonSecurityTokenServiceClient();
+            var assumedRoleUser = await AssumeS3RoleAsync(stsClient, UserName, 1600, "temporary-session", roleArn);
 
         }
 
@@ -234,6 +238,44 @@ namespace IAM_Basics_Scenario
                 Console.WriteLine("The user associated with this client does not have permission to call ListBucketsAsync.");
             }
         }
+
+        // snippet-start:[STS.dotnetv3.AssumeRole]
+
+        /// <summary>
+        /// Have the user assume the role that allows the role to be used to
+        /// list all S3 buckets.
+        /// </summary>
+        /// <param name="client">An initialized AWS STS client object.</param>
+        /// <param name="userName">The name of the user to assume the role.</param>
+        /// <param name="sessionDuration">The duration, in seconds, of the
+        /// session when the role will be assumed.</param>
+        /// <param name="roleSession">The name of the session where the role
+        /// assumption will be active.</param>
+        /// <param name="roleToAssume">The Amazon Resource Name (ARN) of the
+        /// role to assume.</param>
+        /// <returns>The AssumedRoleUser object needed to perform the list
+        /// buckets procedure.</returns>
+        public static async Task<AssumedRoleUser> AssumeS3RoleAsync(
+            AmazonSecurityTokenServiceClient client,
+            string userName,
+            int sessionDuration,
+            string roleSession
+            string roleToAssume)
+        {
+            // Create the request to use with the AssumeRoleAsync call.
+            var request = new AssumeRoleRequest()
+            {
+                DurationSeconds = 1600,
+                RoleSessionName = sessionDuration.ToString(),
+                RoleArn = roleToAssume,
+            };
+
+            var response = await client.AssumeRoleAsync(request);
+
+            return response.AssumedRoleUser;
+        }
+
+        // snippet-end:[STS.dotnetv3.AssumeRole]
 
         // snippet-end:[S3.dotnetv3.ListBucketsAsync]
 
