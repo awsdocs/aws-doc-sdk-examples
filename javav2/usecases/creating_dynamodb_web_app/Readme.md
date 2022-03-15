@@ -16,7 +16,6 @@ You can develop a web application that tracks and reports on work items by using
 
 + Amazon DynamoDB to store the data
 + Amazon Simple Email Service (Amazon SES) to send email messages
-+ AWS Elastic Beanstalk to host the application
 
 **Note:** In this tutorial, we use the AWS SDK for Java version 2 to access Amazon SES and Amazon DynamoDB.
 
