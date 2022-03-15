@@ -27,6 +27,7 @@
  *
  **/
 
+# snippet-start:[php.example_code.iam.iam_basics.scenario]
 namespace Iam\Basics;
 
 require 'vendor/autoload.php';
@@ -134,3 +135,5 @@ echo "Deleted role: {$assumeRoleRole['RoleName']}\n";
 $deletedKey = $service->deleteAccessKey($key['AccessKeyId']);
 $deletedUser = $service->deleteUser($user['UserName']);
 echo "Delete user: {$user['UserName']}\n";
+
+# snippet-end:[php.example_code.iam.iam_basics.scenario]

@@ -2121,18 +2121,6 @@ iam_Scenario_CreateUserAssumeRole:
             - description: Create functions that wrap &IAM; user actions.
               snippet_tags:
                 - iam.java2.scenario.main
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/iam/iam_basics
-          sdkguide:
-          excerpts:
-            - description: Create an &IAM; user and a role that grants permission
-                to list &S3; buckets. The user has rights only to assume the role.
-                After assuming the role, use temporary credentials to list buckets for
-                the account.
-              snippet_tags:
-                - python.example_code.iam.Scenario_CreateUserAssumeRole
     JavaScript:
       versions:
         - sdk_version: 3
@@ -2148,6 +2136,32 @@ iam_Scenario_CreateUserAssumeRole:
                 the account.
               snippet_tags:
                 - javascript.iam_scenarios.iam_basics
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description: Shows how to use AWS SDK for PHP v3 to get started using AWS Identity and Access Management
+                (IAM). Create a user that has no permissions. Create a role and policy that grant s3:ListAllMyBuckets
+                permission. Grant the user permission to assume the role. Create an S3 client object as the user and try
+                to list buckets, which will fail due to permission restrictions. Get temporary credentials by assuming
+                the role. Create an S3 client object with the temporary credentials and list the buckets (this will now
+                succeed). Delete all the resources.
+              snippet_tags:
+                - php.example_code.iam.iam_basics.scenario
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam/iam_basics
+          sdkguide:
+          excerpts:
+            - description: Create an &IAM; user and a role that grants permission
+                to list &S3; buckets. The user has rights only to assume the role.
+                After assuming the role, use temporary credentials to list buckets for
+                the account.
+              snippet_tags:
+                - python.example_code.iam.Scenario_CreateUserAssumeRole
     Ruby:
       versions:
         - sdk_version: 3
