@@ -47,17 +47,19 @@ In the **use_cases** folder, find step-by-step development tutorials that use mu
 
 If you are interested in using the Asynchronous Java client, see one of these tutorials:
 
-+ `Creating a dynamic web application that asynchronously analyzes photos using the AWS SDK for Java <https://github.com/scmacdon/aws-doc-sdk-examples-2/tree/main/javav2/usecases/creating_photo_analyzer_async>`_ - Discusses using the AWS SDK for Java (Asynchronous client) and various AWS services, such as the  Amazon Rekognition service, to analyze images. The application can analyze many images and generate a report that breaks down each image into a series of labels.
++ `Creating a dynamic web application that asynchronously analyzes photos using the AWS SDK for Java <https://github.com/aws-doc-sdk-examples-2/tree/main/javav2/usecases/creating_photo_analyzer_async>`_ - Discusses using the AWS SDK for Java (Asynchronous client) and various AWS services, such as the  Amazon Rekognition service, to analyze images. The application can analyze many images and generate a report that breaks down each image into a series of labels.
 
-+ `Creating an asynchronous publish/subscription web application that translates messages using the AWS SDK for Java <https://github.com/scmacdon/aws-doc-sdk-examples-2/tree/main/javav2/usecases/creating_sns_async>`_ - Discusses how to create a web application that has subscription and publish functionality. In this tutorial, the Spring Framework along with AWS SDK for Simple Notification Service Java Asynchronous client is used.
++ `Creating an asynchronous publish/subscription web application that translates messages using the AWS SDK for Java <https://github.com/aws-doc-sdk-examples-2/tree/main/javav2/usecases/creating_sns_async>`_ - Discusses how to create a web application that has subscription and publish functionality. In this tutorial, the Spring Framework along with AWS SDK for Simple Notification Service Java Asynchronous client is used.
 
 The following tutorials use the Synchronous Java client:
 
-+ `Creating your first AWS Java web application <https://github.com/scmacdon/aws-doc-sdk-examples-2/tree/main/javav2/usecases/creating_first_project>`_ - Discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS), and AWS Elastic Beanstalk.
++ `Creating your first AWS Java web application <https://github.com/aws-doc-sdk-examples-2/tree/main/javav2/usecases/creating_first_project>`_ - Discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS), and AWS Elastic Beanstalk.
 
-+ `Create an AWS serverless workflow that modifies Amazon Redshift data by using the AWS SDK for Java* <https://github.com/scmacdon/aws-doc-sdk-examples-2/tree/main/javav2/usecases/create_workflow_redshift>`_ - Discusses how to develop a workflow using AWS Step Functions that can modify Amazon Redshift data using the AWS SDK for Java V2.
++ `Create an AWS serverless workflow that modifies Amazon Redshift data by using the AWS SDK for Java <https://github.com/aws-doc-sdk-examples-2/tree/main/javav2/usecases/create_workflow_redshift>`_ - Discusses how to develop a workflow using AWS Step Functions that can modify Amazon Redshift data using the AWS SDK for Java V2.
 
-+ **Creating_rds_item_tracker** - A tutorial that discusses using Amazon Relational Database Service (Amazon RDS), Amazon Simple Email Service (Amazon SES), and the Java JDBC API to create a web application that tracks work items.
++ `Creating_rds_item_tracker <https://github.com/scmacdon/aws-doc-sdk-examples-2/tree/main/javav2/usecases/Creating_rds_item_tracker>`_ - Discusses using Amazon Relational Database Service (Amazon RDS), Amazon Simple Email Service (Amazon SES), and the Java JDBC API to create a web application that tracks work items.
+
+
 
 + **Creating the Serverless Amazon Aurora item tracker application using the Java RdsDataClient API** - A tutorial that discusses using Serverless Amazon Aurora, Amazon Simple Email Service (Amazon SES), and the **RdsDataClient** Java V2 client to create a web application that tracks work items.
 
