@@ -6,7 +6,7 @@
 | ----------- | ----------- |
 | Description | Dicusses how to develop a dynamic web application that tracks and reports on Amazon Relational Database data.     |
 | Audience   |  Developer (beginner / intermediate)        |
-| Updated   | 1/14/2022        |
+| Updated   | 3/15/2022        |
 | Required Skills   | Java, Maven  |
 
 ## Purpose
