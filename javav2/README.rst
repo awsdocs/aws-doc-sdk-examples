@@ -53,7 +53,7 @@ If you are interested in using the Asynchronous Java client, see one of these tu
 
 The following tutorials use the Synchronous Java client:
 
-+ `Creating your first AWS Java web application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project>`_ - Discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS), and AWS Elastic Beanstalk.
++ `Creating your first AWS Java web application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project>`_ - Discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS), and AWS Elastic Beanstalk to create a web application.
 
 + `Creating an AWS serverless workflow that modifies Amazon Redshift data by using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_workflow_redshift>`_ - Discusses how to develop a workflow using AWS Step Functions that can modify Amazon Redshift data using the AWS SDK for Java V2.
 
@@ -61,10 +61,12 @@ The following tutorials use the Synchronous Java client:
 
 + `Creating_dynamodb_item_tracker <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_dynamodb_web_app>`_ - Discusses using Amazon DynamoDB, Amazon Simple Email Service (Amazon SES), and AWS Elastic Beanstalk to create a web application that tracks work items.
 
-+ **Creating the Serverless Amazon Aurora item tracker application using the Java RdsDataClient API** - A tutorial that discusses using Serverless Amazon Aurora, Amazon Simple Email Service (Amazon SES), and the **RdsDataClient** Java V2 client to create a web application that tracks work items.
++ `Creating the Serverless Amazon Aurora item tracker application using the Java RdsDataClient API <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_serverless_aurora_app>`_ - Discusses using Serverless Amazon Aurora, Amazon Simple Email Service (Amazon SES), and the **RdsDataClient** Java V2 client to create a web application that tracks work items.
+
++ `Creating a Job Posting Site using Amazon Aurora and Amazon Translation Services <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_amazon_aurora_app>`_ - Discusses how to create a web application that uses Amazon Aurora (Amazon Relational Database Service), the Java JDBC API, and the Amazon Translate Service to display job listing data. In this tutorial, the Spring Framework along with AWS SDK for Java API V2 is used to create the application..
 
 
-+ **Creating a Job Posting Site using Amazon Aurora and Amazon Translation Services** - A tutorial that discusses how to create a web application that uses Amazon Aurora (Amazon Relational Database Service), the Java JDBC API, and the Amazon Translate Service to display job listing data. In this tutorial, the Spring Framework along with AWS SDK for Java API V2 is used to create the application. 
++ **** - A tutorial that  
 
 + **Creating a Job Posting Site using Amazon Redshift and Amazon Translation Services** - A tutorial that discusses how to create a web application that uses the Redshift Data Client API and the Amazon Translate Service to display job listing data. In this tutorial, the Spring Framework along with AWS SDK for Java API V2 is used to create the application. 
 
