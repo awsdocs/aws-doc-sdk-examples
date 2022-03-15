@@ -2142,11 +2142,11 @@ iam_Scenario_CreateUserAssumeRole:
           github: php/example_code/iam/iam_basics
           sdkguide:
           excerpts:
-            - description: Shows how to use AWS SDK for PHP v3 to get started using AWS Identity and Access Management
-                (IAM). Create a user that has no permissions. Create a role and policy that grant s3:ListAllMyBuckets
-                permission. Grant the user permission to assume the role. Create an S3 client object as the user and try
+            - description: Shows how to use &AWS; SDK for PHP v3 to get started using &IAMlong;
+                (&IAM). Create a user that has no permissions. Create a role and policy that grant s3:ListAllMyBuckets
+                permission. Grant the user permission to assume the role. Create an &S3; client object as the user and try
                 to list buckets, which will fail due to permission restrictions. Get temporary credentials by assuming
-                the role. Create an S3 client object with the temporary credentials and list the buckets (this will now
+                the role. Create an &S3; client object with the temporary credentials and list the buckets (this will now
                 succeed). Delete all the resources.
               snippet_tags:
                 - php.example_code.iam.iam_basics.scenario
