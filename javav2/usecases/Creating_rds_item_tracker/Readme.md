@@ -56,6 +56,16 @@ To complete the tutorial, you need the following:
 + Running this code might result in charges to your AWS account. 
 + Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
+### Creating the resources
+
+Create an Amazon RDS MySQL DB instance that maintains the data used by the AWS Tracker application. The database is MySQL, contains a table named **Work** and a primary key named **idwork** (this table is described in a following section). For information about creating an Amazon RDS database, see  [Creating a MySQL DB instance and connecting to a database on a MySQL DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.MySQL.html). 
+
+After you create the database, in the **Connectivity & security** section, view the **Endpoint** and **Port** of the DB instance. Notice the endpoint of the database. You need this value when you create a connection to the database using Java (this is shown later in this tutorial). 
+
+      url = "jdbc:mysql://awstracker.<url to rds>.amazonaws.com/awstracker";
+      
+**Note:** You must set up inbound rules for the security group to connect to the database. You can set up one inbound rule for your development environment and another for Elastic Beanstalk (which will host the application). Setting up an inbound rule essentially means enabling an IP address to use the database. Once you set up the inbound rules, you can connect to the database from a client such as MySQL Workbench. For information about setting up security group inbound rules, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).        
+
 ## Understand the AWS Tracker application
 
 The AWS Tracker application uses a model that is based on a work item and contains these attributes:
@@ -2366,121 +2376,6 @@ The following JavaScript code represents the **contact_me.js** file that is used
 ```
 
 **Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the resources folder are included in your project.
-
-## Set up the RDS instance
-
-In this step, you create an Amazon RDS MySQL DB instance that maintains the data used by the AWS Tracker application.
-
-#### To set up a MySQL DB instance
-
-1. Sign in to the AWS Management Console and open the Amazon RDS console at https://console.aws.amazon.com/rds/.
-2. In the upper-right corner of the AWS Management Console, choose the AWS Region in which you want to create the DB instance. This example uses the US West (Oregon) Region.
-3. In the navigation pane, choose **Databases**.
-4. Choose **Create database**.
-![AWS Tracking Application](images/trackCreateDB.png)
-
-5. On the **Create database** page, make sure that the **Standard Create** option is chosen, and then choose MySQL.
-![AWS Tracking Application](images/trackerSQL.png)
-
-6. In the **Templates** section, choose **Free tier**.
-
-![AWS Tracking Application](images/Rdstemplates.png)
-
-7. In the **Settings** section, set these values:
-
-+ **DB instance identifier** – awstracker
-+ **Master username** – root
-+ **Auto generate a password** – Disable the option
-+ **Master password** – root1234
-+ **Confirm password** – root1234
-
-![AWS Tracking Application](images/trackSettings.png)
-
-8. In the **DB instance size** section, set these values:
-
-+ **DB instance performance type** – Burstable
-+ **DB instance class**  – db.t2.micro
-
-9. In the **Storage** section, use the default values.
-
-10. In the **Connectivity** section, open **Additional connectivity configuration** and set these values:
-
-+ **Virtual Private Cloud (VPC)** – Choose the default.
-
-+ **Subnet group** – Choose the default.
-
-+ **Publicly accessible** – Yes
-
-+ **VPC security groups** – Choose an existing VPC security group that is configured for access.
-
-+ **Availability Zone** – No Preference
-
-+ **Database port** – 3306
-
-11. Open the **Additional configuration** section, and enter **awstracker** for the Initial database name. Keep the default settings for the other options.
-
-12. To create your Amazon RDS MySQL DB instance, choose **Create database**. Your new DB instance appears in the Databases list with the status **Creating**.
-
-13. Wait for the Status of your new DB instance to show as **Available**. Then choose the DB instance name to show its details.
-
-**Note:** You must set up inbound rules for the security group to connect to the database. You can set up one inbound rule for your development environment and another for Elastic Beanstalk (which will host the application). Setting up an inbound rule essentially means enabling an IP address to use the database. Once you set up the inbound rules, you can connect to the database from a client such as MySQL Workbench. For information about setting up security group inbound rules, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).  
-
-#### Obtain the endpoint
-
-In the **Connectivity & security** section, view the **Endpoint** and **Port** of the DB instance.
-
-![AWS Tracking Application](images/trackEndpoint.png)
-
-#### Modify the ConnectionHelper class
-
-Modify the **ConnectionHelper** class by updating the **url** value with the endpoint of the database.
-
-      url = "jdbc:mysql://awstracker.<url to rds>.amazonaws.com/awstracker";
-
-In the previous line of code, notice **awstracker**. This is the database schema. In addition, update this line of code with the correct user name and password.
-
-     Class.forName("com.mysql.jdbc.Driver").newInstance();
-            return DriverManager.getConnection(instance.url, "root","root1234");
-
-**Note:** If you do not modify the **ConnectionHelper** class, your application cannot interact with the RDS database.
-
-#### Create the database schema and table
-
-You can use MySQL Workbench to connect to the RDS MySQL instance and create a database schema and the work table. To connect to the database, open MySQL Workbench and connect to database.
-
-![AWS Tracking Application](images/trackMySQLWB.png)
-
-**Note:** If you have issues connecting to the database, be sure to recheck your inbound rules.
-
-Create a schema named **awstracker** by using this SQL command.
-
-    CREATE SCHEMA awstracker;
-
-In the **awstracker** schema, create a table named **work** by using this SQL command.
-
-    CREATE TABLE work(
-        idwork VARCHAR(45) PRIMARY KEY,
-        date Date,
-        description VARCHAR(400),
-        guide VARCHAR(45),
-        status VARCHAR(400),
-        username VARCHAR(45),
-        archive BOOLEAN
-    )  ENGINE=INNODB;
-
-After you're done, you see a new table in your database.
-
-![AWS Tracking Application](images/trackTable.png)
-
-Enter a new record into this table by using these values:
-
-+ **idwork** - 4ea93f34-a45a-481e-bdc6-26c003bb93fc
-+ **date** - 2020-01-20
-+ **description** - Need to test all examples
-+ **guide** - AWS Devloper Guide
-+ **status** - Tested all of the Amazon S3 examples
-+ **username** - user
-+ **archive** - 0
 
 ## Run the application
 
