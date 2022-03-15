@@ -18,12 +18,6 @@ You can develop a web application that tracks and reports on work items by using
 
 The application you create is named *AWS Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. This application requires a user to log in. For more information, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/index.htm).
 
-This tutorial guides you through creating the AWS Tracker application. The following figure shows you the structure of the Java project.
-
-![AWS Tracking Application](images/project0.png)
-
-**Note:** All of the Java code required to complete this tutorial is located in this GitHub repository (or you can copy the code from this tutorial).  
-
 #### Topics
 
 + Prerequisites
