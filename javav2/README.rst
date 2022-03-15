@@ -73,7 +73,7 @@ The following tutorials use the Synchronous Java client:
 
 + `Creating a dynamic web application that analyzes photos using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_photo_analyzer_app>`_ - Discusses using the AWS SDK for Java and various AWS services, such as the  Amazon Rekognition service, to analyze images. The application can analyze many images and generate a report that breaks down each image into a series of labels.
 
-+ `Creating an  Amazon Simple Queue Service message application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_message_application>`_ - discusses using the AWS SDK for Java and the Amazon Simple Queue Service (Amazon SQS) to create a basic messaging web application.
++ `Creating an  Amazon Simple Queue Service message application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_message_application>`_ - Discusses using the AWS SDK for Java and the Amazon Simple Queue Service (Amazon SQS) to create a basic messaging web application.
 
 + `Creating scheduled events to invoke  Lambda functions <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_scheduled_events>`_ - Discusses how to create a scheduled event that invokes an AWS Lambda function by using Amazon CloudWatch Events. In addition, the AWS Lambda function is created by using the AWS Lambda Java runtime API and invokes multiple AWS services to perform a specific use case.
 
