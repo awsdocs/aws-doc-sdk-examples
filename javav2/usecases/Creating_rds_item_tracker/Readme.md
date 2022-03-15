@@ -18,9 +18,7 @@ You can develop a web application that tracks and reports on work items by using
 
 The application you create is named *AWS Tracker*, and uses Spring Boot APIs to build a model, different views, and a controller. This application requires a user to log in. For more information, see [Spring Boot](https://www.tutorialspoint.com/spring_boot/index.htm).
 
-This tutorial guides you through creating the AWS Tracker application. Once the application is developed, you'll learn how to deploy it to AWS Elastic Beanstalk.
-
-The following figure shows you the structure of the Java project.
+This tutorial guides you through creating the AWS Tracker application. The following figure shows you the structure of the Java project.
 
 ![AWS Tracking Application](images/project0.png)
 
@@ -56,7 +54,7 @@ To complete the tutorial, you need the following:
 
 ### Creating the resources
 
-Create an Amazon RDS MySQL DB instance that maintains the data used by the AWS Tracker application. The database is MySQL, contains a table named **Work** and a primary key named **idwork** (this table is described in a following section). For information about creating an Amazon RDS database, see  [Creating a MySQL DB instance and connecting to a database on a MySQL DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.MySQL.html). 
+Create an Amazon RDS MySQL DB instance that stores the data used by the AWS Tracker application. Create a table named **Work** and a primary key named **idwork** (this table is described in a following section). For information about creating an Amazon RDS database, see  [Creating a MySQL DB instance and connecting to a database on a MySQL DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.MySQL.html). 
 
 After you create the database, in the **Connectivity & security** section, view the **Endpoint** and **Port** of the DB instance. You need these values when you create a connection to the database using Java (this is shown later in this tutorial). 
 
