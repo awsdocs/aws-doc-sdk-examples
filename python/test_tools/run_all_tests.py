@@ -32,7 +32,7 @@ def main():
         test_path = os.path.join(root_dir, test_dir)
         sys.path.append(test_path)
         os.chdir(test_path)
-        os.system('py -m pytest')
+        os.system('py -m pytest -m "not integ"')
         sys.path = original_path.copy()
 
 

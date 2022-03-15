@@ -113,14 +113,13 @@ def test_transfer_callback():
     )]
 )
 def test_upload_download_mega_test(
-        use_real_aws, make_unique_name, make_bucket, monkeypatch,
+        make_unique_name, make_bucket, monkeypatch,
         upload_func, upload_kwargs, expected_upload_kwargs,
         download_func, download_kwargs, expected_download_kwargs
 ):
     """
     Test upload and download scenarios with various arguments and configurations.
 
-    :param use_real_aws: Indicates the tests run against AWS services and not mocks.
     :param make_unique_name: Makes a unique name with a specified prefix.
     :param make_bucket: Makes a test bucket that is emptied and deleted after the
                         test completes.
@@ -139,19 +138,16 @@ def test_upload_download_mega_test(
     download_file = f'{object_key}.txt'
     file_size = os.path.getsize(__file__)
 
-    if use_real_aws:
-        make_bucket(file_transfer.s3, bucket_name)
-    else:
-        monkeypatch.setattr(
-            file_transfer.s3.meta.client, 'upload_file',
-            make_mock_upload(
-                __file__, bucket_name, object_key, **expected_upload_kwargs
-            ))
-        monkeypatch.setattr(
-            file_transfer.s3.meta.client, 'download_file',
-            make_mock_download(
-                download_file, bucket_name, object_key, **expected_download_kwargs
-            ))
+    monkeypatch.setattr(
+        file_transfer.s3.meta.client, 'upload_file',
+        make_mock_upload(
+            __file__, bucket_name, object_key, **expected_upload_kwargs
+        ))
+    monkeypatch.setattr(
+        file_transfer.s3.meta.client, 'download_file',
+        make_mock_download(
+            download_file, bucket_name, object_key, **expected_download_kwargs
+        ))
 
     upload_thread_info = upload_func(
         __file__, bucket_name, object_key, file_size/file_transfer.MB,
@@ -161,20 +157,6 @@ def test_upload_download_mega_test(
         **download_kwargs)
 
     assert sum(upload_thread_info.values()) == file_size
-    if use_real_aws:
-        if upload_func == file_transfer.upload_with_sse:
-            # If SSE is used, the SSE algorithm and key must be included.
-            with pytest.raises(ClientError) as exc_info:
-                file_transfer.s3.meta.client.head_object(
-                    Bucket=bucket_name, Key=object_key)
-            assert exc_info.value.response['Error']['Code'] == '400'
-            file_transfer.s3.meta.client.head_object(
-                Bucket=bucket_name, Key=object_key,
-                SSECustomerAlgorithm='AES256',
-                SSECustomerKey=_demo_sse_key)
-        else:
-            file_transfer.s3.meta.client.head_object(Bucket=bucket_name, Key=object_key)
-
     assert sum(download_thread_info.values()) == file_size
     assert os.path.exists(download_file)
     os.remove(download_file)

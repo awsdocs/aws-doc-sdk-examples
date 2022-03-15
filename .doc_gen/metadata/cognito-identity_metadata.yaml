@@ -1,0 +1,38 @@
+# zexi 0.4.0
+cognito-identity_ListIdentityPools:
+  title: List &COGID; pools
+  title_abbrev: List identity pools
+  synopsis: get a list of &COGID; pools.
+  category:
+  languages:
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/cognito-identity/FindOrCreateIdentityPool
+          sdkguide: sdk-for-swift/latest/developer-guide/getting-started.html
+          excerpts:
+            - description: Find the ID of an identity pool given its name.
+              snippet_tags:
+                - cognitoidentity.swift.get-pool-id
+            - description: Get the ID of an existing identity pool or create it if it doesn't already exist.
+              snippet_tags:
+                - cognitoidentity.swift.get-or-create-pool-id
+  services:
+    cognito-identity: {createIdentityPool, listIdentityPools}
+cognito-identity_CreateIdentityPool:
+  title: Create a new &COGID; with a specified name
+  title_abbrev: Create an identity pool
+  synopsis: find the &COGID; with the given name, creating it if it's not found.
+  category:
+  languages:
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/cognito-identity/FindOrCreateIdentityPool
+          sdkguide: sdk-for-swift/latest/developer-guide/getting-started.html
+          excerpts:
+            - description: Create a new identity pool.
+              snippet_tags:
+                - cognitoidentity.swift.create-identity-pool
+  services:
+    cognito-identity: {createIdentityPool, listIdentityPools}

@@ -4,6 +4,8 @@ Thank you for your interest in contributing to AWS documentation! We greatly val
 
 Please read through this document before you submit any pull requests or issues. It will help us work together more effectively.
 
+
+
 ## What to expect when you contribute
 
 When you submit a pull request, our team is notified and will respond as quickly as we can. We'll do our best to work with you to ensure that your pull request adheres to our style and standards. If we merge your pull request, we might make additional edits later for style or clarity.
@@ -12,13 +14,14 @@ The AWS documentation source files on GitHub aren't published directly to the of
 
 We look forward to receiving your pull requests for:
 
-* New content you'd like to contribute (such as new code examples or tutorials)
+* New content you'd like to contribute (such as new code examples or tutorials) - for more information, see [Types of examples](https://github.com/awsdocs/aws-doc-sdk-examples/edit/main/CONTRIBUTING.md#types-of-examples) below.
 * Inaccuracies in the content
 * Information gaps in the content that need more detail to be complete
 * Typos or grammatical errors
 * Suggested rewrites that improve clarity and reduce confusion
 
 **Note:** We all write differently, and you might not like how we've written or organized something currently. We want that feedback. But please be sure that your request for a rewrite is supported by the previous criteria. If it isn't, we might decline to merge it.
+
 
 ## Where to put a new code example
 
@@ -43,13 +46,13 @@ One of the AWS SDK code example team members will follow up with you in that iss
 To contribute, send us a pull request. For small changes, such as fixing a typo or adding a link, you can use the [GitHub Edit Button](https://blog.github.com/2011-04-26-forking-with-the-edit-button/). For larger changes:
 
 1. [Fork the repository](https://help.github.com/articles/fork-a-repo/).
-2. In your fork, make your change in a branch that's based on this repo's **master** branch.
+2. In your fork, make your change in a branch that's based on this repo's **main** branch.
 3. Commit the change to your fork, using a clear and descriptive commit message.
 4. [Create a pull request](https://help.github.com/articles/creating-a-pull-request-from-a-fork/), answering any questions in the pull request form.
 
 Before you send us a pull request, please be sure that:
 
-1. You're working from the latest source on the **master** branch.
+1. You're working from the latest source on the **main** branch.
 2. You check [existing open](https://github.com/awsdocs/aws-doc-sdk-examples/pulls), and [recently closed](https://github.com/awsdocs/aws-doc-sdk-examples/pulls?q=is%3Apr+is%3Aclosed), pull requests to be sure that someone else hasn't already addressed the problem.
 3. You [create an issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/new) before working on a contribution that will take a significant amount of your time.
 
@@ -59,21 +62,27 @@ For contributions that will take a significant amount of time, [open a new issue
 
 Help us raise the bar for code examples, so that your code example will provide the most value it can to users. 
 
+### Types of examples
+There are three types of examples of AWS SDK usage in this repo:
+1. **Single action** - show how to call individual service functions, such as [creating an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javascriptv3/example_code/s3/src/s3_createbucket.js).
+2. **Scenario** - show how to accomplish specific tasks by calling multiple functions within a single service, such as [Getting started with Amazon S3 buckets and objects](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javascriptv3/example_code/s3/scenarios/s3_basics/src/s3_basics.js). 
+3. **Cross-service**  - show how to build sample applications across multiple AWS services, such as the [AWS Photo Analyzer](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_photo_analyzer_app), which demonstrates how to build web application that analyzes nature images located in an Amazon Simple Storage Service (Amazon S3) bucket by using the AWS SDK for Java V2.
+
 When you submit a new code example to us, we strongly encourage you to include the following:
 
 * **Provide a README.md file at the root level of your submission to help users save time and effort when they work with your example.** 
   At a minimum, your README.md file should describe what your example demonstrates, call out any prerequisites needed to run it, and then tell users how to run it. 
-  [Here's a good example](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/gov2/s3/README.md) 
-  of a useful README.md file.
+  [Here's a are the README template](https://github.com/awsdocs/aws-doc-sdk-examples/wiki/README-templates) 
+  to use.
+* **Add code comments**
+  For more information and examples, see [Code comment guidelines](https://github.com/awsdocs/aws-doc-sdk-examples/wiki/Code-comment-guidelines)
 * **Write your code in a modular style to help users more easily copy and reuse it in their own solutions.** 
   By "modular," we mean that your code should accept inputs from the caller and return outputs to the caller. Provide comments in the code that describe these inputs and outputs. Also, don't hard-code input values in modularized code. Instead, provide these values through your unit tests, as described in the next point. 
-  [Here's a good example](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/gov2/sts/AssumeRole/AssumeRolev2.go) 
+  [Here's a good example](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/gov2/sts/AssumeRole/AssumeRolev2.go) 
   of code written in a modular style.
-* **Add some type of [unit tests](https://en.wikipedia.org/wiki/Unit_testing ) to help users more easily run your example.** These unit tests can use hard-coded input values (or input values provided by the user) to call your example code. 
-  [Here's a good example](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/dotnetv3/dynamodb/GetItemTest/GetItemTest.cs) 
-  of a unit test that use hard-coded input values. 
+* **Add some type of [unit tests](https://en.wikipedia.org/wiki/Unit_testing ) to help users more easily run your example.** These unit tests can use hard-coded input values (or input values provided by the user) to call your example code. For more information and examples, see the [Code quality guidelines - testing and linting](https://github.com/awsdocs/aws-doc-sdk-examples/wiki/Code-quality-guidelines---testing-and-linting)
 * **Add standard error or exception handling to your code to enable easier troubleshooting and recovery.** [
-  Here's a good example](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/javav2/example_code/lambda/src/main/java/com/example/lambda/LambdaInvoke.java) 
+  Here's a good example](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/lambda/src/main/java/com/example/lambda/LambdaInvoke.java) 
   of standard error/exception handling.  
 * **Don't include personal account data, keys, or IDs in your examples**. Code should obtain access keys from the standard AWS SDK credentials and configuration files, use environment variables or external data files, or query the user for this information.
 * **Format code lines to 80 characters wherever possible**. Long lines can often spill off the side of the screen in the PDF versions of the documentation, making the code unreadable. If your code includes long text strings, consider breaking these into smaller chunks and concatenating them.
@@ -100,4 +109,4 @@ If you discover a potential security issue, please notify AWS Security via our [
 
 ## Licensing
 
-See the [LICENSE](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/LICENSE) file for this project's licensing. We will ask you to confirm the licensing of your contribution. We may ask you to sign a [Contributor License Agreement (CLA)](http://en.wikipedia.org/wiki/Contributor_License_Agreement) for larger changes.
+See the [LICENSE](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/LICENSE) file for this project's licensing. We will ask you to confirm the licensing of your contribution. We may ask you to sign a [Contributor License Agreement (CLA)](http://en.wikipedia.org/wiki/Contributor_License_Agreement) for larger changes.
