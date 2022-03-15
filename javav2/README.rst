@@ -53,7 +53,7 @@ If you are interested in using the Asynchronous Java client, see one of these tu
 
 The following tutorials use the Synchronous Java client:
 
-+ **Creating your first AWS Java web application** - A tutorial that discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS), and AWS Elastic Beanstalk.
++ `Creating your first AWS Java web application <https://github.com/scmacdon/aws-doc-sdk-examples-2/tree/main/javav2/usecases/creating_first_project>`_ - A tutorial that discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS), and AWS Elastic Beanstalk.
 
 + **Create an AWS serverless workflow that modifies Amazon Redshift data by using the AWS SDK for Java** - A tutorial that discusses how to develop a workflow using AWS Step Functions that can modify Amazon Redshift data using the AWS SDK for Java V2.
 
