@@ -158,7 +158,7 @@ class IamService
     }
     # snippet-end:[php.example_code.iam.service.deletePolicy]
 
-    # snippet-start:[php.example_code.iam.service.AttachRolePolicy]
+    # snippet-start:[php.example_code.iam.service.attachRolePolicy]
     public function attachRolePolicy($roleName, $policyArn)
     {
         return $this->customWaiter(function () use ($roleName, $policyArn) {
@@ -168,7 +168,7 @@ class IamService
             ]);
         });
     }
-    # snippet-end:[php.example_code.iam.service.AttachRolePolicy]
+    # snippet-end:[php.example_code.iam.service.attachRolePolicy]
 
     # snippet-start:[php.example_code.iam.service.detachRolePolicy]
     public function detachRolePolicy($roleName, $policyArn)

@@ -738,8 +738,8 @@ iam_CreatePolicy:
             - description:
               snippet_tags:
                 - php.example_code.iam.iam_basics.startService
-                - php.example_code.iam.iam_basics.CreatePolicy
-                - php.example_code.iam.service.CreatePolicy
+                - php.example_code.iam.iam_basics.createPolicy
+                - php.example_code.iam.service.createPolicy
     JavaScript:
       versions:
         - sdk_version: 3
