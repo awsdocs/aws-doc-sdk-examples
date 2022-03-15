@@ -3,8 +3,8 @@
 
 /// <summary>
 /// Uses the Amazon Polly Service to synthesize speech from text using speech
-/// marks passed to the SynthesizeSpeectAsync method. The results will be saved
-/// in "speechMarks.json" in json format. The example was created using the AWS
+/// marks passed to the SynthesizeSpeectAsync method. The results are saved
+/// in "speechMarks.json" in JSON format. The example was created using the AWS
 /// SDK for .NET version 3.7 and .NET Core 5.
 /// </summary>
 namespace SynthesizeSpeechMarksExample

@@ -2,9 +2,9 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
-/// This example uses the Amazon Polly service to convert text to
-/// speech. It then saves the converted text to an MP3 file. The
-/// code was written against the AWS SDK for .NET 3.5 and .NET 5.
+/// This example uses Amazon Polly to convert text to speech. Then, it saves
+/// the converted text to an MP3 file. The code was written against the AWS
+/// SDK for .NET 3.5 and .NET 5.
 /// </summary>
 namespace SynthesizeSpeechExample
 {
@@ -34,7 +34,7 @@ namespace SynthesizeSpeechExample
         /// </summary>
         /// <param name="client">The Amazon Polly client object used to connect
         /// to the Amazon Polly service.</param>
-        /// <param name="text">The text which will be converted to speech.</param>
+        /// <param name="text">The text to convert to speech.</param>
         /// <returns>A SynthesizeSpeechResponse object that includes an AudioStream
         /// object with the converted text.</returns>
         private static async Task<SynthesizeSpeechResponse> PollySynthesizeSpeech(IAmazonPolly client, string text)
@@ -74,7 +74,7 @@ namespace SynthesizeSpeechExample
                 outputStream.Write(buffer, 0, readBytes);
             }
 
-            // If we don't flush the buffer, we lose the last second or so of
+            // Flushes the buffer to avoid losing the last second or so of
             // the synthesized text.
             outputStream.Flush();
             Console.WriteLine($"Saved {outputFileName} to disk.");

@@ -3,7 +3,7 @@
 
 /// <summary>
 /// Displays information about the voices available for Amazon Polly. This
-/// example was created using AWS SDK for .NET version 3.7 and .NET Core 5.
+/// example was created using the AWS SDK for .NET version 3.7 and .NET Core 5.
 /// </summary>
 namespace DescribeVoicesExample
 {

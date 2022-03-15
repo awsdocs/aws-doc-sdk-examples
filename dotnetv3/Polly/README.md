@@ -2,14 +2,15 @@
 
 ## Overview
 
-The examples in this folder show how to use Amazon Polly to create applications that convert text to speech using a number of different voice and languages.
+The examples in this folder show how to use Amazon Polly to create applications
+that convert text to speech using a number of different voices and languages.
 
 ## ⚠️ Important
 
 - Running this code might result in charges to your AWS account. 
 - We recommend that you grant your code least privilege, or at most the minimum
   permissions required to perform the task. For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+  [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
 - This code is not tested in all AWS Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
 
 ## Code examples
@@ -24,17 +25,17 @@ The examples in this folder show how to use Amazon Polly to create applications 
 - [SynthesizeSpeech](SynthesizeSpeechExample/) - Converts text to speech and saves the results in a file. (`SynthesizeSpeechAsync`)
 - [SynthesizeSpeechMarksExample](SynthesizeSpeechMarksExample/) - Synthesizes speech using speech marks. (`SynthesizeSpeechAsync`)
 
-## Running the Examples
+## Running the examples
 
-Once the example has been compiled, you can run it from the commandline by
-first navigating to the folder that contains the .csproj file, and then
-issuing the following command:
+After the example compiles, you can run it from the command line. To do so,
+navigate to the folder that contains the .csproj file, and then run the
+following command:
 
 ```
 dotnet run
 ```
 
-Or you can execute the example from within your IDE.
+Alternatively, you can run the example from within your IDE.
 
 ## Additional resources
 

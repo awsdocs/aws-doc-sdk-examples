@@ -3,10 +3,9 @@
 
 /// <summary>
 /// Lists the Amazon Polly lexicons that have been defined. By default,
-/// the list of lexicons defined in the same AWS Region as the default
-/// user are shown. If you want to view Amazon Polly lexicons defined in
-/// a different AWS Region, supply it as a parameter to the Amazon Polly
-/// constructor.
+/// lists the lexicons that are defined in the same AWS Region as the default
+/// user. To view Amazon Polly lexicons that are defined in a different AWS
+/// Region, supply it as a parameter to the Amazon Polly constructor.
 ///
 /// This example was created using the AWS SDK for .NET version 3.7 and
 /// .NET Core 5.0.

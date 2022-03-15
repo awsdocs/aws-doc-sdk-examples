@@ -34,12 +34,12 @@ namespace DeleteLexiconExample
         }
 
         /// <summary>
-        /// Delete the named Amazon Polly lexicon.
+        /// Deletes the named Amazon Polly lexicon.
         /// </summary>
         /// <param name="client">The initialized Amazon Polly client object.</param>
         /// <param name="lexiconName">The name of the Amazon Polly lexicon to
         /// delete.</param>
-        /// <returns>A boolean value indicating the success of the operation.</returns>
+        /// <returns>A Boolean value indicating the success of the operation.</returns>
         public static async Task<bool> DeletePollyLexiconAsync(
             AmazonPollyClient client,
             string lexiconName)
