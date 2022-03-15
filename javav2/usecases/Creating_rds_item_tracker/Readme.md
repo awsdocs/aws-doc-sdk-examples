@@ -4,7 +4,7 @@
 
 | Heading      | Description |
 | ----------- | ----------- |
-| Description | Dicusses how to develop a dynamic web application that tracks and reports on Amazon Relational Database data.     |
+| Description | Discusses how to develop a dynamic web application that tracks and reports on Amazon Relational Database data.     |
 | Audience   |  Developer (beginner / intermediate)        |
 | Updated   | 3/15/2022        |
 | Required Skills   | Java, Maven  |
