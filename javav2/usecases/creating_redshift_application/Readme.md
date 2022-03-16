@@ -1174,7 +1174,7 @@ Using the IntelliJ IDE, you can run your application. The first time you run the
 
 ![AWS Tracking Application](images/runapp.png)
 
-**Note**: You can deploy this Spring Boot application by using AWS Elastic Beanstalk. If you do deploy this application to AWS Elastic Beanstalk, you need to set up an additional inbound rule. For information about deploying a web application, see the following document [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project).
+**Note**: You can deploy this Spring Boot application by using AWS Elastic Beanstalk. For information about deploying a web application, see the following document [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project).
 
 ### Next steps
 Congratulations! You have created a Spring Boot application that uses the Amazon Redshift data client to create an example job posting application. As stated at the beginning of this tutorial, be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
