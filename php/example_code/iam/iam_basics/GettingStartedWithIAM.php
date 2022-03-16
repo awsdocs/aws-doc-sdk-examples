@@ -1,4 +1,5 @@
 <?php
+
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -41,7 +42,6 @@ use Iam\IamService;
 echo("--------------------------------------\n");
 print("Welcome to the Amazon IAM getting started demo using PHP!\n");
 echo("--------------------------------------\n");
-
 # snippet-start:[php.example_code.iam.iam_basics.startService]
 $uuid = uniqid();
 $service = new IamService();
@@ -53,7 +53,6 @@ echo "Created user with the arn: {$user['Arn']}\n";
 # snippet-end:[php.example_code.iam.iam_basics.createUser]
 
 $key = $service->createAccessKey($user['UserName']);
-
 # snippet-start:[php.example_code.iam.iam_basics.createRole]
 $assumeRolePolicyDocument = "{
                 \"Version\": \"2012-10-17\",
@@ -91,7 +90,6 @@ $inlinePolicyDocument = "{
                     \"Resource\": \"{$assumeRoleRole['Arn']}\"}]
 }";
 $inlinePolicy = $service->createUserPolicy("iam_demo_inline_policy_$uuid", $inlinePolicyDocument, $user['UserName']);
-
 //First, fail to list the buckets with the user
 $credentials = new Credentials($key['AccessKeyId'], $key['SecretAccessKey']);
 $s3Client = new S3Client(['region' => 'us-west-2', 'version' => 'latest', 'credentials' => $credentials]);
@@ -109,13 +107,11 @@ $assumedRole = $stsClient->assumeRole([
     'RoleArn' => $assumeRoleRole['Arn'],
     'RoleSessionName' => "DemoAssumeRoleSession_$uuid",
 ]);
-
 $assumedCredentials = [
     'key' => $assumedRole['Credentials']['AccessKeyId'],
     'secret' => $assumedRole['Credentials']['SecretAccessKey'],
     'token' => $assumedRole['Credentials']['SessionToken'],
 ];
-
 $s3Client = new S3Client(['region' => 'us-west-2', 'version' => 'latest', 'credentials' => $assumedCredentials]);
 try {
     $s3Client->listBuckets([
@@ -126,7 +122,6 @@ try {
 }
 
 $service->detachRolePolicy($assumeRoleRole['RoleName'], $listAllBucketsPolicy['Arn']);
-
 $deletePolicy = $service->deletePolicy($listAllBucketsPolicy['Arn']);
 echo "Delete policy: {$listAllBucketsPolicy['PolicyName']}\n";
 $deletedRole = $service->deleteRole($assumeRoleRole['Arn']);

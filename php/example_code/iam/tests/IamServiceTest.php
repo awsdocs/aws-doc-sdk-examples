@@ -2,8 +2,6 @@
 
 namespace Iam\Tests;
 
-require "vendor/autoload.php";
-
 use Exception;
 use Iam\IamService;
 use PHPUnit\Framework\TestCase;
@@ -27,7 +25,7 @@ class IamServiceTest extends TestCase
         self::$service = new IamService();
     }
 
-    public function test__construct()
+    public function testConstructor()
     {
 //        self::$service = new IamService();
         self::assertInstanceOf(IamService::class, self::$service);
@@ -296,5 +294,4 @@ class IamServiceTest extends TestCase
         $list = self::$service->listUsers();
         self::assertArrayHasKey('Users', $list);
     }
-
 }
