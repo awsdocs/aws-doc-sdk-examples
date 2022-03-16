@@ -46,6 +46,8 @@ To complete the tutorial, you need the following:
 
 Create an Amazon Redshift table named **blog** that contains the fields described in this tutorial. For information about creating an Amazon Redshift table, see [Getting started using databases](https://docs.aws.amazon.com/redshift/latest/dg/c_intro_to_admin.html).
 
+In addition, make sure that you setup your Java developer environment before following along with this tutorial. For more information, see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
+
 ## Understand the Job Posting application
 
 The data is stored in a Redshift table named **blog**, as shown in this illustration. 
