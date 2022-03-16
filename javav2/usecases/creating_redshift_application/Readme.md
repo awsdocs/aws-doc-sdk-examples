@@ -23,8 +23,7 @@ You can create a dynamic web application that stores and queries data by using t
 5. Set up the Java packages in your project
 6. Create the Java classes
 7. Create the HTML files
-8. Package the application into a JAR file
-9. Deploy the application to AWS Elastic Beanstalk
+8. Run the application
 
 
 ## Prerequisites
